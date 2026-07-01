@@ -1,0 +1,7 @@
+{
+  "archetypeId": "PCT-003",
+  "ownership": "HUMAN_OWNED",
+  "authority": "variable-ranges.library.json",
+  "usage": "Runtime Consumption Only",
+  "notes": "First-pass Percentage Increase recovery. Runtime currently uses deterministic scenario builders."
+}

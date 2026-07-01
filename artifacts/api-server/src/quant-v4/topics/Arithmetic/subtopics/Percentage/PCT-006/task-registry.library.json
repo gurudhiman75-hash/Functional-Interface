@@ -1,0 +1,6508 @@
+{
+  "archetypeId": "PCT-006",
+  "ownership": "HUMAN_OWNED",
+  "authority": "task-registry.library.json",
+  "usage": "Runtime Consumption Only",
+  "entries": {
+    "PCT-QL-001": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-002": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-003": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-004": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-005": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-006": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-007": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-008": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-009": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-010": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-011": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-012": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-013": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-014": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-015": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-016": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-017": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-018": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-019": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-020": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-021": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-022": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-023": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-024": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-025": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-026": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-027": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-028": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-029": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-030": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-031": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-032": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-033": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-034": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-035": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-036": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-037": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-038": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-039": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-040": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindGreater",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-041": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-042": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-043": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-044": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-045": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-046": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-047": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-048": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-049": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-050": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "directMoreThanComparison",
+      "solveMode": "moreFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-051": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-052": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-053": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-054": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-055": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-056": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-057": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-058": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-059": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-060": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-061": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-062": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-063": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-064": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-065": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-066": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-067": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-068": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-069": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-070": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-071": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-072": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-073": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-074": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-075": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-076": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-077": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-078": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-079": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-080": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindDifference",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-081": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-082": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-083": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-084": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-085": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-086": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-087": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-088": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-089": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-090": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindLower",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-091": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-092": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-093": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-094": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-095": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-096": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-097": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-098": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-099": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-100": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "directLessThanComparison",
+      "solveMode": "lessFindBase",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "percentageRate",
+        "baseValue"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-101": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-102": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-103": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-104": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-105": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-106": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-107": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-108": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-109": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-110": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-111": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-112": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-113": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-114": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-115": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-116": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-117": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-118": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-119": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-120": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-121": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-122": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-123": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-124": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-125": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-126": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-127": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-128": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-129": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-130": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-131": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-132": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-133": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-134": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-135": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-136": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-137": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-138": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-139": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-140": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-141": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-142": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-143": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-144": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-145": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-146": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-147": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-148": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-149": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseLessFromMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-150": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reverseBaseSwitchingComparison",
+      "solveMode": "reverseMoreFromLess",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "percentageRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-151": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-152": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-153": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-154": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-155": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-156": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-157": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-158": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-159": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-160": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-161": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-162": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-163": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-164": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-165": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-166": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-167": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-168": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-169": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-170": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-171": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-172": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-173": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-174": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-175": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-176": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-177": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-178": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-179": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-180": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "largerMoreThanSmaller",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-181": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-182": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-183": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-184": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-185": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-186": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-187": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-188": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-189": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-190": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "smallerLessThanLarger",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-191": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-192": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-193": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-194": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-195": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-196": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-197": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-198": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-199": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfFirst",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-200": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "differenceAsPercentageOfSelectedBase",
+      "solveMode": "differenceAsPercentOfSecond",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-201": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-202": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-203": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-204": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-205": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-206": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-207": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-208": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-209": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-210": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-211": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-212": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-213": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-214": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-215": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-216": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-217": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-218": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-219": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-220": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-221": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-222": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-223": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-224": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-225": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-226": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-227": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-228": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-229": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-230": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-231": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-232": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-233": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-234": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-235": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-236": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-237": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-238": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-239": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-240": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-241": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-242": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-243": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-244": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-245": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-246": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-247": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-248": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-249": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioMoreThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-250": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "ratioBasedPercentageComparison",
+      "solveMode": "ratioLessThan",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-251": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-252": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-253": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-254": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-255": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-256": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-257": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-258": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-259": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-260": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-261": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-262": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-263": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-264": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-265": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-266": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-267": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-268": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-269": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-270": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-271": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-272": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-273": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-274": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-275": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-276": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-277": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-278": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-279": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-280": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-281": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-282": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-283": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-284": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-285": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-286": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-287": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-288": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-289": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-290": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-291": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-292": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-293": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-294": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-295": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-296": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-297": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-298": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-299": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredIncreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-300": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "requiredPercentageChangeToMatchTarget",
+      "solveMode": "requiredDecreaseToTarget",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "value1",
+        "value2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-301": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-302": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-303": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-304": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-305": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-306": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-307": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-308": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-309": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-310": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-311": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-312": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-313": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-314": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-315": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-316": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-317": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-318": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-319": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-320": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-321": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-322": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-323": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-324": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-325": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-326": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-327": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-328": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-329": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-330": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-331": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-332": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-333": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-334": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-335": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-336": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-337": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-338": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-339": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-340": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-341": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-342": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-343": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-344": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-345": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-346": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-347": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalAUpBDown",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-348": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalADownBUp",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-349": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothIncrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-350": {
+      "cpId": "PCT-CP-007",
+      "taskKind": "compareAfterDifferentPercentageChanges",
+      "solveMode": "compareFinalBothDecrease",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "value1",
+        "value2",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-351": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-352": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-353": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-354": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-355": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-356": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-357": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-358": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-359": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-360": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-361": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-362": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-363": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-364": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-365": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-366": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-367": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-368": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-369": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-370": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-371": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-372": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-373": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-374": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-375": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-376": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-377": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-378": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-379": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-380": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-381": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-382": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-383": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-384": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-385": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-386": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-387": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-388": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-389": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-390": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-391": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-392": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-393": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-394": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-395": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-396": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-397": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-398": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-399": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainAAboveB_BBelowC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-400": {
+      "cpId": "PCT-CP-008",
+      "taskKind": "chainPercentageComparison",
+      "solveMode": "chainABelow_BAboveC",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "subjectC",
+        "rate1",
+        "rate2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-401": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-402": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-403": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-404": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-405": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-406": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-407": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-408": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-409": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-410": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-411": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-412": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-413": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-414": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-415": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-416": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-417": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-418": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-419": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-420": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-421": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-422": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-423": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-424": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-425": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-426": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-427": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-428": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-429": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-430": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-431": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-432": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-433": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-434": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-435": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-436": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-437": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-438": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-439": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-440": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "percentagePointDifferenceOnly",
+      "answerType": "DIFFERENCE",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-441": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-442": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-443": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-444": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-445": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-446": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-447": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-448": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-449": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "relativePercentageChangeOnly",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-450": {
+      "cpId": "PCT-CP-009",
+      "taskKind": "percentagePointsVsPercentageChange",
+      "solveMode": "bothPointAndRelative",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "oldRate",
+        "newRate"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    },
+    "PCT-QL-451": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "salary"
+    },
+    "PCT-QL-452": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "marks"
+    },
+    "PCT-QL-453": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "population"
+    },
+    "PCT-QL-454": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "production"
+    },
+    "PCT-QL-455": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "price"
+    },
+    "PCT-QL-456": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "sales"
+    },
+    "PCT-QL-457": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-458": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "stock"
+    },
+    "PCT-QL-459": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-460": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-1",
+      "contextTag": "usage"
+    },
+    "PCT-QL-461": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "salary"
+    },
+    "PCT-QL-462": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "marks"
+    },
+    "PCT-QL-463": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "population"
+    },
+    "PCT-QL-464": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "production"
+    },
+    "PCT-QL-465": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "price"
+    },
+    "PCT-QL-466": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "sales"
+    },
+    "PCT-QL-467": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-468": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "stock"
+    },
+    "PCT-QL-469": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-470": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-2",
+      "contextTag": "usage"
+    },
+    "PCT-QL-471": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "salary"
+    },
+    "PCT-QL-472": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "marks"
+    },
+    "PCT-QL-473": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "population"
+    },
+    "PCT-QL-474": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "production"
+    },
+    "PCT-QL-475": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "price"
+    },
+    "PCT-QL-476": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "sales"
+    },
+    "PCT-QL-477": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-478": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "stock"
+    },
+    "PCT-QL-479": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-480": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-3",
+      "contextTag": "usage"
+    },
+    "PCT-QL-481": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "salary"
+    },
+    "PCT-QL-482": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "marks"
+    },
+    "PCT-QL-483": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "population"
+    },
+    "PCT-QL-484": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "production"
+    },
+    "PCT-QL-485": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "price"
+    },
+    "PCT-QL-486": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "sales"
+    },
+    "PCT-QL-487": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-488": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "stock"
+    },
+    "PCT-QL-489": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-490": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBasePercentMore",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-4",
+      "contextTag": "usage"
+    },
+    "PCT-QL-491": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "salary"
+    },
+    "PCT-QL-492": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "marks"
+    },
+    "PCT-QL-493": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "population"
+    },
+    "PCT-QL-494": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "production"
+    },
+    "PCT-QL-495": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "price"
+    },
+    "PCT-QL-496": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "sales"
+    },
+    "PCT-QL-497": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "attendance"
+    },
+    "PCT-QL-498": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "stock"
+    },
+    "PCT-QL-499": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseWhoIsHigher",
+      "answerType": "COMPARISON",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "passengers"
+    },
+    "PCT-QL-500": {
+      "cpId": "PCT-CP-010",
+      "taskKind": "crossBasePercentageComparison",
+      "solveMode": "crossBaseDifferenceOnly",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "subjectA",
+        "subjectB",
+        "rate1",
+        "baseValue1",
+        "rate2",
+        "baseValue2"
+      ],
+      "scenarioFamily": "family-5",
+      "contextTag": "usage"
+    }
+  }
+}

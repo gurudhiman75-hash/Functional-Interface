@@ -1,0 +1,20 @@
+{
+  "archetypeId": "PCT-004",
+  "difficultyDistribution": {
+    "Easy": 0.3,
+    "Medium": 0.45,
+    "Hard": 0.25
+  },
+  "canonicalProblemDistribution": {
+    "PCT-CP-001": 0.1,
+    "PCT-CP-002": 0.1,
+    "PCT-CP-003": 0.1,
+    "PCT-CP-004": 0.1,
+    "PCT-CP-005": 0.1,
+    "PCT-CP-006": 0.1,
+    "PCT-CP-007": 0.1,
+    "PCT-CP-008": 0.1,
+    "PCT-CP-009": 0.1,
+    "PCT-CP-010": 0.1
+  }
+}

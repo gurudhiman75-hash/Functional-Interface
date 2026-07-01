@@ -1,0 +1,4 @@
+- Examination marks must be positive integers.
+- Total marks and pass marks must be realistic (typically between 50 and 2,000).
+- Marks cannot be fractional.
+- Fail closed if passing marks or secured marks are fractional or negative.

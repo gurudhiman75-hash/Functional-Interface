@@ -1,5 +1,5 @@
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
-import { getAnswerType, getCommonQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, PCT_001_LIBRARY_REGISTRY } from "./library";
+import { getAnswerType, getCommonQuestionLanguageIds, getQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, PCT_001_LIBRARY_REGISTRY } from "./library";
 import { stableBucket } from "./math";
 import { PCT_001_ARCHETYPE_ID, PCT_001_CP_IDS, type Pct001CanonicalProblemId, type Pct001DifficultyBand, type Pct001Language, type Pct001Parameters, type Pct001TaskKind, type Pct001Variables, type Pct001SemanticContext } from "./types";
 
@@ -69,39 +69,181 @@ function chooseLessThan(name: string, threshold: number, difficulty: Pct001Diffi
   return Number(pick(values.length ? values : [Math.max(5, threshold / 2)], `${seed}:lt`));
 }
 
+function gcd(a: number, b: number): number {
+  a = Math.round(Math.abs(a) * 10000);
+  b = Math.round(Math.abs(b) * 10000);
+  while (b) {
+    const t = b;
+    b = a % b;
+    a = t;
+  }
+  return (a || 1) / 10000;
+}
+
+function getDivisors(num: number): number[] {
+  const divisors: number[] = [];
+  for (let i = 1; i <= Math.sqrt(num); i++) {
+    if (num % i === 0) {
+      divisors.push(i);
+      if (num / i !== i) divisors.push(num / i);
+    }
+  }
+  return divisors.sort((a, b) => a - b);
+}
+
 function constrainVariables(taskKind: Pct001TaskKind, variables: Pct001Variables, difficulty: Pct001DifficultyBand, seed: string): Pct001Variables {
   const output = { ...variables };
-  if (taskKind === "winnerVotes") output.percentageRate = chooseGreaterThan("percentageRate", 50, difficulty, `${seed}:winner`);
-  if (taskKind === "cancelledVotes") output.rate2 = chooseGreaterThan("rate2", 50, difficulty, `${seed}:cancelled`);
-  if (taskKind === "loserVotes") output.rate1 = chooseLessThan("rate1", 50, difficulty, `${seed}:loser`);
+  if (taskKind === "winnerVotes") {
+    const percentageRate = chooseGreaterThan("percentageRate", 50, difficulty, `${seed}:winner`);
+    output.percentageRate = percentageRate;
+    const totalVotes = pick([1000, 2000, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 15000, 20000], `${seed}:totVotes`);
+    output.voteDifference = Math.round(totalVotes * (2 * percentageRate - 100) / 100);
+  }
+  if (taskKind === "cancelledVotes") {
+    const rate1 = chooseLessThan("rate1", 50, difficulty, `${seed}:cancelledRate1`);
+    const rate2 = chooseGreaterThan("rate2", 50, difficulty, `${seed}:cancelledRate2`);
+    output.rate1 = rate1;
+    output.rate2 = rate2;
+    const totalVotes = pick([5000, 10000, 12000, 15000, 20000, 25000, 30000], `${seed}:totVotes`);
+    output.voteDifference = Math.round(totalVotes * (1 - rate1 / 100) * (2 * rate2 - 100) / 100);
+  }
+  if (taskKind === "loserVotes") {
+    const rate1 = chooseLessThan("rate1", 50, difficulty, `${seed}:loser`);
+    output.rate1 = rate1;
+    const totalVotes = pick([1000, 2000, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 15000, 20000], `${seed}:totVotes`);
+    output.voteDifference = Math.round(totalVotes * (100 - 2 * rate1) / 100);
+  }
   if (taskKind === "incomePartition") {
-    output.rate1 = chooseLessThan("rate1", 40, difficulty, `${seed}:income1`);
-    output.rate2 = chooseLessThan("rate2", 35, difficulty, `${seed}:income2`);
-    output.rate3 = chooseLessThan("rate3", 25, difficulty, `${seed}:income3`);
+    const rate1 = chooseLessThan("rate1", 40, difficulty, `${seed}:income1`);
+    const rate2 = chooseLessThan("rate2", 35, difficulty, `${seed}:income2`);
+    const rate3 = chooseLessThan("rate3", 25, difficulty, `${seed}:income3`);
+    output.rate1 = rate1;
+    output.rate2 = rate2;
+    output.rate3 = rate3;
+    const totalIncome = pick([2000, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 15000, 20000, 24000, 30000], `${seed}:totIncome`);
+    output.value = Math.round(totalIncome * (100 - rate1 - rate2 - rate3) / 100);
   }
   if (taskKind === "twoShareRemainder") {
-    output.rate1 = chooseLessThan("rate1", 45, difficulty, `${seed}:share1`);
-    output.rate2 = chooseLessThan("rate2", 40, difficulty, `${seed}:share2`);
+    const rate1 = chooseLessThan("rate1", 45, difficulty, `${seed}:share1`);
+    const rate2 = chooseLessThan("rate2", 40, difficulty, `${seed}:share2`);
+    output.rate1 = rate1;
+    output.rate2 = rate2;
+    const totalAmount = pick([1000, 2000, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 15000, 16000, 20000, 24000], `${seed}:totAmount`);
+    output.value = Math.round(totalAmount * (100 - rate1 - rate2) / 100);
+  }
+  if (taskKind === "successiveExpense") {
+    const rate1 = chooseLessThan("rate1", 50, difficulty, `${seed}:expense1`);
+    const rate2 = chooseLessThan("rate2", 50, difficulty, `${seed}:expense2`);
+    output.rate1 = rate1;
+    output.rate2 = rate2;
+    const totalIncome = pick([4000, 6000, 8000, 10000, 12000, 15000, 20000, 24000, 30000, 40000], `${seed}:totIncome`);
+    output.value = Math.round(totalIncome * (1 - rate1 / 100) * (1 - rate2 / 100));
+  }
+  if (taskKind === "reverseIncrease") {
+    const percentageRate = variableDomain("percentageRate", difficulty, `${seed}:rate`);
+    output.percentageRate = percentageRate;
+    const originalValue = pick([100, 200, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 10000], `${seed}:orig`);
+    output.finalValue = Math.round(originalValue * (100 + percentageRate) / 100);
+  }
+  if (taskKind === "reverseDecrease") {
+    const percentageRate = chooseLessThan("percentageRate", 80, difficulty, `${seed}:rate`);
+    output.percentageRate = percentageRate;
+    const originalValue = pick([100, 200, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 10000], `${seed}:orig`);
+    output.finalValue = Math.round(originalValue * (100 - percentageRate) / 100);
+  }
+  if (taskKind === "increaseByAmount") {
+    const percentageRate = variableDomain("percentageRate", difficulty, `${seed}:rate`);
+    output.percentageRate = percentageRate;
+    const originalValue = pick([100, 200, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 10000], `${seed}:orig`);
+    output.value = Math.round(originalValue * percentageRate / 100);
+  }
+  if (taskKind === "passMarks") {
+    const passRate = variableDomain("passRate", difficulty, `${seed}:rate`);
+    output.passRate = passRate;
+    const maxMarks = pick([200, 300, 400, 500, 600, 800, 1000], `${seed}:max`);
+    const passing = maxMarks * passRate / 100;
+    const failMargin = pick([5, 10, 15, 20], `${seed}:fail`);
+    output.failMargin = failMargin;
+    output.marksObtained = Math.max(10, passing - failMargin);
+  }
+  if (taskKind === "partToTotal") {
+    const rate1 = chooseLessThan("rate1", 80, difficulty, `${seed}:rate`);
+    output.rate1 = rate1;
+    const total = pick([100, 200, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000], `${seed}:total`);
+    output.value = Math.round(total * (100 - rate1) / 100);
+  }
+  if (taskKind === "moreMarksBase") {
+    const rate1 = variableDomain("rate1", difficulty, `${seed}:rate`);
+    output.rate1 = rate1;
+    const baseMarks = pick([100, 120, 150, 180, 200, 240, 300, 400, 500], `${seed}:base`);
+    output.marks = Math.round(baseMarks * (100 + rate1) / 100);
   }
   if (taskKind === "dryFromFresh") {
-    output.waterRate = chooseGreaterThan("waterRate", 50, difficulty, `${seed}:fresh`);
-    output.dryWaterRate = chooseLessThan("dryWaterRate", Number(output.waterRate), difficulty, `${seed}:dry`);
+    const waterRate = chooseGreaterThan("waterRate", 50, difficulty, `${seed}:fresh`);
+    const dryWaterRate = chooseLessThan("dryWaterRate", Number(waterRate), difficulty, `${seed}:dry`);
+    output.waterRate = waterRate;
+    output.dryWaterRate = dryWaterRate;
+    const solidFresh = 100 - Number(waterRate);
+    const solidDry = 100 - Number(dryWaterRate);
+    const denom = solidDry / gcd(solidFresh, solidDry);
+    const multiplier = pick([1, 2, 3, 4, 5], `${seed}:mult`);
+    output.totalQuantity = denom * multiplier * 10;
   }
   if (taskKind === "freshFromDry") {
-    output.rate1 = chooseGreaterThan("rate1", 50, difficulty, `${seed}:fresh`);
-    output.rate2 = chooseLessThan("rate2", Number(output.rate1), difficulty, `${seed}:dry`);
+    const rate1 = chooseGreaterThan("rate1", 50, difficulty, `${seed}:fresh`);
+    const rate2 = chooseLessThan("rate2", Number(rate1), difficulty, `${seed}:dry`);
+    output.rate1 = rate1;
+    output.rate2 = rate2;
+    const solidFresh = 100 - Number(rate1);
+    const solidDry = 100 - Number(rate2);
+    const denom = solidFresh / gcd(solidDry, solidFresh);
+    const multiplier = pick([1, 2, 3, 4, 5], `${seed}:mult`);
+    output.value = denom * multiplier * 10;
   }
   if (taskKind === "dilutionAddWater") {
-    output.newRate = chooseLessThan("newRate", Number(output.percentageRate), difficulty, `${seed}:dilute`);
+    const percentageRate = variableDomain("percentageRate", difficulty, `${seed}:rate`);
+    const newRate = chooseLessThan("newRate", Number(percentageRate), difficulty, `${seed}:dilute`);
+    output.percentageRate = percentageRate;
+    output.newRate = newRate;
+    const denom = newRate / gcd(percentageRate, newRate);
+    const multiplier = pick([1, 2, 3, 4, 5], `${seed}:mult`);
+    output.totalMixture = denom * multiplier * 10;
   }
-  if (taskKind === "addSolute" || taskKind === "addPureComponent" || taskKind === "evaporationOriginal") {
-    output.newRate = chooseGreaterThan("newRate", Number(output.percentageRate), difficulty, `${seed}:strengthen`);
+  if (taskKind === "addSolute" || taskKind === "addPureComponent") {
+    const percentageRate = variableDomain("percentageRate", difficulty, `${seed}:rate`);
+    const newRate = chooseGreaterThan("newRate", Number(percentageRate), difficulty, `${seed}:strengthen`);
+    output.percentageRate = percentageRate;
+    output.newRate = newRate;
+    const diff = newRate - percentageRate;
+    const denom = (100 - newRate) / gcd(diff, 100 - newRate);
+    const multiplier = pick([1, 2, 3, 4, 5], `${seed}:mult`);
+    output.totalMixture = denom * multiplier * 10;
+  }
+  if (taskKind === "evaporationOriginal") {
+    const percentageRate = variableDomain("percentageRate", difficulty, `${seed}:rate`);
+    const newRate = chooseGreaterThan("newRate", Number(percentageRate), difficulty, `${seed}:strengthen`);
+    output.percentageRate = percentageRate;
+    output.newRate = newRate;
+    const diff = newRate - percentageRate;
+    const denom = diff / gcd(newRate, diff);
+    const multiplier = pick([1, 2, 3, 4, 5], `${seed}:mult`);
+    output.value = denom * multiplier * 10;
+  }
+  if (taskKind === "dilutedPercent") {
+    const totalMixture = pick([100, 200, 300, 400, 500], `${seed}:mixture`);
+    const percentageRate = variableDomain("percentageRate", difficulty, `${seed}:rate`);
+    output.totalMixture = totalMixture;
+    output.percentageRate = percentageRate;
+    const prod = totalMixture * percentageRate;
+    const divs = getDivisors(prod).filter((d) => d > totalMixture && d <= totalMixture * 3);
+    const div = pick(divs.length ? divs : [totalMixture * 1.5], `${seed}:div`);
+    output.value = div - totalMixture;
   }
   return output;
 }
 
 export function selectQuestionLanguageId(cpId: Pct001CanonicalProblemId, language: Pct001Language, seed: string) {
-  const ids = getCommonQuestionLanguageIds(cpId);
+  const ids = language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
   return ids[stableBucket(seed, ids.length)]!;
 }
 

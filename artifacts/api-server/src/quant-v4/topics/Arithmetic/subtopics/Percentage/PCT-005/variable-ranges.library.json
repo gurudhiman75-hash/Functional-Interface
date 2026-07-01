@@ -1,0 +1,7 @@
+{
+  "archetypeId": "PCT-005",
+  "ownership": "HUMAN_OWNED",
+  "authority": "variable-ranges.library.json",
+  "usage": "Runtime Consumption Only",
+  "notes": "First-pass Successive Percentage Change implementation. Runtime currently uses deterministic scenario builders."
+}

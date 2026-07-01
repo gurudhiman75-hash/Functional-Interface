@@ -10,6 +10,26 @@ import {
   type Pct002CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/Percentage/PCT-002";
 import {
+  getPct003ActiveCanonicalProblemIds,
+  runPct003Pipeline,
+  type Pct003CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/Percentage/PCT-003";
+import {
+  getPct004ActiveCanonicalProblemIds,
+  runPct004Pipeline,
+  type Pct004CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/Percentage/PCT-004";
+import {
+  getPct005ActiveCanonicalProblemIds,
+  runPct005Pipeline,
+  type Pct005CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/Percentage/PCT-005";
+import {
+  getPct006ActiveCanonicalProblemIds,
+  runPct006Pipeline,
+  type Pct006CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/Percentage/PCT-006";
+import {
   getRap001ActiveCanonicalProblemIds,
   runRap001Pipeline,
   type Rap001CanonicalProblemId,
@@ -25,11 +45,13 @@ import {
   join,
 } from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildQuantV4AnswerOptions } from "./shared/answers/option-generation";
+import { isArchivedQuantV4PackageDir } from "./shared/packages/archive";
 
 export type QuantV4Language = "en" | "hi" | "pa";
 export type QuantV4Difficulty = "Easy" | "Medium" | "Hard";
 
-export type QuantV4PackageId = "PCT-001" | "PCT-002" | "RAP-001";
+export type QuantV4PackageId = "PCT-001" | "PCT-002" | "PCT-003" | "PCT-004" | "PCT-005" | "PCT-006" | "RAP-001";
 
 export type QuantV4GenerationRequest = {
   packageId?: QuantV4PackageId;
@@ -80,10 +102,66 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     packageId: "PCT-002",
     topic: "Percentage",
     subtopic: "Percentage",
-    label: "Percentage Advanced",
+    label: "Percentage Transformations",
     cpIds: getPct002ActiveCanonicalProblemIds(),
     run: (cpId, input) =>
       runPct002Pipeline(cpId as Pct002CanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "PCT-003",
+    topic: "Percentage",
+    subtopic: "Percentage",
+    label: "Percentage Increase",
+    cpIds: getPct003ActiveCanonicalProblemIds(),
+    run: (cpId, input) =>
+      runPct003Pipeline(cpId as Pct003CanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "PCT-004",
+    topic: "Percentage",
+    subtopic: "Percentage",
+    label: "Percentage Decrease",
+    cpIds: getPct004ActiveCanonicalProblemIds(),
+    run: (cpId, input) =>
+      runPct004Pipeline(cpId as Pct004CanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "PCT-005",
+    topic: "Percentage",
+    subtopic: "Percentage",
+    label: "Successive Percentage Change",
+    cpIds: getPct005ActiveCanonicalProblemIds(),
+    run: (cpId, input) =>
+      runPct005Pipeline(cpId as Pct005CanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "PCT-006",
+    topic: "Percentage",
+    subtopic: "Percentage",
+    label: "Percentage Comparison & Comparative Change",
+    cpIds: getPct006ActiveCanonicalProblemIds(),
+    run: (cpId, input) =>
+      runPct006Pipeline(cpId as Pct006CanonicalProblemId, {
         difficultyBand: input.difficulty,
         language: input.language,
         questionLanguageId: input.questionLanguageId,
@@ -227,6 +305,7 @@ function discoverPackageDirs(root: string) {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
       const child = join(dir, entry.name);
+      if (isArchivedQuantV4PackageDir(child)) continue;
       const hasQuestionLibrary =
         existsSync(join(child, "question-language.en.json")) ||
         existsSync(join(child, "question-language.library.json"));
@@ -284,88 +363,6 @@ function discoverQuantV4Packages(): DiscoveredQuantV4Package[] {
   );
 }
 
-function seededHash(value: string) {
-  let hash = 2166136261;
-  for (let index = 0; index < value.length; index++) {
-    hash ^= value.charCodeAt(index);
-    hash = Math.imul(hash, 16777619);
-  }
-  return hash >>> 0;
-}
-
-function shuffleDeterministically<T>(items: T[], seed: string) {
-  const shuffled = [...items];
-  let state = seededHash(seed) || 1;
-  for (let index = shuffled.length - 1; index > 0; index--) {
-    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
-    const swapIndex = state % (index + 1);
-    [shuffled[index], shuffled[swapIndex]] = [
-      shuffled[swapIndex]!,
-      shuffled[index]!,
-    ];
-  }
-  return shuffled;
-}
-
-function formatNumericLikeAnswer(value: number, original: string) {
-  const trimmed = original.trim();
-  const suffix = trimmed.match(/[^\d.\-\s]+$/)?.[0] ?? "";
-  const rounded =
-    Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/\.?0+$/, "");
-  return `${rounded}${suffix}`;
-}
-
-function buildAnswerOptions(answer: unknown, seed: string) {
-  const correct = String(answer ?? "").trim();
-  const options = new Set<string>();
-  const add = (value: string) => {
-    const trimmed = value.trim();
-    if (trimmed) options.add(trimmed);
-  };
-
-  add(correct);
-
-  const ratioMatch = correct.match(/^(-?\d+)\s*:\s*(-?\d+)$/);
-  if (ratioMatch) {
-    const first = Number(ratioMatch[1]);
-    const second = Number(ratioMatch[2]);
-    add(`${first + 1}:${second}`);
-    add(`${first}:${second + 1}`);
-    add(`${Math.max(1, first - 1)}:${second}`);
-    add(`${first}:${second + 2}`);
-  }
-
-  const fractionMatch = correct.match(/^(-?\d+)\s*\/\s*(-?\d+)$/);
-  if (fractionMatch) {
-    const numerator = Number(fractionMatch[1]);
-    const denominator = Number(fractionMatch[2]);
-    add(`${numerator + 1}/${denominator}`);
-    add(`${numerator}/${denominator + 1}`);
-    add(`${Math.max(1, numerator - 1)}/${denominator}`);
-    add(`${numerator}/${denominator + 2}`);
-  }
-
-  const numericMatch = correct.match(/^-?\d+(?:\.\d+)?/);
-  if (numericMatch && !ratioMatch && !fractionMatch) {
-    const numericValue = Number(numericMatch[0]);
-    if (Number.isFinite(numericValue)) {
-      const offsets =
-        Math.abs(numericValue) >= 50 ? [10, -10, 5, -5] : [1, -1, 2, -2];
-      for (const offset of offsets) {
-        add(formatNumericLikeAnswer(numericValue + offset, correct));
-      }
-    }
-  }
-
-  let fallback = 1;
-  while (options.size < 4) {
-    add(`${correct} ${fallback}`);
-    fallback++;
-  }
-
-  return shuffleDeterministically([...options].slice(0, 4), seed);
-}
-
 export function toQuestionStudioPreview(
   pkg: any,
   context: {
@@ -392,10 +389,12 @@ export function toQuestionStudioPreview(
   const packageOptions = Array.isArray(pkg.options)
     ? pkg.options.map((option: unknown) => String(option ?? ""))
     : [];
-  const options = packageOptions.length >= 4
-    ? packageOptions.slice(0, 4)
-    : buildAnswerOptions(pkg.answer, pkg.questionId ?? pkg.stem ?? "quant-v4");
-  const correct = Math.max(0, options.findIndex((option) => option === String(pkg.answer ?? "").trim()));
+  const optionResult = buildQuantV4AnswerOptions(pkg.answer, {
+    existingOptions: packageOptions,
+    seed: context.seed ?? pkg.questionId ?? pkg.stem ?? "quant-v4",
+  });
+  const options = optionResult.options;
+  const correct = optionResult.correct;
   return {
     text: pkg.stem,
     options,
@@ -417,6 +416,7 @@ export function toQuestionStudioPreview(
     questionId: pkg.questionId,
     seed: context.seed ?? pkg.questionId,
     answer: pkg.answer,
+    canonicalAnswer: optionResult.canonicalAnswer,
     packageSource: "quant-v4-package-runtime",
     packageId: pkg.archetypeId,
     taskKind,

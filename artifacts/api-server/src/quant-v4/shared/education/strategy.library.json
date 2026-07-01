@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "status": "foundation",
+    "owner": "quant-v4-platform",
+    "description": "Reusable Quant V4 solving strategies. Chapters own math; this library owns teachable strategy language."
+  },
+  "strategies": [
+    {
+      "id": "STRAT-PCT-001",
+      "topic": "percentage",
+      "title": "Convert percentage to multiplier",
+      "description": "Teach percent increase/decrease as multiplication by 1 plus or minus the rate.",
+      "applicableCPs": ["PCT-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-PCT-001-A", "prompt": "Increase 500 by 20%", "teachingMove": "20% increase means multiply by 1.20", "result": "600"}
+      ],
+      "tags": ["multiplier", "increase", "decrease"]
+    },
+    {
+      "id": "STRAT-PCT-002",
+      "topic": "percentage",
+      "title": "Convert common percentages to fractions",
+      "description": "Use memorized percent-fraction equivalents before formula work.",
+      "applicableCPs": ["PCT-*"],
+      "difficulty": "easy",
+      "reusableExamples": [
+        {"id": "EX-PCT-002-A", "prompt": "25% of 320", "teachingMove": "25% is one-fourth, so divide by 4", "result": "80"}
+      ],
+      "tags": ["fraction-equivalent", "mental-math"]
+    },
+    {
+      "id": "STRAT-PCT-003",
+      "topic": "percentage",
+      "title": "Work from 100%",
+      "description": "Anchor unknown original or changed values around 100% before calculating.",
+      "applicableCPs": ["PCT-*"],
+      "difficulty": "medium",
+      "reusableExamples": [
+        {"id": "EX-PCT-003-A", "prompt": "120% of original is 960", "teachingMove": "120% corresponds to 960, so 100% is 960/1.2", "result": "800"}
+      ],
+      "tags": ["base-value", "reverse"]
+    },
+    {
+      "id": "STRAT-RATIO-001",
+      "topic": "ratio",
+      "title": "Assume a common multiple",
+      "description": "Represent ratio terms as parts of a shared multiple to avoid premature unit conversion.",
+      "applicableCPs": ["RAP-*", "RATIO-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-RATIO-001-A", "prompt": "A:B = 3:5 and total is 80", "teachingMove": "There are 8 parts, so one part is 10", "result": "A = 30, B = 50"}
+      ],
+      "tags": ["parts", "common-multiple"]
+    },
+    {
+      "id": "STRAT-RATIO-002",
+      "topic": "ratio",
+      "title": "Divide in proportional parts",
+      "description": "Use total parts to split a known total according to a ratio.",
+      "applicableCPs": ["RAP-*", "RATIO-*"],
+      "difficulty": "easy",
+      "reusableExamples": [
+        {"id": "EX-RATIO-002-A", "prompt": "Split ₹900 in 2:3:4", "teachingMove": "Total parts are 9, so one part is ₹100", "result": "₹200, ₹300, ₹400"}
+      ],
+      "tags": ["proportional-division"]
+    },
+    {
+      "id": "STRAT-AVG-001",
+      "topic": "average",
+      "title": "Average as total divided by count",
+      "description": "Convert average questions into total-sum reasoning before adjusting values.",
+      "applicableCPs": ["AVG-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-AVG-001-A", "prompt": "Average of 5 numbers is 18", "teachingMove": "Total is 5 × 18", "result": "90"}
+      ],
+      "tags": ["total", "count"]
+    },
+    {
+      "id": "STRAT-PL-001",
+      "topic": "profit-loss",
+      "title": "Use cost price as base",
+      "description": "Treat profit/loss percentages as changes on cost price, not selling price unless stated.",
+      "applicableCPs": ["PL-*", "PROFIT-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-PL-001-A", "prompt": "CP is ₹800, profit is 25%", "teachingMove": "Selling price is 125% of cost price", "result": "₹1000"}
+      ],
+      "tags": ["base", "cp", "sp"]
+    },
+    {
+      "id": "STRAT-TW-001",
+      "topic": "time-work",
+      "title": "Total work equals LCM",
+      "description": "Choose total work as the LCM of individual times to get integer efficiencies.",
+      "applicableCPs": ["TW-*", "TIME-WORK-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-TW-001-A", "prompt": "A finishes in 6 days and B in 8 days", "teachingMove": "Take total work as LCM(6,8)=24 units", "result": "A=4 units/day, B=3 units/day"}
+      ],
+      "tags": ["lcm", "efficiency"]
+    },
+    {
+      "id": "STRAT-TW-002",
+      "topic": "time-work",
+      "title": "Worker efficiencies",
+      "description": "Convert days taken into work done per day, then combine efficiencies.",
+      "applicableCPs": ["TW-*", "TIME-WORK-*"],
+      "difficulty": "easy",
+      "reusableExamples": [
+        {"id": "EX-TW-002-A", "prompt": "A does 1/5 work daily and B does 1/10", "teachingMove": "Together they do 3/10 work daily", "result": "10/3 days"}
+      ],
+      "tags": ["efficiency", "combined-work"]
+    },
+    {
+      "id": "STRAT-SI-001",
+      "topic": "simple-interest",
+      "title": "Interest is proportional to time and rate",
+      "description": "For simple interest, scale interest linearly with principal, rate, and time.",
+      "applicableCPs": ["SI-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-SI-001-A", "prompt": "SI on ₹1000 at 10% for 3 years", "teachingMove": "10% of principal each year for 3 years", "result": "₹300"}
+      ],
+      "tags": ["linear", "interest"]
+    },
+    {
+      "id": "STRAT-CI-001",
+      "topic": "compound-interest",
+      "title": "Compound through multipliers",
+      "description": "Use repeated multipliers instead of repeatedly adding interest manually.",
+      "applicableCPs": ["CI-*"],
+      "difficulty": "medium",
+      "reusableExamples": [
+        {"id": "EX-CI-001-A", "prompt": "₹1000 grows by 10% for 2 years", "teachingMove": "Multiply by 1.1 twice", "result": "₹1210"}
+      ],
+      "tags": ["multiplier", "compound"]
+    },
+    {
+      "id": "STRAT-TSD-001",
+      "topic": "time-speed-distance",
+      "title": "Keep speed, time, and distance triangle explicit",
+      "description": "Choose the missing quantity from distance = speed × time before substitution.",
+      "applicableCPs": ["TSD-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-TSD-001-A", "prompt": "Speed 60 km/h for 2.5 hours", "teachingMove": "Distance equals speed multiplied by time", "result": "150 km"}
+      ],
+      "tags": ["unit", "distance"]
+    },
+    {
+      "id": "STRAT-MA-001",
+      "topic": "mixture-alligation",
+      "title": "Use weighted average view",
+      "description": "Treat mixture concentration as a weighted average of component concentrations.",
+      "applicableCPs": ["MA-*", "MIX-*"],
+      "difficulty": "medium",
+      "reusableExamples": [
+        {"id": "EX-MA-001-A", "prompt": "Mix 20% and 50% solutions", "teachingMove": "Target concentration must lie between both concentrations", "result": "Use alligation or weighted average"}
+      ],
+      "tags": ["weighted-average", "concentration"]
+    },
+    {
+      "id": "STRAT-ALG-001",
+      "topic": "algebra",
+      "title": "Delay variables until structure is clear",
+      "description": "Explain the relationship in words before assigning variables for future algebraic topics.",
+      "applicableCPs": ["ALG-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-ALG-001-A", "prompt": "A number increased by 5 is 17", "teachingMove": "First state: original plus 5 gives 17, then write x + 5 = 17", "result": "x = 12"}
+      ],
+      "tags": ["variable", "translation"]
+    },
+    {
+      "id": "STRAT-DI-001",
+      "topic": "data-interpretation",
+      "title": "Read labels before calculating",
+      "description": "Identify units, category labels, and totals before applying arithmetic.",
+      "applicableCPs": ["DI-*"],
+      "difficulty": "foundation",
+      "reusableExamples": [
+        {"id": "EX-DI-001-A", "prompt": "A table shows sales in thousands", "teachingMove": "Convert the label before calculating actual sales", "result": "Multiply table values by 1000"}
+      ],
+      "tags": ["table", "unit", "label"]
+    }
+  ]
+}

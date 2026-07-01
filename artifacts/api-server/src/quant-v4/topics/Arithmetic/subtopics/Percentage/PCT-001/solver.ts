@@ -1,4 +1,9 @@
 import { formatFraction, formatNumber, formatPercent, formatRatio, mathJaxLine, percentOf, roundTo } from "./math";
+import {
+  PERCENT_OF_KNOWN_NUMBER_EVIDENCE_VERSION,
+  PERCENT_OF_KNOWN_NUMBER_METHOD_FAMILY,
+  type PercentOfKnownNumberEvidence,
+} from "./eev2/percent-of-known-number/evidence";
 import type { Pct001Parameters, Pct001SolverResult } from "./types";
 
 function value(parameters: Pct001Parameters, name: string) {
@@ -11,10 +16,18 @@ function formatByAnswerType(parameters: Pct001Parameters, numericAnswer: number)
   return formatNumber(numericAnswer);
 }
 
+function resolveEducationalQuantityUnit(parameters: Pct001Parameters): string {
+  const semanticEntity = Object.values(parameters.semanticContext?.entities ?? {})[0];
+  if (semanticEntity?.id) return semanticEntity.id;
+  if (parameters.answerType === "COUNT") return "count";
+  return "abstract-number";
+}
+
 export function solvePct001(parameters: Pct001Parameters): Pct001SolverResult {
   const t = parameters.taskKind;
   let numericAnswer: number | null = null;
   let answer = "";
+  let educationalEvidence: PercentOfKnownNumberEvidence | undefined;
 
   if (t === "percentOf" || t === "directRelation") numericAnswer = percentOf(value(parameters, "percentageRate"), value(parameters, "baseValue"));
   else if (t === "percentToFraction") answer = formatFraction(value(parameters, "percentageRate") * 100, 10000);
@@ -28,7 +41,65 @@ export function solvePct001(parameters: Pct001Parameters): Pct001SolverResult {
   else if (t === "reverseIncrease") numericAnswer = value(parameters, "finalValue") * 100 / (100 + value(parameters, "percentageRate"));
   else if (t === "reverseDecrease") numericAnswer = value(parameters, "finalValue") * 100 / (100 - value(parameters, "percentageRate"));
   else if (t === "increaseByAmount") numericAnswer = value(parameters, "value") * 100 / value(parameters, "percentageRate");
-  else if (t === "percentOfKnownNumber") numericAnswer = value(parameters, "value1") * value(parameters, "rate2") / value(parameters, "rate1");
+  else if (t === "percentOfKnownNumber") {
+    const knownUnitCount = value(parameters, "rate1");
+    const knownQuantity = value(parameters, "value1");
+    const targetUnitCount = value(parameters, "rate2");
+    if (knownUnitCount <= 0) {
+      throw new RangeError("percentOfKnownNumber requires a positive known unit count.");
+    }
+    if (![knownUnitCount, knownQuantity, targetUnitCount].every(Number.isFinite)) {
+      throw new RangeError("percentOfKnownNumber requires finite source values.");
+    }
+
+    const singleUnitValue = knownQuantity / knownUnitCount;
+    const targetQuantity = singleUnitValue * targetUnitCount;
+    const quantityUnit = resolveEducationalQuantityUnit(parameters);
+    numericAnswer = targetQuantity;
+    educationalEvidence = {
+      evidenceId: `${parameters.questionId}:unit-value-evidence`,
+      evidenceVersion: PERCENT_OF_KNOWN_NUMBER_EVIDENCE_VERSION,
+      taskKind: "percentOfKnownNumber",
+      methodFamily: PERCENT_OF_KNOWN_NUMBER_METHOD_FAMILY,
+      sourceValues: {
+        knownUnitCount,
+        knownQuantity,
+        targetUnitCount,
+      },
+      derivedValues: {
+        singleUnitValue,
+        targetQuantity,
+      },
+      exactValues: {
+        singleUnitValue: {
+          numerator: knownQuantity,
+          denominator: knownUnitCount,
+        },
+        targetQuantity: {
+          numerator: knownQuantity * targetUnitCount,
+          denominator: knownUnitCount,
+        },
+      },
+      units: {
+        knownUnitCount: "percentage-point",
+        knownQuantity: quantityUnit,
+        targetUnitCount: "percentage-point",
+        singleUnitValue: quantityUnit,
+        targetQuantity: quantityUnit,
+      },
+      metadata: {
+        exactness: "rational",
+        roundingPolicy: "defer-to-presentation",
+        countIntegrity:
+          parameters.answerType === "COUNT" ||
+          Object.values(parameters.semanticContext?.entities ?? {}).some(
+            (entity) => entity.numberType === "countable",
+          )
+            ? "required"
+            : "not-required",
+      },
+    };
+  }
   else if (t === "differenceOfPercents") numericAnswer = value(parameters, "value") * 100 / Math.abs(value(parameters, "rate1") - value(parameters, "rate2"));
   else if (t === "restoreAfterDecrease") numericAnswer = value(parameters, "percentageRate") * 100 / (100 - value(parameters, "percentageRate"));
   else if (t === "successiveIncrease") numericAnswer = ((1 + value(parameters, "rate1") / 100) * (1 + value(parameters, "rate2") / 100) - 1) * 100;
@@ -60,6 +131,16 @@ export function solvePct001(parameters: Pct001Parameters): Pct001SolverResult {
   else if (t === "alloyComplement") numericAnswer = value(parameters, "totalWeight") * (100 - value(parameters, "percentageRate")) / 100;
 
   if (!answer) answer = formatByAnswerType(parameters, numericAnswer ?? 0);
+  if (answer.includes("/")) {
+    const [num, den] = answer.split("/");
+    answer = `$$\\frac{${num}}{${den}}$$`;
+  } else if (answer.includes(":")) {
+    answer = `$$${answer.split(":").join(" : ")}$$`;
+  } else if (answer.endsWith("%")) {
+    answer = `$$${answer.slice(0, -1)}\\%$$`;
+  } else {
+    answer = `$$${answer}$$`;
+  }
   const percentageRate = value(parameters, "percentageRate");
   const rate1 = value(parameters, "rate1");
   const rate2 = value(parameters, "rate2");
@@ -129,6 +210,7 @@ export function solvePct001(parameters: Pct001Parameters): Pct001SolverResult {
     numericAnswer: numericAnswer === null ? null : roundTo(numericAnswer, 4),
     answerType: parameters.answerType,
     evidence,
+    educationalEvidence,
     mathJax: {
       setupLatex: mathJaxLine("setup", `${t}`),
       calculationLatex: mathJaxLine("answer", answer),

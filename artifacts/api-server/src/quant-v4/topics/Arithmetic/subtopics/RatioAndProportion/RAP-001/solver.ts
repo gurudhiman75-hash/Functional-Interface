@@ -362,7 +362,17 @@ export function solveRap001(parameters: Rap001Parameters): Rap001SolverResult {
   }
 
   const normalizedValue = typeof answerValue === "number" ? roundTo(answerValue, 4) : answerValue;
-  const answer = formatAnswer(parameters.answerType, normalizedValue);
+  let answer = formatAnswer(parameters.answerType, normalizedValue);
+  if (answer.includes("/")) {
+    const [num, den] = answer.split("/");
+    answer = `$$\\frac{${num}}{${den}}$$`;
+  } else if (answer.includes(":")) {
+    answer = `$$${answer.split(":").join(" : ")}$$`;
+  } else if (answer.endsWith("%")) {
+    answer = `$$${answer.slice(0, -1)}\\%$$`;
+  } else {
+    answer = `$$${answer}$$`;
+  }
   const sumOfParts = roundTo(value(parameters, "ratioA") + value(parameters, "ratioB") + value(parameters, "ratioC"), 4);
   const ratioDifference = roundTo(Math.abs(value(parameters, "ratioA") - value(parameters, "ratioC")), 4);
   const denomValues = [value(parameters, "denom1"), value(parameters, "denom2"), value(parameters, "denom3")];

@@ -1,3 +1,5 @@
+import type { PercentOfKnownNumberEvidence } from "./eev2/percent-of-known-number/evidence";
+
 export const PCT_001_ARCHETYPE_ID = "PCT-001" as const;
 
 export const PCT_001_CP_IDS = [
@@ -143,6 +145,7 @@ export interface Pct001SolverResult {
   numericAnswer: number | null;
   answerType: Pct001AnswerType;
   evidence: Record<string, string | number>;
+  educationalEvidence?: PercentOfKnownNumberEvidence;
   mathJax: Record<string, string>;
 }
 

@@ -1,0 +1,4 @@
+- Misconception 1: Dividing {value1} employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying {value1} employees by {rate1}% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying "{answer} employees".

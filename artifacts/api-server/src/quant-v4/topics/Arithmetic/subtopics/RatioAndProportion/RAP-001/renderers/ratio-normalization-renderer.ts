@@ -24,25 +24,26 @@ export class RatioNormalizationRenderer implements ExplanationRenderer {
       {
         stepId: "step-1",
         type: "GOAL",
-        narrative: `We need to convert the given fractional ratio into a simpler integer ratio.`,
+        narrative: `Given ratio`,
+        mathLatex: `\\frac{${numerator1}}{${denominator1}}:\\frac{${numerator2}}{${denominator2}}`,
       },
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `To normalize a ratio of fractions $\\frac{a}{b} : \\frac{c}{d}$, we cross-multiply or multiply by the LCM of the denominators.`,
-        mathLatex: `\\frac{a}{b} : \\frac{c}{d} = (a \\times d) : (b \\times c)`,
+        narrative: `Cross-multiplying`,
+        mathLatex: `(${numerator1}\\times${denominator2}):(${denominator1}\\times${numerator2})`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: `Substitute the given fractions into the relation:`,
-        mathLatex: `\\frac{${numerator1}}{${denominator1}} : \\frac{${numerator2}}{${denominator2}} = (${numerator1} \\times ${denominator2}) : (${denominator1} \\times ${numerator2})`,
+        narrative: `=`,
+        mathLatex: `${numerator1 * denominator2}:${denominator1 * numerator2}`,
       },
       {
         stepId: "step-4",
         type: "SIMPLIFICATION",
-        narrative: `Perform the multiplication and simplify the resulting integers if possible.`,
-        mathLatex: `(${numerator1} \\times ${denominator2}) : (${denominator1} \\times ${numerator2}) = ${normalizedLeft} : ${normalizedRight}`,
+        narrative: `=`,
+        mathLatex: `${normalizedLeft}:${normalizedRight}`,
       },
       {
         stepId: "step-5",

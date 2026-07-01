@@ -1,0 +1,4 @@
+- Misconception 1: Dividing Rs. {value1} by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. {value1} by {rate1}%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating {rate1}% and {rate2}% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. {answer}.

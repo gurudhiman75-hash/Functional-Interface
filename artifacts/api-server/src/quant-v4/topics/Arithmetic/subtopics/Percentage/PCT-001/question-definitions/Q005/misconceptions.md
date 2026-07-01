@@ -1,0 +1,4 @@
+- Misconception 1: Dividing the budget of Rs. {value1} by 100 directly instead of dividing by the percentage {rate1}.
+- Misconception 2: Multiplying Rs. {value1} by {rate1}% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency "Rs." and outputting a bare number like {answer}.

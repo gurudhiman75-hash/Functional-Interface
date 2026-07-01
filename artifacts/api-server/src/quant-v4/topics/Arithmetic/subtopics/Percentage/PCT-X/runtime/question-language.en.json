@@ -1,0 +1,1146 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "In an examination, {groupAPercentage}% of candidates failed in Mathematics and {groupBPercentage}% failed in English. If {neitherPercentage}% failed in both subjects, find the percentage of candidates who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-101": {
+        "template": "In a survey of a town, {groupAPercentage}% of people read Newspaper A, {groupBPercentage}% read Newspaper B, and {neitherPercentage}% read both. What percentage read neither Newspaper A nor Newspaper B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-201": {
+        "template": "In a class, {groupAPercentage}% of students play cricket, and {groupBPercentage}% play football. If {neitherPercentage}% play neither game, find the percentage of students who play both games.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-301": {
+        "template": "In an office, {groupAPercentage}% of employees like tea, and {groupBPercentage}% like coffee. If {neitherPercentage}% like neither, what percent like both tea and coffee?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-401": {
+        "template": "{groupAPercentage}% of a group speak Hindi, and {groupBPercentage}% speak English. If {neitherPercentage}% speak neither language, find the percentage who speak both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-501": {
+        "template": "In a town, {groupAPercentage}% of families own a car and {groupBPercentage}% own a scooter. If {neitherPercentage}% of families own neither a car nor a scooter, what percentage own both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-601": {
+        "template": "At a party, {groupAPercentage}% of guests ate vegetarian food, and {groupBPercentage}% ate non-vegetarian food. If {neitherPercentage}% ate nothing, what percentage ate both types of food?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-701": {
+        "template": "{groupAPercentage}% of students passed in Science and {groupBPercentage}% passed in History. If {neitherPercentage}% failed in both, find the percentage of students who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-801": {
+        "template": "A survey reveals that {groupAPercentage}% of people watch channel A, and {groupBPercentage}% watch channel B. If {neitherPercentage}% watch neither, find the percentage of people who watch both channels.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-901": {
+        "template": "In a school, {groupAPercentage}% of students opt for Physics and {groupBPercentage}% opt for Chemistry. If {neitherPercentage}% opt for neither, find the percentage of students who opt for both Physics and Chemistry.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1001": {
+        "template": "In an exam, {groupAPercentage}% passed in English and {groupBPercentage}% passed in Math. If {neitherPercentage}% failed in both, what percent passed in both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1101": {
+        "template": "{groupAPercentage}% of a population consumes rice, and {groupBPercentage}% consumes wheat. If {neitherPercentage}% consume neither, find the percentage consuming both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1201": {
+        "template": "In a survey, {groupAPercentage}% like apples and {groupBPercentage}% like oranges. If {neitherPercentage}% like neither, what percentage like both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1301": {
+        "template": "Of the people in a group, {groupAPercentage}% have a cat and {groupBPercentage}% have a dog. If {neitherPercentage}% have neither, find the percentage having both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1401": {
+        "template": "{groupAPercentage}% of people travel by bus and {groupBPercentage}% travel by train. If {neitherPercentage}% use neither mode, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1501": {
+        "template": "In a locality, {groupAPercentage}% of houses have an AC and {groupBPercentage}% have a cooler. If {neitherPercentage}% have neither, what percentage have both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1601": {
+        "template": "{groupAPercentage}% of students like drawing and {groupBPercentage}% like singing. If {neitherPercentage}% like neither, find the percentage who like both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1701": {
+        "template": "In an apartment complex, {groupAPercentage}% use the gym and {groupBPercentage}% use the pool. If {neitherPercentage}% use neither, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1801": {
+        "template": "{groupAPercentage}% of customers bought product A and {groupBPercentage}% bought product B. If {neitherPercentage}% bought neither, what percentage bought both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1901": {
+        "template": "In a village, {groupAPercentage}% of farmers grow wheat and {groupBPercentage}% grow maize. If {neitherPercentage}% grow neither, find the percentage growing both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-002": {
+        "template": "In an examination, {groupAPercentage}% of candidates failed in Mathematics and {groupBPercentage}% failed in English. If {neitherPercentage}% failed in both subjects, find the percentage of candidates who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "In a survey of a town, {groupAPercentage}% of people read Newspaper A, {groupBPercentage}% read Newspaper B, and {neitherPercentage}% read both. What percentage read neither Newspaper A nor Newspaper B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-202": {
+        "template": "In a class, {groupAPercentage}% of students play cricket, and {groupBPercentage}% play football. If {neitherPercentage}% play neither game, find the percentage of students who play both games.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-302": {
+        "template": "In an office, {groupAPercentage}% of employees like tea, and {groupBPercentage}% like coffee. If {neitherPercentage}% like neither, what percent like both tea and coffee?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-402": {
+        "template": "{groupAPercentage}% of a group speak Hindi, and {groupBPercentage}% speak English. If {neitherPercentage}% speak neither language, find the percentage who speak both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-502": {
+        "template": "In a town, {groupAPercentage}% of families own a car and {groupBPercentage}% own a scooter. If {neitherPercentage}% of families own neither a car nor a scooter, what percentage own both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-602": {
+        "template": "At a party, {groupAPercentage}% of guests ate vegetarian food, and {groupBPercentage}% ate non-vegetarian food. If {neitherPercentage}% ate nothing, what percentage ate both types of food?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-702": {
+        "template": "{groupAPercentage}% of students passed in Science and {groupBPercentage}% passed in History. If {neitherPercentage}% failed in both, find the percentage of students who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-802": {
+        "template": "A survey reveals that {groupAPercentage}% of people watch channel A, and {groupBPercentage}% watch channel B. If {neitherPercentage}% watch neither, find the percentage of people who watch both channels.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-902": {
+        "template": "In a school, {groupAPercentage}% of students opt for Physics and {groupBPercentage}% opt for Chemistry. If {neitherPercentage}% opt for neither, find the percentage of students who opt for both Physics and Chemistry.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1002": {
+        "template": "In an exam, {groupAPercentage}% passed in English and {groupBPercentage}% passed in Math. If {neitherPercentage}% failed in both, what percent passed in both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1102": {
+        "template": "{groupAPercentage}% of a population consumes rice, and {groupBPercentage}% consumes wheat. If {neitherPercentage}% consume neither, find the percentage consuming both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1202": {
+        "template": "In a survey, {groupAPercentage}% like apples and {groupBPercentage}% like oranges. If {neitherPercentage}% like neither, what percentage like both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1302": {
+        "template": "Of the people in a group, {groupAPercentage}% have a cat and {groupBPercentage}% have a dog. If {neitherPercentage}% have neither, find the percentage having both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1402": {
+        "template": "{groupAPercentage}% of people travel by bus and {groupBPercentage}% travel by train. If {neitherPercentage}% use neither mode, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1502": {
+        "template": "In a locality, {groupAPercentage}% of houses have an AC and {groupBPercentage}% have a cooler. If {neitherPercentage}% have neither, what percentage have both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1602": {
+        "template": "{groupAPercentage}% of students like drawing and {groupBPercentage}% like singing. If {neitherPercentage}% like neither, find the percentage who like both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1702": {
+        "template": "In an apartment complex, {groupAPercentage}% use the gym and {groupBPercentage}% use the pool. If {neitherPercentage}% use neither, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1802": {
+        "template": "{groupAPercentage}% of customers bought product A and {groupBPercentage}% bought product B. If {neitherPercentage}% bought neither, what percentage bought both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1902": {
+        "template": "In a village, {groupAPercentage}% of farmers grow wheat and {groupBPercentage}% grow maize. If {neitherPercentage}% grow neither, find the percentage growing both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-003": {
+        "template": "In an examination, {groupAPercentage}% of candidates failed in Mathematics and {groupBPercentage}% failed in English. If {neitherPercentage}% failed in both subjects, find the percentage of candidates who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "In a survey of a town, {groupAPercentage}% of people read Newspaper A, {groupBPercentage}% read Newspaper B, and {neitherPercentage}% read both. What percentage read neither Newspaper A nor Newspaper B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-203": {
+        "template": "In a class, {groupAPercentage}% of students play cricket, and {groupBPercentage}% play football. If {neitherPercentage}% play neither game, find the percentage of students who play both games.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-303": {
+        "template": "In an office, {groupAPercentage}% of employees like tea, and {groupBPercentage}% like coffee. If {neitherPercentage}% like neither, what percent like both tea and coffee?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-403": {
+        "template": "{groupAPercentage}% of a group speak Hindi, and {groupBPercentage}% speak English. If {neitherPercentage}% speak neither language, find the percentage who speak both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-503": {
+        "template": "In a town, {groupAPercentage}% of families own a car and {groupBPercentage}% own a scooter. If {neitherPercentage}% of families own neither a car nor a scooter, what percentage own both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-603": {
+        "template": "At a party, {groupAPercentage}% of guests ate vegetarian food, and {groupBPercentage}% ate non-vegetarian food. If {neitherPercentage}% ate nothing, what percentage ate both types of food?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-703": {
+        "template": "{groupAPercentage}% of students passed in Science and {groupBPercentage}% passed in History. If {neitherPercentage}% failed in both, find the percentage of students who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-803": {
+        "template": "A survey reveals that {groupAPercentage}% of people watch channel A, and {groupBPercentage}% watch channel B. If {neitherPercentage}% watch neither, find the percentage of people who watch both channels.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-903": {
+        "template": "In a school, {groupAPercentage}% of students opt for Physics and {groupBPercentage}% opt for Chemistry. If {neitherPercentage}% opt for neither, find the percentage of students who opt for both Physics and Chemistry.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1003": {
+        "template": "In an exam, {groupAPercentage}% passed in English and {groupBPercentage}% passed in Math. If {neitherPercentage}% failed in both, what percent passed in both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1103": {
+        "template": "{groupAPercentage}% of a population consumes rice, and {groupBPercentage}% consumes wheat. If {neitherPercentage}% consume neither, find the percentage consuming both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1203": {
+        "template": "In a survey, {groupAPercentage}% like apples and {groupBPercentage}% like oranges. If {neitherPercentage}% like neither, what percentage like both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1303": {
+        "template": "Of the people in a group, {groupAPercentage}% have a cat and {groupBPercentage}% have a dog. If {neitherPercentage}% have neither, find the percentage having both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1403": {
+        "template": "{groupAPercentage}% of people travel by bus and {groupBPercentage}% travel by train. If {neitherPercentage}% use neither mode, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1503": {
+        "template": "In a locality, {groupAPercentage}% of houses have an AC and {groupBPercentage}% have a cooler. If {neitherPercentage}% have neither, what percentage have both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1603": {
+        "template": "{groupAPercentage}% of students like drawing and {groupBPercentage}% like singing. If {neitherPercentage}% like neither, find the percentage who like both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1703": {
+        "template": "In an apartment complex, {groupAPercentage}% use the gym and {groupBPercentage}% use the pool. If {neitherPercentage}% use neither, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1803": {
+        "template": "{groupAPercentage}% of customers bought product A and {groupBPercentage}% bought product B. If {neitherPercentage}% bought neither, what percentage bought both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1903": {
+        "template": "In a village, {groupAPercentage}% of farmers grow wheat and {groupBPercentage}% grow maize. If {neitherPercentage}% grow neither, find the percentage growing both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-004": {
+        "template": "In an examination, {groupAPercentage}% of candidates failed in Mathematics and {groupBPercentage}% failed in English. If {neitherPercentage}% failed in both subjects, find the percentage of candidates who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "In a survey of a town, {groupAPercentage}% of people read Newspaper A, {groupBPercentage}% read Newspaper B, and {neitherPercentage}% read both. What percentage read neither Newspaper A nor Newspaper B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-204": {
+        "template": "In a class, {groupAPercentage}% of students play cricket, and {groupBPercentage}% play football. If {neitherPercentage}% play neither game, find the percentage of students who play both games.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-304": {
+        "template": "In an office, {groupAPercentage}% of employees like tea, and {groupBPercentage}% like coffee. If {neitherPercentage}% like neither, what percent like both tea and coffee?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-404": {
+        "template": "{groupAPercentage}% of a group speak Hindi, and {groupBPercentage}% speak English. If {neitherPercentage}% speak neither language, find the percentage who speak both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-504": {
+        "template": "In a town, {groupAPercentage}% of families own a car and {groupBPercentage}% own a scooter. If {neitherPercentage}% of families own neither a car nor a scooter, what percentage own both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-604": {
+        "template": "At a party, {groupAPercentage}% of guests ate vegetarian food, and {groupBPercentage}% ate non-vegetarian food. If {neitherPercentage}% ate nothing, what percentage ate both types of food?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-704": {
+        "template": "{groupAPercentage}% of students passed in Science and {groupBPercentage}% passed in History. If {neitherPercentage}% failed in both, find the percentage of students who passed in both subjects.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-804": {
+        "template": "A survey reveals that {groupAPercentage}% of people watch channel A, and {groupBPercentage}% watch channel B. If {neitherPercentage}% watch neither, find the percentage of people who watch both channels.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-904": {
+        "template": "In a school, {groupAPercentage}% of students opt for Physics and {groupBPercentage}% opt for Chemistry. If {neitherPercentage}% opt for neither, find the percentage of students who opt for both Physics and Chemistry.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1004": {
+        "template": "In an exam, {groupAPercentage}% passed in English and {groupBPercentage}% passed in Math. If {neitherPercentage}% failed in both, what percent passed in both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1104": {
+        "template": "{groupAPercentage}% of a population consumes rice, and {groupBPercentage}% consumes wheat. If {neitherPercentage}% consume neither, find the percentage consuming both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1204": {
+        "template": "In a survey, {groupAPercentage}% like apples and {groupBPercentage}% like oranges. If {neitherPercentage}% like neither, what percentage like both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1304": {
+        "template": "Of the people in a group, {groupAPercentage}% have a cat and {groupBPercentage}% have a dog. If {neitherPercentage}% have neither, find the percentage having both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1404": {
+        "template": "{groupAPercentage}% of people travel by bus and {groupBPercentage}% travel by train. If {neitherPercentage}% use neither mode, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1504": {
+        "template": "In a locality, {groupAPercentage}% of houses have an AC and {groupBPercentage}% have a cooler. If {neitherPercentage}% have neither, what percentage have both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1604": {
+        "template": "{groupAPercentage}% of students like drawing and {groupBPercentage}% like singing. If {neitherPercentage}% like neither, find the percentage who like both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1704": {
+        "template": "In an apartment complex, {groupAPercentage}% use the gym and {groupBPercentage}% use the pool. If {neitherPercentage}% use neither, find the percentage using both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1804": {
+        "template": "{groupAPercentage}% of customers bought product A and {groupBPercentage}% bought product B. If {neitherPercentage}% bought neither, what percentage bought both?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1904": {
+        "template": "In a village, {groupAPercentage}% of farmers grow wheat and {groupBPercentage}% grow maize. If {neitherPercentage}% grow neither, find the percentage growing both.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "In a group, {groupAPercentage}% like Physics, {groupBPercentage}% like Chemistry, and {groupCPercentage}% like Biology. {groupABPercentage}% like Physics and Chemistry, {groupBCPercentage}% like Chemistry and Biology, and {groupACPercentage}% like Physics and Biology. If {groupABCPercentage}% like all three, find the percentage who like at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-147": {
+        "template": "In a competitive exam setup, in a group, {groupAPercentage}% like Physics, {groupBPercentage}% like Chemistry, and {groupCPercentage}% like Biology. {groupABPercentage}% like Physics and Chemistry, {groupBCPercentage}% like Chemistry and Biology, and {groupACPercentage}% like Physics and Biology. If {groupABCPercentage}% like all three, find the percentage who like at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-247": {
+        "template": "In a group, {groupAPercentage}% like Physics, {groupBPercentage}% like Chemistry, and {groupCPercentage}% like Biology. {groupABPercentage}% like Physics and Chemistry, {groupBCPercentage}% like Chemistry and Biology, and {groupACPercentage}% like Physics and Biology. If {groupABCPercentage}% like all three, find the percentage who like at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-347": {
+        "template": "If the following conditions hold: In a group, {groupAPercentage}% like Physics, {groupBPercentage}% like Chemistry, and {groupCPercentage}% like Biology. {groupABPercentage}% like Physics and Chemistry, {groupBCPercentage}% like Chemistry and Biology, and {groupACPercentage}% like Physics and Biology. If {groupABCPercentage}% like all three, find the percentage who like at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-447": {
+        "template": "Based on given parameters, In a group, {groupAPercentage}% like Physics, {groupBPercentage}% like Chemistry, and {groupCPercentage}% like Biology. {groupABPercentage}% like Physics and Chemistry, {groupBCPercentage}% like Chemistry and Biology, and {groupACPercentage}% like Physics and Biology. If {groupABCPercentage}% like all three, find the percentage who like at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-048": {
+        "template": "In a town, {groupAPercentage}% read Newspaper A, {groupBPercentage}% read B, and {groupCPercentage}% read C. {groupABPercentage}% read A and B, {groupBCPercentage}% read B and C, and {groupACPercentage}% read A and C. If {groupABCPercentage}% read all three, what percentage read none?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-148": {
+        "template": "In a competitive exam setup, in a town, {groupAPercentage}% read Newspaper A, {groupBPercentage}% read B, and {groupCPercentage}% read C. {groupABPercentage}% read A and B, {groupBCPercentage}% read B and C, and {groupACPercentage}% read A and C. If {groupABCPercentage}% read all three, what percentage read none?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-248": {
+        "template": "In a town, {groupAPercentage}% read Newspaper A, {groupBPercentage}% read B, and {groupCPercentage}% read C. {groupABPercentage}% read A and B, {groupBCPercentage}% read B and C, and {groupACPercentage}% read A and C. If {groupABCPercentage}% read all three, what percentage read none?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-348": {
+        "template": "If the following conditions hold: In a town, {groupAPercentage}% read Newspaper A, {groupBPercentage}% read B, and {groupCPercentage}% read C. {groupABPercentage}% read A and B, {groupBCPercentage}% read B and C, and {groupACPercentage}% read A and C. If {groupABCPercentage}% read all three, what percentage read none?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-448": {
+        "template": "Based on given parameters, In a town, {groupAPercentage}% read Newspaper A, {groupBPercentage}% read B, and {groupCPercentage}% read C. {groupABPercentage}% read A and B, {groupBCPercentage}% read B and C, and {groupACPercentage}% read A and C. If {groupABCPercentage}% read all three, what percentage read none?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-049": {
+        "template": "In a class, {groupAPercentage}% speak Hindi, {groupBPercentage}% speak English, and {groupCPercentage}% speak French. {groupABPercentage}% speak Hindi and English, {groupBCPercentage}% speak English and French, and {groupACPercentage}% speak Hindi and French. If {groupABCPercentage}% speak all three, find the percentage who speak at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-149": {
+        "template": "In a competitive exam setup, in a class, {groupAPercentage}% speak Hindi, {groupBPercentage}% speak English, and {groupCPercentage}% speak French. {groupABPercentage}% speak Hindi and English, {groupBCPercentage}% speak English and French, and {groupACPercentage}% speak Hindi and French. If {groupABCPercentage}% speak all three, find the percentage who speak at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-249": {
+        "template": "In a class, {groupAPercentage}% speak Hindi, {groupBPercentage}% speak English, and {groupCPercentage}% speak French. {groupABPercentage}% speak Hindi and English, {groupBCPercentage}% speak English and French, and {groupACPercentage}% speak Hindi and French. If {groupABCPercentage}% speak all three, find the percentage who speak at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-349": {
+        "template": "If the following conditions hold: In a class, {groupAPercentage}% speak Hindi, {groupBPercentage}% speak English, and {groupCPercentage}% speak French. {groupABPercentage}% speak Hindi and English, {groupBCPercentage}% speak English and French, and {groupACPercentage}% speak Hindi and French. If {groupABCPercentage}% speak all three, find the percentage who speak at least one.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-449": {
+        "template": "Based on given parameters, In a class, {groupAPercentage}% speak Hindi, {groupBPercentage}% speak English, and {groupCPercentage}% speak French. {groupABPercentage}% speak Hindi and English, {groupBCPercentage}% speak English and French, and {groupACPercentage}% speak Hindi and French. If {groupABCPercentage}% speak all three, find the percentage who speak at least one.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-005": {
+        "template": "A student multiplied a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. Find the percentage error in the calculation.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "Instead of multiplying by {correctNumerator}/{correctDenominator}, a boy multiplied a number by {wrongNumerator}/{wrongDenominator}. What is the percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-205": {
+        "template": "A number was supposed to be multiplied by {correctNumerator}/{correctDenominator}, but it was multiplied by {wrongNumerator}/{wrongDenominator}. Find the error percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-305": {
+        "template": "By mistake, a student multiplied a number by {wrongNumerator}/{wrongDenominator} rather than {correctNumerator}/{correctDenominator}. Calculate the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-405": {
+        "template": "If a number is multiplied by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}, what is the percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-505": {
+        "template": "A clerk was asked to calculate {correctNumerator}/{correctDenominator} of a number, but he calculated {wrongNumerator}/{wrongDenominator} of it. Find the error percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-605": {
+        "template": "Find the percentage error if a student multiplies a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-705": {
+        "template": "A fraction {correctNumerator}/{correctDenominator} was misread as {wrongNumerator}/{wrongDenominator} and multiplied by a number. What is the percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-805": {
+        "template": "Instead of finding {correctNumerator}/{correctDenominator} of a value, {wrongNumerator}/{wrongDenominator} of the value was found. What is the error percentage?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-905": {
+        "template": "A candidate multiplied a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. Determine the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1005": {
+        "template": "If a calculation involved multiplying by {correctNumerator}/{correctDenominator} but {wrongNumerator}/{wrongDenominator} was used, find the error percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1105": {
+        "template": "A girl multiplied a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. What is her percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1205": {
+        "template": "Calculate the percentage error when a number is multiplied by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1305": {
+        "template": "A boy was told to multiply a sum by {correctNumerator}/{correctDenominator}, but he multiplied it by {wrongNumerator}/{wrongDenominator}. Find the error percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1405": {
+        "template": "A number is multiplied by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. What is the percentage error in the result?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1505": {
+        "template": "Due to an error, a value is multiplied by {wrongNumerator}/{wrongDenominator} rather than {correctNumerator}/{correctDenominator}. Determine the error percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1605": {
+        "template": "What is the percentage error if a number is scaled by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1705": {
+        "template": "A student computes {wrongNumerator}/{wrongDenominator} of a number instead of {correctNumerator}/{correctDenominator} of it. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1805": {
+        "template": "Instead of a fractional multiplier of {correctNumerator}/{correctDenominator}, {wrongNumerator}/{wrongDenominator} was applied. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1905": {
+        "template": "A man calculated {wrongNumerator}/{wrongDenominator} of his income instead of {correctNumerator}/{correctDenominator}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-006": {
+        "template": "A student multiplied a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. Find the percentage error in the calculation.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "Instead of multiplying by {correctNumerator}/{correctDenominator}, a boy multiplied a number by {wrongNumerator}/{wrongDenominator}. What is the percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-206": {
+        "template": "A number was supposed to be multiplied by {correctNumerator}/{correctDenominator}, but it was multiplied by {wrongNumerator}/{wrongDenominator}. Find the error percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-306": {
+        "template": "By mistake, a student multiplied a number by {wrongNumerator}/{wrongDenominator} rather than {correctNumerator}/{correctDenominator}. Calculate the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-406": {
+        "template": "If a number is multiplied by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}, what is the percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-506": {
+        "template": "A clerk was asked to calculate {correctNumerator}/{correctDenominator} of a number, but he calculated {wrongNumerator}/{wrongDenominator} of it. Find the error percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-606": {
+        "template": "Find the percentage error if a student multiplies a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-706": {
+        "template": "A fraction {correctNumerator}/{correctDenominator} was misread as {wrongNumerator}/{wrongDenominator} and multiplied by a number. What is the percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-806": {
+        "template": "Instead of finding {correctNumerator}/{correctDenominator} of a value, {wrongNumerator}/{wrongDenominator} of the value was found. What is the error percentage?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-906": {
+        "template": "A candidate multiplied a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. Determine the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1006": {
+        "template": "If a calculation involved multiplying by {correctNumerator}/{correctDenominator} but {wrongNumerator}/{wrongDenominator} was used, find the error percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1106": {
+        "template": "A girl multiplied a number by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. What is her percentage error?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1206": {
+        "template": "Calculate the percentage error when a number is multiplied by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1306": {
+        "template": "A boy was told to multiply a sum by {correctNumerator}/{correctDenominator}, but he multiplied it by {wrongNumerator}/{wrongDenominator}. Find the error percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1406": {
+        "template": "A number is multiplied by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}. What is the percentage error in the result?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1506": {
+        "template": "Due to an error, a value is multiplied by {wrongNumerator}/{wrongDenominator} rather than {correctNumerator}/{correctDenominator}. Determine the error percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1606": {
+        "template": "What is the percentage error if a number is scaled by {wrongNumerator}/{wrongDenominator} instead of {correctNumerator}/{correctDenominator}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1706": {
+        "template": "A student computes {wrongNumerator}/{wrongDenominator} of a number instead of {correctNumerator}/{correctDenominator} of it. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1806": {
+        "template": "Instead of a fractional multiplier of {correctNumerator}/{correctDenominator}, {wrongNumerator}/{wrongDenominator} was applied. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-1906": {
+        "template": "A man calculated {wrongNumerator}/{wrongDenominator} of his income instead of {correctNumerator}/{correctDenominator}. Find the percentage error.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "A student multiplied a number by {wrongMultiplier} instead of {correctMultiplier}. Find the percentage error in the calculation.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-108": {
+        "template": "Instead of multiplying by {correctMultiplier}, a boy multiplied a number by {wrongMultiplier}. What is the percentage error?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-208": {
+        "template": "By mistake, a clerk multiplied a value by {wrongMultiplier} while he was supposed to multiply by {correctMultiplier}. Calculate the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-308": {
+        "template": "A number was multiplied by {wrongMultiplier} rather than {correctMultiplier}. Determine the percentage error in the result.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-408": {
+        "template": "If a number is multiplied by {wrongMultiplier} instead of {correctMultiplier}, find the error percentage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-508": {
+        "template": "A calculation required multiplying a number by {correctMultiplier}, but it was erroneously multiplied by {wrongMultiplier}. What is the error percent?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-608": {
+        "template": "A student finds the product of a number and {wrongMultiplier} instead of multiplying it by {correctMultiplier}. Find his error percentage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-708": {
+        "template": "Due to an oversight, a number is multiplied by {wrongMultiplier} instead of {correctMultiplier}. What is the percentage error?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-808": {
+        "template": "In a math test, a student was asked to multiply a number by {correctMultiplier}, but he multiplied it by {wrongMultiplier}. Find the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-908": {
+        "template": "A boy multiplied a number by {wrongMultiplier} instead of {correctMultiplier}. Find the error percentage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1008": {
+        "template": "A girl was asked to multiply a quantity by {correctMultiplier}, but she mistakenly multiplied by {wrongMultiplier}. Calculate the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1108": {
+        "template": "The correct procedure was to multiply by {correctMultiplier}, but a student multiplied by {wrongMultiplier}. What is the percentage error in the answer?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1208": {
+        "template": "An employee multiplied a figure by {wrongMultiplier} instead of {correctMultiplier}. Determine the error percent.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1308": {
+        "template": "If a given value is multiplied by {wrongMultiplier} instead of {correctMultiplier}, what will be the percentage error?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1408": {
+        "template": "A candidate multiplies a number by {wrongMultiplier} instead of {correctMultiplier}. Find the percentage error in his calculation.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1508": {
+        "template": "Find the percentage error when a number is multiplied by {wrongMultiplier} instead of {correctMultiplier}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1608": {
+        "template": "A student multiplied a variable by {wrongMultiplier} instead of {correctMultiplier}. What is the error percentage?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1708": {
+        "template": "Instead of a multiplier of {correctMultiplier}, {wrongMultiplier} was used. Find the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1808": {
+        "template": "A miscalculation occurred by multiplying a number by {wrongMultiplier} instead of {correctMultiplier}. What is the error percent?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1908": {
+        "template": "What is the percentage error if a number is multiplied by {wrongMultiplier} instead of {correctMultiplier}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-011": {
+        "template": "A number was to be divided by {correctDivisor}, but it was divided by {wrongDivisor}. Find the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-111": {
+        "template": "In a competitive exam setup, a number was to be divided by {correctDivisor}, but it was divided by {wrongDivisor}. Find the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-211": {
+        "template": "A number was to be divided by {correctDivisor}, but it was divided by {wrongDivisor}. Determine the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-311": {
+        "template": "If the following conditions hold: A number was to be divided by {correctDivisor}, but it was divided by {wrongDivisor}. Find the percentage error.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-411": {
+        "template": "Based on given parameters, A number was to be divided by {correctDivisor}, but it was divided by {wrongDivisor}. Find the percentage error.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-014": {
+        "template": "Commission is {baseCommissionRate}% up to Rs. {thresholdAmount} and {bonusCommissionRate}% above it. Find commission on sales of Rs. {salesAmount}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-114": {
+        "template": "In a competitive exam setup, commission is {baseCommissionRate}% up to Rs. {thresholdAmount} and {bonusCommissionRate}% above it. Find commission on sales of Rs. {salesAmount}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-214": {
+        "template": "Commission is {baseCommissionRate}% up to Rs. {thresholdAmount} and {bonusCommissionRate}% above it. Determine commission on sales of Rs. {salesAmount}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-314": {
+        "template": "If the following conditions hold: Commission is {baseCommissionRate}% up to Rs. {thresholdAmount} and {bonusCommissionRate}% above it. Find commission on sales of Rs. {salesAmount}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-414": {
+        "template": "Based on given parameters, Commission is {baseCommissionRate}% up to Rs. {thresholdAmount} and {bonusCommissionRate}% above it. Find commission on sales of Rs. {salesAmount}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-017": {
+        "template": "Income up to Rs. {exemptionAmount} is tax-free and the rest is taxed at {taxPercentage}%. Find tax on Rs. {grossIncome}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-117": {
+        "template": "In a competitive exam setup, income up to Rs. {exemptionAmount} is tax-free and the rest is taxed at {taxPercentage}%. Find tax on Rs. {grossIncome}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-217": {
+        "template": "Income up to Rs. {exemptionAmount} is tax-free and the rest is taxed at {taxPercentage}%. Determine tax on Rs. {grossIncome}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-317": {
+        "template": "If the following conditions hold: Income up to Rs. {exemptionAmount} is tax-free and the rest is taxed at {taxPercentage}%. Find tax on Rs. {grossIncome}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-417": {
+        "template": "Based on given parameters, Income up to Rs. {exemptionAmount} is tax-free and the rest is taxed at {taxPercentage}%. Find tax on Rs. {grossIncome}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "Brokerage is charged at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% above it. Find the total brokerage on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-120": {
+        "template": "In a competitive exam setup, brokerage is charged at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% above it. Find the total brokerage on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-220": {
+        "template": "Brokerage is charged at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% above it. Determine the total brokerage on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-320": {
+        "template": "If the following conditions hold: Brokerage is charged at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% above it. Find the total brokerage on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-420": {
+        "template": "Based on given parameters, Brokerage is charged at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% above it. Find the total brokerage on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-021": {
+        "template": "Incentive is paid at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% on the remaining amount. Find the total incentive on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "In a competitive exam setup, incentive is paid at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% on the remaining amount. Find the total incentive on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-221": {
+        "template": "Incentive is paid at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% on the remaining amount. Determine the total incentive on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-321": {
+        "template": "If the following conditions hold: Incentive is paid at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% on the remaining amount. Find the total incentive on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-421": {
+        "template": "Based on given parameters, Incentive is paid at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% on the remaining amount. Find the total incentive on {usageAmount}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-050": {
+        "template": "Income tax is {tier1Rate}% up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find the total tax on an income of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "In a competitive exam setup, income tax is {tier1Rate}% up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find the total tax on an income of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-250": {
+        "template": "Income tax is {tier1Rate}% up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Determine the total tax on an income of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-350": {
+        "template": "If the following conditions hold: Income tax is {tier1Rate}% up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find the total tax on an income of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-450": {
+        "template": "Based on given parameters, Income tax is {tier1Rate}% up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find the total tax on an income of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-051": {
+        "template": "A salesman's commission is {tier1Rate}% on sales up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find his total commission on sales of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-151": {
+        "template": "In a competitive exam setup, a salesman's commission is {tier1Rate}% on sales up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find his total commission on sales of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-251": {
+        "template": "A salesman's commission is {tier1Rate}% on sales up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Determine his total commission on sales of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-351": {
+        "template": "If the following conditions hold: A salesman's commission is {tier1Rate}% on sales up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find his total commission on sales of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-451": {
+        "template": "Based on given parameters, A salesman's commission is {tier1Rate}% on sales up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find his total commission on sales of Rs. {totalBase}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-052": {
+        "template": "Electricity is charged at Rs. {tier1Rate} per unit for the first {tier1Limit} units, Rs. {tier2Rate} per unit from {tier1Limit} to {tier2Limit} units, and Rs. {tier3Rate} per unit above {tier2Limit} units. Find the total bill for {totalBase} units.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-152": {
+        "template": "In a competitive exam setup, electricity is charged at Rs. {tier1Rate} per unit for the first {tier1Limit} units, Rs. {tier2Rate} per unit from {tier1Limit} to {tier2Limit} units, and Rs. {tier3Rate} per unit above {tier2Limit} units. Find the total bill for {totalBase} units.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-252": {
+        "template": "Electricity is charged at Rs. {tier1Rate} per unit for the first {tier1Limit} units, Rs. {tier2Rate} per unit from {tier1Limit} to {tier2Limit} units, and Rs. {tier3Rate} per unit above {tier2Limit} units. Determine the total bill for {totalBase} units.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-352": {
+        "template": "If the following conditions hold: Electricity is charged at Rs. {tier1Rate} per unit for the first {tier1Limit} units, Rs. {tier2Rate} per unit from {tier1Limit} to {tier2Limit} units, and Rs. {tier3Rate} per unit above {tier2Limit} units. Find the total bill for {totalBase} units.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-452": {
+        "template": "Based on given parameters, Electricity is charged at Rs. {tier1Rate} per unit for the first {tier1Limit} units, Rs. {tier2Rate} per unit from {tier1Limit} to {tier2Limit} units, and Rs. {tier3Rate} per unit above {tier2Limit} units. Find the total bill for {totalBase} units.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-053": {
+        "template": "A company pays {tier1Rate}% commission on sales up to Rs. {tier1Limit} and {tier2Rate}% on sales above Rs. {tier1Limit}. If the salesman received a total commission of Rs. {totalResult}, find the total sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-153": {
+        "template": "In a competitive exam setup, a company pays {tier1Rate}% commission on sales up to Rs. {tier1Limit} and {tier2Rate}% on sales above Rs. {tier1Limit}. If the salesman received a total commission of Rs. {totalResult}, find the total sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-253": {
+        "template": "A company pays {tier1Rate}% commission on sales up to Rs. {tier1Limit} and {tier2Rate}% on sales above Rs. {tier1Limit}. If the salesman received a total commission of Rs. {totalResult}, find the total sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-353": {
+        "template": "If the following conditions hold: A company pays {tier1Rate}% commission on sales up to Rs. {tier1Limit} and {tier2Rate}% on sales above Rs. {tier1Limit}. If the salesman received a total commission of Rs. {totalResult}, find the total sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-453": {
+        "template": "Based on given parameters, A company pays {tier1Rate}% commission on sales up to Rs. {tier1Limit} and {tier2Rate}% on sales above Rs. {tier1Limit}. If the salesman received a total commission of Rs. {totalResult}, find the total sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-054": {
+        "template": "A broker charges {tier1Rate}% on deals up to Rs. {tier1Limit} and {tier2Rate}% on any amount above it. If his total brokerage is Rs. {totalResult}, find the deal value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-154": {
+        "template": "In a competitive exam setup, a broker charges {tier1Rate}% on deals up to Rs. {tier1Limit} and {tier2Rate}% on any amount above it. If his total brokerage is Rs. {totalResult}, find the deal value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-254": {
+        "template": "A broker charges {tier1Rate}% on deals up to Rs. {tier1Limit} and {tier2Rate}% on any amount above it. If his total brokerage is Rs. {totalResult}, find the deal value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-354": {
+        "template": "If the following conditions hold: A broker charges {tier1Rate}% on deals up to Rs. {tier1Limit} and {tier2Rate}% on any amount above it. If his total brokerage is Rs. {totalResult}, find the deal value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-454": {
+        "template": "Based on given parameters, A broker charges {tier1Rate}% on deals up to Rs. {tier1Limit} and {tier2Rate}% on any amount above it. If his total brokerage is Rs. {totalResult}, find the deal value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-055": {
+        "template": "Tax is {tier1Rate}% up to Rs. {tier1Limit} and {tier2Rate}% above it. If the total tax paid is Rs. {totalResult}, find the gross amount.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-155": {
+        "template": "In a competitive exam setup, tax is {tier1Rate}% up to Rs. {tier1Limit} and {tier2Rate}% above it. If the total tax paid is Rs. {totalResult}, find the gross amount.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-255": {
+        "template": "Tax is {tier1Rate}% up to Rs. {tier1Limit} and {tier2Rate}% above it. If the total tax paid is Rs. {totalResult}, find the gross amount.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-355": {
+        "template": "If the following conditions hold: Tax is {tier1Rate}% up to Rs. {tier1Limit} and {tier2Rate}% above it. If the total tax paid is Rs. {totalResult}, find the gross amount.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-455": {
+        "template": "Based on given parameters, Tax is {tier1Rate}% up to Rs. {tier1Limit} and {tier2Rate}% above it. If the total tax paid is Rs. {totalResult}, find the gross amount.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-023": {
+        "template": "{malePercentage}% people are men. {maleTraitPercentage}% men and {femaleTraitPercentage}% women are graduates. Find total graduate percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-123": {
+        "template": "In a competitive exam setup, {malePercentage}% people are men. {maleTraitPercentage}% men and {femaleTraitPercentage}% women are graduates. Find total graduate percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-223": {
+        "template": "{malePercentage}% people are men. {maleTraitPercentage}% men and {femaleTraitPercentage}% women are graduates. Determine total graduate percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-323": {
+        "template": "If the following conditions hold: {malePercentage}% people are men. {maleTraitPercentage}% men and {femaleTraitPercentage}% women are graduates. Find total graduate percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-423": {
+        "template": "Based on given parameters, {malePercentage}% people are men. {maleTraitPercentage}% men and {femaleTraitPercentage}% women are graduates. Find total graduate percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "In a population of {totalPopulation}, {malePercentage}% are urban residents. {maleTraitPercentage}% of urban residents and {femaleTraitPercentage}% of rural residents are employed. Find the total employed population.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "In a competitive exam setup, in a population of {totalPopulation}, {malePercentage}% are urban residents. {maleTraitPercentage}% of urban residents and {femaleTraitPercentage}% of rural residents are employed. Find the total employed population.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-226": {
+        "template": "In a population of {totalPopulation}, {malePercentage}% are urban residents. {maleTraitPercentage}% of urban residents and {femaleTraitPercentage}% of rural residents are employed. Determine the total employed population.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-326": {
+        "template": "If the following conditions hold: In a population of {totalPopulation}, {malePercentage}% are urban residents. {maleTraitPercentage}% of urban residents and {femaleTraitPercentage}% of rural residents are employed. Find the total employed population.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-426": {
+        "template": "Based on given parameters, In a population of {totalPopulation}, {malePercentage}% are urban residents. {maleTraitPercentage}% of urban residents and {femaleTraitPercentage}% of rural residents are employed. Find the total employed population.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-029": {
+        "template": "{groupAPercentage}% of employees are in Department A. {groupATraitPercentage}% of Department A and {groupBTraitPercentage}% of other departments completed training. Find the total trained percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-129": {
+        "template": "In a competitive exam setup, {groupAPercentage}% of employees are in Department A. {groupATraitPercentage}% of Department A and {groupBTraitPercentage}% of other departments completed training. Find the total trained percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-229": {
+        "template": "{groupAPercentage}% of employees are in Department A. {groupATraitPercentage}% of Department A and {groupBTraitPercentage}% of other departments completed training. Determine the total trained percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-329": {
+        "template": "If the following conditions hold: {groupAPercentage}% of employees are in Department A. {groupATraitPercentage}% of Department A and {groupBTraitPercentage}% of other departments completed training. Find the total trained percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-429": {
+        "template": "Based on given parameters, {groupAPercentage}% of employees are in Department A. {groupATraitPercentage}% of Department A and {groupBTraitPercentage}% of other departments completed training. Find the total trained percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "{groupAPercentage}% belong to Category A. {groupATraitPercentage}% of Category A and {groupBTraitPercentage}% of the remaining category qualify. Find the total qualifying percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-130": {
+        "template": "In a competitive exam setup, {groupAPercentage}% belong to Category A. {groupATraitPercentage}% of Category A and {groupBTraitPercentage}% of the remaining category qualify. Find the total qualifying percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-230": {
+        "template": "{groupAPercentage}% belong to Category A. {groupATraitPercentage}% of Category A and {groupBTraitPercentage}% of the remaining category qualify. Determine the total qualifying percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-330": {
+        "template": "If the following conditions hold: {groupAPercentage}% belong to Category A. {groupATraitPercentage}% of Category A and {groupBTraitPercentage}% of the remaining category qualify. Find the total qualifying percentage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-430": {
+        "template": "Based on given parameters, {groupAPercentage}% belong to Category A. {groupATraitPercentage}% of Category A and {groupBTraitPercentage}% of the remaining category qualify. Find the total qualifying percentage.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-032": {
+        "template": "A vessel has {initialVolume} litres of milk. {replacementVolume} litres are taken out and replaced with water each time. After {numberOfOperations} operations, what percent of the original milk remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-132": {
+        "template": "In a competitive exam setup, a vessel has {initialVolume} litres of milk. {replacementVolume} litres are taken out and replaced with water each time. After {numberOfOperations} operations, what percent of the original milk remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-232": {
+        "template": "A vessel has {initialVolume} litres of milk. {replacementVolume} litres are taken out and replaced with water each time. After {numberOfOperations} operations, what percent of the original milk remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-332": {
+        "template": "If the following conditions hold: A vessel has {initialVolume} litres of milk. {replacementVolume} litres are taken out and replaced with water each time. After {numberOfOperations} operations, what percent of the original milk remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-432": {
+        "template": "Based on given parameters, A vessel has {initialVolume} litres of milk. {replacementVolume} litres are taken out and replaced with water each time. After {numberOfOperations} operations, what percent of the original milk remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-033": {
+        "template": "A stock has {initialVolume} items. Each time {replacementVolume} defective items are removed and replaced by good items. After {numberOfOperations} rounds, what percent of the original defective items remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-133": {
+        "template": "In a competitive exam setup, a stock has {initialVolume} items. Each time {replacementVolume} defective items are removed and replaced by good items. After {numberOfOperations} rounds, what percent of the original defective items remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-233": {
+        "template": "A stock has {initialVolume} items. Each time {replacementVolume} defective items are removed and replaced by good items. After {numberOfOperations} rounds, what percent of the original defective items remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-333": {
+        "template": "If the following conditions hold: A stock has {initialVolume} items. Each time {replacementVolume} defective items are removed and replaced by good items. After {numberOfOperations} rounds, what percent of the original defective items remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-433": {
+        "template": "Based on given parameters, A stock has {initialVolume} items. Each time {replacementVolume} defective items are removed and replaced by good items. After {numberOfOperations} rounds, what percent of the original defective items remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-035": {
+        "template": "A chemical solution has volume {initialVolume}. Each time {replacementVolume} is removed and replaced with water. After {numberOfOperations} operations, what percent of the original chemical remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-135": {
+        "template": "In a competitive exam setup, a chemical solution has volume {initialVolume}. Each time {replacementVolume} is removed and replaced with water. After {numberOfOperations} operations, what percent of the original chemical remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-235": {
+        "template": "A chemical solution has volume {initialVolume}. Each time {replacementVolume} is removed and replaced with water. After {numberOfOperations} operations, what percent of the original chemical remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-335": {
+        "template": "If the following conditions hold: A chemical solution has volume {initialVolume}. Each time {replacementVolume} is removed and replaced with water. After {numberOfOperations} operations, what percent of the original chemical remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-435": {
+        "template": "Based on given parameters, A chemical solution has volume {initialVolume}. Each time {replacementVolume} is removed and replaced with water. After {numberOfOperations} operations, what percent of the original chemical remains?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-056": {
+        "template": "A vessel contains {initialVolume} litres of milk. {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-156": {
+        "template": "In a competitive exam setup, a vessel contains {initialVolume} litres of milk. {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-256": {
+        "template": "A vessel contains {initialVolume} litres of milk. {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of the contents are removed and replaced with water successively. Determine the final percentage of milk in the vessel.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-356": {
+        "template": "If the following conditions hold: A vessel contains {initialVolume} litres of milk. {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-456": {
+        "template": "Based on given parameters, A vessel contains {initialVolume} litres of milk. {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-057": {
+        "template": "From a tank of {initialVolume} litres full of acid, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% are removed and replaced with water successively. Find the final concentration of acid.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-157": {
+        "template": "In a competitive exam setup, from a tank of {initialVolume} litres full of acid, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% are removed and replaced with water successively. Find the final concentration of acid.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-257": {
+        "template": "From a tank of {initialVolume} litres full of acid, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% are removed and replaced with water successively. Determine the final concentration of acid.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-357": {
+        "template": "If the following conditions hold: From a tank of {initialVolume} litres full of acid, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% are removed and replaced with water successively. Find the final concentration of acid.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-457": {
+        "template": "Based on given parameters, From a tank of {initialVolume} litres full of acid, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% are removed and replaced with water successively. Find the final concentration of acid.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-058": {
+        "template": "In a batch of {initialVolume} items, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-158": {
+        "template": "In a competitive exam setup, in a batch of {initialVolume} items, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-258": {
+        "template": "In a batch of {initialVolume} items, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of defective items are replaced by good items in three stages. Determine the remaining percentage of original defective items.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-358": {
+        "template": "If the following conditions hold: In a batch of {initialVolume} items, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-458": {
+        "template": "Based on given parameters, In a batch of {initialVolume} items, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-038": {
+        "template": "{polledPercentage}% voters voted. {invalidPercentage}% votes were invalid. Winner got {winnerPercentage}% valid votes and won by {voteMargin}. Find total voters.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-138": {
+        "template": "In a competitive exam setup, {polledPercentage}% voters voted. {invalidPercentage}% votes were invalid. Winner got {winnerPercentage}% valid votes and won by {voteMargin}. Find total voters.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-238": {
+        "template": "{polledPercentage}% voters voted. {invalidPercentage}% votes were invalid. Winner got {winnerPercentage}% valid votes and won by {voteMargin}. Determine total voters.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-338": {
+        "template": "If the following conditions hold: {polledPercentage}% voters voted. {invalidPercentage}% votes were invalid. Winner got {winnerPercentage}% valid votes and won by {voteMargin}. Find total voters.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-438": {
+        "template": "Based on given parameters, {polledPercentage}% voters voted. {invalidPercentage}% votes were invalid. Winner got {winnerPercentage}% valid votes and won by {voteMargin}. Find total voters.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-044": {
+        "template": "A city has population {initialCount}. {firstPassPercentage}% are literate, {secondPassPercentage}% of the literate are employed, and {thirdPassPercentage}% of the employed are government employees. Find the final count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-144": {
+        "template": "In a competitive exam setup, a city has population {initialCount}. {firstPassPercentage}% are literate, {secondPassPercentage}% of the literate are employed, and {thirdPassPercentage}% of the employed are government employees. Find the final count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-244": {
+        "template": "A city has population {initialCount}. {firstPassPercentage}% are literate, {secondPassPercentage}% of the literate are employed, and {thirdPassPercentage}% of the employed are government employees. Determine the final count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-344": {
+        "template": "If the following conditions hold: A city has population {initialCount}. {firstPassPercentage}% are literate, {secondPassPercentage}% of the literate are employed, and {thirdPassPercentage}% of the employed are government employees. Find the final count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-444": {
+        "template": "Based on given parameters, A city has population {initialCount}. {firstPassPercentage}% are literate, {secondPassPercentage}% of the literate are employed, and {thirdPassPercentage}% of the employed are government employees. Find the final count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-045": {
+        "template": "An office has {initialCount} employees. {firstPassPercentage}% are female employees, {secondPassPercentage}% of them are graduates, and {thirdPassPercentage}% of the graduates are selected for training. Find the selected count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "In a competitive exam setup, an office has {initialCount} employees. {firstPassPercentage}% are female employees, {secondPassPercentage}% of them are graduates, and {thirdPassPercentage}% of the graduates are selected for training. Find the selected count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-245": {
+        "template": "An office has {initialCount} employees. {firstPassPercentage}% are female employees, {secondPassPercentage}% of them are graduates, and {thirdPassPercentage}% of the graduates are selected for training. Determine the selected count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-345": {
+        "template": "If the following conditions hold: An office has {initialCount} employees. {firstPassPercentage}% are female employees, {secondPassPercentage}% of them are graduates, and {thirdPassPercentage}% of the graduates are selected for training. Find the selected count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-445": {
+        "template": "Based on given parameters, An office has {initialCount} employees. {firstPassPercentage}% are female employees, {secondPassPercentage}% of them are graduates, and {thirdPassPercentage}% of the graduates are selected for training. Find the selected count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-046": {
+        "template": "A school has {initialCount} students. {firstPassPercentage}% passed, {secondPassPercentage}% of the passed students got first division, and {thirdPassPercentage}% of them received scholarships. Find the final number.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "In a competitive exam setup, a school has {initialCount} students. {firstPassPercentage}% passed, {secondPassPercentage}% of the passed students got first division, and {thirdPassPercentage}% of them received scholarships. Find the final number.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-246": {
+        "template": "A school has {initialCount} students. {firstPassPercentage}% passed, {secondPassPercentage}% of the passed students got first division, and {thirdPassPercentage}% of them received scholarships. Determine the final number.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-346": {
+        "template": "If the following conditions hold: A school has {initialCount} students. {firstPassPercentage}% passed, {secondPassPercentage}% of the passed students got first division, and {thirdPassPercentage}% of them received scholarships. Find the final number.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-446": {
+        "template": "Based on given parameters, A school has {initialCount} students. {firstPassPercentage}% passed, {secondPassPercentage}% of the passed students got first division, and {thirdPassPercentage}% of them received scholarships. Find the final number.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

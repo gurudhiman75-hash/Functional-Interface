@@ -1,0 +1,62 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": { "template": "The {wholeLabel} increased by {increaseRate}%. If the original {wholeLabel} was {valuePrefix}{originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" },
+      "PCT-QL-002": { "template": "The {wholeLabel} increased by {increaseRate}%. If the original {wholeLabel} was {originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-003": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} increased by {increaseRate}%. Find the increase amount only.", "difficulty": "Easy" },
+      "PCT-QL-004": { "template": "The {wholeLabel} was {originalValue} and it increased by {increaseRate}%. Find the increase count only.", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-005": { "template": "After a {increaseRate}% increase, the {wholeLabel} became {valuePrefix}{increasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" },
+      "PCT-QL-006": { "template": "After a {increaseRate}% increase, the {wholeLabel} became {increasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-007": { "template": "Find the equivalent multiplier for a {increaseRate}% increase in the {wholeLabel}.", "difficulty": "Easy" },
+      "PCT-QL-008": { "template": "A {wholeLabel} increases by {increaseRate}%. What multiplier represents this increase?", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-009": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Medium" },
+      "PCT-QL-010": { "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% and then by {rate2}%. Find the new {wholeLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-011": { "template": "A {wholeLabel} increased first by {rate1}% and then by {rate2}%. Find the overall percentage increase.", "difficulty": "Medium" },
+      "PCT-QL-012": { "template": "The {wholeLabel} increased by {rate1}% and then again by {rate2}%. Find the net percentage increase.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-013": { "template": "{labelA} was {valuePrefix}{originalA} and increased by {rateA}%. {labelB} was {valuePrefix}{originalB} and increased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" },
+      "PCT-QL-014": { "template": "{labelA} was {originalA} and increased by {rateA}%. {labelB} was {originalB} and increased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-015": { "template": "In a group of {totalValue} {wholeLabel}, {partRate}% were {partLabel} and the rest were {otherLabel}. If the number of {partLabel} increased by {partIncreaseRate}% and the number of {otherLabel} increased by {otherIncreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" },
+      "PCT-QL-016": { "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel}. After increasing {partLabel} by {partIncreaseRate}% and {otherLabel} by {otherIncreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-017": { "template": "The current {wholeLabel} is {valuePrefix}{currentValue} and it must become {valuePrefix}{targetValue}. Find the required percentage increase.", "difficulty": "Easy" },
+      "PCT-QL-018": { "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. Find the required percentage increase.", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-019": { "template": "A {wholeLabel} of {currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" },
+      "PCT-QL-020": { "template": "A {wholeLabel} of {valuePrefix}{currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" }
+    }
+  }
+}

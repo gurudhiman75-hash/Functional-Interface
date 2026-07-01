@@ -16,7 +16,10 @@ import { runRap001Pipeline } from "./pipeline";
 import { solveRap001 } from "./solver";
 import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Parameters, type Rap001Variables } from "./types";
 
-const packageDir = path.join(process.cwd(), "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001");
+const apiRoot = fs.existsSync(path.join(process.cwd(), "src/quant-v4"))
+  ? process.cwd()
+  : path.join(process.cwd(), "artifacts/api-server");
+const packageDir = path.join(apiRoot, "src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001");
 const cpIds = getRap001ActiveCanonicalProblemIds();
 const seenCp = new Set<string>();
 const seenDifficulty = new Set<string>();
@@ -57,13 +60,13 @@ function assertFixedCase(cpId: Rap001CanonicalProblemId, qlId: string, variables
   }
 }
 
-assertFixedCase("RAP-CP-001", "RAP-QL-001", { personA: "A", personB: "B", personC: "C", ratioA1: 2, ratioB1: 3, ratioB2: 6, ratioC2: 5 }, "4:6:5", "RATIO");
-assertFixedCase("RAP-CP-001", "RAP-QL-004", { groupName: "class", personA: "boys", personB: "girls", ratioA: 2, ratioB: 3, valueA: 20 }, "30", "COUNT");
-assertFixedCase("RAP-CP-002", "RAP-QL-011", { personA: "Aman", ratioExp: 3, ratioSav: 2, totalSalary: 5000 }, "2000", "ABSOLUTE");
-assertFixedCase("RAP-CP-003", "RAP-QL-014", { ratioA: 2, ratioB: 3, transferredCount: 4, finalRatioA: 3, finalRatioB: 4 }, "12", "COUNT");
-assertFixedCase("RAP-CP-004", "RAP-QL-017", { numA: 9, numB: 16 }, "12", "ABSOLUTE");
-assertFixedCase("RAP-CP-005", "RAP-QL-022", { denom1: 1, denom2: 2, denom3: 5, ratio1: 2, ratio2: 3, ratio3: 1, totalValue: 52, targetDenom: 2 }, "12", "COUNT");
-assertFixedCase("RAP-CP-006", "RAP-QL-032", { acidVolume: 5, waterVolume: 15 }, "25%", "PERCENT");
+assertFixedCase("RAP-CP-001", "RAP-QL-001", { personA: "A", personB: "B", personC: "C", ratioA1: 2, ratioB1: 3, ratioB2: 6, ratioC2: 5 }, "$$4 : 6 : 5$$", "RATIO");
+assertFixedCase("RAP-CP-001", "RAP-QL-004", { groupName: "class", personA: "boys", personB: "girls", ratioA: 2, ratioB: 3, valueA: 20 }, "$$30$$", "COUNT");
+assertFixedCase("RAP-CP-002", "RAP-QL-011", { personA: "Aman", ratioExp: 3, ratioSav: 2, totalSalary: 5000 }, "$$2000$$", "ABSOLUTE");
+assertFixedCase("RAP-CP-003", "RAP-QL-014", { ratioA: 2, ratioB: 3, transferredCount: 4, finalRatioA: 3, finalRatioB: 4 }, "$$12$$", "COUNT");
+assertFixedCase("RAP-CP-004", "RAP-QL-017", { numA: 9, numB: 16 }, "$$12$$", "ABSOLUTE");
+assertFixedCase("RAP-CP-005", "RAP-QL-022", { denom1: 1, denom2: 2, denom3: 5, ratio1: 2, ratio2: 3, ratio3: 1, totalValue: 52, targetDenom: 2 }, "$$12$$", "COUNT");
+assertFixedCase("RAP-CP-006", "RAP-QL-032", { acidVolume: 5, waterVolume: 15 }, "$$25\\%$$", "PERCENT");
 
 for (let index = 0; index < 1000; index += 1) {
   const cpId = cpIds[index % cpIds.length]!;

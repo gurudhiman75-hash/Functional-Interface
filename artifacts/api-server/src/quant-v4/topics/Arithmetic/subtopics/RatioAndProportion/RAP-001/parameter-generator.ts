@@ -20,6 +20,20 @@ type RangeEntry = VariableRangeMap[string];
 
 const VARIABLE_SYMBOLS = ["x", "y", "z", "p", "q"];
 
+const CONTAINER_NOUNS: Record<string, string[]> = {
+  family: ["family", "household"],
+  school: ["school", "class"],
+  workers: ["factory", "office", "company"],
+  mixtures: ["vessel", "mixture", "container"],
+  coins: ["bag", "box", "purse"],
+  marks: ["examination", "test"]
+};
+
+const CONTAINER_ENTITIES: Record<string, string[]> = {
+  school: ["students"],
+  workers: ["workers", "employees"]
+};
+
 export interface Rap001ParameterInput {
   seed?: string;
   language?: Rap001Language;
@@ -112,9 +126,32 @@ function compatibleEntities(domainName: string, primaryId: string, exclusions: r
 }
 
 function semanticEntityValue(name: string, seed: string, scenario = "family", exclusions: readonly string[] = []): string {
+  if (name === "contextName" || name === "groupName") {
+    const list = CONTAINER_NOUNS[scenario] ?? [scenario];
+    return pick(list, seed);
+  }
   const domainName = semanticDomainForVariable(name, scenario);
-  const entities = semanticEntities(domainName).filter((entity) => !exclusions.includes(entity.id));
-  if (entities.length) return pickWeighted(entities, entityWeight, `${seed}:${name}:${domainName}`).id;
+  const allDomainEntities = semanticEntities(domainName);
+  
+  // 1. Try with full exclusions (avoiding duplicates and container groups)
+  let entities = allDomainEntities.filter((entity) => !exclusions.includes(entity.id));
+  if (entities.length) {
+    return pickWeighted(entities, entityWeight, `${seed}:${name}:${domainName}`).id;
+  }
+  
+  // 2. Fallback: ignore container exclusions (e.g. students), but avoid duplicates
+  const domainExclusions = CONTAINER_ENTITIES[domainName] ?? [];
+  const chosenOnlyExclusions = exclusions.filter((id) => !domainExclusions.includes(id));
+  entities = allDomainEntities.filter((entity) => !chosenOnlyExclusions.includes(entity.id));
+  if (entities.length) {
+    return pickWeighted(entities, entityWeight, `${seed}:${name}:${domainName}:fallback1`).id;
+  }
+
+  // 3. Last resort fallback: pick from all entities in the domain (allow duplicates)
+  if (allDomainEntities.length) {
+    return pickWeighted(allDomainEntities, entityWeight, `${seed}:${name}:${domainName}:fallback2`).id;
+  }
+
   if (name === "mixtureType") return "mixture";
   if (name === "varX" || name === "varY") return pick(VARIABLE_SYMBOLS, `${seed}:${name}`);
   return name;
@@ -122,8 +159,10 @@ function semanticEntityValue(name: string, seed: string, scenario = "family", ex
 
 function uniqueEntityIds(variableName: string, count: number, seed: string, scenario = "family") {
   const chosen: string[] = [];
+  const domainName = semanticDomainForVariable(variableName, scenario);
+  const domainExclusions = count > 2 ? (CONTAINER_ENTITIES[domainName] ?? []) : [];
   for (let index = 0; index < count; index += 1) {
-    chosen.push(semanticEntityValue(variableName, `${seed}:${index}`, scenario, chosen));
+    chosen.push(semanticEntityValue(variableName, `${seed}:${index}`, scenario, [...chosen, ...domainExclusions]));
   }
   return chosen;
 }
@@ -133,11 +172,14 @@ function uniqueIdsForVariables(variableNames: readonly string[], seed: string, s
   return variableNames.map((variableName, index) => {
     const domain = semanticDomainForVariable(variableName, scenario);
     const exclusions = exclusionsByDomain.get(domain) ?? [...initialExclusions];
-    let id = semanticEntityValue(variableName, `${seed}:${variableName}:${index}`, scenario, exclusions);
+    const domainExclusions = variableNames.length > 2 ? (CONTAINER_ENTITIES[domain] ?? []) : [];
+    const combinedExclusions = [...exclusions, ...domainExclusions];
+    
+    let id = semanticEntityValue(variableName, `${seed}:${variableName}:${index}`, scenario, combinedExclusions);
     if (index > 0) {
       const last = exclusions[exclusions.length - 1];
       if (last) {
-        const compatible = compatibleEntities(domain, last, exclusions);
+        const compatible = compatibleEntities(domain, last, combinedExclusions);
         if (compatible.length) id = pickWeighted(compatible, entityWeight, `${seed}:${variableName}:compatible:${index}`).id;
       }
     }
@@ -236,10 +278,9 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.valueA = ratioA * unit;
-    output.groupName = semanticEntityValue("groupName", `${seed}:groupName`, scenario);
-    const [personA, personB] = uniqueIdsForVariables(["personA", "personB"], `${seed}:pair`, scenario, [String(output.groupName)]);
-    output.personA = personA;
-    output.personB = personB;
+    output.groupName = "class";
+    output.personA = "boys";
+    output.personB = "girls";
   }
 
   if (taskKind === "decimalNormalization") {
@@ -312,8 +353,9 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const initialA = ratioA * unit;
     const initialB = ratioB * unit;
     const finalRatio = simplifyRatio([initialA + addedCount, initialB]);
-    output.contextName = semanticEntityValue("contextName", `${seed}:contextName`, scenario);
-    [output.groupA, output.groupB] = uniqueIdsForVariables(["groupA", "groupB"], `${seed}:groups`, scenario, [String(output.contextName)]);
+    output.contextName = "class";
+    output.groupA = "boys";
+    output.groupB = "girls";
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.addedCount = addedCount;
@@ -328,8 +370,9 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const maxRemoved = ratioA * unit - 1;
     const removedCount = pickInt(2, Math.max(2, Math.min(20, maxRemoved)), `${seed}:removedCount`);
     const finalRatio = simplifyRatio([ratioA * unit - removedCount, ratioB * unit]);
-    output.contextName = semanticEntityValue("contextName", `${seed}:contextName`, scenario);
-    [output.groupA, output.groupB] = uniqueIdsForVariables(["groupA", "groupB"], `${seed}:groups`, scenario, [String(output.contextName)]);
+    output.contextName = "class";
+    output.groupA = "boys";
+    output.groupB = "girls";
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.removedCount = removedCount;

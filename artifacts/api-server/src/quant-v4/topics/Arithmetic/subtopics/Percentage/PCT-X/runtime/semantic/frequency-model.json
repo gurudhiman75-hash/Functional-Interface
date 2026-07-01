@@ -1,0 +1,19 @@
+{
+  "probabilities": {
+    "common": 0.8,
+    "uncommon": 0.18,
+    "rare": 0.02
+  },
+  "assignments": {
+    "students": "common",
+    "milk": "common",
+    "water": "common",
+    "petrol": "common",
+    "diesel": "common",
+    "acid": "uncommon",
+    "mercury": "rare",
+    "commission": "common",
+    "salesman": "common",
+    "income_slabs": "uncommon"
+  }
+}

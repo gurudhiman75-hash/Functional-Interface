@@ -1,0 +1,4 @@
+- Misconception 1: Dividing {value1} marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying {value1} marks by {rate1}% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit "marks" and providing a bare number like {answer}.

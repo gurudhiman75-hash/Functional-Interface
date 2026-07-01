@@ -51,7 +51,7 @@ export function runPct001Pipeline(cpId: Pct001CanonicalProblemId, input: Pct001P
 }
 
 export function runPct001ForLanguages(cpId: Pct001CanonicalProblemId, input: Pct001ParameterInput = {}) {
-  const base = generatePct001Parameters(cpId, { ...input, language: "en" });
+  const base = generatePct001Parameters(cpId, { ...input, language: "hi", questionLanguageId: undefined });
   return (["en", "hi", "pa"] as Pct001Language[]).map((language) =>
     runPct001Pipeline(cpId, {
       ...input,

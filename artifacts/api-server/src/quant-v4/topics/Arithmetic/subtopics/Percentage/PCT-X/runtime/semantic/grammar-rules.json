@@ -1,0 +1,30 @@
+{
+  "hi": {
+    "verbs": {
+      "include": {
+        "male_singular": "शामिल है",
+        "female_singular": "शामिल है",
+        "plural": "शामिल हैं"
+      },
+      "replace": {
+        "male_singular": "बदला जाता है",
+        "female_singular": "बदली जाती है",
+        "plural": "बदले जाते हैं"
+      }
+    }
+  },
+  "pa": {
+    "verbs": {
+      "include": {
+        "male_singular": "ਸ਼ਾਮਲ ਹੈ",
+        "female_singular": "ਸ਼ਾਮਲ ਹੈ",
+        "plural": "ਸ਼ਾਮਲ ਹਨ"
+      },
+      "replace": {
+        "male_singular": "ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ",
+        "female_singular": "ਬਦਲੀ ਜਾਂਦੀ ਹੈ",
+        "plural": "ਬਦਲੇ ਜਾਂਦੇ ਹਨ"
+      }
+    }
+  }
+}

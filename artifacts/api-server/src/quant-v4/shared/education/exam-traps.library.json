@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "status": "foundation",
+    "owner": "quant-v4-platform",
+    "description": "Reusable misconception and trap library for Quant V4 explanations and audits."
+  },
+  "traps": [
+    {
+      "id": "TRAP-PCT-001",
+      "topic": "percentage",
+      "misconception": "+20% followed by -20% gives no net change.",
+      "whyItHappens": "Learners add percentage rates without noticing that the second percentage is applied on a changed base.",
+      "correction": "Use multipliers: 1.20 × 0.80 = 0.96, so the net result is a 4% decrease.",
+      "detectionHints": ["successive change", "increase then decrease", "decrease then increase"],
+      "examples": [{"id":"EX-TRAP-PCT-001-A","prompt":"A price increases by 20% and then decreases by 20%.","teachingMove":"Compare multipliers, not rates.","result":"4% decrease"}],
+      "tags": ["successive-change", "base-shift"]
+    },
+    {
+      "id": "TRAP-PCT-002",
+      "topic": "percentage",
+      "misconception": "Percentage points and percentage change are the same.",
+      "whyItHappens": "Both use percent notation, but one is absolute difference between rates and the other is relative change.",
+      "correction": "State whether the task asks for point difference or relative percent change.",
+      "detectionHints": ["rate changed from", "percentage points", "relative increase"],
+      "tags": ["terminology", "rates"]
+    },
+    {
+      "id": "TRAP-RATIO-001",
+      "topic": "ratio",
+      "misconception": "Ratios can be added term-wise across unrelated totals.",
+      "whyItHappens": "The visible ratio terms are treated as actual counts even when totals differ.",
+      "correction": "Convert ratios to actual quantities or a common total before combining.",
+      "detectionHints": ["two classes", "two mixtures", "different totals"],
+      "examples": [{"id":"EX-TRAP-RATIO-001-A","prompt":"Class A has boys:girls 2:3 and Class B has 3:4.","teachingMove":"Do not say combined ratio is 5:7 unless class sizes support it."}],
+      "tags": ["combining-ratios"]
+    },
+    {
+      "id": "TRAP-RATIO-002",
+      "topic": "ratio",
+      "misconception": "A ratio term is the same as a percentage share.",
+      "whyItHappens": "Learners read 2:5 as 2 out of 5 instead of 2 out of 7 parts.",
+      "correction": "Add all ratio parts before converting a term to a fraction or percentage share.",
+      "detectionHints": ["share", "total parts", "fraction of total"],
+      "tags": ["parts", "share"]
+    },
+    {
+      "id": "TRAP-AVG-001",
+      "topic": "average",
+      "misconception": "Average can be combined by averaging averages directly.",
+      "whyItHappens": "Group sizes are ignored.",
+      "correction": "Convert each average into total using its count, then combine totals and counts.",
+      "detectionHints": ["average of two groups", "different counts"],
+      "tags": ["weighted-average"]
+    },
+    {
+      "id": "TRAP-AVG-002",
+      "topic": "average",
+      "misconception": "Average is the same as total.",
+      "whyItHappens": "The word average is treated as a standalone value without multiplying by count.",
+      "correction": "Recover total as average × count whenever total contribution matters.",
+      "detectionHints": ["new item added", "removed item", "combined group"],
+      "tags": ["total", "count"]
+    },
+    {
+      "id": "TRAP-PL-001",
+      "topic": "profit-loss",
+      "misconception": "Profit percentage is calculated on selling price.",
+      "whyItHappens": "Selling price is more visible in the question, so learners use it as the base.",
+      "correction": "Profit and loss percentages use cost price as base unless explicitly stated otherwise.",
+      "detectionHints": ["profit percent", "loss percent", "CP unknown"],
+      "tags": ["base", "cp-sp"]
+    },
+    {
+      "id": "TRAP-TW-001",
+      "topic": "time-work",
+      "misconception": "More days means greater efficiency.",
+      "whyItHappens": "Days are read as output instead of time taken for the same work.",
+      "correction": "Efficiency is inverse of time taken for equal work.",
+      "detectionHints": ["finishes in", "takes days", "efficiency ratio"],
+      "tags": ["inverse", "efficiency"]
+    },
+    {
+      "id": "TRAP-TSD-001",
+      "topic": "time-speed-distance",
+      "misconception": "Average speed equals average of speeds in equal-distance travel.",
+      "whyItHappens": "Learners average the two speed values without considering time spent.",
+      "correction": "For equal distances, use harmonic average: 2ab/(a+b).",
+      "detectionHints": ["same distance", "go and return", "average speed"],
+      "tags": ["average-speed"]
+    },
+    {
+      "id": "TRAP-SI-001",
+      "topic": "simple-interest",
+      "misconception": "Simple interest compounds every year.",
+      "whyItHappens": "Interest problems are generalized without distinguishing SI and CI.",
+      "correction": "In SI, interest is calculated on original principal only.",
+      "detectionHints": ["simple interest", "for n years"],
+      "tags": ["interest", "principal"]
+    },
+    {
+      "id": "TRAP-CI-001",
+      "topic": "compound-interest",
+      "misconception": "Compound interest can be found by multiplying rate by years for all cases.",
+      "whyItHappens": "Learners transfer SI logic to CI.",
+      "correction": "Use repeated growth multipliers for each compounding period.",
+      "detectionHints": ["compound", "annually", "half-yearly"],
+      "tags": ["compound", "multiplier"]
+    },
+    {
+      "id": "TRAP-MA-001",
+      "topic": "mixture-alligation",
+      "misconception": "Mixture concentration can lie outside component concentrations.",
+      "whyItHappens": "Arithmetic is performed without checking whether the final value is realistic.",
+      "correction": "A mixture of two components must have concentration between the two component concentrations.",
+      "detectionHints": ["mixture", "concentration", "alligation"],
+      "tags": ["range-check"]
+    },
+    {
+      "id": "TRAP-ALG-001",
+      "topic": "algebra",
+      "misconception": "Translate phrases in written order without checking operation direction.",
+      "whyItHappens": "Language order is mistaken for equation order.",
+      "correction": "Identify the relationship first, then write the equation.",
+      "detectionHints": ["less than", "more than", "subtracted from"],
+      "tags": ["translation"]
+    }
+  ]
+}

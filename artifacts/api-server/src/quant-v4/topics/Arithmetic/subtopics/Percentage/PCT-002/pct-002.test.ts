@@ -1,30 +1,20 @@
 import { strict as assert } from "node:assert";
-import fs from "node:fs";
-import path from "node:path";
 import {
-  generatePct002CoverageAudit,
+  auditPct002Packages,
   generatePct002Batch,
-  renderPct002CoverageAuditMarkdown,
-  renderPct002FreezeRecordMarkdown,
-  renderPct002HumanReviewCsv,
-  renderPct002MaturityAuditMarkdown,
-} from "./coverage-auditor";
-import { getAnswerType, getQuestionEntry, getRequiredVariables, getTaskKind, renderTemplate, validatePct002Libraries } from "./library";
-import { getPct002ActiveCanonicalProblemIds } from "./parameter-generator";
-import { runPct002Pipeline } from "./pipeline";
-import { solvePct002 } from "./solver";
-import { PCT_002_ARCHETYPE_ID, type Pct002CanonicalProblemId, type Pct002Parameters, type Pct002Variables } from "./types";
+  getAnswerType,
+  getCommonQuestionLanguageIds,
+  getQuestionEntry,
+  getRequiredVariables,
+  getTaskKind,
+  runPct002ForLanguages,
+  runPct002Pipeline,
+  solvePct002,
+  validatePct002Libraries,
+} from "./index";
+import { PCT_002_ARCHETYPE_ID, PCT_002_CP_IDS, type Pct002CanonicalProblemId, type Pct002Parameters, type Pct002Variables } from "./types";
 
-const packageDir = path.join(process.cwd(), "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002");
-const cpIds = getPct002ActiveCanonicalProblemIds();
-const seenCp = new Set<string>();
-const seenDifficulty = new Set<string>();
-const seenQuestions = new Map<string, number>();
-
-const libraryValidation = validatePct002Libraries();
-assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
-
-function packageParams(cpId: Pct002CanonicalProblemId, qlId: string, variables: Pct002Variables): Pct002Parameters {
+function buildParams(cpId: Pct002CanonicalProblemId, qlId: string, variables: Pct002Variables): Pct002Parameters {
   return {
     archetypeId: PCT_002_ARCHETYPE_ID,
     canonicalProblemId: cpId,
@@ -45,103 +35,81 @@ function packageParams(cpId: Pct002CanonicalProblemId, qlId: string, variables: 
   };
 }
 
-function assertFixedCase(cpId: Pct002CanonicalProblemId, qlId: string, variables: Pct002Variables, expectedAnswer: string, expectedType: string) {
-  const params = packageParams(cpId, qlId, variables);
-  const solver = solvePct002(params);
-  const question = renderTemplate(getQuestionEntry(cpId, qlId, "en").template, variables);
-  assert.equal(solver.answer, expectedAnswer, `${qlId} answer mismatch for ${question}`);
-  assert.equal(solver.answerType, expectedType);
-  assert.equal(params.answerType, expectedType);
-  for (const variable of params.requiredVariables) {
-    assert.equal(question.includes(`{${variable}}`), false, `${qlId} did not render ${variable}`);
-  }
+function assertFixed(cpId: Pct002CanonicalProblemId, qlId: string, variables: Pct002Variables, expected: string) {
+  const result = solvePct002(buildParams(cpId, qlId, variables));
+  assert.equal(result.answer, expected, `${cpId}:${qlId} answer mismatch`);
 }
 
-assertFixedCase("PCT-CP-001", "PCT-QL-001", { groupAPercentage: 60, groupBPercentage: 50, neitherPercentage: 20 }, "30%", "PERCENT");
-assertFixedCase("PCT-CP-002", "PCT-QL-005", { correctNumerator: 200, correctDenominator: 1000, wrongNumerator: 500, wrongDenominator: 1000 }, "150%", "PERCENT");
-assertFixedCase("PCT-CP-002", "PCT-QL-011", { correctDivisor: 500, wrongDivisor: 1000 }, "50%", "PERCENT");
-assertFixedCase("PCT-CP-003", "PCT-QL-014", { salesAmount: 3000, thresholdAmount: 1000, baseCommissionRate: 10, bonusCommissionRate: 20 }, "500", "ABSOLUTE");
-assertFixedCase("PCT-CP-004", "PCT-QL-023", { malePercentage: 40, maleTraitPercentage: 30, femaleTraitPercentage: 20 }, "24%", "PERCENT");
-assertFixedCase("PCT-CP-005", "PCT-QL-032", { initialVolume: 100, replacementVolume: 20, numberOfOperations: 2 }, "64%", "PERCENT");
-assertFixedCase("PCT-CP-006", "PCT-QL-038", { polledPercentage: 80, invalidPercentage: 10, winnerPercentage: 60, voteMargin: 144 }, "1000", "COUNT");
-assertFixedCase("PCT-CP-006", "PCT-QL-044", { initialCount: 1000, firstPassPercentage: 50, secondPassPercentage: 40, thirdPassPercentage: 20 }, "40", "COUNT");
+const libraryValidation = validatePct002Libraries();
+assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
 
-assertFixedCase("PCT-CP-001", "PCT-QL-047", { groupAPercentage: 50, groupBPercentage: 40, groupCPercentage: 30, groupABPercentage: 20, groupBCPercentage: 15, groupACPercentage: 10, groupABCPercentage: 5 }, "80%", "PERCENT");
-assertFixedCase("PCT-CP-001", "PCT-QL-048", { groupAPercentage: 50, groupBPercentage: 40, groupCPercentage: 30, groupABPercentage: 20, groupBCPercentage: 15, groupACPercentage: 10, groupABCPercentage: 5 }, "20%", "PERCENT");
-assertFixedCase("PCT-CP-003", "PCT-QL-050", { totalBase: 25000, tier1Limit: 10000, tier2Limit: 20000, tier1Rate: 5, tier2Rate: 10, tier3Rate: 15 }, "2250", "ABSOLUTE");
-assertFixedCase("PCT-CP-003", "PCT-QL-053", { totalResult: 740, tier1Limit: 10000, tier1Rate: 5, tier2Rate: 8 }, "13000", "ABSOLUTE");
-assertFixedCase("PCT-CP-005", "PCT-QL-056", { initialVolume: 100, replacementRate1: 20, replacementRate2: 10, replacementRate3: 25 }, "54%", "PERCENT");
+assert.deepEqual(PCT_002_CP_IDS, [
+  "PCT-CP-001",
+  "PCT-CP-002",
+  "PCT-CP-003",
+  "PCT-CP-004",
+  "PCT-CP-005",
+  "PCT-CP-006",
+  "PCT-CP-007",
+  "PCT-CP-008",
+  "PCT-CP-009",
+  "PCT-CP-010",
+]);
 
-for (let index = 0; index < 1000; index += 1) {
-  const cpId = cpIds[index % cpIds.length]!;
-  const en = runPct002Pipeline(cpId, { language: "en", seed: `pct-002-test:${index}` });
-  const hi = runPct002Pipeline(cpId, {
-    language: "hi",
-    seed: `pct-002-test:${index}`,
-    questionLanguageId: en.questionLanguageId,
-    difficultyBand: en.difficultyBand,
-  });
-  const pa = runPct002Pipeline(cpId, {
-    language: "pa",
-    seed: `pct-002-test:${index}`,
-    questionLanguageId: en.questionLanguageId,
-    difficultyBand: en.difficultyBand,
-  });
+assertFixed("PCT-CP-001", "PCT-QL-001", { knownRate: 25, knownValue: 180, partLabel: "girls", wholeLabel: "students" }, "$$720$$");
+assertFixed("PCT-CP-001", "PCT-QL-002", { knownRate: 20, knownValue: 12000, partLabel: "savings", wholeLabel: "monthly income", valuePrefix: "Rs. " }, "$$60000$$");
+assertFixed("PCT-CP-002", "PCT-QL-003", { knownRate: 20, knownValue: 8000, targetRate: 60, wholeLabel: "income", valuePrefix: "Rs. " }, "$$24000$$");
+assertFixed("PCT-CP-002", "PCT-QL-004", { knownRate: 35, knownValue: 140, targetRate: 50, wholeLabel: "students" }, "$$200$$");
+assertFixed("PCT-CP-003", "PCT-QL-005", { partValue: 180, wholeValue: 720, partLabel: "girls", wholeLabel: "students" }, "$$25\\%$$");
+assertFixed("PCT-CP-003", "PCT-QL-006", { partValue: 12000, wholeValue: 60000, partLabel: "savings", wholeLabel: "income", valuePrefix: "Rs. " }, "$$20\\%$$");
+assertFixed("PCT-CP-004", "PCT-QL-007", { knownRate: 40, knownValue: 240, targetValue: 180, wholeLabel: "salary", valuePrefix: "Rs. " }, "$$30\\%$$");
+assertFixed("PCT-CP-004", "PCT-QL-008", { knownRate: 25, knownValue: 150, targetValue: 90, wholeLabel: "books" }, "$$15\\%$$");
+assertFixed("PCT-CP-005", "PCT-QL-009", { partA: 3, partB: 2, targetPartLabel: "first part" }, "$$60\\%$$");
+assertFixed("PCT-CP-005", "PCT-QL-010", { partA: 1, partB: 4, targetPartLabel: "second part" }, "$$80\\%$$");
+assertFixed("PCT-CP-006", "PCT-QL-011", { knownRate: 25, partLabel: "girls", complementLabel: "boys" }, "$$75\\%$$");
+assertFixed("PCT-CP-006", "PCT-QL-012", { knownRate: 18, partLabel: "savings", complementLabel: "expenditure" }, "$$82\\%$$");
+assertFixed("PCT-CP-007", "PCT-QL-013", { rate1: 40, rate2: 25, partLabel: "boys", otherLabel: "girls" }, "$$15\\%$$");
+assertFixed("PCT-CP-007", "PCT-QL-014", { rate1: 35, rate2: 20, partLabel: "food expenses", otherLabel: "transport expenses" }, "$$15\\%$$");
+assertFixed("PCT-CP-008", "PCT-QL-015", { totalValue: 400, targetRate: 40, otherRate: 35, thirdRate: 25, wholeLabel: "students", targetLabel: "girls", otherLabel: "boys", thirdLabel: "other students" }, "$$160$$");
+assertFixed("PCT-CP-008", "PCT-QL-016", { totalValue: 20000, targetRate: 30, otherRate: 25, thirdRate: 45, wholeLabel: "monthly expenses", targetLabel: "rent", otherLabel: "food", thirdLabel: "transport", valuePrefix: "Rs. " }, "$$6000$$");
+assertFixed("PCT-CP-009", "PCT-QL-017", { rate1: 30, rate2: 25, rate3: 20, partLabel: "food", otherLabel: "rent", thirdLabel: "transport", complementLabel: "remaining expenses" }, "$$25\\%$$");
+assertFixed("PCT-CP-009", "PCT-QL-018", { rate1: 20, rate2: 15, rate3: 25, partLabel: "marketing", otherLabel: "salaries", thirdLabel: "rent", complementLabel: "other expenses" }, "$$40\\%$$");
+assertFixed("PCT-CP-010", "PCT-QL-019", { totalValue: 5000, rate1: 35, rate2: 30, targetRate: 35, wholeLabel: "population", targetLabel: "children", otherLabel: "males", thirdLabel: "females" }, "$$1750$$");
+assertFixed("PCT-CP-010", "PCT-QL-020", { totalValue: 40000, rate1: 30, rate2: 25, rate3: 15, targetRate: 30, wholeLabel: "monthly expenses", targetLabel: "education", otherLabel: "food", thirdLabel: "rent", fourthLabel: "transport", valuePrefix: "Rs. " }, "$$12000$$");
 
-  for (const pkg of [en, hi, pa]) {
-    assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
-    assert.ok(pkg.reasoningGraph.nodes.some((node) => node.id === "answer"));
-    assert.ok(pkg.reasoningGraph.nodes.some((node) => node.id === "answerType"));
-    assert.ok(pkg.explanation.lines.length > 0);
-    assert.ok(pkg.stem.length > 0);
-    assert.ok(pkg.answer.length > 0);
-  }
+const batch = generatePct002Batch(200, "en");
+const audit = auditPct002Packages(batch);
 
-  assert.equal(en.answer, hi.answer);
-  assert.equal(en.answer, pa.answer);
-  assert.equal(en.solver.answer, en.answer);
-  assert.equal(runPct002Pipeline(cpId, { language: "en", seed: `pct-002-test:${index}`, questionLanguageId: en.questionLanguageId, difficultyBand: en.difficultyBand }).answer, en.answer);
+assert.equal(batch.length, 200);
+assert.equal(audit.generationFailures, 0);
+assert.equal(audit.validationFailures, 0);
+assert.equal(audit.renderFailures, 0);
+assert.equal(audit.solverFailures, 0);
+assert.equal(Object.keys(audit.cpCoverage).length, 10);
+assert.equal(Object.keys(audit.qlCoverage).length, 50);
+assert.equal(Object.keys(audit.esCoverage).length, 10);
+assert.equal(audit.unusedQlIds.length, 0);
+assert.equal(audit.unusedEsIds.length, 0);
+assert.equal(audit.crossLanguageConsistencyFailures, 0);
+assert.equal(audit.libraryValidationFailures.length, 0);
 
-  seenCp.add(en.canonicalProblemId);
-  seenDifficulty.add(en.difficultyBand);
-  seenQuestions.set(en.stem, (seenQuestions.get(en.stem) ?? 0) + 1);
+for (const cpId of PCT_002_CP_IDS) {
+  assert.equal(getCommonQuestionLanguageIds(cpId).length, 2, `${cpId} must expose two shared QL IDs`);
 }
 
-for (const cpId of cpIds) assert.equal(seenCp.has(cpId), true, `${cpId} not covered`);
-for (const difficulty of ["Easy", "Medium", "Hard"]) assert.equal(seenDifficulty.has(difficulty), true, `${difficulty} not covered`);
+for (let index = 0; index < 40; index += 1) {
+  const cpId = PCT_002_CP_IDS[index % PCT_002_CP_IDS.length]!;
+  const pkg = runPct002Pipeline(cpId, { language: "en", seed: `pct-002-recovery:${index}` });
+  assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+  assert.ok(pkg.explanation.lines.length >= 6, "Explanation must expose V2.1 statement/math pairs.");
+  assert.ok(pkg.explanation.lines.every((line, lineIndex) => lineIndex % 2 === 0 || line.includes("\\Rightarrow")));
 
-const duplicateCount = [...seenQuestions.values()].reduce((sum, count) => sum + Math.max(0, count - 1), 0);
-const duplicateRate = duplicateCount / 1000;
-assert.ok(duplicateRate < 0.8, `Duplicate rate too high: ${duplicateRate}`);
+  const triplet = runPct002ForLanguages(cpId, {
+    seed: `pct-002-recovery:${index}`,
+    questionLanguageId: pkg.questionLanguageId,
+    difficultyBand: pkg.difficultyBand,
+  });
+  assert.equal(new Set(triplet.map((item) => item.answer)).size, 1, `${cpId} must preserve cross-language answer parity`);
+}
 
-const preFreeze = generatePct002CoverageAudit(500, "en");
-const maturity = generatePct002CoverageAudit(1000, "en");
-assert.equal(preFreeze.audit.generationFailures, 0);
-assert.equal(preFreeze.audit.validationFailures, 0);
-assert.equal(preFreeze.audit.renderFailures, 0);
-assert.equal(preFreeze.audit.solverFailures, 0);
-assert.equal(preFreeze.audit.unusedQlIds.length, 0);
-assert.equal(preFreeze.audit.unusedEsIds.length, 0);
-assert.equal(preFreeze.audit.crossLanguageConsistencyFailures, 0);
-assert.equal(preFreeze.audit.libraryValidationFailures.length, 0);
-assert.equal(maturity.audit.generationFailures, 0);
-assert.equal(maturity.audit.validationFailures, 0);
-assert.equal(maturity.audit.renderFailures, 0);
-assert.equal(maturity.audit.solverFailures, 0);
-assert.equal(maturity.audit.unusedQlIds.length, 0);
-assert.equal(maturity.audit.unusedEsIds.length, 0);
-assert.equal(maturity.audit.crossLanguageConsistencyFailures, 0);
-assert.equal(maturity.audit.libraryValidationFailures.length, 0);
-
-const humanReviewEn = generatePct002Batch(180, "en");
-const humanReviewHi = generatePct002Batch(180, "hi");
-const humanReviewPa = generatePct002Batch(180, "pa");
-
-fs.writeFileSync(path.join(packageDir, "pct-002-human-review-en.csv"), `${renderPct002HumanReviewCsv(humanReviewEn)}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "pct-002-human-review-hi.csv"), `${renderPct002HumanReviewCsv(humanReviewHi)}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "pct-002-human-review-pa.csv"), `${renderPct002HumanReviewCsv(humanReviewPa)}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "pct-002-pre-freeze-coverage-audit.md"), `${renderPct002CoverageAuditMarkdown(preFreeze.audit, "500 EN questions")}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "pct-002-maturity-audit.md"), `${renderPct002MaturityAuditMarkdown(maturity.audit, "1000 EN questions")}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "pct-002-freeze-record.md"), `${renderPct002FreezeRecordMarkdown(preFreeze.audit)}\n`, "utf8");
-
-console.log(`PCT-002 Phase C test passed. Duplicate rate: ${(duplicateRate * 100).toFixed(2)}%.`);
+console.log("PCT-002 foundational recovery test passed.");

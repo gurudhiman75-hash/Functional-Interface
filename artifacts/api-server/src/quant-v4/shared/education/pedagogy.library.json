@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "status": "foundation",
+    "owner": "quant-v4-platform",
+    "description": "Reusable Quant V4 teaching principles for explanation design, review, and future maturity gates."
+  },
+  "rules": [
+    {
+      "id": "PED-001",
+      "title": "Explanation first, formula later",
+      "principle": "Start with the meaning of the situation before presenting a formula.",
+      "do": ["Name the known quantity", "Explain what operation is needed", "Introduce formula only after the relationship is clear"],
+      "avoid": ["Opening with a formula without context", "Skipping why the formula applies"],
+      "appliesTo": ["general-quant"],
+      "enforcementStage": "review"
+    },
+    {
+      "id": "PED-002",
+      "title": "Concrete to abstract",
+      "principle": "Move from real quantities to symbolic representation only when needed.",
+      "do": ["Use the objects named in the stem", "Show concrete arithmetic before abstraction"],
+      "avoid": ["Unnecessary variables in easy questions", "Generic x-y explanations when values are enough"],
+      "appliesTo": ["percentage", "ratio", "average", "profit-loss", "time-work", "algebra"],
+      "enforcementStage": "authoring"
+    },
+    {
+      "id": "PED-003",
+      "title": "Multiplier before algebra",
+      "principle": "For change and growth topics, teach multiplier reasoning before equation manipulation.",
+      "do": ["Use 120% = 1.20 for increase", "Use 80% = 0.80 for decrease", "Connect multiplier to final value"],
+      "avoid": ["Variable-first percentage explanations", "Adding successive percentage rates directly"],
+      "appliesTo": ["percentage", "compound-interest", "profit-loss"],
+      "enforcementStage": "content-ready"
+    },
+    {
+      "id": "PED-004",
+      "title": "Preserve the base",
+      "principle": "Explicitly state the base on which a percentage, ratio share, or rate is applied.",
+      "do": ["Say which value is 100%", "Say whether percent is on CP, SP, principal, or changed value"],
+      "avoid": ["Ambiguous base references", "Using 'it' when multiple quantities exist"],
+      "appliesTo": ["percentage", "profit-loss", "simple-interest", "compound-interest"],
+      "enforcementStage": "review"
+    },
+    {
+      "id": "PED-005",
+      "title": "Use parts for ratios",
+      "principle": "Teach ratios as parts before converting to actual values.",
+      "do": ["Add total parts", "Find one part", "Scale each term"],
+      "avoid": ["Treating ratio terms as actual values without total", "Combining unrelated ratios directly"],
+      "appliesTo": ["ratio", "mixture-alligation"],
+      "enforcementStage": "content-ready"
+    },
+    {
+      "id": "PED-006",
+      "title": "Show unit discipline",
+      "principle": "Units should be aligned before arithmetic and repeated in the final answer.",
+      "do": ["Convert units before substitution", "Carry units into the final answer"],
+      "avoid": ["Mixing km/h with m/s", "Dropping rupee/day/litre units"],
+      "appliesTo": ["time-speed-distance", "time-work", "simple-interest", "compound-interest", "mensuration", "data-interpretation"],
+      "enforcementStage": "review"
+    },
+    {
+      "id": "PED-007",
+      "title": "Flag the likely trap",
+      "principle": "When a known exam trap exists, name it briefly and correct it.",
+      "do": ["Mention the misconception in one sentence", "Show the correct reasoning immediately"],
+      "avoid": ["Long warnings", "Moralizing student mistakes"],
+      "appliesTo": ["general-quant"],
+      "enforcementStage": "production-ready"
+    },
+    {
+      "id": "PED-008",
+      "title": "One reasoning move per line",
+      "principle": "Explanations should progress in small, auditable steps.",
+      "do": ["Use one calculation or inference per line", "End with the final answer"],
+      "avoid": ["Dense paragraphs with multiple calculations", "Skipping intermediate values"],
+      "appliesTo": ["general-quant"],
+      "enforcementStage": "review"
+    },
+    {
+      "id": "PED-009",
+      "title": "Avoid variable-first explanations",
+      "principle": "Do not introduce variables before the learner understands the relationship.",
+      "do": ["Describe the relationship in words first", "Introduce variables only when the unknown cannot be computed directly"],
+      "avoid": ["Let x be... as the first line for every explanation"],
+      "appliesTo": ["percentage", "ratio", "average", "algebra"],
+      "enforcementStage": "authoring"
+    },
+    {
+      "id": "PED-010",
+      "title": "Answer style must match the question",
+      "principle": "Return count, amount, ratio, percentage, or unit according to the ask, not only according to the calculation path.",
+      "do": ["Identify the requested answer type", "Use canonical answer style IDs where available"],
+      "avoid": ["Returning a percentage when the question asks for count", "Dropping currency or units"],
+      "appliesTo": ["general-quant"],
+      "enforcementStage": "content-ready"
+    }
+  ]
+}

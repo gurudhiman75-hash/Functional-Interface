@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "status": "foundation",
+    "owner": "quant-v4-platform",
+    "description": "Canonical educational wording for consistent Quant V4 explanations."
+  },
+  "entries": [
+    {"id":"TERM-001","concept":"changed value","preferred":"the new value","avoid":["the resultant quantity","the resultant value","the obtained quantity"],"rationale":"Use plain wording that matches how students reason about before/after change.","examples":["The new value is 120% of the original value."]},
+    {"id":"TERM-002","concept":"base value","preferred":"the original value","avoid":["initial entity","base quantity when not introduced","primitive amount"],"rationale":"Original value is clearer for reverse percentage and change questions.","examples":["If 120% is 960, then the original value is 800."]},
+    {"id":"TERM-003","concept":"percentage rate","preferred":"rate","avoid":["percentage factor","percentual value"],"rationale":"Rate is concise and familiar across percentage, interest, and growth topics.","examples":["The rate is 10% per year."]},
+    {"id":"TERM-004","concept":"ratio parts","preferred":"parts","avoid":["shares units without context","ratio components"],"rationale":"Parts directly supports proportional reasoning.","examples":["The ratio 2:3 has 5 parts in total."]},
+    {"id":"TERM-005","concept":"average total","preferred":"total","avoid":["aggregate quantum","summative value"],"rationale":"Average questions should emphasize total as a concrete bridge.","examples":["Total = average × number of items."]},
+    {"id":"TERM-006","concept":"time-work efficiency","preferred":"work done per day","avoid":["speed of worker","worker velocity"],"rationale":"Efficiency should be tied to work units, not motion language.","examples":["A does 4 units of work per day."]},
+    {"id":"TERM-007","concept":"profit-loss base","preferred":"cost price","avoid":["base price when CP is meant","purchase quantum"],"rationale":"Profit and loss percentages conventionally use cost price as base.","examples":["Profit percent is calculated on cost price."]},
+    {"id":"TERM-008","concept":"compound multiplier","preferred":"multiplier","avoid":["multiplicative coefficient in beginner explanations","growth operator"],"rationale":"Multiplier is short and reusable across percentage and CI.","examples":["A 10% increase uses multiplier 1.10."]},
+    {"id":"TERM-009","concept":"unit conversion","preferred":"convert the unit first","avoid":["normalize dimensionality","harmonize measures"],"rationale":"Simple instruction reduces unit mistakes.","examples":["Convert the unit first, then substitute values."]},
+    {"id":"TERM-010","concept":"mistake correction","preferred":"This is the trap","avoid":["fallacy","erroneous cognitive path"],"rationale":"Trap language is exam-friendly and direct.","examples":["This is the trap: the second percentage uses the changed value as base."]},
+    {"id":"TERM-011","concept":"explanation conclusion","preferred":"So, the answer is","avoid":["henceforth the required result becomes","thus derived value is"],"rationale":"Keep final answer statements simple and consistent.","examples":["So, the answer is ₹600."]},
+    {"id":"TERM-012","concept":"unknown value","preferred":"the required value","avoid":["sought quantity","unknown resultant"],"rationale":"Required value is exam-standard and clear.","examples":["Let the required value be x only after the relationship is clear."]}
+  ]
+}

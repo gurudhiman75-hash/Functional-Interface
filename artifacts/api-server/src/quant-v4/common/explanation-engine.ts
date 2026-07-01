@@ -24,6 +24,31 @@ export class ExplanationValidationError extends Error {
 }
 
 export const FORBIDDEN_PHRASES = [
+  "Our objective is",
+  "We apply the standard rule",
+  "Plugging in the values",
+  "Plugging in the parameters",
+  "Substituting the parameters",
+  "Calculating the final value",
+  "We need to calculate the target value",
+  "Let's determine the final amount",
+  "Using the appropriate formula",
+  "The mathematical relationship is",
+  "Inserting the given numbers",
+  "Solving it yields the final answer",
+  "The computed result is",
+  "A useful starting point is",
+  "The working relation is",
+  "This determines",
+  "Combining aligned ratios",
+  "On simplification",
+  "Completing the arithmetic",
+  "The numerical result is",
+  "Notice the key relation",
+  "Observe that",
+  "Notice that",
+  "Using the above",
+  "The required expression becomes",
   "Observe the given relation carefully.",
   "Observe carefully.",
   "Now write the working with the given values.",
@@ -37,11 +62,6 @@ export const FORBIDDEN_PHRASES = [
   "The final slab result is",
   "The final slab result is.",
   "Now simplify the working carefully.",
-  "Hence, the required value is",
-  "Therefore, the answer is",
-  "Thus, the value obtained is",
-  "So, the required result is",
-  "Accordingly, the final answer is",
   "first group",
   "second group",
   "Male part",
@@ -50,6 +70,27 @@ export const FORBIDDEN_PHRASES = [
   "Substitute the numbers",
   "calculation gives"
 ];
+
+function containsIdentifier(text: string, identifier: string) {
+  if (!identifier || identifier.length < 3) return false;
+  const escaped = identifier.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^A-Za-z0-9_])${escaped}([^A-Za-z0-9_]|$)`, "i").test(text);
+}
+
+export function validateNoInternalIdentifiers(steps: ExplanationStep[], evidence: ExplanationEvidence): void {
+  const fullText = steps.map((step) => `${step.narrative} ${step.mathLatex ?? ""}`).join(" ");
+  const taskKind = String(evidence.derivedValues.taskKind ?? "");
+  if (taskKind && containsIdentifier(fullText, taskKind)) {
+    throw new ExplanationValidationError(`Internal taskKind leaked into explanation: "${taskKind}"`);
+  }
+
+  for (const variableName of Object.keys(evidence.variables)) {
+    if (variableName.length < 6) continue;
+    if (containsIdentifier(fullText, variableName)) {
+      throw new ExplanationValidationError(`Internal variable name leaked into explanation: "${variableName}"`);
+    }
+  }
+}
 
 export function validateGenericPhrases(steps: ExplanationStep[]): void {
   const fullText = steps.map((s) => s.narrative).join(" ").toLowerCase();
@@ -96,6 +137,24 @@ export function validateEvidenceFidelity(steps: ExplanationStep[], evidence: Exp
     if (nums) nums.forEach(n => allowedNumbers.add(parseFloat(n)));
   }
 
+  const rounded = (value: number) => Number(value.toFixed(6));
+  for (let round = 0; round < 2 && allowedNumbers.size < 12000; round += 1) {
+    const source = [...allowedNumbers].filter((value) => Number.isFinite(value) && Math.abs(value) <= 1_000_000);
+    const additions: number[] = [];
+    for (let leftIndex = 0; leftIndex < source.length && additions.length < 12000; leftIndex += 1) {
+      for (let rightIndex = 0; rightIndex < source.length && additions.length < 12000; rightIndex += 1) {
+        const left = source[leftIndex]!;
+        const right = source[rightIndex]!;
+        additions.push(rounded(left + right), rounded(left - right), rounded(left * right));
+        if (right !== 0) additions.push(rounded(left / right));
+      }
+    }
+    for (const value of additions) {
+      if (Number.isFinite(value) && Math.abs(value) <= 1_000_000_000) allowedNumbers.add(value);
+      if (allowedNumbers.size >= 12000) break;
+    }
+  }
+
   for (const numStr of extractedNumbers) {
     const num = parseFloat(numStr);
     if (!allowedNumbers.has(num)) {
@@ -108,10 +167,6 @@ export function validateEvidenceFidelity(steps: ExplanationStep[], evidence: Exp
         }
       }
       if (!found) {
-        // We will console.warn instead of throw to allow generic solver math strings to pass.
-        // The prompt says "Reject explanations with: hallucinated numbers".
-        // If the number truly isn't in derived values, it's a hallucination.
-        // But solver sets calculationLatex directly, so those numbers ARE from the solver.
         throw new ExplanationValidationError(`Hallucination detected: Number ${num} does not exist in evidence or derived values.`);
       }
     }
@@ -126,8 +181,24 @@ export function validateExplanationPipeline(evidence: ExplanationEvidence, rende
   }
 
   validateGenericPhrases(steps);
+  validateNoInternalIdentifiers(steps, evidence);
   validateEntityConsistency(steps, evidence.entities);
   validateEvidenceFidelity(steps, evidence);
+
+  const arithmeticSteps = steps.filter((step) => step.mathLatex?.trim()).length;
+  if (arithmeticSteps < 3) {
+    throw new ExplanationValidationError("Explanation hides the arithmetic (fewer than three mathematical lines).");
+  }
+
+  const proseWords = steps
+    .map((step) => step.narrative)
+    .join(" ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean).length;
+  if (proseWords > arithmeticSteps * 9) {
+    throw new ExplanationValidationError("Explanation contains too much commentary for its arithmetic content.");
+  }
 
   const hasFormula = steps.some((s) => s.type === "FORMULA");
   const hasSubstitution = steps.some((s) => s.type === "SUBSTITUTION");
@@ -151,9 +222,15 @@ export function validateExplanationPipeline(evidence: ExplanationEvidence, rende
 
 export function formatExplanationSteps(steps: ExplanationStep[]): string[] {
   return steps.map(step => {
-    if (step.mathLatex) {
-      return `${step.narrative} | $$${step.mathLatex}$$`;
+    let narrative = step.narrative || "";
+    let mathLatex = step.mathLatex || "";
+    if (narrative) {
+      narrative = narrative.replace(/\b(\w+s)'s\b/gi, "$1'");
     }
-    return step.narrative;
+    if (mathLatex) {
+      mathLatex = mathLatex.replace(/\b(\w+s)'s\b/gi, "$1'");
+      return `${narrative}\n\n[\n\\Rightarrow ${mathLatex}\n]`;
+    }
+    return narrative;
   });
 }

@@ -1,0 +1,3 @@
+- Hint 1: Identify that {rate1}% of the clerk's monthly salary is Rs. {value1}.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. {value1} by {rate1}.
+- Hint 3: Multiply the 1% salary value by {rate2} to find the expenditure on house rent.

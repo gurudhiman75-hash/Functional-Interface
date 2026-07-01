@@ -1,0 +1,3 @@
+- Hint 1: Identify that {rate1}% of the total books in the library equals {value1} Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing {value1} by {rate1}.
+- Hint 3: Multiply the 1% collection value by {rate2} to find the total number of English books.

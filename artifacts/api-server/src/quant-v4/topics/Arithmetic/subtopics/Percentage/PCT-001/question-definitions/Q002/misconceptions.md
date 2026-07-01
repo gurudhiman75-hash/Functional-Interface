@@ -1,0 +1,4 @@
+- Misconception 1: Dividing the {value1} Mathematics books by 100 directly instead of dividing by the percentage {rate1}.
+- Misconception 2: Multiplying the {value1} books by {rate1}%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying "{answer} books", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.

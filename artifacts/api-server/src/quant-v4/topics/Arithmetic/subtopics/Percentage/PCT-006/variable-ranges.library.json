@@ -1,0 +1,7 @@
+{
+  "archetypeId": "PCT-006",
+  "ownership": "HUMAN_OWNED",
+  "authority": "variable-ranges.library.json",
+  "usage": "Runtime Consumption Only",
+  "notes": "Comparison-first percentage chapter with clean-rate and clean-ratio generation for base-switching tasks."
+}

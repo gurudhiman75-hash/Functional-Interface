@@ -1,0 +1,4750 @@
+{
+  "archetypeId": "PCT-002",
+  "ownership": "HUMAN_OWNED",
+  "authority": "task-registry.library.json",
+  "usage": "Runtime Consumption Only",
+  "entries": {
+    "PCT-QL-001": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-002": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-003": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-004": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-005": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-006": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-007": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-008": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-009": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-010": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-011": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-012": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-013": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-014": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-015": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-016": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-017": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-018": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-019": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-020": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-021": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-022": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-023": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-024": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-025": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-026": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-027": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-028": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-029": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-030": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-031": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-032": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-033": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-034": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-035": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-036": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-037": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-038": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-039": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-040": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-041": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "multiStageAttrition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstDropPercentage",
+        "secondDropPercentage",
+        "thirdDropPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-042": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "multiStageAttrition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstDropPercentage",
+        "secondDropPercentage",
+        "thirdDropPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-043": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "multiStageAttrition",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstDropPercentage",
+        "secondDropPercentage",
+        "thirdDropPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-044": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-045": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-046": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-047": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-048": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-049": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-050": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-051": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-052": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-053": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-054": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-055": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-056": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-057": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-058": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-101": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-201": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-301": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-401": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-501": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-601": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-701": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-801": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-901": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1001": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1101": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1201": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1301": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1401": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1501": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1601": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1701": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1801": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1901": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-102": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-202": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-302": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-402": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-502": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-602": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-702": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-802": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-902": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1002": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1102": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1202": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1302": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1402": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1502": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1602": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1702": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1802": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1902": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-103": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-203": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-303": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-403": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-503": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-603": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-703": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-803": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-903": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1003": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1103": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1203": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1303": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1403": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1503": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1603": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1703": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1803": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1903": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-104": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-204": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-304": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-404": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-504": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-604": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-704": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-804": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-904": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1004": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1104": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1204": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1304": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1404": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1504": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1604": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1704": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1804": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1904": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "inclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "neitherPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-147": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-247": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-347": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-447": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-148": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-248": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-348": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-448": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-149": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-249": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-349": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-449": {
+      "cpId": "PCT-CP-001",
+      "taskKind": "tripleInclusionExclusion",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupBPercentage",
+        "groupCPercentage",
+        "groupABPercentage",
+        "groupBCPercentage",
+        "groupACPercentage",
+        "groupABCPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-105": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-205": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-305": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-405": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-505": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-605": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-705": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-805": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-905": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1005": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1105": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1205": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1305": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1405": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1505": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1605": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1705": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1805": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1905": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-106": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-206": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-306": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-406": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-506": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-606": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-706": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-806": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-906": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1006": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1106": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1206": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1306": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1406": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1506": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1606": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1706": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1806": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-1906": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "fractionalError",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctNumerator",
+        "correctDenominator",
+        "wrongNumerator",
+        "wrongDenominator"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-108": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-208": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-308": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-408": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-508": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-608": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-708": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-808": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-908": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1008": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1108": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1208": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1308": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1408": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1508": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1608": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1708": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1808": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-1908": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongMultiplier",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctMultiplier",
+        "wrongMultiplier"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-111": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-211": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-311": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-411": {
+      "cpId": "PCT-CP-002",
+      "taskKind": "wrongDivisor",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "correctDivisor",
+        "wrongDivisor"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Easy"
+      ]
+    },
+    "PCT-QL-114": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-214": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-314": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-414": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredCommission",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "salesAmount",
+        "thresholdAmount",
+        "baseCommissionRate",
+        "bonusCommissionRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-117": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-217": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-317": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-417": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "tieredTax",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "grossIncome",
+        "exemptionAmount",
+        "taxPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-120": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-220": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-320": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-420": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-121": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-221": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-321": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-421": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "piecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "usageAmount",
+        "thresholdAmount",
+        "baseChargeRate",
+        "extraChargeRate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-150": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-250": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-350": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-450": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-151": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-251": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-351": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-451": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-152": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-252": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-352": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-452": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "multiTierPiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalBase",
+        "tier1Limit",
+        "tier2Limit",
+        "tier1Rate",
+        "tier2Rate",
+        "tier3Rate"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-153": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-253": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-353": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-453": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-154": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-254": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-354": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-454": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-155": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-255": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-355": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-455": {
+      "cpId": "PCT-CP-003",
+      "taskKind": "reversePiecewiseRate",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "totalResult",
+        "tier1Limit",
+        "tier1Rate",
+        "tier2Rate"
+      ],
+      "supportsReverseReasoning": true,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-123": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-223": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-323": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-423": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "weightedSubgroup",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-126": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-226": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-326": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-426": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "hierarchicalPopulation",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "totalPopulation",
+        "malePercentage",
+        "maleTraitPercentage",
+        "femaleTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-129": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-229": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-329": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-429": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-130": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-230": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-330": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-430": {
+      "cpId": "PCT-CP-004",
+      "taskKind": "branchAggregation",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "groupAPercentage",
+        "groupATraitPercentage",
+        "groupBTraitPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Medium"
+      ]
+    },
+    "PCT-QL-132": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-232": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-332": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-432": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-133": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-233": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-333": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-433": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "repeatedReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-135": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-235": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-335": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-435": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "iterativeDilution",
+      "answerType": "ABSOLUTE",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementVolume",
+        "numberOfOperations"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-156": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-256": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-356": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-456": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-157": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-257": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-357": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-457": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-158": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-258": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-358": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-458": {
+      "cpId": "PCT-CP-005",
+      "taskKind": "variableReplacement",
+      "answerType": "PERCENT",
+      "requiredVariables": [
+        "initialVolume",
+        "replacementRate1",
+        "replacementRate2",
+        "replacementRate3"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-138": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-238": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-338": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-438": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "polledPercentage",
+        "invalidPercentage",
+        "winnerPercentage",
+        "voteMargin"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": true,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-144": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-244": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-344": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-444": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-145": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-245": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-345": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-445": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-146": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-246": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-346": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    },
+    "PCT-QL-446": {
+      "cpId": "PCT-CP-006",
+      "taskKind": "shiftedBaseChain",
+      "answerType": "COUNT",
+      "requiredVariables": [
+        "initialCount",
+        "firstPassPercentage",
+        "secondPassPercentage",
+        "thirdPassPercentage"
+      ],
+      "supportsReverseReasoning": false,
+      "supportsDifferenceQuestions": false,
+      "difficultyBands": [
+        "Hard"
+      ]
+    }
+  }
+}

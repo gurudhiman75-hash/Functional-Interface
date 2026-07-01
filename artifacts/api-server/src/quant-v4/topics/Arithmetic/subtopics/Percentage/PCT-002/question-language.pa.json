@@ -1,166 +1,62 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": {
-        "template": "{groupAPercentage}% passed in Mathematics and {groupBPercentage}% passed in English. If {neitherPercentage}% failed in both, find the percentage who passed in both.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-002": {
-        "template": "{groupAPercentage}% take part in cricket and {groupBPercentage}% take part in football. If {neitherPercentage}% take part in neither game, what percent take part in both?",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-003": {
-        "template": "{groupAPercentage}% read newspaper A and {groupBPercentage}% read newspaper B. If {neitherPercentage}% read neither, find the percentage who read both.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-004": {
-        "template": "{groupAPercentage}% know Hindi and {groupBPercentage}% know English. If {neitherPercentage}% know neither, find the percentage who know both.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-047": {
-        "template": "In a group, {groupAPercentage}% like Physics, {groupBPercentage}% like Chemistry, and {groupCPercentage}% like Biology. {groupABPercentage}% like Physics and Chemistry, {groupBCPercentage}% like Chemistry and Biology, and {groupACPercentage}% like Physics and Biology. If {groupABCPercentage}% like all three, find the percentage who like at least one.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-048": {
-        "template": "In a town, {groupAPercentage}% read Newspaper A, {groupBPercentage}% read B, and {groupCPercentage}% read C. {groupABPercentage}% read A and B, {groupBCPercentage}% read B and C, and {groupACPercentage}% read A and C. If {groupABCPercentage}% read all three, what percentage read none?",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-049": {
-        "template": "In a class, {groupAPercentage}% speak Hindi, {groupBPercentage}% speak English, and {groupCPercentage}% speak French. {groupABPercentage}% speak Hindi and English, {groupBCPercentage}% speak English and French, and {groupACPercentage}% speak Hindi and French. If {groupABCPercentage}% speak all three, find the percentage who speak at least one.",
-        "difficulty": "Hard"
-      }
+      "PCT-QL-001": { "template": "{knownRate}% of the {wholeLabel} are {partLabel}. If the number of {partLabel} is {knownValue}, find the total number of {wholeLabel}.", "difficulty": "Easy" },
+      "PCT-QL-002": { "template": "{knownRate}% of the {wholeLabel} is kept aside as {partLabel}. If these {partLabel} are {valuePrefix}{knownValue}, find the total {wholeLabel}.", "difficulty": "Easy" }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-005": {
-        "template": "A student had to take {correctNumerator}/{correctDenominator} of a number but took {wrongNumerator}/{wrongDenominator}. Find the percentage error.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-006": {
-        "template": "Due to a calculator mistake, {wrongNumerator}/{wrongDenominator} was used instead of {correctNumerator}/{correctDenominator}. Find the percentage error.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-008": {
-        "template": "A number was to be multiplied by {correctMultiplier}, but it was multiplied by {wrongMultiplier}. Find the percentage error.",
-        "difficulty": "Easy"
-      },
-      "PCT-QL-011": {
-        "template": "A number was to be divided by {correctDivisor}, but it was divided by {wrongDivisor}. Find the percentage error.",
-        "difficulty": "Easy"
-      }
+      "PCT-QL-003": { "template": "If {knownRate}% of the {wholeLabel} equals {valuePrefix}{knownValue}, find {targetRate}% of the same {wholeLabel}.", "difficulty": "Easy" },
+      "PCT-QL-004": { "template": "If {knownRate}% of the {wholeLabel} equals {knownValue}, how many {wholeLabel} correspond to {targetRate}%?", "difficulty": "Medium" }
     }
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-014": {
-        "template": "Commission is {baseCommissionRate}% up to Rs. {thresholdAmount} and {bonusCommissionRate}% above it. Find commission on sales of Rs. {salesAmount}.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-017": {
-        "template": "Income up to Rs. {exemptionAmount} is tax-free and the rest is taxed at {taxPercentage}%. Find tax on Rs. {grossIncome}.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-020": {
-        "template": "Brokerage is charged at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% above it. Find the total brokerage on {usageAmount}.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-021": {
-        "template": "Incentive is paid at {baseChargeRate}% up to {thresholdAmount} and {extraChargeRate}% on the remaining amount. Find the total incentive on {usageAmount}.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-050": {
-        "template": "Income tax is {tier1Rate}% up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find the total tax on an income of Rs. {totalBase}.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-051": {
-        "template": "A salesman's commission is {tier1Rate}% on sales up to Rs. {tier1Limit}, {tier2Rate}% from Rs. {tier1Limit} to Rs. {tier2Limit}, and {tier3Rate}% above Rs. {tier2Limit}. Find his total commission on sales of Rs. {totalBase}.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-052": {
-        "template": "Electricity is charged at Rs. {tier1Rate} per unit for the first {tier1Limit} units, Rs. {tier2Rate} per unit from {tier1Limit} to {tier2Limit} units, and Rs. {tier3Rate} per unit above {tier2Limit} units. Find the total bill for {totalBase} units.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-053": {
-        "template": "A company pays {tier1Rate}% commission on sales up to Rs. {tier1Limit} and {tier2Rate}% on sales above Rs. {tier1Limit}. If the salesman received a total commission of Rs. {totalResult}, find the total sales.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-054": {
-        "template": "A broker charges {tier1Rate}% on deals up to Rs. {tier1Limit} and {tier2Rate}% on any amount above it. If his total brokerage is Rs. {totalResult}, find the deal value.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-055": {
-        "template": "Tax is {tier1Rate}% up to Rs. {tier1Limit} and {tier2Rate}% above it. If the total tax paid is Rs. {totalResult}, find the gross amount.",
-        "difficulty": "Hard"
-      }
+      "PCT-QL-005": { "template": "Out of {wholeValue} {wholeLabel}, {partValue} are {partLabel}. Find what percent of the {wholeLabel} are {partLabel}.", "difficulty": "Easy" },
+      "PCT-QL-006": { "template": "A person keeps {valuePrefix}{partValue} as {partLabel} out of a total {wholeLabel} of {valuePrefix}{wholeValue}. Find the percentage of {partLabel}.", "difficulty": "Medium" }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-023": {
-        "template": "{malePercentage}% people are men. {maleTraitPercentage}% men and {femaleTraitPercentage}% women are graduates. Find total graduate percentage.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-026": {
-        "template": "In a population of {totalPopulation}, {malePercentage}% are urban residents. {maleTraitPercentage}% of urban residents and {femaleTraitPercentage}% of rural residents are employed. Find the total employed population.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-029": {
-        "template": "{groupAPercentage}% of employees are in Department A. {groupATraitPercentage}% of Department A and {groupBTraitPercentage}% of other departments completed training. Find the total trained percentage.",
-        "difficulty": "Medium"
-      },
-      "PCT-QL-030": {
-        "template": "{groupAPercentage}% belong to Category A. {groupATraitPercentage}% of Category A and {groupBTraitPercentage}% of the remaining category qualify. Find the total qualifying percentage.",
-        "difficulty": "Medium"
-      }
+      "PCT-QL-007": { "template": "If {knownRate}% of the {wholeLabel} is {valuePrefix}{knownValue}, then {valuePrefix}{targetValue} is what percent of the same {wholeLabel}?", "difficulty": "Medium" },
+      "PCT-QL-008": { "template": "If {knownRate}% of the {wholeLabel} equals {knownValue}, what percent of the {wholeLabel} is {targetValue}?", "difficulty": "Medium" }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-032": {
-        "template": "A vessel has {initialVolume} litres of milk. {replacementVolume} litres are taken out and replaced with water each time. After {numberOfOperations} operations, what percent of the original milk remains?",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-033": {
-        "template": "A stock has {initialVolume} items. Each time {replacementVolume} defective items are removed and replaced by good items. After {numberOfOperations} rounds, what percent of the original defective items remains?",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-035": {
-        "template": "A chemical solution has volume {initialVolume}. Each time {replacementVolume} is removed and replaced with water. After {numberOfOperations} operations, what percent of the original chemical remains?",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-056": {
-        "template": "A vessel contains {initialVolume} litres of milk. {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-057": {
-        "template": "From a tank of {initialVolume} litres full of acid, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% are removed and replaced with water successively. Find the final concentration of acid.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-058": {
-        "template": "In a batch of {initialVolume} items, {replacementRate1}%, {replacementRate2}%, and {replacementRate3}% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.",
-        "difficulty": "Hard"
-      }
+      "PCT-QL-009": { "template": "A quantity is divided in the ratio {partA}:{partB}. Find the percentage corresponding to the {targetPartLabel}.", "difficulty": "Easy" },
+      "PCT-QL-010": { "template": "The ratio of two parts is {partA}:{partB}. Express the {targetPartLabel} as a percentage of the whole.", "difficulty": "Easy" }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-038": {
-        "template": "{polledPercentage}% voters voted. {invalidPercentage}% votes were invalid. Winner got {winnerPercentage}% valid votes and won by {voteMargin}. Find total voters.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-044": {
-        "template": "A city has population {initialCount}. {firstPassPercentage}% are literate, {secondPassPercentage}% of the literate are employed, and {thirdPassPercentage}% of the employed are government employees. Find the final count.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-045": {
-        "template": "An office has {initialCount} employees. {firstPassPercentage}% are female employees, {secondPassPercentage}% of them are graduates, and {thirdPassPercentage}% of the graduates are selected for training. Find the selected count.",
-        "difficulty": "Hard"
-      },
-      "PCT-QL-046": {
-        "template": "A school has {initialCount} students. {firstPassPercentage}% passed, {secondPassPercentage}% of the passed students got first division, and {thirdPassPercentage}% of them received scholarships. Find the final number.",
-        "difficulty": "Hard"
-      }
+      "PCT-QL-011": { "template": "If {knownRate}% of the class are {partLabel}, find the percentage of {complementLabel}.", "difficulty": "Easy" },
+      "PCT-QL-012": { "template": "A person keeps {knownRate}% of the income as {partLabel}. What percent of the income is spent on {complementLabel}?", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-013": { "template": "{rate1}% of the students are {partLabel} and {rate2}% are {otherLabel}. Find the difference between these percentages.", "difficulty": "Easy" },
+      "PCT-QL-014": { "template": "{rate1}% of the monthly budget goes to {partLabel} and {rate2}% goes to {otherLabel}. Find the percentage difference.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-015": { "template": "A group of {totalValue} {wholeLabel} is divided as {targetRate}% {targetLabel}, {otherRate}% {otherLabel}, and {thirdRate}% {thirdLabel}. Find the number of {targetLabel}.", "difficulty": "Medium" },
+      "PCT-QL-016": { "template": "A {wholeLabel} of {valuePrefix}{totalValue} is divided as {targetRate}% {targetLabel}, {otherRate}% {otherLabel}, and {thirdRate}% {thirdLabel}. Find the amount spent on {targetLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-017": { "template": "{rate1}% is spent on {partLabel}, {rate2}% on {otherLabel}, and {rate3}% on {thirdLabel}. Find the remaining percentage for {complementLabel}.", "difficulty": "Easy" },
+      "PCT-QL-018": { "template": "In a budget, {rate1}% goes to {partLabel}, {rate2}% to {otherLabel}, and {rate3}% to {thirdLabel}. Find the missing percentage for {complementLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-019": { "template": "In a {wholeLabel} of {totalValue}, {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}. Find the number of {targetLabel}.", "difficulty": "Medium" },
+      "PCT-QL-020": { "template": "Out of {wholeLabel} worth {valuePrefix}{totalValue}, {rate1}% is spent on {otherLabel}, {rate2}% on {thirdLabel}, {rate3}% on {fourthLabel}, and the remaining {targetRate}% on {targetLabel}. Find the amount spent on {targetLabel}.", "difficulty": "Hard" }
     }
   }
 }

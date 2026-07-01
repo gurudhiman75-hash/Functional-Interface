@@ -1,0 +1,8 @@
+{
+  "archived": true,
+  "archivedPackageId": "PCT-X",
+  "archivedAt": "2026-06-26",
+  "activeDiscovery": false,
+  "reason": "Archived experimental advanced Percentage taxonomy/runtime. Retained for historical reference only; must not participate in Quant V4 active package discovery or Question Studio tooling.",
+  "retainedFor": "Historical implementation notes, taxonomy experiments, and future migration reference."
+}

@@ -7,44 +7,18 @@ export interface ReversePercentEvidence extends ExplanationEvidence {
 }
 
 export class ReversePercentRenderer implements ExplanationRenderer {
-  private solverMathJax: Record<string, string>;
-
-  constructor(solverMathJax: Record<string, string>) {
-    this.solverMathJax = solverMathJax;
-  }
+  constructor(_solverMathJax: Record<string, string>) {}
 
   render(evidence: ExplanationEvidence): ExplanationStep[] {
     const e = evidence as ReversePercentEvidence;
-    const answer = e.answer;
-    const setup = this.solverMathJax.setupLatex?.replace(/.*?:/, "")?.trim() || "\\text{Formula setup}";
-    const calc = this.solverMathJax.calculationLatex?.replace(/.*?:/, "")?.trim() || `${answer}`;
-
-    const variantIndex = (Number(Object.values(e.variables)[0] || 0)) % 3;
-
-    if (variantIndex === 0) {
-      return [
-        { stepId: "step-1", type: "GOAL", narrative: `We need to calculate the target value for this problem.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `Using the appropriate formula:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Substitute the values:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Simplify the expression to get the result.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `Thus, the answer is ${answer}.` },
-      ];
-    } else if (variantIndex === 1) {
-       return [
-        { stepId: "step-1", type: "GOAL", narrative: `Let's determine the final amount for the scenario.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `The mathematical relationship is:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Inserting the given numbers:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Solving it yields the final answer.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `The computed result is ${answer}.` },
-      ];
-    } else {
-       return [
-        { stepId: "step-1", type: "GOAL", narrative: `Our objective is to find the required quantity.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `We apply the standard rule:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Plugging in the parameters:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Calculating the final value.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `Therefore, we get ${answer}.` },
-      ];
-    }
+    const percentageRate = Number(e.variables.percentageRate);
+    const knownValue = Number(e.variables.value);
+    return [
+      { stepId: "step-1", type: "GOAL", narrative: `${percentageRate}% corresponds to ${knownValue}.`, mathLatex: `${percentageRate}\\%=${knownValue}` },
+      { stepId: "step-2", type: "FORMULA", narrative: `1%`, mathLatex: `\\frac{${knownValue}}{${percentageRate}}` },
+      { stepId: "step-3", type: "SUBSTITUTION", narrative: `100%`, mathLatex: `\\frac{${knownValue}\\times100}{${percentageRate}}` },
+      { stepId: "step-4", type: "SIMPLIFICATION", narrative: `=`, mathLatex: `${e.answer}` },
+      { stepId: "step-5", type: "CONCLUSION", narrative: `Therefore, the number is ${e.answer}.` },
+    ];
   }
 }

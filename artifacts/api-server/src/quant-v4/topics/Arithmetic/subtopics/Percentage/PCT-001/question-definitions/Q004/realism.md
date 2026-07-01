@@ -1,0 +1,4 @@
+- Workforce counts must be positive integers.
+- No fractional employees are allowed (e.g., in marketing, sales, or total workforce).
+- Total workforce size must be realistic for a medium-sized company (e.g. between 10 and 10,000).
+- Fail closed if any calculation yields a non-integer number of employees.

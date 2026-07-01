@@ -18,30 +18,31 @@ export class PercentOfRenderer implements ExplanationRenderer {
       {
         stepId: "step-1",
         type: "GOAL",
-        narrative: `We need to calculate ${percentageRate}% of the base value ${baseValue}.`,
+        narrative: `${percentageRate}% of ${baseValue}`,
+        mathLatex: `${percentageRate}\\%\\text{ of }${baseValue}`,
       },
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `The formula to find $x\\%$ of $y$ is:`,
-        mathLatex: `\\frac{x}{100} \\times y`,
+        narrative: `=`,
+        mathLatex: `\\frac{${percentageRate}}{100}\\times${baseValue}`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: `Substitute $x = ${percentageRate}$ and $y = ${baseValue}$:`,
-        mathLatex: `\\frac{${percentageRate}}{100} \\times ${baseValue}`,
+        narrative: `=`,
+        mathLatex: `\\frac{${percentageRate}\\times${baseValue}}{100}`,
       },
       {
         stepId: "step-4",
         type: "SIMPLIFICATION",
-        narrative: `Simplify the multiplication:`,
-        mathLatex: `\\frac{${percentageRate} \\times ${baseValue}}{100} = ${answer}`,
+        narrative: `=`,
+        mathLatex: `${answer}`,
       },
       {
         stepId: "step-5",
         type: "CONCLUSION",
-        narrative: `Therefore, ${percentageRate}% of ${baseValue} is ${answer}.`,
+        narrative: `Hence, the required value is ${answer}.`,
       },
     ];
   }

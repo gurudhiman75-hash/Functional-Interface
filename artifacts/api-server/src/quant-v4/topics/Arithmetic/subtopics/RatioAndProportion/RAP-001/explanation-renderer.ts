@@ -1,4 +1,5 @@
 import { formatExplanationSteps, validateExplanationPipeline, type ExplanationEvidence, type ExplanationRenderer } from "../../../../../common/explanation-engine";
+import { TaskKindTeacherRenderer } from "../../../../../common/teacher-renderer";
 import type { Rap001Explanation, Rap001Parameters, Rap001ReasoningGraph, Rap001SolverResult } from "../types";
 
 import { SimpleLinkageRenderer } from "./renderers/simple-linkage-renderer";
@@ -58,88 +59,88 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
 
   switch (parameters.taskKind) {
     case "simpleLinkage":
-      renderer = new SimpleLinkageRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "ratioNormalization":
       renderer = new RatioNormalizationRenderer();
       break;
     case "ratioTreeLinkage":
-      renderer = new RatioTreeLinkageRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "scalingByComponent":
-      renderer = new ScalingByComponentRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "decimalNormalization":
-      renderer = new DecimalNormalizationRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "basicPartition":
       renderer = new BasicPartitionRenderer(solver.mathJax);
       break;
     case "shareDifference":
-      renderer = new ShareDifferenceRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "reversePartition":
-      renderer = new ReversePartitionRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "salaryDistribution":
-      renderer = new SalaryDistributionRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "twoStateAddition":
-      renderer = new TwoStateAdditionRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "twoStateSubtraction":
-      renderer = new TwoStateSubtractionRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "twoStateTransfer":
-      renderer = new TwoStateTransferRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "incomeExpenditureSystem":
-      renderer = new IncomeExpenditureSystemRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "multiStageTransformation":
-      renderer = new MultiStageTransformationRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "meanProportional":
-      renderer = new MeanProportionalRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "thirdProportional":
-      renderer = new ThirdProportionalRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "fourthProportional":
-      renderer = new FourthProportionalRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "directVariation":
-      renderer = new DirectVariationRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "inverseVariation":
-      renderer = new InverseVariationRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "coinCounting":
-      renderer = new CoinCountingRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "multiDenominationMapping":
-      renderer = new MultiDenominationMappingRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "weightedMapping":
-      renderer = new WeightedMappingRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "weightedMarks":
-      renderer = new WeightedMarksRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "binaryMixture":
-      renderer = new BinaryMixtureRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "mixtureComponentFinding":
-      renderer = new MixtureComponentFindingRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "threeComponentMixture":
-      renderer = new ThreeComponentMixtureRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "variableReplacementRatio":
-      renderer = new VariableReplacementRatioRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "acidConcentration":
-      renderer = new AcidConcentrationRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     default:
       throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);

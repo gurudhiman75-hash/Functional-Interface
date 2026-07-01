@@ -1,0 +1,5101 @@
+"language","cpId","qlId","esId","difficulty","taskKind","answerType","question","answer","explanation","validation"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 75% failed in English. If 15% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$40\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-15
+] | =
+
+[
+\Rightarrow 100 - 15 = 85\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+75-85
+] | =
+
+[
+\Rightarrow 40\%
+] | Hence, 40% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 50% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$35\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+50-75
+] | =
+
+[
+\Rightarrow 35\%
+] | Hence, 35% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 60% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$25\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+60-75
+] | =
+
+[
+\Rightarrow 25\%
+] | Hence, 25% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 50% failed in English. If 15% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$15\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-15
+] | =
+
+[
+\Rightarrow 100 - 15 = 85\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+50-85
+] | =
+
+[
+\Rightarrow 15\%
+] | Hence, 15% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a group, 40% like Physics, 50% like Chemistry, and 40% like Biology. 20% like Physics and Chemistry, 15% like Chemistry and Biology, and 25% like Physics and Biology. If 8% like all three, find the percentage who like at least one.","$$78\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+50+40-20-15-25+8
+] | At least one
+
+[
+\Rightarrow 78\%
+] | Required percentage
+
+[
+\Rightarrow $$78\%$$
+] | Hence, the required percentage is $$78\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a town, 50% read Newspaper A, 40% read B, and 40% read C. 25% read A and B, 15% read B and C, and 15% read A and C. If 10% read all three, what percentage read none?","$$15\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+40+40-25-15-15+10
+] | At least one
+
+[
+\Rightarrow 85\%
+] | Required percentage
+
+[
+\Rightarrow $$15\%$$
+] | Hence, the required percentage is $$15\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 60% speak Hindi, 50% speak English, and 40% speak French. 25% speak Hindi and English, 15% speak English and French, and 15% speak Hindi and French. If 5% speak all three, find the percentage who speak at least one.","$$100\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 60+50+40-25-15-15+5
+] | At least one
+
+[
+\Rightarrow 100\%
+] | Required percentage
+
+[
+\Rightarrow $$100\%$$
+] | Hence, the required percentage is $$100\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 60% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$10\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+60-90
+] | =
+
+[
+\Rightarrow 10\%
+] | Hence, 10% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 40% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$15\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+40-75
+] | =
+
+[
+\Rightarrow 15\%
+] | Hence, 15% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 50% failed in English. If 5% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$30\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-5
+] | =
+
+[
+\Rightarrow 100 - 5 = 95\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+50-95
+] | =
+
+[
+\Rightarrow 30\%
+] | Hence, 30% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a group, 40% like Physics, 40% like Chemistry, and 40% like Biology. 20% like Physics and Chemistry, 20% like Chemistry and Biology, and 20% like Physics and Biology. If 10% like all three, find the percentage who like at least one.","$$70\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+40+40-20-20-20+10
+] | At least one
+
+[
+\Rightarrow 70\%
+] | Required percentage
+
+[
+\Rightarrow $$70\%$$
+] | Hence, the required percentage is $$70\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a town, 50% read Newspaper A, 40% read B, and 40% read C. 15% read A and B, 15% read B and C, and 25% read A and C. If 5% read all three, what percentage read none?","$$20\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+40+40-15-15-25+5
+] | At least one
+
+[
+\Rightarrow 80\%
+] | Required percentage
+
+[
+\Rightarrow $$20\%$$
+] | Hence, the required percentage is $$20\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 60% speak Hindi, 40% speak English, and 60% speak French. 15% speak Hindi and English, 25% speak English and French, and 25% speak Hindi and French. If 5% speak all three, find the percentage who speak at least one.","$$100\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 60+40+60-15-25-25+5
+] | At least one
+
+[
+\Rightarrow 100\%
+] | Required percentage
+
+[
+\Rightarrow $$100\%$$
+] | Hence, the required percentage is $$100\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 40% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$0\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+40-90
+] | =
+
+[
+\Rightarrow 0\%
+] | Hence, 0% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Easy","fractionalError","PERCENT","A student multiplied a number by 400/500 instead of 100/200. Find the percentage error in the calculation.","$$60\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{200},\quad\text{Wrong}=\frac{400}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{400}{500}}{\frac{100}{200}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$60\%$$
+] | Answer
+
+[
+\Rightarrow $$60\%$$
+] | Accordingly, the percentage error is $$60\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 300/500 instead of 400/1000. Find the percentage error in the calculation.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{400}{1000},\quad\text{Wrong}=\frac{300}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{300}{500}}{\frac{400}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Hence, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Easy","wrongMultiplier","PERCENT","A student multiplied a number by 600 instead of 200. Find the percentage error in the calculation.","$$200\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{600}{200}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{600}{200}-1\right)100
+] | =
+
+[
+\Rightarrow =$$200\%$$
+] | Answer
+
+[
+\Rightarrow $$200\%$$
+] | Hence, the percentage error is $$200\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 1000, but it was divided by 500. Find the percentage error.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{1000}{500}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{1000}{500}-1\right|100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | So, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 300/500 instead of 100/500. Find the percentage error in the calculation.","$$200\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{500},\quad\text{Wrong}=\frac{300}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{300}{500}}{\frac{100}{500}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$200\%$$
+] | Answer
+
+[
+\Rightarrow $$200\%$$
+] | Hence, the percentage error is $$200\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 1200 instead of 500. Find the percentage error in the calculation.","$$140\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{1200}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{1200}{500}-1\right)100
+] | =
+
+[
+\Rightarrow =$$140\%$$
+] | Answer
+
+[
+\Rightarrow $$140\%$$
+] | Accordingly, the percentage error is $$140\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 250, but it was divided by 125. Find the percentage error.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{250}{125}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{250}{125}-1\right|100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | Therefore, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 400/500 instead of 500/1000. Find the percentage error in the calculation.","$$60\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{500}{1000},\quad\text{Wrong}=\frac{400}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{400}{500}}{\frac{500}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$60\%$$
+] | Answer
+
+[
+\Rightarrow $$60\%$$
+] | Accordingly, the percentage error is $$60\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 400/500 instead of 200/500. Find the percentage error in the calculation.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{200}{500},\quad\text{Wrong}=\frac{400}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{400}{500}}{\frac{200}{500}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | So, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 600 instead of 100. Find the percentage error in the calculation.","$$500\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{600}{100}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{600}{100}-1\right)100
+] | =
+
+[
+\Rightarrow =$$500\%$$
+] | Answer
+
+[
+\Rightarrow $$500\%$$
+] | So, the percentage error is $$500\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 500, but it was divided by 250. Find the percentage error.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{500}{250}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{500}{250}-1\right|100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | Hence, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 500/1000 instead of 100/1000. Find the percentage error in the calculation.","$$400\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{1000},\quad\text{Wrong}=\frac{500}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{500}{1000}}{\frac{100}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$400\%$$
+] | Answer
+
+[
+\Rightarrow $$400\%$$
+] | Thus, the percentage error is $$400\%$$.","PASS"
+"en","PCT-CP-003","PCT-QL-014","PCT-ES-003","Medium","tieredCommission","ABSOLUTE","Commission is 5% up to Rs. 5000 and 20% above it. Find commission on sales of Rs. 6500.","$$550$$","Given
+
+[
+\Rightarrow \frac{5000\times5}{100}+\frac{1500\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$550$$
+] | =
+
+[
+\Rightarrow \text{Commission}=$$550$$
+] | Answer
+
+[
+\Rightarrow $$550$$
+] | Therefore, the total commission is $$550$$.","PASS"
+"en","PCT-CP-003","PCT-QL-017","PCT-ES-003","Medium","tieredTax","ABSOLUTE","Income up to Rs. 2000 is tax-free and the rest is taxed at 5%. Find tax on Rs. 3000.","$$50$$","Given
+
+[
+\Rightarrow \text{Taxable income}=3000-2000
+] | Calculation
+
+[
+\Rightarrow \frac{(3000-2000)5}{100}
+] | =
+
+[
+\Rightarrow =$$50$$
+] | Answer
+
+[
+\Rightarrow $$50$$
+] | Hence, the total tax is $$50$$.","PASS"
+"en","PCT-CP-003","PCT-QL-020","PCT-ES-003","Hard","piecewiseRate","ABSOLUTE","Brokerage is charged at 5% up to 1000 and 20% above it. Find the total brokerage on 2000.","$$250$$","Given
+
+[
+\Rightarrow 1000\times5+1000\times20
+] | Calculation
+
+[
+\Rightarrow =$$250$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$250$$
+] | Answer
+
+[
+\Rightarrow $$250$$
+] | Accordingly, the total charge is $$250$$.","PASS"
+"en","PCT-CP-003","PCT-QL-021","PCT-ES-003","Medium","piecewiseRate","ABSOLUTE","Incentive is paid at 10% up to 500 and 25% on the remaining amount. Find the total incentive on 600.","$$75$$","Given
+
+[
+\Rightarrow 500\times10+100\times25
+] | Calculation
+
+[
+\Rightarrow =$$75$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$75$$
+] | Answer
+
+[
+\Rightarrow $$75$$
+] | Hence, the total charge is $$75$$.","PASS"
+"en","PCT-CP-003","PCT-QL-050","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","Income tax is 8% up to Rs. 5000, 10% from Rs. 5000 to Rs. 15000, and 20% above Rs. 15000. Find the total tax on an income of Rs. 20000.","$$2400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(20000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$2400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$2400$$
+] | Answer
+
+[
+\Rightarrow $$2400$$
+] | Accordingly, the total charge is $$2400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-051","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","A salesman's commission is 5% on sales up to Rs. 10000, 12% from Rs. 10000 to Rs. 15000, and 15% above Rs. 15000. Find his total commission on sales of Rs. 20000.","$$1850$$","Given
+
+[
+\Rightarrow \frac{10000\times5}{100}+\frac{(15000-10000)12}{100}+\frac{(20000-15000)15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$1850$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$1850$$
+] | Answer
+
+[
+\Rightarrow $$1850$$
+] | Hence, the total charge is $$1850$$.","PASS"
+"en","PCT-CP-003","PCT-QL-052","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","Electricity is charged at Rs. 8 per unit for the first 5000 units, Rs. 10 per unit from 5000 to 15000 units, and Rs. 20 per unit above 15000 units. Find the total bill for 30000 units.","$$4400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(30000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$4400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$4400$$
+] | Answer
+
+[
+\Rightarrow $$4400$$
+] | Hence, the total charge is $$4400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-053","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A company pays 5% commission on sales up to Rs. 10000 and 12% on sales above Rs. 10000. If the salesman received a total commission of Rs. 950, find the total sales.","$$13750$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(950-\frac{10000\times5}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$13750$$
+] | Answer
+
+[
+\Rightarrow $$13750$$
+] | Therefore, the original total is $$13750$$.","PASS"
+"en","PCT-CP-003","PCT-QL-054","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","A broker charges 8% on deals up to Rs. 5000 and 12% on any amount above it. If his total brokerage is Rs. 1000, find the deal value.","$$10000$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(1000-\frac{5000\times8}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$10000$$
+] | Answer
+
+[
+\Rightarrow $$10000$$
+] | Accordingly, the original total is $$10000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-055","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","Tax is 5% up to Rs. 10000 and 10% above it. If the total tax paid is Rs. 750, find the gross amount.","$$12500$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(750-\frac{10000\times5}{100})100}{10}
+] | =
+
+[
+\Rightarrow =$$12500$$
+] | Answer
+
+[
+\Rightarrow $$12500$$
+] | Hence, the original total is $$12500$$.","PASS"
+"en","PCT-CP-003","PCT-QL-014","PCT-ES-003","Medium","tieredCommission","ABSOLUTE","Commission is 10% up to Rs. 2000 and 15% above it. Find commission on sales of Rs. 3000.","$$350$$","Given
+
+[
+\Rightarrow \frac{2000\times10}{100}+\frac{1000\times15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$350$$
+] | =
+
+[
+\Rightarrow \text{Commission}=$$350$$
+] | Answer
+
+[
+\Rightarrow $$350$$
+] | Accordingly, the total commission is $$350$$.","PASS"
+"en","PCT-CP-003","PCT-QL-017","PCT-ES-003","Medium","tieredTax","ABSOLUTE","Income up to Rs. 1000 is tax-free and the rest is taxed at 10%. Find tax on Rs. 1500.","$$50$$","Given
+
+[
+\Rightarrow \text{Taxable income}=1500-1000
+] | Calculation
+
+[
+\Rightarrow \frac{(1500-1000)10}{100}
+] | =
+
+[
+\Rightarrow =$$50$$
+] | Answer
+
+[
+\Rightarrow $$50$$
+] | Accordingly, the total tax is $$50$$.","PASS"
+"en","PCT-CP-003","PCT-QL-020","PCT-ES-003","Hard","piecewiseRate","ABSOLUTE","Brokerage is charged at 15% up to 100 and 15% above it. Find the total brokerage on 600.","$$90$$","Given
+
+[
+\Rightarrow 100\times15+500\times15
+] | Calculation
+
+[
+\Rightarrow =$$90$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$90$$
+] | Answer
+
+[
+\Rightarrow $$90$$
+] | Thus, the total charge is $$90$$.","PASS"
+"en","PCT-CP-003","PCT-QL-021","PCT-ES-003","Medium","piecewiseRate","ABSOLUTE","Incentive is paid at 5% up to 1000 and 20% on the remaining amount. Find the total incentive on 2000.","$$250$$","Given
+
+[
+\Rightarrow 1000\times5+1000\times20
+] | Calculation
+
+[
+\Rightarrow =$$250$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$250$$
+] | Answer
+
+[
+\Rightarrow $$250$$
+] | Accordingly, the total charge is $$250$$.","PASS"
+"en","PCT-CP-003","PCT-QL-050","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","Income tax is 5% up to Rs. 10000, 12% from Rs. 10000 to Rs. 15000, and 15% above Rs. 15000. Find the total tax on an income of Rs. 20000.","$$1850$$","Given
+
+[
+\Rightarrow \frac{10000\times5}{100}+\frac{(15000-10000)12}{100}+\frac{(20000-15000)15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$1850$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$1850$$
+] | Answer
+
+[
+\Rightarrow $$1850$$
+] | Hence, the total charge is $$1850$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","40% people are men. 10% men and 60% women are graduates. Find total graduate percentage.","$$40\%$$","Given
+
+[
+\Rightarrow \frac{40\times10}{100}+\frac{60\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$40\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$40\%$$
+] | Answer
+
+[
+\Rightarrow $$40\%$$
+] | Thus, the overall percentage is $$40\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 12000, 60% are urban residents. 25% of urban residents and 25% of rural residents are employed. Find the total employed population.","$$3000$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{12000\times60}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{12000\times60\times25}{10000}
+] | =
+
+[
+\Rightarrow =$$3000$$
+] | Answer
+
+[
+\Rightarrow $$3000$$
+] | Therefore, the required population is $$3000$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","50% of employees are in Department A. 10% of Department A and 60% of other departments completed training. Find the total trained percentage.","$$35\%$$","Given
+
+[
+\Rightarrow \frac{50\times10}{100}+\frac{50\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$35\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$35\%$$
+] | Answer
+
+[
+\Rightarrow $$35\%$$
+] | Therefore, the combined result is $$35\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","50% belong to Category A. 50% of Category A and 60% of the remaining category qualify. Find the total qualifying percentage.","$$55\%$$","Given
+
+[
+\Rightarrow \frac{50\times50}{100}+\frac{50\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$55\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$55\%$$
+] | Answer
+
+[
+\Rightarrow $$55\%$$
+] | Accordingly, the combined result is $$55\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","40% people are men. 25% men and 25% women are graduates. Find total graduate percentage.","$$25\%$$","Given
+
+[
+\Rightarrow \frac{40\times25}{100}+\frac{60\times25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$25\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$25\%$$
+] | Answer
+
+[
+\Rightarrow $$25\%$$
+] | Accordingly, the overall percentage is $$25\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 4000, 40% are urban residents. 50% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$1280$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{4000\times40}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{4000\times40\times50}{10000}
+] | =
+
+[
+\Rightarrow =$$1280$$
+] | Answer
+
+[
+\Rightarrow $$1280$$
+] | Hence, the required population is $$1280$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","40% of employees are in Department A. 25% of Department A and 10% of other departments completed training. Find the total trained percentage.","$$16\%$$","Given
+
+[
+\Rightarrow \frac{40\times25}{100}+\frac{60\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$16\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$16\%$$
+] | Answer
+
+[
+\Rightarrow $$16\%$$
+] | Thus, the combined result is $$16\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","60% belong to Category A. 40% of Category A and 40% of the remaining category qualify. Find the total qualifying percentage.","$$40\%$$","Given
+
+[
+\Rightarrow \frac{60\times40}{100}+\frac{40\times40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$40\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$40\%$$
+] | Answer
+
+[
+\Rightarrow $$40\%$$
+] | Hence, the combined result is $$40\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","50% people are men. 10% men and 40% women are graduates. Find total graduate percentage.","$$25\%$$","Given
+
+[
+\Rightarrow \frac{50\times10}{100}+\frac{50\times40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$25\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$25\%$$
+] | Answer
+
+[
+\Rightarrow $$25\%$$
+] | Hence, the overall percentage is $$25\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 8000, 40% are urban residents. 40% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$2240$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{8000\times40}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{8000\times40\times40}{10000}
+] | =
+
+[
+\Rightarrow =$$2240$$
+] | Answer
+
+[
+\Rightarrow $$2240$$
+] | Thus, the required population is $$2240$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","25% of employees are in Department A. 60% of Department A and 40% of other departments completed training. Find the total trained percentage.","$$45\%$$","Given
+
+[
+\Rightarrow \frac{25\times60}{100}+\frac{75\times40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$45\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$45\%$$
+] | Answer
+
+[
+\Rightarrow $$45\%$$
+] | Accordingly, the combined result is $$45\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","60% belong to Category A. 10% of Category A and 5% of the remaining category qualify. Find the total qualifying percentage.","$$8\%$$","Given
+
+[
+\Rightarrow \frac{60\times10}{100}+\frac{40\times5}{100}
+] | Calculation
+
+[
+\Rightarrow =$$8\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$8\%$$
+] | Answer
+
+[
+\Rightarrow $$8\%$$
+] | So, the combined result is $$8\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","40% people are men. 25% men and 60% women are graduates. Find total graduate percentage.","$$46\%$$","Given
+
+[
+\Rightarrow \frac{40\times25}{100}+\frac{60\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$46\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$46\%$$
+] | Answer
+
+[
+\Rightarrow $$46\%$$
+] | So, the overall percentage is $$46\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 8000, 40% are urban residents. 25% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$1760$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{8000\times40}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{8000\times40\times25}{10000}
+] | =
+
+[
+\Rightarrow =$$1760$$
+] | Answer
+
+[
+\Rightarrow $$1760$$
+] | Thus, the required population is $$1760$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","50% of employees are in Department A. 20% of Department A and 20% of other departments completed training. Find the total trained percentage.","$$20\%$$","Given
+
+[
+\Rightarrow \frac{50\times20}{100}+\frac{50\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$20\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | Accordingly, the combined result is $$20\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Medium","branchAggregation","PERCENT","50% belong to Category A. 40% of Category A and 10% of the remaining category qualify. Find the total qualifying percentage.","$$25\%$$","Given
+
+[
+\Rightarrow \frac{50\times40}{100}+\frac{50\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$25\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$25\%$$
+] | Answer
+
+[
+\Rightarrow $$25\%$$
+] | Thus, the combined result is $$25\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","60% people are men. 25% men and 20% women are graduates. Find total graduate percentage.","$$23\%$$","Given
+
+[
+\Rightarrow \frac{60\times25}{100}+\frac{40\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$23\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$23\%$$
+] | Answer
+
+[
+\Rightarrow $$23\%$$
+] | Accordingly, the overall percentage is $$23\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 8000, 60% are urban residents. 40% of urban residents and 50% of rural residents are employed. Find the total employed population.","$$3520$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{8000\times60}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{8000\times60\times40}{10000}
+] | =
+
+[
+\Rightarrow =$$3520$$
+] | Answer
+
+[
+\Rightarrow $$3520$$
+] | Accordingly, the required population is $$3520$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","40% of employees are in Department A. 40% of Department A and 10% of other departments completed training. Find the total trained percentage.","$$22\%$$","Given
+
+[
+\Rightarrow \frac{40\times40}{100}+\frac{60\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$22\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$22\%$$
+] | Answer
+
+[
+\Rightarrow $$22\%$$
+] | Thus, the combined result is $$22\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","40% belong to Category A. 50% of Category A and 75% of the remaining category qualify. Find the total qualifying percentage.","$$65\%$$","Given
+
+[
+\Rightarrow \frac{40\times50}{100}+\frac{60\times75}{100}
+] | Calculation
+
+[
+\Rightarrow =$$65\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$65\%$$
+] | Answer
+
+[
+\Rightarrow $$65\%$$
+] | Hence, the combined result is $$65\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-032","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A vessel has 200 litres of milk. 10 litres are taken out and replaced with water each time. After 2 operations, what percent of the original milk remains?","$$90.25\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{10}{200}
+] | =
+
+[
+\Rightarrow \frac{190}{200}
+] | After 2 operations
+
+[
+\Rightarrow \left(\frac{190}{200}\right)^{2}
+] | =
+
+[
+\Rightarrow $$90.25\%$$
+] | Hence, $$90.25\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-033","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A stock has 200 items. Each time 10 defective items are removed and replaced by good items. After 5 rounds, what percent of the original defective items remains?","$$77.3781\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{10}{200}
+] | =
+
+[
+\Rightarrow \frac{190}{200}
+] | After 5 operations
+
+[
+\Rightarrow \left(\frac{190}{200}\right)^{5}
+] | =
+
+[
+\Rightarrow $$77.3781\%$$
+] | Hence, $$77.3781\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 25 is removed and replaced with water. After 4 operations, what percent of the original chemical remains?","$$31.6406$$","Given
+
+[
+\Rightarrow 1-\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{25}{100}\right)^{4}
+] | =
+
+[
+\Rightarrow =$$31.6406$$
+] | Answer
+
+[
+\Rightarrow $$31.6406$$
+] | Hence, the final concentration is $$31.6406$$.","PASS"
+"en","PCT-CP-005","PCT-QL-056","PCT-ES-005","Hard","variableReplacement","PERCENT","A vessel contains 500 litres of milk. 10%, 20%, and 10% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.","$$64.8\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{80}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$64.8\%$$
+] | Answer
+
+[
+\Rightarrow $$64.8\%$$
+] | So, the pure component remaining is $$64.8\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 200 litres full of acid, 20%, 25%, and 25% are removed and replaced with water successively. Find the final concentration of acid.","$$45\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{75}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$45\%$$
+] | Answer
+
+[
+\Rightarrow $$45\%$$
+] | Therefore, the pure component remaining is $$45\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 200 items, 20%, 20%, and 25% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$48\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{80}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$48\%$$
+] | Answer
+
+[
+\Rightarrow $$48\%$$
+] | Therefore, the pure component remaining is $$48\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 10 is removed and replaced with water. After 2 operations, what percent of the original chemical remains?","$$81$$","Given
+
+[
+\Rightarrow 1-\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{10}{100}\right)^{2}
+] | =
+
+[
+\Rightarrow =$$81$$
+] | Answer
+
+[
+\Rightarrow $$81$$
+] | So, the final concentration is $$81$$.","PASS"
+"en","PCT-CP-005","PCT-QL-056","PCT-ES-005","Hard","variableReplacement","PERCENT","A vessel contains 500 litres of milk. 20%, 20%, and 25% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.","$$48\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{80}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$48\%$$
+] | Answer
+
+[
+\Rightarrow $$48\%$$
+] | Therefore, the pure component remaining is $$48\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 100 litres full of acid, 10%, 25%, and 10% are removed and replaced with water successively. Find the final concentration of acid.","$$60.75\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{75}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$60.75\%$$
+] | Answer
+
+[
+\Rightarrow $$60.75\%$$
+] | Accordingly, the pure component remaining is $$60.75\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 500 items, 20%, 10%, and 25% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$54\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{90}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$54\%$$
+] | Answer
+
+[
+\Rightarrow $$54\%$$
+] | So, the pure component remaining is $$54\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-032","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A vessel has 400 litres of milk. 50 litres are taken out and replaced with water each time. After 4 operations, what percent of the original milk remains?","$$58.6182\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{50}{400}
+] | =
+
+[
+\Rightarrow \frac{350}{400}
+] | After 4 operations
+
+[
+\Rightarrow \left(\frac{350}{400}\right)^{4}
+] | =
+
+[
+\Rightarrow $$58.6182\%$$
+] | Hence, $$58.6182\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-033","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A stock has 400 items. Each time 100 defective items are removed and replaced by good items. After 2 rounds, what percent of the original defective items remains?","$$56.25\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{100}{400}
+] | =
+
+[
+\Rightarrow \frac{300}{400}
+] | After 2 operations
+
+[
+\Rightarrow \left(\frac{300}{400}\right)^{2}
+] | =
+
+[
+\Rightarrow $$56.25\%$$
+] | Hence, $$56.25\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 50 is removed and replaced with water. After 2 operations, what percent of the original chemical remains?","$$25$$","Given
+
+[
+\Rightarrow 1-\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{50}{100}\right)^{2}
+] | =
+
+[
+\Rightarrow =$$25$$
+] | Answer
+
+[
+\Rightarrow $$25$$
+] | Therefore, the final concentration is $$25$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","60% voters voted. 20% votes were invalid. Winner got 70% valid votes and won by 768. Find total voters.","$$4000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{60\times80}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{60\times80\times40}{10000}\%
+] | =
+
+[
+\Rightarrow =$$4000$$
+] | Answer
+
+[
+\Rightarrow $$4000$$
+] | Thus, the total electorate is $$4000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 2000. 50% are literate, 20% of the literate are employed, and 50% of the employed are government employees. Find the final count.","$$100$$","Given
+
+[
+\Rightarrow 2000\times\frac{50}{100}\times\frac{20}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$100$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$100$$
+] | Answer
+
+[
+\Rightarrow $$100$$
+] | Accordingly, the final value is $$100$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 1000 employees. 60% are female employees, 50% of them are graduates, and 10% of the graduates are selected for training. Find the selected count.","$$30$$","Given
+
+[
+\Rightarrow 1000\times\frac{60}{100}\times\frac{50}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$30$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$30$$
+] | Answer
+
+[
+\Rightarrow $$30$$
+] | Thus, the final value is $$30$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 2000 students. 50% passed, 20% of the passed students got first division, and 25% of them received scholarships. Find the final number.","$$50$$","Given
+
+[
+\Rightarrow 2000\times\frac{50}{100}\times\frac{20}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$50$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$50$$
+] | Answer
+
+[
+\Rightarrow $$50$$
+] | Therefore, the final value is $$50$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","80% voters voted. 5% votes were invalid. Winner got 60% valid votes and won by 608. Find total voters.","$$4000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{80\times95}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{80\times95\times20}{10000}\%
+] | =
+
+[
+\Rightarrow =$$4000$$
+] | Answer
+
+[
+\Rightarrow $$4000$$
+] | Thus, the total electorate is $$4000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 1000. 40% are literate, 25% of the literate are employed, and 25% of the employed are government employees. Find the final count.","$$25$$","Given
+
+[
+\Rightarrow 1000\times\frac{40}{100}\times\frac{25}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$25$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$25$$
+] | Answer
+
+[
+\Rightarrow $$25$$
+] | Therefore, the final value is $$25$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 10000 employees. 60% are female employees, 20% of them are graduates, and 25% of the graduates are selected for training. Find the selected count.","$$300$$","Given
+
+[
+\Rightarrow 10000\times\frac{60}{100}\times\frac{20}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$300$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$300$$
+] | Answer
+
+[
+\Rightarrow $$300$$
+] | Hence, the final value is $$300$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 1000 students. 40% passed, 25% of the passed students got first division, and 10% of them received scholarships. Find the final number.","$$10$$","Given
+
+[
+\Rightarrow 1000\times\frac{40}{100}\times\frac{25}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$10$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$10$$
+] | Answer
+
+[
+\Rightarrow $$10$$
+] | Hence, the final value is $$10$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","70% voters voted. 5% votes were invalid. Winner got 60% valid votes and won by 1064. Find total voters.","$$8000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{70\times95}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{70\times95\times20}{10000}\%
+] | =
+
+[
+\Rightarrow =$$8000$$
+] | Answer
+
+[
+\Rightarrow $$8000$$
+] | Accordingly, the total electorate is $$8000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 5000. 75% are literate, 50% of the literate are employed, and 20% of the employed are government employees. Find the final count.","$$375$$","Given
+
+[
+\Rightarrow 5000\times\frac{75}{100}\times\frac{50}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$375$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$375$$
+] | Answer
+
+[
+\Rightarrow $$375$$
+] | Thus, the final value is $$375$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 10000 employees. 75% are female employees, 25% of them are graduates, and 20% of the graduates are selected for training. Find the selected count.","$$375$$","Given
+
+[
+\Rightarrow 10000\times\frac{75}{100}\times\frac{25}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$375$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$375$$
+] | Answer
+
+[
+\Rightarrow $$375$$
+] | Accordingly, the final value is $$375$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 10000 students. 50% passed, 20% of the passed students got first division, and 40% of them received scholarships. Find the final number.","$$400$$","Given
+
+[
+\Rightarrow 10000\times\frac{50}{100}\times\frac{20}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$400$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$400$$
+] | Answer
+
+[
+\Rightarrow $$400$$
+] | Accordingly, the final value is $$400$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","70% voters voted. 10% votes were invalid. Winner got 60% valid votes and won by 252. Find total voters.","$$2000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{70\times90}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{70\times90\times20}{10000}\%
+] | =
+
+[
+\Rightarrow =$$2000$$
+] | Answer
+
+[
+\Rightarrow $$2000$$
+] | Thus, the total electorate is $$2000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 10000. 50% are literate, 20% of the literate are employed, and 20% of the employed are government employees. Find the final count.","$$200$$","Given
+
+[
+\Rightarrow 10000\times\frac{50}{100}\times\frac{20}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$200$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$200$$
+] | Answer
+
+[
+\Rightarrow $$200$$
+] | Thus, the final value is $$200$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 5000 employees. 60% are female employees, 40% of them are graduates, and 25% of the graduates are selected for training. Find the selected count.","$$300$$","Given
+
+[
+\Rightarrow 5000\times\frac{60}{100}\times\frac{40}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$300$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$300$$
+] | Answer
+
+[
+\Rightarrow $$300$$
+] | Thus, the final value is $$300$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 5000 students. 40% passed, 25% of the passed students got first division, and 20% of them received scholarships. Find the final number.","$$100$$","Given
+
+[
+\Rightarrow 5000\times\frac{40}{100}\times\frac{25}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$100$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$100$$
+] | Answer
+
+[
+\Rightarrow $$100$$
+] | Hence, the final value is $$100$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","80% voters voted. 10% votes were invalid. Winner got 65% valid votes and won by 1080. Find total voters.","$$5000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{80\times90}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{80\times90\times30}{10000}\%
+] | =
+
+[
+\Rightarrow =$$5000$$
+] | Answer
+
+[
+\Rightarrow $$5000$$
+] | Therefore, the total electorate is $$5000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 5000. 40% are literate, 20% of the literate are employed, and 50% of the employed are government employees. Find the final count.","$$200$$","Given
+
+[
+\Rightarrow 5000\times\frac{40}{100}\times\frac{20}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$200$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$200$$
+] | Answer
+
+[
+\Rightarrow $$200$$
+] | Accordingly, the final value is $$200$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 2000 employees. 50% are female employees, 50% of them are graduates, and 50% of the graduates are selected for training. Find the selected count.","$$250$$","Given
+
+[
+\Rightarrow 2000\times\frac{50}{100}\times\frac{50}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$250$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$250$$
+] | Answer
+
+[
+\Rightarrow $$250$$
+] | Accordingly, the final value is $$250$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 1000 students. 75% passed, 40% of the passed students got first division, and 50% of them received scholarships. Find the final number.","$$150$$","Given
+
+[
+\Rightarrow 1000\times\frac{75}{100}\times\frac{40}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$150$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$150$$
+] | Answer
+
+[
+\Rightarrow $$150$$
+] | Therefore, the final value is $$150$$.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 75% failed in English. If 5% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$55\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-5
+] | =
+
+[
+\Rightarrow 100 - 5 = 95\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+75-95
+] | =
+
+[
+\Rightarrow 55\%
+] | Hence, 55% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 40% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$10\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+40-90
+] | =
+
+[
+\Rightarrow 10\%
+] | Hence, 10% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 50% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$0\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+50-90
+] | =
+
+[
+\Rightarrow 0\%
+] | Hence, 0% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a group, 50% like Physics, 40% like Chemistry, and 50% like Biology. 20% like Physics and Chemistry, 20% like Chemistry and Biology, and 25% like Physics and Biology. If 10% like all three, find the percentage who like at least one.","$$85\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+40+50-20-20-25+10
+] | At least one
+
+[
+\Rightarrow 85\%
+] | Required percentage
+
+[
+\Rightarrow $$85\%$$
+] | Hence, the required percentage is $$85\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a town, 40% read Newspaper A, 40% read B, and 40% read C. 15% read A and B, 15% read B and C, and 20% read A and C. If 8% read all three, what percentage read none?","$$22\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+40+40-15-15-20+8
+] | At least one
+
+[
+\Rightarrow 78\%
+] | Required percentage
+
+[
+\Rightarrow $$22\%$$
+] | Hence, the required percentage is $$22\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 40% speak Hindi, 50% speak English, and 50% speak French. 25% speak Hindi and English, 25% speak English and French, and 20% speak Hindi and French. If 10% speak all three, find the percentage who speak at least one.","$$80\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+50+50-25-25-20+10
+] | At least one
+
+[
+\Rightarrow 80\%
+] | Required percentage
+
+[
+\Rightarrow $$80\%$$
+] | Hence, the required percentage is $$80\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 75% failed in English. If 20% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$45\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-20
+] | =
+
+[
+\Rightarrow 100 - 20 = 80\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+75-80
+] | =
+
+[
+\Rightarrow 45\%
+] | Hence, 45% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 75% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$75\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+75-75
+] | =
+
+[
+\Rightarrow 75\%
+] | Hence, 75% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 75% failed in English. If 5% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$20\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-5
+] | =
+
+[
+\Rightarrow 100 - 5 = 95\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+75-95
+] | =
+
+[
+\Rightarrow 20\%
+] | Hence, 20% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 75% failed in English. If 15% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$50\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-15
+] | =
+
+[
+\Rightarrow 100 - 15 = 85\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+75-85
+] | =
+
+[
+\Rightarrow 50\%
+] | Hence, 50% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a group, 50% like Physics, 50% like Chemistry, and 40% like Biology. 15% like Physics and Chemistry, 25% like Chemistry and Biology, and 15% like Physics and Biology. If 10% like all three, find the percentage who like at least one.","$$95\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+50+40-15-25-15+10
+] | At least one
+
+[
+\Rightarrow 95\%
+] | Required percentage
+
+[
+\Rightarrow $$95\%$$
+] | Hence, the required percentage is $$95\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a town, 40% read Newspaper A, 40% read B, and 50% read C. 20% read A and B, 15% read B and C, and 25% read A and C. If 10% read all three, what percentage read none?","$$20\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+40+50-20-15-25+10
+] | At least one
+
+[
+\Rightarrow 80\%
+] | Required percentage
+
+[
+\Rightarrow $$20\%$$
+] | Hence, the required percentage is $$20\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 50% speak Hindi, 40% speak English, and 50% speak French. 15% speak Hindi and English, 15% speak English and French, and 15% speak Hindi and French. If 5% speak all three, find the percentage who speak at least one.","$$100\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+40+50-15-15-15+5
+] | At least one
+
+[
+\Rightarrow 100\%
+] | Required percentage
+
+[
+\Rightarrow $$100\%$$
+] | Hence, the required percentage is $$100\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 60% failed in English. If 15% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$15\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-15
+] | =
+
+[
+\Rightarrow 100 - 15 = 85\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+60-85
+] | =
+
+[
+\Rightarrow 15\%
+] | Hence, 15% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 60% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$45\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+60-75
+] | =
+
+[
+\Rightarrow 45\%
+] | Hence, 45% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 200, but it was divided by 400. Find the percentage error.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{200}{400}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{200}{400}-1\right|100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Hence, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 300/500 instead of 100/1000. Find the percentage error in the calculation.","$$500\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{1000},\quad\text{Wrong}=\frac{300}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{300}{500}}{\frac{100}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$500\%$$
+] | Answer
+
+[
+\Rightarrow $$500\%$$
+] | Therefore, the percentage error is $$500\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 400/1000 instead of 500/1000. Find the percentage error in the calculation.","$$20\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{500}{1000},\quad\text{Wrong}=\frac{400}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{400}{1000}}{\frac{500}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | Therefore, the percentage error is $$20\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 750 instead of 500. Find the percentage error in the calculation.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{750}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{750}{500}-1\right)100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Thus, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 250, but it was divided by 1000. Find the percentage error.","$$75\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{250}{1000}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{250}{1000}-1\right|100
+] | =
+
+[
+\Rightarrow =$$75\%$$
+] | Answer
+
+[
+\Rightarrow $$75\%$$
+] | Therefore, the percentage error is $$75\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 200/500 instead of 100/500. Find the percentage error in the calculation.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{500},\quad\text{Wrong}=\frac{200}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{200}{500}}{\frac{100}{500}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | So, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 100/500 instead of 500/1000. Find the percentage error in the calculation.","$$60\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{500}{1000},\quad\text{Wrong}=\frac{100}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{100}{500}}{\frac{500}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$60\%$$
+] | Answer
+
+[
+\Rightarrow $$60\%$$
+] | Accordingly, the percentage error is $$60\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 150 instead of 100. Find the percentage error in the calculation.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{150}{100}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{150}{100}-1\right)100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | So, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 100, but it was divided by 200. Find the percentage error.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{100}{200}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{100}{200}-1\right|100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Thus, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 300 instead of 500. Find the percentage error in the calculation.","$$40\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{300}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{300}{500}-1\right)100
+] | =
+
+[
+\Rightarrow =$$40\%$$
+] | Answer
+
+[
+\Rightarrow $$40\%$$
+] | So, the percentage error is $$40\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 500, but it was divided by 1000. Find the percentage error.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{500}{1000}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{500}{1000}-1\right|100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Accordingly, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 200/1000 instead of 100/1000. Find the percentage error in the calculation.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{1000},\quad\text{Wrong}=\frac{200}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{200}{1000}}{\frac{100}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | Thus, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-003","PCT-QL-052","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","Electricity is charged at Rs. 8 per unit for the first 5000 units, Rs. 10 per unit from 5000 to 15000 units, and Rs. 20 per unit above 15000 units. Find the total bill for 20000 units.","$$2400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(20000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$2400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$2400$$
+] | Answer
+
+[
+\Rightarrow $$2400$$
+] | Accordingly, the total charge is $$2400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-053","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A company pays 5% commission on sales up to Rs. 10000 and 12% on sales above Rs. 10000. If the salesman received a total commission of Rs. 1250, find the total sales.","$$16250$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(1250-\frac{10000\times5}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$16250$$
+] | Answer
+
+[
+\Rightarrow $$16250$$
+] | Thus, the original total is $$16250$$.","PASS"
+"en","PCT-CP-003","PCT-QL-054","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A broker charges 8% on deals up to Rs. 5000 and 12% on any amount above it. If his total brokerage is Rs. 550, find the deal value.","$$6250$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(550-\frac{5000\times8}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$6250$$
+] | Answer
+
+[
+\Rightarrow $$6250$$
+] | So, the original total is $$6250$$.","PASS"
+"en","PCT-CP-003","PCT-QL-055","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","Tax is 5% up to Rs. 10000 and 10% above it. If the total tax paid is Rs. 600, find the gross amount.","$$11000$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(600-\frac{10000\times5}{100})100}{10}
+] | =
+
+[
+\Rightarrow =$$11000$$
+] | Answer
+
+[
+\Rightarrow $$11000$$
+] | Therefore, the original total is $$11000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-014","PCT-ES-003","Medium","tieredCommission","ABSOLUTE","Commission is 5% up to Rs. 5000 and 20% above it. Find commission on sales of Rs. 5500.","$$350$$","Given
+
+[
+\Rightarrow \frac{5000\times5}{100}+\frac{500\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$350$$
+] | =
+
+[
+\Rightarrow \text{Commission}=$$350$$
+] | Answer
+
+[
+\Rightarrow $$350$$
+] | Thus, the total commission is $$350$$.","PASS"
+"en","PCT-CP-003","PCT-QL-017","PCT-ES-003","Medium","tieredTax","ABSOLUTE","Income up to Rs. 2000 is tax-free and the rest is taxed at 10%. Find tax on Rs. 3000.","$$100$$","Given
+
+[
+\Rightarrow \text{Taxable income}=3000-2000
+] | Calculation
+
+[
+\Rightarrow \frac{(3000-2000)10}{100}
+] | =
+
+[
+\Rightarrow =$$100$$
+] | Answer
+
+[
+\Rightarrow $$100$$
+] | So, the total tax is $$100$$.","PASS"
+"en","PCT-CP-003","PCT-QL-050","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","Income tax is 8% up to Rs. 5000, 10% from Rs. 5000 to Rs. 15000, and 20% above Rs. 15000. Find the total tax on an income of Rs. 25000.","$$3400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(25000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$3400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$3400$$
+] | Answer
+
+[
+\Rightarrow $$3400$$
+] | Thus, the total charge is $$3400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-051","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","A salesman's commission is 8% on sales up to Rs. 5000, 10% from Rs. 5000 to Rs. 15000, and 20% above Rs. 15000. Find his total commission on sales of Rs. 20000.","$$2400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(20000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$2400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$2400$$
+] | Answer
+
+[
+\Rightarrow $$2400$$
+] | Accordingly, the total charge is $$2400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-052","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","Electricity is charged at Rs. 5 per unit for the first 10000 units, Rs. 12 per unit from 10000 to 15000 units, and Rs. 15 per unit above 15000 units. Find the total bill for 20000 units.","$$1850$$","Given
+
+[
+\Rightarrow \frac{10000\times5}{100}+\frac{(15000-10000)12}{100}+\frac{(20000-15000)15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$1850$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$1850$$
+] | Answer
+
+[
+\Rightarrow $$1850$$
+] | Hence, the total charge is $$1850$$.","PASS"
+"en","PCT-CP-003","PCT-QL-053","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","A company pays 8% commission on sales up to Rs. 5000 and 12% on sales above Rs. 5000. If the salesman received a total commission of Rs. 550, find the total sales.","$$6250$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(550-\frac{5000\times8}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$6250$$
+] | Answer
+
+[
+\Rightarrow $$6250$$
+] | So, the original total is $$6250$$.","PASS"
+"en","PCT-CP-003","PCT-QL-054","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A broker charges 5% on deals up to Rs. 10000 and 12% on any amount above it. If his total brokerage is Rs. 800, find the deal value.","$$12500$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(800-\frac{10000\times5}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$12500$$
+] | Answer
+
+[
+\Rightarrow $$12500$$
+] | So, the original total is $$12500$$.","PASS"
+"en","PCT-CP-003","PCT-QL-055","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","Tax is 8% up to Rs. 5000 and 10% above it. If the total tax paid is Rs. 550, find the gross amount.","$$6500$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(550-\frac{5000\times8}{100})100}{10}
+] | =
+
+[
+\Rightarrow =$$6500$$
+] | Answer
+
+[
+\Rightarrow $$6500$$
+] | Therefore, the original total is $$6500$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","60% people are men. 25% men and 50% women are graduates. Find total graduate percentage.","$$35\%$$","Given
+
+[
+\Rightarrow \frac{60\times25}{100}+\frac{40\times50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$35\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$35\%$$
+] | Answer
+
+[
+\Rightarrow $$35\%$$
+] | Thus, the overall percentage is $$35\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 4000, 40% are urban residents. 50% of urban residents and 40% of rural residents are employed. Find the total employed population.","$$1760$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{4000\times40}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{4000\times40\times50}{10000}
+] | =
+
+[
+\Rightarrow =$$1760$$
+] | Answer
+
+[
+\Rightarrow $$1760$$
+] | Thus, the required population is $$1760$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","25% of employees are in Department A. 5% of Department A and 25% of other departments completed training. Find the total trained percentage.","$$20\%$$","Given
+
+[
+\Rightarrow \frac{25\times5}{100}+\frac{75\times25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$20\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | So, the combined result is $$20\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","25% belong to Category A. 20% of Category A and 60% of the remaining category qualify. Find the total qualifying percentage.","$$50\%$$","Given
+
+[
+\Rightarrow \frac{25\times20}{100}+\frac{75\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$50\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | So, the combined result is $$50\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","40% people are men. 20% men and 20% women are graduates. Find total graduate percentage.","$$20\%$$","Given
+
+[
+\Rightarrow \frac{40\times20}{100}+\frac{60\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$20\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | Hence, the overall percentage is $$20\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 20000, 60% are urban residents. 25% of urban residents and 25% of rural residents are employed. Find the total employed population.","$$5000$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{20000\times60}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{20000\times60\times25}{10000}
+] | =
+
+[
+\Rightarrow =$$5000$$
+] | Answer
+
+[
+\Rightarrow $$5000$$
+] | Hence, the required population is $$5000$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","50% of employees are in Department A. 50% of Department A and 60% of other departments completed training. Find the total trained percentage.","$$55\%$$","Given
+
+[
+\Rightarrow \frac{50\times50}{100}+\frac{50\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$55\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$55\%$$
+] | Answer
+
+[
+\Rightarrow $$55\%$$
+] | Accordingly, the combined result is $$55\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","40% belong to Category A. 40% of Category A and 10% of the remaining category qualify. Find the total qualifying percentage.","$$22\%$$","Given
+
+[
+\Rightarrow \frac{40\times40}{100}+\frac{60\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$22\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$22\%$$
+] | Answer
+
+[
+\Rightarrow $$22\%$$
+] | Thus, the combined result is $$22\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 12000, 50% are urban residents. 60% of urban residents and 25% of rural residents are employed. Find the total employed population.","$$5100$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{12000\times50}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{12000\times50\times60}{10000}
+] | =
+
+[
+\Rightarrow =$$5100$$
+] | Answer
+
+[
+\Rightarrow $$5100$$
+] | Hence, the required population is $$5100$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","40% of employees are in Department A. 5% of Department A and 5% of other departments completed training. Find the total trained percentage.","$$5\%$$","Given
+
+[
+\Rightarrow \frac{40\times5}{100}+\frac{60\times5}{100}
+] | Calculation
+
+[
+\Rightarrow =$$5\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$5\%$$
+] | Answer
+
+[
+\Rightarrow $$5\%$$
+] | So, the combined result is $$5\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Medium","branchAggregation","PERCENT","60% belong to Category A. 25% of Category A and 40% of the remaining category qualify. Find the total qualifying percentage.","$$31\%$$","Given
+
+[
+\Rightarrow \frac{60\times25}{100}+\frac{40\times40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$31\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$31\%$$
+] | Answer
+
+[
+\Rightarrow $$31\%$$
+] | Hence, the combined result is $$31\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","40% people are men. 20% men and 50% women are graduates. Find total graduate percentage.","$$38\%$$","Given
+
+[
+\Rightarrow \frac{40\times20}{100}+\frac{60\times50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$38\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$38\%$$
+] | Answer
+
+[
+\Rightarrow $$38\%$$
+] | So, the overall percentage is $$38\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 16000, 50% are urban residents. 50% of urban residents and 25% of rural residents are employed. Find the total employed population.","$$6000$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{16000\times50}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{16000\times50\times50}{10000}
+] | =
+
+[
+\Rightarrow =$$6000$$
+] | Answer
+
+[
+\Rightarrow $$6000$$
+] | Thus, the required population is $$6000$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","60% of employees are in Department A. 40% of Department A and 10% of other departments completed training. Find the total trained percentage.","$$28\%$$","Given
+
+[
+\Rightarrow \frac{60\times40}{100}+\frac{40\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$28\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$28\%$$
+] | Answer
+
+[
+\Rightarrow $$28\%$$
+] | Thus, the combined result is $$28\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Medium","branchAggregation","PERCENT","60% belong to Category A. 20% of Category A and 25% of the remaining category qualify. Find the total qualifying percentage.","$$22\%$$","Given
+
+[
+\Rightarrow \frac{60\times20}{100}+\frac{40\times25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$22\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$22\%$$
+] | Answer
+
+[
+\Rightarrow $$22\%$$
+] | Accordingly, the combined result is $$22\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","60% people are men. 40% men and 20% women are graduates. Find total graduate percentage.","$$32\%$$","Given
+
+[
+\Rightarrow \frac{60\times40}{100}+\frac{40\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$32\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$32\%$$
+] | Answer
+
+[
+\Rightarrow $$32\%$$
+] | So, the overall percentage is $$32\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 16000, 50% are urban residents. 25% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$3600$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{16000\times50}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{16000\times50\times25}{10000}
+] | =
+
+[
+\Rightarrow =$$3600$$
+] | Answer
+
+[
+\Rightarrow $$3600$$
+] | Hence, the required population is $$3600$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","60% of employees are in Department A. 20% of Department A and 60% of other departments completed training. Find the total trained percentage.","$$36\%$$","Given
+
+[
+\Rightarrow \frac{60\times20}{100}+\frac{40\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$36\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$36\%$$
+] | Answer
+
+[
+\Rightarrow $$36\%$$
+] | So, the combined result is $$36\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Medium","branchAggregation","PERCENT","40% belong to Category A. 50% of Category A and 25% of the remaining category qualify. Find the total qualifying percentage.","$$35\%$$","Given
+
+[
+\Rightarrow \frac{40\times50}{100}+\frac{60\times25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$35\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$35\%$$
+] | Answer
+
+[
+\Rightarrow $$35\%$$
+] | Hence, the combined result is $$35\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-056","PCT-ES-005","Hard","variableReplacement","PERCENT","A vessel contains 100 litres of milk. 10%, 25%, and 10% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.","$$60.75\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{75}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$60.75\%$$
+] | Answer
+
+[
+\Rightarrow $$60.75\%$$
+] | Accordingly, the pure component remaining is $$60.75\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 500 litres full of acid, 20%, 10%, and 25% are removed and replaced with water successively. Find the final concentration of acid.","$$54\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{90}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$54\%$$
+] | Answer
+
+[
+\Rightarrow $$54\%$$
+] | So, the pure component remaining is $$54\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 100 items, 10%, 20%, and 10% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$64.8\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{80}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$64.8\%$$
+] | Answer
+
+[
+\Rightarrow $$64.8\%$$
+] | Accordingly, the pure component remaining is $$64.8\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-032","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A vessel has 400 litres of milk. 20 litres are taken out and replaced with water each time. After 4 operations, what percent of the original milk remains?","$$81.4506\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{20}{400}
+] | =
+
+[
+\Rightarrow \frac{380}{400}
+] | After 4 operations
+
+[
+\Rightarrow \left(\frac{380}{400}\right)^{4}
+] | =
+
+[
+\Rightarrow $$81.4506\%$$
+] | Hence, $$81.4506\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-033","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A stock has 400 items. Each time 25 defective items are removed and replaced by good items. After 2 rounds, what percent of the original defective items remains?","$$87.8906\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{25}{400}
+] | =
+
+[
+\Rightarrow \frac{375}{400}
+] | After 2 operations
+
+[
+\Rightarrow \left(\frac{375}{400}\right)^{2}
+] | =
+
+[
+\Rightarrow $$87.8906\%$$
+] | Hence, $$87.8906\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 25 is removed and replaced with water. After 3 operations, what percent of the original chemical remains?","$$42.1875$$","Given
+
+[
+\Rightarrow 1-\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{25}{100}\right)^{3}
+] | =
+
+[
+\Rightarrow =$$42.1875$$
+] | Answer
+
+[
+\Rightarrow $$42.1875$$
+] | Accordingly, the final concentration is $$42.1875$$.","PASS"
+"en","PCT-CP-005","PCT-QL-056","PCT-ES-005","Hard","variableReplacement","PERCENT","A vessel contains 100 litres of milk. 20%, 10%, and 25% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.","$$54\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{90}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$54\%$$
+] | Answer
+
+[
+\Rightarrow $$54\%$$
+] | Accordingly, the pure component remaining is $$54\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 200 litres full of acid, 10%, 20%, and 10% are removed and replaced with water successively. Find the final concentration of acid.","$$64.8\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{80}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$64.8\%$$
+] | Answer
+
+[
+\Rightarrow $$64.8\%$$
+] | Accordingly, the pure component remaining is $$64.8\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 100 items, 20%, 20%, and 25% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$48\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{80}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$48\%$$
+] | Answer
+
+[
+\Rightarrow $$48\%$$
+] | Thus, the pure component remaining is $$48\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 10 is removed and replaced with water. After 4 operations, what percent of the original chemical remains?","$$65.61$$","Given
+
+[
+\Rightarrow 1-\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{10}{100}\right)^{4}
+] | =
+
+[
+\Rightarrow =$$65.61$$
+] | Answer
+
+[
+\Rightarrow $$65.61$$
+] | Hence, the final concentration is $$65.61$$.","PASS"
+"en","PCT-CP-005","PCT-QL-056","PCT-ES-005","Hard","variableReplacement","PERCENT","A vessel contains 100 litres of milk. 20%, 20%, and 25% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.","$$48\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{80}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$48\%$$
+] | Answer
+
+[
+\Rightarrow $$48\%$$
+] | Thus, the pure component remaining is $$48\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 500 litres full of acid, 10%, 25%, and 10% are removed and replaced with water successively. Find the final concentration of acid.","$$60.75\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{75}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$60.75\%$$
+] | Answer
+
+[
+\Rightarrow $$60.75\%$$
+] | So, the pure component remaining is $$60.75\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 200 items, 20%, 10%, and 25% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$54\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{90}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$54\%$$
+] | Answer
+
+[
+\Rightarrow $$54\%$$
+] | Accordingly, the pure component remaining is $$54\%$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","80% voters voted. 5% votes were invalid. Winner got 65% valid votes and won by 456. Find total voters.","$$2000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{80\times95}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{80\times95\times30}{10000}\%
+] | =
+
+[
+\Rightarrow =$$2000$$
+] | Answer
+
+[
+\Rightarrow $$2000$$
+] | Accordingly, the total electorate is $$2000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 2000. 50% are literate, 40% of the literate are employed, and 10% of the employed are government employees. Find the final count.","$$40$$","Given
+
+[
+\Rightarrow 2000\times\frac{50}{100}\times\frac{40}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$40$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$40$$
+] | Answer
+
+[
+\Rightarrow $$40$$
+] | Hence, the final value is $$40$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 1000 employees. 75% are female employees, 20% of them are graduates, and 10% of the graduates are selected for training. Find the selected count.","$$15$$","Given
+
+[
+\Rightarrow 1000\times\frac{75}{100}\times\frac{20}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$15$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$15$$
+] | Answer
+
+[
+\Rightarrow $$15$$
+] | Thus, the final value is $$15$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 1000 students. 40% passed, 40% of the passed students got first division, and 50% of them received scholarships. Find the final number.","$$80$$","Given
+
+[
+\Rightarrow 1000\times\frac{40}{100}\times\frac{40}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$80$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$80$$
+] | Answer
+
+[
+\Rightarrow $$80$$
+] | Hence, the final value is $$80$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","60% voters voted. 5% votes were invalid. Winner got 70% valid votes and won by 1140. Find total voters.","$$5000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{60\times95}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{60\times95\times40}{10000}\%
+] | =
+
+[
+\Rightarrow =$$5000$$
+] | Answer
+
+[
+\Rightarrow $$5000$$
+] | So, the total electorate is $$5000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 10000. 40% are literate, 25% of the literate are employed, and 25% of the employed are government employees. Find the final count.","$$250$$","Given
+
+[
+\Rightarrow 10000\times\frac{40}{100}\times\frac{25}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$250$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$250$$
+] | Answer
+
+[
+\Rightarrow $$250$$
+] | So, the final value is $$250$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 10000 employees. 60% are female employees, 25% of them are graduates, and 25% of the graduates are selected for training. Find the selected count.","$$375$$","Given
+
+[
+\Rightarrow 10000\times\frac{60}{100}\times\frac{25}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$375$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$375$$
+] | Answer
+
+[
+\Rightarrow $$375$$
+] | Accordingly, the final value is $$375$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 10000 students. 40% passed, 25% of the passed students got first division, and 10% of them received scholarships. Find the final number.","$$100$$","Given
+
+[
+\Rightarrow 10000\times\frac{40}{100}\times\frac{25}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$100$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$100$$
+] | Answer
+
+[
+\Rightarrow $$100$$
+] | Thus, the final value is $$100$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","80% voters voted. 10% votes were invalid. Winner got 55% valid votes and won by 144. Find total voters.","$$2000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{80\times90}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{80\times90\times10}{10000}\%
+] | =
+
+[
+\Rightarrow =$$2000$$
+] | Answer
+
+[
+\Rightarrow $$2000$$
+] | Thus, the total electorate is $$2000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 2000. 75% are literate, 25% of the literate are employed, and 40% of the employed are government employees. Find the final count.","$$150$$","Given
+
+[
+\Rightarrow 2000\times\frac{75}{100}\times\frac{25}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$150$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$150$$
+] | Answer
+
+[
+\Rightarrow $$150$$
+] | Hence, the final value is $$150$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 10000 employees. 75% are female employees, 40% of them are graduates, and 40% of the graduates are selected for training. Find the selected count.","$$1200$$","Given
+
+[
+\Rightarrow 10000\times\frac{75}{100}\times\frac{40}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$1200$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$1200$$
+] | Answer
+
+[
+\Rightarrow $$1200$$
+] | Thus, the final value is $$1200$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 10000 students. 50% passed, 25% of the passed students got first division, and 50% of them received scholarships. Find the final number.","$$625$$","Given
+
+[
+\Rightarrow 10000\times\frac{50}{100}\times\frac{25}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$625$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$625$$
+] | Answer
+
+[
+\Rightarrow $$625$$
+] | Accordingly, the final value is $$625$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","80% voters voted. 10% votes were invalid. Winner got 70% valid votes and won by 1152. Find total voters.","$$4000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{80\times90}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{80\times90\times40}{10000}\%
+] | =
+
+[
+\Rightarrow =$$4000$$
+] | Answer
+
+[
+\Rightarrow $$4000$$
+] | Accordingly, the total electorate is $$4000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 5000. 40% are literate, 40% of the literate are employed, and 40% of the employed are government employees. Find the final count.","$$320$$","Given
+
+[
+\Rightarrow 5000\times\frac{40}{100}\times\frac{40}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$320$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$320$$
+] | Answer
+
+[
+\Rightarrow $$320$$
+] | So, the final value is $$320$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 2000 employees. 60% are female employees, 25% of them are graduates, and 40% of the graduates are selected for training. Find the selected count.","$$120$$","Given
+
+[
+\Rightarrow 2000\times\frac{60}{100}\times\frac{25}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$120$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$120$$
+] | Answer
+
+[
+\Rightarrow $$120$$
+] | Hence, the final value is $$120$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 5000 students. 40% passed, 40% of the passed students got first division, and 20% of them received scholarships. Find the final number.","$$160$$","Given
+
+[
+\Rightarrow 5000\times\frac{40}{100}\times\frac{40}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$160$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$160$$
+] | Answer
+
+[
+\Rightarrow $$160$$
+] | Therefore, the final value is $$160$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","60% voters voted. 20% votes were invalid. Winner got 55% valid votes and won by 384. Find total voters.","$$8000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{60\times80}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{60\times80\times10}{10000}\%
+] | =
+
+[
+\Rightarrow =$$8000$$
+] | Answer
+
+[
+\Rightarrow $$8000$$
+] | Thus, the total electorate is $$8000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 2000. 40% are literate, 20% of the literate are employed, and 50% of the employed are government employees. Find the final count.","$$80$$","Given
+
+[
+\Rightarrow 2000\times\frac{40}{100}\times\frac{20}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$80$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$80$$
+] | Answer
+
+[
+\Rightarrow $$80$$
+] | Therefore, the final value is $$80$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 1000 employees. 50% are female employees, 40% of them are graduates, and 40% of the graduates are selected for training. Find the selected count.","$$80$$","Given
+
+[
+\Rightarrow 1000\times\frac{50}{100}\times\frac{40}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$80$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$80$$
+] | Answer
+
+[
+\Rightarrow $$80$$
+] | Thus, the final value is $$80$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 2000 students. 40% passed, 20% of the passed students got first division, and 25% of them received scholarships. Find the final number.","$$40$$","Given
+
+[
+\Rightarrow 2000\times\frac{40}{100}\times\frac{20}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$40$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$40$$
+] | Answer
+
+[
+\Rightarrow $$40$$
+] | So, the final value is $$40$$.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 50% failed in English. If 20% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$45\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-20
+] | =
+
+[
+\Rightarrow 100 - 20 = 80\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+50-80
+] | =
+
+[
+\Rightarrow 45\%
+] | Hence, 45% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 60% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$35\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+60-75
+] | =
+
+[
+\Rightarrow 35\%
+] | Hence, 35% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a group, 50% like Physics, 40% like Chemistry, and 50% like Biology. 20% like Physics and Chemistry, 25% like Chemistry and Biology, and 20% like Physics and Biology. If 5% like all three, find the percentage who like at least one.","$$80\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+40+50-20-25-20+5
+] | At least one
+
+[
+\Rightarrow 80\%
+] | Required percentage
+
+[
+\Rightarrow $$80\%$$
+] | Hence, the required percentage is $$80\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a town, 60% read Newspaper A, 40% read B, and 40% read C. 25% read A and B, 25% read B and C, and 20% read A and C. If 5% read all three, what percentage read none?","$$25\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 60+40+40-25-25-20+5
+] | At least one
+
+[
+\Rightarrow 75\%
+] | Required percentage
+
+[
+\Rightarrow $$25\%$$
+] | Hence, the required percentage is $$25\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 40% speak Hindi, 50% speak English, and 60% speak French. 15% speak Hindi and English, 15% speak English and French, and 25% speak Hindi and French. If 5% speak all three, find the percentage who speak at least one.","$$100\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+50+60-15-15-25+5
+] | At least one
+
+[
+\Rightarrow 100\%
+] | Required percentage
+
+[
+\Rightarrow $$100\%$$
+] | Hence, the required percentage is $$100\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 60% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$20\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+60-90
+] | =
+
+[
+\Rightarrow 20\%
+] | Hence, 20% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 40% failed in English. If 20% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$20\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-20
+] | =
+
+[
+\Rightarrow 100 - 20 = 80\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+40-80
+] | =
+
+[
+\Rightarrow 20\%
+] | Hence, 20% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 50% failed in English. If 20% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$10\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-20
+] | =
+
+[
+\Rightarrow 100 - 20 = 80\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+50-80
+] | =
+
+[
+\Rightarrow 10\%
+] | Hence, 10% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a group, 40% like Physics, 50% like Chemistry, and 40% like Biology. 25% like Physics and Chemistry, 15% like Chemistry and Biology, and 25% like Physics and Biology. If 8% like all three, find the percentage who like at least one.","$$73\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+50+40-25-15-25+8
+] | At least one
+
+[
+\Rightarrow 73\%
+] | Required percentage
+
+[
+\Rightarrow $$73\%$$
+] | Hence, the required percentage is $$73\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a town, 60% read Newspaper A, 50% read B, and 40% read C. 20% read A and B, 25% read B and C, and 25% read A and C. If 10% read all three, what percentage read none?","$$10\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 60+50+40-20-25-25+10
+] | At least one
+
+[
+\Rightarrow 90\%
+] | Required percentage
+
+[
+\Rightarrow $$10\%$$
+] | Hence, the required percentage is $$10\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 40% speak Hindi, 60% speak English, and 40% speak French. 25% speak Hindi and English, 15% speak English and French, and 20% speak Hindi and French. If 5% speak all three, find the percentage who speak at least one.","$$85\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+60+40-25-15-20+5
+] | At least one
+
+[
+\Rightarrow 85\%
+] | Required percentage
+
+[
+\Rightarrow $$85\%$$
+] | Hence, the required percentage is $$85\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 50% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$50\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+50-75
+] | =
+
+[
+\Rightarrow 50\%
+] | Hence, 50% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 40% of candidates failed in Mathematics and 40% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$5\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 40+40-75
+] | =
+
+[
+\Rightarrow 5\%
+] | Hence, 5% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 50% failed in English. If 15% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$25\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-15
+] | =
+
+[
+\Rightarrow 100 - 15 = 85\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+50-85
+] | =
+
+[
+\Rightarrow 25\%
+] | Hence, 25% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Easy","wrongMultiplier","PERCENT","A student multiplied a number by 400 instead of 500. Find the percentage error in the calculation.","$$20\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{400}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{400}{500}-1\right)100
+] | =
+
+[
+\Rightarrow =$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | Accordingly, the percentage error is $$20\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 1000, but it was divided by 250. Find the percentage error.","$$300\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{1000}{250}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{1000}{250}-1\right|100
+] | =
+
+[
+\Rightarrow =$$300\%$$
+] | Answer
+
+[
+\Rightarrow $$300\%$$
+] | Hence, the percentage error is $$300\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Easy","fractionalError","PERCENT","A student multiplied a number by 300/1000 instead of 100/500. Find the percentage error in the calculation.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{100}{500},\quad\text{Wrong}=\frac{300}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{300}{1000}}{\frac{100}{500}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Thus, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 300/1000 instead of 200/1000. Find the percentage error in the calculation.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{200}{1000},\quad\text{Wrong}=\frac{300}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{300}{1000}}{\frac{200}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | Thus, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Easy","wrongMultiplier","PERCENT","A student multiplied a number by 750 instead of 100. Find the percentage error in the calculation.","$$650\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{750}{100}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{750}{100}-1\right)100
+] | =
+
+[
+\Rightarrow =$$650\%$$
+] | Answer
+
+[
+\Rightarrow $$650\%$$
+] | Accordingly, the percentage error is $$650\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 250, but it was divided by 50. Find the percentage error.","$$400\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{250}{50}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{250}{50}-1\right|100
+] | =
+
+[
+\Rightarrow =$$400\%$$
+] | Answer
+
+[
+\Rightarrow $$400\%$$
+] | Therefore, the percentage error is $$400\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 200/1000 instead of 500/1000. Find the percentage error in the calculation.","$$60\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{500}{1000},\quad\text{Wrong}=\frac{200}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{200}{1000}}{\frac{500}{1000}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$60\%$$
+] | Answer
+
+[
+\Rightarrow $$60\%$$
+] | Therefore, the percentage error is $$60\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-006","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 200/1000 instead of 400/500. Find the percentage error in the calculation.","$$75\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{400}{500},\quad\text{Wrong}=\frac{200}{1000}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{200}{1000}}{\frac{400}{500}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$75\%$$
+] | Answer
+
+[
+\Rightarrow $$75\%$$
+] | Therefore, the percentage error is $$75\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 150 instead of 500. Find the percentage error in the calculation.","$$70\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{150}{500}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{150}{500}-1\right)100
+] | =
+
+[
+\Rightarrow =$$70\%$$
+] | Answer
+
+[
+\Rightarrow $$70\%$$
+] | Therefore, the percentage error is $$70\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 500, but it was divided by 125. Find the percentage error.","$$300\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{500}{125}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{500}{125}-1\right|100
+] | =
+
+[
+\Rightarrow =$$300\%$$
+] | Answer
+
+[
+\Rightarrow $$300\%$$
+] | Therefore, the percentage error is $$300\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 300 instead of 100. Find the percentage error in the calculation.","$$200\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{300}{100}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{300}{100}-1\right)100
+] | =
+
+[
+\Rightarrow =$$200\%$$
+] | Answer
+
+[
+\Rightarrow $$200\%$$
+] | Hence, the percentage error is $$200\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 200, but it was divided by 500. Find the percentage error.","$$60\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{200}{500}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{200}{500}-1\right|100
+] | =
+
+[
+\Rightarrow =$$60\%$$
+] | Answer
+
+[
+\Rightarrow $$60\%$$
+] | Therefore, the percentage error is $$60\%$$.","PASS"
+"en","PCT-CP-003","PCT-QL-014","PCT-ES-003","Hard","tieredCommission","ABSOLUTE","Commission is 5% up to Rs. 5000 and 20% above it. Find commission on sales of Rs. 7000.","$$650$$","Given
+
+[
+\Rightarrow \frac{5000\times5}{100}+\frac{2000\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$650$$
+] | =
+
+[
+\Rightarrow \text{Commission}=$$650$$
+] | Answer
+
+[
+\Rightarrow $$650$$
+] | Therefore, the total commission is $$650$$.","PASS"
+"en","PCT-CP-003","PCT-QL-051","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","A salesman's commission is 5% on sales up to Rs. 10000, 12% from Rs. 10000 to Rs. 15000, and 15% above Rs. 15000. Find his total commission on sales of Rs. 30000.","$$3350$$","Given
+
+[
+\Rightarrow \frac{10000\times5}{100}+\frac{(15000-10000)12}{100}+\frac{(30000-15000)15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$3350$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$3350$$
+] | Answer
+
+[
+\Rightarrow $$3350$$
+] | Accordingly, the total charge is $$3350$$.","PASS"
+"en","PCT-CP-003","PCT-QL-054","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A broker charges 8% on deals up to Rs. 5000 and 10% on any amount above it. If his total brokerage is Rs. 450, find the deal value.","$$5500$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(450-\frac{5000\times8}{100})100}{10}
+] | =
+
+[
+\Rightarrow =$$5500$$
+] | Answer
+
+[
+\Rightarrow $$5500$$
+] | So, the original total is $$5500$$.","PASS"
+"en","PCT-CP-003","PCT-QL-055","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","Tax is 5% up to Rs. 10000 and 15% above it. If the total tax paid is Rs. 800, find the gross amount.","$$12000$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(800-\frac{10000\times5}{100})100}{15}
+] | =
+
+[
+\Rightarrow =$$12000$$
+] | Answer
+
+[
+\Rightarrow $$12000$$
+] | Therefore, the original total is $$12000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-014","PCT-ES-003","Hard","tieredCommission","ABSOLUTE","Commission is 10% up to Rs. 2000 and 15% above it. Find commission on sales of Rs. 4000.","$$500$$","Given
+
+[
+\Rightarrow \frac{2000\times10}{100}+\frac{2000\times15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$500$$
+] | =
+
+[
+\Rightarrow \text{Commission}=$$500$$
+] | Answer
+
+[
+\Rightarrow $$500$$
+] | Hence, the total commission is $$500$$.","PASS"
+"en","PCT-CP-003","PCT-QL-020","PCT-ES-003","Medium","piecewiseRate","ABSOLUTE","Brokerage is charged at 5% up to 100 and 15% above it. Find the total brokerage on 600.","$$80$$","Given
+
+[
+\Rightarrow 100\times5+500\times15
+] | Calculation
+
+[
+\Rightarrow =$$80$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$80$$
+] | Answer
+
+[
+\Rightarrow $$80$$
+] | So, the total charge is $$80$$.","PASS"
+"en","PCT-CP-003","PCT-QL-021","PCT-ES-003","Hard","piecewiseRate","ABSOLUTE","Incentive is paid at 10% up to 1000 and 20% on the remaining amount. Find the total incentive on 2000.","$$300$$","Given
+
+[
+\Rightarrow 1000\times10+1000\times20
+] | Calculation
+
+[
+\Rightarrow =$$300$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$300$$
+] | Answer
+
+[
+\Rightarrow $$300$$
+] | Thus, the total charge is $$300$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","60% people are men. 25% men and 10% women are graduates. Find total graduate percentage.","$$19\%$$","Given
+
+[
+\Rightarrow \frac{60\times25}{100}+\frac{40\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$19\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$19\%$$
+] | Answer
+
+[
+\Rightarrow $$19\%$$
+] | So, the overall percentage is $$19\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 12000, 40% are urban residents. 50% of urban residents and 25% of rural residents are employed. Find the total employed population.","$$4200$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{12000\times40}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{12000\times40\times50}{10000}
+] | =
+
+[
+\Rightarrow =$$4200$$
+] | Answer
+
+[
+\Rightarrow $$4200$$
+] | So, the required population is $$4200$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","40% of employees are in Department A. 60% of Department A and 25% of other departments completed training. Find the total trained percentage.","$$39\%$$","Given
+
+[
+\Rightarrow \frac{40\times60}{100}+\frac{60\times25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$39\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$39\%$$
+] | Answer
+
+[
+\Rightarrow $$39\%$$
+] | Thus, the combined result is $$39\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Medium","branchAggregation","PERCENT","40% belong to Category A. 25% of Category A and 60% of the remaining category qualify. Find the total qualifying percentage.","$$46\%$$","Given
+
+[
+\Rightarrow \frac{40\times25}{100}+\frac{60\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$46\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$46\%$$
+] | Answer
+
+[
+\Rightarrow $$46\%$$
+] | Thus, the combined result is $$46\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","40% people are men. 5% men and 60% women are graduates. Find total graduate percentage.","$$38\%$$","Given
+
+[
+\Rightarrow \frac{40\times5}{100}+\frac{60\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$38\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$38\%$$
+] | Answer
+
+[
+\Rightarrow $$38\%$$
+] | Therefore, the overall percentage is $$38\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 16000, 60% are urban residents. 25% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$3680$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{16000\times60}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{16000\times60\times25}{10000}
+] | =
+
+[
+\Rightarrow =$$3680$$
+] | Answer
+
+[
+\Rightarrow $$3680$$
+] | Hence, the required population is $$3680$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","40% of employees are in Department A. 50% of Department A and 20% of other departments completed training. Find the total trained percentage.","$$32\%$$","Given
+
+[
+\Rightarrow \frac{40\times50}{100}+\frac{60\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$32\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$32\%$$
+] | Answer
+
+[
+\Rightarrow $$32\%$$
+] | Hence, the combined result is $$32\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Medium","branchAggregation","PERCENT","60% belong to Category A. 50% of Category A and 50% of the remaining category qualify. Find the total qualifying percentage.","$$50\%$$","Given
+
+[
+\Rightarrow \frac{60\times50}{100}+\frac{40\times50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$50\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | So, the combined result is $$50\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","60% people are men. 75% men and 75% women are graduates. Find total graduate percentage.","$$75\%$$","Given
+
+[
+\Rightarrow \frac{60\times75}{100}+\frac{40\times75}{100}
+] | Calculation
+
+[
+\Rightarrow =$$75\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$75\%$$
+] | Answer
+
+[
+\Rightarrow $$75\%$$
+] | Accordingly, the overall percentage is $$75\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 4000, 50% are urban residents. 60% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$1600$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{4000\times50}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{4000\times50\times60}{10000}
+] | =
+
+[
+\Rightarrow =$$1600$$
+] | Answer
+
+[
+\Rightarrow $$1600$$
+] | Thus, the required population is $$1600$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Medium","branchAggregation","PERCENT","60% of employees are in Department A. 60% of Department A and 20% of other departments completed training. Find the total trained percentage.","$$44\%$$","Given
+
+[
+\Rightarrow \frac{60\times60}{100}+\frac{40\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$44\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$44\%$$
+] | Answer
+
+[
+\Rightarrow $$44\%$$
+] | Thus, the combined result is $$44\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","40% belong to Category A. 75% of Category A and 60% of the remaining category qualify. Find the total qualifying percentage.","$$66\%$$","Given
+
+[
+\Rightarrow \frac{40\times75}{100}+\frac{60\times60}{100}
+] | Calculation
+
+[
+\Rightarrow =$$66\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$66\%$$
+] | Answer
+
+[
+\Rightarrow $$66\%$$
+] | Thus, the combined result is $$66\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","75% people are men. 10% men and 50% women are graduates. Find total graduate percentage.","$$20\%$$","Given
+
+[
+\Rightarrow \frac{75\times10}{100}+\frac{25\times50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$20\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | Hence, the overall percentage is $$20\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Medium","hierarchicalPopulation","COUNT","In a population of 8000, 50% are urban residents. 50% of urban residents and 20% of rural residents are employed. Find the total employed population.","$$2800$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{8000\times50}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{8000\times50\times50}{10000}
+] | =
+
+[
+\Rightarrow =$$2800$$
+] | Answer
+
+[
+\Rightarrow $$2800$$
+] | Accordingly, the required population is $$2800$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","60% of employees are in Department A. 5% of Department A and 75% of other departments completed training. Find the total trained percentage.","$$33\%$$","Given
+
+[
+\Rightarrow \frac{60\times5}{100}+\frac{40\times75}{100}
+] | Calculation
+
+[
+\Rightarrow =$$33\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$33\%$$
+] | Answer
+
+[
+\Rightarrow $$33\%$$
+] | Accordingly, the combined result is $$33\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","60% belong to Category A. 10% of Category A and 10% of the remaining category qualify. Find the total qualifying percentage.","$$10\%$$","Given
+
+[
+\Rightarrow \frac{60\times10}{100}+\frac{40\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$10\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$10\%$$
+] | Answer
+
+[
+\Rightarrow $$10\%$$
+] | Therefore, the combined result is $$10\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Medium","weightedSubgroup","PERCENT","50% people are men. 40% men and 20% women are graduates. Find total graduate percentage.","$$30\%$$","Given
+
+[
+\Rightarrow \frac{50\times40}{100}+\frac{50\times20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$30\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$30\%$$
+] | Answer
+
+[
+\Rightarrow $$30\%$$
+] | Accordingly, the overall percentage is $$30\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-026","PCT-ES-004","Hard","hierarchicalPopulation","COUNT","In a population of 4000, 40% are urban residents. 60% of urban residents and 50% of rural residents are employed. Find the total employed population.","$$2160$$","Given
+
+[
+\Rightarrow \text{First group}=\frac{4000\times40}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Required}=\frac{4000\times40\times60}{10000}
+] | =
+
+[
+\Rightarrow =$$2160$$
+] | Answer
+
+[
+\Rightarrow $$2160$$
+] | Hence, the required population is $$2160$$.","PASS"
+"en","PCT-CP-004","PCT-QL-029","PCT-ES-004","Hard","branchAggregation","PERCENT","60% of employees are in Department A. 60% of Department A and 40% of other departments completed training. Find the total trained percentage.","$$52\%$$","Given
+
+[
+\Rightarrow \frac{60\times60}{100}+\frac{40\times40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$52\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$52\%$$
+] | Answer
+
+[
+\Rightarrow $$52\%$$
+] | Accordingly, the combined result is $$52\%$$.","PASS"
+"en","PCT-CP-004","PCT-QL-030","PCT-ES-004","Hard","branchAggregation","PERCENT","50% belong to Category A. 25% of Category A and 75% of the remaining category qualify. Find the total qualifying percentage.","$$50\%$$","Given
+
+[
+\Rightarrow \frac{50\times25}{100}+\frac{50\times75}{100}
+] | Calculation
+
+[
+\Rightarrow =$$50\%$$
+] | =
+
+[
+\Rightarrow \text{Combined percentage}=$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | So, the combined result is $$50\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-032","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A vessel has 200 litres of milk. 50 litres are taken out and replaced with water each time. After 6 operations, what percent of the original milk remains?","$$17.7979\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{50}{200}
+] | =
+
+[
+\Rightarrow \frac{150}{200}
+] | After 6 operations
+
+[
+\Rightarrow \left(\frac{150}{200}\right)^{6}
+] | =
+
+[
+\Rightarrow $$17.7979\%$$
+] | Hence, $$17.7979\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-033","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A stock has 200 items. Each time 100 defective items are removed and replaced by good items. After 4 rounds, what percent of the original defective items remains?","$$6.25\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{100}{200}
+] | =
+
+[
+\Rightarrow \frac{100}{200}
+] | After 4 operations
+
+[
+\Rightarrow \left(\frac{100}{200}\right)^{4}
+] | =
+
+[
+\Rightarrow $$6.25\%$$
+] | Hence, $$6.25\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 40 is removed and replaced with water. After 6 operations, what percent of the original chemical remains?","$$4.6656$$","Given
+
+[
+\Rightarrow 1-\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{40}{100}\right)^{6}
+] | =
+
+[
+\Rightarrow =$$4.6656$$
+] | Answer
+
+[
+\Rightarrow $$4.6656$$
+] | So, the final concentration is $$4.6656$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 200 litres full of acid, 20%, 10%, and 25% are removed and replaced with water successively. Find the final concentration of acid.","$$54\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{90}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$54\%$$
+] | Answer
+
+[
+\Rightarrow $$54\%$$
+] | Accordingly, the pure component remaining is $$54\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 500 items, 20%, 25%, and 25% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$45\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{75}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$45\%$$
+] | Answer
+
+[
+\Rightarrow $$45\%$$
+] | Therefore, the pure component remaining is $$45\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-035","PCT-ES-005","Hard","iterativeDilution","ABSOLUTE","A chemical solution has volume 100. Each time 20 is removed and replaced with water. After 4 operations, what percent of the original chemical remains?","$$40.96$$","Given
+
+[
+\Rightarrow 1-\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow 100\left(1-\frac{20}{100}\right)^{4}
+] | =
+
+[
+\Rightarrow =$$40.96$$
+] | Answer
+
+[
+\Rightarrow $$40.96$$
+] | Thus, the final concentration is $$40.96$$.","PASS"
+"en","PCT-CP-005","PCT-QL-056","PCT-ES-005","Hard","variableReplacement","PERCENT","A vessel contains 500 litres of milk. 20%, 10%, and 25% of the contents are removed and replaced with water successively. Find the final percentage of milk in the vessel.","$$54\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{90}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$54\%$$
+] | Answer
+
+[
+\Rightarrow $$54\%$$
+] | So, the pure component remaining is $$54\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-057","PCT-ES-005","Hard","variableReplacement","PERCENT","From a tank of 200 litres full of acid, 10%, 10%, and 10% are removed and replaced with water successively. Find the final concentration of acid.","$$72.9\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{10}{100}\right)\left(1-\frac{10}{100}\right)\left(1-\frac{10}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{90}{100}\times\frac{90}{100}\times\frac{90}{100}
+] | =
+
+[
+\Rightarrow =$$72.9\%$$
+] | Answer
+
+[
+\Rightarrow $$72.9\%$$
+] | Therefore, the pure component remaining is $$72.9\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-058","PCT-ES-005","Hard","variableReplacement","PERCENT","In a batch of 500 items, 20%, 20%, and 25% of defective items are replaced by good items in three stages. Find the remaining percentage of original defective items.","$$48\%$$","Given
+
+[
+\Rightarrow \left(1-\frac{20}{100}\right)\left(1-\frac{20}{100}\right)\left(1-\frac{25}{100}\right)
+] | Calculation
+
+[
+\Rightarrow 100\times\frac{80}{100}\times\frac{80}{100}\times\frac{75}{100}
+] | =
+
+[
+\Rightarrow =$$48\%$$
+] | Answer
+
+[
+\Rightarrow $$48\%$$
+] | Therefore, the pure component remaining is $$48\%$$.","PASS"
+"en","PCT-CP-005","PCT-QL-032","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A vessel has 400 litres of milk. 25 litres are taken out and replaced with water each time. After 4 operations, what percent of the original milk remains?","$$77.2476\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{25}{400}
+] | =
+
+[
+\Rightarrow \frac{375}{400}
+] | After 4 operations
+
+[
+\Rightarrow \left(\frac{375}{400}\right)^{4}
+] | =
+
+[
+\Rightarrow $$77.2476\%$$
+] | Hence, $$77.2476\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-005","PCT-QL-033","PCT-ES-005","Hard","repeatedReplacement","PERCENT","A stock has 400 items. Each time 40 defective items are removed and replaced by good items. After 2 rounds, what percent of the original defective items remains?","$$81\%$$","Fraction retained after one operation
+
+[
+\Rightarrow 1-\frac{40}{400}
+] | =
+
+[
+\Rightarrow \frac{360}{400}
+] | After 2 operations
+
+[
+\Rightarrow \left(\frac{360}{400}\right)^{2}
+] | =
+
+[
+\Rightarrow $$81\%$$
+] | Hence, $$81\%$$ of the original liquid remains.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 2000. 60% are literate, 40% of the literate are employed, and 40% of the employed are government employees. Find the final count.","$$192$$","Given
+
+[
+\Rightarrow 2000\times\frac{60}{100}\times\frac{40}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$192$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$192$$
+] | Answer
+
+[
+\Rightarrow $$192$$
+] | Therefore, the final value is $$192$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 2000 employees. 40% are female employees, 40% of them are graduates, and 20% of the graduates are selected for training. Find the selected count.","$$64$$","Given
+
+[
+\Rightarrow 2000\times\frac{40}{100}\times\frac{40}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$64$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$64$$
+] | Answer
+
+[
+\Rightarrow $$64$$
+] | So, the final value is $$64$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 1000 students. 60% passed, 20% of the passed students got first division, and 20% of them received scholarships. Find the final number.","$$24$$","Given
+
+[
+\Rightarrow 1000\times\frac{60}{100}\times\frac{20}{100}\times\frac{20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$24$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$24$$
+] | Answer
+
+[
+\Rightarrow $$24$$
+] | So, the final value is $$24$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","70% voters voted. 20% votes were invalid. Winner got 65% valid votes and won by 1344. Find total voters.","$$8000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{70\times80}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{70\times80\times30}{10000}\%
+] | =
+
+[
+\Rightarrow =$$8000$$
+] | Answer
+
+[
+\Rightarrow $$8000$$
+] | Therefore, the total electorate is $$8000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 1000. 50% are literate, 50% of the literate are employed, and 50% of the employed are government employees. Find the final count.","$$125$$","Given
+
+[
+\Rightarrow 1000\times\frac{50}{100}\times\frac{50}{100}\times\frac{50}{100}
+] | Calculation
+
+[
+\Rightarrow =$$125$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$125$$
+] | Answer
+
+[
+\Rightarrow $$125$$
+] | So, the final value is $$125$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","60% voters voted. 20% votes were invalid. Winner got 65% valid votes and won by 1152. Find total voters.","$$8000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{60\times80}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{60\times80\times30}{10000}\%
+] | =
+
+[
+\Rightarrow =$$8000$$
+] | Answer
+
+[
+\Rightarrow $$8000$$
+] | So, the total electorate is $$8000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 1000 employees. 40% are female employees, 50% of them are graduates, and 25% of the graduates are selected for training. Find the selected count.","$$50$$","Given
+
+[
+\Rightarrow 1000\times\frac{40}{100}\times\frac{50}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$50$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$50$$
+] | Answer
+
+[
+\Rightarrow $$50$$
+] | Thus, the final value is $$50$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 10000 students. 60% passed, 40% of the passed students got first division, and 25% of them received scholarships. Find the final number.","$$600$$","Given
+
+[
+\Rightarrow 10000\times\frac{60}{100}\times\frac{40}{100}\times\frac{25}{100}
+] | Calculation
+
+[
+\Rightarrow =$$600$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$600$$
+] | Answer
+
+[
+\Rightarrow $$600$$
+] | Hence, the final value is $$600$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","70% voters voted. 5% votes were invalid. Winner got 65% valid votes and won by 798. Find total voters.","$$4000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{70\times95}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{70\times95\times30}{10000}\%
+] | =
+
+[
+\Rightarrow =$$4000$$
+] | Answer
+
+[
+\Rightarrow $$4000$$
+] | Accordingly, the total electorate is $$4000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 5000. 60% are literate, 20% of the literate are employed, and 10% of the employed are government employees. Find the final count.","$$60$$","Given
+
+[
+\Rightarrow 5000\times\frac{60}{100}\times\frac{20}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$60$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$60$$
+] | Answer
+
+[
+\Rightarrow $$60$$
+] | Therefore, the final value is $$60$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 10000 employees. 40% are female employees, 25% of them are graduates, and 40% of the graduates are selected for training. Find the selected count.","$$400$$","Given
+
+[
+\Rightarrow 10000\times\frac{40}{100}\times\frac{25}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$400$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$400$$
+] | Answer
+
+[
+\Rightarrow $$400$$
+] | Hence, the final value is $$400$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 5000 students. 50% passed, 50% of the passed students got first division, and 40% of them received scholarships. Find the final number.","$$500$$","Given
+
+[
+\Rightarrow 5000\times\frac{50}{100}\times\frac{50}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$500$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$500$$
+] | Answer
+
+[
+\Rightarrow $$500$$
+] | Therefore, the final value is $$500$$.","PASS"
+"en","PCT-CP-006","PCT-QL-038","PCT-ES-006","Hard","electionMargin","COUNT","80% voters voted. 5% votes were invalid. Winner got 70% valid votes and won by 3040. Find total voters.","$$10000$$","Given
+
+[
+\Rightarrow \text{Valid votes}=\frac{80\times95}{100}\%
+] | Calculation
+
+[
+\Rightarrow \text{Margin}=\frac{80\times95\times40}{10000}\%
+] | =
+
+[
+\Rightarrow =$$10000$$
+] | Answer
+
+[
+\Rightarrow $$10000$$
+] | Thus, the total electorate is $$10000$$.","PASS"
+"en","PCT-CP-006","PCT-QL-044","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A city has population 2000. 50% are literate, 25% of the literate are employed, and 40% of the employed are government employees. Find the final count.","$$100$$","Given
+
+[
+\Rightarrow 2000\times\frac{50}{100}\times\frac{25}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$100$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$100$$
+] | Answer
+
+[
+\Rightarrow $$100$$
+] | Thus, the final value is $$100$$.","PASS"
+"en","PCT-CP-006","PCT-QL-045","PCT-ES-006","Hard","shiftedBaseChain","COUNT","An office has 1000 employees. 60% are female employees, 50% of them are graduates, and 40% of the graduates are selected for training. Find the selected count.","$$120$$","Given
+
+[
+\Rightarrow 1000\times\frac{60}{100}\times\frac{50}{100}\times\frac{40}{100}
+] | Calculation
+
+[
+\Rightarrow =$$120$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$120$$
+] | Answer
+
+[
+\Rightarrow $$120$$
+] | Hence, the final value is $$120$$.","PASS"
+"en","PCT-CP-006","PCT-QL-046","PCT-ES-006","Hard","shiftedBaseChain","COUNT","A school has 2000 students. 50% passed, 25% of the passed students got first division, and 10% of them received scholarships. Find the final number.","$$25$$","Given
+
+[
+\Rightarrow 2000\times\frac{50}{100}\times\frac{25}{100}\times\frac{10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$25$$
+] | =
+
+[
+\Rightarrow \text{Final count}=$$25$$
+] | Answer
+
+[
+\Rightarrow $$25$$
+] | Accordingly, the final value is $$25$$.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 40% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$25\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+40-90
+] | =
+
+[
+\Rightarrow 25\%
+] | Hence, 25% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a group, 40% like Physics, 60% like Chemistry, and 50% like Biology. 20% like Physics and Chemistry, 20% like Chemistry and Biology, and 25% like Physics and Biology. If 10% like all three, find the percentage who like at least one.","$$95\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+60+50-20-20-25+10
+] | At least one
+
+[
+\Rightarrow 95\%
+] | Required percentage
+
+[
+\Rightarrow $$95\%$$
+] | Hence, the required percentage is $$95\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a town, 60% read Newspaper A, 40% read B, and 40% read C. 25% read A and B, 25% read B and C, and 25% read A and C. If 8% read all three, what percentage read none?","$$27\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 60+40+40-25-25-25+8
+] | At least one
+
+[
+\Rightarrow 73\%
+] | Required percentage
+
+[
+\Rightarrow $$27\%$$
+] | Hence, the required percentage is $$27\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a class, 40% speak Hindi, 40% speak English, and 60% speak French. 25% speak Hindi and English, 15% speak English and French, and 25% speak Hindi and French. If 8% speak all three, find the percentage who speak at least one.","$$83\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+40+60-25-15-25+8
+] | At least one
+
+[
+\Rightarrow 83\%
+] | Required percentage
+
+[
+\Rightarrow $$83\%$$
+] | Hence, the required percentage is $$83\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-001","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 50% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$20\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+50-90
+] | =
+
+[
+\Rightarrow 20\%
+] | Hence, 20% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 75% failed in English. If 20% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$55\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-20
+] | =
+
+[
+\Rightarrow 100 - 20 = 80\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+75-80
+] | =
+
+[
+\Rightarrow 55\%
+] | Hence, 55% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 50% of candidates failed in Mathematics and 75% failed in English. If 10% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$35\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-10
+] | =
+
+[
+\Rightarrow 100 - 10 = 90\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 50+75-90
+] | =
+
+[
+\Rightarrow 35\%
+] | Hence, 35% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-047","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a group, 40% like Physics, 50% like Chemistry, and 40% like Biology. 25% like Physics and Chemistry, 20% like Chemistry and Biology, and 15% like Physics and Biology. If 10% like all three, find the percentage who like at least one.","$$80\%$$","Physics\cupChemistry\cupBiology
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+50+40-25-20-15+10
+] | At least one
+
+[
+\Rightarrow 80\%
+] | Required percentage
+
+[
+\Rightarrow $$80\%$$
+] | Hence, the required percentage is $$80\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-048","PCT-ES-001","Hard","tripleInclusionExclusion","PERCENT","In a town, 50% read Newspaper A, 50% read B, and 40% read C. 25% read A and B, 15% read B and C, and 15% read A and C. If 10% read all three, what percentage read none?","$$5\%$$","Newspaper A\cupNewspaper B\cupNewspaper C
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 50+50+40-25-15-15+10
+] | At least one
+
+[
+\Rightarrow 95\%
+] | Required percentage
+
+[
+\Rightarrow $$5\%$$
+] | Hence, the required percentage is $$5\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-049","PCT-ES-001","Medium","tripleInclusionExclusion","PERCENT","In a class, 40% speak Hindi, 60% speak English, and 40% speak French. 25% speak Hindi and English, 15% speak English and French, and 25% speak Hindi and French. If 8% speak all three, find the percentage who speak at least one.","$$83\%$$","Hindi\cupEnglish\cupFrench
+
+[
+\Rightarrow A+B+C-AB-BC-AC+ABC
+] | =
+
+[
+\Rightarrow 40+60+40-25-15-25+8
+] | At least one
+
+[
+\Rightarrow 83\%
+] | Required percentage
+
+[
+\Rightarrow $$83\%$$
+] | Hence, the required percentage is $$83\%$$.","PASS"
+"en","PCT-CP-001","PCT-QL-002","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 40% failed in English. If 15% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$30\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-15
+] | =
+
+[
+\Rightarrow 100 - 15 = 85\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+40-85
+] | =
+
+[
+\Rightarrow 30\%
+] | Hence, 30% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-003","PCT-ES-001","Medium","inclusionExclusion","PERCENT","In an examination, 75% of candidates failed in Mathematics and 60% failed in English. If 25% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$60\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-25
+] | =
+
+[
+\Rightarrow 100 - 25 = 75\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 75+60-75
+] | =
+
+[
+\Rightarrow 60\%
+] | Hence, 60% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-001","PCT-QL-004","PCT-ES-001","Hard","inclusionExclusion","PERCENT","In an examination, 60% of candidates failed in Mathematics and 40% failed in English. If 5% failed in both subjects, find the percentage of candidates who passed in both subjects.","$$5\%$$","At least one of Mathematics or English
+
+[
+\Rightarrow 100-5
+] | =
+
+[
+\Rightarrow 100 - 5 = 95\%
+] | Both Mathematics and English
+
+[
+\Rightarrow 60+40-95
+] | =
+
+[
+\Rightarrow 5\%
+] | Hence, 5% belong to both Mathematics and English.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 400 instead of 100. Find the percentage error in the calculation.","$$300\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{400}{100}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{400}{100}-1\right)100
+] | =
+
+[
+\Rightarrow =$$300\%$$
+] | Answer
+
+[
+\Rightarrow $$300\%$$
+] | Therefore, the percentage error is $$300\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Medium","wrongDivisor","PERCENT","A number was to be divided by 100, but it was divided by 125. Find the percentage error.","$$20\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{100}{125}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{100}{125}-1\right|100
+] | =
+
+[
+\Rightarrow =$$20\%$$
+] | Answer
+
+[
+\Rightarrow $$20\%$$
+] | So, the percentage error is $$20\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-005","PCT-ES-002","Medium","fractionalError","PERCENT","A student multiplied a number by 100/200 instead of 200/500. Find the percentage error in the calculation.","$$25\%$$","Given
+
+[
+\Rightarrow \text{Correct}=\frac{200}{500},\quad\text{Wrong}=\frac{100}{200}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{\frac{100}{200}}{\frac{200}{500}}-1\right)100
+] | =
+
+[
+\Rightarrow =$$25\%$$
+] | Answer
+
+[
+\Rightarrow $$25\%$$
+] | Hence, the percentage error is $$25\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-008","PCT-ES-002","Medium","wrongMultiplier","PERCENT","A student multiplied a number by 750 instead of 200. Find the percentage error in the calculation.","$$275\%$$","Given
+
+[
+\Rightarrow \text{Error factor}=\frac{750}{200}
+] | Calculation
+
+[
+\Rightarrow \left(\frac{750}{200}-1\right)100
+] | =
+
+[
+\Rightarrow =$$275\%$$
+] | Answer
+
+[
+\Rightarrow $$275\%$$
+] | Therefore, the percentage error is $$275\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Easy","wrongDivisor","PERCENT","A number was to be divided by 250, but it was divided by 500. Find the percentage error.","$$50\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{250}{500}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{250}{500}-1\right|100
+] | =
+
+[
+\Rightarrow =$$50\%$$
+] | Answer
+
+[
+\Rightarrow $$50\%$$
+] | So, the percentage error is $$50\%$$.","PASS"
+"en","PCT-CP-002","PCT-QL-011","PCT-ES-002","Easy","wrongDivisor","PERCENT","A number was to be divided by 200, but it was divided by 100. Find the percentage error.","$$100\%$$","Given
+
+[
+\Rightarrow \text{Quotient factor}=\frac{200}{100}
+] | Calculation
+
+[
+\Rightarrow \left|\frac{200}{100}-1\right|100
+] | =
+
+[
+\Rightarrow =$$100\%$$
+] | Answer
+
+[
+\Rightarrow $$100\%$$
+] | Thus, the percentage error is $$100\%$$.","PASS"
+"en","PCT-CP-003","PCT-QL-051","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","A salesman's commission is 5% on sales up to Rs. 10000, 12% from Rs. 10000 to Rs. 15000, and 15% above Rs. 15000. Find his total commission on sales of Rs. 25000.","$$2600$$","Given
+
+[
+\Rightarrow \frac{10000\times5}{100}+\frac{(15000-10000)12}{100}+\frac{(25000-15000)15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$2600$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$2600$$
+] | Answer
+
+[
+\Rightarrow $$2600$$
+] | So, the total charge is $$2600$$.","PASS"
+"en","PCT-CP-003","PCT-QL-052","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","Electricity is charged at Rs. 8 per unit for the first 5000 units, Rs. 10 per unit from 5000 to 15000 units, and Rs. 20 per unit above 15000 units. Find the total bill for 25000 units.","$$3400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(25000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$3400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$3400$$
+] | Answer
+
+[
+\Rightarrow $$3400$$
+] | Thus, the total charge is $$3400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-053","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","A company pays 5% commission on sales up to Rs. 10000 and 10% on sales above Rs. 10000. If the salesman received a total commission of Rs. 700, find the total sales.","$$12000$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(700-\frac{10000\times5}{100})100}{10}
+] | =
+
+[
+\Rightarrow =$$12000$$
+] | Answer
+
+[
+\Rightarrow $$12000$$
+] | Therefore, the original total is $$12000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-054","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A broker charges 8% on deals up to Rs. 5000 and 15% on any amount above it. If his total brokerage is Rs. 1150, find the deal value.","$$10000$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(1150-\frac{5000\times8}{100})100}{15}
+] | =
+
+[
+\Rightarrow =$$10000$$
+] | Answer
+
+[
+\Rightarrow $$10000$$
+] | Hence, the original total is $$10000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-055","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","Tax is 5% up to Rs. 10000 and 12% above it. If the total tax paid is Rs. 650, find the gross amount.","$$11250$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(650-\frac{10000\times5}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$11250$$
+] | Answer
+
+[
+\Rightarrow $$11250$$
+] | Thus, the original total is $$11250$$.","PASS"
+"en","PCT-CP-003","PCT-QL-014","PCT-ES-003","Hard","tieredCommission","ABSOLUTE","Commission is 15% up to Rs. 1000 and 10% above it. Find commission on sales of Rs. 6000.","$$650$$","Given
+
+[
+\Rightarrow \frac{1000\times15}{100}+\frac{5000\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$650$$
+] | =
+
+[
+\Rightarrow \text{Commission}=$$650$$
+] | Answer
+
+[
+\Rightarrow $$650$$
+] | So, the total commission is $$650$$.","PASS"
+"en","PCT-CP-003","PCT-QL-017","PCT-ES-003","Medium","tieredTax","ABSOLUTE","Income up to Rs. 500 is tax-free and the rest is taxed at 20%. Find tax on Rs. 5500.","$$1000$$","Given
+
+[
+\Rightarrow \text{Taxable income}=5500-500
+] | Calculation
+
+[
+\Rightarrow \frac{(5500-500)20}{100}
+] | =
+
+[
+\Rightarrow =$$1000$$
+] | Answer
+
+[
+\Rightarrow $$1000$$
+] | Hence, the total tax is $$1000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-020","PCT-ES-003","Hard","piecewiseRate","ABSOLUTE","Brokerage is charged at 5% up to 200 and 10% above it. Find the total brokerage on 400.","$$30$$","Given
+
+[
+\Rightarrow 200\times5+200\times10
+] | Calculation
+
+[
+\Rightarrow =$$30$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$30$$
+] | Answer
+
+[
+\Rightarrow $$30$$
+] | So, the total charge is $$30$$.","PASS"
+"en","PCT-CP-003","PCT-QL-021","PCT-ES-003","Hard","piecewiseRate","ABSOLUTE","Incentive is paid at 10% up to 100 and 15% on the remaining amount. Find the total incentive on 600.","$$85$$","Given
+
+[
+\Rightarrow 100\times10+500\times15
+] | Calculation
+
+[
+\Rightarrow =$$85$$
+] | =
+
+[
+\Rightarrow \text{Total charge}=$$85$$
+] | Answer
+
+[
+\Rightarrow $$85$$
+] | Accordingly, the total charge is $$85$$.","PASS"
+"en","PCT-CP-003","PCT-QL-050","PCT-ES-003","Medium","multiTierPiecewiseRate","ABSOLUTE","Income tax is 8% up to Rs. 5000, 10% from Rs. 5000 to Rs. 15000, and 20% above Rs. 15000. Find the total tax on an income of Rs. 30000.","$$4400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(30000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$4400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$4400$$
+] | Answer
+
+[
+\Rightarrow $$4400$$
+] | Hence, the total charge is $$4400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-051","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","A salesman's commission is 8% on sales up to Rs. 5000, 10% from Rs. 5000 to Rs. 15000, and 20% above Rs. 15000. Find his total commission on sales of Rs. 25000.","$$3400$$","Given
+
+[
+\Rightarrow \frac{5000\times8}{100}+\frac{(15000-5000)10}{100}+\frac{(25000-15000)20}{100}
+] | Calculation
+
+[
+\Rightarrow =$$3400$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$3400$$
+] | Answer
+
+[
+\Rightarrow $$3400$$
+] | Thus, the total charge is $$3400$$.","PASS"
+"en","PCT-CP-003","PCT-QL-052","PCT-ES-003","Hard","multiTierPiecewiseRate","ABSOLUTE","Electricity is charged at Rs. 5 per unit for the first 10000 units, Rs. 12 per unit from 10000 to 15000 units, and Rs. 15 per unit above 15000 units. Find the total bill for 25000 units.","$$2600$$","Given
+
+[
+\Rightarrow \frac{10000\times5}{100}+\frac{(15000-10000)12}{100}+\frac{(25000-15000)15}{100}
+] | Calculation
+
+[
+\Rightarrow =$$2600$$
+] | =
+
+[
+\Rightarrow \text{Total}=$$2600$$
+] | Answer
+
+[
+\Rightarrow $$2600$$
+] | So, the total charge is $$2600$$.","PASS"
+"en","PCT-CP-003","PCT-QL-053","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","A company pays 8% commission on sales up to Rs. 5000 and 10% on sales above Rs. 5000. If the salesman received a total commission of Rs. 650, find the total sales.","$$7500$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(650-\frac{5000\times8}{100})100}{10}
+] | =
+
+[
+\Rightarrow =$$7500$$
+] | Answer
+
+[
+\Rightarrow $$7500$$
+] | So, the original total is $$7500$$.","PASS"
+"en","PCT-CP-003","PCT-QL-054","PCT-ES-003","Hard","reversePiecewiseRate","ABSOLUTE","A broker charges 5% on deals up to Rs. 10000 and 15% on any amount above it. If his total brokerage is Rs. 650, find the deal value.","$$11000$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{10000\times5}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(650-\frac{10000\times5}{100})100}{15}
+] | =
+
+[
+\Rightarrow =$$11000$$
+] | Answer
+
+[
+\Rightarrow $$11000$$
+] | Hence, the original total is $$11000$$.","PASS"
+"en","PCT-CP-003","PCT-QL-055","PCT-ES-003","Medium","reversePiecewiseRate","ABSOLUTE","Tax is 8% up to Rs. 5000 and 12% above it. If the total tax paid is Rs. 700, find the gross amount.","$$7500$$","Given
+
+[
+\Rightarrow \text{First slab}=\frac{5000\times8}{100}
+] | Calculation
+
+[
+\Rightarrow \text{Extra base}=\frac{(700-\frac{5000\times8}{100})100}{12}
+] | =
+
+[
+\Rightarrow =$$7500$$
+] | Answer
+
+[
+\Rightarrow $$7500$$
+] | So, the original total is $$7500$$.","PASS"
+"en","PCT-CP-004","PCT-QL-023","PCT-ES-004","Hard","weightedSubgroup","PERCENT","40% people are men. 75% men and 10% women are graduates. Find total graduate percentage.","$$36\%$$","Given
+
+[
+\Rightarrow \frac{40\times75}{100}+\frac{60\times10}{100}
+] | Calculation
+
+[
+\Rightarrow =$$36\%$$
+] | =
+
+[
+\Rightarrow \text{Overall percentage}=$$36\%$$
+] | Answer
+
+[
+\Rightarrow $$36\%$$
+] | So, the overall percentage is $$36\%$$.","PASS"

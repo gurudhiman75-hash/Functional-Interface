@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "status": "foundation",
+  "purpose": "Reusable answer-presentation styles independent of canonical computational answer representation.",
+  "styles": [
+    {"id":"ANS-001","name":"final-value","description":"Present only the final computed value."},
+    {"id":"ANS-002","name":"original-value","description":"Present the recovered original/base value."},
+    {"id":"ANS-003","name":"percentage","description":"Present a value with percent sign."},
+    {"id":"ANS-004","name":"multiplier","description":"Present the equivalent multiplier."},
+    {"id":"ANS-005","name":"difference","description":"Present absolute difference between values."},
+    {"id":"ANS-006","name":"comparison","description":"Present comparative greater/less/equal result."},
+    {"id":"ANS-007","name":"count","description":"Present integer count of items/persons."},
+    {"id":"ANS-008","name":"amount","description":"Present monetary or measurable amount."},
+    {"id":"ANS-009","name":"ratio","description":"Present colon-separated ratio."},
+    {"id":"ANS-010","name":"fraction","description":"Present numerator/denominator fraction."},
+    {"id":"ANS-011","name":"rate","description":"Present rate per unit or per period."},
+    {"id":"ANS-012","name":"unit-value","description":"Present number with explicit unit."},
+    {"id":"ANS-013","name":"rounded-value","description":"Present rounded value with declared precision."},
+    {"id":"ANS-014","name":"range","description":"Present lower-to-upper range."},
+    {"id":"ANS-015","name":"symbolic","description":"Present symbolic expression for future algebra topics."}
+  ]
+}

@@ -1,0 +1,551 @@
+Question ID,Explanation text
+"PILOT-Q001-000","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 100$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 5$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 5 \times 25 = \text{Rs. } 125$$
+
+Thus, the clerk spends Rs. 125 on house rent:
+$$\text{House Rent} = \text{Rs. } 125$$"
+"PILOT-Q001-001","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$"
+"PILOT-Q001-002","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$"
+"PILOT-Q001-003","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 400$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 20$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 20 \times 25 = \text{Rs. } 500$$
+
+Thus, the clerk spends Rs. 500 on house rent:
+$$\text{House Rent} = \text{Rs. } 500$$"
+"PILOT-Q001-004","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 100$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 5$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 5 \times 25 = \text{Rs. } 125$$
+
+Thus, the clerk spends Rs. 125 on house rent:
+$$\text{House Rent} = \text{Rs. } 125$$"
+"PILOT-Q001-005","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$"
+"PILOT-Q001-006","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 400$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 20$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 20 \times 25 = \text{Rs. } 500$$
+
+Thus, the clerk spends Rs. 500 on house rent:
+$$\text{House Rent} = \text{Rs. } 500$$"
+"PILOT-Q001-007","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$"
+"PILOT-Q001-008","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 100$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 5$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 5 \times 25 = \text{Rs. } 125$$
+
+Thus, the clerk spends Rs. 125 on house rent:
+$$\text{House Rent} = \text{Rs. } 125$$"
+"PILOT-Q001-009","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 400$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 20$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 20 \times 25 = \text{Rs. } 500$$
+
+Thus, the clerk spends Rs. 500 on house rent:
+$$\text{House Rent} = \text{Rs. } 500$$"
+"PILOT-Q002-000","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$"
+"PILOT-Q002-001","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$"
+"PILOT-Q002-002","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$"
+"PILOT-Q002-003","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$"
+"PILOT-Q002-004","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$"
+"PILOT-Q002-005","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$"
+"PILOT-Q002-006","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$"
+"PILOT-Q002-007","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$"
+"PILOT-Q002-008","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$"
+"PILOT-Q002-009","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$"
+"PILOT-Q003-000","The candidate secured 15% of the maximum marks, which equals 600 marks:
+$$15\% \text{ of Max Marks} = 600 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 40 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 40 \text{ marks} \times 60 = 2400 \text{ marks}$$
+
+Thus, the passing marks for the examination are 2400:
+$$\text{Passing Marks} = 2400$$"
+"PILOT-Q003-001","The candidate secured 15% of the maximum marks, which equals 1200 marks:
+$$15\% \text{ of Max Marks} = 1200 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 80 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 80 \text{ marks} \times 60 = 4800 \text{ marks}$$
+
+Thus, the passing marks for the examination are 4800:
+$$\text{Passing Marks} = 4800$$"
+"PILOT-Q003-002","The candidate secured 15% of the maximum marks, which equals 1200 marks:
+$$15\% \text{ of Max Marks} = 1200 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 80 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 80 \text{ marks} \times 60 = 4800 \text{ marks}$$
+
+Thus, the passing marks for the examination are 4800:
+$$\text{Passing Marks} = 4800$$"
+"PILOT-Q003-003","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$"
+"PILOT-Q003-004","The candidate secured 15% of the maximum marks, which equals 600 marks:
+$$15\% \text{ of Max Marks} = 600 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 40 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 40 \text{ marks} \times 60 = 2400 \text{ marks}$$
+
+Thus, the passing marks for the examination are 2400:
+$$\text{Passing Marks} = 2400$$"
+"PILOT-Q003-005","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$"
+"PILOT-Q003-006","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$"
+"PILOT-Q003-007","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$"
+"PILOT-Q003-008","The candidate secured 15% of the maximum marks, which equals 600 marks:
+$$15\% \text{ of Max Marks} = 600 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 40 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 40 \text{ marks} \times 60 = 2400 \text{ marks}$$
+
+Thus, the passing marks for the examination are 2400:
+$$\text{Passing Marks} = 2400$$"
+"PILOT-Q003-009","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$"
+"PILOT-Q004-000","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$"
+"PILOT-Q004-001","The marketing department has 156.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 156.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 12.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 12.5 \text{ employees} \times 37.5 = 468.75 \text{ employees}$$
+
+Thus, the sales department has 468.75 employees:
+$$\text{Sales Employees} = 468.75$$"
+"PILOT-Q004-002","The marketing department has 31.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 31.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 2.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 2.5 \text{ employees} \times 37.5 = 93.75 \text{ employees}$$
+
+Thus, the sales department has 93.75 employees:
+$$\text{Sales Employees} = 93.75$$"
+"PILOT-Q004-003","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$"
+"PILOT-Q004-004","The marketing department has 156.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 156.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 12.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 12.5 \text{ employees} \times 37.5 = 468.75 \text{ employees}$$
+
+Thus, the sales department has 468.75 employees:
+$$\text{Sales Employees} = 468.75$$"
+"PILOT-Q004-005","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$"
+"PILOT-Q004-006","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$"
+"PILOT-Q004-007","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$"
+"PILOT-Q004-008","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$"
+"PILOT-Q004-009","The marketing department has 31.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 31.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 2.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 2.5 \text{ employees} \times 37.5 = 93.75 \text{ employees}$$
+
+Thus, the sales department has 93.75 employees:
+$$\text{Sales Employees} = 93.75$$"
+"PILOT-Q005-000","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$"
+"PILOT-Q005-001","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$"
+"PILOT-Q005-002","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$"
+"PILOT-Q005-003","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$"
+"PILOT-Q005-004","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$"
+"PILOT-Q005-005","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$"
+"PILOT-Q005-006","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 100$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 4$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 4 \times 40 = \text{Rs. } 160$$
+
+Thus, the budget allocated for marketing is Rs. 160:
+$$\text{Marketing Budget} = \text{Rs. } 160$$"
+"PILOT-Q005-007","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$"
+"PILOT-Q005-008","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$"
+"PILOT-Q005-009","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 100$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 4$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 4 \times 40 = \text{Rs. } 160$$
+
+Thus, the budget allocated for marketing is Rs. 160:
+$$\text{Marketing Budget} = \text{Rs. } 160$$"

@@ -1,0 +1,242 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "A clinic report records {valuePrefix}{originalValue} as the starting {wholeLabel}. It increased by {increaseRate}%. What is the new {wholeLabel}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "A library circulation note records {originalValue} {wholeLabel}. It increased by {increaseRate}%. Find the new {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "Electricity consumption was {originalValue} units last month. It increased by {increaseRate}% this month. Find this month's consumption.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "The number of internet users was {originalValue} before the campaign. After the campaign, it increased by {increaseRate}%. Find the new number of users.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "Crop production was {originalValue} quintals. It increased by {increaseRate}%. Find the new production.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-003": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} increased by {increaseRate}%. Find the increase amount only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "The {wholeLabel} was {originalValue} and it increased by {increaseRate}%. Find the increase only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-024": {
+        "template": "A salary of {originalValue} increased by {increaseRate}%. Find the increase amount only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "The seating capacity was {originalValue}. It increased by {increaseRate}%. Find the number of extra seats.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-026": {
+        "template": "Milk production was {originalValue} litres. It increased by {increaseRate}%. Find the extra litres produced.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-005": {
+        "template": "After a {increaseRate}% increase, the {wholeLabel} became {valuePrefix}{increasedValue}. Find the original {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-006": {
+        "template": "After a {increaseRate}% increase, the {wholeLabel} became {increasedValue}. Find the original {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "After a {increaseRate}% increase, the price became {increasedValue}. Find the original price.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-028": {
+        "template": "After a {increaseRate}% increase, the stock became {increasedValue} units. Find the original stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "After a {increaseRate}% increase, the number of internet users became {increasedValue}. Find the original number of users.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-007": {
+        "template": "What is the multiplier for a {increaseRate}% increase in the {wholeLabel}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-008": {
+        "template": "If a {wholeLabel} increases by {increaseRate}%, what multiplier represents the increase?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-030": {
+        "template": "What multiplier should be used for a {increaseRate}% increase?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-031": {
+        "template": "If a price rises by {increaseRate}%, find the single multiplier.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-032": {
+        "template": "If production increases by {increaseRate}%, find the multiplier for the increase.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-009": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-010": {
+        "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% and then by {rate2}%. Find the new {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "The number of students was {originalValue}. It increased by {rate1}% in the first year and by {rate2}% in the next year. Find the final number of students.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-034": {
+        "template": "Production was {originalValue} units. It increased by {rate1}% and then by {rate2}%. Find the final production.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-035": {
+        "template": "The number of mobile users was {originalValue}. It increased by {rate1}% in January and by {rate2}% in February. Find the number after February.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-011": {
+        "template": "A {wholeLabel} increased first by {rate1}% and then by {rate2}%. Find the overall percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-012": {
+        "template": "The {wholeLabel} increased by {rate1}% and then again by {rate2}%. Find the net percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-036": {
+        "template": "Sales increased by {rate1}% and then by {rate2}%. Find the net percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "The number of visitors increased by {rate1}% and then by {rate2}%. Find the actual overall percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "Two successive increases are {rate1}% and {rate2}%. Find the equivalent one-step percentage increase.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-013": {
+        "template": "{labelA} was {valuePrefix}{originalA} and increased by {rateA}%. {labelB} was {valuePrefix}{originalB} and increased by {rateB}%. Find the difference between their new values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-014": {
+        "template": "{labelA} was {originalA} and increased by {rateA}%. {labelB} was {originalB} and increased by {rateB}%. Find the difference between their new values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-039": {
+        "template": "Branch A had sales of {originalA} and Branch B had sales of {originalB}. Their sales increased by {rateA}% and {rateB}% respectively. Find the difference between the new sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "The populations of two towns were {originalA} and {originalB}. They increased by {rateA}% and {rateB}% respectively. Find the difference between the new populations.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-041": {
+        "template": "The prices of Product A and Product B were {originalA} and {originalB}. They increased by {rateA}% and {rateB}% respectively. Find the difference between the new prices.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-015": {
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel} and the rest were {otherLabel}. If {partLabel} increased by {partIncreaseRate}% and {otherLabel} increased by {otherIncreaseRate}%, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-016": {
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel}. After {partLabel} increased by {partIncreaseRate}% and {otherLabel} by {otherIncreaseRate}%, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-042": {
+        "template": "A company has {totalValue} {wholeLabel}. {partRate}% are {partLabel}. The two groups increase by {partIncreaseRate}% and {otherIncreaseRate}%. Find the new share of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-043": {
+        "template": "In a survey of {totalValue} {wholeLabel}, {partRate}% were {partLabel}. After separate increases of {partIncreaseRate}% and {otherIncreaseRate}%, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-044": {
+        "template": "Out of {totalValue} passengers, {partRate}% were {partLabel}. After the two groups increase by {partIncreaseRate}% and {otherIncreaseRate}%, find the revised percentage of {partLabel}.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-017": {
+        "template": "The current {wholeLabel} is {valuePrefix}{currentValue} and it has to become {valuePrefix}{targetValue}. Find the required percentage increase.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. Find the required percentage increase.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-045": {
+        "template": "Current sales are {currentValue} and the target is {targetValue}. What percentage increase is required?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-046": {
+        "template": "Current production is {currentValue} units and the target is {targetValue} units. Find the percentage increase needed.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "Current internet users are {currentValue} and the target is {targetValue}. Find the percentage increase needed to reach the target.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-019": {
+        "template": "A {wholeLabel} of {currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "A {wholeLabel} of {valuePrefix}{currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-048": {
+        "template": "The number of mobile users is {currentValue} and it grows by {growthRate}% every year. Find the number after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "A cattle population is {currentValue} and it grows by {growthRate}% per year. Find the population after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "Machine output is {currentValue} units and it increases by {growthRate}% every period. Find the output after {periodCount} periods.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

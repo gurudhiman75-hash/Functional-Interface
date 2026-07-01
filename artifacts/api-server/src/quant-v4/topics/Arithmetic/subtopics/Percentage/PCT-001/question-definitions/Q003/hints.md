@@ -1,0 +1,3 @@
+- Hint 1: Identify that the {value1} marks secured by the candidate represent {rate1}% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing {value1} by {rate1}.
+- Hint 3: Multiply the 1% marks value by {rate2} to calculate the pass marks.

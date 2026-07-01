@@ -1,0 +1,3 @@
+- Hint 1: Identify that {rate1}% of the total business budget corresponds to Rs. {value1} spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. {value1} by {rate1}.
+- Hint 3: Multiply the 1% budget value by {rate2} to calculate the budget for marketing.

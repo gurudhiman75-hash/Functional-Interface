@@ -1,0 +1,62 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": { "template": "A {wholeLabel} increased by {rate1}% and then by {rate2}%. If the original {wholeLabel} was {originalValue}, find the final {wholeLabel}.", "difficulty": "Easy" },
+      "PCT-QL-002": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-003": { "template": "A {wholeLabel} decreased by {rate1}% and then by {rate2}%. If the original {wholeLabel} was {originalValue}, find the final {wholeLabel}.", "difficulty": "Easy" },
+      "PCT-QL-004": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-005": { "template": "A {wholeLabel} increased by {rate1}% and then decreased by {rate2}%. If the original {wholeLabel} was {originalValue}, find the final {wholeLabel}.", "difficulty": "Medium" },
+      "PCT-QL-006": { "template": "A {wholeLabel} of {originalValue} first increased by {rate1}% and then decreased by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-007": { "template": "A {wholeLabel} decreased by {rate1}% and then increased by {rate2}%. If the original {wholeLabel} was {originalValue}, find the final {wholeLabel}.", "difficulty": "Medium" },
+      "PCT-QL-008": { "template": "A {wholeLabel} of {originalValue} first decreased by {rate1}% and then increased by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-009": { "template": "A {wholeLabel} increased by {rate1}% and then by {rate2}%. Find the net percentage change.", "difficulty": "Easy" },
+      "PCT-QL-010": { "template": "A {wholeLabel} first increased by {rate1}% and then decreased by {rate2}%. Find the net percentage change.", "difficulty": "Easy" }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-011": { "template": "Find the equivalent single multiplier for a {wholeLabel} that first changes by +{rate1}% and then by +{rate2}%.", "difficulty": "Medium" },
+      "PCT-QL-012": { "template": "Find the equivalent single multiplier for a {wholeLabel} that first changes by +{rate1}% and then by -{rate2}%.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-013": { "template": "After successive changes of +{rate1}% and +{rate2}%, the final {wholeLabel} became {finalValue}. Find the original {wholeLabel}.", "difficulty": "Medium" },
+      "PCT-QL-014": { "template": "After successive changes of +{rate1}% and -{rate2}%, the final {wholeLabel} became {finalValue}. Find the original {wholeLabel}.", "difficulty": "Medium" }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-015": { "template": "{labelA} was {originalA} and changed by +{rateA1}% and +{rateA2}%. {labelB} was {originalB} and changed by +{rateB1}% and +{rateB2}%. Find the difference between their final values.", "difficulty": "Hard" },
+      "PCT-QL-016": { "template": "{labelA} was {valuePrefix}{originalA} and changed by +{rateA1}% and -{rateA2}%. {labelB} was {valuePrefix}{originalB} and changed by +{rateB1}% and +{rateB2}%. Find the difference between their final values.", "difficulty": "Hard" }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-017": { "template": "A {wholeLabel} of {originalValue} changed successively by +{rate1}%, +{rate2}%, and -{rate3}%. Find the final {wholeLabel}.", "difficulty": "Hard" },
+      "PCT-QL-018": { "template": "A {wholeLabel} of {originalValue} changed successively by +{rate1}%, +{rate2}%, -{rate3}%, and +{rate4}%. Find the final {wholeLabel}.", "difficulty": "Hard" }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-019": { "template": "A {wholeLabel} of {originalValue} first increased by {rate1}%, then decreased by {rate2}%, and then increased by {rate3}%. Find the final {wholeLabel}.", "difficulty": "Hard" },
+      "PCT-QL-020": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}%, then increased by {rate2}%, and finally decreased by {rate3}%. Find the final {wholeLabel}.", "difficulty": "Hard" }
+    }
+  }
+}

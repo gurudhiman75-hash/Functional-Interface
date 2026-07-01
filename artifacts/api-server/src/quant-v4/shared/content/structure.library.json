@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "status": "foundation",
+  "purpose": "Reusable Quant V4 stem-structure vocabulary. Existing chapters are not migrated by this file.",
+  "minimumTarget": 20,
+  "count": 24,
+  "structures": [
+    {"id":"STR-001","name":"Direct","description":"Single sentence direct computation prompt","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-002","name":"Narrative","description":"Short story-style practical scenario","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-003","name":"Timeline","description":"Values evolve across ordered time points","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-004","name":"Table","description":"Data is presented as rows or columns","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-005","name":"Comparison","description":"Two or more quantities are compared","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-006","name":"Report","description":"Official or business report style","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-007","name":"Survey","description":"Survey/respondent-based statement","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-008","name":"Ledger","description":"Debit-credit or transaction ledger style","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-009","name":"Notice","description":"Instruction, circular, or notice-board format","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-010","name":"Reverse","description":"Final state is given and original is asked","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-011","name":"Before/After","description":"Explicit before and after values","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-012","name":"Mixed-data","description":"Text combines numeric facts from multiple sources","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-013","name":"Multi-clue","description":"Answer requires combining several clues","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-014","name":"Rate-card","description":"Slab, tariff, or rate-card presentation","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-015","name":"Receipt","description":"Bill, invoice, or receipt-like prompt","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-016","name":"Allocation","description":"Budget or quantity split across groups","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-017","name":"Shortfall/Excess","description":"Target compared with achieved value","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-018","name":"Growth-chain","description":"Successive growth/decline sequence","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-019","name":"Correction","description":"Wrong value or error is corrected","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-020","name":"Classification","description":"Items grouped by category","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-021","name":"Schedule","description":"Time/event schedule style","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-022","name":"Statement-analysis","description":"One or more statements must be interpreted","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-023","name":"Conditional","description":"Contains if/then style condition","usableFor":["stem","explanation","review-audit"]},
+    {"id":"STR-024","name":"Data-card","description":"Compact facts in bullet/card form","usableFor":["stem","explanation","review-audit"]}
+  ]
+}

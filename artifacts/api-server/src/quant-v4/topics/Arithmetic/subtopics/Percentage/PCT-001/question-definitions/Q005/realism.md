@@ -1,0 +1,4 @@
+- Budget allocations must be positive integers.
+- The amounts should be non-zero and realistic for a business budget (typically between Rs. 1,000 and Rs. 10,000,000).
+- No fractional budget currency is allowed.
+- Fail closed if raw material budget or marketing budget is negative or zero.

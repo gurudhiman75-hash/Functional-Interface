@@ -45,13 +45,13 @@ function assertFixedCase(cpId: Pct001CanonicalProblemId, qlId: string, variables
   for (const variable of params.requiredVariables) assert.notEqual(question.includes(`{${variable}}`), true, `${qlId} did not render ${variable}`);
 }
 
-assertFixedCase("PCT-CP-001", "PCT-QL-001", { percentageRate: 20, baseValue: 500 }, "100", "ABSOLUTE");
-assertFixedCase("PCT-CP-001", "PCT-QL-009", { percentageRate: 20, value: 500 }, "2500", "ABSOLUTE");
-assertFixedCase("PCT-CP-003", "PCT-QL-020", { rate1: 20, rate2: 10 }, "32%", "PERCENT");
-assertFixedCase("PCT-CP-003", "PCT-QL-024", { initialValue: 1000, percentageRate: 10 }, "1210", "ABSOLUTE");
-assertFixedCase("PCT-CP-004", "PCT-QL-028", { percentageRate: 25 }, "20%", "PERCENT");
-assertFixedCase("PCT-CP-005", "PCT-QL-036", { rate1: 20, rate2: 25, rate3: 15, value: 2400 }, "6000", "ABSOLUTE");
-assertFixedCase("PCT-CP-006", "PCT-QL-048", { totalMixture: 40, percentageRate: 20, newRate: 10 }, "40", "ABSOLUTE");
+assertFixedCase("PCT-CP-001", "PCT-QL-001", { percentageRate: 20, baseValue: 500 }, "$$100$$", "ABSOLUTE");
+assertFixedCase("PCT-CP-001", "PCT-QL-009", { percentageRate: 20, value: 500 }, "$$2500$$", "ABSOLUTE");
+assertFixedCase("PCT-CP-003", "PCT-QL-020", { rate1: 20, rate2: 10 }, "$$32\\%$$", "PERCENT");
+assertFixedCase("PCT-CP-003", "PCT-QL-024", { initialValue: 1000, percentageRate: 10 }, "$$1210$$", "ABSOLUTE");
+assertFixedCase("PCT-CP-004", "PCT-QL-028", { percentageRate: 25 }, "$$20\\%$$", "PERCENT");
+assertFixedCase("PCT-CP-005", "PCT-QL-036", { rate1: 20, rate2: 25, rate3: 15, value: 2400 }, "$$6000$$", "ABSOLUTE");
+assertFixedCase("PCT-CP-006", "PCT-QL-048", { totalMixture: 40, percentageRate: 20, newRate: 10 }, "$$40$$", "ABSOLUTE");
 
 for (let index = 0; index < 1000; index += 1) {
   const cpId = cpIds[index % cpIds.length]!;

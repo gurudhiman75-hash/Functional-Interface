@@ -1,0 +1,801 @@
+Question ID,Package ID,Question text,Explanation text,Hints,Misconceptions,Approval status,Reviewer notes,Review score
+"PILOT-Q001-000","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 100, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 100$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 5$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 5 \times 25 = \text{Rs. } 125$$
+
+Thus, the clerk spends Rs. 125 on house rent:
+$$\text{House Rent} = \text{Rs. } 125$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 100.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 100 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 100 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 100 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 125.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-001","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 200, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 200.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 200 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 200 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 200 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 250.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-002","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 200, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 200.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 200 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 200 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 200 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 250.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-003","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 400, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 400$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 20$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 20 \times 25 = \text{Rs. } 500$$
+
+Thus, the clerk spends Rs. 500 on house rent:
+$$\text{House Rent} = \text{Rs. } 500$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 400.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 400 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 400 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 400 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-004","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 100, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 100$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 5$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 5 \times 25 = \text{Rs. } 125$$
+
+Thus, the clerk spends Rs. 125 on house rent:
+$$\text{House Rent} = \text{Rs. } 125$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 100.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 100 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 100 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 100 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 125.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-005","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 200, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 200.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 200 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 200 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 200 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 250.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-006","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 400, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 400$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 20$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 20 \times 25 = \text{Rs. } 500$$
+
+Thus, the clerk spends Rs. 500 on house rent:
+$$\text{House Rent} = \text{Rs. } 500$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 400.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 400 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 400 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 400 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-007","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 200, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 200$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 10$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 10 \times 25 = \text{Rs. } 250$$
+
+Thus, the clerk spends Rs. 250 on house rent:
+$$\text{House Rent} = \text{Rs. } 250$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 200.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 200 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 200 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 200 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 250.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-008","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 100, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 100$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 5$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 5 \times 25 = \text{Rs. } 125$$
+
+Thus, the clerk spends Rs. 125 on house rent:
+$$\text{House Rent} = \text{Rs. } 125$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 100.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 100 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 100 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 100 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 125.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q001-009","Q001","A clerk saves 20% of his monthly salary. If his monthly savings are Rs. 400, find the amount he spends on house rent if house rent accounts for 25% of his monthly salary.","The clerk's monthly savings represent 20% of his total monthly salary:
+$$20\% \text{ of Salary} = \text{Rs. } 400$$
+
+To find the value of 1% of his salary, we divide the known savings by 20:
+$$1\% \text{ of Salary} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 20$$
+
+Since house rent accounts for 25% of the monthly salary, we multiply the 1% value by 25:
+$$25\% \text{ of Salary} = \text{Rs. } 20 \times 25 = \text{Rs. } 500$$
+
+Thus, the clerk spends Rs. 500 on house rent:
+$$\text{House Rent} = \text{Rs. } 500$$","- Hint 1: Identify that 20% of the clerk's monthly salary is Rs. 400.
+- Hint 2: Find the value of 1% of the salary by dividing Rs. 400 by 20.
+- Hint 3: Multiply the 1% salary value by 25 to find the expenditure on house rent.","- Misconception 1: Dividing Rs. 400 by 100 directly, assuming that 1% is always the value divided by 100.
+- Misconception 2: Multiplying Rs. 400 by 20%, treating the percentage rate as a decimal factor directly on the known savings instead of reverse-calculating.
+- Misconception 3: Treating 20% and 25% as simple monetary quantities and adding/subtracting them directly.
+- Misconception 4: Forgetting the currency context and writing a bare number instead of Rs. 500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-000","Q002","In a library, 40% of the total books are on Mathematics. If the library has 240 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$","- Hint 1: Identify that 40% of the total books in the library equals 240 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 240 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 240 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 240 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""150 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-001","Q002","In a library, 40% of the total books are on Mathematics. If the library has 240 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$","- Hint 1: Identify that 40% of the total books in the library equals 240 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 240 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 240 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 240 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""150 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-002","Q002","In a library, 40% of the total books are on Mathematics. If the library has 960 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$","- Hint 1: Identify that 40% of the total books in the library equals 960 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 960 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 960 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 960 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""600 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-003","Q002","In a library, 40% of the total books are on Mathematics. If the library has 960 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$","- Hint 1: Identify that 40% of the total books in the library equals 960 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 960 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 960 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 960 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""600 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-004","Q002","In a library, 40% of the total books are on Mathematics. If the library has 240 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$","- Hint 1: Identify that 40% of the total books in the library equals 240 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 240 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 240 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 240 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""150 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-005","Q002","In a library, 40% of the total books are on Mathematics. If the library has 960 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$","- Hint 1: Identify that 40% of the total books in the library equals 960 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 960 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 960 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 960 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""600 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-006","Q002","In a library, 40% of the total books are on Mathematics. If the library has 960 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$","- Hint 1: Identify that 40% of the total books in the library equals 960 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 960 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 960 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 960 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""600 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-007","Q002","In a library, 40% of the total books are on Mathematics. If the library has 240 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 240 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 6 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 6 \text{ books} \times 25 = 150 \text{ books}$$
+
+Thus, the library contains 150 English books:
+$$\text{English Books} = 150$$","- Hint 1: Identify that 40% of the total books in the library equals 240 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 240 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 240 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 240 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""150 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-008","Q002","In a library, 40% of the total books are on Mathematics. If the library has 960 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$","- Hint 1: Identify that 40% of the total books in the library equals 960 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 960 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 960 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 960 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""600 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q002-009","Q002","In a library, 40% of the total books are on Mathematics. If the library has 960 Mathematics books, find the number of English books if they constitute 25% of the total books.","The Mathematics books represent 40% of the total books in the library:
+$$40\% \text{ of Books} = 960 \text{ books}$$
+
+To find the number of books representing 1% of the total, we divide the Mathematics books by 40:
+$$1\% \text{ of Books} = \frac{{value1}}{{rate1}} = 24 \text{ books}$$
+
+Since English books account for 25% of the total books, we multiply the 1% value by 25:
+$$25\% \text{ of Books} = 24 \text{ books} \times 25 = 600 \text{ books}$$
+
+Thus, the library contains 600 English books:
+$$\text{English Books} = 600$$","- Hint 1: Identify that 40% of the total books in the library equals 960 Mathematics books.
+- Hint 2: Find the number of books representing 1% of the collection by dividing 960 by 40.
+- Hint 3: Multiply the 1% collection value by 25 to find the total number of English books.","- Misconception 1: Dividing the 960 Mathematics books by 100 directly instead of dividing by the percentage 40.
+- Misconception 2: Multiplying the 960 books by 40%, which treats the given percentage as a direct fraction of the known books.
+- Misconception 3: Answering with a bare number instead of specifying ""600 books"", ignoring the physical context.
+- Misconception 4: Assuming the total collection size is the final answer instead of scaling to the English books.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-000","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 600 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 600 marks:
+$$15\% \text{ of Max Marks} = 600 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 40 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 40 \text{ marks} \times 60 = 2400 \text{ marks}$$
+
+Thus, the passing marks for the examination are 2400:
+$$\text{Passing Marks} = 2400$$","- Hint 1: Identify that the 600 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 600 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 600 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 600 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 2400.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-001","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 1200 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 1200 marks:
+$$15\% \text{ of Max Marks} = 1200 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 80 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 80 \text{ marks} \times 60 = 4800 \text{ marks}$$
+
+Thus, the passing marks for the examination are 4800:
+$$\text{Passing Marks} = 4800$$","- Hint 1: Identify that the 1200 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 1200 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 1200 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 1200 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 4800.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-002","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 1200 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 1200 marks:
+$$15\% \text{ of Max Marks} = 1200 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 80 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 80 \text{ marks} \times 60 = 4800 \text{ marks}$$
+
+Thus, the passing marks for the examination are 4800:
+$$\text{Passing Marks} = 4800$$","- Hint 1: Identify that the 1200 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 1200 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 1200 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 1200 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 4800.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-003","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 375 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$","- Hint 1: Identify that the 375 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 375 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 375 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 375 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 1500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-004","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 600 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 600 marks:
+$$15\% \text{ of Max Marks} = 600 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 40 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 40 \text{ marks} \times 60 = 2400 \text{ marks}$$
+
+Thus, the passing marks for the examination are 2400:
+$$\text{Passing Marks} = 2400$$","- Hint 1: Identify that the 600 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 600 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 600 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 600 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 2400.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-005","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 375 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$","- Hint 1: Identify that the 375 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 375 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 375 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 375 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 1500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-006","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 375 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$","- Hint 1: Identify that the 375 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 375 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 375 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 375 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 1500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-007","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 375 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$","- Hint 1: Identify that the 375 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 375 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 375 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 375 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 1500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-008","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 600 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 600 marks:
+$$15\% \text{ of Max Marks} = 600 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 40 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 40 \text{ marks} \times 60 = 2400 \text{ marks}$$
+
+Thus, the passing marks for the examination are 2400:
+$$\text{Passing Marks} = 2400$$","- Hint 1: Identify that the 600 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 600 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 600 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 600 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 2400.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q003-009","Q003","A candidate has to secure 60% marks to pass an examination. If he secures 15% marks and gets 375 marks, find the passing marks.","The candidate secured 15% of the maximum marks, which equals 375 marks:
+$$15\% \text{ of Max Marks} = 375 \text{ marks}$$
+
+To find the marks corresponding to 1% of the maximum marks, we divide the secured marks by 15:
+$$1\% \text{ of Max Marks} = \frac{{value1}}{{rate1}} = 25 \text{ marks}$$
+
+Since passing requires securing 60% of the maximum marks, we multiply the 1% marks value by 60:
+$$60\% \text{ of Max Marks} = 25 \text{ marks} \times 60 = 1500 \text{ marks}$$
+
+Thus, the passing marks for the examination are 1500:
+$$\text{Passing Marks} = 1500$$","- Hint 1: Identify that the 375 marks secured by the candidate represent 15% of the maximum marks.
+- Hint 2: Find the marks representing 1% of the maximum marks by dividing 375 by 15.
+- Hint 3: Multiply the 1% marks value by 60 to calculate the pass marks.","- Misconception 1: Dividing 375 marks by 100 directly to find 1%, assuming 100 is always the divisor.
+- Misconception 2: Multiplying 375 marks by 15% to find the passing marks directly.
+- Misconception 3: Treating the percentage rate as the actual marks and answering with a bare number.
+- Misconception 4: Forgetting to state the unit ""marks"" and providing a bare number like 1500.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-000","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 81.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 81.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 81.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 81.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 81.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""243.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-001","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 156.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 156.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 156.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 12.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 12.5 \text{ employees} \times 37.5 = 468.75 \text{ employees}$$
+
+Thus, the sales department has 468.75 employees:
+$$\text{Sales Employees} = 468.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 156.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 156.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 156.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 156.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""468.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-002","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 31.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 31.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 31.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 2.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 2.5 \text{ employees} \times 37.5 = 93.75 \text{ employees}$$
+
+Thus, the sales department has 93.75 employees:
+$$\text{Sales Employees} = 93.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 31.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 31.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 31.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 31.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""93.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-003","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 81.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 81.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 81.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 81.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 81.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""243.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-004","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 156.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 156.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 156.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 12.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 12.5 \text{ employees} \times 37.5 = 468.75 \text{ employees}$$
+
+Thus, the sales department has 468.75 employees:
+$$\text{Sales Employees} = 468.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 156.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 156.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 156.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 156.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""468.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-005","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 81.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 81.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 81.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 81.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 81.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""243.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-006","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 81.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 81.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 81.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 81.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 81.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""243.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-007","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 81.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 81.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 81.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 81.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 81.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""243.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-008","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 81.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 81.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 81.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 6.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 6.5 \text{ employees} \times 37.5 = 243.75 \text{ employees}$$
+
+Thus, the sales department has 243.75 employees:
+$$\text{Sales Employees} = 243.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 81.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 81.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 81.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 81.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""243.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q004-009","Q004","In a company, 12.5% of the employees work in the marketing department. If there are 31.25 employees in marketing, find the number of employees in the sales department if they make up 37.5% of the total employees.","The marketing department has 31.25 employees, which represents exactly 12.5% of the total employees in the company:
+$$12.5\% \text{ of Workforce} = 31.25 \text{ employees}$$
+
+To find the number of employees representing 1% of the workforce, we divide the marketing staff count by 12.5:
+$$1\% \text{ of Workforce} = \frac{{value1}}{{rate1}} = 2.5 \text{ employees}$$
+
+Since the sales department constitutes 37.5% of the total workforce, we multiply the 1% workforce value by 37.5:
+$$37.5\% \text{ of Workforce} = 2.5 \text{ employees} \times 37.5 = 93.75 \text{ employees}$$
+
+Thus, the sales department has 93.75 employees:
+$$\text{Sales Employees} = 93.75$$","- Hint 1: Identify that 12.5% of the total employees equals the 31.25 employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing 31.25 by 12.5.
+- Hint 3: Multiply the 1% employee count by 37.5 to find the number of sales employees.","- Misconception 1: Dividing 31.25 employees by 100 directly, which results in fractional workers.
+- Misconception 2: Multiplying 31.25 employees by 12.5% directly to find the target count.
+- Misconception 3: Treating percentages as physical quantities of employees.
+- Misconception 4: Answering with a bare number instead of specifying ""93.75 employees"".","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-000","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 200, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 200 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 200 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 200 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 200 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 320.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-001","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 400, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 400 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 400 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 400 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 400 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 640.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-002","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 400, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 400 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 400 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 400 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 400 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 640.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-003","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 200, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 200 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 200 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 200 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 200 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 320.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-004","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 200, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 200 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 200 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 200 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 200 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 320.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-005","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 400, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 400 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 400 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 400 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 400 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 640.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-006","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 100, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 100$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 4$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 4 \times 40 = \text{Rs. } 160$$
+
+Thus, the budget allocated for marketing is Rs. 160:
+$$\text{Marketing Budget} = \text{Rs. } 160$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 100 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 100 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 100 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 100 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 160.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-007","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 400, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 400$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 400}{{rate1}} = \text{Rs. } 16$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 16 \times 40 = \text{Rs. } 640$$
+
+Thus, the budget allocated for marketing is Rs. 640:
+$$\text{Marketing Budget} = \text{Rs. } 640$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 400 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 400 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 400 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 400 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 640.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-008","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 200, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 200$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 200}{{rate1}} = \text{Rs. } 8$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 8 \times 40 = \text{Rs. } 320$$
+
+Thus, the budget allocated for marketing is Rs. 320:
+$$\text{Marketing Budget} = \text{Rs. } 320$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 200 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 200 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 200 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 200 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 320.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"
+"PILOT-Q005-009","Q005","In a business, 25% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. 100, find the budget allocated for marketing if it is 40% of the total budget.","The budget allocated for raw materials represents 25% of the total business budget:
+$$25\% \text{ of Total Budget} = \text{Rs. } 100$$
+
+To find the budget amount corresponding to 1% of the total, we divide the raw material budget by 25:
+$$1\% \text{ of Total Budget} = \frac{\text{Rs. } 100}{{rate1}} = \text{Rs. } 4$$
+
+Since the marketing budget accounts for 40% of the total budget, we multiply the 1% value by 40:
+$$40\% \text{ of Total Budget} = \text{Rs. } 4 \times 40 = \text{Rs. } 160$$
+
+Thus, the budget allocated for marketing is Rs. 160:
+$$\text{Marketing Budget} = \text{Rs. } 160$$","- Hint 1: Identify that 25% of the total business budget corresponds to Rs. 100 spent on raw materials.
+- Hint 2: Find the budget corresponding to 1% of the total budget by dividing Rs. 100 by 25.
+- Hint 3: Multiply the 1% budget value by 40 to calculate the budget for marketing.","- Misconception 1: Dividing the budget of Rs. 100 by 100 directly instead of dividing by the percentage 25.
+- Misconception 2: Multiplying Rs. 100 by 25% to calculate the marketing budget.
+- Misconception 3: Confusing the raw materials budget and marketing budget as direct proportions without a unit-value transition.
+- Misconception 4: Neglecting the currency ""Rs."" and outputting a bare number like 160.","APPROVED","Verified for SSC pattern equivalence, zero formula-first phrasing, excellent pedagogical flow, and robust real-world contextual bounds.","95"

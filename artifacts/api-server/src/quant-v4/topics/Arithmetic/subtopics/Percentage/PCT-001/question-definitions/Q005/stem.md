@@ -1,0 +1,1 @@
+In a business, {rate1}% of the total budget is allocated for raw materials. If the budget for raw materials is Rs. {value1}, find the budget allocated for marketing if it is {rate2}% of the total budget.

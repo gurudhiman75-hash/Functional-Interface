@@ -25,10 +25,6 @@
   },
   "RAP-CP-002": {
     "families": {
-      "RAP-QL-007": {
-        "template": "Rs. {totalAmount} ਦੀ ਰਾਸ਼ੀ ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?",
-        "difficulty": "Medium"
-      },
       "RAP-QL-008": {
         "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?",
         "difficulty": "Medium"

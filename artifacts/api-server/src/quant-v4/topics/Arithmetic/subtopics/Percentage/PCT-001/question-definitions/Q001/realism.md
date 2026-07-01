@@ -1,0 +1,4 @@
+- Salary and rent values must be positive integers.
+- The savings and rent amounts should be non-zero and realistic for a clerk's monthly salary (typically between Rs. 5,000 and Rs. 200,000).
+- Since rates and values are integers, no fractional currency is allowed in the final answer.
+- Fail closed if the monthly savings amount is less than Rs. 100 or greater than Rs. 500,000.

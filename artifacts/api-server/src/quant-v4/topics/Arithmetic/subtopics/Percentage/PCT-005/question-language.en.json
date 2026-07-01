@@ -1,0 +1,242 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "A district survey recorded {originalValue} {wholeLabel}. The count rose by {rate1}% after the first revision and by {rate2}% after the second revision. Find the final {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "A bank branch report shows the {wholeLabel} as {valuePrefix}{originalValue}. It increased by {rate1}% in one review cycle and by {rate2}% in the next. Find the final {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "Stock was {originalValue} units at the start. It increased by {rate1}% after the first purchase and by {rate2}% after the second purchase. Find the closing stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "The number of internet users was {originalValue}. It increased by {rate1}% on one day and by {rate2}% on the next day. Find the final number of users.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "Sales were {originalValue} in the first quarter. They increased by {rate1}% in the next quarter and by {rate2}% in the following quarter. Find the final sales figure.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-003": {
+        "template": "A warehouse audit recorded {originalValue} {wholeLabel}. The count fell by {rate1}% after clearance and by {rate2}% after damage checking. Find the final {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} first decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-024": {
+        "template": "Stock was {originalValue} items at the start. It decreased by {rate1}% in the first round and by {rate2}% in the second round. Find the remaining stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "A machine was worth {originalValue}. It depreciated by {rate1}% in the first year and by {rate2}% in the second year. Find its value after two years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "The number of active users was {originalValue}. It fell by {rate1}% in one month and by {rate2}% in the next month. Find the final active user count.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-005": {
+        "template": "A {wholeLabel} increased by {rate1}% and then decreased by {rate2}%. If the original {wholeLabel} was {originalValue}, find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-006": {
+        "template": "A {wholeLabel} of {originalValue} first increased by {rate1}% and then decreased by {rate2}%. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "A store record lists an article at {originalValue}. It first increased by {rate1}% and then decreased by {rate2}%. Find the final price.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-028": {
+        "template": "Production was {originalValue} units. It increased by {rate1}%, but then {rate2}% of the output was rejected. Find the final output.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-029": {
+        "template": "Admissions were {originalValue}. They increased by {rate1}%, but then {rate2}% of the students withdrew. Find the final admissions count.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-007": {
+        "template": "A {wholeLabel} decreased by {rate1}% and then increased by {rate2}%. If the original {wholeLabel} was {originalValue}, find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "A {wholeLabel} of {originalValue} first decreased by {rate1}% and then increased by {rate2}%. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "The marked price of an article was {originalValue}. It was reduced by {rate1}% and then {rate2}% tax was added on the reduced price. Find the final bill amount.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "Stock was {originalValue} units. It first decreased by {rate1}% and then increased by {rate2}%. Find the final stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-032": {
+        "template": "Attendance was {originalValue}. It first decreased by {rate1}% and then increased by {rate2}%. Find the final attendance.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-009": {
+        "template": "A quarterly passenger record says the {wholeLabel} rose by {rate1}% in one quarter and by {rate2}% in the next quarter. Find the overall percentage change.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-010": {
+        "template": "A festival sale note says the {wholeLabel} first rose by {rate1}% and later fell by {rate2}%. Find the overall percentage change.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-033": {
+        "template": "The number of passengers increased by {rate1}% in one quarter and by {rate2}% in the next quarter. Find the net percentage change.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-034": {
+        "template": "Sales increased by {rate1}% during a campaign and then decreased by {rate2}% after the campaign. Find the net percentage change.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-035": {
+        "template": "A wildlife census note records a {rate1}% rise followed by a {rate2}% fall. Find the single net percentage change.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-011": {
+        "template": "A lab calibration sheet applies a {rate1}% upward adjustment and then a {rate2}% upward adjustment to the {wholeLabel}. Find the equivalent single multiplier.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-012": {
+        "template": "A fee table raises the {wholeLabel} by {rate1}% and then applies a {rate2}% cut. Find the equivalent single multiplier.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-036": {
+        "template": "A technology usage index rises by {rate1}% and then by {rate2}%. What single multiplier can replace both changes?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "A price first rises by {rate1}% and then falls by {rate2}%. Find the equivalent single multiplier.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "Revenue first rises by {rate1}% and is then reduced by {rate2}%. Find the combined multiplier.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-013": {
+        "template": "A school record shows {finalValue} as the final {wholeLabel} after two increases of {rate1}% and {rate2}%. Find the original {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-014": {
+        "template": "A railway passenger note shows {finalValue} as the final {wholeLabel} after a {rate1}% rise and a {rate2}% fall. Find the original {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "A final bill shows {finalValue} after two price rises of {rate1}% and {rate2}%. Find the original price.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-040": {
+        "template": "The closing stock is {finalValue} after a {rate1}% increase followed by a {rate2}% decrease. Find the opening stock.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-041": {
+        "template": "Final admissions are {finalValue} after the count first increased by {rate1}% and then decreased by {rate2}%. Find the original number of admissions.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-015": {
+        "template": "{labelA} was {originalA}. It rose by {rateA1}% and then by {rateA2}%. {labelB} was {originalB}. It rose by {rateB1}% and then by {rateB2}%. Find the difference between their final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-016": {
+        "template": "{labelA} was {valuePrefix}{originalA}. It first rose by {rateA1}% and later reduced by {rateA2}%. {labelB} was {valuePrefix}{originalB}. It rose by {rateB1}% and then by {rateB2}%. Find the difference between their final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-042": {
+        "template": "Branch A had {originalA} units and Branch B had {originalB} units. Branch A rose by {rateA1}% and then by {rateA2}%, while Branch B rose by {rateB1}% and then by {rateB2}%. Find the difference between the final stocks.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-043": {
+        "template": "Product A started at {originalA} and Product B started at {originalB}. Product A rose by {rateA1}% and then reduced by {rateA2}%, while Product B rose by {rateB1}% and then by {rateB2}%. Find the difference between their final prices.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-044": {
+        "template": "Two schools had {originalA} and {originalB} students. The first school rose by {rateA1}% and then reduced by {rateA2}%, while the second rose by {rateB1}% and then by {rateB2}%. Find the difference between the final strengths.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-017": {
+        "template": "A {wholeLabel} of {originalValue} rose by {rate1}% in the first stage, rose by {rate2}% in the second stage, and fell by {rate3}% in the third stage. Find the final {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-018": {
+        "template": "A {wholeLabel} of {originalValue} rose by {rate1}%, rose again by {rate2}%, fell by {rate3}%, and then rose by {rate4}%. Find the final {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-045": {
+        "template": "A monthly sales register starts at {originalValue}. Sales rose by {rate1}% in the first month, rose by {rate2}% in the second month, and fell by {rate3}% in the third month. Find the final sales.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-046": {
+        "template": "Stock was {originalValue} units. It rose by {rate1}% in the first stage, rose by {rate2}% in the second stage, fell by {rate3}% in the third stage, and rose by {rate4}% in the fourth stage. Find the final stock.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-047": {
+        "template": "The market price was {originalValue}. It rose by {rate1}%, rose again by {rate2}%, fell by {rate3}%, and then rose by {rate4}%. Find the final price.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-019": {
+        "template": "A {wholeLabel} of {originalValue} first increased by {rate1}%, then decreased by {rate2}%, and then increased by {rate3}%. Find the final {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-020": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}%, then increased by {rate2}%, and finally decreased by {rate3}%. Find the final {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-048": {
+        "template": "The turnout was {originalValue}. It first increased by {rate1}%, then decreased by {rate2}%, and then increased again by {rate3}%. Find the final turnout.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-049": {
+        "template": "Stock was {originalValue} units. It increased by {rate1}%, decreased by {rate2}%, and increased again by {rate3}%. Find the final stock.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-050": {
+        "template": "Revenue was {originalValue}. It increased by {rate1}%, increased again by {rate2}%, and then decreased by {rate3}%. Find the final revenue.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

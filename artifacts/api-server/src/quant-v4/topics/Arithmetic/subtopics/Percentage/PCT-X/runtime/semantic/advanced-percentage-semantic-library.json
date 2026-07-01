@@ -1,0 +1,51 @@
+{
+  "domains": {
+    "setOverlap": {
+      "entities": [
+        { "id": "students", "en": "students", "hi": "छात्र", "pa": "ਵਿਦਿਆਰਥੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "subjects", "en": "subjects", "hi": "विषय", "pa": "ਵਿਸ਼ੇ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
+        { "id": "clubs", "en": "clubs", "hi": "क्लब", "pa": "ਕਲੱਬ", "gender": "neutral", "numberType": "countable", "frequency": "uncommon" }
+      ]
+    },
+    "election": {
+      "entities": [
+        { "id": "voters", "en": "voters", "hi": "मतदाता", "pa": "ਵੋਟਰ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "valid_votes", "en": "valid votes", "hi": "वैध मत", "pa": "ਵੈਧ ਵੋਟਾਂ", "gender": "neutral", "numberType": "countable", "frequency": "common" },
+        { "id": "invalid_votes", "en": "invalid votes", "hi": "अवैध मत", "pa": "ਅਵੈਧ ਵੋਟਾਂ", "gender": "neutral", "numberType": "countable", "frequency": "common" }
+      ]
+    },
+    "office": {
+      "entities": [
+        { "id": "maleEmployees", "en": "male employees", "hi": "पुरुष कर्मचारी", "pa": "ਪੁਰਸ਼ ਕਰਮਚਾਰੀ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "femaleEmployees", "en": "female employees", "hi": "महिला कर्मचारी", "pa": "ਮਹਿਲਾ ਕਰਮਚਾਰੀ", "gender": "female", "numberType": "countable", "frequency": "common" },
+        { "id": "graduates", "en": "graduates", "hi": "स्नातक", "pa": "ਗ੍ਰੈਜੂਏਟ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "postgraduates", "en": "postgraduates", "hi": "स्नातकोत्तर", "pa": "ਪੋਸਟ ਗ੍ਰੈਜੂਏਟ", "gender": "male", "numberType": "countable", "frequency": "uncommon" }
+      ]
+    },
+    "tax": {
+      "entities": [
+        { "id": "income_slabs", "en": "income slabs", "hi": "आय स्लैब", "pa": "ਆਮਦਨ ਸਲੈਬ", "gender": "neutral", "numberType": "countable", "frequency": "uncommon" }
+      ]
+    },
+    "commission": {
+      "entities": [
+        { "id": "salesman", "en": "salesman", "hi": "विक्रेता", "pa": "ਸੇਲਜ਼ਮੈਨ", "gender": "male", "numberType": "countable", "frequency": "common" },
+        { "id": "commission", "en": "commission", "hi": "कमीशन", "pa": "ਕਮਿਸ਼ਨ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "sales", "en": "sales", "hi": "बिक्री", "pa": "ਵਿਕਰੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" }
+      ]
+    },
+    "mixtures": {
+      "entities": [
+        { "id": "milk", "en": "milk", "hi": "दूध", "pa": "ਦੁੱਧ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "water", "en": "water", "hi": "पानी", "pa": "ਪਾਣੀ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "cream", "en": "cream", "hi": "क्रीम", "pa": "ਕਰੀਮ", "gender": "neutral", "numberType": "uncountable", "frequency": "uncommon" },
+        { "id": "petrol", "en": "petrol", "hi": "पेट्रोल", "pa": "ਪੈਟਰੋਲ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "diesel", "en": "diesel", "hi": "डीजल", "pa": "ਡੀਜ਼ਲ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "acid", "en": "acid", "hi": "एसिड", "pa": "ਤੇਜ਼ਾਬ", "gender": "neutral", "numberType": "uncountable", "frequency": "uncommon" },
+        { "id": "alcohol", "en": "alcohol", "hi": "अल्कोहल", "pa": "ਅਲਕੋਹਲ", "gender": "neutral", "numberType": "uncountable", "frequency": "uncommon" },
+        { "id": "juice", "en": "juice", "hi": "जूस", "pa": "ਜੂਸ", "gender": "neutral", "numberType": "uncountable", "frequency": "common" },
+        { "id": "mercury", "en": "mercury", "hi": "पारा", "pa": "ਪਾਰਾ", "gender": "neutral", "numberType": "uncountable", "frequency": "rare" }
+      ]
+    }
+  }
+}

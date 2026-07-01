@@ -1,0 +1,17 @@
+Expected_CP,Actual_CP,Status
+CP-001 Whole from Part,NONE,MISSING
+CP-002 Another Percentage from Known Percentage,NONE,MISSING
+CP-003 Percentage from Part and Whole,NONE,MISSING
+CP-004 Reverse Percentage Mapping,NONE,MISSING
+CP-005 Ratio <-> Percentage Conversion,NONE,MISSING
+CP-006 Complementary Percentage,NONE,MISSING
+CP-007 Difference Between Percentage Parts,NONE,MISSING
+CP-008 Percentage Partition,NONE,MISSING
+CP-009 Missing Percentage,NONE,MISSING
+CP-010 Multi-category Percentage Distribution,NONE,MISSING
+NONE,PCT-CP-001 Inclusion-Exclusion,UNEXPECTED
+NONE,PCT-CP-002 Fractional Error,UNEXPECTED
+NONE,PCT-CP-003 Tiered Slabs,UNEXPECTED
+NONE,PCT-CP-004 Weighted Subgroups,UNEXPECTED
+NONE,PCT-CP-005 Repeated Replacement,UNEXPECTED
+NONE,PCT-CP-006 Multi-Stage Attrition,UNEXPECTED

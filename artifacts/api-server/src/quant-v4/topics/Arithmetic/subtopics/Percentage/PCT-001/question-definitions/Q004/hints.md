@@ -1,0 +1,3 @@
+- Hint 1: Identify that {rate1}% of the total employees equals the {value1} employees working in marketing.
+- Hint 2: Find the number of employees representing 1% of the workforce by dividing {value1} by {rate1}.
+- Hint 3: Multiply the 1% employee count by {rate2} to find the number of sales employees.

@@ -9,7 +9,7 @@
 - Solver failures: 0
 - Cross-language failures: 0
 - Placeholder failures: 0
-- Duplicate rate: 6.00%
+- Duplicate rate: 7.00%
 - Library validation failures: 0
 - Sample profile: 500 EN questions
 
@@ -35,10 +35,9 @@
   "ratioTreeLinkage": 15,
   "scalingByComponent": 15,
   "decimalNormalization": 15,
-  "basicPartition": 25,
-  "shareDifference": 25,
-  "reversePartition": 25,
-  "salaryDistribution": 25,
+  "shareDifference": 34,
+  "reversePartition": 33,
+  "salaryDistribution": 33,
   "twoStateAddition": 20,
   "twoStateSubtraction": 20,
   "twoStateTransfer": 20,
@@ -70,10 +69,9 @@
   "RAP-QL-003": 15,
   "RAP-QL-004": 15,
   "RAP-QL-006": 15,
-  "RAP-QL-007": 25,
-  "RAP-QL-008": 25,
-  "RAP-QL-009": 25,
-  "RAP-QL-011": 25,
+  "RAP-QL-008": 34,
+  "RAP-QL-009": 33,
+  "RAP-QL-011": 33,
   "RAP-QL-012": 20,
   "RAP-QL-013": 20,
   "RAP-QL-014": 20,

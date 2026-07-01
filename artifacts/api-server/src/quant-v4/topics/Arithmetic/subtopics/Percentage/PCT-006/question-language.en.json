@@ -1,0 +1,2042 @@
+{
+  "PCT-CP-001": {
+    "families": {
+      "PCT-QL-001": {
+        "template": "A's salary is {percentageRate}% more than B's salary. If B's salary is Rs. {baseValue}, find A's salary.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "Riya's marks are {percentageRate}% more than Karan's marks. If Karan's marks are {baseValue} marks, find Riya's marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-003": {
+        "template": "Town A's population is {percentageRate}% more than Town B's population. If Town B's population is {baseValue} people, find Town A's population.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "Unit A's production is {percentageRate}% more than Unit B's production. If Unit B's production is {baseValue} units, find Unit A's production.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-005": {
+        "template": "Article A's price is {percentageRate}% more than Article B's price. If Article B's price is Rs. {baseValue}, find Article A's price.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "Store A's sales are {percentageRate}% more than Store B's sales. If Store B's sales are Rs. {baseValue}, find Store A's sales.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-007": {
+        "template": "Section A's attendance is {percentageRate}% more than Section B's attendance. If Section B's attendance is {baseValue} students, find Section A's attendance.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-008": {
+        "template": "Warehouse A's stock is {percentageRate}% more than Warehouse B's stock. If Warehouse B's stock is {baseValue} items, find Warehouse A's stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-009": {
+        "template": "Route A's passenger count is {percentageRate}% more than Route B's passenger count. If Route B's passenger count is {baseValue} passengers, find Route A's passenger count.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-010": {
+        "template": "Block A's monthly usage is {percentageRate}% more than Block B's monthly usage. If Block B's monthly usage is {baseValue} units, find Block A's monthly usage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-011": {
+        "template": "A's salary is {percentageRate}% more than B's salary. If A's salary is Rs. {baseValue}, find B's salary.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-012": {
+        "template": "Riya's marks are {percentageRate}% more than Karan's marks. If Riya's marks are {baseValue} marks, find Karan's marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-013": {
+        "template": "Town A's population is {percentageRate}% more than Town B's population. If Town A's population is {baseValue} people, find Town B's population.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-014": {
+        "template": "Unit A's production is {percentageRate}% more than Unit B's production. If Unit A's production is {baseValue} units, find Unit B's production.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-015": {
+        "template": "Article A's price is {percentageRate}% more than Article B's price. If Article A's price is Rs. {baseValue}, find Article B's price.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-016": {
+        "template": "Store A's sales are {percentageRate}% more than Store B's sales. If Store A's sales are Rs. {baseValue}, find Store B's sales.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-017": {
+        "template": "Section A's attendance is {percentageRate}% more than Section B's attendance. If Section A's attendance is {baseValue} students, find Section B's attendance.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-018": {
+        "template": "Warehouse A's stock is {percentageRate}% more than Warehouse B's stock. If Warehouse A's stock is {baseValue} items, find Warehouse B's stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-019": {
+        "template": "Route A's passenger count is {percentageRate}% more than Route B's passenger count. If Route A's passenger count is {baseValue} passengers, find Route B's passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "Block A's monthly usage is {percentageRate}% more than Block B's monthly usage. If Block A's monthly usage is {baseValue} units, find Block B's monthly usage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-021": {
+        "template": "A's salary is {percentageRate}% more than B's salary. If B's salary is Rs. {baseValue}, find the difference between their salaries.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "Riya's marks are {percentageRate}% more than Karan's marks. If Karan's marks are {baseValue} marks, find the difference between their marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "Town A's population is {percentageRate}% more than Town B's population. If Town B's population is {baseValue} people, find the difference between their populations.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-024": {
+        "template": "Unit A's production is {percentageRate}% more than Unit B's production. If Unit B's production is {baseValue} units, find the difference between their outputs.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "Article A's price is {percentageRate}% more than Article B's price. If Article B's price is Rs. {baseValue}, find the difference between their prices.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-026": {
+        "template": "Store A's sales are {percentageRate}% more than Store B's sales. If Store B's sales are Rs. {baseValue}, find the difference between their sales figures.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-027": {
+        "template": "Section A's attendance is {percentageRate}% more than Section B's attendance. If Section B's attendance is {baseValue} students, find the difference between their attendance totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-028": {
+        "template": "Warehouse A's stock is {percentageRate}% more than Warehouse B's stock. If Warehouse B's stock is {baseValue} items, find the difference between their stock totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-029": {
+        "template": "Route A's passenger count is {percentageRate}% more than Route B's passenger count. If Route B's passenger count is {baseValue} passengers, find the difference between their passenger totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-030": {
+        "template": "Block A's monthly usage is {percentageRate}% more than Block B's monthly usage. If Block B's monthly usage is {baseValue} units, find the difference between their usage totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-031": {
+        "template": "A comparison note says that A's salary stands {percentageRate}% above B's. If the B figure is Rs. {baseValue}, what is the A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-032": {
+        "template": "A comparison note says that Riya's marks stand {percentageRate}% above Karan's. If the Karan figure is {baseValue} marks, what is the Riya figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-033": {
+        "template": "A comparison note says that Town A's population stands {percentageRate}% above Town B's. If the Town B figure is {baseValue} people, what is the Town A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-034": {
+        "template": "A comparison note says that Unit A's production stands {percentageRate}% above Unit B's. If the Unit B figure is {baseValue} units, what is the Unit A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-035": {
+        "template": "A comparison note says that Article A's price stands {percentageRate}% above Article B's. If the Article B figure is Rs. {baseValue}, what is the Article A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-036": {
+        "template": "A comparison note says that Store A's sales stand {percentageRate}% above Store B's. If the Store B figure is Rs. {baseValue}, what is the Store A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-037": {
+        "template": "A comparison note says that Section A's attendance stands {percentageRate}% above Section B's. If the Section B figure is {baseValue} students, what is the Section A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-038": {
+        "template": "A comparison note says that Warehouse A's stock stands {percentageRate}% above Warehouse B's. If the Warehouse B figure is {baseValue} items, what is the Warehouse A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-039": {
+        "template": "A comparison note says that Route A's passenger count stands {percentageRate}% above Route B's. If the Route B figure is {baseValue} passengers, what is the Route A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-040": {
+        "template": "A comparison note says that Block A's monthly usage stands {percentageRate}% above Block B's. If the Block B figure is {baseValue} units, what is the Block A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-041": {
+        "template": "In a short comparison table, A is shown at {percentageRate}% above B. If the entry for A is Rs. {baseValue}, determine the entry for B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-042": {
+        "template": "In a short comparison table, Riya is shown at {percentageRate}% above Karan. If the entry for Riya is {baseValue} marks, determine the entry for Karan.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-043": {
+        "template": "In a short comparison table, Town A is shown at {percentageRate}% above Town B. If the entry for Town A is {baseValue} people, determine the entry for Town B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "In a short comparison table, Unit A is shown at {percentageRate}% above Unit B. If the entry for Unit A is {baseValue} units, determine the entry for Unit B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "In a short comparison table, Article A is shown at {percentageRate}% above Article B. If the entry for Article A is Rs. {baseValue}, determine the entry for Article B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-046": {
+        "template": "In a short comparison table, Store A is shown at {percentageRate}% above Store B. If the entry for Store A is Rs. {baseValue}, determine the entry for Store B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "In a short comparison table, Section A is shown at {percentageRate}% above Section B. If the entry for Section A is {baseValue} students, determine the entry for Section B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-048": {
+        "template": "In a short comparison table, Warehouse A is shown at {percentageRate}% above Warehouse B. If the entry for Warehouse A is {baseValue} items, determine the entry for Warehouse B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "In a short comparison table, Route A is shown at {percentageRate}% above Route B. If the entry for Route A is {baseValue} passengers, determine the entry for Route B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "In a short comparison table, Block A is shown at {percentageRate}% above Block B. If the entry for Block A is {baseValue} units, determine the entry for Block B.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-002": {
+    "families": {
+      "PCT-QL-051": {
+        "template": "A's salary is {percentageRate}% less than B's salary. If B's salary is Rs. {baseValue}, find A's salary.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "Riya's marks are {percentageRate}% less than Karan's marks. If Karan's marks are {baseValue} marks, find Riya's marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "Town A's population is {percentageRate}% less than Town B's population. If Town B's population is {baseValue} people, find Town A's population.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "Unit A's production is {percentageRate}% less than Unit B's production. If Unit B's production is {baseValue} units, find Unit A's production.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-055": {
+        "template": "Article A's price is {percentageRate}% less than Article B's price. If Article B's price is Rs. {baseValue}, find Article A's price.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-056": {
+        "template": "Store A's sales are {percentageRate}% less than Store B's sales. If Store B's sales are Rs. {baseValue}, find Store A's sales.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "Section A's attendance is {percentageRate}% less than Section B's attendance. If Section B's attendance is {baseValue} students, find Section A's attendance.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "Warehouse A's stock is {percentageRate}% less than Warehouse B's stock. If Warehouse B's stock is {baseValue} items, find Warehouse A's stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-059": {
+        "template": "Route A's passenger count is {percentageRate}% less than Route B's passenger count. If Route B's passenger count is {baseValue} passengers, find Route A's passenger count.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-060": {
+        "template": "Block A's monthly usage is {percentageRate}% less than Block B's monthly usage. If Block B's monthly usage is {baseValue} units, find Block A's monthly usage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-061": {
+        "template": "A's salary is {percentageRate}% less than B's salary. If A's salary is Rs. {baseValue}, find B's salary.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-062": {
+        "template": "Riya's marks are {percentageRate}% less than Karan's marks. If Riya's marks are {baseValue} marks, find Karan's marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-063": {
+        "template": "Town A's population is {percentageRate}% less than Town B's population. If Town A's population is {baseValue} people, find Town B's population.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-064": {
+        "template": "Unit A's production is {percentageRate}% less than Unit B's production. If Unit A's production is {baseValue} units, find Unit B's production.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "Article A's price is {percentageRate}% less than Article B's price. If Article A's price is Rs. {baseValue}, find Article B's price.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "Store A's sales are {percentageRate}% less than Store B's sales. If Store A's sales are Rs. {baseValue}, find Store B's sales.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-067": {
+        "template": "Section A's attendance is {percentageRate}% less than Section B's attendance. If Section A's attendance is {baseValue} students, find Section B's attendance.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-068": {
+        "template": "Warehouse A's stock is {percentageRate}% less than Warehouse B's stock. If Warehouse A's stock is {baseValue} items, find Warehouse B's stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "Route A's passenger count is {percentageRate}% less than Route B's passenger count. If Route A's passenger count is {baseValue} passengers, find Route B's passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "Block A's monthly usage is {percentageRate}% less than Block B's monthly usage. If Block A's monthly usage is {baseValue} units, find Block B's monthly usage.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-071": {
+        "template": "A's salary is {percentageRate}% less than B's salary. If B's salary is Rs. {baseValue}, find the difference between their salaries.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-072": {
+        "template": "Riya's marks are {percentageRate}% less than Karan's marks. If Karan's marks are {baseValue} marks, find the difference between their marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-073": {
+        "template": "Town A's population is {percentageRate}% less than Town B's population. If Town B's population is {baseValue} people, find the difference between their populations.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-074": {
+        "template": "Unit A's production is {percentageRate}% less than Unit B's production. If Unit B's production is {baseValue} units, find the difference between their outputs.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-075": {
+        "template": "Article A's price is {percentageRate}% less than Article B's price. If Article B's price is Rs. {baseValue}, find the difference between their prices.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-076": {
+        "template": "Store A's sales are {percentageRate}% less than Store B's sales. If Store B's sales are Rs. {baseValue}, find the difference between their sales figures.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-077": {
+        "template": "Section A's attendance is {percentageRate}% less than Section B's attendance. If Section B's attendance is {baseValue} students, find the difference between their attendance totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-078": {
+        "template": "Warehouse A's stock is {percentageRate}% less than Warehouse B's stock. If Warehouse B's stock is {baseValue} items, find the difference between their stock totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-079": {
+        "template": "Route A's passenger count is {percentageRate}% less than Route B's passenger count. If Route B's passenger count is {baseValue} passengers, find the difference between their passenger totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-080": {
+        "template": "Block A's monthly usage is {percentageRate}% less than Block B's monthly usage. If Block B's monthly usage is {baseValue} units, find the difference between their usage totals.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-081": {
+        "template": "A summary line shows A at {percentageRate}% below B. If the B figure is Rs. {baseValue}, what is the A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-082": {
+        "template": "A summary line shows Riya at {percentageRate}% below Karan. If the Karan figure is {baseValue} marks, what is the Riya figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-083": {
+        "template": "A summary line shows Town A at {percentageRate}% below Town B. If the Town B figure is {baseValue} people, what is the Town A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-084": {
+        "template": "A summary line shows Unit A at {percentageRate}% below Unit B. If the Unit B figure is {baseValue} units, what is the Unit A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-085": {
+        "template": "A summary line shows Article A at {percentageRate}% below Article B. If the Article B figure is Rs. {baseValue}, what is the Article A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-086": {
+        "template": "A summary line shows Store A at {percentageRate}% below Store B. If the Store B figure is Rs. {baseValue}, what is the Store A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-087": {
+        "template": "A summary line shows Section A at {percentageRate}% below Section B. If the Section B figure is {baseValue} students, what is the Section A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-088": {
+        "template": "A summary line shows Warehouse A at {percentageRate}% below Warehouse B. If the Warehouse B figure is {baseValue} items, what is the Warehouse A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-089": {
+        "template": "A summary line shows Route A at {percentageRate}% below Route B. If the Route B figure is {baseValue} passengers, what is the Route A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-090": {
+        "template": "A summary line shows Block A at {percentageRate}% below Block B. If the Block B figure is {baseValue} units, what is the Block A figure?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-091": {
+        "template": "In a comparison chart, A is marked {percentageRate}% below B. If the entry for A is Rs. {baseValue}, determine the entry for B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-092": {
+        "template": "In a comparison chart, Riya is marked {percentageRate}% below Karan. If the entry for Riya is {baseValue} marks, determine the entry for Karan.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-093": {
+        "template": "In a comparison chart, Town A is marked {percentageRate}% below Town B. If the entry for Town A is {baseValue} people, determine the entry for Town B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "In a comparison chart, Unit A is marked {percentageRate}% below Unit B. If the entry for Unit A is {baseValue} units, determine the entry for Unit B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-095": {
+        "template": "In a comparison chart, Article A is marked {percentageRate}% below Article B. If the entry for Article A is Rs. {baseValue}, determine the entry for Article B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-096": {
+        "template": "In a comparison chart, Store A is marked {percentageRate}% below Store B. If the entry for Store A is Rs. {baseValue}, determine the entry for Store B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "In a comparison chart, Section A is marked {percentageRate}% below Section B. If the entry for Section A is {baseValue} students, determine the entry for Section B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "In a comparison chart, Warehouse A is marked {percentageRate}% below Warehouse B. If the entry for Warehouse A is {baseValue} items, determine the entry for Warehouse B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "In a comparison chart, Route A is marked {percentageRate}% below Route B. If the entry for Route A is {baseValue} passengers, determine the entry for Route B.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-100": {
+        "template": "In a comparison chart, Block A is marked {percentageRate}% below Block B. If the entry for Block A is {baseValue} units, determine the entry for Block B.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-003": {
+    "families": {
+      "PCT-QL-101": {
+        "template": "If A is {percentageRate}% more than B, by what percent is B less than A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "If Riya is {percentageRate}% more than Karan, by what percent is Karan less than Riya?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "If Town A is {percentageRate}% more than Town B, by what percent is Town B less than Town A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "If Unit A is {percentageRate}% more than Unit B, by what percent is Unit B less than Unit A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "If Article A is {percentageRate}% more than Article B, by what percent is Article B less than Article A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "If Store A is {percentageRate}% more than Store B, by what percent is Store B less than Store A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-107": {
+        "template": "If Section A is {percentageRate}% more than Section B, by what percent is Section B less than Section A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-108": {
+        "template": "If Warehouse A is {percentageRate}% more than Warehouse B, by what percent is Warehouse B less than Warehouse A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-109": {
+        "template": "If Route A is {percentageRate}% more than Route B, by what percent is Route B less than Route A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-110": {
+        "template": "If Block A is {percentageRate}% more than Block B, by what percent is Block B less than Block A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-111": {
+        "template": "If A is {percentageRate}% less than B, by what percent is B more than A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-112": {
+        "template": "If Riya is {percentageRate}% less than Karan, by what percent is Karan more than Riya?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-113": {
+        "template": "If Town A is {percentageRate}% less than Town B, by what percent is Town B more than Town A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-114": {
+        "template": "If Unit A is {percentageRate}% less than Unit B, by what percent is Unit B more than Unit A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-115": {
+        "template": "If Article A is {percentageRate}% less than Article B, by what percent is Article B more than Article A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-116": {
+        "template": "If Store A is {percentageRate}% less than Store B, by what percent is Store B more than Store A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-117": {
+        "template": "If Section A is {percentageRate}% less than Section B, by what percent is Section B more than Section A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-118": {
+        "template": "If Warehouse A is {percentageRate}% less than Warehouse B, by what percent is Warehouse B more than Warehouse A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-119": {
+        "template": "If Route A is {percentageRate}% less than Route B, by what percent is Route B more than Route A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-120": {
+        "template": "If Block A is {percentageRate}% less than Block B, by what percent is Block B more than Block A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-121": {
+        "template": "A's salary is {percentageRate}% more than B's salary. Find the percentage by which B's salary is less than A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-122": {
+        "template": "Riya's marks are {percentageRate}% more than Karan's marks. Find the percentage by which Karan's marks are less than Riya's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-123": {
+        "template": "Town A's population is {percentageRate}% more than Town B's population. Find the percentage by which Town B's population is less than Town A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-124": {
+        "template": "Unit A's production is {percentageRate}% more than Unit B's production. Find the percentage by which Unit B's production is less than Unit A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-125": {
+        "template": "Article A's price is {percentageRate}% more than Article B's price. Find the percentage by which Article B's price is less than Article A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "Store A's sales are {percentageRate}% more than Store B's sales. Find the percentage by which Store B's sales are less than Store A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-127": {
+        "template": "Section A's attendance is {percentageRate}% more than Section B's attendance. Find the percentage by which Section B's attendance is less than Section A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-128": {
+        "template": "Warehouse A's stock is {percentageRate}% more than Warehouse B's stock. Find the percentage by which Warehouse B's stock is less than Warehouse A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "Route A's passenger count is {percentageRate}% more than Route B's passenger count. Find the percentage by which Route B's passenger count is less than Route A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-130": {
+        "template": "Block A's monthly usage is {percentageRate}% more than Block B's monthly usage. Find the percentage by which Block B's monthly usage is less than Block A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-131": {
+        "template": "A's salary is {percentageRate}% less than B's salary. Find the percentage by which B's salary exceeds A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-132": {
+        "template": "Riya's marks are {percentageRate}% less than Karan's marks. Find the percentage by which Karan's marks exceed Riya's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-133": {
+        "template": "Town A's population is {percentageRate}% less than Town B's population. Find the percentage by which Town B's population exceeds Town A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-134": {
+        "template": "Unit A's production is {percentageRate}% less than Unit B's production. Find the percentage by which Unit B's production exceeds Unit A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-135": {
+        "template": "Article A's price is {percentageRate}% less than Article B's price. Find the percentage by which Article B's price exceeds Article A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-136": {
+        "template": "Store A's sales are {percentageRate}% less than Store B's sales. Find the percentage by which Store B's sales exceed Store A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-137": {
+        "template": "Section A's attendance is {percentageRate}% less than Section B's attendance. Find the percentage by which Section B's attendance exceeds Section A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-138": {
+        "template": "Warehouse A's stock is {percentageRate}% less than Warehouse B's stock. Find the percentage by which Warehouse B's stock exceeds Warehouse A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-139": {
+        "template": "Route A's passenger count is {percentageRate}% less than Route B's passenger count. Find the percentage by which Route B's passenger count exceeds Route A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-140": {
+        "template": "Block A's monthly usage is {percentageRate}% less than Block B's monthly usage. Find the percentage by which Block B's monthly usage exceeds Block A's.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "A comparison remark says A stands {percentageRate}% above B. When the base is switched, by what percent does B fall short of A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-142": {
+        "template": "A comparison remark says Riya stands {percentageRate}% below Karan. When the base is switched, by what percent does Karan stand above Riya?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-143": {
+        "template": "A comparison remark says Town A stands {percentageRate}% above Town B. When the base is switched, by what percent does Town B fall short of Town A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-144": {
+        "template": "A comparison remark says Unit A stands {percentageRate}% below Unit B. When the base is switched, by what percent does Unit B stand above Unit A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "A comparison remark says Article A stands {percentageRate}% above Article B. When the base is switched, by what percent does Article B fall short of Article A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "A comparison remark says Store A stands {percentageRate}% below Store B. When the base is switched, by what percent does Store B stand above Store A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-147": {
+        "template": "A comparison remark says Section A stands {percentageRate}% above Section B. When the base is switched, by what percent does Section B fall short of Section A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-148": {
+        "template": "A comparison remark says Warehouse A stands {percentageRate}% below Warehouse B. When the base is switched, by what percent does Warehouse B stand above Warehouse A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-149": {
+        "template": "A comparison remark says Route A stands {percentageRate}% above Route B. When the base is switched, by what percent does Route B fall short of Route A?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "A comparison remark says Block A stands {percentageRate}% below Block B. When the base is switched, by what percent does Block B stand above Block A?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-004": {
+    "families": {
+      "PCT-QL-151": {
+        "template": "A's salary is Rs. {value1} and B's salary is Rs. {value2}. Find the difference as a percentage of A's salary.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-152": {
+        "template": "Riya's marks are {value1} marks and Karan's marks are {value2} marks. Find the difference as a percentage of Riya's marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-153": {
+        "template": "Town A's population is {value1} people and Town B's population is {value2} people. Find the difference as a percentage of Town A's population.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-154": {
+        "template": "Unit A's production is {value1} units and Unit B's production is {value2} units. Find the difference as a percentage of Unit A's production.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-155": {
+        "template": "Article A's price is Rs. {value1} and Article B's price is Rs. {value2}. Find the difference as a percentage of Article A's price.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-156": {
+        "template": "Store A's sales are Rs. {value1} and Store B's sales are Rs. {value2}. Find the difference as a percentage of Store A's sales.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-157": {
+        "template": "Section A's attendance is {value1} students and Section B's attendance is {value2} students. Find the difference as a percentage of Section A's attendance.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-158": {
+        "template": "Warehouse A's stock is {value1} items and Warehouse B's stock is {value2} items. Find the difference as a percentage of Warehouse A's stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-159": {
+        "template": "Route A's passenger count is {value1} passengers and Route B's passenger count is {value2} passengers. Find the difference as a percentage of Route A's passenger count.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-160": {
+        "template": "Block A's monthly usage is {value1} units and Block B's monthly usage is {value2} units. Find the difference as a percentage of Block A's monthly usage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-161": {
+        "template": "A's salary is Rs. {value1} and B's salary is Rs. {value2}. Find the difference as a percentage of B's salary.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-162": {
+        "template": "Riya's marks are {value1} marks and Karan's marks are {value2} marks. Find the difference as a percentage of Karan's marks.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-163": {
+        "template": "Town A's population is {value1} people and Town B's population is {value2} people. Find the difference as a percentage of Town B's population.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-164": {
+        "template": "Unit A's production is {value1} units and Unit B's production is {value2} units. Find the difference as a percentage of Unit B's production.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-165": {
+        "template": "Article A's price is Rs. {value1} and Article B's price is Rs. {value2}. Find the difference as a percentage of Article B's price.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-166": {
+        "template": "Store A's sales are Rs. {value1} and Store B's sales are Rs. {value2}. Find the difference as a percentage of Store B's sales.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-167": {
+        "template": "Section A's attendance is {value1} students and Section B's attendance is {value2} students. Find the difference as a percentage of Section B's attendance.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-168": {
+        "template": "Warehouse A's stock is {value1} items and Warehouse B's stock is {value2} items. Find the difference as a percentage of Warehouse B's stock.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-169": {
+        "template": "Route A's passenger count is {value1} passengers and Route B's passenger count is {value2} passengers. Find the difference as a percentage of Route B's passenger count.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-170": {
+        "template": "Block A's monthly usage is {value1} units and Block B's monthly usage is {value2} units. Find the difference as a percentage of Block B's monthly usage.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-171": {
+        "template": "A and B record Rs. {value1} and Rs. {value2} respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-172": {
+        "template": "Riya and Karan record {value1} marks and {value2} marks respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-173": {
+        "template": "Town A and Town B record {value1} people and {value2} people respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-174": {
+        "template": "Unit A and Unit B record {value1} units and {value2} units respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-175": {
+        "template": "Article A and Article B record Rs. {value1} and Rs. {value2} respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-176": {
+        "template": "Store A and Store B record Rs. {value1} and Rs. {value2} respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-177": {
+        "template": "Section A and Section B record {value1} students and {value2} students respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-178": {
+        "template": "Warehouse A and Warehouse B record {value1} items and {value2} items respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-179": {
+        "template": "Route A and Route B record {value1} passengers and {value2} passengers respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-180": {
+        "template": "Block A and Block B record {value1} units and {value2} units respectively. By what percent is the larger value more than the smaller value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-181": {
+        "template": "A and B record Rs. {value1} and Rs. {value2} respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-182": {
+        "template": "Riya and Karan record {value1} marks and {value2} marks respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-183": {
+        "template": "Town A and Town B record {value1} people and {value2} people respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-184": {
+        "template": "Unit A and Unit B record {value1} units and {value2} units respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-185": {
+        "template": "Article A and Article B record Rs. {value1} and Rs. {value2} respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-186": {
+        "template": "Store A and Store B record Rs. {value1} and Rs. {value2} respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-187": {
+        "template": "Section A and Section B record {value1} students and {value2} students respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-188": {
+        "template": "Warehouse A and Warehouse B record {value1} items and {value2} items respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-189": {
+        "template": "Route A and Route B record {value1} passengers and {value2} passengers respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-190": {
+        "template": "Block A and Block B record {value1} units and {value2} units respectively. By what percent is the smaller value less than the larger value?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-191": {
+        "template": "A comparison row lists Rs. {value1} for A and Rs. {value2} for B. Express the difference as a percentage of the first value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-192": {
+        "template": "A comparison row lists {value1} marks for Riya and {value2} marks for Karan. Express the difference as a percentage of the second value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-193": {
+        "template": "A comparison row lists {value1} people for Town A and {value2} people for Town B. Express the difference as a percentage of the first value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-194": {
+        "template": "A comparison row lists {value1} units for Unit A and {value2} units for Unit B. Express the difference as a percentage of the second value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-195": {
+        "template": "A comparison row lists Rs. {value1} for Article A and Rs. {value2} for Article B. Express the difference as a percentage of the first value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-196": {
+        "template": "A comparison row lists Rs. {value1} for Store A and Rs. {value2} for Store B. Express the difference as a percentage of the second value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-197": {
+        "template": "A comparison row lists {value1} students for Section A and {value2} students for Section B. Express the difference as a percentage of the first value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-198": {
+        "template": "A comparison row lists {value1} items for Warehouse A and {value2} items for Warehouse B. Express the difference as a percentage of the second value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-199": {
+        "template": "A comparison row lists {value1} passengers for Route A and {value2} passengers for Route B. Express the difference as a percentage of the first value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-200": {
+        "template": "A comparison row lists {value1} units for Block A and {value2} units for Block B. Express the difference as a percentage of the second value.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-005": {
+    "families": {
+      "PCT-QL-201": {
+        "template": "If A:B = {ratioA}:{ratioB}, by what percent is A more than B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-202": {
+        "template": "If Riya:Karan = {ratioA}:{ratioB}, by what percent is Riya more than Karan?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-203": {
+        "template": "If Town A:Town B = {ratioA}:{ratioB}, by what percent is Town A more than Town B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-204": {
+        "template": "If Unit A:Unit B = {ratioA}:{ratioB}, by what percent is Unit A more than Unit B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-205": {
+        "template": "If Article A:Article B = {ratioA}:{ratioB}, by what percent is Article A more than Article B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-206": {
+        "template": "If Store A:Store B = {ratioA}:{ratioB}, by what percent is Store A more than Store B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-207": {
+        "template": "If Section A:Section B = {ratioA}:{ratioB}, by what percent is Section A more than Section B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-208": {
+        "template": "If Warehouse A:Warehouse B = {ratioA}:{ratioB}, by what percent is Warehouse A more than Warehouse B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-209": {
+        "template": "If Route A:Route B = {ratioA}:{ratioB}, by what percent is Route A more than Route B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-210": {
+        "template": "If Block A:Block B = {ratioA}:{ratioB}, by what percent is Block A more than Block B?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-211": {
+        "template": "If A:B = {ratioA}:{ratioB}, by what percent is B less than A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-212": {
+        "template": "If Riya:Karan = {ratioA}:{ratioB}, by what percent is Karan less than Riya?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-213": {
+        "template": "If Town A:Town B = {ratioA}:{ratioB}, by what percent is Town B less than Town A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-214": {
+        "template": "If Unit A:Unit B = {ratioA}:{ratioB}, by what percent is Unit B less than Unit A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-215": {
+        "template": "If Article A:Article B = {ratioA}:{ratioB}, by what percent is Article B less than Article A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-216": {
+        "template": "If Store A:Store B = {ratioA}:{ratioB}, by what percent is Store B less than Store A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-217": {
+        "template": "If Section A:Section B = {ratioA}:{ratioB}, by what percent is Section B less than Section A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-218": {
+        "template": "If Warehouse A:Warehouse B = {ratioA}:{ratioB}, by what percent is Warehouse B less than Warehouse A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-219": {
+        "template": "If Route A:Route B = {ratioA}:{ratioB}, by what percent is Route B less than Route A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-220": {
+        "template": "If Block A:Block B = {ratioA}:{ratioB}, by what percent is Block B less than Block A?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-221": {
+        "template": "The ratio of A's salary to B's salary is {ratioA}:{ratioB}. Find the percentage by which A's salary exceeds B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-222": {
+        "template": "The ratio of Riya's marks to Karan's marks are {ratioA}:{ratioB}. Find the percentage by which Riya's marks exceeds Karan's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-223": {
+        "template": "The ratio of Town A's population to Town B's population is {ratioA}:{ratioB}. Find the percentage by which Town A's population exceeds Town B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-224": {
+        "template": "The ratio of Unit A's production to Unit B's production is {ratioA}:{ratioB}. Find the percentage by which Unit A's production exceeds Unit B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-225": {
+        "template": "The ratio of Article A's price to Article B's price is {ratioA}:{ratioB}. Find the percentage by which Article A's price exceeds Article B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-226": {
+        "template": "The ratio of Store A's sales to Store B's sales are {ratioA}:{ratioB}. Find the percentage by which Store A's sales exceeds Store B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-227": {
+        "template": "The ratio of Section A's attendance to Section B's attendance is {ratioA}:{ratioB}. Find the percentage by which Section A's attendance exceeds Section B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-228": {
+        "template": "The ratio of Warehouse A's stock to Warehouse B's stock is {ratioA}:{ratioB}. Find the percentage by which Warehouse A's stock exceeds Warehouse B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-229": {
+        "template": "The ratio of Route A's passenger count to Route B's passenger count is {ratioA}:{ratioB}. Find the percentage by which Route A's passenger count exceeds Route B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-230": {
+        "template": "The ratio of Block A's monthly usage to Block B's monthly usage is {ratioA}:{ratioB}. Find the percentage by which Block A's monthly usage exceeds Block B's.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-231": {
+        "template": "The ratio of A's salary to B's salary is {ratioA}:{ratioB}. Find the percentage by which B's salary is less than A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-232": {
+        "template": "The ratio of Riya's marks to Karan's marks are {ratioA}:{ratioB}. Find the percentage by which Karan's marks are less than Riya's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-233": {
+        "template": "The ratio of Town A's population to Town B's population is {ratioA}:{ratioB}. Find the percentage by which Town B's population is less than Town A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-234": {
+        "template": "The ratio of Unit A's production to Unit B's production is {ratioA}:{ratioB}. Find the percentage by which Unit B's production is less than Unit A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-235": {
+        "template": "The ratio of Article A's price to Article B's price is {ratioA}:{ratioB}. Find the percentage by which Article B's price is less than Article A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-236": {
+        "template": "The ratio of Store A's sales to Store B's sales are {ratioA}:{ratioB}. Find the percentage by which Store B's sales are less than Store A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-237": {
+        "template": "The ratio of Section A's attendance to Section B's attendance is {ratioA}:{ratioB}. Find the percentage by which Section B's attendance is less than Section A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-238": {
+        "template": "The ratio of Warehouse A's stock to Warehouse B's stock is {ratioA}:{ratioB}. Find the percentage by which Warehouse B's stock is less than Warehouse A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-239": {
+        "template": "The ratio of Route A's passenger count to Route B's passenger count is {ratioA}:{ratioB}. Find the percentage by which Route B's passenger count is less than Route A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-240": {
+        "template": "The ratio of Block A's monthly usage to Block B's monthly usage is {ratioA}:{ratioB}. Find the percentage by which Block B's monthly usage is less than Block A's.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-241": {
+        "template": "A short ratio note gives A:B = {ratioA}:{ratioB}. Convert this into the percentage by which A is higher than B.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-242": {
+        "template": "A short ratio note gives Riya:Karan = {ratioA}:{ratioB}. Convert this into the percentage by which Karan is lower than Riya.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-243": {
+        "template": "A short ratio note gives Town A:Town B = {ratioA}:{ratioB}. Convert this into the percentage by which Town A is higher than Town B.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-244": {
+        "template": "A short ratio note gives Unit A:Unit B = {ratioA}:{ratioB}. Convert this into the percentage by which Unit B is lower than Unit A.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-245": {
+        "template": "A short ratio note gives Article A:Article B = {ratioA}:{ratioB}. Convert this into the percentage by which Article A is higher than Article B.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-246": {
+        "template": "A short ratio note gives Store A:Store B = {ratioA}:{ratioB}. Convert this into the percentage by which Store B is lower than Store A.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-247": {
+        "template": "A short ratio note gives Section A:Section B = {ratioA}:{ratioB}. Convert this into the percentage by which Section A is higher than Section B.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-248": {
+        "template": "A short ratio note gives Warehouse A:Warehouse B = {ratioA}:{ratioB}. Convert this into the percentage by which Warehouse B is lower than Warehouse A.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-249": {
+        "template": "A short ratio note gives Route A:Route B = {ratioA}:{ratioB}. Convert this into the percentage by which Route A is higher than Route B.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-250": {
+        "template": "A short ratio note gives Block A:Block B = {ratioA}:{ratioB}. Convert this into the percentage by which Block B is lower than Block A.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "PCT-CP-006": {
+    "families": {
+      "PCT-QL-251": {
+        "template": "A's salary is Rs. {value1} and B's salary is Rs. {value2}. By what percent should A's salary be increased to match B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-252": {
+        "template": "Riya's marks are {value1} marks and Karan's marks are {value2} marks. By what percent should Riya's marks be increased to match Karan's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-253": {
+        "template": "Town A's population is {value1} people and Town B's population is {value2} people. By what percent should Town A's population be increased to match Town B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-254": {
+        "template": "Unit A's production is {value1} units and Unit B's production is {value2} units. By what percent should Unit A's production be increased to match Unit B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-255": {
+        "template": "Article A's price is Rs. {value1} and Article B's price is Rs. {value2}. By what percent should Article A's price be increased to match Article B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-256": {
+        "template": "Store A's sales are Rs. {value1} and Store B's sales are Rs. {value2}. By what percent should Store A's sales be increased to match Store B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-257": {
+        "template": "Section A's attendance is {value1} students and Section B's attendance is {value2} students. By what percent should Section A's attendance be increased to match Section B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-258": {
+        "template": "Warehouse A's stock is {value1} items and Warehouse B's stock is {value2} items. By what percent should Warehouse A's stock be increased to match Warehouse B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-259": {
+        "template": "Route A's passenger count is {value1} passengers and Route B's passenger count is {value2} passengers. By what percent should Route A's passenger count be increased to match Route B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-260": {
+        "template": "Block A's monthly usage is {value1} units and Block B's monthly usage is {value2} units. By what percent should Block A's monthly usage be increased to match Block B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-261": {
+        "template": "A's salary is Rs. {value1} and B's salary is Rs. {value2}. By what percent should A's salary be decreased to match B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-262": {
+        "template": "Riya's marks are {value1} marks and Karan's marks are {value2} marks. By what percent should Riya's marks be decreased to match Karan's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-263": {
+        "template": "Town A's population is {value1} people and Town B's population is {value2} people. By what percent should Town A's population be decreased to match Town B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-264": {
+        "template": "Unit A's production is {value1} units and Unit B's production is {value2} units. By what percent should Unit A's production be decreased to match Unit B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-265": {
+        "template": "Article A's price is Rs. {value1} and Article B's price is Rs. {value2}. By what percent should Article A's price be decreased to match Article B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-266": {
+        "template": "Store A's sales are Rs. {value1} and Store B's sales are Rs. {value2}. By what percent should Store A's sales be decreased to match Store B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-267": {
+        "template": "Section A's attendance is {value1} students and Section B's attendance is {value2} students. By what percent should Section A's attendance be decreased to match Section B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-268": {
+        "template": "Warehouse A's stock is {value1} items and Warehouse B's stock is {value2} items. By what percent should Warehouse A's stock be decreased to match Warehouse B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-269": {
+        "template": "Route A's passenger count is {value1} passengers and Route B's passenger count is {value2} passengers. By what percent should Route A's passenger count be decreased to match Route B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-270": {
+        "template": "Block A's monthly usage is {value1} units and Block B's monthly usage is {value2} units. By what percent should Block A's monthly usage be decreased to match Block B's?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-271": {
+        "template": "To equal B's salary of Rs. {value2}, A must revise the present salary of Rs. {value1}. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-272": {
+        "template": "To equal Karan's marks of {value2} marks, Riya must revise the present marks of {value1} marks. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-273": {
+        "template": "To equal Town B's population of {value2} people, Town A must revise the present population of {value1} people. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-274": {
+        "template": "To equal Unit B's production of {value2} units, Unit A must revise the present production of {value1} units. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-275": {
+        "template": "To equal Article B's price of Rs. {value2}, Article A must revise the present price of Rs. {value1}. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-276": {
+        "template": "To equal Store B's sales of Rs. {value2}, Store A must revise the present sales of Rs. {value1}. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-277": {
+        "template": "To equal Section B's attendance of {value2} students, Section A must revise the present attendance of {value1} students. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-278": {
+        "template": "To equal Warehouse B's stock of {value2} items, Warehouse A must revise the present stock of {value1} items. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-279": {
+        "template": "To equal Route B's passenger count of {value2} passengers, Route A must revise the present passenger count of {value1} passengers. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-280": {
+        "template": "To equal Block B's monthly usage of {value2} units, Block A must revise the present monthly usage of {value1} units. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-281": {
+        "template": "To equal B's salary of Rs. {value2}, A must revise the present salary of Rs. {value1}. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-282": {
+        "template": "To equal Karan's marks of {value2} marks, Riya must revise the present marks of {value1} marks. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-283": {
+        "template": "To equal Town B's population of {value2} people, Town A must revise the present population of {value1} people. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-284": {
+        "template": "To equal Unit B's production of {value2} units, Unit A must revise the present production of {value1} units. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-285": {
+        "template": "To equal Article B's price of Rs. {value2}, Article A must revise the present price of Rs. {value1}. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-286": {
+        "template": "To equal Store B's sales of Rs. {value2}, Store A must revise the present sales of Rs. {value1}. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-287": {
+        "template": "To equal Section B's attendance of {value2} students, Section A must revise the present attendance of {value1} students. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-288": {
+        "template": "To equal Warehouse B's stock of {value2} items, Warehouse A must revise the present stock of {value1} items. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-289": {
+        "template": "To equal Route B's passenger count of {value2} passengers, Route A must revise the present passenger count of {value1} passengers. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-290": {
+        "template": "To equal Block B's monthly usage of {value2} units, Block A must revise the present monthly usage of {value1} units. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-291": {
+        "template": "A comparison entry shows Rs. {value1} for A and Rs. {value2} for B. Find the percentage increase needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-292": {
+        "template": "A comparison entry shows {value1} marks for Riya and {value2} marks for Karan. Find the percentage decrease needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-293": {
+        "template": "A comparison entry shows {value1} people for Town A and {value2} people for Town B. Find the percentage increase needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-294": {
+        "template": "A comparison entry shows {value1} units for Unit A and {value2} units for Unit B. Find the percentage decrease needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-295": {
+        "template": "A comparison entry shows Rs. {value1} for Article A and Rs. {value2} for Article B. Find the percentage increase needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-296": {
+        "template": "A comparison entry shows Rs. {value1} for Store A and Rs. {value2} for Store B. Find the percentage decrease needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-297": {
+        "template": "A comparison entry shows {value1} students for Section A and {value2} students for Section B. Find the percentage increase needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-298": {
+        "template": "A comparison entry shows {value1} items for Warehouse A and {value2} items for Warehouse B. Find the percentage decrease needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-299": {
+        "template": "A comparison entry shows {value1} passengers for Route A and {value2} passengers for Route B. Find the percentage increase needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-300": {
+        "template": "A comparison entry shows {value1} units for Block A and {value2} units for Block B. Find the percentage decrease needed in the first value to reach the second.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "PCT-CP-007": {
+    "families": {
+      "PCT-QL-301": {
+        "template": "{subjectA}'s salary rises by {rate1}% and {subjectB}'s salary rises by {rate2}%. If their present figures are Rs. {value1} and Rs. {value2}, compare their final salaries.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-302": {
+        "template": "{subjectA}'s marks rise by {rate1}% and {subjectB}'s marks rise by {rate2}%. If their present figures are {value1} marks and {value2} marks, compare their final marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-303": {
+        "template": "{subjectA}'s population rises by {rate1}% and {subjectB}'s population rises by {rate2}%. If their present figures are {value1} people and {value2} people, compare their final populations.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-304": {
+        "template": "{subjectA}'s production rises by {rate1}% and {subjectB}'s production rises by {rate2}%. If their present figures are {value1} units and {value2} units, compare their final outputs.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-305": {
+        "template": "{subjectA}'s price rises by {rate1}% and {subjectB}'s price rises by {rate2}%. If their present figures are Rs. {value1} and Rs. {value2}, compare their final prices.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-306": {
+        "template": "{subjectA}'s sales rise by {rate1}% and {subjectB}'s sales rise by {rate2}%. If their present figures are Rs. {value1} and Rs. {value2}, compare their final sales figures.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-307": {
+        "template": "{subjectA}'s attendance rises by {rate1}% and {subjectB}'s attendance rises by {rate2}%. If their present figures are {value1} students and {value2} students, compare their final attendance totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-308": {
+        "template": "{subjectA}'s stock rises by {rate1}% and {subjectB}'s stock rises by {rate2}%. If their present figures are {value1} items and {value2} items, compare their final stock totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-309": {
+        "template": "{subjectA}'s passenger count rises by {rate1}% and {subjectB}'s passenger count rises by {rate2}%. If their present figures are {value1} passengers and {value2} passengers, compare their final passenger totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-310": {
+        "template": "{subjectA}'s monthly usage rises by {rate1}% and {subjectB}'s monthly usage rises by {rate2}%. If their present figures are {value1} units and {value2} units, compare their final usage totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-311": {
+        "template": "{subjectA}'s salary falls by {rate1}% and {subjectB}'s salary falls by {rate2}%. If their present figures are Rs. {value1} and Rs. {value2}, compare their final salaries.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-312": {
+        "template": "{subjectA}'s marks falls by {rate1}% and {subjectB}'s marks falls by {rate2}%. If their present figures are {value1} marks and {value2} marks, compare their final marks.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-313": {
+        "template": "{subjectA}'s population falls by {rate1}% and {subjectB}'s population falls by {rate2}%. If their present figures are {value1} people and {value2} people, compare their final populations.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-314": {
+        "template": "{subjectA}'s production falls by {rate1}% and {subjectB}'s production falls by {rate2}%. If their present figures are {value1} units and {value2} units, compare their final outputs.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-315": {
+        "template": "{subjectA}'s price falls by {rate1}% and {subjectB}'s price falls by {rate2}%. If their present figures are Rs. {value1} and Rs. {value2}, compare their final prices.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-316": {
+        "template": "{subjectA}'s sales falls by {rate1}% and {subjectB}'s sales falls by {rate2}%. If their present figures are Rs. {value1} and Rs. {value2}, compare their final sales figures.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-317": {
+        "template": "{subjectA}'s attendance falls by {rate1}% and {subjectB}'s attendance falls by {rate2}%. If their present figures are {value1} students and {value2} students, compare their final attendance totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-318": {
+        "template": "{subjectA}'s stock falls by {rate1}% and {subjectB}'s stock falls by {rate2}%. If their present figures are {value1} items and {value2} items, compare their final stock totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-319": {
+        "template": "{subjectA}'s passenger count falls by {rate1}% and {subjectB}'s passenger count falls by {rate2}%. If their present figures are {value1} passengers and {value2} passengers, compare their final passenger totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-320": {
+        "template": "{subjectA}'s monthly usage falls by {rate1}% and {subjectB}'s monthly usage falls by {rate2}%. If their present figures are {value1} units and {value2} units, compare their final usage totals.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-321": {
+        "template": "{subjectA}'s salary increases by {rate1}% while {subjectB}'s salary decreases by {rate2}%. If the present values are Rs. {value1} and Rs. {value2}, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-322": {
+        "template": "{subjectA}'s marks increases by {rate1}% while {subjectB}'s marks decreases by {rate2}%. If the present values are {value1} marks and {value2} marks, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-323": {
+        "template": "{subjectA}'s population increases by {rate1}% while {subjectB}'s population decreases by {rate2}%. If the present values are {value1} people and {value2} people, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-324": {
+        "template": "{subjectA}'s production increases by {rate1}% while {subjectB}'s production decreases by {rate2}%. If the present values are {value1} units and {value2} units, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-325": {
+        "template": "{subjectA}'s price increases by {rate1}% while {subjectB}'s price decreases by {rate2}%. If the present values are Rs. {value1} and Rs. {value2}, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-326": {
+        "template": "{subjectA}'s sales increases by {rate1}% while {subjectB}'s sales decreases by {rate2}%. If the present values are Rs. {value1} and Rs. {value2}, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-327": {
+        "template": "{subjectA}'s attendance increases by {rate1}% while {subjectB}'s attendance decreases by {rate2}%. If the present values are {value1} students and {value2} students, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-328": {
+        "template": "{subjectA}'s stock increases by {rate1}% while {subjectB}'s stock decreases by {rate2}%. If the present values are {value1} items and {value2} items, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-329": {
+        "template": "{subjectA}'s passenger count increases by {rate1}% while {subjectB}'s passenger count decreases by {rate2}%. If the present values are {value1} passengers and {value2} passengers, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-330": {
+        "template": "{subjectA}'s monthly usage increases by {rate1}% while {subjectB}'s monthly usage decreases by {rate2}%. If the present values are {value1} units and {value2} units, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-331": {
+        "template": "{subjectA}'s salary decreases by {rate1}% while {subjectB}'s salary increases by {rate2}%. If the present values are Rs. {value1} and Rs. {value2}, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-332": {
+        "template": "{subjectA}'s marks decreases by {rate1}% while {subjectB}'s marks increases by {rate2}%. If the present values are {value1} marks and {value2} marks, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-333": {
+        "template": "{subjectA}'s population decreases by {rate1}% while {subjectB}'s population increases by {rate2}%. If the present values are {value1} people and {value2} people, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-334": {
+        "template": "{subjectA}'s production decreases by {rate1}% while {subjectB}'s production increases by {rate2}%. If the present values are {value1} units and {value2} units, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-335": {
+        "template": "{subjectA}'s price decreases by {rate1}% while {subjectB}'s price increases by {rate2}%. If the present values are Rs. {value1} and Rs. {value2}, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-336": {
+        "template": "{subjectA}'s sales decreases by {rate1}% while {subjectB}'s sales increases by {rate2}%. If the present values are Rs. {value1} and Rs. {value2}, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-337": {
+        "template": "{subjectA}'s attendance decreases by {rate1}% while {subjectB}'s attendance increases by {rate2}%. If the present values are {value1} students and {value2} students, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-338": {
+        "template": "{subjectA}'s stock decreases by {rate1}% while {subjectB}'s stock increases by {rate2}%. If the present values are {value1} items and {value2} items, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-339": {
+        "template": "{subjectA}'s passenger count decreases by {rate1}% while {subjectB}'s passenger count increases by {rate2}%. If the present values are {value1} passengers and {value2} passengers, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-340": {
+        "template": "{subjectA}'s monthly usage decreases by {rate1}% while {subjectB}'s monthly usage increases by {rate2}%. If the present values are {value1} units and {value2} units, compare the two final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-341": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. Their salaries go up by {rate1}% and {rate2}% respectively. If the starting figures are Rs. {value1} and Rs. {value2}, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-342": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. Their marks go down by {rate1}% and {rate2}% respectively. If the starting figures are {value1} marks and {value2} marks, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-343": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. The first population increases by {rate1}% and the second decreases by {rate2}%. If the starting figures are {value1} people and {value2} people, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-344": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. The first production decreases by {rate1}% and the second increases by {rate2}%. If the starting figures are {value1} units and {value2} units, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-345": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. Their prices go up by {rate1}% and {rate2}% respectively. If the starting figures are Rs. {value1} and Rs. {value2}, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-346": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. Their sales figures go down by {rate1}% and {rate2}% respectively. If the starting figures are Rs. {value1} and Rs. {value2}, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-347": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. The first attendance increases by {rate1}% and the second decreases by {rate2}%. If the starting figures are {value1} students and {value2} students, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-348": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. The first stock decreases by {rate1}% and the second increases by {rate2}%. If the starting figures are {value1} items and {value2} items, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-349": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. Their passenger totals go up by {rate1}% and {rate2}% respectively. If the starting figures are {value1} passengers and {value2} passengers, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-350": {
+        "template": "A comparison line tracks {subjectA} and {subjectB}. Their usage totals go down by {rate1}% and {rate2}% respectively. If the starting figures are {value1} units and {value2} units, state which final figure is higher and by how much.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-008": {
+    "families": {
+      "PCT-QL-351": {
+        "template": "{subjectA}'s salary is {rate1}% more than {subjectB}'s salary, and {subjectB}'s salary is {rate2}% less than {subjectC}'s. Compare {subjectA}'s salary with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-352": {
+        "template": "{subjectA}'s marks are {rate1}% more than {subjectB}'s marks, and {subjectB}'s marks are {rate2}% less than {subjectC}'s. Compare {subjectA}'s marks with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-353": {
+        "template": "{subjectA}'s population is {rate1}% more than {subjectB}'s population, and {subjectB}'s population is {rate2}% less than {subjectC}'s. Compare {subjectA}'s population with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-354": {
+        "template": "{subjectA}'s production is {rate1}% more than {subjectB}'s production, and {subjectB}'s production is {rate2}% less than {subjectC}'s. Compare {subjectA}'s production with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-355": {
+        "template": "{subjectA}'s price is {rate1}% more than {subjectB}'s price, and {subjectB}'s price is {rate2}% less than {subjectC}'s. Compare {subjectA}'s price with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-356": {
+        "template": "{subjectA}'s sales are {rate1}% more than {subjectB}'s sales, and {subjectB}'s sales are {rate2}% less than {subjectC}'s. Compare {subjectA}'s sales with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-357": {
+        "template": "{subjectA}'s attendance is {rate1}% more than {subjectB}'s attendance, and {subjectB}'s attendance is {rate2}% less than {subjectC}'s. Compare {subjectA}'s attendance with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-358": {
+        "template": "{subjectA}'s stock is {rate1}% more than {subjectB}'s stock, and {subjectB}'s stock is {rate2}% less than {subjectC}'s. Compare {subjectA}'s stock with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-359": {
+        "template": "{subjectA}'s passenger count is {rate1}% more than {subjectB}'s passenger count, and {subjectB}'s passenger count is {rate2}% less than {subjectC}'s. Compare {subjectA}'s passenger count with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-360": {
+        "template": "{subjectA}'s monthly usage is {rate1}% more than {subjectB}'s monthly usage, and {subjectB}'s monthly usage is {rate2}% less than {subjectC}'s. Compare {subjectA}'s monthly usage with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-361": {
+        "template": "{subjectA}'s salary is {rate1}% less than {subjectB}'s salary, and {subjectB}'s salary is {rate2}% more than {subjectC}'s. Compare {subjectA}'s salary with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-362": {
+        "template": "{subjectA}'s marks are {rate1}% less than {subjectB}'s marks, and {subjectB}'s marks are {rate2}% more than {subjectC}'s. Compare {subjectA}'s marks with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-363": {
+        "template": "{subjectA}'s population is {rate1}% less than {subjectB}'s population, and {subjectB}'s population is {rate2}% more than {subjectC}'s. Compare {subjectA}'s population with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-364": {
+        "template": "{subjectA}'s production is {rate1}% less than {subjectB}'s production, and {subjectB}'s production is {rate2}% more than {subjectC}'s. Compare {subjectA}'s production with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-365": {
+        "template": "{subjectA}'s price is {rate1}% less than {subjectB}'s price, and {subjectB}'s price is {rate2}% more than {subjectC}'s. Compare {subjectA}'s price with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-366": {
+        "template": "{subjectA}'s sales are {rate1}% less than {subjectB}'s sales, and {subjectB}'s sales are {rate2}% more than {subjectC}'s. Compare {subjectA}'s sales with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-367": {
+        "template": "{subjectA}'s attendance is {rate1}% less than {subjectB}'s attendance, and {subjectB}'s attendance is {rate2}% more than {subjectC}'s. Compare {subjectA}'s attendance with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-368": {
+        "template": "{subjectA}'s stock is {rate1}% less than {subjectB}'s stock, and {subjectB}'s stock is {rate2}% more than {subjectC}'s. Compare {subjectA}'s stock with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-369": {
+        "template": "{subjectA}'s passenger count is {rate1}% less than {subjectB}'s passenger count, and {subjectB}'s passenger count is {rate2}% more than {subjectC}'s. Compare {subjectA}'s passenger count with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-370": {
+        "template": "{subjectA}'s monthly usage is {rate1}% less than {subjectB}'s monthly usage, and {subjectB}'s monthly usage is {rate2}% more than {subjectC}'s. Compare {subjectA}'s monthly usage with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-371": {
+        "template": "{subjectA}'s salary is {rate1}% more than {subjectB}'s salary, and {subjectB}'s salary is {rate2}% more than {subjectC}'s. Compare {subjectA}'s salary with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-372": {
+        "template": "{subjectA}'s marks are {rate1}% more than {subjectB}'s marks, and {subjectB}'s marks are {rate2}% more than {subjectC}'s. Compare {subjectA}'s marks with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-373": {
+        "template": "{subjectA}'s population is {rate1}% more than {subjectB}'s population, and {subjectB}'s population is {rate2}% more than {subjectC}'s. Compare {subjectA}'s population with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-374": {
+        "template": "{subjectA}'s production is {rate1}% more than {subjectB}'s production, and {subjectB}'s production is {rate2}% more than {subjectC}'s. Compare {subjectA}'s production with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-375": {
+        "template": "{subjectA}'s price is {rate1}% more than {subjectB}'s price, and {subjectB}'s price is {rate2}% more than {subjectC}'s. Compare {subjectA}'s price with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-376": {
+        "template": "{subjectA}'s sales are {rate1}% more than {subjectB}'s sales, and {subjectB}'s sales are {rate2}% more than {subjectC}'s. Compare {subjectA}'s sales with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-377": {
+        "template": "{subjectA}'s attendance is {rate1}% more than {subjectB}'s attendance, and {subjectB}'s attendance is {rate2}% more than {subjectC}'s. Compare {subjectA}'s attendance with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-378": {
+        "template": "{subjectA}'s stock is {rate1}% more than {subjectB}'s stock, and {subjectB}'s stock is {rate2}% more than {subjectC}'s. Compare {subjectA}'s stock with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-379": {
+        "template": "{subjectA}'s passenger count is {rate1}% more than {subjectB}'s passenger count, and {subjectB}'s passenger count is {rate2}% more than {subjectC}'s. Compare {subjectA}'s passenger count with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-380": {
+        "template": "{subjectA}'s monthly usage is {rate1}% more than {subjectB}'s monthly usage, and {subjectB}'s monthly usage is {rate2}% more than {subjectC}'s. Compare {subjectA}'s monthly usage with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-381": {
+        "template": "{subjectA}'s salary is {rate1}% less than {subjectB}'s salary, and {subjectB}'s salary is {rate2}% less than {subjectC}'s. Compare {subjectA}'s salary with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-382": {
+        "template": "{subjectA}'s marks are {rate1}% less than {subjectB}'s marks, and {subjectB}'s marks are {rate2}% less than {subjectC}'s. Compare {subjectA}'s marks with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-383": {
+        "template": "{subjectA}'s population is {rate1}% less than {subjectB}'s population, and {subjectB}'s population is {rate2}% less than {subjectC}'s. Compare {subjectA}'s population with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-384": {
+        "template": "{subjectA}'s production is {rate1}% less than {subjectB}'s production, and {subjectB}'s production is {rate2}% less than {subjectC}'s. Compare {subjectA}'s production with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-385": {
+        "template": "{subjectA}'s price is {rate1}% less than {subjectB}'s price, and {subjectB}'s price is {rate2}% less than {subjectC}'s. Compare {subjectA}'s price with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-386": {
+        "template": "{subjectA}'s sales are {rate1}% less than {subjectB}'s sales, and {subjectB}'s sales are {rate2}% less than {subjectC}'s. Compare {subjectA}'s sales with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-387": {
+        "template": "{subjectA}'s attendance is {rate1}% less than {subjectB}'s attendance, and {subjectB}'s attendance is {rate2}% less than {subjectC}'s. Compare {subjectA}'s attendance with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-388": {
+        "template": "{subjectA}'s stock is {rate1}% less than {subjectB}'s stock, and {subjectB}'s stock is {rate2}% less than {subjectC}'s. Compare {subjectA}'s stock with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-389": {
+        "template": "{subjectA}'s passenger count is {rate1}% less than {subjectB}'s passenger count, and {subjectB}'s passenger count is {rate2}% less than {subjectC}'s. Compare {subjectA}'s passenger count with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-390": {
+        "template": "{subjectA}'s monthly usage is {rate1}% less than {subjectB}'s monthly usage, and {subjectB}'s monthly usage is {rate2}% less than {subjectC}'s. Compare {subjectA}'s monthly usage with {subjectC}'s.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-391": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the salary line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-392": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the marks line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-393": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the population line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-394": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the production line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-395": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the price line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-396": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the sales line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-397": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the attendance line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-398": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the stock line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-399": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the passenger count line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-400": {
+        "template": "A chained comparison states that {subjectA} differs from {subjectB} by {rate1}% and {subjectB} differs from {subjectC} by {rate2}% in the monthly usage line. Find the relation between {subjectA} and {subjectC}.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-009": {
+    "families": {
+      "PCT-QL-401": {
+        "template": "The salary rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-402": {
+        "template": "The marks rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-403": {
+        "template": "The population rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-404": {
+        "template": "The production rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-405": {
+        "template": "The price rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-406": {
+        "template": "The sales rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-407": {
+        "template": "The attendance rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-408": {
+        "template": "The stock rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-409": {
+        "template": "The passenger count rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-410": {
+        "template": "The monthly usage rate rises from {oldRate}% to {newRate}%. Find the increase in percentage points.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-411": {
+        "template": "The salary rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-412": {
+        "template": "The marks rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-413": {
+        "template": "The population rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-414": {
+        "template": "The production rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-415": {
+        "template": "The price rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-416": {
+        "template": "The sales rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-417": {
+        "template": "The attendance rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-418": {
+        "template": "The stock rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-419": {
+        "template": "The passenger count rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-420": {
+        "template": "The monthly usage rate rises from {oldRate}% to {newRate}%. Find the relative percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-421": {
+        "template": "A's salary rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-422": {
+        "template": "Riya's marks rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-423": {
+        "template": "Town A's population rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-424": {
+        "template": "Unit A's production rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-425": {
+        "template": "Article A's price rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-426": {
+        "template": "Store A's sales rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-427": {
+        "template": "Section A's attendance rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-428": {
+        "template": "Warehouse A's stock rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-429": {
+        "template": "Route A's passenger count rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-430": {
+        "template": "Block A's monthly usage rate moves from {oldRate}% to {newRate}%. State both the increase in percentage points and the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-431": {
+        "template": "A short performance note shows the salary rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-432": {
+        "template": "A short performance note shows the marks rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-433": {
+        "template": "A short performance note shows the population rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-434": {
+        "template": "A short performance note shows the production rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-435": {
+        "template": "A short performance note shows the price rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-436": {
+        "template": "A short performance note shows the sales rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-437": {
+        "template": "A short performance note shows the attendance rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-438": {
+        "template": "A short performance note shows the stock rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-439": {
+        "template": "A short performance note shows the passenger count rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-440": {
+        "template": "A short performance note shows the monthly usage rate changing from {oldRate}% to {newRate}%. How many percentage points has it increased?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-441": {
+        "template": "A trend line records the salary rate at {oldRate}% first and {newRate}% later. Find the percentage increase relative to the old rate.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-442": {
+        "template": "A trend line records the marks rate at {oldRate}% first and {newRate}% later. Report the change in percentage points as well as the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-443": {
+        "template": "A trend line records the population rate at {oldRate}% first and {newRate}% later. Find the percentage increase relative to the old rate.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-444": {
+        "template": "A trend line records the production rate at {oldRate}% first and {newRate}% later. Report the change in percentage points as well as the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-445": {
+        "template": "A trend line records the price rate at {oldRate}% first and {newRate}% later. Find the percentage increase relative to the old rate.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-446": {
+        "template": "A trend line records the sales rate at {oldRate}% first and {newRate}% later. Report the change in percentage points as well as the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-447": {
+        "template": "A trend line records the attendance rate at {oldRate}% first and {newRate}% later. Find the percentage increase relative to the old rate.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-448": {
+        "template": "A trend line records the stock rate at {oldRate}% first and {newRate}% later. Report the change in percentage points as well as the relative percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-449": {
+        "template": "A trend line records the passenger count rate at {oldRate}% first and {newRate}% later. Find the percentage increase relative to the old rate.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-450": {
+        "template": "A trend line records the monthly usage rate at {oldRate}% first and {newRate}% later. Report the change in percentage points as well as the relative percentage increase.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "PCT-CP-010": {
+    "families": {
+      "PCT-QL-451": {
+        "template": "{subjectA} secures {rate1}% of Rs. {baseValue1}, while {subjectB} secures {rate2}% of Rs. {baseValue2}. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-452": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} marks, while {subjectB} secures {rate2}% of {baseValue2} marks. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-453": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} people, while {subjectB} secures {rate2}% of {baseValue2} people. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-454": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} units, while {subjectB} secures {rate2}% of {baseValue2} units. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-455": {
+        "template": "{subjectA} is sold at {rate1}% of Rs. {baseValue1}, while {subjectB} is sold at {rate2}% of Rs. {baseValue2}. State which article gives the larger actual sale value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-456": {
+        "template": "{subjectA} records {rate1}% of Rs. {baseValue1} in the sales line, while {subjectB} records {rate2}% of Rs. {baseValue2}. Compare the actual sales values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-457": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} students, while {subjectB} secures {rate2}% of {baseValue2} students. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-458": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} items, while {subjectB} secures {rate2}% of {baseValue2} items. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-459": {
+        "template": "{subjectA} secures {rate1}% of {baseValue1} passengers, while {subjectB} secures {rate2}% of {baseValue2} passengers. State who has the larger actual value and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-460": {
+        "template": "{subjectA} uses {rate1}% of {baseValue1} units, while {subjectB} uses {rate2}% of {baseValue2} units. State who has the larger actual usage and by how much.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-461": {
+        "template": "A comparison note shows {rate1}% of Rs. {baseValue1} for {subjectA} and {rate2}% of Rs. {baseValue2} for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-462": {
+        "template": "A comparison note shows {rate1}% of {baseValue1} marks for {subjectA} and {rate2}% of {baseValue2} marks for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-463": {
+        "template": "A comparison note shows {rate1}% of {baseValue1} people for {subjectA} and {rate2}% of {baseValue2} people for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-464": {
+        "template": "A comparison note shows {rate1}% of {baseValue1} units for {subjectA} and {rate2}% of {baseValue2} units for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-465": {
+        "template": "A pricing slip shows {rate1}% of Rs. {baseValue1} for {subjectA} and {rate2}% of Rs. {baseValue2} for {subjectB}. Find the difference between the two actual selling values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-466": {
+        "template": "A sales memo shows {rate1}% of Rs. {baseValue1} for {subjectA} and {rate2}% of Rs. {baseValue2} for {subjectB}. Find the difference between the two actual sales values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-467": {
+        "template": "A comparison note shows {rate1}% of {baseValue1} students for {subjectA} and {rate2}% of {baseValue2} students for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-468": {
+        "template": "A comparison note shows {rate1}% of {baseValue1} items for {subjectA} and {rate2}% of {baseValue2} items for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-469": {
+        "template": "A comparison note shows {rate1}% of {baseValue1} passengers for {subjectA} and {rate2}% of {baseValue2} passengers for {subjectB}. Find the difference between the two actual values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-470": {
+        "template": "A utility note shows {rate1}% of {baseValue1} units for {subjectA} and {rate2}% of {baseValue2} units for {subjectB}. Find the difference between the actual usage values.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-471": {
+        "template": "{subjectA} attains {rate1}% of a total of Rs. {baseValue1}, whereas {subjectB} attains {rate2}% of a total of Rs. {baseValue2}. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-472": {
+        "template": "{subjectA} attains {rate1}% of a total of {baseValue1} marks, whereas {subjectB} attains {rate2}% of a total of {baseValue2} marks. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-473": {
+        "template": "{subjectA} attains {rate1}% of a total of {baseValue1} people, whereas {subjectB} attains {rate2}% of a total of {baseValue2} people. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-474": {
+        "template": "{subjectA} attains {rate1}% of a total of {baseValue1} units, whereas {subjectB} attains {rate2}% of a total of {baseValue2} units. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-475": {
+        "template": "{subjectA} attains {rate1}% of a listed price total of Rs. {baseValue1}, whereas {subjectB} attains {rate2}% of Rs. {baseValue2}. Compare the actual selling values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-476": {
+        "template": "{subjectA} attains {rate1}% of a sales target total of Rs. {baseValue1}, whereas {subjectB} attains {rate2}% of Rs. {baseValue2}. Compare the actual sales values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-477": {
+        "template": "{subjectA} attains {rate1}% of a total of {baseValue1} students, whereas {subjectB} attains {rate2}% of a total of {baseValue2} students. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-478": {
+        "template": "{subjectA} attains {rate1}% of a total of {baseValue1} items, whereas {subjectB} attains {rate2}% of a total of {baseValue2} items. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-479": {
+        "template": "{subjectA} attains {rate1}% of a total of {baseValue1} passengers, whereas {subjectB} attains {rate2}% of a total of {baseValue2} passengers. Compare their actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-480": {
+        "template": "{subjectA} attains {rate1}% of a utility total of {baseValue1} units, whereas {subjectB} attains {rate2}% of {baseValue2} units. Compare the actual usage values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-481": {
+        "template": "{subjectA} gets {rate1}% of Rs. {baseValue1}, while {subjectB} gets {rate2}% of Rs. {baseValue2}. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-482": {
+        "template": "{subjectA} gets {rate1}% of {baseValue1} marks, while {subjectB} gets {rate2}% of {baseValue2} marks. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-483": {
+        "template": "{subjectA} gets {rate1}% of {baseValue1} people, while {subjectB} gets {rate2}% of {baseValue2} people. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-484": {
+        "template": "{subjectA} gets {rate1}% of {baseValue1} units, while {subjectB} gets {rate2}% of {baseValue2} units. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-485": {
+        "template": "{subjectA} gets {rate1}% of a listed price worth Rs. {baseValue1}, while {subjectB} gets {rate2}% of Rs. {baseValue2}. By what percent is the higher actual selling value more than the lower one?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-486": {
+        "template": "{subjectA} gets {rate1}% of a sales target worth Rs. {baseValue1}, while {subjectB} gets {rate2}% of Rs. {baseValue2}. By what percent is the higher actual sales value more than the lower one?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-487": {
+        "template": "{subjectA} gets {rate1}% of {baseValue1} students, while {subjectB} gets {rate2}% of {baseValue2} students. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-488": {
+        "template": "{subjectA} gets {rate1}% of {baseValue1} items, while {subjectB} gets {rate2}% of {baseValue2} items. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-489": {
+        "template": "{subjectA} gets {rate1}% of {baseValue1} passengers, while {subjectB} gets {rate2}% of {baseValue2} passengers. By what percent is the higher actual value more than the lower actual value?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-490": {
+        "template": "{subjectA} gets {rate1}% of a utility total of {baseValue1} units, while {subjectB} gets {rate2}% of {baseValue2} units. By what percent is the higher actual usage more than the lower one?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-491": {
+        "template": "A comparison table lists {rate1}% of Rs. {baseValue1} against {rate2}% of Rs. {baseValue2} for {subjectA} and {subjectB}. Identify the larger actual value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-492": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} marks against {rate2}% of {baseValue2} marks for {subjectA} and {subjectB}. Find the difference between the actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-493": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} people against {rate2}% of {baseValue2} people for {subjectA} and {subjectB}. Identify the larger actual value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-494": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} units against {rate2}% of {baseValue2} units for {subjectA} and {subjectB}. Find the difference between the actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-495": {
+        "template": "A comparison table lists {rate1}% of Rs. {baseValue1} as a price total for {subjectA} and {rate2}% of Rs. {baseValue2} for {subjectB}. Identify the larger actual value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-496": {
+        "template": "A comparison table lists {rate1}% of Rs. {baseValue1} against {rate2}% of Rs. {baseValue2} for {subjectA} and {subjectB}. Find the difference between the actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-497": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} students against {rate2}% of {baseValue2} students for {subjectA} and {subjectB}. Identify the larger actual value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-498": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} items against {rate2}% of {baseValue2} items for {subjectA} and {subjectB}. Find the difference between the actual values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-499": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} passengers against {rate2}% of {baseValue2} passengers for {subjectA} and {subjectB}. Identify the larger actual value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-500": {
+        "template": "A comparison table lists {rate1}% of {baseValue1} units as a utility total for {subjectA} and {rate2}% of {baseValue2} units for {subjectB}. Find the difference between the actual usage values.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

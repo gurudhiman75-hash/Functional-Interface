@@ -1,0 +1,1 @@
+In a company, {rate1}% of the employees work in the marketing department. If there are {value1} employees in marketing, find the number of employees in the sales department if they make up {rate2}% of the total employees.

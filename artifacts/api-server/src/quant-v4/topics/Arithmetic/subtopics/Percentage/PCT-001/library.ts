@@ -114,13 +114,14 @@ export function extractPlaceholders(template: string) {
 }
 
 export function renderTemplate(template: string, values: Pct001Variables) {
-  return template.replace(/\{([^}]+)\}/g, (_match, key: string) => {
+  const rendered = template.replace(/\{([^}]+)\}/g, (_match, key: string) => {
     const value = values[key];
     if (typeof value !== "string" && typeof value !== "number") {
       throw new Error(`Missing placeholder ${key}`);
     }
     return String(value);
   });
+  return rendered.replace(/\b(\w+s)'s\b/gi, "$1'");
 }
 
 export function buildPct001SemanticTrace(context?: Pct001SemanticContext) {

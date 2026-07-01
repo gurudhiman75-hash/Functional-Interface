@@ -1,0 +1,121 @@
+import { formatExplanationSteps, validateExplanationPipeline, type ExplanationEvidence, type ExplanationRenderer } from "../../../../../common/explanation-engine";
+import { TaskKindTeacherRenderer } from "../../../../../common/teacher-renderer";
+import type { Pct002Explanation, Pct002Parameters, Pct002ReasoningGraph, Pct002SolverResult } from "../types";
+
+import { InclusionExclusionRenderer } from "./renderers/inclusion-exclusion-renderer";
+import { FractionalErrorRenderer } from "./renderers/fractional-error-renderer";
+import { WrongMultiplierRenderer } from "./renderers/wrong-multiplier-renderer";
+import { WrongDivisorRenderer } from "./renderers/wrong-divisor-renderer";
+import { TieredCommissionRenderer } from "./renderers/tiered-commission-renderer";
+import { TieredTaxRenderer } from "./renderers/tiered-tax-renderer";
+import { PiecewiseRateRenderer } from "./renderers/piecewise-rate-renderer";
+import { WeightedSubgroupRenderer } from "./renderers/weighted-subgroup-renderer";
+import { HierarchicalPopulationRenderer } from "./renderers/hierarchical-population-renderer";
+import { BranchAggregationRenderer } from "./renderers/branch-aggregation-renderer";
+import { RepeatedReplacementRenderer } from "./renderers/repeated-replacement-renderer";
+import { IterativeDilutionRenderer } from "./renderers/iterative-dilution-renderer";
+import { TripleInclusionExclusionRenderer } from "./renderers/triple-inclusion-exclusion-renderer";
+import { MultiTierPiecewiseRateRenderer } from "./renderers/multi-tier-piecewise-rate-renderer";
+import { ReversePiecewiseRateRenderer } from "./renderers/reverse-piecewise-rate-renderer";
+import { VariableReplacementRenderer } from "./renderers/variable-replacement-renderer";
+import { ElectionMarginRenderer } from "./renderers/election-margin-renderer";
+import { MultiStageAttritionRenderer } from "./renderers/multi-stage-attrition-renderer";
+import { ShiftedBaseChainRenderer } from "./renderers/shifted-base-chain-renderer";
+
+export function resolvePct002SemanticEntities(taskKind: string, semanticContext: any, language: "en" | "hi" | "pa", questionLanguageId = ""): Record<string, string> {
+  const map: Record<string, string> = {};
+  if (!semanticContext || !semanticContext.entities) return map;
+
+  const entities = semanticContext.entities;
+
+  if (taskKind === "inclusionExclusion" || taskKind === "tripleInclusionExclusion") {
+    const isNewspaper = /(?:^|-)\d*48$/.test(questionLanguageId);
+    const isLanguage = /(?:^|-)\d*49$/.test(questionLanguageId);
+    const isTriple = taskKind === "tripleInclusionExclusion";
+    map["entityA"] = entities.subject1?.[language] || entities.group1?.[language] || (isTriple ? (isNewspaper ? "Newspaper A" : isLanguage ? "Hindi" : "Physics") : "Mathematics");
+    map["entityB"] = entities.subject2?.[language] || entities.group2?.[language] || (isTriple ? (isNewspaper ? "Newspaper B" : isLanguage ? "English" : "Chemistry") : "English");
+    map["entityC"] = entities.subject3?.[language] || entities.group3?.[language] || (isNewspaper ? "Newspaper C" : isLanguage ? "French" : "Biology");
+  } else if (taskKind === "wrongMultiplier" || taskKind === "fractionalError") {
+    map["target"] = entities.target?.[language] || "number";
+  }
+  return map;
+}
+
+export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pct002SolverResult, _graph: Pct002ReasoningGraph): Pct002Explanation {
+  const evidence: ExplanationEvidence = {
+    variables: parameters.variables,
+    derivedValues: { ...solver.evidence, atLeastOne: solver.evidence.totalWithNeither ? 100 - Number(parameters.variables.neitherPercentage) : 0 },
+    entities: resolvePct002SemanticEntities(parameters.taskKind, parameters.semanticContext, parameters.language, parameters.questionLanguageId),
+    answer: solver.answer,
+  };
+
+  let renderer: ExplanationRenderer;
+
+  switch (parameters.taskKind) {
+    case "inclusionExclusion":
+      renderer = new InclusionExclusionRenderer();
+      break;
+    case "fractionalError":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "wrongMultiplier":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "wrongDivisor":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "tieredCommission":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "tieredTax":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "piecewiseRate":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "weightedSubgroup":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "hierarchicalPopulation":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "branchAggregation":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "repeatedReplacement":
+      renderer = new RepeatedReplacementRenderer(solver.mathJax);
+      break;
+    case "iterativeDilution":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "tripleInclusionExclusion":
+      renderer = new TripleInclusionExclusionRenderer(solver.mathJax);
+      break;
+    case "multiTierPiecewiseRate":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "reversePiecewiseRate":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "variableReplacement":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "electionMargin":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "multiStageAttrition":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    case "shiftedBaseChain":
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
+      break;
+    default:
+      throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);
+  }
+
+  const validatedSteps = validateExplanationPipeline(evidence, renderer);
+  return {
+    explanationId: parameters.explanationId,
+    lines: formatExplanationSteps(validatedSteps),
+  };
+}

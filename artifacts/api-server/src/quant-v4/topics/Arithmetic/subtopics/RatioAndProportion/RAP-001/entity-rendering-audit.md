@@ -8,21 +8,21 @@ Sample 1
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
 personCId: teachers
 
 English rendering
 
-If the ratio students:boys is 4:5 and boys:teachers is 5:6, what will be the combined ratio students:boys:teachers?
+If the ratio girls:boys is 4:5 and boys:teachers is 5:6, what will be the combined ratio girls:boys:teachers?
 
 Hindi rendering
 
-यदि छात्र:लड़के का अनुपात 4:5 है और लड़के:शिक्षक का अनुपात 5:6 है, तो छात्र:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
+यदि लड़कियां:लड़के का अनुपात 4:5 है और लड़के:शिक्षक का अनुपात 5:6 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
 
 Punjabi rendering
 
-ਜੇਕਰ ਅਨੁਪਾਤ ਵਿਦਿਆਰਥੀ:ਮੁੰਡੇ 4:5 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ, ਤਾਂ ਵਿਦਿਆਰਥੀ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 4:5 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
 
 Synchronized entity IDs: yes
 
@@ -35,7 +35,7 @@ IDs
 
 English rendering
 
-What is the simplest whole-number ratio equal to 4/2 : 9/3?
+Convert the fractional ratio 4/2 : 9/3 into a simple integer ratio.
 
 Hindi rendering
 
@@ -55,20 +55,20 @@ IDs
 
 personAId: girls
 personBId: boys
-personCId: students
-personDId: teachers
+personCId: teachers
+personDId: students
 
 English rendering
 
-Given that girls:boys = 1:2, boys:students = 2:3, and students:teachers = 3:4, what is the ratio between girls and teachers?
+Given that girls:boys = 1:2, boys:teachers = 2:3, and teachers:students = 3:4, what is the ratio between girls and students?
 
 Hindi rendering
 
-यदि लड़कियां:लड़के = 1:2, लड़के:छात्र = 2:3 और छात्र:शिक्षक = 3:4 हो, तो लड़कियां और शिक्षक के बीच का अनुपात क्या होगा?
+यदि लड़कियां:लड़के = 1:2, लड़के:शिक्षक = 2:3 और शिक्षक:छात्र = 3:4 हो, तो लड़कियां और छात्र के बीच का अनुपात क्या होगा?
 
 Punjabi rendering
 
-ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਕੁੜੀਆਂ:ਮੁੰਡੇ = 1:2, ਮੁੰਡੇ:ਵਿਦਿਆਰਥੀ = 2:3 ਅਤੇ ਵਿਦਿਆਰਥੀ:ਅਧਿਆਪਕ = 3:4 ਹੈ। ਕੁੜੀਆਂ ਅਤੇ ਅਧਿਆਪਕ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਕੁੜੀਆਂ:ਮੁੰਡੇ = 1:2, ਮੁੰਡੇ:ਅਧਿਆਪਕ = 2:3 ਅਤੇ ਅਧਿਆਪਕ:ਵਿਦਿਆਰਥੀ = 3:4 ਹੈ। ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -78,21 +78,20 @@ Sample 4
 
 IDs
 
-groupNameId: boys
-personAId: girls
-personBId: students
+personAId: boys
+personBId: girls
 
 English rendering
 
-In a boys, the ratio of girls to students is 3:4. If there are 15 girls, how many students are there?
+In a class, the ratio of boys to girls is 3:4. If there are 15 boys, how many girls are there?
 
 Hindi rendering
 
-किसी लड़के में लड़कियां और छात्र का अनुपात 3:4 है। यदि वहाँ 15 लड़कियां हैं, तो छात्र की संख्या कितनी है?
+किसी class में लड़के और लड़कियां का अनुपात 3:4 है। यदि वहाँ 15 लड़के हैं, तो लड़कियां की संख्या कितनी है?
 
 Punjabi rendering
 
-ਇੱਕ ਮੁੰਡੇ ਵਿੱਚ ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਜੇਕਰ ਉੱਥੇ 15 ਕੁੜੀਆਂ ਹੋਣ, ਤਾਂ ਵਿਦਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਜੇਕਰ ਉੱਥੇ 15 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
 
 Synchronized entity IDs: yes
 
@@ -125,19 +124,19 @@ IDs
 
 personAId: girls
 personBId: boys
-personCId: students
+personCId: teachers
 
 English rendering
 
-If the ratio girls:boys is 1:2 and boys:students is 2:3, what will be the combined ratio girls:boys:students?
+If the ratio girls:boys is 1:2 and boys:teachers is 2:3, what will be the combined ratio girls:boys:teachers?
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 1:2 है और लड़के:छात्र का अनुपात 2:3 है, तो लड़कियां:लड़के:छात्र का संयुक्त अनुपात क्या होगा?
+यदि लड़कियां:लड़के का अनुपात 1:2 है और लड़के:शिक्षक का अनुपात 2:3 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
 
 Punjabi rendering
 
-ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 1:2 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਵਿਦਿਆਰਥੀ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਵਿਦਿਆਰਥੀ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 1:2 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
 
 Synchronized entity IDs: yes
 
@@ -150,7 +149,7 @@ IDs
 
 English rendering
 
-What is the simplest whole-number ratio equal to 3/3 : 4/2?
+Convert the fractional ratio 3/3 : 4/2 into a simple integer ratio.
 
 Hindi rendering
 
@@ -168,22 +167,22 @@ Sample 8
 
 IDs
 
-personAId: girls
+personAId: boys
 personBId: teachers
-personCId: students
-personDId: boys
+personCId: girls
+personDId: students
 
 English rendering
 
-Given that girls:teachers = 4:5, teachers:students = 5:6, and students:boys = 6:7, what is the ratio between girls and boys?
+Given that boys:teachers = 4:5, teachers:girls = 5:6, and girls:students = 6:7, what is the ratio between boys and students?
 
 Hindi rendering
 
-यदि लड़कियां:शिक्षक = 4:5, शिक्षक:छात्र = 5:6 और छात्र:लड़के = 6:7 हो, तो लड़कियां और लड़के के बीच का अनुपात क्या होगा?
+यदि लड़के:शिक्षक = 4:5, शिक्षक:लड़कियां = 5:6 और लड़कियां:छात्र = 6:7 हो, तो लड़के और छात्र के बीच का अनुपात क्या होगा?
 
 Punjabi rendering
 
-ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਕੁੜੀਆਂ:ਅਧਿਆਪਕ = 4:5, ਅਧਿਆਪਕ:ਵਿਦਿਆਰਥੀ = 5:6 ਅਤੇ ਵਿਦਿਆਰਥੀ:ਮੁੰਡੇ = 6:7 ਹੈ। ਕੁੜੀਆਂ ਅਤੇ ਮੁੰਡੇ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਮੁੰਡੇ:ਅਧਿਆਪਕ = 4:5, ਅਧਿਆਪਕ:ਕੁੜੀਆਂ = 5:6 ਅਤੇ ਕੁੜੀਆਂ:ਵਿਦਿਆਰਥੀ = 6:7 ਹੈ। ਮੁੰਡੇ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -193,21 +192,20 @@ Sample 9
 
 IDs
 
-groupNameId: students
 personAId: boys
 personBId: girls
 
 English rendering
 
-In a students, the ratio of boys to girls is 8:1. If there are 56 boys, how many girls are there?
+In a class, the ratio of boys to girls is 8:1. If there are 56 boys, how many girls are there?
 
 Hindi rendering
 
-किसी छात्र में लड़के और लड़कियां का अनुपात 8:1 है। यदि वहाँ 56 लड़के हैं, तो लड़कियां की संख्या कितनी है?
+किसी class में लड़के और लड़कियां का अनुपात 8:1 है। यदि वहाँ 56 लड़के हैं, तो लड़कियां की संख्या कितनी है?
 
 Punjabi rendering
 
-ਇੱਕ ਵਿਦਿਆਰਥੀ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ। ਜੇਕਰ ਉੱਥੇ 56 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ। ਜੇਕਰ ਉੱਥੇ 56 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
 
 Synchronized entity IDs: yes
 
@@ -238,21 +236,21 @@ Sample 11
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
 personCId: teachers
 
 English rendering
 
-If the ratio students:boys is 3:4 and boys:teachers is 4:5, what will be the combined ratio students:boys:teachers?
+If the ratio girls:boys is 3:4 and boys:teachers is 4:5, what will be the combined ratio girls:boys:teachers?
 
 Hindi rendering
 
-यदि छात्र:लड़के का अनुपात 3:4 है और लड़के:शिक्षक का अनुपात 4:5 है, तो छात्र:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
+यदि लड़कियां:लड़के का अनुपात 3:4 है और लड़के:शिक्षक का अनुपात 4:5 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
 
 Punjabi rendering
 
-ਜੇਕਰ ਅਨੁਪਾਤ ਵਿਦਿਆਰਥੀ:ਮੁੰਡੇ 3:4 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ, ਤਾਂ ਵਿਦਿਆਰਥੀ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 3:4 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
 
 Synchronized entity IDs: yes
 
@@ -265,7 +263,7 @@ IDs
 
 English rendering
 
-What is the simplest whole-number ratio equal to 6/3 : 6/2?
+Convert the fractional ratio 6/3 : 6/2 into a simple integer ratio.
 
 Hindi rendering
 
@@ -283,22 +281,22 @@ Sample 13
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
 personCId: teachers
-personDId: girls
+personDId: students
 
 English rendering
 
-Given that students:boys = 2:3, boys:teachers = 3:4, and teachers:girls = 4:5, what is the ratio between students and girls?
+Given that girls:boys = 2:3, boys:teachers = 3:4, and teachers:students = 4:5, what is the ratio between girls and students?
 
 Hindi rendering
 
-यदि छात्र:लड़के = 2:3, लड़के:शिक्षक = 3:4 और शिक्षक:लड़कियां = 4:5 हो, तो छात्र और लड़कियां के बीच का अनुपात क्या होगा?
+यदि लड़कियां:लड़के = 2:3, लड़के:शिक्षक = 3:4 और शिक्षक:छात्र = 4:5 हो, तो लड़कियां और छात्र के बीच का अनुपात क्या होगा?
 
 Punjabi rendering
 
-ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਵਿਦਿਆਰਥੀ:ਮੁੰਡੇ = 2:3, ਮੁੰਡੇ:ਅਧਿਆਪਕ = 3:4 ਅਤੇ ਅਧਿਆਪਕ:ਕੁੜੀਆਂ = 4:5 ਹੈ। ਵਿਦਿਆਰਥੀ ਅਤੇ ਕੁੜੀਆਂ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਕੁੜੀਆਂ:ਮੁੰਡੇ = 2:3, ਮੁੰਡੇ:ਅਧਿਆਪਕ = 3:4 ਅਤੇ ਅਧਿਆਪਕ:ਵਿਦਿਆਰਥੀ = 4:5 ਹੈ। ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -308,21 +306,20 @@ Sample 14
 
 IDs
 
-groupNameId: students
 personAId: boys
 personBId: girls
 
 English rendering
 
-In a students, the ratio of boys to girls is 2:3. If there are 24 boys, how many girls are there?
+In a class, the ratio of boys to girls is 2:3. If there are 24 boys, how many girls are there?
 
 Hindi rendering
 
-किसी छात्र में लड़के और लड़कियां का अनुपात 2:3 है। यदि वहाँ 24 लड़के हैं, तो लड़कियां की संख्या कितनी है?
+किसी class में लड़के और लड़कियां का अनुपात 2:3 है। यदि वहाँ 24 लड़के हैं, तो लड़कियां की संख्या कितनी है?
 
 Punjabi rendering
 
-ਇੱਕ ਵਿਦਿਆਰਥੀ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇਕਰ ਉੱਥੇ 24 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇਕਰ ਉੱਥੇ 24 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
 
 Synchronized entity IDs: yes
 
@@ -353,19 +350,21 @@ Sample 16
 
 IDs
 
-personAId: teachers
+personAId: girls
+personBId: boys
+personCId: teachers
 
 English rendering
 
-The ratio of teachers's monthly expenses to savings is 7:1. If the total salary is Rs. 35200, how much does teachers save every month?
+An amount of Rs. 900 is distributed between girls, boys, and teachers in the ratio 4:3:3. How much more money does girls get than teachers?
 
 Hindi rendering
 
-शिक्षक के मासिक खर्च और बचत का अनुपात 7:1 है। यदि कुल वेतन Rs. 35200 है, तो शिक्षक हर महीने कितने रुपये बचाता है?
+Rs. 900 को लड़कियां, लड़के और शिक्षक के बीच 4:3:3 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-ਅਧਿਆਪਕ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 7:1 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 35200 ਹੋਵੇ, ਤਾਂ ਅਧਿਆਪਕ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+Rs. 900 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 4:3:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -375,22 +374,21 @@ Sample 17
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: teachers
-personCId: girls
-targetPersonId: teachers
+personCId: boys
 
 English rendering
 
-A sum of Rs. 1870 is divided among students, teachers, and girls in the ratio 8:1:2. What is teachers's share?
+The shares of girls, teachers, and boys are in the ratio 7:6:6. If girls gets Rs. 170 more than boys, how much was the total amount distributed?
 
 Hindi rendering
 
-Rs. 1870 की राशि को छात्र, शिक्षक और लड़कियां के बीच 8:1:2 के अनुपात में बांटा गया है। शिक्षक का हिस्सा कितना होगा?
+लड़कियां, शिक्षक और लड़के के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 170 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-Rs. 1870 ਦੀ ਰਾਸ਼ੀ ਨੂੰ ਵਿਦਿਆਰਥੀ, ਅਧਿਆਪਕ ਅਤੇ ਕੁੜੀਆਂ ਵਿੱਚ 8:1:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। ਅਧਿਆਪਕ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?
+ਕੁੜੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਮੁੰਡੇ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ Rs. 170 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -401,20 +399,18 @@ Sample 18
 IDs
 
 personAId: girls
-personBId: boys
-personCId: students
 
 English rendering
 
-An amount of Rs. 1080 is distributed between girls, boys, and students in the ratio 8:7:3. How much more money does girls get than students?
+The ratio of girls' monthly expenses to savings is 2:1. If the total salary is Rs. 12600, how much does girls save every month?
 
 Hindi rendering
 
-Rs. 1080 को लड़कियां, लड़के और छात्र के बीच 8:7:3 के अनुपात में बांटा जाता है। लड़कियां को छात्र से कितने रुपये अधिक मिलते हैं?
+लड़कियां के मासिक खर्च और बचत का अनुपात 2:1 है। यदि कुल वेतन Rs. 12600 है, तो लड़कियां हर महीने कितने रुपये बचाता है?
 
 Punjabi rendering
 
-Rs. 1080 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿੱਚ 8:7:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਵਿਦਿਆਰਥੀ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਕੁੜੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:1 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 12600 ਹੋਵੇ, ਤਾਂ ਕੁੜੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
 
 Synchronized entity IDs: yes
 
@@ -425,20 +421,20 @@ Sample 19
 IDs
 
 personAId: girls
-personBId: students
+personBId: teachers
 personCId: boys
 
 English rendering
 
-The shares of girls, students, and boys are in the ratio 5:4:4. If girls gets Rs. 140 more than boys, how much was the total amount distributed?
+An amount of Rs. 1820 is distributed between girls, teachers, and boys in the ratio 5:4:4. How much more money does girls get than boys?
 
 Hindi rendering
 
-लड़कियां, छात्र और लड़के के हिस्से 5:4:4 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 140 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+Rs. 1820 को लड़कियां, शिक्षक और लड़के के बीच 5:4:4 के अनुपात में बांटा जाता है। लड़कियां को लड़के से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਵਿਦਿਆਰਥੀ ਅਤੇ ਮੁੰਡੇ ਦੇ ਹਿੱਸੇ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ Rs. 140 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+Rs. 1820 ਨੂੰ ਕੁੜੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਮੁੰਡੇ ਵਿੱਚ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -449,18 +445,20 @@ Sample 20
 IDs
 
 personAId: boys
+personBId: teachers
+personCId: girls
 
 English rendering
 
-The ratio of boys's monthly expenses to savings is 4:1. If the total salary is Rs. 20000, how much does boys save every month?
+The shares of boys, teachers, and girls are in the ratio 6:5:2. If boys gets Rs. 120 more than girls, how much was the total amount distributed?
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 4:1 है। यदि कुल वेतन Rs. 20000 है, तो लड़के हर महीने कितने रुपये बचाता है?
+लड़के, शिक्षक और लड़कियां के हिस्से 6:5:2 के अनुपात में हैं। यदि लड़के को लड़कियां से Rs. 120 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:1 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 20000 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+ਮੁੰਡੇ, ਅਧਿਆਪਕ ਅਤੇ ਕੁੜੀਆਂ ਦੇ ਹਿੱਸੇ 6:5:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਮੁੰਡੇ ਨੂੰ ਕੁੜੀਆਂ ਨਾਲੋਂ Rs. 120 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -470,22 +468,19 @@ Sample 21
 
 IDs
 
-personAId: students
-personBId: boys
-personCId: teachers
-targetPersonId: teachers
+personAId: boys
 
 English rendering
 
-A sum of Rs. 480 is divided among students, boys, and teachers in the ratio 1:2:3. What is teachers's share?
+The ratio of boys' monthly expenses to savings is 2:2. If the total salary is Rs. 7200, how much does boys save every month?
 
 Hindi rendering
 
-Rs. 480 की राशि को छात्र, लड़के और शिक्षक के बीच 1:2:3 के अनुपात में बांटा गया है। शिक्षक का हिस्सा कितना होगा?
+लड़के के मासिक खर्च और बचत का अनुपात 2:2 है। यदि कुल वेतन Rs. 7200 है, तो लड़के हर महीने कितने रुपये बचाता है?
 
 Punjabi rendering
 
-Rs. 480 ਦੀ ਰਾਸ਼ੀ ਨੂੰ ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 1:2:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। ਅਧਿਆਪਕ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?
+ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 7200 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
 
 Synchronized entity IDs: yes
 
@@ -495,21 +490,21 @@ Sample 22
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
-personCId: girls
+personCId: teachers
 
 English rendering
 
-An amount of Rs. 2080 is distributed between students, boys, and girls in the ratio 5:4:4. How much more money does students get than girls?
+An amount of Rs. 2080 is distributed between girls, boys, and teachers in the ratio 5:4:4. How much more money does girls get than teachers?
 
 Hindi rendering
 
-Rs. 2080 को छात्र, लड़के और लड़कियां के बीच 5:4:4 के अनुपात में बांटा जाता है। छात्र को लड़कियां से कितने रुपये अधिक मिलते हैं?
+Rs. 2080 को लड़कियां, लड़के और शिक्षक के बीच 5:4:4 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-Rs. 2080 ਨੂੰ ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਵਿੱਚ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੂੰ ਕੁੜੀਆਂ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+Rs. 2080 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -519,21 +514,21 @@ Sample 23
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
 personCId: teachers
 
 English rendering
 
-The shares of students, boys, and teachers are in the ratio 8:7:1. If students gets Rs. 350 more than teachers, how much was the total amount distributed?
+The shares of girls, boys, and teachers are in the ratio 8:7:1. If girls gets Rs. 350 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-छात्र, लड़के और शिक्षक के हिस्से 8:7:1 के अनुपात में हैं। यदि छात्र को शिक्षक से Rs. 350 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+लड़कियां, लड़के और शिक्षक के हिस्से 8:7:1 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 350 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 8:7:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਵਿਦਿਆਰਥੀ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 350 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 8:7:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 350 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -547,7 +542,7 @@ personAId: boys
 
 English rendering
 
-The ratio of boys's monthly expenses to savings is 5:2. If the total salary is Rs. 10500, how much does boys save every month?
+The ratio of boys' monthly expenses to savings is 5:2. If the total salary is Rs. 10500, how much does boys save every month?
 
 Hindi rendering
 
@@ -565,22 +560,21 @@ Sample 25
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
-personCId: girls
-targetPersonId: boys
+personCId: teachers
 
 English rendering
 
-A sum of Rs. 360 is divided among students, boys, and girls in the ratio 5:6:7. What is boys's share?
+An amount of Rs. 240 is distributed between girls, boys, and teachers in the ratio 6:5:1. How much more money does girls get than teachers?
 
 Hindi rendering
 
-Rs. 360 की राशि को छात्र, लड़के और लड़कियां के बीच 5:6:7 के अनुपात में बांटा गया है। लड़के का हिस्सा कितना होगा?
+Rs. 240 को लड़कियां, लड़के और शिक्षक के बीच 6:5:1 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-Rs. 360 ਦੀ ਰਾਸ਼ੀ ਨੂੰ ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਵਿੱਚ 5:6:7 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। ਮੁੰਡੇ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?
+Rs. 240 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 6:5:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -592,19 +586,19 @@ IDs
 
 personAId: girls
 personBId: boys
-personCId: students
+personCId: teachers
 
 English rendering
 
-An amount of Rs. 1900 is distributed between girls, boys, and students in the ratio 7:6:6. How much more money does girls get than students?
+The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 100 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-Rs. 1900 को लड़कियां, लड़के और छात्र के बीच 7:6:6 के अनुपात में बांटा जाता है। लड़कियां को छात्र से कितने रुपये अधिक मिलते हैं?
+लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 100 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-Rs. 1900 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿੱਚ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਵਿਦਿਆਰਥੀ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 100 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -614,21 +608,19 @@ Sample 27
 
 IDs
 
-personAId: students
-personBId: teachers
-personCId: girls
+personAId: boys
 
 English rendering
 
-The shares of students, teachers, and girls are in the ratio 8:7:4. If students gets Rs. 720 more than girls, how much was the total amount distributed?
+The ratio of boys' monthly expenses to savings is 8:2. If the total salary is Rs. 12000, how much does boys save every month?
 
 Hindi rendering
 
-छात्र, शिक्षक और लड़कियां के हिस्से 8:7:4 के अनुपात में हैं। यदि छात्र को लड़कियां से Rs. 720 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+लड़के के मासिक खर्च और बचत का अनुपात 8:2 है। यदि कुल वेतन Rs. 12000 है, तो लड़के हर महीने कितने रुपये बचाता है?
 
 Punjabi rendering
 
-ਵਿਦਿਆਰਥੀ, ਅਧਿਆਪਕ ਅਤੇ ਕੁੜੀਆਂ ਦੇ ਹਿੱਸੇ 8:7:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਵਿਦਿਆਰਥੀ ਨੂੰ ਕੁੜੀਆਂ ਨਾਲੋਂ Rs. 720 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 8:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 12000 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
 
 Synchronized entity IDs: yes
 
@@ -638,19 +630,21 @@ Sample 28
 
 IDs
 
-personAId: girls
+personAId: boys
+personBId: girls
+personCId: teachers
 
 English rendering
 
-The ratio of girls's monthly expenses to savings is 2:2. If the total salary is Rs. 4400, how much does girls save every month?
+An amount of Rs. 770 is distributed between boys, girls, and teachers in the ratio 5:4:2. How much more money does boys get than teachers?
 
 Hindi rendering
 
-लड़कियां के मासिक खर्च और बचत का अनुपात 2:2 है। यदि कुल वेतन Rs. 4400 है, तो लड़कियां हर महीने कितने रुपये बचाता है?
+Rs. 770 को लड़के, लड़कियां और शिक्षक के बीच 5:4:2 के अनुपात में बांटा जाता है। लड़के को शिक्षक से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 4400 ਹੋਵੇ, ਤਾਂ ਕੁੜੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+Rs. 770 ਨੂੰ ਮੁੰਡੇ, ਕੁੜੀਆਂ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 5:4:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਮੁੰਡੇ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -661,21 +655,20 @@ Sample 29
 IDs
 
 personAId: girls
-personBId: students
+personBId: teachers
 personCId: boys
-targetPersonId: boys
 
 English rendering
 
-A sum of Rs. 900 is divided among girls, students, and boys in the ratio 1:2:3. What is boys's share?
+The shares of girls, teachers, and boys are in the ratio 6:5:5. If girls gets Rs. 150 more than boys, how much was the total amount distributed?
 
 Hindi rendering
 
-Rs. 900 की राशि को लड़कियां, छात्र और लड़के के बीच 1:2:3 के अनुपात में बांटा गया है। लड़के का हिस्सा कितना होगा?
+लड़कियां, शिक्षक और लड़के के हिस्से 6:5:5 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 150 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-Rs. 900 ਦੀ ਰਾਸ਼ੀ ਨੂੰ ਕੁੜੀਆਂ, ਵਿਦਿਆਰਥੀ ਅਤੇ ਮੁੰਡੇ ਵਿੱਚ 1:2:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। ਮੁੰਡੇ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?
+ਕੁੜੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਮੁੰਡੇ ਦੇ ਹਿੱਸੇ 6:5:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ Rs. 150 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -686,20 +679,18 @@ Sample 30
 IDs
 
 personAId: boys
-personBId: students
-personCId: girls
 
 English rendering
 
-An amount of Rs. 760 is distributed between boys, students, and girls in the ratio 9:2:8. How much more money does boys get than girls?
+The ratio of boys' monthly expenses to savings is 4:2. If the total salary is Rs. 30000, how much does boys save every month?
 
 Hindi rendering
 
-Rs. 760 को लड़के, छात्र और लड़कियां के बीच 9:2:8 के अनुपात में बांटा जाता है। लड़के को लड़कियां से कितने रुपये अधिक मिलते हैं?
+लड़के के मासिक खर्च और बचत का अनुपात 4:2 है। यदि कुल वेतन Rs. 30000 है, तो लड़के हर महीने कितने रुपये बचाता है?
 
 Punjabi rendering
 
-Rs. 760 ਨੂੰ ਮੁੰਡੇ, ਵਿਦਿਆਰਥੀ ਅਤੇ ਕੁੜੀਆਂ ਵਿੱਚ 9:2:8 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਮੁੰਡੇ ਨੂੰ ਕੁੜੀਆਂ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 30000 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
 
 Synchronized entity IDs: yes
 
@@ -709,21 +700,21 @@ Sample 31
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
 personCId: teachers
 
 English rendering
 
-The shares of students, boys, and teachers are in the ratio 7:6:6. If students gets Rs. 90 more than teachers, how much was the total amount distributed?
+An amount of Rs. 1710 is distributed between girls, boys, and teachers in the ratio 7:6:6. How much more money does girls get than teachers?
 
 Hindi rendering
 
-छात्र, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि छात्र को शिक्षक से Rs. 90 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+Rs. 1710 को लड़कियां, लड़के और शिक्षक के बीच 7:6:6 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਵਿਦਿਆਰਥੀ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 90 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+Rs. 1710 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -734,18 +725,20 @@ Sample 32
 IDs
 
 personAId: girls
+personBId: boys
+personCId: teachers
 
 English rendering
 
-The ratio of girls's monthly expenses to savings is 3:3. If the total salary is Rs. 16200, how much does girls save every month?
+The shares of girls, boys, and teachers are in the ratio 8:7:2. If girls gets Rs. 1020 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-लड़कियां के मासिक खर्च और बचत का अनुपात 3:3 है। यदि कुल वेतन Rs. 16200 है, तो लड़कियां हर महीने कितने रुपये बचाता है?
+लड़कियां, लड़के और शिक्षक के हिस्से 8:7:2 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 1020 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 3:3 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 16200 ਹੋਵੇ, ਤਾਂ ਕੁੜੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 8:7:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 1020 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -756,21 +749,18 @@ Sample 33
 IDs
 
 personAId: students
-personBId: boys
-personCId: girls
-targetPersonId: students
 
 English rendering
 
-A sum of Rs. 540 is divided among students, boys, and girls in the ratio 2:3:4. What is students's share?
+The ratio of students' monthly expenses to savings is 4:3. If the total salary is Rs. 18200, how much does students save every month?
 
 Hindi rendering
 
-Rs. 540 की राशि को छात्र, लड़के और लड़कियां के बीच 2:3:4 के अनुपात में बांटा गया है। छात्र का हिस्सा कितना होगा?
+छात्र के मासिक खर्च और बचत का अनुपात 4:3 है। यदि कुल वेतन Rs. 18200 है, तो छात्र हर महीने कितने रुपये बचाता है?
 
 Punjabi rendering
 
-Rs. 540 ਦੀ ਰਾਸ਼ੀ ਨੂੰ ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਵਿੱਚ 2:3:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। ਵਿਦਿਆਰਥੀ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?
+ਵਿਦਿਆਰਥੀ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:3 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 18200 ਹੋਵੇ, ਤਾਂ ਵਿਦਿਆਰਥੀ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
 
 Synchronized entity IDs: yes
 
@@ -780,21 +770,21 @@ Sample 34
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
 personCId: teachers
 
 English rendering
 
-An amount of Rs. 2100 is distributed between students, boys, and teachers in the ratio 6:5:4. How much more money does students get than teachers?
+An amount of Rs. 2100 is distributed between girls, boys, and teachers in the ratio 6:5:4. How much more money does girls get than teachers?
 
 Hindi rendering
 
-Rs. 2100 को छात्र, लड़के और शिक्षक के बीच 6:5:4 के अनुपात में बांटा जाता है। छात्र को शिक्षक से कितने रुपये अधिक मिलते हैं?
+Rs. 2100 को लड़कियां, लड़के और शिक्षक के बीच 6:5:4 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
 
 Punjabi rendering
 
-Rs. 2100 ਨੂੰ ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 6:5:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਦਿਆਰਥੀ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+Rs. 2100 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 6:5:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
 
 Synchronized entity IDs: yes
 
@@ -804,21 +794,21 @@ Sample 35
 
 IDs
 
-personAId: students
+personAId: girls
 personBId: boys
-personCId: girls
+personCId: teachers
 
 English rendering
 
-The shares of students, boys, and girls are in the ratio 7:6:6. If students gets Rs. 30 more than girls, how much was the total amount distributed?
+The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 30 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-छात्र, लड़के और लड़कियां के हिस्से 7:6:6 के अनुपात में हैं। यदि छात्र को लड़कियां से Rs. 30 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 30 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
 
 Punjabi rendering
 
-ਵਿਦਿਆਰਥੀ, ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਵਿਦਿਆਰਥੀ ਨੂੰ ਕੁੜੀਆਂ ਨਾਲੋਂ Rs. 30 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 30 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -828,21 +818,20 @@ Sample 36
 
 IDs
 
-contextNameId: students
 groupAId: boys
 groupBId: girls
 
 English rendering
 
-In a students, the ratio of boys to girls is 1:3. If 17 more boys join, the ratio becomes 23:18. How many boys were there at the beginning?
+In a class, the ratio of boys to girls is 1:3. If 17 more boys join, the ratio becomes 23:18. How many boys were there at the beginning?
 
 Hindi rendering
 
-किसी छात्र में लड़के और लड़कियां का अनुपात 1:3 है। यदि 17 और लड़के आ जाते हैं, तो अनुपात 23:18 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
+किसी class में लड़के और लड़कियां का अनुपात 1:3 है। यदि 17 और लड़के आ जाते हैं, तो अनुपात 23:18 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
 
 Punjabi rendering
 
-ਇੱਕ ਵਿਦਿਆਰਥੀ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 1:3 ਹੈ। ਜੇਕਰ 17 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:18 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 1:3 ਹੈ। ਜੇਕਰ 17 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:18 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
 
 Synchronized entity IDs: yes
 
@@ -852,21 +841,20 @@ Sample 37
 
 IDs
 
-contextNameId: boys
-groupAId: girls
-groupBId: students
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-The ratio of girls to students in a boys is 5:4. After 5 girls leave, the ratio changes to 25:24. What was the total number of people at the start?
+The ratio of boys to girls in a class is 5:4. After 5 boys leave, the ratio changes to 25:24. What was the total number of people at the start?
 
 Hindi rendering
 
-किसी लड़के में लड़कियां और छात्र का अनुपात 5:4 है। 5 लड़कियां के चले जाने पर अनुपात 25:24 हो जाता है। शुरुआत में कुल कितने लोग थे?
+किसी class में लड़के और लड़कियां का अनुपात 5:4 है। 5 लड़के के चले जाने पर अनुपात 25:24 हो जाता है। शुरुआत में कुल कितने लोग थे?
 
 Punjabi rendering
 
-ਇੱਕ ਮੁੰਡੇ ਵਿੱਚ ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 5 ਕੁੜੀਆਂ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 25:24 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 5 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 25:24 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
 
 Synchronized entity IDs: yes
 
@@ -941,21 +929,20 @@ Sample 41
 
 IDs
 
-contextNameId: boys
-groupAId: students
+groupAId: boys
 groupBId: girls
 
 English rendering
 
-In a boys, the ratio of students to girls is 5:7. If 15 more students join, the ratio becomes 55:56. How many students were there at the beginning?
+In a class, the ratio of boys to girls is 5:7. If 15 more boys join, the ratio becomes 55:56. How many boys were there at the beginning?
 
 Hindi rendering
 
-किसी लड़के में छात्र और लड़कियां का अनुपात 5:7 है। यदि 15 और छात्र आ जाते हैं, तो अनुपात 55:56 हो जाता है। शुरुआत में छात्र की संख्या कितनी थी?
+किसी class में लड़के और लड़कियां का अनुपात 5:7 है। यदि 15 और लड़के आ जाते हैं, तो अनुपात 55:56 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
 
 Punjabi rendering
 
-ਇੱਕ ਮੁੰਡੇ ਵਿੱਚ ਵਿਦਿਆਰਥੀ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:7 ਹੈ। ਜੇਕਰ 15 ਹੋਰ ਵਿਦਿਆਰਥੀ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 55:56 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਵਿਦਿਆਰਥੀ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:7 ਹੈ। ਜੇਕਰ 15 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 55:56 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
 
 Synchronized entity IDs: yes
 
@@ -965,21 +952,20 @@ Sample 42
 
 IDs
 
-contextNameId: students
-groupAId: girls
-groupBId: boys
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-The ratio of girls to boys in a students is 5:4. After 8 girls leave, the ratio changes to 13:12. What was the total number of people at the start?
+The ratio of boys to girls in a class is 5:4. After 8 boys leave, the ratio changes to 13:12. What was the total number of people at the start?
 
 Hindi rendering
 
-किसी छात्र में लड़कियां और लड़के का अनुपात 5:4 है। 8 लड़कियां के चले जाने पर अनुपात 13:12 हो जाता है। शुरुआत में कुल कितने लोग थे?
+किसी class में लड़के और लड़कियां का अनुपात 5:4 है। 8 लड़के के चले जाने पर अनुपात 13:12 हो जाता है। शुरुआत में कुल कितने लोग थे?
 
 Punjabi rendering
 
-ਇੱਕ ਵਿਦਿਆਰਥੀ ਵਿੱਚ ਕੁੜੀਆਂ ਅਤੇ ਮੁੰਡੇ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 8 ਕੁੜੀਆਂ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 13:12 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 8 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 13:12 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
 
 Synchronized entity IDs: yes
 
@@ -1054,21 +1040,20 @@ Sample 46
 
 IDs
 
-contextNameId: students
-groupAId: teachers
+groupAId: boys
 groupBId: girls
 
 English rendering
 
-In a students, the ratio of teachers to girls is 2:4. If 7 more teachers join, the ratio becomes 3:4. How many teachers were there at the beginning?
+In a class, the ratio of boys to girls is 2:4. If 7 more boys join, the ratio becomes 3:4. How many boys were there at the beginning?
 
 Hindi rendering
 
-किसी छात्र में शिक्षक और लड़कियां का अनुपात 2:4 है। यदि 7 और शिक्षक आ जाते हैं, तो अनुपात 3:4 हो जाता है। शुरुआत में शिक्षक की संख्या कितनी थी?
+किसी class में लड़के और लड़कियां का अनुपात 2:4 है। यदि 7 और लड़के आ जाते हैं, तो अनुपात 3:4 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
 
 Punjabi rendering
 
-ਇੱਕ ਵਿਦਿਆਰਥੀ ਵਿੱਚ ਅਧਿਆਪਕ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇਕਰ 7 ਹੋਰ ਅਧਿਆਪਕ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 3:4 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਅਧਿਆਪਕ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇਕਰ 7 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 3:4 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
 
 Synchronized entity IDs: yes
 
@@ -1078,21 +1063,20 @@ Sample 47
 
 IDs
 
-contextNameId: girls
-groupAId: teachers
-groupBId: students
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-The ratio of teachers to students in a girls is 8:7. After 19 teachers leave, the ratio changes to 37:49. What was the total number of people at the start?
+The ratio of boys to girls in a class is 8:7. After 19 boys leave, the ratio changes to 37:49. What was the total number of people at the start?
 
 Hindi rendering
 
-किसी लड़कियां में शिक्षक और छात्र का अनुपात 8:7 है। 19 शिक्षक के चले जाने पर अनुपात 37:49 हो जाता है। शुरुआत में कुल कितने लोग थे?
+किसी class में लड़के और लड़कियां का अनुपात 8:7 है। 19 लड़के के चले जाने पर अनुपात 37:49 हो जाता है। शुरुआत में कुल कितने लोग थे?
 
 Punjabi rendering
 
-ਇੱਕ ਕੁੜੀਆਂ ਵਿੱਚ ਅਧਿਆਪਕ ਅਤੇ ਵਿਦਿਆਰਥੀ ਦਾ ਅਨੁਪਾਤ 8:7 ਹੈ। 19 ਅਧਿਆਪਕ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 37:49 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:7 ਹੈ। 19 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 37:49 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
 
 Synchronized entity IDs: yes
 
@@ -1167,21 +1151,20 @@ Sample 51
 
 IDs
 
-contextNameId: girls
 groupAId: boys
-groupBId: teachers
+groupBId: girls
 
 English rendering
 
-In a girls, the ratio of boys to teachers is 2:4. If 5 more boys join, the ratio becomes 23:36. How many boys were there at the beginning?
+In a class, the ratio of boys to girls is 2:4. If 5 more boys join, the ratio becomes 23:36. How many boys were there at the beginning?
 
 Hindi rendering
 
-किसी लड़कियां में लड़के और शिक्षक का अनुपात 2:4 है। यदि 5 और लड़के आ जाते हैं, तो अनुपात 23:36 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
+किसी class में लड़के और लड़कियां का अनुपात 2:4 है। यदि 5 और लड़के आ जाते हैं, तो अनुपात 23:36 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
 
 Punjabi rendering
 
-ਇੱਕ ਕੁੜੀਆਂ ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇਕਰ 5 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:36 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇਕਰ 5 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:36 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
 
 Synchronized entity IDs: yes
 
@@ -1191,21 +1174,20 @@ Sample 52
 
 IDs
 
-contextNameId: boys
-groupAId: girls
-groupBId: students
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-The ratio of girls to students in a boys is 6:5. After 11 girls leave, the ratio changes to 7:15. What was the total number of people at the start?
+The ratio of boys to girls in a class is 6:5. After 11 boys leave, the ratio changes to 7:15. What was the total number of people at the start?
 
 Hindi rendering
 
-किसी लड़के में लड़कियां और छात्र का अनुपात 6:5 है। 11 लड़कियां के चले जाने पर अनुपात 7:15 हो जाता है। शुरुआत में कुल कितने लोग थे?
+किसी class में लड़के और लड़कियां का अनुपात 6:5 है। 11 लड़के के चले जाने पर अनुपात 7:15 हो जाता है। शुरुआत में कुल कितने लोग थे?
 
 Punjabi rendering
 
-ਇੱਕ ਮੁੰਡੇ ਵਿੱਚ ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਦਾ ਅਨੁਪਾਤ 6:5 ਹੈ। 11 ਕੁੜੀਆਂ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 7:15 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 6:5 ਹੈ। 11 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 7:15 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
 
 Synchronized entity IDs: yes
 

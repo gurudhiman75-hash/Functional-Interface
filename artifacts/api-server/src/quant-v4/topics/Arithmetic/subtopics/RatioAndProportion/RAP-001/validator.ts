@@ -15,13 +15,27 @@ function sameSet(left: Set<string>, right: Set<string>) {
 }
 
 function answerTypeLooksValid(pkg: Rap001QuestionPackage) {
-  const answer = pkg.answer;
-  if (pkg.parameters.answerType === "PERCENT") return answer.endsWith("%");
-  if (pkg.parameters.answerType === "RATIO") return /^\d+(?:\.\d+)?(?::\d+(?:\.\d+)?)+$/.test(answer);
-  if (pkg.parameters.answerType === "FRACTION") return /^-?\d+\/\d+$/.test(answer);
-  if (pkg.parameters.answerType === "COUNT") return /^-?\d+$/.test(answer);
+  let answer = pkg.answer;
+  if (answer.startsWith("$$") && answer.endsWith("$$")) {
+    answer = answer.slice(2, -2).trim();
+  }
+  if (pkg.parameters.answerType === "PERCENT") {
+    return answer.endsWith("%") || answer.endsWith("\\%");
+  }
+  if (pkg.parameters.answerType === "RATIO") {
+    const normalized = answer.replace(/\s+/g, "");
+    return /^\d+(?:\.\d+)?(?::\d+(?:\.\d+)?)+$/.test(normalized);
+  }
+  if (pkg.parameters.answerType === "FRACTION") {
+    return /^-?\d+\/\d+$/.test(answer) || /^\\frac\{-?\d+\}\{\d+\}$/.test(answer);
+  }
+  if (pkg.parameters.answerType === "COUNT") {
+    return /^-?\d+$/.test(answer);
+  }
   return answer.length > 0 && !answer.endsWith("%") && !answer.includes(":") && !answer.includes("/");
 }
+
+const TEACHER_FORBIDDEN = /our objective|standard rule|plugging in|substitut(?:ing|e) the (?:parameters|values)|calculating the final|calculation gives|observe carefully|observe the given relation|keep the base quantity clear|write the working|target value for this problem|appropriate formula|mathematical relationship|computed result|useful starting point|working relation|this determines|combining aligned ratios|on simplification|completing the arithmetic|numerical result|key relation|observe that|notice that|using the above|required expression becomes/i;
 
 function hasBrokenUnicode(value: string) {
   return /[àÂ�]/.test(value);
@@ -94,7 +108,10 @@ export function validateRap001QuestionPackage(pkg: Rap001QuestionPackage): Rap00
     check("graph", pkg.reasoningGraph.nodes.length > 0, "Graph must be populated."),
     check("explanation", pkg.explanation.lines.length > 0, "Explanation must render."),
     check("explanationMinimumSteps", pkg.explanation.lines.length >= 4, "Explanation must contain at least four teacher-style steps."),
-    check("explanationTaskSpecific", !/\{[A-Za-z][A-Za-z0-9_]*\}/.test(pkg.explanation.lines.join("\n")), "Explanation placeholders must be resolved."),
+    check("teacherLanguage", !TEACHER_FORBIDDEN.test(pkg.explanation.lines.join("\n")), "Explanation must not contain renderer meta-language."),
+    check("arithmeticExposure", pkg.explanation.lines.filter((line) => line.includes("\\Rightarrow")).length >= 3, "Explanation must expose at least three arithmetic lines."),
+    check("noTaskKindLeak", !pkg.explanation.lines.join("\n").includes(pkg.parameters.taskKind), "TaskKind must never appear in the explanation."),
+    check("noVariableLeak", !Object.keys(pkg.parameters.variables).filter((name) => name.length >= 6).some((name) => pkg.explanation.lines.join("\n").includes(name)), "Internal variable names must never appear in the explanation."),
     check("noGenericExplanation", !/generic|fallback|default explanation|AI explanation|apply the formula|use the formula/i.test(pkg.explanation.lines.join("\n")), "Generic explanation path must not be used."),
     check("traceability", pkg.traceability.answer === pkg.answer, "Traceability answer must match."),
     check("traceScenarioId", typeof pkg.traceability.scenarioId === "string", "Traceability must include scenarioId."),

@@ -1,4 +1,5 @@
 import { formatExplanationSteps, validateExplanationPipeline, type ExplanationEvidence, type ExplanationRenderer } from "../../../../../common/explanation-engine";
+import { TaskKindTeacherRenderer } from "../../../../../common/teacher-renderer";
 import type { Pct001Explanation, Pct001Parameters, Pct001ReasoningGraph, Pct001SolverResult } from "../types";
 
 import { PercentOfRenderer } from "./renderers/percent-of-renderer";
@@ -72,136 +73,136 @@ export function renderPct001Explanation(parameters: Pct001Parameters, solver: Pc
       renderer = new PercentOfRenderer();
       break;
     case "percentToFraction":
-      renderer = new PercentToFractionRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "valueAsPercent":
-      renderer = new ValueAsPercentRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "directRelation":
-      renderer = new DirectRelationRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "moreToLess":
-      renderer = new MoreToLessRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "lessToMore":
-      renderer = new LessToMoreRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "ratioFromPercentEquality":
-      renderer = new RatioFromPercentEqualityRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "reversePercent":
       renderer = new ReversePercentRenderer(solver.mathJax);
       break;
     case "increaseNewValue":
-      renderer = new IncreaseNewValueRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "decreaseNewValue":
-      renderer = new DecreaseNewValueRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "reverseIncrease":
-      renderer = new ReverseIncreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "reverseDecrease":
-      renderer = new ReverseDecreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "increaseByAmount":
-      renderer = new IncreaseByAmountRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "percentOfKnownNumber":
-      renderer = new PercentOfKnownNumberRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "differenceOfPercents":
-      renderer = new DifferenceOfPercentsRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "restoreAfterDecrease":
-      renderer = new RestoreAfterDecreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "successiveIncrease":
-      renderer = new SuccessiveIncreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "successiveChange":
       renderer = new SuccessiveChangeRenderer(solver.mathJax);
       break;
     case "compoundGrowth":
-      renderer = new CompoundGrowthRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "compoundDecay":
-      renderer = new CompoundDecayRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "areaChange":
-      renderer = new AreaChangeRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "squareAreaChange":
-      renderer = new SquareAreaChangeRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "invarianceDecrease":
-      renderer = new InvarianceDecreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "invarianceIncrease":
-      renderer = new InvarianceIncreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "restoreAfterIncrease":
-      renderer = new RestoreAfterIncreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "revenueChange":
-      renderer = new RevenueChangeRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "circleAreaDecrease":
-      renderer = new CircleAreaDecreaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "incomePartition":
-      renderer = new IncomePartitionRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "successiveExpense":
-      renderer = new SuccessiveExpenseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "winnerVotes":
-      renderer = new WinnerVotesRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "cancelledVotes":
-      renderer = new CancelledVotesRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "passMarks":
-      renderer = new PassMarksRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "partToTotal":
-      renderer = new PartToTotalRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "complementOfTotal":
-      renderer = new ComplementOfTotalRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "moreMarksBase":
-      renderer = new MoreMarksBaseRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "twoShareRemainder":
-      renderer = new TwoShareRemainderRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "loserVotes":
-      renderer = new LoserVotesRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "dilutionAddWater":
-      renderer = new DilutionAddWaterRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "dryFromFresh":
-      renderer = new DryFromFreshRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "addSolute":
-      renderer = new AddSoluteRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "dilutedPercent":
-      renderer = new DilutedPercentRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "freshFromDry":
-      renderer = new FreshFromDryRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "addPureComponent":
-      renderer = new AddPureComponentRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "evaporationOriginal":
-      renderer = new EvaporationOriginalRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     case "alloyComplement":
-      renderer = new AlloyComplementRenderer(solver.mathJax);
+      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
       break;
     default:
       throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);

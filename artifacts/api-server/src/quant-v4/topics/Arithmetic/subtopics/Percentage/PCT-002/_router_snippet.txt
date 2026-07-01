@@ -1,0 +1,77 @@
+import { InclusionExclusionRenderer } from "./renderers/inclusion-exclusion-renderer";
+import { FractionalErrorRenderer } from "./renderers/fractional-error-renderer";
+import { WrongMultiplierRenderer } from "./renderers/wrong-multiplier-renderer";
+import { WrongDivisorRenderer } from "./renderers/wrong-divisor-renderer";
+import { TieredCommissionRenderer } from "./renderers/tiered-commission-renderer";
+import { TieredTaxRenderer } from "./renderers/tiered-tax-renderer";
+import { PiecewiseRateRenderer } from "./renderers/piecewise-rate-renderer";
+import { WeightedSubgroupRenderer } from "./renderers/weighted-subgroup-renderer";
+import { HierarchicalPopulationRenderer } from "./renderers/hierarchical-population-renderer";
+import { BranchAggregationRenderer } from "./renderers/branch-aggregation-renderer";
+import { RepeatedReplacementRenderer } from "./renderers/repeated-replacement-renderer";
+import { IterativeDilutionRenderer } from "./renderers/iterative-dilution-renderer";
+import { TripleInclusionExclusionRenderer } from "./renderers/triple-inclusion-exclusion-renderer";
+import { MultiTierPiecewiseRateRenderer } from "./renderers/multi-tier-piecewise-rate-renderer";
+import { ReversePiecewiseRateRenderer } from "./renderers/reverse-piecewise-rate-renderer";
+import { VariableReplacementRenderer } from "./renderers/variable-replacement-renderer";
+import { ElectionMarginRenderer } from "./renderers/election-margin-renderer";
+import { MultiStageAttritionRenderer } from "./renderers/multi-stage-attrition-renderer";
+import { ShiftedBaseChainRenderer } from "./renderers/shifted-base-chain-renderer";
+
+    case "inclusionExclusion":
+      renderer = new InclusionExclusionRenderer(solver.mathJax);
+      break;
+    case "fractionalError":
+      renderer = new FractionalErrorRenderer(solver.mathJax);
+      break;
+    case "wrongMultiplier":
+      renderer = new WrongMultiplierRenderer(solver.mathJax);
+      break;
+    case "wrongDivisor":
+      renderer = new WrongDivisorRenderer(solver.mathJax);
+      break;
+    case "tieredCommission":
+      renderer = new TieredCommissionRenderer(solver.mathJax);
+      break;
+    case "tieredTax":
+      renderer = new TieredTaxRenderer(solver.mathJax);
+      break;
+    case "piecewiseRate":
+      renderer = new PiecewiseRateRenderer(solver.mathJax);
+      break;
+    case "weightedSubgroup":
+      renderer = new WeightedSubgroupRenderer(solver.mathJax);
+      break;
+    case "hierarchicalPopulation":
+      renderer = new HierarchicalPopulationRenderer(solver.mathJax);
+      break;
+    case "branchAggregation":
+      renderer = new BranchAggregationRenderer(solver.mathJax);
+      break;
+    case "repeatedReplacement":
+      renderer = new RepeatedReplacementRenderer(solver.mathJax);
+      break;
+    case "iterativeDilution":
+      renderer = new IterativeDilutionRenderer(solver.mathJax);
+      break;
+    case "tripleInclusionExclusion":
+      renderer = new TripleInclusionExclusionRenderer(solver.mathJax);
+      break;
+    case "multiTierPiecewiseRate":
+      renderer = new MultiTierPiecewiseRateRenderer(solver.mathJax);
+      break;
+    case "reversePiecewiseRate":
+      renderer = new ReversePiecewiseRateRenderer(solver.mathJax);
+      break;
+    case "variableReplacement":
+      renderer = new VariableReplacementRenderer(solver.mathJax);
+      break;
+    case "electionMargin":
+      renderer = new ElectionMarginRenderer(solver.mathJax);
+      break;
+    case "multiStageAttrition":
+      renderer = new MultiStageAttritionRenderer(solver.mathJax);
+      break;
+    case "shiftedBaseChain":
+      renderer = new ShiftedBaseChainRenderer(solver.mathJax);
+      break;

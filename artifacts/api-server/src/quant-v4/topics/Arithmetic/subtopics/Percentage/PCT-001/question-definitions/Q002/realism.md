@@ -1,0 +1,4 @@
+- The count of books must be a positive integer.
+- No fractional books are allowed at any step (e.g. Mathematics books, English books, or 1% of books).
+- Total library size must be realistic (e.g. between 50 and 50,000 books).
+- Fail closed if the number of books is not a whole number.

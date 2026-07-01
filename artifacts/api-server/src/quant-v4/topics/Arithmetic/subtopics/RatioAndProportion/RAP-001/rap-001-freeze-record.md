@@ -4,7 +4,7 @@
 
 - Task registry source: task-registry.library.json
 - Active CP count: 6
-- Active QL count: 28
+- Active QL count: 27
 - Review CSVs regenerated: en, hi, pa
 - Pre-freeze audit regenerated: yes
 - Maturity audit regenerated: yes
@@ -19,6 +19,6 @@
 - placeholder failures = 0
 - unused QL IDs = 0
 - unused ES IDs = 0
-- duplicate rate = 6.00%
+- duplicate rate = 7.00%
 - verdict = READY FOR FREEZE REVIEW
 

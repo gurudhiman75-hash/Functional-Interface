@@ -1,37 +1,20 @@
 {
   "archetypeId": "PCT-002",
   "difficultyDistribution": {
-    "Easy": 0.1,
-    "Medium": 0.5,
-    "Hard": 0.4
+    "Easy": 0.35,
+    "Medium": 0.45,
+    "Hard": 0.2
   },
   "canonicalProblemDistribution": {
-    "PCT-CP-001": 0.15,
-    "PCT-CP-002": 0.15,
-    "PCT-CP-003": 0.15,
-    "PCT-CP-004": 0.2,
-    "PCT-CP-005": 0.15,
-    "PCT-CP-006": 0.2
-  },
-  "taskKindDistribution": {
-    "inclusionExclusion": "balanced",
-    "fractionalError": "balanced",
-    "wrongMultiplier": "balanced",
-    "wrongDivisor": "balanced",
-    "tieredCommission": "balanced",
-    "tieredTax": "balanced",
-    "piecewiseRate": "balanced",
-    "weightedSubgroup": "balanced",
-    "hierarchicalPopulation": "balanced",
-    "branchAggregation": "balanced",
-    "repeatedReplacement": "balanced",
-    "iterativeDilution": "balanced",
-    "tripleInclusionExclusion": "balanced",
-    "multiTierPiecewiseRate": "balanced",
-    "reversePiecewiseRate": "balanced",
-    "variableReplacement": "balanced",
-    "electionMargin": "balanced",
-    "multiStageAttrition": "balanced",
-    "shiftedBaseChain": "balanced"
+    "PCT-CP-001": 0.1,
+    "PCT-CP-002": 0.1,
+    "PCT-CP-003": 0.1,
+    "PCT-CP-004": 0.1,
+    "PCT-CP-005": 0.1,
+    "PCT-CP-006": 0.1,
+    "PCT-CP-007": 0.1,
+    "PCT-CP-008": 0.1,
+    "PCT-CP-009": 0.1,
+    "PCT-CP-010": 0.1
   }
 }
