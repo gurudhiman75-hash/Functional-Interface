@@ -734,83 +734,83 @@
         "difficulty": "Easy"
       },
       "PCT-QL-181": {
-        "template": "The population of a town is {totalValue} people. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The population of a town is {totalValue} people. If {percentageRate}% of the people move away, find the number of people who move away.",
         "difficulty": "Easy"
       },
       "PCT-QL-182": {
-        "template": "The production of a factory is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The production of a factory is {totalValue} units. If {percentageRate}% of the units are dispatched, find the number of units dispatched.",
         "difficulty": "Easy"
       },
       "PCT-QL-183": {
-        "template": "The electricity consumption of a block is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The electricity consumption of a block is {totalValue} units. If {percentageRate}% of it is consumed, find the quantity consumed.",
         "difficulty": "Easy"
       },
       "PCT-QL-184": {
-        "template": "The stock of a warehouse is {totalValue} items. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The stock of a warehouse is {totalValue} items. If {percentageRate}% of the stock is issued, find the quantity issued.",
         "difficulty": "Easy"
       },
       "PCT-QL-185": {
-        "template": "The daily water supply of a village is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The daily water supply of a village is {totalValue} litres. If {percentageRate}% of it is used, find the quantity used.",
         "difficulty": "Easy"
       },
       "PCT-QL-186": {
-        "template": "The strength of a school is {totalValue} students. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The strength of a school is {totalValue} students. If {percentageRate}% of the students are absent, find the number of students absent.",
         "difficulty": "Easy"
       },
       "PCT-QL-187": {
-        "template": "The crop output of a farm is {totalValue} quintals. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The crop output of a farm is {totalValue} quintals. If {percentageRate}% of it is sold, find the quantity sold.",
         "difficulty": "Easy"
       },
       "PCT-QL-188": {
-        "template": "The milk supply of a booth is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The milk supply of a booth is {totalValue} litres. If {percentageRate}% of it is distributed, find the quantity distributed.",
         "difficulty": "Easy"
       },
       "PCT-QL-189": {
-        "template": "The passenger count on a route is {totalValue} passengers. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The passenger count on a route is {totalValue} passengers. If {percentageRate}% of the passengers complete the trip, find the number of passengers who complete the trip.",
         "difficulty": "Easy"
       },
       "PCT-QL-190": {
-        "template": "The grain stock of a depot is {totalValue} bags. If {percentageRate}% of it is used or consumed, find the quantity used.",
+        "template": "The grain stock of a depot is {totalValue} bags. If {percentageRate}% of the stock is issued, find the quantity issued.",
         "difficulty": "Easy"
       },
       "PCT-QL-191": {
-        "template": "The population of a town is {totalValue} people. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The population of a town is {totalValue} people. If {percentageRate}% of the people move away, find the population remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-192": {
-        "template": "The production of a factory is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The production of a factory is {totalValue} units. If {percentageRate}% of the units are dispatched, find the units remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-193": {
-        "template": "The electricity consumption of a block is {totalValue} units. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The electricity consumption of a block is {totalValue} units. If {percentageRate}% of it is consumed, find the quantity remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-194": {
-        "template": "The stock of a warehouse is {totalValue} items. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The stock of a warehouse is {totalValue} items. If {percentageRate}% of the stock is issued, find the stock remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-195": {
-        "template": "The daily water supply of a village is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The daily water supply of a village is {totalValue} litres. If {percentageRate}% of it is used, find the quantity remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-196": {
-        "template": "The strength of a school is {totalValue} students. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The strength of a school is {totalValue} students. If {percentageRate}% of the students are absent, find the number of students present.",
         "difficulty": "Easy"
       },
       "PCT-QL-197": {
-        "template": "The crop output of a farm is {totalValue} quintals. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The crop output of a farm is {totalValue} quintals. If {percentageRate}% of it is sold, find the quantity remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-198": {
-        "template": "The milk supply of a booth is {totalValue} litres. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The milk supply of a booth is {totalValue} litres. If {percentageRate}% of it is distributed, find the quantity remaining.",
         "difficulty": "Easy"
       },
       "PCT-QL-199": {
-        "template": "The passenger count on a route is {totalValue} passengers. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The passenger count on a route is {totalValue} passengers. If {percentageRate}% of the passengers complete the trip, find the number of passengers still on the route.",
         "difficulty": "Easy"
       },
       "PCT-QL-200": {
-        "template": "The grain stock of a depot is {totalValue} bags. If {percentageRate}% of it is used or consumed, find the quantity remaining.",
+        "template": "The grain stock of a depot is {totalValue} bags. If {percentageRate}% of the stock is issued, find the stock remaining.",
         "difficulty": "Easy"
       }
     }
@@ -838,15 +838,15 @@
         "difficulty": "Easy"
       },
       "PCT-QL-206": {
-        "template": "A paint mixture contains {componentRate}% paint. Find the quantity of paint in {totalValue} litres of the mixture.",
+        "template": "A paint mixture contains {componentRate}% pigment. Find the quantity of pigment in {totalValue} litres of the mixture.",
         "difficulty": "Easy"
       },
       "PCT-QL-207": {
-        "template": "A syrup mixture contains {componentRate}% syrup. Find the quantity of syrup in {totalValue} litres of the mixture.",
+        "template": "A sugar syrup contains {componentRate}% sugar. Find the quantity of sugar in {totalValue} litres of the syrup.",
         "difficulty": "Easy"
       },
       "PCT-QL-208": {
-        "template": "A fertilizer mix contains {componentRate}% fertilizer. Find the quantity of fertilizer in {totalValue} kg of the mixture.",
+        "template": "A fertilizer mix contains {componentRate}% nutrient material. Find the quantity of nutrient material in {totalValue} kg of the mixture.",
         "difficulty": "Easy"
       },
       "PCT-QL-209": {
@@ -878,15 +878,15 @@
         "difficulty": "Easy"
       },
       "PCT-QL-216": {
-        "template": "A paint mixture contains {componentRate}% paint. Find the quantity of thinner in {totalValue} litres of the mixture.",
+        "template": "A paint mixture contains {componentRate}% pigment. Find the quantity of thinner in {totalValue} litres of the mixture.",
         "difficulty": "Easy"
       },
       "PCT-QL-217": {
-        "template": "A syrup mixture contains {componentRate}% syrup. Find the quantity of water in {totalValue} litres of the mixture.",
+        "template": "A sugar syrup contains {componentRate}% sugar. Find the quantity of water in {totalValue} litres of the syrup.",
         "difficulty": "Easy"
       },
       "PCT-QL-218": {
-        "template": "A fertilizer mix contains {componentRate}% fertilizer. Find the quantity of base material in {totalValue} kg of the mixture.",
+        "template": "A fertilizer mix contains {componentRate}% nutrient material. Find the quantity of base material in {totalValue} kg of the mixture.",
         "difficulty": "Easy"
       },
       "PCT-QL-219": {
@@ -918,15 +918,15 @@
         "difficulty": "Medium"
       },
       "PCT-QL-226": {
-        "template": "A paint mixture contains {componentRate}% paint. If the paint present is {value1} litres, find the total quantity of the mixture.",
+        "template": "A paint mixture contains {componentRate}% pigment. If the pigment present is {value1} litres, find the total quantity of the mixture.",
         "difficulty": "Medium"
       },
       "PCT-QL-227": {
-        "template": "A syrup mixture contains {componentRate}% syrup. If the syrup present is {value1} litres, find the total quantity of the mixture.",
+        "template": "A sugar syrup contains {componentRate}% sugar. If the sugar present is {value1} litres, find the total quantity of the syrup.",
         "difficulty": "Medium"
       },
       "PCT-QL-228": {
-        "template": "A fertilizer mix contains {componentRate}% fertilizer. If the fertilizer present is {value1} kg, find the total quantity of the mixture.",
+        "template": "A fertilizer mix contains {componentRate}% nutrient material. If the nutrient material present is {value1} kg, find the total quantity of the mixture.",
         "difficulty": "Medium"
       },
       "PCT-QL-229": {
@@ -958,15 +958,15 @@
         "difficulty": "Medium"
       },
       "PCT-QL-236": {
-        "template": "In a paint mixture, {value1} litres is paint out of {totalValue} litres. Find the percentage of paint.",
+        "template": "In a paint mixture, {value1} litres is pigment out of {totalValue} litres. Find the percentage of pigment.",
         "difficulty": "Medium"
       },
       "PCT-QL-237": {
-        "template": "In a syrup mixture, {value1} litres is syrup out of {totalValue} litres. Find the percentage of syrup.",
+        "template": "In a sugar syrup, {value1} litres is sugar out of {totalValue} litres. Find the percentage of sugar.",
         "difficulty": "Medium"
       },
       "PCT-QL-238": {
-        "template": "In a fertilizer mix, {value1} kg is fertilizer out of {totalValue} kg. Find the percentage of fertilizer.",
+        "template": "In a fertilizer mix, {value1} kg is nutrient material out of {totalValue} kg. Find the percentage of nutrient material.",
         "difficulty": "Medium"
       },
       "PCT-QL-239": {
@@ -998,15 +998,15 @@
         "difficulty": "Medium"
       },
       "PCT-QL-246": {
-        "template": "A paint mixture contains {componentRate}% paint. If the thinner present is {value1} litres, find the total quantity of the mixture.",
+        "template": "A paint mixture contains {componentRate}% pigment. If the thinner present is {value1} litres, find the total quantity of the mixture.",
         "difficulty": "Medium"
       },
       "PCT-QL-247": {
-        "template": "A syrup mixture contains {componentRate}% syrup. If the water present is {value1} litres, find the total quantity of the mixture.",
+        "template": "A sugar syrup contains {componentRate}% sugar. If the water present is {value1} litres, find the total quantity of the syrup.",
         "difficulty": "Medium"
       },
       "PCT-QL-248": {
-        "template": "A fertilizer mix contains {componentRate}% fertilizer. If the base material present is {value1} kg, find the total quantity of the mixture.",
+        "template": "A fertilizer mix contains {componentRate}% nutrient material. If the base material present is {value1} kg, find the total quantity of the mixture.",
         "difficulty": "Medium"
       },
       "PCT-QL-249": {
@@ -1046,7 +1046,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-257": {
-        "template": "Wet grain contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the final dry weight.",
+        "template": "Wet grain contains {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the wet weight is {baseValue} kg, find the final dry weight.",
         "difficulty": "Hard"
       },
       "PCT-QL-258": {
@@ -1086,7 +1086,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-267": {
-        "template": "Wet grain contain {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the fresh weight is {baseValue} kg, find the water lost.",
+        "template": "Wet grain contains {waterRate}% water. After drying, water becomes {dryWaterRate}% of the final weight. If the wet weight is {baseValue} kg, find the water lost.",
         "difficulty": "Hard"
       },
       "PCT-QL-268": {
@@ -1206,7 +1206,7 @@
         "difficulty": "Hard"
       },
       "PCT-QL-297": {
-        "template": "After drying, wet grain weigh {value1} kg and contain {dryWaterRate}% water. If the fresh produce had {waterRate}% water, find the original weight.",
+        "template": "After drying, wet grain weighs {value1} kg and contains {dryWaterRate}% water. If the wet grain had {waterRate}% water initially, find the original weight.",
         "difficulty": "Hard"
       },
       "PCT-QL-298": {
@@ -1430,179 +1430,179 @@
   "PCT-CP-008": {
     "families": {
       "PCT-QL-351": {
-        "template": "A value is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A value is entered as {wrongValue} instead of {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-352": {
-        "template": "A bill amount is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A bill is issued for Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-353": {
-        "template": "A weight entry is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A weight is entered as {wrongValue} kg instead of {correctValue} kg. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-354": {
-        "template": "A population figure is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A population figure is entered as {wrongValue} instead of {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-355": {
-        "template": "A measurement is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A measurement is recorded as {wrongValue} instead of {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-356": {
-        "template": "A marks entry is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "Marks are entered as {wrongValue} instead of {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-357": {
-        "template": "A stock figure is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "Stock is recorded as {wrongValue} items instead of {correctValue} items. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-358": {
-        "template": "A salary entry is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A salary is entered as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-359": {
-        "template": "A fee amount is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A fee is entered as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-360": {
-        "template": "A production figure is wrongly taken as {wrongValue} instead of {correctValue}. Find the percentage error.",
+        "template": "A production figure is entered as {wrongValue} units instead of {correctValue} units. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-361": {
-        "template": "A value is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A value is entered as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-362": {
-        "template": "A bill amount is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A bill amount is recorded as Rs. {wrongValue}, which is {percentageRate}% more than the correct amount. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-363": {
-        "template": "A weight entry is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A weight is recorded as {wrongValue} kg, which is {percentageRate}% more than the correct weight. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-364": {
-        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct figure. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-365": {
-        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% more than the correct measurement. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-366": {
-        "template": "A marks entry is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "Marks are recorded as {wrongValue}, which is {percentageRate}% more than the correct marks. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-367": {
-        "template": "A stock figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "Stock is recorded as {wrongValue} items, which is {percentageRate}% more than the correct stock. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-368": {
-        "template": "A salary entry is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A salary is recorded as Rs. {wrongValue}, which is {percentageRate}% more than the correct salary. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-369": {
-        "template": "A fee amount is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A fee is recorded as Rs. {wrongValue}, which is {percentageRate}% more than the correct fee. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-370": {
-        "template": "A production figure is recorded as {wrongValue}, which is {percentageRate}% more than the correct value. Find the correct value.",
+        "template": "A production figure is recorded as {wrongValue} units, which is {percentageRate}% more than the correct figure. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-371": {
-        "template": "A value is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A value is entered as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-372": {
-        "template": "A bill amount is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A bill amount is recorded as Rs. {wrongValue}, which is {percentageRate}% less than the correct amount. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-373": {
-        "template": "A weight entry is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A weight is recorded as {wrongValue} kg, which is {percentageRate}% less than the correct weight. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-374": {
-        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct figure. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-375": {
-        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A measurement is recorded as {wrongValue}, which is {percentageRate}% less than the correct measurement. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-376": {
-        "template": "A marks entry is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "Marks are recorded as {wrongValue}, which is {percentageRate}% less than the correct marks. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-377": {
-        "template": "A stock figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "Stock is recorded as {wrongValue} items, which is {percentageRate}% less than the correct stock. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-378": {
-        "template": "A salary entry is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A salary is recorded as Rs. {wrongValue}, which is {percentageRate}% less than the correct salary. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-379": {
-        "template": "A fee amount is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A fee is recorded as Rs. {wrongValue}, which is {percentageRate}% less than the correct fee. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-380": {
-        "template": "A production figure is recorded as {wrongValue}, which is {percentageRate}% less than the correct value. Find the correct value.",
+        "template": "A production figure is recorded as {wrongValue} units, which is {percentageRate}% less than the correct figure. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-381": {
-        "template": "A bill based on a value is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A bill is prepared as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-382": {
-        "template": "A bill based on a bill amount is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "An invoice amount is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-383": {
-        "template": "A bill based on a weight entry is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A freight charge is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-384": {
-        "template": "A bill based on a population figure is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A utility bill is prepared as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-385": {
-        "template": "A bill based on a measurement is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A laboratory fee is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-386": {
-        "template": "A bill based on a marks entry is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "An examination fee is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-387": {
-        "template": "A bill based on a stock figure is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A stock valuation is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-388": {
-        "template": "A bill based on a salary entry is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A salary payment is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-389": {
-        "template": "A bill based on a fee amount is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A tuition fee is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-390": {
-        "template": "A bill based on a production figure is prepared as Rs. {wrongValue} instead of Rs. {correctValue}. Find the percentage error.",
+        "template": "A production cost is entered as Rs. {wrongValue} instead of the correct amount Rs. {correctValue}. Find the percentage error.",
         "difficulty": "Medium"
       },
       "PCT-QL-391": {
-        "template": "A value is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A value is recorded as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-392": {
-        "template": "A bill amount is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A bill amount is recorded as Rs. {wrongValue}, which is {percentageRate}% above the correct amount. Find the correct value.",
         "difficulty": "Medium"
       },
       "PCT-QL-393": {
-        "template": "A weight entry is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A weight is recorded as {wrongValue} kg, which is {percentageRate}% above the actual weight. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-394": {
-        "template": "A population figure is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A population figure is recorded as {wrongValue}, which is {percentageRate}% above the actual figure. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-395": {
@@ -1610,23 +1610,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-396": {
-        "template": "A marks entry is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "Marks are recorded as {wrongValue}, which is {percentageRate}% above the actual marks. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-397": {
-        "template": "A stock figure is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "Stock is recorded as {wrongValue} items, which is {percentageRate}% above the actual stock. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-398": {
-        "template": "A salary entry is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A salary is recorded as Rs. {wrongValue}, which is {percentageRate}% above the actual salary. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-399": {
-        "template": "A fee amount is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A fee is recorded as Rs. {wrongValue}, which is {percentageRate}% above the actual fee. Find the actual value.",
         "difficulty": "Medium"
       },
       "PCT-QL-400": {
-        "template": "A production figure is measured as {wrongValue}, which is {percentageRate}% above the actual value. Find the actual value.",
+        "template": "A production figure is recorded as {wrongValue} units, which is {percentageRate}% above the actual production. Find the actual value.",
         "difficulty": "Medium"
       }
     }
