@@ -20,6 +20,46 @@
       "PCT-QL-023": {
         "template": "The {wholeLabel} was {originalValue} quintals. It increased by {increaseRate}%. Find the new production.",
         "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} increases by {increaseRate}% in one year. Find its value after the increase.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "The monthly {wholeLabel} was {valuePrefix}{originalValue}. It increased by {increaseRate}%. Find the revised {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "A trader's {wholeLabel} is {valuePrefix}{originalValue}. If it rises by {increaseRate}%, find the new {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "The recorded {wholeLabel} was {valuePrefix}{originalValue}. After a {increaseRate}% increase, what is the updated {wholeLabel}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "A fund has a {wholeLabel} of {valuePrefix}{originalValue}. If it grows by {increaseRate}%, find the new {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "A town has {originalValue} {wholeLabel}. If the number increases by {increaseRate}%, find the new number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "The school had {originalValue} {wholeLabel}. After a rise of {increaseRate}%, find the total number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "A warehouse stored {originalValue} {wholeLabel}. If the stock increases by {increaseRate}%, find the new stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-059": {
+        "template": "A route carried {originalValue} {wholeLabel}. If this increases by {increaseRate}%, find the new passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "An office had {originalValue} {wholeLabel} last year. If the count increases by {increaseRate}%, what is the count this year?",
+        "difficulty": "Medium"
       }
     }
   },
@@ -43,6 +83,46 @@
       },
       "PCT-QL-026": {
         "template": "The {wholeLabel} was {originalValue} litres. It increased by {increaseRate}%. Find the extra litres produced.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} rises by {increaseRate}%. Find the increase in the {wholeLabel} only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "The {wholeLabel} was {valuePrefix}{originalValue}. If it goes up by {increaseRate}%, how much is the increase?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "An amount of {valuePrefix}{originalValue} is kept as {wholeLabel}. After a rise of {increaseRate}%, find the added amount only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-064": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} grows by {increaseRate}%. Find the extra amount generated.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "The original {wholeLabel} is {valuePrefix}{originalValue}. It increases by {increaseRate}%. Find the increase alone.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "A town has {originalValue} {wholeLabel}. If this increases by {increaseRate}%, how many extra {wholeLabel} are added?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "A school has {originalValue} {wholeLabel}. After an increase of {increaseRate}%, find the increase in number only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-068": {
+        "template": "A warehouse stores {originalValue} {wholeLabel}. If the stock rises by {increaseRate}%, find the additional {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "A route serves {originalValue} {wholeLabel}. If this rises by {increaseRate}%, find the extra {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "A plant produces {originalValue} {wholeLabel}. After a {increaseRate}% increase, find the increase in output only.",
         "difficulty": "Medium"
       }
     }
@@ -68,6 +148,46 @@
       "PCT-QL-029": {
         "template": "After a {increaseRate}% increase, the {wholeLabel} became {increasedValue}. Find the original number of users.",
         "difficulty": "Hard"
+      },
+      "PCT-QL-071": {
+        "template": "After a {increaseRate}% increase, a {wholeLabel} becomes {valuePrefix}{increasedValue}. Find the original {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-072": {
+        "template": "The {wholeLabel} is now {valuePrefix}{increasedValue} after rising by {increaseRate}%. What was the original {wholeLabel}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-073": {
+        "template": "A {wholeLabel} becomes {valuePrefix}{increasedValue} after an increase of {increaseRate}%. Find its value before the increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-074": {
+        "template": "Following a {increaseRate}% increase, the {wholeLabel} reached {valuePrefix}{increasedValue}. Find the initial {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-075": {
+        "template": "The revised {wholeLabel} is {valuePrefix}{increasedValue} after a {increaseRate}% rise. Find the original {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-076": {
+        "template": "After a {increaseRate}% increase, the number of {wholeLabel} became {increasedValue}. Find the original number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-077": {
+        "template": "A town now has {increasedValue} {wholeLabel} after a rise of {increaseRate}%. Find the earlier number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "The stock of {wholeLabel} became {increasedValue} after increasing by {increaseRate}%. Find the original stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "After a {increaseRate}% increase, a route served {increasedValue} {wholeLabel}. Find the original passenger count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-080": {
+        "template": "The final number of {wholeLabel} is {increasedValue} after a {increaseRate}% increase. What was the original number?",
+        "difficulty": "Hard"
       }
     }
   },
@@ -91,6 +211,46 @@
       },
       "PCT-QL-032": {
         "template": "If the {wholeLabel} increases by {increaseRate}%, find the multiplier representing the increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-081": {
+        "template": "If a {wholeLabel} rises by {increaseRate}%, find the multiplying factor.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-082": {
+        "template": "A {wholeLabel} is increased by {increaseRate}%. What multiplier should be used to get the new value?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-083": {
+        "template": "What is the multiplication factor for a {increaseRate}% increase in a {wholeLabel}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-084": {
+        "template": "For a {wholeLabel}, a rise of {increaseRate}% is equivalent to what multiplier?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-085": {
+        "template": "If the {wholeLabel} goes up by {increaseRate}%, find the factor of increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "A {wholeLabel} is revised upward by {increaseRate}%. Find the corresponding multiplier.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "Find the multiplier that represents a {increaseRate}% increase in the {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "By what multiplying factor does a {wholeLabel} change when it increases by {increaseRate}%?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-089": {
+        "template": "When the {wholeLabel} increases by {increaseRate}%, what is the new-value factor?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-090": {
+        "template": "Express a {increaseRate}% rise in the {wholeLabel} as a multiplier.",
         "difficulty": "Medium"
       }
     }
@@ -116,6 +276,46 @@
       "PCT-QL-035": {
         "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% in January and by {rate2}% in February. Find the number after February.",
         "difficulty": "Hard"
+      },
+      "PCT-QL-091": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} increases by {rate1}% in the first year and by {rate2}% in the second year. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-092": {
+        "template": "The {wholeLabel} is {valuePrefix}{originalValue}. It rises by {rate1}% and then by {rate2}%. Find the value after both increases.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-093": {
+        "template": "A {wholeLabel} worth {valuePrefix}{originalValue} goes up first by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "The initial {wholeLabel} is {valuePrefix}{originalValue}. After successive increases of {rate1}% and {rate2}%, find the final {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-095": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is increased successively by {rate1}% and {rate2}%. What is the resulting {wholeLabel}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-096": {
+        "template": "The town had {originalValue} {wholeLabel}. It grew by {rate1}% and then by {rate2}%. Find the final number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "A warehouse stocked {originalValue} {wholeLabel}. The stock increased by {rate1}% and then by {rate2}%. Find the new stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "A route carried {originalValue} {wholeLabel}. If this rises by {rate1}% and then by {rate2}%, find the final passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "A school had {originalValue} {wholeLabel}. After increases of {rate1}% and {rate2}% in two sessions, find the final number of {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-100": {
+        "template": "A factory produced {originalValue} {wholeLabel}. It increased output by {rate1}% and later by {rate2}%. Find the final output.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -139,6 +339,46 @@
       },
       "PCT-QL-038": {
         "template": "For a {wholeLabel}, two successive increases are {rate1}% and {rate2}%. Find the equivalent one-step percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-101": {
+        "template": "A {wholeLabel} increases by {rate1}% and then by {rate2}%. Find the net percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "Successive increases of {rate1}% and {rate2}% are applied to a {wholeLabel}. What is the overall percentage increase?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "The {wholeLabel} rises first by {rate1}% and then by {rate2}%. Find the equivalent single percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "If a {wholeLabel} is increased successively by {rate1}% and {rate2}%, find the overall increase percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "A {wholeLabel} goes up by {rate1}% and again by {rate2}%. By what percent has it increased in all?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "For a {wholeLabel}, the first increase is {rate1}% and the second is {rate2}%. Find the net increase percentage.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-107": {
+        "template": "Two successive rises of {rate1}% and {rate2}% are made in a {wholeLabel}. Find the final percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-108": {
+        "template": "The value of a {wholeLabel} is raised by {rate1}% and then by {rate2}%. What is the overall percent rise?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-109": {
+        "template": "A {wholeLabel} records percentage increases of {rate1}% and {rate2}% one after another. Find the combined percentage increase.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-110": {
+        "template": "If the {wholeLabel} increases by {rate1}% in one stage and {rate2}% in the next stage, find the net percentage increase.",
         "difficulty": "Hard"
       }
     }
@@ -164,6 +404,46 @@
       "PCT-QL-041": {
         "template": "The {labelA} was {originalA} and the {labelB} was {originalB}. They increased by {rateA}% and {rateB}% respectively. Find the difference between the new prices.",
         "difficulty": "Hard"
+      },
+      "PCT-QL-111": {
+        "template": "{labelA} is {valuePrefix}{originalA} and rises by {rateA}%, while {labelB} is {valuePrefix}{originalB} and rises by {rateB}%. Find the difference between their final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-112": {
+        "template": "The initial {labelA} is {valuePrefix}{originalA} and the initial {labelB} is {valuePrefix}{originalB}. After increases of {rateA}% and {rateB}% respectively, find the difference between the new values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-113": {
+        "template": "A {labelA} of {valuePrefix}{originalA} and a {labelB} of {valuePrefix}{originalB} are increased by {rateA}% and {rateB}% respectively. Find the difference between the resulting amounts.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-114": {
+        "template": "{labelA} starts at {valuePrefix}{originalA} and {labelB} starts at {valuePrefix}{originalB}. If they increase by {rateA}% and {rateB}%, find the gap between their final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-115": {
+        "template": "The {labelA} is {valuePrefix}{originalA}, while the {labelB} is {valuePrefix}{originalB}. After percentage rises of {rateA}% and {rateB}%, find the difference between the two updated values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-116": {
+        "template": "{labelA} is {originalA} and rises by {rateA}%, while {labelB} is {originalB} and rises by {rateB}%. Find the difference between their new totals.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-117": {
+        "template": "The initial {labelA} is {originalA} and the initial {labelB} is {originalB}. After increases of {rateA}% and {rateB}% respectively, find the difference between the final numbers.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-118": {
+        "template": "A {labelA} of {originalA} and a {labelB} of {originalB} are increased by {rateA}% and {rateB}% respectively. Find the difference between the resulting counts.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-119": {
+        "template": "{labelA} begins at {originalA} and {labelB} begins at {originalB}. If they rise by {rateA}% and {rateB}%, find the difference between the final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-120": {
+        "template": "The {labelA} was {originalA}, while the {labelB} was {originalB}. After percentage increases of {rateA}% and {rateB}%, find the difference between the updated figures.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -187,6 +467,46 @@
       },
       "PCT-QL-044": {
         "template": "Out of {totalValue} {wholeLabel}, {partRate}% are {partLabel}. If the numbers of {partLabel} and {otherLabel} increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the revised percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. If {partLabel} increase by {partIncreaseRate}% and {otherLabel} increase by {otherIncreaseRate}%, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-122": {
+        "template": "A group has {totalValue} {wholeLabel}. {partRate}% of them are {partLabel}, and the remaining are {otherLabel}. If the numbers of {partLabel} and {otherLabel} rise by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the revised percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-123": {
+        "template": "In a set of {totalValue} {wholeLabel}, {partRate}% are {partLabel}. The remaining are {otherLabel}. If {partLabel} increase by {partIncreaseRate}% and {otherLabel} by {otherIncreaseRate}%, what percent of the new total are {partLabel}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-124": {
+        "template": "A survey covers {totalValue} {wholeLabel}, of which {partRate}% are {partLabel}. If {partLabel} increase by {partIncreaseRate}% and {otherLabel} increase by {otherIncreaseRate}%, find the new share of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-125": {
+        "template": "Among {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. After increases of {partIncreaseRate}% for {partLabel} and {otherIncreaseRate}% for {otherLabel}, find the updated percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "A batch contains {totalValue} {wholeLabel}. {partRate}% are {partLabel}, while the remainder are {otherLabel}. If the counts of {partLabel} and {otherLabel} increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-127": {
+        "template": "Out of a total of {totalValue} {wholeLabel}, {partRate}% belong to {partLabel}. If {partLabel} grow by {partIncreaseRate}% and {otherLabel} grow by {otherIncreaseRate}%, what is the revised percentage of {partLabel}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-128": {
+        "template": "There are {totalValue} {wholeLabel} in all, with {partRate}% as {partLabel} and the rest as {otherLabel}. After percentage increases of {partIncreaseRate}% and {otherIncreaseRate}% in the two groups, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "A population of {totalValue} {wholeLabel} includes {partRate}% {partLabel} and the remaining {otherLabel}. If the two groups increase by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the fresh percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-130": {
+        "template": "In a total of {totalValue} {wholeLabel}, {partRate}% are {partLabel}. The rest are {otherLabel}. After the numbers of {partLabel} and {otherLabel} rise by {partIncreaseRate}% and {otherIncreaseRate}% respectively, find the percentage of {partLabel} in the new total.",
         "difficulty": "Hard"
       }
     }
@@ -212,6 +532,46 @@
       "PCT-QL-047": {
         "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. Find the percentage increase needed to reach the target.",
         "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "The current {wholeLabel} is {valuePrefix}{currentValue}. Find the percentage increase needed to make it {valuePrefix}{targetValue}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "A {wholeLabel} of {valuePrefix}{currentValue} has to become {valuePrefix}{targetValue}. What percentage increase is required?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "The {wholeLabel} stands at {valuePrefix}{currentValue} and must reach {valuePrefix}{targetValue}. Find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "To raise a {wholeLabel} from {valuePrefix}{currentValue} to {valuePrefix}{targetValue}, what percentage increase is needed?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "A {wholeLabel} is {valuePrefix}{currentValue} at present. By what percent should it increase to become {valuePrefix}{targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "The current number of {wholeLabel} is {currentValue}, and the target is {targetValue}. Find the percentage increase required.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "A town has {currentValue} {wholeLabel} at present and needs to reach {targetValue}. What percentage increase is needed?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-138": {
+        "template": "A warehouse currently has {currentValue} {wholeLabel}. To make it {targetValue}, find the required percentage increase.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "A route now carries {currentValue} {wholeLabel}. By what percent must this rise to become {targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "The present number of {wholeLabel} is {currentValue}. Find the percentage increase needed to raise it to {targetValue}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -235,6 +595,46 @@
       },
       "PCT-QL-050": {
         "template": "The {wholeLabel} is {currentValue} units and it increases by {growthRate}% every period. Find the output after {periodCount} periods.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "A {wholeLabel} is {currentValue} at present and grows by {growthRate}% per year. Find the {wholeLabel} after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "The current {wholeLabel} is {currentValue}. If it increases by {growthRate}% every year, what will it be after {periodCount} years?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "A town has {currentValue} {wholeLabel}. Assuming a yearly growth of {growthRate}%, find the number after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "A route serves {currentValue} {wholeLabel} now. If this grows by {growthRate}% each year, find the number after {periodCount} years.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "A factory produces {currentValue} {wholeLabel} and output grows by {growthRate}% per period. Find the output after {periodCount} periods.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "A {wholeLabel} is {valuePrefix}{currentValue} at present and grows by {growthRate}% per year. Find the {wholeLabel} after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "The current {wholeLabel} is {valuePrefix}{currentValue}. If it rises by {growthRate}% every year, what will it be after {periodCount} years?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "An investment has a {wholeLabel} of {valuePrefix}{currentValue}. If it grows by {growthRate}% annually, find its value after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "A business has {valuePrefix}{currentValue} as its {wholeLabel}. If this increases by {growthRate}% per year, find the value after {periodCount} years.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "A fund shows a {wholeLabel} of {valuePrefix}{currentValue}. Assuming growth of {growthRate}% each year, find the {wholeLabel} after {periodCount} years.",
         "difficulty": "Hard"
       }
     }

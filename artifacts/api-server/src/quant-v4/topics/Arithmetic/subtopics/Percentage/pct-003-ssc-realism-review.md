@@ -89,3 +89,13 @@
 ## Final Status
 
 `PCT-003 — Existing English QLs polished; placeholder contract clean by static review; runtime selection patched; ready for Stage 1 English expansion after local build/test rerun.`
+
+## Stage 1 Note
+
+- Stage 1 English expansion has now been completed for `PCT-QL-051` to `PCT-QL-150`.
+- English QL count is now `150`, with `15` English QLs per CP.
+- Shared/common cross-language behavior remains unchanged at `2` QLs per CP.
+- Local PowerShell verification ran successfully:
+  - `PCT-003 first-pass implementation test passed.`
+- Updated status:
+  - `PCT-003 - Stage 1 English expansion complete; English generation covers all 150; ready for manual review or Stage 2 decision.`

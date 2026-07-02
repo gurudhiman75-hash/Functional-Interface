@@ -1,6 +1,6 @@
 import { renderPct004Explanation } from "./explanation-renderer";
-import { getQuestionEntry, renderTemplate } from "./library";
-import { generatePct004Parameters, type Pct004ParameterInput } from "./parameter-generator";
+import { getCommonQuestionLanguageIds, getQuestionEntry, renderTemplate } from "./library";
+import { generatePct004Parameters, selectQuestionLanguageId, type Pct004ParameterInput } from "./parameter-generator";
 import { buildPct004ReasoningGraph } from "./reasoning-graph";
 import { solvePct004 } from "./solver";
 import { PCT_004_ARCHETYPE_ID, type Pct004CanonicalProblemId, type Pct004Language, type Pct004QuestionPackage } from "./types";
@@ -43,7 +43,17 @@ export function runPct004Pipeline(cpId: Pct004CanonicalProblemId, input: Pct004P
 }
 
 export function runPct004ForLanguages(cpId: Pct004CanonicalProblemId, input: Pct004ParameterInput = {}) {
-  const base = generatePct004Parameters(cpId, { ...input, language: "hi", questionLanguageId: undefined });
+  const sharedQlIds = getCommonQuestionLanguageIds(cpId);
+  const requestedQlId = input.questionLanguageId;
+  const sharedQuestionLanguageId =
+    requestedQlId && sharedQlIds.includes(requestedQlId)
+      ? requestedQlId
+      : selectQuestionLanguageId(cpId, "hi", input.seed ?? `PCT-004:${cpId}:shared`, input.difficultyBand);
+  const base = generatePct004Parameters(cpId, {
+    ...input,
+    language: "hi",
+    questionLanguageId: sharedQuestionLanguageId,
+  });
   return (["en", "hi", "pa"] as Pct004Language[]).map((language) =>
     runPct004Pipeline(cpId, {
       ...input,

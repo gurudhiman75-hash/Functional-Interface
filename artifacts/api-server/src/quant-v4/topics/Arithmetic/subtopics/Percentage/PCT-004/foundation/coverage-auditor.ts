@@ -1,5 +1,5 @@
-import { getCommonQuestionLanguageIds, validatePct004Libraries } from "./library";
-import { getPct004ActiveCanonicalProblemIds } from "./parameter-generator";
+import { validatePct004Libraries } from "./library";
+import { getPct004ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds } from "./parameter-generator";
 import { runPct004ForLanguages, runPct004Pipeline } from "./pipeline";
 import type { Pct004CoverageAudit, Pct004Language, Pct004QuestionPackage } from "./types";
 
@@ -14,7 +14,7 @@ export function generatePct004Batch(count: number, language: Pct004Language = "e
   const cpIds = getPct004ActiveCanonicalProblemIds();
   return Array.from({ length: count }, (_value, index) => {
     const cpId = cpIds[index % cpIds.length]!;
-    const qlIds = getCommonQuestionLanguageIds(cpId);
+    const qlIds = getSelectableQuestionLanguageIds(cpId, language);
     const qlIndex = Math.floor(index / cpIds.length) % qlIds.length;
     return runPct004Pipeline(cpId, {
       language,
@@ -25,6 +25,7 @@ export function generatePct004Batch(count: number, language: Pct004Language = "e
 }
 
 export function auditPct004Packages(packages: readonly Pct004QuestionPackage[]): Pct004CoverageAudit {
+  const auditLanguage = packages[0]?.language ?? "en";
   const duplicateMap = new Map<string, number>();
   for (const pkg of packages) duplicateMap.set(pkg.stem, (duplicateMap.get(pkg.stem) ?? 0) + 1);
   const duplicateCount = [...duplicateMap.values()].reduce((sum, count) => sum + Math.max(0, count - 1), 0);
@@ -33,7 +34,7 @@ export function auditPct004Packages(packages: readonly Pct004QuestionPackage[]):
   const esCoverage = countBy(packages.map((pkg) => pkg.explanationId));
   const difficultyCoverage = countBy(packages.map((pkg) => pkg.difficultyBand));
   const unusedQlIds = getPct004ActiveCanonicalProblemIds()
-    .flatMap((cpId) => getCommonQuestionLanguageIds(cpId))
+    .flatMap((cpId) => getSelectableQuestionLanguageIds(cpId, auditLanguage))
     .filter((id) => !qlCoverage[id]);
 
   let crossLanguageConsistencyFailures = 0;
@@ -118,6 +119,7 @@ export function renderPct004CoverageAuditMarkdown(audit: Pct004CoverageAudit, co
 }
 
 export function renderPct004MaturityAuditMarkdown(audit: Pct004CoverageAudit, countLabel: string) {
+  const totalSelectableQlCount = Object.keys(audit.qlCoverage).length + audit.unusedQlIds.length;
   return [
     "# PCT-004 Maturity Audit",
     "",
@@ -127,7 +129,7 @@ export function renderPct004MaturityAuditMarkdown(audit: Pct004CoverageAudit, co
     `- Render failures: ${audit.renderFailures}`,
     `- Duplicate rate: ${(audit.duplicateRate * 100).toFixed(2)}%`,
     `- CP coverage count: ${Object.keys(audit.cpCoverage).length}/10`,
-    `- QL coverage count: ${Object.keys(audit.qlCoverage).length}/20`,
+    `- QL coverage count: ${Object.keys(audit.qlCoverage).length}/${totalSelectableQlCount}`,
     `- ES coverage count: ${Object.keys(audit.esCoverage).length}/10`,
     `- Difficulty coverage: ${Object.keys(audit.difficultyCoverage).join(", ")}`,
     `- Cross-language consistency failures: ${audit.crossLanguageConsistencyFailures}`,

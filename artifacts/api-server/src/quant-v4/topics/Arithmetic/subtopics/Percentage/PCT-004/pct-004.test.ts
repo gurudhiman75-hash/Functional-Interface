@@ -5,6 +5,7 @@ import {
   getAnswerType,
   getCommonQuestionLanguageIds,
   getQuestionEntry,
+  getQuestionLanguageIds,
   getRequiredVariables,
   getTaskKind,
   runPct004ForLanguages,
@@ -86,7 +87,7 @@ assert.equal(audit.validationFailures, 0);
 assert.equal(audit.renderFailures, 0);
 assert.equal(audit.solverFailures, 0);
 assert.equal(Object.keys(audit.cpCoverage).length, 10);
-assert.equal(Object.keys(audit.qlCoverage).length, 50);
+assert.equal(Object.keys(audit.qlCoverage).length, 150);
 assert.equal(Object.keys(audit.esCoverage).length, 10);
 assert.equal(audit.unusedQlIds.length, 0);
 assert.equal(audit.unusedEsIds.length, 0);
@@ -94,6 +95,7 @@ assert.equal(audit.crossLanguageConsistencyFailures, 0);
 assert.equal(audit.libraryValidationFailures.length, 0);
 
 for (const cpId of PCT_004_CP_IDS) {
+  assert.equal(getQuestionLanguageIds(cpId, "en").length, 15, `${cpId} must expose fifteen English QL IDs`);
   assert.equal(getCommonQuestionLanguageIds(cpId).length, 2, `${cpId} must expose two shared QL IDs`);
 }
 

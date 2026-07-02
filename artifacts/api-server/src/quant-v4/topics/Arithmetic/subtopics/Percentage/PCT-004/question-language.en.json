@@ -2,23 +2,63 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "A record shows {valuePrefix}{originalValue} as the starting {wholeLabel}. It decreased by {decreaseRate}%. Find the new {wholeLabel}.",
+        "template": "A {wholeLabel} is {valuePrefix}{originalValue}. If it decreases by {decreaseRate}%, find the new {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "A register shows {originalValue} as the starting {wholeLabel}. It decreased by {decreaseRate}%. Find the new {wholeLabel}.",
+        "template": "A {wholeLabel} is {originalValue}. If it decreases by {decreaseRate}%, find the new {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
-        "template": "Stock was {originalValue} units before clearance. It decreased by {decreaseRate}%. Find the remaining stock.",
+        "template": "The {wholeLabel} was {originalValue} units before clearance. It decreased by {decreaseRate}%. Find the remaining {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-022": {
-        "template": "Rainfall was {originalValue} mm last season. It decreased by {decreaseRate}% this season. Find this season's rainfall.",
+        "template": "The {wholeLabel} was {originalValue} mm last season. It decreased by {decreaseRate}% this season. Find this season's {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-023": {
-        "template": "A machine was worth {originalValue}. After a depreciation of {decreaseRate}%, find its present value.",
+        "template": "The {wholeLabel} was {originalValue}. After a decrease of {decreaseRate}%, find its present value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is reduced by {decreaseRate}%. Find the new {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "The monthly {wholeLabel} was {valuePrefix}{originalValue}. It decreased by {decreaseRate}%. Find the revised {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "A trader's {wholeLabel} is {valuePrefix}{originalValue}. If it falls by {decreaseRate}%, find the new {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "The recorded {wholeLabel} was {valuePrefix}{originalValue}. After a {decreaseRate}% decrease, what is the updated {wholeLabel}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "An asset has a {wholeLabel} of {valuePrefix}{originalValue}. If it depreciates by {decreaseRate}%, find the new {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "A town has {originalValue} {wholeLabel}. If the number decreases by {decreaseRate}%, find the new number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "The school had {originalValue} {wholeLabel}. After a fall of {decreaseRate}%, find the remaining number of {wholeLabel}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "A warehouse stored {originalValue} {wholeLabel}. If the stock decreases by {decreaseRate}%, find the remaining stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-059": {
+        "template": "A route carried {originalValue} {wholeLabel}. If this decreases by {decreaseRate}%, find the new passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "A hospital had {originalValue} {wholeLabel} last month. If the count decreases by {decreaseRate}%, what is the count this month?",
         "difficulty": "Medium"
       }
     }
@@ -26,7 +66,7 @@
   "PCT-CP-002": {
     "families": {
       "PCT-QL-003": {
-        "template": "A {wholeLabel} of {valuePrefix}{originalValue} was reduced by {decreaseRate}%. Find the decrease amount only.",
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} decreases by {decreaseRate}%. Find the decrease amount only.",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
@@ -34,15 +74,55 @@
         "difficulty": "Easy"
       },
       "PCT-QL-024": {
-        "template": "A shop offers a discount of {decreaseRate}% on a marked price of {originalValue}. Find the discount amount only.",
+        "template": "A shop offers a discount of {decreaseRate}% on the {wholeLabel} of {originalValue}. Find the discount amount only.",
         "difficulty": "Easy"
       },
       "PCT-QL-025": {
-        "template": "Attendance was {originalValue}. It fell by {decreaseRate}%. Find the decrease in attendance.",
+        "template": "The {wholeLabel} was {originalValue}. It fell by {decreaseRate}%. Find the decrease in the {wholeLabel}.",
         "difficulty": "Easy"
       },
       "PCT-QL-026": {
-        "template": "Crop yield was {originalValue} quintals. It decreased by {decreaseRate}%. Find the loss in yield.",
+        "template": "The {wholeLabel} was {originalValue} quintals. It decreased by {decreaseRate}%. Find the loss in the {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} falls by {decreaseRate}%. Find the decrease amount only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "The {wholeLabel} was {valuePrefix}{originalValue}. If it goes down by {decreaseRate}%, how much is the decrease?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "An amount of {valuePrefix}{originalValue} is recorded as the {wholeLabel}. After a fall of {decreaseRate}%, find the reduction only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-064": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is reduced by {decreaseRate}%. Find the amount reduced.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "The original {wholeLabel} is {valuePrefix}{originalValue}. It decreases by {decreaseRate}%. Find the decrease alone.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "A town has {originalValue} {wholeLabel}. If this decreases by {decreaseRate}%, how many {wholeLabel} are reduced?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "A school has {originalValue} {wholeLabel}. After a decrease of {decreaseRate}%, find the decrease in number only.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-068": {
+        "template": "A warehouse stores {originalValue} {wholeLabel}. If the stock falls by {decreaseRate}%, find the reduction in stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "A route serves {originalValue} {wholeLabel}. If this decreases by {decreaseRate}%, find the reduction in the {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "A plant produces {originalValue} {wholeLabel}. After a {decreaseRate}% decrease, find the fall in output only.",
         "difficulty": "Medium"
       }
     }
@@ -54,19 +134,59 @@
         "difficulty": "Medium"
       },
       "PCT-QL-006": {
-        "template": "A revised-value notice shows the {wholeLabel} as {decreasedValue} after a {decreaseRate}% cut. Find the starting {wholeLabel}.",
+        "template": "After a {decreaseRate}% decrease, the {wholeLabel} became {decreasedValue}. Find the original {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-027": {
-        "template": "After a {decreaseRate}% discount, the selling price became {decreasedValue}. Find the marked price.",
+        "template": "After a {decreaseRate}% discount, the {wholeLabel} became {decreasedValue}. Find the marked price.",
         "difficulty": "Medium"
       },
       "PCT-QL-028": {
-        "template": "After a {decreaseRate}% decrease, the stock became {decreasedValue} units. Find the original stock.",
+        "template": "After a {decreaseRate}% decrease, the {wholeLabel} became {decreasedValue} units. Find the original {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-029": {
-        "template": "After a {decreaseRate}% depreciation, the machine's value became {decreasedValue}. Find the original value.",
+        "template": "After a {decreaseRate}% decrease, the {wholeLabel} became {decreasedValue}. Find the original value.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-071": {
+        "template": "After a {decreaseRate}% decrease, a {wholeLabel} becomes {valuePrefix}{decreasedValue}. Find the original {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-072": {
+        "template": "The {wholeLabel} is now {valuePrefix}{decreasedValue} after falling by {decreaseRate}%. What was the original {wholeLabel}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-073": {
+        "template": "A {wholeLabel} becomes {valuePrefix}{decreasedValue} after a decrease of {decreaseRate}%. Find its value before the decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-074": {
+        "template": "Following a {decreaseRate}% decrease, the {wholeLabel} came down to {valuePrefix}{decreasedValue}. Find the initial {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-075": {
+        "template": "The reduced {wholeLabel} is {valuePrefix}{decreasedValue} after a {decreaseRate}% cut. Find the original {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-076": {
+        "template": "After a {decreaseRate}% decrease, the number of {wholeLabel} became {decreasedValue}. Find the original number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-077": {
+        "template": "A town now has {decreasedValue} {wholeLabel} after a fall of {decreaseRate}%. Find the earlier number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "The stock of {wholeLabel} became {decreasedValue} after decreasing by {decreaseRate}%. Find the original stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "After a {decreaseRate}% decrease, a route served {decreasedValue} {wholeLabel}. Find the original passenger count.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-080": {
+        "template": "The final number of {wholeLabel} is {decreasedValue} after a {decreaseRate}% decrease. What was the original number?",
         "difficulty": "Hard"
       }
     }
@@ -74,23 +194,63 @@
   "PCT-CP-004": {
     "families": {
       "PCT-QL-007": {
-        "template": "For a {decreaseRate}% cut in the {wholeLabel}, which multiplier represents the remaining value?",
+        "template": "If a {wholeLabel} decreases by {decreaseRate}%, what multiplier represents the remaining value?",
         "difficulty": "Easy"
       },
       "PCT-QL-008": {
-        "template": "A fee table applies a {decreaseRate}% cut to the {wholeLabel}. What multiplier should be used for the revised value?",
+        "template": "A {wholeLabel} decreases by {decreaseRate}%. Find the multiplier for the revised value.",
         "difficulty": "Easy"
       },
       "PCT-QL-030": {
-        "template": "A budget note shows a {decreaseRate}% cut. What single multiplier gives the amount left?",
+        "template": "If the {wholeLabel} is reduced by {decreaseRate}%, find the single multiplier for the remaining amount.",
         "difficulty": "Easy"
       },
       "PCT-QL-031": {
-        "template": "A marked price is cut by {decreaseRate}%. Find the single multiplier for the revised price.",
+        "template": "If the {wholeLabel} is cut by {decreaseRate}%, find the single multiplier for the revised value.",
         "difficulty": "Easy"
       },
       "PCT-QL-032": {
-        "template": "An inventory register shows a {decreaseRate}% stock cut. Find the multiplier for the remaining stock.",
+        "template": "If the {wholeLabel} decreases by {decreaseRate}%, find the multiplier for the remaining {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-081": {
+        "template": "If a {wholeLabel} falls by {decreaseRate}%, find the multiplying factor for the value left.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-082": {
+        "template": "A {wholeLabel} is reduced by {decreaseRate}%. What multiplier should be used to get the new value?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-083": {
+        "template": "What is the multiplication factor for a {decreaseRate}% decrease in a {wholeLabel}?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-084": {
+        "template": "For a {wholeLabel}, a decrease of {decreaseRate}% is equivalent to what multiplier?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-085": {
+        "template": "If the {wholeLabel} goes down by {decreaseRate}%, find the factor for the remaining value.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "A {wholeLabel} is revised downward by {decreaseRate}%. Find the corresponding multiplier.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "Find the multiplier that represents a {decreaseRate}% decrease in the {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "By what multiplying factor does a {wholeLabel} change when it decreases by {decreaseRate}%?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-089": {
+        "template": "When the {wholeLabel} decreases by {decreaseRate}%, what is the new-value factor?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-090": {
+        "template": "Express a {decreaseRate}% cut in the {wholeLabel} as a multiplier.",
         "difficulty": "Medium"
       }
     }
@@ -106,15 +266,55 @@
         "difficulty": "Medium"
       },
       "PCT-QL-033": {
-        "template": "A company had {originalValue} employees. The number decreased by {rate1}% and then by {rate2}%. Find the final number of employees.",
+        "template": "A company had {originalValue} {wholeLabel}. The number decreased by {rate1}% and then by {rate2}%. Find the final number of {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-034": {
-        "template": "Stock was {originalValue} units. It fell by {rate1}% and then by {rate2}%. Find the remaining stock.",
+        "template": "The {wholeLabel} was {originalValue} units. It fell by {rate1}% and then by {rate2}%. Find the remaining {wholeLabel}.",
         "difficulty": "Medium"
       },
       "PCT-QL-035": {
-        "template": "The number of users was {originalValue}. It fell by {rate1}% in January and by {rate2}% in February. Find the number after February.",
+        "template": "The {wholeLabel} was {originalValue}. It fell by {rate1}% in January and by {rate2}% in February. Find the {wholeLabel} after February.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-091": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} decreases by {rate1}% in the first year and by {rate2}% in the second year. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-092": {
+        "template": "The {wholeLabel} is {valuePrefix}{originalValue}. It falls by {rate1}% and then by {rate2}%. Find the value after both decreases.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-093": {
+        "template": "A {wholeLabel} worth {valuePrefix}{originalValue} goes down first by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "The initial {wholeLabel} is {valuePrefix}{originalValue}. After successive decreases of {rate1}% and {rate2}%, find the final {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-095": {
+        "template": "A {wholeLabel} of {valuePrefix}{originalValue} is reduced successively by {rate1}% and {rate2}%. What is the resulting {wholeLabel}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-096": {
+        "template": "The town had {originalValue} {wholeLabel}. It decreased by {rate1}% and then by {rate2}%. Find the final number of {wholeLabel}.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "A warehouse stocked {originalValue} {wholeLabel}. The stock fell by {rate1}% and then by {rate2}%. Find the remaining stock.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "A route carried {originalValue} {wholeLabel}. If this decreases by {rate1}% and then by {rate2}%, find the final passenger count.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "A school had {originalValue} {wholeLabel}. After decreases of {rate1}% and {rate2}% in two terms, find the final number of {wholeLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-100": {
+        "template": "A factory produced {originalValue} {wholeLabel}. Output fell by {rate1}% and later by {rate2}%. Find the final output.",
         "difficulty": "Hard"
       }
     }
@@ -130,15 +330,55 @@
         "difficulty": "Medium"
       },
       "PCT-QL-036": {
-        "template": "Sales fell by {rate1}% and then by {rate2}%. Find the net percentage decrease.",
+        "template": "The {wholeLabel} fell by {rate1}% and then by {rate2}%. Find the net percentage decrease.",
         "difficulty": "Medium"
       },
       "PCT-QL-037": {
-        "template": "The number of users decreased by {rate1}% and then by {rate2}%. Find the actual overall percentage decrease.",
+        "template": "The {wholeLabel} decreased by {rate1}% and then by {rate2}%. Find the actual overall percentage decrease.",
         "difficulty": "Hard"
       },
       "PCT-QL-038": {
-        "template": "Two successive decreases are {rate1}% and {rate2}%. Find the equivalent one-step percentage decrease.",
+        "template": "For a {wholeLabel}, two successive decreases are {rate1}% and {rate2}%. Find the equivalent one-step percentage decrease.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-101": {
+        "template": "A {wholeLabel} decreases by {rate1}% and then by {rate2}%. Find the net percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "Successive decreases of {rate1}% and {rate2}% are applied to a {wholeLabel}. What is the overall percentage decrease?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "The {wholeLabel} falls first by {rate1}% and then by {rate2}%. Find the equivalent single percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "If a {wholeLabel} is decreased successively by {rate1}% and {rate2}%, find the overall decrease percent.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "A {wholeLabel} goes down by {rate1}% and again by {rate2}%. By what percent has it decreased in all?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "For a {wholeLabel}, the first decrease is {rate1}% and the second is {rate2}%. Find the net decrease percentage.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-107": {
+        "template": "Two successive falls of {rate1}% and {rate2}% are recorded in a {wholeLabel}. Find the final percentage decrease.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-108": {
+        "template": "The value of a {wholeLabel} is reduced by {rate1}% and then by {rate2}%. What is the overall percent fall?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-109": {
+        "template": "A {wholeLabel} records percentage decreases of {rate1}% and {rate2}% one after another. Find the combined percentage decrease.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-110": {
+        "template": "If the {wholeLabel} decreases by {rate1}% in one stage and {rate2}% in the next stage, find the net percentage decrease.",
         "difficulty": "Hard"
       }
     }
@@ -154,15 +394,55 @@
         "difficulty": "Hard"
       },
       "PCT-QL-039": {
-        "template": "Branch A had stock of {originalA} and Branch B had stock of {originalB}. Their stocks decreased by {rateA}% and {rateB}% respectively. Find the difference between the remaining stocks.",
+        "template": "The {labelA} was {originalA} and the {labelB} was {originalB}. They decreased by {rateA}% and {rateB}% respectively. Find the difference between the remaining values.",
         "difficulty": "Hard"
       },
       "PCT-QL-040": {
-        "template": "Two machines were valued at {originalA} and {originalB}. Their values decreased by {rateA}% and {rateB}% respectively. Find the difference between the new values.",
+        "template": "The {labelA} was {originalA} and the {labelB} was {originalB}. They decreased by {rateA}% and {rateB}% respectively. Find the difference between the new values.",
         "difficulty": "Hard"
       },
       "PCT-QL-041": {
-        "template": "The attendance in two schools was {originalA} and {originalB}. It fell by {rateA}% and {rateB}% respectively. Find the difference between the final attendance figures.",
+        "template": "The {labelA} was {originalA} and the {labelB} was {originalB}. They decreased by {rateA}% and {rateB}% respectively. Find the difference between the final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-111": {
+        "template": "{labelA} was {valuePrefix}{originalA} and fell by {rateA}%, while {labelB} was {valuePrefix}{originalB} and fell by {rateB}%. Find the difference between their final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-112": {
+        "template": "The initial {labelA} was {valuePrefix}{originalA} and the initial {labelB} was {valuePrefix}{originalB}. After decreases of {rateA}% and {rateB}% respectively, find the difference between the new values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-113": {
+        "template": "A {labelA} of {valuePrefix}{originalA} and a {labelB} of {valuePrefix}{originalB} are reduced by {rateA}% and {rateB}% respectively. Find the difference between the resulting amounts.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-114": {
+        "template": "{labelA} starts at {valuePrefix}{originalA} and {labelB} starts at {valuePrefix}{originalB}. If they decrease by {rateA}% and {rateB}%, find the gap between their final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-115": {
+        "template": "The {labelA} is {valuePrefix}{originalA}, while the {labelB} is {valuePrefix}{originalB}. After percentage decreases of {rateA}% and {rateB}%, find the difference between the two updated values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-116": {
+        "template": "{labelA} was {originalA} and fell by {rateA}%, while {labelB} was {originalB} and fell by {rateB}%. Find the difference between their new totals.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-117": {
+        "template": "The initial {labelA} was {originalA} and the initial {labelB} was {originalB}. After decreases of {rateA}% and {rateB}% respectively, find the difference between the final numbers.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-118": {
+        "template": "A {labelA} of {originalA} and a {labelB} of {originalB} are reduced by {rateA}% and {rateB}% respectively. Find the difference between the resulting counts.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-119": {
+        "template": "{labelA} begins at {originalA} and {labelB} begins at {originalB}. If they fall by {rateA}% and {rateB}%, find the difference between the final values.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-120": {
+        "template": "The {labelA} was {originalA}, while the {labelB} was {originalB}. After percentage decreases of {rateA}% and {rateB}%, find the difference between the updated figures.",
         "difficulty": "Hard"
       }
     }
@@ -178,15 +458,55 @@
         "difficulty": "Hard"
       },
       "PCT-QL-042": {
-        "template": "A company has {totalValue} {wholeLabel}. {partRate}% are {partLabel}. The two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}%. Find the new share of {partLabel}.",
+        "template": "A company has {totalValue} {wholeLabel}. {partRate}% are {partLabel}, and the rest are {otherLabel}. The two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}%. Find the new share of {partLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-043": {
-        "template": "Out of {totalValue} passengers, {partRate}% were {partLabel}. After the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}%, find the new percentage of {partLabel}.",
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel}, and the rest were {otherLabel}. After the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}%, find the new percentage of {partLabel}.",
         "difficulty": "Hard"
       },
       "PCT-QL-044": {
-        "template": "An inventory of {totalValue} {wholeLabel} is divided into {partLabel} and {otherLabel}. If the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}%, find the revised percentage of {partLabel}.",
+        "template": "An inventory of {totalValue} {wholeLabel} is divided into {partRate}% {partLabel} and the rest {otherLabel}. If the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}%, find the revised percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel} and the rest were {otherLabel}. If {partLabel} decrease by {partDecreaseRate}% and {otherLabel} decrease by {otherDecreaseRate}%, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-122": {
+        "template": "A group has {totalValue} {wholeLabel}. {partRate}% of them are {partLabel}, and the remaining are {otherLabel}. If the numbers of {partLabel} and {otherLabel} fall by {partDecreaseRate}% and {otherDecreaseRate}% respectively, find the revised percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-123": {
+        "template": "In a set of {totalValue} {wholeLabel}, {partRate}% are {partLabel}. The remaining are {otherLabel}. If {partLabel} decrease by {partDecreaseRate}% and {otherLabel} by {otherDecreaseRate}%, what percent of the new total are {partLabel}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-124": {
+        "template": "A survey covers {totalValue} {wholeLabel}, of which {partRate}% are {partLabel}. If {partLabel} decrease by {partDecreaseRate}% and {otherLabel} decrease by {otherDecreaseRate}%, find the new share of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-125": {
+        "template": "Among {totalValue} {wholeLabel}, {partRate}% are {partLabel} and the rest are {otherLabel}. After decreases of {partDecreaseRate}% for {partLabel} and {otherDecreaseRate}% for {otherLabel}, find the updated percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "A batch contains {totalValue} {wholeLabel}. {partRate}% are {partLabel}, while the remainder are {otherLabel}. If the counts of {partLabel} and {otherLabel} decrease by {partDecreaseRate}% and {otherDecreaseRate}% respectively, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-127": {
+        "template": "Out of a total of {totalValue} {wholeLabel}, {partRate}% belong to {partLabel}. If {partLabel} fall by {partDecreaseRate}% and {otherLabel} fall by {otherDecreaseRate}%, what is the revised percentage of {partLabel}?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-128": {
+        "template": "There are {totalValue} {wholeLabel} in all, with {partRate}% as {partLabel} and the rest as {otherLabel}. After percentage decreases of {partDecreaseRate}% and {otherDecreaseRate}% in the two groups, find the new percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "A population of {totalValue} {wholeLabel} includes {partRate}% {partLabel} and the remaining {otherLabel}. If the two groups decrease by {partDecreaseRate}% and {otherDecreaseRate}% respectively, find the fresh percentage of {partLabel}.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-130": {
+        "template": "In a total of {totalValue} {wholeLabel}, {partRate}% are {partLabel}. The rest are {otherLabel}. After the numbers of {partLabel} and {otherLabel} fall by {partDecreaseRate}% and {otherDecreaseRate}% respectively, find the percentage of {partLabel} in the new total.",
         "difficulty": "Hard"
       }
     }
@@ -194,7 +514,7 @@
   "PCT-CP-009": {
     "families": {
       "PCT-QL-017": {
-        "template": "The current {wholeLabel} is {valuePrefix}{currentValue} and it has to become {valuePrefix}{targetValue}. Find the required percentage decrease.",
+        "template": "The current {wholeLabel} is {valuePrefix}{currentValue}. Find the required percentage decrease to make it {valuePrefix}{targetValue}.",
         "difficulty": "Easy"
       },
       "PCT-QL-018": {
@@ -202,15 +522,55 @@
         "difficulty": "Easy"
       },
       "PCT-QL-045": {
-        "template": "Current expenses are {currentValue} and the target is {targetValue}. What percentage decrease is required?",
+        "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. What percentage decrease is required?",
         "difficulty": "Easy"
       },
       "PCT-QL-046": {
-        "template": "Current stock is {currentValue} units and it has to be reduced to {targetValue} units. Find the required percentage decrease.",
+        "template": "The current {wholeLabel} is {currentValue} units and it has to be reduced to {targetValue} units. Find the required percentage decrease.",
         "difficulty": "Medium"
       },
       "PCT-QL-047": {
-        "template": "Current electricity use is {currentValue} units and the target is {targetValue} units. Find the percentage decrease needed.",
+        "template": "The current {wholeLabel} is {currentValue} units and the target is {targetValue} units. Find the percentage decrease needed.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "The current {wholeLabel} is {valuePrefix}{currentValue}. Find the percentage decrease needed to make it {valuePrefix}{targetValue}.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "A {wholeLabel} of {valuePrefix}{currentValue} has to become {valuePrefix}{targetValue}. What percentage decrease is required?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "The {wholeLabel} stands at {valuePrefix}{currentValue} and must be reduced to {valuePrefix}{targetValue}. Find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "To reduce a {wholeLabel} from {valuePrefix}{currentValue} to {valuePrefix}{targetValue}, what percentage decrease is needed?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "A {wholeLabel} is {valuePrefix}{currentValue} at present. By what percent should it decrease to become {valuePrefix}{targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "The current number of {wholeLabel} is {currentValue}, and the target is {targetValue}. Find the percentage decrease required.",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "A town has {currentValue} {wholeLabel} at present and has to come down to {targetValue}. What percentage decrease is needed?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-138": {
+        "template": "A warehouse currently has {currentValue} {wholeLabel}. To reduce it to {targetValue}, find the required percentage decrease.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "A route now carries {currentValue} {wholeLabel}. By what percent must this decrease to become {targetValue}?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "The present number of {wholeLabel} is {currentValue}. Find the percentage decrease needed to reduce it to {targetValue}.",
         "difficulty": "Medium"
       }
     }
@@ -218,23 +578,63 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-019": {
-        "template": "A {wholeLabel} of {currentValue} decreases by {decreaseRate}% every month. Find the {wholeLabel} after {periodCount} months.",
+        "template": "A {wholeLabel} is {currentValue} at present and decreases by {decreaseRate}% every month. Find the {wholeLabel} after {periodCount} months.",
         "difficulty": "Medium"
       },
       "PCT-QL-020": {
-        "template": "A {wholeLabel} of {valuePrefix}{currentValue} decreases by {decreaseRate}% every year. Find the {wholeLabel} after {periodCount} years.",
+        "template": "A {wholeLabel} is {valuePrefix}{currentValue} at present and decreases by {decreaseRate}% every year. Find the {wholeLabel} after {periodCount} years.",
         "difficulty": "Medium"
       },
       "PCT-QL-048": {
-        "template": "A machine is worth {currentValue} and it depreciates by {decreaseRate}% every year. Find its value after {periodCount} years.",
+        "template": "The {wholeLabel} is {currentValue} and it decreases by {decreaseRate}% every year. Find the {wholeLabel} after {periodCount} years.",
         "difficulty": "Medium"
       },
       "PCT-QL-049": {
-        "template": "The number of subscribers is {currentValue} and it falls by {decreaseRate}% every month. Find the number after {periodCount} months.",
+        "template": "The {wholeLabel} is {currentValue} and it falls by {decreaseRate}% every month. Find the {wholeLabel} after {periodCount} months.",
         "difficulty": "Medium"
       },
       "PCT-QL-050": {
-        "template": "Stock is {currentValue} units and it decreases by {decreaseRate}% every period. Find the stock after {periodCount} periods.",
+        "template": "The {wholeLabel} is {currentValue} units and it decreases by {decreaseRate}% every period. Find the {wholeLabel} after {periodCount} periods.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "A {wholeLabel} is {currentValue} at present and decreases by {decreaseRate}% per month. Find the {wholeLabel} after {periodCount} months.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "The current {wholeLabel} is {currentValue}. If it decreases by {decreaseRate}% every month, what will it be after {periodCount} months?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "A town has {currentValue} {wholeLabel}. Assuming a monthly decrease of {decreaseRate}%, find the number after {periodCount} months.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "A route serves {currentValue} {wholeLabel} now. If this decreases by {decreaseRate}% each month, find the number after {periodCount} months.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "A factory produces {currentValue} {wholeLabel} and output decreases by {decreaseRate}% per period. Find the output after {periodCount} periods.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "A {wholeLabel} is {valuePrefix}{currentValue} at present and decreases by {decreaseRate}% per year. Find the {wholeLabel} after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "The current {wholeLabel} is {valuePrefix}{currentValue}. If it falls by {decreaseRate}% every year, what will it be after {periodCount} years?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "An asset has a {wholeLabel} of {valuePrefix}{currentValue}. If it depreciates by {decreaseRate}% annually, find its value after {periodCount} years.",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "A business has {valuePrefix}{currentValue} as its {wholeLabel}. If this decreases by {decreaseRate}% per year, find the value after {periodCount} years.",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "A fund shows a {wholeLabel} of {valuePrefix}{currentValue}. Assuming a decrease of {decreaseRate}% each year, find the {wholeLabel} after {periodCount} years.",
         "difficulty": "Hard"
       }
     }
