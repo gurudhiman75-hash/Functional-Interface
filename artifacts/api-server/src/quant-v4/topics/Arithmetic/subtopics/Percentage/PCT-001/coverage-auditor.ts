@@ -1,8 +1,7 @@
-import { getActiveQuestionLanguageIds, getCommonQuestionLanguageIds, validatePct001Libraries } from "./library";
-import { getPct001ActiveCanonicalProblemIds } from "./parameter-generator";
+import { validatePct001Libraries } from "./library";
+import { getPct001ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds } from "./parameter-generator";
 import { runPct001ForLanguages, runPct001Pipeline } from "./pipeline";
 import type { Pct001Language, Pct001QuestionPackage } from "./types";
-import { PCT_001_CP_IDS } from "./types";
 
 function countBy(values: readonly string[]) {
   return values.reduce<Record<string, number>>((acc, value) => {
@@ -15,7 +14,7 @@ export function generatePct001Batch(count: number, language: Pct001Language = "e
   const cpIds = getPct001ActiveCanonicalProblemIds();
   return Array.from({ length: count }, (_value, index) => {
     const cpId = cpIds[index % cpIds.length]!;
-    const qlIds = getCommonQuestionLanguageIds(cpId);
+    const qlIds = getSelectableQuestionLanguageIds(cpId, language);
     const qlIndex = Math.floor(index / cpIds.length) % qlIds.length;
     return runPct001Pipeline(cpId, {
       language,
@@ -33,7 +32,10 @@ export function auditPct001Packages(packages: readonly Pct001QuestionPackage[]) 
   const cpCoverage = countBy(packages.map((pkg) => pkg.canonicalProblemId));
   const esCoverage = countBy(packages.map((pkg) => pkg.explanationId));
   const difficultyCoverage = countBy(packages.map((pkg) => pkg.difficultyBand));
-  const unusedQlIds = getPct001ActiveCanonicalProblemIds().flatMap((cpId) => getCommonQuestionLanguageIds(cpId)).filter((id) => !qlCoverage[id]);
+  const auditLanguage = packages[0]?.language ?? "en";
+  const unusedQlIds = getPct001ActiveCanonicalProblemIds()
+    .flatMap((cpId) => getSelectableQuestionLanguageIds(cpId, auditLanguage))
+    .filter((id) => !qlCoverage[id]);
   
   let crossLanguageConsistencyFailures = 0;
   for (let index = 0; index < Math.min(120, packages.length); index += 1) {

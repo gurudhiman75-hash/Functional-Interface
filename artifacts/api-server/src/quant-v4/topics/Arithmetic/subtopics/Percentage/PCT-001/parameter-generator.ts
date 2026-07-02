@@ -1,5 +1,5 @@
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
-import { getAnswerType, getCommonQuestionLanguageIds, getQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, PCT_001_LIBRARY_REGISTRY } from "./library";
+import { getAnswerType, getCommonQuestionLanguageIds, getQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, getTaskRegistryEntry, PCT_001_LIBRARY_REGISTRY } from "./library";
 import { stableBucket } from "./math";
 import { PCT_001_ARCHETYPE_ID, PCT_001_CP_IDS, type Pct001CanonicalProblemId, type Pct001DifficultyBand, type Pct001Language, type Pct001Parameters, type Pct001TaskKind, type Pct001Variables, type Pct001SemanticContext } from "./types";
 
@@ -242,9 +242,52 @@ function constrainVariables(taskKind: Pct001TaskKind, variables: Pct001Variables
   return output;
 }
 
-export function selectQuestionLanguageId(cpId: Pct001CanonicalProblemId, language: Pct001Language, seed: string) {
-  const ids = language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
-  return ids[stableBucket(seed, ids.length)]!;
+export function getSelectableQuestionLanguageIds(cpId: Pct001CanonicalProblemId, language: Pct001Language) {
+  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+}
+
+export function selectQuestionLanguageId(
+  cpId: Pct001CanonicalProblemId,
+  language: Pct001Language,
+  seed: string,
+  difficultyBand?: Pct001DifficultyBand,
+) {
+  const ids = getSelectableQuestionLanguageIds(cpId, language);
+  const filtered = difficultyBand
+    ? ids.filter((questionLanguageId) => getQuestionEntry(cpId, questionLanguageId, language).difficulty === difficultyBand)
+    : ids;
+  const source = filtered.length > 0 ? filtered : ids;
+  return source[stableBucket(seed, source.length)]!;
+}
+
+function arraysEqual(left: readonly string[], right: readonly string[]) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function selectCompatibleQuestionLanguageId(
+  cpId: Pct001CanonicalProblemId,
+  language: Pct001Language,
+  requestedQuestionLanguageId: string,
+  seed: string,
+) {
+  if (language === "en") {
+    return getQuestionLanguageIds(cpId, "en").includes(requestedQuestionLanguageId) ? requestedQuestionLanguageId : null;
+  }
+
+  const requestedRegistryEntry = getTaskRegistryEntry(cpId, requestedQuestionLanguageId);
+  const requestedDifficulty = getQuestionEntry(cpId, requestedQuestionLanguageId, "en").difficulty;
+  const compatibleIds = getCommonQuestionLanguageIds(cpId).filter((questionLanguageId) => {
+    const sharedRegistryEntry = getTaskRegistryEntry(cpId, questionLanguageId);
+    return (
+      sharedRegistryEntry.taskKind === requestedRegistryEntry.taskKind &&
+      sharedRegistryEntry.answerType === requestedRegistryEntry.answerType &&
+      arraysEqual(sharedRegistryEntry.requiredVariables, requestedRegistryEntry.requiredVariables) &&
+      getQuestionEntry(cpId, questionLanguageId, language).difficulty === requestedDifficulty
+    );
+  });
+
+  if (compatibleIds.length === 0) return null;
+  return compatibleIds[stableBucket(`${seed}:compatible`, compatibleIds.length)]!;
 }
 
 function selectSemanticContext(cpId: Pct001CanonicalProblemId, seed: string): Pct001SemanticContext {
@@ -285,9 +328,16 @@ function selectSemanticContext(cpId: Pct001CanonicalProblemId, seed: string): Pc
 export function generatePct001Parameters(cpId: Pct001CanonicalProblemId, input: Pct001ParameterInput = {}): Pct001Parameters {
   const language = input.language ?? "en";
   const seed = input.seed ?? `PCT-001:${cpId}`;
-  const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, `${seed}:ql`);
-  const questionEntry = getQuestionEntry(cpId, questionLanguageId, "en");
-  const difficultyBand = input.difficultyBand ?? questionEntry.difficulty;
+  const selectableQuestionLanguageIds = getSelectableQuestionLanguageIds(cpId, language);
+  const questionLanguageId =
+    input.questionLanguageId && selectableQuestionLanguageIds.includes(input.questionLanguageId)
+      ? input.questionLanguageId
+      : input.questionLanguageId
+        ? (selectCompatibleQuestionLanguageId(cpId, language, input.questionLanguageId, seed) ??
+          selectQuestionLanguageId(cpId, language, `${seed}:ql`, input.difficultyBand))
+        : selectQuestionLanguageId(cpId, language, `${seed}:ql`, input.difficultyBand);
+  const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
+  const difficultyBand = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);

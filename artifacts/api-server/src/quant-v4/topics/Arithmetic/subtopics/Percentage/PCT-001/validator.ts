@@ -1,6 +1,6 @@
 import { PCT_001_ARCHETYPE_ID, PCT_001_CP_IDS, type Pct001Parameters, type Pct001QuestionPackage, type Pct001ValidationResult } from "./types";
 import { isFiniteNumber } from "./math";
-import { extractPlaceholders, getExplanationSteps, getExplanationVariantCount, getQuestionEntry, getTaskRegistryEntry, PCT_001_LIBRARY_REGISTRY } from "./library";
+import { extractPlaceholders, getCommonQuestionLanguageIds, getExplanationSteps, getExplanationVariantCount, getQuestionEntry, getQuestionLanguageIds, getTaskRegistryEntry, PCT_001_LIBRARY_REGISTRY } from "./library";
 
 function check(name: string, passed: boolean, message: string) {
   return { name, passed, message };
@@ -43,9 +43,10 @@ function hasBrokenUnicode(value: string) {
 
 export function validatePct001Parameters(parameters: Pct001Parameters): Pct001ValidationResult {
   const registryEntry = getTaskRegistryEntry(parameters.canonicalProblemId, parameters.questionLanguageId);
+  const isSharedQuestionLanguage = getCommonQuestionLanguageIds(parameters.canonicalProblemId).includes(parameters.questionLanguageId);
   const enPlaceholders = placeholderSet(parameters, "en");
-  const hiPlaceholders = placeholderSet(parameters, "hi");
-  const paPlaceholders = placeholderSet(parameters, "pa");
+  const hiPlaceholders = isSharedQuestionLanguage ? placeholderSet(parameters, "hi") : null;
+  const paPlaceholders = isSharedQuestionLanguage ? placeholderSet(parameters, "pa") : null;
   
   const semantic = parameters.semanticContext;
   const scenarioMatch = semantic ? PCT_001_LIBRARY_REGISTRY.semantic.scenarioMap[parameters.canonicalProblemId] === semantic.scenario : true;
@@ -57,7 +58,16 @@ export function validatePct001Parameters(parameters: Pct001Parameters): Pct001Va
     check("taskKindRegistry", parameters.taskKind === registryEntry.taskKind, "Task kind must come from task registry."),
     check("answerTypeRegistry", parameters.answerType === registryEntry.answerType, "Answer type must come from task registry."),
     check("requiredVariablesRegistry", parameters.requiredVariables.join("|") === registryEntry.requiredVariables.join("|"), "Required variables must come from task registry."),
-    check("placeholderCrossLanguage", sameSet(enPlaceholders, hiPlaceholders) && sameSet(enPlaceholders, paPlaceholders), "EN/HI/PA placeholders must match."),
+    check(
+      "placeholderCrossLanguage",
+      !isSharedQuestionLanguage || (sameSet(enPlaceholders, hiPlaceholders!) && sameSet(enPlaceholders, paPlaceholders!)),
+      "EN/HI/PA placeholders must match for shared question-language IDs.",
+    ),
+    check(
+      "questionLanguageRegistered",
+      getQuestionLanguageIds(parameters.canonicalProblemId, parameters.language).includes(parameters.questionLanguageId),
+      "Question language must be available for the package language.",
+    ),
     check("semanticScenario", scenarioMatch, "Scenario must match CP mapping."),
   ];
   try {
@@ -87,7 +97,15 @@ export function validatePct001Parameters(parameters: Pct001Parameters): Pct001Va
 
   for (const variable of registryEntry.requiredVariables) {
     checks.push(check(`requiredVariable:${variable}`, Object.hasOwn(parameters.variables, variable), `${variable} must be generated.`));
-    checks.push(check(`placeholder:${variable}`, enPlaceholders.has(variable) && hiPlaceholders.has(variable) && paPlaceholders.has(variable), `${variable} must appear in every language template.`));
+    checks.push(
+      check(
+        `placeholder:${variable}`,
+        enPlaceholders.has(variable) && (!isSharedQuestionLanguage || (hiPlaceholders!.has(variable) && paPlaceholders!.has(variable))),
+        isSharedQuestionLanguage
+          ? `${variable} must appear in every shared language template.`
+          : `${variable} must appear in the English template.`,
+      ),
+    );
   }
   for (const variable of Object.keys(parameters.variables)) {
     checks.push(check(`declaredVariable:${variable}`, registryEntry.requiredVariables.includes(variable) || variable.startsWith("entity"), `${variable} must be declared in task registry or be a semantic entity.`));
