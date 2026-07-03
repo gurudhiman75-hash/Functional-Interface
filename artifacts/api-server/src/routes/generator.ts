@@ -81,6 +81,21 @@ const router = Router();
 const REGISTERED_PATTERNS =
   ALL_PATTERNS as Pattern[];
 
+function getQuantV4RequestStatusCode(
+  error: unknown,
+) {
+  if (
+    error &&
+    typeof error === "object" &&
+    "statusCode" in error &&
+    typeof (error as { statusCode?: unknown }).statusCode === "number"
+  ) {
+    return (error as { statusCode: number }).statusCode;
+  }
+
+  return 500;
+}
+
 router.post(
   "/generate",
   async (
@@ -92,6 +107,9 @@ router.post(
         patternId,
         packageId,
         archetypeId,
+        domain,
+        topic,
+        subtopic,
         canonicalProblemId,
         cpId,
         count = 5,
@@ -104,6 +122,9 @@ router.post(
         patternId?: string;
         packageId?: string;
         archetypeId?: string;
+        domain?: string;
+        topic?: string;
+        subtopic?: string;
         canonicalProblemId?: string;
         cpId?: string;
         count?: number;
@@ -114,10 +135,13 @@ router.post(
         questionLanguageId?: string;
       };
 
-      if (!(patternId || packageId || archetypeId)) {
+      if (
+        !(patternId || packageId || archetypeId) &&
+        !(typeof topic === "string" && typeof subtopic === "string")
+      ) {
         return res.status(400).json({
           error:
-            "patternId, packageId, or archetypeId is required",
+            "patternId, packageId, archetypeId, or topic/subtopic is required",
         });
       }
 
@@ -139,6 +163,9 @@ router.post(
         patternId,
         packageId: packageId as any,
         archetypeId: archetypeId as any,
+        domain,
+        topic,
+        subtopic,
         canonicalProblemId,
         cpId,
         count: safeCount,
@@ -156,7 +183,7 @@ router.post(
     } catch (error) {
       console.error(error);
 
-      return res.status(500).json({
+      return res.status(getQuantV4RequestStatusCode(error)).json({
         error:
           error instanceof Error
             ? error.message
@@ -868,9 +895,12 @@ router.post(
       console.error(error);
 
       return res
-        .status(500)
+        .status(getQuantV4RequestStatusCode(error))
         .json({
-          error: "Internal server error",
+          error:
+            error instanceof Error
+              ? error.message
+              : "Internal server error",
         });
     }
   },
@@ -1056,6 +1086,7 @@ router.post(
       const {
         domain,
         topic,
+        subtopic,
         pattern: frontendPattern,
         patternId,
         count,
@@ -1074,10 +1105,7 @@ router.post(
         schedulerProfile,
       } = req.body;
 
-      if (
-        !(patternId || frontendPattern) ||
-        typeof count !== "number"
-      ) {
+      if (typeof count !== "number") {
         return res
           .status(400)
           .json({
@@ -1101,6 +1129,18 @@ router.post(
           archetypeId:
             typeof frontendPattern === "string"
               ? (frontendPattern as any)
+              : undefined,
+          domain:
+            typeof domain === "string"
+              ? domain
+              : undefined,
+          topic:
+            typeof topic === "string"
+              ? topic
+              : undefined,
+          subtopic:
+            typeof subtopic === "string"
+              ? subtopic
               : undefined,
           count,
           language: language as any,
@@ -1138,207 +1178,24 @@ router.post(
 
 router.post(
   "/pattern/jobs",
-  async (
-    req: Request,
-    res: Response,
-  ) => {
-    try {
-      const {
-        domain,
-        topic,
-        pattern: frontendPattern,
-        patternId,
-        count,
-        seed,
-        examProfile,
-        examStyle,
-        difficulty,
-        targetDifficulty,
-        difficultyTolerance,
-        difficultyDistribution,
-        targetAverageDifficulty,
-        setProfile,
-      } = req.body;
-
-      if (
-        !(patternId || frontendPattern) ||
-        !validateAsyncJobCount(count)
-      ) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "Invalid input. patternId is required and count must be an integer between 1 and 10000.",
-          });
-      }
-
-      let pattern: Pattern | undefined;
-
-      const registryPattern =
-        resolveQuestionPatternToPattern({
-          domain,
-          topic,
-          pattern: frontendPattern,
-          patternId,
-          difficulty,
-          examStyle,
-        });
-
-      if (registryPattern) {
-        pattern = registryPattern;
-      }
-
-      if (!pattern && patternId) {
-        const rows = await db
-          .select()
-          .from(patterns)
-          .where(
-            eq(
-              patterns.id,
-              patternId,
-            ),
-          );
-        const dbPattern = rows[0];
-        const registeredPattern =
-          getRegisteredPattern(patternId);
-
-        if (
-          dbPattern ||
-          registeredPattern
-        ) {
-          pattern =
-            normalizeStoredPattern(
-              (dbPattern ??
-                registeredPattern) as Record<
-                string,
-                unknown
-              >,
-            );
-        }
-      }
-
-      if (!pattern) {
-        return res
-          .status(404)
-          .json({
-            error:
-              "Pattern not found",
-          });
-      }
-
-      const job =
-        await enqueueGenerationJob(
-          {
-            patternId:
-              patternId ?? pattern.id,
-            pattern,
-            count,
-            options: {
-              seed,
-              examProfile:
-                examProfile ??
-                normalizeExamStyle(
-                  examStyle,
-                ),
-              targetDifficulty,
-              difficultyTolerance,
-              difficultyDistribution,
-              targetAverageDifficulty,
-              setProfile,
-              seatingGeneration:
-                parseSeatingGenerationBody(
-                  req.body,
-                ),
-            } satisfies GeneratorOptions,
-            source: "pattern",
-          },
-        );
-
-      return res
-        .status(202)
-        .json({
-          success: true,
-          job,
-        });
-    } catch (error) {
-      console.error(error);
-
-      return res
-        .status(500)
-        .json({
-          error: "Internal server error",
-        });
-    }
-  },
+  async (_req: Request, res: Response) =>
+    res.status(410).json({
+      success: false,
+      error:
+        "Async legacy generation jobs have been removed from Question Studio. Use Quant V4 package runtime generation only.",
+      generationSystem: "quant-v4",
+    }),
 );
 
 router.post(
   "/pattern/manual/jobs",
-  async (
-    req: Request,
-    res: Response,
-  ) => {
-    try {
-      const {
-        pattern,
-        count,
-        seed,
-        examProfile,
-        targetDifficulty,
-        difficultyTolerance,
-        difficultyDistribution,
-        targetAverageDifficulty,
-        setProfile,
-      } = req.body ?? {};
-
-      if (
-        !pattern ||
-        typeof pattern !== "object" ||
-        !validateAsyncJobCount(count)
-      ) {
-        return res
-          .status(400)
-          .json({
-            error:
-              "Invalid input. pattern must be an object and count must be an integer between 1 and 10000.",
-          });
-      }
-
-      const job =
-        await enqueueGenerationJob(
-          {
-            pattern:
-              pattern as Pattern,
-            count,
-            options: {
-              seed,
-              examProfile,
-              targetDifficulty,
-              difficultyTolerance,
-              difficultyDistribution,
-              targetAverageDifficulty,
-              setProfile,
-            } satisfies GeneratorOptions,
-            source: "manual",
-          },
-        );
-
-      return res
-        .status(202)
-        .json({
-          success: true,
-          job,
-        });
-    } catch (error) {
-      console.error(error);
-
-      return res
-        .status(500)
-        .json({
-          error: "Internal server error",
-        });
-    }
-  },
+  async (_req: Request, res: Response) =>
+    res.status(410).json({
+      success: false,
+      error:
+        "Manual legacy generation jobs have been removed from Question Studio. Use Quant V4 package runtime generation only.",
+      generationSystem: "quant-v4",
+    }),
 );
 
 router.get(

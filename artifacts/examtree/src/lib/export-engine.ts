@@ -10,6 +10,7 @@ export type QuestionExportContent =
 export type QuestionExportOptions = {
   format: QuestionExportFormat;
   content: QuestionExportContent;
+  cleanExport?: boolean;
   includeAnswers?: boolean;
   includeExplanations?: boolean;
   includeReasoningGraph?: boolean;
@@ -22,12 +23,15 @@ export type QuestionExportOptions = {
 
 export type QuestionStudioExportItem = {
   text?: string;
+  options?: string[] | null;
+  correct?: number | null;
   answer?: unknown;
   explanation?: string;
   reasoningGraph?: unknown;
   traceability?: unknown;
   semanticMetadata?: unknown;
   validation?: unknown;
+  section?: string;
   topic?: string;
   subtopic?: string;
   packageId?: string | null;
@@ -45,19 +49,41 @@ export type QuestionStudioExportItem = {
   questionIndex?: number | null;
   questionCount?: number | null;
   packageSource?: string | null;
+  generationBackend?: string | null;
+  proceduralLogic?: unknown;
   debugMetadata?: Record<string, unknown>;
   [key: string]: unknown;
+};
+
+type ValidationCheckSummary = {
+  name: string;
+  passed: boolean;
+  message: string;
+  originalMessage?: string;
+};
+
+type ValidationSummary = {
+  valid: boolean | null;
+  status: "passed" | "failed" | "unknown";
+  totalChecks: number;
+  passedChecks: number;
+  failedChecks: number;
+  messageAuditWarnings: string[];
+  checks?: ValidationCheckSummary[];
 };
 
 type NormalizedQuestion = {
   questionNo: number;
   question: string;
+  options: string[];
+  correct: number | null;
   answer: string;
   explanation: string;
   reasoningGraph: unknown;
   traceability: unknown;
   semanticMetadata: unknown;
   validation: unknown;
+  validationSummary: ValidationSummary;
   metadata: Record<string, unknown>;
   raw: QuestionStudioExportItem;
 };
@@ -102,15 +128,177 @@ function getDebugValue(
   return item.debugMetadata?.[key];
 }
 
+function normalizeOptionList(value: unknown) {
+  return Array.isArray(value)
+    ? value.map((option) => asText(option))
+    : [];
+}
+
+function soundsLikeFailure(message: string) {
+  return /\bmissing\b|\bleakage\b|\bbroken\b|\bduplicate\b|\billegal\b/i.test(
+    message,
+  );
+}
+
+function sanitizeValidationMessage(
+  name: string,
+  passed: boolean,
+  message: string,
+) {
+  if (!passed || !soundsLikeFailure(message)) {
+    return message;
+  }
+
+  if (name === "semanticDuplicates") {
+    return "No duplicate semantic entities found.";
+  }
+
+  const translation = message.match(
+    /^Missing translation for (.+)$/i,
+  );
+  if (translation) {
+    return `Translation present for ${translation[1]}.`;
+  }
+
+  const leakage = message.match(
+    /^Translation leakage in (.+)$/i,
+  );
+  if (leakage) {
+    return `No translation leakage for ${leakage[1]}.`;
+  }
+
+  const unicode = message.match(
+    /^Broken Unicode in (.+)$/i,
+  );
+  if (unicode) {
+    return `Unicode valid for ${unicode[1]}.`;
+  }
+
+  return `Passed: ${message}`;
+}
+
+function summarizeValidation(
+  validation: unknown,
+  includeChecks = false,
+): ValidationSummary {
+  const report =
+    validation &&
+    typeof validation === "object"
+      ? (validation as {
+          valid?: unknown;
+          checks?: Array<{
+            name?: unknown;
+            passed?: unknown;
+            message?: unknown;
+          }>;
+        })
+      : undefined;
+  const checks = Array.isArray(report?.checks)
+    ? report.checks
+    : [];
+  const messageAuditWarnings: string[] = [];
+  const normalizedChecks = checks.map(
+    (check) => {
+      const name = asText(check?.name);
+      const passed = Boolean(check?.passed);
+      const originalMessage = asText(
+        check?.message,
+      );
+      if (
+        passed &&
+        soundsLikeFailure(
+          originalMessage,
+        )
+      ) {
+        messageAuditWarnings.push(
+          `${name}: ${originalMessage}`,
+        );
+      }
+      return {
+        name,
+        passed,
+        message:
+          sanitizeValidationMessage(
+            name,
+            passed,
+            originalMessage,
+          ),
+        originalMessage:
+          includeChecks &&
+          originalMessage !==
+            sanitizeValidationMessage(
+              name,
+              passed,
+              originalMessage,
+            )
+            ? originalMessage
+            : undefined,
+      };
+    },
+  );
+  const passedChecks =
+    normalizedChecks.filter(
+      (check) => check.passed,
+    ).length;
+  const failedChecks =
+    normalizedChecks.length -
+    passedChecks;
+
+  return {
+    valid:
+      typeof report?.valid === "boolean"
+        ? report.valid
+        : normalizedChecks.length
+          ? failedChecks === 0
+          : null,
+    status:
+      normalizedChecks.length === 0 &&
+      typeof report?.valid !==
+        "boolean"
+        ? "unknown"
+        : failedChecks === 0
+          ? "passed"
+          : "failed",
+    totalChecks:
+      normalizedChecks.length,
+    passedChecks,
+    failedChecks,
+    messageAuditWarnings,
+    checks: includeChecks
+      ? normalizedChecks
+      : undefined,
+  };
+}
+
 function normalizeQuestion(
   item: QuestionStudioExportItem,
   index: number,
   options: QuestionExportOptions,
 ): NormalizedQuestion {
+  const validation =
+    item.validation ??
+    getDebugValue(item, "validatorReports");
+  const includeDebug =
+    shouldInclude(options, "reasoning") ||
+    shouldInclude(options, "traceability");
+  const validationSummary =
+    summarizeValidation(
+      validation,
+      includeDebug,
+    );
   const metadata = {
-    topic: item.topic ?? "Quant",
-    subtopic: item.subtopic ?? "",
-    archetype:
+    subject:
+      item.section ?? "Quant",
+    topicGroup:
+      item.topic ?? "Arithmetic",
+    subtopic:
+      item.subtopic ?? "",
+    packageId:
+      item.packageId ??
+      item.patternId ??
+      getDebugValue(item, "selectedArchetype") ??
+      "",
+    archetypeId:
       item.packageId ??
       item.patternId ??
       getDebugValue(item, "selectedArchetype") ??
@@ -140,6 +328,13 @@ function normalizeQuestion(
       item.language ??
       options.language ??
       "",
+    generationBackend:
+      item.generationBackend ??
+      getDebugValue(
+        item,
+        "generationDomain",
+      ) ??
+      "",
     questionId:
       item.questionId ??
       getDebugValue(item, "questionId") ??
@@ -149,7 +344,7 @@ function normalizeQuestion(
       getDebugValue(item, "scenarioId") ??
       "",
     validationStatus:
-      asText(item.validation ?? getDebugValue(item, "validatorReports") ?? ""),
+      validationSummary.status,
     seed:
       item.seed ??
       getDebugValue(item, "seed") ??
@@ -165,13 +360,21 @@ function normalizeQuestion(
   return {
     questionNo: index + 1,
     question: asText(item.text),
+    options: normalizeOptionList(
+      item.options,
+    ),
+    correct:
+      typeof item.correct === "number"
+        ? item.correct
+        : null,
     answer: asText(item.answer),
     explanation: asText(item.explanation),
     reasoningGraph: item.reasoningGraph ?? getDebugValue(item, "reasoningGraph"),
     traceability: item.traceability ?? getDebugValue(item, "traceability"),
     semanticMetadata:
       item.semanticMetadata ?? getDebugValue(item, "semanticMetadata"),
-    validation: item.validation ?? getDebugValue(item, "validatorReports"),
+    validation,
+    validationSummary,
     metadata,
     raw: item,
   };
@@ -230,20 +433,26 @@ function buildTextBlocks(
   questions: NormalizedQuestion[],
   options: QuestionExportOptions,
 ) {
-  const blocks = [
-    options.title ?? "Question Studio Export",
-    `Generated: ${options.generatedAt?.toLocaleString() ?? new Date().toLocaleString()}`,
-    `Count: ${questions.length}`,
-    "",
-  ];
+  const blocks = options.cleanExport
+    ? []
+    : [
+        options.title ?? "Question Studio Export",
+        `Generated: ${options.generatedAt?.toLocaleString() ?? new Date().toLocaleString()}`,
+        `Count: ${questions.length}`,
+        "",
+      ];
 
   for (const question of questions) {
-    blocks.push(`Question ${question.questionNo}`);
+    if (!options.cleanExport) {
+      blocks.push(`Question ${question.questionNo}`);
+    }
     if (options.includeMetadata) {
       blocks.push(
-        `Topic: ${question.metadata.topic}`,
+        `Subject: ${question.metadata.subject}`,
+        `Topic Group: ${question.metadata.topicGroup}`,
         `Subtopic: ${question.metadata.subtopic}`,
-        `Archetype: ${question.metadata.archetype}`,
+        `Package ID: ${question.metadata.packageId}`,
+        `Archetype: ${question.metadata.archetypeId}`,
         `CP ID: ${question.metadata.canonicalProblemId}`,
         `QL ID: ${question.metadata.questionLanguageId}`,
         `Task Kind: ${question.metadata.taskKind}`,
@@ -251,11 +460,21 @@ function buildTextBlocks(
         `Language: ${question.metadata.language}`,
         `Question ID: ${question.metadata.questionId}`,
         `Scenario: ${question.metadata.scenario}`,
-        `Validation: ${question.metadata.validationStatus}`,
+        `Validation: ${question.validationSummary.status} (${question.validationSummary.passedChecks}/${question.validationSummary.totalChecks} checks passed)`,
         `Seed: ${question.metadata.seed}`,
       );
     }
     blocks.push(question.question);
+    if (question.options.length) {
+      blocks.push("Options:");
+      question.options.forEach(
+        (option, optionIndex) => {
+          blocks.push(
+            `${String.fromCharCode(65 + optionIndex)}. ${option}`,
+          );
+        },
+      );
+    }
     if (shouldInclude(options, "answers")) {
       blocks.push(`Answer: ${question.answer}`);
     }
@@ -269,10 +488,15 @@ function buildTextBlocks(
       blocks.push(
         "Traceability:",
         formatJson(question.traceability),
+        "Validation:",
+        formatJson({
+          summary:
+            question.validationSummary,
+          checks:
+            question.validationSummary.checks,
+        }),
         "Semantic Metadata:",
         formatJson(question.semanticMetadata),
-        "Validation:",
-        formatJson(question.validation),
       );
     }
     blocks.push("");
@@ -287,29 +511,47 @@ function makeTxt(questions: NormalizedQuestion[], options: QuestionExportOptions
   });
 }
 
-function makeCsv(questions: NormalizedQuestion[]) {
-  const headers = [
-    "Question No",
-    "Question",
-    "Answer",
-    "Explanation",
-    "CP ID",
-    "QL ID",
-    "Task Kind",
-    "Difficulty",
-    "Language",
-  ];
-  const rows = questions.map((question) => [
-    question.questionNo,
-    question.question,
-    question.answer,
-    question.explanation,
-    question.metadata.canonicalProblemId,
-    question.metadata.questionLanguageId,
-    question.metadata.taskKind,
-    question.metadata.difficulty,
-    question.metadata.language,
-  ]);
+function makeCsv(
+  questions: NormalizedQuestion[],
+  options: QuestionExportOptions,
+) {
+  const headers = options.cleanExport
+    ? ["Question No", "Question", "Options", "Explanation"]
+    : [
+        "Question No",
+        "Question",
+        "Options",
+        "Answer",
+        "Explanation",
+        "Package ID",
+        "CP ID",
+        "QL ID",
+        "Task Kind",
+        "Difficulty",
+        "Language",
+      ];
+  const rows = questions.map((question) =>
+    options.cleanExport
+      ? [
+          question.questionNo,
+          question.question,
+          question.options.join(" | "),
+          question.explanation,
+        ]
+      : [
+          question.questionNo,
+          question.question,
+          question.options.join(" | "),
+          question.answer,
+          question.explanation,
+          question.metadata.packageId,
+          question.metadata.canonicalProblemId,
+          question.metadata.questionLanguageId,
+          question.metadata.taskKind,
+          question.metadata.difficulty,
+          question.metadata.language,
+        ],
+  );
   const csv = [headers, ...rows]
     .map((row) => row.map(escapeCsv).join(","))
     .join("\n");
@@ -317,6 +559,27 @@ function makeCsv(questions: NormalizedQuestion[]) {
 }
 
 function makeJson(questions: NormalizedQuestion[], options: QuestionExportOptions) {
+  if (options.cleanExport) {
+    return new Blob(
+      [
+        JSON.stringify(
+          questions.map((question) => ({
+            questionNo: question.questionNo,
+            stem: question.question,
+            options: question.options,
+            explanation: question.explanation,
+          })),
+          null,
+          2,
+        ),
+      ],
+      { type: MIME_TYPES.json },
+    );
+  }
+
+  const includeDebug =
+    shouldInclude(options, "reasoning") ||
+    shouldInclude(options, "traceability");
   const payload = {
     title: options.title ?? "Question Studio Export",
     generatedAt: options.generatedAt?.toISOString() ?? new Date().toISOString(),
@@ -325,14 +588,80 @@ function makeJson(questions: NormalizedQuestion[], options: QuestionExportOption
     questions: questions.map((question) => ({
       questionNo: question.questionNo,
       stem: question.question,
+      options: question.options,
+      correctIndex: question.correct,
       answer: question.answer,
       explanation: question.explanation,
-      reasoningGraph: question.reasoningGraph,
-      traceability: question.traceability,
-      validation: question.validation,
-      semanticMetadata: question.semanticMetadata,
-      metadata: question.metadata,
-      questionPackage: question.raw,
+      metadata: {
+        subject: question.metadata.subject,
+        topicGroup:
+          question.metadata.topicGroup,
+        subtopic:
+          question.metadata.subtopic,
+        packageId:
+          question.metadata.packageId,
+        archetypeId:
+          question.metadata.archetypeId,
+        canonicalProblemId:
+          question.metadata.canonicalProblemId,
+        questionLanguageId:
+          question.metadata.questionLanguageId,
+        explanationId:
+          question.metadata.explanationId,
+        taskKind:
+          question.metadata.taskKind,
+        difficulty:
+          question.metadata.difficulty,
+        language:
+          question.metadata.language,
+        generationBackend:
+          question.metadata.generationBackend,
+        packageSource:
+          question.metadata.packageSource,
+        questionId:
+          question.metadata.questionId,
+        seed: question.metadata.seed,
+      },
+      validationSummary:
+        question.validationSummary,
+      ...(includeDebug
+        ? {
+            debug: {
+              reasoningGraph:
+                question.reasoningGraph,
+              traceability:
+                question.traceability,
+              semanticMetadata:
+                question.semanticMetadata,
+              validation: {
+                summary:
+                  question.validationSummary,
+                raw: question.validation,
+              },
+              proceduralLogic:
+                question.raw.proceduralLogic ??
+                question.raw.logic ??
+                null,
+              sourceTrace:
+                (
+                  question.raw
+                    .proceduralLogic as
+                    | {
+                        sourceTrace?: unknown;
+                      }
+                    | undefined
+                )?.sourceTrace ??
+                (
+                  question.raw.logic as
+                    | {
+                        sourceTrace?: unknown;
+                      }
+                    | undefined
+                )?.sourceTrace ??
+                null,
+            },
+          }
+        : {}),
     })),
   };
 
@@ -595,6 +924,7 @@ export function createQuestionExport(
   const resolvedOptions = {
     ...options,
     generatedAt,
+    cleanExport: options.cleanExport ?? false,
     includeAnswers:
       options.includeAnswers ?? shouldInclude(options, "answers"),
     includeExplanations:
@@ -605,6 +935,13 @@ export function createQuestionExport(
       options.includeTraceability ?? shouldInclude(options, "traceability"),
     includeMetadata: options.includeMetadata ?? true,
   };
+  if (resolvedOptions.cleanExport) {
+    resolvedOptions.includeAnswers = false;
+    resolvedOptions.includeExplanations = true;
+    resolvedOptions.includeReasoningGraph = false;
+    resolvedOptions.includeTraceability = false;
+    resolvedOptions.includeMetadata = false;
+  }
   const questions = items.map((item, index) =>
     normalizeQuestion(item, index, resolvedOptions),
   );
@@ -612,7 +949,7 @@ export function createQuestionExport(
     resolvedOptions.format === "json"
       ? makeJson(questions, resolvedOptions)
       : resolvedOptions.format === "csv"
-        ? makeCsv(questions)
+        ? makeCsv(questions, resolvedOptions)
         : resolvedOptions.format === "txt"
           ? makeTxt(questions, resolvedOptions)
           : resolvedOptions.format === "docx"

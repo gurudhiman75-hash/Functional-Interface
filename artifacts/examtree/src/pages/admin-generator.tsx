@@ -254,14 +254,72 @@ const REQUIRED_REGISTRY_PATTERNS = [
   },
 ] as const;
 
+const QUANT_V4_PERCENTAGE_ALL_PATTERN_ID =
+  "PCT-ALL";
+
 function mergeRequiredRegistryPatterns(
   registryPatterns: any[],
 ) {
-  return registryPatterns.filter(
+  const quantV4Patterns =
+    registryPatterns.filter(
     (pattern) =>
       pattern?.generationDomain === "quant-v4" ||
       pattern?.type === "quant-v4",
   );
+
+  const percentagePatterns =
+    quantV4Patterns.filter(
+      (pattern) =>
+        pattern?.topic ===
+          "Arithmetic" &&
+        pattern?.subtopic ===
+          "Percentage" &&
+        /^PCT-\d+$/.test(
+          String(
+            pattern?.packageId ??
+              pattern?.id ??
+              "",
+          ),
+        ),
+    );
+
+  if (
+    !percentagePatterns.length ||
+    quantV4Patterns.some(
+      (pattern) =>
+        pattern?.id ===
+        QUANT_V4_PERCENTAGE_ALL_PATTERN_ID,
+    )
+  ) {
+    return quantV4Patterns;
+  }
+
+  return [
+    {
+      id: QUANT_V4_PERCENTAGE_ALL_PATTERN_ID,
+      packageId:
+        QUANT_V4_PERCENTAGE_ALL_PATTERN_ID,
+      type: "quant-v4",
+      section: "Quant",
+      domain: "quant",
+      topic: "Arithmetic",
+      subtopic: "Percentage",
+      label:
+        "All Percentage Packages",
+      name:
+        "PCT-ALL All Percentage Packages",
+      generationDomain: "quant-v4",
+      supportedDifficulties: [
+        "easy",
+        "medium",
+        "hard",
+      ],
+      supportedLanguages: ["en"],
+      enabled: true,
+      canonicalProblems: [],
+    },
+    ...quantV4Patterns,
+  ];
 }
 
 type DIDataRow = Record<
@@ -3496,6 +3554,29 @@ const REGISTRY_LANGUAGE_OPTIONS: Array<{
     description: "Punjabi preview",
   },
 ];
+
+function getSupportedRegistryLanguages(
+  pattern: any,
+): RegistryLanguage[] {
+  const supported = Array.isArray(
+    pattern?.supportedLanguages,
+  )
+    ? pattern.supportedLanguages.filter(
+        (
+          value: unknown,
+        ): value is RegistryLanguage =>
+          value === "en" ||
+          value === "hi" ||
+          value === "pa",
+      )
+    : REGISTRY_LANGUAGE_OPTIONS.map(
+        (option) => option.id,
+      );
+
+  return supported.includes("en")
+    ? supported
+    : ["en", ...supported];
+}
 
 const QUANT_V2_CORPUS_AUDIT_TOPICS: Array<{
   id: CorpusAuditTopicId;
@@ -7564,6 +7645,10 @@ export default function AdminGeneratorPage() {
     setExportIncludeTraceability,
   ] = useState(false);
   const [
+    exportCleanExport,
+    setExportCleanExport,
+  ] = useState(false);
+  const [
     exportStatus,
     setExportStatus,
   ] = useState<string | null>(null);
@@ -9010,6 +9095,17 @@ export default function AdminGeneratorPage() {
     language: RegistryLanguage,
   ) {
     if (language === "en") return;
+    const supportedLanguages =
+      getSupportedRegistryLanguages(
+        selectedRegistryPattern,
+      );
+    if (
+      !supportedLanguages.includes(
+        language,
+      )
+    ) {
+      return;
+    }
 
     setRegistryLanguages((current) => {
       const next = current.includes(
@@ -10502,16 +10598,28 @@ export default function AdminGeneratorPage() {
           exportItems,
           {
             format: exportFormat,
-            content: exportContent,
+            content: exportCleanExport
+              ? "explanations"
+              : exportContent,
+            cleanExport: exportCleanExport,
             includeAnswers:
-              exportIncludeAnswers,
+              exportCleanExport
+                ? false
+                : exportIncludeAnswers,
             includeExplanations:
-              exportIncludeExplanations,
+              exportCleanExport
+                ? true
+                : exportIncludeExplanations,
             includeReasoningGraph:
-              exportIncludeReasoning,
+              exportCleanExport
+                ? false
+                : exportIncludeReasoning,
             includeTraceability:
-              exportIncludeTraceability,
-            includeMetadata: true,
+              exportCleanExport
+                ? false
+                : exportIncludeTraceability,
+            includeMetadata:
+              !exportCleanExport,
             language:
               registryLanguages.join(
                 "+",
@@ -10679,6 +10787,14 @@ export default function AdminGeneratorPage() {
         pattern.id ===
         registryPatternId,
     );
+  const selectedRegistrySupportedLanguages =
+    getSupportedRegistryLanguages(
+      selectedRegistryPattern,
+    );
+  const selectedRegistrySupportedLanguageKey =
+    selectedRegistrySupportedLanguages.join(
+      "|",
+    );
   const selectedCorpusAuditPreset =
     corpusAuditPresets.find(
       (preset) =>
@@ -10772,6 +10888,33 @@ export default function AdminGeneratorPage() {
     (selectedRegistryPatternIsProfitLoss ||
       selectedRegistryPatternIsInterest ||
       selectedRegistryPatternIsRatio);
+
+  useEffect(() => {
+    setRegistryLanguages((current) => {
+      const next =
+        REGISTRY_LANGUAGE_OPTIONS.map(
+          (option) => option.id,
+        ).filter(
+          (option) =>
+            option === "en" ||
+            (current.includes(option) &&
+              selectedRegistrySupportedLanguages.includes(
+                option,
+              )),
+        );
+
+      return current.length ===
+        next.length &&
+        current.every(
+          (value, index) =>
+            value === next[index],
+        )
+        ? current
+        : next;
+    });
+  }, [
+    selectedRegistrySupportedLanguageKey,
+  ]);
 
   useEffect(() => {
     if (
@@ -11822,7 +11965,10 @@ export default function AdminGeneratorPage() {
                         value={pattern.id}
                         disabled={pattern.enabled === false}
                       >
-                        {pattern.packageId}: {pattern.label}
+                        {pattern.id ===
+                        QUANT_V4_PERCENTAGE_ALL_PATTERN_ID
+                          ? `All Packages: ${pattern.label}`
+                          : `${pattern.packageId}: ${pattern.label}`}
                         {pattern.enabled === false ? " (Coming Soon)" : ""}
                       </option>
                     ))}
@@ -11984,7 +12130,10 @@ export default function AdminGeneratorPage() {
                         type="button"
                         aria-pressed={selected}
                         disabled={
-                          language.locked
+                          language.locked ||
+                          !selectedRegistrySupportedLanguages.includes(
+                            language.id,
+                          )
                         }
                         onClick={() =>
                           toggleRegistryLanguage(
@@ -11996,7 +12145,10 @@ export default function AdminGeneratorPage() {
                             ? "border-indigo-300 bg-indigo-50 text-indigo-900"
                             : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                         } ${
-                          language.locked
+                          language.locked ||
+                          !selectedRegistrySupportedLanguages.includes(
+                            language.id,
+                          )
                             ? "cursor-default"
                             : ""
                         }`}
@@ -12007,7 +12159,12 @@ export default function AdminGeneratorPage() {
                               type="checkbox"
                               checked={selected}
                               readOnly
-                              disabled={language.locked}
+                              disabled={
+                                language.locked ||
+                                !selectedRegistrySupportedLanguages.includes(
+                                  language.id,
+                                )
+                              }
                               className="h-4 w-4 accent-indigo-600"
                             />
                             <span>
@@ -12021,7 +12178,11 @@ export default function AdminGeneratorPage() {
                           ) : null}
                         </span>
                         <span className="mt-1 block text-xs text-slate-500">
-                          {language.description}
+                          {selectedRegistrySupportedLanguages.includes(
+                            language.id,
+                          )
+                            ? language.description
+                            : "Not active for this package in Question Studio"}
                         </span>
                       </button>
                     );
@@ -12029,7 +12190,7 @@ export default function AdminGeneratorPage() {
                 )}
               </div>
               <p className="text-xs text-slate-500">
-                The generator will request these languages, and any Hindi/Punjabi fields returned will appear in the selected question preview pane for editing.
+                The generator only requests languages enabled for the selected Quant V4 package. Percentage currently runs in English-only mode in Question Studio.
               </p>
             </div>
 
@@ -12037,6 +12198,7 @@ export default function AdminGeneratorPage() {
               <div className="text-xs text-slate-600">
                 {selectedRegistryPattern.domain} /{" "}
                 {selectedRegistryPattern.topic} /{" "}
+                {selectedRegistryPattern.subtopic} /{" "}
                 {selectedRegistryPattern.label}
                 {" "}• Languages:{" "}
                 {registryLanguages
@@ -12643,6 +12805,9 @@ export default function AdminGeneratorPage() {
                           .value as QuestionExportContent,
                       )
                     }
+                    disabled={
+                      exportCleanExport
+                    }
                     className="mt-1 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800"
                   >
                     <option value="questions">
@@ -12668,6 +12833,9 @@ export default function AdminGeneratorPage() {
                     checked={
                       exportIncludeAnswers
                     }
+                    disabled={
+                      exportCleanExport
+                    }
                     onChange={(event) =>
                       setExportIncludeAnswers(
                         event.target.checked,
@@ -12681,6 +12849,9 @@ export default function AdminGeneratorPage() {
                     type="checkbox"
                     checked={
                       exportIncludeExplanations
+                    }
+                    disabled={
+                      exportCleanExport
                     }
                     onChange={(event) =>
                       setExportIncludeExplanations(
@@ -12696,6 +12867,9 @@ export default function AdminGeneratorPage() {
                     checked={
                       exportIncludeReasoning
                     }
+                    disabled={
+                      exportCleanExport
+                    }
                     onChange={(event) =>
                       setExportIncludeReasoning(
                         event.target.checked,
@@ -12710,6 +12884,9 @@ export default function AdminGeneratorPage() {
                     checked={
                       exportIncludeTraceability
                     }
+                    disabled={
+                      exportCleanExport
+                    }
                     onChange={(event) =>
                       setExportIncludeTraceability(
                         event.target.checked,
@@ -12717,6 +12894,20 @@ export default function AdminGeneratorPage() {
                     }
                   />
                   Traceability
+                </label>
+                <label className="flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+                  <input
+                    type="checkbox"
+                    checked={
+                      exportCleanExport
+                    }
+                    onChange={(event) =>
+                      setExportCleanExport(
+                        event.target.checked,
+                      )
+                    }
+                  />
+                  Only question + options + explanation
                 </label>
                 <button
                   type="button"
@@ -12730,7 +12921,9 @@ export default function AdminGeneratorPage() {
                 </button>
               </div>
               <div className="mt-2 text-xs text-slate-500">
-                Exports the current visible generated batch, up to 1000 questions, with topic, subtopic, archetype, CP, QL, task kind, difficulty, language, question ID, scenario, validation, seed, and timestamp metadata.
+                {exportCleanExport
+                  ? "Clean export mode is on: only the question, options, and explanation will be exported."
+                  : "Exports the current visible generated batch, up to 1000 questions, with topic, subtopic, archetype, CP, QL, task kind, difficulty, language, question ID, scenario, validation, seed, and timestamp metadata."}
                 {exportStatus ? (
                   <span className="ml-2 font-medium text-slate-700">
                     {exportStatus}
