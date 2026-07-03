@@ -1,6 +1,6 @@
 {
   "title": "Question Studio Export",
-  "generatedAt": "2026-07-03T03:23:28.001Z",
+  "generatedAt": "2026-07-03T14:34:43.040Z",
   "count": 20,
   "content": "explanations",
   "questions": [
@@ -27,7 +27,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "addSolute",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-050:96739",
@@ -38,16 +38,7 @@
         "status": "passed",
         "totalChecks": 53,
         "passedChecks": 53,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:farmers: Missing translation for farmers",
-          "semanticLeakage:farmers: Translation leakage in farmers",
-          "semanticUnicode:farmers: Broken Unicode in farmers",
-          "semanticTranslation:crops: Missing translation for crops",
-          "semanticLeakage:crops: Translation leakage in crops",
-          "semanticUnicode:crops: Broken Unicode in crops"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -73,7 +64,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "invarianceDecrease",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-431:94818",
@@ -84,16 +75,7 @@
         "status": "passed",
         "totalChecks": 43,
         "passedChecks": 43,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:workers: Missing translation for workers",
-          "semanticLeakage:workers: Translation leakage in workers",
-          "semanticUnicode:workers: Broken Unicode in workers",
-          "semanticTranslation:output: Missing translation for output",
-          "semanticLeakage:output: Translation leakage in output",
-          "semanticUnicode:output: Broken Unicode in output"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -119,7 +101,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "percentOf",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-1702:91936",
@@ -130,16 +112,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:mathematics: Missing translation for mathematics",
-          "semanticLeakage:mathematics: Translation leakage in mathematics",
-          "semanticUnicode:mathematics: Broken Unicode in mathematics",
-          "semanticTranslation:students: Missing translation for students",
-          "semanticLeakage:students: Translation leakage in students",
-          "semanticUnicode:students: Broken Unicode in students"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -165,7 +138,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "successiveChange",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-022:93859",
@@ -176,16 +149,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:women: Missing translation for women",
-          "semanticLeakage:women: Translation leakage in women",
-          "semanticUnicode:women: Broken Unicode in women",
-          "semanticTranslation:workers: Missing translation for workers",
-          "semanticLeakage:workers: Translation leakage in workers",
-          "semanticUnicode:workers: Broken Unicode in workers"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -211,7 +175,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "reverseIncrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-014:92899",
@@ -222,16 +186,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:salary: Missing translation for salary",
-          "semanticLeakage:salary: Translation leakage in salary",
-          "semanticUnicode:salary: Broken Unicode in salary",
-          "semanticTranslation:saving: Missing translation for saving",
-          "semanticLeakage:saving: Translation leakage in saving",
-          "semanticUnicode:saving: Broken Unicode in saving"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -257,7 +212,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "winnerVotes",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-438:95783",
@@ -268,16 +223,7 @@
         "status": "passed",
         "totalChecks": 47,
         "passedChecks": 47,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:winner: Missing translation for winner",
-          "semanticLeakage:winner: Translation leakage in winner",
-          "semanticUnicode:winner: Broken Unicode in winner",
-          "semanticTranslation:voters: Missing translation for voters",
-          "semanticLeakage:voters: Translation leakage in voters",
-          "semanticUnicode:voters: Broken Unicode in voters"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -303,7 +249,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "alloyComplement",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-155:96745",
@@ -314,16 +260,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:crops: Missing translation for crops",
-          "semanticLeakage:crops: Translation leakage in crops",
-          "semanticUnicode:crops: Broken Unicode in crops",
-          "semanticTranslation:farmers: Missing translation for farmers",
-          "semanticLeakage:farmers: Translation leakage in farmers",
-          "semanticUnicode:farmers: Broken Unicode in farmers"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -349,7 +286,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "invarianceIncrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-029:94824",
@@ -360,16 +297,7 @@
         "status": "passed",
         "totalChecks": 43,
         "passedChecks": 43,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:workers: Missing translation for workers",
-          "semanticLeakage:workers: Translation leakage in workers",
-          "semanticUnicode:workers: Broken Unicode in workers",
-          "semanticTranslation:output: Missing translation for output",
-          "semanticLeakage:output: Translation leakage in output",
-          "semanticUnicode:output: Broken Unicode in output"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -395,7 +323,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "reversePercent",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-309:91942",
@@ -406,16 +334,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:girls: Missing translation for girls",
-          "semanticLeakage:girls: Translation leakage in girls",
-          "semanticUnicode:girls: Broken Unicode in girls",
-          "semanticTranslation:mathematics: Missing translation for mathematics",
-          "semanticLeakage:mathematics: Translation leakage in mathematics",
-          "semanticUnicode:mathematics: Broken Unicode in mathematics"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -441,7 +360,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "squareAreaChange",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-127:93865",
@@ -452,16 +371,7 @@
         "status": "passed",
         "totalChecks": 43,
         "passedChecks": 43,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:men: Missing translation for men",
-          "semanticLeakage:men: Translation leakage in men",
-          "semanticUnicode:men: Broken Unicode in men",
-          "semanticTranslation:employees: Missing translation for employees",
-          "semanticLeakage:employees: Translation leakage in employees",
-          "semanticUnicode:employees: Broken Unicode in employees"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -487,7 +397,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "percentOfKnownNumber",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-217:76048",
@@ -498,16 +408,7 @@
         "status": "passed",
         "totalChecks": 53,
         "passedChecks": 53,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:salary: Missing translation for salary",
-          "semanticLeakage:salary: Translation leakage in salary",
-          "semanticUnicode:salary: Broken Unicode in salary",
-          "semanticTranslation:saving: Missing translation for saving",
-          "semanticLeakage:saving: Translation leakage in saving",
-          "semanticUnicode:saving: Broken Unicode in saving"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -533,7 +434,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "partToTotal",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-146:65422",
@@ -544,16 +445,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:valid_votes: Missing translation for valid_votes",
-          "semanticLeakage:valid_votes: Translation leakage in valid_votes",
-          "semanticUnicode:valid_votes: Broken Unicode in valid_votes",
-          "semanticTranslation:runner_up: Missing translation for runner_up",
-          "semanticLeakage:runner_up: Translation leakage in runner_up",
-          "semanticUnicode:runner_up: Broken Unicode in runner_up"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -579,7 +471,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "dryFromFresh",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-249:95214",
@@ -590,16 +482,7 @@
         "status": "passed",
         "totalChecks": 53,
         "passedChecks": 53,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:farmers: Missing translation for farmers",
-          "semanticLeakage:farmers: Translation leakage in farmers",
-          "semanticUnicode:farmers: Broken Unicode in farmers",
-          "semanticTranslation:crops: Missing translation for crops",
-          "semanticLeakage:crops: Translation leakage in crops",
-          "semanticUnicode:crops: Broken Unicode in crops"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -625,7 +508,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "invarianceDecrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-230:35633",
@@ -636,16 +519,7 @@
         "status": "passed",
         "totalChecks": 43,
         "passedChecks": 43,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:output: Missing translation for output",
-          "semanticLeakage:output: Translation leakage in output",
-          "semanticUnicode:output: Broken Unicode in output",
-          "semanticTranslation:workers: Missing translation for workers",
-          "semanticLeakage:workers: Translation leakage in workers",
-          "semanticUnicode:workers: Broken Unicode in workers"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -671,7 +545,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "directRelation",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-005:46261",
@@ -682,16 +556,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:mathematics: Missing translation for mathematics",
-          "semanticLeakage:mathematics: Translation leakage in mathematics",
-          "semanticUnicode:mathematics: Broken Unicode in mathematics",
-          "semanticTranslation:girls: Missing translation for girls",
-          "semanticLeakage:girls: Translation leakage in girls",
-          "semanticUnicode:girls: Broken Unicode in girls"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -717,7 +582,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "areaChange",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-326:5844",
@@ -728,16 +593,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:women: Missing translation for women",
-          "semanticLeakage:women: Translation leakage in women",
-          "semanticUnicode:women: Broken Unicode in women",
-          "semanticTranslation:employees: Missing translation for employees",
-          "semanticLeakage:employees: Translation leakage in employees",
-          "semanticUnicode:employees: Broken Unicode in employees"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -763,7 +619,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "increaseByAmount",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-316:76054",
@@ -774,16 +630,7 @@
         "status": "passed",
         "totalChecks": 48,
         "passedChecks": 48,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:expenditure: Missing translation for expenditure",
-          "semanticLeakage:expenditure: Translation leakage in expenditure",
-          "semanticUnicode:expenditure: Broken Unicode in expenditure",
-          "semanticTranslation:saving: Missing translation for saving",
-          "semanticLeakage:saving: Translation leakage in saving",
-          "semanticUnicode:saving: Broken Unicode in saving"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -809,7 +656,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "loserVotes",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-247:65428",
@@ -820,16 +667,7 @@
         "status": "passed",
         "totalChecks": 47,
         "passedChecks": 47,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:voters: Missing translation for voters",
-          "semanticLeakage:voters: Translation leakage in voters",
-          "semanticUnicode:voters: Broken Unicode in voters",
-          "semanticTranslation:invalid_votes: Missing translation for invalid_votes",
-          "semanticLeakage:invalid_votes: Translation leakage in invalid_votes",
-          "semanticUnicode:invalid_votes: Broken Unicode in invalid_votes"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -855,7 +693,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "evaporationOriginal",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-354:95220",
@@ -866,16 +704,7 @@
         "status": "passed",
         "totalChecks": 53,
         "passedChecks": 53,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:farmers: Missing translation for farmers",
-          "semanticLeakage:farmers: Translation leakage in farmers",
-          "semanticUnicode:farmers: Broken Unicode in farmers",
-          "semanticTranslation:crops: Missing translation for crops",
-          "semanticLeakage:crops: Translation leakage in crops",
-          "semanticUnicode:crops: Broken Unicode in crops"
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -901,7 +730,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "circleAreaDecrease",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-335:35639",
@@ -912,16 +741,7 @@
         "status": "passed",
         "totalChecks": 43,
         "passedChecks": 43,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "semanticDuplicates: Duplicate entities found in semantic context.",
-          "semanticTranslation:output: Missing translation for output",
-          "semanticLeakage:output: Translation leakage in output",
-          "semanticUnicode:output: Broken Unicode in output",
-          "semanticTranslation:machines: Missing translation for machines",
-          "semanticLeakage:machines: Translation leakage in machines",
-          "semanticUnicode:machines: Broken Unicode in machines"
-        ]
+        "failedChecks": 0
       }
     }
   ]

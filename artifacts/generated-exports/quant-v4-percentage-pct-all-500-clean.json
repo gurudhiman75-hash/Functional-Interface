@@ -23,14 +23,14 @@
   },
   {
     "questionNo": 3,
-    "stem": "salary A is Rs. 50000 and increases by 10%, while salary B is Rs. 25000 and increases by 25%. Find the difference between their new values.",
+    "stem": "Salary A is Rs. 50000 and increases by 10%, while Salary B is Rs. 25000 and increases by 25%. Find the difference between their new values.",
     "options": [
       "$$23750$$",
       "$$23800$$",
       "$$23650$$",
       "$$23850$$"
     ],
-    "explanation": "First find the new value of salary A after its increase.\n\n$$\\text{New salary A}=50000\\times\\frac{110}{100}=55000$$\n\nNow find the new value of salary B after its increase.\n\n$$\\text{New salary B}=25000\\times\\frac{125}{100}=31250$$\n\nFinally compare these two new values.\n\n$$\\text{Difference}=\\left|55000-31250\\right|=23750$$\n\nTherefore the difference between the new values is Rs. 23750.\n\n$$\\text{Difference}=23750$$"
+    "explanation": "First find the new value of Salary A after its increase.\n\n$$\\text{New Salary A}=50000\\times\\frac{110}{100}=55000$$\n\nNow find the new value of Salary B after its increase.\n\n$$\\text{New Salary B}=25000\\times\\frac{125}{100}=31250$$\n\nFinally compare these two new values.\n\n$$\\text{Difference}=\\left|55000-31250\\right|=23750$$\n\nTherefore the difference between the new values is Rs. 23750.\n\n$$\\text{Difference}=23750$$"
   },
   {
     "questionNo": 4,
@@ -67,7 +67,7 @@
   },
   {
     "questionNo": 7,
-    "stem": "A Product A price of Rs. 40000 and a Product B price of Rs. 45000 are reduced by 12% and 15% respectively. Find the difference between the resulting amounts.",
+    "stem": "Product A price of Rs. 40000 and Product B price of Rs. 45000 are reduced by 12% and 15% respectively. Find the difference between the resulting amounts.",
     "options": [
       "$$2950$$",
       "$$3100$$",
@@ -173,7 +173,7 @@
       "$$910$$",
       "$$900$$"
     ],
-    "explanation": "Here, 20% of the employees equals 180.\n\n$$20\\\\%\\rightarrow180$$\n\nTo determine the value of 1%, divide 180 by 20.\n\n$$1\\\\%=\\frac{180}{20}=9$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=9\\times100=900$$\n\nTherefore the total employees is 900.\n\n$$\\text{Total employees}=900$$"
+    "explanation": "Here, 20% of the employees equals 180.\n\n$$20\\\\%\\rightarrow180$$\n\nTo determine the value of 1%, divide 180 by 20.\n\n$$1\\\\%=\\frac{180}{20}=9$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=9\\times100=900$$\n\nTherefore the total number of employees is 900.\n\n$$\\text{Total employees}=900$$"
   },
   {
     "questionNo": 17,
@@ -243,14 +243,14 @@
   },
   {
     "questionNo": 23,
-    "stem": "A train has 400 students. If 35% are girls, 35% are boys, and 30% are other students, find the number of girls.",
+    "stem": "A school has 400 students. If 35% are girls, 35% are boys, and 30% are other students, find the number of girls.",
     "options": [
       "$$150$$",
       "$$140$$",
       "$$160$$",
       "$$130$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow400$$\n\nSo the value corresponding to 1% is obtained by dividing 400 by 100.\n\n$$1\\\\%=\\frac{400}{100}=4$$\n\nNow multiply the value of 1% by 35 to find the girls.\n\n$$35\\\\%=4\\times35=140$$\n\nTherefore the girls count is 140.\n\n$$\\text{girls}=140$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow400$$\n\nSo the value corresponding to 1% is obtained by dividing 400 by 100.\n\n$$1\\\\%=\\frac{400}{100}=4$$\n\nNow multiply the value of 1% by 35 to find the girls.\n\n$$35\\\\%=4\\times35=140$$\n\nTherefore the girls count is 140.\n\n$$\\text{girls}=140$$"
   },
   {
     "questionNo": 24,
@@ -481,7 +481,7 @@
       "$$36\\%$$",
       "$$34\\%$$"
     ],
-    "explanation": "The whole patients corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 84 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{84}{2.4}=35\\\\%$$\n\nTherefore 84 is 35% of the patients.\n\n$$\\text{recovered}=35\\\\%$$"
+    "explanation": "The total number of patients corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 84 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{84}{2.4}=35\\\\%$$\n\nTherefore 84 is 35% of the patients.\n\n$$\\text{recovered}=35\\\\%$$"
   },
   {
     "questionNo": 45,
@@ -866,7 +866,7 @@
       "$$2400$$",
       "$$2550$$"
     ],
-    "explanation": "The whole people corresponds to 100%.\n\n$$100\\\\%\\rightarrow10000$$\n\nSo the value corresponding to 1% is obtained by dividing 10000 by 100.\n\n$$1\\\\%=\\frac{10000}{100}=100$$\n\nNow multiply the value of 1% by the percentage for children.\n\n$$25\\\\%=100\\times25=2500$$\n\nTherefore the value for children is 2500.\n\n$$\\text{children}=2500$$"
+    "explanation": "The total number of people corresponds to 100%.\n\n$$100\\\\%\\rightarrow10000$$\n\nSo the value corresponding to 1% is obtained by dividing 10000 by 100.\n\n$$1\\\\%=\\frac{10000}{100}=100$$\n\nNow multiply the value of 1% by the percentage for children.\n\n$$25\\\\%=100\\times25=2500$$\n\nTherefore the value for children is 2500.\n\n$$\\text{children}=2500$$"
   },
   {
     "questionNo": 80,
@@ -943,7 +943,7 @@
       "$$420$$",
       "$$400$$"
     ],
-    "explanation": "Here, 30% of the students equals 120.\n\n$$30\\\\%\\rightarrow120$$\n\nTo determine the value of 1%, divide 120 by 30.\n\n$$1\\\\%=\\frac{120}{30}=4$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=4\\times100=400$$\n\nTherefore the total students is 400.\n\n$$\\text{Total students}=400$$"
+    "explanation": "Here, 30% of the students equals 120.\n\n$$30\\\\%\\rightarrow120$$\n\nTo determine the value of 1%, divide 120 by 30.\n\n$$1\\\\%=\\frac{120}{30}=4$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=4\\times100=400$$\n\nTherefore the total number of students is 400.\n\n$$\\text{Total students}=400$$"
   },
   {
     "questionNo": 87,
@@ -1020,7 +1020,7 @@
       "$$250$$",
       "$$240$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow1000$$\n\nSo the value corresponding to 1% is obtained by dividing 1000 by 100.\n\n$$1\\\\%=\\frac{1000}{100}=10$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=10\\times25=250$$\n\nTherefore the girls count is 250.\n\n$$\\text{girls}=250$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow1000$$\n\nSo the value corresponding to 1% is obtained by dividing 1000 by 100.\n\n$$1\\\\%=\\frac{1000}{100}=10$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=10\\times25=250$$\n\nTherefore the girls count is 250.\n\n$$\\text{girls}=250$$"
   },
   {
     "questionNo": 94,
@@ -1251,7 +1251,7 @@
       "$$24\\%$$",
       "$$26\\%$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow360$$\n\nSo 1% is obtained by dividing 360 by 100.\n\n$$1\\\\%=\\frac{360}{100}=3.6$$\n\nNow compare 90 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{90}{3.6}=25\\\\%$$\n\nTherefore 90 is 25% of the students.\n\n$$\\text{girls}=25\\\\%$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow360$$\n\nSo 1% is obtained by dividing 360 by 100.\n\n$$1\\\\%=\\frac{360}{100}=3.6$$\n\nNow compare 90 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{90}{3.6}=25\\\\%$$\n\nTherefore 90 is 25% of the students.\n\n$$\\text{girls}=25\\\\%$$"
   },
   {
     "questionNo": 115,
@@ -1398,7 +1398,7 @@
   },
   {
     "questionNo": 128,
-    "stem": "If 40% of the booking booking total is 200, find the percentage represented by 250.",
+    "stem": "If 40% of the booking total is 200, find the percentage represented by 250.",
     "options": [
       "$$33\\%$$",
       "$$51\\%$$",
@@ -1482,7 +1482,7 @@
       "$$430$$",
       "$$440$$"
     ],
-    "explanation": "Here, 35% of the bed strength equals 245.\n\n$$35\\\\%\\rightarrow245$$\n\nFirst find the value corresponding to 1% by dividing 245 by 35.\n\n$$1\\\\%=\\frac{245}{35}=7$$\n\nNow multiply the value of 1% by 60 to get 60%.\n\n$$60\\\\%=7\\times60=420$$\n\nTherefore 60% of the bed strength is 420.\n\n$$\\text{students}=420$$"
+    "explanation": "Here, 35% of the bed strength equals 245.\n\n$$35\\\\%\\rightarrow245$$\n\nFirst find the value corresponding to 1% by dividing 245 by 35.\n\n$$1\\\\%=\\frac{245}{35}=7$$\n\nNow multiply the value of 1% by 60 to get 60%.\n\n$$60\\\\%=7\\times60=420$$\n\nTherefore 60% of the bed strength is 420.\n\n$$\\text{beds}=420$$"
   },
   {
     "questionNo": 136,
@@ -1563,7 +1563,7 @@
   },
   {
     "questionNo": 143,
-    "stem": "A Warehouse A stock of 600 and a Warehouse B stock of 900 are increased by 20% and 10% respectively. Find the difference between the resulting counts.",
+    "stem": "Warehouse A stock of 600 and Warehouse B stock of 900 are increased by 20% and 10% respectively. Find the difference between the resulting counts.",
     "options": [
       "$$280$$",
       "$$290$$",
@@ -1636,7 +1636,7 @@
       "$$2600$$",
       "$$2500$$"
     ],
-    "explanation": "The whole people corresponds to 100%.\n\n$$100\\\\%\\rightarrow10000$$\n\nSo the value corresponding to 1% is obtained by dividing 10000 by 100.\n\n$$1\\\\%=\\frac{10000}{100}=100$$\n\nNow multiply the value of 1% by the percentage for children.\n\n$$25\\\\%=100\\times25=2500$$\n\nTherefore the value for children is 2500.\n\n$$\\text{children}=2500$$"
+    "explanation": "The total number of people corresponds to 100%.\n\n$$100\\\\%\\rightarrow10000$$\n\nSo the value corresponding to 1% is obtained by dividing 10000 by 100.\n\n$$1\\\\%=\\frac{10000}{100}=100$$\n\nNow multiply the value of 1% by the percentage for children.\n\n$$25\\\\%=100\\times25=2500$$\n\nTherefore the value for children is 2500.\n\n$$\\text{children}=2500$$"
   },
   {
     "questionNo": 150,
@@ -1713,7 +1713,7 @@
       "$$1100$$",
       "$$1250$$"
     ],
-    "explanation": "Here, 30% of the respondents equals 360.\n\n$$30\\\\%\\rightarrow360$$\n\nTo determine the value of 1%, divide 360 by 30.\n\n$$1\\\\%=\\frac{360}{30}=12$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=12\\times100=1200$$\n\nTherefore the total respondents is 1200.\n\n$$\\text{Total respondents}=1200$$"
+    "explanation": "Here, 30% of the respondents equals 360.\n\n$$30\\\\%\\rightarrow360$$\n\nTo determine the value of 1%, divide 360 by 30.\n\n$$1\\\\%=\\frac{360}{30}=12$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=12\\times100=1200$$\n\nTherefore the total number of respondents is 1200.\n\n$$\\text{Total respondents}=1200$$"
   },
   {
     "questionNo": 157,
@@ -2021,7 +2021,7 @@
       "$$65\\%$$",
       "$$35\\%$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 168 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{168}{4.8}=35\\\\%$$\n\nTherefore 168 is 35% of the students.\n\n$$\\text{girls}=35\\\\%$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 168 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{168}{4.8}=35\\\\%$$\n\nTherefore 168 is 35% of the students.\n\n$$\\text{girls}=35\\\\%$$"
   },
   {
     "questionNo": 185,
@@ -2168,7 +2168,7 @@
   },
   {
     "questionNo": 198,
-    "stem": "If 40% of the booking booking total is 240, find the percentage represented by 120.",
+    "stem": "If 40% of the booking total is 240, find the percentage represented by 120.",
     "options": [
       "$$17\\%$$",
       "$$21\\%$$",
@@ -2186,7 +2186,7 @@
       "$$19900$$",
       "$$20050$$"
     ],
-    "explanation": "After a 25% rise, the new passengers represents 125% of the original.\n\n$$125\\\\%\\rightarrow25000$$\n\nSo divide 25000 by 125 to find the value of 1%.\n\n$$1\\\\%=\\frac{25000}{125}=200$$\n\nNow multiply the value of 1% by 100 to get the original passengers.\n\n$$100\\\\%=200\\times100=20000$$\n\nTherefore the original passengers were 20000.\n\n$$\\text{Original passengers}=20000$$"
+    "explanation": "After a 25% rise, the new passengers represent 125% of the original.\n\n$$125\\\\%\\rightarrow25000$$\n\nSo divide 25000 by 125 to find the value of 1%.\n\n$$1\\\\%=\\frac{25000}{125}=200$$\n\nNow multiply the value of 1% by 100 to get the original passengers.\n\n$$100\\\\%=200\\times100=20000$$\n\nTherefore the original passengers were 20000.\n\n$$\\text{Original passengers}=20000$$"
   },
   {
     "questionNo": 200,
@@ -2252,7 +2252,7 @@
       "$$440$$",
       "$$420$$"
     ],
-    "explanation": "Here, 25% of the vote count equals 140.\n\n$$25\\\\%\\rightarrow140$$\n\nFirst find the value corresponding to 1% by dividing 140 by 25.\n\n$$1\\\\%=\\frac{140}{25}=5.6$$\n\nNow multiply the value of 1% by 75 to get 75%.\n\n$$75\\\\%=5.6\\times75=420$$\n\nTherefore 75% of the vote count is 420.\n\n$$\\text{students}=420$$"
+    "explanation": "Here, 25% of the vote count equals 140.\n\n$$25\\\\%\\rightarrow140$$\n\nFirst find the value corresponding to 1% by dividing 140 by 25.\n\n$$1\\\\%=\\frac{140}{25}=5.6$$\n\nNow multiply the value of 1% by 75 to get 75%.\n\n$$75\\\\%=5.6\\times75=420$$\n\nTherefore 75% of the vote count is 420.\n\n$$\\text{votes}=420$$"
   },
   {
     "questionNo": 206,
@@ -2483,7 +2483,7 @@
       "$$910$$",
       "$$890$$"
     ],
-    "explanation": "Here, 20% of the students equals 180.\n\n$$20\\\\%\\rightarrow180$$\n\nTo determine the value of 1%, divide 180 by 20.\n\n$$1\\\\%=\\frac{180}{20}=9$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=9\\times100=900$$\n\nTherefore the total students is 900.\n\n$$\\text{Total students}=900$$"
+    "explanation": "Here, 20% of the students equals 180.\n\n$$20\\\\%\\rightarrow180$$\n\nTo determine the value of 1%, divide 180 by 20.\n\n$$1\\\\%=\\frac{180}{20}=9$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=9\\times100=900$$\n\nTherefore the total number of students is 900.\n\n$$\\text{Total students}=900$$"
   },
   {
     "questionNo": 227,
@@ -2560,7 +2560,7 @@
       "$$160$$",
       "$$150$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow600$$\n\nSo the value corresponding to 1% is obtained by dividing 600 by 100.\n\n$$1\\\\%=\\frac{600}{100}=6$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=6\\times25=150$$\n\nTherefore the girls count is 150.\n\n$$\\text{girls}=150$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow600$$\n\nSo the value corresponding to 1% is obtained by dividing 600 by 100.\n\n$$1\\\\%=\\frac{600}{100}=6$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=6\\times25=150$$\n\nTherefore the girls count is 150.\n\n$$\\text{girls}=150$$"
   },
   {
     "questionNo": 234,
@@ -2791,7 +2791,7 @@
       "$$43\\%$$",
       "$$31\\%$$"
     ],
-    "explanation": "The whole applicants corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 72 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{72}{2.4}=30\\\\%$$\n\nTherefore 72 is 30% of the applicants.\n\n$$\\text{selected}=30\\\\%$$"
+    "explanation": "The total number of applicants corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 72 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{72}{2.4}=30\\\\%$$\n\nTherefore 72 is 30% of the applicants.\n\n$$\\text{selected}=30\\\\%$$"
   },
   {
     "questionNo": 255,
@@ -3147,7 +3147,7 @@
   },
   {
     "questionNo": 287,
-    "stem": "A Warehouse A stock of 400 and a Warehouse B stock of 700 are reduced by 20% and 10% respectively. Find the difference between the resulting counts.",
+    "stem": "Warehouse A stock of 400 and Warehouse B stock of 700 are reduced by 20% and 10% respectively. Find the difference between the resulting counts.",
     "options": [
       "$$300$$",
       "$$330$$",
@@ -3253,7 +3253,7 @@
       "$$730$$",
       "$$710$$"
     ],
-    "explanation": "Here, 30% of the applicants equals 216.\n\n$$30\\\\%\\rightarrow216$$\n\nTo determine the value of 1%, divide 216 by 30.\n\n$$1\\\\%=\\frac{216}{30}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total applicants is 720.\n\n$$\\text{Total applicants}=720$$"
+    "explanation": "Here, 30% of the applicants equals 216.\n\n$$30\\\\%\\rightarrow216$$\n\nTo determine the value of 1%, divide 216 by 30.\n\n$$1\\\\%=\\frac{216}{30}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total number of applicants is 720.\n\n$$\\text{Total applicants}=720$$"
   },
   {
     "questionNo": 297,
@@ -3330,7 +3330,7 @@
       "$$470$$",
       "$$490$$"
     ],
-    "explanation": "The whole items corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 40 to find the ready items.\n\n$$40\\\\%=12\\times40=480$$\n\nTherefore the ready items count is 480.\n\n$$\\text{ready items}=480$$"
+    "explanation": "The total number of items corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 40 to find the ready items.\n\n$$40\\\\%=12\\times40=480$$\n\nTherefore the ready items count is 480.\n\n$$\\text{ready items}=480$$"
   },
   {
     "questionNo": 304,
@@ -3561,7 +3561,7 @@
       "$$24\\%$$",
       "$$26\\%$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 120 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{120}{4.8}=25\\\\%$$\n\nTherefore 120 is 25% of the students.\n\n$$\\text{girls}=25\\\\%$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 120 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{120}{4.8}=25\\\\%$$\n\nTherefore 120 is 25% of the students.\n\n$$\\text{girls}=25\\\\%$$"
   },
   {
     "questionNo": 325,
@@ -4023,7 +4023,7 @@
       "$$820$$",
       "$$810$$"
     ],
-    "explanation": "Here, 25% of the patients equals 200.\n\n$$25\\\\%\\rightarrow200$$\n\nTo determine the value of 1%, divide 200 by 25.\n\n$$1\\\\%=\\frac{200}{25}=8$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=8\\times100=800$$\n\nTherefore the total patients is 800.\n\n$$\\text{Total patients}=800$$"
+    "explanation": "Here, 25% of the patients equals 200.\n\n$$25\\\\%\\rightarrow200$$\n\nTo determine the value of 1%, divide 200 by 25.\n\n$$1\\\\%=\\frac{200}{25}=8$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=8\\times100=800$$\n\nTherefore the total number of patients is 800.\n\n$$\\text{Total patients}=800$$"
   },
   {
     "questionNo": 367,
@@ -4562,7 +4562,7 @@
       "$$170$$",
       "$$160$$"
     ],
-    "explanation": "Here, 40% of the usage equals 128.\n\n$$40\\\\%\\rightarrow128$$\n\nFirst find the value corresponding to 1% by dividing 128 by 40.\n\n$$1\\\\%=\\frac{128}{40}=3.2$$\n\nNow multiply the value of 1% by 50 to get 50%.\n\n$$50\\\\%=3.2\\times50=160$$\n\nTherefore 50% of the usage is 160.\n\n$$\\text{students}=160$$"
+    "explanation": "Here, 40% of the usage equals 128.\n\n$$40\\\\%\\rightarrow128$$\n\nFirst find the value corresponding to 1% by dividing 128 by 40.\n\n$$1\\\\%=\\frac{128}{40}=3.2$$\n\nNow multiply the value of 1% by 50 to get 50%.\n\n$$50\\\\%=3.2\\times50=160$$\n\nTherefore 50% of the usage is 160.\n\n$$\\text{amount}=160$$"
   },
   {
     "questionNo": 416,
@@ -4793,7 +4793,7 @@
       "$$730$$",
       "$$720$$"
     ],
-    "explanation": "Here, 20% of the students equals 144.\n\n$$20\\\\%\\rightarrow144$$\n\nTo determine the value of 1%, divide 144 by 20.\n\n$$1\\\\%=\\frac{144}{20}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total students is 720.\n\n$$\\text{Total students}=720$$"
+    "explanation": "Here, 20% of the students equals 144.\n\n$$20\\\\%\\rightarrow144$$\n\nTo determine the value of 1%, divide 144 by 20.\n\n$$1\\\\%=\\frac{144}{20}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total number of students is 720.\n\n$$\\text{Total students}=720$$"
   },
   {
     "questionNo": 437,
@@ -4863,14 +4863,14 @@
   },
   {
     "questionNo": 443,
-    "stem": "A train has 800 students. If 25% are girls, 20% are boys, and 55% are other students, find the number of girls.",
+    "stem": "A school has 800 students. If 25% are girls, 20% are boys, and 55% are other students, find the number of girls.",
     "options": [
       "$$210$$",
       "$$190$$",
       "$$220$$",
       "$$200$$"
     ],
-    "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow800$$\n\nSo the value corresponding to 1% is obtained by dividing 800 by 100.\n\n$$1\\\\%=\\frac{800}{100}=8$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=8\\times25=200$$\n\nTherefore the girls count is 200.\n\n$$\\text{girls}=200$$"
+    "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow800$$\n\nSo the value corresponding to 1% is obtained by dividing 800 by 100.\n\n$$1\\\\%=\\frac{800}{100}=8$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=8\\times25=200$$\n\nTherefore the girls count is 200.\n\n$$\\text{girls}=200$$"
   },
   {
     "questionNo": 444,
@@ -5101,7 +5101,7 @@
       "$$33\\%$$",
       "$$26\\%$$"
     ],
-    "explanation": "The whole units corresponds to 100%.\n\n$$100\\\\%\\rightarrow360$$\n\nSo 1% is obtained by dividing 360 by 100.\n\n$$1\\\\%=\\frac{360}{100}=3.6$$\n\nNow compare 90 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{90}{3.6}=25\\\\%$$\n\nTherefore 90 is 25% of the units.\n\n$$\\text{defective}=25\\\\%$$"
+    "explanation": "The total number of units corresponds to 100%.\n\n$$100\\\\%\\rightarrow360$$\n\nSo 1% is obtained by dividing 360 by 100.\n\n$$1\\\\%=\\frac{360}{100}=3.6$$\n\nNow compare 90 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{90}{3.6}=25\\\\%$$\n\nTherefore 90 is 25% of the units.\n\n$$\\text{defective}=25\\\\%$$"
   },
   {
     "questionNo": 465,
@@ -5266,7 +5266,7 @@
       "$$3900$$",
       "$$4000$$"
     ],
-    "explanation": "After a 20% rise, the new passengers represents 120% of the original.\n\n$$120\\\\%\\rightarrow4800$$\n\nSo divide 4800 by 120 to find the value of 1%.\n\n$$1\\\\%=\\frac{4800}{120}=40$$\n\nNow multiply the value of 1% by 100 to get the original passengers.\n\n$$100\\\\%=40\\times100=4000$$\n\nTherefore the original passengers were 4000.\n\n$$\\text{Original passengers}=4000$$"
+    "explanation": "After a 20% rise, the new passengers represent 120% of the original.\n\n$$120\\\\%\\rightarrow4800$$\n\nSo divide 4800 by 120 to find the value of 1%.\n\n$$1\\\\%=\\frac{4800}{120}=40$$\n\nNow multiply the value of 1% by 100 to get the original passengers.\n\n$$100\\\\%=40\\times100=4000$$\n\nTherefore the original passengers were 4000.\n\n$$\\text{Original passengers}=4000$$"
   },
   {
     "questionNo": 480,
@@ -5325,14 +5325,14 @@
   },
   {
     "questionNo": 485,
-    "stem": "If 40% of the yearly students is 336, find the amount represented by 50% of the same total.",
+    "stem": "If 40% of the yearly output is 336, find the amount represented by 50% of the same total.",
     "options": [
       "$$440$$",
       "$$420$$",
       "$$430$$",
       "$$410$$"
     ],
-    "explanation": "Here, 40% of the students equals 336.\n\n$$40\\\\%\\rightarrow336$$\n\nFirst find the value corresponding to 1% by dividing 336 by 40.\n\n$$1\\\\%=\\frac{336}{40}=8.4$$\n\nNow multiply the value of 1% by 50 to get 50%.\n\n$$50\\\\%=8.4\\times50=420$$\n\nTherefore 50% of the students is 420.\n\n$$\\text{students}=420$$"
+    "explanation": "Here, 40% of the output equals 336.\n\n$$40\\\\%\\rightarrow336$$\n\nFirst find the value corresponding to 1% by dividing 336 by 40.\n\n$$1\\\\%=\\frac{336}{40}=8.4$$\n\nNow multiply the value of 1% by 50 to get 50%.\n\n$$50\\\\%=8.4\\times50=420$$\n\nTherefore 50% of the output is 420.\n\n$$\\text{amount}=420$$"
   },
   {
     "questionNo": 486,
@@ -5486,7 +5486,7 @@
       "$$2500$$",
       "$$2600$$"
     ],
-    "explanation": "The whole respondents corresponds to 100%.\n\n$$100\\\\%\\rightarrow10000$$\n\nSo the value corresponding to 1% is obtained by dividing 10000 by 100.\n\n$$1\\\\%=\\frac{10000}{100}=100$$\n\nNow multiply the value of 1% by the percentage for neutral respondents.\n\n$$25\\\\%=100\\times25=2500$$\n\nTherefore the value for neutral respondents is 2500.\n\n$$\\text{neutral respondents}=2500$$"
+    "explanation": "The total number of respondents corresponds to 100%.\n\n$$100\\\\%\\rightarrow10000$$\n\nSo the value corresponding to 1% is obtained by dividing 10000 by 100.\n\n$$1\\\\%=\\frac{10000}{100}=100$$\n\nNow multiply the value of 1% by the percentage for neutral respondents.\n\n$$25\\\\%=100\\times25=2500$$\n\nTherefore the value for neutral respondents is 2500.\n\n$$\\text{neutral respondents}=2500$$"
   },
   {
     "questionNo": 500,

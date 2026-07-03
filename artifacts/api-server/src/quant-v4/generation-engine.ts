@@ -560,6 +560,7 @@ function polishGeneratedEnglishText(value: string) {
       return Number.isFinite(numericValue) ? formatPreviewNumber(numericValue) : rawValue;
     })
     .replace(/([A-Za-z0-9%])\.{2,}/g, "$1.")
+    .replace(/\b([A-Za-z]+)\s+\1\b/gi, "$1")
     .replace(/\bmonthly monthly\b/gi, "monthly")
     .replace(/\bA investment\b/g, "An investment")
     .replace(/\ba investment\b/g, "an investment")
@@ -586,8 +587,11 @@ function polishGeneratedEnglishText(value: string) {
     .replace(/\ba rent is\b/g, "the rent is")
     .replace(/\bA sales of\b/g, "Sales of")
     .replace(/\bA sales is\b/g, "Sales are")
+    .replace(/\b(A|a)\s+(Product|Warehouse|Branch|Fund|Asset|Unit|Machine)\s+([A-Z])\b/g, (_match, _article: string, entity: string, suffix: string) => `${entity} ${suffix}`)
+    .replace(/\b(salary|production|product|warehouse|branch|fund|asset|unit|machine)\s+([A-Z])\b/g, (_match, entity: string, suffix: string) => `${entity.charAt(0).toUpperCase()}${entity.slice(1)} ${suffix}`)
     .replace(/\bSchool A attendance\b/g, "School A's attendance")
     .replace(/\bschool A attendance\b/g, "school A's attendance")
+    .replace(/\bA train has (\d+) students\b/gi, "A school has $1 students")
     .replace(/\bThe current internet users is\b/g, "The current number of internet users is")
     .replace(/\bthe internet users\b/gi, "the number of internet users")
     .replace(/\boriginal internet users\b/gi, "original number of internet users")
@@ -602,8 +606,11 @@ function polishGeneratedEnglishText(value: string) {
     .replace(/\bRoute B passengers starts\b/g, "Route B passenger count starts")
     .replace(/\bthere are (\d+) population\b/gi, "the population is $1")
     .replace(/\bproduction production\b/gi, "production batch")
+    .replace(/\bThe whole (students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents)\b/gi, (_match, noun: string) => `The total number of ${noun}`)
     .replace(/\b(employees|students|residents|passengers|workers) was\b/gi, (_match, noun: string) => `${noun} were`)
+    .replace(/\b(students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents) represents\b/gi, (_match, noun: string) => `${noun} represent`)
     .replace(/\bthe (units|cartons|boxes|bags|students|passengers|residents|employees) becomes\b/gi, (_match, noun: string) => `the ${noun} become`)
+    .replace(/\b(the|Therefore the|So the) total (students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents) is\b/gi, (_match, prefix: string, noun: string) => `${prefix} total number of ${noun} is`)
     .replace(/\b(the|So the|Therefore the) new (households|passengers|users|active users|students|residents|employees|workers|applicants|cartons|boxes|bags|units) is\b/gi, (_match, prefix: string, noun: string) => `${prefix} new number of ${noun} is`)
     .replace(/\b(the|So the) (units|cartons|boxes|bags|students|passengers|residents|employees) after both (increases|decreases) is\b/gi, (_match, prefix: string, noun: string, change: string) => `${prefix} ${noun} after both ${change} are`)
     .replace(/\bSo the final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi, (_match, noun: string) => `So the final number of ${noun} is`)
@@ -816,6 +823,7 @@ export function toQuestionStudioPreview(
     packageId: pkg.archetypeId,
     taskKind,
     scenarioId,
+    language: pkg.language ?? "en",
     questionIndex: context.questionIndex,
     questionCount: context.questionCount,
     canonicalProblemId: pkg.canonicalProblemId,

@@ -68,7 +68,7 @@ type ValidationSummary = {
   totalChecks: number;
   passedChecks: number;
   failedChecks: number;
-  messageAuditWarnings: string[];
+  messageAuditWarnings?: string[];
   checks?: ValidationCheckSummary[];
 };
 
@@ -263,7 +263,10 @@ function summarizeValidation(
       normalizedChecks.length,
     passedChecks,
     failedChecks,
-    messageAuditWarnings,
+    messageAuditWarnings:
+      includeChecks
+        ? messageAuditWarnings
+        : undefined,
     checks: includeChecks
       ? normalizedChecks
       : undefined,

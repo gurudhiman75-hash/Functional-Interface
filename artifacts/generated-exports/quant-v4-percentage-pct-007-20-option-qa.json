@@ -1,6 +1,6 @@
 {
   "title": "Question Studio Export",
-  "generatedAt": "2026-07-03T03:23:28.281Z",
+  "generatedAt": "2026-07-03T14:34:43.599Z",
   "count": 20,
   "content": "explanations",
   "questions": [
@@ -27,7 +27,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "evaporationDryingCompositionApplication",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-282:quant-v4-percentage-pct-007-residual-v3:PCT-CP-006:0",
@@ -38,12 +38,7 @@
         "status": "passed",
         "totalChecks": 23,
         "passedChecks": 23,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:oldRate: Missing required variable oldRate.",
-          "required:newRate: Missing required variable newRate.",
-          "required:baseValue: Missing required variable baseValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -69,7 +64,7 @@
         "explanationId": "PCT-ES-008",
         "taskKind": "errorMiscalculationPercentageErrorApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-008:PCT-QL-355:quant-v4-percentage-pct-007-residual-v3:PCT-CP-008:1",
@@ -80,11 +75,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:wrongValue: Missing required variable wrongValue.",
-          "required:correctValue: Missing required variable correctValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -110,7 +101,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "marksPassFailApplication",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-100:quant-v4-percentage-pct-007-residual-v3:PCT-CP-002:2",
@@ -121,12 +112,7 @@
         "status": "passed",
         "totalChecks": 23,
         "passedChecks": 23,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:passRate: Missing required variable passRate.",
-          "required:value1: Missing required variable value1."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -152,7 +138,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "electionVotesApplication",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-102:quant-v4-percentage-pct-007-residual-v3:PCT-CP-003:3",
@@ -163,11 +149,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:turnoutRate: Missing required variable turnoutRate.",
-          "required:totalVoters: Missing required variable totalVoters."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -193,7 +175,7 @@
         "explanationId": "PCT-ES-009",
         "taskKind": "replacementRepeatedPercentageApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-009:PCT-QL-419:quant-v4-percentage-pct-007-residual-v3:PCT-CP-009:4",
@@ -204,11 +186,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:totalValue: Missing required variable totalValue.",
-          "required:percentageRate: Missing required variable percentageRate."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -234,7 +212,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "mixtureConcentrationBasicApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-226:quant-v4-percentage-pct-007-residual-v3:PCT-CP-005:5",
@@ -245,11 +223,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:componentRate: Missing required variable componentRate.",
-          "required:value1: Missing required variable value1."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -275,7 +249,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "incomeExpenditureSavingsApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-023:quant-v4-percentage-pct-007-residual-v3:PCT-CP-001:6",
@@ -286,11 +260,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:value1: Missing required variable value1."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -316,7 +286,7 @@
         "explanationId": "PCT-ES-010",
         "taskKind": "miniDiMixedPercentageCaselet",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-010:PCT-QL-474:quant-v4-percentage-pct-007-residual-v3:PCT-CP-010:7",
@@ -327,12 +297,7 @@
         "status": "passed",
         "totalChecks": 22,
         "passedChecks": 22,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:rate1: Missing required variable rate1.",
-          "required:rate2: Missing required variable rate2.",
-          "required:baseValue: Missing required variable baseValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -358,7 +323,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "populationProductionConsumptionApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-168:quant-v4-percentage-pct-007-residual-v3:PCT-CP-004:8",
@@ -369,11 +334,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:value1: Missing required variable value1."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -399,7 +360,7 @@
         "explanationId": "PCT-ES-007",
         "taskKind": "taxDiscountCommissionChargesApplication",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-007:PCT-QL-342:quant-v4-percentage-pct-007-residual-v3:PCT-CP-007:9",
@@ -410,11 +371,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:commissionRate: Missing required variable commissionRate.",
-          "required:baseValue: Missing required variable baseValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -440,7 +397,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "evaporationDryingCompositionApplication",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-273:quant-v4-percentage-pct-007-residual-v3:PCT-CP-006:10",
@@ -451,12 +408,7 @@
         "status": "passed",
         "totalChecks": 23,
         "passedChecks": 23,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:oldRate: Missing required variable oldRate.",
-          "required:newRate: Missing required variable newRate.",
-          "required:baseValue: Missing required variable baseValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -482,7 +434,7 @@
         "explanationId": "PCT-ES-008",
         "taskKind": "errorMiscalculationPercentageErrorApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-008:PCT-QL-356:quant-v4-percentage-pct-007-residual-v3:PCT-CP-008:11",
@@ -493,11 +445,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:wrongValue: Missing required variable wrongValue.",
-          "required:correctValue: Missing required variable correctValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -523,7 +471,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "marksPassFailApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-061:quant-v4-percentage-pct-007-residual-v3:PCT-CP-002:12",
@@ -534,11 +482,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:marksObtained: Missing required variable marksObtained."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -564,7 +508,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "electionVotesApplication",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-103:quant-v4-percentage-pct-007-residual-v3:PCT-CP-003:13",
@@ -575,11 +519,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:turnoutRate: Missing required variable turnoutRate.",
-          "required:totalVoters: Missing required variable totalVoters."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -605,7 +545,7 @@
         "explanationId": "PCT-ES-009",
         "taskKind": "replacementRepeatedPercentageApplication",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-009:PCT-QL-440:quant-v4-percentage-pct-007-residual-v3:PCT-CP-009:14",
@@ -616,12 +556,7 @@
         "status": "passed",
         "totalChecks": 24,
         "passedChecks": 24,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:totalValue: Missing required variable totalValue.",
-          "required:rate1: Missing required variable rate1.",
-          "required:rate2: Missing required variable rate2."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -647,7 +582,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "mixtureConcentrationBasicApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-237:quant-v4-percentage-pct-007-residual-v3:PCT-CP-005:15",
@@ -658,11 +593,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:value1: Missing required variable value1.",
-          "required:totalValue: Missing required variable totalValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -688,7 +619,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "incomeExpenditureSavingsApplication",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-034:quant-v4-percentage-pct-007-residual-v3:PCT-CP-001:16",
@@ -699,11 +630,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:value1: Missing required variable value1."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -729,7 +656,7 @@
         "explanationId": "PCT-ES-010",
         "taskKind": "miniDiMixedPercentageCaselet",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-010:PCT-QL-455:quant-v4-percentage-pct-007-residual-v3:PCT-CP-010:17",
@@ -740,11 +667,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:baseValue: Missing required variable baseValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -770,7 +693,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "populationProductionConsumptionApplication",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-189:quant-v4-percentage-pct-007-residual-v3:PCT-CP-004:18",
@@ -781,11 +704,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:percentageRate: Missing required variable percentageRate.",
-          "required:totalValue: Missing required variable totalValue."
-        ]
+        "failedChecks": 0
       }
     },
     {
@@ -811,7 +730,7 @@
         "explanationId": "PCT-ES-007",
         "taskKind": "taxDiscountCommissionChargesApplication",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-007:PCT-QL-303:quant-v4-percentage-pct-007-residual-v3:PCT-CP-007:19",
@@ -822,11 +741,7 @@
         "status": "passed",
         "totalChecks": 19,
         "passedChecks": 19,
-        "failedChecks": 0,
-        "messageAuditWarnings": [
-          "required:discountRate: Missing required variable discountRate.",
-          "required:baseValue: Missing required variable baseValue."
-        ]
+        "failedChecks": 0
       }
     }
   ]

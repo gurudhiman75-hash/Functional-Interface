@@ -36,6 +36,11 @@ type AuditResult = {
   silentRoundingCount: number;
   repeatedCalculationLineCount: number;
   missingRepeatedReductionStepCount: number;
+  semanticLabelMismatchCount: number;
+  validationWarningLeakCount: number;
+  metadataLanguageMismatchCount: number;
+  duplicateStemGroupCount: number;
+  duplicateStemQuestionCount: number;
   samples: {
     boundedPercentageOver100: AuditSample[];
     impossibleDiscountOverBase: AuditSample[];
@@ -45,6 +50,10 @@ type AuditResult = {
     silentRounding: AuditSample[];
     repeatedCalculationLine: AuditSample[];
     missingRepeatedReductionStep: AuditSample[];
+    semanticLabelMismatch: AuditSample[];
+    validationWarningLeak: AuditSample[];
+    metadataLanguageMismatch: AuditSample[];
+    duplicateStem: AuditSample[];
   };
 };
 
@@ -60,11 +69,17 @@ const PACKAGE_IDS: readonly QuantV4PackageId[] = [
 
 const BAD_GRAMMAR_PATTERNS = [
   /\bproduction production\b/i,
+  /(^|\n)salary [A-Z]\b/,
+  /(^|\n)production [A-Z]\b/,
   /\bthere are \d+ population\b/i,
   /\bA investment\b/,
   /\ba investment\b/,
   /\bA output\b/,
   /\ba output\b/,
+  /\bA train has \d+ students\b/i,
+  /\bThe whole (students|employees|passengers|respondents|applicants|users|people|items|units|voters|patients|books|forms|accounts|invoices|seats|bags|boxes|cartons|residents) corresponds\b/i,
+  /\bthe total (students|employees|passengers|respondents|applicants|users|people|items|units|voters|patients|books|forms|accounts|invoices|seats|bags|boxes|cartons|residents) is\b/i,
+  /\b(students|employees|passengers|respondents|applicants|users|people|items|units|voters|patients|books|forms|accounts|invoices|seats|bags|boxes|cartons|residents) represents\b/i,
   /(?<!number of )\binternet users is\b/i,
   /\bextra internet users is needed\b/i,
   /\bemployees was\b/i,
@@ -72,6 +87,17 @@ const BAD_GRAMMAR_PATTERNS = [
   /\bfinal residents is\b/i,
   /\bthe units becomes\b/i,
   /\bSchool An attendance\b/i,
+  /\bA Product A\b/,
+  /\bA Warehouse A\b/,
+  /\bbooking booking\b/i,
+] as const;
+
+const NORMAL_EXPORT_WARNING_PATTERNS = [
+  /Missing required/i,
+  /Missing translation/i,
+  /Translation leakage/i,
+  /Broken Unicode/i,
+  /Duplicate entities found/i,
 ] as const;
 
 const COUNT_CONTEXT_PATTERN =
@@ -84,6 +110,13 @@ function normalizeOption(value: string) {
     .replace(/\s+/g, " ")
     .trim()
     .toLowerCase();
+}
+
+function normalizeStem(value: string) {
+  return String(value ?? "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function uniqueByNormalized(values: readonly string[]) {
@@ -207,6 +240,57 @@ function baseAmountFromStem(stem: string) {
   return match ? Number(match[1]) : null;
 }
 
+function extractFinalExplanationLabel(explanation: string) {
+  const labels = Array.from(
+    String(explanation ?? "").matchAll(/\\text\{([^}]+)\}\s*=/g),
+  ).map((match) => String(match[1] ?? "").trim());
+  return labels.length ? labels[labels.length - 1] : null;
+}
+
+function hasSemanticLabelMismatch(stem: string, explanation: string) {
+  const label = extractFinalExplanationLabel(explanation)?.toLowerCase();
+  if (!label) {
+    return false;
+  }
+
+  const normalizedStem = stem.toLowerCase();
+  const countLabels = new Set([
+    "students",
+    "girls",
+    "boys",
+    "children",
+    "passengers",
+    "employees",
+    "residents",
+    "users",
+    "applicants",
+    "voters",
+    "books",
+    "items",
+    "units",
+    "boxes",
+    "cartons",
+    "bags",
+    "patients",
+    "respondents",
+  ]);
+
+  if (
+    /\busage\b|\bbudget\b|\bpayroll\b|\bincome\b|\bsalary\b|\bbill\b|\bcollection\b|\bexpense\b|\bexpenses\b|\brainfall\b|\bfee\b|\bvalue\b|\bamount\b/.test(
+      normalizedStem,
+    )
+    && countLabels.has(label)
+  ) {
+    return true;
+  }
+
+  if (label === "students" && !/\bstudent|enrolment\b/.test(normalizedStem)) {
+    return true;
+  }
+
+  return false;
+}
+
 function toSample(
   questionNo: number,
   stem: string,
@@ -242,6 +326,11 @@ function auditItems(items: readonly QuestionStudioExportItem[]): AuditResult {
     silentRoundingCount: 0,
     repeatedCalculationLineCount: 0,
     missingRepeatedReductionStepCount: 0,
+    semanticLabelMismatchCount: 0,
+    validationWarningLeakCount: 0,
+    metadataLanguageMismatchCount: 0,
+    duplicateStemGroupCount: 0,
+    duplicateStemQuestionCount: 0,
     samples: {
       boundedPercentageOver100: [],
       impossibleDiscountOverBase: [],
@@ -251,6 +340,10 @@ function auditItems(items: readonly QuestionStudioExportItem[]): AuditResult {
       silentRounding: [],
       repeatedCalculationLine: [],
       missingRepeatedReductionStep: [],
+      semanticLabelMismatch: [],
+      validationWarningLeak: [],
+      metadataLanguageMismatch: [],
+      duplicateStem: [],
     },
   };
 
@@ -363,9 +456,98 @@ function auditItems(items: readonly QuestionStudioExportItem[]): AuditResult {
         result.samples.missingRepeatedReductionStep.push(toSample(questionNo, stem, answer, explanation, options));
       }
     }
+
+    if (hasSemanticLabelMismatch(stem, explanation)) {
+      result.semanticLabelMismatchCount += 1;
+      if (result.samples.semanticLabelMismatch.length < 5) {
+        result.samples.semanticLabelMismatch.push(toSample(questionNo, stem, answer, explanation, options));
+      }
+    }
   });
 
   return result;
+}
+
+function applyNormalExportAudit(result: AuditResult, payload: unknown) {
+  const questions = Array.isArray((payload as { questions?: unknown[] })?.questions)
+    ? (payload as { questions: unknown[] }).questions
+    : [];
+  const stemBuckets = new Map<string, number[]>();
+
+  questions.forEach((question, index) => {
+    const item = question as {
+      stem?: unknown;
+      explanation?: unknown;
+      options?: unknown;
+      answer?: unknown;
+      metadata?: { language?: unknown };
+      validationSummary?: {
+        messageAuditWarnings?: unknown;
+      };
+    };
+    const stem = String(item.stem ?? "");
+    const explanation = String(item.explanation ?? "");
+    const options = Array.isArray(item.options)
+      ? item.options.map((option) => String(option ?? ""))
+      : [];
+    const answer = String(item.answer ?? "");
+    const questionNo = index + 1;
+
+    const language = String(item.metadata?.language ?? "");
+    if (language !== "en") {
+      result.metadataLanguageMismatchCount += 1;
+      if (result.samples.metadataLanguageMismatch.length < 5) {
+        result.samples.metadataLanguageMismatch.push(
+          toSample(questionNo, stem, answer, explanation, options),
+        );
+      }
+    }
+
+    const warningList = Array.isArray(item.validationSummary?.messageAuditWarnings)
+      ? item.validationSummary?.messageAuditWarnings.map((warning) => String(warning ?? ""))
+      : [];
+    const validationBlob = JSON.stringify(item.validationSummary ?? {});
+    if (
+      Object.prototype.hasOwnProperty.call(item.validationSummary ?? {}, "messageAuditWarnings")
+      || warningList.length > 0
+      || NORMAL_EXPORT_WARNING_PATTERNS.some((pattern) => pattern.test(validationBlob))
+    ) {
+      result.validationWarningLeakCount += 1;
+      if (result.samples.validationWarningLeak.length < 5) {
+        result.samples.validationWarningLeak.push(
+          toSample(questionNo, stem, answer, explanation, options),
+        );
+      }
+    }
+
+    const normalizedStem = normalizeStem(stem);
+    const existing = stemBuckets.get(normalizedStem) ?? [];
+    existing.push(questionNo);
+    stemBuckets.set(normalizedStem, existing);
+  });
+
+  for (const [normalizedStem, questionNos] of stemBuckets.entries()) {
+    if (questionNos.length < 2) {
+      continue;
+    }
+    result.duplicateStemGroupCount += 1;
+    result.duplicateStemQuestionCount += questionNos.length;
+    if (result.samples.duplicateStem.length < 5) {
+      const firstQuestion = questions[questionNos[0]! - 1] as { stem?: unknown; explanation?: unknown; options?: unknown; answer?: unknown };
+      const options = Array.isArray(firstQuestion.options)
+        ? firstQuestion.options.map((option) => String(option ?? ""))
+        : [];
+      result.samples.duplicateStem.push(
+        toSample(
+          questionNos[0]!,
+          `${String(firstQuestion.stem ?? "")} [duplicate group size: ${questionNos.length}]`,
+          String(firstQuestion.answer ?? ""),
+          String(firstQuestion.explanation ?? ""),
+          options,
+        ),
+      );
+    }
+  }
 }
 
 async function exportQuestions(
@@ -383,11 +565,13 @@ async function exportQuestions(
       title: "Question Studio Export",
     },
   );
+  const text = await exportResult.blob.text();
   writeFileSync(
     join(resolve(process.cwd(), "..", "generated-exports"), fileName),
-    await exportResult.blob.text(),
+    text,
     "utf8",
   );
+  return JSON.parse(text);
 }
 
 async function generateBatch(
@@ -424,11 +608,13 @@ async function main() {
     500,
     "quant-v4-percentage-residual-v3",
   );
-  await exportQuestions("quant-v4-percentage-pct-all-500-option-qa.json", fullItems, false);
+  const fullOptionQaPayload = await exportQuestions("quant-v4-percentage-pct-all-500-option-qa.json", fullItems, false);
   await exportQuestions("quant-v4-percentage-pct-all-500-clean.json", fullItems, true);
+  const fullBatchAudit = auditItems(fullItems);
+  applyNormalExportAudit(fullBatchAudit, fullOptionQaPayload);
   summary.fullBatch = {
     fileName: "quant-v4-percentage-pct-all-500-option-qa.json",
-    audit: auditItems(fullItems),
+    audit: fullBatchAudit,
   };
 
   const packageSmokes: Record<string, unknown> = {};
@@ -439,10 +625,12 @@ async function main() {
       `quant-v4-percentage-${packageId.toLowerCase()}-residual-v3`,
     );
     const fileName = `quant-v4-percentage-${packageId.toLowerCase()}-20-option-qa.json`;
-    await exportQuestions(fileName, items, false);
+    const payload = await exportQuestions(fileName, items, false);
+    const audit = auditItems(items);
+    applyNormalExportAudit(audit, payload);
     packageSmokes[packageId] = {
       fileName,
-      audit: auditItems(items),
+      audit,
     };
   }
 
@@ -458,6 +646,11 @@ async function main() {
     `Full batch silent-rounding blockers: ${fullAudit.audit.silentRoundingCount}`,
     `Full batch repeated-calculation blockers: ${fullAudit.audit.repeatedCalculationLineCount}`,
     `Full batch repeated-reduction blockers: ${fullAudit.audit.missingRepeatedReductionStepCount}`,
+    `Full batch semantic-label blockers: ${fullAudit.audit.semanticLabelMismatchCount}`,
+    `Full batch normal-export warning leaks: ${fullAudit.audit.validationWarningLeakCount}`,
+    `Full batch metadata.language mismatches: ${fullAudit.audit.metadataLanguageMismatchCount}`,
+    `Full batch duplicate stem groups: ${fullAudit.audit.duplicateStemGroupCount}`,
+    `Full batch duplicate stem questions: ${fullAudit.audit.duplicateStemQuestionCount}`,
   ];
 
   const summaryPayload = {

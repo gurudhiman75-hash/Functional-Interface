@@ -1,6 +1,6 @@
 {
   "title": "Question Studio Export",
-  "generatedAt": "2026-07-03T03:23:28.019Z",
+  "generatedAt": "2026-07-03T14:34:43.062Z",
   "count": 20,
   "content": "explanations",
   "questions": [
@@ -27,7 +27,7 @@
         "explanationId": "PCT-ES-009",
         "taskKind": "missingPercentage",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-009:PCT-QL-018:quant-v4-percentage-pct-002-residual-v3:PCT-CP-009:0",
@@ -38,8 +38,7 @@
         "status": "passed",
         "totalChecks": 24,
         "passedChecks": 24,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -65,7 +64,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "complementaryPercentage",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-105:quant-v4-percentage-pct-002-residual-v3:PCT-CP-006:1",
@@ -76,8 +75,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -91,7 +89,7 @@
       ],
       "correctIndex": 2,
       "answer": "$$630$$",
-      "explanation": "Here, 25% of the usage equals 210.\n\n$$25\\\\%\\rightarrow210$$\n\nFirst find the value corresponding to 1% by dividing 210 by 25.\n\n$$1\\\\%=\\frac{210}{25}=8.4$$\n\nNow multiply the value of 1% by 75 to get 75%.\n\n$$75\\\\%=8.4\\times75=630$$\n\nTherefore 75% of the usage is 630.\n\n$$\\text{students}=630$$",
+      "explanation": "Here, 25% of the usage equals 210.\n\n$$25\\\\%\\rightarrow210$$\n\nFirst find the value corresponding to 1% by dividing 210 by 25.\n\n$$1\\\\%=\\frac{210}{25}=8.4$$\n\nNow multiply the value of 1% by 75 to get 75%.\n\n$$75\\\\%=8.4\\times75=630$$\n\nTherefore 75% of the usage is 630.\n\n$$\\text{amount}=630$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -103,7 +101,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "anotherPercentageFromKnownPercentage",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-064:quant-v4-percentage-pct-002-residual-v3:PCT-CP-002:2",
@@ -114,8 +112,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -129,7 +126,7 @@
       ],
       "correctIndex": 0,
       "answer": "$$480$$",
-      "explanation": "The whole respondents corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 40 to find the satisfied respondents.\n\n$$40\\\\%=12\\times40=480$$\n\nTherefore the satisfied respondents count is 480.\n\n$$\\text{satisfied respondents}=480$$",
+      "explanation": "The total number of respondents corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 40 to find the satisfied respondents.\n\n$$40\\\\%=12\\times40=480$$\n\nTherefore the satisfied respondents count is 480.\n\n$$\\text{satisfied respondents}=480$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -141,7 +138,7 @@
         "explanationId": "PCT-ES-008",
         "taskKind": "percentagePartition",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-008:PCT-QL-130:quant-v4-percentage-pct-002-residual-v3:PCT-CP-008:3",
@@ -152,8 +149,7 @@
         "status": "passed",
         "totalChecks": 25,
         "passedChecks": 25,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -179,7 +175,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "reversePercentageMapping",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-032:quant-v4-percentage-pct-002-residual-v3:PCT-CP-004:4",
@@ -190,8 +186,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -217,7 +212,7 @@
         "explanationId": "PCT-ES-010",
         "taskKind": "multiCategoryPercentageDistribution",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-010:PCT-QL-048:quant-v4-percentage-pct-002-residual-v3:PCT-CP-010:5",
@@ -228,8 +223,7 @@
         "status": "passed",
         "totalChecks": 25,
         "passedChecks": 25,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -243,7 +237,7 @@
       ],
       "correctIndex": 2,
       "answer": "$$800$$",
-      "explanation": "Here, 45% of the respondents equals 360.\n\n$$45\\\\%\\rightarrow360$$\n\nTo determine the value of 1%, divide 360 by 45.\n\n$$1\\\\%=\\frac{360}{45}=8$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=8\\times100=800$$\n\nTherefore the total respondents is 800.\n\n$$\\text{Total respondents}=800$$",
+      "explanation": "Here, 45% of the respondents equals 360.\n\n$$45\\\\%\\rightarrow360$$\n\nTo determine the value of 1%, divide 360 by 45.\n\n$$1\\\\%=\\frac{360}{45}=8$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=8\\times100=800$$\n\nTherefore the total number of respondents is 800.\n\n$$\\text{Total respondents}=800$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -255,7 +249,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "wholeFromPart",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-051:quant-v4-percentage-pct-002-residual-v3:PCT-CP-001:6",
@@ -266,8 +260,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -281,7 +274,7 @@
       ],
       "correctIndex": 1,
       "answer": "$$40\\%$$",
-      "explanation": "The whole invoices corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 96 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{96}{2.4}=40\\\\%$$\n\nTherefore 96 is 40% of the invoices.\n\n$$\\text{paid}=40\\\\%$$",
+      "explanation": "The total number of invoices corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 96 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{96}{2.4}=40\\\\%$$\n\nTherefore 96 is 40% of the invoices.\n\n$$\\text{paid}=40\\\\%$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -293,7 +286,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "percentageFromPartAndWhole",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-074:quant-v4-percentage-pct-002-residual-v3:PCT-CP-003:7",
@@ -304,8 +297,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -331,7 +323,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "ratioToPercentage",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-010:quant-v4-percentage-pct-002-residual-v3:PCT-CP-005:8",
@@ -342,8 +334,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -369,7 +360,7 @@
         "explanationId": "PCT-ES-007",
         "taskKind": "differenceBetweenPercentageParts",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-007:PCT-QL-115:quant-v4-percentage-pct-002-residual-v3:PCT-CP-007:9",
@@ -380,8 +371,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -407,7 +397,7 @@
         "explanationId": "PCT-ES-009",
         "taskKind": "missingPercentage",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-009:PCT-QL-017:quant-v4-percentage-pct-002-residual-v3:PCT-CP-009:10",
@@ -418,8 +408,7 @@
         "status": "passed",
         "totalChecks": 24,
         "passedChecks": 24,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -445,7 +434,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "complementaryPercentage",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-110:quant-v4-percentage-pct-002-residual-v3:PCT-CP-006:11",
@@ -456,8 +445,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -483,7 +471,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "anotherPercentageFromKnownPercentage",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-025:quant-v4-percentage-pct-002-residual-v3:PCT-CP-002:12",
@@ -494,8 +482,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -509,7 +496,7 @@
       ],
       "correctIndex": 3,
       "answer": "$$300$$",
-      "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=12\\times25=300$$\n\nTherefore the girls count is 300.\n\n$$\\text{girls}=300$$",
+      "explanation": "The total number of students corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=12\\times25=300$$\n\nTherefore the girls count is 300.\n\n$$\\text{girls}=300$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -521,7 +508,7 @@
         "explanationId": "PCT-ES-008",
         "taskKind": "percentagePartition",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-008:PCT-QL-042:quant-v4-percentage-pct-002-residual-v3:PCT-CP-008:13",
@@ -532,8 +519,7 @@
         "status": "passed",
         "totalChecks": 25,
         "passedChecks": 25,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -559,7 +545,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "reversePercentageMapping",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-081:quant-v4-percentage-pct-002-residual-v3:PCT-CP-004:14",
@@ -570,8 +556,7 @@
         "status": "passed",
         "totalChecks": 22,
         "passedChecks": 22,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -585,7 +570,7 @@
       ],
       "correctIndex": 2,
       "answer": "$$1800$$",
-      "explanation": "The whole bags corresponds to 100%.\n\n$$100\\\\%\\rightarrow6000$$\n\nSo the value corresponding to 1% is obtained by dividing 6000 by 100.\n\n$$1\\\\%=\\frac{6000}{100}=60$$\n\nNow multiply the value of 1% by the percentage for maize bags.\n\n$$30\\\\%=60\\times30=1800$$\n\nTherefore the value for maize bags is 1800.\n\n$$\\text{maize bags}=1800$$",
+      "explanation": "The total number of bags corresponds to 100%.\n\n$$100\\\\%\\rightarrow6000$$\n\nSo the value corresponding to 1% is obtained by dividing 6000 by 100.\n\n$$1\\\\%=\\frac{6000}{100}=60$$\n\nNow multiply the value of 1% by the percentage for maize bags.\n\n$$30\\\\%=60\\times30=1800$$\n\nTherefore the value for maize bags is 1800.\n\n$$\\text{maize bags}=1800$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -597,7 +582,7 @@
         "explanationId": "PCT-ES-010",
         "taskKind": "multiCategoryPercentageDistribution",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-010:PCT-QL-148:quant-v4-percentage-pct-002-residual-v3:PCT-CP-010:15",
@@ -608,8 +593,7 @@
         "status": "passed",
         "totalChecks": 25,
         "passedChecks": 25,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -623,7 +607,7 @@
       ],
       "correctIndex": 1,
       "answer": "$$720$$",
-      "explanation": "Here, 45% of the employees equals 324.\n\n$$45\\\\%\\rightarrow324$$\n\nTo determine the value of 1%, divide 324 by 45.\n\n$$1\\\\%=\\frac{324}{45}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total employees is 720.\n\n$$\\text{Total employees}=720$$",
+      "explanation": "Here, 45% of the employees equals 324.\n\n$$45\\\\%\\rightarrow324$$\n\nTo determine the value of 1%, divide 324 by 45.\n\n$$1\\\\%=\\frac{324}{45}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total number of employees is 720.\n\n$$\\text{Total employees}=720$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -635,7 +619,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "wholeFromPart",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-059:quant-v4-percentage-pct-002-residual-v3:PCT-CP-001:16",
@@ -646,8 +630,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -661,7 +644,7 @@
       ],
       "correctIndex": 0,
       "answer": "$$20\\%$$",
-      "explanation": "The whole patients corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 96 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{96}{4.8}=20\\\\%$$\n\nTherefore 96 is 20% of the patients.\n\n$$\\text{recovered}=20\\\\%$$",
+      "explanation": "The total number of patients corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 96 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{96}{4.8}=20\\\\%$$\n\nTherefore 96 is 20% of the patients.\n\n$$\\text{recovered}=20\\\\%$$",
       "metadata": {
         "subject": "Quant",
         "topicGroup": "Arithmetic",
@@ -673,7 +656,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "percentageFromPartAndWhole",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-076:quant-v4-percentage-pct-002-residual-v3:PCT-CP-003:17",
@@ -684,8 +667,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -711,7 +693,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "ratioToPercentage",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-035:quant-v4-percentage-pct-002-residual-v3:PCT-CP-005:18",
@@ -722,8 +704,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -749,7 +730,7 @@
         "explanationId": "PCT-ES-007",
         "taskKind": "differenceBetweenPercentageParts",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-007:PCT-QL-112:quant-v4-percentage-pct-002-residual-v3:PCT-CP-007:19",
@@ -760,8 +741,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     }
   ]

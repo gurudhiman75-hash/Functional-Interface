@@ -494,3 +494,93 @@ Observed results:
 
 ## Final Status
 Percentage Question Studio generation has clean options and generated English output is ready for manual question-bank review. Quant V4 Percentage remains the only active Percentage generation source in Question Studio, with `PCT-ALL` full-topic generation and package-specific `PCT-001` to `PCT-007` generation verified. No known generated-output blockers remain in the fresh uploaded-style package smokes.
+
+## Final Export Cleanup
+- Fixed the last normal-export polish issues found after manual review of the residual smoke files.
+- Kept the work local and uncommitted.
+- Did not enable Percentage for the public student catalog.
+- Did not reopen Hindi/Punjabi package content.
+- Did not reopen the shared option-generation implementation beyond smoke verification.
+
+## Manual Review Issues Missed by Audit
+- Some PCT-002 alias questions could still inherit `students` as the final `$$\text{...}=...$$` label even when the visible stem context was `usage`, `budget`, `payroll`, or another non-student context.
+- Normal Question Studio export still serialized `validationSummary.messageAuditWarnings`, even when the validation state was fully passed.
+- `metadata.language` could still fall through to an empty string when the preview payload did not explicitly carry language metadata.
+- Residual grammar issues were still slipping through because the audit did not explicitly check the exact leaked phrases seen in the 500-question export.
+- Exact duplicate stems in the 500-question mixed export were not being measured explicitly.
+
+## Fixes Applied
+- `artifacts/api-server/src/quant-v4/generation-engine.ts`
+  - Added explicit `language: "en"` on Percentage Question Studio preview items.
+  - Extended English preview polishing to catch the manual-review phrases:
+    - repeated adjacent words like `booking booking`
+    - lower-case entity starts such as `salary A ...` / `production A ...`
+    - `A train has ... students`
+    - `The whole students corresponds ...`
+    - `the total employees is ...`
+    - `A Product A ...` / `A Warehouse A ...`
+- `artifacts/examtree/src/lib/export-engine.ts`
+  - Removed `messageAuditWarnings` from normal export validation summaries.
+  - Kept warning/audit detail available only in debug-oriented export modes.
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/parameter-generator.ts`
+  - Added missing alias overrides so non-student contexts such as `usage`, `payroll`, `budget`, `stock`, and `yearly output` no longer inherit `targetLabel: "students"`.
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/question-studio-residual-qa.ts`
+  - Added residual checks for:
+    - semantic final-label mismatch
+    - normal-export warning leakage
+    - `metadata.language !== "en"`
+    - duplicate stem groups
+    - the exact grammar leaks from manual review
+
+## Final QA Results
+Verification rerun:
+
+```powershell
+cd C:\Users\gurbaj\Downloads\f\artifacts\api-server
+node build.mjs
+
+.\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-005/pct-005.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-005.test.mjs
+node dist/quant-v4/pct-005.test.mjs
+
+.\node_modules\.bin\esbuild.CMD src/quant-v4/shared/answers/option-generation.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/option-generation.test.mjs
+node dist/quant-v4/option-generation.test.mjs
+
+.\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/Percentage/question-studio-residual-qa.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/question-studio-residual-qa.mjs
+node dist/quant-v4/question-studio-residual-qa.mjs
+```
+
+Observed results:
+- Backend build passed.
+- `PCT-005` targeted smoke passed.
+- Shared option-generation smoke passed.
+- Fresh mixed `PCT-ALL` 500-question English export regenerated successfully.
+- Fresh 20-question English package smokes for `PCT-001` to `PCT-007` regenerated successfully.
+- Residual audit results for the fresh 500-question export:
+  - `semanticLabelMismatchCount = 0`
+  - `validationWarningLeakCount = 0`
+  - `metadataLanguageMismatchCount = 0`
+  - `grammarIssueCount = 0`
+  - `weakOptionCount = 0`
+  - `duplicateStemGroupCount = 6`
+  - `duplicateStemQuestionCount = 12`
+
+Generated artifacts refreshed:
+- `artifacts/generated-exports/quant-v4-percentage-pct-all-500-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-all-500-clean.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-001-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-002-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-003-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-004-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-005-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-006-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-007-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-residual-qa-summary.json`
+- `artifacts/generated-exports/quant-v4-percentage-residual-qa-run.log`
+
+## Remaining Editorial Caveats
+- Duplicate stems are not zero in the fresh 500-question mixed export.
+- Current measured duplicate-stem footprint is:
+  - `6` duplicate stem groups
+  - `12` total questions involved
+- This is now explicitly audited and documented, but not yet eliminated through seed/QL de-duplication logic.
+- No commit or push was performed in this cleanup pass.

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T03:23:28.283Z",
+  "generatedAt": "2026-07-03T14:34:43.603Z",
   "fullBatch": {
     "fileName": "quant-v4-percentage-pct-all-500-option-qa.json",
     "audit": {
@@ -20,6 +20,11 @@
       "silentRoundingCount": 0,
       "repeatedCalculationLineCount": 0,
       "missingRepeatedReductionStepCount": 0,
+      "semanticLabelMismatchCount": 0,
+      "validationWarningLeakCount": 0,
+      "metadataLanguageMismatchCount": 0,
+      "duplicateStemGroupCount": 6,
+      "duplicateStemQuestionCount": 12,
       "samples": {
         "boundedPercentageOver100": [],
         "impossibleDiscountOverBase": [],
@@ -28,7 +33,72 @@
         "countNounDecimalAnswer": [],
         "silentRounding": [],
         "repeatedCalculationLine": [],
-        "missingRepeatedReductionStep": []
+        "missingRepeatedReductionStep": [],
+        "semanticLabelMismatch": [],
+        "validationWarningLeak": [],
+        "metadataLanguageMismatch": [],
+        "duplicateStem": [
+          {
+            "questionNo": 2,
+            "stem": "45% of the students are boys and 30% are girls. Find the difference between the two percentages. [duplicate group size: 2]",
+            "answer": "$$15\\%$$",
+            "explanation": "Both parts are already given as percentages of the same whole.\n\n$$boys=45\\\\%,\\ girls=30\\\\%$$\n\nSo subtract the smaller percentage from the larger percentage.\n\n$$\\text{Difference}=45\\\\%-30\\\\%=15\\\\%$$\n\nTherefore the percentage difference is 15%.\n\n$$\\text{Difference}=15\\\\%$$",
+            "options": [
+              "$$15\\%$$",
+              "$$14\\%$$",
+              "$$16\\%$$",
+              "$$85\\%$$"
+            ]
+          },
+          {
+            "questionNo": 14,
+            "stem": "The income is now Rs. 720 after falling by 40%. What was the original income? [duplicate group size: 2]",
+            "answer": "$$1200$$",
+            "explanation": "After a decrease of 40%, the new value becomes 60% of the original.\n\n$$60\\\\%\\rightarrowRs. 720$$\n\n60% can also be written as the fraction 3/5.\n\n$$60\\\\%=\\frac{3}{5}$$\n\nFirst find the value of 1% by dividing Rs. 720 by 60.\n\n$$1\\\\%=\\frac{720}{60}=12$$\n\nNow multiply the value of 1% by 100 to get the original value.\n\n$$100\\\\%=12\\times100=1200$$\n\nSo the original income was Rs. 1200.\n\n$$\\text{Original income}=1200$$",
+            "options": [
+              "$$1200$$",
+              "$$1100$$",
+              "$$1300$$",
+              "$$1250$$"
+            ]
+          },
+          {
+            "questionNo": 28,
+            "stem": "A population goes down by 15% and again by 20%. By what percent has it decreased in all? [duplicate group size: 2]",
+            "answer": "$$32\\%$$",
+            "explanation": "Convert both decreases into retained factors.\n\n$$\\text{Combined factor}=\\frac{85}{100}\\times\\frac{80}{100}$$\n\nThis combined factor shows what fraction of the original still remains.\n\n$$\\text{Combined factor}=\\frac{85}{100}\\times\\frac{80}{100}=0.68$$\n\nSo subtract the remaining fraction from 1 and convert it into percent.\n\n$$\\text{Net decrease}=32\\\\%$$\n\nSo the overall percentage decrease is 32%.\n\n$$\\text{Net decrease}=32\\\\%$$",
+            "options": [
+              "$$32\\%$$",
+              "$$47\\%$$",
+              "$$24\\%$$",
+              "$$33\\%$$"
+            ]
+          },
+          {
+            "questionNo": 35,
+            "stem": "If a salary falls by 10%, find the multiplying factor for the value left. [duplicate group size: 2]",
+            "answer": "$$0.9$$",
+            "explanation": "A decrease of 10% leaves 90% of the original.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nWrite this remaining percentage as a multiplier.\n\n$$\\text{Multiplier}=\\frac{90}{100}=0.9$$\n\nSo the decrease multiplier is 0.9.\n\n$$\\text{Multiplier}=0.9$$",
+            "options": [
+              "$$1.4$$",
+              "$$0.4$$",
+              "$$1.9$$",
+              "$$0.9$$"
+            ]
+          },
+          {
+            "questionNo": 59,
+            "stem": "After a 25% increase, the salary became Rs. 37500. Find the original salary. [duplicate group size: 2]",
+            "answer": "$$30000$$",
+            "explanation": "After a 25% rise, the new salary represents 125% of the original.\n\n$$125\\\\%\\rightarrowRs. 37500$$\n\nSo divide Rs. 37500 by 125 to find the value of 1%.\n\n$$1\\\\%=\\frac{37500}{125}=300$$\n\nNow multiply the value of 1% by 100 to get the original salary.\n\n$$100\\\\%=300\\times100=30000$$\n\nTherefore the original salary was Rs. 30000.\n\n$$\\text{Original salary}=30000$$",
+            "options": [
+              "$$30100$$",
+              "$$30050$$",
+              "$$29900$$",
+              "$$30000$$"
+            ]
+          }
+        ]
       }
     }
   },
@@ -53,6 +123,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -61,7 +136,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     },
@@ -85,6 +164,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -93,7 +177,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     },
@@ -117,6 +205,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -125,7 +218,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     },
@@ -149,6 +246,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -157,7 +259,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     },
@@ -181,6 +287,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -189,7 +300,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     },
@@ -213,6 +328,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -221,7 +341,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     },
@@ -245,6 +369,11 @@
         "silentRoundingCount": 0,
         "repeatedCalculationLineCount": 0,
         "missingRepeatedReductionStepCount": 0,
+        "semanticLabelMismatchCount": 0,
+        "validationWarningLeakCount": 0,
+        "metadataLanguageMismatchCount": 0,
+        "duplicateStemGroupCount": 0,
+        "duplicateStemQuestionCount": 0,
         "samples": {
           "boundedPercentageOver100": [],
           "impossibleDiscountOverBase": [],
@@ -253,7 +382,11 @@
           "countNounDecimalAnswer": [],
           "silentRounding": [],
           "repeatedCalculationLine": [],
-          "missingRepeatedReductionStep": []
+          "missingRepeatedReductionStep": [],
+          "semanticLabelMismatch": [],
+          "validationWarningLeak": [],
+          "metadataLanguageMismatch": [],
+          "duplicateStem": []
         }
       }
     }

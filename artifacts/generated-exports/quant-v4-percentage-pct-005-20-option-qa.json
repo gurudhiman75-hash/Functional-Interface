@@ -1,6 +1,6 @@
 {
   "title": "Question Studio Export",
-  "generatedAt": "2026-07-03T03:23:28.137Z",
+  "generatedAt": "2026-07-03T14:34:43.341Z",
   "count": 20,
   "content": "explanations",
   "questions": [
@@ -27,7 +27,7 @@
         "explanationId": "PCT-ES-008",
         "taskKind": "comparativeSuccessiveChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-008:PCT-QL-130:quant-v4-percentage-pct-005-residual-v3:PCT-CP-008:0",
@@ -38,8 +38,7 @@
         "status": "passed",
         "totalChecks": 26,
         "passedChecks": 26,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -65,7 +64,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "successiveIncrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-060:quant-v4-percentage-pct-005-residual-v3:PCT-CP-001:1",
@@ -76,8 +75,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -103,7 +101,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "successiveDecrease",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-063:quant-v4-percentage-pct-005-residual-v3:PCT-CP-002:2",
@@ -114,8 +112,7 @@
         "status": "passed",
         "totalChecks": 22,
         "passedChecks": 22,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -141,7 +138,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "netPercentageChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-100:quant-v4-percentage-pct-005-residual-v3:PCT-CP-005:3",
@@ -152,8 +149,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -179,7 +175,7 @@
         "explanationId": "PCT-ES-009",
         "taskKind": "multiStageSuccessiveChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-009:PCT-QL-047:quant-v4-percentage-pct-005-residual-v3:PCT-CP-009:4",
@@ -190,8 +186,7 @@
         "status": "passed",
         "totalChecks": 23,
         "passedChecks": 23,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -217,7 +212,7 @@
         "explanationId": "PCT-ES-010",
         "taskKind": "contextualSuccessiveChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-010:PCT-QL-148:quant-v4-percentage-pct-005-residual-v3:PCT-CP-010:5",
@@ -228,8 +223,7 @@
         "status": "passed",
         "totalChecks": 23,
         "passedChecks": 23,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -255,7 +249,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "decreaseThenIncrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-008:quant-v4-percentage-pct-005-residual-v3:PCT-CP-004:6",
@@ -266,8 +260,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -293,7 +286,7 @@
         "explanationId": "PCT-ES-007",
         "taskKind": "reverseSuccessiveChange",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-007:PCT-QL-118:quant-v4-percentage-pct-005-residual-v3:PCT-CP-007:7",
@@ -304,8 +297,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -331,7 +323,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "equivalentSingleMultiplier",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-036:quant-v4-percentage-pct-005-residual-v3:PCT-CP-006:8",
@@ -342,8 +334,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -369,7 +360,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "increaseThenDecrease",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-079:quant-v4-percentage-pct-005-residual-v3:PCT-CP-003:9",
@@ -380,8 +371,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -407,7 +397,7 @@
         "explanationId": "PCT-ES-008",
         "taskKind": "comparativeSuccessiveChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-008:PCT-QL-127:quant-v4-percentage-pct-005-residual-v3:PCT-CP-008:10",
@@ -418,8 +408,7 @@
         "status": "passed",
         "totalChecks": 26,
         "passedChecks": 26,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -445,7 +434,7 @@
         "explanationId": "PCT-ES-001",
         "taskKind": "successiveIncrease",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-001:PCT-QL-052:quant-v4-percentage-pct-005-residual-v3:PCT-CP-001:11",
@@ -456,8 +445,7 @@
         "status": "passed",
         "totalChecks": 22,
         "passedChecks": 22,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -483,7 +471,7 @@
         "explanationId": "PCT-ES-002",
         "taskKind": "successiveDecrease",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-002:PCT-QL-066:quant-v4-percentage-pct-005-residual-v3:PCT-CP-002:12",
@@ -494,8 +482,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -521,7 +508,7 @@
         "explanationId": "PCT-ES-005",
         "taskKind": "netPercentageChange",
         "difficulty": "Easy",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-005:PCT-QL-091:quant-v4-percentage-pct-005-residual-v3:PCT-CP-005:13",
@@ -532,8 +519,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -559,7 +545,7 @@
         "explanationId": "PCT-ES-009",
         "taskKind": "multiStageSuccessiveChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-009:PCT-QL-018:quant-v4-percentage-pct-005-residual-v3:PCT-CP-009:14",
@@ -570,8 +556,7 @@
         "status": "passed",
         "totalChecks": 23,
         "passedChecks": 23,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -597,7 +582,7 @@
         "explanationId": "PCT-ES-010",
         "taskKind": "contextualSuccessiveChange",
         "difficulty": "Hard",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-010:PCT-QL-145:quant-v4-percentage-pct-005-residual-v3:PCT-CP-010:15",
@@ -608,8 +593,7 @@
         "status": "passed",
         "totalChecks": 22,
         "passedChecks": 22,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -635,7 +619,7 @@
         "explanationId": "PCT-ES-004",
         "taskKind": "decreaseThenIncrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-004:PCT-QL-089:quant-v4-percentage-pct-005-residual-v3:PCT-CP-004:16",
@@ -646,8 +630,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -673,7 +656,7 @@
         "explanationId": "PCT-ES-007",
         "taskKind": "reverseSuccessiveChange",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-007:PCT-QL-118:quant-v4-percentage-pct-005-residual-v3:PCT-CP-007:17",
@@ -684,8 +667,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -711,7 +693,7 @@
         "explanationId": "PCT-ES-006",
         "taskKind": "equivalentSingleMultiplier",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-006:PCT-QL-108:quant-v4-percentage-pct-005-residual-v3:PCT-CP-006:18",
@@ -722,8 +704,7 @@
         "status": "passed",
         "totalChecks": 20,
         "passedChecks": 20,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     },
     {
@@ -749,7 +730,7 @@
         "explanationId": "PCT-ES-003",
         "taskKind": "increaseThenDecrease",
         "difficulty": "Medium",
-        "language": "",
+        "language": "en",
         "generationBackend": "quant-v4",
         "packageSource": "quant-v4-package-runtime",
         "questionId": "PCT-CP-003:PCT-QL-005:quant-v4-percentage-pct-005-residual-v3:PCT-CP-003:19",
@@ -760,8 +741,7 @@
         "status": "passed",
         "totalChecks": 21,
         "passedChecks": 21,
-        "failedChecks": 0,
-        "messageAuditWarnings": []
+        "failedChecks": 0
       }
     }
   ]
