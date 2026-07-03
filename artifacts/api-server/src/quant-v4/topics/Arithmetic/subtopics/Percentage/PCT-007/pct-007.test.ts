@@ -96,6 +96,65 @@ assertFixed(
   "Riya is greater by 100 marks.",
 );
 
+for (let index = 0; index < 40; index += 1) {
+  const applicationPkg = runPct007Pipeline("PCT-CP-004", { language: "en", seed: `pct-007-application:${index}` });
+  const unitLabel = String(applicationPkg.parameters.variables.unitLabel ?? "");
+  if (["people", "students", "passengers", "votes", "bags", "items", "units", "marks"].includes(unitLabel)) {
+    assert.ok(
+      Number.isInteger(Number(applicationPkg.solver.numericAnswer ?? NaN)),
+      `count-like application result must stay integral for ${unitLabel}`,
+    );
+  }
+
+  const comparisonPkg = runPct007Pipeline("PCT-CP-010", { language: "en", seed: `pct-007-caselet-compare:${index}` });
+  const comparisonUnitLabel = String(comparisonPkg.parameters.variables.unitLabel ?? "");
+  if (
+    comparisonPkg.parameters.solveMode === "findCaseletComparison" &&
+    ["people", "students", "passengers", "votes", "bags", "items", "units", "marks"].includes(comparisonUnitLabel)
+  ) {
+    const actual1 = Number(comparisonPkg.solver.evidence.actual1 ?? NaN);
+    const actual2 = Number(comparisonPkg.solver.evidence.actual2 ?? NaN);
+    const difference = Number(comparisonPkg.solver.evidence.difference ?? NaN);
+    assert.ok(Number.isInteger(actual1), `caselet actual1 must be integral for ${comparisonUnitLabel}`);
+    assert.ok(Number.isInteger(actual2), `caselet actual2 must be integral for ${comparisonUnitLabel}`);
+    assert.ok(Number.isInteger(difference), `caselet difference must be integral for ${comparisonUnitLabel}`);
+  }
+}
+
+for (let index = 0; index < 40; index += 1) {
+  const candidateVotesPkg = runPct007Pipeline("PCT-CP-003", { language: "en", seed: `pct-007-election-candidate:${index}` });
+  if (candidateVotesPkg.parameters.solveMode === "findCandidateVotesFromValidVotes") {
+    assert.ok(
+      Number.isInteger(Number(candidateVotesPkg.solver.numericAnswer ?? NaN)),
+      "candidate vote totals must stay integral",
+    );
+  }
+
+  const winningMarginPkg = runPct007Pipeline("PCT-CP-003", { language: "en", seed: `pct-007-election-margin:${index}` });
+  if (winningMarginPkg.parameters.solveMode === "findWinningMarginFromVoteShare") {
+    assert.ok(
+      Number.isInteger(Number(winningMarginPkg.solver.numericAnswer ?? NaN)),
+      "winning margins must stay integral",
+    );
+  }
+}
+
+const repeatedExplanationPkg = runPct007Pipeline("PCT-CP-009", {
+  language: "en",
+  questionLanguageId: "PCT-QL-441",
+  seed: "pct-007-repeated-explanation",
+});
+const repeatedExplanationText = repeatedExplanationPkg.explanation.lines.join(" ");
+assert.match(repeatedExplanationText, /After the first reduction/i);
+assert.ok(!/\.\./.test(repeatedExplanationText), "Repeated-reduction explanation must not contain double periods.");
+
+const comparisonExplanationPkg = runPct007Pipeline("PCT-CP-010", {
+  language: "en",
+  questionLanguageId: "PCT-QL-491",
+  seed: "pct-007-comparison-explanation",
+});
+assert.ok(!/\.\./.test(comparisonExplanationPkg.explanation.lines.join(" ")), "Comparison explanation must not contain double periods.");
+
 const batch = generatePct007Batch(500, "en");
 const audit = auditPct007Packages(batch);
 

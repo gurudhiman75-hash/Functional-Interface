@@ -16,7 +16,7 @@ function direction(parameters: Pct005Parameters, name: string, fallback: Pct005D
 
 function formatByAnswerType(answerType: string, numericAnswer: number) {
   if (answerType === "PERCENT") return formatPercent(numericAnswer);
-  if (answerType === "COUNT") return formatNumber(Math.round(numericAnswer));
+  if (answerType === "COUNT") return formatNumber(numericAnswer);
   return formatNumber(numericAnswer);
 }
 

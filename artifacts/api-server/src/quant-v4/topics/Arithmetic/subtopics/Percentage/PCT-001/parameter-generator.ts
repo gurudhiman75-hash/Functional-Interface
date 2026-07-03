@@ -91,7 +91,43 @@ function getDivisors(num: number): number[] {
   return divisors.sort((a, b) => a - b);
 }
 
-function constrainVariables(taskKind: Pct001TaskKind, variables: Pct001Variables, difficulty: Pct001DifficultyBand, seed: string): Pct001Variables {
+function isCountLikeTemplate(template: string) {
+  return /\b(population|residents?|students?|passengers?|employees?|workers?|applicants?|voters?|items?|cartons?|boxes?|bags?|books?|accounts?|users?|inventory)\b/i.test(template);
+}
+
+function isWholeNumber(value: number) {
+  return Math.abs(value - Math.round(value)) < 1e-9;
+}
+
+function chooseCompoundFriendlyInitialValue(taskKind: Pct001TaskKind, percentageRate: number, seed: string) {
+  const candidatePool = [
+    100, 120, 125, 150, 160, 180, 200, 240, 250, 300, 320, 400, 480, 500, 600, 625, 640,
+    720, 750, 800, 900, 960, 1000, 1200, 1250, 1500, 1600, 1800, 2000, 2400, 2500, 3000,
+    3125, 3200, 4000, 5000, 6250, 7500, 8000, 10000, 12000, 12500, 15000, 20000,
+  ];
+  const factor =
+    taskKind === "compoundGrowth"
+      ? ((100 + percentageRate) / 100) ** 2
+      : ((100 - percentageRate) / 100) ** 2;
+  const compatible = candidatePool.filter((initialValue) => isWholeNumber(initialValue * factor));
+  return pick((compatible.length ? compatible : candidatePool) as readonly number[], `${seed}:compound-friendly`);
+}
+
+function choosePartBelowBase(baseValue: number, seed: string) {
+  const ratePool = [10, 15, 20, 25, 30, 40, 50, 60, 75] as const;
+  const candidates = ratePool
+    .map((rate) => ({ rate, value: (baseValue * rate) / 100 }))
+    .filter((candidate) => candidate.value > 0 && candidate.value < baseValue && isWholeNumber(candidate.value));
+  return pick((candidates.length ? candidates : [{ rate: 50, value: Math.max(1, Math.floor(baseValue / 2)) }]) as readonly { rate: number; value: number }[], `${seed}:part-below-base`).value;
+}
+
+function constrainVariables(
+  taskKind: Pct001TaskKind,
+  variables: Pct001Variables,
+  difficulty: Pct001DifficultyBand,
+  seed: string,
+  template = "",
+): Pct001Variables {
   const output = { ...variables };
   if (taskKind === "winnerVotes") {
     const percentageRate = chooseGreaterThan("percentageRate", 50, difficulty, `${seed}:winner`);
@@ -239,6 +275,19 @@ function constrainVariables(taskKind: Pct001TaskKind, variables: Pct001Variables
     const div = pick(divs.length ? divs : [totalMixture * 1.5], `${seed}:div`);
     output.value = div - totalMixture;
   }
+  if ((taskKind === "compoundGrowth" || taskKind === "compoundDecay") && isCountLikeTemplate(template)) {
+    const percentageRate = Number(output.percentageRate ?? 0);
+    if (Number.isFinite(percentageRate) && percentageRate > 0) {
+      output.initialValue = chooseCompoundFriendlyInitialValue(taskKind, percentageRate, `${seed}:count-compound`);
+    }
+  }
+  if (taskKind === "valueAsPercent") {
+    const baseValue = Number(output.baseValue ?? 0);
+    const partValue = Number(output.value ?? 0);
+    if (Number.isFinite(baseValue) && baseValue > 0 && (!Number.isFinite(partValue) || partValue >= baseValue)) {
+      output.value = choosePartBelowBase(baseValue, `${seed}:part-below-base`);
+    }
+  }
   return output;
 }
 
@@ -342,7 +391,13 @@ export function generatePct001Parameters(cpId: Pct001CanonicalProblemId, input: 
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const semanticContext = selectSemanticContext(cpId, seed);
-  const variables = constrainVariables(taskKind, buildRequiredVariables(requiredVariables, difficultyBand, seed), difficultyBand, seed);
+  const variables = constrainVariables(
+    taskKind,
+    buildRequiredVariables(requiredVariables, difficultyBand, seed),
+    difficultyBand,
+    seed,
+    questionEntry.template,
+  );
 
   return {
     archetypeId: PCT_001_ARCHETYPE_ID,

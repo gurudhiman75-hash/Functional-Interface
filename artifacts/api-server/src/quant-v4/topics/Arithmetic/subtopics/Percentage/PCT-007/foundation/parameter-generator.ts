@@ -34,6 +34,13 @@ type ContextMeta = {
   valuePrefix: string;
 };
 
+type CaseletComparisonCandidate = {
+  baseValue1: number;
+  baseValue2: number;
+  rate1: number;
+  rate2: number;
+};
+
 const AMOUNT_BASES = [4000, 5000, 6000, 8000, 10000, 12000, 15000];
 const SMALL_AMOUNT_BASES = [400, 500, 600, 800, 1000, 1200, 1500, 2000];
 const PERCENT_CASES = [10, 20, 25, 30, 40, 50, 60, 75, 80] as const;
@@ -157,6 +164,26 @@ function parseContextTag(contextTag: string): ContextMeta {
   };
 }
 
+function isDiscreteCountUnit(unitLabel: string) {
+  return ["marks", "people", "students", "passengers", "votes", "bags", "items", "units"].includes(unitLabel);
+}
+
+function applicationResultFor(baseValue: number, percentageRate: number, solveMode: string) {
+  switch (solveMode) {
+    case "findOriginalValueBeforeIncrease":
+      return (baseValue * (100 + percentageRate)) / 100;
+    case "findRevisedValueAfterIncrease":
+      return (baseValue * (100 + percentageRate)) / 100;
+    case "findRevisedValueAfterDecrease":
+    case "findRemainingQuantityFromPercent":
+      return (baseValue * (100 - percentageRate)) / 100;
+    case "findUsedQuantityFromPercent":
+      return (baseValue * percentageRate) / 100;
+    default:
+      return baseValue;
+  }
+}
+
 function getMagnitudePool(unitLabel: string, valuePrefix: string) {
   if (valuePrefix) return SMALL_AMOUNT_BASES;
   if (unitLabel === "marks") return MARKS_TOTALS;
@@ -262,11 +289,58 @@ function buildElectionVariables(questionLanguageId: string, solveMode: string, c
     return { ...meta, totalVoters, turnoutRate, invalidRate };
   }
   if (solveMode === "findCandidateVotesFromValidVotes") {
-    return { ...meta, totalVoters, turnoutRate, invalidRate, candidateRate };
+    const candidates = TOTAL_VOTER_CASES.flatMap((candidateTotalVoters) =>
+      TURNOUT_CASES.flatMap((candidateTurnoutRate) =>
+        INVALID_RATE_CASES.flatMap((candidateInvalidRate) =>
+          CANDIDATE_RATE_CASES
+            .filter((candidateCandidateRate) => {
+              const votesPolled = (candidateTotalVoters * candidateTurnoutRate) / 100;
+              const validVotes = votesPolled * (100 - candidateInvalidRate) / 100;
+              const candidateVotes = validVotes * candidateCandidateRate / 100;
+              return Number.isInteger(votesPolled) && Number.isInteger(validVotes) && Number.isInteger(candidateVotes);
+            })
+            .map((candidateCandidateRate) => ({
+              totalVoters: candidateTotalVoters,
+              turnoutRate: candidateTurnoutRate,
+              invalidRate: candidateInvalidRate,
+              candidateRate: candidateCandidateRate,
+            })),
+        ),
+      ),
+    );
+    const selected = pick(candidates, `${seed}:integer-candidate-votes`);
+    return { ...meta, ...selected };
   }
   if (solveMode === "findWinningMarginFromVoteShare") {
-    const pair = pick(VOTE_SHARE_PAIR_CASES, `${seed}:votePair`);
-    return { ...meta, totalVoters, turnoutRate, invalidRate, rate1: pair.rate1, rate2: pair.rate2 };
+    const candidates = TOTAL_VOTER_CASES.flatMap((candidateTotalVoters) =>
+      TURNOUT_CASES.flatMap((candidateTurnoutRate) =>
+        INVALID_RATE_CASES.flatMap((candidateInvalidRate) =>
+          VOTE_SHARE_PAIR_CASES.filter((pair) => {
+            const votesPolled = (candidateTotalVoters * candidateTurnoutRate) / 100;
+            const validVotes = votesPolled * (100 - candidateInvalidRate) / 100;
+            const candidateVotes1 = validVotes * pair.rate1 / 100;
+            const candidateVotes2 = validVotes * pair.rate2 / 100;
+            const margin = Math.abs(candidateVotes1 - candidateVotes2);
+            return (
+              Number.isInteger(votesPolled) &&
+              Number.isInteger(validVotes) &&
+              Number.isInteger(candidateVotes1) &&
+              Number.isInteger(candidateVotes2) &&
+              Number.isInteger(margin) &&
+              margin > 0
+            );
+          }).map((pair) => ({
+            totalVoters: candidateTotalVoters,
+            turnoutRate: candidateTurnoutRate,
+            invalidRate: candidateInvalidRate,
+            rate1: pair.rate1,
+            rate2: pair.rate2,
+          })),
+        ),
+      ),
+    );
+    const selected = pick(candidates, `${seed}:integer-winning-margin`);
+    return { ...meta, ...selected };
   }
   const value1 = (totalVoters * turnoutRate) / 100;
   return { ...meta, turnoutRate, value1 };
@@ -274,8 +348,18 @@ function buildElectionVariables(questionLanguageId: string, solveMode: string, c
 
 function buildApplicationVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
   const meta = baseMeta(questionLanguageId, contextTag);
-  const totalValue = pick(getMagnitudePool(meta.unitLabel, meta.valuePrefix), `${seed}:totalValue`);
-  const percentageRate = pick(APPLICATION_RATES, `${seed}:percentageRate`);
+  const totalPool = getMagnitudePool(meta.unitLabel, meta.valuePrefix);
+  const countSafeContext = isDiscreteCountUnit(meta.unitLabel);
+  const candidates = countSafeContext
+    ? totalPool.flatMap((totalValue) =>
+        APPLICATION_RATES
+          .filter((percentageRate) => Number.isInteger(applicationResultFor(totalValue, percentageRate, solveMode)))
+          .map((percentageRate) => ({ totalValue, percentageRate })),
+      )
+    : [];
+  const chosen = candidates.length ? pick(candidates, `${seed}:count-safe`) : null;
+  const totalValue = chosen?.totalValue ?? pick(totalPool, `${seed}:totalValue`);
+  const percentageRate = chosen?.percentageRate ?? pick(APPLICATION_RATES, `${seed}:percentageRate`);
 
   if (solveMode === "findOriginalValueBeforeIncrease") {
     return {
@@ -423,15 +507,40 @@ function buildCaseletVariables(questionLanguageId: string, solveMode: string, co
 
   const meta = baseMeta(questionLanguageId, contextTag);
   const pool = getMagnitudePool(meta.unitLabel, meta.valuePrefix);
+  const ratePool = [40, 50, 60, 70, 75, 80] as const;
+
+  if (isDiscreteCountUnit(meta.unitLabel)) {
+    const candidates: CaseletComparisonCandidate[] = [];
+    for (const baseValue1 of pool) {
+      for (const baseValue2 of pool) {
+        if (baseValue1 === baseValue2) continue;
+        for (const rate1 of ratePool) {
+          const actual1 = (baseValue1 * rate1) / 100;
+          if (!Number.isInteger(actual1)) continue;
+          for (const rate2 of ratePool) {
+            const actual2 = (baseValue2 * rate2) / 100;
+            if (!Number.isInteger(actual2) || actual1 === actual2) continue;
+            candidates.push({ baseValue1, baseValue2, rate1, rate2 });
+          }
+        }
+      }
+    }
+
+    if (candidates.length) {
+      const chosen = pick(candidates, `${seed}:count-safe-comparison`);
+      return { ...meta, baseValue1: chosen.baseValue1, baseValue2: chosen.baseValue2, rate1: chosen.rate1, rate2: chosen.rate2 };
+    }
+  }
+
   const baseValue1 = pick(pool, `${seed}:baseValue1`);
   let baseValue2 = pick(pool, `${seed}:baseValue2`);
   if (baseValue2 === baseValue1) {
     baseValue2 = pool[(stableBucket(`${seed}:baseValue2:fallback`, pool.length - 1) + 1) % pool.length]!;
   }
-  const rate1 = pick([40, 50, 60, 70, 75, 80] as const, `${seed}:rate1`);
-  let rate2 = pick([40, 50, 60, 70, 75, 80] as const, `${seed}:rate2`);
+  const rate1 = pick(ratePool, `${seed}:rate1`);
+  let rate2 = pick(ratePool, `${seed}:rate2`);
   if ((baseValue1 * rate1) / 100 === (baseValue2 * rate2) / 100) {
-    rate2 = [40, 50, 60, 70, 75, 80][(stableBucket(`${seed}:rate2:fallback`, 5) + 1) % 6]!;
+    rate2 = ratePool[(stableBucket(`${seed}:rate2:fallback`, ratePool.length - 1) + 1) % ratePool.length]!;
   }
 
   return { ...meta, baseValue1, baseValue2, rate1, rate2 };

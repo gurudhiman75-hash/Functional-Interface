@@ -39,6 +39,20 @@ type ContextDefinition = {
   pairMultiplier: number;
 };
 
+type CrossBaseCandidate = {
+  rate1: number;
+  rate2: number;
+  baseValue1: number;
+  baseValue2: number;
+};
+
+type FinalComparisonCandidate = {
+  value1: number;
+  value2: number;
+  rate1: number;
+  rate2: number;
+};
+
 type MoreThanCase = {
   rate: number;
   numerator: number;
@@ -294,8 +308,104 @@ function buildComparisonPair(contextTag: string, seed: string) {
   return [firstScale * 10, secondScale * 10] as const;
 }
 
+function finalComparisonDirectionA(solveMode: Pct006SolveMode) {
+  return solveMode === "compareFinalBothDecrease" || solveMode === "compareFinalADownBUp"
+    ? "less"
+    : "more";
+}
+
+function finalComparisonDirectionB(solveMode: Pct006SolveMode) {
+  return solveMode === "compareFinalBothIncrease" || solveMode === "compareFinalADownBUp"
+    ? "more"
+    : "less";
+}
+
+function applyPercentageChange(value: number, direction: "more" | "less", rate: number) {
+  return direction === "more"
+    ? value * (100 + rate) / 100
+    : value * (100 - rate) / 100;
+}
+
+function isIntegerSafeCountContext(contextTag: string) {
+  const unitLabel = CONTEXTS[contextTag]?.unitLabel ?? "";
+  return ["marks", "people", "units", "students", "items", "passengers"].includes(unitLabel);
+}
+
+function buildIntegerSafeCrossBaseCandidate(contextTag: string, seed: string): CrossBaseCandidate | null {
+  const context = CONTEXTS[contextTag];
+  const basePool = context.scalePool.map((value) => value * 10);
+  const ratePool = [40, 50, 60, 70, 75, 80, 90];
+  const candidates: CrossBaseCandidate[] = [];
+
+  for (const baseValue1 of basePool) {
+    for (const baseValue2 of basePool) {
+      if (baseValue1 === baseValue2) continue;
+      for (const rate1 of ratePool) {
+        const actual1 = (baseValue1 * rate1) / 100;
+        if (!Number.isInteger(actual1)) continue;
+        for (const rate2 of ratePool) {
+          const actual2 = (baseValue2 * rate2) / 100;
+          if (!Number.isInteger(actual2)) continue;
+          if (actual1 === actual2) continue;
+          candidates.push({ rate1, rate2, baseValue1, baseValue2 });
+        }
+      }
+    }
+  }
+
+  if (!candidates.length) return null;
+  return pick(candidates, `${seed}:integer-safe`);
+}
+
+function buildIntegerSafeFinalComparisonCandidate(
+  contextTag: string,
+  solveMode: Pct006SolveMode,
+  seed: string,
+): FinalComparisonCandidate | null {
+  const context = CONTEXTS[contextTag];
+  const basePool = context.scalePool.map((value) => value * 10);
+  const increaseRates = [10, 20, 25, 50] as const;
+  const decreaseRates = [5, 10, 20, 25] as const;
+  const direction1 = finalComparisonDirectionA(solveMode);
+  const direction2 = finalComparisonDirectionB(solveMode);
+  const ratePool1 = direction1 === "more" ? increaseRates : decreaseRates;
+  const ratePool2 = direction2 === "more" ? increaseRates : decreaseRates;
+  const candidates: FinalComparisonCandidate[] = [];
+
+  for (const value1 of basePool) {
+    for (const value2 of basePool) {
+      if (value1 === value2) continue;
+      for (const rate1 of ratePool1) {
+        const final1 = applyPercentageChange(value1, direction1, rate1);
+        if (!Number.isInteger(final1)) continue;
+        for (const rate2 of ratePool2) {
+          const final2 = applyPercentageChange(value2, direction2, rate2);
+          if (!Number.isInteger(final2) || final1 === final2) continue;
+          candidates.push({ value1, value2, rate1, rate2 });
+        }
+      }
+    }
+  }
+
+  if (!candidates.length) return null;
+  return pick(candidates, `${seed}:integer-safe-final-comparison`);
+}
+
 function buildCrossBaseVariables(contextTag: string, seed: string): Pct006Variables {
   const context = CONTEXTS[contextTag];
+  if (isIntegerSafeCountContext(contextTag)) {
+    const candidate = buildIntegerSafeCrossBaseCandidate(contextTag, seed);
+    if (candidate) {
+      return {
+        ...baseContextVariables(contextTag),
+        rate1: candidate.rate1,
+        rate2: candidate.rate2,
+        baseValue1: candidate.baseValue1,
+        baseValue2: candidate.baseValue2,
+      };
+    }
+  }
+
   const basePool = context.scalePool.map((value) => value * 10);
   const baseValue1 = pick(basePool, `${seed}:baseValue1`);
   let baseValue2 = pick(basePool, `${seed}:baseValue2`);
@@ -369,21 +479,30 @@ function buildVariables(
       };
     }
     case "PCT-CP-007": {
-      const [value1, value2] = buildComparisonPair(contextTag, seed);
       const increaseRates = [10, 20, 25, 50] as const;
       const decreaseRates = [5, 10, 20, 25] as const;
+      const countSafeCandidate = isIntegerSafeCountContext(contextTag)
+        ? buildIntegerSafeFinalComparisonCandidate(contextTag, solveMode, seed)
+        : null;
+      const [value1, value2] = countSafeCandidate
+        ? [countSafeCandidate.value1, countSafeCandidate.value2] as const
+        : buildComparisonPair(contextTag, seed);
       return {
         ...baseContextVariables(contextTag),
         value1,
         value2,
-        rate1: pick(
-          solveMode === "compareFinalBothDecrease" || solveMode === "compareFinalADownBUp" ? decreaseRates : increaseRates,
-          `${seed}:rate1`,
-        ),
-        rate2: pick(
-          solveMode === "compareFinalBothIncrease" || solveMode === "compareFinalADownBUp" ? increaseRates : decreaseRates,
-          `${seed}:rate2`,
-        ),
+        rate1: countSafeCandidate
+          ? countSafeCandidate.rate1
+          : pick(
+              solveMode === "compareFinalBothDecrease" || solveMode === "compareFinalADownBUp" ? decreaseRates : increaseRates,
+              `${seed}:rate1`,
+            ),
+        rate2: countSafeCandidate
+          ? countSafeCandidate.rate2
+          : pick(
+              solveMode === "compareFinalBothIncrease" || solveMode === "compareFinalADownBUp" ? increaseRates : decreaseRates,
+              `${seed}:rate2`,
+            ),
       };
     }
     case "PCT-CP-008": {

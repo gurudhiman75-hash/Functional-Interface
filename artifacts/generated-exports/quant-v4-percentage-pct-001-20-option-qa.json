@@ -1,0 +1,928 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.001Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "In 320 litres of salt solution, there is 37.5% salt. How much salt should be added to make it a 60% solution?",
+      "options": [
+        "$$180$$",
+        "$$200$$",
+        "$$170$$",
+        "$$190$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$180$$",
+      "explanation": "Given:\n\n$$\\text{Water}=\\frac{62.5}{100}\\times320$$\n\nCalculation:\n\n$$\\text{Final volume}=\\frac{320\\times62.5}{40}=\\text{Solute added}=\\text{Final volume}-320=180$$\n\nAnswer:\n\n$$180$$\n\nHence, the pure solute added is $$180$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-050",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "addSolute",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-050:96739",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-006:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 53,
+        "passedChecks": 53,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:farmers: Missing translation for farmers",
+          "semanticLeakage:farmers: Translation leakage in farmers",
+          "semanticUnicode:farmers: Broken Unicode in farmers",
+          "semanticTranslation:crops: Missing translation for crops",
+          "semanticLeakage:crops: Translation leakage in crops",
+          "semanticUnicode:crops: Broken Unicode in crops"
+        ]
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "A bus timetable increases average speed by 16.66% on the same route. By what percent will journey time decrease?",
+      "options": [
+        "$$14\\%$$",
+        "$$14.28\\%$$",
+        "$$16.66\\%$$",
+        "$$12.5\\%$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$14.28\\%$$",
+      "explanation": "Given:\n\n$$\\text{New base}=100+16.66=116.66$$\n\nCalculation:\n\n$$\\frac{16.66\\times100}{116.66}=14.28\\\\%$$\n\nAnswer:\n\n$$14.28\\\\%$$\n\nThus, the required decrease is $$14.28\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-431",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "invarianceDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-431:94818",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-004:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 43,
+        "passedChecks": 43,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:workers: Missing translation for workers",
+          "semanticLeakage:workers: Translation leakage in workers",
+          "semanticUnicode:workers: Broken Unicode in workers",
+          "semanticTranslation:output: Missing translation for output",
+          "semanticLeakage:output: Translation leakage in output",
+          "semanticUnicode:output: Broken Unicode in output"
+        ]
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "A plantation record lists 100 trees, with 25% marked as mango trees. How many mango trees are there?",
+      "options": [
+        "$$26$$",
+        "$$24$$",
+        "$$27$$",
+        "$$25$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$25$$",
+      "explanation": "$$25\\\\%\\text{ of }100$$\n\n$$\\frac{25}{100}\\times100$$\n\n$$\\frac{25\\times100}{100}$$\n\n$$25$$\n\nHence, the required value is $$25$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-1702",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "percentOf",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-1702:91936",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-001:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:mathematics: Missing translation for mathematics",
+          "semanticLeakage:mathematics: Translation leakage in mathematics",
+          "semanticUnicode:mathematics: Broken Unicode in mathematics",
+          "semanticTranslation:students: Missing translation for students",
+          "semanticLeakage:students: Translation leakage in students",
+          "semanticUnicode:students: Broken Unicode in students"
+        ]
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "A number is increased by 45% and then decreased by 25%. Find the total change percent.",
+      "options": [
+        "$$8.75\\%$$",
+        "$$9.59\\%$$",
+        "$$8.05\\%$$",
+        "$$9\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$8.75\\%$$",
+      "explanation": "Equivalent percentage change:\n\n$$a+b+\\frac{ab}{100}$$\n\n$$45+(-25)+\\frac{45\\times(-25)}{100}$$\n\n$$20+\\frac{-1125}{100}$$\n\n$$8.75\\\\%$$\n\nHence, the overall change is $$8.75\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-022",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "successiveChange",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-022:93859",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-003:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:women: Missing translation for women",
+          "semanticLeakage:women: Translation leakage in women",
+          "semanticUnicode:women: Broken Unicode in women",
+          "semanticTranslation:workers: Missing translation for workers",
+          "semanticLeakage:workers: Translation leakage in workers",
+          "semanticUnicode:workers: Broken Unicode in workers"
+        ]
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "After increasing a number by 28%, it becomes 1536. Find the old number.",
+      "options": [
+        "$$1100$$",
+        "$$1250$$",
+        "$$1200$$",
+        "$$1300$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$1200$$",
+      "explanation": "Given:\n\n$$100+28=128\\\\%$$\n\nCalculation:\n\n$$\\frac{1536\\times100}{128}=1200$$\n\nAnswer:\n\n$$1200$$\n\nTherefore, the original value is $$1200$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-014",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "reverseIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-014:92899",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-002:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:salary: Missing translation for salary",
+          "semanticLeakage:salary: Translation leakage in salary",
+          "semanticUnicode:salary: Broken Unicode in salary",
+          "semanticTranslation:saving: Missing translation for saving",
+          "semanticLeakage:saving: Translation leakage in saving",
+          "semanticUnicode:saving: Broken Unicode in saving"
+        ]
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "In a college election with two candidates, the winner got 60% of the votes and won by 600 votes. Find the total votes polled.",
+      "options": [
+        "$$3000$$",
+        "$$2900$$",
+        "$$3100$$",
+        "$$3050$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$3000$$",
+      "explanation": "Given:\n\n$$60-(100-60)=20\\\\%$$\n\nCalculation:\n\n$$\\frac{600\\times100}{20}=3000$$\n\nAnswer:\n\n$$3000$$\n\nSo, the total number of votes is $$3000$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-438",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "winnerVotes",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-438:95783",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-005:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 47,
+        "passedChecks": 47,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:winner: Missing translation for winner",
+          "semanticLeakage:winner: Translation leakage in winner",
+          "semanticUnicode:winner: Broken Unicode in winner",
+          "semanticTranslation:voters: Missing translation for voters",
+          "semanticLeakage:voters: Translation leakage in voters",
+          "semanticUnicode:voters: Broken Unicode in voters"
+        ]
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "A metals batch has 20% copper. Find the weight of zinc in 80 kg of the batch.",
+      "options": [
+        "$$63$$",
+        "$$65$$",
+        "$$64$$",
+        "$$66$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$64$$",
+      "explanation": "Given:\n\n$$100-20=80\\\\%$$\n\nCalculation:\n\n$$\\frac{80\\times80}{100}=64$$\n\nAnswer:\n\n$$64$$\n\nHence, the weight of zinc is $$64$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-155",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "alloyComplement",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-155:96745",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-006:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:crops: Missing translation for crops",
+          "semanticLeakage:crops: Translation leakage in crops",
+          "semanticUnicode:crops: Broken Unicode in crops",
+          "semanticTranslation:farmers: Missing translation for farmers",
+          "semanticLeakage:farmers: Translation leakage in farmers",
+          "semanticUnicode:farmers: Broken Unicode in farmers"
+        ]
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "The price of petrol falls by 32%. By what percent can a person increase his consumption so that the total cost remains same?",
+      "options": [
+        "$$88.89\\%$$",
+        "$$47\\%$$",
+        "$$32\\%$$",
+        "$$47.06\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$47.06\\%$$",
+      "explanation": "Given:\n\n$$\\text{New base}=100-32=68$$\n\nCalculation:\n\n$$\\frac{32\\times100}{68}=47.06\\\\%$$\n\nAnswer:\n\n$$47.06\\\\%$$\n\nTherefore, the permissible increase is $$47.06\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-029",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "invarianceIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-029:94824",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-004:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 43,
+        "passedChecks": 43,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:workers: Missing translation for workers",
+          "semanticLeakage:workers: Translation leakage in workers",
+          "semanticUnicode:workers: Broken Unicode in workers",
+          "semanticTranslation:output: Missing translation for output",
+          "semanticLeakage:output: Translation leakage in output",
+          "semanticUnicode:output: Broken Unicode in output"
+        ]
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "In a school, 800 students play cricket, representing 40% of the total strength. Find the total number of students.",
+      "options": [
+        "$$2050$$",
+        "$$2000$$",
+        "$$2100$$",
+        "$$1900$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$2000$$",
+      "explanation": "$$40\\\\%=800$$\n\n$$\\frac{800}{40}$$\n\n$$\\frac{800\\times100}{40}$$\n\n$$2000$$\n\nTherefore, the number is $$2000$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-309",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "reversePercent",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-309:91942",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-001:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:girls: Missing translation for girls",
+          "semanticLeakage:girls: Translation leakage in girls",
+          "semanticUnicode:girls: Broken Unicode in girls",
+          "semanticTranslation:mathematics: Missing translation for mathematics",
+          "semanticLeakage:mathematics: Translation leakage in mathematics",
+          "semanticUnicode:mathematics: Broken Unicode in mathematics"
+        ]
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "A square park layout has its side increased by 20%. Find the percentage increase in its area.",
+      "options": [
+        "$$44\\%$$",
+        "$$31\\%$$",
+        "$$45\\%$$",
+        "$$79\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$44\\%$$",
+      "explanation": "Given:\n\n$$\\text{Side factor}=\\frac{120}{100}$$\n\nCalculation:\n\n$$\\left[\\left(\\frac{120}{100}\\right)^2-1\\right]100=44\\\\%$$\n\nAnswer:\n\n$$44\\\\%$$\n\nSo, the percentage change in area is $$44\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-127",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "squareAreaChange",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-127:93865",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-003:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 43,
+        "passedChecks": 43,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:men: Missing translation for men",
+          "semanticLeakage:men: Translation leakage in men",
+          "semanticUnicode:men: Broken Unicode in men",
+          "semanticTranslation:employees: Missing translation for employees",
+          "semanticLeakage:employees: Translation leakage in employees",
+          "semanticUnicode:employees: Broken Unicode in employees"
+        ]
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "A budget sheet says 50% of the total fund is 200. Find the amount for 10% of the same fund.",
+      "options": [
+        "$$42$$",
+        "$$40$$",
+        "$$41$$",
+        "$$39$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$40$$",
+      "explanation": "Given:\n\n$$50\\\\%=200$$\n\nCalculation:\n\n$$10\\\\%=\\frac{200\\times10}{50}=40$$\n\nAnswer:\n\n$$40$$\n\nHence, the required amount is $$40$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-217",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "percentOfKnownNumber",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-217:76048",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-002:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 53,
+        "passedChecks": 53,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:salary: Missing translation for salary",
+          "semanticLeakage:salary: Translation leakage in salary",
+          "semanticUnicode:salary: Broken Unicode in salary",
+          "semanticTranslation:saving: Missing translation for saving",
+          "semanticLeakage:saving: Translation leakage in saving",
+          "semanticUnicode:saving: Broken Unicode in saving"
+        ]
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "A metals record has 60% copper and the rest zinc. If zinc weighs 2000 kg, find the total weight.",
+      "options": [
+        "$$5050$$",
+        "$$5000$$",
+        "$$5100$$",
+        "$$4900$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$5000$$",
+      "explanation": "Given:\n\n$$\\text{Known part}=40\\\\%$$\n\nCalculation:\n\n$$\\frac{2000\\times100}{40}=5000$$\n\nAnswer:\n\n$$5000$$\n\nHence, the total is $$5000$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-146",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "partToTotal",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-146:65422",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-005:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:valid_votes: Missing translation for valid_votes",
+          "semanticLeakage:valid_votes: Translation leakage in valid_votes",
+          "semanticUnicode:valid_votes: Broken Unicode in valid_votes",
+          "semanticTranslation:runner_up: Missing translation for runner_up",
+          "semanticLeakage:runner_up: Translation leakage in runner_up",
+          "semanticUnicode:runner_up: Broken Unicode in runner_up"
+        ]
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "150 kg of fresh mangoes contain 80% water. After drying, the mangoes contain 25% water. How many kg of dried mangoes will remain?",
+      "options": [
+        "$$39$$",
+        "$$42$$",
+        "$$41$$",
+        "$$40$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$40$$",
+      "explanation": "Given:\n\n$$\\text{Solid matter}=\\frac{20}{100}\\times150$$\n\nCalculation:\n\n$$\\text{Dry weight}=\\frac{150\\times20}{75}=40$$\n\nAnswer:\n\n$$40$$\n\nSo, the weight of dry fruit is $$40$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-249",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "dryFromFresh",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-249:95214",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-006:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 53,
+        "passedChecks": 53,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:farmers: Missing translation for farmers",
+          "semanticLeakage:farmers: Translation leakage in farmers",
+          "semanticUnicode:farmers: Broken Unicode in farmers",
+          "semanticTranslation:crops: Missing translation for crops",
+          "semanticLeakage:crops: Translation leakage in crops",
+          "semanticUnicode:crops: Broken Unicode in crops"
+        ]
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "A field layout has its length increased by 12%. By what percent should the breadth be reduced to keep the area the same?",
+      "options": [
+        "$$9.67\\%$$",
+        "$$11.99\\%$$",
+        "$$10.71\\%$$",
+        "$$11\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$10.71\\%$$",
+      "explanation": "Given:\n\n$$\\text{New base}=100+12=112$$\n\nCalculation:\n\n$$\\frac{12\\times100}{112}=10.71\\\\%$$\n\nAnswer:\n\n$$10.71\\\\%$$\n\nAccordingly, the required decrease is $$10.71\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-230",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "invarianceDecrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-230:35633",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-004:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 43,
+        "passedChecks": 43,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:output: Missing translation for output",
+          "semanticLeakage:output: Translation leakage in output",
+          "semanticUnicode:output: Broken Unicode in output",
+          "semanticTranslation:workers: Missing translation for workers",
+          "semanticLeakage:workers: Translation leakage in workers",
+          "semanticUnicode:workers: Broken Unicode in workers"
+        ]
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "A is 50% of B. If B is 5000, find A.",
+      "options": [
+        "$$2500$$",
+        "$$2600$$",
+        "$$2400$$",
+        "$$2550$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$2500$$",
+      "explanation": "Given:\n\n$$50\\\\%\\text{ of }5000$$\n\nCalculation:\n\n$$\\frac{50}{100}\\times5000=2500$$\n\nAnswer:\n\n$$2500$$\n\nTherefore, the required quantity is $$2500$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-005",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directRelation",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-005:46261",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-001:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:mathematics: Missing translation for mathematics",
+          "semanticLeakage:mathematics: Translation leakage in mathematics",
+          "semanticUnicode:mathematics: Broken Unicode in mathematics",
+          "semanticTranslation:girls: Missing translation for girls",
+          "semanticLeakage:girls: Translation leakage in girls",
+          "semanticUnicode:girls: Broken Unicode in girls"
+        ]
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "A warehouse floor plan increases length by 15% and breadth by 30%. Find the percentage increase in area.",
+      "options": [
+        "$$98\\%$$",
+        "$$50\\%$$",
+        "$$33.1\\%$$",
+        "$$49.5\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$49.5\\%$$",
+      "explanation": "Given:\n\n$$\\frac{115}{100}\\times\\frac{130}{100}$$\n\nCalculation:\n\n$$\\left(\\frac{115}{100}\\times\\frac{130}{100}-1\\right)100=49.5\\\\%$$\n\nAnswer:\n\n$$49.5\\\\%$$\n\nTherefore, the percentage change in area is $$49.5\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-326",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "areaChange",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-326:5844",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-003:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:women: Missing translation for women",
+          "semanticLeakage:women: Translation leakage in women",
+          "semanticUnicode:women: Broken Unicode in women",
+          "semanticTranslation:employees: Missing translation for employees",
+          "semanticLeakage:employees: Translation leakage in employees",
+          "semanticUnicode:employees: Broken Unicode in employees"
+        ]
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "A stock addition of 108 units equals 18% of the starting stock. Find the starting stock.",
+      "options": [
+        "$$610$$",
+        "$$620$$",
+        "$$590$$",
+        "$$600$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$600$$",
+      "explanation": "Given:\n\n$$18\\\\%=108$$\n\nCalculation:\n\n$$\\frac{108\\times100}{18}=600$$\n\nAnswer:\n\n$$600$$\n\nThus, the original value is $$600$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-316",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "increaseByAmount",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-316:76054",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-002:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 48,
+        "passedChecks": 48,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:expenditure: Missing translation for expenditure",
+          "semanticLeakage:expenditure: Translation leakage in expenditure",
+          "semanticUnicode:expenditure: Broken Unicode in expenditure",
+          "semanticTranslation:saving: Missing translation for saving",
+          "semanticLeakage:saving: Translation leakage in saving",
+          "semanticUnicode:saving: Broken Unicode in saving"
+        ]
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "In a two-candidate election, one candidate got 30% votes and lost by 800 votes. Find the total number of votes.",
+      "options": [
+        "$$2100$$",
+        "$$2050$$",
+        "$$1900$$",
+        "$$2000$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$2000$$",
+      "explanation": "Given:\n\n$$(100-30)-30=40\\\\%$$\n\nCalculation:\n\n$$\\frac{800\\times100}{40}=2000$$\n\nAnswer:\n\n$$2000$$\n\nHence, the total number of votes is $$2000$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-247",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "loserVotes",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-247:65428",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-005:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 47,
+        "passedChecks": 47,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:voters: Missing translation for voters",
+          "semanticLeakage:voters: Translation leakage in voters",
+          "semanticUnicode:voters: Broken Unicode in voters",
+          "semanticTranslation:invalid_votes: Missing translation for invalid_votes",
+          "semanticLeakage:invalid_votes: Translation leakage in invalid_votes",
+          "semanticUnicode:invalid_votes: Broken Unicode in invalid_votes"
+        ]
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "A syrup mixture is 12.5% sugar. When 60 kg of water evaporates, it becomes 20% sugar. Find the original weight.",
+      "options": [
+        "$$170$$",
+        "$$180$$",
+        "$$160$$",
+        "$$150$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$160$$",
+      "explanation": "Given:\n\n$$\\frac{12.5}{100}W=\\frac{20}{100}(W-60)$$\n\nCalculation:\n\n$$12.5W=20W-1200=160$$\n\nAnswer:\n\n$$160$$\n\nSo, the original weight was $$160$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-354",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "evaporationOriginal",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-354:95220",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-006:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 53,
+        "passedChecks": 53,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:farmers: Missing translation for farmers",
+          "semanticLeakage:farmers: Translation leakage in farmers",
+          "semanticUnicode:farmers: Broken Unicode in farmers",
+          "semanticTranslation:crops: Missing translation for crops",
+          "semanticLeakage:crops: Translation leakage in crops",
+          "semanticUnicode:crops: Broken Unicode in crops"
+        ]
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "A circular park record reduces radius by 30%. Find the percentage decrease in its area.",
+      "options": [
+        "$$51\\%$$",
+        "$$52\\%$$",
+        "$$34\\%$$",
+        "$$104\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$51\\%$$",
+      "explanation": "Given:\n\n$$\\text{Radius factor}=\\frac{70}{100}$$\n\nCalculation:\n\n$$\\left[1-\\left(\\frac{70}{100}\\right)^2\\right]100=51\\\\%$$\n\nAnswer:\n\n$$51\\\\%$$\n\nAccordingly, the percentage decrease in area is $$51\\%$$.",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-001",
+        "archetypeId": "PCT-001",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-335",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "circleAreaDecrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-335:35639",
+        "seed": "quant-v4-percentage-pct-001-residual-v3:PCT-CP-004:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 43,
+        "passedChecks": 43,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "semanticDuplicates: Duplicate entities found in semantic context.",
+          "semanticTranslation:output: Missing translation for output",
+          "semanticLeakage:output: Translation leakage in output",
+          "semanticUnicode:output: Broken Unicode in output",
+          "semanticTranslation:machines: Missing translation for machines",
+          "semanticLeakage:machines: Translation leakage in machines",
+          "semanticUnicode:machines: Broken Unicode in machines"
+        ]
+      }
+    }
+  ]
+}

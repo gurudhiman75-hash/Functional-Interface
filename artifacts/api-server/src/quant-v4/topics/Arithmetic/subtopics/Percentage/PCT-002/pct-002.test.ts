@@ -66,6 +66,7 @@ assertFixed("PCT-CP-004", "PCT-QL-007", { knownRate: 40, knownValue: 240, target
 assertFixed("PCT-CP-004", "PCT-QL-008", { knownRate: 25, knownValue: 150, targetValue: 90, wholeLabel: "books" }, "$$15\\%$$");
 assertFixed("PCT-CP-005", "PCT-QL-009", { partA: 3, partB: 2, targetPartLabel: "first part" }, "$$60\\%$$");
 assertFixed("PCT-CP-005", "PCT-QL-010", { partA: 1, partB: 4, targetPartLabel: "second part" }, "$$80\\%$$");
+assertFixed("PCT-CP-005", "PCT-QL-091", { partA: 4, partB: 5, targetPartLabel: "boys", targetPartIndex: 1 }, "$$44.44\\%$$");
 assertFixed("PCT-CP-006", "PCT-QL-011", { knownRate: 25, partLabel: "girls", complementLabel: "boys" }, "$$75\\%$$");
 assertFixed("PCT-CP-006", "PCT-QL-012", { knownRate: 18, partLabel: "savings", complementLabel: "expenditure" }, "$$82\\%$$");
 assertFixed("PCT-CP-007", "PCT-QL-013", { rate1: 40, rate2: 25, partLabel: "boys", otherLabel: "girls" }, "$$15\\%$$");

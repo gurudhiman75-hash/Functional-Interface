@@ -1,0 +1,848 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.226Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "Store A's sales figure decreases by 20% while Store B's sales figure increases by 50%. If the present values are Rs. 20000 and Rs. 8000, compare the two final values.",
+      "options": [
+        "Store A is greater by Rs. 4000.",
+        "Store A is greater by Rs. 3500.",
+        "Store A is greater by Rs. 4500.",
+        "Store A is less by Rs. 4000."
+      ],
+      "correctIndex": 0,
+      "answer": "Store A is greater by Rs. 4000.",
+      "explanation": "Apply the stated percentage change to each value separately.\n\n$$\\text{Final 1}=16000,\\;\\text{Final 2}=12000$$\n\nNow compare the two final values.\n\n$$\\text{Difference}=4000$$\n\nSo the required comparison is Store A is greater by Rs. 4000.\n\n$$\\text{Answer}=Store A is greater by Rs. 4000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-336",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "compareAfterDifferentPercentageChanges",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-336:quant-v4-percentage-pct-006-residual-v3:PCT-CP-007:0",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-007:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:subjectA: Missing required variable subjectA.",
+          "required:subjectB: Missing required variable subjectB.",
+          "required:value1: Missing required variable value1.",
+          "required:value2: Missing required variable value2.",
+          "required:rate1: Missing required variable rate1.",
+          "required:rate2: Missing required variable rate2."
+        ]
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "To equal Store B's sales of Rs. 40000, Store A must revise the present sales of Rs. 50000. Find the required percentage decrease.",
+      "options": [
+        "$$20\\%$$",
+        "$$21\\%$$",
+        "$$17\\%$$",
+        "$$25\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$20\\%$$",
+      "explanation": "Required change is always measured on the value that must be revised.\n\n$$\\text{Base for change}=50000$$\n\nTake the gap from target and divide by the present value.\n\n$$\\frac{10000}{50000}\\times100=20\\\\%$$\n\nSo the required percentage change is 20\\%.\n\n$$\\text{Answer}=20\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-286",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "requiredPercentageChangeToMatchTarget",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-286:quant-v4-percentage-pct-006-residual-v3:PCT-CP-006:1",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-006:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 14,
+        "passedChecks": 14,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:value1: Missing required variable value1.",
+          "required:value2: Missing required variable value2."
+        ]
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "Riya scores 90% of 80 marks, while Karan scores 80% of 200 marks. Who scores more, and by how many marks?",
+      "options": [
+        "Karan is greater by 88 marks.",
+        "Karan is greater by 93 marks.",
+        "Karan is less by 88 marks.",
+        "Karan is greater by 83 marks."
+      ],
+      "correctIndex": 0,
+      "answer": "Karan is greater by 88 marks.",
+      "explanation": "When the totals are different, convert each percentage into its actual value first.\n\n$$\\text{Actual 1}=72,\\;\\text{Actual 2}=160$$\n\nNow compare the actual values, not the percentages alone.\n\n$$\\text{Difference}=88$$\n\nSo the required answer is Karan is greater by 88 marks.\n\n$$\\text{Answer}=Karan is greater by 88 marks$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-452",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "crossBasePercentageComparison",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-452:quant-v4-percentage-pct-006-residual-v3:PCT-CP-010:2",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-010:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:subjectA: Missing required variable subjectA.",
+          "required:subjectB: Missing required variable subjectB.",
+          "required:rate1: Missing required variable rate1.",
+          "required:baseValue1: Missing required variable baseValue1.",
+          "required:rate2: Missing required variable rate2.",
+          "required:baseValue2: Missing required variable baseValue2."
+        ]
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "The pass percentage rises from 50% to 60%. Find the increase in percentage points.",
+      "options": [
+        "9 percentage points",
+        "12 percentage points",
+        "11 percentage points",
+        "10 percentage points"
+      ],
+      "correctIndex": 3,
+      "answer": "10 percentage points",
+      "explanation": "Percentage-point change is the simple difference between the two rates.\n\n$$\\text{Point change}=10$$\n\nRelative change compares that difference with the old rate.\n\n$$\\frac{10}{50}\\times100=20\\\\%$$\n\nSo the required result is 10 percentage points.\n\n$$\\text{Answer}=10 percentage points$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-401",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "percentagePointsVsPercentageChange",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-401:quant-v4-percentage-pct-006-residual-v3:PCT-CP-009:3",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-009:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 15,
+        "passedChecks": 15,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:oldRate: Missing required variable oldRate.",
+          "required:newRate: Missing required variable newRate."
+        ]
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "Article A's price is 40% less than Article B's price. If Article B's price is Rs. 500, find the difference between their prices.",
+      "options": [
+        "$$210$$",
+        "$$190$$",
+        "$$220$$",
+        "$$200$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$200$$",
+      "explanation": "40% less means the reduced price is 60% of the higher value.\n\n$$60\\\\%=\\frac{60}{100}$$\n\nSo the comparison multiplier is 0.6.\n\n$$\\text{Multiplier}=0.6$$\n\nMultiply the higher price by the reduction multiplier.\n\n$$\\text{Lower value}=500\\times0.6=300$$\n\nSo the required answer is 200.\n\n$$\\text{Answer}=200$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-075",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "directLessThanComparison",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-075:quant-v4-percentage-pct-006-residual-v3:PCT-CP-002:4",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-002:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 15,
+        "passedChecks": 15,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "Article A's price is 60% more than Article B's price. If Article B's price is Rs. 500, find the difference between their prices.",
+      "options": [
+        "$$320$$",
+        "$$300$$",
+        "$$310$$",
+        "$$290$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$300$$",
+      "explanation": "60% more means the new price is 160% of the base price.\n\n$$160\\\\%=\\frac{160}{100}$$\n\nSo the comparison multiplier is 1.6.\n\n$$\\text{Multiplier}=1.6$$\n\nMultiply the base price by the comparison multiplier.\n\n$$\\text{Higher value}=500\\times1.6=800$$\n\nSo the required answer is 300.\n\n$$\\text{Answer}=300$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-025",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directMoreThanComparison",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-025:quant-v4-percentage-pct-006-residual-v3:PCT-CP-001:5",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-001:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 14,
+        "passedChecks": 14,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "Route A's passenger count is 2400 passengers and Route B's passenger count is 3000 passengers. Find the difference as a percentage of Route B's passenger count.",
+      "options": [
+        "$$17\\%$$",
+        "$$21\\%$$",
+        "$$25\\%$$",
+        "$$20\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$20\\%$$",
+      "explanation": "First take the absolute difference between the two values.\n\n$$\\text{Difference}=600$$\n\nNow divide by the stated base and multiply by 100.\n\n$$\\frac{600}{3000}\\times100=20\\\\%$$\n\nSo the required percentage is 20\\%.\n\n$$\\text{Answer}=20\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-169",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "differenceAsPercentageOfSelectedBase",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-169:quant-v4-percentage-pct-006-residual-v3:PCT-CP-004:6",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-004:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 14,
+        "passedChecks": 14,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:value1: Missing required variable value1.",
+          "required:value2: Missing required variable value2."
+        ]
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "Route A's passenger count is 20% less than Route B's passenger count. Find the percentage by which Route B's passenger count exceeds Route A's.",
+      "options": [
+        "$$33\\%$$",
+        "$$25\\%$$",
+        "$$26\\%$$",
+        "$$20\\%$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$25\\%$$",
+      "explanation": "Reverse comparison needs a new base, so we divide the original percentage gap by the new base percentage.\n\n$$\\frac{20}{80}\\times100=25\\\\%$$\n\nThat gives the reverse comparison directly.\n\n$$\\text{Reverse comparison}=25\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-139",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "reverseBaseSwitchingComparison",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-139:quant-v4-percentage-pct-006-residual-v3:PCT-CP-003:7",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-003:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 12,
+        "passedChecks": 12,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate."
+        ]
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "Article A's price is 40% more than Article B's price, and Article B's price is 25% less than Article C's price. By what percent is Article A's price more or less than Article C's price?",
+      "options": [
+        "Article A is 5% less than Article C.",
+        "Article A is 5% more than Article C.",
+        "Article A is 4% more than Article C.",
+        "Article A is 6% more than Article C."
+      ],
+      "correctIndex": 1,
+      "answer": "Article A is 5% more than Article C.",
+      "explanation": "Convert both comparison statements into multipliers and combine them.\n\n$$1.4\\times0.75=1.05$$\n\nThe combined multiplier tells us how Article A compares with Article C.\n\n$$\\text{Combined effect}=1.05$$\n\nSo the final relation is Article A is 5% more than Article C.\n\n$$\\text{Answer}=Article A is 5\\% more than Article C$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-355",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "chainPercentageComparison",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-355:quant-v4-percentage-pct-006-residual-v3:PCT-CP-008:8",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-008:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 18,
+        "passedChecks": 18,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:subjectA: Missing required variable subjectA.",
+          "required:subjectB: Missing required variable subjectB.",
+          "required:subjectC: Missing required variable subjectC.",
+          "required:rate1: Missing required variable rate1.",
+          "required:rate2: Missing required variable rate2."
+        ]
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "The ratio of Town A's population to Town B's population is 12:9. Find the percentage by which Town A's population exceeds Town B's.",
+      "options": [
+        "$$49.99\\%$$",
+        "$$33\\%$$",
+        "$$33.33\\%$$",
+        "$$25\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$33.33\\%$$",
+      "explanation": "Use the ratio difference and divide by the selected base part of the ratio.\n\n$$\\frac{3}{9}\\times100=33.33\\\\%$$\n\nSo the comparison percentage is 33.33\\%.\n\n$$\\text{Answer}=33.33\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-223",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "ratioBasedPercentageComparison",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-223:quant-v4-percentage-pct-006-residual-v3:PCT-CP-005:9",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-005:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 16,
+        "passedChecks": 16,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:ratioA: Missing required variable ratioA.",
+          "required:ratioB: Missing required variable ratioB."
+        ]
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "Town A's population decreases by 5% while Town B's population increases by 50%. If the present values are 2000 people and 2500 people, compare the two final values.",
+      "options": [
+        "Town B is greater by 1350 people.",
+        "Town B is greater by 1850 people.",
+        "Town B is less by 1850 people.",
+        "Town B is greater by 2350 people."
+      ],
+      "correctIndex": 1,
+      "answer": "Town B is greater by 1850 people.",
+      "explanation": "Apply the stated percentage change to each value separately.\n\n$$\\text{Final 1}=1900,\\;\\text{Final 2}=3750$$\n\nNow compare the two final values.\n\n$$\\text{Difference}=1850$$\n\nSo the required comparison is Town B is greater by 1850 people.\n\n$$\\text{Answer}=Town B is greater by 1850 people$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-333",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "compareAfterDifferentPercentageChanges",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-333:quant-v4-percentage-pct-006-residual-v3:PCT-CP-007:10",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-007:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:subjectA: Missing required variable subjectA.",
+          "required:subjectB: Missing required variable subjectB.",
+          "required:value1: Missing required variable value1.",
+          "required:value2: Missing required variable value2.",
+          "required:rate1: Missing required variable rate1.",
+          "required:rate2: Missing required variable rate2."
+        ]
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "Town A's population is 2400 people and Town B's population is 3000 people. By what percent should Town A's population be increased to match Town B's?",
+      "options": [
+        "$$33\\%$$",
+        "$$20\\%$$",
+        "$$26\\%$$",
+        "$$25\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$25\\%$$",
+      "explanation": "Required change is always measured on the value that must be revised.\n\n$$\\text{Base for change}=2400$$\n\nTake the gap from target and divide by the present value.\n\n$$\\frac{600}{2400}\\times100=25\\\\%$$\n\nSo the required percentage change is 25\\%.\n\n$$\\text{Answer}=25\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-253",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "requiredPercentageChangeToMatchTarget",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-253:quant-v4-percentage-pct-006-residual-v3:PCT-CP-006:11",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-006:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 14,
+        "passedChecks": 14,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:value1: Missing required variable value1.",
+          "required:value2: Missing required variable value2."
+        ]
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "Route A carried 70% of 120 passengers, whereas Route B carried 70% of 200 passengers. Compare their actual passenger counts.",
+      "options": [
+        "Route B is greater by 61 passengers.",
+        "Route B is greater by 51 passengers.",
+        "Route B is less by 56 passengers.",
+        "Route B is greater by 56 passengers."
+      ],
+      "correctIndex": 3,
+      "answer": "Route B is greater by 56 passengers.",
+      "explanation": "When the totals are different, convert each percentage into its actual value first.\n\n$$\\text{Actual 1}=84,\\;\\text{Actual 2}=140$$\n\nNow compare the actual values, not the percentages alone.\n\n$$\\text{Difference}=56$$\n\nSo the required answer is Route B is greater by 56 passengers.\n\n$$\\text{Answer}=Route B is greater by 56 passengers$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-479",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "crossBasePercentageComparison",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-479:quant-v4-percentage-pct-006-residual-v3:PCT-CP-010:12",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-010:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:subjectA: Missing required variable subjectA.",
+          "required:subjectB: Missing required variable subjectB.",
+          "required:rate1: Missing required variable rate1.",
+          "required:baseValue1: Missing required variable baseValue1.",
+          "required:rate2: Missing required variable rate2.",
+          "required:baseValue2: Missing required variable baseValue2."
+        ]
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "In a hotel report, the occupancy rate goes up from 30% to 45%. How many percentage points has it increased?",
+      "options": [
+        "15 percentage points",
+        "14 percentage points",
+        "16 percentage points",
+        "17 percentage points"
+      ],
+      "correctIndex": 0,
+      "answer": "15 percentage points",
+      "explanation": "Percentage-point change is the simple difference between the two rates.\n\n$$\\text{Point change}=15$$\n\nRelative change compares that difference with the old rate.\n\n$$\\frac{15}{30}\\times100=50\\\\%$$\n\nSo the required result is 15 percentage points.\n\n$$\\text{Answer}=15 percentage points$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-438",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "percentagePointsVsPercentageChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-438:quant-v4-percentage-pct-006-residual-v3:PCT-CP-009:13",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-009:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 15,
+        "passedChecks": 15,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:oldRate: Missing required variable oldRate.",
+          "required:newRate: Missing required variable newRate."
+        ]
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "Riya's marks are 20% less than Karan's marks. If Riya's marks are 20 marks, find Karan's marks.",
+      "options": [
+        "$$25$$",
+        "$$24$$",
+        "$$27$$",
+        "$$26$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$25$$",
+      "explanation": "20% less means the reduced marks is 80% of the higher value.\n\n$$80\\\\%=\\frac{80}{100}$$\n\nSo the comparison multiplier is 0.8.\n\n$$\\text{Multiplier}=0.8$$\n\nThe given figure is the lower marks, so divide it by the multiplier to recover the higher value.\n\n$$\\text{Higher value}=20\\div0.8=25$$\n\nSo the required answer is 25.\n\n$$\\text{Answer}=25$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-062",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "directLessThanComparison",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-062:quant-v4-percentage-pct-006-residual-v3:PCT-CP-002:14",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-002:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 15,
+        "passedChecks": 15,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "Riya's marks are 50% more than Karan's marks. If Karan's marks are 16 marks, find the difference between their marks.",
+      "options": [
+        "$$7$$",
+        "$$10$$",
+        "$$8$$",
+        "$$9$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$8$$",
+      "explanation": "50% more means the new marks are 150% of the base marks.\n\n$$150\\\\%=\\frac{150}{100}$$\n\nSo the comparison multiplier is 1.5.\n\n$$\\text{Multiplier}=1.5$$\n\nMultiply the base marks by the comparison multiplier.\n\n$$\\text{Higher value}=16\\times1.5=24$$\n\nSo the required answer is 8.\n\n$$\\text{Answer}=8$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-022",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directMoreThanComparison",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-022:quant-v4-percentage-pct-006-residual-v3:PCT-CP-001:15",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-001:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 14,
+        "passedChecks": 14,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "Store A and Store B record Rs. 40000 and Rs. 50000 respectively. By what percent is the smaller value less than the larger value?",
+      "options": [
+        "$$20\\%$$",
+        "$$21\\%$$",
+        "$$17\\%$$",
+        "$$25\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$20\\%$$",
+      "explanation": "First take the absolute difference between the two values.\n\n$$\\text{Difference}=10000$$\n\nNow divide by the stated base and multiply by 100.\n\n$$\\frac{10000}{50000}\\times100=20\\\\%$$\n\nSo the required percentage is 20\\%.\n\n$$\\text{Answer}=20\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-186",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "differenceAsPercentageOfSelectedBase",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-186:quant-v4-percentage-pct-006-residual-v3:PCT-CP-004:16",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-004:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 14,
+        "passedChecks": 14,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:value1: Missing required variable value1.",
+          "required:value2: Missing required variable value2."
+        ]
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "Store A's sales are 10% less than Store B's sales. Find the percentage by which Store B's sales exceed Store A's.",
+      "options": [
+        "$$11.11\\%$$",
+        "$$11\\%$$",
+        "$$10\\%$$",
+        "$$12.5\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$11.11\\%$$",
+      "explanation": "Reverse comparison needs a new base, so we divide the original percentage gap by the new base percentage.\n\n$$\\frac{10}{90}\\times100=11.11\\\\%$$\n\nThat gives the reverse comparison directly.\n\n$$\\text{Reverse comparison}=11.11\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-136",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "reverseBaseSwitchingComparison",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-136:quant-v4-percentage-pct-006-residual-v3:PCT-CP-003:17",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-003:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 12,
+        "passedChecks": 12,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate."
+        ]
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "A marks summary shows that Riya's score is 50% less than Karan's score, while Karan's score is 20% more than Meera's score. By what percent is Riya's score more or less than Meera's score?",
+      "options": [
+        "Riya is 45% less than Meera.",
+        "Riya is 40% more than Meera.",
+        "Riya is 40% less than Meera.",
+        "Riya is 35% less than Meera."
+      ],
+      "correctIndex": 2,
+      "answer": "Riya is 40% less than Meera.",
+      "explanation": "Convert both comparison statements into multipliers and combine them.\n\n$$0.5\\times1.2=0.6$$\n\nThe combined multiplier tells us how Riya compares with Meera.\n\n$$\\text{Combined effect}=0.6$$\n\nSo the final relation is Riya is 40% less than Meera.\n\n$$\\text{Answer}=Riya is 40\\% less than Meera$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-392",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "chainPercentageComparison",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-392:quant-v4-percentage-pct-006-residual-v3:PCT-CP-008:18",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-008:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 18,
+        "passedChecks": 18,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:subjectA: Missing required variable subjectA.",
+          "required:subjectB: Missing required variable subjectB.",
+          "required:subjectC: Missing required variable subjectC.",
+          "required:rate1: Missing required variable rate1.",
+          "required:rate2: Missing required variable rate2."
+        ]
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "If Block A:Block B = 11:8, by what percent is Block B less than Block A?",
+      "options": [
+        "$$27.27\\%$$",
+        "$$27\\%$$",
+        "$$21.43\\%$$",
+        "$$37.49\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$27.27\\%$$",
+      "explanation": "Use the ratio difference and divide by the selected base part of the ratio.\n\n$$\\frac{3}{11}\\times100=27.27\\\\%$$\n\nSo the comparison percentage is 27.27\\%.\n\n$$\\text{Answer}=27.27\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-006",
+        "archetypeId": "PCT-006",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-220",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "ratioBasedPercentageComparison",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-220:quant-v4-percentage-pct-006-residual-v3:PCT-CP-005:19",
+        "seed": "quant-v4-percentage-pct-006-residual-v3:PCT-CP-005:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 16,
+        "passedChecks": 16,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:ratioA: Missing required variable ratioA.",
+          "required:ratioB: Missing required variable ratioB."
+        ]
+      }
+    }
+  ]
+}

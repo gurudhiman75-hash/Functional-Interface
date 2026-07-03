@@ -14,6 +14,12 @@ function percent(numeric: number) {
   return `${formatNumber(numeric)}\\%`;
 }
 
+function targetPartIndex(parameters: Pct002Parameters) {
+  const explicitIndex = Number(parameters.variables["targetPartIndex"]);
+  if (explicitIndex === 1 || explicitIndex === 2) return explicitIndex;
+  return String(parameters.variables["targetPartLabel"]) === "first part" ? 1 : 2;
+}
+
 export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pct002SolverResult, _graph: Pct002ReasoningGraph): Pct002Explanation {
   const lines: string[] = [];
   const knownRate = Number(parameters.variables["knownRate"] ?? 0);
@@ -119,7 +125,7 @@ export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pc
       break;
     case "ratioToPercentage": {
       const totalParts = partA + partB;
-      const targetPartValue = targetPartLabel === "first part" ? partA : partB;
+      const targetPartValue = targetPartIndex(parameters) === 1 ? partA : partB;
       lines.push(
         ...sentenceWithMath(
           `First add the ratio parts to get the whole number of equal parts.`,

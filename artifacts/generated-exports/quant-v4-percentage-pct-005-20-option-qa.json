@@ -1,0 +1,768 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.137Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "Fund A value starts from Rs. 40000 and Fund B value starts from Rs. 20000. Their successive changes are +10%, -10% and +15%, +15% respectively. Find the difference between the final values.",
+      "options": [
+        "$$13150$$",
+        "$$13250$$",
+        "$$13050$$",
+        "$$13200$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$13150$$",
+      "explanation": "For Fund A value first stage, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for Fund A value first stage is 110/100.\n\n$$\\text{Fund A value first stage multiplier}=\\frac{110}{100}=1.1$$\n\nFor Fund A value second stage, decrease = 10%. So the new value becomes 90% of the previous value.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSo the multiplier for Fund A value second stage is 90/100.\n\n$$\\text{Fund A value second stage multiplier}=\\frac{90}{100}=0.9$$\n\nSo the final value of Fund A value is found by applying its combined multiplier.\n\n$$\\text{Final Fund A value}=40000\\times0.99=39600$$\n\nFor Fund B value first stage, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for Fund B value first stage is 115/100.\n\n$$\\text{Fund B value first stage multiplier}=\\frac{115}{100}=1.15$$\n\nFor Fund B value second stage, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for Fund B value second stage is 115/100.\n\n$$\\text{Fund B value second stage multiplier}=\\frac{115}{100}=1.15$$\n\nSo the final value of Fund B value is found by applying its combined multiplier.\n\n$$\\text{Final Fund B value}=20000\\times1.3225=26450$$\n\nNow compare the two final values.\n\n$$\\text{Difference}=\\left|39600-26450\\right|=13150$$\n\nSo the difference between the final values is Rs. 13150.\n\n$$\\text{Difference}=13150$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-130",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "comparativeSuccessiveChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-130:quant-v4-percentage-pct-005-residual-v3:PCT-CP-008:0",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-008:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 26,
+        "passedChecks": 26,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "A plant produces 2000 units. Output rises by 15% and then by 25%. Find the final units.",
+      "options": [
+        "$$2775$$",
+        "$$2975$$",
+        "$$2875$$",
+        "$$2925$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$2875$$",
+      "explanation": "For first stage, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for first stage is 115/100.\n\n$$\\text{first stage multiplier}=\\frac{115}{100}=1.15$$\n\nApply the first-stage multiplier to the original units.\n\n$$\\text{After first stage}=2000\\times1.15=2300$$\n\nFor second stage, increase = 25%. So the new value becomes 125% of the previous value.\n\n$$100\\\\%+25\\\\%=125\\\\%$$\n\nSo the multiplier for second stage is 125/100.\n\n$$\\text{second stage multiplier}=\\frac{125}{100}=1.25$$\n\nNow multiply by both stage multipliers to get the final units.\n\n$$\\text{Final units}=2000\\times1.15\\times1.25=2875$$\n\nSo the final number of units is 2875.\n\n$$\\text{Final units}=2875$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-060",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "successiveIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-060:quant-v4-percentage-pct-005-residual-v3:PCT-CP-001:1",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-001:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "A budget amount worth Rs. 20000 falls by 10% first and by 15% thereafter. Find the final budget amount.",
+      "options": [
+        "$$15300$$",
+        "$$15400$$",
+        "$$15200$$",
+        "$$15350$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$15300$$",
+      "explanation": "For first stage, decrease = 10%. So the new value becomes 90% of the previous value.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSo the multiplier for first stage is 90/100.\n\n$$\\text{first stage multiplier}=\\frac{90}{100}=0.9$$\n\nApply the first-stage multiplier to the original budget amount.\n\n$$\\text{After first stage}=20000\\times0.9=18000$$\n\nFor second stage, decrease = 15%. So the new value becomes 85% of the previous value.\n\n$$100\\\\%-15\\\\%=85\\\\%$$\n\nSo the multiplier for second stage is 85/100.\n\n$$\\text{second stage multiplier}=\\frac{85}{100}=0.85$$\n\nNow multiply by both stage multipliers to get the final budget amount.\n\n$$\\text{Final budget amount}=20000\\times0.9\\times0.85=15300$$\n\nSo the final budget amount is Rs. 15300.\n\n$$\\text{Final budget amount}=15300$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-063",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "successiveDecrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-063:quant-v4-percentage-pct-005-residual-v3:PCT-CP-002:2",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-002:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "An output rises in the first stage by 20% and falls in the next stage by 10%. Find the net percentage change.",
+      "options": [
+        "$$8\\%$$",
+        "$$7\\%$$",
+        "$$16\\%$$",
+        "$$9\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$8\\%$$",
+      "explanation": "For first stage, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for first stage is 120/100.\n\n$$\\text{first stage multiplier}=\\frac{120}{100}=1.2$$\n\nFor second stage, decrease = 10%. So the new value becomes 90% of the previous value.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSo the multiplier for second stage is 90/100.\n\n$$\\text{second stage multiplier}=\\frac{90}{100}=0.9$$\n\nMultiply the two stage multipliers to get the overall multiplier.\n\n$$\\text{Overall multiplier}=1.2\\times0.9=1.08$$\n\nNow compare this overall multiplier with 1 to find the net percentage change.\n\n$$\\text{Net change}=\\left(1.08-1\\right)\\times100=8\\\\%$$\n\nOverall change = increase of 8%.\n\n$$\\text{Net percentage change}=8\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-100",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "netPercentageChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-100:quant-v4-percentage-pct-005-residual-v3:PCT-CP-005:3",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-005:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "Starting from 5000, the price changes by +15%, +15%, -10%, and +10%. Find the final price.",
+      "options": [
+        "$$6596.375$$",
+        "$$6546.375$$",
+        "$$6646.375$$",
+        "$$6446.375$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$6546.375$$",
+      "explanation": "For stage 1, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for stage 1 is 115/100.\n\n$$\\text{stage 1 multiplier}=\\frac{115}{100}=1.15$$\n\nFor stage 2, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for stage 2 is 115/100.\n\n$$\\text{stage 2 multiplier}=\\frac{115}{100}=1.15$$\n\nFor stage 3, decrease = 10%. So the new value becomes 90% of the previous value.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSo the multiplier for stage 3 is 90/100.\n\n$$\\text{stage 3 multiplier}=\\frac{90}{100}=0.9$$\n\nFor stage 4, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for stage 4 is 110/100.\n\n$$\\text{stage 4 multiplier}=\\frac{110}{100}=1.1$$\n\nMultiply all the stage multipliers to get one overall multiplier.\n\n$$\\text{Overall multiplier}=1.15\\times1.15\\times0.9\\times1.1=1.3093$$\n\nNow multiply the original price by the overall multiplier.\n\n$$\\text{Final price}=5000\\times1.15\\times1.15\\times0.9\\times1.1=6546.375$$\n\nSo the final price is 6546.375.\n\n$$\\text{Final price}=6546.375$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-047",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "multiStageSuccessiveChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-047:quant-v4-percentage-pct-005-residual-v3:PCT-CP-009:4",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-009:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "An investment value stands at Rs. 30000. It first rises by 10%, then by 20%, and finally falls by 5%. Find the final investment value.",
+      "options": [
+        "$$37620$$",
+        "$$37520$$",
+        "$$37670$$",
+        "$$37720$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$37620$$",
+      "explanation": "For stage 1, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for stage 1 is 110/100.\n\n$$\\text{stage 1 multiplier}=\\frac{110}{100}=1.1$$\n\nFor stage 2, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for stage 2 is 120/100.\n\n$$\\text{stage 2 multiplier}=\\frac{120}{100}=1.2$$\n\nFor stage 3, decrease = 5%. So the new value becomes 95% of the previous value.\n\n$$100\\\\%-5\\\\%=95\\\\%$$\n\nSo the multiplier for stage 3 is 95/100.\n\n$$\\text{stage 3 multiplier}=\\frac{95}{100}=0.95$$\n\nMultiply all the stage multipliers to get one overall multiplier.\n\n$$\\text{Overall multiplier}=1.1\\times1.2\\times0.95=1.254$$\n\nNow multiply the original investment value by the overall multiplier.\n\n$$\\text{Final investment value}=30000\\times1.1\\times1.2\\times0.95=37620$$\n\nSo the final investment value is Rs. 37620.\n\n$$\\text{Final investment value}=37620$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-148",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "contextualSuccessiveChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-148:quant-v4-percentage-pct-005-residual-v3:PCT-CP-010:5",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-010:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "A attendance was 800. It decreased by 15% first and then increased by 15%. Find the final attendance.",
+      "options": [
+        "$$772$$",
+        "$$802$$",
+        "$$782$$",
+        "$$792$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$782$$",
+      "explanation": "For first stage, decrease = 15%. So the new value becomes 85% of the previous value.\n\n$$100\\\\%-15\\\\%=85\\\\%$$\n\nSo the multiplier for first stage is 85/100.\n\n$$\\text{first stage multiplier}=\\frac{85}{100}=0.85$$\n\nApply the first-stage multiplier to the original attendance.\n\n$$\\text{After first stage}=800\\times0.85=680$$\n\nFor second stage, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for second stage is 115/100.\n\n$$\\text{second stage multiplier}=\\frac{115}{100}=1.15$$\n\nNow multiply by both stage multipliers to get the final attendance.\n\n$$\\text{Final attendance}=800\\times0.85\\times1.15=782$$\n\nSo the final attendance is 782.\n\n$$\\text{Final attendance}=782$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-008",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "decreaseThenIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-008:quant-v4-percentage-pct-005-residual-v3:PCT-CP-004:6",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-004:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "After a rise of 20% followed by a fall of 15%, a attendance becomes 816. Find its original value.",
+      "options": [
+        "$$790$$",
+        "$$810$$",
+        "$$800$$",
+        "$$820$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$800$$",
+      "explanation": "For first stage, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for first stage is 120/100.\n\n$$\\text{first stage multiplier}=\\frac{120}{100}=1.2$$\n\nFor second stage, decrease = 15%. So the new value becomes 85% of the previous value.\n\n$$100\\\\%-15\\\\%=85\\\\%$$\n\nSo the multiplier for second stage is 85/100.\n\n$$\\text{second stage multiplier}=\\frac{85}{100}=0.85$$\n\nMultiply the stage multipliers to get the overall multiplier.\n\n$$\\text{Overall multiplier}=1.2\\times0.85=1.02$$\n\nThe final value is already known. So divide it by the overall multiplier to get the original value.\n\n$$\\text{Original value}=\\frac{816}{1.02}=800$$\n\nSo the original attendance was 800.\n\n$$\\text{Original attendance}=800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-118",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "reverseSuccessiveChange",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-118:quant-v4-percentage-pct-005-residual-v3:PCT-CP-007:7",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-007:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "The usage index rises by 20% and then by 15%. What single multiplier replaces both changes?",
+      "options": [
+        "$$0.88$$",
+        "$$2.38$$",
+        "$$1.38$$",
+        "$$1.88$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$1.38$$",
+      "explanation": "For first stage, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for first stage is 120/100.\n\n$$\\text{first stage multiplier}=\\frac{120}{100}=1.2$$\n\nFor second stage, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for second stage is 115/100.\n\n$$\\text{second stage multiplier}=\\frac{115}{100}=1.15$$\n\nMultiply the stage multipliers to get one equivalent multiplier.\n\n$$\\text{Equivalent multiplier}=1.2\\times1.15=1.38$$\n\nSo the single equivalent multiplier is 1.38.\n\n$$\\text{Equivalent multiplier}=1.38$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-036",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "equivalentSingleMultiplier",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-036:quant-v4-percentage-pct-005-residual-v3:PCT-CP-006:8",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-006:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "A route serves 1000 passengers. If the count goes up by 10% and then down by 15%, find the final passengers.",
+      "options": [
+        "$$935$$",
+        "$$955$$",
+        "$$925$$",
+        "$$945$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$935$$",
+      "explanation": "For first stage, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for first stage is 110/100.\n\n$$\\text{first stage multiplier}=\\frac{110}{100}=1.1$$\n\nApply the first-stage multiplier to the original passengers.\n\n$$\\text{After first stage}=1000\\times1.1=1100$$\n\nFor second stage, decrease = 15%. So the new value becomes 85% of the previous value.\n\n$$100\\\\%-15\\\\%=85\\\\%$$\n\nSo the multiplier for second stage is 85/100.\n\n$$\\text{second stage multiplier}=\\frac{85}{100}=0.85$$\n\nNow multiply by both stage multipliers to get the final passengers.\n\n$$\\text{Final passengers}=1000\\times1.1\\times0.85=935$$\n\nSo the final number of passengers is 935.\n\n$$\\text{Final passengers}=935$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-079",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "increaseThenDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-079:quant-v4-percentage-pct-005-residual-v3:PCT-CP-003:9",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-003:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "The initial values of Product A price and Product B price are Rs. 30000 and Rs. 40000. Product A price changes by 20% up and 5% down, while Product B price changes by 12% up and 12% up. Find the difference between the final values.",
+      "options": [
+        "$$16076$$",
+        "$$15876$$",
+        "$$16026$$",
+        "$$15976$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$15976$$",
+      "explanation": "For Product A price first stage, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for Product A price first stage is 120/100.\n\n$$\\text{Product A price first stage multiplier}=\\frac{120}{100}=1.2$$\n\nFor Product A price second stage, decrease = 5%. So the new value becomes 95% of the previous value.\n\n$$100\\\\%-5\\\\%=95\\\\%$$\n\nSo the multiplier for Product A price second stage is 95/100.\n\n$$\\text{Product A price second stage multiplier}=\\frac{95}{100}=0.95$$\n\nSo the final value of Product A price is found by applying its combined multiplier.\n\n$$\\text{Final Product A price}=30000\\times1.14=34200$$\n\nFor Product B price first stage, increase = 12%. So the new value becomes 112% of the previous value.\n\n$$100\\\\%+12\\\\%=112\\\\%$$\n\nSo the multiplier for Product B price first stage is 112/100.\n\n$$\\text{Product B price first stage multiplier}=\\frac{112}{100}=1.12$$\n\nFor Product B price second stage, increase = 12%. So the new value becomes 112% of the previous value.\n\n$$100\\\\%+12\\\\%=112\\\\%$$\n\nSo the multiplier for Product B price second stage is 112/100.\n\n$$\\text{Product B price second stage multiplier}=\\frac{112}{100}=1.12$$\n\nSo the final value of Product B price is found by applying its combined multiplier.\n\n$$\\text{Final Product B price}=40000\\times1.2544=50176$$\n\nNow compare the two final values.\n\n$$\\text{Difference}=\\left|34200-50176\\right|=15976$$\n\nSo the difference between the final values is Rs. 15976.\n\n$$\\text{Difference}=15976$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-127",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "comparativeSuccessiveChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-127:quant-v4-percentage-pct-005-residual-v3:PCT-CP-008:10",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-008:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 26,
+        "passedChecks": 26,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "The monthly salary was Rs. 20000. After two successive increases of 15% and 25%, what is the final monthly salary?",
+      "options": [
+        "$$28850$$",
+        "$$28800$$",
+        "$$28750$$",
+        "$$28650$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$28750$$",
+      "explanation": "For first stage, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for first stage is 115/100.\n\n$$\\text{first stage multiplier}=\\frac{115}{100}=1.15$$\n\nApply the first-stage multiplier to the original monthly salary.\n\n$$\\text{After first stage}=20000\\times1.15=23000$$\n\nFor second stage, increase = 25%. So the new value becomes 125% of the previous value.\n\n$$100\\\\%+25\\\\%=125\\\\%$$\n\nSo the multiplier for second stage is 125/100.\n\n$$\\text{second stage multiplier}=\\frac{125}{100}=1.25$$\n\nNow multiply by both stage multipliers to get the final monthly salary.\n\n$$\\text{Final monthly salary}=20000\\times1.15\\times1.25=28750$$\n\nSo the final monthly salary is Rs. 28750.\n\n$$\\text{Final monthly salary}=28750$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-052",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "successiveIncrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-052:quant-v4-percentage-pct-005-residual-v3:PCT-CP-001:11",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-001:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "A town has 1000 residents. If this decreases by 10% and then by 20%, find the final number of residents.",
+      "options": [
+        "$$710$$",
+        "$$740$$",
+        "$$730$$",
+        "$$720$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$720$$",
+      "explanation": "For first stage, decrease = 10%. So the new value becomes 90% of the previous value.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSo the multiplier for first stage is 90/100.\n\n$$\\text{first stage multiplier}=\\frac{90}{100}=0.9$$\n\nApply the first-stage multiplier to the original residents.\n\n$$\\text{After first stage}=1000\\times0.9=900$$\n\nFor second stage, decrease = 20%. So the new value becomes 80% of the previous value.\n\n$$100\\\\%-20\\\\%=80\\\\%$$\n\n80% can also be written as the fraction 4/5.\n\n$$80\\\\%=\\frac{4}{5}$$\n\nSo the multiplier for second stage is 80/100.\n\n$$\\text{second stage multiplier}=\\frac{80}{100}=0.8$$\n\nNow multiply by both stage multipliers to get the final residents.\n\n$$\\text{Final residents}=1000\\times0.9\\times0.8=720$$\n\nSo the final number of residents is 720.\n\n$$\\text{Final residents}=720$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-066",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "successiveDecrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-066:quant-v4-percentage-pct-005-residual-v3:PCT-CP-002:12",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-002:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "A traffic volume grows by 20% first and by 10% next. Find the net percentage change.",
+      "options": [
+        "$$47\\%$$",
+        "$$33\\%$$",
+        "$$24\\%$$",
+        "$$32\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$32\\%$$",
+      "explanation": "For first stage, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for first stage is 120/100.\n\n$$\\text{first stage multiplier}=\\frac{120}{100}=1.2$$\n\nFor second stage, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for second stage is 110/100.\n\n$$\\text{second stage multiplier}=\\frac{110}{100}=1.1$$\n\nMultiply the two stage multipliers to get the overall multiplier.\n\n$$\\text{Overall multiplier}=1.2\\times1.1=1.32$$\n\nNow compare this overall multiplier with 1 to find the net percentage change.\n\n$$\\text{Net change}=\\left(1.32-1\\right)\\times100=32\\\\%$$\n\nOverall change = increase of 32%.\n\n$$\\text{Net percentage change}=32\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-091",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "netPercentageChange",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-091:quant-v4-percentage-pct-005-residual-v3:PCT-CP-005:13",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-005:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "A value was 1000. It increased by 10%, then by 20%, then decreased by 5%, and finally increased by 15%. Find the final value.",
+      "options": [
+        "$$1442.1$$",
+        "$$1342.1$$",
+        "$$1542.1$$",
+        "$$1492.1$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$1442.1$$",
+      "explanation": "For stage 1, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for stage 1 is 110/100.\n\n$$\\text{stage 1 multiplier}=\\frac{110}{100}=1.1$$\n\nFor stage 2, increase = 20%. So the new value becomes 120% of the previous value.\n\n$$100\\\\%+20\\\\%=120\\\\%$$\n\nSo the multiplier for stage 2 is 120/100.\n\n$$\\text{stage 2 multiplier}=\\frac{120}{100}=1.2$$\n\nFor stage 3, decrease = 5%. So the new value becomes 95% of the previous value.\n\n$$100\\\\%-5\\\\%=95\\\\%$$\n\nSo the multiplier for stage 3 is 95/100.\n\n$$\\text{stage 3 multiplier}=\\frac{95}{100}=0.95$$\n\nFor stage 4, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for stage 4 is 115/100.\n\n$$\\text{stage 4 multiplier}=\\frac{115}{100}=1.15$$\n\nMultiply all the stage multipliers to get one overall multiplier.\n\n$$\\text{Overall multiplier}=1.1\\times1.2\\times0.95\\times1.15=1.4421$$\n\nNow multiply the original value by the overall multiplier.\n\n$$\\text{Final value}=1000\\times1.1\\times1.2\\times0.95\\times1.15=1442.1$$\n\nSo the final value is 1442.1.\n\n$$\\text{Final value}=1442.1$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-018",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "multiStageSuccessiveChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-018:quant-v4-percentage-pct-005-residual-v3:PCT-CP-009:14",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-009:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "A plant produced 5000 units. Output rises by 15%, drops by 5%, and rises again by 12%. Find the final units.",
+      "options": [
+        "$$6018$$",
+        "$$6168$$",
+        "$$6218$$",
+        "$$6118$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$6118$$",
+      "explanation": "For stage 1, increase = 15%. So the new value becomes 115% of the previous value.\n\n$$100\\\\%+15\\\\%=115\\\\%$$\n\nSo the multiplier for stage 1 is 115/100.\n\n$$\\text{stage 1 multiplier}=\\frac{115}{100}=1.15$$\n\nFor stage 2, decrease = 5%. So the new value becomes 95% of the previous value.\n\n$$100\\\\%-5\\\\%=95\\\\%$$\n\nSo the multiplier for stage 2 is 95/100.\n\n$$\\text{stage 2 multiplier}=\\frac{95}{100}=0.95$$\n\nFor stage 3, increase = 12%. So the new value becomes 112% of the previous value.\n\n$$100\\\\%+12\\\\%=112\\\\%$$\n\nSo the multiplier for stage 3 is 112/100.\n\n$$\\text{stage 3 multiplier}=\\frac{112}{100}=1.12$$\n\nMultiply all the stage multipliers to get one overall multiplier.\n\n$$\\text{Overall multiplier}=1.15\\times0.95\\times1.12=1.2236$$\n\nNow multiply the original units by the overall multiplier.\n\n$$\\text{Final units}=5000\\times1.15\\times0.95\\times1.12=6118$$\n\nSo the final number of units is 6118.\n\n$$\\text{Final units}=6118$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-145",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "contextualSuccessiveChange",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-145:quant-v4-percentage-pct-005-residual-v3:PCT-CP-010:15",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-010:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "A route serves 1200 passengers. If the count goes down by 20% and then up by 10%, find the final passengers.",
+      "options": [
+        "$$1156$$",
+        "$$1106$$",
+        "$$1056$$",
+        "$$956$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$1056$$",
+      "explanation": "For first stage, decrease = 20%. So the new value becomes 80% of the previous value.\n\n$$100\\\\%-20\\\\%=80\\\\%$$\n\n80% can also be written as the fraction 4/5.\n\n$$80\\\\%=\\frac{4}{5}$$\n\nSo the multiplier for first stage is 80/100.\n\n$$\\text{first stage multiplier}=\\frac{80}{100}=0.8$$\n\nApply the first-stage multiplier to the original passengers.\n\n$$\\text{After first stage}=1200\\times0.8=960$$\n\nFor second stage, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for second stage is 110/100.\n\n$$\\text{second stage multiplier}=\\frac{110}{100}=1.1$$\n\nNow multiply by both stage multipliers to get the final passengers.\n\n$$\\text{Final passengers}=1200\\times0.8\\times1.1=1056$$\n\nSo the final number of passengers is 1056.\n\n$$\\text{Final passengers}=1056$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-089",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "decreaseThenIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-089:quant-v4-percentage-pct-005-residual-v3:PCT-CP-004:16",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-004:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "After a rise of 25% followed by a fall of 10%, a attendance becomes 540. Find its original value.",
+      "options": [
+        "$$500$$",
+        "$$480$$",
+        "$$490$$",
+        "$$470$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$480$$",
+      "explanation": "For first stage, increase = 25%. So the new value becomes 125% of the previous value.\n\n$$100\\\\%+25\\\\%=125\\\\%$$\n\nSo the multiplier for first stage is 125/100.\n\n$$\\text{first stage multiplier}=\\frac{125}{100}=1.25$$\n\nFor second stage, decrease = 10%. So the new value becomes 90% of the previous value.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSo the multiplier for second stage is 90/100.\n\n$$\\text{second stage multiplier}=\\frac{90}{100}=0.9$$\n\nMultiply the stage multipliers to get the overall multiplier.\n\n$$\\text{Overall multiplier}=1.25\\times0.9=1.125$$\n\nThe final value is already known. So divide it by the overall multiplier to get the original value.\n\n$$\\text{Original value}=\\frac{540}{1.125}=480$$\n\nSo the original attendance was 480.\n\n$$\\text{Original attendance}=480$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-118",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "reverseSuccessiveChange",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-118:quant-v4-percentage-pct-005-residual-v3:PCT-CP-007:17",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-007:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "A stock records a 10% increase followed by a 5% decrease. What is the combined multiplier?",
+      "options": [
+        "$$2.045$$",
+        "$$1.045$$",
+        "$$1.545$$",
+        "$$0.545$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$1.045$$",
+      "explanation": "For first stage, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for first stage is 110/100.\n\n$$\\text{first stage multiplier}=\\frac{110}{100}=1.1$$\n\nFor second stage, decrease = 5%. So the new value becomes 95% of the previous value.\n\n$$100\\\\%-5\\\\%=95\\\\%$$\n\nSo the multiplier for second stage is 95/100.\n\n$$\\text{second stage multiplier}=\\frac{95}{100}=0.95$$\n\nMultiply the stage multipliers to get one equivalent multiplier.\n\n$$\\text{Equivalent multiplier}=1.1\\times0.95=1.045$$\n\nSo the single equivalent multiplier is 1.045.\n\n$$\\text{Equivalent multiplier}=1.045$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-108",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "equivalentSingleMultiplier",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-108:quant-v4-percentage-pct-005-residual-v3:PCT-CP-006:18",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-006:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "A value was 5000. It increased by 10% and then decreased by 20%. Find the final value.",
+      "options": [
+        "$$4300$$",
+        "$$4450$$",
+        "$$4500$$",
+        "$$4400$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$4400$$",
+      "explanation": "For first stage, increase = 10%. So the new value becomes 110% of the previous value.\n\n$$100\\\\%+10\\\\%=110\\\\%$$\n\nSo the multiplier for first stage is 110/100.\n\n$$\\text{first stage multiplier}=\\frac{110}{100}=1.1$$\n\nApply the first-stage multiplier to the original value.\n\n$$\\text{After first stage}=5000\\times1.1=5500$$\n\nFor second stage, decrease = 20%. So the new value becomes 80% of the previous value.\n\n$$100\\\\%-20\\\\%=80\\\\%$$\n\n80% can also be written as the fraction 4/5.\n\n$$80\\\\%=\\frac{4}{5}$$\n\nSo the multiplier for second stage is 80/100.\n\n$$\\text{second stage multiplier}=\\frac{80}{100}=0.8$$\n\nNow multiply by both stage multipliers to get the final value.\n\n$$\\text{Final value}=5000\\times1.1\\times0.8=4400$$\n\nSo the final value is 4400.\n\n$$\\text{Final value}=4400$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-005",
+        "archetypeId": "PCT-005",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-005",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "increaseThenDecrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-005:quant-v4-percentage-pct-005-residual-v3:PCT-CP-003:19",
+        "seed": "quant-v4-percentage-pct-005-residual-v3:PCT-CP-003:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    }
+  ]
+}

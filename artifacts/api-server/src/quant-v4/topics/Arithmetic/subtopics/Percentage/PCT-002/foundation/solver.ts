@@ -12,6 +12,12 @@ function formatByAnswerType(answerType: string, numericAnswer: number) {
   return formatNumber(numericAnswer);
 }
 
+function targetPartIndex(parameters: Pct002Parameters) {
+  const explicitIndex = Number(parameters.variables["targetPartIndex"]);
+  if (explicitIndex === 1 || explicitIndex === 2) return explicitIndex;
+  return String(parameters.variables["targetPartLabel"]) === "first part" ? 1 : 2;
+}
+
 export function solvePct002(parameters: Pct002Parameters): Pct002SolverResult {
   const taskKind = parameters.taskKind;
   let numericAnswer: number | null = null;
@@ -26,7 +32,7 @@ export function solvePct002(parameters: Pct002Parameters): Pct002SolverResult {
     numericAnswer = value(parameters, "targetValue") * value(parameters, "knownRate") / value(parameters, "knownValue");
   } else if (taskKind === "ratioToPercentage") {
     const totalParts = value(parameters, "partA") + value(parameters, "partB");
-    const targetNumerator = String(parameters.variables["targetPartLabel"]) === "first part"
+    const targetNumerator = targetPartIndex(parameters) === 1
       ? value(parameters, "partA")
       : value(parameters, "partB");
     numericAnswer = targetNumerator * 100 / totalParts;

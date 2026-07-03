@@ -1,0 +1,833 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.281Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "A salt solution is 20% solute. After evaporation, it becomes 25% solute. If the initial solution is 100 litres, find the quantity evaporated.",
+      "options": [
+        "$$20$$",
+        "$$21$$",
+        "$$19$$",
+        "$$22$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$20$$",
+      "explanation": "In drying and evaporation, the solid or solute remains unchanged; only the water part changes.\n\n$$\\text{Unchanged solid or solute} = \\text{same before and after}$$\n\nFirst express the unchanged solid or solute quantity.\n\n$$\\text{Stable part}=20$$\n\nNow use the new percentage composition to obtain the required quantity.\n\n$$100-80=20$$\n\nSo the required answer is 20.\n\n$$\\text{Answer}=20$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-282",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "evaporationDryingCompositionApplication",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-282:quant-v4-percentage-pct-007-residual-v3:PCT-CP-006:0",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-006:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:oldRate: Missing required variable oldRate.",
+          "required:newRate: Missing required variable newRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "A measurement is recorded as 360 instead of 240. Find the percentage error.",
+      "options": [
+        "$$33\\%$$",
+        "$$51\\%$$",
+        "$$100\\%$$",
+        "$$50\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$50\\%$$",
+      "explanation": "First find the absolute error, then compare it with the correct value.\n\n$$120\\times\\frac{100}{240}=50\\%$$\n\nSo the required result is 50\\%.\n\n$$\\text{Answer}=50\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-355",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "errorMiscalculationPercentageErrorApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-355:quant-v4-percentage-pct-007-residual-v3:PCT-CP-008:1",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-008:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:wrongValue: Missing required variable wrongValue.",
+          "required:correctValue: Missing required variable correctValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "A candidate secures 45% of the total marks in a screening test and passes by 20 marks. If pass marks are 35% of the total, find the total marks.",
+      "options": [
+        "$$200$$",
+        "$$220$$",
+        "$$190$$",
+        "$$210$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$200$$",
+      "explanation": "Use the marks percentage relation from the question and substitute the given values.\n\n$$20\\times\\frac{100}{10}=200$$\n\nThis directly gives the required marks or total marks.\n\n$$\\text{Result}=200$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-100",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "marksPassFailApplication",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-100:quant-v4-percentage-pct-007-residual-v3:PCT-CP-002:2",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-002:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:passRate: Missing required variable passRate.",
+          "required:value1: Missing required variable value1."
+        ]
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "In a ward election, 60% of 5000 registered voters cast their votes. Find the number of votes polled.",
+      "options": [
+        "$$2900$$",
+        "$$3050$$",
+        "$$3000$$",
+        "$$3100$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$3000$$",
+      "explanation": "Election questions move in stages: votes polled, valid votes, and then the required candidate votes or margin.\n\n$$\\text{Votes polled} = \\frac{\\text{Turnout rate}}{100}\\times\\text{Total voters}$$\n\nNow apply the turnout relation directly or reverse it as required.\n\n$$\\frac{60}{100}\\times5000=3000$$\n\nSo the required answer is 3000.\n\n$$\\text{Answer}=3000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-102",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "electionVotesApplication",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-102:quant-v4-percentage-pct-007-residual-v3:PCT-CP-003:3",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-003:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:turnoutRate: Missing required variable turnoutRate.",
+          "required:totalVoters: Missing required variable totalVoters."
+        ]
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "A fruit stock contains 500 crates. If it is reduced by 20% and again by the same percentage, find the quantity left.",
+      "options": [
+        "$$330$$",
+        "$$340$$",
+        "$$310$$",
+        "$$320$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$320$$",
+      "explanation": "Repeated reduction always acts on the current remainder, not on the original quantity again.\n\n$$\\text{Remainder after one step} = \\text{Current quantity}\\times\\frac{100-\\text{Rate}}{100}$$\n\nAfter the first reduction, we get the new remainder.\n\n$$\\text{After first reduction}=400$$\n\nAfter the repeated reduction, we get the final remainder.\n\n$$\\text{Final remainder}=320$$\n\nNow apply the final reduction step required in the question.\n\n$$400\\times\\frac{80}{100}=320$$\n\nSo the required remaining or used quantity is 320.\n\n$$\\text{Answer}=320$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-419",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "replacementRepeatedPercentageApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-419:quant-v4-percentage-pct-007-residual-v3:PCT-CP-009:4",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-009:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:totalValue: Missing required variable totalValue.",
+          "required:percentageRate: Missing required variable percentageRate."
+        ]
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "A paint mixture contains 60% pigment. If the pigment present is 120 litres, find the total quantity of the mixture.",
+      "options": [
+        "$$200$$",
+        "$$220$$",
+        "$$190$$",
+        "$$210$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$200$$",
+      "explanation": "Direct mixture questions depend on the component share of the total mixture.\n\n$$120\\times\\frac{100}{60}=200$$\n\nSo the required result is 200.\n\n$$\\text{Answer}=200$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-226",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "mixtureConcentrationBasicApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-226:quant-v4-percentage-pct-007-residual-v3:PCT-CP-005:5",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-005:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:componentRate: Missing required variable componentRate.",
+          "required:value1: Missing required variable value1."
+        ]
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "A tailor saves 40% of monthly income. If the savings are Rs. 2000, find the income.",
+      "options": [
+        "$$5100$$",
+        "$$5000$$",
+        "$$5050$$",
+        "$$4900$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$5000$$",
+      "explanation": "Income, expenditure, and savings are parts of the same base, so first identify the relevant percentage of income.\n\n$$\\text{Savings rate} + \\text{Expenditure rate} = 100\\\\%$$\n\nNow use the identified percentage on the income.\n\n$$2000\\times\\frac{100}{40}=5000$$\n\nThe savings percentage here is 40%.\n\n$$\\text{Savings rate}=40\\%$$\n\nSo the required answer is 5000.\n\n$$\\text{Answer}=5000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-023",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "incomeExpenditureSavingsApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-023:quant-v4-percentage-pct-007-residual-v3:PCT-CP-001:6",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-001:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:value1: Missing required variable value1."
+        ]
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "A restaurant bill of Rs. 2000 gets 40% discount, after which 10% tax is added. Find the final amount payable.",
+      "options": [
+        "$$1320$$",
+        "$$1220$$",
+        "$$1370$$",
+        "$$1420$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$1320$$",
+      "explanation": "Apply the discount first, then apply the tax or charge to the reduced bill.\n\n$$1200\\times\\frac{110}{100}=1320$$\n\nThis gives the required value as 1320.\n\n$$\\text{Result}=1320$$\n\nSo the final answer is 1320.\n\n$$\\text{Answer}=1320$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-474",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "miniDiMixedPercentageCaselet",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-474:quant-v4-percentage-pct-007-residual-v3:PCT-CP-010:7",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-010:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:rate1: Missing required variable rate1.",
+          "required:rate2: Missing required variable rate2.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "The milk supply of a booth becomes 96 litres after an increase of 20%. Find the original supply.",
+      "options": [
+        "$$79$$",
+        "$$82$$",
+        "$$80$$",
+        "$$81$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$80$$",
+      "explanation": "Keep the stated quantity as the base and apply the percentage change shown in the question.\n\n$$96\\times\\frac{100}{120}=80$$\n\nSo the required quantity is 80.\n\n$$\\text{Answer}=80$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-168",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "populationProductionConsumptionApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-168:quant-v4-percentage-pct-007-residual-v3:PCT-CP-004:8",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-004:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:value1: Missing required variable value1."
+        ]
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "An insurance agent earns 20% commission on sales of Rs. 2000. Find the commission amount.",
+      "options": [
+        "$$400$$",
+        "$$410$$",
+        "$$390$$",
+        "$$420$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$400$$",
+      "explanation": "Apply each billing percentage to the correct amount in the stated order.\n\n$$\\frac{20}{100}\\times2000=400$$\n\nSo the required bill amount or charge is 400.\n\n$$\\text{Answer}=400$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-342",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "taxDiscountCommissionChargesApplication",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-342:quant-v4-percentage-pct-007-residual-v3:PCT-CP-007:9",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-007:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:commissionRate: Missing required variable commissionRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "An acid solution is 20% solute. After some water evaporates, it becomes 50% solute. If the initial solution is 100 litres, find the final quantity of the solution.",
+      "options": [
+        "$$39$$",
+        "$$42$$",
+        "$$41$$",
+        "$$40$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$40$$",
+      "explanation": "In drying and evaporation, the solid or solute remains unchanged; only the water part changes.\n\n$$\\text{Unchanged solid or solute} = \\text{same before and after}$$\n\nFirst express the unchanged solid or solute quantity.\n\n$$\\text{Stable part}=20$$\n\nNow use the new percentage composition to obtain the required quantity.\n\n$$20\\times\\frac{100}{50}=40$$\n\nSo the required answer is 40.\n\n$$\\text{Answer}=40$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-273",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "evaporationDryingCompositionApplication",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-273:quant-v4-percentage-pct-007-residual-v3:PCT-CP-006:10",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-006:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:oldRate: Missing required variable oldRate.",
+          "required:newRate: Missing required variable newRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "Marks are entered as 330 instead of 300. Find the percentage error.",
+      "options": [
+        "$$10\\%$$",
+        "$$9\\%$$",
+        "$$11\\%$$",
+        "$$15\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$10\\%$$",
+      "explanation": "First find the absolute error, then compare it with the correct value.\n\n$$30\\times\\frac{100}{300}=10\\%$$\n\nSo the required result is 10\\%.\n\n$$\\text{Answer}=10\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-356",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "errorMiscalculationPercentageErrorApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-356:quant-v4-percentage-pct-007-residual-v3:PCT-CP-008:11",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-008:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:wrongValue: Missing required variable wrongValue.",
+          "required:correctValue: Missing required variable correctValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "A candidate obtains 375 marks, which is 75% of the total, in a school examination. Find the total marks.",
+      "options": [
+        "$$520$$",
+        "$$500$$",
+        "$$510$$",
+        "$$490$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$500$$",
+      "explanation": "Use the marks percentage relation from the question and substitute the given values.\n\n$$375\\times\\frac{100}{75}=500$$\n\nThis directly gives the required marks or total marks.\n\n$$\\text{Result}=500$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-061",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "marksPassFailApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-061:quant-v4-percentage-pct-007-residual-v3:PCT-CP-002:12",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-002:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:marksObtained: Missing required variable marksObtained."
+        ]
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "In a panchayat election, 80% of 1000 registered voters cast their votes. Find the number of votes polled.",
+      "options": [
+        "$$810$$",
+        "$$790$$",
+        "$$820$$",
+        "$$800$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$800$$",
+      "explanation": "Election questions move in stages: votes polled, valid votes, and then the required candidate votes or margin.\n\n$$\\text{Votes polled} = \\frac{\\text{Turnout rate}}{100}\\times\\text{Total voters}$$\n\nNow apply the turnout relation directly or reverse it as required.\n\n$$\\frac{80}{100}\\times1000=800$$\n\nSo the required answer is 800.\n\n$$\\text{Answer}=800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-103",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "electionVotesApplication",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-103:quant-v4-percentage-pct-007-residual-v3:PCT-CP-003:13",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-003:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:turnoutRate: Missing required variable turnoutRate.",
+          "required:totalVoters: Missing required variable totalVoters."
+        ]
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "A library stock contains 1200 books. If it is reduced by 50% and then by 25%, find the quantity left.",
+      "options": [
+        "$$450$$",
+        "$$470$$",
+        "$$440$$",
+        "$$460$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$450$$",
+      "explanation": "Repeated reduction always acts on the current remainder, not on the original quantity again.\n\n$$\\text{Remainder after one step} = \\text{Current quantity}\\times\\frac{100-\\text{Rate}}{100}$$\n\nAfter the first reduction, we get the new remainder.\n\n$$\\text{After first reduction}=600$$\n\nAfter the repeated reduction, we get the final remainder.\n\n$$\\text{Final remainder}=450$$\n\nNow apply the final reduction step required in the question.\n\n$$600\\times\\frac{75}{100}=450$$\n\nSo the required remaining or used quantity is 450.\n\n$$\\text{Answer}=450$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-440",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "replacementRepeatedPercentageApplication",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-440:quant-v4-percentage-pct-007-residual-v3:PCT-CP-009:14",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-009:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:totalValue: Missing required variable totalValue.",
+          "required:rate1: Missing required variable rate1.",
+          "required:rate2: Missing required variable rate2."
+        ]
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "In a sugar syrup, 50 litres is sugar out of 100 litres. Find the percentage of sugar.",
+      "options": [
+        "$$51\\%$$",
+        "$$55\\%$$",
+        "$$49\\%$$",
+        "$$50\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$50\\%$$",
+      "explanation": "Direct mixture questions depend on the component share of the total mixture.\n\n$$50\\times\\frac{100}{100}=50\\%$$\n\nSo the required result is 50\\%.\n\n$$\\text{Answer}=50\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-237",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "mixtureConcentrationBasicApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-237:quant-v4-percentage-pct-007-residual-v3:PCT-CP-005:15",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-005:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:value1: Missing required variable value1.",
+          "required:totalValue: Missing required variable totalValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "A driver spends 50% of monthly income. If the expenditure is Rs. 6000, find the income.",
+      "options": [
+        "$$12000$$",
+        "$$11900$$",
+        "$$12100$$",
+        "$$12050$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$12000$$",
+      "explanation": "Income, expenditure, and savings are parts of the same base, so first identify the relevant percentage of income.\n\n$$\\text{Savings rate} + \\text{Expenditure rate} = 100\\\\%$$\n\nNow use the identified percentage on the income.\n\n$$6000\\times\\frac{100}{50}=12000$$\n\nThe expenditure percentage here is 50%.\n\n$$\\text{Expenditure rate}=50\\%$$\n\nSo the required answer is 12000.\n\n$$\\text{Answer}=12000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-034",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "incomeExpenditureSavingsApplication",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-034:quant-v4-percentage-pct-007-residual-v3:PCT-CP-001:16",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-001:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:value1: Missing required variable value1."
+        ]
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "A shopkeeper earns Rs. 5000 in a month and uses 20% for expenditure. Find the savings.",
+      "options": [
+        "$$4100$$",
+        "$$4050$$",
+        "$$3900$$",
+        "$$4000$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$4000$$",
+      "explanation": "Savings are the part of income left after expenses.\n\n$$\\frac{80}{100}\\times5000=4000$$\n\nThis gives the required value as 4000.\n\n$$\\text{Result}=4000$$\n\nSo the final answer is 4000.\n\n$$\\text{Answer}=4000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-455",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "miniDiMixedPercentageCaselet",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-455:quant-v4-percentage-pct-007-residual-v3:PCT-CP-010:17",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-010:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "The passenger count on a route is 240 passengers. If 25% of the passengers complete the trip, find the number of passengers who complete the trip.",
+      "options": [
+        "$$62$$",
+        "$$60$$",
+        "$$61$$",
+        "$$59$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$60$$",
+      "explanation": "Keep the stated quantity as the base and apply the percentage change shown in the question.\n\n$$\\frac{25}{100}\\times240=60$$\n\nSo the required quantity is 60.\n\n$$\\text{Answer}=60$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-189",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "populationProductionConsumptionApplication",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-189:quant-v4-percentage-pct-007-residual-v3:PCT-CP-004:18",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-004:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:percentageRate: Missing required variable percentageRate.",
+          "required:totalValue: Missing required variable totalValue."
+        ]
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "A garment purchase is priced at Rs. 1000 and carries 30% discount. Find the discount amount.",
+      "options": [
+        "$$310$$",
+        "$$300$$",
+        "$$320$$",
+        "$$290$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$300$$",
+      "explanation": "Apply each billing percentage to the correct amount in the stated order.\n\n$$\\frac{30}{100}\\times1000=300$$\n\nSo the required bill amount or charge is 300.\n\n$$\\text{Answer}=300$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-007",
+        "archetypeId": "PCT-007",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-303",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "taxDiscountCommissionChargesApplication",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-303:quant-v4-percentage-pct-007-residual-v3:PCT-CP-007:19",
+        "seed": "quant-v4-percentage-pct-007-residual-v3:PCT-CP-007:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": [
+          "required:discountRate: Missing required variable discountRate.",
+          "required:baseValue: Missing required variable baseValue."
+        ]
+      }
+    }
+  ]
+}

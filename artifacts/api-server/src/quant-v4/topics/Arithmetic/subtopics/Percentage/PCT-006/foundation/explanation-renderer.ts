@@ -13,6 +13,10 @@ function asString(parameters: Pct006Parameters, name: string, fallback = "") {
   return String(parameters.variables[name] ?? fallback);
 }
 
+function cleanRenderedAnswer(answer: string) {
+  return answer.replaceAll("$$", "").trim().replace(/\.+$/, "");
+}
+
 export function renderPct006Explanation(
   parameters: Pct006Parameters,
   solver: Pct006SolverResult,
@@ -20,7 +24,7 @@ export function renderPct006Explanation(
 ): Pct006Explanation {
   const lines: string[] = [];
   const wholeLabel = asString(parameters, "wholeLabel", "value");
-  const renderedAnswer = solver.answer.replaceAll("$$", "");
+  const renderedAnswer = cleanRenderedAnswer(solver.answer);
 
   switch (parameters.taskKind) {
     case "directMoreThanComparison": {
@@ -43,7 +47,7 @@ export function renderPct006Explanation(
         lines.push(
           ...sentenceWithMath(
             `The given figure is the higher ${wholeLabel}, so divide it by the multiplier to recover the base.`,
-            `\\text{Base}=${formatNumber(given)}\\div${formatNumber(multiplier)}=${formatNumber(base)}`,
+            `\\text{Base ${wholeLabel}}=${formatNumber(given)}\\div${formatNumber(multiplier)}=${formatNumber(base)}`,
           ),
         );
       } else {

@@ -31,6 +31,61 @@ function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
 }
 
+function isWholeNumber(value: number) {
+  return Math.abs(value - Math.round(value)) < 1e-9;
+}
+
+function isDiscreteCountLabel(label: string) {
+  return /\b(population|students|residents|cartons|passengers|units|users|admissions|attendance|stock)\b/i.test(label);
+}
+
+function chooseCompatibleDiscreteBase(existingValue: number, factor: number, seed: string) {
+  const pool = [
+    100, 120, 125, 150, 160, 180, 200, 240, 250, 300, 320, 360, 400, 450, 480, 500, 600, 640, 720, 750, 800,
+    900, 960, 1000, 1200, 1250, 1500, 1600, 1800, 2000, 2400, 2500, 3000, 3200, 3600, 4000, 4500, 4800, 5000,
+    6000, 6400, 7200, 7500, 8000, 9000, 9600, 10000,
+  ];
+  const compatible = pool.filter((candidate) => isWholeNumber(candidate * factor));
+  if (!compatible.length) return existingValue;
+  const closestDistance = Math.min(...compatible.map((candidate) => Math.abs(candidate - existingValue)));
+  const closest = compatible.filter((candidate) => Math.abs(candidate - existingValue) === closestDistance);
+  return pick(closest, `${seed}:compatible-discrete-base`);
+}
+
+function rateFactor(direction: string | undefined, rate: number | undefined) {
+  if (typeof rate !== "number") return 1;
+  return direction === "decrease" ? (100 - rate) / 100 : (100 + rate) / 100;
+}
+
+function constrainDiscreteCountVariables(
+  variables: Pct005Variables,
+  answerType: string,
+  seed: string,
+) {
+  if (answerType !== "ABSOLUTE" || !isDiscreteCountLabel(String(variables.wholeLabel ?? ""))) {
+    return variables;
+  }
+
+  const output = { ...variables };
+
+  if (typeof output.originalValue === "number") {
+    const factor =
+      rateFactor(output.direction1, output.rate1) *
+      rateFactor(output.direction2, output.rate2) *
+      rateFactor(output.direction3, output.rate3) *
+      rateFactor(output.direction4, output.rate4);
+    output.originalValue = chooseCompatibleDiscreteBase(output.originalValue, factor, `${seed}:original-value`);
+  }
+
+  if (typeof output.finalValue === "number" && typeof output.rate1 === "number" && typeof output.rate2 === "number") {
+    const factor = rateFactor(output.direction1, output.rate1) * rateFactor(output.direction2, output.rate2);
+    const reconstructedOriginal = chooseCompatibleDiscreteBase(output.finalValue / factor, factor, `${seed}:final-value`);
+    output.finalValue = reconstructedOriginal * factor;
+  }
+
+  return output;
+}
+
 export function getSelectableQuestionLanguageIds(cpId: Pct005CanonicalProblemId, language: Pct005Language) {
   return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
 }
@@ -376,7 +431,7 @@ const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct005Variables>> = {
   "PCT-QL-041": { wholeLabel: "admissions" },
   "PCT-QL-042": { labelA: "Branch A stock", labelB: "Branch B stock" },
   "PCT-QL-043": { labelA: "Product A price", labelB: "Product B price" },
-  "PCT-QL-044": { labelA: "School A attendance", labelB: "School B attendance" },
+  "PCT-QL-044": { labelA: "School A's attendance", labelB: "School B's attendance" },
   "PCT-QL-045": { wholeLabel: "sales" },
   "PCT-QL-046": { wholeLabel: "stock" },
   "PCT-QL-047": { wholeLabel: "price" },
@@ -519,7 +574,11 @@ export function generatePct005Parameters(cpId: Pct005CanonicalProblemId, input: 
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const variables = createVariables(questionLanguageId, resolvedDifficulty, seed);
+  const variables = constrainDiscreteCountVariables(
+    createVariables(questionLanguageId, resolvedDifficulty, seed),
+    answerType,
+    seed,
+  );
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {

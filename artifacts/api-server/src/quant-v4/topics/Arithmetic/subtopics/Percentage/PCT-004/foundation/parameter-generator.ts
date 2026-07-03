@@ -31,6 +31,61 @@ function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
 }
 
+function isWholeNumber(value: number) {
+  return Math.abs(value - Math.round(value)) < 1e-9;
+}
+
+function isDiscreteCountLabel(label: string) {
+  return /\b(population|students|workers|employees|users|residents|applicants|cartons|boxes|passengers|units)\b/i.test(label);
+}
+
+function chooseCompatibleDiscreteBase(existingValue: number, factor: number, seed: string) {
+  const pool = [
+    100, 120, 125, 150, 160, 180, 200, 240, 250, 300, 320, 360, 400, 450, 480, 500, 600, 640, 720, 750, 800,
+    900, 960, 1000, 1200, 1250, 1500, 1600, 1800, 2000, 2400, 2500, 3000, 3200, 3600, 4000, 4500, 4800, 5000,
+    6000, 6400, 7200, 7500, 8000, 9000, 9600, 10000,
+  ];
+  const compatible = pool.filter((candidate) => isWholeNumber(candidate * factor));
+  if (!compatible.length) return existingValue;
+  const closestDistance = Math.min(...compatible.map((candidate) => Math.abs(candidate - existingValue)));
+  const closest = compatible.filter((candidate) => Math.abs(candidate - existingValue) === closestDistance);
+  return pick(closest, `${seed}:compatible-discrete-base`);
+}
+
+function constrainDiscreteCountVariables(
+  variables: Pct004Variables,
+  answerType: string,
+  seed: string,
+) {
+  if (answerType !== "ABSOLUTE" || !isDiscreteCountLabel(String(variables.wholeLabel ?? ""))) {
+    return variables;
+  }
+
+  const output = { ...variables };
+
+  if (typeof output.originalValue === "number" && typeof output.decreaseRate === "number" && !("rate1" in output) && !("rate2" in output)) {
+    const factor = (100 - output.decreaseRate) / 100;
+    output.originalValue = chooseCompatibleDiscreteBase(output.originalValue, factor, `${seed}:single-decrease`);
+  }
+
+  if (typeof output.originalValue === "number" && typeof output.rate1 === "number" && typeof output.rate2 === "number") {
+    const factor = ((100 - output.rate1) / 100) * ((100 - output.rate2) / 100);
+    output.originalValue = chooseCompatibleDiscreteBase(output.originalValue, factor, `${seed}:double-decrease`);
+  }
+
+  if (typeof output.currentValue === "number" && typeof output.decreaseRate === "number" && typeof output.periodCount === "number") {
+    const factor = ((100 - output.decreaseRate) / 100) ** output.periodCount;
+    output.currentValue = chooseCompatibleDiscreteBase(output.currentValue, factor, `${seed}:bridge-decrease`);
+  }
+
+  if (typeof output.decreasedValue === "number" && typeof output.decreaseRate === "number") {
+    const factor = 100 / (100 - output.decreaseRate);
+    output.decreasedValue = chooseCompatibleDiscreteBase(output.decreasedValue, factor, `${seed}:reverse-decrease`);
+  }
+
+  return output;
+}
+
 export function getSelectableQuestionLanguageIds(cpId: Pct004CanonicalProblemId, language: Pct004Language) {
   return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
 }
@@ -491,7 +546,11 @@ export function generatePct004Parameters(cpId: Pct004CanonicalProblemId, input: 
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const variables = createVariables(questionLanguageId, resolvedDifficulty, seed);
+  const variables = constrainDiscreteCountVariables(
+    createVariables(questionLanguageId, resolvedDifficulty, seed),
+    answerType,
+    seed,
+  );
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {

@@ -523,11 +523,20 @@ function discoverQuantV4Packages(): DiscoveredQuantV4Package[] {
 }
 
 function normalizeMathBody(value: string) {
-  return value
-    .trim()
-    .replace(/^\$\$([\s\S]*)\$\$$/, "$1")
-    .replace(/^\\\(([\s\S]*)\\\)$/, "$1")
-    .replace(/^\\\[([\s\S]*)\\\]$/, "$1")
+  let normalized = String(value ?? "").trim();
+  for (let pass = 0; pass < 3; pass++) {
+    normalized = normalized
+      .replace(/^\$\$\s*/, "")
+      .replace(/\s*\$\$$/, "")
+      .replace(/^\\\(\s*/, "")
+      .replace(/\s*\\\)$/, "")
+      .replace(/^\\\[\s*/, "")
+      .replace(/\s*\\\]$/, "")
+      .trim();
+  }
+  return normalized
+    .replace(/\$\$/g, "")
+    .replace(/\\\(|\\\)|\\\[|\\\]/g, "")
     .replace(/^=\s*/, "")
     .trim();
 }
@@ -535,6 +544,73 @@ function normalizeMathBody(value: string) {
 function toDisplayMath(value: string) {
   const normalized = normalizeMathBody(value).replace(/%/g, "\\%");
   return normalized ? `$$${normalized}$$` : "";
+}
+
+function formatPreviewNumber(value: number) {
+  const rounded = Math.round(value * 10000) / 10000;
+  return Number.isInteger(rounded)
+    ? String(rounded)
+    : String(rounded).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+}
+
+function polishGeneratedEnglishText(value: string) {
+  return String(value ?? "")
+    .replace(/\b-?\d+\.\d{10,}\b/g, (rawValue: string) => {
+      const numericValue = Number(rawValue);
+      return Number.isFinite(numericValue) ? formatPreviewNumber(numericValue) : rawValue;
+    })
+    .replace(/([A-Za-z0-9%])\.{2,}/g, "$1.")
+    .replace(/\bmonthly monthly\b/gi, "monthly")
+    .replace(/\bA investment\b/g, "An investment")
+    .replace(/\ba investment\b/g, "an investment")
+    .replace(/\bA income\b/g, "An income")
+    .replace(/\ba income\b/g, "an income")
+    .replace(/\bThe Unit A output was\b/g, "Unit A's output was")
+    .replace(/\bUnit A output\b/g, "Unit A's output")
+    .replace(/\bUnit B output\b/g, "Unit B's output")
+    .replace(/\bSchool An attendance\b/g, "School A's attendance")
+    .replace(/\bSchool B attendance\b/g, "School B's attendance")
+    .replace(/\bFor a output\b/g, "For an output")
+    .replace(/\bA output\b/g, "An output")
+    .replace(/\ba output\b/g, "an output")
+    .replace(/\bA output level\b/g, "An output level")
+    .replace(/\ba output level\b/g, "an output level")
+    .replace(/\bA investment value\b/g, "An investment value")
+    .replace(/\ba investment value\b/g, "an investment value")
+    .replace(/\bA asset value\b/g, "An asset value")
+    .replace(/\ba asset value\b/g, "an asset value")
+    .replace(/\bhas a asset value\b/g, "has an asset value")
+    .replace(/\bA inventory is\b/g, "An inventory is")
+    .replace(/\ba inventory is\b/g, "an inventory is")
+    .replace(/\bA rent is\b/g, "The rent is")
+    .replace(/\ba rent is\b/g, "the rent is")
+    .replace(/\bA sales of\b/g, "Sales of")
+    .replace(/\bA sales is\b/g, "Sales are")
+    .replace(/\bSchool A attendance\b/g, "School A's attendance")
+    .replace(/\bschool A attendance\b/g, "school A's attendance")
+    .replace(/\bThe current internet users is\b/g, "The current number of internet users is")
+    .replace(/\bthe internet users\b/gi, "the number of internet users")
+    .replace(/\boriginal internet users\b/gi, "original number of internet users")
+    .replace(/\bNew internet users\b/g, "New number of internet users")
+    .replace(/\bthe new internet users is\b/gi, "the new number of internet users is")
+    .replace(/\bnew internet users is\b/gi, "new number of internet users is")
+    .replace(/\bextra internet users is needed\b/gi, "extra internet users are needed")
+    .replace(/\bhow much extra (applicants|students|passengers|residents|voters|cartons|boxes|units|bags|accounts) is needed\b/gi, (_match, noun: string) => `how many extra ${noun} are needed`)
+    .replace(/\bSection A attendance\b/g, "Section A's attendance")
+    .replace(/\bSection B attendance\b/g, "Section B's attendance")
+    .replace(/\bRoute A passengers starts\b/g, "Route A passenger count starts")
+    .replace(/\bRoute B passengers starts\b/g, "Route B passenger count starts")
+    .replace(/\bthere are (\d+) population\b/gi, "the population is $1")
+    .replace(/\bproduction production\b/gi, "production batch")
+    .replace(/\b(employees|students|residents|passengers|workers) was\b/gi, (_match, noun: string) => `${noun} were`)
+    .replace(/\bthe (units|cartons|boxes|bags|students|passengers|residents|employees) becomes\b/gi, (_match, noun: string) => `the ${noun} become`)
+    .replace(/\b(the|So the|Therefore the) new (households|passengers|users|active users|students|residents|employees|workers|applicants|cartons|boxes|bags|units) is\b/gi, (_match, prefix: string, noun: string) => `${prefix} new number of ${noun} is`)
+    .replace(/\b(the|So the) (units|cartons|boxes|bags|students|passengers|residents|employees) after both (increases|decreases) is\b/gi, (_match, prefix: string, noun: string, change: string) => `${prefix} ${noun} after both ${change} are`)
+    .replace(/\bSo the final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi, (_match, noun: string) => `So the final number of ${noun} is`)
+    .replace(/\bthe final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi, (_match, noun: string) => `the final number of ${noun} is`)
+    .replace(/\bnew marks is\b/g, "new marks are")
+    .replace(/\bfinal marks is\b/g, "final marks are")
+    .replace(/\bfinal residents is\b/gi, "final number of residents is");
 }
 
 function extractExplanationBlock(
@@ -580,7 +656,7 @@ function formatExplanationForQuestionStudio(explanation: unknown) {
       ) {
         formatted.push(
           `${current.label}:`,
-          toDisplayMath(`${normalizeMathBody(current.math)} = ${normalizeMathBody(next.math)}`),
+          toDisplayMath(`${normalizeMathBody(current.math)}=${normalizeMathBody(next.math)}`),
         );
         index++;
         continue;
@@ -699,14 +775,26 @@ export function toQuestionStudioPreview(
   const optionResult = buildQuantV4AnswerOptions(pkg.answer, {
     existingOptions: packageOptions,
     seed: context.seed ?? pkg.questionId ?? pkg.stem ?? "quant-v4",
+    context: {
+      packageId: pkg.archetypeId,
+      archetypeId: pkg.archetypeId,
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      taskKind,
+      answerType: traceability.answerType ?? parameters.answerType,
+      difficulty: pkg.difficultyBand,
+      stem: pkg.stem,
+      variables: parameters,
+      traceability,
+    },
   });
   const options = optionResult.options;
   const correct = optionResult.correct;
   return {
-    text: pkg.stem,
-    options,
+    text: polishGeneratedEnglishText(pkg.stem),
+    options: options.map((option) => polishGeneratedEnglishText(option)),
     correct,
-    explanation: formatExplanationForQuestionStudio(pkg.explanation),
+    explanation: polishGeneratedEnglishText(formatExplanationForQuestionStudio(pkg.explanation)),
     packageExplanation: pkg.explanation,
     difficulty: pkg.difficultyBand,
     difficultyLabel: pkg.difficultyBand,

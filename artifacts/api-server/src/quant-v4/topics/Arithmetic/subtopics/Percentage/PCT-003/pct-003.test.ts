@@ -114,4 +114,36 @@ for (let index = 0; index < 40; index += 1) {
   assert.equal(new Set(triplet.map((item) => item.answer)).size, 1, `${cpId} must preserve cross-language answer parity`);
 }
 
+for (let index = 0; index < 40; index += 1) {
+  const repeatedIncreasePkg = runPct003Pipeline("PCT-CP-005", {
+    language: "en",
+    seed: `pct-003-repeated-count:${index}`,
+  });
+  const repeatedWholeLabel = String(repeatedIncreasePkg.parameters.variables.wholeLabel ?? "");
+  if (
+    repeatedIncreasePkg.answerType === "ABSOLUTE" &&
+    /population|students|residents|passengers|applicants|boxes|cartons|units|accounts|users/i.test(repeatedWholeLabel)
+  ) {
+    assert.ok(
+      Number.isInteger(Number(repeatedIncreasePkg.solver.numericAnswer ?? NaN)),
+      `repeated increase result must stay integral for ${repeatedWholeLabel}`,
+    );
+  }
+
+  const growthBridgePkg = runPct003Pipeline("PCT-CP-010", {
+    language: "en",
+    seed: `pct-003-growth-bridge:${index}`,
+  });
+  const growthWholeLabel = String(growthBridgePkg.parameters.variables.wholeLabel ?? "");
+  if (
+    growthBridgePkg.answerType === "ABSOLUTE" &&
+    /population|students|residents|passengers|applicants|boxes|cartons|units|accounts|users/i.test(growthWholeLabel)
+  ) {
+    assert.ok(
+      Number.isInteger(Number(growthBridgePkg.solver.numericAnswer ?? NaN)),
+      `growth bridge result must stay integral for ${growthWholeLabel}`,
+    );
+  }
+}
+
 console.log("PCT-003 first-pass implementation test passed.");

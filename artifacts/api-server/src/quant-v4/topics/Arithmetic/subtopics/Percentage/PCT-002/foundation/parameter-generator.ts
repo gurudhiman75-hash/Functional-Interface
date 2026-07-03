@@ -93,12 +93,12 @@ const SCENARIO_BUILDERS: Record<string, ScenarioFactory> = {
   "PCT-QL-009": (_difficulty, seed) => {
     const partA = pick([1, 2, 3, 4, 5], `${seed}:a`);
     const partB = pick([1, 2, 3, 4, 5], `${seed}:b`);
-    return { partA, partB, targetPartLabel: "first part" };
+    return { partA, partB, targetPartLabel: "first part", targetPartIndex: 1 };
   },
   "PCT-QL-010": (_difficulty, seed) => {
     const partA = pick([1, 2, 3, 4, 5], `${seed}:a`);
     const partB = pick([1, 2, 3, 4, 5], `${seed}:b`);
-    return { partA, partB, targetPartLabel: "second part" };
+    return { partA, partB, targetPartLabel: "second part", targetPartIndex: 2 };
   },
   "PCT-QL-011": (_difficulty, seed) => {
     return { knownRate: pick([20, 25, 30, 40, 45], `${seed}:rate`), partLabel: "girls", complementLabel: "boys" };
@@ -216,16 +216,16 @@ const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct002Variables>> = {
   "PCT-QL-088": { wholeLabel: "booking total" },
   "PCT-QL-089": { wholeLabel: "monthly budget" },
   "PCT-QL-090": { wholeLabel: "attendance" },
-  "PCT-QL-091": { targetPartLabel: "boys" },
-  "PCT-QL-092": { targetPartLabel: "passed candidates" },
-  "PCT-QL-093": { targetPartLabel: "wheat bags" },
-  "PCT-QL-094": { targetPartLabel: "rural population" },
-  "PCT-QL-095": { targetPartLabel: "online applicants" },
-  "PCT-QL-096": { targetPartLabel: "first candidate" },
-  "PCT-QL-097": { targetPartLabel: "wheat crop" },
-  "PCT-QL-098": { targetPartLabel: "food allocation" },
-  "PCT-QL-099": { targetPartLabel: "male employees" },
-  "PCT-QL-100": { targetPartLabel: "booked seats" },
+  "PCT-QL-091": { targetPartLabel: "boys", targetPartIndex: 1 },
+  "PCT-QL-092": { targetPartLabel: "passed candidates", targetPartIndex: 1 },
+  "PCT-QL-093": { targetPartLabel: "wheat bags", targetPartIndex: 1 },
+  "PCT-QL-094": { targetPartLabel: "rural population", targetPartIndex: 1 },
+  "PCT-QL-095": { targetPartLabel: "online applicants", targetPartIndex: 1 },
+  "PCT-QL-096": { targetPartLabel: "first candidate", targetPartIndex: 1 },
+  "PCT-QL-097": { targetPartLabel: "wheat crop", targetPartIndex: 1 },
+  "PCT-QL-098": { targetPartLabel: "food allocation", targetPartIndex: 1 },
+  "PCT-QL-099": { targetPartLabel: "male employees", targetPartIndex: 1 },
+  "PCT-QL-100": { targetPartLabel: "booked seats", targetPartIndex: 1 },
   "PCT-QL-101": { partLabel: "present", complementLabel: "absent" },
   "PCT-QL-102": { partLabel: "sold", complementLabel: "unsold" },
   "PCT-QL-103": { partLabel: "recovered", complementLabel: "not recovered" },

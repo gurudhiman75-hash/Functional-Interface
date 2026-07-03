@@ -1,0 +1,768 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.070Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "The current salary is Rs. 60000. To reach Rs. 72000, what percentage increase is required?",
+      "options": [
+        "$$17\\%$$",
+        "$$21\\%$$",
+        "$$25\\%$$",
+        "$$20\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$20\\%$$",
+      "explanation": "First find how much extra salary is needed to reach the target.\n\n$$\\text{Needed amount}=72000-60000=12000$$\n\nNow compare this extra amount with the current salary.\n\n$$\\text{Required increase}=\\frac{12000}{60000}\\times100=20\\\\%$$\n\nTherefore the required percentage increase is 20%.\n\n$$\\text{Required increase}=20\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-017",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "requiredIncrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-017:quant-v4-percentage-pct-003-residual-v3:PCT-CP-009:0",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-009:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "Out of a total of 1000 passengers, 40% belong to adult passengers. If adult passengers grow by 20% and child passengers grow by 12%, what is the revised percentage of adult passengers?",
+      "options": [
+        "$$42.6667\\%$$",
+        "$$40.6667\\%$$",
+        "$$58.3333\\%$$",
+        "$$41.6667\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$41.6667\\%$$",
+      "explanation": "At first, 40% of the passengers are adult passengers, so split the original total into adult passengers and child passengers.\n\n$$\\text{Initial adult passengers}=1000\\times\\frac{40}{100}=400,\\ \\text{Initial child passengers}=600$$\n\nNow increase the number of adult passengers and child passengers by their respective percentages.\n\n$$\\text{New adult passengers}=400\\times\\frac{120}{100}=480,\\ \\text{New child passengers}=600\\times\\frac{112}{100}=672$$\n\nUse the new total to find the updated percentage of adult passengers.\n\n$$\\text{New adult passengers percent}=\\frac{480}{1152}\\times100=41.6667\\\\%$$\n\nTherefore the new percentage of adult passengers is 41.6667%.\n\n$$\\text{New adult passengers percent}=41.6667\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-127",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "percentageIncreaseInParts",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-127:quant-v4-percentage-pct-003-residual-v3:PCT-CP-008:1",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-008:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "A salary of Rs. 30000 increases by 15%. Find the amount of increase only.",
+      "options": [
+        "$$4500$$",
+        "$$4400$$",
+        "$$4550$$",
+        "$$4600$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$4500$$",
+      "explanation": "Only the increased part is required here, so we need 15% of the original salary.\n\n$$\\text{Increase amount}=15\\\\%\\text{ of }Rs. 30000$$\n\nNow take 15% of Rs. 30000.\n\n$$\\text{Increase amount}=30000\\times\\frac{15}{100}=4500$$\n\nTherefore the increase amount is Rs. 4500.\n\n$$\\text{Increase amount}=4500$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-003",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "increaseAmount",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-003:quant-v4-percentage-pct-003-residual-v3:PCT-CP-002:2",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-002:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "After a 25% increase, a route served 25000 passengers. Find the original passenger count.",
+      "options": [
+        "$$20000$$",
+        "$$20050$$",
+        "$$19900$$",
+        "$$20100$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$20000$$",
+      "explanation": "After a 25% rise, the new passengers represents 125% of the original.\n\n$$125\\\\%\\rightarrow25000$$\n\nSo divide 25000 by 125 to find the value of 1%.\n\n$$1\\\\%=\\frac{25000}{125}=200$$\n\nNow multiply the value of 1% by 100 to get the original passengers.\n\n$$100\\\\%=200\\times100=20000$$\n\nTherefore the original passengers were 20000.\n\n$$\\text{Original passengers}=20000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-079",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "originalValueFromIncreasedValue",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-079:quant-v4-percentage-pct-003-residual-v3:PCT-CP-003:3",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-003:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "If the income goes up by 15%, find the factor of increase.",
+      "options": [
+        "$$1.15$$",
+        "$$2.15$$",
+        "$$0.65$$",
+        "$$1.65$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$1.15$$",
+      "explanation": "A 15% increase means the new value becomes 115% of the old value.\n\n$$\\text{New percent}=100\\\\%+15\\\\%=115\\\\%$$\n\nExpress that new percentage as a multiplier by dividing by 100.\n\n$$\\text{Multiplier}=\\frac{115}{100}=1.15$$\n\nTherefore the equivalent multiplier is 1.15.\n\n$$\\text{Multiplier}=1.15$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-085",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "equivalentMultiplier",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-085:quant-v4-percentage-pct-003-residual-v3:PCT-CP-004:4",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-004:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "The town had 10000 residents. It grew by 15% and then by 25%. Find the final number of residents.",
+      "options": [
+        "$$14375$$",
+        "$$14275$$",
+        "$$14425$$",
+        "$$14475$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$14375$$",
+      "explanation": "After the first increase of 15%, the residents become 115% of its original value.\n\n$$\\text{After first increase}=10000\\times\\frac{115}{100}=11500$$\n\nNow apply the second increase of 25% to this new value.\n\n$$\\text{Final value}=11500\\times\\frac{125}{100}=14375$$\n\nTherefore the residents after both increases are 14375.\n\n$$\\text{Final residents}=14375$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-096",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "repeatedPercentageIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-096:quant-v4-percentage-pct-003-residual-v3:PCT-CP-005:5",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-005:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "The crop production was 4000 quintals. It increased by 20%. Find the new production.",
+      "options": [
+        "$$4900$$",
+        "$$4850$$",
+        "$$4800$$",
+        "$$4700$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$4800$$",
+      "explanation": "An increase of 20% makes the crop production equal to 120% of its original value.\n\n$$\\text{New percent}=100\\\\%+20\\\\%=120\\\\%$$\n\nSo multiply the original crop production by 120/100.\n\n$$\\text{New crop production}=4000\\times\\frac{120}{100}=4800$$\n\nTherefore the new crop production is 4800.\n\n$$\\text{New crop production}=4800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-023",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directPercentageIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-023:quant-v4-percentage-pct-003-residual-v3:PCT-CP-001:6",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-001:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "The current number of users is 10000. If it increases by 10% every year, what will it be after 2 years?",
+      "options": [
+        "$$12000$$",
+        "$$12150$$",
+        "$$12100$$",
+        "$$12200$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$12100$$",
+      "explanation": "Each increase of 10% multiplies the number of users by 110/100.\n\n$$\\text{One-period factor}=\\frac{110}{100}$$\n\nSince the same increase happens for 2 periods, use this factor 2 times.\n\n$$\\text{Overall factor}=\\left(\\frac{110}{100}\\right)^{2}$$\n\nNow multiply the current number of users by the overall factor.\n\n$$\\text{Final number of users}=10000\\times\\left(\\frac{110}{100}\\right)^{2}=12100$$\n\nTherefore the number of users after 2 periods is 12100.\n\n$$\\text{Final number of users}=12100$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-142",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "growthBridge",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-142:quant-v4-percentage-pct-003-residual-v3:PCT-CP-010:7",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-010:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "A population increases by 10% and then again by 15%. Find the net percentage increase.",
+      "options": [
+        "$$26.5\\%$$",
+        "$$36.1\\%$$",
+        "$$20.9\\%$$",
+        "$$27\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$26.5\\%$$",
+      "explanation": "Convert the two increases into growth factors.\n\n$$\\text{Combined factor}=\\frac{110}{100}\\times\\frac{115}{100}$$\n\nThis combined factor tells us how many times the original value becomes after both increases.\n\n$$\\text{Combined factor}=\\frac{110}{100}\\times\\frac{115}{100}=1.265$$\n\nSo subtract 1 from the combined factor and convert the result into a percentage increase.\n\n$$\\text{Net increase}=26.5\\\\%$$\n\nTherefore the overall percentage increase is 26.5%.\n\n$$\\text{Net increase}=26.5\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-012",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "netIncreasePercentage",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-012:quant-v4-percentage-pct-003-residual-v3:PCT-CP-006:8",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-006:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "The population of Town A was 800 and the population of Town B was 500. They increased by 10% and 25% respectively. Find the difference between the new populations.",
+      "options": [
+        "$$245$$",
+        "$$265$$",
+        "$$255$$",
+        "$$275$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$255$$",
+      "explanation": "First find the new value of population of Town A after its increase.\n\n$$\\text{New population of Town A}=800\\times\\frac{110}{100}=880$$\n\nNow find the new value of population of Town B after its increase.\n\n$$\\text{New population of Town B}=500\\times\\frac{125}{100}=625$$\n\nFinally compare these two new values.\n\n$$\\text{Difference}=\\left|880-625\\right|=255$$\n\nTherefore the difference between the new values is 255.\n\n$$\\text{Difference}=255$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-040",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "comparativeIncrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-040:quant-v4-percentage-pct-003-residual-v3:PCT-CP-007:9",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-007:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "To raise a budget from Rs. 40000 to Rs. 50000, what percentage increase is needed?",
+      "options": [
+        "$$20\\%$$",
+        "$$26\\%$$",
+        "$$25\\%$$",
+        "$$33\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$25\\%$$",
+      "explanation": "First find how much extra budget is needed to reach the target.\n\n$$\\text{Needed amount}=50000-40000=10000$$\n\nNow compare this extra amount with the current budget.\n\n$$\\text{Required increase}=\\frac{10000}{40000}\\times100=25\\\\%$$\n\nTherefore the required percentage increase is 25%.\n\n$$\\text{Required increase}=25\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-134",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "requiredIncrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-134:quant-v4-percentage-pct-003-residual-v3:PCT-CP-009:10",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-009:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "A survey covers 400 respondents, of which 40% are online respondents. If online respondents increase by 20% and offline respondents increase by 15%, find the new share of online respondents.",
+      "options": [
+        "$$42.0256\\%$$",
+        "$$58.9744\\%$$",
+        "$$41.0256\\%$$",
+        "$$40.0256\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$41.0256\\%$$",
+      "explanation": "At first, 40% of the respondents are online respondents, so split the original total into online respondents and offline respondents.\n\n$$\\text{Initial online respondents}=400\\times\\frac{40}{100}=160,\\ \\text{Initial offline respondents}=240$$\n\nNow increase the number of online respondents and offline respondents by their respective percentages.\n\n$$\\text{New online respondents}=160\\times\\frac{120}{100}=192,\\ \\text{New offline respondents}=240\\times\\frac{115}{100}=276$$\n\nUse the new total to find the updated percentage of online respondents.\n\n$$\\text{New online respondents percent}=\\frac{192}{468}\\times100=41.0256\\\\%$$\n\nTherefore the new percentage of online respondents is 41.0256%.\n\n$$\\text{New online respondents percent}=41.0256\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-124",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "percentageIncreaseInParts",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-124:quant-v4-percentage-pct-003-residual-v3:PCT-CP-008:11",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-008:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "A salary of Rs. 40000 increases by 10%. Find the amount of increase only.",
+      "options": [
+        "$$4050$$",
+        "$$4000$$",
+        "$$4100$$",
+        "$$3900$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$4000$$",
+      "explanation": "Only the increased part is required here, so we need 10% of the original salary.\n\n$$\\text{Increase amount}=10\\\\%\\text{ of }Rs. 40000$$\n\nNow take 10% of Rs. 40000.\n\n$$\\text{Increase amount}=40000\\times\\frac{10}{100}=4000$$\n\nTherefore the increase amount is Rs. 4000.\n\n$$\\text{Increase amount}=4000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-003",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "increaseAmount",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-003:quant-v4-percentage-pct-003-residual-v3:PCT-CP-002:12",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-002:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "After a 10% increase, the salary became Rs. 55000. Find the original salary.",
+      "options": [
+        "$$50100$$",
+        "$$50050$$",
+        "$$49900$$",
+        "$$50000$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$50000$$",
+      "explanation": "After a 10% rise, the new salary represents 110% of the original.\n\n$$110\\\\%\\rightarrowRs. 55000$$\n\nSo divide Rs. 55000 by 110 to find the value of 1%.\n\n$$1\\\\%=\\frac{55000}{110}=500$$\n\nNow multiply the value of 1% by 100 to get the original salary.\n\n$$100\\\\%=500\\times100=50000$$\n\nTherefore the original salary was Rs. 50000.\n\n$$\\text{Original salary}=50000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-005",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "originalValueFromIncreasedValue",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-005:quant-v4-percentage-pct-003-residual-v3:PCT-CP-003:13",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-003:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "If a salary rises by 10%, find the multiplying factor.",
+      "options": [
+        "$$2.1$$",
+        "$$1.1$$",
+        "$$1.6$$",
+        "$$0.6$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$1.1$$",
+      "explanation": "A 10% increase means the new value becomes 110% of the old value.\n\n$$\\text{New percent}=100\\\\%+10\\\\%=110\\\\%$$\n\nExpress that new percentage as a multiplier by dividing by 100.\n\n$$\\text{Multiplier}=\\frac{110}{100}=1.1$$\n\nTherefore the equivalent multiplier is 1.1.\n\n$$\\text{Multiplier}=1.1$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-081",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "equivalentMultiplier",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-081:quant-v4-percentage-pct-003-residual-v3:PCT-CP-004:14",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-004:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "A factory produced 4000 units. It increased output by 15% and later by 25%. Find the final output.",
+      "options": [
+        "$$5850$$",
+        "$$5800$$",
+        "$$5650$$",
+        "$$5750$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$5750$$",
+      "explanation": "After the first increase of 15%, the units become 115% of its original value.\n\n$$\\text{After first increase}=4000\\times\\frac{115}{100}=4600$$\n\nNow apply the second increase of 25% to this new value.\n\n$$\\text{Final value}=4600\\times\\frac{125}{100}=5750$$\n\nTherefore the units after both increases are 5750.\n\n$$\\text{Final units}=5750$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-100",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "repeatedPercentageIncrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-100:quant-v4-percentage-pct-003-residual-v3:PCT-CP-005:15",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-005:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "The number of internet users was 20000 before the campaign. After the campaign, it increased by 25%. Find the new number of users.",
+      "options": [
+        "$$24900$$",
+        "$$25100$$",
+        "$$25000$$",
+        "$$25050$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$25000$$",
+      "explanation": "An increase of 25% makes the number of internet users equal to 125% of its original value.\n\n$$\\text{New percent}=100\\\\%+25\\\\%=125\\\\%$$\n\nSo multiply the original number of internet users by 125/100.\n\n$$\\text{New number of internet users}=20000\\times\\frac{125}{100}=25000$$\n\nTherefore the new number of internet users is 25000.\n\n$$\\text{New number of internet users}=25000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-022",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directPercentageIncrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-022:quant-v4-percentage-pct-003-residual-v3:PCT-CP-001:16",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-001:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "The number of mobile users is 5000 and it grows by 12% every year. Find the number after 2 years.",
+      "options": [
+        "$$6172$$",
+        "$$6322$$",
+        "$$6372$$",
+        "$$6272$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$6272$$",
+      "explanation": "Each increase of 12% multiplies the number of mobile users by 112/100.\n\n$$\\text{One-period factor}=\\frac{112}{100}$$\n\nSince the same increase happens for 2 periods, use this factor 2 times.\n\n$$\\text{Overall factor}=\\left(\\frac{112}{100}\\right)^{2}$$\n\nNow multiply the current number of mobile users by the overall factor.\n\n$$\\text{Final number of mobile users}=5000\\times\\left(\\frac{112}{100}\\right)^{2}=6272$$\n\nTherefore the number of mobile users after 2 periods is 6272.\n\n$$\\text{Final number of mobile users}=6272$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-048",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "growthBridge",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-048:quant-v4-percentage-pct-003-residual-v3:PCT-CP-010:17",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-010:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "If the output increases by 20% in one stage and 20% in the next stage, find the net percentage increase.",
+      "options": [
+        "$$79\\%$$",
+        "$$31\\%$$",
+        "$$45\\%$$",
+        "$$44\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$44\\%$$",
+      "explanation": "Convert the two increases into growth factors.\n\n$$\\text{Combined factor}=\\frac{120}{100}\\times\\frac{120}{100}$$\n\nThis combined factor tells us how many times the original value becomes after both increases.\n\n$$\\text{Combined factor}=\\frac{120}{100}\\times\\frac{120}{100}=1.44$$\n\nSo subtract 1 from the combined factor and convert the result into a percentage increase.\n\n$$\\text{Net increase}=44\\\\%$$\n\nTherefore the overall percentage increase is 44%.\n\n$$\\text{Net increase}=44\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-110",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "netIncreasePercentage",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-110:quant-v4-percentage-pct-003-residual-v3:PCT-CP-006:18",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-006:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "salary A is Rs. 50000 and increases by 15%, while salary B is Rs. 25000 and increases by 20%. Find the difference between their new values.",
+      "options": [
+        "$$27600$$",
+        "$$27500$$",
+        "$$27550$$",
+        "$$27400$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$27500$$",
+      "explanation": "First find the new value of salary A after its increase.\n\n$$\\text{New salary A}=50000\\times\\frac{115}{100}=57500$$\n\nNow find the new value of salary B after its increase.\n\n$$\\text{New salary B}=25000\\times\\frac{120}{100}=30000$$\n\nFinally compare these two new values.\n\n$$\\text{Difference}=\\left|57500-30000\\right|=27500$$\n\nTherefore the difference between the new values is Rs. 27500.\n\n$$\\text{Difference}=27500$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-003",
+        "archetypeId": "PCT-003",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-013",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "comparativeIncrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-013:quant-v4-percentage-pct-003-residual-v3:PCT-CP-007:19",
+        "seed": "quant-v4-percentage-pct-003-residual-v3:PCT-CP-007:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    }
+  ]
+}

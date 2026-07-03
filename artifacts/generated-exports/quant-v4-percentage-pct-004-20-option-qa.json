@@ -1,0 +1,768 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.117Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "A salary of Rs. 50000 decreases by 10%. Find the decrease amount only.",
+      "options": [
+        "$$5050$$",
+        "$$5000$$",
+        "$$5100$$",
+        "$$4900$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$5000$$",
+      "explanation": "Only the reduced part is needed here.\n\n$$\\text{Decrease amount}=10\\\\%\\text{ of }Rs. 50000$$\n\n10% can also be written as the fraction 1/10.\n\n$$10\\\\%=\\frac{1}{10}$$\n\nSo find 10% of the original salary.\n\n$$\\text{Decrease amount}=50000\\times\\frac{10}{100}=5000$$\n\nSo the decrease amount is Rs. 5000.\n\n$$\\text{Decrease amount}=5000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-003",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "decreaseAmount",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-003:quant-v4-percentage-pct-004-residual-v3:PCT-CP-002:0",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-002:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "A Warehouse A stock of 400 and a Warehouse B stock of 700 are reduced by 15% and 15% respectively. Find the difference between the resulting counts.",
+      "options": [
+        "$$275$$",
+        "$$255$$",
+        "$$265$$",
+        "$$245$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$255$$",
+      "explanation": "First find the new value of Warehouse A stock after its decrease.\n\n$$\\text{New Warehouse A stock}=400\\times\\frac{85}{100}=340$$\n\nNow find the new value of Warehouse B stock after its decrease.\n\n$$\\text{New Warehouse B stock}=700\\times\\frac{85}{100}=595$$\n\nNow compare the two new values.\n\n$$\\text{Difference}=\\left|340-595\\right|=255$$\n\nSo the difference between the new values is 255.\n\n$$\\text{Difference}=255$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-118",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "comparativeDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-118:quant-v4-percentage-pct-004-residual-v3:PCT-CP-007:1",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-007:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 23,
+        "passedChecks": 23,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "Express a 12.5% cut in the output as a multiplier.",
+      "options": [
+        "$$1.375$$",
+        "$$1.875$$",
+        "$$0.875$$",
+        "$$0.375$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$0.875$$",
+      "explanation": "A decrease of 12.5% leaves 87.5% of the original.\n\n$$100\\\\%-12.5\\\\%=87.5\\\\%$$\n\n87.5% can also be written as the fraction 7/8.\n\n$$87.5\\\\%=\\frac{7}{8}$$\n\nWrite this remaining percentage as a multiplier.\n\n$$\\text{Multiplier}=\\frac{87.5}{100}=0.875$$\n\nSo the decrease multiplier is 0.875.\n\n$$\\text{Multiplier}=0.875$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-090",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "decreaseMultiplier",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-090:quant-v4-percentage-pct-004-residual-v3:PCT-CP-004:2",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-004:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "The current salary is Rs. 48000. Find the percentage decrease needed to make it Rs. 36000.",
+      "options": [
+        "$$26\\%$$",
+        "$$25\\%$$",
+        "$$33\\%$$",
+        "$$20\\%$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$25\\%$$",
+      "explanation": "First find how much reduction is needed to reach the target.\n\n$$\\text{Needed reduction}=48000-36000=12000$$\n\nNow compare this reduction with the current salary.\n\n$$\\text{Required decrease}=\\frac{12000}{48000}\\times100=25\\\\%$$\n\nSo the required percentage decrease is 25%.\n\n$$\\text{Required decrease}=25\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-131",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "requiredDecrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-131:quant-v4-percentage-pct-004-residual-v3:PCT-CP-009:3",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-009:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "An income records percentage decreases of 20% and 10% one after another. Find the combined percentage decrease.",
+      "options": [
+        "$$29\\%$$",
+        "$$28\\%$$",
+        "$$39\\%$$",
+        "$$22\\%$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$28\\%$$",
+      "explanation": "Convert both decreases into retained factors.\n\n$$\\text{Combined factor}=\\frac{80}{100}\\times\\frac{90}{100}$$\n\nThis combined factor shows what fraction of the original still remains.\n\n$$\\text{Combined factor}=\\frac{80}{100}\\times\\frac{90}{100}=0.72$$\n\nSo subtract the remaining fraction from 1 and convert it into percent.\n\n$$\\text{Net decrease}=28\\\\%$$\n\nSo the overall percentage decrease is 28%.\n\n$$\\text{Net decrease}=28\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-109",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "netPercentageDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-109:quant-v4-percentage-pct-004-residual-v3:PCT-CP-006:4",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-006:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "A company has 200 employees. 50% are trained employees, and the rest are untrained employees. The two groups decrease by 15% and 15%. Find the new share of trained employees.",
+      "options": [
+        "$$50\\%$$",
+        "$$49\\%$$",
+        "$$55\\%$$",
+        "$$51\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$50\\%$$",
+      "explanation": "At first, 50% of the employees are trained employees. So split the original total.\n\n$$\\text{Initial trained employees}=200\\times\\frac{50}{100}=100,\\ \\text{Initial untrained employees}=100$$\n\nNow decrease the numbers of trained employees and untrained employees by their respective percentages.\n\n$$\\text{New trained employees}=100\\times\\frac{85}{100}=85,\\ \\text{New untrained employees}=100\\times\\frac{85}{100}=85$$\n\nUse the new total to find the updated percentage of trained employees.\n\n$$\\text{New trained employees percent}=\\frac{85}{170}\\times100=50\\\\%$$\n\nSo the new percentage of trained employees is 50%.\n\n$$\\text{New trained employees percent}=50\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-042",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "componentWiseDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-042:quant-v4-percentage-pct-004-residual-v3:PCT-CP-008:5",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-008:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "A expenditure is Rs. 20000 at present and decreases by 10% every year. Find the expenditure after 3 years.",
+      "options": [
+        "$$14580$$",
+        "$$14480$$",
+        "$$14630$$",
+        "$$14680$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$14580$$",
+      "explanation": "Each decrease of 10% leaves 90% of the expenditure.\n\n$$100\\\\%-10\\\\%=90\\\\%$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nSince the same decrease happens for 3 periods, use the retained factor 3 times.\n\n$$\\text{Overall factor}=\\left(\\frac{90}{100}\\right)^{3}$$\n\nNow multiply the current expenditure by this overall factor.\n\n$$\\text{Final expenditure}=20000\\times\\left(\\frac{90}{100}\\right)^{3}=14580$$\n\nSo the expenditure after 3 periods is Rs. 14580.\n\n$$\\text{Final expenditure}=14580$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-020",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "percentageDecreaseBridge",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-020:quant-v4-percentage-pct-004-residual-v3:PCT-CP-010:6",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-010:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "The final number of employees is 18000 after a 10% decrease. What was the original number?",
+      "options": [
+        "$$19900$$",
+        "$$20050$$",
+        "$$20100$$",
+        "$$20000$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$20000$$",
+      "explanation": "After a decrease of 10%, the new value becomes 90% of the original.\n\n$$90\\\\%\\rightarrow18000$$\n\n90% can also be written as the fraction 9/10.\n\n$$90\\\\%=\\frac{9}{10}$$\n\nFirst find the value of 1% by dividing 18000 by 90.\n\n$$1\\\\%=\\frac{18000}{90}=200$$\n\nNow multiply the value of 1% by 100 to get the original value.\n\n$$100\\\\%=200\\times100=20000$$\n\nSo the original employees were 20000.\n\n$$\\text{Original employees}=20000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-080",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "originalValueFromDecreasedValue",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-080:quant-v4-percentage-pct-004-residual-v3:PCT-CP-003:7",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-003:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "The town had 5000 residents. It decreased by 20% and then by 25%. Find the final number of residents.",
+      "options": [
+        "$$3000$$",
+        "$$2900$$",
+        "$$3050$$",
+        "$$3100$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$3000$$",
+      "explanation": "After the first decrease of 20%, the residents become 80% of its original value.\n\n$$\\text{After first decrease}=5000\\times\\frac{80}{100}=4000$$\n\nNow decrease this new value by 25%.\n\n$$\\text{Final value}=4000\\times\\frac{75}{100}=3000$$\n\nSo the residents after both decreases are 3000.\n\n$$\\text{Final residents}=3000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-096",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "successiveDecrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-096:quant-v4-percentage-pct-004-residual-v3:PCT-CP-005:8",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-005:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "An asset has an asset value of Rs. 60000. If it depreciates by 15%, find the new asset value.",
+      "options": [
+        "$$51100$$",
+        "$$50900$$",
+        "$$51050$$",
+        "$$51000$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$51000$$",
+      "explanation": "Decrease = 15%. So the remaining value is 85% of the original.\n\n$$100\\\\%-15\\\\%=85\\\\%$$\n\nNow take 85% of the original asset value.\n\n$$\\text{New asset value}=60000\\times\\frac{85}{100}=51000$$\n\nSo the new asset value is Rs. 51000.\n\n$$\\text{New asset value}=51000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-055",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directPercentageDecrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-055:quant-v4-percentage-pct-004-residual-v3:PCT-CP-001:9",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-001:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "An amount of Rs. 40000 is recorded as the bonus fund. After a fall of 12%, find the reduction only.",
+      "options": [
+        "$$4800$$",
+        "$$4700$$",
+        "$$4900$$",
+        "$$4850$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$4800$$",
+      "explanation": "Only the reduced part is needed here.\n\n$$\\text{Decrease amount}=12\\\\%\\text{ of }Rs. 40000$$\n\nSo find 12% of the original bonus fund.\n\n$$\\text{Decrease amount}=40000\\times\\frac{12}{100}=4800$$\n\nSo the decrease amount is Rs. 4800.\n\n$$\\text{Decrease amount}=4800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-063",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "decreaseAmount",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-063:quant-v4-percentage-pct-004-residual-v3:PCT-CP-002:10",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-002:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "The Fund A value is Rs. 50000, while the Fund B value is Rs. 25000. After percentage decreases of 15% and 10%, find the difference between the two updated values.",
+      "options": [
+        "$$19900$$",
+        "$$20050$$",
+        "$$20000$$",
+        "$$20100$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$20000$$",
+      "explanation": "First find the new value of Fund A value after its decrease.\n\n$$\\text{New Fund A value}=50000\\times\\frac{85}{100}=42500$$\n\nNow find the new value of Fund B value after its decrease.\n\n$$\\text{New Fund B value}=25000\\times\\frac{90}{100}=22500$$\n\nNow compare the two new values.\n\n$$\\text{Difference}=\\left|42500-22500\\right|=20000$$\n\nSo the difference between the new values is Rs. 20000.\n\n$$\\text{Difference}=20000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-115",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "comparativeDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-115:quant-v4-percentage-pct-004-residual-v3:PCT-CP-007:11",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-007:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "If the marked price is cut by 20%, find the single multiplier for the revised value.",
+      "options": [
+        "$$0.8$$",
+        "$$1.3$$",
+        "$$0.3$$",
+        "$$1.8$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$0.8$$",
+      "explanation": "A decrease of 20% leaves 80% of the original.\n\n$$100\\\\%-20\\\\%=80\\\\%$$\n\n80% can also be written as the fraction 4/5.\n\n$$80\\\\%=\\frac{4}{5}$$\n\nWrite this remaining percentage as a multiplier.\n\n$$\\text{Multiplier}=\\frac{80}{100}=0.8$$\n\nSo the decrease multiplier is 0.8.\n\n$$\\text{Multiplier}=0.8$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-031",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "decreaseMultiplier",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-031:quant-v4-percentage-pct-004-residual-v3:PCT-CP-004:12",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-004:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 19,
+        "passedChecks": 19,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "The present number of voters is 600. Find the percentage decrease needed to reduce it to 450.",
+      "options": [
+        "$$20\\%$$",
+        "$$26\\%$$",
+        "$$25\\%$$",
+        "$$33\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$25\\%$$",
+      "explanation": "First find how much reduction is needed to reach the target.\n\n$$\\text{Needed reduction}=600-450=150$$\n\nNow compare this reduction with the current voters.\n\n$$\\text{Required decrease}=\\frac{150}{600}\\times100=25\\\\%$$\n\nSo the required percentage decrease is 25%.\n\n$$\\text{Required decrease}=25\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-140",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "requiredDecrease",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-140:quant-v4-percentage-pct-004-residual-v3:PCT-CP-009:13",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-009:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "For a turnover, the first decrease is 20% and the second is 25%. Find the net decrease percentage.",
+      "options": [
+        "$$40\\%$$",
+        "$$67\\%$$",
+        "$$29\\%$$",
+        "$$41\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$40\\%$$",
+      "explanation": "Convert both decreases into retained factors.\n\n$$\\text{Combined factor}=\\frac{80}{100}\\times\\frac{75}{100}$$\n\nThis combined factor shows what fraction of the original still remains.\n\n$$\\text{Combined factor}=\\frac{80}{100}\\times\\frac{75}{100}=0.6$$\n\nSo subtract the remaining fraction from 1 and convert it into percent.\n\n$$\\text{Net decrease}=40\\\\%$$\n\nSo the overall percentage decrease is 40%.\n\n$$\\text{Net decrease}=40\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-106",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "netPercentageDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-106:quant-v4-percentage-pct-004-residual-v3:PCT-CP-006:14",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-006:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "In a total of 300 workers, 60% are male workers. The rest are female workers. After the numbers of male workers and female workers fall by 15% and 10% respectively, find the percentage of male workers in the new total.",
+      "options": [
+        "$$41.3793\\%$$",
+        "$$59.6207\\%$$",
+        "$$57.6207\\%$$",
+        "$$58.6207\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$58.6207\\%$$",
+      "explanation": "At first, 60% of the workers are male workers. So split the original total.\n\n$$\\text{Initial male workers}=300\\times\\frac{60}{100}=180,\\ \\text{Initial female workers}=120$$\n\nNow decrease the numbers of male workers and female workers by their respective percentages.\n\n$$\\text{New male workers}=180\\times\\frac{85}{100}=153,\\ \\text{New female workers}=120\\times\\frac{90}{100}=108$$\n\nUse the new total to find the updated percentage of male workers.\n\n$$\\text{New male workers percent}=\\frac{153}{261}\\times100=58.6207\\\\%$$\n\nSo the new percentage of male workers is 58.6207%.\n\n$$\\text{New male workers percent}=58.6207\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-130",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "componentWiseDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-130:quant-v4-percentage-pct-004-residual-v3:PCT-CP-008:15",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-008:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "A business has Rs. 30000 as its annual turnover. If this decreases by 15% per year, find the value after 3 years.",
+      "options": [
+        "$$18523.75$$",
+        "$$18473.75$$",
+        "$$18423.75$$",
+        "$$18323.75$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$18423.75$$",
+      "explanation": "Each decrease of 15% leaves 85% of the annual turnover.\n\n$$100\\\\%-15\\\\%=85\\\\%$$\n\nSince the same decrease happens for 3 periods, use the retained factor 3 times.\n\n$$\\text{Overall factor}=\\left(\\frac{85}{100}\\right)^{3}$$\n\nNow multiply the current annual turnover by this overall factor.\n\n$$\\text{Final annual turnover}=30000\\times\\left(\\frac{85}{100}\\right)^{3}=18423.75$$\n\nSo the annual turnover after 3 periods is Rs. 18423.75.\n\n$$\\text{Final annual turnover}=18423.75$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-149",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "percentageDecreaseBridge",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-149:quant-v4-percentage-pct-004-residual-v3:PCT-CP-010:16",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-010:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "After a 25% decrease, the population became 18000. Find the original population.",
+      "options": [
+        "$$24000$$",
+        "$$23900$$",
+        "$$24100$$",
+        "$$24050$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$24000$$",
+      "explanation": "After a decrease of 25%, the new value becomes 75% of the original.\n\n$$75\\\\%\\rightarrow18000$$\n\n75% can also be written as the fraction 3/4.\n\n$$75\\\\%=\\frac{3}{4}$$\n\nFirst find the value of 1% by dividing 18000 by 75.\n\n$$1\\\\%=\\frac{18000}{75}=240$$\n\nNow multiply the value of 1% by 100 to get the original value.\n\n$$100\\\\%=240\\times100=24000$$\n\nSo the original population was 24000.\n\n$$\\text{Original population}=24000$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-006",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "originalValueFromDecreasedValue",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-006:quant-v4-percentage-pct-004-residual-v3:PCT-CP-003:17",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-003:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "A factory produced 8000 units. Output fell by 15% and later by 10%. Find the final output.",
+      "options": [
+        "$$6220$$",
+        "$$6120$$",
+        "$$6170$$",
+        "$$6020$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$6120$$",
+      "explanation": "After the first decrease of 15%, the units become 85% of its original value.\n\n$$\\text{After first decrease}=8000\\times\\frac{85}{100}=6800$$\n\nNow decrease this new value by 10%.\n\n$$\\text{Final value}=6800\\times\\frac{90}{100}=6120$$\n\nSo the units after both decreases are 6120.\n\n$$\\text{Final units}=6120$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-100",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "successiveDecrease",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-100:quant-v4-percentage-pct-004-residual-v3:PCT-CP-005:18",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-005:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "The monthly salary was Rs. 60000. It decreased by 12%. Find the revised monthly salary.",
+      "options": [
+        "$$52800$$",
+        "$$52900$$",
+        "$$52700$$",
+        "$$52850$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$52800$$",
+      "explanation": "Decrease = 12%. So the remaining value is 88% of the original.\n\n$$100\\\\%-12\\\\%=88\\\\%$$\n\nNow take 88% of the original monthly salary.\n\n$$\\text{New monthly salary}=60000\\times\\frac{88}{100}=52800$$\n\nSo the new monthly salary is Rs. 52800.\n\n$$\\text{New monthly salary}=52800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-004",
+        "archetypeId": "PCT-004",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-052",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "directPercentageDecrease",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-052:quant-v4-percentage-pct-004-residual-v3:PCT-CP-001:19",
+        "seed": "quant-v4-percentage-pct-004-residual-v3:PCT-CP-001:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    }
+  ]
+}

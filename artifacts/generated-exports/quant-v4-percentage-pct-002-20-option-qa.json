@@ -1,0 +1,768 @@
+{
+  "title": "Question Studio Export",
+  "generatedAt": "2026-07-03T03:23:28.019Z",
+  "count": 20,
+  "content": "explanations",
+  "questions": [
+    {
+      "questionNo": 1,
+      "stem": "In a budget, 20% goes to marketing, 20% to salaries, and 20% to rent. Find the missing percentage for other expenses.",
+      "options": [
+        "$$41\\%$$",
+        "$$60\\%$$",
+        "$$40\\%$$",
+        "$$39\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$40\\%$$",
+      "explanation": "The full distribution adds up to 100%.\n\n$$marketing+salaries+rent+other expenses=100\\\\%$$\n\nFirst add the known percentages.\n\n$$20\\\\%+20\\\\%+20\\\\%=60\\\\%$$\n\nNow subtract that total from 100% to get the missing percentage.\n\n$$other expenses=100\\\\%-60\\\\%=40\\\\%$$\n\nTherefore the missing percentage is 40%.\n\n$$\\text{other expenses}=40\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-018",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "missingPercentage",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-018:quant-v4-percentage-pct-002-residual-v3:PCT-CP-009:0",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-009:0"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 2,
+      "stem": "If 30% of the candidates have passed, find the percentage of failed.",
+      "options": [
+        "$$70\\%$$",
+        "$$69\\%$$",
+        "$$71\\%$$",
+        "$$30\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$70\\%$$",
+      "explanation": "The full quantity is always 100%.\n\n$$passed+failed=100\\\\%$$\n\nSo subtract 30% from 100% to get the remaining percentage.\n\n$$failed=100\\\\%-30\\\\%=70\\\\%$$\n\nTherefore the failed percentage is 70%.\n\n$$\\text{failed}=70\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-105",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "complementaryPercentage",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-105:quant-v4-percentage-pct-002-residual-v3:PCT-CP-006:1",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-006:1"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 3,
+      "stem": "If 25% of the monthly usage is 210, find the amount corresponding to 75% of the same total.",
+      "options": [
+        "$$640$$",
+        "$$650$$",
+        "$$630$$",
+        "$$620$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$630$$",
+      "explanation": "Here, 25% of the usage equals 210.\n\n$$25\\\\%\\rightarrow210$$\n\nFirst find the value corresponding to 1% by dividing 210 by 25.\n\n$$1\\\\%=\\frac{210}{25}=8.4$$\n\nNow multiply the value of 1% by 75 to get 75%.\n\n$$75\\\\%=8.4\\times75=630$$\n\nTherefore 75% of the usage is 630.\n\n$$\\text{students}=630$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-064",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "anotherPercentageFromKnownPercentage",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-064:quant-v4-percentage-pct-002-residual-v3:PCT-CP-002:2",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-002:2"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 4,
+      "stem": "A survey covers 1200 respondents. If 40% are satisfied respondents, 30% are dissatisfied respondents, and 30% are neutral respondents, find the number of satisfied respondents.",
+      "options": [
+        "$$480$$",
+        "$$500$$",
+        "$$470$$",
+        "$$490$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$480$$",
+      "explanation": "The whole respondents corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 40 to find the satisfied respondents.\n\n$$40\\\\%=12\\times40=480$$\n\nTherefore the satisfied respondents count is 480.\n\n$$\\text{satisfied respondents}=480$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-130",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "percentagePartition",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-130:quant-v4-percentage-pct-002-residual-v3:PCT-CP-008:3",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-008:3"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 25,
+        "passedChecks": 25,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 5,
+      "stem": "If 75 books are 25% of the total, what percent of the total is 30 books?",
+      "options": [
+        "$$90\\%$$",
+        "$$10\\%$$",
+        "$$9\\%$$",
+        "$$11\\%$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$10\\%$$",
+      "explanation": "Here, 25% of the books equals 75.\n\n$$25\\\\%\\rightarrow75$$\n\nTo determine the value of 1%, divide 75 by 25.\n\n$$1\\\\%=\\frac{75}{25}=3$$\n\nNow compare 30 with the value of 1% to find the required percentage.\n\n$$\\text{Required percent}=\\frac{30}{3}=10\\\\%$$\n\nTherefore 30 is 10% of the books.\n\n$$\\text{Required percent}=10\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-032",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "reversePercentageMapping",
+        "difficulty": "Hard",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-032:quant-v4-percentage-pct-002-residual-v3:PCT-CP-004:4",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-004:4"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 6,
+      "stem": "Out of a total of 5000 population, 45% are males, 30% are females, and 25% are children. Find the number of children.",
+      "options": [
+        "$$1350$$",
+        "$$1150$$",
+        "$$1300$$",
+        "$$1250$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$1250$$",
+      "explanation": "The whole population corresponds to 100%.\n\n$$100\\\\%\\rightarrow5000$$\n\nSo the value corresponding to 1% is obtained by dividing 5000 by 100.\n\n$$1\\\\%=\\frac{5000}{100}=50$$\n\nNow multiply the value of 1% by the percentage for children.\n\n$$25\\\\%=50\\times25=1250$$\n\nTherefore the value for children is 1250.\n\n$$\\text{children}=1250$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-048",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "multiCategoryPercentageDistribution",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-048:quant-v4-percentage-pct-002-residual-v3:PCT-CP-010:5",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-010:5"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 25,
+        "passedChecks": 25,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 7,
+      "stem": "In a survey, 45% of the respondents selected Option A. If 360 respondents selected it, find the total number of respondents.",
+      "options": [
+        "$$790$$",
+        "$$820$$",
+        "$$800$$",
+        "$$810$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$800$$",
+      "explanation": "Here, 45% of the respondents equals 360.\n\n$$45\\\\%\\rightarrow360$$\n\nTo determine the value of 1%, divide 360 by 45.\n\n$$1\\\\%=\\frac{360}{45}=8$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=8\\times100=800$$\n\nTherefore the total respondents is 800.\n\n$$\\text{Total respondents}=800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-051",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "wholeFromPart",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-051:quant-v4-percentage-pct-002-residual-v3:PCT-CP-001:6",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-001:6"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 8,
+      "stem": "Out of 240 invoices, 96 were paid. Find the percentage of paid.",
+      "options": [
+        "$$67\\%$$",
+        "$$40\\%$$",
+        "$$41\\%$$",
+        "$$29\\%$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$40\\%$$",
+      "explanation": "The whole invoices corresponds to 100%.\n\n$$100\\\\%\\rightarrow240$$\n\nSo 1% is obtained by dividing 240 by 100.\n\n$$1\\\\%=\\frac{240}{100}=2.4$$\n\nNow compare 96 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{96}{2.4}=40\\\\%$$\n\nTherefore 96 is 40% of the invoices.\n\n$$\\text{paid}=40\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-074",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "percentageFromPartAndWhole",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-074:quant-v4-percentage-pct-002-residual-v3:PCT-CP-003:7",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-003:7"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 9,
+      "stem": "A museum collection record splits exhibits in the ratio 5:1. Express the second part as a percentage of the whole.",
+      "options": [
+        "$$16.67\\%$$",
+        "$$17.67\\%$$",
+        "$$83.33\\%$$",
+        "$$15.67\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$16.67\\%$$",
+      "explanation": "First add the ratio parts to get the whole number of equal parts.\n\n$$\\text{Total parts}=5+1=6$$\n\nThe second part accounts for 1 out of these 6 parts.\n\n$$\\text{Share fraction}=\\frac{1}{6}$$\n\nConvert that share into a percentage.\n\n$$\\text{Required percent}=\\frac{1}{6}\\times100=16.67\\\\%$$\n\nTherefore the second part corresponds to 16.67%.\n\n$$\\text{second part}=16.67\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-010",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "ratioToPercentage",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-010:quant-v4-percentage-pct-002-residual-v3:PCT-CP-005:8",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-005:8"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 10,
+      "stem": "A production report shows 50% in Grade A units and 15% in Grade B units. Find the difference in percentage points between these categories.",
+      "options": [
+        "$$54\\%$$",
+        "$$26\\%$$",
+        "$$36\\%$$",
+        "$$35\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$35\\%$$",
+      "explanation": "Both parts are already given as percentages of the same whole.\n\n$$Grade A units=50\\\\%,\\ Grade B units=15\\\\%$$\n\nSo subtract the smaller percentage from the larger percentage.\n\n$$\\text{Difference}=50\\\\%-15\\\\%=35\\\\%$$\n\nTherefore the percentage difference is 35%.\n\n$$\\text{Difference}=35\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-115",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "differenceBetweenPercentageParts",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-115:quant-v4-percentage-pct-002-residual-v3:PCT-CP-007:9",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-007:9"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 11,
+      "stem": "30% is spent on food, 25% on rent, and 10% on transport. Find the remaining percentage for remaining.",
+      "options": [
+        "$$36\\%$$",
+        "$$34\\%$$",
+        "$$65\\%$$",
+        "$$35\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$35\\%$$",
+      "explanation": "The full distribution adds up to 100%.\n\n$$food+rent+transport+remaining=100\\\\%$$\n\nFirst add the known percentages.\n\n$$30\\\\%+25\\\\%+10\\\\%=65\\\\%$$\n\nNow subtract that total from 100% to get the missing percentage.\n\n$$remaining=100\\\\%-65\\\\%=35\\\\%$$\n\nTherefore the missing percentage is 35%.\n\n$$\\text{remaining}=35\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-009",
+        "questionLanguageId": "PCT-QL-017",
+        "explanationId": "PCT-ES-009",
+        "taskKind": "missingPercentage",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-009:PCT-QL-017:quant-v4-percentage-pct-002-residual-v3:PCT-CP-009:10",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-009:10"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 24,
+        "passedChecks": 24,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 12,
+      "stem": "If 30% of the parcels are delivered, find the percentage of undelivered.",
+      "options": [
+        "$$30\\%$$",
+        "$$71\\%$$",
+        "$$69\\%$$",
+        "$$70\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$70\\%$$",
+      "explanation": "The full quantity is always 100%.\n\n$$delivered+undelivered=100\\\\%$$\n\nSo subtract 30% from 100% to get the remaining percentage.\n\n$$undelivered=100\\\\%-30\\\\%=70\\\\%$$\n\nTherefore the undelivered percentage is 70%.\n\n$$\\text{undelivered}=70\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-006",
+        "questionLanguageId": "PCT-QL-110",
+        "explanationId": "PCT-ES-006",
+        "taskKind": "complementaryPercentage",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-006:PCT-QL-110:quant-v4-percentage-pct-002-residual-v3:PCT-CP-006:11",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-006:11"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 13,
+      "stem": "In a school, 20% of the students is 140. Find the number represented by 45% of the same total.",
+      "options": [
+        "$$315$$",
+        "$$325$$",
+        "$$305$$",
+        "$$335$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$315$$",
+      "explanation": "Here, 20% of the students equals 140.\n\n$$20\\\\%\\rightarrow140$$\n\nFirst find the value corresponding to 1% by dividing 140 by 20.\n\n$$1\\\\%=\\frac{140}{20}=7$$\n\nNow multiply the value of 1% by 45 to get 45%.\n\n$$45\\\\%=7\\times45=315$$\n\nTherefore 45% of the students is 315.\n\n$$\\text{students}=315$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-002",
+        "questionLanguageId": "PCT-QL-025",
+        "explanationId": "PCT-ES-002",
+        "taskKind": "anotherPercentageFromKnownPercentage",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-002:PCT-QL-025:quant-v4-percentage-pct-002-residual-v3:PCT-CP-002:12",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-002:12"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 14,
+      "stem": "A survey roster lists 1200 students. It has 25% girls, 35% boys, and 40% other students. Find the number of girls.",
+      "options": [
+        "$$290$$",
+        "$$320$$",
+        "$$310$$",
+        "$$300$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$300$$",
+      "explanation": "The whole students corresponds to 100%.\n\n$$100\\\\%\\rightarrow1200$$\n\nSo the value corresponding to 1% is obtained by dividing 1200 by 100.\n\n$$1\\\\%=\\frac{1200}{100}=12$$\n\nNow multiply the value of 1% by 25 to find the girls.\n\n$$25\\\\%=12\\times25=300$$\n\nTherefore the girls count is 300.\n\n$$\\text{girls}=300$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-008",
+        "questionLanguageId": "PCT-QL-042",
+        "explanationId": "PCT-ES-008",
+        "taskKind": "percentagePartition",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-008:PCT-QL-042:quant-v4-percentage-pct-002-residual-v3:PCT-CP-008:13",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-008:13"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 25,
+        "passedChecks": 25,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 15,
+      "stem": "If Rs. 1200 is 30% of the total electricity bill, what percent of the same electricity bill is Rs. 1200?",
+      "options": [
+        "$$23\\%$$",
+        "$$43\\%$$",
+        "$$30\\%$$",
+        "$$31\\%$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$30\\%$$",
+      "explanation": "Here, 30% of the electricity bill equals Rs. 1200.\n\n$$30\\\\%\\rightarrowRs. 1200$$\n\nTo determine the value of 1%, divide Rs. 1200 by 30.\n\n$$1\\\\%=\\frac{1200}{30}=40$$\n\nNow compare Rs. 1200 with the value of 1% to find the required percentage.\n\n$$\\text{Required percent}=\\frac{1200}{40}=30\\\\%$$\n\nTherefore Rs. 1200 is 30% of the electricity bill.\n\n$$\\text{Required percent}=30\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-004",
+        "questionLanguageId": "PCT-QL-081",
+        "explanationId": "PCT-ES-004",
+        "taskKind": "reversePercentageMapping",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-004:PCT-QL-081:quant-v4-percentage-pct-002-residual-v3:PCT-CP-004:14",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-004:14"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 22,
+        "passedChecks": 22,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 16,
+      "stem": "A depot stores 6000 bags. If 40% are wheat bags, 30% are rice bags, and 30% are maize bags, find the number of maize bags.",
+      "options": [
+        "$$1700$$",
+        "$$1900$$",
+        "$$1800$$",
+        "$$1850$$"
+      ],
+      "correctIndex": 2,
+      "answer": "$$1800$$",
+      "explanation": "The whole bags corresponds to 100%.\n\n$$100\\\\%\\rightarrow6000$$\n\nSo the value corresponding to 1% is obtained by dividing 6000 by 100.\n\n$$1\\\\%=\\frac{6000}{100}=60$$\n\nNow multiply the value of 1% by the percentage for maize bags.\n\n$$30\\\\%=60\\times30=1800$$\n\nTherefore the value for maize bags is 1800.\n\n$$\\text{maize bags}=1800$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-010",
+        "questionLanguageId": "PCT-QL-148",
+        "explanationId": "PCT-ES-010",
+        "taskKind": "multiCategoryPercentageDistribution",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-010:PCT-QL-148:quant-v4-percentage-pct-002-residual-v3:PCT-CP-010:15",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-010:15"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 25,
+        "passedChecks": 25,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 17,
+      "stem": "In a company, 45% of the employees work in the accounts department. If 324 employees work there, find the total number of employees.",
+      "options": [
+        "$$730$$",
+        "$$720$$",
+        "$$740$$",
+        "$$710$$"
+      ],
+      "correctIndex": 1,
+      "answer": "$$720$$",
+      "explanation": "Here, 45% of the employees equals 324.\n\n$$45\\\\%\\rightarrow324$$\n\nTo determine the value of 1%, divide 324 by 45.\n\n$$1\\\\%=\\frac{324}{45}=7.2$$\n\nNow multiply the value of 1% by 100 to get the whole.\n\n$$100\\\\%=7.2\\times100=720$$\n\nTherefore the total employees is 720.\n\n$$\\text{Total employees}=720$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-001",
+        "questionLanguageId": "PCT-QL-059",
+        "explanationId": "PCT-ES-001",
+        "taskKind": "wholeFromPart",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-001:PCT-QL-059:quant-v4-percentage-pct-002-residual-v3:PCT-CP-001:16",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-001:16"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 18,
+      "stem": "A hospital treated 480 patients, and 96 of them recovered. Find the percentage of recovered.",
+      "options": [
+        "$$20\\%$$",
+        "$$21\\%$$",
+        "$$19\\%$$",
+        "$$80\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$20\\%$$",
+      "explanation": "The whole patients corresponds to 100%.\n\n$$100\\\\%\\rightarrow480$$\n\nSo 1% is obtained by dividing 480 by 100.\n\n$$1\\\\%=\\frac{480}{100}=4.8$$\n\nNow compare 96 with the value of 1% to get the required percentage.\n\n$$\\text{Required percent}=\\frac{96}{4.8}=20\\\\%$$\n\nTherefore 96 is 20% of the patients.\n\n$$\\text{recovered}=20\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-003",
+        "questionLanguageId": "PCT-QL-076",
+        "explanationId": "PCT-ES-003",
+        "taskKind": "percentageFromPartAndWhole",
+        "difficulty": "Easy",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-003:PCT-QL-076:quant-v4-percentage-pct-002-residual-v3:PCT-CP-003:17",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-003:17"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 19,
+      "stem": "Two candidates got votes in the ratio 5:1. Find the vote percentage of the first part.",
+      "options": [
+        "$$16.67\\%$$",
+        "$$82.33\\%$$",
+        "$$84.33\\%$$",
+        "$$83.33\\%$$"
+      ],
+      "correctIndex": 3,
+      "answer": "$$83.33\\%$$",
+      "explanation": "First add the ratio parts to get the whole number of equal parts.\n\n$$\\text{Total parts}=5+1=6$$\n\nThe first part accounts for 5 out of these 6 parts.\n\n$$\\text{Share fraction}=\\frac{5}{6}$$\n\nConvert that share into a percentage.\n\n$$\\text{Required percent}=\\frac{5}{6}\\times100=83.33\\\\%$$\n\nTherefore the first part corresponds to 83.33%.\n\n$$\\text{first part}=83.33\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-005",
+        "questionLanguageId": "PCT-QL-035",
+        "explanationId": "PCT-ES-005",
+        "taskKind": "ratioToPercentage",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-005:PCT-QL-035:quant-v4-percentage-pct-002-residual-v3:PCT-CP-005:18",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-005:18"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 20,
+        "passedChecks": 20,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    },
+    {
+      "questionNo": 20,
+      "stem": "In a budget, 35% goes to food while 20% goes to transport. Find the difference between the two shares.",
+      "options": [
+        "$$15\\%$$",
+        "$$13\\%$$",
+        "$$18\\%$$",
+        "$$16\\%$$"
+      ],
+      "correctIndex": 0,
+      "answer": "$$15\\%$$",
+      "explanation": "Both parts are already given as percentages of the same whole.\n\n$$food=35\\\\%,\\ transport=20\\\\%$$\n\nSo subtract the smaller percentage from the larger percentage.\n\n$$\\text{Difference}=35\\\\%-20\\\\%=15\\\\%$$\n\nTherefore the percentage difference is 15%.\n\n$$\\text{Difference}=15\\\\%$$",
+      "metadata": {
+        "subject": "Quant",
+        "topicGroup": "Arithmetic",
+        "subtopic": "Percentage",
+        "packageId": "PCT-002",
+        "archetypeId": "PCT-002",
+        "canonicalProblemId": "PCT-CP-007",
+        "questionLanguageId": "PCT-QL-112",
+        "explanationId": "PCT-ES-007",
+        "taskKind": "differenceBetweenPercentageParts",
+        "difficulty": "Medium",
+        "language": "",
+        "generationBackend": "quant-v4",
+        "packageSource": "quant-v4-package-runtime",
+        "questionId": "PCT-CP-007:PCT-QL-112:quant-v4-percentage-pct-002-residual-v3:PCT-CP-007:19",
+        "seed": "quant-v4-percentage-pct-002-residual-v3:PCT-CP-007:19"
+      },
+      "validationSummary": {
+        "valid": true,
+        "status": "passed",
+        "totalChecks": 21,
+        "passedChecks": 21,
+        "failedChecks": 0,
+        "messageAuditWarnings": []
+      }
+    }
+  ]
+}

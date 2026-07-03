@@ -31,6 +31,86 @@ function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
 }
 
+function isWholeNumber(value: number) {
+  return Math.abs(value - Math.round(value)) < 1e-9;
+}
+
+function isDiscreteCountLabel(label: string) {
+  const normalized = label.trim().toLowerCase();
+  return [
+    "population",
+    "cattle population",
+    "households",
+    "students",
+    "residents",
+    "passengers",
+    "applicants",
+    "boxes",
+    "cartons",
+    "units",
+    "accounts",
+    "visitors",
+  ].includes(normalized)
+    || normalized.startsWith("number of ")
+    || normalized.endsWith(" users");
+}
+
+function chooseCompatibleDiscreteBase(
+  basePool: readonly number[],
+  isCompatible: (value: number) => boolean,
+  seed: string,
+) {
+  const compatiblePool = basePool.filter(isCompatible);
+  return pick(
+    compatiblePool.length ? compatiblePool : basePool,
+    `${seed}:discrete-compatible-base`,
+  );
+}
+
+function constrainDiscreteCountVariables(
+  builderId: string,
+  variables: Pct003Variables,
+  seed: string,
+): Pct003Variables {
+  const wholeLabel = String(variables.wholeLabel ?? "");
+  if (!isDiscreteCountLabel(wholeLabel)) {
+    return variables;
+  }
+
+  if (builderId === "PCT-QL-010") {
+    const rate1 = Number(variables.rate1 ?? 0);
+    const rate2 = Number(variables.rate2 ?? 0);
+    const originalPool = [4000, 5000, 8000, 10000] as const;
+    const originalValue = chooseCompatibleDiscreteBase(
+      originalPool,
+      (value) => isWholeNumber(value * (100 + rate1) * (100 + rate2) / 10000),
+      seed,
+    );
+    return {
+      ...variables,
+      originalValue,
+    };
+  }
+
+  if (builderId === "PCT-QL-019") {
+    const growthRate = Number(variables.growthRate ?? 0);
+    const periodCount = Number(variables.periodCount ?? 0);
+    const currentPool = [5000, 8000, 10000, 12000] as const;
+    const growthFactor = (100 + growthRate) / 100;
+    const currentValue = chooseCompatibleDiscreteBase(
+      currentPool,
+      (value) => isWholeNumber(value * (growthFactor ** periodCount)),
+      seed,
+    );
+    return {
+      ...variables,
+      currentValue,
+    };
+  }
+
+  return variables;
+}
+
 export function getSelectableQuestionLanguageIds(cpId: Pct003CanonicalProblemId, language: Pct003Language) {
   return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
 }
@@ -456,10 +536,15 @@ function createVariables(questionLanguageId: string, difficultyBand: Pct003Diffi
   const builderId = SCENARIO_ALIASES[questionLanguageId] ?? questionLanguageId;
   const builder = SCENARIO_BUILDERS[builderId];
   if (!builder) throw new Error(`Missing scenario builder for ${questionLanguageId}`);
-  return {
+  const mergedVariables = {
     ...builder(difficultyBand, seed),
     ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
   };
+  return constrainDiscreteCountVariables(
+    builderId,
+    mergedVariables,
+    `${seed}:${questionLanguageId}`,
+  );
 }
 
 export function selectQuestionLanguageId(

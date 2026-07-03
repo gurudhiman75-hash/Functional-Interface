@@ -53,6 +53,24 @@ assertFixedCase("PCT-CP-004", "PCT-QL-028", { percentageRate: 25 }, "$$20\\%$$",
 assertFixedCase("PCT-CP-005", "PCT-QL-036", { rate1: 20, rate2: 25, rate3: 15, value: 2400 }, "$$6000$$", "ABSOLUTE");
 assertFixedCase("PCT-CP-006", "PCT-QL-048", { totalMixture: 40, percentageRate: 20, newRate: 10 }, "$$40$$", "ABSOLUTE");
 
+const discountPercentPkg = runPct001Pipeline("PCT-CP-001", {
+  language: "en",
+  questionLanguageId: "PCT-QL-1504",
+  seed: "pct-001-discount-percent",
+});
+assert.ok(Number(discountPercentPkg.parameters.variables.value) < Number(discountPercentPkg.parameters.variables.baseValue));
+assert.ok(Number(discountPercentPkg.solver.numericAnswer ?? NaN) <= 75);
+
+for (let index = 0; index < 60; index += 1) {
+  const pkg = runPct001Pipeline("PCT-CP-003", { language: "en", seed: `pct-001-count-compound:${index}` });
+  if (
+    ["compoundGrowth", "compoundDecay"].includes(pkg.parameters.taskKind) &&
+    /\b(population|residents?|students?|passengers?|employees?|workers?|applicants?|voters?|cartons?|boxes?|bags?|books?|accounts?|users?|inventory)\b/i.test(pkg.stem)
+  ) {
+    assert.ok(Number.isInteger(Number(pkg.solver.numericAnswer ?? NaN)), `count-like compound result must stay integral for ${pkg.stem}`);
+  }
+}
+
 for (let index = 0; index < 1000; index += 1) {
   const cpId = cpIds[index % cpIds.length]!;
   const en = runPct001Pipeline(cpId, { language: "en", seed: `pct-001-test:${index}` });

@@ -11,6 +11,20 @@ export interface QuantV4OptionGenerationInput {
   seed?: string;
   existingOptions?: readonly unknown[];
   optionCount?: number;
+  context?: QuantV4OptionGenerationContext;
+}
+
+export interface QuantV4OptionGenerationContext {
+  packageId?: string;
+  archetypeId?: string;
+  canonicalProblemId?: string;
+  questionLanguageId?: string;
+  taskKind?: string;
+  answerType?: string;
+  difficulty?: string;
+  stem?: string;
+  variables?: Record<string, unknown>;
+  traceability?: unknown;
 }
 
 export interface QuantV4OptionGenerationResult {
@@ -42,10 +56,30 @@ function shuffleDeterministically<T>(items: T[], seed: string) {
   return shuffled;
 }
 
+function normalizeOptionIdentity(value: string) {
+  return normalizeMathLiteral(value)
+    .replace(/\\\\%/g, "%")
+    .replace(/\\%/g, "%")
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,;:!?])/g, "$1")
+    .replace(/[.]+$/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function sanitizeOptionText(value: string) {
+  return value
+    .replace(/\s+/g, " ")
+    .replace(/\s+([.,;:!?])/g, "$1")
+    .replace(/([.!?])\1+$/g, "$1")
+    .trim();
+}
+
 function addUnique(options: string[], value: string) {
-  const trimmed = value.trim();
+  const trimmed = sanitizeOptionText(value);
   if (!trimmed) return;
-  if (!options.some((existing) => existing.trim() === trimmed)) {
+  const key = normalizeOptionIdentity(trimmed);
+  if (!options.some((existing) => normalizeOptionIdentity(existing) === key)) {
     options.push(trimmed);
   }
 }
@@ -67,8 +101,65 @@ function unwrapMathDelimiters(value: string) {
 function normalizeMathLiteral(value: string) {
   return unwrapMathDelimiters(value)
     .replace(/\\%/g, "%")
+    .replace(/\\\\%/g, "%")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function contextText(context?: QuantV4OptionGenerationContext) {
+  return [
+    context?.packageId,
+    context?.archetypeId,
+    context?.canonicalProblemId,
+    context?.questionLanguageId,
+    context?.taskKind,
+    context?.answerType,
+    context?.difficulty,
+    context?.stem,
+    ...Object.entries(context?.variables ?? {}).flatMap(([key, value]) => [
+      key,
+      typeof value === "string" || typeof value === "number"
+        ? String(value)
+        : "",
+    ]),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function isReverseComparisonContext(context?: QuantV4OptionGenerationContext) {
+  const text = contextText(context);
+  return (
+    /\b(moretoless|lesstomore|reverse|exceeds|cheaper|higher than|lower than)\b/i.test(text) ||
+    /by what percent .* (more|less|above|below|higher|lower) than/i.test(text)
+  );
+}
+
+function isBoundedPercentageContext(context?: QuantV4OptionGenerationContext) {
+  const text = contextText(context);
+  return /\b(ratiotopercentage|complementarypercentage|missingpercentage|share|component|solute|solvent|milk|water|sugar|distribution|remainder|vacant|booked|valid|invalid|passed|failed|remaining|used|recovered|not recovered|boys|girls|male|female|children|attendance percentage|polling percentage|approval rate|selection rate|success rate|defect percentage|percentage share|vote percentage|new percentage of|updated percentage of|revised percentage of|new share of|updated share of|revised share of|percentage of the whole|percentage of the total|as a percentage of the whole|as a percentage of the total|what percent of the total|share of the whole|share of the total|in the new total|revised percentage|revised share|rest are|remainder are)\b/i.test(text);
+}
+
+function isCountLikeContext(context?: QuantV4OptionGenerationContext) {
+  const text = contextText(context);
+  return /\b(people|students|passengers|voters|cartons|boxes|items|units|marks|votes|employees|applicants|accounts|bags|books|seats|patients|respondents|children|boys|girls|males|females)\b/i.test(text);
+}
+
+function percentValueFromOption(option: string) {
+  const normalized = normalizeMathLiteral(option);
+  const match = normalized.match(/^(-?[\d,]+(?:\.\d+)?)\s*%$/);
+  if (!match) return null;
+  const value = Number(match[1]!.replace(/,/g, ""));
+  return Number.isFinite(value) ? value : null;
+}
+
+function numericValueFromOption(option: string) {
+  const normalized = normalizeMathLiteral(option);
+  const match = normalized.match(/^-?[\d,]+(?:\.\d+)?$/);
+  if (!match) return null;
+  const value = Number(normalized.replace(/,/g, ""));
+  return Number.isFinite(value) ? value : null;
 }
 
 function inferOptionPrecision(value: string) {
@@ -174,11 +265,21 @@ function formatFractionLikeReference(
   );
 }
 
-function isWeakGeneratedOption(option: string, answer: QuantV4CanonicalAnswer) {
+function isWeakGeneratedOption(
+  option: string,
+  answer: QuantV4CanonicalAnswer,
+  context?: QuantV4OptionGenerationContext,
+) {
+  const raw = option.trim();
   const normalized = normalizeMathLiteral(option);
   if (!normalized) return true;
-  if (/[+-]\s*1$/.test(normalized)) return true;
+  if (/(?:^|\s)[+-]\s*1$/.test(normalized)) return true;
+  if (/\$\$[\s\S]*\$\$\s*[+-]?\s*\d+\s*$/.test(raw)) return true;
+  if (/\\\)[\s]*[+-]?\s*\d+\s*$/.test(raw)) return true;
+  if (/[=][\s]*\$\$/.test(raw)) return true;
   if (/\bundefined\b|\bnull\b|\bNaN\b/i.test(normalized)) return true;
+  if (/[.!?]{2,}$/.test(raw)) return true;
+  if (/[a-zA-Z]\s*[+\-*/]\s*\d/.test(normalized)) return true;
 
   const base = inferSimpleCanonicalDistractorBase(answer);
   if (
@@ -187,6 +288,37 @@ function isWeakGeneratedOption(option: string, answer: QuantV4CanonicalAnswer) {
     typeof base.value === "number" &&
     base.value >= 0 &&
     normalized.startsWith("-")
+  ) {
+    return true;
+  }
+
+  const percentValue = percentValueFromOption(option);
+  if (percentValue !== null) {
+    if (!isReverseComparisonContext(context) && isBoundedPercentageContext(context)) {
+      if (percentValue < 0 || percentValue > 100) return true;
+    }
+
+    if (!isReverseComparisonContext(context)) {
+      const answerBase = inferSimpleCanonicalDistractorBase(answer);
+      const answerPercent =
+        answer.kind === "percentage"
+          ? answer.value
+          : answerBase?.kind === "percentage"
+            ? answerBase.value
+            : null;
+      const absurdLimit =
+        typeof answerPercent === "number" && Number.isFinite(answerPercent)
+          ? Math.max(200, Math.abs(answerPercent) * 3 + 10)
+          : 200;
+      if (percentValue > absurdLimit || percentValue < -100) return true;
+    }
+  }
+
+  const numericValue = numericValueFromOption(option);
+  if (
+    numericValue !== null &&
+    numericValue < 0 &&
+    !/\b(loss|decrease|change|difference|error)\b/i.test(contextText(context))
   ) {
     return true;
   }
@@ -229,9 +361,32 @@ function formatLikeReference(
 function percentageDistractors(
   answer: Extract<QuantV4CanonicalAnswer, { kind: "percentage"; value: number }>,
   referenceAnswer: QuantV4CanonicalAnswer,
+  context?: QuantV4OptionGenerationContext,
 ) {
   const precision = Math.max(0, answer.precision ?? 2);
   const round = (value: number) => Number(formatNumber(value, precision));
+  if (isBoundedPercentageContext(context) && !isReverseComparisonContext(context)) {
+    const candidates = [
+      100 - answer.value,
+      answer.value + 1,
+      answer.value - 1,
+      answer.value + 5,
+      answer.value - 5,
+      Math.round(answer.value),
+      Math.ceil(answer.value),
+    ].map(round);
+
+    return candidates
+      .filter(
+        (value) =>
+          Number.isFinite(value) &&
+          value >= 0 &&
+          value <= 100 &&
+          Math.abs(value - answer.value) > Number.EPSILON,
+      )
+      .map((value) => formatLikeReference(answer, referenceAnswer, value));
+  }
+
   const candidates = [
     answer.value > 0 && answer.value < 100
       ? round((100 * answer.value) / (100 - answer.value))
@@ -253,14 +408,25 @@ function percentageDistractors(
 function numericDistractors(
   answer: Extract<QuantV4CanonicalAnswer, { value: number }>,
   referenceAnswer: QuantV4CanonicalAnswer = answer,
+  context?: QuantV4OptionGenerationContext,
 ) {
   if (answer.kind === "percentage") {
-    return percentageDistractors(answer, referenceAnswer);
+    return percentageDistractors(answer, referenceAnswer, context);
   }
 
-  const values = numericOffsets(answer.value).map((offset) => answer.value + offset);
+  const values = numericOffsets(answer.value).map((offset) => {
+    const candidate = answer.value + offset;
+    return isCountLikeContext(context) || answer.kind === "integer"
+      ? Math.round(candidate)
+      : candidate;
+  });
   return values
-    .filter((value) => Number.isFinite(value))
+    .filter(
+      (value) =>
+        Number.isFinite(value) &&
+        (!isCountLikeContext(context) || Number.isInteger(value)) &&
+        value >= 0,
+    )
     .map((value) => formatLikeReference(answer, referenceAnswer, value));
 }
 
@@ -295,7 +461,63 @@ function ratioDistractors(answer: Extract<QuantV4CanonicalAnswer, { kind: "ratio
   return candidates;
 }
 
-function symbolicDistractors(answer: Extract<QuantV4CanonicalAnswer, { kind: "symbolic" }>) {
+function percentagePointDistractors(value: string) {
+  const match = value.match(
+    /(?<points>-?[\d,]+(?:\.\d+)?)\s+percentage points(?:\s+and\s+(?<relative>-?[\d,]+(?:\.\d+)?)%)?/i,
+  );
+  if (!match?.groups) return [];
+
+  const points = Number(match.groups.points.replace(/,/g, ""));
+  const relative =
+    typeof match.groups.relative === "string"
+      ? Number(match.groups.relative.replace(/,/g, ""))
+      : null;
+  if (!Number.isFinite(points)) return [];
+
+  const pointDelta = Math.max(1, Math.round(Math.abs(points) / 2) || 1);
+  if (relative !== null && Number.isFinite(relative)) {
+    return [
+      `${formatNumber(points)} percentage points and ${formatNumber(Math.max(0, relative - 5))}%`,
+      `${formatNumber(points + pointDelta)} percentage points and ${formatNumber(relative)}%`,
+      `${formatNumber(relative)} percentage points and ${formatNumber(points)}%`,
+      `${formatNumber(Math.max(0, points - pointDelta))} percentage points and ${formatNumber(relative + 5)}%`,
+    ];
+  }
+
+  return [
+    `${formatNumber(points + pointDelta)} percentage points`,
+    `${formatNumber(Math.max(0, points - pointDelta))} percentage points`,
+    `${formatNumber(points)}%`,
+  ];
+}
+
+function numericTextDistractors(value: string) {
+  const match = value.match(/(?<amount>-?[\d,]+(?:\.\d+)?)/);
+  if (!match?.groups) return [];
+  const amountText = match.groups.amount;
+  const amount = Number(amountText.replace(/,/g, ""));
+  if (!Number.isFinite(amount)) return [];
+  const precision = inferOptionPrecision(amountText);
+  const delta =
+    Math.abs(amount) >= 1000
+      ? 500
+      : Math.abs(amount) >= 100
+        ? 50
+        : Math.abs(amount) >= 10
+          ? 5
+          : 1;
+
+  return [amount + delta, Math.max(0, amount - delta), amount * 2]
+    .filter((candidate) => Number.isFinite(candidate) && candidate !== amount)
+    .map((candidate) =>
+      value.replace(amountText, formatNumber(candidate, precision)),
+    );
+}
+
+function symbolicDistractors(
+  answer: Extract<QuantV4CanonicalAnswer, { kind: "symbolic" }>,
+  context?: QuantV4OptionGenerationContext,
+) {
   const derived = inferSimpleCanonicalDistractorBase(answer);
   if (derived) {
     if (
@@ -305,7 +527,7 @@ function symbolicDistractors(answer: Extract<QuantV4CanonicalAnswer, { kind: "sy
       derived.kind === "currency" ||
       derived.kind === "unit"
     ) {
-      return numericDistractors(derived, answer);
+      return numericDistractors(derived, answer, context);
     }
     if (derived.kind === "fraction") {
       return fractionDistractors(derived, answer);
@@ -313,7 +535,12 @@ function symbolicDistractors(answer: Extract<QuantV4CanonicalAnswer, { kind: "sy
   }
 
   const value = answer.display ?? answer.value;
-  if (!value) return ["0", "1", "-1"];
+  if (!value) return ["0", "1", "2"];
+
+  const percentagePointOptions = percentagePointDistractors(value);
+  if (percentagePointOptions.length) {
+    return percentagePointOptions;
+  }
 
   const quantitativeComparison = value.match(
     /^(?<subject>.+?) is (?<direction>greater|less) by (?<prefix>Rs\.\s*)?(?<amount>[\d,]+(?:\.\d+)?)(?<suffix>.*)$/i,
@@ -373,24 +600,75 @@ function symbolicDistractors(answer: Extract<QuantV4CanonicalAnswer, { kind: "sy
     ];
   }
 
-  return [`-${value}`, `${value} + 1`, `${value} - 1`, `2${value}`];
+  const numericTextOptions = numericTextDistractors(value);
+  if (numericTextOptions.length) {
+    return numericTextOptions;
+  }
+
+  return ["Cannot be determined", "Both are equal", "None of these"];
 }
 
-function distractorsFor(answer: QuantV4CanonicalAnswer) {
+function distractorsFor(
+  answer: QuantV4CanonicalAnswer,
+  context?: QuantV4OptionGenerationContext,
+) {
   switch (answer.kind) {
     case "integer":
     case "decimal":
     case "percentage":
     case "currency":
     case "unit":
-      return numericDistractors(answer);
+      return numericDistractors(answer, answer, context);
     case "fraction":
       return fractionDistractors(answer);
     case "ratio":
       return ratioDistractors(answer);
     case "symbolic":
-      return symbolicDistractors(answer);
+      return symbolicDistractors(answer, context);
   }
+}
+
+function fallbackOptionsFor(
+  answer: QuantV4CanonicalAnswer,
+  offset: number,
+  context?: QuantV4OptionGenerationContext,
+) {
+  if (
+    answer.kind === "integer" ||
+    answer.kind === "decimal" ||
+    answer.kind === "percentage" ||
+    answer.kind === "currency" ||
+    answer.kind === "unit"
+  ) {
+    const signedOffsets = [offset, -offset, offset + 1, -(offset + 1)];
+    return signedOffsets.map((candidateOffset) => {
+      let fallbackValue = answer.value + candidateOffset;
+      if (
+        answer.kind === "percentage" &&
+        isBoundedPercentageContext(context) &&
+        !isReverseComparisonContext(context)
+      ) {
+        fallbackValue = Math.max(0, Math.min(100, fallbackValue));
+      }
+      if (isCountLikeContext(context) || answer.kind === "integer") {
+        fallbackValue = Math.max(0, Math.round(fallbackValue));
+      }
+      return formatLike(answer, fallbackValue);
+    });
+  }
+
+  const rendered = renderQuantV4Answer(answer);
+  const numericTextOptions = numericTextDistractors(rendered);
+  if (numericTextOptions.length) {
+    return numericTextOptions;
+  }
+
+  return [
+    "Cannot be determined",
+    "Both are equal",
+    "None of these",
+    "Insufficient information",
+  ];
 }
 
 function correctIndexFromCanonical(options: readonly string[], canonicalAnswer: QuantV4CanonicalAnswer) {
@@ -420,36 +698,49 @@ export function buildQuantV4AnswerOptions(
     ? input.existingOptions.map((option) => String(option ?? "").trim()).filter(Boolean)
     : [];
   const filteredExistingOptions = existingOptions.filter(
-    (option) => !isWeakGeneratedOption(option, canonicalAnswer),
+    (option) => !isWeakGeneratedOption(option, canonicalAnswer, input.context),
   );
 
   if (filteredExistingOptions.length >= desiredCount) {
-    const options = filteredExistingOptions.slice(0, desiredCount);
-    const existingCorrect = correctIndexFromCanonical(options, canonicalAnswer);
+    const options: string[] = [];
+    for (const option of filteredExistingOptions) addUnique(options, option);
+    const deduped = options.slice(0, desiredCount);
+    const existingCorrect = correctIndexFromCanonical(deduped, canonicalAnswer);
     if (existingCorrect >= 0) {
-      return { options, correct: existingCorrect, canonicalAnswer };
+      return { options: deduped, correct: existingCorrect, canonicalAnswer };
     }
   }
 
   const generated: string[] = [];
   addUnique(generated, renderQuantV4Answer(canonicalAnswer));
   for (const option of filteredExistingOptions) addUnique(generated, option);
-  for (const option of distractorsFor(canonicalAnswer)) addUnique(generated, option);
+  for (const option of distractorsFor(canonicalAnswer, input.context)) {
+    if (!isWeakGeneratedOption(option, canonicalAnswer, input.context)) {
+      addUnique(generated, option);
+    }
+  }
 
   let fallbackOffset = 1;
-  while (generated.length < desiredCount) {
-    if (
-      canonicalAnswer.kind === "integer" ||
-      canonicalAnswer.kind === "decimal" ||
-      canonicalAnswer.kind === "percentage" ||
-      canonicalAnswer.kind === "currency" ||
-      canonicalAnswer.kind === "unit"
-    ) {
-      addUnique(generated, formatLike(canonicalAnswer, canonicalAnswer.value + fallbackOffset));
-    } else {
-      addUnique(generated, `${renderQuantV4Answer(canonicalAnswer)} ${fallbackOffset}`);
+  let fallbackGuard = 0;
+  while (generated.length < desiredCount && fallbackGuard < desiredCount * 24) {
+    for (const option of fallbackOptionsFor(canonicalAnswer, fallbackOffset, input.context)) {
+      if (!isWeakGeneratedOption(option, canonicalAnswer, input.context)) {
+        addUnique(generated, option);
+      }
+      if (generated.length >= desiredCount) break;
     }
     fallbackOffset++;
+    fallbackGuard++;
+  }
+
+  for (const option of [
+    "Cannot be determined",
+    "Both are equal",
+    "None of these",
+    "Insufficient information",
+  ]) {
+    if (generated.length >= desiredCount) break;
+    addUnique(generated, option);
   }
 
   const shuffled = shuffleDeterministically(generated.slice(0, desiredCount), seed);

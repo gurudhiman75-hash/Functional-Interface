@@ -82,6 +82,32 @@ assertFixed("PCT-CP-009", "PCT-QL-411", { oldRate: 40, newRate: 50 }, "$$25\\%$$
 assertFixed("PCT-CP-010", "PCT-QL-451", { subjectA: "Aman", subjectB: "Bharat", rate1: 60, baseValue1: 500, rate2: 70, baseValue2: 400, wholeLabel: "salary", valuePrefix: "Rs. ", unitLabel: "" }, "Aman is greater by Rs. 20.");
 assertFixed("PCT-CP-010", "PCT-QL-462", { subjectA: "Riya", subjectB: "Karan", rate1: 60, baseValue1: 500, rate2: 70, baseValue2: 400, wholeLabel: "marks", valuePrefix: "", unitLabel: "marks" }, "$$20$$");
 
+for (let index = 0; index < 40; index += 1) {
+  const pkg = runPct006Pipeline("PCT-CP-010", { language: "en", seed: `pct-006-cross-base:${index}` });
+  const unitLabel = String(pkg.parameters.variables.unitLabel ?? "");
+  if (["marks", "people", "units", "students", "items", "passengers"].includes(unitLabel)) {
+    const actual1 = Number(pkg.solver.evidence.actual1 ?? NaN);
+    const actual2 = Number(pkg.solver.evidence.actual2 ?? NaN);
+    const difference = Number(pkg.solver.evidence.difference ?? NaN);
+    assert.ok(Number.isInteger(actual1), `cross-base actual1 must be integer for ${unitLabel}`);
+    assert.ok(Number.isInteger(actual2), `cross-base actual2 must be integer for ${unitLabel}`);
+    assert.ok(Number.isInteger(difference), `cross-base difference must be integer for ${unitLabel}`);
+  }
+}
+
+for (let index = 0; index < 40; index += 1) {
+  const pkg = runPct006Pipeline("PCT-CP-007", { language: "en", seed: `pct-006-final-compare:${index}` });
+  const unitLabel = String(pkg.parameters.variables.unitLabel ?? "");
+  if (["marks", "people", "units", "students", "items", "passengers"].includes(unitLabel)) {
+    const final1 = Number(pkg.solver.evidence.final1 ?? NaN);
+    const final2 = Number(pkg.solver.evidence.final2 ?? NaN);
+    const difference = Number(pkg.solver.evidence.difference ?? NaN);
+    assert.ok(Number.isInteger(final1), `final1 must be integer for ${unitLabel}`);
+    assert.ok(Number.isInteger(final2), `final2 must be integer for ${unitLabel}`);
+    assert.ok(Number.isInteger(difference), `final comparison difference must be integer for ${unitLabel}`);
+  }
+}
+
 const batch = generatePct006Batch(500, "en");
 const audit = auditPct006Packages(batch);
 

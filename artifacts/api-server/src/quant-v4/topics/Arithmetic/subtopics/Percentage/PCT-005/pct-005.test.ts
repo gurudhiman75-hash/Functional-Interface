@@ -75,7 +75,7 @@ assertFixed("PCT-CP-008", "PCT-QL-015", { originalA: 1000, labelA: "A", directio
 assertFixed("PCT-CP-008", "PCT-QL-016", { originalA: 30000, labelA: "salary A", valuePrefix: "Rs. ", directionA1: "increase", rateA1: 10, directionA2: "decrease", rateA2: 10, originalB: 30000, labelB: "salary B", directionB1: "increase", rateB1: 15, directionB2: "increase", rateB2: 10 }, "$$8250$$");
 assertFixed("PCT-CP-009", "PCT-QL-017", { originalValue: 1000, stageCount: 3, direction1: "increase", rate1: 10, direction2: "increase", rate2: 20, direction3: "decrease", rate3: 5, wholeLabel: "value" }, "$$1254$$");
 assertFixed("PCT-CP-009", "PCT-QL-018", { originalValue: 1000, stageCount: 4, direction1: "increase", rate1: 10, direction2: "increase", rate2: 20, direction3: "decrease", rate3: 5, direction4: "increase", rate4: 15, wholeLabel: "value" }, "$$1442.1$$");
-assertFixed("PCT-CP-010", "PCT-QL-019", { originalValue: 5000, stageCount: 3, direction1: "increase", rate1: 10, direction2: "decrease", rate2: 5, direction3: "increase", rate3: 10, wholeLabel: "population" }, "$$5748$$");
+assertFixed("PCT-CP-010", "PCT-QL-019", { originalValue: 5000, stageCount: 3, direction1: "increase", rate1: 10, direction2: "decrease", rate2: 5, direction3: "increase", rate3: 10, wholeLabel: "population" }, "$$5747.5$$");
 assertFixed("PCT-CP-010", "PCT-QL-020", { originalValue: 20000, stageCount: 3, direction1: "increase", rate1: 15, direction2: "increase", rate2: 20, direction3: "decrease", rate3: 10, wholeLabel: "sales", valuePrefix: "Rs. " }, "$$24840$$");
 
 const batch = generatePct005Batch(200, "en");
@@ -112,6 +112,32 @@ for (let index = 0; index < 40; index += 1) {
     difficultyBand: pkg.difficultyBand,
   });
   assert.equal(new Set(triplet.map((item) => item.answer)).size, 1, `${cpId} must preserve cross-language answer parity`);
+}
+
+for (let index = 0; index < 80; index += 1) {
+  const cpId = PCT_005_CP_IDS[index % PCT_005_CP_IDS.length]!;
+  const pkg = runPct005Pipeline(cpId, { language: "en", seed: `pct-005-discrete-count:${index}` });
+  const wholeLabel = String(pkg.parameters.variables.wholeLabel ?? "");
+  if (
+    pkg.answerType === "ABSOLUTE" &&
+    /\b(population|students|residents|cartons|passengers|units|users|admissions|attendance|stock)\b/i.test(wholeLabel)
+  ) {
+    const numericAnswer = Number(pkg.solver.numericAnswer ?? NaN);
+    assert.ok(
+      Number.isFinite(numericAnswer) && Math.abs(numericAnswer - Math.round(numericAnswer)) < 1e-9,
+      `discrete PCT-005 result must stay integral for ${wholeLabel}`,
+    );
+  }
+}
+
+{
+  const pkg = runPct005Pipeline("PCT-CP-008", {
+    language: "en",
+    questionLanguageId: "PCT-QL-044",
+    seed: "pct-005-school-attendance-grammar",
+  });
+  assert.ok(!pkg.stem.includes("School An attendance"));
+  assert.ok(!pkg.explanation.lines.join("\n").includes("School An attendance"));
 }
 
 console.log("PCT-005 first-pass implementation test passed.");

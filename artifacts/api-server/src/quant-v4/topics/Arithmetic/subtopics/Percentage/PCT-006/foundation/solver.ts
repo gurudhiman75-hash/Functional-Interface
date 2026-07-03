@@ -103,11 +103,19 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
             : parameters.solveMode === "largerMoreThanSmaller"
               ? selectedBasePercent(difference, smaller)
               : selectedBasePercent(difference, larger);
+      const selectedBase =
+        parameters.solveMode === "differenceAsPercentOfFirst"
+          ? value1
+          : parameters.solveMode === "differenceAsPercentOfSecond"
+            ? value2
+            : parameters.solveMode === "largerMoreThanSmaller"
+              ? smaller
+              : larger;
       evidence.value1 = value1;
       evidence.value2 = value2;
       evidence.difference = difference;
       evidence.percent = percent;
-      mathJax.core = `\\frac{${formatNumber(difference)}}{\\text{base}}\\times100=${formatNumber(percent)}\\%`;
+      mathJax.core = `\\frac{${formatNumber(difference)}}{${formatNumber(selectedBase)}}\\times100=${formatNumber(percent)}\\%`;
       return { answer: wrapAnswer("PERCENT", formatPercent(percent)), numericAnswer: percent, answerType: parameters.answerType, evidence, mathJax };
     }
     case "ratioBasedPercentageComparison": {
@@ -134,10 +142,11 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
         parameters.solveMode === "requiredIncreaseToTarget"
           ? selectedBasePercent(value2 - value1, value1)
           : selectedBasePercent(value1 - value2, value1);
+      const targetDifference = Math.abs(value2 - value1);
       evidence.value1 = value1;
       evidence.value2 = value2;
       evidence.percent = percent;
-      mathJax.core = `\\frac{\\text{target difference}}{${formatNumber(value1)}}\\times100=${formatNumber(percent)}\\%`;
+      mathJax.core = `\\frac{${formatNumber(targetDifference)}}{${formatNumber(value1)}}\\times100=${formatNumber(percent)}\\%`;
       return { answer: wrapAnswer("PERCENT", formatPercent(percent)), numericAnswer: percent, answerType: parameters.answerType, evidence, mathJax };
     }
     case "compareAfterDifferentPercentageChanges": {

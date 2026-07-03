@@ -114,4 +114,19 @@ for (let index = 0; index < 40; index += 1) {
   assert.equal(new Set(triplet.map((item) => item.answer)).size, 1, `${cpId} must preserve cross-language answer parity`);
 }
 
+for (let index = 0; index < 80; index += 1) {
+  const cpId = PCT_004_CP_IDS[index % PCT_004_CP_IDS.length]!;
+  const pkg = runPct004Pipeline(cpId, { language: "en", seed: `pct-004-discrete-count:${index}` });
+  const wholeLabel = String(pkg.parameters.variables.wholeLabel ?? "");
+  if (
+    pkg.answerType === "ABSOLUTE" &&
+    /\b(population|students|workers|employees|users|residents|applicants|cartons|boxes|passengers|units)\b/i.test(wholeLabel)
+  ) {
+    assert.ok(
+      Number.isInteger(Number(pkg.solver.numericAnswer ?? NaN)),
+      `discrete PCT-004 result must stay integral for ${wholeLabel}`,
+    );
+  }
+}
+
 console.log("PCT-004 first-pass implementation test passed.");

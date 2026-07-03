@@ -230,12 +230,267 @@ Observed results:
 - Frontend Vite build passed with `pnpm run build` after an out-of-sandbox rerun because in-sandbox `esbuild` hit `spawn EPERM`.
 - Repo-wide backend/frontend typechecks were not reopened in this pass; the previously documented repo-wide typecheck failures remain a known pre-existing caveat and are not attributed to this Percentage integration patch.
 
-## Remaining Caveats
+## Smarter Option Generation Patch
+
+Goal:
+- Improve distractor quality using the existing shared Quant V4 option-generation infrastructure.
+- Avoid a parallel option system.
+- Avoid hardcoded Percentage-only options in Question Studio UI.
+- Avoid rewriting Percentage content unless a content bug is separately proven.
+
+Files changed in this patch:
+- `artifacts/api-server/src/quant-v4/shared/answers/option-generation.ts`
+- `artifacts/api-server/src/quant-v4/shared/answers/option-generation.test.ts`
+- `artifacts/api-server/src/quant-v4/generation-engine.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-percentage-question-studio-integration-report.md`
+
+Implementation notes:
+- Extended `QuantV4OptionGenerationInput` with optional `context`.
+- Passed package/task/stem/variables/traceability context from `toQuestionStudioPreview(...)` into `buildQuantV4AnswerOptions(...)`.
+- Added context-aware filtering for bounded share/complement percentages so impossible options like `233%`, `300%`, `400%`, and `2400%` are rejected outside reverse-comparison contexts.
+- Preserved reverse-comparison families where percentages above `100%` can be mathematically valid.
+- Replaced `+ 1` / `- 1` symbolic filler for percentage-point composite answers with plausible percentage-point/relative-change variants.
+- Improved text-comparison distractors by switching direction and varying amounts, while normalizing double-period endings.
+- Kept integer/count answers on non-negative integer distractors.
+- Kept decimal percentage distractors within reasonable precision and range.
+- Strengthened weak-option filtering for `undefined`, `null`, `NaN`, MathJax suffix junk such as `$$...$$ 1`, and simple unevaluated filler expressions.
+- Normalized option identity before deduping, so each generated question has exactly one canonical option after formatting normalization.
+
+Targeted smoke:
+
+```powershell
+cd C:\Users\gurbaj\Downloads\f\artifacts\api-server
+pnpm exec esbuild src/quant-v4/shared/answers/option-generation.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/option-generation.test.mjs
+node dist/quant-v4/option-generation.test.mjs
+```
+
+Result:
+- `quant-v4 option-generation smoke passed`
+
+Fresh 500-question English Percentage `PCT-ALL` audit:
+- Output file: `artifacts/generated-exports/quant-v4-percentage-pct-all-500-option-qa.json`
+- Question count: `500`
+- Weak filler option count: `0`
+- `+ 1` / `- 1` option count: `0`
+- `$$...$$ 1` MathJax suffix count: `0`
+- Impossible `>100%` bounded share/complement option count: `0`
+- Duplicate normalized-option question count: `0`
+- Invalid correct-index count: `0`
+- Non-unique correct-option count: `0`
+- Missing-options count: `0`
+- Placeholder/`undefined`/`null`/`NaN` text count: `0`
+
+Additional check status:
+- Quant V4 generation-engine bundle passed:
+  - `pnpm exec esbuild src/quant-v4/generation-engine.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/generation-engine.option-qa.mjs`
+- Repo-wide backend typecheck was run and still fails on broad pre-existing repository issues outside this patch, including knowledge generator typing, core domain-adapter unions, RatioAndProportion renderer imports, and route typing. No new option-generation or Percentage Question Studio errors were identified by the targeted bundle/smoke path.
+
+## Non-Option Generated Output QA Patch
+
+Goal:
+- Fix the remaining generated-output blockers found after the smarter option-generation patch.
+- Keep the active Question Studio Percentage path on Quant V4 only.
+- Keep the clean export limited to question, options, and explanations for student/review use.
+
+Files changed in this patch:
+- `artifacts/api-server/src/quant-v4/generation-engine.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/solver.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/explanation-renderer.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/foundation/parameter-generator.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/pct-002.test.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-005/foundation/solver.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-005/pct-005.test.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-006/foundation/solver.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-006/foundation/explanation-renderer.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-007/foundation/explanation-renderer.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-percentage-question-studio-integration-report.md`
+
+## Remaining Issues Found After Smarter Option Patch
+- PCT-002 ratio-to-percentage questions could use the second ratio term even when the stem asked for the first named part.
+- PCT-001 explanation lines could render nested display math such as `=$$answer$$$$`.
+- Some English preview text still had article/agreement artifacts such as `A output`, `a asset value`, and plural count wording.
+- PCT-006/PCT-007 explanations still had placeholder-style formulas such as `\text{base}` or `\text{target difference}` in student-facing output.
+- PCT-007 caselet explanations still contained internal/generic wording.
+- PCT-005 count answers could be silently rounded.
+- Long floating-point artifacts could enter final stems, such as binary-decimal residue in large mixture values.
+
+## Fixes Applied
+- Added explicit `targetPartIndex` handling for PCT-002 ratio-share questions, including first-part and second-part regression coverage.
+- Hardened Question Studio explanation formatting so nested display delimiters are stripped before re-wrapping.
+- Added narrow English preview polish for observed generated wording defects and long binary-decimal artifacts.
+- Replaced PCT-006 placeholder formulas with concrete values from solver evidence.
+- Reworked PCT-007 caselet and percentage-error explanations so final output uses student-facing calculation lines.
+- Fixed PCT-007 drying/evaporation explanations so the stable solid/solute amount is computed instead of falling back to `0`.
+- Changed PCT-005 count formatting so fractional count answers are not silently rounded unless the math itself is integral.
+
+## Fresh 500-Question QA Results
+Output file:
+- `artifacts/generated-exports/quant-v4-percentage-pct-all-500-option-qa.json`
+
+Metadata distribution from the same regenerated PCT-ALL run:
+- `PCT-001`: `71`
+- `PCT-002`: `71`
+- `PCT-003`: `72`
+- `PCT-004`: `71`
+- `PCT-005`: `72`
+- `PCT-006`: `71`
+- `PCT-007`: `72`
+
+Clean export audit:
+- Total questions: `500`
+- Exact duplicate stem groups: `8`
+- Ratio-direction regression failures: `0`
+- Broken MathJax explanation count: `0`
+- Weak option count: `0`
+- Duplicate normalized-option question count: `0`
+- Grammar issue count: `0`
+- Placeholder-style explanation count: `0`
+- Generic/internal explanation count: `0`
+- Silent rounded-count examples: `0`
+- Floating precision artifact count: `0`
+- Unresolved placeholder count: `0`
+- `undefined` / `null` / `NaN` in student-facing fields: `0`
+
+## Package-Specific Smoke Results
+Generated files:
+- `artifacts/generated-exports/quant-v4-percentage-pct-001-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-002-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-003-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-004-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-005-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-006-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-007-20-option-qa.json`
+
+For each `PCT-001` to `PCT-007` 20-question smoke:
+- Question count: `20`
+- Broken MathJax explanation count: `0`
+- Weak option count: `0`
+- Duplicate normalized-option question count: `0`
+- Grammar issue count: `0`
+- Placeholder-style explanation count: `0`
+- Generic/internal explanation count: `0`
+- Floating precision artifact count: `0`
+- Unresolved placeholder count: `0`
+- `undefined` / `null` / `NaN` in student-facing fields: `0`
+
+Additional verification:
+- `PCT-002 foundational recovery test passed.`
+- `PCT-005 first-pass implementation test passed.`
+- `PCT-007 implementation test passed.`
+- `pnpm --dir artifacts/api-server run build` passed.
+- Quant V4 generation-engine bundle passed.
+
+## Earlier Caveats
 - Public student/mock-test catalog exposure is still not enabled.
-- Hindi/Punjabi are still not exposed for Percentage in Question Studio.
+- Hindi/Punjabi are still not exposed for Percentage in Question Studio and were not edited in this QA pass.
 - `PCT-001` duplicate rate `24.70%` remains an editorial/manual-review signal, not a runtime blocker.
 - Legacy Percentage code still exists elsewhere in the repository, but no active Question Studio Percentage path routes through it.
-- No Percentage content-bank JSON files, solvers, explanation renderer files, or Hindi/Punjabi content files were edited in this integration pass.
+- Repo-wide backend/frontend typechecks were not reopened for this follow-up; previously documented repo-wide typecheck issues remain outside this Percentage Question Studio patch.
+- Generated QA export files under `artifacts/generated-exports/` are review artifacts and should not be committed unless intentionally requested.
+
+## Residual QA Patch After Package Smoke Review
+
+Files changed in this residual QA pass:
+- `artifacts/api-server/src/quant-v4/generation-engine.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-005/foundation/parameter-generator.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-005/pct-005.test.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/question-studio-residual-qa.ts`
+- `artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Percentage/pct-percentage-question-studio-integration-report.md`
+
+What changed:
+- Removed the over-broad preview rewrite that could mutate `School A attendance` into `School An attendance`.
+- Fixed the `PCT-005` school-comparison source labels to generate `School A's attendance` and `School B's attendance` directly.
+- Added a regression in `PCT-005` so this exact grammar leak is caught in package tests.
+- Tightened the residual QA audit so it reports only real blockers instead of valid multi-step explanation patterns.
+- Reconfirmed the existing `PCT-001` discount guard that keeps discount amount below base and discount percent within realistic bounds for the audited discount-percent family.
+
+## Additional Audit Rules Added
+
+The residual QA audit now explicitly checks:
+- impossible discount/reduction amount greater than or equal to the base amount for discount-style stems
+- bounded percentage options above `100%` for share-of-whole, ratio-share, component-share, complementary-share, and revised-share families
+- exact grammar bad phrases, including `School An attendance`, while avoiding false positives like `number of internet users is`
+- double-period formatting in stem, explanation, and options
+- count-context decimal final answers
+- silent rounding in count contexts when the stem does not ask for approximation
+- repeated identical calculation lines, while ignoring legitimate repeated helper percent-conversion lines
+- missing repeated-reduction intermediate steps only for true repeated-reduction final-value stems
+
+## Fresh Smoke Results
+
+Artifacts generated:
+- `artifacts/generated-exports/quant-v4-percentage-pct-all-500-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-all-500-clean.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-001-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-002-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-003-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-004-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-005-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-006-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-pct-007-20-option-qa.json`
+- `artifacts/generated-exports/quant-v4-percentage-residual-qa-summary.json`
+- `artifacts/generated-exports/quant-v4-percentage-residual-qa-run.log`
+
+Fresh 500-question `PCT-ALL` English audit:
+- Question count: `500`
+- Weak filler options: `0`
+- `+ 1` / `- 1` options: `0`
+- MathJax suffix junk: `0`
+- Duplicate normalized-option questions: `0`
+- Invalid correct-index questions: `0`
+- Non-unique correct-option questions: `0`
+- Missing-options questions: `0`
+- Runtime placeholder / `undefined` / `null` / `NaN`: `0`
+- Bounded-percentage `>100%` blockers: `0`
+- Impossible discount blockers: `0`
+- Grammar blockers: `0`
+- Double-period blockers: `0`
+- Count-decimal blockers: `0`
+- Silent-rounding blockers: `0`
+- Repeated-calculation blockers: `0`
+- Repeated-reduction blockers: `0`
+
+Fresh 20-question English package smokes:
+- `PCT-001`: all blocker counters `0`
+- `PCT-002`: all blocker counters `0`
+- `PCT-003`: all blocker counters `0`
+- `PCT-004`: all blocker counters `0`
+- `PCT-005`: all blocker counters `0`
+- `PCT-006`: all blocker counters `0`
+- `PCT-007`: all blocker counters `0`
+
+Targeted checks run in this pass:
+
+```powershell
+cd C:\Users\gurbaj\Downloads\f\artifacts\api-server
+pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-005/pct-005.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-005.test.mjs
+node dist/quant-v4/pct-005.test.mjs
+
+pnpm exec esbuild src/quant-v4/shared/answers/option-generation.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/option-generation.test.mjs
+node dist/quant-v4/option-generation.test.mjs
+
+pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Percentage/question-studio-residual-qa.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/question-studio-residual-qa.mjs
+node dist/quant-v4/question-studio-residual-qa.mjs
+```
+
+```powershell
+cd C:\Users\gurbaj\Downloads\f
+pnpm --dir artifacts/api-server run build
+```
+
+Observed results:
+- `PCT-005 first-pass implementation test passed.`
+- `quant-v4 option-generation smoke passed`
+- residual QA rerun completed with all blocker counters at `0`
+- backend build passed
+
+## Remaining Caveats
+
+- No commit or push was performed in this residual QA pass.
+- Public student/mock-test catalog exposure is still not enabled.
+- Hindi/Punjabi were not edited and remain disabled for Percentage in Question Studio.
+- Generated QA export artifacts under `artifacts/generated-exports/` are review outputs and should stay uncommitted unless explicitly requested.
+- Broader repository typecheck issues outside the Percentage Question Studio path remain out of scope for this pass.
 
 ## Final Status
-Percentage Question Studio integration complete; Quant V4 Percentage is the only active Percentage generation source, and Question Studio now produces clean, varied, export-safe English Percentage output from `PCT-001` to `PCT-007`.
+Percentage Question Studio generation has clean options and generated English output is ready for manual question-bank review. Quant V4 Percentage remains the only active Percentage generation source in Question Studio, with `PCT-ALL` full-topic generation and package-specific `PCT-001` to `PCT-007` generation verified. No known generated-output blockers remain in the fresh uploaded-style package smokes.

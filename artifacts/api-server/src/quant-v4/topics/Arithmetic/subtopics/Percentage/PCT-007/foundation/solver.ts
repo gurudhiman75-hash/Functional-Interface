@@ -186,6 +186,7 @@ export function solvePct007(parameters: Pct007Parameters): Pct007SolverResult {
       evidence.turnoutRate = turnoutRate;
       evidence.invalidRate = invalidRate;
       evidence.candidateRate = candidateRate;
+      evidence.votesPolled = votesPolled;
       evidence.validVotes = validVotes;
       evidence.candidateVotes = candidateVotes;
       mathJax.core = `\\frac{${formatNumber(candidateRate)}}{100}\\times${formatNumber(validVotes)}=${formatNumber(candidateVotes)}`;
@@ -202,6 +203,7 @@ export function solvePct007(parameters: Pct007Parameters): Pct007SolverResult {
       const candidate1Votes = percentOf(validVotes, rate1);
       const candidate2Votes = percentOf(validVotes, rate2);
       const margin = roundTo(Math.abs(candidate1Votes - candidate2Votes), 4);
+      evidence.votesPolled = votesPolled;
       evidence.validVotes = validVotes;
       evidence.candidate1Votes = candidate1Votes;
       evidence.candidate2Votes = candidate2Votes;
@@ -535,6 +537,7 @@ export function solvePct007(parameters: Pct007Parameters): Pct007SolverResult {
       evidence.totalValue = totalValue;
       evidence.rate1 = rate1;
       evidence.rate2 = rate2;
+      evidence.afterFirst = afterFirst;
       evidence.remaining = remaining;
       evidence.removed = removed;
       mathJax.core = `${formatNumber(totalValue)}-${formatNumber(remaining)}=${formatNumber(removed)}`;
@@ -558,6 +561,7 @@ export function solvePct007(parameters: Pct007Parameters): Pct007SolverResult {
       const votesPolled = percentOf(totalVoters, turnoutRate);
       const validVotes = roundTo(votesPolled - percentOf(votesPolled, invalidRate), 4);
       const candidateVotes = percentOf(validVotes, candidateRate);
+      evidence.votesPolled = votesPolled;
       evidence.validVotes = validVotes;
       evidence.candidateVotes = candidateVotes;
       mathJax.core = `\\frac{${formatNumber(candidateRate)}}{100}\\times${formatNumber(validVotes)}=${formatNumber(candidateVotes)}`;

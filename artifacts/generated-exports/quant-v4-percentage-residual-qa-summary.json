@@ -1,0 +1,261 @@
+{
+  "generatedAt": "2026-07-03T03:23:28.283Z",
+  "fullBatch": {
+    "fileName": "quant-v4-percentage-pct-all-500-option-qa.json",
+    "audit": {
+      "questionCount": 500,
+      "weakOptionCount": 0,
+      "plusMinusOneOptionCount": 0,
+      "mathJaxSuffixCount": 0,
+      "duplicateNormalizedOptionQuestionCount": 0,
+      "invalidCorrectIndexCount": 0,
+      "nonUniqueCorrectOptionCount": 0,
+      "missingOptionsCount": 0,
+      "runtimePlaceholderCount": 0,
+      "boundedPercentageOver100Count": 0,
+      "impossibleDiscountOverBaseCount": 0,
+      "grammarIssueCount": 0,
+      "doublePeriodCount": 0,
+      "countNounDecimalAnswerCount": 0,
+      "silentRoundingCount": 0,
+      "repeatedCalculationLineCount": 0,
+      "missingRepeatedReductionStepCount": 0,
+      "samples": {
+        "boundedPercentageOver100": [],
+        "impossibleDiscountOverBase": [],
+        "grammar": [],
+        "doublePeriod": [],
+        "countNounDecimalAnswer": [],
+        "silentRounding": [],
+        "repeatedCalculationLine": [],
+        "missingRepeatedReductionStep": []
+      }
+    }
+  },
+  "packageSmokes": {
+    "PCT-001": {
+      "fileName": "quant-v4-percentage-pct-001-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    },
+    "PCT-002": {
+      "fileName": "quant-v4-percentage-pct-002-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    },
+    "PCT-003": {
+      "fileName": "quant-v4-percentage-pct-003-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    },
+    "PCT-004": {
+      "fileName": "quant-v4-percentage-pct-004-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    },
+    "PCT-005": {
+      "fileName": "quant-v4-percentage-pct-005-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    },
+    "PCT-006": {
+      "fileName": "quant-v4-percentage-pct-006-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    },
+    "PCT-007": {
+      "fileName": "quant-v4-percentage-pct-007-20-option-qa.json",
+      "audit": {
+        "questionCount": 20,
+        "weakOptionCount": 0,
+        "plusMinusOneOptionCount": 0,
+        "mathJaxSuffixCount": 0,
+        "duplicateNormalizedOptionQuestionCount": 0,
+        "invalidCorrectIndexCount": 0,
+        "nonUniqueCorrectOptionCount": 0,
+        "missingOptionsCount": 0,
+        "runtimePlaceholderCount": 0,
+        "boundedPercentageOver100Count": 0,
+        "impossibleDiscountOverBaseCount": 0,
+        "grammarIssueCount": 0,
+        "doublePeriodCount": 0,
+        "countNounDecimalAnswerCount": 0,
+        "silentRoundingCount": 0,
+        "repeatedCalculationLineCount": 0,
+        "missingRepeatedReductionStepCount": 0,
+        "samples": {
+          "boundedPercentageOver100": [],
+          "impossibleDiscountOverBase": [],
+          "grammar": [],
+          "doublePeriod": [],
+          "countNounDecimalAnswer": [],
+          "silentRounding": [],
+          "repeatedCalculationLine": [],
+          "missingRepeatedReductionStep": []
+        }
+      }
+    }
+  }
+}
