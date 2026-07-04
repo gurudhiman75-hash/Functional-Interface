@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { createQuestionExport } from "../../../../../../../../examtree/src/lib/export-engine";
 import { generateQuestion } from "../../../../../generation-engine";
+import { getSelectableQuestionLanguageIds } from "./foundation/parameter-generator";
 import {
   extractPlaceholders,
   getTaskRegistryEntry,
@@ -15,58 +16,6 @@ const PACKAGE_DIR = resolve(
   "src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002",
 );
 
-const PILOT_CASES = [
-  {
-    cpId: "PCT-CP-001",
-    qlIds: ["PCT-QL-001", "PCT-QL-002"],
-  },
-  {
-    cpId: "PCT-CP-002",
-    qlIds: ["PCT-QL-003", "PCT-QL-004"],
-  },
-  {
-    cpId: "PCT-CP-003",
-    qlIds: ["PCT-QL-005", "PCT-QL-006"],
-  },
-  {
-    cpId: "PCT-CP-004",
-    qlIds: ["PCT-QL-007", "PCT-QL-008"],
-  },
-  {
-    cpId: "PCT-CP-005",
-    qlIds: ["PCT-QL-009", "PCT-QL-010"],
-  },
-  {
-    cpId: "PCT-CP-006",
-    qlIds: ["PCT-QL-011", "PCT-QL-012"],
-  },
-  {
-    cpId: "PCT-CP-007",
-    qlIds: ["PCT-QL-013", "PCT-QL-014"],
-  },
-  {
-    cpId: "PCT-CP-008",
-    qlIds: ["PCT-QL-015", "PCT-QL-016"],
-  },
-  {
-    cpId: "PCT-CP-009",
-    qlIds: ["PCT-QL-017", "PCT-QL-018"],
-  },
-  {
-    cpId: "PCT-CP-010",
-    qlIds: ["PCT-QL-019", "PCT-QL-020"],
-  },
-] as const satisfies readonly {
-  cpId: Pct002CanonicalProblemId;
-  qlIds: readonly string[];
-}[];
-
-const PILOT_QL_IDS = PILOT_CASES.flatMap((pilotCase) => pilotCase.qlIds);
-const PILOT_QL_ID_SET = new Set<string>(PILOT_QL_IDS);
-const BLOCKED_NON_ENGLISH_CASE = {
-  cpId: "PCT-CP-001" as Pct002CanonicalProblemId,
-  qlId: "PCT-QL-021",
-};
 const PILOT_LANGUAGES: readonly Pct002Language[] = ["hi", "pa"];
 const RANDOM_SMOKE_SEEDS = [
   "random-01",
@@ -76,6 +25,11 @@ const RANDOM_SMOKE_SEEDS = [
   "random-05",
   "random-06",
 ] as const;
+
+type AuditCase = {
+  cpId: Pct002CanonicalProblemId;
+  qlIds: string[];
+};
 
 type AuditSummary = {
   jsonParsePassed: boolean;
@@ -124,6 +78,13 @@ function countQuestionLanguages(doc: any) {
   }, 0);
 }
 
+function getAuditCases(questionLanguageEn: any): AuditCase[] {
+  return Object.entries(questionLanguageEn).map(([cpId, cp]: [string, any]) => ({
+    cpId: cpId as Pct002CanonicalProblemId,
+    qlIds: Object.keys(cp?.families ?? {}),
+  }));
+}
+
 function detectEnglishLeakage(text: string) {
   const sanitized = text
     .replace(/Rs\./g, "")
@@ -157,7 +118,7 @@ async function exportLanguageForQuestion(
     format: "json",
     content: "explanations",
     includeMetadata: true,
-    generatedAt: new Date("2026-07-03T00:00:00.000Z"),
+    generatedAt: new Date("2026-07-04T00:00:00.000Z"),
     language,
   });
   const parsedExport = JSON.parse(await exportPayload.blob.text());
@@ -172,6 +133,18 @@ async function main() {
   loadJson("explanation.hi.json");
   loadJson("explanation.pa.json");
   loadJson("task-registry.library.json");
+
+  const auditCases = getAuditCases(questionLanguageEn);
+  const hiLocalizedIds = new Set(
+    auditCases.flatMap(({ cpId, qlIds }) =>
+      qlIds.filter((qlId) => Boolean(questionLanguageHi[cpId]?.families?.[qlId])),
+    ),
+  );
+  const paLocalizedIds = new Set(
+    auditCases.flatMap(({ cpId, qlIds }) =>
+      qlIds.filter((qlId) => Boolean(questionLanguagePa[cpId]?.families?.[qlId])),
+    ),
+  );
 
   const libraryValidation = validatePct002Libraries();
   assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
@@ -193,7 +166,10 @@ async function main() {
     pa: {},
   };
 
-  for (const { cpId, qlIds } of PILOT_CASES) {
+  for (const { cpId, qlIds } of auditCases) {
+    const hiCaseIds = new Set(Object.keys(questionLanguageHi[cpId]?.families ?? {}));
+    const paCaseIds = new Set(Object.keys(questionLanguagePa[cpId]?.families ?? {}));
+
     for (const qlId of qlIds) {
       const enTemplate = questionLanguageEn[cpId]?.families?.[qlId]?.template;
       const hiTemplate = questionLanguageHi[cpId]?.families?.[qlId]?.template;
@@ -221,11 +197,15 @@ async function main() {
             paPlaceholders.has(name),
         );
 
+      if (!hiCaseIds.has(qlId) || !paCaseIds.has(qlId)) {
+        throw new Error(`Missing localized template coverage for ${cpId}/${qlId}.`);
+      }
+
       for (const language of PILOT_LANGUAGES) {
         const pkg = runPct002Pipeline(cpId, {
           language,
           questionLanguageId: qlId,
-          seed: `pct-002-multilingual-pilot:${language}:${qlId}`,
+          seed: `pct-002-multilingual-full:${language}:${qlId}`,
         });
 
         if (pkg.stem.includes("{")) {
@@ -259,13 +239,25 @@ async function main() {
         });
       }
     }
+
+    for (const language of PILOT_LANGUAGES) {
+      const localizedSet = language === "hi" ? hiCaseIds : paCaseIds;
+      const selectableIds = getSelectableQuestionLanguageIds(cpId, language);
+      if (selectableIds.some((qlId) => !localizedSet.has(qlId))) {
+        if (language === "hi") {
+          randomHiSelectableOnly = false;
+        } else {
+          randomPaSelectableOnly = false;
+        }
+      }
+    }
   }
 
   for (const language of PILOT_LANGUAGES) {
     try {
-      runPct002Pipeline(BLOCKED_NON_ENGLISH_CASE.cpId, {
+      runPct002Pipeline("PCT-CP-001", {
         language,
-        questionLanguageId: BLOCKED_NON_ENGLISH_CASE.qlId,
+        questionLanguageId: "PCT-QL-151",
         seed: `pct-002-non-english-block:${language}`,
       });
       forcedUnsupportedNonEnglishBlocked = false;
@@ -273,7 +265,13 @@ async function main() {
       void error;
     }
 
-    for (const { cpId } of PILOT_CASES) {
+    for (const { cpId } of auditCases) {
+      const localizedSet = new Set(
+        Object.keys(
+          (language === "hi" ? questionLanguageHi : questionLanguagePa)[cpId]?.families ?? {},
+        ),
+      );
+
       for (const seed of RANDOM_SMOKE_SEEDS) {
         const pkg = runPct002Pipeline(cpId, {
           language,
@@ -283,7 +281,7 @@ async function main() {
         randomSelectionCounts[language][pkg.questionLanguageId] =
           (randomSelectionCounts[language][pkg.questionLanguageId] ?? 0) + 1;
 
-        if (!PILOT_QL_ID_SET.has(pkg.questionLanguageId)) {
+        if (!localizedSet.has(pkg.questionLanguageId)) {
           if (language === "hi") {
             randomHiSelectableOnly = false;
           } else {
@@ -337,7 +335,7 @@ async function main() {
     forcedUnsupportedNonEnglishBlocked,
     randomHiSelectableOnly,
     randomPaSelectableOnly,
-    sharedQuestionLanguageCount: countQuestionLanguages(questionLanguageHi),
+    sharedQuestionLanguageCount: hiLocalizedIds.size,
     totalEnglishQuestionLanguages: countQuestionLanguages(questionLanguageEn),
     totalHindiQuestionLanguages: countQuestionLanguages(questionLanguageHi),
     totalPunjabiQuestionLanguages: countQuestionLanguages(questionLanguagePa),
@@ -352,21 +350,34 @@ async function main() {
     summary.unresolvedPlaceholderCount === 0 &&
     summary.englishLeakageCount === 0 &&
     summary.explanationEnglishLeakageCount === 0 &&
-    summary.metadataLanguagePassed;
+    summary.metadataLanguagePassed &&
+    summary.sharedQuestionLanguageCount === summary.totalEnglishQuestionLanguages &&
+    summary.totalHindiQuestionLanguages === summary.totalEnglishQuestionLanguages &&
+    summary.totalPunjabiQuestionLanguages === summary.totalEnglishQuestionLanguages;
 
-  assert.equal(summary.placeholderParityPassed, true, "Pilot placeholder parity failed.");
-  assert.equal(summary.requiredPlaceholdersPassed, true, "Pilot required placeholder coverage failed.");
-  assert.equal(summary.unresolvedPlaceholderCount, 0, "Rendered hi/pa stems still contain unresolved placeholders.");
+  assert.equal(summary.placeholderParityPassed, true, "Placeholder parity failed.");
+  assert.equal(summary.requiredPlaceholdersPassed, true, "Required placeholder coverage failed.");
+  assert.equal(summary.unresolvedPlaceholderCount, 0, "Rendered hi/pa content still contains unresolved placeholders.");
   assert.equal(summary.englishLeakageCount, 0, "Rendered hi/pa stems still contain English leakage.");
   assert.equal(summary.explanationEnglishLeakageCount, 0, "Rendered hi/pa explanations still contain English leakage.");
-  assert.equal(summary.explanationLanguageLocalized, true, "PCT-002 hi/pa batch explanations are not localized.");
+  assert.equal(summary.explanationLanguageLocalized, true, "PCT-002 hi/pa explanations are not localized.");
   assert.equal(summary.metadataLanguagePassed, true, "Export metadata.language does not match hi/pa.");
-  assert.equal(summary.randomHiSelectableOnly, true, "Random hi selection escaped the localized pilot allowlist.");
-  assert.equal(summary.randomPaSelectableOnly, true, "Random pa selection escaped the localized pilot allowlist.");
+  assert.equal(summary.randomHiSelectableOnly, true, "Random hi selection escaped localized coverage.");
+  assert.equal(summary.randomPaSelectableOnly, true, "Random pa selection escaped localized coverage.");
   assert.equal(
     summary.forcedUnsupportedNonEnglishBlocked,
     true,
-    "Forced non-English generation for non-localized QLs was not blocked.",
+    "Forced non-English generation for unsupported QLs was not blocked.",
+  );
+  assert.equal(
+    summary.sharedQuestionLanguageCount,
+    summary.totalEnglishQuestionLanguages,
+    "Localized hi coverage does not match English coverage.",
+  );
+  assert.equal(
+    summary.totalPunjabiQuestionLanguages,
+    summary.totalEnglishQuestionLanguages,
+    "Localized pa coverage does not match English coverage.",
   );
 
   console.log(JSON.stringify(summary, null, 2));

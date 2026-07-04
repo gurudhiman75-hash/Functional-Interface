@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import * as path from "path";
 import { EntityCategory } from "./entity-types";
 import { EntityLibrary } from "./entity-library";
@@ -73,7 +74,11 @@ let sharedResolver: EntityResolver | undefined;
 let sharedPicker: EntityPicker | undefined;
 
 function entityLibraryPath() {
-  return path.join(process.cwd(), "artifacts/api-server/src/quant-v4/common/entity-libraries");
+  const candidates = [
+    path.join(process.cwd(), "src/quant-v4/common/entity-libraries"),
+    path.join(process.cwd(), "artifacts/api-server/src/quant-v4/common/entity-libraries"),
+  ];
+  return candidates.find((candidate) => fs.existsSync(candidate)) ?? candidates[0]!;
 }
 
 export function getEntityCategoryForVariable(variableName: string): EntityCategory | undefined {

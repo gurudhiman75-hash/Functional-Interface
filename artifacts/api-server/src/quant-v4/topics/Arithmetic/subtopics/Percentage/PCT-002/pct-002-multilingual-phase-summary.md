@@ -1,17 +1,29 @@
 # PCT-002 Multilingual Phase Summary
 
-## Phase 0
+## Final State
 
-- Shared language coverage extracted to `common/language-coverage.ts`
-- PCT-002 refactored to use shared hi/pa allowlist gating
-- PCT-002 refactored to use shared entity-label resolution
+- Phase status: complete
+- Module: `PCT-002`
+- Languages shipped in backend:
+  - `en`
+  - `hi`
+  - `pa`
+- Question Studio discovery:
+  - `en` only
 
-## Current Localized Coverage
+## Coverage
 
-- Localized hi/pa QLs: `PCT-QL-001` to `PCT-QL-020`
+- Localized hi/pa QLs: `PCT-QL-001` to `PCT-QL-150`
 - Localized CPs:
-  - `PCT-CP-001` to `PCT-CP-010`
-- Localized explanation task patterns currently covered by the active batch:
+  - `PCT-CP-001`
+  - `PCT-CP-003`
+  - `PCT-CP-005`
+  - `PCT-CP-006`
+  - `PCT-CP-007`
+  - `PCT-CP-008`
+  - `PCT-CP-009`
+  - `PCT-CP-010`
+- Localized explanation task patterns:
   - `wholeFromPart`
   - `anotherPercentageFromKnownPercentage`
   - `percentageFromPartAndWhole`
@@ -23,13 +35,30 @@
   - `missingPercentage`
   - `multiCategoryPercentageDistribution`
 
-## Remaining Blocked Coverage
+## Runtime Guarantees
 
-- `PCT-QL-021` to `PCT-QL-150` remain English-only for hi/pa runtime
-- Non-English frontend exposure remains off
+- Shared language gate is active through `common/language-coverage.ts`.
+- English selection remains unchanged.
+- Hindi/Punjabi random selection is restricted to fully localized QLs only.
+- Forced non-English generation outside localized coverage still fails explicitly.
+- `metadata.language` is correct for `hi` and `pa`.
+
+## QA Snapshot
+
+- Build: passed
+- English PCT-002 smoke: passed
+- PCT-002 multilingual audit: passed
+- Leakage:
+  - hi stems: `0`
+  - pa stems: `0`
+  - hi explanations: `0`
+  - pa explanations: `0`
+- Unresolved placeholders: `0`
+
+## Remaining Product Constraint
+
+- Hindi/Punjabi frontend enablement remains off by design.
 
 ## Next Sequential Step
 
-- Continue PCT-002 with the next hi/pa batch starting at `PCT-QL-021`
-- Keep batch size within `15–20` QLs
-- Expand allowlist only after audit passes
+- Keep `PCT-002` frozen and use it as the reference implementation for the next Percentage module migration phase.

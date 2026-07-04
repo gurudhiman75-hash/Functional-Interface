@@ -1,62 +1,642 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": { "template": "{wholeLabel} ਵਿੱਚ {knownRate}% {partLabel} ਹਨ। ਜੇ ਇਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ {knownValue} ਹੈ, ਤਾਂ {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
-      "PCT-QL-002": { "template": "{wholeLabel} ਦਾ {knownRate}% {partLabel} ਵਜੋਂ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਜੇ ਇਹ ਰਕਮ {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਪਤਾ ਕਰੋ।", "difficulty": "Easy" }
+      "PCT-QL-001": {
+        "template": "{wholeLabel} ਵਿੱਚ {knownRate}% {partLabel} ਹਨ। ਜੇ ਇਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ {knownValue} ਹੈ, ਤਾਂ {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "{wholeLabel} ਦਾ {knownRate}% {partLabel} ਵਜੋਂ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਜੇ ਇਹ ਰਕਮ {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਹਨ। ਜੇ ਇਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ {knownValue} ਹੈ, ਤਾਂ {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਹੈ। ਜੇ ਇਹ ਗਿਣਤੀ {knownValue} ਹੈ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "ਜੇ {knownValue} {partLabel}, {wholeLabel} ਦਾ {knownRate}% ਹਨ, ਤਾਂ {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% ਨੇ {partLabel} ਚੁਣਿਆ। ਜੇ {knownValue} {wholeLabel} ਨੇ ਇਸਨੂੰ ਚੁਣਿਆ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "ਇੱਕ ਗੋਦਾਮ ਰਿਪੋਰਟ ਦੱਸਦੀ ਹੈ ਕਿ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਹੈ। ਜੇ ਇਸ ਸਮੂਹ ਵਿੱਚ {knownValue} {wholeLabel} ਹਨ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "ਇੱਕ ਖ਼ਾਸ ਦਿਨ ਦਾਖਲ ਕੀਤੇ ਹੋਏ {wholeLabel} ਵਿੱਚੋਂ {knownRate}% {partLabel} ਸਨ। ਜੇ {knownValue} {wholeLabel} {partLabel} ਸਨ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "ਇੱਕ ਰੇਲ ਡੱਬੇ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਵਿੱਚ ਯਾਤਰਾ ਕਰ ਰਿਹਾ ਸੀ। ਜੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ {knownValue} ਸੀ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "ਇੱਕ ਲਾਭਪਾਤਰੀ ਸੂਚੀ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਸਨ। ਜੇ {knownValue} {wholeLabel} {partLabel} ਸਨ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "ਇੱਕ ਹਸਪਤਾਲ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਸਨ। ਜੇ {knownValue} {wholeLabel} {partLabel} ਸਨ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "ਇੱਕ ਉਮੀਦਵਾਰ ਨੂੰ {wholeLabel} ਦਾ {knownRate}% ਮਿਲਿਆ। ਜੇ ਇਹ ਹਿੱਸਾ {knownValue} {partLabel} ਦੇ ਬਰਾਬਰ ਹੈ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-058": {
+        "template": "ਇੱਕ ਕਿਸਾਨ ਨੇ {wholeLabel} ਦਾ {knownRate}% ਵੇਚਿਆ। ਜੇ {knownValue} {partLabel} ਵੇਚੀਆਂ ਗਈਆਂ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-059": {
+        "template": "ਇੱਕ ਕੰਪਨੀ ਵਿੱਚ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਵਿੱਚ ਕੰਮ ਕਰਦਾ ਹੈ। ਜੇ ਉੱਥੇ {knownValue} {wholeLabel} ਕੰਮ ਕਰਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "ਇੱਕ ਦਫ਼ਤਰੀ ਰਿਕਾਰਡ ਦੱਸਦਾ ਹੈ ਕਿ {wholeLabel} ਦਾ {knownRate}% {partLabel} ਹਨ। ਜੇ {knownValue} {wholeLabel} {partLabel} ਹਨ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-003": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
-      "PCT-QL-004": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਕਿੰਨਾ ਹੋਵੇਗਾ?", "difficulty": "Medium" }
+      "PCT-QL-003": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-024": {
+        "template": "{wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ। ਉਸੇ {wholeLabel} ਦੇ {targetRate}% ਨਾਲ ਸੰਬੰਧਤ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ। ਉਸੇ ਕੁੱਲ ਦੇ {targetRate}% ਨਾਲ ਦਰਸਾਈ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "ਜੇ ਸਾਲਾਨਾ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦੇ {targetRate}% ਨਾਲ ਦਰਸਾਈ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "ਜੇ ਮਾਸਿਕ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਦਾ ਮੂਲ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ। ਉਸੇ ਕੁੱਲ ਦਾ {targetRate}% ਨਾਲ ਦਰਸਾਈ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "ਜੇ ਗੋਦਾਮ ਦੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਸਟਾਕ ਦਾ {targetRate}% ਦੇ ਅਨੁਸਾਰ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-064": {
+        "template": "ਜੇ ਮਾਸਿਕ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetRate}% ਦੇ ਅਨੁਸਾਰ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "ਜੇ ਮੌਸਮ ਦੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetRate}% ਦੇ ਅਨੁਸਾਰ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "ਇੱਕ ਬਜਟ ਯੋਜਨਾ ਵਿੱਚ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ। ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "ਜੇ ਉਤਪਾਦਨ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਲਕਸ਼ ਦੇ {targetRate}% ਨਾਲ ਦਰਸਾਈ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-068": {
+        "template": "ਜੇ ਰੂਟ ਦੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetRate}% ਨਾਲ ਦਰਸਾਈ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "ਜੇ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦੇ {targetRate}% ਦੇ ਬਰਾਬਰ ਕਿੰਨੇ {wholeLabel} ਹੋਣਗੇ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "ਜੇ ਹਸਪਤਾਲ ਦੀ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetRate}% ਨਾਲ ਦਰਸਾਈ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-005": { "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਹਨ। ਪਤਾ ਕਰੋ ਕਿ {partLabel}, {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹਨ।", "difficulty": "Easy" },
-      "PCT-QL-006": { "template": "ਇੱਕ ਵਿਅਕਤੀ {valuePrefix}{wholeValue} ਦੀ ਕੁੱਲ {wholeLabel} ਵਿੱਚੋਂ {valuePrefix}{partValue} ਨੂੰ {partLabel} ਵਜੋਂ ਰੱਖਦਾ ਹੈ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
+      "PCT-QL-005": {
+        "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਹਨ। ਪਤਾ ਕਰੋ ਕਿ {partLabel}, {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹਨ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "ਇੱਕ ਵਿਅਕਤੀ {valuePrefix}{wholeValue} ਦੀ ਕੁੱਲ {wholeLabel} ਵਿੱਚੋਂ {valuePrefix}{partValue} ਨੂੰ {partLabel} ਵਜੋਂ ਰੱਖਦਾ ਹੈ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਹਨ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-028": {
+        "template": "{wholeValue} {wholeLabel} ਵਾਲੀ ਇੱਕ ਕਲਾਸ ਵਿੱਚ {partValue} {partLabel} ਹਨ। ਹਾਜ਼ਰੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-029": {
+        "template": "{wholeValue} {wholeLabel} ਵਾਲੇ ਇੱਕ ਸਥਾਨ 'ਤੇ {partValue} {partLabel} ਹਨ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-071": {
+        "template": "ਇੱਕ ਫੈਕਟਰੀ ਨੇ {wholeValue} {wholeLabel} ਬਣਾਈਆਂ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ {partValue} {partLabel} ਸਨ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-072": {
+        "template": "ਦਰਜ ਕੀਤੇ ਹੋਏ {wholeLabel} ਵਿੱਚੋਂ {wholeValue} ਵਿੱਚ {partValue} {partLabel} ਸਨ। ਹਾਜ਼ਰੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-073": {
+        "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਸਨ। ਬੁੱਕ ਕੀਤੀਆਂ ਸੀਟਾਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-074": {
+        "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਸਨ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-075": {
+        "template": "ਇੱਕ ਭੰਡਾਰ ਸਥਾਨ 'ਤੇ {wholeValue} {wholeLabel} ਸਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ {partValue} {partLabel} ਮਿਲੇ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-076": {
+        "template": "ਇੱਕ ਹਸਪਤਾਲ ਨੇ {wholeValue} {wholeLabel} ਦਾ ਇਲਾਜ ਕੀਤਾ, ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {partValue} {partLabel}। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-077": {
+        "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਸਨ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਸਨ। ਚੋਣ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "ਇੱਕ ਗੋਦਾਮ ਵਿੱਚ {wholeValue} {wholeLabel} ਸਨ, ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {partValue} {partLabel}। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-080": {
+        "template": "ਜਮ੍ਹਾਂ ਕੀਤੇ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਸਨ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-007": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ {valuePrefix}{targetValue} ਉਸੇ {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?", "difficulty": "Medium" },
-      "PCT-QL-008": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ {targetValue} ਉਸੇ {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?", "difficulty": "Medium" }
+      "PCT-QL-007": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ {valuePrefix}{targetValue} ਉਸੇ {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ {targetValue} ਉਸੇ {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "ਜੇ {knownValue}, {wholeLabel} ਦਾ {knownRate}% ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ {targetValue} ਨਾਲ ਦਰਸਾਇਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-032": {
+        "template": "ਜੇ {knownValue} {wholeLabel} ਕੁੱਲ ਦਾ {knownRate}% ਹਨ, ਤਾਂ {targetValue} {wholeLabel} ਕੁੱਲ ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹਨ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-081": {
+        "template": "ਜੇ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {valuePrefix}{targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-082": {
+        "template": "ਜੇ ਗੋਦਾਮ ਦੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-083": {
+        "template": "ਜੇ ਹਸਪਤਾਲ ਦੀ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-084": {
+        "template": "ਜੇ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦੇ {targetValue} {wholeLabel} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹਨ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-085": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ {valuePrefix}{targetValue} ਨਾਲ ਦਰਸਾਇਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {valuePrefix}{targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "ਜੇ ਉਤਪਾਦਨ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ ਕੁੱਲ ਦਾ {targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "ਜੇ ਬੁਕਿੰਗ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ {targetValue} ਨਾਲ ਦਰਸਾਇਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-089": {
+        "template": "ਜੇ ਮਾਸਿਕ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {valuePrefix}{targetValue} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-090": {
+        "template": "ਜੇ ਕੁੱਲ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ {targetValue} ਨਾਲ ਦਰਸਾਇਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-009": { "template": "ਕਿਸੇ ਮਾਤਰਾ ਨੂੰ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। {targetPartLabel} ਨਾਲ ਸੰਬੰਧਿਤ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
-      "PCT-QL-010": { "template": "ਦੋ ਭਾਗਾਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਨੂੰ ਪੂਰੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।", "difficulty": "Easy" }
+      "PCT-QL-009": {
+        "template": "ਕਿਸੇ ਮਾਤਰਾ ਨੂੰ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। {targetPartLabel} ਨਾਲ ਸੰਬੰਧਿਤ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-010": {
+        "template": "ਦੋ ਭਾਗਾਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਨੂੰ ਪੂਰੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-033": {
+        "template": "ਵਿਦਿਆਰਥੀ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੇ ਹੋਏ ਹਨ। {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-034": {
+        "template": "ਜ਼ਮੀਨ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੀ ਹੋਈ ਹੈ। {targetPartLabel} ਦੇ ਹਿੱਸੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-035": {
+        "template": "ਦੋ ਉਮੀਦਵਾਰਾਂ ਨੂੰ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੋਟ ਮਿਲੇ। {targetPartLabel} ਦਾ ਵੋਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-091": {
+        "template": "ਇੱਕ ਕਲਾਸ ਵਿੱਚ ਲੜਕਿਆਂ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। ਕਲਾਸ ਵਿੱਚ {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-092": {
+        "template": "ਪਾਸ ਅਤੇ ਫੇਲ੍ਹ ਅਭਿਆਰਥੀਆਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। ਕੁੱਲ ਅਭਿਆਰਥੀਆਂ ਵਿੱਚ {targetPartLabel} ਨੂੰ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-093": {
+        "template": "ਇੱਕ ਗੋਦਾਮ ਵਿੱਚ ਗੇਂਹੂ ਅਤੇ ਚਾਵਲ ਦੀਆਂ ਬੋਰੀਆਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। ਸਟਾਕ ਵਿੱਚ {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "ਪੇਂਡੂ ਅਤੇ ਸ਼ਹਿਰੀ ਆਬਾਦੀ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-095": {
+        "template": "ਆਨਲਾਈਨ ਅਤੇ ਆਫਲਾਈਨ ਆਵੇਦਕਾਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-096": {
+        "template": "ਦੋ ਉਮੀਦਵਾਰਾਂ ਨੂੰ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੋਟ ਮਿਲੇ। ਕੁੱਲ ਵੋਟਾਂ ਵਿੱਚੋਂ {targetPartLabel} ਨੂੰ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੋਟ ਮਿਲੇ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "ਗੇਂਹੂ ਅਤੇ ਧਾਨ ਹੇਠਲੀ ਜ਼ਮੀਨ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਹੇਠਲੇ ਖੇਤਰ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "ਭੋਜਨ ਅਤੇ ਆਵਾਜਾਈ ਵਿੱਚ ਬਜਟ-ਵੰਡ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਹਿੱਸਾ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "ਪੁਰਸ਼ ਅਤੇ ਇਸਤਰੀ ਕਰਮਚਾਰੀਆਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-100": {
+        "template": "ਬੁੱਕ ਕੀਤੀਆਂ ਅਤੇ ਖਾਲੀ ਸੀਟਾਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-011": { "template": "ਜੇ ਕਲਾਸ ਦੇ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
-      "PCT-QL-012": { "template": "ਇੱਕ ਵਿਅਕਤੀ ਆਪਣੀ ਆਮਦਨ ਦਾ {knownRate}% {partLabel} ਵਜੋਂ ਰੱਖਦਾ ਹੈ। {complementLabel} ਉੱਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਖਰਚ ਹੁੰਦੇ ਹਨ?", "difficulty": "Easy" }
+      "PCT-QL-011": {
+        "template": "ਜੇ ਕਲਾਸ ਦੇ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-012": {
+        "template": "ਇੱਕ ਵਿਅਕਤੀ ਆਪਣੀ ਆਮਦਨ ਦਾ {knownRate}% {partLabel} ਵਜੋਂ ਰੱਖਦਾ ਹੈ। {complementLabel} ਉੱਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਖਰਚ ਹੁੰਦੇ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-036": {
+        "template": "ਜੇ {knownRate}% ਵਿਦਿਆਰਥੀ {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-037": {
+        "template": "ਜੇ ਬੈਟਰੀ ਚਾਰਜ ਦਾ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-038": {
+        "template": "ਜੇ ਸਟਾਕ ਦਾ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-101": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-102": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-103": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-104": {
+        "template": "ਜੇ ਪਾਣੀ ਸਪਲਾਈ ਦਾ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "ਜੇ ਅਭਿਆਰਥੀਆਂ ਵਿੱਚੋਂ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-106": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-107": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-108": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-109": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-110": {
+        "template": "ਜੇ {knownRate}% {partLabel} ਹੈ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-007": {
     "families": {
-      "PCT-QL-013": { "template": "{rate1}% ਵਿਦਿਆਰਥੀ {partLabel} ਹਨ ਅਤੇ {rate2}% {otherLabel} ਹਨ। ਇਨ੍ਹਾਂ ਪ੍ਰਤੀਸ਼ਤਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
-      "PCT-QL-014": { "template": "ਮਾਸਿਕ ਬਜਟ ਦਾ {rate1}% {partLabel} ਉੱਤੇ ਅਤੇ {rate2}% {otherLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
+      "PCT-QL-013": {
+        "template": "{rate1}% ਵਿਦਿਆਰਥੀ {partLabel} ਹਨ ਅਤੇ {rate2}% {otherLabel} ਹਨ। ਇਨ੍ਹਾਂ ਪ੍ਰਤੀਸ਼ਤਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-014": {
+        "template": "ਮਾਸਿਕ ਬਜਟ ਦਾ {rate1}% {partLabel} ਉੱਤੇ ਅਤੇ {rate2}% {otherLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "ਇੱਕ ਜਨਮਤ ਸਰਵੇਖਣ ਵਿੱਚ {partLabel} ਨੂੰ {rate1}% ਅਤੇ {otherLabel} ਨੂੰ {rate2}% ਸਮਰਥਨ ਮਿਲਿਆ। ਦੋਨਾਂ ਪ੍ਰਤੀਸ਼ਤਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-040": {
+        "template": "ਇੱਕ ਹਸਪਤਾਲ ਵਿੱਚ {rate1}% ਬਿਸਤਰ {partLabel} ਵਿੱਚ ਹਨ ਅਤੇ {rate2}% {otherLabel} ਵਿੱਚ ਹਨ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-041": {
+        "template": "ਇੱਕ ਖੇਤ ਵਿੱਚ {rate1}% ਖੇਤਰ {partLabel} ਹੇਠ ਹੈ ਅਤੇ {rate2}% {otherLabel} ਹੇਠ ਹੈ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦੇ ਵਿਚਕਾਰ ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-111": {
+        "template": "ਇੱਕ ਜਨਮਤ ਸਰਵੇਖਣ ਵਿੱਚ {partLabel} ਨੂੰ {rate1}% ਅਤੇ {otherLabel} ਨੂੰ {rate2}% ਸਮਰਥਨ ਮਿਲਿਆ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦੇ ਵਿਚਕਾਰ ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-112": {
+        "template": "ਇੱਕ ਬਜਟ ਵਿੱਚ {rate1}% {partLabel} ਉੱਤੇ ਅਤੇ {rate2}% {otherLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-113": {
+        "template": "ਕ੍ਰਿਸ਼ੀਯੋਗ ਜ਼ਮੀਨ ਵਿੱਚੋਂ {rate1}% {partLabel} ਹੇਠ ਹੈ ਅਤੇ {rate2}% {otherLabel} ਹੇਠ ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-114": {
+        "template": "ਹਸਪਤਾਲ ਦੇ ਬਿਸਤਰਾ-ਵੰਡ ਵਿੱਚ {rate1}% ਬਿਸਤਰ {partLabel} ਵਿੱਚ ਹਨ ਅਤੇ {rate2}% {otherLabel} ਵਿੱਚ ਹਨ। ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-115": {
+        "template": "ਇੱਕ ਉਤਪਾਦਨ ਰਿਪੋਰਟ ਵਿੱਚ {rate1}% {partLabel} ਵਿੱਚ ਅਤੇ {rate2}% {otherLabel} ਵਿੱਚ ਹੈ। ਇਨ੍ਹਾਂ ਸ਼੍ਰੇਣੀਆਂ ਦੇ ਵਿਚਕਾਰ ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-116": {
+        "template": "ਇੱਕ ਸਕੂਲੀ ਨਤੀਜੇ ਵਿੱਚ {rate1}% ਵਿਦਿਆਰਥੀ {partLabel} ਹਨ ਅਤੇ {rate2}% {otherLabel} ਹਨ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-117": {
+        "template": "ਇੱਕ ਬਸ ਰੂਟ 'ਤੇ {rate1}% ਯਾਤਰੀ {partLabel} ਹਨ ਅਤੇ {rate2}% {otherLabel} ਹਨ। ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-118": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ {rate1}% ਪ੍ਰਤੀਕਿਰਿਆਵਾਂ {partLabel} ਦੇ ਹੱਕ ਵਿੱਚ ਅਤੇ {rate2}% {otherLabel} ਦੇ ਹੱਕ ਵਿੱਚ ਹਨ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-119": {
+        "template": "ਇੱਕ ਗੋਦਾਮ ਵਿੱਚ {rate1}% ਸਟਾਕ {partLabel} ਹੈ ਅਤੇ {rate2}% {otherLabel} ਹੈ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦੇ ਵਿਚਕਾਰ ਪ੍ਰਤੀਸ਼ਤ ਅੰਕਾਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-120": {
+        "template": "ਇੱਕ ਕੰਪਨੀ ਵਿੱਚ {rate1}% ਕਰਮਚਾਰੀ {partLabel} ਵਿੱਚ ਅਤੇ {rate2}% {otherLabel} ਵਿੱਚ ਹਨ। ਦੋਨਾਂ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-008": {
     "families": {
-      "PCT-QL-015": { "template": "{totalValue} {wholeLabel} ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" },
-      "PCT-QL-016": { "template": "{valuePrefix}{totalValue} ਦੇ {wholeLabel} ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। {targetLabel} ਉੱਤੇ ਖਰਚੀ ਗਈ ਰਕਮ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
+      "PCT-QL-015": {
+        "template": "{totalValue} {wholeLabel} ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-016": {
+        "template": "{valuePrefix}{totalValue} ਦੇ {wholeLabel} ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। {targetLabel} ਉੱਤੇ ਖਰਚੀ ਗਈ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-042": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਸੂਚੀ ਵਿੱਚ ਕੁੱਲ {totalValue} {wholeLabel} ਹਨ। ਇਨ੍ਹਾਂ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-043": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਦੇ ਸਟਾਕ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "ਇੱਕ ਰੇਲ ਡੱਬੇ ਵਿੱਚ ਕੁੱਲ {totalValue} {wholeLabel} ਹਨ। ਜੇ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "ਕੁੱਲ {wholeLabel} {valuePrefix}{totalValue} ਹੈ। ਜੇ {targetRate}% {targetLabel} ਉੱਤੇ, {otherRate}% {otherLabel} ਉੱਤੇ ਅਤੇ {thirdRate}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ {targetLabel} ਉੱਤੇ ਖਰਚੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-122": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਾਲੇ ਇੱਕ ਸਕੂਲ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-123": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਾਲੇ ਇੱਕ ਗੋਦਾਮ-ਲਾਟ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-124": {
+        "template": "ਇੱਕ ਬਸ ਸੇਵਾ {totalValue} {wholeLabel} ਲੈ ਜਾਂਦੀ ਹੈ। ਜੇ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-125": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {targetRate}% {targetLabel} ਨੂੰ, {otherRate}% {otherLabel} ਨੂੰ ਅਤੇ {thirdRate}% {thirdLabel} ਨੂੰ ਜਾਂਦੇ ਹਨ। {targetLabel} ਨੂੰ ਮਿਲੀਆਂ ਵੋਟਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-126": {
+        "template": "ਇੱਕ ਫੈਕਟਰੀ ਨੇ ਕੁੱਲ {totalValue} {wholeLabel} ਬਣਾਈਆਂ। ਜੇ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-127": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਾਲੇ ਹਸਪਤਾਲ ਰਜਿਸਟਰ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-128": {
+        "template": "ਕੁੱਲ {totalValue} ਏਕੜ {wholeLabel} ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹੇਠ ਹੈ। {targetLabel} ਹੇਠਲਾ ਖੇਤਰਫਲ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "ਇੱਕ {wholeLabel} ਦਾ ਕੁੱਲ ਜੋੜ {valuePrefix}{totalValue} ਹੈ। ਜੇ {targetRate}% {targetLabel} ਉੱਤੇ, {otherRate}% {otherLabel} ਉੱਤੇ ਅਤੇ {thirdRate}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ {targetLabel} ਉੱਤੇ ਖਰਚੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-130": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ ਕੁੱਲ {totalValue} {wholeLabel} ਹਨ। ਜੇ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-009": {
     "families": {
-      "PCT-QL-017": { "template": "{rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
-      "PCT-QL-018": { "template": "ਇੱਕ ਬਜਟ ਵਿੱਚ {rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
+      "PCT-QL-017": {
+        "template": "{rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "ਇੱਕ ਬਜਟ ਵਿੱਚ {rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ {rate1}% ਲੋਕ {partLabel} ਨੂੰ ਪਸੰਦ ਕਰਦੇ ਹਨ, {rate2}% {otherLabel} ਨੂੰ ਪਸੰਦ ਕਰਦੇ ਹਨ ਅਤੇ {rate3}% {thirdLabel} ਨੂੰ ਪਸੰਦ ਕਰਦੇ ਹਨ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-046": {
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ {rate1}% ਵੋਟ {partLabel} ਨੂੰ, {rate2}% ਵੋਟ {otherLabel} ਨੂੰ ਅਤੇ {rate3}% ਵੋਟ {thirdLabel} ਨੂੰ ਜਾਂਦੇ ਹਨ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਨਤੀਜੇ ਵਿੱਚ {rate1}% ਵਿਦਿਆਰਥੀ {partLabel} ਹਨ, {rate2}% {otherLabel} ਹਨ ਅਤੇ {rate3}% {thirdLabel} ਹਨ। {complementLabel} ਦਾ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ {rate1}% ਨੇ {partLabel} ਚੁਣਿਆ, {rate2}% ਨੇ {otherLabel} ਚੁਣਿਆ ਅਤੇ {rate3}% ਨੇ {thirdLabel} ਚੁਣਿਆ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ {rate1}% ਵੋਟ {partLabel} ਨੂੰ, {rate2}% {otherLabel} ਨੂੰ ਅਤੇ {rate3}% {thirdLabel} ਨੂੰ ਗਈਆਂ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "ਇੱਕ ਨਤੀਜਾ-ਸੂਚੀ ਵਿੱਚ {rate1}% {partLabel} ਹਨ, {rate2}% {otherLabel} ਹਨ ਅਤੇ {rate3}% {thirdLabel} ਹਨ। {complementLabel} ਦਾ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "ਕ੍ਰਿਸ਼ੀਯੋਗ ਜ਼ਮੀਨ ਵਿੱਚ {rate1}% {partLabel} ਹੇਠ, {rate2}% {otherLabel} ਹੇਠ ਅਤੇ {rate3}% {thirdLabel} ਹੇਠ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "ਇੱਕ ਹਸਪਤਾਲ ਨਤੀਜਾ ਰਿਕਾਰਡ ਵਿੱਚ {rate1}% {partLabel} ਹਨ, {rate2}% {otherLabel} ਹਨ ਅਤੇ {rate3}% {thirdLabel} ਹਨ। {complementLabel} ਦਾ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "ਇੱਕ ਬਜਟ ਵਿੱਚ {rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "ਇੱਕ ਉਤਪਾਦਨ-ਵੰਡ ਵਿੱਚ {rate1}% {partLabel}, {rate2}% {otherLabel} ਅਤੇ {rate3}% {thirdLabel} ਦੇ ਰੂਪ ਵਿੱਚ ਹੈ। {complementLabel} ਦਾ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-138": {
+        "template": "ਇੱਕ ਬਸ ਰੂਟ 'ਤੇ ਯਾਤਰੀਆਂ ਵਿੱਚੋਂ {rate1}% {partLabel} ਹਨ, {rate2}% {otherLabel} ਹਨ ਅਤੇ {rate3}% {thirdLabel} ਹਨ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "ਇੱਕ ਸਟਾਕ-ਸੰਖੇਪ ਵਿੱਚ {rate1}% {partLabel}, {rate2}% {otherLabel} ਅਤੇ {rate3}% {thirdLabel} ਹਨ। {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "ਆਵੇਦਕਾਂ ਵਿੱਚੋਂ {rate1}% {partLabel} ਹਨ, {rate2}% {otherLabel} ਹਨ ਅਤੇ {rate3}% {thirdLabel} ਹਨ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      }
     }
   },
   "PCT-CP-010": {
     "families": {
-      "PCT-QL-019": { "template": "{totalValue} ਦੀ {wholeLabel} ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" },
-      "PCT-QL-020": { "template": "{valuePrefix}{totalValue} ਦੇ {wholeLabel} ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਬਾਕੀ {targetRate}% {targetLabel} ਉੱਤੇ। {targetLabel} ਉੱਤੇ ਖਰਚੀ ਗਈ ਰਕਮ ਪਤਾ ਕਰੋ।", "difficulty": "Hard" }
+      "PCT-QL-019": {
+        "template": "{totalValue} ਦੀ {wholeLabel} ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "{valuePrefix}{totalValue} ਦੇ {wholeLabel} ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਬਾਕੀ {targetRate}% {targetLabel} ਉੱਤੇ। {targetLabel} ਉੱਤੇ ਖਰਚੀ ਗਈ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-048": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "ਇੱਕ ਜ਼ਿਲ੍ਹੇ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "ਇੱਕ ਸਮੂਹ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} ਅਤੇ ਬਾਕੀ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "ਇੱਕ ਜ਼ਿਲ੍ਹੇ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "ਇੱਕ ਭੰਡਾਰ-ਲੇਜ਼ਰ ਵਿੱਚ {totalValue} {wholeLabel} ਦਰਜ ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "ਇੱਕ ਰੂਟ 'ਤੇ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-145": {
+        "template": "ਇੱਕ ਪਰਿਵਾਰ ਦਾ {wholeLabel} {valuePrefix}{totalValue} ਹੈ। ਜੇ {rate1}% {otherLabel} ਉੱਤੇ, {rate2}% {thirdLabel} ਉੱਤੇ, {rate3}% {fourthLabel} ਉੱਤੇ ਅਤੇ ਬਾਕੀ {targetRate}% {targetLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ {targetLabel} ਉੱਤੇ ਖਰਚੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "ਇੱਕ ਉਤਪਾਦਨ ਬੈਚ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਾਲੇ ਹਸਪਤਾਲ ਰਜਿਸਟਰ ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "ਇੱਕ ਭੰਡਾਰ ਡਿਪੋ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "ਇੱਕ ਸਰਵੇਖਣ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-150": {
+        "template": "ਇੱਕ ਗੋਦਾਮ ਪ੍ਰੇਸ਼ਣ ਰਿਕਾਰਡ ਵਿੱਚ {totalValue} {wholeLabel} ਹਨ। ਜੇ {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} ਅਤੇ ਬਾਕੀ {targetRate}% {targetLabel} ਹਨ, ਤਾਂ {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Hard"
+      }
     }
   }
 }

@@ -1,98 +1,103 @@
 # PCT-002 Multilingual Expansion Report
 
-## Batch 1
+## Scope
 
-- QL range: `PCT-QL-005` to `PCT-QL-020`
-- CP coverage:
-  - `PCT-CP-003` to `PCT-CP-010`
-- Scope:
-  - Hindi/Punjabi stems localized
-  - runtime labels switched to entity references
-  - Hindi/Punjabi explanation prose localized for covered task patterns
-  - shared language coverage extracted for package-level allowlist enforcement
+- Module: `PCT-002`
+- Languages: `en`, `hi`, `pa`
+- Exposure model:
+  - English remains the only Question Studio discovery language
+  - Hindi/Punjabi remain backend-only
+  - Non-English runtime is still guarded by the shared localization gate
 
-## Shared Infrastructure Changes
+## Completion Status
 
-- Added `artifacts/api-server/src/quant-v4/common/language-coverage.ts`
-- Moved PCT-002 non-English allowlist enforcement into the shared helper
-- Moved shared entity-label resolution into the shared helper
-- Preserved English label normalization for byte-stable English rendering
+- Hindi localized QLs: `150/150`
+- Punjabi localized QLs: `150/150`
+- Localized CP coverage:
+  - `PCT-CP-001`
+  - `PCT-CP-003`
+  - `PCT-CP-005`
+  - `PCT-CP-006`
+  - `PCT-CP-007`
+  - `PCT-CP-008`
+  - `PCT-CP-009`
+  - `PCT-CP-010`
+- Explanation coverage:
+  - `wholeFromPart`
+  - `anotherPercentageFromKnownPercentage`
+  - `percentageFromPartAndWhole`
+  - `reversePercentageMapping`
+  - `ratioToPercentage`
+  - `complementaryPercentage`
+  - `differenceBetweenPercentageParts`
+  - `percentagePartition`
+  - `missingPercentage`
+  - `multiCategoryPercentageDistribution`
+- Runtime allowlist coverage for `hi` / `pa`: `PCT-QL-001` to `PCT-QL-150`
 
-## Entity Library Additions
+## Shared Infrastructure
 
-- `group-library.json`
-  - `other_students`
-  - `males`
-  - `females`
-  - `population`
-- `object-library.json`
-  - `books`
-  - `reference_books`
-  - `story_books`
-- `financial-concept-library.json`
-  - `rent`
-  - `food`
-  - `transport`
-  - `monthly_expenses`
-  - `food_expenses`
-  - `transport_expenses`
-  - `remaining`
-  - `marketing`
-  - `salaries`
-  - `other_expenses`
-  - `education`
-- `unit-library.json`
-  - `first_part`
-  - `second_part`
+- `artifacts/api-server/src/quant-v4/common/language-coverage.ts`
+  - shared hi/pa QL gating
+  - shared localized-selection filtering
+  - shared entity-label resolution
+- English behavior was preserved:
+  - English selection logic unchanged
+  - English Question Studio exposure unchanged
+  - English solver and answer behavior unchanged
 
-## Allowlist Additions
+## Final Hardening Fixes
 
-- Added to PCT-002 hi/pa runtime allowlist:
-  - `PCT-QL-005`
-  - `PCT-QL-006`
-  - `PCT-QL-007`
-  - `PCT-QL-008`
-  - `PCT-QL-009`
-  - `PCT-QL-010`
-  - `PCT-QL-011`
-  - `PCT-QL-012`
-  - `PCT-QL-013`
-  - `PCT-QL-014`
-  - `PCT-QL-015`
-  - `PCT-QL-016`
-  - `PCT-QL-017`
-  - `PCT-QL-018`
-  - `PCT-QL-019`
-  - `PCT-QL-020`
+- Expanded `PCT-002` non-English allowlist from the earlier pilot subset to full localized coverage.
+- Reworked non-English runtime label resolution so PCT-002 uses entity-backed localized labels instead of package-local hardcoded label copies.
+- Filled the missing `SCENARIO_VARIABLE_OVERRIDES` coverage for later QLs that depended on scenario-specific runtime nouns.
+- Repaired corrupted Hindi/Punjabi `unit-library.json` entries that were rendering as `?` and causing mixed-language / missing-entity output.
+- Added missing unit entities required by localized runtime rendering:
+  - `passed`
+  - `dispatched`
+- Fixed the missing non-English entity-map registration for:
+  - `undelivered`
+- Corrected the eight localized complementary-percentage templates that had drifted from the English placeholder contract by adding an extra `{wholeLabel}` placeholder.
+- Normalized stray Hindi full-width punctuation that leaked into localized templates during bulk fill.
 
-## Expected QA Checks
+## Final QA Run
+
+Executed:
 
 - `node build.mjs`
 - `node dist/quant-v4/pct-002.test.mjs`
-- bundled `pct-002-multilingual-pilot-audit.ts`
+- `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-002/pct-002-multilingual-pilot-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pct-002-multilingual-pilot-audit.mjs`
+- `node dist/quant-v4/pct-002-multilingual-pilot-audit.mjs`
 
-## QA Results
+Observed final audit summary:
 
-- `node build.mjs`
-  - Working directory: `artifacts/api-server`
-  - Result: passed
-- `node dist/quant-v4/pct-002.test.mjs`
-  - Working directory: `artifacts/api-server`
-  - Result: passed
-- bundled multilingual audit
-  - Result: passed
-  - key checks:
-    - placeholder parity passed
-    - required placeholders passed
-    - unresolved placeholders = `0`
-    - hi/pa stem leakage = `0`
-    - hi/pa explanation leakage = `0`
-    - `metadata.language` passed
-    - forced non-allowlisted hi/pa generation blocked
-    - random hi/pa selection stayed inside the current allowlist
+- `jsonParsePassed`: `true`
+- `forcedPilotAuditPassed`: `true`
+- `placeholderParityPassed`: `true`
+- `requiredPlaceholdersPassed`: `true`
+- `unresolvedPlaceholderCount`: `0`
+- `englishLeakageCount`: `0`
+- `explanationEnglishLeakageCount`: `0`
+- `metadataLanguagePassed`: `true`
+- `explanationLanguageLocalized`: `true`
+- `runtimeSupportsHiPa`: `true`
+- `forcedUnsupportedNonEnglishBlocked`: `true`
+- `randomHiSelectableOnly`: `true`
+- `randomPaSelectableOnly`: `true`
+- `sharedQuestionLanguageCount`: `150`
+- `totalEnglishQuestionLanguages`: `150`
+- `totalHindiQuestionLanguages`: `150`
+- `totalPunjabiQuestionLanguages`: `150`
 
-## Notes
+## Backend Safety Result
 
-- English Question Studio exposure remains unchanged.
-- Non-allowlisted hi/pa generation must still fail explicitly.
-- `PCT-QL-021` onward remain blocked for hi/pa until a later batch localizes them.
+- `PCT-002` is backend-safe for Hindi/Punjabi across the full QL set.
+- Random hi/pa runtime selection now stays inside fully localized coverage.
+- Forced hi/pa generation no longer falls through to English-copy templates.
+- Explanations are localized for every active PCT-002 task pattern.
+
+## Remaining Constraints
+
+- Hindi/Punjabi are still not enabled in Question Studio discovery.
+- Frontend exposure remains intentionally off until the wider Percentage rollout is complete.
+- This report only marks `PCT-002` complete; other Percentage modules still need their own migration phases.

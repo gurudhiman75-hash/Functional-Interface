@@ -1,62 +1,642 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": { "template": "{wholeLabel} में {knownRate}% {partLabel} हैं। यदि इनकी संख्या {knownValue} है, तो {wholeLabel} की कुल संख्या ज्ञात कीजिए।", "difficulty": "Easy" },
-      "PCT-QL-002": { "template": "{wholeLabel} का {knownRate}% {partLabel} के रूप में रखा जाता है। यदि यह राशि {valuePrefix}{knownValue} है, तो कुल {wholeLabel} ज्ञात कीजिए।", "difficulty": "Easy" }
+      "PCT-QL-001": {
+        "template": "{wholeLabel} में {knownRate}% {partLabel} हैं। यदि इनकी संख्या {knownValue} है, तो {wholeLabel} की कुल संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "{wholeLabel} का {knownRate}% {partLabel} के रूप में रखा जाता है। यदि यह राशि {valuePrefix}{knownValue} है, तो कुल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "एक स्कूल में {wholeLabel} का {knownRate}% {partLabel} हैं। यदि इनकी संख्या {knownValue} है, तो {wholeLabel} की कुल संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "एक चुनाव में {wholeLabel} का {knownRate}% {partLabel} है। यदि यह संख्या {knownValue} है, तो कुल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "यदि {knownValue} {partLabel}, {wholeLabel} का {knownRate}% हैं, तो {wholeLabel} की कुल संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "एक सर्वेक्षण में {wholeLabel} का {knownRate}% ने {partLabel} चुना। यदि {knownValue} {wholeLabel} ने इसे चुना, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "एक गोदाम रिपोर्ट बताती है कि {wholeLabel} का {knownRate}% {partLabel} है। यदि इस समूह में {knownValue} {wholeLabel} हैं, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "एक विशेष दिन पर नामांकित {wholeLabel} में से {knownRate}% {partLabel} थे। यदि {knownValue} {wholeLabel} {partLabel} थे, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "एक रेल डिब्बे में {wholeLabel} का {knownRate}% {partLabel} में यात्रा कर रहा था। यदि उनकी संख्या {knownValue} थी, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "एक लाभार्थी सूची में {wholeLabel} का {knownRate}% {partLabel} थे। यदि {knownValue} {wholeLabel} {partLabel} थे, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "एक अस्पताल में {wholeLabel} का {knownRate}% {partLabel} थे। यदि {knownValue} {wholeLabel} {partLabel} थे, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "एक उम्मीदवार को {wholeLabel} का {knownRate}% मिला। यदि यह हिस्सा {knownValue} {partLabel} के बराबर है, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-058": {
+        "template": "एक किसान ने {wholeLabel} का {knownRate}% बेचा। यदि {knownValue} {partLabel} बेची गईं, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-059": {
+        "template": "एक कंपनी में {wholeLabel} का {knownRate}% {partLabel} में काम करता है। यदि वहाँ {knownValue} {wholeLabel} काम करते हैं, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "एक कार्यालय अभिलेख बताता है कि {wholeLabel} का {knownRate}% {partLabel} हैं। यदि {knownValue} {wholeLabel} {partLabel} हैं, तो कुल {wholeLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-003": { "template": "यदि {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो उसी {wholeLabel} का {targetRate}% ज्ञात कीजिए।", "difficulty": "Easy" },
-      "PCT-QL-004": { "template": "यदि {wholeLabel} का {knownRate}% {knownValue} है, तो उसी {wholeLabel} का {targetRate}% कितना होगा?", "difficulty": "Medium" }
+      "PCT-QL-003": {
+        "template": "यदि {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो उसी {wholeLabel} का {targetRate}% ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "यदि {wholeLabel} का {knownRate}% {knownValue} है, तो उसी {wholeLabel} का {targetRate}% कितना होगा?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-024": {
+        "template": "{wholeLabel} का {knownRate}% {knownValue} है। उसी {wholeLabel} का {targetRate}% के अनुरूप राशि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "एक स्कूल में कुल {wholeLabel} का {knownRate}% {knownValue} है। उसी कुल का {targetRate}% द्वारा निरूपित संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-026": {
+        "template": "यदि वार्षिक {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetRate}% द्वारा निरूपित राशि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "यदि मासिक {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो उसी {wholeLabel} का {targetRate}% का मान ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "एक स्कूल में कुल {wholeLabel} का {knownRate}% {knownValue} है। उसी कुल का {targetRate}% द्वारा निरूपित संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "यदि गोदाम के {wholeLabel} का {knownRate}% {knownValue} है, तो उसी स्टॉक का {targetRate}% के अनुरूप मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-064": {
+        "template": "यदि मासिक {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetRate}% के अनुरूप राशि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "यदि मौसम के {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetRate}% के अनुरूप राशि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "एक बजट योजना में कुल {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है। उसी {wholeLabel} का {targetRate}% ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "यदि उत्पादन {wholeLabel} का {knownRate}% {knownValue} है, तो उसी लक्ष्य का {targetRate}% द्वारा निरूपित मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-068": {
+        "template": "यदि मार्ग के {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetRate}% द्वारा निरूपित संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "यदि कुल {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल के {targetRate}% के अनुरूप कितने {wholeLabel} होंगे?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "यदि अस्पताल की {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetRate}% द्वारा निरूपित संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-005": { "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} हैं। ज्ञात कीजिए कि {partLabel}, {wholeLabel} का कितने प्रतिशत हैं।", "difficulty": "Easy" },
-      "PCT-QL-006": { "template": "एक व्यक्ति {valuePrefix}{wholeValue} की कुल {wholeLabel} में से {valuePrefix}{partValue} को {partLabel} के रूप में रखता है। {partLabel} का प्रतिशत ज्ञात कीजिए।", "difficulty": "Medium" }
+      "PCT-QL-005": {
+        "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} हैं। ज्ञात कीजिए कि {partLabel}, {wholeLabel} का कितने प्रतिशत हैं।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-006": {
+        "template": "एक व्यक्ति {valuePrefix}{wholeValue} की कुल {wholeLabel} में से {valuePrefix}{partValue} को {partLabel} के रूप में रखता है। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} हैं। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-028": {
+        "template": "{wholeValue} {wholeLabel} वाली एक कक्षा में {partValue} {partLabel} हैं। उपस्थिति प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-029": {
+        "template": "{wholeValue} {wholeLabel} वाले एक स्थल पर {partValue} {partLabel} हैं। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-071": {
+        "template": "एक कारखाने ने {wholeValue} {wholeLabel} बनाए, जिनमें से {partValue} {partLabel} थे। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-072": {
+        "template": "पंजीकृत {wholeLabel} में से {wholeValue} में {partValue} {partLabel} थे। उपस्थिति प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-073": {
+        "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} थे। बुक की गई सीटों का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-074": {
+        "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} थे। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-075": {
+        "template": "एक भंडारण स्थल पर {wholeValue} {wholeLabel} थे, जिनमें से {partValue} {partLabel} पाए गए। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-076": {
+        "template": "एक अस्पताल ने {wholeValue} {wholeLabel} का उपचार किया, और उनमें से {partValue} {partLabel}। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-077": {
+        "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} थे। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "कुल {wholeValue} {wholeLabel} में से {partValue} {partLabel} थे। चयन प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "एक गोदाम में {wholeValue} {wholeLabel} थे, और उनमें से {partValue} {partLabel}। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-080": {
+        "template": "जमा किए गए {wholeValue} {wholeLabel} में से {partValue} {partLabel} थे। {partLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-007": { "template": "यदि {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो {valuePrefix}{targetValue} उसी {wholeLabel} का कितने प्रतिशत है?", "difficulty": "Medium" },
-      "PCT-QL-008": { "template": "यदि {wholeLabel} का {knownRate}% {knownValue} है, तो {targetValue} उसी {wholeLabel} का कितने प्रतिशत है?", "difficulty": "Medium" }
+      "PCT-QL-007": {
+        "template": "यदि {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो {valuePrefix}{targetValue} उसी {wholeLabel} का कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-008": {
+        "template": "यदि {wholeLabel} का {knownRate}% {knownValue} है, तो {targetValue} उसी {wholeLabel} का कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-030": {
+        "template": "यदि {knownValue}, {wholeLabel} का {knownRate}% है, तो उसी कुल का {targetValue} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-031": {
+        "template": "यदि {wholeLabel} का {knownRate}% {knownValue} है, तो {targetValue} द्वारा निरूपित प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-032": {
+        "template": "यदि {knownValue} {wholeLabel} कुल का {knownRate}% हैं, तो {targetValue} {wholeLabel} कुल का कितने प्रतिशत हैं?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-081": {
+        "template": "यदि कुल {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो उसी {wholeLabel} का {valuePrefix}{targetValue} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-082": {
+        "template": "यदि गोदाम के {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetValue} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-083": {
+        "template": "यदि अस्पताल की {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetValue} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-084": {
+        "template": "यदि कुल {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल के {targetValue} {wholeLabel} कितने प्रतिशत हैं?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-085": {
+        "template": "यदि {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो {valuePrefix}{targetValue} द्वारा निरूपित प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "यदि {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो उसी कुल का {valuePrefix}{targetValue} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "यदि उत्पादन {wholeLabel} का {knownRate}% {knownValue} है, तो उसी कुल का {targetValue} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "यदि बुकिंग {wholeLabel} का {knownRate}% {knownValue} है, तो {targetValue} द्वारा निरूपित प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-089": {
+        "template": "यदि मासिक {wholeLabel} का {knownRate}% {valuePrefix}{knownValue} है, तो उसी {wholeLabel} का {valuePrefix}{targetValue} कितने प्रतिशत है?",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-090": {
+        "template": "यदि कुल {wholeLabel} का {knownRate}% {knownValue} है, तो {targetValue} द्वारा निरूपित प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-009": { "template": "किसी मात्रा को {partA}:{partB} के अनुपात में बाँटा गया है। {targetPartLabel} के अनुरूप प्रतिशत ज्ञात कीजिए।", "difficulty": "Easy" },
-      "PCT-QL-010": { "template": "दो भागों का अनुपात {partA}:{partB} है। {targetPartLabel} को पूर्ण का प्रतिशत के रूप में व्यक्त कीजिए।", "difficulty": "Easy" }
+      "PCT-QL-009": {
+        "template": "किसी मात्रा को {partA}:{partB} के अनुपात में बाँटा गया है। {targetPartLabel} के अनुरूप प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-010": {
+        "template": "दो भागों का अनुपात {partA}:{partB} है। {targetPartLabel} को पूर्ण का प्रतिशत के रूप में व्यक्त कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-033": {
+        "template": "विद्यार्थी {partA}:{partB} के अनुपात में विभाजित हैं। {targetPartLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-034": {
+        "template": "भूमि {partA}:{partB} के अनुपात में विभाजित है। {targetPartLabel} के हिस्से का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-035": {
+        "template": "दो उम्मीदवारों को {partA}:{partB} के अनुपात में वोट मिले। {targetPartLabel} का वोट प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-091": {
+        "template": "एक कक्षा में लड़कों और लड़कियों का अनुपात {partA}:{partB} है। कक्षा में {targetPartLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-092": {
+        "template": "उत्तीर्ण और अनुत्तीर्ण अभ्यर्थियों का अनुपात {partA}:{partB} है। कुल अभ्यर्थियों में {targetPartLabel} को प्रतिशत के रूप में व्यक्त कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-093": {
+        "template": "एक गोदाम में गेहूँ और चावल की बोरियों का अनुपात {partA}:{partB} है। स्टॉक में {targetPartLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "ग्रामीण और शहरी आबादी का अनुपात {partA}:{partB} है। {targetPartLabel} का प्रतिशत हिस्सा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-095": {
+        "template": "ऑनलाइन और ऑफलाइन आवेदकों का अनुपात {partA}:{partB} है। {targetPartLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-096": {
+        "template": "दो उम्मीदवारों को {partA}:{partB} के अनुपात में वोट मिले। कुल वोटों में से {targetPartLabel} को कितने प्रतिशत वोट मिले?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "गेहूँ और धान के अंतर्गत भूमि का अनुपात {partA}:{partB} है। {targetPartLabel} के अंतर्गत क्षेत्र का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "भोजन और परिवहन के बीच बजट-विभाजन का अनुपात {partA}:{partB} है। {targetPartLabel} का प्रतिशत हिस्सा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "पुरुष और महिला कर्मचारियों का अनुपात {partA}:{partB} है। कर्मचारियों में {targetPartLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-100": {
+        "template": "बुक की गई और रिक्त सीटों का अनुपात {partA}:{partB} है। {targetPartLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-011": { "template": "यदि कक्षा के {knownRate}% {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।", "difficulty": "Easy" },
-      "PCT-QL-012": { "template": "एक व्यक्ति अपनी आय का {knownRate}% {partLabel} के रूप में रखता है। {complementLabel} पर कितने प्रतिशत खर्च होते हैं?", "difficulty": "Easy" }
+      "PCT-QL-011": {
+        "template": "यदि कक्षा के {knownRate}% {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-012": {
+        "template": "एक व्यक्ति अपनी आय का {knownRate}% {partLabel} के रूप में रखता है। {complementLabel} पर कितने प्रतिशत खर्च होते हैं?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-036": {
+        "template": "यदि {knownRate}% विद्यार्थी {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-037": {
+        "template": "यदि बैटरी चार्ज का {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-038": {
+        "template": "यदि स्टॉक का {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-101": {
+        "template": "यदि {knownRate}% {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-102": {
+        "template": "यदि {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-103": {
+        "template": "यदि {knownRate}% {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-104": {
+        "template": "यदि जल-आपूर्ति का {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "यदि अभ्यर्थियों में से {knownRate}% {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-106": {
+        "template": "यदि {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-107": {
+        "template": "यदि {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-108": {
+        "template": "यदि {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-109": {
+        "template": "यदि {knownRate}% {partLabel} हैं, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-110": {
+        "template": "यदि {knownRate}% {partLabel} है, तो {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-007": {
     "families": {
-      "PCT-QL-013": { "template": "{rate1}% विद्यार्थी {partLabel} हैं और {rate2}% {otherLabel} हैं। इन प्रतिशतों का अंतर ज्ञात कीजिए।", "difficulty": "Easy" },
-      "PCT-QL-014": { "template": "मासिक बजट का {rate1}% {partLabel} पर और {rate2}% {otherLabel} पर जाता है। प्रतिशत का अंतर ज्ञात कीजिए।", "difficulty": "Medium" }
+      "PCT-QL-013": {
+        "template": "{rate1}% विद्यार्थी {partLabel} हैं और {rate2}% {otherLabel} हैं। इन प्रतिशतों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-014": {
+        "template": "मासिक बजट का {rate1}% {partLabel} पर और {rate2}% {otherLabel} पर जाता है। प्रतिशत का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-039": {
+        "template": "एक जनमत सर्वेक्षण में {partLabel} को {rate1}% और {otherLabel} को {rate2}% समर्थन मिला। दोनों प्रतिशतों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-040": {
+        "template": "एक अस्पताल में {rate1}% बिस्तर {partLabel} में हैं और {rate2}% {otherLabel} में हैं। दोनों हिस्सों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-041": {
+        "template": "एक खेत में {rate1}% क्षेत्र {partLabel} के अंतर्गत है और {rate2}% {otherLabel} के अंतर्गत है। दोनों हिस्सों के बीच प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-111": {
+        "template": "एक जनमत सर्वेक्षण में {partLabel} को {rate1}% और {otherLabel} को {rate2}% समर्थन मिला। दोनों हिस्सों के बीच प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-112": {
+        "template": "एक बजट में {rate1}% {partLabel} पर और {rate2}% {otherLabel} पर खर्च होता है। दोनों हिस्सों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-113": {
+        "template": "कृषि योग्य भूमि में से {rate1}% {partLabel} के अंतर्गत है और {rate2}% {otherLabel} के अंतर्गत है। प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-114": {
+        "template": "अस्पताल के बिस्तर-वितरण में {rate1}% बिस्तर {partLabel} में हैं और {rate2}% {otherLabel} में हैं। प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-115": {
+        "template": "एक उत्पादन रिपोर्ट में {rate1}% {partLabel} में और {rate2}% {otherLabel} में है। इन श्रेणियों के बीच प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-116": {
+        "template": "एक स्कूल परिणाम में {rate1}% विद्यार्थी {partLabel} हैं और {rate2}% {otherLabel} हैं। दोनों हिस्सों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-117": {
+        "template": "एक बस मार्ग पर {rate1}% यात्री {partLabel} हैं और {rate2}% {otherLabel} हैं। प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-118": {
+        "template": "एक सर्वेक्षण में {rate1}% प्रतिक्रियाएँ {partLabel} के पक्ष में और {rate2}% {otherLabel} के पक्ष में हैं। दोनों हिस्सों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-119": {
+        "template": "एक गोदाम में {rate1}% स्टॉक {partLabel} है और {rate2}% {otherLabel} है। दोनों हिस्सों के बीच प्रतिशत बिंदुओं का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-120": {
+        "template": "एक कंपनी में {rate1}% कर्मचारी {partLabel} में और {rate2}% {otherLabel} में हैं। दोनों हिस्सों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-008": {
     "families": {
-      "PCT-QL-015": { "template": "{totalValue} {wholeLabel} के एक समूह में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।", "difficulty": "Medium" },
-      "PCT-QL-016": { "template": "{valuePrefix}{totalValue} के {wholeLabel} में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} पर खर्च होता है। {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।", "difficulty": "Medium" }
+      "PCT-QL-015": {
+        "template": "{totalValue} {wholeLabel} के एक समूह में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-016": {
+        "template": "{valuePrefix}{totalValue} के {wholeLabel} में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} पर खर्च होता है। {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-042": {
+        "template": "एक सर्वेक्षण सूची में कुल {totalValue} {wholeLabel} हैं। इनमें {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-043": {
+        "template": "कुल {totalValue} {wholeLabel} के स्टॉक में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-044": {
+        "template": "एक रेल डिब्बे में कुल {totalValue} {wholeLabel} हैं। यदि {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "कुल {wholeLabel} {valuePrefix}{totalValue} है। यदि {targetRate}% {targetLabel} पर, {otherRate}% {otherLabel} पर और {thirdRate}% {thirdLabel} पर खर्च होता है, तो {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-122": {
+        "template": "कुल {totalValue} {wholeLabel} वाले एक स्कूल में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-123": {
+        "template": "कुल {totalValue} {wholeLabel} वाले एक गोदाम-लॉट में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-124": {
+        "template": "एक बस सेवा {totalValue} {wholeLabel} ले जाती है। यदि {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-125": {
+        "template": "कुल {totalValue} {wholeLabel} में {targetRate}% {targetLabel} को, {otherRate}% {otherLabel} को और {thirdRate}% {thirdLabel} को जाते हैं। {targetLabel} को मिले वोटों की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-126": {
+        "template": "एक कारखाने ने कुल {totalValue} {wholeLabel} बनाए। यदि {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-127": {
+        "template": "कुल {totalValue} {wholeLabel} वाले अस्पताल रजिस्टर में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-128": {
+        "template": "कुल {totalValue} एकड़ {wholeLabel} में {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} के अंतर्गत है। {targetLabel} के अंतर्गत क्षेत्रफल ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "एक {wholeLabel} का कुल योग {valuePrefix}{totalValue} है। यदि {targetRate}% {targetLabel} पर, {otherRate}% {otherLabel} पर और {thirdRate}% {thirdLabel} पर खर्च होता है, तो {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-130": {
+        "template": "एक सर्वेक्षण में कुल {totalValue} {wholeLabel} हैं। यदि {targetRate}% {targetLabel}, {otherRate}% {otherLabel} और {thirdRate}% {thirdLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-009": {
     "families": {
-      "PCT-QL-017": { "template": "{rate1}% {partLabel} पर, {rate2}% {otherLabel} पर और {rate3}% {thirdLabel} पर खर्च होता है। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।", "difficulty": "Easy" },
-      "PCT-QL-018": { "template": "एक बजट में {rate1}% {partLabel} पर, {rate2}% {otherLabel} पर और {rate3}% {thirdLabel} पर जाता है। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।", "difficulty": "Medium" }
+      "PCT-QL-017": {
+        "template": "{rate1}% {partLabel} पर, {rate2}% {otherLabel} पर और {rate3}% {thirdLabel} पर खर्च होता है। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "एक बजट में {rate1}% {partLabel} पर, {rate2}% {otherLabel} पर और {rate3}% {thirdLabel} पर जाता है। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-045": {
+        "template": "एक सर्वेक्षण में {rate1}% लोग {partLabel} को पसंद करते हैं, {rate2}% {otherLabel} को पसंद करते हैं और {rate3}% {thirdLabel} को पसंद करते हैं। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-046": {
+        "template": "एक चुनाव में {rate1}% वोट {partLabel} को, {rate2}% वोट {otherLabel} को और {rate3}% वोट {thirdLabel} को जाते हैं। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "एक परीक्षा परिणाम में {rate1}% विद्यार्थी {partLabel} हैं, {rate2}% {otherLabel} हैं और {rate3}% {thirdLabel} हैं। {complementLabel} का शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "एक सर्वेक्षण में {rate1}% ने {partLabel} चुना, {rate2}% ने {otherLabel} चुना और {rate3}% ने {thirdLabel} चुना। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "एक चुनाव में {rate1}% वोट {partLabel} को, {rate2}% {otherLabel} को और {rate3}% {thirdLabel} को गए। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "एक परिणाम-सूची में {rate1}% {partLabel} हैं, {rate2}% {otherLabel} हैं और {rate3}% {thirdLabel} हैं। {complementLabel} का शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "कृषि योग्य भूमि में {rate1}% {partLabel} के अंतर्गत, {rate2}% {otherLabel} के अंतर्गत और {rate3}% {thirdLabel} के अंतर्गत है। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "एक अस्पताल परिणाम अभिलेख में {rate1}% {partLabel} हैं, {rate2}% {otherLabel} हैं और {rate3}% {thirdLabel} हैं। {complementLabel} का शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "एक बजट में {rate1}% {partLabel} पर, {rate2}% {otherLabel} पर और {rate3}% {thirdLabel} पर जाता है। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "एक उत्पादन-विभाजन में {rate1}% {partLabel}, {rate2}% {otherLabel} और {rate3}% {thirdLabel} के रूप में है। {complementLabel} का शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-138": {
+        "template": "एक बस मार्ग पर यात्रियों में से {rate1}% {partLabel} हैं, {rate2}% {otherLabel} हैं और {rate3}% {thirdLabel} हैं। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "एक स्टॉक-सारांश में {rate1}% {partLabel}, {rate2}% {otherLabel} और {rate3}% {thirdLabel} हैं। {complementLabel} का प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "आवेदकों में से {rate1}% {partLabel} हैं, {rate2}% {otherLabel} हैं और {rate3}% {thirdLabel} हैं। {complementLabel} के लिए शेष प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      }
     }
   },
   "PCT-CP-010": {
     "families": {
-      "PCT-QL-019": { "template": "{totalValue} की {wholeLabel} में {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।", "difficulty": "Medium" },
-      "PCT-QL-020": { "template": "{valuePrefix}{totalValue} के {wholeLabel} में {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} पर खर्च होता है और शेष {targetRate}% {targetLabel} पर। {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।", "difficulty": "Hard" }
+      "PCT-QL-019": {
+        "template": "{totalValue} की {wholeLabel} में {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "{valuePrefix}{totalValue} के {wholeLabel} में {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} पर खर्च होता है और शेष {targetRate}% {targetLabel} पर। {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-048": {
+        "template": "कुल {totalValue} {wholeLabel} में से {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "एक जिले में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "एक समूह में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} और शेष {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "एक जिले में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "एक भंडार-पुस्तिका में {totalValue} {wholeLabel} दर्ज हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "एक मार्ग पर {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "एक स्कूल में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-145": {
+        "template": "एक परिवार का {wholeLabel} {valuePrefix}{totalValue} है। यदि {rate1}% {otherLabel} पर, {rate2}% {thirdLabel} पर, {rate3}% {fourthLabel} पर और शेष {targetRate}% {targetLabel} पर खर्च होता है, तो {targetLabel} पर खर्च की गई राशि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "एक उत्पादन बैच में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "कुल {totalValue} {wholeLabel} वाले अस्पताल रजिस्टर में {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं। {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "एक भंडारण डिपो में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "एक सर्वेक्षण में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel} और {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-150": {
+        "template": "एक गोदाम प्रेषण अभिलेख में {totalValue} {wholeLabel} हैं। यदि {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} और शेष {targetRate}% {targetLabel} हैं, तो {targetLabel} की संख्या ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   }
 }

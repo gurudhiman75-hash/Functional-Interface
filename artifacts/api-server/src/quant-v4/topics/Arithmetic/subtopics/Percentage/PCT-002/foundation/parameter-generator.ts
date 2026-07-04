@@ -52,6 +52,7 @@ const LABEL_FIELDS = [
   "fourthLabel",
   "targetPartLabel",
 ] as const satisfies readonly LabelField[];
+const LABEL_FIELD_SET = new Set<string>(LABEL_FIELDS);
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
@@ -212,6 +213,23 @@ const SCENARIO_ALIASES: Record<string, string> = Object.fromEntries(
 );
 
 const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct002Variables>> = {
+  "PCT-QL-022": { wholeLabel: "votes", partLabel: "valid" },
+  "PCT-QL-028": { partLabel: "present" },
+  "PCT-QL-029": { wholeLabel: "seats", partLabel: "booked" },
+  "PCT-QL-035": { targetPartLabel: "first candidate", targetPartIndex: 1 },
+  "PCT-QL-037": { partLabel: "used", complementLabel: "remaining" },
+  "PCT-QL-038": { partLabel: "sold", complementLabel: "unsold" },
+  "PCT-QL-039": { partLabel: "Candidate A", otherLabel: "Candidate B" },
+  "PCT-QL-040": { partLabel: "general wards", otherLabel: "ICU wards" },
+  "PCT-QL-041": { partLabel: "wheat", otherLabel: "paddy" },
+  "PCT-QL-042": { wholeLabel: "respondents", targetLabel: "satisfied respondents", otherLabel: "dissatisfied respondents", thirdLabel: "neutral respondents" },
+  "PCT-QL-043": { wholeLabel: "stock", targetLabel: "ready stock", otherLabel: "reserved stock", thirdLabel: "damaged stock" },
+  "PCT-QL-044": { wholeLabel: "passengers", targetLabel: "daily-pass holders", otherLabel: "students", thirdLabel: "senior citizens" },
+  "PCT-QL-045": { partLabel: "Option A", otherLabel: "Option B", thirdLabel: "Option C", complementLabel: "other responses" },
+  "PCT-QL-046": { partLabel: "Candidate A", otherLabel: "Candidate B", thirdLabel: "Candidate C", complementLabel: "other candidates" },
+  "PCT-QL-047": { partLabel: "passed", otherLabel: "failed", thirdLabel: "absent", complementLabel: "compartment cases" },
+  "PCT-QL-048": { wholeLabel: "people", targetLabel: "children", otherLabel: "men", thirdLabel: "women" },
+  "PCT-QL-050": { wholeLabel: "passengers", targetLabel: "other passengers", otherLabel: "daily commuters", thirdLabel: "students", fourthLabel: "senior citizens" },
   "PCT-QL-051": { wholeLabel: "respondents", partLabel: "Option A" },
   "PCT-QL-052": { wholeLabel: "items", partLabel: "damaged" },
   "PCT-QL-053": { wholeLabel: "students", partLabel: "present" },
@@ -315,13 +333,198 @@ const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct002Variables>> = {
   "PCT-QL-150": { wholeLabel: "parcels", targetLabel: "national parcels", otherLabel: "local parcels", thirdLabel: "regional parcels", fourthLabel: "express parcels" },
 };
 
-function createVariables(questionLanguageId: string, difficultyBand: Pct002DifficultyBand, seed: string) {
+const NON_ENGLISH_LABEL_ENTITY_MAP: Record<
+  string,
+  { categoryId: EntityReference["categoryId"]; entityId: string }
+> = {
+  amount: { categoryId: "financial-concept", entityId: "amount" },
+  applicants: { categoryId: "unit", entityId: "applicants" },
+  approved: { categoryId: "unit", entityId: "approved" },
+  "Candidate A": { categoryId: "unit", entityId: "candidate_a" },
+  "Candidate B": { categoryId: "unit", entityId: "candidate_b" },
+  "Candidate C": { categoryId: "unit", entityId: "candidate_c" },
+  "Grade A units": { categoryId: "unit", entityId: "grade_a_units" },
+  "Grade B units": { categoryId: "unit", entityId: "grade_b_units" },
+  "Grade C units": { categoryId: "unit", entityId: "grade_c_units" },
+  "ICU patients": { categoryId: "unit", entityId: "icu_patients" },
+  "ICU wards": { categoryId: "unit", entityId: "icu_wards" },
+  No: { categoryId: "unit", entityId: "no" },
+  "Option A": { categoryId: "unit", entityId: "option_a" },
+  "Option B": { categoryId: "unit", entityId: "option_b" },
+  "Option C": { categoryId: "unit", entityId: "option_c" },
+  Yes: { categoryId: "unit", entityId: "yes" },
+  absent: { categoryId: "unit", entityId: "absent" },
+  "admission count": { categoryId: "unit", entityId: "admission_count" },
+  attendance: { categoryId: "unit", entityId: "attendance" },
+  bags: { categoryId: "unit", entityId: "bags" },
+  "balance stock": { categoryId: "unit", entityId: "balance_stock" },
+  "bed strength": { categoryId: "unit", entityId: "bed_strength" },
+  beds: { categoryId: "unit", entityId: "beds" },
+  booked: { categoryId: "unit", entityId: "booked" },
+  "booked seats": { categoryId: "unit", entityId: "booked_seats" },
+  "booking total": { categoryId: "unit", entityId: "booking_total" },
+  boys: { categoryId: "group", entityId: "boys" },
+  budget: { categoryId: "financial-concept", entityId: "budget" },
+  children: { categoryId: "group", entityId: "children" },
+  "compartment cases": { categoryId: "unit", entityId: "compartment_cases" },
+  completed: { categoryId: "unit", entityId: "completed" },
+  "critical cases": { categoryId: "unit", entityId: "critical_cases" },
+  "crop purchase bill": { categoryId: "unit", entityId: "crop_purchase_bill" },
+  "crop sacks": { categoryId: "unit", entityId: "crop_sacks" },
+  "daily commuters": { categoryId: "unit", entityId: "daily_commuters" },
+  "daily-pass holders": { categoryId: "unit", entityId: "daily_pass_holders" },
+  damaged: { categoryId: "unit", entityId: "damaged" },
+  "damaged items": { categoryId: "unit", entityId: "damaged_items" },
+  "damaged stock": { categoryId: "unit", entityId: "damaged_stock" },
+  defective: { categoryId: "unit", entityId: "defective" },
+  delivered: { categoryId: "unit", entityId: "delivered" },
+  undelivered: { categoryId: "unit", entityId: "undelivered" },
+  "department budget": { categoryId: "unit", entityId: "department_budget" },
+  dispatched: { categoryId: "unit", entityId: "dispatched" },
+  "dissatisfied respondents": { categoryId: "unit", entityId: "dissatisfied_respondents" },
+  education: { categoryId: "financial-concept", entityId: "education" },
+  "electricity bill": { categoryId: "unit", entityId: "electricity_bill" },
+  employees: { categoryId: "group", entityId: "employees" },
+  enrolment: { categoryId: "unit", entityId: "enrolment" },
+  "express parcels": { categoryId: "unit", entityId: "express_parcels" },
+  failed: { categoryId: "unit", entityId: "failed" },
+  "fee collection": { categoryId: "unit", entityId: "fee_collection" },
+  "finished goods": { categoryId: "unit", entityId: "finished_goods" },
+  "first candidate": { categoryId: "unit", entityId: "first_candidate" },
+  food: { categoryId: "financial-concept", entityId: "food" },
+  "food allocation": { categoryId: "unit", entityId: "food_allocation" },
+  forms: { categoryId: "unit", entityId: "forms" },
+  "general wards": { categoryId: "unit", entityId: "general_wards" },
+  "general-ward patients": { categoryId: "unit", entityId: "general_ward_patients" },
+  girls: { categoryId: "group", entityId: "girls" },
+  hostellers: { categoryId: "unit", entityId: "hostellers" },
+  invalid: { categoryId: "unit", entityId: "invalid" },
+  invoices: { categoryId: "unit", entityId: "invoices" },
+  items: { categoryId: "unit", entityId: "items" },
+  land: { categoryId: "unit", entityId: "land" },
+  "local parcels": { categoryId: "unit", entityId: "local_parcels" },
+  maintenance: { categoryId: "unit", entityId: "maintenance" },
+  maize: { categoryId: "unit", entityId: "maize" },
+  "maize bags": { categoryId: "unit", entityId: "maize_bags" },
+  "male employees": { categoryId: "unit", entityId: "male_employees" },
+  "maternity cases": { categoryId: "unit", entityId: "maternity_cases" },
+  "medical cases": { categoryId: "unit", entityId: "medical_cases" },
+  men: { categoryId: "group", entityId: "men" },
+  "monthly budget": { categoryId: "unit", entityId: "monthly_budget" },
+  "monthly expense budget": { categoryId: "unit", entityId: "monthly_expense_budget" },
+  "national parcels": { categoryId: "unit", entityId: "national_parcels" },
+  "neutral respondents": { categoryId: "unit", entityId: "neutral_respondents" },
+  "not recovered": { categoryId: "unit", entityId: "not_recovered" },
+  number: { categoryId: "unit", entityId: "number" },
+  "online applicants": { categoryId: "unit", entityId: "online_applicants" },
+  "other candidates": { categoryId: "unit", entityId: "other_candidates" },
+  "other passengers": { categoryId: "unit", entityId: "other_passengers" },
+  "other responses": { categoryId: "unit", entityId: "other_responses" },
+  output: { categoryId: "unit", entityId: "output" },
+  paddy: { categoryId: "unit", entityId: "paddy" },
+  paid: { categoryId: "unit", entityId: "paid" },
+  parcels: { categoryId: "unit", entityId: "parcels" },
+  passed: { categoryId: "unit", entityId: "passed" },
+  "passed candidates": { categoryId: "unit", entityId: "passed_candidates" },
+  "passenger count": { categoryId: "unit", entityId: "passenger_count" },
+  passengers: { categoryId: "group", entityId: "passengers" },
+  patients: { categoryId: "group", entityId: "patients" },
+  payroll: { categoryId: "unit", entityId: "payroll" },
+  pending: { categoryId: "unit", entityId: "pending" },
+  people: { categoryId: "unit", entityId: "people" },
+  present: { categoryId: "unit", entityId: "present" },
+  "primary-section students": { categoryId: "unit", entityId: "primary_section_students" },
+  "production batch": { categoryId: "unit", entityId: "production_batch" },
+  pulses: { categoryId: "unit", entityId: "pulses" },
+  quantity: { categoryId: "unit", entityId: "quantity" },
+  "rainfall collection": { categoryId: "unit", entityId: "rainfall_collection" },
+  "raw materials": { categoryId: "unit", entityId: "raw_materials" },
+  "ready items": { categoryId: "unit", entityId: "ready_items" },
+  "ready stock": { categoryId: "unit", entityId: "ready_stock" },
+  recovered: { categoryId: "unit", entityId: "recovered" },
+  referred: { categoryId: "unit", entityId: "referred" },
+  "regional parcels": { categoryId: "unit", entityId: "regional_parcels" },
+  rejected: { categoryId: "unit", entityId: "rejected" },
+  "rejected units": { categoryId: "unit", entityId: "rejected_units" },
+  remaining: { categoryId: "unit", entityId: "remaining" },
+  rent: { categoryId: "financial-concept", entityId: "rent" },
+  "reserved items": { categoryId: "unit", entityId: "reserved_items" },
+  "reserved stock": { categoryId: "unit", entityId: "reserved_stock" },
+  respondents: { categoryId: "unit", entityId: "respondents" },
+  "rice bags": { categoryId: "unit", entityId: "rice_bags" },
+  "rural population": { categoryId: "unit", entityId: "rural_population" },
+  sacks: { categoryId: "unit", entityId: "sacks" },
+  salaries: { categoryId: "financial-concept", entityId: "salaries" },
+  "satisfied respondents": { categoryId: "unit", entityId: "satisfied_respondents" },
+  savings: { categoryId: "financial-concept", entityId: "savings" },
+  seats: { categoryId: "unit", entityId: "seats" },
+  selected: { categoryId: "unit", entityId: "selected" },
+  "senior citizens": { categoryId: "unit", entityId: "senior_citizens" },
+  "sleeper class": { categoryId: "unit", entityId: "sleeper_class" },
+  sold: { categoryId: "unit", entityId: "sold" },
+  "spare parts": { categoryId: "unit", entityId: "spare_parts" },
+  spoiled: { categoryId: "unit", entityId: "spoiled" },
+  stock: { categoryId: "unit", entityId: "stock" },
+  students: { categoryId: "group", entityId: "students" },
+  "surgical cases": { categoryId: "unit", entityId: "surgical_cases" },
+  "target output": { categoryId: "unit", entityId: "target_output" },
+  "the accounts department": { categoryId: "unit", entityId: "accounts_department" },
+  "the sales department": { categoryId: "unit", entityId: "sales_department" },
+  training: { categoryId: "unit", entityId: "training" },
+  transport: { categoryId: "financial-concept", entityId: "transport" },
+  "under observation": { categoryId: "unit", entityId: "under_observation" },
+  "under review": { categoryId: "unit", entityId: "under_review" },
+  units: { categoryId: "unit", entityId: "units" },
+  unsold: { categoryId: "unit", entityId: "unsold" },
+  usage: { categoryId: "unit", entityId: "usage" },
+  used: { categoryId: "unit", entityId: "used" },
+  vacant: { categoryId: "unit", entityId: "vacant" },
+  valid: { categoryId: "unit", entityId: "valid" },
+  "valid votes": { categoryId: "unit", entityId: "valid_votes" },
+  value: { categoryId: "unit", entityId: "value" },
+  "vote count": { categoryId: "unit", entityId: "vote_count" },
+  votes: { categoryId: "unit", entityId: "votes" },
+  wheat: { categoryId: "unit", entityId: "wheat" },
+  "wheat bags": { categoryId: "unit", entityId: "wheat_bags" },
+  "wheat crop": { categoryId: "unit", entityId: "wheat_crop" },
+  women: { categoryId: "group", entityId: "women" },
+};
+
+function localizeScenarioOverrideLabels(
+  overrides: Partial<Pct002Variables>,
+): Partial<Pct002Variables> {
+  const localizedOverrides: Partial<Pct002Variables> = {};
+
+  for (const [field, value] of Object.entries(overrides) as [keyof Pct002Variables & string, Pct002Variables[keyof Pct002Variables]][]) {
+    if (typeof value === "string" && LABEL_FIELD_SET.has(field)) {
+      const mapping = NON_ENGLISH_LABEL_ENTITY_MAP[value];
+      if (!mapping) {
+        throw new Error(`Missing non-English entity mapping for label "${value}".`);
+      }
+      localizedOverrides[field] = entityRef(mapping.categoryId, mapping.entityId) as Pct002Variables[keyof Pct002Variables];
+      continue;
+    }
+    localizedOverrides[field] = value;
+  }
+
+  return localizedOverrides;
+}
+
+function createVariables(
+  questionLanguageId: string,
+  difficultyBand: Pct002DifficultyBand,
+  seed: string,
+  language: Pct002Language,
+) {
   const builderId = SCENARIO_ALIASES[questionLanguageId] ?? questionLanguageId;
   const builder = SCENARIO_BUILDERS[builderId];
   if (!builder) throw new Error(`Missing scenario builder for ${questionLanguageId}`);
   return {
     ...builder(difficultyBand, seed),
     ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
+    ...(language === "en"
+      ? {}
+      : localizeScenarioOverrideLabels(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {})),
   };
 }
 
@@ -357,7 +560,7 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const variables = resolveEntityLabels(
-    createVariables(questionLanguageId, resolvedDifficulty, seed),
+    createVariables(questionLanguageId, resolvedDifficulty, seed, language),
     language,
     LABEL_FIELDS,
     (resolvedValue, field) =>

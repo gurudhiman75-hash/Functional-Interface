@@ -1,34 +1,1551 @@
 [
-  {"id": "unit_01", "en": "Meter", "hi": "मीटर", "pa": "ਮੀਟਰ"},
-  {"id": "unit_02", "en": "Kilometer", "hi": "किलोमीटर", "pa": "ਕਿਲੋਮੀਟਰ"},
-  {"id": "unit_03", "en": "Centimeter", "hi": "सेंटीमीटर", "pa": "ਸੈਂਟੀਮੀਟਰ"},
-  {"id": "unit_04", "en": "Millimeter", "hi": "मिलीमीटर", "pa": "ਮਿਲੀਮੀਟਰ"},
-  {"id": "unit_05", "en": "Mile", "hi": "मील", "pa": "ਮੀਲ"},
-  {"id": "unit_06", "en": "Yard", "hi": "गज", "pa": "ਗਜ਼"},
-  {"id": "unit_07", "en": "Foot", "hi": "फुट", "pa": "ਫੁੱਟ"},
-  {"id": "unit_08", "en": "Inch", "hi": "इंच", "pa": "ਇੰਚ"},
-  {"id": "unit_09", "en": "Kilogram", "hi": "किलोग्राम", "pa": "ਕਿਲੋਗ੍ਰਾਮ"},
-  {"id": "unit_10", "en": "Gram", "hi": "ग्राम", "pa": "ਗ੍ਰਾਮ"},
-  {"id": "unit_11", "en": "Milligram", "hi": "मिलीग्राम", "pa": "ਮਿਲੀਗ੍ਰਾਮ"},
-  {"id": "unit_12", "en": "Ton", "hi": "टन", "pa": "ਟਨ"},
-  {"id": "unit_13", "en": "Quintal", "hi": "क्विंटल", "pa": "ਕੁਇੰਟਲ"},
-  {"id": "unit_14", "en": "Liter", "hi": "लीटर", "pa": "ਲੀਟਰ"},
-  {"id": "unit_15", "en": "Milliliter", "hi": "मिलीलीटर", "pa": "ਮਿਲੀਲੀਟਰ"},
-  {"id": "unit_16", "en": "Gallon", "hi": "गैलन", "pa": "ਗੈਲਨ"},
-  {"id": "unit_17", "en": "Barrel", "hi": "बैरल", "pa": "ਬੈਰਲ"},
-  {"id": "unit_18", "en": "Square Meter", "hi": "वर्ग मीटर", "pa": "ਵਰਗ ਮੀਟਰ"},
-  {"id": "unit_19", "en": "Hectare", "hi": "हेक्टेयर", "pa": "ਹੈਕਟੇਅਰ"},
-  {"id": "unit_20", "en": "Acre", "hi": "एकड़", "pa": "ਏਕੜ"},
-  {"id": "unit_21", "en": "Cubic Meter", "hi": "घन मीटर", "pa": "ਘਣ ਮੀਟਰ"},
-  {"id": "unit_22", "en": "Degree", "hi": "डिग्री", "pa": "ਡਿਗਰੀ"},
-  {"id": "unit_23", "en": "Radian", "hi": "रेडियन", "pa": "ਰੇਡੀਅਨ"},
-  {"id": "unit_24", "en": "Volt", "hi": "वोल्ट", "pa": "ਵੋਲਟ"},
-  {"id": "unit_25", "en": "Ampere", "hi": "एम्पीयर", "pa": "ਐਂਪੀਅਰ"},
-  {"id": "unit_26", "en": "Watt", "hi": "वाट", "pa": "ਵਾਟ"},
-  {"id": "unit_27", "en": "Joule", "hi": "जूल", "pa": "ਜੂਲ"},
-  {"id": "unit_28", "en": "Pascal", "hi": "पास्कल", "pa": "ਪਾਸਕਲ"},
-  {"id": "unit_29", "en": "Hertz", "hi": "हर्ट्ज़", "pa": "ਹਰਟਜ਼"},
-  {"id": "unit_30", "en": "Lux", "hi": "लक्स", "pa": "ਲਕਸ"},
-  {"id": "first_part", "en": "First Part", "hi": "पहला भाग", "pa": "ਪਹਿਲਾ ਭਾਗ"},
-  {"id": "second_part", "en": "Second Part", "hi": "दूसरा भाग", "pa": "ਦੂਜਾ ਭਾਗ"}
+  {
+    "id": "unit_01",
+    "en": "Meter",
+    "hi": "मीटर",
+    "pa": "ਮੀਟਰ"
+  },
+  {
+    "id": "unit_02",
+    "en": "Kilometer",
+    "hi": "किलोमीटर",
+    "pa": "ਕਿਲੋਮੀਟਰ"
+  },
+  {
+    "id": "unit_03",
+    "en": "Centimeter",
+    "hi": "सेंटीमीटर",
+    "pa": "ਸੈਂਟੀਮੀਟਰ"
+  },
+  {
+    "id": "unit_04",
+    "en": "Millimeter",
+    "hi": "मिलीमीटर",
+    "pa": "ਮਿਲੀਮੀਟਰ"
+  },
+  {
+    "id": "unit_05",
+    "en": "Mile",
+    "hi": "मील",
+    "pa": "ਮੀਲ"
+  },
+  {
+    "id": "unit_06",
+    "en": "Yard",
+    "hi": "गज",
+    "pa": "ਗਜ਼"
+  },
+  {
+    "id": "unit_07",
+    "en": "Foot",
+    "hi": "फुट",
+    "pa": "ਫੁੱਟ"
+  },
+  {
+    "id": "unit_08",
+    "en": "Inch",
+    "hi": "इंच",
+    "pa": "ਇੰਚ"
+  },
+  {
+    "id": "unit_09",
+    "en": "Kilogram",
+    "hi": "किलोग्राम",
+    "pa": "ਕਿਲੋਗ੍ਰਾਮ"
+  },
+  {
+    "id": "unit_10",
+    "en": "Gram",
+    "hi": "ग्राम",
+    "pa": "ਗ੍ਰਾਮ"
+  },
+  {
+    "id": "unit_11",
+    "en": "Milligram",
+    "hi": "मिलीग्राम",
+    "pa": "ਮਿਲੀਗ੍ਰਾਮ"
+  },
+  {
+    "id": "unit_12",
+    "en": "Ton",
+    "hi": "टन",
+    "pa": "ਟਨ"
+  },
+  {
+    "id": "unit_13",
+    "en": "Quintal",
+    "hi": "क्विंटल",
+    "pa": "ਕੁਇੰਟਲ"
+  },
+  {
+    "id": "unit_14",
+    "en": "Liter",
+    "hi": "लीटर",
+    "pa": "ਲੀਟਰ"
+  },
+  {
+    "id": "unit_15",
+    "en": "Milliliter",
+    "hi": "मिलीलीटर",
+    "pa": "ਮਿਲੀਲੀਟਰ"
+  },
+  {
+    "id": "unit_16",
+    "en": "Gallon",
+    "hi": "गैलन",
+    "pa": "ਗੈਲਨ"
+  },
+  {
+    "id": "unit_17",
+    "en": "Barrel",
+    "hi": "बैरल",
+    "pa": "ਬੈਰਲ"
+  },
+  {
+    "id": "unit_18",
+    "en": "Square Meter",
+    "hi": "वर्ग मीटर",
+    "pa": "ਵਰਗ ਮੀਟਰ"
+  },
+  {
+    "id": "unit_19",
+    "en": "Hectare",
+    "hi": "हेक्टेयर",
+    "pa": "ਹੈਕਟੇਅਰ"
+  },
+  {
+    "id": "unit_20",
+    "en": "Acre",
+    "hi": "एकड़",
+    "pa": "ਏਕੜ"
+  },
+  {
+    "id": "unit_21",
+    "en": "Cubic Meter",
+    "hi": "घन मीटर",
+    "pa": "ਘਣ ਮੀਟਰ"
+  },
+  {
+    "id": "unit_22",
+    "en": "Degree",
+    "hi": "डिग्री",
+    "pa": "ਡਿਗਰੀ"
+  },
+  {
+    "id": "unit_23",
+    "en": "Radian",
+    "hi": "रेडियन",
+    "pa": "ਰੇਡੀਅਨ"
+  },
+  {
+    "id": "unit_24",
+    "en": "Volt",
+    "hi": "वोल्ट",
+    "pa": "ਵੋਲਟ"
+  },
+  {
+    "id": "unit_25",
+    "en": "Ampere",
+    "hi": "एम्पीयर",
+    "pa": "ਐਂਪੀਅਰ"
+  },
+  {
+    "id": "unit_26",
+    "en": "Watt",
+    "hi": "वाट",
+    "pa": "ਵਾਟ"
+  },
+  {
+    "id": "unit_27",
+    "en": "Joule",
+    "hi": "जूल",
+    "pa": "ਜੂਲ"
+  },
+  {
+    "id": "unit_28",
+    "en": "Pascal",
+    "hi": "पास्कल",
+    "pa": "ਪਾਸਕਲ"
+  },
+  {
+    "id": "unit_29",
+    "en": "Hertz",
+    "hi": "हर्ट्ज़",
+    "pa": "ਹਰਟਜ਼"
+  },
+  {
+    "id": "unit_30",
+    "en": "Lux",
+    "hi": "लक्स",
+    "pa": "ਲਕਸ"
+  },
+  {
+    "id": "first_part",
+    "en": "First Part",
+    "hi": "पहला भाग",
+    "pa": "ਪਹਿਲਾ ਭਾਗ"
+  },
+  {
+    "id": "second_part",
+    "en": "Second Part",
+    "hi": "दूसरा भाग",
+    "pa": "ਦੂਜਾ ਭਾਗ"
+  },
+  {
+    "id": "votes",
+    "en": "Votes",
+    "hi": "वोट",
+    "pa": "ਵੋਟ",
+    "frequency": "common",
+    "tags": [
+      "count",
+      "election"
+    ]
+  },
+  {
+    "id": "valid",
+    "en": "Valid",
+    "hi": "वैध",
+    "pa": "ਵੈਧ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "output",
+    "en": "Output",
+    "hi": "उत्पादन",
+    "pa": "ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "quantity",
+      "production"
+    ]
+  },
+  {
+    "id": "present",
+    "en": "Present",
+    "hi": "उपस्थित",
+    "pa": "ਹਾਜ਼ਰ",
+    "frequency": "common",
+    "tags": [
+      "status",
+      "attendance"
+    ]
+  },
+  {
+    "id": "seats",
+    "en": "Seats",
+    "hi": "सीटें",
+    "pa": "ਸੀਟਾਂ",
+    "frequency": "common",
+    "tags": [
+      "count",
+      "venue"
+    ]
+  },
+  {
+    "id": "booked",
+    "en": "Booked",
+    "hi": "बुक की गई",
+    "pa": "ਬੁੱਕ ਕੀਤੀ ਗਈ",
+    "frequency": "common",
+    "tags": [
+      "status",
+      "booking"
+    ]
+  },
+  {
+    "id": "first_candidate",
+    "en": "First Candidate",
+    "hi": "पहला उम्मीदवार",
+    "pa": "ਪਹਿਲਾ ਉਮੀਦਵਾਰ",
+    "frequency": "common",
+    "tags": [
+      "person",
+      "election"
+    ]
+  },
+  {
+    "id": "used",
+    "en": "Used",
+    "hi": "उपयोग किया गया",
+    "pa": "ਵਰਤਿਆ ਗਿਆ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "remaining",
+    "en": "Remaining",
+    "hi": "बचा हुआ",
+    "pa": "ਬਚਿਆ ਹੋਇਆ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "sold",
+    "en": "Sold",
+    "hi": "बेचा गया",
+    "pa": "ਵੇਚਿਆ ਗਿਆ",
+    "frequency": "common",
+    "tags": [
+      "status",
+      "sales"
+    ]
+  },
+  {
+    "id": "unsold",
+    "en": "Unsold",
+    "hi": "ना बिका",
+    "pa": "ਨਾ ਵਿਕਿਆ",
+    "frequency": "common",
+    "tags": [
+      "status",
+      "sales"
+    ]
+  },
+  {
+    "id": "respondents",
+    "en": "Respondents",
+    "hi": "उत्तरदाता",
+    "pa": "ਉੱਤਰਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "people",
+      "survey"
+    ]
+  },
+  {
+    "id": "option_a",
+    "en": "Option A",
+    "hi": "विकल्प A",
+    "pa": "ਵਿਕਲਪ A",
+    "frequency": "common",
+    "tags": [
+      "choice"
+    ]
+  },
+  {
+    "id": "option_b",
+    "en": "Option B",
+    "hi": "विकल्प B",
+    "pa": "ਵਿਕਲਪ B",
+    "frequency": "common",
+    "tags": [
+      "choice"
+    ]
+  },
+  {
+    "id": "option_c",
+    "en": "Option C",
+    "hi": "विकल्प C",
+    "pa": "ਵਿਕਲਪ C",
+    "frequency": "common",
+    "tags": [
+      "choice"
+    ]
+  },
+  {
+    "id": "items",
+    "en": "Items",
+    "hi": "वस्तुएं",
+    "pa": "ਵਸਤੂਆਂ",
+    "frequency": "common",
+    "tags": [
+      "count"
+    ]
+  },
+  {
+    "id": "damaged",
+    "en": "Damaged",
+    "hi": "क्षतिग्रस्त",
+    "pa": "ਖਰਾਬ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "valid_votes",
+    "en": "Valid Votes",
+    "hi": "वैध वोट",
+    "pa": "ਵੈਧ ਵੋਟਾਂ",
+    "frequency": "common",
+    "tags": [
+      "election"
+    ]
+  },
+  {
+    "id": "crop_sacks",
+    "en": "Crop Sacks",
+    "hi": "फसल की बोरियां",
+    "pa": "ਫਸਲ ਦੀਆਂ ਬੋਰੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "sacks",
+    "en": "Sacks",
+    "hi": "बोरियां",
+    "pa": "ਬੋਰੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "accounts_department",
+    "en": "The Accounts Department",
+    "hi": "लेखा विभाग",
+    "pa": "ਲੇਖਾ ਵਿਭਾਗ",
+    "frequency": "common",
+    "tags": [
+      "office"
+    ]
+  },
+  {
+    "id": "invoices",
+    "en": "Invoices",
+    "hi": "चालान",
+    "pa": "ਚਾਲਾਨ",
+    "frequency": "common",
+    "tags": [
+      "office"
+    ]
+  },
+  {
+    "id": "paid",
+    "en": "Paid",
+    "hi": "भुगतान किए गए",
+    "pa": "ਭੁਗਤਾਨ ਕੀਤੇ ਗਏ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "value",
+    "en": "Value",
+    "hi": "मान",
+    "pa": "ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "quantity"
+    ]
+  },
+  {
+    "id": "number",
+    "en": "Number",
+    "hi": "संख्या",
+    "pa": "ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "quantity"
+    ]
+  },
+  {
+    "id": "quantity",
+    "en": "Quantity",
+    "hi": "मात्रा",
+    "pa": "ਮਾਤਰਾ",
+    "frequency": "common",
+    "tags": [
+      "quantity"
+    ]
+  },
+  {
+    "id": "payroll",
+    "en": "Payroll",
+    "hi": "वेतन सूची",
+    "pa": "ਤਨਖਾਹ ਸੂਚੀ",
+    "frequency": "common",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "id": "enrolment",
+    "en": "Enrolment",
+    "hi": "नामांकन",
+    "pa": "ਦਾਖਲਾ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "stock",
+    "en": "Stock",
+    "hi": "स्टॉक",
+    "pa": "ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "usage",
+    "en": "Usage",
+    "hi": "उपयोग",
+    "pa": "ਵਰਤੋਂ",
+    "frequency": "common",
+    "tags": [
+      "quantity"
+    ]
+  },
+  {
+    "id": "rainfall_collection",
+    "en": "Rainfall Collection",
+    "hi": "वर्षा संग्रह",
+    "pa": "ਵਰਖਾ ਸੰਗ੍ਰਹਿ",
+    "frequency": "common",
+    "tags": [
+      "weather"
+    ]
+  },
+  {
+    "id": "target_output",
+    "en": "Target Output",
+    "hi": "लक्ष्य उत्पादन",
+    "pa": "ਲਕਸ਼ ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "production"
+    ]
+  },
+  {
+    "id": "passenger_count",
+    "en": "Passenger Count",
+    "hi": "यात्री संख्या",
+    "pa": "ਯਾਤਰੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "vote_count",
+    "en": "Vote Count",
+    "hi": "वोट संख्या",
+    "pa": "ਵੋਟ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "election"
+    ]
+  },
+  {
+    "id": "bed_strength",
+    "en": "Bed Strength",
+    "hi": "बिस्तरों की कुल संख्या",
+    "pa": "ਬਿਸਤਰਿਆਂ ਦੀ ਕੁੱਲ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "beds",
+    "en": "Beds",
+    "hi": "बिस्तर",
+    "pa": "ਬਿਸਤਰੇ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "defective",
+    "en": "Defective",
+    "hi": "दोषपूर्ण",
+    "pa": "ਦੋਸ਼ਪੂਰਨ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "admission_count",
+    "en": "Admission Count",
+    "hi": "प्रवेश संख्या",
+    "pa": "ਦਾਖਲਾ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "education",
+      "medical"
+    ]
+  },
+  {
+    "id": "fee_collection",
+    "en": "Fee Collection",
+    "hi": "शुल्क संग्रह",
+    "pa": "ਫੀਸ ਸੰਗ੍ਰਹਿ",
+    "frequency": "common",
+    "tags": [
+      "education",
+      "finance"
+    ]
+  },
+  {
+    "id": "crop_purchase_bill",
+    "en": "Crop Purchase Bill",
+    "hi": "फसल खरीद बिल",
+    "pa": "ਫਸਲ ਖਰੀਦ ਬਿੱਲ",
+    "frequency": "common",
+    "tags": [
+      "agriculture",
+      "finance"
+    ]
+  },
+  {
+    "id": "production_batch",
+    "en": "Production Batch",
+    "hi": "उत्पादन बैच",
+    "pa": "ਉਤਪਾਦਨ ਬੈਚ",
+    "frequency": "common",
+    "tags": [
+      "production"
+    ]
+  },
+  {
+    "id": "booking_total",
+    "en": "Booking Total",
+    "hi": "कुल बुकिंग",
+    "pa": "ਕੁੱਲ ਬੁਕਿੰਗ",
+    "frequency": "common",
+    "tags": [
+      "booking"
+    ]
+  },
+  {
+    "id": "attendance",
+    "en": "Attendance",
+    "hi": "उपस्थिति",
+    "pa": "ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "units",
+    "en": "Units",
+    "hi": "इकाइयां",
+    "pa": "ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "count"
+    ]
+  },
+  {
+    "id": "forms",
+    "en": "Forms",
+    "hi": "प्रपत्र",
+    "pa": "ਫਾਰਮ",
+    "frequency": "common",
+    "tags": [
+      "office"
+    ]
+  },
+  {
+    "id": "electricity_bill",
+    "en": "Electricity Bill",
+    "hi": "बिजली बिल",
+    "pa": "ਬਿਜਲੀ ਬਿੱਲ",
+    "frequency": "common",
+    "tags": [
+      "utility"
+    ]
+  },
+  {
+    "id": "monthly_budget",
+    "en": "Monthly Budget",
+    "hi": "मासिक बजट",
+    "pa": "ਮਹੀਨਾਵਾਰ ਬਜਟ",
+    "frequency": "common",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "id": "people",
+    "en": "People",
+    "hi": "लोग",
+    "pa": "ਲੋਕ",
+    "frequency": "common",
+    "tags": [
+      "people"
+    ]
+  },
+  {
+    "id": "applicants",
+    "en": "Applicants",
+    "hi": "आवेदक",
+    "pa": "ਅਰਜ਼ੀਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "people"
+    ]
+  },
+  {
+    "id": "approved",
+    "en": "Approved",
+    "hi": "स्वीकृत",
+    "pa": "ਮਨਜ਼ੂਰਸ਼ੁਦਾ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "booked_seats",
+    "en": "Booked Seats",
+    "hi": "बुक की गई सीटें",
+    "pa": "ਬੁੱਕ ਕੀਤੀਆਂ ਸੀਟਾਂ",
+    "frequency": "common",
+    "tags": [
+      "booking"
+    ]
+  },
+  {
+    "id": "passed_candidates",
+    "en": "Passed Candidates",
+    "hi": "उत्तीर्ण अभ्यर्थी",
+    "pa": "ਪਾਸ ਉਮੀਦਵਾਰ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "wheat_bags",
+    "en": "Wheat Bags",
+    "hi": "गेहूं की बोरियां",
+    "pa": "ਗੈਂਹੂਂ ਦੀਆਂ ਬੋਰੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "rural_population",
+    "en": "Rural Population",
+    "hi": "ग्रामीण जनसंख्या",
+    "pa": "ਪਿੰਡਾਂ ਦੀ ਆਬਾਦੀ",
+    "frequency": "common",
+    "tags": [
+      "people"
+    ]
+  },
+  {
+    "id": "online_applicants",
+    "en": "Online Applicants",
+    "hi": "ऑनलाइन आवेदक",
+    "pa": "ਆਨਲਾਈਨ ਅਰਜ਼ੀਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "people"
+    ]
+  },
+  {
+    "id": "absent",
+    "en": "Absent",
+    "hi": "अनुपस्थित",
+    "pa": "ਗੈਰਹਾਜ਼ਰ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "not_recovered",
+    "en": "Not Recovered",
+    "hi": "ठीक न हुए",
+    "pa": "ਠੀਕ ਨਾ ਹੋਏ",
+    "frequency": "common",
+    "tags": [
+      "medical",
+      "status"
+    ]
+  },
+  {
+    "id": "completed",
+    "en": "Completed",
+    "hi": "पूर्ण",
+    "pa": "ਪੂਰੇ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "pending",
+    "en": "Pending",
+    "hi": "लंबित",
+    "pa": "ਬਕਾਇਆ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "passed",
+    "en": "Passed",
+    "hi": "उत्तीर्ण",
+    "pa": "ਪਾਸ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "delivered",
+    "en": "Delivered",
+    "hi": "वितरित",
+    "pa": "ਪਹੁੰਚਾਏ ਗਏ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "undelivered",
+    "en": "Undelivered",
+    "hi": "अवितरित",
+    "pa": "ਨਾ ਪਹੁੰਚੇ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "dispatched",
+    "en": "Dispatched",
+    "hi": "भेजी गई",
+    "pa": "ਭੇਜੇ ਗਏ",
+    "frequency": "common",
+    "tags": [
+      "status",
+      "shipping"
+    ]
+  },
+  {
+    "id": "candidate_a",
+    "en": "Candidate A",
+    "hi": "उम्मीदवार A",
+    "pa": "ਉਮੀਦਵਾਰ A",
+    "frequency": "common",
+    "tags": [
+      "election"
+    ]
+  },
+  {
+    "id": "candidate_b",
+    "en": "Candidate B",
+    "hi": "उम्मीदवार B",
+    "pa": "ਉਮੀਦਵਾਰ B",
+    "frequency": "common",
+    "tags": [
+      "election"
+    ]
+  },
+  {
+    "id": "candidate_c",
+    "en": "Candidate C",
+    "hi": "उम्मीदवार C",
+    "pa": "ਉਮੀਦਵਾਰ C",
+    "frequency": "common",
+    "tags": [
+      "election"
+    ]
+  },
+  {
+    "id": "general_wards",
+    "en": "General Wards",
+    "hi": "सामान्य वार्ड",
+    "pa": "ਸਧਾਰਣ ਵਾਰਡ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "icu_wards",
+    "en": "Intensive Care Wards",
+    "hi": "आईसीयू वार्ड",
+    "pa": "ਆਈਸੀਯੂ ਵਾਰਡ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "grade_a_units",
+    "en": "Grade A Units",
+    "hi": "ग्रेड A इकाइयां",
+    "pa": "ਗ੍ਰੇਡ A ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "production"
+    ]
+  },
+  {
+    "id": "grade_b_units",
+    "en": "Grade B Units",
+    "hi": "ग्रेड B इकाइयां",
+    "pa": "ਗ੍ਰੇਡ B ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "production"
+    ]
+  },
+  {
+    "id": "grade_c_units",
+    "en": "Grade C Units",
+    "hi": "ग्रेड C इकाइयां",
+    "pa": "ਗ੍ਰੇਡ C ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "production"
+    ]
+  },
+  {
+    "id": "daily_commuters",
+    "en": "Daily Commuters",
+    "hi": "दैनिक यात्री",
+    "pa": "ਰੋਜ਼ਾਨਾ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "yes",
+    "en": "Yes",
+    "hi": "हां",
+    "pa": "ਹਾਂ",
+    "frequency": "common",
+    "tags": [
+      "choice"
+    ]
+  },
+  {
+    "id": "no",
+    "en": "No",
+    "hi": "नहीं",
+    "pa": "ਨਹੀਂ",
+    "frequency": "common",
+    "tags": [
+      "choice"
+    ]
+  },
+  {
+    "id": "ready_stock",
+    "en": "Ready Stock",
+    "hi": "तैयार स्टॉक",
+    "pa": "ਤਿਆਰ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "reserved_stock",
+    "en": "Reserved Stock",
+    "hi": "आरक्षित स्टॉक",
+    "pa": "ਰਾਖਵਾਂ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "sales_department",
+    "en": "The Sales Department",
+    "hi": "बिक्री विभाग",
+    "pa": "ਵਿਕਰੀ ਵਿਭਾਗ",
+    "frequency": "common",
+    "tags": [
+      "office"
+    ]
+  },
+  {
+    "id": "department_budget",
+    "en": "Department Budget",
+    "hi": "विभागीय बजट",
+    "pa": "ਵਿਭਾਗੀ ਬਜਟ",
+    "frequency": "common",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "id": "training",
+    "en": "Training",
+    "hi": "प्रशिक्षण",
+    "pa": "ਪ੍ਰਸ਼ਿਕਸ਼ਣ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "maintenance",
+    "en": "Maintenance",
+    "hi": "रखरखाव",
+    "pa": "ਰੱਖ-ਰਖਾਵ",
+    "frequency": "common",
+    "tags": [
+      "expense"
+    ]
+  },
+  {
+    "id": "primary_section_students",
+    "en": "Primary-Section Students",
+    "hi": "प्राथमिक अनुभाग के छात्र",
+    "pa": "ਪ੍ਰਾਇਮਰੀ ਭਾਗ ਦੇ ਵਿਦਿਆਰਥੀ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "ready_items",
+    "en": "Ready Items",
+    "hi": "तैयार वस्तुएं",
+    "pa": "ਤਿਆਰ ਵਸਤੂਆਂ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "damaged_items",
+    "en": "Damaged Items",
+    "hi": "क्षतिग्रस्त वस्तुएं",
+    "pa": "ਖਰਾਬ ਵਸਤੂਆਂ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "reserved_items",
+    "en": "Reserved Items",
+    "hi": "आरक्षित वस्तुएं",
+    "pa": "ਰਾਖਵੇਂ ਵਸਤੂਆਂ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "daily_pass_holders",
+    "en": "Daily-Pass Holders",
+    "hi": "दैनिक पास धारक",
+    "pa": "ਰੋਜ਼ਾਨਾ ਪਾਸ ਧਾਰਕ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "senior_citizens",
+    "en": "Senior Citizens",
+    "hi": "वरिष्ठ नागरिक",
+    "pa": "ਸੀਨੀਅਰ ਨਾਗਰਿਕ",
+    "frequency": "common",
+    "tags": [
+      "people"
+    ]
+  },
+  {
+    "id": "sleeper_class",
+    "en": "Sleeper Class",
+    "hi": "स्लीपर श्रेणी",
+    "pa": "ਸਲੀਪਰ ਸ਼੍ਰੇਣੀ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "other_responses",
+    "en": "Other Responses",
+    "hi": "अन्य प्रतिक्रियाएं",
+    "pa": "ਹੋਰ ਜਵਾਬ",
+    "frequency": "common",
+    "tags": [
+      "survey"
+    ]
+  },
+  {
+    "id": "other_candidates",
+    "en": "Other Candidates",
+    "hi": "अन्य उम्मीदवार",
+    "pa": "ਹੋਰ ਉਮੀਦਵਾਰ",
+    "frequency": "common",
+    "tags": [
+      "election"
+    ]
+  },
+  {
+    "id": "compartment_cases",
+    "en": "Compartment Cases",
+    "hi": "कंपार्टमेंट मामले",
+    "pa": "ਕੰਪਾਰਟਮੈਂਟ ਮਾਮਲੇ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "wheat",
+    "en": "Wheat",
+    "hi": "गेहूं",
+    "pa": "ਗੈਂਹੂਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "paddy",
+    "en": "Paddy",
+    "hi": "धान",
+    "pa": "ਧਾਨ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "maize",
+    "en": "Maize",
+    "hi": "मक्का",
+    "pa": "ਮੱਕੀ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "pulses",
+    "en": "Pulses",
+    "hi": "दलहन",
+    "pa": "ਦਾਲਾਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "recovered",
+    "en": "Recovered",
+    "hi": "ठीक हुए",
+    "pa": "ਠੀਕ ਹੋਏ",
+    "frequency": "common",
+    "tags": [
+      "medical",
+      "status"
+    ]
+  },
+  {
+    "id": "referred",
+    "en": "Referred",
+    "hi": "रेफर किए गए",
+    "pa": "ਰੈਫਰ ਕੀਤੇ ਗਏ",
+    "frequency": "common",
+    "tags": [
+      "medical",
+      "status"
+    ]
+  },
+  {
+    "id": "under_observation",
+    "en": "Under Observation",
+    "hi": "निगरानी में",
+    "pa": "ਨਿਗਰਾਨੀ ਹੇਠ",
+    "frequency": "common",
+    "tags": [
+      "medical",
+      "status"
+    ]
+  },
+  {
+    "id": "critical_cases",
+    "en": "Critical Cases",
+    "hi": "गंभीर मामले",
+    "pa": "ਗੰਭੀਰ ਮਾਮਲੇ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "land",
+    "en": "Land",
+    "hi": "भूमि",
+    "pa": "ਜ਼ਮੀਨ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "spare_parts",
+    "en": "Spare Parts",
+    "hi": "स्पेयर पार्ट्स",
+    "pa": "ਸਪੇਅਰ ਪਾਰਟਸ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "raw_materials",
+    "en": "Raw Materials",
+    "hi": "कच्चा माल",
+    "pa": "ਕੱਚਾ ਮਾਲ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "finished_goods",
+    "en": "Finished Goods",
+    "hi": "तैयार माल",
+    "pa": "ਤਿਆਰ ਮਾਲ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "rejected_units",
+    "en": "Rejected Units",
+    "hi": "अस्वीकृत इकाइयां",
+    "pa": "ਰੱਦ ਕੀਤੀਆਂ ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "production"
+    ]
+  },
+  {
+    "id": "other_passengers",
+    "en": "Other Passengers",
+    "hi": "अन्य यात्री",
+    "pa": "ਹੋਰ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "damaged_stock",
+    "en": "Damaged Stock",
+    "hi": "क्षतिग्रस्त स्टॉक",
+    "pa": "ਖਰਾਬ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "balance_stock",
+    "en": "Balance Stock",
+    "hi": "शेष स्टॉक",
+    "pa": "ਬਾਕੀ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "inventory"
+    ]
+  },
+  {
+    "id": "selected",
+    "en": "Selected",
+    "hi": "चयनित",
+    "pa": "ਚੁਣੇ ਗਏ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "rejected",
+    "en": "Rejected",
+    "hi": "अस्वीकृत",
+    "pa": "ਰੱਦ ਕੀਤੇ ਗਏ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "under_review",
+    "en": "Under Review",
+    "hi": "समीक्षाधीन",
+    "pa": "ਸਮੀਖਿਆ ਹੇਠ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "failed",
+    "en": "Failed",
+    "hi": "अनुत्तीर्ण",
+    "pa": "ਫੇਲ੍ਹ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "vacant",
+    "en": "Vacant",
+    "hi": "रिक्त",
+    "pa": "ਖਾਲੀ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "invalid",
+    "en": "Invalid",
+    "hi": "अमान्य",
+    "pa": "ਅਵੈਧ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "spoiled",
+    "en": "Spoiled",
+    "hi": "खराब",
+    "pa": "ਖਰਾਬ",
+    "frequency": "common",
+    "tags": [
+      "status"
+    ]
+  },
+  {
+    "id": "food_allocation",
+    "en": "Food Allocation",
+    "hi": "खाद्य आवंटन",
+    "pa": "ਭੋਜਨ ਵੰਡ",
+    "frequency": "common",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "id": "male_employees",
+    "en": "Male Employees",
+    "hi": "पुरुष कर्मचारी",
+    "pa": "ਪੁਰਸ਼ ਕਰਮਚਾਰੀ",
+    "frequency": "common",
+    "tags": [
+      "people"
+    ]
+  },
+  {
+    "id": "wheat_crop",
+    "en": "Wheat Crop",
+    "hi": "गेहूं की फसल",
+    "pa": "ਗੈਂਹੂਂ ਦੀ ਫਸਲ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "monthly_expense_budget",
+    "en": "Monthly Expense Budget",
+    "hi": "मासिक व्यय बजट",
+    "pa": "ਮਹੀਨਾਵਾਰ ਖਰਚ ਬਜਟ",
+    "frequency": "common",
+    "tags": [
+      "finance"
+    ]
+  },
+  {
+    "id": "satisfied_respondents",
+    "en": "Satisfied Respondents",
+    "hi": "संतुष्ट उत्तरदाता",
+    "pa": "ਸੰਤੁਸ਼ਟ ਉੱਤਰਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "survey"
+    ]
+  },
+  {
+    "id": "dissatisfied_respondents",
+    "en": "Dissatisfied Respondents",
+    "hi": "असंतुष्ट उत्तरदाता",
+    "pa": "ਅਸੰਤੁਸ਼ਟ ਉੱਤਰਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "survey"
+    ]
+  },
+  {
+    "id": "neutral_respondents",
+    "en": "Neutral Respondents",
+    "hi": "तटस्थ उत्तरदाता",
+    "pa": "ਤਟਸਥ ਉੱਤਰਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "survey"
+    ]
+  },
+  {
+    "id": "surgical_cases",
+    "en": "Surgical Cases",
+    "hi": "शल्य-चिकित्सा मामले",
+    "pa": "ਸਰਜਰੀ ਮਾਮਲੇ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "medical_cases",
+    "en": "Medical Cases",
+    "hi": "चिकित्सा मामले",
+    "pa": "ਮੈਡੀਕਲ ਮਾਮਲੇ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "maternity_cases",
+    "en": "Maternity Cases",
+    "hi": "प्रसूति मामले",
+    "pa": "ਪ੍ਰਸੂਤੀ ਮਾਮਲੇ",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "hostellers",
+    "en": "Hostellers",
+    "hi": "छात्रावासी",
+    "pa": "ਹੋਸਟਲਰ",
+    "frequency": "common",
+    "tags": [
+      "education"
+    ]
+  },
+  {
+    "id": "general_ward_patients",
+    "en": "General-Ward Patients",
+    "hi": "सामान्य वार्ड के मरीज",
+    "pa": "ਸਧਾਰਣ ਵਾਰਡ ਦੇ ਮਰੀਜ਼",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "icu_patients",
+    "en": "Intensive-Care Patients",
+    "hi": "आईसीयू के मरीज",
+    "pa": "ਆਈਸੀਯੂ ਦੇ ਮਰੀਜ਼",
+    "frequency": "common",
+    "tags": [
+      "medical"
+    ]
+  },
+  {
+    "id": "bags",
+    "en": "Bags",
+    "hi": "बोरियां",
+    "pa": "ਬੋਰੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "maize_bags",
+    "en": "Maize Bags",
+    "hi": "मक्का की बोरियां",
+    "pa": "ਮੱਕੀ ਦੀਆਂ ਬੋਰੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "rice_bags",
+    "en": "Rice Bags",
+    "hi": "चावल की बोरियां",
+    "pa": "ਚਾਵਲ ਦੀਆਂ ਬੋਰੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "agriculture"
+    ]
+  },
+  {
+    "id": "parcels",
+    "en": "Parcels",
+    "hi": "पार्सल",
+    "pa": "ਪਾਰਸਲ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "national_parcels",
+    "en": "National Parcels",
+    "hi": "राष्ट्रीय पार्सल",
+    "pa": "ਰਾਸ਼ਟਰੀ ਪਾਰਸਲ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "local_parcels",
+    "en": "Local Parcels",
+    "hi": "स्थानीय पार्सल",
+    "pa": "ਸਥਾਨਕ ਪਾਰਸਲ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "regional_parcels",
+    "en": "Regional Parcels",
+    "hi": "क्षेत्रीय पार्सल",
+    "pa": "ਖੇਤਰੀ ਪਾਰਸਲ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  },
+  {
+    "id": "express_parcels",
+    "en": "Express Parcels",
+    "hi": "एक्सप्रेस पार्सल",
+    "pa": "ਐਕਸਪ੍ਰੈਸ ਪਾਰਸਲ",
+    "frequency": "common",
+    "tags": [
+      "transport"
+    ]
+  }
 ]
