@@ -4,326 +4,179 @@
     "taskExplanations": {
       "percentOf": {
         "steps": [
-          "आवश्यक मान: {percentageRate}% of {baseValue}.",
-          "{percentageRate}% means {percentageRate}/100.",
-          "इसलिए, required value = {baseValue} x {percentageRate}/100 = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "{baseValue} का {percentageRate}% ज्ञात करना है।",
+          "{percentageRate}% = {percentageRate}/100।",
+          "अतः {baseValue} x {percentageRate}/100 = {answer}।",
+          "अब इसे सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "आवश्यक मान: {percentageRate}% of {baseValue}.",
-            "{percentageRate}% means {percentageRate}/100.",
-            "इसलिए, required value = {baseValue} x {percentageRate}/100 = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "{baseValue} का {percentageRate}% ज्ञात करना है।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "अतः {baseValue} x {percentageRate}/100 = {answer}।",
+            "अब इसे सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "आवश्यक मान: {percentageRate}% of {baseValue}.",
-            "{percentageRate}% means {percentageRate}/100.",
-            "इसलिए, required value = {baseValue} x {percentageRate}/100 = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "आवश्यक मान: {percentageRate}% of {baseValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "{percentageRate}% means {percentageRate}/100.",
-            "इसलिए, required value = {baseValue} x {percentageRate}/100 = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "आवश्यक मान: {percentageRate}% of {baseValue}.",
-            "{percentageRate}% means {percentageRate}/100.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "आवश्यक मान: {percentageRate}% of {baseValue}.",
-            "{percentageRate}% means {percentageRate}/100.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "इसलिए, required value = {baseValue} x {percentageRate}/100 = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "{baseValue} का {percentageRate}% निकालना है।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "इसलिए {baseValue} x {percentageRate}/100 = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "directRelation": {
         "aliasOf": "percentOf"
       },
-      "reversePercent": {
+      "percentToFraction": {
         "steps": [
-          "{percentageRate}% of the number is {value}.",
-          "इसलिए, 1% of the number = {value}/ {percentageRate}.",
-          "इसलिए, 100% of the number = {value} x 100 / {percentageRate} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "{percentageRate}% को 100 के ऊपर लिखें।",
+          "{percentageRate}% = {percentageRate}/100।",
+          "अब भिन्न को सरल करें।",
+          "सरल करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "{percentageRate}% of the number is {value}.",
-            "इसलिए, 1% of the number = {value}/ {percentageRate}.",
-            "इसलिए, 100% of the number = {value} x 100 / {percentageRate} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "{percentageRate}% को 100 के ऊपर लिखें।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "अब भिन्न को सरल करें।",
+            "सरल करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "{percentageRate}% of the number is {value}.",
-            "इसलिए, 1% of the number = {value}/ {percentageRate}.",
-            "इसलिए, 100% of the number = {value} x 100 / {percentageRate} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "{percentageRate}% of the number is {value}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए, 1% of the number = {value}/ {percentageRate}.",
-            "इसलिए, 100% of the number = {value} x 100 / {percentageRate} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "{percentageRate}% of the number is {value}.",
-            "इसलिए, 1% of the number = {value}/ {percentageRate}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "{percentageRate}% of the number is {value}.",
-            "इसलिए, 1% of the number = {value}/ {percentageRate}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "इसलिए, 100% of the number = {value} x 100 / {percentageRate} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
-          ]
-        ]
-      },
-      "moreToLess": {
-        "steps": [
-          "Let the smaller value be 100.",
-          "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-          "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
-        ],
-        "variants": [
-          [
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
-          ],
-          [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Let the smaller value be 100.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
-          ]
-        ]
-      },
-      "lessToMore": {
-        "steps": [
-          "Let the larger value be 100.",
-          "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-          "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
-        ],
-        "variants": [
-          [
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
-          ],
-          [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Let the larger value be 100.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
-          ]
-        ]
-      },
-      "ratioFromPercentEquality": {
-        "steps": [
-          "आवश्यक मान: {rate1}% of A = {rate2}% of B.",
-          "इसलिए, A/B = {rate2}/{rate1}.",
-          "After simplification, A:B = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
-        ],
-        "variants": [
-          [
-            "आवश्यक मान: {rate1}% of A = {rate2}% of B.",
-            "इसलिए, A/B = {rate2}/{rate1}.",
-            "After simplification, A:B = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
-          ],
-          [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "आवश्यक मान: {rate1}% of A = {rate2}% of B.",
-            "इसलिए, A/B = {rate2}/{rate1}.",
-            "After simplification, A:B = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "आवश्यक मान: {rate1}% of A = {rate2}% of B.",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए, A/B = {rate2}/{rate1}.",
-            "After simplification, A:B = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "आवश्यक मान: {rate1}% of A = {rate2}% of B.",
-            "इसलिए, A/B = {rate2}/{rate1}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "आवश्यक मान: {rate1}% of A = {rate2}% of B.",
-            "इसलिए, A/B = {rate2}/{rate1}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "After simplification, A:B = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "{percentageRate}% को 100 के हर में लिखें।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "अब इस भिन्न को सरल करें।",
+            "सरल करने पर {answer} मिलता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "valueAsPercent": {
         "steps": [
-          "आवश्यक मान: to express {value} as a percentage of {baseValue}.",
-          "Percentage = {value} x 100 / {baseValue}.",
-          "Percentage = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "{value} को {baseValue} के प्रतिशत में लिखें।",
+          "प्रतिशत = {value} x 100 / {baseValue}।",
+          "अब मान रखकर गणना करें।",
+          "गणना करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "आवश्यक मान: to express {value} as a percentage of {baseValue}.",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "{value} को {baseValue} के प्रतिशत में लिखें।",
+            "प्रतिशत = {value} x 100 / {baseValue}।",
+            "अब मान रखकर गणना करें।",
+            "गणना करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "आवश्यक मान: to express {value} as a percentage of {baseValue}.",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "आवश्यक मान: to express {value} as a percentage of {baseValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "आवश्यक मान: to express {value} as a percentage of {baseValue}.",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "आवश्यक मान: to express {value} as a percentage of {baseValue}.",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Percentage = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "{value} को {baseValue} के प्रतिशत के रूप में लिखें।",
+            "प्रतिशत = {value} x 100 / {baseValue}।",
+            "अब मान रखकर हल करें।",
+            "गणना करने पर {answer} मिलता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
-      "percentToFraction": {
+      "moreToLess": {
         "steps": [
-          "{percentageRate}% इसलिए {percentageRate}/100 इसलिए",
-          "इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए",
-          "इसलिए इसलिए {answer} इसलिए आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "छोटा मान 100 मान लें।",
+          "तब बड़ा मान 100 + {percentageRate} होगा।",
+          "अब अंतर को बड़े मान पर लें।",
+          "गणना करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "{percentageRate}% इसलिए {percentageRate}/100 इसलिए",
-            "इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए",
-            "इसलिए इसलिए {answer} इसलिए आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "छोटा मान 100 मान लें।",
+            "तब बड़ा मान 100 + {percentageRate} होगा।",
+            "अब अंतर को बड़े मान पर लें।",
+            "गणना करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "{percentageRate}% इसलिए {percentageRate}/100 इसलिए",
-            "इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए",
-            "इसलिए इसलिए {answer} इसलिए आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "छोटे मान को 100 मान लें।",
+            "तब बड़ा मान 100 + {percentageRate} होगा।",
+            "अब अंतर को बड़े मान के आधार पर लें।",
+            "गणना करने पर {answer} मिलता है।",
+            "अतः उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "lessToMore": {
+        "steps": [
+          "बड़ा मान 100 मान लें।",
+          "तब छोटा मान 100 - {percentageRate} होगा।",
+          "अब अंतर को छोटे मान पर लें।",
+          "गणना करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "बड़ा मान 100 मान लें।",
+            "तब छोटा मान 100 - {percentageRate} होगा।",
+            "अब अंतर को छोटे मान पर लें।",
+            "गणना करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "{percentageRate}% इसलिए {percentageRate}/100 इसलिए",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए",
-            "इसलिए इसलिए {answer} इसलिए आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "बड़े मान को 100 मान लें।",
+            "तब छोटा मान 100 - {percentageRate} होगा।",
+            "अब अंतर को छोटे मान के आधार पर लें।",
+            "गणना करने पर {answer} मिलता है।",
+            "अतः उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "ratioFromPercentEquality": {
+        "steps": [
+          "A का {rate1}%, B के {rate2}% के बराबर है।",
+          "दोनों पक्षों को अनुपात में लिखें।",
+          "इसलिए A:B = {rate2}:{rate1}।",
+          "सरल करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "A का {rate1}%, B के {rate2}% के बराबर है।",
+            "दोनों पक्षों को अनुपात में लिखें।",
+            "इसलिए A:B = {rate2}:{rate1}।",
+            "सरल करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "{percentageRate}% इसलिए {percentageRate}/100 इसलिए",
-            "इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "A का {rate1}%, B के {rate2}% के बराबर है।",
+            "अब दोनों पक्षों को अनुपात के रूप में लिखें।",
+            "इसलिए A:B = {rate2}:{rate1}।",
+            "सरल करने पर {answer} मिलता है।",
+            "अतः उत्तर {answer} है।"
+          ]
+        ]
+      },
+      "reversePercent": {
+        "steps": [
+          "{percentageRate}% = {value} दिया है।",
+          "इसलिए 1% = {value} / {percentageRate}।",
+          "अब 100% के लिए 100 से गुणा करें।",
+          "इसलिए 100% = {value} x 100 / {percentageRate} = {answer}।",
+          "उत्तर {answer} है।"
+        ],
+        "variants": [
+          [
+            "{percentageRate}% = {value} दिया है।",
+            "इसलिए 1% = {value} / {percentageRate}।",
+            "अब 100% के लिए 100 से गुणा करें।",
+            "इसलिए 100% = {value} x 100 / {percentageRate} = {answer}।",
+            "उत्तर {answer} है।"
           ],
           [
-            "{percentageRate}% इसलिए {percentageRate}/100 इसलिए",
-            "इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए इसलिए",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "इसलिए इसलिए {answer} इसलिए आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "{percentageRate}% = {value} दिया है।",
+            "इसलिए 1% = {value} / {percentageRate}।",
+            "अब 100% निकालने के लिए 100 से गुणा करें।",
+            "अतः 100% = {value} x 100 / {percentageRate} = {answer}।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       }

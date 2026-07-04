@@ -1,5 +1,6 @@
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
 import { getAnswerType, getCommonQuestionLanguageIds, getQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, getTaskRegistryEntry, PCT_001_LIBRARY_REGISTRY } from "./library";
+import { getLocalizedQuestionLanguageIds, isQlLocalized } from "../../../../../common/language-coverage";
 import { stableBucket } from "./math";
 import { PCT_001_ARCHETYPE_ID, PCT_001_CP_IDS, type Pct001CanonicalProblemId, type Pct001DifficultyBand, type Pct001Language, type Pct001Parameters, type Pct001TaskKind, type Pct001Variables, type Pct001SemanticContext } from "./types";
 
@@ -292,7 +293,9 @@ function constrainVariables(
 }
 
 export function getSelectableQuestionLanguageIds(cpId: Pct001CanonicalProblemId, language: Pct001Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  const englishIds =
+    language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds("PCT-001", language, englishIds);
 }
 
 export function selectQuestionLanguageId(
@@ -302,6 +305,9 @@ export function selectQuestionLanguageId(
   difficultyBand?: Pct001DifficultyBand,
 ) {
   const ids = getSelectableQuestionLanguageIds(cpId, language);
+  if (ids.length === 0) {
+    throw new Error(`No localized question languages available for ${language}:${cpId} in PCT-001.`);
+  }
   const filtered = difficultyBand
     ? ids.filter((questionLanguageId) => getQuestionEntry(cpId, questionLanguageId, language).difficulty === difficultyBand)
     : ids;
@@ -321,6 +327,10 @@ function selectCompatibleQuestionLanguageId(
 ) {
   if (language === "en") {
     return getQuestionLanguageIds(cpId, "en").includes(requestedQuestionLanguageId) ? requestedQuestionLanguageId : null;
+  }
+
+  if (!isQlLocalized("PCT-001", requestedQuestionLanguageId, language)) {
+    return null;
   }
 
   const requestedRegistryEntry = getTaskRegistryEntry(cpId, requestedQuestionLanguageId);
@@ -378,6 +388,12 @@ export function generatePct001Parameters(cpId: Pct001CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const seed = input.seed ?? `PCT-001:${cpId}`;
   const selectableQuestionLanguageIds = getSelectableQuestionLanguageIds(cpId, language);
+  if (selectableQuestionLanguageIds.length === 0) {
+    throw new Error(`No localized question languages available for ${language}:${cpId} in PCT-001.`);
+  }
+  if (input.questionLanguageId && !isQlLocalized("PCT-001", input.questionLanguageId, language)) {
+    throw new Error(`Question language ${input.questionLanguageId} is not localized for ${language} in PCT-001.`);
+  }
   const questionLanguageId =
     input.questionLanguageId && selectableQuestionLanguageIds.includes(input.questionLanguageId)
       ? input.questionLanguageId

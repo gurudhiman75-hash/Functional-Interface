@@ -1,6 +1,8 @@
 import { formatExplanationSteps, validateExplanationPipeline, type ExplanationEvidence, type ExplanationRenderer } from "../../../../../common/explanation-engine";
 import { TaskKindTeacherRenderer } from "../../../../../common/teacher-renderer";
+import { isQlLocalized } from "../../../../../common/language-coverage";
 import type { Pct001Explanation, Pct001Parameters, Pct001ReasoningGraph, Pct001SolverResult } from "../types";
+import { getExplanationSteps } from "./library";
 
 import { PercentOfRenderer } from "./renderers/percent-of-renderer";
 import { PercentToFractionRenderer } from "./renderers/percent-to-fraction-renderer";
@@ -58,6 +60,191 @@ export function resolvePct001SemanticEntities(taskKind: string, semanticContext:
   return map;
 }
 
+function buildPct001Renderer(taskKind: string, solverMathJax: Record<string, string>): ExplanationRenderer {
+  let renderer: ExplanationRenderer;
+  switch (taskKind) {
+    case "percentOf":
+      renderer = new PercentOfRenderer();
+      break;
+    case "percentToFraction":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "valueAsPercent":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "directRelation":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "moreToLess":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "lessToMore":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "ratioFromPercentEquality":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "reversePercent":
+      renderer = new ReversePercentRenderer(solverMathJax);
+      break;
+    case "increaseNewValue":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "decreaseNewValue":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "reverseIncrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "reverseDecrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "increaseByAmount":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "percentOfKnownNumber":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "differenceOfPercents":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "restoreAfterDecrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "successiveIncrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "successiveChange":
+      renderer = new SuccessiveChangeRenderer(solverMathJax);
+      break;
+    case "compoundGrowth":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "compoundDecay":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "areaChange":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "squareAreaChange":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "invarianceDecrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "invarianceIncrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "restoreAfterIncrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "revenueChange":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "circleAreaDecrease":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "incomePartition":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "successiveExpense":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "winnerVotes":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "cancelledVotes":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "passMarks":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "partToTotal":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "complementOfTotal":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "moreMarksBase":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "twoShareRemainder":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "loserVotes":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "dilutionAddWater":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "dryFromFresh":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "addSolute":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "dilutedPercent":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "freshFromDry":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "addPureComponent":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "evaporationOriginal":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    case "alloyComplement":
+      renderer = new TaskKindTeacherRenderer(taskKind, solverMathJax);
+      break;
+    default:
+      throw new Error(`Renderer missing for taskKind: ${taskKind}`);
+  }
+  return renderer;
+}
+
+function interpolateExplanationNarrative(template: string, evidence: ExplanationEvidence) {
+  const values = {
+    ...evidence.variables,
+    ...evidence.derivedValues,
+    ...evidence.entities,
+    answer: evidence.answer,
+  } as Record<string, string | number>;
+
+  return template.replace(/\{([^}]+)\}/g, (_match, key: string) => {
+    const value = values[key];
+    if (typeof value !== "string" && typeof value !== "number") {
+      throw new Error(`Missing explanation placeholder ${key}`);
+    }
+    return String(value);
+  });
+}
+
+function buildLocalizedSteps(
+  rawRenderer: ExplanationRenderer,
+  parameters: Pct001Parameters,
+  evidence: ExplanationEvidence,
+) {
+  const rawSteps = rawRenderer.render(evidence);
+  const localizedNarratives = getExplanationSteps(
+    parameters.canonicalProblemId,
+    parameters.taskKind,
+    parameters.language,
+  );
+
+  if (localizedNarratives.length !== rawSteps.length) {
+    throw new Error(
+      `Explanation step count mismatch for ${parameters.language}:${parameters.canonicalProblemId}:${parameters.taskKind}`,
+    );
+  }
+
+  return rawSteps.map((step, index) => ({
+    ...step,
+    narrative: interpolateExplanationNarrative(localizedNarratives[index]!, evidence),
+  }));
+}
+
 export function renderPct001Explanation(parameters: Pct001Parameters, solver: Pct001SolverResult, _graph: Pct001ReasoningGraph): Pct001Explanation {
   const evidence: ExplanationEvidence = {
     variables: parameters.variables,
@@ -65,147 +252,27 @@ export function renderPct001Explanation(parameters: Pct001Parameters, solver: Pc
     entities: resolvePct001SemanticEntities(parameters.taskKind, parameters.semanticContext, parameters.language),
     answer: solver.answer,
   };
+  const renderer = buildPct001Renderer(parameters.taskKind, solver.mathJax);
 
-  let renderer: ExplanationRenderer;
-
-  switch (parameters.taskKind) {
-    case "percentOf":
-      renderer = new PercentOfRenderer();
-      break;
-    case "percentToFraction":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "valueAsPercent":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "directRelation":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "moreToLess":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "lessToMore":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "ratioFromPercentEquality":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "reversePercent":
-      renderer = new ReversePercentRenderer(solver.mathJax);
-      break;
-    case "increaseNewValue":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "decreaseNewValue":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "reverseIncrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "reverseDecrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "increaseByAmount":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "percentOfKnownNumber":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "differenceOfPercents":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "restoreAfterDecrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "successiveIncrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "successiveChange":
-      renderer = new SuccessiveChangeRenderer(solver.mathJax);
-      break;
-    case "compoundGrowth":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "compoundDecay":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "areaChange":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "squareAreaChange":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "invarianceDecrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "invarianceIncrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "restoreAfterIncrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "revenueChange":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "circleAreaDecrease":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "incomePartition":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "successiveExpense":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "winnerVotes":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "cancelledVotes":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "passMarks":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "partToTotal":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "complementOfTotal":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "moreMarksBase":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "twoShareRemainder":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "loserVotes":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "dilutionAddWater":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "dryFromFresh":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "addSolute":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "dilutedPercent":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "freshFromDry":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "addPureComponent":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "evaporationOriginal":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    case "alloyComplement":
-      renderer = new TaskKindTeacherRenderer(parameters.taskKind, solver.mathJax);
-      break;
-    default:
-      throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);
+  if (parameters.language !== "en") {
+    if (!isQlLocalized("PCT-001", parameters.questionLanguageId, parameters.language)) {
+      throw new Error(
+        `Question language ${parameters.questionLanguageId} is not localized for ${parameters.language} in PCT-001.`,
+      );
+    }
+    if (parameters.canonicalProblemId !== "PCT-CP-001") {
+      throw new Error(
+        `Explanation localization is not implemented for ${parameters.language}:${parameters.canonicalProblemId}:${parameters.taskKind}.`,
+      );
+    }
+    const localizedSteps = buildLocalizedSteps(renderer, parameters, evidence);
+    const validatedSteps = validateExplanationPipeline(evidence, {
+      render: () => localizedSteps,
+    });
+    return {
+      explanationId: parameters.explanationId,
+      lines: formatExplanationSteps(validatedSteps),
+    };
   }
 
   const validatedSteps = validateExplanationPipeline(evidence, renderer);

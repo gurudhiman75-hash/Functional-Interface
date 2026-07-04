@@ -1,6 +1,7 @@
 import { validatePct001Libraries } from "./library";
 import { getPct001ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds } from "./parameter-generator";
 import { runPct001ForLanguages, runPct001Pipeline } from "./pipeline";
+import { isQlLocalized } from "../../../../../common/language-coverage";
 import type { Pct001Language, Pct001QuestionPackage } from "./types";
 
 function countBy(values: readonly string[]) {
@@ -40,6 +41,10 @@ export function auditPct001Packages(packages: readonly Pct001QuestionPackage[]) 
   let crossLanguageConsistencyFailures = 0;
   for (let index = 0; index < Math.min(120, packages.length); index += 1) {
     const pkg = packages[index]!;
+    const isLocalizedTriplet =
+      isQlLocalized("PCT-001", pkg.questionLanguageId, "hi") &&
+      isQlLocalized("PCT-001", pkg.questionLanguageId, "pa");
+    if (!isLocalizedTriplet) continue;
     const triplet = runPct001ForLanguages(pkg.canonicalProblemId, {
       seed: `cross-language:${index}`,
       questionLanguageId: pkg.questionLanguageId,

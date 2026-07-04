@@ -4,326 +4,179 @@
     "taskExplanations": {
       "percentOf": {
         "steps": [
-          "{percentageRate}% means {percentageRate}/100.",
-          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "{baseValue} ਦਾ {percentageRate}% ਪਤਾ ਕਰਨਾ ਹੈ।",
+          "{percentageRate}% = {percentageRate}/100।",
+          "ਅਤੇ ਇਸ ਲਈ {baseValue} x {percentageRate}/100 = {answer}।",
+          "ਹੁਣ ਇਸ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "{percentageRate}% means {percentageRate}/100.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "{baseValue} ਦਾ {percentageRate}% ਪਤਾ ਕਰਨਾ ਹੈ।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "ਅਤੇ ਇਸ ਲਈ {baseValue} x {percentageRate}/100 = {answer}।",
+            "ਹੁਣ ਇਸ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "{percentageRate}% means {percentageRate}/100.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "{percentageRate}% means {percentageRate}/100.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "{percentageRate}% means {percentageRate}/100.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "{percentageRate}% means {percentageRate}/100.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{baseValue} ਦਾ {percentageRate}% ਕੱਢਣਾ ਹੈ।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "ਇਸ ਲਈ {baseValue} x {percentageRate}/100 = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "directRelation": {
         "aliasOf": "percentOf"
       },
-      "reversePercent": {
+      "percentToFraction": {
         "steps": [
-          "{percentageRate}% of the number is {value}.",
-          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "{percentageRate}% ਨੂੰ 100 ਦੇ ਉੱਪਰ ਲਿਖੋ।",
+          "{percentageRate}% = {percentageRate}/100।",
+          "ਹੁਣ ਭਿੰਨ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਸਰਲ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "{percentageRate}% of the number is {value}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "{percentageRate}% ਨੂੰ 100 ਦੇ ਉੱਪਰ ਲਿਖੋ।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "ਹੁਣ ਭਿੰਨ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "{percentageRate}% of the number is {value}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "{percentageRate}% of the number is {value}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "{percentageRate}% of the number is {value}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "{percentageRate}% of the number is {value}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
-          ]
-        ]
-      },
-      "moreToLess": {
-        "steps": [
-          "Let the smaller value be 100.",
-          "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-          "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
-        ],
-        "variants": [
-          [
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Let the smaller value be 100.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Let the smaller value be 100.",
-            "Then the larger value = 100 + {percentageRate} = {largerBase}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Less percentage from larger side = {percentageRate} x 100 / {largerBase} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
-          ]
-        ]
-      },
-      "lessToMore": {
-        "steps": [
-          "Let the larger value be 100.",
-          "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-          "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
-        ],
-        "variants": [
-          [
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Let the larger value be 100.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Let the larger value be 100.",
-            "Then the smaller value = 100 - {percentageRate} = {smallerBase}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "More percentage from smaller side = {percentageRate} x 100 / {smallerBase} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
-          ]
-        ]
-      },
-      "ratioFromPercentEquality": {
-        "steps": [
-          "After simplification, A:B = {answer}.",
-          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
-        ],
-        "variants": [
-          [
-            "After simplification, A:B = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "After simplification, A:B = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "After simplification, A:B = {answer}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "After simplification, A:B = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "After simplification, A:B = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{percentageRate}% ਨੂੰ 100 ਦੇ ਹਰ ਵਿੱਚ ਲਿਖੋ।",
+            "{percentageRate}% = {percentageRate}/100।",
+            "ਹੁਣ ਇਸ ਭਿੰਨ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਸਰਲ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "valueAsPercent": {
         "steps": [
-          "Percentage = {value} x 100 / {baseValue}.",
-          "Percentage = {answer}.",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "{value} ਨੂੰ {baseValue} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਲਿਖੋ।",
+          "ਪ੍ਰਤੀਸ਼ਤ = {value} x 100 / {baseValue}।",
+          "ਹੁਣ ਮੁੱਲ ਰੱਖ ਕੇ ਗਣਨਾ ਕਰੋ।",
+          "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "{value} ਨੂੰ {baseValue} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਿੱਚ ਲਿਖੋ।",
+            "ਪ੍ਰਤੀਸ਼ਤ = {value} x 100 / {baseValue}।",
+            "ਹੁਣ ਮੁੱਲ ਰੱਖ ਕੇ ਗਣਨਾ ਕਰੋ।",
+            "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Percentage = {value} x 100 / {baseValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Percentage = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Percentage = {value} x 100 / {baseValue}.",
-            "Percentage = {answer}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{value} ਨੂੰ {baseValue} ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+            "ਪ੍ਰਤੀਸ਼ਤ = {value} x 100 / {baseValue}।",
+            "ਹੁਣ ਮੁੱਲ ਰੱਖ ਕੇ ਹੱਲ ਕਰੋ।",
+            "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
-      "percentToFraction": {
+      "moreToLess": {
         "steps": [
-          "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਛੋਟਾ ਮੁੱਲ 100 ਮੰਨ ਲਓ।",
+          "ਤਦ ਵੱਡਾ ਮੁੱਲ 100 + {percentageRate} ਹੋਵੇਗਾ।",
+          "ਹੁਣ ਅੰਤਰ ਨੂੰ ਵੱਡੇ ਮੁੱਲ 'ਤੇ ਲਓ।",
+          "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਛੋਟਾ ਮੁੱਲ 100 ਮੰਨ ਲਓ।",
+            "ਤਦ ਵੱਡਾ ਮੁੱਲ 100 + {percentageRate} ਹੋਵੇਗਾ।",
+            "ਹੁਣ ਅੰਤਰ ਨੂੰ ਵੱਡੇ ਮੁੱਲ 'ਤੇ ਲਓ।",
+            "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਛੋਟੇ ਮੁੱਲ ਨੂੰ 100 ਮੰਨ ਲਓ।",
+            "ਤਦ ਵੱਡਾ ਮੁੱਲ 100 + {percentageRate} ਹੋਵੇਗਾ।",
+            "ਹੁਣ ਅੰਤਰ ਨੂੰ ਵੱਡੇ ਮੁੱਲ ਦੇ ਆਧਾਰ ਤੇ ਲਓ।",
+            "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "lessToMore": {
+        "steps": [
+          "ਵੱਡਾ ਮੁੱਲ 100 ਮੰਨ ਲਓ।",
+          "ਤਦ ਛੋਟਾ ਮੁੱਲ 100 - {percentageRate} ਹੋਵੇਗਾ।",
+          "ਹੁਣ ਅੰਤਰ ਨੂੰ ਛੋਟੇ ਮੁੱਲ 'ਤੇ ਲਓ।",
+          "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "ਵੱਡਾ ਮੁੱਲ 100 ਮੰਨ ਲਓ।",
+            "ਤਦ ਛੋਟਾ ਮੁੱਲ 100 - {percentageRate} ਹੋਵੇਗਾ।",
+            "ਹੁਣ ਅੰਤਰ ਨੂੰ ਛੋਟੇ ਮੁੱਲ 'ਤੇ ਲਓ।",
+            "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
+            "ਵੱਡੇ ਮੁੱਲ ਨੂੰ 100 ਮੰਨ ਲਓ।",
+            "ਤਦ ਛੋਟਾ ਮੁੱਲ 100 - {percentageRate} ਹੋਵੇਗਾ।",
+            "ਹੁਣ ਅੰਤਰ ਨੂੰ ਛੋਟੇ ਮੁੱਲ ਦੇ ਆਧਾਰ ਤੇ ਲਓ।",
+            "ਗਣਨਾ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "ratioFromPercentEquality": {
+        "steps": [
+          "A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+          "ਦੋਵੇਂ ਪਾਸਿਆਂ ਨੂੰ ਅਨੁਪਾਤ ਵਿੱਚ ਲਿਖੋ।",
+          "ਇਸ ਲਈ A:B = {rate2}:{rate1}।",
+          "ਸਰਲ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਦੋਵੇਂ ਪਾਸਿਆਂ ਨੂੰ ਅਨੁਪਾਤ ਵਿੱਚ ਲਿਖੋ।",
+            "ਇਸ ਲਈ A:B = {rate2}:{rate1}।",
+            "ਸਰਲ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਹੁਣ ਦੋਵੇਂ ਪਾਸਿਆਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+            "ਇਸ ਲਈ A:B = {rate2}:{rate1}।",
+            "ਸਰਲ ਕਰਨ 'ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
+          ]
+        ]
+      },
+      "reversePercent": {
+        "steps": [
+          "{percentageRate}% = {value} ਦਿੱਤਾ ਹੈ।",
+          "ਇਸ ਲਈ 1% = {value} / {percentageRate}।",
+          "ਹੁਣ 100% ਲਈ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
+          "ਇਸ ਲਈ 100% = {value} x 100 / {percentageRate} = {answer}।",
+          "ਉੱਤਰ {answer} ਹੈ।"
+        ],
+        "variants": [
+          [
+            "{percentageRate}% = {value} ਦਿੱਤਾ ਹੈ।",
+            "ਇਸ ਲਈ 1% = {value} / {percentageRate}।",
+            "ਹੁਣ 100% ਲਈ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
+            "ਇਸ ਲਈ 100% = {value} x 100 / {percentageRate} = {answer}।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{percentageRate}% = {value} ਦਿੱਤਾ ਹੈ।",
+            "ਇਸ ਲਈ 1% = {value} / {percentageRate}।",
+            "ਹੁਣ 100% ਕੱਢਣ ਲਈ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ 100% = {value} x 100 / {percentageRate} = {answer}।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       }

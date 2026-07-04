@@ -11,6 +11,24 @@ type LocalizedQuestionLanguageRegistry = Record<
 >;
 
 const LOCALIZED_QUESTION_LANGUAGE_REGISTRY: LocalizedQuestionLanguageRegistry = {
+  "PCT-001": {
+    hi: [
+      ...[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900].flatMap(
+        (offset) => [1, 2, 3, 4, 9].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [5, 6, 7, 8].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+    ],
+    pa: [
+      ...[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900].flatMap(
+        (offset) => [1, 2, 3, 4, 9].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [5, 6, 7, 8].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+    ],
+  },
   "PCT-002": {
     hi: Array.from({ length: 150 }, (_, index) =>
       `PCT-QL-${String(index + 1).padStart(3, "0")}`,

@@ -1,7 +1,8 @@
 import { strict as assert } from "node:assert";
+import { isQlLocalized } from "../../../../../common/language-coverage";
 import { generatePct001CoverageAudit } from "./coverage-auditor";
 import { getAnswerType, getQuestionEntry, getRequiredVariables, getTaskKind, renderTemplate, validatePct001Libraries } from "./library";
-import { getPct001ActiveCanonicalProblemIds } from "./parameter-generator";
+import { getPct001ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds } from "./parameter-generator";
 import { runPct001Pipeline } from "./pipeline";
 import { solvePct001 } from "./solver";
 import { PCT_001_ARCHETYPE_ID, type Pct001CanonicalProblemId, type Pct001Parameters, type Pct001Variables } from "./types";
@@ -74,20 +75,28 @@ for (let index = 0; index < 60; index += 1) {
 for (let index = 0; index < 1000; index += 1) {
   const cpId = cpIds[index % cpIds.length]!;
   const en = runPct001Pipeline(cpId, { language: "en", seed: `pct-001-test:${index}` });
-  const hi = runPct001Pipeline(cpId, {
-    language: "hi",
-    seed: `pct-001-test:${index}`,
-    questionLanguageId: en.questionLanguageId,
-    difficultyBand: en.difficultyBand,
-  });
-  const pa = runPct001Pipeline(cpId, {
-    language: "pa",
-    seed: `pct-001-test:${index}`,
-    questionLanguageId: en.questionLanguageId,
-    difficultyBand: en.difficultyBand,
-  });
+  const localizedTriplet =
+    isQlLocalized("PCT-001", en.questionLanguageId, "hi") &&
+    isQlLocalized("PCT-001", en.questionLanguageId, "pa");
+  const packages = [en];
+  if (localizedTriplet) {
+    packages.push(
+      runPct001Pipeline(cpId, {
+        language: "hi",
+        seed: `pct-001-test:${index}`,
+        questionLanguageId: en.questionLanguageId,
+        difficultyBand: en.difficultyBand,
+      }),
+      runPct001Pipeline(cpId, {
+        language: "pa",
+        seed: `pct-001-test:${index}`,
+        questionLanguageId: en.questionLanguageId,
+        difficultyBand: en.difficultyBand,
+      }),
+    );
+  }
 
-  for (const pkg of [en, hi, pa]) {
+  for (const pkg of packages) {
     assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
     assert.ok(pkg.reasoningGraph.nodes.some((node) => node.id === "answer"));
     assert.ok(pkg.explanation.lines.length > 0);
@@ -95,8 +104,10 @@ for (let index = 0; index < 1000; index += 1) {
     assert.ok(pkg.answer.length > 0);
   }
 
-  assert.equal(en.answer, hi.answer);
-  assert.equal(en.answer, pa.answer);
+  if (localizedTriplet) {
+    assert.equal(en.answer, packages[1]!.answer);
+    assert.equal(en.answer, packages[2]!.answer);
+  }
   assert.equal(en.solver.answer, en.answer);
   assert.equal(runPct001Pipeline(cpId, { language: "en", seed: `pct-001-test:${index}`, questionLanguageId: en.questionLanguageId }).answer, en.answer);
 
@@ -111,6 +122,40 @@ for (const difficulty of ["Easy", "Medium", "Hard"]) assert.equal(seenDifficulty
 const duplicateCount = [...seenQuestions.values()].reduce((sum, count) => sum + Math.max(0, count - 1), 0);
 const duplicateRate = duplicateCount / 1000;
 assert.ok(duplicateRate < 0.75, `Duplicate rate too high: ${duplicateRate}`);
+
+const localizedCpIds = cpIds.filter(
+  (cpId) =>
+    getSelectableQuestionLanguageIds(cpId, "hi").length > 0 &&
+    getSelectableQuestionLanguageIds(cpId, "pa").length > 0,
+);
+assert.deepEqual(localizedCpIds, ["PCT-CP-001"], "Unexpected localized PCT-001 checkpoint coverage.");
+
+for (let index = 0; index < 180; index += 1) {
+  const cpId = localizedCpIds[index % localizedCpIds.length]!;
+  const en = runPct001Pipeline(cpId, { language: "en", seed: `pct-001-localized:${index}` });
+  assert.equal(isQlLocalized("PCT-001", en.questionLanguageId, "hi"), true);
+  assert.equal(isQlLocalized("PCT-001", en.questionLanguageId, "pa"), true);
+
+  const hi = runPct001Pipeline(cpId, {
+    language: "hi",
+    seed: `pct-001-localized:${index}`,
+    questionLanguageId: en.questionLanguageId,
+    difficultyBand: en.difficultyBand,
+  });
+  const pa = runPct001Pipeline(cpId, {
+    language: "pa",
+    seed: `pct-001-localized:${index}`,
+    questionLanguageId: en.questionLanguageId,
+    difficultyBand: en.difficultyBand,
+  });
+
+  assert.equal(en.answer, hi.answer);
+  assert.equal(en.answer, pa.answer);
+  assert.ok(!hi.stem.includes("{"));
+  assert.ok(!pa.stem.includes("{"));
+  assert.ok(!hi.explanation.lines.join(" ").includes("{"));
+  assert.ok(!pa.explanation.lines.join(" ").includes("{"));
+}
 
 const audit = generatePct001CoverageAudit(500, "en").audit;
 assert.equal(audit.generationFailures, 0);

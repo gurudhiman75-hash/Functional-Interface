@@ -2,39 +2,483 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "{baseValue} ਦਾ {percentageRate}% ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ {baseValue} ਦਰਜ ਵੋਟਰਾਂ ਵਿੱਚੋਂ {percentageRate}% ਨੇ ਵੋਟ ਪਾਈ। ਕੁੱਲ ਕਿੰਨੀਆਂ ਵੋਟਾਂ ਪਈਆਂ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-101": {
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਕਿਸੇ ਉਮੀਦਵਾਰ ਨੇ ਕੁੱਲ {baseValue} ਅੰਕਾਂ ਦਾ {percentageRate}% ਹਾਸਲ ਕੀਤਾ। ਉਸਨੇ ਕਿੰਨੇ ਅੰਕ ਲਏ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-201": {
+        "template": "ਕਿਸੇ ਪਿੰਡ ਦੀ {baseValue} ਆਬਾਦੀ ਵਿੱਚੋਂ {percentageRate}% ਸਾਖਰ ਹਨ। ਕਿੰਨੇ ਲੋਕ ਸਾਖਰ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-301": {
+        "template": "ਇੱਕ ਕਲੀਨਿਕ ਕੋਲ Rs. {baseValue} ਦਾ ਮਾਸਿਕ ਚਾਲੂ ਅਨੁਦਾਨ ਹੈ। ਉਹ ਇਸਦਾ {percentageRate}% ਦਵਾਈਆਂ 'ਤੇ ਖਰਚ ਕਰਦਾ ਹੈ। ਦਵਾਈਆਂ ਦਾ ਖਰਚ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-401": {
+        "template": "ਕਿਸੇ ਵਸਤੂ ਦੀ ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਹੈ। ਜੇ ਛੂਟ {percentageRate}% ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-501": {
+        "template": "ਜੇ ਕੋਈ ਫੈਕਟਰੀ ਹਰ ਰੋਜ਼ {baseValue} ਇਕਾਈਆਂ ਬਣਾਉਂਦੀ ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਖਰਾਬ ਹਨ, ਤਾਂ ਹਰ ਰੋਜ਼ ਕਿੰਨੀ ਖਰਾਬ ਇਕਾਈਆਂ ਬਣਦੀਆਂ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-601": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ {baseValue} ਵਿਦਿਆਰਥੀਆਂ ਦਾ {percentageRate}% ਕੁੜੀਆਂ ਹਨ। ਕੁੱਲ ਕਿੰਨੀਆਂ ਕੁੜੀਆਂ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-701": {
+        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {baseValue} ਲੀਟਰ ਤਰਲ ਹੈ, ਜਿਸ ਵਿੱਚੋਂ {percentageRate}% ਪਾਣੀ ਹੈ। ਇਸ ਵਿੱਚ ਕਿੰਨਾ ਪਾਣੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-801": {
+        "template": "ਰਾਹੁਲ ਕੋਲ Rs. {baseValue} ਹਨ। ਉਹ ਇਸਦਾ {percentageRate}% ਆਪਣੇ ਦੋਸਤ ਨੂੰ ਦੇ ਦਿੰਦਾ ਹੈ। ਉਸਨੇ ਕਿੰਨੀ ਰਕਮ ਦਿੱਤੀ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-901": {
+        "template": "ਕਿਸੇ ਕਿਤਾਬ ਦੀ ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਹੈ। ਦੁਕानदार {percentageRate}% ਦੀ ਛੂਟ ਦਿੰਦਾ ਹੈ। ਛੂਟ ਦੀ ਰਕਮ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1001": {
+        "template": "ਹਾਜ਼ਰੀ ਰਜਿਸਟਰ ਵਿੱਚ {baseValue} ਵਿਦਿਆਰਥੀ ਦਰਜ ਹਨ ਅਤੇ ਸੋਮਵਾਰ ਨੂੰ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਹਾਜ਼ਰ ਸਨ। ਕਲਾਸ ਵਿੱਚ ਕਿੰਨੇ ਵਿਦਿਆਰਥੀ ਹਾਜ਼ਰ ਹੋਏ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1101": {
+        "template": "ਇੱਕ ਫਲ ਵੇਚਣ ਵਾਲੇ ਕੋਲ {baseValue} ਸੇਬ ਸਨ। ਉਸਨੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਵੇਚ ਦਿੱਤੇ। ਵੇਚੇ ਗਏ ਸੇਬਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1201": {
+        "template": "ਕਿਸੇ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਸ਼ਾਮਲ {baseValue} ਉਮੀਦਵਾਰਾਂ ਵਿੱਚੋਂ {percentageRate}% ਪਾਸ ਹੋਏ। ਕਿੰਨੇ ਪਾਸ ਹੋਏ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1301": {
+        "template": "ਇੱਕ ਮਿਸ਼ਰਧਾਤੂ ਦਾ ਕੁੱਲ ਭਾਰ {baseValue} ਕਿਲੋ ਹੈ। ਜੇ ਇਸਦਾ {percentageRate}% ਤਾਮਬਾ ਹੈ, ਤਾਂ ਤਾਮਬੇ ਦਾ ਭਾਰ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1401": {
+        "template": "ਜੇ {baseValue} ਦਾ {percentageRate}% = x ਹੈ, ਤਾਂ x ਦਾ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1501": {
+        "template": "ਇੱਕ ਲਾਇਬ੍ਰੇਰੀ ਵਿੱਚ {baseValue} ਕਿਤਾਬਾਂ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਕਥਾ-ਸਾਹਿਤ ਦੀਆਂ ਹਨ। ਕਥਾ-ਸਾਹਿਤ ਦੀਆਂ ਕਿੰਨੀਆਂ ਕਿਤਾਬਾਂ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1601": {
+        "template": "ਕੋਈ ਵਿਅਕਤੀ Rs. {baseValue} ਦੀ ਤਨਖ਼ਾਹ ਦਾ {percentageRate}% ਬਚਾਂਦਾ ਹੈ। ਬਚਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1701": {
+        "template": "{baseValue} ਰੁੱਖਾਂ ਵਾਲੇ ਇੱਕ ਬਾਗ ਵਿੱਚ {percentageRate}% ਅੰਬ ਦੇ ਰੁੱਖ ਹਨ। ਅੰਬ ਦੇ ਕਿੰਨੇ ਰੁੱਖ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1801": {
+        "template": "ਇੱਕ ਪਾਣੀ ਦੇ ਟੈਂਕ ਵਿੱਚ {baseValue} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਇਸ ਵਿੱਚੋਂ {percentageRate}% ਪਾਣੀ ਵਰਤਿਆ ਗਿਆ। ਕਿੰਨਾ ਪਾਣੀ ਵਰਤਿਆ ਗਿਆ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1901": {
+        "template": "ਇੱਕ ਨਿਵੇਸ਼ਕ ਨੂੰ Rs. {baseValue} 'ਤੇ {percentageRate}% ਲਾਭ ਹੁੰਦਾ ਹੈ। ਲਾਭ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "{baseValue} ਦਾ {percentageRate}% ਪਤਾ ਕਰੋ।",
+        "template": "ਇੱਕ ਪੋਲਿੰਗ ਬੂਥ 'ਤੇ {baseValue} ਦਰਜ ਵੋਟਰ ਸਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਨੇ ਵੋਟ ਪਾਈ। ਕੁੱਲ ਕਿੰਨੀਆਂ ਵੋਟਾਂ ਪਈਆਂ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-102": {
+        "template": "ਨਤੀਜਾ-ਪੱਤਰ ਵਿੱਚ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ {baseValue} ਦਿੱਤੇ ਹੋਏ ਹਨ। ਜੇ ਕਿਸੇ ਉਮੀਦਵਾਰ ਨੇ {percentageRate}% ਅੰਕ ਲਏ, ਤਾਂ ਉਸਨੇ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਕੀਤੇ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-202": {
+        "template": "ਇੱਕ ਪਿੰਡ ਦੇ ਸਾਖਰਤਾ ਸਰਵੇਖਣ ਵਿੱਚ {baseValue} ਲੋਕ ਸ਼ਾਮਲ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਸਾਖਰ ਹਨ, ਤਾਂ ਕਿੰਨੇ ਲੋਕ ਸਾਖਰ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-302": {
+        "template": "ਇੱਕ ਜ਼ਿਲ੍ਹਾ ਅਜਾਇਬਘਰ ਕੋਲ Rs. {baseValue} ਦਾ ਸਾਲਾਨਾ ਰੱਖ-ਰਖਾਵ ਫੰਡ ਹੈ। ਉਹ ਇਸਦਾ {percentageRate}% ਮੁੜ-ਸੰਭਾਲ ਦੇ ਕੰਮ 'ਤੇ ਖਰਚ ਕਰਦਾ ਹੈ। ਉਹ ਖਰਚ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-402": {
+        "template": "ਇੱਕ ਕਿਤਾਬ ਦੀ ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਹੈ। ਜੇ ਇਸ 'ਤੇ {percentageRate}% ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-502": {
+        "template": "ਰੋਜ਼ਾਨਾ ਜਾਂਚ-ਪੱਤਰ ਵਿੱਚ {baseValue} ਤਿਆਰ ਕੀਤੀਆਂ ਇਕਾਈਆਂ ਦਰਜ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਖਰਾਬ ਹਨ। ਕਿੰਨੀਆਂ ਖਰਾਬ ਇਕਾਈਆਂ ਮਿਲੀਆਂ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-602": {
+        "template": "{baseValue} ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਇੱਕ ਕਲਾਸ ਵਿੱਚ {percentageRate}% ਕੁੜੀਆਂ ਹਨ। ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-702": {
+        "template": "ਇੱਕ ਲੈਬ ਨੋਟ ਵਿੱਚ {baseValue} ਲੀਟਰ ਘੋਲ ਦਰਜ ਹੈ, ਜਿਸ ਵਿੱਚ {percentageRate}% ਪਾਣੀ ਹੈ। ਇਸ ਵਿੱਚ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-802": {
+        "template": "ਨਕਦ-ਬਹੀ ਵਿੱਚ Rs. {baseValue} ਉਪਲਬਧ ਦਰਸਾਏ ਗਏ ਹਨ। ਜੇ ਇਸਦਾ {percentageRate}% ਅਦਾ ਕਰ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਕਿੰਨੀ ਰਕਮ ਦਿੱਤੀ ਜਾਵੇਗੀ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-902": {
+        "template": "ਇੱਕ ਵੇਚ-ਬਿੱਲ ਵਿੱਚ ਕਿਤਾਬ ਦੀ ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਅਤੇ ਛੂਟ {percentageRate}% ਦਿੱਤੀ ਗਈ ਹੈ। ਛੂਟ ਦੀ ਰਕਮ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1002": {
+        "template": "ਕਲਾਸ ਦੀ ਹਾਜ਼ਰੀ ਸੂਚੀ ਵਿੱਚ {baseValue} ਨਾਮ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਹਾਜ਼ਰ ਸਨ। ਕਿੰਨੇ ਵਿਦਿਆਰਥੀ ਹਾਜ਼ਰ ਹੋਏ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1102": {
+        "template": "ਫਲ ਸਟਾਕ ਰਜਿਸਟਰ ਵਿੱਚ {baseValue} ਸੇਬ ਦਰਜ ਹਨ। ਜੇ {percentageRate}% ਵੇਚੇ ਗਏ, ਤਾਂ ਵੇਚੇ ਗਏ ਸੇਬਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1202": {
+        "template": "ਇੱਕ ਨਤੀਜਾ-ਸਾਰ ਵਿੱਚ {baseValue} ਉਮੀਦਵਾਰ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਪਾਸ ਹੋਏ। ਕਿੰਨੇ ਉਮੀਦਵਾਰ ਪਾਸ ਹੋਏ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1302": {
+        "template": "ਕਾਰਖਾਨੇ ਦੇ ਸਮੱਗਰੀ ਰਿਕਾਰਡ ਵਿੱਚ {baseValue} ਕਿਲੋ ਦੀ ਇੱਕ ਮਿਸ਼ਰਧਾਤੂ ਦਰਜ ਹੈ। ਜੇ ਇਸਦਾ {percentageRate}% ਤਾਮਬਾ ਹੈ, ਤਾਂ ਤਾਮਬੇ ਦਾ ਭਾਰ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1402": {
+        "template": "ਇੱਕ ਵਰਕਸ਼ੀਟ ਵਿੱਚ {baseValue} ਦਾ {percentageRate}% ਕੱਢਣ ਲਈ ਕਿਹਾ ਗਿਆ ਹੈ। ਜੇ ਉਹ ਮੁੱਲ x ਹੈ, ਤਾਂ x ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1502": {
+        "template": "ਇੱਕ ਸ਼ੈਲਫ਼ ਰਜਿਸਟਰ ਵਿੱਚ {baseValue} ਕਿਤਾਬਾਂ ਦਰਜ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਕਥਾ-ਸਾਹਿਤ ਦੀਆਂ ਹਨ। ਕਥਾ-ਸਾਹਿਤ ਦੀਆਂ ਕਿੰਨੀਆਂ ਕਿਤਾਬਾਂ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1602": {
+        "template": "Rs. {baseValue} ਦੀ ਮਾਸਿਕ ਆਮਦਨ ਵਿੱਚੋਂ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ। ਬਚਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1702": {
+        "template": "ਇੱਕ ਬਾਗਬਾਨੀ ਰਿਕਾਰਡ ਵਿੱਚ {baseValue} ਰੁੱਖ ਦਰਜ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ {percentageRate}% ਅੰਬ ਦੇ ਰੁੱਖ ਹਨ। ਅੰਬ ਦੇ ਕਿੰਨੇ ਰੁੱਖ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1802": {
+        "template": "ਸਪਲਾਈ ਰਿਕਾਰਡ ਵਿੱਚ {baseValue} ਲੀਟਰ ਪਾਣੀ ਵਾਲਾ ਇੱਕ ਟੈਂਕ ਦਰਜ ਹੈ। ਜੇ ਇਸਦਾ {percentageRate}% ਵਰਤਿਆ ਗਿਆ, ਤਾਂ ਕਿੰਨਾ ਪਾਣੀ ਖਰਚ ਹੋਇਆ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1902": {
+        "template": "ਇੱਕ ਕਾਰੋਬਾਰ Rs. {baseValue} ਦੇ ਨਿਵੇਸ਼ 'ਤੇ {percentageRate}% ਲਾਭ ਕਮਾਂਦਾ ਹੈ। ਲਾਭ ਪਤਾ ਕਰੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-003": {
-        "template": "{percentageRate}% ਨੂੰ ਭਿੰਨ ਵਿੱਚ ਲਿਖੋ।",
+        "template": "{percentageRate}% ਨੂੰ ਇਸਦੇ ਸਭ ਤੋਂ ਸਰਲ ਭਿੰਨ ਰੂਪ ਵਿੱਚ ਬਦਲੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-103": {
+        "template": "{percentageRate}% ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਭਿੰਨ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-203": {
+        "template": "{percentageRate}% ਦਾ ਸਮਤੁੱਲ ਭਿੰਨ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-303": {
+        "template": "{percentageRate}% ਨੂੰ ਸਰਲ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-403": {
+        "template": "{percentageRate}% ਨੂੰ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-503": {
+        "template": "{percentageRate}% ਨੂੰ ਇਸਦੇ ਸਭ ਤੋਂ ਸਰਲ ਭਿੰਨ ਵਿੱਚ ਬਦਲੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-603": {
+        "template": "{percentageRate}% ਦੇ ਠੀਕ ਬਰਾਬਰ ਕਿਹੜਾ ਭਿੰਨ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-703": {
+        "template": "ਪ੍ਰਤੀਸ਼ਤ {percentageRate}% ਨੂੰ ਭਿੰਨ ਰੂਪ ਵਿੱਚ ਬਦਲੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-803": {
+        "template": "{percentageRate}% ਨੂੰ ਸਰਲ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-903": {
+        "template": "{percentageRate}% ਨਾਲ ਦਰਸਾਇਆ ਭਿੰਨ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1003": {
+        "template": "{percentageRate}% ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਭਿੰਨ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1103": {
+        "template": "{percentageRate}% ਦੇ ਬਰਾਬਰ ਕਿਹੜਾ ਭਿੰਨ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1203": {
+        "template": "{percentageRate}% ਦਾ ਸਭ ਤੋਂ ਸਰਲ ਭਿੰਨ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1303": {
+        "template": "{percentageRate}% ਨੂੰ ਸਮਤੁੱਲ ਭਿੰਨ ਵਿੱਚ ਬਦਲੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1403": {
+        "template": "{percentageRate}% ਨੂੰ ਭਿੰਨ ਵਿੱਚ ਬਦਲੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1503": {
+        "template": "{percentageRate}% ਲਈ ਭਿੰਨ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1603": {
+        "template": "ਜੇ ਕੋਈ ਮੁੱਲ {percentageRate}% ਹੈ, ਤਾਂ ਇਹ ਪੂਰੇ ਦਾ ਕਿਹੜਾ ਭਿੰਨ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1703": {
+        "template": "{percentageRate}% ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਭਿੰਨ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1803": {
+        "template": "{percentageRate}% ਦੇ ਸਮਤੁੱਲ ਭਿੰਨ ਲਿਖੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1903": {
+        "template": "{percentageRate}% ਨੂੰ ਭਿੰਨ ਦੇ ਰੂਪ ਵਿੱਚ ਦਰਸਾਓ।",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "{value}, {baseValue} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "{baseValue} ਦਾ {value} ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-104": {
+        "template": "ਕਿਸੇ ਵਿਦਿਆਰਥੀ ਨੇ ਕੁੱਲ {baseValue} ਅੰਕਾਂ ਵਿੱਚੋਂ {value} ਅੰਕ ਲਏ। ਉਸਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-204": {
+        "template": "ਕੁੱਲ {baseValue} ਸੇਬਾਂ ਵਿੱਚੋਂ {value} ਸੇਬ ਸੜੇ ਹੋਏ ਸਨ। ਸੜੇ ਹੋਏ ਸੇਬਾਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-304": {
+        "template": "ਕੋਈ ਵਿਅਕਤੀ ਆਪਣੀ ਕੁੱਲ ਮਾਸਿਕ ਆਮਦਨ Rs. {baseValue} ਵਿੱਚੋਂ Rs. {value} ਬਚਾਂਦਾ ਹੈ। ਬਚਤ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-404": {
+        "template": "ਜੇ {baseValue} ਵਸਤੂਆਂ ਵਾਲੇ ਇੱਕ ਬੈਚ ਵਿੱਚ {value} ਵਸਤੂਆਂ ਖਰਾਬ ਹਨ, ਤਾਂ ਖਰਾਬੀ ਦੀ ਪ੍ਰਤੀਸ਼ਤ ਦਰ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-504": {
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ ਕਿਸੇ ਉਮੀਦਵਾਰ ਨੂੰ ਕੁੱਲ {baseValue} ਵੈਧ ਵੋਟਾਂ ਵਿੱਚੋਂ {value} ਵੋਟਾਂ ਮਿਲੀਆਂ। ਉਸਨੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੋਟਾਂ ਪ੍ਰਾਪਤ ਕੀਤੀਆਂ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-604": {
+        "template": "ਕਿਸੇ ਵਸਤੂ ਦੀ ਲਾਗਤ ਕੀਮਤ Rs. {baseValue} ਹੈ ਅਤੇ ਲਾਭ Rs. {value} ਹੈ। ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-704": {
+        "template": "{baseValue} ਲੀਟਰ ਦੇ ਮਿਸ਼ਰਣ ਵਿੱਚ {value} ਲੀਟਰ ਦੁੱਧ ਹੈ। ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-804": {
+        "template": "{baseValue} ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਇੱਕ ਕਲਾਸ ਵਿੱਚ {value} ਕੁੜੀਆਂ ਹਨ। ਕੁੜੀਆਂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-904": {
+        "template": "ਜੇ ਕੁੱਲ {baseValue} ਕਿਮੀ ਦੀ ਯਾਤਰਾ ਵਿੱਚੋਂ {value} ਕਿਮੀ ਪੂਰੀ ਹੋ ਚੁੱਕੀ ਹੈ, ਤਾਂ ਯਾਤਰਾ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਪੂਰਾ ਹੋਇਆ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1004": {
+        "template": "ਇੱਕ ਦੁਕानदार ਨੇ Rs. {value} ਦੀ ਛੂਟ Rs. {baseValue} ਦੀ ਦਰਜ ਕੀਮਤ 'ਤੇ ਦਿੱਤੀ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1104": {
+        "template": "{baseValue} ਦੀ ਆਬਾਦੀ ਵਿੱਚੋਂ {value} ਲੋਕ ਸਾਖਰ ਹਨ। ਸਾਖਰਤਾ ਦਰ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1204": {
+        "template": "ਕੋਈ ਵਿਅਕਤੀ ਆਪਣੀ Rs. {baseValue} ਤਨਖ਼ਾਹ ਵਿੱਚੋਂ Rs. {value} ਕਿਰਾਏ 'ਤੇ ਖਰਚ ਕਰਦਾ ਹੈ। ਉਸਦੀ ਤਨਖ਼ਾਹ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿਰਾਏ ਵਿੱਚ ਜਾਂਦਾ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1304": {
+        "template": "ਜੇ ਕਿਸੇ ਫੈਕਟਰੀ ਦਾ ਲਕਸ਼ {baseValue} ਇਕਾਈਆਂ ਸੀ ਅਤੇ ਇਸਨੇ {value} ਇਕਾਈਆਂ ਤਿਆਰ ਕੀਤੀਆਂ, ਤਾਂ ਲਕਸ਼ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਪੂਰਾ ਹੋਇਆ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1404": {
+        "template": "ਇੱਕ ਕਿਤਾਬ ਵਿੱਚ {baseValue} ਸਫ਼ੇ ਹਨ ਅਤੇ {value} ਸਫ਼ੇ ਚਿੱਤਰਾਂ ਵਾਲੇ ਹਨ। ਕਿਤਾਬ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਭਾਗ ਚਿੱਤਰਯੁਕਤ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1504": {
+        "template": "ਦਰਜ ਕੀਮਤ Rs. {baseValue} ਹੈ ਅਤੇ ਵੇਚ ਕੀਮਤ ਇਸ ਤੋਂ Rs. {value} ਘੱਟ ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1604": {
+        "template": "{value} ਕਿਲੋ ਤਾਮਬੇ ਨੂੰ ਹੋਰ ਧਾਤਾਂ ਨਾਲ ਮਿਲਾਕੇ {baseValue} ਕਿਲੋ ਦੀ ਮਿਸ਼ਰਧਾਤੂ ਬਣਾਈ ਗਈ। ਤਾਮਬੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1704": {
+        "template": "ਜੇ ਕੋਈ ਵਿਦਿਆਰਥੀ ਕੁੱਲ {baseValue} ਕਾਰਜ ਦਿਨਾਂ ਵਿੱਚੋਂ {value} ਦਿਨ ਸਕੂਲ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਉਸਦੀ ਹਾਜ਼ਰੀ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1804": {
+        "template": "{baseValue} ਲੀਟਰ ਸਮਰੱਥਾ ਵਾਲੇ ਇੱਕ ਟੈਂਕ ਵਿੱਚ ਇਸ ਵੇਲੇ {value} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਟੈਂਕ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਭਰਿਆ ਹੋਇਆ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1904": {
+        "template": "ਕਿਸੇ ਪ੍ਰੋਜੈਕਟ ਲਈ ਰਾਖਵੇਂ Rs. {baseValue} ਵਿੱਚੋਂ Rs. {value} ਖਰਚ ਕੀਤੇ ਗਏ। ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਖਰਚ ਹੋਏ?",
         "difficulty": "Easy"
       },
       "PCT-QL-005": {
         "template": "A, B ਦਾ {percentageRate}% ਹੈ। ਜੇ B = {baseValue}, ਤਾਂ A ਪਤਾ ਕਰੋ।",
         "difficulty": "Easy"
       },
+      "PCT-QL-105": {
+        "template": "ਜੇ B = {baseValue} ਅਤੇ A, B ਦਾ {percentageRate}% ਹੈ, ਤਾਂ A ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-205": {
+        "template": "B = {baseValue} ਹੈ। A, B ਦਾ {percentageRate}% ਹੈ। A ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-305": {
+        "template": "B ਦਾ {percentageRate}% = A ਹੈ। ਜੇ B = {baseValue}, ਤਾਂ A ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-405": {
+        "template": "A, B ਦਾ {percentageRate}% ਹੈ। ਜੇ B = {baseValue}, ਤਾਂ A ਦਾ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?",
+        "difficulty": "Easy"
+      },
       "PCT-QL-006": {
         "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-206": {
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਪਤਾ ਕਰੋ ਕਿ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-306": {
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-406": {
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
         "difficulty": "Medium"
       },
       "PCT-QL-007": {
         "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
         "difficulty": "Medium"
       },
+      "PCT-QL-107": {
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-207": {
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਪਤਾ ਕਰੋ ਕਿ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-307": {
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-407": {
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "difficulty": "Medium"
+      },
       "PCT-QL-008": {
         "template": "ਜੇ A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ, ਤਾਂ A:B ਪਤਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
+      "PCT-QL-108": {
+        "template": "ਜੇ A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ, ਤਾਂ A:B ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-208": {
+        "template": "A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੈ। A:B ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-308": {
+        "template": "ਜੇ A ਦਾ {rate1}% ਅਤੇ B ਦਾ {rate2}% ਬਰਾਬਰ ਹੈ, ਤਾਂ A:B ਕੀ ਹੋਵੇਗਾ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-408": {
+        "template": "ਜਦੋਂ A ਦਾ {rate1}%, B ਦੇ {rate2}% ਦੇ ਬਰਾਬਰ ਹੋਵੇ, ਤਾਂ A:B ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
       "PCT-QL-009": {
-        "template": "ਕਿਸੇ ਸੰਖਿਆ ਦਾ {percentageRate}% = {value} ਹੈ। ਉਹ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਸੰਖਿਆ ਦਾ {percentageRate}% = {value} ਹੈ, ਤਾਂ ਉਹ ਸੰਖਿਆ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-109": {
+        "template": "ਕਿਸੇ ਵਿਦਿਆਰਥੀ ਨੇ {value} ਅੰਕ ਲਏ, ਜੋ ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕਾਂ ਦਾ {percentageRate}% ਹਨ। ਵੱਧ ਤੋਂ ਵੱਧ ਅੰਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-209": {
+        "template": "ਕਿਸੇ ਵਿਅਕਤੀ ਦੀ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% = Rs. {value} ਹੈ। ਉਸਦੀ ਕੁੱਲ ਮਾਸਿਕ ਆਮਦਨ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-309": {
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ {value} ਵਿਦਿਆਰਥੀ ਕ੍ਰਿਕਟ ਖੇਡਦੇ ਹਨ, ਜੋ ਕੁੱਲ ਗਿਣਤੀ ਦਾ {percentageRate}% ਹਨ। ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-409": {
+        "template": "ਆਪਣਾ {percentageRate}% ਧਨ ਖਰਚ ਕਰਨ ਤੋਂ ਬਾਅਦ ਕਿਸੇ ਵਿਅਕਤੀ ਕੋਲ Rs. {value} ਬਚਦੇ ਹਨ। ਉਸਦੀ ਸ਼ੁਰੂਆਤੀ ਕੁੱਲ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-509": {
+        "template": "ਇੱਕ ਦੁਕानदार ਨੇ {value} ਵਸਤੂਆਂ ਵੇਚੀਆਂ, ਜੋ ਉਸਦੇ ਕੁੱਲ ਸਟਾਕ ਦਾ {percentageRate}% ਸਨ। ਉਸਦਾ ਕੁੱਲ ਸਟਾਕ ਕਿੰਨਾ ਸੀ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-609": {
+        "template": "ਜੇ {percentageRate}% ਦੀ ਛੂਟ Rs. {value} ਦੇ ਬਰਾਬਰ ਹੈ, ਤਾਂ ਦਰਜ ਕੀਮਤ ਕੀ ਹੋਵੇਗੀ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-709": {
+        "template": "ਕਿਸੇ ਵਸਤੂ ਨੂੰ ਵੇਚਣ 'ਤੇ ਹੋਇਆ ਲਾਭ Rs. {value} ਹੈ, ਜੋ ਇਸਦੀ ਲਾਗਤ ਕੀਮਤ ਦਾ {percentageRate}% ਹੈ। ਲਾਗਤ ਕੀਮਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-809": {
+        "template": "ਜੇ ਕਿਸੇ ਸ਼ਹਿਰ ਦੀ ਆਬਾਦੀ ਦਾ {percentageRate}% = {value} ਹੈ, ਤਾਂ ਕੁੱਲ ਆਬਾਦੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-909": {
+        "template": "ਇੱਕ ਕਾਰ ਦੀ ਕੀਮਤ ਵਿੱਚ {percentageRate}% ਦੀ ਕਮੀ ਆਉਂਦੀ ਹੈ, ਜੋ Rs. {value} ਦੇ ਬਰਾਬਰ ਹੈ। ਇਸਦਾ ਮੁੱਢਲਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1009": {
+        "template": "ਇੱਕ ਟੈਂਕ ਵਿੱਚੋਂ {value} ਲੀਟਰ ਪਾਣੀ ਨਿਕਲ ਗਿਆ, ਜੋ ਇਸਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਦਾ {percentageRate}% ਸੀ। ਟੈਂਕ ਦੀ ਕੁੱਲ ਸਮਰੱਥਾ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1109": {
+        "template": "ਕੋਈ ਵਿਅਕਤੀ Rs. {value} ਆਮਦਨੀ ਕਰ ਦੇਂਦਾ ਹੈ, ਜੋ ਉਸਦੀ ਕੁੱਲ ਤਨਖ਼ਾਹ ਦਾ {percentageRate}% ਹੈ। ਉਸਦੀ ਕੁੱਲ ਤਨਖ਼ਾਹ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1209": {
+        "template": "ਜੇ ਕਿਸੇ ਯਾਤਰਾ ਦਾ {percentageRate}% = {value} ਕਿਮੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਦੂਰੀ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1309": {
+        "template": "ਇੱਕ ਕਲਾਸ ਵਿੱਚ ਗੈਰਹਾਜ਼ਰ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ {value} ਹੈ, ਜੋ ਕੁੱਲ ਦਾ {percentageRate}% ਹੈ। ਕੁੱਲ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1409": {
+        "template": "ਜੇ ਕਿਸੇ ਮਿਸ਼ਰਧਾਤੂ ਵਿੱਚ {value} ਕਿਲੋ ਜ਼ਿੰਕ ਹੈ, ਜੋ ਇਸਦੇ ਕੁੱਲ ਭਾਰ ਦਾ {percentageRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਭਾਰ ਕੀ ਹੈ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1509": {
+        "template": "ਇੱਕ ਵਪਾਰੀ ਨੂੰ Rs. {value} ਦਾ ਨੁਕਸਾਨ ਹੋਇਆ, ਜੋ ਇਸਦੇ ਨਿਵੇਸ਼ ਦਾ {percentageRate}% ਹੈ। ਕੁੱਲ ਨਿਵੇਸ਼ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1609": {
+        "template": "ਜੇ ਕਿਸੇ ਕਿਤਾਬ ਦਾ {percentageRate}% ਭਾਗ {value} ਚਿੱਤਰਯੁਕਤ ਸਫ਼ਿਆਂ ਦੇ ਬਰਾਬਰ ਹੈ, ਤਾਂ ਕਿਤਾਬ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਸਫ਼ੇ ਹਨ?",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1709": {
+        "template": "ਕਿਸੇ ਰਕਮ 'ਤੇ ਮਿਲਿਆ ਵਿਆਜ Rs. {value} ਹੈ, ਜੋ ਮੁੱਢ ਰਕਮ ਦਾ {percentageRate}% ਹੈ। ਮੁੱਢ ਰਕਮ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1809": {
+        "template": "{value} ਖਰਾਬ ਵਸਤੂਆਂ ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ ਬੈਚ ਦਾ {percentageRate}% ਹਨ। ਬੈਚ ਦਾ ਕੁੱਲ ਆਕਾਰ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-1909": {
+        "template": "ਜੇ ਕਿਸੇ ਚੋਣ ਵਿੱਚ ਪਈਆਂ ਕੁੱਲ ਵੋਟਾਂ ਦਾ {percentageRate}% = {value} ਸੀ, ਤਾਂ ਕੁੱਲ ਪਈਆਂ ਵੋਟਾਂ ਪਤਾ ਕਰੋ।",
         "difficulty": "Easy"
       }
     }
