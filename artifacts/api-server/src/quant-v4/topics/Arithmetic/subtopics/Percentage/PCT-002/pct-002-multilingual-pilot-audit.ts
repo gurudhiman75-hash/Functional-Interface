@@ -24,6 +24,38 @@ const PILOT_CASES = [
     cpId: "PCT-CP-002",
     qlIds: ["PCT-QL-003", "PCT-QL-004"],
   },
+  {
+    cpId: "PCT-CP-003",
+    qlIds: ["PCT-QL-005", "PCT-QL-006"],
+  },
+  {
+    cpId: "PCT-CP-004",
+    qlIds: ["PCT-QL-007", "PCT-QL-008"],
+  },
+  {
+    cpId: "PCT-CP-005",
+    qlIds: ["PCT-QL-009", "PCT-QL-010"],
+  },
+  {
+    cpId: "PCT-CP-006",
+    qlIds: ["PCT-QL-011", "PCT-QL-012"],
+  },
+  {
+    cpId: "PCT-CP-007",
+    qlIds: ["PCT-QL-013", "PCT-QL-014"],
+  },
+  {
+    cpId: "PCT-CP-008",
+    qlIds: ["PCT-QL-015", "PCT-QL-016"],
+  },
+  {
+    cpId: "PCT-CP-009",
+    qlIds: ["PCT-QL-017", "PCT-QL-018"],
+  },
+  {
+    cpId: "PCT-CP-010",
+    qlIds: ["PCT-QL-019", "PCT-QL-020"],
+  },
 ] as const satisfies readonly {
   cpId: Pct002CanonicalProblemId;
   qlIds: readonly string[];
@@ -32,8 +64,8 @@ const PILOT_CASES = [
 const PILOT_QL_IDS = PILOT_CASES.flatMap((pilotCase) => pilotCase.qlIds);
 const PILOT_QL_ID_SET = new Set<string>(PILOT_QL_IDS);
 const BLOCKED_NON_ENGLISH_CASE = {
-  cpId: "PCT-CP-003" as Pct002CanonicalProblemId,
-  qlId: "PCT-QL-005",
+  cpId: "PCT-CP-001" as Pct002CanonicalProblemId,
+  qlId: "PCT-QL-021",
 };
 const PILOT_LANGUAGES: readonly Pct002Language[] = ["hi", "pa"];
 const RANDOM_SMOKE_SEEDS = [
@@ -327,7 +359,7 @@ async function main() {
   assert.equal(summary.unresolvedPlaceholderCount, 0, "Rendered hi/pa stems still contain unresolved placeholders.");
   assert.equal(summary.englishLeakageCount, 0, "Rendered hi/pa stems still contain English leakage.");
   assert.equal(summary.explanationEnglishLeakageCount, 0, "Rendered hi/pa explanations still contain English leakage.");
-  assert.equal(summary.explanationLanguageLocalized, true, "PCT-CP-001/002 hi/pa pilot explanations are not localized.");
+  assert.equal(summary.explanationLanguageLocalized, true, "PCT-002 hi/pa batch explanations are not localized.");
   assert.equal(summary.metadataLanguagePassed, true, "Export metadata.language does not match hi/pa.");
   assert.equal(summary.randomHiSelectableOnly, true, "Random hi selection escaped the localized pilot allowlist.");
   assert.equal(summary.randomPaSelectableOnly, true, "Random pa selection escaped the localized pilot allowlist.");

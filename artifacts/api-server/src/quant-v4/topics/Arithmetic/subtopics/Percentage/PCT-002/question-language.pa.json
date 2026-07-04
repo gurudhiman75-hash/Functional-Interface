@@ -13,50 +13,50 @@
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-005": { "template": "Out of {wholeValue} {wholeLabel}, {partValue} are {partLabel}. Find what percent of the {wholeLabel} are {partLabel}.", "difficulty": "Easy" },
-      "PCT-QL-006": { "template": "A person keeps {valuePrefix}{partValue} as {partLabel} out of a total {wholeLabel} of {valuePrefix}{wholeValue}. Find the percentage of {partLabel}.", "difficulty": "Medium" }
+      "PCT-QL-005": { "template": "ਕੁੱਲ {wholeValue} {wholeLabel} ਵਿੱਚੋਂ {partValue} {partLabel} ਹਨ। ਪਤਾ ਕਰੋ ਕਿ {partLabel}, {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹਨ।", "difficulty": "Easy" },
+      "PCT-QL-006": { "template": "ਇੱਕ ਵਿਅਕਤੀ {valuePrefix}{wholeValue} ਦੀ ਕੁੱਲ {wholeLabel} ਵਿੱਚੋਂ {valuePrefix}{partValue} ਨੂੰ {partLabel} ਵਜੋਂ ਰੱਖਦਾ ਹੈ। {partLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-007": { "template": "If {knownRate}% of the {wholeLabel} is {valuePrefix}{knownValue}, then {valuePrefix}{targetValue} is what percent of the same {wholeLabel}?", "difficulty": "Medium" },
-      "PCT-QL-008": { "template": "If {knownRate}% of the {wholeLabel} equals {knownValue}, what percent of the {wholeLabel} is {targetValue}?", "difficulty": "Medium" }
+      "PCT-QL-007": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ {valuePrefix}{targetValue} ਉਸੇ {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?", "difficulty": "Medium" },
+      "PCT-QL-008": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ {targetValue} ਉਸੇ {wholeLabel} ਦਾ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?", "difficulty": "Medium" }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-009": { "template": "A quantity is divided in the ratio {partA}:{partB}. Find the percentage corresponding to the {targetPartLabel}.", "difficulty": "Easy" },
-      "PCT-QL-010": { "template": "The ratio of two parts is {partA}:{partB}. Express the {targetPartLabel} as a percentage of the whole.", "difficulty": "Easy" }
+      "PCT-QL-009": { "template": "ਕਿਸੇ ਮਾਤਰਾ ਨੂੰ {partA}:{partB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ ਹੈ। {targetPartLabel} ਨਾਲ ਸੰਬੰਧਿਤ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
+      "PCT-QL-010": { "template": "ਦੋ ਭਾਗਾਂ ਦਾ ਅਨੁਪਾਤ {partA}:{partB} ਹੈ। {targetPartLabel} ਨੂੰ ਪੂਰੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।", "difficulty": "Easy" }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-011": { "template": "If {knownRate}% of the class are {partLabel}, find the percentage of {complementLabel}.", "difficulty": "Easy" },
-      "PCT-QL-012": { "template": "A person keeps {knownRate}% of the income as {partLabel}. What percent of the income is spent on {complementLabel}?", "difficulty": "Easy" }
+      "PCT-QL-011": { "template": "ਜੇ ਕਲਾਸ ਦੇ {knownRate}% {partLabel} ਹਨ, ਤਾਂ {complementLabel} ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
+      "PCT-QL-012": { "template": "ਇੱਕ ਵਿਅਕਤੀ ਆਪਣੀ ਆਮਦਨ ਦਾ {knownRate}% {partLabel} ਵਜੋਂ ਰੱਖਦਾ ਹੈ। {complementLabel} ਉੱਤੇ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਖਰਚ ਹੁੰਦੇ ਹਨ?", "difficulty": "Easy" }
     }
   },
   "PCT-CP-007": {
     "families": {
-      "PCT-QL-013": { "template": "{rate1}% of the students are {partLabel} and {rate2}% are {otherLabel}. Find the difference between these percentages.", "difficulty": "Easy" },
-      "PCT-QL-014": { "template": "{rate1}% of the monthly budget goes to {partLabel} and {rate2}% goes to {otherLabel}. Find the percentage difference.", "difficulty": "Medium" }
+      "PCT-QL-013": { "template": "{rate1}% ਵਿਦਿਆਰਥੀ {partLabel} ਹਨ ਅਤੇ {rate2}% {otherLabel} ਹਨ। ਇਨ੍ਹਾਂ ਪ੍ਰਤੀਸ਼ਤਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
+      "PCT-QL-014": { "template": "ਮਾਸਿਕ ਬਜਟ ਦਾ {rate1}% {partLabel} ਉੱਤੇ ਅਤੇ {rate2}% {otherLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
     }
   },
   "PCT-CP-008": {
     "families": {
-      "PCT-QL-015": { "template": "A group of {totalValue} {wholeLabel} is divided as {targetRate}% {targetLabel}, {otherRate}% {otherLabel}, and {thirdRate}% {thirdLabel}. Find the number of {targetLabel}.", "difficulty": "Medium" },
-      "PCT-QL-016": { "template": "A {wholeLabel} of {valuePrefix}{totalValue} is divided as {targetRate}% {targetLabel}, {otherRate}% {otherLabel}, and {thirdRate}% {thirdLabel}. Find the amount spent on {targetLabel}.", "difficulty": "Medium" }
+      "PCT-QL-015": { "template": "{totalValue} {wholeLabel} ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" },
+      "PCT-QL-016": { "template": "{valuePrefix}{totalValue} ਦੇ {wholeLabel} ਵਿੱਚ {targetRate}% {targetLabel}, {otherRate}% {otherLabel} ਅਤੇ {thirdRate}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। {targetLabel} ਉੱਤੇ ਖਰਚੀ ਗਈ ਰਕਮ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
     }
   },
   "PCT-CP-009": {
     "families": {
-      "PCT-QL-017": { "template": "{rate1}% is spent on {partLabel}, {rate2}% on {otherLabel}, and {rate3}% on {thirdLabel}. Find the remaining percentage for {complementLabel}.", "difficulty": "Easy" },
-      "PCT-QL-018": { "template": "In a budget, {rate1}% goes to {partLabel}, {rate2}% to {otherLabel}, and {rate3}% to {thirdLabel}. Find the missing percentage for {complementLabel}.", "difficulty": "Medium" }
+      "PCT-QL-017": { "template": "{rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
+      "PCT-QL-018": { "template": "ਇੱਕ ਬਜਟ ਵਿੱਚ {rate1}% {partLabel} ਉੱਤੇ, {rate2}% {otherLabel} ਉੱਤੇ ਅਤੇ {rate3}% {thirdLabel} ਉੱਤੇ ਜਾਂਦਾ ਹੈ। {complementLabel} ਲਈ ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" }
     }
   },
   "PCT-CP-010": {
     "families": {
-      "PCT-QL-019": { "template": "In a {wholeLabel} of {totalValue}, {rate1}% are {otherLabel}, {rate2}% are {thirdLabel}, and {targetRate}% are {targetLabel}. Find the number of {targetLabel}.", "difficulty": "Medium" },
-      "PCT-QL-020": { "template": "Out of {wholeLabel} worth {valuePrefix}{totalValue}, {rate1}% is spent on {otherLabel}, {rate2}% on {thirdLabel}, {rate3}% on {fourthLabel}, and the remaining {targetRate}% on {targetLabel}. Find the amount spent on {targetLabel}.", "difficulty": "Hard" }
+      "PCT-QL-019": { "template": "{totalValue} ਦੀ {wholeLabel} ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel} ਅਤੇ {targetRate}% {targetLabel} ਹਨ। {targetLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।", "difficulty": "Medium" },
+      "PCT-QL-020": { "template": "{valuePrefix}{totalValue} ਦੇ {wholeLabel} ਵਿੱਚ {rate1}% {otherLabel}, {rate2}% {thirdLabel}, {rate3}% {fourthLabel} ਉੱਤੇ ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਬਾਕੀ {targetRate}% {targetLabel} ਉੱਤੇ। {targetLabel} ਉੱਤੇ ਖਰਚੀ ਗਈ ਰਕਮ ਪਤਾ ਕਰੋ।", "difficulty": "Hard" }
     }
   }
 }

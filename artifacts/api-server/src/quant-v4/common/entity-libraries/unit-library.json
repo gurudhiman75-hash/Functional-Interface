@@ -28,5 +28,7 @@
   {"id": "unit_27", "en": "Joule", "hi": "जूल", "pa": "ਜੂਲ"},
   {"id": "unit_28", "en": "Pascal", "hi": "पास्कल", "pa": "ਪਾਸਕਲ"},
   {"id": "unit_29", "en": "Hertz", "hi": "हर्ट्ज़", "pa": "ਹਰਟਜ਼"},
-  {"id": "unit_30", "en": "Lux", "hi": "लक्स", "pa": "ਲਕਸ"}
+  {"id": "unit_30", "en": "Lux", "hi": "लक्स", "pa": "ਲਕਸ"},
+  {"id": "first_part", "en": "First Part", "hi": "पहला भाग", "pa": "ਪਹਿਲਾ ਭਾਗ"},
+  {"id": "second_part", "en": "Second Part", "hi": "दूसरा भाग", "pa": "ਦੂਜਾ ਭਾਗ"}
 ]

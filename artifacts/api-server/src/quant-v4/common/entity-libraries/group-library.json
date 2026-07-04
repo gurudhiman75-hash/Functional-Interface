@@ -1,6 +1,6 @@
 [
   {"id": "boys", "en": "Boys", "hi": "लड़के", "pa": "ਲੜਕੇ", "frequency": "common", "tags": ["people"]},
-  {"id": "girls", "en": "Girls", "hi": "लड़कियाँ", "pa": "ਲੜਕੀਆਂ", "frequency": "common", "tags": ["people"]},
+  {"id": "girls", "en": "Girls", "hi": "लड़कियां", "pa": "ਲੜਕੀਆਂ", "frequency": "common", "tags": ["people"]},
   {"id": "students", "en": "Students", "hi": "छात्र", "pa": "ਵਿਦਿਆਰਥੀ", "frequency": "common", "tags": ["people", "education"]},
   {"id": "teachers", "en": "Teachers", "hi": "शिक्षक", "pa": "ਅਧਿਆਪਕ", "frequency": "common", "tags": ["people", "education", "profession"]},
   {"id": "employees", "en": "Employees", "hi": "कर्मचारी", "pa": "ਕਰਮਚਾਰੀ", "frequency": "common", "tags": ["people", "profession"]},
@@ -8,7 +8,7 @@
   {"id": "farmers", "en": "Farmers", "hi": "किसान", "pa": "ਕਿਸਾਨ", "frequency": "common", "tags": ["people", "profession"]},
   {"id": "players", "en": "Players", "hi": "खिलाड़ी", "pa": "ਖਿਡਾਰੀ", "frequency": "common", "tags": ["people", "sports"]},
   {"id": "men", "en": "Men", "hi": "पुरुष", "pa": "ਮਰਦ", "frequency": "common", "tags": ["people"]},
-  {"id": "women", "en": "Women", "hi": "महिलाएँ", "pa": "ਔਰਤਾਂ", "frequency": "common", "tags": ["people"]},
+  {"id": "women", "en": "Women", "hi": "महिलाएं", "pa": "ਔਰਤਾਂ", "frequency": "common", "tags": ["people"]},
   {"id": "customers", "en": "Customers", "hi": "ग्राहक", "pa": "ਗਾਹਕ", "frequency": "common", "tags": ["people", "business"]},
   {"id": "passengers", "en": "Passengers", "hi": "यात्री", "pa": "ਯਾਤਰੀ", "frequency": "common", "tags": ["people", "travel"]},
   {"id": "voters", "en": "Voters", "hi": "मतदाता", "pa": "ਵੋਟਰ", "frequency": "common", "tags": ["people", "politics"]},
@@ -46,5 +46,9 @@
   {"id": "coaches", "en": "Coaches", "hi": "कोच", "pa": "ਕੋਚ", "frequency": "common", "tags": ["people", "sports"]},
   {"id": "conductors", "en": "Conductors", "hi": "परिचालक", "pa": "ਕੰਡਕਟਰ", "frequency": "common", "tags": ["people", "travel"]},
   {"id": "commuters", "en": "Commuters", "hi": "यात्री", "pa": "ਯਾਤਰੀ", "frequency": "common", "tags": ["people", "travel"]},
-  {"id": "panchayat_members", "en": "Panchayat Members", "hi": "पंचायत सदस्य", "pa": "ਪੰਚਾਇਤ ਮੈਂਬਰ", "frequency": "uncommon", "tags": ["people", "rural"]}
+  {"id": "panchayat_members", "en": "Panchayat Members", "hi": "पंचायत सदस्य", "pa": "ਪੰਚਾਇਤ ਮੈਂਬਰ", "frequency": "uncommon", "tags": ["people", "rural"]},
+  {"id": "other_students", "en": "Other Students", "hi": "अन्य छात्र", "pa": "ਹੋਰ ਵਿਦਿਆਰਥੀ", "frequency": "common", "tags": ["people", "education"]},
+  {"id": "males", "en": "Males", "hi": "पुरुष", "pa": "ਮਰਦ", "frequency": "common", "tags": ["people"]},
+  {"id": "females", "en": "Females", "hi": "महिलाएं", "pa": "ਔਰਤਾਂ", "frequency": "common", "tags": ["people"]},
+  {"id": "population", "en": "Population", "hi": "जनसंख्या", "pa": "ਆਬਾਦੀ", "frequency": "common", "tags": ["people"]}
 ]

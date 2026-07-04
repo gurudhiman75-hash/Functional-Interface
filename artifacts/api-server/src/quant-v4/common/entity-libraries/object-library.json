@@ -16,7 +16,7 @@
   {"id": "scalpel", "en": "Scalpel", "hi": "स्कैल्पेल", "pa": "ਸਕੈਲਪੈਲ", "numberType": "countable", "frequency": "uncommon", "tags": ["medical"]},
   {"id": "passbook", "en": "Passbook", "hi": "पासबुक", "pa": "ਪਾਸਬੁੱਕ", "numberType": "countable", "frequency": "common", "tags": ["banking"]},
   {"id": "cheque_book", "en": "Cheque Book", "hi": "चेक बुक", "pa": "ਚੈੱਕ ਬੁੱਕ", "numberType": "countable", "frequency": "common", "tags": ["banking"]},
-  {"id": "ledger", "en": "Ledger", "hi": "लेजर", "pa": "ਲੇਜ਼ਰ", "numberType": "countable", "frequency": "common", "tags": ["banking"]},
+  {"id": "ledger", "en": "Ledger", "hi": "लेजर", "pa": "ਲੇਜਰ", "numberType": "countable", "frequency": "common", "tags": ["banking"]},
   {"id": "computer", "en": "Computer", "hi": "कंप्यूटर", "pa": "ਕੰਪਿਊਟਰ", "numberType": "countable", "frequency": "common", "tags": ["electronics"]},
   {"id": "currency_note", "en": "Currency Note", "hi": "नोट", "pa": "ਨੋਟ", "numberType": "countable", "frequency": "common", "tags": ["banking", "money"]},
   {"id": "coin", "en": "Coin", "hi": "सिक्का", "pa": "ਸਿੱਕਾ", "numberType": "countable", "frequency": "common", "tags": ["banking", "money"]},
@@ -35,9 +35,9 @@
   {"id": "toys", "en": "Toys", "hi": "खिलौने", "pa": "ਖਿਡੌਣੇ", "numberType": "countable", "frequency": "common", "tags": ["home"]},
   {"id": "ball", "en": "Ball", "hi": "गेंद", "pa": "ਗੇਂਦ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
   {"id": "bat", "en": "Bat", "hi": "बल्ला", "pa": "ਬੱਲਾ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
-  {"id": "racket", "en": "Racket", "hi": "रैकेट", "pa": "ਰੈਕੇਟ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
+  {"id": "racket", "en": "Racket", "hi": "रैकेट", "pa": "ਰੈਕਟ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
   {"id": "net", "en": "Net", "hi": "जाल", "pa": "ਜਾਲ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
-  {"id": "wicket", "en": "Wicket", "hi": "विकिट", "pa": "ਵਿਕਟ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
+  {"id": "wicket", "en": "Wicket", "hi": "विकेट", "pa": "ਵਿਕਟ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
   {"id": "jersey", "en": "Jersey", "hi": "जर्सी", "pa": "ਜਰਸੀ", "numberType": "countable", "frequency": "common", "tags": ["sports"]},
   {"id": "ticket", "en": "Ticket", "hi": "टिकट", "pa": "ਟਿਕਟ", "numberType": "countable", "frequency": "common", "tags": ["transport"]},
   {"id": "luggage", "en": "Luggage", "hi": "सामान", "pa": "ਸਾਮਾਨ", "numberType": "uncountable", "frequency": "common", "tags": ["transport"]},
@@ -55,5 +55,8 @@
   {"id": "tool", "en": "Tool", "hi": "औज़ार", "pa": "ਔਜ਼ਾਰ", "numberType": "countable", "frequency": "common", "tags": ["factory"]},
   {"id": "gear", "en": "Gear", "hi": "गियर", "pa": "ਗੀਅਰ", "numberType": "countable", "frequency": "common", "tags": ["factory"]},
   {"id": "helmet", "en": "Helmet", "hi": "हेलमेट", "pa": "ਹੈਲਮੇਟ", "numberType": "countable", "frequency": "common", "tags": ["factory", "accessory"]},
-  {"id": "conveyor_belt", "en": "Conveyor Belt", "hi": "कन्वेयर बेल्ट", "pa": "ਕਨਵੇਅਰ ਬੈਲਟ", "numberType": "countable", "frequency": "uncommon", "tags": ["factory"]}
+  {"id": "conveyor_belt", "en": "Conveyor Belt", "hi": "कन्वेयर बेल्ट", "pa": "ਕਨਵੇਅਰ ਬੈਲਟ", "numberType": "countable", "frequency": "uncommon", "tags": ["factory"]},
+  {"id": "books", "en": "Books", "hi": "किताबें", "pa": "ਕਿਤਾਬਾਂ", "numberType": "countable", "frequency": "common", "tags": ["education", "stationery"]},
+  {"id": "reference_books", "en": "Reference Books", "hi": "संदर्भ पुस्तकें", "pa": "ਸੰਦਰਭ ਪੁਸਤਕਾਂ", "numberType": "countable", "frequency": "common", "tags": ["education", "stationery"]},
+  {"id": "story_books", "en": "Story Books", "hi": "कहानी की किताबें", "pa": "ਕਹਾਣੀ ਦੀਆਂ ਕਿਤਾਬਾਂ", "numberType": "countable", "frequency": "common", "tags": ["education", "stationery"]}
 ]

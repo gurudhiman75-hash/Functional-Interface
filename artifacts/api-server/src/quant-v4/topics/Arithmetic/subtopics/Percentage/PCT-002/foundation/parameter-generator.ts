@@ -7,11 +7,12 @@ import {
   getRequiredVariables,
   getTaskKind,
 } from "./library";
-import * as fs from "fs";
-import * as path from "path";
-import { EntityLibrary } from "../../../../../../common/entity-library";
-import { EntityResolver } from "../../../../../../common/entity-resolver";
 import type { EntityReference } from "../../../../../../common/entity-types";
+import {
+  getLocalizedQuestionLanguageIds,
+  isQlLocalized,
+  resolveEntityLabels,
+} from "../../../../../../common/language-coverage";
 import { stableBucket } from "./math";
 import {
   PCT_002_ARCHETYPE_ID,
@@ -31,20 +32,26 @@ export interface Pct002ParameterInput {
 }
 
 type ScenarioFactory = (difficulty: Pct002DifficultyBand, seed: string) => Pct002Variables;
-type LabelField = "wholeLabel" | "partLabel" | "targetLabel";
-const LABEL_FIELDS = ["wholeLabel", "partLabel", "targetLabel"] as const satisfies readonly LabelField[];
-let sharedEntityResolver: EntityResolver | undefined;
+type LabelField =
+  | "wholeLabel"
+  | "partLabel"
+  | "targetLabel"
+  | "complementLabel"
+  | "otherLabel"
+  | "thirdLabel"
+  | "fourthLabel"
+  | "targetPartLabel";
 
-const NON_ENGLISH_LOCALIZED_PILOT_QL_IDS = [
-  "PCT-QL-001",
-  "PCT-QL-002",
-  "PCT-QL-003",
-  "PCT-QL-004",
-] as const;
-
-const NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET = new Set<string>(
-  NON_ENGLISH_LOCALIZED_PILOT_QL_IDS,
-);
+const LABEL_FIELDS = [
+  "wholeLabel",
+  "partLabel",
+  "targetLabel",
+  "complementLabel",
+  "otherLabel",
+  "thirdLabel",
+  "fourthLabel",
+  "targetPartLabel",
+] as const satisfies readonly LabelField[];
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
@@ -54,52 +61,8 @@ function entityRef(categoryId: EntityReference["categoryId"], entityId: string):
   return { categoryId, entityId };
 }
 
-function isEntityReference(value: unknown): value is EntityReference {
-  return (
-    Boolean(value) &&
-    typeof value === "object" &&
-    "categoryId" in value &&
-    "entityId" in value
-  );
-}
-
 function normalizeResolvedLabel(value: string, language: Pct002Language) {
   return language === "en" ? value.toLowerCase() : value;
-}
-
-function entityLibraryPath() {
-  const candidates = [
-    path.join(process.cwd(), "artifacts/api-server/src/quant-v4/common/entity-libraries"),
-    path.join(process.cwd(), "src/quant-v4/common/entity-libraries"),
-  ];
-  return candidates.find((candidate) => fs.existsSync(candidate)) ?? candidates[0]!;
-}
-
-function getPct002EntityResolver() {
-  if (!sharedEntityResolver) {
-    const library = new EntityLibrary(entityLibraryPath());
-    library.load();
-    sharedEntityResolver = new EntityResolver(library);
-  }
-  return sharedEntityResolver;
-}
-
-function resolveEntityLabels(
-  variables: Pct002Variables,
-  language: Pct002Language,
-  resolver: EntityResolver,
-): Pct002Variables {
-  const resolved: Pct002Variables = { ...variables };
-  for (const key of LABEL_FIELDS) {
-    const value = resolved[key];
-    if (isEntityReference(value)) {
-      resolved[key] = normalizeResolvedLabel(
-        resolver.resolveEntity(value.categoryId, value.entityId, language),
-        language,
-      );
-    }
-  }
-  return resolved;
 }
 
 function percentBase(seed: string, rates: readonly number[], totals: readonly number[]) {
@@ -109,13 +72,9 @@ function percentBase(seed: string, rates: readonly number[], totals: readonly nu
 }
 
 export function getSelectableQuestionLanguageIds(cpId: Pct002CanonicalProblemId, language: Pct002Language) {
-  if (language === "en") {
-    return getQuestionLanguageIds(cpId, "en");
-  }
-
-  return getCommonQuestionLanguageIds(cpId).filter((qlId) =>
-    NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET.has(qlId),
-  );
+  const englishIds =
+    language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds("PCT-002", language, englishIds);
 }
 
 function assignDifficulty(cpId: Pct002CanonicalProblemId, language: Pct002Language, seed: string): Pct002DifficultyBand {
@@ -148,79 +107,79 @@ const SCENARIO_BUILDERS: Record<string, ScenarioFactory> = {
   "PCT-QL-005": (_difficulty, seed) => {
     const wholeValue = pick([240, 360, 480, 600, 720], `${seed}:whole`);
     const partRate = pick([20, 25, 30, 35, 40], `${seed}:rate`);
-    return { wholeValue, partValue: (wholeValue * partRate) / 100, partLabel: "girls", wholeLabel: "students" };
+    return { wholeValue, partValue: (wholeValue * partRate) / 100, partLabel: entityRef("group", "girls"), wholeLabel: entityRef("group", "students") };
   },
   "PCT-QL-006": (_difficulty, seed) => {
     const wholeValue = pick([20000, 30000, 36000, 40000, 48000], `${seed}:whole`);
     const partRate = pick([10, 15, 20, 25, 30], `${seed}:rate`);
-    return { wholeValue, partValue: (wholeValue * partRate) / 100, partLabel: "savings", wholeLabel: "income", valuePrefix: "Rs. " };
+    return { wholeValue, partValue: (wholeValue * partRate) / 100, partLabel: entityRef("financial-concept", "savings"), wholeLabel: entityRef("financial-concept", "income"), valuePrefix: "Rs. " };
   },
   "PCT-QL-007": (_difficulty, seed) => {
     const knownRate = pick([25, 30, 40, 45, 50], `${seed}:knownRate`);
     const totalValue = pick([4000, 5000, 6000, 8000, 10000], `${seed}:total`);
     const targetRate = pick([15, 20, 25, 30, 35], `${seed}:targetRate`);
-    return { knownRate, totalValue, knownValue: (totalValue * knownRate) / 100, targetValue: (totalValue * targetRate) / 100, wholeLabel: "salary", partLabel: "rent", targetLabel: "books", valuePrefix: "Rs. " };
+    return { knownRate, totalValue, knownValue: (totalValue * knownRate) / 100, targetValue: (totalValue * targetRate) / 100, wholeLabel: entityRef("financial-concept", "salary"), partLabel: entityRef("financial-concept", "rent"), targetLabel: entityRef("object", "books"), valuePrefix: "Rs. " };
   },
   "PCT-QL-008": (_difficulty, seed) => {
     const knownRate = pick([20, 25, 30, 40], `${seed}:knownRate`);
     const totalValue = pick([300, 400, 500, 600, 800], `${seed}:total`);
     const targetRate = pick([10, 15, 20, 35, 50], `${seed}:targetRate`);
-    return { knownRate, totalValue, knownValue: (totalValue * knownRate) / 100, targetValue: (totalValue * targetRate) / 100, wholeLabel: "books", partLabel: "reference books", targetLabel: "story books" };
+    return { knownRate, totalValue, knownValue: (totalValue * knownRate) / 100, targetValue: (totalValue * targetRate) / 100, wholeLabel: entityRef("object", "books"), partLabel: entityRef("object", "reference_books"), targetLabel: entityRef("object", "story_books") };
   },
   "PCT-QL-009": (_difficulty, seed) => {
     const partA = pick([1, 2, 3, 4, 5], `${seed}:a`);
     const partB = pick([1, 2, 3, 4, 5], `${seed}:b`);
-    return { partA, partB, targetPartLabel: "first part", targetPartIndex: 1 };
+    return { partA, partB, targetPartLabel: entityRef("unit", "first_part"), targetPartIndex: 1 };
   },
   "PCT-QL-010": (_difficulty, seed) => {
     const partA = pick([1, 2, 3, 4, 5], `${seed}:a`);
     const partB = pick([1, 2, 3, 4, 5], `${seed}:b`);
-    return { partA, partB, targetPartLabel: "second part", targetPartIndex: 2 };
+    return { partA, partB, targetPartLabel: entityRef("unit", "second_part"), targetPartIndex: 2 };
   },
   "PCT-QL-011": (_difficulty, seed) => {
-    return { knownRate: pick([20, 25, 30, 40, 45], `${seed}:rate`), partLabel: "girls", complementLabel: "boys" };
+    return { knownRate: pick([20, 25, 30, 40, 45], `${seed}:rate`), partLabel: entityRef("group", "girls"), complementLabel: entityRef("group", "boys") };
   },
   "PCT-QL-012": (_difficulty, seed) => {
-    return { knownRate: pick([10, 15, 18, 20, 25], `${seed}:rate`), partLabel: "savings", complementLabel: "expenditure" };
+    return { knownRate: pick([10, 15, 18, 20, 25], `${seed}:rate`), partLabel: entityRef("financial-concept", "savings"), complementLabel: entityRef("financial-concept", "expenditure") };
   },
   "PCT-QL-013": (_difficulty, seed) => {
-    return { rate1: pick([35, 40, 45, 50], `${seed}:rate1`), rate2: pick([15, 20, 25, 30], `${seed}:rate2`), partLabel: "boys", otherLabel: "girls" };
+    return { rate1: pick([35, 40, 45, 50], `${seed}:rate1`), rate2: pick([15, 20, 25, 30], `${seed}:rate2`), partLabel: entityRef("group", "boys"), otherLabel: entityRef("group", "girls") };
   },
   "PCT-QL-014": (_difficulty, seed) => {
-    return { rate1: pick([30, 35, 40, 45], `${seed}:rate1`), rate2: pick([10, 15, 20, 25], `${seed}:rate2`), partLabel: "food expenses", otherLabel: "transport expenses" };
+    return { rate1: pick([30, 35, 40, 45], `${seed}:rate1`), rate2: pick([10, 15, 20, 25], `${seed}:rate2`), partLabel: entityRef("financial-concept", "food_expenses"), otherLabel: entityRef("financial-concept", "transport_expenses") };
   },
   "PCT-QL-015": (_difficulty, seed) => {
     const totalValue = pick([400, 600, 800, 1000, 1200], `${seed}:total`);
     const targetRate = pick([25, 35, 40], `${seed}:targetRate`);
     const otherRate = pick([20, 30, 35], `${seed}:otherRate`);
     const thirdRate = 100 - targetRate - otherRate;
-    return { totalValue, targetRate, otherRate, thirdRate, wholeLabel: "students", targetLabel: "girls", otherLabel: "boys", thirdLabel: "other students" };
+    return { totalValue, targetRate, otherRate, thirdRate, wholeLabel: entityRef("group", "students"), targetLabel: entityRef("group", "girls"), otherLabel: entityRef("group", "boys"), thirdLabel: entityRef("group", "other_students") };
   },
   "PCT-QL-016": (_difficulty, seed) => {
     const totalValue = pick([12000, 16000, 20000, 24000, 30000], `${seed}:total`);
     const targetRate = pick([25, 30, 35], `${seed}:targetRate`);
     const otherRate = pick([20, 25, 30], `${seed}:otherRate`);
     const thirdRate = 100 - targetRate - otherRate;
-    return { totalValue, targetRate, otherRate, thirdRate, wholeLabel: "monthly expenses", targetLabel: "rent", otherLabel: "food", thirdLabel: "transport", valuePrefix: "Rs. " };
+    return { totalValue, targetRate, otherRate, thirdRate, wholeLabel: entityRef("financial-concept", "monthly_expenses"), targetLabel: entityRef("financial-concept", "rent"), otherLabel: entityRef("financial-concept", "food"), thirdLabel: entityRef("financial-concept", "transport"), valuePrefix: "Rs. " };
   },
   "PCT-QL-017": (_difficulty, seed) => {
     const rate1 = pick([25, 30, 35], `${seed}:rate1`);
     const rate2 = pick([15, 20, 25], `${seed}:rate2`);
     const rate3 = pick([10, 15, 20], `${seed}:rate3`);
-    return { rate1, rate2, rate3, partLabel: "food", otherLabel: "rent", thirdLabel: "transport", complementLabel: "remaining" };
+    return { rate1, rate2, rate3, partLabel: entityRef("financial-concept", "food"), otherLabel: entityRef("financial-concept", "rent"), thirdLabel: entityRef("financial-concept", "transport"), complementLabel: entityRef("financial-concept", "remaining") };
   },
   "PCT-QL-018": (_difficulty, seed) => {
     const rate1 = pick([20, 25, 30], `${seed}:rate1`);
     const rate2 = pick([15, 20, 25], `${seed}:rate2`);
     const rate3 = pick([10, 15, 20], `${seed}:rate3`);
-    return { rate1, rate2, rate3, partLabel: "marketing", otherLabel: "salaries", thirdLabel: "rent", complementLabel: "other expenses" };
+    return { rate1, rate2, rate3, partLabel: entityRef("financial-concept", "marketing"), otherLabel: entityRef("financial-concept", "salaries"), thirdLabel: entityRef("financial-concept", "rent"), complementLabel: entityRef("financial-concept", "other_expenses") };
   },
   "PCT-QL-019": (_difficulty, seed) => {
     const totalValue = pick([4000, 5000, 6000, 8000, 10000], `${seed}:total`);
     const rateMale = pick([35, 40, 45], `${seed}:male`);
     const rateFemale = pick([30, 35, 40], `${seed}:female`);
     const rateChildren = 100 - rateMale - rateFemale;
-    return { totalValue, targetRate: rateChildren, rate1: rateMale, rate2: rateFemale, wholeLabel: "population", targetLabel: "children", otherLabel: "males", thirdLabel: "females" };
+    return { totalValue, targetRate: rateChildren, rate1: rateMale, rate2: rateFemale, wholeLabel: entityRef("group", "population"), targetLabel: entityRef("group", "children"), otherLabel: entityRef("group", "males"), thirdLabel: entityRef("group", "females") };
   },
   "PCT-QL-020": (_difficulty, seed) => {
     const totalValue = pick([20000, 24000, 30000, 36000, 40000], `${seed}:total`);
@@ -228,7 +187,7 @@ const SCENARIO_BUILDERS: Record<string, ScenarioFactory> = {
     const rateRent = pick([20, 25, 30], `${seed}:rent`);
     const rateTransport = pick([10, 15, 20], `${seed}:transport`);
     const rateEducation = 100 - rateFood - rateRent - rateTransport;
-    return { totalValue, targetRate: rateEducation, rate1: rateFood, rate2: rateRent, rate3: rateTransport, wholeLabel: "monthly expenses", targetLabel: "education", otherLabel: "food", thirdLabel: "rent", fourthLabel: "transport", valuePrefix: "Rs. " };
+    return { totalValue, targetRate: rateEducation, rate1: rateFood, rate2: rateRent, rate3: rateTransport, wholeLabel: entityRef("financial-concept", "monthly_expenses"), targetLabel: entityRef("financial-concept", "education"), otherLabel: entityRef("financial-concept", "food"), thirdLabel: entityRef("financial-concept", "rent"), fourthLabel: entityRef("financial-concept", "transport"), valuePrefix: "Rs. " };
   },
 };
 
@@ -386,7 +345,7 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
 
-  if (language !== "en" && !NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET.has(questionLanguageId)) {
+  if (!isQlLocalized("PCT-002", questionLanguageId, language)) {
     throw new Error(
       `Question language ${questionLanguageId} is not localized for ${language} in PCT-002.`,
     );
@@ -400,7 +359,11 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
   const variables = resolveEntityLabels(
     createVariables(questionLanguageId, resolvedDifficulty, seed),
     language,
-    getPct002EntityResolver(),
+    LABEL_FIELDS,
+    (resolvedValue, field) =>
+      LABEL_FIELDS.includes(field as LabelField)
+        ? normalizeResolvedLabel(resolvedValue, language)
+        : resolvedValue,
   );
 
   for (const requiredVariable of requiredVariables) {
