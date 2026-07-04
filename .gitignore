@@ -62,6 +62,7 @@ artifacts/*/vite-dev.err.log
 api-dev.out.log
 api-dev.err.log
 artifacts/*/src.zip
+ssc cgl tier 1 pyq.zip
 
 # TypeScript build outputs emitted next to source in workspace libs
 lib/**/src/**/*.js
