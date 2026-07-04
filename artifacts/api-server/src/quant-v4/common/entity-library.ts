@@ -16,7 +16,7 @@ export class EntityLibrary {
       'business', 'education', 'sports', 'currency', 'unit',
       'time-unit', 'place', 'building', 'tool', 'plant',
       'bird', 'profession-category', 'material', 'weather',
-      'color', 'month', 'day', 'festival'
+      'color', 'month', 'day', 'festival', 'financial-concept'
     ];
 
     for (const category of categories) {

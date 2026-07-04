@@ -1,3 +1,5 @@
+import type { EntityReference } from "../../../../../../common/entity-types";
+
 export const PCT_002_ARCHETYPE_ID = "PCT-002" as const;
 
 export const PCT_002_CP_IDS = [
@@ -67,7 +69,7 @@ export interface Pct002ExplanationLibrary {
   [cpId: string]: Pct002ExplanationEntry;
 }
 
-export type Pct002Variables = Record<string, number | string>;
+export type Pct002Variables = Record<string, number | string | EntityReference>;
 
 export interface Pct002Parameters {
   archetypeId: typeof PCT_002_ARCHETYPE_ID;

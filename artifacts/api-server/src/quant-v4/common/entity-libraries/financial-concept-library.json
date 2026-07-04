@@ -1,0 +1,82 @@
+[
+  {
+    "id": "monthly_income",
+    "en": "Monthly Income",
+    "hi": "मासिक आय",
+    "pa": "ਮਾਸਿਕ ਆਮਦਨ",
+    "frequency": "common",
+    "tags": ["finance", "income"]
+  },
+  {
+    "id": "income",
+    "en": "Income",
+    "hi": "आय",
+    "pa": "ਆਮਦਨ",
+    "frequency": "common",
+    "tags": ["finance", "income"]
+  },
+  {
+    "id": "savings",
+    "en": "Savings",
+    "hi": "बचत",
+    "pa": "ਬਚਤ",
+    "frequency": "common",
+    "tags": ["finance", "personal-finance"]
+  },
+  {
+    "id": "expenditure",
+    "en": "Expenditure",
+    "hi": "व्यय",
+    "pa": "ਖਰਚ",
+    "frequency": "common",
+    "tags": ["finance", "expense"]
+  },
+  {
+    "id": "salary",
+    "en": "Salary",
+    "hi": "वेतन",
+    "pa": "ਤਨਖਾਹ",
+    "frequency": "common",
+    "tags": ["finance", "income"]
+  },
+  {
+    "id": "budget",
+    "en": "Budget",
+    "hi": "बजट",
+    "pa": "ਬਜਟ",
+    "frequency": "common",
+    "tags": ["finance", "planning"]
+  },
+  {
+    "id": "amount",
+    "en": "Amount",
+    "hi": "राशि",
+    "pa": "ਰਕਮ",
+    "frequency": "common",
+    "tags": ["finance", "value"]
+  },
+  {
+    "id": "target_amount",
+    "en": "Target Amount",
+    "hi": "राशि",
+    "pa": "ਰਕਮ",
+    "frequency": "common",
+    "tags": ["finance", "value"]
+  },
+  {
+    "id": "revenue",
+    "en": "Revenue",
+    "hi": "राजस्व",
+    "pa": "ਆਮਦਨ",
+    "frequency": "common",
+    "tags": ["finance", "business"]
+  },
+  {
+    "id": "profit",
+    "en": "Profit",
+    "hi": "लाभ",
+    "pa": "ਮੁਨਾਫਾ",
+    "frequency": "common",
+    "tags": ["finance", "business"]
+  }
+]

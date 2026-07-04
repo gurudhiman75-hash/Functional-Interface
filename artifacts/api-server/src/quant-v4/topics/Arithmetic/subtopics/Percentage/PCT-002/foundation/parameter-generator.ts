@@ -7,6 +7,11 @@ import {
   getRequiredVariables,
   getTaskKind,
 } from "./library";
+import * as fs from "fs";
+import * as path from "path";
+import { EntityLibrary } from "../../../../../../common/entity-library";
+import { EntityResolver } from "../../../../../../common/entity-resolver";
+import type { EntityReference } from "../../../../../../common/entity-types";
 import { stableBucket } from "./math";
 import {
   PCT_002_ARCHETYPE_ID,
@@ -26,6 +31,9 @@ export interface Pct002ParameterInput {
 }
 
 type ScenarioFactory = (difficulty: Pct002DifficultyBand, seed: string) => Pct002Variables;
+type LabelField = "wholeLabel" | "partLabel" | "targetLabel";
+const LABEL_FIELDS = ["wholeLabel", "partLabel", "targetLabel"] as const satisfies readonly LabelField[];
+let sharedEntityResolver: EntityResolver | undefined;
 
 const NON_ENGLISH_LOCALIZED_PILOT_QL_IDS = [
   "PCT-QL-001",
@@ -38,66 +46,60 @@ const NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET = new Set<string>(
   NON_ENGLISH_LOCALIZED_PILOT_QL_IDS,
 );
 
-const PILOT_LABEL_LOCALIZATIONS: Partial<
-  Record<Pct002Language, Record<string, Partial<Pct002Variables>>>
-> = {
-  hi: {
-    "PCT-QL-001": { wholeLabel: "विद्यार्थी", partLabel: "लड़कियां" },
-    "PCT-QL-002": { wholeLabel: "मासिक आय", partLabel: "बचत" },
-  },
-  pa: {
-    "PCT-QL-001": { wholeLabel: "ਵਿਦਿਆਰਥੀ", partLabel: "ਲੜਕੀਆਂ" },
-    "PCT-QL-002": { wholeLabel: "ਮਾਸਿਕ ਆਮਦਨ", partLabel: "ਬਚਤ" },
-  },
-};
-
-const SAFE_PILOT_LABEL_LOCALIZATIONS: Partial<
-  Record<Pct002Language, Record<string, Partial<Pct002Variables>>>
-> = {
-  hi: {
-    "PCT-QL-001": {
-      wholeLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
-      partLabel: "\u0932\u095c\u0915\u093f\u092f\u093e\u0901",
-    },
-    "PCT-QL-002": {
-      wholeLabel: "\u092e\u093e\u0938\u093f\u0915 \u0906\u092f",
-      partLabel: "\u092c\u091a\u0924",
-    },
-    "PCT-QL-003": {
-      wholeLabel: "\u0906\u092f",
-      partLabel: "\u0906\u092f",
-      targetLabel: "\u0930\u093e\u0936\u093f",
-    },
-    "PCT-QL-004": {
-      wholeLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
-      partLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
-      targetLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
-    },
-  },
-  pa: {
-    "PCT-QL-001": {
-      wholeLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
-      partLabel: "\u0a32\u0a5c\u0a15\u0a40\u0a06\u0a02",
-    },
-    "PCT-QL-002": {
-      wholeLabel: "\u0a2e\u0a3e\u0a38\u0a3f\u0a15 \u0a06\u0a2e\u0a26\u0a28",
-      partLabel: "\u0a2c\u0a1a\u0a24",
-    },
-    "PCT-QL-003": {
-      wholeLabel: "\u0a06\u0a2e\u0a26\u0a28",
-      partLabel: "\u0a06\u0a2e\u0a26\u0a28",
-      targetLabel: "\u0a30\u0a15\u0a2e",
-    },
-    "PCT-QL-004": {
-      wholeLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
-      partLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
-      targetLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
-    },
-  },
-};
-
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
+}
+
+function entityRef(categoryId: EntityReference["categoryId"], entityId: string): EntityReference {
+  return { categoryId, entityId };
+}
+
+function isEntityReference(value: unknown): value is EntityReference {
+  return (
+    Boolean(value) &&
+    typeof value === "object" &&
+    "categoryId" in value &&
+    "entityId" in value
+  );
+}
+
+function normalizeResolvedLabel(value: string, language: Pct002Language) {
+  return language === "en" ? value.toLowerCase() : value;
+}
+
+function entityLibraryPath() {
+  const candidates = [
+    path.join(process.cwd(), "artifacts/api-server/src/quant-v4/common/entity-libraries"),
+    path.join(process.cwd(), "src/quant-v4/common/entity-libraries"),
+  ];
+  return candidates.find((candidate) => fs.existsSync(candidate)) ?? candidates[0]!;
+}
+
+function getPct002EntityResolver() {
+  if (!sharedEntityResolver) {
+    const library = new EntityLibrary(entityLibraryPath());
+    library.load();
+    sharedEntityResolver = new EntityResolver(library);
+  }
+  return sharedEntityResolver;
+}
+
+function resolveEntityLabels(
+  variables: Pct002Variables,
+  language: Pct002Language,
+  resolver: EntityResolver,
+): Pct002Variables {
+  const resolved: Pct002Variables = { ...variables };
+  for (const key of LABEL_FIELDS) {
+    const value = resolved[key];
+    if (isEntityReference(value)) {
+      resolved[key] = normalizeResolvedLabel(
+        resolver.resolveEntity(value.categoryId, value.entityId, language),
+        language,
+      );
+    }
+  }
+  return resolved;
 }
 
 function percentBase(seed: string, rates: readonly number[], totals: readonly number[]) {
@@ -125,23 +127,23 @@ function assignDifficulty(cpId: Pct002CanonicalProblemId, language: Pct002Langua
 const SCENARIO_BUILDERS: Record<string, ScenarioFactory> = {
   "PCT-QL-001": (_difficulty, seed) => {
     const { rate, total } = percentBase(seed, [20, 25, 30, 40, 45], [400, 600, 720, 800, 900, 1200]);
-    return { knownRate: rate, wholeValue: total, knownValue: (total * rate) / 100, wholeLabel: "students", partLabel: "girls" };
+    return { knownRate: rate, wholeValue: total, knownValue: (total * rate) / 100, wholeLabel: entityRef("group", "students"), partLabel: entityRef("group", "girls") };
   },
   "PCT-QL-002": (_difficulty, seed) => {
     const { rate, total } = percentBase(seed, [10, 15, 20, 25], [20000, 24000, 30000, 36000, 40000, 48000]);
-    return { knownRate: rate, wholeValue: total, knownValue: (total * rate) / 100, wholeLabel: "monthly income", partLabel: "savings", valuePrefix: "Rs. " };
+    return { knownRate: rate, wholeValue: total, knownValue: (total * rate) / 100, wholeLabel: entityRef("financial-concept", "monthly_income"), partLabel: entityRef("financial-concept", "savings"), valuePrefix: "Rs. " };
   },
   "PCT-QL-003": (_difficulty, seed) => {
     const wholeValue = pick([20000, 25000, 30000, 36000, 40000, 50000], `${seed}:whole`);
     const knownRate = pick([20, 25, 30, 40], `${seed}:knownRate`);
     const targetRate = pick([50, 55, 60, 65, 70], `${seed}:targetRate`);
-    return { knownRate, targetRate, wholeValue, knownValue: (wholeValue * knownRate) / 100, wholeLabel: "income", partLabel: "income", targetLabel: "expenditure", valuePrefix: "Rs. " };
+    return { knownRate, targetRate, wholeValue, knownValue: (wholeValue * knownRate) / 100, wholeLabel: entityRef("financial-concept", "income"), partLabel: entityRef("financial-concept", "income"), targetLabel: entityRef("financial-concept", "target_amount"), valuePrefix: "Rs. " };
   },
   "PCT-QL-004": (_difficulty, seed) => {
     const wholeValue = pick([280, 320, 400, 560, 700, 840], `${seed}:whole`);
     const knownRate = pick([20, 25, 35, 40], `${seed}:knownRate`);
     const targetRate = pick([45, 50, 60, 75], `${seed}:targetRate`);
-    return { knownRate, targetRate, wholeValue, knownValue: (wholeValue * knownRate) / 100, wholeLabel: "students", partLabel: "students", targetLabel: "students" };
+    return { knownRate, targetRate, wholeValue, knownValue: (wholeValue * knownRate) / 100, wholeLabel: entityRef("group", "students"), partLabel: entityRef("group", "students"), targetLabel: entityRef("group", "students") };
   },
   "PCT-QL-005": (_difficulty, seed) => {
     const wholeValue = pick([240, 360, 480, 600, 720], `${seed}:whole`);
@@ -364,24 +366,6 @@ function createVariables(questionLanguageId: string, difficultyBand: Pct002Diffi
   };
 }
 
-function localizeVariables(
-  language: Pct002Language,
-  questionLanguageId: string,
-  variables: Pct002Variables,
-) {
-  const localizedOverrides =
-    SAFE_PILOT_LABEL_LOCALIZATIONS[language]?.[questionLanguageId] ??
-    PILOT_LABEL_LOCALIZATIONS[language]?.[questionLanguageId];
-  if (!localizedOverrides) {
-    return variables;
-  }
-
-  return {
-    ...variables,
-    ...localizedOverrides,
-  };
-}
-
 export function selectQuestionLanguageId(
   cpId: Pct002CanonicalProblemId,
   language: Pct002Language,
@@ -413,10 +397,10 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const variables = localizeVariables(
-    language,
-    questionLanguageId,
+  const variables = resolveEntityLabels(
     createVariables(questionLanguageId, resolvedDifficulty, seed),
+    language,
+    getPct002EntityResolver(),
   );
 
   for (const requiredVariable of requiredVariables) {
