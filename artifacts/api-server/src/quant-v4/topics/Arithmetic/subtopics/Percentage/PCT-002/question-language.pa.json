@@ -1,14 +1,14 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": { "template": "{knownRate}% of the {wholeLabel} are {partLabel}. If the number of {partLabel} is {knownValue}, find the total number of {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-002": { "template": "{knownRate}% of the {wholeLabel} is kept aside as {partLabel}. If these {partLabel} are {valuePrefix}{knownValue}, find the total {wholeLabel}.", "difficulty": "Easy" }
+      "PCT-QL-001": { "template": "{wholeLabel} ਵਿੱਚ {knownRate}% {partLabel} ਹਨ। ਜੇ ਇਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ {knownValue} ਹੈ, ਤਾਂ {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
+      "PCT-QL-002": { "template": "{wholeLabel} ਦਾ {knownRate}% {partLabel} ਵਜੋਂ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਜੇ ਇਹ ਰਕਮ {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਕੁੱਲ {wholeLabel} ਪਤਾ ਕਰੋ।", "difficulty": "Easy" }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-003": { "template": "If {knownRate}% of the {wholeLabel} equals {valuePrefix}{knownValue}, find {targetRate}% of the same {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-004": { "template": "If {knownRate}% of the {wholeLabel} equals {knownValue}, how many {wholeLabel} correspond to {targetRate}%?", "difficulty": "Medium" }
+      "PCT-QL-003": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {valuePrefix}{knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਪਤਾ ਕਰੋ।", "difficulty": "Easy" },
+      "PCT-QL-004": { "template": "ਜੇ {wholeLabel} ਦਾ {knownRate}% {knownValue} ਹੈ, ਤਾਂ ਉਸੇ {wholeLabel} ਦਾ {targetRate}% ਕਿੰਨਾ ਹੋਵੇਗਾ?", "difficulty": "Medium" }
     }
   },
   "PCT-CP-003": {

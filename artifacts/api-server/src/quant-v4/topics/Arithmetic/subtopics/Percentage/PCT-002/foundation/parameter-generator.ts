@@ -27,6 +27,75 @@ export interface Pct002ParameterInput {
 
 type ScenarioFactory = (difficulty: Pct002DifficultyBand, seed: string) => Pct002Variables;
 
+const NON_ENGLISH_LOCALIZED_PILOT_QL_IDS = [
+  "PCT-QL-001",
+  "PCT-QL-002",
+  "PCT-QL-003",
+  "PCT-QL-004",
+] as const;
+
+const NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET = new Set<string>(
+  NON_ENGLISH_LOCALIZED_PILOT_QL_IDS,
+);
+
+const PILOT_LABEL_LOCALIZATIONS: Partial<
+  Record<Pct002Language, Record<string, Partial<Pct002Variables>>>
+> = {
+  hi: {
+    "PCT-QL-001": { wholeLabel: "विद्यार्थी", partLabel: "लड़कियां" },
+    "PCT-QL-002": { wholeLabel: "मासिक आय", partLabel: "बचत" },
+  },
+  pa: {
+    "PCT-QL-001": { wholeLabel: "ਵਿਦਿਆਰਥੀ", partLabel: "ਲੜਕੀਆਂ" },
+    "PCT-QL-002": { wholeLabel: "ਮਾਸਿਕ ਆਮਦਨ", partLabel: "ਬਚਤ" },
+  },
+};
+
+const SAFE_PILOT_LABEL_LOCALIZATIONS: Partial<
+  Record<Pct002Language, Record<string, Partial<Pct002Variables>>>
+> = {
+  hi: {
+    "PCT-QL-001": {
+      wholeLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+      partLabel: "\u0932\u095c\u0915\u093f\u092f\u093e\u0901",
+    },
+    "PCT-QL-002": {
+      wholeLabel: "\u092e\u093e\u0938\u093f\u0915 \u0906\u092f",
+      partLabel: "\u092c\u091a\u0924",
+    },
+    "PCT-QL-003": {
+      wholeLabel: "\u0906\u092f",
+      partLabel: "\u0906\u092f",
+      targetLabel: "\u0930\u093e\u0936\u093f",
+    },
+    "PCT-QL-004": {
+      wholeLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+      partLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+      targetLabel: "\u0935\u093f\u0926\u094d\u092f\u093e\u0930\u094d\u0925\u0940",
+    },
+  },
+  pa: {
+    "PCT-QL-001": {
+      wholeLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
+      partLabel: "\u0a32\u0a5c\u0a15\u0a40\u0a06\u0a02",
+    },
+    "PCT-QL-002": {
+      wholeLabel: "\u0a2e\u0a3e\u0a38\u0a3f\u0a15 \u0a06\u0a2e\u0a26\u0a28",
+      partLabel: "\u0a2c\u0a1a\u0a24",
+    },
+    "PCT-QL-003": {
+      wholeLabel: "\u0a06\u0a2e\u0a26\u0a28",
+      partLabel: "\u0a06\u0a2e\u0a26\u0a28",
+      targetLabel: "\u0a30\u0a15\u0a2e",
+    },
+    "PCT-QL-004": {
+      wholeLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
+      partLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
+      targetLabel: "\u0a35\u0a3f\u0a26\u0a3f\u0a06\u0a30\u0a25\u0a40",
+    },
+  },
+};
+
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
 }
@@ -38,7 +107,13 @@ function percentBase(seed: string, rates: readonly number[], totals: readonly nu
 }
 
 export function getSelectableQuestionLanguageIds(cpId: Pct002CanonicalProblemId, language: Pct002Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  if (language === "en") {
+    return getQuestionLanguageIds(cpId, "en");
+  }
+
+  return getCommonQuestionLanguageIds(cpId).filter((qlId) =>
+    NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET.has(qlId),
+  );
 }
 
 function assignDifficulty(cpId: Pct002CanonicalProblemId, language: Pct002Language, seed: string): Pct002DifficultyBand {
@@ -289,6 +364,24 @@ function createVariables(questionLanguageId: string, difficultyBand: Pct002Diffi
   };
 }
 
+function localizeVariables(
+  language: Pct002Language,
+  questionLanguageId: string,
+  variables: Pct002Variables,
+) {
+  const localizedOverrides =
+    SAFE_PILOT_LABEL_LOCALIZATIONS[language]?.[questionLanguageId] ??
+    PILOT_LABEL_LOCALIZATIONS[language]?.[questionLanguageId];
+  if (!localizedOverrides) {
+    return variables;
+  }
+
+  return {
+    ...variables,
+    ...localizedOverrides,
+  };
+}
+
 export function selectQuestionLanguageId(
   cpId: Pct002CanonicalProblemId,
   language: Pct002Language,
@@ -308,12 +401,23 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+
+  if (language !== "en" && !NON_ENGLISH_LOCALIZED_PILOT_QL_ID_SET.has(questionLanguageId)) {
+    throw new Error(
+      `Question language ${questionLanguageId} is not localized for ${language} in PCT-002.`,
+    );
+  }
+
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
   const resolvedDifficulty = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const variables = createVariables(questionLanguageId, resolvedDifficulty, seed);
+  const variables = localizeVariables(
+    language,
+    questionLanguageId,
+    createVariables(questionLanguageId, resolvedDifficulty, seed),
+  );
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {
@@ -334,8 +438,8 @@ export function generatePct002Parameters(cpId: Pct002CanonicalProblemId, input: 
     requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

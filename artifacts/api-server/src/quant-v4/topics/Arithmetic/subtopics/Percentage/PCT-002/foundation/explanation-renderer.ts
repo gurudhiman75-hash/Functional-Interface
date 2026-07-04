@@ -20,6 +20,120 @@ function targetPartIndex(parameters: Pct002Parameters) {
   return String(parameters.variables["targetPartLabel"]) === "first part" ? 1 : 2;
 }
 
+function renderLocalizedWholeFromPartExplanation(
+  parameters: Pct002Parameters,
+  solver: Pct002SolverResult,
+  knownRate: number,
+  knownValue: number,
+  onePercentValue: number,
+  wholeLabel: string,
+  renderedAnswer: string,
+) {
+  const answerValue = solver.numericAnswer ?? 0;
+
+  if (parameters.language === "hi") {
+    return [
+      ...sentenceWithMath(
+        `यहाँ ${formatNumber(knownRate)}% ${wholeLabel} का मान ${displayValue(parameters, knownValue)} है।`,
+        `${percent(knownRate)}\\rightarrow${displayValue(parameters, knownValue)}`,
+      ),
+      ...sentenceWithMath(
+        `1% का मान निकालने के लिए ${displayValue(parameters, knownValue)} को ${formatNumber(knownRate)} से भाग दें।`,
+        `1\\%=\\frac{${formatNumber(knownValue)}}{${formatNumber(knownRate)}}=${formatNumber(onePercentValue)}`,
+      ),
+      ...sentenceWithMath(
+        `अब कुल मान प्राप्त करने के लिए 1% के मान को 100 से गुणा करें।`,
+        `100\\%=${formatNumber(onePercentValue)}\\times100=${formatNumber(answerValue)}`,
+      ),
+      ...sentenceWithMath(
+        `इसलिए कुल ${wholeLabel} ${displayValue(parameters, answerValue)} है।`,
+        `\\text{कुल ${wholeLabel}}=${renderedAnswer}`,
+      ),
+    ];
+  }
+
+  if (parameters.language === "pa") {
+    return [
+      ...sentenceWithMath(
+        `ਇੱਥੇ ${formatNumber(knownRate)}% ${wholeLabel} ਦਾ ਮਾਨ ${displayValue(parameters, knownValue)} ਹੈ।`,
+        `${percent(knownRate)}\\rightarrow${displayValue(parameters, knownValue)}`,
+      ),
+      ...sentenceWithMath(
+        `1% ਦਾ ਮਾਨ ਕੱਢਣ ਲਈ ${displayValue(parameters, knownValue)} ਨੂੰ ${formatNumber(knownRate)} ਨਾਲ ਭਾਗ ਕਰੋ।`,
+        `1\\%=\\frac{${formatNumber(knownValue)}}{${formatNumber(knownRate)}}=${formatNumber(onePercentValue)}`,
+      ),
+      ...sentenceWithMath(
+        `ਹੁਣ ਕੁੱਲ ਮਾਨ ਲੈਣ ਲਈ 1% ਦੇ ਮਾਨ ਨੂੰ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।`,
+        `100\\%=${formatNumber(onePercentValue)}\\times100=${formatNumber(answerValue)}`,
+      ),
+      ...sentenceWithMath(
+        `ਇਸ ਲਈ ਕੁੱਲ ${wholeLabel} ${displayValue(parameters, answerValue)} ਹੈ।`,
+        `\\text{ਕੁੱਲ ${wholeLabel}}=${renderedAnswer}`,
+      ),
+    ];
+  }
+
+  return null;
+}
+
+function renderLocalizedAnotherPercentageExplanation(
+  parameters: Pct002Parameters,
+  solver: Pct002SolverResult,
+  knownRate: number,
+  knownValue: number,
+  targetRate: number,
+  onePercentValue: number,
+  wholeLabel: string,
+  targetLabel: string,
+  renderedAnswer: string,
+) {
+  const answerValue = solver.numericAnswer ?? 0;
+
+  if (parameters.language === "hi") {
+    return [
+      ...sentenceWithMath(
+        `यहाँ ${formatNumber(knownRate)}% ${wholeLabel} का मान ${displayValue(parameters, knownValue)} है।`,
+        `${percent(knownRate)}\\rightarrow${displayValue(parameters, knownValue)}`,
+      ),
+      ...sentenceWithMath(
+        `पहले 1% का मान निकालने के लिए ${displayValue(parameters, knownValue)} को ${formatNumber(knownRate)} से भाग दें।`,
+        `1\\%=\\frac{${formatNumber(knownValue)}}{${formatNumber(knownRate)}}=${formatNumber(onePercentValue)}`,
+      ),
+      ...sentenceWithMath(
+        `अब ${formatNumber(targetRate)}% का मान निकालने के लिए 1% के मान को ${formatNumber(targetRate)} से गुणा करें।`,
+        `${percent(targetRate)}=${formatNumber(onePercentValue)}\\times${formatNumber(targetRate)}=${formatNumber(answerValue)}`,
+      ),
+      ...sentenceWithMath(
+        `इसलिए ${formatNumber(targetRate)}% ${wholeLabel} का मान ${displayValue(parameters, answerValue)} है।`,
+        `\\text{${targetLabel}}=${renderedAnswer}`,
+      ),
+    ];
+  }
+
+  if (parameters.language === "pa") {
+    return [
+      ...sentenceWithMath(
+        `ਇੱਥੇ ${formatNumber(knownRate)}% ${wholeLabel} ਦਾ ਮਾਨ ${displayValue(parameters, knownValue)} ਹੈ।`,
+        `${percent(knownRate)}\\rightarrow${displayValue(parameters, knownValue)}`,
+      ),
+      ...sentenceWithMath(
+        `ਪਹਿਲਾਂ 1% ਦਾ ਮਾਨ ਕੱਢਣ ਲਈ ${displayValue(parameters, knownValue)} ਨੂੰ ${formatNumber(knownRate)} ਨਾਲ ਭਾਗ ਕਰੋ।`,
+        `1\\%=\\frac{${formatNumber(knownValue)}}{${formatNumber(knownRate)}}=${formatNumber(onePercentValue)}`,
+      ),
+      ...sentenceWithMath(
+        `ਹੁਣ ${formatNumber(targetRate)}% ਦਾ ਮਾਨ ਕੱਢਣ ਲਈ 1% ਦੇ ਮਾਨ ਨੂੰ ${formatNumber(targetRate)} ਨਾਲ ਗੁਣਾ ਕਰੋ।`,
+        `${percent(targetRate)}=${formatNumber(onePercentValue)}\\times${formatNumber(targetRate)}=${formatNumber(answerValue)}`,
+      ),
+      ...sentenceWithMath(
+        `ਇਸ ਲਈ ${formatNumber(targetRate)}% ${wholeLabel} ਦਾ ਮਾਨ ${displayValue(parameters, answerValue)} ਹੈ।`,
+        `\\text{${targetLabel}}=${renderedAnswer}`,
+      ),
+    ];
+  }
+
+  return null;
+}
+
 export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pct002SolverResult, _graph: Pct002ReasoningGraph): Pct002Explanation {
   const lines: string[] = [];
   const knownRate = Number(parameters.variables["knownRate"] ?? 0);
@@ -43,8 +157,22 @@ export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pc
   const renderedAnswer = solver.answer.replaceAll("$$", "");
 
   switch (parameters.taskKind) {
-    case "wholeFromPart":
+    case "wholeFromPart": {
+      const localizedLines =
+        parameters.canonicalProblemId === "PCT-CP-001"
+          ? renderLocalizedWholeFromPartExplanation(
+              parameters,
+              solver,
+              knownRate,
+              knownValue,
+              onePercentValue,
+              wholeLabel,
+              renderedAnswer,
+            )
+          : null;
+
       lines.push(
+        ...(localizedLines ?? [
         ...sentenceWithMath(
           `Here, ${formatNumber(knownRate)}% of the ${wholeLabel} equals ${displayValue(parameters, knownValue)}.`,
           `${percent(knownRate)}\\rightarrow${displayValue(parameters, knownValue)}`,
@@ -61,10 +189,28 @@ export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pc
           `Therefore the total ${wholeLabel} is ${displayValue(parameters, solver.numericAnswer ?? 0)}.`,
           `\\text{Total ${wholeLabel}}=${renderedAnswer}`,
         ),
+        ])
       );
       break;
-    case "anotherPercentageFromKnownPercentage":
+    }
+    case "anotherPercentageFromKnownPercentage": {
+      const localizedLines =
+        parameters.canonicalProblemId === "PCT-CP-002"
+          ? renderLocalizedAnotherPercentageExplanation(
+              parameters,
+              solver,
+              knownRate,
+              knownValue,
+              targetRate,
+              onePercentValue,
+              wholeLabel,
+              targetLabel,
+              renderedAnswer,
+            )
+          : null;
+
       lines.push(
+        ...(localizedLines ?? [
         ...sentenceWithMath(
           `Here, ${formatNumber(knownRate)}% of the ${wholeLabel} equals ${displayValue(parameters, knownValue)}.`,
           `${percent(knownRate)}\\rightarrow${displayValue(parameters, knownValue)}`,
@@ -81,8 +227,10 @@ export function renderPct002Explanation(parameters: Pct002Parameters, solver: Pc
           `Therefore ${formatNumber(targetRate)}% of the ${wholeLabel} is ${displayValue(parameters, solver.numericAnswer ?? 0)}.`,
           `\\text{${targetLabel}}=${renderedAnswer}`,
         ),
+        ])
       );
       break;
+    }
     case "percentageFromPartAndWhole":
       lines.push(
         ...sentenceWithMath(
