@@ -1,12 +1,16 @@
 import {
   getAnswerType,
-  getCommonQuestionLanguageIds,
   getQuestionLanguageIds,
   getExplanationId,
   getQuestionEntry,
   getRequiredVariables,
   getTaskKind,
 } from "./library";
+import {
+  getLocalizedQuestionLanguageIds,
+  isQlLocalized,
+} from "../../../../../../common/language-coverage";
+import { localizePercentageLabelFields } from "../../../../../../common/percentage-label-localization";
 import { stableBucket } from "./math";
 import {
   PCT_005_ARCHETYPE_ID,
@@ -26,6 +30,9 @@ export interface Pct005ParameterInput {
 }
 
 type ScenarioFactory = (difficulty: Pct005DifficultyBand, seed: string) => Pct005Variables;
+type LabelField = "wholeLabel" | "labelA" | "labelB";
+
+const LABEL_FIELDS = ["wholeLabel", "labelA", "labelB"] as const satisfies readonly LabelField[];
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
@@ -87,7 +94,11 @@ function constrainDiscreteCountVariables(
 }
 
 export function getSelectableQuestionLanguageIds(cpId: Pct005CanonicalProblemId, language: Pct005Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds(
+    "PCT-005",
+    language,
+    getQuestionLanguageIds(cpId, "en"),
+  );
 }
 
 function assignDifficulty(cpId: Pct005CanonicalProblemId, language: Pct005Language, seed: string): Pct005DifficultyBand {
@@ -540,14 +551,24 @@ const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct005Variables>> = {
   "PCT-QL-150": { wholeLabel: "revenue" },
 };
 
-function createVariables(questionLanguageId: string, difficultyBand: Pct005DifficultyBand, seed: string) {
+function createVariables(
+  questionLanguageId: string,
+  difficultyBand: Pct005DifficultyBand,
+  seed: string,
+  language: Pct005Language,
+) {
   const builderId = SCENARIO_ALIASES[questionLanguageId] ?? questionLanguageId;
   const builder = SCENARIO_BUILDERS[builderId];
   if (!builder) throw new Error(`Missing scenario builder for ${questionLanguageId}`);
-  return {
-    ...builder(difficultyBand, seed),
-    ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
-  };
+  return localizePercentageLabelFields(
+    {
+      valuePrefix: "",
+      ...builder(difficultyBand, seed),
+      ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
+    },
+    language,
+    LABEL_FIELDS,
+  );
 }
 
 export function selectQuestionLanguageId(
@@ -569,13 +590,20 @@ export function generatePct005Parameters(cpId: Pct005CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+
+  if (!isQlLocalized("PCT-005", questionLanguageId, language)) {
+    throw new Error(
+      `Question language ${questionLanguageId} is not localized for ${language} in PCT-005.`,
+    );
+  }
+
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
   const resolvedDifficulty = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const variables = constrainDiscreteCountVariables(
-    createVariables(questionLanguageId, resolvedDifficulty, seed),
+    createVariables(questionLanguageId, resolvedDifficulty, seed, language),
     answerType,
     seed,
   );
@@ -599,8 +627,8 @@ export function generatePct005Parameters(cpId: Pct005CanonicalProblemId, input: 
     requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

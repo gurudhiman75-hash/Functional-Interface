@@ -610,9 +610,9 @@ export function solvePct007(parameters: Pct007Parameters): Pct007SolverResult {
       evidence.actual2 = actual2;
       evidence.difference = difference;
       evidence.direction = direction;
-      mathJax.core = `${formatNumber(actual1)}\\text{ and }${formatNumber(actual2)}`;
+      mathJax.core = `${formatNumber(actual1)},\\;${formatNumber(actual2)}`;
       return {
-        answer: comparisonAnswer(direction, subjectA, subjectB, magnitude),
+        answer: comparisonAnswer(direction, subjectA, subjectB, magnitude, parameters.language),
         numericAnswer: difference,
         answerType: parameters.answerType,
         evidence,

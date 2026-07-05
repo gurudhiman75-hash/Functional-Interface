@@ -172,7 +172,7 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
       const answer =
         direction === "equal"
           ? `${subjectA} and ${subjectB} are equal after the change.`
-          : comparisonText(subjectA, subjectB, direction, absoluteText(parameters, difference), "absolute");
+          : comparisonText(subjectA, subjectB, direction, absoluteText(parameters, difference), "absolute", parameters.language);
       return { answer, numericAnswer: direction === "equal" ? 0 : difference, answerType: parameters.answerType, evidence, mathJax };
     }
     case "chainPercentageComparison": {
@@ -199,8 +199,12 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
       mathJax.core = `${formatNumber(factorAB)}\\times${formatNumber(factorBC)}=${formatNumber(factorAC)}`;
       const answer =
         direction === "equal"
-          ? `${subjectA} and ${subjectC} are equal.`
-          : comparisonText(subjectA, subjectC, direction, formatPercent(percent), "percent");
+          ? parameters.language === "hi"
+            ? `${subjectA} और ${subjectC} बराबर हैं।`
+            : parameters.language === "pa"
+              ? `${subjectA} ਅਤੇ ${subjectC} ਬਰਾਬਰ ਹਨ।`
+              : `${subjectA} and ${subjectC} are equal.`
+          : comparisonText(subjectA, subjectC, direction, formatPercent(percent), "percent", parameters.language);
       return { answer, numericAnswer: direction === "equal" ? 0 : percent, answerType: parameters.answerType, evidence, mathJax };
     }
     case "percentagePointsVsPercentageChange": {
@@ -215,7 +219,12 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
       mathJax.core = `\\frac{${formatNumber(newRate - oldRate)}}{${formatNumber(oldRate)}}\\times100=${formatNumber(relativePercent)}\\%`;
       if (parameters.solveMode === "percentagePointDifferenceOnly") {
         return {
-          answer: `${formatNumber(pointDifference)} percentage points`,
+          answer:
+            parameters.language === "hi"
+              ? `${formatNumber(pointDifference)} प्रतिशत-बिंदु`
+              : parameters.language === "pa"
+                ? `${formatNumber(pointDifference)} ਪ੍ਰਤੀਸ਼ਤ-ਬਿੰਦੂ`
+                : `${formatNumber(pointDifference)} percentage points`,
           numericAnswer: pointDifference,
           answerType: parameters.answerType,
           evidence,
@@ -232,7 +241,12 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
         };
       }
       return {
-        answer: `${formatNumber(pointDifference)} percentage points and ${formatPercent(relativePercent)}`,
+        answer:
+          parameters.language === "hi"
+            ? `${formatNumber(pointDifference)} प्रतिशत-बिंदु और ${formatPercent(relativePercent)}`
+            : parameters.language === "pa"
+              ? `${formatNumber(pointDifference)} ਪ੍ਰਤੀਸ਼ਤ-ਬਿੰਦੂ ਅਤੇ ${formatPercent(relativePercent)}`
+              : `${formatNumber(pointDifference)} percentage points and ${formatPercent(relativePercent)}`,
         numericAnswer: relativePercent,
         answerType: parameters.answerType,
         evidence,
@@ -280,8 +294,12 @@ export function solvePct006(parameters: Pct006Parameters): Pct006SolverResult {
       }
       const answer =
         direction === "equal"
-          ? `${subjectA} and ${subjectB} have the same actual value.`
-          : comparisonText(subjectA, subjectB, direction, absoluteText(parameters, difference), "absolute");
+          ? parameters.language === "hi"
+            ? `${subjectA} और ${subjectB} का वास्तविक मान समान है।`
+            : parameters.language === "pa"
+              ? `${subjectA} ਅਤੇ ${subjectB} ਦਾ ਅਸਲ ਮਾਨ ਬਰਾਬਰ ਹੈ।`
+              : `${subjectA} and ${subjectB} have the same actual value.`
+          : comparisonText(subjectA, subjectB, direction, absoluteText(parameters, difference), "absolute", parameters.language);
       return { answer, numericAnswer: difference, answerType: parameters.answerType, evidence, mathJax };
     }
   }

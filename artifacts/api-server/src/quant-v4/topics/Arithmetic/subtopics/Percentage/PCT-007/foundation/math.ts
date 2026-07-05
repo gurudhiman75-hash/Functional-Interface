@@ -1,4 +1,4 @@
-import type { Pct007AnswerType, Pct007ComparisonDirection } from "./types";
+import type { Pct007AnswerType, Pct007ComparisonDirection, Pct007Language } from "./types";
 
 export function roundTo(value: number, places = 4): number {
   const factor = 10 ** places;
@@ -59,7 +59,18 @@ export function comparisonAnswer(
   leftLabel: string,
   rightLabel: string,
   magnitude: string,
+  language: Pct007Language = "en",
 ) {
+  if (language === "hi") {
+    if (direction === "equal") return `${leftLabel} और ${rightLabel} बराबर हैं।`;
+    if (direction === "greater") return `${leftLabel}, ${magnitude} से अधिक है।`;
+    return `${rightLabel}, ${magnitude} से अधिक है।`;
+  }
+  if (language === "pa") {
+    if (direction === "equal") return `${leftLabel} ਅਤੇ ${rightLabel} ਬਰਾਬਰ ਹਨ।`;
+    if (direction === "greater") return `${leftLabel}, ${magnitude} ਨਾਲ ਵੱਧ ਹੈ।`;
+    return `${rightLabel}, ${magnitude} ਨਾਲ ਵੱਧ ਹੈ।`;
+  }
   if (direction === "equal") return `${leftLabel} and ${rightLabel} are equal.`;
   if (direction === "greater") return `${leftLabel} is greater by ${magnitude}.`;
   return `${rightLabel} is greater by ${magnitude}.`;

@@ -1,4 +1,4 @@
-import type { Pct006AnswerType, Pct006ComparisonDirection } from "./types";
+import type { Pct006AnswerType, Pct006ComparisonDirection, Pct006Language } from "./types";
 
 export function roundTo(value: number, places = 4): number {
   const factor = 10 ** places;
@@ -67,7 +67,30 @@ export function comparisonText(
   direction: Pct006ComparisonDirection,
   magnitude: string,
   basis: "absolute" | "percent",
+  language: Pct006Language = "en",
 ) {
+  if (language === "hi") {
+    if (direction === "equal") return `${left} और ${right} बराबर हैं।`;
+    if (basis === "percent") {
+      return direction === "more"
+        ? `${left}, ${right} से ${magnitude} अधिक है।`
+        : `${left}, ${right} से ${magnitude} कम है।`;
+    }
+    return direction === "more"
+      ? `${left}, ${magnitude} से अधिक है।`
+      : `${right}, ${magnitude} से अधिक है।`;
+  }
+  if (language === "pa") {
+    if (direction === "equal") return `${left} ਅਤੇ ${right} ਬਰਾਬਰ ਹਨ।`;
+    if (basis === "percent") {
+      return direction === "more"
+        ? `${left}, ${right} ਨਾਲੋਂ ${magnitude} ਵੱਧ ਹੈ।`
+        : `${left}, ${right} ਨਾਲੋਂ ${magnitude} ਘੱਟ ਹੈ।`;
+    }
+    return direction === "more"
+      ? `${left}, ${magnitude} ਨਾਲ ਵੱਧ ਹੈ।`
+      : `${right}, ${magnitude} ਨਾਲ ਵੱਧ ਹੈ।`;
+  }
   if (direction === "equal") return `${left} and ${right} are equal.`;
   if (basis === "percent") {
     return direction === "more"

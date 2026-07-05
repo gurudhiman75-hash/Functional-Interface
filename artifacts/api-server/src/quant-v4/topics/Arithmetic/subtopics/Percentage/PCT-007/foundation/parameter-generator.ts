@@ -1,6 +1,5 @@
 import {
   getAnswerType,
-  getCommonQuestionLanguageIds,
   getContextTag,
   getExplanationId,
   getQuestionEntry,
@@ -10,6 +9,8 @@ import {
   getSolveMode,
   getTaskKind,
 } from "./library";
+import { getLocalizedQuestionLanguageIds, isQlLocalized } from "../../../../../../common/language-coverage";
+import { localizePercentageLabelFields } from "../../../../../../common/percentage-label-localization";
 import { stableBucket } from "./math";
 import {
   PCT_007_ARCHETYPE_ID,
@@ -152,7 +153,7 @@ function pick<T>(items: readonly T[], seed: string): T {
 }
 
 function getSelectableQuestionLanguageIds(cpId: Pct007CanonicalProblemId, language: Pct007Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds("PCT-007", language, getQuestionLanguageIds(cpId, "en"));
 }
 
 function parseContextTag(contextTag: string): ContextMeta {
@@ -163,6 +164,8 @@ function parseContextTag(contextTag: string): ContextMeta {
     valuePrefix: valueMode === "money" ? "Rs. " : "",
   };
 }
+
+const LABEL_FIELDS = ["wholeLabel", "unitLabel"] as const;
 
 function isDiscreteCountUnit(unitLabel: string) {
   return ["marks", "people", "students", "passengers", "votes", "bags", "items", "units"].includes(unitLabel);
@@ -210,14 +213,18 @@ function baseMeta(questionLanguageId: string, contextTag: string): Pct007Variabl
   };
 }
 
+function localizedBaseMeta(questionLanguageId: string, contextTag: string, language: Pct007Language): Pct007Variables {
+  return localizePercentageLabelFields(baseMeta(questionLanguageId, contextTag), language, LABEL_FIELDS);
+}
+
 function assignDifficulty(cpId: Pct007CanonicalProblemId, language: Pct007Language, seed: string): Pct007DifficultyBand {
   const qlIds = getSelectableQuestionLanguageIds(cpId, language);
   const qlId = qlIds[stableBucket(seed, qlIds.length)]!;
   return getQuestionEntry(cpId, qlId, language).difficulty;
 }
 
-function buildSavingsVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildSavingsVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const income = pick(AMOUNT_BASES, `${seed}:income`);
   const savingsRate = pick(SAVINGS_RATE_CASES, `${seed}:savingsRate`);
   const spendRate = pick(PERCENT_CASES, `${seed}:spendRate`);
@@ -236,8 +243,8 @@ function buildSavingsVariables(questionLanguageId: string, solveMode: string, co
   }
 }
 
-function buildMarksVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildMarksVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   switch (solveMode) {
     case "findMarksFromTotalMarks": {
       const totalMarks = pick(MARKS_TOTALS, `${seed}:totalMarks`);
@@ -275,8 +282,8 @@ function buildMarksVariables(questionLanguageId: string, solveMode: string, cont
   }
 }
 
-function buildElectionVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildElectionVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const totalVoters = pick(TOTAL_VOTER_CASES, `${seed}:totalVoters`);
   const turnoutRate = pick(TURNOUT_CASES, `${seed}:turnoutRate`);
   const invalidRate = pick(INVALID_RATE_CASES, `${seed}:invalidRate`);
@@ -346,8 +353,8 @@ function buildElectionVariables(questionLanguageId: string, solveMode: string, c
   return { ...meta, turnoutRate, value1 };
 }
 
-function buildApplicationVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildApplicationVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const totalPool = getMagnitudePool(meta.unitLabel, meta.valuePrefix);
   const countSafeContext = isDiscreteCountUnit(meta.unitLabel);
   const candidates = countSafeContext
@@ -372,8 +379,8 @@ function buildApplicationVariables(questionLanguageId: string, solveMode: string
   return { ...meta, totalValue, percentageRate };
 }
 
-function buildMixtureVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildMixtureVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const totalValue = pick(getMagnitudePool(meta.unitLabel, meta.valuePrefix), `${seed}:totalValue`);
   const componentRate = pick(MIXTURE_RATE_CASES, `${seed}:componentRate`);
   const componentAmount = (totalValue * componentRate) / 100;
@@ -392,8 +399,8 @@ function buildMixtureVariables(questionLanguageId: string, solveMode: string, co
   return { ...meta, componentRate, totalValue };
 }
 
-function buildDryingVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildDryingVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   if (solveMode === "findFinalVolumeAfterEvaporation" || solveMode === "findEvaporatedAmount") {
     const selected = pick(EVAPORATION_CASES, `${seed}:evaporation`);
     return {
@@ -422,8 +429,8 @@ function buildDryingVariables(questionLanguageId: string, solveMode: string, con
   };
 }
 
-function buildBillingVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildBillingVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const baseValue = pick(SMALL_AMOUNT_BASES, `${seed}:baseValue`);
 
   if (solveMode === "findDiscountAmount" || solveMode === "findBillAfterDiscount") {
@@ -446,8 +453,8 @@ function buildBillingVariables(questionLanguageId: string, solveMode: string, co
   return { ...meta, baseValue, commissionRate: pick(COMMISSION_CASES, `${seed}:commissionRate`) };
 }
 
-function buildErrorVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildErrorVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const correctValue = pick(getMagnitudePool(meta.unitLabel, meta.valuePrefix), `${seed}:correctValue`);
   const percentageRate = pick(ERROR_RATE_CASES, `${seed}:percentageRate`);
   const overstatedWrong = (correctValue * (100 + percentageRate)) / 100;
@@ -462,8 +469,8 @@ function buildErrorVariables(questionLanguageId: string, solveMode: string, cont
   return { ...meta, wrongValue: understatedWrong, percentageRate };
 }
 
-function buildRepeatedVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
-  const meta = baseMeta(questionLanguageId, contextTag);
+function buildRepeatedVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   if (solveMode === "findRemainingAfterTwoSameRemovals") {
     const selected = pick(TWO_SAME_REMOVAL_CASES, `${seed}:twoSame`);
     return { ...meta, totalValue: selected.totalValue, percentageRate: selected.percentageRate };
@@ -484,18 +491,18 @@ function buildRepeatedVariables(questionLanguageId: string, solveMode: string, c
   };
 }
 
-function buildCaseletVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string): Pct007Variables {
+function buildCaseletVariables(questionLanguageId: string, solveMode: string, contextTag: string, seed: string, language: Pct007Language): Pct007Variables {
   if (solveMode === "findCaseletSavings") {
-    return buildSavingsVariables(questionLanguageId, "findSavingsFromSpendRate", contextTag, seed);
+    return buildSavingsVariables(questionLanguageId, "findSavingsFromSpendRate", contextTag, seed, language);
   }
   if (solveMode === "findCaseletCandidateVotes") {
-    return buildElectionVariables(questionLanguageId, "findCandidateVotesFromValidVotes", contextTag, seed);
+    return buildElectionVariables(questionLanguageId, "findCandidateVotesFromValidVotes", contextTag, seed, language);
   }
   if (solveMode === "findCaseletFinalBill") {
-    return buildBillingVariables(questionLanguageId, "findFinalBillAfterDiscountAndTax", contextTag, seed);
+    return buildBillingVariables(questionLanguageId, "findFinalBillAfterDiscountAndTax", contextTag, seed, language);
   }
   if (solveMode === "findCaseletRemainingGoodUnits") {
-    const meta = baseMeta(questionLanguageId, contextTag);
+    const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
     const selected = pick(GOOD_UNIT_CASES, `${seed}:goodUnits`);
     return {
       ...meta,
@@ -505,7 +512,7 @@ function buildCaseletVariables(questionLanguageId: string, solveMode: string, co
     };
   }
 
-  const meta = baseMeta(questionLanguageId, contextTag);
+  const meta = localizedBaseMeta(questionLanguageId, contextTag, language);
   const pool = getMagnitudePool(meta.unitLabel, meta.valuePrefix);
   const ratePool = [40, 50, 60, 70, 75, 80] as const;
 
@@ -552,28 +559,29 @@ function buildVariables(
   solveMode: string,
   contextTag: string,
   seed: string,
+  language: Pct007Language,
 ): Pct007Variables {
   switch (cpId) {
     case "PCT-CP-001":
-      return buildSavingsVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildSavingsVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-002":
-      return buildMarksVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildMarksVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-003":
-      return buildElectionVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildElectionVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-004":
-      return buildApplicationVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildApplicationVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-005":
-      return buildMixtureVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildMixtureVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-006":
-      return buildDryingVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildDryingVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-007":
-      return buildBillingVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildBillingVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-008":
-      return buildErrorVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildErrorVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-009":
-      return buildRepeatedVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildRepeatedVariables(questionLanguageId, solveMode, contextTag, seed, language);
     case "PCT-CP-010":
-      return buildCaseletVariables(questionLanguageId, solveMode, contextTag, seed);
+      return buildCaseletVariables(questionLanguageId, solveMode, contextTag, seed, language);
   }
 }
 
@@ -596,6 +604,9 @@ export function generatePct007Parameters(cpId: Pct007CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+  if (!isQlLocalized("PCT-007", questionLanguageId, language)) {
+    throw new Error(`Question language ${language}:${questionLanguageId} is not localized for PCT-007.`);
+  }
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
   const resolvedDifficulty = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
@@ -604,7 +615,7 @@ export function generatePct007Parameters(cpId: Pct007CanonicalProblemId, input: 
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const scenarioFamily = getScenarioFamily(cpId, questionLanguageId);
   const contextTag = getContextTag(cpId, questionLanguageId);
-  const variables = buildVariables(cpId, questionLanguageId, solveMode, contextTag, `${seed}:${scenarioFamily}`);
+  const variables = buildVariables(cpId, questionLanguageId, solveMode, contextTag, `${seed}:${scenarioFamily}`, language);
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {
@@ -626,8 +637,8 @@ export function generatePct007Parameters(cpId: Pct007CanonicalProblemId, input: 
     requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

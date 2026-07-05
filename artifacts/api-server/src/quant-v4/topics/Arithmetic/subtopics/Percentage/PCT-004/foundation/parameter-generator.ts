@@ -1,12 +1,16 @@
 import {
   getAnswerType,
-  getCommonQuestionLanguageIds,
   getQuestionLanguageIds,
   getExplanationId,
   getQuestionEntry,
   getRequiredVariables,
   getTaskKind,
 } from "./library";
+import {
+  getLocalizedQuestionLanguageIds,
+  isQlLocalized,
+} from "../../../../../../common/language-coverage";
+import { localizePercentageLabelFields } from "../../../../../../common/percentage-label-localization";
 import { stableBucket } from "./math";
 import {
   PCT_004_ARCHETYPE_ID,
@@ -26,6 +30,9 @@ export interface Pct004ParameterInput {
 }
 
 type ScenarioFactory = (difficulty: Pct004DifficultyBand, seed: string) => Pct004Variables;
+type LabelField = "wholeLabel" | "partLabel" | "otherLabel" | "labelA" | "labelB";
+
+const LABEL_FIELDS = ["wholeLabel", "partLabel", "otherLabel", "labelA", "labelB"] as const satisfies readonly LabelField[];
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
@@ -87,7 +94,11 @@ function constrainDiscreteCountVariables(
 }
 
 export function getSelectableQuestionLanguageIds(cpId: Pct004CanonicalProblemId, language: Pct004Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds(
+    "PCT-004",
+    language,
+    getQuestionLanguageIds(cpId, "en"),
+  );
 }
 
 function assignDifficulty(cpId: Pct004CanonicalProblemId, language: Pct004Language, seed: string): Pct004DifficultyBand {
@@ -512,14 +523,24 @@ const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct004Variables>> = {
   "PCT-QL-150": { wholeLabel: "fund value" },
 };
 
-function createVariables(questionLanguageId: string, difficultyBand: Pct004DifficultyBand, seed: string) {
+function createVariables(
+  questionLanguageId: string,
+  difficultyBand: Pct004DifficultyBand,
+  seed: string,
+  language: Pct004Language,
+) {
   const builderId = SCENARIO_ALIASES[questionLanguageId] ?? questionLanguageId;
   const builder = SCENARIO_BUILDERS[builderId];
   if (!builder) throw new Error(`Missing scenario builder for ${questionLanguageId}`);
-  return {
-    ...builder(difficultyBand, seed),
-    ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
-  };
+  return localizePercentageLabelFields(
+    {
+      valuePrefix: "",
+      ...builder(difficultyBand, seed),
+      ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
+    },
+    language,
+    LABEL_FIELDS,
+  );
 }
 
 export function selectQuestionLanguageId(
@@ -541,13 +562,20 @@ export function generatePct004Parameters(cpId: Pct004CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+
+  if (!isQlLocalized("PCT-004", questionLanguageId, language)) {
+    throw new Error(
+      `Question language ${questionLanguageId} is not localized for ${language} in PCT-004.`,
+    );
+  }
+
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
   const resolvedDifficulty = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const variables = constrainDiscreteCountVariables(
-    createVariables(questionLanguageId, resolvedDifficulty, seed),
+    createVariables(questionLanguageId, resolvedDifficulty, seed, language),
     answerType,
     seed,
   );
@@ -571,8 +599,8 @@ export function generatePct004Parameters(cpId: Pct004CanonicalProblemId, input: 
     requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

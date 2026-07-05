@@ -2,119 +2,641 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "एक {wholeLabel} {valuePrefix}{originalValue} है। यदि यह {increaseRate}% बढ़ जाता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "एक {wholeLabel} {originalValue} है। यदि यह {increaseRate}% बढ़ जाता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
-        "template": "पिछले महीने {wholeLabel} {originalValue} इकाइयाँ था। इस महीने यह {increaseRate}% बढ़ गया। इस महीने की खपत ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-022": {
-        "template": "अभियान से पहले {wholeLabel} की संख्या {originalValue} थी। अभियान के बाद, यह {increaseRate}% बढ़ गई। उपयोगकर्ताओं की नई संख्या ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-023": {
-        "template": "{wholeLabel} {originalValue} क्विंटल था। यह {increaseRate}% बढ़ गया। नई उत्पादन ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-051": {
-        "template": "{valuePrefix}{originalValue} का एक {wholeLabel} एक वर्ष में {increaseRate}% बढ़ जाता है। वृद्धि के बाद इसका मान ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-052": {
-        "template": "मासिक {wholeLabel} {valuePrefix}{originalValue} था। यह {increaseRate}% बढ़ गया। संशोधित {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-053": {
-        "template": "एक व्यापारी का {wholeLabel} {valuePrefix}{originalValue} है। यदि यह {increaseRate}% बढ़ता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-054": {
-        "template": "दर्ज किया गया {wholeLabel} {valuePrefix}{originalValue} था। {increaseRate}% की वृद्धि के बाद, अद्यतन {wholeLabel} क्या है?",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-055": {
-        "template": "एक फंड में {valuePrefix}{originalValue} का {wholeLabel} है। यदि यह {increaseRate}% बढ़ता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-056": {
-        "template": "एक शहर में {originalValue} {wholeLabel} हैं। यदि संख्या {increaseRate}% बढ़ जाती है, तो {wholeLabel} की नई संख्या ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-057": {
-        "template": "स्कूल में {originalValue} {wholeLabel} थे। {increaseRate}% की वृद्धि के बाद, {wholeLabel} की कुल संख्या ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-058": {
-        "template": "एक गोदाम में {originalValue} {wholeLabel} स्टोर किए गए थे। यदि स्टॉक {increaseRate}% बढ़ जाता है, तो नया स्टॉक ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-059": {
-        "template": "एक मार्ग पर {originalValue} {wholeLabel} ले जाए गए। यदि यह {increaseRate}% बढ़ जाता है, तो नई यात्री संख्या ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-060": {
-        "template": "एक कार्यालय में पिछले वर्ष {originalValue} {wholeLabel} थे। यदि गिनती {increaseRate}% बढ़ जाती है, तो इस वर्ष गिनती क्या है?",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-003": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} increased by {increaseRate}%. Find the increase amount only.", "difficulty": "Easy" },
-      "PCT-QL-004": { "template": "The {wholeLabel} was {originalValue} and it increased by {increaseRate}%. Find the increase count only.", "difficulty": "Easy" }
+      "PCT-QL-003": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-024": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-026": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-064": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-068": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-005": { "template": "After a {increaseRate}% increase, the {wholeLabel} became {valuePrefix}{increasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" },
-      "PCT-QL-006": { "template": "After a {increaseRate}% increase, the {wholeLabel} became {increasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" }
+      "PCT-QL-005": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-006": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-028": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-071": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-072": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-073": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-074": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-075": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-076": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-077": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-080": {
+        "template": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-007": { "template": "Find the equivalent multiplier for a {increaseRate}% increase in the {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-008": { "template": "A {wholeLabel} increases by {increaseRate}%. What multiplier represents this increase?", "difficulty": "Easy" }
+      "PCT-QL-007": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-008": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-030": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-031": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-032": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-081": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-082": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-083": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-084": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-085": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-089": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-090": {
+        "template": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-009": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Medium" },
-      "PCT-QL-010": { "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% and then by {rate2}%. Find the new {wholeLabel}.", "difficulty": "Medium" }
+      "PCT-QL-009": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-010": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-034": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-035": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-091": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-092": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-093": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-095": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-096": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-100": {
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-011": { "template": "A {wholeLabel} increased first by {rate1}% and then by {rate2}%. Find the overall percentage increase.", "difficulty": "Medium" },
-      "PCT-QL-012": { "template": "The {wholeLabel} increased by {rate1}% and then again by {rate2}%. Find the net percentage increase.", "difficulty": "Medium" }
+      "PCT-QL-011": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-012": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-036": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-101": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-107": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-108": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-109": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-110": {
+        "template": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-007": {
     "families": {
-      "PCT-QL-013": { "template": "{labelA} was {valuePrefix}{originalA} and increased by {rateA}%. {labelB} was {valuePrefix}{originalB} and increased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" },
-      "PCT-QL-014": { "template": "{labelA} was {originalA} and increased by {rateA}%. {labelB} was {originalB} and increased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" }
+      "PCT-QL-013": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-014": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-039": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-041": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-111": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-112": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-113": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-114": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-115": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-116": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-117": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-118": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-119": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-120": {
+        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-008": {
     "families": {
-      "PCT-QL-015": { "template": "In a group of {totalValue} {wholeLabel}, {partRate}% were {partLabel} and the rest were {otherLabel}. If the number of {partLabel} increased by {partIncreaseRate}% and the number of {otherLabel} increased by {otherIncreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" },
-      "PCT-QL-016": { "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel}. After increasing {partLabel} by {partIncreaseRate}% and {otherLabel} by {otherIncreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" }
+      "PCT-QL-015": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-016": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-042": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-043": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-044": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-122": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-123": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-124": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-125": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-127": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-128": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-130": {
+        "template": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-009": {
     "families": {
-      "PCT-QL-017": { "template": "The current {wholeLabel} is {valuePrefix}{currentValue} and it must become {valuePrefix}{targetValue}. Find the required percentage increase.", "difficulty": "Easy" },
-      "PCT-QL-018": { "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. Find the required percentage increase.", "difficulty": "Easy" }
+      "PCT-QL-017": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-045": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-046": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-138": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-010": {
     "families": {
-      "PCT-QL-019": { "template": "A {wholeLabel} of {currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" },
-      "PCT-QL-020": { "template": "A {wholeLabel} of {valuePrefix}{currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" }
+      "PCT-QL-019": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-048": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Hard"
+      }
     }
   }
 }

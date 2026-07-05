@@ -2,119 +2,641 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "ਇੱਕ {wholeLabel} {originalValue} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
-        "template": "ਪਿਛਲੇ ਮਹੀਨੇ {wholeLabel} {originalValue} ਇਕਾਈਆਂ ਸੀ। ਇਸ ਮਹੀਨੇ ਇਹ {increaseRate}% ਵਧ ਗਿਆ। ਇਸ ਮਹੀਨੇ ਦੀ ਖਪਤ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-022": {
-        "template": "ਮੁਹਿੰਮ ਤੋਂ ਪਹਿਲਾਂ {wholeLabel} ਦੀ ਗਿਣਤੀ {originalValue} ਸੀ। ਮੁਹਿੰਮ ਤੋਂ ਬਾਅਦ, ਇਹ {increaseRate}% ਵਧ ਗਈ। ਵਰਤੋਂਕਰਤਾਵਾਂ ਦੀ ਨਵੀਂ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-023": {
-        "template": "{wholeLabel} {originalValue} ਕੁਇੰਟਲ ਸੀ। ਇਹ {increaseRate}% ਵਧ ਗਿਆ। ਨਵੀਂ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-051": {
-        "template": "{valuePrefix}{originalValue} ਦਾ ਇੱਕ {wholeLabel} ਇੱਕ ਸਾਲ ਵਿੱਚ {increaseRate}% ਵਧ ਜਾਂਦਾ ਹੈ। ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਇਸਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-052": {
-        "template": "ਮਾਸਿਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {increaseRate}% ਵਧ ਗਿਆ। ਸੋਧਿਆ ਹੋਇਆ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-053": {
-        "template": "ਇੱਕ ਵਪਾਰੀ ਦਾ {wholeLabel} {valuePrefix}{originalValue} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-054": {
-        "template": "ਦਰਜ ਕੀਤਾ ਗਿਆ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ, ਅਪਡੇਟ ਕੀਤਾ {wholeLabel} ਕੀ ਹੈ?",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-055": {
-        "template": "ਇੱਕ ਫੰਡ ਵਿੱਚ {valuePrefix}{originalValue} ਦਾ {wholeLabel} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-056": {
-        "template": "ਇੱਕ ਸ਼ਹਿਰ ਵਿੱਚ {originalValue} {wholeLabel} ਹਨ। ਜੇ ਗਿਣਤੀ {increaseRate}% ਵਧ ਜਾਂਦੀ ਹੈ, ਤਾਂ {wholeLabel} ਦੀ ਨਵੀਂ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-057": {
-        "template": "ਸਕੂਲ ਵਿੱਚ {originalValue} {wholeLabel} ਸਨ। {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ, {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-058": {
-        "template": "ਇੱਕ ਗੋਦਾਮ ਵਿੱਚ {originalValue} {wholeLabel} ਸਟੋਰ ਕੀਤੇ ਗਏ ਸਨ। ਜੇ ਸਟਾਕ {increaseRate}% ਵਧ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਸਟਾਕ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-059": {
-        "template": "ਇੱਕ ਰੂਟ 'ਤੇ {originalValue} {wholeLabel} ਲਿਜਾਏ ਗਏ ਸਨ। ਜੇ ਇਹ {increaseRate}% ਵਧ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਨਵੀਂ ਯਾਤਰੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-060": {
-        "template": "ਇੱਕ ਦਫ਼ਤਰ ਵਿੱਚ ਪਿਛਲੇ ਸਾਲ {originalValue} {wholeLabel} ਸਨ। ਜੇ ਗਿਣਤੀ {increaseRate}% ਵਧ ਜਾਂਦੀ ਹੈ, ਤਾਂ ਇਸ ਸਾਲ ਗਿਣਤੀ ਕੀ ਹੈ?",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-003": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} increased by {increaseRate}%. Find the increase amount only.", "difficulty": "Easy" },
-      "PCT-QL-004": { "template": "The {wholeLabel} was {originalValue} and it increased by {increaseRate}%. Find the increase count only.", "difficulty": "Easy" }
+      "PCT-QL-003": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-024": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-026": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-064": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-068": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-005": { "template": "After a {increaseRate}% increase, the {wholeLabel} became {valuePrefix}{increasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" },
-      "PCT-QL-006": { "template": "After a {increaseRate}% increase, the {wholeLabel} became {increasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" }
+      "PCT-QL-005": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-006": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-028": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-071": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-072": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-073": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-074": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-075": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-076": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-077": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-080": {
+        "template": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-007": { "template": "Find the equivalent multiplier for a {increaseRate}% increase in the {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-008": { "template": "A {wholeLabel} increases by {increaseRate}%. What multiplier represents this increase?", "difficulty": "Easy" }
+      "PCT-QL-007": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-008": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-030": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-031": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-032": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-081": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-082": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-083": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-084": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-085": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-089": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-090": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-009": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first increased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Medium" },
-      "PCT-QL-010": { "template": "The {wholeLabel} was {originalValue}. It increased by {rate1}% and then by {rate2}%. Find the new {wholeLabel}.", "difficulty": "Medium" }
+      "PCT-QL-009": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-010": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-034": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-035": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-091": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-092": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-093": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-095": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-096": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-100": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-011": { "template": "A {wholeLabel} increased first by {rate1}% and then by {rate2}%. Find the overall percentage increase.", "difficulty": "Medium" },
-      "PCT-QL-012": { "template": "The {wholeLabel} increased by {rate1}% and then again by {rate2}%. Find the net percentage increase.", "difficulty": "Medium" }
+      "PCT-QL-011": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-012": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-036": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-101": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-107": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-108": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-109": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-110": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-007": {
     "families": {
-      "PCT-QL-013": { "template": "{labelA} was {valuePrefix}{originalA} and increased by {rateA}%. {labelB} was {valuePrefix}{originalB} and increased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" },
-      "PCT-QL-014": { "template": "{labelA} was {originalA} and increased by {rateA}%. {labelB} was {originalB} and increased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" }
+      "PCT-QL-013": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-014": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-039": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-041": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-111": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-112": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-113": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-114": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-115": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-116": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-117": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-118": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-119": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-120": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-008": {
     "families": {
-      "PCT-QL-015": { "template": "In a group of {totalValue} {wholeLabel}, {partRate}% were {partLabel} and the rest were {otherLabel}. If the number of {partLabel} increased by {partIncreaseRate}% and the number of {otherLabel} increased by {otherIncreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" },
-      "PCT-QL-016": { "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel}. After increasing {partLabel} by {partIncreaseRate}% and {otherLabel} by {otherIncreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" }
+      "PCT-QL-015": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-016": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-042": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-043": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-044": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-122": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-123": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-124": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-125": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-127": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-128": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-130": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-009": {
     "families": {
-      "PCT-QL-017": { "template": "The current {wholeLabel} is {valuePrefix}{currentValue} and it must become {valuePrefix}{targetValue}. Find the required percentage increase.", "difficulty": "Easy" },
-      "PCT-QL-018": { "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. Find the required percentage increase.", "difficulty": "Easy" }
+      "PCT-QL-017": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-045": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-046": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-138": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-010": {
     "families": {
-      "PCT-QL-019": { "template": "A {wholeLabel} of {currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" },
-      "PCT-QL-020": { "template": "A {wholeLabel} of {valuePrefix}{currentValue} grows by {growthRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" }
+      "PCT-QL-019": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-048": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   }
 }

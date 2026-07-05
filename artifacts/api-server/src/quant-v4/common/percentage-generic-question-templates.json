@@ -1,0 +1,80 @@
+{
+  "PCT-003": {
+    "hi": {
+      "PCT-CP-001": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-002": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {increaseRate}% की वृद्धि होती है, तो केवल वृद्धि की मात्रा ज्ञात कीजिए।",
+      "PCT-CP-003": "यदि {increaseRate}% की वृद्धि के बाद {wholeLabel} {valuePrefix}{increasedValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-004": "यदि {wholeLabel} में {increaseRate}% की वृद्धि हो, तो उसका गुणक ज्ञात कीजिए।",
+      "PCT-CP-005": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-006": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की वृद्धि होती है, तो कुल प्रतिशत वृद्धि ज्ञात कीजिए।",
+      "PCT-CP-007": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की वृद्धि हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की वृद्धि हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+      "PCT-CP-008": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partIncreaseRate}% और {otherLabel} की संख्या {otherIncreaseRate}% बढ़ती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+      "PCT-CP-009": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है और लक्ष्य {valuePrefix}{targetValue} है, तो आवश्यक प्रतिशत वृद्धि ज्ञात कीजिए।",
+      "PCT-CP-010": "यदि {wholeLabel} {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {growthRate}% की दर से {periodCount} अवधियों तक बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।"
+    },
+    "pa": {
+      "PCT-CP-001": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-002": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਵਾਧੇ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+      "PCT-CP-003": "ਜੇ {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ {wholeLabel} {valuePrefix}{increasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-004": "ਜੇ {wholeLabel} ਵਿੱਚ {increaseRate}% ਦਾ ਵਾਧਾ ਹੋਵੇ, ਤਾਂ ਉਸਦਾ ਗੁਣਕ ਲੱਭੋ।",
+      "PCT-CP-005": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-006": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+      "PCT-CP-007": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦਾ ਵਾਧਾ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦਾ ਵਾਧਾ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+      "PCT-CP-008": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partIncreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherIncreaseRate}% ਵੱਧਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+      "PCT-CP-009": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਲਕਸ਼ {valuePrefix}{targetValue} ਹੈ, ਤਾਂ ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਲੱਭੋ।",
+      "PCT-CP-010": "ਜੇ {wholeLabel} {valuePrefix}{currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {growthRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਵੱਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।"
+    }
+  },
+  "PCT-004": {
+    "hi": {
+      "PCT-CP-001": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-002": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+      "PCT-CP-003": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-004": "यदि {wholeLabel} में {decreaseRate}% की कमी हो, तो शेष मान का गुणक ज्ञात कीजिए।",
+      "PCT-CP-005": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-006": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% की कमी होती है, तो कुल प्रतिशत कमी ज्ञात कीजिए।",
+      "PCT-CP-007": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+      "PCT-CP-008": "कुल {totalValue} {wholeLabel} में से {partRate}% {partLabel} थे और शेष {otherLabel} थे। यदि {partLabel} की संख्या {partDecreaseRate}% और {otherLabel} की संख्या {otherDecreaseRate}% घटती है, तो {partLabel} का नया प्रतिशत ज्ञात कीजिए।",
+      "PCT-CP-009": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+      "PCT-CP-010": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।"
+    },
+    "pa": {
+      "PCT-CP-001": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-002": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+      "PCT-CP-003": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-004": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+      "PCT-CP-005": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-006": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+      "PCT-CP-007": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+      "PCT-CP-008": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+      "PCT-CP-009": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+      "PCT-CP-010": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।"
+    }
+  },
+  "PCT-005": {
+    "hi": {
+      "PCT-CP-001": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-002": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-003": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% की वृद्धि तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-004": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% की कमी तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-005": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% का क्रमिक परिवर्तन होता है, तो कुल प्रतिशत परिवर्तन ज्ञात कीजिए।",
+      "PCT-CP-006": "यदि {wholeLabel} में पहले {rate1}% और फिर {rate2}% का क्रमिक परिवर्तन होता है, तो समतुल्य एकल गुणक ज्ञात कीजिए।",
+      "PCT-CP-007": "यदि क्रमिक परिवर्तनों {rate1}% और {rate2}% के बाद अंतिम {wholeLabel} {finalValue} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-008": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+      "PCT-CP-009": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+      "PCT-CP-010": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।"
+    },
+    "pa": {
+      "PCT-CP-001": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-002": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-003": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਦਾ ਵਾਧਾ ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-004": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਦੀ ਘਾਟ ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-005": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਕ੍ਰਮਿਕ ਬਦਲਾਅ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ ਲੱਭੋ।",
+      "PCT-CP-006": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਕ੍ਰਮਿਕ ਬਦਲਾਅ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਸਮਤੁੱਲ ਇਕੱਲਾ ਗੁਣਕ ਲੱਭੋ।",
+      "PCT-CP-007": "ਜੇ ਕ੍ਰਮਿਕ ਬਦਲਾਵਾਂ {rate1}% ਅਤੇ {rate2}% ਤੋਂ ਬਾਅਦ ਅੰਤਿਮ {wholeLabel} {finalValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-008": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+      "PCT-CP-009": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+      "PCT-CP-010": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।"
+    }
+  }
+}

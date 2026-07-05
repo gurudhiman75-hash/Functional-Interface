@@ -96,7 +96,7 @@ assert.equal(audit.libraryValidationFailures.length, 0);
 
 for (const cpId of PCT_005_CP_IDS) {
   assert.equal(getQuestionLanguageIds(cpId, "en").length, 15, `${cpId} must expose fifteen English QL IDs`);
-  assert.equal(getCommonQuestionLanguageIds(cpId).length, 2, `${cpId} must expose two shared QL IDs`);
+  assert.equal(getCommonQuestionLanguageIds(cpId).length, 15, `${cpId} must expose fifteen shared QL IDs`);
 }
 
 for (let index = 0; index < 40; index += 1) {
@@ -139,5 +139,21 @@ for (let index = 0; index < 80; index += 1) {
   assert.ok(!pkg.stem.includes("School An attendance"));
   assert.ok(!pkg.explanation.lines.join("\n").includes("School An attendance"));
 }
+
+const hiPkg005 = runPct005Pipeline("PCT-CP-001", {
+  language: "hi",
+  questionLanguageId: "PCT-QL-001",
+  seed: "pct-005-hi-localization",
+});
+assert.equal(hiPkg005.parameters.language, "hi");
+assert.ok(!/\b(First|Now|Therefore|So the|required|increase|decrease|multiplier)\b/.test(hiPkg005.explanation.lines.join(" ")));
+
+const paPkg005 = runPct005Pipeline("PCT-CP-008", {
+  language: "pa",
+  questionLanguageId: "PCT-QL-020",
+  seed: "pct-005-pa-localization",
+});
+assert.equal(paPkg005.parameters.language, "pa");
+assert.ok(!/\b(First|Now|Therefore|So the|required|increase|decrease|multiplier)\b/.test(paPkg005.explanation.lines.join(" ")));
 
 console.log("PCT-005 first-pass implementation test passed.");

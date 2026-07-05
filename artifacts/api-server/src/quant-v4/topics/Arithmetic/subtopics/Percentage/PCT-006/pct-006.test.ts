@@ -136,4 +136,22 @@ for (let index = 0; index < 20; index += 1) {
   assert.ok(pkg.explanation.lines.every((line, lineIndex) => lineIndex % 2 === 0 || line.includes("\\Rightarrow")));
 }
 
+const hiPkg006 = runPct006Pipeline("PCT-CP-008", {
+  language: "hi",
+  questionLanguageId: "PCT-QL-351",
+  seed: "pct-006-hi-localization",
+});
+assert.equal(hiPkg006.parameters.language, "hi");
+assert.ok(!/\b(First|Now|Therefore|So the|required|greater by|less than|percentage points)\b/.test(hiPkg006.explanation.lines.join(" ")));
+assert.ok(!/\b(is greater by|less than|are equal|percentage points)\b/.test(hiPkg006.answer));
+
+const paPkg006 = runPct006Pipeline("PCT-CP-009", {
+  language: "pa",
+  questionLanguageId: "PCT-QL-421",
+  seed: "pct-006-pa-localization",
+});
+assert.equal(paPkg006.parameters.language, "pa");
+assert.ok(!/\b(First|Now|Therefore|So the|required|greater by|less than|percentage points)\b/.test(paPkg006.explanation.lines.join(" ")));
+assert.ok(!/\b(percentage points|and)\b/.test(paPkg006.answer));
+
 console.log("PCT-006 implementation test passed.");

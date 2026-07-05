@@ -1,18 +1,16 @@
 import {
   getAnswerType,
-  getCommonQuestionLanguageIds,
   getQuestionLanguageIds,
   getExplanationId,
   getQuestionEntry,
   getRequiredVariables,
   getTaskKind,
 } from "./library";
-import type { EntityReference } from "../../../../../../common/entity-types";
 import {
   getLocalizedQuestionLanguageIds,
   isQlLocalized,
-  resolveEntityLabels,
 } from "../../../../../../common/language-coverage";
+import { localizePercentageLabelFields } from "../../../../../../common/percentage-label-localization";
 import { stableBucket } from "./math";
 import {
   PCT_003_ARCHETYPE_ID,
@@ -122,7 +120,11 @@ function constrainDiscreteCountVariables(
 }
 
 export function getSelectableQuestionLanguageIds(cpId: Pct003CanonicalProblemId, language: Pct003Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds(
+    "PCT-003",
+    language,
+    getQuestionLanguageIds(cpId, "en"),
+  );
 }
 
 function assignDifficulty(cpId: Pct003CanonicalProblemId, language: Pct003Language, seed: string): Pct003DifficultyBand {
@@ -542,18 +544,28 @@ const SCENARIO_VARIABLE_OVERRIDES: Record<string, Partial<Pct003Variables>> = {
   "PCT-QL-150": { wholeLabel: "fund value" },
 };
 
-function createVariables(questionLanguageId: string, difficultyBand: Pct003DifficultyBand, seed: string) {
+function createVariables(
+  questionLanguageId: string,
+  difficultyBand: Pct003DifficultyBand,
+  seed: string,
+  language: Pct003Language,
+) {
   const builderId = SCENARIO_ALIASES[questionLanguageId] ?? questionLanguageId;
   const builder = SCENARIO_BUILDERS[builderId];
   if (!builder) throw new Error(`Missing scenario builder for ${questionLanguageId}`);
   const mergedVariables = {
+    valuePrefix: "",
     ...builder(difficultyBand, seed),
     ...(SCENARIO_VARIABLE_OVERRIDES[questionLanguageId] ?? {}),
   };
-  return constrainDiscreteCountVariables(
-    builderId,
-    mergedVariables,
-    `${seed}:${questionLanguageId}`,
+  return localizePercentageLabelFields(
+    constrainDiscreteCountVariables(
+      builderId,
+      mergedVariables,
+      `${seed}:${questionLanguageId}`,
+    ),
+    language,
+    LABEL_FIELDS,
   );
 }
 
@@ -576,12 +588,19 @@ export function generatePct003Parameters(cpId: Pct003CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+
+  if (!isQlLocalized("PCT-003", questionLanguageId, language)) {
+    throw new Error(
+      `Question language ${questionLanguageId} is not localized for ${language} in PCT-003.`,
+    );
+  }
+
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
   const resolvedDifficulty = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
-  const variables = createVariables(questionLanguageId, resolvedDifficulty, seed);
+  const variables = createVariables(questionLanguageId, resolvedDifficulty, seed, language);
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {
@@ -602,8 +621,8 @@ export function generatePct003Parameters(cpId: Pct003CanonicalProblemId, input: 
     requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

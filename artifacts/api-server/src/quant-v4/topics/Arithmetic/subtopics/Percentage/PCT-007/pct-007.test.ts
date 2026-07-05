@@ -183,4 +183,21 @@ for (let index = 0; index < 20; index += 1) {
   assert.ok(pkg.explanation.lines.every((line, lineIndex) => lineIndex % 2 === 0 || line.includes("\\Rightarrow")));
 }
 
+const hiPkg007 = runPct007Pipeline("PCT-CP-010", {
+  language: "hi",
+  questionLanguageId: "PCT-QL-491",
+  seed: "pct-007-hi-localization",
+});
+assert.equal(hiPkg007.parameters.language, "hi");
+assert.ok(!/\b(First|Now|Therefore|So the|required|greater by|and are equal)\b/.test(hiPkg007.explanation.lines.join(" ")));
+assert.ok(!/\b(is greater by|are equal)\b/.test(hiPkg007.answer));
+
+const paPkg007 = runPct007Pipeline("PCT-CP-006", {
+  language: "pa",
+  questionLanguageId: "PCT-QL-291",
+  seed: "pct-007-pa-localization",
+});
+assert.equal(paPkg007.parameters.language, "pa");
+assert.ok(!/\b(First|Now|Therefore|So the|required|greater by|and are equal)\b/.test(paPkg007.explanation.lines.join(" ")));
+
 console.log("PCT-007 implementation test passed.");

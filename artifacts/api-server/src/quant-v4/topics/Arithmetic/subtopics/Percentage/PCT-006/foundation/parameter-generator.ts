@@ -1,6 +1,5 @@
 import {
   getAnswerType,
-  getCommonQuestionLanguageIds,
   getContextTag,
   getExplanationId,
   getQuestionEntry,
@@ -9,6 +8,8 @@ import {
   getSolveMode,
   getTaskKind,
 } from "./library";
+import { getLocalizedQuestionLanguageIds, isQlLocalized } from "../../../../../../common/language-coverage";
+import { localizePercentageLabelFields } from "../../../../../../common/percentage-label-localization";
 import { stableBucket } from "./math";
 import {
   PCT_006_ARCHETYPE_ID,
@@ -38,6 +39,8 @@ type ContextDefinition = {
   scalePool: number[];
   pairMultiplier: number;
 };
+
+type NonEnglishLanguage = Exclude<Pct006Language, "en">;
 
 type CrossBaseCandidate = {
   rate1: number;
@@ -248,7 +251,7 @@ function pick<T>(items: readonly T[], seed: string): T {
 }
 
 function getSelectableQuestionLanguageIds(cpId: Pct006CanonicalProblemId, language: Pct006Language) {
-  return language === "en" ? getQuestionLanguageIds(cpId, "en") : getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds("PCT-006", language, getQuestionLanguageIds(cpId, "en"));
 }
 
 function assignDifficulty(cpId: Pct006CanonicalProblemId, language: Pct006Language, seed: string): Pct006DifficultyBand {
@@ -257,9 +260,65 @@ function assignDifficulty(cpId: Pct006CanonicalProblemId, language: Pct006Langua
   return getQuestionEntry(cpId, qlId, language).difficulty;
 }
 
-function baseContextVariables(contextTag: string): Pct006Variables {
+const LABEL_FIELDS = ["wholeLabel", "unitLabel"] as const;
+
+function buildLocalizedSubjectPhrase(
+  subject: string,
+  contextTag: string,
+  language: NonEnglishLanguage,
+) {
+  if (language === "hi") {
+    switch (contextTag) {
+      case "salary":
+        return `${subject} का वेतन`;
+      case "marks":
+        return `${subject} के अंक`;
+      case "population":
+        return `${subject} की जनसंख्या`;
+      case "production":
+        return `${subject} का उत्पादन`;
+      case "price":
+        return `${subject} की कीमत`;
+      case "sales":
+        return `${subject} की बिक्री`;
+      case "attendance":
+        return `${subject} की उपस्थिति`;
+      case "stock":
+        return `${subject} का स्टॉक`;
+      case "passengers":
+        return `${subject} के यात्री`;
+      case "usage":
+        return `${subject} की मासिक खपत`;
+    }
+  }
+
+  switch (contextTag) {
+    case "salary":
+      return `${subject} ਦੀ ਤਨਖ਼ਾਹ`;
+    case "marks":
+      return `${subject} ਦੇ ਅੰਕ`;
+    case "population":
+      return `${subject} ਦੀ ਆਬਾਦੀ`;
+    case "production":
+      return `${subject} ਦਾ ਉਤਪਾਦਨ`;
+    case "price":
+      return `${subject} ਦੀ ਕੀਮਤ`;
+    case "sales":
+      return `${subject} ਦੀ ਵਿਕਰੀ`;
+    case "attendance":
+      return `${subject} ਦੀ ਹਾਜ਼ਰੀ`;
+    case "stock":
+      return `${subject} ਦਾ ਸਟਾਕ`;
+    case "passengers":
+      return `${subject} ਦੇ ਯਾਤਰੀ`;
+    case "usage":
+      return `${subject} ਦੀ ਮਹੀਨਾਵਾਰ ਵਰਤੋਂ`;
+  }
+}
+
+function baseContextVariables(contextTag: string, language: Pct006Language): Pct006Variables {
   const context = CONTEXTS[contextTag];
-  return {
+  const variables = {
     subjectA: context.subjectA,
     subjectB: context.subjectB,
     subjectC: context.subjectC,
@@ -267,29 +326,39 @@ function baseContextVariables(contextTag: string): Pct006Variables {
     valuePrefix: context.valuePrefix,
     unitLabel: context.unitLabel,
   };
+  if (language === "en") {
+    return localizePercentageLabelFields(variables, language, LABEL_FIELDS);
+  }
+
+  return {
+    ...localizePercentageLabelFields(variables, language, LABEL_FIELDS),
+    subjectAPhrase: buildLocalizedSubjectPhrase(context.subjectA, contextTag, language),
+    subjectBPhrase: buildLocalizedSubjectPhrase(context.subjectB, contextTag, language),
+    subjectCPhrase: buildLocalizedSubjectPhrase(context.subjectC, contextTag, language),
+  };
 }
 
-function buildMoreComparison(contextTag: string, solveMode: Pct006SolveMode, seed: string): Pct006Variables {
+function buildMoreComparison(contextTag: string, solveMode: Pct006SolveMode, seed: string, language: Pct006Language): Pct006Variables {
   const context = CONTEXTS[contextTag];
   const ratioCase = pick(MORE_THAN_CASES, `${seed}:case`);
   const scale = pick(context.scalePool, `${seed}:scale`);
   const base = ratioCase.denominator * scale;
   const greater = ratioCase.numerator * scale;
   return {
-    ...baseContextVariables(contextTag),
+    ...baseContextVariables(contextTag, language),
     percentageRate: ratioCase.rate,
     baseValue: solveMode === "moreFindBase" ? greater : base,
   };
 }
 
-function buildLessComparison(contextTag: string, solveMode: Pct006SolveMode, seed: string): Pct006Variables {
+function buildLessComparison(contextTag: string, solveMode: Pct006SolveMode, seed: string, language: Pct006Language): Pct006Variables {
   const context = CONTEXTS[contextTag];
   const ratioCase = pick(LESS_THAN_CASES, `${seed}:case`);
   const scale = pick(context.scalePool, `${seed}:scale`);
   const higher = ratioCase.denominator * scale;
   const lower = ratioCase.numerator * scale;
   return {
-    ...baseContextVariables(contextTag),
+    ...baseContextVariables(contextTag, language),
     percentageRate: ratioCase.rate,
     baseValue: solveMode === "lessFindBase" ? lower : higher,
   };
@@ -391,13 +460,13 @@ function buildIntegerSafeFinalComparisonCandidate(
   return pick(candidates, `${seed}:integer-safe-final-comparison`);
 }
 
-function buildCrossBaseVariables(contextTag: string, seed: string): Pct006Variables {
+function buildCrossBaseVariables(contextTag: string, seed: string, language: Pct006Language): Pct006Variables {
   const context = CONTEXTS[contextTag];
   if (isIntegerSafeCountContext(contextTag)) {
     const candidate = buildIntegerSafeCrossBaseCandidate(contextTag, seed);
     if (candidate) {
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         rate1: candidate.rate1,
         rate2: candidate.rate2,
         baseValue1: candidate.baseValue1,
@@ -413,7 +482,7 @@ function buildCrossBaseVariables(contextTag: string, seed: string): Pct006Variab
     baseValue2 = basePool[(stableBucket(`${seed}:fallback`, basePool.length - 1) + 1) % basePool.length]!;
   }
   return {
-    ...baseContextVariables(contextTag),
+    ...baseContextVariables(contextTag, language),
     rate1: pick([40, 50, 60, 70, 75, 80, 90], `${seed}:rate1`),
     rate2: pick([40, 50, 60, 70, 75, 80, 90], `${seed}:rate2`),
     baseValue1,
@@ -426,15 +495,16 @@ function buildVariables(
   solveMode: Pct006SolveMode,
   contextTag: string,
   seed: string,
+  language: Pct006Language,
 ): Pct006Variables {
   switch (cpId) {
     case "PCT-CP-001":
-      return buildMoreComparison(contextTag, solveMode, seed);
+      return buildMoreComparison(contextTag, solveMode, seed, language);
     case "PCT-CP-002":
-      return buildLessComparison(contextTag, solveMode, seed);
+      return buildLessComparison(contextTag, solveMode, seed, language);
     case "PCT-CP-003":
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         percentageRate:
           solveMode === "reverseLessFromMore"
             ? pick(MORE_THAN_CASES, `${seed}:moreRate`).rate
@@ -443,7 +513,7 @@ function buildVariables(
     case "PCT-CP-004": {
       const [value1, value2] = buildValuePair(contextTag, seed);
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         value1,
         value2,
       };
@@ -465,7 +535,7 @@ function buildVariables(
         `${seed}:ratio`,
       );
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         ratioA: ratios[0],
         ratioB: ratios[1],
       };
@@ -473,7 +543,7 @@ function buildVariables(
     case "PCT-CP-006": {
       const [smaller, larger] = buildValuePair(contextTag, seed);
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         value1: solveMode === "requiredIncreaseToTarget" ? smaller : larger,
         value2: solveMode === "requiredIncreaseToTarget" ? larger : smaller,
       };
@@ -488,7 +558,7 @@ function buildVariables(
         ? [countSafeCandidate.value1, countSafeCandidate.value2] as const
         : buildComparisonPair(contextTag, seed);
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         value1,
         value2,
         rate1: countSafeCandidate
@@ -508,7 +578,7 @@ function buildVariables(
     case "PCT-CP-008": {
       const pair = pick(CHAIN_CASES[solveMode], `${seed}:chain`);
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         rate1: pair[0],
         rate2: pair[1],
       };
@@ -516,13 +586,13 @@ function buildVariables(
     case "PCT-CP-009": {
       const pair = pick(PERCENTAGE_POINT_CASES, `${seed}:pointPair`);
       return {
-        ...baseContextVariables(contextTag),
+        ...baseContextVariables(contextTag, language),
         oldRate: pair[0],
         newRate: pair[1],
       };
     }
     case "PCT-CP-010":
-      return buildCrossBaseVariables(contextTag, seed);
+      return buildCrossBaseVariables(contextTag, seed, language);
   }
 }
 
@@ -545,6 +615,9 @@ export function generatePct006Parameters(cpId: Pct006CanonicalProblemId, input: 
   const language = input.language ?? "en";
   const difficultyBand = input.difficultyBand ?? assignDifficulty(cpId, language, seed);
   const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, seed, difficultyBand);
+  if (!isQlLocalized("PCT-006", questionLanguageId, language)) {
+    throw new Error(`Question language ${language}:${questionLanguageId} is not localized for PCT-006.`);
+  }
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
   const resolvedDifficulty = questionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
@@ -552,7 +625,7 @@ export function generatePct006Parameters(cpId: Pct006CanonicalProblemId, input: 
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const contextTag = getContextTag(cpId, questionLanguageId);
-  const variables = buildVariables(cpId, solveMode, contextTag, seed);
+  const variables = buildVariables(cpId, solveMode, contextTag, seed, language);
 
   for (const requiredVariable of requiredVariables) {
     if (!Object.hasOwn(variables, requiredVariable)) {
@@ -574,8 +647,8 @@ export function generatePct006Parameters(cpId: Pct006CanonicalProblemId, input: 
     requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

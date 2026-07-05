@@ -1,62 +1,642 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": { "template": "The {wholeLabel} decreased by {decreaseRate}%. If the original {wholeLabel} was {valuePrefix}{originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-002": { "template": "The {wholeLabel} decreased by {decreaseRate}%. If the original {wholeLabel} was {originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" }
+      "PCT-QL-001": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-059": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-002": {
     "families": {
-      "PCT-QL-003": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} decreased by {decreaseRate}%. Find the decrease amount only.", "difficulty": "Easy" },
-      "PCT-QL-004": { "template": "The {wholeLabel} was {originalValue} and it decreased by {decreaseRate}%. Find the decrease count only.", "difficulty": "Easy" }
+      "PCT-QL-003": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-004": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-024": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-025": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-026": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-061": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-062": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-063": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-064": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-065": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-066": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-067": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-068": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-069": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-070": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਸਿਰਫ਼ ਘਾਟ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-003": {
     "families": {
-      "PCT-QL-005": { "template": "After a {decreaseRate}% decrease, the {wholeLabel} became {decreasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" },
-      "PCT-QL-006": { "template": "After a {decreaseRate}% decrease, the {wholeLabel} became {decreasedValue}. Find the original {wholeLabel}.", "difficulty": "Medium" }
+      "PCT-QL-005": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-006": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-027": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-028": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-029": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-071": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-072": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-073": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-074": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-075": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-076": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-077": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-078": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-079": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-080": {
+        "template": "ਜੇ {decreaseRate}% ਦੀ ਘਾਟ ਤੋਂ ਬਾਅਦ {wholeLabel} {decreasedValue} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-004": {
     "families": {
-      "PCT-QL-007": { "template": "Find the decrease multiplier for a {decreaseRate}% decrease in the {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-008": { "template": "A {wholeLabel} decreases by {decreaseRate}%. What multiplier represents this decrease?", "difficulty": "Easy" }
+      "PCT-QL-007": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-008": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-030": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-031": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-032": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-081": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-082": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-083": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-084": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-085": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-086": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-087": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-088": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-089": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-090": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {decreaseRate}% ਦੀ ਘਾਟ ਹੋਵੇ, ਤਾਂ ਬਚੇ ਹੋਏ ਮਾਨ ਦਾ ਗੁਣਕ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-005": {
     "families": {
-      "PCT-QL-009": { "template": "A {wholeLabel} of {valuePrefix}{originalValue} first decreased by {rate1}% and then by {rate2}%. Find the final {wholeLabel}.", "difficulty": "Medium" },
-      "PCT-QL-010": { "template": "The {wholeLabel} was {originalValue}. It decreased by {rate1}% and then by {rate2}%. Find the new {wholeLabel}.", "difficulty": "Medium" }
+      "PCT-QL-009": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-010": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-033": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-034": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-035": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-091": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-092": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-093": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-094": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-095": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-096": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-097": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-098": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-099": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-100": {
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-006": {
     "families": {
-      "PCT-QL-011": { "template": "A {wholeLabel} decreased first by {rate1}% and then by {rate2}%. Find the overall percentage decrease.", "difficulty": "Medium" },
-      "PCT-QL-012": { "template": "The {wholeLabel} decreased by {rate1}% and then again by {rate2}%. Find the net percentage decrease.", "difficulty": "Medium" }
+      "PCT-QL-011": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-012": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-036": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-037": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-038": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-101": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-102": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-103": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-104": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-105": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-106": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-107": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-108": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-109": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-110": {
+        "template": "ਜੇ {wholeLabel} ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-007": {
     "families": {
-      "PCT-QL-013": { "template": "{labelA} was {valuePrefix}{originalA} and decreased by {rateA}%. {labelB} was {valuePrefix}{originalB} and decreased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" },
-      "PCT-QL-014": { "template": "{labelA} was {originalA} and decreased by {rateA}%. {labelB} was {originalB} and decreased by {rateB}%. Find the difference between their new values.", "difficulty": "Hard" }
+      "PCT-QL-013": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-014": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-039": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-040": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-041": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-111": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-112": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-113": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-114": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-115": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-116": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-117": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-118": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-119": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-120": {
+        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateA}% ਦੀ ਘਾਟ ਹੋਈ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ {rateB}% ਦੀ ਘਾਟ ਹੋਈ। ਉਨ੍ਹਾਂ ਦੇ ਨਵੇਂ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-008": {
     "families": {
-      "PCT-QL-015": { "template": "In a group of {totalValue} {wholeLabel}, {partRate}% were {partLabel} and the rest were {otherLabel}. If the number of {partLabel} decreased by {partDecreaseRate}% and the number of {otherLabel} decreased by {otherDecreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" },
-      "PCT-QL-016": { "template": "Out of {totalValue} {wholeLabel}, {partRate}% were {partLabel}. After decreasing {partLabel} by {partDecreaseRate}% and {otherLabel} by {otherDecreaseRate}%, find the new percentage of {partLabel}.", "difficulty": "Hard" }
+      "PCT-QL-015": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-016": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-042": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-043": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-044": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-121": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-122": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-123": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-124": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-125": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-126": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-127": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-128": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-129": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-130": {
+        "template": "ਕੁੱਲ {totalValue} {wholeLabel} ਵਿੱਚੋਂ {partRate}% {partLabel} ਸਨ ਅਤੇ ਬਾਕੀ {otherLabel} ਸਨ। ਜੇ {partLabel} ਦੀ ਗਿਣਤੀ {partDecreaseRate}% ਅਤੇ {otherLabel} ਦੀ ਗਿਣਤੀ {otherDecreaseRate}% ਘਟਦੀ ਹੈ, ਤਾਂ {partLabel} ਦਾ ਨਵਾਂ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   },
   "PCT-CP-009": {
     "families": {
-      "PCT-QL-017": { "template": "The current {wholeLabel} is {valuePrefix}{currentValue} and it must become {valuePrefix}{targetValue}. Find the required percentage decrease.", "difficulty": "Easy" },
-      "PCT-QL-018": { "template": "The current {wholeLabel} is {currentValue} and the target is {targetValue}. Find the required percentage decrease.", "difficulty": "Easy" }
+      "PCT-QL-017": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-018": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-045": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-046": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-047": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-131": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-132": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-133": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-134": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-135": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-136": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-137": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-138": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-139": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-140": {
+        "template": "ਜੇ ਮੌਜੂਦਾ {wholeLabel} {valuePrefix}{currentValue} ਹੈ, ਤਾਂ ਇਸ ਨੂੰ {valuePrefix}{targetValue} ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਲੱਭੋ।",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-010": {
     "families": {
-      "PCT-QL-019": { "template": "An {wholeLabel} of {currentValue} decreases by {decreaseRate}% every month. Find the {wholeLabel} after {periodCount} months.", "difficulty": "Medium" },
-      "PCT-QL-020": { "template": "An {wholeLabel} of {valuePrefix}{currentValue} decreases by {decreaseRate}% every year. Find the {wholeLabel} after {periodCount} years.", "difficulty": "Medium" }
+      "PCT-QL-019": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-020": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-048": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-049": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-050": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-141": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-142": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-143": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-144": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-145": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-146": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-147": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-148": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-149": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      },
+      "PCT-QL-150": {
+        "template": "ਜੇ {wholeLabel} ਇਸ ਵੇਲੇ {currentValue} ਹੈ ਅਤੇ ਇਹ ਹਰ ਅਵਧੀ ਵਿੱਚ {decreaseRate}% ਦੀ ਦਰ ਨਾਲ {periodCount} ਅਵਧੀਆਂ ਤੱਕ ਘਟਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "difficulty": "Hard"
+      }
     }
   }
 }
