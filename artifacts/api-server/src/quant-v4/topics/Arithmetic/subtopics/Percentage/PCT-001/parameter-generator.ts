@@ -194,6 +194,16 @@ function constrainVariables(
     const originalValue = pick([100, 200, 300, 400, 500, 600, 800, 1000, 1200, 1500, 2000, 2500, 3000, 4000, 5000, 10000], `${seed}:orig`);
     output.value = Math.round(originalValue * percentageRate / 100);
   }
+  if (taskKind === "differenceOfPercents") {
+    const ratePool = [10, 15, 20, 25, 30, 40, 45, 50, 60, 80];
+    const rate1 = Number(output.rate1 ?? variableDomain("rate1", difficulty, `${seed}:rate1`));
+    const distinctRate2 = ratePool.filter((rate) => rate !== rate1);
+    output.rate1 = rate1;
+    output.rate2 = pick(
+      (distinctRate2.length > 0 ? distinctRate2 : [rate1 + 5]) as readonly number[],
+      `${seed}:rate2`,
+    );
+  }
   if (taskKind === "passMarks") {
     const passRate = variableDomain("passRate", difficulty, `${seed}:rate`);
     output.passRate = passRate;
@@ -309,7 +319,7 @@ export function selectQuestionLanguageId(
     throw new Error(`No localized question languages available for ${language}:${cpId} in PCT-001.`);
   }
   const filtered = difficultyBand
-    ? ids.filter((questionLanguageId) => getQuestionEntry(cpId, questionLanguageId, language).difficulty === difficultyBand)
+    ? ids.filter((questionLanguageId) => getQuestionEntry(cpId, questionLanguageId, "en").difficulty === difficultyBand)
     : ids;
   const source = filtered.length > 0 ? filtered : ids;
   return source[stableBucket(seed, source.length)]!;
@@ -341,7 +351,7 @@ function selectCompatibleQuestionLanguageId(
       sharedRegistryEntry.taskKind === requestedRegistryEntry.taskKind &&
       sharedRegistryEntry.answerType === requestedRegistryEntry.answerType &&
       arraysEqual(sharedRegistryEntry.requiredVariables, requestedRegistryEntry.requiredVariables) &&
-      getQuestionEntry(cpId, questionLanguageId, language).difficulty === requestedDifficulty
+      getQuestionEntry(cpId, questionLanguageId, "en").difficulty === requestedDifficulty
     );
   });
 
@@ -401,8 +411,9 @@ export function generatePct001Parameters(cpId: Pct001CanonicalProblemId, input: 
         ? (selectCompatibleQuestionLanguageId(cpId, language, input.questionLanguageId, seed) ??
           selectQuestionLanguageId(cpId, language, `${seed}:ql`, input.difficultyBand))
         : selectQuestionLanguageId(cpId, language, `${seed}:ql`, input.difficultyBand);
+  const englishQuestionEntry = getQuestionEntry(cpId, questionLanguageId, "en");
   const questionEntry = getQuestionEntry(cpId, questionLanguageId, language);
-  const difficultyBand = questionEntry.difficulty;
+  const difficultyBand = englishQuestionEntry.difficulty;
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
@@ -412,7 +423,7 @@ export function generatePct001Parameters(cpId: Pct001CanonicalProblemId, input: 
     buildRequiredVariables(requiredVariables, difficultyBand, seed),
     difficultyBand,
     seed,
-    questionEntry.template,
+    englishQuestionEntry.template,
   );
 
   return {

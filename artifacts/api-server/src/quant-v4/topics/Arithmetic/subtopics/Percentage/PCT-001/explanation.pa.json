@@ -187,369 +187,201 @@
     "taskExplanations": {
       "increaseNewValue": {
         "steps": [
-          "Original value = {baseValue}.",
-          "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-          "New value = {baseValue} + {changeAmount} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਮੂਲ ਮੁੱਲ {baseValue} ਹੈ।",
+          "ਵਾਧਾ = {baseValue} ਦਾ {percentageRate}% = {changeAmount}।",
+          "ਨਵਾਂ ਮੁੱਲ = {baseValue} + {changeAmount} = {answer}।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} + {changeAmount} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਮੂਲ ਮੁੱਲ {baseValue} ਹੈ।",
+            "ਵਾਧਾ = {baseValue} ਦਾ {percentageRate}% = {changeAmount}।",
+            "ਨਵਾਂ ਮੁੱਲ = {baseValue} + {changeAmount} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} + {changeAmount} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} + {changeAmount} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "New value = {baseValue} + {changeAmount} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਦਿੱਤਾ ਗਿਆ ਮੂਲ ਮੁੱਲ {baseValue} ਹੈ।",
+            "ਇਸ ਉੱਤੇ {percentageRate}% ਵਾਧਾ ਕਰਨ ਨਾਲ ਵਾਧੇ ਦੀ ਰਕਮ {changeAmount} ਮਿਲਦੀ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਨਵਾਂ ਮੁੱਲ = {baseValue} + {changeAmount} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "decreaseNewValue": {
         "steps": [
-          "Original value = {baseValue}.",
-          "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-          "New value = {baseValue} - {changeAmount} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਮੂਲ ਮੁੱਲ {baseValue} ਹੈ।",
+          "ਕਮੀ = {baseValue} ਦਾ {percentageRate}% = {changeAmount}।",
+          "ਨਵਾਂ ਮੁੱਲ = {baseValue} - {changeAmount} = {answer}।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} - {changeAmount} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਮੂਲ ਮੁੱਲ {baseValue} ਹੈ।",
+            "ਕਮੀ = {baseValue} ਦਾ {percentageRate}% = {changeAmount}।",
+            "ਨਵਾਂ ਮੁੱਲ = {baseValue} - {changeAmount} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} - {changeAmount} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} - {changeAmount} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "New value = {baseValue} - {changeAmount} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਦਿੱਤਾ ਗਿਆ ਮੂਲ ਮੁੱਲ {baseValue} ਹੈ।",
+            "ਇਸ ਵਿੱਚ {percentageRate}% ਕਮੀ ਕਰਨ ਨਾਲ ਕਮੀ ਦੀ ਰਕਮ {changeAmount} ਮਿਲਦੀ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਨਵਾਂ ਮੁੱਲ = {baseValue} - {changeAmount} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "reverseIncrease": {
         "steps": [
-          "After {percentageRate}% increase, the value becomes {finalValue}.",
-          "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "{percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮੁੱਲ {finalValue} ਬਣ ਜਾਂਦਾ ਹੈ।",
+          "ਅਤੇ ਇਸ ਲਈ ਇਹ ਮੂਲ ਮੁੱਲ ਦਾ {changedBase}% ਹੈ।",
+          "ਮੂਲ ਮੁੱਲ = {finalValue} x 100 / {changedBase} = {answer}।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "{percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮੁੱਲ {finalValue} ਬਣ ਜਾਂਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਇਹ ਮੂਲ ਮੁੱਲ ਦਾ {changedBase}% ਹੈ।",
+            "ਮੂਲ ਮੁੱਲ = {finalValue} x 100 / {changedBase} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਿਲਿਆ ਮੁੱਲ {finalValue} ਦਿੱਤਾ ਹੈ।",
+            "ਇਹ ਪੁਰਾਣੇ ਮੁੱਲ ਦੇ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਇਸ ਲਈ ਮੂਲ ਮੁੱਲ = {finalValue} x 100 / {changedBase} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "reverseDecrease": {
         "steps": [
-          "After {percentageRate}% decrease, the value becomes {finalValue}.",
-          "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "{percentageRate}% ਕਮੀ ਤੋਂ ਬਾਅਦ ਮੁੱਲ {finalValue} ਰਹਿ ਜਾਂਦਾ ਹੈ।",
+          "ਅਤੇ ਇਸ ਲਈ ਇਹ ਮੂਲ ਮੁੱਲ ਦਾ {changedBase}% ਹੈ।",
+          "ਮੂਲ ਮੁੱਲ = {finalValue} x 100 / {changedBase} = {answer}।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "{percentageRate}% ਕਮੀ ਤੋਂ ਬਾਅਦ ਮੁੱਲ {finalValue} ਰਹਿ ਜਾਂਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਇਹ ਮੂਲ ਮੁੱਲ ਦਾ {changedBase}% ਹੈ।",
+            "ਮੂਲ ਮੁੱਲ = {finalValue} x 100 / {changedBase} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਕਮੀ ਤੋਂ ਬਾਅਦ ਮਿਲਿਆ ਮੁੱਲ {finalValue} ਦਿੱਤਾ ਹੈ।",
+            "ਇਹ ਪੁਰਾਣੇ ਮੁੱਲ ਦੇ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਇਸ ਲਈ ਮੂਲ ਮੁੱਲ = {finalValue} x 100 / {changedBase} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "increaseByAmount": {
         "steps": [
-          "The increase amount is {value}, which is {percentageRate}% of the original value.",
-          "Original value = {value} x 100 / {percentageRate}.",
-          "Original value = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਵਾਧੇ ਦੀ ਰਕਮ {value} ਹੈ।",
+          "ਇਹ ਰਕਮ ਮੂਲ ਮੁੱਲ ਦੇ {percentageRate}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+          "ਮੂਲ ਮੁੱਲ = {value} x 100 / {percentageRate} = {answer}।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "Original value = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਵਾਧੇ ਦੀ ਰਕਮ {value} ਹੈ।",
+            "ਇਹ ਰਕਮ ਮੂਲ ਮੁੱਲ ਦੇ {percentageRate}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਮੂਲ ਮੁੱਲ = {value} x 100 / {percentageRate} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "Original value = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "Original value = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Original value = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{value} ਉਹ ਵਾਧਾ ਹੈ ਜੋ {percentageRate}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਇਸ ਲਈ {percentageRate}% = {value} ਮੰਨਿਆ ਜਾਵੇਗਾ।",
+            "ਅਤੇ ਇਸ ਲਈ ਮੂਲ ਮੁੱਲ = {value} x 100 / {percentageRate} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "percentOfKnownNumber": {
         "steps": [
-          "{rate1}% of the number is {value1}.",
-          "First find {rate2}% of the same number directly.",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਸੰਖਿਆ ਦਾ {rate1}% = {value1} ਦਿੱਤਾ ਹੈ।",
+          "ਉਸੇ ਸੰਖਿਆ ਦਾ {rate2}% ਕੱਢਣਾ ਹੈ।",
+          "ਲੋੜੀਂਦਾ ਮੁੱਲ = {value1} x {rate2} / {rate1} = {answer}।",
+          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਸੰਖਿਆ ਦਾ {rate1}% = {value1} ਦਿੱਤਾ ਹੈ।",
+            "ਉਸੇ ਸੰਖਿਆ ਦਾ {rate2}% ਕੱਢਣਾ ਹੈ।",
+            "ਲੋੜੀਂਦਾ ਮੁੱਲ = {value1} x {rate2} / {rate1} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "{rate1}% of the number is {value1}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "First find {rate2}% of the same number directly.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{rate1}% ਲਈ ਮੁੱਲ {value1} ਦਿੱਤਾ ਹੈ।",
+            "ਹੁਣ ਇਸੇ ਆਧਾਰ ਉੱਤੇ {rate2}% ਕੱਢੋ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ = {value1} x {rate2} / {rate1} = {answer}।",
+            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਸਰਲ ਕਰੋ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "differenceOfPercents": {
         "steps": [
-          "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-          "This difference equals {value}.",
-          "Original number = {value} x 100 / {percentDifference} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "{rate1}% ਅਤੇ {rate2}% ਦਾ ਅੰਤਰ = {percentDifference}% ਹੈ।",
+          "ਇਹ ਅੰਤਰ {value} ਦੇ ਬਰਾਬਰ ਹੈ।",
+          "ਮੂਲ ਸੰਖਿਆ = {value} x 100 / {percentDifference} = {answer}।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "Original number = {value} x 100 / {percentDifference} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "{rate1}% ਅਤੇ {rate2}% ਦਾ ਅੰਤਰ = {percentDifference}% ਹੈ।",
+            "ਇਹ ਅੰਤਰ {value} ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਮੂਲ ਸੰਖਿਆ = {value} x 100 / {percentDifference} = {answer}।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "Original number = {value} x 100 / {percentDifference} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "This difference equals {value}.",
-            "Original number = {value} x 100 / {percentDifference} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Original number = {value} x 100 / {percentDifference} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "{rate1}% ਅਤੇ {rate2}% ਵਿਚਕਾਰ ਅੰਤਰ {percentDifference}% ਹੈ।",
+            "ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਇਹ ਅੰਤਰ {value} ਦਿੱਤਾ ਗਿਆ ਹੈ।",
+            "ਇਸ ਲਈ ਮੂਲ ਸੰਖਿਆ = {value} x 100 / {percentDifference} = {answer}।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "restoreAfterDecrease": {
         "steps": [
-          "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-          "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-          "Required increase = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਬਾਕੀ ਪ੍ਰਤੀਸ਼ਤ = 100 - {percentageRate} = {remainingBase}%।",
+          "ਲੋੜੀਂਦੀ ਵਾਧਾ ਦਰ = {percentageRate} x 100 / {remainingBase}।",
+          "ਲੋੜੀਂਦੀ ਵਾਧਾ ਦਰ = {answer}।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "Required increase = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਬਾਕੀ ਪ੍ਰਤੀਸ਼ਤ = 100 - {percentageRate} = {remainingBase}%।",
+            "ਲੋੜੀਂਦੀ ਵਾਧਾ ਦਰ = {percentageRate} x 100 / {remainingBase}।",
+            "ਲੋੜੀਂਦੀ ਵਾਧਾ ਦਰ = {answer}।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "Required increase = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "Required increase = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Required increase = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਘਟਾਅ ਤੋਂ ਬਾਅਦ ਬਾਕੀ ਪ੍ਰਤੀਸ਼ਤ {remainingBase}% ਰਹਿੰਦਾ ਹੈ।",
+            "ਪੁਰਾਣੇ ਮੁੱਲ ਤੱਕ ਵਾਪਸ ਜਾਣ ਲਈ ਲੋੜੀਂਦੀ ਵਾਧਾ ਦਰ = {percentageRate} x 100 / {remainingBase}।",
+            "ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦੀ ਵਾਧਾ ਦਰ {answer} ਹੈ।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ ਇਹੀ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       }
@@ -560,47 +392,26 @@
     "taskExplanations": {
       "successiveChange": {
         "steps": [
-          "First change factor = {firstFactor}.",
-          "Second change factor = {secondFactor}.",
-          "Net factor = {netFactor}. Net percentage change = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਪਹਿਲਾ ਗੁਣਕ = {firstFactor}।",
+          "ਦੂਜਾ ਗੁਣਕ = {secondFactor}।",
+          "ਕੁੱਲ ਗੁਣਕ = {netFactor}।",
+          "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ = {answer}।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਪਹਿਲਾ ਗੁਣਕ = {firstFactor}।",
+            "ਦੂਜਾ ਗੁਣਕ = {secondFactor}।",
+            "ਕੁੱਲ ਗੁਣਕ = {netFactor}।",
+            "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ = {answer}।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "First change factor = {firstFactor}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Second change factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਪਹਿਲੇ ਬਦਲਾਅ ਦਾ ਗੁਣਕ {firstFactor} ਹੈ।",
+            "ਦੂਜੇ ਬਦਲਾਅ ਦਾ ਗੁਣਕ {secondFactor} ਹੈ।",
+            "ਦੋਵੇਂ ਨੂੰ ਮਿਲਾਉਣ ਤੇ ਕੁੱਲ ਗੁਣਕ {netFactor} ਬਣਦਾ ਹੈ।",
+            "ਇਸ ਤੋਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
@@ -609,93 +420,51 @@
       },
       "compoundGrowth": {
         "steps": [
-          "Initial value = {initialValue}.",
-          "Growth factor for one step = {singleFactor}.",
-          "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ = {initialValue}।",
+          "ਇੱਕ ਪੜਾਅ ਦਾ ਵਾਧਾ ਗੁਣਕ = {singleFactor}।",
+          "ਦੋ ਪੜਾਅਾਂ ਤੋਂ ਬਾਅਦ ਮੁੱਲ = {initialValue} x {singleFactor} x {singleFactor}।",
+          "ਸਰਲ ਕਰਨ ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ = {initialValue}।",
+            "ਇੱਕ ਪੜਾਅ ਦਾ ਵਾਧਾ ਗੁਣਕ = {singleFactor}।",
+            "ਦੋ ਪੜਾਅਾਂ ਤੋਂ ਬਾਅਦ ਮੁੱਲ = {initialValue} x {singleFactor} x {singleFactor}।",
+            "ਸਰਲ ਕਰਨ ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Growth factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਸ਼ੁਰੂ ਦਾ ਮੁੱਲ {initialValue} ਹੈ।",
+            "ਹਰ ਪੜਾਅ ਵਿੱਚ ਵਾਧੇ ਦਾ ਗੁਣਕ {singleFactor} ਹੈ।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਮੁੱਲ = {initialValue} x {singleFactor} x {singleFactor}।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ {answer} ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "compoundDecay": {
         "steps": [
-          "Initial value = {initialValue}.",
-          "Decay factor for one step = {singleFactor}.",
-          "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ = {initialValue}।",
+          "ਇੱਕ ਪੜਾਅ ਦਾ ਘਟਾਅ ਗੁਣਕ = {singleFactor}।",
+          "ਦੋ ਪੜਾਅਾਂ ਤੋਂ ਬਾਅਦ ਮੁੱਲ = {initialValue} x {singleFactor} x {singleFactor}।",
+          "ਸਰਲ ਕਰਨ ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ = {initialValue}।",
+            "ਇੱਕ ਪੜਾਅ ਦਾ ਘਟਾਅ ਗੁਣਕ = {singleFactor}।",
+            "ਦੋ ਪੜਾਅਾਂ ਤੋਂ ਬਾਅਦ ਮੁੱਲ = {initialValue} x {singleFactor} x {singleFactor}।",
+            "ਸਰਲ ਕਰਨ ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Decay factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਸ਼ੁਰੂ ਦਾ ਮੁੱਲ {initialValue} ਹੈ।",
+            "ਹਰ ਪੜਾਅ ਵਿੱਚ ਘਟਾਅ ਦਾ ਗੁਣਕ {singleFactor} ਹੈ।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਮੁੱਲ = {initialValue} x {singleFactor} x {singleFactor}।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ {answer} ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
@@ -704,47 +473,26 @@
       },
       "squareAreaChange": {
         "steps": [
-          "Side changes by {percentageRate}%.",
-          "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-          "Net percentage change = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਭੁੱਜਾ ਬਦਲਾਅ = {percentageRate}%।",
+          "ਖੇਤਰਫਲ ਗੁਣਕ = {singleFactor} x {singleFactor}।",
+          "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ = {answer}।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "Net percentage change = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਭੁੱਜਾ ਬਦਲਾਅ = {percentageRate}%।",
+            "ਖੇਤਰਫਲ ਗੁਣਕ = {singleFactor} x {singleFactor}।",
+            "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ = {answer}।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "Net percentage change = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Side changes by {percentageRate}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "Net percentage change = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Net percentage change = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਭੁੱਜਾ ਵਿੱਚ ਬਦਲਾਅ {percentageRate}% ਹੈ।",
+            "ਖੇਤਰਫਲ ਲਈ ਗੁਣਕ = {singleFactor} x {singleFactor}।",
+            "ਇਸ ਤੋਂ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ ਇਹੀ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       }
@@ -755,47 +503,26 @@
     "taskExplanations": {
       "productInvariance": {
         "steps": [
-          "The product remains constant.",
-          "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਗੁਣਨਫਲ ਸਥਿਰ ਹੈ।",
+          "ਦੂਜਾ ਗੁਣਕ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਬਦਲੇਗਾ।",
+          "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {percentageRate} x 100 / {changedBase}।",
+          "ਸਰਲ ਕਰਨ ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਗੁਣਨਫਲ ਸਥਿਰ ਹੈ।",
+            "ਦੂਜਾ ਗੁਣਕ ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ ਬਦਲੇਗਾ।",
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {percentageRate} x 100 / {changedBase}।",
+            "ਸਰਲ ਕਰਨ ਤੇ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "The product remains constant.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਕੁੱਲ ਗੁਣਨਫਲ ਨੂੰ ਇੱਕੋ ਜਿਹਾ ਰੱਖਣਾ ਹੈ।",
+            "ਇਸ ਲਈ ਦੂਜੇ ਗੁਣਕ ਵਿੱਚ ਉਲਟ ਕਿਸਮ ਦਾ ਬਦਲਾਅ ਹੋਵੇਗਾ।",
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {percentageRate} x 100 / {changedBase}।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ {answer} ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
@@ -810,93 +537,51 @@
       },
       "revenueChange": {
         "steps": [
-          "Revenue depends on price and sales quantity.",
-          "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-          "Net factor = {netFactor}. Net percentage change = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਕੁੱਲ ਆਮਦਨ, ਕੀਮਤ ਅਤੇ ਮਾਤਰਾ ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।",
+          "ਕੀਮਤ ਗੁਣਕ = {firstFactor}।",
+          "ਮਾਤਰਾ ਗੁਣਕ = {secondFactor}।",
+          "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ = {answer}।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਕੁੱਲ ਆਮਦਨ, ਕੀਮਤ ਅਤੇ ਮਾਤਰਾ ਤੇ ਨਿਰਭਰ ਕਰਦੀ ਹੈ।",
+            "ਕੀਮਤ ਗੁਣਕ = {firstFactor}।",
+            "ਮਾਤਰਾ ਗੁਣਕ = {secondFactor}।",
+            "ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ = {answer}।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Revenue depends on price and sales quantity.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Net factor = {netFactor}. Net percentage change = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਆਮਦਨ ਕੱਢਣ ਲਈ ਕੀਮਤ ਅਤੇ ਮਾਤਰਾ ਦੋਵਾਂ ਦਾ ਮਿਲਿਆ-ਜੁਲਿਆ ਅਸਰ ਲਿਆ ਜਾਂਦਾ ਹੈ।",
+            "ਕੀਮਤ ਦਾ ਗੁਣਕ {firstFactor} ਹੈ।",
+            "ਮਾਤਰਾ ਦਾ ਗੁਣਕ {secondFactor} ਹੈ।",
+            "ਦੋਵੇਂ ਨੂੰ ਮਿਲਾ ਕੇ ਕੁੱਲ ਪ੍ਰਤੀਸ਼ਤ ਬਦਲਾਅ {answer} ਮਿਲਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "circleAreaDecrease": {
         "steps": [
-          "Area of a circle depends on radius squared.",
-          "New radius factor = {singleFactor}.",
-          "Area decrease = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-          "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+          "ਖੇਤਰਫਲ ਤ੍ਰਿਜਿਆ ਦੇ ਵਰਗ ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।",
+          "ਨਵੀਂ ਤ੍ਰਿਜਿਆ ਦਾ ਗੁਣਕ = {singleFactor}।",
+          "ਖੇਤਰਫਲ ਵਿੱਚ ਘਟਾਅ = {answer}।",
+          "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+          "ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "Area decrease = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
-            "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
+            "ਖੇਤਰਫਲ ਤ੍ਰਿਜਿਆ ਦੇ ਵਰਗ ਤੇ ਨਿਰਭਰ ਕਰਦਾ ਹੈ।",
+            "ਨਵੀਂ ਤ੍ਰਿਜਿਆ ਦਾ ਗੁਣਕ = {singleFactor}।",
+            "ਖੇਤਰਫਲ ਵਿੱਚ ਘਟਾਅ = {answer}।",
+            "ਸਰਲ ਕਰਨ ਤੇ ਇਹੀ ਮੁੱਲ ਮਿਲਦਾ ਹੈ।",
+            "ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "Area decrease = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "Area of a circle depends on radius squared.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "New radius factor = {singleFactor}.",
-            "Area decrease = {answer}.",
-            "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
-          ],
-          [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
-          ],
-          [
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Area decrease = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਵ੍ਰਿਤ ਦਾ ਖੇਤਰਫਲ ਤ੍ਰਿਜਿਆ ਦੇ ਵਰਗ ਦੇ ਅਨੁਸਾਰ ਬਦਲਦਾ ਹੈ।",
+            "ਨਵੀਂ ਤ੍ਰਿਜਿਆ ਦਾ ਗੁਣਕ {singleFactor} ਹੈ।",
+            "ਇਸ ਆਧਾਰ ਤੇ ਖੇਤਰਫਲ ਵਿੱਚ ਘਟਾਅ {answer} ਪ੍ਰਾਪਤ ਹੁੰਦੀ ਹੈ।",
+            "ਗਣਨਾ ਕਰਨ ਤੇ ਇਹੀ ਨਤੀਜਾ ਆਉਂਦਾ ਹੈ।",
+            "ਅਤੇ ਇਸ ਲਈ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       }
@@ -907,461 +592,461 @@
     "taskExplanations": {
       "partToTotal": {
         "steps": [
-          "The given part {value} represents {knownPercentage}% of the total.",
-          "Total = {value} x 100 / {knownPercentage}.",
-          "Total = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਦਿੱਤਾ ਭਾਗ {knownPercentage}% ਹੈ।",
+          "ਕੁੱਲ = {value} x 100 / {knownPercentage}।",
+          "ਕੁੱਲ = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "Total = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਦਿੱਤਾ ਭਾਗ {knownPercentage}% ਹੈ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage}।",
+            "ਕੁੱਲ = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "Total = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਦਿੱਤਾ ਭਾਗ {knownPercentage}% ਹੈ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage}।",
+            "ਕੁੱਲ = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "Total = {answer}.",
+            "ਦਿੱਤਾ ਭਾਗ {knownPercentage}% ਹੈ।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage}।",
+            "ਕੁੱਲ = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਦਿੱਤਾ ਭਾਗ {knownPercentage}% ਹੈ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage}।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Total = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਦਿੱਤਾ ਭਾਗ {knownPercentage}% ਹੈ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage}।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "incomePartition": {
         "steps": [
-          "Remaining percentage after all given parts = {knownPercentage}%.",
-          "This remaining part equals {value}.",
-          "Total = {value} x 100 / {knownPercentage} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+          "ਬਚਿਆ ਮੁੱਲ = {value}।",
+          "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "This remaining part equals {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "successiveExpense": {
         "steps": [
-          "First remaining factor = {firstFactor}.",
-          "Second remaining factor = {secondFactor}.",
-          "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਪਹਿਲਾ ਬਚਿਆ ਗੁਣਕ = {firstFactor}।",
+          "ਦੂਜਾ ਬਚਿਆ ਗੁਣਕ = {secondFactor}।",
+          "ਮੁਲ਼ ਰਕਮ = {value} / {netFactor} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਪਹਿਲਾ ਬਚਿਆ ਗੁਣਕ = {firstFactor}।",
+            "ਦੂਜਾ ਬਚਿਆ ਗੁਣਕ = {secondFactor}।",
+            "ਮੁਲ਼ ਰਕਮ = {value} / {netFactor} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਪਹਿਲਾ ਬਚਿਆ ਗੁਣਕ = {firstFactor}।",
+            "ਦੂਜਾ ਬਚਿਆ ਗੁਣਕ = {secondFactor}।",
+            "ਮੁਲ਼ ਰਕਮ = {value} / {netFactor} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "First remaining factor = {firstFactor}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Second remaining factor = {secondFactor}.",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
+            "ਪਹਿਲਾ ਬਚਿਆ ਗੁਣਕ = {firstFactor}।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਦੂਜਾ ਬਚਿਆ ਗੁਣਕ = {secondFactor}।",
+            "ਮੁਲ਼ ਰਕਮ = {value} / {netFactor} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਪਹਿਲਾ ਬਚਿਆ ਗੁਣਕ = {firstFactor}।",
+            "ਦੂਜਾ ਬਚਿਆ ਗੁਣਕ = {secondFactor}।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਪਹਿਲਾ ਬਚਿਆ ਗੁਣਕ = {firstFactor}।",
+            "ਦੂਜਾ ਬਚਿਆ ਗੁਣਕ = {secondFactor}।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਮੁਲ਼ ਰਕਮ = {value} / {netFactor} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "winnerVotes": {
         "steps": [
-          "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-          "Vote gap percentage = {gapPercentage}%.",
-          "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਹਾਰਨ ਵਾਲੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {loserPercentage}%।",
+          "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+          "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਹਾਰਨ ਵਾਲੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {loserPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਹਾਰਨ ਵਾਲੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {loserPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "ਹਾਰਨ ਵਾਲੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {loserPercentage}%।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਹਾਰਨ ਵਾਲੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {loserPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਹਾਰਨ ਵਾਲੇ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {loserPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "cancelledVotes": {
         "steps": [
-          "Valid vote percentage = {validPercentage}%.",
-          "Winner-loser gap among valid votes = {gapPercentage}%.",
-          "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਵੈਧ ਵੋਟਾਂ = {validPercentage}%।",
+          "ਵੈਧ ਵੋਟ-ਅੰਤਰ = {gapPercentage}%।",
+          "ਕੁੱਲ ਵੋਟ-ਅੰਤਰ = {effectiveGapPercentage}%। ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਵੈਧ ਵੋਟਾਂ = {validPercentage}%।",
+            "ਵੈਧ ਵੋਟ-ਅੰਤਰ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟ-ਅੰਤਰ = {effectiveGapPercentage}%। ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਵੈਧ ਵੋਟਾਂ = {validPercentage}%।",
+            "ਵੈਧ ਵੋਟ-ਅੰਤਰ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟ-ਅੰਤਰ = {effectiveGapPercentage}%। ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Valid vote percentage = {validPercentage}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
+            "ਵੈਧ ਵੋਟਾਂ = {validPercentage}%।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਵੈਧ ਵੋਟ-ਅੰਤਰ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟ-ਅੰਤਰ = {effectiveGapPercentage}%। ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਵੈਧ ਵੋਟਾਂ = {validPercentage}%।",
+            "ਵੈਧ ਵੋਟ-ਅੰਤਰ = {gapPercentage}%।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਵੈਧ ਵੋਟਾਂ = {validPercentage}%।",
+            "ਵੈਧ ਵੋਟ-ਅੰਤਰ = {gapPercentage}%।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ ਵੋਟ-ਅੰਤਰ = {effectiveGapPercentage}%। ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "passMarks": {
         "steps": [
-          "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-          "This is {passRate}% of total marks.",
-          "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਪਾਸ ਅੰਕ = {passMarksValue}।",
+          "ਇਹ ਕੁੱਲ ਦਾ {passRate}% ਹੈ।",
+          "ਕੁੱਲ ਅੰਕ = {passMarksValue} x 100 / {passRate} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਪਾਸ ਅੰਕ = {passMarksValue}।",
+            "ਇਹ ਕੁੱਲ ਦਾ {passRate}% ਹੈ।",
+            "ਕੁੱਲ ਅੰਕ = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਪਾਸ ਅੰਕ = {passMarksValue}।",
+            "ਇਹ ਕੁੱਲ ਦਾ {passRate}% ਹੈ।",
+            "ਕੁੱਲ ਅੰਕ = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "This is {passRate}% of total marks.",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
+            "ਪਾਸ ਅੰਕ = {passMarksValue}।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਇਹ ਕੁੱਲ ਦਾ {passRate}% ਹੈ।",
+            "ਕੁੱਲ ਅੰਕ = {passMarksValue} x 100 / {passRate} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਪਾਸ ਅੰਕ = {passMarksValue}।",
+            "ਇਹ ਕੁੱਲ ਦਾ {passRate}% ਹੈ।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਪਾਸ ਅੰਕ = {passMarksValue}।",
+            "ਇਹ ਕੁੱਲ ਦਾ {passRate}% ਹੈ।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ ਅੰਕ = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "complementOfTotal": {
         "steps": [
-          "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+          "ਲੋੜੀਂਦਾ ਮੁੱਲ = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+          "ਇਹੀ ਲੋੜੀਂਦਾ ਮੁੱਲ ਹੈ।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਲੋੜੀਂਦਾ ਮੁੱਲ = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "ਇਹੀ ਲੋੜੀਂਦਾ ਮੁੱਲ ਹੈ।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਲੋੜੀਂਦਾ ਮੁੱਲ = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "ਇਹੀ ਲੋੜੀਂਦਾ ਮੁੱਲ ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਲੋੜੀਂਦਾ ਮੁੱਲ = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "ਇਹੀ ਲੋੜੀਂਦਾ ਮੁੱਲ ਹੈ।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਲੋੜੀਂਦਾ ਮੁੱਲ = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਲੋੜੀਂਦਾ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਲੋੜੀਂਦਾ ਮੁੱਲ = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਇਹੀ ਲੋੜੀਂਦਾ ਮੁੱਲ ਹੈ।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "moreMarksBase": {
         "steps": [
-          "Base marks = {marks} x 100 / {changedBase} = {answer}.",
-          "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-          "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਦਿੱਤਾ ਮੁੱਲ ਆਧਾਰ ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ।",
+          "ਇਸ ਲਈ ਇਹ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+          "ਆਧਾਰ ਅੰਕ = {marks} x 100 / {changedBase} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਦਿੱਤਾ ਮੁੱਲ ਆਧਾਰ ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ।",
+            "ਇਸ ਲਈ ਇਹ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਆਧਾਰ ਅੰਕ = {marks} x 100 / {changedBase} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਦਿੱਤਾ ਮੁੱਲ ਆਧਾਰ ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ।",
+            "ਇਸ ਲਈ ਇਹ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਆਧਾਰ ਅੰਕ = {marks} x 100 / {changedBase} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
+            "ਦਿੱਤਾ ਮੁੱਲ ਆਧਾਰ ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਇਸ ਲਈ ਇਹ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਆਧਾਰ ਅੰਕ = {marks} x 100 / {changedBase} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਦਿੱਤਾ ਮੁੱਲ ਆਧਾਰ ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ।",
+            "ਇਸ ਲਈ ਇਹ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Base marks = {marks} x 100 / {changedBase} = {answer}.",
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "ਸਰਲ ਕਰਨ ਤੇ ਲੋੜੀਂਦਾ ਨਤੀਜਾ ਮਿਲਦਾ ਹੈ।",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਦਿੱਤਾ ਮੁੱਲ ਆਧਾਰ ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ।",
+            "ਇਸ ਲਈ ਇਹ {changedBase}% ਦੇ ਬਰਾਬਰ ਹੈ।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਆਧਾਰ ਅੰਕ = {marks} x 100 / {changedBase} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "twoShareRemainder": {
         "steps": [
-          "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-          "This remaining value is {value}.",
-          "Total = {value} x 100 / {knownPercentage} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+          "ਬਚਿਆ ਮੁੱਲ = {value}।",
+          "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "This remaining value is {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Total = {value} x 100 / {knownPercentage} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਬਚਿਆ ਪ੍ਰਤੀਸ਼ਤ = {knownPercentage}%।",
+            "ਬਚਿਆ ਮੁੱਲ = {value}।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ = {value} x 100 / {knownPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },
       "loserVotes": {
         "steps": [
-          "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-          "Vote gap percentage = {gapPercentage}%.",
-          "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਜੇਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {winnerPercentage}%।",
+          "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+          "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਜੇਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {winnerPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਜੇਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {winnerPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
+            "ਜੇਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {winnerPercentage}%।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਜੇਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {winnerPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਜੇਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ = {winnerPercentage}%।",
+            "ਵੋਟ-ਅੰਤਰ ਪ੍ਰਤੀਸ਼ਤ = {gapPercentage}%।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਕੁੱਲ ਵੋਟਾਂ = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       }
@@ -1372,47 +1057,47 @@
     "taskExplanations": {
       "mixturePercent": {
         "steps": [
-          "Use the unchanged component to form the percentage equation.",
-          "Initial unchanged amount = {initialUnchangedAmount}.",
-          "Final total or required change is found from the new percentage condition.",
-          "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+          "ਅਪਰਿਵਰਤਿਤ ਹਿੱਸੇ ਦੇ ਆਧਾਰ ਤੇ ਸਮੀਕਰਨ ਬਣਾਓ।",
+          "ਅਪਰਿਵਰਤਿਤ ਮਾਤਰਾ ਪਹਿਲਾਂ ਪਤਾ ਕਰੋ।",
+          "ਨਵੀਂ ਪ੍ਰਤੀਸ਼ਤ ਸ਼ਰਤ ਤੋਂ ਅੰਤਿਮ ਮਾਤਰਾ ਜਾਂ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+          "ਹੁਣ ਸਰਲ ਕਰੋ।",
           "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
         ],
         "variants": [
           [
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "Final total or required change is found from the new percentage condition.",
-            "ਹੁਣ ਗਣਨਾ ਨੂੰ ਧਿਆਨ ਨਾਲ ਸਰਲ ਕਰੋ।",
+            "ਅਪਰਿਵਰਤਿਤ ਹਿੱਸੇ ਦੇ ਆਧਾਰ ਤੇ ਸਮੀਕਰਨ ਬਣਾਓ।",
+            "ਅਪਰਿਵਰਤਿਤ ਮਾਤਰਾ ਪਹਿਲਾਂ ਪਤਾ ਕਰੋ।",
+            "ਨਵੀਂ ਪ੍ਰਤੀਸ਼ਤ ਸ਼ਰਤ ਤੋਂ ਅੰਤਿਮ ਮਾਤਰਾ ਜਾਂ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+            "ਹੁਣ ਸਰਲ ਕਰੋ।",
             "ਇਸ ਲਈ, ਉੱਤਰ {answer} ਹੈ।"
           ],
           [
-            "ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਧਿਆਨ ਨਾਲ ਵੇਖੋ।",
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "Final total or required change is found from the new percentage condition.",
-            "ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
+            "ਸੰਬੰਧ ਵੇਖੋ।",
+            "ਅਪਰਿਵਰਤਿਤ ਹਿੱਸੇ ਦੇ ਆਧਾਰ ਤੇ ਸਮੀਕਰਨ ਬਣਾਓ।",
+            "ਅਪਰਿਵਰਤਿਤ ਮਾਤਰਾ ਪਹਿਲਾਂ ਪਤਾ ਕਰੋ।",
+            "ਨਵੀਂ ਪ੍ਰਤੀਸ਼ਤ ਸ਼ਰਤ ਤੋਂ ਅੰਤਿਮ ਮਾਤਰਾ ਜਾਂ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "Use the unchanged component to form the percentage equation.",
-            "ਦਿੱਤੇ ਮੁੱਲਾਂ ਨੂੰ ਸੰਬੰਧ ਵਿੱਚ ਰੱਖੋ।",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "Final total or required change is found from the new percentage condition.",
+            "ਅਪਰਿਵਰਤਿਤ ਹਿੱਸੇ ਦੇ ਆਧਾਰ ਤੇ ਸਮੀਕਰਨ ਬਣਾਓ।",
+            "ਮੁੱਲ ਰੱਖੋ।",
+            "ਅਪਰਿਵਰਤਿਤ ਮਾਤਰਾ ਪਹਿਲਾਂ ਪਤਾ ਕਰੋ।",
+            "ਨਵੀਂ ਪ੍ਰਤੀਸ਼ਤ ਸ਼ਰਤ ਤੋਂ ਅੰਤਿਮ ਮਾਤਰਾ ਜਾਂ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
             "ਇਸ ਤਰ੍ਹਾਂ ਪ੍ਰਾਪਤ ਮੁੱਲ {answer} ਹੈ।"
           ],
           [
-            "ਹੁਣ ਦਿੱਤੇ ਮੁੱਲਾਂ ਨਾਲ ਗਣਨਾ ਕਰੋ।",
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "The calculation gives {answer}.",
-            "ਇਸ ਲਈ, ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
+            "ਗਣਨਾ ਲਿਖੋ।",
+            "ਅਪਰਿਵਰਤਿਤ ਹਿੱਸੇ ਦੇ ਆਧਾਰ ਤੇ ਸਮੀਕਰਨ ਬਣਾਓ।",
+            "ਅਪਰਿਵਰਤਿਤ ਮਾਤਰਾ ਪਹਿਲਾਂ ਪਤਾ ਕਰੋ।",
+            "ਫਲ {answer} ਹੈ।",
+            "ਇਸ ਲਈ ਲੋੜੀਂਦਾ ਨਤੀਜਾ {answer} ਹੈ।"
           ],
           [
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "ਸਰਲ ਕਰਦੇ ਸਮੇਂ ਆਧਾਰ ਮੁੱਲ ਨੂੰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
-            "Final total or required change is found from the new percentage condition.",
-            "ਅਤੇ ਸਹੀ ਉੱਤਰ {answer} ਹੈ।"
+            "ਅਪਰਿਵਰਤਿਤ ਹਿੱਸੇ ਦੇ ਆਧਾਰ ਤੇ ਸਮੀਕਰਨ ਬਣਾਓ।",
+            "ਅਪਰਿਵਰਤਿਤ ਮਾਤਰਾ ਪਹਿਲਾਂ ਪਤਾ ਕਰੋ।",
+            "ਆਧਾਰ ਸਪੱਸ਼ਟ ਰੱਖੋ।",
+            "ਨਵੀਂ ਪ੍ਰਤੀਸ਼ਤ ਸ਼ਰਤ ਤੋਂ ਅੰਤਿਮ ਮਾਤਰਾ ਜਾਂ ਬਦਲਾਅ ਪਤਾ ਕਰੋ।",
+            "ਇਸ ਲਈ ਅੰਤਿਮ ਉੱਤਰ {answer} ਹੈ।"
           ]
         ]
       },

@@ -50,6 +50,15 @@ import { AddPureComponentRenderer } from "./renderers/add-pure-component-rendere
 import { EvaporationOriginalRenderer } from "./renderers/evaporation-original-renderer";
 import { AlloyComplementRenderer } from "./renderers/alloy-complement-renderer";
 
+const LOCALIZED_EXPLANATION_CP_IDS = new Set([
+  "PCT-CP-001",
+  "PCT-CP-002",
+  "PCT-CP-003",
+  "PCT-CP-004",
+  "PCT-CP-005",
+  "PCT-CP-006",
+]);
+
 export function resolvePct001SemanticEntities(taskKind: string, semanticContext: any, language: "en" | "hi" | "pa"): Record<string, string> {
   const map: Record<string, string> = {};
   if (!semanticContext || !semanticContext.entities) return map;
@@ -260,7 +269,7 @@ export function renderPct001Explanation(parameters: Pct001Parameters, solver: Pc
         `Question language ${parameters.questionLanguageId} is not localized for ${parameters.language} in PCT-001.`,
       );
     }
-    if (parameters.canonicalProblemId !== "PCT-CP-001") {
+    if (!LOCALIZED_EXPLANATION_CP_IDS.has(parameters.canonicalProblemId)) {
       throw new Error(
         `Explanation localization is not implemented for ${parameters.language}:${parameters.canonicalProblemId}:${parameters.taskKind}.`,
       );
