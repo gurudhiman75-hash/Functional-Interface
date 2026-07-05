@@ -7,6 +7,12 @@ import {
   getRequiredVariables,
   getTaskKind,
 } from "./library";
+import type { EntityReference } from "../../../../../../common/entity-types";
+import {
+  getLocalizedQuestionLanguageIds,
+  isQlLocalized,
+  resolveEntityLabels,
+} from "../../../../../../common/language-coverage";
 import { stableBucket } from "./math";
 import {
   PCT_003_ARCHETYPE_ID,
@@ -26,6 +32,10 @@ export interface Pct003ParameterInput {
 }
 
 type ScenarioFactory = (difficulty: Pct003DifficultyBand, seed: string) => Pct003Variables;
+type LabelField = "wholeLabel" | "partLabel" | "otherLabel" | "labelA" | "labelB";
+
+const LABEL_FIELDS = ["wholeLabel", "partLabel", "otherLabel", "labelA", "labelB"] as const satisfies readonly LabelField[];
+const LABEL_FIELD_SET = new Set<string>(LABEL_FIELDS);
 
 function pick<T>(items: readonly T[], seed: string): T {
   return items[stableBucket(seed, items.length)]!;
