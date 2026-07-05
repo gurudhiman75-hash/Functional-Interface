@@ -1,0 +1,1762 @@
+[
+  {
+    "id": "a",
+    "en": "a",
+    "hi": "A",
+    "pa": "A",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "accounts",
+    "en": "accounts",
+    "hi": "खाते",
+    "pa": "ਖਾਤੇ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "active_users",
+    "en": "active users",
+    "hi": "सक्रिय उपयोगकर्ता",
+    "pa": "ਸਕ੍ਰਿਯ ਵਰਤੋਂਕਾਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "admissions",
+    "en": "admissions",
+    "hi": "प्रवेश",
+    "pa": "ਦਾਖਲੇ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "adult_passengers",
+    "en": "adult passengers",
+    "hi": "वयस्क यात्री",
+    "pa": "ਵਯਸਕ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "annual_turnover",
+    "en": "annual turnover",
+    "hi": "वार्षिक कारोबार",
+    "pa": "ਸਾਲਾਨਾ ਟਰਨਓਵਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "applicants",
+    "en": "applicants",
+    "hi": "आवेदक",
+    "pa": "ਅਰਜ਼ੀਕਾਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "assessed_value",
+    "en": "assessed value",
+    "hi": "आकलित मूल्य",
+    "pa": "ਅੰਕਿਤ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "assessment_score",
+    "en": "assessment score",
+    "hi": "मूल्यांकन अंक",
+    "pa": "ਮੁਲਾਂਕਣ ਅੰਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "asset_a_value",
+    "en": "asset a value",
+    "hi": "??????? A ?? ?????",
+    "pa": "????? A ?? ????",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "asset_b_value",
+    "en": "asset b value",
+    "hi": "??????? B ?? ?????",
+    "pa": "????? B ?? ????",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "asset_value",
+    "en": "asset value",
+    "hi": "संपत्ति का मूल्य",
+    "pa": "ਸੰਪਤੀ ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "attendance_in_school_a",
+    "en": "attendance in school a",
+    "hi": "स्कूल A की उपस्थिति",
+    "pa": "ਸਕੂਲ A ਦੀ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "attendance_in_school_b",
+    "en": "attendance in school b",
+    "hi": "स्कूल B की उपस्थिति",
+    "pa": "ਸਕੂਲ B ਦੀ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "b",
+    "en": "b",
+    "hi": "B",
+    "pa": "B",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "bags",
+    "en": "bags",
+    "hi": "बोरियां",
+    "pa": "ਬੋਰੇ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "bags_of_cement",
+    "en": "bags of cement",
+    "hi": "सीमेंट की बोरियां",
+    "pa": "ਸੀਮੈਂਟ ਦੇ ਬੋਰੇ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "bill",
+    "en": "bill",
+    "hi": "???",
+    "pa": "???",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "bill_amount",
+    "en": "bill amount",
+    "hi": "बिल राशि",
+    "pa": "ਬਿਲ ਰਕਮ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "bonus_fund",
+    "en": "bonus fund",
+    "hi": "बोनस कोष",
+    "pa": "ਬੋਨਸ ਫੰਡ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "books",
+    "en": "books",
+    "hi": "पुस्तकें",
+    "pa": "ਪੁਸਤਕਾਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "boxes",
+    "en": "boxes",
+    "hi": "डिब्बे",
+    "pa": "ਡੱਬੇ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "branch_a_sales",
+    "en": "branch a sales",
+    "hi": "शाखा A की बिक्री",
+    "pa": "ਸ਼ਾਖਾ A ਦੀ ਵਿਕਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "branch_a_stock",
+    "en": "branch a stock",
+    "hi": "शाखा A का स्टॉक",
+    "pa": "ਸ਼ਾਖਾ A ਦਾ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "branch_b_sales",
+    "en": "branch b sales",
+    "hi": "शाखा B की बिक्री",
+    "pa": "ਸ਼ਾਖਾ B ਦੀ ਵਿਕਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "branch_b_stock",
+    "en": "branch b stock",
+    "hi": "शाखा B का स्टॉक",
+    "pa": "ਸ਼ਾਖਾ B ਦਾ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "budget_allocation",
+    "en": "budget allocation",
+    "hi": "बजट आवंटन",
+    "pa": "ਬਜਟ ਵੰਡ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "budget_amount",
+    "en": "budget amount",
+    "hi": "बजट राशि",
+    "pa": "ਬਜਟ ਰਕਮ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "cartons",
+    "en": "cartons",
+    "hi": "कार्टन",
+    "pa": "ਕਾਰਟਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "cattle_population",
+    "en": "cattle population",
+    "hi": "पशुधन की संख्या",
+    "pa": "ਪਸ਼ੂ ਸੰਖਿਆ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "child_passengers",
+    "en": "child passengers",
+    "hi": "बाल यात्री",
+    "pa": "ਬਾਲ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "commission_income",
+    "en": "commission income",
+    "hi": "कमीशन आय",
+    "pa": "ਕਮੀਸ਼ਨ ਆਮਦਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "consumption",
+    "en": "consumption",
+    "hi": "खपत",
+    "pa": "ਖਪਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "contract_employees",
+    "en": "contract employees",
+    "hi": "संविदा कर्मचारी",
+    "pa": "ਠੇਕੇ ਦੇ ਕਰਮਚਾਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "contract_value",
+    "en": "contract value",
+    "hi": "संविदा मूल्य",
+    "pa": "ਠੇਕੇ ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "cost_index",
+    "en": "cost index",
+    "hi": "लागत सूचकांक",
+    "pa": "ਲਾਗਤ ਸੂਚਕਾਂਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "crates",
+    "en": "crates",
+    "hi": "पेटियां",
+    "pa": "ਪੇਟੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "crop_production",
+    "en": "crop production",
+    "hi": "फसल उत्पादन",
+    "pa": "ਫਸਲ ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "crop_yield",
+    "en": "crop yield",
+    "hi": "फसल उपज",
+    "pa": "ਫਸਲ ਉਪਜ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "damaged_items",
+    "en": "damaged items",
+    "hi": "क्षतिग्रस्त वस्तुएँ",
+    "pa": "ਨੁਕਸਾਨੀ ਚੀਜ਼ਾਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "day_scholars",
+    "en": "day scholars",
+    "hi": "डे-स्कॉलर",
+    "pa": "ਡੇ-ਸਕਾਲਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "electricity_consumption",
+    "en": "electricity consumption",
+    "hi": "बिजली की खपत",
+    "pa": "ਬਿਜਲੀ ਦੀ ਖਪਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "electricity_usage",
+    "en": "electricity usage",
+    "hi": "बिजली का उपयोग",
+    "pa": "ਬਿਜਲੀ ਦੀ ਵਰਤੋਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "expenses",
+    "en": "expenses",
+    "hi": "खर्च",
+    "pa": "ਖਰਚੇ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "female_voters",
+    "en": "female voters",
+    "hi": "महिला मतदाता",
+    "pa": "ਮਹਿਲਾ ਮਤਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "female_workers",
+    "en": "female workers",
+    "hi": "महिला श्रमिक",
+    "pa": "ਮਹਿਲਾ ਮਜ਼ਦੂਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "fixed_deposit",
+    "en": "fixed deposit",
+    "hi": "सावधि जमा",
+    "pa": "ਮਿਆਦੀ ਜਮ੍ਹਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "fund_a_value",
+    "en": "fund a value",
+    "hi": "फंड A का मूल्य",
+    "pa": "ਫੰਡ A ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "fund_b_value",
+    "en": "fund b value",
+    "hi": "फंड B का मूल्य",
+    "pa": "ਫੰਡ B ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "fund_value",
+    "en": "fund value",
+    "hi": "कोष का मूल्य",
+    "pa": "ਫੰਡ ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "girls",
+    "en": "girls",
+    "hi": "लड़कियाँ",
+    "pa": "ਲੜਕੀਆਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "good_items",
+    "en": "good items",
+    "hi": "अच्छी वस्तुएँ",
+    "pa": "ਵਧੀਆ ਚੀਜ਼ਾਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "good_units",
+    "en": "good units",
+    "hi": "अच्छी इकाइयाँ",
+    "pa": "ਚੰਗੀਆਂ ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "hostellers",
+    "en": "hostellers",
+    "hi": "छात्रावासी",
+    "pa": "ਹੋਸਟਲ ਰਹਿਣ ਵਾਲੇ ਵਿਦਿਆਰਥੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "households",
+    "en": "households",
+    "hi": "परिवार",
+    "pa": "ਘਰ-ਪਰਿਵਾਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "illiterate_residents",
+    "en": "illiterate residents",
+    "hi": "अशिक्षित निवासी",
+    "pa": "ਅਨਪੜ੍ਹ ਨਿਵਾਸੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "index_value",
+    "en": "index value",
+    "hi": "सूचकांक मान",
+    "pa": "ਸੂਚਕਾਂਕ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "internet_users",
+    "en": "internet users",
+    "hi": "इंटरनेट उपयोगकर्ता",
+    "pa": "ਇੰਟਰਨੈੱਟ ਵਰਤੋਂਕਾਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "inventory",
+    "en": "inventory",
+    "hi": "भंडार",
+    "pa": "ਭੰਡਾਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "investment_value",
+    "en": "investment value",
+    "hi": "निवेश का मूल्य",
+    "pa": "ਨਿਵੇਸ਼ ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "items",
+    "en": "items",
+    "hi": "वस्तुएँ",
+    "pa": "ਵਸਤੂਆਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "kg",
+    "en": "kg",
+    "hi": "किलोग्राम",
+    "pa": "ਕਿਲੋਗ੍ਰਾਮ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "literate_residents",
+    "en": "literate residents",
+    "hi": "साक्षर निवासी",
+    "pa": "ਸਾਖਰ ਨਿਵਾਸੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "litres",
+    "en": "litres",
+    "hi": "लीटर",
+    "pa": "ਲੀਟਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "machine_a_value",
+    "en": "machine a value",
+    "hi": "मशीन A का मूल्य",
+    "pa": "ਮਸ਼ੀਨ A ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "machine_b_value",
+    "en": "machine b value",
+    "hi": "मशीन B का मूल्य",
+    "pa": "ਮਸ਼ੀਨ B ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "machine_output",
+    "en": "machine output",
+    "hi": "मशीन का उत्पादन",
+    "pa": "ਮਸ਼ੀਨ ਦਾ ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "machine_value",
+    "en": "machine value",
+    "hi": "मशीन का मूल्य",
+    "pa": "ਮਸ਼ੀਨ ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "male_voters",
+    "en": "male voters",
+    "hi": "पुरुष मतदाता",
+    "pa": "ਪੁਰਸ਼ ਮਤਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "male_workers",
+    "en": "male workers",
+    "hi": "पुरुष श्रमिक",
+    "pa": "ਪੁਰਸ਼ ਮਜ਼ਦੂਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "marked_price",
+    "en": "marked price",
+    "hi": "????? ?????",
+    "pa": "????? ????",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "market_demand",
+    "en": "market demand",
+    "hi": "बाज़ार मांग",
+    "pa": "ਬਾਜ਼ਾਰ ਮੰਗ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "market_value",
+    "en": "market value",
+    "hi": "बाज़ार मूल्य",
+    "pa": "ਬਾਜ਼ਾਰ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "milk_production",
+    "en": "milk production",
+    "hi": "दूध उत्पादन",
+    "pa": "ਦੂਧ ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "mixture",
+    "en": "mixture",
+    "hi": "मिश्रण",
+    "pa": "ਮਿਸ਼ਰਣ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "monthly_salary",
+    "en": "monthly salary",
+    "hi": "मासिक वेतन",
+    "pa": "ਮਾਸਿਕ ਤਨਖ਼ਾਹ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "monthly_turnover",
+    "en": "monthly turnover",
+    "hi": "मासिक कारोबार",
+    "pa": "ਮਾਸਿਕ ਟਰਨਓਵਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "monthly_usage",
+    "en": "monthly usage",
+    "hi": "????? ?????",
+    "pa": "????? ?????",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "no_responses",
+    "en": "no responses",
+    "hi": "नकारात्मक प्रतिक्रियाएँ",
+    "pa": "ਨਕਾਰਾਤਮਕ ਜਵਾਬ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "number_of_internet_users",
+    "en": "number of internet users",
+    "hi": "इंटरनेट उपयोगकर्ताओं की संख्या",
+    "pa": "ਇੰਟਰਨੈੱਟ ਵਰਤੋਂਕਾਰਾਂ ਦੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "number_of_mobile_users",
+    "en": "number of mobile users",
+    "hi": "मोबाइल उपयोगकर्ताओं की संख्या",
+    "pa": "ਮੋਬਾਈਲ ਵਰਤੋਂਕਾਰਾਂ ਦੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "number_of_students",
+    "en": "number of students",
+    "hi": "छात्रों की संख्या",
+    "pa": "ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "number_of_users",
+    "en": "number of users",
+    "hi": "उपयोगकर्ताओं की संख्या",
+    "pa": "ਵਰਤੋਂਕਾਰਾਂ ਦੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "number_of_visitors",
+    "en": "number of visitors",
+    "hi": "आगंतुकों की संख्या",
+    "pa": "ਆਗੰਤੁਕਾਂ ਦੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "offline_respondents",
+    "en": "offline respondents",
+    "hi": "ऑफलाइन उत्तरदाता",
+    "pa": "ਆਫਲਾਈਨ ਉੱਤਰਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "online_respondents",
+    "en": "online respondents",
+    "hi": "ऑनलाइन उत्तरदाता",
+    "pa": "ਆਨਲਾਈਨ ਉੱਤਰਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "output_level",
+    "en": "output level",
+    "hi": "उत्पादन स्तर",
+    "pa": "ਉਤਪਾਦਨ ਪੱਧਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "passenger_count",
+    "en": "passenger count",
+    "hi": "यात्रियों की संख्या",
+    "pa": "ਯਾਤਰੀਆਂ ਦੀ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "permanent_employees",
+    "en": "permanent employees",
+    "hi": "स्थायी कर्मचारी",
+    "pa": "ਸਥਾਈ ਕਰਮਚਾਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "population_of_town_a",
+    "en": "population of town a",
+    "hi": "Town A की जनसंख्या",
+    "pa": "Town A ਦੀ ਆਬਾਦੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "population_of_town_b",
+    "en": "population of town b",
+    "hi": "Town B की जनसंख्या",
+    "pa": "Town B ਦੀ ਆਬਾਦੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "portfolio_value",
+    "en": "portfolio value",
+    "hi": "पोर्टफोलियो का मूल्य",
+    "pa": "ਪੋਰਟਫੋਲਿਓ ਦਾ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "premium_amount",
+    "en": "premium amount",
+    "hi": "प्रीमियम राशि",
+    "pa": "ਪ੍ਰੀਮੀਅਮ ਰਕਮ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "premium_collection",
+    "en": "premium collection",
+    "hi": "प्रीमियम संग्रह",
+    "pa": "ਪ੍ਰੀਮੀਅਮ ਇਕੱਠ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "price",
+    "en": "price",
+    "hi": "मूल्य",
+    "pa": "ਕੀਮਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "price_of_product_a",
+    "en": "price of product a",
+    "hi": "Product A का मूल्य",
+    "pa": "Product A ਦੀ ਕੀਮਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "price_of_product_b",
+    "en": "price of product b",
+    "hi": "Product B का मूल्य",
+    "pa": "Product B ਦੀ ਕੀਮਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "product_a_price",
+    "en": "product a price",
+    "hi": "Product A का मूल्य",
+    "pa": "Product A ਦੀ ਕੀਮਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "product_b_price",
+    "en": "product b price",
+    "hi": "Product B का मूल्य",
+    "pa": "Product B ਦੀ ਕੀਮਤ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "production_a",
+    "en": "production a",
+    "hi": "उत्पादन A",
+    "pa": "ਉਤਪਾਦਨ A",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "production_b",
+    "en": "production b",
+    "hi": "उत्पादन B",
+    "pa": "ਉਤਪਾਦਨ B",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "production_level",
+    "en": "production level",
+    "hi": "उत्पादन स्तर",
+    "pa": "ਉਤਪਾਦਨ ਪੱਧਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "production_value",
+    "en": "production value",
+    "hi": "उत्पादन मूल्य",
+    "pa": "ਉਤਪਾਦਨ ਮੁੱਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "productivity_index",
+    "en": "productivity index",
+    "hi": "उत्पादकता सूचकांक",
+    "pa": "ਉਤਪਾਦਕਤਾ ਸੂਚਕਾਂਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "quintals",
+    "en": "quintals",
+    "hi": "क्विंटल",
+    "pa": "ਕੁਇੰਟਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "rainfall",
+    "en": "rainfall",
+    "hi": "वर्षा",
+    "pa": "ਵਰਖਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "reams",
+    "en": "reams",
+    "hi": "रीम",
+    "pa": "ਰੀਮ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "rent_collection",
+    "en": "rent collection",
+    "hi": "किराया संग्रह",
+    "pa": "ਕਿਰਾਇਆ ਇਕੱਠ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "residents",
+    "en": "residents",
+    "hi": "निवासी",
+    "pa": "ਨਿਵਾਸੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "revenue",
+    "en": "revenue",
+    "hi": "राजस्व",
+    "pa": "ਰਾਜਸਵ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "route_a_passengers",
+    "en": "route a passengers",
+    "hi": "Route A के यात्री",
+    "pa": "Route A ਦੇ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "route_b_passengers",
+    "en": "route b passengers",
+    "hi": "Route B के यात्री",
+    "pa": "Route B ਦੇ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "rural_workers",
+    "en": "rural workers",
+    "hi": "ग्रामीण श्रमिक",
+    "pa": "ਪੇਂਡੂ ਮਜ਼ਦੂਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "salary_a",
+    "en": "salary a",
+    "hi": "वेतन A",
+    "pa": "ਤਨਖ਼ਾਹ A",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "salary_b",
+    "en": "salary b",
+    "hi": "वेतन B",
+    "pa": "ਤਨਖ਼ਾਹ B",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "sales",
+    "en": "sales",
+    "hi": "बिक्री",
+    "pa": "ਵਿਕਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "sales_figure",
+    "en": "sales figure",
+    "hi": "बिक्री का आंकड़ा",
+    "pa": "ਵਿਕਰੀ ਦਾ ਅੰਕੜਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "sales_target",
+    "en": "sales target",
+    "hi": "बिक्री लक्ष्य",
+    "pa": "ਵਿਕਰੀ ਲਕਸ਼",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "school_a_s_attendance",
+    "en": "school a's attendance",
+    "hi": "स्कूल A की उपस्थिति",
+    "pa": "ਸਕੂਲ A ਦੀ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "school_b_s_attendance",
+    "en": "school b's attendance",
+    "hi": "स्कूल B की उपस्थिति",
+    "pa": "ਸਕੂਲ B ਦੀ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "seating_capacity",
+    "en": "seating capacity",
+    "hi": "बैठने की क्षमता",
+    "pa": "ਬੈਠਕ ਸਮਰੱਥਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "section_a_attendance",
+    "en": "section a attendance",
+    "hi": "अनुभाग A की उपस्थिति",
+    "pa": "ਸੈਕਸ਼ਨ A ਦੀ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "section_b_attendance",
+    "en": "section b attendance",
+    "hi": "अनुभाग B की उपस्थिति",
+    "pa": "ਸੈਕਸ਼ਨ B ਦੀ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "selling_price",
+    "en": "selling price",
+    "hi": "?????? ?????",
+    "pa": "????? ????",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "shop_a_revenue",
+    "en": "shop a revenue",
+    "hi": "दुकान A का राजस्व",
+    "pa": "ਦੁਕਾਨ A ਦਾ ਰਾਜਸਵ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "shop_b_revenue",
+    "en": "shop b revenue",
+    "hi": "दुकान B का राजस्व",
+    "pa": "ਦੁਕਾਨ B ਦਾ ਰਾਜਸਵ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "skilled_workers",
+    "en": "skilled workers",
+    "hi": "कुशल श्रमिक",
+    "pa": "ਨਿਪੁੰਨ ਮਜ਼ਦੂਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "solution",
+    "en": "solution",
+    "hi": "विलयन",
+    "pa": "ਘੋਲ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "stock_in_branch_a",
+    "en": "stock in branch a",
+    "hi": "शाखा A का स्टॉक",
+    "pa": "ਸ਼ਾਖਾ A ਦਾ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "stock_in_branch_b",
+    "en": "stock in branch b",
+    "hi": "शाखा B का स्टॉक",
+    "pa": "ਸ਼ਾਖਾ B ਦਾ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "store_a_sales",
+    "en": "store a sales",
+    "hi": "स्टोर A की बिक्री",
+    "pa": "ਸਟੋਰ A ਦੀ ਵਿਕਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "store_a_turnover",
+    "en": "store a turnover",
+    "hi": "स्टोर A का कारोबार",
+    "pa": "ਸਟੋਰ A ਦਾ ਟਰਨਓਵਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "store_b_sales",
+    "en": "store b sales",
+    "hi": "स्टोर B की बिक्री",
+    "pa": "ਸਟੋਰ B ਦੀ ਵਿਕਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "store_b_turnover",
+    "en": "store b turnover",
+    "hi": "स्टोर B का कारोबार",
+    "pa": "ਸਟੋਰ B ਦਾ ਟਰਨਓਵਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "strength",
+    "en": "strength",
+    "hi": "संख्या",
+    "pa": "ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "student_passengers",
+    "en": "student passengers",
+    "hi": "छात्र यात्री",
+    "pa": "ਵਿਦਿਆਰਥੀ ਯਾਤਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "subscriber_count",
+    "en": "subscriber count",
+    "hi": "सदस्य संख्या",
+    "pa": "ਗ੍ਰਾਹਕ ਗਿਣਤੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "supply",
+    "en": "supply",
+    "hi": "आपूर्ति",
+    "pa": "ਸਪਲਾਈ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "tax_collection",
+    "en": "tax collection",
+    "hi": "कर संग्रह",
+    "pa": "ਕਰ ਇਕੱਠ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "town_a_population",
+    "en": "town a population",
+    "hi": "Town A की जनसंख्या",
+    "pa": "Town A ਦੀ ਆਬਾਦੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "town_b_population",
+    "en": "town b population",
+    "hi": "Town B की जनसंख्या",
+    "pa": "Town B ਦੀ ਆਬਾਦੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "traffic_volume",
+    "en": "traffic volume",
+    "hi": "यातायात मात्रा",
+    "pa": "ਯਾਤਾਯਾਤ ਮਾਤਰਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "trained_employees",
+    "en": "trained employees",
+    "hi": "प्रशिक्षित कर्मचारी",
+    "pa": "ਤਿਆਰ ਕੀਤੇ ਕਰਮਚਾਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "turnout",
+    "en": "turnout",
+    "hi": "मतदान प्रतिशत",
+    "pa": "ਮਤਦਾਨ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "turnover",
+    "en": "turnover",
+    "hi": "कारोबार",
+    "pa": "ਟਰਨਓਵਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "unit_a_output",
+    "en": "unit a output",
+    "hi": "इकाई A का उत्पादन",
+    "pa": "ਇਕਾਈ A ਦਾ ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "unit_b_output",
+    "en": "unit b output",
+    "hi": "इकाई B का उत्पादन",
+    "pa": "ਇਕਾਈ B ਦਾ ਉਤਪਾਦਨ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "units",
+    "en": "units",
+    "hi": "इकाइयाँ",
+    "pa": "ਇਕਾਈਆਂ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "unskilled_workers",
+    "en": "unskilled workers",
+    "hi": "अकुशल श्रमिक",
+    "pa": "ਅਨਿਪੁੰਨ ਮਜ਼ਦੂਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "untrained_employees",
+    "en": "untrained employees",
+    "hi": "अप्रशिक्षित कर्मचारी",
+    "pa": "ਬਿਨਾ ਤਰਬੀਅਤ ਕਰਮਚਾਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "urban_workers",
+    "en": "urban workers",
+    "hi": "शहरी श्रमिक",
+    "pa": "ਸ਼ਹਿਰੀ ਮਜ਼ਦੂਰ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "usage_index",
+    "en": "usage index",
+    "hi": "उपयोग सूचकांक",
+    "pa": "ਵਰਤੋਂ ਸੂਚਕਾਂਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "voter_turnout",
+    "en": "voter turnout",
+    "hi": "मतदाता उपस्थिति",
+    "pa": "ਵੋਟਰ ਹਾਜ਼ਰੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "voters",
+    "en": "voters",
+    "hi": "मतदाता",
+    "pa": "ਮਤਦਾਤਾ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "votes",
+    "en": "votes",
+    "hi": "मत",
+    "pa": "ਵੋਟ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "warehouse_a_stock",
+    "en": "warehouse a stock",
+    "hi": "Warehouse A का स्टॉक",
+    "pa": "Warehouse A ਦਾ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "warehouse_b_stock",
+    "en": "warehouse b stock",
+    "hi": "Warehouse B का स्टॉक",
+    "pa": "Warehouse B ਦਾ ਸਟਾਕ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "weight",
+    "en": "weight",
+    "hi": "???",
+    "pa": "????",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "wildlife_population",
+    "en": "wildlife population",
+    "hi": "वन्यजीव जनसंख्या",
+    "pa": "ਜੰਗਲੀ ਜੀਵ ਆਬਾਦੀ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  },
+  {
+    "id": "yes_responses",
+    "en": "yes responses",
+    "hi": "सकारात्मक प्रतिक्रियाएँ",
+    "pa": "ਸਕਾਰਾਤਮਕ ਜਵਾਬ",
+    "frequency": "common",
+    "tags": [
+      "percentage",
+      "label"
+    ]
+  }
+]

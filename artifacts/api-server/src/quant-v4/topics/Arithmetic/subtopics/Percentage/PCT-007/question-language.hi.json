@@ -654,43 +654,43 @@
         "difficulty": "Easy"
       },
       "PCT-QL-161": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-162": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-163": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-164": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-165": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-166": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-167": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-168": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-169": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-170": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {totalValue} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-171": {

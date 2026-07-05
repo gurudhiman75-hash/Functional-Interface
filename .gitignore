@@ -1,4 +1,3 @@
-```
 # Dependencies
 node_modules/
 
@@ -6,6 +5,11 @@ node_modules/
 *.log
 *.tmp
 *.local
+tmp/
+**/tmp/
+*.tsbuildinfo
+*.cache
+
 # Environment
 .env
 .env.local
@@ -42,9 +46,16 @@ Thumbs.db
 # Build results
 dist/
 build/
+artifacts/examtree/dist/
 *.so
 *.egg-info/
 .eggs/
+
+# Generated package outputs
+lib/api-zod/src/index.js
+lib/api-zod/src/index.d.ts
+lib/db/src/index.js
+lib/db/src/index.d.ts
 
 # Testing
 .pytest_cache/
@@ -81,4 +92,3 @@ htmlcov/
 *~
 .DS_Store
 Thumbs.db
-```

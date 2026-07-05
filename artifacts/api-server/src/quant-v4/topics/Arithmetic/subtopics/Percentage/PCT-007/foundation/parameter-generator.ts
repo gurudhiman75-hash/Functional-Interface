@@ -214,7 +214,11 @@ function baseMeta(questionLanguageId: string, contextTag: string): Pct007Variabl
 }
 
 function localizedBaseMeta(questionLanguageId: string, contextTag: string, language: Pct007Language): Pct007Variables {
-  return localizePercentageLabelFields(baseMeta(questionLanguageId, contextTag), language, LABEL_FIELDS);
+  const variables = baseMeta(questionLanguageId, contextTag);
+  if (language !== "en" && typeof variables.unitLabel === "string" && variables.unitLabel.trim() === "") {
+    variables.unitLabel = variables.valuePrefix ? "amount" : String(variables.wholeLabel || "value");
+  }
+  return localizePercentageLabelFields(variables, language, LABEL_FIELDS);
 }
 
 function assignDifficulty(cpId: Pct007CanonicalProblemId, language: Pct007Language, seed: string): Pct007DifficultyBand {

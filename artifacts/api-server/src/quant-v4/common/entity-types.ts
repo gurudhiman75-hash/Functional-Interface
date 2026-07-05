@@ -21,7 +21,8 @@ export type EntityCategory =
   | 'business' | 'education' | 'sports' | 'currency' | 'unit'
   | 'time-unit' | 'place' | 'building' | 'tool' | 'plant'
   | 'bird' | 'profession-category' | 'material' | 'weather'
-  | 'color' | 'month' | 'day' | 'festival' | 'financial-concept';
+  | 'color' | 'month' | 'day' | 'festival' | 'financial-concept'
+  | 'percentage-label';
 
 export interface EntityReference {
   categoryId: EntityCategory;

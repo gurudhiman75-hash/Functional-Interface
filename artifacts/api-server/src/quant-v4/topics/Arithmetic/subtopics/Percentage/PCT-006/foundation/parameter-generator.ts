@@ -324,7 +324,7 @@ function baseContextVariables(contextTag: string, language: Pct006Language): Pct
     subjectC: context.subjectC,
     wholeLabel: context.wholeLabel,
     valuePrefix: context.valuePrefix,
-    unitLabel: context.unitLabel,
+    unitLabel: language !== "en" && context.unitLabel.trim() === "" && context.valuePrefix ? "amount" : context.unitLabel,
   };
   if (language === "en") {
     return localizePercentageLabelFields(variables, language, LABEL_FIELDS);
