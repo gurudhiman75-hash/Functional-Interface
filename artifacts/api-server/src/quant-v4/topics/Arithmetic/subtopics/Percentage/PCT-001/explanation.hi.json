@@ -187,369 +187,201 @@
     "taskExplanations": {
       "increaseNewValue": {
         "steps": [
-          "Original value = {baseValue}.",
-          "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-          "New value = {baseValue} + {changeAmount} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "मूल मान {baseValue} है।",
+          "वृद्धि = {baseValue} का {percentageRate}% = {changeAmount}।",
+          "नया मान = {baseValue} + {changeAmount} = {answer}।",
+          "अब गणना को सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} + {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "मूल मान {baseValue} है।",
+            "वृद्धि = {baseValue} का {percentageRate}% = {changeAmount}।",
+            "नया मान = {baseValue} + {changeAmount} = {answer}।",
+            "अब गणना को सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} + {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} + {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "Increase = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "New value = {baseValue} + {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "दिया गया मूल मान {baseValue} है।",
+            "इस पर {percentageRate}% की वृद्धि करने से वृद्धि राशि {changeAmount} मिलती है।",
+            "अतः नया मान = {baseValue} + {changeAmount} = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "decreaseNewValue": {
         "steps": [
-          "Original value = {baseValue}.",
-          "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-          "New value = {baseValue} - {changeAmount} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "मूल मान {baseValue} है।",
+          "कमी = {baseValue} का {percentageRate}% = {changeAmount}।",
+          "नया मान = {baseValue} - {changeAmount} = {answer}।",
+          "अब गणना को सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} - {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "मूल मान {baseValue} है।",
+            "कमी = {baseValue} का {percentageRate}% = {changeAmount}।",
+            "नया मान = {baseValue} - {changeAmount} = {answer}।",
+            "अब गणना को सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} - {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "New value = {baseValue} - {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Original value = {baseValue}.",
-            "Decrease = {percentageRate}% of {baseValue} = {changeAmount}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "New value = {baseValue} - {changeAmount} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "दिया गया मूल मान {baseValue} है।",
+            "इसमें {percentageRate}% की कमी करने पर कमी राशि {changeAmount} मिलती है।",
+            "अतः नया मान = {baseValue} - {changeAmount} = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "reverseIncrease": {
         "steps": [
-          "After {percentageRate}% increase, the value becomes {finalValue}.",
-          "इसलिए, final value represents {changedBase}% of the original value.",
-          "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "{percentageRate}% वृद्धि के बाद मान {finalValue} हो जाता है।",
+          "अतः यह मूल मान का {changedBase}% है।",
+          "मूल मान = {finalValue} x 100 / {changedBase} = {answer}।",
+          "अब गणना को सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "{percentageRate}% वृद्धि के बाद मान {finalValue} हो जाता है।",
+            "अतः यह मूल मान का {changedBase}% है।",
+            "मूल मान = {finalValue} x 100 / {changedBase} = {answer}।",
+            "अब गणना को सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "After {percentageRate}% increase, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "वृद्धि के बाद प्राप्त मान {finalValue} दिया है।",
+            "यह मान पुराने मान के {changedBase}% के बराबर है।",
+            "इसलिए मूल मान = {finalValue} x 100 / {changedBase} = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "reverseDecrease": {
         "steps": [
-          "After {percentageRate}% decrease, the value becomes {finalValue}.",
-          "इसलिए, final value represents {changedBase}% of the original value.",
-          "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "{percentageRate}% कमी के बाद मान {finalValue} रह जाता है।",
+          "अतः यह मूल मान का {changedBase}% है।",
+          "मूल मान = {finalValue} x 100 / {changedBase} = {answer}।",
+          "अब गणना को सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "{percentageRate}% कमी के बाद मान {finalValue} रह जाता है।",
+            "अतः यह मूल मान का {changedBase}% है।",
+            "मूल मान = {finalValue} x 100 / {changedBase} = {answer}।",
+            "अब गणना को सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "After {percentageRate}% decrease, the value becomes {finalValue}.",
-            "इसलिए, final value represents {changedBase}% of the original value.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Original value = {finalValue} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "कमी के बाद प्राप्त मान {finalValue} दिया है।",
+            "यह मान पुराने मान के {changedBase}% के बराबर है।",
+            "इसलिए मूल मान = {finalValue} x 100 / {changedBase} = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "increaseByAmount": {
         "steps": [
-          "The increase amount is {value}, which is {percentageRate}% of the original value.",
-          "Original value = {value} x 100 / {percentageRate}.",
-          "Original value = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "वृद्धि की राशि {value} है।",
+          "यह राशि मूल मान के {percentageRate}% के बराबर है।",
+          "मूल मान = {value} x 100 / {percentageRate} = {answer}।",
+          "अब गणना को सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "Original value = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "वृद्धि की राशि {value} है।",
+            "यह राशि मूल मान के {percentageRate}% के बराबर है।",
+            "मूल मान = {value} x 100 / {percentageRate} = {answer}।",
+            "अब गणना को सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "Original value = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "Original value = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "The increase amount is {value}, which is {percentageRate}% of the original value.",
-            "Original value = {value} x 100 / {percentageRate}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Original value = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "दिया गया {value} वही वृद्धि है जो {percentageRate}% के बराबर है।",
+            "इसलिए {percentageRate}% = {value} माना जाएगा।",
+            "अतः मूल मान = {value} x 100 / {percentageRate} = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "percentOfKnownNumber": {
         "steps": [
-          "{rate1}% of the number is {value1}.",
-          "First find {rate2}% of the same number directly.",
-          "इसलिए इसलिए = {value1} x {rate2} / {rate1} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "संख्या का {rate1}% = {value1} दिया है।",
+          "उसी संख्या का {rate2}% ज्ञात करना है।",
+          "आवश्यक मान = {value1} x {rate2} / {rate1} = {answer}।",
+          "अब गणना को सरल करें।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "इसलिए इसलिए = {value1} x {rate2} / {rate1} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "संख्या का {rate1}% = {value1} दिया है।",
+            "उसी संख्या का {rate2}% ज्ञात करना है।",
+            "आवश्यक मान = {value1} x {rate2} / {rate1} = {answer}।",
+            "अब गणना को सरल करें।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "इसलिए इसलिए = {value1} x {rate2} / {rate1} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "{rate1}% of the number is {value1}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "First find {rate2}% of the same number directly.",
-            "इसलिए इसलिए = {value1} x {rate2} / {rate1} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "{rate1}% of the number is {value1}.",
-            "First find {rate2}% of the same number directly.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "इसलिए इसलिए = {value1} x {rate2} / {rate1} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "{rate1}% के लिए मान {value1} दिया है।",
+            "अब उसी आधार पर {rate2}% निकालें।",
+            "इसलिए आवश्यक मान = {value1} x {rate2} / {rate1} = {answer}।",
+            "अब गणना को सरल करें।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "differenceOfPercents": {
         "steps": [
-          "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-          "This difference equals {value}.",
-          "Original number = {value} x 100 / {percentDifference} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "{rate1}% और {rate2}% का अंतर = {percentDifference}%।",
+          "यह अंतर {value} के बराबर है।",
+          "मूल संख्या = {value} x 100 / {percentDifference} = {answer}।",
+          "सरल करने पर यही मान मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "Original number = {value} x 100 / {percentDifference} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "{rate1}% और {rate2}% का अंतर = {percentDifference}%।",
+            "यह अंतर {value} के बराबर है।",
+            "मूल संख्या = {value} x 100 / {percentDifference} = {answer}।",
+            "सरल करने पर यही मान मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "Original number = {value} x 100 / {percentDifference} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "This difference equals {value}.",
-            "Original number = {value} x 100 / {percentDifference} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "The difference between {rate1}% and {rate2}% is {percentDifference}%.",
-            "This difference equals {value}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Original number = {value} x 100 / {percentDifference} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "{rate1}% और {rate2}% के बीच का अंतर {percentDifference}% है।",
+            "प्रश्न में यह अंतर {value} दिया गया है।",
+            "इसलिए मूल संख्या = {value} x 100 / {percentDifference} = {answer}।",
+            "गणना करने पर यही मान प्राप्त होता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "restoreAfterDecrease": {
         "steps": [
-          "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-          "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-          "Required increase = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "शेष प्रतिशत = 100 - {percentageRate} = {remainingBase}%।",
+          "आवश्यक वृद्धि = {percentageRate} x 100 / {remainingBase}।",
+          "आवश्यक वृद्धि = {answer}।",
+          "सरल करने पर यही मान मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "Required increase = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "शेष प्रतिशत = 100 - {percentageRate} = {remainingBase}%।",
+            "आवश्यक वृद्धि = {percentageRate} x 100 / {remainingBase}।",
+            "आवश्यक वृद्धि = {answer}।",
+            "सरल करने पर यही मान मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "Required increase = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "Required increase = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "After a decrease of {percentageRate}%, the remaining value is {remainingBase}%.",
-            "Required increase to restore = {percentageRate} x 100 / {remainingBase}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Required increase = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "कमी के बाद शेष प्रतिशत {remainingBase}% बचता है।",
+            "पुराने मान तक लौटने के लिए आवश्यक वृद्धि = {percentageRate} x 100 / {remainingBase}।",
+            "इस प्रकार आवश्यक वृद्धि {answer} है।",
+            "गणना करने पर यही परिणाम मिलता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       }
@@ -560,47 +392,26 @@
     "taskExplanations": {
       "successiveChange": {
         "steps": [
-          "First change factor = {firstFactor}.",
-          "Second change factor = {secondFactor}.",
-          "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "पहला गुणक = {firstFactor}।",
+          "दूसरा गुणक = {secondFactor}।",
+          "कुल गुणक = {netFactor}।",
+          "कुल प्रतिशत परिवर्तन = {answer}।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "पहला गुणक = {firstFactor}।",
+            "दूसरा गुणक = {secondFactor}।",
+            "कुल गुणक = {netFactor}।",
+            "कुल प्रतिशत परिवर्तन = {answer}।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "First change factor = {firstFactor}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Second change factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "First change factor = {firstFactor}.",
-            "Second change factor = {secondFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "पहले परिवर्तन का गुणक {firstFactor} है।",
+            "दूसरे परिवर्तन का गुणक {secondFactor} है।",
+            "दोनों को मिलाने पर कुल गुणक {netFactor} मिलता है।",
+            "इसी से कुल प्रतिशत परिवर्तन {answer} प्राप्त होता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
@@ -609,93 +420,51 @@
       },
       "compoundGrowth": {
         "steps": [
-          "Initial value = {initialValue}.",
-          "Growth factor for one step = {singleFactor}.",
-          "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "प्रारंभिक मान = {initialValue}।",
+          "एक चरण का वृद्धि गुणक = {singleFactor}।",
+          "दो चरणों के बाद मान = {initialValue} x {singleFactor} x {singleFactor}।",
+          "सरल करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "प्रारंभिक मान = {initialValue}।",
+            "एक चरण का वृद्धि गुणक = {singleFactor}।",
+            "दो चरणों के बाद मान = {initialValue} x {singleFactor} x {singleFactor}।",
+            "सरल करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Growth factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "Growth factor for one step = {singleFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "शुरुआती मान {initialValue} है।",
+            "हर चरण में वृद्धि गुणक {singleFactor} लगता है।",
+            "इसलिए अंतिम मान = {initialValue} x {singleFactor} x {singleFactor}।",
+            "गणना करने पर {answer} प्राप्त होता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "compoundDecay": {
         "steps": [
-          "Initial value = {initialValue}.",
-          "Decay factor for one step = {singleFactor}.",
-          "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "प्रारंभिक मान = {initialValue}।",
+          "एक चरण का ह्रास गुणक = {singleFactor}।",
+          "दो चरणों के बाद मान = {initialValue} x {singleFactor} x {singleFactor}।",
+          "सरल करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "प्रारंभिक मान = {initialValue}।",
+            "एक चरण का ह्रास गुणक = {singleFactor}।",
+            "दो चरणों के बाद मान = {initialValue} x {singleFactor} x {singleFactor}।",
+            "सरल करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Decay factor for one step = {singleFactor}.",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Initial value = {initialValue}.",
-            "Decay factor for one step = {singleFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "After two steps, value = {initialValue} x {singleFactor} x {singleFactor} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "शुरुआती मान {initialValue} है।",
+            "हर चरण में घटाव का गुणक {singleFactor} है।",
+            "इसलिए अंतिम मान = {initialValue} x {singleFactor} x {singleFactor}।",
+            "गणना करने पर {answer} प्राप्त होता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
@@ -704,47 +473,26 @@
       },
       "squareAreaChange": {
         "steps": [
-          "Side changes by {percentageRate}%.",
-          "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-          "Net percentage change = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "भुजा परिवर्तन = {percentageRate}%।",
+          "क्षेत्रफल गुणक = {singleFactor} x {singleFactor}।",
+          "कुल प्रतिशत परिवर्तन = {answer}।",
+          "सरल करने पर यही मान मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "भुजा परिवर्तन = {percentageRate}%।",
+            "क्षेत्रफल गुणक = {singleFactor} x {singleFactor}।",
+            "कुल प्रतिशत परिवर्तन = {answer}।",
+            "सरल करने पर यही मान मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Side changes by {percentageRate}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Side changes by {percentageRate}%.",
-            "Area depends on side squared, so factor = {singleFactor} x {singleFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "भुजा में परिवर्तन {percentageRate}% है।",
+            "क्षेत्रफल के लिए गुणक = {singleFactor} x {singleFactor}।",
+            "इसी से कुल प्रतिशत परिवर्तन {answer} मिलता है।",
+            "गणना करने पर यही परिणाम आता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       }
@@ -755,47 +503,26 @@
     "taskExplanations": {
       "productInvariance": {
         "steps": [
-          "The product remains constant.",
-          "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-          "इसलिए इसलिए = {percentageRate} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "गुणनफल स्थिर है।",
+          "दूसरा गुणक विपरीत दिशा में बदलेगा।",
+          "आवश्यक प्रतिशत = {percentageRate} x 100 / {changedBase}।",
+          "सरल करने पर {answer} मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "इसलिए इसलिए = {percentageRate} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "गुणनफल स्थिर है।",
+            "दूसरा गुणक विपरीत दिशा में बदलेगा।",
+            "आवश्यक प्रतिशत = {percentageRate} x 100 / {changedBase}।",
+            "सरल करने पर {answer} मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "इसलिए इसलिए = {percentageRate} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "The product remains constant.",
-            "दिए गए मानों को संबंध में रखें।",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "इसलिए इसलिए = {percentageRate} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "The product remains constant.",
-            "If one factor changes by {percentageRate}%, the other factor must change in the opposite direction.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "इसलिए इसलिए = {percentageRate} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "कुल गुणनफल को समान रखना है।",
+            "इसलिए दूसरे गुणक में विपरीत प्रकार का परिवर्तन होगा।",
+            "आवश्यक प्रतिशत = {percentageRate} x 100 / {changedBase}।",
+            "गणना करने पर {answer} प्राप्त होता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
@@ -810,93 +537,51 @@
       },
       "revenueChange": {
         "steps": [
-          "Revenue depends on price and sales quantity.",
-          "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-          "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "राजस्व, मूल्य और मात्रा पर निर्भर करता है।",
+          "मूल्य गुणक = {firstFactor}।",
+          "मात्रा गुणक = {secondFactor}।",
+          "कुल प्रतिशत परिवर्तन = {answer}।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "राजस्व, मूल्य और मात्रा पर निर्भर करता है।",
+            "मूल्य गुणक = {firstFactor}।",
+            "मात्रा गुणक = {secondFactor}।",
+            "कुल प्रतिशत परिवर्तन = {answer}।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Revenue depends on price and sales quantity.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Revenue depends on price and sales quantity.",
-            "Price factor = {firstFactor} and quantity factor = {secondFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Net factor = {netFactor}. Net percentage change = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "राजस्व निकालने के लिए मूल्य और मात्रा दोनों का संयुक्त प्रभाव लिया जाता है।",
+            "मूल्य का गुणक {firstFactor} है।",
+            "मात्रा का गुणक {secondFactor} है।",
+            "दोनों को मिलाकर कुल प्रतिशत परिवर्तन {answer} मिलता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       },
       "circleAreaDecrease": {
         "steps": [
-          "Area of a circle depends on radius squared.",
-          "New radius factor = {singleFactor}.",
-          "Area decrease = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "क्षेत्रफल त्रिज्या के वर्ग पर निर्भर करता है।",
+          "नई त्रिज्या का गुणक = {singleFactor}।",
+          "क्षेत्रफल में कमी = {answer}।",
+          "सरल करने पर यही मान मिलता है।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "Area decrease = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "क्षेत्रफल त्रिज्या के वर्ग पर निर्भर करता है।",
+            "नई त्रिज्या का गुणक = {singleFactor}।",
+            "क्षेत्रफल में कमी = {answer}।",
+            "सरल करने पर यही मान मिलता है।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "Area decrease = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
-          ],
-          [
-            "Area of a circle depends on radius squared.",
-            "दिए गए मानों को संबंध में रखें।",
-            "New radius factor = {singleFactor}.",
-            "Area decrease = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
-          ],
-          [
-            "अब दिए गए मानों से गणना करें।",
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
-          ],
-          [
-            "Area of a circle depends on radius squared.",
-            "New radius factor = {singleFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Area decrease = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "वृत्त का क्षेत्रफल त्रिज्या के वर्ग के अनुसार बदलता है।",
+            "नई त्रिज्या का गुणक {singleFactor} है।",
+            "इसी आधार पर क्षेत्रफल में कमी {answer} प्राप्त होती है।",
+            "गणना करने पर यही परिणाम आता है।",
+            "अतः उत्तर {answer} है।"
           ]
         ]
       }
@@ -907,461 +592,461 @@
     "taskExplanations": {
       "partToTotal": {
         "steps": [
-          "The given part {value} represents {knownPercentage}% of the total.",
-          "Total = {value} x 100 / {knownPercentage}.",
-          "Total = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "दिया भाग {knownPercentage}% है।",
+          "कुल = {value} x 100 / {knownPercentage}।",
+          "कुल = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "Total = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "दिया भाग {knownPercentage}% है।",
+            "कुल = {value} x 100 / {knownPercentage}।",
+            "कुल = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "Total = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "दिया भाग {knownPercentage}% है।",
+            "कुल = {value} x 100 / {knownPercentage}।",
+            "कुल = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "Total = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "दिया भाग {knownPercentage}% है।",
+            "मान रखिए।",
+            "कुल = {value} x 100 / {knownPercentage}।",
+            "कुल = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "दिया भाग {knownPercentage}% है।",
+            "कुल = {value} x 100 / {knownPercentage}।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "The given part {value} represents {knownPercentage}% of the total.",
-            "Total = {value} x 100 / {knownPercentage}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Total = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "दिया भाग {knownPercentage}% है।",
+            "कुल = {value} x 100 / {knownPercentage}।",
+            "आधार स्पष्ट रखिए।",
+            "कुल = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "incomePartition": {
         "steps": [
-          "Remaining percentage after all given parts = {knownPercentage}%.",
-          "This remaining part equals {value}.",
-          "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "शेष प्रतिशत = {knownPercentage}%।",
+          "शेष मान = {value}।",
+          "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "This remaining part equals {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "मान रखिए।",
+            "शेष मान = {value}।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Remaining percentage after all given parts = {knownPercentage}%.",
-            "This remaining part equals {value}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "आधार स्पष्ट रखिए।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "successiveExpense": {
         "steps": [
-          "First remaining factor = {firstFactor}.",
-          "Second remaining factor = {secondFactor}.",
-          "Final amount {value} equals original x {netFactor}. Original value = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "पहला शेष गुणक = {firstFactor}।",
+          "दूसरा शेष गुणक = {secondFactor}।",
+          "मूल राशि = {value} / {netFactor} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "पहला शेष गुणक = {firstFactor}।",
+            "दूसरा शेष गुणक = {secondFactor}।",
+            "मूल राशि = {value} / {netFactor} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "पहला शेष गुणक = {firstFactor}।",
+            "दूसरा शेष गुणक = {secondFactor}।",
+            "मूल राशि = {value} / {netFactor} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "First remaining factor = {firstFactor}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Second remaining factor = {secondFactor}.",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "पहला शेष गुणक = {firstFactor}।",
+            "मान रखिए।",
+            "दूसरा शेष गुणक = {secondFactor}।",
+            "मूल राशि = {value} / {netFactor} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "पहला शेष गुणक = {firstFactor}।",
+            "दूसरा शेष गुणक = {secondFactor}।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "First remaining factor = {firstFactor}.",
-            "Second remaining factor = {secondFactor}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Final amount {value} equals original x {netFactor}. Original value = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "पहला शेष गुणक = {firstFactor}।",
+            "दूसरा शेष गुणक = {secondFactor}।",
+            "आधार स्पष्ट रखिए।",
+            "मूल राशि = {value} / {netFactor} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "winnerVotes": {
         "steps": [
-          "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-          "Vote gap percentage = {gapPercentage}%.",
-          "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "पराजित प्रतिशत = {loserPercentage}%।",
+          "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+          "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "पराजित प्रतिशत = {loserPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "पराजित प्रतिशत = {loserPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "पराजित प्रतिशत = {loserPercentage}%।",
+            "मान रखिए।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "पराजित प्रतिशत = {loserPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Winner gets {percentageRate}% votes, so loser gets {loserPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "पराजित प्रतिशत = {loserPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "आधार स्पष्ट रखिए।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "cancelledVotes": {
         "steps": [
-          "Valid vote percentage = {validPercentage}%.",
-          "Winner-loser gap among valid votes = {gapPercentage}%.",
-          "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "वैध वोट = {validPercentage}%।",
+          "वैध वोट-अंतर = {gapPercentage}%।",
+          "कुल वोट-अंतर = {effectiveGapPercentage}%। कुल वोट = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "वैध वोट = {validPercentage}%।",
+            "वैध वोट-अंतर = {gapPercentage}%।",
+            "कुल वोट-अंतर = {effectiveGapPercentage}%। कुल वोट = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "वैध वोट = {validPercentage}%।",
+            "वैध वोट-अंतर = {gapPercentage}%।",
+            "कुल वोट-अंतर = {effectiveGapPercentage}%। कुल वोट = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Valid vote percentage = {validPercentage}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "वैध वोट = {validPercentage}%।",
+            "मान रखिए।",
+            "वैध वोट-अंतर = {gapPercentage}%।",
+            "कुल वोट-अंतर = {effectiveGapPercentage}%। कुल वोट = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "वैध वोट = {validPercentage}%।",
+            "वैध वोट-अंतर = {gapPercentage}%।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Valid vote percentage = {validPercentage}%.",
-            "Winner-loser gap among valid votes = {gapPercentage}%.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Actual gap on total votes = {effectiveGapPercentage}%. Total votes = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "वैध वोट = {validPercentage}%।",
+            "वैध वोट-अंतर = {gapPercentage}%।",
+            "आधार स्पष्ट रखिए।",
+            "कुल वोट-अंतर = {effectiveGapPercentage}%। कुल वोट = {voteDifference} x 100 / {effectiveGapPercentage} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "passMarks": {
         "steps": [
-          "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-          "This is {passRate}% of total marks.",
-          "Total marks = {passMarksValue} x 100 / {passRate} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "पास अंक = {passMarksValue}।",
+          "यह कुल का {passRate}% है।",
+          "कुल अंक = {passMarksValue} x 100 / {passRate} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "पास अंक = {passMarksValue}।",
+            "यह कुल का {passRate}% है।",
+            "कुल अंक = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "पास अंक = {passMarksValue}।",
+            "यह कुल का {passRate}% है।",
+            "कुल अंक = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "दिए गए मानों को संबंध में रखें।",
-            "This is {passRate}% of total marks.",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "पास अंक = {passMarksValue}।",
+            "मान रखिए।",
+            "यह कुल का {passRate}% है।",
+            "कुल अंक = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "पास अंक = {passMarksValue}।",
+            "यह कुल का {passRate}% है।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Passing marks = marks obtained + fail margin = {passMarksValue}.",
-            "This is {passRate}% of total marks.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Total marks = {passMarksValue} x 100 / {passRate} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "पास अंक = {passMarksValue}।",
+            "यह कुल का {passRate}% है।",
+            "आधार स्पष्ट रखिए।",
+            "कुल अंक = {passMarksValue} x 100 / {passRate} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "complementOfTotal": {
         "steps": [
-          "इसलिए इसलिए = 100 - {percentageRate} = {knownPercentage}%.",
-          "इसलिए इसलिए = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
-          "आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "आवश्यक प्रतिशत = {knownPercentage}%।",
+          "आवश्यक मान = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+          "यही आवश्यक मान है।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "इसलिए इसलिए = 100 - {percentageRate} = {knownPercentage}%.",
-            "इसलिए इसलिए = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
-            "आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "आवश्यक प्रतिशत = {knownPercentage}%।",
+            "आवश्यक मान = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "यही आवश्यक मान है।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "इसलिए इसलिए = 100 - {percentageRate} = {knownPercentage}%.",
-            "इसलिए इसलिए = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
-            "आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "आवश्यक प्रतिशत = {knownPercentage}%।",
+            "आवश्यक मान = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "यही आवश्यक मान है।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "इसलिए इसलिए = 100 - {percentageRate} = {knownPercentage}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए इसलिए = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
-            "आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "आवश्यक प्रतिशत = {knownPercentage}%।",
+            "मान रखिए।",
+            "आवश्यक मान = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "यही आवश्यक मान है।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "इसलिए इसलिए = 100 - {percentageRate} = {knownPercentage}%.",
-            "इसलिए इसलिए = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "आवश्यक प्रतिशत = {knownPercentage}%।",
+            "आवश्यक मान = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "इसलिए इसलिए = 100 - {percentageRate} = {knownPercentage}%.",
-            "इसलिए इसलिए = {totalPopulation} x {knownPercentage} / 100 = {answer}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "आवश्यक प्रतिशत = {knownPercentage}%।",
+            "आवश्यक मान = {totalPopulation} x {knownPercentage} / 100 = {answer}।",
+            "आधार स्पष्ट रखिए।",
+            "यही आवश्यक मान है।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "moreMarksBase": {
         "steps": [
-          "आवश्यक मान: marks {marks} are {rate1}% more than the base.",
-          "इसलिए, {marks} represents {changedBase}% of the base.",
-          "Base marks = {marks} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "दिया मान आधार से {rate1}% अधिक है।",
+          "अतः यह {changedBase}% के बराबर है।",
+          "आधार अंक = {marks} x 100 / {changedBase} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "आवश्यक मान: marks {marks} are {rate1}% more than the base.",
-            "इसलिए, {marks} represents {changedBase}% of the base.",
-            "Base marks = {marks} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "दिया मान आधार से {rate1}% अधिक है।",
+            "अतः यह {changedBase}% के बराबर है।",
+            "आधार अंक = {marks} x 100 / {changedBase} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "आवश्यक मान: marks {marks} are {rate1}% more than the base.",
-            "इसलिए, {marks} represents {changedBase}% of the base.",
-            "Base marks = {marks} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "दिया मान आधार से {rate1}% अधिक है।",
+            "अतः यह {changedBase}% के बराबर है।",
+            "आधार अंक = {marks} x 100 / {changedBase} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "आवश्यक मान: marks {marks} are {rate1}% more than the base.",
-            "दिए गए मानों को संबंध में रखें।",
-            "इसलिए, {marks} represents {changedBase}% of the base.",
-            "Base marks = {marks} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "दिया मान आधार से {rate1}% अधिक है।",
+            "मान रखिए।",
+            "अतः यह {changedBase}% के बराबर है।",
+            "आधार अंक = {marks} x 100 / {changedBase} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "आवश्यक मान: marks {marks} are {rate1}% more than the base.",
-            "इसलिए, {marks} represents {changedBase}% of the base.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "दिया मान आधार से {rate1}% अधिक है।",
+            "अतः यह {changedBase}% के बराबर है।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "आवश्यक मान: marks {marks} are {rate1}% more than the base.",
-            "इसलिए, {marks} represents {changedBase}% of the base.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Base marks = {marks} x 100 / {changedBase} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "दिया मान आधार से {rate1}% अधिक है।",
+            "अतः यह {changedBase}% के बराबर है।",
+            "आधार स्पष्ट रखिए।",
+            "आधार अंक = {marks} x 100 / {changedBase} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "twoShareRemainder": {
         "steps": [
-          "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-          "This remaining value is {value}.",
-          "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "शेष प्रतिशत = {knownPercentage}%।",
+          "शेष मान = {value}।",
+          "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "This remaining value is {value}.",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "मान रखिए।",
+            "शेष मान = {value}।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Remaining percentage = 100 - {rate1} - {rate2} = {knownPercentage}%.",
-            "This remaining value is {value}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Total = {value} x 100 / {knownPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "शेष प्रतिशत = {knownPercentage}%।",
+            "शेष मान = {value}।",
+            "आधार स्पष्ट रखिए।",
+            "कुल = {value} x 100 / {knownPercentage} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },
       "loserVotes": {
         "steps": [
-          "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-          "Vote gap percentage = {gapPercentage}%.",
-          "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "विजेता प्रतिशत = {winnerPercentage}%।",
+          "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+          "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "विजेता प्रतिशत = {winnerPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "विजेता प्रतिशत = {winnerPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Vote gap percentage = {gapPercentage}%.",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "विजेता प्रतिशत = {winnerPercentage}%।",
+            "मान रखिए।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "विजेता प्रतिशत = {winnerPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Loser gets {rate1}% votes, so winner gets {winnerPercentage}%.",
-            "Vote gap percentage = {gapPercentage}%.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Total votes = {voteDifference} x 100 / {gapPercentage} = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "विजेता प्रतिशत = {winnerPercentage}%।",
+            "वोट-अंतर प्रतिशत = {gapPercentage}%।",
+            "आधार स्पष्ट रखिए।",
+            "कुल वोट = {voteDifference} x 100 / {gapPercentage} = {answer}।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       }
@@ -1372,47 +1057,47 @@
     "taskExplanations": {
       "mixturePercent": {
         "steps": [
-          "Use the unchanged component to form the percentage equation.",
-          "Initial unchanged amount = {initialUnchangedAmount}.",
-          "Final total or required change is found from the new percentage condition. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
-          "अब गणना को ध्यान से सरल करें।",
-          "इसलिए, उत्तर {answer} है।"
+          "अपरिवर्तित अंश के आधार पर समीकरण बनाइए।",
+          "अपरिवर्तित मात्रा पहले ज्ञात कीजिए।",
+          "नई प्रतिशत शर्त से अंतिम मात्रा या परिवर्तन ज्ञात कीजिए।",
+          "अब सरल कीजिए।",
+          "उत्तर {answer} है।"
         ],
         "variants": [
           [
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "Final total or required change is found from the new percentage condition. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
-            "अब गणना को ध्यान से सरल करें।",
-            "इसलिए, उत्तर {answer} है।"
+            "अपरिवर्तित अंश के आधार पर समीकरण बनाइए।",
+            "अपरिवर्तित मात्रा पहले ज्ञात कीजिए।",
+            "नई प्रतिशत शर्त से अंतिम मात्रा या परिवर्तन ज्ञात कीजिए।",
+            "अब सरल कीजिए।",
+            "उत्तर {answer} है।"
           ],
           [
-            "दिए गए संबंध को ध्यान से देखें।",
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "Final total or required change is found from the new percentage condition. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
-            "अतः आवश्यक मान {answer} है।"
+            "संबंध देखिए।",
+            "अपरिवर्तित अंश के आधार पर समीकरण बनाइए।",
+            "अपरिवर्तित मात्रा पहले ज्ञात कीजिए।",
+            "नई प्रतिशत शर्त से अंतिम मात्रा या परिवर्तन ज्ञात कीजिए।",
+            "आवश्यक मान {answer} है।"
           ],
           [
-            "Use the unchanged component to form the percentage equation.",
-            "दिए गए मानों को संबंध में रखें।",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "Final total or required change is found from the new percentage condition. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
-            "इस प्रकार प्राप्त मान {answer} है।"
+            "अपरिवर्तित अंश के आधार पर समीकरण बनाइए।",
+            "मान रखिए।",
+            "अपरिवर्तित मात्रा पहले ज्ञात कीजिए।",
+            "नई प्रतिशत शर्त से अंतिम मात्रा या परिवर्तन ज्ञात कीजिए।",
+            "प्राप्त मान {answer} है।"
           ],
           [
-            "अब दिए गए मानों से गणना करें।",
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "The calculation gives {answer}.",
-            "इसलिए, अंतिम उत्तर {answer} है।"
+            "गणना लिखिए।",
+            "अपरिवर्तित अंश के आधार पर समीकरण बनाइए।",
+            "अपरिवर्तित मात्रा पहले ज्ञात कीजिए।",
+            "फल {answer} है।",
+            "आवश्यक उत्तर {answer} है।"
           ],
           [
-            "Use the unchanged component to form the percentage equation.",
-            "Initial unchanged amount = {initialUnchangedAmount}.",
-            "सरल करते समय आधार मान को स्पष्ट रखें।",
-            "Final total or required change is found from the new percentage condition. इसलिए इसलिए = {answer}. आवश्यक मान: {answer}",
-            "अतः सही उत्तर {answer} है।"
+            "अपरिवर्तित अंश के आधार पर समीकरण बनाइए।",
+            "अपरिवर्तित मात्रा पहले ज्ञात कीजिए।",
+            "आधार स्पष्ट रखिए।",
+            "नई प्रतिशत शर्त से अंतिम मात्रा या परिवर्तन ज्ञात कीजिए।",
+            "अंतिम उत्तर {answer} है।"
           ]
         ]
       },

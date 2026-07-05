@@ -19,7 +19,14 @@ const PACKAGE_DIR = resolve(
   "../../src/quant-v4/topics/Arithmetic/subtopics/Percentage/PCT-001",
 );
 
-const LOCALIZED_CP_ID = "PCT-CP-001" as const;
+const LOCALIZED_CP_IDS = [
+  "PCT-CP-001",
+  "PCT-CP-002",
+  "PCT-CP-003",
+  "PCT-CP-004",
+  "PCT-CP-005",
+  "PCT-CP-006",
+] as const;
 const PILOT_LANGUAGES: readonly Pct001Language[] = ["hi", "pa"];
 const RANDOM_SMOKE_SEEDS = [
   "random-01",
@@ -70,11 +77,13 @@ function loadJson(filename: string) {
 }
 
 function stripExplanationMath(text: string) {
-  return text.replace(/\[\s*\\Rightarrow[\s\S]*?\]/g, " ");
+  return text
+    .replace(/\$\$[\s\S]*?\$\$/g, " ")
+    .replace(/\[\s*\\Rightarrow[\s\S]*?\]/g, " ");
 }
 
 function hasUnresolvedPlaceholder(text: string) {
-  return /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(text);
+  return /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(stripExplanationMath(text));
 }
 
 function detectEnglishLeakage(text: string) {
@@ -129,10 +138,6 @@ async function main() {
   const libraryValidation = validatePct001Libraries();
   assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
 
-  const englishIds = Object.keys(questionLanguageEn[LOCALIZED_CP_ID]?.families ?? {});
-  const hiIds = Object.keys(questionLanguageHi[LOCALIZED_CP_ID]?.families ?? {});
-  const paIds = Object.keys(questionLanguagePa[LOCALIZED_CP_ID]?.families ?? {});
-
   let placeholderParityPassed = true;
   let requiredPlaceholdersPassed = true;
   let unresolvedPlaceholderCount = 0;
@@ -154,81 +159,105 @@ async function main() {
   const sameSet = (left: Set<string>, right: Set<string>) =>
     left.size === right.size && [...left].every((value) => right.has(value));
 
-  assert.equal(englishIds.length, 120, `Expected 120 English QLs for ${LOCALIZED_CP_ID}.`);
-  assert.equal(hiIds.length, englishIds.length, "Hindi CP-001 coverage does not match English.");
-  assert.equal(paIds.length, englishIds.length, "Punjabi CP-001 coverage does not match English.");
+  let totalEnglishQuestionLanguages = 0;
+  let totalHindiQuestionLanguages = 0;
+  let totalPunjabiQuestionLanguages = 0;
 
-  for (const qlId of englishIds) {
-    const enTemplate = questionLanguageEn[LOCALIZED_CP_ID]?.families?.[qlId]?.template;
-    const hiTemplate = questionLanguageHi[LOCALIZED_CP_ID]?.families?.[qlId]?.template;
-    const paTemplate = questionLanguagePa[LOCALIZED_CP_ID]?.families?.[qlId]?.template;
+  for (const cpId of LOCALIZED_CP_IDS) {
+    const englishIds = Object.keys(questionLanguageEn[cpId]?.families ?? {});
+    const hiIds = Object.keys(questionLanguageHi[cpId]?.families ?? {});
+    const paIds = Object.keys(questionLanguagePa[cpId]?.families ?? {});
 
-    const enPlaceholders = new Set(extractPlaceholders(String(enTemplate ?? "")));
-    const hiPlaceholders = new Set(extractPlaceholders(String(hiTemplate ?? "")));
-    const paPlaceholders = new Set(extractPlaceholders(String(paTemplate ?? "")));
-    const requiredVariables = getRequiredVariables(LOCALIZED_CP_ID, qlId);
+    totalEnglishQuestionLanguages += englishIds.length;
+    totalHindiQuestionLanguages += hiIds.length;
+    totalPunjabiQuestionLanguages += paIds.length;
 
-    placeholderParityPassed =
-      placeholderParityPassed &&
-      sameSet(enPlaceholders, hiPlaceholders) &&
-      sameSet(enPlaceholders, paPlaceholders);
+    assert.equal(
+      hiIds.length,
+      englishIds.length,
+      `Hindi ${cpId} coverage does not match English.`,
+    );
+    assert.equal(
+      paIds.length,
+      englishIds.length,
+      `Punjabi ${cpId} coverage does not match English.`,
+    );
 
-    requiredPlaceholdersPassed =
-      requiredPlaceholdersPassed &&
-      requiredVariables.every(
-        (name) =>
-          enPlaceholders.has(name) &&
-          hiPlaceholders.has(name) &&
-          paPlaceholders.has(name),
-      );
+    for (const qlId of englishIds) {
+      const enTemplate = questionLanguageEn[cpId]?.families?.[qlId]?.template;
+      const hiTemplate = questionLanguageHi[cpId]?.families?.[qlId]?.template;
+      const paTemplate = questionLanguagePa[cpId]?.families?.[qlId]?.template;
 
-    for (const language of PILOT_LANGUAGES) {
-      const pkg = runPct001Pipeline(LOCALIZED_CP_ID, {
-        language,
-        questionLanguageId: qlId,
-        seed: `pct-001-multilingual:${language}:${qlId}`,
-      });
+      const enPlaceholders = new Set(extractPlaceholders(String(enTemplate ?? "")));
+      const hiPlaceholders = new Set(extractPlaceholders(String(hiTemplate ?? "")));
+      const paPlaceholders = new Set(extractPlaceholders(String(paTemplate ?? "")));
+      const requiredVariables = getRequiredVariables(cpId, qlId);
 
-      if (hasUnresolvedPlaceholder(pkg.stem) || pkg.explanation.lines.some((line) => hasUnresolvedPlaceholder(line))) {
-        unresolvedPlaceholderCount += 1;
-      }
-      if (detectEnglishLeakage(pkg.stem)) {
-        englishLeakageCount += 1;
-      }
-      if (explanationHasEnglishLeakage(pkg.explanation.lines)) {
-        explanationEnglishLeakageCount += 1;
-        explanationLanguageLocalized = false;
-      }
-      if (!pkg.validation.valid) {
-        forcedLocalizedGenerationPassed = false;
-      }
+      placeholderParityPassed =
+        placeholderParityPassed &&
+        sameSet(enPlaceholders, hiPlaceholders) &&
+        sameSet(enPlaceholders, paPlaceholders);
 
-      const exportedLanguage = await exportLanguageForQuestion(
-        LOCALIZED_CP_ID,
-        language,
-        `pct-001-multilingual-export:${language}:${qlId}`,
-        qlId,
-      );
-      if (exportedLanguage !== language) {
-        metadataLanguagePassed = false;
-      }
+      requiredPlaceholdersPassed =
+        requiredPlaceholdersPassed &&
+        requiredVariables.every(
+          (name) =>
+            enPlaceholders.has(name) &&
+            hiPlaceholders.has(name) &&
+            paPlaceholders.has(name),
+        );
 
-      if (forcedSamples.length < 8) {
-        forcedSamples.push({
+      for (const language of PILOT_LANGUAGES) {
+        const pkg = runPct001Pipeline(cpId, {
           language,
           questionLanguageId: qlId,
-          stem: pkg.stem,
-          explanationPreview: pkg.explanation.lines.slice(0, 4),
-          exportLanguage: exportedLanguage,
+          seed: `pct-001-multilingual:${language}:${cpId}:${qlId}`,
         });
+
+        if (
+          hasUnresolvedPlaceholder(pkg.stem) ||
+          pkg.explanation.lines.some((line) => hasUnresolvedPlaceholder(line))
+        ) {
+          unresolvedPlaceholderCount += 1;
+        }
+        if (detectEnglishLeakage(pkg.stem)) {
+          englishLeakageCount += 1;
+        }
+        if (explanationHasEnglishLeakage(pkg.explanation.lines)) {
+          explanationEnglishLeakageCount += 1;
+          explanationLanguageLocalized = false;
+        }
+        if (!pkg.validation.valid) {
+          forcedLocalizedGenerationPassed = false;
+        }
+
+        const exportedLanguage = await exportLanguageForQuestion(
+          cpId,
+          language,
+          `pct-001-multilingual-export:${language}:${cpId}:${qlId}`,
+          qlId,
+        );
+        if (exportedLanguage !== language) {
+          metadataLanguagePassed = false;
+        }
+
+        if (forcedSamples.length < 12) {
+          forcedSamples.push({
+            language,
+            questionLanguageId: qlId,
+            stem: pkg.stem,
+            explanationPreview: pkg.explanation.lines.slice(0, 4),
+            exportLanguage: exportedLanguage,
+          });
+        }
       }
     }
   }
 
   try {
-    runPct001Pipeline("PCT-CP-002", {
+    runPct001Pipeline("PCT-CP-006", {
       language: "hi",
-      questionLanguageId: "PCT-QL-010",
+      questionLanguageId: "PCT-QL-999",
       seed: "pct-001-non-english-block:hi",
     });
     forcedUnsupportedNonEnglishBlocked = false;
@@ -237,9 +266,9 @@ async function main() {
   }
 
   try {
-    runPct001Pipeline("PCT-CP-002", {
+    runPct001Pipeline("PCT-CP-006", {
       language: "pa",
-      questionLanguageId: "PCT-QL-010",
+      questionLanguageId: "PCT-QL-999",
       seed: "pct-001-non-english-block:pa",
     });
     forcedUnsupportedNonEnglishBlocked = false;
@@ -254,27 +283,14 @@ async function main() {
   );
 
   for (const language of PILOT_LANGUAGES) {
-    const selectableIds = getSelectableQuestionLanguageIds(LOCALIZED_CP_ID, language);
-    const localizedSet = new Set(language === "hi" ? hiIds : paIds);
+    for (const cpId of LOCALIZED_CP_IDS) {
+      const localizedIds = Object.keys(
+        (language === "hi" ? questionLanguageHi : questionLanguagePa)[cpId]?.families ?? {},
+      );
+      const localizedSet = new Set(localizedIds);
+      const selectableIds = getSelectableQuestionLanguageIds(cpId, language);
 
-    if (selectableIds.some((qlId) => !localizedSet.has(qlId))) {
-      if (language === "hi") {
-        randomHiSelectableOnly = false;
-      } else {
-        randomPaSelectableOnly = false;
-      }
-    }
-
-    for (const seed of RANDOM_SMOKE_SEEDS) {
-      const pkg = runPct001Pipeline(LOCALIZED_CP_ID, {
-        language,
-        seed: `pct-001-random:${language}:${seed}`,
-      });
-
-      randomSelectionCounts[language][pkg.questionLanguageId] =
-        (randomSelectionCounts[language][pkg.questionLanguageId] ?? 0) + 1;
-
-      if (!localizedSet.has(pkg.questionLanguageId)) {
+      if (selectableIds.some((qlId) => !localizedSet.has(qlId))) {
         if (language === "hi") {
           randomHiSelectableOnly = false;
         } else {
@@ -282,24 +298,45 @@ async function main() {
         }
       }
 
-      if (hasUnresolvedPlaceholder(pkg.stem) || pkg.explanation.lines.some((line) => hasUnresolvedPlaceholder(line))) {
-        unresolvedPlaceholderCount += 1;
-      }
-      if (detectEnglishLeakage(pkg.stem)) {
-        englishLeakageCount += 1;
-      }
-      if (explanationHasEnglishLeakage(pkg.explanation.lines)) {
-        explanationEnglishLeakageCount += 1;
-        explanationLanguageLocalized = false;
-      }
+      for (const seed of RANDOM_SMOKE_SEEDS) {
+        const pkg = runPct001Pipeline(cpId, {
+          language,
+          seed: `pct-001-random:${language}:${cpId}:${seed}`,
+        });
 
-      const exportedLanguage = await exportLanguageForQuestion(
-        LOCALIZED_CP_ID,
-        language,
-        `pct-001-random-export:${language}:${seed}`,
-      );
-      if (exportedLanguage !== language) {
-        metadataLanguagePassed = false;
+        randomSelectionCounts[language][pkg.questionLanguageId] =
+          (randomSelectionCounts[language][pkg.questionLanguageId] ?? 0) + 1;
+
+        if (!localizedSet.has(pkg.questionLanguageId)) {
+          if (language === "hi") {
+            randomHiSelectableOnly = false;
+          } else {
+            randomPaSelectableOnly = false;
+          }
+        }
+
+        if (
+          hasUnresolvedPlaceholder(pkg.stem) ||
+          pkg.explanation.lines.some((line) => hasUnresolvedPlaceholder(line))
+        ) {
+          unresolvedPlaceholderCount += 1;
+        }
+        if (detectEnglishLeakage(pkg.stem)) {
+          englishLeakageCount += 1;
+        }
+        if (explanationHasEnglishLeakage(pkg.explanation.lines)) {
+          explanationEnglishLeakageCount += 1;
+          explanationLanguageLocalized = false;
+        }
+
+        const exportedLanguage = await exportLanguageForQuestion(
+          cpId,
+          language,
+          `pct-001-random-export:${language}:${cpId}:${seed}`,
+        );
+        if (exportedLanguage !== language) {
+          metadataLanguagePassed = false;
+        }
       }
     }
   }
@@ -320,9 +357,9 @@ async function main() {
     randomHiSelectableOnly,
     randomPaSelectableOnly,
     localizedCpIds,
-    totalEnglishQuestionLanguages: englishIds.length,
-    totalHindiQuestionLanguages: hiIds.length,
-    totalPunjabiQuestionLanguages: paIds.length,
+    totalEnglishQuestionLanguages,
+    totalHindiQuestionLanguages,
+    totalPunjabiQuestionLanguages,
     coverageAudit,
     randomSelectionCounts,
     forcedSamples,

@@ -15,6 +15,16 @@ const seenQuestions = new Map<string, number>();
 const libraryValidation = validatePct001Libraries();
 assert.equal(libraryValidation.valid, true, libraryValidation.failures.join("; "));
 
+function stripExplanationMath(text: string) {
+  return text
+    .replace(/\$\$[\s\S]*?\$\$/g, " ")
+    .replace(/\[\s*\\Rightarrow[\s\S]*?\]/g, " ");
+}
+
+function hasUnresolvedPlaceholder(text: string) {
+  return /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(stripExplanationMath(text));
+}
+
 function packageParams(cpId: Pct001CanonicalProblemId, qlId: string, variables: Pct001Variables): Pct001Parameters {
   return {
     archetypeId: PCT_001_ARCHETYPE_ID,
@@ -128,7 +138,11 @@ const localizedCpIds = cpIds.filter(
     getSelectableQuestionLanguageIds(cpId, "hi").length > 0 &&
     getSelectableQuestionLanguageIds(cpId, "pa").length > 0,
 );
-assert.deepEqual(localizedCpIds, ["PCT-CP-001"], "Unexpected localized PCT-001 checkpoint coverage.");
+assert.deepEqual(
+  localizedCpIds,
+  ["PCT-CP-001", "PCT-CP-002", "PCT-CP-003", "PCT-CP-004", "PCT-CP-005", "PCT-CP-006"],
+  "Unexpected localized PCT-001 multilingual coverage.",
+);
 
 for (let index = 0; index < 180; index += 1) {
   const cpId = localizedCpIds[index % localizedCpIds.length]!;
@@ -153,8 +167,8 @@ for (let index = 0; index < 180; index += 1) {
   assert.equal(en.answer, pa.answer);
   assert.ok(!hi.stem.includes("{"));
   assert.ok(!pa.stem.includes("{"));
-  assert.ok(!hi.explanation.lines.join(" ").includes("{"));
-  assert.ok(!pa.explanation.lines.join(" ").includes("{"));
+  assert.ok(!hasUnresolvedPlaceholder(hi.explanation.lines.join(" ")));
+  assert.ok(!hasUnresolvedPlaceholder(pa.explanation.lines.join(" ")));
 }
 
 const audit = generatePct001CoverageAudit(500, "en").audit;
@@ -164,4 +178,4 @@ assert.equal(audit.renderFailures, 0);
 assert.equal(audit.solverFailures, 0);
 assert.equal(audit.unusedEsIds.length, 0);
 
-console.log(`PCT-001 Phase C test passed. Duplicate rate: ${(duplicateRate * 100).toFixed(2)}%.`);
+console.log(`PCT-001 multilingual completion test passed. Duplicate rate: ${(duplicateRate * 100).toFixed(2)}%.`);

@@ -19,6 +19,21 @@ const LOCALIZED_QUESTION_LANGUAGE_REGISTRY: LocalizedQuestionLanguageRegistry = 
       ...[0, 100, 200, 300, 400].flatMap((offset) =>
         [5, 6, 7, 8].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
       ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [10, 11, 12, 13, 14, 15, 16, 17, 18, 19].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [20, 21, 22, 23, 24, 25, 26, 27].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [28, 29, 30, 31, 32, 33, 34, 35].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [48, 49, 50, 51, 52, 53, 54, 55].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
     ],
     pa: [
       ...[0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900].flatMap(
@@ -26,6 +41,21 @@ const LOCALIZED_QUESTION_LANGUAGE_REGISTRY: LocalizedQuestionLanguageRegistry = 
       ),
       ...[0, 100, 200, 300, 400].flatMap((offset) =>
         [5, 6, 7, 8].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [10, 11, 12, 13, 14, 15, 16, 17, 18, 19].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [20, 21, 22, 23, 24, 25, 26, 27].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [28, 29, 30, 31, 32, 33, 34, 35].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
+      ),
+      ...[0, 100, 200, 300, 400].flatMap((offset) =>
+        [48, 49, 50, 51, 52, 53, 54, 55].map((suffix) => `PCT-QL-${String(offset + suffix).padStart(3, "0")}`),
       ),
     ],
   },
