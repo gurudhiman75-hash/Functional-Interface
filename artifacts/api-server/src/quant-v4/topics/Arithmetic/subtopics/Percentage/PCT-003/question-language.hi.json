@@ -1,8 +1,66 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": { "template": "The {wholeLabel} increased by {increaseRate}%. If the original {wholeLabel} was {valuePrefix}{originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-002": { "template": "The {wholeLabel} increased by {increaseRate}%. If the original {wholeLabel} was {originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" }
+      "PCT-QL-001": {
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} है। यदि यह {increaseRate}% बढ़ जाता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "एक {wholeLabel} {originalValue} है। यदि यह {increaseRate}% बढ़ जाता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "पिछले महीने {wholeLabel} {originalValue} इकाइयाँ था। इस महीने यह {increaseRate}% बढ़ गया। इस महीने की खपत ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "अभियान से पहले {wholeLabel} की संख्या {originalValue} थी। अभियान के बाद, यह {increaseRate}% बढ़ गई। उपयोगकर्ताओं की नई संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "{wholeLabel} {originalValue} क्विंटल था। यह {increaseRate}% बढ़ गया। नई उत्पादन ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "{valuePrefix}{originalValue} का एक {wholeLabel} एक वर्ष में {increaseRate}% बढ़ जाता है। वृद्धि के बाद इसका मान ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "मासिक {wholeLabel} {valuePrefix}{originalValue} था। यह {increaseRate}% बढ़ गया। संशोधित {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "एक व्यापारी का {wholeLabel} {valuePrefix}{originalValue} है। यदि यह {increaseRate}% बढ़ता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "दर्ज किया गया {wholeLabel} {valuePrefix}{originalValue} था। {increaseRate}% की वृद्धि के बाद, अद्यतन {wholeLabel} क्या है?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "एक फंड में {valuePrefix}{originalValue} का {wholeLabel} है। यदि यह {increaseRate}% बढ़ता है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "एक शहर में {originalValue} {wholeLabel} हैं। यदि संख्या {increaseRate}% बढ़ जाती है, तो {wholeLabel} की नई संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "स्कूल में {originalValue} {wholeLabel} थे। {increaseRate}% की वृद्धि के बाद, {wholeLabel} की कुल संख्या ज्ञात कीजिए।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "एक गोदाम में {originalValue} {wholeLabel} स्टोर किए गए थे। यदि स्टॉक {increaseRate}% बढ़ जाता है, तो नया स्टॉक ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-059": {
+        "template": "एक मार्ग पर {originalValue} {wholeLabel} ले जाए गए। यदि यह {increaseRate}% बढ़ जाता है, तो नई यात्री संख्या ज्ञात कीजिए।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "एक कार्यालय में पिछले वर्ष {originalValue} {wholeLabel} थे। यदि गिनती {increaseRate}% बढ़ जाती है, तो इस वर्ष गिनती क्या है?",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-002": {

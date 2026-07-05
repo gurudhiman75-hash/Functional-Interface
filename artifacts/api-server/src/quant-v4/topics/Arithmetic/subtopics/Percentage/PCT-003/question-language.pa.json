@@ -1,8 +1,66 @@
 {
   "PCT-CP-001": {
     "families": {
-      "PCT-QL-001": { "template": "The {wholeLabel} increased by {increaseRate}%. If the original {wholeLabel} was {valuePrefix}{originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" },
-      "PCT-QL-002": { "template": "The {wholeLabel} increased by {increaseRate}%. If the original {wholeLabel} was {originalValue}, find the new {wholeLabel}.", "difficulty": "Easy" }
+      "PCT-QL-001": {
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-002": {
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-021": {
+        "template": "ਪਿਛਲੇ ਮਹੀਨੇ {wholeLabel} {originalValue} ਇਕਾਈਆਂ ਸੀ। ਇਸ ਮਹੀਨੇ ਇਹ {increaseRate}% ਵਧ ਗਿਆ। ਇਸ ਮਹੀਨੇ ਦੀ ਖਪਤ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-022": {
+        "template": "ਮੁਹਿੰਮ ਤੋਂ ਪਹਿਲਾਂ {wholeLabel} ਦੀ ਗਿਣਤੀ {originalValue} ਸੀ। ਮੁਹਿੰਮ ਤੋਂ ਬਾਅਦ, ਇਹ {increaseRate}% ਵਧ ਗਈ। ਵਰਤੋਂਕਰਤਾਵਾਂ ਦੀ ਨਵੀਂ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-023": {
+        "template": "{wholeLabel} {originalValue} ਕੁਇੰਟਲ ਸੀ। ਇਹ {increaseRate}% ਵਧ ਗਿਆ। ਨਵੀਂ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-051": {
+        "template": "{valuePrefix}{originalValue} ਦਾ ਇੱਕ {wholeLabel} ਇੱਕ ਸਾਲ ਵਿੱਚ {increaseRate}% ਵਧ ਜਾਂਦਾ ਹੈ। ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਇਸਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-052": {
+        "template": "ਮਾਸਿਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {increaseRate}% ਵਧ ਗਿਆ। ਸੋਧਿਆ ਹੋਇਆ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-053": {
+        "template": "ਇੱਕ ਵਪਾਰੀ ਦਾ {wholeLabel} {valuePrefix}{originalValue} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-054": {
+        "template": "ਦਰਜ ਕੀਤਾ ਗਿਆ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ, ਅਪਡੇਟ ਕੀਤਾ {wholeLabel} ਕੀ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-055": {
+        "template": "ਇੱਕ ਫੰਡ ਵਿੱਚ {valuePrefix}{originalValue} ਦਾ {wholeLabel} ਹੈ। ਜੇ ਇਹ {increaseRate}% ਵਧਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-056": {
+        "template": "ਇੱਕ ਸ਼ਹਿਰ ਵਿੱਚ {originalValue} {wholeLabel} ਹਨ। ਜੇ ਗਿਣਤੀ {increaseRate}% ਵਧ ਜਾਂਦੀ ਹੈ, ਤਾਂ {wholeLabel} ਦੀ ਨਵੀਂ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-057": {
+        "template": "ਸਕੂਲ ਵਿੱਚ {originalValue} {wholeLabel} ਸਨ। {increaseRate}% ਦੇ ਵਾਧੇ ਤੋਂ ਬਾਅਦ, {wholeLabel} ਦੀ ਕੁੱਲ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Easy"
+      },
+      "PCT-QL-058": {
+        "template": "ਇੱਕ ਗੋਦਾਮ ਵਿੱਚ {originalValue} {wholeLabel} ਸਟੋਰ ਕੀਤੇ ਗਏ ਸਨ। ਜੇ ਸਟਾਕ {increaseRate}% ਵਧ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਸਟਾਕ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-059": {
+        "template": "ਇੱਕ ਰੂਟ 'ਤੇ {originalValue} {wholeLabel} ਲਿਜਾਏ ਗਏ ਸਨ। ਜੇ ਇਹ {increaseRate}% ਵਧ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਨਵੀਂ ਯਾਤਰੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "difficulty": "Medium"
+      },
+      "PCT-QL-060": {
+        "template": "ਇੱਕ ਦਫ਼ਤਰ ਵਿੱਚ ਪਿਛਲੇ ਸਾਲ {originalValue} {wholeLabel} ਸਨ। ਜੇ ਗਿਣਤੀ {increaseRate}% ਵਧ ਜਾਂਦੀ ਹੈ, ਤਾਂ ਇਸ ਸਾਲ ਗਿਣਤੀ ਕੀ ਹੈ?",
+        "difficulty": "Medium"
+      }
     }
   },
   "PCT-CP-002": {
