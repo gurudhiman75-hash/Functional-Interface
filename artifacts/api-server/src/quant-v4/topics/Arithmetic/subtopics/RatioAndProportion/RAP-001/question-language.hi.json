@@ -96,6 +96,70 @@
       "RAP-QL-1902": {
         "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} अनुपात को पूर्ण संख्याओं में बदलें।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-101": {
+        "template": "यदि {personA}:{personB} का अनुपात {ratioA1}:{ratioB1} है और {personB}:{personC} का अनुपात {ratioB2}:{ratioC2} है, तो {personA}:{personB}:{personC} का संयुक्त अनुपात क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-201": {
+        "template": "यदि {personA}:{personB} का अनुपात {ratioA1}:{ratioB1} है और {personB}:{personC} का अनुपात {ratioB2}:{ratioC2} है, तो {personA}:{personB}:{personC} का संयुक्त अनुपात क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-301": {
+        "template": "यदि {personA}:{personB} का अनुपात {ratioA1}:{ratioB1} है और {personB}:{personC} का अनुपात {ratioB2}:{ratioC2} है, तो {personA}:{personB}:{personC} का संयुक्त अनुपात क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-401": {
+        "template": "यदि {personA}:{personB} का अनुपात {ratioA1}:{ratioB1} है और {personB}:{personC} का अनुपात {ratioB2}:{ratioC2} है, तो {personA}:{personB}:{personC} का संयुक्त अनुपात क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-103": {
+        "template": "दिया है कि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} है। {personA} और {personD} के बीच का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-203": {
+        "template": "दिया है कि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} है। {personA} और {personD} के बीच का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-303": {
+        "template": "दिया है कि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} है। {personA} और {personD} के बीच का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-403": {
+        "template": "दिया है कि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} है। {personA} और {personD} के बीच का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-104": {
+        "template": "किसी {groupName} में {personA} और {personB} का अनुपात {ratioA}:{ratioB} है। यदि वहाँ {valueA} {personA} हैं, तो {personB} की संख्या कितनी है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-204": {
+        "template": "किसी {groupName} में {personA} और {personB} का अनुपात {ratioA}:{ratioB} है। यदि वहाँ {valueA} {personA} हैं, तो {personB} की संख्या कितनी है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-304": {
+        "template": "किसी {groupName} में {personA} और {personB} का अनुपात {ratioA}:{ratioB} है। यदि वहाँ {valueA} {personA} हैं, तो {personB} की संख्या कितनी है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-404": {
+        "template": "किसी {groupName} में {personA} और {personB} का अनुपात {ratioA}:{ratioB} है। यदि वहाँ {valueA} {personA} हैं, तो {personB} की संख्या कितनी है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-106": {
+        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण-संख्या अनुपात क्या होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-206": {
+        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण-संख्या अनुपात क्या होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-306": {
+        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण-संख्या अनुपात क्या होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-406": {
+        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण-संख्या अनुपात क्या होगा।",
+        "difficulty": "Medium"
       }
     }
   },

@@ -96,6 +96,70 @@
       "RAP-QL-1902": {
         "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} ਅਨੁਪਾਤ ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਬਦਲੋ।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-101": {
+        "template": "ਜੇ {personA}:{personB} ਦਾ ਅਨੁਪਾਤ {ratioA1}:{ratioB1} ਹੈ ਅਤੇ {personB}:{personC} ਦਾ ਅਨੁਪਾਤ {ratioB2}:{ratioC2} ਹੈ, ਤਾਂ {personA}:{personB}:{personC} ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-201": {
+        "template": "ਜੇ {personA}:{personB} ਦਾ ਅਨੁਪਾਤ {ratioA1}:{ratioB1} ਹੈ ਅਤੇ {personB}:{personC} ਦਾ ਅਨੁਪਾਤ {ratioB2}:{ratioC2} ਹੈ, ਤਾਂ {personA}:{personB}:{personC} ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-301": {
+        "template": "ਜੇ {personA}:{personB} ਦਾ ਅਨੁਪਾਤ {ratioA1}:{ratioB1} ਹੈ ਅਤੇ {personB}:{personC} ਦਾ ਅਨੁਪਾਤ {ratioB2}:{ratioC2} ਹੈ, ਤਾਂ {personA}:{personB}:{personC} ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-401": {
+        "template": "ਜੇ {personA}:{personB} ਦਾ ਅਨੁਪਾਤ {ratioA1}:{ratioB1} ਹੈ ਅਤੇ {personB}:{personC} ਦਾ ਅਨੁਪਾਤ {ratioB2}:{ratioC2} ਹੈ, ਤਾਂ {personA}:{personB}:{personC} ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-103": {
+        "template": "ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} ਅਤੇ {personC}:{personD} = {ratioC_prime}:{ratioD} ਹੈ। {personA} ਅਤੇ {personD} ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-203": {
+        "template": "ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} ਅਤੇ {personC}:{personD} = {ratioC_prime}:{ratioD} ਹੈ। {personA} ਅਤੇ {personD} ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-303": {
+        "template": "ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} ਅਤੇ {personC}:{personD} = {ratioC_prime}:{ratioD} ਹੈ। {personA} ਅਤੇ {personD} ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-403": {
+        "template": "ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} ਅਤੇ {personC}:{personD} = {ratioC_prime}:{ratioD} ਹੈ। {personA} ਅਤੇ {personD} ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-104": {
+        "template": "ਇੱਕ {groupName} ਵਿੱਚ {personA} ਅਤੇ {personB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ ਉੱਥੇ {valueA} {personA} ਹਨ, ਤਾਂ {personB} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-204": {
+        "template": "ਇੱਕ {groupName} ਵਿੱਚ {personA} ਅਤੇ {personB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ ਉੱਥੇ {valueA} {personA} ਹਨ, ਤਾਂ {personB} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-304": {
+        "template": "ਇੱਕ {groupName} ਵਿੱਚ {personA} ਅਤੇ {personB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ ਉੱਥੇ {valueA} {personA} ਹਨ, ਤਾਂ {personB} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-404": {
+        "template": "ਇੱਕ {groupName} ਵਿੱਚ {personA} ਅਤੇ {personB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ ਉੱਥੇ {valueA} {personA} ਹਨ, ਤਾਂ {personB} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-106": {
+        "template": "ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ {decimalA} : {decimalB} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-206": {
+        "template": "ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ {decimalA} : {decimalB} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-306": {
+        "template": "ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ {decimalA} : {decimalB} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-406": {
+        "template": "ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ {decimalA} : {decimalB} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
       }
     }
   },
