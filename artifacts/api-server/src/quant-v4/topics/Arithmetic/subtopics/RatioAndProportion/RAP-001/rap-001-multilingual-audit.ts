@@ -511,21 +511,16 @@ async function main() {
 
   console.log(JSON.stringify(summary, null, 2));
 
-  const blockingFailures = failures.filter(
-    (failure) => failure.check !== "source-english-leakage",
-  );
-
   if (failures.length > 0) {
     for (const failure of failures) {
-      const label = failure.check.startsWith("source-") ? "WARN" : "FAIL";
       console.error(
-        `${label} ${failure.cpId}:${failure.questionLanguageId}:${failure.language}:${failure.seed}:${failure.location}:${failure.check}`,
+        `FAIL ${failure.cpId}:${failure.questionLanguageId}:${failure.language}:${failure.seed}:${failure.location}:${failure.check}`,
       );
       console.error(failure.text);
     }
   }
 
-  if (blockingFailures.length > 0) {
+  if (failures.length > 0) {
     process.exitCode = 1;
   }
 }

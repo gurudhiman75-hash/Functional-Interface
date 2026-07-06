@@ -21,15 +21,21 @@
 - Random Hindi/Punjabi runtime selection remains restricted to the allowlist.
 - RAP-001 Question Studio/public preview language support is English-only until full localization is complete.
 
+## Explanation Source Cleanup
+
+- `explanation.hi.json` and `explanation.pa.json` have been regenerated as clean Unicode source packs.
+- The source packs preserve the English explanation structure: CP IDs, explanation IDs, task-kind keys, and alias relationships remain aligned with `explanation.en.json`.
+- Hindi/Punjabi explanation source prose no longer contains mojibake or English instructional fragments.
+- Runtime Hindi/Punjabi explanations still use `localized-explanation-renderer.ts`, which provides task-aware formulas, substitutions, and conclusions.
+
 ## Known Caveats
 
-- `explanation.hi.json` and `explanation.pa.json` still contain English source prose and should not be treated as complete localized explanation libraries.
-- Runtime Hindi/Punjabi explanations are generated through `localized-explanation-renderer.ts`, not the mixed-language explanation JSON assets.
+- Runtime Hindi/Punjabi explanations are generated through `localized-explanation-renderer.ts`, not directly from the explanation JSON assets.
 - Full Hindi/Punjabi RAP-001 coverage is not complete; 142 of 169 English QLs are still not localized or allowlisted.
 - The existing RAP duplicate-rate check is permissive; recent smoke output showed a duplicate rate around 21%.
 
 ## Verification Expectations
 
-- `rap-001-multilingual-audit.ts` should pass with zero blocking failures.
-- The audit may report source English leakage in explanation JSON as a known caveat.
+- `rap-001-multilingual-audit.ts` should pass with zero failures.
+- Source English leakage and mojibake in Hindi/Punjabi question/explanation assets are blocking audit failures.
 - Build and the main RAP test should pass after changes.
