@@ -20,6 +20,82 @@
       "RAP-QL-006": {
         "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण-संख्या अनुपात क्या होगा।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-102": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} भिन्नों के अनुपात को पूर्ण संख्याओं में सरल करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-202": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के बराबर सबसे सरल पूर्ण-संख्या अनुपात ज्ञात करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-302": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} अनुपात को उसके सबसे सरल पूर्ण-संख्या रूप में लिखें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-402": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के लिए पूर्ण संख्याओं का सरल अनुपात क्या होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-502": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} भिन्न अनुपात को सबसे छोटे पूर्ण-संख्या पदों में घटाएं।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-602": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} अनुपात को सामान्यीकृत करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-702": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} को पूर्ण संख्याओं के अनुपात के रूप में दोबारा लिखें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-802": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के बराबर पूर्ण-संख्या अनुपात ज्ञात करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-902": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} को अविभाज्य पूर्ण-संख्या अनुपात में बदलें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1002": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के लिए सबसे सरल पूर्ण-संख्या अनुपात निर्धारित करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1102": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} भिन्न अनुपात को पूर्ण संख्याओं में व्यक्त करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1202": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} से संबंधित सरल पूर्ण-संख्या अनुपात की गणना करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1302": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} को पूर्ण संख्याओं के अनुपात में बदलें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1402": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} अनुपात का सबसे सरल पूर्ण-संख्या रूप लिखें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1502": {
+        "template": "{numerator1}/{denominator1} और {numerator2}/{denominator2} का क्रॉस-गुणा करके सरल पूर्ण-संख्या अनुपात ज्ञात करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1602": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के लिए पूर्ण-संख्या अनुपात दें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1702": {
+        "template": "{numerator1}/{denominator1} और {numerator2}/{denominator2} को सबसे सरल पूर्ण-संख्या अनुपात के रूप में व्यक्त करें।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1802": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} को सबसे सरल पूर्ण-संख्या अनुपात में घटाएं।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1902": {
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} अनुपात को पूर्ण संख्याओं में बदलें।",
+        "difficulty": "Medium"
       }
     }
   },
