@@ -352,6 +352,86 @@
       "RAP-QL-021": {
         "template": "यदि {varY}, {varX} के उल्टे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-117": {
+        "template": "{numA} और {numB} के बीच का मध्य अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-217": {
+        "template": "{numA} और {numB} के बीच का मध्य अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-317": {
+        "template": "{numA} और {numB} के बीच का मध्य अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-417": {
+        "template": "{numA} और {numB} के बीच का मध्य अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-118": {
+        "template": "{numA} और {numB} का तीसरा अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-218": {
+        "template": "{numA} और {numB} का तीसरा अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-318": {
+        "template": "{numA} और {numB} का तीसरा अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-418": {
+        "template": "{numA} और {numB} का तीसरा अनुपाती क्या होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-119": {
+        "template": "वह संख्या क्या होगी जो {numA}, {numB} और {numC} का चौथा अनुपाती है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-219": {
+        "template": "वह संख्या क्या होगी जो {numA}, {numB} और {numC} का चौथा अनुपाती है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-319": {
+        "template": "वह संख्या क्या होगी जो {numA}, {numB} और {numC} का चौथा अनुपाती है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-419": {
+        "template": "वह संख्या क्या होगी जो {numA}, {numB} और {numC} का चौथा अनुपाती है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-120": {
+        "template": "यदि {varY}, {varX} के साथ सीधे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। जब {varX} का मान {varX2} होगा, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-220": {
+        "template": "यदि {varY}, {varX} के साथ सीधे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। जब {varX} का मान {varX2} होगा, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-320": {
+        "template": "यदि {varY}, {varX} के साथ सीधे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। जब {varX} का मान {varX2} होगा, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-420": {
+        "template": "यदि {varY}, {varX} के साथ सीधे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। जब {varX} का मान {varX2} होगा, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-121": {
+        "template": "यदि {varY}, {varX} के उल्टे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-221": {
+        "template": "यदि {varY}, {varX} के उल्टे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-321": {
+        "template": "यदि {varY}, {varX} के उल्टे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-421": {
+        "template": "यदि {varY}, {varX} के उल्टे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
+        "difficulty": "Medium"
       }
     }
   },

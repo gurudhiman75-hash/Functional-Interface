@@ -352,6 +352,86 @@
       "RAP-QL-021": {
         "template": "ਜੇ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇ {varX} ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Medium"
+      },
+      "RAP-QL-117": {
+        "template": "{numA} ਅਤੇ {numB} ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-217": {
+        "template": "{numA} ਅਤੇ {numB} ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-317": {
+        "template": "{numA} ਅਤੇ {numB} ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-417": {
+        "template": "{numA} ਅਤੇ {numB} ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-118": {
+        "template": "{numA} ਅਤੇ {numB} ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-218": {
+        "template": "{numA} ਅਤੇ {numB} ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-318": {
+        "template": "{numA} ਅਤੇ {numB} ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-418": {
+        "template": "{numA} ਅਤੇ {numB} ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-119": {
+        "template": "ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-219": {
+        "template": "ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-319": {
+        "template": "ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-419": {
+        "template": "ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-120": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜਦੋਂ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋਵੇਗਾ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-220": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜਦੋਂ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋਵੇਗਾ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-320": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜਦੋਂ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋਵੇਗਾ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-420": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜਦੋਂ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋਵੇਗਾ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-121": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇ {varX} ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-221": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇ {varX} ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-321": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇ {varX} ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-421": {
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇ {varX} ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
       }
     }
   },
