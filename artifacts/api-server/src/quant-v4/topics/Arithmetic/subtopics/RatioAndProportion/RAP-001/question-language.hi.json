@@ -176,6 +176,54 @@
       "RAP-QL-011": {
         "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-108": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {personA} को {personC} से कितने रुपये अधिक मिलते हैं।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-208": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {personA} को {personC} से कितने रुपये अधिक मिलते हैं।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-308": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {personA} को {personC} से कितने रुपये अधिक मिलते हैं।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-408": {
+        "template": "Rs. {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {personA} को {personC} से कितने रुपये अधिक मिलते हैं।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-109": {
+        "template": "{personA}, {personB} और {personC} के हिस्से {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं। यदि {personA} को {personC} से Rs. {shareDifference} अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-209": {
+        "template": "{personA}, {personB} और {personC} के हिस्से {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं। यदि {personA} को {personC} से Rs. {shareDifference} अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-309": {
+        "template": "{personA}, {personB} और {personC} के हिस्से {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं। यदि {personA} को {personC} से Rs. {shareDifference} अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-409": {
+        "template": "{personA}, {personB} और {personC} के हिस्से {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं। यदि {personA} को {personC} से Rs. {shareDifference} अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-111": {
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-211": {
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-311": {
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-411": {
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
+        "difficulty": "Easy"
       }
     }
   },

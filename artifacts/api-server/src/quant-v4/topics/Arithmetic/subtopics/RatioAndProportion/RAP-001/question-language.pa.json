@@ -176,6 +176,54 @@
       "RAP-QL-011": {
         "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-108": {
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-208": {
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-308": {
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-408": {
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-109": {
+        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸੇ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-209": {
+        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸੇ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-309": {
+        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸੇ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-409": {
+        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸੇ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-111": {
+        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-211": {
+        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-311": {
+        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-411": {
+        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
+        "difficulty": "Easy"
       }
     }
   },
