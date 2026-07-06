@@ -2,9 +2,19 @@
   "allowed_pairings": {
     "father": ["mother", "son", "daughter"],
     "mother": ["father", "son", "daughter"],
+    "son": ["father", "mother", "daughter"],
+    "daughter": ["father", "mother", "son"],
     "boys": ["girls", "teachers"],
+    "girls": ["boys", "teachers"],
+    "teachers": ["boys", "girls"],
     "milk": ["water", "juice"],
+    "water": ["milk", "juice"],
+    "juice": ["milk", "water"],
     "coin_1": ["coin_2", "coin_5", "coin_10"],
-    "men": ["women"]
+    "coin_2": ["coin_1", "coin_5", "coin_10"],
+    "coin_5": ["coin_1", "coin_2", "coin_10"],
+    "coin_10": ["coin_1", "coin_2", "coin_5"],
+    "men": ["women"],
+    "women": ["men"]
   }
 }
