@@ -227,7 +227,7 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     subtopic: "Ratio & Proportion",
     label: "Ratio & Proportion Fundamentals",
     cpIds: getRap001ActiveCanonicalProblemIds(),
-    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
+    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
     run: (cpId, input) =>
       runRap001Pipeline(cpId as Rap001CanonicalProblemId, {
         difficultyBand: input.difficulty,

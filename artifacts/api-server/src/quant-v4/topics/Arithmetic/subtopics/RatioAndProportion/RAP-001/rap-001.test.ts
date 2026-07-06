@@ -1,6 +1,7 @@
 import { strict as assert } from "node:assert";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   generateRap001Batch,
   generateRap001CoverageAudit,
@@ -18,7 +19,9 @@ import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Paramet
 
 const apiRoot = fs.existsSync(path.join(process.cwd(), "src/quant-v4"))
   ? process.cwd()
-  : path.join(process.cwd(), "artifacts/api-server");
+  : fs.existsSync(path.join(process.cwd(), "artifacts/api-server/src/quant-v4"))
+    ? path.join(process.cwd(), "artifacts/api-server")
+    : path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const packageDir = path.join(apiRoot, "src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001");
 const cpIds = getRap001ActiveCanonicalProblemIds();
 const seenCp = new Set<string>();

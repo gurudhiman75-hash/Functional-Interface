@@ -2,23 +2,23 @@
   "RAP-CP-001": {
     "families": {
       "RAP-QL-001": {
-        "template": "ਜੇਕਰ ਅਨੁਪਾਤ {personA}:{personB} {ratioA1}:{ratioB1} ਹੈ ਅਤੇ {personB}:{personC} ਦਾ ਅਨੁਪਾਤ {ratioB2}:{ratioC2} ਹੈ, ਤਾਂ {personA}:{personB}:{personC} ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "template": "ਜੇ {personA}:{personB} ਦਾ ਅਨੁਪਾਤ {ratioA1}:{ratioB1} ਹੈ ਅਤੇ {personB}:{personC} ਦਾ ਅਨੁਪਾਤ {ratioB2}:{ratioC2} ਹੈ, ਤਾਂ {personA}:{personB}:{personC} ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
         "difficulty": "Easy"
       },
       "RAP-QL-002": {
-        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੈ।",
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।",
         "difficulty": "Medium"
       },
       "RAP-QL-003": {
-        "template": "ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} ਅਤੇ {personC}:{personD} = {ratioC_prime}:{ratioD} ਹੈ। {personA} ਅਤੇ {personD} ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।",
+        "template": "ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} ਅਤੇ {personC}:{personD} = {ratioC_prime}:{ratioD} ਹੈ। {personA} ਅਤੇ {personD} ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
         "difficulty": "Hard"
       },
       "RAP-QL-004": {
-        "template": "ਇੱਕ {groupName} ਵਿੱਚ {personA} ਅਤੇ {personB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇਕਰ ਉੱਥੇ {valueA} {personA} ਹੋਣ, ਤਾਂ {personB} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ।",
+        "template": "ਇੱਕ {groupName} ਵਿੱਚ {personA} ਅਤੇ {personB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ ਉੱਥੇ {valueA} {personA} ਹਨ, ਤਾਂ {personB} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "RAP-QL-006": {
-        "template": "ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ {decimalA} : {decimalB} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਲਿਖੋ।",
+        "template": "ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ {decimalA} : {decimalB} ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
         "difficulty": "Medium"
       }
     }
@@ -26,15 +26,15 @@
   "RAP-CP-002": {
     "families": {
       "RAP-QL-008": {
-        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ।",
+        "template": "Rs. {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {personA} ਨੂੰ {personC} ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।",
         "difficulty": "Medium"
       },
       "RAP-QL-009": {
-        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸੇ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।",
+        "template": "{personA}, {personB} ਅਤੇ {personC} ਦੇ ਹਿੱਸੇ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ {personA} ਨੂੰ {personC} ਨਾਲੋਂ Rs. {shareDifference} ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।",
         "difficulty": "Hard"
       },
       "RAP-QL-011": {
-        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੋਵੇ, ਤਾਂ ਹਰ ਮਹੀਨੇ ਬਚਤ ਦੀ ਰਕਮ ਕਿੰਨੀ ਹੈ।",
+        "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
         "difficulty": "Easy"
       }
     }
@@ -42,23 +42,23 @@
   "RAP-CP-003": {
     "families": {
       "RAP-QL-012": {
-        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA} ਅਤੇ {groupB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇਕਰ {addedCount} ਹੋਰ {groupA} ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {groupA} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।",
+        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA} ਅਤੇ {groupB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ {addedCount} ਹੋਰ {groupA} ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {groupA} ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।",
         "difficulty": "Hard"
       },
       "RAP-QL-013": {
-        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA} ਅਤੇ {groupB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। {removedCount} {groupA} ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ।",
+        "template": "ਇੱਕ {contextName} ਵਿੱਚ {groupA} ਅਤੇ {groupB} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। {removedCount} {groupA} ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ।",
         "difficulty": "Hard"
       },
       "RAP-QL-014": {
-        "template": "ਦੋ ਸੰਖਿਆਵਾਂ {ratioA}:{ratioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਹਰੇਕ ਵਿੱਚ {transferredCount} ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+        "template": "ਦੋ ਸੰਖਿਆਵਾਂ {ratioA}:{ratioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ {transferredCount} ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "RAP-QL-015": {
-        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਹੈ ਅਤੇ ਉਹਨਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ {expRatioA}:{expRatioB} ਹੈ। ਜੇਕਰ ਦੋਵੇਂ Rs. {savingsAmount} ਦੀ ਬਚਤ ਕਰਦੇ ਹੋਣ, ਤਾਂ {personA} ਦੀ ਆਮਦਨ ਕੀ ਹੈ।",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ {expRatioA}:{expRatioB} ਹੈ। ਜੇ ਦੋਵੇਂ Rs. {savingsAmount} ਦੀ ਬਚਤ ਕਰਦੇ ਹਨ, ਤਾਂ {personA} ਦੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ।",
         "difficulty": "Hard"
       },
       "RAP-QL-016": {
-        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇਕਰ {addedCount} ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ {removedCount} ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।",
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਜੇ {addedCount} ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ {removedCount} ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।",
         "difficulty": "Hard"
       }
     }
@@ -66,7 +66,7 @@
   "RAP-CP-004": {
     "families": {
       "RAP-QL-017": {
-        "template": "{numA} ਅਤੇ {numB} ਦੇ ਵਿਚਕਾਰ ਦਾ ਮੱਧ ਅਨੁਪਾਤੀ ਪਤਾ ਕਰੋ।",
+        "template": "{numA} ਅਤੇ {numB} ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।",
         "difficulty": "Easy"
       },
       "RAP-QL-018": {
@@ -74,15 +74,15 @@
         "difficulty": "Easy"
       },
       "RAP-QL-019": {
-        "template": "ਉਹ ਸੰਖਿਆ ਪਤਾ ਕਰੋ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
+        "template": "ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ {numA}, {numB} ਅਤੇ {numC} ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "RAP-QL-020": {
-        "template": "ਜੇਕਰ {varY}, {varX} ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋਵੇ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜਦੋਂ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋਵੇਗਾ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜਦੋਂ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋਵੇਗਾ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Medium"
       },
       "RAP-QL-021": {
-        "template": "ਜੇਕਰ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋਵੇ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇਕਰ {varX} ਦਾ ਮੁੱਲ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "template": "ਜੇ {varY}, {varX} ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ {varX} = {varX1} ਤਾਂ {varY} = {varY1} ਹੈ। ਜੇ {varX} ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ {varX2} ਹੋ ਜਾਵੇ, ਤਾਂ {varY} ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Medium"
       }
     }
@@ -90,19 +90,19 @@
   "RAP-CP-005": {
     "families": {
       "RAP-QL-022": {
-        "template": "ਇੱਕ ਬੈਗ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।",
+        "template": "ਇੱਕ ਬੈਗ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।",
         "difficulty": "Hard"
       },
       "RAP-QL-023": {
-        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਜੇਕਰ ਉਹਨਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੋਵੇ, ਤਾਂ {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
+        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।",
         "difficulty": "Hard"
       },
       "RAP-QL-024": {
-        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇਕਰ {countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ {itemA} ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।",
+        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇ {countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ {itemA} ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।",
         "difficulty": "Hard"
       },
       "RAP-QL-026": {
-        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇਕਰ ਇਹਨਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੋਵੇ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹੋਣ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
         "difficulty": "Hard"
       }
     }
@@ -110,7 +110,7 @@
   "RAP-CP-006": {
     "families": {
       "RAP-QL-027": {
-        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਜੇਕਰ ਇਸ ਵਿੱਚ {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਜੇ ਇਸ ਵਿੱਚ {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
         "difficulty": "Medium"
       },
       "RAP-QL-028": {
@@ -118,7 +118,7 @@
         "difficulty": "Medium"
       },
       "RAP-QL-029": {
-        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ 'ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮਿਸ਼ਰਣ ਦੀ ਕੁੱਲ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।",
+        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
         "difficulty": "Hard"
       },
       "RAP-QL-030": {
@@ -126,7 +126,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-032": {
-        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।",
+        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Easy"
       }
     }

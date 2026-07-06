@@ -6,11 +6,11 @@
         "difficulty": "Easy"
       },
       "RAP-QL-002": {
-        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या है।",
+        "template": "{numerator1}/{denominator1} : {numerator2}/{denominator2} को सबसे सरल पूर्ण-संख्या अनुपात में बदलें।",
         "difficulty": "Medium"
       },
       "RAP-QL-003": {
-        "template": "यदि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} हो, तो {personA} और {personD} के बीच का अनुपात क्या होगा।",
+        "template": "दिया है कि {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC} और {personC}:{personD} = {ratioC_prime}:{ratioD} है। {personA} और {personD} के बीच का अनुपात क्या होगा।",
         "difficulty": "Hard"
       },
       "RAP-QL-004": {
@@ -18,7 +18,7 @@
         "difficulty": "Easy"
       },
       "RAP-QL-006": {
-        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या होगा।",
+        "template": "दशमलव अनुपात {decimalA} : {decimalB} के बराबर सबसे सरल पूर्ण-संख्या अनुपात क्या होगा।",
         "difficulty": "Medium"
       }
     }
@@ -34,7 +34,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-011": {
-        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो हर महीने बचत की राशि कितनी है।",
+        "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
         "difficulty": "Easy"
       }
     }
@@ -50,7 +50,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-014": {
-        "template": "दो संख्याएँ {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
+        "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
         "difficulty": "Medium"
       },
       "RAP-QL-015": {
@@ -58,7 +58,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-016": {
-        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
+        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
         "difficulty": "Hard"
       }
     }
@@ -82,7 +82,7 @@
         "difficulty": "Medium"
       },
       "RAP-QL-021": {
-        "template": "यदि {varY}, {varX} के उल्टा अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
+        "template": "यदि {varY}, {varX} के उल्टे अनुपात में है और जब {varX} = {varX1} तो {varY} = {varY1} है। यदि {varX} का मान बदलकर {varX2} हो जाए, तो {varY} कितना होगा।",
         "difficulty": "Medium"
       }
     }
@@ -114,7 +114,7 @@
         "difficulty": "Medium"
       },
       "RAP-QL-028": {
-        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितना {liquid2} और मिलाना पड़ेगा।",
+        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितने लीटर {liquid2} और मिलाना पड़ेगा।",
         "difficulty": "Medium"
       },
       "RAP-QL-029": {
