@@ -101,8 +101,8 @@
   {
     "id": "asset_a_value",
     "en": "asset a value",
-    "hi": "??????? A ?? ?????",
-    "pa": "????? A ?? ????",
+    "hi": "संपत्ति A का मूल्य",
+    "pa": "ਸੰਪਤੀ A ਦਾ ਮੁੱਲ",
     "frequency": "common",
     "tags": [
       "percentage",
@@ -112,8 +112,8 @@
   {
     "id": "asset_b_value",
     "en": "asset b value",
-    "hi": "??????? B ?? ?????",
-    "pa": "????? B ?? ????",
+    "hi": "संपत्ति B का मूल्य",
+    "pa": "ਸੰਪਤੀ B ਦਾ ਮੁੱਲ",
     "frequency": "common",
     "tags": [
       "percentage",
@@ -189,8 +189,8 @@
   {
     "id": "bill",
     "en": "bill",
-    "hi": "???",
-    "pa": "???",
+    "hi": "बिल",
+    "pa": "ਬਿੱਲ",
     "frequency": "common",
     "tags": [
       "percentage",
@@ -772,8 +772,8 @@
   {
     "id": "marked_price",
     "en": "marked price",
-    "hi": "????? ?????",
-    "pa": "????? ????",
+    "hi": "अंकित मूल्य",
+    "pa": "ਅੰਕਿਤ ਮੁੱਲ",
     "frequency": "common",
     "tags": [
       "percentage",
@@ -849,8 +849,8 @@
   {
     "id": "monthly_usage",
     "en": "monthly usage",
-    "hi": "????? ?????",
-    "pa": "????? ?????",
+    "hi": "मासिक उपयोग",
+    "pa": "ਮਾਸਿਕ ਵਰਤੋਂ",
     "frequency": "common",
     "tags": [
       "percentage",
@@ -1355,8 +1355,8 @@
   {
     "id": "selling_price",
     "en": "selling price",
-    "hi": "?????? ?????",
-    "pa": "????? ????",
+    "hi": "विक्रय मूल्य",
+    "pa": "ਵਿਕਰੀ ਮੁੱਲ",
     "frequency": "common",
     "tags": [
       "percentage",
@@ -1729,8 +1729,8 @@
   {
     "id": "weight",
     "en": "weight",
-    "hi": "???",
-    "pa": "????",
+    "hi": "वजन",
+    "pa": "ਵਜ਼ਨ",
     "frequency": "common",
     "tags": [
       "percentage",

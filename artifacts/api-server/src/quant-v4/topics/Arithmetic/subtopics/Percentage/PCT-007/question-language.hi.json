@@ -2,203 +2,203 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-003": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-005": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-006": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-007": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-008": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-009": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-010": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है, तो बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-011": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-012": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-013": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-014": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-015": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-016": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-017": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-018": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-019": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-020": {
-        "template": "यदि मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय {baseValue} है और उसका {percentageRate}% बचाया जाता है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-022": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-023": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-024": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-025": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-026": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-027": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-028": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-029": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-030": {
-        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% बचाया जाता है और बचत {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-031": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-032": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-033": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-034": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-035": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-036": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-037": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-038": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-039": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-040": {
-        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {valuePrefix}{value1} है, तो आय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% खर्च होता है और व्यय {value1} है, तो आय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-041": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-042": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-043": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-044": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-045": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-046": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-047": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-048": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-049": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-050": {
-        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {valuePrefix}{value1} है, तो व्यय ज्ञात कीजिए।",
+        "template": "यदि मासिक आय का {percentageRate}% भाग बचत है और बचत {value1} है, तो व्यय ज्ञात कीजिए।",
         "difficulty": "Medium"
       }
     }
@@ -614,203 +614,203 @@
   "PCT-CP-004": {
     "families": {
       "PCT-QL-151": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-152": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-153": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-154": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-155": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-156": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-157": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-158": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-159": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-160": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% वृद्धि होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% वृद्धि होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-161": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-162": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-163": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-164": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-165": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-166": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-167": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-168": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-169": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-170": {
-        "template": "यदि {wholeLabel} में {percentageRate}% वृद्धि के बाद मान {value1} {unitLabel} हो जाता है, तो मूल {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि मान में {percentageRate}% वृद्धि के बाद मान {value1} हो जाता है, तो मूल मान ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-171": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-172": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-173": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-174": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-175": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-176": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-177": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-178": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-179": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-180": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और इसमें {percentageRate}% कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और इसमें {percentageRate}% कमी होती है, तो नया मान ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-181": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-182": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-183": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-184": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-185": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-186": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-187": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-188": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-189": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-190": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% उपयोग हो जाता है, तो उपयोग की गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-191": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-192": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-193": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-194": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-195": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-196": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-197": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-198": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-199": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-200": {
-        "template": "यदि कुल {wholeLabel} {totalValue} {unitLabel} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मान {totalValue} है और उसका {percentageRate}% भाग हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       }
     }
@@ -818,203 +818,203 @@
   "PCT-CP-005": {
     "families": {
       "PCT-QL-201": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-202": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-203": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-204": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-205": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-206": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-207": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-208": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-209": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-210": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें घटक का प्रतिशत {componentRate}% है, तो उस घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-211": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-212": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-213": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-214": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-215": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-216": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-217": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-218": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-219": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-220": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और उसमें किसी घटक का प्रतिशत {componentRate}% है, तो शेष घटक की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-221": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-222": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-223": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-224": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-225": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-226": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-227": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-228": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-229": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-230": {
-        "template": "यदि किसी घटक की मात्रा {value1} {unitLabel} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि किसी घटक की मात्रा {value1} है और वह कुल मिश्रण का {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-231": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-232": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-233": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-234": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-235": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-236": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-237": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-238": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-239": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-240": {
-        "template": "यदि कुल मिश्रण {totalValue} {unitLabel} है और किसी घटक की मात्रा {value1} {unitLabel} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
+        "template": "यदि कुल मिश्रण {totalValue} है और किसी घटक की मात्रा {value1} है, तो उस घटक का प्रतिशत ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-241": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-242": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-243": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-244": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-245": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-246": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-247": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-248": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-249": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-250": {
-        "template": "यदि शेष घटक की मात्रा {value1} {unitLabel} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
+        "template": "यदि शेष घटक की मात्रा {value1} है और मूल घटक का प्रतिशत {componentRate}% है, तो कुल मिश्रण ज्ञात कीजिए।",
         "difficulty": "Medium"
       }
     }
@@ -1022,203 +1022,203 @@
   "PCT-CP-006": {
     "families": {
       "PCT-QL-251": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-252": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-253": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-254": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-255": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-256": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-257": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-258": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-259": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-260": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो अंतिम भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो अंतिम भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-261": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-262": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-263": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-264": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-265": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-266": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-267": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-268": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-269": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-270": {
-        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} {unitLabel} है, तो निकला हुआ पानी ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में पानी {waterRate}% है और सुखाने के बाद पानी {dryWaterRate}% रह जाता है, तथा प्रारंभिक भार {baseValue} है, तो निकला हुआ पानी ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-271": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-272": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-273": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-274": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-275": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-276": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-277": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-278": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-279": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-280": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो अंतिम आयतन ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो अंतिम आयतन ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-281": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-282": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-283": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-284": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-285": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-286": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-287": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-288": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-289": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-290": {
-        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} {unitLabel} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
+        "template": "यदि किसी घोल में प्रारंभ में विलेय {oldRate}% है और वाष्पीकरण के बाद {newRate}% हो जाता है, तथा प्रारंभिक आयतन {baseValue} है, तो वाष्पित मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-291": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-292": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-293": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-294": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-295": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-296": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-297": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-298": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-299": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-300": {
-        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} {unitLabel} है, तो प्रारंभिक भार ज्ञात कीजिए।",
+        "template": "यदि किसी वस्तु में प्रारंभ में पानी {waterRate}% था और सूखने के बाद पानी {dryWaterRate}% रह गया। यदि अंतिम भार {value1} है, तो प्रारंभिक भार ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }
@@ -1226,203 +1226,203 @@
   "PCT-CP-007": {
     "families": {
       "PCT-QL-301": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-302": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-303": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-304": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-305": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-306": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-307": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-308": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-309": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-310": {
-        "template": "यदि अंकित मूल्य {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
+        "template": "यदि अंकित मूल्य {baseValue} है और {discountRate}% छूट दी जाती है, तो छूट की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-311": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-312": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-313": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-314": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-315": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-316": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-317": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-318": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-319": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-320": {
-        "template": "यदि बिल {valuePrefix}{baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
+        "template": "यदि बिल {baseValue} है और {discountRate}% छूट दी जाती है, तो देय राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-321": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-322": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-323": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-324": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-325": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-326": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-327": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-328": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-329": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-330": {
-        "template": "यदि मूल राशि {valuePrefix}{baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
+        "template": "यदि मूल राशि {baseValue} है और उस पर {percentageRate}% कर या शुल्क लगता है, तो कर/शुल्क की राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-331": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-332": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-333": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-334": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-335": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-336": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-337": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-338": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-339": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-340": {
-        "template": "यदि मूल बिल {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
+        "template": "यदि मूल बिल {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है, तो अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-341": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-342": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-343": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-344": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-345": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-346": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-347": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-348": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-349": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-350": {
-        "template": "यदि बिक्री {valuePrefix}{baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
+        "template": "यदि बिक्री {baseValue} है और कमीशन {commissionRate}% है, तो कमीशन राशि ज्ञात कीजिए।",
         "difficulty": "Easy"
       }
     }
@@ -1634,203 +1634,203 @@
   "PCT-CP-009": {
     "families": {
       "PCT-QL-401": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-402": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-403": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-404": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-405": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-406": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-407": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-408": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-409": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-410": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% हट जाता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-411": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-412": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-413": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-414": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-415": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-416": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-417": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-418": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-419": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-420": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% दो बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-421": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-422": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-423": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-424": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-425": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-426": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-427": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-428": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-429": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-430": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और उसका {percentageRate}% तीन बार लगातार हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-431": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-432": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-433": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-434": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-435": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-436": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-437": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-438": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-439": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-440": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो शेष मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-441": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-442": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-443": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-444": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-445": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-446": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-447": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-448": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-449": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-450": {
-        "template": "यदि कुल मात्रा {totalValue} {unitLabel} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
+        "template": "यदि कुल मात्रा {totalValue} है और पहले {rate1}% तथा फिर {rate2}% हटता है, तो कुल हटाई गई मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }
@@ -1838,43 +1838,43 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-451": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-452": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-453": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-454": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-455": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-456": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-457": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-458": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-459": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-460": {
-        "template": "किसी आय-व्यय स्थिति में मासिक आय {valuePrefix}{baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
+        "template": "किसी आय-व्यय स्थिति में मासिक आय {baseValue} है और उसका {percentageRate}% खर्च होता है। बचत ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-461": {
@@ -1918,123 +1918,123 @@
         "difficulty": "Medium"
       },
       "PCT-QL-471": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-472": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-473": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-474": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-475": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-476": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-477": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-478": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-479": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-480": {
-        "template": "किसी बिल पर मूल राशि {valuePrefix}{baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
+        "template": "किसी बिल पर मूल राशि {baseValue} है, पहले {rate1}% छूट और फिर {rate2}% कर/शुल्क लगता है। अंतिम बिल ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-481": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-482": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-483": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-484": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-485": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-486": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-487": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-488": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-489": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-490": {
-        "template": "कुल मात्रा {totalValue} {unitLabel} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
+        "template": "कुल मात्रा {totalValue} है। उसमें {percentageRate}% दोषपूर्ण है और शेष अच्छी मात्रा में से {rate1}% अलग हो जाती है। बची हुई अच्छी मात्रा ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-491": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-492": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-493": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-494": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-495": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-496": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-497": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-498": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-499": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-500": {
-        "template": "दो स्थितियों में क्रमशः {rate1}% of {baseValue1} और {rate2}% of {baseValue2} लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
+        "template": "{subjectA} के लिए {baseValue1} का {rate1}% और {subjectB} के लिए {baseValue2} का {rate2}% लिया गया है। दोनों वास्तविक मानों की तुलना कीजिए।",
         "difficulty": "Hard"
       }
     }

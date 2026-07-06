@@ -6,7 +6,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
@@ -22,23 +22,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-051": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-052": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-053": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-054": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-055": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦਾ ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-056": {
@@ -70,7 +70,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-024": {
@@ -86,23 +86,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-061": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-062": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-063": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-064": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-065": {
-        "template": "ਜੇ {wholeLabel} {originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਦੀ ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-066": {
@@ -450,7 +450,7 @@
   "PCT-CP-008": {
     "families": {
       "PCT-QL-015": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-016": {
@@ -458,35 +458,35 @@
         "difficulty": "Hard"
       },
       "PCT-QL-042": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-043": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-044": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-121": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-122": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-123": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-124": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-125": {
-        "template": "{labelA} {valuePrefix}{originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {valuePrefix}{originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{labelA} {originalA} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateA1}% ਅਤੇ {rateA2}% ਬਦਲਾਅ ਹੋਇਆ। {labelB} {originalB} ਸੀ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rateB1}% ਅਤੇ {rateB2}% ਬਦਲਾਅ ਹੋਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਤਿਮ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-126": {
@@ -514,63 +514,63 @@
   "PCT-CP-009": {
     "families": {
       "PCT-QL-017": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-018": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-045": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-046": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-047": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-131": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-132": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-133": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-134": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-135": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-136": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-137": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-138": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-139": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-140": {
-        "template": "ਜੇ {wholeLabel} {valuePrefix}{originalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}%, {rate2}%, {rate3}% ਅਤੇ {rate4}% ਤੱਕ ਪੜਾਅਵਾਰ ਬਦਲਾਅ ਹੋ ਸਕਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਫਿਰ {rate3}% ਘਟਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate4}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       }
     }
@@ -578,63 +578,63 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-019": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਘਟਿਆ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-020": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-048": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਘਟਿਆ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-049": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਘਟਿਆ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-050": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਘਟਿਆ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-141": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ ਕਸਬੇ ਵਿੱਚ {originalValue} {wholeLabel} ਸਨ। ਜੇ ਗਿਣਤੀ {rate1}% ਵਧਦੀ ਹੈ, {rate2}% ਘਟਦੀ ਹੈ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-142": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ ਸਕੂਲ ਵਿੱਚ {originalValue} {wholeLabel} ਸਨ। {rate1}% ਵਾਧੇ, {rate2}% ਘਟਾਓ ਅਤੇ ਫਿਰ {rate3}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-143": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ ਗੋਦਾਮ ਵਿੱਚ {originalValue} {wholeLabel} ਸਟੋਰ ਸਨ। ਜੇ ਸਟਾਕ {rate1}% ਵਧਦਾ ਹੈ, {rate2}% ਘਟਦਾ ਹੈ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-144": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ ਰੂਟ ਨੇ {originalValue} {wholeLabel} ਸੇਵਾ ਕੀਤੇ। ਜੇ ਗਿਣਤੀ {rate1}% ਵਧਦੀ ਹੈ, {rate2}% ਘਟਦੀ ਹੈ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਦੀ ਹੈ, ਤਾਂ ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-145": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ ਪਲਾਂਟ ਨੇ {originalValue} {wholeLabel} ਬਣਾਏ। ਉਤਪਾਦਨ {rate1}% ਵਧਦਾ ਹੈ, {rate2}% ਘਟਦਾ ਹੈ, ਅਤੇ ਫਿਰ {rate3}% ਵਧਦਾ ਹੈ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-146": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-147": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-148": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-149": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-150": {
-        "template": "?? {wholeLabel} {valuePrefix}{originalValue} ?? ??? ?? ???? ??????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ????? ????? ??, ??? ????? {wholeLabel} ?????",
+        "template": "ਇੱਕ {wholeLabel} {valuePrefix}{originalValue} ਸੀ। ਇਹ {rate1}% ਵਧਿਆ, ਫਿਰ {rate2}% ਵਧਿਆ, ਅਤੇ ਅੰਤ ਵਿੱਚ {rate3}% ਘਟਿਆ। ਅੰਤਿਮ {wholeLabel} ਲੱਭੋ।",
         "difficulty": "Hard"
       }
     }

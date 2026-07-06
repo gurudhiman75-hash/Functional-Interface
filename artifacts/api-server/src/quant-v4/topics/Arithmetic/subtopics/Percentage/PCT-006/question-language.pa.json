@@ -2,203 +2,203 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-003": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-005": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-006": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-007": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-008": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-009": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-010": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-011": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-012": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-013": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-014": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-015": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-016": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-017": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-018": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-019": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-020": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-021": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-022": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-023": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-024": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-025": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-026": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-027": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-028": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-029": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-030": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-031": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-032": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-033": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-034": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-035": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-036": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-037": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-038": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-039": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-040": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-041": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-042": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-043": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-044": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-045": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-046": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-047": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-048": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-049": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-050": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       }
     }
@@ -206,203 +206,203 @@
   "PCT-CP-002": {
     "families": {
       "PCT-QL-051": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-052": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-053": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-054": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-055": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-056": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-057": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-058": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-059": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-060": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-061": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-062": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-063": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-064": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-065": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-066": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-067": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-068": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-069": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-070": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-071": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-072": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-073": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-074": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-075": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-076": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-077": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-078": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-079": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-080": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ ਦੋਹਾਂ ਵਿਚਲਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-081": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-082": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-083": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-084": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-085": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-086": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-087": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-088": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-089": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-090": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectBPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectAPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ B {baseValue} ਹੈ, ਤਾਂ A ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-091": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-092": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-093": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-094": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-095": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-096": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-097": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-098": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-099": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-100": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ {subjectAPhrase} {valuePrefix}{baseValue} ਹੈ, ਤਾਂ {subjectBPhrase} ਲੱਭੋ।",
+        "template": "A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ। ਜੇ A {baseValue} ਹੈ, ਤਾਂ B ਲੱਭੋ।",
         "difficulty": "Medium"
       }
     }
@@ -410,203 +410,203 @@
   "PCT-CP-003": {
     "families": {
       "PCT-QL-101": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-102": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-103": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-104": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-105": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-106": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-107": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-108": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-109": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-110": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-111": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-112": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-113": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-114": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-115": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-116": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-117": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-118": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-119": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-120": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-121": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-122": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-123": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-124": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-125": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-126": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-127": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-128": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-129": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-130": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-131": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-132": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-133": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-134": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-135": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-136": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-137": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-138": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-139": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-140": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-141": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-142": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-143": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-144": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-145": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-146": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-147": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-148": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-149": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਵੱਧ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-150": {
-        "template": "ਜੇ {subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ {subjectBPhrase}, {subjectAPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "ਜੇ A, B ਨਾਲੋਂ {percentageRate}% ਘੱਟ ਹੈ, ਤਾਂ B, A ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       }
     }
@@ -614,203 +614,203 @@
   "PCT-CP-004": {
     "families": {
       "PCT-QL-151": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-152": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-153": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-154": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-155": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-156": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-157": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-158": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-159": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-160": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-161": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-162": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-163": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-164": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-165": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-166": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-167": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-168": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-169": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-170": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-171": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-172": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-173": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-174": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-175": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-176": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-177": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-178": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-179": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-180": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਵੱਡਾ ਮਾਨ, ਛੋਟੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-181": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-182": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-183": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-184": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-185": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-186": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-187": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-188": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-189": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-190": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਛੋਟਾ ਮਾਨ, ਵੱਡੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-191": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-192": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-193": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-194": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-195": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-196": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-197": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-198": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-199": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਪਹਿਲੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-200": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। ਅੰਤਰ, ਦੂਜੇ ਮਾਨ ਦਾ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ।",
         "difficulty": "Medium"
       }
     }
@@ -818,203 +818,203 @@
   "PCT-CP-005": {
     "families": {
       "PCT-QL-201": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-202": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-203": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-204": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-205": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-206": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-207": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-208": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-209": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-210": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-211": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-212": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-213": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-214": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-215": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-216": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-217": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-218": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-219": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-220": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-221": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-222": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-223": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-224": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-225": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-226": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-227": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-228": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-229": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-230": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-231": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-232": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-233": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-234": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-235": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-236": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-237": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-238": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-239": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-240": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-241": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-242": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-243": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-244": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-245": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-246": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-247": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-248": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-249": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਪਹਿਲਾ ਮਾਨ, ਦੂਜੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-250": {
-        "template": "{subjectAPhrase} ਅਤੇ {subjectBPhrase} ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ?",
+        "template": "A ਅਤੇ B ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ। ਦੂਜਾ ਮਾਨ, ਪਹਿਲੇ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਘੱਟ ਹੈ।",
         "difficulty": "Easy"
       }
     }
@@ -1022,203 +1022,203 @@
   "PCT-CP-006": {
     "families": {
       "PCT-QL-251": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-252": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-253": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-254": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-255": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-256": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-257": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-258": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-259": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-260": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-261": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-262": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-263": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-264": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-265": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-266": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-267": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-268": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-269": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-270": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Easy"
       },
       "PCT-QL-271": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-272": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-273": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-274": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-275": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-276": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-277": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-278": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-279": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-280": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-281": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-282": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-283": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-284": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-285": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-286": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-287": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-288": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-289": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-290": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-291": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-292": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-293": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-294": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-295": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-296": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-297": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-298": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-299": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਵਾਧਾ ਚਾਹੀਦਾ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-300": {
-        "template": "{subjectAPhrase} {valuePrefix}{value1} ਹੈ ਅਤੇ {subjectBPhrase} {valuePrefix}{value2} ਹੈ। {subjectBPhrase} ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ?",
+        "template": "A {value1} ਹੈ ਅਤੇ B {value2} ਹੈ। B ਦੇ ਬਰਾਬਰ ਹੋਣ ਲਈ ਪਹਿਲੇ ਮਾਨ ਵਿੱਚ ਕਿੰਨੀ ਪ੍ਰਤੀਸ਼ਤ ਘਾਟ ਚਾਹੀਦੀ ਹੈ।",
         "difficulty": "Medium"
       }
     }
@@ -1226,203 +1226,203 @@
   "PCT-CP-007": {
     "families": {
       "PCT-QL-301": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-302": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-303": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-304": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-305": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-306": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-307": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-308": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-309": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-310": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-311": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-312": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-313": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-314": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-315": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-316": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-317": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-318": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-319": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-320": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-321": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-322": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-323": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-324": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-325": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-326": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-327": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-328": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-329": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-330": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-331": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-332": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-333": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-334": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-335": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-336": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-337": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-338": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-339": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-340": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-341": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-342": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-343": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-344": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-345": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-346": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-347": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-348": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਜਦਕਿ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-349": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-350": {
-        "template": "{subjectAPhrase} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectBPhrase} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {valuePrefix}{value1} ਅਤੇ {valuePrefix}{value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਵਿੱਚ {rate1}% ਘਾਟ ਹੁੰਦੀ ਹੈ ਅਤੇ {subjectB} ਵਿੱਚ {rate2}% ਘਾਟ ਹੁੰਦੀ ਹੈ। ਜੇ ਉਹਨਾਂ ਦੇ ਮੌਜੂਦਾ ਮਾਨ {value1} ਅਤੇ {value2} ਹਨ, ਤਾਂ ਅੰਤਿਮ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       }
     }
@@ -1430,203 +1430,203 @@
   "PCT-CP-008": {
     "families": {
       "PCT-QL-351": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-352": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-353": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-354": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-355": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-356": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-357": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-358": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-359": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-360": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-361": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-362": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-363": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-364": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-365": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-366": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-367": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-368": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-369": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-370": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-371": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-372": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-373": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-374": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-375": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-376": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-377": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-378": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-379": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-380": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-381": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-382": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-383": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-384": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-385": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-386": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-387": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-388": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-389": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-390": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-391": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-392": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-393": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-394": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-395": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-396": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-397": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-398": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-399": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਵੱਧ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਘੱਟ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-400": {
-        "template": "{subjectAPhrase}, {subjectBPhrase} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectBPhrase}, {subjectCPhrase} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectAPhrase}, {subjectCPhrase} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ?",
+        "template": "{subjectA}, {subjectB} ਨਾਲੋਂ {rate1}% ਘੱਟ ਹੈ ਅਤੇ {subjectB}, {subjectC} ਨਾਲੋਂ {rate2}% ਵੱਧ ਹੈ। {subjectA}, {subjectC} ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਜਾਂ ਘੱਟ ਹੈ।",
         "difficulty": "Hard"
       }
     }
@@ -1838,203 +1838,203 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-451": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-452": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-453": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-454": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-455": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-456": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-457": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-458": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-459": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-460": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Medium"
       },
       "PCT-QL-461": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-462": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-463": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-464": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-465": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-466": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-467": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-468": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-469": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-470": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-471": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-472": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-473": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-474": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-475": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-476": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-477": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-478": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-479": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-480": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-481": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-482": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-483": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-484": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-485": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-486": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-487": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-488": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-489": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-490": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਵੱਡਾ ਅਸਲ ਮਾਨ, ਛੋਟੇ ਅਸਲ ਮਾਨ ਨਾਲੋਂ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-491": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-492": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-493": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-494": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-495": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-496": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-497": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-498": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-499": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ?",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਅਸਲ ਮਾਨ ਕਿਸਦਾ ਵੱਧ ਹੈ।",
         "difficulty": "Hard"
       },
       "PCT-QL-500": {
-        "template": "{subjectA} ਲਈ {valuePrefix}{baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {valuePrefix}{baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦਾ ਅੰਤਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       }
     }

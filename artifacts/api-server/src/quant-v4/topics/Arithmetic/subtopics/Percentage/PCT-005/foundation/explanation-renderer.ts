@@ -30,13 +30,21 @@ function localizedText(parameters: Pct005Parameters, en: string, hi: string, pa:
   return en;
 }
 
-function fractionShortcut(percentValue: number) {
+function fractionShortcut(parameters: Pct005Parameters | null, percentValue: number) {
   const key = `${formatNumber(percentValue)}%`;
   const fraction = getFractionEquivalent(key);
   if (!fraction) return [] as string[];
   const [numerator, denominator] = fraction.split("/");
+  const statement = parameters
+    ? localizedText(
+        parameters,
+        `${key} can also be written as the fraction ${numerator}/${denominator}.`,
+        `${key} को ${numerator}/${denominator} भिन्न के रूप में भी लिखा जा सकता है।`,
+        `${key} ਨੂੰ ${numerator}/${denominator} ਭਿੰਨ ਵਜੋਂ ਵੀ ਲਿਖਿਆ ਜਾ ਸਕਦਾ ਹੈ।`,
+      )
+    : `${key} can also be written as the fraction ${numerator}/${denominator}.`;
   return sentenceWithMath(
-    `${key} can also be written as the fraction ${numerator}/${denominator}.`,
+    statement,
     `${formatNumber(percentValue)}\\%=\\frac{${numerator}}{${denominator}}`,
   );
 }
@@ -57,7 +65,7 @@ function buildStageLines(stageLabel: string, directionValue: Pct005Direction, ra
       `For ${stageLabel}, ${stageVerb(directionValue)} = ${formatNumber(rate)}%. So the new value becomes ${formatNumber(newPercent)}% of the previous value.`,
       `100\\%${stageSign(directionValue)}${percent(rate)}=${percent(newPercent)}`,
     ),
-    ...fractionShortcut(newPercent),
+    ...fractionShortcut(null, newPercent),
     ...sentenceWithMath(
       `So the multiplier for ${stageLabel} is ${formatNumber(newPercent)}/100.`,
       `\\text{${stageLabel} multiplier}=\\frac{${formatNumber(newPercent)}}{100}=${formatNumber(factor)}`,
@@ -134,7 +142,7 @@ function buildLocalizedStageLines(
       ),
       `100\\%${stageSign(directionValue)}${percent(rate)}=${percent(newPercent)}`,
     ),
-    ...fractionShortcut(newPercent),
+    ...fractionShortcut(parameters, newPercent),
     ...sentenceWithMath(
       localizedText(
         parameters,

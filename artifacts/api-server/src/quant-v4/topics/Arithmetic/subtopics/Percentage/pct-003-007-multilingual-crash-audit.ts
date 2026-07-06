@@ -47,7 +47,7 @@ const MODULES: readonly ModuleCase[] = [
 ];
 
 const LANGUAGES: readonly Language[] = ["hi", "pa"];
-const SEEDS_PER_COMBINATION = 20;
+const SEEDS_PER_COMBINATION = 30;
 
 const failures: string[] = [];
 let generated = 0;

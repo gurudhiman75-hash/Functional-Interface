@@ -25,13 +25,18 @@ function localizedText(parameters: Pct004Parameters, en: string, hi: string, pa:
   return en;
 }
 
-function fractionShortcut(percentValue: number) {
+function fractionShortcut(parameters: Pct004Parameters, percentValue: number) {
   const key = `${formatNumber(percentValue)}%`;
   const fraction = getFractionEquivalent(key);
   if (!fraction) return [] as string[];
   const [numerator, denominator] = fraction.split("/");
   return sentenceWithMath(
-    `${key} can also be written as the fraction ${numerator}/${denominator}.`,
+    localizedText(
+      parameters,
+      `${key} can also be written as the fraction ${numerator}/${denominator}.`,
+      `${key} को ${numerator}/${denominator} भिन्न के रूप में भी लिखा जा सकता है।`,
+      `${key} ਨੂੰ ${numerator}/${denominator} ਭਿੰਨ ਵਜੋਂ ਵੀ ਲਿਖਿਆ ਜਾ ਸਕਦਾ ਹੈ।`,
+    ),
     `${formatNumber(percentValue)}\\%=\\frac{${numerator}}{${denominator}}`,
   );
 }
@@ -80,7 +85,7 @@ function renderLocalizedPct004Explanation(parameters: Pct004Parameters, solver: 
     case "directPercentageDecrease":
       lines.push(
         ...sentenceWithMath(localizedText(parameters, `Decrease = ${formatNumber(decreaseRate)}%. So the remaining value is ${formatNumber(remainingPercent)}% of the original.`, `कमी = ${formatNumber(decreaseRate)}% है। इसलिए शेष मान मूल का ${formatNumber(remainingPercent)}% है।`, `ਘਟਾਉ = ${formatNumber(decreaseRate)}% ਹੈ। ਇਸ ਲਈ ਬਚਿਆ ਮਾਨ ਮੂਲ ਦਾ ${formatNumber(remainingPercent)}% ਹੈ।`), `100\\%-${percent(decreaseRate)}=${percent(remainingPercent)}`),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(localizedText(parameters, `Now take ${formatNumber(remainingPercent)}% of the original ${wholeLabel}.`, `अब मूल ${wholeLabel} का ${formatNumber(remainingPercent)}% ज्ञात कीजिए।`, `ਹੁਣ ਮੂਲ ${wholeLabel} ਦਾ ${formatNumber(remainingPercent)}% ਕੱਢੋ।`), `${formatNumber(originalValue)}\\times\\frac{${formatNumber(remainingPercent)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`),
         ...sentenceWithMath(localizedText(parameters, `So the new ${wholeLabel} is ${displayValue(parameters, solver.numericAnswer ?? 0)}.`, `अतः नया ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} है।`, `ਇਸ ਲਈ ਨਵਾਂ ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} ਹੈ।`), parameters.language === "hi" ? `\\text{नया मान}=${renderedAnswer}` : `\\text{ਨਵਾਂ ਮਾਨ}=${renderedAnswer}`),
       );
@@ -88,7 +93,7 @@ function renderLocalizedPct004Explanation(parameters: Pct004Parameters, solver: 
     case "decreaseAmount":
       lines.push(
         ...sentenceWithMath(localizedText(parameters, `Only the reduced part is needed here.`, `यहाँ केवल घटी हुई मात्रा चाहिए।`, `ਇੱਥੇ ਸਿਰਫ਼ ਘਟੀ ਹੋਈ ਮਾਤਰਾ ਚਾਹੀਦੀ ਹੈ।`), `${percent(decreaseRate)}\\text{ of }${displayValue(parameters, originalValue)}`),
-        ...fractionShortcut(decreaseRate),
+        ...fractionShortcut(parameters, decreaseRate),
         ...sentenceWithMath(localizedText(parameters, `So find ${formatNumber(decreaseRate)}% of the original ${wholeLabel}.`, `अतः मूल ${wholeLabel} का ${formatNumber(decreaseRate)}% ज्ञात कीजिए।`, `ਇਸ ਲਈ ਮੂਲ ${wholeLabel} ਦਾ ${formatNumber(decreaseRate)}% ਕੱਢੋ।`), `${formatNumber(originalValue)}\\times\\frac{${formatNumber(decreaseRate)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`),
         ...sentenceWithMath(localizedText(parameters, `So the decrease amount is ${displayValue(parameters, solver.numericAnswer ?? 0)}.`, `अतः कमी की मात्रा ${displayValue(parameters, solver.numericAnswer ?? 0)} है।`, `ਇਸ ਲਈ ਘਟਾਉ ਦੀ ਮਾਤਰਾ ${displayValue(parameters, solver.numericAnswer ?? 0)} ਹੈ।`), parameters.language === "hi" ? `\\text{कमी}=${renderedAnswer}` : `\\text{ਘਟਾਉ}=${renderedAnswer}`),
       );
@@ -96,7 +101,7 @@ function renderLocalizedPct004Explanation(parameters: Pct004Parameters, solver: 
     case "originalValueFromDecreasedValue":
       lines.push(
         ...sentenceWithMath(localizedText(parameters, `After a decrease of ${formatNumber(decreaseRate)}%, the new value becomes ${formatNumber(remainingPercent)}% of the original.`, `${formatNumber(decreaseRate)}% की कमी के बाद नया मान मूल का ${formatNumber(remainingPercent)}% रह जाता है।`, `${formatNumber(decreaseRate)}% ਦੀ ਘਟਾਉ ਤੋਂ ਬਾਅਦ ਨਵਾਂ ਮਾਨ ਮੂਲ ਦਾ ${formatNumber(remainingPercent)}% ਰਹਿ ਜਾਂਦਾ ਹੈ।`), `${percent(remainingPercent)}\\rightarrow${displayValue(parameters, decreasedValue)}`),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(localizedText(parameters, `First find the value of 1% by dividing ${displayValue(parameters, decreasedValue)} by ${formatNumber(remainingPercent)}.`, `1% का मान पाने के लिए ${displayValue(parameters, decreasedValue)} को ${formatNumber(remainingPercent)} से भाग दीजिए।`, `1% ਦਾ ਮਾਨ ਲੱਭਣ ਲਈ ${displayValue(parameters, decreasedValue)} ਨੂੰ ${formatNumber(remainingPercent)} ਨਾਲ ਭਾਗ ਦਿਓ।`), `1\\%=\\frac{${formatNumber(decreasedValue)}}{${formatNumber(remainingPercent)}}=${formatNumber(onePercentValue)}`),
         ...sentenceWithMath(localizedText(parameters, `Now multiply the value of 1% by 100 to get the original value.`, `अब मूल मान पाने के लिए 1% के मान को 100 से गुणा कीजिए।`, `ਹੁਣ ਮੂਲ ਮਾਨ ਲੱਭਣ ਲਈ 1% ਦੇ ਮਾਨ ਨੂੰ 100 ਨਾਲ ਗੁਣਾ ਕਰੋ।`), `100\\%=${formatNumber(onePercentValue)}\\times100=${formatNumber(solver.numericAnswer ?? 0)}`),
         ...sentenceWithMath(localizedText(parameters, `So the original ${wholeLabel} was ${displayValue(parameters, solver.numericAnswer ?? 0)}.`, `अतः मूल ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} था।`, `ਇਸ ਲਈ ਮੂਲ ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} ਸੀ।`), parameters.language === "hi" ? `\\text{मूल मान}=${renderedAnswer}` : `\\text{ਮੂਲ ਮਾਨ}=${renderedAnswer}`),
@@ -105,7 +110,7 @@ function renderLocalizedPct004Explanation(parameters: Pct004Parameters, solver: 
     case "decreaseMultiplier":
       lines.push(
         ...sentenceWithMath(localizedText(parameters, `A decrease of ${formatNumber(decreaseRate)}% leaves ${formatNumber(remainingPercent)}% of the original.`, `${formatNumber(decreaseRate)}% की कमी से मूल का ${formatNumber(remainingPercent)}% बचता है।`, `${formatNumber(decreaseRate)}% ਦੀ ਘਟਾਉ ਨਾਲ ਮੂਲ ਦਾ ${formatNumber(remainingPercent)}% ਬਚਦਾ ਹੈ।`), `100\\%-${percent(decreaseRate)}=${percent(remainingPercent)}`),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(localizedText(parameters, `Write this remaining percentage as a multiplier.`, `इस बचे हुए प्रतिशत को गुणक के रूप में लिखिए।`, `ਇਸ ਬਚੇ ਹੋਏ ਪ੍ਰਤੀਸ਼ਤ ਨੂੰ ਗੁਣਕ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`), `\\frac{${formatNumber(remainingPercent)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`),
         ...sentenceWithMath(localizedText(parameters, `So the decrease multiplier is ${formatNumber(solver.numericAnswer ?? 0)}.`, `अतः कमी का गुणक ${formatNumber(solver.numericAnswer ?? 0)} है।`, `ਇਸ ਲਈ ਘਟਾਉ ਗੁਣਕ ${formatNumber(solver.numericAnswer ?? 0)} ਹੈ।`), parameters.language === "hi" ? `\\text{गुणक}=${renderedAnswer}` : `\\text{ਗੁਣਕ}=${renderedAnswer}`),
       );
@@ -151,7 +156,7 @@ function renderLocalizedPct004Explanation(parameters: Pct004Parameters, solver: 
     case "percentageDecreaseBridge":
       lines.push(
         ...sentenceWithMath(localizedText(parameters, `Each decrease of ${formatNumber(decreaseRate)}% leaves ${formatNumber(remainingPercent)}% of the ${wholeLabel}.`, `${formatNumber(decreaseRate)}% की प्रत्येक कमी ${wholeLabel} का ${formatNumber(remainingPercent)}% छोड़ती है।`, `${formatNumber(decreaseRate)}% ਦੀ ਹਰ ਘਟਾਉ ${wholeLabel} ਦਾ ${formatNumber(remainingPercent)}% ਛੱਡਦੀ ਹੈ।`), `100\\%-${percent(decreaseRate)}=${percent(remainingPercent)}`),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(localizedText(parameters, `Since the same decrease happens for ${formatNumber(periodCount)} periods, use the retained factor ${formatNumber(periodCount)} times.`, `क्योंकि यही कमी ${formatNumber(periodCount)} अवधियों तक होती है, इसलिए शेष गुणक का ${formatNumber(periodCount)} बार उपयोग कीजिए।`, `ਕਿਉਂਕਿ ਇਹੀ ਘਟਾਉ ${formatNumber(periodCount)} अवधੀਆਂ ਲਈ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਬਚੇ ਗੁਣਕ ਨੂੰ ${formatNumber(periodCount)} ਵਾਰ ਵਰਤੋ।`), `\\left(\\frac{${formatNumber(remainingPercent)}}{100}\\right)^{${formatNumber(periodCount)}}`),
         ...sentenceWithMath(localizedText(parameters, `Now multiply the current ${wholeLabel} by this overall factor.`, `अब वर्तमान ${wholeLabel} को इस कुल गुणक से गुणा कीजिए।`, `ਹੁਣ ਮੌਜੂਦਾ ${wholeLabel} ਨੂੰ ਇਸ ਕੁੱਲ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰੋ।`), `${formatNumber(currentValue)}\\times\\left(\\frac{${formatNumber(remainingPercent)}}{100}\\right)^{${formatNumber(periodCount)}}=${formatNumber(solver.numericAnswer ?? 0)}`),
         ...sentenceWithMath(localizedText(parameters, `So the ${wholeLabel} after ${formatNumber(periodCount)} periods is ${displayValue(parameters, solver.numericAnswer ?? 0)}.`, `अतः ${formatNumber(periodCount)} अवधियों के बाद ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} है।`, `ਇਸ ਲਈ ${formatNumber(periodCount)} अवधੀਆਂ ਤੋਂ ਬਾਅਦ ${wholeLabel} ${displayValue(parameters, solver.numericAnswer ?? 0)} ਹੈ।`), parameters.language === "hi" ? `\\text{अंतिम मान}=${renderedAnswer}` : `\\text{ਅੰਤਿਮ ਮਾਨ}=${renderedAnswer}`),
@@ -222,7 +227,7 @@ export function renderPct004Explanation(
           `Decrease = ${formatNumber(decreaseRate)}%. So the remaining value is ${formatNumber(remainingPercent)}% of the original.`,
           `100\\%-${percent(decreaseRate)}=${percent(remainingPercent)}`,
         ),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(
           `Now take ${formatNumber(remainingPercent)}% of the original ${wholeLabel}.`,
           `\\text{New ${wholeLabel}}=${formatNumber(originalValue)}\\times\\frac{${formatNumber(remainingPercent)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`,
@@ -239,7 +244,7 @@ export function renderPct004Explanation(
           `Only the reduced part is needed here.`,
           `\\text{Decrease amount}=${percent(decreaseRate)}\\text{ of }${displayValue(parameters, originalValue)}`,
         ),
-        ...fractionShortcut(decreaseRate),
+        ...fractionShortcut(parameters, decreaseRate),
         ...sentenceWithMath(
           `So find ${formatNumber(decreaseRate)}% of the original ${wholeLabel}.`,
           `\\text{Decrease amount}=${formatNumber(originalValue)}\\times\\frac{${formatNumber(decreaseRate)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`,
@@ -256,7 +261,7 @@ export function renderPct004Explanation(
           `After a decrease of ${formatNumber(decreaseRate)}%, the new value becomes ${formatNumber(remainingPercent)}% of the original.`,
           `${percent(remainingPercent)}\\rightarrow${displayValue(parameters, decreasedValue)}`,
         ),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(
           `First find the value of 1% by dividing ${displayValue(parameters, decreasedValue)} by ${formatNumber(remainingPercent)}.`,
           `1\\%=\\frac{${formatNumber(decreasedValue)}}{${formatNumber(remainingPercent)}}=${formatNumber(onePercentValue)}`,
@@ -277,7 +282,7 @@ export function renderPct004Explanation(
           `A decrease of ${formatNumber(decreaseRate)}% leaves ${formatNumber(remainingPercent)}% of the original.`,
           `100\\%-${percent(decreaseRate)}=${percent(remainingPercent)}`,
         ),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(
           `Write this remaining percentage as a multiplier.`,
           `\\text{Multiplier}=\\frac{${formatNumber(remainingPercent)}}{100}=${formatNumber(solver.numericAnswer ?? 0)}`,
@@ -386,7 +391,7 @@ export function renderPct004Explanation(
           `Each decrease of ${formatNumber(decreaseRate)}% leaves ${formatNumber(remainingPercent)}% of the ${wholeLabel}.`,
           `100\\%-${percent(decreaseRate)}=${percent(remainingPercent)}`,
         ),
-        ...fractionShortcut(remainingPercent),
+        ...fractionShortcut(parameters, remainingPercent),
         ...sentenceWithMath(
           `Since the same decrease happens for ${formatNumber(periodCount)} periods, use the retained factor ${formatNumber(periodCount)} times.`,
           `\\text{Overall factor}=\\left(\\frac{${formatNumber(remainingPercent)}}{100}\\right)^{${formatNumber(periodCount)}}`,

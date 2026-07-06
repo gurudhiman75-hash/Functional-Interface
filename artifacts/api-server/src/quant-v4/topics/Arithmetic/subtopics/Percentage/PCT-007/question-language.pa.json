@@ -2,203 +2,203 @@
   "PCT-CP-001": {
     "families": {
       "PCT-QL-001": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-003": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-005": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-006": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-007": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-008": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-009": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-010": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-011": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-012": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-013": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-014": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-015": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-016": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-017": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-018": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-019": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-020": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-022": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-023": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-024": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-025": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-026": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-027": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-028": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-029": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-030": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਬਚਾਇਆ ਜਾਂਦਾ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-031": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-032": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-033": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-034": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-035": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-036": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-037": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-038": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-039": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-040": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ ਅਤੇ ਖਰਚ {value1} ਹੈ, ਤਾਂ ਆਮਦਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-041": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-042": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-043": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-044": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-045": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-046": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-047": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-048": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-049": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-050": {
-        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {valuePrefix}{value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਸਿਕ ਆਮਦਨ ਦਾ {percentageRate}% ਹਿੱਸਾ ਬਚਤ ਹੈ ਅਤੇ ਬਚਤ {value1} ਹੈ, ਤਾਂ ਖਰਚ ਲੱਭੋ।",
         "difficulty": "Medium"
       }
     }
@@ -614,203 +614,203 @@
   "PCT-CP-004": {
     "families": {
       "PCT-QL-151": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-152": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-153": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-154": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-155": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-156": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-157": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-158": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-159": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-160": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਵਾਧਾ ਹੁੰਦਾ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-161": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-162": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-163": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-164": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-165": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-166": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-167": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-168": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-169": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-170": {
-        "template": "ਜੇ {wholeLabel} ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} {unitLabel} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਮਾਨ ਵਿੱਚ {percentageRate}% ਵਾਧੇ ਤੋਂ ਬਾਅਦ ਮਾਨ {value1} ਹੋ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-171": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-172": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-173": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-174": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-175": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-176": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-177": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-178": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-179": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-180": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ {wholeLabel} ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {percentageRate}% ਘਾਟ ਹੁੰਦੀ ਹੈ, ਤਾਂ ਨਵਾਂ ਮਾਨ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-181": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-182": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-183": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-184": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-185": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-186": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-187": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-188": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-189": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-190": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਵਰਤੀ ਗਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-191": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-192": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-193": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-194": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-195": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-196": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-197": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-198": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-199": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-200": {
-        "template": "ਜੇ ਕੁੱਲ {wholeLabel} {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਨ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       }
     }
@@ -818,203 +818,203 @@
   "PCT-CP-005": {
     "families": {
       "PCT-QL-201": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-202": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-203": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-204": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-205": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-206": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-207": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-208": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-209": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-210": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-211": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-212": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-213": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-214": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-215": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-216": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-217": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-218": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-219": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-220": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਉਸ ਵਿੱਚ ਕਿਸੇ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-221": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-222": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-223": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-224": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-225": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-226": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-227": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-228": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-229": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-230": {
-        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਉਹ ਕੁੱਲ ਮਿਸ਼ਰਣ ਦਾ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-231": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-232": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-233": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-234": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-235": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-236": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-237": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-238": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-239": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-240": {
-        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਿਸ਼ਰਣ {totalValue} ਹੈ ਅਤੇ ਕਿਸੇ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ, ਤਾਂ ਉਸ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-241": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-242": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-243": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-244": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-245": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-246": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-247": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-248": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-249": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-250": {
-        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} {unitLabel} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਾਕੀ ਘਟਕ ਦੀ ਮਾਤਰਾ {value1} ਹੈ ਅਤੇ ਮੁੱਖ ਘਟਕ ਦਾ ਪ੍ਰਤੀਸ਼ਤ {componentRate}% ਹੈ, ਤਾਂ ਕੁੱਲ ਮਿਸ਼ਰਣ ਲੱਭੋ।",
         "difficulty": "Medium"
       }
     }
@@ -1022,203 +1022,203 @@
   "PCT-CP-006": {
     "families": {
       "PCT-QL-251": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-252": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-253": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-254": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-255": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-256": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-257": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-258": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-259": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-260": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-261": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-262": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-263": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-264": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-265": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-266": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-267": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-268": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-269": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-270": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਹੈ ਅਤੇ ਸੁਕਾਉਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਭਾਰ {baseValue} ਹੈ, ਤਾਂ ਨਿਕਲਿਆ ਪਾਣੀ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-271": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-272": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-273": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-274": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-275": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-276": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-277": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-278": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-279": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-280": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਅੰਤਿਮ ਆਇਤਨ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-281": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-282": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-283": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-284": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-285": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-286": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-287": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-288": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-289": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-290": {
-        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} {unitLabel} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਘੋਲ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਵਿੱਲੀਨ ਪਦਾਰਥ {oldRate}% ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {newRate}% ਹੋ ਜਾਂਦਾ ਹੈ, ਅਤੇ ਸ਼ੁਰੂਆਤੀ ਆਇਤਨ {baseValue} ਹੈ, ਤਾਂ ਭਾਫ਼ ਬਣੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-291": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-292": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-293": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-294": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-295": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-296": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-297": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-298": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-299": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-300": {
-        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} {unitLabel} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
+        "template": "ਜੇ ਕਿਸੇ ਵਸਤੂ ਵਿੱਚ ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ {waterRate}% ਸੀ ਅਤੇ ਸੁੱਕਣ ਤੋਂ ਬਾਅਦ ਪਾਣੀ {dryWaterRate}% ਰਹਿ ਗਿਆ। ਜੇ ਅੰਤਿਮ ਭਾਰ {value1} ਹੈ, ਤਾਂ ਸ਼ੁਰੂਆਤੀ ਭਾਰ ਲੱਭੋ।",
         "difficulty": "Hard"
       }
     }
@@ -1226,203 +1226,203 @@
   "PCT-CP-007": {
     "families": {
       "PCT-QL-301": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-302": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-303": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-304": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-305": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-306": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-307": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-308": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-309": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-310": {
-        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਅੰਕਿਤ ਮੁੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਛੂਟ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-311": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-312": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-313": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-314": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-315": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-316": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-317": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-318": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-319": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-320": {
-        "template": "ਜੇ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਬਿੱਲ {baseValue} ਹੈ ਅਤੇ {discountRate}% ਛੂਟ ਮਿਲਦੀ ਹੈ, ਤਾਂ ਦੇਯ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-321": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-322": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-323": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-324": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-325": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-326": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-327": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-328": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-329": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-330": {
-        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ ਅਤੇ ਉਸ ਉੱਤੇ {percentageRate}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-331": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-332": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-333": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-334": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-335": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-336": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-337": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-338": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-339": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-340": {
-        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਜੇ ਮੁੱਢਲਾ ਬਿੱਲ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ, ਤਾਂ ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-341": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-342": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-343": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-344": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-345": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-346": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-347": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-348": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-349": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-350": {
-        "template": "ਜੇ ਵਿਕਰੀ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
+        "template": "ਜੇ ਵਿਕਰੀ {baseValue} ਹੈ ਅਤੇ ਕਮੀਸ਼ਨ {commissionRate}% ਹੈ, ਤਾਂ ਕਮੀਸ਼ਨ ਦੀ ਰਕਮ ਲੱਭੋ।",
         "difficulty": "Easy"
       }
     }
@@ -1634,203 +1634,203 @@
   "PCT-CP-009": {
     "families": {
       "PCT-QL-401": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-402": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-403": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-404": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-405": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-406": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-407": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-408": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-409": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-410": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਹਟ ਜਾਂਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-411": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-412": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-413": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-414": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-415": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-416": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-417": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-418": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-419": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-420": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਦੋ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-421": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-422": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-423": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-424": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-425": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-426": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-427": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-428": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-429": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-430": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਲਗਾਤਾਰ ਤਿੰਨ ਵਾਰ ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-431": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-432": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-433": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-434": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-435": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-436": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-437": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-438": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-439": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-440": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਬਚੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-441": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-442": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-443": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-444": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-445": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-446": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-447": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-448": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-449": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-450": {
-        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਜੇ ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ ਅਤੇ ਪਹਿਲਾਂ {rate1}% ਅਤੇ ਫਿਰ {rate2}% ਹਟਦਾ ਹੈ, ਤਾਂ ਕੁੱਲ ਹਟਾਈ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       }
     }
@@ -1838,43 +1838,43 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-451": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-452": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-453": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-454": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-455": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-456": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-457": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-458": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-459": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-460": {
-        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {valuePrefix}{baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਆਮਦਨ-ਖਰਚ ਸਥਿਤੀ ਵਿੱਚ ਮਾਸਿਕ ਆਮਦਨ {baseValue} ਹੈ ਅਤੇ ਉਸਦਾ {percentageRate}% ਖਰਚ ਹੁੰਦਾ ਹੈ। ਬਚਤ ਲੱਭੋ।",
         "difficulty": "Easy"
       },
       "PCT-QL-461": {
@@ -1918,123 +1918,123 @@
         "difficulty": "Medium"
       },
       "PCT-QL-471": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-472": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-473": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-474": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-475": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-476": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-477": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-478": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-479": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-480": {
-        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {valuePrefix}{baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
+        "template": "ਕਿਸੇ ਬਿੱਲ ਤੇ ਮੁੱਢਲੀ ਰਕਮ {baseValue} ਹੈ, ਪਹਿਲਾਂ {rate1}% ਛੂਟ ਅਤੇ ਫਿਰ {rate2}% ਕਰ ਜਾਂ ਸ਼ੁਲਕ ਲੱਗਦਾ ਹੈ। ਅੰਤਿਮ ਬਿੱਲ ਲੱਭੋ।",
         "difficulty": "Medium"
       },
       "PCT-QL-481": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-482": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-483": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-484": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-485": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-486": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-487": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-488": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-489": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-490": {
-        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} {unitLabel} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
+        "template": "ਕੁੱਲ ਮਾਤਰਾ {totalValue} ਹੈ। ਉਸ ਵਿੱਚ {percentageRate}% ਖਰਾਬ ਹੈ ਅਤੇ ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਵਿੱਚੋਂ {rate1}% ਹੋਰ ਹਟ ਜਾਂਦੀ ਹੈ। ਬਚੀ ਚੰਗੀ ਮਾਤਰਾ ਲੱਭੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-491": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-492": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-493": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-494": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-495": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-496": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-497": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-498": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-499": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       },
       "PCT-QL-500": {
-        "template": "ਦੋ ਸਥਿਤੀਆਂ ਵਿੱਚ ਕ੍ਰਮਵਾਰ {rate1}% of {baseValue1} ਅਤੇ {rate2}% of {baseValue2} ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+        "template": "{subjectA} ਲਈ {baseValue1} ਦਾ {rate1}% ਅਤੇ {subjectB} ਲਈ {baseValue2} ਦਾ {rate2}% ਲਿਆ ਗਿਆ ਹੈ। ਦੋਹਾਂ ਅਸਲ ਮਾਨਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
         "difficulty": "Hard"
       }
     }

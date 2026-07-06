@@ -6,7 +6,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
@@ -22,23 +22,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-051": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-052": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-053": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-054": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-055": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की वृद्धि होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-056": {
@@ -70,7 +70,7 @@
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-024": {
@@ -86,23 +86,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-061": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-062": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-063": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-064": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-065": {
-        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-066": {
@@ -450,7 +450,7 @@
   "PCT-CP-008": {
     "families": {
       "PCT-QL-015": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-016": {
@@ -458,35 +458,35 @@
         "difficulty": "Hard"
       },
       "PCT-QL-042": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-043": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-044": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-121": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-122": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-123": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-124": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-125": {
-        "template": "{labelA} {valuePrefix}{originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {valuePrefix}{originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और उसमें क्रमशः {rateA1}% तथा {rateA2}% परिवर्तन हुआ। {labelB} {originalB} था और उसमें क्रमशः {rateB1}% तथा {rateB2}% परिवर्तन हुआ। उनके अंतिम मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-126": {
@@ -514,63 +514,63 @@
   "PCT-CP-009": {
     "families": {
       "PCT-QL-017": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-018": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-045": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-046": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-047": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-131": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-132": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-133": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-134": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-135": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-136": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-137": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-138": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-139": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-140": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें क्रमशः {rate1}%, {rate2}%, {rate3}% तथा {rate4}% तक चरणबद्ध परिवर्तन हो सकते हैं, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, फिर {rate3}% घटा, और अंत में {rate4}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }
@@ -578,63 +578,63 @@
   "PCT-CP-010": {
     "families": {
       "PCT-QL-019": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% घटा, और फिर {rate3}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-020": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-048": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% घटा, और फिर {rate3}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-049": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% घटा, और फिर {rate3}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-050": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% घटा, और फिर {rate3}% बढ़ा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-141": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक नगर में {originalValue} {wholeLabel} थे। यदि संख्या {rate1}% बढ़ती है, {rate2}% घटती है, और फिर {rate3}% बढ़ती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-142": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक विद्यालय में {originalValue} {wholeLabel} थे। {rate1}% वृद्धि, {rate2}% कमी और फिर {rate3}% वृद्धि के बाद अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-143": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक गोदाम में {originalValue} {wholeLabel} रखे थे। यदि भंडार {rate1}% बढ़ता है, {rate2}% घटता है, और फिर {rate3}% बढ़ता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-144": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक मार्ग पर {originalValue} {wholeLabel} थे। यदि संख्या {rate1}% बढ़ती है, {rate2}% घटती है, और फिर {rate3}% बढ़ती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-145": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक संयंत्र ने {originalValue} {wholeLabel} बनाए। उत्पादन {rate1}% बढ़ता है, {rate2}% घटता है, और फिर {rate3}% बढ़ता है। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-146": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-147": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-148": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-149": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-150": {
-        "template": "??? {wholeLabel} {valuePrefix}{originalValue} ?? ?? ????? ?????? {rate1}%, {rate2}% ??? {rate3}% ?? ??????? ???????? ???? ??, ?? ????? {wholeLabel} ????? ??????",
+        "template": "एक {wholeLabel} {valuePrefix}{originalValue} था। यह {rate1}% बढ़ा, फिर {rate2}% बढ़ा, और अंत में {rate3}% घटा। अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }

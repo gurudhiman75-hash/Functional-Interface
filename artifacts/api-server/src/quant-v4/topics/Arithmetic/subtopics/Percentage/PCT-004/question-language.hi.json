@@ -6,19 +6,19 @@
         "difficulty": "Easy"
       },
       "PCT-QL-002": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-021": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-022": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-023": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-051": {
@@ -42,23 +42,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-056": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-057": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-058": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-059": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-060": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो नया {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       }
     }
@@ -70,19 +70,19 @@
         "difficulty": "Easy"
       },
       "PCT-QL-004": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-024": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-025": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-026": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-061": {
@@ -106,23 +106,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-066": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-067": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-068": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-069": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-070": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें {decreaseRate}% की कमी होती है, तो केवल कमी की मात्रा ज्ञात कीजिए।",
         "difficulty": "Medium"
       }
     }
@@ -150,23 +150,23 @@
         "difficulty": "Hard"
       },
       "PCT-QL-071": {
-        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {valuePrefix}{decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-072": {
-        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {valuePrefix}{decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-073": {
-        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {valuePrefix}{decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-074": {
-        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {valuePrefix}{decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-075": {
-        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {decreaseRate}% की कमी के बाद {wholeLabel} {valuePrefix}{decreasedValue} हो जाता है, तो प्रारम्भिक {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-076": {
@@ -262,19 +262,19 @@
         "difficulty": "Medium"
       },
       "PCT-QL-010": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-033": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-034": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-035": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-091": {
@@ -298,23 +298,23 @@
         "difficulty": "Hard"
       },
       "PCT-QL-096": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-097": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-098": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-099": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-100": {
-        "template": "यदि {wholeLabel} {valuePrefix}{originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} {originalValue} है और इसमें पहले {rate1}% तथा फिर {rate2}% की कमी होती है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }
@@ -390,19 +390,19 @@
         "difficulty": "Hard"
       },
       "PCT-QL-014": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-039": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-040": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-041": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-111": {
@@ -426,23 +426,23 @@
         "difficulty": "Hard"
       },
       "PCT-QL-116": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-117": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-118": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-119": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-120": {
-        "template": "{labelA} {valuePrefix}{originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {valuePrefix}{originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
+        "template": "{labelA} {originalA} था और इसमें {rateA}% की कमी हुई। {labelB} {originalB} था और इसमें {rateB}% की कमी हुई। उनके नए मानों का अंतर ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }
@@ -518,19 +518,19 @@
         "difficulty": "Easy"
       },
       "PCT-QL-018": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-045": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-046": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-047": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-131": {
@@ -554,23 +554,23 @@
         "difficulty": "Medium"
       },
       "PCT-QL-136": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-137": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Easy"
       },
       "PCT-QL-138": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-139": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-140": {
-        "template": "यदि वर्तमान {wholeLabel} {valuePrefix}{currentValue} है, तो इसे {valuePrefix}{targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
+        "template": "यदि वर्तमान {wholeLabel} {currentValue} है, तो इसे {targetValue} बनाने के लिए आवश्यक प्रतिशत कमी ज्ञात कीजिए।",
         "difficulty": "Medium"
       }
     }
@@ -582,7 +582,7 @@
         "difficulty": "Medium"
       },
       "PCT-QL-020": {
-        "template": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} वर्तमान में {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-048": {
@@ -618,23 +618,23 @@
         "difficulty": "Hard"
       },
       "PCT-QL-146": {
-        "template": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} वर्तमान में {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-147": {
-        "template": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} वर्तमान में {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-148": {
-        "template": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} वर्तमान में {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Medium"
       },
       "PCT-QL-149": {
-        "template": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} वर्तमान में {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       },
       "PCT-QL-150": {
-        "template": "यदि {wholeLabel} वर्तमान में {currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
+        "template": "यदि {wholeLabel} वर्तमान में {valuePrefix}{currentValue} है और यह प्रत्येक अवधि में {decreaseRate}% की दर से {periodCount} अवधियों तक घटता है, तो अंतिम {wholeLabel} ज्ञात कीजिए।",
         "difficulty": "Hard"
       }
     }

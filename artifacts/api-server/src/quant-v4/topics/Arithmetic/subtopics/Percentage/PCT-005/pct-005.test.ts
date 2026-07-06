@@ -150,7 +150,7 @@ assert.ok(!/\b(First|Now|Therefore|So the|required|increase|decrease|multiplier)
 
 const paPkg005 = runPct005Pipeline("PCT-CP-008", {
   language: "pa",
-  questionLanguageId: "PCT-QL-020",
+  questionLanguageId: "PCT-QL-016",
   seed: "pct-005-pa-localization",
 });
 assert.equal(paPkg005.parameters.language, "pa");
