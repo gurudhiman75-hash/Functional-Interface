@@ -1,3 +1,5 @@
+import type { EntityReference } from "../../../../../common/entity-types";
+
 export const RAP_001_ARCHETYPE_ID = "RAP-001" as const;
 
 export const RAP_001_CP_IDS = [
@@ -110,6 +112,7 @@ export interface Rap001Parameters {
   answerType: Rap001AnswerType;
   requiredVariables: string[];
   variables: Rap001Variables;
+  entityReferences?: Record<string, EntityReference>;
   semanticContext?: Rap001SemanticContext;
   sourceTrace: {
     questionLanguageSource: string;

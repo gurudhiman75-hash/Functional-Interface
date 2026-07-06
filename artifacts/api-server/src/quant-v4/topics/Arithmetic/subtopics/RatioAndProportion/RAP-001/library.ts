@@ -1,3 +1,5 @@
+import { getQuantV4EntityResolver } from "../../../../../common/entity-context-map";
+import type { EntityReference } from "../../../../../common/entity-types";
 import questionLanguageEn from "./question-language.en.json" assert { type: "json" };
 import questionLanguageHi from "./question-language.hi.json" assert { type: "json" };
 import questionLanguagePa from "./question-language.pa.json" assert { type: "json" };
@@ -77,11 +79,24 @@ function semanticEntitiesById() {
   return records;
 }
 
-export function resolveRap001EntityVariables(values: Rap001Variables, language: Rap001Language): Rap001Variables {
+export function resolveRap001EntityVariables(
+  values: Rap001Variables,
+  language: Rap001Language,
+  entityReferences: Record<string, EntityReference> = {},
+): Rap001Variables {
   const records = semanticEntitiesById();
+  const resolver = getQuantV4EntityResolver();
   return Object.fromEntries(
     Object.entries(values).map(([key, value]) => {
       if (typeof value !== "string") return [key, value];
+      const sharedReference = entityReferences[key];
+      if (sharedReference) {
+        if (language === "en") {
+          const semanticEntity = records.get(value);
+          return [key, semanticEntity?.en ?? value];
+        }
+        return [key, resolver.resolveEntity(sharedReference.categoryId, sharedReference.entityId, language)];
+      }
       const entity = records.get(value);
       return [key, entity ? entity[language] : value];
     }),

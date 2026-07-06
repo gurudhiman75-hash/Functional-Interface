@@ -31,11 +31,13 @@ export const ENTITY_CONTEXT_MAP: Record<string, EntityCategory> = {
   liquid3: "liquid",
   liquidA: "liquid",
   liquidB: "liquid",
+  mixtureType: "container",
   liquid1Id: "liquid",
   liquid2Id: "liquid",
   liquid3Id: "liquid",
   liquidAId: "liquid",
   liquidBId: "liquid",
+  mixtureTypeId: "container",
 
   metal1: "metal",
   metal2: "metal",
@@ -60,12 +62,12 @@ export const ENTITY_CONTEXT_MAP: Record<string, EntityCategory> = {
   occupationId: "occupation",
   containerId: "container",
 
-  itemA: "fruit",
-  itemB: "fruit",
-  itemC: "fruit",
-  itemAId: "fruit",
-  itemBId: "fruit",
-  itemCId: "fruit",
+  itemA: "object",
+  itemB: "object",
+  itemC: "object",
+  itemAId: "object",
+  itemBId: "object",
+  itemCId: "object",
 
 };
 

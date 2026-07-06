@@ -107,6 +107,10 @@ const LOCALIZED_QUESTION_LANGUAGE_REGISTRY: LocalizedQuestionLanguageRegistry = 
       `PCT-QL-${String(index + 1).padStart(3, "0")}`,
     ),
   },
+  "RAP-001": {
+    hi: [],
+    pa: [],
+  },
 };
 
 function isEntityReference(value: unknown): value is EntityReference {

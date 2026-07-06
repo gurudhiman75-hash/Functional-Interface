@@ -11,7 +11,7 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
   const solver = solveRap001(parameters);
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
   const explanation = renderRap001Explanation(parameters, solver, reasoningGraph);
-  const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language);
+  const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language, parameters.entityReferences);
   const stem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, renderVariables);
   const semanticTrace = buildRap001SemanticTrace(parameters.semanticContext);
   const basePackage = {

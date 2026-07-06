@@ -1,5 +1,6 @@
 import distributionTargets from "./distribution-targets.library.json" assert { type: "json" };
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
+import type { EntityReference } from "../../../../../common/entity-types";
 import { getAnswerType, getCommonQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, RAP_001_LIBRARY_REGISTRY } from "./library";
 import { gcdMany, ratioFromDecimals, ratioFromFractions, simplifyRatio, stableBucket } from "./math";
 import {
@@ -33,6 +34,87 @@ const CONTAINER_ENTITIES: Record<string, string[]> = {
   school: ["students"],
   workers: ["workers", "employees"]
 };
+
+const RAP_001_LABEL_FIELDS = new Set([
+  "personA",
+  "personB",
+  "personC",
+  "personD",
+  "targetPerson",
+  "groupName",
+  "contextName",
+  "groupA",
+  "groupB",
+  "itemA",
+  "itemB",
+  "itemC",
+  "sub1",
+  "sub2",
+  "sub3",
+  "liquid1",
+  "liquid2",
+  "liquid3",
+  "liquidA",
+  "liquidB",
+  "mixtureType",
+]);
+
+const RAP_001_SHARED_ENTITY_REFERENCES: Record<string, EntityReference> = {
+  father: { categoryId: "relation", entityId: "rel_1" },
+  mother: { categoryId: "relation", entityId: "rel_2" },
+  son: { categoryId: "relation", entityId: "rel_3" },
+  daughter: { categoryId: "relation", entityId: "rel_4" },
+  brother: { categoryId: "relation", entityId: "rel_5" },
+  sister: { categoryId: "relation", entityId: "rel_6" },
+  boys: { categoryId: "group", entityId: "boys" },
+  girls: { categoryId: "group", entityId: "girls" },
+  students: { categoryId: "group", entityId: "students" },
+  teachers: { categoryId: "group", entityId: "teachers" },
+  workers: { categoryId: "group", entityId: "workers" },
+  employees: { categoryId: "group", entityId: "employees" },
+  men: { categoryId: "group", entityId: "men" },
+  women: { categoryId: "group", entityId: "women" },
+  mathematics: { categoryId: "subject", entityId: "mathematics" },
+  english: { categoryId: "subject", entityId: "english" },
+  science: { categoryId: "subject", entityId: "science" },
+  history: { categoryId: "subject", entityId: "history" },
+  coin_1: { categoryId: "object", entityId: "coin_1" },
+  coin_2: { categoryId: "object", entityId: "coin_2" },
+  coin_5: { categoryId: "object", entityId: "coin_5" },
+  coin_10: { categoryId: "object", entityId: "coin_10" },
+  milk: { categoryId: "liquid", entityId: "milk" },
+  water: { categoryId: "liquid", entityId: "water" },
+  juice: { categoryId: "liquid", entityId: "juice" },
+  family: { categoryId: "place", entityId: "family" },
+  household: { categoryId: "place", entityId: "household" },
+  school: { categoryId: "education", entityId: "edu_01" },
+  class: { categoryId: "education", entityId: "edu_14" },
+  factory: { categoryId: "place", entityId: "factory" },
+  office: { categoryId: "place", entityId: "office" },
+  company: { categoryId: "business", entityId: "biz_16" },
+  vessel: { categoryId: "container", entityId: "vessel" },
+  mixture: { categoryId: "container", entityId: "mixture" },
+  container: { categoryId: "container", entityId: "container" },
+  bag: { categoryId: "object", entityId: "bag" },
+  box: { categoryId: "container", entityId: "box" },
+  purse: { categoryId: "container", entityId: "wallet" },
+  examination: { categoryId: "education", entityId: "examination" },
+  test: { categoryId: "education", entityId: "test" },
+  solution: { categoryId: "container", entityId: "solution" },
+};
+
+function buildEntityReferences(variables: Rap001Variables) {
+  const entityReferences: Record<string, EntityReference> = {};
+  for (const [name, value] of Object.entries(variables)) {
+    if (!RAP_001_LABEL_FIELDS.has(name) || typeof value !== "string") continue;
+    const reference = RAP_001_SHARED_ENTITY_REFERENCES[value];
+    if (!reference) {
+      throw new Error(`Missing shared RAP-001 entity reference for ${name}=${value}`);
+    }
+    entityReferences[name] = reference;
+  }
+  return entityReferences;
+}
 
 export interface Rap001ParameterInput {
   seed?: string;
@@ -652,6 +734,7 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
   const requiredVariables = getRequiredVariables(cpId, questionLanguageId);
   const baseVariables = buildBaseVariables(requiredVariables, seed, semanticContext.scenario);
   const variables = constrainVariables(taskKind, baseVariables, seed, semanticContext.scenario);
+  const entityReferences = buildEntityReferences(variables);
   const enrichedSemanticContext = attachVariableEntities(semanticContext, variables);
 
   return {
@@ -666,6 +749,7 @@ export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: 
     answerType,
     requiredVariables,
     variables,
+    entityReferences,
     semanticContext: enrichedSemanticContext,
     sourceTrace: {
       questionLanguageSource: `question-language.${language}.json`,
