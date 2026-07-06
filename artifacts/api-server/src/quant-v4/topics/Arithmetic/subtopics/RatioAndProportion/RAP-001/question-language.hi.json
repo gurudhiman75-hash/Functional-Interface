@@ -248,6 +248,86 @@
       "RAP-QL-016": {
         "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
         "difficulty": "Hard"
+      },
+      "RAP-QL-112": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} और {groupA} आ जाते हैं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में {groupA} की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-212": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} और {groupA} आ जाते हैं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में {groupA} की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-312": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} और {groupA} आ जाते हैं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में {groupA} की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-412": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} और {groupA} आ जाते हैं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में {groupA} की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-113": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। {removedCount} {groupA} के चले जाने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में कुल कितने लोग थे।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-213": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। {removedCount} {groupA} के चले जाने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में कुल कितने लोग थे।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-313": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। {removedCount} {groupA} के चले जाने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में कुल कितने लोग थे।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-413": {
+        "template": "किसी {contextName} में {groupA} और {groupB} का अनुपात {ratioA}:{ratioB} है। {removedCount} {groupA} के चले जाने पर अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में कुल कितने लोग थे।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-114": {
+        "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-214": {
+        "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-314": {
+        "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-414": {
+        "template": "दो संख्याएं {ratioA}:{ratioB} के अनुपात में हैं। यदि प्रत्येक में {transferredCount} जोड़ दिया जाए, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। बड़ी संख्या का मान क्या है।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-115": {
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है और उनके खर्चों का अनुपात {expRatioA}:{expRatioB} है। यदि दोनों Rs. {savingsAmount} की बचत करते हैं, तो {personA} की आय कितनी है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-215": {
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है और उनके खर्चों का अनुपात {expRatioA}:{expRatioB} है। यदि दोनों Rs. {savingsAmount} की बचत करते हैं, तो {personA} की आय कितनी है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-315": {
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है और उनके खर्चों का अनुपात {expRatioA}:{expRatioB} है। यदि दोनों Rs. {savingsAmount} की बचत करते हैं, तो {personA} की आय कितनी है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-415": {
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है और उनके खर्चों का अनुपात {expRatioA}:{expRatioB} है। यदि दोनों Rs. {savingsAmount} की बचत करते हैं, तो {personA} की आय कितनी है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-116": {
+        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-216": {
+        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-316": {
+        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-416": {
+        "template": "एक स्कूल में लड़कों और लड़कियों का अनुपात {ratioA}:{ratioB} है। यदि {addedCount} लड़के और आ जाएं और {removedCount} लड़कियां चली जाएं, तो अनुपात {finalRatioA}:{finalRatioB} हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।",
+        "difficulty": "Hard"
       }
     }
   },
