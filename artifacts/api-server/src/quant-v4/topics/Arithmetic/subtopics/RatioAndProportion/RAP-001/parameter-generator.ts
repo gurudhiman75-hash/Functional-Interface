@@ -1,6 +1,7 @@
 import distributionTargets from "./distribution-targets.library.json" assert { type: "json" };
 import variableRanges from "./variable-ranges.library.json" assert { type: "json" };
 import type { EntityReference } from "../../../../../common/entity-types";
+import { getLocalizedQuestionLanguageIds, isQlLocalized } from "../../../../../common/language-coverage";
 import { getAnswerType, getCommonQuestionLanguageIds, getExplanationId, getQuestionEntry, getRequiredVariables, getTaskKind, RAP_001_LIBRARY_REGISTRY } from "./library";
 import { gcdMany, ratioFromDecimals, ratioFromFractions, simplifyRatio, stableBucket } from "./math";
 import {
@@ -302,8 +303,8 @@ function pickActiveCpId(seed: string): Rap001CanonicalProblemId {
 }
 
 function selectQuestionLanguageIdForDifficulty(cpId: Rap001CanonicalProblemId, difficultyBand: Rap001DifficultyBand, seed: string) {
-  const matching = getCommonQuestionLanguageIds(cpId).filter((id) => getQuestionEntry(cpId, id, "en").difficulty === difficultyBand);
-  return pick(matching.length ? matching : getCommonQuestionLanguageIds(cpId), `${seed}:ql`);
+  const matching = getSelectableQuestionLanguageIds(cpId, "en").filter((id) => getQuestionEntry(cpId, id, "en").difficulty === difficultyBand);
+  return pick(matching.length ? matching : getSelectableQuestionLanguageIds(cpId, "en"), `${seed}:ql`);
 }
 
 function ratioUnits(seed: string, count: number, maxValue = 8) {
@@ -680,9 +681,20 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
   return output;
 }
 
+export function getSelectableQuestionLanguageIds(cpId: Rap001CanonicalProblemId, language: Rap001Language) {
+  const englishIds = getCommonQuestionLanguageIds(cpId);
+  return getLocalizedQuestionLanguageIds("RAP-001", language, englishIds);
+}
+
 export function selectQuestionLanguageId(cpId: Rap001CanonicalProblemId, language: Rap001Language, seed: string, difficultyBand?: Rap001DifficultyBand) {
+  const ids = getSelectableQuestionLanguageIds(cpId, language);
+  if (ids.length === 0) {
+    throw new Error(`No localized question languages available for ${language}:${cpId} in RAP-001.`);
+  }
+
   const resolvedDifficulty = difficultyBand ?? chooseDifficulty(cpId, seed);
-  return selectQuestionLanguageIdForDifficulty(cpId, resolvedDifficulty, `${seed}:${language}`);
+  const matching = ids.filter((id) => getQuestionEntry(cpId, id, "en").difficulty === resolvedDifficulty);
+  return pick(matching.length ? matching : ids, `${seed}:${language}:ql`);
 }
 
 function selectSemanticContext(cpId: Rap001CanonicalProblemId, seed: string): Rap001SemanticContext {
@@ -726,8 +738,19 @@ function selectSemanticContext(cpId: Rap001CanonicalProblemId, seed: string): Ra
 export function generateRap001Parameters(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001Parameters {
   const language = input.language ?? "en";
   const seed = input.seed ?? `RAP-001:${cpId}`;
+  const selectableQuestionLanguageIds = getSelectableQuestionLanguageIds(cpId, language);
+  if (selectableQuestionLanguageIds.length === 0) {
+    throw new Error(`No localized question languages available for ${language}:${cpId} in RAP-001.`);
+  }
+  if (input.questionLanguageId && !isQlLocalized("RAP-001", input.questionLanguageId, language)) {
+    throw new Error(`Question language ${input.questionLanguageId} is not localized for ${language} in RAP-001.`);
+  }
+
   const difficultyBand = input.difficultyBand ?? chooseDifficulty(cpId, seed);
-  const questionLanguageId = input.questionLanguageId ?? selectQuestionLanguageId(cpId, language, `${seed}:ql`, difficultyBand);
+  const questionLanguageId =
+    input.questionLanguageId && selectableQuestionLanguageIds.includes(input.questionLanguageId)
+      ? input.questionLanguageId
+      : selectQuestionLanguageId(cpId, language, `${seed}:ql`, difficultyBand);
   const taskKind = getTaskKind(cpId, questionLanguageId);
   const answerType = getAnswerType(cpId, questionLanguageId);
   const semanticContext = selectSemanticContext(cpId, seed);

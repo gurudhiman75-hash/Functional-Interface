@@ -1,5 +1,5 @@
 import { getActiveQuestionLanguageIds, getCommonQuestionLanguageIds, validateRap001Libraries } from "./library";
-import { getRap001ActiveCanonicalProblemIds, pickRap001CanonicalProblemId } from "./parameter-generator";
+import { getRap001ActiveCanonicalProblemIds, getSelectableQuestionLanguageIds, pickRap001CanonicalProblemId } from "./parameter-generator";
 import { runRap001ForLanguages, runRap001Pipeline } from "./pipeline";
 import { RAP_001_CP_IDS, type Rap001CanonicalProblemId, type Rap001CoverageAudit, type Rap001Language, type Rap001QuestionPackage } from "./types";
 
@@ -24,7 +24,7 @@ export function generateRap001Batch(count: number, language: Rap001Language = "e
   return Array.from({ length: count }, (_value, index) => {
     const cpId = WEIGHTED_CP_SEQUENCE[index % WEIGHTED_CP_SEQUENCE.length] ?? pickRap001CanonicalProblemId(`RAP-001:${index}`);
     const seenForCp = cpQuestionCounters.get(cpId) ?? 0;
-    const qlIds = getCommonQuestionLanguageIds(cpId);
+    const qlIds = language === "en" ? getCommonQuestionLanguageIds(cpId) : getSelectableQuestionLanguageIds(cpId, language);
     const qlId = qlIds[seenForCp % qlIds.length]!;
     cpQuestionCounters.set(cpId, seenForCp + 1);
     return runRap001Pipeline(cpId, {

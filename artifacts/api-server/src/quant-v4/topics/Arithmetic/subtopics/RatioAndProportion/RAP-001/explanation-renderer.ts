@@ -1,6 +1,7 @@
 import { formatExplanationSteps, validateExplanationPipeline, type ExplanationEvidence, type ExplanationRenderer } from "../../../../../common/explanation-engine";
 import { TaskKindTeacherRenderer } from "../../../../../common/teacher-renderer";
 import type { Rap001Explanation, Rap001Parameters, Rap001ReasoningGraph, Rap001SolverResult } from "../types";
+import { renderLocalizedRap001Explanation } from "./localized-explanation-renderer";
 
 import { SimpleLinkageRenderer } from "./renderers/simple-linkage-renderer";
 import { RatioNormalizationRenderer } from "./renderers/ratio-normalization-renderer";
@@ -48,6 +49,10 @@ export function resolveRap001SemanticEntities(taskKind: string, semanticContext:
 }
 
 export function renderRap001Explanation(parameters: Rap001Parameters, solver: Rap001SolverResult, _graph: Rap001ReasoningGraph): Rap001Explanation {
+  if (parameters.language !== "en") {
+    return renderLocalizedRap001Explanation(parameters, solver);
+  }
+
   const evidence: ExplanationEvidence = {
     variables: parameters.variables,
     derivedValues: solver.workingValues,
