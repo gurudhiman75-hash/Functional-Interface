@@ -208,9 +208,87 @@ function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, 
   };
 }
 
+function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
+  const entities = entitySet(seed);
+  let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
+  let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
+  if (ratioA === ratioB) ratioB += 1;
+  const scale = pick([4, 5, 6, 8, 10, 12], `${seed}:scale`);
+  const timeRatioA = ratioTerm(difficulty, `${seed}:timeA`);
+  let timeRatioB = ratioTerm(difficulty, `${seed}:timeB`);
+  if (timeRatioA === timeRatioB) timeRatioB += 1;
+
+  if (qlId === "RAP-QL-602" || qlId === "RAP-QL-604") {
+    const chain = baseChainVariables(seed, difficulty);
+    const aligned = alignChainRatios(
+      [Number(chain.ratioA1), Number(chain.ratioB1)],
+      [Number(chain.ratioB2), Number(chain.ratioC2)],
+    );
+    return {
+      personA: chain.personA,
+      personB: chain.personB,
+      personC: chain.personC,
+      ratioA1: chain.ratioA1,
+      ratioB1: chain.ratioB1,
+      ratioB2: chain.ratioB2,
+      ratioC2: chain.ratioC2,
+      ...(qlId === "RAP-QL-602" ? { valueA: aligned[2]! * scale } : { valueC: aligned[0]! * scale }),
+    };
+  }
+
+  return {
+    personA: entities[0]!,
+    personB: entities[1]!,
+    ratioA,
+    ratioB,
+    ...(qlId === "RAP-QL-601" || qlId === "RAP-QL-603" ? { valueA: ratioB * scale } : {}),
+    ...(qlId === "RAP-QL-605" || qlId === "RAP-QL-606" ? { timeRatioA, timeRatioB } : {}),
+  };
+}
+
+function baseComparisonVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
+  if (qlId === "RAP-QL-706") {
+    let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
+    let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
+    if (ratioA === ratioB) ratioB += 1;
+    const multiplier = pick([2, 3, 4, 5], `${seed}:equivalentMultiplier`);
+    return {
+      ratioA,
+      ratioB,
+      equivalentA: ratioA * multiplier,
+      equivalentB: ratioB * multiplier,
+    };
+  }
+
+  const variables = baseChainVariables(seed, difficulty);
+  if (qlId === "RAP-QL-701" || qlId === "RAP-QL-703" || qlId === "RAP-QL-705") {
+    const aligned = alignChainRatios(
+      [Number(variables.ratioA1), Number(variables.ratioB1)],
+      [Number(variables.ratioB2), Number(variables.ratioC2)],
+    );
+    const endpoint = simplifyRatio([aligned[0]!, aligned[2]!]);
+    return {
+      personA: variables.personA,
+      personB: variables.personB,
+      personC: variables.personC,
+      ratioA1: variables.ratioA1,
+      ratioB1: variables.ratioB1,
+      ratioB2: variables.ratioB2,
+      ratioC2: variables.ratioC2,
+      ...(qlId === "RAP-QL-703" ? { comparisonPair: "AC" } : {}),
+      ...(qlId === "RAP-QL-705" ? { endpointA: endpoint[0]!, endpointC: endpoint[1]! } : {}),
+    };
+  }
+
+  return {
+    ...variables,
+    ...(qlId === "RAP-QL-704" ? { comparisonPair: "BD" } : {}),
+  };
+}
+
 export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap002Parameters {
   const cpId = input.canonicalProblemId ?? "RAP-CP-007";
-  if (cpId !== "RAP-CP-007" && cpId !== "RAP-CP-008" && cpId !== "RAP-CP-009" && cpId !== "RAP-CP-010") throw new Error(`RAP-002 MVP only supports RAP-CP-007 to RAP-CP-010. Received ${cpId}.`);
+  if (cpId !== "RAP-CP-007" && cpId !== "RAP-CP-008" && cpId !== "RAP-CP-009" && cpId !== "RAP-CP-010" && cpId !== "RAP-CP-011" && cpId !== "RAP-CP-012") throw new Error(`RAP-002 MVP only supports RAP-CP-007 to RAP-CP-012. Received ${cpId}.`);
 
   const seed = input.seed ?? `RAP-002:${cpId}`;
   const language = input.language ?? "en";
@@ -219,13 +297,18 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
   const qlId = pickQl(cpId, seed, input.questionLanguageId);
   const registry = getRap002RegistryEntry(qlId);
   const difficulty = input.difficultyBand ?? registry.difficulty ?? pickDifficulty(seed);
-  let variables = cpId === "RAP-CP-008"
-    ? baseReverseChainVariables(seed, difficulty, qlId)
-    : cpId === "RAP-CP-009"
-      ? baseTransformationVariables(seed, difficulty, qlId)
-      : cpId === "RAP-CP-010"
-        ? basePartitionVariables(seed, difficulty, qlId)
-      : baseChainVariables(seed, difficulty);
+  let variables = baseChainVariables(seed, difficulty);
+  if (cpId === "RAP-CP-008") {
+    variables = baseReverseChainVariables(seed, difficulty, qlId);
+  } else if (cpId === "RAP-CP-009") {
+    variables = baseTransformationVariables(seed, difficulty, qlId);
+  } else if (cpId === "RAP-CP-010") {
+    variables = basePartitionVariables(seed, difficulty, qlId);
+  } else if (cpId === "RAP-CP-011") {
+    variables = baseInverseVariables(seed, difficulty, qlId);
+  } else if (cpId === "RAP-CP-012") {
+    variables = baseComparisonVariables(seed, difficulty, qlId);
+  }
 
   if (cpId === "RAP-CP-007" && registry.taskKind === "extendedChainAlignment") {
     variables = addExtendedTarget(seed, variables);

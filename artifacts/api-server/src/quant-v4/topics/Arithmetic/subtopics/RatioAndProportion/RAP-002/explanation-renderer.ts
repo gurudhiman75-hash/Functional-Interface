@@ -15,6 +15,55 @@ function block(text: string) {
 
 export function renderRap002Explanation(parameters: Rap002Parameters, solver: Rap002SolverResult): Rap002Explanation {
   if (
+    parameters.taskKind === "chainOrdering"
+    || parameters.taskKind === "chainInequality"
+    || parameters.taskKind === "chainEquivalence"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        "First normalize the given ratio information into comparable values.",
+        block(`\\text{Comparable form}=${String(solver.workingValues.chain ?? solver.workingValues.ratios)}`),
+        "Now compare or simplify the requested values.",
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
+    parameters.taskKind === "inverseChainWork"
+    || parameters.taskKind === "inverseChainSpeed"
+    || parameters.taskKind === "combinedInverseChain"
+  ) {
+    if (parameters.taskKind === "combinedInverseChain") {
+      return {
+        explanationId: parameters.explanationId,
+        lines: [
+          "For combined proportional quantities, multiply the rate ratio by the time ratio side by side.",
+          block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
+          block(`\\text{Time ratio}=${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`),
+          block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+          block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+        ],
+      };
+    }
+
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        "For a fixed work or fixed distance, the time ratio is inverse to the worker, efficiency, or speed ratio.",
+        parameters.variables.ratioA1 !== undefined
+          ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}=${String(solver.workingValues.alignedChain)}`)
+          : block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
+        "Use the inverse relation to scale the known time.",
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
     parameters.taskKind === "nestedPartition"
     || parameters.taskKind === "conditionalDistribution"
     || parameters.taskKind === "weightedNestedPartition"

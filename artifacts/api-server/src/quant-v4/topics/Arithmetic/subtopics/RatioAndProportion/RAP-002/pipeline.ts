@@ -33,3 +33,5 @@ export const runRap002Cp007Pipeline = (input: Rap002ParameterInput = {}) => runR
 export const runRap002Cp008Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-008", input);
 export const runRap002Cp009Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-009", input);
 export const runRap002Cp010Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-010", input);
+export const runRap002Cp011Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-011", input);
+export const runRap002Cp012Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-012", input);

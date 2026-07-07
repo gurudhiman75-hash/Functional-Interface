@@ -58,6 +58,20 @@ function ratioResult(values: readonly number[], workingValues: Record<string, st
   };
 }
 
+function logicResult(value: string, workingValues: Record<string, string | number>, calculationLatex: string): Rap002SolverResult {
+  return {
+    answer: `$$\\text{${value}}$$`,
+    answerValue: value,
+    answerType: "LOGIC",
+    workingValues,
+    evidence: workingValues,
+    mathJax: {
+      setupLatex: String(workingValues.chain ?? workingValues.ratios ?? ""),
+      calculationLatex,
+    },
+  };
+}
+
 function splitByRatio(total: number, ratioA: number, ratioB: number): [number, number] {
   const unit = total / (ratioA + ratioB);
   return [ratioA * unit, ratioB * unit];
@@ -69,6 +83,14 @@ function solveNestedPartitionValues(parameters: Rap002Parameters) {
   const branchShare = branchPart === "B" ? shareB : shareA;
   const [subShareC, subShareD] = splitByRatio(branchShare, n(parameters, "subRatioC"), n(parameters, "subRatioD"));
   return { shareA, shareB, branchPart, branchShare, subShareC, subShareD };
+}
+
+function orderedLabels(labels: readonly string[], values: readonly number[]) {
+  return labels
+    .map((label, index) => ({ label, value: values[index]! }))
+    .sort((left, right) => right.value - left.value)
+    .map((item) => item.label)
+    .join(" > ");
 }
 
 export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
@@ -239,6 +261,85 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
           result: formatNumber(weightedTotal),
         },
         `${formatNumber(nested.subShareC)}\\times${n(parameters, "weightC")}+${formatNumber(nested.subShareD)}\\times${n(parameters, "weightD")}=${formatNumber(weightedTotal)}`,
+      );
+    }
+    case "inverseChainWork":
+    case "inverseChainSpeed": {
+      if (parameters.variables.ratioA1 !== undefined) {
+        const aligned = solveThreePartChain(parameters);
+        const hasA = parameters.variables.valueA !== undefined;
+        const knownTime = hasA ? n(parameters, "valueA") : n(parameters, "valueC");
+        const knownRatePart = hasA ? aligned[0]! : aligned[2]!;
+        const targetRatePart = hasA ? aligned[2]! : aligned[0]!;
+        const targetTime = knownTime * knownRatePart / targetRatePart;
+        return countResult(
+          targetTime,
+          { alignedChain: formatRatio(aligned), knownTime: formatNumber(knownTime), result: formatNumber(targetTime) },
+          `${formatNumber(knownTime)}\\times\\frac{${knownRatePart}}{${targetRatePart}}=${formatNumber(targetTime)}`,
+        );
+      }
+      const targetTime = n(parameters, "valueA") * n(parameters, "ratioA") / n(parameters, "ratioB");
+      return countResult(
+        targetTime,
+        { rateRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, knownTime: formatNumber(n(parameters, "valueA")), result: formatNumber(targetTime) },
+        `${n(parameters, "valueA")}\\times\\frac{${n(parameters, "ratioA")}}{${n(parameters, "ratioB")}}=${formatNumber(targetTime)}`,
+      );
+    }
+    case "combinedInverseChain": {
+      const productA = n(parameters, "ratioA") * n(parameters, "timeRatioA");
+      const productB = n(parameters, "ratioB") * n(parameters, "timeRatioB");
+      return ratioResult(
+        [productA, productB],
+        { rateRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, timeRatio: `${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`, productRatio: formatRatio([productA, productB]) },
+        `${n(parameters, "ratioA")}\\times${n(parameters, "timeRatioA")}:${n(parameters, "ratioB")}\\times${n(parameters, "timeRatioB")}=${ratioLatex(simplifyRatio([productA, productB]))}`,
+      );
+    }
+    case "chainOrdering": {
+      const hasFour = parameters.variables.ratioC3 !== undefined;
+      const values = hasFour ? solveFullChain(parameters) : solveThreePartChain(parameters);
+      const labels = hasFour
+        ? [String(parameters.variables.personA), String(parameters.variables.personB), String(parameters.variables.personC), String(parameters.variables.personD)]
+        : [String(parameters.variables.personA), String(parameters.variables.personB), String(parameters.variables.personC)];
+      const order = orderedLabels(labels, values);
+      return logicResult(
+        order,
+        { chain: formatRatio(values), order },
+        `${ratioLatex(values)}\\Rightarrow\\text{${order}}`,
+      );
+    }
+    case "chainInequality": {
+      const pair = String(parameters.variables.comparisonPair ?? "AC");
+      const hasFour = parameters.variables.ratioC3 !== undefined;
+      const values = hasFour ? solveFullChain(parameters) : solveThreePartChain(parameters);
+      const labels = hasFour
+        ? [String(parameters.variables.personA), String(parameters.variables.personB), String(parameters.variables.personC), String(parameters.variables.personD)]
+        : [String(parameters.variables.personA), String(parameters.variables.personB), String(parameters.variables.personC)];
+      const leftIndex = pair === "BD" ? 1 : 0;
+      const rightIndex = pair === "BD" ? 3 : 2;
+      const result = values[leftIndex]! >= values[rightIndex]! ? labels[leftIndex]! : labels[rightIndex]!;
+      return logicResult(
+        result,
+        { chain: formatRatio(values), comparisonPair: pair, result },
+        `${labels[leftIndex]}=${values[leftIndex]},\\ ${labels[rightIndex]}=${values[rightIndex]}\\Rightarrow\\text{${result}}`,
+      );
+    }
+    case "chainEquivalence": {
+      const equivalent = parameters.variables.endpointA !== undefined
+        ? (() => {
+            const aligned = solveThreePartChain(parameters);
+            const endpoint = simplifyRatio([aligned[0]!, aligned[2]!]);
+            return endpoint[0] === n(parameters, "endpointA") && endpoint[1] === n(parameters, "endpointC");
+          })()
+        : (() => {
+            const first = simplifyRatio([n(parameters, "ratioA"), n(parameters, "ratioB")]);
+            const second = simplifyRatio([n(parameters, "equivalentA"), n(parameters, "equivalentB")]);
+            return first[0] === second[0] && first[1] === second[1];
+          })();
+      const result = equivalent ? "Equivalent" : "Not equivalent";
+      return logicResult(
+        result,
+        { ratios: parameters.variables.endpointA !== undefined ? `${n(parameters, "endpointA")}:${n(parameters, "endpointC")}` : `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}, ${n(parameters, "equivalentA")}:${n(parameters, "equivalentB")}`, result },
+        `\\text{${result}}`,
       );
     }
     default:

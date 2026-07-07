@@ -2,9 +2,9 @@
 
 ## Current Status
 
-- `RAP-002` has been initialized and now has English runtime coverage through `RAP-CP-010`.
-- Runtime generation is available through the local RAP-002 pipeline, but is not wired into Question Studio yet.
-- `generation-engine.ts` still exposes only `RAP-001` for Ratio and Proportion.
+- `RAP-002` has been initialized and now has initial English runtime coverage for all planned CPs, `RAP-CP-007` through `RAP-CP-012`.
+- Runtime generation is available through the local RAP-002 pipeline and the Quant V4 generation engine.
+- `generation-engine.ts` now exposes `RAP-002` as an English-only Ratio and Proportion package.
 - Hindi/Punjabi are planned from the start, but no localized QLs should be generated until the English solver contract is stable.
 
 ## Files Created
@@ -116,21 +116,74 @@ Added `RAP-CP-010` English nested-partition slice:
   - forced QL checks for all six CP-010 QLs
   - random CP-010 smoke coverage
 
+Added `RAP-CP-011` English inverse-chain slice:
+
+- Active QLs: `RAP-QL-601` to `RAP-QL-606`
+- Active task kinds:
+  - `inverseChainWork`
+  - `inverseChainSpeed`
+  - `combinedInverseChain`
+- Solver coverage:
+  - worker-days inverse proportion
+  - speed-time inverse proportion
+  - linked inverse chains across three entities
+  - combined product ratios for efficiency/time or speed/time cases
+- Validation:
+  - fixed-answer checks were added for simple inverse, linked inverse, and combined product-ratio examples
+  - forced and random CP-011 smoke coverage was added to `rap-002.test.ts`
+
+Added `RAP-CP-012` English comparison/ordering slice:
+
+- Active QLs: `RAP-QL-701` to `RAP-QL-706`
+- Active task kinds:
+  - `chainOrdering`
+  - `chainInequality`
+  - `chainEquivalence`
+- Solver coverage:
+  - normalize linked ratios into comparable chains
+  - order entities from greatest to least
+  - compare selected entities
+  - test ratio equivalence from chain endpoints or direct ratios
+- Validation:
+  - fixed-answer checks were added for ordering and equivalence examples
+  - forced and random CP-012 smoke coverage was added to `rap-002.test.ts`
+
 ## Next Implementation Slice
 
-Expand the current English MVP before multilingual work:
+Review the current English MVP before multilingual work:
 
-- start `RAP-CP-011` inverse chains, or expand `RAP-CP-008` to `RAP-CP-010` beyond the initial six QLs each
-- add broader coverage audit once the next CP slice is active
+- inspect generated English samples for editorial polish
+- expand QL breadth only after the current task-kind contract is accepted
+- keep Hindi/Punjabi disabled until localized stems, labels, explanations, and audits exist
 
 ## Latest Smoke Results
 
 - `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002.test.mjs`
 - `node dist/quant-v4/rap-002.test.mjs`
-- Result: `RAP-002 English test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 6. CP-010 QLs covered: 6.`
+- Result: `RAP-002 English test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 6. CP-010 QLs covered: 6. CP-011 QLs covered: 6. CP-012 QLs covered: 6.`
+- Question Studio smoke:
+  - `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-question-studio-smoke.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002-question-studio-smoke.mjs`
+  - `node dist/quant-v4/rap-002-question-studio-smoke.mjs`
+  - Result: `RAP-002 Question Studio English-only smoke passed.`
+
+## Coverage / Maturity Audit
+
+- Audit file: `rap-002-coverage-audit.ts`
+- Record: `rap-002-maturity-audit.md`
+- Result: passed
+- Coverage: 6 CPs, 42 active QLs, 18 task kinds, all answer types (`COUNT`, `LOGIC`, `RATIO`), 762 generated samples.
 
 ## Frontend / Question Studio Status
 
-- Not enabled.
-- Do not expose `RAP-002` until the English runtime and smoke tests pass.
+- English-only Quant V4 package wiring is enabled through `generation-engine.ts`.
+- `RAP-002` is discoverable with `supportedLanguages: ["en"]`.
+- Hindi/Punjabi remain disabled for Question Studio and direct runtime generation.
 - Do not expose Hindi/Punjabi until full localized stem, label, explanation, and audit coverage exists.
+
+## English-Only Wiring
+
+- Added `RAP-002` to the Quant V4 runtime package registry.
+- Registered active CPs `RAP-CP-007` to `RAP-CP-012`.
+- Route uses `runRap002Pipeline(...)` and preserves existing English-only runtime enforcement.
+- Question Studio package discovery now exposes RAP-002 as an enabled English-only package.
+- Normal preview output includes `metadata.language = "en"` for generated Quant V4 questions.

@@ -194,5 +194,85 @@
         "difficulty": "Hard"
       }
     }
+  },
+  "RAP-CP-011": {
+    "families": {
+      "RAP-QL-601": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "The number of workers in {personA} and {personB} are in the ratio {ratioA}:{ratioB}. If {personA} can finish a fixed work in {valueA} days, how many days will {personB} take?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-602": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "Workers in {personA}:{personB} = {ratioA1}:{ratioB1}, and workers in {personB}:{personC} = {ratioB2}:{ratioC2}. If {personA} takes {valueA} days for a fixed work, find the days taken by {personC}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-603": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainSpeed",
+        "template": "The speeds of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. If {personA} takes {valueA} hours for a fixed distance, how many hours will {personB} take?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-604": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainSpeed",
+        "template": "Speeds of {personA}:{personB} = {ratioA1}:{ratioB1}, and speeds of {personB}:{personC} = {ratioB2}:{ratioC2}. If {personC} takes {valueC} hours for a fixed distance, find the time taken by {personA}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-605": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "The efficiencies of {personA} and {personB} are in the ratio {ratioA}:{ratioB}, and their working times are in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of their total work done.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-606": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "The speeds of {personA} and {personB} are in the ratio {ratioA}:{ratioB}, and their travel times are in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of distances covered.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-012": {
+    "families": {
+      "RAP-QL-701": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, arrange {personA}, {personB}, and {personC} from greatest to least.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-702": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "The linked ratios are {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}. Arrange all four values from greatest to least.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-703": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, which is greater: {personA} or {personC}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-704": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}. Which is greater: {personB} or {personD}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-705": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "For {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, test whether {personA}:{personC} is equivalent to {endpointA}:{endpointC}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-706": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Check whether the ratios {ratioA}:{ratioB} and {equivalentA}:{equivalentB} are equivalent.",
+        "difficulty": "Medium"
+      }
+    }
   }
 }

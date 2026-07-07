@@ -277,6 +277,102 @@
       "difficulty": "Hard",
       "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "weightC", "weightD"],
       "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-601": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "valueA"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-602": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueA"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-603": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainSpeed",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "valueA"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-604": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainSpeed",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueC"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-605": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "timeRatioA", "timeRatioB"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-606": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "timeRatioA", "timeRatioB"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-701": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2"],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-702": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-703": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "comparisonPair"],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-704": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3", "comparisonPair"],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-705": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "endpointA", "endpointC"],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-706": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": ["ratioA", "ratioB", "equivalentA", "equivalentB"],
+      "explanationId": "RAP-ES-012"
     }
   }
 }

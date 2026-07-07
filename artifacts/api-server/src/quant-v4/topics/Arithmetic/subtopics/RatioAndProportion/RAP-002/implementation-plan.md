@@ -26,20 +26,20 @@ Start with `RAP-CP-007`, then add the first reverse-chain slice from `RAP-CP-008
 
 Current MVP coverage:
 
-- Active CPs: `RAP-CP-007`, `RAP-CP-008`, `RAP-CP-009`, `RAP-CP-010`
-- Active QLs: `RAP-QL-201` to `RAP-QL-212`, `RAP-QL-301` to `RAP-QL-306`, `RAP-QL-401` to `RAP-QL-406`, `RAP-QL-501` to `RAP-QL-506`
-- Active task kinds: `chainAlignment`, `extendedChainAlignment`, `missingChainRatio`, `reverseMiddleFinding`, `reverseEndpointFinding`, `constrainedReverseChain`, `successiveRatioChange`, `transferTracking`, `reconstructOriginalRatio`, `nestedPartition`, `conditionalDistribution`, `weightedNestedPartition`
+- Active CPs: `RAP-CP-007`, `RAP-CP-008`, `RAP-CP-009`, `RAP-CP-010`, `RAP-CP-011`, `RAP-CP-012`
+- Active QLs: `RAP-QL-201` to `RAP-QL-212`, `RAP-QL-301` to `RAP-QL-306`, `RAP-QL-401` to `RAP-QL-406`, `RAP-QL-501` to `RAP-QL-506`, `RAP-QL-601` to `RAP-QL-606`, `RAP-QL-701` to `RAP-QL-706`
+- Active task kinds: `chainAlignment`, `extendedChainAlignment`, `missingChainRatio`, `reverseMiddleFinding`, `reverseEndpointFinding`, `constrainedReverseChain`, `successiveRatioChange`, `transferTracking`, `reconstructOriginalRatio`, `nestedPartition`, `conditionalDistribution`, `weightedNestedPartition`, `inverseChainWork`, `inverseChainSpeed`, `combinedInverseChain`, `chainOrdering`, `chainInequality`, `chainEquivalence`
 - Language: English only
-- Question Studio wiring: not enabled
+- Question Studio wiring: enabled for English only
 
 ## Phase 2: Full English Expansion
 
 - [x] Add initial `RAP-CP-008` reverse chain.
 - [x] Add initial `RAP-CP-009` multi-stage transformations.
 - [x] Add initial `RAP-CP-010` nested partitions.
-- [ ] Add `RAP-CP-011` inverse chains.
-- [ ] Add `RAP-CP-012` comparison and ordering.
-- [ ] Add coverage and maturity audit outputs.
+- [x] Add initial `RAP-CP-011` inverse chains.
+- [x] Add initial `RAP-CP-012` comparison and ordering.
+- [x] Add coverage and maturity audit outputs.
 
 ## Phase 3: Multilingual From Start
 
@@ -54,10 +54,10 @@ Current MVP coverage:
 
 ## Phase 4: Question Studio Integration
 
-- [ ] Wire `RAP-002` into `generation-engine.ts`.
-- [ ] Keep Hindi/Punjabi backend-only until full audit passes.
-- [ ] Run normal export smoke.
-- [ ] Confirm options and explanation shape.
+- [x] Wire `RAP-002` into `generation-engine.ts`.
+- [x] Keep Hindi/Punjabi disabled until full multilingual audit passes.
+- [x] Run English-only Question Studio smoke.
+- [x] Confirm options and explanation shape.
 
 ## Phase 5: Human Review & Freeze
 
@@ -68,4 +68,4 @@ Current MVP coverage:
 
 ## Immediate Next Step
 
-Move next to `RAP-CP-011` inverse chains or expand English coverage within `RAP-CP-008` to `RAP-CP-010`. Hindi/Punjabi should wait until the English task-kind contract is stable.
+RAP-002 is now wired through Question Studio for English only. Next safe step is editorial review of the English MVP breadth before any Hindi/Punjabi localization work.

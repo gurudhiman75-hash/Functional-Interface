@@ -40,6 +40,11 @@ import {
   type Rap001CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-001";
 import {
+  getRap002ActiveCanonicalProblemIds,
+  runRap002Pipeline,
+  type Rap002CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-002";
+import {
   existsSync,
   readFileSync,
   readdirSync,
@@ -64,7 +69,8 @@ export type QuantV4PackageId =
   | "PCT-005"
   | "PCT-006"
   | "PCT-007"
-  | "RAP-001";
+  | "RAP-001"
+  | "RAP-002";
 
 export type QuantV4GenerationRequest = {
   packageId?: QuantV4PackageId;
@@ -231,6 +237,24 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
     run: (cpId, input) =>
       runRap001Pipeline(cpId as Rap001CanonicalProblemId, {
         difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "RAP-002",
+    topic: "Arithmetic",
+    subtopic: "Ratio & Proportion",
+    label: "Compound Proportions & Linked Ratios",
+    cpIds: getRap002ActiveCanonicalProblemIds(),
+    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    run: (cpId, input) =>
+      runRap002Pipeline(cpId as Rap002CanonicalProblemId, {
+        difficultyBand:
+          input.difficulty === "Medium" || input.difficulty === "Hard"
+            ? input.difficulty
+            : undefined,
         language: input.language,
         questionLanguageId: input.questionLanguageId,
         seed: input.seed,
@@ -776,6 +800,7 @@ export function toQuestionStudioPreview(
     parameters.scenarioId ??
     parameters.semanticContext?.scenario;
   const taskKind = traceability.taskKind ?? parameters.taskKind;
+  const language = pkg.language ?? "en";
   const packageOptions = Array.isArray(pkg.options)
     ? pkg.options.map((option: unknown) => String(option ?? ""))
     : [];
@@ -823,7 +848,16 @@ export function toQuestionStudioPreview(
     packageId: pkg.archetypeId,
     taskKind,
     scenarioId,
-    language: pkg.language ?? "en",
+    language,
+    metadata: {
+      language,
+      packageId: pkg.archetypeId,
+      canonicalProblemId: pkg.canonicalProblemId,
+      questionLanguageId: pkg.questionLanguageId,
+      explanationId: pkg.explanationId,
+      taskKind,
+      scenarioId,
+    },
     questionIndex: context.questionIndex,
     questionCount: context.questionCount,
     canonicalProblemId: pkg.canonicalProblemId,

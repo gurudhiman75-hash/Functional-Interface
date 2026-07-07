@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
 import { alignChainRatios, alignThreeChainRatios, formatRatio } from "./math";
 import { validateRap002Libraries } from "./library";
-import { runRap002Cp007Pipeline, runRap002Cp008Pipeline, runRap002Cp009Pipeline, runRap002Cp010Pipeline } from "./pipeline";
+import { runRap002Cp007Pipeline, runRap002Cp008Pipeline, runRap002Cp009Pipeline, runRap002Cp010Pipeline, runRap002Cp011Pipeline, runRap002Cp012Pipeline } from "./pipeline";
 import { generateRap002Parameters } from "./parameter-generator";
 import { solveRap002 } from "./solver";
 
@@ -146,6 +146,86 @@ fixedWeightedNested.variables = {
 };
 assert.equal(solveRap002(fixedWeightedNested).answer, "$$156$$");
 
+const fixedInverse = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-011",
+  seed: "rap-002-fixed-inverse",
+  questionLanguageId: "RAP-QL-601",
+  difficultyBand: "Medium",
+});
+fixedInverse.variables = {
+  personA: "A",
+  personB: "B",
+  ratioA: 3,
+  ratioB: 4,
+  valueA: 8,
+};
+assert.equal(solveRap002(fixedInverse).answer, "$$6$$");
+
+const fixedInverseChain = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-011",
+  seed: "rap-002-fixed-inverse-chain",
+  questionLanguageId: "RAP-QL-602",
+  difficultyBand: "Hard",
+});
+fixedInverseChain.variables = {
+  personA: "A",
+  personB: "B",
+  personC: "C",
+  ratioA1: 2,
+  ratioB1: 3,
+  ratioB2: 6,
+  ratioC2: 5,
+  valueA: 10,
+};
+assert.equal(solveRap002(fixedInverseChain).answer, "$$8$$");
+
+const fixedCombinedInverse = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-011",
+  seed: "rap-002-fixed-combined-inverse",
+  questionLanguageId: "RAP-QL-605",
+  difficultyBand: "Hard",
+});
+fixedCombinedInverse.variables = {
+  personA: "A",
+  personB: "B",
+  ratioA: 3,
+  ratioB: 4,
+  timeRatioA: 5,
+  timeRatioB: 2,
+};
+assert.equal(solveRap002(fixedCombinedInverse).answer, "$$15 : 8$$");
+
+const fixedOrdering = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-012",
+  seed: "rap-002-fixed-ordering",
+  questionLanguageId: "RAP-QL-701",
+  difficultyBand: "Medium",
+});
+fixedOrdering.variables = {
+  personA: "A",
+  personB: "B",
+  personC: "C",
+  ratioA1: 2,
+  ratioB1: 3,
+  ratioB2: 6,
+  ratioC2: 5,
+};
+assert.equal(solveRap002(fixedOrdering).answer, "$$\\text{B > C > A}$$");
+
+const fixedEquivalence = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-012",
+  seed: "rap-002-fixed-equivalence",
+  questionLanguageId: "RAP-QL-706",
+  difficultyBand: "Medium",
+});
+fixedEquivalence.variables = {
+  ratioA: 3,
+  ratioB: 4,
+  equivalentA: 12,
+  equivalentB: 16,
+};
+assert.equal(solveRap002(fixedEquivalence).answer, "$$\\text{Equivalent}$$");
+
 const seenQlIds = new Set<string>();
 for (let index = 0; index < 120; index += 1) {
   const pkg = runRap002Cp007Pipeline({ seed: `rap-002-smoke:${index}` });
@@ -231,4 +311,46 @@ for (const qlId of ["RAP-QL-501", "RAP-QL-502", "RAP-QL-503", "RAP-QL-504", "RAP
 
 assert.equal(seenCp010QlIds.size, 6, `Expected all 6 CP-010 QLs, got ${seenCp010QlIds.size}`);
 
-console.log(`RAP-002 English test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}. CP-010 QLs covered: ${seenCp010QlIds.size}.`);
+const seenCp011QlIds = new Set<string>();
+for (let index = 0; index < 90; index += 1) {
+  const pkg = runRap002Cp011Pipeline({ seed: `rap-002-cp011-smoke:${index}` });
+  assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+  assert.equal(pkg.language, "en");
+  assert.equal(pkg.canonicalProblemId, "RAP-CP-011");
+  assert.ok(pkg.stem.length > 0);
+  assert.ok(pkg.answer.length > 0);
+  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
+  seenCp011QlIds.add(pkg.questionLanguageId);
+}
+
+for (const qlId of ["RAP-QL-601", "RAP-QL-602", "RAP-QL-603", "RAP-QL-604", "RAP-QL-605", "RAP-QL-606"]) {
+  const pkg = runRap002Cp011Pipeline({ seed: `rap-002-cp011-forced:${qlId}`, questionLanguageId: qlId });
+  assert.equal(pkg.validation.valid, true);
+  seenCp011QlIds.add(pkg.questionLanguageId);
+}
+
+assert.equal(seenCp011QlIds.size, 6, `Expected all 6 CP-011 QLs, got ${seenCp011QlIds.size}`);
+
+const seenCp012QlIds = new Set<string>();
+for (let index = 0; index < 90; index += 1) {
+  const pkg = runRap002Cp012Pipeline({ seed: `rap-002-cp012-smoke:${index}` });
+  assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+  assert.equal(pkg.language, "en");
+  assert.equal(pkg.canonicalProblemId, "RAP-CP-012");
+  assert.ok(pkg.stem.length > 0);
+  assert.ok(pkg.answer.length > 0);
+  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
+  seenCp012QlIds.add(pkg.questionLanguageId);
+}
+
+for (const qlId of ["RAP-QL-701", "RAP-QL-702", "RAP-QL-703", "RAP-QL-704", "RAP-QL-705", "RAP-QL-706"]) {
+  const pkg = runRap002Cp012Pipeline({ seed: `rap-002-cp012-forced:${qlId}`, questionLanguageId: qlId });
+  assert.equal(pkg.validation.valid, true);
+  seenCp012QlIds.add(pkg.questionLanguageId);
+}
+
+assert.equal(seenCp012QlIds.size, 6, `Expected all 6 CP-012 QLs, got ${seenCp012QlIds.size}`);
+
+console.log(`RAP-002 English test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}. CP-010 QLs covered: ${seenCp010QlIds.size}. CP-011 QLs covered: ${seenCp011QlIds.size}. CP-012 QLs covered: ${seenCp012QlIds.size}.`);
