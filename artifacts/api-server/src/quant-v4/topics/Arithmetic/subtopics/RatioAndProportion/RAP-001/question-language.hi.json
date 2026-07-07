@@ -452,6 +452,70 @@
       "RAP-QL-026": {
         "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार क्रमशः {w1}, {w2} और {w3} है और कुल भारित अंक {totalScore} हैं, तो {sub1} में कितने अंक मिले।",
         "difficulty": "Hard"
+      },
+      "RAP-QL-122": {
+        "template": "एक बैग में {denom1}, {denom2} और {denom3} के सिक्के {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। यदि कुल मूल्य Rs. {totalValue} है, तो {targetDenom} के कितने सिक्के हैं।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-222": {
+        "template": "एक बैग में {denom1}, {denom2} और {denom3} के सिक्के {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। यदि कुल मूल्य Rs. {totalValue} है, तो {targetDenom} के कितने सिक्के हैं।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-322": {
+        "template": "एक बैग में {denom1}, {denom2} और {denom3} के सिक्के {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। यदि कुल मूल्य Rs. {totalValue} है, तो {targetDenom} के कितने सिक्के हैं।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-422": {
+        "template": "एक बैग में {denom1}, {denom2} और {denom3} के सिक्के {ratio1}:{ratio2}:{ratio3} के अनुपात में हैं। यदि कुल मूल्य Rs. {totalValue} है, तो {targetDenom} के कितने सिक्के हैं।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-123": {
+        "template": "एक बॉक्स में {denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। यदि उनके मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है, तो {targetDenom} के सिक्कों की संख्या क्या है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-223": {
+        "template": "एक बॉक्स में {denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। यदि उनके मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है, तो {targetDenom} के सिक्कों की संख्या क्या है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-323": {
+        "template": "एक बॉक्स में {denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। यदि उनके मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है, तो {targetDenom} के सिक्कों की संख्या क्या है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-423": {
+        "template": "एक बॉक्स में {denom1}, {denom2}, {denom3} और {denom4} के कुल {totalCoins} सिक्के हैं। यदि उनके मूल्यों का अनुपात {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} है, तो {targetDenom} के सिक्कों की संख्या क्या है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-124": {
+        "template": "{itemA}, {itemB} और {itemC} के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। यदि {countA} {itemA}, {countB} {itemB} और {countC} {itemC} का कुल वजन {totalWeight} किलोग्राम है, तो एक {itemA} का वजन कितना है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-224": {
+        "template": "{itemA}, {itemB} और {itemC} के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। यदि {countA} {itemA}, {countB} {itemB} और {countC} {itemC} का कुल वजन {totalWeight} किलोग्राम है, तो एक {itemA} का वजन कितना है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-324": {
+        "template": "{itemA}, {itemB} और {itemC} के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। यदि {countA} {itemA}, {countB} {itemB} और {countC} {itemC} का कुल वजन {totalWeight} किलोग्राम है, तो एक {itemA} का वजन कितना है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-424": {
+        "template": "{itemA}, {itemB} और {itemC} के वजन का अनुपात {ratioA}:{ratioB}:{ratioC} है। यदि {countA} {itemA}, {countB} {itemB} और {countC} {itemC} का कुल वजन {totalWeight} किलोग्राम है, तो एक {itemA} का वजन कितना है।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-126": {
+        "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार क्रमशः {w1}, {w2} और {w3} है और कुल भारित अंक {totalScore} हैं, तो {sub1} में कितने अंक मिले।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-226": {
+        "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार क्रमशः {w1}, {w2} और {w3} है और कुल भारित अंक {totalScore} हैं, तो {sub1} में कितने अंक मिले।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-326": {
+        "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार क्रमशः {w1}, {w2} और {w3} है और कुल भारित अंक {totalScore} हैं, तो {sub1} में कितने अंक मिले।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-426": {
+        "template": "एक परीक्षा में {sub1}, {sub2} और {sub3} के अंकों का अनुपात {ratio1}:{ratio2}:{ratio3} है। यदि इन विषयों का भार क्रमशः {w1}, {w2} और {w3} है और कुल भारित अंक {totalScore} हैं, तो {sub1} में कितने अंक मिले।",
+        "difficulty": "Hard"
       }
     }
   },

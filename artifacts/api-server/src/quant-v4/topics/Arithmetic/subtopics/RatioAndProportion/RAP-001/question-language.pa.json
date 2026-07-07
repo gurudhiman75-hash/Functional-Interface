@@ -452,6 +452,70 @@
       "RAP-QL-026": {
         "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
         "difficulty": "Hard"
+      },
+      "RAP-QL-122": {
+        "template": "ਇੱਕ ਬੈਗ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-222": {
+        "template": "ਇੱਕ ਬੈਗ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-322": {
+        "template": "ਇੱਕ ਬੈਗ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-422": {
+        "template": "ਇੱਕ ਬੈਗ ਵਿੱਚ {denom1}, {denom2} ਅਤੇ {denom3} ਦੇ ਸਿੱਕੇ {ratio1}:{ratio2}:{ratio3} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-123": {
+        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-223": {
+        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-323": {
+        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-423": {
+        "template": "ਇੱਕ ਬਾਕਸ ਵਿੱਚ {denom1}, {denom2}, {denom3} ਅਤੇ {denom4} ਦੇ ਕੁੱਲ {totalCoins} ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4} ਹੈ, ਤਾਂ {targetDenom} ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-124": {
+        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇ {countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ {itemA} ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-224": {
+        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇ {countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ {itemA} ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-324": {
+        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇ {countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ {itemA} ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-424": {
+        "template": "{itemA}, {itemB} ਅਤੇ {itemC} ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB}:{ratioC} ਹੈ। ਜੇ {countA} {itemA}, {countB} {itemB} ਅਤੇ {countC} {itemC} ਦਾ ਕੁੱਲ ਭਾਰ {totalWeight} ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ {itemA} ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-126": {
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-226": {
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-326": {
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-426": {
+        "template": "ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ {sub1}, {sub2} ਅਤੇ {sub3} ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ {w1}, {w2} ਅਤੇ {w3} ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ {totalScore} ਹਨ, ਤਾਂ {sub1} ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।",
+        "difficulty": "Hard"
       }
     }
   },
