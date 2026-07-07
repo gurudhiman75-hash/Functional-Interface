@@ -224,6 +224,82 @@
       "RAP-QL-411": {
         "template": "{personA} ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {ratioExp}:{ratioSav} ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. {totalSalary} ਹੈ, ਤਾਂ {personA} ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-107": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-207": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-307": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-407": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-507": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-607": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-707": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-807": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-907": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1007": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1107": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1207": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1307": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1407": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1507": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1607": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1707": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1807": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1907": {
+        "template": "ਕੁੱਲ {totalAmount} ਨੂੰ {personA}, {personB} ਅਤੇ {personC} ਵਿੱਚ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPerson} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Medium"
       }
     }
   },
@@ -538,6 +614,86 @@
         "difficulty": "Hard"
       },
       "RAP-QL-032": {
+        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-127": {
+        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਜੇ ਇਸ ਵਿੱਚ {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-227": {
+        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਜੇ ਇਸ ਵਿੱਚ {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-327": {
+        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਜੇ ਇਸ ਵਿੱਚ {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-427": {
+        "template": "ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਜੇ ਇਸ ਵਿੱਚ {addedAmount} ਲੀਟਰ {liquid1} ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ {liquid2} ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-128": {
+        "template": "ਮਿਸ਼ਰਣ ਦੇ {totalVolume} ਲੀਟਰ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਅਨੁਪਾਤ ਨੂੰ {finalRatio1}:{finalRatio2} ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ {liquid2} ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-228": {
+        "template": "ਮਿਸ਼ਰਣ ਦੇ {totalVolume} ਲੀਟਰ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਅਨੁਪਾਤ ਨੂੰ {finalRatio1}:{finalRatio2} ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ {liquid2} ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-328": {
+        "template": "ਮਿਸ਼ਰਣ ਦੇ {totalVolume} ਲੀਟਰ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਅਨੁਪਾਤ ਨੂੰ {finalRatio1}:{finalRatio2} ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ {liquid2} ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-428": {
+        "template": "ਮਿਸ਼ਰਣ ਦੇ {totalVolume} ਲੀਟਰ ਵਿੱਚ {liquid1} ਅਤੇ {liquid2} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2} ਹੈ। ਅਨੁਪਾਤ ਨੂੰ {finalRatio1}:{finalRatio2} ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ {liquid2} ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-129": {
+        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-229": {
+        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-329": {
+        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-429": {
+        "template": "ਇੱਕ {mixtureType} ਵਿੱਚ {liquid1}, {liquid2} ਅਤੇ {liquid3} ਦਾ ਅਨੁਪਾਤ {ratio1}:{ratio2}:{ratio3} ਹੈ। {addedAmount} ਲੀਟਰ {liquid2} ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ {finalRatio1}:{finalRatio2}:{finalRatio3} ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-130": {
+        "template": "{initialVolume} ਲੀਟਰ {liquidA} ਵਿੱਚੋਂ {removedVolume1} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ {removedVolume2} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ {liquidA} ਅਤੇ {liquidB} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-230": {
+        "template": "{initialVolume} ਲੀਟਰ {liquidA} ਵਿੱਚੋਂ {removedVolume1} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ {removedVolume2} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ {liquidA} ਅਤੇ {liquidB} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-330": {
+        "template": "{initialVolume} ਲੀਟਰ {liquidA} ਵਿੱਚੋਂ {removedVolume1} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ {removedVolume2} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ {liquidA} ਅਤੇ {liquidB} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-430": {
+        "template": "{initialVolume} ਲੀਟਰ {liquidA} ਵਿੱਚੋਂ {removedVolume1} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ {removedVolume2} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ {liquidA} ਅਤੇ {liquidB} ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-132": {
+        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-232": {
+        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-332": {
+        "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-432": {
         "template": "ਇੱਕ ਘੋਲ ਵਿੱਚ {acidVolume} ਲੀਟਰ ਐਸਿਡ ਅਤੇ {waterVolume} ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।",
         "difficulty": "Easy"
       }

@@ -166,79 +166,79 @@
   "RAP-CP-002": {
     "families": {
       "RAP-QL-107": {
-        "template": "A sum of Rs. {totalAmount} is distributed between {personA} and {personB} in the ratio {ratioA}:{ratioB}. What is the amount received by {personA}?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-207": {
-        "template": "{totalAmount} sweets are divided among {personA} and {personB} in the ratio {ratioA}:{ratioB}. How many sweets does {personA} get?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-307": {
-        "template": "Rs. {totalAmount} is to be divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}. Calculate {personA}'s share.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-407": {
-        "template": "An amount of Rs. {totalAmount} is shared between {personA} and {personB} in the ratio {ratioA}:{ratioB}. Find {personA}'s share.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-507": {
-        "template": "If Rs. {totalAmount} is divided between {personA} and {personB} such that their shares are in the ratio {ratioA}:{ratioB}, how much does {personA} receive?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-607": {
-        "template": "{totalAmount} apples are distributed between {personA} and {personB} in the ratio of {ratioA}:{ratioB}. Find the number of apples {personA} receives.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-707": {
-        "template": "Divide a sum of {totalAmount} between {personA} and {personB} in the proportion {ratioA}:{ratioB}. What is {personA}'s portion?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-807": {
-        "template": "A total of Rs. {totalAmount} is split between {personA} and {personB} in the ratio {ratioA}:{ratioB}. Find the share belonging to {personA}.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-907": {
-        "template": "Distribute Rs. {totalAmount} between {personA} and {personB} in the ratio {ratioA}:{ratioB}. How much does {personA} get?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1007": {
-        "template": "If {totalAmount} items are divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}, calculate the items received by {personA}.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1107": {
-        "template": "Rs. {totalAmount} is apportioned between {personA} and {personB} in the ratio {ratioA}:{ratioB}. What is the amount given to {personA}?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1207": {
-        "template": "A profit of Rs. {totalAmount} is divided between partners {personA} and {personB} in the ratio {ratioA}:{ratioB}. What is {personA}'s share of the profit?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1307": {
-        "template": "Divide {totalAmount} between {personA} and {personB} such that their portions are in the ratio {ratioA}:{ratioB}. Find {personA}'s portion.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1407": {
-        "template": "{totalAmount} rupees are shared between {personA} and {personB} in the ratio {ratioA}:{ratioB}. Determine the share of {personA}.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1507": {
-        "template": "In a distribution of Rs. {totalAmount} among {personA} and {personB} in the ratio {ratioA}:{ratioB}, what is {personA}'s share?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1607": {
-        "template": "Find the share of {personA} when Rs. {totalAmount} is divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1707": {
-        "template": "A sum of {totalAmount} is divided between {personA} and {personB} in the ratio of {ratioA}:{ratioB}. How much does {personA} receive?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1807": {
-        "template": "If a quantity of {totalAmount} is split between {personA} and {personB} in the ratio {ratioA}:{ratioB}, find the quantity acquired by {personA}.",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-1907": {
-        "template": "An inheritance of Rs. {totalAmount} is divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}. What is {personA}'s share?",
+        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-008": {

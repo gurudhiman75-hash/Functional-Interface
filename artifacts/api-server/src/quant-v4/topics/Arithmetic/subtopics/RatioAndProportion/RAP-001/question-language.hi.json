@@ -224,6 +224,82 @@
       "RAP-QL-411": {
         "template": "{personA} के मासिक खर्च और बचत का अनुपात {ratioExp}:{ratioSav} है। यदि कुल वेतन Rs. {totalSalary} है, तो {personA} हर महीने कितनी बचत करता है।",
         "difficulty": "Easy"
+      },
+      "RAP-QL-107": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-207": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-307": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-407": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-507": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-607": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-707": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-807": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-907": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1007": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1107": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1207": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1307": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1407": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1507": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1607": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1707": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1807": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1907": {
+        "template": "कुल {totalAmount} को {personA}, {personB} और {personC} के बीच {ratioA}:{ratioB}:{ratioC} के अनुपात में बांटा जाता है। {targetPerson} का हिस्सा कितना होगा।",
+        "difficulty": "Medium"
       }
     }
   },
@@ -538,6 +614,86 @@
         "difficulty": "Hard"
       },
       "RAP-QL-032": {
+        "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-127": {
+        "template": "एक मिश्रण में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। यदि इसमें {addedAmount} लीटर {liquid1} मिला दिया जाए, तो अनुपात {finalRatio1}:{finalRatio2} हो जाता है। शुरुआत में {liquid2} की मात्रा कितनी थी।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-227": {
+        "template": "एक मिश्रण में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। यदि इसमें {addedAmount} लीटर {liquid1} मिला दिया जाए, तो अनुपात {finalRatio1}:{finalRatio2} हो जाता है। शुरुआत में {liquid2} की मात्रा कितनी थी।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-327": {
+        "template": "एक मिश्रण में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। यदि इसमें {addedAmount} लीटर {liquid1} मिला दिया जाए, तो अनुपात {finalRatio1}:{finalRatio2} हो जाता है। शुरुआत में {liquid2} की मात्रा कितनी थी।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-427": {
+        "template": "एक मिश्रण में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। यदि इसमें {addedAmount} लीटर {liquid1} मिला दिया जाए, तो अनुपात {finalRatio1}:{finalRatio2} हो जाता है। शुरुआत में {liquid2} की मात्रा कितनी थी।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-128": {
+        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितने लीटर {liquid2} और मिलाना पड़ेगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-228": {
+        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितने लीटर {liquid2} और मिलाना पड़ेगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-328": {
+        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितने लीटर {liquid2} और मिलाना पड़ेगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-428": {
+        "template": "मिश्रण के {totalVolume} लीटर में {liquid1} और {liquid2} का अनुपात {ratio1}:{ratio2} है। अनुपात को {finalRatio1}:{finalRatio2} बनाने के लिए कितने लीटर {liquid2} और मिलाना पड़ेगा।",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-129": {
+        "template": "एक {mixtureType} में {liquid1}, {liquid2} और {liquid3} का अनुपात {ratio1}:{ratio2}:{ratio3} है। {addedAmount} लीटर {liquid2} मिलाने पर नया अनुपात {finalRatio1}:{finalRatio2}:{finalRatio3} हो जाता है। शुरुआत में कुल मात्रा कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-229": {
+        "template": "एक {mixtureType} में {liquid1}, {liquid2} और {liquid3} का अनुपात {ratio1}:{ratio2}:{ratio3} है। {addedAmount} लीटर {liquid2} मिलाने पर नया अनुपात {finalRatio1}:{finalRatio2}:{finalRatio3} हो जाता है। शुरुआत में कुल मात्रा कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-329": {
+        "template": "एक {mixtureType} में {liquid1}, {liquid2} और {liquid3} का अनुपात {ratio1}:{ratio2}:{ratio3} है। {addedAmount} लीटर {liquid2} मिलाने पर नया अनुपात {finalRatio1}:{finalRatio2}:{finalRatio3} हो जाता है। शुरुआत में कुल मात्रा कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-429": {
+        "template": "एक {mixtureType} में {liquid1}, {liquid2} और {liquid3} का अनुपात {ratio1}:{ratio2}:{ratio3} है। {addedAmount} लीटर {liquid2} मिलाने पर नया अनुपात {finalRatio1}:{finalRatio2}:{finalRatio3} हो जाता है। शुरुआत में कुल मात्रा कितनी थी।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-130": {
+        "template": "{initialVolume} लीटर {liquidA} में से {removedVolume1} लीटर निकालकर {liquidB} मिला दिया जाता है और फिर दोबारा {removedVolume2} लीटर निकालकर {liquidB} मिला दिया जाता है। अंत में {liquidA} और {liquidB} का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-230": {
+        "template": "{initialVolume} लीटर {liquidA} में से {removedVolume1} लीटर निकालकर {liquidB} मिला दिया जाता है और फिर दोबारा {removedVolume2} लीटर निकालकर {liquidB} मिला दिया जाता है। अंत में {liquidA} और {liquidB} का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-330": {
+        "template": "{initialVolume} लीटर {liquidA} में से {removedVolume1} लीटर निकालकर {liquidB} मिला दिया जाता है और फिर दोबारा {removedVolume2} लीटर निकालकर {liquidB} मिला दिया जाता है। अंत में {liquidA} और {liquidB} का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-430": {
+        "template": "{initialVolume} लीटर {liquidA} में से {removedVolume1} लीटर निकालकर {liquidB} मिला दिया जाता है और फिर दोबारा {removedVolume2} लीटर निकालकर {liquidB} मिला दिया जाता है। अंत में {liquidA} और {liquidB} का अनुपात क्या होगा।",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-132": {
+        "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-232": {
+        "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-332": {
+        "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-432": {
         "template": "एक घोल में {acidVolume} लीटर एसिड और {waterVolume} लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।",
         "difficulty": "Easy"
       }

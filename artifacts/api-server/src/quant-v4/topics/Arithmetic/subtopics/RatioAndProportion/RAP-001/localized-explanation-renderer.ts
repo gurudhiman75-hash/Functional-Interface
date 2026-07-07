@@ -113,6 +113,8 @@ function buildGivenLatex(
       return `${s("personA")}:${s("personB")}=${n("ratioA")}:${n("ratioB")},\\ ${s("personA")}=${n("valueA")}`;
     case "decimalNormalization":
       return `${n("decimalA")}:${n("decimalB")}`;
+    case "basicPartition":
+      return `${s("personA")}:${s("personB")}:${s("personC")}=${n("ratioA")}:${n("ratioB")}:${n("ratioC")},\\ T=${n("totalAmount")},\\ ${s("targetPerson")}`;
     case "shareDifference":
       return `${s("personA")}:${s("personB")}:${s("personC")}=${n("ratioA")}:${n("ratioB")}:${n("ratioC")},\\ T=${n("totalAmount")}`;
     case "reversePartition":
@@ -180,6 +182,17 @@ function buildSubstitutionLatex(
       return `\\frac{${n("valueA")}}{${n("ratioA")}}\\times${n("ratioB")}`;
     case "decimalNormalization":
       return `${n("decimalA")}\\times10:${n("decimalB")}\\times10`;
+    case "basicPartition": {
+      const sum = n("ratioA") + n("ratioB") + n("ratioC");
+      const targetPerson = String(parameters.variables.targetPerson);
+      const targetRatio =
+        targetPerson === String(parameters.variables.personC)
+          ? n("ratioC")
+          : targetPerson === String(parameters.variables.personB)
+            ? n("ratioB")
+            : n("ratioA");
+      return `\\frac{${n("totalAmount")}}{${sum}}\\times${targetRatio}`;
+    }
     case "shareDifference": {
       const sum = n("ratioA") + n("ratioB") + n("ratioC");
       return `\\frac{${n("totalAmount")}}{${sum}}\\times(${n("ratioA")}-${n("ratioC")})`;
@@ -260,6 +273,8 @@ function buildConclusion(
         return `\u0905\u0924\u0903 ${s("personA")} \u0914\u0930 ${s("personD")} \u0915\u093e \u0905\u0928\u0941\u092a\u093e\u0924 ${answer} \u0939\u0948\u0964`;
       case "scalingByComponent":
         return `\u0905\u0924\u0903 ${s("personB")} \u0915\u0940 \u0938\u0902\u0916\u094d\u092f\u093e ${answer} \u0939\u0948\u0964`;
+      case "basicPartition":
+        return `\u0905\u0924\u0903 ${s("targetPerson")} \u0915\u093e \u0939\u093f\u0938\u094d\u0938\u093e ${answer} \u0939\u0948\u0964`;
       case "shareDifference":
         return `\u0905\u0924\u0903 ${s("personA")} \u0915\u094b ${s("personC")} \u0938\u0947 ${answer} \u0905\u0927\u093f\u0915 \u092e\u093f\u0932\u0924\u0947 \u0939\u0948\u0902\u0964`;
       case "reversePartition":
@@ -319,6 +334,8 @@ function buildConclusion(
       return `\u0a07\u0a38 \u0a32\u0a08 ${s("personA")} \u0a05\u0a24\u0a47 ${s("personD")} \u0a26\u0a3e \u0a05\u0a28\u0a41\u0a2a\u0a3e\u0a24 ${answer} \u0a39\u0a48\u0964`;
     case "scalingByComponent":
       return `\u0a07\u0a38 \u0a32\u0a08 ${s("personB")} \u0a26\u0a40 \u0a17\u0a3f\u0a23\u0a24\u0a40 ${answer} \u0a39\u0a48\u0964`;
+    case "basicPartition":
+      return `\u0a07\u0a38 \u0a32\u0a08 ${s("targetPerson")} \u0a26\u0a3e \u0a39\u0a3f\u0a71\u0a38\u0a3e ${answer} \u0a39\u0a48\u0964`;
     case "shareDifference":
       return `\u0a07\u0a38 \u0a32\u0a08 ${s("personA")} \u0a28\u0a42\u0a70 ${s("personC")} \u0a28\u0a3e\u0a32\u0a4b\u0a02 ${answer} \u0a35\u0a71\u0a27 \u0a2e\u0a3f\u0a32\u0a26\u0a47 \u0a39\u0a28\u0964`;
     case "reversePartition":
