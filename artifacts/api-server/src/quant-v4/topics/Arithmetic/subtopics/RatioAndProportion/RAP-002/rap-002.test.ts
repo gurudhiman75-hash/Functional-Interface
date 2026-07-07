@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
 import { alignChainRatios, alignThreeChainRatios, formatRatio } from "./math";
 import { validateRap002Libraries } from "./library";
-import { runRap002Cp007Pipeline, runRap002Cp008Pipeline, runRap002Cp009Pipeline } from "./pipeline";
+import { runRap002Cp007Pipeline, runRap002Cp008Pipeline, runRap002Cp009Pipeline, runRap002Cp010Pipeline } from "./pipeline";
 import { generateRap002Parameters } from "./parameter-generator";
 import { solveRap002 } from "./solver";
 
@@ -102,6 +102,50 @@ fixedReconstruct.variables = {
 };
 assert.equal(solveRap002(fixedReconstruct).answer, "$$1 : 1$$");
 
+const fixedNested = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-010",
+  seed: "rap-002-fixed-nested",
+  questionLanguageId: "RAP-QL-501",
+  difficultyBand: "Medium",
+});
+fixedNested.variables = {
+  personA: "A",
+  personB: "B",
+  personC: "C",
+  personD: "D",
+  ratioA: 3,
+  ratioB: 2,
+  subRatioC: 4,
+  subRatioD: 1,
+  totalValue: 100,
+  branchPart: "A",
+  targetSubPart: "C",
+};
+assert.equal(solveRap002(fixedNested).answer, "$$48$$");
+
+const fixedWeightedNested = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-010",
+  seed: "rap-002-fixed-weighted-nested",
+  questionLanguageId: "RAP-QL-505",
+  difficultyBand: "Hard",
+});
+fixedWeightedNested.variables = {
+  personA: "A",
+  personB: "B",
+  personC: "C",
+  personD: "D",
+  ratioA: 3,
+  ratioB: 2,
+  subRatioC: 4,
+  subRatioD: 1,
+  totalValue: 100,
+  branchPart: "A",
+  targetSubPart: "C",
+  weightC: 2,
+  weightD: 5,
+};
+assert.equal(solveRap002(fixedWeightedNested).answer, "$$156$$");
+
 const seenQlIds = new Set<string>();
 for (let index = 0; index < 120; index += 1) {
   const pkg = runRap002Cp007Pipeline({ seed: `rap-002-smoke:${index}` });
@@ -166,4 +210,25 @@ for (const qlId of ["RAP-QL-401", "RAP-QL-402", "RAP-QL-403", "RAP-QL-404", "RAP
 
 assert.equal(seenCp009QlIds.size, 6, `Expected all 6 CP-009 QLs, got ${seenCp009QlIds.size}`);
 
-console.log(`RAP-002 English test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}.`);
+const seenCp010QlIds = new Set<string>();
+for (let index = 0; index < 90; index += 1) {
+  const pkg = runRap002Cp010Pipeline({ seed: `rap-002-cp010-smoke:${index}` });
+  assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+  assert.equal(pkg.language, "en");
+  assert.equal(pkg.canonicalProblemId, "RAP-CP-010");
+  assert.ok(pkg.stem.length > 0);
+  assert.ok(pkg.answer.length > 0);
+  assert.ok(pkg.explanation.lines.length >= 6);
+  assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
+  seenCp010QlIds.add(pkg.questionLanguageId);
+}
+
+for (const qlId of ["RAP-QL-501", "RAP-QL-502", "RAP-QL-503", "RAP-QL-504", "RAP-QL-505", "RAP-QL-506"]) {
+  const pkg = runRap002Cp010Pipeline({ seed: `rap-002-cp010-forced:${qlId}`, questionLanguageId: qlId });
+  assert.equal(pkg.validation.valid, true);
+  seenCp010QlIds.add(pkg.questionLanguageId);
+}
+
+assert.equal(seenCp010QlIds.size, 6, `Expected all 6 CP-010 QLs, got ${seenCp010QlIds.size}`);
+
+console.log(`RAP-002 English test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}. CP-010 QLs covered: ${seenCp010QlIds.size}.`);

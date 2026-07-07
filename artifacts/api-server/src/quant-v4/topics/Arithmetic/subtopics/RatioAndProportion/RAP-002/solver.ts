@@ -63,6 +63,14 @@ function splitByRatio(total: number, ratioA: number, ratioB: number): [number, n
   return [ratioA * unit, ratioB * unit];
 }
 
+function solveNestedPartitionValues(parameters: Rap002Parameters) {
+  const [shareA, shareB] = splitByRatio(n(parameters, "totalValue"), n(parameters, "ratioA"), n(parameters, "ratioB"));
+  const branchPart = String(parameters.variables.branchPart ?? "A");
+  const branchShare = branchPart === "B" ? shareB : shareA;
+  const [subShareC, subShareD] = splitByRatio(branchShare, n(parameters, "subRatioC"), n(parameters, "subRatioD"));
+  return { shareA, shareB, branchPart, branchShare, subShareC, subShareD };
+}
+
 export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
   switch (parameters.taskKind) {
     case "chainAlignment": {
@@ -197,6 +205,40 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
         [originalA, originalB],
         { finalRatio: `${n(parameters, "finalRatioA")}:${n(parameters, "finalRatioB")}`, transferDirection: direction, transferValue: formatNumber(transferValue), originalA: formatNumber(originalA), originalB: formatNumber(originalB) },
         `${formatNumber(originalA)}:${formatNumber(originalB)}=${ratioLatex(simplifyRatio([originalA, originalB]))}`,
+      );
+    }
+    case "nestedPartition":
+    case "conditionalDistribution": {
+      const nested = solveNestedPartitionValues(parameters);
+      const targetSubPart = String(parameters.variables.targetSubPart ?? "C");
+      const result = targetSubPart === "D" ? nested.subShareD : nested.subShareC;
+      return countResult(
+        result,
+        {
+          mainShares: `${formatNumber(nested.shareA)}:${formatNumber(nested.shareB)}`,
+          branchPart: nested.branchPart,
+          branchShare: formatNumber(nested.branchShare),
+          subShares: `${formatNumber(nested.subShareC)}:${formatNumber(nested.subShareD)}`,
+          result: formatNumber(result),
+        },
+        `${formatNumber(nested.branchShare)}\\times\\frac{${targetSubPart === "D" ? n(parameters, "subRatioD") : n(parameters, "subRatioC")}}{${n(parameters, "subRatioC") + n(parameters, "subRatioD")}}=${formatNumber(result)}`,
+      );
+    }
+    case "weightedNestedPartition": {
+      const nested = solveNestedPartitionValues(parameters);
+      const weightedTotal = nested.subShareC * n(parameters, "weightC") + nested.subShareD * n(parameters, "weightD");
+      return countResult(
+        weightedTotal,
+        {
+          mainShares: `${formatNumber(nested.shareA)}:${formatNumber(nested.shareB)}`,
+          branchPart: nested.branchPart,
+          branchShare: formatNumber(nested.branchShare),
+          subShares: `${formatNumber(nested.subShareC)}:${formatNumber(nested.subShareD)}`,
+          weightC: formatNumber(n(parameters, "weightC")),
+          weightD: formatNumber(n(parameters, "weightD")),
+          result: formatNumber(weightedTotal),
+        },
+        `${formatNumber(nested.subShareC)}\\times${n(parameters, "weightC")}+${formatNumber(nested.subShareD)}\\times${n(parameters, "weightD")}=${formatNumber(weightedTotal)}`,
       );
     }
     default:

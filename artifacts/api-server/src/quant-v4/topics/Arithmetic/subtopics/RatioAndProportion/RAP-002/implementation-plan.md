@@ -26,9 +26,9 @@ Start with `RAP-CP-007`, then add the first reverse-chain slice from `RAP-CP-008
 
 Current MVP coverage:
 
-- Active CPs: `RAP-CP-007`, `RAP-CP-008`, `RAP-CP-009`
-- Active QLs: `RAP-QL-201` to `RAP-QL-212`, `RAP-QL-301` to `RAP-QL-306`, `RAP-QL-401` to `RAP-QL-406`
-- Active task kinds: `chainAlignment`, `extendedChainAlignment`, `missingChainRatio`, `reverseMiddleFinding`, `reverseEndpointFinding`, `constrainedReverseChain`, `successiveRatioChange`, `transferTracking`, `reconstructOriginalRatio`
+- Active CPs: `RAP-CP-007`, `RAP-CP-008`, `RAP-CP-009`, `RAP-CP-010`
+- Active QLs: `RAP-QL-201` to `RAP-QL-212`, `RAP-QL-301` to `RAP-QL-306`, `RAP-QL-401` to `RAP-QL-406`, `RAP-QL-501` to `RAP-QL-506`
+- Active task kinds: `chainAlignment`, `extendedChainAlignment`, `missingChainRatio`, `reverseMiddleFinding`, `reverseEndpointFinding`, `constrainedReverseChain`, `successiveRatioChange`, `transferTracking`, `reconstructOriginalRatio`, `nestedPartition`, `conditionalDistribution`, `weightedNestedPartition`
 - Language: English only
 - Question Studio wiring: not enabled
 
@@ -36,7 +36,7 @@ Current MVP coverage:
 
 - [x] Add initial `RAP-CP-008` reverse chain.
 - [x] Add initial `RAP-CP-009` multi-stage transformations.
-- [ ] Add `RAP-CP-010` nested partitions.
+- [x] Add initial `RAP-CP-010` nested partitions.
 - [ ] Add `RAP-CP-011` inverse chains.
 - [ ] Add `RAP-CP-012` comparison and ordering.
 - [ ] Add coverage and maturity audit outputs.
@@ -68,4 +68,4 @@ Current MVP coverage:
 
 ## Immediate Next Step
 
-Move next to `RAP-CP-010` nested partitions or expand English coverage within `RAP-CP-008` and `RAP-CP-009`. Hindi/Punjabi should wait until the English task-kind contract is stable.
+Move next to `RAP-CP-011` inverse chains or expand English coverage within `RAP-CP-008` to `RAP-CP-010`. Hindi/Punjabi should wait until the English task-kind contract is stable.

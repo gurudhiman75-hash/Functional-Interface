@@ -15,6 +15,34 @@ function block(text: string) {
 
 export function renderRap002Explanation(parameters: Rap002Parameters, solver: Rap002SolverResult): Rap002Explanation {
   if (
+    parameters.taskKind === "nestedPartition"
+    || parameters.taskKind === "conditionalDistribution"
+    || parameters.taskKind === "weightedNestedPartition"
+  ) {
+    const branchName = String(parameters.variables.branchPart ?? "A") === "B"
+      ? s(parameters, "personB")
+      : s(parameters, "personA");
+    const intro = parameters.taskKind === "weightedNestedPartition"
+      ? "First divide the total by the main ratio, then split the selected branch and apply the given weights."
+      : parameters.taskKind === "conditionalDistribution"
+        ? "First check the selected branch after the main split, then divide that branch by the second ratio."
+        : "First divide the total by the main ratio, then subdivide the selected branch by the second ratio.";
+
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        intro,
+        block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
+        `The selected branch is ${branchName}, whose share is ${String(solver.workingValues.branchShare)}.`,
+        block(`${s(parameters, "personC")}:${s(parameters, "personD")}=${n(parameters, "subRatioC")}:${n(parameters, "subRatioD")}`),
+        `After the second split, the values are ${String(solver.workingValues.subShares)}.`,
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
     parameters.taskKind === "successiveRatioChange"
     || parameters.taskKind === "transferTracking"
     || parameters.taskKind === "reconstructOriginalRatio"

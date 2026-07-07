@@ -2,7 +2,7 @@
 
 ## Current Status
 
-- `RAP-002` has been initialized and now has an English runtime MVP for `RAP-CP-007`, an initial reverse-chain slice for `RAP-CP-008`, and an initial transformation slice for `RAP-CP-009`.
+- `RAP-002` has been initialized and now has English runtime coverage through `RAP-CP-010`.
 - Runtime generation is available through the local RAP-002 pipeline, but is not wired into Question Studio yet.
 - `generation-engine.ts` still exposes only `RAP-001` for Ratio and Proportion.
 - Hindi/Punjabi are planned from the start, but no localized QLs should be generated until the English solver contract is stable.
@@ -99,18 +99,35 @@ Added `RAP-CP-009` English multi-stage transformation slice:
   - forced QL checks for all six CP-009 QLs
   - random CP-009 smoke coverage
 
+Added `RAP-CP-010` English nested-partition slice:
+
+- Active QLs: `RAP-QL-501` to `RAP-QL-506`
+- Active task kinds:
+  - `nestedPartition`
+  - `conditionalDistribution`
+  - `weightedNestedPartition`
+- Solver coverage:
+  - split a total by a first-level ratio
+  - split a selected branch by a second-level ratio
+  - return a target subshare
+  - compute weighted totals from second-level subshares
+- Validation:
+  - fixed-answer checks for nested and weighted nested examples
+  - forced QL checks for all six CP-010 QLs
+  - random CP-010 smoke coverage
+
 ## Next Implementation Slice
 
 Expand the current English MVP before multilingual work:
 
-- start `RAP-CP-010` nested partitions, or expand `RAP-CP-008` and `RAP-CP-009` beyond the initial six QLs each
+- start `RAP-CP-011` inverse chains, or expand `RAP-CP-008` to `RAP-CP-010` beyond the initial six QLs each
 - add broader coverage audit once the next CP slice is active
 
 ## Latest Smoke Results
 
 - `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002.test.mjs`
 - `node dist/quant-v4/rap-002.test.mjs`
-- Result: `RAP-002 English test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 6.`
+- Result: `RAP-002 English test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 6. CP-010 QLs covered: 6.`
 
 ## Frontend / Question Studio Status
 

@@ -229,6 +229,54 @@
       "difficulty": "Hard",
       "requiredVariables": ["personA", "personB", "finalRatioA", "finalRatioB", "transferValue", "totalValue", "transferDirection"],
       "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-501": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart"],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-502": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart"],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-503": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "thresholdValue"],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-504": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "thresholdValue"],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-505": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "weightedNestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "weightC", "weightD"],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-506": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "weightedNestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "weightC", "weightD"],
+      "explanationId": "RAP-ES-010"
     }
   }
 }

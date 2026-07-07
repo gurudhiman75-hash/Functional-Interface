@@ -12,7 +12,7 @@ const questionLibrary = questionLanguageEn as QuestionLanguageLibrary;
 const registryEntries = taskRegistry.entries as Record<string, Rap002TaskRegistryEntry>;
 
 export function getRap002ActiveCanonicalProblemIds(): Rap002CanonicalProblemId[] {
-  return ["RAP-CP-007", "RAP-CP-008", "RAP-CP-009"];
+  return ["RAP-CP-007", "RAP-CP-008", "RAP-CP-009", "RAP-CP-010"];
 }
 
 export function getRap002QuestionLanguageIds(cpId: Rap002CanonicalProblemId) {

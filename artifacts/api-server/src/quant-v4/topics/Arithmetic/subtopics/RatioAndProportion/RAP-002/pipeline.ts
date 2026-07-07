@@ -32,3 +32,4 @@ export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007",
 export const runRap002Cp007Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-007", input);
 export const runRap002Cp008Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-008", input);
 export const runRap002Cp009Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-009", input);
+export const runRap002Cp010Pipeline = (input: Rap002ParameterInput = {}) => runRap002Pipeline("RAP-CP-010", input);

@@ -172,9 +172,45 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
   };
 }
 
+function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
+  const entities = entitySet(seed);
+  let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
+  let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
+  let subRatioC = ratioTerm(difficulty, `${seed}:subC`);
+  let subRatioD = ratioTerm(difficulty, `${seed}:subD`);
+  if (ratioA === ratioB) ratioB += 1;
+  if (subRatioC === subRatioD) subRatioD += 1;
+
+  const subTotalRatio = subRatioC + subRatioD;
+  const mainUnit = subTotalRatio * pick([4, 5, 6, 8, 10], `${seed}:unit`);
+  const totalValue = (ratioA + ratioB) * mainUnit;
+  const branchPart = qlId === "RAP-QL-502" || qlId === "RAP-QL-504" || qlId === "RAP-QL-506" ? "B" : "A";
+  const targetSubPart = qlId === "RAP-QL-502" || qlId === "RAP-QL-504" ? "D" : "C";
+  const branchShare = branchPart === "A" ? ratioA * mainUnit : ratioB * mainUnit;
+  const thresholdValue = Math.max(1, branchShare - pick([5, 10, 12, 15, 20], `${seed}:thresholdGap`));
+  const weightC = pick([2, 3, 4, 5, 6], `${seed}:weightC`);
+  const weightD = pick([3, 4, 5, 6, 8], `${seed}:weightD`);
+
+  return {
+    personA: entities[0]!,
+    personB: entities[1]!,
+    personC: entities[2]!,
+    personD: entities[3]!,
+    ratioA,
+    ratioB,
+    subRatioC,
+    subRatioD,
+    totalValue,
+    branchPart,
+    targetSubPart,
+    ...(qlId === "RAP-QL-503" || qlId === "RAP-QL-504" ? { thresholdValue } : {}),
+    ...(qlId === "RAP-QL-505" || qlId === "RAP-QL-506" ? { weightC, weightD } : {}),
+  };
+}
+
 export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap002Parameters {
   const cpId = input.canonicalProblemId ?? "RAP-CP-007";
-  if (cpId !== "RAP-CP-007" && cpId !== "RAP-CP-008" && cpId !== "RAP-CP-009") throw new Error(`RAP-002 MVP only supports RAP-CP-007, RAP-CP-008, and RAP-CP-009. Received ${cpId}.`);
+  if (cpId !== "RAP-CP-007" && cpId !== "RAP-CP-008" && cpId !== "RAP-CP-009" && cpId !== "RAP-CP-010") throw new Error(`RAP-002 MVP only supports RAP-CP-007 to RAP-CP-010. Received ${cpId}.`);
 
   const seed = input.seed ?? `RAP-002:${cpId}`;
   const language = input.language ?? "en";
@@ -187,6 +223,8 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
     ? baseReverseChainVariables(seed, difficulty, qlId)
     : cpId === "RAP-CP-009"
       ? baseTransformationVariables(seed, difficulty, qlId)
+      : cpId === "RAP-CP-010"
+        ? basePartitionVariables(seed, difficulty, qlId)
       : baseChainVariables(seed, difficulty);
 
   if (cpId === "RAP-CP-007" && registry.taskKind === "extendedChainAlignment") {

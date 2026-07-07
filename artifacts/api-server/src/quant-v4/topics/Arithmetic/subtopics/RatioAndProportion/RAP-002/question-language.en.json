@@ -154,5 +154,45 @@
         "difficulty": "Hard"
       }
     }
+  },
+  "RAP-CP-010": {
+    "families": {
+      "RAP-QL-501": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}. The share of {personA} is further divided between {personC} and {personD} in the ratio {subRatioC}:{subRatioD}. Find the value of {personC}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-502": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "{personA} and {personB} share {totalValue} in the ratio {ratioA}:{ratioB}. If {personB}'s share is divided between {personC} and {personD} in the ratio {subRatioC}:{subRatioD}, find {personD}'s share.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-503": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A fund of {totalValue} is divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}. Since {personA}'s share exceeds {thresholdValue}, it is divided between {personC} and {personD} in the ratio {subRatioC}:{subRatioD}. Find {personC}'s share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-504": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is split between {personA} and {personB} as {ratioA}:{ratioB}. Since {personB}'s share is at least {thresholdValue}, that share is divided between {personC} and {personD} in the ratio {subRatioC}:{subRatioD}. Find {personD}'s share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-505": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "weightedNestedPartition",
+        "template": "{personA} and {personB} divide {totalValue} in the ratio {ratioA}:{ratioB}. {personA}'s share is split between {personC} and {personD} in the ratio {subRatioC}:{subRatioD}. If each unit of {personC} has weight {weightC} and each unit of {personD} has weight {weightD}, find the total weighted value of that split.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-506": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "weightedNestedPartition",
+        "template": "A total of {totalValue} is divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}. {personB}'s share is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. With weights {weightC} and {weightD} for each unit of {personC} and {personD}, find the weighted total.",
+        "difficulty": "Hard"
+      }
+    }
   }
 }
