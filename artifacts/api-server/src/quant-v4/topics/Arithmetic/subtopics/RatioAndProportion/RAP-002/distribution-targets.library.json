@@ -1,0 +1,12 @@
+{
+  "packageId": "RAP-002",
+  "activeCanonicalProblems": ["RAP-CP-007"],
+  "cpWeights": {
+    "RAP-CP-007": 1
+  },
+  "difficultyWeights": {
+    "Easy": 0,
+    "Medium": 0.6,
+    "Hard": 0.4
+  }
+}

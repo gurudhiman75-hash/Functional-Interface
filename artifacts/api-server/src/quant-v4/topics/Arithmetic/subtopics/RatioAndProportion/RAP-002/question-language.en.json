@@ -1,0 +1,158 @@
+{
+  "RAP-CP-007": {
+    "families": {
+      "RAP-QL-201": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personA}:{personB}:{personC}:{personD}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-202": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "The linked ratios are {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}. What is the combined ratio of all four?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-203": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "{personA}, {personB}, {personC}, and {personD} are linked by ratios {ratioA1}:{ratioB1}, {ratioB2}:{ratioC2}, and {ratioC3}:{ratioD3} respectively. Find the common chain ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-204": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "In a four-part chain, {personA}:{personB} is {ratioA1}:{ratioB1}, {personB}:{personC} is {ratioB2}:{ratioC2}, and {personC}:{personD} is {ratioC3}:{ratioD3}. Find the full chain ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-205": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find the ratio {personA}:{personD}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-206": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "After aligning the chain {personA}:{personB}, {personB}:{personC}, and {personC}:{personD}, what is the simplified ratio of {personB}:{personD}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-207": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "A compound ratio chain has {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}. Find {personA}:{personC}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-208": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Use the linked ratios {ratioA1}:{ratioB1}, {ratioB2}:{ratioC2}, and {ratioC3}:{ratioD3} for {personA}:{personB}, {personB}:{personC}, and {personC}:{personD}. Find {targetPairLabel}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-209": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "missingChainRatio",
+        "template": "If {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and the simplified ratio {personA}:{personC} is {endpointA}:{endpointC}, find the aligned value of {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-210": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "missingChainRatio",
+        "template": "A chain gives {personA}:{personB} as {ratioA1}:{ratioB1} and {personB}:{personC} as {ratioB2}:{ratioC2}. If {personA}:{personC} becomes {endpointA}:{endpointC}, what is the common scaled value of {personB}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-211": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "missingChainRatio",
+        "template": "The ratios {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2} combine to make {personA}:{personC} = {endpointA}:{endpointC}. Find the middle chain value for {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-212": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Three adjacent ratios are {ratioA1}:{ratioB1}, {ratioB2}:{ratioC2}, and {ratioC3}:{ratioD3}. They connect {personA}, {personB}, {personC}, and {personD} in order. Find the combined ratio.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "RAP-CP-008": {
+    "families": {
+      "RAP-QL-301": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "In the linked ratio chain {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, {personA} has {valueA} units. Find the value of {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-302": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "{personA}:{personB} is {ratioA1}:{ratioB1}, and {personB}:{personC} is {ratioB2}:{ratioC2}. If {personC} has {valueC} units, how many units does {personB} have?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-303": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "A chain has {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} has {valueB} units, find the value of {personA}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-304": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, {personB} has {valueB} units. Find the value of {personC}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-305": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "The linked ratios are {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If the difference between {personA} and {personC} is {valueDifference}, find {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-306": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If their total is {totalValue}, find the value of {personB}.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-009": {
+    "families": {
+      "RAP-QL-401": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA}:{personB} = {ratioA}:{ratioB}, and their total is {totalValue}. If {valueAddA} is added to {personA} and {valueAddB} is added to {personB}, find the new ratio {personA}:{personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-402": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "Initially {personA}:{personB} = {ratioA}:{ratioB}, with total {totalValue}. If {valueAddA} is added to {personA} and {valueRemoveB} is removed from {personB}, find the final ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-403": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "transferTracking",
+        "template": "{personA}:{personB} = {ratioA}:{ratioB}, and together they have {totalValue}. If {transferValue} is transferred from {personB} to {personA}, find the final ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-404": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "transferTracking",
+        "template": "The ratio {personA}:{personB} is {ratioA}:{ratioB}, and the total is {totalValue}. If {transferValue} is transferred from {personA} to {personB}, what is the new ratio?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-405": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After adding {valueAddA} to {personA}, the ratio {personA}:{personB} becomes {finalRatioA}:{finalRatioB}. If the original total was {originalTotal}, find the original ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-406": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After transferring {transferValue} from {personA} to {personB}, the final ratio is {finalRatioA}:{finalRatioB}. If the total remains {totalValue}, find the original ratio.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}
