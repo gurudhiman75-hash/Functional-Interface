@@ -165,6 +165,10 @@ Review the current English MVP before multilingual work:
   - `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-question-studio-smoke.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002-question-studio-smoke.mjs`
   - `node dist/quant-v4/rap-002-question-studio-smoke.mjs`
   - Result: `RAP-002 Question Studio English-only smoke passed.`
+- Residual QA:
+  - `.\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-residual-qa.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002-residual-qa.mjs`
+  - `node dist/quant-v4/rap-002-residual-qa.mjs`
+  - Result: `RAP-002 residual QA passed.`
 
 ## Coverage / Maturity Audit
 
@@ -187,3 +191,22 @@ Review the current English MVP before multilingual work:
 - Route uses `runRap002Pipeline(...)` and preserves existing English-only runtime enforcement.
 - Question Studio package discovery now exposes RAP-002 as an enabled English-only package.
 - Normal preview output includes `metadata.language = "en"` for generated Quant V4 questions.
+- Normal preview output includes `correctIndex` in addition to the existing `correct` field.
+
+## Generated Output Hardening
+
+- Replaced global entity selection with CP/task-safe scenario pools.
+- Fixed `RAP-QL-601` grammar: `The number of workers ... is`.
+- Prevented tie-risk for `chainInequality` and `chainOrdering` generation.
+- Added both positive and negative equivalence outcomes.
+- Fixed fixed-template extended-chain target pairing for `RAP-QL-205`, `RAP-QL-206`, and `RAP-QL-207`.
+- Added 500-sample residual QA coverage in `rap-002-residual-qa.ts`.
+
+Final residual QA counters are all zero for grammar, semantic compatibility, unresolved placeholders, invalid options, metadata mismatch, validation failures, duplicate stems, and chain-inequality tie-risk. Equivalence distribution includes both `Equivalent` and `Not equivalent`.
+
+## Review Status
+
+- Ready for English manual review: yes
+- Ready for QL expansion: after manual review
+- Ready for Hindi/Punjabi: no
+- Freeze-ready: no

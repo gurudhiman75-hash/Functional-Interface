@@ -9,7 +9,7 @@ export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007",
   const parameters = generateRap002Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap002(parameters);
   const explanation = renderRap002Explanation(parameters, solver);
-  const stem = renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId).template, parameters.variables);
+  const stem = renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const basePackage = {
     archetypeId: RAP_002_ARCHETYPE_ID,
     canonicalProblemId: cpId,

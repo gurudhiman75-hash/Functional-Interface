@@ -826,6 +826,7 @@ export function toQuestionStudioPreview(
     text: polishGeneratedEnglishText(pkg.stem),
     options: options.map((option) => polishGeneratedEnglishText(option)),
     correct,
+    correctIndex: correct,
     explanation: polishGeneratedEnglishText(formatExplanationForQuestionStudio(pkg.explanation)),
     packageExplanation: pkg.explanation,
     difficulty: pkg.difficultyBand,

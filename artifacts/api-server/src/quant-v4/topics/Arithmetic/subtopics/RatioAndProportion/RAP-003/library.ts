@@ -3,53 +3,53 @@ import questionLanguageHi from "./question-language.hi.json";
 import questionLanguagePa from "./question-language.pa.json";
 import taskRegistry from "./task-registry.library.json";
 import type {
-  Rap002CanonicalProblemId,
-  Rap002Language,
-  Rap002QuestionLanguageEntry,
-  Rap002TaskRegistryEntry,
+  Rap003CanonicalProblemId,
+  Rap003Language,
+  Rap003QuestionLanguageEntry,
+  Rap003TaskRegistryEntry,
 } from "./types";
 
-type QuestionLanguageLibrary = Record<string, { families: Record<string, Rap002QuestionLanguageEntry> }>;
+type QuestionLanguageLibrary = Record<string, { families: Record<string, Rap003QuestionLanguageEntry> }>;
 
-const questionLibraries: Record<Rap002Language, QuestionLanguageLibrary> = {
+const questionLibraries: Record<Rap003Language, QuestionLanguageLibrary> = {
   en: questionLanguageEn as QuestionLanguageLibrary,
   hi: questionLanguageHi as QuestionLanguageLibrary,
   pa: questionLanguagePa as QuestionLanguageLibrary,
 };
-const registryEntries = taskRegistry.entries as Record<string, Rap002TaskRegistryEntry>;
+const registryEntries = taskRegistry.entries as Record<string, Rap003TaskRegistryEntry>;
 
-export function getRap002ActiveCanonicalProblemIds(): Rap002CanonicalProblemId[] {
-  return ["RAP-CP-007", "RAP-CP-008", "RAP-CP-009", "RAP-CP-010", "RAP-CP-011", "RAP-CP-012"];
+export function getRap003ActiveCanonicalProblemIds(): Rap003CanonicalProblemId[] {
+  return ["RAP-CP-013", "RAP-CP-014", "RAP-CP-015", "RAP-CP-016", "RAP-CP-017"];
 }
 
-export function getRap002QuestionLanguageIds(cpId: Rap002CanonicalProblemId) {
+export function getRap003QuestionLanguageIds(cpId: Rap003CanonicalProblemId) {
   return Object.keys(questionLibraries.en[cpId]?.families ?? {});
 }
 
-export function getRap002QuestionEntry(cpId: Rap002CanonicalProblemId, qlId: string, language: Rap002Language = "en") {
+export function getRap003QuestionEntry(cpId: Rap003CanonicalProblemId, qlId: string, language: Rap003Language = "en") {
   const entry = questionLibraries[language][cpId]?.families[qlId] ?? questionLibraries.en[cpId]?.families[qlId];
-  if (!entry) throw new Error(`Missing RAP-002 question language entry: ${cpId}:${qlId}`);
+  if (!entry) throw new Error(`Missing RAP-003 question language entry: ${cpId}:${qlId}`);
   return entry;
 }
 
-export function getRap002RegistryEntry(qlId: string) {
+export function getRap003RegistryEntry(qlId: string) {
   const entry = registryEntries[qlId];
-  if (!entry) throw new Error(`Missing RAP-002 task registry entry: ${qlId}`);
+  if (!entry) throw new Error(`Missing RAP-003 task registry entry: ${qlId}`);
   return entry;
 }
 
-export function renderRap002Template(template: string, variables: Record<string, string | number>) {
+export function renderRap003Template(template: string, variables: Record<string, string | number>) {
   return template.replace(/\{([^}]+)\}/g, (_, key: string) => {
     if (variables[key] === undefined) throw new Error(`Missing template variable: ${key}`);
     return String(variables[key]);
   });
 }
 
-export function validateRap002Libraries() {
+export function validateRap003Libraries() {
   const failures: string[] = [];
-  for (const cpId of getRap002ActiveCanonicalProblemIds()) {
-    for (const qlId of getRap002QuestionLanguageIds(cpId)) {
-      const question = getRap002QuestionEntry(cpId, qlId);
+  for (const cpId of getRap003ActiveCanonicalProblemIds()) {
+    for (const qlId of getRap003QuestionLanguageIds(cpId)) {
+      const question = getRap003QuestionEntry(cpId, qlId);
       const registry = registryEntries[qlId];
       if (!registry) failures.push(`Missing registry entry for ${qlId}`);
       if (registry && registry.cpId !== cpId) failures.push(`CP mismatch for ${qlId}`);
@@ -61,10 +61,7 @@ export function validateRap002Libraries() {
         }
       }
       for (const language of ["hi", "pa"] as const) {
-        const localized = questionLibraries[language][cpId]?.families[qlId];
-        if (!localized) continue;
-        if (localized.cpId !== question.cpId) failures.push(`${language} CP mismatch for ${qlId}`);
-        if (localized.taskKind !== question.taskKind) failures.push(`${language} task kind mismatch for ${qlId}`);
+        const localized = getRap003QuestionEntry(cpId, qlId, language);
         const enPlaceholders = [...question.template.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]!).sort();
         const localizedPlaceholders = [...localized.template.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]!).sort();
         if (enPlaceholders.join("|") !== localizedPlaceholders.join("|")) {

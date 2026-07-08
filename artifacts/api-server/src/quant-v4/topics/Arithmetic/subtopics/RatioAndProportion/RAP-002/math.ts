@@ -31,11 +31,12 @@ export function formatNumber(value: number) {
 }
 
 export function stableHash(input: string): number {
-  let hash = 0;
+  let hash = 2166136261;
   for (let index = 0; index < input.length; index += 1) {
-    hash = (hash * 31 + input.charCodeAt(index)) >>> 0;
+    hash ^= input.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
   }
-  return hash;
+  return hash >>> 0;
 }
 
 export function stableBucket(seed: string, size: number) {

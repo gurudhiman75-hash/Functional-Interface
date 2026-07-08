@@ -33,6 +33,8 @@ for (const [index, question] of generated.questions.entries()) {
   assert.ok(question.answer.trim().length > 0);
   assert.ok(Array.isArray(question.options), "Question Studio preview should include options.");
   assert.equal(question.options.length, 4, "Question Studio preview should include four options.");
+  assert.ok(Number.isInteger(question.correctIndex), "Question Studio preview should include integer correctIndex.");
+  assert.ok(question.correctIndex >= 0 && question.correctIndex < question.options.length, "correctIndex must point to one of the options.");
   assert.equal(/\{[^}]+\}/.test(renderedStem), false, `Unresolved placeholder in stem: ${renderedStem}`);
   assert.equal(pkg.validation.valid, true);
   coveredCpIds.add(pkg.canonicalProblemId);

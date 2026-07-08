@@ -34,7 +34,7 @@
       "RAP-QL-206": {
         "cpId": "RAP-CP-007",
         "taskKind": "extendedChainAlignment",
-        "template": "After aligning the chain {personA}:{personB}, {personB}:{personC}, and {personC}:{personD}, what is the simplified ratio of {personB}:{personD}?",
+        "template": "After aligning {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, what is the simplified ratio of {personB}:{personD}?",
         "difficulty": "Hard"
       },
       "RAP-QL-207": {
@@ -152,6 +152,24 @@
         "taskKind": "reconstructOriginalRatio",
         "template": "After transferring {transferValue} from {personA} to {personB}, the final ratio is {finalRatioA}:{finalRatioB}. If the total remains {totalValue}, find the original ratio.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-407": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionWinnerVotes",
+        "template": "In an election with {totalVoters} voters, {turnoutPercent}% cast their votes. Of the polled votes, {validPercent}% were valid and the valid votes for {candidateA} and {candidateB} were in the ratio {voteRatioA}:{voteRatioB}. Find the winner's votes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-408": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionMargin",
+        "template": "A constituency has {totalVoters} voters. {turnoutPercent}% voted, {validPercent}% of the polled votes were valid, and the valid votes for {candidateA}:{candidateB} were {voteRatioA}:{voteRatioB}. Find the winning margin.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-409": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "In an election, {turnoutPercent}% of voters cast their votes and {validPercent}% of polled votes were valid. The valid votes for {candidateA}:{candidateB} were in the ratio {voteRatioA}:{voteRatioB}. If the winning margin was {marginVotes} votes, find the total number of voters.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -192,6 +210,18 @@
         "taskKind": "weightedNestedPartition",
         "template": "A total of {totalValue} is divided between {personA} and {personB} in the ratio {ratioA}:{ratioB}. {personB}'s share is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. With weights {weightC} and {weightD} for each unit of {personC} and {personD}, find the weighted total.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-507": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "incomeExpenditureSavings",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expRatioA}:{expRatioB}. If their savings are {savingsA} and {savingsB} respectively, find their total income.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-508": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "incomeExpenditureSavings",
+        "template": "{personA} and {personB} have incomes in the ratio {incomeRatioA}:{incomeRatioB} and expenditures in the ratio {expRatioA}:{expRatioB}. Their savings are {savingsA} and {savingsB}. What is the combined income of both?",
+        "difficulty": "Hard"
       }
     }
   },
@@ -200,7 +230,7 @@
       "RAP-QL-601": {
         "cpId": "RAP-CP-011",
         "taskKind": "inverseChainWork",
-        "template": "The number of workers in {personA} and {personB} are in the ratio {ratioA}:{ratioB}. If {personA} can finish a fixed work in {valueA} days, how many days will {personB} take?",
+        "template": "The number of workers in {personA} and {personB} is in the ratio {ratioA}:{ratioB}. If {personA} can finish a fixed work in {valueA} days, how many days will {personB} take?",
         "difficulty": "Medium"
       },
       "RAP-QL-602": {
@@ -232,6 +262,18 @@
         "taskKind": "combinedInverseChain",
         "template": "The speeds of {personA} and {personB} are in the ratio {ratioA}:{ratioB}, and their travel times are in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of distances covered.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-607": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "sdtTimeRatioFromSpeedDistance",
+        "template": "The speeds of {personA} and {personB} are in the ratio {speedRatioA}:{speedRatioB}, and the distances covered are in the ratio {distanceRatioA}:{distanceRatioB}. Find the ratio of the times taken.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-608": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "sdtRaceLead",
+        "template": "In a {raceLength} m race, {personA} beats {personB} by {leadDistance} m. Find the ratio of their speeds.",
+        "difficulty": "Medium"
       }
     }
   },

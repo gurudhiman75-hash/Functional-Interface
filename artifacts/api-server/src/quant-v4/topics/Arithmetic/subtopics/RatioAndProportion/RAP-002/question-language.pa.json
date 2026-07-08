@@ -1,0 +1,56 @@
+{
+  "RAP-CP-009": {
+    "families": {
+      "RAP-QL-407": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionWinnerVotes",
+        "template": "{totalVoters} ਵੋਟਰਾਂ ਵਾਲੀ ਚੋਣ ਵਿੱਚ {turnoutPercent}% ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ. ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {validPercent}% ਵੈਧ ਸਨ ਅਤੇ {candidateA} ਅਤੇ {candidateB} ਦੇ ਵੈਧ ਵੋਟਾਂ ਦਾ ਅਨੁਪਾਤ {voteRatioA}:{voteRatioB} ਸੀ. ਜੇਤੂ ਦੀਆਂ ਵੋਟਾਂ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-408": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionMargin",
+        "template": "ਇੱਕ ਹਲਕੇ ਵਿੱਚ {totalVoters} ਵੋਟਰ ਹਨ. {turnoutPercent}% ਨੇ ਵੋਟ ਪਾਈ, ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {validPercent}% ਵੈਧ ਸਨ, ਅਤੇ {candidateA}:{candidateB} ਦੇ ਵੈਧ ਵੋਟ {voteRatioA}:{voteRatioB} ਸਨ. ਜਿੱਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-409": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "ਇੱਕ ਚੋਣ ਵਿੱਚ {turnoutPercent}% ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {validPercent}% ਵੈਧ ਸਨ. {candidateA}:{candidateB} ਦੇ ਵੈਧ ਵੋਟਾਂ ਦਾ ਅਨੁਪਾਤ {voteRatioA}:{voteRatioB} ਸੀ. ਜੇ ਜਿੱਤ ਦਾ ਅੰਤਰ {marginVotes} ਵੋਟ ਸੀ, ਤਾਂ ਕੁੱਲ ਵੋਟਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-010": {
+    "families": {
+      "RAP-QL-507": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "incomeExpenditureSavings",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਹੈ, ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚੇ ਦਾ ਅਨੁਪਾਤ {expRatioA}:{expRatioB} ਹੈ. ਜੇ ਉਨ੍ਹਾਂ ਦੀ ਬਚਤ ਕ੍ਰਮਵਾਰ {savingsA} ਅਤੇ {savingsB} ਹੈ, ਤਾਂ ਉਨ੍ਹਾਂ ਦੀ ਕੁੱਲ ਆਮਦਨ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-508": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "incomeExpenditureSavings",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਅਤੇ ਖਰਚੇ ਦਾ ਅਨੁਪਾਤ {expRatioA}:{expRatioB} ਹੈ. ਉਨ੍ਹਾਂ ਦੀ ਬਚਤ {savingsA} ਅਤੇ {savingsB} ਹੈ. ਦੋਵਾਂ ਦੀ ਸਾਂਝੀ ਆਮਦਨ ਕੀ ਹੈ?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-011": {
+    "families": {
+      "RAP-QL-607": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "sdtTimeRatioFromSpeedDistance",
+        "template": "{personA} ਅਤੇ {personB} ਦੀਆਂ ਗਤੀਆਂ ਦਾ ਅਨੁਪਾਤ {speedRatioA}:{speedRatioB} ਹੈ, ਅਤੇ ਤੈਅ ਕੀਤੀਆਂ ਦੂਰੀਆਂ ਦਾ ਅਨੁਪਾਤ {distanceRatioA}:{distanceRatioB} ਹੈ. ਲੱਗੇ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-608": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "sdtRaceLead",
+        "template": "{raceLength} ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ {personA}, {personB} ਨੂੰ {leadDistance} ਮੀਟਰ ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ. ਉਨ੍ਹਾਂ ਦੀਆਂ ਗਤੀਆਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      }
+    }
+  }
+}

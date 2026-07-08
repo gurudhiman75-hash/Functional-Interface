@@ -1,0 +1,154 @@
+{
+  "RAP-CP-013": {
+    "families": {
+      "RAP-QL-801": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitShare",
+        "template": "{personA} और {personB} Rs. {investmentA} और Rs. {investmentB} के निवेश से व्यापार शुरू करते हैं. {personA} {timeA} महीने और {personB} {timeB} महीने निवेश करता है. यदि कुल लाभ Rs. {totalProfit} है, तो {targetPartner} का हिस्सा ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-802": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipJoiningPartnerProfit",
+        "template": "{personA} Rs. {investmentA} को {timeA} महीने के लिए निवेश करता है. {personB} बाद में Rs. {investmentB} के साथ जुड़ता है और {timeB} महीने निवेश करता है. यदि कुल लाभ Rs. {totalProfit} है, तो {targetPartner} का लाभांश क्या है?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-803": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipMidPeriodChange",
+        "template": "{personA} पहले {firstPeriod} महीने Rs. {initialInvestmentA} और फिर {secondPeriod} महीने Rs. {changedInvestmentA} निवेश करता है. {personB} Rs. {investmentB} को {timeB} महीने निवेश करता है. यदि कुल लाभ Rs. {totalProfit} है, तो {targetPartner} का हिस्सा ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-804": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitShare",
+        "template": "दो साझेदार {personA} और {personB} क्रमशः Rs. {investmentA} और Rs. {investmentB} को {timeA} महीने और {timeB} महीने के लिए निवेश करते हैं. कुल लाभ Rs. {totalProfit} है. {targetPartner} का लाभ ज्ञात करें.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-014": {
+    "families": {
+      "RAP-QL-901": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} और {personB} की वर्तमान आयु का अनुपात {ratioA}:{ratioB} है. {shiftYears} वर्ष बाद उनकी आयु का अनुपात {futureRatioA}:{futureRatioB} होगा. {targetPerson} की वर्तमान आयु ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-902": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} और {personB} की वर्तमान आयु का अनुपात {ratioA}:{ratioB} है. यदि {shiftYears} वर्ष बाद अनुपात {futureRatioA}:{futureRatioB} हो जाता है, तो {targetPerson} की वर्तमान आयु क्या है?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-903": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromPastRatio",
+        "template": "{personA} और {personB} की वर्तमान आयु का अनुपात {ratioA}:{ratioB} है. {shiftYears} वर्ष पहले उनकी आयु का अनुपात {pastRatioA}:{pastRatioB} था. {targetPerson} की वर्तमान आयु ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-904": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachRatio",
+        "template": "{personA} और {personB} की वर्तमान आयु क्रमशः {presentAgeA} वर्ष और {presentAgeB} वर्ष है. कितने वर्ष बाद उनकी आयु का अनुपात {futureRatioA}:{futureRatioB} होगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-905": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromDifferenceAndRatio",
+        "template": "{personA} और {personB} की वर्तमान आयु का अनुपात {ratioA}:{ratioB} है. यदि उनकी आयु का अंतर {ageDifference} वर्ष है, तो {targetPerson} की वर्तमान आयु ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-906": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachRatio",
+        "template": "{personA} की आयु {presentAgeA} वर्ष और {personB} की आयु {presentAgeB} वर्ष है. कितने वर्ष बाद आयु का अनुपात {futureRatioA}:{futureRatioB} हो जाएगा?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-015": {
+    "families": {
+      "RAP-QL-951": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureSavingsRatio",
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है, और उनके खर्च का अनुपात {expenditureRatioA}:{expenditureRatioB} है. यदि आय की एक इकाई Rs. {incomeUnit} और खर्च की एक इकाई Rs. {expenditureUnit} है, तो उनकी बचत का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-952": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureEqualSavings",
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है, और उनके खर्च का अनुपात {expenditureRatioA}:{expenditureRatioB} है. उनकी बचत बराबर है. यदि {personA} की आय Rs. {givenIncomeA} है, तो {targetPerson} की बचत ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-953": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeFromSavingsRatio",
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB}, खर्च का अनुपात {expenditureRatioA}:{expenditureRatioB}, और बचत का अनुपात {savingsRatioA}:{savingsRatioB} है. यदि {personB} का खर्च Rs. {givenExpenditureB} है, तो {targetPerson} की आय ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-954": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "expenditureFromSavingsRatio",
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB}, खर्च का अनुपात {expenditureRatioA}:{expenditureRatioB}, और बचत का अनुपात {savingsRatioA}:{savingsRatioB} है. यदि {personA} की आय Rs. {givenIncomeA} है, तो {targetPerson} का खर्च ज्ञात करें.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-016": {
+    "families": {
+      "RAP-QL-1001": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "{mixtureA} में {component} {percentA}% है और {mixtureB} में {component} {percentB}% है. {targetPercent}% {component} वाला मिश्रण पाने के लिए इन्हें किस अनुपात में मिलाया जाए?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1002": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetComponentFromMix",
+        "template": "{percentA}% {component} वाले {mixtureA} के {quantityA} लीटर को {percentB}% {component} वाले {mixtureB} के {quantityB} लीटर से मिलाया जाता है. अंतिम मिश्रण में {component} कितने प्रतिशत है?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1003": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyThreeSourceEqualMix",
+        "template": "{mixtureA}, {mixtureB}, और {mixtureC} की समान मात्राएं मिलाई जाती हैं. उनके {component}:अन्य अनुपात {ratioAComponent}:{ratioAOther}, {ratioBComponent}:{ratioBOther}, और {ratioCComponent}:{ratioCOther} हैं. अंतिम मिश्रण में {component}:अन्य अनुपात ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1004": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "दो मिश्रणों में {component} क्रमशः {percentA}% और {percentB}% है. {targetPercent}% {component} पाने के लिए {mixtureA}:{mixtureB} का मिश्रण अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "RAP-CP-017": {
+    "families": {
+      "RAP-QL-1101": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} में {liquidA} के {initialVolume} लीटर हैं. {removedVolume} लीटर निकाले जाते हैं और उनकी जगह {liquidB} भरा जाता है. यह प्रक्रिया {replacementCount} बार दोहराई जाती है. अंतिम {liquidA}:{liquidB} अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1102": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} में शुद्ध {liquidA} के {initialVolume} लीटर हैं. हर बार {removedVolume} लीटर निकाला जाता है और उसकी जगह {liquidB} भरा जाता है. {replacementCount} बार बदलने के बाद {liquidA} कितने लीटर बचेगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1103": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementIterationsFromFinalRatio",
+        "template": "{vesselName} में शुद्ध {liquidA} के {initialVolume} लीटर हैं. हर क्रिया में {removedVolume} लीटर निकालकर {liquidB} भरा जाता है. कितनी क्रियाओं के बाद {liquidA}:{liquidB} का अनुपात {finalRatioA}:{finalRatioB} हो जाएगा?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1104": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} से {initialVolume} लीटर में से {removedVolume} लीटर को {replacementCount} बार {liquidB} से बदला जाता है. यदि शुरू में केवल {liquidA} था, तो अंतिम {liquidA}:{liquidB} अनुपात ज्ञात करें.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

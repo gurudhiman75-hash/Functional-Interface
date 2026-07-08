@@ -73,13 +73,60 @@ Covered CPs: RAP-CP-007, RAP-CP-008, RAP-CP-009, RAP-CP-010, RAP-CP-011, RAP-CP-
 Hindi/Punjabi exposure: blocked by runtime
 ```
 
+## Residual Generated-Output QA
+
+Command:
+
+```powershell
+.\node_modules\.bin\esbuild.CMD src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-residual-qa.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002-residual-qa.mjs
+node dist/quant-v4/rap-002-residual-qa.mjs
+```
+
+Result:
+
+```txt
+RAP-002 residual QA passed.
+questionCount: 500
+duplicateStemGroupCount: 0
+duplicateStemQuestionCount: 0
+grammarIssueCount: 0
+semanticCompatibilityIssueCount: 0
+unresolvedPlaceholderCount: 0
+nanUndefinedNullCount: 0
+invalidCorrectIndexCount: 0
+duplicateNormalizedOptionCount: 0
+weakOptionCount: 0
+metadataLanguageMismatchCount: 0
+validationFailureCount: 0
+invalidAnswerFormatCount: 0
+genericInternalExplanationCount: 0
+chainInequalityTieRiskCount: 0
+extendedTargetMismatchCount: 0
+Equivalence answers: Equivalent = 18, Not equivalent = 19
+```
+
+Hardening covered:
+
+- semantic scenario compatibility
+- subject-verb agreement
+- no unresolved placeholders
+- no `NaN`, `Infinity`, `undefined`, or `null` leakage
+- valid `correctIndex`
+- unique normalized options
+- no weak options
+- metadata language parity
+- chain inequality no-tie generation
+- positive and negative equivalence diversity
+- duplicate exact stem prevention
+
 ## Current Caveats
 
 - English coverage is an MVP slice, not full production breadth.
 - Question Studio discovery is wired for `RAP-002` in English only.
 - Hindi/Punjabi files and localized explanation rendering are not implemented.
 - Options and preview metadata are covered by the English-only Question Studio smoke.
+- RAP-002 is ready for English manual review, not freeze-ready.
 
 ## Recommendation
 
-Next safe step is editorial review of the English MVP breadth. Keep Hindi/Punjabi disabled until localized stems, labels, explanations, and audits exist.
+Next safe step is editorial review of the English MVP breadth. Do not expand QLs or enable Hindi/Punjabi until the current English MVP shape is approved.

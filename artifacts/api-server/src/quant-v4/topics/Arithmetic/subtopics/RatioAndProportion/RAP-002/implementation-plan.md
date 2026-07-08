@@ -61,11 +61,12 @@ Current MVP coverage:
 
 ## Phase 5: Human Review & Freeze
 
-- [ ] Generate human review CSVs for English, Hindi, and Punjabi.
+- [ ] Generate human review CSVs for English.
 - [ ] Add `rap-002-pre-freeze-coverage-audit.md`.
-- [ ] Add `rap-002-maturity-audit.md`.
+- [x] Add `rap-002-maturity-audit.md`.
+- [x] Add `rap-002-residual-qa.ts` and `rap-002-residual-qa-report.md`.
 - [ ] Add `rap-002-freeze-record.md`.
 
 ## Immediate Next Step
 
-RAP-002 is now wired through Question Studio for English only. Next safe step is editorial review of the English MVP breadth before any Hindi/Punjabi localization work.
+RAP-002 is now wired through Question Studio for English only and passes 500-sample residual QA. Next safe step is manual editorial review of the English MVP breadth before expansion or any Hindi/Punjabi localization work.

@@ -13,7 +13,74 @@ function block(text: string) {
   return `$$${text}$$`;
 }
 
+function localizedIntro(parameters: Rap002Parameters, en: string, hi: string, pa: string) {
+  if (parameters.language === "hi") return hi;
+  if (parameters.language === "pa") return pa;
+  return en;
+}
+
 export function renderRap002Explanation(parameters: Rap002Parameters, solver: Rap002SolverResult): Rap002Explanation {
+  if (
+    parameters.taskKind === "electionWinnerVotes"
+    || parameters.taskKind === "electionMargin"
+    || parameters.taskKind === "electionTotalVotersFromMargin"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "Move through the election chain: total voters, polled votes, valid votes, then candidate ratio.",
+          "चुनाव श्रृंखला में चलें: कुल मतदाता, डाले गए मत, वैध मत, फिर उम्मीदवारों का अनुपात.",
+          "ਚੋਣ ਲੜੀ ਅਨੁਸਾਰ ਚਲੋ: ਕੁੱਲ ਵੋਟਰ, ਪਈਆਂ ਵੋਟਾਂ, ਵੈਧ ਵੋਟਾਂ, ਫਿਰ ਉਮੀਦਵਾਰਾਂ ਦਾ ਅਨੁਪਾਤ.",
+        ),
+        block(`\\text{Turnout}=${n(parameters, "turnoutPercent")}\\%,\\ \\text{Valid}=${n(parameters, "validPercent")}\\%`),
+        block(`\\text{Vote ratio}=${n(parameters, "voteRatioA")}:${n(parameters, "voteRatioB")}`),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (parameters.taskKind === "incomeExpenditureSavings") {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "Use two linked systems: income ratio and expenditure ratio. Savings are income minus expenditure.",
+          "दो जुड़ी प्रणालियां लें: आय अनुपात और व्यय अनुपात. बचत = आय - व्यय.",
+          "ਦੋ ਜੁੜੀਆਂ ਪ੍ਰਣਾਲੀਆਂ ਵਰਤੋ: ਆਮਦਨ ਅਨੁਪਾਤ ਅਤੇ ਖਰਚ ਅਨੁਪਾਤ. ਬਚਤ = ਆਮਦਨ - ਖਰਚ.",
+        ),
+        block(`\\text{Income ratio}=${n(parameters, "incomeRatioA")}:${n(parameters, "incomeRatioB")}`),
+        block(`\\text{Expenditure ratio}=${n(parameters, "expRatioA")}:${n(parameters, "expRatioB")}`),
+        block(`\\text{Savings}=${n(parameters, "savingsA")},\\ ${n(parameters, "savingsB")}`),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (parameters.taskKind === "sdtTimeRatioFromSpeedDistance" || parameters.taskKind === "sdtRaceLead") {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "Use the speed-distance-time relation. Time is proportional to distance divided by speed.",
+          "गति-दूरी-समय संबंध लगाएं. समय दूरी को गति से भाग देने के समानुपाती होता है.",
+          "ਗਤੀ-ਦੂਰੀ-ਸਮਾਂ ਸੰਬੰਧ ਵਰਤੋ. ਸਮਾਂ ਦੂਰੀ ਨੂੰ ਗਤੀ ਨਾਲ ਭਾਗ ਦੇਣ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੁੰਦਾ ਹੈ.",
+        ),
+        parameters.taskKind === "sdtRaceLead"
+          ? block(`\\text{Distances covered}=${n(parameters, "raceLength")}:${n(parameters, "raceLength") - n(parameters, "leadDistance")}`)
+          : block(`\\text{Speed ratio}=${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")},\\ \\text{Distance ratio}=${n(parameters, "distanceRatioA")}:${n(parameters, "distanceRatioB")}`),
+        localizedIntro(parameters, "Now simplify the resulting ratio.", "अब प्राप्त अनुपात को सरल करें.", "ਹੁਣ ਮਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਰਲ ਕਰੋ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
   if (
     parameters.taskKind === "chainOrdering"
     || parameters.taskKind === "chainInequality"

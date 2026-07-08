@@ -102,6 +102,23 @@ fixedReconstruct.variables = {
 };
 assert.equal(solveRap002(fixedReconstruct).answer, "$$1 : 1$$");
 
+const fixedElectionMargin = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-009",
+  seed: "rap-002-fixed-election-margin",
+  questionLanguageId: "RAP-QL-408",
+  difficultyBand: "Medium",
+});
+fixedElectionMargin.variables = {
+  candidateA: "Candidate A",
+  candidateB: "Candidate B",
+  totalVoters: 20000,
+  turnoutPercent: 80,
+  validPercent: 90,
+  voteRatioA: 5,
+  voteRatioB: 4,
+};
+assert.equal(solveRap002(fixedElectionMargin).answer, "$$1600$$");
+
 const fixedNested = generateRap002Parameters({
   canonicalProblemId: "RAP-CP-010",
   seed: "rap-002-fixed-nested",
@@ -145,6 +162,24 @@ fixedWeightedNested.variables = {
   weightD: 5,
 };
 assert.equal(solveRap002(fixedWeightedNested).answer, "$$156$$");
+
+const fixedIncomeExpenditure = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-010",
+  seed: "rap-002-fixed-income-expenditure",
+  questionLanguageId: "RAP-QL-507",
+  difficultyBand: "Medium",
+});
+fixedIncomeExpenditure.variables = {
+  personA: "A",
+  personB: "B",
+  incomeRatioA: 3,
+  incomeRatioB: 2,
+  expRatioA: 5,
+  expRatioB: 3,
+  savingsA: 1000,
+  savingsB: 1000,
+};
+assert.equal(solveRap002(fixedIncomeExpenditure).answer, "$$10000$$");
 
 const fixedInverse = generateRap002Parameters({
   canonicalProblemId: "RAP-CP-011",
@@ -195,6 +230,22 @@ fixedCombinedInverse.variables = {
 };
 assert.equal(solveRap002(fixedCombinedInverse).answer, "$$15 : 8$$");
 
+const fixedSdtRatio = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-011",
+  seed: "rap-002-fixed-sdt",
+  questionLanguageId: "RAP-QL-607",
+  difficultyBand: "Medium",
+});
+fixedSdtRatio.variables = {
+  personA: "Vehicle A",
+  personB: "Vehicle B",
+  speedRatioA: 3,
+  speedRatioB: 4,
+  distanceRatioA: 2,
+  distanceRatioB: 3,
+};
+assert.equal(solveRap002(fixedSdtRatio).answer, "$$8 : 9$$");
+
 const fixedOrdering = generateRap002Parameters({
   canonicalProblemId: "RAP-CP-012",
   seed: "rap-002-fixed-ordering",
@@ -225,6 +276,20 @@ fixedEquivalence.variables = {
   equivalentB: 16,
 };
 assert.equal(solveRap002(fixedEquivalence).answer, "$$\\text{Equivalent}$$");
+
+const fixedNonEquivalence = generateRap002Parameters({
+  canonicalProblemId: "RAP-CP-012",
+  seed: "rap-002-fixed-non-equivalence",
+  questionLanguageId: "RAP-QL-706",
+  difficultyBand: "Medium",
+});
+fixedNonEquivalence.variables = {
+  ratioA: 3,
+  ratioB: 4,
+  equivalentA: 12,
+  equivalentB: 17,
+};
+assert.equal(solveRap002(fixedNonEquivalence).answer, "$$\\text{Not equivalent}$$");
 
 const seenQlIds = new Set<string>();
 for (let index = 0; index < 120; index += 1) {
@@ -282,13 +347,13 @@ for (let index = 0; index < 90; index += 1) {
   seenCp009QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-401", "RAP-QL-402", "RAP-QL-403", "RAP-QL-404", "RAP-QL-405", "RAP-QL-406"]) {
+for (const qlId of ["RAP-QL-401", "RAP-QL-402", "RAP-QL-403", "RAP-QL-404", "RAP-QL-405", "RAP-QL-406", "RAP-QL-407", "RAP-QL-408", "RAP-QL-409"]) {
   const pkg = runRap002Cp009Pipeline({ seed: `rap-002-cp009-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp009QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp009QlIds.size, 6, `Expected all 6 CP-009 QLs, got ${seenCp009QlIds.size}`);
+assert.equal(seenCp009QlIds.size, 9, `Expected all 9 CP-009 QLs, got ${seenCp009QlIds.size}`);
 
 const seenCp010QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -303,13 +368,13 @@ for (let index = 0; index < 90; index += 1) {
   seenCp010QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-501", "RAP-QL-502", "RAP-QL-503", "RAP-QL-504", "RAP-QL-505", "RAP-QL-506"]) {
+for (const qlId of ["RAP-QL-501", "RAP-QL-502", "RAP-QL-503", "RAP-QL-504", "RAP-QL-505", "RAP-QL-506", "RAP-QL-507", "RAP-QL-508"]) {
   const pkg = runRap002Cp010Pipeline({ seed: `rap-002-cp010-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp010QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp010QlIds.size, 6, `Expected all 6 CP-010 QLs, got ${seenCp010QlIds.size}`);
+assert.equal(seenCp010QlIds.size, 8, `Expected all 8 CP-010 QLs, got ${seenCp010QlIds.size}`);
 
 const seenCp011QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -324,13 +389,26 @@ for (let index = 0; index < 90; index += 1) {
   seenCp011QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-601", "RAP-QL-602", "RAP-QL-603", "RAP-QL-604", "RAP-QL-605", "RAP-QL-606"]) {
+for (const qlId of ["RAP-QL-601", "RAP-QL-602", "RAP-QL-603", "RAP-QL-604", "RAP-QL-605", "RAP-QL-606", "RAP-QL-607", "RAP-QL-608"]) {
   const pkg = runRap002Cp011Pipeline({ seed: `rap-002-cp011-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp011QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp011QlIds.size, 6, `Expected all 6 CP-011 QLs, got ${seenCp011QlIds.size}`);
+assert.equal(seenCp011QlIds.size, 8, `Expected all 8 CP-011 QLs, got ${seenCp011QlIds.size}`);
+
+for (const language of ["hi", "pa"] as const) {
+  for (const [cpRunner, qlId] of [
+    [runRap002Cp009Pipeline, "RAP-QL-407"],
+    [runRap002Cp010Pipeline, "RAP-QL-507"],
+    [runRap002Cp011Pipeline, "RAP-QL-607"],
+  ] as const) {
+    const pkg = cpRunner({ seed: `rap-002-multilingual:${language}:${qlId}`, questionLanguageId: qlId, language });
+    assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+    assert.equal(pkg.language, language);
+    assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
+  }
+}
 
 const seenCp012QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -353,4 +431,33 @@ for (const qlId of ["RAP-QL-701", "RAP-QL-702", "RAP-QL-703", "RAP-QL-704", "RAP
 
 assert.equal(seenCp012QlIds.size, 6, `Expected all 6 CP-012 QLs, got ${seenCp012QlIds.size}`);
 
-console.log(`RAP-002 English test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}. CP-010 QLs covered: ${seenCp010QlIds.size}. CP-011 QLs covered: ${seenCp011QlIds.size}. CP-012 QLs covered: ${seenCp012QlIds.size}.`);
+const equivalenceAnswers = new Set<string>();
+for (let index = 0; index < 80; index += 1) {
+  for (const qlId of ["RAP-QL-705", "RAP-QL-706"]) {
+    const parameters = generateRap002Parameters({
+      canonicalProblemId: "RAP-CP-012",
+      seed: `rap-002-equivalence-diversity:${qlId}:${index}`,
+      questionLanguageId: qlId,
+      difficultyBand: "Medium",
+    });
+    equivalenceAnswers.add(String(solveRap002(parameters).answerValue));
+  }
+}
+assert.deepEqual([...equivalenceAnswers].sort(), ["Equivalent", "Not equivalent"]);
+
+for (let index = 0; index < 120; index += 1) {
+  for (const qlId of ["RAP-QL-703", "RAP-QL-704"]) {
+    const parameters = generateRap002Parameters({
+      canonicalProblemId: "RAP-CP-012",
+      seed: `rap-002-chain-inequality-no-tie:${qlId}:${index}`,
+      questionLanguageId: qlId,
+      difficultyBand: "Medium",
+    });
+    const calculation = solveRap002(parameters).mathJax.calculationLatex;
+    const values = [...calculation.matchAll(/=(-?\d+(?:\.\d+)?)/g)].map((match) => Number(match[1]));
+    assert.equal(values.length >= 2, true, `Expected comparable values in ${calculation}`);
+    assert.notEqual(values[0], values[1], `Tie found for ${qlId}: ${calculation}`);
+  }
+}
+
+console.log(`RAP-002 multilingual enrichment test passed. CP-007 QLs covered: ${seenQlIds.size}. CP-008 QLs covered: ${seenCp008QlIds.size}. CP-009 QLs covered: ${seenCp009QlIds.size}. CP-010 QLs covered: ${seenCp010QlIds.size}. CP-011 QLs covered: ${seenCp011QlIds.size}. CP-012 QLs covered: ${seenCp012QlIds.size}.`);

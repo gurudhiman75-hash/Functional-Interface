@@ -1,10 +1,33 @@
 import ranges from "./variable-ranges.library.json";
-import { alignChainRatios, pick, simplifyRatio, stableBucket } from "./math";
+import { alignChainRatios, alignThreeChainRatios, pick, simplifyRatio, stableBucket } from "./math";
 import { getRap002QuestionLanguageIds, getRap002RegistryEntry } from "./library";
 import { RAP_002_ARCHETYPE_ID, type Rap002CanonicalProblemId, type Rap002DifficultyBand, type Rap002ParameterInput, type Rap002Parameters, type Rap002Variables } from "./types";
 
-const ENTITY_SETS = (ranges as any).entities as Record<string, string[]>;
 const RATIO_TERMS = (ranges as any).ratioTerms as Record<Rap002DifficultyBand, number[]>;
+const SCENARIO_POOLS = {
+  neutral: [
+    ["A", "B", "C", "D"],
+    ["Group A", "Group B", "Group C", "Group D"],
+  ],
+  people: [
+    ["boys", "girls", "teachers", "staff"],
+    ["students", "teachers", "parents", "staff"],
+  ],
+  partition: [
+    ["A", "B", "C", "D"],
+    ["Partner A", "Partner B", "Partner C", "Partner D"],
+    ["Group A", "Group B", "Group C", "Group D"],
+  ],
+  work: [
+    ["Team A", "Team B", "Team C", "Team D"],
+    ["Group A", "Group B", "Group C", "Group D"],
+  ],
+  speed: [
+    ["Train A", "Train B", "Train C", "Train D"],
+    ["Runner A", "Runner B", "Runner C", "Runner D"],
+    ["Cyclist A", "Cyclist B", "Cyclist C", "Cyclist D"],
+  ],
+} as const;
 
 function pickDifficulty(seed: string): Rap002DifficultyBand {
   return (["Medium", "Hard"] as const)[stableBucket(seed, 2)]!;
@@ -17,15 +40,32 @@ function pickQl(cpId: Rap002CanonicalProblemId, seed: string, requested?: string
 }
 
 function ratioTerm(difficulty: Rap002DifficultyBand, seed: string) {
-  return pick(RATIO_TERMS[difficulty], seed);
+  const base = pick(RATIO_TERMS[difficulty], seed);
+  const spread = difficulty === "Hard" ? 18 : difficulty === "Medium" ? 14 : 8;
+  return base + stableBucket(`${seed}:spread`, spread) + seedSerialOffset(seed, 23);
 }
 
-function entitySet(seed: string) {
-  return pick(Object.values(ENTITY_SETS), `${seed}:entities`);
+function seedSerialOffset(seed: string, modulo: number) {
+  const matches = [...seed.matchAll(/:(\d+)/g)];
+  const value = matches.length ? Number(matches[matches.length - 1]![1]) : 0;
+  return Number.isFinite(value) ? value % modulo : 0;
 }
 
-function baseChainVariables(seed: string, difficulty: Rap002DifficultyBand): Rap002Variables {
-  const entities = entitySet(seed);
+function seedIndexParity(seed: string, fallbackSalt: string) {
+  const match = seed.match(/:(\d+)$/);
+  if (match) return Number(match[1]) % 2;
+  return stableBucket(`${seed}:${fallbackSalt}`, 2);
+}
+
+function scaledPick(values: readonly number[], seed: string, spread = 12) {
+  return pick(values, seed) + stableBucket(`${seed}:spread`, spread) + seedSerialOffset(seed, 17);
+}
+
+function scenarioEntitySet(kind: keyof typeof SCENARIO_POOLS, seed: string) {
+  return pick([...SCENARIO_POOLS[kind]], `${seed}:scenario:${kind}`);
+}
+
+function baseChainVariables(seed: string, difficulty: Rap002DifficultyBand, entities = scenarioEntitySet("neutral", seed)): Rap002Variables {
   const ratioA1 = ratioTerm(difficulty, `${seed}:a1`);
   const ratioB1 = ratioTerm(difficulty, `${seed}:b1`);
   const ratioB2 = ratioTerm(difficulty, `${seed}:b2`);
@@ -47,7 +87,16 @@ function baseChainVariables(seed: string, difficulty: Rap002DifficultyBand): Rap
   };
 }
 
-function addExtendedTarget(seed: string, variables: Rap002Variables): Rap002Variables {
+function addExtendedTarget(seed: string, variables: Rap002Variables, qlId: string): Rap002Variables {
+  if (qlId === "RAP-QL-205") {
+    return { ...variables, targetPair: "AD", targetPairLabel: `${variables.personA}:${variables.personD}` };
+  }
+  if (qlId === "RAP-QL-206") {
+    return { ...variables, targetPair: "BD", targetPairLabel: `${variables.personB}:${variables.personD}` };
+  }
+  if (qlId === "RAP-QL-207") {
+    return { ...variables, targetPair: "AC", targetPairLabel: `${variables.personA}:${variables.personC}` };
+  }
   const targetPairs = [
     ["AD", `${variables.personA}:${variables.personD}`],
     ["BD", `${variables.personB}:${variables.personD}`],
@@ -78,7 +127,7 @@ function addMissingChainVariables(variables: Rap002Variables): Rap002Variables {
 }
 
 function baseReverseChainVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
-  const variables = baseChainVariables(seed, difficulty);
+  const variables = baseChainVariables(seed, difficulty, scenarioEntitySet("neutral", seed));
   let ratioC2 = Number(variables.ratioC2);
   let aligned = alignChainRatios(
     [Number(variables.ratioA1), Number(variables.ratioB1)],
@@ -91,7 +140,7 @@ function baseReverseChainVariables(seed: string, difficulty: Rap002DifficultyBan
       [Number(variables.ratioB2), ratioC2],
     );
   }
-  const scale = pick([4, 5, 6, 8, 10, 12], `${seed}:scale`);
+  const scale = scaledPick([4, 5, 6, 8, 10, 12], `${seed}:scale`);
   const valueA = aligned[0]! * scale;
   const valueB = aligned[1]! * scale;
   const valueC = aligned[2]! * scale;
@@ -116,19 +165,42 @@ function baseReverseChainVariables(seed: string, difficulty: Rap002DifficultyBan
 }
 
 function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
-  const entities = entitySet(seed);
+  if (qlId === "RAP-QL-407" || qlId === "RAP-QL-408" || qlId === "RAP-QL-409") {
+    const totalVoters = pick([8000, 10000, 12000, 15000, 20000, 24000], `${seed}:voters`);
+    const turnoutPercent = pick([60, 70, 75, 80, 85], `${seed}:turnout`);
+    const validPercent = pick([90, 92, 95, 96], `${seed}:valid`);
+    let voteRatioA = pick([3, 4, 5, 7], `${seed}:voteA`);
+    let voteRatioB = pick([2, 3, 4, 5], `${seed}:voteB`);
+    if (voteRatioA <= voteRatioB) voteRatioA = voteRatioB + 2;
+    const polledVotes = totalVoters * turnoutPercent / 100;
+    const validVotes = polledVotes * validPercent / 100;
+    const margin = validVotes * (voteRatioA - voteRatioB) / (voteRatioA + voteRatioB);
+    const marginVotes = Number.isInteger(margin) ? margin : Math.round(margin / 10) * 10;
+    return {
+      candidateA: "Candidate A",
+      candidateB: "Candidate B",
+      totalVoters,
+      turnoutPercent,
+      validPercent,
+      voteRatioA,
+      voteRatioB,
+      marginVotes,
+    };
+  }
+
+  const entities = scenarioEntitySet("neutral", seed);
   let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
   let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
   if (ratioA === ratioB) ratioB += 1;
 
-  const scale = pick([8, 10, 12, 15, 20], `${seed}:scale`);
+  const scale = scaledPick([8, 10, 12, 15, 20], `${seed}:scale`, 20);
   const initialA = ratioA * scale;
   const initialB = ratioB * scale;
   const totalValue = initialA + initialB;
-  const valueAddA = pick([4, 5, 6, 8, 10, 12], `${seed}:addA`);
-  const valueAddB = pick([2, 4, 5, 6, 8, 10], `${seed}:addB`);
-  const valueRemoveB = Math.min(initialB - 1, pick([2, 4, 5, 6, 8], `${seed}:removeB`));
-  const transferValue = Math.min(Math.min(initialA, initialB) - 1, pick([2, 4, 5, 6, 8], `${seed}:transfer`));
+  const valueAddA = scaledPick([4, 5, 6, 8, 10, 12], `${seed}:addA`);
+  const valueAddB = scaledPick([2, 4, 5, 6, 8, 10], `${seed}:addB`);
+  const valueRemoveB = Math.min(initialB - 1, scaledPick([2, 4, 5, 6, 8], `${seed}:removeB`));
+  const transferValue = Math.min(Math.min(initialA, initialB) - 1, scaledPick([2, 4, 5, 6, 8], `${seed}:transfer`));
 
   if (qlId === "RAP-QL-405") {
     const finalA = initialA + valueAddA;
@@ -173,7 +245,21 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
 }
 
 function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
-  const entities = entitySet(seed);
+  if (qlId === "RAP-QL-507" || qlId === "RAP-QL-508") {
+    const cases = [
+      { incomeRatioA: 3, incomeRatioB: 2, expRatioA: 5, expRatioB: 3, savingsA: 1000, savingsB: 1000 },
+      { incomeRatioA: 4, incomeRatioB: 3, expRatioA: 5, expRatioB: 4, savingsA: 2500, savingsB: 1500 },
+      { incomeRatioA: 5, incomeRatioB: 4, expRatioA: 3, expRatioB: 2, savingsA: 4000, savingsB: 5000 },
+      { incomeRatioA: 7, incomeRatioB: 5, expRatioA: 4, expRatioB: 3, savingsA: 6000, savingsB: 3000 },
+    ];
+    return {
+      personA: "A",
+      personB: "B",
+      ...pick(cases, `${seed}:incomeCase`),
+    };
+  }
+
+  const entities = scenarioEntitySet("partition", seed);
   let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
   let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
   let subRatioC = ratioTerm(difficulty, `${seed}:subC`);
@@ -182,14 +268,14 @@ function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, 
   if (subRatioC === subRatioD) subRatioD += 1;
 
   const subTotalRatio = subRatioC + subRatioD;
-  const mainUnit = subTotalRatio * pick([4, 5, 6, 8, 10], `${seed}:unit`);
+  const mainUnit = subTotalRatio * scaledPick([4, 5, 6, 8, 10], `${seed}:unit`, 14);
   const totalValue = (ratioA + ratioB) * mainUnit;
   const branchPart = qlId === "RAP-QL-502" || qlId === "RAP-QL-504" || qlId === "RAP-QL-506" ? "B" : "A";
   const targetSubPart = qlId === "RAP-QL-502" || qlId === "RAP-QL-504" ? "D" : "C";
   const branchShare = branchPart === "A" ? ratioA * mainUnit : ratioB * mainUnit;
-  const thresholdValue = Math.max(1, branchShare - pick([5, 10, 12, 15, 20], `${seed}:thresholdGap`));
-  const weightC = pick([2, 3, 4, 5, 6], `${seed}:weightC`);
-  const weightD = pick([3, 4, 5, 6, 8], `${seed}:weightD`);
+  const thresholdValue = Math.max(1, branchShare - scaledPick([5, 10, 12, 15, 20], `${seed}:thresholdGap`));
+  const weightC = scaledPick([2, 3, 4, 5, 6], `${seed}:weightC`, 6);
+  const weightD = scaledPick([3, 4, 5, 6, 8], `${seed}:weightD`, 6);
 
   return {
     personA: entities[0]!,
@@ -209,17 +295,33 @@ function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, 
 }
 
 function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
-  const entities = entitySet(seed);
+  if (qlId === "RAP-QL-607") {
+    let speedRatioA = pick([3, 4, 5, 6, 7], `${seed}:speedA`);
+    let speedRatioB = pick([4, 5, 6, 7, 8], `${seed}:speedB`);
+    if (speedRatioA === speedRatioB) speedRatioB += 1;
+    const distanceRatioA = pick([1, 2, 3, 4, 5], `${seed}:distanceA`);
+    const distanceRatioB = pick([1, 2, 3, 4, 5], `${seed}:distanceB`);
+    return { personA: "Vehicle A", personB: "Vehicle B", speedRatioA, speedRatioB, distanceRatioA, distanceRatioB };
+  }
+  if (qlId === "RAP-QL-608") {
+    const raceLength = pick([400, 500, 800, 1000, 1200], `${seed}:raceLength`);
+    const leadDistance = pick([20, 40, 50, 80, 100], `${seed}:lead`);
+    return { personA: "Runner A", personB: "Runner B", raceLength, leadDistance };
+  }
+
+  const entities = qlId === "RAP-QL-603" || qlId === "RAP-QL-604" || qlId === "RAP-QL-606"
+    ? scenarioEntitySet("speed", seed)
+    : scenarioEntitySet("work", seed);
   let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
   let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
   if (ratioA === ratioB) ratioB += 1;
-  const scale = pick([4, 5, 6, 8, 10, 12], `${seed}:scale`);
+  const scale = scaledPick([4, 5, 6, 8, 10, 12], `${seed}:scale`);
   const timeRatioA = ratioTerm(difficulty, `${seed}:timeA`);
   let timeRatioB = ratioTerm(difficulty, `${seed}:timeB`);
   if (timeRatioA === timeRatioB) timeRatioB += 1;
 
   if (qlId === "RAP-QL-602" || qlId === "RAP-QL-604") {
-    const chain = baseChainVariables(seed, difficulty);
+    const chain = baseChainVariables(seed, difficulty, qlId === "RAP-QL-604" ? scenarioEntitySet("speed", seed) : scenarioEntitySet("work", seed));
     const aligned = alignChainRatios(
       [Number(chain.ratioA1), Number(chain.ratioB1)],
       [Number(chain.ratioB2), Number(chain.ratioC2)],
@@ -246,42 +348,98 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
   };
 }
 
+function hasDuplicates(values: readonly number[]) {
+  return new Set(values).size !== values.length;
+}
+
+function avoidComparisonTies(
+  variables: Rap002Variables,
+  difficulty: Rap002DifficultyBand,
+  qlId: string,
+  seed: string,
+): Rap002Variables {
+  let candidate = { ...variables };
+  for (let attempt = 0; attempt < 12; attempt += 1) {
+    const three = alignChainRatios(
+      [Number(candidate.ratioA1), Number(candidate.ratioB1)],
+      [Number(candidate.ratioB2), Number(candidate.ratioC2)],
+    );
+    const four = candidate.ratioC3 !== undefined
+      ? alignThreeChainRatios(
+          [Number(candidate.ratioA1), Number(candidate.ratioB1)],
+          [Number(candidate.ratioB2), Number(candidate.ratioC2)],
+          [Number(candidate.ratioC3), Number(candidate.ratioD3)],
+        )
+      : [];
+
+    const noTie =
+      qlId === "RAP-QL-701"
+        ? !hasDuplicates(three)
+        : qlId === "RAP-QL-702"
+          ? !hasDuplicates(four)
+          : qlId === "RAP-QL-703"
+            ? three[0] !== three[2]
+            : qlId === "RAP-QL-704"
+              ? four[1] !== four[3]
+              : true;
+    if (noTie) return candidate;
+
+    candidate = {
+      ...candidate,
+      ratioC2: ratioTerm(difficulty, `${seed}:tie-c2:${attempt}`) + attempt + 1,
+      ...(candidate.ratioC3 !== undefined
+        ? {
+            ratioC3: ratioTerm(difficulty, `${seed}:tie-c3:${attempt}`) + attempt + 1,
+            ratioD3: ratioTerm(difficulty, `${seed}:tie-d3:${attempt}`) + attempt + 2,
+          }
+        : {}),
+    };
+  }
+  return candidate;
+}
+
 function baseComparisonVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
   if (qlId === "RAP-QL-706") {
     let ratioA = ratioTerm(difficulty, `${seed}:ratioA`);
     let ratioB = ratioTerm(difficulty, `${seed}:ratioB`);
     if (ratioA === ratioB) ratioB += 1;
     const multiplier = pick([2, 3, 4, 5], `${seed}:equivalentMultiplier`);
+    const makeEquivalent = seedIndexParity(seed, "equivalenceCase") !== 0;
     return {
       ratioA,
       ratioB,
       equivalentA: ratioA * multiplier,
-      equivalentB: ratioB * multiplier,
+      equivalentB: makeEquivalent ? ratioB * multiplier : ratioB * multiplier + 1,
     };
   }
 
-  const variables = baseChainVariables(seed, difficulty);
+  const variables = baseChainVariables(seed, difficulty, scenarioEntitySet("neutral", seed));
+  let adjustedVariables = variables;
+  if (qlId === "RAP-QL-701" || qlId === "RAP-QL-702" || qlId === "RAP-QL-703" || qlId === "RAP-QL-704") {
+    adjustedVariables = avoidComparisonTies(variables, difficulty, qlId, seed);
+  }
   if (qlId === "RAP-QL-701" || qlId === "RAP-QL-703" || qlId === "RAP-QL-705") {
     const aligned = alignChainRatios(
-      [Number(variables.ratioA1), Number(variables.ratioB1)],
-      [Number(variables.ratioB2), Number(variables.ratioC2)],
+      [Number(adjustedVariables.ratioA1), Number(adjustedVariables.ratioB1)],
+      [Number(adjustedVariables.ratioB2), Number(adjustedVariables.ratioC2)],
     );
     const endpoint = simplifyRatio([aligned[0]!, aligned[2]!]);
+    const makeEquivalent = qlId !== "RAP-QL-705" || seedIndexParity(seed, "endpointEquivalenceCase") === 0;
     return {
-      personA: variables.personA,
-      personB: variables.personB,
-      personC: variables.personC,
-      ratioA1: variables.ratioA1,
-      ratioB1: variables.ratioB1,
-      ratioB2: variables.ratioB2,
-      ratioC2: variables.ratioC2,
+      personA: adjustedVariables.personA,
+      personB: adjustedVariables.personB,
+      personC: adjustedVariables.personC,
+      ratioA1: adjustedVariables.ratioA1,
+      ratioB1: adjustedVariables.ratioB1,
+      ratioB2: adjustedVariables.ratioB2,
+      ratioC2: adjustedVariables.ratioC2,
       ...(qlId === "RAP-QL-703" ? { comparisonPair: "AC" } : {}),
-      ...(qlId === "RAP-QL-705" ? { endpointA: endpoint[0]!, endpointC: endpoint[1]! } : {}),
+      ...(qlId === "RAP-QL-705" ? { endpointA: endpoint[0]!, endpointC: makeEquivalent ? endpoint[1]! : endpoint[1]! + 1 } : {}),
     };
   }
 
   return {
-    ...variables,
+    ...adjustedVariables,
     ...(qlId === "RAP-QL-704" ? { comparisonPair: "BD" } : {}),
   };
 }
@@ -292,7 +450,6 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
 
   const seed = input.seed ?? `RAP-002:${cpId}`;
   const language = input.language ?? "en";
-  if (language !== "en") throw new Error("RAP-002 MVP currently supports English generation only.");
 
   const qlId = pickQl(cpId, seed, input.questionLanguageId);
   const registry = getRap002RegistryEntry(qlId);
@@ -311,7 +468,7 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
   }
 
   if (cpId === "RAP-CP-007" && registry.taskKind === "extendedChainAlignment") {
-    variables = addExtendedTarget(seed, variables);
+    variables = addExtendedTarget(seed, variables, qlId);
   } else if (cpId === "RAP-CP-007" && registry.taskKind === "missingChainRatio") {
     variables = addMissingChainVariables(variables);
   }
@@ -329,8 +486,8 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
     requiredVariables: registry.requiredVariables,
     variables,
     sourceTrace: {
-      questionLanguageSource: "question-language.en.json",
-      explanationSource: "explanation.en.json",
+      questionLanguageSource: `question-language.${language}.json`,
+      explanationSource: language === "en" ? "explanation.en.json" : `explanation.${language}.json`,
       variableRangeSource: "variable-ranges.library.json",
     },
   };

@@ -1,0 +1,154 @@
+{
+  "RAP-CP-013": {
+    "families": {
+      "RAP-QL-801": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitShare",
+        "template": "{personA} ਅਤੇ {personB} Rs. {investmentA} ਅਤੇ Rs. {investmentB} ਦੇ ਨਿਵੇਸ਼ ਨਾਲ ਕਾਰੋਬਾਰ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ. {personA} {timeA} ਮਹੀਨੇ ਅਤੇ {personB} {timeB} ਮਹੀਨੇ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ. ਜੇ ਕੁੱਲ ਲਾਭ Rs. {totalProfit} ਹੈ, ਤਾਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-802": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipJoiningPartnerProfit",
+        "template": "{personA} Rs. {investmentA} ਨੂੰ {timeA} ਮਹੀਨੇ ਲਈ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ. {personB} ਬਾਅਦ ਵਿੱਚ Rs. {investmentB} ਨਾਲ ਜੁੜਦਾ ਹੈ ਅਤੇ {timeB} ਮਹੀਨੇ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ. ਜੇ ਕੁੱਲ ਲਾਭ Rs. {totalProfit} ਹੈ, ਤਾਂ {targetPartner} ਦਾ ਲਾਭ ਹਿੱਸਾ ਕੀ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-803": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipMidPeriodChange",
+        "template": "{personA} ਪਹਿਲਾਂ {firstPeriod} ਮਹੀਨੇ Rs. {initialInvestmentA} ਅਤੇ ਫਿਰ {secondPeriod} ਮਹੀਨੇ Rs. {changedInvestmentA} ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ. {personB} Rs. {investmentB} ਨੂੰ {timeB} ਮਹੀਨੇ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ. ਜੇ ਕੁੱਲ ਲਾਭ Rs. {totalProfit} ਹੈ, ਤਾਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-804": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitShare",
+        "template": "ਦੋ ਸਾਥੀ {personA} ਅਤੇ {personB} ਕ੍ਰਮਵਾਰ Rs. {investmentA} ਅਤੇ Rs. {investmentB} ਨੂੰ {timeA} ਮਹੀਨੇ ਅਤੇ {timeB} ਮਹੀਨੇ ਲਈ ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ. ਕੁੱਲ ਲਾਭ Rs. {totalProfit} ਹੈ. {targetPartner} ਦਾ ਲਾਭ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-014": {
+    "families": {
+      "RAP-QL-901": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ. {shiftYears} ਸਾਲ ਬਾਅਦ ਉਨ੍ਹਾਂ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {futureRatioA}:{futureRatioB} ਹੋਵੇਗਾ. {targetPerson} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-902": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ. ਜੇ {shiftYears} ਸਾਲ ਬਾਅਦ ਅਨੁਪਾਤ {futureRatioA}:{futureRatioB} ਬਣ ਜਾਂਦਾ ਹੈ, ਤਾਂ {targetPerson} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕੀ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-903": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromPastRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ. {shiftYears} ਸਾਲ ਪਹਿਲਾਂ ਉਨ੍ਹਾਂ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {pastRatioA}:{pastRatioB} ਸੀ. {targetPerson} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-904": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਕ੍ਰਮਵਾਰ {presentAgeA} ਸਾਲ ਅਤੇ {presentAgeB} ਸਾਲ ਹੈ. ਕਿੰਨੇ ਸਾਲ ਬਾਅਦ ਉਨ੍ਹਾਂ ਦੀ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {futureRatioA}:{futureRatioB} ਹੋਵੇਗਾ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-905": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromDifferenceAndRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {ratioA}:{ratioB} ਹੈ. ਜੇ ਉਨ੍ਹਾਂ ਦੀ ਉਮਰ ਦਾ ਅੰਤਰ {ageDifference} ਸਾਲ ਹੈ, ਤਾਂ {targetPerson} ਦੀ ਮੌਜੂਦਾ ਉਮਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-906": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachRatio",
+        "template": "{personA} ਦੀ ਉਮਰ {presentAgeA} ਸਾਲ ਹੈ ਅਤੇ {personB} ਦੀ ਉਮਰ {presentAgeB} ਸਾਲ ਹੈ. ਕਿੰਨੇ ਸਾਲਾਂ ਵਿੱਚ ਉਮਰ ਦਾ ਅਨੁਪਾਤ {futureRatioA}:{futureRatioB} ਬਣੇਗਾ?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-015": {
+    "families": {
+      "RAP-QL-951": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureSavingsRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਹੈ, ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚ ਦਾ ਅਨੁਪਾਤ {expenditureRatioA}:{expenditureRatioB} ਹੈ. ਜੇ ਆਮਦਨ ਦੀ ਇਕਾਈ Rs. {incomeUnit} ਅਤੇ ਖਰਚ ਦੀ ਇਕਾਈ Rs. {expenditureUnit} ਹੈ, ਤਾਂ ਉਨ੍ਹਾਂ ਦੀ ਬਚਤ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-952": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureEqualSavings",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB} ਹੈ, ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚ ਦਾ ਅਨੁਪਾਤ {expenditureRatioA}:{expenditureRatioB} ਹੈ. ਉਨ੍ਹਾਂ ਦੀ ਬਚਤ ਬਰਾਬਰ ਹੈ. ਜੇ {personA} ਦੀ ਆਮਦਨ Rs. {givenIncomeA} ਹੈ, ਤਾਂ {targetPerson} ਦੀ ਬਚਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-953": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeFromSavingsRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB}, ਖਰਚ ਦਾ ਅਨੁਪਾਤ {expenditureRatioA}:{expenditureRatioB}, ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {savingsRatioA}:{savingsRatioB} ਹੈ. ਜੇ {personB} ਦਾ ਖਰਚ Rs. {givenExpenditureB} ਹੈ, ਤਾਂ {targetPerson} ਦੀ ਆਮਦਨ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-954": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "expenditureFromSavingsRatio",
+        "template": "{personA} ਅਤੇ {personB} ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ {incomeRatioA}:{incomeRatioB}, ਖਰਚ ਦਾ ਅਨੁਪਾਤ {expenditureRatioA}:{expenditureRatioB}, ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ {savingsRatioA}:{savingsRatioB} ਹੈ. ਜੇ {personA} ਦੀ ਆਮਦਨ Rs. {givenIncomeA} ਹੈ, ਤਾਂ {targetPerson} ਦਾ ਖਰਚ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-016": {
+    "families": {
+      "RAP-QL-1001": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "{mixtureA} ਵਿੱਚ {component} {percentA}% ਹੈ ਅਤੇ {mixtureB} ਵਿੱਚ {component} {percentB}% ਹੈ. {targetPercent}% {component} ਵਾਲਾ ਮਿਸ਼ਰਣ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਹਨਾਂ ਨੂੰ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲਾਇਆ ਜਾਵੇ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1002": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetComponentFromMix",
+        "template": "{percentA}% {component} ਵਾਲੇ {mixtureA} ਦੇ {quantityA} ਲੀਟਰ ਨੂੰ {percentB}% {component} ਵਾਲੇ {mixtureB} ਦੇ {quantityB} ਲੀਟਰ ਨਾਲ ਮਿਲਾਇਆ ਜਾਂਦਾ ਹੈ. ਅੰਤਿਮ ਮਿਸ਼ਰਣ ਵਿੱਚ {component} ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਹੈ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1003": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyThreeSourceEqualMix",
+        "template": "{mixtureA}, {mixtureB}, ਅਤੇ {mixtureC} ਦੀਆਂ ਬਰਾਬਰ ਮਾਤਰਾਂ ਮਿਲਾਈਆਂ ਜਾਂਦੀਆਂ ਹਨ. ਉਨ੍ਹਾਂ ਦੇ {component}:ਹੋਰ ਅਨੁਪਾਤ {ratioAComponent}:{ratioAOther}, {ratioBComponent}:{ratioBOther}, ਅਤੇ {ratioCComponent}:{ratioCOther} ਹਨ. ਅੰਤਿਮ ਮਿਸ਼ਰਣ ਵਿੱਚ {component}:ਹੋਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1004": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "ਦੋ ਮਿਸ਼ਰਣਾਂ ਵਿੱਚ {component} ਕ੍ਰਮਵਾਰ {percentA}% ਅਤੇ {percentB}% ਹੈ. {targetPercent}% {component} ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ {mixtureA}:{mixtureB} ਦਾ ਮਿਲਾਉਣ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "RAP-CP-017": {
+    "families": {
+      "RAP-QL-1101": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} ਵਿੱਚ ਸ਼ੁੱਧ {liquidA} ਦੇ {initialVolume} ਲੀਟਰ ਹਨ. {removedVolume} ਲੀਟਰ ਕੱਢੇ ਜਾਂਦੇ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਥਾਂ {liquidB} ਭਰਿਆ ਜਾਂਦਾ ਹੈ. ਇਹ ਪ੍ਰਕਿਰਿਆ {replacementCount} ਵਾਰ ਦੁਹਰਾਈ ਜਾਂਦੀ ਹੈ. ਅੰਤਿਮ {liquidA}:{liquidB} ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1102": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} ਵਿੱਚ ਸ਼ੁੱਧ {liquidA} ਦੇ {initialVolume} ਲੀਟਰ ਹਨ. ਹਰ ਵਾਰ {removedVolume} ਲੀਟਰ ਕੱਢ ਕੇ ਉਸ ਦੀ ਥਾਂ {liquidB} ਭਰਿਆ ਜਾਂਦਾ ਹੈ. {replacementCount} ਵਾਰ ਬਦਲਣ ਤੋਂ ਬਾਅਦ {liquidA} ਕਿੰਨੇ ਲੀਟਰ ਬਚੇਗਾ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1103": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementIterationsFromFinalRatio",
+        "template": "{vesselName} ਵਿੱਚ ਸ਼ੁੱਧ {liquidA} ਦੇ {initialVolume} ਲੀਟਰ ਹਨ. ਹਰ ਕਿਰਿਆ ਵਿੱਚ {removedVolume} ਲੀਟਰ ਕੱਢ ਕੇ {liquidB} ਭਰਿਆ ਜਾਂਦਾ ਹੈ. ਕਿੰਨੀਆਂ ਕਿਰਿਆਵਾਂ ਤੋਂ ਬਾਅਦ {liquidA}:{liquidB} ਦਾ ਅਨੁਪਾਤ {finalRatioA}:{finalRatioB} ਹੋ ਜਾਵੇਗਾ?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1104": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} ਵਿੱਚੋਂ {initialVolume} ਲੀਟਰ ਵਿੱਚੋਂ {removedVolume} ਲੀਟਰ ਨੂੰ {replacementCount} ਵਾਰ {liquidB} ਨਾਲ ਬਦਲਿਆ ਜਾਂਦਾ ਹੈ. ਜੇ ਸ਼ੁਰੂ ਵਿੱਚ ਕੇਵਲ {liquidA} ਸੀ, ਤਾਂ ਅੰਤਿਮ {liquidA}:{liquidB} ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

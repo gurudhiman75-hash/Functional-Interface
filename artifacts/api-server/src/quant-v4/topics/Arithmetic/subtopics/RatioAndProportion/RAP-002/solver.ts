@@ -77,6 +77,15 @@ function splitByRatio(total: number, ratioA: number, ratioB: number): [number, n
   return [ratioA * unit, ratioB * unit];
 }
 
+function solveTwoEquationSystem(a1: number, b1: number, c1: number, a2: number, b2: number, c2: number) {
+  const determinant = a1 * b2 - a2 * b1;
+  if (determinant === 0) throw new Error("Income-expenditure system is not uniquely solvable.");
+  return {
+    x: (c1 * b2 - c2 * b1) / determinant,
+    y: (a1 * c2 - a2 * c1) / determinant,
+  };
+}
+
 function solveNestedPartitionValues(parameters: Rap002Parameters) {
   const [shareA, shareB] = splitByRatio(n(parameters, "totalValue"), n(parameters, "ratioA"), n(parameters, "ratioB"));
   const branchPart = String(parameters.variables.branchPart ?? "A");
@@ -229,6 +238,50 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
         `${formatNumber(originalA)}:${formatNumber(originalB)}=${ratioLatex(simplifyRatio([originalA, originalB]))}`,
       );
     }
+    case "electionWinnerVotes":
+    case "electionMargin":
+    case "electionTotalVotersFromMargin": {
+      const voteRatioA = n(parameters, "voteRatioA");
+      const voteRatioB = n(parameters, "voteRatioB");
+      if (parameters.taskKind === "electionTotalVotersFromMargin") {
+        const validVotes = n(parameters, "marginVotes") * (voteRatioA + voteRatioB) / Math.abs(voteRatioA - voteRatioB);
+        const polledVotes = validVotes * 100 / n(parameters, "validPercent");
+        const totalVoters = polledVotes * 100 / n(parameters, "turnoutPercent");
+        return countResult(
+          totalVoters,
+          {
+            turnoutPercent: n(parameters, "turnoutPercent"),
+            validPercent: n(parameters, "validPercent"),
+            voteRatio: `${voteRatioA}:${voteRatioB}`,
+            validVotes: formatNumber(validVotes),
+            polledVotes: formatNumber(polledVotes),
+            result: formatNumber(totalVoters),
+          },
+          `${n(parameters, "marginVotes")}\\times\\frac{${voteRatioA + voteRatioB}}{${Math.abs(voteRatioA - voteRatioB)}}=${formatNumber(validVotes)}`,
+        );
+      }
+      const polledVotes = n(parameters, "totalVoters") * n(parameters, "turnoutPercent") / 100;
+      const validVotes = polledVotes * n(parameters, "validPercent") / 100;
+      const winnerVotes = validVotes * Math.max(voteRatioA, voteRatioB) / (voteRatioA + voteRatioB);
+      const loserVotes = validVotes * Math.min(voteRatioA, voteRatioB) / (voteRatioA + voteRatioB);
+      const result = parameters.taskKind === "electionMargin" ? winnerVotes - loserVotes : winnerVotes;
+      return countResult(
+        result,
+        {
+          turnoutPercent: n(parameters, "turnoutPercent"),
+          validPercent: n(parameters, "validPercent"),
+          polledVotes: formatNumber(polledVotes),
+          validVotes: formatNumber(validVotes),
+          voteRatio: `${voteRatioA}:${voteRatioB}`,
+          winnerVotes: formatNumber(winnerVotes),
+          loserVotes: formatNumber(loserVotes),
+          result: formatNumber(result),
+        },
+        parameters.taskKind === "electionMargin"
+          ? `${formatNumber(winnerVotes)}-${formatNumber(loserVotes)}=${formatNumber(result)}`
+          : `${formatNumber(validVotes)}\\times\\frac{${Math.max(voteRatioA, voteRatioB)}}{${voteRatioA + voteRatioB}}=${formatNumber(result)}`,
+      );
+    }
     case "nestedPartition":
     case "conditionalDistribution": {
       const nested = solveNestedPartitionValues(parameters);
@@ -263,6 +316,32 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
         `${formatNumber(nested.subShareC)}\\times${n(parameters, "weightC")}+${formatNumber(nested.subShareD)}\\times${n(parameters, "weightD")}=${formatNumber(weightedTotal)}`,
       );
     }
+    case "incomeExpenditureSavings": {
+      const solved = solveTwoEquationSystem(
+        n(parameters, "incomeRatioA"),
+        -n(parameters, "expRatioA"),
+        n(parameters, "savingsA"),
+        n(parameters, "incomeRatioB"),
+        -n(parameters, "expRatioB"),
+        n(parameters, "savingsB"),
+      );
+      const incomeA = n(parameters, "incomeRatioA") * solved.x;
+      const incomeB = n(parameters, "incomeRatioB") * solved.x;
+      const totalIncome = incomeA + incomeB;
+      return countResult(
+        totalIncome,
+        {
+          incomeRatio: `${n(parameters, "incomeRatioA")}:${n(parameters, "incomeRatioB")}`,
+          expenditureRatio: `${n(parameters, "expRatioA")}:${n(parameters, "expRatioB")}`,
+          incomeUnit: formatNumber(solved.x),
+          expenditureUnit: formatNumber(solved.y),
+          incomeA: formatNumber(incomeA),
+          incomeB: formatNumber(incomeB),
+          result: formatNumber(totalIncome),
+        },
+        `${n(parameters, "incomeRatioA")}x-${n(parameters, "expRatioA")}y=${n(parameters, "savingsA")},\\ ${n(parameters, "incomeRatioB")}x-${n(parameters, "expRatioB")}y=${n(parameters, "savingsB")}`,
+      );
+    }
     case "inverseChainWork":
     case "inverseChainSpeed": {
       if (parameters.variables.ratioA1 !== undefined) {
@@ -292,6 +371,32 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
         [productA, productB],
         { rateRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, timeRatio: `${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`, productRatio: formatRatio([productA, productB]) },
         `${n(parameters, "ratioA")}\\times${n(parameters, "timeRatioA")}:${n(parameters, "ratioB")}\\times${n(parameters, "timeRatioB")}=${ratioLatex(simplifyRatio([productA, productB]))}`,
+      );
+    }
+    case "sdtTimeRatioFromSpeedDistance": {
+      const timeA = n(parameters, "distanceRatioA") * n(parameters, "speedRatioB");
+      const timeB = n(parameters, "distanceRatioB") * n(parameters, "speedRatioA");
+      return ratioResult(
+        [timeA, timeB],
+        {
+          speedRatio: `${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")}`,
+          distanceRatio: `${n(parameters, "distanceRatioA")}:${n(parameters, "distanceRatioB")}`,
+          timeRatio: formatRatio([timeA, timeB]),
+        },
+        `${n(parameters, "distanceRatioA")}\\times${n(parameters, "speedRatioB")}:${n(parameters, "distanceRatioB")}\\times${n(parameters, "speedRatioA")}=${ratioLatex(simplifyRatio([timeA, timeB]))}`,
+      );
+    }
+    case "sdtRaceLead": {
+      const loserDistance = n(parameters, "raceLength") - n(parameters, "leadDistance");
+      return ratioResult(
+        [n(parameters, "raceLength"), loserDistance],
+        {
+          raceLength: n(parameters, "raceLength"),
+          leadDistance: n(parameters, "leadDistance"),
+          loserDistance: formatNumber(loserDistance),
+          speedRatio: formatRatio([n(parameters, "raceLength"), loserDistance]),
+        },
+        `${n(parameters, "raceLength")}:${formatNumber(loserDistance)}=${ratioLatex(simplifyRatio([n(parameters, "raceLength"), loserDistance]))}`,
       );
     }
     case "chainOrdering": {

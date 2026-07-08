@@ -1,0 +1,154 @@
+{
+  "RAP-CP-013": {
+    "families": {
+      "RAP-QL-801": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitShare",
+        "template": "{personA} and {personB} start a business with investments of Rs. {investmentA} and Rs. {investmentB}. {personA} invests for {timeA} months and {personB} invests for {timeB} months. If the total profit is Rs. {totalProfit}, find {targetPartner}'s share.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-802": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipJoiningPartnerProfit",
+        "template": "{personA} invests Rs. {investmentA} for {timeA} months. {personB} joins later with Rs. {investmentB} and invests for {timeB} months. If the total profit is Rs. {totalProfit}, what is {targetPartner}'s profit share?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-803": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipMidPeriodChange",
+        "template": "{personA} invests Rs. {initialInvestmentA} for {firstPeriod} months and then Rs. {changedInvestmentA} for {secondPeriod} months. {personB} invests Rs. {investmentB} for {timeB} months. If total profit is Rs. {totalProfit}, find {targetPartner}'s share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-804": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitShare",
+        "template": "Two partners, {personA} and {personB}, invest Rs. {investmentA} and Rs. {investmentB} for {timeA} months and {timeB} months respectively. Total profit is Rs. {totalProfit}. Find the profit earned by {targetPartner}.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-014": {
+    "families": {
+      "RAP-QL-901": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. After {shiftYears} years, their ages will be in the ratio {futureRatioA}:{futureRatioB}. Find the present age of {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-902": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} and {personB} currently have ages in the ratio {ratioA}:{ratioB}. If after {shiftYears} years the ratio becomes {futureRatioA}:{futureRatioB}, what is the present age of {targetPerson}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-903": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromPastRatio",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. {shiftYears} years ago, their ages were in the ratio {pastRatioA}:{pastRatioB}. Find the present age of {targetPerson}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-904": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachRatio",
+        "template": "The present ages of {personA} and {personB} are {presentAgeA} years and {presentAgeB} years. After how many years will their ages be in the ratio {futureRatioA}:{futureRatioB}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-905": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromDifferenceAndRatio",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. If the difference between their ages is {ageDifference} years, find the present age of {targetPerson}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-906": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachRatio",
+        "template": "{personA} is {presentAgeA} years old and {personB} is {presentAgeB} years old. In how many years will the age ratio become {futureRatioA}:{futureRatioB}?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-015": {
+    "families": {
+      "RAP-QL-951": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureSavingsRatio",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the income unit is Rs. {incomeUnit} and the expenditure unit is Rs. {expenditureUnit}, find the ratio of their savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-952": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureEqualSavings",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. Their savings are equal. If {personA}'s income is Rs. {givenIncomeA}, find {targetPerson}'s savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-953": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeFromSavingsRatio",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}, and their savings are in the ratio {savingsRatioA}:{savingsRatioB}. If {personB}'s expenditure is Rs. {givenExpenditureB}, find {targetPerson}'s income.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-954": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "expenditureFromSavingsRatio",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}, and their savings are in the ratio {savingsRatioA}:{savingsRatioB}. If {personA}'s income is Rs. {givenIncomeA}, find {targetPerson}'s expenditure.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-016": {
+    "families": {
+      "RAP-QL-1001": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "{mixtureA} contains {percentA}% {component} and {mixtureB} contains {percentB}% {component}. In what ratio should they be mixed to obtain a mixture containing {targetPercent}% {component}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1002": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetComponentFromMix",
+        "template": "{quantityA} litres of {mixtureA}, containing {percentA}% {component}, is mixed with {quantityB} litres of {mixtureB}, containing {percentB}% {component}. What percentage of {component} is in the final mixture?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1003": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyThreeSourceEqualMix",
+        "template": "Equal quantities of {mixtureA}, {mixtureB}, and {mixtureC} are mixed. Their {component}:other ratios are {ratioAComponent}:{ratioAOther}, {ratioBComponent}:{ratioBOther}, and {ratioCComponent}:{ratioCOther}. Find the {component}:other ratio in the final mixture.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1004": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "Two mixtures contain {component} at {percentA}% and {percentB}%. Find the mixing ratio of {mixtureA}:{mixtureB} needed to get {targetPercent}% {component}.",
+        "difficulty": "Medium"
+      }
+    }
+  },
+  "RAP-CP-017": {
+    "families": {
+      "RAP-QL-1101": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. {removedVolume} litres are removed and replaced with {liquidB}. This process is repeated {replacementCount} times. Find the final ratio of {liquidA}:{liquidB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1102": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. Each time, {removedVolume} litres are drawn out and replaced with {liquidB}. After {replacementCount} replacements, how many litres of {liquidA} remain?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1103": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementIterationsFromFinalRatio",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. Each operation removes {removedVolume} litres and replaces it with {liquidB}. After how many operations will the ratio of {liquidA}:{liquidB} become {finalRatioA}:{finalRatioB}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1104": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "From {vesselName}, {removedVolume} litres out of {initialVolume} litres are repeatedly replaced with {liquidB}, for {replacementCount} rounds. If it initially had only {liquidA}, find the final {liquidA}:{liquidB} ratio.",
+        "difficulty": "Hard"
+      }
+    }
+  }
+}

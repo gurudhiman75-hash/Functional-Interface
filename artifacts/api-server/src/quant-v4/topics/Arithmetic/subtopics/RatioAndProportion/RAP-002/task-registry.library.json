@@ -18,17 +18,17 @@
     },
     "RAP-CP-009": {
       "title": "Multi-Stage Ratio Transformations",
-      "taskKinds": ["successiveRatioChange", "transferTracking", "reconstructOriginalRatio"],
+      "taskKinds": ["successiveRatioChange", "transferTracking", "reconstructOriginalRatio", "electionWinnerVotes", "electionMargin", "electionTotalVotersFromMargin"],
       "plannedQuestionLanguageRange": "RAP-QL-401 to RAP-QL-469"
     },
     "RAP-CP-010": {
       "title": "Conditional Partition With Ratios",
-      "taskKinds": ["nestedPartition", "conditionalDistribution", "weightedNestedPartition"],
+      "taskKinds": ["nestedPartition", "conditionalDistribution", "weightedNestedPartition", "incomeExpenditureSavings"],
       "plannedQuestionLanguageRange": "RAP-QL-501 to RAP-QL-569"
     },
     "RAP-CP-011": {
       "title": "Inverse Proportion Chains",
-      "taskKinds": ["inverseChainWork", "inverseChainSpeed", "combinedInverseChain"],
+      "taskKinds": ["inverseChainWork", "inverseChainSpeed", "combinedInverseChain", "sdtTimeRatioFromSpeedDistance", "sdtRaceLead"],
       "plannedQuestionLanguageRange": "RAP-QL-601 to RAP-QL-669"
     },
     "RAP-CP-012": {
@@ -230,6 +230,30 @@
       "requiredVariables": ["personA", "personB", "finalRatioA", "finalRatioB", "transferValue", "totalValue", "transferDirection"],
       "explanationId": "RAP-ES-009"
     },
+    "RAP-QL-407": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "electionWinnerVotes",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["candidateA", "candidateB", "totalVoters", "turnoutPercent", "validPercent", "voteRatioA", "voteRatioB"],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-408": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "electionMargin",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["candidateA", "candidateB", "totalVoters", "turnoutPercent", "validPercent", "voteRatioA", "voteRatioB"],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-409": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "electionTotalVotersFromMargin",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["candidateA", "candidateB", "turnoutPercent", "validPercent", "voteRatioA", "voteRatioB", "marginVotes"],
+      "explanationId": "RAP-ES-009"
+    },
     "RAP-QL-501": {
       "cpId": "RAP-CP-010",
       "taskKind": "nestedPartition",
@@ -278,6 +302,22 @@
       "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "weightC", "weightD"],
       "explanationId": "RAP-ES-010"
     },
+    "RAP-QL-507": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "incomeExpenditureSavings",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "incomeRatioA", "incomeRatioB", "expRatioA", "expRatioB", "savingsA", "savingsB"],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-508": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "incomeExpenditureSavings",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["personA", "personB", "incomeRatioA", "incomeRatioB", "expRatioA", "expRatioB", "savingsA", "savingsB"],
+      "explanationId": "RAP-ES-010"
+    },
     "RAP-QL-601": {
       "cpId": "RAP-CP-011",
       "taskKind": "inverseChainWork",
@@ -324,6 +364,22 @@
       "answerType": "RATIO",
       "difficulty": "Hard",
       "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "timeRatioA", "timeRatioB"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-607": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "sdtTimeRatioFromSpeedDistance",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "speedRatioA", "speedRatioB", "distanceRatioA", "distanceRatioB"],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-608": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "sdtRaceLead",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "raceLength", "leadDistance"],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-701": {

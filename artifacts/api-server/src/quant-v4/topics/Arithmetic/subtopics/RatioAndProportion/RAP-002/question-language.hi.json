@@ -1,0 +1,56 @@
+{
+  "RAP-CP-009": {
+    "families": {
+      "RAP-QL-407": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionWinnerVotes",
+        "template": "{totalVoters} मतदाताओं वाले चुनाव में {turnoutPercent}% मतदाताओं ने वोट डाले. डाले गए वोटों में से {validPercent}% वैध थे और {candidateA} तथा {candidateB} के वैध वोटों का अनुपात {voteRatioA}:{voteRatioB} था. विजेता के वोट ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-408": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionMargin",
+        "template": "एक निर्वाचन क्षेत्र में {totalVoters} मतदाता हैं. {turnoutPercent}% ने वोट डाले, डाले गए वोटों में से {validPercent}% वैध थे, और {candidateA}:{candidateB} के वैध वोट {voteRatioA}:{voteRatioB} थे. जीत का अंतर ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-409": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "एक चुनाव में {turnoutPercent}% मतदाताओं ने वोट डाले और डाले गए वोटों में से {validPercent}% वैध थे. {candidateA}:{candidateB} के वैध वोटों का अनुपात {voteRatioA}:{voteRatioB} था. यदि जीत का अंतर {marginVotes} वोट था, तो कुल मतदाता ज्ञात करें.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-010": {
+    "families": {
+      "RAP-QL-507": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "incomeExpenditureSavings",
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} है, और उनके व्यय का अनुपात {expRatioA}:{expRatioB} है. यदि उनकी बचत क्रमशः {savingsA} और {savingsB} है, तो उनकी कुल आय ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-508": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "incomeExpenditureSavings",
+        "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB} तथा व्यय का अनुपात {expRatioA}:{expRatioB} है. उनकी बचत {savingsA} और {savingsB} है. दोनों की संयुक्त आय क्या है?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-011": {
+    "families": {
+      "RAP-QL-607": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "sdtTimeRatioFromSpeedDistance",
+        "template": "{personA} और {personB} की गतियों का अनुपात {speedRatioA}:{speedRatioB} है, और तय की गई दूरियों का अनुपात {distanceRatioA}:{distanceRatioB} है. लगे समय का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-608": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "sdtRaceLead",
+        "template": "{raceLength} मीटर की दौड़ में {personA}, {personB} को {leadDistance} मीटर से हराता है. उनकी गतियों का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      }
+    }
+  }
+}

@@ -1,11 +1,15 @@
-import type { Rap002QuestionPackage, Rap002ValidationResult } from "./types";
+import type { Rap003QuestionPackage, Rap003ValidationResult } from "./types";
 
 function hasUnresolvedPlaceholder(text: string) {
   const withoutLatexCommandArgs = text.replace(/\\[A-Za-z]+\{[^}]*\}/g, "");
   return /\{[A-Za-z][A-Za-z0-9_]*\}/.test(withoutLatexCommandArgs);
 }
 
-export function validateRap002QuestionPackage(pkg: Rap002QuestionPackage): Rap002ValidationResult {
+export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap003ValidationResult {
+  const numericAnswer = Number(pkg.solver.answerValue);
+  const finiteAnswer = pkg.solver.answerType === "RATIO"
+    ? /^\d+(?::\d+)+$/.test(String(pkg.solver.answerValue))
+    : Number.isFinite(numericAnswer) && numericAnswer > 0;
   const checks = [
     {
       name: "stem-present",
@@ -30,7 +34,12 @@ export function validateRap002QuestionPackage(pkg: Rap002QuestionPackage): Rap00
     {
       name: "language-supported",
       passed: pkg.language === "en" || pkg.language === "hi" || pkg.language === "pa",
-      message: "RAP-002 supports en, hi, and pa.",
+      message: "RAP-003 supports en, hi, and pa.",
+    },
+    {
+      name: "positive-finite-answer",
+      passed: finiteAnswer,
+      message: "Numeric answers must be positive and finite; ratio answers must be valid ratio strings.",
     },
   ];
 
