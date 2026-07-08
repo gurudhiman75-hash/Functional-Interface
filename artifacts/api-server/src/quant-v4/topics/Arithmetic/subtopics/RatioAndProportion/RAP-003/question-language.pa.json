@@ -230,7 +230,7 @@
       "RAP-QL-1401": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationCrossTabCellCount",
-        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦਾਂ ਅਤੇ ਔਰਤਾਂ ਦਾ ਅਨੁਪਾਤ {maleRatio}:{femaleRatio} ਹੈ. ਮਰਦਾਂ ਵਿੱਚ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ {maleLiterateRatio}:{maleIlliterateRatio} ਹੈ; ਔਰਤਾਂ ਵਿੱਚ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ {femaleLiterateRatio}:{femaleIlliterateRatio} ਹੈ. {targetLiteracy} {targetGroup} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ.",
+        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦਾਂ ਅਤੇ ਔਰਤਾਂ ਦਾ ਅਨੁਪਾਤ {maleRatio}:{femaleRatio} ਹੈ. ਮਰਦਾਂ ਵਿੱਚ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ {maleLiterateRatio}:{maleIlliterateRatio} ਹੈ; ਔਰਤਾਂ ਵਿੱਚ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ {femaleLiterateRatio}:{femaleIlliterateRatio} ਹੈ. {targetCellLabel} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ.",
         "difficulty": "Medium"
       },
       "RAP-QL-1402": {

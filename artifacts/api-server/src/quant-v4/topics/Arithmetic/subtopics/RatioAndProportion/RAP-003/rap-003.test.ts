@@ -88,14 +88,14 @@ const fixedPast = generateRap003Parameters({
 fixedPast.variables = {
   personA: "father",
   personB: "son",
-  ratioA: 7,
-  ratioB: 3,
-  shiftYears: 6,
+  ratioA: 3,
+  ratioB: 1,
+  shiftYears: 8,
   pastRatioA: 5,
   pastRatioB: 1,
   targetPerson: "son",
 };
-assert.equal(solveRap003(fixedPast).answer, "$$9$$");
+assert.equal(solveRap003(fixedPast).answer, "$$16$$");
 
 const fixedYears = generateRap003Parameters({
   seed: "rap-003-fixed-years",
@@ -234,7 +234,7 @@ fixedWeightedBlend.variables = {
   quantityA: 30,
   quantityB: 20,
 };
-assert.equal(solveRap003(fixedWeightedBlend).answer, "$$32$$");
+assert.equal(solveRap003(fixedWeightedBlend).answer, "$$32%$$");
 
 const fixedThreeSource = generateRap003Parameters({
   canonicalProblemId: "RAP-CP-016",
@@ -518,6 +518,7 @@ fixedPopulationCell.variables = {
   femaleIlliterateRatio: 3,
   targetGroup: "male",
   targetLiteracy: "literate",
+  targetCellLabel: "literate males",
 };
 assert.equal(solveRap003(fixedPopulationCell).answer, "$$6000$$");
 
@@ -555,7 +556,7 @@ fixedPopulationPercent.variables = {
   femaleLiterateRatio: 5,
   femaleIlliterateRatio: 3,
 };
-assert.equal(solveRap003(fixedPopulationPercent).answer, "$$61.1111$$");
+assert.equal(solveRap003(fixedPopulationPercent).answer, "$$61.1111%$$");
 
 const fixedPopulationRatio = generateRap003Parameters({
   canonicalProblemId: "RAP-CP-020",

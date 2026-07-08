@@ -11,8 +11,9 @@ function s(parameters: Rap003Parameters, key: string) {
 
 function numericResult(value: number, answerType: "AGE" | "TIME" | "PROFIT" | "PERCENT" | "QUANTITY" | "COUNT", workingValues: Record<string, string | number>, calculationLatex: string): Rap003SolverResult {
   const answerValue = formatNumber(value);
+  const answerDisplay = answerType === "PERCENT" ? `${answerValue}%` : answerValue;
   return {
-    answer: `$$${answerValue}$$`,
+    answer: `$$${answerDisplay}$$`,
     answerValue,
     answerType,
     workingValues,
@@ -716,7 +717,7 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
       const futureA = n(parameters, "futureRatioA");
       const futureB = n(parameters, "futureRatioB");
       const shift = n(parameters, "shiftYears");
-      const unit = shift * (futureA - futureB) / (futureB * presentA - futureA * presentB);
+      const unit = shift * (futureB - futureA) / (futureA * presentB - futureB * presentA);
       const result = targetAge(parameters, unit);
       return numericResult(
         result,

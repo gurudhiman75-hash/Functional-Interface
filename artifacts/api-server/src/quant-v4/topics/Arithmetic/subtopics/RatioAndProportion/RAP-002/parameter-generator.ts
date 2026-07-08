@@ -166,6 +166,7 @@ function baseReverseChainVariables(seed: string, difficulty: Rap002DifficultyBan
 
 function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
   if (qlId === "RAP-QL-407" || qlId === "RAP-QL-408" || qlId === "RAP-QL-409") {
+    const serialScale = 1 + seedSerialOffset(seed, 251);
     const totalVoters = pick([8000, 10000, 12000, 15000, 20000, 24000], `${seed}:voters`);
     const turnoutPercent = pick([60, 70, 75, 80, 85], `${seed}:turnout`);
     const validPercent = pick([90, 92, 95, 96], `${seed}:valid`);
@@ -179,12 +180,12 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
     return {
       candidateA: "Candidate A",
       candidateB: "Candidate B",
-      totalVoters,
+      totalVoters: totalVoters * serialScale,
       turnoutPercent,
       validPercent,
       voteRatioA,
       voteRatioB,
-      marginVotes,
+      marginVotes: marginVotes * serialScale,
     };
   }
 
@@ -244,8 +245,17 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
   };
 }
 
+function scaleIncomeSavingsCase<T extends { savingsA: number; savingsB: number }>(selected: T, scale: number): T {
+  return {
+    ...selected,
+    savingsA: selected.savingsA * scale,
+    savingsB: selected.savingsB * scale,
+  };
+}
+
 function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
   if (qlId === "RAP-QL-507" || qlId === "RAP-QL-508") {
+    const serialScale = 1 + seedSerialOffset(seed, 251);
     const cases = [
       { incomeRatioA: 3, incomeRatioB: 2, expRatioA: 5, expRatioB: 3, savingsA: 1000, savingsB: 1000 },
       { incomeRatioA: 4, incomeRatioB: 3, expRatioA: 5, expRatioB: 4, savingsA: 2500, savingsB: 1500 },
@@ -255,7 +265,7 @@ function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, 
     return {
       personA: "A",
       personB: "B",
-      ...pick(cases, `${seed}:incomeCase`),
+      ...scaleIncomeSavingsCase(pick(cases, `${seed}:incomeCase`), serialScale),
     };
   }
 
@@ -296,17 +306,19 @@ function basePartitionVariables(seed: string, difficulty: Rap002DifficultyBand, 
 
 function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
   if (qlId === "RAP-QL-607") {
-    let speedRatioA = pick([3, 4, 5, 6, 7], `${seed}:speedA`);
-    let speedRatioB = pick([4, 5, 6, 7, 8], `${seed}:speedB`);
+    const offset = seedSerialOffset(seed, 251);
+    let speedRatioA = pick([3, 4, 5, 6, 7], `${seed}:speedA`) + offset;
+    let speedRatioB = pick([4, 5, 6, 7, 8], `${seed}:speedB`) + offset;
     if (speedRatioA === speedRatioB) speedRatioB += 1;
     const distanceRatioA = pick([1, 2, 3, 4, 5], `${seed}:distanceA`);
     const distanceRatioB = pick([1, 2, 3, 4, 5], `${seed}:distanceB`);
     return { personA: "Vehicle A", personB: "Vehicle B", speedRatioA, speedRatioB, distanceRatioA, distanceRatioB };
   }
   if (qlId === "RAP-QL-608") {
+    const offset = seedSerialOffset(seed, 251);
     const raceLength = pick([400, 500, 800, 1000, 1200], `${seed}:raceLength`);
     const leadDistance = pick([20, 40, 50, 80, 100], `${seed}:lead`);
-    return { personA: "Runner A", personB: "Runner B", raceLength, leadDistance };
+    return { personA: "Runner A", personB: "Runner B", raceLength: raceLength + offset * 10, leadDistance: leadDistance + offset };
   }
 
   const entities = qlId === "RAP-QL-603" || qlId === "RAP-QL-604" || qlId === "RAP-QL-606"
@@ -343,7 +355,7 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
     personB: entities[1]!,
     ratioA,
     ratioB,
-    ...(qlId === "RAP-QL-601" || qlId === "RAP-QL-603" ? { valueA: ratioB * scale } : {}),
+    ...(qlId === "RAP-QL-601" || qlId === "RAP-QL-603" ? { valueA: ratioB * (scale + seedSerialOffset(seed, 251)) } : {}),
     ...(qlId === "RAP-QL-605" || qlId === "RAP-QL-606" ? { timeRatioA, timeRatioB } : {}),
   };
 }

@@ -17,8 +17,8 @@ const AGE_CASES = {
     { personA: "elder brother", personB: "younger brother", ratioA: 9, ratioB: 5, shiftYears: 8, futureRatioA: 13, futureRatioB: 9 },
   ],
   past: [
-    { personA: "father", personB: "son", ratioA: 7, ratioB: 3, shiftYears: 6, pastRatioA: 5, pastRatioB: 1 },
-    { personA: "mother", personB: "daughter", ratioA: 5, ratioB: 2, shiftYears: 4, pastRatioA: 7, pastRatioB: 2 },
+    { personA: "father", personB: "son", ratioA: 3, ratioB: 1, shiftYears: 8, pastRatioA: 5, pastRatioB: 1 },
+    { personA: "mother", personB: "daughter", ratioA: 4, ratioB: 1, shiftYears: 8, pastRatioA: 10, pastRatioB: 1 },
     { personA: "A", personB: "B", ratioA: 9, ratioB: 7, shiftYears: 5, pastRatioA: 2, pastRatioB: 1 },
   ],
   years: [
@@ -223,6 +223,169 @@ function pickQl(cpId: Rap003CanonicalProblemId, seed: string, requested?: string
   return ids[stableBucket(`${seed}:ql`, ids.length)]!;
 }
 
+function seedSerialOffset(seed: string, modulo: number) {
+  const matches = [...seed.matchAll(/:(\d+)/g)];
+  const value = matches.length ? Number(matches[matches.length - 1]![1]) : stableBucket(`${seed}:serial`, modulo);
+  return Number.isFinite(value) ? value % modulo : 0;
+}
+
+function scaleKeys(variables: Rap003Variables, factor: number, keys: readonly string[]) {
+  const scaled = { ...variables };
+  for (const key of keys) {
+    if (typeof scaled[key] === "number") {
+      scaled[key] = Number(scaled[key]) * factor;
+    }
+  }
+  return scaled;
+}
+
+function addKeys(variables: Rap003Variables, offset: number, keys: readonly string[]) {
+  const adjusted = { ...variables };
+  for (const key of keys) {
+    if (typeof adjusted[key] === "number") {
+      adjusted[key] = Number(adjusted[key]) + offset;
+    }
+  }
+  return adjusted;
+}
+
+function diversifyVariables(qlId: string, seed: string, variables: Rap003Variables): Rap003Variables {
+  const serial = seedSerialOffset(seed, 997);
+  const scale = 1 + serial;
+  const smallScale = 1 + serial;
+  const ratioOffset = serial;
+  const percentOffset = serial % 13;
+
+  if (qlId.startsWith("RAP-QL-8")) {
+    return scaleKeys(variables, scale, [
+      "investmentA",
+      "investmentB",
+      "initialInvestmentA",
+      "changedInvestmentA",
+      "totalProfit",
+    ]);
+  }
+
+  if (/^RAP-QL-90[1-6]$/.test(qlId)) {
+    const ageScaled = qlId === "RAP-QL-904" || qlId === "RAP-QL-906"
+      ? scaleKeys(variables, smallScale, ["presentAgeA", "presentAgeB"])
+      : scaleKeys(variables, smallScale, ["shiftYears", "ageDifference"]);
+    const relationSpecific =
+      /father|mother|son|daughter/.test(String(ageScaled.personA ?? "")) ||
+      /father|mother|son|daughter/.test(String(ageScaled.personB ?? ""));
+    if (relationSpecific && smallScale > 1) {
+      return {
+        ...ageScaled,
+        personA: "Person A",
+        personB: "Person B",
+        ...(ageScaled.targetPerson === variables.personA ? { targetPerson: "Person A" } : {}),
+        ...(ageScaled.targetPerson === variables.personB ? { targetPerson: "Person B" } : {}),
+      };
+    }
+    return ageScaled;
+  }
+
+  if (qlId.startsWith("RAP-QL-95")) {
+    return scaleKeys(variables, scale, [
+      "incomeUnit",
+      "expenditureUnit",
+      "givenIncomeA",
+      "givenExpenditureB",
+    ]);
+  }
+
+  if (qlId === "RAP-QL-1001" || qlId === "RAP-QL-1004") {
+    return {
+      ...addKeys(variables, percentOffset, ["percentA", "percentB", "targetPercent"]),
+      mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
+      mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
+    };
+  }
+  if (qlId === "RAP-QL-1002") {
+    return {
+      ...addKeys(variables, percentOffset, ["percentA", "percentB"]),
+      mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
+      mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
+      quantityA: Number(variables.quantityA) + serial % 11,
+      quantityB: Number(variables.quantityB) + serial % 13,
+    };
+  }
+  if (qlId === "RAP-QL-1003") {
+    return {
+      ...addKeys(variables, ratioOffset, [
+        "ratioAComponent",
+        "ratioAOther",
+        "ratioBComponent",
+        "ratioBOther",
+        "ratioCComponent",
+        "ratioCOther",
+      ]),
+      mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
+      mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
+      mixtureC: `${variables.mixtureC} sample ${serial + 1}`,
+    };
+  }
+
+  if (qlId.startsWith("RAP-QL-11")) {
+    return scaleKeys(variables, smallScale, ["initialVolume", "removedVolume"]);
+  }
+
+  if (qlId.startsWith("RAP-QL-12")) {
+    return scaleKeys(variables, scale, ["commonUnit", "totalValue", "swapCount"]);
+  }
+
+  if (qlId === "RAP-QL-1301") {
+    return addKeys(variables, ratioOffset, ["speedRatioA", "speedRatioB", "distanceRatioA", "distanceRatioB"]);
+  }
+  if (qlId === "RAP-QL-1302") {
+    return addKeys(variables, ratioOffset, ["speedRatioA", "speedRatioB", "timeRatioA", "timeRatioB"]);
+  }
+  if (qlId === "RAP-QL-1303") {
+    return addKeys(variables, ratioOffset, ["distanceRatioA", "distanceRatioB", "timeRatioA", "timeRatioB"]);
+  }
+  if (qlId === "RAP-QL-1304") {
+    return {
+      ...addKeys(variables, ratioOffset, ["speedRatioA", "speedRatioB"]),
+      trackDistance: Number(variables.trackDistance) + (serial % 9) * 20,
+    };
+  }
+  if (qlId === "RAP-QL-1305") {
+    return {
+      ...variables,
+      leadDistance: Number(variables.leadDistance) + serial * 5,
+    };
+  }
+
+  if (qlId.startsWith("RAP-QL-14")) {
+    return scaleKeys(variables, scale, ["totalPopulation"]);
+  }
+
+  if (qlId.startsWith("RAP-QL-15")) {
+    return scaleKeys(variables, scale, ["totalValidVotes", "totalVoters", "winningMargin"]);
+  }
+
+  if (qlId.startsWith("RAP-QL-16")) {
+    if (qlId === "RAP-QL-1603") {
+      const sideA = Math.sqrt(Number(variables.areaRatioA)) + ratioOffset;
+      const sideB = Math.sqrt(Number(variables.areaRatioB)) + ratioOffset;
+      return { ...variables, areaRatioA: sideA ** 2, areaRatioB: sideB ** 2 };
+    }
+    if (qlId === "RAP-QL-1604") {
+      const sideA = Math.cbrt(Number(variables.volumeRatioA)) + ratioOffset;
+      const sideB = Math.cbrt(Number(variables.volumeRatioB)) + ratioOffset;
+      return { ...variables, volumeRatioA: sideA ** 3, volumeRatioB: sideB ** 3 };
+    }
+    return addKeys(variables, ratioOffset, [
+      "sideRatioA",
+      "sideRatioB",
+      "radiusRatioA",
+      "radiusRatioB",
+    ]);
+  }
+
+  return variables;
+}
+
 function variablesForQl(qlId: string, seed: string): Rap003Variables {
   const targetPerson = stableBucket(`${seed}:target`, 2) === 0 ? "personA" : "personB";
   if (qlId === "RAP-QL-801" || qlId === "RAP-QL-804") {
@@ -313,7 +476,8 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
     const selected = pick(POPULATION_CASES, `${seed}:populationCell`);
     const targetGroup = stableBucket(`${seed}:targetGroup`, 2) === 0 ? "male" : "female";
     const targetLiteracy = stableBucket(`${seed}:targetLiteracy`, 2) === 0 ? "literate" : "illiterate";
-    return { ...selected, targetGroup, targetLiteracy };
+    const targetCellLabel = `${targetLiteracy} ${targetGroup}s`;
+    return { ...selected, targetGroup, targetLiteracy, targetCellLabel };
   }
   if (qlId === "RAP-QL-1404") {
     const selected = pick(POPULATION_CASES, `${seed}:populationRatio`);
@@ -379,7 +543,7 @@ export function generateRap003Parameters(input: Rap003ParameterInput = {}): Rap0
   const qlId = pickQl(cpId, seed, input.questionLanguageId);
   const registry = getRap003RegistryEntry(qlId);
   const difficulty: Rap003DifficultyBand = input.difficultyBand ?? registry.difficulty;
-  const variables = variablesForQl(qlId, seed);
+  const variables = diversifyVariables(qlId, seed, variablesForQl(qlId, seed));
 
   return {
     archetypeId: RAP_003_ARCHETYPE_ID,

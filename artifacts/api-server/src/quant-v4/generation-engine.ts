@@ -45,6 +45,11 @@ import {
   type Rap002CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-002";
 import {
+  getRap003ActiveCanonicalProblemIds,
+  runRap003Pipeline,
+  type Rap003CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-003";
+import {
   existsSync,
   readFileSync,
   readdirSync,
@@ -70,7 +75,8 @@ export type QuantV4PackageId =
   | "PCT-006"
   | "PCT-007"
   | "RAP-001"
-  | "RAP-002";
+  | "RAP-002"
+  | "RAP-003";
 
 export type QuantV4GenerationRequest = {
   packageId?: QuantV4PackageId;
@@ -255,6 +261,21 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
           input.difficulty === "Medium" || input.difficulty === "Hard"
             ? input.difficulty
             : undefined,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+  {
+    packageId: "RAP-003",
+    topic: "Arithmetic",
+    subtopic: "Ratio & Proportion",
+    label: "Advanced Ratio & Proportion Applications",
+    cpIds: getRap003ActiveCanonicalProblemIds(),
+    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    run: (cpId, input) =>
+      runRap003Pipeline(cpId as Rap003CanonicalProblemId, {
+        difficultyBand: input.difficulty,
         language: input.language,
         questionLanguageId: input.questionLanguageId,
         seed: input.seed,
@@ -607,6 +628,7 @@ function polishGeneratedEnglishText(value: string) {
     .replace(/\bhas a asset value\b/g, "has an asset value")
     .replace(/\bA inventory is\b/g, "An inventory is")
     .replace(/\ba inventory is\b/g, "an inventory is")
+    .replace(/\bFrom A (vessel|container|tank)\b/g, (_match, noun: string) => `From a ${noun}`)
     .replace(/\bA rent is\b/g, "The rent is")
     .replace(/\ba rent is\b/g, "the rent is")
     .replace(/\bA sales of\b/g, "Sales of")
@@ -982,6 +1004,11 @@ export async function generateQuestion(
   }
 
   const pkg = resolvePackage(request);
+  if (pkg.supportedLanguages && !pkg.supportedLanguages.includes(language)) {
+    throw new QuantV4RequestError(
+      `${pkg.packageId} supports English generation only in Question Studio.`,
+    );
+  }
   const explicitCanonicalProblemId =
     request.canonicalProblemId ?? request.cpId;
   const canonicalProblemId = resolveCpId(pkg, request);

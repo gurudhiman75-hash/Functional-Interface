@@ -160,7 +160,7 @@ Review the current English MVP before multilingual work:
 
 - `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002.test.mjs`
 - `node dist/quant-v4/rap-002.test.mjs`
-- Result: `RAP-002 English test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 6. CP-010 QLs covered: 6. CP-011 QLs covered: 6. CP-012 QLs covered: 6.`
+- Result: `RAP-002 multilingual enrichment test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 9. CP-010 QLs covered: 8. CP-011 QLs covered: 8. CP-012 QLs covered: 6.`
 - Question Studio smoke:
   - `pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-question-studio-smoke.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002-question-studio-smoke.mjs`
   - `node dist/quant-v4/rap-002-question-studio-smoke.mjs`
@@ -175,7 +175,7 @@ Review the current English MVP before multilingual work:
 - Audit file: `rap-002-coverage-audit.ts`
 - Record: `rap-002-maturity-audit.md`
 - Result: passed
-- Coverage: 6 CPs, 42 active QLs, 18 task kinds, all answer types (`COUNT`, `LOGIC`, `RATIO`), 762 generated samples.
+- Coverage: 6 CPs, 49 active QLs, 24 task kinds, all answer types (`COUNT`, `LOGIC`, `RATIO`), 769 generated samples.
 
 ## Frontend / Question Studio Status
 
@@ -210,3 +210,11 @@ Final residual QA counters are all zero for grammar, semantic compatibility, unr
 - Ready for QL expansion: after manual review
 - Ready for Hindi/Punjabi: no
 - Freeze-ready: no
+
+## RAP-002 / RAP-003 Boundary Note
+
+RAP-002 remains the compact linked-ratio mechanics chapter: chain alignment, reverse chain, transformations, nested partitions, inverse chains, comparison, ordering, and equivalence.
+
+Some RAP-002 English QLs retain limited election and speed-distance-time transitional examples where they directly demonstrate transformation or inverse-chain mechanics. RAP-003 owns broad application-domain coverage for vote/share chains, SDT applications, population grids, partnership, alligation, replacement, denomination systems, and power-ratio applications.
+
+Current decision: leave RAP-002 runtime untouched because its English Question Studio smoke and residual QA are clean. RAP-003 residual QA now includes an exact normalized stem comparison against RAP-002 and reports `crossPackageDuplicateWithRap002Count = 0`.

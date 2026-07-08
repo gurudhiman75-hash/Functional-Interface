@@ -377,7 +377,7 @@
       "taskKind": "populationCrossTabCellCount",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio", "targetGroup", "targetLiteracy"],
+      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio", "targetGroup", "targetLiteracy", "targetCellLabel"],
       "explanationId": "RAP-ES-020"
     },
     "RAP-QL-1402": {

@@ -114,7 +114,7 @@ for (const taskKind of EXPECTED_TASK_KINDS) {
   assert.equal(allTaskKinds.has(taskKind), true, `Expected task kind not covered: ${taskKind}`);
 }
 
-assert.equal(totalForcedQlIds, 42, `Expected 42 active QLs, got ${totalForcedQlIds}.`);
+assert.equal(totalForcedQlIds, 49, `Expected 49 active QLs, got ${totalForcedQlIds}.`);
 assert.equal(allAnswerTypes.has("RATIO"), true, "RATIO answers must be covered.");
 assert.equal(allAnswerTypes.has("COUNT"), true, "COUNT answers must be covered.");
 assert.equal(allAnswerTypes.has("LOGIC"), true, "LOGIC answers must be covered.");

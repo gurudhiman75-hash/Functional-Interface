@@ -230,7 +230,7 @@
       "RAP-QL-1401": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationCrossTabCellCount",
-        "template": "In {regionName}, the total population is {totalPopulation}. The ratio of males to females is {maleRatio}:{femaleRatio}. Among males, literate:illiterate is {maleLiterateRatio}:{maleIlliterateRatio}; among females, literate:illiterate is {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of {targetLiteracy} {targetGroup}.",
+        "template": "In {regionName}, the total population is {totalPopulation}. The ratio of males to females is {maleRatio}:{femaleRatio}. Among males, literate:illiterate is {maleLiterateRatio}:{maleIlliterateRatio}; among females, literate:illiterate is {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of {targetCellLabel}.",
         "difficulty": "Medium"
       },
       "RAP-QL-1402": {

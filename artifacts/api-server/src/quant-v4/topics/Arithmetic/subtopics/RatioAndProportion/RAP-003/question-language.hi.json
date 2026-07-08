@@ -230,7 +230,7 @@
       "RAP-QL-1401": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationCrossTabCellCount",
-        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुषों और महिलाओं का अनुपात {maleRatio}:{femaleRatio} है. पुरुषों में साक्षर:निरक्षर {maleLiterateRatio}:{maleIlliterateRatio} है; महिलाओं में साक्षर:निरक्षर {femaleLiterateRatio}:{femaleIlliterateRatio} है. {targetLiteracy} {targetGroup} की संख्या ज्ञात करें.",
+        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुषों और महिलाओं का अनुपात {maleRatio}:{femaleRatio} है. पुरुषों में साक्षर:निरक्षर {maleLiterateRatio}:{maleIlliterateRatio} है; महिलाओं में साक्षर:निरक्षर {femaleLiterateRatio}:{femaleIlliterateRatio} है. {targetCellLabel} की संख्या ज्ञात करें.",
         "difficulty": "Medium"
       },
       "RAP-QL-1402": {

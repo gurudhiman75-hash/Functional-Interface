@@ -27,16 +27,16 @@ Result:
 ```txt
 RAP-002 coverage audit passed.
 Active CPs: 6
-Active QLs: 42
-Task kinds: 18
+Active QLs: 49
+Task kinds: 24
 Answer types: COUNT, LOGIC, RATIO
-Generated samples: 762
-RAP-CP-007: forced=12, random=12, taskKinds=chainAlignment, extendedChainAlignment, missingChainRatio, uniqueStems=68
-RAP-CP-008: forced=6, random=6, taskKinds=constrainedReverseChain, reverseEndpointFinding, reverseMiddleFinding, uniqueStems=103
-RAP-CP-009: forced=6, random=6, taskKinds=reconstructOriginalRatio, successiveRatioChange, transferTracking, uniqueStems=115
-RAP-CP-010: forced=6, random=6, taskKinds=conditionalDistribution, nestedPartition, weightedNestedPartition, uniqueStems=124
-RAP-CP-011: forced=6, random=6, taskKinds=combinedInverseChain, inverseChainSpeed, inverseChainWork, uniqueStems=112
-RAP-CP-012: forced=6, random=6, taskKinds=chainEquivalence, chainInequality, chainOrdering, uniqueStems=58
+Generated samples: 769
+RAP-CP-007: forced=12, random=12, taskKinds=chainAlignment, extendedChainAlignment, missingChainRatio, uniqueStems=132
+RAP-CP-008: forced=6, random=6, taskKinds=constrainedReverseChain, reverseEndpointFinding, reverseMiddleFinding, uniqueStems=126
+RAP-CP-009: forced=9, random=9, taskKinds=electionMargin, electionTotalVotersFromMargin, electionWinnerVotes, reconstructOriginalRatio, successiveRatioChange, transferTracking, uniqueStems=129
+RAP-CP-010: forced=8, random=8, taskKinds=conditionalDistribution, incomeExpenditureSavings, nestedPartition, weightedNestedPartition, uniqueStems=127
+RAP-CP-011: forced=8, random=8, taskKinds=combinedInverseChain, inverseChainSpeed, inverseChainWork, sdtRaceLead, sdtTimeRatioFromSpeedDistance, uniqueStems=128
+RAP-CP-012: forced=6, random=6, taskKinds=chainEquivalence, chainInequality, chainOrdering, uniqueStems=126
 ```
 
 ## Runtime Smoke
@@ -51,7 +51,7 @@ node dist/quant-v4/rap-002.test.mjs
 Result:
 
 ```txt
-RAP-002 English test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 6. CP-010 QLs covered: 6. CP-011 QLs covered: 6. CP-012 QLs covered: 6.
+RAP-002 multilingual enrichment test passed. CP-007 QLs covered: 12. CP-008 QLs covered: 6. CP-009 QLs covered: 9. CP-010 QLs covered: 8. CP-011 QLs covered: 8. CP-012 QLs covered: 6.
 ```
 
 ## Question Studio English-Only Smoke
@@ -125,6 +125,7 @@ Hardening covered:
 - Question Studio discovery is wired for `RAP-002` in English only.
 - Hindi/Punjabi files and localized explanation rendering are not implemented.
 - Options and preview metadata are covered by the English-only Question Studio smoke.
+- RAP-002 keeps limited election/SDT transitional examples only as linked-ratio mechanics demonstrations. RAP-003 owns broad application-domain treatment, and RAP-003 residual QA currently reports zero exact normalized stem duplicates against RAP-002.
 - RAP-002 is ready for English manual review, not freeze-ready.
 
 ## Recommendation
