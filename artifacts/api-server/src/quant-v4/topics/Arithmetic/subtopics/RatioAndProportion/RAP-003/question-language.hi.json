@@ -150,5 +150,181 @@
         "difficulty": "Hard"
       }
     }
+  },
+  "RAP-CP-018": {
+    "families": {
+      "RAP-QL-1201": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValue",
+        "template": "एक व्यक्ति के पास Rs. {denominationA}, Rs. {denominationB}, और Rs. {denominationC} के {itemName} {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं. यदि सामान्य गुणक {commonUnit} है, तो कुल मूल्य ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1202": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, और Rs. {denominationC} के {itemName} की संख्याएं {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं. यदि कुल मूल्य Rs. {totalValue} है, तो Rs. {targetDenomination} के {itemName} की संख्या ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1203": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTargetCount",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, और Rs. {denominationC} के {itemName} की संख्याएं {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं और सामान्य गुणक {commonUnit} है. Rs. {targetDenomination} के कितने {itemName} हैं?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1204": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationSwapValue",
+        "template": "एक सेट में Rs. {denominationA}, Rs. {denominationB}, और Rs. {denominationC} के {itemName} {ratioA}:{ratioB}:{ratioC} के अनुपात में हैं और सामान्य गुणक {commonUnit} है. यदि Rs. {fromDenomination} के {swapCount} {itemName} को Rs. {toDenomination} के {swapCount} {itemName} से बदल दिया जाए, तो नया कुल मूल्य ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1205": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, और Rs. {denominationD} के {itemName} की संख्याएं {ratioA}:{ratioB}:{ratioC}:{ratioD} के अनुपात में हैं. यदि सामान्य गुणक {commonUnit} है, तो कुल मूल्य ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1206": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, और Rs. {denominationD} के {itemName} {ratioA}:{ratioB}:{ratioC}:{ratioD} के अनुपात में हैं. यदि कुल मूल्य Rs. {totalValue} है, तो Rs. {targetDenomination} के {itemName} की संख्या ज्ञात करें.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-019": {
+    "families": {
+      "RAP-QL-1301": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtTimeRatioFromSpeedDistance",
+        "template": "{objectA} और {objectB} की चालों का अनुपात {speedRatioA}:{speedRatioB} है, और तय की गई दूरियों का अनुपात {distanceRatioA}:{distanceRatioB} है. उनके समयों का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1302": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtDistanceRatioFromSpeedTime",
+        "template": "{objectA} और {objectB} की चालों का अनुपात {speedRatioA}:{speedRatioB} है, और उनके समयों का अनुपात {timeRatioA}:{timeRatioB} है. उनके द्वारा तय दूरियों का अनुपात ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1303": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtSpeedRatioFromDistanceTime",
+        "template": "{objectA} और {objectB} {distanceRatioA}:{distanceRatioB} के अनुपात में दूरियां तय करते हैं और {timeRatioA}:{timeRatioB} के अनुपात में समय लेते हैं. उनकी चालों का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1304": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtRaceLead",
+        "template": "{trackDistance} मीटर की दौड़ में {objectA} और {objectB} की चालों का अनुपात {speedRatioA}:{speedRatioB} है. यदि {objectA} तेज है, तो {objectA}, {objectB} को कितने मीटर से हराएगा?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1305": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtOvertakeTime",
+        "template": "{objectA} {speedA} km/h की चाल से और {objectB} {speedB} km/h की चाल से चलता है. यदि {objectB} को {leadDistance} मीटर की बढ़त है, तो {objectA} कितने सेकंड में {objectB} को पकड़ लेगा?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-020": {
+    "families": {
+      "RAP-QL-1401": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCrossTabCellCount",
+        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुषों और महिलाओं का अनुपात {maleRatio}:{femaleRatio} है. पुरुषों में साक्षर:निरक्षर {maleLiterateRatio}:{maleIlliterateRatio} है; महिलाओं में साक्षर:निरक्षर {femaleLiterateRatio}:{femaleIlliterateRatio} है. {targetLiteracy} {targetGroup} की संख्या ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1402": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalLiterate",
+        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुष:महिला = {maleRatio}:{femaleRatio}. पुरुष साक्षर:निरक्षर = {maleLiterateRatio}:{maleIlliterateRatio}, और महिला साक्षर:निरक्षर = {femaleLiterateRatio}:{femaleIlliterateRatio}. कुल साक्षर जनसंख्या ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1403": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationLiteracyPercent",
+        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुष:महिला = {maleRatio}:{femaleRatio}. पुरुष साक्षर:निरक्षर = {maleLiterateRatio}:{maleIlliterateRatio}, और महिला साक्षर:निरक्षर = {femaleLiterateRatio}:{femaleIlliterateRatio}. कुल साक्षरता प्रतिशत ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1404": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCellRatio",
+        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुष:महिला = {maleRatio}:{femaleRatio}. पुरुष साक्षर:निरक्षर = {maleLiterateRatio}:{maleIlliterateRatio}, और महिला साक्षर:निरक्षर = {femaleLiterateRatio}:{femaleIlliterateRatio}. {ratioCellA} और {ratioCellB} का अनुपात ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1405": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalIlliterate",
+        "template": "{regionName} में कुल जनसंख्या {totalPopulation} है. पुरुष:महिला = {maleRatio}:{femaleRatio}. पुरुष साक्षर:निरक्षर = {maleLiterateRatio}:{maleIlliterateRatio}, और महिला साक्षर:निरक्षर = {femaleLiterateRatio}:{femaleIlliterateRatio}. कुल निरक्षर जनसंख्या ज्ञात करें.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-021": {
+    "families": {
+      "RAP-QL-1501": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinnerVotes",
+        "template": "{constituencyName} में {candidateA} और {candidateB} को वैध मत {candidateRatioA}:{candidateRatioB} के अनुपात में मिले. यदि कुल वैध मत {totalValidVotes} थे, तो विजेता के मत ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1502": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinningMargin",
+        "template": "{constituencyName} में {totalVoters} मतदाता हैं. {turnoutPercent}% ने मतदान किया, और डाले गए मतों में से {validPercent}% वैध थे. {candidateA} और {candidateB} के वैध मत {candidateRatioA}:{candidateRatioB} के अनुपात में थे. जीत का अंतर ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1503": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "{constituencyName} में {turnoutPercent}% मतदाताओं ने मतदान किया और डाले गए मतों में से {validPercent}% वैध थे. {candidateA} और {candidateB} के वैध मत {candidateRatioA}:{candidateRatioB} के अनुपात में थे. यदि जीत का अंतर {winningMargin} था, तो कुल मतदाता ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1504": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionLoserVotes",
+        "template": "{constituencyName} में {totalVoters} मतदाता हैं. {turnoutPercent}% ने मतदान किया और डाले गए मतों में से {validPercent}% वैध थे. {candidateA}:{candidateB} के वैध मत {candidateRatioA}:{candidateRatioB} थे. हारने वाले के मत ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1505": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionInvalidVotes",
+        "template": "{constituencyName} में {totalVoters} मतदाता हैं. उनमें से {turnoutPercent}% ने मतदान किया, और डाले गए मतों में से {invalidPercent}% अवैध थे. अवैध मतों की संख्या ज्ञात करें.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-022": {
+    "families": {
+      "RAP-QL-1601": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromSide",
+        "template": "दो {shapeName} की संगत भुजाओं का अनुपात {sideRatioA}:{sideRatioB} है. उनके क्षेत्रों का अनुपात ज्ञात करें.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1602": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricVolumeRatioFromSide",
+        "template": "दो {solidName} की संगत भुजाओं का अनुपात {sideRatioA}:{sideRatioB} है. उनके आयतनों का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1603": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSideRatioFromArea",
+        "template": "दो समरूप {shapeName} के क्षेत्रों का अनुपात {areaRatioA}:{areaRatioB} है. उनकी संगत भुजाओं का अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1604": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSurfaceAreaRatioFromVolume",
+        "template": "दो समरूप {solidName} के आयतनों का अनुपात {volumeRatioA}:{volumeRatioB} है. उनके पृष्ठीय क्षेत्रों का अनुपात ज्ञात करें.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1605": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromRadius",
+        "template": "दो {shapeName} की त्रिज्याओं का अनुपात {radiusRatioA}:{radiusRatioB} है. उनके क्षेत्रों का अनुपात ज्ञात करें.",
+        "difficulty": "Easy"
+      }
+    }
   }
 }

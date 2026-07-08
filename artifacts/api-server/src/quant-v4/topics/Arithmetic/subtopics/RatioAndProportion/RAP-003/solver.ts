@@ -65,6 +65,86 @@ function replacementOriginalRemaining(parameters: Rap003Parameters) {
   return n(parameters, "initialVolume") * Math.pow(replacementRetention(parameters), n(parameters, "replacementCount"));
 }
 
+function denominationWeightedUnitValue(parameters: Rap003Parameters) {
+  const fourthValue = parameters.variables.denominationD === undefined ? 0 : n(parameters, "ratioD") * n(parameters, "denominationD");
+  return n(parameters, "ratioA") * n(parameters, "denominationA")
+    + n(parameters, "ratioB") * n(parameters, "denominationB")
+    + n(parameters, "ratioC") * n(parameters, "denominationC")
+    + fourthValue;
+}
+
+function denominationRatioFor(parameters: Rap003Parameters, denomination: number) {
+  if (denomination === n(parameters, "denominationA")) return n(parameters, "ratioA");
+  if (denomination === n(parameters, "denominationB")) return n(parameters, "ratioB");
+  if (denomination === n(parameters, "denominationC")) return n(parameters, "ratioC");
+  if (parameters.variables.denominationD !== undefined && denomination === n(parameters, "denominationD")) return n(parameters, "ratioD");
+  throw new Error(`Unknown denomination target: ${denomination}`);
+}
+
+function denominationSetup(parameters: Rap003Parameters) {
+  const ratios = [n(parameters, "ratioA"), n(parameters, "ratioB"), n(parameters, "ratioC")];
+  const denominations = [n(parameters, "denominationA"), n(parameters, "denominationB"), n(parameters, "denominationC")];
+  if (parameters.variables.denominationD !== undefined) {
+    ratios.push(n(parameters, "ratioD"));
+    denominations.push(n(parameters, "denominationD"));
+  }
+  return `${ratios.join(":")} at ${denominations.join(",")}`;
+}
+
+function denominationCalculationDenominator(parameters: Rap003Parameters) {
+  const parts = [
+    `${n(parameters, "ratioA")}\\times${n(parameters, "denominationA")}`,
+    `${n(parameters, "ratioB")}\\times${n(parameters, "denominationB")}`,
+    `${n(parameters, "ratioC")}\\times${n(parameters, "denominationC")}`,
+  ];
+  if (parameters.variables.denominationD !== undefined) parts.push(`${n(parameters, "ratioD")}\\times${n(parameters, "denominationD")}`);
+  return parts.join("+");
+}
+
+function populationCells(parameters: Rap003Parameters) {
+  const maleTotal = n(parameters, "totalPopulation") * n(parameters, "maleRatio") / (n(parameters, "maleRatio") + n(parameters, "femaleRatio"));
+  const femaleTotal = n(parameters, "totalPopulation") - maleTotal;
+  const literateMales = maleTotal * n(parameters, "maleLiterateRatio") / (n(parameters, "maleLiterateRatio") + n(parameters, "maleIlliterateRatio"));
+  const illiterateMales = maleTotal - literateMales;
+  const literateFemales = femaleTotal * n(parameters, "femaleLiterateRatio") / (n(parameters, "femaleLiterateRatio") + n(parameters, "femaleIlliterateRatio"));
+  const illiterateFemales = femaleTotal - literateFemales;
+  return { maleTotal, femaleTotal, literateMales, illiterateMales, literateFemales, illiterateFemales };
+}
+
+function populationCellValue(parameters: Rap003Parameters, cell: string) {
+  const cells = populationCells(parameters);
+  const normalized = cell.toLowerCase();
+  if (normalized === "literate males" || normalized === "male literate") return cells.literateMales;
+  if (normalized === "illiterate males" || normalized === "male illiterate") return cells.illiterateMales;
+  if (normalized === "literate females" || normalized === "female literate") return cells.literateFemales;
+  if (normalized === "illiterate females" || normalized === "female illiterate") return cells.illiterateFemales;
+  throw new Error(`Unknown population cell: ${cell}`);
+}
+
+function targetPopulationCell(parameters: Rap003Parameters) {
+  return populationCellValue(parameters, `${s(parameters, "targetLiteracy")} ${s(parameters, "targetGroup")}s`);
+}
+
+function electionPolledVotes(parameters: Rap003Parameters) {
+  return n(parameters, "totalVoters") * n(parameters, "turnoutPercent") / 100;
+}
+
+function electionValidVotes(parameters: Rap003Parameters) {
+  return electionPolledVotes(parameters) * n(parameters, "validPercent") / 100;
+}
+
+function electionWinnerRatio(parameters: Rap003Parameters) {
+  return Math.max(n(parameters, "candidateRatioA"), n(parameters, "candidateRatioB"));
+}
+
+function electionLoserRatio(parameters: Rap003Parameters) {
+  return Math.min(n(parameters, "candidateRatioA"), n(parameters, "candidateRatioB"));
+}
+
+function electionRatioSum(parameters: Rap003Parameters) {
+  return n(parameters, "candidateRatioA") + n(parameters, "candidateRatioB");
+}
+
 export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
   switch (parameters.taskKind) {
     case "partnershipProfitShare":
@@ -281,6 +361,353 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
           result,
         },
         `\\left(1-\\frac{${n(parameters, "removedVolume")}}{${n(parameters, "initialVolume")}}\\right)^n=\\frac{${n(parameters, "finalRatioA")}}{${n(parameters, "finalRatioA") + n(parameters, "finalRatioB")}}`,
+      );
+    }
+    case "denominationTotalValue": {
+      const weightedUnitValue = denominationWeightedUnitValue(parameters);
+      const totalValue = n(parameters, "commonUnit") * weightedUnitValue;
+      return numericResult(
+        totalValue,
+        "QUANTITY",
+        {
+          setup: denominationSetup(parameters),
+          weightedUnitValue: formatNumber(weightedUnitValue),
+          commonUnit: n(parameters, "commonUnit"),
+          result: formatNumber(totalValue),
+        },
+        `${n(parameters, "commonUnit")}\\times(${denominationCalculationDenominator(parameters)})`,
+      );
+    }
+    case "denominationCountsFromValue": {
+      const weightedUnitValue = denominationWeightedUnitValue(parameters);
+      const commonUnit = n(parameters, "totalValue") / weightedUnitValue;
+      const targetRatio = denominationRatioFor(parameters, n(parameters, "targetDenomination"));
+      const result = targetRatio * commonUnit;
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: denominationSetup(parameters),
+          weightedUnitValue: formatNumber(weightedUnitValue),
+          commonUnit: formatNumber(commonUnit),
+          targetDenomination: n(parameters, "targetDenomination"),
+          targetRatio,
+          result: formatNumber(result),
+        },
+        `x=\\frac{${n(parameters, "totalValue")}}{${denominationCalculationDenominator(parameters)}}`,
+      );
+    }
+    case "denominationTargetCount": {
+      const targetRatio = denominationRatioFor(parameters, n(parameters, "targetDenomination"));
+      const result = targetRatio * n(parameters, "commonUnit");
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: denominationSetup(parameters),
+          commonUnit: n(parameters, "commonUnit"),
+          targetDenomination: n(parameters, "targetDenomination"),
+          targetRatio,
+          result: formatNumber(result),
+        },
+        `${targetRatio}\\times${n(parameters, "commonUnit")}`,
+      );
+    }
+    case "denominationSwapValue": {
+      const weightedUnitValue = denominationWeightedUnitValue(parameters);
+      const originalValue = n(parameters, "commonUnit") * weightedUnitValue;
+      const delta = n(parameters, "swapCount") * (n(parameters, "toDenomination") - n(parameters, "fromDenomination"));
+      const result = originalValue + delta;
+      return numericResult(
+        result,
+        "QUANTITY",
+        {
+          setup: denominationSetup(parameters),
+          weightedUnitValue: formatNumber(weightedUnitValue),
+          originalValue: formatNumber(originalValue),
+          swapDelta: formatNumber(delta),
+          result: formatNumber(result),
+        },
+        `${originalValue}+${n(parameters, "swapCount")}\\times(${n(parameters, "toDenomination")}-${n(parameters, "fromDenomination")})`,
+      );
+    }
+    case "sdtTimeRatioFromSpeedDistance": {
+      const timeA = n(parameters, "distanceRatioA") * n(parameters, "speedRatioB");
+      const timeB = n(parameters, "distanceRatioB") * n(parameters, "speedRatioA");
+      return ratioResult(
+        [timeA, timeB],
+        {
+          setup: `S=${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")}, D=${n(parameters, "distanceRatioA")}:${n(parameters, "distanceRatioB")}`,
+          timeA,
+          timeB,
+          result: simplifyRatio([timeA, timeB]).join(":"),
+        },
+        `\\frac{${n(parameters, "distanceRatioA")}}{${n(parameters, "speedRatioA")}}:\\frac{${n(parameters, "distanceRatioB")}}{${n(parameters, "speedRatioB")}}`,
+      );
+    }
+    case "sdtDistanceRatioFromSpeedTime": {
+      const distanceA = n(parameters, "speedRatioA") * n(parameters, "timeRatioA");
+      const distanceB = n(parameters, "speedRatioB") * n(parameters, "timeRatioB");
+      return ratioResult(
+        [distanceA, distanceB],
+        {
+          setup: `S=${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")}, T=${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`,
+          distanceA,
+          distanceB,
+          result: simplifyRatio([distanceA, distanceB]).join(":"),
+        },
+        `(${n(parameters, "speedRatioA")}\\times${n(parameters, "timeRatioA")}):(${n(parameters, "speedRatioB")}\\times${n(parameters, "timeRatioB")})`,
+      );
+    }
+    case "sdtSpeedRatioFromDistanceTime": {
+      const speedA = n(parameters, "distanceRatioA") * n(parameters, "timeRatioB");
+      const speedB = n(parameters, "distanceRatioB") * n(parameters, "timeRatioA");
+      return ratioResult(
+        [speedA, speedB],
+        {
+          setup: `D=${n(parameters, "distanceRatioA")}:${n(parameters, "distanceRatioB")}, T=${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`,
+          speedA,
+          speedB,
+          result: simplifyRatio([speedA, speedB]).join(":"),
+        },
+        `\\frac{${n(parameters, "distanceRatioA")}}{${n(parameters, "timeRatioA")}}:\\frac{${n(parameters, "distanceRatioB")}}{${n(parameters, "timeRatioB")}}`,
+      );
+    }
+    case "sdtRaceLead": {
+      const lead = n(parameters, "trackDistance") * (n(parameters, "speedRatioA") - n(parameters, "speedRatioB")) / n(parameters, "speedRatioA");
+      return numericResult(
+        lead,
+        "QUANTITY",
+        {
+          setup: `Track=${n(parameters, "trackDistance")}, speeds=${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")}`,
+          slowerDistance: formatNumber(n(parameters, "trackDistance") * n(parameters, "speedRatioB") / n(parameters, "speedRatioA")),
+          result: formatNumber(lead),
+        },
+        `${n(parameters, "trackDistance")}\\times\\frac{${n(parameters, "speedRatioA")}-${n(parameters, "speedRatioB")}}{${n(parameters, "speedRatioA")}}`,
+      );
+    }
+    case "sdtOvertakeTime": {
+      const relativeSpeedMetersPerSecond = (n(parameters, "speedA") - n(parameters, "speedB")) * 1000 / 3600;
+      const timeSeconds = n(parameters, "leadDistance") / relativeSpeedMetersPerSecond;
+      return numericResult(
+        timeSeconds,
+        "TIME",
+        {
+          setup: `Speeds=${n(parameters, "speedA")},${n(parameters, "speedB")} km/h; lead=${n(parameters, "leadDistance")} m`,
+          relativeSpeed: formatNumber(relativeSpeedMetersPerSecond),
+          result: formatNumber(timeSeconds),
+        },
+        `\\frac{${n(parameters, "leadDistance")}}{(${n(parameters, "speedA")}-${n(parameters, "speedB")})\\times\\frac{1000}{3600}}`,
+      );
+    }
+    case "populationCrossTabCellCount": {
+      const cells = populationCells(parameters);
+      const result = targetPopulationCell(parameters);
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `M:F=${n(parameters, "maleRatio")}:${n(parameters, "femaleRatio")}`,
+          maleTotal: formatNumber(cells.maleTotal),
+          femaleTotal: formatNumber(cells.femaleTotal),
+          literateMales: formatNumber(cells.literateMales),
+          illiterateMales: formatNumber(cells.illiterateMales),
+          literateFemales: formatNumber(cells.literateFemales),
+          illiterateFemales: formatNumber(cells.illiterateFemales),
+          result: formatNumber(result),
+        },
+        `\\text{cell}=\\text{row total}\\times\\frac{\\text{target literacy part}}{\\text{row literacy parts}}`,
+      );
+    }
+    case "populationTotalLiterate": {
+      const cells = populationCells(parameters);
+      const result = cells.literateMales + cells.literateFemales;
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `M:F=${n(parameters, "maleRatio")}:${n(parameters, "femaleRatio")}`,
+          literateMales: formatNumber(cells.literateMales),
+          literateFemales: formatNumber(cells.literateFemales),
+          result: formatNumber(result),
+        },
+        `${formatNumber(cells.literateMales)}+${formatNumber(cells.literateFemales)}`,
+      );
+    }
+    case "populationLiteracyPercent": {
+      const cells = populationCells(parameters);
+      const literateTotal = cells.literateMales + cells.literateFemales;
+      const result = literateTotal * 100 / n(parameters, "totalPopulation");
+      return numericResult(
+        result,
+        "PERCENT",
+        {
+          setup: `Total=${n(parameters, "totalPopulation")}`,
+          literateMales: formatNumber(cells.literateMales),
+          literateFemales: formatNumber(cells.literateFemales),
+          literateTotal: formatNumber(literateTotal),
+          result: formatNumber(result),
+        },
+        `\\frac{${formatNumber(literateTotal)}}{${n(parameters, "totalPopulation")}}\\times100`,
+      );
+    }
+    case "populationCellRatio": {
+      const first = populationCellValue(parameters, s(parameters, "ratioCellA"));
+      const second = populationCellValue(parameters, s(parameters, "ratioCellB"));
+      return ratioResult(
+        [first, second],
+        {
+          setup: `${s(parameters, "ratioCellA")}:${s(parameters, "ratioCellB")}`,
+          first: formatNumber(first),
+          second: formatNumber(second),
+          result: simplifyRatio([first, second]).join(":"),
+        },
+        `${formatNumber(first)}:${formatNumber(second)}`,
+      );
+    }
+    case "populationTotalIlliterate": {
+      const cells = populationCells(parameters);
+      const result = cells.illiterateMales + cells.illiterateFemales;
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `M:F=${n(parameters, "maleRatio")}:${n(parameters, "femaleRatio")}`,
+          illiterateMales: formatNumber(cells.illiterateMales),
+          illiterateFemales: formatNumber(cells.illiterateFemales),
+          result: formatNumber(result),
+        },
+        `${formatNumber(cells.illiterateMales)}+${formatNumber(cells.illiterateFemales)}`,
+      );
+    }
+    case "electionWinnerVotes": {
+      const result = n(parameters, "totalValidVotes") * electionWinnerRatio(parameters) / electionRatioSum(parameters);
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `Valid=${n(parameters, "totalValidVotes")}, split=${n(parameters, "candidateRatioA")}:${n(parameters, "candidateRatioB")}`,
+          winnerRatio: electionWinnerRatio(parameters),
+          result: formatNumber(result),
+        },
+        `${n(parameters, "totalValidVotes")}\\times\\frac{${electionWinnerRatio(parameters)}}{${electionRatioSum(parameters)}}`,
+      );
+    }
+    case "electionWinningMargin": {
+      const validVotes = electionValidVotes(parameters);
+      const result = validVotes * (electionWinnerRatio(parameters) - electionLoserRatio(parameters)) / electionRatioSum(parameters);
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `Voters=${n(parameters, "totalVoters")}, turnout=${n(parameters, "turnoutPercent")}%, valid=${n(parameters, "validPercent")}%`,
+          polledVotes: formatNumber(electionPolledVotes(parameters)),
+          validVotes: formatNumber(validVotes),
+          result: formatNumber(result),
+        },
+        `${formatNumber(validVotes)}\\times\\frac{${electionWinnerRatio(parameters)}-${electionLoserRatio(parameters)}}{${electionRatioSum(parameters)}}`,
+      );
+    }
+    case "electionTotalVotersFromMargin": {
+      const validVotes = n(parameters, "winningMargin") * electionRatioSum(parameters) / (electionWinnerRatio(parameters) - electionLoserRatio(parameters));
+      const polledVotes = validVotes * 100 / n(parameters, "validPercent");
+      const result = polledVotes * 100 / n(parameters, "turnoutPercent");
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `Margin=${n(parameters, "winningMargin")}, turnout=${n(parameters, "turnoutPercent")}%, valid=${n(parameters, "validPercent")}%`,
+          validVotes: formatNumber(validVotes),
+          polledVotes: formatNumber(polledVotes),
+          result: formatNumber(result),
+        },
+        `${n(parameters, "winningMargin")}\\times\\frac{${electionRatioSum(parameters)}}{${electionWinnerRatio(parameters)}-${electionLoserRatio(parameters)}}`,
+      );
+    }
+    case "electionLoserVotes": {
+      const validVotes = electionValidVotes(parameters);
+      const result = validVotes * electionLoserRatio(parameters) / electionRatioSum(parameters);
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `Voters=${n(parameters, "totalVoters")}, turnout=${n(parameters, "turnoutPercent")}%, valid=${n(parameters, "validPercent")}%`,
+          validVotes: formatNumber(validVotes),
+          loserRatio: electionLoserRatio(parameters),
+          result: formatNumber(result),
+        },
+        `${formatNumber(validVotes)}\\times\\frac{${electionLoserRatio(parameters)}}{${electionRatioSum(parameters)}}`,
+      );
+    }
+    case "electionInvalidVotes": {
+      const polledVotes = electionPolledVotes(parameters);
+      const result = polledVotes * n(parameters, "invalidPercent") / 100;
+      return numericResult(
+        result,
+        "COUNT",
+        {
+          setup: `Voters=${n(parameters, "totalVoters")}, turnout=${n(parameters, "turnoutPercent")}%, invalid=${n(parameters, "invalidPercent")}%`,
+          polledVotes: formatNumber(polledVotes),
+          result: formatNumber(result),
+        },
+        `${formatNumber(polledVotes)}\\times\\frac{${n(parameters, "invalidPercent")}}{100}`,
+      );
+    }
+    case "geometricAreaRatioFromSide": {
+      return ratioResult(
+        [n(parameters, "sideRatioA") ** 2, n(parameters, "sideRatioB") ** 2],
+        {
+          setup: `Side=${n(parameters, "sideRatioA")}:${n(parameters, "sideRatioB")}`,
+          result: simplifyRatio([n(parameters, "sideRatioA") ** 2, n(parameters, "sideRatioB") ** 2]).join(":"),
+        },
+        `${n(parameters, "sideRatioA")}^2:${n(parameters, "sideRatioB")}^2`,
+      );
+    }
+    case "geometricVolumeRatioFromSide": {
+      return ratioResult(
+        [n(parameters, "sideRatioA") ** 3, n(parameters, "sideRatioB") ** 3],
+        {
+          setup: `Side=${n(parameters, "sideRatioA")}:${n(parameters, "sideRatioB")}`,
+          result: simplifyRatio([n(parameters, "sideRatioA") ** 3, n(parameters, "sideRatioB") ** 3]).join(":"),
+        },
+        `${n(parameters, "sideRatioA")}^3:${n(parameters, "sideRatioB")}^3`,
+      );
+    }
+    case "geometricSideRatioFromArea": {
+      const sideA = Math.sqrt(n(parameters, "areaRatioA"));
+      const sideB = Math.sqrt(n(parameters, "areaRatioB"));
+      return ratioResult(
+        [sideA, sideB],
+        {
+          setup: `Area=${n(parameters, "areaRatioA")}:${n(parameters, "areaRatioB")}`,
+          sideA: formatNumber(sideA),
+          sideB: formatNumber(sideB),
+          result: simplifyRatio([sideA, sideB]).join(":"),
+        },
+        `\\sqrt{${n(parameters, "areaRatioA")}}:\\sqrt{${n(parameters, "areaRatioB")}}`,
+      );
+    }
+    case "geometricSurfaceAreaRatioFromVolume": {
+      const sideA = Math.cbrt(n(parameters, "volumeRatioA"));
+      const sideB = Math.cbrt(n(parameters, "volumeRatioB"));
+      return ratioResult(
+        [sideA ** 2, sideB ** 2],
+        {
+          setup: `Volume=${n(parameters, "volumeRatioA")}:${n(parameters, "volumeRatioB")}`,
+          sideRatio: `${formatNumber(sideA)}:${formatNumber(sideB)}`,
+          result: simplifyRatio([sideA ** 2, sideB ** 2]).join(":"),
+        },
+        `(\\sqrt[3]{${n(parameters, "volumeRatioA")}})^2:(\\sqrt[3]{${n(parameters, "volumeRatioB")}})^2`,
+      );
+    }
+    case "geometricAreaRatioFromRadius": {
+      return ratioResult(
+        [n(parameters, "radiusRatioA") ** 2, n(parameters, "radiusRatioB") ** 2],
+        {
+          setup: `Radius=${n(parameters, "radiusRatioA")}:${n(parameters, "radiusRatioB")}`,
+          result: simplifyRatio([n(parameters, "radiusRatioA") ** 2, n(parameters, "radiusRatioB") ** 2]).join(":"),
+        },
+        `${n(parameters, "radiusRatioA")}^2:${n(parameters, "radiusRatioB")}^2`,
       );
     }
     case "agePresentFromFutureRatio": {

@@ -150,5 +150,181 @@
         "difficulty": "Hard"
       }
     }
+  },
+  "RAP-CP-018": {
+    "families": {
+      "RAP-QL-1201": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValue",
+        "template": "A person has {itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} in the ratio {ratioA}:{ratioB}:{ratioC}. If the common multiplier is {commonUnit}, find the total value.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1202": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "The numbers of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}. If their total value is Rs. {totalValue}, find the number of Rs. {targetDenomination} {itemName}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1203": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTargetCount",
+        "template": "The numbers of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}, with common multiplier {commonUnit}. How many Rs. {targetDenomination} {itemName} are there?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1204": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationSwapValue",
+        "template": "A set has Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} {itemName} in the ratio {ratioA}:{ratioB}:{ratioC}, with common multiplier {commonUnit}. If {swapCount} Rs. {fromDenomination} {itemName} are replaced by {swapCount} Rs. {toDenomination} {itemName}, find the new total value.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1205": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValue",
+        "template": "The numbers of Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, and Rs. {denominationD} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}:{ratioD}. If the common multiplier is {commonUnit}, find the total value.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1206": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, and Rs. {denominationD} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}:{ratioD}. If their total value is Rs. {totalValue}, find the number of Rs. {targetDenomination} {itemName}.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-019": {
+    "families": {
+      "RAP-QL-1301": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtTimeRatioFromSpeedDistance",
+        "template": "The speeds of {objectA} and {objectB} are in the ratio {speedRatioA}:{speedRatioB}, and the distances covered are in the ratio {distanceRatioA}:{distanceRatioB}. Find the ratio of their times.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1302": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtDistanceRatioFromSpeedTime",
+        "template": "The speeds of {objectA} and {objectB} are in the ratio {speedRatioA}:{speedRatioB}, and their times are in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of distances covered by them.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1303": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtSpeedRatioFromDistanceTime",
+        "template": "{objectA} and {objectB} cover distances in the ratio {distanceRatioA}:{distanceRatioB} and take times in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of their speeds.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1304": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtRaceLead",
+        "template": "In a race of {trackDistance} metres, the speeds of {objectA} and {objectB} are in the ratio {speedRatioA}:{speedRatioB}. If {objectA} is faster, by how many metres does {objectA} beat {objectB}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1305": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtOvertakeTime",
+        "template": "{objectA} runs at {speedA} km/h and {objectB} runs at {speedB} km/h. If {objectB} has a lead of {leadDistance} metres, how many seconds will {objectA} take to overtake {objectB}?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-020": {
+    "families": {
+      "RAP-QL-1401": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCrossTabCellCount",
+        "template": "In {regionName}, the total population is {totalPopulation}. The ratio of males to females is {maleRatio}:{femaleRatio}. Among males, literate:illiterate is {maleLiterateRatio}:{maleIlliterateRatio}; among females, literate:illiterate is {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of {targetLiteracy} {targetGroup}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1402": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalLiterate",
+        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total literate population.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1403": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationLiteracyPercent",
+        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the overall literacy percentage.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1404": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCellRatio",
+        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1405": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalIlliterate",
+        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total illiterate population.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-021": {
+    "families": {
+      "RAP-QL-1501": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinnerVotes",
+        "template": "In {constituencyName}, {candidateA} and {candidateB} received valid votes in the ratio {candidateRatioA}:{candidateRatioB}. If the total valid votes were {totalValidVotes}, find the winner's votes.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1502": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinningMargin",
+        "template": "In {constituencyName}, there are {totalVoters} voters. {turnoutPercent}% voted, and {validPercent}% of polled votes were valid. Valid votes for {candidateA} and {candidateB} were in the ratio {candidateRatioA}:{candidateRatioB}. Find the winning margin.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1503": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "In {constituencyName}, {turnoutPercent}% of voters voted and {validPercent}% of polled votes were valid. Valid votes for {candidateA} and {candidateB} were in the ratio {candidateRatioA}:{candidateRatioB}. If the winning margin was {winningMargin}, find the total number of voters.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1504": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionLoserVotes",
+        "template": "In {constituencyName}, there are {totalVoters} voters. {turnoutPercent}% voted and {validPercent}% of polled votes were valid. The valid votes of {candidateA}:{candidateB} were {candidateRatioA}:{candidateRatioB}. Find the loser's votes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1505": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionInvalidVotes",
+        "template": "In {constituencyName}, there are {totalVoters} voters. {turnoutPercent}% of them voted, and {invalidPercent}% of polled votes were invalid. Find the number of invalid votes.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-022": {
+    "families": {
+      "RAP-QL-1601": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromSide",
+        "template": "The corresponding sides of two {shapeName} are in the ratio {sideRatioA}:{sideRatioB}. Find the ratio of their areas.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1602": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricVolumeRatioFromSide",
+        "template": "The corresponding sides of two {solidName} are in the ratio {sideRatioA}:{sideRatioB}. Find the ratio of their volumes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1603": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSideRatioFromArea",
+        "template": "The areas of two similar {shapeName} are in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their corresponding sides.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1604": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSurfaceAreaRatioFromVolume",
+        "template": "The volumes of two similar {solidName} are in the ratio {volumeRatioA}:{volumeRatioB}. Find the ratio of their surface areas.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1605": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromRadius",
+        "template": "The radii of two {shapeName} are in the ratio {radiusRatioA}:{radiusRatioB}. Find the ratio of their areas.",
+        "difficulty": "Easy"
+      }
+    }
   }
 }

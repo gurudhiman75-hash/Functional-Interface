@@ -1,6 +1,6 @@
 export const RAP_003_ARCHETYPE_ID = "RAP-003" as const;
 
-export const RAP_003_CP_IDS = ["RAP-CP-013", "RAP-CP-014", "RAP-CP-015", "RAP-CP-016", "RAP-CP-017"] as const;
+export const RAP_003_CP_IDS = ["RAP-CP-013", "RAP-CP-014", "RAP-CP-015", "RAP-CP-016", "RAP-CP-017", "RAP-CP-018", "RAP-CP-019", "RAP-CP-020", "RAP-CP-021", "RAP-CP-022"] as const;
 export const RAP_003_LANGUAGES = ["en", "hi", "pa"] as const;
 
 export type Rap003CanonicalProblemId = (typeof RAP_003_CP_IDS)[number];
@@ -24,7 +24,31 @@ export type Rap003TaskKind =
   | "alloyThreeSourceEqualMix"
   | "replacementFinalRatio"
   | "replacementFinalQuantity"
-  | "replacementIterationsFromFinalRatio";
+  | "replacementIterationsFromFinalRatio"
+  | "denominationTotalValue"
+  | "denominationCountsFromValue"
+  | "denominationTargetCount"
+  | "denominationSwapValue"
+  | "sdtTimeRatioFromSpeedDistance"
+  | "sdtDistanceRatioFromSpeedTime"
+  | "sdtSpeedRatioFromDistanceTime"
+  | "sdtRaceLead"
+  | "sdtOvertakeTime"
+  | "populationCrossTabCellCount"
+  | "populationTotalLiterate"
+  | "populationLiteracyPercent"
+  | "populationCellRatio"
+  | "populationTotalIlliterate"
+  | "electionWinnerVotes"
+  | "electionWinningMargin"
+  | "electionTotalVotersFromMargin"
+  | "electionLoserVotes"
+  | "electionInvalidVotes"
+  | "geometricAreaRatioFromSide"
+  | "geometricVolumeRatioFromSide"
+  | "geometricSideRatioFromArea"
+  | "geometricSurfaceAreaRatioFromVolume"
+  | "geometricAreaRatioFromRadius";
 
 export type Rap003AnswerType = "AGE" | "TIME" | "PROFIT" | "RATIO" | "PERCENT" | "QUANTITY" | "COUNT";
 export type Rap003Variables = Record<string, string | number>;

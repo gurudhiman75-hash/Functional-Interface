@@ -150,5 +150,181 @@
         "difficulty": "Hard"
       }
     }
+  },
+  "RAP-CP-018": {
+    "families": {
+      "RAP-QL-1201": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValue",
+        "template": "ਇੱਕ ਵਿਅਕਤੀ ਕੋਲ Rs. {denominationA}, Rs. {denominationB}, ਅਤੇ Rs. {denominationC} ਦੇ {itemName} {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ. ਜੇ ਸਾਂਝਾ ਗੁਣਕ {commonUnit} ਹੈ, ਤਾਂ ਕੁੱਲ ਮੁੱਲ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1202": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, ਅਤੇ Rs. {denominationC} ਦੇ {itemName} ਦੀਆਂ ਗਿਣਤੀਆਂ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ. ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ Rs. {targetDenomination} ਦੇ {itemName} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1203": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTargetCount",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, ਅਤੇ Rs. {denominationC} ਦੇ {itemName} ਦੀਆਂ ਗਿਣਤੀਆਂ {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ ਅਤੇ ਸਾਂਝਾ ਗੁਣਕ {commonUnit} ਹੈ. Rs. {targetDenomination} ਦੇ ਕਿੰਨੇ {itemName} ਹਨ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1204": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationSwapValue",
+        "template": "ਇੱਕ ਸੈੱਟ ਵਿੱਚ Rs. {denominationA}, Rs. {denominationB}, ਅਤੇ Rs. {denominationC} ਦੇ {itemName} {ratioA}:{ratioB}:{ratioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ ਅਤੇ ਸਾਂਝਾ ਗੁਣਕ {commonUnit} ਹੈ. ਜੇ Rs. {fromDenomination} ਦੇ {swapCount} {itemName} ਨੂੰ Rs. {toDenomination} ਦੇ {swapCount} {itemName} ਨਾਲ ਬਦਲਿਆ ਜਾਵੇ, ਤਾਂ ਨਵਾਂ ਕੁੱਲ ਮੁੱਲ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1205": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, ਅਤੇ Rs. {denominationD} ਦੇ {itemName} ਦੀਆਂ ਗਿਣਤੀਆਂ {ratioA}:{ratioB}:{ratioC}:{ratioD} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ. ਜੇ ਸਾਂਝਾ ਗੁਣਕ {commonUnit} ਹੈ, ਤਾਂ ਕੁੱਲ ਮੁੱਲ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1206": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, ਅਤੇ Rs. {denominationD} ਦੇ {itemName} {ratioA}:{ratioB}:{ratioC}:{ratioD} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ. ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. {totalValue} ਹੈ, ਤਾਂ Rs. {targetDenomination} ਦੇ {itemName} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-019": {
+    "families": {
+      "RAP-QL-1301": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtTimeRatioFromSpeedDistance",
+        "template": "{objectA} ਅਤੇ {objectB} ਦੀਆਂ ਚਾਲਾਂ ਦਾ ਅਨੁਪਾਤ {speedRatioA}:{speedRatioB} ਹੈ, ਅਤੇ ਤੈਅ ਕੀਤੀਆਂ ਦੂਰੀਆਂ ਦਾ ਅਨੁਪਾਤ {distanceRatioA}:{distanceRatioB} ਹੈ. ਉਹਨਾਂ ਦੇ ਸਮਿਆਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1302": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtDistanceRatioFromSpeedTime",
+        "template": "{objectA} ਅਤੇ {objectB} ਦੀਆਂ ਚਾਲਾਂ ਦਾ ਅਨੁਪਾਤ {speedRatioA}:{speedRatioB} ਹੈ, ਅਤੇ ਉਹਨਾਂ ਦੇ ਸਮਿਆਂ ਦਾ ਅਨੁਪਾਤ {timeRatioA}:{timeRatioB} ਹੈ. ਉਹਨਾਂ ਵੱਲੋਂ ਤੈਅ ਕੀਤੀਆਂ ਦੂਰੀਆਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1303": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtSpeedRatioFromDistanceTime",
+        "template": "{objectA} ਅਤੇ {objectB} {distanceRatioA}:{distanceRatioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਦੂਰੀਆਂ ਤੈਅ ਕਰਦੇ ਹਨ ਅਤੇ {timeRatioA}:{timeRatioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਸਮਾਂ ਲੈਂਦੇ ਹਨ. ਉਹਨਾਂ ਦੀਆਂ ਚਾਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1304": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtRaceLead",
+        "template": "{trackDistance} ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ {objectA} ਅਤੇ {objectB} ਦੀਆਂ ਚਾਲਾਂ ਦਾ ਅਨੁਪਾਤ {speedRatioA}:{speedRatioB} ਹੈ. ਜੇ {objectA} ਤੇਜ਼ ਹੈ, ਤਾਂ {objectA}, {objectB} ਨੂੰ ਕਿੰਨੇ ਮੀਟਰ ਨਾਲ ਹਰਾਏਗਾ?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1305": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtOvertakeTime",
+        "template": "{objectA} {speedA} km/h ਨਾਲ ਅਤੇ {objectB} {speedB} km/h ਨਾਲ ਦੌੜਦਾ ਹੈ. ਜੇ {objectB} ਕੋਲ {leadDistance} ਮੀਟਰ ਦੀ ਬੜਤ ਹੈ, ਤਾਂ {objectA} ਕਿੰਨੇ ਸਕਿੰਟਾਂ ਵਿੱਚ {objectB} ਨੂੰ ਪਕੜੇਗਾ?",
+        "difficulty": "Hard"
+      }
+    }
+  },
+  "RAP-CP-020": {
+    "families": {
+      "RAP-QL-1401": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCrossTabCellCount",
+        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦਾਂ ਅਤੇ ਔਰਤਾਂ ਦਾ ਅਨੁਪਾਤ {maleRatio}:{femaleRatio} ਹੈ. ਮਰਦਾਂ ਵਿੱਚ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ {maleLiterateRatio}:{maleIlliterateRatio} ਹੈ; ਔਰਤਾਂ ਵਿੱਚ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ {femaleLiterateRatio}:{femaleIlliterateRatio} ਹੈ. {targetLiteracy} {targetGroup} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1402": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalLiterate",
+        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦ:ਔਰਤ = {maleRatio}:{femaleRatio}. ਮਰਦ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {maleLiterateRatio}:{maleIlliterateRatio}, ਅਤੇ ਔਰਤ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {femaleLiterateRatio}:{femaleIlliterateRatio}. ਕੁੱਲ ਪੜ੍ਹੀ-ਲਿਖੀ ਆਬਾਦੀ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1403": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationLiteracyPercent",
+        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦ:ਔਰਤ = {maleRatio}:{femaleRatio}. ਮਰਦ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {maleLiterateRatio}:{maleIlliterateRatio}, ਅਤੇ ਔਰਤ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {femaleLiterateRatio}:{femaleIlliterateRatio}. ਕੁੱਲ ਸਾਖਰਤਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1404": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCellRatio",
+        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦ:ਔਰਤ = {maleRatio}:{femaleRatio}. ਮਰਦ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {maleLiterateRatio}:{maleIlliterateRatio}, ਅਤੇ ਔਰਤ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {femaleLiterateRatio}:{femaleIlliterateRatio}. {ratioCellA} ਅਤੇ {ratioCellB} ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1405": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalIlliterate",
+        "template": "{regionName} ਵਿੱਚ ਕੁੱਲ ਆਬਾਦੀ {totalPopulation} ਹੈ. ਮਰਦ:ਔਰਤ = {maleRatio}:{femaleRatio}. ਮਰਦ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {maleLiterateRatio}:{maleIlliterateRatio}, ਅਤੇ ਔਰਤ ਪੜ੍ਹੇ-ਲਿਖੇ:ਅਣਪੜ੍ਹ = {femaleLiterateRatio}:{femaleIlliterateRatio}. ਕੁੱਲ ਅਣਪੜ੍ਹ ਆਬਾਦੀ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-021": {
+    "families": {
+      "RAP-QL-1501": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinnerVotes",
+        "template": "{constituencyName} ਵਿੱਚ {candidateA} ਅਤੇ {candidateB} ਨੂੰ ਵੈਧ ਵੋਟਾਂ {candidateRatioA}:{candidateRatioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਮਿਲੀਆਂ. ਜੇ ਕੁੱਲ ਵੈਧ ਵੋਟਾਂ {totalValidVotes} ਸਨ, ਤਾਂ ਜੇਤੂ ਦੀਆਂ ਵੋਟਾਂ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1502": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinningMargin",
+        "template": "{constituencyName} ਵਿੱਚ {totalVoters} ਵੋਟਰ ਹਨ. {turnoutPercent}% ਨੇ ਵੋਟ ਪਾਈ, ਅਤੇ ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {validPercent}% ਵੈਧ ਸਨ. {candidateA} ਅਤੇ {candidateB} ਦੀਆਂ ਵੈਧ ਵੋਟਾਂ {candidateRatioA}:{candidateRatioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਸਨ. ਜਿੱਤ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1503": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "{constituencyName} ਵਿੱਚ {turnoutPercent}% ਵੋਟਰਾਂ ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {validPercent}% ਵੈਧ ਸਨ. {candidateA} ਅਤੇ {candidateB} ਦੀਆਂ ਵੈਧ ਵੋਟਾਂ {candidateRatioA}:{candidateRatioB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਸਨ. ਜੇ ਜਿੱਤ ਦਾ ਅੰਤਰ {winningMargin} ਸੀ, ਤਾਂ ਕੁੱਲ ਵੋਟਰ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1504": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionLoserVotes",
+        "template": "{constituencyName} ਵਿੱਚ {totalVoters} ਵੋਟਰ ਹਨ. {turnoutPercent}% ਨੇ ਵੋਟ ਪਾਈ ਅਤੇ ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {validPercent}% ਵੈਧ ਸਨ. {candidateA}:{candidateB} ਦੀਆਂ ਵੈਧ ਵੋਟਾਂ {candidateRatioA}:{candidateRatioB} ਸਨ. ਹਾਰਨ ਵਾਲੇ ਦੀਆਂ ਵੋਟਾਂ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1505": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionInvalidVotes",
+        "template": "{constituencyName} ਵਿੱਚ {totalVoters} ਵੋਟਰ ਹਨ. ਉਹਨਾਂ ਵਿੱਚੋਂ {turnoutPercent}% ਨੇ ਵੋਟ ਪਾਈ, ਅਤੇ ਪਈਆਂ ਵੋਟਾਂ ਵਿੱਚੋਂ {invalidPercent}% ਅਵੈਧ ਸਨ. ਅਵੈਧ ਵੋਟਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      }
+    }
+  },
+  "RAP-CP-022": {
+    "families": {
+      "RAP-QL-1601": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromSide",
+        "template": "ਦੋ {shapeName} ਦੀਆਂ ਸੰਬੰਧਤ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ {sideRatioA}:{sideRatioB} ਹੈ. ਉਹਨਾਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1602": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricVolumeRatioFromSide",
+        "template": "ਦੋ {solidName} ਦੀਆਂ ਸੰਬੰਧਤ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ {sideRatioA}:{sideRatioB} ਹੈ. ਉਹਨਾਂ ਦੇ ਆਇਤਨਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1603": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSideRatioFromArea",
+        "template": "ਦੋ ਸਮਰੂਪ {shapeName} ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ {areaRatioA}:{areaRatioB} ਹੈ. ਉਹਨਾਂ ਦੀਆਂ ਸੰਬੰਧਤ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1604": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSurfaceAreaRatioFromVolume",
+        "template": "ਦੋ ਸਮਰੂਪ {solidName} ਦੇ ਆਇਤਨਾਂ ਦਾ ਅਨੁਪਾਤ {volumeRatioA}:{volumeRatioB} ਹੈ. ਉਹਨਾਂ ਦੇ ਪੱਠੀ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1605": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromRadius",
+        "template": "ਦੋ {shapeName} ਦੀਆਂ ਤ੍ਰਿਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ {radiusRatioA}:{radiusRatioB} ਹੈ. ਉਹਨਾਂ ਦੇ ਖੇਤਰਫਲਾਂ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ.",
+        "difficulty": "Easy"
+      }
+    }
   }
 }

@@ -110,6 +110,136 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     };
   }
 
+  if (
+    parameters.taskKind === "denominationTotalValue"
+    || parameters.taskKind === "denominationCountsFromValue"
+    || parameters.taskKind === "denominationTargetCount"
+    || parameters.taskKind === "denominationSwapValue"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "For denomination questions, multiply each count-ratio part by its denomination value.",
+          "मूल्यवर्ग प्रश्नों में हर संख्या-अनुपात भाग को उसके मूल्य से गुणा करें.",
+          "ਮੁੱਲ-ਵਰਗ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਹਰ ਗਿਣਤੀ-ਅਨੁਪਾਤ ਭਾਗ ਨੂੰ ਉਸਦੇ ਮੁੱਲ ਨਾਲ ਗੁਣਾ ਕਰੋ.",
+        ),
+        block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
+        solver.workingValues.weightedUnitValue !== undefined
+          ? block(`\\text{Value of one ratio unit}=${String(solver.workingValues.weightedUnitValue)}`)
+          : block(`\\text{Common unit}=${String(solver.workingValues.commonUnit)}`),
+        parameters.taskKind === "denominationSwapValue"
+          ? block(`\\text{Swap delta}=${String(solver.workingValues.swapDelta)}`)
+          : localizedIntro(parameters, "Use the common multiplier to get the requested value or count.", "मांगे गए मूल्य या संख्या के लिए सामान्य गुणक लगाएं.", "ਮੰਗਿਆ ਮੁੱਲ ਜਾਂ ਗਿਣਤੀ ਲੈਣ ਲਈ ਸਾਂਝਾ ਗੁਣਕ ਵਰਤੋ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
+    parameters.taskKind === "sdtTimeRatioFromSpeedDistance"
+    || parameters.taskKind === "sdtDistanceRatioFromSpeedTime"
+    || parameters.taskKind === "sdtSpeedRatioFromDistanceTime"
+    || parameters.taskKind === "sdtRaceLead"
+    || parameters.taskKind === "sdtOvertakeTime"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "Use the speed-distance-time relation: distance = speed multiplied by time.",
+          "चाल-दूरी-समय संबंध लगाएं: दूरी = चाल × समय.",
+          "ਚਾਲ-ਦੂਰੀ-ਸਮਾਂ ਸੰਬੰਧ ਵਰਤੋ: ਦੂਰੀ = ਚਾਲ × ਸਮਾਂ.",
+        ),
+        block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
+        parameters.taskKind === "sdtRaceLead"
+          ? localizedIntro(parameters, "When the faster runner finishes, compare how far the slower runner has covered.", "तेज धावक के समाप्त करने पर धीमे धावक द्वारा तय दूरी की तुलना करें.", "ਤੇਜ਼ ਦੌੜਾਕ ਦੇ ਮੁਕੰਮਲ ਕਰਨ ਤੇ ਹੌਲੇ ਦੌੜਾਕ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ ਦੀ ਤੁਲਨਾ ਕਰੋ.")
+          : localizedIntro(parameters, "Rearrange the relation to the requested ratio or time.", "संबंध को मांगे गए अनुपात या समय के अनुसार व्यवस्थित करें.", "ਸੰਬੰਧ ਨੂੰ ਮੰਗੇ ਅਨੁਪਾਤ ਜਾਂ ਸਮੇਂ ਅਨੁਸਾਰ ਬਦਲੋ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
+    parameters.taskKind === "populationCrossTabCellCount"
+    || parameters.taskKind === "populationTotalLiterate"
+    || parameters.taskKind === "populationLiteracyPercent"
+    || parameters.taskKind === "populationCellRatio"
+    || parameters.taskKind === "populationTotalIlliterate"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "Build the population table in two steps: first split males and females, then split each row into literate and illiterate.",
+          "जनसंख्या तालिका दो चरणों में बनाएं: पहले पुरुष और महिला में बांटें, फिर हर पंक्ति को साक्षर और निरक्षर में बांटें.",
+          "ਆਬਾਦੀ ਦੀ ਸਾਰਣੀ ਦੋ ਕਦਮਾਂ ਵਿੱਚ ਬਣਾਓ: ਪਹਿਲਾਂ ਮਰਦ ਅਤੇ ਔਰਤ ਵਿੱਚ ਵੰਡੋ, ਫਿਰ ਹਰ ਕਤਾਰ ਨੂੰ ਪੜ੍ਹੇ-ਲਿਖੇ ਅਤੇ ਅਣਪੜ੍ਹ ਵਿੱਚ ਵੰਡੋ.",
+        ),
+        block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
+        solver.workingValues.maleTotal !== undefined
+          ? block(`\\text{Male/Female totals}=${String(solver.workingValues.maleTotal)}:${String(solver.workingValues.femaleTotal)}`)
+          : localizedIntro(parameters, "Use the relevant cells from the completed table.", "पूर्ण तालिका से संबंधित खाने लें.", "ਪੂਰੀ ਸਾਰਣੀ ਤੋਂ ਸੰਬੰਧਿਤ ਖਾਣੇ ਲਵੋ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
+    parameters.taskKind === "electionWinnerVotes"
+    || parameters.taskKind === "electionWinningMargin"
+    || parameters.taskKind === "electionTotalVotersFromMargin"
+    || parameters.taskKind === "electionLoserVotes"
+    || parameters.taskKind === "electionInvalidVotes"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "For election questions, move through the chain: voters, polled votes, valid votes, then candidate split.",
+          "चुनाव प्रश्नों में क्रम से चलें: मतदाता, डाले गए मत, वैध मत, फिर उम्मीदवारों में विभाजन.",
+          "ਚੋਣ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਕ੍ਰਮ ਨਾਲ ਚੱਲੋ: ਵੋਟਰ, ਪਈਆਂ ਵੋਟਾਂ, ਵੈਧ ਵੋਟਾਂ, ਫਿਰ ਉਮੀਦਵਾਰਾਂ ਵਿੱਚ ਵੰਡ.",
+        ),
+        block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
+        solver.workingValues.validVotes !== undefined
+          ? block(`\\text{Valid votes}=${String(solver.workingValues.validVotes)}`)
+          : localizedIntro(parameters, "Use the stated valid votes or reverse the margin into valid votes.", "दिए गए वैध मत लें या अंतर से वैध मत उल्टा निकालें.", "ਦਿੱਤੀਆਂ ਵੈਧ ਵੋਟਾਂ ਲਵੋ ਜਾਂ ਅੰਤਰ ਤੋਂ ਵੈਧ ਵੋਟਾਂ ਵਾਪਸ ਕੱਢੋ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
+  if (
+    parameters.taskKind === "geometricAreaRatioFromSide"
+    || parameters.taskKind === "geometricVolumeRatioFromSide"
+    || parameters.taskKind === "geometricSideRatioFromArea"
+    || parameters.taskKind === "geometricSurfaceAreaRatioFromVolume"
+    || parameters.taskKind === "geometricAreaRatioFromRadius"
+  ) {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "For similar geometric figures, area ratios square the length ratio and volume ratios cube the length ratio.",
+          "समरूप ज्यामितीय आकृतियों में क्षेत्रफल अनुपात लंबाई अनुपात का वर्ग और आयतन अनुपात लंबाई अनुपात का घन होता है.",
+          "ਸਮਰੂਪ ਜਯਾਮਿਤੀ ਆਕਰਤੀਆਂ ਵਿੱਚ ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਲੰਬਾਈ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਅਤੇ ਆਇਤਨ ਅਨੁਪਾਤ ਲੰਬਾਈ ਅਨੁਪਾਤ ਦਾ ਘਣ ਹੁੰਦਾ ਹੈ.",
+        ),
+        block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
+        localizedIntro(parameters, "Apply the required power, or reverse it with a square/cube root.", "जरूरी घात लगाएं, या वर्गमूल/घनमूल से उल्टा करें.", "ਲੋੜੀਂਦੀ ਘਾਤ ਲਗਾਓ, ਜਾਂ ਵਰਗਮੂਲ/ਘਨਮੂਲ ਨਾਲ ਉਲਟ ਕਰੋ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
   if (parameters.taskKind === "ageYearsToReachRatio") {
     return {
       explanationId: parameters.explanationId,

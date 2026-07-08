@@ -51,6 +51,60 @@
         "replacementIterationsFromFinalRatio"
       ],
       "plannedQuestionLanguageRange": "RAP-QL-1101 to RAP-QL-1149"
+    },
+    "RAP-CP-018": {
+      "title": "Denomination and Value Systems",
+      "taskKinds": [
+        "denominationTotalValue",
+        "denominationCountsFromValue",
+        "denominationTargetCount",
+        "denominationSwapValue"
+      ],
+      "plannedQuestionLanguageRange": "RAP-QL-1201 to RAP-QL-1249"
+    },
+    "RAP-CP-019": {
+      "title": "Speed-Distance-Time Ratio Scenarios",
+      "taskKinds": [
+        "sdtTimeRatioFromSpeedDistance",
+        "sdtDistanceRatioFromSpeedTime",
+        "sdtSpeedRatioFromDistanceTime",
+        "sdtRaceLead",
+        "sdtOvertakeTime"
+      ],
+      "plannedQuestionLanguageRange": "RAP-QL-1301 to RAP-QL-1349"
+    },
+    "RAP-CP-020": {
+      "title": "Population and Literacy Cross-Tabulation",
+      "taskKinds": [
+        "populationCrossTabCellCount",
+        "populationTotalLiterate",
+        "populationLiteracyPercent",
+        "populationCellRatio",
+        "populationTotalIlliterate"
+      ],
+      "plannedQuestionLanguageRange": "RAP-QL-1401 to RAP-QL-1449"
+    },
+    "RAP-CP-021": {
+      "title": "Election and Vote-Share Ratio",
+      "taskKinds": [
+        "electionWinnerVotes",
+        "electionWinningMargin",
+        "electionTotalVotersFromMargin",
+        "electionLoserVotes",
+        "electionInvalidVotes"
+      ],
+      "plannedQuestionLanguageRange": "RAP-QL-1501 to RAP-QL-1549"
+    },
+    "RAP-CP-022": {
+      "title": "Geometric Ratio Applications",
+      "taskKinds": [
+        "geometricAreaRatioFromSide",
+        "geometricVolumeRatioFromSide",
+        "geometricSideRatioFromArea",
+        "geometricSurfaceAreaRatioFromVolume",
+        "geometricAreaRatioFromRadius"
+      ],
+      "plannedQuestionLanguageRange": "RAP-QL-1601 to RAP-QL-1649"
     }
   },
   "entries": {
@@ -229,6 +283,214 @@
       "difficulty": "Hard",
       "requiredVariables": ["vesselName", "liquidA", "liquidB", "initialVolume", "removedVolume", "replacementCount"],
       "explanationId": "RAP-ES-017"
+    },
+    "RAP-QL-1201": {
+      "cpId": "RAP-CP-018",
+      "taskKind": "denominationTotalValue",
+      "answerType": "QUANTITY",
+      "difficulty": "Easy",
+      "requiredVariables": ["itemName", "denominationA", "denominationB", "denominationC", "ratioA", "ratioB", "ratioC", "commonUnit"],
+      "explanationId": "RAP-ES-018"
+    },
+    "RAP-QL-1202": {
+      "cpId": "RAP-CP-018",
+      "taskKind": "denominationCountsFromValue",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["itemName", "denominationA", "denominationB", "denominationC", "ratioA", "ratioB", "ratioC", "totalValue", "targetDenomination"],
+      "explanationId": "RAP-ES-018"
+    },
+    "RAP-QL-1203": {
+      "cpId": "RAP-CP-018",
+      "taskKind": "denominationTargetCount",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["itemName", "denominationA", "denominationB", "denominationC", "ratioA", "ratioB", "ratioC", "commonUnit", "targetDenomination"],
+      "explanationId": "RAP-ES-018"
+    },
+    "RAP-QL-1204": {
+      "cpId": "RAP-CP-018",
+      "taskKind": "denominationSwapValue",
+      "answerType": "QUANTITY",
+      "difficulty": "Hard",
+      "requiredVariables": ["itemName", "denominationA", "denominationB", "denominationC", "ratioA", "ratioB", "ratioC", "commonUnit", "fromDenomination", "toDenomination", "swapCount"],
+      "explanationId": "RAP-ES-018"
+    },
+    "RAP-QL-1205": {
+      "cpId": "RAP-CP-018",
+      "taskKind": "denominationTotalValue",
+      "answerType": "QUANTITY",
+      "difficulty": "Hard",
+      "requiredVariables": ["itemName", "denominationA", "denominationB", "denominationC", "denominationD", "ratioA", "ratioB", "ratioC", "ratioD", "commonUnit"],
+      "explanationId": "RAP-ES-018"
+    },
+    "RAP-QL-1206": {
+      "cpId": "RAP-CP-018",
+      "taskKind": "denominationCountsFromValue",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["itemName", "denominationA", "denominationB", "denominationC", "denominationD", "ratioA", "ratioB", "ratioC", "ratioD", "totalValue", "targetDenomination"],
+      "explanationId": "RAP-ES-018"
+    },
+    "RAP-QL-1301": {
+      "cpId": "RAP-CP-019",
+      "taskKind": "sdtTimeRatioFromSpeedDistance",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["objectA", "objectB", "speedRatioA", "speedRatioB", "distanceRatioA", "distanceRatioB"],
+      "explanationId": "RAP-ES-019"
+    },
+    "RAP-QL-1302": {
+      "cpId": "RAP-CP-019",
+      "taskKind": "sdtDistanceRatioFromSpeedTime",
+      "answerType": "RATIO",
+      "difficulty": "Easy",
+      "requiredVariables": ["objectA", "objectB", "speedRatioA", "speedRatioB", "timeRatioA", "timeRatioB"],
+      "explanationId": "RAP-ES-019"
+    },
+    "RAP-QL-1303": {
+      "cpId": "RAP-CP-019",
+      "taskKind": "sdtSpeedRatioFromDistanceTime",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["objectA", "objectB", "distanceRatioA", "distanceRatioB", "timeRatioA", "timeRatioB"],
+      "explanationId": "RAP-ES-019"
+    },
+    "RAP-QL-1304": {
+      "cpId": "RAP-CP-019",
+      "taskKind": "sdtRaceLead",
+      "answerType": "QUANTITY",
+      "difficulty": "Medium",
+      "requiredVariables": ["objectA", "objectB", "trackDistance", "speedRatioA", "speedRatioB"],
+      "explanationId": "RAP-ES-019"
+    },
+    "RAP-QL-1305": {
+      "cpId": "RAP-CP-019",
+      "taskKind": "sdtOvertakeTime",
+      "answerType": "TIME",
+      "difficulty": "Hard",
+      "requiredVariables": ["objectA", "objectB", "speedA", "speedB", "leadDistance"],
+      "explanationId": "RAP-ES-019"
+    },
+    "RAP-QL-1401": {
+      "cpId": "RAP-CP-020",
+      "taskKind": "populationCrossTabCellCount",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio", "targetGroup", "targetLiteracy"],
+      "explanationId": "RAP-ES-020"
+    },
+    "RAP-QL-1402": {
+      "cpId": "RAP-CP-020",
+      "taskKind": "populationTotalLiterate",
+      "answerType": "COUNT",
+      "difficulty": "Easy",
+      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio"],
+      "explanationId": "RAP-ES-020"
+    },
+    "RAP-QL-1403": {
+      "cpId": "RAP-CP-020",
+      "taskKind": "populationLiteracyPercent",
+      "answerType": "PERCENT",
+      "difficulty": "Medium",
+      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio"],
+      "explanationId": "RAP-ES-020"
+    },
+    "RAP-QL-1404": {
+      "cpId": "RAP-CP-020",
+      "taskKind": "populationCellRatio",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio", "ratioCellA", "ratioCellB"],
+      "explanationId": "RAP-ES-020"
+    },
+    "RAP-QL-1405": {
+      "cpId": "RAP-CP-020",
+      "taskKind": "populationTotalIlliterate",
+      "answerType": "COUNT",
+      "difficulty": "Easy",
+      "requiredVariables": ["regionName", "totalPopulation", "maleRatio", "femaleRatio", "maleLiterateRatio", "maleIlliterateRatio", "femaleLiterateRatio", "femaleIlliterateRatio"],
+      "explanationId": "RAP-ES-020"
+    },
+    "RAP-QL-1501": {
+      "cpId": "RAP-CP-021",
+      "taskKind": "electionWinnerVotes",
+      "answerType": "COUNT",
+      "difficulty": "Easy",
+      "requiredVariables": ["constituencyName", "candidateA", "candidateB", "totalValidVotes", "candidateRatioA", "candidateRatioB"],
+      "explanationId": "RAP-ES-021"
+    },
+    "RAP-QL-1502": {
+      "cpId": "RAP-CP-021",
+      "taskKind": "electionWinningMargin",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["constituencyName", "candidateA", "candidateB", "totalVoters", "turnoutPercent", "validPercent", "candidateRatioA", "candidateRatioB"],
+      "explanationId": "RAP-ES-021"
+    },
+    "RAP-QL-1503": {
+      "cpId": "RAP-CP-021",
+      "taskKind": "electionTotalVotersFromMargin",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": ["constituencyName", "candidateA", "candidateB", "turnoutPercent", "validPercent", "candidateRatioA", "candidateRatioB", "winningMargin"],
+      "explanationId": "RAP-ES-021"
+    },
+    "RAP-QL-1504": {
+      "cpId": "RAP-CP-021",
+      "taskKind": "electionLoserVotes",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": ["constituencyName", "candidateA", "candidateB", "totalVoters", "turnoutPercent", "validPercent", "candidateRatioA", "candidateRatioB"],
+      "explanationId": "RAP-ES-021"
+    },
+    "RAP-QL-1505": {
+      "cpId": "RAP-CP-021",
+      "taskKind": "electionInvalidVotes",
+      "answerType": "COUNT",
+      "difficulty": "Easy",
+      "requiredVariables": ["constituencyName", "totalVoters", "turnoutPercent", "invalidPercent"],
+      "explanationId": "RAP-ES-021"
+    },
+    "RAP-QL-1601": {
+      "cpId": "RAP-CP-022",
+      "taskKind": "geometricAreaRatioFromSide",
+      "answerType": "RATIO",
+      "difficulty": "Easy",
+      "requiredVariables": ["shapeName", "sideRatioA", "sideRatioB"],
+      "explanationId": "RAP-ES-022"
+    },
+    "RAP-QL-1602": {
+      "cpId": "RAP-CP-022",
+      "taskKind": "geometricVolumeRatioFromSide",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["solidName", "sideRatioA", "sideRatioB"],
+      "explanationId": "RAP-ES-022"
+    },
+    "RAP-QL-1603": {
+      "cpId": "RAP-CP-022",
+      "taskKind": "geometricSideRatioFromArea",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["shapeName", "areaRatioA", "areaRatioB"],
+      "explanationId": "RAP-ES-022"
+    },
+    "RAP-QL-1604": {
+      "cpId": "RAP-CP-022",
+      "taskKind": "geometricSurfaceAreaRatioFromVolume",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["solidName", "volumeRatioA", "volumeRatioB"],
+      "explanationId": "RAP-ES-022"
+    },
+    "RAP-QL-1605": {
+      "cpId": "RAP-CP-022",
+      "taskKind": "geometricAreaRatioFromRadius",
+      "answerType": "RATIO",
+      "difficulty": "Easy",
+      "requiredVariables": ["shapeName", "radiusRatioA", "radiusRatioB"],
+      "explanationId": "RAP-ES-022"
     }
   }
 }

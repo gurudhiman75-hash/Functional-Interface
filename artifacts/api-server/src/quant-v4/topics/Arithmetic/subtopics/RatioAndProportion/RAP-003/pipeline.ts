@@ -34,6 +34,11 @@ export const runRap003Cp013Pipeline = (input: Rap003ParameterInput = {}) => runR
 export const runRap003Cp015Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-015", input);
 export const runRap003Cp016Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-016", input);
 export const runRap003Cp017Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-017", input);
+export const runRap003Cp018Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-018", input);
+export const runRap003Cp019Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-019", input);
+export const runRap003Cp020Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-020", input);
+export const runRap003Cp021Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-021", input);
+export const runRap003Cp022Pipeline = (input: Rap003ParameterInput = {}) => runRap003Pipeline("RAP-CP-022", input);
 
 function runRap003ForLanguages(cpId: Rap003CanonicalProblemId, input: Rap003ParameterInput = {}) {
   const base = generateRap003Parameters({ ...input, canonicalProblemId: cpId, language: "en" });
@@ -53,3 +58,8 @@ export const runRap003Cp014ForLanguages = (input: Rap003ParameterInput = {}) => 
 export const runRap003Cp015ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-015", input);
 export const runRap003Cp016ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-016", input);
 export const runRap003Cp017ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-017", input);
+export const runRap003Cp018ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-018", input);
+export const runRap003Cp019ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-019", input);
+export const runRap003Cp020ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-020", input);
+export const runRap003Cp021ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-021", input);
+export const runRap003Cp022ForLanguages = (input: Rap003ParameterInput = {}) => runRap003ForLanguages("RAP-CP-022", input);
