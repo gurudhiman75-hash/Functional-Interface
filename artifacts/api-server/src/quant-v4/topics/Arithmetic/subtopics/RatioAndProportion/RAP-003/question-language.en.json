@@ -24,6 +24,12 @@
         "taskKind": "partnershipProfitShare",
         "template": "Two partners, {personA} and {personB}, invest Rs. {investmentA} and Rs. {investmentB} for {timeA} months and {timeB} months respectively. Total profit is Rs. {totalProfit}. Find the profit earned by {targetPartner}.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-805": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipJoiningPartnerProfit",
+        "template": "{personA} keeps Rs. {investmentA} invested for {timeA} months. {personB} joins later with Rs. {investmentB} and keeps it invested for {timeB} months. If the profit is Rs. {totalProfit}, find {targetPartner}'s share.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -116,6 +122,12 @@
         "taskKind": "expenditureFromSavingsRatio",
         "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}, and their savings are in the ratio {savingsRatioA}:{savingsRatioB}. If {personA}'s income is Rs. {givenIncomeA}, find {targetPerson}'s expenditure.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-955": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureSavingsRatio",
+        "template": "{personA} and {personB} have incomes in the ratio {incomeRatioA}:{incomeRatioB}. Their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. With income unit Rs. {incomeUnit} and expenditure unit Rs. {expenditureUnit}, find the ratio of their savings.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -143,6 +155,12 @@
         "cpId": "RAP-CP-016",
         "taskKind": "alloyMixingRatioFromTarget",
         "template": "Two mixtures contain {component} at {percentA}% and {percentB}%. Find the mixing ratio of {mixtureA}:{mixtureB} needed to get {targetPercent}% {component}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1005": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetComponentFromMix",
+        "template": "{quantityA} litres of {mixtureA} with {percentA}% {component} is combined with {quantityB} litres of {mixtureB} with {percentB}% {component}. Find the percentage of {component} in the final mixture.",
         "difficulty": "Medium"
       }
     }
@@ -172,6 +190,12 @@
         "taskKind": "replacementFinalRatio",
         "template": "From {vesselName}, {removedVolume} litres out of {initialVolume} litres are repeatedly replaced with {liquidB}, for {replacementCount} rounds. If it initially had only {liquidA}, find the final {liquidA}:{liquidB} ratio.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-1105": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} starts with {initialVolume} litres of {liquidA}. In each round, {removedVolume} litres are replaced by {liquidB}. After {replacementCount} rounds, find how much {liquidA} remains.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -212,6 +236,12 @@
         "taskKind": "denominationCountsFromValue",
         "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, and Rs. {denominationD} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}:{ratioD}. If their total value is Rs. {totalValue}, find the number of Rs. {targetDenomination} {itemName}.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-1207": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "The counts of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total value is Rs. {totalValue}. Find the count of Rs. {targetDenomination} {itemName}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -238,7 +268,7 @@
       "RAP-QL-1304": {
         "cpId": "RAP-CP-019",
         "taskKind": "sdtRaceLead",
-        "template": "In a race of {trackDistance} metres, the speeds of {objectA} and {objectB} are in the ratio {speedRatioA}:{speedRatioB}. If {objectA} is faster, by how many metres does {objectA} beat {objectB}?",
+        "template": "{objectA} and {objectB} run a {trackDistance}-metre race with speeds in the ratio {speedRatioA}:{speedRatioB}. If {objectA} is faster, by how many metres does {objectA} beat {objectB}?",
         "difficulty": "Medium"
       },
       "RAP-QL-1305": {
@@ -254,31 +284,31 @@
       "RAP-QL-1401": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationCrossTabCellCount",
-        "template": "In {regionName}, the total population is {totalPopulation}. The ratio of males to females is {maleRatio}:{femaleRatio}. Among males, literate:illiterate is {maleLiterateRatio}:{maleIlliterateRatio}; among females, literate:illiterate is {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of {targetCellLabel}.",
+        "template": "{regionName} has a total population of {totalPopulation}. The ratio of males to females is {maleRatio}:{femaleRatio}. Among males, literate:illiterate is {maleLiterateRatio}:{maleIlliterateRatio}; among females, literate:illiterate is {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of {targetCellLabel}.",
         "difficulty": "Medium"
       },
       "RAP-QL-1402": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationTotalLiterate",
-        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total literate population.",
+        "template": "{regionName} has a total population of {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total literate population.",
         "difficulty": "Easy"
       },
       "RAP-QL-1403": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationLiteracyPercent",
-        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the overall literacy percentage.",
+        "template": "{regionName} has a total population of {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the overall literacy percentage.",
         "difficulty": "Medium"
       },
       "RAP-QL-1404": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationCellRatio",
-        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "template": "{regionName} has a total population of {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
         "difficulty": "Hard"
       },
       "RAP-QL-1405": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationTotalIlliterate",
-        "template": "In {regionName}, the total population is {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total illiterate population.",
+        "template": "{regionName} has a total population of {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total illiterate population.",
         "difficulty": "Easy"
       }
     }
@@ -288,31 +318,31 @@
       "RAP-QL-1501": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionWinnerVotes",
-        "template": "In {constituencyName}, {candidateA} and {candidateB} received valid votes in the ratio {candidateRatioA}:{candidateRatioB}. If the total valid votes were {totalValidVotes}, find the winner's votes.",
+        "template": "{candidateA} and {candidateB} received valid votes in the ratio {candidateRatioA}:{candidateRatioB} in {constituencyName}. If the total valid votes were {totalValidVotes}, find the winner's votes.",
         "difficulty": "Easy"
       },
       "RAP-QL-1502": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionWinningMargin",
-        "template": "In {constituencyName}, there are {totalVoters} voters. {turnoutPercent}% voted, and {validPercent}% of polled votes were valid. Valid votes for {candidateA} and {candidateB} were in the ratio {candidateRatioA}:{candidateRatioB}. Find the winning margin.",
+        "template": "{constituencyName} has {totalVoters} voters. {turnoutPercent}% voted, and {validPercent}% of polled votes were valid. Valid votes for {candidateA} and {candidateB} were in the ratio {candidateRatioA}:{candidateRatioB}. Find the winning margin.",
         "difficulty": "Medium"
       },
       "RAP-QL-1503": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionTotalVotersFromMargin",
-        "template": "In {constituencyName}, {turnoutPercent}% of voters voted and {validPercent}% of polled votes were valid. Valid votes for {candidateA} and {candidateB} were in the ratio {candidateRatioA}:{candidateRatioB}. If the winning margin was {winningMargin}, find the total number of voters.",
+        "template": "{turnoutPercent}% of voters in {constituencyName} voted, and {validPercent}% of polled votes were valid. Valid votes for {candidateA} and {candidateB} were in the ratio {candidateRatioA}:{candidateRatioB}. If the winning margin was {winningMargin}, find the total number of voters.",
         "difficulty": "Hard"
       },
       "RAP-QL-1504": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionLoserVotes",
-        "template": "In {constituencyName}, there are {totalVoters} voters. {turnoutPercent}% voted and {validPercent}% of polled votes were valid. The valid votes of {candidateA}:{candidateB} were {candidateRatioA}:{candidateRatioB}. Find the loser's votes.",
+        "template": "{constituencyName} has {totalVoters} voters. {turnoutPercent}% voted and {validPercent}% of polled votes were valid. The valid votes of {candidateA}:{candidateB} were {candidateRatioA}:{candidateRatioB}. Find the loser's votes.",
         "difficulty": "Medium"
       },
       "RAP-QL-1505": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionInvalidVotes",
-        "template": "In {constituencyName}, there are {totalVoters} voters. {turnoutPercent}% of them voted, and {invalidPercent}% of polled votes were invalid. Find the number of invalid votes.",
+        "template": "{constituencyName} has {totalVoters} voters. {turnoutPercent}% of them voted, and {invalidPercent}% of polled votes were invalid. Find the number of invalid votes.",
         "difficulty": "Easy"
       }
     }

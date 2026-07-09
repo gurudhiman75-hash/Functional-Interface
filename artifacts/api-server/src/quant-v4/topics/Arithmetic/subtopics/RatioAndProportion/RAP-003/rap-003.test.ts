@@ -825,7 +825,7 @@ for (const qlId of ["RAP-QL-801", "RAP-QL-802", "RAP-QL-803", "RAP-QL-804"]) {
   seenPartnershipQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenPartnershipQlIds.size, 4, `Expected all 4 CP-013 QLs, got ${seenPartnershipQlIds.size}`);
+assert.equal(seenPartnershipQlIds.size, 5, `Expected all 5 CP-013 QLs, got ${seenPartnershipQlIds.size}`);
 
 const seenIncomeQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -846,7 +846,7 @@ for (const qlId of ["RAP-QL-951", "RAP-QL-952", "RAP-QL-953", "RAP-QL-954"]) {
   seenIncomeQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenIncomeQlIds.size, 4, `Expected all 4 CP-015 QLs, got ${seenIncomeQlIds.size}`);
+assert.equal(seenIncomeQlIds.size, 5, `Expected all 5 CP-015 QLs, got ${seenIncomeQlIds.size}`);
 
 const seenAlloyQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -867,7 +867,7 @@ for (const qlId of ["RAP-QL-1001", "RAP-QL-1002", "RAP-QL-1003", "RAP-QL-1004"])
   seenAlloyQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenAlloyQlIds.size, 4, `Expected all 4 CP-016 QLs, got ${seenAlloyQlIds.size}`);
+assert.equal(seenAlloyQlIds.size, 5, `Expected all 5 CP-016 QLs, got ${seenAlloyQlIds.size}`);
 
 const seenReplacementQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -888,7 +888,7 @@ for (const qlId of ["RAP-QL-1101", "RAP-QL-1102", "RAP-QL-1103", "RAP-QL-1104"])
   seenReplacementQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenReplacementQlIds.size, 4, `Expected all 4 CP-017 QLs, got ${seenReplacementQlIds.size}`);
+assert.equal(seenReplacementQlIds.size, 5, `Expected all 5 CP-017 QLs, got ${seenReplacementQlIds.size}`);
 
 const seenDenominationQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -909,7 +909,7 @@ for (const qlId of ["RAP-QL-1201", "RAP-QL-1202", "RAP-QL-1203", "RAP-QL-1204", 
   seenDenominationQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenDenominationQlIds.size, 6, `Expected all 6 CP-018 QLs, got ${seenDenominationQlIds.size}`);
+assert.equal(seenDenominationQlIds.size, 7, `Expected all 7 CP-018 QLs, got ${seenDenominationQlIds.size}`);
 
 const seenSdtQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {

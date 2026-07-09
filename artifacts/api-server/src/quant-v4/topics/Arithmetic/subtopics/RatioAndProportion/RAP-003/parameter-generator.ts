@@ -385,7 +385,7 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
       mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
     };
   }
-  if (qlId === "RAP-QL-1002") {
+  if (qlId === "RAP-QL-1002" || qlId === "RAP-QL-1005") {
     return {
       ...addKeys(variables, percentOffset, ["percentA", "percentB"]),
       mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
@@ -476,7 +476,7 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
     const selected = pick(PARTNERSHIP_CASES.standard, `${seed}:partnership`);
     return { ...selected, targetPartner: targetPerson === "personA" ? selected.personA : selected.personB };
   }
-  if (qlId === "RAP-QL-802") {
+  if (qlId === "RAP-QL-802" || qlId === "RAP-QL-805") {
     const selected = pick(PARTNERSHIP_CASES.joining, `${seed}:partnershipJoining`);
     return { ...selected, targetPartner: targetPerson === "personA" ? selected.personA : selected.personB };
   }
@@ -484,7 +484,7 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
     const selected = pick(PARTNERSHIP_CASES.midChange, `${seed}:partnershipMid`);
     return { ...selected, targetPartner: targetPerson === "personA" ? selected.personA : selected.personB };
   }
-  if (qlId === "RAP-QL-951") {
+  if (qlId === "RAP-QL-951" || qlId === "RAP-QL-955") {
     return { ...pick(INCOME_EXPENDITURE_CASES.savingsRatio, `${seed}:incomeSavingsRatio`) };
   }
   if (qlId === "RAP-QL-952") {
@@ -502,7 +502,7 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
   if (qlId === "RAP-QL-1001" || qlId === "RAP-QL-1004") {
     return { ...pick(ALLOY_CASES.mixingRatio, `${seed}:alloyMix`) };
   }
-  if (qlId === "RAP-QL-1002") {
+  if (qlId === "RAP-QL-1002" || qlId === "RAP-QL-1005") {
     return { ...pick(ALLOY_CASES.targetPercent, `${seed}:alloyTarget`) };
   }
   if (qlId === "RAP-QL-1003") {
@@ -511,7 +511,7 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
   if (qlId === "RAP-QL-1101" || qlId === "RAP-QL-1104") {
     return { ...pick(REPLACEMENT_CASES.forward, `${seed}:replacementForward`) };
   }
-  if (qlId === "RAP-QL-1102") {
+  if (qlId === "RAP-QL-1102" || qlId === "RAP-QL-1105") {
     return { ...pick(REPLACEMENT_CASES.quantity, `${seed}:replacementQuantity`) };
   }
   if (qlId === "RAP-QL-1103") {
@@ -520,7 +520,7 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
   if (qlId === "RAP-QL-1201") {
     return { ...pick(DENOMINATION_CASES.value, `${seed}:denominationValue`) };
   }
-  if (qlId === "RAP-QL-1202") {
+  if (qlId === "RAP-QL-1202" || qlId === "RAP-QL-1207") {
     const selected = pick(DENOMINATION_CASES.total, `${seed}:denominationTotal`);
     const denominations = [selected.denominationA, selected.denominationB, selected.denominationC] as const;
     return { ...selected, targetDenomination: denominations[stableBucket(`${seed}:targetDenomination`, denominations.length)] };

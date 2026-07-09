@@ -30,7 +30,7 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Move through the election chain: total voters, polled votes, valid votes, then candidate ratio.",
+          "Problem: move through voters, polled votes, valid votes, then the candidate ratio.",
           "चुनाव श्रृंखला में चलें: कुल मतदाता, डाले गए मत, वैध मत, फिर उम्मीदवारों का अनुपात.",
           "ਚੋਣ ਲੜੀ ਅਨੁਸਾਰ ਚਲੋ: ਕੁੱਲ ਵੋਟਰ, ਪਈਆਂ ਵੋਟਾਂ, ਵੈਧ ਵੋਟਾਂ, ਫਿਰ ਉਮੀਦਵਾਰਾਂ ਦਾ ਅਨੁਪਾਤ.",
         ),
@@ -48,7 +48,7 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Use two linked systems: income ratio and expenditure ratio. Savings are income minus expenditure.",
+          "Problem: use the income ratio and expenditure ratio together; savings are income minus expenditure.",
           "दो जुड़ी प्रणालियां लें: आय अनुपात और व्यय अनुपात. बचत = आय - व्यय.",
           "ਦੋ ਜੁੜੀਆਂ ਪ੍ਰਣਾਲੀਆਂ ਵਰਤੋ: ਆਮਦਨ ਅਨੁਪਾਤ ਅਤੇ ਖਰਚ ਅਨੁਪਾਤ. ਬਚਤ = ਆਮਦਨ - ਖਰਚ.",
         ),
@@ -67,14 +67,14 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Use the speed-distance-time relation. Time is proportional to distance divided by speed.",
+          "Problem: use the speed-distance-time relation; time is proportional to distance divided by speed.",
           "गति-दूरी-समय संबंध लगाएं. समय दूरी को गति से भाग देने के समानुपाती होता है.",
           "ਗਤੀ-ਦੂਰੀ-ਸਮਾਂ ਸੰਬੰਧ ਵਰਤੋ. ਸਮਾਂ ਦੂਰੀ ਨੂੰ ਗਤੀ ਨਾਲ ਭਾਗ ਦੇਣ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੁੰਦਾ ਹੈ.",
         ),
         parameters.taskKind === "sdtRaceLead"
           ? block(`\\text{Distances covered}=${n(parameters, "raceLength")}:${n(parameters, "raceLength") - n(parameters, "leadDistance")}`)
           : block(`\\text{Speed ratio}=${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")},\\ \\text{Distance ratio}=${n(parameters, "distanceRatioA")}:${n(parameters, "distanceRatioB")}`),
-        localizedIntro(parameters, "Now simplify the resulting ratio.", "अब प्राप्त अनुपात को सरल करें.", "ਹੁਣ ਮਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਰਲ ਕਰੋ."),
+        localizedIntro(parameters, "Method 1: form time as distance divided by speed, then reduce.", "अब प्राप्त अनुपात को सरल करें.", "ਹੁਣ ਮਿਲੇ ਅਨੁਪਾਤ ਨੂੰ ਸਰਲ ਕਰੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -89,9 +89,9 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
     return {
       explanationId: parameters.explanationId,
       lines: [
-        "First normalize the given ratio information into comparable values.",
+        "Problem: normalize the linked ratios into comparable values.",
         block(`\\text{Comparable form}=${String(solver.workingValues.chain ?? solver.workingValues.ratios)}`),
-        "Now compare or simplify the requested values.",
+        "Method 1: compare the aligned parts directly.",
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -107,7 +107,7 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       return {
         explanationId: parameters.explanationId,
         lines: [
-          "For combined proportional quantities, multiply the rate ratio by the time ratio side by side.",
+          "Problem: combine rate and time ratios side by side.",
           block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
           block(`\\text{Time ratio}=${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`),
           block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
@@ -119,11 +119,11 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
     return {
       explanationId: parameters.explanationId,
       lines: [
-        "For a fixed work or fixed distance, the time ratio is inverse to the worker, efficiency, or speed ratio.",
+        "Problem: for fixed work or fixed distance, time varies inversely with rate.",
         parameters.variables.ratioA1 !== undefined
           ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}=${String(solver.workingValues.alignedChain)}`)
           : block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
-        "Use the inverse relation to scale the known time.",
+        "Method 1: use inverse scaling from the known time.",
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -139,19 +139,19 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       ? s(parameters, "personB")
       : s(parameters, "personA");
     const intro = parameters.taskKind === "weightedNestedPartition"
-      ? "First divide the total by the main ratio, then split the selected branch and apply the given weights."
+      ? "Problem: divide the total by the main ratio, split the selected branch, then apply weights."
       : parameters.taskKind === "conditionalDistribution"
-        ? "First check the selected branch after the main split, then divide that branch by the second ratio."
-        : "First divide the total by the main ratio, then subdivide the selected branch by the second ratio.";
+        ? "Problem: check the selected branch after the main split, then divide that branch by the second ratio."
+        : "Problem: divide the total by the main ratio, then subdivide the selected branch by the second ratio.";
 
     return {
       explanationId: parameters.explanationId,
       lines: [
         intro,
         block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
-        `The selected branch is ${branchName}, whose share is ${String(solver.workingValues.branchShare)}.`,
+        `Step 1: the selected branch is ${branchName}, whose share is ${String(solver.workingValues.branchShare)}.`,
         block(`${s(parameters, "personC")}:${s(parameters, "personD")}=${n(parameters, "subRatioC")}:${n(parameters, "subRatioD")}`),
-        `After the second split, the values are ${String(solver.workingValues.subShares)}.`,
+        `Step 2: after the second split, the values are ${String(solver.workingValues.subShares)}.`,
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -164,10 +164,10 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
     || parameters.taskKind === "reconstructOriginalRatio"
   ) {
     const actionLine = parameters.taskKind === "successiveRatioChange"
-      ? "First use the given total to convert the starting ratio into actual values, then apply the stated additions or removals."
+      ? "Problem: convert the starting ratio into actual values, then apply the additions or removals."
       : parameters.taskKind === "transferTracking"
-        ? "First use the total to convert the ratio into actual values, then move the transferred amount from one side to the other."
-        : "Work backward from the final ratio and undo the stated operation to recover the original values.";
+        ? "Problem: convert the ratio into actual values, then move the transferred amount."
+        : "Problem: work backward from the final ratio and undo the stated operation.";
 
     return {
       explanationId: parameters.explanationId,
@@ -176,7 +176,7 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
         solver.workingValues.initialRatio
           ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${String(solver.workingValues.initialRatio)}`)
           : block(`\\text{Final ratio}=${String(solver.workingValues.finalRatio)}`),
-        `The tracked values become ${String(solver.workingValues.finalA ?? solver.workingValues.originalA)} and ${String(solver.workingValues.finalB ?? solver.workingValues.originalB)} for the two sides.`,
+        `Step 1: the tracked values become ${String(solver.workingValues.finalA ?? solver.workingValues.originalA)} and ${String(solver.workingValues.finalB ?? solver.workingValues.originalB)}.`,
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -193,19 +193,19 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       [n(parameters, "ratioB2"), n(parameters, "ratioC2")],
     );
     const knownLine = parameters.taskKind === "reverseMiddleFinding"
-      ? `Use the known endpoint value to find the common multiplier, then apply it to ${s(parameters, "personB")}.`
+      ? `Method 1: use the known endpoint value to find the common multiplier, then apply it to ${s(parameters, "personB")}.`
       : parameters.taskKind === "reverseEndpointFinding"
-        ? `Use the known value of ${s(parameters, "personB")} to find the common multiplier, then apply it to the required endpoint.`
+        ? `Method 1: use the known value of ${s(parameters, "personB")} to find the common multiplier, then apply it to the required endpoint.`
         : String(parameters.variables.constraintKind ?? "difference") === "total"
-          ? "Use the given total to find the common multiplier for the full chain."
-          : `Use the endpoint difference between ${s(parameters, "personA")} and ${s(parameters, "personC")} to find the common multiplier.`;
+          ? "Method 1: use the given total to find the common multiplier for the full chain."
+          : `Method 1: use the endpoint difference between ${s(parameters, "personA")} and ${s(parameters, "personC")} to find the common multiplier.`;
 
     return {
       explanationId: parameters.explanationId,
       lines: [
-        `First align the two linked ratios through the common term ${s(parameters, "personB")}.`,
+        `Problem: align the two linked ratios through the common term ${s(parameters, "personB")}.`,
         block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA1")}:${n(parameters, "ratioB1")},\\ ${s(parameters, "personB")}:${s(parameters, "personC")}=${n(parameters, "ratioB2")}:${n(parameters, "ratioC2")}`),
-        `The aligned chain is ${aligned.join(":")}.`,
+        `Step 1: the aligned chain is ${aligned.join(":")}.`,
         block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}=${ratioLatex(aligned)}`),
         knownLine,
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
@@ -222,11 +222,11 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
     return {
       explanationId: parameters.explanationId,
       lines: [
-        `Align the two ratios by making the shared term ${s(parameters, "personB")} equal in both ratios.`,
+        `Problem: make the shared term ${s(parameters, "personB")} equal in both ratios.`,
         block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA1")}:${n(parameters, "ratioB1")},\\ ${s(parameters, "personB")}:${s(parameters, "personC")}=${n(parameters, "ratioB2")}:${n(parameters, "ratioC2")}`),
-        `After alignment, the chain becomes ${aligned.join(":")}.`,
+        `Step 1: after alignment, the chain becomes ${aligned.join(":")}.`,
         block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}=${ratioLatex(aligned)}`),
-        `So the aligned value of ${s(parameters, "personB")} is ${solver.answer.replaceAll("$$", "")}.`,
+        `Answer: the aligned value of ${s(parameters, "personB")} is ${solver.answer.replaceAll("$$", "")}.`,
       ],
     };
   }
@@ -238,15 +238,15 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
   );
   const targetLine =
     parameters.taskKind === "extendedChainAlignment"
-      ? `Now read the required pair from the common chain: ${String(parameters.variables.targetPairLabel ?? "selected pair")}.`
-      : "Now read the full four-part chain.";
+      ? `Method 2: read the required pair from the common chain: ${String(parameters.variables.targetPairLabel ?? "selected pair")}.`
+      : "Method 2: read the full four-part chain.";
 
   return {
     explanationId: parameters.explanationId,
     lines: [
-      "First align the common terms in the linked ratios.",
+      "Problem: align the common terms in the linked ratios.",
       block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA1")}:${n(parameters, "ratioB1")},\\ ${s(parameters, "personB")}:${s(parameters, "personC")}=${n(parameters, "ratioB2")}:${n(parameters, "ratioC2")},\\ ${s(parameters, "personC")}:${s(parameters, "personD")}=${n(parameters, "ratioC3")}:${n(parameters, "ratioD3")}`),
-      `The common chain is ${fullChain.join(":")}.`,
+      `Step 1: the common chain is ${fullChain.join(":")}.`,
       block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}:${s(parameters, "personD")}=${ratioLatex(fullChain)}`),
       targetLine,
       block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),

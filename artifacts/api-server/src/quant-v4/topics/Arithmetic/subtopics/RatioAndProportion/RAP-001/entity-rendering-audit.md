@@ -14,7 +14,7 @@ personCId: teachers
 
 English rendering
 
-If the ratio girls:boys is 4:5 and boys:teachers is 5:6, what will be the combined ratio girls:boys:teachers?
+girls:boys = 4:5 and boys:teachers = 5:6. Find girls:boys:teachers.
 
 Hindi rendering
 
@@ -38,7 +38,7 @@ personCId: teachers
 
 English rendering
 
-In a competitive exam setup, if the ratio girls:boys is 5:6 and boys:teachers is 6:7, what will be the combined ratio girls:boys:teachers?
+The ratio of girls to boys is 5:6, while the ratio of boys to teachers is 6:7. What is the combined ratio of all three?
 
 Hindi rendering
 
@@ -62,7 +62,7 @@ personCId: teachers
 
 English rendering
 
-If the ratio girls:boys is 6:7 and boys:teachers is 7:8, what will be the combined ratio girls:boys:teachers?
+girls and boys are in the ratio 6:7. boys and teachers are in the ratio 7:8. Write the ratio girls:boys:teachers.
 
 Hindi rendering
 
@@ -86,7 +86,7 @@ personCId: teachers
 
 English rendering
 
-If the following conditions hold: If the ratio girls:boys is 7:8 and boys:teachers is 8:1, what will be the combined ratio girls:boys:teachers?
+Two linked ratios are given: girls:boys = 7:8 and boys:teachers = 8:1. Combine them into girls:boys:teachers.
 
 Hindi rendering
 
@@ -110,7 +110,7 @@ personCId: teachers
 
 English rendering
 
-Based on given parameters, If the ratio boys:girls is 8:1 and girls:teachers is 1:2, what will be the combined ratio boys:girls:teachers?
+Given boys:girls = 8:1 and girls:teachers = 1:2, find the single ratio connecting boys, girls, and teachers.
 
 Hindi rendering
 
@@ -468,7 +468,7 @@ personCId: teachers
 
 English rendering
 
-In a competitive exam setup, an amount of Rs. 800 is distributed between girls, boys, and teachers in the ratio 4:3:3. How much more money does girls get than teachers?
+An amount of Rs. 800 is distributed between girls, boys, and teachers in the ratio 4:3:3. How much more money does girls get than teachers?
 
 Hindi rendering
 
@@ -516,7 +516,7 @@ personCId: teachers
 
 English rendering
 
-If the following conditions hold: An amount of Rs. 800 is distributed between girls, boys, and teachers in the ratio 8:7:1. How much more money does girls get than teachers?
+An amount of Rs. 800 is distributed between girls, boys, and teachers in the ratio 8:7:1. How much more money does girls get than teachers?
 
 Hindi rendering
 
@@ -540,7 +540,7 @@ personCId: teachers
 
 English rendering
 
-Based on given parameters, An amount of Rs. 2210 is distributed between girls, boys, and teachers in the ratio 9:2:6. How much more money does girls get than teachers?
+An amount of Rs. 2210 is distributed between girls, boys, and teachers in the ratio 9:2:6. How much more money does girls get than teachers?
 
 Hindi rendering
 
@@ -588,7 +588,7 @@ personCId: teachers
 
 English rendering
 
-In a competitive exam setup, the shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 100 more than teachers, how much was the total amount distributed?
+The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 100 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
@@ -636,7 +636,7 @@ personCId: teachers
 
 English rendering
 
-If the following conditions hold: The shares of boys, girls, and teachers are in the ratio 5:4:2. If boys gets Rs. 210 more than teachers, how much was the total amount distributed?
+The shares of boys, girls, and teachers are in the ratio 5:4:2. If boys gets Rs. 210 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
@@ -660,7 +660,7 @@ personCId: boys
 
 English rendering
 
-Based on given parameters, The shares of girls, teachers, and boys are in the ratio 6:5:5. If girls gets Rs. 150 more than boys, how much was the total amount distributed?
+The shares of girls, teachers, and boys are in the ratio 6:5:5. If girls gets Rs. 150 more than boys, how much was the total amount distributed?
 
 Hindi rendering
 
@@ -704,7 +704,7 @@ personAId: boys
 
 English rendering
 
-In a competitive exam setup, the ratio of boys' monthly expenses to savings is 2:3. If the total salary is Rs. 14000, how much does boys save every month?
+The ratio of boys' monthly expenses to savings is 2:3. If the total salary is Rs. 14000, how much does boys save every month?
 
 Hindi rendering
 
@@ -748,7 +748,7 @@ personAId: students
 
 English rendering
 
-If the following conditions hold: The ratio of students' monthly expenses to savings is 4:3. If the total salary is Rs. 18200, how much does students save every month?
+The ratio of students' monthly expenses to savings is 4:3. If the total salary is Rs. 18200, how much does students save every month?
 
 Hindi rendering
 
@@ -770,7 +770,7 @@ personAId: boys
 
 English rendering
 
-Based on given parameters, The ratio of boys' monthly expenses to savings is 2:4. If the total salary is Rs. 15000, how much does boys save every month?
+The ratio of boys' monthly expenses to savings is 2:4. If the total salary is Rs. 15000, how much does boys save every month?
 
 Hindi rendering
 
@@ -837,7 +837,7 @@ IDs
 
 English rendering
 
-In a competitive exam setup, two numbers are in the ratio 7:10. If 16 is added to each, the ratio becomes 11:14. What is the value of the larger number?
+Two numbers are in the ratio 7:10. If 16 is added to each, the ratio becomes 11:14. What is the value of the larger number?
 
 Hindi rendering
 
@@ -858,7 +858,7 @@ IDs
 
 English rendering
 
-Two numbers are in the ratio 7:8. If 17 is added to each, the ratio becomes 31:33. Calculate the value of the larger number?
+Two numbers are in the ratio 7:8. If 17 is added to each, the ratio becomes 31:33. Find the larger number.
 
 Hindi rendering
 
@@ -879,7 +879,7 @@ IDs
 
 English rendering
 
-If the following conditions hold: Two numbers are in the ratio 3:6. If 12 is added to each, the ratio becomes 13:22. What is the value of the larger number?
+Two numbers are in the ratio 3:6. If 12 is added to each, the ratio becomes 13:22. What is the value of the larger number?
 
 Hindi rendering
 
@@ -900,7 +900,7 @@ IDs
 
 English rendering
 
-Based on given parameters, Two numbers are in the ratio 3:6. If 7 is added to each, the ratio becomes 4:7. What is the value of the larger number?
+Two numbers are in the ratio 3:6. If 7 is added to each, the ratio becomes 4:7. What is the value of the larger number?
 
 Hindi rendering
 
@@ -946,7 +946,7 @@ personBId: mother
 
 English rendering
 
-In a competitive exam setup, the incomes of father and mother are in the ratio 3:2, and their expenses are 3:5. If both save Rs. 3600 each, what is father's income?
+The incomes of father and mother are in the ratio 3:2, and their expenses are 3:5. If both save Rs. 3600 each, what is father's income?
 
 Hindi rendering
 
@@ -992,7 +992,7 @@ personBId: daughter
 
 English rendering
 
-If the following conditions hold: The incomes of son and daughter are in the ratio 5:2, and their expenses are 1:3. If both save Rs. 6500 each, what is son's income?
+The incomes of son and daughter are in the ratio 5:2, and their expenses are 1:3. If both save Rs. 6500 each, what is son's income?
 
 Hindi rendering
 
@@ -1015,7 +1015,7 @@ personBId: sister
 
 English rendering
 
-Based on given parameters, The incomes of brother and sister are in the ratio 6:4, and their expenses are 2:5. If both save Rs. 6600 each, what is brother's income?
+The incomes of brother and sister are in the ratio 6:4, and their expenses are 2:5. If both save Rs. 6600 each, what is brother's income?
 
 Hindi rendering
 
@@ -1036,7 +1036,7 @@ IDs
 
 English rendering
 
-In a school, the ratio of boys to girls is 3:4. If 4 boys join and 4 girls leave, the ratio becomes 25:24. How many girls were there originally?
+A school has boys and girls in the ratio 3:4. After 4 boys join and 4 girls leave, the ratio becomes 25:24. How many girls were there originally?
 
 Hindi rendering
 
@@ -1057,7 +1057,7 @@ IDs
 
 English rendering
 
-In a competitive exam setup, in a school, the ratio of boys to girls is 6:7. If 7 boys join and 31 girls leave, the ratio becomes 37:4. How many girls were there originally?
+A school has boys and girls in the ratio 6:7. After 7 boys join and 31 girls leave, the ratio becomes 37:4. How many girls were there originally?
 
 Hindi rendering
 
@@ -1078,7 +1078,7 @@ IDs
 
 English rendering
 
-In a school, the ratio of boys to girls is 7:2. If 10 boys join and 4 girls leave, the ratio becomes 31:2. How many girls were there originally?
+A school has boys and girls in the ratio 7:2. After 10 boys join and 4 girls leave, the ratio becomes 31:2. How many girls were there originally?
 
 Hindi rendering
 
@@ -1099,7 +1099,7 @@ IDs
 
 English rendering
 
-If the following conditions hold: In a school, the ratio of boys to girls is 2:3. If 13 boys join and 15 girls leave, the ratio becomes 11:5. How many girls were there originally?
+A school has boys and girls in the ratio 2:3. After 13 boys join and 15 girls leave, the ratio becomes 11:5. How many girls were there originally?
 
 Hindi rendering
 
@@ -1120,7 +1120,7 @@ IDs
 
 English rendering
 
-Based on given parameters, In a school, the ratio of boys to girls is 5:6. If 2 boys join and 28 girls leave, the ratio becomes 21:10. How many girls were there originally?
+A school has boys and girls in the ratio 5:6. After 2 boys join and 28 girls leave, the ratio becomes 21:10. How many girls were there originally?
 
 Hindi rendering
 
@@ -1143,7 +1143,7 @@ groupBId: girls
 
 English rendering
 
-In a class, the ratio of boys to girls is 2:4. If 5 more boys join, the ratio becomes 23:36. How many boys were there at the beginning?
+class has boys and girls in the ratio 2:4. After 5 more boys join, the ratio becomes 23:36. How many boys were there at the beginning?
 
 Hindi rendering
 
@@ -1166,7 +1166,7 @@ groupBId: girls
 
 English rendering
 
-In a competitive exam setup, in a class, the ratio of boys to girls is 3:5. If 11 more boys join, the ratio becomes 32:35. How many boys were there at the beginning?
+class has boys and girls in the ratio 3:5. After 11 more boys join, the ratio becomes 32:35. How many boys were there at the beginning?
 
 Hindi rendering
 
@@ -1189,7 +1189,7 @@ groupBId: girls
 
 English rendering
 
-In a class, the ratio of boys to girls is 6:2. If 17 more boys join, the ratio becomes 47:10. How many boys were there at the beginning?
+class has boys and girls in the ratio 6:2. After 17 more boys join, the ratio becomes 47:10. How many boys were there at the beginning?
 
 Hindi rendering
 
@@ -1212,7 +1212,7 @@ groupBId: girls
 
 English rendering
 
-If the following conditions hold: In a class, the ratio of boys to girls is 1:3. If 4 more boys join, the ratio becomes 7:9. How many boys were there at the beginning?
+class has boys and girls in the ratio 1:3. After 4 more boys join, the ratio becomes 7:9. How many boys were there at the beginning?
 
 Hindi rendering
 
@@ -1235,7 +1235,7 @@ groupBId: girls
 
 English rendering
 
-Based on given parameters, In a class, the ratio of boys to girls is 2:4. If 10 more boys join, the ratio becomes 3:4. How many boys were there at the beginning?
+class has boys and girls in the ratio 2:4. After 10 more boys join, the ratio becomes 3:4. How many boys were there at the beginning?
 
 Hindi rendering
 
@@ -1277,7 +1277,7 @@ IDs
 
 English rendering
 
-In a competitive exam setup, what will be the third proportional to 1 and 2?
+What will be the third proportional to 1 and 2?
 
 Hindi rendering
 
@@ -1319,7 +1319,7 @@ IDs
 
 English rendering
 
-If the following conditions hold: What will be the third proportional to 9 and 12?
+What will be the third proportional to 9 and 12?
 
 Hindi rendering
 
@@ -1340,7 +1340,7 @@ IDs
 
 English rendering
 
-Based on given parameters, What will be the third proportional to 16 and 20?
+What will be the third proportional to 16 and 20?
 
 Hindi rendering
 
@@ -1382,7 +1382,7 @@ IDs
 
 English rendering
 
-In a competitive exam setup, find the number which is fourth proportional to 6, 1, and 60.
+Find the number which is fourth proportional to 6, 1, and 60.
 
 Hindi rendering
 
@@ -1424,7 +1424,7 @@ IDs
 
 English rendering
 
-If the following conditions hold: Find the number which is fourth proportional to 2, 3, and 4.
+Find the number which is fourth proportional to 2, 3, and 4.
 
 Hindi rendering
 
@@ -1445,7 +1445,7 @@ IDs
 
 English rendering
 
-Based on given parameters, Find the number which is fourth proportional to 3, 4, and 9.
+Find the number which is fourth proportional to 3, 4, and 9.
 
 Hindi rendering
 
@@ -1487,7 +1487,7 @@ IDs
 
 English rendering
 
-In a competitive exam setup, a box contains 10 coins of 1, 2, 5, and 10. If their values are in the ratio 1:4:15:40, what is the number of 1 coins?
+A box contains 10 coins of 1, 2, 5, and 10. If their values are in the ratio 1:4:15:40, what is the number of 1 coins?
 
 Hindi rendering
 
@@ -1529,7 +1529,7 @@ IDs
 
 English rendering
 
-If the following conditions hold: A box contains 18 coins of 1, 2, 5, and 10. If their values are in the ratio 7:16:5:20, what is the number of 5 coins?
+A box contains 18 coins of 1, 2, 5, and 10. If their values are in the ratio 7:16:5:20, what is the number of 5 coins?
 
 Hindi rendering
 
@@ -1550,7 +1550,7 @@ IDs
 
 English rendering
 
-Based on given parameters, A box contains 22 coins of 1, 2, 5, and 10. If their values are in the ratio 3:7:20:5, what is the number of 10 coins?
+A box contains 22 coins of 1, 2, 5, and 10. If their values are in the ratio 3:7:20:5, what is the number of 10 coins?
 
 Hindi rendering
 
@@ -1598,7 +1598,7 @@ itemCId: coin_5
 
 English rendering
 
-In a competitive exam setup, the weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 6:7:8. If the total weight of 3 Rs. 1 coin, 4 Rs. 2 coin, and 5 Rs. 5 coin is 602 kg, find the weight of one Rs. 1 coin.
+The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 6:7:8. If the total weight of 3 Rs. 1 coin, 4 Rs. 2 coin, and 5 Rs. 5 coin is 602 kg, find the weight of one Rs. 1 coin.
 
 Hindi rendering
 
@@ -1646,7 +1646,7 @@ itemCId: coin_5
 
 English rendering
 
-If the following conditions hold: The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 8:1:2. If the total weight of 2 Rs. 1 coin, 3 Rs. 2 coin, and 4 Rs. 5 coin is 243 kg, find the weight of one Rs. 1 coin.
+The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 8:1:2. If the total weight of 2 Rs. 1 coin, 3 Rs. 2 coin, and 4 Rs. 5 coin is 243 kg, find the weight of one Rs. 1 coin.
 
 Hindi rendering
 
@@ -1670,7 +1670,7 @@ itemCId: coin_5
 
 English rendering
 
-Based on given parameters, The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 1:2:3. If the total weight of 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin is 200 kg, find the weight of one Rs. 2 coin.
+The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 1:2:3. If the total weight of 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin is 200 kg, find the weight of one Rs. 2 coin.
 
 Hindi rendering
 
@@ -1694,7 +1694,7 @@ sub3Id: english
 
 English rendering
 
-In an exam, the marks for History, Science, and English are in the ratio 5:6:7. If the weights for these subjects are 3, 4, and 1 and the total weighted score is 368, how many marks were obtained in History?
+Marks in History, Science, and English are in the ratio 5:6:7. Their weights are 3, 4, and 1, and the total weighted score is 368. How many marks were obtained in History?
 
 Hindi rendering
 
@@ -1718,7 +1718,7 @@ sub3Id: science
 
 English rendering
 
-In a competitive exam setup, in an exam, the marks for Mathematics, English, and Science are in the ratio 6:7:8. If the weights for these subjects are 2, 3, and 4 and the total weighted score is 585, how many marks were obtained in Mathematics?
+Marks in Mathematics, English, and Science are in the ratio 6:7:8. Their weights are 2, 3, and 4, and the total weighted score is 585. How many marks were obtained in Mathematics?
 
 Hindi rendering
 
@@ -1742,7 +1742,7 @@ sub3Id: history
 
 English rendering
 
-In an exam, the marks for English, Science, and History are in the ratio 7:8:1. If the weights for these subjects are 1, 2, and 3 and the total weighted score is 260, how many marks were obtained in English?
+Marks in English, Science, and History are in the ratio 7:8:1. Their weights are 1, 2, and 3, and the total weighted score is 260. How many marks were obtained in English?
 
 Hindi rendering
 
@@ -1766,7 +1766,7 @@ sub3Id: english
 
 English rendering
 
-If the following conditions hold: In an exam, the marks for History, Science, and English are in the ratio 8:1:2. If the weights for these subjects are 4, 1, and 2 and the total weighted score is 407, how many marks were obtained in History?
+Marks in History, Science, and English are in the ratio 8:1:2. Their weights are 4, 1, and 2, and the total weighted score is 407. How many marks were obtained in History?
 
 Hindi rendering
 
@@ -1790,7 +1790,7 @@ sub3Id: science
 
 English rendering
 
-Based on given parameters, In an exam, the marks for Mathematics, English, and Science are in the ratio 1:2:3. If the weights for these subjects are 3, 4, and 1 and the total weighted score is 168, how many marks were obtained in Mathematics?
+Marks in Mathematics, English, and Science are in the ratio 1:2:3. Their weights are 3, 4, and 1, and the total weighted score is 168. How many marks were obtained in Mathematics?
 
 Hindi rendering
 
@@ -1813,7 +1813,7 @@ liquid2Id: milk
 
 English rendering
 
-In 104 litres of a mixture, the ratio of water to milk is 6:7. How many litres of milk should be added to make the ratio 16:25?
+A 104-litre mixture has water and milk in the ratio 6:7. How many litres of milk should be added to make the ratio 16:25?
 
 Hindi rendering
 
@@ -1836,7 +1836,7 @@ liquid2Id: juice
 
 English rendering
 
-In a competitive exam setup, in 66 litres of a mixture, the ratio of water to juice is 5:6. How many litres of juice should be added to make the ratio 15:28?
+A 66-litre mixture has water and juice in the ratio 5:6. How many litres of juice should be added to make the ratio 15:28?
 
 Hindi rendering
 
@@ -1859,7 +1859,7 @@ liquid2Id: water
 
 English rendering
 
-In 36 litres of a mixture, the ratio of juice to water is 4:5. How many litres of water should be added to make the ratio 16:25?
+A 36-litre mixture has juice and water in the ratio 4:5. How many litres of water should be added to make the ratio 16:25?
 
 Hindi rendering
 
@@ -1882,7 +1882,7 @@ liquid2Id: milk
 
 English rendering
 
-If the following conditions hold: In 14 litres of a mixture, the ratio of juice to milk is 3:4. How many litres of milk should be added to make the ratio 3:7?
+A 14-litre mixture has juice and milk in the ratio 3:4. How many litres of milk should be added to make the ratio 3:7?
 
 Hindi rendering
 
@@ -1905,7 +1905,7 @@ liquid2Id: juice
 
 English rendering
 
-Based on given parameters, In 45 litres of a mixture, the ratio of milk to juice is 2:3. How many litres of juice should be added to make the ratio 9:17?
+A 45-litre mixture has milk and juice in the ratio 2:3. How many litres of juice should be added to make the ratio 9:17?
 
 Hindi rendering
 
@@ -1953,7 +1953,7 @@ liquid3Id: water
 
 English rendering
 
-In a competitive exam setup, a solution has milk, juice, and water in the ratio 6:7:8. After adding 9 litres of juice, the new ratio becomes 12:23:16. Find the starting volume.
+A solution has milk, juice, and water in the ratio 6:7:8. After adding 9 litres of juice, the new ratio becomes 12:23:16. Find the starting volume.
 
 Hindi rendering
 
@@ -2001,7 +2001,7 @@ liquid3Id: juice
 
 English rendering
 
-If the following conditions hold: A solution has water, milk, and juice in the ratio 4:5:6. After adding 15 litres of milk, the new ratio becomes 2:4:3. Find the starting volume.
+A solution has water, milk, and juice in the ratio 4:5:6. After adding 15 litres of milk, the new ratio becomes 2:4:3. Find the starting volume.
 
 Hindi rendering
 
@@ -2025,7 +2025,7 @@ liquid3Id: milk
 
 English rendering
 
-Based on given parameters, A solution has juice, water, and milk in the ratio 3:4:5. After adding 8 litres of water, the new ratio becomes 9:20:15. Find the starting volume.
+A solution has juice, water, and milk in the ratio 3:4:5. After adding 8 litres of water, the new ratio becomes 9:20:15. Find the starting volume.
 
 Hindi rendering
 
@@ -2071,7 +2071,7 @@ liquidBId: juice
 
 English rendering
 
-In a competitive exam setup, from 50 litres of milk, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of milk to juice?
+From 50 litres of milk, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of milk to juice?
 
 Hindi rendering
 
@@ -2094,7 +2094,7 @@ liquidBId: milk
 
 English rendering
 
-From 60 litres of water, 15 litres are replaced with milk, and then 20 litres are again replaced with milk. Calculate the final ratio of water to milk?
+From 60 litres of water, 15 litres are replaced with milk, and then 20 litres are again replaced with milk. Find the final ratio of water to milk.
 
 Hindi rendering
 
@@ -2117,7 +2117,7 @@ liquidBId: juice
 
 English rendering
 
-If the following conditions hold: From 70 litres of water, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of water to juice?
+From 70 litres of water, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of water to juice?
 
 Hindi rendering
 
@@ -2140,7 +2140,7 @@ liquidBId: milk
 
 English rendering
 
-Based on given parameters, From 80 litres of water, 15 litres are replaced with milk, and then 20 litres are again replaced with milk. What is the final ratio of water to milk?
+From 80 litres of water, 15 litres are replaced with milk, and then 20 litres are again replaced with milk. What is the final ratio of water to milk?
 
 Hindi rendering
 
@@ -2182,7 +2182,7 @@ IDs
 
 English rendering
 
-In a competitive exam setup, a solution contains 25 litres of acid and 45 litres of water. What is the percentage of acid in the solution?
+A solution contains 25 litres of acid and 45 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 
@@ -2203,7 +2203,7 @@ IDs
 
 English rendering
 
-A solution contains 20 litres of acid and 10 litres of water. Calculate the percentage of acid in the solution?
+A solution contains 20 litres of acid and 10 litres of water. Find the percentage of acid in the solution.
 
 Hindi rendering
 
@@ -2224,7 +2224,7 @@ IDs
 
 English rendering
 
-If the following conditions hold: A solution contains 15 litres of acid and 75 litres of water. What is the percentage of acid in the solution?
+A solution contains 15 litres of acid and 75 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 
@@ -2245,7 +2245,7 @@ IDs
 
 English rendering
 
-Based on given parameters, A solution contains 10 litres of acid and 40 litres of water. What is the percentage of acid in the solution?
+A solution contains 10 litres of acid and 40 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 

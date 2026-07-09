@@ -24,6 +24,12 @@
         "taskKind": "partnershipProfitShare",
         "template": "दो साझेदार {personA} और {personB} क्रमशः Rs. {investmentA} और Rs. {investmentB} को {timeA} महीने और {timeB} महीने के लिए निवेश करते हैं. कुल लाभ Rs. {totalProfit} है. {targetPartner} का लाभ ज्ञात करें.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-805": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipJoiningPartnerProfit",
+        "template": "{personA} Rs. {investmentA} ?? {timeA} ????? ?? ???? ???? ??. {personB} ??? ??? ?????? Rs. {investmentB} ?? {timeB} ????? ?? ????? ??. ??? ??? Rs. {totalProfit} ??, ?? {targetPartner} ?? ?????? ????? ????.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -92,6 +98,12 @@
         "taskKind": "expenditureFromSavingsRatio",
         "template": "{personA} और {personB} की आय का अनुपात {incomeRatioA}:{incomeRatioB}, खर्च का अनुपात {expenditureRatioA}:{expenditureRatioB}, और बचत का अनुपात {savingsRatioA}:{savingsRatioB} है. यदि {personA} की आय Rs. {givenIncomeA} है, तो {targetPerson} का खर्च ज्ञात करें.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-955": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureSavingsRatio",
+        "template": "{personA} ?? {personB} ?? ?? ?? ?????? {incomeRatioA}:{incomeRatioB} ??. ???? ???? ?? ?????? {expenditureRatioA}:{expenditureRatioB} ??. ?? ?? ???? Rs. {incomeUnit} ?? ???? ?? ???? Rs. {expenditureUnit} ???? ?? ??? ?? ?????? ????? ????.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -119,6 +131,12 @@
         "cpId": "RAP-CP-016",
         "taskKind": "alloyMixingRatioFromTarget",
         "template": "दो मिश्रणों में {component} क्रमशः {percentA}% और {percentB}% है. {targetPercent}% {component} पाने के लिए {mixtureA}:{mixtureB} का मिश्रण अनुपात ज्ञात करें.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1005": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetComponentFromMix",
+        "template": "{percentA}% {component} ???? {mixtureA} ?? {quantityA} ???? ?? {percentB}% {component} ???? {mixtureB} ?? {quantityB} ???? ?? ?????? ???? ??. ????? ?????? ??? {component} ?? ??????? ????? ????.",
         "difficulty": "Medium"
       }
     }
@@ -148,6 +166,12 @@
         "taskKind": "replacementFinalRatio",
         "template": "{vesselName} से {initialVolume} लीटर में से {removedVolume} लीटर को {replacementCount} बार {liquidB} से बदला जाता है. यदि शुरू में केवल {liquidA} था, तो अंतिम {liquidA}:{liquidB} अनुपात ज्ञात करें.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-1105": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} ??? ???? ??? {liquidA} ?? {initialVolume} ???? ???. ?? ??? ??? {removedVolume} ???? ??????? {liquidB} ?? ???? ???? ??. {replacementCount} ????? ?? ??? ????? {liquidA} ??????",
+        "difficulty": "Medium"
       }
     }
   },
@@ -188,6 +212,12 @@
         "taskKind": "denominationCountsFromValue",
         "template": "Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, और Rs. {denominationD} के {itemName} {ratioA}:{ratioB}:{ratioC}:{ratioD} के अनुपात में हैं. यदि कुल मूल्य Rs. {totalValue} है, तो Rs. {targetDenomination} के {itemName} की संख्या ज्ञात करें.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-1207": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "Rs. {denominationA}, Rs. {denominationB}, ?? Rs. {denominationC} ?? {itemName} ?? ???????? {ratioA}:{ratioB}:{ratioC} ?? ?????? ??? ???. ???? ??? ????? Rs. {totalValue} ??. Rs. {targetDenomination} ?? {itemName} ?? ?????? ????? ????.",
+        "difficulty": "Medium"
       }
     }
   },

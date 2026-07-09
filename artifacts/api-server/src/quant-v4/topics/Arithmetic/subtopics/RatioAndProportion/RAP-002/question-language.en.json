@@ -22,7 +22,7 @@
       "RAP-QL-204": {
         "cpId": "RAP-CP-007",
         "taskKind": "chainAlignment",
-        "template": "In a four-part chain, {personA}:{personB} is {ratioA1}:{ratioB1}, {personB}:{personC} is {ratioB2}:{ratioC2}, and {personC}:{personD} is {ratioC3}:{ratioD3}. Find the full chain ratio.",
+        "template": "A four-part chain has {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}. Find the full chain ratio.",
         "difficulty": "Medium"
       },
       "RAP-QL-205": {
@@ -156,7 +156,7 @@
       "RAP-QL-407": {
         "cpId": "RAP-CP-009",
         "taskKind": "electionWinnerVotes",
-        "template": "In an election with {totalVoters} voters, {turnoutPercent}% cast their votes. Of the polled votes, {validPercent}% were valid and the valid votes for {candidateA} and {candidateB} were in the ratio {voteRatioA}:{voteRatioB}. Find the winner's votes.",
+        "template": "An election has {totalVoters} voters, and {turnoutPercent}% cast their votes. Of the polled votes, {validPercent}% were valid, and the valid votes for {candidateA} and {candidateB} were in the ratio {voteRatioA}:{voteRatioB}. Find the winner's votes.",
         "difficulty": "Medium"
       },
       "RAP-QL-408": {
@@ -168,7 +168,7 @@
       "RAP-QL-409": {
         "cpId": "RAP-CP-009",
         "taskKind": "electionTotalVotersFromMargin",
-        "template": "In an election, {turnoutPercent}% of voters cast their votes and {validPercent}% of polled votes were valid. The valid votes for {candidateA}:{candidateB} were in the ratio {voteRatioA}:{voteRatioB}. If the winning margin was {marginVotes} votes, find the total number of voters.",
+        "template": "{turnoutPercent}% of voters cast their votes, and {validPercent}% of polled votes were valid. The valid votes for {candidateA}:{candidateB} were in the ratio {voteRatioA}:{voteRatioB}. If the winning margin was {marginVotes} votes, find the total number of voters.",
         "difficulty": "Hard"
       }
     }
@@ -272,7 +272,7 @@
       "RAP-QL-608": {
         "cpId": "RAP-CP-011",
         "taskKind": "sdtRaceLead",
-        "template": "In a {raceLength} m race, {personA} beats {personB} by {leadDistance} m. Find the ratio of their speeds.",
+        "template": "{personA} beats {personB} by {leadDistance} m in a {raceLength} m race. Find the ratio of their speeds.",
         "difficulty": "Medium"
       }
     }

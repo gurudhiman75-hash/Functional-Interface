@@ -21,13 +21,13 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "In partnership, profit is divided in the ratio of investment multiplied by time.",
+          "Problem: in partnership, profit is divided by investment multiplied by time.",
           "साझेदारी में लाभ निवेश और समय के गुणनफल के अनुपात में बांटा जाता है.",
           "ਸਾਂਝੇਦਾਰੀ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਅਤੇ ਸਮੇਂ ਦੇ ਗੁਣਨਫਲ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ.",
         ),
         block(`\\text{Investment-time products}=${String(solver.workingValues.productA)}:${String(solver.workingValues.productB)}`),
         block(`\\text{Profit ratio}=${String(solver.workingValues.profitRatio)}`),
-        localizedIntro(parameters, "Use the target partner's share of the total profit.", "कुल लाभ में लक्षित साझेदार का हिस्सा लें.", "ਕੁੱਲ ਲਾਭ ਵਿੱਚ ਲਕਸ਼ਿਤ ਸਾਥੀ ਦਾ ਹਿੱਸਾ ਲਵੋ."),
+        localizedIntro(parameters, "Method 1: use the target partner's share of the total profit.", "कुल लाभ में लक्षित साझेदार का हिस्सा लें.", "ਕੁੱਲ ਲਾਭ ਵਿੱਚ ਲਕਸ਼ਿਤ ਸਾਥੀ ਦਾ ਹਿੱਸਾ ਲਵੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -44,14 +44,14 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "For mixture blending, compare component amounts or component percentages, not just total quantities.",
+          "Problem: for mixture blending, compare component amounts or percentages, not just total quantities.",
           "मिश्रण में घटक की मात्रा या प्रतिशत की तुलना करें, केवल कुल मात्रा की नहीं.",
           "ਮਿਸ਼ਰਣ ਵਿੱਚ ਘਟਕ ਦੀ ਮਾਤਰਾ ਜਾਂ ਪ੍ਰਤੀਸ਼ਤ ਦੀ ਤੁਲਨਾ ਕਰੋ, ਸਿਰਫ਼ ਕੁੱਲ ਮਾਤਰਾ ਦੀ ਨਹੀਂ.",
         ),
         block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
         parameters.taskKind === "alloyMixingRatioFromTarget"
-          ? localizedIntro(parameters, "Use alligation: distance from the target decides the opposite mixing parts.", "एलिगेशन लगाएं: लक्ष्य से दूरी विपरीत मिश्रण भाग देती है.", "ਐਲੀਗੇਸ਼ਨ ਵਰਤੋ: ਲਕਸ਼ ਤੋਂ ਦੂਰੀ ਉਲਟ ਮਿਲਾਉਣ ਵਾਲੇ ਭਾਗ ਦਿੰਦੀ ਹੈ.")
-          : localizedIntro(parameters, "Compute the weighted component amount and divide by the total mixture.", "भारित घटक मात्रा निकालकर कुल मिश्रण से भाग दें.", "ਭਾਰਿਤ ਘਟਕ ਮਾਤਰਾ ਕੱਢ ਕੇ ਕੁੱਲ ਮਿਸ਼ਰਣ ਨਾਲ ਭਾਗ ਦਿਓ."),
+          ? localizedIntro(parameters, "Method 1: use alligation; distance from the target decides the opposite mixing parts.", "एलिगेशन लगाएं: लक्ष्य से दूरी विपरीत मिश्रण भाग देती है.", "ਐਲੀਗੇਸ਼ਨ ਵਰਤੋ: ਲਕਸ਼ ਤੋਂ ਦੂਰੀ ਉਲਟ ਮਿਲਾਉਣ ਵਾਲੇ ਭਾਗ ਦਿੰਦੀ ਹੈ.")
+          : localizedIntro(parameters, "Method 1: compute the weighted component amount and divide by the total mixture.", "भारित घटक मात्रा निकालकर कुल मिश्रण से भाग दें.", "ਭਾਰਿਤ ਘਟਕ ਮਾਤਰਾ ਕੱਢ ਕੇ ਕੁੱਲ ਮਿਸ਼ਰਣ ਨਾਲ ਭਾਗ ਦਿਓ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -69,7 +69,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "For income-expenditure questions, convert both ratios into actual comparable amounts, then use savings = income - expenditure.",
+          "Problem: convert income and expenditure ratios into comparable amounts; savings = income - expenditure.",
           "आय-खर्च प्रश्नों में दोनों अनुपातों को तुलनीय वास्तविक राशियों में बदलें, फिर बचत = आय - खर्च लगाएं.",
           "ਆਮਦਨ-ਖਰਚ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਦੋਵੇਂ ਅਨੁਪਾਤਾਂ ਨੂੰ ਤੁਲਨਾਯੋਗ ਅਸਲ ਰਕਮਾਂ ਵਿੱਚ ਬਦਲੋ, ਫਿਰ ਬਚਤ = ਆਮਦਨ - ਖਰਚ ਵਰਤੋ.",
         ),
@@ -80,7 +80,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
         solver.workingValues.expenditureScale !== undefined
           ? block(`\\text{Expenditure scale}=${String(solver.workingValues.expenditureScale)}`)
           : block(`\\text{Expenditure values}=${String(solver.workingValues.expenditureA)}:${String(solver.workingValues.expenditureB)}`),
-        localizedIntro(parameters, "Apply the given savings condition or form the final savings ratio.", "दी गई बचत शर्त लगाएं या अंतिम बचत अनुपात बनाएं.", "ਦਿੱਤੀ ਬਚਤ ਸ਼ਰਤ ਲਗਾਓ ਜਾਂ ਅੰਤਿਮ ਬਚਤ ਅਨੁਪਾਤ ਬਣਾਓ."),
+        localizedIntro(parameters, "Method 1: apply the savings condition or form the final savings ratio.", "दी गई बचत शर्त लगाएं या अंतिम बचत अनुपात बनाएं.", "ਦਿੱਤੀ ਬਚਤ ਸ਼ਰਤ ਲਗਾਓ ਜਾਂ ਅੰਤਿਮ ਬਚਤ ਅਨੁਪਾਤ ਬਣਾਓ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -97,13 +97,13 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "In repeated replacement, the original liquid is multiplied by the same retention factor each time.",
+          "Problem: in repeated replacement, the original liquid keeps the same retention factor each round.",
           "बार-बार बदलने में मूल द्रव हर बार उसी बचत गुणक से गुणा होता है.",
           "ਵਾਰ-ਵਾਰ ਬਦਲਣ ਵਿੱਚ ਮੂਲ ਤਰਲ ਹਰ ਵਾਰ ਉਸੇ ਬਚਤ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਹੁੰਦਾ ਹੈ.",
         ),
         block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
         block(`\\text{Retention factor}=${String(solver.workingValues.retentionFactor)}`),
-        localizedIntro(parameters, "Use the power of the retention factor for repeated rounds.", "दोहराव के लिए बचत गुणक की घात लगाएं.", "ਦੁਹਰਾਏ ਗਏ ਚੱਕਰਾਂ ਲਈ ਬਚਤ ਗੁਣਕ ਦੀ ਘਾਤ ਵਰਤੋ."),
+        localizedIntro(parameters, "Method 1: raise the retention factor to the number of rounds.", "दोहराव के लिए बचत गुणक की घात लगाएं.", "ਦੁਹਰਾਏ ਗਏ ਚੱਕਰਾਂ ਲਈ ਬਚਤ ਗੁਣਕ ਦੀ ਘਾਤ ਵਰਤੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -121,7 +121,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "For denomination questions, multiply each count-ratio part by its denomination value.",
+          "Problem: for denomination questions, multiply each count-ratio part by its denomination value.",
           "मूल्यवर्ग प्रश्नों में हर संख्या-अनुपात भाग को उसके मूल्य से गुणा करें.",
           "ਮੁੱਲ-ਵਰਗ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਹਰ ਗਿਣਤੀ-ਅਨੁਪਾਤ ਭਾਗ ਨੂੰ ਉਸਦੇ ਮੁੱਲ ਨਾਲ ਗੁਣਾ ਕਰੋ.",
         ),
@@ -131,7 +131,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
           : block(`\\text{Common unit}=${String(solver.workingValues.commonUnit)}`),
         parameters.taskKind === "denominationSwapValue"
           ? block(`\\text{Swap delta}=${String(solver.workingValues.swapDelta)}`)
-          : localizedIntro(parameters, "Use the common multiplier to get the requested value or count.", "मांगे गए मूल्य या संख्या के लिए सामान्य गुणक लगाएं.", "ਮੰਗਿਆ ਮੁੱਲ ਜਾਂ ਗਿਣਤੀ ਲੈਣ ਲਈ ਸਾਂਝਾ ਗੁਣਕ ਵਰਤੋ."),
+          : localizedIntro(parameters, "Method 1: use the common multiplier to get the requested value or count.", "मांगे गए मूल्य या संख्या के लिए सामान्य गुणक लगाएं.", "ਮੰਗਿਆ ਮੁੱਲ ਜਾਂ ਗਿਣਤੀ ਲੈਣ ਲਈ ਸਾਂਝਾ ਗੁਣਕ ਵਰਤੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -150,14 +150,14 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Use the speed-distance-time relation: distance = speed multiplied by time.",
+          "Problem: use the speed-distance-time relation, distance = speed multiplied by time.",
           "चाल-दूरी-समय संबंध लगाएं: दूरी = चाल × समय.",
           "ਚਾਲ-ਦੂਰੀ-ਸਮਾਂ ਸੰਬੰਧ ਵਰਤੋ: ਦੂਰੀ = ਚਾਲ × ਸਮਾਂ.",
         ),
         block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
         parameters.taskKind === "sdtRaceLead"
-          ? localizedIntro(parameters, "When the faster runner finishes, compare how far the slower runner has covered.", "तेज धावक के समाप्त करने पर धीमे धावक द्वारा तय दूरी की तुलना करें.", "ਤੇਜ਼ ਦੌੜਾਕ ਦੇ ਮੁਕੰਮਲ ਕਰਨ ਤੇ ਹੌਲੇ ਦੌੜਾਕ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ ਦੀ ਤੁਲਨਾ ਕਰੋ.")
-          : localizedIntro(parameters, "Rearrange the relation to the requested ratio or time.", "संबंध को मांगे गए अनुपात या समय के अनुसार व्यवस्थित करें.", "ਸੰਬੰਧ ਨੂੰ ਮੰਗੇ ਅਨੁਪਾਤ ਜਾਂ ਸਮੇਂ ਅਨੁਸਾਰ ਬਦਲੋ."),
+          ? localizedIntro(parameters, "Method 1: when the faster runner finishes, compare how far the slower runner has covered.", "तेज धावक के समाप्त करने पर धीमे धावक द्वारा तय दूरी की तुलना करें.", "ਤੇਜ਼ ਦੌੜਾਕ ਦੇ ਮੁਕੰਮਲ ਕਰਨ ਤੇ ਹੌਲੇ ਦੌੜਾਕ ਵੱਲੋਂ ਤੈਅ ਦੂਰੀ ਦੀ ਤੁਲਨਾ ਕਰੋ.")
+          : localizedIntro(parameters, "Method 1: rearrange the relation to the requested ratio or time.", "संबंध को मांगे गए अनुपात या समय के अनुसार व्यवस्थित करें.", "ਸੰਬੰਧ ਨੂੰ ਮੰਗੇ ਅਨੁਪਾਤ ਜਾਂ ਸਮੇਂ ਅਨੁਸਾਰ ਬਦਲੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -176,7 +176,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Build the population table in two steps: first split males and females, then split each row into literate and illiterate.",
+          "Problem: build the population table in two steps: split males/females, then split each row by literacy.",
           "जनसंख्या तालिका दो चरणों में बनाएं: पहले पुरुष और महिला में बांटें, फिर हर पंक्ति को साक्षर और निरक्षर में बांटें.",
           "ਆਬਾਦੀ ਦੀ ਸਾਰਣੀ ਦੋ ਕਦਮਾਂ ਵਿੱਚ ਬਣਾਓ: ਪਹਿਲਾਂ ਮਰਦ ਅਤੇ ਔਰਤ ਵਿੱਚ ਵੰਡੋ, ਫਿਰ ਹਰ ਕਤਾਰ ਨੂੰ ਪੜ੍ਹੇ-ਲਿਖੇ ਅਤੇ ਅਣਪੜ੍ਹ ਵਿੱਚ ਵੰਡੋ.",
         ),
@@ -202,7 +202,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "For election questions, move through the chain: voters, polled votes, valid votes, then candidate split.",
+          "Problem: for election questions, move through voters, polled votes, valid votes, then candidate split.",
           "चुनाव प्रश्नों में क्रम से चलें: मतदाता, डाले गए मत, वैध मत, फिर उम्मीदवारों में विभाजन.",
           "ਚੋਣ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਕ੍ਰਮ ਨਾਲ ਚੱਲੋ: ਵੋਟਰ, ਪਈਆਂ ਵੋਟਾਂ, ਵੈਧ ਵੋਟਾਂ, ਫਿਰ ਉਮੀਦਵਾਰਾਂ ਵਿੱਚ ਵੰਡ.",
         ),
@@ -228,12 +228,12 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "For similar geometric figures, area ratios square the length ratio and volume ratios cube the length ratio.",
+          "Problem: for similar figures, area ratios square the length ratio and volume ratios cube it.",
           "समरूप ज्यामितीय आकृतियों में क्षेत्रफल अनुपात लंबाई अनुपात का वर्ग और आयतन अनुपात लंबाई अनुपात का घन होता है.",
           "ਸਮਰੂਪ ਜਯਾਮਿਤੀ ਆਕਰਤੀਆਂ ਵਿੱਚ ਖੇਤਰਫਲ ਅਨੁਪਾਤ ਲੰਬਾਈ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਅਤੇ ਆਇਤਨ ਅਨੁਪਾਤ ਲੰਬਾਈ ਅਨੁਪਾਤ ਦਾ ਘਣ ਹੁੰਦਾ ਹੈ.",
         ),
         block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
-        localizedIntro(parameters, "Apply the required power, or reverse it with a square/cube root.", "जरूरी घात लगाएं, या वर्गमूल/घनमूल से उल्टा करें.", "ਲੋੜੀਂਦੀ ਘਾਤ ਲਗਾਓ, ਜਾਂ ਵਰਗਮੂਲ/ਘਨਮੂਲ ਨਾਲ ਉਲਟ ਕਰੋ."),
+      localizedIntro(parameters, "Method 1: apply the required power, or reverse it with a square/cube root.", "जरूरी घात लगाएं, या वर्गमूल/घनमूल से उल्टा करें.", "ਲੋੜੀਂਦੀ ਘਾਤ ਲਗਾਓ, ਜਾਂ ਵਰਗਮੂਲ/ਘਨਮੂਲ ਨਾਲ ਉਲਟ ਕਰੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -246,13 +246,13 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Add the same unknown number of years to both ages, because everyone ages equally.",
+          "Problem: add the same unknown number of years to both ages, because everyone ages equally.",
           "दोनों आयु में समान अज्ञात वर्ष जोड़ें, क्योंकि सभी की आयु समान गति से बढ़ती है.",
           "ਦੋਵਾਂ ਉਮਰਾਂ ਵਿੱਚ ਇੱਕੋ ਜਿਹੇ ਅਣਜਾਣ ਸਾਲ ਜੋੜੋ, ਕਿਉਂਕਿ ਸਭ ਦੀ ਉਮਰ ਇੱਕੋ ਤਰ੍ਹਾਂ ਵਧਦੀ ਹੈ.",
         ),
         block(`\\text{Target ratio}=${String(solver.workingValues.futureRatio)}`),
         block(`\\text{Equation}=${solver.mathJax.calculationLatex}`),
-        localizedIntro(parameters, "Solve this linear equation for the number of years.", "इस रैखिक समीकरण से वर्षों की संख्या निकालें.", "ਇਸ ਰੇਖੀ ਸਮੀਕਰਨ ਤੋਂ ਸਾਲਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ."),
+      localizedIntro(parameters, "Method 1: solve this linear equation for the number of years.", "इस रैखिक समीकरण से वर्षों की संख्या निकालें.", "ਇਸ ਰੇਖੀ ਸਮੀਕਰਨ ਤੋਂ ਸਾਲਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ."),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
     };
@@ -264,12 +264,12 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       lines: [
         localizedIntro(
           parameters,
-          "Shift both present ages by the same number of years, then simplify the resulting ratio.",
+          "Problem: shift both present ages by the same number of years, then simplify the ratio.",
           "à¤¦à¥‹à¤¨à¥‹à¤‚ à¤µà¤°à¥à¤¤à¤®à¤¾à¤¨ à¤†à¤¯à¥à¤“à¤‚ à¤®à¥‡à¤‚ à¤¸à¤®à¤¾à¤¨ à¤µà¤°à¥à¤· à¤œà¥‹à¤¡à¤¼à¥‡à¤‚/à¤˜à¤Ÿà¤¾à¤à¤‚, à¤«à¤¿à¤° à¤®à¤¿à¤²à¥‡ à¤…à¤¨à¥à¤ªà¤¾à¤¤ à¤•à¥‹ à¤¸à¤°à¤² à¤•à¤°à¥‡à¤‚.",
           "à¨¦à©‹à¨µà¨¾à¨‚ à¨®à©Œà¨œà©‚à¨¦à¨¾ à¨‰à¨®à¨°à¨¾à¨‚ à¨µà¨¿à©±à¨š à¨‡à©±à¨•à©‹ à¨œà¨¿à¨¹à©‡ à¨¸à¨¾à¨² à¨œà©‹à©œà©‹/à¨˜à¨Ÿà¨¾à¨“, à¨«à¨¿à¨° à¨®à¨¿à¨²à©‡ à¨…à¨¨à©à¨ªà¨¾à¨¤ à¨¨à©‚à©° à¨¸à¨°à¨² à¨•à¨°à©‹.",
         ),
         block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
-        localizedIntro(parameters, "Both ages move by the same amount, so only the shifted values need to be compared.", "à¤¦à¥‹à¤¨à¥‹à¤‚ à¤†à¤¯à¥ à¤¸à¤®à¤¾à¤¨ à¤®à¤¾à¤¤à¥à¤°à¤¾ à¤¸à¥‡ à¤¬à¤¦à¤²à¤¤à¥€ à¤¹à¥ˆ, à¤‡à¤¸à¤²à¤¿à¤ à¤•à¥‡à¤µà¤² à¤¬à¤¦à¤²à¥€ à¤¹à¥à¤ˆ à¤†à¤¯à¥à¤“à¤‚ à¤•à¥€ à¤¤à¥à¤²à¤¨à¤¾ à¤•à¤°à¤¨à¥€ à¤¹à¥ˆ.", "à¨¦à©‹à¨µà¨¾à¨‚ à¨‰à¨®à¨°à¨¾à¨‚ à¨‡à©±à¨•à©‹ à¨®à¨¾à¨¤à¨°à¨¾ à¨¨à¨¾à¨² à¨¬à¨¦à¨²à¨¦à©€à¨†à¨‚ à¨¹à¨¨, à¨‡à¨¸ à¨²à¨ˆ à¨¸à¨¿à¨°à¨« à¨¬à¨¦à¨²à©€à¨†à¨‚ à¨‰à¨®à¨°à¨¾à¨‚ à¨¦à©€ à¨¤à©à¨²à¨¨à¨¾ à¨•à¨°à¨¨à©€ à¨¹à©ˆ."),
+      localizedIntro(parameters, "Method 1: compare only the shifted ages because both move by the same amount.", "à¤¦à¥‹à¤¨à¥‹à¤‚ à¤†à¤¯à¥ à¤¸à¤®à¤¾à¤¨ à¤®à¤¾à¤¤à¥à¤°à¤¾ à¤¸à¥‡ à¤¬à¤¦à¤²à¤¤à¥€ à¤¹à¥ˆ, à¤‡à¤¸à¤²à¤¿à¤ à¤•à¥‡à¤µà¤² à¤¬à¤¦à¤²à¥€ à¤¹à¥à¤ˆ à¤†à¤¯à¥à¤“à¤‚ à¤•à¥€ à¤¤à¥à¤²à¤¨à¤¾ à¤•à¤°à¤¨à¥€ à¤¹à¥ˆ.", "à¨¦à©‹à¨µà¨¾à¨‚ à¨‰à¨®à¨°à¨¾à¨‚ à¨‡à©±à¨•à©‹ à¨®à¨¾à¨¤à¨°à¨¾ à¨¨à¨¾à¨² à¨¬à¨¦à¨²à¨¦à©€à¨†à¨‚ à¨¹à¨¨, à¨‡à¨¸ à¨²à¨ˆ à¨¸à¨¿à¨°à¨« à¨¬à¨¦à¨²à©€à¨†à¨‚ à¨‰à¨®à¨°à¨¾à¨‚ à¨¦à©€ à¨¤à©à¨²à¨¨à¨¾ à¨•à¨°à¨¨à©€ à¨¹à©ˆ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -281,13 +281,13 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     lines: [
       localizedIntro(
         parameters,
-        "Let the present ages be ratio parts multiplied by a common unit.",
+      "Problem: write the present ages as ratio parts multiplied by a common unit.",
         "वर्तमान आयु को अनुपात के भागों और एक समान गुणक के रूप में मानें.",
         "ਮੌਜੂਦਾ ਉਮਰਾਂ ਨੂੰ ਅਨੁਪਾਤ ਦੇ ਭਾਗਾਂ ਅਤੇ ਇੱਕ ਸਾਂਝੇ ਗੁਣਕ ਵਜੋਂ ਮੰਨੋ.",
       ),
       block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
       block(`\\text{Equation}=${solver.mathJax.calculationLatex}`),
-      localizedIntro(parameters, "Use the time shift or age difference to find the common unit.", "समय परिवर्तन या आयु अंतर से समान गुणक निकालें.", "ਸਮੇਂ ਦੇ ਬਦਲਾਅ ਜਾਂ ਉਮਰ ਦੇ ਅੰਤਰ ਨਾਲ ਸਾਂਝਾ ਗੁਣਕ ਕੱਢੋ."),
+    localizedIntro(parameters, "Method 1: use the time shift or age difference to find the common unit.", "समय परिवर्तन या आयु अंतर से समान गुणक निकालें.", "ਸਮੇਂ ਦੇ ਬਦਲਾਅ ਜਾਂ ਉਮਰ ਦੇ ਅੰਤਰ ਨਾਲ ਸਾਂਝਾ ਗੁਣਕ ਕੱਢੋ."),
       block(`\\text{Common unit}=${String(solver.workingValues.unit)}`),
       block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
     ],

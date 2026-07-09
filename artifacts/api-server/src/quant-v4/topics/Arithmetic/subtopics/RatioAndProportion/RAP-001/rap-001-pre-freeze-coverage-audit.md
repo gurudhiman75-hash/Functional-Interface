@@ -9,7 +9,7 @@
 - Solver failures: 0
 - Cross-language failures: 0
 - Placeholder failures: 0
-- Duplicate rate: 0.40%
+- Duplicate rate: 3.80%
 - Library validation failures: 0
 - Sample profile: 500 EN questions
 
