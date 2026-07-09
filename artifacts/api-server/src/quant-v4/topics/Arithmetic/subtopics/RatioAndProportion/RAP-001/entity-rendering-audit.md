@@ -18,11 +18,11 @@ If the ratio girls:boys is 4:5 and boys:teachers is 5:6, what will be the combin
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 4:5 है और लड़के:शिक्षक का अनुपात 5:6 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
+यदि लड़कियां:लड़के का अनुपात 4:5 है और लड़के:शिक्षक का अनुपात 5:6 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 4:5 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -32,18 +32,21 @@ Sample 2
 
 IDs
 
+personAId: girls
+personBId: boys
+personCId: teachers
 
 English rendering
 
-Convert the fractional ratio 4/2 : 9/3 into a simple integer ratio.
+In a competitive exam setup, if the ratio girls:boys is 5:6 and boys:teachers is 6:7, what will be the combined ratio girls:boys:teachers?
 
 Hindi rendering
 
-4/2 : 9/3 के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या है?
+यदि लड़कियां:लड़के का अनुपात 5:6 है और लड़के:शिक्षक का अनुपात 6:7 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-4/2 : 9/3 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੈ?
+ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -56,19 +59,18 @@ IDs
 personAId: girls
 personBId: boys
 personCId: teachers
-personDId: students
 
 English rendering
 
-Given that girls:boys = 1:2, boys:teachers = 2:3, and teachers:students = 3:4, what is the ratio between girls and students?
+If the ratio girls:boys is 6:7 and boys:teachers is 7:8, what will be the combined ratio girls:boys:teachers?
 
 Hindi rendering
 
-यदि लड़कियां:लड़के = 1:2, लड़के:शिक्षक = 2:3 और शिक्षक:छात्र = 3:4 हो, तो लड़कियां और छात्र के बीच का अनुपात क्या होगा?
+यदि लड़कियां:लड़के का अनुपात 6:7 है और लड़के:शिक्षक का अनुपात 7:8 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਕੁੜੀਆਂ:ਮੁੰਡੇ = 1:2, ਮੁੰਡੇ:ਅਧਿਆਪਕ = 2:3 ਅਤੇ ਅਧਿਆਪਕ:ਵਿਦਿਆਰਥੀ = 3:4 ਹੈ। ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -78,20 +80,21 @@ Sample 4
 
 IDs
 
-personAId: boys
-personBId: girls
+personAId: girls
+personBId: boys
+personCId: teachers
 
 English rendering
 
-In a class, the ratio of boys to girls is 3:4. If there are 15 boys, how many girls are there?
+If the following conditions hold: If the ratio girls:boys is 7:8 and boys:teachers is 8:1, what will be the combined ratio girls:boys:teachers?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 3:4 है। यदि वहाँ 15 लड़के हैं, तो लड़कियां की संख्या कितनी है?
+यदि लड़कियां:लड़के का अनुपात 7:8 है और लड़के:शिक्षक का अनुपात 8:1 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਜੇਕਰ ਉੱਥੇ 15 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -101,18 +104,21 @@ Sample 5
 
 IDs
 
+personAId: boys
+personBId: girls
+personCId: teachers
 
 English rendering
 
-What is the simplest whole-number ratio equal to 1.4 : 0.5?
+Based on given parameters, If the ratio boys:girls is 8:1 and girls:teachers is 1:2, what will be the combined ratio boys:girls:teachers?
 
 Hindi rendering
 
-दशमलव अनुपात 1.4 : 0.5 के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या होगा?
+यदि लड़के:लड़कियां का अनुपात 8:1 है और लड़कियां:शिक्षक का अनुपात 1:2 है, तो लड़के:लड़कियां:शिक्षक का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ 1.4 : 0.5 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਲਿਖੋ।
+ਜੇ ਲੜਕੇ:ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ ਅਤੇ ਲੜਕੀਆਂ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 1:2 ਹੈ, ਤਾਂ ਲੜਕੇ:ਲੜਕੀਆਂ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -122,21 +128,18 @@ Sample 6
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
 
 English rendering
 
-If the ratio girls:boys is 1:2 and boys:teachers is 2:3, what will be the combined ratio girls:boys:teachers?
+Convert the fractional ratio 6/2 : 3/3 into a simple integer ratio.
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 1:2 है और लड़के:शिक्षक का अनुपात 2:3 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
+6/2 : 3/3 को सबसे सरल पूर्ण-संख्या अनुपात में बदलें।
 
 Punjabi rendering
 
-ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 1:2 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+6/2 : 3/3 ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
 
 Synchronized entity IDs: yes
 
@@ -149,15 +152,15 @@ IDs
 
 English rendering
 
-Convert the fractional ratio 3/3 : 4/2 into a simple integer ratio.
+Simplify the ratio of fractions 3/3 : 4/2 to whole numbers.
 
 Hindi rendering
 
-3/3 : 4/2 के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या है?
+3/3 : 4/2 भिन्नों के अनुपात को पूर्ण संख्याओं में सरल करें।
 
 Punjabi rendering
 
-3/3 : 4/2 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੈ?
+3/3 : 4/2 ਭਿੰਨਾਂ ਦੇ ਅਨੁਪਾਤ ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਸਰਲ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -167,22 +170,18 @@ Sample 8
 
 IDs
 
-personAId: boys
-personBId: teachers
-personCId: girls
-personDId: students
 
 English rendering
 
-Given that boys:teachers = 4:5, teachers:girls = 5:6, and girls:students = 6:7, what is the ratio between boys and students?
+Find the simplest integer ratio equivalent to 4/2 : 9/3.
 
 Hindi rendering
 
-यदि लड़के:शिक्षक = 4:5, शिक्षक:लड़कियां = 5:6 और लड़कियां:छात्र = 6:7 हो, तो लड़के और छात्र के बीच का अनुपात क्या होगा?
+4/2 : 9/3 के बराबर सबसे सरल पूर्ण-संख्या अनुपात ज्ञात करें।
 
 Punjabi rendering
 
-ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਮੁੰਡੇ:ਅਧਿਆਪਕ = 4:5, ਅਧਿਆਪਕ:ਕੁੜੀਆਂ = 5:6 ਅਤੇ ਕੁੜੀਆਂ:ਵਿਦਿਆਰਥੀ = 6:7 ਹੈ। ਮੁੰਡੇ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+4/2 : 9/3 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਲੱਭੋ।
 
 Synchronized entity IDs: yes
 
@@ -192,20 +191,18 @@ Sample 9
 
 IDs
 
-personAId: boys
-personBId: girls
 
 English rendering
 
-In a class, the ratio of boys to girls is 8:1. If there are 56 boys, how many girls are there?
+Express the ratio 9/3 : 2/2 in its simplest integer form.
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 8:1 है। यदि वहाँ 56 लड़के हैं, तो लड़कियां की संख्या कितनी है?
+9/3 : 2/2 अनुपात को उसके सबसे सरल पूर्ण-संख्या रूप में लिखें।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ। ਜੇਕਰ ਉੱਥੇ 56 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+9/3 : 2/2 ਅਨੁਪਾਤ ਨੂੰ ਇਸਦੇ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।
 
 Synchronized entity IDs: yes
 
@@ -218,15 +215,15 @@ IDs
 
 English rendering
 
-What is the simplest whole-number ratio equal to 1.9 : 2.4?
+What is the simple ratio of whole numbers for 2/2 : 6/3?
 
 Hindi rendering
 
-दशमलव अनुपात 1.9 : 2.4 के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या होगा?
+2/2 : 6/3 के लिए पूर्ण संख्याओं का सरल अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ 1.9 : 2.4 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਲਿਖੋ।
+2/2 : 6/3 ਲਈ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -236,21 +233,18 @@ Sample 11
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
 
 English rendering
 
-If the ratio girls:boys is 3:4 and boys:teachers is 4:5, what will be the combined ratio girls:boys:teachers?
+Reduce the fractional ratio 2/2 : 6/3 to its lowest whole number terms.
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 3:4 है और लड़के:शिक्षक का अनुपात 4:5 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा?
+2/2 : 6/3 भिन्न अनुपात को सबसे छोटे पूर्ण-संख्या पदों में घटाएं।
 
 Punjabi rendering
 
-ਜੇਕਰ ਅਨੁਪਾਤ ਕੁੜੀਆਂ:ਮੁੰਡੇ 3:4 ਹੈ ਅਤੇ ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ, ਤਾਂ ਕੁੜੀਆਂ:ਮੁੰਡੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+2/2 : 6/3 ਭਿੰਨ ਅਨੁਪਾਤ ਨੂੰ ਸਭ ਤੋਂ ਛੋਟੇ ਪੂਰਨ-ਸੰਖਿਆ ਪਦਾਂ ਵਿੱਚ ਘਟਾਓ।
 
 Synchronized entity IDs: yes
 
@@ -263,15 +257,15 @@ IDs
 
 English rendering
 
-Convert the fractional ratio 6/3 : 6/2 into a simple integer ratio.
+Normalize the ratio 6/3 : 6/2.
 
 Hindi rendering
 
-6/3 : 6/2 के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या है?
+6/3 : 6/2 अनुपात को सामान्यीकृत करें।
 
 Punjabi rendering
 
-6/3 : 6/2 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਕੀ ਹੈ?
+6/3 : 6/2 ਅਨੁਪਾਤ ਨੂੰ ਸਧਾਰਣ ਰੂਪ ਵਿੱਚ ਲਿਆਓ।
 
 Synchronized entity IDs: yes
 
@@ -281,22 +275,18 @@ Sample 13
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
-personDId: students
 
 English rendering
 
-Given that girls:boys = 2:3, boys:teachers = 3:4, and teachers:students = 4:5, what is the ratio between girls and students?
+Rewrite 6/2 : 3/3 as a ratio of integers.
 
 Hindi rendering
 
-यदि लड़कियां:लड़के = 2:3, लड़के:शिक्षक = 3:4 और शिक्षक:छात्र = 4:5 हो, तो लड़कियां और छात्र के बीच का अनुपात क्या होगा?
+6/2 : 3/3 को पूर्ण संख्याओं के अनुपात के रूप में दोबारा लिखें।
 
 Punjabi rendering
 
-ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਕੁੜੀਆਂ:ਮੁੰਡੇ = 2:3, ਮੁੰਡੇ:ਅਧਿਆਪਕ = 3:4 ਅਤੇ ਅਧਿਆਪਕ:ਵਿਦਿਆਰਥੀ = 4:5 ਹੈ। ਕੁੜੀਆਂ ਅਤੇ ਵਿਦਿਆਰਥੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।
+6/2 : 3/3 ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦੇ ਅਨੁਪਾਤ ਵਜੋਂ ਦੁਬਾਰਾ ਲਿਖੋ।
 
 Synchronized entity IDs: yes
 
@@ -306,20 +296,18 @@ Sample 14
 
 IDs
 
-personAId: boys
-personBId: girls
 
 English rendering
 
-In a class, the ratio of boys to girls is 2:3. If there are 24 boys, how many girls are there?
+Find the integer ratio equivalent to 3/3 : 4/2.
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 2:3 है। यदि वहाँ 24 लड़के हैं, तो लड़कियां की संख्या कितनी है?
+3/3 : 4/2 के बराबर पूर्ण-संख्या अनुपात ज्ञात करें।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇਕਰ ਉੱਥੇ 24 ਮੁੰਡੇ ਹੋਣ, ਤਾਂ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?
+3/3 : 4/2 ਦੇ ਬਰਾਬਰ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਲੱਭੋ।
 
 Synchronized entity IDs: yes
 
@@ -332,15 +320,15 @@ IDs
 
 English rendering
 
-What is the simplest whole-number ratio equal to 2.9 : 2.4?
+Convert 4/2 : 9/3 into an irreducible whole number ratio.
 
 Hindi rendering
 
-दशमलव अनुपात 2.9 : 2.4 के बराबर सबसे सरल पूर्ण संख्या अनुपात क्या होगा?
+4/2 : 9/3 को अविभाज्य पूर्ण-संख्या अनुपात में बदलें।
 
 Punjabi rendering
 
-ਦਸ਼ਮਲਵ ਅਨੁਪਾਤ 2.9 : 2.4 ਦੇ ਬਰਾਬਰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ ਸੰਖਿਆ ਅਨੁਪਾਤ ਲਿਖੋ।
+4/2 : 9/3 ਨੂੰ ਅਘਟ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
 
 Synchronized entity IDs: yes
 
@@ -353,18 +341,19 @@ IDs
 personAId: girls
 personBId: boys
 personCId: teachers
+targetPersonId: girls
 
 English rendering
 
-An amount of Rs. 900 is distributed between girls, boys, and teachers in the ratio 4:3:3. How much more money does girls get than teachers?
+A total of 1440 is distributed among girls, boys, and teachers in the ratio 7:8:1. Find girls' share.
 
 Hindi rendering
 
-Rs. 900 को लड़कियां, लड़के और शिक्षक के बीच 4:3:3 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
+कुल 1440 को लड़कियां, लड़के और शिक्षक के बीच 7:8:1 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।
 
 Punjabi rendering
 
-Rs. 900 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 4:3:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਕੁੱਲ 1440 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 7:8:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੀਆਂ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -377,18 +366,19 @@ IDs
 personAId: girls
 personBId: teachers
 personCId: boys
+targetPersonId: teachers
 
 English rendering
 
-The shares of girls, teachers, and boys are in the ratio 7:6:6. If girls gets Rs. 170 more than boys, how much was the total amount distributed?
+A total of 1870 is distributed among girls, teachers, and boys in the ratio 8:1:2. Find teachers' share.
 
 Hindi rendering
 
-लड़कियां, शिक्षक और लड़के के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 170 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+कुल 1870 को लड़कियां, शिक्षक और लड़के के बीच 8:1:2 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਮੁੰਡੇ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ Rs. 170 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਕੁੱਲ 1870 ਨੂੰ ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਵਿੱਚ 8:1:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਅਧਿਆਪਕ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -399,18 +389,21 @@ Sample 18
 IDs
 
 personAId: girls
+personBId: boys
+personCId: teachers
+targetPersonId: girls
 
 English rendering
 
-The ratio of girls' monthly expenses to savings is 2:1. If the total salary is Rs. 12600, how much does girls save every month?
+A total of 360 is distributed among girls, boys, and teachers in the ratio 1:2:3. Find girls' share.
 
 Hindi rendering
 
-लड़कियां के मासिक खर्च और बचत का अनुपात 2:1 है। यदि कुल वेतन Rs. 12600 है, तो लड़कियां हर महीने कितने रुपये बचाता है?
+कुल 360 को लड़कियां, लड़के और शिक्षक के बीच 1:2:3 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:1 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 12600 ਹੋਵੇ, ਤਾਂ ਕੁੜੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+ਕੁੱਲ 360 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 1:2:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੀਆਂ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -423,18 +416,19 @@ IDs
 personAId: girls
 personBId: teachers
 personCId: boys
+targetPersonId: teachers
 
 English rendering
 
-An amount of Rs. 1820 is distributed between girls, teachers, and boys in the ratio 5:4:4. How much more money does girls get than boys?
+A total of 1260 is distributed among girls, teachers, and boys in the ratio 2:3:4. Find teachers' share.
 
 Hindi rendering
 
-Rs. 1820 को लड़कियां, शिक्षक और लड़के के बीच 5:4:4 के अनुपात में बांटा जाता है। लड़कियां को लड़के से कितने रुपये अधिक मिलते हैं?
+कुल 1260 को लड़कियां, शिक्षक और लड़के के बीच 2:3:4 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।
 
 Punjabi rendering
 
-Rs. 1820 ਨੂੰ ਕੁੜੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਮੁੰਡੇ ਵਿੱਚ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਕੁੱਲ 1260 ਨੂੰ ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਵਿੱਚ 2:3:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਅਧਿਆਪਕ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -450,15 +444,15 @@ personCId: girls
 
 English rendering
 
-The shares of boys, teachers, and girls are in the ratio 6:5:2. If boys gets Rs. 120 more than girls, how much was the total amount distributed?
+An amount of Rs. 390 is distributed between boys, teachers, and girls in the ratio 6:5:2. How much more money does boys get than girls?
 
 Hindi rendering
 
-लड़के, शिक्षक और लड़कियां के हिस्से 6:5:2 के अनुपात में हैं। यदि लड़के को लड़कियां से Rs. 120 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+Rs. 390 को लड़के, शिक्षक और लड़कियां के बीच 6:5:2 के अनुपात में बांटा जाता है। लड़के को लड़कियां से कितने रुपये अधिक मिलते हैं।
 
 Punjabi rendering
 
-ਮੁੰਡੇ, ਅਧਿਆਪਕ ਅਤੇ ਕੁੜੀਆਂ ਦੇ ਹਿੱਸੇ 6:5:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਮੁੰਡੇ ਨੂੰ ਕੁੜੀਆਂ ਨਾਲੋਂ Rs. 120 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+Rs. 390 ਨੂੰ ਲੜਕੇ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੀਆਂ ਵਿੱਚ 6:5:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੇ ਨੂੰ ਲੜਕੀਆਂ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -468,19 +462,21 @@ Sample 21
 
 IDs
 
-personAId: boys
+personAId: girls
+personBId: boys
+personCId: teachers
 
 English rendering
 
-The ratio of boys' monthly expenses to savings is 2:2. If the total salary is Rs. 7200, how much does boys save every month?
+In a competitive exam setup, an amount of Rs. 800 is distributed between girls, boys, and teachers in the ratio 4:3:3. How much more money does girls get than teachers?
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 2:2 है। यदि कुल वेतन Rs. 7200 है, तो लड़के हर महीने कितने रुपये बचाता है?
+Rs. 800 को लड़कियां, लड़के और शिक्षक के बीच 4:3:3 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं।
 
 Punjabi rendering
 
-ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 7200 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+Rs. 800 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 4:3:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -500,11 +496,11 @@ An amount of Rs. 2080 is distributed between girls, boys, and teachers in the ra
 
 Hindi rendering
 
-Rs. 2080 को लड़कियां, लड़के और शिक्षक के बीच 5:4:4 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
+Rs. 2080 को लड़कियां, लड़के और शिक्षक के बीच 5:4:4 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं।
 
 Punjabi rendering
 
-Rs. 2080 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+Rs. 2080 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -520,15 +516,15 @@ personCId: teachers
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 8:7:1. If girls gets Rs. 350 more than teachers, how much was the total amount distributed?
+If the following conditions hold: An amount of Rs. 800 is distributed between girls, boys, and teachers in the ratio 8:7:1. How much more money does girls get than teachers?
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 8:7:1 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 350 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+Rs. 800 को लड़कियां, लड़के और शिक्षक के बीच 8:7:1 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 8:7:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 350 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+Rs. 800 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 8:7:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -538,19 +534,21 @@ Sample 24
 
 IDs
 
-personAId: boys
+personAId: girls
+personBId: boys
+personCId: teachers
 
 English rendering
 
-The ratio of boys' monthly expenses to savings is 5:2. If the total salary is Rs. 10500, how much does boys save every month?
+Based on given parameters, An amount of Rs. 2210 is distributed between girls, boys, and teachers in the ratio 9:2:6. How much more money does girls get than teachers?
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 5:2 है। यदि कुल वेतन Rs. 10500 है, तो लड़के हर महीने कितने रुपये बचाता है?
+Rs. 2210 को लड़कियां, लड़के और शिक्षक के बीच 9:2:6 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं।
 
 Punjabi rendering
 
-ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 5:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 10500 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+Rs. 2210 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 9:2:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲਦੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -566,15 +564,15 @@ personCId: teachers
 
 English rendering
 
-An amount of Rs. 240 is distributed between girls, boys, and teachers in the ratio 6:5:1. How much more money does girls get than teachers?
+The shares of girls, boys, and teachers are in the ratio 6:5:1. If girls gets Rs. 100 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-Rs. 240 को लड़कियां, लड़के और शिक्षक के बीच 6:5:1 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
+लड़कियां, लड़के और शिक्षक के हिस्से 6:5:1 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 100 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-Rs. 240 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 6:5:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 6:5:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 100 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -590,15 +588,15 @@ personCId: teachers
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 100 more than teachers, how much was the total amount distributed?
+In a competitive exam setup, the shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 100 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 100 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 100 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 100 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 100 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -608,19 +606,21 @@ Sample 27
 
 IDs
 
-personAId: boys
+personAId: girls
+personBId: teachers
+personCId: boys
 
 English rendering
 
-The ratio of boys' monthly expenses to savings is 8:2. If the total salary is Rs. 12000, how much does boys save every month?
+The shares of girls, teachers, and boys are in the ratio 8:7:4. If girls gets Rs. 720 more than boys, how much was the total amount distributed?
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 8:2 है। यदि कुल वेतन Rs. 12000 है, तो लड़के हर महीने कितने रुपये बचाता है?
+लड़कियां, शिक्षक और लड़के के हिस्से 8:7:4 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 720 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 8:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 12000 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਦੇ ਹਿੱਸੇ 8:7:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਲੜਕੇ ਨਾਲੋਂ Rs. 720 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -636,15 +636,15 @@ personCId: teachers
 
 English rendering
 
-An amount of Rs. 770 is distributed between boys, girls, and teachers in the ratio 5:4:2. How much more money does boys get than teachers?
+If the following conditions hold: The shares of boys, girls, and teachers are in the ratio 5:4:2. If boys gets Rs. 210 more than teachers, how much was the total amount distributed?
 
 Hindi rendering
 
-Rs. 770 को लड़के, लड़कियां और शिक्षक के बीच 5:4:2 के अनुपात में बांटा जाता है। लड़के को शिक्षक से कितने रुपये अधिक मिलते हैं?
+लड़के, लड़कियां और शिक्षक के हिस्से 5:4:2 के अनुपात में हैं। यदि लड़के को शिक्षक से Rs. 210 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-Rs. 770 ਨੂੰ ਮੁੰਡੇ, ਕੁੜੀਆਂ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 5:4:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਮੁੰਡੇ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਲੜਕੇ, ਲੜਕੀਆਂ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 5:4:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੇ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 210 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -660,15 +660,15 @@ personCId: boys
 
 English rendering
 
-The shares of girls, teachers, and boys are in the ratio 6:5:5. If girls gets Rs. 150 more than boys, how much was the total amount distributed?
+Based on given parameters, The shares of girls, teachers, and boys are in the ratio 6:5:5. If girls gets Rs. 150 more than boys, how much was the total amount distributed?
 
 Hindi rendering
 
-लड़कियां, शिक्षक और लड़के के हिस्से 6:5:5 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 150 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+लड़कियां, शिक्षक और लड़के के हिस्से 6:5:5 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 150 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਮੁੰਡੇ ਦੇ ਹਿੱਸੇ 6:5:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਮੁੰਡੇ ਨਾਲੋਂ Rs. 150 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਦੇ ਹਿੱਸੇ 6:5:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਲੜਕੇ ਨਾਲੋਂ Rs. 150 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -686,11 +686,11 @@ The ratio of boys' monthly expenses to savings is 4:2. If the total salary is Rs
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 4:2 है। यदि कुल वेतन Rs. 30000 है, तो लड़के हर महीने कितने रुपये बचाता है?
+लड़के के मासिक खर्च और बचत का अनुपात 4:2 है। यदि कुल वेतन Rs. 30000 है, तो लड़के हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਮੁੰਡੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:2 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 30000 ਹੋਵੇ, ਤਾਂ ਮੁੰਡੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+ਲੜਕੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:2 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 30000 ਹੈ, ਤਾਂ ਲੜਕੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -700,21 +700,19 @@ Sample 31
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: boys
 
 English rendering
 
-An amount of Rs. 1710 is distributed between girls, boys, and teachers in the ratio 7:6:6. How much more money does girls get than teachers?
+In a competitive exam setup, the ratio of boys' monthly expenses to savings is 2:3. If the total salary is Rs. 14000, how much does boys save every month?
 
 Hindi rendering
 
-Rs. 1710 को लड़कियां, लड़के और शिक्षक के बीच 7:6:6 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
+लड़के के मासिक खर्च और बचत का अनुपात 2:3 है। यदि कुल वेतन Rs. 14000 है, तो लड़के हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-Rs. 1710 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਲੜਕੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 14000 ਹੈ, ਤਾਂ ਲੜਕੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -725,20 +723,18 @@ Sample 32
 IDs
 
 personAId: girls
-personBId: boys
-personCId: teachers
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 8:7:2. If girls gets Rs. 1020 more than teachers, how much was the total amount distributed?
+The ratio of girls' monthly expenses to savings is 3:3. If the total salary is Rs. 16200, how much does girls save every month?
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 8:7:2 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 1020 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+लड़कियां के मासिक खर्च और बचत का अनुपात 3:3 है। यदि कुल वेतन Rs. 16200 है, तो लड़कियां हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 8:7:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 1020 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਲੜਕੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 3:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 16200 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -752,15 +748,15 @@ personAId: students
 
 English rendering
 
-The ratio of students' monthly expenses to savings is 4:3. If the total salary is Rs. 18200, how much does students save every month?
+If the following conditions hold: The ratio of students' monthly expenses to savings is 4:3. If the total salary is Rs. 18200, how much does students save every month?
 
 Hindi rendering
 
-छात्र के मासिक खर्च और बचत का अनुपात 4:3 है। यदि कुल वेतन Rs. 18200 है, तो छात्र हर महीने कितने रुपये बचाता है?
+छात्र के मासिक खर्च और बचत का अनुपात 4:3 है। यदि कुल वेतन Rs. 18200 है, तो छात्र हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਵਿਦਿਆਰਥੀ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:3 ਹੈ। ਜੇਕਰ ਕੁੱਲ ਤਨਖਾਹ Rs. 18200 ਹੋਵੇ, ਤਾਂ ਵਿਦਿਆਰਥੀ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ?
+ਵਿਦਿਆਰਥੀ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 18200 ਹੈ, ਤਾਂ ਵਿਦਿਆਰਥੀ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -770,21 +766,19 @@ Sample 34
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: boys
 
 English rendering
 
-An amount of Rs. 2100 is distributed between girls, boys, and teachers in the ratio 6:5:4. How much more money does girls get than teachers?
+Based on given parameters, The ratio of boys' monthly expenses to savings is 2:4. If the total salary is Rs. 15000, how much does boys save every month?
 
 Hindi rendering
 
-Rs. 2100 को लड़कियां, लड़के और शिक्षक के बीच 6:5:4 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं?
+लड़के के मासिक खर्च और बचत का अनुपात 2:4 है। यदि कुल वेतन Rs. 15000 है, तो लड़के हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-Rs. 2100 ਨੂੰ ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 6:5:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ ਕਿੰਨੇ ਰੁਪਏ ਵੱਧ ਮਿਲੇ?
+ਲੜਕੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 15000 ਹੈ, ਤਾਂ ਲੜਕੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -797,18 +791,19 @@ IDs
 personAId: girls
 personBId: boys
 personCId: teachers
+targetPersonId: teachers
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 30 more than teachers, how much was the total amount distributed?
+A total of 450 is distributed among girls, boys, and teachers in the ratio 4:5:6. Find teachers' share.
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 30 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी?
+कुल 450 को लड़कियां, लड़के और शिक्षक के बीच 4:5:6 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।
 
 Punjabi rendering
 
-ਕੁੜੀਆਂ, ਮੁੰਡੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੜੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 30 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਵੰਡੀ ਗਈ ਕੁੱਲ ਰਾਸ਼ੀ ਪਤਾ ਕਰੋ।
+ਕੁੱਲ 450 ਨੂੰ ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਵਿੱਚ 4:5:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ਅਧਿਆਪਕ ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -818,20 +813,18 @@ Sample 36
 
 IDs
 
-groupAId: boys
-groupBId: girls
 
 English rendering
 
-In a class, the ratio of boys to girls is 1:3. If 17 more boys join, the ratio becomes 23:18. How many boys were there at the beginning?
+Two numbers are in the ratio 7:9. If 2 is added to each, the ratio becomes 11:14. What is the value of the larger number?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 1:3 है। यदि 17 और लड़के आ जाते हैं, तो अनुपात 23:18 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
+दो संख्याएं 7:9 के अनुपात में हैं। यदि प्रत्येक में 2 जोड़ दिया जाए, तो अनुपात 11:14 हो जाता है। बड़ी संख्या का मान क्या है।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 1:3 ਹੈ। ਜੇਕਰ 17 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:18 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਦੋ ਸੰਖਿਆਵਾਂ 7:9 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 2 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 11:14 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -841,20 +834,18 @@ Sample 37
 
 IDs
 
-groupAId: boys
-groupBId: girls
 
 English rendering
 
-The ratio of boys to girls in a class is 5:4. After 5 boys leave, the ratio changes to 25:24. What was the total number of people at the start?
+In a competitive exam setup, two numbers are in the ratio 7:10. If 16 is added to each, the ratio becomes 11:14. What is the value of the larger number?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 5:4 है। 5 लड़के के चले जाने पर अनुपात 25:24 हो जाता है। शुरुआत में कुल कितने लोग थे?
+दो संख्याएं 7:10 के अनुपात में हैं। यदि प्रत्येक में 16 जोड़ दिया जाए, तो अनुपात 11:14 हो जाता है। बड़ी संख्या का मान क्या है।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 5 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 25:24 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਦੋ ਸੰਖਿਆਵਾਂ 7:10 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 16 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 11:14 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -867,15 +858,15 @@ IDs
 
 English rendering
 
-Two numbers are in the ratio 7:8. If 17 is added to each, the ratio becomes 31:33. What is the value of the larger number?
+Two numbers are in the ratio 7:8. If 17 is added to each, the ratio becomes 31:33. Calculate the value of the larger number?
 
 Hindi rendering
 
-दो संख्याएँ 7:8 के अनुपात में हैं। यदि प्रत्येक में 17 जोड़ दिया जाए, तो अनुपात 31:33 हो जाता है। बड़ी संख्या का मान क्या है?
+दो संख्याएं 7:8 के अनुपात में हैं। यदि प्रत्येक में 17 जोड़ दिया जाए, तो अनुपात 31:33 हो जाता है। बड़ी संख्या का मान क्या है।
 
 Punjabi rendering
 
-ਦੋ ਸੰਖਿਆਵਾਂ 7:8 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਹਰੇਕ ਵਿੱਚ 17 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 31:33 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+ਦੋ ਸੰਖਿਆਵਾਂ 7:8 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 17 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 31:33 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -885,20 +876,18 @@ Sample 39
 
 IDs
 
-personAId: sister
-personBId: father
 
 English rendering
 
-The incomes of sister and father are in the ratio 3:2, and their expenses are 3:4. If both save Rs. 3000 each, what is sister's income?
+If the following conditions hold: Two numbers are in the ratio 3:6. If 12 is added to each, the ratio becomes 13:22. What is the value of the larger number?
 
 Hindi rendering
 
-बहन और पिता की आय का अनुपात 3:2 है और उनके खर्चों का अनुपात 3:4 है। यदि दोनों Rs. 3000 की बचत करते हैं, तो बहन की आय कितनी है?
+दो संख्याएं 3:6 के अनुपात में हैं। यदि प्रत्येक में 12 जोड़ दिया जाए, तो अनुपात 13:22 हो जाता है। बड़ी संख्या का मान क्या है।
 
 Punjabi rendering
 
-ਭੈਣ ਅਤੇ ਪਿਤਾ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 3:2 ਹੈ ਅਤੇ ਉਹਨਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਜੇਕਰ ਦੋਵੇਂ Rs. 3000 ਦੀ ਬਚਤ ਕਰਦੇ ਹੋਣ, ਤਾਂ ਭੈਣ ਦੀ ਆਮਦਨ ਕੀ ਹੈ?
+ਦੋ ਸੰਖਿਆਵਾਂ 3:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 12 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 13:22 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -911,15 +900,15 @@ IDs
 
 English rendering
 
-In a school, the ratio of boys to girls is 2:3. If 11 boys join and 4 girls leave, the ratio becomes 25:17. How many girls were there originally?
+Based on given parameters, Two numbers are in the ratio 3:6. If 7 is added to each, the ratio becomes 4:7. What is the value of the larger number?
 
 Hindi rendering
 
-एक स्कूल में लड़कों और लड़कियों का अनुपात 2:3 है। यदि 11 लड़के और आ जाएं और 4 लड़कियां चली जाएं, तो अनुपात 25:17 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी?
+दो संख्याएं 3:6 के अनुपात में हैं। यदि प्रत्येक में 7 जोड़ दिया जाए, तो अनुपात 4:7 हो जाता है। बड़ी संख्या का मान क्या है।
 
 Punjabi rendering
 
-ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇਕਰ 11 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 4 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 25:17 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਦੋ ਸੰਖਿਆਵਾਂ 3:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 7 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 4:7 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -929,20 +918,20 @@ Sample 41
 
 IDs
 
-groupAId: boys
-groupBId: girls
+personAId: father
+personBId: mother
 
 English rendering
 
-In a class, the ratio of boys to girls is 5:7. If 15 more boys join, the ratio becomes 55:56. How many boys were there at the beginning?
+The incomes of father and mother are in the ratio 8:2, and their expenses are 2:5. If both save Rs. 3600 each, what is father's income?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 5:7 है। यदि 15 और लड़के आ जाते हैं, तो अनुपात 55:56 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
+पिता और माता की आय का अनुपात 8:2 है और उनके खर्चों का अनुपात 2:5 है। यदि दोनों Rs. 3600 की बचत करते हैं, तो पिता की आय कितनी है।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:7 ਹੈ। ਜੇਕਰ 15 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 55:56 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਪਿਤਾ ਅਤੇ ਮਾਤਾ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 8:2 ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 2:5 ਹੈ। ਜੇ ਦੋਵੇਂ Rs. 3600 ਦੀ ਬਚਤ ਕਰਦੇ ਹਨ, ਤਾਂ ਪਿਤਾ ਦੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -952,20 +941,20 @@ Sample 42
 
 IDs
 
-groupAId: boys
-groupBId: girls
+personAId: father
+personBId: mother
 
 English rendering
 
-The ratio of boys to girls in a class is 5:4. After 8 boys leave, the ratio changes to 13:12. What was the total number of people at the start?
+In a competitive exam setup, the incomes of father and mother are in the ratio 3:2, and their expenses are 3:5. If both save Rs. 3600 each, what is father's income?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 5:4 है। 8 लड़के के चले जाने पर अनुपात 13:12 हो जाता है। शुरुआत में कुल कितने लोग थे?
+पिता और माता की आय का अनुपात 3:2 है और उनके खर्चों का अनुपात 3:5 है। यदि दोनों Rs. 3600 की बचत करते हैं, तो पिता की आय कितनी है।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 8 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 13:12 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਪਿਤਾ ਅਤੇ ਮਾਤਾ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 3:2 ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 3:5 ਹੈ। ਜੇ ਦੋਵੇਂ Rs. 3600 ਦੀ ਬਚਤ ਕਰਦੇ ਹਨ, ਤਾਂ ਪਿਤਾ ਦੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -975,18 +964,20 @@ Sample 43
 
 IDs
 
+personAId: son
+personBId: mother
 
 English rendering
 
-Two numbers are in the ratio 5:6. If 18 is added to each, the ratio becomes 19:21. What is the value of the larger number?
+The incomes of son and mother are in the ratio 4:2, and their expenses are 4:5. If both save Rs. 2400 each, what is son's income?
 
 Hindi rendering
 
-दो संख्याएँ 5:6 के अनुपात में हैं। यदि प्रत्येक में 18 जोड़ दिया जाए, तो अनुपात 19:21 हो जाता है। बड़ी संख्या का मान क्या है?
+पुत्र और माता की आय का अनुपात 4:2 है और उनके खर्चों का अनुपात 4:5 है। यदि दोनों Rs. 2400 की बचत करते हैं, तो पुत्र की आय कितनी है।
 
 Punjabi rendering
 
-ਦੋ ਸੰਖਿਆਵਾਂ 5:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਹਰੇਕ ਵਿੱਚ 18 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 19:21 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+ਪੁੱਤਰ ਅਤੇ ਮਾਤਾ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 4:2 ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ। ਜੇ ਦੋਵੇਂ Rs. 2400 ਦੀ ਬਚਤ ਕਰਦੇ ਹਨ, ਤਾਂ ਪੁੱਤਰ ਦੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -997,19 +988,19 @@ Sample 44
 IDs
 
 personAId: son
-personBId: sister
+personBId: daughter
 
 English rendering
 
-The incomes of son and sister are in the ratio 5:2, and their expenses are 1:3. If both save Rs. 6500 each, what is son's income?
+If the following conditions hold: The incomes of son and daughter are in the ratio 5:2, and their expenses are 1:3. If both save Rs. 6500 each, what is son's income?
 
 Hindi rendering
 
-बेटा और बहन की आय का अनुपात 5:2 है और उनके खर्चों का अनुपात 1:3 है। यदि दोनों Rs. 6500 की बचत करते हैं, तो बेटा की आय कितनी है?
+पुत्र और पुत्री की आय का अनुपात 5:2 है और उनके खर्चों का अनुपात 1:3 है। यदि दोनों Rs. 6500 की बचत करते हैं, तो पुत्र की आय कितनी है।
 
 Punjabi rendering
 
-ਬੇਟਾ ਅਤੇ ਭੈਣ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 5:2 ਹੈ ਅਤੇ ਉਹਨਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 1:3 ਹੈ। ਜੇਕਰ ਦੋਵੇਂ Rs. 6500 ਦੀ ਬਚਤ ਕਰਦੇ ਹੋਣ, ਤਾਂ ਬੇਟਾ ਦੀ ਆਮਦਨ ਕੀ ਹੈ?
+ਪੁੱਤਰ ਅਤੇ ਪੁੱਤਰੀ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 5:2 ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 1:3 ਹੈ। ਜੇ ਦੋਵੇਂ Rs. 6500 ਦੀ ਬਚਤ ਕਰਦੇ ਹਨ, ਤਾਂ ਪੁੱਤਰ ਦੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1019,18 +1010,20 @@ Sample 45
 
 IDs
 
+personAId: brother
+personBId: sister
 
 English rendering
 
-In a school, the ratio of boys to girls is 2:3. If 15 boys join and 7 girls leave, the ratio becomes 33:20. How many girls were there originally?
+Based on given parameters, The incomes of brother and sister are in the ratio 6:4, and their expenses are 2:5. If both save Rs. 6600 each, what is brother's income?
 
 Hindi rendering
 
-एक स्कूल में लड़कों और लड़कियों का अनुपात 2:3 है। यदि 15 लड़के और आ जाएं और 7 लड़कियां चली जाएं, तो अनुपात 33:20 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी?
+भाई और बहन की आय का अनुपात 6:4 है और उनके खर्चों का अनुपात 2:5 है। यदि दोनों Rs. 6600 की बचत करते हैं, तो भाई की आय कितनी है।
 
 Punjabi rendering
 
-ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇਕਰ 15 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 7 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 33:20 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਭਰਾ ਅਤੇ ਭੈਣ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 6:4 ਹੈ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 2:5 ਹੈ। ਜੇ ਦੋਵੇਂ Rs. 6600 ਦੀ ਬਚਤ ਕਰਦੇ ਹਨ, ਤਾਂ ਭਰਾ ਦੀ ਆਮਦਨ ਕਿੰਨੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1040,20 +1033,18 @@ Sample 46
 
 IDs
 
-groupAId: boys
-groupBId: girls
 
 English rendering
 
-In a class, the ratio of boys to girls is 2:4. If 7 more boys join, the ratio becomes 3:4. How many boys were there at the beginning?
+In a school, the ratio of boys to girls is 3:4. If 4 boys join and 4 girls leave, the ratio becomes 25:24. How many girls were there originally?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 2:4 है। यदि 7 और लड़के आ जाते हैं, तो अनुपात 3:4 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
+एक स्कूल में लड़कों और लड़कियों का अनुपात 3:4 है। यदि 4 लड़के और आ जाएं और 4 लड़कियां चली जाएं, तो अनुपात 25:24 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇਕਰ 7 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 3:4 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਜੇ 4 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 4 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 25:24 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1063,20 +1054,18 @@ Sample 47
 
 IDs
 
-groupAId: boys
-groupBId: girls
 
 English rendering
 
-The ratio of boys to girls in a class is 8:7. After 19 boys leave, the ratio changes to 37:49. What was the total number of people at the start?
+In a competitive exam setup, in a school, the ratio of boys to girls is 6:7. If 7 boys join and 31 girls leave, the ratio becomes 37:4. How many girls were there originally?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 8:7 है। 19 लड़के के चले जाने पर अनुपात 37:49 हो जाता है। शुरुआत में कुल कितने लोग थे?
+एक स्कूल में लड़कों और लड़कियों का अनुपात 6:7 है। यदि 7 लड़के और आ जाएं और 31 लड़कियां चली जाएं, तो अनुपात 37:4 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:7 ਹੈ। 19 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 37:49 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ। ਜੇ 7 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 31 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 37:4 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1089,15 +1078,15 @@ IDs
 
 English rendering
 
-Two numbers are in the ratio 4:5. If 18 is added to each, the ratio becomes 10:11. What is the value of the larger number?
+In a school, the ratio of boys to girls is 7:2. If 10 boys join and 4 girls leave, the ratio becomes 31:2. How many girls were there originally?
 
 Hindi rendering
 
-दो संख्याएँ 4:5 के अनुपात में हैं। यदि प्रत्येक में 18 जोड़ दिया जाए, तो अनुपात 10:11 हो जाता है। बड़ी संख्या का मान क्या है?
+एक स्कूल में लड़कों और लड़कियों का अनुपात 7:2 है। यदि 10 लड़के और आ जाएं और 4 लड़कियां चली जाएं, तो अनुपात 31:2 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਦੋ ਸੰਖਿਆਵਾਂ 4:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਹਰੇਕ ਵਿੱਚ 18 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 10:11 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 7:2 ਹੈ। ਜੇ 10 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 4 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 31:2 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1107,20 +1096,18 @@ Sample 49
 
 IDs
 
-personAId: son
-personBId: brother
 
 English rendering
 
-The incomes of son and brother are in the ratio 8:2, and their expenses are 2:5. If both save Rs. 18000 each, what is son's income?
+If the following conditions hold: In a school, the ratio of boys to girls is 2:3. If 13 boys join and 15 girls leave, the ratio becomes 11:5. How many girls were there originally?
 
 Hindi rendering
 
-बेटा और भाई की आय का अनुपात 8:2 है और उनके खर्चों का अनुपात 2:5 है। यदि दोनों Rs. 18000 की बचत करते हैं, तो बेटा की आय कितनी है?
+एक स्कूल में लड़कों और लड़कियों का अनुपात 2:3 है। यदि 13 लड़के और आ जाएं और 15 लड़कियां चली जाएं, तो अनुपात 11:5 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਬੇਟਾ ਅਤੇ ਭਰਾ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 8:2 ਹੈ ਅਤੇ ਉਹਨਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 2:5 ਹੈ। ਜੇਕਰ ਦੋਵੇਂ Rs. 18000 ਦੀ ਬਚਤ ਕਰਦੇ ਹੋਣ, ਤਾਂ ਬੇਟਾ ਦੀ ਆਮਦਨ ਕੀ ਹੈ?
+ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇ 13 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 15 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 11:5 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1133,15 +1120,15 @@ IDs
 
 English rendering
 
-In a school, the ratio of boys to girls is 5:6. If 2 boys join and 28 girls leave, the ratio becomes 21:10. How many girls were there originally?
+Based on given parameters, In a school, the ratio of boys to girls is 5:6. If 2 boys join and 28 girls leave, the ratio becomes 21:10. How many girls were there originally?
 
 Hindi rendering
 
-एक स्कूल में लड़कों और लड़कियों का अनुपात 5:6 है। यदि 2 लड़के और आ जाएं और 28 लड़कियां चली जाएं, तो अनुपात 21:10 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी?
+एक स्कूल में लड़कों और लड़कियों का अनुपात 5:6 है। यदि 2 लड़के और आ जाएं और 28 लड़कियां चली जाएं, तो अनुपात 21:10 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ। ਜੇਕਰ 2 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 28 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 21:10 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ। ਜੇ 2 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 28 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 21:10 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1160,11 +1147,11 @@ In a class, the ratio of boys to girls is 2:4. If 5 more boys join, the ratio be
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 2:4 है। यदि 5 और लड़के आ जाते हैं, तो अनुपात 23:36 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी?
+किसी कक्षा में लड़के और लड़कियां का अनुपात 2:4 है। यदि 5 और लड़के आ जाते हैं, तो अनुपात 23:36 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇਕਰ 5 ਹੋਰ ਮੁੰਡੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:36 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮੁੰਡੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇ 5 ਹੋਰ ਲੜਕੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 23:36 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਲੜਕੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1179,15 +1166,15 @@ groupBId: girls
 
 English rendering
 
-The ratio of boys to girls in a class is 6:5. After 11 boys leave, the ratio changes to 7:15. What was the total number of people at the start?
+In a competitive exam setup, in a class, the ratio of boys to girls is 3:5. If 11 more boys join, the ratio becomes 32:35. How many boys were there at the beginning?
 
 Hindi rendering
 
-किसी class में लड़के और लड़कियां का अनुपात 6:5 है। 11 लड़के के चले जाने पर अनुपात 7:15 हो जाता है। शुरुआत में कुल कितने लोग थे?
+किसी कक्षा में लड़के और लड़कियां का अनुपात 3:5 है। यदि 11 और लड़के आ जाते हैं, तो अनुपात 32:35 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ class ਵਿੱਚ ਮੁੰਡੇ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 6:5 ਹੈ। 11 ਮੁੰਡੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ ਬਦਲ ਕੇ 7:15 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ?
+ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 3:5 ਹੈ। ਜੇ 11 ਹੋਰ ਲੜਕੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 32:35 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਲੜਕੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1197,18 +1184,20 @@ Sample 53
 
 IDs
 
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-Two numbers are in the ratio 2:3. If 19 is added to each, the ratio becomes 29:34. What is the value of the larger number?
+In a class, the ratio of boys to girls is 6:2. If 17 more boys join, the ratio becomes 47:10. How many boys were there at the beginning?
 
 Hindi rendering
 
-दो संख्याएँ 2:3 के अनुपात में हैं। यदि प्रत्येक में 19 जोड़ दिया जाए, तो अनुपात 29:34 हो जाता है। बड़ी संख्या का मान क्या है?
+किसी कक्षा में लड़के और लड़कियां का अनुपात 6:2 है। यदि 17 और लड़के आ जाते हैं, तो अनुपात 47:10 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਦੋ ਸੰਖਿਆਵਾਂ 2:3 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਹਰੇਕ ਵਿੱਚ 19 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 29:34 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 6:2 ਹੈ। ਜੇ 17 ਹੋਰ ਲੜਕੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 47:10 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਲੜਕੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1218,20 +1207,20 @@ Sample 54
 
 IDs
 
-personAId: daughter
-personBId: son
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-The incomes of daughter and son are in the ratio 4:2, and their expenses are 4:5. If both save Rs. 6000 each, what is daughter's income?
+If the following conditions hold: In a class, the ratio of boys to girls is 1:3. If 4 more boys join, the ratio becomes 7:9. How many boys were there at the beginning?
 
 Hindi rendering
 
-बेटी और बेटा की आय का अनुपात 4:2 है और उनके खर्चों का अनुपात 4:5 है। यदि दोनों Rs. 6000 की बचत करते हैं, तो बेटी की आय कितनी है?
+किसी कक्षा में लड़के और लड़कियां का अनुपात 1:3 है। यदि 4 और लड़के आ जाते हैं, तो अनुपात 7:9 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਬੇਟੀ ਅਤੇ ਬੇਟਾ ਦੀ ਆਮਦਨ ਦਾ ਅਨੁਪਾਤ 4:2 ਹੈ ਅਤੇ ਉਹਨਾਂ ਦੇ ਖਰਚਿਆਂ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ। ਜੇਕਰ ਦੋਵੇਂ Rs. 6000 ਦੀ ਬਚਤ ਕਰਦੇ ਹੋਣ, ਤਾਂ ਬੇਟੀ ਦੀ ਆਮਦਨ ਕੀ ਹੈ?
+ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 1:3 ਹੈ। ਜੇ 4 ਹੋਰ ਲੜਕੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 7:9 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਲੜਕੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1241,18 +1230,20 @@ Sample 55
 
 IDs
 
+groupAId: boys
+groupBId: girls
 
 English rendering
 
-In a school, the ratio of boys to girls is 3:4. If 6 boys join and 8 girls leave, the ratio becomes 9:8. How many girls were there originally?
+Based on given parameters, In a class, the ratio of boys to girls is 2:4. If 10 more boys join, the ratio becomes 3:4. How many boys were there at the beginning?
 
 Hindi rendering
 
-एक स्कूल में लड़कों और लड़कियों का अनुपात 3:4 है। यदि 6 लड़के और आ जाएं और 8 लड़कियां चली जाएं, तो अनुपात 9:8 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी?
+किसी कक्षा में लड़के और लड़कियां का अनुपात 2:4 है। यदि 10 और लड़के आ जाते हैं, तो अनुपात 3:4 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ ਸਕੂਲ ਵਿੱਚ ਮੁੰਡਿਆਂ ਅਤੇ ਕੁੜੀਆਂ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਜੇਕਰ 6 ਮੁੰਡੇ ਹੋਰ ਆ ਜਾਣ ਅਤੇ 8 ਕੁੜੀਆਂ ਚਲੀਆਂ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 9:8 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੜੀਆਂ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 2:4 ਹੈ। ਜੇ 10 ਹੋਰ ਲੜਕੇ ਆ ਜਾਣ, ਤਾਂ ਅਨੁਪਾਤ 3:4 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਲੜਕੇ ਦੀ ਗਿਣਤੀ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1265,15 +1256,15 @@ IDs
 
 English rendering
 
-What is the mean proportional between 100 and 9?
+What will be the third proportional to 36 and 6?
 
 Hindi rendering
 
-100 और 9 के बीच का मध्य अनुपाती क्या होगा?
+36 और 6 का तीसरा अनुपाती क्या होगा।
 
 Punjabi rendering
 
-100 ਅਤੇ 9 ਦੇ ਵਿਚਕਾਰ ਦਾ ਮੱਧ ਅਨੁਪਾਤੀ ਪਤਾ ਕਰੋ।
+36 ਅਤੇ 6 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1286,15 +1277,15 @@ IDs
 
 English rendering
 
-What will be the third proportional to 1 and 2?
+In a competitive exam setup, what will be the third proportional to 1 and 2?
 
 Hindi rendering
 
-1 और 2 का तीसरा अनुपाती क्या होगा?
+1 और 2 का तीसरा अनुपाती क्या होगा।
 
 Punjabi rendering
 
-1 ਅਤੇ 2 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ?
+1 ਅਤੇ 2 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1307,15 +1298,15 @@ IDs
 
 English rendering
 
-Find the number which is fourth proportional to 5, 6, and 25.
+What will be the third proportional to 4 and 6?
 
 Hindi rendering
 
-वह संख्या क्या होगी जो 5, 6 और 25 का चौथा अनुपाती है?
+4 और 6 का तीसरा अनुपाती क्या होगा।
 
 Punjabi rendering
 
-ਉਹ ਸੰਖਿਆ ਪਤਾ ਕਰੋ ਜੋ 5, 6 ਅਤੇ 25 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
+4 ਅਤੇ 6 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1328,15 +1319,15 @@ IDs
 
 English rendering
 
-If y varies directly as x, and y is 42 when x is 14, what will be the value of y when x is 15?
+If the following conditions hold: What will be the third proportional to 9 and 12?
 
 Hindi rendering
 
-यदि y, x के साथ सीधे अनुपात में है और जब x = 14 तो y = 42 है। जब x का मान 15 होगा, तो y कितना होगा?
+9 और 12 का तीसरा अनुपाती क्या होगा।
 
 Punjabi rendering
 
-ਜੇਕਰ y, x ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋਵੇ ਅਤੇ ਜਦੋਂ x = 14 ਤਾਂ y = 42 ਹੈ। ਜਦੋਂ x ਦਾ ਮੁੱਲ 15 ਹੋਵੇਗਾ, ਤਾਂ y ਕਿੰਨਾ ਹੋਵੇਗਾ?
+9 ਅਤੇ 12 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1349,15 +1340,15 @@ IDs
 
 English rendering
 
-If y is inversely proportional to x, and y is 180 when x is 15, find the value of y when x becomes 1.
+Based on given parameters, What will be the third proportional to 16 and 20?
 
 Hindi rendering
 
-यदि y, x के उल्टा अनुपात में है और जब x = 15 तो y = 180 है। यदि x का मान बदलकर 1 हो जाए, तो y कितना होगा?
+16 और 20 का तीसरा अनुपाती क्या होगा।
 
 Punjabi rendering
 
-ਜੇਕਰ y, x ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋਵੇ ਅਤੇ ਜਦੋਂ x = 15 ਤਾਂ y = 180 ਹੈ। ਜੇਕਰ x ਦਾ ਮੁੱਲ 1 ਹੋ ਜਾਵੇ, ਤਾਂ y ਕਿੰਨਾ ਹੋਵੇਗਾ?
+16 ਅਤੇ 20 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1370,15 +1361,15 @@ IDs
 
 English rendering
 
-What is the mean proportional between 64 and 81?
+Find the number which is fourth proportional to 5, 6, and 45.
 
 Hindi rendering
 
-64 और 81 के बीच का मध्य अनुपाती क्या होगा?
+वह संख्या क्या होगी जो 5, 6 और 45 का चौथा अनुपाती है।
 
 Punjabi rendering
 
-64 ਅਤੇ 81 ਦੇ ਵਿਚਕਾਰ ਦਾ ਮੱਧ ਅਨੁਪਾਤੀ ਪਤਾ ਕਰੋ।
+ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ 5, 6 ਅਤੇ 45 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1391,15 +1382,15 @@ IDs
 
 English rendering
 
-What will be the third proportional to 9 and 12?
+In a competitive exam setup, find the number which is fourth proportional to 6, 1, and 60.
 
 Hindi rendering
 
-9 और 12 का तीसरा अनुपाती क्या होगा?
+वह संख्या क्या होगी जो 6, 1 और 60 का चौथा अनुपाती है।
 
 Punjabi rendering
 
-9 ਅਤੇ 12 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ?
+ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ 6, 1 ਅਤੇ 60 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1412,15 +1403,15 @@ IDs
 
 English rendering
 
-Find the number which is fourth proportional to 1, 2, and 1.
+Determine the number which is fourth proportional to 1, 2, and 1.
 
 Hindi rendering
 
-वह संख्या क्या होगी जो 1, 2 और 1 का चौथा अनुपाती है?
+वह संख्या क्या होगी जो 1, 2 और 1 का चौथा अनुपाती है।
 
 Punjabi rendering
 
-ਉਹ ਸੰਖਿਆ ਪਤਾ ਕਰੋ ਜੋ 1, 2 ਅਤੇ 1 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
+ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ 1, 2 ਅਤੇ 1 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1433,15 +1424,15 @@ IDs
 
 English rendering
 
-If y varies directly as x, and y is 100 when x is 20, what will be the value of y when x is 1?
+If the following conditions hold: Find the number which is fourth proportional to 2, 3, and 4.
 
 Hindi rendering
 
-यदि y, x के साथ सीधे अनुपात में है और जब x = 20 तो y = 100 है। जब x का मान 1 होगा, तो y कितना होगा?
+वह संख्या क्या होगी जो 2, 3 और 4 का चौथा अनुपाती है।
 
 Punjabi rendering
 
-ਜੇਕਰ y, x ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋਵੇ ਅਤੇ ਜਦੋਂ x = 20 ਤਾਂ y = 100 ਹੈ। ਜਦੋਂ x ਦਾ ਮੁੱਲ 1 ਹੋਵੇਗਾ, ਤਾਂ y ਕਿੰਨਾ ਹੋਵੇਗਾ?
+ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ 2, 3 ਅਤੇ 4 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1454,15 +1445,15 @@ IDs
 
 English rendering
 
-If y is inversely proportional to x, and y is 9 when x is 1, find the value of y when x becomes 1.
+Based on given parameters, Find the number which is fourth proportional to 3, 4, and 9.
 
 Hindi rendering
 
-यदि y, x के उल्टा अनुपात में है और जब x = 1 तो y = 9 है। यदि x का मान बदलकर 1 हो जाए, तो y कितना होगा?
+वह संख्या क्या होगी जो 3, 4 और 9 का चौथा अनुपाती है।
 
 Punjabi rendering
 
-ਜੇਕਰ y, x ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੋਵੇ ਅਤੇ ਜਦੋਂ x = 1 ਤਾਂ y = 9 ਹੈ। ਜੇਕਰ x ਦਾ ਮੁੱਲ 1 ਹੋ ਜਾਵੇ, ਤਾਂ y ਕਿੰਨਾ ਹੋਵੇਗਾ?
+ਉਹ ਸੰਖਿਆ ਕੀ ਹੋਵੇਗੀ ਜੋ 3, 4 ਅਤੇ 9 ਦਾ ਚੌਥਾ ਅਨੁਪਾਤੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1479,11 +1470,11 @@ A box contains 14 coins of 1, 2, 5, and 10. If their values are in the ratio 1:3
 
 Hindi rendering
 
-एक बॉक्स में 1, 2, 5 और 10 के कुल 14 सिक्के हैं। यदि उनके मूल्यों का अनुपात 1:3:10:25 है, तो 10 के सिक्कों की संख्या क्या है?
+एक बॉक्स में 1, 2, 5 और 10 के कुल 14 सिक्के हैं। यदि उनके मूल्यों का अनुपात 1:3:10:25 है, तो 10 के सिक्कों की संख्या क्या है।
 
 Punjabi rendering
 
-ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 14 ਸਿੱਕੇ ਹਨ। ਜੇਕਰ ਉਹਨਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 1:3:10:25 ਹੋਵੇ, ਤਾਂ 10 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 14 ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 1:3:10:25 ਹੈ, ਤਾਂ 10 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1493,21 +1484,18 @@ Sample 67
 
 IDs
 
-itemAId: coin_1
-itemBId: coin_5
-itemCId: coin_2
 
 English rendering
 
-The weights of Rs. 1 coin, Rs. 5 coin, and Rs. 2 coin are in the ratio 4:5:6. If the total weight of 3 Rs. 1 coin, 4 Rs. 5 coin, and 5 Rs. 2 coin is 62 kg, find the weight of one Rs. 1 coin.
+In a competitive exam setup, a box contains 10 coins of 1, 2, 5, and 10. If their values are in the ratio 1:4:15:40, what is the number of 1 coins?
 
 Hindi rendering
 
-1 रुपये का सिक्का, 5 रुपये का सिक्का और 2 रुपये का सिक्का के वजन का अनुपात 4:5:6 है। यदि 3 1 रुपये का सिक्का, 4 5 रुपये का सिक्का और 5 2 रुपये का सिक्का का कुल वजन 62 kg है, तो एक 1 रुपये का सिक्का का वजन कितना है?
+एक बॉक्स में 1, 2, 5 और 10 के कुल 10 सिक्के हैं। यदि उनके मूल्यों का अनुपात 1:4:15:40 है, तो 1 के सिक्कों की संख्या क्या है।
 
 Punjabi rendering
 
-1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 4:5:6 ਹੈ। ਜੇਕਰ 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 62 kg ਹੈ, ਤਾਂ ਇੱਕ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ?
+ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 10 ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 1:4:15:40 ਹੈ, ਤਾਂ 1 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1517,21 +1505,18 @@ Sample 68
 
 IDs
 
-sub1Id: english
-sub2Id: mathematics
-sub3Id: science
 
 English rendering
 
-In an exam, the marks for English, Mathematics, and Science are in the ratio 8:1:2. If the weights for these subjects are 4, 1, and 2 and the total weighted score is 444, how many marks were obtained in English?
+A box contains 14 coins of 1, 2, 5, and 10. If their values are in the ratio 4:1:5:15, what is the number of 2 coins?
 
 Hindi rendering
 
-एक परीक्षा में अंग्रेजी, गणित और विज्ञान के अंकों का अनुपात 8:1:2 है। यदि इन विषयों का भार (weightage) क्रमशः 4, 1 और 2 है और कुल भारित स्कोर 444 है, तो अंग्रेजी में कितने अंक मिले?
+एक बॉक्स में 1, 2, 5 और 10 के कुल 14 सिक्के हैं। यदि उनके मूल्यों का अनुपात 4:1:5:15 है, तो 2 के सिक्कों की संख्या क्या है।
 
 Punjabi rendering
 
-ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਅੰਗਰੇਜ਼ੀ, ਗਣਿਤ ਅਤੇ ਵਿਗਿਆਨ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 8:1:2 ਹੈ। ਜੇਕਰ ਇਹਨਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਵੇਟੇਜ (weightage) ਕ੍ਰਮਵਾਰ 4, 1 ਅਤੇ 2 ਹੋਵੇ ਅਤੇ ਕੁੱਲ ਵੇਟਿਡ ਸਕੋਰ 444 ਹੈ, ਤਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ?
+ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 14 ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 4:1:5:15 ਹੈ, ਤਾਂ 2 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1544,15 +1529,15 @@ IDs
 
 English rendering
 
-A bag has coins of 1, 2, and 5 in the ratio 2:3:4. If the total value is Rs. 84, how many coins of 1 are in the bag?
+If the following conditions hold: A box contains 18 coins of 1, 2, 5, and 10. If their values are in the ratio 7:16:5:20, what is the number of 5 coins?
 
 Hindi rendering
 
-एक बैग में 1, 2 और 5 के सिक्के 2:3:4 के अनुपात में हैं। यदि कुल मूल्य Rs. 84 है, तो 1 के कितने सिक्के हैं?
+एक बॉक्स में 1, 2, 5 और 10 के कुल 18 सिक्के हैं। यदि उनके मूल्यों का अनुपात 7:16:5:20 है, तो 5 के सिक्कों की संख्या क्या है।
 
 Punjabi rendering
 
-ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 2:3:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੱਲ ਮੁੱਲ Rs. 84 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ?
+ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 18 ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 7:16:5:20 ਹੈ, ਤਾਂ 5 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1565,15 +1550,15 @@ IDs
 
 English rendering
 
-A box contains 22 coins of 1, 2, 5, and 10. If their values are in the ratio 3:7:20:5, what is the number of 10 coins?
+Based on given parameters, A box contains 22 coins of 1, 2, 5, and 10. If their values are in the ratio 3:7:20:5, what is the number of 10 coins?
 
 Hindi rendering
 
-एक बॉक्स में 1, 2, 5 और 10 के कुल 22 सिक्के हैं। यदि उनके मूल्यों का अनुपात 3:7:20:5 है, तो 10 के सिक्कों की संख्या क्या है?
+एक बॉक्स में 1, 2, 5 और 10 के कुल 22 सिक्के हैं। यदि उनके मूल्यों का अनुपात 3:7:20:5 है, तो 10 के सिक्कों की संख्या क्या है।
 
 Punjabi rendering
 
-ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 22 ਸਿੱਕੇ ਹਨ। ਜੇਕਰ ਉਹਨਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 3:7:20:5 ਹੋਵੇ, ਤਾਂ 10 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 22 ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 3:7:20:5 ਹੈ, ਤਾਂ 10 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1593,11 +1578,11 @@ The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 5:6:7. If
 
 Hindi rendering
 
-2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 3 2 रुपये का सिक्का, 4 1 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 444 kg है, तो एक 2 रुपये का सिक्का का वजन कितना है?
+2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 3 2 रुपये का सिक्का, 4 1 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 444 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇਕਰ 3 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 4 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 444 kg ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ?
+2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ 3 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 4 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 444 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1607,21 +1592,21 @@ Sample 72
 
 IDs
 
-sub1Id: english
-sub2Id: science
-sub3Id: history
+itemAId: coin_1
+itemBId: coin_2
+itemCId: coin_5
 
 English rendering
 
-In an exam, the marks for English, Science, and History are in the ratio 1:2:3. If the weights for these subjects are 3, 4, and 1 and the total weighted score is 56, how many marks were obtained in English?
+In a competitive exam setup, the weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 6:7:8. If the total weight of 3 Rs. 1 coin, 4 Rs. 2 coin, and 5 Rs. 5 coin is 602 kg, find the weight of one Rs. 1 coin.
 
 Hindi rendering
 
-एक परीक्षा में अंग्रेजी, विज्ञान और इतिहास के अंकों का अनुपात 1:2:3 है। यदि इन विषयों का भार (weightage) क्रमशः 3, 4 और 1 है और कुल भारित स्कोर 56 है, तो अंग्रेजी में कितने अंक मिले?
+1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 6:7:8 है। यदि 3 1 रुपये का सिक्का, 4 2 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 602 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਅੰਗਰੇਜ਼ੀ, ਵਿਗਿਆਨ ਅਤੇ ਇਤਿਹਾਸ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇਕਰ ਇਹਨਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਵੇਟੇਜ (weightage) ਕ੍ਰਮਵਾਰ 3, 4 ਅਤੇ 1 ਹੋਵੇ ਅਤੇ ਕੁੱਲ ਵੇਟਿਡ ਸਕੋਰ 56 ਹੈ, ਤਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ?
+1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 6:7:8 ਹੈ। ਜੇ 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 4 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 602 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1631,18 +1616,21 @@ Sample 73
 
 IDs
 
+itemAId: coin_2
+itemBId: coin_1
+itemCId: coin_5
 
 English rendering
 
-A bag has coins of 1, 2, and 5 in the ratio 3:4:5. If the total value is Rs. 288, how many coins of 2 are in the bag?
+The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 7:8:1. If the total weight of 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin is 336 kg, find the weight of one Rs. 2 coin.
 
 Hindi rendering
 
-एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 288 है, तो 2 के कितने सिक्के हैं?
+2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 7:8:1 है। यदि 2 2 रुपये का सिक्का, 3 1 रुपये का सिक्का और 4 5 रुपये का सिक्का का कुल वजन 336 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 3:4:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੱਲ ਮੁੱਲ Rs. 288 ਹੈ, ਤਾਂ 2 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ?
+2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 7:8:1 ਹੈ। ਜੇ 2 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 336 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1652,18 +1640,21 @@ Sample 74
 
 IDs
 
+itemAId: coin_1
+itemBId: coin_2
+itemCId: coin_5
 
 English rendering
 
-A box contains 26 coins of 1, 2, 5, and 10. If their values are in the ratio 5:12:35:80, what is the number of 1 coins?
+If the following conditions hold: The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 8:1:2. If the total weight of 2 Rs. 1 coin, 3 Rs. 2 coin, and 4 Rs. 5 coin is 243 kg, find the weight of one Rs. 1 coin.
 
 Hindi rendering
 
-एक बॉक्स में 1, 2, 5 और 10 के कुल 26 सिक्के हैं। यदि उनके मूल्यों का अनुपात 5:12:35:80 है, तो 1 के सिक्कों की संख्या क्या है?
+1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 8:1:2 है। यदि 2 1 रुपये का सिक्का, 3 2 रुपये का सिक्का और 4 5 रुपये का सिक्का का कुल वजन 243 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 26 ਸਿੱਕੇ ਹਨ। ਜੇਕਰ ਉਹਨਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 5:12:35:80 ਹੋਵੇ, ਤਾਂ 1 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 8:1:2 ਹੈ। ਜੇ 2 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 243 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1679,15 +1670,15 @@ itemCId: coin_5
 
 English rendering
 
-The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 1:2:3. If the total weight of 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin is 200 kg, find the weight of one Rs. 2 coin.
+Based on given parameters, The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 1:2:3. If the total weight of 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin is 200 kg, find the weight of one Rs. 2 coin.
 
 Hindi rendering
 
-2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 1:2:3 है। यदि 2 2 रुपये का सिक्का, 3 1 रुपये का सिक्का और 4 5 रुपये का सिक्का का कुल वजन 200 kg है, तो एक 2 रुपये का सिक्का का वजन कितना है?
+2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 1:2:3 है। यदि 2 2 रुपये का सिक्का, 3 1 रुपये का सिक्का और 4 5 रुपये का सिक्का का कुल वजन 200 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇਕਰ 2 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 200 kg ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ?
+2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇ 2 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 200 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1707,11 +1698,11 @@ In an exam, the marks for History, Science, and English are in the ratio 5:6:7. 
 
 Hindi rendering
 
-एक परीक्षा में इतिहास, विज्ञान और अंग्रेजी के अंकों का अनुपात 5:6:7 है। यदि इन विषयों का भार (weightage) क्रमशः 3, 4 और 1 है और कुल भारित स्कोर 368 है, तो इतिहास में कितने अंक मिले?
+एक परीक्षा में इतिहास, विज्ञान और अंग्रेजी के अंकों का अनुपात 5:6:7 है। यदि इन विषयों का भार क्रमशः 3, 4 और 1 है और कुल भारित अंक 368 हैं, तो इतिहास में कितने अंक मिले।
 
 Punjabi rendering
 
-ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇਤਿਹਾਸ, ਵਿਗਿਆਨ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇਕਰ ਇਹਨਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਵੇਟੇਜ (weightage) ਕ੍ਰਮਵਾਰ 3, 4 ਅਤੇ 1 ਹੋਵੇ ਅਤੇ ਕੁੱਲ ਵੇਟਿਡ ਸਕੋਰ 368 ਹੈ, ਤਾਂ ਇਤਿਹਾਸ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ?
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇਤਿਹਾਸ, ਵਿਗਿਆਨ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ 3, 4 ਅਤੇ 1 ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ 368 ਹਨ, ਤਾਂ ਇਤਿਹਾਸ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।
 
 Synchronized entity IDs: yes
 
@@ -1721,18 +1712,21 @@ Sample 77
 
 IDs
 
+sub1Id: mathematics
+sub2Id: english
+sub3Id: science
 
 English rendering
 
-A bag has coins of 1, 2, and 5 in the ratio 5:6:1. If the total value is Rs. 44, how many coins of 1 are in the bag?
+In a competitive exam setup, in an exam, the marks for Mathematics, English, and Science are in the ratio 6:7:8. If the weights for these subjects are 2, 3, and 4 and the total weighted score is 585, how many marks were obtained in Mathematics?
 
 Hindi rendering
 
-एक बैग में 1, 2 और 5 के सिक्के 5:6:1 के अनुपात में हैं। यदि कुल मूल्य Rs. 44 है, तो 1 के कितने सिक्के हैं?
+एक परीक्षा में गणित, अंग्रेजी और विज्ञान के अंकों का अनुपात 6:7:8 है। यदि इन विषयों का भार क्रमशः 2, 3 और 4 है और कुल भारित अंक 585 हैं, तो गणित में कितने अंक मिले।
 
 Punjabi rendering
 
-ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 5:6:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇਕਰ ਕੁੱਲ ਮੁੱਲ Rs. 44 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ?
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 6:7:8 ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ 2, 3 ਅਤੇ 4 ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ 585 ਹਨ, ਤਾਂ ਗਣਿਤ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।
 
 Synchronized entity IDs: yes
 
@@ -1742,18 +1736,21 @@ Sample 78
 
 IDs
 
+sub1Id: english
+sub2Id: science
+sub3Id: history
 
 English rendering
 
-A box contains 10 coins of 1, 2, 5, and 10. If their values are in the ratio 1:4:15:40, what is the number of 1 coins?
+In an exam, the marks for English, Science, and History are in the ratio 7:8:1. If the weights for these subjects are 1, 2, and 3 and the total weighted score is 260, how many marks were obtained in English?
 
 Hindi rendering
 
-एक बॉक्स में 1, 2, 5 और 10 के कुल 10 सिक्के हैं। यदि उनके मूल्यों का अनुपात 1:4:15:40 है, तो 1 के सिक्कों की संख्या क्या है?
+एक परीक्षा में अंग्रेजी, विज्ञान और इतिहास के अंकों का अनुपात 7:8:1 है। यदि इन विषयों का भार क्रमशः 1, 2 और 3 है और कुल भारित अंक 260 हैं, तो अंग्रेजी में कितने अंक मिले।
 
 Punjabi rendering
 
-ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 10 ਸਿੱਕੇ ਹਨ। ਜੇਕਰ ਉਹਨਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 1:4:15:40 ਹੋਵੇ, ਤਾਂ 1 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਅੰਗਰੇਜ਼ੀ, ਵਿਗਿਆਨ ਅਤੇ ਇਤਿਹਾਸ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 7:8:1 ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ 1, 2 ਅਤੇ 3 ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ 260 ਹਨ, ਤਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।
 
 Synchronized entity IDs: yes
 
@@ -1763,21 +1760,21 @@ Sample 79
 
 IDs
 
-itemAId: coin_1
-itemBId: coin_2
-itemCId: coin_5
+sub1Id: history
+sub2Id: science
+sub3Id: english
 
 English rendering
 
-The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 5:6:7. If the total weight of 5 Rs. 1 coin, 1 Rs. 2 coin, and 2 Rs. 5 coin is 180 kg, find the weight of one Rs. 1 coin.
+If the following conditions hold: In an exam, the marks for History, Science, and English are in the ratio 8:1:2. If the weights for these subjects are 4, 1, and 2 and the total weighted score is 407, how many marks were obtained in History?
 
 Hindi rendering
 
-1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 5 1 रुपये का सिक्का, 1 2 रुपये का सिक्का और 2 5 रुपये का सिक्का का कुल वजन 180 kg है, तो एक 1 रुपये का सिक्का का वजन कितना है?
+एक परीक्षा में इतिहास, विज्ञान और अंग्रेजी के अंकों का अनुपात 8:1:2 है। यदि इन विषयों का भार क्रमशः 4, 1 और 2 है और कुल भारित अंक 407 हैं, तो इतिहास में कितने अंक मिले।
 
 Punjabi rendering
 
-1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇਕਰ 5 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 2 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 180 kg ਹੈ, ਤਾਂ ਇੱਕ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ?
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇਤਿਹਾਸ, ਵਿਗਿਆਨ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 8:1:2 ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ 4, 1 ਅਤੇ 2 ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ 407 ਹਨ, ਤਾਂ ਇਤਿਹਾਸ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।
 
 Synchronized entity IDs: yes
 
@@ -1793,15 +1790,15 @@ sub3Id: science
 
 English rendering
 
-In an exam, the marks for Mathematics, English, and Science are in the ratio 1:2:3. If the weights for these subjects are 3, 4, and 1 and the total weighted score is 168, how many marks were obtained in Mathematics?
+Based on given parameters, In an exam, the marks for Mathematics, English, and Science are in the ratio 1:2:3. If the weights for these subjects are 3, 4, and 1 and the total weighted score is 168, how many marks were obtained in Mathematics?
 
 Hindi rendering
 
-एक परीक्षा में गणित, अंग्रेजी और विज्ञान के अंकों का अनुपात 1:2:3 है। यदि इन विषयों का भार (weightage) क्रमशः 3, 4 और 1 है और कुल भारित स्कोर 168 है, तो गणित में कितने अंक मिले?
+एक परीक्षा में गणित, अंग्रेजी और विज्ञान के अंकों का अनुपात 1:2:3 है। यदि इन विषयों का भार क्रमशः 3, 4 और 1 है और कुल भारित अंक 168 हैं, तो गणित में कितने अंक मिले।
 
 Punjabi rendering
 
-ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇਕਰ ਇਹਨਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਵੇਟੇਜ (weightage) ਕ੍ਰਮਵਾਰ 3, 4 ਅਤੇ 1 ਹੋਵੇ ਅਤੇ ਕੁੱਲ ਵੇਟਿਡ ਸਕੋਰ 168 ਹੈ, ਤਾਂ ਗਣਿਤ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ?
+ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਗਣਿਤ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ 3, 4 ਅਤੇ 1 ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ 168 ਹਨ, ਤਾਂ ਗਣਿਤ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।
 
 Synchronized entity IDs: yes
 
@@ -1816,15 +1813,15 @@ liquid2Id: milk
 
 English rendering
 
-A mixture contains water and milk in the ratio 6:7. If 15 litres of water are added, the ratio becomes 9:8. What was the initial quantity of milk?
+In 104 litres of a mixture, the ratio of water to milk is 6:7. How many litres of milk should be added to make the ratio 16:25?
 
 Hindi rendering
 
-एक मिश्रण में पानी और दूध का अनुपात 6:7 है। यदि इसमें 15 लीटर पानी मिला दिया जाए, तो अनुपात 9:8 हो जाता है। शुरुआत में दूध की मात्रा कितनी थी?
+मिश्रण के 104 लीटर में पानी और दूध का अनुपात 6:7 है। अनुपात को 16:25 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।
 
 Punjabi rendering
 
-ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ। ਜੇਕਰ ਇਸ ਵਿੱਚ 15 ਲੀਟਰ ਪਾਣੀ ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 9:8 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਦੁੱਧ ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ?
+ਮਿਸ਼ਰਣ ਦੇ 104 ਲੀਟਰ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 16:25 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਦੁੱਧ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1839,15 +1836,15 @@ liquid2Id: juice
 
 English rendering
 
-In 66 litres of a mixture, the ratio of water to juice is 5:6. How many litres of juice should be added to make the ratio 15:28?
+In a competitive exam setup, in 66 litres of a mixture, the ratio of water to juice is 5:6. How many litres of juice should be added to make the ratio 15:28?
 
 Hindi rendering
 
-मिश्रण के 66 लीटर में पानी और जूस का अनुपात 5:6 है। अनुपात को 15:28 बनाने के लिए कितना जूस और मिलाना पड़ेगा?
+मिश्रण के 66 लीटर में पानी और रस का अनुपात 5:6 है। अनुपात को 15:28 बनाने के लिए कितने लीटर रस और मिलाना पड़ेगा।
 
 Punjabi rendering
 
-ਮਿਸ਼ਰਣ ਦੇ 66 ਲੀਟਰ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 15:28 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਜੂਸ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਮਿਸ਼ਰਣ ਦੇ 66 ਲੀਟਰ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 15:28 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਜੂਸ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1859,19 +1856,18 @@ IDs
 
 liquid1Id: juice
 liquid2Id: water
-liquid3Id: milk
 
 English rendering
 
-A solution has juice, water, and milk in the ratio 2:3:4. After adding 1 litres of water, the new ratio becomes 3:5:6. Find the starting volume.
+In 36 litres of a mixture, the ratio of juice to water is 4:5. How many litres of water should be added to make the ratio 16:25?
 
 Hindi rendering
 
-एक solution में जूस, पानी और दूध का अनुपात 2:3:4 है। 1 लीटर पानी मिलाने पर नया अनुपात 3:5:6 हो जाता है। शुरुआत में कुल मात्रा कितनी थी?
+मिश्रण के 36 लीटर में रस और पानी का अनुपात 4:5 है। अनुपात को 16:25 बनाने के लिए कितने लीटर पानी और मिलाना पड़ेगा।
 
 Punjabi rendering
 
-ਇੱਕ solution ਵਿੱਚ ਜੂਸ, ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 2:3:4 ਹੈ। 1 ਲੀਟਰ ਪਾਣੀ ਮਿਲਾਉਣ 'ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 3:5:6 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮਿਸ਼ਰਣ ਦੀ ਕੁੱਲ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+ਮਿਸ਼ਰਣ ਦੇ 36 ਲੀਟਰ ਵਿੱਚ ਜੂਸ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 16:25 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਪਾਣੀ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1881,20 +1877,20 @@ Sample 84
 
 IDs
 
-liquidAId: milk
-liquidBId: juice
+liquid1Id: juice
+liquid2Id: milk
 
 English rendering
 
-From 80 litres of milk, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of milk to juice?
+If the following conditions hold: In 14 litres of a mixture, the ratio of juice to milk is 3:4. How many litres of milk should be added to make the ratio 3:7?
 
 Hindi rendering
 
-80 लीटर दूध में से 10 लीटर निकालकर जूस मिला दिया जाता है और फिर दोबारा 15 लीटर निकालकर जूस मिला दिया जाता है। अंत में दूध और जूस का अनुपात क्या होगा?
+मिश्रण के 14 लीटर में रस और दूध का अनुपात 3:4 है। अनुपात को 3:7 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।
 
 Punjabi rendering
 
-80 ਲੀਟਰ ਦੁੱਧ ਵਿੱਚੋਂ 10 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 15 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਮਿਸ਼ਰਣ ਦੇ 14 ਲੀਟਰ ਵਿੱਚ ਜੂਸ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 3:4 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 3:7 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਦੁੱਧ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1904,18 +1900,20 @@ Sample 85
 
 IDs
 
+liquid1Id: milk
+liquid2Id: juice
 
 English rendering
 
-A solution contains 20 litres of acid and 60 litres of water. What is the percentage of acid in the solution?
+Based on given parameters, In 45 litres of a mixture, the ratio of milk to juice is 2:3. How many litres of juice should be added to make the ratio 9:17?
 
 Hindi rendering
 
-एक घोल में 20 लीटर एसिड और 60 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा?
+मिश्रण के 45 लीटर में दूध और रस का अनुपात 2:3 है। अनुपात को 9:17 बनाने के लिए कितने लीटर रस और मिलाना पड़ेगा।
 
 Punjabi rendering
 
-ਇੱਕ ਘੋਲ ਵਿੱਚ 20 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 60 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+ਮਿਸ਼ਰਣ ਦੇ 45 ਲੀਟਰ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 9:17 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਜੂਸ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -1927,18 +1925,19 @@ IDs
 
 liquid1Id: milk
 liquid2Id: water
+liquid3Id: juice
 
 English rendering
 
-A mixture contains milk and water in the ratio 1:2. If 16 litres of milk are added, the ratio becomes 23:14. What was the initial quantity of water?
+A solution has milk, water, and juice in the ratio 7:8:1. After adding 16 litres of water, the new ratio becomes 7:12:1. Find the starting volume.
 
 Hindi rendering
 
-एक मिश्रण में दूध और पानी का अनुपात 1:2 है। यदि इसमें 16 लीटर दूध मिला दिया जाए, तो अनुपात 23:14 हो जाता है। शुरुआत में पानी की मात्रा कितनी थी?
+एक घोल में दूध, पानी और रस का अनुपात 7:8:1 है। 16 लीटर पानी मिलाने पर नया अनुपात 7:12:1 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ 1:2 ਹੈ। ਜੇਕਰ ਇਸ ਵਿੱਚ 16 ਲੀਟਰ ਦੁੱਧ ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 23:14 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ ਘੋਲ ਵਿੱਚ ਦੁੱਧ, ਪਾਣੀ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 7:8:1 ਹੈ। 16 ਲੀਟਰ ਪਾਣੀ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 7:12:1 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1950,18 +1949,19 @@ IDs
 
 liquid1Id: milk
 liquid2Id: juice
+liquid3Id: water
 
 English rendering
 
-In 45 litres of a mixture, the ratio of milk to juice is 8:1. How many litres of juice should be added to make the ratio 20:7?
+In a competitive exam setup, a solution has milk, juice, and water in the ratio 6:7:8. After adding 9 litres of juice, the new ratio becomes 12:23:16. Find the starting volume.
 
 Hindi rendering
 
-मिश्रण के 45 लीटर में दूध और जूस का अनुपात 8:1 है। अनुपात को 20:7 बनाने के लिए कितना जूस और मिलाना पड़ेगा?
+एक घोल में दूध, रस और पानी का अनुपात 6:7:8 है। 9 लीटर रस मिलाने पर नया अनुपात 12:23:16 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।
 
 Punjabi rendering
 
-ਮਿਸ਼ਰਣ ਦੇ 45 ਲੀਟਰ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 20:7 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਜੂਸ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਇੱਕ ਘੋਲ ਵਿੱਚ ਦੁੱਧ, ਜੂਸ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ 6:7:8 ਹੈ। 9 ਲੀਟਰ ਜੂਸ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 12:23:16 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1977,15 +1977,15 @@ liquid3Id: milk
 
 English rendering
 
-A solution has water, juice, and milk in the ratio 5:6:7. After adding 2 litres of juice, the new ratio becomes 35:44:49. Find the starting volume.
+A solution has water, juice, and milk in the ratio 5:6:7. After adding 2 litres of juice, the new ratio becomes 35:44:49. Determine the starting volume.
 
 Hindi rendering
 
-एक solution में पानी, जूस और दूध का अनुपात 5:6:7 है। 2 लीटर जूस मिलाने पर नया अनुपात 35:44:49 हो जाता है। शुरुआत में कुल मात्रा कितनी थी?
+एक घोल में पानी, रस और दूध का अनुपात 5:6:7 है। 2 लीटर रस मिलाने पर नया अनुपात 35:44:49 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ solution ਵਿੱਚ ਪਾਣੀ, ਜੂਸ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। 2 ਲੀਟਰ ਜੂਸ ਮਿਲਾਉਣ 'ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 35:44:49 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮਿਸ਼ਰਣ ਦੀ ਕੁੱਲ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਘੋਲ ਵਿੱਚ ਪਾਣੀ, ਜੂਸ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। 2 ਲੀਟਰ ਜੂਸ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 35:44:49 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1995,20 +1995,21 @@ Sample 89
 
 IDs
 
-liquidAId: juice
-liquidBId: water
+liquid1Id: water
+liquid2Id: milk
+liquid3Id: juice
 
 English rendering
 
-From 130 litres of juice, 40 litres are replaced with water, and then 5 litres are again replaced with water. What is the final ratio of juice to water?
+If the following conditions hold: A solution has water, milk, and juice in the ratio 4:5:6. After adding 15 litres of milk, the new ratio becomes 2:4:3. Find the starting volume.
 
 Hindi rendering
 
-130 लीटर जूस में से 40 लीटर निकालकर पानी मिला दिया जाता है और फिर दोबारा 5 लीटर निकालकर पानी मिला दिया जाता है। अंत में जूस और पानी का अनुपात क्या होगा?
+एक घोल में पानी, दूध और रस का अनुपात 4:5:6 है। 15 लीटर दूध मिलाने पर नया अनुपात 2:4:3 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।
 
 Punjabi rendering
 
-130 ਲੀਟਰ ਜੂਸ ਵਿੱਚੋਂ 40 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 5 ਲੀਟਰ ਕੱਢ ਕੇ ਪਾਣੀ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਜੂਸ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਇੱਕ ਘੋਲ ਵਿੱਚ ਪਾਣੀ, ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 4:5:6 ਹੈ। 15 ਲੀਟਰ ਦੁੱਧ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 2:4:3 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -2018,18 +2019,21 @@ Sample 90
 
 IDs
 
+liquid1Id: juice
+liquid2Id: water
+liquid3Id: milk
 
 English rendering
 
-A solution contains 45 litres of acid and 65 litres of water. What is the percentage of acid in the solution?
+Based on given parameters, A solution has juice, water, and milk in the ratio 3:4:5. After adding 8 litres of water, the new ratio becomes 9:20:15. Find the starting volume.
 
 Hindi rendering
 
-एक घोल में 45 लीटर एसिड और 65 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा?
+एक घोल में रस, पानी और दूध का अनुपात 3:4:5 है। 8 लीटर पानी मिलाने पर नया अनुपात 9:20:15 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।
 
 Punjabi rendering
 
-ਇੱਕ ਘੋਲ ਵਿੱਚ 45 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 65 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਘੋਲ ਵਿੱਚ ਜੂਸ, ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 3:4:5 ਹੈ। 8 ਲੀਟਰ ਪਾਣੀ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 9:20:15 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -2039,20 +2043,20 @@ Sample 91
 
 IDs
 
-liquid1Id: milk
-liquid2Id: water
+liquidAId: milk
+liquidBId: juice
 
 English rendering
 
-A mixture contains milk and water in the ratio 7:8. If 10 litres of milk are added, the ratio becomes 73:72. What was the initial quantity of water?
+From 200 litres of milk, 60 litres are replaced with juice, and then 65 litres are again replaced with juice. What is the final ratio of milk to juice?
 
 Hindi rendering
 
-एक मिश्रण में दूध और पानी का अनुपात 7:8 है। यदि इसमें 10 लीटर दूध मिला दिया जाए, तो अनुपात 73:72 हो जाता है। शुरुआत में पानी की मात्रा कितनी थी?
+200 लीटर दूध में से 60 लीटर निकालकर रस मिला दिया जाता है और फिर दोबारा 65 लीटर निकालकर रस मिला दिया जाता है। अंत में दूध और रस का अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ। ਜੇਕਰ ਇਸ ਵਿੱਚ 10 ਲੀਟਰ ਦੁੱਧ ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 73:72 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਪਾਣੀ ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ?
+200 ਲੀਟਰ ਦੁੱਧ ਵਿੱਚੋਂ 60 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 65 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2062,20 +2066,20 @@ Sample 92
 
 IDs
 
-liquid1Id: milk
-liquid2Id: juice
+liquidAId: milk
+liquidBId: juice
 
 English rendering
 
-In 91 litres of a mixture, the ratio of milk to juice is 6:7. How many litres of juice should be added to make the ratio 21:34?
+In a competitive exam setup, from 50 litres of milk, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of milk to juice?
 
 Hindi rendering
 
-मिश्रण के 91 लीटर में दूध और जूस का अनुपात 6:7 है। अनुपात को 21:34 बनाने के लिए कितना जूस और मिलाना पड़ेगा?
+50 लीटर दूध में से 10 लीटर निकालकर रस मिला दिया जाता है और फिर दोबारा 15 लीटर निकालकर रस मिला दिया जाता है। अंत में दूध और रस का अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਮਿਸ਼ਰਣ ਦੇ 91 ਲੀਟਰ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 21:34 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਜੂਸ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+50 ਲੀਟਰ ਦੁੱਧ ਵਿੱਚੋਂ 10 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 15 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2085,21 +2089,20 @@ Sample 93
 
 IDs
 
-liquid1Id: water
-liquid2Id: juice
-liquid3Id: milk
+liquidAId: water
+liquidBId: milk
 
 English rendering
 
-A solution has water, juice, and milk in the ratio 3:4:5. After adding 16 litres of juice, the new ratio becomes 3:8:5. Find the starting volume.
+From 60 litres of water, 15 litres are replaced with milk, and then 20 litres are again replaced with milk. Calculate the final ratio of water to milk?
 
 Hindi rendering
 
-एक solution में पानी, जूस और दूध का अनुपात 3:4:5 है। 16 लीटर जूस मिलाने पर नया अनुपात 3:8:5 हो जाता है। शुरुआत में कुल मात्रा कितनी थी?
+60 लीटर पानी में से 15 लीटर निकालकर दूध मिला दिया जाता है और फिर दोबारा 20 लीटर निकालकर दूध मिला दिया जाता है। अंत में पानी और दूध का अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਇੱਕ solution ਵਿੱਚ ਪਾਣੀ, ਜੂਸ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 3:4:5 ਹੈ। 16 ਲੀਟਰ ਜੂਸ ਮਿਲਾਉਣ 'ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 3:8:5 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮਿਸ਼ਰਣ ਦੀ ਕੁੱਲ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+60 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚੋਂ 15 ਲੀਟਰ ਕੱਢ ਕੇ ਦੁੱਧ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 20 ਲੀਟਰ ਕੱਢ ਕੇ ਦੁੱਧ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2114,15 +2117,15 @@ liquidBId: juice
 
 English rendering
 
-From 70 litres of water, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of water to juice?
+If the following conditions hold: From 70 litres of water, 10 litres are replaced with juice, and then 15 litres are again replaced with juice. What is the final ratio of water to juice?
 
 Hindi rendering
 
-70 लीटर पानी में से 10 लीटर निकालकर जूस मिला दिया जाता है और फिर दोबारा 15 लीटर निकालकर जूस मिला दिया जाता है। अंत में पानी और जूस का अनुपात क्या होगा?
+70 लीटर पानी में से 10 लीटर निकालकर रस मिला दिया जाता है और फिर दोबारा 15 लीटर निकालकर रस मिला दिया जाता है। अंत में पानी और रस का अनुपात क्या होगा।
 
 Punjabi rendering
 
-70 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚੋਂ 10 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 15 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+70 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚੋਂ 10 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 15 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2132,18 +2135,20 @@ Sample 95
 
 IDs
 
+liquidAId: water
+liquidBId: milk
 
 English rendering
 
-A solution contains 35 litres of acid and 35 litres of water. What is the percentage of acid in the solution?
+Based on given parameters, From 80 litres of water, 15 litres are replaced with milk, and then 20 litres are again replaced with milk. What is the final ratio of water to milk?
 
 Hindi rendering
 
-एक घोल में 35 लीटर एसिड और 35 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा?
+80 लीटर पानी में से 15 लीटर निकालकर दूध मिला दिया जाता है और फिर दोबारा 20 लीटर निकालकर दूध मिला दिया जाता है। अंत में पानी और दूध का अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਇੱਕ ਘੋਲ ਵਿੱਚ 35 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 35 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+80 ਲੀਟਰ ਪਾਣੀ ਵਿੱਚੋਂ 15 ਲੀਟਰ ਕੱਢ ਕੇ ਦੁੱਧ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 20 ਲੀਟਰ ਕੱਢ ਕੇ ਦੁੱਧ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2153,20 +2158,18 @@ Sample 96
 
 IDs
 
-liquid1Id: juice
-liquid2Id: milk
 
 English rendering
 
-A mixture contains juice and milk in the ratio 2:3. If 11 litres of juice are added, the ratio becomes 9:8. What was the initial quantity of milk?
+A solution contains 30 litres of acid and 100 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 
-एक मिश्रण में जूस और दूध का अनुपात 2:3 है। यदि इसमें 11 लीटर जूस मिला दिया जाए, तो अनुपात 9:8 हो जाता है। शुरुआत में दूध की मात्रा कितनी थी?
+एक घोल में 30 लीटर एसिड और 100 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।
 
 Punjabi rendering
 
-ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ ਜੂਸ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 2:3 ਹੈ। ਜੇਕਰ ਇਸ ਵਿੱਚ 11 ਲੀਟਰ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 9:8 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਦੁੱਧ ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ?
+ਇੱਕ ਘੋਲ ਵਿੱਚ 30 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 100 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2176,20 +2179,18 @@ Sample 97
 
 IDs
 
-liquid1Id: milk
-liquid2Id: juice
 
 English rendering
 
-In 18 litres of a mixture, the ratio of milk to juice is 1:2. How many litres of juice should be added to make the ratio 3:10?
+In a competitive exam setup, a solution contains 25 litres of acid and 45 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 
-मिश्रण के 18 लीटर में दूध और जूस का अनुपात 1:2 है। अनुपात को 3:10 बनाने के लिए कितना जूस और मिलाना पड़ेगा?
+एक घोल में 25 लीटर एसिड और 45 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।
 
 Punjabi rendering
 
-ਮਿਸ਼ਰਣ ਦੇ 18 ਲੀਟਰ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 1:2 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 3:10 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਜੂਸ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ?
+ਇੱਕ ਘੋਲ ਵਿੱਚ 25 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 45 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2199,21 +2200,18 @@ Sample 98
 
 IDs
 
-liquid1Id: milk
-liquid2Id: juice
-liquid3Id: water
 
 English rendering
 
-A solution has milk, juice, and water in the ratio 6:7:8. After adding 17 litres of juice, the new ratio becomes 48:73:64. Find the starting volume.
+A solution contains 20 litres of acid and 10 litres of water. Calculate the percentage of acid in the solution?
 
 Hindi rendering
 
-एक solution में दूध, जूस और पानी का अनुपात 6:7:8 है। 17 लीटर जूस मिलाने पर नया अनुपात 48:73:64 हो जाता है। शुरुआत में कुल मात्रा कितनी थी?
+एक घोल में 20 लीटर एसिड और 10 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।
 
 Punjabi rendering
 
-ਇੱਕ solution ਵਿੱਚ ਦੁੱਧ, ਜੂਸ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ 6:7:8 ਹੈ। 17 ਲੀਟਰ ਜੂਸ ਮਿਲਾਉਣ 'ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 48:73:64 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਮਿਸ਼ਰਣ ਦੀ ਕੁੱਲ ਮਾਤਰਾ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਘੋਲ ਵਿੱਚ 20 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 10 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2223,20 +2221,18 @@ Sample 99
 
 IDs
 
-liquidAId: milk
-liquidBId: juice
 
 English rendering
 
-From 120 litres of milk, 5 litres are replaced with juice, and then 10 litres are again replaced with juice. What is the final ratio of milk to juice?
+If the following conditions hold: A solution contains 15 litres of acid and 75 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 
-120 लीटर दूध में से 5 लीटर निकालकर जूस मिला दिया जाता है और फिर दोबारा 10 लीटर निकालकर जूस मिला दिया जाता है। अंत में दूध और जूस का अनुपात क्या होगा?
+एक घोल में 15 लीटर एसिड और 75 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।
 
 Punjabi rendering
 
-120 ਲੀਟਰ ਦੁੱਧ ਵਿੱਚੋਂ 5 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਦੁਬਾਰਾ 10 ਲੀਟਰ ਕੱਢ ਕੇ ਜੂਸ ਮਿਲਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਅੰਤ ਵਿੱਚ ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?
+ਇੱਕ ਘੋਲ ਵਿੱਚ 15 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 75 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -2249,15 +2245,15 @@ IDs
 
 English rendering
 
-A solution contains 10 litres of acid and 40 litres of water. What is the percentage of acid in the solution?
+Based on given parameters, A solution contains 10 litres of acid and 40 litres of water. What is the percentage of acid in the solution?
 
 Hindi rendering
 
-एक घोल में 10 लीटर एसिड और 40 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा?
+एक घोल में 10 लीटर एसिड और 40 लीटर पानी है। घोल में एसिड का प्रतिशत कितना होगा।
 
 Punjabi rendering
 
-ਇੱਕ ਘੋਲ ਵਿੱਚ 10 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 40 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।
+ਇੱਕ ਘੋਲ ਵਿੱਚ 10 ਲੀਟਰ ਐਸਿਡ ਅਤੇ 40 ਲੀਟਰ ਪਾਣੀ ਹੈ। ਘੋਲ ਵਿੱਚ ਐਸਿਡ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 

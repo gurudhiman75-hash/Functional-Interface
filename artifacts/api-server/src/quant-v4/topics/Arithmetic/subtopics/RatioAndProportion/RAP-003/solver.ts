@@ -793,6 +793,83 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
         `${Math.abs(ratioA - ratioB)}x=${n(parameters, "ageDifference")}`,
       );
     }
+    case "ageFromSumAndRatio": {
+      const ratioA = n(parameters, "ratioA");
+      const ratioB = n(parameters, "ratioB");
+      const unit = n(parameters, "ageSum") / (ratioA + ratioB);
+      const result = targetAge(parameters, unit);
+      return numericResult(
+        result,
+        "AGE",
+        {
+          setup: `${ratioA}:${ratioB}, sum=${n(parameters, "ageSum")}`,
+          unit: formatNumber(unit),
+          presentAgeA: formatNumber(ratioA * unit),
+          presentAgeB: formatNumber(ratioB * unit),
+          targetPerson: s(parameters, "targetPerson"),
+          result: formatNumber(result),
+        },
+        `${ratioA + ratioB}x=${n(parameters, "ageSum")}`,
+      );
+    }
+    case "ageFutureRatioFromPresent": {
+      const presentAgeA = n(parameters, "presentAgeA");
+      const presentAgeB = n(parameters, "presentAgeB");
+      const shift = n(parameters, "shiftYears");
+      return ratioResult(
+        [presentAgeA + shift, presentAgeB + shift],
+        {
+          setup: `${presentAgeA}:${presentAgeB} after ${shift} years`,
+          presentAgeA,
+          presentAgeB,
+          shiftYears: shift,
+          result: simplifyRatio([presentAgeA + shift, presentAgeB + shift]).join(":"),
+        },
+        `(${presentAgeA}+${shift}):(${presentAgeB}+${shift})`,
+      );
+    }
+    case "agePastRatioFromPresent": {
+      const presentAgeA = n(parameters, "presentAgeA");
+      const presentAgeB = n(parameters, "presentAgeB");
+      const shift = n(parameters, "shiftYears");
+      return ratioResult(
+        [presentAgeA - shift, presentAgeB - shift],
+        {
+          setup: `${presentAgeA}:${presentAgeB} ${shift} years ago`,
+          presentAgeA,
+          presentAgeB,
+          shiftYears: shift,
+          result: simplifyRatio([presentAgeA - shift, presentAgeB - shift]).join(":"),
+        },
+        `(${presentAgeA}-${shift}):(${presentAgeB}-${shift})`,
+      );
+    }
+    case "ageThreePersonSumRatio": {
+      const ratioA = n(parameters, "ratioA");
+      const ratioB = n(parameters, "ratioB");
+      const ratioC = n(parameters, "ratioC");
+      const unit = n(parameters, "ageSum") / (ratioA + ratioB + ratioC);
+      const target = s(parameters, "targetPerson");
+      const result = target === s(parameters, "personC")
+        ? ratioC * unit
+        : target === s(parameters, "personB")
+          ? ratioB * unit
+          : ratioA * unit;
+      return numericResult(
+        result,
+        "AGE",
+        {
+          setup: `${ratioA}:${ratioB}:${ratioC}, sum=${n(parameters, "ageSum")}`,
+          unit: formatNumber(unit),
+          presentAgeA: formatNumber(ratioA * unit),
+          presentAgeB: formatNumber(ratioB * unit),
+          presentAgeC: formatNumber(ratioC * unit),
+          targetPerson: target,
+          result: formatNumber(result),
+        },
+        `${ratioA + ratioB + ratioC}x=${n(parameters, "ageSum")}`,
+      );
+    }
     default:
       throw new Error(`RAP-003 solver missing for taskKind: ${parameters.taskKind}`);
   }

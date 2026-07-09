@@ -9,14 +9,14 @@
 - Solver failures: 0
 - Cross-language failures: 0
 - Placeholder failures: 0
-- Duplicate rate: 13.90%
+- Duplicate rate: 4.60%
 - Library validation failures: 0
 - Sample profile: 1000 EN questions
 
 ## Coverage
 
 - CP coverage count: 6/6
-- QL coverage count: 27/27
+- QL coverage count: 169/169
 - ES coverage count: 6/6
 
 ## Residual Gaps

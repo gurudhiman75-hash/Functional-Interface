@@ -71,6 +71,7 @@ function hasUnrealisticAge(pkg: any) {
   const personA = String(pkg.parameters?.variables?.personA ?? "").toLowerCase();
   const personB = String(pkg.parameters?.variables?.personB ?? "").toLowerCase();
   const relationSpecific = /\b(father|mother|parent|teacher)\b/.test(personA) || /\b(son|daughter|student)\b/.test(personB);
+  if (presentA > 95 || presentB > 95) return true;
   if (relationSpecific && (presentA < 30 || presentB > 25 || presentA - presentB < 18)) return true;
   if (pkg.parameters?.taskKind === "agePresentFromPastRatio") {
     const shift = Number(pkg.parameters?.variables?.shiftYears);

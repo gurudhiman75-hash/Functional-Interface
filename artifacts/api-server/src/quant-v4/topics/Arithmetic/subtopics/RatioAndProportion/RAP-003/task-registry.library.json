@@ -20,7 +20,11 @@
         "agePresentFromFutureRatio",
         "agePresentFromPastRatio",
         "ageYearsToReachRatio",
-        "ageFromDifferenceAndRatio"
+        "ageFromDifferenceAndRatio",
+        "ageFromSumAndRatio",
+        "ageFutureRatioFromPresent",
+        "agePastRatioFromPresent",
+        "ageThreePersonSumRatio"
       ],
       "plannedQuestionLanguageRange": "RAP-QL-901 to RAP-QL-949"
     },
@@ -186,6 +190,38 @@
       "answerType": "TIME",
       "difficulty": "Hard",
       "requiredVariables": ["personA", "personB", "presentAgeA", "presentAgeB", "futureRatioA", "futureRatioB"],
+      "explanationId": "RAP-ES-014"
+    },
+    "RAP-QL-907": {
+      "cpId": "RAP-CP-014",
+      "taskKind": "ageFromSumAndRatio",
+      "answerType": "AGE",
+      "difficulty": "Easy",
+      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "ageSum", "targetPerson"],
+      "explanationId": "RAP-ES-014"
+    },
+    "RAP-QL-908": {
+      "cpId": "RAP-CP-014",
+      "taskKind": "ageFutureRatioFromPresent",
+      "answerType": "RATIO",
+      "difficulty": "Easy",
+      "requiredVariables": ["personA", "personB", "presentAgeA", "presentAgeB", "shiftYears"],
+      "explanationId": "RAP-ES-014"
+    },
+    "RAP-QL-909": {
+      "cpId": "RAP-CP-014",
+      "taskKind": "agePastRatioFromPresent",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "presentAgeA", "presentAgeB", "shiftYears"],
+      "explanationId": "RAP-ES-014"
+    },
+    "RAP-QL-910": {
+      "cpId": "RAP-CP-014",
+      "taskKind": "ageThreePersonSumRatio",
+      "answerType": "AGE",
+      "difficulty": "Medium",
+      "requiredVariables": ["personA", "personB", "personC", "ratioA", "ratioB", "ratioC", "ageSum", "targetPerson"],
       "explanationId": "RAP-ES-014"
     },
     "RAP-QL-951": {

@@ -64,6 +64,30 @@
         "taskKind": "ageYearsToReachRatio",
         "template": "{personA} is {presentAgeA} years old and {personB} is {presentAgeB} years old. In how many years will the age ratio become {futureRatioA}:{futureRatioB}?",
         "difficulty": "Hard"
+      },
+      "RAP-QL-907": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromSumAndRatio",
+        "template": "{personA} and {personB} have present ages in the ratio {ratioA}:{ratioB}. Their total age is {ageSum} years. Find the present age of {targetPerson}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-908": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFutureRatioFromPresent",
+        "template": "{personA} is {presentAgeA} years old and {personB} is {presentAgeB} years old. Find the ratio of their ages after {shiftYears} years.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-909": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePastRatioFromPresent",
+        "template": "{personA}'s present age is {presentAgeA} years and {personB}'s present age is {presentAgeB} years. What was their age ratio {shiftYears} years ago?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-910": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageThreePersonSumRatio",
+        "template": "The present ages of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total age is {ageSum} years. Find the present age of {targetPerson}.",
+        "difficulty": "Medium"
       }
     }
   },

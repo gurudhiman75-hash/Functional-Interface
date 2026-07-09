@@ -57,6 +57,7 @@ function hasUnrealisticAgeScenario(pkg: Rap003QuestionPackage) {
   const isParentChild =
     /\b(father|mother|parent|teacher)\b/.test(personA) ||
     /\b(son|daughter|student)\b/.test(personB);
+  if (presentA > 95 || presentB > 95) return true;
   if (isParentChild) {
     if (presentA < 30) return true;
     if (presentB < 1 || presentB > 25) return true;

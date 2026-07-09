@@ -127,6 +127,66 @@ fixedDifference.variables = {
 };
 assert.equal(solveRap003(fixedDifference).answer, "$$50$$");
 
+const fixedAgeSum = generateRap003Parameters({
+  seed: "rap-003-fixed-age-sum",
+  questionLanguageId: "RAP-QL-907",
+  difficultyBand: "Easy",
+});
+fixedAgeSum.variables = {
+  personA: "Aman",
+  personB: "Bhavna",
+  ratioA: 5,
+  ratioB: 4,
+  ageSum: 45,
+  targetPerson: "Aman",
+};
+assert.equal(solveRap003(fixedAgeSum).answer, "$$25$$");
+
+const fixedFutureRatio = generateRap003Parameters({
+  seed: "rap-003-fixed-age-future-ratio",
+  questionLanguageId: "RAP-QL-908",
+  difficultyBand: "Easy",
+});
+fixedFutureRatio.variables = {
+  personA: "Aman",
+  personB: "Bhavna",
+  presentAgeA: 24,
+  presentAgeB: 18,
+  shiftYears: 6,
+};
+assert.equal(solveRap003(fixedFutureRatio).answer, "$$5 : 4$$");
+
+const fixedPastRatio = generateRap003Parameters({
+  seed: "rap-003-fixed-age-past-ratio",
+  questionLanguageId: "RAP-QL-909",
+  difficultyBand: "Medium",
+});
+fixedPastRatio.variables = {
+  personA: "Aman",
+  personB: "Bhavna",
+  presentAgeA: 24,
+  presentAgeB: 18,
+  shiftYears: 6,
+};
+assert.equal(solveRap003(fixedPastRatio).answer, "$$3 : 2$$");
+
+const fixedThreePersonAge = generateRap003Parameters({
+  seed: "rap-003-fixed-age-three-person",
+  questionLanguageId: "RAP-QL-910",
+  difficultyBand: "Medium",
+});
+fixedThreePersonAge.variables = {
+  personA: "A",
+  personB: "B",
+  personC: "C",
+  ratioA: 2,
+  ratioB: 3,
+  ratioC: 4,
+  ageSum: 54,
+  targetPerson: "C",
+};
+assert.equal(solveRap003(fixedThreePersonAge).answer, "$$24$$");
+
 const fixedSavingsRatio = generateRap003Parameters({
   canonicalProblemId: "RAP-CP-015",
   seed: "rap-003-fixed-savings-ratio",
@@ -738,13 +798,13 @@ for (let index = 0; index < 120; index += 1) {
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-901", "RAP-QL-902", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905", "RAP-QL-906"]) {
+for (const qlId of ["RAP-QL-901", "RAP-QL-902", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905", "RAP-QL-906", "RAP-QL-907", "RAP-QL-908", "RAP-QL-909", "RAP-QL-910"]) {
   const pkg = runRap003Cp014Pipeline({ seed: `rap-003-cp014-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenQlIds.size, 6, `Expected all 6 CP-014 QLs, got ${seenQlIds.size}`);
+assert.equal(seenQlIds.size, 10, `Expected all 10 CP-014 QLs, got ${seenQlIds.size}`);
 
 const seenPartnershipQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -935,7 +995,7 @@ for (const qlId of ["RAP-QL-1601", "RAP-QL-1602", "RAP-QL-1603", "RAP-QL-1604", 
 
 assert.equal(seenGeometricQlIds.size, 5, `Expected all 5 CP-022 QLs, got ${seenGeometricQlIds.size}`);
 
-for (const qlId of ["RAP-QL-901", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905"]) {
+for (const qlId of ["RAP-QL-901", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905", "RAP-QL-907", "RAP-QL-908", "RAP-QL-909", "RAP-QL-910"]) {
   const packages = runRap003Cp014ForLanguages({ seed: `rap-003-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {

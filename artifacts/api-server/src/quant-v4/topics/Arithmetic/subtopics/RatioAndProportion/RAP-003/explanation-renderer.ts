@@ -258,6 +258,24 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     };
   }
 
+  if (parameters.taskKind === "ageFutureRatioFromPresent" || parameters.taskKind === "agePastRatioFromPresent") {
+    return {
+      explanationId: parameters.explanationId,
+      lines: [
+        localizedIntro(
+          parameters,
+          "Shift both present ages by the same number of years, then simplify the resulting ratio.",
+          "à¤¦à¥‹à¤¨à¥‹à¤‚ à¤µà¤°à¥à¤¤à¤®à¤¾à¤¨ à¤†à¤¯à¥à¤“à¤‚ à¤®à¥‡à¤‚ à¤¸à¤®à¤¾à¤¨ à¤µà¤°à¥à¤· à¤œà¥‹à¤¡à¤¼à¥‡à¤‚/à¤˜à¤Ÿà¤¾à¤à¤‚, à¤«à¤¿à¤° à¤®à¤¿à¤²à¥‡ à¤…à¤¨à¥à¤ªà¤¾à¤¤ à¤•à¥‹ à¤¸à¤°à¤² à¤•à¤°à¥‡à¤‚.",
+          "à¨¦à©‹à¨µà¨¾à¨‚ à¨®à©Œà¨œà©‚à¨¦à¨¾ à¨‰à¨®à¨°à¨¾à¨‚ à¨µà¨¿à©±à¨š à¨‡à©±à¨•à©‹ à¨œà¨¿à¨¹à©‡ à¨¸à¨¾à¨² à¨œà©‹à©œà©‹/à¨˜à¨Ÿà¨¾à¨“, à¨«à¨¿à¨° à¨®à¨¿à¨²à©‡ à¨…à¨¨à©à¨ªà¨¾à¨¤ à¨¨à©‚à©° à¨¸à¨°à¨² à¨•à¨°à©‹.",
+        ),
+        block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
+        localizedIntro(parameters, "Both ages move by the same amount, so only the shifted values need to be compared.", "à¤¦à¥‹à¤¨à¥‹à¤‚ à¤†à¤¯à¥ à¤¸à¤®à¤¾à¤¨ à¤®à¤¾à¤¤à¥à¤°à¤¾ à¤¸à¥‡ à¤¬à¤¦à¤²à¤¤à¥€ à¤¹à¥ˆ, à¤‡à¤¸à¤²à¤¿à¤ à¤•à¥‡à¤µà¤² à¤¬à¤¦à¤²à¥€ à¤¹à¥à¤ˆ à¤†à¤¯à¥à¤“à¤‚ à¤•à¥€ à¤¤à¥à¤²à¤¨à¤¾ à¤•à¤°à¤¨à¥€ à¤¹à¥ˆ.", "à¨¦à©‹à¨µà¨¾à¨‚ à¨‰à¨®à¨°à¨¾à¨‚ à¨‡à©±à¨•à©‹ à¨®à¨¾à¨¤à¨°à¨¾ à¨¨à¨¾à¨² à¨¬à¨¦à¨²à¨¦à©€à¨†à¨‚ à¨¹à¨¨, à¨‡à¨¸ à¨²à¨ˆ à¨¸à¨¿à¨°à¨« à¨¬à¨¦à¨²à©€à¨†à¨‚ à¨‰à¨®à¨°à¨¾à¨‚ à¨¦à©€ à¨¤à©à¨²à¨¨à¨¾ à¨•à¨°à¨¨à©€ à¨¹à©ˆ."),
+        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+      ],
+    };
+  }
+
   return {
     explanationId: parameters.explanationId,
     lines: [

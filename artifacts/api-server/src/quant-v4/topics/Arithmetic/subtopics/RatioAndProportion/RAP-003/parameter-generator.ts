@@ -11,14 +11,14 @@ import {
 
 const AGE_CASES = {
   future: [
-    { personA: "father", personB: "son", ratioA: 5, ratioB: 2, shiftYears: 10, futureRatioA: 2, futureRatioB: 1 },
+    { personA: "father", personB: "son", ratioA: 5, ratioB: 2, shiftYears: 8, futureRatioA: 2, futureRatioB: 1 },
     { personA: "mother", personB: "daughter", ratioA: 7, ratioB: 3, shiftYears: 5, futureRatioA: 2, futureRatioB: 1 },
     { personA: "A", personB: "B", ratioA: 4, ratioB: 3, shiftYears: 6, futureRatioA: 6, futureRatioB: 5 },
     { personA: "elder brother", personB: "younger brother", ratioA: 9, ratioB: 5, shiftYears: 8, futureRatioA: 13, futureRatioB: 9 },
   ],
   past: [
-    { personA: "father", personB: "son", ratioA: 3, ratioB: 1, shiftYears: 8, pastRatioA: 5, pastRatioB: 1 },
-    { personA: "mother", personB: "daughter", ratioA: 4, ratioB: 1, shiftYears: 8, pastRatioA: 10, pastRatioB: 1 },
+    { personA: "father", personB: "son", ratioA: 3, ratioB: 1, shiftYears: 7, pastRatioA: 5, pastRatioB: 1 },
+    { personA: "mother", personB: "daughter", ratioA: 4, ratioB: 1, shiftYears: 6, pastRatioA: 10, pastRatioB: 1 },
     { personA: "A", personB: "B", ratioA: 9, ratioB: 7, shiftYears: 5, pastRatioA: 2, pastRatioB: 1 },
   ],
   years: [
@@ -28,11 +28,80 @@ const AGE_CASES = {
     { personA: "elder brother", personB: "younger brother", presentAgeA: 27, presentAgeB: 15, futureRatioA: 3, futureRatioB: 2 },
   ],
   difference: [
-    { personA: "father", personB: "son", ratioA: 5, ratioB: 2, ageDifference: 30 },
+    { personA: "father", personB: "son", ratioA: 5, ratioB: 2, ageDifference: 24 },
     { personA: "mother", personB: "daughter", ratioA: 7, ratioB: 3, ageDifference: 24 },
     { personA: "A", personB: "B", ratioA: 9, ratioB: 5, ageDifference: 20 },
   ],
+  sum: [
+    { personA: "Aman", personB: "Bhavna", ratioA: 5, ratioB: 4, ageSum: 45 },
+    { personA: "father", personB: "son", ratioA: 7, ratioB: 3, ageSum: 60 },
+    { personA: "mother", personB: "daughter", ratioA: 5, ratioB: 2, ageSum: 49 },
+  ],
+  presentRatio: [
+    { personA: "Aman", personB: "Bhavna", presentAgeA: 24, presentAgeB: 18, shiftYears: 6 },
+    { personA: "father", personB: "son", presentAgeA: 42, presentAgeB: 14, shiftYears: 7 },
+    { personA: "elder sister", personB: "younger sister", presentAgeA: 27, presentAgeB: 15, shiftYears: 3 },
+  ],
+  threePerson: [
+    { personA: "A", personB: "B", personC: "C", ratioA: 2, ratioB: 3, ratioC: 4, ageSum: 54 },
+    { personA: "Ravi", personB: "Sunita", personC: "Aman", ratioA: 5, ratioB: 4, ratioC: 3, ageSum: 72 },
+    { personA: "elder brother", personB: "middle brother", personC: "younger brother", ratioA: 7, ratioB: 5, ratioC: 4, ageSum: 64 },
+  ],
 } as const;
+
+const AGE_NAME_PAIRS = [
+  ["Aman", "Bhavna"],
+  ["Ravi", "Sunita"],
+  ["Karan", "Meena"],
+  ["Dev", "Nisha"],
+  ["Arjun", "Kavita"],
+  ["Rohan", "Pooja"],
+  ["Vikas", "Neha"],
+  ["Sahil", "Ritika"],
+  ["Mohit", "Anita"],
+  ["Nitin", "Seema"],
+  ["Gaurav", "Priya"],
+  ["Varun", "Isha"],
+  ["Deepak", "Renu"],
+  ["Suresh", "Lata"],
+  ["Manoj", "Geeta"],
+  ["Akash", "Tanya"],
+  ["Harsh", "Komal"],
+  ["Vivek", "Shreya"],
+  ["Rahul", "Maya"],
+  ["Anil", "Preeti"],
+  ["Tarun", "Sonia"],
+  ["Naveen", "Rekha"],
+  ["Ajay", "Kirti"],
+  ["Mohan", "Divya"],
+] as const;
+
+const AGE_NAME_TRIPLES = [
+  ["Aman", "Bhavna", "Charu"],
+  ["Ravi", "Sunita", "Karan"],
+  ["Arjun", "Meena", "Dev"],
+  ["Rohan", "Nisha", "Kavita"],
+  ["Vikas", "Neha", "Sahil"],
+  ["Mohit", "Anita", "Nitin"],
+  ["Gaurav", "Priya", "Varun"],
+  ["Deepak", "Renu", "Suresh"],
+  ["Manoj", "Geeta", "Akash"],
+  ["Harsh", "Komal", "Vivek"],
+  ["Rahul", "Maya", "Anil"],
+  ["Tarun", "Sonia", "Naveen"],
+  ["Ajay", "Kirti", "Mohan"],
+  ["Vikas", "Isha", "Gaurav"],
+  ["Sahil", "Ritika", "Manoj"],
+  ["Nitin", "Seema", "Akash"],
+  ["Varun", "Preeti", "Deepak"],
+  ["Mohit", "Divya", "Rahul"],
+  ["Anil", "Tanya", "Suresh"],
+  ["Naveen", "Rekha", "Harsh"],
+  ["Dev", "Pooja", "Vivek"],
+  ["Arjun", "Neha", "Tarun"],
+  ["Rohan", "Maya", "Ajay"],
+  ["Karan", "Sonia", "Mohan"],
+] as const;
 
 const PARTNERSHIP_CASES = {
   standard: [
@@ -266,20 +335,35 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
     ]);
   }
 
-  if (/^RAP-QL-90[1-6]$/.test(qlId)) {
-    const ageScaled = qlId === "RAP-QL-904" || qlId === "RAP-QL-906"
-      ? scaleKeys(variables, smallScale, ["presentAgeA", "presentAgeB"])
-      : scaleKeys(variables, smallScale, ["shiftYears", "ageDifference"]);
+  if (/^RAP-QL-90[1-9]$/.test(qlId) || qlId === "RAP-QL-910") {
+    const ageScale = 1 + (serial % 2);
+    const ageScaled = qlId === "RAP-QL-904" || qlId === "RAP-QL-906" || qlId === "RAP-QL-908" || qlId === "RAP-QL-909"
+      ? scaleKeys(variables, ageScale, ["presentAgeA", "presentAgeB", "shiftYears"])
+      : scaleKeys(variables, ageScale, ["shiftYears", "ageDifference", "ageSum"]);
     const relationSpecific =
       /father|mother|son|daughter/.test(String(ageScaled.personA ?? "")) ||
       /father|mother|son|daughter/.test(String(ageScaled.personB ?? ""));
-    if (relationSpecific && smallScale > 1) {
+    const genericPair = /^(A|B|Person A|Person B)$/i.test(String(ageScaled.personA ?? "")) || /^(A|B|Person A|Person B)$/i.test(String(ageScaled.personB ?? ""));
+    if (qlId === "RAP-QL-910") {
+      const [personA, personB, personC] = AGE_NAME_TRIPLES[serial % AGE_NAME_TRIPLES.length]!;
       return {
         ...ageScaled,
-        personA: "Person A",
-        personB: "Person B",
-        ...(ageScaled.targetPerson === variables.personA ? { targetPerson: "Person A" } : {}),
-        ...(ageScaled.targetPerson === variables.personB ? { targetPerson: "Person B" } : {}),
+        personA,
+        personB,
+        personC,
+        ...(ageScaled.targetPerson === variables.personA ? { targetPerson: personA } : {}),
+        ...(ageScaled.targetPerson === variables.personB ? { targetPerson: personB } : {}),
+        ...(ageScaled.targetPerson === variables.personC ? { targetPerson: personC } : {}),
+      };
+    }
+    if ((relationSpecific && ageScale > 1) || genericPair || !relationSpecific) {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      return {
+        ...ageScaled,
+        personA,
+        personB,
+        ...(ageScaled.targetPerson === variables.personA ? { targetPerson: personA } : {}),
+        ...(ageScaled.targetPerson === variables.personB ? { targetPerson: personB } : {}),
       };
     }
     return ageScaled;
@@ -530,8 +614,21 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
   if (qlId === "RAP-QL-904" || qlId === "RAP-QL-906") {
     return { ...pick(AGE_CASES.years, `${seed}:years`) };
   }
-  const selected = pick(AGE_CASES.difference, `${seed}:difference`);
-  return { ...selected, targetPerson: targetPerson === "personA" ? selected.personA : selected.personB };
+  if (qlId === "RAP-QL-905") {
+    const selected = pick(AGE_CASES.difference, `${seed}:difference`);
+    return { ...selected, targetPerson: targetPerson === "personA" ? selected.personA : selected.personB };
+  }
+  if (qlId === "RAP-QL-907") {
+    const selected = pick(AGE_CASES.sum, `${seed}:sum`);
+    return { ...selected, targetPerson: targetPerson === "personA" ? selected.personA : selected.personB };
+  }
+  if (qlId === "RAP-QL-908" || qlId === "RAP-QL-909") {
+    return { ...pick(AGE_CASES.presentRatio, `${seed}:presentRatio`) };
+  }
+  const selected = pick(AGE_CASES.threePerson, `${seed}:threePerson`);
+  const targetIndex = stableBucket(`${seed}:targetThree`, 3);
+  const targetThreePerson = targetIndex === 0 ? selected.personA : targetIndex === 1 ? selected.personB : selected.personC;
+  return { ...selected, targetPerson: targetThreePerson };
 }
 
 export function generateRap003Parameters(input: Rap003ParameterInput = {}): Rap003Parameters {
