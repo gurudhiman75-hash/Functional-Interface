@@ -183,6 +183,8 @@ export interface Rap001CoverageAudit {
   crossLanguageFailures: number;
   placeholderFailures: number;
   duplicateRate: number;
+  exactDuplicateStemGroupCount: number;
+  sameQlRepeatedStemGroupCount: number;
   cpCoverage: Record<string, number>;
   taskKindCoverage: Record<string, number>;
   qlCoverage: Record<string, number>;

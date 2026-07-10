@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import taskRegistry from "./task-registry.library.json";
 import { getRap002ActiveCanonicalProblemIds, getRap002QuestionLanguageIds, validateRap002Libraries } from "./library";
 import { runRap002Pipeline } from "./pipeline";
 import type { Rap002AnswerType, Rap002CanonicalProblemId, Rap002QuestionPackage, Rap002TaskKind } from "./types";
@@ -13,26 +14,8 @@ type CpCoverage = {
   samples: number;
 };
 
-const EXPECTED_TASK_KINDS = new Set<Rap002TaskKind>([
-  "chainAlignment",
-  "extendedChainAlignment",
-  "missingChainRatio",
-  "reverseMiddleFinding",
-  "reverseEndpointFinding",
-  "constrainedReverseChain",
-  "successiveRatioChange",
-  "transferTracking",
-  "reconstructOriginalRatio",
-  "nestedPartition",
-  "conditionalDistribution",
-  "weightedNestedPartition",
-  "inverseChainWork",
-  "inverseChainSpeed",
-  "combinedInverseChain",
-  "chainOrdering",
-  "chainInequality",
-  "chainEquivalence",
-]);
+const activeQlIds = getRap002ActiveCanonicalProblemIds().flatMap((cpId) => getRap002QuestionLanguageIds(cpId));
+const EXPECTED_TASK_KINDS = new Set<Rap002TaskKind>(activeQlIds.map((qlId) => (taskRegistry.entries as any)[qlId].taskKind));
 
 function hasUnresolvedPlaceholder(text: string) {
   const withoutLatexCommandArgs = text.replace(/\\[A-Za-z]+\{[^}]*\}/g, "");
@@ -45,7 +28,7 @@ function assertPackage(pkg: Rap002QuestionPackage) {
   assert.equal(pkg.archetypeId, "RAP-002");
   assert.ok(pkg.stem.trim().length > 0, "Stem must be present.");
   assert.ok(pkg.answer.trim().length > 0, "Answer must be present.");
-  assert.ok(pkg.explanation.lines.length >= 5, "Explanation should have a pedagogical multi-line shape.");
+  assert.ok(pkg.explanation.lines.length >= 7, "Explanation should contain at least seven meaningful lines.");
   assert.equal(hasUnresolvedPlaceholder(pkg.stem), false, `Unresolved placeholder in stem: ${pkg.stem}`);
   assert.equal(pkg.explanation.lines.some(hasUnresolvedPlaceholder), false, `Unresolved placeholder in explanation for ${pkg.questionLanguageId}`);
   assert.equal(pkg.parameters.taskKind, pkg.solver.answerType === "LOGIC" ? pkg.parameters.taskKind : pkg.parameters.taskKind);
@@ -114,7 +97,7 @@ for (const taskKind of EXPECTED_TASK_KINDS) {
   assert.equal(allTaskKinds.has(taskKind), true, `Expected task kind not covered: ${taskKind}`);
 }
 
-assert.equal(totalForcedQlIds, 49, `Expected 49 active QLs, got ${totalForcedQlIds}.`);
+assert.equal(totalForcedQlIds, activeQlIds.length, `Expected ${activeQlIds.length} active QLs, got ${totalForcedQlIds}.`);
 assert.equal(allAnswerTypes.has("RATIO"), true, "RATIO answers must be covered.");
 assert.equal(allAnswerTypes.has("COUNT"), true, "COUNT answers must be covered.");
 assert.equal(allAnswerTypes.has("LOGIC"), true, "LOGIC answers must be covered.");

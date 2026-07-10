@@ -36,7 +36,7 @@ export class SimpleLinkageRenderer implements ExplanationRenderer {
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `Method 1: make ${personB} common.`,
+        narrative: `Why it applies: ${personB} refers to the same quantity in both ratios, so its two ratio values must be made equal.`,
         mathLatex: `${personA}:${personB}=(${rA1}\\times${rB2}):(${rB1}\\times${rB2})`,
       },
       {
@@ -59,8 +59,14 @@ export class SimpleLinkageRenderer implements ExplanationRenderer {
       },
       {
         stepId: "step-6",
+        type: "SIMPLIFICATION",
+        narrative: `Check: both original pairwise ratios are preserved in ${linkedA}:${linkedB}:${linkedC}.`,
+        mathLatex: `${linkedA}:${linkedB}:${linkedC}`,
+      },
+      {
+        stepId: "step-7",
         type: "CONCLUSION",
-        narrative: `Answer: ${personA}:${personB}:${personC} is`,
+        narrative: `Therefore, ${personA}:${personB}:${personC} is`,
         mathLatex: `${e.answer}`,
       },
     ];

@@ -66,7 +66,8 @@ export function renderTemplate(template: string, values: Rap001Variables) {
     }
     return String(value);
   });
-  return rendered.replace(/\b(\w+s)'s\b/gi, "$1'");
+  const possessiveSafe = rendered.replace(/\b(\w+s)'s\b/gi, "$1'");
+  return possessiveSafe.charAt(0).toUpperCase() + possessiveSafe.slice(1);
 }
 
 function semanticEntitiesById() {

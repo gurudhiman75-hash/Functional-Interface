@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
 import { alignChainRatios, alignThreeChainRatios, formatRatio } from "./math";
-import { validateRap002Libraries } from "./library";
+import { getRap002QuestionLanguageIds, validateRap002Libraries } from "./library";
 import { runRap002Cp007Pipeline, runRap002Cp008Pipeline, runRap002Cp009Pipeline, runRap002Cp010Pipeline, runRap002Cp011Pipeline, runRap002Cp012Pipeline } from "./pipeline";
 import { generateRap002Parameters } from "./parameter-generator";
 import { solveRap002 } from "./solver";
@@ -299,19 +299,20 @@ for (let index = 0; index < 120; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-007");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   assert.equal(runRap002Cp007Pipeline({ seed: `rap-002-smoke:${index}`, questionLanguageId: pkg.questionLanguageId }).answer.length > 0, true);
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-201","RAP-QL-202","RAP-QL-203","RAP-QL-204","RAP-QL-205","RAP-QL-206","RAP-QL-207","RAP-QL-208","RAP-QL-209","RAP-QL-210","RAP-QL-211","RAP-QL-212","RAP-QL-213","RAP-QL-214","RAP-QL-215","RAP-QL-216","RAP-QL-217","RAP-QL-218","RAP-QL-219","RAP-QL-220","RAP-QL-221","RAP-QL-222","RAP-QL-223","RAP-QL-224","RAP-QL-225","RAP-QL-226","RAP-QL-227","RAP-QL-228"]) {
+const cp007QlIds = getRap002QuestionLanguageIds("RAP-CP-007");
+for (const qlId of cp007QlIds) {
   const pkg = runRap002Cp007Pipeline({ seed: `rap-002-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenQlIds.size, 28, `Expected all 28 CP-007 QLs, got ${seenQlIds.size}`);
+assert.equal(seenQlIds.size, cp007QlIds.length, `Expected all active CP-007 QLs, got ${seenQlIds.size}`);
 
 const seenCp008QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -321,18 +322,19 @@ for (let index = 0; index < 90; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-008");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 6);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenCp008QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-301","RAP-QL-302","RAP-QL-303","RAP-QL-304","RAP-QL-305","RAP-QL-306","RAP-QL-307","RAP-QL-308","RAP-QL-309","RAP-QL-310","RAP-QL-311","RAP-QL-312","RAP-QL-313","RAP-QL-314","RAP-QL-315","RAP-QL-316","RAP-QL-317","RAP-QL-318","RAP-QL-319","RAP-QL-320","RAP-QL-321","RAP-QL-322","RAP-QL-323","RAP-QL-324"]) {
+const cp008QlIds = getRap002QuestionLanguageIds("RAP-CP-008");
+for (const qlId of cp008QlIds) {
   const pkg = runRap002Cp008Pipeline({ seed: `rap-002-cp008-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp008QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp008QlIds.size, 24, `Expected all 24 CP-008 QLs, got ${seenCp008QlIds.size}`);
+assert.equal(seenCp008QlIds.size, cp008QlIds.length, `Expected all active CP-008 QLs, got ${seenCp008QlIds.size}`);
 
 const seenCp009QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -342,19 +344,19 @@ for (let index = 0; index < 90; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-009");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenCp009QlIds.add(pkg.questionLanguageId);
 }
 
-const cp009QlIds = Array.from({ length: 29 }, (_, index) => `RAP-QL-${401 + index}`);
+const cp009QlIds = getRap002QuestionLanguageIds("RAP-CP-009");
 for (const qlId of cp009QlIds) {
   const pkg = runRap002Cp009Pipeline({ seed: `rap-002-cp009-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp009QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp009QlIds.size, 29, `Expected all 29 CP-009 QLs, got ${seenCp009QlIds.size}`);
+assert.equal(seenCp009QlIds.size, cp009QlIds.length, `Expected all active CP-009 QLs, got ${seenCp009QlIds.size}`);
 
 const seenCp010QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -364,18 +366,19 @@ for (let index = 0; index < 90; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-010");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 6);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenCp010QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-501","RAP-QL-502","RAP-QL-503","RAP-QL-504","RAP-QL-505","RAP-QL-506","RAP-QL-507","RAP-QL-508","RAP-QL-509","RAP-QL-510","RAP-QL-511","RAP-QL-512","RAP-QL-513","RAP-QL-514","RAP-QL-515","RAP-QL-516","RAP-QL-517","RAP-QL-518","RAP-QL-519","RAP-QL-520","RAP-QL-521","RAP-QL-522","RAP-QL-523","RAP-QL-524","RAP-QL-525","RAP-QL-526"]) {
+const cp010QlIds = getRap002QuestionLanguageIds("RAP-CP-010");
+for (const qlId of cp010QlIds) {
   const pkg = runRap002Cp010Pipeline({ seed: `rap-002-cp010-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp010QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp010QlIds.size, 26, `Expected all 26 CP-010 QLs, got ${seenCp010QlIds.size}`);
+assert.equal(seenCp010QlIds.size, cp010QlIds.length, `Expected all active CP-010 QLs, got ${seenCp010QlIds.size}`);
 
 const seenCp011QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -385,19 +388,19 @@ for (let index = 0; index < 90; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-011");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenCp011QlIds.add(pkg.questionLanguageId);
 }
 
-const cp011QlIds = Array.from({ length: 30 }, (_, index) => `RAP-QL-${601 + index}`);
+const cp011QlIds = getRap002QuestionLanguageIds("RAP-CP-011");
 for (const qlId of cp011QlIds) {
   const pkg = runRap002Cp011Pipeline({ seed: `rap-002-cp011-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp011QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp011QlIds.size, 30, `Expected all 30 CP-011 QLs, got ${seenCp011QlIds.size}`);
+assert.equal(seenCp011QlIds.size, cp011QlIds.length, `Expected all active CP-011 QLs, got ${seenCp011QlIds.size}`);
 
 for (const language of ["hi", "pa"] as const) {
   for (const [cpRunner, qlId] of [
@@ -420,18 +423,19 @@ for (let index = 0; index < 90; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-012");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenCp012QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-701","RAP-QL-702","RAP-QL-703","RAP-QL-704","RAP-QL-705","RAP-QL-706","RAP-QL-707","RAP-QL-708","RAP-QL-709","RAP-QL-710","RAP-QL-711","RAP-QL-712","RAP-QL-713","RAP-QL-714","RAP-QL-715","RAP-QL-716","RAP-QL-717","RAP-QL-718","RAP-QL-719","RAP-QL-720","RAP-QL-721","RAP-QL-722","RAP-QL-723","RAP-QL-724"]) {
+const cp012QlIds = getRap002QuestionLanguageIds("RAP-CP-012");
+for (const qlId of cp012QlIds) {
   const pkg = runRap002Cp012Pipeline({ seed: `rap-002-cp012-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp012QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp012QlIds.size, 24, `Expected all 24 CP-012 QLs, got ${seenCp012QlIds.size}`);
+assert.equal(seenCp012QlIds.size, cp012QlIds.length, `Expected all active CP-012 QLs, got ${seenCp012QlIds.size}`);
 
 const equivalenceAnswers = new Set<string>();
 for (let index = 0; index < 80; index += 1) {

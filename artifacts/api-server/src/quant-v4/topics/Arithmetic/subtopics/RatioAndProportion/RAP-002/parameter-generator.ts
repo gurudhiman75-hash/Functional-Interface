@@ -57,6 +57,15 @@ function seedIndexParity(seed: string, fallbackSalt: string) {
   return stableBucket(`${seed}:${fallbackSalt}`, 2);
 }
 
+function diversifyFixedVariables(seed: string, variables: Rap002Variables) {
+  const factor = 1 + (seedSerialOffset(seed, 997) % 97);
+  if (factor === 1) return variables;
+  return Object.fromEntries(Object.entries(variables).map(([key, value]) => [
+    key,
+    typeof value === "number" && !/percent/i.test(key) ? value * factor : value,
+  ]));
+}
+
 function scaledPick(values: readonly number[], seed: string, spread = 12) {
   return pick(values, seed) + stableBucket(`${seed}:spread`, spread) + seedSerialOffset(seed, 17);
 }
@@ -167,16 +176,19 @@ function baseReverseChainVariables(seed: string, difficulty: Rap002DifficultyBan
 function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyBand, qlId: string): Rap002Variables {
   if (qlId === "RAP-QL-407" || qlId === "RAP-QL-408" || qlId === "RAP-QL-409") {
     const serialScale = 1 + seedSerialOffset(seed, 251);
-    const totalVoters = pick([8000, 10000, 12000, 15000, 20000, 24000], `${seed}:voters`);
     const turnoutPercent = pick([60, 70, 75, 80, 85], `${seed}:turnout`);
     const validPercent = pick([90, 92, 95, 96], `${seed}:valid`);
     let voteRatioA = pick([3, 4, 5, 7], `${seed}:voteA`);
     let voteRatioB = pick([2, 3, 4, 5], `${seed}:voteB`);
     if (voteRatioA <= voteRatioB) voteRatioA = voteRatioB + 2;
-    const polledVotes = totalVoters * turnoutPercent / 100;
-    const validVotes = polledVotes * validPercent / 100;
-    const margin = validVotes * (voteRatioA - voteRatioB) / (voteRatioA + voteRatioB);
-    const marginVotes = Number.isInteger(margin) ? margin : Math.round(margin / 10) * 10;
+    const ratioSum = voteRatioA + voteRatioB;
+    let voteUnit = pick([100, 200, 250, 400, 500], `${seed}:voteUnit`);
+    let totalVoters = ratioSum * voteUnit * 10000 / (turnoutPercent * validPercent);
+    while (!Number.isInteger(totalVoters)) {
+      voteUnit += 10;
+      totalVoters = ratioSum * voteUnit * 10000 / (turnoutPercent * validPercent);
+    }
+    const marginVotes = (voteRatioA - voteRatioB) * voteUnit;
     return {
       candidateA: "Candidate A",
       candidateB: "Candidate B",
@@ -433,11 +445,15 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
   }
 
   if (qlId === "RAP-QL-614" || qlId === "RAP-QL-620") {
-    const initialWorkers = pick([12, 15, 18, 20], `${seed}:initialWorkers`);
-    const originalDays = pick([12, 16, 20, 24], `${seed}:originalDays`);
-    const daysWorked = pick([3, 4, 5, 6], `${seed}:daysWorked`);
-    const addedWorkers = pick([3, 5, 6, 10], `${seed}:addedWorkers`);
-    return { initialWorkers, originalDays, daysWorked, addedWorkers, workerChangeDirection: "JOIN" };
+    return {
+      ...pick([
+        { initialWorkers: 20, originalDays: 12, daysWorked: 6, addedWorkers: 10 },
+        { initialWorkers: 15, originalDays: 20, daysWorked: 4, addedWorkers: 5 },
+        { initialWorkers: 12, originalDays: 16, daysWorked: 4, addedWorkers: 12 },
+        { initialWorkers: 18, originalDays: 24, daysWorked: 6, addedWorkers: 9 },
+      ], `${seed}:joiningWorkers`),
+      workerChangeDirection: "JOIN",
+    };
   }
 
   if (qlId === "RAP-QL-615") {
@@ -493,19 +509,21 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
   }
 
   if (qlId === "RAP-QL-624") {
-    const menA = pick([8, 10, 12, 15], `${seed}:menA`);
-    const daysA = pick([12, 15, 18, 20], `${seed}:daysA`);
-    const menB = pick([16, 20, 24, 30], `${seed}:menB`);
-    return { menA, daysA, menB };
+    return pick([
+      { menA: 12, daysA: 16, menB: 24 },
+      { menA: 10, daysA: 18, menB: 20 },
+      { menA: 15, daysA: 20, menB: 25 },
+      { menA: 18, daysA: 24, menB: 27 },
+    ], `${seed}:menDaysCase`);
   }
 
   if (qlId === "RAP-QL-625") {
     return {
-      baseWorkers: 12,
-      baseDays: pick([20, 24, 30], `${seed}:baseDays`),
+      baseWorkers: 30,
+      baseDays: 20,
       workNumerator: pick([1, 2, 3], `${seed}:num`),
       workDenominator: pick([4, 5, 6], `${seed}:den`),
-      targetDays: pick([4, 6, 8, 10], `${seed}:targetDays`),
+      targetDays: 10,
     };
   }
 
@@ -778,7 +796,7 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
   const registry = getRap002RegistryEntry(qlId);
   const difficulty = input.difficultyBand ?? registry.difficulty ?? pickDifficulty(seed);
   const fixedVariables = phase2FixedVariables(qlId);
-  let variables = fixedVariables ?? baseChainVariables(seed, difficulty);
+  let variables = fixedVariables ? diversifyFixedVariables(seed, fixedVariables) : baseChainVariables(seed, difficulty);
   if (!fixedVariables && cpId === "RAP-CP-008") {
     variables = baseReverseChainVariables(seed, difficulty, qlId);
   } else if (!fixedVariables && cpId === "RAP-CP-009") {

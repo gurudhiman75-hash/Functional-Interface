@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  generateRap001Batch,
   generateRap001CoverageAudit,
   renderRap001CoverageAuditMarkdown,
   renderRap001EntityRenderingAuditMarkdown,
@@ -134,9 +133,12 @@ assert.equal(maturity.audit.unusedQlIds.length, 0);
 assert.equal(maturity.audit.unusedEsIds.length, 0);
 assert.equal(maturity.audit.libraryValidationFailures.length, 0);
 
-const humanReviewEn = generateRap001Batch(150, "en");
-const humanReviewHi = generateRap001Batch(150, "hi");
-const humanReviewPa = generateRap001Batch(150, "pa");
+const humanReviewEn = cpIds.flatMap((cpId) => Array.from({ length: 5 }, (_, index) =>
+  runRap001Pipeline(cpId, { language: "en", seed: `rap-001-human-review:${cpId}:${index}` })));
+const humanReviewHi = cpIds.flatMap((cpId) => Array.from({ length: 5 }, (_, index) =>
+  runRap001Pipeline(cpId, { language: "hi", seed: `rap-001-human-review:${cpId}:${index}` })));
+const humanReviewPa = cpIds.flatMap((cpId) => Array.from({ length: 5 }, (_, index) =>
+  runRap001Pipeline(cpId, { language: "pa", seed: `rap-001-human-review:${cpId}:${index}` })));
 
 fs.writeFileSync(path.join(packageDir, "rap-001-human-review-en.csv"), `${renderRap001HumanReviewCsv(humanReviewEn)}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-human-review-hi.csv"), `${renderRap001HumanReviewCsv(humanReviewHi)}\n`, "utf8");

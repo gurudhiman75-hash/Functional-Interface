@@ -19,7 +19,7 @@ function localizedIntro(parameters: Rap002Parameters, en: string, hi: string, pa
   return en;
 }
 
-export function renderRap002Explanation(parameters: Rap002Parameters, solver: Rap002SolverResult): Rap002Explanation {
+function renderRap002ExplanationDraft(parameters: Rap002Parameters, solver: Rap002SolverResult): Rap002Explanation {
   if (
     parameters.taskKind === "electionWinnerVotes"
     || parameters.taskKind === "electionMargin"
@@ -334,4 +334,91 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
       block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
     ],
   };
+}
+
+function answerContext(parameters: Rap002Parameters) {
+  if (parameters.answerType === "RATIO") return "required ratio";
+  if (parameters.answerType === "COUNT") return "required value";
+  return "correct conclusion";
+}
+
+function polishExplanation(
+  parameters: Rap002Parameters,
+  solver: Rap002SolverResult,
+  draft: Rap002Explanation,
+  reason: string,
+  check: string,
+): Rap002Explanation {
+  if (parameters.language !== "en") return draft;
+  const answer = solver.answer.replaceAll("$$", "");
+  const lines = draft.lines.map((line) => line
+    .replace(/^Problem:/, "Concept:")
+    .replace(/^Method 1:/, "Method:")
+    .replace(/^Method 2:/, "Extraction:")
+    .replace(/\\text\{Calculation\}=/g, "\\text{Decisive equation}=")
+    .replace(/^\$\$\\text\{Answer\}=.*\$\$$/, `Final answer: the ${answerContext(parameters)} is ${answer}.`)
+    .replace(/^Answer:/, "Final answer:"));
+  lines.splice(1, 0, `Why this method works: ${reason}`);
+  lines.push(`Quick check: ${check}`);
+  return { ...draft, lines };
+}
+
+function renderChainAlignmentExplanation(parameters: Rap002Parameters, solver: Rap002SolverResult) {
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.",
+    "the extracted pair or full chain reproduces every ratio given in the stem.");
+}
+
+function renderReverseChainExplanation(parameters: Rap002Parameters, solver: Rap002SolverResult) {
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "the aligned ratio converts the known total, difference, or actual value into one common ratio unit.",
+    "substituting the recovered value into the aligned chain restores the stated constraint.");
+}
+
+function renderTransformationExplanation(parameters: Rap002Parameters, solver: Rap002SolverResult) {
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.",
+    "the final values have the stated total and simplify to the required final ratio.");
+}
+
+function renderNestedPartitionExplanation(parameters: Rap002Parameters, solver: Rap002SolverResult) {
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "the second ratio divides only its parent branch, not the original total.",
+    "the subshares add back to their parent branch and the main branches add back to the total.");
+}
+
+function renderInverseChainExplanation(parameters: Rap002Parameters, solver: Rap002SolverResult) {
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.",
+    "the relevant rate-time or worker-day product remains constant.");
+}
+
+function renderComparisonExplanation(parameters: Rap002Parameters, solver: Rap002SolverResult) {
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.",
+    "the aligned values directly support the stated order, comparison, or equivalence result.");
+}
+
+export function renderRap002Explanation(parameters: Rap002Parameters, solver: Rap002SolverResult): Rap002Explanation {
+  if (["chainAlignment", "extendedChainAlignment", "missingChainRatio"].includes(parameters.taskKind)) {
+    return renderChainAlignmentExplanation(parameters, solver);
+  }
+  if (["reverseMiddleFinding", "reverseEndpointFinding", "constrainedReverseChain"].includes(parameters.taskKind)) {
+    return renderReverseChainExplanation(parameters, solver);
+  }
+  if (["successiveRatioChange", "transferTracking", "reconstructOriginalRatio"].includes(parameters.taskKind)) {
+    return renderTransformationExplanation(parameters, solver);
+  }
+  if (["nestedPartition", "conditionalDistribution", "weightedNestedPartition", "incomeExpenditureSavings"].includes(parameters.taskKind)) {
+    return renderNestedPartitionExplanation(parameters, solver);
+  }
+  if (["inverseChainWork", "inverseChainSpeed", "combinedInverseChain", "sdtTimeRatioFromSpeedDistance", "sdtRaceLead"].includes(parameters.taskKind)) {
+    return renderInverseChainExplanation(parameters, solver);
+  }
+  if (["chainOrdering", "chainInequality", "chainEquivalence"].includes(parameters.taskKind)) {
+    return renderComparisonExplanation(parameters, solver);
+  }
+  return polishExplanation(parameters, solver, renderRap002ExplanationDraft(parameters, solver),
+    "the quantities must be converted to a common comparable basis before the requested value is extracted.",
+    "the result satisfies the numerical relation stated in the question.");
 }

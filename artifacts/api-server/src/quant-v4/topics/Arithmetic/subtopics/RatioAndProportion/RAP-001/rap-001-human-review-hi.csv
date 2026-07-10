@@ -1,151 +1,631 @@
-questionLanguageId,canonicalProblemId,taskKind,difficulty,question,answer,parameters,explanationId
-"RAP-QL-001","RAP-CP-001","simpleLinkage","Easy","यदि लड़के:लड़कियां का अनुपात 3:4 है और लड़कियां:शिक्षक का अनुपात 4:5 है, तो लड़के:लड़कियां:शिक्षक का संयुक्त अनुपात क्या होगा।","$$3 : 4 : 5$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA1"":3,""ratioB1"":4,""ratioB2"":4,""ratioC2"":5}","RAP-ES-001"
-"RAP-QL-101","RAP-CP-001","simpleLinkage","Hard","यदि शिक्षक:लड़कियां का अनुपात 4:5 है और लड़कियां:लड़के का अनुपात 5:6 है, तो शिक्षक:लड़कियां:लड़के का संयुक्त अनुपात क्या होगा।","$$4 : 5 : 6$$","{""personA"":""teachers"",""personB"":""girls"",""personC"":""boys"",""ratioA1"":4,""ratioB1"":5,""ratioB2"":5,""ratioC2"":6}","RAP-ES-001"
-"RAP-QL-201","RAP-CP-001","simpleLinkage","Hard","यदि लड़के:लड़कियां का अनुपात 5:6 है और लड़कियां:शिक्षक का अनुपात 6:7 है, तो लड़के:लड़कियां:शिक्षक का संयुक्त अनुपात क्या होगा।","$$5 : 6 : 7$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA1"":5,""ratioB1"":6,""ratioB2"":6,""ratioC2"":7}","RAP-ES-001"
-"RAP-QL-301","RAP-CP-001","simpleLinkage","Hard","यदि लड़कियां:लड़के का अनुपात 6:7 है और लड़के:शिक्षक का अनुपात 7:8 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।","$$6 : 7 : 8$$","{""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA1"":6,""ratioB1"":7,""ratioB2"":7,""ratioC2"":8}","RAP-ES-001"
-"RAP-QL-401","RAP-CP-001","simpleLinkage","Hard","यदि लड़कियां:लड़के का अनुपात 7:8 है और लड़के:शिक्षक का अनुपात 8:1 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।","$$7 : 8 : 1$$","{""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA1"":7,""ratioB1"":8,""ratioB2"":8,""ratioC2"":1}","RAP-ES-001"
-"RAP-QL-002","RAP-CP-001","ratioNormalization","Medium","9/3 : 2/2 को सबसे सरल पूर्ण-संख्या अनुपात में बदलें।","$$3 : 1$$","{""numerator1"":9,""denominator1"":3,""numerator2"":2,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-102","RAP-CP-001","ratioNormalization","Medium","2/2 : 6/3 भिन्नों के अनुपात को पूर्ण संख्याओं में सरल करें।","$$1 : 2$$","{""numerator1"":2,""denominator1"":2,""numerator2"":6,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-202","RAP-CP-001","ratioNormalization","Medium","6/3 : 6/2 के बराबर सबसे सरल पूर्ण-संख्या अनुपात ज्ञात करें।","$$2 : 3$$","{""numerator1"":6,""denominator1"":3,""numerator2"":6,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-302","RAP-CP-001","ratioNormalization","Medium","6/2 : 3/3 अनुपात को उसके सबसे सरल पूर्ण-संख्या रूप में लिखें।","$$3 : 1$$","{""numerator1"":6,""denominator1"":2,""numerator2"":3,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-402","RAP-CP-001","ratioNormalization","Easy","3/3 : 4/2 के लिए पूर्ण संख्याओं का सरल अनुपात क्या होगा।","$$1 : 2$$","{""numerator1"":3,""denominator1"":3,""numerator2"":4,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-502","RAP-CP-001","ratioNormalization","Medium","9/3 : 2/2 भिन्न अनुपात को सबसे छोटे पूर्ण-संख्या पदों में घटाएं।","$$3 : 1$$","{""numerator1"":9,""denominator1"":3,""numerator2"":2,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-602","RAP-CP-001","ratioNormalization","Medium","2/2 : 6/3 अनुपात को सामान्यीकृत करें।","$$1 : 2$$","{""numerator1"":2,""denominator1"":2,""numerator2"":6,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-702","RAP-CP-001","ratioNormalization","Easy","6/3 : 6/2 को पूर्ण संख्याओं के अनुपात के रूप में दोबारा लिखें।","$$2 : 3$$","{""numerator1"":6,""denominator1"":3,""numerator2"":6,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-802","RAP-CP-001","ratioNormalization","Easy","6/2 : 3/3 के बराबर पूर्ण-संख्या अनुपात ज्ञात करें।","$$3 : 1$$","{""numerator1"":6,""denominator1"":2,""numerator2"":3,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-902","RAP-CP-001","ratioNormalization","Hard","3/3 : 4/2 को अविभाज्य पूर्ण-संख्या अनुपात में बदलें।","$$1 : 2$$","{""numerator1"":3,""denominator1"":3,""numerator2"":4,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-107","RAP-CP-002","basicPartition","Hard","कुल 1870 को शिक्षक, लड़कियां और लड़के के बीच 8:1:2 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$170$$","{""totalAmount"":1870,""personA"":""teachers"",""personB"":""girls"",""personC"":""boys"",""ratioA"":8,""ratioB"":1,""ratioC"":2,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-207","RAP-CP-002","basicPartition","Hard","कुल 360 को लड़कियां, लड़के और शिक्षक के बीच 1:2:3 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$180$$","{""totalAmount"":360,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":1,""ratioB"":2,""ratioC"":3,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-307","RAP-CP-002","basicPartition","Hard","कुल 1260 को लड़कियां, लड़के और शिक्षक के बीच 2:3:4 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$280$$","{""totalAmount"":1260,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":2,""ratioB"":3,""ratioC"":4,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-407","RAP-CP-002","basicPartition","Medium","कुल 360 को लड़कियां, लड़के और शिक्षक के बीच 3:4:5 के अनुपात में बांटा जाता है। लड़के का हिस्सा कितना होगा।","$$120$$","{""totalAmount"":360,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":3,""ratioB"":4,""ratioC"":5,""targetPerson"":""boys""}","RAP-ES-002"
-"RAP-QL-507","RAP-CP-002","basicPartition","Medium","कुल 1650 को लड़कियां, लड़के और शिक्षक के बीच 4:5:6 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$440$$","{""totalAmount"":1650,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":4,""ratioB"":5,""ratioC"":6,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-607","RAP-CP-002","basicPartition","Hard","कुल 1440 को लड़के, लड़कियां और शिक्षक के बीच 2:3:4 के अनुपात में बांटा जाता है। लड़के का हिस्सा कितना होगा।","$$320$$","{""totalAmount"":1440,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":2,""ratioB"":3,""ratioC"":4,""targetPerson"":""boys""}","RAP-ES-002"
-"RAP-QL-707","RAP-CP-002","basicPartition","Medium","कुल 600 को लड़के, लड़कियां और शिक्षक के बीच 3:4:5 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$200$$","{""totalAmount"":600,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":3,""ratioB"":4,""ratioC"":5,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-807","RAP-CP-002","basicPartition","Medium","कुल 1950 को लड़के, लड़कियां और शिक्षक के बीच 4:5:6 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$780$$","{""totalAmount"":1950,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":4,""ratioB"":5,""ratioC"":6,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-907","RAP-CP-002","basicPartition","Medium","कुल 360 को लड़के, लड़कियां और शिक्षक के बीच 5:6:7 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$120$$","{""totalAmount"":360,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":5,""ratioB"":6,""ratioC"":7,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-1007","RAP-CP-002","basicPartition","Medium","कुल 2100 को लड़कियां, लड़के और शिक्षक के बीच 6:7:8 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$800$$","{""totalAmount"":2100,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":6,""ratioB"":7,""ratioC"":8,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-1107","RAP-CP-002","basicPartition","Easy","कुल 2880 को शिक्षक, लड़कियां और लड़के के बीच 7:8:1 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$1260$$","{""totalAmount"":2880,""personA"":""teachers"",""personB"":""girls"",""personC"":""boys"",""ratioA"":7,""ratioB"":8,""ratioC"":1,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-1207","RAP-CP-002","basicPartition","Easy","कुल 770 को लड़कियां, लड़के और शिक्षक के बीच 8:1:2 के अनुपात में बांटा जाता है। लड़के का हिस्सा कितना होगा।","$$70$$","{""totalAmount"":770,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":8,""ratioB"":1,""ratioC"":2,""targetPerson"":""boys""}","RAP-ES-002"
-"RAP-QL-1307","RAP-CP-002","basicPartition","Hard","कुल 900 को लड़कियां, लड़के और शिक्षक के बीच 1:2:3 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$450$$","{""totalAmount"":900,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":1,""ratioB"":2,""ratioC"":3,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-1407","RAP-CP-002","basicPartition","Hard","कुल 360 को लड़कियां, लड़के और शिक्षक के बीच 2:3:4 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$80$$","{""totalAmount"":360,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":2,""ratioB"":3,""ratioC"":4,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-1507","RAP-CP-002","basicPartition","Hard","कुल 1440 को लड़कियां, लड़के और शिक्षक के बीच 3:4:5 के अनुपात में बांटा जाता है। लड़के का हिस्सा कितना होगा।","$$480$$","{""totalAmount"":1440,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":3,""ratioB"":4,""ratioC"":5,""targetPerson"":""boys""}","RAP-ES-002"
-"RAP-QL-1607","RAP-CP-002","basicPartition","Hard","कुल 1020 को लड़के, लड़कियां और शिक्षक के बीच 1:2:3 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$510$$","{""totalAmount"":1020,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":1,""ratioB"":2,""ratioC"":3,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-1707","RAP-CP-002","basicPartition","Hard","कुल 540 को लड़के, लड़कियां और शिक्षक के बीच 2:3:4 के अनुपात में बांटा जाता है। लड़के का हिस्सा कितना होगा।","$$120$$","{""totalAmount"":540,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":2,""ratioB"":3,""ratioC"":4,""targetPerson"":""boys""}","RAP-ES-002"
-"RAP-QL-1807","RAP-CP-002","basicPartition","Hard","कुल 1680 को शिक्षक, लड़कियां और लड़के के बीच 3:4:5 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$560$$","{""totalAmount"":1680,""personA"":""teachers"",""personB"":""girls"",""personC"":""boys"",""ratioA"":3,""ratioB"":4,""ratioC"":5,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-1907","RAP-CP-002","basicPartition","Hard","कुल 450 को लड़के, लड़कियां और शिक्षक के बीच 4:5:6 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$180$$","{""totalAmount"":450,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":4,""ratioB"":5,""ratioC"":6,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-008","RAP-CP-002","shareDifference","Medium","Rs. 1430 को लड़कियां, लड़के और शिक्षक के बीच 6:5:2 के अनुपात में बांटा जाता है। लड़कियां को शिक्षक से कितने रुपये अधिक मिलते हैं।","$$440$$","{""totalAmount"":1430,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":6,""ratioB"":5,""ratioC"":2}","RAP-ES-002"
-"RAP-QL-012","RAP-CP-003","twoStateAddition","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 4:6 है। यदि 20 और लड़के आ जाते हैं, तो अनुपात 3:2 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$16$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":4,""ratioB"":6,""addedCount"":20,""finalRatioA"":3,""finalRatioB"":2}","RAP-ES-003"
-"RAP-QL-112","RAP-CP-003","twoStateAddition","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 1:3 है। यदि 7 और लड़के आ जाते हैं, तो अनुपात 3:2 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$2$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":1,""ratioB"":3,""addedCount"":7,""finalRatioA"":3,""finalRatioB"":2}","RAP-ES-003"
-"RAP-QL-212","RAP-CP-003","twoStateAddition","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 2:4 है। यदि 13 और लड़के आ जाते हैं, तो अनुपात 31:36 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$18$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":2,""ratioB"":4,""addedCount"":13,""finalRatioA"":31,""finalRatioB"":36}","RAP-ES-003"
-"RAP-QL-312","RAP-CP-003","twoStateAddition","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 3:5 है। यदि 13 और लड़के आ जाते हैं, तो अनुपात 34:35 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$21$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":3,""ratioB"":5,""addedCount"":13,""finalRatioA"":34,""finalRatioB"":35}","RAP-ES-003"
-"RAP-QL-412","RAP-CP-003","twoStateAddition","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 6:2 है। यदि 19 और लड़के आ जाते हैं, तो अनुपात 49:10 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$30$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":6,""ratioB"":2,""addedCount"":19,""finalRatioA"":49,""finalRatioB"":10}","RAP-ES-003"
-"RAP-QL-013","RAP-CP-003","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 7:6 है। 6 लड़के के चले जाने पर अनुपात 16:15 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$130$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":7,""ratioB"":6,""removedCount"":6,""finalRatioA"":16,""finalRatioB"":15}","RAP-ES-003"
-"RAP-QL-113","RAP-CP-003","twoStateSubtraction","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 8:7 है। 18 लड़के के चले जाने पर अनुपात 10:11 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$165$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":8,""ratioB"":7,""removedCount"":18,""finalRatioA"":10,""finalRatioB"":11}","RAP-ES-003"
-"RAP-QL-213","RAP-CP-003","twoStateSubtraction","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 5:4 है। 5 लड़के के चले जाने पर अनुपात 55:48 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$108$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":5,""ratioB"":4,""removedCount"":5,""finalRatioA"":55,""finalRatioB"":48}","RAP-ES-003"
-"RAP-QL-313","RAP-CP-003","twoStateSubtraction","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 6:5 है। 7 लड़के के चले जाने पर अनुपात 11:15 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$33$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":6,""ratioB"":5,""removedCount"":7,""finalRatioA"":11,""finalRatioB"":15}","RAP-ES-003"
-"RAP-QL-413","RAP-CP-003","twoStateSubtraction","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 7:6 है। 17 लड़के के चले जाने पर अनुपात 11:24 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$52$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":7,""ratioB"":6,""removedCount"":17,""finalRatioA"":11,""finalRatioB"":24}","RAP-ES-003"
-"RAP-QL-014","RAP-CP-003","twoStateTransfer","Hard","दो संख्याएं 5:8 के अनुपात में हैं। यदि प्रत्येक में 16 जोड़ दिया जाए, तो अनुपात 41:56 हो जाता है। बड़ी संख्या का मान क्या है।","$$40$$","{""ratioA"":5,""ratioB"":8,""transferredCount"":16,""finalRatioA"":41,""finalRatioB"":56}","RAP-ES-003"
-"RAP-QL-114","RAP-CP-003","twoStateTransfer","Hard","दो संख्याएं 5:8 के अनुपात में हैं। यदि प्रत्येक में 11 जोड़ दिया जाए, तो अनुपात 26:35 हो जाता है। बड़ी संख्या का मान क्या है।","$$24$$","{""ratioA"":5,""ratioB"":8,""transferredCount"":11,""finalRatioA"":26,""finalRatioB"":35}","RAP-ES-003"
-"RAP-QL-214","RAP-CP-003","twoStateTransfer","Hard","दो संख्याएं 8:10 के अनुपात में हैं। यदि प्रत्येक में 6 जोड़ दिया जाए, तो अनुपात 43:53 हो जाता है। बड़ी संख्या का मान क्या है।","$$100$$","{""ratioA"":8,""ratioB"":10,""transferredCount"":6,""finalRatioA"":43,""finalRatioB"":53}","RAP-ES-003"
-"RAP-QL-314","RAP-CP-003","twoStateTransfer","Hard","दो संख्याएं 8:9 के अनुपात में हैं। यदि प्रत्येक में 7 जोड़ दिया जाए, तो अनुपात 71:79 हो जाता है। बड़ी संख्या का मान क्या है।","$$72$$","{""ratioA"":8,""ratioB"":9,""transferredCount"":7,""finalRatioA"":71,""finalRatioB"":79}","RAP-ES-003"
-"RAP-QL-414","RAP-CP-003","twoStateTransfer","Medium","दो संख्याएं 8:10 के अनुपात में हैं। यदि प्रत्येक में 2 जोड़ दिया जाए, तो अनुपात 25:31 हो जाता है। बड़ी संख्या का मान क्या है।","$$60$$","{""ratioA"":8,""ratioB"":10,""transferredCount"":2,""finalRatioA"":25,""finalRatioB"":31}","RAP-ES-003"
-"RAP-QL-015","RAP-CP-003","incomeExpenditureSystem","Hard","माता और पिता की आय का अनुपात 4:2 है और उनके खर्चों का अनुपात 2:5 है। यदि दोनों Rs. 4800 की बचत करते हैं, तो माता की आय कितनी है।","$$3600$$","{""personA"":""mother"",""personB"":""father"",""incomeRatioA"":4,""incomeRatioB"":2,""expRatioA"":2,""expRatioB"":5,""savingsAmount"":4800}","RAP-ES-003"
-"RAP-QL-115","RAP-CP-003","incomeExpenditureSystem","Hard","पुत्र और पुत्री की आय का अनुपात 3:2 है और उनके खर्चों का अनुपात 3:4 है। यदि दोनों Rs. 600 की बचत करते हैं, तो पुत्र की आय कितनी है।","$$300$$","{""personA"":""son"",""personB"":""daughter"",""incomeRatioA"":3,""incomeRatioB"":2,""expRatioA"":3,""expRatioB"":4,""savingsAmount"":600}","RAP-ES-003"
-"RAP-QL-215","RAP-CP-003","incomeExpenditureSystem","Medium","पुत्री और पुत्र की आय का अनुपात 4:2 है और उनके खर्चों का अनुपात 4:5 है। यदि दोनों Rs. 4800 की बचत करते हैं, तो पुत्री की आय कितनी है।","$$1600$$","{""personA"":""daughter"",""personB"":""son"",""incomeRatioA"":4,""incomeRatioB"":2,""expRatioA"":4,""expRatioB"":5,""savingsAmount"":4800}","RAP-ES-003"
-"RAP-QL-315","RAP-CP-003","incomeExpenditureSystem","Medium","भाई और पिता की आय का अनुपात 5:2 है और उनके खर्चों का अनुपात 1:3 है। यदि दोनों Rs. 2600 की बचत करते हैं, तो भाई की आय कितनी है।","$$2000$$","{""personA"":""brother"",""personB"":""father"",""incomeRatioA"":5,""incomeRatioB"":2,""expRatioA"":1,""expRatioB"":3,""savingsAmount"":2600}","RAP-ES-003"
-"RAP-QL-415","RAP-CP-003","incomeExpenditureSystem","Medium","पिता और माता की आय का अनुपात 6:4 है और उनके खर्चों का अनुपात 2:5 है। यदि दोनों Rs. 11000 की बचत करते हैं, तो पिता की आय कितनी है।","$$9000$$","{""personA"":""father"",""personB"":""mother"",""incomeRatioA"":6,""incomeRatioB"":4,""expRatioA"":2,""expRatioB"":5,""savingsAmount"":11000}","RAP-ES-003"
-"RAP-QL-017","RAP-CP-004","meanProportional","Easy","25 और 144 के बीच का मध्य अनुपाती क्या होगा।","$$60$$","{""numA"":25,""numB"":144}","RAP-ES-004"
-"RAP-QL-117","RAP-CP-004","meanProportional","Medium","144 और 1 के बीच का मध्य अनुपाती क्या होगा।","$$12$$","{""numA"":144,""numB"":1}","RAP-ES-004"
-"RAP-QL-217","RAP-CP-004","meanProportional","Easy","49 और 4 के बीच का मध्य अनुपाती क्या होगा।","$$14$$","{""numA"":49,""numB"":4}","RAP-ES-004"
-"RAP-QL-317","RAP-CP-004","meanProportional","Medium","4 और 9 के बीच का मध्य अनुपाती क्या होगा।","$$6$$","{""numA"":4,""numB"":9}","RAP-ES-004"
-"RAP-QL-417","RAP-CP-004","meanProportional","Easy","81 और 16 के बीच का मध्य अनुपाती क्या होगा।","$$36$$","{""numA"":81,""numB"":16}","RAP-ES-004"
-"RAP-QL-018","RAP-CP-004","thirdProportional","Medium","1 और 2 का तीसरा अनुपाती क्या होगा।","$$4$$","{""numA"":1,""numB"":2}","RAP-ES-004"
-"RAP-QL-118","RAP-CP-004","thirdProportional","Medium","4 और 6 का तीसरा अनुपाती क्या होगा।","$$9$$","{""numA"":4,""numB"":6}","RAP-ES-004"
-"RAP-QL-218","RAP-CP-004","thirdProportional","Medium","9 और 12 का तीसरा अनुपाती क्या होगा।","$$16$$","{""numA"":9,""numB"":12}","RAP-ES-004"
-"RAP-QL-318","RAP-CP-004","thirdProportional","Medium","16 और 20 का तीसरा अनुपाती क्या होगा।","$$25$$","{""numA"":16,""numB"":20}","RAP-ES-004"
-"RAP-QL-418","RAP-CP-004","thirdProportional","Medium","25 और 30 का तीसरा अनुपाती क्या होगा।","$$36$$","{""numA"":25,""numB"":30}","RAP-ES-004"
-"RAP-QL-022","RAP-CP-005","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 6:1:2 के अनुपात में हैं। यदि कुल मूल्य Rs. 162 है, तो 2 के कितने सिक्के हैं।","$$9$$","{""denom1"":1,""denom2"":2,""denom3"":5,""ratio1"":6,""ratio2"":1,""ratio3"":2,""totalValue"":162,""targetDenom"":2}","RAP-ES-005"
-"RAP-QL-122","RAP-CP-005","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 1:2:3 के अनुपात में हैं। यदि कुल मूल्य Rs. 200 है, तो 1 के कितने सिक्के हैं।","$$10$$","{""denom1"":1,""denom2"":2,""denom3"":5,""ratio1"":1,""ratio2"":2,""ratio3"":3,""totalValue"":200,""targetDenom"":1}","RAP-ES-005"
-"RAP-QL-222","RAP-CP-005","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 2:3:4 के अनुपात में हैं। यदि कुल मूल्य Rs. 28 है, तो 5 के कितने सिक्के हैं।","$$4$$","{""denom1"":1,""denom2"":2,""denom3"":5,""ratio1"":2,""ratio2"":3,""ratio3"":4,""totalValue"":28,""targetDenom"":5}","RAP-ES-005"
-"RAP-QL-322","RAP-CP-005","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 72 है, तो 2 के कितने सिक्के हैं।","$$8$$","{""denom1"":1,""denom2"":2,""denom3"":5,""ratio1"":3,""ratio2"":4,""ratio3"":5,""totalValue"":72,""targetDenom"":2}","RAP-ES-005"
-"RAP-QL-422","RAP-CP-005","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 4:5:6 के अनुपात में हैं। यदि कुल मूल्य Rs. 132 है, तो 1 के कितने सिक्के हैं।","$$12$$","{""denom1"":1,""denom2"":2,""denom3"":5,""ratio1"":4,""ratio2"":5,""ratio3"":6,""totalValue"":132,""targetDenom"":1}","RAP-ES-005"
-"RAP-QL-023","RAP-CP-005","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 18 सिक्के हैं। यदि उनके मूल्यों का अनुपात 7:16:5:20 है, तो 5 के सिक्कों की संख्या क्या है।","$$1$$","{""totalCoins"":18,""denom1"":1,""denom2"":2,""denom3"":5,""denom4"":10,""valRatio1"":7,""valRatio2"":16,""valRatio3"":5,""valRatio4"":20,""targetDenom"":5}","RAP-ES-005"
-"RAP-QL-123","RAP-CP-005","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 22 सिक्के हैं। यदि उनके मूल्यों का अनुपात 3:7:20:5 है, तो 10 के सिक्कों की संख्या क्या है।","$$1$$","{""totalCoins"":22,""denom1"":1,""denom2"":2,""denom3"":5,""denom4"":10,""valRatio1"":3,""valRatio2"":7,""valRatio3"":20,""valRatio4"":5,""targetDenom"":10}","RAP-ES-005"
-"RAP-QL-223","RAP-CP-005","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 26 सिक्के हैं। यदि उनके मूल्यों का अनुपात 5:12:35:80 है, तो 1 के सिक्कों की संख्या क्या है।","$$5$$","{""totalCoins"":26,""denom1"":1,""denom2"":2,""denom3"":5,""denom4"":10,""valRatio1"":5,""valRatio2"":12,""valRatio3"":35,""valRatio4"":80,""targetDenom"":1}","RAP-ES-005"
-"RAP-QL-323","RAP-CP-005","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 22 सिक्के हैं। यदि उनके मूल्यों का अनुपात 2:5:15:35 है, तो 2 के सिक्कों की संख्या क्या है।","$$5$$","{""totalCoins"":22,""denom1"":1,""denom2"":2,""denom3"":5,""denom4"":10,""valRatio1"":2,""valRatio2"":5,""valRatio3"":15,""valRatio4"":35,""targetDenom"":2}","RAP-ES-005"
-"RAP-QL-423","RAP-CP-005","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 18 सिक्के हैं। यदि उनके मूल्यों का अनुपात 3:8:25:60 है, तो 5 के सिक्कों की संख्या क्या है।","$$5$$","{""totalCoins"":18,""denom1"":1,""denom2"":2,""denom3"":5,""denom4"":10,""valRatio1"":3,""valRatio2"":8,""valRatio3"":25,""valRatio4"":60,""targetDenom"":5}","RAP-ES-005"
-"RAP-QL-024","RAP-CP-005","weightedMapping","Hard","1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 3:4:5 है। यदि 5 1 रुपये का सिक्का, 1 2 रुपये का सिक्का और 2 5 रुपये का सिक्का का कुल वजन 290 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।","$$30$$","{""itemA"":""coin_1"",""itemB"":""coin_2"",""itemC"":""coin_5"",""ratioA"":3,""ratioB"":4,""ratioC"":5,""countA"":5,""countB"":1,""countC"":2,""totalWeight"":290}","RAP-ES-005"
-"RAP-QL-124","RAP-CP-005","weightedMapping","Hard","2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 4:5:6 है। यदि 4 2 रुपये का सिक्का, 5 1 रुपये का सिक्का और 1 5 रुपये का सिक्का का कुल वजन 47 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।","$$4$$","{""itemA"":""coin_2"",""itemB"":""coin_1"",""itemC"":""coin_5"",""ratioA"":4,""ratioB"":5,""ratioC"":6,""countA"":4,""countB"":5,""countC"":1,""totalWeight"":47}","RAP-ES-005"
-"RAP-QL-224","RAP-CP-005","weightedMapping","Hard","1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 4 1 रुपये का सिक्का, 5 2 रुपये का सिक्का और 1 5 रुपये का सिक्का का कुल वजन 114 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।","$$10$$","{""itemA"":""coin_1"",""itemB"":""coin_2"",""itemC"":""coin_5"",""ratioA"":5,""ratioB"":6,""ratioC"":7,""countA"":4,""countB"":5,""countC"":1,""totalWeight"":114}","RAP-ES-005"
-"RAP-QL-324","RAP-CP-005","weightedMapping","Hard","2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 6:7:8 है। यदि 3 2 रुपये का सिक्का, 4 1 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 258 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।","$$18$$","{""itemA"":""coin_2"",""itemB"":""coin_1"",""itemC"":""coin_5"",""ratioA"":6,""ratioB"":7,""ratioC"":8,""countA"":3,""countB"":4,""countC"":5,""totalWeight"":258}","RAP-ES-005"
-"RAP-QL-424","RAP-CP-005","weightedMapping","Hard","1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 7:8:1 है। यदि 3 1 रुपये का सिक्का, 4 2 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 232 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।","$$28$$","{""itemA"":""coin_1"",""itemB"":""coin_2"",""itemC"":""coin_5"",""ratioA"":7,""ratioB"":8,""ratioC"":1,""countA"":3,""countB"":4,""countC"":5,""totalWeight"":232}","RAP-ES-005"
-"RAP-QL-027","RAP-CP-006","binaryMixture","Medium","एक मिश्रण में दूध और रस का अनुपात 5:6 है। यदि इसमें 12 लीटर दूध मिला दिया जाए, तो अनुपात 7:6 हो जाता है। शुरुआत में रस की मात्रा कितनी थी।","$$36$$","{""liquid1"":""milk"",""liquid2"":""juice"",""ratio1"":5,""ratio2"":6,""addedAmount"":12,""finalRatio1"":7,""finalRatio2"":6}","RAP-ES-006"
-"RAP-QL-127","RAP-CP-006","binaryMixture","Medium","एक मिश्रण में पानी और दूध का अनुपात 4:5 है। यदि इसमें 5 लीटर पानी मिला दिया जाए, तो अनुपात 21:20 हो जाता है। शुरुआत में दूध की मात्रा कितनी थी।","$$20$$","{""liquid1"":""water"",""liquid2"":""milk"",""ratio1"":4,""ratio2"":5,""addedAmount"":5,""finalRatio1"":21,""finalRatio2"":20}","RAP-ES-006"
-"RAP-QL-227","RAP-CP-006","binaryMixture","Medium","एक मिश्रण में पानी और दूध का अनुपात 3:4 है। यदि इसमें 14 लीटर पानी मिला दिया जाए, तो अनुपात 5:2 हो जाता है। शुरुआत में दूध की मात्रा कितनी थी।","$$8$$","{""liquid1"":""water"",""liquid2"":""milk"",""ratio1"":3,""ratio2"":4,""addedAmount"":14,""finalRatio1"":5,""finalRatio2"":2}","RAP-ES-006"
-"RAP-QL-327","RAP-CP-006","binaryMixture","Easy","एक मिश्रण में रस और पानी का अनुपात 2:3 है। यदि इसमें 7 लीटर रस मिला दिया जाए, तो अनुपात 25:27 हो जाता है। शुरुआत में पानी की मात्रा कितनी थी।","$$27$$","{""liquid1"":""juice"",""liquid2"":""water"",""ratio1"":2,""ratio2"":3,""addedAmount"":7,""finalRatio1"":25,""finalRatio2"":27}","RAP-ES-006"
-"RAP-QL-427","RAP-CP-006","binaryMixture","Easy","एक मिश्रण में रस और दूध का अनुपात 1:2 है। यदि इसमें 20 लीटर रस मिला दिया जाए, तो अनुपात 27:14 हो जाता है। शुरुआत में दूध की मात्रा कितनी थी।","$$14$$","{""liquid1"":""juice"",""liquid2"":""milk"",""ratio1"":1,""ratio2"":2,""addedAmount"":20,""finalRatio1"":27,""finalRatio2"":14}","RAP-ES-006"
-"RAP-QL-028","RAP-CP-006","mixtureComponentFinding","Hard","मिश्रण के 45 लीटर में रस और पानी का अनुपात 8:1 है। अनुपात को 20:9 बनाने के लिए कितने लीटर पानी और मिलाना पड़ेगा।","$$13$$","{""totalVolume"":45,""liquid1"":""juice"",""liquid2"":""water"",""ratio1"":8,""ratio2"":1,""finalRatio1"":20,""finalRatio2"":9}","RAP-ES-006"
-"RAP-QL-128","RAP-CP-006","mixtureComponentFinding","Hard","मिश्रण के 45 लीटर में दूध और रस का अनुपात 7:8 है। अनुपात को 21:38 बनाने के लिए कितने लीटर रस और मिलाना पड़ेगा।","$$14$$","{""totalVolume"":45,""liquid1"":""milk"",""liquid2"":""juice"",""ratio1"":7,""ratio2"":8,""finalRatio1"":21,""finalRatio2"":38}","RAP-ES-006"
-"RAP-QL-228","RAP-CP-006","mixtureComponentFinding","Hard","मिश्रण के 130 लीटर में दूध और पानी का अनुपात 6:7 है। अनुपात को 12:17 बनाने के लिए कितने लीटर पानी और मिलाना पड़ेगा।","$$15$$","{""totalVolume"":130,""liquid1"":""milk"",""liquid2"":""water"",""ratio1"":6,""ratio2"":7,""finalRatio1"":12,""finalRatio2"":17}","RAP-ES-006"
-"RAP-QL-328","RAP-CP-006","mixtureComponentFinding","Hard","मिश्रण के 88 लीटर में पानी और रस का अनुपात 5:6 है। अनुपात को 5:8 बनाने के लिए कितने लीटर रस और मिलाना पड़ेगा।","$$16$$","{""totalVolume"":88,""liquid1"":""water"",""liquid2"":""juice"",""ratio1"":5,""ratio2"":6,""finalRatio1"":5,""finalRatio2"":8}","RAP-ES-006"
-"RAP-QL-428","RAP-CP-006","mixtureComponentFinding","Medium","मिश्रण के 54 लीटर में पानी और दूध का अनुपात 4:5 है। अनुपात को 24:31 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।","$$1$$","{""totalVolume"":54,""liquid1"":""water"",""liquid2"":""milk"",""ratio1"":4,""ratio2"":5,""finalRatio1"":24,""finalRatio2"":31}","RAP-ES-006"
-"RAP-QL-029","RAP-CP-006","threeComponentMixture","Hard","एक घोल में पानी, रस और दूध का अनुपात 4:5:6 है। 3 लीटर रस मिलाने पर नया अनुपात 16:23:24 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$60$$","{""mixtureType"":""solution"",""liquid1"":""water"",""liquid2"":""juice"",""liquid3"":""milk"",""ratio1"":4,""ratio2"":5,""ratio3"":6,""addedAmount"":3,""finalRatio1"":16,""finalRatio2"":23,""finalRatio3"":24}","RAP-ES-006"
-"RAP-QL-129","RAP-CP-006","threeComponentMixture","Hard","एक घोल में रस, दूध और पानी का अनुपात 3:4:5 है। 16 लीटर दूध मिलाने पर नया अनुपात 3:12:5 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$24$$","{""mixtureType"":""solution"",""liquid1"":""juice"",""liquid2"":""milk"",""liquid3"":""water"",""ratio1"":3,""ratio2"":4,""ratio3"":5,""addedAmount"":16,""finalRatio1"":3,""finalRatio2"":12,""finalRatio3"":5}","RAP-ES-006"
-"RAP-QL-229","RAP-CP-006","threeComponentMixture","Medium","एक घोल में रस, दूध और पानी का अनुपात 2:3:4 है। 9 लीटर दूध मिलाने पर नया अनुपात 7:15:14 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$63$$","{""mixtureType"":""solution"",""liquid1"":""juice"",""liquid2"":""milk"",""liquid3"":""water"",""ratio1"":2,""ratio2"":3,""ratio3"":4,""addedAmount"":9,""finalRatio1"":7,""finalRatio2"":15,""finalRatio3"":14}","RAP-ES-006"
-"RAP-QL-329","RAP-CP-006","threeComponentMixture","Medium","एक घोल में दूध, रस और पानी का अनुपात 1:2:3 है। 2 लीटर रस मिलाने पर नया अनुपात 5:12:15 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$30$$","{""mixtureType"":""solution"",""liquid1"":""milk"",""liquid2"":""juice"",""liquid3"":""water"",""ratio1"":1,""ratio2"":2,""ratio3"":3,""addedAmount"":2,""finalRatio1"":5,""finalRatio2"":12,""finalRatio3"":15}","RAP-ES-006"
-"RAP-QL-429","RAP-CP-006","threeComponentMixture","Medium","एक घोल में दूध, पानी और रस का अनुपात 8:1:2 है। 15 लीटर पानी मिलाने पर नया अनुपात 4:3:1 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$33$$","{""mixtureType"":""solution"",""liquid1"":""milk"",""liquid2"":""water"",""liquid3"":""juice"",""ratio1"":8,""ratio2"":1,""ratio3"":2,""addedAmount"":15,""finalRatio1"":4,""finalRatio2"":3,""finalRatio3"":1}","RAP-ES-006"
-"RAP-QL-030","RAP-CP-006","variableReplacementRatio","Medium","100 लीटर पानी में से 5 लीटर निकालकर रस मिला दिया जाता है और फिर दोबारा 10 लीटर निकालकर रस मिला दिया जाता है। अंत में पानी और रस का अनुपात क्या होगा।","$$86 : 15$$","{""initialVolume"":100,""liquidA"":""water"",""removedVolume1"":5,""liquidB"":""juice"",""removedVolume2"":10}","RAP-ES-006"
-"RAP-QL-130","RAP-CP-006","variableReplacementRatio","Easy","110 लीटर रस में से 10 लीटर निकालकर दूध मिला दिया जाता है और फिर दोबारा 15 लीटर निकालकर दूध मिला दिया जाता है। अंत में रस और दूध का अनुपात क्या होगा।","$$43 : 12$$","{""initialVolume"":110,""liquidA"":""juice"",""removedVolume1"":10,""liquidB"":""milk"",""removedVolume2"":15}","RAP-ES-006"
-"RAP-QL-230","RAP-CP-006","variableReplacementRatio","Easy","120 लीटर रस में से 5 लीटर निकालकर पानी मिला दिया जाता है और फिर दोबारा 10 लीटर निकालकर पानी मिला दिया जाता है। अंत में रस और पानी का अनुपात क्या होगा।","$$7 : 1$$","{""initialVolume"":120,""liquidA"":""juice"",""removedVolume1"":5,""liquidB"":""water"",""removedVolume2"":10}","RAP-ES-006"
-"RAP-QL-330","RAP-CP-006","variableReplacementRatio","Hard","130 लीटर दूध में से 40 लीटर निकालकर पानी मिला दिया जाता है और फिर दोबारा 5 लीटर निकालकर पानी मिला दिया जाता है। अंत में दूध और पानी का अनुपात क्या होगा।","$$87 : 43$$","{""initialVolume"":130,""liquidA"":""milk"",""removedVolume1"":40,""liquidB"":""water"",""removedVolume2"":5}","RAP-ES-006"
-"RAP-QL-430","RAP-CP-006","variableReplacementRatio","Hard","140 लीटर दूध में से 10 लीटर निकालकर रस मिला दिया जाता है और फिर दोबारा 15 लीटर निकालकर रस मिला दिया जाता है। अंत में दूध और रस का अनुपात क्या होगा।","$$29 : 6$$","{""initialVolume"":140,""liquidA"":""milk"",""removedVolume1"":10,""liquidB"":""juice"",""removedVolume2"":15}","RAP-ES-006"
-"RAP-QL-1002","RAP-CP-001","ratioNormalization","Hard","9/3 : 2/2 के लिए सबसे सरल पूर्ण-संख्या अनुपात निर्धारित करें।","$$3 : 1$$","{""numerator1"":9,""denominator1"":3,""numerator2"":2,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-1102","RAP-CP-001","ratioNormalization","Hard","2/2 : 6/3 भिन्न अनुपात को पूर्ण संख्याओं में व्यक्त करें।","$$1 : 2$$","{""numerator1"":2,""denominator1"":2,""numerator2"":6,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-1202","RAP-CP-001","ratioNormalization","Medium","6/3 : 6/2 से संबंधित सरल पूर्ण-संख्या अनुपात की गणना करें।","$$2 : 3$$","{""numerator1"":6,""denominator1"":3,""numerator2"":6,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-1302","RAP-CP-001","ratioNormalization","Medium","6/2 : 3/3 को पूर्ण संख्याओं के अनुपात में बदलें।","$$3 : 1$$","{""numerator1"":6,""denominator1"":2,""numerator2"":3,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-1402","RAP-CP-001","ratioNormalization","Hard","3/3 : 4/2 अनुपात का सबसे सरल पूर्ण-संख्या रूप लिखें।","$$1 : 2$$","{""numerator1"":3,""denominator1"":3,""numerator2"":4,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-1502","RAP-CP-001","ratioNormalization","Hard","4/2 और 9/3 का क्रॉस-गुणा करके सरल पूर्ण-संख्या अनुपात ज्ञात करें।","$$2 : 3$$","{""numerator1"":4,""denominator1"":2,""numerator2"":9,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-1602","RAP-CP-001","ratioNormalization","Medium","9/3 : 2/2 के लिए पूर्ण-संख्या अनुपात दें।","$$3 : 1$$","{""numerator1"":9,""denominator1"":3,""numerator2"":2,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-1702","RAP-CP-001","ratioNormalization","Medium","2/2 और 6/3 को सबसे सरल पूर्ण-संख्या अनुपात के रूप में व्यक्त करें।","$$1 : 2$$","{""numerator1"":2,""denominator1"":2,""numerator2"":6,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-1802","RAP-CP-001","ratioNormalization","Medium","6/3 : 6/2 को सबसे सरल पूर्ण-संख्या अनुपात में घटाएं।","$$2 : 3$$","{""numerator1"":6,""denominator1"":3,""numerator2"":6,""denominator2"":2}","RAP-ES-001"
-"RAP-QL-1902","RAP-CP-001","ratioNormalization","Medium","6/2 : 3/3 अनुपात को पूर्ण संख्याओं में बदलें।","$$3 : 1$$","{""numerator1"":6,""denominator1"":2,""numerator2"":3,""denominator2"":3}","RAP-ES-001"
-"RAP-QL-003","RAP-CP-001","ratioTreeLinkage","Easy","दिया है कि लड़कियां:शिक्षक = 4:5, शिक्षक:लड़के = 5:6 और लड़के:छात्र = 6:7 है। लड़कियां और छात्र के बीच का अनुपात क्या होगा।","$$4 : 7$$","{""personA"":""girls"",""personB"":""teachers"",""personC"":""boys"",""personD"":""students"",""ratioA"":4,""ratioB"":5,""ratioB_prime"":5,""ratioC"":6,""ratioC_prime"":6,""ratioD"":7}","RAP-ES-001"
-"RAP-QL-103","RAP-CP-001","ratioTreeLinkage","Hard","दिया है कि लड़के:शिक्षक = 3:4, शिक्षक:लड़कियां = 4:5 और लड़कियां:छात्र = 5:6 है। लड़के और छात्र के बीच का अनुपात क्या होगा।","$$1 : 2$$","{""personA"":""boys"",""personB"":""teachers"",""personC"":""girls"",""personD"":""students"",""ratioA"":3,""ratioB"":4,""ratioB_prime"":4,""ratioC"":5,""ratioC_prime"":5,""ratioD"":6}","RAP-ES-001"
-"RAP-QL-203","RAP-CP-001","ratioTreeLinkage","Hard","दिया है कि लड़के:लड़कियां = 2:3, लड़कियां:शिक्षक = 3:4 और शिक्षक:छात्र = 4:5 है। लड़के और छात्र के बीच का अनुपात क्या होगा।","$$2 : 5$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""personD"":""students"",""ratioA"":2,""ratioB"":3,""ratioB_prime"":3,""ratioC"":4,""ratioC_prime"":4,""ratioD"":5}","RAP-ES-001"
-"RAP-QL-303","RAP-CP-001","ratioTreeLinkage","Hard","दिया है कि लड़के:लड़कियां = 1:2, लड़कियां:शिक्षक = 2:3 और शिक्षक:छात्र = 3:4 है। लड़के और छात्र के बीच का अनुपात क्या होगा।","$$1 : 4$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""personD"":""students"",""ratioA"":1,""ratioB"":2,""ratioB_prime"":2,""ratioC"":3,""ratioC_prime"":3,""ratioD"":4}","RAP-ES-001"
-"RAP-QL-403","RAP-CP-001","ratioTreeLinkage","Hard","दिया है कि लड़के:लड़कियां = 8:1, लड़कियां:शिक्षक = 1:2 और शिक्षक:छात्र = 2:3 है। लड़के और छात्र के बीच का अनुपात क्या होगा।","$$8 : 3$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""personD"":""students"",""ratioA"":8,""ratioB"":1,""ratioB_prime"":1,""ratioC"":2,""ratioC_prime"":2,""ratioD"":3}","RAP-ES-001"
-"RAP-QL-108","RAP-CP-002","shareDifference","Medium","Rs. 650 को लड़के, लड़कियां और शिक्षक के बीच 6:5:2 के अनुपात में बांटा जाता है। लड़के को शिक्षक से कितने रुपये अधिक मिलते हैं।","$$200$$","{""totalAmount"":650,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":6,""ratioB"":5,""ratioC"":2}","RAP-ES-002"
-"RAP-QL-208","RAP-CP-002","shareDifference","Hard","Rs. 2470 को लड़के, लड़कियां और शिक्षक के बीच 7:6:6 के अनुपात में बांटा जाता है। लड़के को शिक्षक से कितने रुपये अधिक मिलते हैं।","$$130$$","{""totalAmount"":2470,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":7,""ratioB"":6,""ratioC"":6}","RAP-ES-002"
-"RAP-QL-308","RAP-CP-002","shareDifference","Hard","Rs. 200 को शिक्षक, लड़कियां और लड़के के बीच 4:3:3 के अनुपात में बांटा जाता है। शिक्षक को लड़के से कितने रुपये अधिक मिलते हैं।","$$20$$","{""totalAmount"":200,""personA"":""teachers"",""personB"":""girls"",""personC"":""boys"",""ratioA"":4,""ratioB"":3,""ratioC"":3}","RAP-ES-002"
-"RAP-QL-408","RAP-CP-002","shareDifference","Hard","Rs. 1300 को लड़के, लड़कियां और शिक्षक के बीच 5:4:4 के अनुपात में बांटा जाता है। लड़के को शिक्षक से कितने रुपये अधिक मिलते हैं।","$$100$$","{""totalAmount"":1300,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":5,""ratioB"":4,""ratioC"":4}","RAP-ES-002"
-"RAP-QL-009","RAP-CP-002","reversePartition","Medium","लड़कियां, लड़के और शिक्षक के हिस्से 8:7:4 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 720 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$3420$$","{""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":8,""ratioB"":7,""ratioC"":4,""shareDifference"":720}","RAP-ES-002"
-"RAP-QL-109","RAP-CP-002","reversePartition","Medium","लड़कियां, शिक्षक और लड़के के हिस्से 4:3:3 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 40 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$400$$","{""personA"":""girls"",""personB"":""teachers"",""personC"":""boys"",""ratioA"":4,""ratioB"":3,""ratioC"":3,""shareDifference"":40}","RAP-ES-002"
-"RAP-QL-209","RAP-CP-002","reversePartition","Medium","लड़के, शिक्षक और लड़कियां के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़के को लड़कियां से Rs. 120 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$2280$$","{""personA"":""boys"",""personB"":""teachers"",""personC"":""girls"",""ratioA"":7,""ratioB"":6,""ratioC"":6,""shareDifference"":120}","RAP-ES-002"
-"RAP-QL-309","RAP-CP-002","reversePartition","Easy","लड़के, लड़कियां और शिक्षक के हिस्से 8:7:3 के अनुपात में हैं। यदि लड़के को शिक्षक से Rs. 1000 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$3600$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":8,""ratioB"":7,""ratioC"":3,""shareDifference"":1000}","RAP-ES-002"
-"RAP-QL-409","RAP-CP-002","reversePartition","Easy","लड़के, लड़कियां और शिक्षक के हिस्से 5:4:2 के अनुपात में हैं। यदि लड़के को शिक्षक से Rs. 270 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$990$$","{""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":5,""ratioB"":4,""ratioC"":2,""shareDifference"":270}","RAP-ES-002"
-"RAP-QL-011","RAP-CP-002","salaryDistribution","Hard","छात्र के मासिक खर्च और बचत का अनुपात 8:3 है। यदि कुल वेतन Rs. 48400 है, तो छात्र हर महीने कितनी बचत करता है।","$$13200$$","{""personA"":""students"",""ratioExp"":8,""ratioSav"":3,""totalSalary"":48400}","RAP-ES-002"
-"RAP-QL-111","RAP-CP-002","salaryDistribution","Hard","लड़के के मासिक खर्च और बचत का अनुपात 2:3 है। यदि कुल वेतन Rs. 21500 है, तो लड़के हर महीने कितनी बचत करता है।","$$12900$$","{""personA"":""boys"",""ratioExp"":2,""ratioSav"":3,""totalSalary"":21500}","RAP-ES-002"
-"RAP-QL-211","RAP-CP-002","salaryDistribution","Hard","लड़कियां के मासिक खर्च और बचत का अनुपात 3:3 है। यदि कुल वेतन Rs. 25200 है, तो लड़कियां हर महीने कितनी बचत करता है।","$$12600$$","{""personA"":""girls"",""ratioExp"":3,""ratioSav"":3,""totalSalary"":25200}","RAP-ES-002"
-"RAP-QL-311","RAP-CP-002","salaryDistribution","Hard","छात्र के मासिक खर्च और बचत का अनुपात 4:3 है। यदि कुल वेतन Rs. 28700 है, तो छात्र हर महीने कितनी बचत करता है।","$$12300$$","{""personA"":""students"",""ratioExp"":4,""ratioSav"":3,""totalSalary"":28700}","RAP-ES-002"
-"RAP-QL-411","RAP-CP-002","salaryDistribution","Medium","लड़के के मासिक खर्च और बचत का अनुपात 5:3 है। यदि कुल वेतन Rs. 32000 है, तो लड़के हर महीने कितनी बचत करता है।","$$12000$$","{""personA"":""boys"",""ratioExp"":5,""ratioSav"":3,""totalSalary"":32000}","RAP-ES-002"
-"RAP-QL-107","RAP-CP-002","basicPartition","Hard","कुल 1710 को लड़कियां, लड़के और शिक्षक के बीच 2:3:4 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$380$$","{""totalAmount"":1710,""personA"":""girls"",""personB"":""boys"",""personC"":""teachers"",""ratioA"":2,""ratioB"":3,""ratioC"":4,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-207","RAP-CP-002","basicPartition","Hard","कुल 1980 को लड़कियां, शिक्षक और लड़के के बीच 8:1:2 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$1440$$","{""totalAmount"":1980,""personA"":""girls"",""personB"":""teachers"",""personC"":""boys"",""ratioA"":8,""ratioB"":1,""ratioC"":2,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-307","RAP-CP-002","basicPartition","Medium","कुल 420 को लड़के, शिक्षक और लड़कियां के बीच 1:2:3 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$210$$","{""totalAmount"":420,""personA"":""boys"",""personB"":""teachers"",""personC"":""girls"",""ratioA"":1,""ratioB"":2,""ratioC"":3,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-407","RAP-CP-002","basicPartition","Medium","कुल 1350 को लड़के, लड़कियां और शिक्षक के बीच 2:3:4 के अनुपात में बांटा जाता है। लड़के का हिस्सा कितना होगा।","$$300$$","{""totalAmount"":1350,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":2,""ratioB"":3,""ratioC"":4,""targetPerson"":""boys""}","RAP-ES-002"
-"RAP-QL-507","RAP-CP-002","basicPartition","Medium","कुल 480 को लड़के, लड़कियां और शिक्षक के बीच 3:4:5 के अनुपात में बांटा जाता है। लड़कियां का हिस्सा कितना होगा।","$$160$$","{""totalAmount"":480,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":3,""ratioB"":4,""ratioC"":5,""targetPerson"":""girls""}","RAP-ES-002"
-"RAP-QL-607","RAP-CP-002","basicPartition","Medium","कुल 1800 को लड़के, लड़कियां और शिक्षक के बीच 4:5:6 के अनुपात में बांटा जाता है। शिक्षक का हिस्सा कितना होगा।","$$720$$","{""totalAmount"":1800,""personA"":""boys"",""personB"":""girls"",""personC"":""teachers"",""ratioA"":4,""ratioB"":5,""ratioC"":6,""targetPerson"":""teachers""}","RAP-ES-002"
-"RAP-QL-016","RAP-CP-003","multiStageTransformation","Hard","एक स्कूल में लड़कों और लड़कियों का अनुपात 2:3 है। यदि 9 लड़के और आ जाएं और 15 लड़कियां चली जाएं, तो अनुपात 23:6 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।","$$21$$","{""ratioA"":2,""ratioB"":3,""addedCount"":9,""removedCount"":15,""finalRatioA"":23,""finalRatioB"":6}","RAP-ES-003"
-"RAP-QL-116","RAP-CP-003","multiStageTransformation","Hard","एक स्कूल में लड़कों और लड़कियों का अनुपात 3:4 है। यदि 12 लड़के और आ जाएं और 2 लड़कियां चली जाएं, तो अनुपात 3:2 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।","$$20$$","{""ratioA"":3,""ratioB"":4,""addedCount"":12,""removedCount"":2,""finalRatioA"":3,""finalRatioB"":2}","RAP-ES-003"
-"RAP-QL-216","RAP-CP-003","multiStageTransformation","Hard","एक स्कूल में लड़कों और लड़कियों का अनुपात 6:7 है। यदि 15 लड़के और आ जाएं और 8 लड़कियां चली जाएं, तो अनुपात 33:13 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।","$$21$$","{""ratioA"":6,""ratioB"":7,""addedCount"":15,""removedCount"":8,""finalRatioA"":33,""finalRatioB"":13}","RAP-ES-003"
-"RAP-QL-316","RAP-CP-003","multiStageTransformation","Hard","एक स्कूल में लड़कों और लड़कियों का अनुपात 7:2 है। यदि 4 लड़के और आ जाएं और 10 लड़कियां चली जाएं, तो अनुपात 37:5 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।","$$20$$","{""ratioA"":7,""ratioB"":2,""addedCount"":4,""removedCount"":10,""finalRatioA"":37,""finalRatioB"":5}","RAP-ES-003"
-"RAP-QL-416","RAP-CP-003","multiStageTransformation","Medium","एक स्कूल में लड़कों और लड़कियों का अनुपात 4:5 है। यदि 7 लड़के और आ जाएं और 39 लड़कियां चली जाएं, तो अनुपात 39:1 हो जाता है। शुरुआत में लड़कियों की संख्या कितनी थी।","$$40$$","{""ratioA"":4,""ratioB"":5,""addedCount"":7,""removedCount"":39,""finalRatioA"":39,""finalRatioB"":1}","RAP-ES-003"
-"RAP-QL-012","RAP-CP-003","twoStateAddition","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 1:3 है। यदि 9 और लड़के आ जाते हैं, तो अनुपात 2:3 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$9$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":1,""ratioB"":3,""addedCount"":9,""finalRatioA"":2,""finalRatioB"":3}","RAP-ES-003"
-"RAP-QL-112","RAP-CP-003","twoStateAddition","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 2:4 है। यदि 15 और लड़के आ जाते हैं, तो अनुपात 29:28 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$14$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":2,""ratioB"":4,""addedCount"":15,""finalRatioA"":29,""finalRatioB"":28}","RAP-ES-003"
-"RAP-QL-212","RAP-CP-003","twoStateAddition","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 3:5 है। यदि 2 और लड़के आ जाते हैं, तो अनुपात 17:25 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$15$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":3,""ratioB"":5,""addedCount"":2,""finalRatioA"":17,""finalRatioB"":25}","RAP-ES-003"
-"RAP-QL-312","RAP-CP-003","twoStateAddition","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 6:2 है। यदि 8 और लड़के आ जाते हैं, तो अनुपात 13:3 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$18$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":6,""ratioB"":2,""addedCount"":8,""finalRatioA"":13,""finalRatioB"":3}","RAP-ES-003"
-"RAP-QL-412","RAP-CP-003","twoStateAddition","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 1:3 है। यदि 14 और लड़के आ जाते हैं, तो अनुपात 4:5 हो जाता है। शुरुआत में लड़के की संख्या कितनी थी।","$$10$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":1,""ratioB"":3,""addedCount"":14,""finalRatioA"":4,""finalRatioB"":5}","RAP-ES-003"
-"RAP-QL-013","RAP-CP-003","twoStateSubtraction","Medium","किसी कक्षा में लड़के और लड़कियां का अनुपात 7:6 है। 16 लड़के के चले जाने पर अनुपात 9:10 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$130$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":7,""ratioB"":6,""removedCount"":16,""finalRatioA"":9,""finalRatioB"":10}","RAP-ES-003"
-"RAP-QL-113","RAP-CP-003","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 8:7 है। 3 लड़के के चले जाने पर अनुपात 85:77 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$165$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":8,""ratioB"":7,""removedCount"":3,""finalRatioA"":85,""finalRatioB"":77}","RAP-ES-003"
-"RAP-QL-213","RAP-CP-003","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 9:2 है। 9 लड़के के चले जाने पर अनुपात 33:8 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$132$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":9,""ratioB"":2,""removedCount"":9,""finalRatioA"":33,""finalRatioB"":8}","RAP-ES-003"
-"RAP-QL-313","RAP-CP-003","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 6:5 है। 11 लड़के के चले जाने पर अनुपात 7:15 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$33$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":6,""ratioB"":5,""removedCount"":11,""finalRatioA"":7,""finalRatioB"":15}","RAP-ES-003"
-"RAP-QL-413","RAP-CP-003","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 7:6 है। 2 लड़के के चले जाने पर अनुपात 13:12 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$52$$","{""contextName"":""class"",""groupA"":""boys"",""groupB"":""girls"",""ratioA"":7,""ratioB"":6,""removedCount"":2,""finalRatioA"":13,""finalRatioB"":12}","RAP-ES-003"
+packageId,cpId,qlId,taskKind,difficulty,stem,answer,explanation,stemRealism,solverCorrect,explanationQuality,optionQuality,editorialStatus,reviewNotes
+"RAP-001","RAP-CP-001","RAP-QL-403","ratioTreeLinkage","Hard","दिया है कि बहन:पुत्र = 2:3, पुत्र:पिता = 3:4 और पिता:पुत्री = 4:5 है। बहन और पुत्री के बीच का अनुपात क्या होगा।","$$2 : 5$$","दिया गया संबंध
+
+[
+\Rightarrow बहन:पुत्र=2:3,\ पुत्र:पिता=3:4,\ पिता:पुत्री=4:5
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)
+]
+मान रखें
+
+[
+\Rightarrow 2\times3\times4:3\times4\times5
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(2:5\)
+]
+अतः बहन और पुत्री का अनुपात 2 : 5 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1902","ratioNormalization","Medium","6/3 : 6/2 अनुपात को पूर्ण संख्याओं में बदलें।","$$2 : 3$$","दिया गया संबंध
+
+[
+\Rightarrow \frac{6}{3}:\frac{6}{2}
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
+]
+मान रखें
+
+[
+\Rightarrow 6\times2:3\times6
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(2:3\)
+]
+अतः सरल अनुपात 2 : 3 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1802","ratioNormalization","Medium","6/2 : 3/3 को सबसे सरल पूर्ण-संख्या अनुपात में घटाएं।","$$3 : 1$$","दिया गया संबंध
+
+[
+\Rightarrow \frac{6}{2}:\frac{3}{3}
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
+]
+मान रखें
+
+[
+\Rightarrow 6\times3:2\times3
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(3:1\)
+]
+अतः सरल अनुपात 3 : 1 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1702","ratioNormalization","Medium","3/3 और 4/2 को सबसे सरल पूर्ण-संख्या अनुपात के रूप में व्यक्त करें।","$$1 : 2$$","दिया गया संबंध
+
+[
+\Rightarrow \frac{3}{3}:\frac{4}{2}
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
+]
+मान रखें
+
+[
+\Rightarrow 3\times2:3\times4
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(1:2\)
+]
+अतः सरल अनुपात 1 : 2 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1602","ratioNormalization","Medium","4/2 : 9/3 के लिए पूर्ण-संख्या अनुपात दें।","$$2 : 3$$","दिया गया संबंध
+
+[
+\Rightarrow \frac{4}{2}:\frac{9}{3}
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
+]
+मान रखें
+
+[
+\Rightarrow 4\times3:2\times9
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(2:3\)
+]
+अतः सरल अनुपात 2 : 3 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","शिक्षक के मासिक खर्च और बचत का अनुपात 6:3 है। यदि कुल वेतन Rs. 10800 है, तो शिक्षक हर महीने कितनी बचत करता है।","$$3600$$","दिया गया संबंध
+
+[
+\Rightarrow \text{Exp:Sav}=6:3,\ S=10800
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(salary parts = expense + saving\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{10800}{9}\times3
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(3600\)
+]
+अतः शिक्षक हर महीने 3600 रुपये बचाते हैं।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","लड़के के मासिक खर्च और बचत का अनुपात 7:3 है। यदि कुल वेतन Rs. 11000 है, तो लड़के हर महीने कितनी बचत करता है।","$$3300$$","दिया गया संबंध
+
+[
+\Rightarrow \text{Exp:Sav}=7:3,\ S=11000
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(salary parts = expense + saving\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{11000}{10}\times3
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(3300\)
+]
+अतः लड़के हर महीने 3300 रुपये बचाते हैं।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","लड़कियां, शिक्षक और लड़के के हिस्से 8:7:5 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 180 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$1200$$","दिया गया संबंध
+
+[
+\Rightarrow लड़कियां:शिक्षक:लड़के=8:7:5,\ D=180
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(difference = (A-C) \times unit\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{180}{3}\times20
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(1200\)
+]
+अतः कुल राशि 1200 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","लड़कियां, लड़के और शिक्षक के हिस्से 5:4:2 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 420 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$1540$$","दिया गया संबंध
+
+[
+\Rightarrow लड़कियां:लड़के:शिक्षक=5:4:2,\ D=420
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(difference = (A-C) \times unit\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{420}{3}\times11
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(1540\)
+]
+अतः कुल राशि 1540 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","लड़कियां, शिक्षक और लड़के के हिस्से 6:5:2 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 120 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$390$$","दिया गया संबंध
+
+[
+\Rightarrow लड़कियां:शिक्षक:लड़के=6:5:2,\ D=120
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(difference = (A-C) \times unit\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{120}{4}\times13
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(390\)
+]
+अतः कुल राशि 390 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 5:4 है। 7 लड़के के चले जाने पर अनुपात 43:40 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$90$$","दिया गया संबंध
+
+[
+\Rightarrow लड़के:लड़कियां=5:4,\ -7\ लड़के
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
+]
+मान रखें
+
+[
+\Rightarrow 40(5x-7)=172x
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(90\)
+]
+अतः शुरुआत में कुल 90 लोग थे।","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 8:7 है। 13 लड़के के चले जाने पर अनुपात 75:77 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$165$$","दिया गया संबंध
+
+[
+\Rightarrow लड़के:लड़कियां=8:7,\ -13\ लड़के
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
+]
+मान रखें
+
+[
+\Rightarrow 77(8x-13)=525x
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(165\)
+]
+अतः शुरुआत में कुल 165 लोग थे।","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 9:2 है। 19 लड़के के चले जाने पर अनुपात 89:24 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$132$$","दिया गया संबंध
+
+[
+\Rightarrow लड़के:लड़कियां=9:2,\ -19\ लड़के
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
+]
+मान रखें
+
+[
+\Rightarrow 24(9x-19)=178x
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(132\)
+]
+अतः शुरुआत में कुल 132 लोग थे।","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-214","twoStateTransfer","Medium","दो संख्याएं 5:7 के अनुपात में हैं। यदि प्रत्येक में 6 जोड़ दिया जाए, तो अनुपात 31:41 हो जाता है। बड़ी संख्या का मान क्या है।","$$35$$","दिया गया संबंध
+
+[
+\Rightarrow 5:7,\ +6
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
+]
+मान रखें
+
+[
+\Rightarrow 41(5x+6)=31(7x-6)
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(35\)
+]
+अतः बड़ी संख्या 35 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-014","twoStateTransfer","Medium","दो संख्याएं 8:9 के अनुपात में हैं। यदि प्रत्येक में 20 जोड़ दिया जाए, तो अनुपात 44:47 हो जाता है। बड़ी संख्या का मान क्या है।","$$27$$","दिया गया संबंध
+
+[
+\Rightarrow 8:9,\ +20
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
+]
+मान रखें
+
+[
+\Rightarrow 47(8x+20)=44(9x-20)
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(27\)
+]
+अतः बड़ी संख्या 27 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","100 और 9 के बीच का मध्य अनुपाती क्या होगा।","$$30$$","दिया गया संबंध
+
+[
+\Rightarrow 100,\ 9
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(x^2 = ab\)
+]
+मान रखें
+
+[
+\Rightarrow x=\sqrt{100\times9}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(30\)
+]
+अतः मध्य अनुपाती 30 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-020","directVariation","Medium","यदि y, x के साथ सीधे अनुपात में है और जब x = 4 तो y = 20 है। जब x का मान 5 होगा, तो y कितना होगा।","$$25$$","दिया गया संबंध
+
+[
+\Rightarrow y\propto x,\ x=4,\ y=20
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(y/x = constant\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{20}{4}=\frac{y}{5}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(25\)
+]
+अतः y का मान 25 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","144 और 25 के बीच का मध्य अनुपाती क्या होगा।","$$60$$","दिया गया संबंध
+
+[
+\Rightarrow 144,\ 25
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(x^2 = ab\)
+]
+मान रखें
+
+[
+\Rightarrow x=\sqrt{144\times25}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(60\)
+]
+अतः मध्य अनुपाती 60 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","49 और 36 के बीच का मध्य अनुपाती क्या होगा।","$$42$$","दिया गया संबंध
+
+[
+\Rightarrow 49,\ 36
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(x^2 = ab\)
+]
+मान रखें
+
+[
+\Rightarrow x=\sqrt{49\times36}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(42\)
+]
+अतः मध्य अनुपाती 42 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-021","inverseVariation","Medium","यदि y, x के उल्टे अनुपात में है और जब x = 7 तो y = 14 है। यदि x का मान बदलकर 2 हो जाए, तो y कितना होगा।","$$49$$","दिया गया संबंध
+
+[
+\Rightarrow y\propto \frac{1}{x},\ x=7,\ y=14
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(xy = constant\)
+]
+मान रखें
+
+[
+\Rightarrow 7\times14=2\times y
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(49\)
+]
+अतः y का मान 49 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","2 रुपये का सिक्का, 5 रुपये का सिक्का और 1 रुपये का सिक्का के वजन का अनुपात 1:2:3 है। यदि 2 2 रुपये का सिक्का, 3 5 रुपये का सिक्का और 4 1 रुपये का सिक्का का कुल वजन 40 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।","$$2$$","दिया गया संबंध
+
+[
+\Rightarrow 2\cdot1+3\cdot2+4\cdot3=40
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{40}{2\times1+3\times2+4\times3}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(2\)
+]
+अतः एक 2 रुपये का सिक्का का भार 2 किलोग्राम है।","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-023","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 18 सिक्के हैं। यदि उनके मूल्यों का अनुपात 3:8:25:60 है, तो 5 के सिक्कों की संख्या क्या है।","$$5$$","दिया गया संबंध
+
+[
+\Rightarrow 3:8:25:60,\ N=18
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(count ratio = value ratio / denomination\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{3}{1}:\frac{4}{1}:\frac{5}{1}:\frac{6}{1}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(5\)
+]
+अतः 5 रुपये वाले सिक्कों की संख्या 5 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 144 है, तो 1 के कितने सिक्के हैं।","$$12$$","दिया गया संबंध
+
+[
+\Rightarrow 3:4:5,\ V=144
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)
+]
+मान रखें
+
+[
+\Rightarrow x=\frac{144}{3\times1+4\times2+5\times5}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(12\)
+]
+अतः 1 रुपये वाले सिक्कों की संख्या 12 है।","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-026","weightedMarks","Hard","एक परीक्षा में इतिहास, अंग्रेजी और विज्ञान के अंकों का अनुपात 7:8:1 है। यदि इन विषयों का भार क्रमशः 1, 2 और 3 है और कुल भारित अंक 208 हैं, तो इतिहास में कितने अंक मिले।","$$56$$","दिया गया संबंध
+
+[
+\Rightarrow 7:8:1,\ W=208
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{208}{7\times1+8\times2+1\times3}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(56\)
+]
+अतः इतिहास में प्राप्त अंक 56 हैं।","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 5 2 रुपये का सिक्का, 1 1 रुपये का सिक्का और 2 5 रुपये का सिक्का का कुल वजन 270 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।","$$30$$","दिया गया संबंध
+
+[
+\Rightarrow 5\cdot5+1\cdot6+2\cdot7=270
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{270}{5\times5+1\times6+2\times7}
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(30\)
+]
+अतः एक 2 रुपये का सिक्का का भार 30 किलोग्राम है।","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-229","threeComponentMixture","Hard","एक घोल में दूध, रस और पानी का अनुपात 6:7:8 है। 17 लीटर रस मिलाने पर नया अनुपात 48:73:64 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$168$$","दिया गया संबंध
+
+[
+\Rightarrow दूध:रस:पानी=6:7:8,\ +17\ रस
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(use unchanged components as pivot\)
+]
+मान रखें
+
+[
+\Rightarrow 8\times(6+7+8)
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(168\)
+]
+अतः शुरुआती कुल मात्रा 168 लीटर थी।","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-029","threeComponentMixture","Hard","एक घोल में पानी, दूध और रस का अनुपात 5:6:7 है। 10 लीटर दूध मिलाने पर नया अनुपात 15:23:21 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$108$$","दिया गया संबंध
+
+[
+\Rightarrow पानी:दूध:रस=5:6:7,\ +10\ दूध
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(use unchanged components as pivot\)
+]
+मान रखें
+
+[
+\Rightarrow 5.999999999999999\times(5+6+7)
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(107.99999999999999\)
+]
+अतः शुरुआती कुल मात्रा 108 लीटर थी।","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","मिश्रण के 78 लीटर में पानी और दूध का अनुपात 6:7 है। अनुपात को 36:49 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।","$$7$$","दिया गया संबंध
+
+[
+\Rightarrow पानी:दूध=6:7,\ T=78
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{36\times49}{36}-42
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(7\)
+]
+अतः दूध के 7 लीटर और मिलाने होंगे।","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-027","binaryMixture","Medium","एक मिश्रण में पानी और रस का अनुपात 5:6 है। यदि इसमें 16 लीटर पानी मिला दिया जाए, तो अनुपात 3:2 हो जाता है। शुरुआत में रस की मात्रा कितनी थी।","$$24$$","दिया गया संबंध
+
+[
+\Rightarrow पानी:रस=5:6,\ +16\ पानी
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)
+]
+मान रखें
+
+[
+\Rightarrow 2\times16\div(6\times3-5\times2)
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(24\)
+]
+अतः शुरुआत में रस की मात्रा 24 लीटर थी।","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","मिश्रण के 18 लीटर में रस और दूध का अनुपात 4:5 है। अनुपात को 8:23 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।","$$13$$","दिया गया संबंध
+
+[
+\Rightarrow रस:दूध=4:5,\ T=18
+]
+नियम लिखें
+
+[
+\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
+]
+मान रखें
+
+[
+\Rightarrow \frac{8\times23}{8}-10
+]
+सरल करें
+
+[
+\Rightarrow calculation: \(13\)
+]
+अतः दूध के 13 लीटर और मिलाने होंगे।","","","","","PENDING",""

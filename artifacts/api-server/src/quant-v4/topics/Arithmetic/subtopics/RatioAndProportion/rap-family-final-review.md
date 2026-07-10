@@ -1,43 +1,44 @@
 # RAP Family Final Review
 
-## Package Status
+Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
+Reviewed date: `2026-07-10`
 
-- RAP-001: Ratio & Proportion Fundamentals. Remains freeze-review ready with documented legacy duplicate-rate caveats.
-- RAP-002: Compound Proportions & Linked Ratios. Remains English MVP QA-clean and Question Studio wired.
-- RAP-003: Advanced Ratio & Proportion Applications. Now English Question Studio-wired and QA-clean for manual review.
+## Package Matrix
 
-## Question Studio Exposure
+| Package | CPs | Active QLs | Task kinds | Residual sample | Exact cross-QL duplicates | Manual sample |
+|---|---:|---:|---:|---:|---:|---:|
+| RAP-001 | 6 | 67 | 28 | 1,000 | 0 | 30 |
+| RAP-002 | 6 | 108 | 24 | 1,000 | 0 | 60 |
+| RAP-003 | 10 | 222 | 158 | 1,500 | 0 | 100 |
+| **Family** | **22** | **397** | **210** | **3,500** | **0** | **190** |
 
-- RAP-001: English exposure only unless separately verified.
-- RAP-002: `supportedLanguages = ["en"]`.
-- RAP-003: `supportedLanguages = ["en"]`.
-- RAP-003 Hindi/Punjabi generation is rejected through `generateQuestion`.
+## Boundary Review
 
-Hindi/Punjabi structural files may exist in RAP packages, but they are not product-exposed unless separately verified.
+- RAP-001 remains fundamentals: normalization, simple linkage/partition, proportionals, variation, denomination, and basic mixture ratios.
+- RAP-002 remains linked mechanics: chain alignment/recovery, transformations, nested partitions, inverse chains, ordering, inequality, and equivalence.
+- RAP-003 remains advanced applications: partnership, ages, income/savings, alligation, replacement, denomination systems, rate products, population, elections, and geometry powers.
+- RAP-003 reports 0 exact stem duplicates against RAP-002. No new CP or package was introduced.
 
-## Boundaries
+## Verification
 
-- RAP-001 owns fundamentals: simplification, simple proportion, simple partition, and total/share/difference mechanics.
-- RAP-002 owns compound and linked mechanics: chain alignment, reverse chains, transformations, transfer tracking, nested partition, inverse chains, comparison, ordering, and equivalence.
-- RAP-003 owns advanced applications: partnership, age shifts, income/expenditure reconciliation, alligation, replacement, denomination/value systems, SDT applications, population grids, election chains, and geometric power-ratio applications.
+- API build: PASS.
+- RAP-001/002/003 package tests: PASS.
+- RAP-002/003 English-only Question Studio smoke: PASS; Hindi/Punjabi runtime exposure blocked.
+- Residual QA: PASS at 1,000/1,000/1,500; every required blocker counter is 0.
+- Explanation audits: PASS at 67/108/222; every required quality counter is 0.
+- RAP-002 coverage audit: PASS, 828 generated samples.
+- Human-review CSVs were generated with 30/60/100 rows, but editorial decision columns remain PENDING.
 
-RAP-002 retains limited transitional election/SDT examples only where they demonstrate chain mechanics. RAP-003 residual QA checks exact cross-package duplicate stems against RAP-002 and reports 0.
+## Remaining Risks
 
-## Tests Run
-
-- `pnpm exec esbuild ... RAP-003/rap-003.test.ts ... && node ...` passed.
-- `pnpm exec esbuild ... RAP-003/rap-003-question-studio-smoke.ts ... && node ...` passed.
-- `pnpm exec esbuild ... RAP-003/rap-003-residual-qa.ts ... && node ...` passed.
-- `pnpm exec esbuild ... RAP-002/rap-002.test.ts ... && node ...` passed.
-- `pnpm exec esbuild ... RAP-002/rap-002-question-studio-smoke.ts ... && node ...` passed.
-- `pnpm exec esbuild ... RAP-002/rap-002-residual-qa.ts ... && node ...` passed.
-- `pnpm exec esbuild ... RAP-002/rap-002-coverage-audit.ts ... && node ...` passed.
-- `node build.mjs` passed.
+- RAP-001 package duplicate rate is 15.70%; its residual audit has 61 same-QL repeat groups affecting 85 questions.
+- RAP-002 has 22 same-QL repeat groups affecting 61 questions.
+- RAP-003 has 116 same-QL repeat groups affecting 361 questions.
+- These are repeated parameter draws from one QL, not duplicate QLs, but they remain diversity debt.
+- RAP-001 structural Hindi/Punjabi occurrence parity has eight differences across four QLs.
 
 ## Final Status
 
-RAP-001 remains freeze-review ready with documented legacy caveats.
-RAP-002 remains English MVP QA-clean.
-RAP-003 is English Question Studio-wired and QA-clean for manual review.
+RAP English enrichment is implemented and automated-QA clean. The chapter is **ready for manual editorial review**, but is **not English-complete and not freeze-ready** until review decisions are recorded and diversity debt is accepted or corrected.
 
-The full RAP family is English product-ready for manual review. It is not multilingual publication-ready, and freeze-ready status remains blocked until manual/editorial review is complete.
+Hindi/Punjabi publication remains blocked pending separate human localization and editorial QA. The RAP family is not multilingual-ready.

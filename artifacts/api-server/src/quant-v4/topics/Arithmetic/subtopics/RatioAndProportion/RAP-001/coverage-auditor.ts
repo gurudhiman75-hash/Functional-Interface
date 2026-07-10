@@ -48,8 +48,17 @@ function sameEntityVariables(left: Rap001QuestionPackage, right: Rap001QuestionP
 
 export function auditRap001Packages(packages: readonly Rap001QuestionPackage[]): Rap001CoverageAudit {
   const duplicateMap = new Map<string, number>();
-  for (const pkg of packages) duplicateMap.set(pkg.stem, (duplicateMap.get(pkg.stem) ?? 0) + 1);
+  const duplicateQlMap = new Map<string, Set<string>>();
+  for (const pkg of packages) {
+    duplicateMap.set(pkg.stem, (duplicateMap.get(pkg.stem) ?? 0) + 1);
+    const qlIds = duplicateQlMap.get(pkg.stem) ?? new Set<string>();
+    qlIds.add(pkg.questionLanguageId);
+    duplicateQlMap.set(pkg.stem, qlIds);
+  }
   const duplicateCount = [...duplicateMap.values()].reduce((sum, count) => sum + Math.max(0, count - 1), 0);
+  const repeatedStemGroups = [...duplicateMap.entries()].filter(([, count]) => count > 1);
+  const exactDuplicateStemGroupCount = repeatedStemGroups.filter(([stem]) => (duplicateQlMap.get(stem)?.size ?? 0) > 1).length;
+  const sameQlRepeatedStemGroupCount = repeatedStemGroups.length - exactDuplicateStemGroupCount;
   const qlCoverage = countBy(packages.map((pkg) => pkg.questionLanguageId));
   const cpCoverage = countBy(packages.map((pkg) => pkg.canonicalProblemId));
   const taskKindCoverage = countBy(packages.map((pkg) => pkg.parameters.taskKind));
@@ -83,6 +92,8 @@ export function auditRap001Packages(packages: readonly Rap001QuestionPackage[]):
     crossLanguageFailures,
     placeholderFailures: 0,
     duplicateRate: packages.length ? duplicateCount / packages.length : 0,
+    exactDuplicateStemGroupCount,
+    sameQlRepeatedStemGroupCount,
     cpCoverage,
     taskKindCoverage,
     qlCoverage,
@@ -159,17 +170,23 @@ export function generateRap001CoverageAudit(count: number, language: Rap001Langu
 }
 
 export function renderRap001HumanReviewCsv(packages: readonly Rap001QuestionPackage[]) {
-  const header = ["questionLanguageId", "canonicalProblemId", "taskKind", "difficulty", "question", "answer", "parameters", "explanationId"];
+  const header = ["packageId", "cpId", "qlId", "taskKind", "difficulty", "stem", "answer", "explanation", "stemRealism", "solverCorrect", "explanationQuality", "optionQuality", "editorialStatus", "reviewNotes"];
   const rows = packages.map((pkg) =>
     [
-      pkg.questionLanguageId,
+      "RAP-001",
       pkg.canonicalProblemId,
+      pkg.questionLanguageId,
       pkg.parameters.taskKind,
       pkg.difficultyBand,
       pkg.stem,
       pkg.answer,
-      JSON.stringify(pkg.parameters.variables),
-      pkg.explanationId,
+      pkg.explanation.lines.join("\n"),
+      "",
+      "",
+      "",
+      "",
+      "PENDING",
+      "",
     ]
       .map((value) => `"${String(value).replaceAll('"', '""')}"`)
       .join(","),
@@ -191,6 +208,8 @@ export function renderRap001CoverageAuditMarkdown(audit: Rap001CoverageAudit, co
     `- Cross-language failures: ${audit.crossLanguageFailures}`,
     `- Placeholder failures: ${audit.placeholderFailures}`,
     `- Duplicate rate: ${(audit.duplicateRate * 100).toFixed(2)}%`,
+    `- Cross-QL exact duplicate stem groups: ${audit.exactDuplicateStemGroupCount}`,
+    `- Same-QL repeated stem groups: ${audit.sameQlRepeatedStemGroupCount}`,
     `- Library validation failures: ${audit.libraryValidationFailures.length}`,
     `- Sample profile: ${countLabel}`,
     "",
@@ -265,6 +284,8 @@ export function renderRap001MaturityAuditMarkdown(audit: Rap001CoverageAudit, co
     `- Cross-language failures: ${audit.crossLanguageFailures}`,
     `- Placeholder failures: ${audit.placeholderFailures}`,
     `- Duplicate rate: ${(audit.duplicateRate * 100).toFixed(2)}%`,
+    `- Cross-QL exact duplicate stem groups: ${audit.exactDuplicateStemGroupCount}`,
+    `- Same-QL repeated stem groups: ${audit.sameQlRepeatedStemGroupCount}`,
     `- Library validation failures: ${audit.libraryValidationFailures.length}`,
     `- Sample profile: ${countLabel}`,
     "",
@@ -289,7 +310,7 @@ export function renderRap001MaturityAuditMarkdown(audit: Rap001CoverageAudit, co
 }
 
 export function renderRap001FreezeRecordMarkdown(audit: Rap001CoverageAudit) {
-  const verdict =
+  const automatedClean =
     audit.generationFailures === 0 &&
     audit.validationFailures === 0 &&
     audit.renderFailures === 0 &&
@@ -299,10 +320,13 @@ export function renderRap001FreezeRecordMarkdown(audit: Rap001CoverageAudit) {
     audit.unusedQlIds.length === 0 &&
     audit.unusedEsIds.length === 0 &&
     audit.libraryValidationFailures.length === 0
-      ? "READY FOR FREEZE REVIEW"
+      ? "AUTOMATED QA CLEAN; READY FOR MANUAL EDITORIAL REVIEW"
       : "FOLLOW-UP REQUIRED";
   return [
     "# RAP-001 Freeze Record",
+    "",
+    "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`  ",
+    `Reviewed date: \`${new Date().toISOString().slice(0, 10)}\``,
     "",
     "## Status",
     "",
@@ -324,7 +348,10 @@ export function renderRap001FreezeRecordMarkdown(audit: Rap001CoverageAudit) {
     `- unused QL IDs = ${audit.unusedQlIds.length}`,
     `- unused ES IDs = ${audit.unusedEsIds.length}`,
     `- duplicate rate = ${(audit.duplicateRate * 100).toFixed(2)}%`,
-    `- verdict = ${verdict}`,
+    `- cross-QL exact duplicate stem groups = ${audit.exactDuplicateStemGroupCount}`,
+    `- same-QL repeated stem groups = ${audit.sameQlRepeatedStemGroupCount}`,
+    `- verdict = ${automatedClean}`,
+    `- manual editorial status = PENDING`,
     "",
   ].join("\n");
 }

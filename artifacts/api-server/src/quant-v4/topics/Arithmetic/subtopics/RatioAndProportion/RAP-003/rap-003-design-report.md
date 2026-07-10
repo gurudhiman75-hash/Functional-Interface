@@ -1,10 +1,10 @@
 # RAP-003 Design Report — Real-World Applications of Ratio & Proportion
 
-> **Status:** Design report only. No files modified or created.
-> **Position in family:** Third R&P chapter, after RAP-001 (foundational mechanics, frozen) and RAP-002 (compound/chain mechanics, English MVP).
+> **Status:** Historical design rationale, reconciled with runtime counts on 2026-07-10. Readiness status lives in `rap-003-readiness-report.md`.
+> **Position in family:** Third R&P chapter, after RAP-001 foundational mechanics and RAP-002 compound/chain mechanics. Current freeze status is governed by the dated readiness reports.
 > **Model:** Mirrors **PCT-007 "Mixed Applications of Percentage"** (the late percentage applications chapter) — an applications-dense, multi-CP, exam-realistic package.
 > **Exam coverage:** SSC (CGL/CHSL/CPO/MTS), Banking (IBPS/SBI PO & Clerk), Punjab State exams (Punjab PCS, Patwari, PSSSB, Police).
-> **Date:** 2026-07-07
+> **Reviewed commit/date:** `8450deef2e06cc9e031b6d3221b7e54d226199b1`, `2026-07-10`
 
 ---
 
@@ -12,7 +12,7 @@
 
 RAP-001 and RAP-002 together cover the **mechanics** of ratio & proportion: forming ratios, partitioning, transforming, chaining, reversing, comparing. What they do **not** cover is the dense band of **real-world application scenarios** that dominate SSC Mains, Banking PO, and Punjab State exam papers — partnership investments, age-ratio temporal shifts, income-expenditure-savings, alloy blending, repeated replacement, denomination systems, SDT ratios, population cross-tabulation, vote-share, and geometric ratios.
 
-**RAP-003** fills this gap as the dedicated **applications chapter** for Ratio & Proportion, structurally mirroring PCT-007 (10 CPs, one task-kind per CP, application-flavored solve modes, 500 QLs, en/hi/pa). It does not duplicate RAP-001/002 mechanics; every CP is anchored to a real exam scenario family.
+**RAP-003** fills this gap as the dedicated **applications chapter** for Ratio & Proportion. Its current runtime has 10 CPs, 222 English QLs, and 158 task kinds. Hindi/Punjabi structural files are not product-exposed or publication-ready.
 
 ### Design at a glance
 
@@ -20,11 +20,11 @@ RAP-001 and RAP-002 together cover the **mechanics** of ratio & proportion: form
 |---|---|---|---|
 | Focus | Foundational mechanics | Compound/chain mechanics | Real-world exam applications |
 | CP count | 6 (CP-001..006) | 6 (CP-007..012) | 10 (CP-013..022) |
-| Task kinds | 6 | 18 | 10 (one per CP) |
+| Task kinds | 28 | 24 | 158 |
 | Solve modes | ~24 | ~18 | 40 (see §6) |
 | Answer types | RATIO, COUNT, AMOUNT | RATIO, COUNT, LOGIC | RATIO, COUNT, AMOUNT, TIME, SPEED, AGE, PROFIT, PERCENT, AREA, VOLUME |
-| QL target | 27 (frozen) | 42 (MVP) | 300 (50 per CP) |
-| Languages | en, hi, pa (frozen) | en only (MVP) | en, hi, pa (en-first) |
+| Active QLs | 67 | 108 | 222 |
+| Product language status | English reviewed by automation; localization blocked | English only | English only |
 | Difficulty split | mixed | 0/60/40 (MVP skew) | 32/34/34 (mirrors PCT-007) |
 | Architecture | flat + renderers/semantic/ | flat | flat (mirrors RAP-002) |
 

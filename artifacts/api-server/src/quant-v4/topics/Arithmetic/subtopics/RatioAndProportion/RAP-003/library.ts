@@ -39,10 +39,11 @@ export function getRap003RegistryEntry(qlId: string) {
 }
 
 export function renderRap003Template(template: string, variables: Record<string, string | number>) {
-  return template.replace(/\{([^}]+)\}/g, (_, key: string) => {
+  const rendered = template.replace(/\{([^}]+)\}/g, (_, key: string) => {
     if (variables[key] === undefined) throw new Error(`Missing template variable: ${key}`);
     return String(variables[key]);
   });
+  return rendered.charAt(0).toUpperCase() + rendered.slice(1);
 }
 
 export function validateRap003Libraries() {

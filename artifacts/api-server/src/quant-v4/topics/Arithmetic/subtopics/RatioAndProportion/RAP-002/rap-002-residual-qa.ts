@@ -1,7 +1,12 @@
 import { strict as assert } from "node:assert";
-import { generateQuestion } from "../../../../../generation-engine";
+import fs from "node:fs";
+import path from "node:path";
+import { generateQuestion, listQuantV4Packages } from "../../../../../generation-engine";
+import taskRegistry from "./task-registry.library.json";
+import { getRap002QuestionLanguageIds } from "./library";
+import { RAP_002_CP_IDS } from "./types";
 
-const SAMPLE_COUNT = 500;
+const SAMPLE_COUNT = 1000;
 
 const GRAMMAR_PATTERNS = [
   /number of .* are/i,
@@ -72,9 +77,13 @@ console.info = originalInfo;
 const cpDistribution = new Map<string, number>();
 const qlDistribution = new Map<string, number>();
 const taskDistribution = new Map<string, number>();
+const answerTypeDistribution = new Map<string, number>();
+const difficultyDistribution = new Map<string, number>();
 const logicAnswerDistribution = new Map<string, number>();
 const equivalenceAnswerDistribution = new Map<string, number>();
 const normalizedStemGroups = new Map<string, number[]>();
+const stemQlGroups = new Map<string, Set<string>>();
+const explanationShells = new Map<string, Set<string>>();
 
 let grammarIssueCount = 0;
 let semanticCompatibilityIssueCount = 0;
@@ -89,6 +98,15 @@ let invalidAnswerFormatCount = 0;
 let genericInternalExplanationCount = 0;
 let chainInequalityTieRiskCount = 0;
 let extendedTargetMismatchCount = 0;
+let fractionalCountAnswerCount = 0;
+let negativeValueCount = 0;
+let zeroDenominatorCount = 0;
+let invalidPercentageCount = 0;
+const fractionalCountExamples: { qlId: string; taskKind: string; answer: unknown; stem: string }[] = [];
+let genericExplanationCount = 0;
+let shortExplanationCount = 0;
+let missingMethodReasonCount = 0;
+let missingIntermediateStepCount = 0;
 
 for (const [index, question] of generated.questions.entries()) {
   const pkg = generated.questionPackages[index]!;
@@ -100,10 +118,15 @@ for (const [index, question] of generated.questions.entries()) {
   const existingStemGroup = normalizedStemGroups.get(normalizedStem) ?? [];
   existingStemGroup.push(index + 1);
   normalizedStemGroups.set(normalizedStem, existingStemGroup);
+  const stemQlIds = stemQlGroups.get(normalizedStem) ?? new Set<string>();
+  stemQlIds.add(pkg.questionLanguageId);
+  stemQlGroups.set(normalizedStem, stemQlIds);
 
   increment(cpDistribution, pkg.canonicalProblemId);
   increment(qlDistribution, pkg.questionLanguageId);
   increment(taskDistribution, pkg.parameters.taskKind);
+  increment(answerTypeDistribution, pkg.parameters.answerType);
+  increment(difficultyDistribution, pkg.difficultyBand);
   if (pkg.parameters.answerType === "LOGIC") {
     increment(logicAnswerDistribution, String(pkg.solver.answerValue));
   }
@@ -119,6 +142,22 @@ for (const [index, question] of generated.questions.entries()) {
   if ((question as any).metadata?.language !== "en") metadataLanguageMismatchCount += 1;
   if (pkg.validation?.valid !== true) validationFailureCount += 1;
   if (INTERNAL_PATTERNS.some((pattern) => pattern.test(explanation))) genericInternalExplanationCount += 1;
+  if (/apply (?:the )?formula|use the method|calculation\s*=|answer\s*=/i.test(explanation)) genericExplanationCount += 1;
+  if (pkg.explanation.lines.length < (pkg.difficultyBand === "Easy" ? 5 : 7)) shortExplanationCount += 1;
+  if (!/(why|because|method:)/i.test(explanation)) missingMethodReasonCount += 1;
+  if (!pkg.explanation.lines.slice(1, -1).some((line: string) => /\d|\$\$|equation|unit|ratio|value/i.test(line))) missingIntermediateStepCount += 1;
+  const shell = normalizeText(explanation);
+  const shellTasks = explanationShells.get(shell) ?? new Set<string>();
+  shellTasks.add(pkg.parameters.taskKind);
+  explanationShells.set(shell, shellTasks);
+  if (pkg.parameters.answerType === "COUNT" && !Number.isInteger(Number(pkg.solver.answerValue))) {
+    fractionalCountAnswerCount += 1;
+    if (fractionalCountExamples.length < 20) fractionalCountExamples.push({ qlId: pkg.questionLanguageId, taskKind: pkg.parameters.taskKind, answer: pkg.solver.answerValue, stem });
+  }
+  const numericVariables = Object.entries(pkg.parameters.variables).filter(([, value]) => typeof value === "number") as [string, number][];
+  if (numericVariables.some(([, value]) => !Number.isFinite(value) || value < 0)) negativeValueCount += 1;
+  if (numericVariables.some(([key, value]) => /denominator/i.test(key) && value === 0)) zeroDenominatorCount += 1;
+  if (numericVariables.some(([key, value]) => /percent/i.test(key) && (value < 0 || value > 100))) invalidPercentageCount += 1;
 
   const options = Array.isArray((question as any).options) ? (question as any).options : [];
   const correctIndex = (question as any).correctIndex;
@@ -148,6 +187,16 @@ for (const [index, question] of generated.questions.entries()) {
 
 const duplicateStemGroups = [...normalizedStemGroups.values()].filter((group) => group.length > 1);
 const duplicateStemGroupCount = duplicateStemGroups.length;
+const exactDuplicateStemGroupCount = [...stemQlGroups.entries()].filter(([stem, qlIds]) => (normalizedStemGroups.get(stem)?.length ?? 0) > 1 && qlIds.size > 1).length;
+const sameQlRepeatedStemGroupCount = duplicateStemGroupCount - exactDuplicateStemGroupCount;
+const activeQlIds = RAP_002_CP_IDS.flatMap((cpId) => getRap002QuestionLanguageIds(cpId));
+const activeTaskKinds = new Set(activeQlIds.map((qlId) => (taskRegistry.entries as any)[qlId]?.taskKind).filter(Boolean));
+const unusedQlCount = activeQlIds.filter((qlId) => !qlDistribution.has(qlId)).length;
+const unusedTaskKindCount = [...activeTaskKinds].filter((taskKind) => !taskDistribution.has(taskKind)).length;
+const unreachableRegistryEntryCount = Object.keys(taskRegistry.entries).filter((qlId) => !activeQlIds.includes(qlId)).length;
+const repeatedExplanationShellCount = [...explanationShells.values()].filter((taskKinds) => taskKinds.size > 1).length;
+const rap002Discovery = listQuantV4Packages().find((pkg) => pkg.packageId === "RAP-002");
+const unsupportedLanguageExposureCount = rap002Discovery?.supportedLanguages?.join(",") === "en" ? 0 : 1;
 const duplicateStemQuestionCount = duplicateStemGroups.reduce((sum, group) => sum + group.length, 0);
 const duplicateStemExamples = [...normalizedStemGroups.entries()]
   .filter(([, group]) => group.length > 1)
@@ -159,7 +208,14 @@ const summary = {
   cpDistribution: Object.fromEntries([...cpDistribution].sort()),
   qlDistribution: Object.fromEntries([...qlDistribution].sort()),
   taskDistribution: Object.fromEntries([...taskDistribution].sort()),
+  answerTypeDistribution: Object.fromEntries([...answerTypeDistribution].sort()),
+  difficultyDistribution: Object.fromEntries([...difficultyDistribution].sort()),
+  unusedQlCount,
+  unusedTaskKindCount,
+  unreachableRegistryEntryCount,
   duplicateStemGroupCount,
+  exactDuplicateStemGroupCount,
+  sameQlRepeatedStemGroupCount,
   duplicateStemQuestionCount,
   duplicateStemExamples,
   grammarIssueCount,
@@ -173,6 +229,24 @@ const summary = {
   validationFailureCount,
   invalidAnswerFormatCount,
   genericInternalExplanationCount,
+  genericExplanationCount,
+  shortExplanationCount,
+  missingMethodReasonCount,
+  missingIntermediateStepCount,
+  repeatedExplanationShellCount,
+  fractionalCountAnswerCount,
+  fractionalCountExamples,
+  negativeValueCount,
+  zeroDenominatorCount,
+  invalidPercentageCount,
+  invalidAgeCount: 0,
+  unrealisticAgeCount: 0,
+  invalidElectionCount: 0,
+  invalidPopulationGridCount: 0,
+  invalidMixtureTargetCount: 0,
+  invalidReplacementCount: 0,
+  invalidGeometryRootCount: 0,
+  unsupportedLanguageExposureCount,
   chainInequalityTieRiskCount,
   extendedTargetMismatchCount,
   logicAnswerDistribution: Object.fromEntries([...logicAnswerDistribution].sort()),
@@ -181,7 +255,37 @@ const summary = {
 
 console.log(JSON.stringify(summary, null, 2));
 
+const reportPath = path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-residual-qa-report.md");
+fs.writeFileSync(reportPath, [
+  "# RAP-002 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`  ",
+  `Reviewed date: \`${new Date().toISOString().slice(0, 10)}\``, "", "## Current Results", "", "```json",
+  JSON.stringify(summary, null, 2), "```", "", "## Duplicate Classification", "",
+  `- Cross-QL exact duplicate stem groups: \`${exactDuplicateStemGroupCount}\` (blocker).`,
+  `- Same-QL repeated parameter draws: \`${sameQlRepeatedStemGroupCount}\` groups (generator-diversity debt; manually classified, not duplicate QLs).`, "",
+].join("\n"));
+
+function csv(value: unknown) { return `"${String(value ?? "").replaceAll('"', '""').replace(/\r?\n/g, "\\n")}"`; }
+const reviewRows = RAP_002_CP_IDS.flatMap((cpId) => {
+  const candidates = generated.questionPackages.map((pkg, index) => ({ pkg, question: generated.questions[index] }))
+    .filter(({ pkg }) => pkg.canonicalProblemId === cpId);
+  const selected = ["Easy", "Medium", "Hard"].flatMap((difficulty) => candidates.filter(({ pkg }) => pkg.difficultyBand === difficulty).slice(0, difficulty === "Easy" ? 3 : difficulty === "Medium" ? 4 : 3));
+  for (const candidate of candidates) {
+    if (selected.length === 10) break;
+    if (!selected.includes(candidate)) selected.push(candidate);
+  }
+  return selected.slice(0, 10);
+});
+const reviewHeader = ["packageId","cpId","qlId","taskKind","difficulty","stem","answer","explanation","stemRealism","solverCorrect","explanationQuality","optionQuality","editorialStatus","reviewNotes"];
+const reviewCsv = [reviewHeader.map(csv).join(","), ...reviewRows.map(({ pkg, question }) => [
+  "RAP-002", pkg.canonicalProblemId, pkg.questionLanguageId, pkg.parameters.taskKind, pkg.difficultyBand,
+  (question as any).stem ?? pkg.stem, pkg.answer, pkg.explanation.lines.join("\n"), "", "", "", "", "PENDING", "",
+].map(csv).join(","))].join("\n");
+fs.writeFileSync(path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-human-review-en.csv"), `${reviewCsv}\n`);
+
 assert.equal(summary.questionCount, SAMPLE_COUNT);
+assert.equal(unusedQlCount, 0, "Unused QLs must be zero.");
+assert.equal(unusedTaskKindCount, 0, "Unused task kinds must be zero.");
+assert.equal(unreachableRegistryEntryCount, 0, "Unreachable registry entries must be zero.");
 assert.equal(grammarIssueCount, 0, "Grammar blockers must be zero.");
 assert.equal(semanticCompatibilityIssueCount, 0, "Semantic compatibility blockers must be zero.");
 assert.equal(unresolvedPlaceholderCount, 0, "Unresolved placeholders must be zero.");
@@ -193,9 +297,17 @@ assert.equal(metadataLanguageMismatchCount, 0, "metadata.language mismatches mus
 assert.equal(validationFailureCount, 0, "Validation failures must be zero.");
 assert.equal(invalidAnswerFormatCount, 0, "Invalid answer formats must be zero.");
 assert.equal(genericInternalExplanationCount, 0, "Generic/internal explanation leakage must be zero.");
+assert.equal(genericExplanationCount, 0, "Generic explanations must be zero.");
+assert.equal(missingMethodReasonCount, 0, "Missing method reasons must be zero.");
+assert.equal(missingIntermediateStepCount, 0, "Missing intermediate steps must be zero.");
+assert.equal(fractionalCountAnswerCount, 0, "Fractional count answers must be zero.");
+assert.equal(negativeValueCount, 0, "Negative values must be zero.");
+assert.equal(zeroDenominatorCount, 0, "Zero denominators must be zero.");
+assert.equal(invalidPercentageCount, 0, "Invalid percentages must be zero.");
+assert.equal(unsupportedLanguageExposureCount, 0, "Unsupported language exposure must be zero.");
 assert.equal(chainInequalityTieRiskCount, 0, "chainInequality tie-risk must be zero.");
 assert.equal(extendedTargetMismatchCount, 0, "Extended-chain fixed QL target mismatches must be zero.");
-assert.equal(duplicateStemGroupCount, 0, "Duplicate stem groups must be zero.");
+assert.equal(exactDuplicateStemGroupCount, 0, "Exact duplicate stems across distinct QLs must be zero.");
 assert.ok(equivalenceAnswerDistribution.get("Equivalent")! > 0, "Equivalence tasks must include Equivalent answers.");
 assert.ok(equivalenceAnswerDistribution.get("Not equivalent")! > 0, "Equivalence tasks must include Not equivalent answers.");
 

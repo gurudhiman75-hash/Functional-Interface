@@ -69,4 +69,4 @@ Current MVP coverage:
 
 ## Immediate Next Step
 
-RAP-002 is now wired through Question Studio for English only and passes 500-sample residual QA. Next safe step is manual editorial review of the English MVP breadth before expansion or any Hindi/Punjabi localization work.
+RAP-002 is wired through Question Studio for English only and passes the current 1,000-preview residual QA. The next step is manual editorial review; Hindi/Punjabi publication remains blocked pending separate localization and editorial QA.

@@ -171,12 +171,6 @@
         "template": "{personA} ??? {personB} ?? ???? ?? ?????? {incomeRatioA}:{incomeRatioB} ??. ?????? ?? ??? ?? ?????? {expenditureRatioA}:{expenditureRatioB} ??. ???? ???? Rs. {incomeUnit} ??? ??? ???? Rs. {expenditureUnit} ??? ?? ??? ?? ?????? ??? ???.",
         "difficulty": "Medium"
       },
-      "RAP-QL-956": {
-        "cpId": "RAP-CP-015",
-        "taskKind": "incomeExpenditureEqualSavings",
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. Their savings are equal. If {personA}'s income is Rs. {givenIncomeA}, find {targetPerson}'s savings.",
-        "difficulty": "Medium"
-      },
       "RAP-QL-957": {
         "cpId": "RAP-CP-015",
         "taskKind": "incomeExpenditureEqualSavings",
@@ -838,7 +832,7 @@
       "RAP-QL-1324": {
         "cpId": "RAP-CP-019",
         "taskKind": "rateProductAbsoluteOutput",
-        "template": "Unit A produces {outputA} items. Rate ratio, time ratio, and unit-count ratio of A:B are {rateRatioA}:{rateRatioB}, {timeRatioA}:{timeRatioB}, and {unitRatioA}:{unitRatioB}. Find B's output.",
+        "template": "Unit A produces {outputA} items. The rate, time, and unit-count ratios for A:B are {rateRatioA}:{rateRatioB}, {timeRatioA}:{timeRatioB}, and {unitRatioA}:{unitRatioB}. Find B's output.",
         "difficulty": "Hard"
       },
       "RAP-QL-1325": {
@@ -968,7 +962,7 @@
       "RAP-QL-1420": {
         "cpId": "RAP-CP-020",
         "taskKind": "populationTableValidationTrap",
-        "template": "For {totalPopulation} people, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "template": "A clerk prepared a population table for {totalPopulation} people using male:female = {maleRatio}:{femaleRatio}, male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Calculate {ratioCellA}:{ratioCellB} to verify the corresponding table entries.",
         "difficulty": "Hard"
       }
     }
@@ -1228,7 +1222,7 @@
       "RAP-QL-1617": {
         "cpId": "RAP-CP-022",
         "taskKind": "geometricPowerMixedStatement",
-        "template": "Two {shapeName} have side lengths in the ratio {sideRatioA}:{sideRatioB}. Find their volume ratio.",
+        "template": "Two {shapeName} have corresponding side lengths in the ratio {sideRatioA}:{sideRatioB}. Their area ratio would use the square of this ratio; what volume ratio is obtained by using the correct power?",
         "difficulty": "Hard"
       }
     }

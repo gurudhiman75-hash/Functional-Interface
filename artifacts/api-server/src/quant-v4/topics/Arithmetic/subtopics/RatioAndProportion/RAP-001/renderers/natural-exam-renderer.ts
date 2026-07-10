@@ -16,11 +16,13 @@ export class NaturalExamRenderer implements ExplanationRenderer {
     const calculation = cleanLatex(this.solverMathJax.calculationLatex, `${answer}`);
 
     return [
-      { stepId: "step-1", type: "GOAL", narrative: `Problem: ${this.title}.`, mathLatex: setup },
-      { stepId: "step-2", type: "FORMULA", narrative: `Method 1: form the relation.`, mathLatex: setup },
-      { stepId: "step-3", type: "SUBSTITUTION", narrative: `Step 1: put values.`, mathLatex: calculation },
-      { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Method 2: shortcut check.`, mathLatex: calculation },
-      { stepId: "step-5", type: "CONCLUSION", narrative: `Answer:`, mathLatex: `${answer}` },
+      { stepId: "step-1", type: "GOAL", narrative: `Concept: ${this.title}.`, mathLatex: setup },
+      { stepId: "step-2", type: "FORMULA", narrative: "Why: use one common ratio unit.", mathLatex: setup },
+      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Write the given relation.", mathLatex: setup },
+      { stepId: "step-4", type: "SUBSTITUTION", narrative: "Insert the given numbers.", mathLatex: calculation },
+      { stepId: "step-5", type: "SIMPLIFICATION", narrative: "Calculate and simplify.", mathLatex: calculation },
+      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "Check: the relation is preserved.", mathLatex: calculation },
+      { stepId: "step-7", type: "CONCLUSION", narrative: `Therefore, the required value is ${answer}.`, mathLatex: `${answer}` },
     ];
   }
 }

@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { validateRap003Libraries } from "./library";
+import { getRap003QuestionLanguageIds, validateRap003Libraries } from "./library";
 import { generateRap003Parameters } from "./parameter-generator";
 import { runRap003Cp013ForLanguages, runRap003Cp013Pipeline, runRap003Cp014ForLanguages, runRap003Cp014Pipeline, runRap003Cp015ForLanguages, runRap003Cp015Pipeline, runRap003Cp016ForLanguages, runRap003Cp016Pipeline, runRap003Cp017ForLanguages, runRap003Cp017Pipeline, runRap003Cp018ForLanguages, runRap003Cp018Pipeline, runRap003Cp019ForLanguages, runRap003Cp019Pipeline, runRap003Cp020ForLanguages, runRap003Cp020Pipeline, runRap003Cp021ForLanguages, runRap003Cp021Pipeline, runRap003Cp022ForLanguages, runRap003Cp022Pipeline } from "./pipeline";
 import { solveRap003 } from "./solver";
@@ -793,7 +793,7 @@ for (let index = 0; index < 120; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-014");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenQlIds.add(pkg.questionLanguageId);
 }
@@ -814,7 +814,7 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-013");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenPartnershipQlIds.add(pkg.questionLanguageId);
 }
@@ -835,18 +835,19 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-015");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenIncomeQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-951","RAP-QL-952","RAP-QL-953","RAP-QL-954","RAP-QL-955","RAP-QL-956","RAP-QL-957","RAP-QL-958","RAP-QL-959","RAP-QL-960","RAP-QL-961","RAP-QL-962","RAP-QL-963","RAP-QL-964","RAP-QL-965","RAP-QL-966","RAP-QL-967","RAP-QL-968","RAP-QL-969","RAP-QL-970","RAP-QL-971","RAP-QL-972","RAP-QL-973","RAP-QL-974"]) {
+const cp015QlIds = getRap003QuestionLanguageIds("RAP-CP-015");
+for (const qlId of cp015QlIds) {
   const pkg = runRap003Cp015Pipeline({ seed: `rap-003-cp015-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenIncomeQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenIncomeQlIds.size, 24, `Expected all 24 CP-015 QLs, got ${seenIncomeQlIds.size}`);
+assert.equal(seenIncomeQlIds.size, cp015QlIds.length, `Expected all active CP-015 QLs, got ${seenIncomeQlIds.size}`);
 
 const seenAlloyQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -856,7 +857,7 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-016");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenAlloyQlIds.add(pkg.questionLanguageId);
 }
@@ -877,7 +878,7 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-017");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenReplacementQlIds.add(pkg.questionLanguageId);
 }
@@ -898,7 +899,7 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-018");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenDenominationQlIds.add(pkg.questionLanguageId);
 }
@@ -919,14 +920,14 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-019");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenSdtQlIds.add(pkg.questionLanguageId);
 }
 
 for (const qlId of ["RAP-QL-1301","RAP-QL-1302","RAP-QL-1303","RAP-QL-1304","RAP-QL-1305","RAP-QL-1306","RAP-QL-1307","RAP-QL-1308","RAP-QL-1309","RAP-QL-1310","RAP-QL-1311","RAP-QL-1312","RAP-QL-1313","RAP-QL-1314","RAP-QL-1315","RAP-QL-1316","RAP-QL-1317","RAP-QL-1318","RAP-QL-1319","RAP-QL-1320","RAP-QL-1321","RAP-QL-1322","RAP-QL-1323","RAP-QL-1324","RAP-QL-1325"]) {
   const pkg = runRap003Cp019Pipeline({ seed: `rap-003-cp019-forced:${qlId}`, questionLanguageId: qlId });
-  assert.equal(pkg.validation.valid, true);
+  assert.equal(pkg.validation.valid, true, `${qlId}: ${pkg.answer}; ${JSON.stringify(pkg.parameters.variables)}; ${pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; ")}`);
   seenSdtQlIds.add(pkg.questionLanguageId);
 }
 
@@ -940,7 +941,7 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-020");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenPopulationQlIds.add(pkg.questionLanguageId);
 }
@@ -961,14 +962,14 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-021");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenElectionQlIds.add(pkg.questionLanguageId);
 }
 
 for (const qlId of ["RAP-QL-1501","RAP-QL-1502","RAP-QL-1503","RAP-QL-1504","RAP-QL-1505","RAP-QL-1506","RAP-QL-1507","RAP-QL-1508","RAP-QL-1509","RAP-QL-1510","RAP-QL-1511","RAP-QL-1512","RAP-QL-1513","RAP-QL-1514","RAP-QL-1515","RAP-QL-1516","RAP-QL-1517","RAP-QL-1518","RAP-QL-1519","RAP-QL-1520","RAP-QL-1521","RAP-QL-1522","RAP-QL-1523","RAP-QL-1524","RAP-QL-1525"]) {
   const pkg = runRap003Cp021Pipeline({ seed: `rap-003-cp021-forced:${qlId}`, questionLanguageId: qlId });
-  assert.equal(pkg.validation.valid, true);
+  assert.equal(pkg.validation.valid, true, `${qlId}: ${pkg.answer}; ${JSON.stringify(pkg.parameters.variables)}; ${pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; ")}`);
   seenElectionQlIds.add(pkg.questionLanguageId);
 }
 
@@ -982,7 +983,7 @@ for (let index = 0; index < 80; index += 1) {
   assert.equal(pkg.canonicalProblemId, "RAP-CP-022");
   assert.ok(pkg.stem.length > 0);
   assert.ok(pkg.answer.length > 0);
-  assert.ok(pkg.explanation.lines.length >= 5);
+  assert.ok(pkg.explanation.lines.length >= 7);
   assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
   seenGeometricQlIds.add(pkg.questionLanguageId);
 }
@@ -1015,7 +1016,7 @@ for (const qlId of ["RAP-QL-801","RAP-QL-802","RAP-QL-803","RAP-QL-804","RAP-QL-
   }
 }
 
-for (const qlId of ["RAP-QL-951","RAP-QL-952","RAP-QL-953","RAP-QL-954","RAP-QL-955","RAP-QL-956","RAP-QL-957","RAP-QL-958","RAP-QL-959","RAP-QL-960","RAP-QL-961","RAP-QL-962","RAP-QL-963","RAP-QL-964","RAP-QL-965","RAP-QL-966","RAP-QL-967","RAP-QL-968","RAP-QL-969","RAP-QL-970","RAP-QL-971","RAP-QL-972","RAP-QL-973","RAP-QL-974"]) {
+for (const qlId of cp015QlIds) {
   const packages = runRap003Cp015ForLanguages({ seed: `rap-003-income-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {

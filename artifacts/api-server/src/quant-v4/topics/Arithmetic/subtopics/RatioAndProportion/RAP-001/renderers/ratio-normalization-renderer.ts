@@ -32,7 +32,7 @@ export class RatioNormalizationRenderer implements ExplanationRenderer {
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `Method 1: multiply by common denominator.`,
+        narrative: `Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.`,
         mathLatex: `\\frac{${numerator1}}{${denominator1}}\\times${denominator1 * denominator2}:\\frac{${numerator2}}{${denominator2}}\\times${denominator1 * denominator2}`,
       },
       {
@@ -55,8 +55,14 @@ export class RatioNormalizationRenderer implements ExplanationRenderer {
       },
       {
         stepId: "step-6",
+        type: "SIMPLIFICATION",
+        narrative: "Check that the final terms have no common factor greater than 1.",
+        mathLatex: `${normalizedLeft}:${normalizedRight}`,
+      },
+      {
+        stepId: "step-7",
         type: "CONCLUSION",
-        narrative: `Answer: the integer ratio is`,
+        narrative: `Therefore, the simplest integer ratio is`,
         mathLatex: `${normalizedLeft}:${normalizedRight}`,
       },
     ];

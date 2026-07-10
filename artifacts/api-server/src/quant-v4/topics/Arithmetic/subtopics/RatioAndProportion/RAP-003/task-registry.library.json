@@ -1628,23 +1628,6 @@
       ],
       "explanationId": "RAP-ES-013"
     },
-    "RAP-QL-956": {
-      "cpId": "RAP-CP-015",
-      "taskKind": "incomeExpenditureEqualSavings",
-      "answerType": "QUANTITY",
-      "difficulty": "Medium",
-      "requiredVariables": [
-        "personA",
-        "personB",
-        "incomeRatioA",
-        "incomeRatioB",
-        "expenditureRatioA",
-        "expenditureRatioB",
-        "givenIncomeA",
-        "targetPerson"
-      ],
-      "explanationId": "RAP-ES-015"
-    },
     "RAP-QL-957": {
       "cpId": "RAP-CP-015",
       "taskKind": "incomeExpenditureEqualSavings",

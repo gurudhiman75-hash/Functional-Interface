@@ -215,13 +215,13 @@ function semanticEntityValue(name: string, seed: string, scenario = "family", ex
   }
   const domainName = semanticDomainForVariable(name, scenario);
   const allDomainEntities = semanticEntities(domainName);
-  
+
   // 1. Try with full exclusions (avoiding duplicates and container groups)
   let entities = allDomainEntities.filter((entity) => !exclusions.includes(entity.id));
   if (entities.length) {
     return pickWeighted(entities, entityWeight, `${seed}:${name}:${domainName}`).id;
   }
-  
+
   // 2. Fallback: ignore container exclusions (e.g. students), but avoid duplicates
   const domainExclusions = CONTAINER_ENTITIES[domainName] ?? [];
   const chosenOnlyExclusions = exclusions.filter((id) => !domainExclusions.includes(id));
@@ -257,7 +257,7 @@ function uniqueIdsForVariables(variableNames: readonly string[], seed: string, s
     const exclusions = exclusionsByDomain.get(domain) ?? [...initialExclusions];
     const domainExclusions = variableNames.length > 2 ? (CONTAINER_ENTITIES[domain] ?? []) : [];
     const combinedExclusions = [...exclusions, ...domainExclusions];
-    
+
     let id = semanticEntityValue(variableName, `${seed}:${variableName}:${index}`, scenario, combinedExclusions);
     if (index > 0) {
       const last = exclusions[exclusions.length - 1];
@@ -339,7 +339,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
 
   if (taskKind === "ratioTreeLinkage") {
     const [a, b, c, d] = ratioUnits(`${seed}:tree`, 4);
-    const [personA, personB, personC, personD] = uniqueEntityIds("personA", 4, `${seed}:people`, scenario);
+    const [personA, personB, personC, personD] = uniqueEntityIds("personA", 4, `${seed}:people`, "family");
     const ab = simplifyRatio([a, b]);
     const bc = simplifyRatio([b, c]);
     const cd = simplifyRatio([c, d]);

@@ -118,7 +118,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-403": {
-        "template": "{personA} is linked to {personD} through these ratios: {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC}, and {personC}:{personD} = {ratioC_prime}:{ratioD}. Find {personA}:{personD}.",
+        "template": "The ratios linking {personA} to {personD} are {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC}, and {personC}:{personD} = {ratioC_prime}:{ratioD}. Find {personA}:{personD}.",
         "difficulty": "Hard"
       },
       "RAP-QL-004": {
@@ -145,20 +145,8 @@
         "template": "What is the simplest whole-number ratio equal to {decimalA} : {decimalB}?",
         "difficulty": "Medium"
       },
-      "RAP-QL-106": {
-        "template": "What is the simplest whole-number ratio equal to {decimalA} : {decimalB}?",
-        "difficulty": "Medium"
-      },
       "RAP-QL-206": {
         "template": "Calculate the simplest whole-number ratio equal to {decimalA} : {decimalB}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-306": {
-        "template": "What is the simplest whole-number ratio equal to {decimalA} : {decimalB}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-406": {
-        "template": "What is the simplest whole-number ratio equal to {decimalA} : {decimalB}?",
         "difficulty": "Medium"
       }
     }
@@ -169,136 +157,16 @@
         "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
         "difficulty": "Medium"
       },
-      "RAP-QL-207": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-307": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-407": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-507": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-607": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-707": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-807": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-907": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1007": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1107": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1207": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1307": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1407": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1507": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1607": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1707": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1807": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-1907": {
-        "template": "A total of {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s share.",
-        "difficulty": "Medium"
-      },
       "RAP-QL-008": {
-        "template": "An amount of Rs. {totalAmount} is distributed between {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. How much more money does {personA} get than {personC}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-108": {
-        "template": "An amount of Rs. {totalAmount} is distributed between {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. How much more money does {personA} get than {personC}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-208": {
-        "template": "An amount of Rs. {totalAmount} is distributed between {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. How much more money does {personA} get than {personC}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-308": {
-        "template": "An amount of Rs. {totalAmount} is distributed between {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. How much more money does {personA} get than {personC}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-408": {
-        "template": "An amount of Rs. {totalAmount} is distributed between {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. How much more money does {personA} get than {personC}?",
+        "template": "An amount of Rs. {totalAmount} is distributed among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find the difference between {personA}'s share and {personC}'s share.",
         "difficulty": "Medium"
       },
       "RAP-QL-009": {
         "template": "The shares of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, how much was the total amount distributed?",
         "difficulty": "Hard"
       },
-      "RAP-QL-109": {
-        "template": "The shares of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, how much was the total amount distributed?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-209": {
-        "template": "The shares of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, how much was the total amount distributed?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-309": {
-        "template": "The shares of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, how much was the total amount distributed?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-409": {
-        "template": "The shares of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, how much was the total amount distributed?",
-        "difficulty": "Hard"
-      },
       "RAP-QL-011": {
-        "template": "The ratio of {personA}'s monthly expenses to savings is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, how much does {personA} save every month?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-111": {
-        "template": "The ratio of {personA}'s monthly expenses to savings is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, how much does {personA} save every month?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-211": {
-        "template": "The ratio of {personA}'s monthly expenses to savings is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, how much does {personA} save every month?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-311": {
-        "template": "The ratio of {personA}'s monthly expenses to savings is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, how much does {personA} save every month?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-411": {
-        "template": "The ratio of {personA}'s monthly expenses to savings is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, how much does {personA} save every month?",
+        "template": "For {personA}, the monthly expense-to-savings ratio is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, find the monthly savings.",
         "difficulty": "Easy"
       }
     }
@@ -306,22 +174,6 @@
   "RAP-CP-003": {
     "families": {
       "RAP-QL-012": {
-        "template": "{contextName} has {groupA} and {groupB} in the ratio {ratioA}:{ratioB}. After {addedCount} more {groupA} join, the ratio becomes {finalRatioA}:{finalRatioB}. How many {groupA} were there at the beginning?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-112": {
-        "template": "{contextName} has {groupA} and {groupB} in the ratio {ratioA}:{ratioB}. After {addedCount} more {groupA} join, the ratio becomes {finalRatioA}:{finalRatioB}. How many {groupA} were there at the beginning?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-212": {
-        "template": "{contextName} has {groupA} and {groupB} in the ratio {ratioA}:{ratioB}. After {addedCount} more {groupA} join, the ratio becomes {finalRatioA}:{finalRatioB}. How many {groupA} were there at the beginning?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-312": {
-        "template": "{contextName} has {groupA} and {groupB} in the ratio {ratioA}:{ratioB}. After {addedCount} more {groupA} join, the ratio becomes {finalRatioA}:{finalRatioB}. How many {groupA} were there at the beginning?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-412": {
         "template": "{contextName} has {groupA} and {groupB} in the ratio {ratioA}:{ratioB}. After {addedCount} more {groupA} join, the ratio becomes {finalRatioA}:{finalRatioB}. How many {groupA} were there at the beginning?",
         "difficulty": "Hard"
       },
@@ -333,23 +185,7 @@
         "template": "The ratio of {groupA} to {groupB} in {contextName} is {ratioA}:{ratioB}. After {removedCount} {groupA} leave, the ratio changes to {finalRatioA}:{finalRatioB}. What was the total number of people at the start?",
         "difficulty": "Hard"
       },
-      "RAP-QL-213": {
-        "template": "The ratio of {groupA} to {groupB} in a {contextName} is {ratioA}:{ratioB}. After {removedCount} {groupA} leave, the ratio changes to {finalRatioA}:{finalRatioB}. What was the total number of people at the start?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-313": {
-        "template": "The ratio of {groupA} to {groupB} in a {contextName} is {ratioA}:{ratioB}. After {removedCount} {groupA} leave, the ratio changes to {finalRatioA}:{finalRatioB}. What was the total number of people at the start?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-413": {
-        "template": "The ratio of {groupA} to {groupB} in a {contextName} is {ratioA}:{ratioB}. After {removedCount} {groupA} leave, the ratio changes to {finalRatioA}:{finalRatioB}. What was the total number of people at the start?",
-        "difficulty": "Hard"
-      },
       "RAP-QL-014": {
-        "template": "Two numbers are in the ratio {ratioA}:{ratioB}. If {transferredCount} is added to each, the ratio becomes {finalRatioA}:{finalRatioB}. What is the value of the larger number?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-114": {
         "template": "Two numbers are in the ratio {ratioA}:{ratioB}. If {transferredCount} is added to each, the ratio becomes {finalRatioA}:{finalRatioB}. What is the value of the larger number?",
         "difficulty": "Medium"
       },
@@ -357,51 +193,11 @@
         "template": "Two numbers are in the ratio {ratioA}:{ratioB}. If {transferredCount} is added to each, the ratio becomes {finalRatioA}:{finalRatioB}. Find the larger number.",
         "difficulty": "Medium"
       },
-      "RAP-QL-314": {
-        "template": "Two numbers are in the ratio {ratioA}:{ratioB}. If {transferredCount} is added to each, the ratio becomes {finalRatioA}:{finalRatioB}. What is the value of the larger number?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-414": {
-        "template": "Two numbers are in the ratio {ratioA}:{ratioB}. If {transferredCount} is added to each, the ratio becomes {finalRatioA}:{finalRatioB}. What is the value of the larger number?",
-        "difficulty": "Medium"
-      },
       "RAP-QL-015": {
         "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenses are {expRatioA}:{expRatioB}. If both save Rs. {savingsAmount} each, what is {personA}'s income?",
         "difficulty": "Hard"
       },
-      "RAP-QL-115": {
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenses are {expRatioA}:{expRatioB}. If both save Rs. {savingsAmount} each, what is {personA}'s income?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-215": {
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenses are {expRatioA}:{expRatioB}. If both save Rs. {savingsAmount} each, what is {personA}'s income?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-315": {
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenses are {expRatioA}:{expRatioB}. If both save Rs. {savingsAmount} each, what is {personA}'s income?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-415": {
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenses are {expRatioA}:{expRatioB}. If both save Rs. {savingsAmount} each, what is {personA}'s income?",
-        "difficulty": "Hard"
-      },
       "RAP-QL-016": {
-        "template": "A school has boys and girls in the ratio {ratioA}:{ratioB}. After {addedCount} boys join and {removedCount} girls leave, the ratio becomes {finalRatioA}:{finalRatioB}. How many girls were there originally?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-116": {
-        "template": "A school has boys and girls in the ratio {ratioA}:{ratioB}. After {addedCount} boys join and {removedCount} girls leave, the ratio becomes {finalRatioA}:{finalRatioB}. How many girls were there originally?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-216": {
-        "template": "A school has boys and girls in the ratio {ratioA}:{ratioB}. After {addedCount} boys join and {removedCount} girls leave, the ratio becomes {finalRatioA}:{finalRatioB}. How many girls were there originally?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-316": {
-        "template": "A school has boys and girls in the ratio {ratioA}:{ratioB}. After {addedCount} boys join and {removedCount} girls leave, the ratio becomes {finalRatioA}:{finalRatioB}. How many girls were there originally?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-416": {
         "template": "A school has boys and girls in the ratio {ratioA}:{ratioB}. After {addedCount} boys join and {removedCount} girls leave, the ratio becomes {finalRatioA}:{finalRatioB}. How many girls were there originally?",
         "difficulty": "Hard"
       }
@@ -413,39 +209,11 @@
         "template": "What is the mean proportional between {numA} and {numB}?",
         "difficulty": "Easy"
       },
-      "RAP-QL-117": {
-        "template": "What is the mean proportional between {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
       "RAP-QL-217": {
         "template": "Calculate the mean proportional between {numA} and {numB}?",
         "difficulty": "Easy"
       },
-      "RAP-QL-317": {
-        "template": "What is the mean proportional between {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-417": {
-        "template": "What is the mean proportional between {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
       "RAP-QL-018": {
-        "template": "What will be the third proportional to {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-118": {
-        "template": "What will be the third proportional to {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-218": {
-        "template": "What will be the third proportional to {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-318": {
-        "template": "What will be the third proportional to {numA} and {numB}?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-418": {
         "template": "What will be the third proportional to {numA} and {numB}?",
         "difficulty": "Easy"
       },
@@ -453,59 +221,15 @@
         "template": "Find the number which is fourth proportional to {numA}, {numB}, and {numC}.",
         "difficulty": "Easy"
       },
-      "RAP-QL-119": {
-        "template": "Find the number which is fourth proportional to {numA}, {numB}, and {numC}.",
-        "difficulty": "Easy"
-      },
       "RAP-QL-219": {
         "template": "Determine the number which is fourth proportional to {numA}, {numB}, and {numC}.",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-319": {
-        "template": "Find the number which is fourth proportional to {numA}, {numB}, and {numC}.",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-419": {
-        "template": "Find the number which is fourth proportional to {numA}, {numB}, and {numC}.",
         "difficulty": "Easy"
       },
       "RAP-QL-020": {
         "template": "If {varY} varies directly as {varX}, and {varY} is {varY1} when {varX} is {varX1}, what will be the value of {varY} when {varX} is {varX2}?",
         "difficulty": "Medium"
       },
-      "RAP-QL-120": {
-        "template": "If {varY} varies directly as {varX}, and {varY} is {varY1} when {varX} is {varX1}, what will be the value of {varY} when {varX} is {varX2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-220": {
-        "template": "If {varY} varies directly as {varX}, and {varY} is {varY1} when {varX} is {varX1}, what will be the value of {varY} when {varX} is {varX2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-320": {
-        "template": "If {varY} varies directly as {varX}, and {varY} is {varY1} when {varX} is {varX1}, what will be the value of {varY} when {varX} is {varX2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-420": {
-        "template": "If {varY} varies directly as {varX}, and {varY} is {varY1} when {varX} is {varX1}, what will be the value of {varY} when {varX} is {varX2}?",
-        "difficulty": "Medium"
-      },
       "RAP-QL-021": {
-        "template": "If {varY} is inversely proportional to {varX}, and {varY} is {varY1} when {varX} is {varX1}, find the value of {varY} when {varX} becomes {varX2}.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-121": {
-        "template": "If {varY} is inversely proportional to {varX}, and {varY} is {varY1} when {varX} is {varX1}, find the value of {varY} when {varX} becomes {varX2}.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-221": {
-        "template": "If {varY} is inversely proportional to {varX}, and {varY} is {varY1} when {varX} is {varX1}, find the value of {varY} when {varX} becomes {varX2}.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-321": {
-        "template": "If {varY} is inversely proportional to {varX}, and {varY} is {varY1} when {varX} is {varX1}, find the value of {varY} when {varX} becomes {varX2}.",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-421": {
         "template": "If {varY} is inversely proportional to {varX}, and {varY} is {varY1} when {varX} is {varX1}, find the value of {varY} when {varX} becomes {varX2}.",
         "difficulty": "Medium"
       }
@@ -517,39 +241,7 @@
         "template": "A bag has coins of {denom1}, {denom2}, and {denom3} in the ratio {ratio1}:{ratio2}:{ratio3}. If the total value is Rs. {totalValue}, how many coins of {targetDenom} are in the bag?",
         "difficulty": "Hard"
       },
-      "RAP-QL-122": {
-        "template": "A bag has coins of {denom1}, {denom2}, and {denom3} in the ratio {ratio1}:{ratio2}:{ratio3}. If the total value is Rs. {totalValue}, how many coins of {targetDenom} are in the bag?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-222": {
-        "template": "A bag has coins of {denom1}, {denom2}, and {denom3} in the ratio {ratio1}:{ratio2}:{ratio3}. If the total value is Rs. {totalValue}, how many coins of {targetDenom} are in the bag?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-322": {
-        "template": "A bag has coins of {denom1}, {denom2}, and {denom3} in the ratio {ratio1}:{ratio2}:{ratio3}. If the total value is Rs. {totalValue}, how many coins of {targetDenom} are in the bag?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-422": {
-        "template": "A bag has coins of {denom1}, {denom2}, and {denom3} in the ratio {ratio1}:{ratio2}:{ratio3}. If the total value is Rs. {totalValue}, how many coins of {targetDenom} are in the bag?",
-        "difficulty": "Hard"
-      },
       "RAP-QL-023": {
-        "template": "A box contains {totalCoins} coins of {denom1}, {denom2}, {denom3}, and {denom4}. If their values are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}, what is the number of {targetDenom} coins?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-123": {
-        "template": "A box contains {totalCoins} coins of {denom1}, {denom2}, {denom3}, and {denom4}. If their values are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}, what is the number of {targetDenom} coins?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-223": {
-        "template": "A box contains {totalCoins} coins of {denom1}, {denom2}, {denom3}, and {denom4}. If their values are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}, what is the number of {targetDenom} coins?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-323": {
-        "template": "A box contains {totalCoins} coins of {denom1}, {denom2}, {denom3}, and {denom4}. If their values are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}, what is the number of {targetDenom} coins?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-423": {
         "template": "A box contains {totalCoins} coins of {denom1}, {denom2}, {denom3}, and {denom4}. If their values are in the ratio {valRatio1}:{valRatio2}:{valRatio3}:{valRatio4}, what is the number of {targetDenom} coins?",
         "difficulty": "Hard"
       },
@@ -557,39 +249,7 @@
         "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the total weight of {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} is {totalWeight} kg, find the weight of one {itemA}.",
         "difficulty": "Hard"
       },
-      "RAP-QL-124": {
-        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the total weight of {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} is {totalWeight} kg, find the weight of one {itemA}.",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-224": {
-        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the total weight of {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} is {totalWeight} kg, find the weight of one {itemA}.",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-324": {
-        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the total weight of {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} is {totalWeight} kg, find the weight of one {itemA}.",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-424": {
-        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the total weight of {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} is {totalWeight} kg, find the weight of one {itemA}.",
-        "difficulty": "Hard"
-      },
       "RAP-QL-026": {
-        "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their weights are {w1}, {w2}, and {w3}, and the total weighted score is {totalScore}. How many marks were obtained in {sub1}?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-126": {
-        "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their weights are {w1}, {w2}, and {w3}, and the total weighted score is {totalScore}. How many marks were obtained in {sub1}?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-226": {
-        "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their weights are {w1}, {w2}, and {w3}, and the total weighted score is {totalScore}. How many marks were obtained in {sub1}?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-326": {
-        "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their weights are {w1}, {w2}, and {w3}, and the total weighted score is {totalScore}. How many marks were obtained in {sub1}?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-426": {
         "template": "Marks in {sub1}, {sub2}, and {sub3} are in the ratio {ratio1}:{ratio2}:{ratio3}. Their weights are {w1}, {w2}, and {w3}, and the total weighted score is {totalScore}. How many marks were obtained in {sub1}?",
         "difficulty": "Hard"
       }
@@ -601,39 +261,7 @@
         "template": "A mixture contains {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. If {addedAmount} litres of {liquid1} are added, the ratio becomes {finalRatio1}:{finalRatio2}. What was the initial quantity of {liquid2}?",
         "difficulty": "Medium"
       },
-      "RAP-QL-127": {
-        "template": "A mixture contains {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. If {addedAmount} litres of {liquid1} are added, the ratio becomes {finalRatio1}:{finalRatio2}. What was the initial quantity of {liquid2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-227": {
-        "template": "A mixture contains {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. If {addedAmount} litres of {liquid1} are added, the ratio becomes {finalRatio1}:{finalRatio2}. What was the initial quantity of {liquid2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-327": {
-        "template": "A mixture contains {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. If {addedAmount} litres of {liquid1} are added, the ratio becomes {finalRatio1}:{finalRatio2}. What was the initial quantity of {liquid2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-427": {
-        "template": "A mixture contains {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. If {addedAmount} litres of {liquid1} are added, the ratio becomes {finalRatio1}:{finalRatio2}. What was the initial quantity of {liquid2}?",
-        "difficulty": "Medium"
-      },
       "RAP-QL-028": {
-        "template": "A {totalVolume}-litre mixture has {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. How many litres of {liquid2} should be added to make the ratio {finalRatio1}:{finalRatio2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-128": {
-        "template": "A {totalVolume}-litre mixture has {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. How many litres of {liquid2} should be added to make the ratio {finalRatio1}:{finalRatio2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-228": {
-        "template": "A {totalVolume}-litre mixture has {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. How many litres of {liquid2} should be added to make the ratio {finalRatio1}:{finalRatio2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-328": {
-        "template": "A {totalVolume}-litre mixture has {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. How many litres of {liquid2} should be added to make the ratio {finalRatio1}:{finalRatio2}?",
-        "difficulty": "Medium"
-      },
-      "RAP-QL-428": {
         "template": "A {totalVolume}-litre mixture has {liquid1} and {liquid2} in the ratio {ratio1}:{ratio2}. How many litres of {liquid2} should be added to make the ratio {finalRatio1}:{finalRatio2}?",
         "difficulty": "Medium"
       },
@@ -641,27 +269,11 @@
         "template": "A {mixtureType} has {liquid1}, {liquid2}, and {liquid3} in the ratio {ratio1}:{ratio2}:{ratio3}. After adding {addedAmount} litres of {liquid2}, the new ratio becomes {finalRatio1}:{finalRatio2}:{finalRatio3}. Find the starting volume.",
         "difficulty": "Hard"
       },
-      "RAP-QL-129": {
-        "template": "A {mixtureType} has {liquid1}, {liquid2}, and {liquid3} in the ratio {ratio1}:{ratio2}:{ratio3}. After adding {addedAmount} litres of {liquid2}, the new ratio becomes {finalRatio1}:{finalRatio2}:{finalRatio3}. Find the starting volume.",
-        "difficulty": "Hard"
-      },
       "RAP-QL-229": {
         "template": "A {mixtureType} has {liquid1}, {liquid2}, and {liquid3} in the ratio {ratio1}:{ratio2}:{ratio3}. After adding {addedAmount} litres of {liquid2}, the new ratio becomes {finalRatio1}:{finalRatio2}:{finalRatio3}. Determine the starting volume.",
         "difficulty": "Hard"
       },
-      "RAP-QL-329": {
-        "template": "A {mixtureType} has {liquid1}, {liquid2}, and {liquid3} in the ratio {ratio1}:{ratio2}:{ratio3}. After adding {addedAmount} litres of {liquid2}, the new ratio becomes {finalRatio1}:{finalRatio2}:{finalRatio3}. Find the starting volume.",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-429": {
-        "template": "A {mixtureType} has {liquid1}, {liquid2}, and {liquid3} in the ratio {ratio1}:{ratio2}:{ratio3}. After adding {addedAmount} litres of {liquid2}, the new ratio becomes {finalRatio1}:{finalRatio2}:{finalRatio3}. Find the starting volume.",
-        "difficulty": "Hard"
-      },
       "RAP-QL-030": {
-        "template": "From {initialVolume} litres of {liquidA}, {removedVolume1} litres are replaced with {liquidB}, and then {removedVolume2} litres are again replaced with {liquidB}. What is the final ratio of {liquidA} to {liquidB}?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-130": {
         "template": "From {initialVolume} litres of {liquidA}, {removedVolume1} litres are replaced with {liquidB}, and then {removedVolume2} litres are again replaced with {liquidB}. What is the final ratio of {liquidA} to {liquidB}?",
         "difficulty": "Hard"
       },
@@ -669,32 +281,12 @@
         "template": "From {initialVolume} litres of {liquidA}, {removedVolume1} litres are replaced with {liquidB}, and then {removedVolume2} litres are again replaced with {liquidB}. Find the final ratio of {liquidA} to {liquidB}.",
         "difficulty": "Hard"
       },
-      "RAP-QL-330": {
-        "template": "From {initialVolume} litres of {liquidA}, {removedVolume1} litres are replaced with {liquidB}, and then {removedVolume2} litres are again replaced with {liquidB}. What is the final ratio of {liquidA} to {liquidB}?",
-        "difficulty": "Hard"
-      },
-      "RAP-QL-430": {
-        "template": "From {initialVolume} litres of {liquidA}, {removedVolume1} litres are replaced with {liquidB}, and then {removedVolume2} litres are again replaced with {liquidB}. What is the final ratio of {liquidA} to {liquidB}?",
-        "difficulty": "Hard"
-      },
       "RAP-QL-032": {
-        "template": "A solution contains {acidVolume} litres of acid and {waterVolume} litres of water. What is the percentage of acid in the solution?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-132": {
         "template": "A solution contains {acidVolume} litres of acid and {waterVolume} litres of water. What is the percentage of acid in the solution?",
         "difficulty": "Easy"
       },
       "RAP-QL-232": {
         "template": "A solution contains {acidVolume} litres of acid and {waterVolume} litres of water. Find the percentage of acid in the solution.",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-332": {
-        "template": "A solution contains {acidVolume} litres of acid and {waterVolume} litres of water. What is the percentage of acid in the solution?",
-        "difficulty": "Easy"
-      },
-      "RAP-QL-432": {
-        "template": "A solution contains {acidVolume} litres of acid and {waterVolume} litres of water. What is the percentage of acid in the solution?",
         "difficulty": "Easy"
       }
     }

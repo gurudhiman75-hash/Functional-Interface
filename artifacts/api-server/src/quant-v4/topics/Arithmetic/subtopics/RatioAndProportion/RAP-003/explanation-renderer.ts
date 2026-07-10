@@ -10,7 +10,7 @@ function localizedIntro(parameters: Rap003Parameters, en: string, hi: string, pa
   return en;
 }
 
-export function renderRap003Explanation(parameters: Rap003Parameters, solver: Rap003SolverResult): Rap003Explanation {
+function renderRap003ExplanationDraft(parameters: Rap003Parameters, solver: Rap003SolverResult): Rap003Explanation {
   if (
     parameters.taskKind === "partnershipProfitShare"
     || parameters.taskKind === "partnershipJoiningPartnerProfit"
@@ -416,4 +416,121 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
       block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
     ],
   };
+}
+
+function answerContext(parameters: Rap003Parameters) {
+  switch (parameters.answerType) {
+    case "AGE": return "required age in years";
+    case "TIME": return "required time in the unit used in the question";
+    case "PROFIT": return "required monetary share";
+    case "RATIO": return "required ratio";
+    case "PERCENT": return "required percentage";
+    case "COUNT": return "required count";
+    default: return "required quantity";
+  }
+}
+
+function intermediateSummary(solver: Rap003SolverResult) {
+  const preferredKeys = ["setup", "unit", "productA", "profitRatio", "validVotes", "totalWork", "result"];
+  for (const key of preferredKeys) {
+    const value = solver.workingValues[key];
+    if (value !== undefined && typeof value !== "object") return `${key.replace(/([A-Z])/g, " $1").toLowerCase()} = ${value}`;
+  }
+  const first = Object.entries(solver.workingValues).find(([, value]) => typeof value === "string" || typeof value === "number");
+  return first ? `${first[0].replace(/([A-Z])/g, " $1").toLowerCase()} = ${first[1]}` : "the stated ratio relation";
+}
+
+function polishExplanation(
+  parameters: Rap003Parameters,
+  solver: Rap003SolverResult,
+  draft: Rap003Explanation,
+  reason: string,
+  check: string,
+): Rap003Explanation {
+  if (parameters.language !== "en") return draft;
+  const answer = solver.answer.replaceAll("$$", "");
+  const lines = draft.lines.map((line) => line
+    .replace(/^Problem:/, "Concept:")
+    .replace(/^Method 1:/, "Method:")
+    .replace(/\\text\{Calculation\}=/g, "\\text{Decisive equation}=")
+    .replace(/^\$\$\\text\{Answer\}=.*\$\$$/, `Final answer: the ${answerContext(parameters)} is ${answer}.`));
+  lines.splice(1, 0, `Why this method works: ${reason}`);
+  lines.splice(3, 0, `Intermediate interpretation: ${intermediateSummary(solver)}.`);
+  lines.push(`Quick check: ${check}`);
+  return { ...draft, lines };
+}
+
+function renderPartnershipExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "a partner's effective contribution is capital multiplied by the time for which that capital remains invested.",
+    "the individual shares add to the distributable profit or loss after any salary or commission adjustment.");
+}
+
+function renderAgeExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "all people age by the same number of years, so the same time shift must be applied to every age before forming the new ratio.",
+    "the recovered present ages remain positive and reproduce the stated past or future ratio.");
+}
+
+function renderIncomeExpenseExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "income, expenditure, and savings are linked by savings = income - expenditure for each person or family.",
+    "subtracting the computed expenditure from income gives the displayed savings value or ratio.");
+}
+
+function renderAlligationExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "the final concentration or average is a quantity-weighted balance of the source values.",
+    "the target lies between the source values and the weighted component total is preserved.");
+}
+
+function renderReplacementExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "each replacement removes the same fraction of the original component, so its retained fraction is multiplied once per round.",
+    "the retained original amount is positive, below the initial amount, and matches the stated number of rounds.");
+}
+
+function renderDenominationExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "value equals denomination multiplied by count, so count-ratio parts must be weighted by their denominations.",
+    "multiplying every recovered count by its denomination reproduces the stated total value.");
+}
+
+function renderRateProductExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "distance, work, or output is the product of a rate factor and time; fixing one product determines whether the remaining relation is direct or inverse.",
+    "substitution keeps the stated distance, work, or output unchanged.");
+}
+
+function renderPopulationExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "the total must first be split by rows and each row must then be split into its exclusive cells.",
+    "the completed cells add to their row totals and all rows add to the stated population.");
+}
+
+function renderElectionExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "registered, polled, valid, and candidate votes form successive subsets and must be calculated in that order.",
+    "candidate votes and invalid votes reconcile with the valid, polled, and electorate totals.");
+}
+
+function renderGeometryExplanation(parameters: Rap003Parameters, solver: Rap003SolverResult) {
+  return polishExplanation(parameters, solver, renderRap003ExplanationDraft(parameters, solver),
+    "similar-figure area ratios use the square of the length ratio, while volume ratios use its cube.",
+    "taking the corresponding square or cube root returns the original length ratio.");
+}
+
+export function renderRap003Explanation(parameters: Rap003Parameters, solver: Rap003SolverResult): Rap003Explanation {
+  switch (parameters.canonicalProblemId) {
+    case "RAP-CP-013": return renderPartnershipExplanation(parameters, solver);
+    case "RAP-CP-014": return renderAgeExplanation(parameters, solver);
+    case "RAP-CP-015": return renderIncomeExpenseExplanation(parameters, solver);
+    case "RAP-CP-016": return renderAlligationExplanation(parameters, solver);
+    case "RAP-CP-017": return renderReplacementExplanation(parameters, solver);
+    case "RAP-CP-018": return renderDenominationExplanation(parameters, solver);
+    case "RAP-CP-019": return renderRateProductExplanation(parameters, solver);
+    case "RAP-CP-020": return renderPopulationExplanation(parameters, solver);
+    case "RAP-CP-021": return renderElectionExplanation(parameters, solver);
+    case "RAP-CP-022": return renderGeometryExplanation(parameters, solver);
+  }
 }

@@ -19,11 +19,13 @@ export class BasicPartitionRenderer implements ExplanationRenderer {
     const ratioSum = ratios.reduce((sum, part) => sum + part, 0);
     const unitValue = Number(e.derivedValues.unitValue);
     return [
-      { stepId: "step-1", type: "GOAL", narrative: `Sum of ratio terms`, mathLatex: `${ratios.join("+")}=${ratioSum}` },
-      { stepId: "step-2", type: "FORMULA", narrative: `Value of one part`, mathLatex: `\\frac{${v.totalAmount}}{${ratioSum}}=${unitValue}` },
-      { stepId: "step-3", type: "SUBSTITUTION", narrative: `${target}'s share`, mathLatex: `${ratios[targetIndex]}\\times${unitValue}` },
-      { stepId: "step-4", type: "SIMPLIFICATION", narrative: `=`, mathLatex: `${e.answer}` },
-      { stepId: "step-5", type: "CONCLUSION", narrative: `Hence, ${target} receives ${e.answer}.` },
+      { stepId: "step-1", type: "GOAL", narrative: "Concept: divide a total by ratio parts.", mathLatex: `${ratios.join(":")}` },
+      { stepId: "step-2", type: "FORMULA", narrative: "Why: each part has one common value.", mathLatex: `${ratios.join(":")}` },
+      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Add all ratio parts.", mathLatex: `${ratios.join("+")}=${ratioSum}` },
+      { stepId: "step-4", type: "FORMULA", narrative: "Find one ratio unit.", mathLatex: `\\frac{${v.totalAmount}}{${ratioSum}}=${unitValue}` },
+      { stepId: "step-5", type: "SUBSTITUTION", narrative: `${target} has ${ratios[targetIndex]} units.`, mathLatex: `${ratios[targetIndex]}\\times${unitValue}` },
+      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "Check shares against the total.", mathLatex: `${e.answer}` },
+      { stepId: "step-7", type: "CONCLUSION", narrative: `Therefore, ${target} receives ${e.answer}.` },
     ];
   }
 }

@@ -1,92 +1,289 @@
 # RAP-002 Residual QA Report
 
-## Scope
+Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
+Reviewed date: `2026-07-10`
 
-- Package: `RAP-002`
-- Language: English only
-- Sample size: `500` Question Studio previews
-- Active CPs: `RAP-CP-007` to `RAP-CP-012`
-- Active QLs: `42`
-- Hindi/Punjabi exposure: off
+## Current Results
 
-## Fixes Applied
-
-- Replaced global entity selection with explicit task-safe scenario pools.
-- Corrected `RAP-QL-601` subject-verb agreement from `are` to `is`.
-- Prevented tie-risk in generated `chainInequality` and `chainOrdering` samples.
-- Added positive and negative `chainEquivalence` generation paths.
-- Added `correctIndex` to Quant V4 Question Studio preview output while preserving existing `correct`.
-- Fixed fixed-template extended-chain target pairing for `RAP-QL-205`, `RAP-QL-206`, and `RAP-QL-207`.
-- Improved RAP-002 deterministic hash and seed-based numeric spread to remove exact duplicate stems in 500-sample QA.
-
-## Final Residual QA Counters
-
-```txt
-questionCount: 500
-duplicateStemGroupCount: 0
-duplicateStemQuestionCount: 0
-grammarIssueCount: 0
-semanticCompatibilityIssueCount: 0
-unresolvedPlaceholderCount: 0
-nanUndefinedNullCount: 0
-invalidCorrectIndexCount: 0
-duplicateNormalizedOptionCount: 0
-weakOptionCount: 0
-metadataLanguageMismatchCount: 0
-validationFailureCount: 0
-invalidAnswerFormatCount: 0
-genericInternalExplanationCount: 0
-chainInequalityTieRiskCount: 0
-extendedTargetMismatchCount: 0
+```json
+{
+  "questionCount": 1000,
+  "cpDistribution": {
+    "RAP-CP-007": 166,
+    "RAP-CP-008": 167,
+    "RAP-CP-009": 167,
+    "RAP-CP-010": 167,
+    "RAP-CP-011": 167,
+    "RAP-CP-012": 166
+  },
+  "qlDistribution": {
+    "RAP-QL-201": 7,
+    "RAP-QL-202": 11,
+    "RAP-QL-203": 8,
+    "RAP-QL-204": 6,
+    "RAP-QL-205": 14,
+    "RAP-QL-206": 7,
+    "RAP-QL-207": 8,
+    "RAP-QL-208": 8,
+    "RAP-QL-209": 11,
+    "RAP-QL-210": 11,
+    "RAP-QL-211": 10,
+    "RAP-QL-212": 9,
+    "RAP-QL-213": 9,
+    "RAP-QL-214": 11,
+    "RAP-QL-217": 11,
+    "RAP-QL-218": 13,
+    "RAP-QL-219": 12,
+    "RAP-QL-301": 9,
+    "RAP-QL-302": 15,
+    "RAP-QL-303": 13,
+    "RAP-QL-304": 16,
+    "RAP-QL-305": 11,
+    "RAP-QL-306": 24,
+    "RAP-QL-307": 17,
+    "RAP-QL-308": 23,
+    "RAP-QL-309": 8,
+    "RAP-QL-310": 16,
+    "RAP-QL-311": 15,
+    "RAP-QL-401": 2,
+    "RAP-QL-402": 3,
+    "RAP-QL-403": 6,
+    "RAP-QL-404": 3,
+    "RAP-QL-405": 10,
+    "RAP-QL-406": 9,
+    "RAP-QL-407": 5,
+    "RAP-QL-408": 4,
+    "RAP-QL-409": 10,
+    "RAP-QL-410": 8,
+    "RAP-QL-411": 7,
+    "RAP-QL-412": 8,
+    "RAP-QL-413": 4,
+    "RAP-QL-414": 3,
+    "RAP-QL-415": 6,
+    "RAP-QL-416": 7,
+    "RAP-QL-417": 8,
+    "RAP-QL-418": 10,
+    "RAP-QL-419": 4,
+    "RAP-QL-420": 3,
+    "RAP-QL-421": 7,
+    "RAP-QL-422": 2,
+    "RAP-QL-423": 8,
+    "RAP-QL-424": 7,
+    "RAP-QL-425": 6,
+    "RAP-QL-426": 6,
+    "RAP-QL-427": 4,
+    "RAP-QL-428": 4,
+    "RAP-QL-429": 3,
+    "RAP-QL-501": 14,
+    "RAP-QL-502": 4,
+    "RAP-QL-503": 20,
+    "RAP-QL-504": 11,
+    "RAP-QL-505": 20,
+    "RAP-QL-506": 22,
+    "RAP-QL-507": 16,
+    "RAP-QL-508": 17,
+    "RAP-QL-509": 17,
+    "RAP-QL-512": 14,
+    "RAP-QL-518": 12,
+    "RAP-QL-601": 10,
+    "RAP-QL-602": 8,
+    "RAP-QL-603": 6,
+    "RAP-QL-604": 6,
+    "RAP-QL-605": 6,
+    "RAP-QL-606": 6,
+    "RAP-QL-607": 8,
+    "RAP-QL-608": 8,
+    "RAP-QL-609": 2,
+    "RAP-QL-610": 6,
+    "RAP-QL-611": 9,
+    "RAP-QL-612": 1,
+    "RAP-QL-613": 8,
+    "RAP-QL-614": 6,
+    "RAP-QL-615": 5,
+    "RAP-QL-616": 3,
+    "RAP-QL-617": 10,
+    "RAP-QL-618": 5,
+    "RAP-QL-619": 2,
+    "RAP-QL-620": 2,
+    "RAP-QL-621": 2,
+    "RAP-QL-622": 13,
+    "RAP-QL-623": 4,
+    "RAP-QL-624": 7,
+    "RAP-QL-625": 5,
+    "RAP-QL-626": 3,
+    "RAP-QL-627": 2,
+    "RAP-QL-628": 5,
+    "RAP-QL-629": 5,
+    "RAP-QL-630": 4,
+    "RAP-QL-701": 27,
+    "RAP-QL-702": 25,
+    "RAP-QL-703": 16,
+    "RAP-QL-704": 14,
+    "RAP-QL-705": 16,
+    "RAP-QL-706": 9,
+    "RAP-QL-707": 14,
+    "RAP-QL-709": 16,
+    "RAP-QL-711": 9,
+    "RAP-QL-718": 20
+  },
+  "taskDistribution": {
+    "chainAlignment": 75,
+    "chainEquivalence": 54,
+    "chainInequality": 46,
+    "chainOrdering": 66,
+    "combinedInverseChain": 51,
+    "conditionalDistribution": 45,
+    "constrainedReverseChain": 66,
+    "electionMargin": 4,
+    "electionTotalVotersFromMargin": 10,
+    "electionWinnerVotes": 5,
+    "extendedChainAlignment": 48,
+    "incomeExpenditureSavings": 33,
+    "inverseChainSpeed": 29,
+    "inverseChainWork": 71,
+    "missingChainRatio": 43,
+    "nestedPartition": 35,
+    "reconstructOriginalRatio": 61,
+    "reverseEndpointFinding": 37,
+    "reverseMiddleFinding": 64,
+    "sdtRaceLead": 8,
+    "sdtTimeRatioFromSpeedDistance": 8,
+    "successiveRatioChange": 63,
+    "transferTracking": 24,
+    "weightedNestedPartition": 54
+  },
+  "answerTypeDistribution": {
+    "COUNT": 468,
+    "LOGIC": 173,
+    "RATIO": 359
+  },
+  "difficultyDistribution": {
+    "Hard": 500,
+    "Medium": 500
+  },
+  "unusedQlCount": 0,
+  "unusedTaskKindCount": 0,
+  "unreachableRegistryEntryCount": 0,
+  "duplicateStemGroupCount": 22,
+  "exactDuplicateStemGroupCount": 0,
+  "sameQlRepeatedStemGroupCount": 22,
+  "duplicateStemQuestionCount": 61,
+  "duplicateStemExamples": [
+    {
+      "stem": "two teams finish the same work. their worker counts are in the ratio 4:4, and their days are in the ratio 8:6. find the ratio of their efficiencies.",
+      "questions": [
+        7,
+        469,
+        667,
+        793,
+        847,
+        919,
+        955,
+        973
+      ]
+    },
+    {
+      "stem": "check whether the given ratio statement is equivalent after simplification: 108:180 and 432:720.",
+      "questions": [
+        36,
+        618
+      ]
+    },
+    {
+      "stem": "if 10 men complete a work in 18 days, how many days will 20 men take to complete the same work?",
+      "questions": [
+        49,
+        247,
+        265,
+        373
+      ]
+    },
+    {
+      "stem": "a total of 25000 is divided as group a:group b = 150:100. the selected branch is split as part c:part d = 200:50. find the required conditional share.",
+      "questions": [
+        50,
+        632
+      ]
+    },
+    {
+      "stem": "18 men can finish a food-stock task in 24 days. after 6 days, 9 more men join. how many more days are needed to finish the remaining work?",
+      "questions": [
+        61,
+        115,
+        241,
+        397,
+        739
+      ]
+    }
+  ],
+  "grammarIssueCount": 0,
+  "semanticCompatibilityIssueCount": 0,
+  "unresolvedPlaceholderCount": 0,
+  "nanUndefinedNullCount": 0,
+  "invalidCorrectIndexCount": 0,
+  "duplicateNormalizedOptionCount": 0,
+  "weakOptionCount": 0,
+  "metadataLanguageMismatchCount": 0,
+  "validationFailureCount": 0,
+  "invalidAnswerFormatCount": 0,
+  "genericInternalExplanationCount": 0,
+  "genericExplanationCount": 0,
+  "shortExplanationCount": 0,
+  "missingMethodReasonCount": 0,
+  "missingIntermediateStepCount": 0,
+  "repeatedExplanationShellCount": 0,
+  "fractionalCountAnswerCount": 0,
+  "fractionalCountExamples": [],
+  "negativeValueCount": 0,
+  "zeroDenominatorCount": 0,
+  "invalidPercentageCount": 0,
+  "invalidAgeCount": 0,
+  "unrealisticAgeCount": 0,
+  "invalidElectionCount": 0,
+  "invalidPopulationGridCount": 0,
+  "invalidMixtureTargetCount": 0,
+  "invalidReplacementCount": 0,
+  "invalidGeometryRootCount": 0,
+  "unsupportedLanguageExposureCount": 0,
+  "chainInequalityTieRiskCount": 0,
+  "extendedTargetMismatchCount": 0,
+  "logicAnswerDistribution": {
+    "A > B > C": 7,
+    "A > C > B": 4,
+    "A": 8,
+    "B > A > C": 2,
+    "B > C > A": 3,
+    "C > A > B": 4,
+    "C > B > A": 7,
+    "C": 24,
+    "Car A > Car B > Car C": 2,
+    "D > C > B > A": 14,
+    "Equivalent": 19,
+    "Group A > Group B > Group C > Group D": 1,
+    "Group A > Group B > Group D > Group C": 2,
+    "Group A > Group C > Group D > Group B": 1,
+    "Group B > Group A > Group D > Group C": 3,
+    "Group B > Group C > Group D > Group A": 2,
+    "Group B": 11,
+    "Group C > Group A > Group B > Group D": 1,
+    "Group C > Group B > Group A > Group D": 1,
+    "Group C > Group D > Group A > Group B": 2,
+    "Group C > Group D > Group B > Group A": 1,
+    "Group D > Group A > Group C > Group B": 6,
+    "Group D > Group C > Group A > Group B": 4,
+    "Group D > Group C > Group B > Group A": 1,
+    "Group D": 3,
+    "Not equivalent": 35,
+    "Team B": 5
+  },
+  "equivalenceAnswerDistribution": {
+    "Equivalent": 19,
+    "Not equivalent": 35
+  }
+}
 ```
 
-## Distribution
+## Duplicate Classification
 
-CP distribution:
-
-```txt
-RAP-CP-007: 83
-RAP-CP-008: 83
-RAP-CP-009: 83
-RAP-CP-010: 84
-RAP-CP-011: 84
-RAP-CP-012: 83
-```
-
-Task distribution:
-
-```txt
-chainAlignment: 30
-chainEquivalence: 37
-chainInequality: 28
-chainOrdering: 18
-combinedInverseChain: 32
-conditionalDistribution: 32
-constrainedReverseChain: 25
-extendedChainAlignment: 31
-inverseChainSpeed: 19
-inverseChainWork: 33
-missingChainRatio: 22
-nestedPartition: 20
-reconstructOriginalRatio: 29
-reverseEndpointFinding: 21
-reverseMiddleFinding: 37
-successiveRatioChange: 26
-transferTracking: 28
-weightedNestedPartition: 32
-```
-
-Equivalence answer distribution:
-
-```txt
-Equivalent: 18
-Not equivalent: 19
-```
-
-## Status
-
-- RAP-002 English MVP is QA-clean for generated-output manual review.
-- RAP-002 remains English-only.
-- RAP-002 is not multilingual-ready.
-- RAP-002 is not freeze-ready for full production breadth.
-- Recommended next step: manual editorial review of English generated samples before any QL expansion.
+- Cross-QL exact duplicate stem groups: `0` (blocker).
+- Same-QL repeated parameter draws: `22` groups (generator-diversity debt; manually classified, not duplicate QLs).

@@ -603,7 +603,9 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
           savingsB: formatNumber(savingsB),
           result: formatNumber(result),
         },
-        `|(${formatNumber(incomeA)}-${formatNumber(expenditureA)})-(${formatNumber(incomeB)}-${formatNumber(expenditureB)})|`,
+        parameters.taskKind === "givenOneSpendsMore"
+          ? `${s(parameters, "targetPerson")}\\text{ savings}=${formatNumber(result)}`
+          : `|(${formatNumber(incomeA)}-${formatNumber(expenditureA)})-(${formatNumber(incomeB)}-${formatNumber(expenditureB)})|`,
       );
     }
     case "shopRevenueCostProfit": {

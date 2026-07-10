@@ -1,51 +1,42 @@
 # RAP-003 Readiness Report
 
-## Status
+Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
+Reviewed date: `2026-07-10`
 
-RAP-003 is now wired into Quant V4 Question Studio as an English-only package named `Advanced Ratio & Proportion Applications`.
+## Coverage
 
-Active CPs:
+| CP | Active QLs |
+|---|---:|
+| RAP-CP-013 | 16 |
+| RAP-CP-014 | 30 |
+| RAP-CP-015 | 23 |
+| RAP-CP-016 | 29 |
+| RAP-CP-017 | 19 |
+| RAP-CP-018 | 18 |
+| RAP-CP-019 | 25 |
+| RAP-CP-020 | 20 |
+| RAP-CP-021 | 25 |
+| RAP-CP-022 | 17 |
+| **Total** | **222** |
 
-- RAP-CP-013 Weighted contribution ratios
-- RAP-CP-014 Time-shift ratio with invariant difference
-- RAP-CP-015 Two-ratio reconciliation
-- RAP-CP-016 Weighted average / alligation
-- RAP-CP-017 Repeated proportional replacement
-- RAP-CP-018 Value-count weighted systems
-- RAP-CP-019 Inverse rate-product applications
-- RAP-CP-020 Cross-tab ratio grid
-- RAP-CP-021 Vote/share distribution chains
-- RAP-CP-022 Power-ratio applications
+- Task kinds: 158
+- Removed structural duplicate: `RAP-QL-956`
+- Rewritten weak stems include `RAP-QL-1325`, `RAP-QL-1420`, and `RAP-QL-1617`.
+- Question Studio exposure: `supportedLanguages = ["en"]`; Hindi and Punjabi reject at runtime.
 
-## Product Exposure
+## Current QA
 
-- Question Studio discovery: enabled
-- supportedLanguages: `["en"]`
-- Hindi generation: rejected
-- Punjabi generation: rejected
-- Hindi/Punjabi files: retained as structural companions, not product-exposed
+- Package test: PASS; all 222 QLs and all CPs covered.
+- Question Studio smoke: PASS; all 10 CPs; English only.
+- Residual QA: PASS; 1,500 previews; all required blocker counters are 0.
+- Unused QLs/task kinds/unreachable registry entries: 0/0/0.
+- Exact cross-QL duplicates: 0; exact RAP-002 cross-package duplicates: 0.
+- Same-QL repeated stem groups: 116; affected questions: 361. These are parameter-diversity debt, not duplicate QLs.
+- Explanation audit: PASS; 222 QLs and all quality counters are 0.
+- Human-review export: 100 rows, 10 per CP; decisions PENDING.
 
-## Fixes Completed
+## Verdict
 
-- Percent answers now render with `%` while keeping `answerValue` numeric.
-- Population cell stems use plural labels such as `literate males`.
-- Age pools and validator checks reject unrealistic parent-child cases and invalid past-age cases.
-- RAP-003 validator now checks placeholders, invalid numeric leakage, ratio/percent formatting, fractional count/age answers, population grammar, and age realism.
-- Deterministic seeded variation prevents exact duplicate stems in 500-sample English QA.
-- Question Studio smoke covers discovery, metadata, options, all 10 CPs, and hi/pa rejection.
+RAP-003 English enrichment is implemented and automated-QA clean. It is ready for manual editorial review, but is **not English-complete or freeze-ready** until review decisions are recorded and same-QL diversity debt is accepted or reduced.
 
-## QA Result
-
-RAP-003 package test: passed.
-
-RAP-003 Question Studio smoke: passed.
-
-RAP-003 residual QA: passed with 500 English previews and all blocker counters at 0.
-
-## Review Status
-
-- Ready for English manual review: yes
-- English product-ready for manual review: yes
-- Freeze-ready: no, pending manual/editorial review
-- Multilingual ready: no
-
+Hindi/Punjabi publication remains blocked pending separate human localization and editorial QA.
