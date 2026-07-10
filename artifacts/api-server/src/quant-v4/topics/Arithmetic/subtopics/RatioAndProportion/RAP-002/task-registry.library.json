@@ -8,32 +8,62 @@
   "canonicalProblems": {
     "RAP-CP-007": {
       "title": "Direct Chain Ratios",
-      "taskKinds": ["chainAlignment", "extendedChainAlignment", "missingChainRatio"],
+      "taskKinds": [
+        "chainAlignment",
+        "extendedChainAlignment",
+        "missingChainRatio"
+      ],
       "plannedQuestionLanguageRange": "RAP-QL-201 to RAP-QL-269"
     },
     "RAP-CP-008": {
       "title": "Reverse Chain Proportions",
-      "taskKinds": ["reverseMiddleFinding", "reverseEndpointFinding", "constrainedReverseChain"],
+      "taskKinds": [
+        "reverseMiddleFinding",
+        "reverseEndpointFinding",
+        "constrainedReverseChain"
+      ],
       "plannedQuestionLanguageRange": "RAP-QL-301 to RAP-QL-369"
     },
     "RAP-CP-009": {
       "title": "Multi-Stage Ratio Transformations",
-      "taskKinds": ["successiveRatioChange", "transferTracking", "reconstructOriginalRatio", "electionWinnerVotes", "electionMargin", "electionTotalVotersFromMargin"],
+      "taskKinds": [
+        "successiveRatioChange",
+        "transferTracking",
+        "reconstructOriginalRatio",
+        "electionWinnerVotes",
+        "electionMargin",
+        "electionTotalVotersFromMargin"
+      ],
       "plannedQuestionLanguageRange": "RAP-QL-401 to RAP-QL-469"
     },
     "RAP-CP-010": {
       "title": "Conditional Partition With Ratios",
-      "taskKinds": ["nestedPartition", "conditionalDistribution", "weightedNestedPartition", "incomeExpenditureSavings"],
+      "taskKinds": [
+        "nestedPartition",
+        "conditionalDistribution",
+        "weightedNestedPartition",
+        "incomeExpenditureSavings"
+      ],
       "plannedQuestionLanguageRange": "RAP-QL-501 to RAP-QL-569"
     },
     "RAP-CP-011": {
       "title": "Inverse Proportion Chains",
-      "taskKinds": ["inverseChainWork", "inverseChainSpeed", "combinedInverseChain", "sdtTimeRatioFromSpeedDistance", "sdtRaceLead"],
+      "taskKinds": [
+        "inverseChainWork",
+        "inverseChainSpeed",
+        "combinedInverseChain",
+        "sdtTimeRatioFromSpeedDistance",
+        "sdtRaceLead"
+      ],
       "plannedQuestionLanguageRange": "RAP-QL-601 to RAP-QL-669"
     },
     "RAP-CP-012": {
       "title": "Ratio Comparison & Ordering",
-      "taskKinds": ["chainOrdering", "chainInequality", "chainEquivalence"],
+      "taskKinds": [
+        "chainOrdering",
+        "chainInequality",
+        "chainEquivalence"
+      ],
       "plannedQuestionLanguageRange": "RAP-QL-701 to RAP-QL-769"
     }
   },
@@ -43,7 +73,18 @@
       "taskKind": "chainAlignment",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-202": {
@@ -51,7 +92,18 @@
       "taskKind": "chainAlignment",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-203": {
@@ -59,7 +111,18 @@
       "taskKind": "chainAlignment",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-204": {
@@ -67,7 +130,18 @@
       "taskKind": "chainAlignment",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-205": {
@@ -75,7 +149,19 @@
       "taskKind": "extendedChainAlignment",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3", "targetPair"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3",
+        "targetPair"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-206": {
@@ -83,7 +169,19 @@
       "taskKind": "extendedChainAlignment",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3", "targetPair"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3",
+        "targetPair"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-207": {
@@ -91,7 +189,19 @@
       "taskKind": "extendedChainAlignment",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3", "targetPair"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3",
+        "targetPair"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-208": {
@@ -99,7 +209,20 @@
       "taskKind": "extendedChainAlignment",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3", "targetPair", "targetPairLabel"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3",
+        "targetPair",
+        "targetPairLabel"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-209": {
@@ -107,7 +230,17 @@
       "taskKind": "missingChainRatio",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "endpointA", "endpointC"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-210": {
@@ -115,7 +248,17 @@
       "taskKind": "missingChainRatio",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "endpointA", "endpointC"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-211": {
@@ -123,7 +266,17 @@
       "taskKind": "missingChainRatio",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "endpointA", "endpointC"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-212": {
@@ -131,7 +284,18 @@
       "taskKind": "chainAlignment",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3"
+      ],
       "explanationId": "RAP-ES-007"
     },
     "RAP-QL-301": {
@@ -139,7 +303,16 @@
       "taskKind": "reverseMiddleFinding",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueA"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueA"
+      ],
       "explanationId": "RAP-ES-008"
     },
     "RAP-QL-302": {
@@ -147,7 +320,16 @@
       "taskKind": "reverseMiddleFinding",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueC"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueC"
+      ],
       "explanationId": "RAP-ES-008"
     },
     "RAP-QL-303": {
@@ -155,7 +337,17 @@
       "taskKind": "reverseEndpointFinding",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueB", "targetEndpoint"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueB",
+        "targetEndpoint"
+      ],
       "explanationId": "RAP-ES-008"
     },
     "RAP-QL-304": {
@@ -163,7 +355,17 @@
       "taskKind": "reverseEndpointFinding",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueB", "targetEndpoint"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueB",
+        "targetEndpoint"
+      ],
       "explanationId": "RAP-ES-008"
     },
     "RAP-QL-305": {
@@ -171,7 +373,17 @@
       "taskKind": "constrainedReverseChain",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueDifference", "constraintKind"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueDifference",
+        "constraintKind"
+      ],
       "explanationId": "RAP-ES-008"
     },
     "RAP-QL-306": {
@@ -179,7 +391,17 @@
       "taskKind": "constrainedReverseChain",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "totalValue", "constraintKind"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "totalValue",
+        "constraintKind"
+      ],
       "explanationId": "RAP-ES-008"
     },
     "RAP-QL-401": {
@@ -187,7 +409,15 @@
       "taskKind": "successiveRatioChange",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "totalValue", "valueAddA", "valueAddB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueAddA",
+        "valueAddB"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-402": {
@@ -195,7 +425,15 @@
       "taskKind": "successiveRatioChange",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "totalValue", "valueAddA", "valueRemoveB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueAddA",
+        "valueRemoveB"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-403": {
@@ -203,7 +441,15 @@
       "taskKind": "transferTracking",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "totalValue", "transferValue", "transferDirection"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "transferValue",
+        "transferDirection"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-404": {
@@ -211,7 +457,15 @@
       "taskKind": "transferTracking",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "totalValue", "transferValue", "transferDirection"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "transferValue",
+        "transferDirection"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-405": {
@@ -219,7 +473,14 @@
       "taskKind": "reconstructOriginalRatio",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "finalRatioA", "finalRatioB", "valueAddA", "originalTotal"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "valueAddA",
+        "originalTotal"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-406": {
@@ -227,7 +488,15 @@
       "taskKind": "reconstructOriginalRatio",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "finalRatioA", "finalRatioB", "transferValue", "totalValue", "transferDirection"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "transferValue",
+        "totalValue",
+        "transferDirection"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-407": {
@@ -235,7 +504,15 @@
       "taskKind": "electionWinnerVotes",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["candidateA", "candidateB", "totalVoters", "turnoutPercent", "validPercent", "voteRatioA", "voteRatioB"],
+      "requiredVariables": [
+        "candidateA",
+        "candidateB",
+        "totalVoters",
+        "turnoutPercent",
+        "validPercent",
+        "voteRatioA",
+        "voteRatioB"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-408": {
@@ -243,7 +520,15 @@
       "taskKind": "electionMargin",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["candidateA", "candidateB", "totalVoters", "turnoutPercent", "validPercent", "voteRatioA", "voteRatioB"],
+      "requiredVariables": [
+        "candidateA",
+        "candidateB",
+        "totalVoters",
+        "turnoutPercent",
+        "validPercent",
+        "voteRatioA",
+        "voteRatioB"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-409": {
@@ -251,7 +536,15 @@
       "taskKind": "electionTotalVotersFromMargin",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["candidateA", "candidateB", "turnoutPercent", "validPercent", "voteRatioA", "voteRatioB", "marginVotes"],
+      "requiredVariables": [
+        "candidateA",
+        "candidateB",
+        "turnoutPercent",
+        "validPercent",
+        "voteRatioA",
+        "voteRatioB",
+        "marginVotes"
+      ],
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-501": {
@@ -259,7 +552,19 @@
       "taskKind": "nestedPartition",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA",
+        "ratioB",
+        "subRatioC",
+        "subRatioD",
+        "totalValue",
+        "branchPart",
+        "targetSubPart"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-502": {
@@ -267,7 +572,19 @@
       "taskKind": "nestedPartition",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA",
+        "ratioB",
+        "subRatioC",
+        "subRatioD",
+        "totalValue",
+        "branchPart",
+        "targetSubPart"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-503": {
@@ -275,7 +592,20 @@
       "taskKind": "conditionalDistribution",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "thresholdValue"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA",
+        "ratioB",
+        "subRatioC",
+        "subRatioD",
+        "totalValue",
+        "branchPart",
+        "targetSubPart",
+        "thresholdValue"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-504": {
@@ -283,7 +613,20 @@
       "taskKind": "conditionalDistribution",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "thresholdValue"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA",
+        "ratioB",
+        "subRatioC",
+        "subRatioD",
+        "totalValue",
+        "branchPart",
+        "targetSubPart",
+        "thresholdValue"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-505": {
@@ -291,7 +634,21 @@
       "taskKind": "weightedNestedPartition",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "weightC", "weightD"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA",
+        "ratioB",
+        "subRatioC",
+        "subRatioD",
+        "totalValue",
+        "branchPart",
+        "targetSubPart",
+        "weightC",
+        "weightD"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-506": {
@@ -299,7 +656,21 @@
       "taskKind": "weightedNestedPartition",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA", "ratioB", "subRatioC", "subRatioD", "totalValue", "branchPart", "targetSubPart", "weightC", "weightD"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA",
+        "ratioB",
+        "subRatioC",
+        "subRatioD",
+        "totalValue",
+        "branchPart",
+        "targetSubPart",
+        "weightC",
+        "weightD"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-507": {
@@ -307,7 +678,16 @@
       "taskKind": "incomeExpenditureSavings",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "incomeRatioA", "incomeRatioB", "expRatioA", "expRatioB", "savingsA", "savingsB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "incomeRatioA",
+        "incomeRatioB",
+        "expRatioA",
+        "expRatioB",
+        "savingsA",
+        "savingsB"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-508": {
@@ -315,7 +695,16 @@
       "taskKind": "incomeExpenditureSavings",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "incomeRatioA", "incomeRatioB", "expRatioA", "expRatioB", "savingsA", "savingsB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "incomeRatioA",
+        "incomeRatioB",
+        "expRatioA",
+        "expRatioB",
+        "savingsA",
+        "savingsB"
+      ],
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-601": {
@@ -323,7 +712,13 @@
       "taskKind": "inverseChainWork",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "valueA"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "valueA"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-602": {
@@ -331,7 +726,16 @@
       "taskKind": "inverseChainWork",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueA"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueA"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-603": {
@@ -339,7 +743,13 @@
       "taskKind": "inverseChainSpeed",
       "answerType": "COUNT",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "valueA"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "valueA"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-604": {
@@ -347,7 +757,16 @@
       "taskKind": "inverseChainSpeed",
       "answerType": "COUNT",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "valueC"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "valueC"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-605": {
@@ -355,7 +774,14 @@
       "taskKind": "combinedInverseChain",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "timeRatioA", "timeRatioB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "timeRatioA",
+        "timeRatioB"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-606": {
@@ -363,7 +789,14 @@
       "taskKind": "combinedInverseChain",
       "answerType": "RATIO",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "ratioA", "ratioB", "timeRatioA", "timeRatioB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "timeRatioA",
+        "timeRatioB"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-607": {
@@ -371,7 +804,14 @@
       "taskKind": "sdtTimeRatioFromSpeedDistance",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "speedRatioA", "speedRatioB", "distanceRatioA", "distanceRatioB"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "speedRatioA",
+        "speedRatioB",
+        "distanceRatioA",
+        "distanceRatioB"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-608": {
@@ -379,7 +819,12 @@
       "taskKind": "sdtRaceLead",
       "answerType": "RATIO",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "raceLength", "leadDistance"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "raceLength",
+        "leadDistance"
+      ],
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-701": {
@@ -387,7 +832,15 @@
       "taskKind": "chainOrdering",
       "answerType": "LOGIC",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2"
+      ],
       "explanationId": "RAP-ES-012"
     },
     "RAP-QL-702": {
@@ -395,7 +848,18 @@
       "taskKind": "chainOrdering",
       "answerType": "LOGIC",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3"
+      ],
       "explanationId": "RAP-ES-012"
     },
     "RAP-QL-703": {
@@ -403,7 +867,16 @@
       "taskKind": "chainInequality",
       "answerType": "LOGIC",
       "difficulty": "Medium",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "comparisonPair"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "comparisonPair"
+      ],
       "explanationId": "RAP-ES-012"
     },
     "RAP-QL-704": {
@@ -411,7 +884,19 @@
       "taskKind": "chainInequality",
       "answerType": "LOGIC",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "personD", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "ratioC3", "ratioD3", "comparisonPair"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "personD",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "ratioC3",
+        "ratioD3",
+        "comparisonPair"
+      ],
       "explanationId": "RAP-ES-012"
     },
     "RAP-QL-705": {
@@ -419,7 +904,17 @@
       "taskKind": "chainEquivalence",
       "answerType": "LOGIC",
       "difficulty": "Hard",
-      "requiredVariables": ["personA", "personB", "personC", "ratioA1", "ratioB1", "ratioB2", "ratioC2", "endpointA", "endpointC"],
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "ratioA1",
+        "ratioB1",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
       "explanationId": "RAP-ES-012"
     },
     "RAP-QL-706": {
@@ -427,7 +922,1906 @@
       "taskKind": "chainEquivalence",
       "answerType": "LOGIC",
       "difficulty": "Medium",
-      "requiredVariables": ["ratioA", "ratioB", "equivalentA", "equivalentB"],
+      "requiredVariables": [
+        "ratioA",
+        "ratioB",
+        "equivalentA",
+        "equivalentB"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-410": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "commonAdd"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-411": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "commonRemove"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-412": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueAddA"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-413": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueRemoveB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-414": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "transferTracking",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "transferValue",
+        "transferDirection"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-415": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "transferTracking",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "transferValue",
+        "transferDirection"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-416": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "valueAddA",
+        "originalTotal"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-417": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "valueRemoveB",
+        "totalValue"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-418": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "transferValue",
+        "totalValue",
+        "transferDirection"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-419": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueAddA",
+        "valueRemoveB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-420": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueAddA",
+        "valueAddB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-421": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueRemoveA",
+        "valueRemoveB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-422": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "finalRatioA",
+        "finalRatioB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-423": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "finalRatioA",
+        "finalRatioB",
+        "transferDirection"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-424": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueAddB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-425": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueRemoveB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-426": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "transferTracking",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "transferValue",
+        "transferDirection"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-427": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "transferValue",
+        "totalValue",
+        "transferDirection"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-428": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "successiveRatioChange",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "totalValue",
+        "valueRemoveA",
+        "valueAddB"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-429": {
+      "cpId": "RAP-CP-009",
+      "taskKind": "reconstructOriginalRatio",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "finalRatioA",
+        "finalRatioB",
+        "valueAddA",
+        "finalValueA"
+      ],
+      "explanationId": "RAP-ES-009"
+    },
+    "RAP-QL-609": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "valueB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-610": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-611": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "workerRatioA",
+        "workerRatioB",
+        "efficiencyRatioA",
+        "efficiencyRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-612": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "valueA"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-613": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-614": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "initialWorkers",
+        "originalDays",
+        "daysWorked",
+        "addedWorkers",
+        "workerChangeDirection"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-615": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "workerRatioA",
+        "workerRatioB",
+        "hoursRatioA",
+        "hoursRatioB",
+        "efficiencyRatioA",
+        "efficiencyRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-616": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "workerRatioA",
+        "workerRatioB",
+        "efficiencyRatioA",
+        "efficiencyRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-617": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainSpeed",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "speedRatioA",
+        "speedRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-618": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainSpeed",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "speedRatioA",
+        "speedRatioB",
+        "fixedTimeMode"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-619": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "timeRatioA",
+        "timeRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-620": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "initialWorkers",
+        "originalDays",
+        "daysWorked",
+        "addedWorkers",
+        "workerChangeDirection"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-621": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "initialWorkers",
+        "originalDays",
+        "daysWorked",
+        "remainingWorkers",
+        "workerChangeDirection"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-622": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "workerRatioA",
+        "workerRatioB",
+        "daysRatioA",
+        "daysRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-623": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "machineRatioA",
+        "machineRatioB",
+        "hoursRatioA",
+        "hoursRatioB",
+        "outputRatioA",
+        "outputRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-624": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "menA",
+        "daysA",
+        "menB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-625": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "baseWorkers",
+        "baseDays",
+        "workNumerator",
+        "workDenominator",
+        "targetDays"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-626": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "efficiencyRatioA",
+        "efficiencyRatioB",
+        "timeRatioA",
+        "timeRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-627": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainSpeed",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "personC",
+        "speedRatioA",
+        "speedRatioB",
+        "speedRatioC"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-628": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "quantityRatioA",
+        "quantityRatioB",
+        "timeRatioA",
+        "timeRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-629": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "inverseChainWork",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "workerRatioA",
+        "workerRatioB",
+        "daysRatioA",
+        "daysRatioB"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-630": {
+      "cpId": "RAP-CP-011",
+      "taskKind": "combinedInverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "outputRatioA",
+        "outputRatioB",
+        "workerRatioA",
+        "workerRatioB",
+        "hoursRatioA",
+        "hoursRatioB",
+        "efficiencyPartA"
+      ],
+      "explanationId": "RAP-ES-011"
+    },
+    "RAP-QL-213": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-214": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-215": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-216": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-217": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "missingChainRatio",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-218": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-219": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-220": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-221": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-222": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-223": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-224": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-225": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-226": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "missingChainRatio",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-227": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "chainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-228": {
+      "cpId": "RAP-CP-007",
+      "taskKind": "extendedChainAlignment",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3",
+        "targetPairLabel"
+      ],
+      "explanationId": "RAP-ES-007"
+    },
+    "RAP-QL-307": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseMiddleFinding",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueA"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-308": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseMiddleFinding",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueC"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-309": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseEndpointFinding",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueB"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-310": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "totalValue"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-311": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueDifference"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-312": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "totalValue"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-313": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "totalValue"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-314": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseEndpointFinding",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueB"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-315": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseMiddleFinding",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueA"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-316": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseEndpointFinding",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueB"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-317": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueDifference"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-318": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueDifference"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-319": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseMiddleFinding",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueA"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-320": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseMiddleFinding",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueC"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-321": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseEndpointFinding",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueB"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-322": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "totalValue"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-323": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "constrainedReverseChain",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueDifference"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-324": {
+      "cpId": "RAP-CP-008",
+      "taskKind": "reverseEndpointFinding",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "valueB"
+      ],
+      "explanationId": "RAP-ES-008"
+    },
+    "RAP-QL-509": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-510": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-511": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-512": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-513": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-514": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-515": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-516": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-517": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-518": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "weightedNestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD",
+        "weightC",
+        "weightD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-519": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "weightedNestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD",
+        "weightC",
+        "weightD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-520": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-521": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-522": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-523": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-524": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "nestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-525": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "conditionalDistribution",
+      "answerType": "COUNT",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-526": {
+      "cpId": "RAP-CP-010",
+      "taskKind": "weightedNestedPartition",
+      "answerType": "COUNT",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "totalValue",
+        "personA",
+        "personB",
+        "ratioA",
+        "ratioB",
+        "personC",
+        "personD",
+        "subRatioC",
+        "subRatioD",
+        "weightC",
+        "weightD"
+      ],
+      "explanationId": "RAP-ES-010"
+    },
+    "RAP-QL-707": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-708": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-709": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-710": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-711": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB",
+        "equivalentA",
+        "equivalentB"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-712": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB",
+        "equivalentA",
+        "equivalentB"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-713": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB",
+        "equivalentA",
+        "equivalentB"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-714": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-715": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-716": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-717": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-718": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-719": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-720": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainOrdering",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-721": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-722": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "ratioA",
+        "ratioB",
+        "equivalentA",
+        "equivalentB"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-723": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainInequality",
+      "answerType": "LOGIC",
+      "difficulty": "Hard",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "personD",
+        "ratioC3",
+        "ratioD3"
+      ],
+      "explanationId": "RAP-ES-012"
+    },
+    "RAP-QL-724": {
+      "cpId": "RAP-CP-012",
+      "taskKind": "chainEquivalence",
+      "answerType": "LOGIC",
+      "difficulty": "Medium",
+      "requiredVariables": [
+        "personA",
+        "personB",
+        "ratioA1",
+        "ratioB1",
+        "personC",
+        "ratioB2",
+        "ratioC2",
+        "endpointA",
+        "endpointC"
+      ],
       "explanationId": "RAP-ES-012"
     }
   }

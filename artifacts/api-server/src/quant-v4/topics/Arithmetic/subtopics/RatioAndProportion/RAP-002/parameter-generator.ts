@@ -200,10 +200,15 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
   const totalValue = initialA + initialB;
   const valueAddA = scaledPick([4, 5, 6, 8, 10, 12], `${seed}:addA`);
   const valueAddB = scaledPick([2, 4, 5, 6, 8, 10], `${seed}:addB`);
+  const commonAdd = scaledPick([3, 4, 5, 6, 8], `${seed}:commonAdd`);
+  const valueRemoveA = Math.min(initialA - 1, scaledPick([2, 3, 4, 5, 6], `${seed}:removeA`));
   const valueRemoveB = Math.min(initialB - 1, scaledPick([2, 4, 5, 6, 8], `${seed}:removeB`));
+  const commonRemove = Math.min(initialA, initialB) > 2
+    ? Math.min(Math.min(initialA, initialB) - 1, scaledPick([2, 3, 4, 5], `${seed}:commonRemove`))
+    : 1;
   const transferValue = Math.min(Math.min(initialA, initialB) - 1, scaledPick([2, 4, 5, 6, 8], `${seed}:transfer`));
 
-  if (qlId === "RAP-QL-405") {
+  if (qlId === "RAP-QL-405" || qlId === "RAP-QL-416") {
     const finalA = initialA + valueAddA;
     const finalB = initialB;
     const [finalRatioA, finalRatioB] = simplifyRatio([finalA, finalB]);
@@ -217,9 +222,24 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
     };
   }
 
-  if (qlId === "RAP-QL-406") {
-    const finalA = initialA - transferValue;
-    const finalB = initialB + transferValue;
+  if (qlId === "RAP-QL-417") {
+    const finalA = initialA;
+    const finalB = initialB - valueRemoveB;
+    const [finalRatioA, finalRatioB] = simplifyRatio([finalA, finalB]);
+    return {
+      personA: entities[0]!,
+      personB: entities[1]!,
+      finalRatioA,
+      finalRatioB,
+      valueRemoveB,
+      totalValue,
+    };
+  }
+
+  if (qlId === "RAP-QL-406" || qlId === "RAP-QL-418" || qlId === "RAP-QL-427") {
+    const direction = qlId === "RAP-QL-427" ? "B_TO_A" : "A_TO_B";
+    const finalA = direction === "A_TO_B" ? initialA - transferValue : initialA + transferValue;
+    const finalB = direction === "A_TO_B" ? initialB + transferValue : initialB - transferValue;
     const [finalRatioA, finalRatioB] = simplifyRatio([finalA, finalB]);
     return {
       personA: entities[0]!,
@@ -228,8 +248,61 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
       finalRatioB,
       transferValue,
       totalValue,
+      transferDirection: direction,
+    };
+  }
+
+  if (qlId === "RAP-QL-422") {
+    const [finalRatioA, finalRatioB] = simplifyRatio([initialA + commonAdd, initialB + commonAdd]);
+    return {
+      personA: entities[0]!,
+      personB: entities[1]!,
+      ratioA,
+      ratioB,
+      totalValue,
+      finalRatioA,
+      finalRatioB,
+    };
+  }
+
+  if (qlId === "RAP-QL-423") {
+    const [finalRatioA, finalRatioB] = simplifyRatio([initialA - transferValue, initialB + transferValue]);
+    return {
+      personA: entities[0]!,
+      personB: entities[1]!,
+      ratioA,
+      ratioB,
+      totalValue,
+      finalRatioA,
+      finalRatioB,
       transferDirection: "A_TO_B",
     };
+  }
+
+  if (qlId === "RAP-QL-429") {
+    const finalA = initialA + valueAddA;
+    const finalB = initialB;
+    const [finalRatioA, finalRatioB] = simplifyRatio([finalA, finalB]);
+    return {
+      personA: entities[0]!,
+      personB: entities[1]!,
+      finalRatioA,
+      finalRatioB,
+      valueAddA,
+      finalValueA: finalA,
+    };
+  }
+
+  if (qlId === "RAP-QL-424") {
+    return { personA: "boys", personB: "girls", ratioA, ratioB, totalValue, valueAddB };
+  }
+
+  if (qlId === "RAP-QL-425") {
+    return { personA: "type A items", personB: "type B items", ratioA, ratioB, totalValue, valueRemoveB };
+  }
+
+  if (qlId === "RAP-QL-426") {
+    return { personA: "Group A", personB: "Group B", ratioA, ratioB, totalValue, transferValue, transferDirection: "B_TO_A" };
   }
 
   return {
@@ -238,6 +311,16 @@ function baseTransformationVariables(seed: string, difficulty: Rap002DifficultyB
     ratioA,
     ratioB,
     totalValue,
+    ...(qlId === "RAP-QL-410" ? { commonAdd } : {}),
+    ...(qlId === "RAP-QL-411" ? { commonRemove } : {}),
+    ...(qlId === "RAP-QL-412" ? { valueAddA } : {}),
+    ...(qlId === "RAP-QL-413" ? { valueRemoveB } : {}),
+    ...(qlId === "RAP-QL-414" ? { transferValue, transferDirection: "A_TO_B" } : {}),
+    ...(qlId === "RAP-QL-415" ? { transferValue, transferDirection: "B_TO_A" } : {}),
+    ...(qlId === "RAP-QL-419" ? { valueAddA, valueRemoveB } : {}),
+    ...(qlId === "RAP-QL-420" ? { valueAddA, valueAddB } : {}),
+    ...(qlId === "RAP-QL-421" ? { valueRemoveA, valueRemoveB } : {}),
+    ...(qlId === "RAP-QL-428" ? { valueRemoveA, valueAddB } : {}),
     ...(qlId === "RAP-QL-401" ? { valueAddA, valueAddB } : {}),
     ...(qlId === "RAP-QL-402" ? { valueAddA, valueRemoveB } : {}),
     ...(qlId === "RAP-QL-403" ? { transferValue, transferDirection: "B_TO_A" } : {}),
@@ -321,6 +404,152 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
     return { personA: "Runner A", personB: "Runner B", raceLength: raceLength + offset * 10, leadDistance: leadDistance + offset };
   }
 
+  const serial = seedSerialOffset(seed, 251);
+  const speedPair = scenarioEntitySet("speed", seed);
+  const workPair = scenarioEntitySet("work", seed);
+
+  if (qlId === "RAP-QL-609") {
+    const ratioA = pick([3, 4, 5, 6], `${seed}:ratioA`);
+    const ratioB = pick([6, 8, 9, 10, 12], `${seed}:ratioB`);
+    return { personA: workPair[0]!, personB: workPair[1]!, ratioA, ratioB, valueB: ratioA * (4 + serial) };
+  }
+
+  if (qlId === "RAP-QL-610" || qlId === "RAP-QL-613") {
+    const ratioA = pick([3, 4, 5, 6, 8], `${seed}:ratioA`) + serial;
+    let ratioB = pick([5, 6, 7, 9, 10], `${seed}:ratioB`) + serial;
+    if (ratioA === ratioB) ratioB += 1;
+    return { personA: qlId === "RAP-QL-613" ? "Pipe A" : workPair[0]!, personB: qlId === "RAP-QL-613" ? "Pipe B" : workPair[1]!, ratioA, ratioB };
+  }
+
+  if (qlId === "RAP-QL-611" || qlId === "RAP-QL-616") {
+    return {
+      personA: "Team A",
+      personB: "Team B",
+      workerRatioA: pick([3, 4, 5, 6], `${seed}:workerA`) + serial,
+      workerRatioB: pick([4, 5, 6, 8], `${seed}:workerB`) + serial,
+      efficiencyRatioA: pick([2, 3, 4, 5], `${seed}:effA`),
+      efficiencyRatioB: pick([3, 4, 5, 6], `${seed}:effB`),
+    };
+  }
+
+  if (qlId === "RAP-QL-614" || qlId === "RAP-QL-620") {
+    const initialWorkers = pick([12, 15, 18, 20], `${seed}:initialWorkers`);
+    const originalDays = pick([12, 16, 20, 24], `${seed}:originalDays`);
+    const daysWorked = pick([3, 4, 5, 6], `${seed}:daysWorked`);
+    const addedWorkers = pick([3, 5, 6, 10], `${seed}:addedWorkers`);
+    return { initialWorkers, originalDays, daysWorked, addedWorkers, workerChangeDirection: "JOIN" };
+  }
+
+  if (qlId === "RAP-QL-615") {
+    return {
+      personA: "Team A",
+      personB: "Team B",
+      workerRatioA: pick([2, 3, 4, 5], `${seed}:workerA`),
+      workerRatioB: pick([3, 4, 5, 6], `${seed}:workerB`),
+      hoursRatioA: pick([4, 5, 6, 8], `${seed}:hoursA`),
+      hoursRatioB: pick([3, 4, 5, 7], `${seed}:hoursB`),
+      efficiencyRatioA: pick([2, 3, 5], `${seed}:effA`),
+      efficiencyRatioB: pick([3, 4, 6], `${seed}:effB`),
+    };
+  }
+
+  if (qlId === "RAP-QL-617" || qlId === "RAP-QL-618") {
+    const speedRatioA = pick([3, 4, 5, 6, 7], `${seed}:speedA`) + serial;
+    let speedRatioB = pick([4, 5, 6, 8, 9], `${seed}:speedB`) + serial;
+    if (speedRatioA === speedRatioB) speedRatioB += 1;
+    return { personA: speedPair[0]!, personB: speedPair[1]!, speedRatioA, speedRatioB, ...(qlId === "RAP-QL-618" ? { fixedTimeMode: "YES" } : {}) };
+  }
+
+  if (qlId === "RAP-QL-621") {
+    const initialWorkers = pick([18, 20, 24, 30], `${seed}:initialWorkers`);
+    const originalDays = pick([12, 15, 18, 20], `${seed}:originalDays`);
+    const daysWorked = pick([3, 4, 5], `${seed}:daysWorked`);
+    const remainingWorkers = pick([9, 10, 12, 15], `${seed}:remainingWorkers`);
+    return { initialWorkers, originalDays, daysWorked, remainingWorkers, workerChangeDirection: "LEAVE" };
+  }
+
+  if (qlId === "RAP-QL-622" || qlId === "RAP-QL-629") {
+    return {
+      personA: "Team A",
+      personB: "Team B",
+      workerRatioA: pick([3, 4, 5, 6], `${seed}:workerA`),
+      workerRatioB: pick([4, 5, 6, 8], `${seed}:workerB`),
+      daysRatioA: pick([5, 6, 8, 9], `${seed}:daysA`),
+      daysRatioB: pick([3, 4, 5, 6], `${seed}:daysB`),
+    };
+  }
+
+  if (qlId === "RAP-QL-623") {
+    return {
+      personA: "Machine group A",
+      personB: "Machine group B",
+      machineRatioA: pick([2, 3, 4], `${seed}:machineA`),
+      machineRatioB: pick([3, 4, 5], `${seed}:machineB`),
+      hoursRatioA: pick([4, 5, 6], `${seed}:hoursA`),
+      hoursRatioB: pick([3, 4, 5], `${seed}:hoursB`),
+      outputRatioA: pick([5, 6, 8, 9], `${seed}:outputA`),
+      outputRatioB: pick([4, 5, 7, 10], `${seed}:outputB`),
+    };
+  }
+
+  if (qlId === "RAP-QL-624") {
+    const menA = pick([8, 10, 12, 15], `${seed}:menA`);
+    const daysA = pick([12, 15, 18, 20], `${seed}:daysA`);
+    const menB = pick([16, 20, 24, 30], `${seed}:menB`);
+    return { menA, daysA, menB };
+  }
+
+  if (qlId === "RAP-QL-625") {
+    return {
+      baseWorkers: 12,
+      baseDays: pick([20, 24, 30], `${seed}:baseDays`),
+      workNumerator: pick([1, 2, 3], `${seed}:num`),
+      workDenominator: pick([4, 5, 6], `${seed}:den`),
+      targetDays: pick([4, 6, 8, 10], `${seed}:targetDays`),
+    };
+  }
+
+  if (qlId === "RAP-QL-626") {
+    return {
+      personA: "Worker A",
+      personB: "Worker B",
+      efficiencyRatioA: pick([2, 3, 4, 5], `${seed}:effA`),
+      efficiencyRatioB: pick([3, 4, 5, 6], `${seed}:effB`),
+      timeRatioA: pick([4, 5, 6], `${seed}:timeA`),
+      timeRatioB: pick([3, 4, 5], `${seed}:timeB`),
+    };
+  }
+
+  if (qlId === "RAP-QL-627") {
+    const speedRatioA = pick([3, 4, 5], `${seed}:speedA`) + serial;
+    const speedRatioB = speedRatioA + pick([1, 2], `${seed}:speedB`);
+    const speedRatioC = speedRatioB + pick([1, 2], `${seed}:speedC`);
+    return { personA: "Car A", personB: "Car B", personC: "Car C", speedRatioA, speedRatioB, speedRatioC };
+  }
+
+  if (qlId === "RAP-QL-628") {
+    return {
+      personA: "Machine A",
+      personB: "Machine B",
+      quantityRatioA: pick([5, 6, 8, 9], `${seed}:qtyA`),
+      quantityRatioB: pick([4, 5, 7, 10], `${seed}:qtyB`),
+      timeRatioA: pick([3, 4, 5], `${seed}:timeA`),
+      timeRatioB: pick([4, 5, 6], `${seed}:timeB`),
+    };
+  }
+
+  if (qlId === "RAP-QL-630") {
+    const efficiencyPartA = pick([2, 3, 4, 5], `${seed}:effPartA`);
+    const workerRatioA = pick([2, 3, 4], `${seed}:workerA`);
+    const workerRatioB = pick([3, 4, 5], `${seed}:workerB`);
+    const hoursRatioA = pick([4, 5, 6], `${seed}:hoursA`);
+    const hoursRatioB = pick([2, 3, 4], `${seed}:hoursB`);
+    const missing = pick([2, 3, 4, 5, 6], `${seed}:missingEff`);
+    const outputRatioA = workerRatioA * hoursRatioA * efficiencyPartA;
+    const outputRatioB = workerRatioB * hoursRatioB * missing;
+    return { personA: "Team A", personB: "Team B", outputRatioA, outputRatioB, workerRatioA, workerRatioB, hoursRatioA, hoursRatioB, efficiencyPartA };
+  }
+
   const entities = qlId === "RAP-QL-603" || qlId === "RAP-QL-604" || qlId === "RAP-QL-606"
     ? scenarioEntitySet("speed", seed)
     : scenarioEntitySet("work", seed);
@@ -355,8 +584,8 @@ function baseInverseVariables(seed: string, difficulty: Rap002DifficultyBand, ql
     personB: entities[1]!,
     ratioA,
     ratioB,
-    ...(qlId === "RAP-QL-601" || qlId === "RAP-QL-603" ? { valueA: ratioB * (scale + seedSerialOffset(seed, 251)) } : {}),
-    ...(qlId === "RAP-QL-605" || qlId === "RAP-QL-606" ? { timeRatioA, timeRatioB } : {}),
+    ...(qlId === "RAP-QL-601" || qlId === "RAP-QL-603" || qlId === "RAP-QL-612" ? { valueA: ratioB * (scale + seedSerialOffset(seed, 251)) } : {}),
+    ...(qlId === "RAP-QL-605" || qlId === "RAP-QL-606" || qlId === "RAP-QL-619" ? { timeRatioA, timeRatioB } : {}),
   };
 }
 
@@ -456,6 +685,88 @@ function baseComparisonVariables(seed: string, difficulty: Rap002DifficultyBand,
   };
 }
 
+function phase2FixedVariables(qlId: string): Rap002Variables | undefined {
+  const chain = {
+    personA: "A",
+    personB: "B",
+    personC: "C",
+    personD: "D",
+    ratioA1: 2,
+    ratioB1: 3,
+    ratioB2: 4,
+    ratioC2: 5,
+    ratioC3: 2,
+    ratioD3: 3,
+  };
+  const chainNumber = Number(qlId.replace("RAP-QL-", ""));
+  if (chainNumber >= 213 && chainNumber <= 228) {
+    if (qlId === "RAP-QL-217" || qlId === "RAP-QL-226") {
+      return addMissingChainVariables(chain);
+    }
+    if (qlId === "RAP-QL-214" || qlId === "RAP-QL-216" || qlId === "RAP-QL-220" || qlId === "RAP-QL-222" || qlId === "RAP-QL-224" || qlId === "RAP-QL-225" || qlId === "RAP-QL-228") {
+      return { ...chain, targetPair: qlId === "RAP-QL-216" ? "BD" : "AD", targetPairLabel: qlId === "RAP-QL-216" ? "B:D" : "A:D" };
+    }
+    return chain;
+  }
+
+  if (chainNumber >= 307 && chainNumber <= 324) {
+    const reverse = {
+      personA: "A",
+      personB: "B",
+      personC: "C",
+      ratioA1: 2,
+      ratioB1: 3,
+      ratioB2: 4,
+      ratioC2: 5,
+      valueA: 16,
+      valueB: 24,
+      valueC: 30,
+      valueDifference: 14,
+      totalValue: 70,
+      targetEndpoint: qlId === "RAP-QL-308" || qlId === "RAP-QL-316" || qlId === "RAP-QL-321" ? "A" : "C",
+      constraintKind: qlId === "RAP-QL-310" || qlId === "RAP-QL-312" || qlId === "RAP-QL-313" || qlId === "RAP-QL-322" ? "total" : "difference",
+    };
+    if (qlId === "RAP-QL-307" || qlId === "RAP-QL-308" || qlId === "RAP-QL-315" || qlId === "RAP-QL-319" || qlId === "RAP-QL-320") return reverse;
+    if (qlId === "RAP-QL-309" || qlId === "RAP-QL-314" || qlId === "RAP-QL-316" || qlId === "RAP-QL-321" || qlId === "RAP-QL-324") return reverse;
+    return reverse;
+  }
+
+  if (chainNumber >= 509 && chainNumber <= 526) {
+    return {
+      personA: "Group A",
+      personB: "Group B",
+      personC: "Part C",
+      personD: "Part D",
+      ratioA: 3,
+      ratioB: 2,
+      subRatioC: 4,
+      subRatioD: 1,
+      totalValue: 500,
+      branchPart: qlId === "RAP-QL-510" || qlId === "RAP-QL-516" || qlId === "RAP-QL-517" ? "B" : "A",
+      targetSubPart: qlId === "RAP-QL-509" || qlId === "RAP-QL-522" ? "D" : "C",
+      thresholdValue: 200,
+      weightC: 5,
+      weightD: 2,
+    };
+  }
+
+  if (chainNumber >= 707 && chainNumber <= 724) {
+    if (qlId === "RAP-QL-711" || qlId === "RAP-QL-712" || qlId === "RAP-QL-713" || qlId === "RAP-QL-722") {
+      return { ratioA: 3, ratioB: 5, equivalentA: 12, equivalentB: 20 };
+    }
+    if (qlId === "RAP-QL-718") {
+      return { ...chain, endpointA: 8, endpointC: 15 };
+    }
+    return {
+      ...chain,
+      comparisonPair: qlId === "RAP-QL-710" || qlId === "RAP-QL-717" ? "BD" : "AC",
+      endpointA: 8,
+      endpointC: 15,
+    };
+  }
+  return undefined;
+}
+
 export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap002Parameters {
   const cpId = input.canonicalProblemId ?? "RAP-CP-007";
   if (cpId !== "RAP-CP-007" && cpId !== "RAP-CP-008" && cpId !== "RAP-CP-009" && cpId !== "RAP-CP-010" && cpId !== "RAP-CP-011" && cpId !== "RAP-CP-012") throw new Error(`RAP-002 MVP only supports RAP-CP-007 to RAP-CP-012. Received ${cpId}.`);
@@ -466,22 +777,23 @@ export function generateRap002Parameters(input: Rap002ParameterInput = {}): Rap0
   const qlId = pickQl(cpId, seed, input.questionLanguageId);
   const registry = getRap002RegistryEntry(qlId);
   const difficulty = input.difficultyBand ?? registry.difficulty ?? pickDifficulty(seed);
-  let variables = baseChainVariables(seed, difficulty);
-  if (cpId === "RAP-CP-008") {
+  const fixedVariables = phase2FixedVariables(qlId);
+  let variables = fixedVariables ?? baseChainVariables(seed, difficulty);
+  if (!fixedVariables && cpId === "RAP-CP-008") {
     variables = baseReverseChainVariables(seed, difficulty, qlId);
-  } else if (cpId === "RAP-CP-009") {
+  } else if (!fixedVariables && cpId === "RAP-CP-009") {
     variables = baseTransformationVariables(seed, difficulty, qlId);
-  } else if (cpId === "RAP-CP-010") {
+  } else if (!fixedVariables && cpId === "RAP-CP-010") {
     variables = basePartitionVariables(seed, difficulty, qlId);
-  } else if (cpId === "RAP-CP-011") {
+  } else if (!fixedVariables && cpId === "RAP-CP-011") {
     variables = baseInverseVariables(seed, difficulty, qlId);
-  } else if (cpId === "RAP-CP-012") {
+  } else if (!fixedVariables && cpId === "RAP-CP-012") {
     variables = baseComparisonVariables(seed, difficulty, qlId);
   }
 
-  if (cpId === "RAP-CP-007" && registry.taskKind === "extendedChainAlignment") {
+  if (!fixedVariables && cpId === "RAP-CP-007" && registry.taskKind === "extendedChainAlignment") {
     variables = addExtendedTarget(seed, variables, qlId);
-  } else if (cpId === "RAP-CP-007" && registry.taskKind === "missingChainRatio") {
+  } else if (!fixedVariables && cpId === "RAP-CP-007" && registry.taskKind === "missingChainRatio") {
     variables = addMissingChainVariables(variables);
   }
 

@@ -104,26 +104,70 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
     || parameters.taskKind === "combinedInverseChain"
   ) {
     if (parameters.taskKind === "combinedInverseChain") {
+      const ratioLine =
+        solver.workingValues.workerRatio
+          ? `\\text{Worker ratio}=${String(solver.workingValues.workerRatio)}`
+          : solver.workingValues.machineRatio
+            ? `\\text{Machine ratio}=${String(solver.workingValues.machineRatio)}`
+            : solver.workingValues.quantityRatio
+              ? `\\text{Quantity ratio}=${String(solver.workingValues.quantityRatio)}`
+              : solver.workingValues.outputRatio
+                ? `\\text{Output ratio}=${String(solver.workingValues.outputRatio)}`
+                : solver.workingValues.efficiencyRatio
+                  ? `\\text{Efficiency ratio}=${String(solver.workingValues.efficiencyRatio)}`
+                : `${s(parameters, "personA")}:${s(parameters, "personB")}=${String(solver.workingValues.rateRatio ?? `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`)}`;
+      const secondLine =
+        solver.workingValues.hoursRatio
+          ? `\\text{Hours ratio}=${String(solver.workingValues.hoursRatio)}`
+          : solver.workingValues.daysRatio
+            ? `\\text{Days ratio}=${String(solver.workingValues.daysRatio)}`
+            : solver.workingValues.timeRatio
+              ? `\\text{Time ratio}=${String(solver.workingValues.timeRatio)}`
+            : solver.workingValues.efficiencyRatio
+              ? `\\text{Efficiency ratio}=${String(solver.workingValues.efficiencyRatio)}`
+              : `\\text{Time ratio}=${String(solver.workingValues.timeRatio ?? `${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`)}`;
       return {
         explanationId: parameters.explanationId,
         lines: [
-          "Problem: combine rate and time ratios side by side.",
-          block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
-          block(`\\text{Time ratio}=${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`),
+          "Problem: multiply direct factors and invert the factor that works in the opposite direction.",
+          block(ratioLine),
+          block(secondLine),
+          solver.workingValues.efficiencyRatio && solver.workingValues.hoursRatio
+            ? block(`\\text{Efficiency ratio}=${String(solver.workingValues.efficiencyRatio)}`)
+            : "Step 1: write each side using the factors given in the question.",
           block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
           block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
         ],
       };
     }
 
+    const firstLine = parameters.variables.ratioA1 !== undefined
+      ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}=${String(solver.workingValues.alignedChain)}`)
+      : solver.workingValues.speedRatio
+        ? block(`\\text{Speed ratio}=${String(solver.workingValues.speedRatio)}`)
+        : solver.workingValues.workerRatio
+          ? block(`\\text{Worker ratio}=${String(solver.workingValues.workerRatio)}`)
+          : solver.workingValues.rateRatio
+            ? block(`\\text{Rate ratio}=${String(solver.workingValues.rateRatio)}`)
+            : parameters.variables.initialWorkers !== undefined
+              ? block(`\\text{Total work units}=${String(solver.workingValues.totalWork)}`)
+              : parameters.variables.baseWorkers !== undefined
+                ? block(`\\text{Full work units}=${n(parameters, "baseWorkers")}\\times${n(parameters, "baseDays")}`)
+              : parameters.variables.menA !== undefined
+                ? block(`\\text{Work units}=${n(parameters, "menA")}\\times${n(parameters, "daysA")}`)
+                : block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`);
+    const methodLine = parameters.answerType === "LOGIC"
+      ? "Method 1: for the same work or distance, the lower rate takes more time."
+      : parameters.answerType === "RATIO"
+        ? "Method 1: invert the rate/product ratio when time is being compared."
+        : "Method 1: use inverse scaling from the known work, workers, or time.";
+
     return {
       explanationId: parameters.explanationId,
       lines: [
         "Problem: for fixed work or fixed distance, time varies inversely with rate.",
-        parameters.variables.ratioA1 !== undefined
-          ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}:${s(parameters, "personC")}=${String(solver.workingValues.alignedChain)}`)
-          : block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`),
-        "Method 1: use inverse scaling from the known time.",
+        firstLine,
+        methodLine,
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
@@ -163,20 +207,58 @@ export function renderRap002Explanation(parameters: Rap002Parameters, solver: Ra
     || parameters.taskKind === "transferTracking"
     || parameters.taskKind === "reconstructOriginalRatio"
   ) {
-    const actionLine = parameters.taskKind === "successiveRatioChange"
-      ? "Problem: convert the starting ratio into actual values, then apply the additions or removals."
-      : parameters.taskKind === "transferTracking"
-        ? "Problem: convert the ratio into actual values, then move the transferred amount."
-        : "Problem: work backward from the final ratio and undo the stated operation.";
+    const labels = `${s(parameters, "personA")} and ${s(parameters, "personB")}`;
+    const isCountReverse = parameters.taskKind === "reconstructOriginalRatio" && parameters.answerType === "COUNT";
+    const operationText =
+      parameters.variables.commonAdd !== undefined
+        ? `add ${n(parameters, "commonAdd")} to both values`
+        : parameters.variables.commonRemove !== undefined
+          ? `remove ${n(parameters, "commonRemove")} from both values`
+          : parameters.variables.valueAddA !== undefined && parameters.variables.finalValueA === undefined
+            ? `add ${n(parameters, "valueAddA")} to ${s(parameters, "personA")}`
+            : parameters.variables.valueAddB !== undefined
+              ? `add ${n(parameters, "valueAddB")} to ${s(parameters, "personB")}`
+              : parameters.variables.valueRemoveA !== undefined
+                ? `remove ${n(parameters, "valueRemoveA")} from ${s(parameters, "personA")}`
+                : parameters.variables.valueRemoveB !== undefined
+                  ? `remove ${n(parameters, "valueRemoveB")} from ${s(parameters, "personB")}`
+                  : parameters.variables.transferValue !== undefined
+                    ? `transfer ${n(parameters, "transferValue")} according to the direction`
+                    : "use the changed final ratio";
+
+    if (isCountReverse) {
+      return {
+        explanationId: parameters.explanationId,
+        lines: [
+          `Problem: find the missing amount by comparing the starting information with the final ratio for ${labels}.`,
+          solver.workingValues.initialRatio
+            ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${String(solver.workingValues.initialRatio)}`)
+            : block(`\\text{Final ratio}=${String(solver.workingValues.finalRatio)}`),
+          solver.workingValues.initialA
+            ? `Step 1: convert the starting ratio into actual values: ${s(parameters, "personA")} = ${String(solver.workingValues.initialA)} and ${s(parameters, "personB")} = ${String(solver.workingValues.initialB)}.`
+            : `Step 1: use the final value and final ratio to recover the final values: ${s(parameters, "personA")} = ${String(solver.workingValues.finalA)} and ${s(parameters, "personB")} = ${String(solver.workingValues.finalB)}.`,
+          `Step 2: set up the reverse calculation from the final ratio. This gives ${String(solver.workingValues.result)}.`,
+          block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+          block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
+        ],
+      };
+    }
 
     return {
       explanationId: parameters.explanationId,
       lines: [
-        actionLine,
+        parameters.taskKind === "reconstructOriginalRatio"
+          ? "Problem: work backward from the final ratio and undo the stated operation."
+          : `Problem: convert the starting ratio into actual values, then ${operationText}.`,
         solver.workingValues.initialRatio
           ? block(`${s(parameters, "personA")}:${s(parameters, "personB")}=${String(solver.workingValues.initialRatio)}`)
           : block(`\\text{Final ratio}=${String(solver.workingValues.finalRatio)}`),
-        `Step 1: the tracked values become ${String(solver.workingValues.finalA ?? solver.workingValues.originalA)} and ${String(solver.workingValues.finalB ?? solver.workingValues.originalB)}.`,
+        solver.workingValues.initialA
+          ? `Step 1: the starting values are ${s(parameters, "personA")} = ${String(solver.workingValues.initialA)} and ${s(parameters, "personB")} = ${String(solver.workingValues.initialB)}.`
+          : `Step 1: after undoing the change, the original values are ${s(parameters, "personA")} = ${String(solver.workingValues.originalA)} and ${s(parameters, "personB")} = ${String(solver.workingValues.originalB)}.`,
+        solver.workingValues.finalA
+          ? `Step 2: after the change, the values become ${String(solver.workingValues.finalA)} and ${String(solver.workingValues.finalB)}.`
+          : "Step 2: reduce the recovered original values to the simplest ratio.",
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],

@@ -72,6 +72,102 @@
         "taskKind": "chainAlignment",
         "template": "Three adjacent ratios are {ratioA1}:{ratioB1}, {ratioB2}:{ratioC2}, and {ratioC3}:{ratioD3}. They connect {personA}, {personB}, {personC}, and {personD} in order. Find the combined ratio.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-213": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personA}:{personB}:{personC}:{personD}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-214": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-215": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personA}:{personB}:{personC}:{personD}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-216": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-217": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "missingChainRatio",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, the simplified {personA}:{personC} ratio is {endpointA}:{endpointC}. Find the matching value of {personB} in the aligned chain.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-218": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "A class has {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}. Find the full ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-219": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Salaries of {personA}:{personB} are {ratioA1}:{ratioB1}, {personB}:{personC} are {ratioB2}:{ratioC2}, and {personC}:{personD} are {ratioC3}:{ratioD3}. Find the salary ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-220": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-221": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personA}:{personB}:{personC}:{personD}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-222": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-223": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personA}:{personB}:{personC}:{personD}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-224": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-225": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-226": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "missingChainRatio",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, the simplified {personA}:{personC} ratio is {endpointA}:{endpointC}. Find the matching value of {personB} in the aligned chain.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-227": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "chainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {personA}:{personB}:{personC}:{personD}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-228": {
+        "cpId": "RAP-CP-007",
+        "taskKind": "extendedChainAlignment",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, find {targetPairLabel}.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -111,6 +207,114 @@
         "cpId": "RAP-CP-008",
         "taskKind": "constrainedReverseChain",
         "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If their total is {totalValue}, find the value of {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-307": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personA} is {valueA}, find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-308": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personC} is {valueC}, find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-309": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} is {valueB}, find the selected endpoint value.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-310": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. Their total is {totalValue}. Find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-311": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. The difference between the endpoints is {valueDifference}. Find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-312": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. Their total is {totalValue}. Find {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-313": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. Their total is {totalValue}. Find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-314": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} is {valueB}, find the selected endpoint value.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-315": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personA} is {valueA}, find {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-316": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} is {valueB}, find the selected endpoint value.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-317": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. The difference between the endpoints is {valueDifference}. Find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-318": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. The difference between the endpoints is {valueDifference}. Find {personB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-319": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personA} is {valueA}, find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-320": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseMiddleFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personC} is {valueC}, find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-321": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} is {valueB}, find the selected endpoint value.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-322": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. Their total is {totalValue}. Find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-323": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "constrainedReverseChain",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. The difference between the endpoints is {valueDifference}. Find {personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-324": {
+        "cpId": "RAP-CP-008",
+        "taskKind": "reverseEndpointFinding",
+        "template": "{personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}. If {personB} is {valueB}, find the selected endpoint value.",
         "difficulty": "Hard"
       }
     }
@@ -170,6 +374,126 @@
         "taskKind": "electionTotalVotersFromMargin",
         "template": "{turnoutPercent}% of voters cast their votes, and {validPercent}% of polled votes were valid. The valid votes for {candidateA}:{candidateB} were in the ratio {voteRatioA}:{voteRatioB}. If the winning margin was {marginVotes} votes, find the total number of voters.",
         "difficulty": "Hard"
+      },
+      "RAP-QL-410": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA} and {personB} have amounts in the ratio {ratioA}:{ratioB}, and together they have {totalValue}. If {commonAdd} is added to both amounts, find the new ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-411": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA} and {personB} share a total of {totalValue} in the ratio {ratioA}:{ratioB}. If {commonRemove} is removed from each share, find the remaining ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-412": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "The amounts with {personA} and {personB} are in the ratio {ratioA}:{ratioB}, and their total is {totalValue}. If {valueAddA} is added only to {personA}, find the final ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-413": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "The amounts with {personA} and {personB} are in the ratio {ratioA}:{ratioB}, and their total is {totalValue}. If {valueRemoveB} is removed only from {personB}, find the final ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-414": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "transferTracking",
+        "template": "{personA} and {personB} have a total of {totalValue} in the ratio {ratioA}:{ratioB}. If {transferValue} is transferred from {personA} to {personB}, find the new ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-415": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "transferTracking",
+        "template": "{personA} and {personB} have a total of {totalValue} in the ratio {ratioA}:{ratioB}. If {transferValue} is transferred from {personB} to {personA}, find the new ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-416": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After {valueAddA} is added to {personA}, the ratio of {personA} to {personB} becomes {finalRatioA}:{finalRatioB}. The original total was {originalTotal}. Find the original ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-417": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After {valueRemoveB} is removed from {personB}, the ratio of {personA} to {personB} becomes {finalRatioA}:{finalRatioB}. The original total was {totalValue}. Find the original ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-418": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After {transferValue} is moved from {personA} to {personB}, their ratio becomes {finalRatioA}:{finalRatioB}. Their total is {totalValue}. Find the original ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-419": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA}:{personB} is {ratioA}:{ratioB}, and their total is {totalValue}. First {valueAddA} is added to {personA}; then {valueRemoveB} is removed from {personB}. Find the final ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-420": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA} and {personB} start in the ratio {ratioA}:{ratioB} with total {totalValue}. If {valueAddA} is added to {personA} and {valueAddB} is added to {personB}, find the final ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-421": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA} and {personB} start in the ratio {ratioA}:{ratioB} with total {totalValue}. If {valueRemoveA} is removed from {personA} and {valueRemoveB} is removed from {personB}, find the final ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-422": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "The ratio of {personA} to {personB} is {ratioA}:{ratioB}, and their total is {totalValue}. After the same amount is added to both, the ratio becomes {finalRatioA}:{finalRatioB}. Find the amount added to each.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-423": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "The ratio of {personA} to {personB} is {ratioA}:{ratioB}, and their total is {totalValue}. After some amount is transferred from {personA} to {personB}, the ratio becomes {finalRatioA}:{finalRatioB}. Find the amount transferred.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-424": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "A class has boys and girls in the ratio {ratioA}:{ratioB}, with {totalValue} students in all. If {valueAddB} more girls join the class, find the new boys:girls ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-425": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "A shop has two product types in the ratio {ratioA}:{ratioB}, with total stock {totalValue}. If {valueRemoveB} items of the second type are sold, find the new stock ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-426": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "transferTracking",
+        "template": "Two groups of supporters are in the ratio {ratioA}:{ratioB}, with {totalValue} supporters in all. If {transferValue} supporters switch from {personB} to {personA}, find the new ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-427": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After {transferValue} supporters switch from {personB} to {personA}, the ratio becomes {finalRatioA}:{finalRatioB}. The total number of supporters is {totalValue}. Find the original ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-428": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "successiveRatioChange",
+        "template": "{personA} and {personB} have money in the ratio {ratioA}:{ratioB}, and together they have {totalValue}. If {personA} spends {valueRemoveA} and {personB} receives {valueAddB}, find the new ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-429": {
+        "cpId": "RAP-CP-009",
+        "taskKind": "reconstructOriginalRatio",
+        "template": "After {valueAddA} is added to {personA}, the ratio of {personA} to {personB} becomes {finalRatioA}:{finalRatioB}. If {personA} then has {finalValueA}, find the original total.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -222,6 +546,114 @@
         "taskKind": "incomeExpenditureSavings",
         "template": "{personA} and {personB} have incomes in the ratio {incomeRatioA}:{incomeRatioB} and expenditures in the ratio {expRatioA}:{expRatioB}. Their savings are {savingsA} and {savingsB}. What is the combined income of both?",
         "difficulty": "Hard"
+      },
+      "RAP-QL-509": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-510": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-511": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-512": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-513": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-514": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-515": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-516": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-517": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-518": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "weightedNestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. If their weights are {weightC} and {weightD}, find the weighted total.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-519": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "weightedNestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. If their weights are {weightC} and {weightD}, find the weighted total.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-520": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-521": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-522": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-523": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-524": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "nestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected group is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required sub-part.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-525": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "conditionalDistribution",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-526": {
+        "cpId": "RAP-CP-010",
+        "taskKind": "weightedNestedPartition",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. If their weights are {weightC} and {weightD}, find the weighted total.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -274,6 +706,138 @@
         "taskKind": "sdtRaceLead",
         "template": "{personA} beats {personB} by {leadDistance} m in a {raceLength} m race. Find the ratio of their speeds.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-609": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "The number of workers in {personA} and {personB} is in the ratio {ratioA}:{ratioB}. If {personB} can finish the work in {valueB} days, how many days will {personA} take?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-610": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "Two groups of workers are in the ratio {ratioA}:{ratioB}. For the same work, find the ratio of the time taken by the first group to the second group.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-611": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "Two teams have worker counts in the ratio {workerRatioA}:{workerRatioB} and efficiencies in the ratio {efficiencyRatioA}:{efficiencyRatioB}. For the same work, find the ratio of their completion times.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-612": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "Machines in {personA} and {personB} are in the ratio {ratioA}:{ratioB}. If {personA} finishes a fixed output in {valueA} hours, how many hours will {personB} take?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-613": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "Two pipes have filling capacities in the ratio {ratioA}:{ratioB}. For the same tank, find the ratio of their filling times.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-614": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "{initialWorkers} men can finish a food-stock task in {originalDays} days. After {daysWorked} days, {addedWorkers} more men join. How many more days are needed to finish the remaining work?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-615": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "Output is proportional to workers, hours, and efficiency. If the worker ratio is {workerRatioA}:{workerRatioB}, hours ratio is {hoursRatioA}:{hoursRatioB}, and efficiency ratio is {efficiencyRatioA}:{efficiencyRatioB}, find the output ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-616": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "Two teams produce equal output. Their worker counts are in the ratio {workerRatioA}:{workerRatioB}, and efficiencies are in the ratio {efficiencyRatioA}:{efficiencyRatioB}. Find the ratio of their working times.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-617": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainSpeed",
+        "template": "For the same distance, the speeds of {personA} and {personB} are in the ratio {speedRatioA}:{speedRatioB}. Find the ratio of their times.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-618": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainSpeed",
+        "template": "For the same travel time, the speeds of {personA} and {personB} are in the ratio {speedRatioA}:{speedRatioB}. Find the ratio of distances covered.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-619": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "Two buses have speed ratio {ratioA}:{ratioB}, and their running-time ratio is {timeRatioA}:{timeRatioB}. Find the ratio of effective distances covered.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-620": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "{initialWorkers} workers can finish a job in {originalDays} days. They work for {daysWorked} days, then {addedWorkers} more workers join. Find the remaining days needed.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-621": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "{initialWorkers} workers can finish a job in {originalDays} days. They work for {daysWorked} days, then only {remainingWorkers} workers continue. Find the remaining days needed.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-622": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "Two teams finish the same work. Their worker counts are in the ratio {workerRatioA}:{workerRatioB}, and their days are in the ratio {daysRatioA}:{daysRatioB}. Find the ratio of their efficiencies.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-623": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "Two machine groups have machine counts in the ratio {machineRatioA}:{machineRatioB}, working hours in the ratio {hoursRatioA}:{hoursRatioB}, and output in the ratio {outputRatioA}:{outputRatioB}. Find the ratio of their efficiencies.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-624": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "If {menA} men complete a work in {daysA} days, how many days will {menB} men take to complete the same work?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-625": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "{baseWorkers} workers can finish the full work in {baseDays} days. How many workers are needed to finish {workNumerator}/{workDenominator} of the work in {targetDays} days?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-626": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "The efficiencies of {personA} and {personB} are in the ratio {efficiencyRatioA}:{efficiencyRatioB}, and their working times are in the ratio {timeRatioA}:{timeRatioB}. If both work on the same job, find the ratio of work contributed.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-627": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainSpeed",
+        "template": "The speeds of {personA}, {personB}, and {personC} are in the ratio {speedRatioA}:{speedRatioB}:{speedRatioC}. For the same distance, arrange their times from greatest to least.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-628": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "Quantity produced by {personA} and {personB} is in the ratio {quantityRatioA}:{quantityRatioB}, and the time taken is in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of their production rates.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-629": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "inverseChainWork",
+        "template": "Two teams finish the same work. Their worker counts are in the ratio {workerRatioA}:{workerRatioB}, and their days are in the ratio {daysRatioA}:{daysRatioB}. Which team has higher efficiency per worker?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-630": {
+        "cpId": "RAP-CP-011",
+        "taskKind": "combinedInverseChain",
+        "template": "For two teams, output ratio is {outputRatioA}:{outputRatioB}, worker ratio is {workerRatioA}:{workerRatioB}, and hours ratio is {hoursRatioA}:{hoursRatioB}. If {personA} has efficiency part {efficiencyPartA}, find {personB}'s efficiency part.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -313,6 +877,114 @@
         "cpId": "RAP-CP-012",
         "taskKind": "chainEquivalence",
         "template": "Check whether the ratios {ratioA}:{ratioB} and {equivalentA}:{equivalentB} are equivalent.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-707": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, arrange the quantities in descending order.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-708": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, arrange the quantities in descending order.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-709": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, compare the selected pair and identify the larger quantity.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-710": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, compare the selected pair and identify the larger quantity.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-711": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Check whether the given ratio statement is equivalent after simplification: {ratioA}:{ratioB} and {equivalentA}:{equivalentB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-712": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Check whether the given ratio statement is equivalent after simplification: {ratioA}:{ratioB} and {equivalentA}:{equivalentB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-713": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Check whether the given ratio statement is equivalent after simplification: {ratioA}:{ratioB} and {equivalentA}:{equivalentB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-714": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, compare the selected pair and identify the larger quantity.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-715": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, arrange the quantities in descending order.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-716": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, arrange the quantities in descending order.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-717": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, compare the selected pair and identify the larger quantity.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-718": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, check whether the endpoint ratio {endpointA}:{endpointC} is equivalent to the aligned chain.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-719": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, arrange the quantities in descending order.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-720": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainOrdering",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, arrange the quantities in descending order.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-721": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, compare the selected pair and identify the larger quantity.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-722": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Check whether the given ratio statement is equivalent after simplification: {ratioA}:{ratioB} and {equivalentA}:{equivalentB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-723": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainInequality",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1}, {personB}:{personC} = {ratioB2}:{ratioC2}, and {personC}:{personD} = {ratioC3}:{ratioD3}, compare the selected pair and identify the larger quantity.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-724": {
+        "cpId": "RAP-CP-012",
+        "taskKind": "chainEquivalence",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, check whether the endpoint ratio {endpointA}:{endpointC} is equivalent to the aligned chain.",
         "difficulty": "Medium"
       }
     }

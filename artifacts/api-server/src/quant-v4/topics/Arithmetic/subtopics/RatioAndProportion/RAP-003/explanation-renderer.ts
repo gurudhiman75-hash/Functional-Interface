@@ -15,7 +15,23 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     parameters.taskKind === "partnershipProfitShare"
     || parameters.taskKind === "partnershipJoiningPartnerProfit"
     || parameters.taskKind === "partnershipMidPeriodChange"
+    || parameters.taskKind === "partnershipLeavingPartnerProfit"
+    || parameters.taskKind === "partnershipMidPeriodChangeBoth"
+    || parameters.taskKind === "partnershipSalaryThenProfitShare"
+    || parameters.taskKind === "partnershipProfitFromKnownShare"
+    || parameters.taskKind === "partnershipCapitalRatioTimeRatio"
+    || parameters.taskKind === "partnershipLossShare"
+    || parameters.taskKind === "workContributionShare"
+    || parameters.taskKind === "partnershipNewPartnerCapital"
+    || parameters.taskKind === "partnershipTimeFromProfitRatio"
+    || parameters.taskKind === "partnershipTargetPartnerShareFromRatio"
+    || parameters.taskKind === "partnershipRemainingProfitAfterCommission"
   ) {
+    const ratioLabel = parameters.taskKind === "workContributionShare"
+      ? "\\text{Contribution ratio}"
+      : parameters.taskKind === "partnershipLossShare"
+        ? "\\text{Loss ratio}"
+        : "\\text{Profit ratio}";
     return {
       explanationId: parameters.explanationId,
       lines: [
@@ -26,7 +42,9 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
           "ਸਾਂਝੇਦਾਰੀ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਅਤੇ ਸਮੇਂ ਦੇ ਗੁਣਨਫਲ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ.",
         ),
         block(`\\text{Investment-time products}=${String(solver.workingValues.productA)}:${String(solver.workingValues.productB)}`),
-        block(`\\text{Profit ratio}=${String(solver.workingValues.profitRatio)}`),
+        solver.workingValues.remainingProfit !== undefined
+          ? block(`\\text{Remaining profit}=${String(solver.workingValues.remainingProfit)}`)
+          : block(`${ratioLabel}=${String(solver.workingValues.profitRatio)}`),
         localizedIntro(parameters, "Method 1: use the target partner's share of the total profit.", "कुल लाभ में लक्षित साझेदार का हिस्सा लें.", "ਕੁੱਲ ਲਾਭ ਵਿੱਚ ਲਕਸ਼ਿਤ ਸਾਥੀ ਦਾ ਹਿੱਸਾ ਲਵੋ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
@@ -38,6 +56,24 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     parameters.taskKind === "alloyMixingRatioFromTarget"
     || parameters.taskKind === "alloyTargetComponentFromMix"
     || parameters.taskKind === "alloyThreeSourceEqualMix"
+    || parameters.taskKind === "weightedAverageGroup"
+    || parameters.taskKind === "alloyMissingQuantity"
+    || parameters.taskKind === "alloyMissingSourcePercent"
+    || parameters.taskKind === "alloyTargetFromThreeSources"
+    || parameters.taskKind === "alloyPureAndImpureMix"
+    || parameters.taskKind === "alloyZeroComponentMix"
+    || parameters.taskKind === "weightedProfitPercentMix"
+    || parameters.taskKind === "weightedDiscountMix"
+    || parameters.taskKind === "sugarSolutionConcentration"
+    || parameters.taskKind === "averagePriceFromRatio"
+    || parameters.taskKind === "mixingRatioFromAveragePrice"
+    || parameters.taskKind === "marksAverageMixture"
+    || parameters.taskKind === "reverseWeightedAverageCount"
+    || parameters.taskKind === "reverseWeightedAverageGroupAvg"
+    || parameters.taskKind === "alloyTargetExactlyMidpoint"
+    || parameters.taskKind === "alloyNonMidpointTrap"
+    || parameters.taskKind === "alloyReplaceToTarget"
+    || parameters.taskKind === "alloyRatioToFinalPercent"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -63,7 +99,34 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     || parameters.taskKind === "incomeExpenditureEqualSavings"
     || parameters.taskKind === "incomeFromSavingsRatio"
     || parameters.taskKind === "expenditureFromSavingsRatio"
+    || parameters.taskKind === "incomeExpenseDifferenceSavings"
+    || parameters.taskKind === "incomeExpenseSumSavings"
+    || parameters.taskKind === "incomeExpenseOneSavesPercent"
+    || parameters.taskKind === "incomeExpenseFindSavingsPercent"
+    || parameters.taskKind === "familyIncomeExpenditure"
+    || parameters.taskKind === "salarySpendingSavings"
+    || parameters.taskKind === "shopRevenueCostProfit"
+    || parameters.taskKind === "equalIncomeDifferentExpense"
+    || parameters.taskKind === "equalExpenseDifferentIncome"
+    || parameters.taskKind === "pocketMoneySpending"
+    || parameters.taskKind === "givenOneSavesMore"
+    || parameters.taskKind === "givenOneSpendsMore"
+    || parameters.taskKind === "incomeExpenseTotalIncome"
+    || parameters.taskKind === "incomeExpenseTotalExpense"
+    || parameters.taskKind === "incomeExpenseSavingsComparison"
   ) {
+    const incomeLine = solver.workingValues.incomeScale !== undefined
+      ? block(`\\text{Income scale}=${String(solver.workingValues.incomeScale)}`)
+      : solver.workingValues.incomeA !== undefined && solver.workingValues.incomeB !== undefined
+        ? block(`\\text{Income values}=${String(solver.workingValues.incomeA)}:${String(solver.workingValues.incomeB)}`)
+        : solver.workingValues.savingsA !== undefined && solver.workingValues.savingsB !== undefined
+          ? block(`\\text{Savings values}=${String(solver.workingValues.savingsA)}:${String(solver.workingValues.savingsB)}`)
+          : block(`\\text{Known relation}=${String(solver.workingValues.setup)}`);
+    const expenditureLine = solver.workingValues.expenditureScale !== undefined
+      ? block(`\\text{Expenditure scale}=${String(solver.workingValues.expenditureScale)}`)
+      : solver.workingValues.expenditureA !== undefined && solver.workingValues.expenditureB !== undefined
+        ? block(`\\text{Expenditure values}=${String(solver.workingValues.expenditureA)}:${String(solver.workingValues.expenditureB)}`)
+        : block(`\\text{Savings relation}=${String(solver.workingValues.setup)}`);
     return {
       explanationId: parameters.explanationId,
       lines: [
@@ -74,12 +137,8 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
           "ਆਮਦਨ-ਖਰਚ ਪ੍ਰਸ਼ਨਾਂ ਵਿੱਚ ਦੋਵੇਂ ਅਨੁਪਾਤਾਂ ਨੂੰ ਤੁਲਨਾਯੋਗ ਅਸਲ ਰਕਮਾਂ ਵਿੱਚ ਬਦਲੋ, ਫਿਰ ਬਚਤ = ਆਮਦਨ - ਖਰਚ ਵਰਤੋ.",
         ),
         block(`\\text{Setup}=${String(solver.workingValues.setup)}`),
-        solver.workingValues.incomeScale !== undefined
-          ? block(`\\text{Income scale}=${String(solver.workingValues.incomeScale)}`)
-          : block(`\\text{Income values}=${String(solver.workingValues.incomeA)}:${String(solver.workingValues.incomeB)}`),
-        solver.workingValues.expenditureScale !== undefined
-          ? block(`\\text{Expenditure scale}=${String(solver.workingValues.expenditureScale)}`)
-          : block(`\\text{Expenditure values}=${String(solver.workingValues.expenditureA)}:${String(solver.workingValues.expenditureB)}`),
+        incomeLine,
+        expenditureLine,
         localizedIntro(parameters, "Method 1: apply the savings condition or form the final savings ratio.", "दी गई बचत शर्त लगाएं या अंतिम बचत अनुपात बनाएं.", "ਦਿੱਤੀ ਬਚਤ ਸ਼ਰਤ ਲਗਾਓ ਜਾਂ ਅੰਤਿਮ ਬਚਤ ਅਨੁਪਾਤ ਬਣਾਓ."),
         block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
@@ -91,6 +150,15 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     parameters.taskKind === "replacementFinalRatio"
     || parameters.taskKind === "replacementFinalQuantity"
     || parameters.taskKind === "replacementIterationsFromFinalRatio"
+    || parameters.taskKind === "replacementAddedLiquidQuantity"
+    || parameters.taskKind === "replacementOriginalPercentRemaining"
+    || parameters.taskKind === "replacementRemovedVolumeFromFinalRatio"
+    || parameters.taskKind === "replacementDifferentRounds"
+    || parameters.taskKind === "replacementTankSolution"
+    || parameters.taskKind === "replacementInventoryAnalogy"
+    || parameters.taskKind === "replacementInitialFromFinalQuantity"
+    || parameters.taskKind === "replacementFinalAfterFractionRemoval"
+    || parameters.taskKind === "replacementStrengthAfterRounds"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -115,6 +183,14 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     || parameters.taskKind === "denominationCountsFromValue"
     || parameters.taskKind === "denominationTargetCount"
     || parameters.taskKind === "denominationSwapValue"
+    || parameters.taskKind === "denominationTotalCountFromValue"
+    || parameters.taskKind === "denominationTotalValueFromTotalCount"
+    || parameters.taskKind === "denominationValueRatio"
+    || parameters.taskKind === "denominationAverageValue"
+    || parameters.taskKind === "denominationFourTypeTotalCount"
+    || parameters.taskKind === "denominationMissingRatioPart"
+    || parameters.taskKind === "ticketValueSystem"
+    || parameters.taskKind === "marksPerQuestionType"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -144,6 +220,22 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     || parameters.taskKind === "sdtSpeedRatioFromDistanceTime"
     || parameters.taskKind === "sdtRaceLead"
     || parameters.taskKind === "sdtOvertakeTime"
+    || parameters.taskKind === "fixedDistanceSpeedTimeInverse"
+    || parameters.taskKind === "fixedTimeSpeedDistanceDirect"
+    || parameters.taskKind === "sdtRaceLeadSpeedRatio"
+    || parameters.taskKind === "sdtRaceLeadTime"
+    || parameters.taskKind === "sdtOppositeDirectionMeeting"
+    || parameters.taskKind === "trainPlatformRatio"
+    || parameters.taskKind === "workEfficiencyTimeRatio"
+    || parameters.taskKind === "machinesOutputTime"
+    || parameters.taskKind === "pipesTimeRatio"
+    || parameters.taskKind === "workersEfficiencyDays"
+    || parameters.taskKind === "findMissingRateFromOutput"
+    || parameters.taskKind === "timeSavedByHigherSpeed"
+    || parameters.taskKind === "distanceSlowerCoversWhenFasterFinishes"
+    || parameters.taskKind === "sameWorkTwoTeams"
+    || parameters.taskKind === "rateProductAbsoluteOutput"
+    || parameters.taskKind === "relativeSpeedRatioFromOvertake"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -170,6 +262,16 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     || parameters.taskKind === "populationLiteracyPercent"
     || parameters.taskKind === "populationCellRatio"
     || parameters.taskKind === "populationTotalIlliterate"
+    || parameters.taskKind === "populationCellPercentOfTotal"
+    || parameters.taskKind === "populationRecoverTotalFromCell"
+    || parameters.taskKind === "populationMissingRowTotal"
+    || parameters.taskKind === "populationDifferenceBetweenCells"
+    || parameters.taskKind === "populationSumOfSelectedCells"
+    || parameters.taskKind === "populationThreeRows"
+    || parameters.taskKind === "populationMiniCaseletQuestion1"
+    || parameters.taskKind === "populationMiniCaseletQuestion2"
+    || parameters.taskKind === "populationColumnRatioGiven"
+    || parameters.taskKind === "populationTableValidationTrap"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -196,6 +298,21 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     || parameters.taskKind === "electionTotalVotersFromMargin"
     || parameters.taskKind === "electionLoserVotes"
     || parameters.taskKind === "electionInvalidVotes"
+    || parameters.taskKind === "electionPolledVotesFromTurnout"
+    || parameters.taskKind === "electionValidVotesFromInvalidRate"
+    || parameters.taskKind === "electionWinnerFromMarginAndValidVotes"
+    || parameters.taskKind === "electionLoserFromMarginAndValidVotes"
+    || parameters.taskKind === "electionThreeCandidateSplit"
+    || parameters.taskKind === "electionCandidateSharePercent"
+    || parameters.taskKind === "electionRatioFromVoteSharePercent"
+    || parameters.taskKind === "electionOneCandidateMorePercent"
+    || parameters.taskKind === "electionMarginAsPercentOfValid"
+    || parameters.taskKind === "electionTotalElectorateFromCandidateVotes"
+    || parameters.taskKind === "marketShareWinner"
+    || parameters.taskKind === "surveyResponseShare"
+    || parameters.taskKind === "electionNotaInvalidStyle"
+    || parameters.taskKind === "electionReverseTurnoutFromValidVotes"
+    || parameters.taskKind === "electionMarginDifferenceChain"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -222,6 +339,10 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     || parameters.taskKind === "geometricSideRatioFromArea"
     || parameters.taskKind === "geometricSurfaceAreaRatioFromVolume"
     || parameters.taskKind === "geometricAreaRatioFromRadius"
+    || parameters.taskKind === "mapScaleAreaRatio"
+    || parameters.taskKind === "mapScaleLengthFromArea"
+    || parameters.taskKind === "similarSolidSurfaceToVolume"
+    || parameters.taskKind === "geometricPowerMixedStatement"
   ) {
     return {
       explanationId: parameters.explanationId,
@@ -240,7 +361,10 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
     };
   }
 
-  if (parameters.taskKind === "ageYearsToReachRatio") {
+  if (parameters.taskKind === "ageYearsToReachRatio" || parameters.taskKind === "ageYearsToReachPastRatio") {
+    const targetRatio = parameters.taskKind === "ageYearsToReachPastRatio"
+      ? String(solver.workingValues.pastRatio)
+      : String(solver.workingValues.futureRatio);
     return {
       explanationId: parameters.explanationId,
       lines: [
@@ -250,7 +374,7 @@ export function renderRap003Explanation(parameters: Rap003Parameters, solver: Ra
           "दोनों आयु में समान अज्ञात वर्ष जोड़ें, क्योंकि सभी की आयु समान गति से बढ़ती है.",
           "ਦੋਵਾਂ ਉਮਰਾਂ ਵਿੱਚ ਇੱਕੋ ਜਿਹੇ ਅਣਜਾਣ ਸਾਲ ਜੋੜੋ, ਕਿਉਂਕਿ ਸਭ ਦੀ ਉਮਰ ਇੱਕੋ ਤਰ੍ਹਾਂ ਵਧਦੀ ਹੈ.",
         ),
-        block(`\\text{Target ratio}=${String(solver.workingValues.futureRatio)}`),
+        block(`\\text{Target ratio}=${targetRatio}`),
         block(`\\text{Equation}=${solver.mathJax.calculationLatex}`),
       localizedIntro(parameters, "Method 1: solve this linear equation for the number of years.", "इस रैखिक समीकरण से वर्षों की संख्या निकालें.", "ਇਸ ਰੇਖੀ ਸਮੀਕਰਨ ਤੋਂ ਸਾਲਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ."),
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),

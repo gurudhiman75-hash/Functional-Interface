@@ -798,13 +798,13 @@ for (let index = 0; index < 120; index += 1) {
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-901", "RAP-QL-902", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905", "RAP-QL-906", "RAP-QL-907", "RAP-QL-908", "RAP-QL-909", "RAP-QL-910"]) {
+for (const qlId of ["RAP-QL-901","RAP-QL-902","RAP-QL-903","RAP-QL-904","RAP-QL-905","RAP-QL-906","RAP-QL-907","RAP-QL-908","RAP-QL-909","RAP-QL-910","RAP-QL-911","RAP-QL-912","RAP-QL-913","RAP-QL-914","RAP-QL-915","RAP-QL-916","RAP-QL-917","RAP-QL-918","RAP-QL-919","RAP-QL-920","RAP-QL-921","RAP-QL-922","RAP-QL-923","RAP-QL-924","RAP-QL-925","RAP-QL-926","RAP-QL-927","RAP-QL-928","RAP-QL-929","RAP-QL-930"]) {
   const pkg = runRap003Cp014Pipeline({ seed: `rap-003-cp014-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenQlIds.size, 10, `Expected all 10 CP-014 QLs, got ${seenQlIds.size}`);
+assert.equal(seenQlIds.size, 30, `Expected all 30 CP-014 QLs, got ${seenQlIds.size}`);
 
 const seenPartnershipQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -819,13 +819,13 @@ for (let index = 0; index < 80; index += 1) {
   seenPartnershipQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-801", "RAP-QL-802", "RAP-QL-803", "RAP-QL-804"]) {
+for (const qlId of ["RAP-QL-801","RAP-QL-802","RAP-QL-803","RAP-QL-804","RAP-QL-805","RAP-QL-806","RAP-QL-807","RAP-QL-808","RAP-QL-809","RAP-QL-810","RAP-QL-811","RAP-QL-812","RAP-QL-813","RAP-QL-814","RAP-QL-815","RAP-QL-816"]) {
   const pkg = runRap003Cp013Pipeline({ seed: `rap-003-cp013-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenPartnershipQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenPartnershipQlIds.size, 5, `Expected all 5 CP-013 QLs, got ${seenPartnershipQlIds.size}`);
+assert.equal(seenPartnershipQlIds.size, 16, `Expected all 16 CP-013 QLs, got ${seenPartnershipQlIds.size}`);
 
 const seenIncomeQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -840,13 +840,13 @@ for (let index = 0; index < 80; index += 1) {
   seenIncomeQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-951", "RAP-QL-952", "RAP-QL-953", "RAP-QL-954"]) {
+for (const qlId of ["RAP-QL-951","RAP-QL-952","RAP-QL-953","RAP-QL-954","RAP-QL-955","RAP-QL-956","RAP-QL-957","RAP-QL-958","RAP-QL-959","RAP-QL-960","RAP-QL-961","RAP-QL-962","RAP-QL-963","RAP-QL-964","RAP-QL-965","RAP-QL-966","RAP-QL-967","RAP-QL-968","RAP-QL-969","RAP-QL-970","RAP-QL-971","RAP-QL-972","RAP-QL-973","RAP-QL-974"]) {
   const pkg = runRap003Cp015Pipeline({ seed: `rap-003-cp015-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenIncomeQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenIncomeQlIds.size, 5, `Expected all 5 CP-015 QLs, got ${seenIncomeQlIds.size}`);
+assert.equal(seenIncomeQlIds.size, 24, `Expected all 24 CP-015 QLs, got ${seenIncomeQlIds.size}`);
 
 const seenAlloyQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -861,13 +861,13 @@ for (let index = 0; index < 80; index += 1) {
   seenAlloyQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1001", "RAP-QL-1002", "RAP-QL-1003", "RAP-QL-1004"]) {
+for (const qlId of ["RAP-QL-1001","RAP-QL-1002","RAP-QL-1003","RAP-QL-1004","RAP-QL-1005","RAP-QL-1006","RAP-QL-1007","RAP-QL-1008","RAP-QL-1009","RAP-QL-1010","RAP-QL-1011","RAP-QL-1012","RAP-QL-1013","RAP-QL-1014","RAP-QL-1015","RAP-QL-1016","RAP-QL-1017","RAP-QL-1018","RAP-QL-1019","RAP-QL-1020","RAP-QL-1021","RAP-QL-1022","RAP-QL-1023","RAP-QL-1024","RAP-QL-1025","RAP-QL-1026","RAP-QL-1027","RAP-QL-1028","RAP-QL-1029"]) {
   const pkg = runRap003Cp016Pipeline({ seed: `rap-003-cp016-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenAlloyQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenAlloyQlIds.size, 5, `Expected all 5 CP-016 QLs, got ${seenAlloyQlIds.size}`);
+assert.equal(seenAlloyQlIds.size, 29, `Expected all 29 CP-016 QLs, got ${seenAlloyQlIds.size}`);
 
 const seenReplacementQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -882,13 +882,13 @@ for (let index = 0; index < 80; index += 1) {
   seenReplacementQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1101", "RAP-QL-1102", "RAP-QL-1103", "RAP-QL-1104"]) {
+for (const qlId of ["RAP-QL-1101","RAP-QL-1102","RAP-QL-1103","RAP-QL-1104","RAP-QL-1105","RAP-QL-1106","RAP-QL-1107","RAP-QL-1108","RAP-QL-1109","RAP-QL-1110","RAP-QL-1111","RAP-QL-1112","RAP-QL-1113","RAP-QL-1114","RAP-QL-1115","RAP-QL-1116","RAP-QL-1117","RAP-QL-1118","RAP-QL-1119"]) {
   const pkg = runRap003Cp017Pipeline({ seed: `rap-003-cp017-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenReplacementQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenReplacementQlIds.size, 5, `Expected all 5 CP-017 QLs, got ${seenReplacementQlIds.size}`);
+assert.equal(seenReplacementQlIds.size, 19, `Expected all 19 CP-017 QLs, got ${seenReplacementQlIds.size}`);
 
 const seenDenominationQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -903,13 +903,13 @@ for (let index = 0; index < 80; index += 1) {
   seenDenominationQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1201", "RAP-QL-1202", "RAP-QL-1203", "RAP-QL-1204", "RAP-QL-1205", "RAP-QL-1206"]) {
+for (const qlId of ["RAP-QL-1201","RAP-QL-1202","RAP-QL-1203","RAP-QL-1204","RAP-QL-1205","RAP-QL-1206","RAP-QL-1207","RAP-QL-1208","RAP-QL-1209","RAP-QL-1210","RAP-QL-1211","RAP-QL-1212","RAP-QL-1213","RAP-QL-1214","RAP-QL-1215","RAP-QL-1216","RAP-QL-1217","RAP-QL-1218"]) {
   const pkg = runRap003Cp018Pipeline({ seed: `rap-003-cp018-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenDenominationQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenDenominationQlIds.size, 7, `Expected all 7 CP-018 QLs, got ${seenDenominationQlIds.size}`);
+assert.equal(seenDenominationQlIds.size, 18, `Expected all 18 CP-018 QLs, got ${seenDenominationQlIds.size}`);
 
 const seenSdtQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -924,13 +924,13 @@ for (let index = 0; index < 80; index += 1) {
   seenSdtQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1301", "RAP-QL-1302", "RAP-QL-1303", "RAP-QL-1304", "RAP-QL-1305"]) {
+for (const qlId of ["RAP-QL-1301","RAP-QL-1302","RAP-QL-1303","RAP-QL-1304","RAP-QL-1305","RAP-QL-1306","RAP-QL-1307","RAP-QL-1308","RAP-QL-1309","RAP-QL-1310","RAP-QL-1311","RAP-QL-1312","RAP-QL-1313","RAP-QL-1314","RAP-QL-1315","RAP-QL-1316","RAP-QL-1317","RAP-QL-1318","RAP-QL-1319","RAP-QL-1320","RAP-QL-1321","RAP-QL-1322","RAP-QL-1323","RAP-QL-1324","RAP-QL-1325"]) {
   const pkg = runRap003Cp019Pipeline({ seed: `rap-003-cp019-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenSdtQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenSdtQlIds.size, 5, `Expected all 5 CP-019 QLs, got ${seenSdtQlIds.size}`);
+assert.equal(seenSdtQlIds.size, 25, `Expected all 25 CP-019 QLs, got ${seenSdtQlIds.size}`);
 
 const seenPopulationQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -945,13 +945,13 @@ for (let index = 0; index < 80; index += 1) {
   seenPopulationQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1401", "RAP-QL-1402", "RAP-QL-1403", "RAP-QL-1404", "RAP-QL-1405"]) {
+for (const qlId of ["RAP-QL-1401","RAP-QL-1402","RAP-QL-1403","RAP-QL-1404","RAP-QL-1405","RAP-QL-1406","RAP-QL-1407","RAP-QL-1408","RAP-QL-1409","RAP-QL-1410","RAP-QL-1411","RAP-QL-1412","RAP-QL-1413","RAP-QL-1414","RAP-QL-1415","RAP-QL-1416","RAP-QL-1417","RAP-QL-1418","RAP-QL-1419","RAP-QL-1420"]) {
   const pkg = runRap003Cp020Pipeline({ seed: `rap-003-cp020-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenPopulationQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenPopulationQlIds.size, 5, `Expected all 5 CP-020 QLs, got ${seenPopulationQlIds.size}`);
+assert.equal(seenPopulationQlIds.size, 20, `Expected all 20 CP-020 QLs, got ${seenPopulationQlIds.size}`);
 
 const seenElectionQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -966,13 +966,13 @@ for (let index = 0; index < 80; index += 1) {
   seenElectionQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1501", "RAP-QL-1502", "RAP-QL-1503", "RAP-QL-1504", "RAP-QL-1505"]) {
+for (const qlId of ["RAP-QL-1501","RAP-QL-1502","RAP-QL-1503","RAP-QL-1504","RAP-QL-1505","RAP-QL-1506","RAP-QL-1507","RAP-QL-1508","RAP-QL-1509","RAP-QL-1510","RAP-QL-1511","RAP-QL-1512","RAP-QL-1513","RAP-QL-1514","RAP-QL-1515","RAP-QL-1516","RAP-QL-1517","RAP-QL-1518","RAP-QL-1519","RAP-QL-1520","RAP-QL-1521","RAP-QL-1522","RAP-QL-1523","RAP-QL-1524","RAP-QL-1525"]) {
   const pkg = runRap003Cp021Pipeline({ seed: `rap-003-cp021-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenElectionQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenElectionQlIds.size, 5, `Expected all 5 CP-021 QLs, got ${seenElectionQlIds.size}`);
+assert.equal(seenElectionQlIds.size, 25, `Expected all 25 CP-021 QLs, got ${seenElectionQlIds.size}`);
 
 const seenGeometricQlIds = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
@@ -987,15 +987,15 @@ for (let index = 0; index < 80; index += 1) {
   seenGeometricQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-1601", "RAP-QL-1602", "RAP-QL-1603", "RAP-QL-1604", "RAP-QL-1605"]) {
+for (const qlId of ["RAP-QL-1601", "RAP-QL-1602", "RAP-QL-1603", "RAP-QL-1604", "RAP-QL-1605", "RAP-QL-1606", "RAP-QL-1607", "RAP-QL-1608", "RAP-QL-1609", "RAP-QL-1610", "RAP-QL-1611", "RAP-QL-1612", "RAP-QL-1613", "RAP-QL-1614", "RAP-QL-1615", "RAP-QL-1616", "RAP-QL-1617"]) {
   const pkg = runRap003Cp022Pipeline({ seed: `rap-003-cp022-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenGeometricQlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenGeometricQlIds.size, 5, `Expected all 5 CP-022 QLs, got ${seenGeometricQlIds.size}`);
+assert.equal(seenGeometricQlIds.size, 17, `Expected all 17 CP-022 QLs, got ${seenGeometricQlIds.size}`);
 
-for (const qlId of ["RAP-QL-901", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905", "RAP-QL-907", "RAP-QL-908", "RAP-QL-909", "RAP-QL-910"]) {
+for (const qlId of ["RAP-QL-901","RAP-QL-902","RAP-QL-903","RAP-QL-904","RAP-QL-905","RAP-QL-906","RAP-QL-907","RAP-QL-908","RAP-QL-909","RAP-QL-910","RAP-QL-911","RAP-QL-912","RAP-QL-913","RAP-QL-914","RAP-QL-915","RAP-QL-916","RAP-QL-917","RAP-QL-918","RAP-QL-919","RAP-QL-920","RAP-QL-921","RAP-QL-922","RAP-QL-923","RAP-QL-924","RAP-QL-925","RAP-QL-926","RAP-QL-927","RAP-QL-928","RAP-QL-929","RAP-QL-930"]) {
   const packages = runRap003Cp014ForLanguages({ seed: `rap-003-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1005,7 +1005,7 @@ for (const qlId of ["RAP-QL-901", "RAP-QL-903", "RAP-QL-904", "RAP-QL-905", "RAP
   }
 }
 
-for (const qlId of ["RAP-QL-801", "RAP-QL-802", "RAP-QL-803"]) {
+for (const qlId of ["RAP-QL-801","RAP-QL-802","RAP-QL-803","RAP-QL-804","RAP-QL-805","RAP-QL-806","RAP-QL-807","RAP-QL-808","RAP-QL-809","RAP-QL-810","RAP-QL-811","RAP-QL-812","RAP-QL-813","RAP-QL-814","RAP-QL-815","RAP-QL-816"]) {
   const packages = runRap003Cp013ForLanguages({ seed: `rap-003-partnership-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1015,7 +1015,7 @@ for (const qlId of ["RAP-QL-801", "RAP-QL-802", "RAP-QL-803"]) {
   }
 }
 
-for (const qlId of ["RAP-QL-951", "RAP-QL-952", "RAP-QL-953"]) {
+for (const qlId of ["RAP-QL-951","RAP-QL-952","RAP-QL-953","RAP-QL-954","RAP-QL-955","RAP-QL-956","RAP-QL-957","RAP-QL-958","RAP-QL-959","RAP-QL-960","RAP-QL-961","RAP-QL-962","RAP-QL-963","RAP-QL-964","RAP-QL-965","RAP-QL-966","RAP-QL-967","RAP-QL-968","RAP-QL-969","RAP-QL-970","RAP-QL-971","RAP-QL-972","RAP-QL-973","RAP-QL-974"]) {
   const packages = runRap003Cp015ForLanguages({ seed: `rap-003-income-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1025,7 +1025,7 @@ for (const qlId of ["RAP-QL-951", "RAP-QL-952", "RAP-QL-953"]) {
   }
 }
 
-for (const qlId of ["RAP-QL-1001", "RAP-QL-1002", "RAP-QL-1003"]) {
+for (const qlId of ["RAP-QL-1001","RAP-QL-1002","RAP-QL-1003","RAP-QL-1004","RAP-QL-1005","RAP-QL-1006","RAP-QL-1007","RAP-QL-1008","RAP-QL-1009","RAP-QL-1010","RAP-QL-1011","RAP-QL-1012","RAP-QL-1013","RAP-QL-1014","RAP-QL-1015","RAP-QL-1016","RAP-QL-1017","RAP-QL-1018","RAP-QL-1019","RAP-QL-1020","RAP-QL-1021","RAP-QL-1022","RAP-QL-1023","RAP-QL-1024","RAP-QL-1025","RAP-QL-1026","RAP-QL-1027","RAP-QL-1028","RAP-QL-1029"]) {
   const packages = runRap003Cp016ForLanguages({ seed: `rap-003-alloy-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1035,7 +1035,7 @@ for (const qlId of ["RAP-QL-1001", "RAP-QL-1002", "RAP-QL-1003"]) {
   }
 }
 
-for (const qlId of ["RAP-QL-1101", "RAP-QL-1102", "RAP-QL-1103"]) {
+for (const qlId of ["RAP-QL-1101","RAP-QL-1102","RAP-QL-1103","RAP-QL-1104","RAP-QL-1105","RAP-QL-1106","RAP-QL-1107","RAP-QL-1108","RAP-QL-1109","RAP-QL-1110","RAP-QL-1111","RAP-QL-1112","RAP-QL-1113","RAP-QL-1114","RAP-QL-1115","RAP-QL-1116","RAP-QL-1117","RAP-QL-1118","RAP-QL-1119"]) {
   const packages = runRap003Cp017ForLanguages({ seed: `rap-003-replacement-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1045,7 +1045,7 @@ for (const qlId of ["RAP-QL-1101", "RAP-QL-1102", "RAP-QL-1103"]) {
   }
 }
 
-for (const qlId of ["RAP-QL-1201", "RAP-QL-1202", "RAP-QL-1204", "RAP-QL-1205", "RAP-QL-1206"]) {
+for (const qlId of ["RAP-QL-1201","RAP-QL-1202","RAP-QL-1203","RAP-QL-1204","RAP-QL-1205","RAP-QL-1206","RAP-QL-1207","RAP-QL-1208","RAP-QL-1209","RAP-QL-1210","RAP-QL-1211","RAP-QL-1212","RAP-QL-1213","RAP-QL-1214","RAP-QL-1215","RAP-QL-1216","RAP-QL-1217","RAP-QL-1218"]) {
   const packages = runRap003Cp018ForLanguages({ seed: `rap-003-denomination-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1055,7 +1055,7 @@ for (const qlId of ["RAP-QL-1201", "RAP-QL-1202", "RAP-QL-1204", "RAP-QL-1205", 
   }
 }
 
-for (const qlId of ["RAP-QL-1301", "RAP-QL-1302", "RAP-QL-1304", "RAP-QL-1305"]) {
+for (const qlId of ["RAP-QL-1301","RAP-QL-1302","RAP-QL-1303","RAP-QL-1304","RAP-QL-1305","RAP-QL-1306","RAP-QL-1307","RAP-QL-1308","RAP-QL-1309","RAP-QL-1310","RAP-QL-1311","RAP-QL-1312","RAP-QL-1313","RAP-QL-1314","RAP-QL-1315","RAP-QL-1316","RAP-QL-1317","RAP-QL-1318","RAP-QL-1319","RAP-QL-1320","RAP-QL-1321","RAP-QL-1322","RAP-QL-1323","RAP-QL-1324","RAP-QL-1325"]) {
   const packages = runRap003Cp019ForLanguages({ seed: `rap-003-sdt-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1065,7 +1065,7 @@ for (const qlId of ["RAP-QL-1301", "RAP-QL-1302", "RAP-QL-1304", "RAP-QL-1305"])
   }
 }
 
-for (const qlId of ["RAP-QL-1401", "RAP-QL-1402", "RAP-QL-1403", "RAP-QL-1404"]) {
+for (const qlId of ["RAP-QL-1401","RAP-QL-1402","RAP-QL-1403","RAP-QL-1404","RAP-QL-1405","RAP-QL-1406","RAP-QL-1407","RAP-QL-1408","RAP-QL-1409","RAP-QL-1410","RAP-QL-1411","RAP-QL-1412","RAP-QL-1413","RAP-QL-1414","RAP-QL-1415","RAP-QL-1416","RAP-QL-1417","RAP-QL-1418","RAP-QL-1419","RAP-QL-1420"]) {
   const packages = runRap003Cp020ForLanguages({ seed: `rap-003-population-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1075,7 +1075,7 @@ for (const qlId of ["RAP-QL-1401", "RAP-QL-1402", "RAP-QL-1403", "RAP-QL-1404"])
   }
 }
 
-for (const qlId of ["RAP-QL-1501", "RAP-QL-1502", "RAP-QL-1503", "RAP-QL-1505"]) {
+for (const qlId of ["RAP-QL-1501","RAP-QL-1502","RAP-QL-1503","RAP-QL-1504","RAP-QL-1505","RAP-QL-1506","RAP-QL-1507","RAP-QL-1508","RAP-QL-1509","RAP-QL-1510","RAP-QL-1511","RAP-QL-1512","RAP-QL-1513","RAP-QL-1514","RAP-QL-1515","RAP-QL-1516","RAP-QL-1517","RAP-QL-1518","RAP-QL-1519","RAP-QL-1520","RAP-QL-1521","RAP-QL-1522","RAP-QL-1523","RAP-QL-1524","RAP-QL-1525"]) {
   const packages = runRap003Cp021ForLanguages({ seed: `rap-003-election-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
@@ -1085,7 +1085,7 @@ for (const qlId of ["RAP-QL-1501", "RAP-QL-1502", "RAP-QL-1503", "RAP-QL-1505"])
   }
 }
 
-for (const qlId of ["RAP-QL-1601", "RAP-QL-1602", "RAP-QL-1603", "RAP-QL-1604", "RAP-QL-1605"]) {
+for (const qlId of ["RAP-QL-1601", "RAP-QL-1602", "RAP-QL-1603", "RAP-QL-1604", "RAP-QL-1605", "RAP-QL-1606", "RAP-QL-1607", "RAP-QL-1608", "RAP-QL-1609", "RAP-QL-1610", "RAP-QL-1611", "RAP-QL-1612", "RAP-QL-1613", "RAP-QL-1614", "RAP-QL-1615", "RAP-QL-1616", "RAP-QL-1617"]) {
   const packages = runRap003Cp022ForLanguages({ seed: `rap-003-geometric-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {

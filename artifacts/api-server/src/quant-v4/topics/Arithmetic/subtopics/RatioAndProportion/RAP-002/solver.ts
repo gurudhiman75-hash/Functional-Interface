@@ -195,8 +195,12 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
     }
     case "successiveRatioChange": {
       const [initialA, initialB] = splitByRatio(n(parameters, "totalValue"), n(parameters, "ratioA"), n(parameters, "ratioB"));
-      const finalA = initialA + Number(parameters.variables.valueAddA ?? 0) - Number(parameters.variables.valueRemoveA ?? 0);
-      const finalB = initialB + Number(parameters.variables.valueAddB ?? 0) - Number(parameters.variables.valueRemoveB ?? 0);
+      const finalA = initialA
+        + Number(parameters.variables.valueAddA ?? parameters.variables.commonAdd ?? 0)
+        - Number(parameters.variables.valueRemoveA ?? parameters.variables.commonRemove ?? 0);
+      const finalB = initialB
+        + Number(parameters.variables.valueAddB ?? parameters.variables.commonAdd ?? 0)
+        - Number(parameters.variables.valueRemoveB ?? parameters.variables.commonRemove ?? 0);
       return ratioResult(
         [finalA, finalB],
         { initialRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, initialA: formatNumber(initialA), initialB: formatNumber(initialB), finalA: formatNumber(finalA), finalB: formatNumber(finalB) },
@@ -211,16 +215,92 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
       const finalB = direction === "B_TO_A" ? initialB - transferValue : initialB + transferValue;
       return ratioResult(
         [finalA, finalB],
-        { initialRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, transferDirection: direction, transferValue: formatNumber(transferValue), finalA: formatNumber(finalA), finalB: formatNumber(finalB) },
+        {
+          initialRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`,
+          initialA: formatNumber(initialA),
+          initialB: formatNumber(initialB),
+          transferDirection: direction,
+          transferValue: formatNumber(transferValue),
+          finalA: formatNumber(finalA),
+          finalB: formatNumber(finalB),
+        },
         `${formatNumber(finalA)}:${formatNumber(finalB)}=${ratioLatex(simplifyRatio([finalA, finalB]))}`,
       );
     }
     case "reconstructOriginalRatio": {
+      if (parameters.variables.finalValueA !== undefined && parameters.variables.valueAddA !== undefined) {
+        const finalA = n(parameters, "finalValueA");
+        const finalB = finalA * n(parameters, "finalRatioB") / n(parameters, "finalRatioA");
+        const originalA = finalA - n(parameters, "valueAddA");
+        const originalB = finalB;
+        const originalTotal = originalA + originalB;
+        return countResult(
+          originalTotal,
+          {
+            finalRatio: `${n(parameters, "finalRatioA")}:${n(parameters, "finalRatioB")}`,
+            finalA: formatNumber(finalA),
+            finalB: formatNumber(finalB),
+            originalA: formatNumber(originalA),
+            originalB: formatNumber(originalB),
+            result: formatNumber(originalTotal),
+          },
+          `${formatNumber(originalA)}+${formatNumber(originalB)}=${formatNumber(originalTotal)}`,
+        );
+      }
+      if (parameters.variables.ratioA !== undefined && parameters.variables.finalRatioA !== undefined && parameters.variables.transferDirection === undefined) {
+        const [initialA, initialB] = splitByRatio(n(parameters, "totalValue"), n(parameters, "ratioA"), n(parameters, "ratioB"));
+        const numerator = n(parameters, "finalRatioB") * initialA - n(parameters, "finalRatioA") * initialB;
+        const denominator = n(parameters, "finalRatioA") - n(parameters, "finalRatioB");
+        const commonAdd = numerator / denominator;
+        return countResult(
+          commonAdd,
+          {
+            initialRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`,
+            initialA: formatNumber(initialA),
+            initialB: formatNumber(initialB),
+            finalRatio: `${n(parameters, "finalRatioA")}:${n(parameters, "finalRatioB")}`,
+            result: formatNumber(commonAdd),
+          },
+          `\\frac{${formatNumber(numerator)}}{${formatNumber(denominator)}}=${formatNumber(commonAdd)}`,
+        );
+      }
+      if (parameters.variables.ratioA !== undefined && parameters.variables.transferDirection !== undefined && parameters.variables.transferValue === undefined) {
+        const [initialA, initialB] = splitByRatio(n(parameters, "totalValue"), n(parameters, "ratioA"), n(parameters, "ratioB"));
+        const direction = String(parameters.variables.transferDirection);
+        const numerator = direction === "A_TO_B"
+          ? n(parameters, "finalRatioB") * initialA - n(parameters, "finalRatioA") * initialB
+          : n(parameters, "finalRatioA") * initialB - n(parameters, "finalRatioB") * initialA;
+        const denominator = n(parameters, "finalRatioA") + n(parameters, "finalRatioB");
+        const transferValue = numerator / denominator;
+        return countResult(
+          transferValue,
+          {
+            initialRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`,
+            initialA: formatNumber(initialA),
+            initialB: formatNumber(initialB),
+            finalRatio: `${n(parameters, "finalRatioA")}:${n(parameters, "finalRatioB")}`,
+            transferDirection: direction,
+            result: formatNumber(transferValue),
+          },
+          `\\frac{${formatNumber(numerator)}}{${formatNumber(denominator)}}=${formatNumber(transferValue)}`,
+        );
+      }
       if (parameters.variables.valueAddA !== undefined) {
         const finalTotal = n(parameters, "originalTotal") + n(parameters, "valueAddA");
         const [finalA, finalB] = splitByRatio(finalTotal, n(parameters, "finalRatioA"), n(parameters, "finalRatioB"));
         const originalA = finalA - n(parameters, "valueAddA");
         const originalB = finalB;
+        return ratioResult(
+          [originalA, originalB],
+          { finalRatio: `${n(parameters, "finalRatioA")}:${n(parameters, "finalRatioB")}`, finalA: formatNumber(finalA), finalB: formatNumber(finalB), originalA: formatNumber(originalA), originalB: formatNumber(originalB) },
+          `${formatNumber(originalA)}:${formatNumber(originalB)}=${ratioLatex(simplifyRatio([originalA, originalB]))}`,
+        );
+      }
+      if (parameters.variables.valueRemoveB !== undefined) {
+        const finalTotal = n(parameters, "totalValue") - n(parameters, "valueRemoveB");
+        const [finalA, finalB] = splitByRatio(finalTotal, n(parameters, "finalRatioA"), n(parameters, "finalRatioB"));
+        const originalA = finalA;
+        const originalB = finalB + n(parameters, "valueRemoveB");
         return ratioResult(
           [originalA, originalB],
           { finalRatio: `${n(parameters, "finalRatioA")}:${n(parameters, "finalRatioB")}`, finalA: formatNumber(finalA), finalB: formatNumber(finalB), originalA: formatNumber(originalA), originalB: formatNumber(originalB) },
@@ -344,6 +424,78 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
     }
     case "inverseChainWork":
     case "inverseChainSpeed": {
+      if (parameters.variables.menA !== undefined) {
+        const targetDays = n(parameters, "menA") * n(parameters, "daysA") / n(parameters, "menB");
+        return countResult(
+          targetDays,
+          { workersA: n(parameters, "menA"), daysA: n(parameters, "daysA"), workersB: n(parameters, "menB"), result: formatNumber(targetDays) },
+          `${n(parameters, "menA")}\\times${n(parameters, "daysA")}\\div${n(parameters, "menB")}=${formatNumber(targetDays)}`,
+        );
+      }
+      if (parameters.variables.baseWorkers !== undefined) {
+        const requiredWorkers = n(parameters, "baseWorkers") * n(parameters, "baseDays") * n(parameters, "workNumerator") / (n(parameters, "workDenominator") * n(parameters, "targetDays"));
+        return countResult(
+          requiredWorkers,
+          { baseWorkers: n(parameters, "baseWorkers"), baseDays: n(parameters, "baseDays"), workFraction: `${n(parameters, "workNumerator")}/${n(parameters, "workDenominator")}`, targetDays: n(parameters, "targetDays"), result: formatNumber(requiredWorkers) },
+          `${n(parameters, "baseWorkers")}\\times${n(parameters, "baseDays")}\\times\\frac{${n(parameters, "workNumerator")}}{${n(parameters, "workDenominator")}}\\div${n(parameters, "targetDays")}=${formatNumber(requiredWorkers)}`,
+        );
+      }
+      if (parameters.variables.initialWorkers !== undefined) {
+        const totalWork = n(parameters, "initialWorkers") * n(parameters, "originalDays");
+        const completedWork = n(parameters, "initialWorkers") * n(parameters, "daysWorked");
+        const remainingWork = totalWork - completedWork;
+        const activeWorkers = parameters.variables.workerChangeDirection === "LEAVE"
+          ? n(parameters, "remainingWorkers")
+          : n(parameters, "initialWorkers") + n(parameters, "addedWorkers");
+        const remainingDays = remainingWork / activeWorkers;
+        return countResult(
+          remainingDays,
+          { totalWork: formatNumber(totalWork), completedWork: formatNumber(completedWork), remainingWork: formatNumber(remainingWork), activeWorkers: formatNumber(activeWorkers), result: formatNumber(remainingDays) },
+          `${formatNumber(remainingWork)}\\div${formatNumber(activeWorkers)}=${formatNumber(remainingDays)}`,
+        );
+      }
+      if (parameters.variables.speedRatioA !== undefined && parameters.answerType === "LOGIC") {
+        const entries = [
+          { label: String(parameters.variables.personA), speed: n(parameters, "speedRatioA") },
+          { label: String(parameters.variables.personB), speed: n(parameters, "speedRatioB") },
+          { label: String(parameters.variables.personC), speed: n(parameters, "speedRatioC") },
+        ];
+        const order = [...entries].sort((a, b) => a.speed - b.speed).map((entry) => entry.label).join(" > ");
+        return logicResult(
+          order,
+          { speedRatio: `${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")}:${n(parameters, "speedRatioC")}`, result: order },
+          `\\text{Lower speed means higher time}\\Rightarrow ${order}`,
+        );
+      }
+      if (parameters.variables.speedRatioA !== undefined && parameters.answerType === "RATIO") {
+        const ratio = parameters.variables.fixedTimeMode === "YES"
+          ? [n(parameters, "speedRatioA"), n(parameters, "speedRatioB")]
+          : [n(parameters, "speedRatioB"), n(parameters, "speedRatioA")];
+        return ratioResult(
+          ratio,
+          { speedRatio: `${n(parameters, "speedRatioA")}:${n(parameters, "speedRatioB")}`, result: formatRatio(ratio) },
+          ratioLatex(simplifyRatio(ratio)),
+        );
+      }
+      if (parameters.variables.workerRatioA !== undefined && parameters.variables.efficiencyRatioA !== undefined) {
+        const daysA = n(parameters, "workerRatioB") * n(parameters, "efficiencyRatioB");
+        const daysB = n(parameters, "workerRatioA") * n(parameters, "efficiencyRatioA");
+        return ratioResult(
+          [daysA, daysB],
+          { workerRatio: `${n(parameters, "workerRatioA")}:${n(parameters, "workerRatioB")}`, efficiencyRatio: `${n(parameters, "efficiencyRatioA")}:${n(parameters, "efficiencyRatioB")}`, result: formatRatio([daysA, daysB]) },
+          `${n(parameters, "workerRatioB")}\\times${n(parameters, "efficiencyRatioB")}:${n(parameters, "workerRatioA")}\\times${n(parameters, "efficiencyRatioA")}=${ratioLatex(simplifyRatio([daysA, daysB]))}`,
+        );
+      }
+      if (parameters.variables.daysRatioA !== undefined && parameters.answerType === "LOGIC") {
+        const efficiencyA = n(parameters, "workerRatioB") * n(parameters, "daysRatioB");
+        const efficiencyB = n(parameters, "workerRatioA") * n(parameters, "daysRatioA");
+        const result = efficiencyA > efficiencyB ? String(parameters.variables.personA) : efficiencyB > efficiencyA ? String(parameters.variables.personB) : "Equal";
+        return logicResult(
+          result,
+          { workerRatio: `${n(parameters, "workerRatioA")}:${n(parameters, "workerRatioB")}`, daysRatio: `${n(parameters, "daysRatioA")}:${n(parameters, "daysRatioB")}`, efficiencyA: formatNumber(efficiencyA), efficiencyB: formatNumber(efficiencyB), result },
+          `${formatNumber(efficiencyA)}:${formatNumber(efficiencyB)}\\Rightarrow\\text{${result}}`,
+        );
+      }
       if (parameters.variables.ratioA1 !== undefined) {
         const aligned = solveThreePartChain(parameters);
         const hasA = parameters.variables.valueA !== undefined;
@@ -357,6 +509,21 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
           `${formatNumber(knownTime)}\\times\\frac{${knownRatePart}}{${targetRatePart}}=${formatNumber(targetTime)}`,
         );
       }
+      if (parameters.variables.valueB !== undefined) {
+        const targetTime = n(parameters, "valueB") * n(parameters, "ratioB") / n(parameters, "ratioA");
+        return countResult(
+          targetTime,
+          { rateRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, knownTime: formatNumber(n(parameters, "valueB")), result: formatNumber(targetTime) },
+          `${n(parameters, "valueB")}\\times\\frac{${n(parameters, "ratioB")}}{${n(parameters, "ratioA")}}=${formatNumber(targetTime)}`,
+        );
+      }
+      if (parameters.answerType === "RATIO") {
+        return ratioResult(
+          [n(parameters, "ratioB"), n(parameters, "ratioA")],
+          { rateRatio: `${n(parameters, "ratioA")}:${n(parameters, "ratioB")}`, result: formatRatio([n(parameters, "ratioB"), n(parameters, "ratioA")]) },
+          `${n(parameters, "ratioB")}:${n(parameters, "ratioA")}=${ratioLatex(simplifyRatio([n(parameters, "ratioB"), n(parameters, "ratioA")]))}`,
+        );
+      }
       const targetTime = n(parameters, "valueA") * n(parameters, "ratioA") / n(parameters, "ratioB");
       return countResult(
         targetTime,
@@ -365,6 +532,69 @@ export function solveRap002(parameters: Rap002Parameters): Rap002SolverResult {
       );
     }
     case "combinedInverseChain": {
+      if (parameters.variables.efficiencyPartA !== undefined) {
+        const missingEfficiency = n(parameters, "outputRatioB") * n(parameters, "workerRatioA") * n(parameters, "hoursRatioA") * n(parameters, "efficiencyPartA")
+          / (n(parameters, "outputRatioA") * n(parameters, "workerRatioB") * n(parameters, "hoursRatioB"));
+        return countResult(
+          missingEfficiency,
+          { outputRatio: `${n(parameters, "outputRatioA")}:${n(parameters, "outputRatioB")}`, workerRatio: `${n(parameters, "workerRatioA")}:${n(parameters, "workerRatioB")}`, hoursRatio: `${n(parameters, "hoursRatioA")}:${n(parameters, "hoursRatioB")}`, result: formatNumber(missingEfficiency) },
+          `\\frac{${n(parameters, "outputRatioB")}\\times${n(parameters, "workerRatioA")}\\times${n(parameters, "hoursRatioA")}\\times${n(parameters, "efficiencyPartA")}}{${n(parameters, "outputRatioA")}\\times${n(parameters, "workerRatioB")}\\times${n(parameters, "hoursRatioB")}}=${formatNumber(missingEfficiency)}`,
+        );
+      }
+      if (parameters.variables.quantityRatioA !== undefined) {
+        const rateA = n(parameters, "quantityRatioA") * n(parameters, "timeRatioB");
+        const rateB = n(parameters, "quantityRatioB") * n(parameters, "timeRatioA");
+        return ratioResult(
+          [rateA, rateB],
+          { quantityRatio: `${n(parameters, "quantityRatioA")}:${n(parameters, "quantityRatioB")}`, timeRatio: `${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`, result: formatRatio([rateA, rateB]) },
+          `${n(parameters, "quantityRatioA")}\\times${n(parameters, "timeRatioB")}:${n(parameters, "quantityRatioB")}\\times${n(parameters, "timeRatioA")}=${ratioLatex(simplifyRatio([rateA, rateB]))}`,
+        );
+      }
+      if (parameters.variables.machineRatioA !== undefined) {
+        const effA = n(parameters, "outputRatioA") * n(parameters, "machineRatioB") * n(parameters, "hoursRatioB");
+        const effB = n(parameters, "outputRatioB") * n(parameters, "machineRatioA") * n(parameters, "hoursRatioA");
+        return ratioResult(
+          [effA, effB],
+          { outputRatio: `${n(parameters, "outputRatioA")}:${n(parameters, "outputRatioB")}`, machineRatio: `${n(parameters, "machineRatioA")}:${n(parameters, "machineRatioB")}`, hoursRatio: `${n(parameters, "hoursRatioA")}:${n(parameters, "hoursRatioB")}`, result: formatRatio([effA, effB]) },
+          `${n(parameters, "outputRatioA")}\\times${n(parameters, "machineRatioB")}\\times${n(parameters, "hoursRatioB")}:${n(parameters, "outputRatioB")}\\times${n(parameters, "machineRatioA")}\\times${n(parameters, "hoursRatioA")}=${ratioLatex(simplifyRatio([effA, effB]))}`,
+        );
+      }
+      if (parameters.variables.daysRatioA !== undefined) {
+        const effA = n(parameters, "workerRatioB") * n(parameters, "daysRatioB");
+        const effB = n(parameters, "workerRatioA") * n(parameters, "daysRatioA");
+        return ratioResult(
+          [effA, effB],
+          { workerRatio: `${n(parameters, "workerRatioA")}:${n(parameters, "workerRatioB")}`, daysRatio: `${n(parameters, "daysRatioA")}:${n(parameters, "daysRatioB")}`, result: formatRatio([effA, effB]) },
+          `${n(parameters, "workerRatioB")}\\times${n(parameters, "daysRatioB")}:${n(parameters, "workerRatioA")}\\times${n(parameters, "daysRatioA")}=${ratioLatex(simplifyRatio([effA, effB]))}`,
+        );
+      }
+      if (parameters.variables.workerRatioA !== undefined && parameters.variables.hoursRatioA !== undefined && parameters.variables.efficiencyRatioA !== undefined) {
+        const productA = n(parameters, "workerRatioA") * n(parameters, "hoursRatioA") * n(parameters, "efficiencyRatioA");
+        const productB = n(parameters, "workerRatioB") * n(parameters, "hoursRatioB") * n(parameters, "efficiencyRatioB");
+        return ratioResult(
+          [productA, productB],
+          { workerRatio: `${n(parameters, "workerRatioA")}:${n(parameters, "workerRatioB")}`, hoursRatio: `${n(parameters, "hoursRatioA")}:${n(parameters, "hoursRatioB")}`, efficiencyRatio: `${n(parameters, "efficiencyRatioA")}:${n(parameters, "efficiencyRatioB")}`, productRatio: formatRatio([productA, productB]) },
+          `${n(parameters, "workerRatioA")}\\times${n(parameters, "hoursRatioA")}\\times${n(parameters, "efficiencyRatioA")}:${n(parameters, "workerRatioB")}\\times${n(parameters, "hoursRatioB")}\\times${n(parameters, "efficiencyRatioB")}=${ratioLatex(simplifyRatio([productA, productB]))}`,
+        );
+      }
+      if (parameters.variables.workerRatioA !== undefined && parameters.variables.efficiencyRatioA !== undefined) {
+        const timeA = n(parameters, "workerRatioB") * n(parameters, "efficiencyRatioB");
+        const timeB = n(parameters, "workerRatioA") * n(parameters, "efficiencyRatioA");
+        return ratioResult(
+          [timeA, timeB],
+          { workerRatio: `${n(parameters, "workerRatioA")}:${n(parameters, "workerRatioB")}`, efficiencyRatio: `${n(parameters, "efficiencyRatioA")}:${n(parameters, "efficiencyRatioB")}`, result: formatRatio([timeA, timeB]) },
+          `${n(parameters, "workerRatioB")}\\times${n(parameters, "efficiencyRatioB")}:${n(parameters, "workerRatioA")}\\times${n(parameters, "efficiencyRatioA")}=${ratioLatex(simplifyRatio([timeA, timeB]))}`,
+        );
+      }
+      if (parameters.variables.efficiencyRatioA !== undefined) {
+        const productA = n(parameters, "efficiencyRatioA") * n(parameters, "timeRatioA");
+        const productB = n(parameters, "efficiencyRatioB") * n(parameters, "timeRatioB");
+        return ratioResult(
+          [productA, productB],
+          { efficiencyRatio: `${n(parameters, "efficiencyRatioA")}:${n(parameters, "efficiencyRatioB")}`, timeRatio: `${n(parameters, "timeRatioA")}:${n(parameters, "timeRatioB")}`, productRatio: formatRatio([productA, productB]) },
+          `${n(parameters, "efficiencyRatioA")}\\times${n(parameters, "timeRatioA")}:${n(parameters, "efficiencyRatioB")}\\times${n(parameters, "timeRatioB")}=${ratioLatex(simplifyRatio([productA, productB]))}`,
+        );
+      }
       const productA = n(parameters, "ratioA") * n(parameters, "timeRatioA");
       const productB = n(parameters, "ratioB") * n(parameters, "timeRatioB");
       return ratioResult(

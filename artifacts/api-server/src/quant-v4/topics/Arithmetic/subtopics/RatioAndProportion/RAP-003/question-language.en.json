@@ -30,6 +30,72 @@
         "taskKind": "partnershipJoiningPartnerProfit",
         "template": "{personA} keeps Rs. {investmentA} invested for {timeA} months. {personB} joins later with Rs. {investmentB} and keeps it invested for {timeB} months. If the profit is Rs. {totalProfit}, find {targetPartner}'s share.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-806": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipLeavingPartnerProfit",
+        "template": "{personA} invests Rs. {investmentA} for {timeA} months, while {personB} invests Rs. {investmentB} but leaves after {timeB} months. Total profit is Rs. {totalProfit}. Find {targetPartner}'s share.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-807": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipMidPeriodChangeBoth",
+        "template": "{personA} invests Rs. {initialInvestmentA} for {firstPeriod} months and Rs. {changedInvestmentA} for the next {secondPeriod} months. {personB} invests Rs. {initialInvestmentB} for {firstPeriod} months and Rs. {changedInvestmentB} for the next {secondPeriod} months. If profit is Rs. {totalProfit}, find {targetPartner}'s share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-808": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipSalaryThenProfitShare",
+        "template": "{salaryPartner} gets a salary of Rs. {salaryAmount} for managing the business. {personA} invests Rs. {investmentA} for {timeA} months and {personB} invests Rs. {investmentB} for {timeB} months. From the total profit of Rs. {totalProfit}, find {targetPartner}'s final share.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-809": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipProfitFromKnownShare",
+        "template": "{personA} invests Rs. {investmentA} for {timeA} months and {personB} invests Rs. {investmentB} for {timeB} months. If {knownPartner}'s profit share is Rs. {knownShare}, find the total profit.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-810": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipCapitalRatioTimeRatio",
+        "template": "The capitals of {personA} and {personB} are in the ratio {capitalRatioA}:{capitalRatioB}, and their investment times are in the ratio {timeRatioA}:{timeRatioB}. Find their profit-sharing ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-811": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipLossShare",
+        "template": "{personA} invests Rs. {investmentA} for {timeA} months and {personB} invests Rs. {investmentB} for {timeB} months. If the business has a loss of Rs. {totalLoss}, find the loss borne by {targetPartner}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-812": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "workContributionShare",
+        "template": "{personA} and {personB} have efficiencies in the ratio {efficiencyRatioA}:{efficiencyRatioB}. They work for {daysA} days and {daysB} days respectively. Find their work contribution ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-813": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipNewPartnerCapital",
+        "template": "{personA} invests Rs. {investmentA} for {timeA} months. {personB} joins for {timeB} months. If their profit ratio must be {profitRatioA}:{profitRatioB}, how much should {personB} invest?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-814": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipTimeFromProfitRatio",
+        "template": "{personA} invests Rs. {investmentA} for {timeA} months and {personB} invests Rs. {investmentB}. If their profit ratio is {profitRatioA}:{profitRatioB}, for how many months did {personB} invest?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-815": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipTargetPartnerShareFromRatio",
+        "template": "The effective capitals of {personA} and {personB} are in the ratio {effectiveRatioA}:{effectiveRatioB}. If total profit is Rs. {totalProfit}, find {targetPartner}'s share.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-816": {
+        "cpId": "RAP-CP-013",
+        "taskKind": "partnershipRemainingProfitAfterCommission",
+        "template": "A commission of Rs. {commission} is deducted from the total profit of Rs. {totalProfit}. {personA} invests Rs. {investmentA} for {timeA} months and {personB} invests Rs. {investmentB} for {timeB} months. Find {targetPartner}'s share from the remaining profit.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -94,6 +160,126 @@
         "taskKind": "ageThreePersonSumRatio",
         "template": "The present ages of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total age is {ageSum} years. Find the present age of {targetPerson}.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-911": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} and {personB} have present ages in the ratio {ratioA}:{ratioB}. After {shiftYears} years, the ratio will be {futureRatioA}:{futureRatioB}. Find the present age of the elder person, {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-912": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} and {personB} have present ages in the ratio {ratioA}:{ratioB}. After {shiftYears} years, the ratio will become {futureRatioA}:{futureRatioB}. Find the present age of the younger person, {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-913": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromPastRatio",
+        "template": "The present age ratio of {personA} and {personB} is {ratioA}:{ratioB}. {shiftYears} years ago, their age ratio was {pastRatioA}:{pastRatioB}. Find the present age of {targetPerson}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-914": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromPastRatio",
+        "template": "{personA} and {personB} are now in the age ratio {ratioA}:{ratioB}. Their ratio {shiftYears} years ago was {pastRatioA}:{pastRatioB}. Find the present age of {targetPerson}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-915": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageYearsToReachPastRatio",
+        "template": "{personA} is {presentAgeA} years old and {personB} is {presentAgeB} years old. How many years ago were their ages in the ratio {pastRatioA}:{pastRatioB}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-916": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromDifferenceAndRatio",
+        "template": "The ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. The difference between their ages is {ageDifference} years. Find the age of the elder person, {targetPerson}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-917": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromDifferenceAndRatio",
+        "template": "The ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}, and the age difference is {ageDifference} years. Find the age of the younger person, {targetPerson}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-918": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFromSumAndRatio",
+        "template": "The combined age of {personA} and {personB} is {ageSum} years, and their ages are in the ratio {ratioA}:{ratioB}. Find {targetPerson}'s age.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-919": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageThreePersonSumRatio",
+        "template": "The ages of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total age is {ageSum} years. Find the age of {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-920": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageThreePersonKnownAge",
+        "template": "The ages of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {knownPerson} is {knownAge} years old, find the age of {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-921": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageAverageAndRatio",
+        "template": "The average age of {personA} and {personB} is {averageAge} years. Their ages are in the ratio {ratioA}:{ratioB}. Find {targetPerson}'s age.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-922": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageAverageThreePersonRatio",
+        "template": "The average age of {personA}, {personB}, and {personC} is {averageAge} years. Their ages are in the ratio {ratioA}:{ratioB}:{ratioC}. Find {targetPerson}'s age.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-923": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFutureSumAndPresentRatio",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. After {shiftYears} years, their total age will be {futureSum} years. Find {targetPerson}'s present age.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-924": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePastSumAndPresentRatio",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. {shiftYears} years ago, their total age was {pastSum} years. Find {targetPerson}'s present age.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-925": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageFutureRatioFromPresent",
+        "template": "{personA} is {presentAgeA} years old and {personB} is {presentAgeB} years old. Find their age ratio after {shiftYears} years.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-926": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePastRatioFromPresent",
+        "template": "{personA} is {presentAgeA} years old and {personB} is {presentAgeB} years old. Find their age ratio {shiftYears} years ago.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-927": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "ageDoubleHalfWording",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. After {shiftYears} years, {personA} will be {relationFactor} times as old as {personB}. Find the present age of {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-928": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "A {personA} and his {personB} have present ages in the ratio {ratioA}:{ratioB}. After {shiftYears} years, their ratio will be {futureRatioA}:{futureRatioB}. Find the present age of the {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-929": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromPastRatio",
+        "template": "A {personA} and her {personB} have present ages in the ratio {ratioA}:{ratioB}. {shiftYears} years ago, their ratio was {pastRatioA}:{pastRatioB}. Find the present age of the {targetPerson}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-930": {
+        "cpId": "RAP-CP-014",
+        "taskKind": "agePresentFromFutureRatio",
+        "template": "{personA} and {personB} have present ages in the ratio {ratioA}:{ratioB}. After {shiftYears} years, their ratio will be {futureRatioA}:{futureRatioB}. Find the present age of {targetPerson}.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -127,6 +313,120 @@
         "cpId": "RAP-CP-015",
         "taskKind": "incomeExpenditureSavingsRatio",
         "template": "{personA} and {personB} have incomes in the ratio {incomeRatioA}:{incomeRatioB}. Their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. With income unit Rs. {incomeUnit} and expenditure unit Rs. {expenditureUnit}, find the ratio of their savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-956": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureEqualSavings",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. Their savings are equal. If {personA}'s income is Rs. {givenIncomeA}, find {targetPerson}'s savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-957": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenditureEqualSavings",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. Their savings are equal. If {personB}'s expenditure is Rs. {givenExpenditureB}, find {targetPerson}'s savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-958": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeFromSavingsRatio",
+        "template": "The expenditures of {personA} and {personB} are in the ratio {expenditureRatioA}:{expenditureRatioB}, and their savings are in the ratio {savingsRatioA}:{savingsRatioB}. If expenditure units are Rs. {expenditureUnit} and savings units are Rs. {savingsUnit}, find their income ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-959": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "expenditureFromSavingsRatio",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their savings are in the ratio {savingsRatioA}:{savingsRatioB}. If income units are Rs. {incomeUnit} and savings units are Rs. {savingsUnit}, find their expenditure ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-960": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseDifferenceSavings",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, while their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the difference between their savings is Rs. {savingsDifference}, find {targetPerson}'s income.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-961": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseSumSavings",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If their total savings are Rs. {savingsSum}, find {targetPerson}'s expenditure.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-962": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseOneSavesPercent",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}. {personA} saves {savePercentA}% of income and {personB} saves {savePercentB}% of income. Find the ratio of their savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-963": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseFindSavingsPercent",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If income unit is Rs. {incomeUnit} and expenditure unit is Rs. {expenditureUnit}, find {targetPerson}'s saving as a percentage of income.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-964": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "familyIncomeExpenditure",
+        "template": "Two families, {personA} and {personB}, have incomes in the ratio {incomeRatioA}:{incomeRatioB} and expenditures in the ratio {expenditureRatioA}:{expenditureRatioB}. If income unit is Rs. {incomeUnit} and expenditure unit is Rs. {expenditureUnit}, find their combined savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-965": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "salarySpendingSavings",
+        "template": "The salaries of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their spending is in the ratio {expenditureRatioA}:{expenditureRatioB}. If one income unit is Rs. {incomeUnit}, find the difference between their savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-966": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "shopRevenueCostProfit",
+        "template": "The revenues of {personA} and {personB} are in the ratio {revenueRatioA}:{revenueRatioB}, and their costs are in the ratio {costRatioA}:{costRatioB}. If revenue unit is Rs. {revenueUnit} and cost unit is Rs. {costUnit}, find their profit ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-967": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "equalIncomeDifferentExpense",
+        "template": "{personA} and {personB} have equal incomes of Rs. {incomeValue}. Their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}, with each expenditure unit equal to Rs. {expenditureUnit}. Find the ratio of their savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-968": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "equalExpenseDifferentIncome",
+        "template": "{personA} and {personB} have equal expenditures of Rs. {expenseValue}. Their incomes are in the ratio {incomeRatioA}:{incomeRatioB}, with each income unit equal to Rs. {incomeUnit}. Find the ratio of their savings.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-969": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "pocketMoneySpending",
+        "template": "The pocket money of {personA} and {personB} is in the ratio {incomeRatioA}:{incomeRatioB}, and their spending is in the ratio {expenditureRatioA}:{expenditureRatioB}. If income and spending units are Rs. {incomeUnit} and Rs. {expenditureUnit}, find their savings ratio.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-970": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "givenOneSavesMore",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If one saves Rs. {savingsDifference} more than the other, find {targetPerson}'s income.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-971": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "givenOneSpendsMore",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the difference in expenditure is Rs. {expenseDifference}, find {targetPerson}'s savings.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-972": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseTotalIncome",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}. Their total income is Rs. {totalIncome}, and expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB} with unit Rs. {expenditureUnit}. Find their combined savings.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-973": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseTotalExpense",
+        "template": "The expenditures of {personA} and {personB} are in the ratio {expenditureRatioA}:{expenditureRatioB}. Their total expenditure is Rs. {totalExpense}, and incomes are in the ratio {incomeRatioA}:{incomeRatioB} with unit Rs. {incomeUnit}. Find their combined income.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-974": {
+        "cpId": "RAP-CP-015",
+        "taskKind": "incomeExpenseSavingsComparison",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If income unit is Rs. {incomeUnit} and expenditure unit is Rs. {expenditureUnit}, find the ratio of their savings.",
         "difficulty": "Medium"
       }
     }
@@ -162,6 +462,150 @@
         "taskKind": "alloyTargetComponentFromMix",
         "template": "{quantityA} litres of {mixtureA} with {percentA}% {component} is combined with {quantityB} litres of {mixtureB} with {percentB}% {component}. Find the percentage of {component} in the final mixture.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-1006": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "Acid solution A has {percentA}% {component} and acid solution B has {percentB}% {component}. Find the mixing ratio needed for {targetPercent}% {component}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1007": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMixingRatioFromTarget",
+        "template": "Milk mixture A contains {percentA}% {component} and milk mixture B contains {percentB}% {component}. Find the ratio for a {targetPercent}% {component} mixture.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1008": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetComponentFromMix",
+        "template": "Mix {quantityA} litres of {mixtureA} with {percentA}% {component} and {quantityB} litres of {mixtureB} with {percentB}% {component}. Find the final {component} percentage.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1009": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "weightedAverageGroup",
+        "template": "{quantityA} kg of {itemName} at Rs. {averageA} per kg is mixed with {quantityB} kg at Rs. {averageB} per kg. Find the average price per kg.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1010": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "weightedAverageGroup",
+        "template": "{groupA} has {quantityA} students with average marks {averageA}. {groupB} has {quantityB} students with average marks {averageB}. Find the combined average marks.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1011": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "weightedAverageGroup",
+        "template": "{groupA} has {quantityA} employees with average salary Rs. {averageA}. {groupB} has {quantityB} employees with average salary Rs. {averageB}. Find the combined average salary.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1012": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMissingQuantity",
+        "template": "{quantityA} litres of {mixtureA} has {percentA}% {component}. How many litres of {mixtureB} with {percentB}% {component} should be added to get {targetPercent}% {component}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1013": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyMissingSourcePercent",
+        "template": "{mixtureA} has {percentA}% {component}. It is mixed with {mixtureB} in the ratio {mixRatioA}:{mixRatioB} and the final mixture has {targetPercent}% {component}. Find the percentage of {component} in {mixtureB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1014": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetFromThreeSources",
+        "template": "Mix {quantityA} litres of {mixtureA} at {percentA}% {component}, {quantityB} litres of {mixtureB} at {percentB}% {component}, and {quantityC} litres of {mixtureC} at {percentC}% {component}. Find the final percentage.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1015": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyThreeSourceEqualMix",
+        "template": "Equal amounts of {mixtureA}, {mixtureB}, and {mixtureC} are mixed. Their {component}:other ratios are {ratioAComponent}:{ratioAOther}, {ratioBComponent}:{ratioBOther}, and {ratioCComponent}:{ratioCOther}. Find the final {component}:other ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1016": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyPureAndImpureMix",
+        "template": "Pure {component} is mixed with a solution containing {percentB}% {component}. Find the mixing ratio to obtain {targetPercent}% {component}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1017": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyZeroComponentMix",
+        "template": "A {percentB}% {component} solution is mixed with a {percentA}% {component} solution. Find the ratio of {mixtureA}:{mixtureB} needed for {targetPercent}% {component}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1018": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "weightedProfitPercentMix",
+        "template": "Sales worth Rs. {quantityA} earn {averageA}% profit and sales worth Rs. {quantityB} earn {averageB}% profit. Find the overall profit percent.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1019": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "weightedDiscountMix",
+        "template": "Bills worth Rs. {quantityA} get {averageA}% discount and bills worth Rs. {quantityB} get {averageB}% discount. Find the average discount percent.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1020": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "sugarSolutionConcentration",
+        "template": "Mix {quantityA} litres of {mixtureA} containing {percentA}% {component} with {quantityB} litres of {mixtureB} containing {percentB}% {component}. Find the final concentration.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1021": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "averagePriceFromRatio",
+        "template": "Two qualities of {itemName} are mixed in the ratio {ratioA}:{ratioB}. Their prices are Rs. {priceA} and Rs. {priceB} per kg. Find the average price.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1022": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "mixingRatioFromAveragePrice",
+        "template": "Two qualities of {itemName} cost Rs. {percentA} and Rs. {percentB} per kg. Find the mixing ratio needed for an average price of Rs. {targetPercent} per kg.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1023": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "marksAverageMixture",
+        "template": "{groupA} has {quantityA} students with average marks {averageA}; {groupB} has {quantityB} students with average marks {averageB}. Find the combined average.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1024": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "reverseWeightedAverageCount",
+        "template": "{groupA} has {quantityA} students with average {averageA}. {groupB} has average {averageB}. If the combined average is {combinedAverage}, find the number of students in {groupB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1025": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "reverseWeightedAverageGroupAvg",
+        "template": "{groupA} has {quantityA} members with average {averageA}. {groupB} has {quantityB} members. The combined average is {combinedAverage}. Find the average of {groupB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1026": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyTargetExactlyMidpoint",
+        "template": "Two solutions contain {percentA}% and {percentB}% {component}. Find the mixing ratio for exactly {targetPercent}% {component}.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1027": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyNonMidpointTrap",
+        "template": "Alloy A has {percentA}% {component} and Alloy B has {percentB}% {component}. Find the ratio for a {targetPercent}% {component} alloy.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1028": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyReplaceToTarget",
+        "template": "{vesselName} has {totalQuantity} litres of mixture with {initialPercent}% {component}. Some mixture is removed and replaced by a {addPercent}% {component} solution. How many litres must be replaced to make it {targetPercent}% {component}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1029": {
+        "cpId": "RAP-CP-016",
+        "taskKind": "alloyRatioToFinalPercent",
+        "template": "{mixtureA} with {percentA}% {component} and {mixtureB} with {percentB}% {component} are mixed in the ratio {mixRatioA}:{mixRatioB}. Find the final percentage.",
+        "difficulty": "Medium"
       }
     }
   },
@@ -196,6 +640,90 @@
         "taskKind": "replacementFinalQuantity",
         "template": "{vesselName} starts with {initialVolume} litres of {liquidA}. In each round, {removedVolume} litres are replaced by {liquidB}. After {replacementCount} rounds, find how much {liquidA} remains.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-1106": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. Each round, {removedVolume} litres are removed and replaced with {liquidB}. After {replacementCount} rounds, find the final ratio of {liquidA}:{liquidB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1107": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} starts with {initialVolume} litres of {liquidA}. In each round, {removedVolume} litres are replaced by {liquidB}. After {replacementCount} rounds, how much original {liquidA} remains?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1108": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementAddedLiquidQuantity",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. {removedVolume} litres are replaced by {liquidB} in each of {replacementCount} rounds. How many litres of {liquidB} are present at the end?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1109": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementOriginalPercentRemaining",
+        "template": "{vesselName} has {initialVolume} litres of pure {liquidA}. Each time, {removedVolume} litres are removed and replaced by {liquidB}. After {replacementCount} rounds, what percentage of the original {liquidA} remains?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1110": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementIterationsFromFinalRatio",
+        "template": "{vesselName} initially contains pure {liquidA}. Each round, {removedVolume} litres out of {initialVolume} litres are replaced with {liquidB}. If the final ratio of {liquidA}:{liquidB} is {finalRatioA}:{finalRatioB}, find the number of replacement rounds.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1111": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementRemovedVolumeFromFinalRatio",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. The same quantity is removed and replaced by {liquidB} for {replacementCount} rounds. If the final ratio of {liquidA}:{liquidB} is {finalRatioA}:{finalRatioB}, find the quantity removed each round.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1112": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementDifferentRounds",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. First {removedVolumeA} litres are replaced with {liquidB}, then {removedVolumeB} litres of the mixture are replaced with {liquidB}. How much original {liquidA} remains?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1113": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalRatio",
+        "template": "{vesselName} contains {initialVolume} litres of pure {liquidA}. {removedVolume} litres are replaced by {liquidB} each time, for {replacementCount} rounds. Find the final {liquidA}:{liquidB} ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1114": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalQuantity",
+        "template": "{vesselName} starts with {initialVolume} litres of {liquidA}. {removedVolume} litres are drawn out and replaced with {liquidB}, and this is done {replacementCount} times. Find the amount of original {liquidA} left.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1115": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementTankSolution",
+        "template": "{vesselName} contains {initialVolume} litres of a {initialPercent}% {liquidA} solution. Each round, {removedVolume} litres are removed and replaced by a {addLiquidPercent}% {liquidA} liquid. After {replacementCount} rounds, find the final strength percentage.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1116": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementInventoryAnalogy",
+        "template": "{vesselName} has {initialStock} units of {liquidA}. Each round, {soldEachRound} units are sold and replaced by {liquidB}. After {replacementCount} rounds, how many original units remain?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1117": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementInitialFromFinalQuantity",
+        "template": "After removing {removedFractionNumerator}/{removedFractionDenominator} of a vessel and refilling it for {replacementCount} rounds, {finalQuantity} litres of the original {liquidA} remain. Find the initial quantity.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1118": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementFinalAfterFractionRemoval",
+        "template": "A container initially has only {liquidA}. In each round, {removedFractionNumerator}/{removedFractionDenominator} of the mixture is removed and replaced by {liquidB}. After {replacementCount} rounds, find the final {liquidA}:{liquidB} ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1119": {
+        "cpId": "RAP-CP-017",
+        "taskKind": "replacementStrengthAfterRounds",
+        "template": "{vesselName} contains {initialVolume} litres of a {initialPercent}% {liquidA} solution. Each round, {removedVolume} litres are removed and replaced by a {addLiquidPercent}% {liquidA} liquid. After {replacementCount} rounds, find the final strength.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -242,6 +770,72 @@
         "taskKind": "denominationCountsFromValue",
         "template": "The counts of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} {itemName} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total value is Rs. {totalValue}. Find the count of Rs. {targetDenomination} {itemName}.",
         "difficulty": "Medium"
+      },
+      "RAP-QL-1208": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationCountsFromValue",
+        "template": "{itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total value is Rs. {totalValue}. Find the number of Rs. {targetDenomination} {itemName}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1209": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTargetCount",
+        "template": "{itemName} worth Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the common multiplier is {commonUnit}, find the number of Rs. {targetDenomination} {itemName}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1210": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalCountFromValue",
+        "template": "{itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Their total value is Rs. {totalValue}. Find the total number of {itemName}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1211": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationTotalValueFromTotalCount",
+        "template": "There are {totalCount} {itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} in the ratio {ratioA}:{ratioB}:{ratioC}. Find their total value.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1212": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationValueRatio",
+        "template": "{itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Find the ratio of value contributed by the three types.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1213": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationSwapValue",
+        "template": "{itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:{ratioC}, with common multiplier {commonUnit}. If {swapCount} Rs. {fromDenomination} {itemName} are replaced by Rs. {toDenomination} {itemName}, find the new total value.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1214": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationAverageValue",
+        "template": "{itemName} of Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:{ratioC}. Find the average value per item.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1215": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationFourTypeTotalCount",
+        "template": "Four types of {itemName} worth Rs. {denominationA}, Rs. {denominationB}, Rs. {denominationC}, and Rs. {denominationD} are in the ratio {ratioA}:{ratioB}:{ratioC}:{ratioD}. Their total value is Rs. {totalValue}. Find the total number of {itemName}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1216": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "denominationMissingRatioPart",
+        "template": "{itemName} worth Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are in the ratio {ratioA}:{ratioB}:x. If the common multiplier is {commonUnit} and total value is Rs. {totalValue}, find x.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1217": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "ticketValueSystem",
+        "template": "Tickets priced at Rs. {denominationA}, Rs. {denominationB}, and Rs. {denominationC} are sold in the ratio {ratioA}:{ratioB}:{ratioC}. If the common multiplier is {commonUnit}, find the total revenue.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1218": {
+        "cpId": "RAP-CP-018",
+        "taskKind": "marksPerQuestionType",
+        "template": "Questions of {denominationA}, {denominationB}, and {denominationC} marks are in the ratio {ratioA}:{ratioB}:{ratioC}. If the common multiplier is {commonUnit}, find the total marks.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -275,6 +869,126 @@
         "cpId": "RAP-CP-019",
         "taskKind": "sdtOvertakeTime",
         "template": "{objectA} runs at {speedA} km/h and {objectB} runs at {speedB} km/h. If {objectB} has a lead of {leadDistance} metres, how many seconds will {objectA} take to overtake {objectB}?",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1306": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtOvertakeTime",
+        "template": "{objectB} is {leadDistance} metres ahead. {objectA} moves at {speedA} km/h and {objectB} moves at {speedB} km/h. Find the time taken by {objectA} to catch {objectB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1307": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtDistanceRatioFromSpeedTime",
+        "template": "The speeds of {personA} and {personB} are in the ratio {speedRatioA}:{speedRatioB}, and their times are in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of distances covered.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1308": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtSpeedRatioFromDistanceTime",
+        "template": "The distances covered by {personA} and {personB} are in the ratio {distanceRatioA}:{distanceRatioB}, and their times are in the ratio {timeRatioA}:{timeRatioB}. Find their speed ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1309": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "fixedDistanceSpeedTimeInverse",
+        "template": "{personA} and {personB} travel the same distance. Their speeds are in the ratio {speedRatioA}:{speedRatioB}. Find the ratio of their times.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1310": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "fixedTimeSpeedDistanceDirect",
+        "template": "{personA} and {personB} travel for the same time. Their speeds are in the ratio {speedRatioA}:{speedRatioB}. Find the ratio of distances covered.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1311": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtRaceLeadSpeedRatio",
+        "template": "In a race of {raceLength} m, {personA} beats {personB} by {leadDistance} m. Find the speed ratio of {personA}:{personB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1312": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtRaceLeadTime",
+        "template": "{personA} finishes a race in {timeA} seconds while {personB} takes {timeB} seconds for the same distance. Find their speed ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1313": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtOvertakeTime",
+        "template": "{personA} runs at {speedA} km/h and {personB} runs at {speedB} km/h in the same direction. If {personA} is {leadDistance} m behind, find the time taken to overtake.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1314": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sdtOppositeDirectionMeeting",
+        "template": "{personA} and {personB} move towards each other at {speedA} km/h and {speedB} km/h. If they are {distance} km apart, find the meeting time in hours.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1315": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "trainPlatformRatio",
+        "template": "Two trains have lengths in the ratio {lengthRatioA}:{lengthRatioB} and speeds in the ratio {speedRatioA}:{speedRatioB}. Find the ratio of times taken to cross the same reference point.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1316": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "workEfficiencyTimeRatio",
+        "template": "Two teams have efficiencies in the ratio {efficiencyRatioA}:{efficiencyRatioB}. They must complete work in the ratio {workRatioA}:{workRatioB}. Find the ratio of times required.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1317": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "machinesOutputTime",
+        "template": "Machines in two units are in the ratio {machineRatioA}:{machineRatioB}, and working hours are in the ratio {timeRatioA}:{timeRatioB}. If efficiency is the same, find the output ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1318": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "pipesTimeRatio",
+        "template": "Two pipes fill water at rates in the ratio {speedRatioA}:{speedRatioB}. Find the ratio of times taken to fill the same tank.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1319": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "workersEfficiencyDays",
+        "template": "Two groups have workers in the ratio {machineRatioA}:{machineRatioB}, efficiencies in the ratio {efficiencyRatioA}:{efficiencyRatioB}, and days in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of work done.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1320": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "findMissingRateFromOutput",
+        "template": "Output of two machines is in the ratio {outputRatioA}:{outputRatioB}, and their working times are in the ratio {timeRatioA}:{timeRatioB}. Find their rate ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1321": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "timeSavedByHigherSpeed",
+        "template": "A person travels at a speed changed from ratio part {speedRatioA} to {speedRatioB}. If the old time is {oldTime} hours for the same distance, find the time saved.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1322": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "distanceSlowerCoversWhenFasterFinishes",
+        "template": "In a {trackDistance} m race, speeds of {personA} and {personB} are in the ratio {speedRatioA}:{speedRatioB}. How far does {personB} cover when {personA} finishes?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1323": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "sameWorkTwoTeams",
+        "template": "Two teams have workers in the ratio {workerRatioA}:{workerRatioB} and efficiencies in the ratio {efficiencyRatioA}:{efficiencyRatioB}. For the same work, find the ratio of completion times.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1324": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "rateProductAbsoluteOutput",
+        "template": "Unit A produces {outputA} items. Rate ratio, time ratio, and unit-count ratio of A:B are {rateRatioA}:{rateRatioB}, {timeRatioA}:{timeRatioB}, and {unitRatioA}:{unitRatioB}. Find B's output.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1325": {
+        "cpId": "RAP-CP-019",
+        "taskKind": "relativeSpeedRatioFromOvertake",
+        "template": "A faster vehicle closes a lead of {leadDistance} m in {overtakeTime} seconds. Find the relative speed in km/h.",
         "difficulty": "Hard"
       }
     }
@@ -310,6 +1024,96 @@
         "taskKind": "populationTotalIlliterate",
         "template": "{regionName} has a total population of {totalPopulation}. Males:females = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total illiterate population.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-1406": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationLiteracyPercent",
+        "template": "{regionName}'s population is {totalPopulation}. The male:female ratio is {maleRatio}:{femaleRatio}. Literate:illiterate is {maleLiterateRatio}:{maleIlliterateRatio} among males and {femaleLiterateRatio}:{femaleIlliterateRatio} among females. Find the overall literacy percentage.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1407": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCrossTabCellCount",
+        "template": "A population of {totalPopulation} is divided into male and female groups in the ratio {maleRatio}:{femaleRatio}. Males are literate:illiterate in the ratio {maleLiterateRatio}:{maleIlliterateRatio}, and females are literate:illiterate in the ratio {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of {targetCellLabel}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1408": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalLiterate",
+        "template": "A group of {totalPopulation} people is split into male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total literate people.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1409": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTotalIlliterate",
+        "template": "A group of {totalPopulation} people is split into male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the total illiterate people.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1410": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCellRatio",
+        "template": "From a population of {totalPopulation}, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1411": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationCellPercentOfTotal",
+        "template": "In a population of {totalPopulation}, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. What percentage of the total are {targetCellLabel}?",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1412": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationRecoverTotalFromCell",
+        "template": "In a population table, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. If {knownCellLabel} are {knownCellValue}, find the total population.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1413": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationMissingRowTotal",
+        "template": "A population of {totalPopulation} has male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the number of literate males.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1414": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationDifferenceBetweenCells",
+        "template": "For {totalPopulation} people, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the difference between {ratioCellA} and {ratioCellB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1415": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationSumOfSelectedCells",
+        "template": "For {totalPopulation} people, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the sum of {ratioCellA} and {ratioCellB}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1416": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationThreeRows",
+        "template": "A total of {totalPopulation} students are in three groups in the ratio {ratioA}:{ratioB}:{ratioC}. In the first group, passed:failed = {passRatioA}:{failRatioA}. Find the number of passed students in the first group.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1417": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationMiniCaseletQuestion1",
+        "template": "A mini table has {totalPopulation} people with male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}; female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the difference between {ratioCellA} and {ratioCellB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1418": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationMiniCaseletQuestion2",
+        "template": "Using the same style of table: total {totalPopulation}, male:female = {maleRatio}:{femaleRatio}; male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}; female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1419": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationColumnRatioGiven",
+        "template": "For {totalPopulation} people, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1420": {
+        "cpId": "RAP-CP-020",
+        "taskKind": "populationTableValidationTrap",
+        "template": "For {totalPopulation} people, male:female = {maleRatio}:{femaleRatio}. Male literate:illiterate = {maleLiterateRatio}:{maleIlliterateRatio}, and female literate:illiterate = {femaleLiterateRatio}:{femaleIlliterateRatio}. Find the ratio of {ratioCellA} to {ratioCellB}.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -344,6 +1148,126 @@
         "taskKind": "electionInvalidVotes",
         "template": "{constituencyName} has {totalVoters} voters. {turnoutPercent}% of them voted, and {invalidPercent}% of polled votes were invalid. Find the number of invalid votes.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-1506": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionInvalidVotes",
+        "template": "Out of {totalVoters} voters in {constituencyName}, {turnoutPercent}% cast their votes. If {invalidPercent}% of the polled votes were invalid, find the invalid vote count.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1507": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionLoserVotes",
+        "template": "{candidateA} and {candidateB} received valid votes in the ratio {candidateRatioA}:{candidateRatioB}. Voter turnout and validity give the final valid count. Find the loser's votes.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1508": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinningMargin",
+        "template": "{totalVoters} voters are listed in {constituencyName}. {turnoutPercent}% voted and {validPercent}% votes were valid. The valid votes split as {candidateRatioA}:{candidateRatioB}. Find the winning margin.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1509": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionTotalVotersFromMargin",
+        "template": "The winning margin in {constituencyName} was {winningMargin}. Turnout was {turnoutPercent}% and {validPercent}% of polled votes were valid. Valid votes split as {candidateRatioA}:{candidateRatioB}. Find total voters.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1510": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionInvalidVotes",
+        "template": "{totalVoters} voters are registered in {constituencyName}. {turnoutPercent}% voted and {invalidPercent}% of polled votes were invalid. Find invalid votes.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1511": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionPolledVotesFromTurnout",
+        "template": "{constituencyName} has {totalVoters} voters and turnout is {turnoutPercent}%. Find the number of polled votes.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1512": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionValidVotesFromInvalidRate",
+        "template": "A ward recorded {polledVotes} polled votes. If {invalidPercent}% were invalid, find the valid votes.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1513": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionWinnerFromMarginAndValidVotes",
+        "template": "Total valid votes are {totalValidVotes} and the winning margin is {winningMargin}. Find the winner's votes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1514": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionLoserFromMarginAndValidVotes",
+        "template": "Total valid votes are {totalValidVotes} and the winning margin is {winningMargin}. Find the loser's votes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1515": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionThreeCandidateSplit",
+        "template": "{candidateA}, {candidateB}, and {candidateC} split {totalValidVotes} valid votes in the ratio {candidateRatioA}:{candidateRatioB}:{candidateRatioC}. Find the winner's votes.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1516": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionCandidateSharePercent",
+        "template": "Valid votes for {candidateA} and {candidateB} are in the ratio {candidateRatioA}:{candidateRatioB}. Find the winner's vote share percentage.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1517": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionRatioFromVoteSharePercent",
+        "template": "{candidateA} gets {percentA}% votes and {candidateB} gets {percentB}% votes. Find their vote ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1518": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionOneCandidateMorePercent",
+        "template": "{candidateA} gets {morePercent}% more votes than {candidateB}. Total valid votes are {totalValidVotes}. Find {candidateA}'s votes.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1519": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionMarginAsPercentOfValid",
+        "template": "Valid votes are split between {candidateA} and {candidateB} in the ratio {candidateRatioA}:{candidateRatioB}. Find the margin as a percentage of valid votes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1520": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionTotalElectorateFromCandidateVotes",
+        "template": "{candidateA} receives {candidateVotes} votes. The valid vote ratio is {candidateRatioA}:{candidateRatioB}, turnout is {turnoutPercent}%, and {validPercent}% of polled votes are valid. Find total voters.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1521": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "marketShareWinner",
+        "template": "Two companies divide a market of Rs. {totalMarket} in the ratio {candidateRatioA}:{candidateRatioB}. Find the larger company's share.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1522": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "surveyResponseShare",
+        "template": "Survey responses are split as {candidateRatioA}:{candidateRatioB} between {candidateA} and {candidateB}. Total responses are {totalResponses}. Find the count of {candidateA}.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1523": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionNotaInvalidStyle",
+        "template": "{constituencyName} has {totalVoters} voters and turnout is {turnoutPercent}%. If NOTA is {notaPercent}% of polled votes, find NOTA votes.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1524": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionReverseTurnoutFromValidVotes",
+        "template": "{constituencyName} has {totalVoters} voters. Valid votes are {totalValidVotes}, which are {validPercent}% of polled votes. Find turnout percentage.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1525": {
+        "cpId": "RAP-CP-021",
+        "taskKind": "electionMarginDifferenceChain",
+        "template": "{candidateA} defeats {candidateB} by {winningMargin} votes. Their valid votes are in the ratio {candidateRatioA}:{candidateRatioB}. Turnout is {turnoutPercent}% and invalid votes are {invalidPercent}% of polled votes. Find total voters.",
+        "difficulty": "Hard"
       }
     }
   },
@@ -378,6 +1302,78 @@
         "taskKind": "geometricAreaRatioFromRadius",
         "template": "The radii of two {shapeName} are in the ratio {radiusRatioA}:{radiusRatioB}. Find the ratio of their areas.",
         "difficulty": "Easy"
+      },
+      "RAP-QL-1606": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSideRatioFromArea",
+        "template": "Two similar {shapeName} have areas in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their matching sides.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1607": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricAreaRatioFromSide",
+        "template": "Two {shapeName} have corresponding sides in the ratio {sideRatioA}:{sideRatioB}. Find their area ratio.",
+        "difficulty": "Easy"
+      },
+      "RAP-QL-1608": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricVolumeRatioFromSide",
+        "template": "Two {shapeName} have side lengths in the ratio {sideRatioA}:{sideRatioB}. Find their volume ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1609": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricVolumeRatioFromSide",
+        "template": "The radii of two {shapeName} are in the ratio {sideRatioA}:{sideRatioB}. Find their volume ratio.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1610": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSideRatioFromArea",
+        "template": "The areas of two {shapeName} are in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their corresponding sides.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1611": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSideRatioFromArea",
+        "template": "Two {shapeName} have areas in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their radii.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1612": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSurfaceAreaRatioFromVolume",
+        "template": "The volumes of two {shapeName} are in the ratio {volumeRatioA}:{volumeRatioB}. Find their surface area ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1613": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricSurfaceAreaRatioFromVolume",
+        "template": "Two {shapeName} have volumes in the ratio {volumeRatioA}:{volumeRatioB}. Find the ratio of their surface areas.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1614": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "mapScaleAreaRatio",
+        "template": "A {mapName} uses length scales in the ratio {scaleRatioA}:{scaleRatioB}. Find the ratio of the represented areas.",
+        "difficulty": "Medium"
+      },
+      "RAP-QL-1615": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "mapScaleLengthFromArea",
+        "template": "Two {mapName} drawings show areas in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their length scales.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1616": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "similarSolidSurfaceToVolume",
+        "template": "The surface areas of two {shapeName} are in the ratio {surfaceAreaRatioA}:{surfaceAreaRatioB}. Find their volume ratio.",
+        "difficulty": "Hard"
+      },
+      "RAP-QL-1617": {
+        "cpId": "RAP-CP-022",
+        "taskKind": "geometricPowerMixedStatement",
+        "template": "Two {shapeName} have side lengths in the ratio {sideRatioA}:{sideRatioB}. Find their volume ratio.",
+        "difficulty": "Hard"
       }
     }
   }

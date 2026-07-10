@@ -305,13 +305,13 @@ for (let index = 0; index < 120; index += 1) {
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-201", "RAP-QL-205", "RAP-QL-209"]) {
+for (const qlId of ["RAP-QL-201","RAP-QL-202","RAP-QL-203","RAP-QL-204","RAP-QL-205","RAP-QL-206","RAP-QL-207","RAP-QL-208","RAP-QL-209","RAP-QL-210","RAP-QL-211","RAP-QL-212","RAP-QL-213","RAP-QL-214","RAP-QL-215","RAP-QL-216","RAP-QL-217","RAP-QL-218","RAP-QL-219","RAP-QL-220","RAP-QL-221","RAP-QL-222","RAP-QL-223","RAP-QL-224","RAP-QL-225","RAP-QL-226","RAP-QL-227","RAP-QL-228"]) {
   const pkg = runRap002Cp007Pipeline({ seed: `rap-002-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenQlIds.add(pkg.questionLanguageId);
 }
 
-assert.ok(seenQlIds.size >= 10, `Expected broad QL coverage, got ${seenQlIds.size}`);
+assert.equal(seenQlIds.size, 28, `Expected all 28 CP-007 QLs, got ${seenQlIds.size}`);
 
 const seenCp008QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -326,13 +326,13 @@ for (let index = 0; index < 90; index += 1) {
   seenCp008QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-301", "RAP-QL-302", "RAP-QL-303", "RAP-QL-304", "RAP-QL-305", "RAP-QL-306"]) {
+for (const qlId of ["RAP-QL-301","RAP-QL-302","RAP-QL-303","RAP-QL-304","RAP-QL-305","RAP-QL-306","RAP-QL-307","RAP-QL-308","RAP-QL-309","RAP-QL-310","RAP-QL-311","RAP-QL-312","RAP-QL-313","RAP-QL-314","RAP-QL-315","RAP-QL-316","RAP-QL-317","RAP-QL-318","RAP-QL-319","RAP-QL-320","RAP-QL-321","RAP-QL-322","RAP-QL-323","RAP-QL-324"]) {
   const pkg = runRap002Cp008Pipeline({ seed: `rap-002-cp008-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp008QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp008QlIds.size, 6, `Expected all 6 CP-008 QLs, got ${seenCp008QlIds.size}`);
+assert.equal(seenCp008QlIds.size, 24, `Expected all 24 CP-008 QLs, got ${seenCp008QlIds.size}`);
 
 const seenCp009QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -347,13 +347,14 @@ for (let index = 0; index < 90; index += 1) {
   seenCp009QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-401", "RAP-QL-402", "RAP-QL-403", "RAP-QL-404", "RAP-QL-405", "RAP-QL-406", "RAP-QL-407", "RAP-QL-408", "RAP-QL-409"]) {
+const cp009QlIds = Array.from({ length: 29 }, (_, index) => `RAP-QL-${401 + index}`);
+for (const qlId of cp009QlIds) {
   const pkg = runRap002Cp009Pipeline({ seed: `rap-002-cp009-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp009QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp009QlIds.size, 9, `Expected all 9 CP-009 QLs, got ${seenCp009QlIds.size}`);
+assert.equal(seenCp009QlIds.size, 29, `Expected all 29 CP-009 QLs, got ${seenCp009QlIds.size}`);
 
 const seenCp010QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -368,13 +369,13 @@ for (let index = 0; index < 90; index += 1) {
   seenCp010QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-501", "RAP-QL-502", "RAP-QL-503", "RAP-QL-504", "RAP-QL-505", "RAP-QL-506", "RAP-QL-507", "RAP-QL-508"]) {
+for (const qlId of ["RAP-QL-501","RAP-QL-502","RAP-QL-503","RAP-QL-504","RAP-QL-505","RAP-QL-506","RAP-QL-507","RAP-QL-508","RAP-QL-509","RAP-QL-510","RAP-QL-511","RAP-QL-512","RAP-QL-513","RAP-QL-514","RAP-QL-515","RAP-QL-516","RAP-QL-517","RAP-QL-518","RAP-QL-519","RAP-QL-520","RAP-QL-521","RAP-QL-522","RAP-QL-523","RAP-QL-524","RAP-QL-525","RAP-QL-526"]) {
   const pkg = runRap002Cp010Pipeline({ seed: `rap-002-cp010-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp010QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp010QlIds.size, 8, `Expected all 8 CP-010 QLs, got ${seenCp010QlIds.size}`);
+assert.equal(seenCp010QlIds.size, 26, `Expected all 26 CP-010 QLs, got ${seenCp010QlIds.size}`);
 
 const seenCp011QlIds = new Set<string>();
 for (let index = 0; index < 90; index += 1) {
@@ -389,13 +390,14 @@ for (let index = 0; index < 90; index += 1) {
   seenCp011QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-601", "RAP-QL-602", "RAP-QL-603", "RAP-QL-604", "RAP-QL-605", "RAP-QL-606", "RAP-QL-607", "RAP-QL-608"]) {
+const cp011QlIds = Array.from({ length: 30 }, (_, index) => `RAP-QL-${601 + index}`);
+for (const qlId of cp011QlIds) {
   const pkg = runRap002Cp011Pipeline({ seed: `rap-002-cp011-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp011QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp011QlIds.size, 8, `Expected all 8 CP-011 QLs, got ${seenCp011QlIds.size}`);
+assert.equal(seenCp011QlIds.size, 30, `Expected all 30 CP-011 QLs, got ${seenCp011QlIds.size}`);
 
 for (const language of ["hi", "pa"] as const) {
   for (const [cpRunner, qlId] of [
@@ -423,13 +425,13 @@ for (let index = 0; index < 90; index += 1) {
   seenCp012QlIds.add(pkg.questionLanguageId);
 }
 
-for (const qlId of ["RAP-QL-701", "RAP-QL-702", "RAP-QL-703", "RAP-QL-704", "RAP-QL-705", "RAP-QL-706"]) {
+for (const qlId of ["RAP-QL-701","RAP-QL-702","RAP-QL-703","RAP-QL-704","RAP-QL-705","RAP-QL-706","RAP-QL-707","RAP-QL-708","RAP-QL-709","RAP-QL-710","RAP-QL-711","RAP-QL-712","RAP-QL-713","RAP-QL-714","RAP-QL-715","RAP-QL-716","RAP-QL-717","RAP-QL-718","RAP-QL-719","RAP-QL-720","RAP-QL-721","RAP-QL-722","RAP-QL-723","RAP-QL-724"]) {
   const pkg = runRap002Cp012Pipeline({ seed: `rap-002-cp012-forced:${qlId}`, questionLanguageId: qlId });
   assert.equal(pkg.validation.valid, true);
   seenCp012QlIds.add(pkg.questionLanguageId);
 }
 
-assert.equal(seenCp012QlIds.size, 6, `Expected all 6 CP-012 QLs, got ${seenCp012QlIds.size}`);
+assert.equal(seenCp012QlIds.size, 24, `Expected all 24 CP-012 QLs, got ${seenCp012QlIds.size}`);
 
 const equivalenceAnswers = new Set<string>();
 for (let index = 0; index < 80; index += 1) {
