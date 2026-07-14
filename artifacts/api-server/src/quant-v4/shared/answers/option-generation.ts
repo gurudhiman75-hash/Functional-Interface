@@ -744,7 +744,13 @@ export function buildQuantV4AnswerOptions(
   }
 
   const shuffled = shuffleDeterministically(generated.slice(0, desiredCount), seed);
-  const correct = Math.max(0, correctIndexFromCanonical(shuffled, canonicalAnswer));
+  const correct = correctIndexFromCanonical(shuffled, canonicalAnswer);
+  if (correct < 0) {
+    throw new Error(`Canonical answer was lost while building options: ${renderQuantV4Answer(canonicalAnswer)}`);
+  }
+  if (shuffled.filter((option) => correctIndexFromCanonical([option], canonicalAnswer) === 0).length !== 1) {
+    throw new Error(`Canonical answer must appear exactly once in generated options: ${renderQuantV4Answer(canonicalAnswer)}`);
+  }
   return { options: shuffled, correct, canonicalAnswer };
 }
 

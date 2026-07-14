@@ -138,6 +138,7 @@ const difficultyDistribution = new Map<string, number>();
 const normalizedStemGroups = new Map<string, number[]>();
 const stemQlGroups = new Map<string, Set<string>>();
 const explanationShells = new Map<string, Set<string>>();
+const unrealisticAgeExamples: Array<Record<string, unknown>> = [];
 
 let crossPackageDuplicateWithRap002Count = 0;
 let grammarIssueCount = 0;
@@ -199,7 +200,20 @@ for (const [index, question] of generated.questions.entries()) {
   if (pkg.parameters.answerType === "COUNT" && !isIntegerLike(pkg.solver.answerValue)) fractionalCountAnswerCount += 1;
   if (pkg.parameters.answerType === "AGE" && !isIntegerLike(pkg.solver.answerValue)) fractionalAgeAnswerCount += 1;
   if (Object.values(pkg.parameters.variables).some((value) => typeof value === "number" && (!Number.isFinite(value) || value <= 0))) negativeValueCount += 1;
-  if (hasUnrealisticAge(pkg)) unrealisticAgeCount += 1;
+  if (hasUnrealisticAge(pkg)) {
+    unrealisticAgeCount += 1;
+    if (unrealisticAgeExamples.length < 10) {
+      unrealisticAgeExamples.push({
+        questionNumber: index + 1,
+        qlId: pkg.questionLanguageId,
+        taskKind: pkg.parameters.taskKind,
+        seed: pkg.seed,
+        variables: pkg.parameters.variables,
+        workingValues: pkg.solver.workingValues,
+        validation: pkg.validation,
+      });
+    }
+  }
   if (/\b(literate|illiterate)\s+(male|female)\b/i.test(combinedVisibleText)) populationGrammarIssueCount += 1;
   if (INTERNAL_PATTERNS.some((pattern) => pattern.test(explanation))) genericInternalExplanationCount += 1;
   if (/apply (?:the )?formula|use the method|calculation\s*=|answer\s*=/i.test(explanation)) genericExplanationCount += 1;
@@ -264,6 +278,10 @@ for (const language of ["hi", "pa"] as const) {
 const duplicateStemGroups = [...normalizedStemGroups.values()].filter((group) => group.length > 1);
 const duplicateStemGroupCount = duplicateStemGroups.length;
 const exactDuplicateStemGroupCount = [...stemQlGroups.entries()].filter(([stem, qlIds]) => (normalizedStemGroups.get(stem)?.length ?? 0) > 1 && qlIds.size > 1).length;
+const exactDuplicateStemExamples = [...stemQlGroups.entries()]
+  .filter(([stem, qlIds]) => (normalizedStemGroups.get(stem)?.length ?? 0) > 1 && qlIds.size > 1)
+  .slice(0, 10)
+  .map(([stem, qlIds]) => ({ stem, qlIds: [...qlIds], questions: normalizedStemGroups.get(stem) }));
 const sameQlRepeatedStemGroupCount = duplicateStemGroupCount - exactDuplicateStemGroupCount;
 const activeQlIds = RAP_003_CP_IDS.flatMap((cpId) => getRap003QuestionLanguageIds(cpId));
 const activeTaskKinds = new Set(activeQlIds.map((qlId) => (taskRegistry.entries as any)[qlId]?.taskKind).filter(Boolean));
@@ -289,6 +307,7 @@ const summary = {
   unreachableRegistryEntryCount,
   duplicateStemGroupCount,
   exactDuplicateStemGroupCount,
+  exactDuplicateStemExamples,
   sameQlRepeatedStemGroupCount,
   duplicateStemQuestionCount,
   duplicateStemExamples,
@@ -308,6 +327,7 @@ const summary = {
   fractionalAgeAnswerCount,
   negativeValueCount,
   unrealisticAgeCount,
+  unrealisticAgeExamples,
   populationGrammarIssueCount,
   genericInternalExplanationCount,
   genericExplanationCount,
@@ -330,36 +350,13 @@ console.log(JSON.stringify(summary, null, 2));
 
 const reportPath = path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-residual-qa-report.md");
 fs.writeFileSync(reportPath, [
-  "# RAP-003 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`  ",
+  "# RAP-003 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`",
   `Reviewed date: \`${new Date().toISOString().slice(0, 10)}\``, "", "## Current Results", "", "```json",
   JSON.stringify(summary, null, 2), "```", "", "## Duplicate Classification", "",
   `- Cross-QL exact duplicate stem groups: \`${exactDuplicateStemGroupCount}\` (blocker).`,
   `- Same-QL repeated parameter draws: \`${sameQlRepeatedStemGroupCount}\` groups (generator-diversity debt; manually classified, not duplicate QLs).`, "",
   "Hindi/Punjabi publication remains blocked pending separate human localization and editorial QA.", "",
 ].join("\n"));
-
-function csv(value: unknown) { return `"${String(value ?? "").replaceAll('"', '""').replace(/\r?\n/g, "\\n")}"`; }
-const reviewRows = RAP_003_CP_IDS.flatMap((cpId) => {
-  const candidates = generated.questionPackages.map((pkg, index) => ({ pkg, question: generated.questions[index] }))
-    .filter(({ pkg }) => pkg.canonicalProblemId === cpId);
-  const selected: typeof candidates = [];
-  const seenTasks = new Set<string>();
-  for (const candidate of candidates) {
-    if (!seenTasks.has(candidate.pkg.parameters.taskKind)) { selected.push(candidate); seenTasks.add(candidate.pkg.parameters.taskKind); }
-    if (selected.length === 10) break;
-  }
-  for (const candidate of candidates) {
-    if (selected.length === 10) break;
-    if (!selected.includes(candidate)) selected.push(candidate);
-  }
-  return selected;
-});
-const reviewHeader = ["packageId","cpId","qlId","taskKind","difficulty","stem","answer","explanation","stemRealism","solverCorrect","explanationQuality","optionQuality","editorialStatus","reviewNotes"];
-const reviewCsv = [reviewHeader.map(csv).join(","), ...reviewRows.map(({ pkg, question }) => [
-  "RAP-003", pkg.canonicalProblemId, pkg.questionLanguageId, pkg.parameters.taskKind, pkg.difficultyBand,
-  (question as any).stem ?? pkg.stem, pkg.answer, pkg.explanation.lines.join("\n"), "", "", "", "", "PENDING", "",
-].map(csv).join(","))].join("\n");
-fs.writeFileSync(path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-human-review-en.csv"), `${reviewCsv}\n`);
 
 assert.equal(summary.questionCount, SAMPLE_COUNT);
 assert.equal(unusedQlCount, 0, "Unused QLs must be zero.");

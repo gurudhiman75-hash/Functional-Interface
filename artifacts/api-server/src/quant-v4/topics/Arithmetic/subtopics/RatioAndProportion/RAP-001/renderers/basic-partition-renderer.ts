@@ -19,12 +19,12 @@ export class BasicPartitionRenderer implements ExplanationRenderer {
     const ratioSum = ratios.reduce((sum, part) => sum + part, 0);
     const unitValue = Number(e.derivedValues.unitValue);
     return [
-      { stepId: "step-1", type: "GOAL", narrative: "Concept: divide a total by ratio parts.", mathLatex: `${ratios.join(":")}` },
-      { stepId: "step-2", type: "FORMULA", narrative: "Why: each part has one common value.", mathLatex: `${ratios.join(":")}` },
-      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Add all ratio parts.", mathLatex: `${ratios.join("+")}=${ratioSum}` },
-      { stepId: "step-4", type: "FORMULA", narrative: "Find one ratio unit.", mathLatex: `\\frac{${v.totalAmount}}{${ratioSum}}=${unitValue}` },
-      { stepId: "step-5", type: "SUBSTITUTION", narrative: `${target} has ${ratios[targetIndex]} units.`, mathLatex: `${ratios[targetIndex]}\\times${unitValue}` },
-      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "Check shares against the total.", mathLatex: `${e.answer}` },
+      { stepId: "step-1", type: "GOAL", narrative: "Concept: a ratio partition splits one total into equal ratio units.", mathLatex: `${ratios.join(":")}` },
+      { stepId: "step-2", type: "FORMULA", narrative: "Why: every ratio part is one equal unit.", mathLatex: `${ratios.join(":")}` },
+      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Count all ratio parts.", mathLatex: `${ratios.join("+")}=${ratioSum}` },
+      { stepId: "step-4", type: "FORMULA", narrative: "Divide the total by that count to find one unit.", mathLatex: `\\frac{${v.totalAmount}}{${ratioSum}}=${unitValue}` },
+      { stepId: "step-5", type: "SUBSTITUTION", narrative: `${target} receives ${ratios[targetIndex]} units.`, mathLatex: `${ratios[targetIndex]}\\times${unitValue}` },
+      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "The recovered shares add back to the total.", mathLatex: `${e.answer}` },
       { stepId: "step-7", type: "CONCLUSION", narrative: `Therefore, ${target} receives ${e.answer}.` },
     ];
   }

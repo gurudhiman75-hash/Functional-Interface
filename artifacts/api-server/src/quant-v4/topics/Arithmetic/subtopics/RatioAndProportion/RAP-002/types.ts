@@ -46,6 +46,7 @@ export type Rap002AnswerType = "RATIO" | "COUNT" | "LOGIC";
 export type Rap002Variables = Record<string, string | number>;
 
 export interface Rap002TaskRegistryEntry {
+  active?: boolean;
   cpId: Rap002CanonicalProblemId;
   taskKind: Rap002TaskKind;
   answerType: Rap002AnswerType;

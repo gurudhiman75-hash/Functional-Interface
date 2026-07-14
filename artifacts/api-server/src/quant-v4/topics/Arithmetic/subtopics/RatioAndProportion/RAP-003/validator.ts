@@ -82,6 +82,24 @@ function hasInvalidRatio(value: unknown) {
   return !/^\d+(?::\d+)+$/.test(String(value ?? ""));
 }
 
+function hasInvalidDiscountRate(pkg: Rap003QuestionPackage) {
+  if (pkg.parameters.taskKind !== "weightedDiscountMix") return false;
+  return ["averageA", "averageB"].some((key) => {
+    const value = Number(pkg.parameters.variables[key]);
+    return !Number.isFinite(value) || value < 0 || value >= 100;
+  });
+}
+
+function hasInternalLabelLeak(pkg: Rap003QuestionPackage) {
+  return /\b(?:solution|alloy)\s+[a-z]+\s+sample\s+\d+\b/i.test(pkg.stem);
+}
+
+function hasExcessiveDecimalPrecision(pkg: Rap003QuestionPackage) {
+  const answer = pkg.answer.replace(/^\$\$|\$\$$/g, "");
+  const match = answer.match(/\.(\d+)/);
+  return !!match && match[1]!.length > 2;
+}
+
 export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap003ValidationResult {
   const numericAnswer = Number(pkg.solver.answerValue);
   const finiteAnswer = pkg.solver.answerType === "RATIO"
@@ -121,7 +139,7 @@ export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap00
     {
       name: "positive-finite-answer",
       passed: finiteAnswer,
-      message: "Numeric answers must be positive and finite; ratio answers must be valid ratio strings.",
+      message: `Numeric answers must be positive and finite; ratio answers must be valid ratio strings. qlId=${pkg.questionLanguageId}; cpId=${pkg.canonicalProblemId}; taskKind=${pkg.parameters.taskKind}; answerType=${pkg.solver.answerType}; answerValue=${String(pkg.solver.answerValue)}; variables=${JSON.stringify(pkg.parameters.variables)}`,
     },
     {
       name: "no-internal-leakage",
@@ -136,7 +154,7 @@ export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap00
     {
       name: "integer-count-answer",
       passed: !isCountAnswer || isIntegerLike(pkg.solver.answerValue),
-      message: "COUNT answers must be whole numbers.",
+      message: `COUNT answers must be whole numbers. qlId=${pkg.questionLanguageId}; cpId=${pkg.canonicalProblemId}; taskKind=${pkg.parameters.taskKind}; answerValue=${String(pkg.solver.answerValue)}; variables=${JSON.stringify(pkg.parameters.variables)}`,
     },
     {
       name: "integer-age-answer",
@@ -147,6 +165,21 @@ export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap00
       name: "percentage-answer-format",
       passed: pkg.solver.answerType !== "PERCENT" || /%/.test(answerBody),
       message: "PERCENT answers must include a percent sign in the rendered answer.",
+    },
+    {
+      name: "valid-discount-rate",
+      passed: !hasInvalidDiscountRate(pkg),
+      message: "Ordinary commercial discount rates must stay in the range 0% to below 100%.",
+    },
+    {
+      name: "no-internal-label-leak",
+      passed: !hasInternalLabelLeak(pkg),
+      message: "Student-facing stems must not include generator sample labels.",
+    },
+    {
+      name: "decimal-precision",
+      passed: !hasExcessiveDecimalPrecision(pkg),
+      message: "Rendered answers must use at most two decimal places.",
     },
     {
       name: "ratio-answer-format",

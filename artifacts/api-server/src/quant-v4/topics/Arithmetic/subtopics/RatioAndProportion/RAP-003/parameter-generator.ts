@@ -293,9 +293,12 @@ function pickQl(cpId: Rap003CanonicalProblemId, seed: string, requested?: string
 }
 
 function seedSerialOffset(seed: string, modulo: number) {
-  const matches = [...seed.matchAll(/:(\d+)/g)];
-  const value = matches.length ? Number(matches[matches.length - 1]![1]) : stableBucket(`${seed}:serial`, modulo);
-  return Number.isFinite(value) ? value % modulo : 0;
+  const numericParts = [...seed.matchAll(/:(\d+)/g)].map((match) => Number(match[1]));
+  // The generation engine appends its item index. For a count:1 request that
+  // suffix is :0; preserve the caller's preceding diversification index.
+  const last = numericParts.at(-1);
+  const source = last === 0 && numericParts.length > 1 ? numericParts.at(-2) : last;
+  return Number.isFinite(source) ? Number(source) % modulo : stableBucket(`${seed}:serial`, modulo);
 }
 
 function scaleKeys(variables: Rap003Variables, factor: number, keys: readonly string[]) {
@@ -330,8 +333,15 @@ function diversifyApplicationValues(variables: Rap003Variables, factor: number, 
   }));
 }
 
+function gcd(left: number, right: number): number {
+  let a = Math.abs(left);
+  let b = Math.abs(right);
+  while (b) [a, b] = [b, a % b];
+  return a || 1;
+}
+
 function diversifyVariables(qlId: string, seed: string, variables: Rap003Variables): Rap003Variables {
-  const serial = seedSerialOffset(seed, 997);
+  const serial = seedSerialOffset(seed, 12);
   const scale = 1 + serial;
   const smallScale = 1 + serial;
   const ratioOffset = serial;
@@ -339,6 +349,12 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
 
   if (qlId.startsWith("RAP-QL-8")) {
     const partnershipQlNumber = Number(qlId.replace("RAP-QL-", ""));
+    if (qlId === "RAP-QL-810") {
+      return addKeys(variables, serial, ["capitalRatioA", "capitalRatioB", "timeRatioA", "timeRatioB"]);
+    }
+    if (qlId === "RAP-QL-812") {
+      return addKeys(variables, serial, ["efficiencyRatioA", "efficiencyRatioB", "daysA", "daysB"]);
+    }
     if (partnershipQlNumber >= 806 && partnershipQlNumber <= 816) {
       return scaleKeys(variables, 1 + (serial % 31), [
         "investmentA", "investmentB", "investmentC", "initialInvestmentA", "initialInvestmentB",
@@ -364,19 +380,98 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
 
   const qlNumber = Number(qlId.replace("RAP-QL-", ""));
   if (qlNumber >= 901 && qlNumber <= 930) {
-    if (qlId === "RAP-QL-927" || qlId === "RAP-QL-928" || qlId === "RAP-QL-929" || qlId === "RAP-QL-930") {
-      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
-      const ageScale = 1 + (serial % 2);
+    if (qlId === "RAP-QL-915") {
       return {
-        ...scaleKeys(variables, ageScale, ["shiftYears"]),
-        personA,
-        personB,
-        ...(variables.targetPerson === variables.personA ? { targetPerson: personA } : {}),
-        ...(variables.targetPerson === variables.personB ? { targetPerson: personB } : {}),
+        ...variables,
+        presentAgeA: 38 + serial,
+        presentAgeB: 14 + serial,
       };
     }
+    if (qlId === "RAP-QL-913" || qlId === "RAP-QL-914") {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      return {
+        ...variables,
+        personA,
+        personB,
+        targetPerson: qlId === "RAP-QL-913" ? personA : personB,
+        ratioA: 2,
+        ratioB: 1,
+        pastRatioA: 3,
+        pastRatioB: 1,
+        shiftYears: 3 + serial,
+      };
+    }
+    if (qlId === "RAP-QL-903") {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      return {
+        ...variables,
+        personA,
+        personB,
+        targetPerson: serial % 2 === 0 ? personA : personB,
+        ratioA: 2,
+        ratioB: 1,
+        pastRatioA: 3,
+        pastRatioB: 1,
+        shiftYears: 3 + serial,
+      };
+    }
+    if (qlId === "RAP-QL-904" || qlId === "RAP-QL-906") {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      const futureRatioA = qlId === "RAP-QL-904" ? 7 : 5;
+      const futureRatioB = qlId === "RAP-QL-904" ? 5 : 3;
+      const futureUnit = 5 + (serial % 4);
+      const shiftYears = 1 + (serial % 3);
+      return {
+        ...variables,
+        personA,
+        personB,
+        presentAgeA: futureRatioA * futureUnit - shiftYears,
+        presentAgeB: futureRatioB * futureUnit - shiftYears,
+        futureRatioA,
+        futureRatioB,
+      };
+    }
+    if (["RAP-QL-901", "RAP-QL-902", "RAP-QL-911", "RAP-QL-912"].includes(qlId)) {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      const targetPerson = qlId === "RAP-QL-911" ? personA : qlId === "RAP-QL-912" ? personB : serial % 2 === 0 ? personA : personB;
+      return {
+        ...variables,
+        personA,
+        personB,
+        targetPerson,
+        ratioA: 3,
+        ratioB: 1,
+        futureRatioA: 2,
+        futureRatioB: 1,
+        shiftYears: 5 + serial,
+      };
+    }
+    if (qlId === "RAP-QL-923" || qlId === "RAP-QL-924") {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      const unit = 5 + serial;
+      const shiftYears = 3 + serial;
+      const targetPerson = qlId === "RAP-QL-923" ? personA : personB;
+      return {
+        ...variables,
+        personA,
+        personB,
+        targetPerson,
+        ratioA: 3,
+        ratioB: 2,
+        shiftYears,
+        ...(qlId === "RAP-QL-923" ? { futureSum: 5 * unit + 2 * shiftYears } : { pastSum: 5 * unit - 2 * shiftYears }),
+      };
+    }
+    if (qlId === "RAP-QL-927" || qlId === "RAP-QL-928" || qlId === "RAP-QL-929" || qlId === "RAP-QL-930") {
+      const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
+      const targetPerson = variables.targetPerson === variables.personA ? personA : personB;
+      if (qlId === "RAP-QL-927") return { ...variables, personA, personB, targetPerson, ratioA: 5, ratioB: 2, shiftYears: 5 + serial };
+      if (qlId === "RAP-QL-928") return { ...variables, personA, personB, targetPerson, ratioA: 5, ratioB: 2, futureRatioA: 2, futureRatioB: 1, shiftYears: 5 + serial };
+      if (qlId === "RAP-QL-929") return { ...variables, personA, personB, targetPerson, ratioA: 3, ratioB: 1, pastRatioA: 5, pastRatioB: 1, shiftYears: 3 + serial };
+      if (qlId === "RAP-QL-930") return { ...variables, personA, personB, targetPerson, ratioA: 4, ratioB: 2, futureRatioA: 5, futureRatioB: 3, shiftYears: 4 + serial };
+    }
     const ageScale = 1 + (serial % 2);
-    const ageScaled = scaleKeys(variables, ageScale, [
+    let ageScaled = scaleKeys(variables, ageScale, [
       "presentAgeA",
       "presentAgeB",
       "shiftYears",
@@ -387,6 +482,56 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
       "futureSum",
       "pastSum",
     ]);
+    if (qlId === "RAP-QL-921") {
+      const ratioA = 3 + serial % 3;
+      const ratioB = 2 + Math.floor(serial / 3) % 4;
+      ageScaled = { ...ageScaled, ratioA, ratioB, averageAge: (ratioA + ratioB) * 2 };
+    }
+    if (qlId === "RAP-QL-922") {
+      const ratioA = 2 + serial % 3;
+      const ratioB = 3 + Math.floor(serial / 3) % 3;
+      const ratioC = 4 + Math.floor(serial / 9);
+      ageScaled = { ...ageScaled, ratioA, ratioB, ratioC, averageAge: ratioA + ratioB + ratioC };
+    }
+    if (ageScaled.ageDifference !== undefined) {
+      const ratioB = 2 + serial % 3;
+      const difference = 2 + Math.floor(serial / 3) % 3;
+      const ratioA = ratioB + difference;
+      const unit = 3 + Math.floor(serial / 9);
+      ageScaled = { ...ageScaled, ratioA, ratioB, ageDifference: difference * unit };
+    }
+    if (ageScaled.ageSum !== undefined) {
+      if (ageScaled.ratioC === undefined) {
+        const ratioB = 2 + serial % 3;
+        const ratioA = ratioB + 2 + Math.floor(serial / 3) % 3;
+        const unit = 3 + Math.floor(serial / 9);
+        ageScaled = { ...ageScaled, ratioA, ratioB, ageSum: (ratioA + ratioB) * unit };
+      } else {
+        const ratioA = 2 + serial % 3;
+        const ratioB = 3 + Math.floor(serial / 3) % 3;
+        const ratioC = 4 + Math.floor(serial / 9);
+        ageScaled = { ...ageScaled, ratioA, ratioB, ratioC, ageSum: (ratioA + ratioB + ratioC) * 2 };
+      }
+    }
+    const ratioSum = Number(ageScaled.ratioA ?? 0) + Number(ageScaled.ratioB ?? 0) + Number(ageScaled.ratioC ?? 0);
+    const ratioDifference = Math.abs(Number(ageScaled.ratioA ?? 0) - Number(ageScaled.ratioB ?? 0));
+    if (ageScaled.ageSum !== undefined && ratioSum > 0 && !["RAP-QL-907", "RAP-QL-910", "RAP-QL-918", "RAP-QL-919"].includes(qlId)) ageScaled = { ...ageScaled, ageSum: Number(ageScaled.ageSum) + ratioSum * serial };
+    if (ageScaled.ageDifference !== undefined && ratioDifference > 0 && !["RAP-QL-905", "RAP-QL-916", "RAP-QL-917"].includes(qlId)) ageScaled = { ...ageScaled, ageDifference: Number(ageScaled.ageDifference) + ratioDifference * serial };
+    if (ageScaled.futureSum !== undefined && ratioSum > 0) ageScaled = { ...ageScaled, futureSum: Number(ageScaled.futureSum) + ratioSum * serial };
+    if (ageScaled.pastSum !== undefined && ratioSum > 0) ageScaled = { ...ageScaled, pastSum: Number(ageScaled.pastSum) + ratioSum * serial };
+    if (ageScaled.averageAge !== undefined && ratioSum > 0 && !["RAP-QL-921", "RAP-QL-922"].includes(qlId)) {
+      const people = ageScaled.ratioC === undefined ? 2 : 3;
+      const step = ratioSum / Math.max(1, gcd(ratioSum, people));
+      ageScaled = { ...ageScaled, averageAge: Number(ageScaled.averageAge) + step * serial };
+    }
+    if (ageScaled.knownAge !== undefined) {
+      const knownRatio = ageScaled.knownPerson === ageScaled.personA ? Number(ageScaled.ratioA) : ageScaled.knownPerson === ageScaled.personB ? Number(ageScaled.ratioB) : Number(ageScaled.ratioC);
+      ageScaled = { ...ageScaled, knownAge: knownRatio * (2 + serial) };
+    }
+    if (ageScaled.shiftYears !== undefined) ageScaled = { ...ageScaled, shiftYears: Number(ageScaled.shiftYears) + serial % 3 };
+    if (["RAP-QL-908", "RAP-QL-909", "RAP-QL-925", "RAP-QL-926"].includes(qlId)) {
+      ageScaled = { ...ageScaled, presentAgeA: Number(ageScaled.presentAgeA) + serial, presentAgeB: Number(ageScaled.presentAgeB) + serial };
+    }
     const relationSpecific =
       /father|mother|son|daughter/.test(String(ageScaled.personA ?? "")) ||
       /father|mother|son|daughter/.test(String(ageScaled.personB ?? ""));
@@ -406,7 +551,7 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
         ...(ageScaled.knownPerson === variables.personC ? { knownPerson: personC } : {}),
       };
     }
-    if ((relationSpecific && ageScale > 1) || genericPair || !relationSpecific) {
+    if (relationSpecific || genericPair || !relationSpecific) {
       const [personA, personB] = AGE_NAME_PAIRS[serial % AGE_NAME_PAIRS.length]!;
       return {
         ...ageScaled,
@@ -419,9 +564,14 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
     return ageScaled;
   }
 
-  if (qlId.startsWith("RAP-QL-95")) {
-    const incomeQlNumber = Number(qlId.replace("RAP-QL-", ""));
-    if (incomeQlNumber >= 956 && incomeQlNumber <= 974) {
+ if (qlNumber >= 951 && qlNumber <= 974) {
+   if (qlId === "RAP-QL-972") {
+     return scaleKeys(variables, 1 + serial, ["totalIncome", "expenditureUnit"]);
+   }
+   if (qlId === "RAP-QL-967") {
+     return scaleKeys(variables, 1 + serial, ["incomeValue", "expenditureUnit"]);
+   }
+   if (qlNumber >= 956 && qlNumber <= 974) {
       return diversifyApplicationValues(variables, 1 + (serial % 31), 0);
     }
     return scaleKeys(variables, scale, [
@@ -435,15 +585,15 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
   if (qlId === "RAP-QL-1001" || qlId === "RAP-QL-1004") {
     return {
       ...addKeys(variables, percentOffset, ["percentA", "percentB", "targetPercent"]),
-      mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
-      mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
+      mixtureA: variables.mixtureA,
+      mixtureB: variables.mixtureB,
     };
   }
   if (qlId === "RAP-QL-1002" || qlId === "RAP-QL-1005") {
     return {
       ...addKeys(variables, percentOffset, ["percentA", "percentB"]),
-      mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
-      mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
+      mixtureA: variables.mixtureA,
+      mixtureB: variables.mixtureB,
       quantityA: Number(variables.quantityA) + serial % 11,
       quantityB: Number(variables.quantityB) + serial % 13,
     };
@@ -458,17 +608,55 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
         "ratioCComponent",
         "ratioCOther",
       ]),
-      mixtureA: `${variables.mixtureA} sample ${serial + 1}`,
-      mixtureB: `${variables.mixtureB} sample ${serial + 1}`,
-      mixtureC: `${variables.mixtureC} sample ${serial + 1}`,
+      mixtureA: variables.mixtureA,
+      mixtureB: variables.mixtureB,
+      mixtureC: variables.mixtureC,
     };
   }
-  if (qlNumber >= 1006 && qlNumber <= 1029) {
+ if (qlId === "RAP-QL-1019") {
+   return {
+     ...diversifyApplicationValues(variables, 1 + (serial % 17), 0),
+     averageA: Number(variables.averageA),
+     averageB: Number(variables.averageB),
+   };
+ }
+ if (["RAP-QL-1006", "RAP-QL-1007", "RAP-QL-1017", "RAP-QL-1022", "RAP-QL-1026", "RAP-QL-1027"].includes(qlId)) {
+   return {
+     ...variables,
+     percentA: Number(variables.percentA) + serial,
+     percentB: Number(variables.percentB) + serial,
+     targetPercent: Number(variables.targetPercent) + serial,
+   };
+ }
+ if (qlId === "RAP-QL-1016") {
+   return {
+     ...variables,
+     percentA: 100,
+     percentB: Number(variables.percentB) + serial,
+     targetPercent: Number(variables.targetPercent) + Math.floor(serial / 2),
+   };
+ }
+ if (qlNumber >= 1006 && qlNumber <= 1029) {
     return diversifyApplicationValues(variables, 1 + (serial % 17), serial % 5);
   }
 
   if (qlId.startsWith("RAP-QL-11")) {
     const replacementQlNumber = Number(qlId.replace("RAP-QL-", ""));
+    if (qlId === "RAP-QL-1116") {
+      return {
+        ...variables,
+        initialStock: Number(variables.initialStock) + serial * 100,
+        soldEachRound: Number(variables.soldEachRound) + serial * 5,
+        replacementCount: 2 + (serial % 3),
+      };
+    }
+    if (qlId === "RAP-QL-1118") {
+      return {
+        ...variables,
+        removedFractionDenominator: 3 + serial,
+        replacementCount: 2 + (serial % 3),
+      };
+    }
     if (replacementQlNumber >= 1106 && replacementQlNumber <= 1119) {
       return {
         ...diversifyApplicationValues(variables, 1 + (serial % 31), 0),
@@ -483,10 +671,22 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
   if (qlId.startsWith("RAP-QL-12")) {
     const denominationQlNumber = Number(qlId.replace("RAP-QL-", ""));
     if (denominationQlNumber >= 1208 && denominationQlNumber <= 1218) {
-      return scaleKeys(variables, 1 + (serial % 31), [
-        "denominationA", "denominationB", "denominationC", "denominationD", "targetDenomination",
-        "fromDenomination", "toDenomination", "totalValue",
-      ]);
+      // Keep face values intact; only the number of items or the total changes.
+      const factor = 1 + serial;
+      if (qlId === "RAP-QL-1212") {
+        return addKeys(variables, serial, ["ratioA", "ratioB", "ratioC"]);
+      }
+      if (qlId === "RAP-QL-1216") {
+        const commonUnit = 7 + serial;
+        return { ...variables, commonUnit, totalValue: commonUnit * 100 };
+      }
+      return {
+        ...variables,
+        ...(variables.commonUnit !== undefined ? { commonUnit: Number(variables.commonUnit) + serial } : {}),
+        ...(variables.totalValue !== undefined ? { totalValue: Number(variables.totalValue) * factor } : {}),
+        ...(variables.totalCount !== undefined ? { totalCount: Number(variables.totalCount) * factor } : {}),
+        ...(variables.swapCount !== undefined ? { swapCount: Number(variables.swapCount) + serial } : {}),
+      };
     }
     return scaleKeys(variables, scale, ["commonUnit", "totalValue", "swapCount"]);
   }
@@ -529,6 +729,10 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
 
   if (qlId.startsWith("RAP-QL-15")) {
     const electionQlNumber = Number(qlId.replace("RAP-QL-", ""));
+    if (qlId === "RAP-QL-1517") {
+      const shareA = 51 + (serial % 12);
+      return { ...variables, percentA: shareA, percentB: 100 - shareA };
+    }
     if (electionQlNumber >= 1507 && electionQlNumber <= 1525) {
       return diversifyApplicationValues(variables, 1 + (serial % 31), 0);
     }
@@ -562,8 +766,8 @@ function diversifyVariables(qlId: string, seed: string, variables: Rap003Variabl
       return { ...variables, areaRatioA: sideA ** 2, areaRatioB: sideB ** 2 };
     }
     if (qlId === "RAP-QL-1604") {
-      const sideA = Math.cbrt(Number(variables.volumeRatioA)) + ratioOffset;
-      const sideB = Math.cbrt(Number(variables.volumeRatioB)) + ratioOffset;
+      const sideA = 2 + serial;
+      const sideB = 3 + serial;
       return { ...variables, volumeRatioA: sideA ** 3, volumeRatioB: sideB ** 3 };
     }
     return addKeys(variables, ratioOffset, [
@@ -953,7 +1157,7 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
   if (qlId === "RAP-QL-1607") return { shapeName: "similar triangles", sideRatioA: 3, sideRatioB: 4 };
   if (qlId === "RAP-QL-1608") return { shapeName: "cubes", sideRatioA: 2, sideRatioB: 5 };
   if (qlId === "RAP-QL-1609") return { shapeName: "spheres", sideRatioA: 3, sideRatioB: 5 };
-  if (qlId === "RAP-QL-1610") return { shapeName: "similar triangles", areaRatioA: 49, areaRatioB: 64 };
+  if (qlId === "RAP-QL-1610") return { shapeName: "circles", areaRatioA: 49, areaRatioB: 64 };
   if (qlId === "RAP-QL-1611") return { shapeName: "circles", areaRatioA: 25, areaRatioB: 36 };
   if (qlId === "RAP-QL-1612") return { shapeName: "cubes", volumeRatioA: 8, volumeRatioB: 27 };
   if (qlId === "RAP-QL-1613") return { shapeName: "spheres", volumeRatioA: 27, volumeRatioB: 64 };

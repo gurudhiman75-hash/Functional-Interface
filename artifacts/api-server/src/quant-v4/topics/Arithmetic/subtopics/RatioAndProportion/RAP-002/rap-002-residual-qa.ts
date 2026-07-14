@@ -193,7 +193,9 @@ const activeQlIds = RAP_002_CP_IDS.flatMap((cpId) => getRap002QuestionLanguageId
 const activeTaskKinds = new Set(activeQlIds.map((qlId) => (taskRegistry.entries as any)[qlId]?.taskKind).filter(Boolean));
 const unusedQlCount = activeQlIds.filter((qlId) => !qlDistribution.has(qlId)).length;
 const unusedTaskKindCount = [...activeTaskKinds].filter((taskKind) => !taskDistribution.has(taskKind)).length;
-const unreachableRegistryEntryCount = Object.keys(taskRegistry.entries).filter((qlId) => !activeQlIds.includes(qlId)).length;
+const unreachableRegistryEntryCount = Object.entries(taskRegistry.entries)
+  .filter(([, entry]) => (entry as any).active !== false)
+  .filter(([qlId]) => !activeQlIds.includes(qlId)).length;
 const repeatedExplanationShellCount = [...explanationShells.values()].filter((taskKinds) => taskKinds.size > 1).length;
 const rap002Discovery = listQuantV4Packages().find((pkg) => pkg.packageId === "RAP-002");
 const unsupportedLanguageExposureCount = rap002Discovery?.supportedLanguages?.join(",") === "en" ? 0 : 1;
@@ -263,24 +265,6 @@ fs.writeFileSync(reportPath, [
   `- Cross-QL exact duplicate stem groups: \`${exactDuplicateStemGroupCount}\` (blocker).`,
   `- Same-QL repeated parameter draws: \`${sameQlRepeatedStemGroupCount}\` groups (generator-diversity debt; manually classified, not duplicate QLs).`, "",
 ].join("\n"));
-
-function csv(value: unknown) { return `"${String(value ?? "").replaceAll('"', '""').replace(/\r?\n/g, "\\n")}"`; }
-const reviewRows = RAP_002_CP_IDS.flatMap((cpId) => {
-  const candidates = generated.questionPackages.map((pkg, index) => ({ pkg, question: generated.questions[index] }))
-    .filter(({ pkg }) => pkg.canonicalProblemId === cpId);
-  const selected = ["Easy", "Medium", "Hard"].flatMap((difficulty) => candidates.filter(({ pkg }) => pkg.difficultyBand === difficulty).slice(0, difficulty === "Easy" ? 3 : difficulty === "Medium" ? 4 : 3));
-  for (const candidate of candidates) {
-    if (selected.length === 10) break;
-    if (!selected.includes(candidate)) selected.push(candidate);
-  }
-  return selected.slice(0, 10);
-});
-const reviewHeader = ["packageId","cpId","qlId","taskKind","difficulty","stem","answer","explanation","stemRealism","solverCorrect","explanationQuality","optionQuality","editorialStatus","reviewNotes"];
-const reviewCsv = [reviewHeader.map(csv).join(","), ...reviewRows.map(({ pkg, question }) => [
-  "RAP-002", pkg.canonicalProblemId, pkg.questionLanguageId, pkg.parameters.taskKind, pkg.difficultyBand,
-  (question as any).stem ?? pkg.stem, pkg.answer, pkg.explanation.lines.join("\n"), "", "", "", "", "PENDING", "",
-].map(csv).join(","))].join("\n");
-fs.writeFileSync(path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-human-review-en.csv"), `${reviewCsv}\n`);
 
 assert.equal(summary.questionCount, SAMPLE_COUNT);
 assert.equal(unusedQlCount, 0, "Unused QLs must be zero.");

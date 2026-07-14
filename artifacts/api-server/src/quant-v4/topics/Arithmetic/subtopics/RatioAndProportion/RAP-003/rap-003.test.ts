@@ -616,7 +616,7 @@ fixedPopulationPercent.variables = {
   femaleLiterateRatio: 5,
   femaleIlliterateRatio: 3,
 };
-assert.equal(solveRap003(fixedPopulationPercent).answer, "$$61.1111%$$");
+assert.equal(solveRap003(fixedPopulationPercent).answer, "$$61.11%$$");
 
 const fixedPopulationRatio = generateRap003Parameters({
   canonicalProblemId: "RAP-CP-020",
@@ -788,7 +788,7 @@ assert.equal(solveRap003(fixedGeometricRadius).answer, "$$4 : 9$$");
 const seenQlIds = new Set<string>();
 for (let index = 0; index < 120; index += 1) {
   const pkg = runRap003Cp014Pipeline({ seed: `rap-003-cp014-smoke:${index}` });
-  assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+  assert.equal(pkg.validation.valid, true, `${pkg.questionLanguageId}: ${JSON.stringify(pkg.parameters.variables)}; ${pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; ")}`);
   assert.equal(pkg.language, "en");
   assert.equal(pkg.canonicalProblemId, "RAP-CP-014");
   assert.ok(pkg.stem.length > 0);
@@ -799,8 +799,21 @@ for (let index = 0; index < 120; index += 1) {
 }
 
 for (const qlId of ["RAP-QL-901","RAP-QL-902","RAP-QL-903","RAP-QL-904","RAP-QL-905","RAP-QL-906","RAP-QL-907","RAP-QL-908","RAP-QL-909","RAP-QL-910","RAP-QL-911","RAP-QL-912","RAP-QL-913","RAP-QL-914","RAP-QL-915","RAP-QL-916","RAP-QL-917","RAP-QL-918","RAP-QL-919","RAP-QL-920","RAP-QL-921","RAP-QL-922","RAP-QL-923","RAP-QL-924","RAP-QL-925","RAP-QL-926","RAP-QL-927","RAP-QL-928","RAP-QL-929","RAP-QL-930"]) {
-  const pkg = runRap003Cp014Pipeline({ seed: `rap-003-cp014-forced:${qlId}`, questionLanguageId: qlId });
-  assert.equal(pkg.validation.valid, true);
+  const seed = `rap-003-cp014-forced:${qlId}`;
+  const pkg = runRap003Cp014Pipeline({ seed, questionLanguageId: qlId });
+  assert.equal(pkg.validation.valid, true, [
+    "RAP-003 numeric-validity failure",
+    `qlId=${qlId}`,
+    "cpId=RAP-CP-014",
+    `taskKind=${pkg.parameters.taskKind}`,
+    `seed=${seed}`,
+    `answerType=${pkg.solver.answerType}`,
+    `answerValue=${String(pkg.solver.answerValue)}`,
+    `variables=${JSON.stringify(pkg.parameters.variables)}`,
+    `options=${JSON.stringify(pkg.options)}`,
+    `stem=${pkg.stem}`,
+    `failedRules=${pkg.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",")}`,
+  ].join("\n"));
   seenQlIds.add(pkg.questionLanguageId);
 }
 
@@ -1000,7 +1013,7 @@ for (const qlId of ["RAP-QL-901","RAP-QL-902","RAP-QL-903","RAP-QL-904","RAP-QL-
   const packages = runRap003Cp014ForLanguages({ seed: `rap-003-multilingual:${qlId}`, questionLanguageId: qlId });
   assert.equal(packages.length, 3);
   for (const pkg of packages) {
-    assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check) => !check.passed).map((check) => check.message).join("; "));
+    assert.equal(pkg.validation.valid, true, `${qlId}; language=${pkg.language}; variables=${JSON.stringify(pkg.parameters.variables)}; answer=${pkg.solver.answerValue}; failedRules=${pkg.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",")}`);
     assert.equal(/\{[^}]+\}/.test(pkg.stem), false);
     assert.equal(pkg.questionLanguageId, qlId);
   }

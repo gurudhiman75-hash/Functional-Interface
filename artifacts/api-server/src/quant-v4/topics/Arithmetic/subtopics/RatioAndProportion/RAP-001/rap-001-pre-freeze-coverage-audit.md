@@ -1,7 +1,5 @@
 # RAP-001 Pre-Freeze Coverage Audit
 
-Reviewed commit/date: `8450deef2e06cc9e031b6d3221b7e54d226199b1`, `2026-07-10`
-
 ## Summary
 
 - Question count: 500
@@ -11,9 +9,9 @@ Reviewed commit/date: `8450deef2e06cc9e031b6d3221b7e54d226199b1`, `2026-07-10`
 - Solver failures: 0
 - Cross-language failures: 0
 - Placeholder failures: 0
-- Duplicate rate: 3.80%
+- Duplicate rate: 4.00%
 - Cross-QL exact duplicate stem groups: 0
-- Same-QL repeated stem groups: 13
+- Same-QL repeated stem groups: 14
 - Library validation failures: 0
 - Sample profile: 500 EN questions
 

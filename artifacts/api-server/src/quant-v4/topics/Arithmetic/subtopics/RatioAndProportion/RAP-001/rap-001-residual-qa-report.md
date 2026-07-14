@@ -1,7 +1,7 @@
 # RAP-001 Residual QA Report
 
 Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
-Reviewed date: `2026-07-10`
+Reviewed date: `2026-07-11`
 
 ```json
 {
@@ -128,8 +128,8 @@ Reviewed date: `2026-07-10`
   "unusedTaskKindCount": 0,
   "unreachableRegistryEntryCount": 0,
   "exactDuplicateStemGroupCount": 0,
-  "normalizedDuplicateStemGroupCount": 61,
-  "duplicateStemQuestionCount": 85,
+  "normalizedDuplicateStemGroupCount": 62,
+  "duplicateStemQuestionCount": 89,
   "crossPackageDuplicateCount": 0,
   "grammarIssueCount": 0,
   "grammarExamples": [],
@@ -163,4 +163,4 @@ Reviewed date: `2026-07-10`
 }
 ```
 
-Same-QL repeated parameter draws: `61` groups. These are generator-diversity debt, not duplicate QL structures.
+Same-QL repeated parameter draws: `62` groups. These are generator-diversity debt, not duplicate QL structures.

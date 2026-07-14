@@ -229,7 +229,9 @@ export function formatExplanationSteps(steps: ExplanationStep[]): string[] {
     }
     if (mathLatex) {
       mathLatex = mathLatex.replace(/\b(\w+s)'s\b/gi, "$1'");
-      return `${narrative}\n\n[\n\\Rightarrow ${mathLatex}\n]`;
+      mathLatex = mathLatex.replace(/^\$\$([\s\S]*)\$\$$/, "$1");
+      mathLatex = mathLatex.replace(/^\\\(([\s\S]*)\\\)$/, "$1");
+      return `${narrative}\n\n$$\\Rightarrow ${mathLatex}$$`;
     }
     return narrative;
   });

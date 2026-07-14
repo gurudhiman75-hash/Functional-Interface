@@ -1,7 +1,7 @@
 # RAP-003 Residual QA Report
 
 Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
-Reviewed date: `2026-07-10`
+Reviewed date: `2026-07-14`
 
 ## Current Results
 
@@ -421,62 +421,46 @@ Reviewed date: `2026-07-10`
   "unusedQlCount": 0,
   "unusedTaskKindCount": 0,
   "unreachableRegistryEntryCount": 0,
-  "duplicateStemGroupCount": 116,
+  "duplicateStemGroupCount": 273,
   "exactDuplicateStemGroupCount": 0,
-  "sameQlRepeatedStemGroupCount": 116,
-  "duplicateStemQuestionCount": 361,
+  "exactDuplicateStemExamples": [],
+  "sameQlRepeatedStemGroupCount": 273,
+  "duplicateStemQuestionCount": 618,
   "duplicateStemExamples": [
     {
-      "stem": "aman invests rs. 30000 for 12 months and bhavna invests rs. 45000 for 8 months. if the business has a loss of rs. 18000, find the loss borne by bhavna.",
+      "stem": "aman, bhavna, and charu split 60000 valid votes in the ratio 10:6:4. find the winner's votes.",
       "questions": [
-        1,
-        931
+        2,
+        422
       ]
     },
     {
-      "stem": "the incomes of aman and bhavna are in the ratio 9:7, and their expenditures are in the ratio 5:2. if one saves rs. 4000 more than the other, find bhavna's income.",
+      "stem": "the incomes of aman and bhavna are in the ratio 27:21, and their expenditures are in the ratio 15:6. the same common unit is used for both ratios. if one saves rs. 12000 more than the other, find bhavna's income.",
       "questions": [
         3,
         183,
-        203,
-        783,
-        803,
-        863,
-        923
+        783
       ]
     },
     {
-      "stem": "two similar solids have corresponding side lengths in the ratio 7:8. their area ratio would use the square of this ratio; what volume ratio is obtained by using the correct power?",
+      "stem": "a container initially contains pure milk. each round, 80 litres out of 320 litres are replaced with water. if the final ratio of milk:water is 108:148, find the number of replacement rounds.",
+      "questions": [
+        4,
+        724
+      ]
+    },
+    {
+      "stem": "the distances covered by train a and train b are in the ratio 30:25, and their times are in the ratio 15:20. find their speed ratio.",
+      "questions": [
+        5,
+        905
+      ]
+    },
+    {
+      "stem": "two similar solids have corresponding side lengths in the ratio 7:8. what is the ratio of their volumes?",
       "questions": [
         6,
-        516
-      ]
-    },
-    {
-      "stem": "the incomes of aman and bhavna are in the ratio 5:6, and their expenditures are in the ratio 3:4. if income unit is rs. 10000 and expenditure unit is rs. 9000, find aman's saving as a percentage of income.",
-      "questions": [
-        13,
-        263,
-        293,
-        343,
-        413,
-        493,
-        613,
-        1002,
-        1032,
-        1192,
-        1282,
-        1292,
-        1382
-      ]
-    },
-    {
-      "stem": "the incomes of aman and bhavna are in the ratio 5:7. their total income is rs. 72000, and expenditures are in the ratio 3:4 with unit rs. 6000. find their combined savings.",
-      "questions": [
-        23,
-        43,
-        143,
-        653
+        666
       ]
     }
   ],
@@ -496,13 +480,14 @@ Reviewed date: `2026-07-10`
   "fractionalAgeAnswerCount": 0,
   "negativeValueCount": 0,
   "unrealisticAgeCount": 0,
+  "unrealisticAgeExamples": [],
   "populationGrammarIssueCount": 0,
   "genericInternalExplanationCount": 0,
   "genericExplanationCount": 0,
   "shortExplanationCount": 0,
   "missingMethodReasonCount": 0,
   "missingIntermediateStepCount": 0,
-  "repeatedExplanationShellCount": 0,
+  "repeatedExplanationShellCount": 4,
   "zeroDenominatorCount": 0,
   "invalidPercentageCount": 0,
   "invalidAgeCount": 0,
@@ -518,6 +503,6 @@ Reviewed date: `2026-07-10`
 ## Duplicate Classification
 
 - Cross-QL exact duplicate stem groups: `0` (blocker).
-- Same-QL repeated parameter draws: `116` groups (generator-diversity debt; manually classified, not duplicate QLs).
+- Same-QL repeated parameter draws: `273` groups (generator-diversity debt; manually classified, not duplicate QLs).
 
 Hindi/Punjabi publication remains blocked pending separate human localization and editorial QA.

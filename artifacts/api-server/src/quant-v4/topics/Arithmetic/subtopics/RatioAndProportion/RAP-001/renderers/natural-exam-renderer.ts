@@ -12,17 +12,18 @@ export class NaturalExamRenderer implements ExplanationRenderer {
 
   render(evidence: ExplanationEvidence): ExplanationStep[] {
     const answer = evidence.answer;
+    const answerMath = cleanLatex(answer, answer);
     const setup = cleanLatex(this.solverMathJax.setupLatex, "\\text{given relation}");
     const calculation = cleanLatex(this.solverMathJax.calculationLatex, `${answer}`);
 
     return [
-      { stepId: "step-1", type: "GOAL", narrative: `Concept: ${this.title}.`, mathLatex: setup },
-      { stepId: "step-2", type: "FORMULA", narrative: "Why: use one common ratio unit.", mathLatex: setup },
-      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Write the given relation.", mathLatex: setup },
-      { stepId: "step-4", type: "SUBSTITUTION", narrative: "Insert the given numbers.", mathLatex: calculation },
-      { stepId: "step-5", type: "SIMPLIFICATION", narrative: "Calculate and simplify.", mathLatex: calculation },
-      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "Check: the relation is preserved.", mathLatex: calculation },
-      { stepId: "step-7", type: "CONCLUSION", narrative: `Therefore, the required value is ${answer}.`, mathLatex: `${answer}` },
+      { stepId: "step-1", type: "GOAL", narrative: `Concept: this question uses ${this.title.toLowerCase()}.`, mathLatex: setup },
+      { stepId: "step-2", type: "FORMULA", narrative: "Why: use one common ratio scale.", mathLatex: setup },
+      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Use the common term or total to fix one ratio unit.", mathLatex: setup },
+      { stepId: "step-4", type: "SUBSTITUTION", narrative: "Evaluate the relation with the stated values.", mathLatex: calculation },
+      { stepId: "step-5", type: "SIMPLIFICATION", narrative: "Reduce the result in the form requested.", mathLatex: calculation },
+      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "Check that it reproduces the stated relation or total.", mathLatex: calculation },
+      { stepId: "step-7", type: "CONCLUSION", narrative: `Therefore, the requested value is ${answerMath}.`, mathLatex: answerMath },
     ];
   }
 }

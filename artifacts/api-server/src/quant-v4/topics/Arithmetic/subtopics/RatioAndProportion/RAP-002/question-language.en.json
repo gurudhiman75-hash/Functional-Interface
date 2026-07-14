@@ -88,7 +88,7 @@
       "RAP-QL-217": {
         "cpId": "RAP-CP-007",
         "taskKind": "missingChainRatio",
-        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, the simplified {personA}:{personC} ratio is {endpointA}:{endpointC}. Find the matching value of {personB} in the aligned chain.",
+        "template": "Given {personA}:{personB} = {ratioA1}:{ratioB1} and {personB}:{personC} = {ratioB2}:{ratioC2}, the obtained {personA}:{personC} ratio is {endpointA}:{endpointC}. Find the matching value of {personB} in the aligned chain.",
         "difficulty": "Medium"
       },
       "RAP-QL-218": {
@@ -412,7 +412,7 @@
       "RAP-QL-512": {
         "cpId": "RAP-CP-010",
         "taskKind": "conditionalDistribution",
-        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The {personA} share is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the share of {personC}.",
         "difficulty": "Medium"
       },
       "RAP-QL-518": {

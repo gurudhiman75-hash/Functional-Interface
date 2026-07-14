@@ -144,6 +144,13 @@ function pickInt(minValue: number, maxValue: number, seed: string, step = 1) {
   return minValue + stableBucket(seed, slots) * step;
 }
 
+function seedSequence(seed: string) {
+  const values = [...seed.matchAll(/:(\d+)/g)].map((match) => Number(match[1]));
+  const last = values.at(-1);
+  const source = last === 0 && values.length > 1 ? values.at(-2) : last;
+  return Number.isFinite(source) ? Number(source) : stableBucket(seed, 997);
+}
+
 function rangeFor(name: string): RangeEntry | undefined {
   return (variableRanges.variables as Record<string, RangeEntry | undefined>)[name];
 }
@@ -320,17 +327,18 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.ratioB1 = simplifyRatio([a, b])[1];
     output.ratioB2 = simplifyRatio([b, c])[0];
     output.ratioC2 = simplifyRatio([b, c])[1];
-    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, scenario);
+    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, "family");
     output.personA = personA;
     output.personB = personB;
     output.personC = personC;
   }
 
   if (taskKind === "ratioNormalization") {
-    const p = pickInt(1, 3, `${seed}:p`);
-    const q = pickInt(1, 3, `${seed}:q`);
-    const d1 = pickInt(2, 3, `${seed}:d1`);
-    const d2 = pickInt(2, 3, `${seed}:d2`);
+    const sequence = seedSequence(seed);
+    const p = 1 + sequence % 3;
+    const q = 1 + Math.floor(sequence / 3) % 3;
+    const d1 = 2 + Math.floor(sequence / 9) % 2;
+    const d2 = 2 + sequence % 2;
     output.numerator1 = p * d1;
     output.denominator1 = d1;
     output.numerator2 = q * d2;
@@ -403,12 +411,12 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.personC = personC;
   }
 
-  if (taskKind === "reversePartition") {
+ if (taskKind === "reversePartition") {
     const ratioA = pickInt(4, 9, `${seed}:ratioA`);
     const ratioB = pickInt(2, 7, `${seed}:ratioB`);
     const ratioC = pickInt(1, ratioA - 1, `${seed}:ratioC`);
     const unit = pickInt(20, 200, `${seed}:unit`, 10);
-    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, scenario);
+    const [personA, personB, personC] = uniqueEntityIds("personA", 3, `${seed}:people`, "family");
     output.ratioA = ratioA;
     output.ratioB = ratioB;
     output.ratioC = ratioC;
@@ -425,7 +433,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     output.ratioExp = ratioExp;
     output.ratioSav = ratioSav;
     output.totalSalary = (ratioExp + ratioSav) * unit;
-    output.personA = semanticEntityValue("personA", `${seed}:personA`, scenario);
+    output.personA = "father";
   }
 
   if (taskKind === "twoStateAddition") {
@@ -514,8 +522,9 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
   }
 
   if (taskKind === "thirdProportional") {
-    const u = pickInt(1, 6, `${seed}:u`);
-    const v = pickInt(1, 6, `${seed}:v`);
+    const sequence = seedSequence(seed);
+    const u = 1 + sequence % 6;
+    const v = 1 + Math.floor(sequence / 6) % 6;
     output.numA = u * u;
     output.numB = u * v;
   }
@@ -557,7 +566,7 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
   if (taskKind === "coinCounting") {
     const denoms = [1, 2, 5];
     const [ratio1, ratio2, ratio3] = ratioUnits(`${seed}:coinRatios`, 3, 6);
-    const unit = pickInt(1, 10, `${seed}:unit`);
+    const unit = pickInt(1, 3, `${seed}:unit`);
     const counts = [ratio1 * unit, ratio2 * unit, ratio3 * unit];
     output.denom1 = denoms[0];
     output.denom2 = denoms[1];
@@ -591,7 +600,9 @@ function constrainVariables(taskKind: Rap001TaskKind, variables: Rap001Variables
     const countA = pickInt(1, 5, `${seed}:countA`);
     const countB = pickInt(1, 5, `${seed}:countB`);
     const countC = pickInt(1, 5, `${seed}:countC`);
-    const unit = pickInt(1, 10, `${seed}:unit`);
+    // Coin-mass questions use one-gram ratio units so even the largest ratio
+    // part remains physically plausible for an Indian coin.
+    const unit = 1;
     [output.itemA, output.itemB, output.itemC] = uniqueIdsForVariables(["itemA", "itemB", "itemC"], `${seed}:items`, scenario);
     output.ratioA = ratioA;
     output.ratioB = ratioB;

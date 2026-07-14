@@ -577,7 +577,9 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
           savingsB: formatNumber(incomeB - expenditureB),
           result: formatNumber(result),
         },
-        `(${formatNumber(incomeA)}+${formatNumber(incomeB)})-(${formatNumber(expenditureA)}+${formatNumber(expenditureB)})`,
+        parameters.taskKind === "incomeExpenseTotalExpense"
+          ? `${formatNumber(incomeA)}+${formatNumber(incomeB)}`
+          : `(${formatNumber(incomeA)}+${formatNumber(incomeB)})-(${formatNumber(expenditureA)}+${formatNumber(expenditureB)})`,
       );
     }
     case "salarySpendingSavings":
@@ -683,13 +685,18 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
       );
     }
     case "alloyThreeSourceEqualMix": {
-      const fractionA = n(parameters, "ratioAComponent") / (n(parameters, "ratioAComponent") + n(parameters, "ratioAOther"));
-      const fractionB = n(parameters, "ratioBComponent") / (n(parameters, "ratioBComponent") + n(parameters, "ratioBOther"));
-      const fractionC = n(parameters, "ratioCComponent") / (n(parameters, "ratioCComponent") + n(parameters, "ratioCOther"));
-      const componentFraction = (fractionA + fractionB + fractionC) / 3;
-      const scale = 1000000;
-      const componentUnits = Math.round(componentFraction * scale);
-      const otherUnits = scale - componentUnits;
+      const fractions = [
+        [n(parameters, "ratioAComponent"), n(parameters, "ratioAComponent") + n(parameters, "ratioAOther")],
+        [n(parameters, "ratioBComponent"), n(parameters, "ratioBComponent") + n(parameters, "ratioBOther")],
+        [n(parameters, "ratioCComponent"), n(parameters, "ratioCComponent") + n(parameters, "ratioCOther")],
+      ] as const;
+      const gcd = (a: number, b: number): number => b === 0 ? Math.abs(a) : gcd(b, a % b);
+      const lcm = (a: number, b: number) => Math.abs(a * b) / gcd(a, b);
+      const commonDenominator = fractions.map(([, denominator]) => denominator).reduce(lcm);
+      const componentUnits = fractions.reduce((sum, [numerator, denominator]) => sum + numerator * (commonDenominator / denominator), 0);
+      const totalUnits = 3 * commonDenominator;
+      const otherUnits = totalUnits - componentUnits;
+      const componentFraction = componentUnits / totalUnits;
       return ratioResult(
         [componentUnits, otherUnits],
         {
@@ -697,7 +704,7 @@ export function solveRap003(parameters: Rap003Parameters): Rap003SolverResult {
           componentFraction: formatNumber(componentFraction),
           result: simplifyRatio([componentUnits, otherUnits]).join(":"),
         },
-        `\\frac{${formatNumber(fractionA)}+${formatNumber(fractionB)}+${formatNumber(fractionC)}}{3}`,
+        `\\frac{${fractions.map(([numerator, denominator]) => `\\frac{${numerator}}{${denominator}}`).join("+")}}{3}`,
       );
     }
     case "weightedAverageGroup":

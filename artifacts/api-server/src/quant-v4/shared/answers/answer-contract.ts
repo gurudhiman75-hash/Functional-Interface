@@ -161,27 +161,30 @@ export function normalizeQuantV4Answer(answer: QuantV4AnswerLike): QuantV4Canoni
     return { kind: "symbolic", value: "", display: "", rounding: "exact" };
   }
 
-  if (containsMathJax(raw)) {
+  // A display wrapper does not change the mathematical answer. Parse simple
+  // values after removing it so $$5 : 8$$ and 5:8 have one identity.
+  const parseable = displayText;
+  if (containsMathJax(parseable)) {
     return {
       kind: "symbolic",
-      value: displayText,
+      value: parseable,
       rendered: raw,
-      display: displayText,
+      display: parseable,
       rounding: "exact",
     };
   }
 
-  const ratio = raw.match(/^(-?\d+(?:\.\d+)?)\s*:\s*(-?\d+(?:\.\d+)?)(?:\s*:\s*(-?\d+(?:\.\d+)?))?$/);
+  const ratio = parseable.match(/^(-?\d+(?:\.\d+)?)\s*:\s*(-?\d+(?:\.\d+)?)(?:\s*:\s*(-?\d+(?:\.\d+)?))?(?:\s*:\s*(-?\d+(?:\.\d+)?))?$/);
   if (ratio) {
     return {
       kind: "ratio",
-      terms: [ratio[1], ratio[2], ratio[3]].filter(Boolean).map((term) => cleanNumber(term!)),
-      display: raw.replace(/\s+/g, ""),
+      terms: [ratio[1], ratio[2], ratio[3], ratio[4]].filter(Boolean).map((term) => cleanNumber(term!)),
+      display: parseable.replace(/\s+/g, ""),
       rounding: "exact",
     };
   }
 
-  const fraction = raw.match(/^(-?\d+(?:\.\d+)?)\s*\/\s*(-?\d+(?:\.\d+)?)$/);
+  const fraction = parseable.match(/^(-?\d+(?:\.\d+)?)\s*\/\s*(-?\d+(?:\.\d+)?)$/);
   if (fraction) {
     return {
       kind: "fraction",
@@ -192,7 +195,7 @@ export function normalizeQuantV4Answer(answer: QuantV4AnswerLike): QuantV4Canoni
     };
   }
 
-  const percent = raw.match(/^(-?[\d,]+(?:\.\d+)?)\s*%$/);
+  const percent = parseable.match(/^(-?[\d,]+(?:\.\d+)?)\s*%$/);
   if (percent) {
     const value = cleanNumber(percent[1]!);
     return {
@@ -204,7 +207,7 @@ export function normalizeQuantV4Answer(answer: QuantV4AnswerLike): QuantV4Canoni
     };
   }
 
-  const currencyPrefix = raw.match(/^([^\d\s.-])\s*(-?[\d,]+(?:\.\d+)?)$/);
+  const currencyPrefix = parseable.match(/^([^\d\s.-])\s*(-?[\d,]+(?:\.\d+)?)$/);
   if (currencyPrefix && CURRENCY_SYMBOLS.has(currencyPrefix[1]!)) {
     const value = cleanNumber(currencyPrefix[2]!);
     return {
@@ -230,22 +233,22 @@ export function normalizeQuantV4Answer(answer: QuantV4AnswerLike): QuantV4Canoni
     };
   }
 
-  const numeric = raw.match(/^-?[\d,]+(?:\.\d+)?$/);
+  const numeric = parseable.match(/^-?[\d,]+(?:\.\d+)?$/);
   if (numeric) {
-    const value = cleanNumber(raw);
+    const value = cleanNumber(parseable);
     return {
       kind: Number.isInteger(value) ? "integer" : "decimal",
       value,
-      precision: inferPrecision(raw),
-      display: formatNumber(value, inferPrecision(raw)),
+      precision: inferPrecision(parseable),
+      display: formatNumber(value, inferPrecision(parseable)),
       rounding: "exact",
     };
   }
 
   return {
     kind: "symbolic",
-    value: raw,
-    display: raw,
+    value: parseable,
+    display: parseable,
     rounding: "exact",
   };
 }

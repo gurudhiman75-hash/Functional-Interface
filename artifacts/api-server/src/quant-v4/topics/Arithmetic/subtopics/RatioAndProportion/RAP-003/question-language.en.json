@@ -336,13 +336,13 @@
       "RAP-QL-960": {
         "cpId": "RAP-CP-015",
         "taskKind": "incomeExpenseDifferenceSavings",
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, while their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the difference between their savings is Rs. {savingsDifference}, find {targetPerson}'s income.",
+        "template": "Use the same common unit for both ratios. The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, while their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the difference between their savings is Rs. {savingsDifference}, find {targetPerson}'s income.",
         "difficulty": "Hard"
       },
       "RAP-QL-961": {
         "cpId": "RAP-CP-015",
         "taskKind": "incomeExpenseSumSavings",
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If their total savings are Rs. {savingsSum}, find {targetPerson}'s expenditure.",
+        "template": "Use the same common unit for both ratios. The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If their total savings are Rs. {savingsSum}, find {targetPerson}'s expenditure.",
         "difficulty": "Hard"
       },
       "RAP-QL-962": {
@@ -366,7 +366,7 @@
       "RAP-QL-965": {
         "cpId": "RAP-CP-015",
         "taskKind": "salarySpendingSavings",
-        "template": "The salaries of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their spending is in the ratio {expenditureRatioA}:{expenditureRatioB}. If one income unit is Rs. {incomeUnit}, find the difference between their savings.",
+        "template": "The salaries of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their spending is in the ratio {expenditureRatioA}:{expenditureRatioB}. The same common unit for both ratios is Rs. {incomeUnit}. Find the difference between their savings.",
         "difficulty": "Medium"
       },
       "RAP-QL-966": {
@@ -396,13 +396,13 @@
       "RAP-QL-970": {
         "cpId": "RAP-CP-015",
         "taskKind": "givenOneSavesMore",
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If one saves Rs. {savingsDifference} more than the other, find {targetPerson}'s income.",
+        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. The same common unit is used for both ratios. If one saves Rs. {savingsDifference} more than the other, find {targetPerson}'s income.",
         "difficulty": "Hard"
       },
       "RAP-QL-971": {
         "cpId": "RAP-CP-015",
         "taskKind": "givenOneSpendsMore",
-        "template": "The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the difference in expenditure is Rs. {expenseDifference}, find {targetPerson}'s savings.",
+        "template": "Use the same common unit for both ratios. The incomes of {personA} and {personB} are in the ratio {incomeRatioA}:{incomeRatioB}, and their expenditures are in the ratio {expenditureRatioA}:{expenditureRatioB}. If the difference in expenditure is Rs. {expenseDifference}, find {targetPerson}'s savings.",
         "difficulty": "Hard"
       },
       "RAP-QL-972": {
@@ -1152,13 +1152,13 @@
       "RAP-QL-1507": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionLoserVotes",
-        "template": "{candidateA} and {candidateB} received valid votes in the ratio {candidateRatioA}:{candidateRatioB}. Voter turnout and validity give the final valid count. Find the loser's votes.",
+        "template": "In {constituencyName}, {totalVoters} voters are registered. {turnoutPercent}% vote, and {validPercent}% of polled votes are valid. {candidateA} and {candidateB} receive the valid votes in the ratio {candidateRatioA}:{candidateRatioB}. Find the loser's votes.",
         "difficulty": "Easy"
       },
       "RAP-QL-1508": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionWinningMargin",
-        "template": "{totalVoters} voters are listed in {constituencyName}. {turnoutPercent}% voted and {validPercent}% votes were valid. The valid votes split as {candidateRatioA}:{candidateRatioB}. Find the winning margin.",
+        "template": "{totalVoters} voters are registered in {constituencyName}. {turnoutPercent}% voted and {validPercent}% of polled votes were valid. The valid votes split as {candidateRatioA}:{candidateRatioB}. Find the winning margin.",
         "difficulty": "Medium"
       },
       "RAP-QL-1509": {
@@ -1324,7 +1324,7 @@
       "RAP-QL-1610": {
         "cpId": "RAP-CP-022",
         "taskKind": "geometricSideRatioFromArea",
-        "template": "The areas of two {shapeName} are in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their corresponding sides.",
+        "template": "The areas of two {shapeName} are in the ratio {areaRatioA}:{areaRatioB}. Find the ratio of their radii.",
         "difficulty": "Medium"
       },
       "RAP-QL-1611": {
@@ -1366,7 +1366,7 @@
       "RAP-QL-1617": {
         "cpId": "RAP-CP-022",
         "taskKind": "geometricPowerMixedStatement",
-        "template": "Two {shapeName} have corresponding side lengths in the ratio {sideRatioA}:{sideRatioB}. Their area ratio would use the square of this ratio; what volume ratio is obtained by using the correct power?",
+        "template": "Two {shapeName} have corresponding side lengths in the ratio {sideRatioA}:{sideRatioB}. What is the ratio of their volumes?",
         "difficulty": "Hard"
       }
     }

@@ -500,6 +500,7 @@
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-407": {
+      "active": false,
       "cpId": "RAP-CP-009",
       "taskKind": "electionWinnerVotes",
       "answerType": "COUNT",
@@ -516,6 +517,7 @@
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-408": {
+      "active": false,
       "cpId": "RAP-CP-009",
       "taskKind": "electionMargin",
       "answerType": "COUNT",
@@ -532,6 +534,7 @@
       "explanationId": "RAP-ES-009"
     },
     "RAP-QL-409": {
+      "active": false,
       "cpId": "RAP-CP-009",
       "taskKind": "electionTotalVotersFromMargin",
       "answerType": "COUNT",
@@ -674,6 +677,7 @@
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-507": {
+      "active": false,
       "cpId": "RAP-CP-010",
       "taskKind": "incomeExpenditureSavings",
       "answerType": "COUNT",
@@ -691,6 +695,7 @@
       "explanationId": "RAP-ES-010"
     },
     "RAP-QL-508": {
+      "active": false,
       "cpId": "RAP-CP-010",
       "taskKind": "incomeExpenditureSavings",
       "answerType": "COUNT",
@@ -815,6 +820,7 @@
       "explanationId": "RAP-ES-011"
     },
     "RAP-QL-608": {
+      "active": false,
       "cpId": "RAP-CP-011",
       "taskKind": "sdtRaceLead",
       "answerType": "RATIO",

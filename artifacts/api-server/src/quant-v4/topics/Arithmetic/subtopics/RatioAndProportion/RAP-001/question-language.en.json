@@ -106,7 +106,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-103": {
-        "template": "The linked ratios are {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC}, and {personC}:{personD} = {ratioC_prime}:{ratioD}. What is {personA}:{personD}?",
+        "template": "The ages of {personA}, {personB}, {personC}, and {personD} satisfy {personA}:{personB} = {ratioA}:{ratioB}, {personB}:{personC} = {ratioB_prime}:{ratioC}, and {personC}:{personD} = {ratioC_prime}:{ratioD}. Find the age ratio {personA}:{personD}.",
         "difficulty": "Hard"
       },
       "RAP-QL-203": {
@@ -162,11 +162,11 @@
         "difficulty": "Medium"
       },
       "RAP-QL-009": {
-        "template": "The shares of {personA}, {personB}, and {personC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {personA} gets Rs. {shareDifference} more than {personC}, how much was the total amount distributed?",
+        "template": "A family fund is divided among {personA}, {personB}, and {personC} in the ratio {ratioA}:{ratioB}:{ratioC}. The share of {personA} exceeds the share of {personC} by Rs. {shareDifference}. Find the total fund.",
         "difficulty": "Hard"
       },
       "RAP-QL-011": {
-        "template": "For {personA}, the monthly expense-to-savings ratio is {ratioExp}:{ratioSav}. If the total salary is Rs. {totalSalary}, find the monthly savings.",
+        "template": "{personA}'s monthly expense-to-savings ratio is {ratioExp}:{ratioSav}. If the monthly salary is Rs. {totalSalary}, find the monthly savings.",
         "difficulty": "Easy"
       }
     }
@@ -246,7 +246,7 @@
         "difficulty": "Hard"
       },
       "RAP-QL-024": {
-        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If the total weight of {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} is {totalWeight} kg, find the weight of one {itemA}.",
+        "template": "The weights of {itemA}, {itemB}, and {itemC} are in the ratio {ratioA}:{ratioB}:{ratioC}. If {countA} {itemA}, {countB} {itemB}, and {countC} {itemC} together weigh {totalWeight} g, find the weight of one {itemA}.",
         "difficulty": "Hard"
       },
       "RAP-QL-026": {

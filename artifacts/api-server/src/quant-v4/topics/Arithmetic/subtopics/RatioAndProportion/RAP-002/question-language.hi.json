@@ -44,7 +44,7 @@
       "RAP-QL-512": {
         "cpId": "RAP-CP-010",
         "taskKind": "conditionalDistribution",
-        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The selected branch is split as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the required conditional share.",
+        "template": "A total of {totalValue} is divided as {personA}:{personB} = {ratioA}:{ratioB}. The {personA} share is further divided as {personC}:{personD} = {subRatioC}:{subRatioD}. Find the share of {personC}.",
         "difficulty": "Medium"
       },
       "RAP-QL-518": {

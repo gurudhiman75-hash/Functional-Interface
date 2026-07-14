@@ -140,9 +140,6 @@ const humanReviewHi = cpIds.flatMap((cpId) => Array.from({ length: 5 }, (_, inde
 const humanReviewPa = cpIds.flatMap((cpId) => Array.from({ length: 5 }, (_, index) =>
   runRap001Pipeline(cpId, { language: "pa", seed: `rap-001-human-review:${cpId}:${index}` })));
 
-fs.writeFileSync(path.join(packageDir, "rap-001-human-review-en.csv"), `${renderRap001HumanReviewCsv(humanReviewEn)}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "rap-001-human-review-hi.csv"), `${renderRap001HumanReviewCsv(humanReviewHi)}\n`, "utf8");
-fs.writeFileSync(path.join(packageDir, "rap-001-human-review-pa.csv"), `${renderRap001HumanReviewCsv(humanReviewPa)}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-pre-freeze-coverage-audit.md"), `${renderRap001CoverageAuditMarkdown(preFreeze.audit, "500 EN questions")}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-maturity-audit.md"), `${renderRap001MaturityAuditMarkdown(maturity.audit, "1000 EN questions")}\n`, "utf8");
 fs.writeFileSync(path.join(packageDir, "rap-001-freeze-record.md"), `${renderRap001FreezeRecordMarkdown(preFreeze.audit)}\n`, "utf8");

@@ -3324,8 +3324,12 @@
       "answerType": "COUNT",
       "difficulty": "Easy",
       "requiredVariables": [
+        "constituencyName",
         "candidateA",
         "candidateB",
+        "totalVoters",
+        "turnoutPercent",
+        "validPercent",
         "candidateRatioA",
         "candidateRatioB"
       ],

@@ -1,1051 +1,2009 @@
-packageId,cpId,qlId,taskKind,difficulty,stem,answer,explanation,stemRealism,solverCorrect,explanationQuality,optionQuality,editorialStatus,reviewNotes
-"RAP-001","RAP-CP-001","RAP-QL-103","ratioTreeLinkage","Hard","The linked ratios are sister:son = 2:3, son:father = 3:4, and father:daughter = 4:5. What is sister:daughter?","$$2 : 5$$","Concept: link the chain ratios.
+"packageId","cpId","qlId","taskKind","solveMode","difficulty","questionId","seed","parameterFingerprint","stem","options","correctIndex","correctAnswer","explanation","stemRealism","solverCorrect","explanationQuality","optionQuality","editorialStatus","reviewNotes"
+"RAP-001","RAP-CP-001","RAP-QL-001","simpleLinkage","simpleLinkage","Hard","RAP-CP-001:RAP-QL-001:61749","rap-001:human-review:RAP-QL-001:RAP-CP-001:0","fnv1a-c4b6a77c","Daughter:father = 5:6 and father:sister = 6:7. Find daughter:father:sister.","A. 5:6:7
+B. 5:7:7
+C. 4:6:7
+D. 6:6:7","0","5:6:7","Problem: align the father part.
 
-[
-\Rightarrow \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)
-]
-Why: use one common ratio unit.
+$$\Rightarrow daughter:father=5:6,\quad father:sister=6:7$$
 
-[
-\Rightarrow \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)
-]
-Write the given relation.
+Why it applies: father refers to the same quantity in both ratios, so its two ratio values must be made equal.
 
-[
-\Rightarrow \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)
-]
-Insert the given numbers.
+$$\Rightarrow daughter:father=(5\times6):(6\times6)$$
 
-[
-\Rightarrow \(2:5\)
-]
-Calculate and simplify.
+Scale the second ratio too.
 
-[
-\Rightarrow \(2:5\)
-]
-Check: the relation is preserved.
+$$\Rightarrow father:sister=(6\times6):(7\times6)$$
 
-[
-\Rightarrow \(2:5\)
-]
-Therefore, the required value is $$2 : 5$$.
+Now combine the aligned parts.
 
-[
-\Rightarrow $$2 : 5$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-001","RAP-QL-1902","ratioNormalization","Medium","Change the ratio 6/3 : 6/2 to whole numbers.","$$2 : 3$$","Problem: clear the fractions.
+$$\Rightarrow 30:36:42$$
 
-[
-\Rightarrow \frac{6}{3}:\frac{6}{2}
-]
+Method 2: reduce if possible.
+
+$$\Rightarrow 30:36:42=5:6:7$$
+
+Check: both original pairwise ratios are preserved in 5:6:7.
+
+$$\Rightarrow 5:6:7$$
+
+Therefore, daughter:father:sister is
+
+$$\Rightarrow 5 : 6 : 7$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-101","simpleLinkage","simpleLinkage","Hard","RAP-CP-001:RAP-QL-101:27572","rap-001:human-review:RAP-QL-101:RAP-CP-001:0","fnv1a-14f2371a","The ratio of sister to son is 4:5, while the ratio of son to father is 5:6. What is the combined ratio of all three?","A. 4:6:6
+B. 4:5:6
+C. 5:5:6
+D. 3:5:6","1","4:5:6","Problem: align the son part.
+
+$$\Rightarrow sister:son=4:5,\quad son:father=5:6$$
+
+Why it applies: son refers to the same quantity in both ratios, so its two ratio values must be made equal.
+
+$$\Rightarrow sister:son=(4\times5):(5\times5)$$
+
+Scale the second ratio too.
+
+$$\Rightarrow son:father=(5\times5):(6\times5)$$
+
+Now combine the aligned parts.
+
+$$\Rightarrow 20:25:30$$
+
+Method 2: reduce if possible.
+
+$$\Rightarrow 20:25:30=4:5:6$$
+
+Check: both original pairwise ratios are preserved in 4:5:6.
+
+$$\Rightarrow 4:5:6$$
+
+Therefore, sister:son:father is
+
+$$\Rightarrow 4 : 5 : 6$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-201","simpleLinkage","simpleLinkage","Hard","RAP-CP-001:RAP-QL-201:93395","rap-001:human-review:RAP-QL-201:RAP-CP-001:0","fnv1a-2dd7e4be","Sister and son are in the ratio 3:4. son and father are in the ratio 4:5. Write the ratio sister:son:father.","A. 3:4:5
+B. 4:4:5
+C. 2:4:5
+D. 3:5:5","0","3:4:5","Problem: align the son part.
+
+$$\Rightarrow sister:son=3:4,\quad son:father=4:5$$
+
+Why it applies: son refers to the same quantity in both ratios, so its two ratio values must be made equal.
+
+$$\Rightarrow sister:son=(3\times4):(4\times4)$$
+
+Scale the second ratio too.
+
+$$\Rightarrow son:father=(4\times4):(5\times4)$$
+
+Now combine the aligned parts.
+
+$$\Rightarrow 12:16:20$$
+
+Method 2: reduce if possible.
+
+$$\Rightarrow 12:16:20=3:4:5$$
+
+Check: both original pairwise ratios are preserved in 3:4:5.
+
+$$\Rightarrow 3:4:5$$
+
+Therefore, sister:son:father is
+
+$$\Rightarrow 3 : 4 : 5$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-301","simpleLinkage","simpleLinkage","Medium","RAP-CP-001:RAP-QL-301:59218","rap-001:human-review:RAP-QL-301:RAP-CP-001:0","fnv1a-4768f1e2","Two linked ratios are given: sister:son = 2:3 and son:father = 3:4. Combine them into sister:son:father.","A. 3:3:4
+B. 1:3:4
+C. 2:4:4
+D. 2:3:4","3","2:3:4","Problem: align the son part.
+
+$$\Rightarrow sister:son=2:3,\quad son:father=3:4$$
+
+Why it applies: son refers to the same quantity in both ratios, so its two ratio values must be made equal.
+
+$$\Rightarrow sister:son=(2\times3):(3\times3)$$
+
+Scale the second ratio too.
+
+$$\Rightarrow son:father=(3\times3):(4\times3)$$
+
+Now combine the aligned parts.
+
+$$\Rightarrow 6:9:12$$
+
+Method 2: reduce if possible.
+
+$$\Rightarrow 6:9:12=2:3:4$$
+
+Check: both original pairwise ratios are preserved in 2:3:4.
+
+$$\Rightarrow 2:3:4$$
+
+Therefore, sister:son:father is
+
+$$\Rightarrow 2 : 3 : 4$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-401","simpleLinkage","simpleLinkage","Easy","RAP-CP-001:RAP-QL-401:25041","rap-001:human-review:RAP-QL-401:RAP-CP-001:0","fnv1a-53f5993e","Given father:brother = 1:2 and brother:son = 2:3, find the single ratio connecting father, brother, and son.","A. 1:3:3
+B. 1:1:3
+C. 1:2:3
+D. 2:2:3","2","1:2:3","Problem: align the brother part.
+
+$$\Rightarrow father:brother=1:2,\quad brother:son=2:3$$
+
+Why it applies: brother refers to the same quantity in both ratios, so its two ratio values must be made equal.
+
+$$\Rightarrow father:brother=(1\times2):(2\times2)$$
+
+Scale the second ratio too.
+
+$$\Rightarrow brother:son=(2\times2):(3\times2)$$
+
+Now combine the aligned parts.
+
+$$\Rightarrow 2:4:6$$
+
+Method 2: reduce if possible.
+
+$$\Rightarrow 2:4:6=1:2:3$$
+
+Check: both original pairwise ratios are preserved in 1:2:3.
+
+$$\Rightarrow 1:2:3$$
+
+Therefore, father:brother:son is
+
+$$\Rightarrow 1 : 2 : 3$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-002","ratioNormalization","ratioNormalization","Medium","RAP-CP-001:RAP-QL-002:3124","rap-001:human-review:RAP-QL-002:RAP-CP-001:0","fnv1a-73d88fb7","Convert the fractional ratio 2/2 : 2/2 into a simple integer ratio.","A. 2:1
+B. 0:1
+C. 1:2
+D. 1:1","3","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
 Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
 
-[
-\Rightarrow \frac{6}{3}\times6:\frac{6}{2}\times6
-]
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
 This gives whole-number terms.
 
-[
-\Rightarrow 12:18
-]
+$$\Rightarrow 4:4$$
+
 Method 2: cross-multiply shortcut.
 
-[
-\Rightarrow (6\times2):(3\times6)=12:18
-]
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
 Reduce the ratio.
 
-[
-\Rightarrow 2:3
-]
+$$\Rightarrow 1:1$$
+
 Check that the final terms have no common factor greater than 1.
 
-[
-\Rightarrow 2:3
-]
+$$\Rightarrow 1:1$$
+
 Therefore, the simplest integer ratio is
 
-[
-\Rightarrow 2:3
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-001","RAP-QL-1802","ratioNormalization","Medium","Reduce 6/2 : 3/3 to the simplest integer ratio.","$$3 : 1$$","Problem: clear the fractions.
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-102","ratioNormalization","ratioNormalization","Medium","RAP-CP-001:RAP-QL-102:68947","rap-001:human-review:RAP-QL-102:RAP-CP-001:0","fnv1a-73d88fb7","Simplify the ratio of fractions 2/2 : 2/2 to whole numbers.","A. 1:2
+B. 2:1
+C. 1:1
+D. 0:1","2","1:1","Problem: clear the fractions.
 
-[
-\Rightarrow \frac{6}{2}:\frac{3}{3}
-]
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
 Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
 
-[
-\Rightarrow \frac{6}{2}\times6:\frac{3}{3}\times6
-]
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
 This gives whole-number terms.
 
-[
-\Rightarrow 18:6
-]
+$$\Rightarrow 4:4$$
+
 Method 2: cross-multiply shortcut.
 
-[
-\Rightarrow (6\times3):(2\times3)=18:6
-]
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
 Reduce the ratio.
 
-[
-\Rightarrow 3:1
-]
+$$\Rightarrow 1:1$$
+
 Check that the final terms have no common factor greater than 1.
 
-[
-\Rightarrow 3:1
-]
+$$\Rightarrow 1:1$$
+
 Therefore, the simplest integer ratio is
 
-[
-\Rightarrow 3:1
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-001","RAP-QL-1702","ratioNormalization","Medium","Express 3/3 to 4/2 as a ratio of integers in simplest form.","$$1 : 2$$","Problem: clear the fractions.
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-202","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-202:34770","rap-001:human-review:RAP-QL-202:RAP-CP-001:0","fnv1a-73d88fb7","Find the simplest integer ratio equivalent to 2/2 : 2/2.","A. 2:1
+B. 1:1
+C. 0:1
+D. 1:2","1","1:1","Problem: clear the fractions.
 
-[
-\Rightarrow \frac{3}{3}:\frac{4}{2}
-]
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
 Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
 
-[
-\Rightarrow \frac{3}{3}\times6:\frac{4}{2}\times6
-]
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
 This gives whole-number terms.
 
-[
-\Rightarrow 6:12
-]
+$$\Rightarrow 4:4$$
+
 Method 2: cross-multiply shortcut.
 
-[
-\Rightarrow (3\times2):(3\times4)=6:12
-]
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
 Reduce the ratio.
 
-[
-\Rightarrow 1:2
-]
+$$\Rightarrow 1:1$$
+
 Check that the final terms have no common factor greater than 1.
 
-[
-\Rightarrow 1:2
-]
+$$\Rightarrow 1:1$$
+
 Therefore, the simplest integer ratio is
 
-[
-\Rightarrow 1:2
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-001","RAP-QL-1602","ratioNormalization","Medium","Provide the whole number ratio for 4/2 : 9/3.","$$2 : 3$$","Problem: clear the fractions.
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-302","ratioNormalization","ratioNormalization","Easy","RAP-CP-001:RAP-QL-302:593","rap-001:human-review:RAP-QL-302:RAP-CP-001:0","fnv1a-73d88fb7","Express the ratio 2/2 : 2/2 in its simplest integer form.","A. 1:1
+B. 0:1
+C. 1:2
+D. 2:1","0","1:1","Problem: clear the fractions.
 
-[
-\Rightarrow \frac{4}{2}:\frac{9}{3}
-]
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
 Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
 
-[
-\Rightarrow \frac{4}{2}\times6:\frac{9}{3}\times6
-]
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
 This gives whole-number terms.
 
-[
-\Rightarrow 12:18
-]
+$$\Rightarrow 4:4$$
+
 Method 2: cross-multiply shortcut.
 
-[
-\Rightarrow (4\times3):(2\times9)=12:18
-]
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
 Reduce the ratio.
 
-[
-\Rightarrow 2:3
-]
+$$\Rightarrow 1:1$$
+
 Check that the final terms have no common factor greater than 1.
 
-[
-\Rightarrow 2:3
-]
+$$\Rightarrow 1:1$$
+
 Therefore, the simplest integer ratio is
 
-[
-\Rightarrow 2:3
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","For teachers, the monthly expense-to-savings ratio is 6:3. If the total salary is Rs. 10800, find the monthly savings.","$$3600$$","Concept: split salary into expenses and savings.
-
-[
-\Rightarrow \(salary parts = expense + saving\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(salary parts = expense + saving\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(salary parts = expense + saving\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(3600\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(3600\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(3600\)
-]
-Therefore, the required value is $$3600$$.
-
-[
-\Rightarrow $$3600$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","For boys, the monthly expense-to-savings ratio is 7:3. If the total salary is Rs. 11000, find the monthly savings.","$$3300$$","Concept: split salary into expenses and savings.
-
-[
-\Rightarrow \(salary parts = expense + saving\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(salary parts = expense + saving\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(salary parts = expense + saving\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(3300\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(3300\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(3300\)
-]
-Therefore, the required value is $$3300$$.
-
-[
-\Rightarrow $$3300$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","The shares of girls, teachers, and boys are in the ratio 8:7:5. If girls gets Rs. 180 more than boys, how much was the total amount distributed?","$$1200$$","Concept: recover the total from share difference.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(1200\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(1200\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(1200\)
-]
-Therefore, the required value is $$1200$$.
-
-[
-\Rightarrow $$1200$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","The shares of girls, boys, and teachers are in the ratio 5:4:2. If girls gets Rs. 420 more than teachers, how much was the total amount distributed?","$$1540$$","Concept: recover the total from share difference.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(1540\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(1540\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(1540\)
-]
-Therefore, the required value is $$1540$$.
-
-[
-\Rightarrow $$1540$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","The shares of girls, teachers, and boys are in the ratio 6:5:2. If girls gets Rs. 120 more than boys, how much was the total amount distributed?","$$390$$","Concept: recover the total from share difference.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(difference = (A-C) \times unit\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(390\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(390\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(390\)
-]
-Therefore, the required value is $$390$$.
-
-[
-\Rightarrow $$390$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-003","RAP-QL-016","multiStageTransformation","Hard","A school has boys and girls in the ratio 3:4. After 14 boys join and 2 girls leave, the ratio becomes 10:3. How many girls were there originally?","$$8$$","Concept: track addition and removal together.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(8\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(8\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(8\)
-]
-Therefore, the required value is $$8$$.
-
-[
-\Rightarrow $$8$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-003","RAP-QL-016","multiStageTransformation","Hard","A school has boys and girls in the ratio 6:7. After 3 boys join and 3 girls leave, the ratio becomes 19:20. How many girls were there originally?","$$63$$","Concept: track addition and removal together.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(63\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(63\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(63\)
-]
-Therefore, the required value is $$63$$.
-
-[
-\Rightarrow $$63$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-003","RAP-QL-016","multiStageTransformation","Hard","A school has boys and girls in the ratio 7:2. After 6 boys join and 10 girls leave, the ratio becomes 55:4. How many girls were there originally?","$$14$$","Concept: track addition and removal together.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{ax+p}{bx-q} = \frac{c}{d}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(14\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(14\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(14\)
-]
-Therefore, the required value is $$14$$.
-
-[
-\Rightarrow $$14$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-003","RAP-QL-214","twoStateTransfer","Medium","Two numbers are in the ratio 5:7. If 6 is added to each, the ratio becomes 31:41. Find the larger number.","$$35$$","Concept: solve the changed number ratio.
-
-[
-\Rightarrow \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(35\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(35\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(35\)
-]
-Therefore, the required value is $$35$$.
-
-[
-\Rightarrow $$35$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-003","RAP-QL-014","twoStateTransfer","Medium","Two numbers are in the ratio 8:9. If 20 is added to each, the ratio becomes 44:47. What is the value of the larger number?","$$27$$","Concept: solve the changed number ratio.
-
-[
-\Rightarrow \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(27\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(27\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(27\)
-]
-Therefore, the required value is $$27$$.
-
-[
-\Rightarrow $$27$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-004","RAP-QL-019","fourthProportional","Easy","Find the number which is fourth proportional to 3, 4, and 21.","$$28$$","Concept: find the fourth proportional.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(28\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(28\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(28\)
-]
-Therefore, the required value is $$28$$.
-
-[
-\Rightarrow $$28$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-004","RAP-QL-020","directVariation","Medium","If y varies directly as x, and y is 20 when x is 4, what will be the value of y when x is 5?","$$25$$","Concept: use direct variation.
-
-[
-\Rightarrow \(y/x = constant\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(y/x = constant\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(y/x = constant\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(25\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(25\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(25\)
-]
-Therefore, the required value is $$25$$.
-
-[
-\Rightarrow $$25$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-004","RAP-QL-019","fourthProportional","Easy","Find the number which is fourth proportional to 5, 6, and 45.","$$54$$","Concept: find the fourth proportional.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(54\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(54\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(54\)
-]
-Therefore, the required value is $$54$$.
-
-[
-\Rightarrow $$54$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-004","RAP-QL-019","fourthProportional","Easy","Find the number which is fourth proportional to 6, 1, and 60.","$$10$$","Concept: find the fourth proportional.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(a:b = c:x\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(10\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(10\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(10\)
-]
-Therefore, the required value is $$10$$.
-
-[
-\Rightarrow $$10$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-004","RAP-QL-021","inverseVariation","Medium","If y is inversely proportional to x, and y is 14 when x is 7, find the value of y when x becomes 2.","$$49$$","Concept: use inverse variation.
-
-[
-\Rightarrow \(xy = constant\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(xy = constant\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(xy = constant\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(49\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(49\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(49\)
-]
-Therefore, the required value is $$49$$.
-
-[
-\Rightarrow $$49$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","The weights of Rs. 2 coin, Rs. 5 coin, and Rs. 1 coin are in the ratio 1:2:3. If the total weight of 2 Rs. 2 coin, 3 Rs. 5 coin, and 4 Rs. 1 coin is 40 kg, find the weight of one Rs. 2 coin.","$$2$$","Concept: use weighted ratio units.
-
-[
-\Rightarrow \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(2\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(2\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(2\)
-]
-Therefore, the required value is $$2$$.
-
-[
-\Rightarrow $$2$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-023","multiDenominationMapping","Hard","A box contains 18 coins of 1, 2, 5, and 10. If their values are in the ratio 3:8:25:60, what is the number of 5 coins?","$$5$$","Concept: map value ratios to coin counts.
-
-[
-\Rightarrow \(count ratio = value ratio / denomination\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(count ratio = value ratio / denomination\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(count ratio = value ratio / denomination\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(5\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(5\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(5\)
-]
-Therefore, the required value is $$5$$.
-
-[
-\Rightarrow $$5$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","Hard","A bag has coins of 1, 2, and 5 in the ratio 3:4:5. If the total value is Rs. 144, how many coins of 1 are in the bag?","$$12$$","Concept: convert coin ratios into value.
-
-[
-\Rightarrow \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(12\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(12\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(12\)
-]
-Therefore, the required value is $$12$$.
-
-[
-\Rightarrow $$12$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-026","weightedMarks","Hard","Marks in History, English, and Science are in the ratio 7:8:1. Their weights are 1, 2, and 3, and the total weighted score is 208. How many marks were obtained in History?","$$56$$","Concept: use subject weights with ratio marks.
-
-[
-\Rightarrow \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(56\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(56\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(56\)
-]
-Therefore, the required value is $$56$$.
-
-[
-\Rightarrow $$56$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 5:6:7. If the total weight of 5 Rs. 2 coin, 1 Rs. 1 coin, and 2 Rs. 5 coin is 270 kg, find the weight of one Rs. 2 coin.","$$30$$","Concept: use weighted ratio units.
-
-[
-\Rightarrow \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(30\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(30\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(30\)
-]
-Therefore, the required value is $$30$$.
-
-[
-\Rightarrow $$30$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-006","RAP-QL-229","threeComponentMixture","Hard","A solution has milk, juice, and water in the ratio 6:7:8. After adding 17 litres of juice, the new ratio becomes 48:73:64. Determine the starting volume.","$$168$$","Concept: solve the three-component mixture.
-
-[
-\Rightarrow \(use unchanged components as pivot\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(use unchanged components as pivot\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(use unchanged components as pivot\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(168\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(168\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(168\)
-]
-Therefore, the required value is $$168$$.
-
-[
-\Rightarrow $$168$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-006","RAP-QL-029","threeComponentMixture","Hard","A solution has water, milk, and juice in the ratio 5:6:7. After adding 10 litres of milk, the new ratio becomes 15:23:21. Find the starting volume.","$$108$$","Concept: solve the three-component mixture.
-
-[
-\Rightarrow \(use unchanged components as pivot\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(use unchanged components as pivot\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(use unchanged components as pivot\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(107.99999999999999\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(107.99999999999999\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(107.99999999999999\)
-]
-Therefore, the required value is $$108$$.
-
-[
-\Rightarrow $$108$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","A 78-litre mixture has water and milk in the ratio 6:7. How many litres of milk should be added to make the ratio 36:49?","$$7$$","Concept: add one component to reach a ratio.
-
-[
-\Rightarrow \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(7\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(7\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(7\)
-]
-Therefore, the required value is $$7$$.
-
-[
-\Rightarrow $$7$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-006","RAP-QL-027","binaryMixture","Medium","A mixture contains water and juice in the ratio 5:6. If 16 litres of water are added, the ratio becomes 3:2. What was the initial quantity of juice?","$$24$$","Concept: solve the two-component mixture.
-
-[
-\Rightarrow \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(24\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(24\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(24\)
-]
-Therefore, the required value is $$24$$.
-
-[
-\Rightarrow $$24$$
-]","","","","","PENDING",""
-"RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","A 18-litre mixture has juice and milk in the ratio 4:5. How many litres of milk should be added to make the ratio 8:23?","$$13$$","Concept: add one component to reach a ratio.
-
-[
-\Rightarrow \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
-Why: use one common ratio unit.
-
-[
-\Rightarrow \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
-Write the given relation.
-
-[
-\Rightarrow \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
-Insert the given numbers.
-
-[
-\Rightarrow \(13\)
-]
-Calculate and simplify.
-
-[
-\Rightarrow \(13\)
-]
-Check: the relation is preserved.
-
-[
-\Rightarrow \(13\)
-]
-Therefore, the required value is $$13$$.
-
-[
-\Rightarrow $$13$$
-]","","","","","PENDING",""
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-402","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-402:33712","rap-001:human-review:RAP-QL-402:RAP-CP-001:0","fnv1a-73d88fb7","What is the simple ratio of whole numbers for 2/2 : 2/2?","A. 2:1
+B. 0:1
+C. 1:2
+D. 1:1","3","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-502","ratioNormalization","ratioNormalization","Medium","RAP-CP-001:RAP-QL-502:99535","rap-001:human-review:RAP-QL-502:RAP-CP-001:0","fnv1a-73d88fb7","Reduce the fractional ratio 2/2 : 2/2 to its lowest whole number terms.","A. 1:1
+B. 1:2
+C. 2:1
+D. 0:1","0","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-602","ratioNormalization","ratioNormalization","Easy","RAP-CP-001:RAP-QL-602:65358","rap-001:human-review:RAP-QL-602:RAP-CP-001:0","fnv1a-73d88fb7","Normalize the ratio 2/2 : 2/2.","A. 2:1
+B. 0:1
+C. 1:1
+D. 1:2","2","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-702","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-702:31181","rap-001:human-review:RAP-QL-702:RAP-CP-001:0","fnv1a-73d88fb7","Rewrite 2/2 : 2/2 as a ratio of integers.","A. 1:1
+B. 1:2
+C. 0:1
+D. 2:1","0","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-802","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-802:97004","rap-001:human-review:RAP-QL-802:RAP-CP-001:0","fnv1a-73d88fb7","Find the integer ratio equivalent to 2/2 : 2/2.","A. 2:1
+B. 1:2
+C. 0:1
+D. 1:1","3","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-902","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-902:62827","rap-001:human-review:RAP-QL-902:RAP-CP-001:0","fnv1a-73d88fb7","Convert 2/2 : 2/2 into an irreducible whole number ratio.","A. 1:2
+B. 2:1
+C. 1:1
+D. 0:1","2","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1002","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-1002:28979","rap-001:human-review:RAP-QL-1002:RAP-CP-001:0","fnv1a-73d88fb7","Determine the simplest whole-number ratio for 2/2 : 2/2.","A. 1:2
+B. 0:1
+C. 1:1
+D. 2:1","2","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1102","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-1102:94802","rap-001:human-review:RAP-QL-1102:RAP-CP-001:0","fnv1a-73d88fb7","State the fractional ratio 2/2 : 2/2 in integers.","A. 0:1
+B. 1:1
+C. 2:1
+D. 1:2","1","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1202","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-1202:60625","rap-001:human-review:RAP-QL-1202:RAP-CP-001:0","fnv1a-73d88fb7","Calculate the simple integer ratio corresponding to 2/2 : 2/2.","A. 1:1
+B. 1:2
+C. 2:1
+D. 0:1","0","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1302","ratioNormalization","ratioNormalization","Medium","RAP-CP-001:RAP-QL-1302:26448","rap-001:human-review:RAP-QL-1302:RAP-CP-001:0","fnv1a-73d88fb7","Translate 2/2 : 2/2 into a ratio of whole numbers.","A. 2:1
+B. 1:2
+C. 0:1
+D. 1:1","3","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1402","ratioNormalization","ratioNormalization","Easy","RAP-CP-001:RAP-QL-1402:92271","rap-001:human-review:RAP-QL-1402:RAP-CP-001:0","fnv1a-73d88fb7","Give the simplest integer format for the ratio 2/2 : 2/2.","A. 1:1
+B. 1:2
+C. 0:1
+D. 2:1","0","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1502","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-1502:25390","rap-001:human-review:RAP-QL-1502:RAP-CP-001:0","fnv1a-73d88fb7","Find the cross-multiplied and simplified integer ratio of 2/2 to 2/2.","A. 2:1
+B. 1:1
+C. 0:1
+D. 1:2","1","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1602","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-1602:91213","rap-001:human-review:RAP-QL-1602:RAP-CP-001:0","fnv1a-73d88fb7","Provide the whole number ratio for 2/2 : 2/2.","A. 1:1
+B. 1:2
+C. 2:1
+D. 0:1","0","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1702","ratioNormalization","ratioNormalization","Medium","RAP-CP-001:RAP-QL-1702:57036","rap-001:human-review:RAP-QL-1702:RAP-CP-001:0","fnv1a-73d88fb7","Express 2/2 to 2/2 as a ratio of integers in simplest form.","A. 2:1
+B. 0:1
+C. 1:2
+D. 1:1","3","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1802","ratioNormalization","ratioNormalization","Medium","RAP-CP-001:RAP-QL-1802:22859","rap-001:human-review:RAP-QL-1802:RAP-CP-001:0","fnv1a-73d88fb7","Reduce 2/2 : 2/2 to the simplest integer ratio.","A. 1:1
+B. 0:1
+C. 1:2
+D. 2:1","0","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-1902","ratioNormalization","ratioNormalization","Hard","RAP-CP-001:RAP-QL-1902:88682","rap-001:human-review:RAP-QL-1902:RAP-CP-001:0","fnv1a-73d88fb7","Change the ratio 2/2 : 2/2 to whole numbers.","A. 2:1
+B. 0:1
+C. 1:1
+D. 1:2","2","1:1","Problem: clear the fractions.
+
+$$\Rightarrow \frac{2}{2}:\frac{2}{2}$$
+
+Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.
+
+$$\Rightarrow \frac{2}{2}\times4:\frac{2}{2}\times4$$
+
+This gives whole-number terms.
+
+$$\Rightarrow 4:4$$
+
+Method 2: cross-multiply shortcut.
+
+$$\Rightarrow (2\times2):(2\times2)=4:4$$
+
+Reduce the ratio.
+
+$$\Rightarrow 1:1$$
+
+Check that the final terms have no common factor greater than 1.
+
+$$\Rightarrow 1:1$$
+
+Therefore, the simplest integer ratio is
+
+$$\Rightarrow 1:1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-003","ratioTreeLinkage","ratioTreeLinkage","Hard","RAP-CP-001:RAP-QL-003:44499","rap-001:human-review:RAP-QL-003:RAP-CP-001:0","fnv1a-98cb9b3a","Daughter:mother = 4:5, mother:sister = 5:6, and sister:son = 6:7. Find daughter:son.","A. 4:7
+B. 3:7
+C. 5:7
+D. 4:8","0","4:7","Concept: this question uses link the chain ratios.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 4:7$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 4:7$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 4:7$$
+
+Therefore, the requested value is 7.
+
+$$\Rightarrow 7$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-103","ratioTreeLinkage","ratioTreeLinkage","Hard","RAP-CP-001:RAP-QL-103:10322","rap-001:human-review:RAP-QL-103:RAP-CP-001:0","fnv1a-404396ec","The ages of sister, mother, brother, and son satisfy sister:mother = 5:6, mother:brother = 6:7, and brother:son = 7:8. Find the age ratio sister:son.","A. 6:8
+B. 4:8
+C. 5:9
+D. 5:8","3","5:8","Concept: this question uses link the chain ratios.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 5:8$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 5:8$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 5:8$$
+
+Therefore, the requested value is 8.
+
+$$\Rightarrow 8$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-203","ratioTreeLinkage","ratioTreeLinkage","Hard","RAP-CP-001:RAP-QL-203:76145","rap-001:human-review:RAP-QL-203:RAP-CP-001:0","fnv1a-08bfab3d","Starting from sister:son = 6:7, then son:father = 7:8, and then father:brother = 8:1, determine sister:brother.","A. 6:1
+B. 6:2
+C. 5:1
+D. 7:1","0","6:1","Concept: this question uses link the chain ratios.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 6:1$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 6:1$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 6:1$$
+
+Therefore, the requested value is 1.
+
+$$\Rightarrow 1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-303","ratioTreeLinkage","ratioTreeLinkage","Medium","RAP-CP-001:RAP-QL-303:9264","rap-001:human-review:RAP-QL-303:RAP-CP-001:0","fnv1a-c9885c21","Connect these three ratios and find the end ratio: sister:son = 7:8, son:father = 8:1, father:brother = 1:2.","A. 8:2
+B. 7:3
+C. 7:2
+D. 6:2","2","7:2","Concept: this question uses link the chain ratios.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 7:2$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 7:2$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 7:2$$
+
+Therefore, the requested value is 2.
+
+$$\Rightarrow 2$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-403","ratioTreeLinkage","ratioTreeLinkage","Easy","RAP-CP-001:RAP-QL-403:75087","rap-001:human-review:RAP-QL-403:RAP-CP-001:0","fnv1a-e85c87a0","The ratios linking mother to sister are mother:daughter = 8:1, daughter:father = 1:2, and father:sister = 2:3. Find mother:sister.","A. 8:3
+B. 9:3
+C. 7:3
+D. 8:4","0","8:3","Concept: this question uses link the chain ratios.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 8:3$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 8:3$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 8:3$$
+
+Therefore, the requested value is 3.
+
+$$\Rightarrow 3$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-004","scalingByComponent","scalingByComponent","Medium","RAP-CP-001:RAP-QL-004:85874","rap-001:human-review:RAP-QL-004:RAP-CP-001:0","fnv1a-ae8a5e2e","Class has boys and girls in the ratio 6:7. If boys are 42, how many girls are there?","A. 50
+B. 51
+C. 49
+D. 48","2","49","Concept: this question uses find the matching component.
+
+$$\Rightarrow A:B = a:b$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A:B = a:b$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A:B = a:b$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 42 \times 7 / 6 = 49$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 42 \times 7 / 6 = 49$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 42 \times 7 / 6 = 49$$
+
+Therefore, the requested value is 49.
+
+$$\Rightarrow 49$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-104","scalingByComponent","scalingByComponent","Medium","RAP-CP-001:RAP-QL-104:51697","rap-001:human-review:RAP-QL-104:RAP-CP-001:0","fnv1a-e2a41d56","The ratio of boys to girls in class is 5:6. When the count of boys is 60, find the count of girls.","A. 72
+B. 74
+C. 71
+D. 73","0","72","Concept: this question uses find the matching component.
+
+$$\Rightarrow A:B = a:b$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A:B = a:b$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A:B = a:b$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 60 \times 6 / 5 = 72$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 60 \times 6 / 5 = 72$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 60 \times 6 / 5 = 72$$
+
+Therefore, the requested value is 72.
+
+$$\Rightarrow 72$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-204","scalingByComponent","scalingByComponent","Hard","RAP-CP-001:RAP-QL-204:84816","rap-001:human-review:RAP-QL-204:RAP-CP-001:0","fnv1a-9af6d5aa","Boys:girls = 4:5 for class. Given 68 boys, calculate the number of girls.","A. 86
+B. 87
+C. 84
+D. 85","3","85","Concept: this question uses find the matching component.
+
+$$\Rightarrow A:B = a:b$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A:B = a:b$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A:B = a:b$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 68 \times 5 / 4 = 85$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 68 \times 5 / 4 = 85$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 68 \times 5 / 4 = 85$$
+
+Therefore, the requested value is 85.
+
+$$\Rightarrow 85$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-304","scalingByComponent","scalingByComponent","Easy","RAP-CP-001:RAP-QL-304:50639","rap-001:human-review:RAP-QL-304:RAP-CP-001:0","fnv1a-2cc89b0b","Class reports boys:girls as 3:4. If the boys count is 9, what should the girls count be?","A. 11
+B. 13
+C. 12
+D. 14","2","12","Concept: this question uses find the matching component.
+
+$$\Rightarrow A:B = a:b$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A:B = a:b$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A:B = a:b$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 9 \times 4 / 3 = 12$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 9 \times 4 / 3 = 12$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 9 \times 4 / 3 = 12$$
+
+Therefore, the requested value is 12.
+
+$$\Rightarrow 12$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-404","scalingByComponent","scalingByComponent","Hard","RAP-CP-001:RAP-QL-404:16462","rap-001:human-review:RAP-QL-404:RAP-CP-001:0","fnv1a-c00e8a65","For class, boys and girls follow the ratio 2:3. With 16 boys, find the matching number of girls.","A. 25
+B. 24
+C. 26
+D. 23","1","24","Concept: this question uses find the matching component.
+
+$$\Rightarrow A:B = a:b$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A:B = a:b$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A:B = a:b$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 16 \times 3 / 2 = 24$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 16 \times 3 / 2 = 24$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 16 \times 3 / 2 = 24$$
+
+Therefore, the requested value is 24.
+
+$$\Rightarrow 24$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-006","decimalNormalization","decimalNormalization","Medium","RAP-CP-001:RAP-QL-006:35920","rap-001:human-review:RAP-QL-006:RAP-CP-001:0","fnv1a-c2cd4737","What is the simplest whole-number ratio equal to 0.2 : 2.5?","A. 1:25
+B. 2:26
+C. 3:25
+D. 2:25","3","2:25","Concept: this question uses convert decimals to a whole-number ratio.
+
+$$\Rightarrow scale decimals to whole numbers$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow scale decimals to whole numbers$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow scale decimals to whole numbers$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 2:25$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 2:25$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 2:25$$
+
+Therefore, the requested value is 25.
+
+$$\Rightarrow 25$$","","","","","PENDING",""
+"RAP-001","RAP-CP-001","RAP-QL-206","decimalNormalization","decimalNormalization","Hard","RAP-CP-001:RAP-QL-206:67566","rap-001:human-review:RAP-QL-206:RAP-CP-001:0","fnv1a-e0c460c6","Calculate the simplest whole-number ratio equal to 2.8 : 1.7?","A. 29:17
+B. 28:17
+C. 28:18
+D. 27:17","1","28:17","Concept: this question uses convert decimals to a whole-number ratio.
+
+$$\Rightarrow scale decimals to whole numbers$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow scale decimals to whole numbers$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow scale decimals to whole numbers$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 28:17$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 28:17$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 28:17$$
+
+Therefore, the requested value is 17.
+
+$$\Rightarrow 17$$","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-107","basicPartition","basicPartition","Medium","RAP-CP-002:RAP-QL-107:44079","rap-001:human-review:RAP-QL-107:RAP-CP-002:0","fnv1a-38582ef3","A total of 2100 is distributed among girls, boys, and teachers in the ratio 6:7:8. Find girls' share.","A. 590
+B. 610
+C. 600
+D. 620","2","600","Concept: a ratio partition splits one total into equal ratio units.
+
+$$\Rightarrow 6:7:8$$
+
+Why: every ratio part is one equal unit.
+
+$$\Rightarrow 6:7:8$$
+
+Count all ratio parts.
+
+$$\Rightarrow 6+7+8=21$$
+
+Divide the total by that count to find one unit.
+
+$$\Rightarrow \frac{2100}{21}=100$$
+
+girls receives 6 units.
+
+$$\Rightarrow 6\times100$$
+
+The recovered shares add back to the total.
+
+$$\Rightarrow 600$$
+
+Therefore, girls receives $$600$$.","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-008","shareDifference","shareDifference","Easy","RAP-CP-002:RAP-QL-008:19631","rap-001:human-review:RAP-QL-008:RAP-CP-002:0","fnv1a-c2ec3d36","An amount of Rs. 780 is distributed among girls, boys, and teachers in the ratio 5:4:4. Find the difference between girls' share and teachers' share.","A. 59
+B. 62
+C. 60
+D. 61","2","60","Concept: this question uses compare two shares.
+
+$$\Rightarrow (A-C) \times unit$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow (A-C) \times unit$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow (A-C) \times unit$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 60$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 60$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 60$$
+
+Therefore, the requested value is 60.
+
+$$\Rightarrow 60$$","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","reversePartition","Medium","RAP-CP-002:RAP-QL-009:61006","rap-001:human-review:RAP-QL-009:RAP-CP-002:0","fnv1a-07c61b58","A family fund is divided among mother, sister, and father in the ratio 6:5:3. The share of mother exceeds the share of father by Rs. 390. Find the total fund.","A. 1870
+B. 1820
+C. 1920
+D. 1720","1","1820","Concept: this question uses recover the total from share difference.
+
+$$\Rightarrow difference = (A-C) \times unit$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow difference = (A-C) \times unit$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow difference = (A-C) \times unit$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 1820$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 1820$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 1820$$
+
+Therefore, the requested value is 1820.
+
+$$\Rightarrow 1820$$","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","salaryDistribution","Easy","RAP-CP-002:RAP-QL-011:14519","rap-001:human-review:RAP-QL-011:RAP-CP-002:0","fnv1a-098e4d22","Father's monthly expense-to-savings ratio is 7:4. If the monthly salary is Rs. 20900, find the monthly savings.","A. 7600
+B. 7700
+C. 7500
+D. 7650","0","7600","Concept: this question uses split salary into expenses and savings.
+
+$$\Rightarrow salary parts = expense + saving$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow salary parts = expense + saving$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow salary parts = expense + saving$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 7600$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 7600$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 7600$$
+
+Therefore, the requested value is 7600.
+
+$$\Rightarrow 7600$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-012","twoStateAddition","twoStateAddition","Hard","RAP-CP-003:RAP-QL-012:56855","rap-001:human-review:RAP-QL-012:RAP-CP-003:0","fnv1a-66d772af","Class has boys and girls in the ratio 2:4. After 9 more boys join, the ratio becomes 29:40. How many boys were there at the beginning?","A. 20
+B. 19
+C. 21
+D. 22","0","20","Concept: this question uses solve the ratio after addition.
+
+$$\Rightarrow \frac{ax+p}{bx} = \frac{c}{d}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{ax+p}{bx} = \frac{c}{d}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{ax+p}{bx} = \frac{c}{d}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 20$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 20$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 20$$
+
+Therefore, the requested value is 20.
+
+$$\Rightarrow 20$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-013","twoStateSubtraction","twoStateSubtraction","Hard","RAP-CP-003:RAP-QL-013:98230","rap-001:human-review:RAP-QL-013:RAP-CP-003:0","fnv1a-61a85a09","The ratio of boys to girls in a class is 6:5. After 6 boys leave, the ratio changes to 36:35. What was the total number of people at the start?","A. 78
+B. 79
+C. 76
+D. 77","3","77","Concept: this question uses solve the ratio after removal.
+
+$$\Rightarrow \frac{ax-p}{bx} = \frac{c}{d}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{ax-p}{bx} = \frac{c}{d}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{ax-p}{bx} = \frac{c}{d}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 77$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 77$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 77$$
+
+Therefore, the requested value is 77.
+
+$$\Rightarrow 77$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","twoStateSubtraction","Medium","RAP-CP-003:RAP-QL-113:64053","rap-001:human-review:RAP-QL-113:RAP-CP-003:0","fnv1a-f66a0e6a","The ratio of boys to girls in class is 5:4. After 19 boys leave, the ratio changes to 31:40. What was the total number of people at the start?","A. 89
+B. 91
+C. 90
+D. 92","2","90","Concept: this question uses solve the ratio after removal.
+
+$$\Rightarrow \frac{ax-p}{bx} = \frac{c}{d}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{ax-p}{bx} = \frac{c}{d}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{ax-p}{bx} = \frac{c}{d}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 90$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 90$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 90$$
+
+Therefore, the requested value is 90.
+
+$$\Rightarrow 90$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-014","twoStateTransfer","twoStateTransfer","Medium","RAP-CP-003:RAP-QL-014:39605","rap-001:human-review:RAP-QL-014:RAP-CP-003:0","fnv1a-8332f8ff","Two numbers are in the ratio 5:8. If 13 is added to each, the ratio becomes 28:37. What is the value of the larger number?","A. 24
+B. 23
+C. 26
+D. 25","0","24","Concept: this question uses solve the changed number ratio.
+
+$$\Rightarrow \frac{ax+p}{bx+p} = \frac{c}{d}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{ax+p}{bx+p} = \frac{c}{d}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{ax+p}{bx+p} = \frac{c}{d}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 24$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 24$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 24$$
+
+Therefore, the requested value is 24.
+
+$$\Rightarrow 24$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-214","twoStateTransfer","twoStateTransfer","Medium","RAP-CP-003:RAP-QL-214:71251","rap-001:human-review:RAP-QL-214:RAP-CP-003:0","fnv1a-92f6f488","Two numbers are in the ratio 2:9. If 16 is added to each, the ratio becomes 4:11. Find the larger number.","A. 72
+B. 73
+C. 71
+D. 74","0","72","Concept: this question uses solve the changed number ratio.
+
+$$\Rightarrow \frac{ax+p}{bx+p} = \frac{c}{d}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{ax+p}{bx+p} = \frac{c}{d}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{ax+p}{bx+p} = \frac{c}{d}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 72$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 72$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 72$$
+
+Therefore, the requested value is 72.
+
+$$\Rightarrow 72$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-015","incomeExpenditureSystem","incomeExpenditureSystem","Medium","RAP-CP-003:RAP-QL-015:80980","rap-001:human-review:RAP-QL-015:RAP-CP-003:0","fnv1a-26ac89de","The incomes of sister and son are in the ratio 6:4, and their expenses are 2:5. If both save Rs. 11000 each, what is sister's income?","A. 9100
+B. 9050
+C. 9000
+D. 8900","2","9000","Concept: this question uses compare income, expense, and saving.
+
+$$\Rightarrow px-my=s, qx-ny=s$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow px-my=s, qx-ny=s$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow px-my=s, qx-ny=s$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 9000$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 9000$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 9000$$
+
+Therefore, the requested value is 9000.
+
+$$\Rightarrow 9000$$","","","","","PENDING",""
+"RAP-001","RAP-CP-003","RAP-QL-016","multiStageTransformation","multiStageTransformation","Medium","RAP-CP-003:RAP-QL-016:22355","rap-001:human-review:RAP-QL-016:RAP-CP-003:0","fnv1a-c0ea041a","A school has boys and girls in the ratio 7:2. After 4 boys join and 8 girls leave, the ratio becomes 67:10. How many girls were there originally?","A. 18
+B. 17
+C. 19
+D. 20","0","18","Concept: this question uses track addition and removal together.
+
+$$\Rightarrow \frac{ax+p}{bx-q} = \frac{c}{d}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{ax+p}{bx-q} = \frac{c}{d}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{ax+p}{bx-q} = \frac{c}{d}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 18$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 18$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 18$$
+
+Therefore, the requested value is 18.
+
+$$\Rightarrow 18$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-017","meanProportional","meanProportional","Easy","RAP-CP-004:RAP-QL-017:64691","rap-001:human-review:RAP-QL-017:RAP-CP-004:0","fnv1a-de0a513a","What is the mean proportional between 9 and 100?","A. 29
+B. 31
+C. 30
+D. 32","2","30","Concept: this question uses find the mean proportional.
+
+$$\Rightarrow x^2 = ab$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow x^2 = ab$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow x^2 = ab$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 30$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 30$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 30$$
+
+Therefore, the requested value is 30.
+
+$$\Rightarrow 30$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","meanProportional","Easy","RAP-CP-004:RAP-QL-217:63633","rap-001:human-review:RAP-QL-217:RAP-CP-004:0","fnv1a-7142d7f6","Calculate the mean proportional between 25 and 144?","A. 60
+B. 62
+C. 59
+D. 61","0","60","Concept: this question uses find the mean proportional.
+
+$$\Rightarrow x^2 = ab$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow x^2 = ab$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow x^2 = ab$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 60$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 60$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 60$$
+
+Therefore, the requested value is 60.
+
+$$\Rightarrow 60$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-018","thirdProportional","thirdProportional","Medium","RAP-CP-004:RAP-QL-018:6066","rap-001:human-review:RAP-QL-018:RAP-CP-004:0","fnv1a-a35343ca","What will be the third proportional to 1 and 1?","A. 2
+B. 1
+C. 3
+D. 0","1","1","Concept: this question uses find the third proportional.
+
+$$\Rightarrow a:b = b:x$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow a:b = b:x$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow a:b = b:x$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 1$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 1$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 1$$
+
+Therefore, the requested value is 1.
+
+$$\Rightarrow 1$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-019","fourthProportional","fourthProportional","Medium","RAP-CP-004:RAP-QL-019:14737","rap-001:human-review:RAP-QL-019:RAP-CP-004:0","fnv1a-e97ff9c7","Find the number which is fourth proportional to 2, 3, and 16.","A. 24
+B. 26
+C. 23
+D. 25","0","24","Concept: this question uses find the fourth proportional.
+
+$$\Rightarrow a:b = c:x$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow a:b = c:x$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow a:b = c:x$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 24$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 24$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 24$$
+
+Therefore, the requested value is 24.
+
+$$\Rightarrow 24$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-219","fourthProportional","fourthProportional","Medium","RAP-CP-004:RAP-QL-219:46383","rap-001:human-review:RAP-QL-219:RAP-CP-004:0","fnv1a-0e2652b8","Determine the number which is fourth proportional to 2, 3, and 4.","A. 6
+B. 5
+C. 7
+D. 8","0","6","Concept: this question uses find the fourth proportional.
+
+$$\Rightarrow a:b = c:x$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow a:b = c:x$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow a:b = c:x$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 6$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 6$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 6$$
+
+Therefore, the requested value is 6.
+
+$$\Rightarrow 6$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-020","directVariation","directVariation","Medium","RAP-CP-004:RAP-QL-020:59579","rap-001:human-review:RAP-QL-020:RAP-CP-004:0","fnv1a-976bbbe0","If y varies directly as x, and y is 60 when x is 6, what will be the value of y when x is 7?","A. 69
+B. 72
+C. 70
+D. 71","2","70","Concept: this question uses use direct variation.
+
+$$\Rightarrow y/x = constant$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow y/x = constant$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow y/x = constant$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 70$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 70$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 70$$
+
+Therefore, the requested value is 70.
+
+$$\Rightarrow 70$$","","","","","PENDING",""
+"RAP-001","RAP-CP-004","RAP-QL-021","inverseVariation","inverseVariation","Medium","RAP-CP-004:RAP-QL-021:954","rap-001:human-review:RAP-QL-021:RAP-CP-004:0","fnv1a-959e131a","If y is inversely proportional to x, and y is 9 when x is 1, find the value of y when x becomes 1.","A. 10
+B. 11
+C. 9
+D. 8","2","9","Concept: this question uses use inverse variation.
+
+$$\Rightarrow xy = constant$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow xy = constant$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow xy = constant$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 9$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 9$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 9$$
+
+Therefore, the requested value is 9.
+
+$$\Rightarrow 9$$","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","coinCounting","Hard","RAP-CP-005:RAP-QL-022:43290","rap-001:human-review:RAP-QL-022:RAP-CP-005:0","fnv1a-996dfe51","A bag has coins of 1, 2, and 5 in the ratio 2:3:4. If the total value is Rs. 56, how many coins of 5 are in the bag?","A. 10
+B. 8
+C. 9
+D. 7","1","8","Concept: this question uses convert coin ratios into value.
+
+$$\Rightarrow total value = k(r_1d_1 + r_2d_2 + r_3d_3)$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow total value = k(r_1d_1 + r_2d_2 + r_3d_3)$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow total value = k(r_1d_1 + r_2d_2 + r_3d_3)$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 8$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 8$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 8$$
+
+Therefore, the requested value is 8.
+
+$$\Rightarrow 8$$","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-023","multiDenominationMapping","multiDenominationMapping","Hard","RAP-CP-005:RAP-QL-023:84665","rap-001:human-review:RAP-QL-023:RAP-CP-005:0","fnv1a-805d16f7","A box contains 22 coins of 1, 2, 5, and 10. If their values are in the ratio 2:5:15:35, what is the number of 2 coins?","A. 5
+B. 7
+C. 4
+D. 6","0","5","Concept: this question uses map value ratios to coin counts.
+
+$$\Rightarrow count ratio = value ratio / denomination$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow count ratio = value ratio / denomination$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow count ratio = value ratio / denomination$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 5$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 5$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 5$$
+
+Therefore, the requested value is 5.
+
+$$\Rightarrow 5$$","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","weightedMapping","Hard","RAP-CP-005:RAP-QL-024:93336","rap-001:human-review:RAP-QL-024:RAP-CP-005:0","fnv1a-d852474d","The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 10 coin are in the ratio 8:1:2. If 4 Rs. 1 coin, 5 Rs. 2 coin, and 1 Rs. 10 coin together weigh 39 g, find the weight of one Rs. 1 coin.","A. 9
+B. 7
+C. 10
+D. 8","3","8","Concept: this question uses use weighted ratio units.
+
+$$\Rightarrow total = unit(c_1r_1 + c_2r_2 + c_3r_3)$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow total = unit(c_1r_1 + c_2r_2 + c_3r_3)$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow total = unit(c_1r_1 + c_2r_2 + c_3r_3)$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 8$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 8$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 8$$
+
+Therefore, the requested value is 8.
+
+$$\Rightarrow 8$$","","","","","PENDING",""
+"RAP-001","RAP-CP-005","RAP-QL-026","weightedMarks","weightedMarks","Hard","RAP-CP-005:RAP-QL-026:76086","rap-001:human-review:RAP-QL-026:RAP-CP-005:0","fnv1a-4897d81b","Marks in Mathematics, English, and Science are in the ratio 1:2:3. Their weights are 3, 4, and 1, and the total weighted score is 84. How many marks were obtained in Mathematics?","A. 8
+B. 6
+C. 7
+D. 5","1","6","Concept: this question uses use subject weights with ratio marks.
+
+$$\Rightarrow weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 6$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 6$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 6$$
+
+Therefore, the requested value is 6.
+
+$$\Rightarrow 6$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-027","binaryMixture","binaryMixture","Hard","RAP-CP-006:RAP-QL-027:18422","rap-001:human-review:RAP-QL-027:RAP-CP-006:0","fnv1a-5b5027b6","A mixture contains milk and water in the ratio 4:5. If 1 litres of milk are added, the ratio becomes 41:50. What was the initial quantity of water?","A. 51
+B. 50
+C. 52
+D. 49","1","50","Concept: this question uses solve the two-component mixture.
+
+$$\Rightarrow \frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 50$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 50$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 50$$
+
+Therefore, the requested value is 50.
+
+$$\Rightarrow 50$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","mixtureComponentFinding","Easy","RAP-CP-006:RAP-QL-028:59797","rap-001:human-review:RAP-QL-028:RAP-CP-006:0","fnv1a-8d7bf3e9","A 22-litre mixture has milk and juice in the ratio 5:6. How many litres of juice should be added to make the ratio 5:8?","A. 4
+B. 5
+C. 3
+D. 6","0","4","Concept: this question uses add one component to reach a ratio.
+
+$$\Rightarrow \frac{A}{B+x} = \frac{f_1}{f_2}$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow \frac{A}{B+x} = \frac{f_1}{f_2}$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow \frac{A}{B+x} = \frac{f_1}{f_2}$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 4$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 4$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 4$$
+
+Therefore, the requested value is 4.
+
+$$\Rightarrow 4$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-029","threeComponentMixture","threeComponentMixture","Hard","RAP-CP-006:RAP-QL-029:1172","rap-001:human-review:RAP-QL-029:RAP-CP-006:0","fnv1a-f8432916","A solution has milk, water, and juice in the ratio 4:5:6. After adding 15 litres of water, the new ratio becomes 2:4:3. Find the starting volume.","A. 74
+B. 77
+C. 76
+D. 75","3","75","Concept: this question uses solve the three-component mixture.
+
+$$\Rightarrow use unchanged components as pivot$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow use unchanged components as pivot$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow use unchanged components as pivot$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 75$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 75$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 75$$
+
+Therefore, the requested value is 75.
+
+$$\Rightarrow 75$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-229","threeComponentMixture","threeComponentMixture","Easy","RAP-CP-006:RAP-QL-229:32818","rap-001:human-review:RAP-QL-229:RAP-CP-006:0","fnv1a-b86e6126","A solution has water, juice, and milk in the ratio 6:7:8. After adding 5 litres of juice, the new ratio becomes 36:47:48. Determine the starting volume.","A. 146
+B. 126
+C. 136
+D. 116","1","126","Concept: this question uses solve the three-component mixture.
+
+$$\Rightarrow use unchanged components as pivot$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow use unchanged components as pivot$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow use unchanged components as pivot$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 126$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 126$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 126$$
+
+Therefore, the requested value is 126.
+
+$$\Rightarrow 126$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-030","variableReplacementRatio","variableReplacementRatio","Hard","RAP-CP-006:RAP-QL-030:13310","rap-001:human-review:RAP-QL-030:RAP-CP-006:0","fnv1a-456e7285","From 70 litres of water, 10 litres are replaced with milk, and then 15 litres are again replaced with milk. What is the final ratio of water to milk?","A. 48:23
+B. 47:23
+C. 47:24
+D. 46:23","1","47:23","Concept: this question uses track repeated replacement.
+
+$$\Rightarrow A_{final} = A_0\left(1-\frac{r_1}{V}\right)\left(1-\frac{r_2}{V}\right)$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A_{final} = A_0\left(1-\frac{r_1}{V}\right)\left(1-\frac{r_2}{V}\right)$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A_{final} = A_0\left(1-\frac{r_1}{V}\right)\left(1-\frac{r_2}{V}\right)$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 47:23$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 47:23$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 47:23$$
+
+Therefore, the requested value is 23.
+
+$$\Rightarrow 23$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-230","variableReplacementRatio","variableReplacementRatio","Medium","RAP-CP-006:RAP-QL-230:44956","rap-001:human-review:RAP-QL-230:RAP-CP-006:0","fnv1a-4a7e255d","From 50 litres of milk, 15 litres are replaced with water, and then 5 litres are again replaced with water. Find the final ratio of milk to water.","A. 31:19
+B. 32:20
+C. 33:19
+D. 32:19","3","32:19","Concept: this question uses track repeated replacement.
+
+$$\Rightarrow A_{final} = A_0\left(1-\frac{r_1}{V}\right)\left(1-\frac{r_2}{V}\right)$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow A_{final} = A_0\left(1-\frac{r_1}{V}\right)\left(1-\frac{r_2}{V}\right)$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow A_{final} = A_0\left(1-\frac{r_1}{V}\right)\left(1-\frac{r_2}{V}\right)$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 32:19$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 32:19$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 32:19$$
+
+Therefore, the requested value is 19.
+
+$$\Rightarrow 19$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-032","acidConcentration","acidConcentration","Hard","RAP-CP-006:RAP-QL-032:96060","rap-001:human-review:RAP-QL-032:RAP-CP-006:0","fnv1a-7814ff36","A solution contains 30 litres of acid and 40 litres of water. What is the percentage of acid in the solution?","A. 43.8571%
+B. 41.8571%
+C. 57.1429%
+D. 42.8571\%","3","42.8571\%","Concept: this question uses find concentration percentage.
+
+$$\Rightarrow acid\% = \frac{acid}{acid + water} \times 100$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow acid\% = \frac{acid}{acid + water} \times 100$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow acid\% = \frac{acid}{acid + water} \times 100$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 42.8571$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 42.8571$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 42.8571$$
+
+Therefore, the requested value is 42.8571\%.
+
+$$\Rightarrow 42.8571\%$$","","","","","PENDING",""
+"RAP-001","RAP-CP-006","RAP-QL-232","acidConcentration","acidConcentration","Medium","RAP-CP-006:RAP-QL-232:27706","rap-001:human-review:RAP-QL-232:RAP-CP-006:0","fnv1a-99b8c88b","A solution contains 50 litres of acid and 90 litres of water. Find the percentage of acid in the solution.","A. 34.7143%
+B. 35.7143\%
+C. 64.2857%
+D. 36.7143%","1","35.7143\%","Concept: this question uses find concentration percentage.
+
+$$\Rightarrow acid\% = \frac{acid}{acid + water} \times 100$$
+
+Why: use one common ratio scale.
+
+$$\Rightarrow acid\% = \frac{acid}{acid + water} \times 100$$
+
+Use the common term or total to fix one ratio unit.
+
+$$\Rightarrow acid\% = \frac{acid}{acid + water} \times 100$$
+
+Evaluate the relation with the stated values.
+
+$$\Rightarrow 35.7143$$
+
+Reduce the result in the form requested.
+
+$$\Rightarrow 35.7143$$
+
+Check that it reproduces the stated relation or total.
+
+$$\Rightarrow 35.7143$$
+
+Therefore, the requested value is 35.7143\%.
+
+$$\Rightarrow 35.7143\%$$","","","","","PENDING",""

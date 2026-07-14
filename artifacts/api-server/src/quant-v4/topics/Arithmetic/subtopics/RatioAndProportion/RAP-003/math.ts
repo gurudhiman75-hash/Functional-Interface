@@ -15,7 +15,7 @@ export function simplifyRatio(values: readonly number[]) {
 }
 
 export function formatNumber(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Math.round(value * 10000) / 10000).replace(/\.?0+$/, "");
+  return Number.isInteger(value) ? String(value) : String(Math.round(value * 100) / 100).replace(/\.?0+$/, "");
 }
 
 export function ratioLatex(values: readonly number[]) {

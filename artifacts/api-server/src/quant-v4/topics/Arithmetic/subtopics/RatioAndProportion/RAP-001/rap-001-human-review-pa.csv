@@ -1,631 +1,391 @@
 packageId,cpId,qlId,taskKind,difficulty,stem,answer,explanation,stemRealism,solverCorrect,explanationQuality,optionQuality,editorialStatus,reviewNotes
 "RAP-001","RAP-CP-001","RAP-QL-403","ratioTreeLinkage","Hard","ਦਿੱਤਾ ਗਿਆ ਹੈ ਕਿ ਭੈਣ:ਪੁੱਤਰ = 2:3, ਪੁੱਤਰ:ਪਿਤਾ = 3:4 ਅਤੇ ਪਿਤਾ:ਪੁੱਤਰੀ = 4:5 ਹੈ। ਭੈਣ ਅਤੇ ਪੁੱਤਰੀ ਵਿਚਕਾਰ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।","$$2 : 5$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਭੈਣ:ਪੁੱਤਰ=2:3,\ ਪੁੱਤਰ:ਪਿਤਾ=3:4,\ ਪਿਤਾ:ਪੁੱਤਰੀ=4:5
-]
+$$\Rightarrow ਭੈਣ:ਪੁੱਤਰ=2:3,\ ਪੁੱਤਰ:ਪਿਤਾ=3:4,\ ਪਿਤਾ:ਪੁੱਤਰੀ=4:5$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)
-]
+$$\Rightarrow setup: \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 2\times3\times4:3\times4\times5
-]
+$$\Rightarrow 2\times3\times4:3\times4\times5$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(2:5\)
-]
+$$\Rightarrow calculation: \(2:5\)$$
 ਇਸ ਲਈ ਭੈਣ ਅਤੇ ਪੁੱਤਰੀ ਦਾ ਅਨੁਪਾਤ 2 : 5 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1302","ratioNormalization","Medium","6/3 : 6/2 ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।","$$2 : 3$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow \frac{6}{3}:\frac{6}{2}
-]
+$$\Rightarrow \frac{6}{3}:\frac{6}{2}$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 6\times2:3\times6
-]
+$$\Rightarrow 6\times2:3\times6$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(2:3\)
-]
+$$\Rightarrow calculation: \(2:3\)$$
 ਇਸ ਲਈ ਸਭ ਤੋਂ ਸਰਲ ਅਨੁਪਾਤ 2 : 3 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1202","ratioNormalization","Medium","6/2 : 3/3 ਨਾਲ ਸੰਬੰਧਿਤ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਦੀ ਗਿਣਤੀ ਕਰੋ।","$$3 : 1$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow \frac{6}{2}:\frac{3}{3}
-]
+$$\Rightarrow \frac{6}{2}:\frac{3}{3}$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 6\times3:2\times3
-]
+$$\Rightarrow 6\times3:2\times3$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(3:1\)
-]
+$$\Rightarrow calculation: \(3:1\)$$
 ਇਸ ਲਈ ਸਭ ਤੋਂ ਸਰਲ ਅਨੁਪਾਤ 3 : 1 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1102","ratioNormalization","Medium","3/3 : 4/2 ਭਿੰਨ ਅਨੁਪਾਤ ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਦਰਸਾਓ।","$$1 : 2$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow \frac{3}{3}:\frac{4}{2}
-]
+$$\Rightarrow \frac{3}{3}:\frac{4}{2}$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 3\times2:3\times4
-]
+$$\Rightarrow 3\times2:3\times4$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(1:2\)
-]
+$$\Rightarrow calculation: \(1:2\)$$
 ਇਸ ਲਈ ਸਭ ਤੋਂ ਸਰਲ ਅਨੁਪਾਤ 1 : 2 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1002","ratioNormalization","Medium","4/2 : 9/3 ਲਈ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਨਿਰਧਾਰਤ ਕਰੋ।","$$2 : 3$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow \frac{4}{2}:\frac{9}{3}
-]
+$$\Rightarrow \frac{4}{2}:\frac{9}{3}$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 4\times3:2\times9
-]
+$$\Rightarrow 4\times3:2\times9$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(2:3\)
-]
+$$\Rightarrow calculation: \(2:3\)$$
 ਇਸ ਲਈ ਸਭ ਤੋਂ ਸਰਲ ਅਨੁਪਾਤ 2 : 3 ਹੈ।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","ਅਧਿਆਪਕ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 6:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 10800 ਹੈ, ਤਾਂ ਅਧਿਆਪਕ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।","$$3600$$","ਦਿੱਤਾ ਸੰਬੰਧ
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 6:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 10800 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।","$$3600$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow \text{Exp:Sav}=6:3,\ S=10800
-]
+$$\Rightarrow \text{Exp:Sav}=6:3,\ S=10800$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(salary parts = expense + saving\)
-]
+$$\Rightarrow setup: \(salary parts = expense + saving\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{10800}{9}\times3
-]
+$$\Rightarrow \frac{10800}{9}\times3$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(3600\)
-]
-ਇਸ ਲਈ ਅਧਿਆਪਕ ਹਰ ਮਹੀਨੇ 3600 ਰੁਪਏ ਬਚਾਉਂਦੇ ਹਨ।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","ਲੜਕੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 7:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 11000 ਹੈ, ਤਾਂ ਲੜਕੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।","$$3300$$","ਦਿੱਤਾ ਸੰਬੰਧ
+$$\Rightarrow calculation: \(3600\)$$
+ਇਸ ਲਈ ਪਿਤਾ ਹਰ ਮਹੀਨੇ 3600 ਰੁਪਏ ਬਚਾਉਂਦਾ ਹੈ।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 7:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 11000 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।","$$3300$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow \text{Exp:Sav}=7:3,\ S=11000
-]
+$$\Rightarrow \text{Exp:Sav}=7:3,\ S=11000$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(salary parts = expense + saving\)
-]
+$$\Rightarrow setup: \(salary parts = expense + saving\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{11000}{10}\times3
-]
+$$\Rightarrow \frac{11000}{10}\times3$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(3300\)
-]
-ਇਸ ਲਈ ਲੜਕੇ ਹਰ ਮਹੀਨੇ 3300 ਰੁਪਏ ਬਚਾਉਂਦੇ ਹਨ।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਦੇ ਹਿੱਸੇ 8:7:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਲੜਕੇ ਨਾਲੋਂ Rs. 180 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।","$$1200$$","ਦਿੱਤਾ ਸੰਬੰਧ
+$$\Rightarrow calculation: \(3300\)$$
+ਇਸ ਲਈ ਪਿਤਾ ਹਰ ਮਹੀਨੇ 3300 ਰੁਪਏ ਬਚਾਉਂਦਾ ਹੈ।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","ਪਿਤਾ, ਭਰਾ ਅਤੇ ਪੁੱਤਰ ਦੇ ਹਿੱਸੇ 8:7:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਪਿਤਾ ਨੂੰ ਪੁੱਤਰ ਨਾਲੋਂ Rs. 180 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।","$$1200$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਲੜਕੀਆਂ:ਅਧਿਆਪਕ:ਲੜਕੇ=8:7:5,\ D=180
-]
+$$\Rightarrow ਪਿਤਾ:ਭਰਾ:ਪੁੱਤਰ=8:7:5,\ D=180$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(difference = (A-C) \times unit\)
-]
+$$\Rightarrow setup: \(difference = (A-C) \times unit\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{180}{3}\times20
-]
+$$\Rightarrow \frac{180}{3}\times20$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(1200\)
-]
+$$\Rightarrow calculation: \(1200\)$$
 ਇਸ ਲਈ ਕੁੱਲ ਰਕਮ 1200 ਹੈ।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 5:4:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 420 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।","$$1540$$","ਦਿੱਤਾ ਸੰਬੰਧ
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","ਮਾਤਾ, ਭਰਾ ਅਤੇ ਪੁੱਤਰ ਦੇ ਹਿੱਸੇ 5:4:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਮਾਤਾ ਨੂੰ ਪੁੱਤਰ ਨਾਲੋਂ Rs. 420 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।","$$1540$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ=5:4:2,\ D=420
-]
+$$\Rightarrow ਮਾਤਾ:ਭਰਾ:ਪੁੱਤਰ=5:4:2,\ D=420$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(difference = (A-C) \times unit\)
-]
+$$\Rightarrow setup: \(difference = (A-C) \times unit\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{420}{3}\times11
-]
+$$\Rightarrow \frac{420}{3}\times11$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(1540\)
-]
+$$\Rightarrow calculation: \(1540\)$$
 ਇਸ ਲਈ ਕੁੱਲ ਰਕਮ 1540 ਹੈ।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਦੇ ਹਿੱਸੇ 6:5:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਲੜਕੇ ਨਾਲੋਂ Rs. 120 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।","$$390$$","ਦਿੱਤਾ ਸੰਬੰਧ
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","ਭੈਣ, ਪੁੱਤਰ ਅਤੇ ਪਿਤਾ ਦੇ ਹਿੱਸੇ 6:5:2 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਭੈਣ ਨੂੰ ਪਿਤਾ ਨਾਲੋਂ Rs. 120 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।","$$390$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਲੜਕੀਆਂ:ਅਧਿਆਪਕ:ਲੜਕੇ=6:5:2,\ D=120
-]
+$$\Rightarrow ਭੈਣ:ਪੁੱਤਰ:ਪਿਤਾ=6:5:2,\ D=120$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(difference = (A-C) \times unit\)
-]
+$$\Rightarrow setup: \(difference = (A-C) \times unit\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{120}{4}\times13
-]
+$$\Rightarrow \frac{120}{4}\times13$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(390\)
-]
+$$\Rightarrow calculation: \(390\)$$
 ਇਸ ਲਈ ਕੁੱਲ ਰਕਮ 390 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 5:4 ਹੈ। 7 ਲੜਕੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ 43:40 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ।","$$90$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਲੜਕੇ:ਲੜਕੀਆਂ=5:4,\ -7\ ਲੜਕੇ
-]
+$$\Rightarrow ਲੜਕੇ:ਲੜਕੀਆਂ=5:4,\ -7\ ਲੜਕੇ$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 40(5x-7)=172x
-]
+$$\Rightarrow 40(5x-7)=172x$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(90\)
-]
+$$\Rightarrow calculation: \(90\)$$
 ਇਸ ਲਈ ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ 90 ਲੋਕ ਸਨ।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:7 ਹੈ। 13 ਲੜਕੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ 75:77 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ।","$$165$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਲੜਕੇ:ਲੜਕੀਆਂ=8:7,\ -13\ ਲੜਕੇ
-]
+$$\Rightarrow ਲੜਕੇ:ਲੜਕੀਆਂ=8:7,\ -13\ ਲੜਕੇ$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 77(8x-13)=525x
-]
+$$\Rightarrow 77(8x-13)=525x$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(165\)
-]
+$$\Rightarrow calculation: \(165\)$$
 ਇਸ ਲਈ ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ 165 ਲੋਕ ਸਨ।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","ਇੱਕ ਜਮਾਤ ਵਿੱਚ ਲੜਕੇ ਅਤੇ ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 9:2 ਹੈ। 19 ਲੜਕੇ ਦੇ ਚਲੇ ਜਾਣ ਨਾਲ ਅਨੁਪਾਤ 89:24 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਲੋਕ ਸਨ।","$$132$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਲੜਕੇ:ਲੜਕੀਆਂ=9:2,\ -19\ ਲੜਕੇ
-]
+$$\Rightarrow ਲੜਕੇ:ਲੜਕੀਆਂ=9:2,\ -19\ ਲੜਕੇ$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 24(9x-19)=178x
-]
+$$\Rightarrow 24(9x-19)=178x$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(132\)
-]
+$$\Rightarrow calculation: \(132\)$$
 ਇਸ ਲਈ ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ 132 ਲੋਕ ਸਨ।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-214","twoStateTransfer","Medium","ਦੋ ਸੰਖਿਆਵਾਂ 5:7 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 6 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 31:41 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।","$$35$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 5:7,\ +6
-]
+$$\Rightarrow 5:7,\ +6$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 41(5x+6)=31(7x-6)
-]
+$$\Rightarrow 41(5x+6)=31(7x-6)$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(35\)
-]
+$$\Rightarrow calculation: \(35\)$$
 ਇਸ ਲਈ ਵੱਡੀ ਸੰਖਿਆ 35 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-014","twoStateTransfer","Medium","ਦੋ ਸੰਖਿਆਵਾਂ 8:9 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਹਰੇਕ ਵਿੱਚ 20 ਜੋੜ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 44:47 ਹੋ ਜਾਂਦਾ ਹੈ। ਵੱਡੀ ਸੰਖਿਆ ਦਾ ਮੁੱਲ ਕੀ ਹੈ।","$$27$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 8:9,\ +20
-]
+$$\Rightarrow 8:9,\ +20$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 47(8x+20)=44(9x-20)
-]
+$$\Rightarrow 47(8x+20)=44(9x-20)$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(27\)
-]
+$$\Rightarrow calculation: \(27\)$$
 ਇਸ ਲਈ ਵੱਡੀ ਸੰਖਿਆ 27 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","100 ਅਤੇ 9 ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।","$$30$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 100,\ 9
-]
+$$\Rightarrow 100,\ 9$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(x^2 = ab\)
-]
+$$\Rightarrow setup: \(x^2 = ab\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow x=\sqrt{100\times9}
-]
+$$\Rightarrow x=\sqrt{100\times9}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(30\)
-]
+$$\Rightarrow calculation: \(30\)$$
 ਇਸ ਲਈ ਮੱਧ ਅਨੁਪਾਤੀ 30 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-020","directVariation","Medium","ਜੇ y, x ਦੇ ਨਾਲ ਸਿੱਧੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ x = 4 ਤਾਂ y = 20 ਹੈ। ਜਦੋਂ x ਦਾ ਮੁੱਲ 5 ਹੋਵੇਗਾ, ਤਾਂ y ਕਿੰਨਾ ਹੋਵੇਗਾ।","$$25$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow y\propto x,\ x=4,\ y=20
-]
+$$\Rightarrow y\propto x,\ x=4,\ y=20$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(y/x = constant\)
-]
+$$\Rightarrow setup: \(y/x = constant\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{20}{4}=\frac{y}{5}
-]
+$$\Rightarrow \frac{20}{4}=\frac{y}{5}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(25\)
-]
+$$\Rightarrow calculation: \(25\)$$
 ਇਸ ਲਈ y ਦਾ ਮੁੱਲ 25 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","144 ਅਤੇ 25 ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।","$$60$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 144,\ 25
-]
+$$\Rightarrow 144,\ 25$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(x^2 = ab\)
-]
+$$\Rightarrow setup: \(x^2 = ab\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow x=\sqrt{144\times25}
-]
+$$\Rightarrow x=\sqrt{144\times25}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(60\)
-]
+$$\Rightarrow calculation: \(60\)$$
 ਇਸ ਲਈ ਮੱਧ ਅਨੁਪਾਤੀ 60 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","49 ਅਤੇ 36 ਦੇ ਵਿਚਕਾਰ ਮੱਧ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।","$$42$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 49,\ 36
-]
+$$\Rightarrow 49,\ 36$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(x^2 = ab\)
-]
+$$\Rightarrow setup: \(x^2 = ab\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow x=\sqrt{49\times36}
-]
+$$\Rightarrow x=\sqrt{49\times36}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(42\)
-]
+$$\Rightarrow calculation: \(42\)$$
 ਇਸ ਲਈ ਮੱਧ ਅਨੁਪਾਤੀ 42 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-021","inverseVariation","Medium","ਜੇ y, x ਦੇ ਉਲਟ ਅਨੁਪਾਤ ਵਿੱਚ ਹੈ ਅਤੇ ਜਦੋਂ x = 7 ਤਾਂ y = 14 ਹੈ। ਜੇ x ਦਾ ਮੁੱਲ ਬਦਲ ਕੇ 2 ਹੋ ਜਾਵੇ, ਤਾਂ y ਕਿੰਨਾ ਹੋਵੇਗਾ।","$$49$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow y\propto \frac{1}{x},\ x=7,\ y=14
-]
+$$\Rightarrow y\propto \frac{1}{x},\ x=7,\ y=14$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(xy = constant\)
-]
+$$\Rightarrow setup: \(xy = constant\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 7\times14=2\times y
-]
+$$\Rightarrow 7\times14=2\times y$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(49\)
-]
+$$\Rightarrow calculation: \(49\)$$
 ਇਸ ਲਈ y ਦਾ ਮੁੱਲ 49 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇ 2 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 40 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।","$$2$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 2\cdot1+3\cdot2+4\cdot3=40
-]
+$$\Rightarrow 2\cdot1+3\cdot2+4\cdot3=40$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
+$$\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{40}{2\times1+3\times2+4\times3}
-]
+$$\Rightarrow \frac{40}{2\times1+3\times2+4\times3}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(2\)
-]
+$$\Rightarrow calculation: \(2\)$$
 ਇਸ ਲਈ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ 2 ਕਿਲੋਗ੍ਰਾਮ ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-023","multiDenominationMapping","Hard","ਇੱਕ ਬਾਕਸ ਵਿੱਚ 1, 2, 5 ਅਤੇ 10 ਦੇ ਕੁੱਲ 18 ਸਿੱਕੇ ਹਨ। ਜੇ ਉਨ੍ਹਾਂ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅਨੁਪਾਤ 3:8:25:60 ਹੈ, ਤਾਂ 5 ਦੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ ਕੀ ਹੈ।","$$5$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 3:8:25:60,\ N=18
-]
+$$\Rightarrow 3:8:25:60,\ N=18$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(count ratio = value ratio / denomination\)
-]
+$$\Rightarrow setup: \(count ratio = value ratio / denomination\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{3}{1}:\frac{4}{1}:\frac{5}{1}:\frac{6}{1}
-]
+$$\Rightarrow \frac{3}{1}:\frac{4}{1}:\frac{5}{1}:\frac{6}{1}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(5\)
-]
+$$\Rightarrow calculation: \(5\)$$
 ਇਸ ਲਈ 5 ਰੁਪਏ ਵਾਲੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ 5 ਹੈ।","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","Hard","ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 3:4:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 144 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।","$$12$$","ਦਿੱਤਾ ਸੰਬੰਧ
+"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","Hard","ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 3:4:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 36 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।","$$3$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 3:4:5,\ V=144
-]
+$$\Rightarrow 3:4:5,\ V=36$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)
-]
+$$\Rightarrow setup: \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow x=\frac{144}{3\times1+4\times2+5\times5}
-]
+$$\Rightarrow x=\frac{36}{3\times1+4\times2+5\times5}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(12\)
-]
-ਇਸ ਲਈ 1 ਰੁਪਏ ਵਾਲੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ 12 ਹੈ।","","","","","PENDING",""
+$$\Rightarrow calculation: \(3\)$$
+ਇਸ ਲਈ 1 ਰੁਪਏ ਵਾਲੇ ਸਿੱਕਿਆਂ ਦੀ ਗਿਣਤੀ 3 ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-026","weightedMarks","Hard","ਇੱਕ ਪ੍ਰੀਖਿਆ ਵਿੱਚ ਇਤਿਹਾਸ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਵਿਗਿਆਨ ਦੇ ਅੰਕਾਂ ਦਾ ਅਨੁਪਾਤ 7:8:1 ਹੈ। ਜੇ ਇਨ੍ਹਾਂ ਵਿਸ਼ਿਆਂ ਦਾ ਭਾਰ ਕ੍ਰਮਵਾਰ 1, 2 ਅਤੇ 3 ਹੈ ਅਤੇ ਕੁੱਲ ਭਾਰਿਤ ਅੰਕ 208 ਹਨ, ਤਾਂ ਇਤਿਹਾਸ ਵਿੱਚ ਕਿੰਨੇ ਅੰਕ ਪ੍ਰਾਪਤ ਹੋਏ।","$$56$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 7:8:1,\ W=208
-]
+$$\Rightarrow 7:8:1,\ W=208$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)
-]
+$$\Rightarrow setup: \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{208}{7\times1+8\times2+1\times3}
-]
+$$\Rightarrow \frac{208}{7\times1+8\times2+1\times3}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(56\)
-]
+$$\Rightarrow calculation: \(56\)$$
 ਇਸ ਲਈ ਇਤਿਹਾਸ ਵਿੱਚ ਪ੍ਰਾਪਤ ਅੰਕ 56 ਹਨ।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ 5 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 2 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 270 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।","$$30$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow 5\cdot5+1\cdot6+2\cdot7=270
-]
+$$\Rightarrow 5\cdot5+1\cdot6+2\cdot7=270$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
+$$\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{270}{5\times5+1\times6+2\times7}
-]
+$$\Rightarrow \frac{270}{5\times5+1\times6+2\times7}$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(30\)
-]
+$$\Rightarrow calculation: \(30\)$$
 ਇਸ ਲਈ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ 30 ਕਿਲੋਗ੍ਰਾਮ ਹੈ।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-229","threeComponentMixture","Hard","ਇੱਕ ਘੋਲ ਵਿੱਚ ਦੁੱਧ, ਜੂਸ ਅਤੇ ਪਾਣੀ ਦਾ ਅਨੁਪਾਤ 6:7:8 ਹੈ। 17 ਲੀਟਰ ਜੂਸ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 48:73:64 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।","$$168$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਦੁੱਧ:ਜੂਸ:ਪਾਣੀ=6:7:8,\ +17\ ਜੂਸ
-]
+$$\Rightarrow ਦੁੱਧ:ਜੂਸ:ਪਾਣੀ=6:7:8,\ +17\ ਜੂਸ$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(use unchanged components as pivot\)
-]
+$$\Rightarrow setup: \(use unchanged components as pivot\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 8\times(6+7+8)
-]
+$$\Rightarrow 8\times(6+7+8)$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(168\)
-]
+$$\Rightarrow calculation: \(168\)$$
 ਇਸ ਲਈ ਸ਼ੁਰੂਆਤੀ ਕੁੱਲ ਮਾਤਰਾ 168 ਲੀਟਰ ਸੀ।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-029","threeComponentMixture","Hard","ਇੱਕ ਘੋਲ ਵਿੱਚ ਪਾਣੀ, ਦੁੱਧ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। 10 ਲੀਟਰ ਦੁੱਧ ਮਿਲਾਉਣ ਤੇ ਨਵਾਂ ਅਨੁਪਾਤ 15:23:21 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਕੁੱਲ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।","$$108$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਪਾਣੀ:ਦੁੱਧ:ਜੂਸ=5:6:7,\ +10\ ਦੁੱਧ
-]
+$$\Rightarrow ਪਾਣੀ:ਦੁੱਧ:ਜੂਸ=5:6:7,\ +10\ ਦੁੱਧ$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(use unchanged components as pivot\)
-]
+$$\Rightarrow setup: \(use unchanged components as pivot\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 5.999999999999999\times(5+6+7)
-]
+$$\Rightarrow 5.999999999999999\times(5+6+7)$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(107.99999999999999\)
-]
+$$\Rightarrow calculation: \(107.99999999999999\)$$
 ਇਸ ਲਈ ਸ਼ੁਰੂਆਤੀ ਕੁੱਲ ਮਾਤਰਾ 108 ਲੀਟਰ ਸੀ।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","ਮਿਸ਼ਰਣ ਦੇ 78 ਲੀਟਰ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 36:49 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਦੁੱਧ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।","$$7$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਪਾਣੀ:ਦੁੱਧ=6:7,\ T=78
-]
+$$\Rightarrow ਪਾਣੀ:ਦੁੱਧ=6:7,\ T=78$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
+$$\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{36\times49}{36}-42
-]
+$$\Rightarrow \frac{36\times49}{36}-42$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(7\)
-]
+$$\Rightarrow calculation: \(7\)$$
 ਇਸ ਲਈ ਦੁੱਧ ਦੇ 7 ਲੀਟਰ ਹੋਰ ਮਿਲਾਉਣੇ ਪੈਣਗੇ।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-027","binaryMixture","Medium","ਇੱਕ ਮਿਸ਼ਰਣ ਵਿੱਚ ਪਾਣੀ ਅਤੇ ਜੂਸ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ। ਜੇ ਇਸ ਵਿੱਚ 16 ਲੀਟਰ ਪਾਣੀ ਮਿਲਾ ਦਿੱਤਾ ਜਾਵੇ, ਤਾਂ ਅਨੁਪਾਤ 3:2 ਹੋ ਜਾਂਦਾ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ਜੂਸ ਦੀ ਮਾਤਰਾ ਕਿੰਨੀ ਸੀ।","$$24$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਪਾਣੀ:ਜੂਸ=5:6,\ +16\ ਪਾਣੀ
-]
+$$\Rightarrow ਪਾਣੀ:ਜੂਸ=5:6,\ +16\ ਪਾਣੀ$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)
-]
+$$\Rightarrow setup: \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow 2\times16\div(6\times3-5\times2)
-]
+$$\Rightarrow 2\times16\div(6\times3-5\times2)$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(24\)
-]
+$$\Rightarrow calculation: \(24\)$$
 ਇਸ ਲਈ ਸ਼ੁਰੂ ਵਿੱਚ ਜੂਸ ਦੀ ਮਾਤਰਾ 24 ਲੀਟਰ ਸੀ।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","ਮਿਸ਼ਰਣ ਦੇ 18 ਲੀਟਰ ਵਿੱਚ ਜੂਸ ਅਤੇ ਦੁੱਧ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ। ਅਨੁਪਾਤ ਨੂੰ 8:23 ਬਣਾਉਣ ਲਈ ਕਿੰਨੇ ਲੀਟਰ ਦੁੱਧ ਹੋਰ ਮਿਲਾਉਣਾ ਪਵੇਗਾ।","$$13$$","ਦਿੱਤਾ ਸੰਬੰਧ
 
-[
-\Rightarrow ਜੂਸ:ਦੁੱਧ=4:5,\ T=18
-]
+$$\Rightarrow ਜੂਸ:ਦੁੱਧ=4:5,\ T=18$$
 ਨਿਯਮ ਲਿਖੋ
 
-[
-\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
+$$\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)$$
 ਮੁੱਲ ਰੱਖੋ
 
-[
-\Rightarrow \frac{8\times23}{8}-10
-]
+$$\Rightarrow \frac{8\times23}{8}-10$$
 ਸਰਲ ਕਰੋ
 
-[
-\Rightarrow calculation: \(13\)
-]
+$$\Rightarrow calculation: \(13\)$$
 ਇਸ ਲਈ ਦੁੱਧ ਦੇ 13 ਲੀਟਰ ਹੋਰ ਮਿਲਾਉਣੇ ਪੈਣਗੇ।","","","","","PENDING",""

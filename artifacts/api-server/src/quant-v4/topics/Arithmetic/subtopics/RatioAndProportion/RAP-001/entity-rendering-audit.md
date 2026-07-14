@@ -1,7 +1,5 @@
 # RAP-001 Entity Rendering Audit
 
-Reviewed commit/date: `8450deef2e06cc9e031b6d3221b7e54d226199b1`, `2026-07-10`
-
 Sample count: 100
 
 --------------------------------
@@ -10,21 +8,21 @@ Sample 1
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: son
+personBId: sister
+personCId: daughter
 
 English rendering
 
-Girls:boys = 4:5 and boys:teachers = 5:6. Find girls:boys:teachers.
+Son:sister = 4:5 and sister:daughter = 5:6. Find son:sister:daughter.
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 4:5 है और लड़के:शिक्षक का अनुपात 5:6 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
+यदि पुत्र:बहन का अनुपात 4:5 है और बहन:पुत्री का अनुपात 5:6 है, तो पुत्र:बहन:पुत्री का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
+ਜੇ ਪੁੱਤਰ:ਭੈਣ ਦਾ ਅਨੁਪਾਤ 4:5 ਹੈ ਅਤੇ ਭੈਣ:ਪੁੱਤਰੀ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ, ਤਾਂ ਪੁੱਤਰ:ਭੈਣ:ਪੁੱਤਰੀ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -34,21 +32,21 @@ Sample 2
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: son
+personBId: brother
+personCId: mother
 
 English rendering
 
-The ratio of girls to boys is 5:6, while the ratio of boys to teachers is 6:7. What is the combined ratio of all three?
+The ratio of son to brother is 5:6, while the ratio of brother to mother is 6:7. What is the combined ratio of all three?
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 5:6 है और लड़के:शिक्षक का अनुपात 6:7 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
+यदि पुत्र:भाई का अनुपात 5:6 है और भाई:माता का अनुपात 6:7 है, तो पुत्र:भाई:माता का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
+ਜੇ ਪੁੱਤਰ:ਭਰਾ ਦਾ ਅਨੁਪਾਤ 5:6 ਹੈ ਅਤੇ ਭਰਾ:ਮਾਤਾ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ, ਤਾਂ ਪੁੱਤਰ:ਭਰਾ:ਮਾਤਾ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -58,21 +56,21 @@ Sample 3
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: mother
+personBId: sister
+personCId: son
 
 English rendering
 
-Girls and boys are in the ratio 6:7. boys and teachers are in the ratio 7:8. Write the ratio girls:boys:teachers.
+Mother and sister are in the ratio 6:7. sister and son are in the ratio 7:8. Write the ratio mother:sister:son.
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 6:7 है और लड़के:शिक्षक का अनुपात 7:8 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
+यदि माता:बहन का अनुपात 6:7 है और बहन:पुत्र का अनुपात 7:8 है, तो माता:बहन:पुत्र का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
+ਜੇ ਮਾਤਾ:ਭੈਣ ਦਾ ਅਨੁਪਾਤ 6:7 ਹੈ ਅਤੇ ਭੈਣ:ਪੁੱਤਰ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ, ਤਾਂ ਮਾਤਾ:ਭੈਣ:ਪੁੱਤਰ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -82,21 +80,21 @@ Sample 4
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: son
+personBId: sister
+personCId: father
 
 English rendering
 
-Two linked ratios are given: girls:boys = 7:8 and boys:teachers = 8:1. Combine them into girls:boys:teachers.
+Two linked ratios are given: son:sister = 7:8 and sister:father = 8:1. Combine them into son:sister:father.
 
 Hindi rendering
 
-यदि लड़कियां:लड़के का अनुपात 7:8 है और लड़के:शिक्षक का अनुपात 8:1 है, तो लड़कियां:लड़के:शिक्षक का संयुक्त अनुपात क्या होगा।
+यदि पुत्र:बहन का अनुपात 7:8 है और बहन:पिता का अनुपात 8:1 है, तो पुत्र:बहन:पिता का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਜੇ ਲੜਕੀਆਂ:ਲੜਕੇ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ ਅਤੇ ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ:ਲੜਕੇ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
+ਜੇ ਪੁੱਤਰ:ਭੈਣ ਦਾ ਅਨੁਪਾਤ 7:8 ਹੈ ਅਤੇ ਭੈਣ:ਪਿਤਾ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ, ਤਾਂ ਪੁੱਤਰ:ਭੈਣ:ਪਿਤਾ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -106,21 +104,21 @@ Sample 5
 
 IDs
 
-personAId: boys
-personBId: girls
-personCId: teachers
+personAId: father
+personBId: brother
+personCId: son
 
 English rendering
 
-Given boys:girls = 8:1 and girls:teachers = 1:2, find the single ratio connecting boys, girls, and teachers.
+Given father:brother = 8:1 and brother:son = 1:2, find the single ratio connecting father, brother, and son.
 
 Hindi rendering
 
-यदि लड़के:लड़कियां का अनुपात 8:1 है और लड़कियां:शिक्षक का अनुपात 1:2 है, तो लड़के:लड़कियां:शिक्षक का संयुक्त अनुपात क्या होगा।
+यदि पिता:भाई का अनुपात 8:1 है और भाई:पुत्र का अनुपात 1:2 है, तो पिता:भाई:पुत्र का संयुक्त अनुपात क्या होगा।
 
 Punjabi rendering
 
-ਜੇ ਲੜਕੇ:ਲੜਕੀਆਂ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ ਅਤੇ ਲੜਕੀਆਂ:ਅਧਿਆਪਕ ਦਾ ਅਨੁਪਾਤ 1:2 ਹੈ, ਤਾਂ ਲੜਕੇ:ਲੜਕੀਆਂ:ਅਧਿਆਪਕ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
+ਜੇ ਪਿਤਾ:ਭਰਾ ਦਾ ਅਨੁਪਾਤ 8:1 ਹੈ ਅਤੇ ਭਰਾ:ਪੁੱਤਰ ਦਾ ਅਨੁਪਾਤ 1:2 ਹੈ, ਤਾਂ ਪਿਤਾ:ਭਰਾ:ਪੁੱਤਰ ਦਾ ਸਾਂਝਾ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -340,19 +338,19 @@ Sample 16
 
 IDs
 
-personAId: teachers
+personAId: father
 
 English rendering
 
-For teachers, the monthly expense-to-savings ratio is 7:1. If the total salary is Rs. 35200, find the monthly savings.
+Father's monthly expense-to-savings ratio is 7:1. If the monthly salary is Rs. 35200, find the monthly savings.
 
 Hindi rendering
 
-शिक्षक के मासिक खर्च और बचत का अनुपात 7:1 है। यदि कुल वेतन Rs. 35200 है, तो शिक्षक हर महीने कितनी बचत करता है।
+पिता के मासिक खर्च और बचत का अनुपात 7:1 है। यदि कुल वेतन Rs. 35200 है, तो पिता हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਅਧਿਆਪਕ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 7:1 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 35200 ਹੈ, ਤਾਂ ਅਧਿਆਪਕ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
+ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 7:1 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 35200 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -411,21 +409,21 @@ Sample 19
 
 IDs
 
-personAId: girls
-personBId: teachers
-personCId: boys
+personAId: sister
+personBId: son
+personCId: father
 
 English rendering
 
-The shares of girls, teachers, and boys are in the ratio 5:4:4. If girls gets Rs. 140 more than boys, how much was the total amount distributed?
+A family fund is divided among sister, son, and father in the ratio 5:4:4. The share of sister exceeds the share of father by Rs. 140. Find the total fund.
 
 Hindi rendering
 
-लड़कियां, शिक्षक और लड़के के हिस्से 5:4:4 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 140 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
+बहन, पुत्र और पिता के हिस्से 5:4:4 के अनुपात में हैं। यदि बहन को पिता से Rs. 140 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਦੇ ਹਿੱਸੇ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਲੜਕੇ ਨਾਲੋਂ Rs. 140 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
+ਭੈਣ, ਪੁੱਤਰ ਅਤੇ ਪਿਤਾ ਦੇ ਹਿੱਸੇ 5:4:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਭੈਣ ਨੂੰ ਪਿਤਾ ਨਾਲੋਂ Rs. 140 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -435,19 +433,19 @@ Sample 20
 
 IDs
 
-personAId: boys
+personAId: father
 
 English rendering
 
-For boys, the monthly expense-to-savings ratio is 4:1. If the total salary is Rs. 20000, find the monthly savings.
+Father's monthly expense-to-savings ratio is 4:1. If the monthly salary is Rs. 20000, find the monthly savings.
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 4:1 है। यदि कुल वेतन Rs. 20000 है, तो लड़के हर महीने कितनी बचत करता है।
+पिता के मासिक खर्च और बचत का अनुपात 4:1 है। यदि कुल वेतन Rs. 20000 है, तो पिता हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਲੜਕੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:1 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 20000 ਹੈ, ਤਾਂ ਲੜਕੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
+ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 4:1 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 20000 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -506,21 +504,21 @@ Sample 23
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: son
+personBId: sister
+personCId: daughter
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 8:7:1. If girls gets Rs. 350 more than teachers, how much was the total amount distributed?
+A family fund is divided among son, sister, and daughter in the ratio 8:7:1. The share of son exceeds the share of daughter by Rs. 350. Find the total fund.
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 8:7:1 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 350 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
+पुत्र, बहन और पुत्री के हिस्से 8:7:1 के अनुपात में हैं। यदि पुत्र को पुत्री से Rs. 350 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 8:7:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 350 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
+ਪੁੱਤਰ, ਭੈਣ ਅਤੇ ਪੁੱਤਰੀ ਦੇ ਹਿੱਸੇ 8:7:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਪੁੱਤਰ ਨੂੰ ਪੁੱਤਰੀ ਨਾਲੋਂ Rs. 350 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -530,19 +528,19 @@ Sample 24
 
 IDs
 
-personAId: boys
+personAId: father
 
 English rendering
 
-For boys, the monthly expense-to-savings ratio is 5:2. If the total salary is Rs. 10500, find the monthly savings.
+Father's monthly expense-to-savings ratio is 5:2. If the monthly salary is Rs. 10500, find the monthly savings.
 
 Hindi rendering
 
-लड़के के मासिक खर्च और बचत का अनुपात 5:2 है। यदि कुल वेतन Rs. 10500 है, तो लड़के हर महीने कितनी बचत करता है।
+पिता के मासिक खर्च और बचत का अनुपात 5:2 है। यदि कुल वेतन Rs. 10500 है, तो पिता हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਲੜਕੇ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 5:2 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 10500 ਹੈ, ਤਾਂ ਲੜਕੇ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
+ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 5:2 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 10500 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -601,21 +599,21 @@ Sample 27
 
 IDs
 
-personAId: girls
-personBId: teachers
-personCId: boys
+personAId: father
+personBId: brother
+personCId: mother
 
 English rendering
 
-The shares of girls, teachers, and boys are in the ratio 8:7:4. If girls gets Rs. 720 more than boys, how much was the total amount distributed?
+A family fund is divided among father, brother, and mother in the ratio 8:7:4. The share of father exceeds the share of mother by Rs. 720. Find the total fund.
 
 Hindi rendering
 
-लड़कियां, शिक्षक और लड़के के हिस्से 8:7:4 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 720 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
+पिता, भाई और माता के हिस्से 8:7:4 के अनुपात में हैं। यदि पिता को माता से Rs. 720 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ, ਅਧਿਆਪਕ ਅਤੇ ਲੜਕੇ ਦੇ ਹਿੱਸੇ 8:7:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਲੜਕੇ ਨਾਲੋਂ Rs. 720 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
+ਪਿਤਾ, ਭਰਾ ਅਤੇ ਮਾਤਾ ਦੇ ਹਿੱਸੇ 8:7:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਪਿਤਾ ਨੂੰ ਮਾਤਾ ਨਾਲੋਂ Rs. 720 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -625,19 +623,19 @@ Sample 28
 
 IDs
 
-personAId: girls
+personAId: father
 
 English rendering
 
-For girls, the monthly expense-to-savings ratio is 2:2. If the total salary is Rs. 4400, find the monthly savings.
+Father's monthly expense-to-savings ratio is 2:2. If the monthly salary is Rs. 4400, find the monthly savings.
 
 Hindi rendering
 
-लड़कियां के मासिक खर्च और बचत का अनुपात 2:2 है। यदि कुल वेतन Rs. 4400 है, तो लड़कियां हर महीने कितनी बचत करता है।
+पिता के मासिक खर्च और बचत का अनुपात 2:2 है। यदि कुल वेतन Rs. 4400 है, तो पिता हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:2 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 4400 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
+ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 2:2 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 4400 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -696,21 +694,21 @@ Sample 31
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: son
+personBId: father
+personCId: brother
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 90 more than teachers, how much was the total amount distributed?
+A family fund is divided among son, father, and brother in the ratio 7:6:6. The share of son exceeds the share of brother by Rs. 90. Find the total fund.
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 90 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
+पुत्र, पिता और भाई के हिस्से 7:6:6 के अनुपात में हैं। यदि पुत्र को भाई से Rs. 90 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 90 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
+ਪੁੱਤਰ, ਪਿਤਾ ਅਤੇ ਭਰਾ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਪੁੱਤਰ ਨੂੰ ਭਰਾ ਨਾਲੋਂ Rs. 90 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -720,19 +718,19 @@ Sample 32
 
 IDs
 
-personAId: girls
+personAId: father
 
 English rendering
 
-For girls, the monthly expense-to-savings ratio is 3:3. If the total salary is Rs. 16200, find the monthly savings.
+Father's monthly expense-to-savings ratio is 3:3. If the monthly salary is Rs. 16200, find the monthly savings.
 
 Hindi rendering
 
-लड़कियां के मासिक खर्च और बचत का अनुपात 3:3 है। यदि कुल वेतन Rs. 16200 है, तो लड़कियां हर महीने कितनी बचत करता है।
+पिता के मासिक खर्च और बचत का अनुपात 3:3 है। यदि कुल वेतन Rs. 16200 है, तो पिता हर महीने कितनी बचत करता है।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 3:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 16200 ਹੈ, ਤਾਂ ਲੜਕੀਆਂ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
+ਪਿਤਾ ਦੇ ਮਹੀਨਾਵਾਰ ਖਰਚੇ ਅਤੇ ਬਚਤ ਦਾ ਅਨੁਪਾਤ 3:3 ਹੈ। ਜੇ ਕੁੱਲ ਤਨਖਾਹ Rs. 16200 ਹੈ, ਤਾਂ ਪਿਤਾ ਹਰ ਮਹੀਨੇ ਕਿੰਨੀ ਬਚਤ ਕਰਦਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -791,21 +789,21 @@ Sample 35
 
 IDs
 
-personAId: girls
-personBId: boys
-personCId: teachers
+personAId: mother
+personBId: brother
+personCId: son
 
 English rendering
 
-The shares of girls, boys, and teachers are in the ratio 7:6:6. If girls gets Rs. 30 more than teachers, how much was the total amount distributed?
+A family fund is divided among mother, brother, and son in the ratio 7:6:6. The share of mother exceeds the share of son by Rs. 30. Find the total fund.
 
 Hindi rendering
 
-लड़कियां, लड़के और शिक्षक के हिस्से 7:6:6 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 30 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
+माता, भाई और पुत्र के हिस्से 7:6:6 के अनुपात में हैं। यदि माता को पुत्र से Rs. 30 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।
 
 Punjabi rendering
 
-ਲੜਕੀਆਂ, ਲੜਕੇ ਅਤੇ ਅਧਿਆਪਕ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਲੜਕੀਆਂ ਨੂੰ ਅਧਿਆਪਕ ਨਾਲੋਂ Rs. 30 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
+ਮਾਤਾ, ਭਰਾ ਅਤੇ ਪੁੱਤਰ ਦੇ ਹਿੱਸੇ 7:6:6 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਮਾਤਾ ਨੂੰ ਪੁੱਤਰ ਨਾਲੋਂ Rs. 30 ਵੱਧ ਮਿਲਦੇ ਹਨ, ਤਾਂ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਵੰਡੀ ਗਈ ਸੀ।
 
 Synchronized entity IDs: yes
 
@@ -1496,7 +1494,7 @@ itemCId: coin_2
 
 English rendering
 
-The weights of Rs. 1 coin, Rs. 5 coin, and Rs. 2 coin are in the ratio 4:5:6. If the total weight of 3 Rs. 1 coin, 4 Rs. 5 coin, and 5 Rs. 2 coin is 62 kg, find the weight of one Rs. 1 coin.
+The weights of Rs. 1 coin, Rs. 5 coin, and Rs. 2 coin are in the ratio 4:5:6. If 3 Rs. 1 coin, 4 Rs. 5 coin, and 5 Rs. 2 coin together weigh 62 g, find the weight of one Rs. 1 coin.
 
 Hindi rendering
 
@@ -1541,15 +1539,15 @@ IDs
 
 English rendering
 
-A bag has coins of 1, 2, and 5 in the ratio 2:3:4. If the total value is Rs. 84, how many coins of 1 are in the bag?
+A bag has coins of 1, 2, and 5 in the ratio 2:3:4. If the total value is Rs. 28, how many coins of 1 are in the bag?
 
 Hindi rendering
 
-एक बैग में 1, 2 और 5 के सिक्के 2:3:4 के अनुपात में हैं। यदि कुल मूल्य Rs. 84 है, तो 1 के कितने सिक्के हैं।
+एक बैग में 1, 2 और 5 के सिक्के 2:3:4 के अनुपात में हैं। यदि कुल मूल्य Rs. 28 है, तो 1 के कितने सिक्के हैं।
 
 Punjabi rendering
 
-ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 2:3:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 84 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।
+ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 2:3:4 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 28 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -1586,15 +1584,15 @@ itemCId: coin_5
 
 English rendering
 
-The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 5:6:7. If the total weight of 3 Rs. 2 coin, 4 Rs. 1 coin, and 5 Rs. 5 coin is 444 kg, find the weight of one Rs. 2 coin.
+The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 5:6:7. If 3 Rs. 2 coin, 4 Rs. 1 coin, and 5 Rs. 5 coin together weigh 74 g, find the weight of one Rs. 2 coin.
 
 Hindi rendering
 
-2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 3 2 रुपये का सिक्का, 4 1 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 444 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
+2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 3 2 रुपये का सिक्का, 4 1 रुपये का सिक्का और 5 5 रुपये का सिक्का का कुल वजन 74 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ 3 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 4 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 444 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
+2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ 3 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 4 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 74 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1631,15 +1629,15 @@ IDs
 
 English rendering
 
-A bag has coins of 1, 2, and 5 in the ratio 3:4:5. If the total value is Rs. 288, how many coins of 2 are in the bag?
+A bag has coins of 1, 2, and 5 in the ratio 3:4:5. If the total value is Rs. 72, how many coins of 2 are in the bag?
 
 Hindi rendering
 
-एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 288 है, तो 2 के कितने सिक्के हैं।
+एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 72 है, तो 2 के कितने सिक्के हैं।
 
 Punjabi rendering
 
-ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 3:4:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 288 ਹੈ, ਤਾਂ 2 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।
+ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 3:4:5 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 72 ਹੈ, ਤਾਂ 2 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -1676,15 +1674,15 @@ itemCId: coin_5
 
 English rendering
 
-The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 1:2:3. If the total weight of 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin is 200 kg, find the weight of one Rs. 2 coin.
+The weights of Rs. 2 coin, Rs. 1 coin, and Rs. 5 coin are in the ratio 1:2:3. If 2 Rs. 2 coin, 3 Rs. 1 coin, and 4 Rs. 5 coin together weigh 20 g, find the weight of one Rs. 2 coin.
 
 Hindi rendering
 
-2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 1:2:3 है। यदि 2 2 रुपये का सिक्का, 3 1 रुपये का सिक्का और 4 5 रुपये का सिक्का का कुल वजन 200 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
+2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 1:2:3 है। यदि 2 2 रुपये का सिक्का, 3 1 रुपये का सिक्का और 4 5 रुपये का सिक्का का कुल वजन 20 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇ 2 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 200 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
+2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 1:2:3 ਹੈ। ਜੇ 2 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 3 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 4 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 20 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 
@@ -1721,15 +1719,15 @@ IDs
 
 English rendering
 
-A bag has coins of 1, 2, and 5 in the ratio 5:6:1. If the total value is Rs. 44, how many coins of 1 are in the bag?
+A bag has coins of 1, 2, and 5 in the ratio 5:6:1. If the total value is Rs. 66, how many coins of 1 are in the bag?
 
 Hindi rendering
 
-एक बैग में 1, 2 और 5 के सिक्के 5:6:1 के अनुपात में हैं। यदि कुल मूल्य Rs. 44 है, तो 1 के कितने सिक्के हैं।
+एक बैग में 1, 2 और 5 के सिक्के 5:6:1 के अनुपात में हैं। यदि कुल मूल्य Rs. 66 है, तो 1 के कितने सिक्के हैं।
 
 Punjabi rendering
 
-ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 5:6:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 44 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।
+ਇੱਕ ਬੈਗ ਵਿੱਚ 1, 2 ਅਤੇ 5 ਦੇ ਸਿੱਕੇ 5:6:1 ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਹਨ। ਜੇ ਕੁੱਲ ਮੁੱਲ Rs. 66 ਹੈ, ਤਾਂ 1 ਦੇ ਕਿੰਨੇ ਸਿੱਕੇ ਹਨ।
 
 Synchronized entity IDs: yes
 
@@ -1766,15 +1764,15 @@ itemCId: coin_5
 
 English rendering
 
-The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 5:6:7. If the total weight of 5 Rs. 1 coin, 1 Rs. 2 coin, and 2 Rs. 5 coin is 180 kg, find the weight of one Rs. 1 coin.
+The weights of Rs. 1 coin, Rs. 2 coin, and Rs. 5 coin are in the ratio 5:6:7. If 5 Rs. 1 coin, 1 Rs. 2 coin, and 2 Rs. 5 coin together weigh 45 g, find the weight of one Rs. 1 coin.
 
 Hindi rendering
 
-1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 5 1 रुपये का सिक्का, 1 2 रुपये का सिक्का और 2 5 रुपये का सिक्का का कुल वजन 180 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।
+1 रुपये का सिक्का, 2 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 5 1 रुपये का सिक्का, 1 2 रुपये का सिक्का और 2 5 रुपये का सिक्का का कुल वजन 45 किलोग्राम है, तो एक 1 रुपये का सिक्का का वजन कितना है।
 
 Punjabi rendering
 
-1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ 5 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 2 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 180 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
+1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦੇ ਭਾਰ ਦਾ ਅਨੁਪਾਤ 5:6:7 ਹੈ। ਜੇ 5 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ, 1 2 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਅਤੇ 2 5 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਕੁੱਲ ਭਾਰ 45 ਕਿਲੋਗ੍ਰਾਮ ਹੈ, ਤਾਂ ਇੱਕ 1 ਰੁਪਏ ਦਾ ਸਿੱਕਾ ਦਾ ਭਾਰ ਕਿੰਨਾ ਹੈ।
 
 Synchronized entity IDs: yes
 

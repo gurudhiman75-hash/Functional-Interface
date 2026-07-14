@@ -23,7 +23,8 @@ export function getRap002ActiveCanonicalProblemIds(): Rap002CanonicalProblemId[]
 }
 
 export function getRap002QuestionLanguageIds(cpId: Rap002CanonicalProblemId) {
-  return Object.keys(questionLibraries.en[cpId]?.families ?? {});
+  return Object.keys(questionLibraries.en[cpId]?.families ?? {})
+    .filter((qlId) => registryEntries[qlId]?.active !== false);
 }
 
 export function getRap002QuestionEntry(cpId: Rap002CanonicalProblemId, qlId: string, language: Rap002Language = "en") {

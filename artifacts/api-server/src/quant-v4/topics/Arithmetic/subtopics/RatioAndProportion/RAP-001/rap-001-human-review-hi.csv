@@ -1,631 +1,391 @@
 packageId,cpId,qlId,taskKind,difficulty,stem,answer,explanation,stemRealism,solverCorrect,explanationQuality,optionQuality,editorialStatus,reviewNotes
 "RAP-001","RAP-CP-001","RAP-QL-403","ratioTreeLinkage","Hard","दिया है कि बहन:पुत्र = 2:3, पुत्र:पिता = 3:4 और पिता:पुत्री = 4:5 है। बहन और पुत्री के बीच का अनुपात क्या होगा।","$$2 : 5$$","दिया गया संबंध
 
-[
-\Rightarrow बहन:पुत्र=2:3,\ पुत्र:पिता=3:4,\ पिता:पुत्री=4:5
-]
+$$\Rightarrow बहन:पुत्र=2:3,\ पुत्र:पिता=3:4,\ पिता:पुत्री=4:5$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)
-]
+$$\Rightarrow setup: \(\frac{A}{B} \times \frac{B}{C} \times \frac{C}{D} = \frac{A}{D}\)$$
 मान रखें
 
-[
-\Rightarrow 2\times3\times4:3\times4\times5
-]
+$$\Rightarrow 2\times3\times4:3\times4\times5$$
 सरल करें
 
-[
-\Rightarrow calculation: \(2:5\)
-]
+$$\Rightarrow calculation: \(2:5\)$$
 अतः बहन और पुत्री का अनुपात 2 : 5 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1902","ratioNormalization","Medium","6/3 : 6/2 अनुपात को पूर्ण संख्याओं में बदलें।","$$2 : 3$$","दिया गया संबंध
 
-[
-\Rightarrow \frac{6}{3}:\frac{6}{2}
-]
+$$\Rightarrow \frac{6}{3}:\frac{6}{2}$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 मान रखें
 
-[
-\Rightarrow 6\times2:3\times6
-]
+$$\Rightarrow 6\times2:3\times6$$
 सरल करें
 
-[
-\Rightarrow calculation: \(2:3\)
-]
+$$\Rightarrow calculation: \(2:3\)$$
 अतः सरल अनुपात 2 : 3 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1802","ratioNormalization","Medium","6/2 : 3/3 को सबसे सरल पूर्ण-संख्या अनुपात में घटाएं।","$$3 : 1$$","दिया गया संबंध
 
-[
-\Rightarrow \frac{6}{2}:\frac{3}{3}
-]
+$$\Rightarrow \frac{6}{2}:\frac{3}{3}$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 मान रखें
 
-[
-\Rightarrow 6\times3:2\times3
-]
+$$\Rightarrow 6\times3:2\times3$$
 सरल करें
 
-[
-\Rightarrow calculation: \(3:1\)
-]
+$$\Rightarrow calculation: \(3:1\)$$
 अतः सरल अनुपात 3 : 1 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1702","ratioNormalization","Medium","3/3 और 4/2 को सबसे सरल पूर्ण-संख्या अनुपात के रूप में व्यक्त करें।","$$1 : 2$$","दिया गया संबंध
 
-[
-\Rightarrow \frac{3}{3}:\frac{4}{2}
-]
+$$\Rightarrow \frac{3}{3}:\frac{4}{2}$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 मान रखें
 
-[
-\Rightarrow 3\times2:3\times4
-]
+$$\Rightarrow 3\times2:3\times4$$
 सरल करें
 
-[
-\Rightarrow calculation: \(1:2\)
-]
+$$\Rightarrow calculation: \(1:2\)$$
 अतः सरल अनुपात 1 : 2 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-001","RAP-QL-1602","ratioNormalization","Medium","4/2 : 9/3 के लिए पूर्ण-संख्या अनुपात दें।","$$2 : 3$$","दिया गया संबंध
 
-[
-\Rightarrow \frac{4}{2}:\frac{9}{3}
-]
+$$\Rightarrow \frac{4}{2}:\frac{9}{3}$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)
-]
+$$\Rightarrow setup: \(\frac{a}{b}:\frac{c}{d} = ad:bc\)$$
 मान रखें
 
-[
-\Rightarrow 4\times3:2\times9
-]
+$$\Rightarrow 4\times3:2\times9$$
 सरल करें
 
-[
-\Rightarrow calculation: \(2:3\)
-]
+$$\Rightarrow calculation: \(2:3\)$$
 अतः सरल अनुपात 2 : 3 है।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","शिक्षक के मासिक खर्च और बचत का अनुपात 6:3 है। यदि कुल वेतन Rs. 10800 है, तो शिक्षक हर महीने कितनी बचत करता है।","$$3600$$","दिया गया संबंध
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","पिता के मासिक खर्च और बचत का अनुपात 6:3 है। यदि कुल वेतन Rs. 10800 है, तो पिता हर महीने कितनी बचत करता है।","$$3600$$","दिया गया संबंध
 
-[
-\Rightarrow \text{Exp:Sav}=6:3,\ S=10800
-]
+$$\Rightarrow \text{Exp:Sav}=6:3,\ S=10800$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(salary parts = expense + saving\)
-]
+$$\Rightarrow setup: \(salary parts = expense + saving\)$$
 मान रखें
 
-[
-\Rightarrow \frac{10800}{9}\times3
-]
+$$\Rightarrow \frac{10800}{9}\times3$$
 सरल करें
 
-[
-\Rightarrow calculation: \(3600\)
-]
-अतः शिक्षक हर महीने 3600 रुपये बचाते हैं।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","लड़के के मासिक खर्च और बचत का अनुपात 7:3 है। यदि कुल वेतन Rs. 11000 है, तो लड़के हर महीने कितनी बचत करता है।","$$3300$$","दिया गया संबंध
+$$\Rightarrow calculation: \(3600\)$$
+अतः पिता हर महीने 3600 रुपये बचाता है।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-011","salaryDistribution","Easy","पिता के मासिक खर्च और बचत का अनुपात 7:3 है। यदि कुल वेतन Rs. 11000 है, तो पिता हर महीने कितनी बचत करता है।","$$3300$$","दिया गया संबंध
 
-[
-\Rightarrow \text{Exp:Sav}=7:3,\ S=11000
-]
+$$\Rightarrow \text{Exp:Sav}=7:3,\ S=11000$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(salary parts = expense + saving\)
-]
+$$\Rightarrow setup: \(salary parts = expense + saving\)$$
 मान रखें
 
-[
-\Rightarrow \frac{11000}{10}\times3
-]
+$$\Rightarrow \frac{11000}{10}\times3$$
 सरल करें
 
-[
-\Rightarrow calculation: \(3300\)
-]
-अतः लड़के हर महीने 3300 रुपये बचाते हैं।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","लड़कियां, शिक्षक और लड़के के हिस्से 8:7:5 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 180 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$1200$$","दिया गया संबंध
+$$\Rightarrow calculation: \(3300\)$$
+अतः पिता हर महीने 3300 रुपये बचाता है।","","","","","PENDING",""
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","पिता, भाई और पुत्र के हिस्से 8:7:5 के अनुपात में हैं। यदि पिता को पुत्र से Rs. 180 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$1200$$","दिया गया संबंध
 
-[
-\Rightarrow लड़कियां:शिक्षक:लड़के=8:7:5,\ D=180
-]
+$$\Rightarrow पिता:भाई:पुत्र=8:7:5,\ D=180$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(difference = (A-C) \times unit\)
-]
+$$\Rightarrow setup: \(difference = (A-C) \times unit\)$$
 मान रखें
 
-[
-\Rightarrow \frac{180}{3}\times20
-]
+$$\Rightarrow \frac{180}{3}\times20$$
 सरल करें
 
-[
-\Rightarrow calculation: \(1200\)
-]
+$$\Rightarrow calculation: \(1200\)$$
 अतः कुल राशि 1200 है।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","लड़कियां, लड़के और शिक्षक के हिस्से 5:4:2 के अनुपात में हैं। यदि लड़कियां को शिक्षक से Rs. 420 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$1540$$","दिया गया संबंध
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","माता, भाई और पुत्र के हिस्से 5:4:2 के अनुपात में हैं। यदि माता को पुत्र से Rs. 420 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$1540$$","दिया गया संबंध
 
-[
-\Rightarrow लड़कियां:लड़के:शिक्षक=5:4:2,\ D=420
-]
+$$\Rightarrow माता:भाई:पुत्र=5:4:2,\ D=420$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(difference = (A-C) \times unit\)
-]
+$$\Rightarrow setup: \(difference = (A-C) \times unit\)$$
 मान रखें
 
-[
-\Rightarrow \frac{420}{3}\times11
-]
+$$\Rightarrow \frac{420}{3}\times11$$
 सरल करें
 
-[
-\Rightarrow calculation: \(1540\)
-]
+$$\Rightarrow calculation: \(1540\)$$
 अतः कुल राशि 1540 है।","","","","","PENDING",""
-"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","लड़कियां, शिक्षक और लड़के के हिस्से 6:5:2 के अनुपात में हैं। यदि लड़कियां को लड़के से Rs. 120 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$390$$","दिया गया संबंध
+"RAP-001","RAP-CP-002","RAP-QL-009","reversePartition","Hard","बहन, पुत्र और पिता के हिस्से 6:5:2 के अनुपात में हैं। यदि बहन को पिता से Rs. 120 अधिक मिलते हैं, तो कुल कितनी राशि बांटी गई थी।","$$390$$","दिया गया संबंध
 
-[
-\Rightarrow लड़कियां:शिक्षक:लड़के=6:5:2,\ D=120
-]
+$$\Rightarrow बहन:पुत्र:पिता=6:5:2,\ D=120$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(difference = (A-C) \times unit\)
-]
+$$\Rightarrow setup: \(difference = (A-C) \times unit\)$$
 मान रखें
 
-[
-\Rightarrow \frac{120}{4}\times13
-]
+$$\Rightarrow \frac{120}{4}\times13$$
 सरल करें
 
-[
-\Rightarrow calculation: \(390\)
-]
+$$\Rightarrow calculation: \(390\)$$
 अतः कुल राशि 390 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 5:4 है। 7 लड़के के चले जाने पर अनुपात 43:40 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$90$$","दिया गया संबंध
 
-[
-\Rightarrow लड़के:लड़कियां=5:4,\ -7\ लड़के
-]
+$$\Rightarrow लड़के:लड़कियां=5:4,\ -7\ लड़के$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)$$
 मान रखें
 
-[
-\Rightarrow 40(5x-7)=172x
-]
+$$\Rightarrow 40(5x-7)=172x$$
 सरल करें
 
-[
-\Rightarrow calculation: \(90\)
-]
+$$\Rightarrow calculation: \(90\)$$
 अतः शुरुआत में कुल 90 लोग थे।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 8:7 है। 13 लड़के के चले जाने पर अनुपात 75:77 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$165$$","दिया गया संबंध
 
-[
-\Rightarrow लड़के:लड़कियां=8:7,\ -13\ लड़के
-]
+$$\Rightarrow लड़के:लड़कियां=8:7,\ -13\ लड़के$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)$$
 मान रखें
 
-[
-\Rightarrow 77(8x-13)=525x
-]
+$$\Rightarrow 77(8x-13)=525x$$
 सरल करें
 
-[
-\Rightarrow calculation: \(165\)
-]
+$$\Rightarrow calculation: \(165\)$$
 अतः शुरुआत में कुल 165 लोग थे।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-113","twoStateSubtraction","Hard","किसी कक्षा में लड़के और लड़कियां का अनुपात 9:2 है। 19 लड़के के चले जाने पर अनुपात 89:24 हो जाता है। शुरुआत में कुल कितने लोग थे।","$$132$$","दिया गया संबंध
 
-[
-\Rightarrow लड़के:लड़कियां=9:2,\ -19\ लड़के
-]
+$$\Rightarrow लड़के:लड़कियां=9:2,\ -19\ लड़के$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax-p}{bx} = \frac{c}{d}\)$$
 मान रखें
 
-[
-\Rightarrow 24(9x-19)=178x
-]
+$$\Rightarrow 24(9x-19)=178x$$
 सरल करें
 
-[
-\Rightarrow calculation: \(132\)
-]
+$$\Rightarrow calculation: \(132\)$$
 अतः शुरुआत में कुल 132 लोग थे।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-214","twoStateTransfer","Medium","दो संख्याएं 5:7 के अनुपात में हैं। यदि प्रत्येक में 6 जोड़ दिया जाए, तो अनुपात 31:41 हो जाता है। बड़ी संख्या का मान क्या है।","$$35$$","दिया गया संबंध
 
-[
-\Rightarrow 5:7,\ +6
-]
+$$\Rightarrow 5:7,\ +6$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)$$
 मान रखें
 
-[
-\Rightarrow 41(5x+6)=31(7x-6)
-]
+$$\Rightarrow 41(5x+6)=31(7x-6)$$
 सरल करें
 
-[
-\Rightarrow calculation: \(35\)
-]
+$$\Rightarrow calculation: \(35\)$$
 अतः बड़ी संख्या 35 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-003","RAP-QL-014","twoStateTransfer","Medium","दो संख्याएं 8:9 के अनुपात में हैं। यदि प्रत्येक में 20 जोड़ दिया जाए, तो अनुपात 44:47 हो जाता है। बड़ी संख्या का मान क्या है।","$$27$$","दिया गया संबंध
 
-[
-\Rightarrow 8:9,\ +20
-]
+$$\Rightarrow 8:9,\ +20$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)
-]
+$$\Rightarrow setup: \(\frac{ax+p}{bx+p} = \frac{c}{d}\)$$
 मान रखें
 
-[
-\Rightarrow 47(8x+20)=44(9x-20)
-]
+$$\Rightarrow 47(8x+20)=44(9x-20)$$
 सरल करें
 
-[
-\Rightarrow calculation: \(27\)
-]
+$$\Rightarrow calculation: \(27\)$$
 अतः बड़ी संख्या 27 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","100 और 9 के बीच का मध्य अनुपाती क्या होगा।","$$30$$","दिया गया संबंध
 
-[
-\Rightarrow 100,\ 9
-]
+$$\Rightarrow 100,\ 9$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(x^2 = ab\)
-]
+$$\Rightarrow setup: \(x^2 = ab\)$$
 मान रखें
 
-[
-\Rightarrow x=\sqrt{100\times9}
-]
+$$\Rightarrow x=\sqrt{100\times9}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(30\)
-]
+$$\Rightarrow calculation: \(30\)$$
 अतः मध्य अनुपाती 30 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-020","directVariation","Medium","यदि y, x के साथ सीधे अनुपात में है और जब x = 4 तो y = 20 है। जब x का मान 5 होगा, तो y कितना होगा।","$$25$$","दिया गया संबंध
 
-[
-\Rightarrow y\propto x,\ x=4,\ y=20
-]
+$$\Rightarrow y\propto x,\ x=4,\ y=20$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(y/x = constant\)
-]
+$$\Rightarrow setup: \(y/x = constant\)$$
 मान रखें
 
-[
-\Rightarrow \frac{20}{4}=\frac{y}{5}
-]
+$$\Rightarrow \frac{20}{4}=\frac{y}{5}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(25\)
-]
+$$\Rightarrow calculation: \(25\)$$
 अतः y का मान 25 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","144 और 25 के बीच का मध्य अनुपाती क्या होगा।","$$60$$","दिया गया संबंध
 
-[
-\Rightarrow 144,\ 25
-]
+$$\Rightarrow 144,\ 25$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(x^2 = ab\)
-]
+$$\Rightarrow setup: \(x^2 = ab\)$$
 मान रखें
 
-[
-\Rightarrow x=\sqrt{144\times25}
-]
+$$\Rightarrow x=\sqrt{144\times25}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(60\)
-]
+$$\Rightarrow calculation: \(60\)$$
 अतः मध्य अनुपाती 60 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-217","meanProportional","Easy","49 और 36 के बीच का मध्य अनुपाती क्या होगा।","$$42$$","दिया गया संबंध
 
-[
-\Rightarrow 49,\ 36
-]
+$$\Rightarrow 49,\ 36$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(x^2 = ab\)
-]
+$$\Rightarrow setup: \(x^2 = ab\)$$
 मान रखें
 
-[
-\Rightarrow x=\sqrt{49\times36}
-]
+$$\Rightarrow x=\sqrt{49\times36}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(42\)
-]
+$$\Rightarrow calculation: \(42\)$$
 अतः मध्य अनुपाती 42 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-004","RAP-QL-021","inverseVariation","Medium","यदि y, x के उल्टे अनुपात में है और जब x = 7 तो y = 14 है। यदि x का मान बदलकर 2 हो जाए, तो y कितना होगा।","$$49$$","दिया गया संबंध
 
-[
-\Rightarrow y\propto \frac{1}{x},\ x=7,\ y=14
-]
+$$\Rightarrow y\propto \frac{1}{x},\ x=7,\ y=14$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(xy = constant\)
-]
+$$\Rightarrow setup: \(xy = constant\)$$
 मान रखें
 
-[
-\Rightarrow 7\times14=2\times y
-]
+$$\Rightarrow 7\times14=2\times y$$
 सरल करें
 
-[
-\Rightarrow calculation: \(49\)
-]
+$$\Rightarrow calculation: \(49\)$$
 अतः y का मान 49 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","2 रुपये का सिक्का, 5 रुपये का सिक्का और 1 रुपये का सिक्का के वजन का अनुपात 1:2:3 है। यदि 2 2 रुपये का सिक्का, 3 5 रुपये का सिक्का और 4 1 रुपये का सिक्का का कुल वजन 40 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।","$$2$$","दिया गया संबंध
 
-[
-\Rightarrow 2\cdot1+3\cdot2+4\cdot3=40
-]
+$$\Rightarrow 2\cdot1+3\cdot2+4\cdot3=40$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
+$$\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)$$
 मान रखें
 
-[
-\Rightarrow \frac{40}{2\times1+3\times2+4\times3}
-]
+$$\Rightarrow \frac{40}{2\times1+3\times2+4\times3}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(2\)
-]
+$$\Rightarrow calculation: \(2\)$$
 अतः एक 2 रुपये का सिक्का का भार 2 किलोग्राम है।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-023","multiDenominationMapping","Hard","एक बॉक्स में 1, 2, 5 और 10 के कुल 18 सिक्के हैं। यदि उनके मूल्यों का अनुपात 3:8:25:60 है, तो 5 के सिक्कों की संख्या क्या है।","$$5$$","दिया गया संबंध
 
-[
-\Rightarrow 3:8:25:60,\ N=18
-]
+$$\Rightarrow 3:8:25:60,\ N=18$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(count ratio = value ratio / denomination\)
-]
+$$\Rightarrow setup: \(count ratio = value ratio / denomination\)$$
 मान रखें
 
-[
-\Rightarrow \frac{3}{1}:\frac{4}{1}:\frac{5}{1}:\frac{6}{1}
-]
+$$\Rightarrow \frac{3}{1}:\frac{4}{1}:\frac{5}{1}:\frac{6}{1}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(5\)
-]
+$$\Rightarrow calculation: \(5\)$$
 अतः 5 रुपये वाले सिक्कों की संख्या 5 है।","","","","","PENDING",""
-"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 144 है, तो 1 के कितने सिक्के हैं।","$$12$$","दिया गया संबंध
+"RAP-001","RAP-CP-005","RAP-QL-022","coinCounting","Hard","एक बैग में 1, 2 और 5 के सिक्के 3:4:5 के अनुपात में हैं। यदि कुल मूल्य Rs. 36 है, तो 1 के कितने सिक्के हैं।","$$3$$","दिया गया संबंध
 
-[
-\Rightarrow 3:4:5,\ V=144
-]
+$$\Rightarrow 3:4:5,\ V=36$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)
-]
+$$\Rightarrow setup: \(total value = k(r_1d_1 + r_2d_2 + r_3d_3)\)$$
 मान रखें
 
-[
-\Rightarrow x=\frac{144}{3\times1+4\times2+5\times5}
-]
+$$\Rightarrow x=\frac{36}{3\times1+4\times2+5\times5}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(12\)
-]
-अतः 1 रुपये वाले सिक्कों की संख्या 12 है।","","","","","PENDING",""
+$$\Rightarrow calculation: \(3\)$$
+अतः 1 रुपये वाले सिक्कों की संख्या 3 है।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-026","weightedMarks","Hard","एक परीक्षा में इतिहास, अंग्रेजी और विज्ञान के अंकों का अनुपात 7:8:1 है। यदि इन विषयों का भार क्रमशः 1, 2 और 3 है और कुल भारित अंक 208 हैं, तो इतिहास में कितने अंक मिले।","$$56$$","दिया गया संबंध
 
-[
-\Rightarrow 7:8:1,\ W=208
-]
+$$\Rightarrow 7:8:1,\ W=208$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)
-]
+$$\Rightarrow setup: \(weighted total = unit(r_1w_1 + r_2w_2 + r_3w_3)\)$$
 मान रखें
 
-[
-\Rightarrow \frac{208}{7\times1+8\times2+1\times3}
-]
+$$\Rightarrow \frac{208}{7\times1+8\times2+1\times3}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(56\)
-]
+$$\Rightarrow calculation: \(56\)$$
 अतः इतिहास में प्राप्त अंक 56 हैं।","","","","","PENDING",""
 "RAP-001","RAP-CP-005","RAP-QL-024","weightedMapping","Hard","2 रुपये का सिक्का, 1 रुपये का सिक्का और 5 रुपये का सिक्का के वजन का अनुपात 5:6:7 है। यदि 5 2 रुपये का सिक्का, 1 1 रुपये का सिक्का और 2 5 रुपये का सिक्का का कुल वजन 270 किलोग्राम है, तो एक 2 रुपये का सिक्का का वजन कितना है।","$$30$$","दिया गया संबंध
 
-[
-\Rightarrow 5\cdot5+1\cdot6+2\cdot7=270
-]
+$$\Rightarrow 5\cdot5+1\cdot6+2\cdot7=270$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)
-]
+$$\Rightarrow setup: \(total = unit(c_1r_1 + c_2r_2 + c_3r_3)\)$$
 मान रखें
 
-[
-\Rightarrow \frac{270}{5\times5+1\times6+2\times7}
-]
+$$\Rightarrow \frac{270}{5\times5+1\times6+2\times7}$$
 सरल करें
 
-[
-\Rightarrow calculation: \(30\)
-]
+$$\Rightarrow calculation: \(30\)$$
 अतः एक 2 रुपये का सिक्का का भार 30 किलोग्राम है।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-229","threeComponentMixture","Hard","एक घोल में दूध, रस और पानी का अनुपात 6:7:8 है। 17 लीटर रस मिलाने पर नया अनुपात 48:73:64 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$168$$","दिया गया संबंध
 
-[
-\Rightarrow दूध:रस:पानी=6:7:8,\ +17\ रस
-]
+$$\Rightarrow दूध:रस:पानी=6:7:8,\ +17\ रस$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(use unchanged components as pivot\)
-]
+$$\Rightarrow setup: \(use unchanged components as pivot\)$$
 मान रखें
 
-[
-\Rightarrow 8\times(6+7+8)
-]
+$$\Rightarrow 8\times(6+7+8)$$
 सरल करें
 
-[
-\Rightarrow calculation: \(168\)
-]
+$$\Rightarrow calculation: \(168\)$$
 अतः शुरुआती कुल मात्रा 168 लीटर थी।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-029","threeComponentMixture","Hard","एक घोल में पानी, दूध और रस का अनुपात 5:6:7 है। 10 लीटर दूध मिलाने पर नया अनुपात 15:23:21 हो जाता है। शुरुआत में कुल मात्रा कितनी थी।","$$108$$","दिया गया संबंध
 
-[
-\Rightarrow पानी:दूध:रस=5:6:7,\ +10\ दूध
-]
+$$\Rightarrow पानी:दूध:रस=5:6:7,\ +10\ दूध$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(use unchanged components as pivot\)
-]
+$$\Rightarrow setup: \(use unchanged components as pivot\)$$
 मान रखें
 
-[
-\Rightarrow 5.999999999999999\times(5+6+7)
-]
+$$\Rightarrow 5.999999999999999\times(5+6+7)$$
 सरल करें
 
-[
-\Rightarrow calculation: \(107.99999999999999\)
-]
+$$\Rightarrow calculation: \(107.99999999999999\)$$
 अतः शुरुआती कुल मात्रा 108 लीटर थी।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","मिश्रण के 78 लीटर में पानी और दूध का अनुपात 6:7 है। अनुपात को 36:49 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।","$$7$$","दिया गया संबंध
 
-[
-\Rightarrow पानी:दूध=6:7,\ T=78
-]
+$$\Rightarrow पानी:दूध=6:7,\ T=78$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
+$$\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)$$
 मान रखें
 
-[
-\Rightarrow \frac{36\times49}{36}-42
-]
+$$\Rightarrow \frac{36\times49}{36}-42$$
 सरल करें
 
-[
-\Rightarrow calculation: \(7\)
-]
+$$\Rightarrow calculation: \(7\)$$
 अतः दूध के 7 लीटर और मिलाने होंगे।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-027","binaryMixture","Medium","एक मिश्रण में पानी और रस का अनुपात 5:6 है। यदि इसमें 16 लीटर पानी मिला दिया जाए, तो अनुपात 3:2 हो जाता है। शुरुआत में रस की मात्रा कितनी थी।","$$24$$","दिया गया संबंध
 
-[
-\Rightarrow पानी:रस=5:6,\ +16\ पानी
-]
+$$\Rightarrow पानी:रस=5:6,\ +16\ पानी$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)
-]
+$$\Rightarrow setup: \(\frac{r_1x + a}{r_2x} = \frac{f_1}{f_2}\)$$
 मान रखें
 
-[
-\Rightarrow 2\times16\div(6\times3-5\times2)
-]
+$$\Rightarrow 2\times16\div(6\times3-5\times2)$$
 सरल करें
 
-[
-\Rightarrow calculation: \(24\)
-]
+$$\Rightarrow calculation: \(24\)$$
 अतः शुरुआत में रस की मात्रा 24 लीटर थी।","","","","","PENDING",""
 "RAP-001","RAP-CP-006","RAP-QL-028","mixtureComponentFinding","Medium","मिश्रण के 18 लीटर में रस और दूध का अनुपात 4:5 है। अनुपात को 8:23 बनाने के लिए कितने लीटर दूध और मिलाना पड़ेगा।","$$13$$","दिया गया संबंध
 
-[
-\Rightarrow रस:दूध=4:5,\ T=18
-]
+$$\Rightarrow रस:दूध=4:5,\ T=18$$
 नियम लिखें
 
-[
-\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)
-]
+$$\Rightarrow setup: \(\frac{A}{B+x} = \frac{f_1}{f_2}\)$$
 मान रखें
 
-[
-\Rightarrow \frac{8\times23}{8}-10
-]
+$$\Rightarrow \frac{8\times23}{8}-10$$
 सरल करें
 
-[
-\Rightarrow calculation: \(13\)
-]
+$$\Rightarrow calculation: \(13\)$$
 अतः दूध के 13 लीटर और मिलाने होंगे।","","","","","PENDING",""

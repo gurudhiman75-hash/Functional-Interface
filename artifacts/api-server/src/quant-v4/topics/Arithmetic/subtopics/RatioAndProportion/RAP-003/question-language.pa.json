@@ -1008,7 +1008,7 @@
       "RAP-QL-1507": {
         "cpId": "RAP-CP-021",
         "taskKind": "electionLoserVotes",
-        "template": "{candidateA} and {candidateB} received valid votes in the ratio {candidateRatioA}:{candidateRatioB}. Voter turnout and validity give the final valid count. Find the loser's votes.",
+        "template": "In {constituencyName}, {totalVoters} voters are registered. {turnoutPercent}% vote, and {validPercent}% of polled votes are valid. {candidateA} and {candidateB} receive the valid votes in the ratio {candidateRatioA}:{candidateRatioB}. Find the loser's votes.",
         "difficulty": "Easy"
       },
       "RAP-QL-1508": {
