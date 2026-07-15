@@ -46,10 +46,16 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Typecheck ExamTree API server
-        run: pnpm --dir artifacts/api-server typecheck
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server typecheck 2>&1 | tail -n 300
 
       - name: Build ExamTree API server
-        run: pnpm --dir artifacts/api-server build
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server build 2>&1 | tail -n 300
 
       - name: Typecheck complete admin application
         run: pnpm run typecheck:admin
