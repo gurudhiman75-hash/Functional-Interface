@@ -54,7 +54,20 @@ jobs:
             /tmp/examtree-admin-source/ artifacts/admin-app/
 
       - name: Normalize monorepo, auth, routing, and hosting
-        run: node scripts/integrate-admin-app.mjs
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/integrate-admin-app.mjs
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const file = 'artifacts/admin-app/package.json';
+          const pkg = JSON.parse(readFileSync(file, 'utf8'));
+          pkg.devDependencies = {
+            ...pkg.devDependencies,
+            '@testing-library/dom': '^10.4.1',
+          };
+          writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
+          NODE
 
       - name: Install workspace dependencies
         run: pnpm install --no-frozen-lockfile
