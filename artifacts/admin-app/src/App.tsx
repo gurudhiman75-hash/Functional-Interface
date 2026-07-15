@@ -38,7 +38,7 @@ import { AuditLogsPage } from '@/pages/settings/AuditLogsPage';
 import { IntegrationsPage } from '@/pages/settings/IntegrationsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 
-const QuestionStudioPage = lazy(() => import('@/pages/content/QuestionStudioPage').then((module) => ({ default: module.QuestionStudioPage })));
+const QuestionStudioPage = lazy(() => import('@/pages/content/QuestionStudioLivePage').then((module) => ({ default: module.QuestionStudioLivePage })));
 const CoveragePlannerPage = lazy(() => import('@/pages/content/CoveragePlannerPage').then((module) => ({ default: module.CoveragePlannerPage })));
 const TestBuilderPage = lazy(() => import('@/pages/tests/TestBuilderPage').then((module) => ({ default: module.TestBuilderPage })));
 const TestQAWorkspacePage = lazy(() => import('@/pages/tests/TestQAWorkspacePage').then((module) => ({ default: module.TestQAWorkspacePage })));
