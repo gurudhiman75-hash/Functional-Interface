@@ -2,13 +2,13 @@
 
 The complete Admin Prototype frontend is vendored into `artifacts/admin-app` and served from `/admin/` on the same Firebase Hosting site as the student application.
 
-## Source pin
+## Canonical source pin
 
-- Repository: `gurudhiman75-hash/Admin-Prototyoe`
+- Repository: `gurudhiman75-hash/Admin-Prototype`
 - Branch: `main`
-- Imported commit: `81144ae5c7d3c0156af95141bfdf4c150e6d11dc`
+- Canonical repair merge: `fda8626e69a596b2918da665d9f208a1f9801580`
 
-The private `Admin-Prototype` repository remains the source of the namespaced Drizzle schema and migrations. UI and database histories are deliberately kept separate and pinned.
+That canonical repository now contains both the complete standalone admin frontend and the verified namespaced Drizzle schema/migrations on one normal Git history. The earlier `Admin-Prototyoe` snapshot and disconnected `question-studio-*` branches are retained only as historical source references.
 
 ## Application boundaries
 
@@ -22,6 +22,7 @@ The private `Admin-Prototype` repository remains the source of the namespaced Dr
 
 - Firebase authentication state is shared because both applications run on the same origin.
 - The admin shell requires the stored ExamTree profile role to be `admin` and a current Firebase session.
+- The admin login route returns users to the exact requested `/admin/**` path using a full document navigation so Firebase serves the dedicated admin bundle.
 - Every live admin API request includes a Firebase ID token.
 - The API verifies the token and independently confirms the administrator role against the existing ExamTree `public.users` table.
 - Frontend route guards are not treated as a security boundary.
@@ -75,9 +76,10 @@ The frontend deployment uses the existing public Firebase client settings. `VITE
 The integration workflow verifies:
 
 - locked workspace installation;
-- shared workspace-library typecheck;
-- production API bundle with the admin Question Studio route;
+- production API bundle containing the authenticated admin Question Studio route;
 - complete admin typecheck and test suite;
 - admin production build;
 - student production build;
 - combined Firebase hosting output containing both `/index.html` and `/admin/index.html`.
+
+The Question Studio persistence contract was also verified on a temporary Neon branch by creating a generation run, current item version, audit event, outbox event, and review-state transition, then deleting the temporary branch.
