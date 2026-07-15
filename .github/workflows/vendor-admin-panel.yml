@@ -8,6 +8,7 @@ on:
       - artifacts/admin-app/**
       - artifacts/api-server/**
       - artifacts/examtree/src/**
+      - docs/admin-panel-integration.md
       - package.json
       - pnpm-lock.yaml
       - firebase.json
