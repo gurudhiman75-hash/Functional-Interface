@@ -19,7 +19,7 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-integrated-admin-${{ github.ref }}
@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Checkout integration source
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref_name || github.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -46,16 +48,34 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Typecheck ExamTree API server
+        id: api_typecheck
         shell: bash
         run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server typecheck 2>&1 | tail -n 300
+          set +e
+          mkdir -p diagnostics
+          pnpm --dir artifacts/api-server typecheck > diagnostics/api-typecheck.txt 2>&1
+          status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          tail -n 300 diagnostics/api-typecheck.txt
+          exit 0
+
+      - name: Persist API compiler diagnostics
+        if: github.event_name == 'push' && steps.api_typecheck.outputs.status != '0' && github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add diagnostics/api-typecheck.txt
+          git commit -m 'Record admin API typecheck failure'
+          git push origin HEAD:replace-admin-with-new-panel
+
+      - name: Stop after API typecheck failure
+        if: steps.api_typecheck.outputs.status != '0'
+        run: exit 1
 
       - name: Build ExamTree API server
-        shell: bash
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/api-server build 2>&1 | tail -n 300
+        run: pnpm --dir artifacts/api-server build
 
       - name: Typecheck complete admin application
         run: pnpm run typecheck:admin
