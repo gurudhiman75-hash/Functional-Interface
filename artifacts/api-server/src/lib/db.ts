@@ -8,8 +8,9 @@ if (!connectionString) {
   throw new Error("DATABASE_URL environment variable is required");
 }
 
-export const sqlClient = postgres(connectionString);
-export const db = drizzle(sqlClient, { schema });
+/** Existing ExamTree student database connection used by the legacy/public schema. */
+export const studentSqlClient = postgres(connectionString);
+export const db = drizzle(studentSqlClient, { schema });
 
 /**
  * The existing ExamTree student platform and the new namespaced admin schema
@@ -21,4 +22,7 @@ export const db = drizzle(sqlClient, { schema });
  */
 const adminConnectionString = process.env.ADMIN_DATABASE_URL ?? connectionString;
 export const adminSqlClient = postgres(adminConnectionString);
+
+/** Raw SQL is reserved for schema-qualified admin queries in this integration. */
+export const sqlClient = adminSqlClient;
 export const isDedicatedAdminDatabaseConfigured = Boolean(process.env.ADMIN_DATABASE_URL);
