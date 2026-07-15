@@ -1,0 +1,81 @@
+name: Vendor complete admin panel
+
+on:
+  push:
+    branches:
+      - replace-admin-with-new-panel
+    paths:
+      - .github/workflows/vendor-admin-panel.yml
+      - scripts/integrate-admin-app.mjs
+      - scripts/assemble-hosting.mjs
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vendor-admin-panel
+  cancel-in-progress: false
+
+jobs:
+  vendor-and-validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: replace-admin-with-new-panel
+          fetch-depth: 0
+
+      - name: Set up Node and pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+
+      - name: Import pinned complete admin frontend
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf artifacts/admin-app /tmp/examtree-admin-source
+          git clone --filter=blob:none --no-checkout https://github.com/gurudhiman75-hash/Admin-Prototyoe.git /tmp/examtree-admin-source
+          git -C /tmp/examtree-admin-source checkout 81144ae5c7d3c0156af95141bfdf4c150e6d11dc
+          mkdir -p artifacts/admin-app
+          rsync -a \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='dist' \
+            /tmp/examtree-admin-source/ artifacts/admin-app/
+
+      - name: Normalize monorepo, auth, routing, and hosting
+        run: node scripts/integrate-admin-app.mjs
+
+      - name: Install workspace dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Validate admin application
+        run: |
+          pnpm run typecheck:admin
+          pnpm run build:admin
+
+      - name: Validate student application and combined hosting output
+        run: |
+          pnpm run build:web
+          node scripts/assemble-hosting.mjs
+          test -f artifacts/examtree/dist/public/admin/index.html
+
+      - name: Commit vendored application
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/admin-app artifacts/examtree/src/App.tsx package.json pnpm-lock.yaml firebase.json scripts docs
+          if git diff --cached --quiet; then
+            echo 'No integration changes to commit.'
+            exit 0
+          fi
+          git commit -m 'Integrate complete admin panel into ExamTree'
+          git push origin HEAD:replace-admin-with-new-panel
