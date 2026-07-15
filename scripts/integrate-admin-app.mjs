@@ -31,8 +31,6 @@ if (!existsSync(path.join(adminDir, 'src', 'App.tsx'))) {
   throw new Error('Admin source was not copied to artifacts/admin-app.');
 }
 
-// Keep the imported application isolated so React 18 and Tailwind 3 can coexist
-// safely with the React 19 / Tailwind 4 student application.
 const adminPackagePath = path.join(adminDir, 'package.json');
 const adminPackage = readJson(adminPackagePath);
 adminPackage.name = '@workspace/examtree-admin';
@@ -98,8 +96,6 @@ export default defineConfig({
 `,
 );
 
-// Mount React Router below /admin while retaining every route from the imported
-// application exactly as designed.
 const adminAppPath = path.join(adminDir, 'src', 'App.tsx');
 let adminApp = readFileSync(adminAppPath, 'utf8');
 adminApp = replaceRequired(
@@ -110,7 +106,6 @@ adminApp = replaceRequired(
 );
 writeFileSync(adminAppPath, adminApp);
 
-// Reuse the same Firebase client configuration and browser session as ExamTree.
 const integrationsDir = path.join(adminDir, 'src', 'integrations');
 mkdirSync(integrationsDir, { recursive: true });
 copyFileSync(
@@ -157,8 +152,6 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
 
     const auth = getFirebaseAuth();
     if (!auth) {
-      // Local UI development may run without Firebase environment values. The
-      // API still performs token and permission checks for protected actions.
       setAuthorized(true);
       setLoading(false);
       return;
@@ -217,8 +210,6 @@ VITE_FIREBASE_APP_ID=
 `,
 );
 
-// A client-side navigation to /admin must perform a full document load so the
-// Firebase rewrite can serve the dedicated admin application bundle.
 const webAppPath = path.join(webDir, 'src', 'App.tsx');
 let webApp = readFileSync(webAppPath, 'utf8');
 webApp = webApp.replace(
@@ -274,6 +265,7 @@ hosting.rewrites = [
 ];
 writeJson(firebasePath, firebase);
 
+mkdirSync(path.join(root, 'docs'), { recursive: true });
 writeFileSync(
   path.join(root, 'docs', 'admin-panel-integration.md'),
   `# ExamTree admin panel integration
