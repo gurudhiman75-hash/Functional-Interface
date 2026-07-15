@@ -12,7 +12,6 @@ import { AppLayout } from "@/components/AppLayout";
 import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 import { MathJaxContext } from "better-react-mathjax";
 
-
 const MATH_JAX_CONFIG = {
   loader: { load: ["input/tex", "output/chtml", "[tex]/ams", "[tex]/boldsymbol"] },
   tex: {
@@ -59,14 +58,73 @@ const PYQHub = lazy(() => import("@/pages/pyqs"));
 const Blog = lazy(() => import("@/pages/blog"));
 const ReportQuestion = lazy(() => import("@/pages/report-question"));
 const SeoLanding = lazy(() => import("@/pages/seo-landing"));
-function AdminRedirect({ to = '/admin/' }: { to?: string }) {
-  useEffect(() => {
-    window.location.replace(to);
-  }, [to]);
-  return <RouteSkeleton />;
-}
 const NotFound = lazy(() => import("@/pages/not-found"));
 
+const DEFAULT_LOCAL_ADMIN_ORIGIN = "http://localhost:5174";
+
+function resolveAdminDestination(pathname: string): string {
+  if (import.meta.env.DEV) {
+    const configuredOrigin = String(import.meta.env.VITE_ADMIN_APP_URL ?? "").trim();
+    const localOrigin = configuredOrigin || DEFAULT_LOCAL_ADMIN_ORIGIN;
+    return new URL(pathname, localOrigin.endsWith("/") ? localOrigin : `${localOrigin}/`).toString();
+  }
+
+  return new URL(pathname, window.location.origin).toString();
+}
+
+function AdminRedirect({ to = "/admin/" }: { to?: string }) {
+  const [loopDetected, setLoopDetected] = useState(false);
+  const [destination, setDestination] = useState("");
+
+  useEffect(() => {
+    const target = resolveAdminDestination(to);
+    setDestination(target);
+
+    const currentUrl = new URL(window.location.href);
+    const targetUrl = new URL(target);
+    const pointsToCurrentDocument =
+      currentUrl.origin === targetUrl.origin &&
+      currentUrl.pathname === targetUrl.pathname &&
+      currentUrl.search === targetUrl.search;
+
+    if (pointsToCurrentDocument) {
+      setLoopDetected(true);
+      return;
+    }
+
+    window.location.assign(target);
+  }, [to]);
+
+  if (loopDetected) {
+    return (
+      <div className="examtree-shell min-h-screen bg-background">
+        <div className="mx-auto flex min-h-screen max-w-xl items-center px-4 py-12 sm:px-6">
+          <div className="w-full rounded-2xl border bg-card p-6 shadow-sm">
+            <p className="text-sm font-semibold text-destructive">Admin application bundle is not being served</p>
+            <h1 className="mt-2 text-2xl font-bold">The refresh loop has been stopped.</h1>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              This student application received an admin URL. In local development, run the student and admin applications together. In deployment, build the combined Firebase output before publishing.
+            </p>
+            <div className="mt-5 rounded-lg border bg-muted/30 p-3 font-mono text-xs text-muted-foreground">
+              Local: pnpm run dev:frontend<br />
+              Deploy: pnpm run deploy:web
+            </div>
+            {destination && (
+              <a
+                href={destination}
+                className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+              >
+                Open admin application
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return <RouteSkeleton />;
+}
 
 console.log("App.tsx loaded");
 
