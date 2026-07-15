@@ -1,0 +1,73 @@
+name: Validate integrated admin panel
+
+on:
+  push:
+    branches:
+      - replace-admin-with-new-panel
+    paths:
+      - artifacts/admin-app/**
+      - artifacts/api-server/**
+      - artifacts/examtree/src/**
+      - docs/admin-panel-integration.md
+      - package.json
+      - pnpm-lock.yaml
+      - firebase.json
+      - scripts/assemble-hosting.mjs
+      - .github/workflows/vendor-admin-panel.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-integrated-admin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-admin-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout integration source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build ExamTree API server with admin routes
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify admin Question Studio route is bundled
+        run: |
+          grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
+          grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist >/dev/null
+
+      - name: Typecheck complete admin application
+        run: pnpm run typecheck:admin
+
+      - name: Test complete admin application
+        run: pnpm run test:admin
+
+      - name: Build complete admin application
+        run: pnpm run build:admin
+
+      - name: Build student application
+        run: pnpm run build:web
+
+      - name: Assemble single-site hosting output
+        run: |
+          node scripts/assemble-hosting.mjs
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html

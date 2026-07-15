@@ -11,10 +11,15 @@
     "preinstall": "node -e \"\"",
     "build": "pnpm run typecheck && pnpm -r --if-present run build",
     "build:web": "pnpm --dir artifacts/examtree build",
-    "deploy:web": "pnpm run build:web && pnpm dlx firebase-tools deploy --only hosting --project sarbedutech",
-    "preview:web": "pnpm run build:web && pnpm dlx firebase-tools hosting:channel:deploy preview --project sarbedutech",
+    "deploy:web": "pnpm run build:hosting && pnpm dlx firebase-tools deploy --only hosting --project sarbedutech",
+    "preview:web": "pnpm run build:hosting && pnpm dlx firebase-tools hosting:channel:deploy preview --project sarbedutech",
     "typecheck:libs": "tsc --build",
-    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck",
+    "dev:admin": "pnpm --dir artifacts/admin-app dev",
+    "build:admin": "pnpm --dir artifacts/admin-app build",
+    "typecheck:admin": "pnpm --dir artifacts/admin-app typecheck",
+    "test:admin": "pnpm --dir artifacts/admin-app test",
+    "build:hosting": "pnpm run build:web && pnpm run build:admin && node scripts/assemble-hosting.mjs"
   },
   "private": true,
   "devDependencies": {
