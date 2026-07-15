@@ -19,7 +19,7 @@ on:
     types: [opened, reopened, synchronize]
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-integrated-admin-${{ github.ref }}
@@ -33,6 +33,8 @@ jobs:
     steps:
       - name: Checkout integration source
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref_name || github.sha }}
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -54,7 +56,31 @@ jobs:
           grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist >/dev/null
 
       - name: Typecheck complete admin application
-        run: pnpm run typecheck:admin
+        id: admin_typecheck
+        shell: bash
+        run: |
+          set +e
+          mkdir -p diagnostics
+          pnpm run typecheck:admin > diagnostics/admin-ui-typecheck.txt 2>&1
+          status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          cat diagnostics/admin-ui-typecheck.txt
+          exit 0
+
+      - name: Persist admin UI diagnostics
+        if: github.event_name == 'push' && steps.admin_typecheck.outputs.status != '0' && github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add diagnostics/admin-ui-typecheck.txt
+          git commit -m 'Record admin UI typecheck failure'
+          git push origin HEAD:replace-admin-with-new-panel
+
+      - name: Stop after admin UI typecheck failure
+        if: steps.admin_typecheck.outputs.status != '0'
+        run: exit 1
 
       - name: Test complete admin application
         run: pnpm run test:admin
