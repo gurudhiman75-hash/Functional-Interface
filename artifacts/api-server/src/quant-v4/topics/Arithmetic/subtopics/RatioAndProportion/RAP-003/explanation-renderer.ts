@@ -32,6 +32,19 @@ function renderRap003ExplanationDraft(parameters: Rap003Parameters, solver: Rap0
       : parameters.taskKind === "partnershipLossShare"
         ? "\\text{Loss ratio}"
         : "\\text{Profit ratio}";
+    const productA = Number(solver.workingValues.productA);
+    const productB = Number(solver.workingValues.productB);
+    const targetIsB = String(parameters.variables.targetPartner) === String(parameters.variables.personB);
+    const targetProduct = targetIsB ? productB : productA;
+    const distributable = solver.workingValues.remainingProfit !== undefined
+      ? Number(solver.workingValues.remainingProfit)
+      : Number(parameters.variables.totalProfit ?? parameters.variables.totalLoss);
+    const explicitShareCalculation = solver.answerType === "PROFIT"
+      && Number.isFinite(productA)
+      && Number.isFinite(productB)
+      && Number.isFinite(distributable)
+      ? block(`\\text{Target share}=${distributable}\\times\\frac{${targetProduct}}{${productA + productB}}=${solver.answer.replaceAll("$$", "")}`)
+      : block(`\\text{Decisive calculation}=${solver.mathJax.calculationLatex}`);
     return {
       explanationId: parameters.explanationId,
       lines: [
@@ -42,11 +55,14 @@ function renderRap003ExplanationDraft(parameters: Rap003Parameters, solver: Rap0
           "ਸਾਂਝੇਦਾਰੀ ਵਿੱਚ ਲਾਭ ਨਿਵੇਸ਼ ਅਤੇ ਸਮੇਂ ਦੇ ਗੁਣਨਫਲ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ.",
         ),
         block(`\\text{Investment-time products}=${String(solver.workingValues.productA)}:${String(solver.workingValues.productB)}`),
+        Number.isFinite(productA) && Number.isFinite(productB)
+          ? block(`\\text{Total investment-time}=${productA}+${productB}=${productA + productB}`)
+          : block(`${ratioLabel}=${String(solver.workingValues.profitRatio)}`),
         solver.workingValues.remainingProfit !== undefined
           ? block(`\\text{Remaining profit}=${String(solver.workingValues.remainingProfit)}`)
           : block(`${ratioLabel}=${String(solver.workingValues.profitRatio)}`),
         localizedIntro(parameters, "Method 1: use the target partner's share of the total profit.", "कुल लाभ में लक्षित साझेदार का हिस्सा लें.", "ਕੁੱਲ ਲਾਭ ਵਿੱਚ ਲਕਸ਼ਿਤ ਸਾਥੀ ਦਾ ਹਿੱਸਾ ਲਵੋ."),
-        block(`\\text{Calculation}=${solver.mathJax.calculationLatex}`),
+        explicitShareCalculation,
         block(`\\text{Answer}=${solver.answer.replaceAll("$$", "")}`),
       ],
     };

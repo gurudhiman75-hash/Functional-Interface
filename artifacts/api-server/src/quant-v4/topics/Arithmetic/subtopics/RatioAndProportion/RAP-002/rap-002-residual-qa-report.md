@@ -1,7 +1,7 @@
 # RAP-002 Residual QA Report
 
-Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
-Reviewed date: `2026-07-11`
+Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1
+Reviewed date: `2026-07-15`
 
 ## Current Results
 
@@ -232,9 +232,9 @@ Reviewed date: `2026-07-11`
     "A > C > B": 4,
     "A": 8,
     "B > A > C": 2,
-    "B > C > A": 3,
+    "B > C > A": 2,
     "C > A > B": 4,
-    "C > B > A": 7,
+    "C > B > A": 8,
     "C": 24,
     "Car A > Car B > Car C": 4,
     "D > C > B > A": 14,
@@ -242,17 +242,18 @@ Reviewed date: `2026-07-11`
     "Group A > Group B > Group C > Group D": 1,
     "Group A > Group B > Group D > Group C": 2,
     "Group A > Group C > Group D > Group B": 1,
-    "Group B > Group A > Group D > Group C": 3,
+    "Group B > Group A > Group D > Group C": 2,
     "Group B > Group C > Group D > Group A": 2,
-    "Group B": 11,
+    "Group B > Group D > Group C > Group A": 1,
+    "Group B": 10,
     "Group C > Group A > Group B > Group D": 1,
-    "Group C > Group B > Group A > Group D": 1,
+    "Group C > Group B > Group D > Group A": 1,
     "Group C > Group D > Group A > Group B": 2,
     "Group C > Group D > Group B > Group A": 1,
     "Group D > Group A > Group C > Group B": 6,
     "Group D > Group C > Group A > Group B": 4,
     "Group D > Group C > Group B > Group A": 1,
-    "Group D": 3,
+    "Group D": 4,
     "Not equivalent": 35,
     "Team B": 5
   },

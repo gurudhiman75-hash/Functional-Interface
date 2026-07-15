@@ -1,7 +1,7 @@
 # RAP-003 Residual QA Report
 
 Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
-Reviewed date: `2026-07-14`
+Reviewed date: `2026-07-15`
 
 ## Current Results
 
@@ -496,7 +496,17 @@ Reviewed date: `2026-07-14`
   "invalidMixtureTargetCount": 0,
   "invalidReplacementCount": 0,
   "invalidGeometryRootCount": 0,
-  "unsupportedLanguageExposureCount": 0
+  "unsupportedLanguageExposureCount": 0,
+  "articleNameGrammarCount": 0,
+  "pronounMismatchCount": 0,
+  "relationshipPlaceholderMismatchCount": 0,
+  "invalidElectionLocationCount": 0,
+  "unnaturalElectionWordingCount": 0,
+  "roundingInstructionMissingCount": 0,
+  "displayPolicyStemMismatchCount": 0,
+  "displayPolicyAnswerMismatchCount": 0,
+  "approximateAnswerWithoutInstructionCount": 0,
+  "excessiveDecimalPrecisionCount": 0
 }
 ```
 

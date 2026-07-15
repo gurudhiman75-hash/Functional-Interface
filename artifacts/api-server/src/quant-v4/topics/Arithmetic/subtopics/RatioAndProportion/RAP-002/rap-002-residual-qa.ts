@@ -259,7 +259,7 @@ console.log(JSON.stringify(summary, null, 2));
 
 const reportPath = path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-residual-qa-report.md");
 fs.writeFileSync(reportPath, [
-  "# RAP-002 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`  ",
+  "# RAP-002 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1",
   `Reviewed date: \`${new Date().toISOString().slice(0, 10)}\``, "", "## Current Results", "", "```json",
   JSON.stringify(summary, null, 2), "```", "", "## Duplicate Classification", "",
   `- Cross-QL exact duplicate stem groups: \`${exactDuplicateStemGroupCount}\` (blocker).`,

@@ -47,9 +47,14 @@ export function runExplanationQualityAudit(config: ExplanationAuditConfig) {
     missingMethodReasonCount: 0,
     missingIntermediateStepCount: 0,
     missingFinalContextCount: 0,
-    formulaOnlyExplanationCount: 0,
-    repeatedExplanationShellCount: 0,
-    explanationStemMismatchCount: 0,
+  formulaOnlyExplanationCount: 0,
+  repeatedExplanationShellCount: 0,
+  explanationStemMismatchCount: 0,
+  missingNumericSubstitutionCount: 0,
+  missingIntermediateValueCount: 0,
+  missingDecisiveCalculationCount: 0,
+  missingRequestedQuantityCalculationCount: 0,
+  genericExplanationShellCount: 0,
   };
   const weak: string[] = [];
   const shells = new Map<string, Set<string>>();
@@ -66,6 +71,21 @@ export function runExplanationQualityAudit(config: ExplanationAuditConfig) {
     if (!/(why|because|method:)/i.test(text)) { counters.missingMethodReasonCount += 1; failures.push("missing method reason"); }
     if (!lines.slice(1, -1).some((line) => /\d|\$\$|\\frac|\\times|equation|unit|ratio|value/i.test(line))) {
       counters.missingIntermediateStepCount += 1; failures.push("missing intermediate value");
+    }
+    const numericLines = lines.filter((line) => /\d/.test(line));
+    if (numericLines.length < 1) {
+      counters.missingNumericSubstitutionCount += 1; failures.push("missing numeric substitution");
+    }
+    if (!lines.slice(1, -1).some((line) => /(?:=|\\times|\\div|\\frac|\bcalculation\b|\btotal\b)/i.test(line))) {
+      counters.missingDecisiveCalculationCount += 1; failures.push("missing decisive calculation");
+    }
+    if (!lines.slice(1, -1).some((line) => /\d|\btotal\b|\bshare\b|\bresult\b/i.test(line))) {
+      counters.missingIntermediateValueCount += 1; failures.push("missing intermediate value evidence");
+    }
+    const answerValue = normalize(pkg.answer).replace(/[\s$\\{}]/g, "");
+    const explanationValueText = normalize(text).replace(/[\s$\\{}]/g, "");
+    if (answerValue && !explanationValueText.includes(answerValue)) {
+      counters.missingRequestedQuantityCalculationCount += 1; failures.push("final calculation does not state requested value");
     }
     if (!/(final answer|therefore|hence).*(ratio|value|age|time|share|count|quantity|percentage|receives|is)/i.test(text)) {
       counters.missingFinalContextCount += 1; failures.push("missing final context");
@@ -86,6 +106,7 @@ export function runExplanationQualityAudit(config: ExplanationAuditConfig) {
   }
 
   counters.repeatedExplanationShellCount = [...shells.values()].filter((taskKinds) => taskKinds.size > 1).length;
+  counters.genericExplanationShellCount = counters.repeatedExplanationShellCount;
   const reviewedCommit = process.env.RAP_REVIEWED_COMMIT ?? "8450deef2e06cc9e031b6d3221b7e54d226199b1";
   const reviewedDate = new Date().toISOString().slice(0, 10);
   const report = [

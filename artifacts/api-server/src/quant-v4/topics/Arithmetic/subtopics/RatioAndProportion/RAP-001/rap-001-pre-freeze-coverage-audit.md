@@ -9,9 +9,9 @@
 - Solver failures: 0
 - Cross-language failures: 0
 - Placeholder failures: 0
-- Duplicate rate: 4.00%
+- Duplicate rate: 2.80%
 - Cross-QL exact duplicate stem groups: 0
-- Same-QL repeated stem groups: 14
+- Same-QL repeated stem groups: 8
 - Library validation failures: 0
 - Sample profile: 500 EN questions
 

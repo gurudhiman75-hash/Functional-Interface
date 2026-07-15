@@ -1,4 +1,5 @@
 import type { Rap003QuestionPackage, Rap003ValidationResult } from "./types";
+import { hasMatchingNumericDisplayInstruction } from "../numeric-display-policy";
 
 function hasUnresolvedPlaceholder(text: string) {
   const withoutLatexCommandArgs = text.replace(/\\[A-Za-z]+\{[^}]*\}/g, "");
@@ -100,6 +101,14 @@ function hasExcessiveDecimalPrecision(pkg: Rap003QuestionPackage) {
   return !!match && match[1]!.length > 2;
 }
 
+function hasAgeTemplateGrammarIssue(text: string) {
+  return /\bA\s+(?:Aman|Bhavna|Ravi|Sunita|Karan|Meena|Dev|Nisha|Arjun|Kavita|Rohan|Pooja|Vikas|Neha|Sahil|Ritika)\b|\b(?:his|her)\s+(?:Aman|Bhavna|Ravi|Sunita|Karan|Meena|Dev|Nisha|Karan|Meena|Arjun|Kavita|Rohan|Pooja|Vikas|Neha|Sahil|Ritika)\b/i.test(text);
+}
+
+function hasInvalidElectionLocation(text: string) {
+  return /\b(?:in|registered in)\s+a seat\b|\ba seat\b/i.test(text);
+}
+
 export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap003ValidationResult {
   const numericAnswer = Number(pkg.solver.answerValue);
   const finiteAnswer = pkg.solver.answerType === "RATIO"
@@ -182,6 +191,11 @@ export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap00
       message: "Rendered answers must use at most two decimal places.",
     },
     {
+      name: "numeric-display-policy",
+      passed: pkg.language !== "en" || hasMatchingNumericDisplayInstruction(pkg.stem, pkg.answer, pkg.solver.answerType),
+      message: "Decimal answers must have an explicit matching rounding instruction in the stem.",
+    },
+    {
       name: "ratio-answer-format",
       passed: pkg.solver.answerType !== "RATIO" || !hasInvalidRatio(pkg.solver.answerValue),
       message: "RATIO answers must use a colon-separated positive integer ratio.",
@@ -190,6 +204,16 @@ export function validateRap003QuestionPackage(pkg: Rap003QuestionPackage): Rap00
       name: "realistic-age-scenario",
       passed: !hasUnrealisticAgeScenario(pkg),
       message: "Age scenarios must avoid unrealistic parent/child ages or invalid past ages.",
+    },
+    {
+      name: "age-template-grammar",
+      passed: !hasAgeTemplateGrammarIssue(pkg.stem),
+      message: "Age stems must not combine an article or pronoun with an inserted personal name.",
+    },
+    {
+      name: "election-location-wording",
+      passed: !hasInvalidElectionLocation(pkg.stem),
+      message: "Election locations must use constituencies or wards, never a seat.",
     },
     {
       name: "population-grammar",

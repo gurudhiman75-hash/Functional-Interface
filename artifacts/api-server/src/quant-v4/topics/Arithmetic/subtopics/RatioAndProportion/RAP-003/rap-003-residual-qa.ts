@@ -169,6 +169,16 @@ let invalidPopulationGridCount = 0;
 let invalidMixtureTargetCount = 0;
 let invalidReplacementCount = 0;
 let invalidGeometryRootCount = 0;
+let articleNameGrammarCount = 0;
+let pronounMismatchCount = 0;
+let relationshipPlaceholderMismatchCount = 0;
+let invalidElectionLocationCount = 0;
+let unnaturalElectionWordingCount = 0;
+let roundingInstructionMissingCount = 0;
+let displayPolicyStemMismatchCount = 0;
+let displayPolicyAnswerMismatchCount = 0;
+let approximateAnswerWithoutInstructionCount = 0;
+let excessiveDecimalPrecisionCount = 0;
 
 for (const [index, question] of generated.questions.entries()) {
   const pkg = generated.questionPackages[index]!;
@@ -226,6 +236,25 @@ for (const [index, question] of generated.questions.entries()) {
   explanationShells.set(explanationShell, shellTasks);
   if ((question as any).metadata?.language !== "en") metadataLanguageMismatchCount += 1;
   if (pkg.validation?.valid !== true) validationFailureCount += 1;
+  const failedChecks = new Set((pkg.validation?.checks ?? []).filter((check: any) => !check.passed).map((check: any) => check.name));
+  if (failedChecks.has("age-template-grammar")) {
+    articleNameGrammarCount += 1;
+    pronounMismatchCount += 1;
+    relationshipPlaceholderMismatchCount += 1;
+  }
+  if (failedChecks.has("election-location-wording")) {
+    invalidElectionLocationCount += 1;
+    unnaturalElectionWordingCount += 1;
+  }
+  if (failedChecks.has("numeric-display-policy")) {
+    roundingInstructionMissingCount += 1;
+    displayPolicyStemMismatchCount += 1;
+    approximateAnswerWithoutInstructionCount += 1;
+  }
+  if (failedChecks.has("decimal-precision")) {
+    displayPolicyAnswerMismatchCount += 1;
+    excessiveDecimalPrecisionCount += 1;
+  }
 
   const numericEntries = Object.entries(pkg.parameters.variables).filter(([, value]) => typeof value === "number") as [string, number][];
   if (numericEntries.some(([key, value]) => /denominator/i.test(key) && value === 0)) zeroDenominatorCount += 1;
@@ -344,6 +373,16 @@ const summary = {
   invalidReplacementCount,
   invalidGeometryRootCount,
   unsupportedLanguageExposureCount,
+  articleNameGrammarCount,
+  pronounMismatchCount,
+  relationshipPlaceholderMismatchCount,
+  invalidElectionLocationCount,
+  unnaturalElectionWordingCount,
+  roundingInstructionMissingCount,
+  displayPolicyStemMismatchCount,
+  displayPolicyAnswerMismatchCount,
+  approximateAnswerWithoutInstructionCount,
+  excessiveDecimalPrecisionCount,
 };
 
 console.log(JSON.stringify(summary, null, 2));
@@ -390,6 +429,16 @@ assert.equal(invalidMixtureTargetCount, 0, "Invalid mixture targets must be zero
 assert.equal(invalidReplacementCount, 0, "Invalid replacement cases must be zero.");
 assert.equal(invalidGeometryRootCount, 0, "Invalid geometry roots must be zero.");
 assert.equal(unsupportedLanguageExposureCount, 0, "Unsupported language exposure must be zero.");
+assert.equal(articleNameGrammarCount, 0, "Age article/name grammar issues must be zero.");
+assert.equal(pronounMismatchCount, 0, "Age pronoun mismatches must be zero.");
+assert.equal(relationshipPlaceholderMismatchCount, 0, "Age relationship placeholder mismatches must be zero.");
+assert.equal(invalidElectionLocationCount, 0, "Invalid election locations must be zero.");
+assert.equal(unnaturalElectionWordingCount, 0, "Unnatural election wording must be zero.");
+assert.equal(roundingInstructionMissingCount, 0, "Missing rounding instructions must be zero.");
+assert.equal(displayPolicyStemMismatchCount, 0, "Display-policy stem mismatches must be zero.");
+assert.equal(displayPolicyAnswerMismatchCount, 0, "Display-policy answer mismatches must be zero.");
+assert.equal(approximateAnswerWithoutInstructionCount, 0, "Approximate answers without instructions must be zero.");
+assert.equal(excessiveDecimalPrecisionCount, 0, "Excessive decimal precision must be zero.");
 assert.equal(crossPackageDuplicateWithRap002Count, 0, "Exact cross-package duplicate stems with RAP-002 must be zero.");
 assert.equal(exactDuplicateStemGroupCount, 0, "Exact duplicate stems across distinct QLs must be zero.");
 

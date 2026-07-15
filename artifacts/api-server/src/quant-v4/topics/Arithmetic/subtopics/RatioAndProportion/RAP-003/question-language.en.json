@@ -266,13 +266,13 @@
       "RAP-QL-928": {
         "cpId": "RAP-CP-014",
         "taskKind": "agePresentFromFutureRatio",
-        "template": "A {personA} and his {personB} have present ages in the ratio {ratioA}:{ratioB}. After {shiftYears} years, their ratio will be {futureRatioA}:{futureRatioB}. Find the present age of the {targetPerson}.",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. After {shiftYears} years, their ratio will be {futureRatioA}:{futureRatioB}. Find the present age of {targetPerson}.",
         "difficulty": "Medium"
       },
       "RAP-QL-929": {
         "cpId": "RAP-CP-014",
         "taskKind": "agePresentFromPastRatio",
-        "template": "A {personA} and her {personB} have present ages in the ratio {ratioA}:{ratioB}. {shiftYears} years ago, their ratio was {pastRatioA}:{pastRatioB}. Find the present age of the {targetPerson}.",
+        "template": "The present ages of {personA} and {personB} are in the ratio {ratioA}:{ratioB}. {shiftYears} years ago, their ratio was {pastRatioA}:{pastRatioB}. Find the present age of {targetPerson}.",
         "difficulty": "Medium"
       },
       "RAP-QL-930": {

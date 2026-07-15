@@ -239,22 +239,22 @@ const ELECTION_CASES = {
   validSplit: [
     { constituencyName: "a constituency", candidateA: "Aman", candidateB: "Bhavna", totalValidVotes: 10000, candidateRatioA: 3, candidateRatioB: 2 },
     { constituencyName: "a ward", candidateA: "Ravi", candidateB: "Sunita", totalValidVotes: 18000, candidateRatioA: 5, candidateRatioB: 4 },
-    { constituencyName: "a seat", candidateA: "Candidate A", candidateB: "Candidate B", totalValidVotes: 24000, candidateRatioA: 7, candidateRatioB: 5 },
+    { constituencyName: "an assembly constituency", candidateA: "Candidate A", candidateB: "Candidate B", totalValidVotes: 24000, candidateRatioA: 7, candidateRatioB: 5 },
   ],
   staged: [
     { constituencyName: "a constituency", candidateA: "Aman", candidateB: "Bhavna", totalVoters: 20000, turnoutPercent: 80, validPercent: 90, candidateRatioA: 5, candidateRatioB: 4 },
     { constituencyName: "a ward", candidateA: "Ravi", candidateB: "Sunita", totalVoters: 50000, turnoutPercent: 60, validPercent: 80, candidateRatioA: 7, candidateRatioB: 5 },
-    { constituencyName: "a seat", candidateA: "Candidate A", candidateB: "Candidate B", totalVoters: 30000, turnoutPercent: 70, validPercent: 90, candidateRatioA: 4, candidateRatioB: 3 },
+    { constituencyName: "an assembly constituency", candidateA: "Candidate A", candidateB: "Candidate B", totalVoters: 30000, turnoutPercent: 70, validPercent: 90, candidateRatioA: 4, candidateRatioB: 3 },
   ],
   reverse: [
     { constituencyName: "a constituency", candidateA: "Aman", candidateB: "Bhavna", turnoutPercent: 75, validPercent: 96, candidateRatioA: 7, candidateRatioB: 5, winningMargin: 1200 },
     { constituencyName: "a ward", candidateA: "Ravi", candidateB: "Sunita", turnoutPercent: 80, validPercent: 90, candidateRatioA: 5, candidateRatioB: 4, winningMargin: 1600 },
-    { constituencyName: "a seat", candidateA: "Candidate A", candidateB: "Candidate B", turnoutPercent: 60, validPercent: 80, candidateRatioA: 7, candidateRatioB: 5, winningMargin: 4000 },
+    { constituencyName: "an assembly constituency", candidateA: "Candidate A", candidateB: "Candidate B", turnoutPercent: 60, validPercent: 80, candidateRatioA: 7, candidateRatioB: 5, winningMargin: 4000 },
   ],
   invalid: [
     { constituencyName: "a constituency", totalVoters: 25000, turnoutPercent: 80, invalidPercent: 10 },
     { constituencyName: "a ward", totalVoters: 30000, turnoutPercent: 70, invalidPercent: 8 },
-    { constituencyName: "a seat", totalVoters: 50000, turnoutPercent: 60, invalidPercent: 5 },
+    { constituencyName: "an assembly constituency", totalVoters: 50000, turnoutPercent: 60, invalidPercent: 5 },
   ],
 } as const;
 
@@ -1121,13 +1121,13 @@ function variablesForQl(qlId: string, seed: string): Rap003Variables {
     return { ...pick(ELECTION_CASES.invalid, `${seed}:electionInvalid`) };
   }
   if (qlId === "RAP-QL-1507") return { constituencyName: "a ward", candidateA: "Ravi", candidateB: "Sunita", totalVoters: 50000, turnoutPercent: 60, validPercent: 80, candidateRatioA: 7, candidateRatioB: 5 };
-  if (qlId === "RAP-QL-1508") return { constituencyName: "a seat", candidateA: "Aman", candidateB: "Bhavna", totalVoters: 30000, turnoutPercent: 70, validPercent: 90, candidateRatioA: 4, candidateRatioB: 3 };
+  if (qlId === "RAP-QL-1508") return { constituencyName: "an assembly constituency", candidateA: "Aman", candidateB: "Bhavna", totalVoters: 30000, turnoutPercent: 70, validPercent: 90, candidateRatioA: 4, candidateRatioB: 3 };
   if (qlId === "RAP-QL-1509") return { constituencyName: "a constituency", candidateA: "Aman", candidateB: "Bhavna", turnoutPercent: 75, validPercent: 96, candidateRatioA: 7, candidateRatioB: 5, winningMargin: 1200 };
-  if (qlId === "RAP-QL-1510") return { constituencyName: "a polling area", totalVoters: 25000, turnoutPercent: 80, invalidPercent: 10 };
+  if (qlId === "RAP-QL-1510") return { constituencyName: "a parliamentary constituency", totalVoters: 25000, turnoutPercent: 80, invalidPercent: 10 };
   if (qlId === "RAP-QL-1511") return { constituencyName: "a constituency", totalVoters: 40000, turnoutPercent: 75 };
   if (qlId === "RAP-QL-1512") return { constituencyName: "a ward", polledVotes: 24000, invalidPercent: 10 };
-  if (qlId === "RAP-QL-1513") return { constituencyName: "a seat", totalValidVotes: 18000, winningMargin: 2000 };
-  if (qlId === "RAP-QL-1514") return { constituencyName: "a seat", totalValidVotes: 18000, winningMargin: 2000 };
+  if (qlId === "RAP-QL-1513") return { constituencyName: "an assembly constituency", totalValidVotes: 18000, winningMargin: 2000 };
+  if (qlId === "RAP-QL-1514") return { constituencyName: "an assembly constituency", totalValidVotes: 18000, winningMargin: 2000 };
   if (qlId === "RAP-QL-1515") return { constituencyName: "a constituency", candidateA: "Aman", candidateB: "Bhavna", candidateC: "Charu", totalValidVotes: 30000, candidateRatioA: 5, candidateRatioB: 3, candidateRatioC: 2 };
   if (qlId === "RAP-QL-1516") return { constituencyName: "a ward", candidateA: "Ravi", candidateB: "Sunita", candidateRatioA: 7, candidateRatioB: 5 };
   if (qlId === "RAP-QL-1517") return { candidateA: "Aman", candidateB: "Bhavna", percentA: 55, percentB: 45 };

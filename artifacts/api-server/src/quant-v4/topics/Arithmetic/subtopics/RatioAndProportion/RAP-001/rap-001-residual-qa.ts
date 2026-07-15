@@ -90,7 +90,7 @@ const summary = {
 };
 
 fs.writeFileSync(path.resolve("src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001-residual-qa-report.md"), [
-  "# RAP-001 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`  ",
+  "# RAP-001 Residual QA Report", "", "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1",
   `Reviewed date: \`${new Date().toISOString().slice(0, 10)}\``, "", "```json", JSON.stringify(summary, null, 2), "```", "",
   `Same-QL repeated parameter draws: \`${sameQlRepeatedStemGroupCount}\` groups. These are generator-diversity debt, not duplicate QL structures.`, "",
 ].join("\n"));

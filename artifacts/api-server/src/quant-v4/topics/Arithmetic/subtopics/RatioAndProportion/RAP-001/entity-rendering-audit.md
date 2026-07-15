@@ -131,15 +131,15 @@ IDs
 
 English rendering
 
-Convert the fractional ratio 6/2 : 3/3 into a simple integer ratio.
+Convert the fractional ratio 6/2 : 6/3 into a simple integer ratio.
 
 Hindi rendering
 
-6/2 : 3/3 को सबसे सरल पूर्ण-संख्या अनुपात में बदलें।
+6/2 : 6/3 को सबसे सरल पूर्ण-संख्या अनुपात में बदलें।
 
 Punjabi rendering
 
-6/2 : 3/3 ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
+6/2 : 6/3 ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
 
 Synchronized entity IDs: yes
 
@@ -152,15 +152,15 @@ IDs
 
 English rendering
 
-Simplify the ratio of fractions 3/3 : 4/2 to whole numbers.
+Simplify the ratio of fractions 2/2 : 6/2 to whole numbers.
 
 Hindi rendering
 
-3/3 : 4/2 भिन्नों के अनुपात को पूर्ण संख्याओं में सरल करें।
+2/2 : 6/2 भिन्नों के अनुपात को पूर्ण संख्याओं में सरल करें।
 
 Punjabi rendering
 
-3/3 : 4/2 ਭਿੰਨਾਂ ਦੇ ਅਨੁਪਾਤ ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਸਰਲ ਕਰੋ।
+2/2 : 6/2 ਭਿੰਨਾਂ ਦੇ ਅਨੁਪਾਤ ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਸਰਲ ਕਰੋ।
 
 Synchronized entity IDs: yes
 
@@ -194,15 +194,15 @@ IDs
 
 English rendering
 
-Express the ratio 9/3 : 2/2 in its simplest integer form.
+Express the ratio 6/2 : 6/2 in its simplest integer form.
 
 Hindi rendering
 
-9/3 : 2/2 अनुपात को उसके सबसे सरल पूर्ण-संख्या रूप में लिखें।
+6/2 : 6/2 अनुपात को उसके सबसे सरल पूर्ण-संख्या रूप में लिखें।
 
 Punjabi rendering
 
-9/3 : 2/2 ਅਨੁਪਾਤ ਨੂੰ ਇਸਦੇ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।
+6/2 : 6/2 ਅਨੁਪਾਤ ਨੂੰ ਇਸਦੇ ਸਭ ਤੋਂ ਸਰਲ ਪੂਰਨ-ਸੰਖਿਆ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।
 
 Synchronized entity IDs: yes
 
@@ -215,15 +215,15 @@ IDs
 
 English rendering
 
-What is the simple ratio of whole numbers for 2/2 : 6/3?
+What is the simple ratio of whole numbers for 3/3 : 3/3?
 
 Hindi rendering
 
-2/2 : 6/3 के लिए पूर्ण संख्याओं का सरल अनुपात क्या होगा।
+3/3 : 3/3 के लिए पूर्ण संख्याओं का सरल अनुपात क्या होगा।
 
 Punjabi rendering
 
-2/2 : 6/3 ਲਈ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
+3/3 : 3/3 ਲਈ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦਾ ਸਰਲ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 
@@ -236,15 +236,15 @@ IDs
 
 English rendering
 
-Reduce the fractional ratio 2/2 : 6/3 to its lowest whole number terms.
+Reduce the fractional ratio 6/3 : 2/2 to its lowest whole number terms.
 
 Hindi rendering
 
-2/2 : 6/3 भिन्न अनुपात को सबसे छोटे पूर्ण-संख्या पदों में घटाएं।
+6/3 : 2/2 भिन्न अनुपात को सबसे छोटे पूर्ण-संख्या पदों में घटाएं।
 
 Punjabi rendering
 
-2/2 : 6/3 ਭਿੰਨ ਅਨੁਪਾਤ ਨੂੰ ਸਭ ਤੋਂ ਛੋਟੇ ਪੂਰਨ-ਸੰਖਿਆ ਪਦਾਂ ਵਿੱਚ ਘਟਾਓ।
+6/3 : 2/2 ਭਿੰਨ ਅਨੁਪਾਤ ਨੂੰ ਸਭ ਤੋਂ ਛੋਟੇ ਪੂਰਨ-ਸੰਖਿਆ ਪਦਾਂ ਵਿੱਚ ਘਟਾਓ।
 
 Synchronized entity IDs: yes
 
@@ -257,15 +257,15 @@ IDs
 
 English rendering
 
-Normalize the ratio 6/3 : 6/2.
+Normalize the ratio 9/3 : 3/3.
 
 Hindi rendering
 
-6/3 : 6/2 अनुपात को सामान्यीकृत करें।
+9/3 : 3/3 अनुपात को सामान्यीकृत करें।
 
 Punjabi rendering
 
-6/3 : 6/2 ਅਨੁਪਾਤ ਨੂੰ ਸਧਾਰਣ ਰੂਪ ਵਿੱਚ ਲਿਆਓ।
+9/3 : 3/3 ਅਨੁਪਾਤ ਨੂੰ ਸਧਾਰਣ ਰੂਪ ਵਿੱਚ ਲਿਆਓ।
 
 Synchronized entity IDs: yes
 
@@ -278,15 +278,15 @@ IDs
 
 English rendering
 
-Rewrite 6/2 : 3/3 as a ratio of integers.
+Rewrite 3/3 : 4/2 as a ratio of integers.
 
 Hindi rendering
 
-6/2 : 3/3 को पूर्ण संख्याओं के अनुपात के रूप में दोबारा लिखें।
+3/3 : 4/2 को पूर्ण संख्याओं के अनुपात के रूप में दोबारा लिखें।
 
 Punjabi rendering
 
-6/2 : 3/3 ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦੇ ਅਨੁਪਾਤ ਵਜੋਂ ਦੁਬਾਰਾ ਲਿਖੋ।
+3/3 : 4/2 ਨੂੰ ਪੂਰਨ ਸੰਖਿਆਵਾਂ ਦੇ ਅਨੁਪਾਤ ਵਜੋਂ ਦੁਬਾਰਾ ਲਿਖੋ।
 
 Synchronized entity IDs: yes
 
@@ -299,15 +299,15 @@ IDs
 
 English rendering
 
-Find the integer ratio equivalent to 3/3 : 4/2.
+Find the integer ratio equivalent to 6/3 : 6/3.
 
 Hindi rendering
 
-3/3 : 4/2 के बराबर पूर्ण-संख्या अनुपात ज्ञात करें।
+6/3 : 6/3 के बराबर पूर्ण-संख्या अनुपात ज्ञात करें।
 
 Punjabi rendering
 
-3/3 : 4/2 ਦੇ ਬਰਾਬਰ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਲੱਭੋ।
+6/3 : 6/3 ਦੇ ਬਰਾਬਰ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਲੱਭੋ।
 
 Synchronized entity IDs: yes
 
@@ -320,15 +320,15 @@ IDs
 
 English rendering
 
-Convert 4/2 : 9/3 into an irreducible whole number ratio.
+Convert 9/3 : 4/2 into an irreducible whole number ratio.
 
 Hindi rendering
 
-4/2 : 9/3 को अविभाज्य पूर्ण-संख्या अनुपात में बदलें।
+9/3 : 4/2 को अविभाज्य पूर्ण-संख्या अनुपात में बदलें।
 
 Punjabi rendering
 
-4/2 : 9/3 ਨੂੰ ਅਘਟ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
+9/3 : 4/2 ਨੂੰ ਅਘਟ ਪੂਰਨ-ਸੰਖਿਆ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ।
 
 Synchronized entity IDs: yes
 
@@ -1323,15 +1323,15 @@ IDs
 
 English rendering
 
-What will be the third proportional to 9 and 12?
+What will be the third proportional to 25 and 20?
 
 Hindi rendering
 
-9 और 12 का तीसरा अनुपाती क्या होगा।
+25 और 20 का तीसरा अनुपाती क्या होगा।
 
 Punjabi rendering
 
-9 ਅਤੇ 12 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
+25 ਅਤੇ 20 ਦਾ ਤੀਜਾ ਅਨੁਪਾਤੀ ਕੀ ਹੋਵੇਗਾ।
 
 Synchronized entity IDs: yes
 

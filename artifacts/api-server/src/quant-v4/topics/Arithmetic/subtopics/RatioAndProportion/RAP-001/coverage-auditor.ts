@@ -325,7 +325,7 @@ export function renderRap001FreezeRecordMarkdown(audit: Rap001CoverageAudit) {
   return [
     "# RAP-001 Freeze Record",
     "",
-    "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`  ",
+    "Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1",
     `Reviewed date: \`${new Date().toISOString().slice(0, 10)}\``,
     "",
     "## Status",

@@ -1,7 +1,7 @@
 # RAP-002 Explanation Quality Report
 
 Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1`
-Reviewed date: `2026-07-11`
+Reviewed date: `2026-07-15`
 
 ## Counters
 
@@ -15,6 +15,11 @@ Reviewed date: `2026-07-11`
 - formulaOnlyExplanationCount: `0`
 - repeatedExplanationShellCount: `0`
 - explanationStemMismatchCount: `0`
+- missingNumericSubstitutionCount: `0`
+- missingIntermediateValueCount: `0`
+- missingDecisiveCalculationCount: `0`
+- missingRequestedQuantityCalculationCount: `0`
+- genericExplanationShellCount: `0`
 
 ## Runtime Samples
 

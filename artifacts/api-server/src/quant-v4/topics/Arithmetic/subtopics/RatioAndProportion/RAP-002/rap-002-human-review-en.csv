@@ -1,217 +1,287 @@
 "packageId","cpId","qlId","taskKind","solveMode","difficulty","questionId","seed","parameterFingerprint","stem","options","correctIndex","correctAnswer","explanation","stemRealism","solverCorrect","explanationQuality","optionQuality","editorialStatus","reviewNotes"
-"RAP-002","RAP-CP-007","RAP-QL-201","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-201:rap-002:human-review:RAP-QL-201:RAP-CP-007:0","rap-002:human-review:RAP-QL-201:RAP-CP-007:0","fnv1a-56a214d0","If A:B = 19:13, B:C = 4:8, and C:D = 12:7, find A:B:C:D.","A. 113:78:156:91
-B. 114:79:156:91
-C. 115:78:156:91
-D. 114:78:156:91","3","114:78:156:91","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-201","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-201:rap-002:human-review:RAP-QL-201:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-201:0:RAP-CP-007:0","fnv1a-fbd2ca93","If A:B = 10:17, B:C = 17:14, and C:D = 8:16, find A:B:C:D.","A. 11:17:14:28
+B. 10:18:14:28
+C. 10:17:14:28
+D. 9:17:14:28","2","10:17:14:28","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$A:B=19:13,\ B:C=4:8,\ C:D=12:7$$
+$$A:B=10:17,\ B:C=17:14,\ C:D=8:16$$
 
-Step 1: the common chain is 114:78:156:91.
+Step 1: the common chain is 10:17:14:28.
 
-$$A:B:C:D=114 : 78 : 156 : 91$$
+$$A:B:C:D=10 : 17 : 14 : 28$$
 
 Extraction: read the full four-part chain.
 
-Final answer: the required ratio is 114 : 78 : 156 : 91.
+Final answer: the required ratio is 10 : 17 : 14 : 28.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-202","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-202:rap-002:human-review:RAP-QL-202:RAP-CP-007:0","rap-002:human-review:RAP-QL-202:RAP-CP-007:0","fnv1a-473fe628","The linked ratios are Group A:Group B = 3:4, Group B:Group C = 19:23, and Group C:Group D = 17:8. What is the combined ratio of all four?","A. 969:1292:1564:736
-B. 969:1293:1564:736
-C. 968:1292:1564:736
-D. 970:1292:1564:736","0","969:1292:1564:736","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-202","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-202:rap-002:human-review:RAP-QL-202:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-202:0:RAP-CP-007:0","fnv1a-aa6d994e","The linked ratios are Group A:Group B = 6:16, Group B:Group C = 20:19, and Group C:Group D = 21:17. What is the combined ratio of all four?","A. 314:840:798:646
+B. 316:840:798:646
+C. 315:840:798:646
+D. 315:841:798:646","2","315:840:798:646","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$Group A:Group B=3:4,\ Group B:Group C=19:23,\ Group C:Group D=17:8$$
+$$Group A:Group B=6:16,\ Group B:Group C=20:19,\ Group C:Group D=21:17$$
 
-Step 1: the common chain is 969:1292:1564:736.
+Step 1: the common chain is 315:840:798:646.
 
-$$Group A:Group B:Group C:Group D=969 : 1292 : 1564 : 736$$
+$$Group A:Group B:Group C:Group D=315 : 840 : 798 : 646$$
 
 Extraction: read the full four-part chain.
 
-Final answer: the required ratio is 969 : 1292 : 1564 : 736.
+Final answer: the required ratio is 315 : 840 : 798 : 646.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-203","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-203:rap-002:human-review:RAP-QL-203:RAP-CP-007:0","rap-002:human-review:RAP-QL-203:RAP-CP-007:0","fnv1a-c9ee6f5a","A, B, C, and D are linked by ratios 13:21, 15:14, and 16:12 respectively. Find the common chain ratio.","A. 130:211:196:147
-B. 130:210:196:147
-C. 131:210:196:147
-D. 129:210:196:147","1","130:210:196:147","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-203","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-203:rap-002:human-review:RAP-QL-203:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-203:0:RAP-CP-007:0","fnv1a-10d31aa6","A, B, C, and D are linked by ratios 19:13, 19:6, and 18:10 respectively. Find the common chain ratio.","A. 1084:741:234:130
+B. 1082:741:234:130
+C. 1083:742:234:130
+D. 1083:741:234:130","3","1083:741:234:130","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$A:B=13:21,\ B:C=15:14,\ C:D=16:12$$
+$$A:B=19:13,\ B:C=19:6,\ C:D=18:10$$
 
-Step 1: the common chain is 130:210:196:147.
+Step 1: the common chain is 1083:741:234:130.
 
-$$A:B:C:D=130 : 210 : 196 : 147$$
+$$A:B:C:D=1083 : 741 : 234 : 130$$
 
 Extraction: read the full four-part chain.
 
-Final answer: the required ratio is 130 : 210 : 196 : 147.
+Final answer: the required ratio is 1083 : 741 : 234 : 130.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-204","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-204:rap-002:human-review:RAP-QL-204:RAP-CP-007:0","rap-002:human-review:RAP-QL-204:RAP-CP-007:0","fnv1a-0da855f0","A four-part chain has Group A:Group B = 14:6, Group B:Group C = 8:7, and Group C:Group D = 17:20. Find the full chain ratio.","A. 952:408:357:420
-B. 953:408:357:420
-C. 951:408:357:420
-D. 952:409:357:420","0","952:408:357:420","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-204","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-204:rap-002:human-review:RAP-QL-204:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-204:0:RAP-CP-007:0","fnv1a-516d52e1","A four-part chain has Group A:Group B = 11:18, Group B:Group C = 10:12, and Group C:Group D = 8:19. Find the full chain ratio.","A. 110:180:216:513
+B. 109:180:216:513
+C. 110:181:216:513
+D. 111:180:216:513","0","110:180:216:513","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$Group A:Group B=14:6,\ Group B:Group C=8:7,\ Group C:Group D=17:20$$
+$$Group A:Group B=11:18,\ Group B:Group C=10:12,\ Group C:Group D=8:19$$
 
-Step 1: the common chain is 952:408:357:420.
+Step 1: the common chain is 110:180:216:513.
 
-$$Group A:Group B:Group C:Group D=952 : 408 : 357 : 420$$
+$$Group A:Group B:Group C:Group D=110 : 180 : 216 : 513$$
 
 Extraction: read the full four-part chain.
 
-Final answer: the required ratio is 952 : 408 : 357 : 420.
+Final answer: the required ratio is 110 : 180 : 216 : 513.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-205","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-205:rap-002:human-review:RAP-QL-205:RAP-CP-007:0","rap-002:human-review:RAP-QL-205:RAP-CP-007:0","fnv1a-503c7471","Given A:B = 18:14, B:C = 14:16, and C:D = 18:24, find the ratio A:D.","A. 26:32
-B. 27:33
-C. 28:32
-D. 27:32","3","27:32","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-205","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-205:rap-002:human-review:RAP-QL-205:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-205:0:RAP-CP-007:0","fnv1a-707c82be","Given A:B = 30:21, B:C = 22:19, and C:D = 4:28, find the ratio A:D.","A. 221:931
+B. 220:931
+C. 220:932
+D. 219:931","1","220:931","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$A:B=18:14,\ B:C=14:16,\ C:D=18:24$$
+$$A:B=30:21,\ B:C=22:19,\ C:D=4:28$$
 
-Step 1: the common chain is 27:21:24:32.
+Step 1: the common chain is 220:154:133:931.
 
-$$A:B:C:D=27 : 21 : 24 : 32$$
+$$A:B:C:D=220 : 154 : 133 : 931$$
 
 Extraction: read the required pair from the common chain: A:D.
 
-Final answer: the required ratio is 27 : 32.
+Final answer: the required ratio is 220 : 931.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-206","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-206:rap-002:human-review:RAP-QL-206:RAP-CP-007:0","rap-002:human-review:RAP-QL-206:RAP-CP-007:0","fnv1a-cf5bf788","After aligning Group A:Group B = 35:22, Group B:Group C = 18:22, and Group C:Group D = 22:18, what is the simplified ratio of Group B:Group D?","A. 1:1
-B. 1:2
-C. 0:1
-D. 2:1","0","1:1","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-206","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-206:rap-002:human-review:RAP-QL-206:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-206:0:RAP-CP-007:0","fnv1a-4b5918d7","After aligning Group A:Group B = 12:16, Group B:Group C = 23:18, and Group C:Group D = 20:30, what is the simplified ratio of Group B:Group D?","A. 23:27
+B. 22:27
+C. 24:27
+D. 23:28","0","23:27","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$Group A:Group B=35:22,\ Group B:Group C=18:22,\ Group C:Group D=22:18$$
+$$Group A:Group B=12:16,\ Group B:Group C=23:18,\ Group C:Group D=20:30$$
 
-Step 1: the common chain is 315:198:242:198.
+Step 1: the common chain is 69:92:72:108.
 
-$$Group A:Group B:Group C:Group D=315 : 198 : 242 : 198$$
+$$Group A:Group B:Group C:Group D=69 : 92 : 72 : 108$$
 
 Extraction: read the required pair from the common chain: Group B:Group D.
 
-Final answer: the required ratio is 1 : 1.
+Final answer: the required ratio is 23 : 27.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-207","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-207:rap-002:human-review:RAP-QL-207:RAP-CP-007:0","rap-002:human-review:RAP-QL-207:RAP-CP-007:0","fnv1a-94931839","A compound ratio chain has A:B = 20:18, B:C = 20:20, and C:D = 16:18. Find A:C.","A. 11:9
-B. 10:10
-C. 10:9
-D. 9:9","2","10:9","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-207","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-207:rap-002:human-review:RAP-QL-207:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-207:0:RAP-CP-007:0","fnv1a-42cea195","A compound ratio chain has A:B = 20:20, B:C = 22:28, and C:D = 28:16. Find A:C.","A. 10:14
+B. 11:15
+C. 12:14
+D. 11:14","3","11:14","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$A:B=20:18,\ B:C=20:20,\ C:D=16:18$$
+$$A:B=20:20,\ B:C=22:28,\ C:D=28:16$$
 
-Step 1: the common chain is 80:72:72:81.
+Step 1: the common chain is 11:11:14:8.
 
-$$A:B:C:D=80 : 72 : 72 : 81$$
+$$A:B:C:D=11 : 11 : 14 : 8$$
 
 Extraction: read the required pair from the common chain: A:C.
 
-Final answer: the required ratio is 10 : 9.
+Final answer: the required ratio is 11 : 14.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-208","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-208:rap-002:human-review:RAP-QL-208:RAP-CP-007:0","rap-002:human-review:RAP-QL-208:RAP-CP-007:0","fnv1a-05f80f8b","Use the linked ratios 26:10, 26:26, and 8:20 for Group A:Group B, Group B:Group C, and Group C:Group D. Find Group B:Group D.","A. 2:5
-B. 3:5
-C. 1:5
-D. 2:6","0","2:5","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-208","extendedChainAlignment","extendedChainAlignment","Hard","RAP-CP-007:RAP-QL-208:rap-002:human-review:RAP-QL-208:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-208:0:RAP-CP-007:0","fnv1a-e3af53f1","Use the linked ratios 20:24, 6:12, and 18:16 for Group A:Group B, Group B:Group C, and Group C:Group D. Find Group B:Group D.","A. 8:16
+B. 9:17
+C. 9:16
+D. 10:16","2","9:16","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$Group A:Group B=26:10,\ Group B:Group C=26:26,\ Group C:Group D=8:20$$
+$$Group A:Group B=20:24,\ Group B:Group C=6:12,\ Group C:Group D=18:16$$
 
-Step 1: the common chain is 26:10:10:25.
+Step 1: the common chain is 15:18:36:32.
 
-$$Group A:Group B:Group C:Group D=26 : 10 : 10 : 25$$
+$$Group A:Group B:Group C:Group D=15 : 18 : 36 : 32$$
 
 Extraction: read the required pair from the common chain: Group B:Group D.
 
-Final answer: the required ratio is 2 : 5.
+Final answer: the required ratio is 9 : 16.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-209","missingChainRatio","missingChainRatio","Hard","RAP-CP-007:RAP-QL-209:rap-002:human-review:RAP-QL-209:RAP-CP-007:0","rap-002:human-review:RAP-QL-209:RAP-CP-007:0","fnv1a-6ad3794c","If A:B = 30:14, B:C = 28:20, and the simplified ratio A:C is 3:1, find the aligned value of B.","A. 6
-B. 9
-C. 8
-D. 7","3","7","Concept: make the shared term B equal in both ratios.
-
-Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
-
-$$A:B=30:14,\ B:C=28:20$$
-
-Step 1: after alignment, the chain becomes 15:7:5.
-
-$$A:B:C=15 : 7 : 5$$
-
-Final answer: the aligned value of B is 7.
-
-Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-210","missingChainRatio","missingChainRatio","Hard","RAP-CP-007:RAP-QL-210:rap-002:human-review:RAP-QL-210:RAP-CP-007:0","rap-002:human-review:RAP-QL-210:RAP-CP-007:0","fnv1a-959540db","A chain gives A:B as 14:30 and B:C as 10:24. If A:C becomes 7:36, what is the common scaled value of B?","A. 17
+"RAP-002","RAP-CP-007","RAP-QL-209","missingChainRatio","missingChainRatio","Hard","RAP-CP-007:RAP-QL-209:rap-002:human-review:RAP-QL-209:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-209:0:RAP-CP-007:0","fnv1a-a431618a","If A:B = 6:6, B:C = 30:16, and the simplified ratio A:C is 15:8, find the aligned value of B.","A. 16
 B. 15
-C. 16
+C. 17
 D. 14","1","15","Concept: make the shared term B equal in both ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$A:B=14:30,\ B:C=10:24$$
+$$A:B=6:6,\ B:C=30:16$$
 
-Step 1: after alignment, the chain becomes 7:15:36.
+Step 1: after alignment, the chain becomes 15:15:8.
 
-$$A:B:C=7 : 15 : 36$$
+$$A:B:C=15 : 15 : 8$$
 
 Final answer: the aligned value of B is 15.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-211","missingChainRatio","missingChainRatio","Hard","RAP-CP-007:RAP-QL-211:rap-002:human-review:RAP-QL-211:RAP-CP-007:0","rap-002:human-review:RAP-QL-211:RAP-CP-007:0","fnv1a-04f2ff65","The ratios Group A:Group B = 16:18 and Group B:Group C = 28:18 combine to make Group A:Group C = 112:81. Find the middle chain value for Group B.","A. 126
-B. 146
-C. 116
-D. 136","0","126","Concept: make the shared term Group B equal in both ratios.
+"RAP-002","RAP-CP-007","RAP-QL-210","missingChainRatio","missingChainRatio","Hard","RAP-CP-007:RAP-QL-210:rap-002:human-review:RAP-QL-210:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-210:0:RAP-CP-007:0","fnv1a-6d58c501","A chain gives A:B as 12:30 and B:C as 12:8. If A:C becomes 3:5, what is the common scaled value of B?","A. 14
+B. 17
+C. 16
+D. 15","3","15","Concept: make the shared term B equal in both ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$Group A:Group B=16:18,\ Group B:Group C=28:18$$
+$$A:B=12:30,\ B:C=12:8$$
 
-Step 1: after alignment, the chain becomes 112:126:81.
+Step 1: after alignment, the chain becomes 6:15:10.
 
-$$Group A:Group B:Group C=112 : 126 : 81$$
+$$A:B:C=6 : 15 : 10$$
 
-Final answer: the aligned value of Group B is 126.
+Final answer: the aligned value of B is 15.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-212","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-212:rap-002:human-review:RAP-QL-212:RAP-CP-007:0","rap-002:human-review:RAP-QL-212:RAP-CP-007:0","fnv1a-44d497cb","Three adjacent ratios are 14:13, 11:13, and 17:15. They connect A, B, C, and D in order. Find the combined ratio.","A. 2619:2431:2873:2535
-B. 2618:2432:2873:2535
-C. 2617:2431:2873:2535
-D. 2618:2431:2873:2535","3","2618:2431:2873:2535","Concept: align the common terms in the linked ratios.
+"RAP-002","RAP-CP-007","RAP-QL-211","missingChainRatio","missingChainRatio","Hard","RAP-CP-007:RAP-QL-211:rap-002:human-review:RAP-QL-211:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-211:0:RAP-CP-007:0","fnv1a-da50064b","The ratios Group A:Group B = 18:10 and Group B:Group C = 14:8 combine to make Group A:Group C = 63:20. Find the middle chain value for Group B.","A. 35
+B. 36
+C. 34
+D. 37","0","35","Concept: make the shared term Group B equal in both ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
 
-$$A:B=14:13,\ B:C=11:13,\ C:D=17:15$$
+$$Group A:Group B=18:10,\ Group B:Group C=14:8$$
 
-Step 1: the common chain is 2618:2431:2873:2535.
+Step 1: after alignment, the chain becomes 63:35:20.
 
-$$A:B:C:D=2618 : 2431 : 2873 : 2535$$
+$$Group A:Group B:Group C=63 : 35 : 20$$
+
+Final answer: the aligned value of Group B is 35.
+
+Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
+"RAP-002","RAP-CP-007","RAP-QL-212","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-212:rap-002:human-review:RAP-QL-212:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-212:0:RAP-CP-007:0","fnv1a-44fceecc","Three adjacent ratios are 11:16, 4:26, and 16:22. They connect A, B, C, and D in order. Find the combined ratio.","A. 12:16:104:143
+B. 11:17:104:143
+C. 11:16:104:143
+D. 10:16:104:143","2","11:16:104:143","Concept: align the common terms in the linked ratios.
+
+Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
+
+$$A:B=11:16,\ B:C=4:26,\ C:D=16:22$$
+
+Step 1: the common chain is 11:16:104:143.
+
+$$A:B:C:D=11 : 16 : 104 : 143$$
 
 Extraction: read the full four-part chain.
 
-Final answer: the required ratio is 2618 : 2431 : 2873 : 2535.
+Final answer: the required ratio is 11 : 16 : 104 : 143.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-213","chainAlignment","chainAlignment","Hard","RAP-CP-007:RAP-QL-213:rap-002:human-review:RAP-QL-213:RAP-CP-007:0","rap-002:human-review:RAP-QL-213:RAP-CP-007:0","fnv1a-c286cc4f","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, find A:B:C:D.","A. 16:24:30:45
-B. 15:24:30:45
-C. 17:24:30:45
+"RAP-002","RAP-CP-007","RAP-QL-213","chainAlignment","chainAlignment","Hard","RAP-CP-007:RAP-QL-213:rap-002:human-review:RAP-QL-213:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-213:0:RAP-CP-007:0","fnv1a-c286cc4f","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, find A:B:C:D.","A. 16:24:30:45
+B. 16:25:30:45
+C. 15:24:30:45
+D. 17:24:30:45","0","16:24:30:45","Concept: align the common terms in the linked ratios.
+
+Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
+
+$$A:B=2:3,\ B:C=4:5,\ C:D=2:3$$
+
+Step 1: the common chain is 16:24:30:45.
+
+$$A:B:C:D=16 : 24 : 30 : 45$$
+
+Extraction: read the full four-part chain.
+
+Final answer: the required ratio is 16 : 24 : 30 : 45.
+
+Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
+"RAP-002","RAP-CP-007","RAP-QL-214","extendedChainAlignment","extendedChainAlignment","Medium","RAP-CP-007:RAP-QL-214:rap-002:human-review:RAP-QL-214:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-214:0:RAP-CP-007:0","fnv1a-75930979","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, find A:D.","A. 15:45
+B. 16:46
+C. 17:45
+D. 16:45","3","16:45","Concept: align the common terms in the linked ratios.
+
+Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
+
+$$A:B=2:3,\ B:C=4:5,\ C:D=2:3$$
+
+Step 1: the common chain is 16:24:30:45.
+
+$$A:B:C:D=16 : 24 : 30 : 45$$
+
+Extraction: read the required pair from the common chain: A:D.
+
+Final answer: the required ratio is 16 : 45.
+
+Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
+"RAP-002","RAP-CP-007","RAP-QL-217","missingChainRatio","missingChainRatio","Medium","RAP-CP-007:RAP-QL-217:rap-002:human-review:RAP-QL-217:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-217:0:RAP-CP-007:0","fnv1a-d75da910","Given A:B = 2:3 and B:C = 4:5, the obtained A:C ratio is 8:15. Find the matching value of B in the aligned chain.","A. 11
+B. 14
+C. 12
+D. 13","2","12","Concept: make the shared term B equal in both ratios.
+
+Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
+
+$$A:B=2:3,\ B:C=4:5$$
+
+Step 1: after alignment, the chain becomes 8:12:15.
+
+$$A:B:C=8 : 12 : 15$$
+
+Final answer: the aligned value of B is 12.
+
+Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
+"RAP-002","RAP-CP-007","RAP-QL-218","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-218:rap-002:human-review:RAP-QL-218:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-218:0:RAP-CP-007:0","fnv1a-c286cc4f","A class has A:B = 2:3, B:C = 4:5, and C:D = 2:3. Find the full ratio.","A. 17:24:30:45
+B. 16:25:30:45
+C. 15:24:30:45
+D. 16:24:30:45","3","16:24:30:45","Concept: align the common terms in the linked ratios.
+
+Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
+
+$$A:B=2:3,\ B:C=4:5,\ C:D=2:3$$
+
+Step 1: the common chain is 16:24:30:45.
+
+$$A:B:C:D=16 : 24 : 30 : 45$$
+
+Extraction: read the full four-part chain.
+
+Final answer: the required ratio is 16 : 24 : 30 : 45.
+
+Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
+"RAP-002","RAP-CP-007","RAP-QL-219","chainAlignment","chainAlignment","Hard","RAP-CP-007:RAP-QL-219:rap-002:human-review:RAP-QL-219:0:RAP-CP-007:0","rap-002:human-review:RAP-QL-219:0:RAP-CP-007:0","fnv1a-c286cc4f","Salaries of A:B are 2:3, B:C are 4:5, and C:D are 2:3. Find the salary ratio.","A. 16:24:30:45
+B. 17:24:30:45
+C. 15:24:30:45
 D. 16:25:30:45","0","16:24:30:45","Concept: align the common terms in the linked ratios.
 
 Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
@@ -227,220 +297,130 @@ Extraction: read the full four-part chain.
 Final answer: the required ratio is 16 : 24 : 30 : 45.
 
 Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-214","extendedChainAlignment","extendedChainAlignment","Medium","RAP-CP-007:RAP-QL-214:rap-002:human-review:RAP-QL-214:RAP-CP-007:0","rap-002:human-review:RAP-QL-214:RAP-CP-007:0","fnv1a-75930979","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, find A:D.","A. 17:45
-B. 16:45
-C. 16:46
-D. 15:45","1","16:45","Concept: align the common terms in the linked ratios.
-
-Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
-
-$$A:B=2:3,\ B:C=4:5,\ C:D=2:3$$
-
-Step 1: the common chain is 16:24:30:45.
-
-$$A:B:C:D=16 : 24 : 30 : 45$$
-
-Extraction: read the required pair from the common chain: A:D.
-
-Final answer: the required ratio is 16 : 45.
-
-Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-217","missingChainRatio","missingChainRatio","Medium","RAP-CP-007:RAP-QL-217:rap-002:human-review:RAP-QL-217:RAP-CP-007:0","rap-002:human-review:RAP-QL-217:RAP-CP-007:0","fnv1a-d75da910","Given A:B = 2:3 and B:C = 4:5, the obtained A:C ratio is 8:15. Find the matching value of B in the aligned chain.","A. 12
-B. 13
-C. 11
-D. 14","0","12","Concept: make the shared term B equal in both ratios.
-
-Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
-
-$$A:B=2:3,\ B:C=4:5$$
-
-Step 1: after alignment, the chain becomes 8:12:15.
-
-$$A:B:C=8 : 12 : 15$$
-
-Final answer: the aligned value of B is 12.
-
-Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-218","chainAlignment","chainAlignment","Medium","RAP-CP-007:RAP-QL-218:rap-002:human-review:RAP-QL-218:RAP-CP-007:0","rap-002:human-review:RAP-QL-218:RAP-CP-007:0","fnv1a-c286cc4f","A class has A:B = 2:3, B:C = 4:5, and C:D = 2:3. Find the full ratio.","A. 17:24:30:45
-B. 16:24:30:45
-C. 16:25:30:45
-D. 15:24:30:45","1","16:24:30:45","Concept: align the common terms in the linked ratios.
-
-Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
-
-$$A:B=2:3,\ B:C=4:5,\ C:D=2:3$$
-
-Step 1: the common chain is 16:24:30:45.
-
-$$A:B:C:D=16 : 24 : 30 : 45$$
-
-Extraction: read the full four-part chain.
-
-Final answer: the required ratio is 16 : 24 : 30 : 45.
-
-Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-007","RAP-QL-219","chainAlignment","chainAlignment","Hard","RAP-CP-007:RAP-QL-219:rap-002:human-review:RAP-QL-219:RAP-CP-007:0","rap-002:human-review:RAP-QL-219:RAP-CP-007:0","fnv1a-c286cc4f","Salaries of A:B are 2:3, B:C are 4:5, and C:D are 2:3. Find the salary ratio.","A. 15:24:30:45
-B. 16:25:30:45
-C. 16:24:30:45
-D. 17:24:30:45","2","16:24:30:45","Concept: align the common terms in the linked ratios.
-
-Why this method works: a shared entity represents one quantity, so its ratio part must be equal before the chains can be joined.
-
-$$A:B=2:3,\ B:C=4:5,\ C:D=2:3$$
-
-Step 1: the common chain is 16:24:30:45.
-
-$$A:B:C:D=16 : 24 : 30 : 45$$
-
-Extraction: read the full four-part chain.
-
-Final answer: the required ratio is 16 : 24 : 30 : 45.
-
-Quick check: the extracted pair or full chain reproduces every ratio given in the stem.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-301","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-301:rap-002:human-review:RAP-QL-301:RAP-CP-008:0","rap-002:human-review:RAP-QL-301:RAP-CP-008:0","fnv1a-d7aea0ee","In the linked ratio chain A:B = 4:21 and B:C = 10:14, A has 140 units. Find the value of B.","A. 725
-B. 755
-C. 745
-D. 735","3","735","Concept: align the two linked ratios through the common term B.
+"RAP-002","RAP-CP-008","RAP-QL-301","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-301:rap-002:human-review:RAP-QL-301:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-301:0:RAP-CP-008:0","fnv1a-9127c71c","In the linked ratio chain A:B = 8:12 and B:C = 18:9, A has 52 units. Find the value of B.","A. 79
+B. 78
+C. 80
+D. 77","1","78","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
-$$A:B=4:21,\ B:C=10:14$$
+$$A:B=8:12,\ B:C=18:9$$
 
-Step 1: the aligned chain is 20:105:147.
+Step 1: the aligned chain is 4:6:3.
 
-$$A:B:C=20 : 105 : 147$$
+$$A:B:C=4 : 6 : 3$$
 
 Method: use the known endpoint value to find the common multiplier, then apply it to B.
 
-$$\text{Decisive equation}=105\times7=735$$
+$$\text{Decisive equation}=6\times13=78$$
 
-Final answer: the required value is 735.
+Final answer: the required value is 78.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-302","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-302:rap-002:human-review:RAP-QL-302:RAP-CP-008:0","rap-002:human-review:RAP-QL-302:RAP-CP-008:0","fnv1a-03ec5b4f","Group A:Group B is 16:18, and Group B:Group C is 14:14. If Group C has 99 units, how many units does Group B have?","A. 99
-B. 98
-C. 101
-D. 100","0","99","Concept: align the two linked ratios through the common term Group B.
+"RAP-002","RAP-CP-008","RAP-QL-302","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-302:rap-002:human-review:RAP-QL-302:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-302:0:RAP-CP-008:0","fnv1a-0c8a8066","Group A:Group B is 19:17, and Group B:Group C is 11:18. If Group C has 2754 units, how many units does Group B have?","A. 1683
+B. 1583
+C. 1783
+D. 1733","0","1683","Concept: align the two linked ratios through the common term Group B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
-$$Group A:Group B=16:18,\ Group B:Group C=14:14$$
+$$Group A:Group B=19:17,\ Group B:Group C=11:18$$
 
-Step 1: the aligned chain is 8:9:9.
+Step 1: the aligned chain is 209:187:306.
 
-$$Group A:Group B:Group C=8 : 9 : 9$$
+$$Group A:Group B:Group C=209 : 187 : 306$$
 
 Method: use the known endpoint value to find the common multiplier, then apply it to Group B.
 
-$$\text{Decisive equation}=9\times11=99$$
+$$\text{Decisive equation}=187\times9=1683$$
 
-Final answer: the required value is 99.
+Final answer: the required value is 1683.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-303","reverseEndpointFinding","reverseEndpointFinding","Medium","RAP-CP-008:RAP-QL-303:rap-002:human-review:RAP-QL-303:RAP-CP-008:0","rap-002:human-review:RAP-QL-303:RAP-CP-008:0","fnv1a-ded1eb51","A chain has A:B = 15:11 and B:C = 13:16. If B has 1287 units, find the value of A.","A. 1855
-B. 1805
-C. 1755
-D. 1655","2","1755","Concept: align the two linked ratios through the common term B.
+"RAP-002","RAP-CP-008","RAP-QL-303","reverseEndpointFinding","reverseEndpointFinding","Medium","RAP-CP-008:RAP-QL-303:rap-002:human-review:RAP-QL-303:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-303:0:RAP-CP-008:0","fnv1a-ef6d8a0f","A chain has A:B = 19:25 and B:C = 4:16. If B has 250 units, find the value of A.","A. 200
+B. 180
+C. 210
+D. 190","3","190","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
-$$A:B=15:11,\ B:C=13:16$$
+$$A:B=19:25,\ B:C=4:16$$
 
-Step 1: the aligned chain is 195:143:176.
+Step 1: the aligned chain is 19:25:100.
 
-$$A:B:C=195 : 143 : 176$$
+$$A:B:C=19 : 25 : 100$$
 
 Method: use the known value of B to find the common multiplier, then apply it to the required endpoint.
 
-$$\text{Decisive equation}=195\times9=1755$$
+$$\text{Decisive equation}=19\times10=190$$
 
-Final answer: the required value is 1755.
+Final answer: the required value is 190.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-304","reverseEndpointFinding","reverseEndpointFinding","Medium","RAP-CP-008:RAP-QL-304:rap-002:human-review:RAP-QL-304:RAP-CP-008:0","rap-002:human-review:RAP-QL-304:RAP-CP-008:0","fnv1a-a3b19080","Given Group A:Group B = 12:12 and Group B:Group C = 12:21, Group B has 52 units. Find the value of Group C.","A. 91
-B. 90
-C. 92
-D. 93","0","91","Concept: align the two linked ratios through the common term Group B.
+"RAP-002","RAP-CP-008","RAP-QL-304","reverseEndpointFinding","reverseEndpointFinding","Medium","RAP-CP-008:RAP-QL-304:rap-002:human-review:RAP-QL-304:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-304:0:RAP-CP-008:0","fnv1a-f5dcf266","Given Group A:Group B = 12:8 and Group B:Group C = 25:17, Group B has 850 units. Find the value of Group C.","A. 578
+B. 568
+C. 598
+D. 588","0","578","Concept: align the two linked ratios through the common term Group B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
-$$Group A:Group B=12:12,\ Group B:Group C=12:21$$
+$$Group A:Group B=12:8,\ Group B:Group C=25:17$$
 
-Step 1: the aligned chain is 4:4:7.
+Step 1: the aligned chain is 75:50:34.
 
-$$Group A:Group B:Group C=4 : 4 : 7$$
+$$Group A:Group B:Group C=75 : 50 : 34$$
 
 Method: use the known value of Group B to find the common multiplier, then apply it to the required endpoint.
 
-$$\text{Decisive equation}=7\times13=91$$
+$$\text{Decisive equation}=34\times17=578$$
 
-Final answer: the required value is 91.
+Final answer: the required value is 578.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-305","constrainedReverseChain","constrainedReverseChain","Hard","RAP-CP-008:RAP-QL-305:rap-002:human-review:RAP-QL-305:RAP-CP-008:0","rap-002:human-review:RAP-QL-305:RAP-CP-008:0","fnv1a-a98e1433","The linked ratios are A:B = 10:24 and B:C = 16:20. If the difference between A and C is 140, find B.","A. 178
-B. 188
-C. 158
-D. 168","3","168","Concept: align the two linked ratios through the common term B.
+"RAP-002","RAP-CP-008","RAP-QL-305","constrainedReverseChain","constrainedReverseChain","Hard","RAP-CP-008:RAP-QL-305:rap-002:human-review:RAP-QL-305:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-305:0:RAP-CP-008:0","fnv1a-d3c195bf","The linked ratios are A:B = 22:26 and B:C = 18:30. If the difference between A and C is 384, find B.","A. 478
+B. 488
+C. 468
+D. 458","2","468","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
-$$A:B=10:24,\ B:C=16:20$$
+$$A:B=22:26,\ B:C=18:30$$
 
-Step 1: the aligned chain is 5:12:15.
+Step 1: the aligned chain is 33:39:65.
 
-$$A:B:C=5 : 12 : 15$$
+$$A:B:C=33 : 39 : 65$$
 
 Method: use the endpoint difference between A and C to find the common multiplier.
 
-$$\text{Decisive equation}=12\times14=168$$
+$$\text{Decisive equation}=39\times12=468$$
 
-Final answer: the required value is 168.
+Final answer: the required value is 468.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-306","constrainedReverseChain","constrainedReverseChain","Hard","RAP-CP-008:RAP-QL-306:rap-002:human-review:RAP-QL-306:RAP-CP-008:0","rap-002:human-review:RAP-QL-306:RAP-CP-008:0","fnv1a-d55fc006","Group A:Group B = 33:32 and Group B:Group C = 18:24. If their total is 5491, find the value of Group B.","A. 1632
-B. 1532
-C. 1682
-D. 1732","0","1632","Concept: align the two linked ratios through the common term Group B.
+"RAP-002","RAP-CP-008","RAP-QL-306","constrainedReverseChain","constrainedReverseChain","Hard","RAP-CP-008:RAP-QL-306:rap-002:human-review:RAP-QL-306:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-306:0:RAP-CP-008:0","fnv1a-3b2463c2","Group A:Group B = 10:26 and Group B:Group C = 29:26. If their total is 4300, find the value of Group B.","A. 1885
+B. 1785
+C. 1985
+D. 1935","0","1885","Concept: align the two linked ratios through the common term Group B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
-$$Group A:Group B=33:32,\ Group B:Group C=18:24$$
+$$Group A:Group B=10:26,\ Group B:Group C=29:26$$
 
-Step 1: the aligned chain is 99:96:128.
+Step 1: the aligned chain is 145:377:338.
 
-$$Group A:Group B:Group C=99 : 96 : 128$$
+$$Group A:Group B:Group C=145 : 377 : 338$$
 
 Method: use the given total to find the common multiplier for the full chain.
 
-$$\text{Decisive equation}=96\times17=1632$$
+$$\text{Decisive equation}=377\times5=1885$$
 
-Final answer: the required value is 1632.
-
-Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-307","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-307:rap-002:human-review:RAP-QL-307:RAP-CP-008:0","rap-002:human-review:RAP-QL-307:RAP-CP-008:0","fnv1a-dc0c0423","A:B = 2:3 and B:C = 4:5. If A is 16, find B.","A. 25
-B. 24
-C. 26
-D. 23","1","24","Concept: align the two linked ratios through the common term B.
-
-Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
-
-$$A:B=2:3,\ B:C=4:5$$
-
-Step 1: the aligned chain is 8:12:15.
-
-$$A:B:C=8 : 12 : 15$$
-
-Method: use the known endpoint value to find the common multiplier, then apply it to B.
-
-$$\text{Decisive equation}=12\times2=24$$
-
-Final answer: the required value is 24.
+Final answer: the required value is 1885.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-308","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-308:rap-002:human-review:RAP-QL-308:RAP-CP-008:0","rap-002:human-review:RAP-QL-308:RAP-CP-008:0","fnv1a-042d3a49","A:B = 2:3 and B:C = 4:5. If C is 30, find B.","A. 24
-B. 23
+"RAP-002","RAP-CP-008","RAP-QL-307","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-307:rap-002:human-review:RAP-QL-307:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-307:0:RAP-CP-008:0","fnv1a-dc0c0423","A:B = 2:3 and B:C = 4:5. If A is 16, find B.","A. 23
+B. 26
 C. 25
-D. 26","0","24","Concept: align the two linked ratios through the common term B.
+D. 24","3","24","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
@@ -457,10 +437,30 @@ $$\text{Decisive equation}=12\times2=24$$
 Final answer: the required value is 24.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-309","reverseEndpointFinding","reverseEndpointFinding","Hard","RAP-CP-008:RAP-QL-309:rap-002:human-review:RAP-QL-309:RAP-CP-008:0","rap-002:human-review:RAP-QL-309:RAP-CP-008:0","fnv1a-dc0c0423","A:B = 2:3 and B:C = 4:5. If B is 24, find the selected endpoint value.","A. 31
-B. 29
-C. 32
-D. 30","3","30","Concept: align the two linked ratios through the common term B.
+"RAP-002","RAP-CP-008","RAP-QL-308","reverseMiddleFinding","reverseMiddleFinding","Medium","RAP-CP-008:RAP-QL-308:rap-002:human-review:RAP-QL-308:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-308:0:RAP-CP-008:0","fnv1a-042d3a49","A:B = 2:3 and B:C = 4:5. If C is 30, find B.","A. 24
+B. 26
+C. 23
+D. 25","0","24","Concept: align the two linked ratios through the common term B.
+
+Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
+
+$$A:B=2:3,\ B:C=4:5$$
+
+Step 1: the aligned chain is 8:12:15.
+
+$$A:B:C=8 : 12 : 15$$
+
+Method: use the known endpoint value to find the common multiplier, then apply it to B.
+
+$$\text{Decisive equation}=12\times2=24$$
+
+Final answer: the required value is 24.
+
+Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
+"RAP-002","RAP-CP-008","RAP-QL-309","reverseEndpointFinding","reverseEndpointFinding","Hard","RAP-CP-008:RAP-QL-309:rap-002:human-review:RAP-QL-309:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-309:0:RAP-CP-008:0","fnv1a-dc0c0423","A:B = 2:3 and B:C = 4:5. If B is 24, find the selected endpoint value.","A. 31
+B. 32
+C. 30
+D. 29","2","30","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
@@ -477,10 +477,10 @@ $$\text{Decisive equation}=15\times2=30$$
 Final answer: the required value is 30.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-310","constrainedReverseChain","constrainedReverseChain","Medium","RAP-CP-008:RAP-QL-310:rap-002:human-review:RAP-QL-310:RAP-CP-008:0","rap-002:human-review:RAP-QL-310:RAP-CP-008:0","fnv1a-275974d4","A:B = 2:3 and B:C = 4:5. Their total is 70. Find B.","A. 26
-B. 24
-C. 25
-D. 23","1","24","Concept: align the two linked ratios through the common term B.
+"RAP-002","RAP-CP-008","RAP-QL-310","constrainedReverseChain","constrainedReverseChain","Medium","RAP-CP-008:RAP-QL-310:rap-002:human-review:RAP-QL-310:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-310:0:RAP-CP-008:0","fnv1a-275974d4","A:B = 2:3 and B:C = 4:5. Their total is 70. Find B.","A. 25
+B. 26
+C. 23
+D. 24","3","24","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
@@ -497,10 +497,10 @@ $$\text{Decisive equation}=12\times2=24$$
 Final answer: the required value is 24.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-008","RAP-QL-311","constrainedReverseChain","constrainedReverseChain","Medium","RAP-CP-008:RAP-QL-311:rap-002:human-review:RAP-QL-311:RAP-CP-008:0","rap-002:human-review:RAP-QL-311:RAP-CP-008:0","fnv1a-dc0c0423","A:B = 2:3 and B:C = 4:5. The difference between the endpoints is 14. Find B.","A. 23
-B. 26
-C. 24
-D. 25","2","24","Concept: align the two linked ratios through the common term B.
+"RAP-002","RAP-CP-008","RAP-QL-311","constrainedReverseChain","constrainedReverseChain","Medium","RAP-CP-008:RAP-QL-311:rap-002:human-review:RAP-QL-311:0:RAP-CP-008:0","rap-002:human-review:RAP-QL-311:0:RAP-CP-008:0","fnv1a-dc0c0423","A:B = 2:3 and B:C = 4:5. The difference between the endpoints is 14. Find B.","A. 24
+B. 25
+C. 23
+D. 26","0","24","Concept: align the two linked ratios through the common term B.
 
 Why this method works: the aligned ratio converts the known total, difference, or actual value into one common ratio unit.
 
@@ -517,598 +517,598 @@ $$\text{Decisive equation}=12\times2=24$$
 Final answer: the required value is 24.
 
 Quick check: substituting the recovered value into the aligned chain restores the stated constraint.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-401","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-401:rap-002:human-review:RAP-QL-401:RAP-CP-009:0","rap-002:human-review:RAP-QL-401:RAP-CP-009:0","fnv1a-3e475606","A:B = 14:8, and their total is 572. If 12 is added to A and 19 is added to B, find the new ratio A:B.","A. 377:227
-B. 375:227
-C. 376:228
-D. 376:227","3","376:227","Concept: convert the starting ratio into actual values, then add 12 to A.
+"RAP-002","RAP-CP-009","RAP-QL-401","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-401:rap-002:human-review:RAP-QL-401:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-401:0:RAP-CP-009:0","fnv1a-19097309","A:B = 24:20, and their total is 1056. If 7 is added to A and 13 is added to B, find the new ratio A:B.","A. 584:493
+B. 583:493
+C. 583:494
+D. 582:493","1","583:493","Concept: convert the starting ratio into actual values, then add 7 to A.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$A:B=14:8$$
+$$A:B=24:20$$
 
-Step 1: the starting values are A = 364 and B = 208.
+Step 1: the starting values are A = 576 and B = 480.
 
-Step 2: after the change, the values become 376 and 227.
+Step 2: after the change, the values become 583 and 493.
 
-$$\text{Decisive equation}=376:227=376 : 227$$
+$$\text{Decisive equation}=583:493=583 : 493$$
 
-Final answer: the required ratio is 376 : 227.
+Final answer: the required ratio is 583 : 493.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-402","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-402:rap-002:human-review:RAP-QL-402:RAP-CP-009:0","rap-002:human-review:RAP-QL-402:RAP-CP-009:0","fnv1a-359927ad","Initially Group A:Group B = 14:18, with total 576. If 15 is added to Group A and 17 is removed from Group B, find the final ratio.","A. 266:307
-B. 267:308
-C. 267:307
-D. 268:307","2","267:307","Concept: convert the starting ratio into actual values, then add 15 to Group A.
+"RAP-002","RAP-CP-009","RAP-QL-402","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-402:rap-002:human-review:RAP-QL-402:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-402:0:RAP-CP-009:0","fnv1a-90f03110","Initially Group A:Group B = 3:9, with total 276. If 15 is added to Group A and 11 is removed from Group B, find the final ratio.","A. 3:7
+B. 2:7
+C. 4:7
+D. 3:8","0","3:7","Concept: convert the starting ratio into actual values, then add 15 to Group A.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$Group A:Group B=14:18$$
+$$Group A:Group B=3:9$$
 
-Step 1: the starting values are Group A = 252 and Group B = 324.
+Step 1: the starting values are Group A = 69 and Group B = 207.
 
-Step 2: after the change, the values become 267 and 307.
+Step 2: after the change, the values become 84 and 196.
 
-$$\text{Decisive equation}=267:307=267 : 307$$
+$$\text{Decisive equation}=84:196=3 : 7$$
 
-Final answer: the required ratio is 267 : 307.
+Final answer: the required ratio is 3 : 7.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-403","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-403:rap-002:human-review:RAP-QL-403:RAP-CP-009:0","rap-002:human-review:RAP-QL-403:RAP-CP-009:0","fnv1a-04bab185","A:B = 16:8, and together they have 552. If 10 is transferred from B to A, find the final ratio.","A. 64:29
-B. 63:30
-C. 63:29
-D. 62:29","2","63:29","Concept: convert the starting ratio into actual values, then transfer 10 according to the direction.
+"RAP-002","RAP-CP-009","RAP-QL-403","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-403:rap-002:human-review:RAP-QL-403:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-403:0:RAP-CP-009:0","fnv1a-f0f7149f","A:B = 20:12, and together they have 704. If 8 is transferred from B to A, find the final ratio.","A. 8:4
+B. 7:5
+C. 6:4
+D. 7:4","3","7:4","Concept: convert the starting ratio into actual values, then transfer 8 according to the direction.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$A:B=16:8$$
+$$A:B=20:12$$
 
-Step 1: the starting values are A = 368 and B = 184.
+Step 1: the starting values are A = 440 and B = 264.
 
-Step 2: after the change, the values become 378 and 174.
+Step 2: after the change, the values become 448 and 256.
 
-$$\text{Decisive equation}=378:174=63 : 29$$
+$$\text{Decisive equation}=448:256=7 : 4$$
 
-Final answer: the required ratio is 63 : 29.
+Final answer: the required ratio is 7 : 4.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-404","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-404:rap-002:human-review:RAP-QL-404:RAP-CP-009:0","rap-002:human-review:RAP-QL-404:RAP-CP-009:0","fnv1a-6e5a5c65","The ratio Group A:Group B is 14:8, and the total is 286. If 10 is transferred from Group A to Group B, what is the new ratio?","A. 86:57
-B. 85:57
-C. 87:57
-D. 86:58","0","86:57","Concept: convert the starting ratio into actual values, then transfer 10 according to the direction.
+"RAP-002","RAP-CP-009","RAP-QL-404","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-404:rap-002:human-review:RAP-QL-404:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-404:0:RAP-CP-009:0","fnv1a-83b77e71","The ratio Group A:Group B is 33:24, and the total is 1311. If 8 is transferred from Group A to Group B, what is the new ratio?","A. 751:560
+B. 751:561
+C. 750:560
+D. 752:560","0","751:560","Concept: convert the starting ratio into actual values, then transfer 8 according to the direction.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$Group A:Group B=14:8$$
+$$Group A:Group B=33:24$$
 
-Step 1: the starting values are Group A = 182 and Group B = 104.
+Step 1: the starting values are Group A = 759 and Group B = 552.
 
-Step 2: after the change, the values become 172 and 114.
+Step 2: after the change, the values become 751 and 560.
 
-$$\text{Decisive equation}=172:114=86 : 57$$
+$$\text{Decisive equation}=751:560=751 : 560$$
 
-Final answer: the required ratio is 86 : 57.
+Final answer: the required ratio is 751 : 560.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-405","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-405:rap-002:human-review:RAP-QL-405:RAP-CP-009:0","rap-002:human-review:RAP-QL-405:RAP-CP-009:0","fnv1a-02512258","After adding 16 to A, the ratio A:B becomes 68:55. If the original total was 968, find the original ratio.","A. 7:5
-B. 5:5
-C. 6:6
-D. 6:5","3","6:5","Concept: work backward from the final ratio and undo the stated operation.
+"RAP-002","RAP-CP-009","RAP-QL-405","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-405:rap-002:human-review:RAP-QL-405:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-405:0:RAP-CP-009:0","fnv1a-5c8ee7f7","After adding 18 to A, the ratio A:B becomes 107:32. If the original total was 816, find the original ratio.","A. 13:5
+B. 13:4
+C. 14:4
+D. 12:4","1","13:4","Concept: work backward from the final ratio and undo the stated operation.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=68:55$$
+$$\text{Final ratio}=107:32$$
 
-Step 1: after undoing the change, the original values are A = 528 and B = 440.
+Step 1: after undoing the change, the original values are A = 624 and B = 192.
 
-Step 2: after the change, the values become 544 and 440.
+Step 2: after the change, the values become 642 and 192.
 
-$$\text{Decisive equation}=528:440=6 : 5$$
+$$\text{Decisive equation}=624:192=13 : 4$$
 
-Final answer: the required ratio is 6 : 5.
+Final answer: the required ratio is 13 : 4.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-406","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-406:rap-002:human-review:RAP-QL-406:RAP-CP-009:0","rap-002:human-review:RAP-QL-406:RAP-CP-009:0","fnv1a-915b9db9","After transferring 6 from Group A to Group B, the final ratio is 11:8. If the total remains 646, find the original ratio.","A. 10:7
-B. 10:8
-C. 9:7
-D. 11:7","0","10:7","Concept: work backward from the final ratio and undo the stated operation.
+"RAP-002","RAP-CP-009","RAP-QL-406","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-406:rap-002:human-review:RAP-QL-406:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-406:0:RAP-CP-009:0","fnv1a-3bf4b61b","After transferring 12 from Group A to Group B, the final ratio is 49:81. If the total remains 520, find the original ratio.","A. 2:3
+B. 3:3
+C. 1:3
+D. 2:4","0","2:3","Concept: work backward from the final ratio and undo the stated operation.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=11:8$$
+$$\text{Final ratio}=49:81$$
 
-Step 1: after undoing the change, the original values are Group A = 380 and Group B = 266.
+Step 1: after undoing the change, the original values are Group A = 208 and Group B = 312.
 
 Step 2: reduce the recovered original values to the simplest ratio.
 
-$$\text{Decisive equation}=380:266=10 : 7$$
+$$\text{Decisive equation}=208:312=2 : 3$$
 
-Final answer: the required ratio is 10 : 7.
+Final answer: the required ratio is 2 : 3.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-410","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-410:rap-002:human-review:RAP-QL-410:RAP-CP-009:0","rap-002:human-review:RAP-QL-410:RAP-CP-009:0","fnv1a-c13bf07e","A and B have amounts in the ratio 21:19, and together they have 1280. If 10 is added to both amounts, find the new ratio.","A. 341:310
-B. 341:309
-C. 342:309
-D. 340:309","1","341:309","Concept: convert the starting ratio into actual values, then add 10 to both values.
+"RAP-002","RAP-CP-009","RAP-QL-410","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-410:rap-002:human-review:RAP-QL-410:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-410:0:RAP-CP-009:0","fnv1a-08776d1b","A and B have amounts in the ratio 10:11, and together they have 294. If 13 is added to both amounts, find the new ratio.","A. 154:167
+B. 152:167
+C. 153:168
+D. 153:167","3","153:167","Concept: convert the starting ratio into actual values, then add 13 to both values.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$A:B=21:19$$
+$$A:B=10:11$$
 
-Step 1: the starting values are A = 672 and B = 608.
+Step 1: the starting values are A = 140 and B = 154.
 
-Step 2: after the change, the values become 682 and 618.
+Step 2: after the change, the values become 153 and 167.
 
-$$\text{Decisive equation}=682:618=341 : 309$$
+$$\text{Decisive equation}=153:167=153 : 167$$
 
-Final answer: the required ratio is 341 : 309.
+Final answer: the required ratio is 153 : 167.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-411","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-411:rap-002:human-review:RAP-QL-411:RAP-CP-009:0","rap-002:human-review:RAP-QL-411:RAP-CP-009:0","fnv1a-5cb01f48","Group A and Group B share a total of 840 in the ratio 15:9. If 5 is removed from each share, find the remaining ratio.","A. 52:31
-B. 51:31
-C. 52:32
-D. 53:31","0","52:31","Concept: convert the starting ratio into actual values, then remove 5 from both values.
+"RAP-002","RAP-CP-009","RAP-QL-411","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-411:rap-002:human-review:RAP-QL-411:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-411:0:RAP-CP-009:0","fnv1a-41552fc4","Group A and Group B share a total of 888 in the ratio 15:9. If 5 is removed from each share, find the remaining ratio.","A. 275:164
+B. 276:164
+C. 274:164
+D. 275:165","0","275:164","Concept: convert the starting ratio into actual values, then remove 5 from both values.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
 $$Group A:Group B=15:9$$
 
-Step 1: the starting values are Group A = 525 and Group B = 315.
+Step 1: the starting values are Group A = 555 and Group B = 333.
 
-Step 2: after the change, the values become 520 and 310.
+Step 2: after the change, the values become 550 and 328.
 
-$$\text{Decisive equation}=520:310=52 : 31$$
+$$\text{Decisive equation}=550:328=275 : 164$$
 
-Final answer: the required ratio is 52 : 31.
+Final answer: the required ratio is 275 : 164.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-412","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-412:rap-002:human-review:RAP-QL-412:RAP-CP-009:0","rap-002:human-review:RAP-QL-412:RAP-CP-009:0","fnv1a-d9ff2660","The amounts with A and B are in the ratio 8:6, and their total is 420. If 13 is added only to A, find the final ratio.","A. 254:180
-B. 252:180
-C. 253:181
-D. 253:180","3","253:180","Concept: convert the starting ratio into actual values, then add 13 to A.
+"RAP-002","RAP-CP-009","RAP-QL-412","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-412:rap-002:human-review:RAP-QL-412:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-412:0:RAP-CP-009:0","fnv1a-4ad6899c","The amounts with A and B are in the ratio 20:14, and their total is 646. If 18 is added only to A, find the final ratio.","A. 200:133
+B. 199:133
+C. 199:134
+D. 198:133","1","199:133","Concept: convert the starting ratio into actual values, then add 18 to A.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$A:B=8:6$$
+$$A:B=20:14$$
 
-Step 1: the starting values are A = 240 and B = 180.
+Step 1: the starting values are A = 380 and B = 266.
 
-Step 2: after the change, the values become 253 and 180.
+Step 2: after the change, the values become 398 and 266.
 
-$$\text{Decisive equation}=253:180=253 : 180$$
+$$\text{Decisive equation}=398:266=199 : 133$$
 
-Final answer: the required ratio is 253 : 180.
+Final answer: the required ratio is 199 : 133.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-413","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-413:rap-002:human-review:RAP-QL-413:RAP-CP-009:0","rap-002:human-review:RAP-QL-413:RAP-CP-009:0","fnv1a-88c93bfe","The amounts with Group A and Group B are in the ratio 16:11, and their total is 432. If 13 is removed only from Group B, find the final ratio.","A. 256:163
-B. 255:163
-C. 257:163
-D. 256:164","0","256:163","Concept: convert the starting ratio into actual values, then remove 13 from Group B.
+"RAP-002","RAP-CP-009","RAP-QL-413","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-413:rap-002:human-review:RAP-QL-413:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-413:0:RAP-CP-009:0","fnv1a-2f685354","The amounts with Group A and Group B are in the ratio 21:13, and their total is 850. If 15 is removed only from Group B, find the final ratio.","A. 104:62
+B. 105:63
+C. 105:62
+D. 106:62","2","105:62","Concept: convert the starting ratio into actual values, then remove 15 from Group B.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$Group A:Group B=16:11$$
+$$Group A:Group B=21:13$$
 
-Step 1: the starting values are Group A = 256 and Group B = 176.
+Step 1: the starting values are Group A = 525 and Group B = 325.
 
-Step 2: after the change, the values become 256 and 163.
+Step 2: after the change, the values become 525 and 310.
 
-$$\text{Decisive equation}=256:163=256 : 163$$
+$$\text{Decisive equation}=525:310=105 : 62$$
 
-Final answer: the required ratio is 256 : 163.
+Final answer: the required ratio is 105 : 62.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-414","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-414:rap-002:human-review:RAP-QL-414:RAP-CP-009:0","rap-002:human-review:RAP-QL-414:RAP-CP-009:0","fnv1a-26835435","A and B have a total of 780 in the ratio 18:12. If 10 is transferred from A to B, find the new ratio.","A. 229:162
-B. 229:161
-C. 230:161
-D. 228:161","1","229:161","Concept: convert the starting ratio into actual values, then transfer 10 according to the direction.
+"RAP-002","RAP-CP-009","RAP-QL-414","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-414:rap-002:human-review:RAP-QL-414:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-414:0:RAP-CP-009:0","fnv1a-dabf1d55","A and B have a total of 408 in the ratio 12:22. If 7 is transferred from A to B, find the new ratio.","A. 136:271
+B. 137:272
+C. 138:271
+D. 137:271","3","137:271","Concept: convert the starting ratio into actual values, then transfer 7 according to the direction.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$A:B=18:12$$
+$$A:B=12:22$$
 
-Step 1: the starting values are A = 468 and B = 312.
+Step 1: the starting values are A = 144 and B = 264.
 
-Step 2: after the change, the values become 458 and 322.
+Step 2: after the change, the values become 137 and 271.
 
-$$\text{Decisive equation}=458:322=229 : 161$$
+$$\text{Decisive equation}=137:271=137 : 271$$
 
-Final answer: the required ratio is 229 : 161.
+Final answer: the required ratio is 137 : 271.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-415","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-415:rap-002:human-review:RAP-QL-415:RAP-CP-009:0","rap-002:human-review:RAP-QL-415:RAP-CP-009:0","fnv1a-83a6b6ad","Group A and Group B have a total of 486 in the ratio 12:6. If 14 is transferred from Group B to Group A, find the new ratio.","A. 169:74
-B. 168:74
-C. 169:75
-D. 170:74","0","169:74","Concept: convert the starting ratio into actual values, then transfer 14 according to the direction.
+"RAP-002","RAP-CP-009","RAP-QL-415","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-415:rap-002:human-review:RAP-QL-415:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-415:0:RAP-CP-009:0","fnv1a-c3630ba1","Group A and Group B have a total of 600 in the ratio 10:14. If 11 is transferred from Group B to Group A, find the new ratio.","A. 87:113
+B. 86:113
+C. 88:113
+D. 87:114","0","87:113","Concept: convert the starting ratio into actual values, then transfer 11 according to the direction.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$Group A:Group B=12:6$$
+$$Group A:Group B=10:14$$
 
-Step 1: the starting values are Group A = 324 and Group B = 162.
+Step 1: the starting values are Group A = 250 and Group B = 350.
 
-Step 2: after the change, the values become 338 and 148.
+Step 2: after the change, the values become 261 and 339.
 
-$$\text{Decisive equation}=338:148=169 : 74$$
+$$\text{Decisive equation}=261:339=87 : 113$$
 
-Final answer: the required ratio is 169 : 74.
+Final answer: the required ratio is 87 : 113.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-416","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-416:rap-002:human-review:RAP-QL-416:RAP-CP-009:0","rap-002:human-review:RAP-QL-416:RAP-CP-009:0","fnv1a-534e1c9f","After 8 is added to A, the ratio of A to B becomes 14:11. The original total was 792. Find the original ratio.","A. 6:4
-B. 4:4
-C. 5:5
-D. 5:4","3","5:4","Concept: work backward from the final ratio and undo the stated operation.
+"RAP-002","RAP-CP-009","RAP-QL-416","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-416:rap-002:human-review:RAP-QL-416:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-416:0:RAP-CP-009:0","fnv1a-191862bd","After 18 is added to A, the ratio of A to B becomes 123:38. The original total was 304. Find the original ratio.","A. 4:1
+B. 3:2
+C. 3:1
+D. 2:1","2","3:1","Concept: work backward from the final ratio and undo the stated operation.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=14:11$$
+$$\text{Final ratio}=123:38$$
 
-Step 1: after undoing the change, the original values are A = 440 and B = 352.
+Step 1: after undoing the change, the original values are A = 228 and B = 76.
 
-Step 2: after the change, the values become 448 and 352.
+Step 2: after the change, the values become 246 and 76.
 
-$$\text{Decisive equation}=440:352=5 : 4$$
+$$\text{Decisive equation}=228:76=3 : 1$$
 
-Final answer: the required ratio is 5 : 4.
+Final answer: the required ratio is 3 : 1.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-417","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-417:rap-002:human-review:RAP-QL-417:RAP-CP-009:0","rap-002:human-review:RAP-QL-417:RAP-CP-009:0","fnv1a-3b44e5ca","After 7 is removed from Group B, the ratio of Group A to Group B becomes 308:191. The original total was 506. Find the original ratio.","A. 14:9
-B. 13:9
-C. 15:9
-D. 14:10","0","14:9","Concept: work backward from the final ratio and undo the stated operation.
+"RAP-002","RAP-CP-009","RAP-QL-417","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-417:rap-002:human-review:RAP-QL-417:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-417:0:RAP-CP-009:0","fnv1a-9695fd7e","After 13 is removed from Group B, the ratio of Group A to Group B becomes 651:575. The original total was 1239. Find the original ratio.","A. 31:28
+B. 30:28
+C. 31:29
+D. 32:28","0","31:28","Concept: work backward from the final ratio and undo the stated operation.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=308:191$$
+$$\text{Final ratio}=651:575$$
 
-Step 1: after undoing the change, the original values are Group A = 308 and Group B = 198.
+Step 1: after undoing the change, the original values are Group A = 651 and Group B = 588.
 
-Step 2: after the change, the values become 308 and 191.
+Step 2: after the change, the values become 651 and 575.
 
-$$\text{Decisive equation}=308:198=14 : 9$$
+$$\text{Decisive equation}=651:588=31 : 28$$
 
-Final answer: the required ratio is 14 : 9.
+Final answer: the required ratio is 31 : 28.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-418","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-418:rap-002:human-review:RAP-QL-418:RAP-CP-009:0","rap-002:human-review:RAP-QL-418:RAP-CP-009:0","fnv1a-733af244","After 10 is moved from A to B, their ratio becomes 476:523. Their total is 999. Find the original ratio.","A. 18:20
-B. 18:19
-C. 19:19
-D. 17:19","1","18:19","Concept: work backward from the final ratio and undo the stated operation.
+"RAP-002","RAP-CP-009","RAP-QL-418","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-418:rap-002:human-review:RAP-QL-418:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-418:0:RAP-CP-009:0","fnv1a-78781056","After 19 is moved from A to B, their ratio becomes 461:559. Their total is 1020. Find the original ratio.","A. 7:9
+B. 8:10
+C. 9:9
+D. 8:9","3","8:9","Concept: work backward from the final ratio and undo the stated operation.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=476:523$$
+$$\text{Final ratio}=461:559$$
 
-Step 1: after undoing the change, the original values are A = 486 and B = 513.
+Step 1: after undoing the change, the original values are A = 480 and B = 540.
 
 Step 2: reduce the recovered original values to the simplest ratio.
 
-$$\text{Decisive equation}=486:513=18 : 19$$
+$$\text{Decisive equation}=480:540=8 : 9$$
 
-Final answer: the required ratio is 18 : 19.
-
-Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-419","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-419:rap-002:human-review:RAP-QL-419:RAP-CP-009:0","rap-002:human-review:RAP-QL-419:RAP-CP-009:0","fnv1a-de2fff05","Group A:Group B is 18:20, and their total is 798. First 9 is added to Group A; then 13 is removed from Group B. Find the final ratio.","A. 387:407
-B. 386:407
-C. 387:408
-D. 388:407","0","387:407","Concept: convert the starting ratio into actual values, then add 9 to Group A.
-
-Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
-
-$$Group A:Group B=18:20$$
-
-Step 1: the starting values are Group A = 378 and Group B = 420.
-
-Step 2: after the change, the values become 387 and 407.
-
-$$\text{Decisive equation}=387:407=387 : 407$$
-
-Final answer: the required ratio is 387 : 407.
+Final answer: the required ratio is 8 : 9.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-420","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-420:rap-002:human-review:RAP-QL-420:RAP-CP-009:0","rap-002:human-review:RAP-QL-420:RAP-CP-009:0","fnv1a-e5a13c92","Group A and Group B start in the ratio 20:18 with total 684. If 17 is added to Group A and 18 is added to Group B, find the final ratio.","A. 376:342
-B. 377:343
-C. 377:342
-D. 378:342","2","377:342","Concept: convert the starting ratio into actual values, then add 17 to Group A.
+"RAP-002","RAP-CP-009","RAP-QL-419","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-419:rap-002:human-review:RAP-QL-419:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-419:0:RAP-CP-009:0","fnv1a-2f52a9ca","Group A:Group B is 20:18, and their total is 608. First 19 is added to Group A; then 11 is removed from Group B. Find the final ratio.","A. 339:277
+B. 338:277
+C. 340:277
+D. 339:278","0","339:277","Concept: convert the starting ratio into actual values, then add 19 to Group A.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
 $$Group A:Group B=20:18$$
 
-Step 1: the starting values are Group A = 360 and Group B = 324.
+Step 1: the starting values are Group A = 320 and Group B = 288.
 
-Step 2: after the change, the values become 377 and 342.
+Step 2: after the change, the values become 339 and 277.
 
-$$\text{Decisive equation}=377:342=377 : 342$$
+$$\text{Decisive equation}=339:277=339 : 277$$
 
-Final answer: the required ratio is 377 : 342.
-
-Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-421","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-421:rap-002:human-review:RAP-QL-421:RAP-CP-009:0","rap-002:human-review:RAP-QL-421:RAP-CP-009:0","fnv1a-e9438a19","A and B start in the ratio 4:28 with total 992. If 11 is removed from A and 14 is removed from B, find the final ratio.","A. 114:854
-B. 113:855
-C. 113:854
-D. 112:854","2","113:854","Concept: convert the starting ratio into actual values, then remove 11 from A.
-
-Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
-
-$$A:B=4:28$$
-
-Step 1: the starting values are A = 124 and B = 868.
-
-Step 2: after the change, the values become 113 and 854.
-
-$$\text{Decisive equation}=113:854=113 : 854$$
-
-Final answer: the required ratio is 113 : 854.
+Final answer: the required ratio is 339 : 277.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-422","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-422:rap-002:human-review:RAP-QL-422:RAP-CP-009:0","rap-002:human-review:RAP-QL-422:RAP-CP-009:0","fnv1a-59aedbda","The ratio of Group A to Group B is 20:21, and their total is 779. After the same amount is added to both, the ratio becomes 392:411. Find the amount added to each.","A. 12
-B. 13
-C. 11
-D. 14","0","12","Concept: find the missing amount by comparing the starting information with the final ratio for Group A and Group B.
-
-Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
-
-$$Group A:Group B=20:21$$
-
-Step 1: convert the starting ratio into actual values: Group A = 380 and Group B = 399.
-
-Step 2: set up the reverse calculation from the final ratio. This gives 12.
-
-$$\text{Decisive equation}=\frac{-228}{-19}=12$$
-
-Final answer: the required value is 12.
-
-Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-423","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-423:rap-002:human-review:RAP-QL-423:RAP-CP-009:0","rap-002:human-review:RAP-QL-423:RAP-CP-009:0","fnv1a-135a5ca4","The ratio of A to B is 18:24, and their total is 1386. After some amount is transferred from A to B, the ratio becomes 575:811. Find the amount transferred.","A. 18
-B. 21
-C. 20
-D. 19","3","19","Concept: find the missing amount by comparing the starting information with the final ratio for A and B.
-
-Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
-
-$$A:B=18:24$$
-
-Step 1: convert the starting ratio into actual values: A = 594 and B = 792.
-
-Step 2: set up the reverse calculation from the final ratio. This gives 19.
-
-$$\text{Decisive equation}=\frac{26334}{1386}=19$$
-
-Final answer: the required value is 19.
-
-Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-424","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-424:rap-002:human-review:RAP-QL-424:RAP-CP-009:0","rap-002:human-review:RAP-QL-424:RAP-CP-009:0","fnv1a-e79d9e10","A class has boys and girls in the ratio 17:15, with 864 students in all. If 4 more girls join the class, find the new boys:girls ratio.","A. 459:409
-B. 458:409
-C. 459:410
-D. 460:409","0","459:409","Concept: convert the starting ratio into actual values, then add 4 to girls.
-
-Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
-
-$$boys:girls=17:15$$
-
-Step 1: the starting values are boys = 459 and girls = 405.
-
-Step 2: after the change, the values become 459 and 409.
-
-$$\text{Decisive equation}=459:409=459 : 409$$
-
-Final answer: the required ratio is 459 : 409.
-
-Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-425","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-425:rap-002:human-review:RAP-QL-425:RAP-CP-009:0","rap-002:human-review:RAP-QL-425:RAP-CP-009:0","fnv1a-a923aa24","A shop has two product types in the ratio 5:15, with total stock 480. If 9 items of the second type are sold, find the new stock ratio.","A. 41:117
-B. 40:117
-C. 40:118
-D. 39:117","1","40:117","Concept: convert the starting ratio into actual values, then remove 9 from type B items.
-
-Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
-
-$$type A items:type B items=5:15$$
-
-Step 1: the starting values are type A items = 120 and type B items = 360.
-
-Step 2: after the change, the values become 120 and 351.
-
-$$\text{Decisive equation}=120:351=40 : 117$$
-
-Final answer: the required ratio is 40 : 117.
-
-Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-426","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-426:rap-002:human-review:RAP-QL-426:RAP-CP-009:0","rap-002:human-review:RAP-QL-426:RAP-CP-009:0","fnv1a-9dcbd4d2","Two groups of supporters are in the ratio 12:16, with 560 supporters in all. If 6 supporters switch from Group B to Group A, find the new ratio.","A. 123:157
-B. 124:157
-C. 122:157
-D. 123:158","0","123:157","Concept: convert the starting ratio into actual values, then transfer 6 according to the direction.
+"RAP-002","RAP-CP-009","RAP-QL-420","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-420:rap-002:human-review:RAP-QL-420:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-420:0:RAP-CP-009:0","fnv1a-401d0110","Group A and Group B start in the ratio 12:16 with total 588. If 13 is added to Group A and 16 is added to Group B, find the final ratio.","A. 265:352
+B. 264:352
+C. 266:352
+D. 265:353","0","265:352","Concept: convert the starting ratio into actual values, then add 13 to Group A.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
 $$Group A:Group B=12:16$$
 
-Step 1: the starting values are Group A = 240 and Group B = 320.
+Step 1: the starting values are Group A = 252 and Group B = 336.
 
-Step 2: after the change, the values become 246 and 314.
+Step 2: after the change, the values become 265 and 352.
 
-$$\text{Decisive equation}=246:314=123 : 157$$
+$$\text{Decisive equation}=265:352=265 : 352$$
 
-Final answer: the required ratio is 123 : 157.
+Final answer: the required ratio is 265 : 352.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-427","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-427:rap-002:human-review:RAP-QL-427:RAP-CP-009:0","rap-002:human-review:RAP-QL-427:RAP-CP-009:0","fnv1a-b2a1d4a3","After 15 supporters switch from B to A, the ratio becomes 5:11. The total number of supporters is 432. Find the original ratio.","A. 4:13
-B. 5:14
-C. 6:13
-D. 5:13","3","5:13","Concept: work backward from the final ratio and undo the stated operation.
+"RAP-002","RAP-CP-009","RAP-QL-421","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-421:rap-002:human-review:RAP-QL-421:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-421:0:RAP-CP-009:0","fnv1a-0574f5d7","A and B start in the ratio 16:22 with total 684. If 11 is removed from A and 15 is removed from B, find the final ratio.","A. 276:381
+B. 277:382
+C. 278:381
+D. 277:381","3","277:381","Concept: convert the starting ratio into actual values, then remove 11 from A.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=5:11$$
+$$A:B=16:22$$
 
-Step 1: after undoing the change, the original values are A = 120 and B = 312.
+Step 1: the starting values are A = 288 and B = 396.
+
+Step 2: after the change, the values become 277 and 381.
+
+$$\text{Decisive equation}=277:381=277 : 381$$
+
+Final answer: the required ratio is 277 : 381.
+
+Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
+"RAP-002","RAP-CP-009","RAP-QL-422","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-422:rap-002:human-review:RAP-QL-422:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-422:0:RAP-CP-009:0","fnv1a-ae82ede3","The ratio of Group A to Group B is 10:32, and their total is 714. After the same amount is added to both, the ratio becomes 185:559. Find the amount added to each.","A. 15
+B. 14
+C. 17
+D. 16","0","15","Concept: find the missing amount by comparing the starting information with the final ratio for Group A and Group B.
+
+Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
+
+$$Group A:Group B=10:32$$
+
+Step 1: convert the starting ratio into actual values: Group A = 170 and Group B = 544.
+
+Step 2: set up the reverse calculation from the final ratio. This gives 15.
+
+$$\text{Decisive equation}=\frac{-5610}{-374}=15$$
+
+Final answer: the required value is 15.
+
+Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
+"RAP-002","RAP-CP-009","RAP-QL-423","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-423:rap-002:human-review:RAP-QL-423:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-423:0:RAP-CP-009:0","fnv1a-17f1e79c","The ratio of A to B is 30:14, and their total is 616. After some amount is transferred from A to B, the ratio becomes 207:101. Find the amount transferred.","A. 7
+B. 6
+C. 8
+D. 5","1","6","Concept: find the missing amount by comparing the starting information with the final ratio for A and B.
+
+Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
+
+$$A:B=30:14$$
+
+Step 1: convert the starting ratio into actual values: A = 420 and B = 196.
+
+Step 2: set up the reverse calculation from the final ratio. This gives 6.
+
+$$\text{Decisive equation}=\frac{1848}{308}=6$$
+
+Final answer: the required value is 6.
+
+Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
+"RAP-002","RAP-CP-009","RAP-QL-424","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-424:rap-002:human-review:RAP-QL-424:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-424:0:RAP-CP-009:0","fnv1a-d2d03f1c","A class has boys and girls in the ratio 13:23, with 468 students in all. If 12 more girls join the class, find the new boys:girls ratio.","A. 169:311
+B. 168:311
+C. 170:311
+D. 169:312","0","169:311","Concept: convert the starting ratio into actual values, then add 12 to girls.
+
+Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
+
+$$boys:girls=13:23$$
+
+Step 1: the starting values are boys = 169 and girls = 299.
+
+Step 2: after the change, the values become 169 and 311.
+
+$$\text{Decisive equation}=169:311=169 : 311$$
+
+Final answer: the required ratio is 169 : 311.
+
+Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
+"RAP-002","RAP-CP-009","RAP-QL-425","successiveRatioChange","successiveRatioChange","Medium","RAP-CP-009:RAP-QL-425:rap-002:human-review:RAP-QL-425:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-425:0:RAP-CP-009:0","fnv1a-41434c29","A shop has two product types in the ratio 12:14, with total stock 520. If 4 items of the second type are sold, find the new stock ratio.","A. 19:23
+B. 20:24
+C. 21:23
+D. 20:23","3","20:23","Concept: convert the starting ratio into actual values, then remove 4 from type B items.
+
+Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
+
+$$type A items:type B items=12:14$$
+
+Step 1: the starting values are type A items = 240 and type B items = 280.
+
+Step 2: after the change, the values become 240 and 276.
+
+$$\text{Decisive equation}=240:276=20 : 23$$
+
+Final answer: the required ratio is 20 : 23.
+
+Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
+"RAP-002","RAP-CP-009","RAP-QL-426","transferTracking","transferTracking","Hard","RAP-CP-009:RAP-QL-426:rap-002:human-review:RAP-QL-426:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-426:0:RAP-CP-009:0","fnv1a-b0b1a789","Two groups of supporters are in the ratio 24:6, with 570 supporters in all. If 2 supporters switch from Group B to Group A, find the new ratio.","A. 229:56
+B. 228:56
+C. 229:57
+D. 230:56","0","229:56","Concept: convert the starting ratio into actual values, then transfer 2 according to the direction.
+
+Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
+
+$$Group A:Group B=24:6$$
+
+Step 1: the starting values are Group A = 456 and Group B = 114.
+
+Step 2: after the change, the values become 458 and 112.
+
+$$\text{Decisive equation}=458:112=229 : 56$$
+
+Final answer: the required ratio is 229 : 56.
+
+Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
+"RAP-002","RAP-CP-009","RAP-QL-427","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-427:rap-002:human-review:RAP-QL-427:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-427:0:RAP-CP-009:0","fnv1a-c97ddbb7","After 13 supporters switch from B to A, the ratio becomes 93:547. The total number of supporters is 640. Find the original ratio.","A. 2:7
+B. 1:6
+C. 1:7
+D. 1:8","2","1:7","Concept: work backward from the final ratio and undo the stated operation.
+
+Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
+
+$$\text{Final ratio}=93:547$$
+
+Step 1: after undoing the change, the original values are A = 80 and B = 560.
 
 Step 2: reduce the recovered original values to the simplest ratio.
 
-$$\text{Decisive equation}=120:312=5 : 13$$
+$$\text{Decisive equation}=80:560=1 : 7$$
 
-Final answer: the required ratio is 5 : 13.
+Final answer: the required ratio is 1 : 7.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-428","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-428:rap-002:human-review:RAP-QL-428:RAP-CP-009:0","rap-002:human-review:RAP-QL-428:RAP-CP-009:0","fnv1a-6cf60c97","Group A and Group B have money in the ratio 22:34, and together they have 952. If Group A spends 4 and Group B receives 18, find the new ratio.","A. 185:298
-B. 185:299
-C. 184:298
-D. 186:298","0","185:298","Concept: convert the starting ratio into actual values, then add 18 to Group B.
+"RAP-002","RAP-CP-009","RAP-QL-428","successiveRatioChange","successiveRatioChange","Hard","RAP-CP-009:RAP-QL-428:rap-002:human-review:RAP-QL-428:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-428:0:RAP-CP-009:0","fnv1a-8641938b","Group A and Group B have money in the ratio 28:14, and together they have 672. If Group A spends 16 and Group B receives 16, find the new ratio.","A. 8:5
+B. 10:5
+C. 9:5
+D. 9:6","2","9:5","Concept: convert the starting ratio into actual values, then add 16 to Group B.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$Group A:Group B=22:34$$
+$$Group A:Group B=28:14$$
 
-Step 1: the starting values are Group A = 374 and Group B = 578.
+Step 1: the starting values are Group A = 448 and Group B = 224.
 
-Step 2: after the change, the values become 370 and 596.
+Step 2: after the change, the values become 432 and 240.
 
-$$\text{Decisive equation}=370:596=185 : 298$$
+$$\text{Decisive equation}=432:240=9 : 5$$
 
-Final answer: the required ratio is 185 : 298.
+Final answer: the required ratio is 9 : 5.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-009","RAP-QL-429","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-429:rap-002:human-review:RAP-QL-429:RAP-CP-009:0","rap-002:human-review:RAP-QL-429:RAP-CP-009:0","fnv1a-e9669864","After 18 is added to A, the ratio of A to B becomes 216:161. If A then has 432, find the original total.","A. 746
-B. 736
-C. 756
-D. 726","1","736","Concept: find the missing amount by comparing the starting information with the final ratio for A and B.
+"RAP-002","RAP-CP-009","RAP-QL-429","reconstructOriginalRatio","reconstructOriginalRatio","Hard","RAP-CP-009:RAP-QL-429:rap-002:human-review:RAP-QL-429:0:RAP-CP-009:0","rap-002:human-review:RAP-QL-429:0:RAP-CP-009:0","fnv1a-edf13419","After 8 is added to A, the ratio of A to B becomes 361:168. If A then has 722, find the original total.","A. 1150
+B. 1100
+C. 950
+D. 1050","3","1050","Concept: find the missing amount by comparing the starting information with the final ratio for A and B.
 
 Why this method works: ratio parts must first be converted into actual values so additions, removals, and transfers act on quantities rather than symbols.
 
-$$\text{Final ratio}=216:161$$
+$$\text{Final ratio}=361:168$$
 
-Step 1: use the final value and final ratio to recover the final values: A = 432 and B = 322.
+Step 1: use the final value and final ratio to recover the final values: A = 722 and B = 336.
 
-Step 2: set up the reverse calculation from the final ratio. This gives 736.
+Step 2: set up the reverse calculation from the final ratio. This gives 1050.
 
-$$\text{Decisive equation}=414+322=736$$
+$$\text{Decisive equation}=714+336=1050$$
 
-Final answer: the required value is 736.
+Final answer: the required value is 1050.
 
 Quick check: the final values have the stated total and simplify to the required final ratio.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-501","nestedPartition","nestedPartition","Medium","RAP-CP-010:RAP-QL-501:rap-002:human-review:RAP-QL-501:RAP-CP-010:0","rap-002:human-review:RAP-QL-501:RAP-CP-010:0","fnv1a-e49d1f8a","A total of 10450 is divided between Group A and Group B in the ratio 23:15. The share of Group A is further divided between Group C and Group D in the ratio 8:17. Find the value of Group C.","A. 2024
-B. 2074
-C. 1924
-D. 2124","0","2024","Concept: divide the total by the main ratio, then subdivide the selected branch by the second ratio.
+"RAP-002","RAP-CP-010","RAP-QL-501","nestedPartition","nestedPartition","Medium","RAP-CP-010:RAP-QL-501:rap-002:human-review:RAP-QL-501:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-501:0:RAP-CP-010:0","fnv1a-c63e4352","A total of 6460 is divided between Partner A and Partner B in the ratio 14:3. The share of Partner A is further divided between Partner C and Partner D in the ratio 5:15. Find the value of Partner C.","A. 1330
+B. 1230
+C. 1430
+D. 1380","0","1330","Concept: divide the total by the main ratio, then subdivide the selected branch by the second ratio.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
-$$Group A:Group B=23:15$$
+$$Partner A:Partner B=14:3$$
 
-Step 1: the selected branch is Group A, whose share is 6325.
+Step 1: the selected branch is Partner A, whose share is 5320.
 
-$$Group C:Group D=8:17$$
+$$Partner C:Partner D=5:15$$
 
-Step 2: after the second split, the values are 2024:4301.
+Step 2: after the second split, the values are 1330:3990.
 
-$$\text{Decisive equation}=6325\times\frac{8}{25}=2024$$
+$$\text{Decisive equation}=5320\times\frac{5}{20}=1330$$
 
-Final answer: the required value is 2024.
+Final answer: the required value is 1330.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-502","nestedPartition","nestedPartition","Medium","RAP-CP-010:RAP-QL-502:rap-002:human-review:RAP-QL-502:RAP-CP-010:0","rap-002:human-review:RAP-QL-502:RAP-CP-010:0","fnv1a-43617215","Group A and Group B share 5760 in the ratio 6:12. If Group B's share is divided between Group C and Group D in the ratio 3:13, find Group D's share.","A. 3220
-B. 3020
-C. 3170
-D. 3120","3","3120","Concept: divide the total by the main ratio, then subdivide the selected branch by the second ratio.
+"RAP-002","RAP-CP-010","RAP-QL-502","nestedPartition","nestedPartition","Medium","RAP-CP-010:RAP-QL-502:rap-002:human-review:RAP-QL-502:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-502:0:RAP-CP-010:0","fnv1a-7caa03a3","Group A and Group B share 6210 in the ratio 24:22. If Group B's share is divided between Group C and Group D in the ratio 23:4, find Group D's share.","A. 450
+B. 440
+C. 460
+D. 430","1","440","Concept: divide the total by the main ratio, then subdivide the selected branch by the second ratio.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
-$$Group A:Group B=6:12$$
+$$Group A:Group B=24:22$$
 
-Step 1: the selected branch is Group B, whose share is 3840.
+Step 1: the selected branch is Group B, whose share is 2970.
 
-$$Group C:Group D=3:13$$
+$$Group C:Group D=23:4$$
 
-Step 2: after the second split, the values are 720:3120.
+Step 2: after the second split, the values are 2530:440.
 
-$$\text{Decisive equation}=3840\times\frac{13}{16}=3120$$
+$$\text{Decisive equation}=2970\times\frac{4}{27}=440$$
 
-Final answer: the required value is 3120.
+Final answer: the required value is 440.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-503","conditionalDistribution","conditionalDistribution","Hard","RAP-CP-010:RAP-QL-503:rap-002:human-review:RAP-QL-503:RAP-CP-010:0","rap-002:human-review:RAP-QL-503:RAP-CP-010:0","fnv1a-9a3679cf","A fund of 16200 is divided between Partner A and Partner B in the ratio 26:4. Since Partner A's share exceeds 14012, it is divided between Partner C and Partner D in the ratio 14:22. Find Partner C's share.","A. 5360
-B. 5560
-C. 5460
-D. 5510","2","5460","Concept: check the selected branch after the main split, then divide that branch by the second ratio.
+"RAP-002","RAP-CP-010","RAP-QL-503","conditionalDistribution","conditionalDistribution","Hard","RAP-CP-010:RAP-QL-503:rap-002:human-review:RAP-QL-503:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-503:0:RAP-CP-010:0","fnv1a-e442d2b9","A fund of 58520 is divided between Partner A and Partner B in the ratio 20:36. Since Partner A's share exceeds 20889, it is divided between Partner C and Partner D in the ratio 22:33. Find Partner C's share.","A. 8360
+B. 8260
+C. 8410
+D. 8460","0","8360","Concept: check the selected branch after the main split, then divide that branch by the second ratio.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
-$$Partner A:Partner B=26:4$$
+$$Partner A:Partner B=20:36$$
 
-Step 1: the selected branch is Partner A, whose share is 14040.
+Step 1: the selected branch is Partner A, whose share is 20900.
 
-$$Partner C:Partner D=14:22$$
+$$Partner C:Partner D=22:33$$
 
-Step 2: after the second split, the values are 5460:8580.
+Step 2: after the second split, the values are 8360:12540.
 
-$$\text{Decisive equation}=14040\times\frac{14}{36}=5460$$
+$$\text{Decisive equation}=20900\times\frac{22}{55}=8360$$
 
-Final answer: the required value is 5460.
+Final answer: the required value is 8360.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-504","conditionalDistribution","conditionalDistribution","Hard","RAP-CP-010:RAP-QL-504:rap-002:human-review:RAP-QL-504:RAP-CP-010:0","rap-002:human-review:RAP-QL-504:RAP-CP-010:0","fnv1a-cd004736","A total of 38720 is split between A and B as 26:18. Since B's share is at least 15817, that share is divided between C and D in the ratio 12:32. Find D's share.","A. 11570
-B. 11520
-C. 11620
-D. 11420","1","11520","Concept: check the selected branch after the main split, then divide that branch by the second ratio.
+"RAP-002","RAP-CP-010","RAP-QL-504","conditionalDistribution","conditionalDistribution","Hard","RAP-CP-010:RAP-QL-504:rap-002:human-review:RAP-QL-504:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-504:0:RAP-CP-010:0","fnv1a-3c1cfe92","A total of 20160 is split between Partner A and Partner B as 12:16. Since Partner B's share is at least 11500, that share is divided between Partner C and Partner D in the ratio 25:20. Find Partner D's share.","A. 5220
+B. 5020
+C. 5170
+D. 5120","3","5120","Concept: check the selected branch after the main split, then divide that branch by the second ratio.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
-$$A:B=26:18$$
+$$Partner A:Partner B=12:16$$
 
-Step 1: the selected branch is B, whose share is 15840.
+Step 1: the selected branch is Partner B, whose share is 11520.
 
-$$C:D=12:32$$
+$$Partner C:Partner D=25:20$$
 
-Step 2: after the second split, the values are 4320:11520.
+Step 2: after the second split, the values are 6400:5120.
 
-$$\text{Decisive equation}=15840\times\frac{32}{44}=11520$$
+$$\text{Decisive equation}=11520\times\frac{20}{45}=5120$$
 
-Final answer: the required value is 11520.
+Final answer: the required value is 5120.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-505","weightedNestedPartition","weightedNestedPartition","Hard","RAP-CP-010:RAP-QL-505:rap-002:human-review:RAP-QL-505:RAP-CP-010:0","rap-002:human-review:RAP-QL-505:RAP-CP-010:0","fnv1a-bece836d","Group A and Group B divide 29240 in the ratio 23:20. Group A's share is split between Group C and Group D in the ratio 16:24. If each unit of Group C has weight 8 and each unit of Group D has weight 11, find the total weighted value of that split.","A. 153172
-B. 153322
-C. 153272
-D. 153372","2","153272","Concept: divide the total by the main ratio, split the selected branch, then apply weights.
+"RAP-002","RAP-CP-010","RAP-QL-505","weightedNestedPartition","weightedNestedPartition","Hard","RAP-CP-010:RAP-QL-505:rap-002:human-review:RAP-QL-505:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-505:0:RAP-CP-010:0","fnv1a-ae2cb3a5","Partner A and Partner B divide 11616 in the ratio 16:28. Partner A's share is split between Partner C and Partner D in the ratio 18:4. If each unit of Partner C has weight 9 and each unit of Partner D has weight 9, find the total weighted value of that split.","A. 38016
+B. 38116
+C. 37916
+D. 38066","0","38016","Concept: divide the total by the main ratio, split the selected branch, then apply weights.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
-$$Group A:Group B=23:20$$
+$$Partner A:Partner B=16:28$$
 
-Step 1: the selected branch is Group A, whose share is 15640.
+Step 1: the selected branch is Partner A, whose share is 4224.
 
-$$Group C:Group D=16:24$$
+$$Partner C:Partner D=18:4$$
 
-Step 2: after the second split, the values are 6256:9384.
+Step 2: after the second split, the values are 3456:768.
 
-$$\text{Decisive equation}=6256\times8+9384\times11=153272$$
+$$\text{Decisive equation}=3456\times9+768\times9=38016$$
 
-Final answer: the required value is 153272.
+Final answer: the required value is 38016.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-506","weightedNestedPartition","weightedNestedPartition","Hard","RAP-CP-010:RAP-QL-506:rap-002:human-review:RAP-QL-506:RAP-CP-010:0","rap-002:human-review:RAP-QL-506:RAP-CP-010:0","fnv1a-bce546ed","A total of 7040 is divided between Partner A and Partner B in the ratio 20:24. Partner B's share is further divided as Partner C:Partner D = 22:18. With weights 4 and 8 for each unit of Partner C and Partner D, find the weighted total.","A. 22372
-B. 22172
-C. 22322
-D. 22272","3","22272","Concept: divide the total by the main ratio, split the selected branch, then apply weights.
+"RAP-002","RAP-CP-010","RAP-QL-506","weightedNestedPartition","weightedNestedPartition","Hard","RAP-CP-010:RAP-QL-506:rap-002:human-review:RAP-QL-506:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-506:0:RAP-CP-010:0","fnv1a-aa90f66c","A total of 15048 is divided between Group A and Group B in the ratio 22:16. Group B's share is further divided as Group C:Group D = 16:17. With weights 6 and 10 for each unit of Group C and Group D, find the weighted total.","A. 51172
+B. 51072
+C. 51122
+D. 50972","1","51072","Concept: divide the total by the main ratio, split the selected branch, then apply weights.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
-$$Partner A:Partner B=20:24$$
+$$Group A:Group B=22:16$$
 
-Step 1: the selected branch is Partner B, whose share is 3840.
+Step 1: the selected branch is Group B, whose share is 6336.
 
-$$Partner C:Partner D=22:18$$
+$$Group C:Group D=16:17$$
 
-Step 2: after the second split, the values are 2112:1728.
+Step 2: after the second split, the values are 3072:3264.
 
-$$\text{Decisive equation}=2112\times4+1728\times8=22272$$
+$$\text{Decisive equation}=3072\times6+3264\times10=51072$$
 
-Final answer: the required value is 22272.
+Final answer: the required value is 51072.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-509","nestedPartition","nestedPartition","Medium","RAP-CP-010:RAP-QL-509:rap-002:human-review:RAP-QL-509:RAP-CP-010:0","rap-002:human-review:RAP-QL-509:RAP-CP-010:0","fnv1a-11ff2237","A total of 500 is divided as Group A:Group B = 3:2. The selected group is further divided as Part C:Part D = 4:1. Find the required sub-part.","A. 60
-B. 62
+"RAP-002","RAP-CP-010","RAP-QL-509","nestedPartition","nestedPartition","Medium","RAP-CP-010:RAP-QL-509:rap-002:human-review:RAP-QL-509:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-509:0:RAP-CP-010:0","fnv1a-11ff2237","A total of 500 is divided as Group A:Group B = 3:2. The selected group is further divided as Part C:Part D = 4:1. Find the required sub-part.","A. 60
+B. 61
 C. 59
-D. 61","0","60","Concept: divide the total by the main ratio, then subdivide the selected branch by the second ratio.
+D. 62","0","60","Concept: divide the total by the main ratio, then subdivide the selected branch by the second ratio.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
@@ -1125,10 +1125,10 @@ $$\text{Decisive equation}=300\times\frac{1}{5}=60$$
 Final answer: the required value is 60.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-512","conditionalDistribution","conditionalDistribution","Medium","RAP-CP-010:RAP-QL-512:rap-002:human-review:RAP-QL-512:RAP-CP-010:0","rap-002:human-review:RAP-QL-512:RAP-CP-010:0","fnv1a-8fc3e94a","A total of 500 is divided as Group A:Group B = 3:2. The Group A share is further divided as Part C:Part D = 4:1. Find the share of Part C.","A. 230
-B. 260
-C. 240
-D. 250","2","240","Concept: check the selected branch after the main split, then divide that branch by the second ratio.
+"RAP-002","RAP-CP-010","RAP-QL-512","conditionalDistribution","conditionalDistribution","Medium","RAP-CP-010:RAP-QL-512:rap-002:human-review:RAP-QL-512:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-512:0:RAP-CP-010:0","fnv1a-8fc3e94a","A total of 500 is divided as Group A:Group B = 3:2. The Group A share is further divided as Part C:Part D = 4:1. Find the share of Part C.","A. 240
+B. 250
+C. 230
+D. 260","0","240","Concept: check the selected branch after the main split, then divide that branch by the second ratio.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
@@ -1145,10 +1145,10 @@ $$\text{Decisive equation}=300\times\frac{4}{5}=240$$
 Final answer: the required value is 240.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-010","RAP-QL-518","weightedNestedPartition","weightedNestedPartition","Medium","RAP-CP-010:RAP-QL-518:rap-002:human-review:RAP-QL-518:RAP-CP-010:0","rap-002:human-review:RAP-QL-518:RAP-CP-010:0","fnv1a-8fc3e94a","A total of 500 is divided as Group A:Group B = 3:2. The selected branch is split as Part C:Part D = 4:1. If their weights are 5 and 2, find the weighted total.","A. 1220
-B. 1420
-C. 1320
-D. 1370","2","1320","Concept: divide the total by the main ratio, split the selected branch, then apply weights.
+"RAP-002","RAP-CP-010","RAP-QL-518","weightedNestedPartition","weightedNestedPartition","Medium","RAP-CP-010:RAP-QL-518:rap-002:human-review:RAP-QL-518:0:RAP-CP-010:0","rap-002:human-review:RAP-QL-518:0:RAP-CP-010:0","fnv1a-8fc3e94a","A total of 500 is divided as Group A:Group B = 3:2. The selected branch is split as Part C:Part D = 4:1. If their weights are 5 and 2, find the weighted total.","A. 1320
+B. 1220
+C. 1370
+D. 1420","0","1320","Concept: divide the total by the main ratio, split the selected branch, then apply weights.
 
 Why this method works: the second ratio divides only its parent branch, not the original total.
 
@@ -1165,190 +1165,190 @@ $$\text{Decisive equation}=240\times5+60\times2=1320$$
 Final answer: the required value is 1320.
 
 Quick check: the subshares add back to their parent branch and the main branches add back to the total.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-601","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-601:rap-002:human-review:RAP-QL-601:RAP-CP-011:0","rap-002:human-review:RAP-QL-601:RAP-CP-011:0","fnv1a-4279eb97","The number of workers in Group A and Group B is in the ratio 24:12. If Group A can finish a fixed work in 156 days, how many days will Group B take?","A. 312
-B. 332
-C. 302
-D. 322","0","312","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-601","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-601:rap-002:human-review:RAP-QL-601:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-601:0:RAP-CP-011:0","fnv1a-facf4c31","The number of workers in Group A and Group B is in the ratio 13:5. If Group A can finish a fixed work in 55 days, how many days will Group B take?","A. 143
+B. 133
+C. 153
+D. 163","0","143","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Rate ratio}=24:12$$
+$$\text{Rate ratio}=13:5$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=156\times\frac{24}{12}=312$$
+$$\text{Decisive equation}=55\times\frac{13}{5}=143$$
 
-Final answer: the required value is 312.
+Final answer: the required value is 143.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-602","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-602:rap-002:human-review:RAP-QL-602:RAP-CP-011:0","rap-002:human-review:RAP-QL-602:RAP-CP-011:0","fnv1a-b946e67a","Workers in Team A:Team B = 32:8, and workers in Team B:Team C = 26:18. If Team A takes 135 days for a fixed work, find the days taken by Team C.","A. 790
-B. 770
-C. 800
-D. 780","3","780","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-602","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-602:rap-002:human-review:RAP-QL-602:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-602:0:RAP-CP-011:0","fnv1a-f59f22cd","Workers in Team A:Team B = 30:23, and workers in Team B:Team C = 22:35. If Team A takes 7245 days for a fixed work, find the days taken by Team C.","A. 6040
+B. 5990
+C. 5940
+D. 5840","2","5940","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$Team A:Team B:Team C=52:13:9$$
+$$Team A:Team B:Team C=660:506:805$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=135\times\frac{52}{9}=780$$
+$$\text{Decisive equation}=7245\times\frac{660}{805}=5940$$
 
-Final answer: the required value is 780.
+Final answer: the required value is 5940.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-603","inverseChainSpeed","inverseChainSpeed","Medium","RAP-CP-011:RAP-QL-603:rap-002:human-review:RAP-QL-603:RAP-CP-011:0","rap-002:human-review:RAP-QL-603:RAP-CP-011:0","fnv1a-3eaddfbd","The speeds of Runner A and Runner B are in the ratio 17:21. If Runner A takes 231 hours for a fixed distance, how many hours will Runner B take?","A. 187
-B. 197
-C. 177
-D. 207","0","187","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-603","inverseChainSpeed","inverseChainSpeed","Medium","RAP-CP-011:RAP-QL-603:rap-002:human-review:RAP-QL-603:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-603:0:RAP-CP-011:0","fnv1a-f26ea92d","The speeds of Train A and Train B are in the ratio 18:20. If Train A takes 260 hours for a fixed distance, how many hours will Train B take?","A. 234
+B. 224
+C. 254
+D. 244","0","234","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Rate ratio}=17:21$$
+$$\text{Rate ratio}=18:20$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=231\times\frac{17}{21}=187$$
+$$\text{Decisive equation}=260\times\frac{18}{20}=234$$
 
-Final answer: the required value is 187.
+Final answer: the required value is 234.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-604","inverseChainSpeed","inverseChainSpeed","Hard","RAP-CP-011:RAP-QL-604:rap-002:human-review:RAP-QL-604:RAP-CP-011:0","rap-002:human-review:RAP-QL-604:RAP-CP-011:0","fnv1a-fb7a7abd","Speeds of Cyclist A:Cyclist B = 22:14, and speeds of Cyclist B:Cyclist C = 12:28. If Cyclist C takes 165 hours for a fixed distance, find the time taken by Cyclist A.","A. 255
-B. 265
-C. 245
-D. 235","2","245","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-604","inverseChainSpeed","inverseChainSpeed","Hard","RAP-CP-011:RAP-QL-604:rap-002:human-review:RAP-QL-604:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-604:0:RAP-CP-011:0","fnv1a-6839c83d","Speeds of Runner A:Runner B = 30:18, and speeds of Runner B:Runner C = 26:12. If Runner C takes 455 hours for a fixed distance, find the time taken by Runner A.","A. 136
+B. 146
+C. 116
+D. 126","3","126","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$Cyclist A:Cyclist B:Cyclist C=33:21:49$$
+$$Runner A:Runner B:Runner C=65:39:18$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=165\times\frac{49}{33}=245$$
+$$\text{Decisive equation}=455\times\frac{18}{65}=126$$
 
-Final answer: the required value is 245.
+Final answer: the required value is 126.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-605","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-605:rap-002:human-review:RAP-QL-605:RAP-CP-011:0","rap-002:human-review:RAP-QL-605:RAP-CP-011:0","fnv1a-500b48c2","The efficiencies of Group A and Group B are in the ratio 26:16, and their working times are in the ratio 32:14. Find the ratio of their total work done.","A. 25:7
-B. 26:8
-C. 26:7
-D. 27:7","2","26:7","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-605","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-605:rap-002:human-review:RAP-QL-605:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-605:0:RAP-CP-011:0","fnv1a-5c3b3a98","The efficiencies of Group A and Group B are in the ratio 10:14, and their working times are in the ratio 18:22. Find the ratio of their total work done.","A. 44:77
+B. 46:77
+C. 45:77
+D. 45:78","2","45:77","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$Group A:Group B=26:16$$
+$$Group A:Group B=10:14$$
 
-$$\text{Time ratio}=32:14$$
+$$\text{Time ratio}=18:22$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=26\times32:16\times14=26 : 7$$
+$$\text{Decisive equation}=10\times18:14\times22=45 : 77$$
 
-Final answer: the required ratio is 26 : 7.
+Final answer: the required ratio is 45 : 77.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-606","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-606:rap-002:human-review:RAP-QL-606:RAP-CP-011:0","rap-002:human-review:RAP-QL-606:RAP-CP-011:0","fnv1a-dbcd152a","The speeds of Runner A and Runner B are in the ratio 24:27, and their travel times are in the ratio 18:27. Find the ratio of distances covered.","A. 15:27
-B. 16:28
-C. 17:27
-D. 16:27","3","16:27","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-606","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-606:rap-002:human-review:RAP-QL-606:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-606:0:RAP-CP-011:0","fnv1a-bb895f04","The speeds of Runner A and Runner B are in the ratio 10:20, and their travel times are in the ratio 30:10. Find the ratio of distances covered.","A. 3:3
+B. 3:2
+C. 4:2
+D. 2:2","1","3:2","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$Runner A:Runner B=24:27$$
+$$Runner A:Runner B=10:20$$
 
-$$\text{Time ratio}=18:27$$
+$$\text{Time ratio}=30:10$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=24\times18:27\times27=16 : 27$$
+$$\text{Decisive equation}=10\times30:20\times10=3 : 2$$
 
-Final answer: the required ratio is 16 : 27.
+Final answer: the required ratio is 3 : 2.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-607","sdtTimeRatioFromSpeedDistance","sdtTimeRatioFromSpeedDistance","Medium","RAP-CP-011:RAP-QL-607:rap-002:human-review:RAP-QL-607:RAP-CP-011:0","rap-002:human-review:RAP-QL-607:RAP-CP-011:0","fnv1a-4efe8e5c","The speeds of Vehicle A and Vehicle B are in the ratio 3:6, and the distances covered are in the ratio 1:3. Find the ratio of the times taken.","A. 1:3
-B. 3:3
-C. 2:3
-D. 2:4","2","2:3","Concept: use the speed-distance-time relation; time is proportional to distance divided by speed.
+"RAP-002","RAP-CP-011","RAP-QL-607","sdtTimeRatioFromSpeedDistance","sdtTimeRatioFromSpeedDistance","Medium","RAP-CP-011:RAP-QL-607:rap-002:human-review:RAP-QL-607:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-607:0:RAP-CP-011:0","fnv1a-3aa58ce2","The speeds of Vehicle A and Vehicle B are in the ratio 3:5, and the distances covered are in the ratio 4:5. Find the ratio of the times taken.","A. 3:3
+B. 4:4
+C. 4:3
+D. 5:3","2","4:3","Concept: use the speed-distance-time relation; time is proportional to distance divided by speed.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Speed ratio}=3:6,\ \text{Distance ratio}=1:3$$
+$$\text{Speed ratio}=3:5,\ \text{Distance ratio}=4:5$$
 
 Method: form time as distance divided by speed, then reduce.
 
-$$\text{Decisive equation}=1\times6:3\times3=2 : 3$$
+$$\text{Decisive equation}=4\times5:5\times3=4 : 3$$
 
-Final answer: the required ratio is 2 : 3.
+Final answer: the required ratio is 4 : 3.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-609","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-609:rap-002:human-review:RAP-QL-609:RAP-CP-011:0","rap-002:human-review:RAP-QL-609:RAP-CP-011:0","fnv1a-b18a7609","The number of workers in Group A and Group B is in the ratio 5:10. If Group B can finish the work in 20 days, how many days will Group A take?","A. 40
+"RAP-002","RAP-CP-011","RAP-QL-609","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-609:rap-002:human-review:RAP-QL-609:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-609:0:RAP-CP-011:0","fnv1a-23930c6c","The number of workers in Group A and Group B is in the ratio 3:10. If Group B can finish the work in 12 days, how many days will Group A take?","A. 40
 B. 39
-C. 42
-D. 41","0","40","Concept: for fixed work or fixed distance, time varies inversely with rate.
+C. 41
+D. 42","0","40","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Rate ratio}=5:10$$
+$$\text{Rate ratio}=3:10$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=20\times\frac{10}{5}=40$$
+$$\text{Decisive equation}=12\times\frac{10}{3}=40$$
 
 Final answer: the required value is 40.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-610","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-610:rap-002:human-review:RAP-QL-610:RAP-CP-011:0","rap-002:human-review:RAP-QL-610:RAP-CP-011:0","fnv1a-048c5538","Two groups of workers are in the ratio 5:10. For the same work, find the ratio of the time taken by the first group to the second group.","A. 1:1
-B. 3:1
-C. 2:1
-D. 2:2","2","2:1","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-610","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-610:rap-002:human-review:RAP-QL-610:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-610:0:RAP-CP-011:0","fnv1a-995468a1","Two groups of workers are in the ratio 8:5. For the same work, find the ratio of the time taken by the first group to the second group.","A. 4:8
+B. 5:9
+C. 5:8
+D. 6:8","2","5:8","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Rate ratio}=5:10$$
+$$\text{Rate ratio}=8:5$$
 
 Method: invert the rate/product ratio when time is being compared.
 
-$$\text{Decisive equation}=10:5=2 : 1$$
+$$\text{Decisive equation}=5:8=5 : 8$$
 
-Final answer: the required ratio is 2 : 1.
+Final answer: the required ratio is 5 : 8.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-611","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-611:rap-002:human-review:RAP-QL-611:RAP-CP-011:0","rap-002:human-review:RAP-QL-611:RAP-CP-011:0","fnv1a-497cd5fe","Two teams have worker counts in the ratio 5:8 and efficiencies in the ratio 5:5. For the same work, find the ratio of their completion times.","A. 7:5
-B. 8:6
-C. 9:5
-D. 8:5","3","8:5","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-611","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-611:rap-002:human-review:RAP-QL-611:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-611:0:RAP-CP-011:0","fnv1a-2c1614bd","Two teams have worker counts in the ratio 3:5 and efficiencies in the ratio 3:3. For the same work, find the ratio of their completion times.","A. 6:3
+B. 5:4
+C. 5:3
+D. 4:3","2","5:3","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Worker ratio}=5:8$$
+$$\text{Worker ratio}=3:5$$
 
 Method: invert the rate/product ratio when time is being compared.
 
-$$\text{Decisive equation}=8\times5:5\times5=8 : 5$$
+$$\text{Decisive equation}=5\times3:3\times3=5 : 3$$
 
-Final answer: the required ratio is 8 : 5.
+Final answer: the required ratio is 5 : 3.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-612","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-612:rap-002:human-review:RAP-QL-612:RAP-CP-011:0","rap-002:human-review:RAP-QL-612:RAP-CP-011:0","fnv1a-da996e7e","Machines in Group A and Group B are in the ratio 24:22. If Group A finishes a fixed output in 154 hours, how many hours will Group B take?","A. 158
-B. 188
-C. 168
-D. 178","2","168","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-612","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-612:rap-002:human-review:RAP-QL-612:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-612:0:RAP-CP-011:0","fnv1a-c1953b14","Machines in Group A and Group B are in the ratio 4:22. If Group A finishes a fixed output in 198 hours, how many hours will Group B take?","A. 36
+B. 35
+C. 37
+D. 38","0","36","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Rate ratio}=24:22$$
+$$\text{Rate ratio}=4:22$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=154\times\frac{24}{22}=168$$
+$$\text{Decisive equation}=198\times\frac{4}{22}=36$$
 
-Final answer: the required value is 168.
+Final answer: the required value is 36.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-613","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-613:rap-002:human-review:RAP-QL-613:RAP-CP-011:0","rap-002:human-review:RAP-QL-613:RAP-CP-011:0","fnv1a-9d0050e5","Two pipes have filling capacities in the ratio 6:7. For the same tank, find the ratio of their filling times.","A. 8:6
+"RAP-002","RAP-CP-011","RAP-QL-613","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-613:rap-002:human-review:RAP-QL-613:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-613:0:RAP-CP-011:0","fnv1a-9d0050e5","Two pipes have filling capacities in the ratio 6:7. For the same tank, find the ratio of their filling times.","A. 8:6
 B. 7:7
-C. 7:6
-D. 6:6","2","7:6","Concept: for fixed work or fixed distance, time varies inversely with rate.
+C. 6:6
+D. 7:6","3","7:6","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
@@ -1361,128 +1361,128 @@ $$\text{Decisive equation}=7:6=7 : 6$$
 Final answer: the required ratio is 7 : 6.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-614","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-614:rap-002:human-review:RAP-QL-614:RAP-CP-011:0","rap-002:human-review:RAP-QL-614:RAP-CP-011:0","fnv1a-e79cb8e8","15 men can finish a food-stock task in 20 days. After 4 days, 5 more men join. How many more days are needed to finish the remaining work?","A. 12
-B. 13
+"RAP-002","RAP-CP-011","RAP-QL-614","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-614:rap-002:human-review:RAP-QL-614:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-614:0:RAP-CP-011:0","fnv1a-93bbc86d","18 men can finish a food-stock task in 24 days. After 6 days, 9 more men join. How many more days are needed to finish the remaining work?","A. 12
+B. 14
 C. 11
-D. 14","0","12","Concept: for fixed work or fixed distance, time varies inversely with rate.
+D. 13","0","12","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Total work units}=300$$
+$$\text{Total work units}=432$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=240\div20=12$$
+$$\text{Decisive equation}=324\div27=12$$
 
 Final answer: the required value is 12.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-615","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-615:rap-002:human-review:RAP-QL-615:RAP-CP-011:0","rap-002:human-review:RAP-QL-615:RAP-CP-011:0","fnv1a-b6d23ea7","Output is proportional to workers, hours, and efficiency. If the worker ratio is 4:6, hours ratio is 8:5, and efficiency ratio is 2:6, find the output ratio.","A. 17:45
-B. 16:46
-C. 15:45
-D. 16:45","3","16:45","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-615","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-615:rap-002:human-review:RAP-QL-615:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-615:0:RAP-CP-011:0","fnv1a-626961b1","Output is proportional to workers, hours, and efficiency. If the worker ratio is 2:4, hours ratio is 5:3, and efficiency ratio is 2:3, find the output ratio.","A. 5:10
+B. 5:9
+C. 6:9
+D. 4:9","1","5:9","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Worker ratio}=4:6$$
+$$\text{Worker ratio}=2:4$$
 
-$$\text{Hours ratio}=8:5$$
+$$\text{Hours ratio}=5:3$$
 
-$$\text{Efficiency ratio}=2:6$$
+$$\text{Efficiency ratio}=2:3$$
 
-$$\text{Decisive equation}=4\times8\times2:6\times5\times6=16 : 45$$
-
-Final answer: the required ratio is 16 : 45.
-
-Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-616","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-616:rap-002:human-review:RAP-QL-616:RAP-CP-011:0","rap-002:human-review:RAP-QL-616:RAP-CP-011:0","fnv1a-ad124c8d","Two teams produce equal output. Their worker counts are in the ratio 4:4, and efficiencies are in the ratio 4:6. Find the ratio of their working times.","A. 3:2
-B. 2:2
-C. 3:3
-D. 4:2","0","3:2","Concept: multiply direct factors and invert the factor that works in the opposite direction.
-
-Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
-
-$$\text{Worker ratio}=4:4$$
-
-$$\text{Efficiency ratio}=4:6$$
-
-Step 1: write each side using the factors given in the question.
-
-$$\text{Decisive equation}=4\times6:4\times4=3 : 2$$
-
-Final answer: the required ratio is 3 : 2.
-
-Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-617","inverseChainSpeed","inverseChainSpeed","Medium","RAP-CP-011:RAP-QL-617:rap-002:human-review:RAP-QL-617:RAP-CP-011:0","rap-002:human-review:RAP-QL-617:RAP-CP-011:0","fnv1a-2f18863d","For the same distance, the speeds of Runner A and Runner B are in the ratio 7:6. Find the ratio of their times.","A. 6:8
-B. 6:7
-C. 7:7
-D. 5:7","1","6:7","Concept: for fixed work or fixed distance, time varies inversely with rate.
-
-Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
-
-$$\text{Speed ratio}=7:6$$
-
-Method: invert the rate/product ratio when time is being compared.
-
-$$\text{Decisive equation}=6 : 7$$
-
-Final answer: the required ratio is 6 : 7.
-
-Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-618","inverseChainSpeed","inverseChainSpeed","Medium","RAP-CP-011:RAP-QL-618:rap-002:human-review:RAP-QL-618:RAP-CP-011:0","rap-002:human-review:RAP-QL-618:RAP-CP-011:0","fnv1a-6f608eb1","For the same travel time, the speeds of Cyclist A and Cyclist B are in the ratio 5:9. Find the ratio of distances covered.","A. 5:9
-B. 6:9
-C. 4:9
-D. 5:10","0","5:9","Concept: for fixed work or fixed distance, time varies inversely with rate.
-
-Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
-
-$$\text{Speed ratio}=5:9$$
-
-Method: invert the rate/product ratio when time is being compared.
-
-$$\text{Decisive equation}=5 : 9$$
+$$\text{Decisive equation}=2\times5\times2:4\times3\times3=5 : 9$$
 
 Final answer: the required ratio is 5 : 9.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-619","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-619:rap-002:human-review:RAP-QL-619:RAP-CP-011:0","rap-002:human-review:RAP-QL-619:RAP-CP-011:0","fnv1a-ca156f44","Two buses have speed ratio 12:22, and their running-time ratio is 14:10. Find the ratio of effective distances covered.","A. 41:55
-B. 42:56
-C. 43:55
-D. 42:55","3","42:55","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-616","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-616:rap-002:human-review:RAP-QL-616:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-616:0:RAP-CP-011:0","fnv1a-8f3c4899","Two teams produce equal output. Their worker counts are in the ratio 6:6, and efficiencies are in the ratio 2:4. Find the ratio of their working times.","A. 1:1
+B. 3:1
+C. 2:1
+D. 2:2","2","2:1","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$Team A:Team B=12:22$$
+$$\text{Worker ratio}=6:6$$
 
-$$\text{Time ratio}=14:10$$
+$$\text{Efficiency ratio}=2:4$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=12\times14:22\times10=42 : 55$$
+$$\text{Decisive equation}=6\times4:6\times2=2 : 1$$
 
-Final answer: the required ratio is 42 : 55.
+Final answer: the required ratio is 2 : 1.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-620","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-620:rap-002:human-review:RAP-QL-620:RAP-CP-011:0","rap-002:human-review:RAP-QL-620:RAP-CP-011:0","fnv1a-0fc7902a","12 workers can finish a job in 16 days. They work for 4 days, then 12 more workers join. Find the remaining days needed.","A. 7
-B. 5
-C. 8
-D. 6","3","6","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-617","inverseChainSpeed","inverseChainSpeed","Medium","RAP-CP-011:RAP-QL-617:rap-002:human-review:RAP-QL-617:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-617:0:RAP-CP-011:0","fnv1a-bb716bb6","For the same distance, the speeds of Runner A and Runner B are in the ratio 3:9. Find the ratio of their times.","A. 4:1
+B. 2:1
+C. 3:2
+D. 3:1","3","3:1","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Total work units}=192$$
+$$\text{Speed ratio}=3:9$$
+
+Method: invert the rate/product ratio when time is being compared.
+
+$$\text{Decisive equation}=3 : 1$$
+
+Final answer: the required ratio is 3 : 1.
+
+Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
+"RAP-002","RAP-CP-011","RAP-QL-618","inverseChainSpeed","inverseChainSpeed","Medium","RAP-CP-011:RAP-QL-618:rap-002:human-review:RAP-QL-618:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-618:0:RAP-CP-011:0","fnv1a-51cb061f","For the same travel time, the speeds of Cyclist A and Cyclist B are in the ratio 4:6. Find the ratio of distances covered.","A. 2:3
+B. 1:3
+C. 2:4
+D. 3:3","0","2:3","Concept: for fixed work or fixed distance, time varies inversely with rate.
+
+Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
+
+$$\text{Speed ratio}=4:6$$
+
+Method: invert the rate/product ratio when time is being compared.
+
+$$\text{Decisive equation}=2 : 3$$
+
+Final answer: the required ratio is 2 : 3.
+
+Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
+"RAP-002","RAP-CP-011","RAP-QL-619","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-619:rap-002:human-review:RAP-QL-619:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-619:0:RAP-CP-011:0","fnv1a-00615555","Two buses have speed ratio 28:10, and their running-time ratio is 16:17. Find the ratio of effective distances covered.","A. 225:85
+B. 224:85
+C. 224:86
+D. 223:85","1","224:85","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+
+Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
+
+$$Team A:Team B=28:10$$
+
+$$\text{Time ratio}=16:17$$
+
+Step 1: write each side using the factors given in the question.
+
+$$\text{Decisive equation}=28\times16:10\times17=224 : 85$$
+
+Final answer: the required ratio is 224 : 85.
+
+Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
+"RAP-002","RAP-CP-011","RAP-QL-620","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-620:rap-002:human-review:RAP-QL-620:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-620:0:RAP-CP-011:0","fnv1a-bc4d75cb","20 workers can finish a job in 12 days. They work for 6 days, then 10 more workers join. Find the remaining days needed.","A. 5
+B. 6
+C. 4
+D. 3","2","4","Concept: for fixed work or fixed distance, time varies inversely with rate.
+
+Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
+
+$$\text{Total work units}=240$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=144\div24=6$$
+$$\text{Decisive equation}=120\div30=4$$
 
-Final answer: the required value is 6.
+Final answer: the required value is 4.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-621","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-621:rap-002:human-review:RAP-QL-621:RAP-CP-011:0","rap-002:human-review:RAP-QL-621:RAP-CP-011:0","fnv1a-e1a9609d","20 workers can finish a job in 18 days. They work for 3 days, then only 10 workers continue. Find the remaining days needed.","A. 30
-B. 31
-C. 29
-D. 32","0","30","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-621","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-621:rap-002:human-review:RAP-QL-621:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-621:0:RAP-CP-011:0","fnv1a-0c745396","30 workers can finish a job in 12 days. They work for 4 days, then only 15 workers continue. Find the remaining days needed.","A. 16
+B. 15
+C. 18
+D. 17","0","16","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
@@ -1490,67 +1490,67 @@ $$\text{Total work units}=360$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=300\div10=30$$
+$$\text{Decisive equation}=240\div15=16$$
 
-Final answer: the required value is 30.
+Final answer: the required value is 16.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-622","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-622:rap-002:human-review:RAP-QL-622:RAP-CP-011:0","rap-002:human-review:RAP-QL-622:RAP-CP-011:0","fnv1a-c1a34dc1","Two teams finish the same work. Their worker counts are in the ratio 3:5, and their days are in the ratio 9:5. Find the ratio of their efficiencies.","A. 26:27
-B. 25:27
-C. 25:28
-D. 24:27","1","25:27","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-622","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-622:rap-002:human-review:RAP-QL-622:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-622:0:RAP-CP-011:0","fnv1a-35a0f1ad","Two teams finish the same work. Their worker counts are in the ratio 5:8, and their days are in the ratio 6:3. Find the ratio of their efficiencies.","A. 3:5
+B. 4:6
+C. 5:5
+D. 4:5","3","4:5","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Worker ratio}=3:5$$
+$$\text{Worker ratio}=5:8$$
 
-$$\text{Days ratio}=9:5$$
+$$\text{Days ratio}=6:3$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=5\times5:3\times9=25 : 27$$
+$$\text{Decisive equation}=8\times3:5\times6=4 : 5$$
 
-Final answer: the required ratio is 25 : 27.
+Final answer: the required ratio is 4 : 5.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-623","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-623:rap-002:human-review:RAP-QL-623:RAP-CP-011:0","rap-002:human-review:RAP-QL-623:RAP-CP-011:0","fnv1a-31c45389","Two machine groups have machine counts in the ratio 2:3, working hours in the ratio 5:5, and output in the ratio 5:5. Find the ratio of their efficiencies.","A. 3:2
-B. 2:2
-C. 3:3
-D. 4:2","0","3:2","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-623","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-623:rap-002:human-review:RAP-QL-623:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-623:0:RAP-CP-011:0","fnv1a-bb4162eb","Two machine groups have machine counts in the ratio 4:3, working hours in the ratio 4:3, and output in the ratio 8:10. Find the ratio of their efficiencies.","A. 9:20
+B. 10:20
+C. 8:20
+D. 9:21","0","9:20","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Machine ratio}=2:3$$
+$$\text{Machine ratio}=4:3$$
 
-$$\text{Hours ratio}=5:5$$
+$$\text{Hours ratio}=4:3$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=5\times3\times5:5\times2\times5=3 : 2$$
+$$\text{Decisive equation}=8\times3\times3:10\times4\times4=9 : 20$$
 
-Final answer: the required ratio is 3 : 2.
+Final answer: the required ratio is 9 : 20.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-624","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-624:rap-002:human-review:RAP-QL-624:RAP-CP-011:0","rap-002:human-review:RAP-QL-624:RAP-CP-011:0","fnv1a-431afc22","If 12 men complete a work in 16 days, how many days will 24 men take to complete the same work?","A. 9
-B. 10
-C. 7
-D. 8","3","8","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-624","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-624:rap-002:human-review:RAP-QL-624:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-624:0:RAP-CP-011:0","fnv1a-7d925a7f","If 15 men complete a work in 20 days, how many days will 25 men take to complete the same work?","A. 14
+B. 12
+C. 13
+D. 11","1","12","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Work units}=12\times16$$
+$$\text{Work units}=15\times20$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=12\times16\div24=8$$
+$$\text{Decisive equation}=15\times20\div25=12$$
 
-Final answer: the required value is 8.
+Final answer: the required value is 12.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-625","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-625:rap-002:human-review:RAP-QL-625:RAP-CP-011:0","rap-002:human-review:RAP-QL-625:RAP-CP-011:0","fnv1a-d0be0fd0","30 workers can finish the full work in 20 days. How many workers are needed to finish 3/5 of the work in 10 days?","A. 35
-B. 37
-C. 36
-D. 38","2","36","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-625","inverseChainWork","inverseChainWork","Medium","RAP-CP-011:RAP-QL-625:rap-002:human-review:RAP-QL-625:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-625:0:RAP-CP-011:0","fnv1a-b2bb1403","30 workers can finish the full work in 20 days. How many workers are needed to finish 1/4 of the work in 10 days?","A. 15
+B. 14
+C. 17
+D. 16","0","15","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
@@ -1558,33 +1558,33 @@ $$\text{Full work units}=30\times20$$
 
 Method: use inverse scaling from the known work, workers, or time.
 
-$$\text{Decisive equation}=30\times20\times\frac{3}{5}\div10=36$$
+$$\text{Decisive equation}=30\times20\times\frac{1}{4}\div10=15$$
 
-Final answer: the required value is 36.
+Final answer: the required value is 15.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-626","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-626:rap-002:human-review:RAP-QL-626:RAP-CP-011:0","rap-002:human-review:RAP-QL-626:RAP-CP-011:0","fnv1a-454a5fde","The efficiencies of Worker A and Worker B are in the ratio 3:3, and their working times are in the ratio 6:5. If both work on the same job, find the ratio of work contributed.","A. 7:5
-B. 6:6
-C. 6:5
-D. 5:5","2","6:5","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-626","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-626:rap-002:human-review:RAP-QL-626:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-626:0:RAP-CP-011:0","fnv1a-deafa52b","The efficiencies of Worker A and Worker B are in the ratio 5:5, and their working times are in the ratio 6:4. If both work on the same job, find the ratio of work contributed.","A. 2:2
+B. 3:3
+C. 4:2
+D. 3:2","3","3:2","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Efficiency ratio}=3:3$$
+$$\text{Efficiency ratio}=5:5$$
 
-$$\text{Time ratio}=6:5$$
+$$\text{Time ratio}=6:4$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=3\times6:3\times5=6 : 5$$
+$$\text{Decisive equation}=5\times6:5\times4=3 : 2$$
 
-Final answer: the required ratio is 6 : 5.
+Final answer: the required ratio is 3 : 2.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-627","inverseChainSpeed","inverseChainSpeed","Hard","RAP-CP-011:RAP-QL-627:rap-002:human-review:RAP-QL-627:RAP-CP-011:0","rap-002:human-review:RAP-QL-627:RAP-CP-011:0","fnv1a-9df02fbc","The speeds of Car A, Car B, and Car C are in the ratio 3:5:6. For the same distance, arrange their times from greatest to least.","A. $$\text{Car A > Car B > Car C}$$
-B. None of these
-C. Both are equal
-D. Cannot be determined","0","$$\text{Car A > Car B > Car C}$$","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-627","inverseChainSpeed","inverseChainSpeed","Hard","RAP-CP-011:RAP-QL-627:rap-002:human-review:RAP-QL-627:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-627:0:RAP-CP-011:0","fnv1a-9df02fbc","The speeds of Car A, Car B, and Car C are in the ratio 3:5:6. For the same distance, arrange their times from greatest to least.","A. $$\text{Car A > Car B > Car C}$$
+B. Both are equal
+C. Cannot be determined
+D. None of these","0","$$\text{Car A > Car B > Car C}$$","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
@@ -1597,130 +1597,130 @@ $$\text{Decisive equation}=\text{Lower speed means higher time}\Rightarrow Car A
 Final answer: the correct conclusion is \text{Car A > Car B > Car C}.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-628","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-628:rap-002:human-review:RAP-QL-628:RAP-CP-011:0","rap-002:human-review:RAP-QL-628:RAP-CP-011:0","fnv1a-0fe2230d","Quantity produced by Machine A and Machine B is in the ratio 8:10, and the time taken is in the ratio 3:6. Find the ratio of their production rates.","A. 9:5
-B. 8:6
-C. 7:5
-D. 8:5","3","8:5","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-628","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-628:rap-002:human-review:RAP-QL-628:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-628:0:RAP-CP-011:0","fnv1a-bcf2cd70","Quantity produced by Machine A and Machine B is in the ratio 5:5, and the time taken is in the ratio 3:4. Find the ratio of their production rates.","A. 5:3
+B. 4:3
+C. 4:4
+D. 3:3","1","4:3","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Quantity ratio}=8:10$$
+$$\text{Quantity ratio}=5:5$$
 
-$$\text{Time ratio}=3:6$$
+$$\text{Time ratio}=3:4$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=8\times6:10\times3=8 : 5$$
+$$\text{Decisive equation}=5\times4:5\times3=4 : 3$$
 
-Final answer: the required ratio is 8 : 5.
+Final answer: the required ratio is 4 : 3.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-629","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-629:rap-002:human-review:RAP-QL-629:RAP-CP-011:0","rap-002:human-review:RAP-QL-629:RAP-CP-011:0","fnv1a-10108e84","Two teams finish the same work. Their worker counts are in the ratio 6:6, and their days are in the ratio 5:4. Which team has higher efficiency per worker?","A. Both are equal
-B. Cannot be determined
-C. $$\text{Team B}$$
-D. None of these","2","$$\text{Team B}$$","Concept: for fixed work or fixed distance, time varies inversely with rate.
+"RAP-002","RAP-CP-011","RAP-QL-629","inverseChainWork","inverseChainWork","Hard","RAP-CP-011:RAP-QL-629:rap-002:human-review:RAP-QL-629:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-629:0:RAP-CP-011:0","fnv1a-b470e431","Two teams finish the same work. Their worker counts are in the ratio 4:4, and their days are in the ratio 8:6. Which team has higher efficiency per worker?","A. $$\text{Team B}$$
+B. None of these
+C. Both are equal
+D. Cannot be determined","0","$$\text{Team B}$$","Concept: for fixed work or fixed distance, time varies inversely with rate.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Worker ratio}=6:6$$
+$$\text{Worker ratio}=4:4$$
 
 Method: for the same work or distance, the lower rate takes more time.
 
-$$\text{Decisive equation}=24:30\Rightarrow\text{Team B}$$
+$$\text{Decisive equation}=24:32\Rightarrow\text{Team B}$$
 
 Final answer: the correct conclusion is \text{Team B}.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-011","RAP-QL-630","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-630:rap-002:human-review:RAP-QL-630:RAP-CP-011:0","rap-002:human-review:RAP-QL-630:RAP-CP-011:0","fnv1a-1b5e5693","For two teams, output ratio is 36:30, worker ratio is 2:3, and hours ratio is 6:2. If Team A has efficiency part 3, find Team B's efficiency part.","A. 5
-B. 7
-C. 4
-D. 6","0","5","Concept: multiply direct factors and invert the factor that works in the opposite direction.
+"RAP-002","RAP-CP-011","RAP-QL-630","combinedInverseChain","combinedInverseChain","Hard","RAP-CP-011:RAP-QL-630:rap-002:human-review:RAP-QL-630:0:RAP-CP-011:0","rap-002:human-review:RAP-QL-630:0:RAP-CP-011:0","fnv1a-f771f942","For two teams, output ratio is 120:96, worker ratio is 4:4, and hours ratio is 6:4. If Team A has efficiency part 5, find Team B's efficiency part.","A. 6
+B. 5
+C. 7
+D. 8","0","6","Concept: multiply direct factors and invert the factor that works in the opposite direction.
 
 Why this method works: for fixed work or distance, increasing the rate factor reduces the required time in the same proportion.
 
-$$\text{Worker ratio}=2:3$$
+$$\text{Worker ratio}=4:4$$
 
-$$\text{Hours ratio}=6:2$$
+$$\text{Hours ratio}=6:4$$
 
 Step 1: write each side using the factors given in the question.
 
-$$\text{Decisive equation}=\frac{30\times2\times6\times3}{36\times3\times2}=5$$
+$$\text{Decisive equation}=\frac{96\times4\times6\times5}{120\times4\times4}=6$$
 
-Final answer: the required value is 5.
+Final answer: the required value is 6.
 
 Quick check: the relevant rate-time or worker-day product remains constant.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-701","chainOrdering","chainOrdering","Medium","RAP-CP-012:RAP-QL-701:rap-002:human-review:RAP-QL-701:RAP-CP-012:0","rap-002:human-review:RAP-QL-701:RAP-CP-012:0","fnv1a-219c879f","Given Group A:Group B = 18:12 and Group B:Group C = 4:17, arrange Group A, Group B, and Group C from greatest to least.","A. $$\text{Group C > Group A > Group B}$$
-B. Both are equal
-C. None of these
-D. Cannot be determined","0","$$\text{Group C > Group A > Group B}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-701","chainOrdering","chainOrdering","Medium","RAP-CP-012:RAP-QL-701:rap-002:human-review:RAP-QL-701:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-701:0:RAP-CP-012:0","fnv1a-f9c5108e","Given Group A:Group B = 15:11 and Group B:Group C = 11:10, arrange Group A, Group B, and Group C from greatest to least.","A. $$\text{Group A > Group B > Group C}$$
+B. Cannot be determined
+C. Both are equal
+D. None of these","0","$$\text{Group A > Group B > Group C}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
-$$\text{Comparable form}=6:4:17$$
+$$\text{Comparable form}=15:11:10$$
 
 Method: compare the aligned parts directly.
 
-$$\text{Decisive equation}=6 : 4 : 17\Rightarrow\text{Group C > Group A > Group B}$$
+$$\text{Decisive equation}=15 : 11 : 10\Rightarrow\text{Group A > Group B > Group C}$$
 
-Final answer: the correct conclusion is \text{Group C > Group A > Group B}.
+Final answer: the correct conclusion is \text{Group A > Group B > Group C}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-702","chainOrdering","chainOrdering","Hard","RAP-CP-012:RAP-QL-702:rap-002:human-review:RAP-QL-702:RAP-CP-012:0","rap-002:human-review:RAP-QL-702:RAP-CP-012:0","fnv1a-e9062c88","The linked ratios are A:B = 22:16, B:C = 18:26, and C:D = 36:10. Arrange all four values from greatest to least.","A. Cannot be determined
+"RAP-002","RAP-CP-012","RAP-QL-702","chainOrdering","chainOrdering","Hard","RAP-CP-012:RAP-QL-702:rap-002:human-review:RAP-QL-702:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-702:0:RAP-CP-012:0","fnv1a-1a85fcc6","The linked ratios are A:B = 24:30, B:C = 18:22, and C:D = 24:35. Arrange all four values from greatest to least.","A. Cannot be determined
+B. $$\text{D > C > B > A}$$
+C. None of these
+D. Both are equal","1","$$\text{D > C > B > A}$$","Concept: normalize the linked ratios into comparable values.
+
+Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
+
+$$\text{Comparable form}=864:1080:1320:1925$$
+
+Method: compare the aligned parts directly.
+
+$$\text{Decisive equation}=864 : 1080 : 1320 : 1925\Rightarrow\text{D > C > B > A}$$
+
+Final answer: the correct conclusion is \text{D > C > B > A}.
+
+Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
+"RAP-002","RAP-CP-012","RAP-QL-703","chainInequality","chainInequality","Medium","RAP-CP-012:RAP-QL-703:rap-002:human-review:RAP-QL-703:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-703:0:RAP-CP-012:0","fnv1a-756aec55","If Group A:Group B = 17:20 and Group B:Group C = 14:6, which is greater: Group A or Group C?","A. $$\text{Group A}$$
 B. None of these
 C. Both are equal
-D. $$\text{C > A > B > D}$$","3","$$\text{C > A > B > D}$$","Concept: normalize the linked ratios into comparable values.
+D. Cannot be determined","0","$$\text{Group A}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
-$$\text{Comparable form}=891:648:936:260$$
+$$\text{Comparable form}=119:140:60$$
 
 Method: compare the aligned parts directly.
 
-$$\text{Decisive equation}=891 : 648 : 936 : 260\Rightarrow\text{C > A > B > D}$$
-
-Final answer: the correct conclusion is \text{C > A > B > D}.
-
-Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-703","chainInequality","chainInequality","Medium","RAP-CP-012:RAP-QL-703:rap-002:human-review:RAP-QL-703:RAP-CP-012:0","rap-002:human-review:RAP-QL-703:RAP-CP-012:0","fnv1a-a1777ab2","If Group A:Group B = 24:11 and Group B:Group C = 7:12, which is greater: Group A or Group C?","A. Both are equal
-B. Cannot be determined
-C. $$\text{Group A}$$
-D. None of these","2","$$\text{Group A}$$","Concept: normalize the linked ratios into comparable values.
-
-Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
-
-$$\text{Comparable form}=168:77:132$$
-
-Method: compare the aligned parts directly.
-
-$$\text{Decisive equation}=Group A=168,\ Group C=132\Rightarrow\text{Group A}$$
+$$\text{Decisive equation}=Group A=119,\ Group C=60\Rightarrow\text{Group A}$$
 
 Final answer: the correct conclusion is \text{Group A}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-704","chainInequality","chainInequality","Hard","RAP-CP-012:RAP-QL-704:rap-002:human-review:RAP-QL-704:RAP-CP-012:0","rap-002:human-review:RAP-QL-704:RAP-CP-012:0","fnv1a-89332f51","A:B = 6:8, B:C = 24:6, and C:D = 24:22. Which is greater: B or D?","A. None of these
-B. $$\text{B}$$
-C. Cannot be determined
-D. Both are equal","1","$$\text{B}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-704","chainInequality","chainInequality","Hard","RAP-CP-012:RAP-QL-704:rap-002:human-review:RAP-QL-704:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-704:0:RAP-CP-012:0","fnv1a-6ddff7ab","A:B = 30:14, B:C = 18:8, and C:D = 14:26. Which is greater: B or D?","A. Cannot be determined
+B. None of these
+C. Both are equal
+D. $$\text{B}$$","3","$$\text{B}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
-$$\text{Comparable form}=36:48:12:11$$
+$$\text{Comparable form}=135:63:28:52$$
 
 Method: compare the aligned parts directly.
 
-$$\text{Decisive equation}=B=48,\ D=11\Rightarrow\text{B}$$
+$$\text{Decisive equation}=B=63,\ D=52\Rightarrow\text{B}$$
 
 Final answer: the correct conclusion is \text{B}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-705","chainEquivalence","chainEquivalence","Hard","RAP-CP-012:RAP-QL-705:rap-002:human-review:RAP-QL-705:RAP-CP-012:0","rap-002:human-review:RAP-QL-705:RAP-CP-012:0","fnv1a-9b16a222","For Group A:Group B = 14:10 and Group B:Group C = 20:22, test whether Group A:Group C is equivalent to 14:11.","A. $$\text{Equivalent}$$
-B. Both are equal
-C. None of these
-D. Cannot be determined","0","$$\text{Equivalent}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-705","chainEquivalence","chainEquivalence","Hard","RAP-CP-012:RAP-QL-705:rap-002:human-review:RAP-QL-705:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-705:0:RAP-CP-012:0","fnv1a-c581d54a","For Group A:Group B = 18:10 and Group B:Group C = 24:10, test whether Group A:Group C is equivalent to 108:25.","A. $$\text{Equivalent}$$
+B. Cannot be determined
+C. Both are equal
+D. None of these","0","$$\text{Equivalent}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
-$$\text{Comparable form}=14:11$$
+$$\text{Comparable form}=108:25$$
 
 Method: compare the aligned parts directly.
 
@@ -1729,14 +1729,14 @@ $$\text{Decisive equation}=\text{Equivalent}$$
 Final answer: the correct conclusion is \text{Equivalent}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-706","chainEquivalence","chainEquivalence","Medium","RAP-CP-012:RAP-QL-706:rap-002:human-review:RAP-QL-706:RAP-CP-012:0","rap-002:human-review:RAP-QL-706:RAP-CP-012:0","fnv1a-b6bc6323","Check whether the ratios 10:11 and 40:45 are equivalent.","A. Cannot be determined
-B. None of these
-C. Both are equal
-D. $$\text{Not equivalent}$$","3","$$\text{Not equivalent}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-706","chainEquivalence","chainEquivalence","Medium","RAP-CP-012:RAP-QL-706:rap-002:human-review:RAP-QL-706:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-706:0:RAP-CP-012:0","fnv1a-2fa3a5aa","Check whether the ratios 13:7 and 26:15 are equivalent.","A. None of these
+B. $$\text{Not equivalent}$$
+C. Cannot be determined
+D. Both are equal","1","$$\text{Not equivalent}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
-$$\text{Comparable form}=10:11, 40:45$$
+$$\text{Comparable form}=13:7, 26:15$$
 
 Method: compare the aligned parts directly.
 
@@ -1745,10 +1745,10 @@ $$\text{Decisive equation}=\text{Not equivalent}$$
 Final answer: the correct conclusion is \text{Not equivalent}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-707","chainOrdering","chainOrdering","Medium","RAP-CP-012:RAP-QL-707:rap-002:human-review:RAP-QL-707:RAP-CP-012:0","rap-002:human-review:RAP-QL-707:RAP-CP-012:0","fnv1a-24d9465a","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, arrange the quantities in descending order.","A. Both are equal
-B. Cannot be determined
-C. $$\text{D > C > B > A}$$
-D. None of these","2","$$\text{D > C > B > A}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-707","chainOrdering","chainOrdering","Medium","RAP-CP-012:RAP-QL-707:rap-002:human-review:RAP-QL-707:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-707:0:RAP-CP-012:0","fnv1a-24d9465a","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, arrange the quantities in descending order.","A. $$\text{D > C > B > A}$$
+B. Both are equal
+C. None of these
+D. Cannot be determined","0","$$\text{D > C > B > A}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
@@ -1761,10 +1761,10 @@ $$\text{Decisive equation}=16 : 24 : 30 : 45\Rightarrow\text{D > C > B > A}$$
 Final answer: the correct conclusion is \text{D > C > B > A}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-709","chainInequality","chainInequality","Medium","RAP-CP-012:RAP-QL-709:rap-002:human-review:RAP-QL-709:RAP-CP-012:0","rap-002:human-review:RAP-QL-709:RAP-CP-012:0","fnv1a-24d9465a","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, which is larger, A or C?","A. $$\text{C}$$
-B. Both are equal
-C. None of these
-D. Cannot be determined","0","$$\text{C}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-709","chainInequality","chainInequality","Medium","RAP-CP-012:RAP-QL-709:rap-002:human-review:RAP-QL-709:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-709:0:RAP-CP-012:0","fnv1a-24d9465a","Given A:B = 2:3, B:C = 4:5, and C:D = 2:3, which is larger, A or C?","A. $$\text{C}$$
+B. Cannot be determined
+C. Both are equal
+D. None of these","0","$$\text{C}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
@@ -1777,10 +1777,10 @@ $$\text{Decisive equation}=A=16,\ C=30\Rightarrow\text{C}$$
 Final answer: the correct conclusion is \text{C}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-711","chainEquivalence","chainEquivalence","Hard","RAP-CP-012:RAP-QL-711:rap-002:human-review:RAP-QL-711:RAP-CP-012:0","rap-002:human-review:RAP-QL-711:RAP-CP-012:0","fnv1a-ff0d0efc","Check whether the given ratio statement is equivalent after simplification: 3:5 and 12:20.","A. Both are equal
-B. None of these
-C. Cannot be determined
-D. $$\text{Equivalent}$$","3","$$\text{Equivalent}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-711","chainEquivalence","chainEquivalence","Hard","RAP-CP-012:RAP-QL-711:rap-002:human-review:RAP-QL-711:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-711:0:RAP-CP-012:0","fnv1a-ff0d0efc","Check whether the given ratio statement is equivalent after simplification: 3:5 and 12:20.","A. Cannot be determined
+B. $$\text{Equivalent}$$
+C. None of these
+D. Both are equal","1","$$\text{Equivalent}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 
@@ -1793,10 +1793,10 @@ $$\text{Decisive equation}=\text{Equivalent}$$
 Final answer: the correct conclusion is \text{Equivalent}.
 
 Quick check: the aligned values directly support the stated order, comparison, or equivalence result.","","","","","PENDING",""
-"RAP-002","RAP-CP-012","RAP-QL-718","chainEquivalence","chainEquivalence","Medium","RAP-CP-012:RAP-QL-718:rap-002:human-review:RAP-QL-718:RAP-CP-012:0","rap-002:human-review:RAP-QL-718:RAP-CP-012:0","fnv1a-ef5940bf","Given A:B = 2:3 and B:C = 4:5, check whether the endpoint ratio 8:15 is equivalent to the aligned chain.","A. $$\text{Equivalent}$$
-B. Cannot be determined
-C. Both are equal
-D. None of these","0","$$\text{Equivalent}$$","Concept: normalize the linked ratios into comparable values.
+"RAP-002","RAP-CP-012","RAP-QL-718","chainEquivalence","chainEquivalence","Medium","RAP-CP-012:RAP-QL-718:rap-002:human-review:RAP-QL-718:0:RAP-CP-012:0","rap-002:human-review:RAP-QL-718:0:RAP-CP-012:0","fnv1a-ef5940bf","Given A:B = 2:3 and B:C = 4:5, check whether the endpoint ratio 8:15 is equivalent to the aligned chain.","A. $$\text{Equivalent}$$
+B. Both are equal
+C. None of these
+D. Cannot be determined","0","$$\text{Equivalent}$$","Concept: normalize the linked ratios into comparable values.
 
 Why this method works: ordering, inequality, and equivalence are valid only after all quantities are placed on one comparable scale.
 

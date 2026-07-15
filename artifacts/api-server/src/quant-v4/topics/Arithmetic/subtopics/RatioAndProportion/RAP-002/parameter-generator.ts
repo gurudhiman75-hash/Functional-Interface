@@ -46,8 +46,11 @@ function ratioTerm(difficulty: Rap002DifficultyBand, seed: string) {
 }
 
 function seedSerialOffset(seed: string, modulo: number) {
-  const matches = [...seed.matchAll(/:(\d+)/g)];
-  const value = matches.length ? Number(matches[matches.length - 1]![1]) : 0;
+  const values = [...seed.matchAll(/:(\d+)/g)].map((match) => Number(match[1]));
+  // A count:1 generation appends its item index (:0). Use the caller's
+  // preceding diversification index when present.
+  const last = values.at(-1);
+  const value = last === 0 && values.length > 1 ? values.at(-2) : last;
   return Number.isFinite(value) ? value % modulo : 0;
 }
 

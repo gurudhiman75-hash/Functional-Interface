@@ -98,24 +98,47 @@ export async function writeHumanReviewExports(config: HumanReviewExportConfig) {
     "primaryStem", "variantQuestionId", "variantSeed", "variantFingerprint", "variantStem", "sameStem",
   ];
   const diversityRows = [diversityHeader.map(csv).join(",")];
+  let pairedExportSameFingerprintCount = 0;
+  let pairedExportSameMathematicalStateCount = 0;
+  let pairedExportSeedCollisionCount = 0;
+  const pairedExportSameFingerprintQlIds: string[] = [];
   for (const cpId of config.cpIds) {
     for (const qlId of config.qlIds(cpId)) {
-      const primarySeed = config.packageId.toLowerCase() + ":human-review:" + qlId;
-      const variantSeed = config.packageId.toLowerCase() + ":same-ql-diversity:" + qlId;
+      // RAP generators use the caller's final numeric seed component as the
+      // diversification index; the engine appends its own item index of zero.
+      const primarySeed = config.packageId.toLowerCase() + ":human-review:" + qlId + ":0";
+      const variantSeed = config.packageId.toLowerCase() + ":same-ql-diversity:" + qlId + ":7";
       const primary = await config.generate(cpId, qlId, primarySeed);
       const variant = await config.generate(cpId, qlId, variantSeed);
+      const primaryFingerprint = fingerprint(primary.pkg.parameters.variables);
+      const variantFingerprint = fingerprint(variant.pkg.parameters.variables);
+      if (primary.question.seed === variant.question.seed) pairedExportSeedCollisionCount += 1;
+      if (primaryFingerprint === variantFingerprint) {
+        pairedExportSameFingerprintCount += 1;
+        pairedExportSameMathematicalStateCount += 1;
+        pairedExportSameFingerprintQlIds.push(qlId);
+      }
       mainRows.push(reviewRow(config.packageId, primary.pkg, primary.question));
       diversityRows.push([
         config.packageId, cpId, qlId, primary.pkg.parameters.taskKind,
         primary.question.questionId ?? primary.pkg.questionId, primary.question.seed ?? primarySeed,
-        fingerprint(primary.pkg.parameters.variables), readable(primary.question.text ?? primary.question.stem),
+        primaryFingerprint, readable(primary.question.text ?? primary.question.stem),
         variant.question.questionId ?? variant.pkg.questionId, variant.question.seed ?? variantSeed,
-        fingerprint(variant.pkg.parameters.variables), readable(variant.question.text ?? variant.question.stem),
+        variantFingerprint, readable(variant.question.text ?? variant.question.stem),
         normalizedStem(primary.question.text ?? primary.question.stem) === normalizedStem(variant.question.text ?? variant.question.stem),
       ].map(csv).join(","));
     }
   }
   fs.writeFileSync(config.reviewPath, mainRows.join("\n") + "\n", "utf8");
   fs.writeFileSync(config.diversityPath, diversityRows.join("\n") + "\n", "utf8");
-  return { reviewRowCount: mainRows.length - 1, diversityRowCount: diversityRows.length - 1 };
+  if (pairedExportSameFingerprintCount || pairedExportSeedCollisionCount) {
+    throw new Error(`${config.packageId} paired diversity export failed: same fingerprints=${pairedExportSameFingerprintCount} (${pairedExportSameFingerprintQlIds.join(", ")}), seed collisions=${pairedExportSeedCollisionCount}.`);
+  }
+  return {
+    reviewRowCount: mainRows.length - 1,
+    diversityRowCount: diversityRows.length - 1,
+    pairedExportSameFingerprintCount,
+    pairedExportSameMathematicalStateCount,
+    pairedExportSeedCollisionCount,
+  };
 }

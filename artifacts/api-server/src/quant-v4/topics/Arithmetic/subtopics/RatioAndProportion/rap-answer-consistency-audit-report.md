@@ -1,6 +1,6 @@
 # RAP Canonical Answer Consistency Audit
 
-Reviewed date: `2026-07-14`
+Reviewed date: `2026-07-15`
 Forced seeds per active English QL: `12`
 
 ```json
