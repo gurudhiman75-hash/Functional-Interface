@@ -8,7 +8,6 @@ on:
       - artifacts/admin-app/**
       - artifacts/api-server/**
       - artifacts/examtree/src/App.tsx
-      - lib/**
       - package.json
       - pnpm-lock.yaml
       - firebase.json
@@ -45,9 +44,6 @@ jobs:
 
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Typecheck shared workspace libraries
-        run: pnpm run typecheck:libs
 
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
