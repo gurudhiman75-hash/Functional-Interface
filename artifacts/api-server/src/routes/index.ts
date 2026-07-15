@@ -10,6 +10,7 @@ import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
 import bundlesRouter from "./bundles";
 import adminDataRouter from "./admin-data";
+import adminQuestionStudioRouter from "./admin-question-studio";
 import billingRouter from "./billing";
 import analyticsRouter from "./analytics";
 import packagesRouter from "./packages";
@@ -37,11 +38,12 @@ router.use("/analytics", analyticsRouter);
 router.use("/packages", packagesRouter);
 router.use("/purchase", purchaseRouter);
 router.use("/leaderboard", leaderboardRouter);
-  router.use("/daily-challenge", dailyChallengeRouter);
+router.use("/daily-challenge", dailyChallengeRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
 router.use("/bundles", bundlesRouter);
 router.use("/admin-data", adminDataRouter);
+router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/upload-questions", uploadQuestionsRouter);
 router.use("/sections", sectionsRouter);
 router.use("/topics", topicsRouter);
@@ -49,9 +51,6 @@ router.use(questionBankRouter);
 router.use(diSetsRouter);
 router.use(uploadRouter);
 router.use("/knowledge", knowledgeRouter);
-router.use(
-  "/generator",
-  generatorRoutes,
-);
+router.use("/generator", generatorRoutes);
 
 export default router;
