@@ -87,7 +87,7 @@ function itemStatusTone(status: GenerationItemStatus) {
 }
 
 function formatStatus(status: string) {
-  return status.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+  return status.replace(/_/g, ' ').replace(/\b\w/g, (letter: string) => letter.toUpperCase());
 }
 
 function runSnapshotText(run: QuestionStudioRun, key: string, fallback = '—') {

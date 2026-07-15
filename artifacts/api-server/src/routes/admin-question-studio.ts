@@ -492,11 +492,9 @@ router.patch("/items/bulk", async (req, res) => {
         const needsFix = Number(count?.needsFix ?? 0);
         const runStatus = total > 0 && approved === total
           ? "approved"
-          : approved > 0 || rejected > 0
+          : approved > 0
             ? "partially_approved"
-            : needsFix > 0
-              ? "review"
-              : "review";
+            : "review";
 
         await tx`
           UPDATE content.generation_runs
