@@ -75,7 +75,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [capsLockActive, setCapsLockActive] = useState(false);
   const { toast } = useToast();
-  const isAdminMode = false;
+  const isAdminMode = location.startsWith('/login/admin');
 
   const passwordStrength = Math.min(
     100,
@@ -134,11 +134,27 @@ export default function Login() {
   }, [isAdminMode, setLocation, toast]);
 
   const routeAfterAuth = (role?: string) => {
-    if (nextPath) {
-      setLocation(decodeURIComponent(nextPath));
-    } else {
-      setLocation(role === "admin" ? "/admin" : "/dashboard");
+    if (isAdminMode && role && role !== "admin") {
+      toast({
+        title: "Admin access only",
+        description: "This account is not authorized for the ExamTree admin console.",
+        variant: "destructive",
+      });
+      setLocation("/dashboard");
+      return;
     }
+
+    const destination = nextPath
+      ? decodeURIComponent(nextPath)
+      : role === "admin"
+        ? "/admin/"
+        : "/dashboard";
+
+    if (destination === "/admin" || destination.startsWith("/admin/")) {
+      window.location.assign(destination === "/admin" ? "/admin/" : destination);
+      return;
+    }
+    setLocation(destination);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -155,7 +171,7 @@ export default function Login() {
         const devUser = createDevelopmentSession({
           email,
           name: tab === "signup" ? name : undefined,
-          role: "student",
+          role: isAdminMode ? "admin" : "student",
         });
         toast({
           title: tab === "signup" ? "Development account created" : "Development login successful",

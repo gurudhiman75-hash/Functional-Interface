@@ -59,9 +59,12 @@ const PYQHub = lazy(() => import("@/pages/pyqs"));
 const Blog = lazy(() => import("@/pages/blog"));
 const ReportQuestion = lazy(() => import("@/pages/report-question"));
 const SeoLanding = lazy(() => import("@/pages/seo-landing"));
-const Admin = lazy(() => import("@/pages/admin"));
-const AdminGenerator = lazy(
-  () => import("@/pages/admin-generator"));
+function AdminRedirect({ to = '/admin/' }: { to?: string }) {
+  useEffect(() => {
+    window.location.replace(to);
+  }, [to]);
+  return <RouteSkeleton />;
+}
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 
@@ -128,10 +131,8 @@ function Router() {
           <Route path="/ssc-cgl-pyqs" component={() => renderRoute(SeoLanding)} />
           <Route path="/punjab-police-mock-tests" component={() => renderRoute(SeoLanding)} />
           <Route path="/ibps-clerk-syllabus" component={() => renderRoute(SeoLanding)} />
-          <Route path="/admin" component={() => renderRoute(Admin)} />
-          <Route path="/admin/generator"
-component={() => renderRoute(AdminGenerator)}
-/>
+          <Route path="/admin" component={() => <AdminRedirect />} />
+          <Route path="/admin/generator" component={() => <AdminRedirect to="/admin/content/studio" />} />
           <Route component={() => renderRoute(NotFound)} />
         </Switch>
       </div>
