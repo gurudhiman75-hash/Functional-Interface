@@ -8,6 +8,10 @@ on:
       - .github/workflows/vendor-admin-panel.yml
       - scripts/integrate-admin-app.mjs
       - scripts/assemble-hosting.mjs
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
