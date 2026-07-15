@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import {
   AlertTriangle,
   CheckCircle2,
@@ -133,9 +133,12 @@ export function QuestionStudioLivePage() {
   }, [enabledPackages, packageId]);
 
   const activePackage = enabledPackages.find((entry) => entry.packageId === packageId);
-  const supportedLanguages = activePackage?.supportedLanguages.length
-    ? activePackage.supportedLanguages
-    : ['en'];
+  const supportedLanguages = useMemo(
+    () => activePackage?.supportedLanguages.length
+      ? activePackage.supportedLanguages
+      : ['en'],
+    [activePackage],
+  );
 
   useEffect(() => {
     if (!supportedLanguages.includes(language)) {
@@ -186,15 +189,18 @@ export function QuestionStudioLivePage() {
       rejected: 0,
       actualCostPaise: 0,
     };
-    for (const { run, item } of allItems) {
+    for (const { item } of allItems) {
       if (item.status === 'unreviewed') values.unreviewed += 1;
       if (item.status === 'needs_fix') values.needsFix += 1;
       if (item.status === 'approved') values.approved += 1;
       if (item.status === 'rejected') values.rejected += 1;
-      values.actualCostPaise += run.actualCostPaise ?? 0;
     }
+    values.actualCostPaise = dashboard.runs.reduce(
+      (total, run) => total + (run.actualCostPaise ?? 0),
+      0,
+    );
     return values;
-  }, [allItems, dashboard.runs.length]);
+  }, [allItems, dashboard.runs]);
 
   const toggleSelected = (itemId: string, checked: boolean) => {
     setSelectedIds((current) => {
@@ -565,7 +571,7 @@ export function QuestionStudioLivePage() {
   );
 }
 
-function Field({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
+function Field({ label, children, className }: { label: string; children: ReactNode; className?: string }) {
   return (
     <div className={className}>
       <Label className="mb-1.5 block text-xs">{label}</Label>
@@ -582,7 +588,7 @@ function Metric({
 }: {
   label: string;
   value: number | string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   tone?: 'neutral' | 'success' | 'warning' | 'info';
 }) {
   const toneClass = tone === 'success'
