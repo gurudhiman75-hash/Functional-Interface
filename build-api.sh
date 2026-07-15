@@ -1,16 +1,16 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
-# Install pnpm via corepack (included with Node 18+)
+# Install pnpm via corepack (included with Node 18+).
 corepack enable
 corepack prepare pnpm@10.33.0 --activate
 
-# Install all deps including devDependencies (esbuild needed for build)
-pnpm install --no-frozen-lockfile --prod=false
+# Install all dependencies, including build-time tooling.
+pnpm install --frozen-lockfile --prod=false
 
-# Build the frontend first (Vite → artifacts/examtree/dist/public)
-# VITE_API_BASE_URL is /api since the API server serves both on the same origin
-VITE_API_BASE_URL=/api pnpm --filter examtree build
+# Build the student and admin applications, then assemble a single static tree.
+# Both applications call the API through the production Render origin.
+pnpm run build:hosting
 
-# Build the API server using esbuild (skips typecheck)
+# Build the API server using the established esbuild production bundle.
 node artifacts/api-server/build.mjs

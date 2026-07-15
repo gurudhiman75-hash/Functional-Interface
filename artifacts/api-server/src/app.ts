@@ -85,13 +85,24 @@ app.get("/health", (_req, res) => {
 app.use("/api", router);
 
 // ── Serve frontend static files ───────────────────────────────────────────────
-// In production, serve the built Vite output so one Render service handles both.
+// In production, serve both built Vite applications so one Render service can
+// handle the student site, the complete admin panel, and the API.
 if (process.env.NODE_ENV === "production") {
   const staticDir = path.resolve(__dirname, "../../examtree/dist/public");
+  const studentIndex = path.join(staticDir, "index.html");
+  const adminIndex = path.join(staticDir, "admin", "index.html");
+
   app.use(express.static(staticDir));
-  // SPA fallback: all non-API routes return index.html
+
+  // React Router owns every deep admin URL below /admin. Return the dedicated
+  // admin document instead of the student SPA document on direct navigation.
+  app.get(/^\/admin(?:\/.*)?$/, (_req, res) => {
+    res.sendFile(adminIndex);
+  });
+
+  // Student SPA fallback for all remaining non-API routes.
   app.get("/{*splat}", (_req, res) => {
-    res.sendFile(path.join(staticDir, "index.html"));
+    res.sendFile(studentIndex);
   });
 }
 
