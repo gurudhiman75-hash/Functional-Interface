@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
+import { LiveApprovedQuestions } from '@/pages/content/LiveApprovedQuestions';
 import { QuestionBankPage } from '@/pages/content/QuestionBankPage';
 
 export function QuestionBankWorkspacePage() {
@@ -19,6 +20,7 @@ export function QuestionBankWorkspacePage() {
           </Button>
         </div>
       )}
+      <LiveApprovedQuestions />
       <QuestionBankPage />
     </div>
   );
