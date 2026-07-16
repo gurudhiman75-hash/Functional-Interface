@@ -11,6 +11,7 @@ import { authenticate } from "../middlewares/auth";
 
 export type AdminSessionRouteDependencies = {
   authenticate: RequestHandler;
+  isAdminDatabaseConfigured: () => boolean;
   isLegacyAdmin: (firebaseUid: string) => Promise<boolean>;
   bootstrap: (input: {
     firebaseUid: string;
@@ -31,9 +32,14 @@ export async function isLegacyAdministrator(firebaseUid: string): Promise<boolea
   return legacyUser[0]?.role === "admin";
 }
 
+export function isProductionAdminDatabaseConfigured(): boolean {
+  return process.env.NODE_ENV !== "production" || Boolean(process.env.ADMIN_DATABASE_URL?.trim());
+}
+
 export function createAdminSessionRouter(
   dependencies: AdminSessionRouteDependencies = {
     authenticate,
+    isAdminDatabaseConfigured: isProductionAdminDatabaseConfigured,
     isLegacyAdmin: isLegacyAdministrator,
     bootstrap: bootstrapAdminIdentity,
   },
@@ -44,6 +50,14 @@ export function createAdminSessionRouter(
     try {
       if (!req.user?.id) {
         res.status(401).json({ error: "Authentication required" });
+        return;
+      }
+
+      if (!dependencies.isAdminDatabaseConfigured()) {
+        res.status(503).json({
+          error: "The API service is missing ADMIN_DATABASE_URL for the ExamTree admin database",
+          code: "ADMIN_DATABASE_URL_REQUIRED",
+        });
         return;
       }
 
@@ -65,7 +79,10 @@ export function createAdminSessionRouter(
       });
     } catch (error) {
       if (error instanceof AdminIdentityError) {
-        res.status(error.statusCode).json({ error: error.message, code: error.code });
+        const message = error.code === "ADMIN_IDENTITY_SCHEMA_REQUIRED"
+          ? "The configured ADMIN_DATABASE_URL does not point to the migrated ExamTree admin database"
+          : error.message;
+        res.status(error.statusCode).json({ error: message, code: error.code });
         return;
       }
       next(error);

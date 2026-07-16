@@ -35,6 +35,7 @@ const authenticated: RequestHandler = (req, _res, next) => {
 };
 
 const unauthenticated: RequestHandler = (_req, _res, next) => next();
+const adminDatabaseConfigured = () => true;
 
 async function requestBootstrap(router: ReturnType<typeof createAdminSessionRouter>) {
   const app = express();
@@ -58,16 +59,39 @@ async function requestBootstrap(router: ReturnType<typeof createAdminSessionRout
 test('bootstrap rejects an unauthenticated request', async () => {
   const result = await requestBootstrap(createAdminSessionRouter({
     authenticate: unauthenticated,
+    isAdminDatabaseConfigured: adminDatabaseConfigured,
     isLegacyAdmin: async () => true,
     bootstrap: async () => ({ session, firstAdministrator: true, pendingRoleAssignment: false }),
   }));
   assert.equal(result.status, 401);
 });
 
+test('bootstrap reports a missing production admin database before querying legacy data', async () => {
+  let legacyCheckCalled = false;
+  let bootstrapCalled = false;
+  const result = await requestBootstrap(createAdminSessionRouter({
+    authenticate: authenticated,
+    isAdminDatabaseConfigured: () => false,
+    isLegacyAdmin: async () => {
+      legacyCheckCalled = true;
+      return true;
+    },
+    bootstrap: async () => {
+      bootstrapCalled = true;
+      return { session, firstAdministrator: true, pendingRoleAssignment: false };
+    },
+  }));
+  assert.equal(result.status, 503);
+  assert.equal(result.body.code, 'ADMIN_DATABASE_URL_REQUIRED');
+  assert.equal(legacyCheckCalled, false);
+  assert.equal(bootstrapCalled, false);
+});
+
 test('bootstrap rejects an authenticated non-admin without writing identity data', async () => {
   let bootstrapCalled = false;
   const result = await requestBootstrap(createAdminSessionRouter({
     authenticate: authenticated,
+    isAdminDatabaseConfigured: adminDatabaseConfigured,
     isLegacyAdmin: async () => false,
     bootstrap: async () => {
       bootstrapCalled = true;
@@ -81,6 +105,7 @@ test('bootstrap rejects an authenticated non-admin without writing identity data
 test('first bootstrap returns the server-resolved super-admin session', async () => {
   const result = await requestBootstrap(createAdminSessionRouter({
     authenticate: authenticated,
+    isAdminDatabaseConfigured: adminDatabaseConfigured,
     isLegacyAdmin: async () => true,
     bootstrap: async () => ({ session, firstAdministrator: true, pendingRoleAssignment: false }),
   }));
@@ -97,6 +122,7 @@ test('repeated bootstrap is idempotent at the route boundary', async () => {
   };
   const dependencies = {
     authenticate: authenticated,
+    isAdminDatabaseConfigured: adminDatabaseConfigured,
     isLegacyAdmin: async () => true,
     bootstrap,
   };
@@ -113,6 +139,7 @@ test('subsequent administrators receive an explicit pending-role state', async (
   const pendingSession = { ...session, roles: [], permissions: [] };
   const result = await requestBootstrap(createAdminSessionRouter({
     authenticate: authenticated,
+    isAdminDatabaseConfigured: adminDatabaseConfigured,
     isLegacyAdmin: async () => true,
     bootstrap: async () => ({
       session: pendingSession,
