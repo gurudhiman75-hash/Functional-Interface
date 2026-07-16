@@ -8,6 +8,8 @@ declare global {
       user?: {
         id: string;
         email?: string;
+        displayName?: string;
+        emailVerified?: boolean;
       };
       adminSession?: AdminSession;
     }
@@ -30,10 +32,12 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
     req.user = {
       id: decodedToken.uid,
       email: decodedToken.email,
+      displayName: typeof decodedToken.name === "string" ? decodedToken.name : undefined,
+      emailVerified: decodedToken.email_verified,
     };
     next();
     return;
-  } catch (error) {
+  } catch {
     return void res.status(401).json({ error: "Invalid token" });
   }
 };
