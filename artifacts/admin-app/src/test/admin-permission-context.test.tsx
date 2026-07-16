@@ -5,12 +5,22 @@ import type { ReactNode } from 'react';
 import { AdminPermissionProvider, useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 describe('admin permission context', () => {
-  it('uses server-provided effective permissions and supports the super-admin wildcard', () => {
+  it('uses only server-provided effective permissions', () => {
     const wrapper = ({ children }: { children: ReactNode }) => (
       <AdminPermissionProvider session={{
-        user: { id: 'user-1', firebaseUid: 'firebase-1', email: 'admin@example.test' },
-        profile: { id: 'profile-1', displayName: null },
-        roles: ['editor'],
+        user: {
+          id: 'user-1',
+          firebaseUid: 'firebase-1',
+          email: 'admin@example.test',
+          displayName: 'Admin User',
+        },
+        profile: {
+          userId: 'user-1',
+          employeeCode: 'ADM-USER1',
+          department: 'Administration',
+          title: 'Administrator',
+        },
+        roles: ['content_author'],
         permissions: ['content.generation.read'],
       }}>{children}</AdminPermissionProvider>
     );
