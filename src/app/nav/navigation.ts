@@ -6,7 +6,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 
-export interface NavItem { label: string; path: string; icon: LucideIcon; badge?: string }
+export interface NavItem { label: string; path: string; icon: LucideIcon; badge?: string; permission?: string }
 export interface NavGroup { id: string; label: string; items: NavItem[] }
 
 export const NAV_GROUPS: NavGroup[] = [
@@ -18,7 +18,7 @@ export const NAV_GROUPS: NavGroup[] = [
     id: 'content', label: 'Content',
     items: [
       { label: 'Question Bank', path: '/content/questions', icon: FileQuestion },
-      { label: 'Question Studio', path: '/content/studio', icon: Sparkles },
+      { label: 'Question Studio', path: '/content/studio', icon: Sparkles, permission: 'content.generation.read' },
       { label: 'Content Review', path: '/content/review', icon: ClipboardCheck },
       { label: 'Coverage Planner', path: '/content/coverage', icon: Target },
       { label: 'Sections & Topics', path: '/content/taxonomy', icon: Network },

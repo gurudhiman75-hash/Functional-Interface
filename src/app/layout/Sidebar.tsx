@@ -3,10 +3,12 @@ import { useState } from 'react';
 import { ChevronDown, GraduationCap, PanelLeftClose, PanelLeft } from 'lucide-react';
 import { NAV_GROUPS } from '@/app/nav/navigation';
 import { cn } from '@/lib/utils';
+import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 interface SidebarProps { collapsed: boolean; onNavigate?: () => void }
 
 export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
+  const { hasPermission } = useAdminPermissions();
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
     Object.fromEntries(NAV_GROUPS.map((g) => [g.id, true]))
   );
@@ -40,7 +42,7 @@ export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
               )}
               {collapsed && <div className="mx-3 my-2 border-t border-sidebar-border" />}
               <div className={cn('space-y-0.5 px-3', open ? '' : 'hidden')}>
-                {group.items.map((item) => (
+                {group.items.filter((item) => !item.permission || hasPermission(item.permission)).map((item) => (
                   <NavLink key={item.path} to={item.path} onClick={onNavigate} title={collapsed ? item.label : undefined}
                     className={({ isActive }) => cn('group relative flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-medium transition-all',
                       isActive ? 'bg-sidebar-active text-primary-foreground shadow-sm' : 'text-sidebar-foreground/75 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground')}>
