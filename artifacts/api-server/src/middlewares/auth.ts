@@ -1,5 +1,6 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { auth } from "../lib/firebase-admin";
+import type { AdminSession } from "../lib/admin-rbac";
 
 declare global {
   namespace Express {
@@ -8,6 +9,7 @@ declare global {
         id: string;
         email?: string;
       };
+      adminSession?: AdminSession;
     }
   }
 }
