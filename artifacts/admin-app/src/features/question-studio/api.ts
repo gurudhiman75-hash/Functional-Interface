@@ -167,35 +167,24 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
   });
 }
 
-export async function updateGenerationItems(input: {
+export function updateGenerationItems(input: {
   itemIds: string[];
   status: GenerationItemStatus;
   reason?: string;
 }) {
-  const updated = await request<{
+  return request<{
     items: Array<{
       id: string;
       generationRunId: string;
       previousStatus: GenerationItemStatus;
       status: GenerationItemStatus;
+      convertedQuestion: ConvertedQuestion | null;
     }>;
     updatedCount: number;
+    converted: ConvertedQuestion[];
+    convertedCount: number;
   }>('/admin/question-studio/items/bulk', {
     method: 'PATCH',
     body: JSON.stringify(input),
   });
-
-  if (input.status !== 'approved') {
-    return { ...updated, converted: [] as ConvertedQuestion[], convertedCount: 0 };
-  }
-
-  const conversion = await request<{
-    converted: ConvertedQuestion[];
-    convertedCount: number;
-  }>('/admin/questions/reconcile-approved', {
-    method: 'POST',
-    body: '{}',
-  });
-
-  return { ...updated, ...conversion };
 }
