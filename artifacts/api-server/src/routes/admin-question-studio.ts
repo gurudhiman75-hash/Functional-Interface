@@ -1,6 +1,11 @@
 import { randomUUID } from "node:crypto";
 import { Router } from "express";
 
+import {
+  convertApprovedGenerationItem,
+  type ConvertedQuestion,
+  type QuestionSqlExecutor,
+} from "../lib/admin-question-conversion";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import {
@@ -319,6 +324,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
         INSERT INTO platform.audit_events (
           id,
           actor_type,
+          actor_user_id,
           action_key,
           entity_type,
           entity_id,
@@ -328,6 +334,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
         ) VALUES (
           ${randomUUID()}::uuid,
           'user'::audit_actor_type,
+          ${req.adminSession?.user.id ?? null}::uuid,
           'question_studio.generation_run.created',
           'generation_run',
           ${runId}::uuid,
@@ -378,6 +385,7 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
   const itemIds = [...new Set(rawIds.map(asString).filter(Boolean))].slice(0, 100);
   const status = asString(req.body?.status);
   const reason = asString(req.body?.reason);
+  const actorUserId = req.adminSession?.user.id;
 
   if (itemIds.length === 0) {
     res.status(400).json({ error: "At least one generated item is required" });
@@ -391,15 +399,21 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
     res.status(400).json({ error: "A reason is required for this action" });
     return;
   }
+  if (!actorUserId) {
+    res.status(403).json({ error: "Administrator session required" });
+    return;
+  }
 
   try {
-    const updated = await sqlClient.begin(async (tx) => {
+    const result = await sqlClient.begin(async (tx) => {
       const changed: Array<{
         id: string;
         generationRunId: string;
         previousStatus: string;
         status: string;
+        convertedQuestion: ConvertedQuestion | null;
       }> = [];
+      const converted: ConvertedQuestion[] = [];
 
       for (const itemId of itemIds) {
         const before = await tx`
@@ -411,44 +425,64 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         if (before.length === 0) continue;
 
         const row = before[0];
-        const result = await tx`
+        const updated = await tx`
           UPDATE content.generation_run_items
           SET
             status = ${status}::generation_item_status,
             retry_reason = ${reason || null},
+            reviewer_user_id = ${actorUserId}::uuid,
             updated_at = now()
           WHERE id = ${itemId}::uuid
           RETURNING id, generation_run_id AS "generationRunId", status
         `;
+        if (updated.length === 0) continue;
 
-        if (result.length > 0) {
-          changed.push({
-            id: String(result[0].id),
-            generationRunId: String(result[0].generationRunId),
-            previousStatus: String(row.status),
-            status: String(result[0].status),
-          });
+        let convertedQuestion: ConvertedQuestion | null = null;
+        if (status === "approved") {
+          convertedQuestion = await convertApprovedGenerationItem(
+            tx as QuestionSqlExecutor,
+            itemId,
+            actorUserId,
+          );
+          if (convertedQuestion) converted.push(convertedQuestion);
         }
+
+        changed.push({
+          id: String(updated[0].id),
+          generationRunId: String(updated[0].generationRunId),
+          previousStatus: String(row.status),
+          status: String(updated[0].status),
+          convertedQuestion,
+        });
 
         await tx`
           INSERT INTO platform.audit_events (
             id,
             actor_type,
+            actor_user_id,
             action_key,
             entity_type,
             entity_id,
+            entity_version_id,
             reason,
             summary,
             metadata
           ) VALUES (
             ${randomUUID()}::uuid,
             'user'::audit_actor_type,
+            ${actorUserId}::uuid,
             ${`question_studio.generated_item.${status}`},
             'generation_item',
             ${itemId}::uuid,
+            ${convertedQuestion?.questionVersionId ?? null}::uuid,
             ${reason || null},
             ${`Generated item moved to ${status}`},
-            ${tx.json({ firebaseUid: req.user?.id, previousStatus: row.status, status })}
+            ${tx.json({
+              firebaseUid: req.user?.id,
+              previousStatus: row.status,
+              status,
+              questionId: convertedQuestion?.questionId ?? null,
+            })}
           )
         `;
       }
@@ -467,8 +501,6 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         const count = counts[0];
         const total = Number(count?.total ?? 0);
         const approved = Number(count?.approved ?? 0);
-        const rejected = Number(count?.rejected ?? 0);
-        const needsFix = Number(count?.needsFix ?? 0);
         const runStatus = total > 0 && approved === total
           ? "approved"
           : approved > 0
@@ -482,13 +514,19 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         `;
       }
 
-      return changed;
+      return { changed, converted };
     });
 
-    res.json({ items: updated, updatedCount: updated.length });
+    res.json({
+      items: result.changed,
+      updatedCount: result.changed.length,
+      converted: result.converted,
+      convertedCount: result.converted.length,
+    });
   } catch (error) {
     console.error("Question Studio bulk update failed", error);
-    res.status(500).json({ error: "Unable to update generated items" });
+    const message = error instanceof Error ? error.message : "Unable to update generated items";
+    res.status(422).json({ error: message });
   }
 });
 
