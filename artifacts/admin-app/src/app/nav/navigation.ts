@@ -1,5 +1,5 @@
 import {
-  LayoutDashboard, FileQuestion, Sparkles, ClipboardCheck, Network, Layers,
+  LayoutDashboard, FileQuestion, ClipboardCheck, Network, Layers,
   Image as ImageIcon, FileText, ListChecks, Box, CalendarClock, ShoppingCart,
   Ticket, KeyRound, Users, ShieldCheck, LifeBuoy, Bell, TrendingUp, BarChart3,
   Activity, HeartPulse, Settings, Languages, Lock, Palette, ScrollText, Plug, Target,
@@ -18,7 +18,6 @@ export const NAV_GROUPS: NavGroup[] = [
     id: 'content', label: 'Content',
     items: [
       { label: 'Question Bank', path: '/content/questions', icon: FileQuestion },
-      { label: 'Question Studio', path: '/content/studio', icon: Sparkles, permission: 'content.generation.read' },
       { label: 'Content Review', path: '/content/review', icon: ClipboardCheck },
       { label: 'Coverage Planner', path: '/content/coverage', icon: Target },
       { label: 'Sections & Topics', path: '/content/taxonomy', icon: Network },
