@@ -24,6 +24,7 @@ import diSetsRouter from "./di-sets";
 import uploadRouter from "./upload";
 import generatorRoutes from "./generator";
 import knowledgeRouter from "./knowledge";
+import adminSessionRouter from "./admin-session";
 
 const router: IRouter = Router();
 
@@ -43,6 +44,7 @@ router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
 router.use("/bundles", bundlesRouter);
 router.use("/admin-data", adminDataRouter);
+router.use("/admin/session", adminSessionRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/upload-questions", uploadQuestionsRouter);
 router.use("/sections", sectionsRouter);

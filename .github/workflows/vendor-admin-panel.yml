@@ -54,6 +54,16 @@ jobs:
           grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
           grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist >/dev/null
 
+      - name: Test admin identity and RBAC routes
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+          ADMIN_DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-rbac.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-rbac.test.mjs
+          node artifacts/api-server/dist/admin-rbac.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-session.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-session.test.mjs
+          node artifacts/api-server/dist/admin-session.test.mjs
+
       - name: Typecheck complete admin application
         run: pnpm run typecheck:admin
 

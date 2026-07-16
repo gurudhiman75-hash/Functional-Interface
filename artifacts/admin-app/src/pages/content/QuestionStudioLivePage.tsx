@@ -43,6 +43,7 @@ import {
 } from '@/features/question-studio/api';
 import { useQuestionStudio } from '@/features/question-studio/useQuestionStudio';
 import { cn } from '@/lib/utils';
+import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 const ALL = 'all';
 
@@ -96,6 +97,9 @@ function runSnapshotText(run: QuestionStudioRun, key: string, fallback = '—') 
 }
 
 export function QuestionStudioLivePage() {
+  const { hasPermission } = useAdminPermissions();
+  const canRun = hasPermission('content.generation.run');
+  const canReview = hasPermission('content.generation.review');
   const {
     dashboard,
     capabilities,
@@ -391,7 +395,7 @@ export function QuestionStudioLivePage() {
             <Field label="Optional deterministic seed">
               <Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for a fresh generated seed" />
             </Field>
-            <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage} className="min-w-44">
+            <Button onClick={() => void handleGenerate()} disabled={loading || generating || !activePackage || !canRun} className="min-w-44">
               {generating ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Sparkles className="mr-1.5 h-4 w-4" />}
               {generating ? 'Generating…' : 'Generate and persist'}
             </Button>
@@ -438,16 +442,16 @@ export function QuestionStudioLivePage() {
               <Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="State the validation, accuracy, language, duplication, or policy issue" className="min-h-20" />
             </Field>
             <div className="flex flex-wrap gap-2">
-              <Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0}>
+              <Button onClick={() => void applyStatus('approved')} disabled={updating || selectedIds.size === 0 || !canReview}>
                 <CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve
               </Button>
-              <Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0}>
+              <Button variant="outline" onClick={() => void applyStatus('needs_fix')} disabled={updating || selectedIds.size === 0 || !canReview}>
                 <AlertTriangle className="mr-1.5 h-4 w-4" /> Needs fix
               </Button>
-              <Button variant="outline" onClick={() => void applyStatus('unreviewed')} disabled={updating || selectedIds.size === 0}>
+              <Button variant="outline" onClick={() => void applyStatus('unreviewed')} disabled={updating || selectedIds.size === 0 || !canReview}>
                 <RefreshCw className="mr-1.5 h-4 w-4" /> Return to review
               </Button>
-              <Button variant="destructive" onClick={() => void applyStatus('rejected')} disabled={updating || selectedIds.size === 0}>
+              <Button variant="destructive" onClick={() => void applyStatus('rejected')} disabled={updating || selectedIds.size === 0 || !canReview}>
                 <XCircle className="mr-1.5 h-4 w-4" /> Reject
               </Button>
             </div>

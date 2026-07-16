@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { Router, type NextFunction, type Request, type Response } from "express";
+import { Router } from "express";
 
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -7,7 +7,7 @@ import {
   generateQuestion as generateQuantV4Questions,
   listQuantV4Packages,
 } from "../quant-v4/generation-engine";
-import { assertAdmin } from "./admin-data";
+import { requireAdminPermission } from "../lib/admin-rbac";
 
 const router = Router();
 
@@ -49,30 +49,9 @@ function publicRunCode() {
   return `GEN-${date}-${suffix}`;
 }
 
-async function requireAdmin(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> {
-  try {
-    if (!req.user?.id) {
-      res.status(401).json({ error: "Authentication required" });
-      return;
-    }
-    await assertAdmin(req.user.id);
-    next();
-  } catch (error) {
-    if (error instanceof Error && error.message === "forbidden") {
-      res.status(403).json({ error: "Administrator access required" });
-      return;
-    }
-    next(error);
-  }
-}
+router.use(authenticate);
 
-router.use(authenticate, requireAdmin);
-
-router.get("/capabilities", async (_req, res) => {
+router.get("/capabilities", requireAdminPermission("content.generation.read"), async (_req, res) => {
   try {
     const packages = listQuantV4Packages().map((pkg) => ({
       packageId: String(pkg.packageId),
@@ -99,7 +78,7 @@ router.get("/capabilities", async (_req, res) => {
   }
 });
 
-router.get("/dashboard", async (_req, res) => {
+router.get("/dashboard", requireAdminPermission("content.generation.read"), async (_req, res) => {
   try {
     const runs = await sqlClient`
       SELECT
@@ -192,7 +171,7 @@ router.get("/dashboard", async (_req, res) => {
   }
 });
 
-router.post("/runs", async (req, res) => {
+router.post("/runs", requireAdminPermission("content.generation.run"), async (req, res) => {
   const count = asPositiveInteger(req.body?.count, 5, 50);
   const packageId = asString(req.body?.packageId) || undefined;
   const patternId = asString(req.body?.patternId) || undefined;
@@ -394,7 +373,7 @@ router.post("/runs", async (req, res) => {
   }
 });
 
-router.patch("/items/bulk", async (req, res) => {
+router.patch("/items/bulk", requireAdminPermission("content.generation.review"), async (req, res) => {
   const rawIds = Array.isArray(req.body?.itemIds) ? req.body.itemIds : [];
   const itemIds = [...new Set(rawIds.map(asString).filter(Boolean))].slice(0, 100);
   const status = asString(req.body?.status);
