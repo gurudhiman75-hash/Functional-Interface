@@ -106,6 +106,13 @@ export interface CreateGenerationRunInput {
   seed?: string;
 }
 
+export interface ConvertedQuestion {
+  itemId: string;
+  questionId: string;
+  questionVersionId: string;
+  publicCode: string;
+}
+
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
@@ -160,12 +167,12 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
   });
 }
 
-export function updateGenerationItems(input: {
+export async function updateGenerationItems(input: {
   itemIds: string[];
   status: GenerationItemStatus;
   reason?: string;
 }) {
-  return request<{
+  const updated = await request<{
     items: Array<{
       id: string;
       generationRunId: string;
@@ -177,4 +184,18 @@ export function updateGenerationItems(input: {
     method: 'PATCH',
     body: JSON.stringify(input),
   });
+
+  if (input.status !== 'approved') {
+    return { ...updated, converted: [] as ConvertedQuestion[], convertedCount: 0 };
+  }
+
+  const conversion = await request<{
+    converted: ConvertedQuestion[];
+    convertedCount: number;
+  }>('/admin/questions/reconcile-approved', {
+    method: 'POST',
+    body: '{}',
+  });
+
+  return { ...updated, ...conversion };
 }
