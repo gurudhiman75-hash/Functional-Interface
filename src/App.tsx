@@ -7,7 +7,7 @@ import { PrototypeStoreProvider } from '@/app/store/PrototypeStore';
 import { Toaster } from '@/components/ui/sonner';
 
 import { DashboardPage } from '@/pages/overview/DashboardPage';
-import { QuestionBankPage } from '@/pages/content/QuestionBankPage';
+import { QuestionBankWorkspacePage } from '@/pages/content/QuestionBankWorkspacePage';
 import { QuestionDetailPage } from '@/pages/content/QuestionDetailPage';
 import { ContentReviewPage } from '@/pages/content/ContentReviewPage';
 import { TaxonomyPage } from '@/pages/content/TaxonomyPage';
@@ -62,9 +62,10 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/dashboard" replace /> },
       { path: '/dashboard', element: <DashboardPage /> },
-      { path: '/content/questions', element: <QuestionBankPage /> },
+      { path: '/content/questions', element: <QuestionBankWorkspacePage /> },
+      { path: '/content/questions/generate', element: <QuestionStudioPage /> },
       { path: '/content/questions/:id', element: <QuestionDetailPage /> },
-      { path: '/content/studio', element: <QuestionStudioPage /> },
+      { path: '/content/studio', element: <Navigate to="/content/questions/generate" replace /> },
       { path: '/content/review', element: <ContentReviewPage /> },
       { path: '/content/taxonomy', element: <TaxonomyPage /> },
       { path: '/content/sets', element: <DiPassageSetsPage /> },
