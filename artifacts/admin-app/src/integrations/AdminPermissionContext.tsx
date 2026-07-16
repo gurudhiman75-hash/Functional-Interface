@@ -1,10 +1,22 @@
 import { createContext, useContext, type ReactNode } from 'react';
 
 export type AdminSession = {
-  user: { id: string; firebaseUid: string; email: string | null };
-  profile: { id: string; displayName: string | null };
+  user: {
+    id: string;
+    firebaseUid: string;
+    email: string;
+    displayName: string;
+  };
+  profile: {
+    userId: string;
+    employeeCode: string;
+    department: string | null;
+    title: string | null;
+  };
   roles: string[];
   permissions: string[];
+  firstAdministrator?: boolean;
+  pendingRoleAssignment?: boolean;
 };
 
 const AdminPermissionContext = createContext<AdminSession | null>(null);
