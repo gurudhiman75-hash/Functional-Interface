@@ -14,18 +14,39 @@ export type NormalizedQuestionVersionInput = {
   correctIndex: number;
 };
 
+export type NormalizedQuestionTaxonomyInput = {
+  expectedLockVersion: number;
+  examVersionId: string;
+  primaryTaxonomyNodeId: string;
+  taxonomyNodeIds: string[];
+};
+
 export type QuestionLifecycleAction =
   | "submit-review"
   | "approve"
   | "needs-fix"
   | "restore-draft"
+  | "publish"
+  | "unpublish"
   | "archive";
 
 export type QuestionLifecycleConfig = {
-  status: "draft" | "under_review" | "needs_fix" | "approved" | "archived";
+  status: "draft" | "under_review" | "needs_fix" | "approved" | "published" | "archived";
   permission: string;
   requiresReason: boolean;
   actionKey: string;
+};
+
+export type PublishableQuestionSnapshot = {
+  status: string;
+  approvedVersionId: string | null;
+  examVersionId: string | null;
+  primaryTaxonomyNodeId: string | null;
+  taxonomyNodeIds: string[];
+  stem: string;
+  explanation: string;
+  optionCount: number;
+  correctOptionCount: number;
 };
 
 export class QuestionManagementError extends Error {
@@ -33,6 +54,7 @@ export class QuestionManagementError extends Error {
     public readonly code: string,
     message: string,
     public readonly statusCode: number,
+    public readonly details?: unknown,
   ) {
     super(message);
     this.name = "QuestionManagementError";
@@ -53,6 +75,14 @@ function asLockVersion(value: unknown): number {
     );
   }
   return parsed;
+}
+
+function asUuid(value: unknown, code: string, message: string): string {
+  const text = asText(value);
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(text)) {
+    throw new QuestionManagementError(code, message, 400);
+  }
+  return text;
 }
 
 export function normalizeQuestionVersionInput(value: unknown): NormalizedQuestionVersionInput {
@@ -115,6 +145,34 @@ export function normalizeQuestionVersionInput(value: unknown): NormalizedQuestio
   };
 }
 
+export function normalizeQuestionTaxonomyInput(value: unknown): NormalizedQuestionTaxonomyInput {
+  const input = value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+  const examVersionId = asUuid(
+    input.examVersionId,
+    "EXAM_VERSION_REQUIRED",
+    "Select an exam version before saving taxonomy",
+  );
+  const primaryTaxonomyNodeId = asUuid(
+    input.primaryTaxonomyNodeId,
+    "PRIMARY_TAXONOMY_REQUIRED",
+    "Select a primary taxonomy topic",
+  );
+  const rawIds = Array.isArray(input.taxonomyNodeIds) ? input.taxonomyNodeIds : [];
+  const taxonomyNodeIds = Array.from(new Set([
+    ...rawIds.map((entry) => asUuid(entry, "INVALID_TAXONOMY_NODE", "Invalid taxonomy selection")),
+    primaryTaxonomyNodeId,
+  ]));
+
+  return {
+    expectedLockVersion: asLockVersion(input.expectedLockVersion),
+    examVersionId,
+    primaryTaxonomyNodeId,
+    taxonomyNodeIds,
+  };
+}
+
 const LIFECYCLE_CONFIG: Record<QuestionLifecycleAction, QuestionLifecycleConfig> = {
   "submit-review": {
     status: "under_review",
@@ -139,6 +197,18 @@ const LIFECYCLE_CONFIG: Record<QuestionLifecycleAction, QuestionLifecycleConfig>
     permission: "content.questions.update",
     requiresReason: true,
     actionKey: "content.question.restored_to_draft",
+  },
+  publish: {
+    status: "published",
+    permission: "content.questions.approve",
+    requiresReason: false,
+    actionKey: "content.question.published",
+  },
+  unpublish: {
+    status: "approved",
+    permission: "content.questions.approve",
+    requiresReason: true,
+    actionKey: "content.question.unpublished",
   },
   archive: {
     status: "archived",
@@ -173,4 +243,30 @@ export function normalizeLifecycleInput(
     reason,
     config,
   };
+}
+
+export function getPublicationIssues(snapshot: PublishableQuestionSnapshot): string[] {
+  const issues: string[] = [];
+  if (snapshot.status !== "approved") issues.push("The question must be approved before publishing.");
+  if (!snapshot.approvedVersionId) issues.push("An approved version is required.");
+  if (!snapshot.examVersionId) issues.push("Assign an exam version.");
+  if (!snapshot.primaryTaxonomyNodeId) issues.push("Assign a primary taxonomy topic.");
+  if (snapshot.taxonomyNodeIds.length === 0) issues.push("Assign taxonomy to the approved version.");
+  if (!snapshot.stem.trim()) issues.push("Question stem is missing.");
+  if (!snapshot.explanation.trim()) issues.push("Explanation is missing.");
+  if (snapshot.optionCount < 2) issues.push("At least two answer options are required.");
+  if (snapshot.correctOptionCount !== 1) issues.push("Exactly one correct answer is required.");
+  return issues;
+}
+
+export function assertQuestionPublishable(snapshot: PublishableQuestionSnapshot): void {
+  const issues = getPublicationIssues(snapshot);
+  if (issues.length > 0) {
+    throw new QuestionManagementError(
+      "QUESTION_NOT_PUBLISHABLE",
+      issues[0],
+      409,
+      { issues },
+    );
+  }
 }

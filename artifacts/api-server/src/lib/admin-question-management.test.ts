@@ -3,8 +3,11 @@ import test from "node:test";
 
 import {
   QuestionManagementError,
+  assertQuestionPublishable,
+  getPublicationIssues,
   getQuestionLifecycleConfig,
   normalizeLifecycleInput,
+  normalizeQuestionTaxonomyInput,
   normalizeQuestionVersionInput,
 } from "./admin-question-management";
 import {
@@ -66,25 +69,87 @@ test("requires an editorial change reason", () => {
   );
 });
 
-test("maps lifecycle actions to server permissions and statuses", () => {
+test("normalizes taxonomy and includes the primary node", () => {
+  const result = normalizeQuestionTaxonomyInput({
+    expectedLockVersion: 4,
+    examVersionId: "11111111-1111-4111-8111-111111111111",
+    primaryTaxonomyNodeId: "22222222-2222-4222-8222-222222222222",
+    taxonomyNodeIds: [
+      "33333333-3333-4333-8333-333333333333",
+      "22222222-2222-4222-8222-222222222222",
+    ],
+  });
+
+  assert.equal(result.expectedLockVersion, 4);
+  assert.equal(result.taxonomyNodeIds.length, 2);
+  assert.ok(result.taxonomyNodeIds.includes(result.primaryTaxonomyNodeId));
+});
+
+test("maps lifecycle actions to permissions and statuses", () => {
   assert.deepEqual(getQuestionLifecycleConfig("approve"), {
     status: "approved",
     permission: "content.questions.approve",
     requiresReason: false,
     actionKey: "content.question.approved",
   });
+  assert.equal(getQuestionLifecycleConfig("publish").status, "published");
   assert.equal(normalizeLifecycleInput("archive", {
     expectedLockVersion: 3,
     reason: "Retired syllabus",
   }).config.status, "archived");
 });
 
-test("requires a reason when sending a question back for fixes", () => {
+test("requires a reason when unpublishing", () => {
   assert.throws(
-    () => normalizeLifecycleInput("needs-fix", { expectedLockVersion: 1 }),
+    () => normalizeLifecycleInput("unpublish", { expectedLockVersion: 1 }),
     (error: unknown) => error instanceof QuestionManagementError
       && error.code === "ACTION_REASON_REQUIRED",
   );
+});
+
+test("reports all publication blockers", () => {
+  const issues = getPublicationIssues({
+    status: "draft",
+    approvedVersionId: null,
+    examVersionId: null,
+    primaryTaxonomyNodeId: null,
+    taxonomyNodeIds: [],
+    stem: "",
+    explanation: "",
+    optionCount: 1,
+    correctOptionCount: 0,
+  });
+
+  assert.ok(issues.length >= 8);
+  assert.throws(
+    () => assertQuestionPublishable({
+      status: "draft",
+      approvedVersionId: null,
+      examVersionId: null,
+      primaryTaxonomyNodeId: null,
+      taxonomyNodeIds: [],
+      stem: "",
+      explanation: "",
+      optionCount: 1,
+      correctOptionCount: 0,
+    }),
+    (error: unknown) => error instanceof QuestionManagementError
+      && error.code === "QUESTION_NOT_PUBLISHABLE",
+  );
+});
+
+test("accepts a complete approved question for publication", () => {
+  assert.doesNotThrow(() => assertQuestionPublishable({
+    status: "approved",
+    approvedVersionId: "11111111-1111-4111-8111-111111111111",
+    examVersionId: "22222222-2222-4222-8222-222222222222",
+    primaryTaxonomyNodeId: "33333333-3333-4333-8333-333333333333",
+    taxonomyNodeIds: ["33333333-3333-4333-8333-333333333333"],
+    stem: "Question",
+    explanation: "Explanation",
+    optionCount: 4,
+    correctOptionCount: 1,
+  }));
 });
 
 test("normalizes generated questions before canonical conversion", () => {
