@@ -72,7 +72,24 @@ jobs:
           node artifacts/api-server/dist/admin-test-management.test.mjs
 
       - name: Typecheck complete admin application
-        run: pnpm run typecheck:admin
+        id: admin_typecheck
+        continue-on-error: true
+        run: pnpm run typecheck:admin > admin-typecheck.log 2>&1
+
+      - name: Upload admin typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-typecheck-log
+          path: admin-typecheck.log
+          if-no-files-found: ignore
+          retention-days: 3
+
+      - name: Enforce admin typecheck result
+        if: steps.admin_typecheck.outcome == 'failure'
+        run: |
+          cat admin-typecheck.log
+          exit 1
 
       - name: Test complete admin application
         run: pnpm run test:admin
