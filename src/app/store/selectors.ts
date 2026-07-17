@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+
+import { getPublishedQuestions, type PublishedQuestion } from '@/features/question-bank/api';
 import { usePrototypeStore } from './PrototypeStore';
 import { dedupeAuditEntries } from './persistence';
 import type {
@@ -8,8 +11,79 @@ import type {
   Blueprint, TestVersion, TestQAComment,
 } from './types';
 
+let publishedQuestionCache: Question[] | null = null;
+let publishedQuestionRequest: Promise<Question[]> | null = null;
+
+function taxonomyName(question: PublishedQuestion, nodeType: string): string {
+  return question.taxonomy.find((node) => node.nodeType === nodeType)?.name ?? '';
+}
+
+function toBuilderQuestion(question: PublishedQuestion): Question {
+  const correct = question.options.find((option) => option.isCorrect);
+  const publishedDate = question.publishedAt ?? new Date().toISOString();
+  return {
+    id: question.publicCode,
+    stem: question.stem,
+    options: question.options.map((option) => ({ id: option.key, text: option.text })),
+    correctOption: correct?.key ?? '',
+    explanation: question.explanation,
+    subject: taxonomyName(question, 'subject'),
+    chapter: taxonomyName(question, 'chapter'),
+    topic: taxonomyName(question, 'topic'),
+    subtopic: taxonomyName(question, 'subtopic'),
+    difficulty: question.difficulty === 'Medium' ? 'Moderate' : question.difficulty,
+    language: ['English'],
+    exam: question.examCode,
+    type: question.questionType,
+    status: 'Approved',
+    source: 'Published Question Bank',
+    author: 'ExamTree',
+    reviewer: 'Published',
+    validationStatus: 'Passed',
+    validationScore: 100,
+    usageCount: 0,
+    studentAccuracy: 0,
+    avgResponseSec: 0,
+    createdAt: publishedDate.slice(0, 10),
+    updatedAt: publishedDate.slice(0, 10),
+  };
+}
+
+async function loadPublishedQuestionBank(): Promise<Question[]> {
+  if (publishedQuestionCache) return publishedQuestionCache;
+  if (!publishedQuestionRequest) {
+    publishedQuestionRequest = getPublishedQuestions()
+      .then((result) => result.questions.map(toBuilderQuestion))
+      .then((questions) => {
+        publishedQuestionCache = questions;
+        return questions;
+      })
+      .finally(() => {
+        publishedQuestionRequest = null;
+      });
+  }
+  return publishedQuestionRequest;
+}
+
 export function useQuestions(): Question[] {
-  return usePrototypeStore().state.questions;
+  const [questions, setQuestions] = useState<Question[]>(publishedQuestionCache ?? []);
+
+  useEffect(() => {
+    let active = true;
+    void loadPublishedQuestionBank()
+      .then((next) => {
+        if (active) setQuestions(next);
+      })
+      .catch((error) => {
+        console.error('Unable to load published Question Bank for Test Builder', error);
+        if (active) setQuestions([]);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  return questions;
 }
 
 export function useTests(): Test[] {
@@ -22,7 +96,7 @@ export function useTestById(id: string | undefined): Test | undefined {
 }
 
 export function useQuestionById(id: string | undefined): Question | undefined {
-  const questions = usePrototypeStore().state.questions;
+  const questions = useQuestions();
   return id ? questions.find((q) => q.id === id) : undefined;
 }
 
