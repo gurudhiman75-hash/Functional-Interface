@@ -28,7 +28,9 @@ export function AdminPermissionProvider({ session, children }: { session: AdminS
 export function useAdminPermissions() {
   const session = useContext(AdminPermissionContext);
   const hasPermission = (permission: string) => Boolean(
-    session?.permissions.includes('*') || session?.permissions.includes(permission),
+    session?.roles.includes('super_admin')
+      || session?.permissions.includes('*')
+      || session?.permissions.includes(permission),
   );
   return { session, permissions: session?.permissions ?? [], hasPermission };
 }
