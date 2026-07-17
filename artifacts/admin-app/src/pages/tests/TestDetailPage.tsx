@@ -1,467 +1,185 @@
-import { useMemo, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-} from 'recharts';
-import {
-  FileText, ArrowLeft, ListChecks, Clock, Users, Activity,
-  BookOpen, Type, Layers, Globe, Target, CalendarDays, User,
-  PencilLine, Copy, Archive, UploadCloud, History, Award, Gauge, TrendingUp,
-  Snowflake, GitBranch, Lock,
+  AlertTriangle,
+  Archive,
+  ArrowLeft,
+  CalendarClock,
+  CheckCircle2,
+  Clock3,
+  FileText,
+  History,
+  Loader2,
+  PencilLine,
+  RefreshCw,
+  Rocket,
+  Send,
+  Undo2,
+  XCircle,
 } from 'lucide-react';
+
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatusBadge, difficultyTone } from '@/components/shared/StatusBadge';
-import { StatCard } from '@/components/shared/StatCard';
-import { ErrorState } from '@/components/shared/EmptyState';
 import { showToast } from '@/components/shared/toast';
-import { GatedButton } from '@/components/shared/GatedAction';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
-import { usePrototypeStore } from '@/app/store/PrototypeStore';
-import { useTestById, useAuditLogs, useTestVersions } from '@/app/store/selectors';
-import type { AuditEntry, TestVersion } from '@/app/store/types';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  getLiveTest,
+  transitionLiveTest,
+  type LiveTestDetail,
+  type LiveTestStatus,
+  type TestLifecycleAction,
+  type TestValidationIssue,
+} from '@/features/test-builder/api';
+import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
+
+function formatStatus(status: LiveTestStatus) {
+  return status.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function statusClass(status: LiveTestStatus) {
+  if (status === 'live' || status === 'qa_approved') return 'bg-success/10 text-success hover:bg-success/10';
+  if (status === 'under_qa' || status === 'scheduled' || status === 'needs_fix') return 'bg-warning/10 text-warning hover:bg-warning/10';
+  if (status === 'archived') return 'bg-destructive/10 text-destructive hover:bg-destructive/10';
+  return 'bg-muted text-muted-foreground hover:bg-muted';
+}
+
+function formatDate(value: string | null | undefined) {
+  if (!value) return '—';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '—';
+  return new Intl.DateTimeFormat('en-IN', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+  }).format(date);
+}
+
+function errorIssues(error: unknown): TestValidationIssue[] {
+  if (!error || typeof error !== 'object') return [];
+  const details = (error as { details?: unknown }).details;
+  return Array.isArray(details)
+    ? details.filter((item): item is TestValidationIssue => !!item && typeof item === 'object' && typeof (item as TestValidationIssue).message === 'string')
+    : [];
+}
 
 export function TestDetailPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const test = useTestById(id);
-  const { dispatch, audit, activeAdminName, addTestVersion } = usePrototypeStore();
-  const auditLogs = useAuditLogs();
-  const testVersions = useTestVersions(id);
+  const { id = '' } = useParams();
+  const { hasPermission } = useAdminPermissions();
+  const canUpdate = hasPermission('tests.update');
+  const canApprove = hasPermission('tests.approve');
+  const canPublish = hasPermission('tests.publish');
 
-  const [showVersionDetail, setShowVersionDetail] = useState<string | null>(null);
+  const [detail, setDetail] = useState<LiveTestDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+  const [actionReason, setActionReason] = useState('');
+  const [scheduledAt, setScheduledAt] = useState('');
+  const [closesAt, setClosesAt] = useState('');
+  const [actionIssues, setActionIssues] = useState<TestValidationIssue[]>([]);
 
-  const entityAudit = useMemo(
-    () => auditLogs.filter((a) => a.entityId.includes(id ?? '')),
-    [auditLogs, id],
-  );
+  const load = useCallback(async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const next = await getLiveTest(id);
+      setDetail(next);
+      setActionIssues([]);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : 'Unable to load test.');
+    } finally {
+      setLoading(false);
+    }
+  }, [id]);
 
-  const sectionData = useMemo(() => [
-    { section: 'Reasoning', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), attempts: test ? Math.round(test.attempts * 0.92) : 0 },
-    { section: 'Quant', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), attempts: test ? Math.round(test.attempts * 0.88) : 0 },
-    { section: 'English', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), attempts: test ? Math.round(test.attempts * 0.95) : 0 },
-    { section: 'GA', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), attempts: test ? Math.round(test.attempts * 0.82) : 0 },
-  ], [test]);
+  useEffect(() => { void load(); }, [load]);
 
-  const scoreDistribution = useMemo(() => [
-    { range: '0-25', count: 120 },
-    { range: '26-50', count: 480 },
-    { range: '51-75', count: 860 },
-    { range: '76-100', count: 540 },
-    { range: '100+', count: 210 },
-  ], []);
-
-  const mockSections = useMemo(() => [
-    { name: 'General Intelligence & Reasoning', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), marks: test ? Math.round(test.totalQuestions * 0.25 * 2) : 50 },
-    { name: 'General Awareness', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), marks: test ? Math.round(test.totalQuestions * 0.25 * 2) : 50 },
-    { name: 'Quantitative Aptitude', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), marks: test ? Math.round(test.totalQuestions * 0.25 * 2) : 50 },
-    { name: 'English Comprehension', questions: Math.round(test ? test.totalQuestions * 0.25 : 25), marks: test ? Math.round(test.totalQuestions * 0.25 * 2) : 50 },
-  ], [test]);
-
-  if (!test) {
-    return (
-      <ErrorState
-        title="Test not found"
-        description={`No test exists with ID "${id}". It may have been removed.`}
-        action={
-          <Button asChild variant="outline" size="sm">
-            <Link to="/tests"><ArrowLeft className="mr-1.5 h-4 w-4" /> Back to Tests</Link>
-          </Button>
-        }
-      />
-    );
-  }
-
-  const handleDuplicate = () => {
-    showToast.success('Test duplicated', `${test.id} has been duplicated as a new draft (prototype only).`);
-    audit('TEST_DUPLICATED', 'test', test.id, test.name, test.name, `${test.name} (Copy)`, 'Test duplicated by admin');
+  const runAction = async (action: TestLifecycleAction, success: string) => {
+    if (!detail?.test.currentDraftVersionId) return;
+    setSaving(true);
+    setActionIssues([]);
+    try {
+      const next = await transitionLiveTest(detail.test.id, action, {
+        expectedCurrentDraftVersionId: detail.test.currentDraftVersionId,
+        reason: actionReason.trim() || undefined,
+        scheduledAt: scheduledAt ? new Date(scheduledAt).toISOString() : undefined,
+        closesAt: closesAt ? new Date(closesAt).toISOString() : undefined,
+      });
+      setDetail(next);
+      setActionReason('');
+      setScheduledAt('');
+      setClosesAt('');
+      showToast.success(success, `${next.test.publicCode} is now ${formatStatus(next.test.status)}.`);
+    } catch (caught) {
+      setActionIssues(errorIssues(caught));
+      showToast.error('Test action failed', caught instanceof Error ? caught.message : 'Unable to update test.');
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleArchive = () => {
-    const updated = { ...test, status: 'Archived' };
-    dispatch({ type: 'UPDATE_TEST', test: updated, audit: audit('TEST_ARCHIVED', 'test', test.id, test.name, test.status, 'Archived', 'Test archived by admin') });
-    showToast.info('Test archived', `${test.id} has been archived.`);
-  };
+  if (loading) return <div className="flex min-h-80 items-center justify-center text-sm text-muted-foreground"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading live test…</div>;
+  if (error || !detail || !detail.currentVersion) return <Card><CardContent className="flex min-h-64 flex-col items-center justify-center p-6 text-center"><AlertTriangle className="h-8 w-8 text-destructive" /><p className="mt-3 font-medium">{error || 'Test unavailable'}</p><div className="mt-4 flex gap-2"><Button asChild variant="outline"><Link to="/tests"><ArrowLeft className="mr-1.5 h-4 w-4" /> Tests</Link></Button><Button onClick={() => void load()}><RefreshCw className="mr-1.5 h-4 w-4" /> Retry</Button></div></CardContent></Card>;
 
-  const handlePublish = () => {
-    const now = new Date().toISOString();
-    const versionNumber = (testVersions[0]?.versionNumber ?? 0) + 1;
-    const version: TestVersion = {
-      id: `TV-${test.id}-${Date.now()}`,
-      testId: test.id,
-      versionNumber,
-      snapshot: { ...test, status: 'Live' },
-      publishedBy: activeAdminName,
-      publishedAt: now,
-      reason: 'Published from test detail',
-      isLive: true,
-      frozenSections: [],
-      frozenQuestionIds: [],
-      frozenInstructions: 'General instructions for the test.',
-      frozenMarkingRules: { marksPerQuestion: 2, negativeMarks: 0.25 },
-    };
-    addTestVersion(test.id, version);
-    const updated = { ...test, status: 'Live' };
-    dispatch({ type: 'UPDATE_TEST', test: updated, audit: audit('TEST_PUBLISHED', 'test', test.id, test.name, test.status, 'Live', `Test published as v${versionNumber} by ${activeAdminName}`) });
-    showToast.success('Test published', `${test.id} is now Live. Frozen version v${versionNumber} created.`);
-  };
-
-  const handleEditAfterPublish = () => {
-    showToast.info('Creating new draft', 'A new draft version will be created. The published version remains frozen.');
-    navigate(`/tests/test-builder?edit=${test.id}&newDraft=true`);
-  };
-
-  const liveVersion = testVersions.find((v) => v.isLive);
-
-  const avgScore = 68;
-  const completionRate = 74;
-  const medianTime = 52;
+  const test = detail.test;
+  const version = detail.currentVersion;
+  const questionCount = detail.sections.reduce((sum, section) => sum + section.questions.length, 0);
+  const latestPublication = detail.publications[0];
+  const blockingIssues = [...detail.validationIssues, ...actionIssues];
 
   return (
     <div>
       <PageHeader
-        title={test.name}
-        description={test.id}
+        title={version.title}
+        description={`${test.publicCode} • ${test.examFamilyName} • ${test.examName}`}
         icon={<FileText className="h-5 w-5" />}
-        actions={
-          <>
-            <Button asChild variant="outline" size="sm">
-              <Link to={`/tests/test-builder?edit=${test.id}`}><PencilLine className="mr-1.5 h-4 w-4" /> Edit in Builder</Link>
-            </Button>
-            <Button asChild variant="outline" size="sm">
-              <Link to="/tests"><ArrowLeft className="mr-1.5 h-4 w-4" /> Back to Tests</Link>
-            </Button>
-          </>
-        }
+        actions={<div className="flex flex-wrap gap-2"><Button asChild variant="outline" size="sm"><Link to="/tests"><ArrowLeft className="mr-1.5 h-4 w-4" /> Tests</Link></Button><Button asChild variant="outline" size="sm"><Link to={`/tests/builder?edit=${test.id}`}><PencilLine className="mr-1.5 h-4 w-4" /> Edit in Builder</Link></Button><Button variant="outline" size="sm" onClick={() => void load()} disabled={saving}><RefreshCw className="mr-1.5 h-4 w-4" /> Refresh</Button></div>}
       />
 
-      <div className="mb-6 flex flex-wrap gap-2">
-        <GatedButton permission="tests.edit" variant="default" size="sm" onClick={() => showToast.info('Edit mode', 'Opening test builder for editing.')}>
-          <PencilLine className="mr-1.5 h-4 w-4" /> Edit
-        </GatedButton>
-        <GatedButton permission="tests.create" variant="outline" size="sm" onClick={handleDuplicate}>
-          <Copy className="mr-1.5 h-4 w-4" /> Duplicate
-        </GatedButton>
-        <GatedButton permission="tests.edit" variant="outline" size="sm" onClick={handleArchive}>
-          <Archive className="mr-1.5 h-4 w-4" /> Archive
-        </GatedButton>
-        <GatedButton permission="tests.publish" variant="default" size="sm" onClick={handlePublish}>
-          <UploadCloud className="mr-1.5 h-4 w-4" /> Publish
-        </GatedButton>
+      <div className="mb-5 flex flex-wrap items-center gap-2"><Badge className={statusClass(test.status)}>{formatStatus(test.status)}</Badge><Badge variant="outline">Draft v{version.versionNumber}</Badge>{test.publishedVersionId && <Badge className="bg-primary/10 text-primary hover:bg-primary/10">Published version retained</Badge>}<Badge variant="outline">{questionCount} questions</Badge><Badge variant="outline">{version.totalMarks} marks</Badge><Badge variant="outline">{Math.round(version.durationSeconds / 60)} minutes</Badge></div>
+
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(320px,1fr)]">
+        <div>
+          <Tabs defaultValue="preview" className="space-y-4">
+            <TabsList className="flex h-auto flex-wrap justify-start"><TabsTrigger value="preview">Exact preview</TabsTrigger><TabsTrigger value="versions">Versions</TabsTrigger><TabsTrigger value="publications">Publications</TabsTrigger><TabsTrigger value="audit">Audit</TabsTrigger></TabsList>
+
+            <TabsContent value="preview" className="space-y-5">
+              <Card><CardHeader><CardTitle className="text-base">Test instructions</CardTitle></CardHeader><CardContent><p className="whitespace-pre-wrap text-sm leading-7">{String((version.instructions as Record<string, unknown>)?.text ?? 'No instructions')}</p></CardContent></Card>
+              {detail.sections.map((section) => <Card key={section.id}><CardHeader><CardTitle className="flex items-center justify-between gap-3 text-base"><span>{section.sortOrder}. {section.name}</span><Badge variant="outline">{section.questions.length} questions{section.durationSeconds ? ` • ${section.durationSeconds / 60} min` : ''}</Badge></CardTitle></CardHeader><CardContent className="space-y-4">{section.questions.map((question, index) => <div key={question.questionVersionId} className="rounded-lg border p-4"><div className="flex flex-wrap items-start justify-between gap-2"><p className="max-w-3xl text-sm font-medium leading-6">{index + 1}. {question.stem}</p><Badge variant="outline">+{question.marks} / -{question.negativeMarks}</Badge></div><div className="mt-3 grid gap-2 sm:grid-cols-2">{question.options.map((option) => <div key={option.id} className="rounded-md border px-3 py-2 text-sm"><strong>{option.key}.</strong> {option.text}</div>)}</div><details className="mt-3 text-sm"><summary className="cursor-pointer text-muted-foreground">Answer and explanation</summary><div className="mt-2 rounded-md bg-muted/30 p-3"><p className="font-medium">Correct: {question.options.find((option) => option.isCorrect)?.key ?? '—'}</p><p className="mt-1 whitespace-pre-wrap text-muted-foreground">{question.explanation}</p></div></details></div>)}</CardContent></Card>)}
+            </TabsContent>
+
+            <TabsContent value="versions"><Card><CardContent className="divide-y p-0">{detail.versions.map((item) => <div key={item.id} className="p-4"><div className="flex flex-wrap items-center justify-between gap-2"><div><p className="font-medium">Version {item.versionNumber} · {item.title}</p><p className="mt-1 text-xs text-muted-foreground">{item.questionCount} questions · {item.sectionCount} sections · {formatDate(item.createdAt)}</p></div><div className="flex gap-1">{item.id === test.currentDraftVersionId && <Badge variant="outline">Current draft</Badge>}{item.id === test.publishedVersionId && <Badge className="bg-primary/10 text-primary hover:bg-primary/10">Published</Badge>}</div></div><p className="mt-2 text-sm text-muted-foreground">{item.changeReason}</p></div>)}</CardContent></Card></TabsContent>
+
+            <TabsContent value="publications"><Card><CardContent className="p-0">{detail.publications.length === 0 ? <p className="p-6 text-sm text-muted-foreground">No publication snapshots yet.</p> : <div className="divide-y">{detail.publications.map((publication) => <div key={publication.id} className="p-4"><p className="font-medium">Publication {publication.publicationNumber}</p><p className="mt-1 text-sm text-muted-foreground">Version {detail.versions.find((item) => item.id === publication.testVersionId)?.versionNumber ?? '—'} · Scheduled {formatDate(publication.scheduledAt)} · Published {formatDate(publication.publishedAt)} · Closes {formatDate(publication.closesAt)}</p></div>)}</div>}</CardContent></Card></TabsContent>
+
+            <TabsContent value="audit"><Card><CardContent className="p-0">{detail.auditEvents.length === 0 ? <p className="p-6 text-sm text-muted-foreground">No audit events recorded.</p> : <div className="divide-y">{detail.auditEvents.map((event) => <div key={event.id} className="p-4"><p className="font-medium">{event.summary}</p><p className="mt-1 text-xs text-muted-foreground">{formatDate(event.occurredAt)} • {event.actionKey}</p>{event.reason && <p className="mt-2 text-sm text-muted-foreground">{event.reason}</p>}</div>)}</div>}</CardContent></Card></TabsContent>
+          </Tabs>
+        </div>
+
+        <div className="space-y-5">
+          <Card><CardHeader><CardTitle className="text-base">Server validation</CardTitle></CardHeader><CardContent>{blockingIssues.length === 0 ? <div className="flex items-center gap-2 text-sm font-medium text-success"><CheckCircle2 className="h-4 w-4" /> Ready for the next lifecycle action.</div> : <div className="space-y-2">{blockingIssues.map((issue, index) => <div key={`${issue.code}-${index}`} className="flex gap-2 rounded-lg border border-warning/30 bg-warning/5 p-3 text-sm"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" /><div><p>{issue.message}</p><p className="mt-1 text-xs text-muted-foreground">{issue.code}</p></div></div>)}</div>}</CardContent></Card>
+
+          <Card><CardHeader><CardTitle className="text-base">Lifecycle actions</CardTitle></CardHeader><CardContent className="space-y-3"><div className="space-y-2"><Label>Action reason</Label><Textarea value={actionReason} onChange={(event) => setActionReason(event.target.value)} rows={3} placeholder="Required for needs-fix, archive and restore" /></div>
+            {canUpdate && ['draft', 'needs_fix', 'content_ready'].includes(test.status) && <Button className="w-full justify-start" onClick={() => void runAction('submit-qa', 'Submitted for QA')} disabled={saving || detail.validationIssues.length > 0}><Send className="mr-1.5 h-4 w-4" /> Submit for QA</Button>}
+            {canApprove && test.status === 'under_qa' && <Button className="w-full justify-start" onClick={() => void runAction('approve', 'QA approved')} disabled={saving || detail.validationIssues.length > 0}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve test</Button>}
+            {canApprove && ['under_qa', 'qa_approved', 'scheduled'].includes(test.status) && <Button variant="outline" className="w-full justify-start" onClick={() => void runAction('needs-fix', 'Sent back for fixes')} disabled={saving}><XCircle className="mr-1.5 h-4 w-4" /> Mark needs fix</Button>}
+            {canPublish && ['qa_approved', 'scheduled'].includes(test.status) && <div className="space-y-3 rounded-lg border p-3"><div className="space-y-2"><Label>Schedule time</Label><Input type="datetime-local" value={scheduledAt} onChange={(event) => setScheduledAt(event.target.value)} /></div><div className="space-y-2"><Label>Optional closing time</Label><Input type="datetime-local" value={closesAt} onChange={(event) => setClosesAt(event.target.value)} /></div><div className="grid gap-2"><Button variant="outline" onClick={() => void runAction('schedule', 'Test scheduled')} disabled={saving || !scheduledAt || detail.validationIssues.length > 0}><CalendarClock className="mr-1.5 h-4 w-4" /> Schedule</Button><Button onClick={() => void runAction('publish', 'Test published')} disabled={saving || detail.validationIssues.length > 0}><Rocket className="mr-1.5 h-4 w-4" /> Publish now</Button></div></div>}
+            {canUpdate && test.status !== 'archived' && <Button variant="destructive" className="w-full justify-start" onClick={() => void runAction('archive', 'Test archived')} disabled={saving}><Archive className="mr-1.5 h-4 w-4" /> Archive</Button>}
+            {canUpdate && ['archived', 'needs_fix'].includes(test.status) && <Button variant="outline" className="w-full justify-start" onClick={() => void runAction('restore-draft', 'Restored as draft')} disabled={saving}><Undo2 className="mr-1.5 h-4 w-4" /> Restore as draft</Button>}
+          </CardContent></Card>
+
+          <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><Clock3 className="h-4 w-4" /> Current publication</CardTitle></CardHeader><CardContent className="space-y-2 text-sm"><Meta label="Published version" value={test.publishedVersionId ? `v${detail.versions.find((item) => item.id === test.publishedVersionId)?.versionNumber ?? '—'}` : 'Not published'} /><Meta label="Scheduled" value={formatDate(latestPublication?.scheduledAt)} /><Meta label="Published" value={formatDate(latestPublication?.publishedAt)} /><Meta label="Closes" value={formatDate(latestPublication?.closesAt)} /></CardContent></Card>
+
+          <Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><History className="h-4 w-4" /> Record details</CardTitle></CardHeader><CardContent className="space-y-2 text-sm"><Meta label="Exam" value={test.examName} /><Meta label="Current draft" value={`v${version.versionNumber}`} /><Meta label="Last updated" value={formatDate(test.updatedAt)} /></CardContent></Card>
+        </div>
       </div>
-
-      <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total Questions" value={test.totalQuestions} icon={ListChecks} tone="primary" />
-        <StatCard label="Duration" value={`${test.durationMin} min`} icon={Clock} tone="info" />
-        <StatCard label="Attempts" value={test.attempts.toLocaleString()} icon={Users} tone="success" />
-        <StatCard label="Status" value={test.status} icon={Activity} tone="warning" />
-      </div>
-
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="versions">Versions <span className="ml-1 text-xs text-muted-foreground">({testVersions.length})</span></TabsTrigger>
-          <TabsTrigger value="performance">Performance</TabsTrigger>
-          <TabsTrigger value="audit">Audit History</TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="mt-4">
-          <div className="grid gap-6 lg:grid-cols-3">
-            <Card className="lg:col-span-1">
-              <CardHeader>
-                <CardTitle className="text-base">Test Metadata</CardTitle>
-              </CardHeader>
-              <CardContent className="grid grid-cols-1 gap-3">
-                <DetailRow icon={BookOpen} label="Exam" value={test.examName} />
-                <DetailRow icon={Type} label="Type" value={test.type} />
-                <DetailRow icon={Layers} label="Series" value={test.series} />
-                <DetailRow icon={Activity} label="Access" value={test.access} />
-                <DetailRow icon={Globe} label="Language" value={test.language} />
-                <DetailRow icon={Target} label="Difficulty" value={test.difficulty} badge={<StatusBadge tone={difficultyTone(test.difficulty)} dot className="text-[10px]">{test.difficulty}</StatusBadge>} />
-                <DetailRow icon={CalendarDays} label="Scheduled" value={test.scheduledDate ?? 'Not scheduled'} />
-                <DetailRow icon={User} label="Author" value={test.author} />
-              </CardContent>
-            </Card>
-
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="text-base">Section Breakdown</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {mockSections.map((s) => (
-                  <div key={s.name} className="flex items-center justify-between rounded-lg border bg-card p-3">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{s.name}</p>
-                      <p className="text-xs text-muted-foreground">{s.questions} questions - {s.marks} marks</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <StatusBadge tone="info" className="text-[10px]">{s.questions} Q</StatusBadge>
-                      <StatusBadge tone="primary" className="text-[10px]">{s.marks} M</StatusBadge>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="versions" className="mt-4">
-          <div className="space-y-4">
-            {/* Current state summary */}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <Card className="border-primary/30">
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-primary">
-                    <GitBranch className="h-4 w-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Current Draft</span>
-                  </div>
-                  <p className="mt-2 font-display text-lg font-bold">{test.status}</p>
-                  <p className="text-xs text-muted-foreground">{test.id} - working copy</p>
-                </CardContent>
-              </Card>
-              <Card className={liveVersion ? 'border-success/30' : ''}>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-success">
-                    <Snowflake className="h-4 w-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Current Live Version</span>
-                  </div>
-                  {liveVersion ? (
-                    <>
-                      <p className="mt-2 font-display text-lg font-bold">v{liveVersion.versionNumber}</p>
-                      <p className="text-xs text-muted-foreground">Published {liveVersion.publishedAt.slice(0, 10)} by {liveVersion.publishedBy}</p>
-                    </>
-                  ) : (
-                    <p className="mt-2 text-sm text-muted-foreground">Not yet published</p>
-                  )}
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-4">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <History className="h-4 w-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Previous Versions</span>
-                  </div>
-                  <p className="mt-2 font-display text-lg font-bold">{testVersions.length}</p>
-                  <p className="text-xs text-muted-foreground">total frozen snapshots</p>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Frozen version list */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Snowflake className="h-4 w-4" /> Version History
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {testVersions.length === 0 ? (
-                  <div className="py-8 text-center">
-                    <Snowflake className="mx-auto h-8 w-8 text-muted-foreground/40" />
-                    <p className="mt-3 text-sm text-muted-foreground">No published versions yet. Publishing creates a frozen, immutable snapshot.</p>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {testVersions.map((v) => (
-                      <VersionRow
-                        key={v.id}
-                        version={v}
-                        expanded={showVersionDetail === v.id}
-                        onToggle={() => setShowVersionDetail(showVersionDetail === v.id ? null : v.id)}
-                      />
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Changes since publication */}
-            {liveVersion && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <GitBranch className="h-4 w-4" /> Changes Since Publication
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center justify-between rounded-lg border p-3">
-                      <span className="text-muted-foreground">Status</span>
-                      <span className="flex items-center gap-2">
-                        <StatusBadge tone="success" dot>{liveVersion.snapshot.status}</StatusBadge>
-                        <span className="text-muted-foreground">→</span>
-                        <StatusBadge tone="warning" dot>{test.status}</StatusBadge>
-                      </span>
-                    </div>
-                    {test.scheduledDate !== liveVersion.snapshot.scheduledDate && (
-                      <div className="flex items-center justify-between rounded-lg border p-3">
-                        <span className="text-muted-foreground">Scheduled Date</span>
-                        <span className="text-sm">{liveVersion.snapshot.scheduledDate ?? 'None'} → {test.scheduledDate ?? 'None'}</span>
-                      </div>
-                    )}
-                    <div className="rounded-lg border border-info/20 bg-info/5 p-3">
-                      <p className="flex items-center gap-1.5 text-xs text-info">
-                        <Lock className="h-3 w-3" /> Published version v{liveVersion.versionNumber} is frozen and cannot be modified. Editing creates a new draft.
-                      </p>
-                    </div>
-                    {test.status !== 'Live' && (
-                      <Button variant="outline" size="sm" onClick={handleEditAfterPublish}>
-                        <PencilLine className="mr-1.5 h-4 w-4" /> Create New Draft from Published
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </TabsContent>
-
-        <TabsContent value="performance" className="mt-4">
-          <div className="grid gap-6 lg:grid-cols-3">
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="text-base">Attempts per Section</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={280}>
-                  <BarChart data={sectionData} margin={{ left: -16, right: 8, top: 8 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="section" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                    <Tooltip contentStyle={{ background: 'hsl(var(--popover))', border: '1px solid hsl(var(--border))', borderRadius: 8, fontSize: 12, color: 'hsl(var(--popover-foreground))' }} cursor={{ fill: 'hsl(var(--muted))' }} />
-                    <Bar dataKey="attempts" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} name="Attempts" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Score Distribution</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={280}>
-                  <BarChart data={scoreDistribution} margin={{ left: -16, right: 8, top: 8 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                    <XAxis dataKey="range" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                    <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                    <Tooltip contentStyle={{ background: 'hsl(var(--popover))', border: '1px solid hsl(var(--border))', borderRadius: 8, fontSize: 12, color: 'hsl(var(--popover-foreground))' }} cursor={{ fill: 'hsl(var(--muted))' }} />
-                    <Bar dataKey="count" fill="hsl(var(--chart-3))" radius={[4, 4, 0, 0]} name="Students" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-
-            <Card className="lg:col-span-3">
-              <CardContent className="grid gap-4 sm:grid-cols-3">
-                <div className="rounded-lg border bg-card p-4">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Award className="h-4 w-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Avg Score</span>
-                  </div>
-                  <p className="mt-2 font-display text-3xl font-bold text-foreground">{avgScore}%</p>
-                  <Progress value={avgScore} className="mt-3" />
-                </div>
-                <div className="rounded-lg border bg-card p-4">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <TrendingUp className="h-4 w-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Completion Rate</span>
-                  </div>
-                  <p className="mt-2 font-display text-3xl font-bold text-foreground">{completionRate}%</p>
-                  <Progress value={completionRate} className="mt-3" />
-                </div>
-                <div className="rounded-lg border bg-card p-4">
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Gauge className="h-4 w-4" />
-                    <span className="text-xs font-medium uppercase tracking-wider">Median Time</span>
-                  </div>
-                  <p className="mt-2 font-display text-3xl font-bold text-foreground">{medianTime} min</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="audit" className="mt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base"><History className="h-4 w-4" /> Audit History</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {entityAudit.length === 0 ? (
-                <p className="py-4 text-center text-sm text-muted-foreground">No audit entries recorded.</p>
-              ) : (
-                <AuditTimeline entries={entityAudit} />
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }
 
-function DetailRow({ icon: Icon, label, value, badge }: { icon: React.ComponentType<{ className?: string }>; label: string; value: string; badge?: React.ReactNode }) {
-  return (
-    <div className="flex items-center justify-between rounded-lg border bg-card p-3">
-      <div className="flex items-center gap-2.5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-muted text-muted-foreground">
-          <Icon className="h-4 w-4" />
-        </div>
-        <span className="text-sm text-muted-foreground">{label}</span>
-      </div>
-      {badge ?? <span className="text-sm font-medium text-foreground">{value}</span>}
-    </div>
-  );
-}
-
-function VersionRow({ version, expanded, onToggle }: { version: TestVersion; expanded: boolean; onToggle: () => void }) {
-  return (
-    <div className={`rounded-lg border ${version.isLive ? 'border-success/30 bg-success/5' : 'border-border'}`}>
-      <button onClick={onToggle} className="flex w-full items-center justify-between p-3 text-left">
-        <div className="flex items-center gap-3">
-          <Snowflake className={`h-4 w-4 ${version.isLive ? 'text-success' : 'text-muted-foreground'}`} />
-          <div>
-            <p className="text-sm font-medium">v{version.versionNumber} {version.isLive && <StatusBadge tone="success" dot className="ml-1 text-[10px]">Live</StatusBadge>}</p>
-            <p className="text-xs text-muted-foreground">{version.publishedAt.slice(0, 16).replace('T', ' ')} by {version.publishedBy}</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <span>{version.snapshot.totalQuestions} Q</span>
-          <span>{version.snapshot.durationMin} min</span>
-        </div>
-      </button>
-      {expanded && (
-        <div className="border-t p-3 text-sm">
-          <p className="text-xs text-muted-foreground">{version.reason}</p>
-          <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <div className="rounded border p-2"><p className="text-[10px] uppercase text-muted-foreground">Status</p><p className="text-xs font-medium">{version.snapshot.status}</p></div>
-            <div className="rounded border p-2"><p className="text-[10px] uppercase text-muted-foreground">Marks/Q</p><p className="text-xs font-medium">{version.frozenMarkingRules.marksPerQuestion}</p></div>
-            <div className="rounded border p-2"><p className="text-[10px] uppercase text-muted-foreground">Neg. Marks</p><p className="text-xs font-medium">{version.frozenMarkingRules.negativeMarks}</p></div>
-            <div className="rounded border p-2"><p className="text-[10px] uppercase text-muted-foreground">Frozen Qs</p><p className="text-xs font-medium">{version.frozenQuestionIds.length}</p></div>
-          </div>
-          <p className="mt-2 flex items-center gap-1 text-[10px] text-muted-foreground">
-            <Lock className="h-3 w-3" /> This version is immutable. Sections, questions, marking rules, and instructions are frozen.
-          </p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function AuditTimeline({ entries }: { entries: AuditEntry[] }) {
-  return (
-    <ol className="space-y-4 border-l pl-6">
-      {entries.map((e) => (
-        <li key={e.id} className="relative">
-          <span className="absolute -left-[27px] top-1 h-3 w-3 rounded-full bg-primary ring-4 ring-background" />
-          <p className="text-sm font-medium text-foreground">{e.action}</p>
-          <p className="text-xs text-muted-foreground">{e.admin} - {e.timestamp}</p>
-          {e.reason && <p className="mt-0.5 text-xs text-muted-foreground">{e.reason}</p>}
-        </li>
-      ))}
-    </ol>
-  );
+function Meta({ label, value }: { label: string; value: string }) {
+  return <div className="flex items-center justify-between gap-3 rounded-md border px-3 py-2"><span className="text-muted-foreground">{label}</span><span className="text-right font-medium">{value}</span></div>;
 }
