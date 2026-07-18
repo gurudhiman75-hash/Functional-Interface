@@ -14,6 +14,7 @@ That canonical repository contains the standalone admin frontend and the verifie
 
 - `artifacts/examtree` remains the student-facing application.
 - `artifacts/admin-app` owns all `/admin/**` routes.
+- The former embedded student-app admin pages and their local snapshot repository have been deleted.
 - Firebase Hosting serves one domain and rewrites `/admin/**` to the dedicated admin bundle.
 - The combined hosting build copies `artifacts/admin-app/dist/public` into `artifacts/examtree/dist/public/admin`.
 
@@ -40,6 +41,8 @@ The database contains the namespaced schemas used by the complete platform:
 - `learning`
 
 Student test delivery, result persistence, admin RBAC, Question Studio, Question Bank, and test publishing all use this same canonical connection. A second production database connection is forbidden by CI.
+
+The legacy `/api/admin-data` full-snapshot endpoint has been deleted. No browser route may replace complete question, test, category, or subcategory tables from a client-provided snapshot.
 
 Never expose the connection string to Vite or browser code.
 
@@ -80,6 +83,8 @@ The frontend deployment uses the existing public Firebase client settings. `VITE
 The integration workflow verifies:
 
 - one canonical database configuration and no second database environment variable;
+- absence of the legacy `/admin-data` route and embedded student admin pages;
+- absence of destructive full-table snapshot replacement in active API routes;
 - locked workspace installation;
 - production API bundle containing authenticated Question Studio, Question Bank, test publishing, and result routes;
 - canonical admin identity and RBAC tests;
