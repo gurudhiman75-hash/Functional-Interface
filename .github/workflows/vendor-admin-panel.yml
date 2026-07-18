@@ -46,13 +46,22 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Enforce canonical database freeze
+        run: |
+          if grep -R --exclude-dir=.git --exclude='vendor-admin-panel.yml' 'ADMIN_DATABASE_URL' artifacts docs render.yaml; then
+            echo 'Second database configuration is forbidden.'
+            exit 1
+          fi
+          test "$(grep -R --include='*.ts' --include='*.mjs' -h 'postgres(connectionString)' artifacts/api-server | wc -l)" -eq 1
+          ! grep -R --include='*.ts' --include='*.mjs' -E 'postgres\((process\.env\.|[A-Z_]*DATABASE_URL)' artifacts/api-server/src
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
       - name: Verify admin production routes are bundled
         run: |
           grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
-          grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist >/dev/null
+          grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
@@ -60,7 +69,6 @@ jobs:
       - name: Test admin identity RBAC and content rules
         env:
           DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
-          ADMIN_DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-rbac.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-rbac.test.mjs
           node artifacts/api-server/dist/admin-rbac.test.mjs
