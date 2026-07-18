@@ -312,3 +312,10 @@ export const clearStudentLocalData = () => {
 export async function hydrateAdminDataFromCloud(): Promise<boolean> {
   return false;
 }
+
+/**
+ * Compatibility selectors for an obsolete 404 fallback in data.ts. They never
+ * read localStorage, so canonical backend tests remain the only runtime source.
+ */
+export const getAdminTests = (): any[] => [];
+export const getAdminQuestions = (): any[] => [];
