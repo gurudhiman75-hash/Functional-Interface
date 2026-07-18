@@ -1,9 +1,15 @@
 import { API_BASE_URL } from "@/lib/api";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+import { useQuery } from "@tanstack/react-query";
+import { getPublishedTests } from "@/lib/published-tests";
+import { Button } from "@/components/ui/button";
+import { useLocation } from "wouter";
 import { ExamNavigator } from "@/components/ExamNavigator";
 
 export default function Tests() {
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
+  const [, setLocation] = useLocation();
+  const publishedTestsQuery = useQuery({ queryKey: ["published-tests"], queryFn: getPublishedTests, staleTime: 30_000 });
 
   if (error) {
     return (
@@ -30,5 +36,25 @@ export default function Tests() {
     );
   }
 
-  return <ExamNavigator categories={categories} subcategories={subcategories} tests={tests} />;
+  return (
+    <div className="space-y-8">
+      {publishedTestsQuery.data?.tests.length ? (
+        <section className="mx-auto max-w-7xl rounded-2xl border border-primary/20 bg-primary/5 p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">New platform</p>
+          <h2 className="mt-1 text-2xl font-semibold">Live mock tests</h2>
+          <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {publishedTestsQuery.data.tests.map((test) => (
+              <article key={test.id} className="rounded-xl border bg-card p-4">
+                <p className="text-xs font-medium text-muted-foreground">{test.examName}</p>
+                <h3 className="mt-1 font-semibold">{test.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{test.questionCount} questions · {Math.max(1, Math.ceil(test.durationSeconds / 60))} minutes</p>
+                <Button className="mt-4" size="sm" onClick={() => setLocation(`/published-tests/${test.id}`)}>View mock</Button>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+      <ExamNavigator categories={categories} subcategories={subcategories} tests={tests} />
+    </div>
+  );
 }
