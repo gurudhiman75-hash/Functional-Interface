@@ -59,7 +59,7 @@ jobs:
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
-          ! grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist
+          ! grep -R "ADMIN""_DATABASE_URL" artifacts/api-server/dist
           ! grep -R "studentSqlClient\|adminSqlClient" artifacts/api-server/dist
 
       - name: Test admin identity RBAC and content rules
