@@ -6,6 +6,16 @@ import { authenticate } from "../middlewares/auth";
 const router: IRouter = Router();
 let schemaReady: Promise<void> | null = null;
 
+const recentResults = new Map<string, { userId: string; result: Record<string, unknown> }>();
+const MAX_RECENT_RESULTS = 500;
+
+function rememberResult(attemptId: string, userId: string, result: Record<string, unknown>): void {
+  recentResults.set(attemptId, { userId, result });
+  if (recentResults.size <= MAX_RECENT_RESULTS) return;
+  const oldestKey = recentResults.keys().next().value;
+  if (oldestKey) recentResults.delete(oldestKey);
+}
+
 function ensureSchema(): Promise<void> {
   if (!schemaReady) {
     schemaReady = (async () => {
@@ -30,9 +40,10 @@ function ensureSchema(): Promise<void> {
   return schemaReady;
 }
 
-// Capture the canonical scorer response before it is sent to the student. The
-// scorer remains responsible for correctness; this middleware only persists
-// its immutable result so the existing result page can fetch it by attempt ID.
+// Capture the canonical scorer response before it is sent to the student.
+// Keep an immediate in-process copy so the result page can load even when the
+// database schema/write is temporarily unavailable. Database persistence still
+// runs in the background for refreshes and cross-device access.
 router.post("/attempts", authenticate, (req, res, next) => {
   const testId = typeof req.body?.testId === "string" ? req.body.testId.trim() : "";
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(testId)) {
@@ -50,6 +61,9 @@ router.post("/attempts", authenticate, (req, res, next) => {
       return originalJson(body);
     }
 
+    rememberResult(attemptId, userId, result);
+    const response = originalJson(body);
+
     void (async () => {
       try {
         await ensureSchema();
@@ -60,12 +74,10 @@ router.post("/attempts", authenticate, (req, res, next) => {
         `;
       } catch (error) {
         console.error("Unable to persist canonical attempt result", error);
-      } finally {
-        originalJson(body);
       }
     })();
 
-    return res;
+    return response;
   }) as typeof res.json;
 
   return next();
@@ -75,6 +87,11 @@ router.get("/attempts/:id", authenticate, async (req, res, next) => {
   const attemptId = String(req.params.id ?? "").trim();
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(attemptId)) {
     return next();
+  }
+
+  const cached = recentResults.get(attemptId);
+  if (cached && cached.userId === (req.user?.id ?? "")) {
+    return res.json(cached.result);
   }
 
   try {
@@ -90,7 +107,7 @@ router.get("/attempts/:id", authenticate, async (req, res, next) => {
     return res.json(rows[0].result);
   } catch (error) {
     console.error("Unable to load canonical attempt result", error);
-    return res.status(500).json({ error: "Unable to load attempt result" });
+    return next();
   }
 });
 
