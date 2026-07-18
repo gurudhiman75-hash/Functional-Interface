@@ -15,6 +15,7 @@ import adminQuestionsRouter from "./admin-questions";
 import adminTestsRouter from "./admin-tests";
 import publishedTestsRouter from "./published-tests";
 import publishedTestRunnerRouter from "./published-test-runner";
+import canonicalAttemptResultsRouter from "./canonical-attempt-results";
 import billingRouter from "./billing";
 import analyticsRouter from "./analytics";
 import packagesRouter from "./packages";
@@ -35,6 +36,8 @@ const router: IRouter = Router();
 router.use(healthRouter);
 router.use("/users", usersRouter);
 router.use("/billing", billingRouter);
+// Capture and retrieve canonical attempt results around the published scorer.
+router.use(canonicalAttemptResultsRouter);
 // Canonical published tests must be checked before the legacy test/attempt
 // routers so the mature student runner can use either data source.
 router.use(publishedTestRunnerRouter);
