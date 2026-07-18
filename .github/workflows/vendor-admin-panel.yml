@@ -62,7 +62,7 @@ jobs:
           test ! -e artifacts/examtree/src/pages/admin-generator.tsx
           test ! -e artifacts/examtree/src/lib/admin-repo.ts
           ! grep -R --include='*.ts' --include='*.tsx' '/admin-data' artifacts/api-server/src/routes/index.ts artifacts/admin-app/src artifacts/examtree/src
-          ! grep -E 'DELETE FROM ["'"']?(questions|tests|categories|subcategories)["'"']?' artifacts/api-server/src/routes/index.ts
+          ! grep -F 'DELETE FROM' artifacts/api-server/src/routes/index.ts
 
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
