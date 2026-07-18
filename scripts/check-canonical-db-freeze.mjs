@@ -34,6 +34,16 @@ for (const file of [
   reject(content, /ADMIN_DATABASE_URL/, "only DATABASE_URL may configure PostgreSQL", file);
 }
 
+const buildFile = "artifacts/api-server/build.mjs";
+const buildSource = await read(buildFile);
+if (!buildSource.includes('src/index.ts')) failures.push(`${buildFile}: canonical API entrypoint is missing`);
+reject(
+  buildSource,
+  /migrate\.ts|db-init\.ts|db-reset\.ts|db-seed\.ts|normalize-questions\.ts|check-schema-drift\.ts/,
+  "production build must not compile retired database maintenance scripts",
+  buildFile,
+);
+
 const routeIndexFile = "artifacts/api-server/src/routes/index.ts";
 const routeIndex = await read(routeIndexFile);
 for (const forbiddenImport of [
