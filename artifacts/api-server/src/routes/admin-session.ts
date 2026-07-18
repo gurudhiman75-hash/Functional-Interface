@@ -10,8 +10,8 @@ import { authenticate } from "../middlewares/auth";
 
 export type AdminSessionRouteDependencies = {
   authenticate: RequestHandler;
-  isAdminDatabaseConfigured: () => boolean;
-  isLegacyAdmin: (firebaseUid: string) => Promise<boolean>;
+  isDatabaseConfigured: () => boolean;
+  isAdministrator: (firebaseUid: string) => Promise<boolean>;
   bootstrap: (input: {
     firebaseUid: string;
     email?: string;
@@ -19,8 +19,7 @@ export type AdminSessionRouteDependencies = {
   }) => Promise<AdminBootstrapResult>;
 };
 
-/** Compatibility name retained for route tests; access is now canonical RBAC. */
-export async function isLegacyAdministrator(firebaseUid: string): Promise<boolean> {
+export async function isCanonicalAdministrator(firebaseUid: string): Promise<boolean> {
   const rows = await sqlClient`
     SELECT 1
     FROM identity.auth_identities ai
@@ -39,16 +38,15 @@ export async function isLegacyAdministrator(firebaseUid: string): Promise<boolea
   return rows.length > 0;
 }
 
-export function isProductionAdminDatabaseConfigured(): boolean {
-  return process.env.NODE_ENV !== "production"
-    || Boolean(process.env.ADMIN_DATABASE_URL?.trim() || process.env.DATABASE_URL?.trim());
+export function isProductionDatabaseConfigured(): boolean {
+  return process.env.NODE_ENV !== "production" || Boolean(process.env.DATABASE_URL?.trim());
 }
 
 export function createAdminSessionRouter(
   dependencies: AdminSessionRouteDependencies = {
     authenticate,
-    isAdminDatabaseConfigured: isProductionAdminDatabaseConfigured,
-    isLegacyAdmin: isLegacyAdministrator,
+    isDatabaseConfigured: isProductionDatabaseConfigured,
+    isAdministrator: isCanonicalAdministrator,
     bootstrap: bootstrapAdminIdentity,
   },
 ) {
@@ -61,7 +59,7 @@ export function createAdminSessionRouter(
         return;
       }
 
-      if (!dependencies.isAdminDatabaseConfigured()) {
+      if (!dependencies.isDatabaseConfigured()) {
         res.status(503).json({
           error: "The API service is missing DATABASE_URL for the canonical ExamTree database",
           code: "DATABASE_URL_REQUIRED",
@@ -69,7 +67,7 @@ export function createAdminSessionRouter(
         return;
       }
 
-      if (!(await dependencies.isLegacyAdmin(req.user.id))) {
+      if (!(await dependencies.isAdministrator(req.user.id))) {
         res.status(403).json({ error: "Administrator access required" });
         return;
       }
