@@ -35,7 +35,7 @@ const authenticated: RequestHandler = (req, _res, next) => {
 };
 
 const unauthenticated: RequestHandler = (_req, _res, next) => next();
-const adminDatabaseConfigured = () => true;
+const databaseConfigured = () => true;
 
 async function requestBootstrap(router: ReturnType<typeof createAdminSessionRouter>) {
   const app = express();
@@ -56,59 +56,60 @@ async function requestBootstrap(router: ReturnType<typeof createAdminSessionRout
   }
 }
 
+function dependencies(overrides: Partial<Parameters<typeof createAdminSessionRouter>[0]> = {}) {
+  return {
+    authenticate: authenticated,
+    isDatabaseConfigured: databaseConfigured,
+    hasAdministratorAccess: async () => true,
+    bootstrap: async (): Promise<AdminBootstrapResult> => ({
+      session,
+      firstAdministrator: true,
+      pendingRoleAssignment: false,
+    }),
+    ...overrides,
+  };
+}
+
 test('bootstrap rejects an unauthenticated request', async () => {
-  const result = await requestBootstrap(createAdminSessionRouter({
-    authenticate: unauthenticated,
-    isAdminDatabaseConfigured: adminDatabaseConfigured,
-    isLegacyAdmin: async () => true,
-    bootstrap: async () => ({ session, firstAdministrator: true, pendingRoleAssignment: false }),
-  }));
+  const result = await requestBootstrap(createAdminSessionRouter(dependencies({ authenticate: unauthenticated })));
   assert.equal(result.status, 401);
 });
 
 test('bootstrap reports a missing canonical database before querying RBAC', async () => {
-  let adminCheckCalled = false;
+  let accessCheckCalled = false;
   let bootstrapCalled = false;
-  const result = await requestBootstrap(createAdminSessionRouter({
-    authenticate: authenticated,
-    isAdminDatabaseConfigured: () => false,
-    isLegacyAdmin: async () => {
-      adminCheckCalled = true;
+  const result = await requestBootstrap(createAdminSessionRouter(dependencies({
+    isDatabaseConfigured: () => false,
+    hasAdministratorAccess: async () => {
+      accessCheckCalled = true;
       return true;
     },
     bootstrap: async () => {
       bootstrapCalled = true;
       return { session, firstAdministrator: true, pendingRoleAssignment: false };
     },
-  }));
+  })));
   assert.equal(result.status, 503);
   assert.equal(result.body.code, 'DATABASE_URL_REQUIRED');
-  assert.equal(adminCheckCalled, false);
+  assert.equal(accessCheckCalled, false);
   assert.equal(bootstrapCalled, false);
 });
 
 test('bootstrap rejects an authenticated non-admin without writing identity data', async () => {
   let bootstrapCalled = false;
-  const result = await requestBootstrap(createAdminSessionRouter({
-    authenticate: authenticated,
-    isAdminDatabaseConfigured: adminDatabaseConfigured,
-    isLegacyAdmin: async () => false,
+  const result = await requestBootstrap(createAdminSessionRouter(dependencies({
+    hasAdministratorAccess: async () => false,
     bootstrap: async () => {
       bootstrapCalled = true;
       return { session, firstAdministrator: false, pendingRoleAssignment: false };
     },
-  }));
+  })));
   assert.equal(result.status, 403);
   assert.equal(bootstrapCalled, false);
 });
 
-test('first bootstrap returns the server-resolved super-admin session', async () => {
-  const result = await requestBootstrap(createAdminSessionRouter({
-    authenticate: authenticated,
-    isAdminDatabaseConfigured: adminDatabaseConfigured,
-    isLegacyAdmin: async () => true,
-    bootstrap: async () => ({ session, firstAdministrator: true, pendingRoleAssignment: false }),
-  }));
+test('bootstrap returns the canonical super-admin session', async () => {
+  const result = await requestBootstrap(createAdminSessionRouter(dependencies()));
   assert.equal(result.status, 200);
   assert.equal(result.body.firstAdministrator, true);
   assert.deepEqual(result.body.roles, ['super_admin']);
@@ -120,14 +121,9 @@ test('repeated bootstrap is idempotent at the route boundary', async () => {
     calls += 1;
     return { session, firstAdministrator: calls === 1, pendingRoleAssignment: false };
   };
-  const dependencies = {
-    authenticate: authenticated,
-    isAdminDatabaseConfigured: adminDatabaseConfigured,
-    isLegacyAdmin: async () => true,
-    bootstrap,
-  };
-  const first = await requestBootstrap(createAdminSessionRouter(dependencies));
-  const repeated = await requestBootstrap(createAdminSessionRouter(dependencies));
+  const deps = dependencies({ bootstrap });
+  const first = await requestBootstrap(createAdminSessionRouter(deps));
+  const repeated = await requestBootstrap(createAdminSessionRouter(deps));
   assert.equal(first.status, 200);
   assert.equal(first.body.firstAdministrator, true);
   assert.equal(repeated.status, 200);
@@ -137,16 +133,13 @@ test('repeated bootstrap is idempotent at the route boundary', async () => {
 
 test('subsequent administrators receive an explicit pending-role state', async () => {
   const pendingSession = { ...session, roles: [], permissions: [] };
-  const result = await requestBootstrap(createAdminSessionRouter({
-    authenticate: authenticated,
-    isAdminDatabaseConfigured: adminDatabaseConfigured,
-    isLegacyAdmin: async () => true,
+  const result = await requestBootstrap(createAdminSessionRouter(dependencies({
     bootstrap: async () => ({
       session: pendingSession,
       firstAdministrator: false,
       pendingRoleAssignment: true,
     }),
-  }));
+  })));
   assert.equal(result.status, 200);
   assert.equal(result.body.pendingRoleAssignment, true);
   assert.deepEqual(result.body.permissions, []);
