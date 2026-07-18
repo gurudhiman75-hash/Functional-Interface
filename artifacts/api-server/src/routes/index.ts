@@ -4,7 +4,6 @@ import healthRouter from "./health";
 import usersRouter from "./users";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
-import adminDataRouter from "./admin-data";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
 import adminTestsRouter from "./admin-tests";
@@ -31,13 +30,12 @@ router.use("/published-tests", publishedTestsRouter);
 
 // Canonical administration and Question Studio.
 router.use("/admin/session", adminSessionRouter);
-router.use("/admin-data", adminDataRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 router.use("/admin/tests", adminTestsRouter);
 
-// Compatibility responses for intentionally discarded legacy features. No
-// route below this point reads or writes the former public-schema database.
+// Minimal compatibility responses for intentionally retired features. This
+// router contains no database access and can be removed with the old UI calls.
 router.use(retiredLegacyRouter);
 
 export default router;
