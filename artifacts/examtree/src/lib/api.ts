@@ -50,6 +50,18 @@ function saveAttemptHandoff(value: unknown): void {
   }
 }
 
+function compactAttemptForLocalStorage<T>(value: T): T {
+  if (!isRecord(value)) return value;
+  // The complete question review is already stored in sessionStorage above and
+  // remains available to the result page through GET /attempts/:id. Omitting it
+  // here prevents addAttempt() from overflowing localStorage and incorrectly
+  // turning a successful server submission into the offline fallback path.
+  return {
+    ...value,
+    questionReview: undefined,
+  } as T;
+}
+
 export function getApiErrorCode(body: unknown): string | undefined {
   if (!isRecord(body)) return undefined;
   const code = body["code"];
@@ -117,6 +129,7 @@ export async function apiRequest<T>(
   const body = (await response.json()) as T;
   if (method === "POST" && endpoint === "/attempts") {
     saveAttemptHandoff(body);
+    return compactAttemptForLocalStorage(body);
   }
   return body;
 }
