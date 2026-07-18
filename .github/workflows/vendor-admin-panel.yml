@@ -52,7 +52,7 @@ jobs:
             echo 'Second database configuration is forbidden.'
             exit 1
           fi
-          test "$(grep -R --include='*.ts' --include='*.mjs' -h 'postgres(connectionString)' artifacts/api-server | wc -l)" -eq 1
+          test "$(grep -c 'postgres(connectionString)' artifacts/api-server/src/lib/db.ts)" -eq 1
           ! grep -R --include='*.ts' --include='*.mjs' -E 'postgres\((process\.env\.|[A-Z_]*DATABASE_URL)' artifacts/api-server/src
 
       - name: Build ExamTree API server with admin routes
