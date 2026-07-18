@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import "dotenv/config";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "@workspace/db";
@@ -9,13 +9,12 @@ if (!connectionString) {
   throw new Error("DATABASE_URL environment variable is required");
 }
 
+/** The single canonical ExamTree PostgreSQL client. */
 export const sqlClient = postgres(connectionString);
-export const adminSqlClient = sqlClient;
 
 /**
- * Deprecated aliases retained temporarily for unregistered source modules.
- * They are aliases of the same canonical connection, never a second database.
+ * Shared Drizzle facade retained for active routes that have not yet been
+ * converted to schema-qualified canonical SQL. It uses the same sqlClient and
+ * does not create a second connection.
  */
-export const studentSqlClient = sqlClient;
 export const db = drizzle(sqlClient, { schema });
-export const isDedicatedAdminDatabaseConfigured = false;
