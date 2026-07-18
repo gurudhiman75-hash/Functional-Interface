@@ -4,6 +4,7 @@ export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "/api";
 
 const ATTEMPT_HANDOFF_PREFIX = "examtree.attempt.handoff.";
+const ATTEMPT_STORAGE_PROBE = "examtree.attempt.storage-probe";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -60,6 +61,45 @@ function compactAttemptForLocalStorage<T>(value: T): T {
     ...value,
     questionReview: undefined,
   } as T;
+}
+
+function reserveLocalAttemptStorage(value: unknown): void {
+  if (typeof window === "undefined") return;
+
+  const serialized = JSON.stringify(value);
+  try {
+    window.localStorage.setItem(ATTEMPT_STORAGE_PROBE, serialized);
+    window.localStorage.removeItem(ATTEMPT_STORAGE_PROBE);
+    return;
+  } catch {
+    // Local result history is only a convenience cache. Canonical attempts are
+    // authoritative on the server and the full just-submitted result is already
+    // in sessionStorage, so stale local history may be trimmed safely.
+  }
+
+  try {
+    const rawAttempts = window.localStorage.getItem("attempts");
+    const attempts = rawAttempts ? JSON.parse(rawAttempts) : [];
+    if (Array.isArray(attempts)) {
+      window.localStorage.setItem("attempts", JSON.stringify(attempts.slice(0, 10)));
+    }
+    window.localStorage.setItem(ATTEMPT_STORAGE_PROBE, serialized);
+    window.localStorage.removeItem(ATTEMPT_STORAGE_PROBE);
+    return;
+  } catch {
+    // Continue to the stronger cleanup below.
+  }
+
+  try {
+    window.localStorage.removeItem("attempts");
+    window.localStorage.removeItem("question_responses");
+    window.localStorage.removeItem("attempt_records");
+    window.localStorage.removeItem("active_test_sessions");
+    window.localStorage.removeItem(ATTEMPT_STORAGE_PROBE);
+  } catch {
+    // Storage can be disabled entirely in some browsers. The server/session
+    // result path must still continue, so local cleanup is best-effort only.
+  }
 }
 
 export function getApiErrorCode(body: unknown): string | undefined {
@@ -129,7 +169,9 @@ export async function apiRequest<T>(
   const body = (await response.json()) as T;
   if (method === "POST" && endpoint === "/attempts") {
     saveAttemptHandoff(body);
-    return compactAttemptForLocalStorage(body);
+    const compact = compactAttemptForLocalStorage(body);
+    reserveLocalAttemptStorage(compact);
+    return compact;
   }
   return body;
 }
