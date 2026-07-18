@@ -113,6 +113,30 @@ export interface ConvertedQuestion {
   publicCode: string;
 }
 
+export interface QuestionStudioQualityIssue {
+  code: string;
+  severity: 'blocker' | 'warning';
+  field: string;
+  message: string;
+}
+
+export interface QuestionStudioQualityReport {
+  score: number;
+  readyForApproval: boolean;
+  blockerCount: number;
+  warningCount: number;
+  issues: QuestionStudioQualityIssue[];
+}
+
+export interface ReviseGenerationItemInput {
+  itemId: string;
+  stem: string;
+  explanation: string;
+  options: string[];
+  correctIndex: number;
+  changeReason: string;
+}
+
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
@@ -186,5 +210,25 @@ export function updateGenerationItems(input: {
   }>('/admin/question-studio/items/bulk', {
     method: 'PATCH',
     body: JSON.stringify(input),
+  });
+}
+
+export function reviseGenerationItem(input: ReviseGenerationItemInput) {
+  const { itemId, ...body } = input;
+  return request<{
+    kind: 'updated';
+    item: {
+      id: string;
+      generationRunId: string;
+      itemNumber: number;
+      currentVersionNumber: number;
+      status: 'unreviewed';
+      versionId: string;
+      payload: Record<string, unknown>;
+    };
+    quality: QuestionStudioQualityReport;
+  }>(`/admin/question-studio/items/${encodeURIComponent(itemId)}/revision`, {
+    method: 'PATCH',
+    body: JSON.stringify(body),
   });
 }
