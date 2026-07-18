@@ -3,26 +3,24 @@ import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import * as schema from "@workspace/db";
 
-const connectionString = process.env.DATABASE_URL;
+/**
+ * ExamTree now uses the canonical namespaced Neon database as its only runtime
+ * database. ADMIN_DATABASE_URL remains a temporary deployment compatibility
+ * input while Render is switched to store the same value in DATABASE_URL.
+ */
+const connectionString = process.env.ADMIN_DATABASE_URL ?? process.env.DATABASE_URL;
 if (!connectionString) {
   throw new Error("DATABASE_URL environment variable is required");
 }
 
-/** Existing ExamTree student database connection used by the legacy/public schema. */
-export const studentSqlClient = postgres(connectionString);
-export const db = drizzle(studentSqlClient, { schema });
+export const sqlClient = postgres(connectionString);
+export const adminSqlClient = sqlClient;
 
 /**
- * The existing ExamTree student platform and the new namespaced admin schema
- * currently live in separate Neon projects. Keep that boundary explicit so an
- * admin rollout cannot accidentally switch or migrate the student database.
- *
- * Local development may omit ADMIN_DATABASE_URL only when DATABASE_URL already
- * points to a database containing the content/platform schemas.
+ * Compatibility exports for modules that have not yet been deleted. They point
+ * at the same canonical connection and must not be used to access legacy
+ * public-schema data.
  */
-const adminConnectionString = process.env.ADMIN_DATABASE_URL ?? connectionString;
-export const adminSqlClient = postgres(adminConnectionString);
-
-/** Raw SQL is reserved for schema-qualified admin queries in this integration. */
-export const sqlClient = adminSqlClient;
-export const isDedicatedAdminDatabaseConfigured = Boolean(process.env.ADMIN_DATABASE_URL);
+export const studentSqlClient = sqlClient;
+export const db = drizzle(sqlClient, { schema });
+export const isDedicatedAdminDatabaseConfigured = false;
