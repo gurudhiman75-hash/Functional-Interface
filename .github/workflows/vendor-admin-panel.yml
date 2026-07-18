@@ -55,6 +55,15 @@ jobs:
           test "$(grep -c 'postgres(connectionString)' artifacts/api-server/src/lib/db.ts)" -eq 1
           ! grep -R --include='*.ts' --include='*.mjs' -E 'postgres\((process\.env\.|[A-Z_]*DATABASE_URL)' artifacts/api-server/src
 
+      - name: Enforce canonical admin surface
+        run: |
+          test ! -e artifacts/api-server/src/routes/admin-data.ts
+          test ! -e artifacts/examtree/src/pages/admin.tsx
+          test ! -e artifacts/examtree/src/pages/admin-generator.tsx
+          test ! -e artifacts/examtree/src/lib/admin-repo.ts
+          ! grep -R --include='*.ts' --include='*.tsx' '/admin-data' artifacts/api-server/src/routes/index.ts artifacts/admin-app/src artifacts/examtree/src
+          ! grep -F 'DELETE FROM' artifacts/api-server/src/routes/index.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
@@ -65,6 +74,7 @@ jobs:
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
+          ! grep "/admin-data" artifacts/api-server/dist/index.mjs
 
       - name: Test admin identity RBAC and content rules
         env:
