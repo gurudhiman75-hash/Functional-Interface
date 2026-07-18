@@ -48,7 +48,7 @@ export default function Tests() {
                 <p className="text-xs font-medium text-muted-foreground">{test.examName}</p>
                 <h3 className="mt-1 font-semibold">{test.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{test.questionCount} questions · {Math.max(1, Math.ceil(test.durationSeconds / 60))} minutes</p>
-                <Button className="mt-4" size="sm" onClick={() => setLocation(`/published-tests/${test.id}`)}>View mock</Button>
+                <Button className="mt-4" size="sm" onClick={() => setLocation(`/test/${test.id}`)}>Start test</Button>
               </article>
             ))}
           </div>
