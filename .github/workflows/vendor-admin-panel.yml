@@ -9,6 +9,7 @@ on:
       - artifacts/api-server/**
       - artifacts/examtree/src/**
       - docs/admin-panel-integration.md
+      - docs/frontend-truth-audit.md
       - package.json
       - pnpm-lock.yaml
       - firebase.json
@@ -63,6 +64,18 @@ jobs:
           test ! -e artifacts/examtree/src/lib/admin-repo.ts
           ! grep -R --include='*.ts' --include='*.tsx' '/admin-data' artifacts/api-server/src/routes/index.ts artifacts/admin-app/src artifacts/examtree/src
           ! grep -F 'DELETE FROM' artifacts/api-server/src/routes/index.ts
+
+      - name: Enforce truthful frontend surface
+        run: |
+          ! grep -F 'PrototypeStoreProvider' artifacts/admin-app/src/App.tsx
+          ! grep -F 'Prototype Mode' artifacts/admin-app/src/app/layout/Topbar.tsx
+          ! grep -F 'PROTOTYPE_ROLES' artifacts/admin-app/src/app/layout/Topbar.tsx
+          ! grep -E 'href: "/(packages|performance)"' artifacts/examtree/src/components/AppSidebar.tsx
+          ! grep -F 'hydrateAdminDataFromCloud' artifacts/examtree/src/App.tsx
+          grep -F 'Pending canonical integration' artifacts/admin-app/src/pages/PendingWorkspacePage.tsx
+          grep -F 'canonical-attempt-history' artifacts/examtree/src/pages/activity.tsx
+          grep -F 'Question Studio' artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Test Builder' artifacts/admin-app/src/app/nav/navigation.ts
 
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
