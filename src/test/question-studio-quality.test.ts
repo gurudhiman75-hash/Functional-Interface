@@ -81,7 +81,7 @@ describe('Question Studio quality analysis', () => {
   it('flags near-duplicate exam stems without making them hard blockers', () => {
     const run = runWithStems(
       'A salary is increased by 20 percent and then decreased by 10 percent. Find the net percentage change in salary.',
-      'A salary is increased by twenty percent and afterward decreased by ten percent. Find the net percentage change in the salary.',
+      'A salary is increased by 20 percent and afterward decreased by 10 percent. Find the net percentage change in salary.',
     );
     const matches = findDuplicateMatches([run]);
     const duplicate = matches.get('item-1');
