@@ -13,6 +13,7 @@ on:
       - pnpm-lock.yaml
       - firebase.json
       - scripts/assemble-hosting.mjs
+      - scripts/check-canonical-db-freeze.mjs
       - .github/workflows/vendor-admin-panel.yml
   pull_request:
     branches:
@@ -46,21 +47,24 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build ExamTree API server with admin routes
+      - name: Enforce canonical database freeze
+        run: node scripts/check-canonical-db-freeze.mjs
+
+      - name: Build ExamTree API server with canonical routes
         run: pnpm --dir artifacts/api-server build
 
-      - name: Verify admin production routes are bundled
+      - name: Verify canonical production routes are bundled
         run: |
           grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
-          grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
+          ! grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist
+          ! grep -R "studentSqlClient\|adminSqlClient" artifacts/api-server/dist
 
       - name: Test admin identity RBAC and content rules
         env:
           DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
-          ADMIN_DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-rbac.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-rbac.test.mjs
           node artifacts/api-server/dist/admin-rbac.test.mjs
