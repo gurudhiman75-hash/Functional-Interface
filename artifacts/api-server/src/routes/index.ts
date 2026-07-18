@@ -14,6 +14,7 @@ import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
 import adminTestsRouter from "./admin-tests";
 import publishedTestsRouter from "./published-tests";
+import publishedTestRunnerRouter from "./published-test-runner";
 import billingRouter from "./billing";
 import analyticsRouter from "./analytics";
 import packagesRouter from "./packages";
@@ -34,6 +35,9 @@ const router: IRouter = Router();
 router.use(healthRouter);
 router.use("/users", usersRouter);
 router.use("/billing", billingRouter);
+// Canonical published tests must be checked before the legacy test/attempt
+// routers so the mature student runner can use either data source.
+router.use(publishedTestRunnerRouter);
 router.use("/tests", testsRouter);
 router.use("/published-tests", publishedTestsRouter);
 router.use("/attempts", attemptsRouter);
