@@ -215,7 +215,7 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       WHERE tq.test_version_id = ${String(test.publishedVersionId)}::uuid
       GROUP BY tq.test_section_id, tq.question_version_id, tq.position,
         tq.marks, tq.negative_marks, s.name, v.stem, v.explanation
-      ORDER BY s.sort_order, tq.position
+      ORDER BY MIN(s.sort_order), tq.position
     `;
 
     let correct = 0;
