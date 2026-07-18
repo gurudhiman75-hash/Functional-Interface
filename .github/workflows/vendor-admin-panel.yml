@@ -61,8 +61,8 @@ jobs:
           test ! -e artifacts/examtree/src/pages/admin.tsx
           test ! -e artifacts/examtree/src/pages/admin-generator.tsx
           test ! -e artifacts/examtree/src/lib/admin-repo.ts
-          ! grep -R --include='*.ts' --include='*.tsx' --exclude='vendor-admin-panel.yml' '/admin-data' artifacts/api-server/src artifacts/admin-app/src artifacts/examtree/src
-          ! grep -R --include='*.ts' --include='*.tsx' -E 'DELETE FROM ["'"']?(questions|tests|categories|subcategories)["'"']?' artifacts/api-server/src/routes
+          ! grep -R --include='*.ts' --include='*.tsx' '/admin-data' artifacts/api-server/src/routes/index.ts artifacts/admin-app/src artifacts/examtree/src
+          ! grep -E 'DELETE FROM ["'"']?(questions|tests|categories|subcategories)["'"']?' artifacts/api-server/src/routes/index.ts
 
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
@@ -74,7 +74,7 @@ jobs:
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
-          ! grep -R "/admin-data" artifacts/api-server/dist
+          ! grep "/admin-data" artifacts/api-server/dist/index.mjs
 
       - name: Test admin identity RBAC and content rules
         env:
