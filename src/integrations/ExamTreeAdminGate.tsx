@@ -5,6 +5,7 @@ import { AdminPermissionProvider, type AdminSession } from './AdminPermissionCon
 
 const SESSION_KEY = 'examtree.admin.session';
 const REDIRECT_KEY = 'examtree.admin.redirected';
+const DEFAULT_LOCAL_LOGIN_ORIGIN = 'http://localhost:5173';
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
@@ -28,13 +29,20 @@ export function shouldRedirectToAdminLogin(pathname: string, hasRedirected: bool
   return !pathname.startsWith('/login/admin') && !hasRedirected;
 }
 
+export function resolveAdminLoginDestination(nextPath: string): string {
+  const configuredOrigin = String(import.meta.env.VITE_LOGIN_APP_URL ?? '').trim();
+  const loginOrigin = configuredOrigin || (import.meta.env.DEV ? DEFAULT_LOCAL_LOGIN_ORIGIN : window.location.origin);
+  const base = loginOrigin.endsWith('/') ? loginOrigin : `${loginOrigin}/`;
+  return new URL(`/login/admin?next=${encodeURIComponent(nextPath)}`, base).toString();
+}
+
 function redirectToAdminLogin(): boolean {
   if (!shouldRedirectToAdminLogin(window.location.pathname, Boolean(sessionStorage.getItem(REDIRECT_KEY)))) {
     return false;
   }
   sessionStorage.setItem(REDIRECT_KEY, '1');
-  const next = encodeURIComponent(window.location.pathname + window.location.search);
-  window.location.replace(`/login/admin?next=${next}`);
+  const nextPath = window.location.pathname + window.location.search;
+  window.location.replace(resolveAdminLoginDestination(nextPath));
   return true;
 }
 
