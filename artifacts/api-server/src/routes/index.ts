@@ -1,14 +1,9 @@
 import { Router, type IRouter } from "express";
+
 import healthRouter from "./health";
 import usersRouter from "./users";
-import testsRouter from "./tests";
-import attemptsRouter from "./attempts";
-import attemptDraftsRouter from "./attempt-drafts";
-import responsesRouter from "./responses";
-import leaderboardRouter from "./leaderboard";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
-import bundlesRouter from "./bundles";
 import adminDataRouter from "./admin-data";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
@@ -16,56 +11,33 @@ import adminTestsRouter from "./admin-tests";
 import publishedTestsRouter from "./published-tests";
 import publishedTestRunnerRouter from "./published-test-runner";
 import canonicalAttemptResultsRouter from "./canonical-attempt-results";
-import billingRouter from "./billing";
-import analyticsRouter from "./analytics";
-import packagesRouter from "./packages";
-import purchaseRouter from "./purchase";
-import uploadQuestionsRouter from "./upload-questions";
-import dailyChallengeRouter from "./daily-challenge";
-import sectionsRouter from "./sections";
-import topicsRouter from "./topics";
-import questionBankRouter from "./question-bank";
-import diSetsRouter from "./di-sets";
-import uploadRouter from "./upload";
-import generatorRoutes from "./generator";
-import knowledgeRouter from "./knowledge";
+import canonicalStudentReadRouter from "./canonical-student-read";
 import adminSessionRouter from "./admin-session";
+import retiredLegacyRouter from "./retired-legacy";
 
 const router: IRouter = Router();
 
 router.use(healthRouter);
 router.use("/users", usersRouter);
-router.use("/billing", billingRouter);
-// Capture and retrieve canonical attempt results around the published scorer.
-router.use(canonicalAttemptResultsRouter);
-// Canonical published tests must be checked before the legacy test/attempt
-// routers so the mature student runner can use either data source.
-router.use(publishedTestRunnerRouter);
-router.use("/tests", testsRouter);
-router.use("/published-tests", publishedTestsRouter);
-router.use("/attempts", attemptsRouter);
-router.use("/attempt-drafts", attemptDraftsRouter);
-router.use("/responses", responsesRouter);
-router.use("/analytics", analyticsRouter);
-router.use("/packages", packagesRouter);
-router.use("/purchase", purchaseRouter);
-router.use("/leaderboard", leaderboardRouter);
-router.use("/daily-challenge", dailyChallengeRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
-router.use("/bundles", bundlesRouter);
-router.use("/admin-data", adminDataRouter);
+
+// Canonical student runtime. The result wrapper must precede the scorer so it
+// can persist the scorer response before it is returned to the browser.
+router.use(canonicalAttemptResultsRouter);
+router.use(canonicalStudentReadRouter);
+router.use(publishedTestRunnerRouter);
+router.use("/published-tests", publishedTestsRouter);
+
+// Canonical administration and Question Studio.
 router.use("/admin/session", adminSessionRouter);
+router.use("/admin-data", adminDataRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 router.use("/admin/tests", adminTestsRouter);
-router.use("/upload-questions", uploadQuestionsRouter);
-router.use("/sections", sectionsRouter);
-router.use("/topics", topicsRouter);
-router.use(questionBankRouter);
-router.use(diSetsRouter);
-router.use(uploadRouter);
-router.use("/knowledge", knowledgeRouter);
-router.use("/generator", generatorRoutes);
+
+// Compatibility responses for intentionally discarded legacy features. No
+// route below this point reads or writes the former public-schema database.
+router.use(retiredLegacyRouter);
 
 export default router;

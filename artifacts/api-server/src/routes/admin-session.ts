@@ -1,12 +1,11 @@
 import { Router, type RequestHandler } from "express";
-import { eq } from "drizzle-orm";
 
-import { users } from "@workspace/db";
 import {
   AdminIdentityError,
   bootstrapAdminIdentity,
   type AdminBootstrapResult,
 } from "../lib/admin-rbac";
+import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 export type AdminSessionRouteDependencies = {
@@ -20,20 +19,29 @@ export type AdminSessionRouteDependencies = {
   }) => Promise<AdminBootstrapResult>;
 };
 
+/** Compatibility name retained for route tests; access is now canonical RBAC. */
 export async function isLegacyAdministrator(firebaseUid: string): Promise<boolean> {
-  // Keep the transitional student/admin boundary explicit and lazily loaded so
-  // route tests never require a real student database.
-  const { db } = await import("../lib/db");
-  const legacyUser = await db
-    .select({ role: users.role })
-    .from(users)
-    .where(eq(users.id, firebaseUid))
-    .limit(1);
-  return legacyUser[0]?.role === "admin";
+  const rows = await sqlClient`
+    SELECT 1
+    FROM identity.auth_identities ai
+    JOIN identity.user_roles ur
+      ON ur.user_id = ai.user_id
+     AND ur.revoked_at IS NULL
+     AND (ur.valid_until IS NULL OR ur.valid_until > now())
+    JOIN identity.roles r
+      ON r.id = ur.role_id
+     AND r.key = 'super_admin'
+     AND r.is_active = true
+    WHERE ai.provider = 'firebase'
+      AND ai.provider_subject = ${firebaseUid}
+    LIMIT 1
+  `;
+  return rows.length > 0;
 }
 
 export function isProductionAdminDatabaseConfigured(): boolean {
-  return process.env.NODE_ENV !== "production" || Boolean(process.env.ADMIN_DATABASE_URL?.trim());
+  return process.env.NODE_ENV !== "production"
+    || Boolean(process.env.ADMIN_DATABASE_URL?.trim() || process.env.DATABASE_URL?.trim());
 }
 
 export function createAdminSessionRouter(
@@ -55,14 +63,14 @@ export function createAdminSessionRouter(
 
       if (!dependencies.isAdminDatabaseConfigured()) {
         res.status(503).json({
-          error: "The API service is missing ADMIN_DATABASE_URL for the ExamTree admin database",
-          code: "ADMIN_DATABASE_URL_REQUIRED",
+          error: "The API service is missing DATABASE_URL for the canonical ExamTree database",
+          code: "DATABASE_URL_REQUIRED",
         });
         return;
       }
 
       if (!(await dependencies.isLegacyAdmin(req.user.id))) {
-        res.status(403).json({ error: "Legacy administrator access required" });
+        res.status(403).json({ error: "Administrator access required" });
         return;
       }
 
@@ -80,7 +88,7 @@ export function createAdminSessionRouter(
     } catch (error) {
       if (error instanceof AdminIdentityError) {
         const message = error.code === "ADMIN_IDENTITY_SCHEMA_REQUIRED"
-          ? "The configured ADMIN_DATABASE_URL does not point to the migrated ExamTree admin database"
+          ? "The configured database does not contain the migrated ExamTree identity schema"
           : error.message;
         res.status(error.statusCode).json({ error: message, code: error.code });
         return;

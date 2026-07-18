@@ -3,7 +3,7 @@ services:
     name: examtree-api
     runtime: node
     rootDir: .
-    buildCommand: bash build-api.sh && node artifacts/api-server/dist/migrate.mjs
+    buildCommand: bash build-api.sh
     startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/index.mjs
     healthCheckPath: /health
     envVars:
@@ -12,10 +12,10 @@ services:
       # Render injects PORT automatically — no need to set it here
 
       # ── Database ──────────────────────────────────────────────────────────
-      # Neon PostgreSQL connection string
+      # Single canonical Neon PostgreSQL connection string.
       # Example: postgresql://user:pass@ep-xxx.us-east-1.aws.neon.tech/dbname?sslmode=require
       - key: DATABASE_URL
-        sync: false   # set in Render dashboard
+        sync: false   # set to the canonical ExamTree project in Render dashboard
 
       # ── Firebase Auth (server) ────────────────────────────────────────────
       # Paste the entire service account JSON as a single-line string.

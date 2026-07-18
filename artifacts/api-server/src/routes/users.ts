@@ -1,143 +1,187 @@
 import { Router, type IRouter } from "express";
-import { eq } from "drizzle-orm";
-import { db } from "../lib/db";
-import { users, userTestEntitlements, userPackages, packages, userBundles, bundles, bundlePackages } from "@workspace/db";
-import { User } from "@workspace/api-zod";
+
+import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
-const adminEmails = new Set(
-  [
-    "gurbajdhiman@gmail.com",
-    ...(process.env.ADMIN_EMAILS ?? "")
-      .split(",")
-      .map((email) => email.trim().toLowerCase())
-      .filter(Boolean),
-  ]
-    .map((email) => email.trim().toLowerCase())
-    .filter(Boolean),
-);
+const ADMIN_EMAIL = "gurbajdhiman@gmail.com";
 
-function normalizeUserRow(row: typeof users.$inferSelect) {
+type CanonicalUserRow = {
+  id: string;
+  email: string;
+  displayName: string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+  isAdmin: boolean;
+};
+
+function toEpoch(value: Date | string): number {
+  return value instanceof Date ? value.getTime() : new Date(value).getTime();
+}
+
+function toAppUser(row: CanonicalUserRow, firebaseUid: string) {
   return {
-    ...row,
-    createdAt: row.createdAt instanceof Date ? row.createdAt.getTime() : new Date(row.createdAt).getTime(),
-    updatedAt: row.updatedAt instanceof Date ? row.updatedAt.getTime() : new Date(row.updatedAt).getTime(),
+    id: firebaseUid,
+    email: row.email,
+    name: row.displayName,
+    role: row.isAdmin ? "admin" : "student",
+    createdAt: toEpoch(row.createdAt),
+    updatedAt: toEpoch(row.updatedAt),
   };
 }
 
-function resolveRole(email: string, existingRole?: string | null) {
-  const normalizedEmail = email.trim().toLowerCase();
-  if (adminEmails.has(normalizedEmail)) return "admin" as const;
-  if (existingRole === "admin" || existingRole === "student") return existingRole;
-  return "student" as const;
+async function loadCanonicalUser(firebaseUid: string): Promise<CanonicalUserRow | null> {
+  const rows = await sqlClient`
+    SELECT
+      u.id::text AS id,
+      u.email,
+      u.display_name AS "displayName",
+      u.created_at AS "createdAt",
+      u.updated_at AS "updatedAt",
+      EXISTS (
+        SELECT 1
+        FROM identity.user_roles ur
+        JOIN identity.roles r ON r.id = ur.role_id
+        WHERE ur.user_id = u.id
+          AND ur.revoked_at IS NULL
+          AND (ur.valid_until IS NULL OR ur.valid_until > now())
+          AND r.key = 'super_admin'
+          AND r.is_active = true
+      ) AS "isAdmin"
+    FROM identity.users u
+    JOIN identity.auth_identities ai
+      ON ai.user_id = u.id
+     AND ai.provider = 'firebase'
+    WHERE ai.provider_subject = ${firebaseUid}
+      AND u.deleted_at IS NULL
+    LIMIT 1
+  `;
+  return (rows[0] as CanonicalUserRow | undefined) ?? null;
 }
 
-async function upsertUserFromRequest(payload: {
-  id: string;
+async function ensureCanonicalUser(input: {
+  firebaseUid: string;
   email: string;
-  name: string;
-  role?: "admin" | "student";
-}) {
-  const existing = await db.select().from(users).where(eq(users.id, payload.id)).limit(1);
-  const nextRole = resolveRole(payload.email, existing[0]?.role ?? payload.role);
-  const [record] = await db
-    .insert(users)
-    .values({
-      id: payload.id,
-      email: payload.email,
-      name: payload.name,
-      role: nextRole,
-    })
-    .onConflictDoUpdate({
-      target: users.id,
-      set: {
-        email: payload.email,
-        name: payload.name,
-        role: nextRole,
-        updatedAt: new Date(),
-      },
-    })
-    .returning();
+  displayName: string;
+}): Promise<CanonicalUserRow> {
+  const normalizedEmail = input.email.trim().toLowerCase();
+  const displayName = input.displayName.trim() || normalizedEmail.split("@")[0] || "User";
+  if (!normalizedEmail) throw new Error("Firebase account does not contain an email address");
 
-  return User.parse(normalizeUserRow(record));
+  let rows = await sqlClient`
+    SELECT
+      u.id::text AS id,
+      u.email,
+      u.display_name AS "displayName",
+      u.created_at AS "createdAt",
+      u.updated_at AS "updatedAt"
+    FROM identity.users u
+    LEFT JOIN identity.auth_identities ai
+      ON ai.user_id = u.id
+     AND ai.provider = 'firebase'
+    WHERE u.deleted_at IS NULL
+      AND (
+        ai.provider_subject = ${input.firebaseUid}
+        OR lower(u.email) = ${normalizedEmail}
+      )
+    ORDER BY (ai.provider_subject = ${input.firebaseUid}) DESC
+    LIMIT 1
+  `;
+
+  let userId: string;
+  if (rows[0]) {
+    userId = String(rows[0].id);
+    rows = await sqlClient`
+      UPDATE identity.users
+      SET email = ${normalizedEmail},
+          display_name = ${displayName},
+          status = 'active',
+          last_login_at = now(),
+          updated_at = now()
+      WHERE id = ${userId}::uuid
+      RETURNING id::text AS id, email, display_name AS "displayName",
+        created_at AS "createdAt", updated_at AS "updatedAt"
+    `;
+  } else {
+    rows = await sqlClient`
+      INSERT INTO identity.users (email, display_name, status, last_login_at)
+      VALUES (${normalizedEmail}, ${displayName}, 'active', now())
+      RETURNING id::text AS id, email, display_name AS "displayName",
+        created_at AS "createdAt", updated_at AS "updatedAt"
+    `;
+    userId = String(rows[0].id);
+  }
+
+  const identityRows = await sqlClient`
+    UPDATE identity.auth_identities
+    SET provider_subject = ${input.firebaseUid}, updated_at = now()
+    WHERE user_id = ${userId}::uuid
+      AND provider = 'firebase'
+    RETURNING id
+  `;
+  if (identityRows.length === 0) {
+    await sqlClient`
+      INSERT INTO identity.auth_identities (user_id, provider, provider_subject)
+      VALUES (${userId}::uuid, 'firebase', ${input.firebaseUid})
+      ON CONFLICT (provider, provider_subject)
+      DO UPDATE SET user_id = EXCLUDED.user_id, updated_at = now()
+    `;
+  }
+
+  if (normalizedEmail === ADMIN_EMAIL) {
+    await sqlClient`
+      INSERT INTO identity.user_roles (user_id, role_id)
+      SELECT ${userId}::uuid, r.id
+      FROM identity.roles r
+      WHERE r.key = 'super_admin'
+        AND r.is_active = true
+        AND NOT EXISTS (
+          SELECT 1
+          FROM identity.user_roles existing
+          WHERE existing.user_id = ${userId}::uuid
+            AND existing.role_id = r.id
+            AND existing.revoked_at IS NULL
+            AND existing.scope_type IS NULL
+            AND existing.scope_id IS NULL
+        )
+      LIMIT 1
+    `;
+  }
+
+  const loaded = await loadCanonicalUser(input.firebaseUid);
+  if (!loaded) throw new Error("Unable to load canonical user after upsert");
+  return loaded;
 }
 
-router.get("/me/entitlements", authenticate, async (req, res) => {
-  const userId = req.user!.id;
-  const rows = await db
-    .select({ testId: userTestEntitlements.testId })
-    .from(userTestEntitlements)
-    .where(eq(userTestEntitlements.userId, userId));
-  return res.json({ testIds: rows.map((r) => r.testId) });
-});
+async function userFromRequest(req: Parameters<typeof authenticate>[0]) {
+  const firebaseUid = req.user?.id ?? "";
+  const email = req.user?.email ?? "";
+  const displayName = req.user?.displayName ?? email.split("@")[0] ?? "User";
+  const row = await ensureCanonicalUser({ firebaseUid, email, displayName });
+  return toAppUser(row, firebaseUid);
+}
 
 router.get("/me", authenticate, async (req, res) => {
-  const userId = req.user!.id;
-  const user = await db.select().from(users).where(eq(users.id, userId)).limit(1);
-  if (user.length === 0) return res.status(404).json({ error: "User not found" });
-  const currentEmail = req.user?.email ?? user[0].email;
-  const nextRole = resolveRole(currentEmail, user[0].role);
-  if (nextRole !== user[0].role) {
-    const [updated] = await db
-      .update(users)
-      .set({
-        role: nextRole,
-        updatedAt: new Date(),
-      })
-      .where(eq(users.id, userId))
-      .returning();
-    return res.json(User.parse(normalizeUserRow(updated)));
-  }
-  return res.json(User.parse(normalizeUserRow(user[0])));
-});
-
-router.post("/", async (req, res) => {
-  const { id, email, name, role } = req.body;
-  const user = await upsertUserFromRequest({ id, email, name, role });
-  return res.json(user);
-});
-
-// GET /api/users/my-packages - Return current user's purchased packages
-router.get("/my-packages", authenticate, async (req, res) => {
   try {
-    const userId = req.user!.id;
-    const rows = await db
-      .select({
-        id: packages.id,
-        name: packages.name,
-        description: packages.description,
-        finalPriceCents: packages.finalPriceCents,
-        purchasedAt: userPackages.purchasedAt,
-      })
-      .from(userPackages)
-      .innerJoin(packages, eq(userPackages.packageId, packages.id))
-      .where(eq(userPackages.userId, userId));
-    return res.json(rows);
+    return res.json(await userFromRequest(req));
   } catch (error) {
-    return res.status(500).json({ error: "Failed to fetch purchased packages" });
+    console.error("Unable to load canonical user", error);
+    return res.status(500).json({ error: "Unable to load user profile" });
   }
 });
 
-// GET /api/users/my-bundles - Return current user's purchased bundles
-router.get("/my-bundles", authenticate, async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   try {
-    const userId = req.user!.id;
-    const rows = await db
-      .select({
-        id: bundles.id,
-        name: bundles.name,
-        description: bundles.description,
-        price: bundles.price,
-        purchasedAt: userBundles.purchasedAt,
-      })
-      .from(userBundles)
-      .innerJoin(bundles, eq(userBundles.bundleId, bundles.id))
-      .where(eq(userBundles.userId, userId));
-    return res.json(rows);
+    return res.json(await userFromRequest(req));
   } catch (error) {
-    return res.status(500).json({ error: "Failed to fetch purchased bundles" });
+    console.error("Unable to create canonical user", error);
+    return res.status(500).json({ error: "Unable to create user profile" });
   }
 });
+
+// Legacy commerce data is intentionally not migrated to the canonical database.
+router.get("/me/entitlements", authenticate, (_req, res) => res.json({ testIds: [] }));
+router.get("/my-packages", authenticate, (_req, res) => res.json([]));
+router.get("/my-bundles", authenticate, (_req, res) => res.json([]));
 
 export default router;

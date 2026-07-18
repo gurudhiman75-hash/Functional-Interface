@@ -66,14 +66,14 @@ test('bootstrap rejects an unauthenticated request', async () => {
   assert.equal(result.status, 401);
 });
 
-test('bootstrap reports a missing production admin database before querying legacy data', async () => {
-  let legacyCheckCalled = false;
+test('bootstrap reports a missing canonical database before querying RBAC', async () => {
+  let adminCheckCalled = false;
   let bootstrapCalled = false;
   const result = await requestBootstrap(createAdminSessionRouter({
     authenticate: authenticated,
     isAdminDatabaseConfigured: () => false,
     isLegacyAdmin: async () => {
-      legacyCheckCalled = true;
+      adminCheckCalled = true;
       return true;
     },
     bootstrap: async () => {
@@ -82,8 +82,8 @@ test('bootstrap reports a missing production admin database before querying lega
     },
   }));
   assert.equal(result.status, 503);
-  assert.equal(result.body.code, 'ADMIN_DATABASE_URL_REQUIRED');
-  assert.equal(legacyCheckCalled, false);
+  assert.equal(result.body.code, 'DATABASE_URL_REQUIRED');
+  assert.equal(adminCheckCalled, false);
   assert.equal(bootstrapCalled, false);
 });
 
