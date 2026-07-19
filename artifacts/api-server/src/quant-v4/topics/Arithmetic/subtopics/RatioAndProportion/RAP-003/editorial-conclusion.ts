@@ -18,6 +18,12 @@ function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult) {
       ? `So, the required time is ${answer} years.`
       : `So, the required age is ${answer} years.`;
   }
+  if (/^replacement/.test(task)) {
+    if (task === "replacementInventoryAnalogy") return `So, the number of original units remaining is ${answer}.`;
+    if (solver.answerType === "RATIO") return `So, the required final mixture ratio is ${answer}.`;
+    if (solver.answerType === "PERCENT") return `So, the required remaining percentage is ${answer}.`;
+    return `So, the required replacement quantity is ${answer}.`;
+  }
   if (/^election|marketShare|surveyResponse/.test(task)) {
     if (solver.answerType === "PERCENT") return `So, the required election percentage is ${answer}.`;
     if (solver.answerType === "RATIO") return `So, the required vote ratio is ${answer}.`;
@@ -51,10 +57,8 @@ function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult) {
   return `So, the required value is ${answer}.`;
 }
 
-// This intentionally mirrors the shared explanation audit's accepted contextual
-// endings. Natural sentences outside this set are replaced by the task-aware
-// conclusion above, so the final line always states what the number represents.
 const NATURAL_FINAL_CONTEXT = /^(?:so|therefore|hence),?.*(?:answer|ratio|value|age|time|share|count|quantity|percentage|receives|received|is|are|was|were|savings|income|profit|loss|total|fund|number|coins?|litres?|volume|amount|votes?|voters?|years?|seconds?|metres?|meters?|kilometres?|kilometers?|distance|speed|work|population|margin|concentration|should be added)/i;
+const FINAL_PREFIX = /^(?:so|therefore|hence),?/i;
 
 export function ensureRap003EditorialConclusion(
   parameters: Rap003Parameters,
@@ -62,10 +66,11 @@ export function ensureRap003EditorialConclusion(
   explanation: Rap003Explanation,
 ): Rap003Explanation {
   if (parameters.language !== "en") return explanation;
-  if (explanation.lines.some((line) => NATURAL_FINAL_CONTEXT.test(line.trim()))) return explanation;
+  const existingFinal = [...explanation.lines].reverse().find((line) => FINAL_PREFIX.test(line.trim()));
+  if (existingFinal && NATURAL_FINAL_CONTEXT.test(existingFinal.trim())) return explanation;
 
   const lines = explanation.lines
-    .filter((line) => !/^(?:so|therefore|hence),?/i.test(line.trim()))
+    .filter((line) => !FINAL_PREFIX.test(line.trim()))
     .slice(0, 6);
   lines.push(conclusion(parameters, solver));
   return { ...explanation, lines };
