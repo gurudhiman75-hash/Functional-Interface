@@ -98,6 +98,21 @@ jobs:
           grep -F 'adminQuestionStudioRegenerationRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminQuestionStudioQualityRouter' artifacts/api-server/src/routes/index.ts
 
+      - name: Enforce canonical taxonomy and coverage
+        run: |
+          grep -F 'TaxonomyWorkspacePage' artifacts/admin-app/src/App.tsx
+          grep -F 'CoveragePlannerPage' artifacts/admin-app/src/App.tsx
+          grep -F 'Canonical hierarchy' artifacts/admin-app/src/pages/content/TaxonomyWorkspacePage.tsx
+          grep -F 'coverage matrix' artifacts/admin-app/src/pages/content/CoveragePlannerPage.tsx
+          grep -F 'adminTaxonomyRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'adminTaxonomyCoverageRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'catalog.taxonomy_node.created' artifacts/api-server/src/routes/admin-taxonomy.ts
+          grep -F 'catalog.taxonomy_coverage.updated' artifacts/api-server/src/routes/admin-taxonomy-coverage.ts
+          ! grep -F 'useQuestions' artifacts/admin-app/src/pages/content/CoveragePlannerPage.tsx
+          ! grep -F '@/app/store/coverage' artifacts/admin-app/src/pages/content/CoveragePlannerPage.tsx
+          grep -F "path: '/content/coverage'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "path: '/content/taxonomy'" artifacts/admin-app/src/app/nav/navigation.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
@@ -107,6 +122,8 @@ jobs:
           grep -R "question_studio.generated_item.revised" artifacts/api-server/dist >/dev/null
           grep -R "question_studio.generated_item.regenerated" artifacts/api-server/dist >/dev/null
           grep -R "QUESTION_STUDIO_QUALITY_BLOCKED" artifacts/api-server/dist >/dev/null
+          grep -R "catalog.taxonomy_node.created" artifacts/api-server/dist >/dev/null
+          grep -R "catalog.taxonomy_coverage.updated" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
@@ -129,6 +146,8 @@ jobs:
           node artifacts/api-server/dist/question-studio-quality.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/question-studio-regeneration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/question-studio-regeneration.test.mjs
           node artifacts/api-server/dist/question-studio-regeneration.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-taxonomy-management.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-taxonomy-management.test.mjs
+          node artifacts/api-server/dist/admin-taxonomy-management.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck
