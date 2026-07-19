@@ -136,7 +136,10 @@ export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
     const isFinal = /^So,\s/i.test(line);
     const signature = mathSignature(line);
     if (signature && !isFinal) {
-      if (seenMath.has(signature)) continue;
+      if (seenMath.has(signature)) {
+        support.push({ line, priority: 4 });
+        continue;
+      }
       seenMath.add(signature);
     }
 
