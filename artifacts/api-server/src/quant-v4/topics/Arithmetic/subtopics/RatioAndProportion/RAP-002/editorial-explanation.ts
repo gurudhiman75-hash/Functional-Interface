@@ -62,11 +62,11 @@ function final(parameters: Rap002Parameters, solver: Rap002SolverResult) {
   const personC = label(parameters, "personC", "C");
   const personD = label(parameters, "personD", "D");
 
-  if (task === "chainAlignment") return `So, ${personA}:${personB}:${personC}:${personD} = ${answer}.`;
-  if (task === "extendedChainAlignment") return `So, ${label(parameters, "targetPairLabel", `${personA}:${personD}`)} = ${answer}.`;
+  if (task === "chainAlignment") return `So, the combined ${personA}:${personB}:${personC}:${personD} ratio is ${answer}.`;
+  if (task === "extendedChainAlignment") return `So, the ${label(parameters, "targetPairLabel", `${personA}:${personD}`)} ratio is ${answer}.`;
   if (task === "missingChainRatio") return `So, the aligned value of ${personB} is ${answer}.`;
-  if (task === "reverseMiddleFinding" || task === "constrainedReverseChain") return `So, ${personB} = ${answer}.`;
-  if (task === "reverseEndpointFinding") return `So, ${label(parameters, "targetEndpoint", personA)} = ${answer}.`;
+  if (task === "reverseMiddleFinding" || task === "constrainedReverseChain") return `So, the value of ${personB} is ${answer}.`;
+  if (task === "reverseEndpointFinding") return `So, the value of ${label(parameters, "targetEndpoint", personA)} is ${answer}.`;
   if (task === "successiveRatioChange") return `So, the new ${personA}:${personB} ratio is ${answer}.`;
   if (task === "transferTracking") return `So, the final ${personA}:${personB} ratio is ${answer}.`;
   if (task === "reconstructOriginalRatio") return `So, the original ${personA}:${personB} ratio was ${answer}.`;
@@ -80,12 +80,12 @@ function final(parameters: Rap002Parameters, solver: Rap002SolverResult) {
   if (task === "inverseChainWork") {
     return solver.answerType === "RATIO"
       ? `So, the work-time ratio is ${answer}.`
-      : `So, ${personB} takes ${answer} days.`;
+      : `So, the time taken by ${personB} is ${answer} days.`;
   }
   if (task === "inverseChainSpeed") {
     return solver.answerType === "RATIO"
       ? `So, the time ratio is ${answer}.`
-      : `So, ${personB} takes ${answer} hours.`;
+      : `So, the time taken by ${personB} is ${answer} hours.`;
   }
   if (task === "sdtRaceLead") return `So, the race result is ${answer}.`;
   if (solver.answerType === "RATIO") return `So, the requested ratio is ${answer}.`;
