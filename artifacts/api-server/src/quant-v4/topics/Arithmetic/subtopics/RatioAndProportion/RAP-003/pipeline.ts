@@ -15,6 +15,7 @@ import { renderRap003ReplacementExplanation } from "./editorial-replacement";
 import { renderRap003DenominationExplanation } from "./editorial-denomination";
 import { renderRap003RateExplanation } from "./editorial-rate";
 import { renderRap003PopulationExplanation } from "./editorial-population";
+import { renderRap003ElectionExplanation } from "./editorial-election";
 import { ensureRap003MeaningfulSupport } from "./editorial-support";
 import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
@@ -38,7 +39,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
   const denominationExplanation = renderRap003DenominationExplanation(parameters, solver, replacementExplanation);
   const rateExplanation = renderRap003RateExplanation(parameters, solver, denominationExplanation);
   const populationExplanation = renderRap003PopulationExplanation(parameters, solver, rateExplanation);
-  const supportedExplanation = ensureRap003MeaningfulSupport(parameters, populationExplanation);
+  const electionExplanation = renderRap003ElectionExplanation(parameters, solver, populationExplanation);
+  const supportedExplanation = ensureRap003MeaningfulSupport(parameters, electionExplanation);
   const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, supportedExplanation);
   const explanation = polishRap003EditorialLines(parameters, concludedExplanation);
   const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
