@@ -6,16 +6,18 @@ import { RAP_002_ARCHETYPE_ID, type Rap002CanonicalProblemId, type Rap002Questio
 import { validateRap002QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
+import { renderRap002EditorialExplanation } from "./editorial-explanation";
 
 export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007", input: Rap002ParameterInput = {}): Rap002QuestionPackage {
   const parameters = generateRap002Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap002(parameters);
-  const explanation = naturalizeEnglishRapExplanation(
+  const naturalizedExplanation = naturalizeEnglishRapExplanation(
     renderRap002Explanation(parameters, solver),
     parameters.language,
     solver.answer,
     { minimumLines: 7 },
   );
+  const explanation = renderRap002EditorialExplanation(parameters, solver, naturalizedExplanation);
   const renderedStem = renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
   const basePackage = {
