@@ -8,10 +8,11 @@ import { validateRap001QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { normalizeRap001EditorialParameters } from "./editorial-parameter-normalizer";
+import { normalizeRap001EditorialSolver } from "./editorial-solver-normalizer";
 
 export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001QuestionPackage {
   const parameters = normalizeRap001EditorialParameters(generateRap001Parameters(cpId, input));
-  const solver = solveRap001(parameters);
+  const solver = normalizeRap001EditorialSolver(parameters, solveRap001(parameters));
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
   const explanation = naturalizeEnglishRapExplanation(
     renderRap001Explanation(parameters, solver, reasoningGraph),
