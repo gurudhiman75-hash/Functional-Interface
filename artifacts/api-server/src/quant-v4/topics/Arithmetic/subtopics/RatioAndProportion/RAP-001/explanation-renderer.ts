@@ -8,6 +8,7 @@ import { BasicPartitionRenderer } from "./renderers/basic-partition-renderer";
 import { NaturalExamRenderer } from "./renderers/natural-exam-renderer";
 import { DecimalNormalizationRenderer } from "./renderers/decimal-normalization-renderer";
 import { ThreeComponentMixtureRenderer } from "./renderers/three-component-mixture-renderer";
+import { VariableReplacementRenderer } from "./renderers/variable-replacement-renderer";
 
 export function resolveRap001SemanticEntities(taskKind: string, semanticContext: any, language: "en" | "hi" | "pa"): Record<string, string> {
   const map: Record<string, string> = {};
@@ -25,6 +26,11 @@ export function resolveRap001SemanticEntities(taskKind: string, semanticContext:
   return map;
 }
 
+function titleCase(value: unknown) {
+  const text = String(value ?? "");
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+}
+
 function explanationVariables(parameters: Rap001Parameters) {
   const variables = parameters.variables;
   const first = variables.personA ?? variables.groupA ?? "the first quantity";
@@ -37,6 +43,9 @@ function explanationVariables(parameters: Rap001Parameters) {
     personC: third,
     groupA: variables.groupA ?? first,
     groupB: variables.groupB ?? second,
+    sub1: variables.sub1 === undefined ? variables.sub1 : titleCase(variables.sub1),
+    sub2: variables.sub2 === undefined ? variables.sub2 : titleCase(variables.sub2),
+    sub3: variables.sub3 === undefined ? variables.sub3 : titleCase(variables.sub3),
   };
 }
 
@@ -48,6 +57,7 @@ function naturalFallbackRenderer(renderer: ExplanationRenderer, variables: Recor
     render: (evidence) => renderer.render(evidence).map((step) => ({
       ...step,
       narrative: step.narrative
+        .replace(/^Therefore,?$/i, "This gives")
         .replace(/\bthe first group\b/gi, first)
         .replace(/\bfirst group\b/gi, first)
         .replace(/\bthe second group\b/gi, second)
@@ -100,7 +110,7 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
     case "binaryMixture": renderer = new NaturalExamRenderer("solve the two-component mixture", solver.mathJax); break;
     case "mixtureComponentFinding": renderer = new NaturalExamRenderer("add one component to reach a ratio", solver.mathJax); break;
     case "threeComponentMixture": renderer = new ThreeComponentMixtureRenderer(); break;
-    case "variableReplacementRatio": renderer = new NaturalExamRenderer("track repeated replacement", solver.mathJax); break;
+    case "variableReplacementRatio": renderer = new VariableReplacementRenderer(); break;
     case "acidConcentration": renderer = new NaturalExamRenderer("find concentration percentage", solver.mathJax); break;
     default: throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);
   }
