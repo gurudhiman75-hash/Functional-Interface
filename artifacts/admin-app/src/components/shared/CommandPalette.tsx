@@ -2,7 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ListChecks, Search, Sparkles, type LucideIcon } from 'lucide-react';
 
-import { NAV_GROUPS } from '@/app/nav/navigation';
+import {
+  NAV_GROUPS,
+  WORKSPACE_STATUS_LABELS,
+  type AdminWorkspaceStatus,
+} from '@/app/nav/navigation';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
@@ -14,6 +18,14 @@ interface CommandItem {
   icon: LucideIcon;
   action: () => void;
   group: string;
+  status?: AdminWorkspaceStatus;
+}
+
+function statusDot(status?: AdminWorkspaceStatus) {
+  if (status === 'live') return 'bg-success';
+  if (status === 'in_progress') return 'bg-warning';
+  if (status === 'planned') return 'bg-muted-foreground/40';
+  return 'hidden';
 }
 
 export function CommandPalette() {
@@ -55,9 +67,10 @@ export function CommandPalette() {
         .map((item) => ({
           id: `nav-${item.path}`,
           label: item.label,
-          hint: group.label,
+          hint: `${group.label} · ${WORKSPACE_STATUS_LABELS[item.status]}`,
           icon: item.icon,
           group: 'Navigate',
+          status: item.status,
           action: () => navigateTo(item.path),
         })),
     );
@@ -66,17 +79,19 @@ export function CommandPalette() {
       {
         id: 'generate-questions',
         label: 'Generate questions',
-        hint: 'Question Studio',
+        hint: 'Question Studio · Live',
         icon: Sparkles,
         group: 'Quick actions',
+        status: 'live',
         action: () => navigateTo('/content/questions/generate'),
       },
       {
         id: 'build-test',
         label: 'Build a test',
-        hint: 'Test Builder',
+        hint: 'Test Builder · Live',
         icon: ListChecks,
         group: 'Quick actions',
+        status: 'live',
         action: () => navigateTo('/tests/builder'),
       },
     ];
@@ -90,7 +105,8 @@ export function CommandPalette() {
     return items.filter((item) =>
       item.label.toLowerCase().includes(term)
       || item.hint?.toLowerCase().includes(term)
-      || item.group.toLowerCase().includes(term),
+      || item.group.toLowerCase().includes(term)
+      || (item.status && WORKSPACE_STATUS_LABELS[item.status].toLowerCase().includes(term)),
     );
   }, [items, query]);
 
@@ -115,7 +131,7 @@ export function CommandPalette() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-xl gap-0 p-0">
         <DialogHeader className="sr-only">
-          <DialogTitle>Search live admin workspaces</DialogTitle>
+          <DialogTitle>Search ExamTree admin workspaces</DialogTitle>
         </DialogHeader>
         <div className="flex items-center border-b px-4">
           <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -124,14 +140,14 @@ export function CommandPalette() {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Search live workspaces and actions..."
+            placeholder="Search live, in-progress and planned workspaces..."
             className="flex h-14 w-full bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
           />
           <kbd className="shrink-0 rounded border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">ESC</kbd>
         </div>
         <div className="max-h-[60vh] overflow-y-auto p-2">
           {filtered.length === 0 ? (
-            <div className="py-8 text-center text-sm text-muted-foreground">No live workspace matches this search.</div>
+            <div className="py-8 text-center text-sm text-muted-foreground">No admin workspace matches this search.</div>
           ) : (
             filtered.map((item, index) => {
               const showGroup = item.group !== currentGroup;
@@ -158,6 +174,7 @@ export function CommandPalette() {
                       <p className="truncate font-medium">{item.label}</p>
                       {item.hint && <p className="truncate text-xs text-muted-foreground">{item.hint}</p>}
                     </div>
+                    {item.status && <span className={cn('h-2 w-2 shrink-0 rounded-full', statusDot(item.status))} />}
                   </button>
                 </div>
               );
