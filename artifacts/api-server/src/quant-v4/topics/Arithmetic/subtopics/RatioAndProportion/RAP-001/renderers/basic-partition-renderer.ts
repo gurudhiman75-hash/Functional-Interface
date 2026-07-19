@@ -35,26 +35,19 @@ export class BasicPartitionRenderer implements ExplanationRenderer {
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: "Divide the total by the number of parts to find the value of one part.",
+        narrative: "Divide the total by the number of parts to find one part.",
         mathLatex: `\\frac{${v.totalAmount}}{${ratioSum}}=${unitValue}`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: `${target} corresponds to ${targetPart} ratio parts.`,
+        narrative: `The share for ${target} contains ${targetPart} ratio parts.`,
         mathLatex: `${targetPart}\\times${unitValue}=${answer}`,
       },
       {
         stepId: "step-4",
-        type: "SIMPLIFICATION",
-        narrative: `Thus, the share for ${target} is`,
-        mathLatex: answer,
-      },
-      {
-        stepId: "step-5",
         type: "CONCLUSION",
-        narrative: "So, the required share is",
-        mathLatex: answer,
+        narrative: `So, ${target}'s share is ${answer}.`,
       },
     ];
   }
