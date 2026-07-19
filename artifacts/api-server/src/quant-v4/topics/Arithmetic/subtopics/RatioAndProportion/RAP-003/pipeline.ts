@@ -6,6 +6,7 @@ import { RAP_003_ARCHETYPE_ID, type Rap003CanonicalProblemId, type Rap003Paramet
 import { validateRap003QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
+import { compactEnglishRapExplanation } from "../editorial-compactor";
 import { renderRap003EditorialExplanation } from "./editorial-explanation";
 import { renderRap003PartnershipExplanation } from "./editorial-partnership";
 import { renderRap003AgeExplanation } from "./editorial-age";
@@ -20,7 +21,6 @@ import { renderRap003RateExplanation } from "./editorial-rate";
 import { renderRap003PopulationExplanation } from "./editorial-population";
 import { renderRap003ElectionExplanationWithSolverVariables } from "./editorial-election-adapter";
 import { renderRap003GeometryExplanation } from "./editorial-geometry";
-import { ensureRap003MeaningfulSupport } from "./editorial-support";
 import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
 import { polishEnglishRapStem } from "../editorial-stem";
@@ -51,7 +51,6 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
     renderRap003Explanation(parameters, solver),
     parameters.language,
     solver.answer,
-    { minimumLines: 7 },
   );
   const editorialExplanation = renderRap003EditorialExplanation(parameters, solver, naturalizedExplanation);
   const partnershipExplanation = renderRap003PartnershipExplanation(parameters, solver, editorialExplanation);
@@ -67,9 +66,12 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
   const populationExplanation = renderRap003PopulationExplanation(parameters, solver, rateExplanation);
   const electionExplanation = renderRap003ElectionExplanationWithSolverVariables(parameters, solver, populationExplanation);
   const geometryExplanation = renderRap003GeometryExplanation(parameters, solver, electionExplanation);
-  const supportedExplanation = ensureRap003MeaningfulSupport(parameters, geometryExplanation);
-  const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, supportedExplanation);
-  const explanation = polishRap003EditorialLines(parameters, concludedExplanation);
+  const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, geometryExplanation);
+  const polishedExplanation = polishRap003EditorialLines(parameters, concludedExplanation);
+  const explanation = compactEnglishRapExplanation(polishedExplanation, parameters.language, {
+    maxMeaningfulLines: 6,
+    padToLength: 7,
+  });
   const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = polishEnglishRapStem(
     renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
