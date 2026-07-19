@@ -6,12 +6,17 @@ import { solveRap001 } from "./solver";
 import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Language, type Rap001QuestionPackage } from "./types";
 import { validateRap001QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
+import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 
 export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001QuestionPackage {
   const parameters = generateRap001Parameters(cpId, input);
   const solver = solveRap001(parameters);
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
-  const explanation = renderRap001Explanation(parameters, solver, reasoningGraph);
+  const explanation = naturalizeEnglishRapExplanation(
+    renderRap001Explanation(parameters, solver, reasoningGraph),
+    parameters.language,
+    solver.answer,
+  );
   const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language, parameters.entityReferences);
   const renderedStem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, renderVariables);
   const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);

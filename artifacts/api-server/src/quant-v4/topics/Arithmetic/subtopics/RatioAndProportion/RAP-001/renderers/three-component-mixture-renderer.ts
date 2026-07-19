@@ -3,48 +3,68 @@ import type { ExplanationEvidence, ExplanationRenderer, ExplanationStep } from "
 export interface ThreeComponentMixtureEvidence extends ExplanationEvidence {
   variables: Record<string, number | string>;
   derivedValues: Record<string, number | string>;
-  entities: Record<string, string>;
+}
+
+function cleanAnswer(value: string | number) {
+  return String(value).replaceAll("$$", "").trim();
+}
+
+function display(value: number) {
+  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(4)));
 }
 
 export class ThreeComponentMixtureRenderer implements ExplanationRenderer {
-  private solverMathJax: Record<string, string>;
-
-  constructor(solverMathJax: Record<string, string>) {
-    this.solverMathJax = solverMathJax;
-  }
-
   render(evidence: ExplanationEvidence): ExplanationStep[] {
     const e = evidence as ThreeComponentMixtureEvidence;
-    const answer = e.answer;
-    const setup = this.solverMathJax.setupLatex?.replace(/.*?:/, "")?.trim() || "\\text{Formula setup}";
-    const calc = this.solverMathJax.calculationLatex?.replace(/.*?:/, "")?.trim() || `${answer}`;
+    const ratio1 = Number(e.variables.ratio1);
+    const ratio2 = Number(e.variables.ratio2);
+    const ratio3 = Number(e.variables.ratio3);
+    const finalRatio1 = Number(e.variables.finalRatio1);
+    const finalRatio2 = Number(e.variables.finalRatio2);
+    const addedAmount = Number(e.variables.addedAmount);
+    const unit = Number(e.derivedValues.unit);
+    const ratioSum = ratio1 + ratio2 + ratio3;
+    const coefficient = finalRatio2 * ratio1 / finalRatio1 - ratio2;
+    const total = ratioSum * unit;
+    const answer = cleanAnswer(e.answer);
 
-    const variantIndex = (Number(Object.values(e.variables)[0] || 0)) % 3;
-
-    if (variantIndex === 0) {
-      return [
-        { stepId: "step-1", type: "GOAL", narrative: `We need to calculate the target value for this problem.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `Using the appropriate formula:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Substitute the values:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Simplify the expression to get the result.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `Thus, the answer is ${answer}.` },
-      ];
-    } else if (variantIndex === 1) {
-       return [
-        { stepId: "step-1", type: "GOAL", narrative: `Let's determine the final amount for the scenario.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `The mathematical relationship is:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Inserting the given numbers:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Solving it yields the final answer.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `The computed result is ${answer}.` },
-      ];
-    } else {
-       return [
-        { stepId: "step-1", type: "GOAL", narrative: `Our objective is to find the required quantity.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `We apply the standard rule:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Plugging in the parameters:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Calculating the final value.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `Therefore, we get ${answer}.` },
-      ];
-    }
+    return [
+      {
+        stepId: "step-1",
+        type: "GOAL",
+        narrative: "Let each part of the original ratio be x litres.",
+        mathLatex: `${ratio1}x:${ratio2}x:${ratio3}x`,
+      },
+      {
+        stepId: "step-2",
+        type: "FORMULA",
+        narrative: "The first component is unchanged, so it fixes the scale of the new ratio.",
+        mathLatex: `\text{new scale}=\frac{${ratio1}x}{${finalRatio1}}`,
+      },
+      {
+        stepId: "step-3",
+        type: "SUBSTITUTION",
+        narrative: `After adding ${addedAmount} litres to the second component,`,
+        mathLatex: `${ratio2}x+${addedAmount}=${finalRatio2}\left(\frac{${ratio1}x}{${finalRatio1}}\right)`,
+      },
+      {
+        stepId: "step-4",
+        type: "SIMPLIFICATION",
+        narrative: "Solving this equation gives one original ratio part.",
+        mathLatex: `${display(coefficient)}x=${addedAmount}\Rightarrow x=${display(unit)}`,
+      },
+      {
+        stepId: "step-5",
+        type: "SUBSTITUTION",
+        narrative: `The original ratio has ${ratioSum} parts in total.`,
+        mathLatex: `(${ratio1}+${ratio2}+${ratio3})\times${display(unit)}=${display(total)}`,
+      },
+      {
+        stepId: "step-6",
+        type: "CONCLUSION",
+        narrative: "So, the starting volume is",
+        mathLatex: answer,
+      },
+    ];
   }
 }

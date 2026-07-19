@@ -3,48 +3,66 @@ import type { ExplanationEvidence, ExplanationRenderer, ExplanationStep } from "
 export interface DecimalNormalizationEvidence extends ExplanationEvidence {
   variables: Record<string, number | string>;
   derivedValues: Record<string, number | string>;
-  entities: Record<string, string>;
+}
+
+function gcd(left: number, right: number): number {
+  return right === 0 ? Math.abs(left) : gcd(right, left % right);
+}
+
+function decimalPlaces(value: number) {
+  const text = String(value);
+  if (/e-/i.test(text)) return Number(text.split(/e-/i)[1] ?? 0);
+  return text.includes(".") ? text.length - text.indexOf(".") - 1 : 0;
+}
+
+function cleanAnswer(value: string | number) {
+  return String(value).replaceAll("$$", "").trim();
 }
 
 export class DecimalNormalizationRenderer implements ExplanationRenderer {
-  private solverMathJax: Record<string, string>;
-
-  constructor(solverMathJax: Record<string, string>) {
-    this.solverMathJax = solverMathJax;
-  }
-
   render(evidence: ExplanationEvidence): ExplanationStep[] {
     const e = evidence as DecimalNormalizationEvidence;
-    const answer = e.answer;
-    const setup = this.solverMathJax.setupLatex?.replace(/.*?:/, "")?.trim() || "\\text{Formula setup}";
-    const calc = this.solverMathJax.calculationLatex?.replace(/.*?:/, "")?.trim() || `${answer}`;
+    const decimalA = Number(e.variables.decimalA);
+    const decimalB = Number(e.variables.decimalB);
+    const scale = 10 ** Math.max(decimalPlaces(decimalA), decimalPlaces(decimalB));
+    const wholeA = Math.round(decimalA * scale);
+    const wholeB = Math.round(decimalB * scale);
+    const divisor = gcd(wholeA, wholeB);
+    const normalizedA = wholeA / divisor;
+    const normalizedB = wholeB / divisor;
+    const answer = cleanAnswer(e.answer);
 
-    const variantIndex = (Number(Object.values(e.variables)[0] || 0)) % 3;
-
-    if (variantIndex === 0) {
-      return [
-        { stepId: "step-1", type: "GOAL", narrative: `We need to calculate the target value for this problem.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `Using the appropriate formula:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Substitute the values:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Simplify the expression to get the result.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `Thus, the answer is ${answer}.` },
-      ];
-    } else if (variantIndex === 1) {
-       return [
-        { stepId: "step-1", type: "GOAL", narrative: `Let's determine the final amount for the scenario.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `The mathematical relationship is:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Inserting the given numbers:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Solving it yields the final answer.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `The computed result is ${answer}.` },
-      ];
-    } else {
-       return [
-        { stepId: "step-1", type: "GOAL", narrative: `Our objective is to find the required quantity.` },
-        { stepId: "step-2", type: "FORMULA", narrative: `We apply the standard rule:`, mathLatex: setup.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-3", type: "SUBSTITUTION", narrative: `Plugging in the parameters:`, mathLatex: calc.replace(/^\$+|\$+$/g, "") },
-        { stepId: "step-4", type: "SIMPLIFICATION", narrative: `Calculating the final value.` },
-        { stepId: "step-5", type: "CONCLUSION", narrative: `Therefore, we get ${answer}.` },
-      ];
-    }
+    return [
+      {
+        stepId: "step-1",
+        type: "GOAL",
+        narrative: `Multiply both terms by ${scale} to remove the decimals.`,
+        mathLatex: `${decimalA}:${decimalB}`,
+      },
+      {
+        stepId: "step-2",
+        type: "FORMULA",
+        narrative: "This changes both terms by the same factor, so the ratio remains equal.",
+        mathLatex: `(${decimalA}\times${scale}):(${decimalB}\times${scale})=${wholeA}:${wholeB}`,
+      },
+      {
+        stepId: "step-3",
+        type: "SUBSTITUTION",
+        narrative: `The HCF of ${wholeA} and ${wholeB} is ${divisor}.`,
+        mathLatex: `\operatorname{HCF}(${wholeA},${wholeB})=${divisor}`,
+      },
+      {
+        stepId: "step-4",
+        type: "SIMPLIFICATION",
+        narrative: "Divide both terms by the HCF.",
+        mathLatex: `(${wholeA}\div${divisor}):(${wholeB}\div${divisor})=${normalizedA}:${normalizedB}`,
+      },
+      {
+        stepId: "step-5",
+        type: "CONCLUSION",
+        narrative: "So, the simplest whole-number ratio is",
+        mathLatex: answer,
+      },
+    ];
   }
 }
