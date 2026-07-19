@@ -4,6 +4,10 @@ function cleanAnswer(value: string | number) {
   return String(value).replaceAll("$$", "").trim();
 }
 
+function label(parameters: Rap002Parameters, key: string, fallback: string) {
+  return String(parameters.variables[key] ?? fallback);
+}
+
 function family(parameters: Rap002Parameters) {
   const task = parameters.taskKind;
   if (["chainAlignment", "extendedChainAlignment", "missingChainRatio"].includes(task)) return "alignment";
@@ -44,25 +48,48 @@ function method(parameters: Rap002Parameters) {
   }
 }
 
+function targetSubPartLabel(parameters: Rap002Parameters) {
+  const target = label(parameters, "targetSubPart", "C");
+  if (target === "D") return label(parameters, "personD", "Partner D");
+  return label(parameters, "personC", "Partner C");
+}
+
 function final(parameters: Rap002Parameters, solver: Rap002SolverResult) {
   const answer = cleanAnswer(solver.answer);
   const task = parameters.taskKind;
+  const personA = label(parameters, "personA", "A");
+  const personB = label(parameters, "personB", "B");
+  const personC = label(parameters, "personC", "C");
+  const personD = label(parameters, "personD", "D");
+
+  if (task === "chainAlignment") return `So, ${personA}:${personB}:${personC}:${personD} = ${answer}.`;
+  if (task === "extendedChainAlignment") return `So, ${label(parameters, "targetPairLabel", `${personA}:${personD}`)} = ${answer}.`;
+  if (task === "missingChainRatio") return `So, the aligned value of ${personB} is ${answer}.`;
+  if (task === "reverseMiddleFinding" || task === "constrainedReverseChain") return `So, ${personB} = ${answer}.`;
+  if (task === "reverseEndpointFinding") return `So, ${label(parameters, "targetEndpoint", personA)} = ${answer}.`;
+  if (task === "successiveRatioChange") return `So, the new ${personA}:${personB} ratio is ${answer}.`;
+  if (task === "transferTracking") return `So, the final ${personA}:${personB} ratio is ${answer}.`;
+  if (task === "reconstructOriginalRatio") return `So, the original ${personA}:${personB} ratio was ${answer}.`;
+  if (task === "nestedPartition" || task === "conditionalDistribution") return `So, ${targetSubPartLabel(parameters)}'s share is ${answer}.`;
+  if (task === "weightedNestedPartition") return `So, the total weighted value of the split is ${answer}.`;
+  if (task === "combinedInverseChain") return `So, the total work ratio is ${answer}.`;
+  if (task === "sdtTimeRatioFromSpeedDistance") return `So, the time ratio is ${answer}.`;
   if (task === "chainOrdering") return `So, the correct descending order is ${answer}.`;
   if (task === "chainInequality") return `So, the greater quantity is ${answer}.`;
   if (task === "chainEquivalence") return `So, the stated ratios are ${answer}.`;
   if (task === "inverseChainWork") {
     return solver.answerType === "RATIO"
-      ? `So, the required work-time ratio is ${answer}.`
-      : `So, the required number of days is ${answer}.`;
+      ? `So, the work-time ratio is ${answer}.`
+      : `So, ${personB} takes ${answer} days.`;
   }
   if (task === "inverseChainSpeed") {
     return solver.answerType === "RATIO"
-      ? `So, the required time ratio is ${answer}.`
-      : `So, the required time is ${answer} hours.`;
+      ? `So, the time ratio is ${answer}.`
+      : `So, ${personB} takes ${answer} hours.`;
   }
-  if (task === "sdtRaceLead") return `So, the required race result is ${answer}.`;
-  if (solver.answerType === "RATIO") return `So, the required ratio is ${answer}.`;
-  if (solver.answerType === "COUNT") return `So, the required count is ${answer}.`;
+  if (task === "sdtRaceLead") return `So, the race result is ${answer}.`;
+  if (solver.answerType === "RATIO") return `So, the requested ratio is ${answer}.`;
+  if (solver.answerType === "COUNT") return `So, the requested value is ${answer}.`;
   return `So, the answer is ${answer}.`;
 }
 
