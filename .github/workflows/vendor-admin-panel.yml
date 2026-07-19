@@ -72,10 +72,17 @@ jobs:
           ! grep -F 'PROTOTYPE_ROLES' artifacts/admin-app/src/app/layout/Topbar.tsx
           ! grep -E 'href: "/(packages|performance)"' artifacts/examtree/src/components/AppSidebar.tsx
           ! grep -F 'hydrateAdminDataFromCloud' artifacts/examtree/src/App.tsx
-          grep -F 'Pending canonical integration' artifacts/admin-app/src/pages/PendingWorkspacePage.tsx
+          grep -F 'Admin roadmap workspace' artifacts/admin-app/src/pages/PendingWorkspacePage.tsx
+          grep -F 'No prototype or browser-local records are displayed' artifacts/admin-app/src/pages/PendingWorkspacePage.tsx
           grep -F 'canonical-attempt-history' artifacts/examtree/src/pages/activity.tsx
+          grep -F "status: 'live'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "status: 'in_progress'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "status: 'planned'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F 'Question Studio' artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Test Builder' artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Coverage Planner' artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Orders & Payments' artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Audit Logs' artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'collapsed || openGroups[group.id]' artifacts/admin-app/src/app/layout/Sidebar.tsx
 
       - name: Enforce Question Studio production gate
         run: |

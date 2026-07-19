@@ -9,11 +9,12 @@ import { getFirebaseAuth } from '@/integrations/firebase';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 interface TopbarProps {
+  collapsed: boolean;
   onToggleSidebar: () => void;
   onOpenMobile: () => void;
 }
 
-export function Topbar({ onToggleSidebar, onOpenMobile }: TopbarProps) {
+export function Topbar({ collapsed, onToggleSidebar, onOpenMobile }: TopbarProps) {
   const { theme, toggleTheme } = useTheme();
   const { session } = useAdminPermissions();
   const [profileOpen, setProfileOpen] = useState(false);
@@ -51,7 +52,7 @@ export function Topbar({ onToggleSidebar, onOpenMobile }: TopbarProps) {
       <button onClick={onOpenMobile} className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-accent md:hidden" aria-label="Open navigation">
         <Menu className="h-5 w-5" />
       </button>
-      <SidebarCollapseToggle collapsed={false} onToggle={onToggleSidebar} />
+      <SidebarCollapseToggle collapsed={collapsed} onToggle={onToggleSidebar} />
 
       <div className="relative ml-1 hidden flex-1 sm:block">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -60,7 +61,7 @@ export function Topbar({ onToggleSidebar, onOpenMobile }: TopbarProps) {
           onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true, ctrlKey: true }))}
           className="h-9 w-full max-w-md cursor-text rounded-md border bg-muted/50 pl-9 pr-16 text-left text-sm text-muted-foreground outline-none transition-colors hover:bg-muted/70"
         >
-          Search live workspaces…
+          Search admin workspaces…
         </button>
         <kbd className="absolute right-3 top-1/2 hidden -translate-y-1/2 rounded border bg-background px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground lg:block">⌘K</kbd>
       </div>
