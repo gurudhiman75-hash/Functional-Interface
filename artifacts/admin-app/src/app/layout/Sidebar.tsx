@@ -15,14 +15,19 @@ interface SidebarProps { collapsed: boolean; onNavigate?: () => void }
 
 const OPEN_GROUPS_STORAGE_KEY = 'examtree.admin.navigation.open-groups';
 
-function initialOpenGroups() {
-  const defaults = Object.fromEntries(NAV_GROUPS.map((group) => [group.id, true]));
+function initialOpenGroups(): Record<string, boolean> {
+  const defaults: Record<string, boolean> = Object.fromEntries(
+    NAV_GROUPS.map((group) => [group.id, true]),
+  );
   try {
     const stored = localStorage.getItem(OPEN_GROUPS_STORAGE_KEY);
     if (!stored) return defaults;
     const parsed = JSON.parse(stored) as Record<string, unknown>;
     return Object.fromEntries(
-      NAV_GROUPS.map((group) => [group.id, typeof parsed[group.id] === 'boolean' ? parsed[group.id] : true]),
+      NAV_GROUPS.map((group) => {
+        const value = parsed[group.id];
+        return [group.id, typeof value === 'boolean' ? value : true];
+      }),
     );
   } catch {
     return defaults;
