@@ -43,7 +43,7 @@ export function Topbar({ onToggleSidebar, onOpenMobile }: TopbarProps) {
     const auth = getFirebaseAuth();
     if (auth) await signOut(auth).catch(() => undefined);
     localStorage.removeItem('examtree.admin.session');
-    window.location.replace('/login/admin');
+    window.location.replace('/admin/');
   };
 
   return (
