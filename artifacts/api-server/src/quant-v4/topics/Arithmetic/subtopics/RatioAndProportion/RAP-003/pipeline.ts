@@ -15,7 +15,7 @@ import { renderRap003ReplacementExplanation } from "./editorial-replacement";
 import { renderRap003DenominationExplanation } from "./editorial-denomination";
 import { renderRap003RateExplanation } from "./editorial-rate";
 import { renderRap003PopulationExplanation } from "./editorial-population";
-import { renderRap003ElectionExplanation } from "./editorial-election";
+import { renderRap003ElectionExplanationWithSolverVariables } from "./editorial-election-adapter";
 import { renderRap003GeometryExplanation } from "./editorial-geometry";
 import { ensureRap003MeaningfulSupport } from "./editorial-support";
 import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
@@ -40,7 +40,7 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
   const denominationExplanation = renderRap003DenominationExplanation(parameters, solver, replacementExplanation);
   const rateExplanation = renderRap003RateExplanation(parameters, solver, denominationExplanation);
   const populationExplanation = renderRap003PopulationExplanation(parameters, solver, rateExplanation);
-  const electionExplanation = renderRap003ElectionExplanation(parameters, solver, populationExplanation);
+  const electionExplanation = renderRap003ElectionExplanationWithSolverVariables(parameters, solver, populationExplanation);
   const geometryExplanation = renderRap003GeometryExplanation(parameters, solver, electionExplanation);
   const supportedExplanation = ensureRap003MeaningfulSupport(parameters, geometryExplanation);
   const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, supportedExplanation);
