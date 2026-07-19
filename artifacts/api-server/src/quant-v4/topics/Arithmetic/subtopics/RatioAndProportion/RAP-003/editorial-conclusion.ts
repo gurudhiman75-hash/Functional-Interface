@@ -13,6 +13,7 @@ function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult) {
     return `So, the required profit or loss share is ${answer}.`;
   }
   if (task.startsWith("age")) {
+    if (solver.answerType === "RATIO") return `So, the required age ratio is ${answer}.`;
     return solver.answerType === "TIME"
       ? `So, the required time is ${answer} years.`
       : `So, the required age is ${answer} years.`;
@@ -45,8 +46,12 @@ function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult) {
   }
   if (solver.answerType === "PERCENT") return `So, the required percentage is ${answer}.`;
   if (solver.answerType === "RATIO") return `So, the required ratio is ${answer}.`;
+  if (solver.answerType === "COUNT") return `So, the required count is ${answer}.`;
+  if (solver.answerType === "TIME") return `So, the required time is ${answer}.`;
   return `So, the required value is ${answer}.`;
 }
+
+const NATURAL_FINAL_CONTEXT = /^(?:so|therefore|hence),?.*(?:answer|ratio|value|age|time|share|count|quantity|percentage|receives|received|is|are|was|were|savings|income|profit|loss|total|fund|number|coins?|items?|litres?|volume|amount|votes?|voters?|years?|months?|seconds?|metres?|meters?|kilometres?|kilometers?|distance|speed|work|output|population|margin|concentration|should be added)/i;
 
 export function ensureRap003EditorialConclusion(
   parameters: Rap003Parameters,
@@ -54,8 +59,11 @@ export function ensureRap003EditorialConclusion(
   explanation: Rap003Explanation,
 ): Rap003Explanation {
   if (parameters.language !== "en") return explanation;
-  if (explanation.lines.some((line) => /^So,/i.test(line.trim()))) return explanation;
-  const lines = explanation.lines.slice(0, 6);
+  if (explanation.lines.some((line) => NATURAL_FINAL_CONTEXT.test(line.trim()))) return explanation;
+
+  const lines = explanation.lines
+    .filter((line) => !/^(?:so|therefore|hence),?/i.test(line.trim()))
+    .slice(0, 6);
   lines.push(conclusion(parameters, solver));
   return { ...explanation, lines };
 }
