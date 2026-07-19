@@ -14,7 +14,7 @@ import { TestDetailPage } from '@/pages/tests/TestDetailPage';
 import { TestsPage } from '@/pages/tests/TestsPage';
 
 const QuestionStudioPage = lazy(() =>
-  import('@/pages/content/QuestionStudioCockpitPage').then((module) => ({ default: module.QuestionStudioCockpitPage })),
+  import('@/pages/content/QuestionStudioOperationsPage').then((module) => ({ default: module.QuestionStudioOperationsPage })),
 );
 const TestBuilderPage = lazy(() =>
   import('@/pages/tests/TestBuilderPage').then((module) => ({ default: module.TestBuilderPage })),
