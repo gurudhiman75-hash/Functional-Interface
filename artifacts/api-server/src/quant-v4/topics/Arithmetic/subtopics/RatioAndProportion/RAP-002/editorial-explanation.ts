@@ -16,6 +16,11 @@ function family(parameters: Rap002Parameters) {
 }
 
 function opening(parameters: Rap002Parameters) {
+  const task = parameters.taskKind;
+  if (task === "reverseMiddleFinding") return "Align both ratios around the common middle term, then use the known amount.";
+  if (task === "reverseEndpointFinding") return "Build the complete ratio chain, then recover the requested endpoint.";
+  if (task === "constrainedReverseChain") return "Align the full chain and use the stated constraint to recover the missing amount.";
+
   switch (family(parameters)) {
     case "alignment": return "Make the shared ratio terms equal, then join the chain.";
     case "reverse": return "Align the chain and use the known amount to find one ratio unit.";
