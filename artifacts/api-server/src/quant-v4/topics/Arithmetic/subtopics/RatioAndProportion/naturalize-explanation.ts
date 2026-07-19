@@ -18,6 +18,10 @@ function cleanMathLabels(line: string) {
     .replace(/\\text\{Answer\}=/g, "");
 }
 
+function sentenceCase(value: string) {
+  return value.replace(/^([a-z])/, (letter) => letter.toUpperCase());
+}
+
 function mathSignature(line: string) {
   const blocks = line.match(/\$\$[\s\S]*?\$\$/g);
   if (!blocks?.length) return "";
@@ -25,6 +29,7 @@ function mathSignature(line: string) {
     .join("|")
     .replace(/\$\$/g, "")
     .replace(/\\Rightarrow/g, "")
+    .replace(/^\\text\{[^}]+\}=/, "")
     .replace(/\\text\{(?:Decisive equation|Calculation|Answer)\}=/g, "")
     .replace(/\s+/g, "")
     .toLowerCase();
@@ -64,10 +69,13 @@ function simplifyLine(original: string, answer: string) {
     line = line.replace(STRUCTURAL_PREFIX, "");
   }
 
-  const prose = line.split(/\n\n(?=\$\$)/, 1)[0]!.trim();
-  if (!line.includes("$$") && GENERIC_NARRATION.test(prose)) return "";
+  const mathStart = line.search(/\n\n(?=\$\$)/);
+  const prose = (mathStart >= 0 ? line.slice(0, mathStart) : line).trim();
+  if (GENERIC_NARRATION.test(prose)) {
+    return mathStart >= 0 ? line.slice(mathStart).trim() : "";
+  }
 
-  return line.trim();
+  return sentenceCase(line.trim());
 }
 
 /**
