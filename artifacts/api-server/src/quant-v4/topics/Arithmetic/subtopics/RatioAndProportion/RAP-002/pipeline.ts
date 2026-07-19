@@ -14,6 +14,7 @@ export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007",
     renderRap002Explanation(parameters, solver),
     parameters.language,
     solver.answer,
+    { preserveSupportLines: true },
   );
   const renderedStem = renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
