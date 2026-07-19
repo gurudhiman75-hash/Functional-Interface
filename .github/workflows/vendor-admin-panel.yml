@@ -79,11 +79,16 @@ jobs:
 
       - name: Enforce Question Studio production gate
         run: |
-          grep -F 'QuestionStudioCockpitPage' artifacts/admin-app/src/App.tsx
+          grep -F 'QuestionStudioOperationsPage' artifacts/admin-app/src/App.tsx
+          grep -F 'QuestionStudioCockpitPage' artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+          grep -F 'QuestionStudioRecoveryDock' artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+          grep -F 'Retry all needs fix' artifacts/admin-app/src/pages/content/QuestionStudioRecoveryDock.tsx
           grep -F 'findDuplicateMatches' artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
           grep -F 'Create immutable revision' artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
           grep -F 'QUESTION_STUDIO_QUALITY_BLOCKED' artifacts/api-server/src/routes/admin-question-studio-quality.ts
           grep -F 'question_studio.generated_item.revised' artifacts/api-server/src/routes/admin-question-studio-quality.ts
+          grep -F 'question_studio.generated_item.regenerated' artifacts/api-server/src/routes/admin-question-studio-regeneration.ts
+          grep -F 'adminQuestionStudioRegenerationRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminQuestionStudioQualityRouter' artifacts/api-server/src/routes/index.ts
 
       - name: Build ExamTree API server with admin routes
@@ -93,6 +98,7 @@ jobs:
         run: |
           grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
           grep -R "question_studio.generated_item.revised" artifacts/api-server/dist >/dev/null
+          grep -R "question_studio.generated_item.regenerated" artifacts/api-server/dist >/dev/null
           grep -R "QUESTION_STUDIO_QUALITY_BLOCKED" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
@@ -114,6 +120,8 @@ jobs:
           node artifacts/api-server/dist/admin-test-management.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/question-studio-quality.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/question-studio-quality.test.mjs
           node artifacts/api-server/dist/question-studio-quality.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/question-studio-regeneration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/question-studio-regeneration.test.mjs
+          node artifacts/api-server/dist/question-studio-regeneration.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck

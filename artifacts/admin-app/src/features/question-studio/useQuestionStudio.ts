@@ -11,6 +11,7 @@ import {
   type QuestionStudioDashboard,
   type ReviseGenerationItemInput,
 } from './api';
+import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
 
 const EMPTY_DASHBOARD: QuestionStudioDashboard = {
   runs: [],
@@ -54,6 +55,12 @@ export function useQuestionStudio() {
 
   useEffect(() => {
     void refresh();
+  }, [refresh]);
+
+  useEffect(() => {
+    const handleRefresh = () => void refresh();
+    window.addEventListener(QUESTION_STUDIO_REFRESH_EVENT, handleRefresh);
+    return () => window.removeEventListener(QUESTION_STUDIO_REFRESH_EVENT, handleRefresh);
   }, [refresh]);
 
   const generate = useCallback(async (input: CreateGenerationRunInput) => {

@@ -137,6 +137,29 @@ export interface ReviseGenerationItemInput {
   changeReason: string;
 }
 
+export interface RegenerateGenerationItemsInput {
+  itemIds: string[];
+  reason: string;
+}
+
+export interface RegeneratedGenerationItem {
+  itemId: string;
+  generationRunId: string;
+  runCode: string;
+  itemNumber: number;
+  previousVersionNumber: number;
+  currentVersionNumber: number;
+  versionId: string;
+  quality: QuestionStudioQualityReport;
+}
+
+export interface RegenerateGenerationItemsResult {
+  regenerated: RegeneratedGenerationItem[];
+  regeneratedCount: number;
+  skipped: Array<{ itemId: string; code: string; message: string }>;
+  failed: Array<{ itemId: string; message: string }>;
+}
+
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
@@ -230,5 +253,12 @@ export function reviseGenerationItem(input: ReviseGenerationItemInput) {
   }>(`/admin/question-studio/items/${encodeURIComponent(itemId)}/revision`, {
     method: 'PATCH',
     body: JSON.stringify(body),
+  });
+}
+
+export function regenerateGenerationItems(input: RegenerateGenerationItemsInput) {
+  return request<RegenerateGenerationItemsResult>('/admin/question-studio/items/regenerate', {
+    method: 'POST',
+    body: JSON.stringify(input),
   });
 }
