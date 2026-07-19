@@ -1,14 +1,23 @@
 import type { Rap001Parameters } from "./types";
+import { stableHash } from "./math";
 
 function gcd(left: number, right: number): number {
   return right === 0 ? Math.abs(left) : gcd(right, left % right);
+}
+
+function ratioSeedOffset(parameters: Rap001Parameters) {
+  const suffix = Number(parameters.questionId.match(/:(\d+)$/)?.[1]);
+  return Number.isFinite(suffix)
+    ? Math.abs(suffix) % 20
+    : stableHash(parameters.questionId) % 20;
 }
 
 function normalizeFractionRatio(parameters: Rap001Parameters): Rap001Parameters {
   if (parameters.taskKind !== "ratioNormalization") return parameters;
 
   const qlNumber = Number(parameters.questionLanguageId.match(/(\d+)$/)?.[1] ?? 0);
-  const variant = Math.floor(qlNumber / 100) % 20;
+  const qlVariant = Math.floor(qlNumber / 100) % 20;
+  const variant = (qlVariant + ratioSeedOffset(parameters)) % 20;
   const leftFractions = [
     [1, 2],
     [2, 3],
