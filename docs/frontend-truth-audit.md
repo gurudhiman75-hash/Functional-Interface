@@ -1,14 +1,15 @@
 # ExamTree frontend truth audit
 
-Date: 2026-07-18
+Date: 2026-07-19
 
-This document defines which frontend surfaces are connected to ExamTree's canonical APIs and database. Production navigation must expose only `LIVE` surfaces. Known unfinished routes may remain addressable only when they render an explicit pending-integration notice.
+This document defines which frontend surfaces are connected to ExamTree's canonical APIs and database. Student production navigation exposes only usable student journeys. The admin console exposes its complete intended information architecture, but every workspace is explicitly labelled `LIVE`, `IN_PROGRESS`, or `PLANNED`; non-live routes render an honest roadmap page and never display prototype records.
 
 ## Status definitions
 
 - `LIVE`: backed by canonical API routes and namespaced database tables.
 - `LIVE_INCOMPLETE`: uses canonical data for its primary journey but still contains secondary local or retired integrations.
-- `PENDING`: design exists, canonical backend does not.
+- `IN_PROGRESS`: visible in the admin roadmap and actively prioritised, but its canonical operational workflow is not ready.
+- `PENDING` / `PLANNED`: design or product scope exists, canonical backend does not.
 - `STATIC`: informational page with no operational data dependency.
 - `RETIRED_PROTOTYPE`: browser/mock-backed operational UI that must not appear as real production state.
 
@@ -43,32 +44,54 @@ Commerce and analytics links remain hidden until their canonical services are li
 
 ## Admin application
 
+### Admin navigation policy
+
+The admin console displays the complete product map rather than only the currently implemented subset. Each item carries a visible status:
+
+- `Live`: fully operational canonical workspace.
+- `Next`: an `IN_PROGRESS` workspace in the active implementation queue.
+- `Planned`: visible roadmap scope without a canonical implementation yet.
+
+Selecting a non-live item opens `PendingWorkspacePage`, which shows its purpose, current status, activation milestone, canonical-data requirement, and release standard. It never renders mock business records.
+
+The compact sidebar must retain every navigation icon and show a status dot; collapsing navigation must not make workspaces disappear.
+
 ### Live canonical workspaces
 
 | Route | Status | Canonical responsibility |
 | --- | --- | --- |
-| `/dashboard` | LIVE | Truthful launchpad listing only live workspaces. |
-| `/content/questions/generate` | LIVE | Question Studio generation, run/item persistence, review, and reconciliation. |
+| `/dashboard` | LIVE | Truthful launchpad for canonical workflows. |
+| `/content/questions/generate` | LIVE | Question Studio generation, quality gates, immutable revision, regeneration, review, and conversion. |
 | `/content/questions` | LIVE | Canonical Question Bank list, taxonomy, lifecycle, and reconciliation. |
 | `/content/questions/:id` | LIVE | Canonical question versions, editing, taxonomy, and lifecycle actions. |
 | `/tests` | LIVE | Canonical test drafts, QA states, schedules, and published versions. |
 | `/tests/:id` | LIVE | Canonical test detail, validation, lifecycle, schedule, and publication. |
 | `/tests/builder` | LIVE | Build canonical test versions from approved questions. |
 
-### Pending canonical integrations
+### In-progress admin workspaces
 
-These known routes render `PendingWorkspacePage`; they never render prototype records:
+These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Content review, coverage planner, taxonomy editor, DI/passage sets, media library
-- Test QA workspace, test series, exam blueprints, publishing calendar
-- Packages, orders, payments, coupons, entitlements
-- Students, admin team, support requests, notifications
-- Business, test, question, content-quality, and system-health analytics
-- Exam configuration, languages, roles, branding, audit logs, integrations
+- Content Review, Coverage Planner, Sections & Topics
+- Test QA, Test Series, Exam Blueprints
+- Students and Admin Team
+- Test Analytics, Question Analytics, Content Quality, System Health
+- Exam Configuration, Languages, Roles & Permissions, Audit Logs
+
+### Planned admin workspaces
+
+These remain visible with a `Planned` badge:
+
+- DI & Passage Sets, Media Library
+- Publishing Calendar
+- Packages, Orders & Payments, Coupons, Entitlements
+- Support Requests, Notifications
+- Business Analytics
+- Branding and Integrations
 
 ### Retired prototype behaviour
 
-The production admin shell no longer exposes:
+The production admin shell does not expose:
 
 - mock notification counts and events;
 - prototype role switching;
@@ -77,7 +100,7 @@ The production admin shell no longer exposes:
 - mock entity search across students, orders, packages, support, and generated batches;
 - an "all systems operational" claim without monitoring evidence.
 
-Prototype files may remain temporarily as design references, but they are outside the production route graph and navigation.
+Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
 ## Canonical API boundary observed during audit
 
@@ -90,13 +113,20 @@ Mounted operational API groups:
 - categories/subcategories and published tests;
 - test runner, submission, canonical results, and attempt history.
 
-Compatibility/retired responses still exist for packages, bundles, leaderboard, daily challenge, billing, purchases, and several legacy writes. Frontend surfaces for those features must remain pending until replaced with canonical implementations.
+Compatibility/retired responses still exist for packages, bundles, leaderboard, daily challenge, billing, purchases, and several legacy writes. Frontend surfaces for those features must remain non-live until replaced with canonical implementations.
 
 ## Ranked fire list
 
-### P0 — production truth and reliability
+### P0 — admin operations
 
-1. Deploy and smoke-test this truth-surface change on the real Firebase/Render environment.
+1. Continue Question Studio review collaboration, version comparison and full Question Bank duplicate checks.
+2. Build canonical taxonomy and coverage planning.
+3. Add Test QA and blueprint-driven test production.
+4. Add administrator-facing audit logs and operational health.
+
+### P0 — student production truth and reliability
+
+1. Deploy and smoke-test current `New-main` on the real Firebase/Render environment.
 2. Remove retired queries from the result page while preserving canonical result display.
 3. Add end-to-end tests for login, discovery, attempt, submit, refresh result, and attempt history.
 4. Harden test runner recovery: refresh, network loss, duplicate submit, zero-time auto-submit, and multiple tabs.
@@ -110,21 +140,20 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P1 — content production
 
-1. Improve Question Studio retries, duplicate detection, review speed, and traceability.
-2. Complete Percentage and Ratio manual review.
-3. Add Average, Profit & Loss, Interest, Time & Work, Speed/Distance, Mixture, Number System, Algebra, Geometry, Mensuration, Trigonometry, and DI.
-4. Add Reasoning, English, General Awareness, Banking, Punjab GK, Punjabi, and Computer Knowledge engines.
-5. Replace structural Hindi/Punjabi mirrors with reviewed localization.
+1. Complete Percentage and Ratio manual review.
+2. Add Average, Profit & Loss, Interest, Time & Work, Speed/Distance, Mixture, Number System, Algebra, Geometry, Mensuration, Trigonometry, and DI.
+3. Add Reasoning, English, General Awareness, Banking, Punjab GK, Punjabi, and Computer Knowledge engines.
+4. Replace structural Hindi/Punjabi mirrors with reviewed localization.
 
 ### P2 — monetization and operations
 
 1. Packages, orders, Razorpay verification, coupons, entitlements, refunds, and expiry.
 2. Admin student/support/notification workspaces.
-3. Monitoring, error tracking, rate limiting, backups, recovery drills, audit logs, staging, and load tests.
+3. Monitoring, error tracking, rate limiting, backups, recovery drills, staging, and load tests.
 
-## Definition of done for exposing a pending route
+## Definition of done for promoting an admin workspace to Live
 
-A pending route may enter production navigation only when:
+A workspace may change to `LIVE` only when:
 
 1. its primary reads and writes use canonical namespaced tables;
 2. authentication and RBAC are enforced server-side;
