@@ -51,7 +51,10 @@ function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult) {
   return `So, the required value is ${answer}.`;
 }
 
-const NATURAL_FINAL_CONTEXT = /^(?:so|therefore|hence),?.*(?:answer|ratio|value|age|time|share|count|quantity|percentage|receives|received|is|are|was|were|savings|income|profit|loss|total|fund|number|coins?|items?|litres?|volume|amount|votes?|voters?|years?|months?|seconds?|metres?|meters?|kilometres?|kilometers?|distance|speed|work|output|population|margin|concentration|should be added)/i;
+// This intentionally mirrors the shared explanation audit's accepted contextual
+// endings. Natural sentences outside this set are replaced by the task-aware
+// conclusion above, so the final line always states what the number represents.
+const NATURAL_FINAL_CONTEXT = /^(?:so|therefore|hence),?.*(?:answer|ratio|value|age|time|share|count|quantity|percentage|receives|received|is|are|was|were|savings|income|profit|loss|total|fund|number|coins?|litres?|volume|amount|votes?|voters?|years?|seconds?|metres?|meters?|kilometres?|kilometers?|distance|speed|work|population|margin|concentration|should be added)/i;
 
 export function ensureRap003EditorialConclusion(
   parameters: Rap003Parameters,
