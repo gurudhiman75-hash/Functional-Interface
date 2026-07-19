@@ -10,10 +10,10 @@ interface SidebarProps { collapsed: boolean; onNavigate?: () => void }
 export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
   const { hasPermission } = useAdminPermissions();
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(NAV_GROUPS.map((g) => [g.id, true]))
+    Object.fromEntries(NAV_GROUPS.map((group) => [group.id, true])),
   );
 
-  const toggleGroup = (id: string) => setOpenGroups((p) => ({ ...p, [id]: !p[id] }));
+  const toggleGroup = (id: string) => setOpenGroups((previous) => ({ ...previous, [id]: !previous[id] }));
 
   return (
     <aside className={cn('flex h-full flex-col bg-sidebar text-sidebar-foreground transition-[width] duration-300', collapsed ? 'w-[68px]' : 'w-64')}>
@@ -32,6 +32,9 @@ export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto overflow-x-hidden py-3">
         {NAV_GROUPS.map((group) => {
           const open = openGroups[group.id] && !collapsed;
+          const items = group.items.filter((item) => !item.permission || hasPermission(item.permission));
+          if (items.length === 0) return null;
+
           return (
             <div key={group.id} className="mb-1">
               {!collapsed && (
@@ -42,7 +45,7 @@ export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
               )}
               {collapsed && <div className="mx-3 my-2 border-t border-sidebar-border" />}
               <div className={cn('space-y-0.5 px-3', open ? '' : 'hidden')}>
-                {group.items.filter((item) => !item.permission || hasPermission(item.permission)).map((item) => (
+                {items.map((item) => (
                   <NavLink key={item.path} to={item.path} onClick={onNavigate} title={collapsed ? item.label : undefined}
                     className={({ isActive }) => cn('group relative flex items-center gap-3 rounded-md px-2.5 py-2 text-sm font-medium transition-all',
                       isActive ? 'bg-sidebar-active text-primary-foreground shadow-sm' : 'text-sidebar-foreground/75 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground')}>
@@ -64,8 +67,8 @@ export function Sidebar({ collapsed, onNavigate }: SidebarProps) {
 
       <div className="border-t border-sidebar-border p-3">
         <div className={cn('flex items-center gap-2 rounded-lg bg-sidebar-accent/60 p-2.5 text-xs text-sidebar-foreground/70', collapsed && 'justify-center')}>
-          <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-success" />
-          {!collapsed && <span>All systems operational</span>}
+          <span className="h-2 w-2 shrink-0 rounded-full bg-success" />
+          {!collapsed && <span>Canonical workspaces only</span>}
         </div>
       </div>
     </aside>
