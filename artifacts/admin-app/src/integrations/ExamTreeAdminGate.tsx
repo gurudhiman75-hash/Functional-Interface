@@ -1,16 +1,15 @@
-import { useEffect, useState, type ReactNode } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
+import { GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { getFirebaseAuth } from './firebase';
 import { AdminPermissionProvider, type AdminSession } from './AdminPermissionContext';
 
 const SESSION_KEY = 'examtree.admin.session';
-const REDIRECT_KEY = 'examtree.admin.redirected';
-const DEFAULT_LOCAL_LOGIN_ORIGIN = 'http://localhost:5173';
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
 type GateState =
   | { status: 'loading' }
+  | { status: 'sign-in'; message?: string }
   | { status: 'authorized'; session: AdminSession }
   | { status: 'pending'; session: AdminSession }
   | { status: 'error'; message: string };
@@ -23,27 +22,6 @@ class AdminBootstrapError extends Error {
   ) {
     super(message);
   }
-}
-
-export function shouldRedirectToAdminLogin(pathname: string, hasRedirected: boolean) {
-  return !pathname.startsWith('/login/admin') && !hasRedirected;
-}
-
-export function resolveAdminLoginDestination(nextPath: string): string {
-  const configuredOrigin = String(import.meta.env.VITE_LOGIN_APP_URL ?? '').trim();
-  const loginOrigin = configuredOrigin || (import.meta.env.DEV ? DEFAULT_LOCAL_LOGIN_ORIGIN : window.location.origin);
-  const base = loginOrigin.endsWith('/') ? loginOrigin : `${loginOrigin}/`;
-  return new URL(`/login/admin?next=${encodeURIComponent(nextPath)}`, base).toString();
-}
-
-function redirectToAdminLogin(): boolean {
-  if (!shouldRedirectToAdminLogin(window.location.pathname, Boolean(sessionStorage.getItem(REDIRECT_KEY)))) {
-    return false;
-  }
-  sessionStorage.setItem(REDIRECT_KEY, '1');
-  const nextPath = window.location.pathname + window.location.search;
-  window.location.replace(resolveAdminLoginDestination(nextPath));
-  return true;
 }
 
 async function bootstrap(token: string): Promise<AdminSession> {
@@ -74,6 +52,92 @@ function GateMessage({ title, message, children }: { title: string; message: str
   );
 }
 
+function AdminSignInPanel({ message }: { message?: string }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function signInWithGoogle() {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      setError('Firebase Authentication is not configured for the admin application.');
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    try {
+      await signInWithPopup(auth, new GoogleAuthProvider());
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Google sign-in failed.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function signInWithPassword(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      setError('Firebase Authentication is not configured for the admin application.');
+      return;
+    }
+    setSubmitting(true);
+    setError(null);
+    try {
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Email sign-in failed.');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <GateMessage
+      title="Admin sign in"
+      message={message || 'Sign in with the Firebase account that is linked to an active ExamTree administrator role.'}
+    >
+      <div className="w-full space-y-3 text-left">
+        <form className="space-y-3" onSubmit={signInWithPassword}>
+          <input
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+            type="email"
+            placeholder="Admin email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            autoComplete="email"
+          />
+          <input
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            autoComplete="current-password"
+          />
+          <button
+            className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-60"
+            type="submit"
+            disabled={submitting || !email.trim() || !password}
+          >
+            {submitting ? 'Signing in...' : 'Enter Admin Console'}
+          </button>
+        </form>
+        <button
+          className="w-full rounded-md border px-4 py-2 text-sm font-medium disabled:opacity-60"
+          type="button"
+          disabled={submitting}
+          onClick={signInWithGoogle}
+        >
+          Continue with Google
+        </button>
+        {error && <p className="text-center text-sm text-destructive">{error}</p>}
+      </div>
+    </GateMessage>
+  );
+}
+
 export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
   const [state, setState] = useState<GateState>({ status: 'loading' });
 
@@ -81,9 +145,7 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
     let active = true;
     const auth = getFirebaseAuth();
     if (!auth) {
-      if (!redirectToAdminLogin()) {
-        setState({ status: 'error', message: 'Firebase Authentication is not configured for the admin application.' });
-      }
+      setState({ status: 'error', message: 'Firebase Authentication is not configured for the admin application.' });
       return undefined;
     }
 
@@ -91,9 +153,7 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
       if (!active) return;
       if (!firebaseUser) {
         localStorage.removeItem(SESSION_KEY);
-        if (!redirectToAdminLogin()) {
-          setState({ status: 'error', message: 'Sign in with an authorized administrator account to continue.' });
-        }
+        setState({ status: 'sign-in' });
         return;
       }
 
@@ -102,7 +162,6 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
         if (!active) return;
         // Display-only session data is cached; Firebase tokens are never persisted here.
         localStorage.setItem(SESSION_KEY, JSON.stringify(nextSession));
-        sessionStorage.removeItem(REDIRECT_KEY);
         setState(nextSession.pendingRoleAssignment
           ? { status: 'pending', session: nextSession }
           : { status: 'authorized', session: nextSession });
@@ -113,7 +172,6 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
           ? error
           : new AdminBootstrapError('The administrator session service is unavailable.', 0);
 
-        if ((failure.status === 401 || failure.status === 403) && redirectToAdminLogin()) return;
         setState({ status: 'error', message: failure.message });
       }
     });
@@ -129,6 +187,10 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
         Verifying ExamTree administrator access…
       </div>
     );
+  }
+
+  if (state.status === 'sign-in') {
+    return <AdminSignInPanel message={state.message} />;
   }
 
   if (state.status === 'pending') {
@@ -153,11 +215,10 @@ export function ExamTreeAdminGate({ children }: { children: ReactNode }) {
         <button
           className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
           onClick={() => {
-            sessionStorage.removeItem(REDIRECT_KEY);
-            redirectToAdminLogin();
+            setState({ status: 'sign-in', message: 'Sign in with an authorized administrator account to continue.' });
           }}
         >
-          Go to admin login
+          Sign in again
         </button>
       </GateMessage>
     );
