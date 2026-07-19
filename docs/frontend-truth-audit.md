@@ -64,15 +64,19 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/content/questions/generate` | LIVE | Question Studio generation, quality gates, immutable revision, regeneration, review, and conversion. |
 | `/content/questions` | LIVE | Canonical Question Bank list, taxonomy, lifecycle, and reconciliation. |
 | `/content/questions/:id` | LIVE | Canonical question versions, editing, taxonomy, and lifecycle actions. |
+| `/content/coverage` | LIVE | Exam-version coverage targets and recursive Question Bank readiness rollups. |
+| `/content/taxonomy` | LIVE | Canonical taxonomy node, edge, exam mapping, activation and target management. |
 | `/tests` | LIVE | Canonical test drafts, QA states, schedules, and published versions. |
 | `/tests/:id` | LIVE | Canonical test detail, validation, lifecycle, schedule, and publication. |
 | `/tests/builder` | LIVE | Build canonical test versions from approved questions. |
+
+The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxonomy_edges`, and `catalog.exam_taxonomy_nodes` tables. It requires no schema migration. All writes require `content.taxonomy.manage`, are transactionally validated, cycle-safe, soft-archivable, and recorded in `platform.audit_events`. Coverage counts use the canonical current question version and recursively roll descendant links into parent nodes; leaf-only summaries avoid double counting.
 
 ### In-progress admin workspaces
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Content Review, Coverage Planner, Sections & Topics
+- Content Review
 - Test QA, Test Series, Exam Blueprints
 - Students and Admin Team
 - Test Analytics, Question Analytics, Content Quality, System Health
@@ -98,7 +102,8 @@ The production admin shell does not expose:
 - fake administrator names;
 - the `PrototypeStoreProvider` as the runtime application store;
 - mock entity search across students, orders, packages, support, and generated batches;
-- an "all systems operational" claim without monitoring evidence.
+- an "all systems operational" claim without monitoring evidence;
+- the former browser-store coverage tree or locally calculated mock coverage records.
 
 Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
@@ -109,6 +114,7 @@ Mounted operational API groups:
 - admin session and RBAC;
 - Question Studio;
 - Question Bank;
+- taxonomy hierarchy and coverage planning;
 - Test Builder and publishing;
 - categories/subcategories and published tests;
 - test runner, submission, canonical results, and attempt history.
@@ -119,8 +125,8 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-1. Continue Question Studio review collaboration, version comparison and full Question Bank duplicate checks.
-2. Build canonical taxonomy and coverage planning.
+1. Build the dedicated Content Review workspace on the canonical Question Studio and Question Bank queues.
+2. Continue Question Studio version comparison, reviewer collaboration and full Question Bank duplicate checks.
 3. Add Test QA and blueprint-driven test production.
 4. Add administrator-facing audit logs and operational health.
 
