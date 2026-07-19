@@ -99,6 +99,16 @@ export interface TaxonomyNodeMutation {
   reason: string;
 }
 
+export interface TaxonomyCoverageMutation {
+  changes: Array<{
+    taxonomyNodeId: string;
+    examVersionId: string;
+    targetCoverage: number | null;
+    isActive?: boolean;
+  }>;
+  reason: string;
+}
+
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
@@ -141,4 +151,11 @@ export function updateTaxonomyNode(nodeId: string, input: TaxonomyNodeMutation) 
     `/admin/taxonomy/nodes/${encodeURIComponent(nodeId)}`,
     { method: 'PATCH', body: JSON.stringify(input) },
   );
+}
+
+export function updateTaxonomyCoverage(input: TaxonomyCoverageMutation) {
+  return request<{ updatedCount: number }>('/admin/taxonomy/coverage', {
+    method: 'PATCH',
+    body: JSON.stringify(input),
+  });
 }
