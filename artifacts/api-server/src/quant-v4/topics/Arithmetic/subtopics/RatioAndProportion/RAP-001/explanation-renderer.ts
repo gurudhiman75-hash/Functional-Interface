@@ -49,21 +49,36 @@ function explanationVariables(parameters: Rap001Parameters) {
   };
 }
 
-function naturalFallbackRenderer(renderer: ExplanationRenderer, variables: Record<string, number | string>): ExplanationRenderer {
+const PLURAL_SUBJECTS = "boys|girls|students|teachers|workers|employees|men|women|coins|items|members|voters";
+
+function polishNarrative(narrative: string, taskKind: string, first: string, second: string, third: string) {
+  let polished = narrative
+    .replace(/^Therefore,?$/i, "This gives")
+    .replace(/\bthe first group\b/gi, first)
+    .replace(/\bfirst group\b/gi, first)
+    .replace(/\bthe second group\b/gi, second)
+    .replace(/\bsecond group\b/gi, second)
+    .replace(/\bthe third group\b/gi, third)
+    .replace(new RegExp(`\\b(${PLURAL_SUBJECTS}) has\\b`, "gi"), "$1 have");
+
+  if (taskKind === "weightedMapping") {
+    polished = polished.replace(/^So, the required weight is$/i, "So, the first coin's weight in grams is");
+  }
+  return polished;
+}
+
+function naturalFallbackRenderer(
+  renderer: ExplanationRenderer,
+  variables: Record<string, number | string>,
+  taskKind: string,
+): ExplanationRenderer {
   const first = String(variables.groupA ?? variables.personA ?? "the first quantity");
   const second = String(variables.groupB ?? variables.personB ?? "the second quantity");
   const third = String(variables.personC ?? "the third quantity");
   return {
     render: (evidence) => renderer.render(evidence).map((step) => ({
       ...step,
-      narrative: step.narrative
-        .replace(/^Therefore,?$/i, "This gives")
-        .replace(/\bthe first group\b/gi, first)
-        .replace(/\bfirst group\b/gi, first)
-        .replace(/\bthe second group\b/gi, second)
-        .replace(/\bsecond group\b/gi, second)
-        .replace(/\bthe third group\b/gi, third)
-        .replace(/\bthird group\b/gi, third),
+      narrative: polishNarrative(step.narrative, taskKind, first, second, third),
     })),
   };
 }
@@ -115,7 +130,10 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
     default: throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);
   }
 
-  const validatedSteps = validateExplanationPipeline(evidence, naturalFallbackRenderer(renderer, variables));
+  const validatedSteps = validateExplanationPipeline(
+    evidence,
+    naturalFallbackRenderer(renderer, variables, parameters.taskKind),
+  );
   return {
     explanationId: parameters.explanationId,
     lines: formatExplanationSteps(validatedSteps),
