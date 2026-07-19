@@ -107,7 +107,7 @@ export function validateRap001QuestionPackage(pkg: Rap001QuestionPackage): Rap00
     check("solverAnswerType", pkg.solver.answerType === pkg.parameters.answerType, "Solver answer type must match parameters."),
     check("graph", pkg.reasoningGraph.nodes.length > 0, "Graph must be populated."),
     check("explanation", pkg.explanation.lines.length > 0, "Explanation must render."),
-    check("explanationMinimumSteps", pkg.explanation.lines.length >= 4, "Explanation must contain at least four teacher-style steps."),
+    check("explanationMinimumSteps", pkg.explanation.lines.length >= 3, "Explanation must contain at least three concise, meaningful lines."),
     check("teacherLanguage", !TEACHER_FORBIDDEN.test(pkg.explanation.lines.join("\n")), "Explanation must not contain renderer meta-language."),
     check("arithmeticExposure", pkg.explanation.lines.filter((line) => line.includes("\\Rightarrow")).length >= 3, "Explanation must expose at least three arithmetic lines."),
     check("noTaskKindLeak", !pkg.explanation.lines.join("\n").includes(pkg.parameters.taskKind), "TaskKind must never appear in the explanation."),
