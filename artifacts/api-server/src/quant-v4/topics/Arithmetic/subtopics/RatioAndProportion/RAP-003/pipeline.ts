@@ -7,6 +7,7 @@ import { validateRap003QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { renderRap003EditorialExplanation } from "./editorial-explanation";
+import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 
 export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014", input: Rap003ParameterInput = {}): Rap003QuestionPackage {
   const parameters = generateRap003Parameters({ ...input, canonicalProblemId: cpId });
@@ -17,7 +18,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
     solver.answer,
     { minimumLines: 7 },
   );
-  const explanation = renderRap003EditorialExplanation(parameters, solver, naturalizedExplanation);
+  const editorialExplanation = renderRap003EditorialExplanation(parameters, solver, naturalizedExplanation);
+  const explanation = ensureRap003EditorialConclusion(parameters, solver, editorialExplanation);
   const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
   const basePackage = {
