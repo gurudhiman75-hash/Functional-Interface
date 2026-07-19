@@ -7,6 +7,7 @@ import { validateRap003QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { renderRap003EditorialExplanation } from "./editorial-explanation";
+import { renderRap003PartnershipExplanation } from "./editorial-partnership";
 import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
 import { polishEnglishRapStem } from "../editorial-stem";
@@ -21,7 +22,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
     { minimumLines: 7 },
   );
   const editorialExplanation = renderRap003EditorialExplanation(parameters, solver, naturalizedExplanation);
-  const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, editorialExplanation);
+  const partnershipExplanation = renderRap003PartnershipExplanation(parameters, solver, editorialExplanation);
+  const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, partnershipExplanation);
   const explanation = polishRap003EditorialLines(parameters, concludedExplanation);
   const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = polishEnglishRapStem(
