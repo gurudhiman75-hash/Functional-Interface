@@ -10,6 +10,7 @@ import { renderRap003EditorialExplanation } from "./editorial-explanation";
 import { renderRap003PartnershipExplanation } from "./editorial-partnership";
 import { renderRap003AgeExplanation } from "./editorial-age";
 import { renderRap003IncomeExplanation } from "./editorial-income";
+import { renderRap003IncomeRatioExplanation } from "./editorial-income-ratio";
 import { renderRap003EqualSavingsExplanation } from "./editorial-equal-savings";
 import { renderRap003ExpenditureRatioExplanation } from "./editorial-expenditure-ratio";
 import { renderRap003MixtureExplanation } from "./editorial-mixture";
@@ -56,7 +57,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
   const partnershipExplanation = renderRap003PartnershipExplanation(parameters, solver, editorialExplanation);
   const ageExplanation = renderRap003AgeExplanation(parameters, solver, partnershipExplanation);
   const incomeExplanation = renderRap003IncomeExplanation(parameters, solver, ageExplanation);
-  const equalSavingsExplanation = renderRap003EqualSavingsExplanation(parameters, solver, incomeExplanation);
+  const incomeRatioExplanation = renderRap003IncomeRatioExplanation(parameters, solver, incomeExplanation);
+  const equalSavingsExplanation = renderRap003EqualSavingsExplanation(parameters, solver, incomeRatioExplanation);
   const expenditureRatioExplanation = renderRap003ExpenditureRatioExplanation(parameters, solver, equalSavingsExplanation);
   const mixtureExplanation = renderRap003MixtureExplanation(parameters, solver, expenditureRatioExplanation);
   const replacementExplanation = renderRap003ReplacementExplanation(parameters, solver, mixtureExplanation);
