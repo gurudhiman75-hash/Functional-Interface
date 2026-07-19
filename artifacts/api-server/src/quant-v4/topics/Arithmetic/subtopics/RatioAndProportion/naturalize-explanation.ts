@@ -4,7 +4,7 @@ export interface RapExplanationLike {
 }
 
 export interface NaturalizeRapExplanationOptions {
-  preserveSupportLines?: boolean;
+  minimumLines?: number;
 }
 
 const DROP_META_LINE = /^(?:why(?: this method works| it applies)?|intermediate interpretation|quick check|check)\s*:/i;
@@ -12,6 +12,11 @@ const STRUCTURAL_PREFIX = /^(?:concept|problem|method(?:\s+\d+)?|extraction|step
 const SUPPORT_PREFIX = /^(?:why(?: this method works| it applies)?|quick check|check)\s*:\s*/i;
 const INTERMEDIATE_PREFIX = /^intermediate interpretation\s*:\s*/i;
 const GENERIC_NARRATION = /^(?:evaluate the relation with the stated values|reduce the result in the form requested|use the common term or total to fix one ratio unit|the recovered shares add back to the total)\.?$/i;
+
+interface SupportCandidate {
+  line: string;
+  priority: number;
+}
 
 function cleanAnswer(value: string | number) {
   return String(value).replaceAll("$$", "").trim();
@@ -45,23 +50,26 @@ function normalizeText(line: string) {
   return line.replace(/\s+/g, " ").trim().toLowerCase();
 }
 
-function simplifyLine(
-  original: string,
-  answer: string,
-  options: NaturalizeRapExplanationOptions,
-) {
-  let line = original.trim();
-  if (!line) return "";
-
-  if (options.preserveSupportLines) {
-    if (INTERMEDIATE_PREFIX.test(line)) {
-      line = line.replace(INTERMEDIATE_PREFIX, "Using these values, ");
-    } else if (SUPPORT_PREFIX.test(line)) {
-      line = line.replace(SUPPORT_PREFIX, "");
-    }
-  } else if (DROP_META_LINE.test(line)) {
-    return "";
+function supportCandidate(original: string): SupportCandidate | undefined {
+  const line = original.trim();
+  if (/^why(?: this method works| it applies)?\s*:/i.test(line)) {
+    return { line: sentenceCase(line.replace(SUPPORT_PREFIX, "").trim()), priority: 1 };
   }
+  if (/^(?:quick check|check)\s*:/i.test(line)) {
+    return { line: sentenceCase(line.replace(SUPPORT_PREFIX, "").trim()), priority: 2 };
+  }
+  if (INTERMEDIATE_PREFIX.test(line)) {
+    return {
+      line: sentenceCase(line.replace(INTERMEDIATE_PREFIX, "Using these values, ").trim()),
+      priority: 3,
+    };
+  }
+  return undefined;
+}
+
+function simplifyLine(original: string, answer: string) {
+  let line = original.trim();
+  if (!line || DROP_META_LINE.test(line)) return "";
 
   if (/^\$\$\\text\{Answer\}=/.test(line)) {
     return `So, the answer is ${answer}.`;
@@ -91,7 +99,7 @@ function simplifyLine(
 
   const mathStart = line.search(/\n\n(?=\$\$)/);
   const prose = (mathStart >= 0 ? line.slice(0, mathStart) : line).trim();
-  if (!options.preserveSupportLines && GENERIC_NARRATION.test(prose)) {
+  if (GENERIC_NARRATION.test(prose)) {
     return mathStart >= 0 ? line.slice(mathStart).trim() : "";
   }
 
@@ -113,23 +121,27 @@ export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
 
   const answer = cleanAnswer(answerValue);
   const lines: string[] = [];
+  const support: SupportCandidate[] = [];
   const seenMath = new Set<string>();
   const seenText = new Set<string>();
   let hasFinalAnswer = false;
 
   for (const original of explanation.lines) {
-    const line = simplifyLine(original, answer, options);
+    const candidate = supportCandidate(original);
+    if (candidate) support.push(candidate);
+
+    const line = simplifyLine(original, answer);
     if (!line) continue;
 
     const isFinal = /^So,\s/i.test(line);
     const signature = mathSignature(line);
-    if (!options.preserveSupportLines && signature && !isFinal) {
+    if (signature && !isFinal) {
       if (seenMath.has(signature)) continue;
       seenMath.add(signature);
     }
 
     const textKey = normalizeText(line);
-    if (!options.preserveSupportLines && seenText.has(textKey)) continue;
+    if (seenText.has(textKey)) continue;
     seenText.add(textKey);
 
     if (isFinal) hasFinalAnswer = true;
@@ -138,6 +150,17 @@ export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
 
   if (!hasFinalAnswer) {
     lines.push(`So, the answer is ${answer}.`);
+  }
+
+  const minimumLines = options.minimumLines ?? 0;
+  support.sort((left, right) => left.priority - right.priority);
+  while (lines.length < minimumLines && support.length > 0) {
+    const candidate = support.shift()!;
+    const textKey = normalizeText(candidate.line);
+    if (!candidate.line || seenText.has(textKey)) continue;
+    const conclusionIndex = lines.findIndex((line) => /^So,\s/i.test(line));
+    lines.splice(conclusionIndex >= 0 ? conclusionIndex : lines.length, 0, candidate.line);
+    seenText.add(textKey);
   }
 
   return { ...explanation, lines };
