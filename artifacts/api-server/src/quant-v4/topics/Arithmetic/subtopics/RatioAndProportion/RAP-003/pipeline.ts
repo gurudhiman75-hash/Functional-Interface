@@ -22,6 +22,25 @@ import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
 import { polishEnglishRapStem } from "../editorial-stem";
 
+function addValidationContext(
+  parameters: ReturnType<typeof generateRap003Parameters>,
+  solver: ReturnType<typeof solveRap003>,
+  stem: string,
+  explanation: { lines: string[] },
+  validation: ReturnType<typeof validateRap003QuestionPackage>,
+) {
+  if (validation.valid) return validation;
+  const visible = [stem, solver.answer, explanation.lines.join("\n"), JSON.stringify(solver.workingValues)].join("\n");
+  const leaked = visible.match(/\b(undefined|null|NaN|Infinity|taskKind|canonicalProblemId|questionLanguageId)\b|\[object Object\]/i)?.[0] ?? "none";
+  return {
+    ...validation,
+    checks: validation.checks.map((check) => check.passed ? check : {
+      ...check,
+      message: `${check.message} qlId=${parameters.questionLanguageId}; cpId=${parameters.canonicalProblemId}; taskKind=${parameters.taskKind}; leakedToken=${leaked}; variables=${JSON.stringify(parameters.variables)}`,
+    }),
+  };
+}
+
 export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014", input: Rap003ParameterInput = {}): Rap003QuestionPackage {
   const parameters = generateRap003Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap003(parameters);
@@ -65,7 +84,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
     explanation,
     mathJax: solver.mathJax,
   };
-  const validation = validateRap003QuestionPackage({ ...basePackage, validation: { valid: false, checks: [] } });
+  const rawValidation = validateRap003QuestionPackage({ ...basePackage, validation: { valid: false, checks: [] } });
+  const validation = addValidationContext(parameters, solver, stem, explanation, rawValidation);
   return { ...basePackage, validation };
 }
 
