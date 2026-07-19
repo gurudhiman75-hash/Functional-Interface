@@ -58,6 +58,9 @@ export function useQuestionStudio() {
     setError(null);
     try {
       const result = await createGenerationRun(input);
+      // The run is complete once the API has persisted it. Do not keep the
+      // button in its generating state while the large review dashboard reloads.
+      setGenerating(false);
       await refresh();
       return result;
     } catch (caught) {

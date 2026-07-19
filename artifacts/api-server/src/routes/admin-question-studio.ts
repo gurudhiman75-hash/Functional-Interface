@@ -125,7 +125,22 @@ router.get("/dashboard", requireAdminPermission("content.generation.read"), asyn
         i.created_at AS "createdAt",
         i.updated_at AS "updatedAt",
         v.id AS "versionId",
-        v.payload
+        jsonb_strip_nulls(jsonb_build_object(
+          'text', v.payload -> 'text',
+          'stem', v.payload -> 'stem',
+          'options', v.payload -> 'options',
+          'explanation', v.payload -> 'explanation',
+          'correct', v.payload -> 'correct',
+          'correctIndex', v.payload -> 'correctIndex',
+          'difficulty', v.payload -> 'difficulty',
+          'difficultyLabel', v.payload -> 'difficultyLabel',
+          'patternId', v.payload -> 'patternId',
+          'packageId', v.payload -> 'packageId',
+          'topic', v.payload -> 'topic',
+          'subtopic', v.payload -> 'subtopic',
+          'language', v.payload -> 'language',
+          'seed', v.payload -> 'seed'
+        )) AS payload
       FROM content.generation_run_items i
       INNER JOIN content.generation_runs r ON r.id = i.generation_run_id
       LEFT JOIN content.generation_item_versions v
