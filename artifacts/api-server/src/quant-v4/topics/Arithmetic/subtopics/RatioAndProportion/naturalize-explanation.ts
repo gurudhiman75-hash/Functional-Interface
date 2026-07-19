@@ -3,8 +3,14 @@ export interface RapExplanationLike {
   lines: string[];
 }
 
+export interface NaturalizeRapExplanationOptions {
+  preserveSupportLines?: boolean;
+}
+
 const DROP_META_LINE = /^(?:why(?: this method works| it applies)?|intermediate interpretation|quick check|check)\s*:/i;
 const STRUCTURAL_PREFIX = /^(?:concept|problem|method(?:\s+\d+)?|extraction|step\s+\d+)\s*:\s*/i;
+const SUPPORT_PREFIX = /^(?:why(?: this method works| it applies)?|quick check|check)\s*:\s*/i;
+const INTERMEDIATE_PREFIX = /^intermediate interpretation\s*:\s*/i;
 const GENERIC_NARRATION = /^(?:evaluate the relation with the stated values|reduce the result in the form requested|use the common term or total to fix one ratio unit|the recovered shares add back to the total)\.?$/i;
 
 function cleanAnswer(value: string | number) {
@@ -39,9 +45,23 @@ function normalizeText(line: string) {
   return line.replace(/\s+/g, " ").trim().toLowerCase();
 }
 
-function simplifyLine(original: string, answer: string) {
+function simplifyLine(
+  original: string,
+  answer: string,
+  options: NaturalizeRapExplanationOptions,
+) {
   let line = original.trim();
-  if (!line || DROP_META_LINE.test(line)) return "";
+  if (!line) return "";
+
+  if (options.preserveSupportLines) {
+    if (INTERMEDIATE_PREFIX.test(line)) {
+      line = line.replace(INTERMEDIATE_PREFIX, "Using these values, ");
+    } else if (SUPPORT_PREFIX.test(line)) {
+      line = line.replace(SUPPORT_PREFIX, "");
+    }
+  } else if (DROP_META_LINE.test(line)) {
+    return "";
+  }
 
   if (/^\$\$\\text\{Answer\}=/.test(line)) {
     return `So, the answer is ${answer}.`;
@@ -71,7 +91,7 @@ function simplifyLine(original: string, answer: string) {
 
   const mathStart = line.search(/\n\n(?=\$\$)/);
   const prose = (mathStart >= 0 ? line.slice(0, mathStart) : line).trim();
-  if (GENERIC_NARRATION.test(prose)) {
+  if (!options.preserveSupportLines && GENERIC_NARRATION.test(prose)) {
     return mathStart >= 0 ? line.slice(mathStart).trim() : "";
   }
 
@@ -87,6 +107,7 @@ export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
   explanation: T,
   language: string,
   answerValue: string | number,
+  options: NaturalizeRapExplanationOptions = {},
 ): T {
   if (language !== "en") return explanation;
 
@@ -97,18 +118,18 @@ export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
   let hasFinalAnswer = false;
 
   for (const original of explanation.lines) {
-    const line = simplifyLine(original, answer);
+    const line = simplifyLine(original, answer, options);
     if (!line) continue;
 
     const isFinal = /^So,\s/i.test(line);
     const signature = mathSignature(line);
-    if (signature && !isFinal) {
+    if (!options.preserveSupportLines && signature && !isFinal) {
       if (seenMath.has(signature)) continue;
       seenMath.add(signature);
     }
 
     const textKey = normalizeText(line);
-    if (seenText.has(textKey)) continue;
+    if (!options.preserveSupportLines && seenText.has(textKey)) continue;
     seenText.add(textKey);
 
     if (isFinal) hasFinalAnswer = true;
