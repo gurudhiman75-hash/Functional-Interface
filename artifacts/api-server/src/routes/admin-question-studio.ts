@@ -198,6 +198,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
   const runId = randomUUID();
   const code = publicRunCode();
   const now = new Date();
+  const timestamp = now.toISOString();
   const requestSnapshot = {
     exam,
     subject,
@@ -258,17 +259,17 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
           'review'::generation_run_status,
           1,
           ${JSON.stringify(requestSnapshot)},
-          ${tx.json(requestSnapshot)},
+          ${JSON.stringify(requestSnapshot)},
           'examtree',
           'quant-v4',
           0,
           0,
           0,
           0,
-          ${now},
-          ${now},
-          ${now},
-          ${now}
+          ${timestamp},
+          ${timestamp},
+          ${timestamp},
+          ${timestamp}
         )
       `;
 
@@ -296,8 +297,8 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
             ${index + 1},
             'unreviewed'::generation_item_status,
             1,
-            ${now},
-            ${now}
+            ${timestamp},
+            ${timestamp}
           )
         `;
 
@@ -313,9 +314,9 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
             ${versionId}::uuid,
             ${itemId}::uuid,
             1,
-            ${tx.json(payload)},
+            ${JSON.stringify(payload)},
             ${asString((generatedQuestions[index] as Record<string, unknown>)?.questionId) || null},
-            ${now}
+            ${timestamp}
           )
         `;
       }
@@ -340,7 +341,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
           ${runId}::uuid,
           'Admin generated a Question Studio batch',
           ${`Generated ${generatedQuestions.length} Quant V4 questions in ${code}`},
-          ${tx.json({
+          ${JSON.stringify({
             firebaseUid: req.user?.id,
             requestSnapshot,
           })}
@@ -359,7 +360,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
           'generation_run',
           ${runId}::uuid,
           'question_studio.generation_run.created',
-          ${tx.json({ runId, publicCode: code, itemCount: generatedQuestions.length })}
+          ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length })}
         )
       `;
     });
@@ -477,7 +478,7 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
             ${convertedQuestion?.questionVersionId ?? null}::uuid,
             ${reason || null},
             ${`Generated item moved to ${status}`},
-            ${tx.json({
+            ${JSON.stringify({
               firebaseUid: req.user?.id,
               previousStatus: row.status,
               status,
