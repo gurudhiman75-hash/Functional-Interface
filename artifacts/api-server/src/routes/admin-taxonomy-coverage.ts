@@ -90,19 +90,17 @@ router.patch(
         await tx`SELECT pg_advisory_xact_lock(hashtext('examtree.catalog.taxonomy'))`;
         const nodeIds = [...new Set(changes.map((change) => change.taxonomyNodeId))];
         const examVersionIds = [...new Set(changes.map((change) => change.examVersionId))];
-        const [nodes, examVersions] = await Promise.all([
-          tx`
-            SELECT id::text AS id, code
-            FROM catalog.taxonomy_nodes
-            WHERE id = ANY(${nodeIds}::uuid[])
-              AND deleted_at IS NULL
-          `,
-          tx`
-            SELECT id::text AS id
-            FROM catalog.exam_versions
-            WHERE id = ANY(${examVersionIds}::uuid[])
-          `,
-        ]);
+        const nodes = await tx`
+          SELECT id::text AS id, code
+          FROM catalog.taxonomy_nodes
+          WHERE id = ANY(${nodeIds}::uuid[])
+            AND deleted_at IS NULL
+        `;
+        const examVersions = await tx`
+          SELECT id::text AS id
+          FROM catalog.exam_versions
+          WHERE id = ANY(${examVersionIds}::uuid[])
+        `;
         if (nodes.length !== nodeIds.length || examVersions.length !== examVersionIds.length) {
           throw new TaxonomyManagementError(
             "COVERAGE_ENTITY_NOT_FOUND",
