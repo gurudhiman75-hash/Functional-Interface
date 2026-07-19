@@ -5,11 +5,16 @@ import { solveRap003 } from "./solver";
 import { RAP_003_ARCHETYPE_ID, type Rap003CanonicalProblemId, type Rap003ParameterInput, type Rap003QuestionPackage } from "./types";
 import { validateRap003QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
+import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 
 export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014", input: Rap003ParameterInput = {}): Rap003QuestionPackage {
   const parameters = generateRap003Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap003(parameters);
-  const explanation = renderRap003Explanation(parameters, solver);
+  const explanation = naturalizeEnglishRapExplanation(
+    renderRap003Explanation(parameters, solver),
+    parameters.language,
+    solver.answer,
+  );
   const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
   const basePackage = {
