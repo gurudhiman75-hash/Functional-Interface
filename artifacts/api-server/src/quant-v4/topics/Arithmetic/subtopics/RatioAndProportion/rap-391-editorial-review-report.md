@@ -4,7 +4,7 @@ Reviewed date: `2026-07-19`
 Reviewed source commit: `14b5694c5d56119f9576a23daf14c03d1a281476`
 Validation workflow run: `29686184073`
 Validation artifact: `8442137395`
-Ledger SHA-256: `740ec2566eabf82c36c307143c147ad458e93289190db3c70ef89ac6d4bf3015`
+Combined downloadable ledger SHA-256: `9ab857453a0d91082a2261807d5e57b09ab1d9b674be8546ccf16dda26afda22`
 
 ## Scope
 
@@ -15,7 +15,14 @@ Every active English Ratio & Proportion stem and explanation was reviewed in the
 - RAP-003: `222` QLs
 - Total: `391` QLs
 
-The ledger contains one explicit row for every QL. Assistant editorial verdicts are recorded separately from the product's human-review workflow. `humanReviewStatus` remains `PENDING` for all rows.
+The `editorial-review-ledger/` directory contains one explicit row for every QL. It is split into package and canonical-problem files for readability; the directory manifest lists every file and row count. Assistant editorial verdicts are recorded separately from the product's human-review workflow. `humanStatus` remains `PENDING` for all rows.
+
+## Ledger Files
+
+- `editorial-review-ledger/rap-001.csv`: `67` rows
+- `editorial-review-ledger/rap-002.csv`: `102` rows
+- `editorial-review-ledger/rap-003-cp-013.csv` through `rap-003-cp-022.csv`: `222` rows
+- Combined total: `391` rows
 
 ## Final Result
 
@@ -60,7 +67,7 @@ Explanations now start from the generated values or equation, use short natural 
 
 ## Validation Performed
 
-The final gate includes the API build, package tests for RAP-001/002/003, package explanation-quality audits, review CSV regeneration, paired diversity checks, and the canonical-answer consistency audit. The final workflow status is green.
+The final gate includes the API build, package tests for RAP-001/002/003, package explanation-quality audits, review CSV regeneration, paired diversity checks, and the canonical-answer consistency audit. The reviewed content workflow status is green.
 
 ## Freeze Status
 
