@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -120,7 +121,7 @@ export function PendingWorkspacePage() {
   );
 }
 
-function RoadmapCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+function RoadmapCard({ icon, title, description }: { icon: ReactNode; title: string; description: string }) {
   return (
     <div className="rounded-xl border bg-background p-4">
       <div className="flex items-center gap-2 text-sm font-semibold text-foreground">{icon}{title}</div>
