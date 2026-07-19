@@ -1,0 +1,58 @@
+name: Validate RAP natural explanations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/**
+      - .github/workflows/rap-natural-explanations.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-rap-natural-explanations-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-rap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run RAP package tests
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-001.test.mjs
+          node artifacts/api-server/dist/quant-v4/rap-001.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002.test.mjs
+          node artifacts/api-server/dist/quant-v4/rap-002.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-003.test.mjs
+          node artifacts/api-server/dist/quant-v4/rap-003.test.mjs
+
+      - name: Run RAP explanation-quality audits
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001-explanation-quality-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-001-explanation-quality-audit.mjs
+          node artifacts/api-server/dist/quant-v4/rap-001-explanation-quality-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-explanation-quality-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-002-explanation-quality-audit.mjs
+          node artifacts/api-server/dist/quant-v4/rap-002-explanation-quality-audit.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-explanation-quality-audit.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/rap-003-explanation-quality-audit.mjs
+          node artifacts/api-server/dist/quant-v4/rap-003-explanation-quality-audit.mjs
