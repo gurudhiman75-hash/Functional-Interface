@@ -3,7 +3,9 @@ import { useCallback, useEffect, useState } from 'react';
 import {
   createTaxonomyNode,
   getTaxonomyWorkspace,
+  updateTaxonomyCoverage,
   updateTaxonomyNode,
+  type TaxonomyCoverageMutation,
   type TaxonomyNodeMutation,
   type TaxonomyWorkspace,
 } from './api';
@@ -57,5 +59,21 @@ export function useTaxonomyWorkspace() {
     }
   }, [refresh]);
 
-  return { workspace, loading, saving, error, refresh, saveNode };
+  const saveCoverage = useCallback(async (input: TaxonomyCoverageMutation) => {
+    setSaving(true);
+    setError(null);
+    try {
+      const result = await updateTaxonomyCoverage(input);
+      await refresh();
+      return result;
+    } catch (caught) {
+      const message = caught instanceof Error ? caught.message : 'Unable to save coverage targets.';
+      setError(message);
+      throw caught;
+    } finally {
+      setSaving(false);
+    }
+  }, [refresh]);
+
+  return { workspace, loading, saving, error, refresh, saveNode, saveCoverage };
 }
