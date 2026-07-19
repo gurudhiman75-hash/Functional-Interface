@@ -6,6 +6,8 @@ import { SimpleLinkageRenderer } from "./renderers/simple-linkage-renderer";
 import { RatioNormalizationRenderer } from "./renderers/ratio-normalization-renderer";
 import { BasicPartitionRenderer } from "./renderers/basic-partition-renderer";
 import { NaturalExamRenderer } from "./renderers/natural-exam-renderer";
+import { DecimalNormalizationRenderer } from "./renderers/decimal-normalization-renderer";
+import { ThreeComponentMixtureRenderer } from "./renderers/three-component-mixture-renderer";
 
 export function resolveRap001SemanticEntities(taskKind: string, semanticContext: any, language: "en" | "hi" | "pa"): Record<string, string> {
   const map: Record<string, string> = {};
@@ -51,7 +53,7 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
       renderer = new NaturalExamRenderer("find the matching component", solver.mathJax);
       break;
     case "decimalNormalization":
-      renderer = new NaturalExamRenderer("convert decimals to a whole-number ratio", solver.mathJax);
+      renderer = new DecimalNormalizationRenderer();
       break;
     case "basicPartition":
       renderer = new BasicPartitionRenderer(solver.mathJax);
@@ -114,7 +116,7 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
       renderer = new NaturalExamRenderer("add one component to reach a ratio", solver.mathJax);
       break;
     case "threeComponentMixture":
-      renderer = new NaturalExamRenderer("solve the three-component mixture", solver.mathJax);
+      renderer = new ThreeComponentMixtureRenderer();
       break;
     case "variableReplacementRatio":
       renderer = new NaturalExamRenderer("track repeated replacement", solver.mathJax);
