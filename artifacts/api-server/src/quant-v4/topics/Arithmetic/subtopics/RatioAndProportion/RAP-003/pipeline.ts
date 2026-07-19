@@ -10,6 +10,7 @@ import { renderRap003EditorialExplanation } from "./editorial-explanation";
 import { renderRap003PartnershipExplanation } from "./editorial-partnership";
 import { renderRap003AgeExplanation } from "./editorial-age";
 import { renderRap003IncomeExplanation } from "./editorial-income";
+import { renderRap003MixtureExplanation } from "./editorial-mixture";
 import { ensureRap003MeaningfulSupport } from "./editorial-support";
 import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
@@ -28,7 +29,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
   const partnershipExplanation = renderRap003PartnershipExplanation(parameters, solver, editorialExplanation);
   const ageExplanation = renderRap003AgeExplanation(parameters, solver, partnershipExplanation);
   const incomeExplanation = renderRap003IncomeExplanation(parameters, solver, ageExplanation);
-  const supportedExplanation = ensureRap003MeaningfulSupport(parameters, incomeExplanation);
+  const mixtureExplanation = renderRap003MixtureExplanation(parameters, solver, incomeExplanation);
+  const supportedExplanation = ensureRap003MeaningfulSupport(parameters, mixtureExplanation);
   const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, supportedExplanation);
   const explanation = polishRap003EditorialLines(parameters, concludedExplanation);
   const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
