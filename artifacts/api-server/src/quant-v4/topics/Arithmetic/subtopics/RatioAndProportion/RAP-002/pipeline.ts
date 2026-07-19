@@ -7,6 +7,7 @@ import { validateRap002QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { renderRap002EditorialExplanation } from "./editorial-explanation";
+import { polishEnglishRapStem } from "../editorial-stem";
 
 export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007", input: Rap002ParameterInput = {}): Rap002QuestionPackage {
   const parameters = generateRap002Parameters({ ...input, canonicalProblemId: cpId });
@@ -19,7 +20,10 @@ export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007",
   );
   const explanation = renderRap002EditorialExplanation(parameters, solver, naturalizedExplanation);
   const renderedStem = renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
-  const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
+  const stem = polishEnglishRapStem(
+    renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
+    parameters.language,
+  );
   const basePackage = {
     archetypeId: RAP_002_ARCHETYPE_ID,
     canonicalProblemId: cpId,
