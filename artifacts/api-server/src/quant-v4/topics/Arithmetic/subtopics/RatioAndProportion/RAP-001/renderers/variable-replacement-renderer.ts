@@ -10,7 +10,7 @@ export class VariableReplacementRenderer implements ExplanationRenderer {
     const removedFirst = Number(evidence.variables.removedVolume1);
     const removedSecond = Number(evidence.variables.removedVolume2);
     const originalLiquid = String(evidence.variables.liquidA ?? "original liquid");
-    const addedLiquid = String(evidence.variables.liquidB ?? "added liquid");
+    const addedLiquid = String(evidence.variables.liquidB ?? "replacement liquid");
     const exactOriginalNumerator = Number(evidence.derivedValues.exactOriginalNumerator);
     const exactAddedNumerator = Number(evidence.derivedValues.exactAddedNumerator);
     const answer = cleanAnswer(evidence.answer);
@@ -19,31 +19,31 @@ export class VariableReplacementRenderer implements ExplanationRenderer {
       {
         stepId: "step-1",
         type: "GOAL",
-        narrative: `After the first replacement, ${originalLiquid} remaining is`,
+        narrative: `First replacement leaves ${originalLiquid}.`,
         mathLatex: `${volume}-${removedFirst}=${volume - removedFirst}`,
       },
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `In the second replacement, the retained fraction of ${originalLiquid} is`,
+        narrative: "Use the second retention fraction.",
         mathLatex: `1-\\frac{${removedSecond}}{${volume}}=\\frac{${volume - removedSecond}}{${volume}}`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: "Multiply by the full volume to keep the ratio exact.",
+        narrative: "Keep the ratio exact.",
         mathLatex: `${originalLiquid}:${addedLiquid}=${exactOriginalNumerator}:${exactAddedNumerator}`,
       },
       {
         stepId: "step-4",
         type: "SIMPLIFICATION",
-        narrative: "Reduce the two exact integer terms.",
+        narrative: "Reduce the ratio.",
         mathLatex: `${exactOriginalNumerator}:${exactAddedNumerator}=${answer}`,
       },
       {
         stepId: "step-5",
         type: "CONCLUSION",
-        narrative: `So, the final ratio of ${originalLiquid} to ${addedLiquid} is ${answer}.`,
+        narrative: `So, the final ${originalLiquid}:${addedLiquid} ratio is ${answer}.`,
       },
     ];
   }
