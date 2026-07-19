@@ -35,6 +35,7 @@ export function polishEnglishRapStem(stem: string, language: string) {
     const count = Number(countText);
     return `${countText} ${denomination} ${count === 1 ? "coin" : "coins"}`;
   });
+  result = result.replace(/\b1\s+(Rs\.\s*\d+)\s+coin\b/g, "one $1 coin");
 
   result = result
     .replace(/^Class has\b/, "A class has")
