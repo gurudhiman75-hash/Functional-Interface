@@ -6,6 +6,14 @@ export interface SimpleLinkageEvidence extends ExplanationEvidence {
   entities: Record<string, string>;
 }
 
+function gcd(a: number, b: number): number {
+  return b === 0 ? Math.abs(a) : gcd(b, a % b);
+}
+
+function lcm(a: number, b: number) {
+  return Math.abs(a * b) / gcd(a, b);
+}
+
 export class SimpleLinkageRenderer implements ExplanationRenderer {
   constructor(_solverMathJax: Record<string, string>) {}
 
@@ -22,49 +30,75 @@ export class SimpleLinkageRenderer implements ExplanationRenderer {
     const personA = String(v.personA);
     const personB = String(v.personB);
     const personC = String(v.personC);
-    const sharedB = rB1 * rB2;
-    const rawA = rA1 * rB2;
-    const rawC = rB1 * rC2;
+
+    if (rB1 === rB2) {
+      return [
+        {
+          stepId: "step-1",
+          type: "GOAL",
+          narrative: `The ${personB} part is already ${rB1} in both ratios.`,
+          mathLatex: `${personA}:${personB}=${rA1}:${rB1},\quad ${personB}:${personC}=${rB2}:${rC2}`,
+        },
+        {
+          stepId: "step-2",
+          type: "FORMULA",
+          narrative: "So the two ratios can be joined directly.",
+          mathLatex: `${personA}:${personB}:${personC}=${rA1}:${rB1}:${rC2}`,
+        },
+        {
+          stepId: "step-3",
+          type: "SUBSTITUTION",
+          narrative: "The combined ratio in simplest form is",
+          mathLatex: `${linkedA}:${linkedB}:${linkedC}`,
+        },
+        {
+          stepId: "step-4",
+          type: "CONCLUSION",
+          narrative: `Therefore, ${personA}:${personB}:${personC} is`,
+          mathLatex: `${e.answer}`,
+        },
+      ];
+    }
+
+    const commonPart = lcm(rB1, rB2);
+    const firstMultiplier = commonPart / rB1;
+    const secondMultiplier = commonPart / rB2;
+    const alignedA = rA1 * firstMultiplier;
+    const alignedC = rC2 * secondMultiplier;
 
     return [
       {
         stepId: "step-1",
         type: "GOAL",
-        narrative: `Problem: align the ${personB} part.`,
-        mathLatex: `${personA}:${personB}=${rA1}:${rB1},\\quad ${personB}:${personC}=${rB2}:${rC2}`,
+        narrative: `Make the ${personB} part equal in both ratios.`,
+        mathLatex: `${personA}:${personB}=${rA1}:${rB1},\quad ${personB}:${personC}=${rB2}:${rC2}`,
       },
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `Why it applies: ${personB} refers to the same quantity in both ratios, so its two ratio values must be made equal.`,
-        mathLatex: `${personA}:${personB}=(${rA1}\\times${rB2}):(${rB1}\\times${rB2})`,
+        narrative: `The least common value of the two ${personB} parts is ${commonPart}.`,
+        mathLatex: `\operatorname{LCM}(${rB1},${rB2})=${commonPart}`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: `Scale the second ratio too.`,
-        mathLatex: `${personB}:${personC}=(${rB2}\\times${rB1}):(${rC2}\\times${rB1})`,
+        narrative: "Scale the first ratio.",
+        mathLatex: `${personA}:${personB}=(${rA1}\times${firstMultiplier}):(${rB1}\times${firstMultiplier})=${alignedA}:${commonPart}`,
       },
       {
         stepId: "step-4",
-        type: "SIMPLIFICATION",
-        narrative: `Now combine the aligned parts.`,
-        mathLatex: `${rawA}:${sharedB}:${rawC}`,
+        type: "SUBSTITUTION",
+        narrative: "Scale the second ratio.",
+        mathLatex: `${personB}:${personC}=(${rB2}\times${secondMultiplier}):(${rC2}\times${secondMultiplier})=${commonPart}:${alignedC}`,
       },
       {
         stepId: "step-5",
         type: "SIMPLIFICATION",
-        narrative: `Method 2: reduce if possible.`,
-        mathLatex: `${rawA}:${sharedB}:${rawC}=${linkedA}:${linkedB}:${linkedC}`,
+        narrative: "Now join and reduce the three parts.",
+        mathLatex: `${alignedA}:${commonPart}:${alignedC}=${linkedA}:${linkedB}:${linkedC}`,
       },
       {
         stepId: "step-6",
-        type: "SIMPLIFICATION",
-        narrative: `Check: both original pairwise ratios are preserved in ${linkedA}:${linkedB}:${linkedC}.`,
-        mathLatex: `${linkedA}:${linkedB}:${linkedC}`,
-      },
-      {
-        stepId: "step-7",
         type: "CONCLUSION",
         narrative: `Therefore, ${personA}:${personB}:${personC} is`,
         mathLatex: `${e.answer}`,
