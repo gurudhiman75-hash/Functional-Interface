@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+
+import { Breadcrumbs } from '@/app/layout/Breadcrumbs';
 import { Sidebar } from '@/app/layout/Sidebar';
 import { Topbar } from '@/app/layout/Topbar';
-import { Breadcrumbs } from '@/app/layout/Breadcrumbs';
 import { CommandPalette } from '@/components/shared/CommandPalette';
 
 export function AdminLayout() {
@@ -27,7 +28,11 @@ export function AdminLayout() {
       )}
 
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Topbar onToggleSidebar={() => setCollapsed((c) => !c)} onOpenMobile={() => setMobileOpen(true)} />
+        <Topbar
+          collapsed={collapsed}
+          onToggleSidebar={() => setCollapsed((current) => !current)}
+          onOpenMobile={() => setMobileOpen(true)}
+        />
         <Breadcrumbs />
         <main key={key} className="flex-1 overflow-y-auto px-4 py-6 md:px-8 animate-fade-in">
           <div className="mx-auto w-full max-w-[1400px]">
