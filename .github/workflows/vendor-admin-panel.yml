@@ -9,6 +9,7 @@ on:
       - artifacts/api-server/**
       - artifacts/examtree/src/**
       - docs/admin-panel-integration.md
+      - docs/frontend-truth-audit.md
       - package.json
       - pnpm-lock.yaml
       - firebase.json
@@ -55,16 +56,49 @@ jobs:
           test "$(grep -c 'postgres(connectionString)' artifacts/api-server/src/lib/db.ts)" -eq 1
           ! grep -R --include='*.ts' --include='*.mjs' -E 'postgres\((process\.env\.|[A-Z_]*DATABASE_URL)' artifacts/api-server/src
 
+      - name: Enforce canonical admin surface
+        run: |
+          test ! -e artifacts/api-server/src/routes/admin-data.ts
+          test ! -e artifacts/examtree/src/pages/admin.tsx
+          test ! -e artifacts/examtree/src/pages/admin-generator.tsx
+          test ! -e artifacts/examtree/src/lib/admin-repo.ts
+          ! grep -R --include='*.ts' --include='*.tsx' '/admin-data' artifacts/api-server/src/routes/index.ts artifacts/admin-app/src artifacts/examtree/src
+          ! grep -F 'DELETE FROM' artifacts/api-server/src/routes/index.ts
+
+      - name: Enforce truthful frontend surface
+        run: |
+          ! grep -F 'PrototypeStoreProvider' artifacts/admin-app/src/App.tsx
+          ! grep -F 'Prototype Mode' artifacts/admin-app/src/app/layout/Topbar.tsx
+          ! grep -F 'PROTOTYPE_ROLES' artifacts/admin-app/src/app/layout/Topbar.tsx
+          ! grep -E 'href: "/(packages|performance)"' artifacts/examtree/src/components/AppSidebar.tsx
+          ! grep -F 'hydrateAdminDataFromCloud' artifacts/examtree/src/App.tsx
+          grep -F 'Pending canonical integration' artifacts/admin-app/src/pages/PendingWorkspacePage.tsx
+          grep -F 'canonical-attempt-history' artifacts/examtree/src/pages/activity.tsx
+          grep -F 'Question Studio' artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Test Builder' artifacts/admin-app/src/app/nav/navigation.ts
+
+      - name: Enforce Question Studio production gate
+        run: |
+          grep -F 'QuestionStudioCockpitPage' artifacts/admin-app/src/App.tsx
+          grep -F 'findDuplicateMatches' artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
+          grep -F 'Create immutable revision' artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx
+          grep -F 'QUESTION_STUDIO_QUALITY_BLOCKED' artifacts/api-server/src/routes/admin-question-studio-quality.ts
+          grep -F 'question_studio.generated_item.revised' artifacts/api-server/src/routes/admin-question-studio-quality.ts
+          grep -F 'adminQuestionStudioQualityRouter' artifacts/api-server/src/routes/index.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
       - name: Verify admin production routes are bundled
         run: |
           grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
+          grep -R "question_studio.generated_item.revised" artifacts/api-server/dist >/dev/null
+          grep -R "QUESTION_STUDIO_QUALITY_BLOCKED" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
+          ! grep "/admin-data" artifacts/api-server/dist/index.mjs
 
       - name: Test admin identity RBAC and content rules
         env:
@@ -78,6 +112,8 @@ jobs:
           node artifacts/api-server/dist/admin-question-management.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-test-management.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-test-management.test.mjs
           node artifacts/api-server/dist/admin-test-management.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/question-studio-quality.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/question-studio-quality.test.mjs
+          node artifacts/api-server/dist/question-studio-quality.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck

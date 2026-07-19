@@ -1,97 +1,19 @@
 import type { Category, Subcategory, Test } from "@/lib/data";
-import {
-  getAdminCategories,
-  getAdminQuestions,
-  getAdminTests,
-  type AdminSubcategory,
-  type TestKind,
-} from "@/lib/storage";
 
-const toSectionId = (value: string) =>
-  value
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "") || "section";
+type TestKind = "full-length" | "sectional" | "topic-wise";
 
-const normalizeSectionName = (value: string) => value.trim().toLowerCase();
-
-export type RuntimeExamGroup = AdminSubcategory & {
+export type RuntimeExamGroup = {
+  id: string;
+  categoryId: string;
+  categoryName: string;
+  name: string;
+  description: string;
   icon?: string;
   totalTests: number;
   fullLengthCount: number;
   sectionalCount: number;
   topicWiseCount: number;
 };
-
-function buildTestsFromAdmin(): Test[] {
-  const adminTests = getAdminTests();
-  const allAdminQuestions = getAdminQuestions();
-
-  return adminTests.map((test) => {
-    const questions = allAdminQuestions
-      .filter((q) => q.testId === test.id)
-      .sort((a, b) => a.createdAt - b.createdAt);
-
-    const configuredSections =
-      test.sectionSettings && test.sectionSettings.length > 0
-        ? test.sectionSettings
-        : (test.sections ?? []).map((name) => ({ name, locked: false }));
-    const configuredSectionNames = configuredSections.map((s) => s.name).filter(Boolean);
-    const fallbackSectionNames = [...new Set(questions.map((q) => q.section).filter(Boolean))];
-    const sectionNames = configuredSectionNames.length > 0 ? configuredSectionNames : fallbackSectionNames;
-
-    let questionNumber = 1;
-    const sections = sectionNames
-      .map((sectionName) => {
-        const sectionQuestions = questions
-          .filter((q) => normalizeSectionName(q.section) === normalizeSectionName(sectionName))
-          .map((q) => ({
-            id: questionNumber++,
-            text: q.text,
-            options: q.options,
-            correct: q.correct,
-            section: q.section,
-            explanation: q.explanation,
-          }));
-
-        return {
-          id: `${toSectionId(sectionName)}-${test.id}`,
-          name: sectionName,
-          questions: sectionQuestions,
-        };
-      })
-      .filter((section) => section.questions.length > 0);
-
-    const totalQuestions = sections.reduce((sum, s) => sum + s.questions.length, 0);
-
-    return {
-      id: test.id,
-      name: test.name,
-      category: test.categoryName,
-      categoryName: test.categoryName,
-      categoryId: test.categoryId,
-      subcategoryId: test.subcategoryId ?? "",
-      subcategoryName: test.subcategoryName ?? "",
-      access: test.access ?? "free",
-      kind: test.kind ?? "full-length",
-      duration: test.duration,
-      totalQuestions: totalQuestions || test.totalQuestions,
-      attempts: test.attempts,
-      avgScore: test.avgScore,
-      difficulty: test.difficulty,
-      sectionTimingMode: test.sectionTimingMode ?? "none",
-      sectionTimings: sectionNames.map((name) => {
-        const existing = (test.sectionTimings ?? []).find(
-          (item) => normalizeSectionName(item.name) === normalizeSectionName(name),
-        );
-        return { name, minutes: existing?.minutes ?? 0 };
-      }),
-      sectionSettings: configuredSections,
-      sections,
-    };
-  });
-}
 
 function normalizeApiTest(t: Test): Test {
   return {
@@ -149,16 +71,20 @@ export function getRuntimeExamGroups(
   // This ensures subcategories show even when they have no tests yet.
   const backendSubs = subcategories.filter((s) => s.categoryId === categoryId);
 
-  let subcategorySource: { id: string; name: string; description: string }[];
+  let subcategorySource: { id: string; name: string; description: string; icon?: string }[];
 
   if (backendSubs.length > 0) {
     subcategorySource = backendSubs;
   } else {
-    // Fall back to subcategories inferred from API tests
+    // Fall back to subcategories inferred from API tests.
     const map = new Map<string, { id: string; name: string; description: string }>();
     for (const test of categoryTests) {
       if (test.subcategoryId && !map.has(test.subcategoryId)) {
-        map.set(test.subcategoryId, { id: test.subcategoryId, name: test.subcategoryName || test.subcategoryId, description: "" });
+        map.set(test.subcategoryId, {
+          id: test.subcategoryId,
+          name: test.subcategoryName || test.subcategoryId,
+          description: "",
+        });
       }
     }
     subcategorySource = Array.from(map.values());
@@ -189,7 +115,9 @@ export function getRuntimeExamGroups(
     groups.push(buildSyntheticExam(category, testsWithoutExam));
   }
 
-  return groups.sort((left, right) => right.totalTests - left.totalTests || left.name.localeCompare(right.name));
+  return groups.sort(
+    (left, right) => right.totalTests - left.totalTests || left.name.localeCompare(right.name),
+  );
 }
 
 export function getRuntimeExamGroup(
@@ -199,12 +127,14 @@ export function getRuntimeExamGroup(
   subcategories: Subcategory[] = [],
 ): RuntimeExamGroup | null {
   for (const category of categories) {
-    const group = getRuntimeExamGroups(category.id, categories, tests, subcategories).find((item) => item.id === examId);
+    const group = getRuntimeExamGroups(category.id, categories, tests, subcategories).find(
+      (item) => item.id === examId,
+    );
     if (group) return group;
   }
   return null;
 }
 
 export function testHasInlineQuestions(test: Test | undefined): boolean {
-  return Boolean(test?.sections?.some((s) => (s.questions?.length ?? 0) > 0));
+  return Boolean(test?.sections?.some((section) => (section.questions?.length ?? 0) > 0));
 }

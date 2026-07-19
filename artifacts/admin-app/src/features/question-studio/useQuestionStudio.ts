@@ -3,11 +3,13 @@ import {
   createGenerationRun,
   getQuestionStudioCapabilities,
   getQuestionStudioDashboard,
+  reviseGenerationItem,
   updateGenerationItems,
   type CreateGenerationRunInput,
   type GenerationItemStatus,
   type QuestionStudioCapabilities,
   type QuestionStudioDashboard,
+  type ReviseGenerationItemInput,
 } from './api';
 
 const EMPTY_DASHBOARD: QuestionStudioDashboard = {
@@ -30,6 +32,7 @@ export function useQuestionStudio() {
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [updating, setUpdating] = useState(false);
+  const [revisingItemId, setRevisingItemId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -92,15 +95,33 @@ export function useQuestionStudio() {
     }
   }, [refresh]);
 
+  const reviseItem = useCallback(async (input: ReviseGenerationItemInput) => {
+    setRevisingItemId(input.itemId);
+    setError(null);
+    try {
+      const result = await reviseGenerationItem(input);
+      await refresh();
+      return result;
+    } catch (caught) {
+      const message = caught instanceof Error ? caught.message : 'Unable to save generated-item revision.';
+      setError(message);
+      throw caught;
+    } finally {
+      setRevisingItemId(null);
+    }
+  }, [refresh]);
+
   return {
     dashboard,
     capabilities,
     loading,
     generating,
     updating,
+    revisingItemId,
     error,
     refresh,
     generate,
     updateItems,
+    reviseItem,
   };
 }

@@ -1,8 +1,6 @@
 import { Link, useLocation } from "wouter";
 import {
-  BarChart3,
   ClipboardList,
-  CreditCard,
   Home,
   LogOut,
   Settings,
@@ -12,8 +10,9 @@ import {
   WandSparkles,
 } from "lucide-react";
 import { signOut } from "firebase/auth";
-import { getUser, clearAuth } from "@/lib/storage";
+
 import { getFirebaseAuth } from "@/lib/firebase";
+import { clearAuth, getUser } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import {
   Sidebar,
@@ -29,9 +28,7 @@ import {
 const primaryLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/tests", label: "Tests & Exams", icon: ClipboardList },
-  { href: "/packages", label: "Packages", icon: CreditCard },
-  { href: "/dashboard", label: "Practice", icon: Target },
-  { href: "/performance", label: "Analytics", icon: BarChart3 },
+  { href: "/dashboard", label: "My Activity", icon: Target },
 ];
 
 export function AppSidebar() {
@@ -43,7 +40,7 @@ export function AppSidebar() {
     ? [
         ...primaryLinks,
         { href: "/admin", label: "Admin", icon: ShieldCheck },
-        { href: "/admin/generator", label: "Question Studio", icon: WandSparkles },
+        { href: "/admin/content/questions/generate", label: "Question Studio", icon: WandSparkles },
       ]
     : primaryLinks;
 
@@ -67,7 +64,7 @@ export function AppSidebar() {
     >
       <SidebarHeader className="border-b border-indigo-900 px-4 py-4">
         <Link href="/" className="flex items-center gap-3 rounded-md px-1 py-1">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600 text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-indigo-600 text-white">
             <span className="text-sm font-semibold">E</span>
           </div>
           <div className="min-w-0">
@@ -81,9 +78,9 @@ export function AppSidebar() {
         <SidebarMenu className="space-y-1">
           {links.map((link) => {
             const active =
-              location === link.href ||
-              (link.href === "/tests" && (location.startsWith("/category") || location.startsWith("/subcategory"))) ||
-              (link.href === "/dashboard" && location.startsWith("/test/"));
+              location === link.href
+              || (link.href === "/tests" && (location.startsWith("/category") || location.startsWith("/subcategory")))
+              || (link.href === "/dashboard" && location.startsWith("/test/"));
             return (
               <SidebarMenuItem key={link.href}>
                 <SidebarMenuButton
