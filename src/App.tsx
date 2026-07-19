@@ -16,6 +16,12 @@ import { TestsPage } from '@/pages/tests/TestsPage';
 const QuestionStudioPage = lazy(() =>
   import('@/pages/content/QuestionStudioOperationsPage').then((module) => ({ default: module.QuestionStudioOperationsPage })),
 );
+const TaxonomyPage = lazy(() =>
+  import('@/pages/content/TaxonomyWorkspacePage').then((module) => ({ default: module.TaxonomyWorkspacePage })),
+);
+const CoveragePage = lazy(() =>
+  import('@/pages/content/CoveragePlannerPage').then((module) => ({ default: module.CoveragePlannerPage })),
+);
 const TestBuilderPage = lazy(() =>
   import('@/pages/tests/TestBuilderPage').then((module) => ({ default: module.TestBuilderPage })),
 );
@@ -40,8 +46,8 @@ const router = createBrowserRouter([
       { path: '/content/questions/:id', element: <QuestionDetailPage /> },
       { path: '/content/questions', element: <QuestionBankWorkspacePage /> },
       { path: '/content/review', element: <PendingWorkspacePage /> },
-      { path: '/content/coverage', element: <PendingWorkspacePage /> },
-      { path: '/content/taxonomy', element: <PendingWorkspacePage /> },
+      { path: '/content/coverage', element: <CoveragePage /> },
+      { path: '/content/taxonomy', element: <TaxonomyPage /> },
       { path: '/content/sets', element: <PendingWorkspacePage /> },
       { path: '/content/media', element: <PendingWorkspacePage /> },
 
