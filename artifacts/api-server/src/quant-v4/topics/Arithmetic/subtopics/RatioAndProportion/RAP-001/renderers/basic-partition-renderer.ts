@@ -29,19 +29,19 @@ export class BasicPartitionRenderer implements ExplanationRenderer {
       {
         stepId: "step-1",
         type: "GOAL",
-        narrative: "First add the ratio parts.",
+        narrative: "Add the ratio parts.",
         mathLatex: `${ratios.join("+")}=${ratioSum}`,
       },
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: "Divide the total by the number of parts to find one part.",
+        narrative: "Find one part.",
         mathLatex: `\\frac{${v.totalAmount}}{${ratioSum}}=${unitValue}`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: `The share for ${target} contains ${targetPart} ratio parts.`,
+        narrative: `${target} has ${targetPart} parts.`,
         mathLatex: `${targetPart}\\times${unitValue}=${answer}`,
       },
       {
