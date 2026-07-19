@@ -159,7 +159,12 @@ export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
     const textKey = normalizeText(candidate.line);
     if (!candidate.line || seenText.has(textKey)) continue;
     const conclusionIndex = lines.findIndex((line) => /^So,\s/i.test(line));
-    lines.splice(conclusionIndex >= 0 ? conclusionIndex : lines.length, 0, candidate.line);
+    const insertionIndex = candidate.priority === 1
+      ? Math.min(1, lines.length)
+      : conclusionIndex >= 0
+        ? conclusionIndex
+        : lines.length;
+    lines.splice(insertionIndex, 0, candidate.line);
     seenText.add(textKey);
   }
 
