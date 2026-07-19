@@ -66,6 +66,7 @@ jobs:
           run_case rap-002-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-explanation-quality-audit.ts dist/quant-v4/rap-002-explanation-quality-audit.mjs
           run_case rap-003-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-explanation-quality-audit.ts dist/quant-v4/rap-003-explanation-quality-audit.mjs
 
+          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name '*explanation-quality-report.md' -exec cp {} validation-logs/ \;
           echo "$status" > validation-logs/status.txt
           for log in validation-logs/*.log; do
             echo "===== ${log} ====="
