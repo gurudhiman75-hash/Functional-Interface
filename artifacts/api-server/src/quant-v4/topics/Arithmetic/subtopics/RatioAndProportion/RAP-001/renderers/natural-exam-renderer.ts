@@ -1,7 +1,15 @@
 import type { ExplanationEvidence, ExplanationRenderer, ExplanationStep } from "../../../../../common/explanation-engine";
 
-function cleanLatex(line: string | undefined, fallback: string) {
-  return (line?.replace(/.*?:/, "")?.trim() || fallback).replace(/^\$+|\$+$/g, "");
+function cleanTaggedLatex(line: string | undefined, fallback: string) {
+  const value = line?.trim() || fallback;
+  return value
+    .replace(/^\$+|\$+$/g, "")
+    .replace(/^(?:\\text\{[^}]+\}|[A-Za-z ]+)\s*:\s*/, "")
+    .trim();
+}
+
+function cleanAnswer(value: string | number) {
+  return String(value).replaceAll("$$", "").trim();
 }
 
 export class NaturalExamRenderer implements ExplanationRenderer {
@@ -11,19 +19,35 @@ export class NaturalExamRenderer implements ExplanationRenderer {
   ) {}
 
   render(evidence: ExplanationEvidence): ExplanationStep[] {
-    const answer = evidence.answer;
-    const answerMath = cleanLatex(answer, answer);
-    const setup = cleanLatex(this.solverMathJax.setupLatex, "\\text{given relation}");
-    const calculation = cleanLatex(this.solverMathJax.calculationLatex, `${answer}`);
+    const answerMath = cleanAnswer(evidence.answer);
+    const setup = cleanTaggedLatex(this.solverMathJax.setupLatex, "\\text{given relation}");
+    const calculation = cleanTaggedLatex(this.solverMathJax.calculationLatex, answerMath);
 
     return [
-      { stepId: "step-1", type: "GOAL", narrative: `Concept: this question uses ${this.title.toLowerCase()}.`, mathLatex: setup },
-      { stepId: "step-2", type: "FORMULA", narrative: "Why: use one common ratio scale.", mathLatex: setup },
-      { stepId: "step-3", type: "SUBSTITUTION", narrative: "Use the common term or total to fix one ratio unit.", mathLatex: setup },
-      { stepId: "step-4", type: "SUBSTITUTION", narrative: "Evaluate the relation with the stated values.", mathLatex: calculation },
-      { stepId: "step-5", type: "SIMPLIFICATION", narrative: "Reduce the result in the form requested.", mathLatex: calculation },
-      { stepId: "step-6", type: "SIMPLIFICATION", narrative: "Check that it reproduces the stated relation or total.", mathLatex: calculation },
-      { stepId: "step-7", type: "CONCLUSION", narrative: `Therefore, the requested value is ${answerMath}.`, mathLatex: answerMath },
+      {
+        stepId: "step-1",
+        type: "GOAL",
+        narrative: `Start by ${this.title.toLowerCase()}.`,
+        mathLatex: setup,
+      },
+      {
+        stepId: "step-2",
+        type: "FORMULA",
+        narrative: "Use the relation in the question.",
+        mathLatex: setup,
+      },
+      {
+        stepId: "step-3",
+        type: "SUBSTITUTION",
+        narrative: "Substituting the stated numbers gives",
+        mathLatex: calculation,
+      },
+      {
+        stepId: "step-4",
+        type: "CONCLUSION",
+        narrative: "So, the answer is",
+        mathLatex: answerMath,
+      },
     ];
   }
 }
