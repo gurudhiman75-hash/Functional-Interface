@@ -107,7 +107,7 @@ export function runExplanationQualityAudit(config: ExplanationAuditConfig) {
       counters.missingRequestedQuantityCalculationCount += 1;
       failures.push("final calculation does not state requested value");
     }
-    if (!/(?:so|therefore|hence),?.*(?:answer|ratio|value|age|time|share|count|quantity|percentage|receives|is)/i.test(text)) {
+    if (!/(?:so|therefore|hence),?.*(?:answer|ratio|value|age|time|share|count|quantity|percentage|receives|is|are|was|were|savings|income|profit|total|fund|number|coins?|litres?|volume|amount|votes?|years?|seconds?|metres?|meters?|kilometres?|kilometers?|should be added)/i.test(text)) {
       counters.missingFinalContextCount += 1;
       failures.push("missing natural final context");
     }
