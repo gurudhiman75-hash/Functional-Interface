@@ -25,13 +25,28 @@ export function resolveRap001SemanticEntities(taskKind: string, semanticContext:
   return map;
 }
 
+function explanationVariables(parameters: Rap001Parameters) {
+  const variables = parameters.variables;
+  const first = variables.personA ?? variables.groupA ?? "the first quantity";
+  const second = variables.personB ?? variables.groupB ?? "the second quantity";
+  const third = variables.personC ?? "the third quantity";
+  return {
+    ...variables,
+    personA: first,
+    personB: second,
+    personC: third,
+    groupA: variables.groupA ?? first,
+    groupB: variables.groupB ?? second,
+  };
+}
+
 export function renderRap001Explanation(parameters: Rap001Parameters, solver: Rap001SolverResult, _graph: Rap001ReasoningGraph): Rap001Explanation {
   if (parameters.language !== "en") {
     return renderLocalizedRap001Explanation(parameters, solver);
   }
 
   const evidence: ExplanationEvidence = {
-    variables: parameters.variables,
+    variables: explanationVariables(parameters),
     derivedValues: solver.workingValues,
     entities: resolveRap001SemanticEntities(parameters.taskKind, parameters.semanticContext, parameters.language),
     answer: solver.answer,
