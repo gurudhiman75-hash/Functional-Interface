@@ -15,8 +15,18 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
   const parameters = normalizeRap001EditorialParameters(generateRap001Parameters(cpId, input));
   const solver = normalizeRap001EditorialSolver(parameters, solveRap001(parameters));
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
+  let renderedExplanation;
+  try {
+    renderedExplanation = renderRap001Explanation(parameters, solver, reasoningGraph);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(
+      `RAP-001 explanation rendering failed: cpId=${cpId}; qlId=${parameters.questionLanguageId}; taskKind=${parameters.taskKind}; seed=${String(input.seed ?? "")}; ${message}`,
+      { cause: error },
+    );
+  }
   const explanation = naturalizeEnglishRapExplanation(
-    renderRap001Explanation(parameters, solver, reasoningGraph),
+    renderedExplanation,
     parameters.language,
     solver.answer,
   );
