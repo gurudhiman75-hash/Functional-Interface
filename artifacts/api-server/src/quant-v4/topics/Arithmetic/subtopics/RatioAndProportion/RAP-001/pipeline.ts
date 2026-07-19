@@ -9,6 +9,7 @@ import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { normalizeRap001EditorialParameters } from "./editorial-parameter-normalizer";
 import { normalizeRap001EditorialSolver } from "./editorial-solver-normalizer";
+import { polishEnglishRapStem } from "../editorial-stem";
 
 export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001QuestionPackage {
   const parameters = normalizeRap001EditorialParameters(generateRap001Parameters(cpId, input));
@@ -21,7 +22,10 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
   );
   const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language, parameters.entityReferences);
   const renderedStem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, renderVariables);
-  const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
+  const stem = polishEnglishRapStem(
+    renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
+    parameters.language,
+  );
   const semanticTrace = buildRap001SemanticTrace(parameters.semanticContext);
   const basePackage = {
     archetypeId: RAP_001_ARCHETYPE_ID,
