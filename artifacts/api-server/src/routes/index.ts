@@ -8,6 +8,7 @@ import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
+import adminTaxonomyCoverageRouter from "./admin-taxonomy-coverage";
 import adminTaxonomyRouter from "./admin-taxonomy";
 import adminTestsRouter from "./admin-tests";
 import publishedTestsRouter from "./published-tests";
@@ -38,6 +39,7 @@ router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
+router.use("/admin/taxonomy", adminTaxonomyCoverageRouter);
 router.use("/admin/taxonomy", adminTaxonomyRouter);
 router.use("/admin/tests", adminTestsRouter);
 
