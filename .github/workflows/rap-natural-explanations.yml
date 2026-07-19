@@ -51,7 +51,7 @@ jobs:
             log="validation-logs/${name}.log"
             echo "Bundling ${source}" > "$log"
             if pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" >> "$log" 2>&1; then
-              if ! node "artifacts/api-server/${output}" >> "$log" 2>&1; then
+              if ! (cd artifacts/api-server && node "$output") >> "$log" 2>&1; then
                 status=1
               fi
             else
