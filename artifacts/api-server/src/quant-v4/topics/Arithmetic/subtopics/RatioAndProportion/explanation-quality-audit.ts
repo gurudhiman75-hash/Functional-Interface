@@ -127,9 +127,7 @@ export function runExplanationQualityAudit(config: ExplanationAuditConfig) {
       failures.push("explanation/stem mismatch");
     }
 
-    const shell = normalize(text)
-      .replace(/\d+(?:\.\d+)?/g, "#")
-      .replace(/\b(?:aman|bhavna|charan|ravi|sunita|riya)\b/g, "person");
+    const shell = normalize(text);
     const taskKinds = shells.get(shell) ?? new Set<string>();
     taskKinds.add(pkg.parameters.taskKind);
     shells.set(shell, taskKinds);
