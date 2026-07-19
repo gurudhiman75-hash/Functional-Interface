@@ -1,0 +1,115 @@
+export interface RapExplanationLike {
+  explanationId: string;
+  lines: string[];
+}
+
+const DROP_META_LINE = /^(?:why(?: this method works| it applies)?|intermediate interpretation|quick check|check)\s*:/i;
+const STRUCTURAL_PREFIX = /^(?:concept|problem|method(?:\s+\d+)?|extraction|step\s+\d+)\s*:\s*/i;
+const GENERIC_NARRATION = /^(?:evaluate the relation with the stated values|reduce the result in the form requested|use the common term or total to fix one ratio unit|the recovered shares add back to the total)\.?$/i;
+
+function cleanAnswer(value: string | number) {
+  return String(value).replaceAll("$$", "").trim();
+}
+
+function cleanMathLabels(line: string) {
+  return line
+    .replace(/\\text\{Decisive equation\}=/g, "")
+    .replace(/\\text\{Calculation\}=/g, "")
+    .replace(/\\text\{Answer\}=/g, "");
+}
+
+function mathSignature(line: string) {
+  const blocks = line.match(/\$\$[\s\S]*?\$\$/g);
+  if (!blocks?.length) return "";
+  return blocks
+    .join("|")
+    .replace(/\$\$/g, "")
+    .replace(/\\Rightarrow/g, "")
+    .replace(/\\text\{(?:Decisive equation|Calculation|Answer)\}=/g, "")
+    .replace(/\s+/g, "")
+    .toLowerCase();
+}
+
+function normalizeText(line: string) {
+  return line.replace(/\s+/g, " ").trim().toLowerCase();
+}
+
+function simplifyLine(original: string, answer: string) {
+  let line = original.trim();
+  if (!line || DROP_META_LINE.test(line)) return "";
+
+  if (/^\$\$\\text\{Answer\}=/.test(line)) {
+    return `So, the answer is ${answer}.`;
+  }
+
+  if (/^Final answer\s*:/i.test(line)) {
+    const remainder = line.replace(/^Final answer\s*:\s*/i, "").trim();
+    return `So, ${remainder.replace(/^the\s+/i, "the ")}`;
+  }
+
+  if (/^Answer\s*:/i.test(line)) {
+    const remainder = line.replace(/^Answer\s*:\s*/i, "").trim();
+    return remainder ? `So, ${remainder}` : `So, the answer is ${answer}.`;
+  }
+
+  line = cleanMathLabels(line)
+    .replace(/^Therefore,\s*/i, "So, ")
+    .replace(/^Hence,\s*/i, "So, ");
+
+  const conceptMatch = line.match(/^Concept:\s*this question uses\s+([^\n]+?)(?:\.\s*)?(\n\n|$)/i);
+  if (conceptMatch) {
+    const method = conceptMatch[1]!.replace(/\.$/, "");
+    line = line.replace(conceptMatch[0], `Use the given values to ${method}.${conceptMatch[2] ?? ""}`);
+  } else {
+    line = line.replace(STRUCTURAL_PREFIX, "");
+  }
+
+  const prose = line.split(/\n\n(?=\$\$)/, 1)[0]!.trim();
+  if (!line.includes("$$") && GENERIC_NARRATION.test(prose)) return "";
+
+  return line.trim();
+}
+
+/**
+ * Removes audit-style headings and repeated boilerplate after the package-specific
+ * renderer has produced the mathematically complete explanation. Hindi and Punjabi
+ * output is intentionally left untouched until human localization is undertaken.
+ */
+export function naturalizeEnglishRapExplanation<T extends RapExplanationLike>(
+  explanation: T,
+  language: string,
+  answerValue: string | number,
+): T {
+  if (language !== "en") return explanation;
+
+  const answer = cleanAnswer(answerValue);
+  const lines: string[] = [];
+  const seenMath = new Set<string>();
+  const seenText = new Set<string>();
+  let hasFinalAnswer = false;
+
+  for (const original of explanation.lines) {
+    const line = simplifyLine(original, answer);
+    if (!line) continue;
+
+    const isFinal = /^So,\s/i.test(line);
+    const signature = mathSignature(line);
+    if (signature && !isFinal) {
+      if (seenMath.has(signature)) continue;
+      seenMath.add(signature);
+    }
+
+    const textKey = normalizeText(line);
+    if (seenText.has(textKey)) continue;
+    seenText.add(textKey);
+
+    if (isFinal) hasFinalAnswer = true;
+    lines.push(line);
+  }
+
+  if (!hasFinalAnswer) {
+    lines.push(`So, the answer is ${answer}.`);
+  }
+
+  return { ...explanation, lines };
+}
