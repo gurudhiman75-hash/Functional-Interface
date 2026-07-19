@@ -7,6 +7,7 @@ import { validateRap002QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { renderRap002EditorialExplanation } from "./editorial-explanation";
+import { compactEnglishRapExplanation } from "../editorial-compactor";
 import { polishEnglishRapStem } from "../editorial-stem";
 
 export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007", input: Rap002ParameterInput = {}): Rap002QuestionPackage {
@@ -16,9 +17,12 @@ export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007",
     renderRap002Explanation(parameters, solver),
     parameters.language,
     solver.answer,
-    { minimumLines: 7 },
   );
-  const explanation = renderRap002EditorialExplanation(parameters, solver, naturalizedExplanation);
+  const editorialExplanation = renderRap002EditorialExplanation(parameters, solver, naturalizedExplanation);
+  const explanation = compactEnglishRapExplanation(editorialExplanation, parameters.language, {
+    maxMeaningfulLines: 5,
+    padToLength: 7,
+  });
   const renderedStem = renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
   const stem = polishEnglishRapStem(
     renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
