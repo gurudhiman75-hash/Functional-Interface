@@ -14,6 +14,10 @@ export interface RatioNormalizationEvidence extends ExplanationEvidence {
   entities: Record<string, string>;
 }
 
+function gcd(left: number, right: number): number {
+  return right === 0 ? Math.abs(left) : gcd(right, left % right);
+}
+
 export class RatioNormalizationRenderer implements ExplanationRenderer {
   render(evidence: ExplanationEvidence): ExplanationStep[] {
     const e = evidence as RatioNormalizationEvidence;
@@ -21,48 +25,37 @@ export class RatioNormalizationRenderer implements ExplanationRenderer {
     const { normalizedLeft, normalizedRight } = e.derivedValues;
     const rawLeft = numerator1 * denominator2;
     const rawRight = denominator1 * numerator2;
+    const divisor = gcd(rawLeft, rawRight);
 
     return [
       {
         stepId: "step-1",
         type: "GOAL",
-        narrative: `Problem: clear the fractions.`,
+        narrative: "Write the two fractions as a ratio.",
         mathLatex: `\\frac{${numerator1}}{${denominator1}}:\\frac{${numerator2}}{${denominator2}}`,
       },
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: `Why it applies: multiplying both ratio terms by the same common denominator preserves the ratio while clearing fractions.`,
-        mathLatex: `\\frac{${numerator1}}{${denominator1}}\\times${denominator1 * denominator2}:\\frac{${numerator2}}{${denominator2}}\\times${denominator1 * denominator2}`,
+        narrative: "Clear the denominators by cross-multiplying.",
+        mathLatex: `(${numerator1}\\times${denominator2}):(${denominator1}\\times${numerator2})`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
-        narrative: `This gives whole-number terms.`,
+        narrative: "This gives the whole-number ratio",
         mathLatex: `${rawLeft}:${rawRight}`,
       },
       {
         stepId: "step-4",
         type: "SIMPLIFICATION",
-        narrative: `Method 2: cross-multiply shortcut.`,
-        mathLatex: `(${numerator1}\\times${denominator2}):(${denominator1}\\times${numerator2})=${rawLeft}:${rawRight}`,
+        narrative: `Divide both terms by their HCF, ${divisor}.`,
+        mathLatex: `(${rawLeft}\\div${divisor}):(${rawRight}\\div${divisor})=${normalizedLeft}:${normalizedRight}`,
       },
       {
         stepId: "step-5",
-        type: "SIMPLIFICATION",
-        narrative: `Reduce the ratio.`,
-        mathLatex: `${normalizedLeft}:${normalizedRight}`,
-      },
-      {
-        stepId: "step-6",
-        type: "SIMPLIFICATION",
-        narrative: "Check that the final terms have no common factor greater than 1.",
-        mathLatex: `${normalizedLeft}:${normalizedRight}`,
-      },
-      {
-        stepId: "step-7",
         type: "CONCLUSION",
-        narrative: `Therefore, the simplest integer ratio is`,
+        narrative: "So, the simplest integer ratio is",
         mathLatex: `${normalizedLeft}:${normalizedRight}`,
       },
     ];
