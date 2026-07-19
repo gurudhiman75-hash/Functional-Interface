@@ -8,6 +8,7 @@ import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
+import adminTaxonomyRouter from "./admin-taxonomy";
 import adminTestsRouter from "./admin-tests";
 import publishedTestsRouter from "./published-tests";
 import publishedTestRunnerRouter from "./published-test-runner";
@@ -31,12 +32,13 @@ router.use(publishedTestRunnerRouter);
 router.use("/published-tests", publishedTestsRouter);
 
 // Canonical administration and Question Studio. Quality, immutable revisions,
-// and regeneration controls are mounted before the core dashboard routes.
+// regeneration, taxonomy and test operations all use the namespaced database.
 router.use("/admin/session", adminSessionRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
+router.use("/admin/taxonomy", adminTaxonomyRouter);
 router.use("/admin/tests", adminTestsRouter);
 
 // Compatibility responses for intentionally discarded legacy features. No
