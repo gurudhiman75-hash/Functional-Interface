@@ -7,9 +7,10 @@ import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Languag
 import { validateRap001QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
+import { normalizeRap001EditorialParameters } from "./editorial-parameter-normalizer";
 
 export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001QuestionPackage {
-  const parameters = generateRap001Parameters(cpId, input);
+  const parameters = normalizeRap001EditorialParameters(generateRap001Parameters(cpId, input));
   const solver = solveRap001(parameters);
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
   const explanation = naturalizeEnglishRapExplanation(
