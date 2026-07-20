@@ -14,27 +14,19 @@ import { ExamCatalogProvider } from "@/providers/ExamCatalogProvider";
 const MATH_JAX_CONFIG = {
   loader: { load: ["input/tex", "output/chtml", "[tex]/ams", "[tex]/boldsymbol"] },
   tex: {
-    inlineMath: [
-      ["$", "$"],
-      ["\\(", "\\)"],
-    ],
-    displayMath: [
-      ["$$", "$$"],
-      ["\\[", "\\]"],
-    ],
+    inlineMath: [["$", "$"], ["\\(", "\\)"]],
+    displayMath: [["$$", "$$"], ["\\[", "\\]"]],
     processEscapes: true,
     packages: { "[+]": ["ams", "boldsymbol"] },
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore",
-    processHtmlClass: "math-only",
-  },
+  options: { ignoreHtmlClass: "tex2jax_ignore", processHtmlClass: "math-only" },
 };
 
 const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Tests = lazy(() => import("@/pages/tests"));
+const TestSeries = lazy(() => import("@/pages/test-series"));
 const PublishedTest = lazy(() => import("@/pages/published-test"));
 const Category = lazy(() => import("@/pages/category"));
 const Subcategory = lazy(() => import("@/pages/subcategory"));
@@ -64,30 +56,22 @@ function resolveAdminDestination(pathname: string): string {
     const localOrigin = configuredOrigin || DEFAULT_LOCAL_ADMIN_ORIGIN;
     return new URL(pathname, localOrigin.endsWith("/") ? localOrigin : `${localOrigin}/`).toString();
   }
-
   return new URL(pathname, window.location.origin).toString();
 }
 
 function AdminRedirect({ to = "/admin/" }: { to?: string }) {
   const [loopDetected, setLoopDetected] = useState(false);
   const [destination, setDestination] = useState("");
-
   useEffect(() => {
     const target = resolveAdminDestination(to);
     setDestination(target);
-
     const currentUrl = new URL(window.location.href);
     const targetUrl = new URL(target);
-    const pointsToCurrentDocument =
-      currentUrl.origin === targetUrl.origin
-      && currentUrl.pathname === targetUrl.pathname
-      && currentUrl.search === targetUrl.search;
-
+    const pointsToCurrentDocument = currentUrl.origin === targetUrl.origin && currentUrl.pathname === targetUrl.pathname && currentUrl.search === targetUrl.search;
     if (pointsToCurrentDocument) {
       setLoopDetected(true);
       return;
     }
-
     window.location.assign(target);
   }, [to]);
 
@@ -98,27 +82,14 @@ function AdminRedirect({ to = "/admin/" }: { to?: string }) {
           <div className="w-full rounded-2xl border bg-card p-6 shadow-sm">
             <p className="text-sm font-semibold text-destructive">Admin application bundle is not being served</p>
             <h1 className="mt-2 text-2xl font-bold">The refresh loop has been stopped.</h1>
-            <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              This student application received an admin URL. In local development, run the student and admin applications together. In deployment, build the combined Firebase output before publishing.
-            </p>
-            <div className="mt-5 rounded-lg border bg-muted/30 p-3 font-mono text-xs text-muted-foreground">
-              Local: pnpm run dev:frontend<br />
-              Deploy: pnpm run deploy:web
-            </div>
-            {destination && (
-              <a
-                href={destination}
-                className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
-              >
-                Open admin application
-              </a>
-            )}
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">This student application received an admin URL. In local development, run the student and admin applications together. In deployment, build the combined Firebase output before publishing.</p>
+            <div className="mt-5 rounded-lg border bg-muted/30 p-3 font-mono text-xs text-muted-foreground">Local: pnpm run dev:frontend<br />Deploy: pnpm run deploy:web</div>
+            {destination && <a href={destination} className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">Open admin application</a>}
           </div>
         </div>
       </div>
     );
   }
-
   return <RouteSkeleton />;
 }
 
@@ -135,32 +106,16 @@ function ProtectedRoute({ component: Component }: { component: React.ComponentTy
 }
 
 function AnalyticsUnavailable() {
-  return (
-    <UnavailableFeature
-      title="Performance analytics is being rebuilt"
-      description="Server-backed rankings, percentiles, weak-area analysis, and cross-device progress will appear here after the canonical analytics APIs are complete."
-    />
-  );
+  return <UnavailableFeature title="Performance analytics is being rebuilt" description="Server-backed rankings, percentiles, weak-area analysis, and cross-device progress will appear here after the canonical analytics APIs are complete." />;
 }
 
 function CommerceUnavailable() {
-  return (
-    <UnavailableFeature
-      title="Packages and payments are not live yet"
-      description="Canonical packages, Razorpay verification, orders, coupons, and entitlements are still being implemented. Live tests remain available through the Tests section."
-    />
-  );
+  return <UnavailableFeature title="Packages and payments are not live yet" description="Canonical packages, Razorpay verification, orders, coupons, and entitlements are still being implemented. Live tests remain available through the Tests section." />;
 }
 
 function Router() {
   const [location] = useLocation();
-
-  const renderRoute = (Component: React.ComponentType) => (
-    <AppLayout>
-      <Component />
-    </AppLayout>
-  );
-
+  const renderRoute = (Component: React.ComponentType) => <AppLayout><Component /></AppLayout>;
   return (
     <Suspense fallback={<RouteSkeleton />}>
       <div key={location} className="animate-fadeInUp">
@@ -172,6 +127,7 @@ function Router() {
           <Route path="/dashboard" component={() => renderRoute(Dashboard)} />
           <Route path="/exams" component={() => renderRoute(Tests)} />
           <Route path="/tests" component={() => renderRoute(Tests)} />
+          <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/published-tests/:id" component={() => renderRoute(PublishedTest)} />
           <Route path="/category/:id" component={() => renderRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderRoute(Subcategory)} />
@@ -212,11 +168,7 @@ function RouteSkeleton() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="space-y-5">
           <div className="skeleton-shimmer h-12 w-48 rounded-md" />
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="skeleton-shimmer h-40 rounded-md" />
-            <div className="skeleton-shimmer h-40 rounded-md" />
-            <div className="skeleton-shimmer h-40 rounded-md" />
-          </div>
+          <div className="grid gap-4 md:grid-cols-3"><div className="skeleton-shimmer h-40 rounded-md" /><div className="skeleton-shimmer h-40 rounded-md" /><div className="skeleton-shimmer h-40 rounded-md" /></div>
           <div className="skeleton-shimmer h-72 rounded-md" />
         </div>
       </div>
@@ -227,11 +179,7 @@ function RouteSkeleton() {
 function App() {
   useEffect(() => {
     let unsubscribe = () => {};
-    try {
-      unsubscribe = syncAuthSession();
-    } catch (error) {
-      console.warn("Auth sync failed, continuing without auth:", error);
-    }
+    try { unsubscribe = syncAuthSession(); } catch (error) { console.warn("Auth sync failed, continuing without auth:", error); }
     return () => unsubscribe();
   }, []);
 
