@@ -127,6 +127,22 @@ jobs:
           ! grep -F '@/app/store/' artifacts/admin-app/src/pages/content/ContentReviewPage.tsx
           grep -F "path: '/content/review'" artifacts/admin-app/src/app/nav/navigation.ts
 
+      - name: Enforce canonical Test QA
+        run: |
+          grep -F 'TestQAWorkspacePage' artifacts/admin-app/src/App.tsx
+          grep -F 'CanonicalTestQaPage' artifacts/admin-app/src/pages/tests/TestQAWorkspacePage.tsx
+          grep -F 'Server-enforced publish gate' artifacts/admin-app/src/pages/tests/CanonicalTestQaPage.tsx
+          grep -F 'buildTestQaChecks' artifacts/admin-app/src/pages/tests/TestQaDetail.tsx
+          grep -F 'assessment.test.qa_assignment.changed' artifacts/api-server/src/lib/admin-test-qa.ts
+          grep -F 'assessment.test.qa_comment.added' artifacts/api-server/src/lib/admin-test-qa.ts
+          grep -F 'assessment.test.qa_comment.resolution.changed' artifacts/api-server/src/lib/admin-test-qa.ts
+          grep -F 'TEST_QA_GATE_BLOCKED' artifacts/api-server/src/routes/admin-test-qa-gate.ts
+          grep -F 'adminTestQaRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'adminTestQaGateRouter' artifacts/api-server/src/routes/index.ts
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/tests/TestQAWorkspacePage.tsx
+          ! grep -F '@/app/store/' artifacts/admin-app/src/pages/tests/TestQAWorkspacePage.tsx
+          grep -F "path: '/tests/qa'" artifacts/admin-app/src/app/nav/navigation.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
@@ -141,6 +157,10 @@ jobs:
           grep -R "content.review.assignment.changed" artifacts/api-server/dist >/dev/null
           grep -R "content.review.comment.added" artifacts/api-server/dist >/dev/null
           grep -R "content.review.comment.resolution.changed" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test.qa_assignment.changed" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test.qa_comment.added" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test.qa_comment.resolution.changed" artifacts/api-server/dist >/dev/null
+          grep -R "TEST_QA_GATE_BLOCKED" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
@@ -167,6 +187,8 @@ jobs:
           node artifacts/api-server/dist/admin-taxonomy-management.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-content-review.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-content-review.test.mjs
           node artifacts/api-server/dist/admin-content-review.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-test-qa.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-test-qa.test.mjs
+          node artifacts/api-server/dist/admin-test-qa.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck
