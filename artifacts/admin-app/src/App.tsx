@@ -11,8 +11,10 @@ import { QuestionDetailPage } from '@/pages/content/QuestionDetailPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { PendingWorkspacePage } from '@/pages/PendingWorkspacePage';
 import { LiveDashboardPage } from '@/pages/overview/LiveDashboardPage';
+import { BlueprintWorkspacePage } from '@/pages/tests/BlueprintWorkspacePage';
 import { TestDetailPage } from '@/pages/tests/TestDetailPage';
 import { TestQAWorkspacePage } from '@/pages/tests/TestQAWorkspacePage';
+import { TestSeriesWorkspacePage } from '@/pages/tests/TestSeriesWorkspacePage';
 import { TestsPage } from '@/pages/tests/TestsPage';
 
 const QuestionStudioPage = lazy(() =>
@@ -56,8 +58,8 @@ const router = createBrowserRouter([
       { path: '/tests/builder', element: <TestBuilderPage /> },
       { path: '/tests/test-builder', element: <Navigate to="/tests/builder" replace /> },
       { path: '/tests/qa', element: <TestQAWorkspacePage /> },
-      { path: '/tests/series', element: <PendingWorkspacePage /> },
-      { path: '/tests/blueprints', element: <PendingWorkspacePage /> },
+      { path: '/tests/series', element: <TestSeriesWorkspacePage /> },
+      { path: '/tests/blueprints', element: <BlueprintWorkspacePage /> },
       { path: '/tests/calendar', element: <PendingWorkspacePage /> },
       { path: '/tests/:id', element: <TestDetailPage /> },
       { path: '/tests', element: <TestsPage /> },
