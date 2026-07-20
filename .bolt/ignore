@@ -1,2 +1,18 @@
+# Keep Bolt focused on application code that benefits from AI editing.
+# Existing generated shadcn primitives are intentionally excluded.
 src/components/ui/*
 hooks/use-toast.ts
+
+node_modules/
+dist/
+build/
+coverage/
+*.log
+*.tmp
+.env
+.env.*
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+prototype-refinement-report.md
