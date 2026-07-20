@@ -17,19 +17,6 @@ type ScenarioProfile = {
   memberMaximum?: number;
 };
 
-const MONEY_SCENARIOS = new Set([
-  "weeklySalesTotal",
-  "salaryGroupTotal",
-  "expenseTotal",
-  "salesAverage",
-  "expenseAverage",
-  "transactionCount",
-  "employeeCount",
-  "dayCountFromExpense",
-  "missingSale",
-  "missingExpense",
-]);
-
 function hash(value: string) {
   let h = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -113,10 +100,7 @@ function stemValue(
   value: Rational,
   entry: ReturnType<typeof getAvg001QuestionEntry>,
 ) {
-  const rendered = formatRational(value, entry.displayPolicy);
-  return MONEY_SCENARIOS.has(entry.scenarioVariant)
-    ? groupIndianDigits(rendered)
-    : rendered;
+  return groupIndianDigits(formatRational(value, entry.displayPolicy));
 }
 
 export function generateAvg001Parameters(input: {
