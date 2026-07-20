@@ -53,7 +53,8 @@ export default function TestSeriesPage() {
     queryKey: ["student-test-series", id],
     queryFn: () => getStudentTestSeriesDetail(id!),
     enabled: Boolean(id),
-    staleTime: 15_000,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 
   const nextMember = useMemo(
