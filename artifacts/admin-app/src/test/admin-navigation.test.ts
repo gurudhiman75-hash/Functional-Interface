@@ -17,7 +17,8 @@ describe('admin navigation roadmap', () => {
     expect(items).toHaveLength(33);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Content Review', 'Coverage Planner', 'Sections & Topics',
-      'Test QA', 'Packages', 'Students', 'Question Analytics', 'Audit Logs',
+      'Test QA', 'Test Series', 'Exam Blueprints', 'Packages', 'Students',
+      'Question Analytics', 'Audit Logs',
     ]));
   });
 
@@ -43,8 +44,10 @@ describe('admin navigation roadmap', () => {
       '/tests',
       '/tests/builder',
       '/tests/qa',
+      '/tests/series',
+      '/tests/blueprints',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 9, in_progress: 12, planned: 12 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 11, in_progress: 10, planned: 12 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -52,5 +55,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/content/coverage']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/content/taxonomy']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/tests/qa']?.permission).toBe('tests.read');
+    expect(NAV_LOOKUP['/tests/series']?.permission).toBe('tests.read');
+    expect(NAV_LOOKUP['/tests/blueprints']?.permission).toBe('tests.read');
   });
 });
