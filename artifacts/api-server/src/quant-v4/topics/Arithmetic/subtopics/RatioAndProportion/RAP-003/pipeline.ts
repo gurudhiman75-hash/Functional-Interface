@@ -25,6 +25,7 @@ import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
 import { polishEnglishRapStem } from "../editorial-stem";
 import { renderLocalizedRap003Explanation } from "./localized-explanation";
+import { renderEffectiveLocalizedRap003Stem } from "./effective-localized-stem";
 
 function addValidationContext(
   parameters: ReturnType<typeof generateRap003Parameters>,
@@ -48,29 +49,39 @@ function addValidationContext(
 export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014", input: Rap003ParameterInput = {}): Rap003QuestionPackage {
   const parameters = generateRap003Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap003(parameters);
-  const naturalizedExplanation = naturalizeEnglishRapExplanation(renderRap003Explanation(parameters, solver), parameters.language, solver.answer);
-  const editorialExplanation = renderRap003EditorialExplanation(parameters, solver, naturalizedExplanation);
-  const partnershipExplanation = renderRap003PartnershipExplanation(parameters, solver, editorialExplanation);
-  const ageExplanation = renderRap003AgeExplanation(parameters, solver, partnershipExplanation);
-  const incomeExplanation = renderRap003IncomeExplanation(parameters, solver, ageExplanation);
-  const incomeRatioExplanation = renderRap003IncomeRatioExplanation(parameters, solver, incomeExplanation);
-  const equalSavingsExplanation = renderRap003EqualSavingsExplanation(parameters, solver, incomeRatioExplanation);
-  const expenditureRatioExplanation = renderRap003ExpenditureRatioExplanation(parameters, solver, equalSavingsExplanation);
-  const mixtureExplanation = renderRap003MixtureExplanation(parameters, solver, expenditureRatioExplanation);
-  const replacementExplanation = renderRap003ReplacementExplanation(parameters, solver, mixtureExplanation);
-  const denominationExplanation = renderRap003DenominationExplanation(parameters, solver, replacementExplanation);
-  const rateExplanation = renderRap003RateExplanation(parameters, solver, denominationExplanation);
-  const populationExplanation = renderRap003PopulationExplanation(parameters, solver, rateExplanation);
-  const electionExplanation = renderRap003ElectionExplanationWithSolverVariables(parameters, solver, populationExplanation);
-  const geometryExplanation = renderRap003GeometryExplanation(parameters, solver, electionExplanation);
-  const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, geometryExplanation);
-  const polishedExplanation = polishRap003EditorialLines(parameters, concludedExplanation);
+  const editorialParameters = parameters.language === "en" ? parameters : { ...parameters, language: "en" as const };
+  const naturalizedExplanation = naturalizeEnglishRapExplanation(
+    renderRap003Explanation(editorialParameters, solver),
+    "en",
+    solver.answer,
+  );
+  const editorialExplanation = renderRap003EditorialExplanation(editorialParameters, solver, naturalizedExplanation);
+  const partnershipExplanation = renderRap003PartnershipExplanation(editorialParameters, solver, editorialExplanation);
+  const ageExplanation = renderRap003AgeExplanation(editorialParameters, solver, partnershipExplanation);
+  const incomeExplanation = renderRap003IncomeExplanation(editorialParameters, solver, ageExplanation);
+  const incomeRatioExplanation = renderRap003IncomeRatioExplanation(editorialParameters, solver, incomeExplanation);
+  const equalSavingsExplanation = renderRap003EqualSavingsExplanation(editorialParameters, solver, incomeRatioExplanation);
+  const expenditureRatioExplanation = renderRap003ExpenditureRatioExplanation(editorialParameters, solver, equalSavingsExplanation);
+  const mixtureExplanation = renderRap003MixtureExplanation(editorialParameters, solver, expenditureRatioExplanation);
+  const replacementExplanation = renderRap003ReplacementExplanation(editorialParameters, solver, mixtureExplanation);
+  const denominationExplanation = renderRap003DenominationExplanation(editorialParameters, solver, replacementExplanation);
+  const rateExplanation = renderRap003RateExplanation(editorialParameters, solver, denominationExplanation);
+  const populationExplanation = renderRap003PopulationExplanation(editorialParameters, solver, rateExplanation);
+  const electionExplanation = renderRap003ElectionExplanationWithSolverVariables(editorialParameters, solver, populationExplanation);
+  const geometryExplanation = renderRap003GeometryExplanation(editorialParameters, solver, electionExplanation);
+  const concludedExplanation = ensureRap003EditorialConclusion(editorialParameters, solver, geometryExplanation);
+  const polishedExplanation = polishRap003EditorialLines(editorialParameters, concludedExplanation);
   const localizedExplanation = renderLocalizedRap003Explanation(parameters, solver, polishedExplanation);
   const explanation = compactEnglishRapExplanation(localizedExplanation, parameters.language, {
     maxMeaningfulLines: 6,
     padToLength: 7,
   });
-  const renderedStem = renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, parameters.variables);
+  const renderedStem = parameters.language === "en"
+    ? renderRap003Template(getRap003QuestionEntry(cpId, parameters.questionLanguageId, "en").template, parameters.variables)
+    : renderEffectiveLocalizedRap003Stem(parameters);
+  if (!renderedStem) {
+    throw new Error(`Missing localized RAP-003 stem: cpId=${cpId}; qlId=${parameters.questionLanguageId}; taskKind=${parameters.taskKind}; language=${parameters.language}`);
+  }
   const stem = polishEnglishRapStem(
     renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
     parameters.language,
