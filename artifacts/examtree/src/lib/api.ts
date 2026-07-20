@@ -53,10 +53,6 @@ function saveAttemptHandoff(value: unknown): void {
 
 function compactAttemptForLocalStorage<T>(value: T): T {
   if (!isRecord(value)) return value;
-  // The complete question review is already stored in sessionStorage above and
-  // remains available to the result page through GET /attempts/:id. Omitting it
-  // here prevents addAttempt() from overflowing localStorage and incorrectly
-  // turning a successful server submission into the offline fallback path.
   return {
     ...value,
     questionReview: undefined,
@@ -127,6 +123,47 @@ async function getAuthHeader(): Promise<Record<string, string>> {
   }
 }
 
+function currentSeriesId(): string | null {
+  if (typeof window === "undefined") return null;
+  const value = new URLSearchParams(window.location.search).get("seriesId")?.trim();
+  return value || null;
+}
+
+function applySeriesContext(endpoint: string, method: string, options?: RequestInit): {
+  endpoint: string;
+  options?: RequestInit;
+} {
+  const seriesId = currentSeriesId();
+  if (!seriesId) return { endpoint, options };
+
+  if (method === "GET" && /^\/tests\/[^/?#]+$/.test(endpoint)) {
+    const separator = endpoint.includes("?") ? "&" : "?";
+    return {
+      endpoint: `${endpoint}${separator}seriesId=${encodeURIComponent(seriesId)}`,
+      options,
+    };
+  }
+
+  if (method === "POST" && endpoint === "/attempts" && typeof options?.body === "string") {
+    try {
+      const parsed = JSON.parse(options.body) as unknown;
+      if (isRecord(parsed) && typeof parsed.seriesId !== "string") {
+        return {
+          endpoint,
+          options: {
+            ...options,
+            body: JSON.stringify({ ...parsed, seriesId }),
+          },
+        };
+      }
+    } catch {
+      // Preserve the original body; the API will return its normal validation error.
+    }
+  }
+
+  return { endpoint, options };
+}
+
 export async function apiRequest<T>(
   endpoint: string,
   options?: RequestInit,
@@ -139,12 +176,13 @@ export async function apiRequest<T>(
     if (cached) return cached;
   }
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...options,
+  const contextual = applySeriesContext(endpoint, method, options);
+  const response = await fetch(`${API_BASE_URL}${contextual.endpoint}`, {
+    ...contextual.options,
     headers: {
       "Content-Type": "application/json",
       ...(await getAuthHeader()),
-      ...(options?.headers as Record<string, string> | undefined),
+      ...(contextual.options?.headers as Record<string, string> | undefined),
     },
   });
 
