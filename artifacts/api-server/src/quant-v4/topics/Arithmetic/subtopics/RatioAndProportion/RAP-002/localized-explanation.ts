@@ -34,31 +34,44 @@ const PA: Record<Family, readonly [string, string]> = {
 };
 
 function cleanAnswer(value: string | number) {
-  return String(value).replaceAll("$$", "").trim();
-}
-
-function cleanMath(line: string) {
-  return line
-    .replace(/\\text\{[^}]*\}\s*=/g, "")
-    .replace(/\\text\{[^}]*\}/g, "")
-    .replace(/\s+/g, " ")
+  return String(value)
+    .replaceAll("$$", "")
+    .replace(/\\text\{([^}]*)\}/g, "$1")
     .trim();
 }
 
+function cleanMath(line: string) {
+  const cleaned = line
+    .replace(/\\text\{[^}]*\}\s*=/g, "")
+    .replace(/\\text\{[^}]*\}/g, "")
+    .replace(/\$\$\s*\$\$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return cleaned === "$$$$" ? "" : cleaned;
+}
+
+function localizedLogicValue(raw: string, language: Language) {
+  const normalized = raw.toLowerCase().replace(/\s+/g, " ").trim();
+  if (normalized === "equivalent") return language === "hi" ? "समतुल्य" : "ਬਰਾਬਰ";
+  if (normalized === "not equivalent") return language === "hi" ? "समतुल्य नहीं" : "ਬਰਾਬਰ ਨਹੀਂ";
+  return raw;
+}
+
 function conclusion(parameters: Rap002Parameters, solver: Rap002SolverResult, language: Language) {
-  const value = cleanAnswer(solver.answer);
+  const rawValue = cleanAnswer(solver.answer);
+  const value = parameters.answerType === "LOGIC" ? localizedLogicValue(rawValue, language) : rawValue;
   const task = parameters.taskKind;
   if (language === "hi") {
     if (task === "chainOrdering") return `इसलिए सही घटता क्रम ${value} है।`;
     if (task === "chainInequality") return `इसलिए बड़ी राशि ${value} है।`;
-    if (task === "chainEquivalence") return `इसलिए सही निष्कर्ष ${value} है।`;
+    if (task === "chainEquivalence") return `इसलिए दोनों अनुपात ${value} हैं।`;
     if (parameters.answerType === "RATIO") return `इसलिए मांगा गया अनुपात ${value} है।`;
     if (parameters.answerType === "COUNT") return `इसलिए मांगी गई संख्या ${value} है।`;
     return `इसलिए उत्तर ${value} है।`;
   }
   if (task === "chainOrdering") return `ਇਸ ਲਈ ਸਹੀ ਘਟਦਾ ਕ੍ਰਮ ${value} ਹੈ।`;
   if (task === "chainInequality") return `ਇਸ ਲਈ ਵੱਡੀ ਰਾਸ਼ੀ ${value} ਹੈ।`;
-  if (task === "chainEquivalence") return `ਇਸ ਲਈ ਸਹੀ ਨਤੀਜਾ ${value} ਹੈ।`;
+  if (task === "chainEquivalence") return `ਇਸ ਲਈ ਦੋਵੇਂ ਅਨੁਪਾਤ ${value} ਹਨ।`;
   if (parameters.answerType === "RATIO") return `ਇਸ ਲਈ ਮੰਗਿਆ ਅਨੁਪਾਤ ${value} ਹੈ।`;
   if (parameters.answerType === "COUNT") return `ਇਸ ਲਈ ਮੰਗੀ ਗਿਣਤੀ ${value} ਹੈ।`;
   return `ਇਸ ਲਈ ਉੱਤਰ ${value} ਹੈ।`;
@@ -72,7 +85,10 @@ export function renderLocalizedRap002Explanation(
   if (parameters.language === "en") return explanation;
   const language = parameters.language as Language;
   const narratives = (language === "hi" ? HI : PA)[family(parameters.taskKind)];
-  const mathLines = explanation.lines.filter((line) => line.includes("$$")).map(cleanMath);
+  const mathLines = explanation.lines
+    .filter((line) => line.includes("$$"))
+    .map(cleanMath)
+    .filter((line) => line.length > 0);
   const usefulMath = [...new Set(mathLines)].slice(0, 4);
   const lines = [narratives[0], ...usefulMath.slice(0, 2), narratives[1], ...usefulMath.slice(2), conclusion(parameters, solver, language)];
   return { ...explanation, lines };
