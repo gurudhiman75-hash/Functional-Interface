@@ -70,7 +70,7 @@ function packageRows(
         "",
         "",
         "",
-        "PENDING",
+        "APPROVED",
         "",
       ].map(csv).join(","));
     }
