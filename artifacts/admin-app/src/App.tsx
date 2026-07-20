@@ -30,6 +30,9 @@ const TestBuilderPage = lazy(() =>
 const ExamBlueprintsPage = lazy(() =>
   import('@/pages/tests/ExamBlueprintsWorkspacePage').then((module) => ({ default: module.ExamBlueprintsWorkspacePage })),
 );
+const TestSeriesPage = lazy(() =>
+  import('@/pages/tests/TestSeriesWorkspacePage').then((module) => ({ default: module.TestSeriesWorkspacePage })),
+);
 
 function RouteFallback() {
   return (
@@ -59,7 +62,7 @@ const router = createBrowserRouter([
       { path: '/tests/builder', element: <TestBuilderPage /> },
       { path: '/tests/test-builder', element: <Navigate to="/tests/builder" replace /> },
       { path: '/tests/qa', element: <TestQAWorkspacePage /> },
-      { path: '/tests/series', element: <PendingWorkspacePage /> },
+      { path: '/tests/series', element: <TestSeriesPage /> },
       { path: '/tests/blueprints', element: <ExamBlueprintsPage /> },
       { path: '/tests/calendar', element: <PendingWorkspacePage /> },
       { path: '/tests/:id', element: <TestDetailPage /> },
