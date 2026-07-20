@@ -154,11 +154,14 @@ function contextValue(
 function resultConclusion(
   parameters: Avg001Parameters,
   answer: string,
-  lead = "So",
+  lead: "So" | "Hence" | "This gives" = "So",
 ) {
-  const label =
-    RESULT_LABELS[parameters.scenarioVariant] ?? "answer";
-  return `${lead} the ${label} is ${contextValue(parameters, answer, "answer")}.`;
+  const label = RESULT_LABELS[parameters.scenarioVariant] ?? "answer";
+  const renderedAnswer = contextValue(parameters, answer, "answer");
+  if (lead === "This gives") {
+    return `This gives ${renderedAnswer} as the ${label}.`;
+  }
+  return `${lead}, the ${label} is ${renderedAnswer}.`;
 }
 
 function countConclusion(parameters: Avg001Parameters, answer: string) {
@@ -231,7 +234,7 @@ export function renderAvg001Explanation(
           `${count} ${noun.plural} means ${count} equal groups of ${averageShown}.`,
           "Adding equal groups is the same as multiplying.",
           `$$${averageRaw}\\times${count}=${solver.answer}$$`,
-          resultConclusion(parameters, solver.answer, "Hence,"),
+          resultConclusion(parameters, solver.answer, "Hence"),
           `Check: ${solver.answer}\\div${count}=${averageRaw}.`,
         ],
       };
@@ -271,9 +274,9 @@ export function renderAvg001Explanation(
       return {
         lines: [
           opening,
-          `Divide the total by ${count} to get the value per ${noun.singular}.`,
+          `Divide the total by ${count} to get the value for one ${noun.singular}.`,
           `$$${totalRaw}\\div${count}=${solver.answer}$$`,
-          resultConclusion(parameters, solver.answer, "Thus,"),
+          resultConclusion(parameters, solver.answer, "Hence"),
           `Multiplying ${plainValue(solver.answer)} by ${count} gives ${plainValue(totalRaw)} again.`,
         ],
       };
@@ -293,7 +296,7 @@ export function renderAvg001Explanation(
     case "count-equal-groups": {
       const firstLine =
         parameters.scenarioVariant === "dayCount"
-          ? `${totalShown} was produced at ${averageShown}.`
+          ? `The factory produced ${totalShown} at an average of ${averageShown}.`
           : `${totalShown} is divided into average salaries of ${averageShown}.`;
       return {
         lines: [
@@ -359,7 +362,7 @@ export function renderAvg001Explanation(
           `The total required is ${averageRaw}\\times${count}=${requiredTotal}.`,
           `So, ${String(evidence.givens.knownTotal)}+x=${requiredTotal}.`,
           `$$x=${requiredTotal}-${String(evidence.givens.knownTotal)}=${solver.answer}$$`,
-          resultConclusion(parameters, solver.answer, "Hence,"),
+          resultConclusion(parameters, solver.answer, "Hence"),
         ],
       };
 
