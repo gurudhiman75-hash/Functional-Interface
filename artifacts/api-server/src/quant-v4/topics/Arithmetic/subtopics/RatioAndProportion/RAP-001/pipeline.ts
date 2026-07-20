@@ -7,19 +7,35 @@ import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Languag
 import { validateRap001QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
+import { normalizeRap001EditorialParameters } from "./editorial-parameter-normalizer";
+import { normalizeRap001EditorialSolver } from "./editorial-solver-normalizer";
+import { polishEnglishRapStem } from "../editorial-stem";
 
 export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001QuestionPackage {
-  const parameters = generateRap001Parameters(cpId, input);
-  const solver = solveRap001(parameters);
+  const parameters = normalizeRap001EditorialParameters(generateRap001Parameters(cpId, input));
+  const solver = normalizeRap001EditorialSolver(parameters, solveRap001(parameters));
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
+  let renderedExplanation;
+  try {
+    renderedExplanation = renderRap001Explanation(parameters, solver, reasoningGraph);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(
+      `RAP-001 explanation rendering failed: cpId=${cpId}; qlId=${parameters.questionLanguageId}; taskKind=${parameters.taskKind}; seed=${String(input.seed ?? "")}; ${message}`,
+      { cause: error },
+    );
+  }
   const explanation = naturalizeEnglishRapExplanation(
-    renderRap001Explanation(parameters, solver, reasoningGraph),
+    renderedExplanation,
     parameters.language,
     solver.answer,
   );
   const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language, parameters.entityReferences);
   const renderedStem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, renderVariables);
-  const stem = renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language);
+  const stem = polishEnglishRapStem(
+    renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
+    parameters.language,
+  );
   const semanticTrace = buildRap001SemanticTrace(parameters.semanticContext);
   const basePackage = {
     archetypeId: RAP_001_ARCHETYPE_ID,

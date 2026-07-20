@@ -19,7 +19,7 @@ concurrency:
 jobs:
   validate-rap:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 50
 
     steps:
       - name: Checkout source
@@ -41,7 +41,7 @@ jobs:
 
       - name: Run RAP validation suite
         run: |
-          mkdir -p validation-logs
+          mkdir -p validation-logs/review-csv
           status=0
 
           run_case() {
@@ -65,8 +65,14 @@ jobs:
           run_case rap-001-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001-explanation-quality-audit.ts dist/quant-v4/rap-001-explanation-quality-audit.mjs
           run_case rap-002-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-explanation-quality-audit.ts dist/quant-v4/rap-002-explanation-quality-audit.mjs
           run_case rap-003-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-explanation-quality-audit.ts dist/quant-v4/rap-003-explanation-quality-audit.mjs
+          run_case rap-answer-consistency src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-answer-consistency-audit.ts dist/quant-v4/rap-answer-consistency-audit.mjs
+          run_case rap-human-review-export src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-review-export.ts dist/quant-v4/rap-review-export.mjs
 
           find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name '*explanation-quality-report.md' -exec cp {} validation-logs/ \;
+          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-answer-consistency-audit-report.md' -exec cp {} validation-logs/ \;
+          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-*-human-review-en.csv' -exec cp {} validation-logs/review-csv/ \;
+          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-*-same-ql-diversity-en.csv' -exec cp {} validation-logs/review-csv/ \;
+
           echo "$status" > validation-logs/status.txt
           for log in validation-logs/*.log; do
             echo "===== ${log} ====="

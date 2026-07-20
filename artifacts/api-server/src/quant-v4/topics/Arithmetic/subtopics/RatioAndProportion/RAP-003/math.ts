@@ -15,7 +15,10 @@ export function simplifyRatio(values: readonly number[]) {
 }
 
 export function formatNumber(value: number) {
-  return Number.isInteger(value) ? String(value) : String(Math.round(value * 100) / 100).replace(/\.?0+$/, "");
+  if (!Number.isFinite(value)) return String(value);
+  const rounded = Math.round(value * 100) / 100;
+  if (Number.isInteger(rounded)) return String(rounded);
+  return String(rounded).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
 }
 
 export function ratioLatex(values: readonly number[]) {
@@ -24,7 +27,7 @@ export function ratioLatex(values: readonly number[]) {
 
 export function stableHash(input: string): number {
   let hash = 2166136261;
-  for (let index = 0; index < input.length; index += 1) {
+  for (let index = 0; index < input.length; index++) {
     hash ^= input.charCodeAt(index);
     hash = Math.imul(hash, 16777619);
   }

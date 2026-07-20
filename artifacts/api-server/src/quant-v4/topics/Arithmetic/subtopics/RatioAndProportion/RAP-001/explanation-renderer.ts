@@ -8,6 +8,7 @@ import { BasicPartitionRenderer } from "./renderers/basic-partition-renderer";
 import { NaturalExamRenderer } from "./renderers/natural-exam-renderer";
 import { DecimalNormalizationRenderer } from "./renderers/decimal-normalization-renderer";
 import { ThreeComponentMixtureRenderer } from "./renderers/three-component-mixture-renderer";
+import { VariableReplacementRenderer } from "./renderers/variable-replacement-renderer";
 
 export function resolveRap001SemanticEntities(taskKind: string, semanticContext: any, language: "en" | "hi" | "pa"): Record<string, string> {
   const map: Record<string, string> = {};
@@ -25,13 +26,71 @@ export function resolveRap001SemanticEntities(taskKind: string, semanticContext:
   return map;
 }
 
+function titleCase(value: unknown) {
+  const text = String(value ?? "");
+  return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
+}
+
+function explanationVariables(parameters: Rap001Parameters) {
+  const variables = parameters.variables;
+  const first = variables.personA ?? variables.groupA ?? "the first quantity";
+  const second = variables.personB ?? variables.groupB ?? "the second quantity";
+  const third = variables.personC ?? "the third quantity";
+  return {
+    ...variables,
+    personA: first,
+    personB: second,
+    personC: third,
+    groupA: variables.groupA ?? first,
+    groupB: variables.groupB ?? second,
+    sub1: variables.sub1 === undefined ? variables.sub1 : titleCase(variables.sub1),
+    sub2: variables.sub2 === undefined ? variables.sub2 : titleCase(variables.sub2),
+    sub3: variables.sub3 === undefined ? variables.sub3 : titleCase(variables.sub3),
+  };
+}
+
+const PLURAL_SUBJECTS = "boys|girls|students|teachers|workers|employees|men|women|coins|items|members|voters";
+
+function polishNarrative(narrative: string, taskKind: string, first: string, second: string, third: string) {
+  let polished = narrative
+    .replace(/^Therefore,?$/i, "This gives")
+    .replace(/\bthe first group\b/gi, first)
+    .replace(/\bfirst group\b/gi, first)
+    .replace(/\bthe second group\b/gi, second)
+    .replace(/\bsecond group\b/gi, second)
+    .replace(/\bthe third group\b/gi, third)
+    .replace(new RegExp(`\\b(${PLURAL_SUBJECTS}) has\\b`, "gi"), "$1 have");
+
+  if (taskKind === "weightedMapping") {
+    polished = polished.replace(/^So, the required weight is$/i, "So, the first coin's weight in grams is");
+  }
+  return polished;
+}
+
+function naturalFallbackRenderer(
+  renderer: ExplanationRenderer,
+  variables: Record<string, number | string>,
+  taskKind: string,
+): ExplanationRenderer {
+  const first = String(variables.groupA ?? variables.personA ?? "the first quantity");
+  const second = String(variables.groupB ?? variables.personB ?? "the second quantity");
+  const third = String(variables.personC ?? "the third quantity");
+  return {
+    render: (evidence) => renderer.render(evidence).map((step) => ({
+      ...step,
+      narrative: polishNarrative(step.narrative, taskKind, first, second, third),
+    })),
+  };
+}
+
 export function renderRap001Explanation(parameters: Rap001Parameters, solver: Rap001SolverResult, _graph: Rap001ReasoningGraph): Rap001Explanation {
   if (parameters.language !== "en") {
     return renderLocalizedRap001Explanation(parameters, solver);
   }
 
+  const variables = explanationVariables(parameters);
   const evidence: ExplanationEvidence = {
-    variables: parameters.variables,
+    variables,
     derivedValues: solver.workingValues,
     entities: resolveRap001SemanticEntities(parameters.taskKind, parameters.semanticContext, parameters.language),
     answer: solver.answer,
@@ -40,95 +99,41 @@ export function renderRap001Explanation(parameters: Rap001Parameters, solver: Ra
   let renderer: ExplanationRenderer;
 
   switch (parameters.taskKind) {
-    case "simpleLinkage":
-      renderer = new SimpleLinkageRenderer(solver.mathJax);
-      break;
-    case "ratioNormalization":
-      renderer = new RatioNormalizationRenderer();
-      break;
-    case "ratioTreeLinkage":
-      renderer = new NaturalExamRenderer("link the chain ratios", solver.mathJax);
-      break;
-    case "scalingByComponent":
-      renderer = new NaturalExamRenderer("find the matching component", solver.mathJax);
-      break;
-    case "decimalNormalization":
-      renderer = new DecimalNormalizationRenderer();
-      break;
-    case "basicPartition":
-      renderer = new BasicPartitionRenderer(solver.mathJax);
-      break;
-    case "shareDifference":
-      renderer = new NaturalExamRenderer("compare two shares", solver.mathJax);
-      break;
-    case "reversePartition":
-      renderer = new NaturalExamRenderer("recover the total from share difference", solver.mathJax);
-      break;
-    case "salaryDistribution":
-      renderer = new NaturalExamRenderer("split salary into expenses and savings", solver.mathJax);
-      break;
-    case "twoStateAddition":
-      renderer = new NaturalExamRenderer("solve the ratio after addition", solver.mathJax);
-      break;
-    case "twoStateSubtraction":
-      renderer = new NaturalExamRenderer("solve the ratio after removal", solver.mathJax);
-      break;
-    case "twoStateTransfer":
-      renderer = new NaturalExamRenderer("solve the changed number ratio", solver.mathJax);
-      break;
-    case "incomeExpenditureSystem":
-      renderer = new NaturalExamRenderer("compare income, expense, and saving", solver.mathJax);
-      break;
-    case "multiStageTransformation":
-      renderer = new NaturalExamRenderer("track addition and removal together", solver.mathJax);
-      break;
-    case "meanProportional":
-      renderer = new NaturalExamRenderer("find the mean proportional", solver.mathJax);
-      break;
-    case "thirdProportional":
-      renderer = new NaturalExamRenderer("find the third proportional", solver.mathJax);
-      break;
-    case "fourthProportional":
-      renderer = new NaturalExamRenderer("find the fourth proportional", solver.mathJax);
-      break;
-    case "directVariation":
-      renderer = new NaturalExamRenderer("use direct variation", solver.mathJax);
-      break;
-    case "inverseVariation":
-      renderer = new NaturalExamRenderer("use inverse variation", solver.mathJax);
-      break;
-    case "coinCounting":
-      renderer = new NaturalExamRenderer("convert coin ratios into value", solver.mathJax);
-      break;
-    case "multiDenominationMapping":
-      renderer = new NaturalExamRenderer("map value ratios to coin counts", solver.mathJax);
-      break;
-    case "weightedMapping":
-      renderer = new NaturalExamRenderer("use weighted ratio units", solver.mathJax);
-      break;
-    case "weightedMarks":
-      renderer = new NaturalExamRenderer("use subject weights with ratio marks", solver.mathJax);
-      break;
-    case "binaryMixture":
-      renderer = new NaturalExamRenderer("solve the two-component mixture", solver.mathJax);
-      break;
-    case "mixtureComponentFinding":
-      renderer = new NaturalExamRenderer("add one component to reach a ratio", solver.mathJax);
-      break;
-    case "threeComponentMixture":
-      renderer = new ThreeComponentMixtureRenderer();
-      break;
-    case "variableReplacementRatio":
-      renderer = new NaturalExamRenderer("track repeated replacement", solver.mathJax);
-      break;
-    case "acidConcentration":
-      renderer = new NaturalExamRenderer("find concentration percentage", solver.mathJax);
-      break;
-    default:
-      throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);
+    case "simpleLinkage": renderer = new SimpleLinkageRenderer(solver.mathJax); break;
+    case "ratioNormalization": renderer = new RatioNormalizationRenderer(); break;
+    case "ratioTreeLinkage": renderer = new NaturalExamRenderer("link the chain ratios", solver.mathJax); break;
+    case "scalingByComponent": renderer = new NaturalExamRenderer("find the matching component", solver.mathJax); break;
+    case "decimalNormalization": renderer = new DecimalNormalizationRenderer(); break;
+    case "basicPartition": renderer = new BasicPartitionRenderer(solver.mathJax); break;
+    case "shareDifference": renderer = new NaturalExamRenderer("compare two shares", solver.mathJax); break;
+    case "reversePartition": renderer = new NaturalExamRenderer("recover the total from share difference", solver.mathJax); break;
+    case "salaryDistribution": renderer = new NaturalExamRenderer("split salary into expenses and savings", solver.mathJax); break;
+    case "twoStateAddition": renderer = new NaturalExamRenderer("solve the ratio after addition", solver.mathJax); break;
+    case "twoStateSubtraction": renderer = new NaturalExamRenderer("solve the ratio after removal", solver.mathJax); break;
+    case "twoStateTransfer": renderer = new NaturalExamRenderer("solve the changed number ratio", solver.mathJax); break;
+    case "incomeExpenditureSystem": renderer = new NaturalExamRenderer("compare income, expense, and saving", solver.mathJax); break;
+    case "multiStageTransformation": renderer = new NaturalExamRenderer("track addition and removal together", solver.mathJax); break;
+    case "meanProportional": renderer = new NaturalExamRenderer("find the mean proportional", solver.mathJax); break;
+    case "thirdProportional": renderer = new NaturalExamRenderer("find the third proportional", solver.mathJax); break;
+    case "fourthProportional": renderer = new NaturalExamRenderer("find the fourth proportional", solver.mathJax); break;
+    case "directVariation": renderer = new NaturalExamRenderer("use direct variation", solver.mathJax); break;
+    case "inverseVariation": renderer = new NaturalExamRenderer("use inverse variation", solver.mathJax); break;
+    case "coinCounting": renderer = new NaturalExamRenderer("convert coin ratios into value", solver.mathJax); break;
+    case "multiDenominationMapping": renderer = new NaturalExamRenderer("map value ratios to coin counts", solver.mathJax); break;
+    case "weightedMapping": renderer = new NaturalExamRenderer("use weighted ratio units", solver.mathJax); break;
+    case "weightedMarks": renderer = new NaturalExamRenderer("use subject weights with ratio marks", solver.mathJax); break;
+    case "binaryMixture": renderer = new NaturalExamRenderer("solve the two-component mixture", solver.mathJax); break;
+    case "mixtureComponentFinding": renderer = new NaturalExamRenderer("add one component to reach a ratio", solver.mathJax); break;
+    case "threeComponentMixture": renderer = new ThreeComponentMixtureRenderer(); break;
+    case "variableReplacementRatio": renderer = new VariableReplacementRenderer(); break;
+    case "acidConcentration": renderer = new NaturalExamRenderer("find concentration percentage", solver.mathJax); break;
+    default: throw new Error(`Renderer missing for taskKind: ${parameters.taskKind}`);
   }
 
-  const validatedSteps = validateExplanationPipeline(evidence, renderer);
+  const validatedSteps = validateExplanationPipeline(
+    evidence,
+    naturalFallbackRenderer(renderer, variables, parameters.taskKind),
+  );
   return {
     explanationId: parameters.explanationId,
     lines: formatExplanationSteps(validatedSteps),

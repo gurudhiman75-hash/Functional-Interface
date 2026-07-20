@@ -42,20 +42,20 @@ export class DecimalNormalizationRenderer implements ExplanationRenderer {
       {
         stepId: "step-2",
         type: "FORMULA",
-        narrative: "This changes both terms by the same factor, so the ratio remains equal.",
-        mathLatex: `(${decimalA}\times${scale}):(${decimalB}\times${scale})=${wholeA}:${wholeB}`,
+        narrative: "Both terms are multiplied by the same number, so the ratio does not change.",
+        mathLatex: `(${decimalA}\\times${scale}):(${decimalB}\\times${scale})=${wholeA}:${wholeB}`,
       },
       {
         stepId: "step-3",
         type: "SUBSTITUTION",
         narrative: `The HCF of ${wholeA} and ${wholeB} is ${divisor}.`,
-        mathLatex: `\operatorname{HCF}(${wholeA},${wholeB})=${divisor}`,
+        mathLatex: `\\operatorname{HCF}(${wholeA},${wholeB})=${divisor}`,
       },
       {
         stepId: "step-4",
         type: "SIMPLIFICATION",
         narrative: "Divide both terms by the HCF.",
-        mathLatex: `(${wholeA}\div${divisor}):(${wholeB}\div${divisor})=${normalizedA}:${normalizedB}`,
+        mathLatex: `(${wholeA}\\div${divisor}):(${wholeB}\\div${divisor})=${normalizedA}:${normalizedB}`,
       },
       {
         stepId: "step-5",

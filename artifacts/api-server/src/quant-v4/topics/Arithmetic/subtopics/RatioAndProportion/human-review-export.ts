@@ -33,7 +33,7 @@ export interface HumanReviewExportConfig {
 
 const reviewHeader = [
   "packageId", "cpId", "qlId", "taskKind", "solveMode", "difficulty", "questionId", "seed",
-  "parameterFingerprint", "stem", "options", "correctIndex", "correctAnswer", "explanation",
+  "parameterFingerprint", "variablesJson", "stem", "options", "correctIndex", "correctAnswer", "explanation",
   "stemRealism", "solverCorrect", "explanationQuality", "optionQuality", "editorialStatus", "reviewNotes",
 ];
 
@@ -86,7 +86,7 @@ function reviewRow(packageId: string, pkg: HumanReviewPackage, question: HumanRe
   return [
     packageId, pkg.canonicalProblemId, pkg.questionLanguageId, pkg.parameters.taskKind, pkg.parameters.taskKind,
     pkg.difficultyBand, question.questionId ?? pkg.questionId, question.seed ?? "", fingerprint(pkg.parameters.variables),
-    readable(question.text ?? question.stem), optionsText(question), index, readable(answer),
+    JSON.stringify(pkg.parameters.variables), readable(question.text ?? question.stem), optionsText(question), index, readable(answer),
     readable(question.explanation ?? pkg.explanation.lines.join("\n")), "", "", "", "", "PENDING", "",
   ].map(csv).join(",");
 }
