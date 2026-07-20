@@ -243,7 +243,7 @@ router.get("/attempt-sessions/:id", authenticate, async (req, res) => {
       res.status(404).json({ error: "Attempt session not found", code: "ATTEMPT_SESSION_NOT_FOUND" });
       return;
     }
-    if (String(row.status) === "evaluated") {
+    if (["evaluated", "practice_evaluated"].includes(String(row.status))) {
       res.status(409).json({ error: "This attempt has already been submitted", code: "ATTEMPT_ALREADY_SUBMITTED", result: row.resultSnapshot });
       return;
     }
@@ -317,11 +317,9 @@ router.patch("/attempt-sessions/:id", authenticate, async (req, res) => {
         }
         throw error;
       }
-      const stateTimeLeft = next.state?.timeLeft ?? 0;
       await sql`
         UPDATE learning.attempts
         SET result_snapshot = ${JSON.stringify(next)}::jsonb,
-            time_spent_seconds = GREATEST(time_spent_seconds, ${Math.max(0, stateTimeLeft)}),
             updated_at = now()
         WHERE id = ${attemptId}::uuid
       `;
@@ -331,7 +329,10 @@ router.patch("/attempt-sessions/:id", authenticate, async (req, res) => {
     res.json(result);
   } catch (error) {
     if (error instanceof AttemptReliabilityError) {
-      res.status(error.statusCode).json({ error: error.message, code: error.code, ...(error.details as Record<string, unknown> | undefined) });
+      const details = error.details && typeof error.details === "object" && !Array.isArray(error.details)
+        ? error.details as Record<string, unknown>
+        : {};
+      res.status(error.statusCode).json({ error: error.message, code: error.code, ...details });
       return;
     }
     console.error("Unable to save canonical attempt session", error);
