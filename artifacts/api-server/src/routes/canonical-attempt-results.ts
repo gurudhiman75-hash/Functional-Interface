@@ -22,7 +22,7 @@ router.get("/attempts/:id", authenticate, async (req, res, next) => {
        AND identity.provider = 'firebase'
       WHERE attempt.id = ${attemptId}::uuid
         AND identity.provider_subject = ${req.user!.id}
-        AND attempt.status = 'evaluated'
+        AND attempt.status IN ('evaluated', 'practice_evaluated')
         AND attempt.result_snapshot IS NOT NULL
       LIMIT 1
     `;
