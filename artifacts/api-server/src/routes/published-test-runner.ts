@@ -1,7 +1,7 @@
-import { randomUUID } from "node:crypto";
 import { Router, type IRouter } from "express";
 
 import { sqlClient } from "../lib/db";
+import { AttemptReliabilityError } from "../lib/attempt-reliability";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
@@ -171,125 +171,209 @@ router.get("/tests/:id", async (req, res, next) => {
   }
 });
 
-// Intercept submissions for canonical published tests before the legacy attempt
-// route. Correct answers remain server-only and are returned only in the result.
+// Finalize the durable in-progress session. The attempt row is locked before
+// scoring, so concurrent tabs and network retries can evaluate it only once.
 router.post("/attempts", authenticate, async (req, res, next) => {
   const testId = typeof req.body?.testId === "string" ? req.body.testId.trim() : "";
   if (!testId || !isUuid(testId)) return next();
 
+  const attemptId = typeof req.body?.attemptId === "string" ? req.body.attemptId.trim() : "";
+  if (!isUuid(attemptId)) {
+    return res.status(409).json({
+      error: "Start or resume this test before submitting it.",
+      code: "ATTEMPT_SESSION_REQUIRED",
+    });
+  }
+
   try {
-    const test = await loadPublishedTest(testId);
-    if (!test) return next();
-
-    const responseItems = Array.isArray(req.body?.responses)
-      ? req.body.responses as Array<{ questionId: number; selectedOption: number | null; timeTaken?: number }>
-      : [];
-    const answerMap = new Map(responseItems.map((item) => [Number(item.questionId), item.selectedOption ?? null]));
-    const flags = asRecord(req.body?.flags);
-
-    const questionRows = await sqlClient`
-      SELECT
-        tq.test_section_id::text AS "testSectionId",
-        tq.question_version_id::text AS "questionVersionId",
-        tq.position,
-        tq.marks::float8 AS marks,
-        tq.negative_marks::float8 AS "negativeMarks",
-        s.name AS section,
-        v.stem,
-        v.explanation,
-        COALESCE(
-          json_agg(
-            json_build_object(
-              'key', o.option_key,
-              'text', o.text,
-              'sortOrder', o.sort_order,
-              'isCorrect', o.is_correct
-            ) ORDER BY o.sort_order
-          ) FILTER (WHERE o.id IS NOT NULL),
-          '[]'::json
-        ) AS options
-      FROM assessment.test_questions tq
-      JOIN assessment.test_sections s ON s.id = tq.test_section_id
-      JOIN content.question_versions v ON v.id = tq.question_version_id
-      LEFT JOIN content.question_options o ON o.question_version_id = v.id
-      WHERE tq.test_version_id = ${String(test.publishedVersionId)}::uuid
-      GROUP BY tq.test_section_id, tq.question_version_id, tq.position,
-        tq.marks, tq.negative_marks, s.name, v.stem, v.explanation
-      ORDER BY MIN(s.sort_order), tq.position
-    `;
-
-    let correct = 0;
-    let wrong = 0;
-    let actualScore = 0;
-    const sectionStatsMap = new Map<string, { correct: number; wrong: number; unanswered: number; totalQuestions: number }>();
-
-    const questionReview = questionRows.map((row, index) => {
-      const questionId = stableQuestionId(String(row.questionVersionId), index);
-      const options = Array.isArray(row.options) ? row.options as Array<Record<string, unknown>> : [];
-      const correctIndex = options.findIndex((option) => Boolean(option.isCorrect));
-      const selected = answerMap.get(questionId) ?? null;
-      const section = String(row.section);
-      const stats = sectionStatsMap.get(section) ?? { correct: 0, wrong: 0, unanswered: 0, totalQuestions: 0 };
-      stats.totalQuestions += 1;
-      if (selected == null) {
-        stats.unanswered += 1;
-      } else if (selected === correctIndex) {
-        correct += 1;
-        stats.correct += 1;
-        actualScore += Number(row.marks);
-      } else {
-        wrong += 1;
-        stats.wrong += 1;
-        actualScore -= Number(row.negativeMarks);
+    const finalized = await sqlClient.begin(async (sql) => {
+      const attemptRows = await sql`
+        SELECT
+          attempt.id::text AS id,
+          attempt.attempt_number AS "attemptNumber",
+          attempt.status,
+          attempt.started_at AS "startedAt",
+          attempt.result_snapshot AS "resultSnapshot",
+          publication.id::text AS "publicationId",
+          publication.test_id::text AS "testId",
+          publication.test_version_id::text AS "testVersionId",
+          test.public_code AS "publicCode",
+          version.title,
+          version.settings,
+          exam.code AS "examCode",
+          exam.name AS "examName",
+          family.code AS "examFamilyCode",
+          family.name AS "examFamilyName"
+        FROM learning.attempts attempt
+        JOIN assessment.test_publications publication ON publication.id = attempt.test_publication_id
+        JOIN assessment.tests test ON test.id = publication.test_id
+        JOIN assessment.test_versions version ON version.id = publication.test_version_id
+        JOIN catalog.exam_versions exam_version ON exam_version.id = test.exam_version_id
+        JOIN catalog.exams exam ON exam.id = exam_version.exam_id
+        JOIN catalog.exam_families family ON family.id = exam.family_id
+        JOIN identity.auth_identities identity
+          ON identity.user_id = attempt.user_id
+         AND identity.provider = 'firebase'
+        WHERE attempt.id = ${attemptId}::uuid
+          AND identity.provider_subject = ${req.user!.id}
+        LIMIT 1
+        FOR UPDATE OF attempt
+      `;
+      const attempt = attemptRows[0] as Record<string, unknown> | undefined;
+      if (!attempt) {
+        throw new AttemptReliabilityError("ATTEMPT_SESSION_NOT_FOUND", "Attempt session not found", 404);
       }
-      sectionStatsMap.set(section, stats);
-      return {
-        questionId,
-        section,
-        text: String(row.stem),
-        options: options.map((option) => String(option.text ?? "")),
-        selected,
-        correct: correctIndex,
-        flagged: Boolean(flags[String(questionId)]),
-        explanation: String(row.explanation ?? ""),
+      if (String(attempt.testId) !== testId) {
+        throw new AttemptReliabilityError("ATTEMPT_SESSION_TEST_MISMATCH", "Attempt session belongs to another test", 409);
+      }
+      if (String(attempt.status) === "evaluated" && attempt.resultSnapshot) {
+        return { result: attempt.resultSnapshot as Record<string, unknown>, replay: true };
+      }
+      if (String(attempt.status) !== "in_progress") {
+        throw new AttemptReliabilityError("ATTEMPT_SESSION_NOT_ACTIVE", "This attempt is no longer active", 409);
+      }
+
+      const responseItems = Array.isArray(req.body?.responses)
+        ? req.body.responses as Array<{ questionId: number; selectedOption: number | null; timeTaken?: number }>
+        : [];
+      const answerMap = new Map(responseItems.map((item) => [Number(item.questionId), item.selectedOption ?? null]));
+      const flags = asRecord(req.body?.flags);
+
+      const questionRows = await sql`
+        SELECT
+          tq.test_section_id::text AS "testSectionId",
+          tq.question_version_id::text AS "questionVersionId",
+          tq.position,
+          tq.marks::float8 AS marks,
+          tq.negative_marks::float8 AS "negativeMarks",
+          section.name AS section,
+          version.stem,
+          version.explanation,
+          COALESCE(
+            json_agg(
+              json_build_object(
+                'key', option.option_key,
+                'text', option.text,
+                'sortOrder', option.sort_order,
+                'isCorrect', option.is_correct
+              ) ORDER BY option.sort_order
+            ) FILTER (WHERE option.id IS NOT NULL),
+            '[]'::json
+          ) AS options
+        FROM assessment.test_questions tq
+        JOIN assessment.test_sections section ON section.id = tq.test_section_id
+        JOIN content.question_versions version ON version.id = tq.question_version_id
+        LEFT JOIN content.question_options option ON option.question_version_id = version.id
+        WHERE tq.test_version_id = ${String(attempt.testVersionId)}::uuid
+        GROUP BY tq.test_section_id, tq.question_version_id, tq.position,
+          tq.marks, tq.negative_marks, section.name, section.sort_order,
+          version.stem, version.explanation
+        ORDER BY section.sort_order, tq.position
+      `;
+      if (questionRows.length === 0) {
+        throw new AttemptReliabilityError("ATTEMPT_TEST_EMPTY", "This test has no scorable questions", 409);
+      }
+
+      let correct = 0;
+      let wrong = 0;
+      let actualScore = 0;
+      const sectionStatsMap = new Map<string, { correct: number; wrong: number; unanswered: number; totalQuestions: number }>();
+
+      const questionReview = questionRows.map((row, index) => {
+        const questionId = stableQuestionId(String(row.questionVersionId), index);
+        const options = Array.isArray(row.options) ? row.options as Array<Record<string, unknown>> : [];
+        const correctIndex = options.findIndex((option) => Boolean(option.isCorrect));
+        const selected = answerMap.get(questionId) ?? null;
+        const section = String(row.section);
+        const stats = sectionStatsMap.get(section) ?? { correct: 0, wrong: 0, unanswered: 0, totalQuestions: 0 };
+        stats.totalQuestions += 1;
+        if (selected == null) {
+          stats.unanswered += 1;
+        } else if (selected === correctIndex) {
+          correct += 1;
+          stats.correct += 1;
+          actualScore += Number(row.marks);
+        } else {
+          wrong += 1;
+          stats.wrong += 1;
+          actualScore -= Number(row.negativeMarks);
+        }
+        sectionStatsMap.set(section, stats);
+        return {
+          questionId,
+          section,
+          text: String(row.stem),
+          options: options.map((option) => String(option.text ?? "")),
+          selected,
+          correct: correctIndex,
+          flagged: Boolean(flags[String(questionId)]),
+          explanation: String(row.explanation ?? ""),
+        };
+      });
+
+      actualScore = Math.round(actualScore * 100) / 100;
+      const totalQuestions = questionRows.length;
+      const unanswered = totalQuestions - correct - wrong;
+      const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+      const sectionStats = Array.from(sectionStatsMap.entries()).map(([name, stats]) => {
+        const answered = stats.correct + stats.wrong;
+        return {
+          name,
+          ...stats,
+          accuracy: answered > 0 ? Math.round((stats.correct / answered) * 100) : 0,
+        };
+      });
+      const timeSpent = Math.max(0, Number(req.body?.timeSpent ?? 0));
+      const submittedAt = new Date().toISOString();
+      const result = {
+        id: attemptId,
+        userId: req.user?.id ?? "",
+        testId: String(attempt.testId),
+        testName: String(attempt.title),
+        category: String(attempt.examFamilyCode),
+        score,
+        actualScore,
+        correct,
+        wrong,
+        unanswered,
+        totalQuestions,
+        timeSpent,
+        createdAt: new Date(String(attempt.startedAt)).toISOString(),
+        submittedAt,
+        attemptNumber: Number(attempt.attemptNumber),
+        attemptType: req.body?.attemptType === "PRACTICE" ? "PRACTICE" : "REAL",
+        seriesId: typeof req.body?.seriesId === "string" ? req.body.seriesId : null,
+        sectionStats,
+        sectionTimeSpent: Array.isArray(req.body?.sectionTimeSpent) ? req.body.sectionTimeSpent : null,
+        questionReview,
       };
+
+      await sql`
+        UPDATE learning.attempts
+        SET status = 'evaluated',
+            submitted_at = ${submittedAt}::timestamptz,
+            evaluated_at = ${submittedAt}::timestamptz,
+            time_spent_seconds = ${Math.round(timeSpent * 60)},
+            raw_score = ${actualScore},
+            final_score = ${score},
+            correct_count = ${correct},
+            incorrect_count = ${wrong},
+            unattempted_count = ${unanswered},
+            result_snapshot = ${JSON.stringify(result)}::jsonb,
+            updated_at = now()
+        WHERE id = ${attemptId}::uuid
+      `;
+
+      return { result, replay: false };
     });
 
-    actualScore = Math.round(actualScore * 100) / 100;
-    const totalQuestions = questionRows.length;
-    const unanswered = totalQuestions - correct - wrong;
-    const score = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
-    const sectionStats = Array.from(sectionStatsMap.entries()).map(([name, stats]) => {
-      const answered = stats.correct + stats.wrong;
-      return {
-        name,
-        ...stats,
-        accuracy: answered > 0 ? Math.round((stats.correct / answered) * 100) : 0,
-      };
-    });
-
-    return res.status(201).json({
-      id: randomUUID(),
-      userId: req.user?.id ?? "",
-      testId: String(test.id),
-      testName: String(test.title),
-      category: String(test.examFamilyCode),
-      score,
-      actualScore,
-      correct,
-      wrong,
-      unanswered,
-      totalQuestions,
-      timeSpent: Math.max(0, Number(req.body?.timeSpent ?? 0)),
-      createdAt: new Date().toISOString(),
-      attemptType: req.body?.attemptType === "PRACTICE" ? "PRACTICE" : "REAL",
-      sectionStats,
-      sectionTimeSpent: Array.isArray(req.body?.sectionTimeSpent) ? req.body.sectionTimeSpent : null,
-      questionReview,
-    });
+    return res.status(finalized.replay ? 200 : 201).json(finalized.result);
   } catch (error) {
-    console.error("Unable to score published test attempt", error);
-    return res.status(500).json({ error: "Unable to submit published test attempt" });
+    if (error instanceof AttemptReliabilityError) {
+      return res.status(error.statusCode).json({ error: error.message, code: error.code, details: error.details });
+    }
+    console.error("Unable to finalize published test attempt", error);
+    return res.status(500).json({ error: "Unable to submit published test attempt", code: "ATTEMPT_SUBMIT_FAILED" });
   }
 });
 
