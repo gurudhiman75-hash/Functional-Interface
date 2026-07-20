@@ -18,6 +18,7 @@ import {
   ShieldCheck,
   Trash2,
   XCircle,
+  type LucideIcon,
 } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -60,6 +61,12 @@ interface EditorDraft {
   completionThreshold: number | null;
   changeReason: string;
   items: EditableItem[];
+}
+
+interface MetricCard {
+  label: string;
+  value: number;
+  icon: LucideIcon;
 }
 
 function clientId() {
@@ -166,6 +173,13 @@ export function TestSeriesWorkspacePage() {
     ready: workspace.series.filter((entry) => entry.readiness.ready).length,
     tests: workspace.series.reduce((sum, entry) => sum + entry.itemCount, 0),
   }), [workspace.series]);
+
+  const metricCards = useMemo<MetricCard[]>(() => [
+    { label: 'Series', value: metrics.total, icon: Settings2 },
+    { label: 'Active', value: metrics.active, icon: CheckCircle2 },
+    { label: 'Release ready', value: metrics.ready, icon: ShieldCheck },
+    { label: 'Ordered tests', value: metrics.tests, icon: FileText },
+  ], [metrics]);
 
   const examTests = useMemo(() => workspace.catalog.tests.filter(
     (test) => test.examVersionId === draft.examVersionId && !draft.items.some((item) => item.testId === test.id),
@@ -286,14 +300,9 @@ export function TestSeriesWorkspacePage() {
       />
 
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {[
-          ['Series', metrics.total, Settings2],
-          ['Active', metrics.active, CheckCircle2],
-          ['Release ready', metrics.ready, ShieldCheck],
-          ['Ordered tests', metrics.tests, FileText],
-        ].map(([label, value, Icon]) => (
-          <Card key={String(label)}><CardContent className="flex items-center justify-between p-4">
-            <div><p className="text-xs text-muted-foreground">{String(label)}</p><p className="text-2xl font-semibold">{Number(value)}</p></div>
+        {metricCards.map(({ label, value, icon: Icon }) => (
+          <Card key={label}><CardContent className="flex items-center justify-between p-4">
+            <div><p className="text-xs text-muted-foreground">{label}</p><p className="text-2xl font-semibold">{value}</p></div>
             <Icon className="h-5 w-5 text-muted-foreground" />
           </CardContent></Card>
         ))}
@@ -404,7 +413,7 @@ function SeriesEditor(props: {
           <div className="space-y-2 md:col-span-2"><Label>Description</Label><Textarea value={draft.description} onChange={(event) => setDraft((current) => ({ ...current, description: event.target.value }))} rows={3} /></div>
           <div className="space-y-2"><Label>Availability start</Label><Input type="datetime-local" value={draft.availabilityStartAt} onChange={(event) => setDraft((current) => ({ ...current, availabilityStartAt: event.target.value }))} /></div>
           <div className="space-y-2"><Label>Availability end</Label><Input type="datetime-local" value={draft.availabilityEndAt} onChange={(event) => setDraft((current) => ({ ...current, availabilityEndAt: event.target.value }))} /></div>
-          <div className="space-y-2"><Label>Progression</Label><Select value={draft.progressionMode} onValueChange={(value: SeriesProgressionMode) => setDraft((current) => ({ ...current, progressionMode: value, completionThreshold: value === 'score_gated' ? current.completionThreshold ?? 40 : null }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="open">Open access</SelectItem><SelectItem value="sequential">Sequential completion</SelectItem><SelectItem value="score_gated">Score gated</SelectItem></SelectContent></Select></div>
+          <div className="space-y-2"><Label>Progression</Label><Select value={draft.progressionMode} onValueChange={(value) => setDraft((current) => ({ ...current, progressionMode: value as SeriesProgressionMode, completionThreshold: value === 'score_gated' ? current.completionThreshold ?? 40 : null }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="open">Open access</SelectItem><SelectItem value="sequential">Sequential completion</SelectItem><SelectItem value="score_gated">Score gated</SelectItem></SelectContent></Select></div>
           {draft.progressionMode === 'score_gated' && <div className="space-y-2"><Label>Default completion score (%)</Label><Input type="number" min={0} max={100} value={draft.completionThreshold ?? ''} onChange={(event) => setDraft((current) => ({ ...current, completionThreshold: event.target.value === '' ? null : Number(event.target.value) }))} /></div>}
           <div className="space-y-2 md:col-span-2"><Label>Change reason</Label><Input value={draft.changeReason} onChange={(event) => setDraft((current) => ({ ...current, changeReason: event.target.value }))} /></div>
         </div>
