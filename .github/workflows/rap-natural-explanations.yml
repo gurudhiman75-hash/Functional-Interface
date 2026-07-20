@@ -64,6 +64,7 @@ jobs:
           run_case rap-002-package-test src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002.test.ts dist/quant-v4/rap-002.test.mjs
           run_case rap-002-localization-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-localization-audit.ts dist/quant-v4/rap-002-localization-audit.mjs
           run_case rap-003-package-test src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003.test.ts dist/quant-v4/rap-003.test.mjs
+          run_case rap-003-localization-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-localization-audit.ts dist/quant-v4/rap-003-localization-audit.mjs
           run_case rap-001-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001-explanation-quality-audit.ts dist/quant-v4/rap-001-explanation-quality-audit.mjs
           run_case rap-002-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-explanation-quality-audit.ts dist/quant-v4/rap-002-explanation-quality-audit.mjs
           run_case rap-003-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-explanation-quality-audit.ts dist/quant-v4/rap-003-explanation-quality-audit.mjs
