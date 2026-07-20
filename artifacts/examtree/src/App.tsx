@@ -35,6 +35,7 @@ const Home = lazy(() => import("@/pages/home"));
 const Login = lazy(() => import("@/pages/login"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Tests = lazy(() => import("@/pages/tests"));
+const TestSeries = lazy(() => import("@/pages/test-series"));
 const PublishedTest = lazy(() => import("@/pages/published-test"));
 const Category = lazy(() => import("@/pages/category"));
 const Subcategory = lazy(() => import("@/pages/subcategory"));
@@ -172,6 +173,7 @@ function Router() {
           <Route path="/dashboard" component={() => renderRoute(Dashboard)} />
           <Route path="/exams" component={() => renderRoute(Tests)} />
           <Route path="/tests" component={() => renderRoute(Tests)} />
+          <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/published-tests/:id" component={() => renderRoute(PublishedTest)} />
           <Route path="/category/:id" component={() => renderRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderRoute(Subcategory)} />

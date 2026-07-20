@@ -1,0 +1,99 @@
+name: Validate student test series
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/student-test-series.ts
+      - artifacts/api-server/src/lib/student-test-series.test.ts
+      - artifacts/api-server/src/routes/student-test-series.ts
+      - artifacts/api-server/src/routes/canonical-student-read.ts
+      - artifacts/api-server/src/routes/published-tests.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/examtree/src/App.tsx
+      - artifacts/examtree/src/lib/api.ts
+      - artifacts/examtree/src/lib/test-series.ts
+      - artifacts/examtree/src/pages/test-series.tsx
+      - artifacts/examtree/src/pages/tests.tsx
+      - docs/frontend-truth-audit.md
+      - .github/workflows/student-test-series.yml
+      - package.json
+      - pnpm-lock.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-student-test-series-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-student-test-series:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical student series boundary
+        run: |
+          grep -F 'studentTestSeriesRouter' artifacts/api-server/src/routes/index.ts
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('artifacts/api-server/src/routes/index.ts').read_text()
+          assert text.index('router.use(studentTestSeriesRouter)') < text.index('router.use(canonicalAttemptResultsRouter)')
+          assert text.index('router.use(studentTestSeriesRouter)') < text.index('router.use(publishedTestRunnerRouter)')
+          PY
+          grep -F 'evaluateStudentSeriesEligibility' artifacts/api-server/src/lib/student-test-series.ts
+          grep -F 'PREVIOUS_SCORE_TOO_LOW' artifacts/api-server/src/lib/student-test-series.ts
+          grep -F 'SERIES_CONTEXT_REQUIRED' artifacts/api-server/src/routes/student-test-series.ts
+          grep -F 'assertSeriesTestAccess' artifacts/api-server/src/routes/student-test-series.ts
+          grep -F 'resolveTestIdentifier' artifacts/api-server/src/routes/student-test-series.ts
+          grep -F 'assessment.test_series_items' artifacts/api-server/src/routes/student-test-series.ts
+          grep -F 'learning.attempts' artifacts/api-server/src/routes/student-test-series.ts
+          grep -F 'NOT EXISTS' artifacts/api-server/src/routes/canonical-student-read.ts
+          grep -F 'assessment.test_series_items' artifacts/api-server/src/routes/canonical-student-read.ts
+          grep -F 'NOT EXISTS' artifacts/api-server/src/routes/published-tests.ts
+          grep -F 'TestSeries' artifacts/examtree/src/App.tsx
+          grep -F 'path="/test-series/:id"' artifacts/examtree/src/App.tsx
+          grep -F 'getStudentTestSeries' artifacts/examtree/src/pages/tests.tsx
+          grep -F 'getStudentTestSeriesDetail' artifacts/examtree/src/pages/test-series.tsx
+          grep -F 'applySeriesContext' artifacts/examtree/src/lib/api.ts
+          grep -F 'seriesId' artifacts/examtree/src/lib/api.ts
+          ! grep -F 'localStorage' artifacts/examtree/src/pages/test-series.tsx
+          ! grep -F 'usePrototypeStore' artifacts/examtree/src/pages/test-series.tsx
+          grep -F '/test-series/:id' docs/frontend-truth-audit.md
+          grep -F 'server-enforced access' docs/frontend-truth-audit.md
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify series gate is bundled
+        run: |
+          grep -R 'SERIES_CONTEXT_REQUIRED' artifacts/api-server/dist >/dev/null
+          grep -R 'PREVIOUS_SCORE_TOO_LOW' artifacts/api-server/dist >/dev/null
+          grep -R 'Open this test from its test series' artifacts/api-server/dist >/dev/null
+
+      - name: Test progression contracts
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/student-test-series.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/student-test-series.test.mjs
+          node artifacts/api-server/dist/student-test-series.test.mjs
+
+      - name: Build student application
+        run: pnpm run build:web

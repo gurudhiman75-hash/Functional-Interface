@@ -21,6 +21,7 @@ import publishedTestsRouter from "./published-tests";
 import publishedTestRunnerRouter from "./published-test-runner";
 import canonicalAttemptResultsRouter from "./canonical-attempt-results";
 import canonicalStudentReadRouter from "./canonical-student-read";
+import studentTestSeriesRouter from "./student-test-series";
 import adminSessionRouter from "./admin-session";
 import retiredLegacyRouter from "./retired-legacy";
 
@@ -31,8 +32,11 @@ router.use("/users", usersRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
 
-// Canonical student runtime. The result wrapper must precede the scorer so it
-// can persist the scorer response before it is returned to the browser.
+// Canonical student runtime. Series access is mounted first so series-bound
+// tests cannot bypass release or progression checks on load or submission.
+// The result wrapper must still precede the scorer so it can persist the
+// scorer response before it is returned to the browser.
+router.use(studentTestSeriesRouter);
 router.use(canonicalAttemptResultsRouter);
 router.use(canonicalStudentReadRouter);
 router.use(publishedTestRunnerRouter);
