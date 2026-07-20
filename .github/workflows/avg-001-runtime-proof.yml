@@ -1,0 +1,64 @@
+name: Validate AVG-001 runtime proof
+
+on:
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-runtime-proof.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-runtime-proof-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-avg-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run AVG-001 proof gates
+        run: |
+          set -euo pipefail
+
+          run_case() {
+            name="$1"
+            source="$2"
+            output="dist/quant-v4/${name}.mjs"
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output"
+            (cd artifacts/api-server && node "$output")
+          }
+
+          run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
+          run_case avg-001-independent src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-independent-verifier-audit.ts
+          run_case avg-001-diversity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-diversity-audit.ts
+          run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
+
+      - name: Upload proof review CSV
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-runtime-proof-review
+          path: artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
+          if-no-files-found: error
+          retention-days: 7
