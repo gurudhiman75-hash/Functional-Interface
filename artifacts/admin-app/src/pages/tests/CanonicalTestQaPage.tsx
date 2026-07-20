@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { AlertTriangle, CheckCircle2, ClipboardCheck, RefreshCw, Search, ShieldCheck, UserRoundCheck } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -43,6 +43,13 @@ export function CanonicalTestQaPage() {
     });
   }, [owner, qa.queue, qa.workspace.currentAdminUserId, search, status]);
 
+  useEffect(() => {
+    if (filtered.length === 0) return;
+    if (!filtered.some((test) => test.id === qa.selectedTestId)) {
+      qa.setSelectedTestId(filtered[0]!.id);
+    }
+  }, [filtered, qa.selectedTestId, qa.setSelectedTestId]);
+
   const metrics = useMemo(() => ({
     total: qa.queue.length,
     underQa: qa.queue.filter((test) => test.status === 'under_qa').length,
@@ -52,7 +59,7 @@ export function CanonicalTestQaPage() {
 
   const selectedSummary = qa.selectedSummary && filtered.some((test) => test.id === qa.selectedSummary?.id)
     ? qa.selectedSummary
-    : filtered[0] ?? qa.selectedSummary;
+    : null;
 
   return (
     <div className="space-y-6">
@@ -150,14 +157,14 @@ export function CanonicalTestQaPage() {
             onTransition={qa.transition}
           />
         ) : (
-          <Card><CardContent className="flex min-h-96 items-center justify-center text-sm text-muted-foreground">Select a test to begin QA.</CardContent></Card>
+          <Card><CardContent className="flex min-h-96 items-center justify-center text-sm text-muted-foreground">No test matches the current QA view.</CardContent></Card>
         )}
       </div>
     </div>
   );
 }
 
-function Metric({ label, value, icon, tone = 'neutral' }: { label: string; value: number; icon: React.ReactNode; tone?: 'neutral' | 'info' | 'warning' | 'success' }) {
+function Metric({ label, value, icon, tone = 'neutral' }: { label: string; value: number; icon: ReactNode; tone?: 'neutral' | 'info' | 'warning' | 'success' }) {
   const toneClass = tone === 'info' ? 'text-info' : tone === 'warning' ? 'text-warning' : tone === 'success' ? 'text-success' : 'text-muted-foreground';
   return <Card><CardContent className="p-4"><div className={cn('flex items-center gap-2 text-xs', toneClass)}>{icon}{label}</div><p className="mt-2 text-2xl font-bold">{value}</p>{tone === 'success' && value === 0 && <CheckCircle2 className="mt-2 h-4 w-4 text-success" />}</CardContent></Card>;
 }
