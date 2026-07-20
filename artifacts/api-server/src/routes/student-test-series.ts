@@ -6,6 +6,7 @@ import {
   assertSeriesTestAccess,
   evaluateStudentSeriesEligibility,
   type StudentSeriesAttemptSummary,
+  type StudentSeriesEligibility,
   type StudentSeriesMemberInput,
   type StudentSeriesProgressionMode,
 } from "../lib/student-test-series";
@@ -179,6 +180,23 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
     attempts,
   });
   const eligibilityByTest = new Map(eligibility.members.map((member) => [member.testId, member]));
+  const enrichedMembers = memberRows.map((row) => {
+    const state = eligibilityByTest.get(String(row.testId));
+    if (!state) throw new Error(`Series eligibility missing for test ${String(row.testId)}`);
+    return {
+      ...state,
+      id: String(row.id),
+      testId: String(row.testId),
+      publicCode: String(row.publicCode ?? ""),
+      sortOrder: Number(row.sortOrder),
+      title: String(row.titleOverride || row.title || "Untitled test"),
+      description: row.description == null ? null : String(row.description),
+      durationSeconds: Number(row.durationSeconds ?? 0),
+      totalMarks: Number(row.totalMarks ?? 0),
+      questionCount: Number(row.questionCount ?? 0),
+      isRequired: Boolean(row.isRequired),
+    };
+  });
   return {
     series: {
       id: String(series.id),
@@ -198,22 +216,24 @@ async function buildSeriesDetail(identifier: string, firebaseUserId: string) {
     },
     eligibility: {
       ...eligibility,
-      members: memberRows.map((row) => ({
-        ...eligibilityByTest.get(String(row.testId)),
-        id: String(row.id),
-        testId: String(row.testId),
-        publicCode: String(row.publicCode ?? ""),
-        sortOrder: Number(row.sortOrder),
-        title: String(row.titleOverride || row.title || "Untitled test"),
-        description: row.description == null ? null : String(row.description),
-        durationSeconds: Number(row.durationSeconds ?? 0),
-        totalMarks: Number(row.totalMarks ?? 0),
-        questionCount: Number(row.questionCount ?? 0),
-        isRequired: Boolean(row.isRequired),
-      })),
+      members: enrichedMembers,
     },
     generatedAt: new Date().toISOString(),
   };
+}
+
+async function resolveTestIdentifier(identifier: string): Promise<string | null> {
+  if (!identifier) return null;
+  const rows = await sqlClient`
+    SELECT t.id::text AS id
+    FROM assessment.tests t
+    WHERE (
+      (${isUuid(identifier)}::boolean AND t.id = ${isUuid(identifier) ? identifier : null}::uuid)
+      OR lower(t.public_code) = lower(${identifier})
+    )
+    LIMIT 1
+  `;
+  return rows[0]?.id ? String(rows[0].id) : null;
 }
 
 async function findBoundSeries(testId: string) {
@@ -248,13 +268,25 @@ router.get("/test-series", async (_req, res) => {
         ef.code AS "examFamilyCode",
         ef.name AS "examFamilyName",
         COUNT(item.id)::int AS "testCount",
-        COUNT(item.id) FILTER (WHERE test.status = 'live'::test_status)::int AS "liveTestCount",
-        COALESCE(SUM(published.duration_seconds) FILTER (WHERE test.status = 'live'::test_status), 0)::int AS "durationSeconds",
+        COUNT(item.id) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        )::int AS "liveTestCount",
+        COALESCE(SUM(published.duration_seconds) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::int AS "durationSeconds",
         COALESCE(SUM((
           SELECT COUNT(*)::int
           FROM assessment.test_questions question
           WHERE question.test_version_id = published.id
-        )) FILTER (WHERE test.status = 'live'::test_status), 0)::int AS "questionCount"
+        )) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+        ), 0)::int AS "questionCount"
       FROM assessment.test_series s
       JOIN assessment.test_series_versions version
         ON version.series_id = s.id
@@ -265,10 +297,23 @@ router.get("/test-series", async (_req, res) => {
       JOIN assessment.test_series_items item ON item.series_version_id = version.id
       JOIN assessment.tests test ON test.id = item.test_id AND test.deleted_at IS NULL
       LEFT JOIN assessment.test_versions published ON published.id = test.published_version_id
+      LEFT JOIN LATERAL (
+        SELECT p.published_at, p.closes_at
+        FROM assessment.test_publications p
+        WHERE p.test_id = test.id
+          AND p.test_version_id = test.published_version_id
+          AND p.published_at IS NOT NULL
+        ORDER BY p.publication_number DESC
+        LIMIT 1
+      ) publication ON true
       WHERE s.deleted_at IS NULL
         AND (version.availability_end_at IS NULL OR version.availability_end_at > now())
       GROUP BY s.id, version.id, e.id, ef.id
-      HAVING COUNT(item.id) FILTER (WHERE test.status = 'live'::test_status) > 0
+      HAVING COUNT(item.id) FILTER (
+        WHERE test.status = 'live'::test_status
+          AND publication.published_at IS NOT NULL
+          AND (publication.closes_at IS NULL OR publication.closes_at > now())
+      ) > 0
       ORDER BY (version.availability_start_at > now()) DESC, s.updated_at DESC
       LIMIT 200
     `;
@@ -294,9 +339,10 @@ router.get("/test-series/:id", async (req, res) => {
   }
 });
 
-async function enforceSeriesAccess(req: Request, res: Response, next: NextFunction, testId: string, seriesId: string) {
-  if (!isUuid(testId)) return next();
+async function enforceSeriesAccess(req: Request, res: Response, next: NextFunction, identifier: string, seriesId: string) {
   try {
+    const testId = await resolveTestIdentifier(identifier);
+    if (!testId) return next();
     const bindings = await findBoundSeries(testId);
     if (bindings.length === 0) return next();
     if (!seriesId) {
@@ -318,7 +364,7 @@ async function enforceSeriesAccess(req: Request, res: Response, next: NextFuncti
       res.status(404).json({ error: "Test series not found", code: "TEST_SERIES_NOT_FOUND" });
       return;
     }
-    assertSeriesTestAccess(detail.eligibility, testId);
+    assertSeriesTestAccess(detail.eligibility as StudentSeriesEligibility, testId);
     return next();
   } catch (error) {
     const typed = error as { message?: string; code?: string; statusCode?: number };
@@ -330,15 +376,15 @@ async function enforceSeriesAccess(req: Request, res: Response, next: NextFuncti
 }
 
 router.get("/tests/:id", async (req, res, next) => {
-  const testId = asString(req.params.id);
+  const identifier = asString(req.params.id);
   const seriesId = asString(req.query.seriesId);
-  await enforceSeriesAccess(req, res, next, testId, seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
 });
 
 router.post("/attempts", async (req, res, next) => {
-  const testId = asString(req.body?.testId);
+  const identifier = asString(req.body?.testId);
   const seriesId = asString(req.body?.seriesId);
-  await enforceSeriesAccess(req, res, next, testId, seriesId);
+  await enforceSeriesAccess(req, res, next, identifier, seriesId);
 });
 
 export default router;
