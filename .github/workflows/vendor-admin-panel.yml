@@ -10,6 +10,7 @@ on:
       - artifacts/examtree/src/**
       - docs/admin-panel-integration.md
       - docs/frontend-truth-audit.md
+      - docs/database-migrations/**
       - package.json
       - pnpm-lock.yaml
       - firebase.json
@@ -157,6 +158,22 @@ jobs:
           ! grep -F '@/app/store/' artifacts/admin-app/src/pages/tests/ExamBlueprintsWorkspacePage.tsx
           grep -F "path: '/tests/blueprints'" artifacts/admin-app/src/app/nav/navigation.ts
 
+      - name: Enforce canonical Test Series
+        run: |
+          grep -F 'TestSeriesPage' artifacts/admin-app/src/App.tsx
+          grep -F 'Canonical immutable series versions' artifacts/admin-app/src/pages/tests/TestSeriesWorkspacePage.tsx
+          grep -F 'Release readiness' artifacts/admin-app/src/pages/tests/TestSeriesWorkspacePage.tsx
+          grep -F 'adminTestSeriesRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'assessment.test_series.created' artifacts/api-server/src/routes/admin-test-series.ts
+          grep -F 'assessment.test_series.version.created' artifacts/api-server/src/routes/admin-test-series.ts
+          grep -F 'assessment.test_series.archived' artifacts/api-server/src/routes/admin-test-series.ts
+          grep -F 'assessment.test_series.restored' artifacts/api-server/src/routes/admin-test-series.ts
+          grep -F 'assessment.test_series_items' artifacts/api-server/src/routes/admin-test-series.ts
+          grep -F 'CREATE TABLE assessment.test_series' docs/database-migrations/2026-07-20-canonical-test-series.sql
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/tests/TestSeriesWorkspacePage.tsx
+          ! grep -F '@/app/store/' artifacts/admin-app/src/pages/tests/TestSeriesWorkspacePage.tsx
+          grep -F "path: '/tests/series'" artifacts/admin-app/src/app/nav/navigation.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
@@ -179,6 +196,9 @@ jobs:
           grep -R "assessment.test_blueprint.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.assembled_from_blueprint" artifacts/api-server/dist >/dev/null
           grep -R "BLUEPRINT_ASSEMBLY_SHORTAGE" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test_series.created" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test_series.version.created" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test_series.archived" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
@@ -209,6 +229,8 @@ jobs:
           node artifacts/api-server/dist/admin-test-qa.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-test-blueprint.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-test-blueprint.test.mjs
           node artifacts/api-server/dist/admin-test-blueprint.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-test-series.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-test-series.test.mjs
+          node artifacts/api-server/dist/admin-test-series.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck
