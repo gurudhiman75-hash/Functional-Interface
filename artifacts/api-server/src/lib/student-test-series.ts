@@ -99,7 +99,7 @@ export function evaluateStudentSeriesEligibility(input: StudentSeriesEligibility
     const scoreRequirement = requirementForMember(member, input.progressionMode, input.completionThreshold);
     const scoreRequirementMet = scoreRequirement == null || (bestScore != null && bestScore >= scoreRequirement);
     const unlockAt = timestamp(member.unlockAt);
-    const live = member.testStatus === "live" || member.testStatus === "completed";
+    const live = member.testStatus === "live";
 
     let lockCode: string | null = null;
     let lockReason: string | null = null;
