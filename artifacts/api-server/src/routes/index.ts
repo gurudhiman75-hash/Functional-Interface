@@ -13,6 +13,7 @@ import adminTaxonomyCoverageRouter from "./admin-taxonomy-coverage";
 import adminTaxonomyRouter from "./admin-taxonomy";
 import adminTestBlueprintAssemblyRouter from "./admin-test-blueprint-assembly";
 import adminTestBlueprintsRouter from "./admin-test-blueprints";
+import adminTestSeriesRouter from "./admin-test-series";
 import adminTestQaGateRouter from "./admin-test-qa-gate";
 import adminTestQaRouter from "./admin-test-qa";
 import adminTestsRouter from "./admin-tests";
@@ -51,6 +52,7 @@ router.use("/admin/taxonomy", adminTaxonomyRouter);
 // provenance-linked, duplicate-safe production implementation.
 router.use("/admin/test-blueprints", adminTestBlueprintAssemblyRouter);
 router.use("/admin/test-blueprints", adminTestBlueprintsRouter);
+router.use("/admin/test-series", adminTestSeriesRouter);
 router.use("/admin/test-qa", adminTestQaRouter);
 router.use("/admin/tests", adminTestQaGateRouter);
 router.use("/admin/tests", adminTestsRouter);
