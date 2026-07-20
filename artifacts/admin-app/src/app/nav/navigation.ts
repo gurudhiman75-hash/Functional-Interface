@@ -47,8 +47,8 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Tests', path: '/tests', icon: FileText, status: 'live', summary: 'Canonical test inventory, lifecycle and publication workspace.' },
     { label: 'Test Builder', path: '/tests/builder', icon: ListChecks, status: 'live', summary: 'Compose test sections and questions, validate totals and publish student-ready tests.' },
     { label: 'Test QA', path: '/tests/qa', icon: ClipboardCheck, status: 'live', permission: 'tests.read', summary: 'Canonical pre-publication validation, reviewer ownership, issue resolution, candidate preview and release gate.' },
-    { label: 'Test Series', path: '/tests/series', icon: Box, status: 'in_progress', summary: 'Organise tests into exam-oriented series with ordering and availability rules.', milestone: 'Series CRUD and canonical test membership.' },
-    { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'in_progress', summary: 'Define section, marks, difficulty and taxonomy targets for repeatable test creation.', milestone: 'Blueprint validation and assisted test generation.' },
+    { label: 'Test Series', path: '/tests/series', icon: Box, status: 'live', permission: 'tests.read', summary: 'Create immutable ordered test collections with access, validity, progression and readiness rules.' },
+    { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Define reusable section, marks, taxonomy, difficulty and language quotas and assemble canonical test drafts.' },
     { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'planned', summary: 'Schedule releases, expiry, embargoes and campaign-aligned test publication.', milestone: 'Scheduled publication worker and calendar operations.' },
   ] },
   { id: 'commerce', label: 'Commerce', items: [
