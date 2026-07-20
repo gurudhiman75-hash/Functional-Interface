@@ -71,6 +71,7 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests/:id` | LIVE | Canonical test detail, validation, lifecycle, schedule, and publication. |
 | `/tests/builder` | LIVE | Build canonical test versions from approved questions. |
 | `/tests/qa` | LIVE | Canonical QA queue, reviewer ownership, issue resolution, immutable version comparison, candidate-content preview and server-enforced approval/publication gate. |
+| `/tests/blueprints` | LIVE | Immutable exam patterns, taxonomy/language/difficulty quotas, Question Bank shortage preview and deterministic draft assembly. |
 
 The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxonomy_edges`, and `catalog.exam_taxonomy_nodes` tables. It requires no schema migration. All writes require `content.taxonomy.manage`, are transactionally validated, cycle-safe, soft-archivable, and recorded in `platform.audit_events`. Coverage counts use the canonical current question version and recursively roll descendant links into parent nodes; leaf-only summaries avoid double counting.
 
@@ -78,14 +79,18 @@ Content Review coordinates the existing Question Studio and Question Bank lifecy
 
 Test QA extends the existing canonical test lifecycle rather than replacing it. It reads `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, `assessment.test_questions`, and `assessment.test_publications`; reviewer assignment, comments, replies, resolutions and reopen events are immutable `platform.audit_events`. Approval, scheduling and publication are blocked server-side until the current test version has an assigned reviewer, no unresolved QA comments, and no existing structural/content validation errors. No database migration is required.
 
+Exam Blueprints uses the existing `assessment.test_blueprints`, `assessment.test_blueprint_versions`, and `assessment.test_blueprint_sections` tables. Blueprint edits create immutable versions. Each section stores canonical taxonomy targets, language, easy/medium/hard quotas, marks, timing and negative marking rules. Coverage preview resolves published Question Bank versions recursively through taxonomy descendants, requires approved translations where applicable, prevents question/stem reuse within one test, and reports shortages before any draft is created. Successful assembly creates an ordinary canonical draft in `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, and `assessment.test_questions`, so the result continues through Test Builder and Test QA. No database migration is required.
+
 ### In-progress admin workspaces
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Test Series and Exam Blueprints
+- Test Series
 - Students and Admin Team
 - Test Analytics, Question Analytics, Content Quality, System Health
 - Exam Configuration, Languages, Roles & Permissions, Audit Logs
+
+Test Series remains non-live because the canonical database currently has no series, series-version or test-membership tables. It must not be simulated through browser state or audit-event metadata.
 
 ### Planned admin workspaces
 
@@ -110,7 +115,8 @@ The production admin shell does not expose:
 - an "all systems operational" claim without monitoring evidence;
 - the former browser-store coverage tree or locally calculated mock coverage records;
 - the former prototype Content Review queue, fake reviewers, local comments, or mock similarity results;
-- the former browser-store Test QA pipeline, fake reviewers, local QA comments, or locally simulated publication versions.
+- the former browser-store Test QA pipeline, fake reviewers, local QA comments, or locally simulated publication versions;
+- prototype blueprint rules, browser-local blueprint versions, or local test assembly presented as canonical data.
 
 Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
@@ -125,6 +131,7 @@ Mounted operational API groups:
 - taxonomy hierarchy and coverage planning;
 - Test Builder and publishing;
 - Test QA collaboration, version comparison and release gate;
+- Exam Blueprint CRUD, coverage preview and deterministic draft assembly;
 - categories/subcategories and published tests;
 - test runner, submission, canonical results, and attempt history.
 
@@ -135,7 +142,7 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 ### P0 — admin operations
 
 1. Add full Question Bank duplicate comparison and chapter-freeze readiness into Content Review.
-2. Add blueprint-driven test production and canonical Test Series management.
+2. Add canonical Test Series schema, versioning, ordered membership and availability rules.
 3. Add administrator-facing audit logs and operational health.
 4. Add translation review and language-specific publication gates.
 

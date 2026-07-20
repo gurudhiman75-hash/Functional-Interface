@@ -11,6 +11,8 @@ import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
 import adminTaxonomyCoverageRouter from "./admin-taxonomy-coverage";
 import adminTaxonomyRouter from "./admin-taxonomy";
+import adminTestBlueprintAssemblyRouter from "./admin-test-blueprint-assembly";
+import adminTestBlueprintsRouter from "./admin-test-blueprints";
 import adminTestQaGateRouter from "./admin-test-qa-gate";
 import adminTestQaRouter from "./admin-test-qa";
 import adminTestsRouter from "./admin-tests";
@@ -45,6 +47,10 @@ router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 router.use("/admin/taxonomy", adminTaxonomyCoverageRouter);
 router.use("/admin/taxonomy", adminTaxonomyRouter);
+// Assembly is mounted first so preview and draft creation always use the
+// provenance-linked, duplicate-safe production implementation.
+router.use("/admin/test-blueprints", adminTestBlueprintAssemblyRouter);
+router.use("/admin/test-blueprints", adminTestBlueprintsRouter);
 router.use("/admin/test-qa", adminTestQaRouter);
 router.use("/admin/tests", adminTestQaGateRouter);
 router.use("/admin/tests", adminTestsRouter);

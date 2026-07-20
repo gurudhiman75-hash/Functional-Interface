@@ -143,6 +143,20 @@ jobs:
           ! grep -F '@/app/store/' artifacts/admin-app/src/pages/tests/TestQAWorkspacePage.tsx
           grep -F "path: '/tests/qa'" artifacts/admin-app/src/app/nav/navigation.ts
 
+      - name: Enforce canonical Exam Blueprints
+        run: |
+          grep -F 'ExamBlueprintsPage' artifacts/admin-app/src/App.tsx
+          grep -F 'Coverage preview and deterministic assembly' artifacts/admin-app/src/pages/tests/ExamBlueprintsWorkspacePage.tsx
+          grep -F 'All blueprint quotas are satisfiable' artifacts/admin-app/src/pages/tests/ExamBlueprintsWorkspacePage.tsx
+          grep -F 'adminTestBlueprintsRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'assessment.test_blueprint.created' artifacts/api-server/src/routes/admin-test-blueprints.ts
+          grep -F 'assessment.test_blueprint.version.created' artifacts/api-server/src/routes/admin-test-blueprints.ts
+          grep -F 'assessment.test.assembled_from_blueprint' artifacts/api-server/src/routes/admin-test-blueprints.ts
+          grep -F 'BLUEPRINT_ASSEMBLY_SHORTAGE' artifacts/api-server/src/routes/admin-test-blueprints.ts
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/tests/ExamBlueprintsWorkspacePage.tsx
+          ! grep -F '@/app/store/' artifacts/admin-app/src/pages/tests/ExamBlueprintsWorkspacePage.tsx
+          grep -F "path: '/tests/blueprints'" artifacts/admin-app/src/app/nav/navigation.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
@@ -161,6 +175,10 @@ jobs:
           grep -R "assessment.test.qa_comment.added" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.qa_comment.resolution.changed" artifacts/api-server/dist >/dev/null
           grep -R "TEST_QA_GATE_BLOCKED" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test_blueprint.created" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test_blueprint.version.created" artifacts/api-server/dist >/dev/null
+          grep -R "assessment.test.assembled_from_blueprint" artifacts/api-server/dist >/dev/null
+          grep -R "BLUEPRINT_ASSEMBLY_SHORTAGE" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
@@ -189,6 +207,8 @@ jobs:
           node artifacts/api-server/dist/admin-content-review.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-test-qa.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-test-qa.test.mjs
           node artifacts/api-server/dist/admin-test-qa.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-test-blueprint.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-test-blueprint.test.mjs
+          node artifacts/api-server/dist/admin-test-blueprint.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck
