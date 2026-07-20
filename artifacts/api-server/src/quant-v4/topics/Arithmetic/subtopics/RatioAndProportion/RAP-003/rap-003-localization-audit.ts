@@ -44,8 +44,16 @@ for (const cpId of getRap003ActiveCanonicalProblemIds()) {
         try {
           const pkg = runRap003Pipeline(cpId, { language, questionLanguageId: qlId, seed });
           generated += 1;
-          const failed = pkg.validation.checks.filter((item) => !item.passed).map((item) => item.name);
-          if (failed.length) failures.push(`${language}:${qlId}:${index}: validation [${failed.join(",")}]`);
+          const failedChecks = pkg.validation.checks.filter((item) => !item.passed);
+          if (failedChecks.length) {
+            failures.push([
+              `${language}:${qlId}:${index}: validation [${failedChecks.map((item) => item.name).join(",")}]`,
+              `messages=${failedChecks.map((item) => item.message).join(" || ")}`,
+              `stem=${pkg.stem}`,
+              `explanation=${pkg.explanation.lines.join(" | ")}`,
+              `working=${JSON.stringify(pkg.solver.workingValues)}`,
+            ].join(" :: "));
+          }
           if (bad(pkg.stem, language)) failures.push(`${language}:${qlId}:${index}: stem -> ${pkg.stem}`);
           const explanation = pkg.explanation.lines.join(" | ");
           if (bad(explanation, language)) failures.push(`${language}:${qlId}:${index}: explanation -> ${explanation}`);
