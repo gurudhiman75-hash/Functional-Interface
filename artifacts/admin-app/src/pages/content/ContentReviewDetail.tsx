@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import {
   CheckCircle2,
@@ -75,18 +75,8 @@ function ageClass(item: ContentReviewItem) {
   return 'border-success/30 bg-success/5 text-success';
 }
 
-export function ContentReviewDetail({
-  item,
-  reviewers,
-  mutating,
-  canReview,
-  actionReason,
-  onActionReasonChange,
-  onDecision,
-  onAssign,
-  onComment,
-  onResolveComment,
-}: Props) {
+export function ContentReviewDetail(props: Props) {
+  const { item, reviewers, mutating, canReview } = props;
   const [compare, setCompare] = useState(false);
   const [reviewerUserId, setReviewerUserId] = useState(item.collaboration.assignment.reviewerUserId ?? 'unassigned');
   const [assignmentReason, setAssignmentReason] = useState('Assign editorial ownership');
@@ -95,25 +85,23 @@ export function ContentReviewDetail({
 
   useEffect(() => {
     setReviewerUserId(item.collaboration.assignment.reviewerUserId ?? 'unassigned');
-    setReplyTo(null);
     setCommentText('');
+    setReplyTo(null);
     setCompare(false);
   }, [item.key, item.collaboration.assignment.reviewerUserId]);
 
   const comments = useMemo(
-    () => [...item.collaboration.comments].sort((left, right) =>
-      new Date(left.createdAt).getTime() - new Date(right.createdAt).getTime()),
+    () => [...item.collaboration.comments].sort(
+      (left, right) => new Date(left.createdAt).getTime() - new Date(right.createdAt).getTime(),
+    ),
     [item.collaboration.comments],
   );
   const changedFields = changedReviewFields(item);
-  const needsReason = item.entityType === 'generation_item'
-    || item.status === 'under_review'
-    || item.status === 'needs_fix';
 
   const saveAssignment = async () => {
     try {
-      await onAssign(reviewerUserId === 'unassigned' ? null : reviewerUserId, assignmentReason);
-      showToast.success('Review ownership updated', reviewerUserId === 'unassigned' ? 'Assignment cleared.' : 'Item assigned to the selected reviewer.');
+      await props.onAssign(reviewerUserId === 'unassigned' ? null : reviewerUserId, assignmentReason);
+      showToast.success('Review ownership updated', reviewerUserId === 'unassigned' ? 'Assignment cleared.' : 'Reviewer assigned.');
     } catch (caught) {
       showToast.error('Assignment failed', caught instanceof Error ? caught.message : 'Unable to update ownership.');
     }
@@ -122,10 +110,10 @@ export function ContentReviewDetail({
   const addComment = async () => {
     if (commentText.trim().length < 2) return;
     try {
-      await onComment(commentText.trim(), replyTo?.id ?? null);
+      await props.onComment(commentText.trim(), replyTo?.id ?? null);
       setCommentText('');
       setReplyTo(null);
-      showToast.success('Comment added', 'The discussion is recorded in the immutable review history.');
+      showToast.success('Comment added', 'The discussion is recorded in immutable review history.');
     } catch (caught) {
       showToast.error('Comment failed', caught instanceof Error ? caught.message : 'Unable to add comment.');
     }
@@ -139,7 +127,7 @@ export function ContentReviewDetail({
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-xs font-bold">{item.publicCode}</span>
-                <StatusBadge tone={statusTone(item.status)} dot>{item.status.replaceAll('_', ' ')}</StatusBadge>
+                <StatusBadge tone={statusTone(item.status)} dot>{item.status.replace(/_/g, ' ')}</StatusBadge>
                 <Badge variant="outline">{item.source}</Badge>
                 <Badge variant="outline" className={ageClass(item)}>{formatReviewAge(item)}</Badge>
                 {item.collaboration.openCommentCount > 0 && (
@@ -201,37 +189,11 @@ export function ContentReviewDetail({
               </Button>
             </div>
             <Field label="Assignment reason"><Input value={assignmentReason} onChange={(event) => setAssignmentReason(event.target.value)} /></Field>
-
             <div className="border-t pt-4">
               <Field label="Decision reason">
-                <Textarea
-                  value={actionReason}
-                  onChange={(event) => onActionReasonChange(event.target.value)}
-                  placeholder="Required for needs-fix or rejection. Describe the exact editorial issue."
-                  className="min-h-24"
-                />
+                <Textarea value={props.actionReason} onChange={(event) => props.onActionReasonChange(event.target.value)} placeholder="Required for needs-fix or rejection. Describe the exact editorial issue." className="min-h-24" />
               </Field>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {item.entityType === 'question' && (item.status === 'draft' || item.status === 'generated') ? (
-                  <Button disabled={mutating || !canReview} onClick={() => void onDecision('submit_review')}>
-                    <ChevronRight className="mr-1.5 h-4 w-4" /> Submit review <kbd className="ml-2 text-[10px] opacity-70">S</kbd>
-                  </Button>
-                ) : (
-                  <>
-                    <Button disabled={mutating || !canReview} onClick={() => void onDecision('approve')}>
-                      <CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve <kbd className="ml-2 text-[10px] opacity-70">A</kbd>
-                    </Button>
-                    <Button variant="outline" disabled={mutating || !canReview || (needsReason && actionReason.trim().length === 0)} onClick={() => void onDecision('needs_fix')}>
-                      <RotateCcw className="mr-1.5 h-4 w-4" /> Needs fix <kbd className="ml-2 text-[10px] opacity-70">F</kbd>
-                    </Button>
-                    {item.entityType === 'generation_item' && (
-                      <Button variant="destructive" disabled={mutating || !canReview || actionReason.trim().length === 0} onClick={() => void onDecision('reject')}>
-                        <XCircle className="mr-1.5 h-4 w-4" /> Reject <kbd className="ml-2 text-[10px] opacity-70">X</kbd>
-                      </Button>
-                    )}
-                  </>
-                )}
-              </div>
+              <DecisionButtons item={item} disabled={mutating || !canReview} reason={props.actionReason} onDecision={props.onDecision} />
             </div>
           </CardContent>
         </Card>
@@ -240,17 +202,11 @@ export function ContentReviewDetail({
           <CardHeader><CardTitle className="flex items-center gap-2 text-base"><MessageSquare className="h-4 w-4" /> Review discussion</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <div className="max-h-80 space-y-2 overflow-y-auto pr-1">
-              {comments.length === 0 ? (
-                <div className="rounded-lg border border-dashed p-5 text-center text-xs text-muted-foreground">No review comments yet.</div>
-              ) : comments.map((comment) => (
-                <CommentCard
-                  key={comment.id}
-                  comment={comment}
-                  onReply={() => setReplyTo(comment)}
-                  onResolve={() => void onResolveComment(comment.id, !comment.resolved)}
-                  disabled={mutating || !canReview}
-                />
-              ))}
+              {comments.length === 0
+                ? <div className="rounded-lg border border-dashed p-5 text-center text-xs text-muted-foreground">No review comments yet.</div>
+                : comments.map((comment) => (
+                  <CommentCard key={comment.id} comment={comment} disabled={mutating || !canReview} onReply={() => setReplyTo(comment)} onResolve={() => void props.onResolveComment(comment.id, !comment.resolved)} />
+                ))}
             </div>
             {replyTo && (
               <div className="flex items-center justify-between rounded-md border bg-muted/30 px-3 py-2 text-xs">
@@ -271,13 +227,31 @@ export function ContentReviewDetail({
   );
 }
 
+function DecisionButtons({ item, disabled, reason, onDecision }: {
+  item: ContentReviewItem;
+  disabled: boolean;
+  reason: string;
+  onDecision: (decision: ReviewDecision) => Promise<void>;
+}) {
+  if (item.entityType === 'question' && (item.status === 'draft' || item.status === 'generated')) {
+    return <Button className="mt-3" disabled={disabled} onClick={() => void onDecision('submit_review')}><ChevronRight className="mr-1.5 h-4 w-4" /> Submit review <kbd className="ml-2 text-[10px] opacity-70">S</kbd></Button>;
+  }
+  return (
+    <div className="mt-3 flex flex-wrap gap-2">
+      <Button disabled={disabled} onClick={() => void onDecision('approve')}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve <kbd className="ml-2 text-[10px] opacity-70">A</kbd></Button>
+      <Button variant="outline" disabled={disabled || !reason.trim()} onClick={() => void onDecision('needs_fix')}><RotateCcw className="mr-1.5 h-4 w-4" /> Needs fix <kbd className="ml-2 text-[10px] opacity-70">F</kbd></Button>
+      {item.entityType === 'generation_item' && <Button variant="destructive" disabled={disabled || !reason.trim()} onClick={() => void onDecision('reject')}><XCircle className="mr-1.5 h-4 w-4" /> Reject <kbd className="ml-2 text-[10px] opacity-70">X</kbd></Button>}
+    </div>
+  );
+}
+
 function VersionContent({ item, previous = false }: { item: ContentReviewItem; previous?: boolean }) {
   const options = reviewItemOptions(item, previous);
   return (
     <div className="space-y-5">
-      <div><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Stem</p><p className="mt-2 whitespace-pre-wrap text-sm leading-7">{reviewItemStem(item, previous) || 'Unavailable'}</p></div>
-      <div><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Options</p><div className="mt-2 grid gap-2 sm:grid-cols-2">{options.map((option, index) => <div key={`${previous}-${index}`} className={cn('rounded-md border px-3 py-2 text-xs', option.isCorrect && 'border-success/40 bg-success/5 text-success')}><span className="mr-2 font-mono font-bold">{option.key ?? String.fromCharCode(65 + index)}.</span>{option.text}</div>)}</div></div>
-      <div><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Explanation</p><p className="mt-2 whitespace-pre-wrap text-sm leading-7 text-muted-foreground">{reviewItemExplanation(item, previous) || 'Unavailable'}</p></div>
+      <Section label="Stem"><p className="whitespace-pre-wrap text-sm leading-7">{reviewItemStem(item, previous) || 'Unavailable'}</p></Section>
+      <Section label="Options"><div className="grid gap-2 sm:grid-cols-2">{options.map((option, index) => <div key={`${previous}-${index}`} className={cn('rounded-md border px-3 py-2 text-xs', option.isCorrect && 'border-success/40 bg-success/5 text-success')}><span className="mr-2 font-mono font-bold">{option.key ?? String.fromCharCode(65 + index)}.</span>{option.text}</div>)}</div></Section>
+      <Section label="Explanation"><p className="whitespace-pre-wrap text-sm leading-7 text-muted-foreground">{reviewItemExplanation(item, previous) || 'Unavailable'}</p></Section>
     </div>
   );
 }
@@ -285,7 +259,7 @@ function VersionContent({ item, previous = false }: { item: ContentReviewItem; p
 function VersionComparison({ item }: { item: ContentReviewItem }) {
   return (
     <div className="grid gap-4 xl:grid-cols-2">
-      <div className="rounded-xl border bg-muted/20 p-4"><div className="mb-4 flex items-center justify-between"><p className="text-sm font-semibold">Previous version</p><Badge variant="outline">v{item.entityType === 'question' ? item.previousVersionNumber : item.previousVersionNumber}</Badge></div><VersionContent item={item} previous /></div>
+      <div className="rounded-xl border bg-muted/20 p-4"><div className="mb-4 flex items-center justify-between"><p className="text-sm font-semibold">Previous version</p><Badge variant="outline">v{item.previousVersionNumber}</Badge></div><VersionContent item={item} previous /></div>
       <div className="rounded-xl border border-primary/25 bg-primary/[0.03] p-4"><div className="mb-4 flex items-center justify-between"><p className="text-sm font-semibold">Current version</p><Badge>v{item.versionNumber}</Badge></div><VersionContent item={item} /></div>
     </div>
   );
@@ -301,6 +275,10 @@ function CommentCard({ comment, onReply, onResolve, disabled }: { comment: Revie
   );
 }
 
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
+function Field({ label, children }: { label: string; children: ReactNode }) {
   return <div><Label className="mb-1.5 block text-xs">{label}</Label>{children}</div>;
+}
+
+function Section({ label, children }: { label: string; children: ReactNode }) {
+  return <div><p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p>{children}</div>;
 }
