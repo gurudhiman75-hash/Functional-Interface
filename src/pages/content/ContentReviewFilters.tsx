@@ -60,7 +60,7 @@ export function ContentReviewFiltersBar({
           <FilterSelect
             value={filters.status}
             onChange={(value) => onFiltersChange({ ...filters, status: value })}
-            options={[['all', 'All statuses'], ...statuses.map((status) => [status, status.replaceAll('_', ' ')])]}
+            options={[['all', 'All statuses'], ...statuses.map((status) => [status, status.replace(/_/g, ' ')])]}
           />
           <FilterSelect
             value={filters.assignment}
