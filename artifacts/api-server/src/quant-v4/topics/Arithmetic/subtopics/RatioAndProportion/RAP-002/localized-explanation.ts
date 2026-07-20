@@ -33,20 +33,29 @@ const PA: Record<Family, readonly [string, string]> = {
   election: ["ਕੁੱਲ ਵੋਟਾਂ ਤੋਂ ਪਈਆਂ ਅਤੇ ਫਿਰ ਵੈਧ ਵੋਟਾਂ ਕੱਢੋ।", "ਵੈਧ ਵੋਟਾਂ ਨੂੰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੋ।"],
 };
 
-function cleanAnswer(value: string | number) {
-  return String(value)
-    .replaceAll("$$", "")
-    .replace(/\\text\{([^}]*)\}/g, "$1")
+function neutralizeLabels(value: string) {
+  return value
+    .replace(/\b(?:Partner|Group|Team|Car|Candidate|Company|Unit)\s+([A-D])\b/gi, "$1")
+    .replace(/\b([A-D])'s\b/g, "$1")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
+function cleanAnswer(value: string | number) {
+  return neutralizeLabels(
+    String(value)
+      .replaceAll("$$", "")
+      .replace(/\\text\{([^}]*)\}/g, "$1"),
+  );
+}
+
 function cleanMath(line: string) {
-  const cleaned = line
-    .replace(/\\text\{[^}]*\}\s*=/g, "")
-    .replace(/\\text\{[^}]*\}/g, "")
-    .replace(/\$\$\s*\$\$/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  const cleaned = neutralizeLabels(
+    line
+      .replace(/\\text\{[^}]*\}\s*=/g, "")
+      .replace(/\\text\{[^}]*\}/g, "")
+      .replace(/\$\$\s*\$\$/g, ""),
+  );
   return cleaned === "$$$$" ? "" : cleaned;
 }
 
