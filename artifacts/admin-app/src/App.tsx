@@ -12,6 +12,7 @@ import { NotFoundPage } from '@/pages/NotFoundPage';
 import { PendingWorkspacePage } from '@/pages/PendingWorkspacePage';
 import { LiveDashboardPage } from '@/pages/overview/LiveDashboardPage';
 import { TestDetailPage } from '@/pages/tests/TestDetailPage';
+import { TestQAWorkspacePage } from '@/pages/tests/TestQAWorkspacePage';
 import { TestsPage } from '@/pages/tests/TestsPage';
 
 const QuestionStudioPage = lazy(() =>
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
 
       { path: '/tests/builder', element: <TestBuilderPage /> },
       { path: '/tests/test-builder', element: <Navigate to="/tests/builder" replace /> },
-      { path: '/tests/qa', element: <PendingWorkspacePage /> },
+      { path: '/tests/qa', element: <TestQAWorkspacePage /> },
       { path: '/tests/series', element: <PendingWorkspacePage /> },
       { path: '/tests/blueprints', element: <PendingWorkspacePage /> },
       { path: '/tests/calendar', element: <PendingWorkspacePage /> },
