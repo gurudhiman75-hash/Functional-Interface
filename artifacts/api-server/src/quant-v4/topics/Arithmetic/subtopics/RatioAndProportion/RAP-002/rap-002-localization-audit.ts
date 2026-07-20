@@ -5,16 +5,20 @@ import { runRap002Pipeline } from "./pipeline";
 const languages = ["hi", "pa"] as const;
 const seedsPerQl = 5;
 
+function withoutMath(text: string) {
+  return text.replace(/\$\$[\s\S]*?\$\$/g, " ");
+}
+
 function visible(text: string) {
-  return text.replace(/\$\$[\s\S]*?\$\$/g, " ").replace(/\\[A-Za-z]+/g, " ")
-    .replace(/Rs\./g, " ").replace(/[0-9%₹{}.,:;!?()\-+/=\[\]$]/g, " ").replace(/\s+/g, " ").trim();
+  return withoutMath(text).replace(/\{[^}]+\}/g, " ").replace(/\\[A-Za-z]+/g, " ")
+    .replace(/Rs\./g, " ").replace(/[0-9%₹{}.,:;!?()\-+/=\[\]$|]/g, " ").replace(/\s+/g, " ").trim();
 }
 
 function bad(text: string, language: "hi" | "pa") {
   const prose = visible(text);
   const wrongScript = language === "hi" ? !/[\u0900-\u097F]/.test(prose) : !/[\u0A00-\u0A7F]/.test(prose);
-  return /[A-Za-z]{2,}/.test(prose) || text.includes("???") || /[ÃàÂ�]/.test(text)
-    || /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(text) || wrongScript;
+  const unresolved = /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(withoutMath(text));
+  return /[A-Za-z]{2,}/.test(prose) || text.includes("???") || /[ÃàÂ�]/.test(text) || unresolved || wrongScript;
 }
 
 const library = validateRap002Libraries();
