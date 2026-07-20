@@ -5,6 +5,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { AdminLayout } from '@/app/layout/AdminLayout';
 import { ThemeProvider } from '@/app/theme/ThemeProvider';
 import { Toaster } from '@/components/ui/sonner';
+import { ContentReviewPage } from '@/pages/content/ContentReviewPage';
 import { QuestionBankWorkspacePage } from '@/pages/content/QuestionBankWorkspacePage';
 import { QuestionDetailPage } from '@/pages/content/QuestionDetailPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
       { path: '/content/studio', element: <Navigate to="/content/questions/generate" replace /> },
       { path: '/content/questions/:id', element: <QuestionDetailPage /> },
       { path: '/content/questions', element: <QuestionBankWorkspacePage /> },
-      { path: '/content/review', element: <PendingWorkspacePage /> },
+      { path: '/content/review', element: <ContentReviewPage /> },
       { path: '/content/coverage', element: <CoveragePage /> },
       { path: '/content/taxonomy', element: <TaxonomyPage /> },
       { path: '/content/sets', element: <PendingWorkspacePage /> },
