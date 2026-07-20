@@ -70,16 +70,19 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests` | LIVE | Canonical test drafts, QA states, schedules, and published versions. |
 | `/tests/:id` | LIVE | Canonical test detail, validation, lifecycle, schedule, and publication. |
 | `/tests/builder` | LIVE | Build canonical test versions from approved questions. |
+| `/tests/qa` | LIVE | Canonical QA queue, reviewer ownership, issue resolution, immutable version comparison, candidate-content preview and server-enforced approval/publication gate. |
 
 The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxonomy_edges`, and `catalog.exam_taxonomy_nodes` tables. It requires no schema migration. All writes require `content.taxonomy.manage`, are transactionally validated, cycle-safe, soft-archivable, and recorded in `platform.audit_events`. Coverage counts use the canonical current question version and recursively roll descendant links into parent nodes; leaf-only summaries avoid double counting.
 
 Content Review coordinates the existing Question Studio and Question Bank lifecycle engines instead of creating another approval engine. Reviewer assignments, comments, replies, resolutions and ownership changes are immutable `platform.audit_events`; generated-item ownership is also reflected in `content.generation_run_items.reviewer_user_id`. Saved review views are browser UI preferences only and contain filters, not business records.
 
+Test QA extends the existing canonical test lifecycle rather than replacing it. It reads `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, `assessment.test_questions`, and `assessment.test_publications`; reviewer assignment, comments, replies, resolutions and reopen events are immutable `platform.audit_events`. Approval, scheduling and publication are blocked server-side until the current test version has an assigned reviewer, no unresolved QA comments, and no existing structural/content validation errors. No database migration is required.
+
 ### In-progress admin workspaces
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Test QA, Test Series, Exam Blueprints
+- Test Series and Exam Blueprints
 - Students and Admin Team
 - Test Analytics, Question Analytics, Content Quality, System Health
 - Exam Configuration, Languages, Roles & Permissions, Audit Logs
@@ -106,7 +109,8 @@ The production admin shell does not expose:
 - mock entity search across students, orders, packages, support, and generated batches;
 - an "all systems operational" claim without monitoring evidence;
 - the former browser-store coverage tree or locally calculated mock coverage records;
-- the former prototype Content Review queue, fake reviewers, local comments, or mock similarity results.
+- the former prototype Content Review queue, fake reviewers, local comments, or mock similarity results;
+- the former browser-store Test QA pipeline, fake reviewers, local QA comments, or locally simulated publication versions.
 
 Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
@@ -120,6 +124,7 @@ Mounted operational API groups:
 - Content Review collaboration and queue composition;
 - taxonomy hierarchy and coverage planning;
 - Test Builder and publishing;
+- Test QA collaboration, version comparison and release gate;
 - categories/subcategories and published tests;
 - test runner, submission, canonical results, and attempt history.
 
@@ -130,7 +135,7 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 ### P0 — admin operations
 
 1. Add full Question Bank duplicate comparison and chapter-freeze readiness into Content Review.
-2. Add Test QA and blueprint-driven test production.
+2. Add blueprint-driven test production and canonical Test Series management.
 3. Add administrator-facing audit logs and operational health.
 4. Add translation review and language-specific publication gates.
 
