@@ -1,6 +1,6 @@
 # ExamTree frontend truth audit
 
-Date: 2026-07-19
+Date: 2026-07-20
 
 This document defines which frontend surfaces are connected to ExamTree's canonical APIs and database. Student production navigation exposes only usable student journeys. The admin console exposes its complete intended information architecture, but every workspace is explicitly labelled `LIVE`, `IN_PROGRESS`, or `PLANNED`; non-live routes render an honest roadmap page and never display prototype records.
 
@@ -64,6 +64,7 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/content/questions/generate` | LIVE | Question Studio generation, quality gates, immutable revision, regeneration, review, and conversion. |
 | `/content/questions` | LIVE | Canonical Question Bank list, taxonomy, lifecycle, and reconciliation. |
 | `/content/questions/:id` | LIVE | Canonical question versions, editing, taxonomy, and lifecycle actions. |
+| `/content/review` | LIVE | Unified generated/authored queue, reviewer ownership, threaded discussion, SLA ageing, lifecycle actions and current-versus-previous comparison. |
 | `/content/coverage` | LIVE | Exam-version coverage targets and recursive Question Bank readiness rollups. |
 | `/content/taxonomy` | LIVE | Canonical taxonomy node, edge, exam mapping, activation and target management. |
 | `/tests` | LIVE | Canonical test drafts, QA states, schedules, and published versions. |
@@ -72,11 +73,12 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 
 The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxonomy_edges`, and `catalog.exam_taxonomy_nodes` tables. It requires no schema migration. All writes require `content.taxonomy.manage`, are transactionally validated, cycle-safe, soft-archivable, and recorded in `platform.audit_events`. Coverage counts use the canonical current question version and recursively roll descendant links into parent nodes; leaf-only summaries avoid double counting.
 
+Content Review coordinates the existing Question Studio and Question Bank lifecycle engines instead of creating another approval engine. Reviewer assignments, comments, replies, resolutions and ownership changes are immutable `platform.audit_events`; generated-item ownership is also reflected in `content.generation_run_items.reviewer_user_id`. Saved review views are browser UI preferences only and contain filters, not business records.
+
 ### In-progress admin workspaces
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Content Review
 - Test QA, Test Series, Exam Blueprints
 - Students and Admin Team
 - Test Analytics, Question Analytics, Content Quality, System Health
@@ -103,7 +105,8 @@ The production admin shell does not expose:
 - the `PrototypeStoreProvider` as the runtime application store;
 - mock entity search across students, orders, packages, support, and generated batches;
 - an "all systems operational" claim without monitoring evidence;
-- the former browser-store coverage tree or locally calculated mock coverage records.
+- the former browser-store coverage tree or locally calculated mock coverage records;
+- the former prototype Content Review queue, fake reviewers, local comments, or mock similarity results.
 
 Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
@@ -114,6 +117,7 @@ Mounted operational API groups:
 - admin session and RBAC;
 - Question Studio;
 - Question Bank;
+- Content Review collaboration and queue composition;
 - taxonomy hierarchy and coverage planning;
 - Test Builder and publishing;
 - categories/subcategories and published tests;
@@ -125,10 +129,10 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-1. Build the dedicated Content Review workspace on the canonical Question Studio and Question Bank queues.
-2. Continue Question Studio version comparison, reviewer collaboration and full Question Bank duplicate checks.
-3. Add Test QA and blueprint-driven test production.
-4. Add administrator-facing audit logs and operational health.
+1. Add full Question Bank duplicate comparison and chapter-freeze readiness into Content Review.
+2. Add Test QA and blueprint-driven test production.
+3. Add administrator-facing audit logs and operational health.
+4. Add translation review and language-specific publication gates.
 
 ### P0 — student production truth and reliability
 

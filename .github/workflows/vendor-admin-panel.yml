@@ -113,6 +113,20 @@ jobs:
           grep -F "path: '/content/coverage'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "path: '/content/taxonomy'" artifacts/admin-app/src/app/nav/navigation.ts
 
+      - name: Enforce canonical content review
+        run: |
+          grep -F 'ContentReviewPage' artifacts/admin-app/src/App.tsx
+          grep -F 'ContentReviewWorkspace' artifacts/admin-app/src/pages/content/ContentReviewPage.tsx
+          grep -F 'useContentReviewController' artifacts/admin-app/src/pages/content/ContentReviewWorkspace.tsx
+          grep -F 'Compare versions' artifacts/admin-app/src/pages/content/ContentReviewDetail.tsx
+          grep -F 'content.review.assignment.changed' artifacts/api-server/src/routes/admin-content-review.ts
+          grep -F 'content.review.comment.added' artifacts/api-server/src/routes/admin-content-review.ts
+          grep -F 'content.review.comment.resolution.changed' artifacts/api-server/src/routes/admin-content-review.ts
+          grep -F 'adminContentReviewRouter' artifacts/api-server/src/routes/index.ts
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/content/ContentReviewPage.tsx
+          ! grep -F '@/app/store/' artifacts/admin-app/src/pages/content/ContentReviewPage.tsx
+          grep -F "path: '/content/review'" artifacts/admin-app/src/app/nav/navigation.ts
+
       - name: Build ExamTree API server with admin routes
         run: pnpm --dir artifacts/api-server build
 
@@ -124,6 +138,9 @@ jobs:
           grep -R "QUESTION_STUDIO_QUALITY_BLOCKED" artifacts/api-server/dist >/dev/null
           grep -R "catalog.taxonomy_node.created" artifacts/api-server/dist >/dev/null
           grep -R "catalog.taxonomy_coverage.updated" artifacts/api-server/dist >/dev/null
+          grep -R "content.review.assignment.changed" artifacts/api-server/dist >/dev/null
+          grep -R "content.review.comment.added" artifacts/api-server/dist >/dev/null
+          grep -R "content.review.comment.resolution.changed" artifacts/api-server/dist >/dev/null
           grep -R "DATABASE_URL environment variable is required" artifacts/api-server/dist >/dev/null
           grep -R "content.question.version.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.version.created" artifacts/api-server/dist >/dev/null
@@ -148,6 +165,8 @@ jobs:
           node artifacts/api-server/dist/question-studio-regeneration.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-taxonomy-management.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-taxonomy-management.test.mjs
           node artifacts/api-server/dist/admin-taxonomy-management.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-content-review.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-content-review.test.mjs
+          node artifacts/api-server/dist/admin-content-review.test.mjs
 
       - name: Typecheck complete admin application
         id: admin_typecheck
