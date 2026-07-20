@@ -153,6 +153,7 @@ export function renderAvg001Explanation(
           "Adding equal groups is the same as multiplying.",
           `$$${averageRaw}\\times${count}=${solver.answer}$$`,
           `Hence, the total is ${answerShown}.`,
+          `Check: ${solver.answer}\\div${count}=${averageRaw}.`,
         ],
       };
 
@@ -162,7 +163,7 @@ export function renderAvg001Explanation(
           "Use: Total = Average × Number.",
           `Here, the average is ${averageShown} and the number of ${noun.plural} is ${count}.`,
           `$$\\text{Total}=${averageRaw}\\times${count}=${solver.answer}$$`,
-          `Therefore, the ${evidence.finalContext} is ${answerShown}.`,
+          `This gives ${answerShown} as the ${evidence.finalContext}.`,
           `Dividing ${plainValue(solver.answer)} by ${count} gives ${plainValue(averageRaw)}, so the answer checks.`,
         ],
       };
@@ -185,6 +186,7 @@ export function renderAvg001Explanation(
           `Divide the total, ${totalShown}, by ${count}.`,
           `$$${totalRaw}\\div${count}=${solver.answer}$$`,
           `Thus, the average is ${answerShown}.`,
+          `Multiplying ${plainValue(solver.answer)} by ${count} gives ${plainValue(totalRaw)} again.`,
         ],
       };
 
@@ -194,7 +196,7 @@ export function renderAvg001Explanation(
           "Average = Total ÷ Count.",
           `Substitute the total ${totalShown} and count ${count}.`,
           `$$\\text{Average}=${totalRaw}\\div${count}=${solver.answer}$$`,
-          `Therefore, the ${evidence.finalContext} is ${answerShown}.`,
+          `The ${evidence.finalContext} is ${answerShown}.`,
           `Verification: ${solver.answer}\\times${count}=${totalRaw}.`,
         ],
       };
@@ -227,7 +229,8 @@ export function renderAvg001Explanation(
           "Use: Count = Total ÷ Average.",
           `Here, total = ${totalShown} and average = ${averageShown}.`,
           `$$\\text{Count}=${totalRaw}\\div${averageRaw}=${solver.answer}$$`,
-          `Therefore, the ${evidence.finalContext} is ${answerShown}.`,
+          `So the ${evidence.finalContext} is ${answerShown}.`,
+          `Check: ${solver.answer}\\times${averageRaw}=${totalRaw}.`,
         ],
       };
 
@@ -250,7 +253,7 @@ export function renderAvg001Explanation(
           `The known ${knownCount} ${noun.plural} contribute ${contextValue(parameters, knownTotal)}.`,
           `The last ${noun.singular} must fill the gap between these two totals.`,
           `$$${requiredTotal}-${String(evidence.givens.knownTotal)}=${solver.answer}$$`,
-          `Therefore, the missing value is ${answerShown}.`,
+          `So the missing value is ${answerShown}.`,
           `Check: ${String(evidence.givens.knownTotal)}+${solver.answer}=${requiredTotal}.`,
         ],
       };
