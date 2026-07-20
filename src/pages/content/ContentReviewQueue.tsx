@@ -73,7 +73,7 @@ export function ContentReviewQueue({
                 <span className="text-[10px] text-muted-foreground">#{index + 1}</span>
               </div>
               <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                <StatusBadge tone={statusTone(item.status)}>{item.status.replaceAll('_', ' ')}</StatusBadge>
+                <StatusBadge tone={statusTone(item.status)}>{item.status.replace(/_/g, ' ')}</StatusBadge>
                 <Badge variant="outline" className="text-[9px]">{item.source}</Badge>
                 {item.collaboration.openCommentCount > 0 && (
                   <Badge variant="outline" className="border-warning/30 text-[9px] text-warning">
