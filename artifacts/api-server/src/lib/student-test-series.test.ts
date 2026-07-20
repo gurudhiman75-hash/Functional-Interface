@@ -106,7 +106,7 @@ test("a closed or unpublished test cannot be opened from the series", () => {
   assert.equal(result.members[0]?.lockCode, "TEST_NOT_LIVE");
 });
 
-test("progress and access use evaluated attempts only", () => {
+test("progress and access use evaluated attempts while optional tests remain non-blocking", () => {
   const result = evaluateStudentSeriesEligibility({
     now,
     progressionMode: "sequential",
@@ -121,5 +121,5 @@ test("progress and access use evaluated attempts only", () => {
   assert.equal(result.requiredCount, 3);
   assert.equal(result.progressPercent, 67);
   assert.equal(assertSeriesTestAccess(result, "t3").testId, "t3");
-  assert.throws(() => assertSeriesTestAccess(result, "t4"), /previous required test/i);
+  assert.equal(assertSeriesTestAccess(result, "t4").testId, "t4");
 });
