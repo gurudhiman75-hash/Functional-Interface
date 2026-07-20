@@ -42,13 +42,15 @@ describe('admin navigation roadmap', () => {
       '/content/taxonomy',
       '/tests',
       '/tests/builder',
+      '/tests/qa',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 8, in_progress: 13, planned: 12 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 9, in_progress: 12, planned: 12 });
   });
 
-  it('protects canonical content operations with read permissions', () => {
+  it('protects canonical operations with read permissions', () => {
     expect(NAV_LOOKUP['/content/review']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/coverage']?.permission).toBe('content.taxonomy.read');
     expect(NAV_LOOKUP['/content/taxonomy']?.permission).toBe('content.taxonomy.read');
+    expect(NAV_LOOKUP['/tests/qa']?.permission).toBe('tests.read');
   });
 });
