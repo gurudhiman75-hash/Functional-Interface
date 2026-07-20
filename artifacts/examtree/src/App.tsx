@@ -40,7 +40,7 @@ const PublishedTest = lazy(() => import("@/pages/published-test"));
 const Category = lazy(() => import("@/pages/category"));
 const Subcategory = lazy(() => import("@/pages/subcategory"));
 const Test = lazy(() => import("@/pages/test"));
-const Result = lazy(() => import("@/pages/result"));
+const Result = lazy(() => import("@/pages/canonical-result"));
 const Profile = lazy(() => import("@/pages/profile"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));

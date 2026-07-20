@@ -19,11 +19,11 @@ This document defines which frontend surfaces are connected to ExamTree's canoni
 | --- | --- | --- | --- |
 | `/` | LIVE_INCOMPLETE | Public landing and canonical exam catalog entry points. | Audit all promotional claims and remove links to pending features. |
 | `/tests`, `/exams` | LIVE | Lists canonical Test Series and standalone published tests. Series-bound tests are removed from generic discovery. | Add pagination, exam filters, search and richer series artwork. |
-| `/test-series/:id` | LIVE | Authenticated canonical series progress, availability, lock reasons, best scores and next-test action. | Add result-page return links and release notifications. |
+| `/test-series/:id` | LIVE | Authenticated canonical series progress, availability, lock reasons, best scores and next-test action. | Add release notifications and richer completion summaries. |
 | `/category/:id`, `/subcategory/:id` | LIVE | Canonical standalone-test discovery by exam family/exam. | Improve empty states and mobile layouts. |
 | `/published-tests/:id` | LIVE | Canonical standalone published-test detail. Series-bound tests are reserved for their series journey. | Add complete instruction and eligibility metadata. |
-| `/test/:id` | LIVE | Test runner with canonical submission and result persistence. Series-bound loads and submissions require valid server-checked series context. | Harden resume, offline, timer, duplicate-submit, and multi-tab behaviour. |
-| `/result?attemptId=...` | LIVE_INCOMPLETE | Loads the canonical stored result snapshot. | Remove retired leaderboard/package/daily-challenge queries and add return-to-series actions. |
+| `/test/:id` | LIVE | Durable authenticated attempt session with cross-refresh resume, optimistic draft revisions, offline retry, server-checked series context and idempotent transactional submission. | Complete deployed browser smoke tests and add stronger timer/multi-device UX. |
+| `/result?attemptId=...` | LIVE | Reads only the committed canonical result snapshot, preserves immutable solution review and returns students to their Test Series when applicable. | Add canonical rank, percentile and weak-area analytics after those services exist. |
 | `/dashboard` | LIVE | Canonical server-backed attempt history and published-test count. | Add topic/section insights after analytics APIs exist. |
 | `/profile` | LIVE_INCOMPLETE | Authentication/profile shell. | Persist editable profile fields canonically. |
 | `/performance` | PENDING | Explicit analytics-unavailable page. | Build canonical ranking, percentile, weak-area, and trend APIs. |
@@ -32,7 +32,9 @@ This document defines which frontend surfaces are connected to ExamTree's canoni
 | `/about`, `/contact`, policy pages, `/faq`, `/blog` | STATIC | Informational pages. | Legal/content review and contact-form persistence. |
 | `/report-question` | LIVE_INCOMPLETE | Report UI exists. | Persist reports to canonical support/content-quality workflow. |
 
-Student Test Series reads the current immutable records in `assessment.test_series`, `assessment.test_series_versions`, and `assessment.test_series_items`. Progress is calculated exclusively from the authenticated student's evaluated `learning.attempts`, linked through the canonical test publication, and uses the best stored percentage score. Open, sequential and score-gated rules, series/member release windows, required versus optional members, publication state and lock reasons are evaluated server-side. The same gate runs before question delivery and again before submission. Browser state cannot unlock a test, and series-bound tests are excluded from standalone test lists and standalone published-test detail routes.
+Student Test Series reads the current immutable records in `assessment.test_series`, `assessment.test_series_versions`, and `assessment.test_series_items`. Progress is calculated exclusively from the authenticated student's real evaluated `learning.attempts`, linked through the canonical test publication, and uses the best stored percentage score. Practice results are retained canonically under a separate completed state and never unlock progression. Open, sequential and score-gated rules, series/member release windows, required versus optional members, publication state and lock reasons are evaluated server-side. The same gate runs before question delivery and again before submission. Browser state cannot unlock a test, and series-bound tests are excluded from standalone test lists and standalone published-test detail routes.
+
+Attempt reliability uses the existing `learning.attempts` table without a schema migration. Opening a published test creates or reuses one authenticated `in_progress` row for the student and publication. Browser drafts remain a local recovery cache but are mirrored into that row with an optimistic revision number. A stale tab receives the authoritative server revision rather than silently overwriting progress. Submission locks and finalises the same attempt row in one transaction; repeated or concurrent submissions return the stored result and cannot create duplicate evaluated attempts. The result page reads only the committed snapshot, so navigation, refresh and cross-instance reads do not depend on process memory or a delayed background write.
 
 ### Student navigation policy
 
@@ -138,8 +140,9 @@ Mounted operational API groups:
 - Exam Blueprint CRUD, coverage preview and deterministic draft assembly;
 - Test Series CRUD, immutable versioning, ordered membership and release readiness;
 - student Test Series discovery, canonical progress and server-enforced access;
+- durable attempt sessions, revisioned draft recovery, transactional idempotent submission and committed result reads;
 - categories/subcategories and standalone published tests;
-- test runner, submission, canonical results, and attempt history.
+- canonical attempt history.
 
 Compatibility/retired responses still exist for packages, bundles, leaderboard, daily challenge, billing, purchases, and several legacy writes. Frontend surfaces for those features must remain non-live until replaced with canonical implementations.
 
@@ -154,9 +157,8 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 ### P0 — student production truth and reliability
 
 1. Deploy and smoke-test current `New-main` on the real Firebase/Render environment.
-2. Remove retired queries from the result page while preserving canonical result display.
-3. Add end-to-end tests for login, series discovery, gated attempt, submit, refresh result, progress unlock, and attempt history.
-4. Harden test runner recovery: refresh, network loss, duplicate submit, zero-time auto-submit, and multiple tabs.
+2. Add browser end-to-end tests for login, series discovery, gated attempt, draft resume, duplicate submit, refresh result, progress unlock, and attempt history.
+3. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
 
 ### P1 — student value
 

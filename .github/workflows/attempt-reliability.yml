@@ -1,0 +1,88 @@
+name: Validate attempt reliability
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/attempt-reliability.ts
+      - artifacts/api-server/src/lib/attempt-reliability.test.ts
+      - artifacts/api-server/src/routes/attempt-reliability.ts
+      - artifacts/api-server/src/routes/published-test-runner.ts
+      - artifacts/api-server/src/routes/canonical-attempt-results.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/examtree/src/lib/api.ts
+      - artifacts/examtree/src/lib/storage.ts
+      - artifacts/examtree/src/pages/canonical-result.tsx
+      - artifacts/examtree/src/App.tsx
+      - docs/frontend-truth-audit.md
+      - .github/workflows/attempt-reliability.yml
+      - package.json
+      - pnpm-lock.yaml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-attempt-reliability-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-attempt-reliability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical attempt boundary
+        run: |
+          grep -F 'attemptReliabilityRouter' artifacts/api-server/src/routes/index.ts
+          python - <<'PY'
+          from pathlib import Path
+          routes = Path('artifacts/api-server/src/routes/index.ts').read_text()
+          assert routes.index('router.use(studentTestSeriesRouter)') < routes.index('router.use(attemptReliabilityRouter)')
+          assert routes.index('router.use(attemptReliabilityRouter)') < routes.index('router.use(publishedTestRunnerRouter)')
+          PY
+          grep -F 'pg_advisory_xact_lock' artifacts/api-server/src/routes/attempt-reliability.ts
+          grep -F 'FOR UPDATE OF attempt' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'ATTEMPT_SESSION_REQUIRED' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'ATTEMPT_SESSION_CONFLICT' artifacts/api-server/src/lib/attempt-reliability.ts
+          grep -F 'queueCanonicalAttemptDraft' artifacts/examtree/src/lib/storage.ts
+          grep -F 'attemptId: handle.attemptId' artifacts/examtree/src/lib/api.ts
+          grep -F '@/pages/canonical-result' artifacts/examtree/src/App.tsx
+          ! grep -F 'getLeaderboard' artifacts/examtree/src/pages/canonical-result.tsx
+          ! grep -F 'getPackages' artifacts/examtree/src/pages/canonical-result.tsx
+          ! grep -F 'getDailyChallenge' artifacts/examtree/src/pages/canonical-result.tsx
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify reliability routes are bundled
+        run: |
+          grep -R 'ATTEMPT_SESSION_REQUIRED' artifacts/api-server/dist >/dev/null
+          grep -R 'ATTEMPT_SESSION_CONFLICT' artifacts/api-server/dist >/dev/null
+          grep -R 'pg_advisory_xact_lock' artifacts/api-server/dist >/dev/null
+
+      - name: Test session contracts
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/attempt-reliability.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/attempt-reliability.test.mjs
+          node artifacts/api-server/dist/attempt-reliability.test.mjs
+
+      - name: Build student application
+        run: pnpm run build:web
