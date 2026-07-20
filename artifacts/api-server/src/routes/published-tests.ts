@@ -49,6 +49,17 @@ router.get("/", async (_req, res) => {
       WHERE t.status = 'live'::test_status
         AND t.deleted_at IS NULL
         AND (p.closes_at IS NULL OR p.closes_at > now())
+        AND NOT EXISTS (
+          SELECT 1
+          FROM assessment.test_series series
+          JOIN assessment.test_series_versions series_version
+            ON series_version.series_id = series.id
+           AND series_version.version_number = series.current_version_number
+          JOIN assessment.test_series_items series_item
+            ON series_item.series_version_id = series_version.id
+           AND series_item.test_id = t.id
+          WHERE series.deleted_at IS NULL
+        )
       ORDER BY COALESCE(p.published_at, t.updated_at) DESC
     `;
 
@@ -102,6 +113,17 @@ router.get("/:id", async (req, res) => {
       WHERE t.status = 'live'::test_status
         AND t.deleted_at IS NULL
         AND (p.closes_at IS NULL OR p.closes_at > now())
+        AND NOT EXISTS (
+          SELECT 1
+          FROM assessment.test_series series
+          JOIN assessment.test_series_versions series_version
+            ON series_version.series_id = series.id
+           AND series_version.version_number = series.current_version_number
+          JOIN assessment.test_series_items series_item
+            ON series_item.series_version_id = series_version.id
+           AND series_item.test_id = t.id
+          WHERE series.deleted_at IS NULL
+        )
         AND (${isUuid(identifier)}::boolean AND t.id = ${isUuid(identifier) ? identifier : null}::uuid
           OR lower(t.public_code) = lower(${identifier}))
       LIMIT 1
