@@ -6,6 +6,8 @@ import type {
   Avg001SolverResult,
 } from "./types";
 
+type ValueRole = "total" | "average" | "answer" | "known";
+
 const SUBJECTS: Record<string, { singular: string; plural: string }> = {
   marksTotal: { singular: "student", plural: "students" },
   dailyOutputTotal: { singular: "day", plural: "days" },
@@ -46,19 +48,72 @@ const MONEY_SCENARIOS = new Set([
   "missingExpense",
 ]);
 
-const UNIT_BY_SCENARIO: Record<string, string> = {
-  marksTotal: "marks",
-  marksAverage: "marks",
-  studentCount: "marks",
-  missingMark: "marks",
-  dailyOutputTotal: "units",
-  outputAverage: "units",
-  dayCount: "units",
-  missingOutput: "units",
-  passengerTotal: "passengers",
-  tripCount: "passengers",
-  distanceAverage: "km",
-  missingDistance: "km",
+const SUFFIXES: Record<
+  string,
+  Partial<Record<ValueRole, string>>
+> = {
+  marksTotal: { average: "marks", answer: "marks", total: "marks" },
+  marksAverage: { total: "marks", answer: "marks" },
+  studentCount: { total: "marks", average: "marks per student" },
+  missingMark: {
+    average: "marks",
+    total: "marks",
+    known: "marks",
+    answer: "marks",
+  },
+  dailyOutputTotal: {
+    average: "units per day",
+    total: "units",
+    answer: "units",
+  },
+  outputAverage: {
+    total: "components",
+    answer: "components per hour",
+  },
+  dayCount: { total: "units", average: "units per day" },
+  missingOutput: {
+    average: "units",
+    total: "units",
+    known: "units",
+    answer: "units",
+  },
+  passengerTotal: {
+    average: "passengers per trip",
+    total: "passengers",
+    answer: "passengers",
+  },
+  tripCount: {
+    total: "passengers",
+    average: "passengers per trip",
+  },
+  distanceAverage: { total: "km", answer: "km per day" },
+  missingDistance: {
+    average: "km per day",
+    total: "km",
+    known: "km",
+    answer: "km",
+  },
+};
+
+const RESULT_LABELS: Record<string, string> = {
+  marksTotal: "total score",
+  dailyOutputTotal: "total production",
+  weeklySalesTotal: "total sales",
+  salaryGroupTotal: "total monthly salary",
+  passengerTotal: "total number of passengers carried",
+  expenseTotal: "total amount spent",
+  marksAverage: "average score per test",
+  outputAverage: "average output per hour",
+  salesAverage: "average sale per day",
+  expenseAverage: "average daily spending",
+  distanceAverage: "average distance per day",
+  observationAverage: "average",
+  missingMark: "score in the last test",
+  missingOutput: "output in the last shift",
+  missingSale: "sale on the last day",
+  missingExpense: "spending on the last day",
+  missingDistance: "distance on the last day",
+  missingObservation: "remaining number",
 };
 
 function subject(parameters: Avg001Parameters) {
@@ -88,18 +143,41 @@ function plainValue(value: string | number) {
 function contextValue(
   parameters: Avg001Parameters,
   value: string | number,
+  role: ValueRole,
 ) {
   const rendered = plainValue(value);
   if (MONEY_SCENARIOS.has(parameters.scenarioVariant)) return `₹${rendered}`;
-  const unit = UNIT_BY_SCENARIO[parameters.scenarioVariant];
-  return unit ? `${rendered} ${unit}` : rendered;
+  const suffix = SUFFIXES[parameters.scenarioVariant]?.[role];
+  return suffix ? `${rendered} ${suffix}` : rendered;
 }
 
-function answerText(parameters: Avg001Parameters, answer: string) {
-  if (parameters.answerType === "COUNT") {
-    return `${answer} ${subject(parameters).plural}`;
+function resultConclusion(
+  parameters: Avg001Parameters,
+  answer: string,
+  lead = "So",
+) {
+  const label =
+    RESULT_LABELS[parameters.scenarioVariant] ?? "answer";
+  return `${lead} the ${label} is ${contextValue(parameters, answer, "answer")}.`;
+}
+
+function countConclusion(parameters: Avg001Parameters, answer: string) {
+  switch (parameters.scenarioVariant) {
+    case "dayCount":
+      return `So the factory worked for ${answer} days.`;
+    case "studentCount":
+      return `So the class has ${answer} students.`;
+    case "transactionCount":
+      return `So there are ${answer} transactions.`;
+    case "employeeCount":
+      return `So there are ${answer} employees.`;
+    case "tripCount":
+      return `So the bus made ${answer} trips.`;
+    case "dayCountFromExpense":
+      return `So the amount lasted ${answer} days.`;
+    default:
+      return `So the count is ${answer}.`;
   }
-  return contextValue(parameters, answer);
 }
 
 export function renderAvg001Explanation(
@@ -116,12 +194,13 @@ export function renderAvg001Explanation(
   const averageShown = contextValue(
     parameters,
     parameters.renderVariables.average ?? averageRaw,
+    "average",
   );
   const totalShown = contextValue(
     parameters,
     parameters.renderVariables.total ?? totalRaw,
+    "total",
   );
-  const answerShown = answerText(parameters, solver.answer);
   const count = Number(evidence.givens.count ?? parameters.values.count);
   const requiredTotal = String(
     evidence.intermediateValues.requiredTotal ??
@@ -141,7 +220,7 @@ export function renderAvg001Explanation(
           `The average for one ${noun.singular} is ${averageShown}.`,
           `For ${count} ${noun.plural}, multiply this value by ${count}.`,
           `$$\\text{Total}=${averageRaw}\\times${count}=${solver.answer}$$`,
-          `So the ${evidence.finalContext} is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer),
           `Check: ${solver.answer}\\div${count}=${averageRaw}.`,
         ],
       };
@@ -152,7 +231,7 @@ export function renderAvg001Explanation(
           `${count} ${noun.plural} means ${count} equal groups of ${averageShown}.`,
           "Adding equal groups is the same as multiplying.",
           `$$${averageRaw}\\times${count}=${solver.answer}$$`,
-          `Hence, the total is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer, "Hence,"),
           `Check: ${solver.answer}\\div${count}=${averageRaw}.`,
         ],
       };
@@ -163,32 +242,42 @@ export function renderAvg001Explanation(
           "Use: Total = Average × Number.",
           `Here, the average is ${averageShown} and the number of ${noun.plural} is ${count}.`,
           `$$\\text{Total}=${averageRaw}\\times${count}=${solver.answer}$$`,
-          `This gives ${answerShown} as the ${evidence.finalContext}.`,
+          resultConclusion(parameters, solver.answer, "This gives"),
           `Dividing ${plainValue(solver.answer)} by ${count} gives ${plainValue(averageRaw)}, so the answer checks.`,
         ],
       };
 
-    case "average-share-equally":
+    case "average-share-equally": {
+      const opening =
+        parameters.scenarioVariant === "marksAverage"
+          ? `The student scored ${totalShown} in ${count} tests.`
+          : `The family spent ${totalShown} over ${count} days.`;
       return {
         lines: [
-          `${totalShown} is shared across ${count} ${noun.plural}.`,
-          `To get the value for one ${noun.singular}, divide by ${count}.`,
+          opening,
+          `To find the value for one ${noun.singular}, divide by ${count}.`,
           `$$\\text{Average}=${totalRaw}\\div${count}=${solver.answer}$$`,
-          `So the average is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer),
           `Check: ${solver.answer}\\times${count}=${totalRaw}.`,
         ],
       };
+    }
 
-    case "average-per-unit":
+    case "average-per-unit": {
+      const opening =
+        parameters.scenarioVariant === "outputAverage"
+          ? `The machine made ${totalShown} in ${count} hours.`
+          : `The vehicle covered ${totalShown} in ${count} days.`;
       return {
         lines: [
-          `The question asks for the value per ${noun.singular}.`,
-          `Divide the total, ${totalShown}, by ${count}.`,
+          opening,
+          `Divide the total by ${count} to get the value per ${noun.singular}.`,
           `$$${totalRaw}\\div${count}=${solver.answer}$$`,
-          `Thus, the average is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer, "Thus,"),
           `Multiplying ${plainValue(solver.answer)} by ${count} gives ${plainValue(totalRaw)} again.`,
         ],
       };
+    }
 
     case "average-formula-check":
       return {
@@ -196,21 +285,26 @@ export function renderAvg001Explanation(
           "Average = Total ÷ Count.",
           `Substitute the total ${totalShown} and count ${count}.`,
           `$$\\text{Average}=${totalRaw}\\div${count}=${solver.answer}$$`,
-          `The ${evidence.finalContext} is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer),
           `Verification: ${solver.answer}\\times${count}=${totalRaw}.`,
         ],
       };
 
-    case "count-equal-groups":
+    case "count-equal-groups": {
+      const firstLine =
+        parameters.scenarioVariant === "dayCount"
+          ? `${totalShown} was produced at ${averageShown}.`
+          : `${totalShown} is divided into average salaries of ${averageShown}.`;
       return {
         lines: [
-          `The total is ${totalShown}, and each ${noun.singular} accounts for ${averageShown}.`,
+          firstLine,
           "The number of equal groups is total ÷ value of one group.",
           `$$\\text{Count}=${totalRaw}\\div${averageRaw}=${solver.answer}$$`,
-          `So there are ${answerShown}.`,
+          countConclusion(parameters, solver.answer),
           `Check: ${solver.answer}\\times${averageRaw}=${totalRaw}.`,
         ],
       };
+    }
 
     case "count-reverse-product":
       return {
@@ -218,7 +312,7 @@ export function renderAvg001Explanation(
           `We need a number which, when multiplied by ${averageShown}, gives ${totalShown}.`,
           "That number is found by division.",
           `$$${totalRaw}\\div${averageRaw}=${solver.answer}$$`,
-          `Hence, the answer is ${answerShown}.`,
+          countConclusion(parameters, solver.answer),
           `Indeed, ${solver.answer}\\times${averageRaw}=${totalRaw}.`,
         ],
       };
@@ -229,7 +323,7 @@ export function renderAvg001Explanation(
           "Use: Count = Total ÷ Average.",
           `Here, total = ${totalShown} and average = ${averageShown}.`,
           `$$\\text{Count}=${totalRaw}\\div${averageRaw}=${solver.answer}$$`,
-          `So the ${evidence.finalContext} is ${answerShown}.`,
+          countConclusion(parameters, solver.answer),
           `Check: ${solver.answer}\\times${averageRaw}=${totalRaw}.`,
         ],
       };
@@ -239,21 +333,21 @@ export function renderAvg001Explanation(
         lines: [
           `First find the total needed for all ${count} ${noun.plural}.`,
           `$$\\text{Required total}=${averageRaw}\\times${count}=${requiredTotal}$$`,
-          `The first ${knownCount} ${noun.plural} already total ${contextValue(parameters, knownTotal)}.`,
+          `The first ${knownCount} ${noun.plural} already total ${contextValue(parameters, knownTotal, "known")}.`,
           "Subtract this known total from the required total.",
           `$$\\text{Missing value}=${requiredTotal}-${String(evidence.givens.knownTotal)}=${solver.answer}$$`,
-          `So the ${evidence.finalContext} is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer),
         ],
       };
 
     case "missing-balance-gap":
       return {
         lines: [
-          `At an average of ${averageShown}, the full total for ${count} ${noun.plural} should be ${contextValue(parameters, requiredTotal)}.`,
-          `The known ${knownCount} ${noun.plural} contribute ${contextValue(parameters, knownTotal)}.`,
+          `At an average of ${averageShown}, the full total for ${count} ${noun.plural} should be ${contextValue(parameters, requiredTotal, "total")}.`,
+          `The known ${knownCount} ${noun.plural} contribute ${contextValue(parameters, knownTotal, "known")}.`,
           `The last ${noun.singular} must fill the gap between these two totals.`,
           `$$${requiredTotal}-${String(evidence.givens.knownTotal)}=${solver.answer}$$`,
-          `So the missing value is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer),
           `Check: ${String(evidence.givens.knownTotal)}+${solver.answer}=${requiredTotal}.`,
         ],
       };
@@ -265,7 +359,7 @@ export function renderAvg001Explanation(
           `The total required is ${averageRaw}\\times${count}=${requiredTotal}.`,
           `So, ${String(evidence.givens.knownTotal)}+x=${requiredTotal}.`,
           `$$x=${requiredTotal}-${String(evidence.givens.knownTotal)}=${solver.answer}$$`,
-          `Hence, the ${evidence.finalContext} is ${answerShown}.`,
+          resultConclusion(parameters, solver.answer, "Hence,"),
         ],
       };
 
