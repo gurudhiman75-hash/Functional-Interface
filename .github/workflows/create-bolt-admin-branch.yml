@@ -28,8 +28,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Create standalone Bolt branch
         shell: bash
@@ -42,12 +42,11 @@ jobs:
           cp -a artifacts/examtree/. "$export_dir/"
           cp pnpm-workspace.yaml "$export_dir/pnpm-workspace.yaml"
 
-          cd "$export_dir"
-          git init
-          git checkout -b bolt-web
+          git checkout --orphan bolt-web-export
+          git rm -rf .
+          cp -a "$export_dir/." .
           git add -A
           git commit -m "Export ExamTree student frontend for Bolt from ${source_sha}"
-          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
           git push origin HEAD:refs/heads/bolt-web --force
 
       - name: Write summary
