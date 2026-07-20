@@ -226,7 +226,7 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       if (String(attempt.testId) !== testId) {
         throw new AttemptReliabilityError("ATTEMPT_SESSION_TEST_MISMATCH", "Attempt session belongs to another test", 409);
       }
-      if (String(attempt.status) === "evaluated" && attempt.resultSnapshot) {
+      if (["evaluated", "practice_evaluated"].includes(String(attempt.status)) && attempt.resultSnapshot) {
         return { result: attempt.resultSnapshot as Record<string, unknown>, replay: true };
       }
       if (String(attempt.status) !== "in_progress") {
@@ -325,6 +325,8 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       });
       const timeSpent = Math.max(0, Number(req.body?.timeSpent ?? 0));
       const submittedAt = new Date().toISOString();
+      const attemptType = req.body?.attemptType === "PRACTICE" ? "PRACTICE" : "REAL";
+      const finalStatus = attemptType === "PRACTICE" ? "practice_evaluated" : "evaluated";
       const result = {
         id: attemptId,
         userId: req.user?.id ?? "",
@@ -341,7 +343,7 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         createdAt: new Date(String(attempt.startedAt)).toISOString(),
         submittedAt,
         attemptNumber: Number(attempt.attemptNumber),
-        attemptType: req.body?.attemptType === "PRACTICE" ? "PRACTICE" : "REAL",
+        attemptType,
         seriesId: typeof req.body?.seriesId === "string" ? req.body.seriesId : null,
         sectionStats,
         sectionTimeSpent: Array.isArray(req.body?.sectionTimeSpent) ? req.body.sectionTimeSpent : null,
@@ -350,7 +352,7 @@ router.post("/attempts", authenticate, async (req, res, next) => {
 
       await sql`
         UPDATE learning.attempts
-        SET status = 'evaluated',
+        SET status = ${finalStatus},
             submitted_at = ${submittedAt}::timestamptz,
             evaluated_at = ${submittedAt}::timestamptz,
             time_spent_seconds = ${Math.round(timeSpent * 60)},
