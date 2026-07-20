@@ -10,16 +10,12 @@ import { renderRap002EditorialExplanation } from "./editorial-explanation";
 import { compactEnglishRapExplanation } from "../editorial-compactor";
 import { polishEnglishRapStem } from "../editorial-stem";
 import { renderLocalizedRap002Explanation } from "./localized-explanation";
-import { renderLocalizedRap002Stem } from "./localized-stem";
+import { renderEffectiveLocalizedRap002Stem } from "./effective-localized-stem";
 
 export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007", input: Rap002ParameterInput = {}): Rap002QuestionPackage {
   const parameters = generateRap002Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap002(parameters);
-  const localizedExplanation = renderLocalizedRap002Explanation(
-    parameters,
-    solver,
-    renderRap002Explanation(parameters, solver),
-  );
+  const localizedExplanation = renderLocalizedRap002Explanation(parameters, solver, renderRap002Explanation(parameters, solver));
   const naturalizedExplanation = naturalizeEnglishRapExplanation(localizedExplanation, parameters.language, solver.answer);
   const editorialExplanation = renderRap002EditorialExplanation(parameters, solver, naturalizedExplanation);
   const explanation = compactEnglishRapExplanation(editorialExplanation, parameters.language, {
@@ -28,7 +24,7 @@ export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007",
   });
   const sourceStem = parameters.language === "en"
     ? renderRap002Template(getRap002QuestionEntry(cpId, parameters.questionLanguageId, "en").template, parameters.variables)
-    : renderLocalizedRap002Stem(parameters)!;
+    : renderEffectiveLocalizedRap002Stem(parameters)!;
   const stem = polishEnglishRapStem(
     renderStemWithNumericDisplayPolicy(sourceStem, solver.answer, solver.answerType, parameters.language),
     parameters.language,
