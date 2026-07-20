@@ -24,6 +24,7 @@ import { renderRap003GeometryExplanation } from "./editorial-geometry";
 import { ensureRap003EditorialConclusion } from "./editorial-conclusion";
 import { polishRap003EditorialLines } from "./editorial-line-polish";
 import { polishEnglishRapStem } from "../editorial-stem";
+import { renderLocalizedRap003Explanation } from "./localized-explanation";
 
 function addValidationContext(
   parameters: ReturnType<typeof generateRap003Parameters>,
@@ -47,11 +48,7 @@ function addValidationContext(
 export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014", input: Rap003ParameterInput = {}): Rap003QuestionPackage {
   const parameters = generateRap003Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap003(parameters);
-  const naturalizedExplanation = naturalizeEnglishRapExplanation(
-    renderRap003Explanation(parameters, solver),
-    parameters.language,
-    solver.answer,
-  );
+  const naturalizedExplanation = naturalizeEnglishRapExplanation(renderRap003Explanation(parameters, solver), parameters.language, solver.answer);
   const editorialExplanation = renderRap003EditorialExplanation(parameters, solver, naturalizedExplanation);
   const partnershipExplanation = renderRap003PartnershipExplanation(parameters, solver, editorialExplanation);
   const ageExplanation = renderRap003AgeExplanation(parameters, solver, partnershipExplanation);
@@ -68,7 +65,8 @@ export function runRap003Pipeline(cpId: Rap003CanonicalProblemId = "RAP-CP-014",
   const geometryExplanation = renderRap003GeometryExplanation(parameters, solver, electionExplanation);
   const concludedExplanation = ensureRap003EditorialConclusion(parameters, solver, geometryExplanation);
   const polishedExplanation = polishRap003EditorialLines(parameters, concludedExplanation);
-  const explanation = compactEnglishRapExplanation(polishedExplanation, parameters.language, {
+  const localizedExplanation = renderLocalizedRap003Explanation(parameters, solver, polishedExplanation);
+  const explanation = compactEnglishRapExplanation(localizedExplanation, parameters.language, {
     maxMeaningfulLines: 6,
     padToLength: 7,
   });
