@@ -46,7 +46,7 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: 'tests', label: 'Tests', items: [
     { label: 'Tests', path: '/tests', icon: FileText, status: 'live', summary: 'Canonical test inventory, lifecycle and publication workspace.' },
     { label: 'Test Builder', path: '/tests/builder', icon: ListChecks, status: 'live', summary: 'Compose test sections and questions, validate totals and publish student-ready tests.' },
-    { label: 'Test QA', path: '/tests/qa', icon: ClipboardCheck, status: 'in_progress', summary: 'Structured pre-publication QA, preview and reviewer sign-off.', milestone: 'QA checklist, issue resolution and publish gate.' },
+    { label: 'Test QA', path: '/tests/qa', icon: ClipboardCheck, status: 'live', permission: 'tests.read', summary: 'Canonical pre-publication validation, reviewer ownership, issue resolution, candidate preview and release gate.' },
     { label: 'Test Series', path: '/tests/series', icon: Box, status: 'in_progress', summary: 'Organise tests into exam-oriented series with ordering and availability rules.', milestone: 'Series CRUD and canonical test membership.' },
     { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'in_progress', summary: 'Define section, marks, difficulty and taxonomy targets for repeatable test creation.', milestone: 'Blueprint validation and assisted test generation.' },
     { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'planned', summary: 'Schedule releases, expiry, embargoes and campaign-aligned test publication.', milestone: 'Scheduled publication worker and calendar operations.' },
