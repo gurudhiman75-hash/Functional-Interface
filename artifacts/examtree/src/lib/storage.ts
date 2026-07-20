@@ -2,6 +2,11 @@ import type {
   SeatingDiagramData,
   SeatingExplanationFlow,
 } from "@workspace/api-zod";
+import {
+  clearAllCanonicalAttemptSessions,
+  hasCanonicalAttemptSession,
+  queueCanonicalAttemptDraft,
+} from "@/lib/api";
 
 export const Storage = {
   set: (k: string, v: unknown) => localStorage.setItem(k, JSON.stringify(v)),
@@ -292,9 +297,13 @@ export const saveActiveTestSession = (session: ActiveTestSession) => {
   const sessions = getActiveTestSessions();
   sessions[session.testId] = session;
   Storage.set(ACTIVE_TEST_SESSIONS_KEY, sessions);
+  queueCanonicalAttemptDraft(session);
 };
 
 export const clearActiveTestSession = (testId: string) => {
+  // The runner clears before submitting. Keep the local draft until the API has
+  // committed the canonical result, so a network failure remains resumable.
+  if (hasCanonicalAttemptSession(testId)) return;
   const sessions = getActiveTestSessions();
   delete sessions[testId];
   Storage.set(ACTIVE_TEST_SESSIONS_KEY, sessions);
@@ -303,6 +312,7 @@ export const clearActiveTestSession = (testId: string) => {
 export const clearStudentLocalData = () => {
   Storage.remove("attempts");
   Storage.remove(ACTIVE_TEST_SESSIONS_KEY);
+  clearAllCanonicalAttemptSessions();
 };
 
 /**
