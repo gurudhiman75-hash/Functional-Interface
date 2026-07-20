@@ -38,12 +38,44 @@ const PA: Record<Domain, readonly [string, string]> = {
   geometry: ["ਸੰਬੰਧਿਤ ਲੰਬਾਈ ਦਾ ਅਨੁਪਾਤ ਲਿਖੋ।", "ਖੇਤਰਫਲ ਲਈ ਅਨੁਪਾਤ ਦਾ ਵਰਗ ਅਤੇ ਆਇਤਨ ਲਈ ਘਣ ਲਵੋ।"],
 };
 
-function cleanMath(line: string) {
-  return line.replace(/\\text\{[^}]*\}\s*=/g, "").replace(/\\text\{[^}]*\}/g, "").replace(/\s+/g, " ").trim();
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function neutralizeEntities(math: string, parameters: Rap003Parameters) {
+  let result = math;
+  const entityKeys = ["personA", "personB", "personC", "personD", "targetPerson", "targetPartner"] as const;
+  const assigned = new Map<string, string>();
+  for (const [index, key] of entityKeys.slice(0, 4).entries()) {
+    const raw = String(parameters.variables[key] ?? "").trim();
+    if (raw) assigned.set(raw, String.fromCharCode(65 + index));
+  }
+  for (const [raw, replacement] of assigned) {
+    result = result.replace(new RegExp(escapeRegExp(raw), "g"), replacement);
+  }
+  return result
+    .replace(/\b(?:Partner|Group|Team|Car|Candidate|Company|Unit)\s+([A-D])\b/g, "$1")
+    .replace(/\b([A-D])'s\b/g, "$1")
+    .replace(/\\text\{[^}]*\}\s*=/g, "")
+    .replace(/\\text\{[^}]*\}/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractMath(line: string, parameters: Rap003Parameters) {
+  const blocks = [...line.matchAll(/\$\$([\s\S]*?)\$\$/g)]
+    .map((match) => neutralizeEntities(match[1] ?? "", parameters))
+    .filter((content) => content.length > 0)
+    .map((content) => `$$${content}$$`);
+  return blocks;
 }
 
 function answer(solver: Rap003SolverResult) {
-  return String(solver.answer).replaceAll("$$", "").trim();
+  return String(solver.answer)
+    .replaceAll("$$", "")
+    .replace(/\\text\{([^}]*)\}/g, "$1")
+    .replace(/\s*:\s*/g, ":")
+    .trim();
 }
 
 function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult, language: Language) {
@@ -66,11 +98,15 @@ function conclusion(parameters: Rap003Parameters, solver: Rap003SolverResult, la
   return (language === "hi" ? hi : pa)[d];
 }
 
-export function renderLocalizedRap003Explanation(parameters: Rap003Parameters, solver: Rap003SolverResult, explanation: Rap003Explanation): Rap003Explanation {
+export function renderLocalizedRap003Explanation(
+  parameters: Rap003Parameters,
+  solver: Rap003SolverResult,
+  explanation: Rap003Explanation,
+): Rap003Explanation {
   if (parameters.language === "en") return explanation;
   const language = parameters.language as Language;
   const narratives = (language === "hi" ? HI : PA)[domain(parameters.canonicalProblemId)];
-  const math = [...new Set(explanation.lines.filter((line) => line.includes("$$")).map(cleanMath))].slice(0, 5);
+  const math = [...new Set(explanation.lines.flatMap((line) => extractMath(line, parameters)))].slice(0, 5);
   const lines = [narratives[0], ...math.slice(0, 2), narratives[1], ...math.slice(2), conclusion(parameters, solver, language)];
   return { ...explanation, lines };
 }
