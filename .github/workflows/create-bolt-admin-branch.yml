@@ -1,4 +1,4 @@
-name: Create Bolt Admin Branch
+name: Create Bolt Student Web Branch
 
 on:
   workflow_dispatch:
@@ -7,17 +7,18 @@ on:
       - New-main
     paths:
       - '.github/workflows/create-bolt-admin-branch.yml'
-      - 'artifacts/admin-app/**'
+      - 'artifacts/examtree/**'
+      - 'pnpm-workspace.yaml'
 
 permissions:
   contents: write
 
 concurrency:
-  group: create-bolt-admin-branch
+  group: create-bolt-student-web-branch
   cancel-in-progress: true
 
 jobs:
-  split-admin-app:
+  export-student-web:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -30,14 +31,27 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Create lightweight Bolt branch
+      - name: Create standalone Bolt branch
         shell: bash
         run: |
           set -euo pipefail
-          split_sha="$(git subtree split --prefix=artifacts/admin-app New-main)"
-          git push origin "${split_sha}:refs/heads/bolt-admin" --force
+
+          source_sha="$(git rev-parse HEAD)"
+          export_dir="$(mktemp -d)"
+
+          cp -a artifacts/examtree/. "$export_dir/"
+          cp pnpm-workspace.yaml "$export_dir/pnpm-workspace.yaml"
+
+          cd "$export_dir"
+          git init
+          git checkout -b bolt-web
+          git add -A
+          git commit -m "Export ExamTree student frontend for Bolt from ${source_sha}"
+          git remote add origin "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}.git"
+          git push origin HEAD:refs/heads/bolt-web --force
 
       - name: Write summary
         run: |
-          echo "Created/updated branch: bolt-admin" >> "$GITHUB_STEP_SUMMARY"
-          echo "Source subtree: artifacts/admin-app" >> "$GITHUB_STEP_SUMMARY"
+          echo "Created/updated branch: bolt-web" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source app: artifacts/examtree" >> "$GITHUB_STEP_SUMMARY"
+          echo "Includes pnpm catalog configuration required by package.json" >> "$GITHUB_STEP_SUMMARY"
