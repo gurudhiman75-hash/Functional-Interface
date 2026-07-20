@@ -65,10 +65,24 @@ export function validateAvg001QuestionPackage(
         pkg.solver.exactAnswer.numerator > 0),
     "Count answers are positive integers",
   );
+
+  const minimumExplanationLines =
+    pkg.difficultyBand === "Easy" ? 4 : 5;
   add(
     "explanation-depth",
-    pkg.explanation.lines.length >= 6,
-    "Explanation contains at least six meaningful moves",
+    pkg.explanation.lines.length >= minimumExplanationLines &&
+      pkg.explanation.lines.length <= 8,
+    `Explanation contains ${minimumExplanationLines}–8 meaningful moves`,
+  );
+  add(
+    "explanation-arithmetic",
+    pkg.explanation.lines.some(
+      (line) =>
+        line.includes("\\times") ||
+        line.includes("\\div") ||
+        /[+\-]=?/.test(line),
+    ),
+    "Explanation contains substituted arithmetic",
   );
   add(
     "explanation-answer",
