@@ -9,12 +9,18 @@ import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { renderRap002EditorialExplanation } from "./editorial-explanation";
 import { compactEnglishRapExplanation } from "../editorial-compactor";
 import { polishEnglishRapStem } from "../editorial-stem";
+import { renderLocalizedRap002Explanation } from "./localized-explanation";
 
 export function runRap002Pipeline(cpId: Rap002CanonicalProblemId = "RAP-CP-007", input: Rap002ParameterInput = {}): Rap002QuestionPackage {
   const parameters = generateRap002Parameters({ ...input, canonicalProblemId: cpId });
   const solver = solveRap002(parameters);
-  const naturalizedExplanation = naturalizeEnglishRapExplanation(
+  const localizedExplanation = renderLocalizedRap002Explanation(
+    parameters,
+    solver,
     renderRap002Explanation(parameters, solver),
+  );
+  const naturalizedExplanation = naturalizeEnglishRapExplanation(
+    localizedExplanation,
     parameters.language,
     solver.answer,
   );
