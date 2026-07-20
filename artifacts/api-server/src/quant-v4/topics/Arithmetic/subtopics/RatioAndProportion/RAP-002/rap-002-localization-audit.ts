@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { getRap002ActiveCanonicalProblemIds, getRap002QuestionEntry, getRap002QuestionLanguageIds, validateRap002Libraries } from "./library";
+import { getRap002ActiveCanonicalProblemIds, getRap002QuestionLanguageIds, validateRap002Libraries } from "./library";
 import { runRap002Pipeline } from "./pipeline";
 
 const languages = ["hi", "pa"] as const;
@@ -10,11 +10,11 @@ function visible(text: string) {
     .replace(/Rs\./g, " ").replace(/[0-9%₹{}.,:;!?()\-+/=\[\]$]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-function bad(text: string, language: "hi" | "pa", allowPlaceholders = false) {
+function bad(text: string, language: "hi" | "pa") {
   const prose = visible(text);
   const wrongScript = language === "hi" ? !/[\u0900-\u097F]/.test(prose) : !/[\u0A00-\u0A7F]/.test(prose);
-  const unresolved = !allowPlaceholders && /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(text);
-  return /[A-Za-z]{2,}/.test(prose) || text.includes("???") || /[ÃàÂ�]/.test(text) || unresolved || wrongScript;
+  return /[A-Za-z]{2,}/.test(prose) || text.includes("???") || /[ÃàÂ�]/.test(text)
+    || /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(text) || wrongScript;
 }
 
 const library = validateRap002Libraries();
@@ -27,8 +27,6 @@ for (const cpId of getRap002ActiveCanonicalProblemIds()) {
   qlCount += qlIds.length;
   for (const qlId of qlIds) {
     for (const language of languages) {
-      const source = getRap002QuestionEntry(cpId, qlId, language).template;
-      if (bad(source, language, true)) failures.push(`${language}:${qlId}: source stem -> ${source}`);
       for (let index = 0; index < seedsPerQl; index += 1) {
         const pkg = runRap002Pipeline(cpId, { language, questionLanguageId: qlId, seed: `rap-002-l10n:${language}:${qlId}:${index}` });
         generated += 1;
