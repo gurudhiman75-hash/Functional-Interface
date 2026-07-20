@@ -5,6 +5,7 @@ import {
   multiply,
   rational,
   subtract,
+  toNumber,
 } from "./math";
 import type {
   Avg001DisplayPolicy,
@@ -12,14 +13,6 @@ import type {
   Avg001SolverResult,
   Rational,
 } from "./types";
-
-function safe(candidate: () => Rational): Rational | undefined {
-  try {
-    return candidate();
-  } catch {
-    return undefined;
-  }
-}
 
 function displayPolicy(parameters: Avg001Parameters): Avg001DisplayPolicy {
   return parameters.answerType === "COUNT"
@@ -33,7 +26,7 @@ function formatCandidate(
   canonical: boolean,
 ) {
   if (canonical) return formatRational(value, policy);
-  const numeric = value.numerator / value.denominator;
+  const numeric = toNumber(value);
   if (policy === "EXACT_INTEGER") {
     return String(Math.max(1, Math.round(numeric)));
   }
@@ -42,50 +35,66 @@ function formatCandidate(
   return formatRational(value, "EXACT_FRACTION");
 }
 
-function misconceptionCandidates(parameters: Avg001Parameters) {
+function arithmeticStep(parameters: Avg001Parameters) {
+  switch (parameters.scenarioVariant) {
+    case "salaryGroupTotal":
+    case "employeeCount":
+      return rational(1000);
+    case "weeklySalesTotal":
+    case "salesAverage":
+    case "transactionCount":
+    case "missingSale":
+      return rational(100);
+    case "expenseTotal":
+    case "expenseAverage":
+    case "dayCountFromExpense":
+    case "missingExpense":
+      return rational(50);
+    case "distanceAverage":
+    case "missingDistance":
+      return rational(1, 10);
+    default:
+      return rational(1);
+  }
+}
+
+function misconceptionCandidates(
+  parameters: Avg001Parameters,
+  solver: Avg001SolverResult,
+) {
   const values = parameters.values;
-  const correct =
-    parameters.solveMode === "findCountFromSumAndAverage"
-      ? divide(values.total, values.average)
-      : undefined;
+  const step = arithmeticStep(parameters);
 
   switch (parameters.solveMode) {
     case "findSumFromAverageAndCount":
       return [
-        safe(() => divide(values.average, rational(values.count))),
         multiply(values.average, rational(values.count - 1)),
         multiply(values.average, rational(values.count + 1)),
-        add(values.average, rational(values.count)),
-        subtract(
-          multiply(values.average, rational(values.count)),
-          values.average,
-        ),
+        add(solver.exactAnswer, step),
+        subtract(solver.exactAnswer, step),
       ];
     case "findAverageFromSumAndCount":
       return [
         divide(values.total, rational(Math.max(1, values.count - 1))),
         divide(values.total, rational(values.count + 1)),
-        values.total,
-        subtract(values.total, rational(values.count)),
-        add(divide(values.total, rational(values.count)), rational(1)),
+        add(solver.exactAnswer, step),
+        subtract(solver.exactAnswer, step),
+        add(solver.exactAnswer, multiply(step, rational(2))),
+        subtract(solver.exactAnswer, multiply(step, rational(2))),
       ];
     case "findCountFromSumAndAverage":
-      if (!correct) throw new Error("Count distractor construction failed");
       return [
-        subtract(correct, rational(1)),
-        add(correct, rational(1)),
-        values.average,
-        values.total,
-        add(values.average, correct),
+        subtract(solver.exactAnswer, rational(1)),
+        add(solver.exactAnswer, rational(1)),
+        add(solver.exactAnswer, rational(2)),
       ];
     case "findMissingValueFromAverage":
-      if (!values.knownTotal) throw new Error("Options missing known total");
       return [
-        values.total,
-        values.knownTotal,
-        subtract(values.total, values.average),
-        subtract(values.knownTotal, values.average),
         values.average,
+        subtract(solver.exactAnswer, step),
+        add(solver.exactAnswer, step),
+        subtract(solver.exactAnswer, multiply(step, rational(2))),
+        add(solver.exactAnswer, multiply(step, rational(2))),
       ];
     default:
       throw new Error(`No option strategy for ${parameters.solveMode}`);
@@ -100,8 +109,7 @@ export function generateAvg001Options(
   const canonical = formatCandidate(solver.exactAnswer, policy, true);
   const unique = [canonical];
 
-  for (const candidate of misconceptionCandidates(parameters)) {
-    if (!candidate) continue;
+  for (const candidate of misconceptionCandidates(parameters, solver)) {
     const rendered = formatCandidate(candidate, policy, false);
     if (!unique.includes(rendered)) unique.push(rendered);
     if (unique.length === 4) break;
