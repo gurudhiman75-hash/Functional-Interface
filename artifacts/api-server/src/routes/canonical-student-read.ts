@@ -95,6 +95,17 @@ async function loadPublishedTests(category?: string) {
     WHERE t.status = 'live'::test_status
       AND t.deleted_at IS NULL
       AND (p.closes_at IS NULL OR p.closes_at > now())
+      AND NOT EXISTS (
+        SELECT 1
+        FROM assessment.test_series series
+        JOIN assessment.test_series_versions series_version
+          ON series_version.series_id = series.id
+         AND series_version.version_number = series.current_version_number
+        JOIN assessment.test_series_items series_item
+          ON series_item.series_version_id = series_version.id
+         AND series_item.test_id = t.id
+        WHERE series.deleted_at IS NULL
+      )
       AND (
         ${normalizedCategory}::text IS NULL
         OR lower(ef.code) = lower(${normalizedCategory})
