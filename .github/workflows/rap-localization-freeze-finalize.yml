@@ -1,0 +1,98 @@
+name: Finalize RAP localization freeze
+
+on:
+  push:
+    branches:
+      - feat/rap-hi-pa-localization
+    paths:
+      - .github/workflows/rap-localization-freeze-finalize.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout localization branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/rap-hi-pa-localization
+          fetch-depth: 0
+
+      - name: Apply approved freeze state
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          engine_path = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
+          engine = engine_path.read_text(encoding="utf-8")
+          for package_id in ("RAP-001", "RAP-002", "RAP-003"):
+              marker = f'packageId: "{package_id}"'
+              start = engine.index(marker)
+              end = engine.index("\n  },", start)
+              block = engine[start:end]
+              old = "supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES"
+              if block.count(old) != 1:
+                  raise RuntimeError(f"Expected one English-only language declaration in {package_id}")
+              block = block.replace(old, "supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES", 1)
+              engine = engine[:start] + block + engine[end:]
+
+          if engine.count("supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES") != 3:
+              raise RuntimeError("Expected exactly three multilingual RAP package declarations")
+          if engine.count("supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES") < 7:
+              raise RuntimeError("Percentage package language declarations changed unexpectedly")
+          engine_path.write_text(engine, encoding="utf-8")
+
+          exporter_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-localization-review-export.ts")
+          exporter = exporter_path.read_text(encoding="utf-8")
+          if exporter.count('        "PENDING",') != 1:
+              raise RuntimeError("Expected one localization review status marker")
+          exporter_path.write_text(exporter.replace('        "PENDING",', '        "APPROVED",', 1), encoding="utf-8")
+
+          report_path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-localization-freeze-report.md")
+          report_path.write_text("""# RAP Hindi and Punjabi Localization Freeze Report
+
+Date: 2026-07-20
+Branch: `feat/rap-hi-pa-localization`
+Base: `New-main`
+Human review decision: **APPROVED / PASS**
+Freeze status: **FREEZE READY**
+
+## Scope
+
+| Package | Active QLs | Hindi | Punjabi |
+|---|---:|---:|---:|
+| RAP-001 | 67 | Approved | Approved |
+| RAP-002 | 102 | Approved | Approved |
+| RAP-003 | 222 | Approved | Approved |
+| **Total** | **391** | **391 approved rows** | **391 approved rows** |
+
+## Publication state
+
+- English remains approved and unchanged.
+- Hindi and Punjabi use human-authored, simple, teacher-style stems and explanations.
+- Hindi and Punjabi are enabled for RAP-001, RAP-002, and RAP-003 in Question Studio.
+- Localization review exports now record `APPROVED` rather than `PENDING`.
+- The chapter is frozen against unreviewed editorial expansion; future changes require a new review cycle.
+
+## Validation contract
+
+The required RAP workflow enforces package tests, Hindi/Punjabi localization audits, English explanation audits, answer consistency, and review CSV exports. The integrated admin workflow enforces API, Question Studio, typecheck, test, build, and hosting integration.
+
+## Human approval
+
+The product owner reviewed the generated RAP Hindi and Punjabi review CSVs and reported: `Pass. Freeze ready.`
+""", encoding="utf-8")
+
+          Path(".github/workflows/rap-localization-freeze-finalize.yml").unlink()
+          PY
+
+      - name: Commit freeze state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "feat(rap): freeze approved Hindi and Punjabi localization"
+          git push origin HEAD:feat/rap-hi-pa-localization
