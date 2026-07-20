@@ -7,6 +7,12 @@ import {
   type Avg001Parameters,
 } from "./types";
 
+type ScenarioProfile = {
+  counts?: number[];
+  averages?: number[];
+  scale?: number;
+};
+
 function hash(value: string) {
   let h = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -25,24 +31,34 @@ function prng(seed: string) {
 }
 
 function pick<T>(items: readonly T[], next: () => number) {
+  if (!items.length) throw new Error("Cannot pick from an empty AVG-001 range");
   return items[Math.floor(next() * items.length)]!;
+}
+
+function scenarioProfile(
+  entry: ReturnType<typeof getAvg001QuestionEntry>,
+): ScenarioProfile | undefined {
+  return (ranges as any).scenarioProfiles?.[
+    entry.scenarioVariant
+  ] as ScenarioProfile | undefined;
 }
 
 function exactAverage(
   entry: ReturnType<typeof getAvg001QuestionEntry>,
   next: () => number,
 ) {
-  const base = pick(
-    (ranges as any)[entry.difficulty].averages as number[],
-    next,
-  );
+  const profile = scenarioProfile(entry);
+  const defaults = (ranges as any)[entry.difficulty] as {
+    averages: number[];
+  };
+  const base = pick(profile?.averages ?? defaults.averages, next);
+  const scale = profile?.scale ?? 1;
+
   if (entry.displayPolicy === "EXACT_DECIMAL_1") {
-    return rational(
-      base * 10 + pick((ranges as any).decimalTenths as number[], next),
-      10,
-    );
+    const tenth = pick((ranges as any).decimalTenths as number[], next);
+    return rational((base * 10 + tenth) * scale, 10);
   }
-  return rational(base);
+  return rational(base * scale);
 }
 
 export function generateAvg001Parameters(input: {
@@ -59,10 +75,11 @@ export function generateAvg001Parameters(input: {
   }
 
   const next = prng(`${input.seed}:${entry.qlId}`);
-  const count = pick(
-    (ranges as any)[entry.difficulty].counts as number[],
-    next,
-  );
+  const profile = scenarioProfile(entry);
+  const defaults = (ranges as any)[entry.difficulty] as {
+    counts: number[];
+  };
+  const count = pick(profile?.counts ?? defaults.counts, next);
   const average = exactAverage(entry, next);
   const total = multiply(average, rational(count));
 
@@ -74,7 +91,10 @@ export function generateAvg001Parameters(input: {
     knownCount = count - 1;
     const averageNumber = average.numerator / average.denominator;
     const minimum = Math.max(1, Math.floor(averageNumber * 0.55));
-    const maximum = Math.max(minimum + 1, Math.floor(averageNumber * 1.45));
+    const maximum = Math.max(
+      minimum + 1,
+      Math.floor(averageNumber * 1.45),
+    );
     const candidate =
       minimum + Math.floor(next() * (maximum - minimum + 1));
 
