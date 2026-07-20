@@ -1,15 +1,1 @@
-{
-  "Easy": {
-    "counts": [5, 6, 8, 10, 12, 15],
-    "averages": [12, 15, 18, 20, 24, 25, 30, 32, 40]
-  },
-  "Medium": {
-    "counts": [7, 9, 11, 12, 14, 16, 18, 20],
-    "averages": [18, 22, 25, 28, 32, 35, 42, 45, 55, 62]
-  },
-  "Hard": {
-    "counts": [9, 11, 13, 15, 17, 19, 21, 24],
-    "averages": [24, 27, 32, 36, 42, 48, 56, 64, 72, 85]
-  },
-  "decimalTenths": [1, 2, 4, 5, 6, 8]
-}
+{"Easy":{"counts":[5,6,8,10,12,15],"averages":[12,15,18,20,24,25,30,32,40]},"Medium":{"counts":[7,9,11,12,14,16,18,20],"averages":[18,22,25,28,32,35,42,45,55,62]},"Hard":{"counts":[9,11,13,15,17,19,21,24],"averages":[24,27,32,36,42,48,56,64,72,85]},"decimalTenths":[1,2,4,5,6,8],"scenarioProfiles":{"marksTotal":{"counts":[20,24,25,30,32,36,40,45],"averages":[42,48,55,62,68,72,76,84],"scale":1},"salaryGroupTotal":{"counts":[10,12,15,18,20,24,25,30],"averages":[22,25,28,32,35,40,45,50],"scale":1000},"weeklySalesTotal":{"counts":[7,9,11,12,14,16,18,20],"averages":[18,22,25,28,32,35,42,45],"scale":100},"passengerTotal":{"counts":[12,15,18,20,21,24,25,28],"averages":[28,32,36,40,44,48,52,56],"scale":1},"expenseTotal":{"counts":[7,10,12,14,15,18,20,21],"averages":[45,50,55,60,65,75,85,95],"scale":10},"salesAverage":{"counts":[7,9,11,12,14,16,18,20],"averages":[18,22,25,28,32,35,42,45],"scale":100},"expenseAverage":{"counts":[7,9,10,12,14,15,18,20],"averages":[35,40,42,45,50,55,60,65],"scale":10},"studentCount":{"counts":[20,24,25,30,32,36,40,45],"averages":[42,48,55,62,68,72,76,84],"scale":1},"transactionCount":{"counts":[8,10,12,14,15,16,18,20],"averages":[12,15,18,20,22,25,28,30],"scale":100},"employeeCount":{"counts":[10,12,15,18,20,24,25,30],"averages":[22,25,28,32,35,40,45,50],"scale":1000},"dayCountFromExpense":{"counts":[7,9,10,11,12,14,15,18],"averages":[20,24,28,32,35,40,45,50],"scale":10},"missingSale":{"counts":[7,9,11,12,14,16,18,20],"averages":[25,28,32,35,40,42,45,50],"scale":100},"missingExpense":{"counts":[7,9,10,11,12,14,15,18],"averages":[35,40,45,50,55,60,65,70],"scale":10}}}
