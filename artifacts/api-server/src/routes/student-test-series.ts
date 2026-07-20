@@ -100,7 +100,7 @@ async function loadSeriesMembers(seriesVersionId: string) {
          AND publication.published_at IS NOT NULL
          AND (publication.closes_at IS NULL OR publication.closes_at > now())
         THEN 'live'
-        ELSE t.status::text
+        ELSE 'unavailable'
       END AS "testStatus",
       version.title,
       version.description,
@@ -258,7 +258,7 @@ router.get("/test-series", async (_req, res) => {
         s.id::text AS id,
         s.code,
         s.name,
-        version.description,
+        COALESCE(version.description, '') AS description,
         version.availability_start_at AS "availabilityStartAt",
         version.availability_end_at AS "availabilityEndAt",
         version.progression_mode AS "progressionMode",
