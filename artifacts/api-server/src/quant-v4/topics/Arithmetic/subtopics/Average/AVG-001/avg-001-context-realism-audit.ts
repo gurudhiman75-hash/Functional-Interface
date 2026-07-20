@@ -11,6 +11,7 @@ type Bounds = {
 
 const bounds: Record<string, Bounds> = {
   marksTotal: { count: [20, 45], average: [40, 100] },
+  marksAverage: { count: [5, 12], average: [40, 85] },
   salaryGroupTotal: { count: [10, 30], average: [20000, 60000] },
   weeklySalesTotal: { count: [7, 20], average: [1500, 5000] },
   passengerTotal: { count: [12, 28], average: [25, 60] },
@@ -18,9 +19,15 @@ const bounds: Record<string, Bounds> = {
   salesAverage: { count: [7, 20], average: [1500, 5000] },
   expenseAverage: { count: [7, 20], average: [300, 700] },
   studentCount: { count: [20, 45], average: [40, 100] },
+  tripCount: { count: [12, 28], average: [25, 60] },
   transactionCount: { count: [8, 20], average: [1000, 3000] },
   employeeCount: { count: [10, 30], average: [20000, 60000] },
   dayCountFromExpense: { count: [7, 18], average: [200, 500] },
+  missingMark: {
+    count: [5, 12],
+    average: [40, 85],
+    missingValue: [20, 100],
+  },
   missingSale: {
     count: [7, 20],
     average: [2000, 5500],
