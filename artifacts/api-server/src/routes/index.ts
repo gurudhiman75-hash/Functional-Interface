@@ -4,6 +4,7 @@ import healthRouter from "./health";
 import usersRouter from "./users";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
+import adminContentReviewRouter from "./admin-content-review";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
@@ -32,9 +33,10 @@ router.use(canonicalStudentReadRouter);
 router.use(publishedTestRunnerRouter);
 router.use("/published-tests", publishedTestsRouter);
 
-// Canonical administration and Question Studio. Quality, immutable revisions,
-// regeneration, taxonomy and test operations all use the namespaced database.
+// Canonical administration. Content Review coordinates collaboration across
+// Question Studio and Question Bank without replacing their lifecycle engines.
 router.use("/admin/session", adminSessionRouter);
+router.use("/admin/content-review", adminContentReviewRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
