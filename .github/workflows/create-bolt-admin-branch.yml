@@ -1,0 +1,43 @@
+name: Create Bolt Admin Branch
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - New-main
+    paths:
+      - '.github/workflows/create-bolt-admin-branch.yml'
+      - 'artifacts/admin-app/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: create-bolt-admin-branch
+  cancel-in-progress: true
+
+jobs:
+  split-admin-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create lightweight Bolt branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          split_sha="$(git subtree split --prefix=artifacts/admin-app New-main)"
+          git push origin "${split_sha}:refs/heads/bolt-admin" --force
+
+      - name: Write summary
+        run: |
+          echo "Created/updated branch: bolt-admin" >> "$GITHUB_STEP_SUMMARY"
+          echo "Source subtree: artifacts/admin-app" >> "$GITHUB_STEP_SUMMARY"
