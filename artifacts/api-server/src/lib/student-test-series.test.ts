@@ -41,7 +41,7 @@ test("sequential mode unlocks only after the previous required test is completed
     members,
     attempts: [{ testId: "t1", attemptCount: 1, bestScore: 20, lastAttemptAt: now }],
   });
-  assert.deepEqual(progressed.members.map((member) => member.unlocked), [true, true, true, false]);
+  assert.deepEqual(progressed.members.map((member) => member.unlocked), [true, true, false, false]);
 });
 
 test("score-gated mode uses the previous required member threshold", () => {
@@ -92,6 +92,18 @@ test("future member release and ended series remain locked", () => {
   });
   assert.equal(ended.available, false);
   assert.equal(ended.members[0]?.lockCode, "SERIES_ENDED");
+});
+
+test("a closed or unpublished test cannot be opened from the series", () => {
+  const result = evaluateStudentSeriesEligibility({
+    now,
+    progressionMode: "open",
+    completionThreshold: null,
+    members: [{ ...members[0]!, testStatus: "unavailable" }],
+    attempts: [],
+  });
+  assert.equal(result.members[0]?.unlocked, false);
+  assert.equal(result.members[0]?.lockCode, "TEST_NOT_LIVE");
 });
 
 test("progress and access use evaluated attempts only", () => {
