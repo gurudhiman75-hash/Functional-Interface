@@ -6,7 +6,6 @@ import {
   ArrowUp,
   Box,
   CheckCircle2,
-  Clock3,
   FileText,
   Loader2,
   PencilLine,
