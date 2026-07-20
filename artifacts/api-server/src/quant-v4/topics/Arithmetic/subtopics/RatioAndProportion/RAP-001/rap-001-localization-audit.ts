@@ -12,11 +12,11 @@ function prose(text: string) {
     .replace(/Rs\./g, " ").replace(/[0-9%₹{}.,:;!?()\-+/=\[\]$]/g, " ").replace(/\s+/g, " ").trim();
 }
 
-function bad(text: string, language: "hi" | "pa") {
+function bad(text: string, language: "hi" | "pa", allowPlaceholders = false) {
   const visible = prose(text);
   const wrongScript = language === "hi" ? !/[\u0900-\u097F]/.test(visible) : !/[\u0A00-\u0A7F]/.test(visible);
-  return /[A-Za-z]{2,}/.test(visible) || text.includes("???") || /[ÃàÂ�]/.test(text)
-    || /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(text) || wrongScript;
+  const unresolved = !allowPlaceholders && /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(text);
+  return /[A-Za-z]{2,}/.test(visible) || text.includes("???") || /[ÃàÂ�]/.test(text) || unresolved || wrongScript;
 }
 
 function samePlaceholders(a: string, b: string) {
@@ -37,15 +37,16 @@ for (const cpId of getRap001ActiveCanonicalProblemIds()) {
     for (const language of languages) {
       const localized = getEffectiveRap001QuestionEntry(cpId, qlId, language).template;
       if (!samePlaceholders(en, localized)) failures.push(`${language}:${qlId}: placeholder occurrences`);
-      if (bad(localized, language)) failures.push(`${language}:${qlId}: source stem`);
+      if (bad(localized, language, true)) failures.push(`${language}:${qlId}: source stem -> ${localized}`);
       for (let index = 0; index < seedsPerQl; index += 1) {
         const seed = `rap-001-l10n:${language}:${qlId}:${index}`;
         const pkg = runRap001Pipeline(cpId, { language, questionLanguageId: qlId, seed });
         generated += 1;
         const failed = pkg.validation.checks.filter((item) => !item.passed).map((item) => item.name);
         if (failed.length) failures.push(`${language}:${qlId}:${index}: ${failed.join(",")}`);
-        if (bad(pkg.stem, language)) failures.push(`${language}:${qlId}:${index}: stem`);
-        if (bad(pkg.explanation.lines.join("\n"), language)) failures.push(`${language}:${qlId}:${index}: explanation`);
+        if (bad(pkg.stem, language)) failures.push(`${language}:${qlId}:${index}: stem -> ${pkg.stem}`);
+        const explanation = pkg.explanation.lines.join(" | ");
+        if (bad(explanation, language)) failures.push(`${language}:${qlId}:${index}: explanation -> ${explanation}`);
         if (!pkg.explanation.lines.some((line) => line.includes("\\Rightarrow"))) failures.push(`${language}:${qlId}:${index}: arithmetic`);
       }
     }
