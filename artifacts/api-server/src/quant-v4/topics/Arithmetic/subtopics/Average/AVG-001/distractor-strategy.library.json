@@ -1,14 +1,12 @@
 {
-  "divideInsteadOfMultiply": "Divides the average by the count instead of multiplying.",
   "useOneFewerObservation": "Uses count − 1 while reconstructing the total.",
-  "addAverageAndCount": "Adds average and count as unrelated quantities.",
+  "useOneMoreObservation": "Uses count + 1 while reconstructing the total.",
   "divideByOneFewer": "Divides the total by count − 1.",
   "divideByOneMore": "Divides the total by count + 1.",
-  "useTotalAsAverage": "Treats the total as though it were already the average.",
   "countOffByOneLow": "Returns one fewer observation than the exact count.",
   "countOffByOneHigh": "Returns one more observation than the exact count.",
-  "useAverageAsCount": "Mistakes the average value for the number of observations.",
-  "forgetKnownTotalSubtraction": "Returns the required total without subtracting the known total.",
-  "useKnownTotalAsAnswer": "Returns the partial known total as the missing value.",
-  "subtractOnlyOneAverage": "Subtracts one average value instead of the full known total."
+  "countOffByTwoHigh": "Makes a two-place counting error.",
+  "assumeMissingEqualsAverage": "Assumes the missing observation must equal the average.",
+  "arithmeticOffsetLow": "Makes a small downward arithmetic error after using the right method.",
+  "arithmeticOffsetHigh": "Makes a small upward arithmetic error after using the right method."
 }
