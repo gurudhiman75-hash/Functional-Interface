@@ -279,7 +279,10 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
     }
 
     case "findInningsValueOrNewCricketAverage":
-      if (values.targetKind === "memberValue") {
+      if (
+        pkg.parameters.answerType === "MEMBER_VALUE" ||
+        values.targetKind === "memberValue"
+      ) {
         return withLines(pkg, [
           `Current runs = ${oldAverage} × ${oldCount}.`,
           `Required runs = ${newAverage} × ${newCount}.`,
