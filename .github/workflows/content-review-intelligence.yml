@@ -1,0 +1,95 @@
+name: Validate content review intelligence
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/admin-content-intelligence.ts
+      - artifacts/api-server/src/lib/admin-content-intelligence.test.ts
+      - artifacts/api-server/src/routes/admin-content-intelligence.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/content-intelligence/**
+      - artifacts/admin-app/src/pages/content/ContentIntelligenceWorkspace.tsx
+      - artifacts/admin-app/src/pages/content/ContentReviewWorkspace.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - docs/frontend-truth-audit.md
+      - .github/workflows/content-review-intelligence.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/lib/admin-content-intelligence.ts
+      - artifacts/api-server/src/lib/admin-content-intelligence.test.ts
+      - artifacts/api-server/src/routes/admin-content-intelligence.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/content-intelligence/**
+      - artifacts/admin-app/src/pages/content/ContentIntelligenceWorkspace.tsx
+      - artifacts/admin-app/src/pages/content/ContentReviewWorkspace.tsx
+      - .github/workflows/content-review-intelligence.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-content-review-intelligence-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-content-review-intelligence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical intelligence boundary
+        run: |
+          grep -F 'adminContentIntelligenceRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'content.duplicate.decision.recorded' artifacts/api-server/src/routes/admin-content-intelligence.ts
+          grep -F 'content.chapter.freeze.changed' artifacts/api-server/src/routes/admin-content-intelligence.ts
+          grep -F 'contentIntelligenceReportHash' artifacts/api-server/src/lib/admin-content-intelligence.ts
+          grep -F 'CHAPTER_NOT_FREEZE_READY' artifacts/api-server/src/routes/admin-content-intelligence.ts
+          grep -F 'ContentIntelligenceWorkspace' artifacts/admin-app/src/pages/content/ContentReviewWorkspace.tsx
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/content/ContentIntelligenceWorkspace.tsx
+          ! grep -F '@/app/store/similarity' artifacts/admin-app/src/pages/content/ContentIntelligenceWorkspace.tsx
+          ! grep -F 'localStorage' artifacts/admin-app/src/features/content-intelligence/api.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify intelligence routes are bundled
+        run: |
+          grep -R 'content.duplicate.decision.recorded' artifacts/api-server/dist >/dev/null
+          grep -R 'content.chapter.freeze.changed' artifacts/api-server/dist >/dev/null
+          grep -R 'DUPLICATE_SCAN_TRUNCATED' artifacts/api-server/dist >/dev/null
+          grep -R 'report.json' artifacts/api-server/dist >/dev/null
+
+      - name: Test intelligence contracts
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-content-intelligence.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-content-intelligence.test.mjs
+          node artifacts/api-server/dist/admin-content-intelligence.test.mjs
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Test admin application
+        run: pnpm run test:admin
+
+      - name: Build admin application
+        run: pnpm run build:admin
