@@ -1,5 +1,5 @@
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
-import { runAvg001Cp003Pipeline } from "./cp003-runtime";
+import { runAvg001Cp003Pipeline } from "./cp003-distractor-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { renderAvg001Explanation } from "./explanation-renderer";
 import { independentlyVerifyAvg001 } from "./independent-verifier";
