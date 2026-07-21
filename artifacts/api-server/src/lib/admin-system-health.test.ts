@@ -8,6 +8,7 @@ import {
   deriveSystemHealth,
   normalizeOperationalJobAction,
   redactOperationalTelemetry,
+  redactOperationalText,
 } from "./admin-system-health";
 
 const now = Date.parse("2026-07-21T08:00:00.000Z");
@@ -29,7 +30,7 @@ test("recent queued and running jobs remain healthy", () => {
   assert.equal(assessOperationalJob({ status: "running", heartbeatAt: "2026-07-21T07:58:00.000Z" }, now).level, "healthy");
 });
 
-test("system health prioritises database and stale-worker failures", () => {
+test("system health prioritises database, stale-worker and severe outbox failures", () => {
   assert.equal(deriveSystemHealth({
     databaseOk: false,
     databaseLatencyMs: null,
@@ -55,6 +56,18 @@ test("system health prioritises database and stale-worker failures", () => {
   });
   assert.equal(stale.level, "critical");
   assert.equal(stale.reasons.some((reason) => reason.includes("stale")), true);
+
+  assert.equal(deriveSystemHealth({
+    databaseOk: true,
+    databaseLatencyMs: 20,
+    staleJobCount: 0,
+    failedJobCount24h: 0,
+    failedGenerationCount24h: 0,
+    failedValidationCount24h: 0,
+    pendingOutboxCount: 2,
+    oldestPendingOutboxAgeMinutes: 31,
+    errorCount24h: 0,
+  }).level, "critical");
 });
 
 test("delayed outbox and recent failures produce degraded health", () => {
@@ -73,18 +86,24 @@ test("delayed outbox and recent failures produce degraded health", () => {
   assert.equal(summary.reasons.length >= 2, true);
 });
 
-test("operational telemetry redacts secrets recursively", () => {
+test("operational telemetry redacts secrets recursively and inside text", () => {
   assert.deepEqual(redactOperationalTelemetry({
     payload: {
       apiKey: "secret-value",
       nested: { authorization: "Bearer token", safe: "visible" },
+      message: "Provider failed with token=abc123 and password=hunter2",
     },
   }), {
     payload: {
       apiKey: "[REDACTED]",
       nested: { authorization: "[REDACTED]", safe: "visible" },
+      message: "Provider failed with token=[REDACTED] and password=[REDACTED]",
     },
   });
+  assert.equal(
+    redactOperationalText("Authorization: Bearer abc.def and postgresql://admin:password@host/db"),
+    "Authorization=Bearer [REDACTED] and postgresql://[REDACTED]@host/db",
+  );
 });
 
 test("job actions require reasons and enforce safe transitions", () => {
