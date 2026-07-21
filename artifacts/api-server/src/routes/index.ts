@@ -20,11 +20,17 @@ import adminTaxonomyCoverageRouter from "./admin-taxonomy-coverage";
 import adminTaxonomyRouter from "./admin-taxonomy";
 import adminTestBlueprintAssemblyRouter from "./admin-test-blueprint-assembly";
 import adminTestBlueprintsRouter from "./admin-test-blueprints";
+import adminTestLocalizationGateRouter from "./admin-test-localization-gate";
 import adminTestSeriesRouter from "./admin-test-series";
 import adminTestQaGateRouter from "./admin-test-qa-gate";
 import adminTestQaRouter from "./admin-test-qa";
+import adminTestTranslationsRouter from "./admin-test-translations";
 import adminTestsRouter from "./admin-tests";
+import adminTranslationActionsRouter from "./admin-translation-actions";
+import adminTranslationHardeningRouter from "./admin-translation-hardening";
+import adminTranslationsRouter from "./admin-translations";
 import publishedTestsRouter from "./published-tests";
+import publishedTestMultilingualRunnerRouter from "./published-test-multilingual-runner";
 import publishedTestRunnerRouter from "./published-test-runner";
 import attemptReliabilityRouter from "./attempt-reliability";
 import canonicalAttemptResultsRouter from "./canonical-attempt-results";
@@ -48,6 +54,9 @@ router.use(studentTestSeriesRouter);
 router.use(attemptReliabilityRouter);
 router.use(canonicalAttemptResultsRouter);
 router.use(canonicalStudentReadRouter);
+// Multilingual publications shadow only configured bilingual tests; English-only
+// publications continue through the proven source-language runner.
+router.use(publishedTestMultilingualRunnerRouter);
 router.use(publishedTestRunnerRouter);
 router.use("/published-tests", publishedTestsRouter);
 
@@ -67,6 +76,13 @@ router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
+// Translation operations own language configuration, terminology, question and
+// test localization, reviewer workflow, and publication-readiness evidence.
+// Focused correctness guards are mounted first for affected mutations.
+router.use("/admin/translations", adminTranslationHardeningRouter);
+router.use("/admin/translations", adminTranslationActionsRouter);
+router.use("/admin/translations", adminTestTranslationsRouter);
+router.use("/admin/translations", adminTranslationsRouter);
 // Operational visibility reuses the canonical jobs, generation, validation,
 // outbox and audit foundations without creating a parallel monitoring store.
 // Response redaction is mounted first and the focused mutation router owns job actions.
@@ -81,6 +97,8 @@ router.use("/admin/test-blueprints", adminTestBlueprintAssemblyRouter);
 router.use("/admin/test-blueprints", adminTestBlueprintsRouter);
 router.use("/admin/test-series", adminTestSeriesRouter);
 router.use("/admin/test-qa", adminTestQaRouter);
+// Localization must pass before the ordinary QA collaboration gate and lifecycle.
+router.use("/admin/tests", adminTestLocalizationGateRouter);
 router.use("/admin/tests", adminTestQaGateRouter);
 router.use("/admin/tests", adminTestsRouter);
 

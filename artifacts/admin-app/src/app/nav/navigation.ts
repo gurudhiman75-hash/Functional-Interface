@@ -72,7 +72,7 @@ export const NAV_GROUPS: NavGroup[] = [
   ] },
   { id: 'settings', label: 'Settings', items: [
     { label: 'Exam Configuration', path: '/settings/exam-config', icon: Settings, status: 'in_progress', summary: 'Configure supported exams, scoring rules and operational defaults.', milestone: 'Canonical exam-version management UI.' },
-    { label: 'Languages', path: '/settings/languages', icon: Languages, status: 'in_progress', summary: 'Manage language availability, translation readiness and terminology standards.', milestone: 'Translation workflow and per-language publication gates.' },
+    { label: 'Languages', path: '/settings/languages', icon: Languages, status: 'live', permission: 'content.translations.read', summary: 'Canonical language availability, question and test translation workflow, terminology governance, reviewer assignments and publication readiness.' },
     { label: 'Roles & Permissions', path: '/settings/roles', icon: Lock, status: 'live', permission: 'settings.roles.manage', summary: 'Create and update server-enforced roles from the canonical granular permission catalogue.' },
     { label: 'Branding', path: '/settings/branding', icon: Palette, status: 'planned', summary: 'Control platform identity, visual assets and communication branding.', milestone: 'Canonical tenant branding configuration.' },
     { label: 'Audit Logs', path: '/settings/audit-logs', icon: ScrollText, status: 'live', permission: 'audit.read', summary: 'Search, inspect and export immutable administrative, system and integration events with field-level changes.' },
