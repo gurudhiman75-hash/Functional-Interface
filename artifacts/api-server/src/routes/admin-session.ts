@@ -18,6 +18,7 @@ export type AdminSessionRouteDependencies = {
   authenticate: RequestHandler;
   isDatabaseConfigured: () => boolean;
   isAdministrator: (identity: AdminBootstrapIdentity) => Promise<boolean>;
+  activateInvitation: (identity: AdminBootstrapIdentity) => Promise<void>;
   bootstrap: (input: {
     firebaseUid: string;
     email?: string;
@@ -51,6 +52,22 @@ export async function isCanonicalAdministrator(identity: AdminBootstrapIdentity)
   return rows.length > 0;
 }
 
+export async function activateCanonicalAdminInvitation(identity: AdminBootstrapIdentity): Promise<void> {
+  const normalizedEmail = identity.email?.trim().toLowerCase() || null;
+  if (!identity.emailVerified || !normalizedEmail) return;
+  await sqlClient`
+    UPDATE identity.users u
+    SET status = 'active'::user_status, updated_at = now()
+    WHERE u.deleted_at IS NULL
+      AND u.status = 'invited'::user_status
+      AND lower(u.email) = lower(${normalizedEmail})
+      AND EXISTS (
+        SELECT 1 FROM identity.admin_profiles p
+        WHERE p.user_id = u.id AND p.is_suspended = false
+      )
+  `;
+}
+
 export function isProductionDatabaseConfigured(): boolean {
   return process.env.NODE_ENV !== "production" || Boolean(process.env.DATABASE_URL?.trim());
 }
@@ -60,6 +77,7 @@ export function createAdminSessionRouter(
     authenticate,
     isDatabaseConfigured: isProductionDatabaseConfigured,
     isAdministrator: isCanonicalAdministrator,
+    activateInvitation: activateCanonicalAdminInvitation,
     bootstrap: bootstrapAdminIdentity,
   },
 ) {
@@ -80,15 +98,17 @@ export function createAdminSessionRouter(
         return;
       }
 
-      if (!(await dependencies.isAdministrator({
+      const identity = {
         firebaseUid: req.user.id,
         email: req.user.email,
         emailVerified: req.user.emailVerified,
-      }))) {
+      };
+      if (!(await dependencies.isAdministrator(identity))) {
         res.status(403).json({ error: "Administrator access required" });
         return;
       }
 
+      await dependencies.activateInvitation(identity);
       const result = await dependencies.bootstrap({
         firebaseUid: req.user.id,
         email: req.user.email,
