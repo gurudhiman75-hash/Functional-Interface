@@ -755,7 +755,8 @@ function validateCp002(
         line.includes("\\div") ||
         line.includes("÷") ||
         line.includes("+") ||
-        line.includes("−"),
+        line.includes("−") ||
+        line.includes("="),
     ),
     "Explanation contains actual arithmetic",
   );
