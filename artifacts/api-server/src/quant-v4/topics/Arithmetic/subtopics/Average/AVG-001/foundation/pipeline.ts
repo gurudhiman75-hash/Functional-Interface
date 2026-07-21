@@ -1,4 +1,5 @@
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
+import { runAvg001Cp003Pipeline } from "./cp003-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { renderAvg001Explanation } from "./explanation-renderer";
 import { independentlyVerifyAvg001 } from "./independent-verifier";
@@ -33,6 +34,14 @@ export function runAvg001Pipeline(
 
   if (entry.cpId === "AVG-CP-002") {
     return runAvg001Cp002Pipeline({
+      questionLanguageId,
+      seed,
+      language,
+    });
+  }
+
+  if (entry.cpId === "AVG-CP-003") {
+    return runAvg001Cp003Pipeline({
       questionLanguageId,
       seed,
       language,

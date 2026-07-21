@@ -39,6 +39,14 @@ export interface Avg001Parameters {
     lowerMiddleTerm?: Rational; upperMiddleTerm?: Rational;
     commonDifference?: Rational; targetExtreme?: "smallest" | "largest";
     sequenceParity?: "odd" | "even" | "any";
+    oldCount?: number; newCount?: number;
+    oldAverage?: Rational; currentAverage?: Rational; newAverage?: Rational;
+    oldTotal?: Rational; currentTotal?: Rational; newTotal?: Rational;
+    yearsElapsed?: number;
+    addedValue?: Rational; removedValue?: Rational;
+    oldValue?: Rational; newValue?: Rational;
+    replacementTarget?: "old" | "new";
+    inningsCount?: number; nextScore?: Rational;
   };
   renderVariables: Record<string, string | number>;
 }

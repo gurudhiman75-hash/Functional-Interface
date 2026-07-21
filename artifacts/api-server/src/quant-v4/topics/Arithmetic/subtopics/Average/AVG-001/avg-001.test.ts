@@ -8,14 +8,16 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 const entries = getAvg001QuestionEntries();
 const cp001 = entries.filter((entry) => entry.cpId === "AVG-CP-001");
 const cp002 = entries.filter((entry) => entry.cpId === "AVG-CP-002");
+const cp003 = entries.filter((entry) => entry.cpId === "AVG-CP-003");
 
-assert.equal(entries.length, 74);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 74);
+assert.equal(entries.length, 160);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 160);
 assert.equal(cp001.length, 24);
 assert.equal(cp002.length, 50);
+assert.equal(cp003.length, 86);
 assert.deepEqual(
-  cp002.map((entry) => entry.qlId),
-  Array.from({ length: 50 }, (_, index) => `AVG-QL-${String(index + 73).padStart(3, "0")}`),
+  cp003.map((entry) => entry.qlId),
+  Array.from({ length: 86 }, (_, index) => `AVG-QL-${String(index + 123).padStart(3, "0")}`),
 );
 
 const expectedModes: Record<string, number> = {
@@ -27,6 +29,13 @@ const expectedModes: Record<string, number> = {
   findMiddleTermFromAverage: 12,
   findExtremeFromAverageAndCount: 12,
   findAverageOfOddOrEvenSet: 12,
+  findNewAverageAfterAddition: 13,
+  findNewAverageAfterRemoval: 12,
+  findNewAverageAfterReplacement: 13,
+  findAddedMemberValueFromShift: 13,
+  findRemovedMemberValueFromShift: 12,
+  findReplacementValueFromShift: 11,
+  findInningsValueOrNewCricketAverage: 12,
 };
 for (const [mode, count] of Object.entries(expectedModes)) {
   assert.equal(
@@ -36,15 +45,15 @@ for (const [mode, count] of Object.entries(expectedModes)) {
   );
 }
 
-const cp002Difficulty = Object.groupBy(cp002, (entry) => entry.difficulty);
-assert.equal(cp002Difficulty.Easy?.length, 22);
-assert.equal(cp002Difficulty.Medium?.length, 15);
-assert.equal(cp002Difficulty.Hard?.length, 13);
+const cp003Difficulty = Object.groupBy(cp003, (entry) => entry.difficulty);
+assert.equal(cp003Difficulty.Easy?.length, 18);
+assert.equal(cp003Difficulty.Medium?.length, 30);
+assert.equal(cp003Difficulty.Hard?.length, 38);
 
 const allDifficulty = Object.groupBy(entries, (entry) => entry.difficulty);
-assert.equal(allDifficulty.Easy?.length, 30);
-assert.equal(allDifficulty.Medium?.length, 23);
-assert.equal(allDifficulty.Hard?.length, 21);
+assert.equal(allDifficulty.Easy?.length, 48);
+assert.equal(allDifficulty.Medium?.length, 53);
+assert.equal(allDifficulty.Hard?.length, 59);
 
 let generated = 0;
 for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
@@ -64,7 +73,7 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
   }
 }
 
-for (const qlId of ["AVG-QL-001", "AVG-QL-073"]) {
+for (const qlId of ["AVG-QL-001", "AVG-QL-073", "AVG-QL-123"]) {
   assert.throws(
     () =>
       runAvg001Pipeline({
@@ -91,6 +100,7 @@ console.log(
       qlCount: entries.length,
       cp001QlCount: cp001.length,
       cp002QlCount: cp002.length,
+      cp003QlCount: cp003.length,
       seedsPerQl: 12,
       generated,
       status: "PASS",

@@ -40,7 +40,7 @@ console.log(
     2,
   ),
 );
-assert.equal(cases, 888);
+assert.equal(cases, 1920);
 assert.equal(unsupported, 0);
 assert.equal(mismatch, 0);
 assert.equal(displayMismatch, 0);
