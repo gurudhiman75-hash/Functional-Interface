@@ -24,6 +24,10 @@ function isJoiningAgeScenario(pkg: Avg001QuestionPackage) {
   );
 }
 
+function requiresBoundedJoiningAge(pkg: Avg001QuestionPackage) {
+  return isJoiningAgeScenario(pkg) && pkg.parameters.answerType === "MEMBER_VALUE";
+}
+
 function normalizeElapsedYearAliases(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
@@ -76,7 +80,7 @@ function rebuildJoiningAgeOptions(
   pkg: Avg001QuestionPackage,
   requestedSeed: string,
 ): Avg001QuestionPackage {
-  if (!isJoiningAgeScenario(pkg) || pkg.parameters.answerType !== "MEMBER_VALUE") {
+  if (!requiresBoundedJoiningAge(pkg)) {
     return pkg;
   }
 
@@ -185,7 +189,7 @@ export function runAvg001Cp003Pipeline(input: {
       }),
     );
 
-    if (isJoiningAgeScenario(candidate)) {
+    if (requiresBoundedJoiningAge(candidate)) {
       const joiningAge = candidate.parameters.values.addedValue;
       if (joiningAge === undefined || joiningAge === null) {
         throw new Error(`Missing joining age for ${candidate.questionLanguageId}`);
