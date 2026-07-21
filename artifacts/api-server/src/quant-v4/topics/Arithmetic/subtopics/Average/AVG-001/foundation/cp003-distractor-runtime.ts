@@ -40,6 +40,32 @@ function normalizedOptionValue(
   return rational(Math.round(numeric / increment) * increment);
 }
 
+function optionRange(parameters: Avg001Parameters) {
+  if (
+    parameters.scenarioVariant === "familyAgeElapsedTime" ||
+    parameters.scenarioVariant === "newbornAfterElapsedYears"
+  ) {
+    return parameters.answerType === "MEMBER_VALUE"
+      ? { minimum: 1, maximum: 18 }
+      : { minimum: 1, maximum: 100 };
+  }
+  if (parameters.scenarioVariant === "memberLeavesAfterYears") {
+    return { minimum: 18, maximum: 90 };
+  }
+  if (parameters.contextDomain === "Workplace") {
+    return { minimum: 10000, maximum: 100000 };
+  }
+  if (parameters.contextDomain === "Classroom") {
+    return { minimum: 1, maximum: 100 };
+  }
+  if (parameters.contextDomain === "Sports") {
+    return parameters.answerType === "AVERAGE"
+      ? { minimum: 1, maximum: 100 }
+      : { minimum: 1, maximum: 400 };
+  }
+  return { minimum: 1, maximum: 1000 };
+}
+
 function misconceptionCandidate(
   strategy: string,
   parameters: Avg001Parameters,
@@ -58,6 +84,7 @@ function misconceptionCandidate(
   const oldTotalAtChange = multiply(averageAtChange, rational(oldCount));
   const newTotal = multiply(newAverage, rational(newCount));
   const averageShift = subtract(newAverage, averageAtChange);
+  const absoluteShift = absolute(averageShift);
   const fallbackStep = parameters.contextDomain === "Workplace" ? 1000 : 1;
 
   switch (strategy) {
@@ -72,6 +99,16 @@ function misconceptionCandidate(
     case "arithmeticOffset":
       return add(solver.exactAnswer, rational(fallbackStep));
     case "forgetElapsedYears":
+      if (parameters.scenarioVariant === "newbornAfterElapsedYears") {
+        return absolute(
+          subtract(solver.exactAnswer, rational(values.elapsedYears ?? 0)),
+        );
+      }
+      if (parameters.scenarioVariant === "memberLeavesAfterYears") {
+        return absolute(
+          subtract(solver.exactAnswer, rational(values.elapsedYears ?? 0)),
+        );
+      }
       if (
         parameters.solveMode === "findNewAverageAfterAddition" &&
         values.addedValue
@@ -141,11 +178,30 @@ function misconceptionCandidate(
       );
     case "averageDifferenceOnly":
     case "useAverageDifference":
-      return absolute(averageShift);
+      if (parameters.contextDomain === "Workplace") {
+        return subtract(oldAverage, absoluteShift);
+      }
+      if (parameters.scenarioVariant === "memberLeavesAfterYears") {
+        return subtract(averageAtChange, absoluteShift);
+      }
+      return absoluteShift;
     case "useNewTotal":
-    case "useRemainingTotal":
       return newTotal;
+    case "useRemainingTotal":
+      return parameters.contextDomain === "Workplace" ? newAverage : newTotal;
     case "wrongCount":
+      if (parameters.scenarioVariant === "newbornAfterElapsedYears") {
+        return add(
+          solver.exactAnswer,
+          rational(values.elapsedYears ?? 0),
+        );
+      }
+      if (parameters.scenarioVariant === "memberLeavesAfterYears") {
+        return add(
+          newAverage,
+          multiply(absoluteShift, rational(oldCount)),
+        );
+      }
       if (parameters.solveMode === "findAddedMemberValueFromShift") {
         return absolute(
           subtract(
@@ -191,13 +247,15 @@ function buildOptions(
 ) {
   const entry = getAvg001QuestionEntry(parameters.questionLanguageId);
   const unique = [solver.answer];
+  const range = optionRange(parameters);
   let misconceptionCount = 0;
 
   const addCandidate = (candidate: Rational | undefined, misconception: boolean) => {
     if (!candidate) return;
     const normalized = normalizedOptionValue(candidate, parameters);
-    if (normalized.numerator <= 0) return;
-    const rendered = String(normalized.numerator);
+    const numeric = normalized.numerator;
+    if (numeric < range.minimum || numeric > range.maximum) return;
+    const rendered = String(numeric);
     if (unique.includes(rendered)) return;
     unique.push(rendered);
     if (misconception) misconceptionCount += 1;
@@ -217,6 +275,7 @@ function buildOptions(
     add(solver.exactAnswer, rational(2 * fallbackStep)),
     subtract(solver.exactAnswer, rational(2 * fallbackStep)),
     add(solver.exactAnswer, rational(3 * fallbackStep)),
+    subtract(solver.exactAnswer, rational(3 * fallbackStep)),
   ]) {
     if (unique.length === 4) break;
     addCandidate(candidate, false);
@@ -224,12 +283,12 @@ function buildOptions(
 
   if (misconceptionCount < 2 || unique.length < 4) {
     throw new Error(
-      `Insufficient misconception-driven CP-003 options for ${parameters.questionLanguageId}: ${misconceptionCount} misconception distractors`,
+      `Insufficient realistic misconception-driven CP-003 options for ${parameters.questionLanguageId}: ${misconceptionCount} misconception distractors`,
     );
   }
 
   const options = unique.slice(0, 4);
-  const shift = hash(`${parameters.seed}:options:v2`) % options.length;
+  const shift = hash(`${parameters.seed}:options:v3`) % options.length;
   for (let index = 0; index < shift; index += 1) {
     options.push(options.shift()!);
   }
@@ -266,6 +325,15 @@ export function runAvg001Cp003Pipeline(input: {
       name: "misconception-options",
       passed: misconceptionCount >= 2,
       message: "At least two distractors come from authored misconception strategies",
+    },
+    {
+      name: "context-realistic-options",
+      passed: options.every((option) => {
+        const numeric = Number(option);
+        const range = optionRange(base.parameters);
+        return numeric >= range.minimum && numeric <= range.maximum;
+      }),
+      message: "Every option respects the scenario-specific realistic range",
     },
   ];
   const retainedChecks = base.validation.checks.filter(
