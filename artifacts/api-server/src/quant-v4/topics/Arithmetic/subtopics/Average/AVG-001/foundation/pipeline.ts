@@ -1,6 +1,7 @@
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
+import { applyAvg001ExplanationDepth } from "./explanation-depth";
 import { renderAvg001Explanation } from "./explanation-renderer";
 import { independentlyVerifyAvg001 } from "./independent-verifier";
 import {
@@ -33,10 +34,14 @@ export function runAvg001Pipeline(
   const entry = getAvg001QuestionEntry(questionLanguageId);
 
   if (entry.cpId === "AVG-CP-002") {
-    return runAvg001Cp002Pipeline({ questionLanguageId, seed, language });
+    return applyAvg001ExplanationDepth(
+      runAvg001Cp002Pipeline({ questionLanguageId, seed, language }),
+    );
   }
   if (entry.cpId === "AVG-CP-003") {
-    return runAvg001Cp003Pipeline({ questionLanguageId, seed, language });
+    return applyAvg001ExplanationDepth(
+      runAvg001Cp003Pipeline({ questionLanguageId, seed, language }),
+    );
   }
 
   const parameters = generateAvg001Parameters({ questionLanguageId, seed, language });
@@ -89,5 +94,5 @@ export function runAvg001Pipeline(
       validation.checks.filter((item) => !item.passed).map((item) => `${item.name}: ${item.message}`).join("\n"),
     );
   }
-  return { ...base, validation };
+  return applyAvg001ExplanationDepth({ ...base, validation });
 }
