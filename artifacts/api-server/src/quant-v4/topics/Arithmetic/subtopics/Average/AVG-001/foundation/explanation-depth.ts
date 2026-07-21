@@ -65,73 +65,43 @@ function numericValue(value: unknown): number {
   return Number.NaN;
 }
 
+function cleanNumber(value: number) {
+  if (Number.isInteger(value)) return String(value);
+  if (Number.isInteger(value * 10)) return value.toFixed(1);
+  return String(Number(value.toFixed(2)));
+}
+
 function shown(pkg: Avg001QuestionPackage, key: string): string {
   const renderVariables = pkg.parameters.renderVariables as Record<string, unknown>;
   const values = pkg.parameters.values as Record<string, unknown>;
   return rationalText(renderVariables[key] ?? values[key]);
 }
 
-function originalCalculation(pkg: Avg001QuestionPackage): string {
+function calculation(pkg: Avg001QuestionPackage): string {
   return (
     pkg.explanation.lines.find((line) => /\$\$/.test(line)) ??
     `$$${pkg.reasoningEvidence.decisiveCalculation}$$`
   );
 }
 
-function lineContainsAnswer(line: string, answer: string): boolean {
-  const normalizedLine = line.replace(/,/g, "");
-  const normalizedAnswer = answer.replace(/,/g, "");
-  const escaped = normalizedAnswer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`(^|[^0-9.])${escaped}([^0-9.]|$)`).test(normalizedLine);
+function resultLine(pkg: Avg001QuestionPackage) {
+  return `Therefore, the required result is ${pkg.answer}.`;
 }
 
-function originalConclusion(pkg: Avg001QuestionPackage): string {
-  if (
-    pkg.parameters.scenarioVariant === "newbornAfterElapsedYears" &&
-    pkg.solveMode === "findAddedMemberValueFromShift"
-  ) {
-    return `Therefore, the new member was ${pkg.answer} years old at joining.`;
-  }
-
-  return (
-    [...pkg.explanation.lines]
-      .reverse()
-      .find(
-        (line) =>
-          lineContainsAnswer(line, pkg.answer) &&
-          !/\$\$/.test(line) &&
-          !/check|verification|indeed|again/i.test(line),
-      ) ?? `Therefore, the required result is ${pkg.answer}.`
-  );
-}
-
-function originalCheck(pkg: Avg001QuestionPackage): string | undefined {
-  return pkg.explanation.lines.find((line) =>
-    /check|verification|indeed|again/i.test(line),
-  );
-}
-
-function finish(
+function withLines(
   pkg: Avg001QuestionPackage,
-  reasoningLines: string[],
+  lines: string[],
 ): Avg001QuestionPackage {
-  const lines = [
-    ...reasoningLines,
-    originalCalculation(pkg),
-    originalConclusion(pkg),
-    originalCheck(pkg),
-  ].filter((line): line is string => Boolean(line));
-
   return {
     ...pkg,
     explanation: {
       ...pkg.explanation,
-      lines,
+      lines: [...lines, resultLine(pkg)],
     },
   };
 }
 
-function deepenCp001(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
+function simplifyCp001(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   const entity = ENTITIES[pkg.parameters.scenarioVariant] ?? {
     singular: "value",
     plural: "values",
@@ -143,31 +113,32 @@ function deepenCp001(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
 
   switch (pkg.solveMode) {
     case "findSumFromAverageAndCount":
-      return finish(pkg, [
-        `An average of ${average} means the same combined total would be obtained if each of the ${count} ${entity.plural} contributed an equal share of ${average}.`,
-        `The required total therefore consists of ${count} such equal shares.`,
-        `Multiplying the representative share by the number of ${entity.plural} gives the combined total.`,
+      return withLines(pkg, [
+        `There are ${count} ${entity.plural}, with an average of ${average}.`,
+        `So multiply the average by the number of ${entity.plural}.`,
+        calculation(pkg),
       ]);
 
     case "findAverageFromSumAndCount":
-      return finish(pkg, [
-        `The amount ${total} is the combined total for ${count} ${entity.plural}.`,
-        `An average is the equal share obtained when this total is distributed evenly among all ${count} ${entity.plural}.`,
-        `So the correct operation is total divided by count, not a comparison of individual values.`,
+      return withLines(pkg, [
+        `The total ${total} is shared among ${count} ${entity.plural}.`,
+        `So divide the total by ${count}.`,
+        calculation(pkg),
       ]);
 
     case "findCountFromSumAndAverage":
-      return finish(pkg, [
-        `The total ${total} can be viewed as equal-share groups, with each group representing the average value ${average}.`,
-        `The required count is the number of these equal groups contained in the total.`,
-        `Therefore, dividing the total by the value represented by one group gives the number of ${entity.plural}.`,
+      return withLines(pkg, [
+        `The total is ${total}, and the average for each ${entity.singular} is ${average}.`,
+        `So divide the total by the average to find the number of ${entity.plural}.`,
+        calculation(pkg),
       ]);
 
     case "findMissingValueFromAverage":
-      return finish(pkg, [
-        `The stated average fixes the total that all ${count} ${entity.plural} must make together.`,
-        `The known ${entity.plural} already contribute ${knownTotal}, so only the remaining gap is unaccounted for.`,
-        `The missing ${entity.singular} must equal the required full total minus this known contribution.`,
+      return withLines(pkg, [
+        `The required total for ${count} ${entity.plural} is ${total}.`,
+        `The known ${entity.plural} total ${knownTotal}.`,
+        `Subtract the known total to get the missing ${entity.singular}.`,
+        calculation(pkg),
       ]);
 
     default:
@@ -175,55 +146,50 @@ function deepenCp001(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   }
 }
 
-function deepenCp002(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
+function simplifyCp002(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   const count = Number(shown(pkg, "count"));
   const first = shown(pkg, "firstTerm");
   const last = shown(pkg, "lastTerm");
   const average = shown(pkg, "average");
   const difference = shown(pkg, "commonDifference");
-  const halfSpan = rationalText(
-    (pkg.reasoningEvidence.intermediateValues as Record<string, unknown>).halfSpan,
-  );
   const target = String(pkg.parameters.values.targetExtreme ?? "largest");
 
   if (
     pkg.solveMode === "findAverageOfConsecutiveSet" ||
     pkg.solveMode === "findAverageOfOddOrEvenSet"
   ) {
-    return finish(pkg, [
-      `Because the values are equally spaced, every step above the centre is matched by an equal step below it.`,
-      `Thus, the first and last values (${first} and ${last}), the second and second-last, and every other opposite pair have the same pair mean.`,
-      `The average of the whole set is therefore the common mean of its opposite-end pairs.`,
+    return withLines(pkg, [
+      `The numbers are equally spaced, so their average is halfway between ${first} and ${last}.`,
+      calculation(pkg),
     ]);
   }
 
   if (pkg.solveMode === "findMiddleTermFromAverage") {
-    return finish(pkg, [
-      `With ${count} equally spaced values, terms on the two sides of the centre occur in balanced pairs.`,
-      `Each lower deviation from the centre is cancelled by an equal upper deviation.`,
-      `The unpaired central term must therefore equal the given average, ${average}.`,
+    return withLines(pkg, [
+      `There are ${count} equally spaced terms, so there is one middle term.`,
+      `For an odd number of terms, the middle term is the same as the average ${average}.`,
+      calculation(pkg),
     ]);
   }
 
   if (pkg.solveMode === "findExtremeFromAverageAndCount") {
-    return finish(pkg, [
-      `${count} terms create ${count - 1} equal gaps, each of size ${difference}.`,
-      `The average lies halfway between the two extremes, so the distance from the average to either end is half of the complete span${halfSpan ? `, namely ${halfSpan}` : ""}.`,
-      `${target === "smallest" ? "Subtracting" : "Adding"} this half-span ${target === "smallest" ? "from" : "to"} the average locates the requested ${target} value.`,
+    return withLines(pkg, [
+      `${count} terms have ${count - 1} equal gaps of ${difference}.`,
+      `Half of this span lies on each side of the average.`,
+      `${target === "smallest" ? "Subtract" : "Add"} that half-span ${target === "smallest" ? "from" : "to"} the average.`,
+      calculation(pkg),
     ]);
   }
 
   return pkg;
 }
 
-function deepenCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
+function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   const values = pkg.parameters.values as Record<string, unknown>;
   const oldCount = shown(pkg, "oldCount");
   const newCount = shown(pkg, "newCount");
   const oldAverage = shown(pkg, "oldAverage");
   const newAverage = shown(pkg, "newAverage");
-  const oldTotal = shown(pkg, "oldTotal");
-  const newTotal = shown(pkg, "newTotal");
   const addedValue = shown(pkg, "addedValue");
   const removedValue = shown(pkg, "removedValue");
   const outgoingValue = shown(pkg, "outgoingValue");
@@ -231,84 +197,87 @@ function deepenCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   const elapsedYears = Number(values.elapsedYears ?? 0);
   const ageScenario = /Years|Elapsed/.test(pkg.parameters.scenarioVariant);
   const oldAverageNumber = numericValue(values.oldAverage);
-  const oldCountNumber = numericValue(values.oldCount);
+  const oldCountNumber = Number(values.oldCount ?? oldCount);
   const averageAtChange = ageScenario
-    ? rationalText(oldAverageNumber + elapsedYears)
-    : oldAverage;
-  const totalAtChange = ageScenario
-    ? rationalText((oldAverageNumber + elapsedYears) * oldCountNumber)
-    : oldTotal;
+    ? oldAverageNumber + elapsedYears
+    : oldAverageNumber;
+  const oldTotalAtChange = cleanNumber(averageAtChange * oldCountNumber);
+  const averageAtChangeText = cleanNumber(averageAtChange);
 
   switch (pkg.solveMode) {
     case "findNewAverageAfterAddition":
-      return finish(pkg, [
+      return withLines(pkg, [
         ...(ageScenario
-          ? [
-              `Before the new member joins, every original member has aged by ${elapsedYears} years, so the original group average also rises by ${elapsedYears} to ${averageAtChange}.`,
-            ]
+          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
           : []),
-        `The existing ${oldCount} members have a combined total represented by average × count${totalAtChange ? `, giving ${totalAtChange}` : ""}.`,
-        `Adding the new value ${addedValue} increases the total, while the count rises from ${oldCount} to ${newCount}.`,
-        `The revised average is the updated total shared equally across all ${newCount} members.`,
+        `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
+        `Add ${addedValue}; then divide the new total by ${newCount}.`,
+        calculation(pkg),
       ]);
 
     case "findNewAverageAfterRemoval":
-      return finish(pkg, [
-        `The old average represents the combined total of ${oldCount} observations${oldTotal ? `, namely ${oldTotal}` : ""}.`,
-        `Removing ${removedValue} reduces both the total and the count; ${newCount} observations remain.`,
-        `The new average must therefore be calculated from the remaining total, not from the old average alone.`,
+      return withLines(pkg, [
+        ...(ageScenario
+          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
+          : []),
+        `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
+        `Subtract ${removedValue}; then divide the remaining total by ${newCount}.`,
+        calculation(pkg),
       ]);
 
     case "findNewAverageAfterReplacement":
-      return finish(pkg, [
-        `A replacement does not change the number of observations, so the count remains ${oldCount}.`,
-        `Only the total changes: ${outgoingValue} is removed and ${incomingValue} is added.`,
-        `The resulting change in the total is spread across the same ${oldCount} observations to obtain the revised average.`,
+      return withLines(pkg, [
+        `The count stays ${oldCount}.`,
+        `Replace ${outgoingValue} with ${incomingValue}; only the total changes.`,
+        calculation(pkg),
       ]);
 
     case "findAddedMemberValueFromShift":
-      return finish(pkg, [
+      return withLines(pkg, [
         ...(ageScenario
-          ? [
-              `After ${elapsedYears} years, the original group average first becomes ${averageAtChange}; this aged state must be used before the new member is included.`,
-            ]
+          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
           : []),
-        `The new average ${newAverage} for ${newCount} members fixes the required new total${newTotal ? ` at ${newTotal}` : ""}.`,
-        `The original group already accounts for its adjusted total, so the joining member must supply exactly the difference between the new and old totals.`,
-        `That total gap is the value of the added member.`,
+        `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
+        `New total = ${newAverage} × ${newCount}.`,
+        `The joining value is new total minus old total.`,
+        calculation(pkg),
       ]);
 
     case "findRemovedMemberValueFromShift":
-      return finish(pkg, [
+      return withLines(pkg, [
         ...(ageScenario
-          ? [
-              `Before the member leaves, all original members age by ${elapsedYears} years, so the average at the time of departure is ${averageAtChange}.`,
-            ]
+          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
           : []),
-        `The old group total and the remaining group total describe the group immediately before and after the removal.`,
-        `Since ${newCount} members remain with average ${newAverage}, their total is fixed${newTotal ? ` at ${newTotal}` : ""}.`,
-        `The amount missing from the old total is precisely the value of the member who left.`,
+        `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
+        `Remaining total = ${newAverage} × ${newCount}.`,
+        `The removed value is old total minus remaining total.`,
+        calculation(pkg),
       ]);
 
-    case "findReplacementValueFromShift":
-      return finish(pkg, [
-        `The count stays fixed at ${oldCount}, so a rise in average from ${oldAverage} to ${newAverage} represents a definite rise in the total.`,
-        `That total rise equals the average increase multiplied by ${oldCount}.`,
-        `The incoming value must therefore equal the outgoing value ${outgoingValue} plus the required rise in total.`,
+    case "findReplacementValueFromShift": {
+      const increase = numericValue(values.newAverage) - numericValue(values.oldAverage);
+      return withLines(pkg, [
+        `The count stays ${oldCount}, and the average rises by ${cleanNumber(increase)}.`,
+        `So the total rises by ${cleanNumber(increase)} × ${oldCount}.`,
+        `Add this rise to the outgoing value ${outgoingValue}.`,
+        calculation(pkg),
       ]);
+    }
 
     case "findInningsValueOrNewCricketAverage":
       if (values.targetKind === "memberValue") {
-        return finish(pkg, [
-          `The current batting average ${oldAverage} over ${oldCount} innings determines the runs already scored in total.`,
-          `After one more innings, the target average ${newAverage} over ${newCount} innings determines the total runs that will be required.`,
-          `The score in the next innings must fill the gap between this target total and the current total.`,
+        return withLines(pkg, [
+          `Current runs = ${oldAverage} × ${oldCount}.`,
+          `Required runs = ${newAverage} × ${newCount}.`,
+          `The next score is the difference between these totals.`,
+          calculation(pkg),
         ]);
       }
-      return finish(pkg, [
-        `The current average ${oldAverage} over ${oldCount} innings first gives the batter's existing run total.`,
-        `The next score ${addedValue} is added to that total, and the innings count rises to ${newCount}.`,
-        `Sharing the updated run total across ${newCount} innings gives the revised batting average.`,
+      return withLines(pkg, [
+        `Current runs = ${oldAverage} × ${oldCount}.`,
+        `Add the next score ${addedValue}; the innings become ${newCount}.`,
+        `Divide the new total by ${newCount}.`,
+        calculation(pkg),
       ]);
 
     default:
@@ -321,11 +290,11 @@ export function applyAvg001ExplanationDepth(
 ): Avg001QuestionPackage {
   switch (pkg.canonicalProblemId) {
     case "AVG-CP-001":
-      return deepenCp001(pkg);
+      return simplifyCp001(pkg);
     case "AVG-CP-002":
-      return deepenCp002(pkg);
+      return simplifyCp002(pkg);
     case "AVG-CP-003":
-      return deepenCp003(pkg);
+      return simplifyCp003(pkg);
     default:
       return pkg;
   }
