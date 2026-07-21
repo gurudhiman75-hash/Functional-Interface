@@ -1,0 +1,124 @@
+name: Validate multilingual translation operations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/admin-translation-operations.ts
+      - artifacts/api-server/src/lib/admin-translation-operations.test.ts
+      - artifacts/api-server/src/lib/admin-test-localization.ts
+      - artifacts/api-server/src/routes/admin-translation-actions.ts
+      - artifacts/api-server/src/routes/admin-translation-hardening.ts
+      - artifacts/api-server/src/routes/admin-translations.ts
+      - artifacts/api-server/src/routes/admin-test-translations.ts
+      - artifacts/api-server/src/routes/admin-test-localization-gate.ts
+      - artifacts/api-server/src/routes/published-test-multilingual-runner.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/translations/**
+      - artifacts/admin-app/src/pages/settings/LanguagesPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+      - docs/frontend-truth-audit.md
+      - .github/workflows/multilingual-translations.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/lib/admin-translation-operations.ts
+      - artifacts/api-server/src/lib/admin-translation-operations.test.ts
+      - artifacts/api-server/src/lib/admin-test-localization.ts
+      - artifacts/api-server/src/routes/admin-translation-actions.ts
+      - artifacts/api-server/src/routes/admin-translation-hardening.ts
+      - artifacts/api-server/src/routes/admin-translations.ts
+      - artifacts/api-server/src/routes/admin-test-translations.ts
+      - artifacts/api-server/src/routes/admin-test-localization-gate.ts
+      - artifacts/api-server/src/routes/published-test-multilingual-runner.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/translations/**
+      - artifacts/admin-app/src/pages/settings/LanguagesPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+      - docs/frontend-truth-audit.md
+      - .github/workflows/multilingual-translations.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-multilingual-translations-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-multilingual-translations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical multilingual boundary
+        run: |
+          grep -F 'content.question_translation_options' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+          grep -F 'assessment.test_version_translations' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+          grep -F 'content.translation_terms' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+          grep -F 'content.translations.review' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+          grep -F 'adminTranslationHardeningRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'adminTestLocalizationGateRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'publishedTestMultilingualRunnerRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'evaluateTranslationQuality' artifacts/api-server/src/routes/admin-translation-actions.ts
+          grep -F 'evaluateTestLocalizationReadiness' artifacts/api-server/src/routes/admin-test-localization-gate.ts
+          grep -F 'question_translation_options' artifacts/api-server/src/routes/published-test-multilingual-runner.ts
+          grep -F 'LanguagesPage' artifacts/admin-app/src/App.tsx
+          grep -F "path: '/settings/languages'" artifacts/admin-app/src/app/nav/navigation.ts
+          ! grep -F 'mockLanguages' artifacts/admin-app/src/pages/settings/LanguagesPage.tsx
+          ! grep -F 'localStorage' artifacts/admin-app/src/features/translations/api.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify multilingual routes are bundled
+        run: |
+          grep -R 'TRANSLATION_QUALITY_GATE_BLOCKED' artifacts/api-server/dist >/dev/null
+          grep -R 'TEST_LOCALIZATION_GATE_BLOCKED' artifacts/api-server/dist >/dev/null
+          grep -R 'PUBLISHED_TEST_LOCALIZATION_INCOMPLETE' artifacts/api-server/dist >/dev/null
+          grep -R 'content.translation.status.changed' artifacts/api-server/dist >/dev/null
+
+      - name: Test translation contracts
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-translation-operations.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-translation-operations.test.mjs
+          node artifacts/api-server/dist/admin-translation-operations.test.mjs
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Test admin application
+        run: pnpm run test:admin
+
+      - name: Build admin application
+        run: pnpm run build:admin
+
+      - name: Typecheck student application
+        run: pnpm --dir artifacts/examtree typecheck
+
+      - name: Build student application
+        run: pnpm run build:web
