@@ -450,7 +450,7 @@ test.describe("canonical student reliability", () => {
     const foundation = page.getByRole("article").filter({ hasText: "Foundation Mock" });
     const advanced = page.getByRole("article").filter({ hasText: "Advanced Mock" });
     await expect(foundation.getByText("Available")).toBeVisible();
-    await expect(advanced.getByText("Locked")).toBeVisible();
+    await expect(advanced.getByRole("button", { name: "Locked" })).toBeVisible();
     await expect(advanced.getByText(/Score at least 60%/)).toBeVisible();
 
     await foundation.getByRole("button", { name: "Start test" }).click();
@@ -484,7 +484,7 @@ test.describe("canonical student reliability", () => {
     await page.getByRole("button", { name: "Resume Test" }).click();
     await expect(page.getByText("Question No 2")).toBeVisible();
     await expect(page.getByText("What is 10% of 50?")).toBeVisible();
-    await expect(page.getByText("Saved test resumed")).toBeVisible();
+    await expect(page.getByText("Saved test resumed", { exact: true }).first()).toBeVisible();
   });
 
   test("submits once, reloads the committed result, and unlocks the next series test", async ({ page }) => {
@@ -501,7 +501,7 @@ test.describe("canonical student reliability", () => {
 
     await expect(page).toHaveURL(new RegExp(`/result\\?.*attemptId=${RESULT_ID}`));
     await expect(page.getByText("Canonical saved result")).toBeVisible();
-    await expect(page.getByText("100%", { exact: true })).toBeVisible();
+    await expect(page.getByText("100%", { exact: true }).first()).toBeVisible();
     expect(observations.attemptPosts).toBe(1);
     expect(observations.attemptAuthorization).toContain(`Bearer ${FIREBASE_TOKEN}`);
     expect(observations.lastAttemptBody?.attemptId).toBe(SESSION_ID);
@@ -527,7 +527,7 @@ test.describe("canonical student reliability", () => {
     await expect(page.getByRole("heading", { name: "Welcome back, E2E Student" })).toBeVisible();
     await expect(page.getByText("Foundation Mock")).toBeVisible();
     await expect(page.getByText("1 saved")).toBeVisible();
-    await expect(page.getByText("100%", { exact: true })).toBeVisible();
+    await expect(page.getByText(/2 correct, 0 wrong/)).toBeVisible();
     await expect(page.getByText("Attempt history below is loaded from ExamTree's canonical database.")).toBeVisible();
   });
 });
