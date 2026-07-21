@@ -241,6 +241,69 @@ function misconceptionCandidate(
   }
 }
 
+function scenarioMisconceptionCandidates(
+  parameters: Avg001Parameters,
+  solver: Avg001SolverResult,
+): Rational[] {
+  const values = parameters.values;
+  const elapsedYears = values.elapsedYears ?? 0;
+  const oldAverage = values.oldAverage!;
+  const newAverage = values.newAverage!;
+  const oldCount = values.oldCount!;
+  const averageShift = absolute(subtract(newAverage, oldAverage));
+
+  if (parameters.scenarioVariant === "newbornAfterElapsedYears") {
+    return [
+      subtract(solver.exactAnswer, rational(elapsedYears)),
+      add(solver.exactAnswer, rational(elapsedYears)),
+      subtract(solver.exactAnswer, rational(elapsedYears + 1)),
+      add(solver.exactAnswer, rational(elapsedYears + 1)),
+      averageShift,
+    ];
+  }
+  if (parameters.scenarioVariant === "memberLeavesAfterYears") {
+    return [
+      subtract(solver.exactAnswer, rational(elapsedYears)),
+      add(solver.exactAnswer, rational(elapsedYears)),
+      newAverage,
+      add(newAverage, multiply(averageShift, rational(oldCount))),
+      subtract(solver.exactAnswer, rational(5)),
+      add(solver.exactAnswer, rational(5)),
+    ];
+  }
+  if (parameters.contextDomain === "Workplace") {
+    return [
+      oldAverage,
+      newAverage,
+      subtract(solver.exactAnswer, rational(5000)),
+      add(solver.exactAnswer, rational(5000)),
+      subtract(oldAverage, rational(5000)),
+      add(newAverage, rational(5000)),
+    ];
+  }
+  if (parameters.contextDomain === "Classroom") {
+    return [
+      oldAverage,
+      newAverage,
+      averageShift,
+      multiply(averageShift, rational(oldCount)),
+      subtract(solver.exactAnswer, rational(5)),
+      add(solver.exactAnswer, rational(5)),
+    ];
+  }
+  if (parameters.contextDomain === "Sports") {
+    return [
+      oldAverage,
+      newAverage,
+      averageShift,
+      multiply(averageShift, rational(oldCount)),
+      subtract(solver.exactAnswer, rational(5)),
+      add(solver.exactAnswer, rational(5)),
+    ];
+  }
+  return [oldAverage, newAverage, averageShift];
+}
+
 function buildOptions(
   parameters: Avg001Parameters,
   solver: Avg001SolverResult,
@@ -268,6 +331,13 @@ function buildOptions(
     );
   }
 
+  if (misconceptionCount < 2) {
+    for (const candidate of scenarioMisconceptionCandidates(parameters, solver)) {
+      if (misconceptionCount >= 2) break;
+      addCandidate(candidate, true);
+    }
+  }
+
   const fallbackStep = parameters.contextDomain === "Workplace" ? 1000 : 1;
   for (const candidate of [
     subtract(solver.exactAnswer, rational(fallbackStep)),
@@ -288,7 +358,7 @@ function buildOptions(
   }
 
   const options = unique.slice(0, 4);
-  const shift = hash(`${parameters.seed}:options:v3`) % options.length;
+  const shift = hash(`${parameters.seed}:options:v4`) % options.length;
   for (let index = 0; index < shift; index += 1) {
     options.push(options.shift()!);
   }
@@ -324,7 +394,7 @@ export function runAvg001Cp003Pipeline(input: {
     {
       name: "misconception-options",
       passed: misconceptionCount >= 2,
-      message: "At least two distractors come from authored misconception strategies",
+      message: "At least two distractors come from authored or scenario-specific misconception strategies",
     },
     {
       name: "context-realistic-options",
