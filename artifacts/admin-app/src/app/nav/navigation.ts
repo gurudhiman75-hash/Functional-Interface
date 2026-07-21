@@ -59,7 +59,7 @@ export const NAV_GROUPS: NavGroup[] = [
   ] },
   { id: 'users', label: 'Users', items: [
     { label: 'Students', path: '/users/students', icon: Users, status: 'in_progress', summary: 'Search student identities, attempts, access state and account history.', milestone: 'Canonical student profile and attempt-detail APIs.' },
-    { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'in_progress', summary: 'Manage administrators, role membership and operational ownership.', milestone: 'Admin invitations and granular canonical RBAC management.' },
+    { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'live', permission: 'users.admins.read', summary: 'Authorize administrators, manage profiles, role grants, suspension and session revocation through canonical identity records.' },
     { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
     { label: 'Notifications', path: '/users/notifications', icon: Bell, status: 'planned', summary: 'Compose and target operational, product and exam notifications.', milestone: 'Template, audience, delivery and engagement tracking.' },
   ] },
@@ -73,9 +73,9 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: 'settings', label: 'Settings', items: [
     { label: 'Exam Configuration', path: '/settings/exam-config', icon: Settings, status: 'in_progress', summary: 'Configure supported exams, scoring rules and operational defaults.', milestone: 'Canonical exam-version management UI.' },
     { label: 'Languages', path: '/settings/languages', icon: Languages, status: 'in_progress', summary: 'Manage language availability, translation readiness and terminology standards.', milestone: 'Translation workflow and per-language publication gates.' },
-    { label: 'Roles & Permissions', path: '/settings/roles', icon: Lock, status: 'in_progress', summary: 'Inspect and manage canonical administrative roles and permissions.', milestone: 'Safe role editor, assignment workflow and protected permissions.' },
+    { label: 'Roles & Permissions', path: '/settings/roles', icon: Lock, status: 'live', permission: 'settings.roles.manage', summary: 'Create and update server-enforced roles from the canonical granular permission catalogue.' },
     { label: 'Branding', path: '/settings/branding', icon: Palette, status: 'planned', summary: 'Control platform identity, visual assets and communication branding.', milestone: 'Canonical tenant branding configuration.' },
-    { label: 'Audit Logs', path: '/settings/audit-logs', icon: ScrollText, status: 'in_progress', summary: 'Search immutable administrative and system actions across canonical entities.', milestone: 'Audit-event query API with entity and actor filters.' },
+    { label: 'Audit Logs', path: '/settings/audit-logs', icon: ScrollText, status: 'live', permission: 'audit.read', summary: 'Search, inspect and export immutable administrative, system and integration events with field-level changes.' },
     { label: 'Integrations', path: '/settings/integrations', icon: Plug, status: 'planned', summary: 'Configure approved external providers and inspect integration health.', milestone: 'Secret-safe provider configuration and webhook observability.' },
   ] },
 ];
