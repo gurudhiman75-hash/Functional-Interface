@@ -7,6 +7,7 @@ import subcategoriesRouter from "./subcategories";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
+import adminContentIntelligenceRouter from "./admin-content-intelligence";
 import adminContentReviewRouter from "./admin-content-review";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
@@ -55,6 +56,9 @@ router.use("/admin/session", adminSessionRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
+// Content intelligence extends the canonical review queue with deterministic
+// duplicate scanning and audit-derived chapter freeze governance.
+router.use("/admin/content-review", adminContentIntelligenceRouter);
 router.use("/admin/content-review", adminContentReviewRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
