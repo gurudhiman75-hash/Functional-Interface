@@ -62,6 +62,8 @@ const editorialStemOverrides: Record<string, string> = {
   "AVG-QL-120": "The first of {count} consecutive odd numbers is {firstTerm}. Find their mean.",
   "AVG-QL-121": "The last of {count} consecutive even numbers is {lastTerm}. Find their mean.",
   "AVG-QL-122": "A factory labels {count} batches with consecutive even numbers from {firstTerm} to {lastTerm}. Find the mean batch number.",
+
+  "AVG-QL-197": "A batter averages {oldAverage} runs after {inningsCount} innings. Find the score needed in the next innings to make the average {newAverage}.",
 };
 
 export function applyAvg001EditorialStem<T extends { qlId: string; template: string }>(entry: T): T {
