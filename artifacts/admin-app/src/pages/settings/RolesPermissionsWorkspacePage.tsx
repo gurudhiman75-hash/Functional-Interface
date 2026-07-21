@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check, KeyRound, Loader2, Lock, Plus, RefreshCw, Save, ShieldCheck, Users } from 'lucide-react';
+import { KeyRound, Loader2, Lock, Plus, RefreshCw, Save, ShieldCheck, Users } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
