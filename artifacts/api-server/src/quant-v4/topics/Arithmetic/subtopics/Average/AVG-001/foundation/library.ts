@@ -4,20 +4,25 @@ import cp003QuestionLanguage from "../question-language.cp003.en.json";
 import taskRegistry from "../task-registry.library.json";
 import cp002TaskRegistry from "../task-registry.cp002.library.json";
 import cp003TaskRegistry from "../task-registry.cp003.library.json";
+import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...(cp002QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...(cp003QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
-].filter((entry) => entry.active);
+]
+  .map(applyAvg001EditorialStem)
+  .filter((entry) => entry.active);
 
 const registryById = new Map(
   [
     ...(taskRegistry.entries as Avg001QuestionLanguageEntry[]),
     ...(cp002TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
     ...(cp003TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
-  ].map((entry) => [entry.qlId, entry]),
+  ]
+    .map(applyAvg001EditorialStem)
+    .map((entry) => [entry.qlId, entry]),
 );
 
 export function getAvg001QuestionEntries() {
