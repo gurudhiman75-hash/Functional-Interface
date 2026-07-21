@@ -1,0 +1,73 @@
+name: Validate student reliability E2E
+
+on:
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/examtree/**
+      - scripts/e2e/**
+      - .github/workflows/student-reliability-e2e.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/examtree/**
+      - scripts/e2e/**
+      - .github/workflows/student-reliability-e2e.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: student-reliability-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install isolated Playwright runner
+        run: npm install --prefix scripts/e2e --no-package-lock
+
+      - name: Install Chromium
+        run: scripts/e2e/node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Build student application for E2E
+        env:
+          VITE_E2E_AUTH_TOKEN: examtree-e2e-access-token
+          VITE_E2E_AUTH_UID: e2e-student
+          VITE_E2E_AUTH_EMAIL: student.e2e@examtree.local
+          VITE_E2E_AUTH_NAME: E2E Student
+        run: pnpm run build:web
+
+      - name: Run canonical student browser journeys
+        run: scripts/e2e/node_modules/.bin/playwright test --config scripts/e2e/playwright.config.ts
+
+      - name: Upload browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-reliability-e2e-diagnostics
+          path: |
+            playwright-report/student-e2e
+            test-results/student-e2e
+          if-no-files-found: ignore
+          retention-days: 5

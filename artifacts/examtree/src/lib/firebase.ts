@@ -1,5 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth, type Auth } from "firebase/auth";
+import { getAuth, type Auth, type User as FirebaseUser } from "firebase/auth";
 import { getFirestore, type Firestore } from "firebase/firestore";
 import { getStorage, type FirebaseStorage } from "firebase/storage";
 
@@ -20,6 +20,33 @@ const firebaseConfig =
       }
     : null;
 
+const e2eAuthToken = String(import.meta.env.VITE_E2E_AUTH_TOKEN ?? "").trim();
+const e2eAuthUser = e2eAuthToken
+  ? ({
+      uid: String(import.meta.env.VITE_E2E_AUTH_UID ?? "e2e-student"),
+      email: String(import.meta.env.VITE_E2E_AUTH_EMAIL ?? "student.e2e@examtree.local"),
+      displayName: String(import.meta.env.VITE_E2E_AUTH_NAME ?? "E2E Student"),
+      getIdToken: async () => e2eAuthToken,
+    } as unknown as FirebaseUser)
+  : null;
+
+const e2eAuthInstance = e2eAuthUser
+  ? ({
+      currentUser: e2eAuthUser,
+      onAuthStateChanged: (
+        observer:
+          | ((user: FirebaseUser | null) => void)
+          | { next?: (user: FirebaseUser | null) => void },
+      ) => {
+        queueMicrotask(() => {
+          if (typeof observer === "function") observer(e2eAuthUser);
+          else observer.next?.(e2eAuthUser);
+        });
+        return () => {};
+      },
+    } as unknown as Auth)
+  : null;
+
 let authInstance: Auth | null = null;
 let dbInstance: Firestore | null = null;
 let storageInstance: FirebaseStorage | null = null;
@@ -34,6 +61,7 @@ function ensureFirebase() {
 }
 
 export function getFirebaseAuth(): Auth | null {
+  if (e2eAuthInstance) return e2eAuthInstance;
   ensureFirebase();
   return authInstance;
 }
