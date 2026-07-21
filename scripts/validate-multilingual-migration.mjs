@@ -59,7 +59,7 @@ for (const permission of [
 }
 
 const createIndexCount = (sql.match(/CREATE\s+(?:UNIQUE\s+)?INDEX\s+IF\s+NOT\s+EXISTS/gi) ?? []).length;
-assert.equal(createIndexCount, 6, 'Expected six idempotent multilingual indexes.');
+assert.equal(createIndexCount, 7, 'Expected seven idempotent multilingual indexes.');
 
 assert.match(sql, /ON\s+CONFLICT\s*\(key\)\s+DO\s+UPDATE/i, 'Permission seed must be repeatable.');
 assert.match(sql, /ON\s+CONFLICT\s+DO\s+NOTHING/i, 'Role grants must be repeatable.');
