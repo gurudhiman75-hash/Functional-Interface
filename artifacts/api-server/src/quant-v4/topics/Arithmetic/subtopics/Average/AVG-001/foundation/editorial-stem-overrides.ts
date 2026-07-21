@@ -62,21 +62,6 @@ const editorialStemOverrides: Record<string, string> = {
   "AVG-QL-120": "The first of {count} consecutive odd numbers is {firstTerm}. Find their mean.",
   "AVG-QL-121": "The last of {count} consecutive even numbers is {lastTerm}. Find their mean.",
   "AVG-QL-122": "A factory labels {count} batches with consecutive even numbers from {firstTerm} to {lastTerm}. Find the mean batch number.",
-
-  "AVG-QL-123": "The average marks of {oldCount} students are {oldAverage}. A student scoring {addedValue} marks joins the group. Find the new average.",
-  "AVG-QL-124": "The average age of {oldCount} family members was {oldAverage} years. After {elapsedYears} years, a younger member aged {addedValue} years joins them. Find the new average age.",
-  "AVG-QL-125": "The average monthly salary of {oldCount} employees is ₹{oldAverage}. An employee earning ₹{removedValue} leaves. Find the new average salary.",
-  "AVG-QL-126": "The average score in {oldCount} tests is {oldAverage}. If the score {removedValue} is excluded, find the new average.",
-  "AVG-QL-127": "The average score in {oldCount} tests is {oldAverage}. A score of {outgoingValue} is corrected to {incomingValue}. Find the revised average.",
-  "AVG-QL-128": "The average output of {oldCount} workers is {oldAverage} units. A worker producing {outgoingValue} units is replaced by one producing {incomingValue} units. Find the revised average output.",
-  "AVG-QL-129": "The average marks of {oldCount} students are {oldAverage}. After one more student joins, the average becomes {newAverage}. Find the marks of the new student.",
-  "AVG-QL-130": "The average age of {oldCount} family members was {oldAverage} years. After {elapsedYears} years, a younger member joins and the average becomes {newAverage} years. Find the new member's age at joining.",
-  "AVG-QL-131": "The average monthly salary of {oldCount} employees is ₹{oldAverage}. After one employee leaves, it becomes ₹{newAverage}. Find the salary of the employee who left.",
-  "AVG-QL-132": "The average age of {oldCount} people was {oldAverage} years. After {elapsedYears} years, one person leaves and the average of the remaining group becomes {newAverage} years. Find the person's age at leaving.",
-  "AVG-QL-133": "The average score in {oldCount} tests is {oldAverage}. A recorded score of {outgoingValue} is corrected, raising the average to {newAverage}. Find the corrected score.",
-  "AVG-QL-134": "The average output of {oldCount} workers is {oldAverage} units. A worker producing {outgoingValue} units is replaced, raising the average to {newAverage} units. Find the new worker's output.",
-  "AVG-QL-135": "A batter averages {oldAverage} runs after {inningsCount} innings. How many runs must the batter score in the next innings to raise the average to {newAverage}?",
-  "AVG-QL-136": "A batter averages {oldAverage} runs after {inningsCount} innings and scores {addedValue} runs in the next innings. Find the revised batting average.",
 };
 
 export function applyAvg001EditorialStem<T extends { qlId: string; template: string }>(entry: T): T {
