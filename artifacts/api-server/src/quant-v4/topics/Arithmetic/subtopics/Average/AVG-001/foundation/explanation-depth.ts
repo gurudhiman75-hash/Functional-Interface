@@ -241,7 +241,7 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
       return withLines(pkg, [
         ...(ageLine ? [ageLine] : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
-        `Replace ${outgoingValue} with ${incomingValue}; the count stays ${oldCount}.`,
+        `Replace ${outgoingValue} with ${incomingValue}; the count remains unchanged at ${oldCount}.`,
         calculation(pkg),
       ]);
 
