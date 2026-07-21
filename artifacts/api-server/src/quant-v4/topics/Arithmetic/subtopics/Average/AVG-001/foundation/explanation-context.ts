@@ -72,22 +72,42 @@ function groupIndianDigits(value: string) {
 function displayAnswer(pkg: Avg001QuestionPackage, label: string) {
   const grouped = groupIndianDigits(pkg.answer);
   const scenario = pkg.parameters.scenarioVariant;
+  const stem = pkg.stem;
 
   if (pkg.parameters.answerType === "COUNT") return grouped;
-  if (CURRENCY_SCENARIOS.has(scenario) || /salary|sale|expenditure/i.test(label)) {
+
+  if (
+    stem.includes("₹") ||
+    CURRENCY_SCENARIOS.has(scenario) ||
+    /salary|sale|expenditure|price/i.test(label)
+  ) {
     return `₹${grouped}`;
   }
-  if (AGE_SCENARIOS.has(scenario) || /\bage\b/i.test(label)) {
+
+  if (
+    /\bage\b|\byears?\b/i.test(stem) ||
+    AGE_SCENARIOS.has(scenario) ||
+    /\bage\b/i.test(label)
+  ) {
     return `${grouped} years`;
   }
-  if (pkg.parameters.contextDomain === "Sports") return `${grouped} runs`;
-  if (/marks/i.test(label)) return grouped;
-  if (/score/i.test(label)) return `${grouped} marks`;
-  if (/passengers/i.test(label)) return grouped;
-  if (/distance/i.test(label)) return `${grouped} km`;
+
+  if (/\bkg\b/i.test(stem)) return `${grouped} kg`;
+  if (/\bkm\b/i.test(stem) || /distance/i.test(label)) return `${grouped} km`;
+  if (/\bunits?\b/i.test(stem)) return `${grouped} units`;
+
+  if (/\bmarks?\b/i.test(stem)) {
+    return /marks/i.test(label) ? grouped : `${grouped} marks`;
+  }
+
+  if (/\bruns?\b|\binnings?\b|\bbatter\b|\bbatting\b|\bcricketer\b/i.test(stem)) {
+    return `${grouped} runs`;
+  }
 
   const exactUnit = UNIT_BY_SCENARIO[scenario];
   if (exactUnit) return `${grouped} ${exactUnit}`;
+  if (/score/i.test(label)) return `${grouped} marks`;
+  if (/passengers/i.test(label)) return grouped;
   if (/output/i.test(label)) return `${grouped} units`;
 
   return grouped;
