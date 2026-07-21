@@ -33,6 +33,15 @@ const ExamBlueprintsPage = lazy(() =>
 const TestSeriesPage = lazy(() =>
   import('@/pages/tests/TestSeriesWorkspacePage').then((module) => ({ default: module.TestSeriesWorkspacePage })),
 );
+const AdminTeamPage = lazy(() =>
+  import('@/pages/users/AdminTeamWorkspacePage').then((module) => ({ default: module.AdminTeamWorkspacePage })),
+);
+const RolesPermissionsPage = lazy(() =>
+  import('@/pages/settings/RolesPermissionsWorkspacePage').then((module) => ({ default: module.RolesPermissionsWorkspacePage })),
+);
+const AuditLogsPage = lazy(() =>
+  import('@/pages/settings/AuditLogsWorkspacePage').then((module) => ({ default: module.AuditLogsWorkspacePage })),
+);
 
 function RouteFallback() {
   return (
@@ -69,8 +78,11 @@ const router = createBrowserRouter([
       { path: '/tests', element: <TestsPage /> },
 
       { path: '/commerce/*', element: <PendingWorkspacePage /> },
+      { path: '/users/team', element: <AdminTeamPage /> },
       { path: '/users/*', element: <PendingWorkspacePage /> },
       { path: '/analytics/*', element: <PendingWorkspacePage /> },
+      { path: '/settings/roles', element: <RolesPermissionsPage /> },
+      { path: '/settings/audit-logs', element: <AuditLogsPage /> },
       { path: '/settings/*', element: <PendingWorkspacePage /> },
 
       { path: '*', element: <NotFoundPage /> },
