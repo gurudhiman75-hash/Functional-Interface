@@ -1,6 +1,6 @@
 # ExamTree frontend truth audit
 
-Date: 2026-07-20
+Date: 2026-07-21
 
 This document defines which frontend surfaces are connected to ExamTree's canonical APIs and database. Student production navigation exposes only usable student journeys. The admin console exposes its complete intended information architecture, but every workspace is explicitly labelled `LIVE`, `IN_PROGRESS`, or `PLANNED`; non-live routes render an honest roadmap page and never display prototype records.
 
@@ -22,7 +22,7 @@ This document defines which frontend surfaces are connected to ExamTree's canoni
 | `/test-series/:id` | LIVE | Authenticated canonical series progress, availability, lock reasons, best scores and next-test action. | Add release notifications and richer completion summaries. |
 | `/category/:id`, `/subcategory/:id` | LIVE | Canonical standalone-test discovery by exam family/exam. | Improve empty states and mobile layouts. |
 | `/published-tests/:id` | LIVE | Canonical standalone published-test detail. Series-bound tests are reserved for their series journey. | Add complete instruction and eligibility metadata. |
-| `/test/:id` | LIVE | Durable authenticated attempt session with cross-refresh resume, optimistic draft revisions, offline retry, server-checked series context and idempotent transactional submission. | Complete deployed browser smoke tests and add stronger timer/multi-device UX. |
+| `/test/:id` | LIVE | Durable authenticated attempt session with cross-refresh resume, optimistic draft revisions, offline retry, server-checked series context and idempotent transactional submission. | Add stronger timer and multi-device UX. |
 | `/result?attemptId=...` | LIVE | Reads only the committed canonical result snapshot, preserves immutable solution review and returns students to their Test Series when applicable. | Add canonical rank, percentile and weak-area analytics after those services exist. |
 | `/dashboard` | LIVE | Canonical server-backed attempt history and published-test count. | Add topic/section insights after analytics APIs exist. |
 | `/profile` | LIVE_INCOMPLETE | Authentication/profile shell. | Persist editable profile fields canonically. |
@@ -78,6 +78,9 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests/qa` | LIVE | Canonical QA queue, reviewer ownership, issue resolution, immutable version comparison, candidate-content preview and server-enforced approval/publication gate. |
 | `/tests/series` | LIVE | Immutable series versions, ordered test membership, availability windows, progression policy and release readiness. |
 | `/tests/blueprints` | LIVE | Immutable exam patterns, taxonomy/language/difficulty quotas, Question Bank shortage preview and deterministic draft assembly. |
+| `/users/team` | LIVE | Canonical administrator invitations, profiles, reporting lines, role grants, suspension, disablement and session revocation. |
+| `/settings/roles` | LIVE | Server-enforced role definitions and granular permission assignment with protected system roles. |
+| `/settings/audit-logs` | LIVE | Immutable event search, actor/entity/date filtering, field-change detail and CSV export. |
 
 The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxonomy_edges`, and `catalog.exam_taxonomy_nodes` tables. It requires no schema migration. All writes require `content.taxonomy.manage`, are transactionally validated, cycle-safe, soft-archivable, and recorded in `platform.audit_events`. Coverage counts use the canonical current question version and recursively roll descendant links into parent nodes; leaf-only summaries avoid double counting.
 
@@ -89,13 +92,15 @@ Exam Blueprints uses the existing `assessment.test_blueprints`, `assessment.test
 
 Test Series uses `assessment.test_series`, `assessment.test_series_versions`, and `assessment.test_series_items`. Series edits create immutable versions and never rewrite previous membership. Every member test must belong to the selected exam version, and duplicate membership is blocked. Current versions store optional availability windows, open/sequential/score-gated progression, default completion score and ordered member-level unlock/score/required rules. Release readiness is blocked when a series is archived, empty, expired, or contains tests that are not QA approved, scheduled, live or completed. All create, version, archive and restore actions are immutable `platform.audit_events`. Migration `b4ea416f-eea3-4033-8503-bd21fe6f5faa` was applied additively to the canonical Neon project and is recorded in `docs/database-migrations/2026-07-20-canonical-test-series.sql`.
 
+The admin control plane reuses the existing `identity.users`, `identity.auth_identities`, `identity.admin_profiles`, `identity.roles`, `identity.permissions`, `identity.role_permissions`, `identity.user_roles`, and `identity.sessions` tables. It requires no schema migration. Administrators are pre-authorized by verified email, linked to Firebase on first sign-in, and resolved through the existing server-side RBAC middleware. Role changes, profile changes, invitations, suspension, disablement and session revocation are transactional and append immutable `platform.audit_events` plus `platform.audit_event_changes`. The API prevents removal or suspension of the final active super administrator and prevents weakening or deactivating the protected `super_admin` role.
+
 ### In-progress admin workspaces
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Students and Admin Team
+- Students
 - Test Analytics, Question Analytics, Content Quality, System Health
-- Exam Configuration, Languages, Roles & Permissions, Audit Logs
+- Exam Configuration and Languages
 
 ### Planned admin workspaces
 
@@ -122,7 +127,8 @@ The production admin shell does not expose:
 - the former prototype Content Review queue, fake reviewers, local comments, or mock similarity results;
 - the former browser-store Test QA pipeline, fake reviewers, local QA comments, or locally simulated publication versions;
 - prototype blueprint rules, browser-local blueprint versions, or local test assembly presented as canonical data;
-- prototype series membership, browser-local release windows, or local progression state presented as canonical data.
+- prototype series membership, browser-local release windows, or local progression state presented as canonical data;
+- prototype administrator arrays, role matrices, role switching or local audit entries presented as production access control.
 
 Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
@@ -131,6 +137,8 @@ Prototype files may remain temporarily as design references, but they are outsid
 Mounted operational API groups:
 
 - admin session and RBAC;
+- administrator team, role and permission management;
+- immutable audit-event exploration and export;
 - Question Studio;
 - Question Bank;
 - Content Review collaboration and queue composition;
@@ -151,14 +159,13 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 ### P0 — admin operations
 
 1. Add full Question Bank duplicate comparison and chapter-freeze readiness into Content Review.
-2. Add administrator-facing audit logs and operational health.
+2. Add operational health, background-job visibility and error telemetry.
 3. Add translation review and language-specific publication gates.
 
 ### P0 — student production truth and reliability
 
-1. Deploy and smoke-test current `New-main` on the real Firebase/Render environment.
-2. Add browser end-to-end tests for login, series discovery, gated attempt, draft resume, duplicate submit, refresh result, progress unlock, and attempt history.
-3. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
+1. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
+2. Verify current Firebase/Render deployment journeys after each admin release that changes shared authentication or publication behavior.
 
 ### P1 — student value
 
