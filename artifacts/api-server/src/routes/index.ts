@@ -30,6 +30,7 @@ import adminTranslationActionsRouter from "./admin-translation-actions";
 import adminTranslationHardeningRouter from "./admin-translation-hardening";
 import adminTranslationsRouter from "./admin-translations";
 import publishedTestsRouter from "./published-tests";
+import publishedTestMultilingualRunnerRouter from "./published-test-multilingual-runner";
 import publishedTestRunnerRouter from "./published-test-runner";
 import attemptReliabilityRouter from "./attempt-reliability";
 import canonicalAttemptResultsRouter from "./canonical-attempt-results";
@@ -53,6 +54,9 @@ router.use(studentTestSeriesRouter);
 router.use(attemptReliabilityRouter);
 router.use(canonicalAttemptResultsRouter);
 router.use(canonicalStudentReadRouter);
+// Multilingual publications shadow only configured bilingual tests; English-only
+// publications continue through the proven source-language runner.
+router.use(publishedTestMultilingualRunnerRouter);
 router.use(publishedTestRunnerRouter);
 router.use("/published-tests", publishedTestsRouter);
 
