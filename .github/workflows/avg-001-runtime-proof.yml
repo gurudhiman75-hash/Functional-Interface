@@ -64,6 +64,7 @@ jobs:
           run_case avg-001-cp002-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-explanation-quality-audit.ts
           run_case avg-001-cp002-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-residual-qa.ts
           run_case avg-001-cp003-proof src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-proof-audit.ts
+          run_case avg-001-cp003-family-age src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-family-age-audit.ts
           run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
           run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
           run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
