@@ -52,7 +52,9 @@ function containsAnswer(line: string, answer: string) {
   return tokens.includes(answer.replace(/,/g, ""));
 }
 
-for (const entry of getAvg001QuestionEntries()) {
+const entries = getAvg001QuestionEntries();
+
+for (const entry of entries) {
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({
       questionLanguageId: entry.qlId,
@@ -156,5 +158,5 @@ console.log(
   ),
 );
 
-assert.equal(cases, 1056);
+assert.equal(cases, entries.length * 12);
 assert.equal(failures.length, 0, failures.join("\n"));
