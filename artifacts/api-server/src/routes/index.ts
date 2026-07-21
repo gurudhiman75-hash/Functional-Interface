@@ -4,6 +4,7 @@ import healthRouter from "./health";
 import usersRouter from "./users";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
+import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
 import adminContentReviewRouter from "./admin-content-review";
@@ -51,6 +52,7 @@ router.use("/published-tests", publishedTestsRouter);
 router.use("/admin/session", adminSessionRouter);
 // Focused correctness guards shadow only the affected control-plane routes;
 // all unaffected reads and mutations continue through the canonical router.
+router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
 router.use("/admin/content-review", adminContentReviewRouter);
