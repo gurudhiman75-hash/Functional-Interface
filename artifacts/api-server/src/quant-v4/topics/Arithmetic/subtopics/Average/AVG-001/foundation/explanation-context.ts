@@ -16,17 +16,15 @@ const CURRENCY_SCENARIOS = new Set([
   "missingSale",
   "missingExpense",
   "employeeLeavesSalary",
+  "employeeLeavesGroup",
   "salaryLeavingValue",
+  "findLeavingSalary",
 ]);
 
 const UNIT_BY_SCENARIO: Record<string, string> = {
-  marksTotal: "marks",
   dailyOutputTotal: "units",
-  passengerTotal: "passengers",
-  marksAverage: "marks",
   outputAverage: "components per hour",
   distanceAverage: "km",
-  missingMark: "marks",
   missingOutput: "units",
   missingDistance: "km",
   studentJoinsGroup: "marks",
@@ -71,19 +69,26 @@ function groupIndianDigits(value: string) {
   return `${sign}${groupedLeading},${lastThree}${decimal}`;
 }
 
-function displayAnswer(pkg: Avg001QuestionPackage) {
+function displayAnswer(pkg: Avg001QuestionPackage, label: string) {
   const grouped = groupIndianDigits(pkg.answer);
   const scenario = pkg.parameters.scenarioVariant;
 
   if (pkg.parameters.answerType === "COUNT") return grouped;
-  if (CURRENCY_SCENARIOS.has(scenario)) return `₹${grouped}`;
-  if (AGE_SCENARIOS.has(scenario)) return `${grouped} years`;
+  if (CURRENCY_SCENARIOS.has(scenario) || /salary|sale|expenditure/i.test(label)) {
+    return `₹${grouped}`;
+  }
+  if (AGE_SCENARIOS.has(scenario) || /\bage\b/i.test(label)) {
+    return `${grouped} years`;
+  }
   if (pkg.parameters.contextDomain === "Sports") return `${grouped} runs`;
+  if (/marks/i.test(label)) return grouped;
+  if (/score/i.test(label)) return `${grouped} marks`;
+  if (/passengers/i.test(label)) return grouped;
+  if (/distance/i.test(label)) return `${grouped} km`;
 
   const exactUnit = UNIT_BY_SCENARIO[scenario];
   if (exactUnit) return `${grouped} ${exactUnit}`;
-  if (/mark|score/i.test(scenario)) return `${grouped} marks`;
-  if (/output/i.test(scenario)) return `${grouped} units`;
+  if (/output/i.test(label)) return `${grouped} units`;
 
   return grouped;
 }
@@ -107,7 +112,7 @@ export function applyAvg001ContextualConclusion(
   const entry = getAvg001QuestionEntry(pkg.questionLanguageId);
   const label = contextLabel(entry.finalContext);
   const lines = [...pkg.explanation.lines];
-  lines[genericIndex] = `Therefore, ${label} = ${displayAnswer(pkg)}.`;
+  lines[genericIndex] = `Therefore, ${label} = ${displayAnswer(pkg, label)}.`;
 
   return {
     ...pkg,
