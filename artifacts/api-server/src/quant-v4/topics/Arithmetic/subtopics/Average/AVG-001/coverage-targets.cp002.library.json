@@ -1,0 +1,18 @@
+{
+  "phase": "CP002_COMPLETE",
+  "canonicalProblemId": "AVG-CP-002",
+  "activeQlCount": 50,
+  "qlRange": "AVG-QL-073\u2013122",
+  "solveModeTargets": {
+    "findAverageOfConsecutiveSet": 14,
+    "findMiddleTermFromAverage": 12,
+    "findExtremeFromAverageAndCount": 12,
+    "findAverageOfOddOrEvenSet": 12
+  },
+  "seedsPerQl": 12,
+  "minimumUniqueFingerprints": {
+    "Easy": 6,
+    "Medium": 8,
+    "Hard": 8
+  }
+}

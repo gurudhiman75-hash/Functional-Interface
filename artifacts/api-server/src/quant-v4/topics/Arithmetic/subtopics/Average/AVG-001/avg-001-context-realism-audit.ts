@@ -47,7 +47,9 @@ function within(value: number, range: [number, number]) {
 const failures: string[] = [];
 let cases = 0;
 
-for (const entry of getAvg001QuestionEntries()) {
+for (const entry of getAvg001QuestionEntries().filter(
+  (item) => item.cpId === "AVG-CP-001",
+)) {
   const profile = bounds[entry.scenarioVariant];
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({

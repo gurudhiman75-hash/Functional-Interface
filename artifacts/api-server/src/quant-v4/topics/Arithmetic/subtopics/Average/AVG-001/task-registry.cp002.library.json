@@ -1,0 +1,1185 @@
+{
+  "packageId": "AVG-001",
+  "entries": [
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-073",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveIntegersOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive integers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-074",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "seatNumbersConsecutiveOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-075",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "houseNumbersConsecutiveOddCount",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average house number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-076",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveIntegersEvenCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average of the consecutive integers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-077",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "serialNumbersFixedStepEvenDifference",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average serial number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-078",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "dailyIncrementTargetsEvenDifference",
+      "requiredVariables": [
+        "commonDifference",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average daily production target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-079",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "multiplesArithmeticProgressionEvenDifference",
+      "requiredVariables": [
+        "firstTerm",
+        "nextTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the progression"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-080",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "testScoresFixedStepOddDifferenceEvenCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average practice-test score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-081",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "shiftTargetsFixedStepOddDifferenceEvenCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average shift target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-082",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "fixedIntervalSequenceOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the sequence"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-083",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "priceTagsFixedStepEvenDifference",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average price in rupees"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-084",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "reverseDescribedApOddCount",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm",
+        "count"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the arithmetic progression"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-085",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "weeklyOutputApOddDifferenceEvenCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average output per period"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-086",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "negativeToPositiveConsecutiveOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive integers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-087",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveIntegerMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-088",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveEvenMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle even number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-089",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveOddMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle odd number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-090",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "seatNumberMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-091",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "houseNumberMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle house number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-092",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "targetMiddleEvenDifference",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle production target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-093",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "scoreApMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-094",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "fixedIntervalMiddleOddDifference",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle term"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-095",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "dailyIncrementMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "target on the middle day"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-096",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "middleFromEndpointSymmetry",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle term"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-097",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "priceApMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle price in rupees"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-098",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "rankScoreMiddle",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "central score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-099",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestConsecutiveIntegerOddCount",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-100",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "smallestConsecutiveIntegerOddCount",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-101",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestConsecutiveEvenOddCount",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest even number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-102",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "smallestConsecutiveOddOddCount",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest odd number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-103",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "largestSeatNumberFixedStep",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-104",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "smallestProductionTargetFixedStep",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest production target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-105",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestApEvenCount",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest term"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-106",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "smallestPriceApEvenCount",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest price in rupees"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-107",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestConsecutiveIntegerEvenCount",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-108",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "smallestConsecutiveIntegerEvenCount",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-109",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "largestShiftTargetOddDifferenceEvenCount",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest shift target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-110",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "smallestScoreOddDifferenceEvenCount",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-111",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveEvenFromEndpointsOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive even numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-112",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveOddFromEndpointsOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive odd numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-113",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveEvenFromFirstOddCount",
+      "requiredVariables": [
+        "firstTerm",
+        "count"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive even numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-114",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveOddFromFirstOddCount",
+      "requiredVariables": [
+        "firstTerm",
+        "count"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive odd numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-115",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "averageEvenSeatNumbersOddCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-116",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveEvenEvenCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive even numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-117",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveOddEvenCount",
+      "requiredVariables": [
+        "count",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive odd numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-118",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "averageOddHouseNumbers",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average house number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-119",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "averageEvenRollNumbers",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average roll number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-120",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageOddSequenceLargeCount",
+      "requiredVariables": [
+        "count",
+        "firstTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the odd-number sequence"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-121",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageEvenSequenceLargeCount",
+      "requiredVariables": [
+        "count",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the even-number sequence"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-122",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "averageEvenProductionCodes",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average production code"
+    }
+  ]
+}

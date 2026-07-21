@@ -32,7 +32,14 @@ export interface Avg001Parameters {
   packageId: typeof AVG_001_PACKAGE_ID; canonicalProblemId: Avg001CanonicalProblemId; questionLanguageId: string;
   seed: string; language: Avg001Language; difficulty: Avg001Difficulty; taskKind: Avg001TaskKind; solveMode: Avg001SolveMode;
   answerType: Avg001AnswerType; displayPolicy: Avg001DisplayPolicy; contextDomain: string; scenarioVariant: string;
-  values: { count: number; average: Rational; total: Rational; knownCount?: number; knownTotal?: Rational; missingValue?: Rational };
+  values: {
+    count: number; average: Rational; total: Rational;
+    knownCount?: number; knownTotal?: Rational; missingValue?: Rational;
+    firstTerm?: Rational; lastTerm?: Rational; middleTerm?: Rational;
+    lowerMiddleTerm?: Rational; upperMiddleTerm?: Rational;
+    commonDifference?: Rational; targetExtreme?: "smallest" | "largest";
+    sequenceParity?: "odd" | "even" | "any";
+  };
   renderVariables: Record<string, string | number>;
 }
 export interface Avg001SolverResult { exactAnswer: Rational; answer: string; equation: string; workingValues: Record<string, string | number> }

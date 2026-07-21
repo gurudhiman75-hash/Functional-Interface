@@ -1,0 +1,1236 @@
+{
+  "packageId": "AVG-001",
+  "language": "en",
+  "entries": [
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-073",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveIntegersOddCount",
+      "template": "Find the average of {count} consecutive integers from {firstTerm} to {lastTerm}.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive integers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-074",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "seatNumbersConsecutiveOddCount",
+      "template": "A row contains {count} consecutively numbered seats, from seat {firstTerm} to seat {lastTerm}. Find the average seat number.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-075",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "houseNumbersConsecutiveOddCount",
+      "template": "The consecutive house numbers on a short lane run from {firstTerm} to {lastTerm}. Find their average.",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average house number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-076",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveIntegersEvenCount",
+      "template": "Find the average of {count} consecutive integers beginning with {firstTerm} and ending with {lastTerm}.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average of the consecutive integers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-077",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "serialNumbersFixedStepEvenDifference",
+      "template": "The serial numbers in a list form an arithmetic progression from {firstTerm} to {lastTerm}, increasing by {commonDifference}. Find their average.",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average serial number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-078",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "dailyIncrementTargetsEvenDifference",
+      "template": "A production target rises by {commonDifference} units each day, from {firstTerm} units on the first day to {lastTerm} units on the last day. Find the average daily target.",
+      "requiredVariables": [
+        "commonDifference",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average daily production target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-079",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "multiplesArithmeticProgressionEvenDifference",
+      "template": "The numbers {firstTerm}, {nextTerm}, …, {lastTerm} form an arithmetic progression with common difference {commonDifference}. Find their average.",
+      "requiredVariables": [
+        "firstTerm",
+        "nextTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the progression"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-080",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "testScoresFixedStepOddDifferenceEvenCount",
+      "template": "A student's {count} practice-test scores form an arithmetic progression from {firstTerm} to {lastTerm}, with a common difference of {commonDifference}. Find the average score.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average practice-test score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-081",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "shiftTargetsFixedStepOddDifferenceEvenCount",
+      "template": "The output targets for {count} shifts form an arithmetic progression from {firstTerm} units to {lastTerm} units, increasing by {commonDifference} units each shift. Find the average target.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average shift target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-082",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "fixedIntervalSequenceOddCount",
+      "template": "A sequence has {count} equally spaced terms, first term {firstTerm}, last term {lastTerm}, and common difference {commonDifference}. Find its average.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the sequence"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-083",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "priceTagsFixedStepEvenDifference",
+      "template": "A set of {count} price tags forms an arithmetic progression from ₹{firstTerm} to ₹{lastTerm}, increasing by ₹{commonDifference}. Find the average price.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average price in rupees"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-084",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "reverseDescribedApOddCount",
+      "template": "The first and last terms of an arithmetic progression are {firstTerm} and {lastTerm}. If it contains {count} terms, find the average without summing all terms.",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm",
+        "count"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the arithmetic progression"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-085",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "weeklyOutputApOddDifferenceEvenCount",
+      "template": "The output over {count} consecutive periods forms an arithmetic progression from {firstTerm} units to {lastTerm} units. Find the average output per period.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_DECIMAL_1",
+      "active": true,
+      "finalContext": "average output per period"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-086",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfConsecutiveSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "negativeToPositiveConsecutiveOddCount",
+      "template": "A set of {count} consecutive integers begins at {firstTerm} and ends at {lastTerm}. Find its average.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive integers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-087",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveIntegerMiddle",
+      "template": "The average of {count} consecutive integers is {average}. Find the middle integer.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-088",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveEvenMiddle",
+      "template": "The average of {count} consecutive even numbers is {average}. Find the middle number.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle even number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-089",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "consecutiveOddMiddle",
+      "template": "The average of {count} consecutive odd numbers is {average}. Find the middle number.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle odd number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-090",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "seatNumberMiddle",
+      "template": "The average of {count} consecutively numbered seats is {average}. Find the number of the middle seat.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-091",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "houseNumberMiddle",
+      "template": "The average of {count} consecutive house numbers is {average}. What is the middle house number?",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle house number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-092",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "targetMiddleEvenDifference",
+      "template": "The average of {count} equally spaced production targets is {average}. The targets increase by {commonDifference} units each time. Find the middle target.",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle production target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-093",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "scoreApMiddle",
+      "template": "The average of {count} scores forming an arithmetic progression is {average}. Find the middle score.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-094",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "fixedIntervalMiddleOddDifference",
+      "template": "An arithmetic progression has {count} terms, common difference {commonDifference}, and average {average}. Find its middle term.",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle term"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-095",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "dailyIncrementMiddle",
+      "template": "A {count}-day target schedule forms an arithmetic progression with average {average} units. Find the target on the middle day.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "target on the middle day"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-096",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "middleFromEndpointSymmetry",
+      "template": "An arithmetic progression contains {count} terms and has average {average}. Without listing the sequence, find its middle term.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle term"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-097",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "priceApMiddle",
+      "template": "The average price in a set of {count} equally spaced prices is ₹{average}. Find the middle price.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "middle price in rupees"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-098",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findMiddleTermFromAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "rankScoreMiddle",
+      "template": "The average of {count} equally spaced merit scores is {average}. Find the central score.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findMiddleTermFromAverage",
+      "distractorStrategyIds": [
+        "usePreviousTerm",
+        "useNextTerm",
+        "useEndpoint"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "central score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-099",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestConsecutiveIntegerOddCount",
+      "template": "The average of {count} consecutive integers is {average}. Find the largest integer.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-100",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "smallestConsecutiveIntegerOddCount",
+      "template": "The average of {count} consecutive integers is {average}. Find the smallest integer.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-101",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestConsecutiveEvenOddCount",
+      "template": "The average of {count} consecutive even numbers is {average}. Find the largest number.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest even number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-102",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "smallestConsecutiveOddOddCount",
+      "template": "The average of {count} consecutive odd numbers is {average}. Find the smallest number.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest odd number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-103",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "largestSeatNumberFixedStep",
+      "template": "The average of {count} equally spaced seat numbers is {average}. Consecutive listed seats differ by {commonDifference}. Find the largest seat number.",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-104",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "smallestProductionTargetFixedStep",
+      "template": "The average of {count} equally spaced production targets is {average} units. Consecutive targets differ by {commonDifference} units. Find the smallest target.",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest production target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-105",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestApEvenCount",
+      "template": "An arithmetic progression has {count} terms, common difference {commonDifference}, and average {average}. Find its largest term.",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest term"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-106",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "smallestPriceApEvenCount",
+      "template": "A set of {count} prices forms an arithmetic progression with common difference ₹{commonDifference} and average price ₹{average}. Find the smallest price.",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest price in rupees"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-107",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "largestConsecutiveIntegerEvenCount",
+      "template": "An even-sized set of {count} consecutive integers has average {average}. Find the largest integer in the set.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-108",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "smallestConsecutiveIntegerEvenCount",
+      "template": "An even-sized set of {count} consecutive integers has average {average}. Find the smallest integer in the set.",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest integer"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-109",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "largestShiftTargetOddDifferenceEvenCount",
+      "template": "The average target across {count} shifts is {average} units. The targets form an arithmetic progression increasing by {commonDifference} units. Find the largest target.",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "largest shift target"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-110",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findExtremeFromAverageAndCount",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "smallestScoreOddDifferenceEvenCount",
+      "template": "The average of {count} equally spaced scores is {average}. Adjacent scores differ by {commonDifference}. Find the smallest score.",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "distractorStrategyIds": [
+        "offByOneOffset",
+        "useOppositeExtreme",
+        "useAverageAsExtreme"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "smallest score"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-111",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveEvenFromEndpointsOddCount",
+      "template": "Find the average of the {count} consecutive even numbers from {firstTerm} to {lastTerm}.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive even numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-112",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveOddFromEndpointsOddCount",
+      "template": "Find the average of the {count} consecutive odd numbers from {firstTerm} to {lastTerm}.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive odd numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-113",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveEvenFromFirstOddCount",
+      "template": "Starting with {firstTerm}, {count} consecutive even numbers are written. Find their average.",
+      "requiredVariables": [
+        "firstTerm",
+        "count"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive even numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-114",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveOddFromFirstOddCount",
+      "template": "Starting with {firstTerm}, {count} consecutive odd numbers are written. Find their average.",
+      "requiredVariables": [
+        "firstTerm",
+        "count"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive odd numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-115",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "averageEvenSeatNumbersOddCount",
+      "template": "A block contains {count} consecutive even-numbered seats from {firstTerm} to {lastTerm}. Find the average seat number.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average seat number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-116",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveEvenEvenCount",
+      "template": "Find the average of {count} consecutive even numbers beginning with {firstTerm}.",
+      "requiredVariables": [
+        "count",
+        "firstTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive even numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-117",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageConsecutiveOddEvenCount",
+      "template": "Find the average of {count} consecutive odd numbers ending with {lastTerm}.",
+      "requiredVariables": [
+        "count",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the consecutive odd numbers"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-118",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "averageOddHouseNumbers",
+      "template": "The odd-numbered houses on one side of a lane run consecutively from {firstTerm} to {lastTerm}. Find their average house number.",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average house number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-119",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "averageEvenRollNumbers",
+      "template": "The even roll numbers in a group run consecutively from {firstTerm} to {lastTerm}. Find their average.",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average roll number"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-120",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageOddSequenceLargeCount",
+      "template": "A sequence consists of {count} consecutive odd numbers, the first being {firstTerm}. Find its average.",
+      "requiredVariables": [
+        "count",
+        "firstTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the odd-number sequence"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-121",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "averageEvenSequenceLargeCount",
+      "template": "A sequence consists of {count} consecutive even numbers, the last being {lastTerm}. Find its average.",
+      "requiredVariables": [
+        "count",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average of the even-number sequence"
+    },
+    {
+      "cpId": "AVG-CP-002",
+      "qlId": "AVG-QL-122",
+      "taskKind": "symmetricApPropertiesApplication",
+      "solveMode": "findAverageOfOddOrEvenSet",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "averageEvenProductionCodes",
+      "template": "A set of {count} consecutive even production codes starts at {firstTerm} and ends at {lastTerm}. Find the average code.",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "distractorStrategyIds": [
+        "doubleEndpointMean",
+        "useLowerMiddle",
+        "useUpperMiddle"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "average production code"
+    }
+  ]
+}

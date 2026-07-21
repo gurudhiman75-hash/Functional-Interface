@@ -1,15 +1,19 @@
 import questionLanguage from "../question-language.en.json";
+import cp002QuestionLanguage from "../question-language.cp002.en.json";
 import taskRegistry from "../task-registry.library.json";
+import cp002TaskRegistry from "../task-registry.cp002.library.json";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
-const entries = (questionLanguage.entries as Avg001QuestionLanguageEntry[]).filter(
-  (entry) => entry.active,
-);
+const entries = [
+  ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
+  ...(cp002QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
+].filter((entry) => entry.active);
+
 const registryById = new Map(
-  (taskRegistry.entries as Avg001QuestionLanguageEntry[]).map((entry) => [
-    entry.qlId,
-    entry,
-  ]),
+  [
+    ...(taskRegistry.entries as Avg001QuestionLanguageEntry[]),
+    ...(cp002TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
+  ].map((entry) => [entry.qlId, entry]),
 );
 
 export function getAvg001QuestionEntries() {
