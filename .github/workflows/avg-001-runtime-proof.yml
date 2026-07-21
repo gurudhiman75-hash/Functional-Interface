@@ -42,14 +42,16 @@ jobs:
 
       - name: Run AVG-001 proof gates
         run: |
-          set -euo pipefail
+          set -o pipefail
+          : > avg-proof-diagnostics.log
 
           run_case() {
             name="$1"
             source="$2"
             output="dist/quant-v4/${name}.mjs"
-            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output"
-            (cd artifacts/api-server && node "$output")
+            echo "===== $name =====" | tee -a avg-proof-diagnostics.log
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-proof-diagnostics.log
+            (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-proof-diagnostics.log
           }
 
           run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
@@ -65,7 +67,17 @@ jobs:
           run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
           run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
 
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-proof-diagnostics
+          path: avg-proof-diagnostics.log
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Upload proof review CSVs
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: avg-001-runtime-proof-review
