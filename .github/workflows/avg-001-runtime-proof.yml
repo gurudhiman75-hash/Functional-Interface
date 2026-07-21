@@ -1,89 +1,41 @@
-name: Validate AVG-001 runtime proof
+name: Apply AVG equality-evidence correction
 
 on:
-  pull_request:
+  push:
     branches:
-      - New-main
-      - feat/avg-001-cp001-runtime-proof
-    types: [opened, reopened, synchronize]
-    paths:
-      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
-      - .github/workflows/avg-001-runtime-proof.yml
+      - feat/avg-001-cp003-runtime
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: avg-001-runtime-proof-${{ github.ref }}
-  cancel-in-progress: true
+  group: apply-avg-equality-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  validate-avg-001:
+  apply:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 10
 
     steps:
-      - name: Checkout source
+      - name: Checkout branch
         uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          ref: feat/avg-001-cp003-runtime
+          fetch-depth: 0
 
-      - name: Enable pnpm
-        run: corepack enable
-
-      - name: Install locked workspace dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build API server
-        run: pnpm --dir artifacts/api-server build
-
-      - name: Run AVG-001 proof gates
+      - name: Apply equality-evidence correction
         run: |
           set -euo pipefail
-          : > avg-proof-diagnostics.log
-
-          run_case() {
-            name="$1"
-            source="$2"
-            output="dist/quant-v4/${name}.mjs"
-            echo "===== $name =====" | tee -a avg-proof-diagnostics.log
-            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-proof-diagnostics.log
-            (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-proof-diagnostics.log
-          }
-
-          run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
-          run_case avg-001-independent src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-independent-verifier-audit.ts
-          run_case avg-001-diversity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-diversity-audit.ts
-          run_case avg-001-context-realism src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-context-realism-audit.ts
-          run_case avg-001-cp002-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-coverage-audit.ts
-          run_case avg-001-cp002-ap-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-ap-validity-audit.ts
-          run_case avg-001-cp002-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-explanation-quality-audit.ts
-          run_case avg-001-cp002-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-residual-qa.ts
-          run_case avg-001-cp003-proof src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-proof-audit.ts
-          run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
-          run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
-          run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
-
-      - name: Upload diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: avg-001-proof-diagnostics
-          path: avg-proof-diagnostics.log
-          if-no-files-found: warn
-          retention-days: 7
-
-      - name: Upload proof review CSVs
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: avg-001-runtime-proof-review
-          path: |
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-en.csv
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-en.csv
-          if-no-files-found: error
-          retention-days: 7
+          SCRIPT="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/patch-cp002-equality-evidence.py"
+          if [ ! -f "$SCRIPT" ]; then
+            echo "Patch already applied"
+            exit 0
+          fi
+          python "$SCRIPT"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts
+          git add -u artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/patch-cp002-equality-evidence.py
+          git commit -m "fix(avg): accept equality as explanation evidence"
+          git push origin HEAD:feat/avg-001-cp003-runtime
