@@ -24,6 +24,36 @@ function isJoiningAgeScenario(pkg: Avg001QuestionPackage) {
   );
 }
 
+function normalizeElapsedYearAliases(
+  pkg: Avg001QuestionPackage,
+): Avg001QuestionPackage {
+  const values = pkg.parameters.values as Record<string, unknown>;
+  const renderVariables = pkg.parameters.renderVariables as Record<
+    string,
+    string | number
+  >;
+  const elapsedYears = values.elapsedYears ?? values.yearsElapsed ?? 0;
+  const renderedElapsedYears =
+    renderVariables.elapsedYears ?? renderVariables.yearsElapsed ?? Number(elapsedYears);
+
+  return {
+    ...pkg,
+    parameters: {
+      ...pkg.parameters,
+      values: {
+        ...pkg.parameters.values,
+        elapsedYears,
+        yearsElapsed: elapsedYears,
+      },
+      renderVariables: {
+        ...pkg.parameters.renderVariables,
+        elapsedYears: renderedElapsedYears,
+        yearsElapsed: renderedElapsedYears,
+      },
+    },
+  };
+}
+
 function normalizeExternalIdentity(
   pkg: Avg001QuestionPackage,
   requestedSeed: string,
@@ -51,7 +81,7 @@ function rebuildJoiningAgeOptions(
   }
 
   const answer = Number(pkg.answer);
-  const elapsedYears = pkg.parameters.values.elapsedYears ?? 0;
+  const elapsedYears = Number(pkg.parameters.values.elapsedYears ?? 0);
   const candidates = [
     answer,
     answer - elapsedYears,
@@ -148,14 +178,16 @@ export function runAvg001Cp003Pipeline(input: {
   for (let attempt = 0; attempt < 32; attempt += 1) {
     const generatedSeed =
       attempt === 0 ? input.seed : `${input.seed}:joining-age:${attempt}`;
-    const candidate = runBaseCp003Pipeline({
-      ...input,
-      seed: generatedSeed,
-    });
+    const candidate = normalizeElapsedYearAliases(
+      runBaseCp003Pipeline({
+        ...input,
+        seed: generatedSeed,
+      }),
+    );
 
     if (isJoiningAgeScenario(candidate)) {
       const joiningAge = candidate.parameters.values.addedValue;
-      if (!joiningAge) {
+      if (joiningAge === undefined || joiningAge === null) {
         throw new Error(`Missing joining age for ${candidate.questionLanguageId}`);
       }
       const age = toNumber(joiningAge);
