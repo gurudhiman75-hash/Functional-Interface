@@ -13,6 +13,7 @@ on:
       - artifacts/api-server/src/lib/admin-rbac.ts
       - artifacts/api-server/src/routes/admin-access-control.ts
       - artifacts/api-server/src/routes/admin-access-control-hardening.ts
+      - artifacts/api-server/src/routes/admin-audit-events-hardening.ts
       - artifacts/api-server/src/routes/admin-session.ts
       - artifacts/api-server/src/routes/admin-session.test.ts
       - artifacts/api-server/src/routes/index.ts
@@ -34,6 +35,7 @@ on:
       - artifacts/api-server/src/lib/admin-control-plane-hardening.test.ts
       - artifacts/api-server/src/routes/admin-access-control.ts
       - artifacts/api-server/src/routes/admin-access-control-hardening.ts
+      - artifacts/api-server/src/routes/admin-audit-events-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/features/access-control/**
       - artifacts/admin-app/src/pages/users/AdminTeamWorkspacePage.tsx
@@ -70,6 +72,7 @@ jobs:
 
       - name: Enforce canonical access-control boundary
         run: |
+          grep -F 'adminAuditEventsHardeningRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminAccessControlHardeningRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminAccessControlRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'identity.admin_profiles' artifacts/api-server/src/routes/admin-access-control.ts
@@ -78,6 +81,7 @@ jobs:
           grep -F 'ACTIVE_ROLE_GRANT_EXISTS' artifacts/api-server/src/lib/admin-control-plane-hardening.ts
           grep -F 'ADMIN_MANAGER_CYCLE' artifacts/api-server/src/lib/admin-control-plane-hardening.ts
           grep -F 'neutralizeSpreadsheetFormula' artifacts/api-server/src/lib/admin-control-plane-hardening.ts
+          grep -F 'normalizeAuditPagination' artifacts/api-server/src/routes/admin-audit-events-hardening.ts
           grep -F 'FINAL_SUPER_ADMIN_PROTECTED' artifacts/api-server/src/lib/admin-access-control.ts
           grep -F 'SUPER_ADMIN_ROLE_PROTECTED' artifacts/api-server/src/lib/admin-access-control.ts
           grep -F 'activateCanonicalAdminInvitation' artifacts/api-server/src/routes/admin-session.ts
@@ -99,6 +103,7 @@ jobs:
           grep -R 'FINAL_SUPER_ADMIN_PROTECTED' artifacts/api-server/dist >/dev/null
           grep -R 'ACTIVE_ROLE_GRANT_EXISTS' artifacts/api-server/dist >/dev/null
           grep -R 'ADMIN_MANAGER_CYCLE' artifacts/api-server/dist >/dev/null
+          grep -R 'normalizeAuditPagination' artifacts/api-server/dist >/dev/null
           grep -R 'admin.role.assigned' artifacts/api-server/dist >/dev/null
           grep -R 'admin.role.updated' artifacts/api-server/dist >/dev/null
           grep -R 'audit-events/export.csv' artifacts/api-server/dist >/dev/null
