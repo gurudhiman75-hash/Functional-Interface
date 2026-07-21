@@ -11,7 +11,7 @@ on:
       - .github/workflows/avg-001-runtime-proof.yml
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: avg-001-runtime-proof-${{ github.ref }}
@@ -23,26 +23,8 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      - name: Checkout source branch
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/avg-001-cp003-runtime
-          fetch-depth: 0
-
-      - name: Apply duplicate-helper cleanup
-        run: |
-          set -euo pipefail
-          SCRIPT="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/remove-duplicate-cp002-helper.py"
-          if [ -f "$SCRIPT" ]; then
-            python "$SCRIPT"
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts
-            if ! git diff --cached --quiet; then
-              git commit -m "fix(avg): remove duplicate CP-002 helper"
-              git push origin HEAD:feat/avg-001-cp003-runtime
-            fi
-          fi
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -60,14 +42,18 @@ jobs:
 
       - name: Run AVG-001 proof gates
         run: |
-          set -o pipefail
+          set -euo pipefail
           : > avg-proof-diagnostics.log
+
           run_case() {
-            name="$1"; source="$2"; output="dist/quant-v4/${name}.mjs"
+            name="$1"
+            source="$2"
+            output="dist/quant-v4/${name}.mjs"
             echo "===== $name =====" | tee -a avg-proof-diagnostics.log
             pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-proof-diagnostics.log
             (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-proof-diagnostics.log
           }
+
           run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
           run_case avg-001-independent src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-independent-verifier-audit.ts
           run_case avg-001-diversity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-diversity-audit.ts
