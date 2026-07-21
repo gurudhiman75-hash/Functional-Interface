@@ -133,9 +133,11 @@ function misconceptionCandidate(
           ),
         );
       }
-      return subtract(
-        values.outgoingValue,
-        multiply(subtract(newAverage, oldAverage), rational(oldCount)),
+      return absolute(
+        subtract(
+          values.outgoingValue,
+          multiply(subtract(newAverage, oldAverage), rational(oldCount)),
+        ),
       );
     case "averageDifferenceOnly":
       return absolute(averageShift);
