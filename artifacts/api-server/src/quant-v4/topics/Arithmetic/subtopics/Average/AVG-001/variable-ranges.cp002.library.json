@@ -1,0 +1,564 @@
+{
+  "countPools": {
+    "Easy": {
+      "odd": [
+        5,
+        7,
+        9
+      ],
+      "even": [
+        4,
+        6,
+        8
+      ],
+      "any": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "Medium": {
+      "odd": [
+        7,
+        9,
+        11,
+        13
+      ],
+      "even": [
+        6,
+        8,
+        10,
+        12
+      ],
+      "any": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ]
+    },
+    "Hard": {
+      "odd": [
+        9,
+        11,
+        13,
+        15,
+        17
+      ],
+      "even": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "any": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        17
+      ]
+    }
+  },
+  "startPools": {
+    "positive": [
+      8,
+      10,
+      12,
+      15,
+      18,
+      20,
+      24,
+      28,
+      30,
+      36,
+      40,
+      45,
+      50,
+      60
+    ],
+    "negative": [
+      -24,
+      -20,
+      -18,
+      -15,
+      -12,
+      -10,
+      -8,
+      -6
+    ]
+  },
+  "middlePools": [
+    18,
+    20,
+    24,
+    25,
+    30,
+    32,
+    36,
+    40,
+    42,
+    48,
+    50,
+    60,
+    72,
+    84
+  ],
+  "variantProfiles": {
+    "consecutiveIntegersOddCount": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "seatNumbersConsecutiveOddCount": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "houseNumbersConsecutiveOddCount": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "consecutiveIntegersEvenCount": {
+      "countParity": "even",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "serialNumbersFixedStepEvenDifference": {
+      "countParity": "any",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "dailyIncrementTargetsEvenDifference": {
+      "countParity": "any",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "multiplesArithmeticProgressionEvenDifference": {
+      "countParity": "any",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "testScoresFixedStepOddDifferenceEvenCount": {
+      "countParity": "even",
+      "differences": [
+        3,
+        5
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "shiftTargetsFixedStepOddDifferenceEvenCount": {
+      "countParity": "even",
+      "differences": [
+        3,
+        5
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "fixedIntervalSequenceOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "priceTagsFixedStepEvenDifference": {
+      "countParity": "any",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "reverseDescribedApOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "weeklyOutputApOddDifferenceEvenCount": {
+      "countParity": "even",
+      "differences": [
+        3,
+        5
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "negativeToPositiveConsecutiveOddCount": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "negative"
+    },
+    "consecutiveIntegerMiddle": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "consecutiveEvenMiddle": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "consecutiveOddMiddle": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "startPool": "positive"
+    },
+    "seatNumberMiddle": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "houseNumberMiddle": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "targetMiddleEvenDifference": {
+      "countParity": "odd",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "scoreApMiddle": {
+      "countParity": "odd",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "fixedIntervalMiddleOddDifference": {
+      "countParity": "odd",
+      "differences": [
+        3,
+        5
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "dailyIncrementMiddle": {
+      "countParity": "odd",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "middleFromEndpointSymmetry": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "priceApMiddle": {
+      "countParity": "odd",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "rankScoreMiddle": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "startPool": "positive"
+    },
+    "largestConsecutiveIntegerOddCount": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "targetExtreme": "largest",
+      "startPool": "positive"
+    },
+    "smallestConsecutiveIntegerOddCount": {
+      "countParity": "odd",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "targetExtreme": "smallest",
+      "startPool": "positive"
+    },
+    "largestConsecutiveEvenOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "targetExtreme": "largest",
+      "startPool": "positive"
+    },
+    "smallestConsecutiveOddOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "targetExtreme": "smallest",
+      "startPool": "positive"
+    },
+    "largestSeatNumberFixedStep": {
+      "countParity": "any",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "targetExtreme": "largest",
+      "startPool": "positive"
+    },
+    "smallestProductionTargetFixedStep": {
+      "countParity": "any",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "targetExtreme": "smallest",
+      "startPool": "positive"
+    },
+    "largestApEvenCount": {
+      "countParity": "even",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "targetExtreme": "largest",
+      "startPool": "positive"
+    },
+    "smallestPriceApEvenCount": {
+      "countParity": "even",
+      "differences": [
+        2,
+        4,
+        6
+      ],
+      "termParity": "any",
+      "targetExtreme": "smallest",
+      "startPool": "positive"
+    },
+    "largestConsecutiveIntegerEvenCount": {
+      "countParity": "even",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "targetExtreme": "largest",
+      "startPool": "positive"
+    },
+    "smallestConsecutiveIntegerEvenCount": {
+      "countParity": "even",
+      "differences": [
+        1
+      ],
+      "termParity": "any",
+      "targetExtreme": "smallest",
+      "startPool": "positive"
+    },
+    "largestShiftTargetOddDifferenceEvenCount": {
+      "countParity": "even",
+      "differences": [
+        3,
+        5
+      ],
+      "termParity": "any",
+      "targetExtreme": "largest",
+      "startPool": "positive"
+    },
+    "smallestScoreOddDifferenceEvenCount": {
+      "countParity": "even",
+      "differences": [
+        3,
+        5
+      ],
+      "termParity": "any",
+      "targetExtreme": "smallest",
+      "startPool": "positive"
+    },
+    "averageConsecutiveEvenFromEndpointsOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "averageConsecutiveOddFromEndpointsOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "startPool": "positive"
+    },
+    "averageConsecutiveEvenFromFirstOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "averageConsecutiveOddFromFirstOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "startPool": "positive"
+    },
+    "averageEvenSeatNumbersOddCount": {
+      "countParity": "odd",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "averageConsecutiveEvenEvenCount": {
+      "countParity": "even",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "averageConsecutiveOddEvenCount": {
+      "countParity": "even",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "startPool": "positive"
+    },
+    "averageOddHouseNumbers": {
+      "countParity": "any",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "startPool": "positive"
+    },
+    "averageEvenRollNumbers": {
+      "countParity": "any",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "averageOddSequenceLargeCount": {
+      "countParity": "any",
+      "differences": [
+        2
+      ],
+      "termParity": "odd",
+      "startPool": "positive"
+    },
+    "averageEvenSequenceLargeCount": {
+      "countParity": "any",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    },
+    "averageEvenProductionCodes": {
+      "countParity": "any",
+      "differences": [
+        2
+      ],
+      "termParity": "even",
+      "startPool": "positive"
+    }
+  }
+}

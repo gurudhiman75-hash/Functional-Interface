@@ -1,0 +1,591 @@
+{
+  "packageId": "AVG-001",
+  "canonicalProblemId": "AVG-CP-002",
+  "status": "NOT_STARTED",
+  "languages": [
+    "hi",
+    "pa"
+  ],
+  "entries": [
+    {
+      "qlId": "AVG-QL-073",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive integers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-074",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average seat number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-075",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average house number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-076",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive integers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-077",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average serial number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-078",
+      "requiredVariables": [
+        "commonDifference",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average daily production target",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-079",
+      "requiredVariables": [
+        "firstTerm",
+        "nextTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the progression",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-080",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average practice-test score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-081",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average shift target",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-082",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the sequence",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-083",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average price in rupees",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-084",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm",
+        "count"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the arithmetic progression",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-085",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average output per period",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-086",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive integers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-087",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle integer",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-088",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle even number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-089",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle odd number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-090",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle seat number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-091",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle house number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-092",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle production target",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-093",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-094",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle term",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-095",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "target on the middle day",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-096",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle term",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-097",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "middle price in rupees",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-098",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "central score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-099",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "largest integer",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-100",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "smallest integer",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-101",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "largest even number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-102",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "smallest odd number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-103",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "largest seat number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-104",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "smallest production target",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-105",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "largest term",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-106",
+      "requiredVariables": [
+        "count",
+        "commonDifference",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "smallest price in rupees",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-107",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "largest integer",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-108",
+      "requiredVariables": [
+        "count",
+        "average"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "smallest integer",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-109",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "largest shift target",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-110",
+      "requiredVariables": [
+        "count",
+        "average",
+        "commonDifference"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "smallest score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-111",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive even numbers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-112",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive odd numbers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-113",
+      "requiredVariables": [
+        "firstTerm",
+        "count"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive even numbers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-114",
+      "requiredVariables": [
+        "firstTerm",
+        "count"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive odd numbers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-115",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average seat number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-116",
+      "requiredVariables": [
+        "count",
+        "firstTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive even numbers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-117",
+      "requiredVariables": [
+        "count",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the consecutive odd numbers",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-118",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average house number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-119",
+      "requiredVariables": [
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average roll number",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-120",
+      "requiredVariables": [
+        "count",
+        "firstTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the odd-number sequence",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-121",
+      "requiredVariables": [
+        "count",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average of the even-number sequence",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-122",
+      "requiredVariables": [
+        "count",
+        "firstTerm",
+        "lastTerm"
+      ],
+      "expectedEntitySlots": [],
+      "expectedUnitSlots": [],
+      "grammaticalContext": "average production code",
+      "localizationStatus": "NOT_STARTED"
+    }
+  ]
+}

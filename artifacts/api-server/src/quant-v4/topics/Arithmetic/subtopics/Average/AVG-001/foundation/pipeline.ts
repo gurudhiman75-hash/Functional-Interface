@@ -1,3 +1,4 @@
+import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { renderAvg001Explanation } from "./explanation-renderer";
 import { independentlyVerifyAvg001 } from "./independent-verifier";
@@ -29,6 +30,15 @@ export function runAvg001Pipeline(
   const seed = input.seed ?? `avg-001:${questionLanguageId}:default`;
   const language = input.language ?? "en";
   const entry = getAvg001QuestionEntry(questionLanguageId);
+
+  if (entry.cpId === "AVG-CP-002") {
+    return runAvg001Cp002Pipeline({
+      questionLanguageId,
+      seed,
+      language,
+    });
+  }
+
   const parameters = generateAvg001Parameters({
     questionLanguageId,
     seed,
