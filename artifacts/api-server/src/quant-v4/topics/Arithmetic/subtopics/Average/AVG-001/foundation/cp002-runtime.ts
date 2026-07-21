@@ -755,7 +755,9 @@ addCheck(
       line.includes("\\times") ||
       line.includes("\\div") ||
       line.includes("÷") ||
-      /[+−-]/.test(line),
+      line.includes("=") ||
+      /[+−-]/.test(line) ||
+      /symmetr|balance|halfway/i.test(line),
   ),
   "Explanation contains substituted arithmetic or symmetry evidence",
 );
