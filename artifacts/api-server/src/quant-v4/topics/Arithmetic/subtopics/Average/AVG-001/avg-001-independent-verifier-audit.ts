@@ -16,31 +16,13 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
     });
     cases += 1;
     if (!questionPackage.independentVerification.supported) unsupported += 1;
-    if (
-      !equals(
-        questionPackage.solver.exactAnswer,
-        questionPackage.independentVerification.exactAnswer,
-      )
-    ) {
-      mismatch += 1;
-    }
-    if (
-      questionPackage.answer !==
-      questionPackage.independentVerification.displayAnswer
-    ) {
-      displayMismatch += 1;
-    }
+    if (!equals(questionPackage.solver.exactAnswer, questionPackage.independentVerification.exactAnswer)) mismatch += 1;
+    if (questionPackage.answer !== questionPackage.independentVerification.displayAnswer) displayMismatch += 1;
   }
 }
 
-console.log(
-  JSON.stringify(
-    { cases, unsupported, mismatch, displayMismatch },
-    null,
-    2,
-  ),
-);
-assert.equal(cases, 888);
+console.log(JSON.stringify({ cases, unsupported, mismatch, displayMismatch }, null, 2));
+assert.equal(cases, 1056);
 assert.equal(unsupported, 0);
 assert.equal(mismatch, 0);
 assert.equal(displayMismatch, 0);

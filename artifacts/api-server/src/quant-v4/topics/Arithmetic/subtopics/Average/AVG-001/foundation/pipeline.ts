@@ -1,4 +1,5 @@
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
+import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { renderAvg001Explanation } from "./explanation-renderer";
 import { independentlyVerifyAvg001 } from "./independent-verifier";
@@ -32,35 +33,20 @@ export function runAvg001Pipeline(
   const entry = getAvg001QuestionEntry(questionLanguageId);
 
   if (entry.cpId === "AVG-CP-002") {
-    return runAvg001Cp002Pipeline({
-      questionLanguageId,
-      seed,
-      language,
-    });
+    return runAvg001Cp002Pipeline({ questionLanguageId, seed, language });
+  }
+  if (entry.cpId === "AVG-CP-003") {
+    return runAvg001Cp003Pipeline({ questionLanguageId, seed, language });
   }
 
-  const parameters = generateAvg001Parameters({
-    questionLanguageId,
-    seed,
-    language,
-  });
+  const parameters = generateAvg001Parameters({ questionLanguageId, seed, language });
   const solver = solveAvg001(parameters);
   const independentVerification = independentlyVerifyAvg001(parameters);
-  const reasoningEvidence = buildAvg001ReasoningEvidence(
-    parameters,
-    solver,
-  );
-  const explanation = renderAvg001Explanation(
-    parameters,
-    solver,
-    reasoningEvidence,
-  );
+  const reasoningEvidence = buildAvg001ReasoningEvidence(parameters, solver);
+  const explanation = renderAvg001Explanation(parameters, solver, reasoningEvidence);
   const stem = renderTemplate(entry.template, parameters.renderVariables);
   const { options, correctIndex } = generateAvg001Options(parameters, solver);
-  const mathematicalFingerprint = buildAvg001MathematicalFingerprint(
-    parameters,
-    solver,
-  );
+  const mathematicalFingerprint = buildAvg001MathematicalFingerprint(parameters, solver);
 
   const base = {
     packageId: AVG_001_PACKAGE_ID,
@@ -100,10 +86,7 @@ export function runAvg001Pipeline(
   const validation = validateAvg001QuestionPackage(base);
   if (!validation.valid) {
     throw new Error(
-      validation.checks
-        .filter((item) => !item.passed)
-        .map((item) => `${item.name}: ${item.message}`)
-        .join("\n"),
+      validation.checks.filter((item) => !item.passed).map((item) => `${item.name}: ${item.message}`).join("\n"),
     );
   }
   return { ...base, validation };
