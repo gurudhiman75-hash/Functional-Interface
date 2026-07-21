@@ -42,14 +42,31 @@ jobs:
 
       - name: Run AVG-001 proof gates
         run: |
-          set -euo pipefail
+          set -uo pipefail
+          LOG_DIR="$RUNNER_TEMP/avg-001-proof-logs"
+          mkdir -p "$LOG_DIR"
+          : > "$LOG_DIR/summary.tsv"
+          failed=0
 
           run_case() {
             name="$1"
             source="$2"
             output="dist/quant-v4/${name}.mjs"
-            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output"
-            (cd artifacts/api-server && node "$output")
+            log="$LOG_DIR/${name}.log"
+
+            echo "::group::${name}"
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" >"$log" 2>&1
+            status=$?
+            if [ "$status" -eq 0 ]; then
+              (cd artifacts/api-server && node "$output") >>"$log" 2>&1
+              status=$?
+            fi
+            cat "$log"
+            printf '%s\t%s\n' "$name" "$status" >> "$LOG_DIR/summary.tsv"
+            if [ "$status" -ne 0 ]; then
+              failed=1
+            fi
+            echo "::endgroup::"
           }
 
           run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
@@ -73,7 +90,20 @@ jobs:
           run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
           run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
 
+          cat "$LOG_DIR/summary.tsv"
+          exit "$failed"
+
+      - name: Upload proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-proof-diagnostics
+          path: ${{ runner.temp }}/avg-001-proof-logs
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Upload review CSVs
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: avg-001-runtime-proof-review
