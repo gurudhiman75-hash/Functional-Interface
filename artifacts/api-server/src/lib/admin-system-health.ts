@@ -51,6 +51,7 @@ const SENSITIVE_KEY = /(authorization|cookie|credential|password|passwd|secret|t
 const MAX_REDACTION_DEPTH = 6;
 const MAX_ARRAY_ITEMS = 100;
 const MAX_OBJECT_KEYS = 100;
+const MAX_TEXT_LENGTH = 4_000;
 
 function timestamp(value: string | Date | null | undefined): number | null {
   if (!value) return null;
@@ -70,7 +71,7 @@ export function assessOperationalJob(
 ): JobHealthAssessment {
   const status = String(job.status || "unknown").toLowerCase();
   if (status === "failed") {
-    return { level: "degraded", stale: false, issue: job.lastError || "Job failed." };
+    return { level: "degraded", stale: false, issue: redactOperationalText(job.lastError || "Job failed.") };
   }
   if (status === "running") {
     const heartbeatAge = ageMinutes(job.heartbeatAt, nowMs);
@@ -111,7 +112,7 @@ export function deriveSystemHealth(signals: SystemHealthSignals): SystemHealthSu
   if (signals.oldestPendingOutboxAgeMinutes !== null && signals.oldestPendingOutboxAgeMinutes > 30) {
     reasons.push("The oldest unpublished outbox event is more than 30 minutes old.");
   }
-  if (signals.staleJobCount > 0 || (signals.databaseLatencyMs ?? 0) > 1_500) {
+  if (signals.staleJobCount > 0 || (signals.databaseLatencyMs ?? 0) > 1_500 || (signals.oldestPendingOutboxAgeMinutes ?? 0) > 30) {
     return { level: "critical", headline: "Operational intervention required", reasons };
   }
 
@@ -125,16 +126,26 @@ export function deriveSystemHealth(signals: SystemHealthSignals): SystemHealthSu
   return { level: "healthy", headline: "Canonical services are within configured thresholds", reasons: [] };
 }
 
+export function redactOperationalText(value: unknown): string {
+  const raw = typeof value === "string" ? value : String(value ?? "");
+  const truncated = raw.length > MAX_TEXT_LENGTH ? `${raw.slice(0, MAX_TEXT_LENGTH)}…` : raw;
+  return truncated
+    .replace(/\bBearer\s+[A-Za-z0-9._~+/=-]+/gi, "Bearer [REDACTED]")
+    .replace(/\b(Basic)\s+[A-Za-z0-9+/=]+/gi, "$1 [REDACTED]")
+    .replace(/\b(postgres(?:ql)?|mysql|mongodb(?:\+srv)?)?:?\/\/([^\s:@/]+):([^\s@/]+)@/gi, (_match, scheme: string | undefined) => `${scheme || "database"}://[REDACTED]@`)
+    .replace(/\b(authorization|cookie|credential|password|passwd|secret|token|api[_-]?key|private[_-]?key|client[_-]?secret)\b\s*[:=]\s*["']?[^\s,"';]+["']?/gi, "$1=[REDACTED]");
+}
+
 function redact(value: unknown, depth: number): unknown {
   if (depth > MAX_REDACTION_DEPTH) return "[TRUNCATED]";
   if (value === null || value === undefined || typeof value === "number" || typeof value === "boolean") return value;
-  if (typeof value === "string") return value.length > 4_000 ? `${value.slice(0, 4_000)}…` : value;
+  if (typeof value === "string") return redactOperationalText(value);
   if (Array.isArray(value)) return value.slice(0, MAX_ARRAY_ITEMS).map((entry) => redact(entry, depth + 1));
   if (typeof value === "object") {
     const entries = Object.entries(value as Record<string, unknown>).slice(0, MAX_OBJECT_KEYS);
     return Object.fromEntries(entries.map(([key, entry]) => [key, SENSITIVE_KEY.test(key) ? "[REDACTED]" : redact(entry, depth + 1)]));
   }
-  return String(value);
+  return redactOperationalText(value);
 }
 
 export function redactOperationalTelemetry(value: unknown): unknown {
