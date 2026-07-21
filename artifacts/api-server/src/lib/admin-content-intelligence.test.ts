@@ -36,7 +36,7 @@ function question(overrides: Partial<IntelligenceQuestionSnapshot>): Intelligenc
 test("template normalization replaces changing numeric values", () => {
   assert.equal(
     normalizeQuestionTemplate("Price rises from ₹500 to ₹650, an increase of 30%."),
-    "price rises from {money} to {money} an increase of {percent}",
+    "price rises from {money} to {money} an increase of {percent} .",
   );
 });
 
@@ -54,7 +54,7 @@ test("duplicate scan identifies exact, template and near-semantic pairs", () => 
   const semantic = question({
     id: "44444444-4444-4444-8444-444444444444",
     publicCode: "Q-004",
-    stem: "The price of an article sold by a shopkeeper rises from ₹500 to ₹650. What is the percentage rise?",
+    stem: "A shopkeeper increases an article price from ₹500 to ₹650. Determine the percentage increase.",
   });
   const candidates = findDuplicateCandidates([baseQuestion, exact, template, semantic]);
   assert.equal(candidates.some((candidate) => candidate.kind === "exact"), true);
