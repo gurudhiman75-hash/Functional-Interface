@@ -81,6 +81,14 @@ function shown(pkg: Avg001QuestionPackage, key: string): string {
   return rationalText(renderVariables[key] ?? values[key]);
 }
 
+function shownEither(pkg: Avg001QuestionPackage, ...keys: string[]) {
+  for (const key of keys) {
+    const value = shown(pkg, key);
+    if (value) return value;
+  }
+  return "";
+}
+
 function calculation(pkg: Avg001QuestionPackage): string {
   return (
     pkg.explanation.lines.find((line) => /\$\$/.test(line)) ??
@@ -195,26 +203,27 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   const newCount = shown(pkg, "newCount");
   const oldAverage = shown(pkg, "oldAverage");
   const newAverage = shown(pkg, "newAverage");
-  const addedValue = shown(pkg, "addedValue");
+  const addedValue = shownEither(pkg, "addedValue", "nextScore");
   const removedValue = shown(pkg, "removedValue");
-  const outgoingValue = shown(pkg, "outgoingValue");
-  const incomingValue = shown(pkg, "incomingValue");
-  const elapsedYears = Number(values.elapsedYears ?? 0);
+  const outgoingValue = shownEither(pkg, "outgoingValue", "oldValue");
+  const incomingValue = shownEither(pkg, "incomingValue", "newValue");
+  const elapsedYears = Number(values.elapsedYears ?? values.yearsElapsed ?? 0);
   const ageScenario = /Years|Elapsed/.test(pkg.parameters.scenarioVariant);
-  const oldAverageNumber = numericValue(values.oldAverage);
-  const oldCountNumber = Number(values.oldCount ?? oldCount);
+  const oldAverageNumber = numericValue(values.oldAverage ?? values.average);
+  const oldCountNumber = Number(values.oldCount ?? values.count ?? oldCount);
   const averageAtChange = ageScenario
     ? oldAverageNumber + elapsedYears
     : oldAverageNumber;
   const oldTotalAtChange = cleanNumber(averageAtChange * oldCountNumber);
   const averageAtChangeText = cleanNumber(averageAtChange);
+  const ageLine = ageScenario
+    ? `After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`
+    : null;
 
   switch (pkg.solveMode) {
     case "findNewAverageAfterAddition":
       return withLines(pkg, [
-        ...(ageScenario
-          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
-          : []),
+        ...(ageLine ? [ageLine] : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
         `Add ${addedValue}; then divide the new total by ${newCount}.`,
         calculation(pkg),
@@ -222,9 +231,7 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
 
     case "findNewAverageAfterRemoval":
       return withLines(pkg, [
-        ...(ageScenario
-          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
-          : []),
+        ...(ageLine ? [ageLine] : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
         `Subtract ${removedValue}; then divide the remaining total by ${newCount}.`,
         calculation(pkg),
@@ -232,16 +239,15 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
 
     case "findNewAverageAfterReplacement":
       return withLines(pkg, [
-        `The count stays ${oldCount}.`,
-        `Replace ${outgoingValue} with ${incomingValue}; only the total changes.`,
+        ...(ageLine ? [ageLine] : []),
+        `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
+        `Replace ${outgoingValue} with ${incomingValue}; the count stays ${oldCount}.`,
         calculation(pkg),
       ]);
 
     case "findAddedMemberValueFromShift":
       return withLines(pkg, [
-        ...(ageScenario
-          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
-          : []),
+        ...(ageLine ? [ageLine] : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
         `New total = ${newAverage} × ${newCount}.`,
         `The difference between the two totals gives the new value.`,
@@ -250,9 +256,7 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
 
     case "findRemovedMemberValueFromShift":
       return withLines(pkg, [
-        ...(ageScenario
-          ? [`After ${elapsedYears} years, the old average becomes ${averageAtChangeText}.`]
-          : []),
+        ...(ageLine ? [ageLine] : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
         `Remaining total = ${newAverage} × ${newCount}.`,
         `The difference between these totals gives the removed value.`,
@@ -260,11 +264,16 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
       ]);
 
     case "findReplacementValueFromShift": {
-      const increase = numericValue(values.newAverage) - numericValue(values.oldAverage);
+      const increase = numericValue(values.newAverage) - averageAtChange;
+      const totalChange = cleanNumber(Math.abs(increase * oldCountNumber));
+      const replacementTarget = String(values.replacementTarget ?? "new");
       return withLines(pkg, [
-        `The count stays ${oldCount}, and the average rises by ${cleanNumber(increase)}.`,
-        `So the total rises by ${cleanNumber(increase)} × ${oldCount}.`,
-        `Add this rise to the outgoing value ${outgoingValue}.`,
+        ...(ageLine ? [ageLine] : []),
+        `The count stays ${oldCount}, and the average ${increase >= 0 ? "rises" : "falls"} by ${cleanNumber(Math.abs(increase))}.`,
+        `So the total ${increase >= 0 ? "rises" : "falls"} by ${totalChange}.`,
+        replacementTarget === "old"
+          ? `Compare this change with the known incoming value ${incomingValue}.`
+          : `Apply this change to the outgoing value ${outgoingValue}.`,
         calculation(pkg),
       ]);
     }
