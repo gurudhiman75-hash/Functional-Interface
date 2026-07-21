@@ -33,6 +33,9 @@ const ExamBlueprintsPage = lazy(() =>
 const TestSeriesPage = lazy(() =>
   import('@/pages/tests/TestSeriesWorkspacePage').then((module) => ({ default: module.TestSeriesWorkspacePage })),
 );
+const SystemHealthPage = lazy(() =>
+  import('@/pages/analytics/SystemHealthWorkspacePage').then((module) => ({ default: module.SystemHealthWorkspacePage })),
+);
 const AdminTeamPage = lazy(() =>
   import('@/pages/users/AdminTeamWorkspacePage').then((module) => ({ default: module.AdminTeamWorkspacePage })),
 );
@@ -80,6 +83,7 @@ const router = createBrowserRouter([
       { path: '/commerce/*', element: <PendingWorkspacePage /> },
       { path: '/users/team', element: <AdminTeamPage /> },
       { path: '/users/*', element: <PendingWorkspacePage /> },
+      { path: '/analytics/system-health', element: <SystemHealthPage /> },
       { path: '/analytics/*', element: <PendingWorkspacePage /> },
       { path: '/settings/roles', element: <RolesPermissionsPage /> },
       { path: '/settings/audit-logs', element: <AuditLogsPage /> },
