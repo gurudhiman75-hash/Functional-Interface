@@ -25,6 +25,11 @@ const registryById = new Map(
     .map((entry) => [entry.qlId, entry]),
 );
 
+const PLACEHOLDER_ALIASES: Record<string, string> = {
+  elapsedYears: "yearsElapsed",
+  yearsElapsed: "elapsedYears",
+};
+
 export function getAvg001QuestionEntries() {
   return [...entries];
 }
@@ -57,11 +62,13 @@ export function renderTemplate(
 ) {
   const unresolved: string[] = [];
   const rendered = template.replace(/\{([A-Za-z0-9_]+)\}/g, (_, key) => {
-    if (!(key in variables)) {
-      unresolved.push(key);
-      return `{${key}}`;
-    }
-    return String(variables[key]);
+    if (key in variables) return String(variables[key]);
+
+    const alias = PLACEHOLDER_ALIASES[key];
+    if (alias && alias in variables) return String(variables[alias]);
+
+    unresolved.push(key);
+    return `{${key}}`;
   });
   if (unresolved.length) {
     throw new Error(
