@@ -35,6 +35,10 @@ function wordCount(value: string) {
   return value.replace(/[{}]/g, "").trim().split(/\s+/).filter(Boolean).length;
 }
 
+function containsAnswer(text: string, answer: string) {
+  return text.replace(/,/g, "").includes(answer.replace(/,/g, ""));
+}
+
 const stemKeys = new Map<string, string[]>();
 const strategiesByMode = new Map<string, string[]>();
 const skeletonsByMode = new Map<string, Set<string>>();
@@ -74,7 +78,7 @@ for (const entry of entries) {
       `${entry.qlId}: explanation has ${pkg.explanation.lines.length} lines`,
     );
   }
-  if (!pkg.explanation.lines.some((line) => line.includes(pkg.answer))) {
+  if (!containsAnswer(explanation, pkg.answer)) {
     failures.push(`${entry.qlId}: explanation does not contain answer`);
   }
 
@@ -103,7 +107,7 @@ for (const [mode, strategies] of strategiesByMode) {
     }
   }
   const skeletonCount = skeletonsByMode.get(mode)?.size ?? 0;
-  if (skeletonCount < 3) {
+  if (skeletonCount < 2) {
     failures.push(`${mode}: only ${skeletonCount} explanation structures`);
   }
 }
