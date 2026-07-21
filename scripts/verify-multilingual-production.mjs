@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 
 const DEFAULT_BASE_URL = 'https://examtree-new.onrender.com';
 const DEFAULT_ALLOWED_ORIGIN = 'https://sarbedutech.web.app';
+const DEFAULT_FIREBASE_AUTH_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword';
 const DEFAULT_REPORT_PATH = 'artifacts/reports/multilingual-production-smoke.json';
 
 function normaliseBaseUrl(value) {
@@ -13,6 +14,11 @@ function normaliseBaseUrl(value) {
     throw new Error(`Unsupported production URL protocol: ${parsed.protocol}`);
   }
   return parsed.toString().replace(/\/$/, '');
+}
+
+function safeUrlLabel(value) {
+  const parsed = new URL(value);
+  return `${parsed.origin}${parsed.pathname}`;
 }
 
 function elapsedMilliseconds(startedAt) {
@@ -25,7 +31,7 @@ async function readJson(response) {
   try {
     return JSON.parse(text);
   } catch {
-    throw new Error(`Expected JSON from ${response.url}, received: ${text.slice(0, 180)}`);
+    throw new Error(`Expected JSON from ${safeUrlLabel(response.url)}, received: ${text.slice(0, 180)}`);
   }
 }
 
@@ -35,7 +41,9 @@ async function requestWithRetry({
   acceptedStatuses,
   attempts,
   initialDelayMs,
+  label,
 }) {
+  const requestLabel = label || safeUrlLabel(url);
   let lastError;
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     const startedAt = performance.now();
@@ -51,7 +59,7 @@ async function requestWithRetry({
       }
       const body = await response.text().catch(() => '');
       lastError = new Error(
-        `${init?.method || 'GET'} ${url} returned ${response.status}; expected ${acceptedStatuses.join(', ')}. ${body.slice(0, 180)}`,
+        `${init?.method || 'GET'} ${requestLabel} returned ${response.status}; expected ${acceptedStatuses.join(', ')}. ${body.slice(0, 180)}`,
       );
       if (response.status < 500 && response.status !== 429) throw lastError;
     } catch (error) {
@@ -60,11 +68,11 @@ async function requestWithRetry({
 
     if (attempt < attempts) {
       const delayMs = initialDelayMs * attempt;
-      process.stdout.write(`Retrying ${url} after attempt ${attempt}: ${lastError.message}\n`);
+      process.stdout.write(`Retrying ${requestLabel} after attempt ${attempt}: ${lastError.message}\n`);
       await new Promise((resolve) => setTimeout(resolve, delayMs));
     }
   }
-  throw lastError || new Error(`Request failed: ${url}`);
+  throw lastError || new Error(`Request failed: ${requestLabel}`);
 }
 
 function assertOverviewShape(overview) {
@@ -83,6 +91,51 @@ function assertOverviewShape(overview) {
   }
 }
 
+async function resolveAdminAuthentication(options, retryOptions) {
+  const directToken = (options.adminToken ?? process.env.EXAMTREE_ADMIN_ID_TOKEN ?? '').trim();
+  if (directToken) {
+    return { token: directToken, mode: 'provided_id_token' };
+  }
+
+  const email = (options.adminEmail ?? process.env.EXAMTREE_SMOKE_ADMIN_EMAIL ?? '').trim();
+  const password = options.adminPassword ?? process.env.EXAMTREE_SMOKE_ADMIN_PASSWORD ?? '';
+  const apiKey = (options.firebaseApiKey ?? process.env.EXAMTREE_FIREBASE_API_KEY ?? '').trim();
+  const configuredValues = [email, password, apiKey].filter(Boolean).length;
+  if (configuredValues === 0) {
+    return { token: '', mode: 'not_configured' };
+  }
+  if (configuredValues !== 3) {
+    throw new Error(
+      'Authenticated smoke configuration is incomplete. Configure EXAMTREE_SMOKE_ADMIN_EMAIL, EXAMTREE_SMOKE_ADMIN_PASSWORD and EXAMTREE_FIREBASE_API_KEY together.',
+    );
+  }
+
+  const firebaseAuthUrl = new URL(
+    options.firebaseAuthUrl || process.env.EXAMTREE_FIREBASE_AUTH_URL || DEFAULT_FIREBASE_AUTH_URL,
+  );
+  firebaseAuthUrl.searchParams.set('key', apiKey);
+
+  const authResult = await requestWithRetry({
+    url: firebaseAuthUrl.toString(),
+    init: {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password, returnSecureToken: true }),
+    },
+    acceptedStatuses: [200],
+    attempts: retryOptions.attempts,
+    initialDelayMs: retryOptions.initialDelayMs,
+    label: `${firebaseAuthUrl.origin}${firebaseAuthUrl.pathname}`,
+  });
+  const authPayload = await readJson(authResult.response);
+  assert.ok(typeof authPayload?.idToken === 'string' && authPayload.idToken.length > 20, 'Firebase sign-in did not return an ID token.');
+  return {
+    token: authPayload.idToken,
+    mode: 'firebase_password',
+    durationMs: authResult.durationMs,
+  };
+}
+
 async function writeReport(outputPath, report) {
   if (!outputPath) return;
   await mkdir(path.dirname(outputPath), { recursive: true });
@@ -92,12 +145,13 @@ async function writeReport(outputPath, report) {
 export async function runProductionSmoke(options = {}) {
   const baseUrl = normaliseBaseUrl(options.baseUrl || process.env.EXAMTREE_BASE_URL);
   const allowedOrigin = (options.allowedOrigin || process.env.EXAMTREE_ALLOWED_ORIGIN || DEFAULT_ALLOWED_ORIGIN).trim();
-  const adminToken = (options.adminToken ?? process.env.EXAMTREE_ADMIN_ID_TOKEN ?? '').trim();
   const outputPath = options.outputPath === undefined
     ? (process.env.EXAMTREE_SMOKE_REPORT_PATH || DEFAULT_REPORT_PATH)
     : options.outputPath;
   const attempts = Number(options.attempts ?? process.env.EXAMTREE_SMOKE_ATTEMPTS ?? 8);
   const initialDelayMs = Number(options.initialDelayMs ?? process.env.EXAMTREE_SMOKE_INITIAL_DELAY_MS ?? 4_000);
+  assert.ok(Number.isInteger(attempts) && attempts > 0, 'Smoke attempts must be a positive integer.');
+  assert.ok(Number.isFinite(initialDelayMs) && initialDelayMs >= 0, 'Smoke retry delay must be non-negative.');
 
   const report = {
     ok: false,
@@ -190,8 +244,13 @@ export async function runProductionSmoke(options = {}) {
       durationMs: adminSpaResult.durationMs,
     };
 
-    if (adminToken) {
-      const authHeaders = { Authorization: `Bearer ${adminToken}` };
+    const authentication = await resolveAdminAuthentication(options, { attempts, initialDelayMs });
+    report.checks.authenticationBootstrap = authentication.token
+      ? { status: 'passed', mode: authentication.mode, durationMs: authentication.durationMs ?? null }
+      : { status: 'skipped', mode: authentication.mode };
+
+    if (authentication.token) {
+      const authHeaders = { Authorization: `Bearer ${authentication.token}` };
       const overviewResult = await requestWithRetry({
         url: `${baseUrl}/api/admin/translations/overview`,
         init: { headers: authHeaders },
@@ -228,18 +287,18 @@ export async function runProductionSmoke(options = {}) {
         authenticated.questionDetail = 'passed';
       }
 
-      const test = overview.tests.find((item) => item?.testVersionId && Array.isArray(item.languageCodes));
-      const targetLanguage = test?.languageCodes?.find((code) => String(code).toLowerCase() !== 'en');
-      if (test && targetLanguage) {
+      const testSummary = overview.tests.find((item) => item?.testVersionId && Array.isArray(item.languageCodes));
+      const targetLanguage = testSummary?.languageCodes?.find((code) => String(code).toLowerCase() !== 'en');
+      if (testSummary && targetLanguage) {
         const testResult = await requestWithRetry({
-          url: `${baseUrl}/api/admin/translations/tests/${encodeURIComponent(test.testVersionId)}/languages/${encodeURIComponent(targetLanguage)}`,
+          url: `${baseUrl}/api/admin/translations/tests/${encodeURIComponent(testSummary.testVersionId)}/languages/${encodeURIComponent(targetLanguage)}`,
           init: { headers: authHeaders },
           acceptedStatuses: [200],
           attempts,
           initialDelayMs,
         });
         const testDetail = await readJson(testResult.response);
-        assert.equal(testDetail?.source?.testVersionId, test.testVersionId);
+        assert.equal(testDetail?.source?.testVersionId, testSummary.testVersionId);
         assert.equal(String(testDetail?.language?.code).toLowerCase(), String(targetLanguage).toLowerCase());
         authenticated.testDetail = 'passed';
       }
@@ -248,7 +307,7 @@ export async function runProductionSmoke(options = {}) {
     } else {
       report.checks.authenticatedTranslationReads = {
         status: 'skipped',
-        reason: 'EXAMTREE_ADMIN_ID_TOKEN is not configured.',
+        reason: 'No smoke administrator credentials are configured.',
       };
     }
 
