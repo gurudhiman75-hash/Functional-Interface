@@ -65,7 +65,10 @@ for (const entry of getAvg001QuestionEntries()) {
     const lines = pkg.explanation.lines.map((line) => line.trim()).filter(Boolean);
     const equationLines = lines.filter((line) => /\$\$/.test(line));
     const conclusionLines = lines.filter(
-      (line) => containsAnswer(line, pkg.answer) && !/\$\$/.test(line),
+      (line) =>
+        /^(therefore|hence|so|thus)\b/i.test(line) &&
+        containsAnswer(line, pkg.answer) &&
+        !/\$\$/.test(line),
     );
     const reasoningLines = lines.filter(
       (line) => !/\$\$/.test(line) && !conclusionLines.includes(line),
