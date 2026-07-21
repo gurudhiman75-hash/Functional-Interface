@@ -73,7 +73,8 @@ export function AdminTeamWorkspacePage() {
     role.isActive && !workspace.selectedMember?.roles.some((grant) => grant.id === role.id)
   )), [workspace.roles, workspace.selectedMember]);
 
-  const openEdit = (member: AdminMember) => {
+  const openEdit = (member: AdminMember | null) => {
+    if (!member) return;
     workspace.setSelectedUserId(member.id);
     setProfileName(member.displayName);
     setProfileDepartment(member.department ?? '');
