@@ -60,6 +60,7 @@ jobs:
           grep -R "question_studio.generation_run.created" artifacts/api-server/dist >/dev/null
           grep -R "assessment.test.published" artifacts/api-server/dist >/dev/null
           grep -R "ATTEMPT_SESSION_REQUIRED" artifacts/api-server/dist >/dev/null
+          grep -R "LEGACY_FEATURE_RETIRED" artifacts/api-server/dist/index.mjs >/dev/null
           ! grep -R "ADMIN_DATABASE_URL" artifacts/api-server/dist
           ! grep -R "adminSqlClient\|studentSqlClient" artifacts/api-server/dist
-          ! grep -R "refreshLeaderboard\|LegacyAttempt\|mock-unlock" artifacts/api-server/dist/index.mjs
+          ! grep -R "refreshLeaderboard\|LegacyAttempt" artifacts/api-server/dist/index.mjs
