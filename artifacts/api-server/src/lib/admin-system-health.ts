@@ -130,10 +130,11 @@ export function redactOperationalText(value: unknown): string {
   const raw = typeof value === "string" ? value : String(value ?? "");
   const truncated = raw.length > MAX_TEXT_LENGTH ? `${raw.slice(0, MAX_TEXT_LENGTH)}…` : raw;
   return truncated
+    .replace(/\bAuthorization\s*[:=]\s*(?:(?:Bearer|Basic)\s+)?[^\s,;]+/gi, "Authorization=[REDACTED]")
     .replace(/\bBearer\s+[A-Za-z0-9._~+/=-]+/gi, "Bearer [REDACTED]")
-    .replace(/\b(Basic)\s+[A-Za-z0-9+/=]+/gi, "$1 [REDACTED]")
+    .replace(/\bBasic\s+[A-Za-z0-9+/=]+/gi, "Basic [REDACTED]")
     .replace(/\b(postgres(?:ql)?|mysql|mongodb(?:\+srv)?)?:?\/\/([^\s:@/]+):([^\s@/]+)@/gi, (_match, scheme: string | undefined) => `${scheme || "database"}://[REDACTED]@`)
-    .replace(/\b(authorization|cookie|credential|password|passwd|secret|token|api[_-]?key|private[_-]?key|client[_-]?secret)\b\s*[:=]\s*["']?[^\s,"';]+["']?/gi, "$1=[REDACTED]");
+    .replace(/\b(cookie|credential|password|passwd|secret|token|api[_-]?key|private[_-]?key|client[_-]?secret)\b\s*[:=]\s*["']?[^\s,"';]+["']?/gi, "$1=[REDACTED]");
 }
 
 function redact(value: unknown, depth: number): unknown {
