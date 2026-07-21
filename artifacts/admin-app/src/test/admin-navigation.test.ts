@@ -18,7 +18,7 @@ describe('admin navigation roadmap', () => {
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Content Review', 'Coverage Planner', 'Sections & Topics',
       'Test QA', 'Test Series', 'Exam Blueprints', 'Packages', 'Students', 'Admin Team',
-      'Question Analytics', 'Roles & Permissions', 'Audit Logs',
+      'Question Analytics', 'System Health', 'Roles & Permissions', 'Audit Logs',
     ]));
   });
 
@@ -47,10 +47,11 @@ describe('admin navigation roadmap', () => {
       '/tests/series',
       '/tests/blueprints',
       '/users/team',
+      '/analytics/system-health',
       '/settings/roles',
       '/settings/audit-logs',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 14, in_progress: 7, planned: 12 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 15, in_progress: 6, planned: 12 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -61,6 +62,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/tests/series']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/blueprints']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/users/team']?.permission).toBe('users.admins.read');
+    expect(NAV_LOOKUP['/analytics/system-health']?.permission).toBe('jobs.read');
     expect(NAV_LOOKUP['/settings/roles']?.permission).toBe('settings.roles.manage');
     expect(NAV_LOOKUP['/settings/audit-logs']?.permission).toBe('audit.read');
   });
