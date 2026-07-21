@@ -13,7 +13,7 @@ const editorialStemOverrides: Record<string, string> = {
   "AVG-QL-023": "A rider covers an average of {average} km per day for {count} days. The distance covered in the first {knownCount} days is {knownTotal} km. Find the distance covered on the remaining day.",
 
   "AVG-QL-073": "What is the mean of the {count} consecutive integers from {firstTerm} to {lastTerm}?",
-  "AVG-QL-074": "Seats in a row are numbered consecutively from {firstTerm} to {lastTerm}, giving {count} seat numbers. Find their mean.",
+  "AVG-QL-074": "A row contains {count} seats numbered consecutively from {firstTerm} to {lastTerm}. Find the mean seat number.",
   "AVG-QL-075": "The house numbers from {firstTerm} to {lastTerm} are consecutive. Find their mean.",
   "AVG-QL-076": "The first and last of {count} consecutive integers are {firstTerm} and {lastTerm}. Find their mean.",
   "AVG-QL-077": "An arithmetic progression begins at {firstTerm}, ends at {lastTerm}, and has common difference {commonDifference}. Find its mean.",
@@ -25,7 +25,7 @@ const editorialStemOverrides: Record<string, string> = {
   "AVG-QL-083": "The prices of {count} items form an arithmetic progression from ₹{firstTerm} to ₹{lastTerm}, with common difference ₹{commonDifference}. Find the mean price.",
   "AVG-QL-084": "The first and last terms of an arithmetic progression with {count} terms are {firstTerm} and {lastTerm}. Find the mean of all its terms.",
   "AVG-QL-085": "Output in {count} successive periods forms an arithmetic progression from {firstTerm} units to {lastTerm} units. Find the mean output.",
-  "AVG-QL-086": "The {count} consecutive integers from {firstTerm} to {lastTerm} include negative and positive terms. Find their mean.",
+  "AVG-QL-086": "There are {count} consecutive integers from {firstTerm} to {lastTerm}. Find their mean.",
   "AVG-QL-087": "The mean of {count} consecutive integers is {average}. Find the middle integer.",
   "AVG-QL-088": "The mean of {count} consecutive even numbers is {average}. Find the middle term.",
   "AVG-QL-089": "The mean of {count} consecutive odd numbers is {average}. Find the middle term.",
@@ -75,7 +75,7 @@ const editorialStemOverrides: Record<string, string> = {
   "AVG-QL-132": "The average age of {oldCount} people was {oldAverage} years. After {elapsedYears} years, one person leaves and the average of the remaining group becomes {newAverage} years. Find the person's age at leaving.",
   "AVG-QL-133": "The average score in {oldCount} tests is {oldAverage}. A recorded score of {outgoingValue} is corrected, raising the average to {newAverage}. Find the corrected score.",
   "AVG-QL-134": "The average output of {oldCount} workers is {oldAverage} units. A worker producing {outgoingValue} units is replaced, raising the average to {newAverage} units. Find the new worker's output.",
-  "AVG-QL-135": "A batter averages {oldAverage} runs after {inningsCount} innings. How many runs must be scored in the next innings to raise the average to {newAverage}?",
+  "AVG-QL-135": "A batter averages {oldAverage} runs after {inningsCount} innings. How many runs must the batter score in the next innings to raise the average to {newAverage}?",
   "AVG-QL-136": "A batter averages {oldAverage} runs after {inningsCount} innings and scores {addedValue} runs in the next innings. Find the revised batting average.",
 };
 
