@@ -45,10 +45,9 @@ function numericValue(value: unknown): number {
 }
 
 function containsAnswer(line: string, answer: string) {
-  const normalizedLine = line.replace(/,/g, "");
-  const normalizedAnswer = answer.replace(/,/g, "");
-  const escaped = normalizedAnswer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`(^|[^0-9.])${escaped}([^0-9.]|$)`).test(normalizedLine);
+  const tokens =
+    line.replace(/,/g, "").match(/-?\d+(?:\.\d+)?(?:\/\d+)?/g) ?? [];
+  return tokens.includes(answer.replace(/,/g, ""));
 }
 
 for (const entry of getAvg001QuestionEntries()) {
