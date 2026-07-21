@@ -27,7 +27,11 @@ runtime = root / "foundation/cp002-runtime.ts"
 text = runtime.read_text(encoding="utf-8")
 renderer = (root / "cp002-renderer.editorial.txt").read_text(encoding="utf-8").rstrip()
 pattern = re.compile(r"function renderCp002Explanation\([\s\S]*?\nfunction formatOption\(")
-updated, count = pattern.subn(renderer + "\n\nfunction formatOption(", text, count=1)
+updated, count = pattern.subn(
+    lambda _: renderer + "\n\nfunction formatOption(",
+    text,
+    count=1,
+)
 if count != 1:
     raise SystemExit(f"Could not replace CP-002 renderer; matches={count}")
 runtime.write_text(updated, encoding="utf-8")
