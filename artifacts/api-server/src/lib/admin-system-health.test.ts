@@ -102,7 +102,7 @@ test("operational telemetry redacts secrets recursively and inside text", () => 
   });
   assert.equal(
     redactOperationalText("Authorization: Bearer abc.def and postgresql://admin:password@host/db"),
-    "Authorization=Bearer [REDACTED] and postgresql://[REDACTED]@host/db",
+    "Authorization=[REDACTED] and postgresql://[REDACTED]@host/db",
   );
 });
 
