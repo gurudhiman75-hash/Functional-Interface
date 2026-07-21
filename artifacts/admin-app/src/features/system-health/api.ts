@@ -68,9 +68,12 @@ export interface OperationalJob {
   latestLog: OperationalJobLog | null;
   payload?: unknown;
   result?: unknown;
-  attemptsDetail?: OperationalJobAttempt[];
-  logs?: OperationalJobLog[];
 }
+
+export type OperationalJobDetail = Omit<OperationalJob, 'attempts' | 'attemptRecordCount' | 'logRecordCount' | 'latestAttempt' | 'latestLog'> & {
+  attempts: OperationalJobAttempt[];
+  logs: OperationalJobLog[];
+};
 
 export interface OperationalErrorEvent {
   id: string;
@@ -210,7 +213,7 @@ export function getSystemHealthOverview() {
 }
 
 export function getOperationalJob(jobId: string) {
-  return request<{ job: OperationalJob & { attempts: OperationalJobAttempt[]; logs: OperationalJobLog[] }; generatedAt: string }>(
+  return request<{ job: OperationalJobDetail; generatedAt: string }>(
     `/admin/system-health/jobs/${encodeURIComponent(jobId)}`,
   );
 }
@@ -220,7 +223,7 @@ export function performOperationalJobAction(input: {
   action: 'retry' | 'cancel';
   reason: string;
 }) {
-  return request<{ job: OperationalJob; action: string; updatedAt: string }>(
+  return request<{ job: OperationalJobDetail; action: string; updatedAt: string }>(
     `/admin/system-health/jobs/${encodeURIComponent(input.jobId)}/actions`,
     { method: 'POST', body: JSON.stringify({ action: input.action, reason: input.reason }) },
   );
