@@ -743,8 +743,26 @@ function validateCp002(
   );
   addCheck(
     "explanation-depth",
-    pkg.explanation.lines.length >= 6,
-    "Explanation contains at least six meaningful moves",
+    pkg.explanation.lines.length >= 4 &&
+      pkg.explanation.lines.length <= 8,
+    "Explanation contains 4–8 meaningful moves",
+  );
+  addCheck(
+    "explanation-arithmetic",
+    pkg.explanation.lines.some(
+      (line) =>
+        line.includes("\\times") ||
+        line.includes("\\div") ||
+        line.includes("÷") ||
+        line.includes("+") ||
+        line.includes("−"),
+    ),
+    "Explanation contains actual arithmetic",
+  );
+  addCheck(
+    "explanation-answer",
+    pkg.explanation.lines.some((line) => line.includes(pkg.answer)),
+    "Explanation contains the final answer",
   );
   addCheck(
     "maturity",
