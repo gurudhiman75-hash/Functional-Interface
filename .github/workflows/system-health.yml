@@ -1,0 +1,102 @@
+name: Validate system health operations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/admin-system-health.ts
+      - artifacts/api-server/src/lib/admin-system-health.test.ts
+      - artifacts/api-server/src/routes/admin-system-health.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/system-health/**
+      - artifacts/admin-app/src/pages/analytics/SystemHealthWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/frontend-truth-audit.md
+      - .github/workflows/system-health.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/lib/admin-system-health.ts
+      - artifacts/api-server/src/lib/admin-system-health.test.ts
+      - artifacts/api-server/src/routes/admin-system-health.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/system-health/**
+      - artifacts/admin-app/src/pages/analytics/SystemHealthWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/frontend-truth-audit.md
+      - .github/workflows/system-health.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-system-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-system-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical operations boundary
+        run: |
+          grep -F 'adminSystemHealthRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'operations.jobs' artifacts/api-server/src/routes/admin-system-health.ts
+          grep -F 'operations.job_attempts' artifacts/api-server/src/routes/admin-system-health.ts
+          grep -F 'operations.job_logs' artifacts/api-server/src/routes/admin-system-health.ts
+          grep -F 'platform.outbox_events' artifacts/api-server/src/routes/admin-system-health.ts
+          grep -F 'redactOperationalTelemetry' artifacts/api-server/src/lib/admin-system-health.ts
+          grep -F 'operations.job.retry_requested' artifacts/api-server/src/routes/admin-system-health.ts
+          grep -F 'SystemHealthWorkspacePage' artifacts/admin-app/src/App.tsx
+          grep -F "path: '/analytics/system-health'" artifacts/admin-app/src/app/nav/navigation.ts
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/analytics/SystemHealthWorkspacePage.tsx
+          ! grep -F 'localStorage' artifacts/admin-app/src/features/system-health/api.ts
+          ! grep -F 'DATABASE_URL' artifacts/admin-app/src/features/system-health/api.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify System Health routes are bundled
+        run: |
+          grep -R 'operations.job.retry_requested' artifacts/api-server/dist >/dev/null
+          grep -R 'JOB_CANCEL_NOT_ALLOWED' artifacts/api-server/dist >/dev/null
+          grep -R 'Request exception capture' artifacts/api-server/dist >/dev/null
+          grep -R 'outbox publisher' artifacts/api-server/dist >/dev/null
+
+      - name: Test System Health contracts
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-system-health.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-system-health.test.mjs
+          node artifacts/api-server/dist/admin-system-health.test.mjs
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Test admin application
+        run: pnpm run test:admin
+
+      - name: Build admin application
+        run: pnpm run build:admin
