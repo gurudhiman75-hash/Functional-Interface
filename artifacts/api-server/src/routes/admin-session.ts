@@ -8,10 +8,16 @@ import {
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
+export type AdminBootstrapIdentity = {
+  firebaseUid: string;
+  email?: string;
+  emailVerified?: boolean;
+};
+
 export type AdminSessionRouteDependencies = {
   authenticate: RequestHandler;
   isDatabaseConfigured: () => boolean;
-  isAdministrator: (firebaseUid: string) => Promise<boolean>;
+  isAdministrator: (identity: AdminBootstrapIdentity) => Promise<boolean>;
   bootstrap: (input: {
     firebaseUid: string;
     email?: string;
@@ -19,20 +25,27 @@ export type AdminSessionRouteDependencies = {
   }) => Promise<AdminBootstrapResult>;
 };
 
-export async function isCanonicalAdministrator(firebaseUid: string): Promise<boolean> {
+export async function isCanonicalAdministrator(identity: AdminBootstrapIdentity): Promise<boolean> {
+  const normalizedEmail = identity.email?.trim().toLowerCase() || null;
   const rows = await sqlClient`
     SELECT 1
-    FROM identity.auth_identities ai
-    JOIN identity.user_roles ur
-      ON ur.user_id = ai.user_id
-     AND ur.revoked_at IS NULL
-     AND (ur.valid_until IS NULL OR ur.valid_until > now())
-    JOIN identity.roles r
-      ON r.id = ur.role_id
-     AND r.key = 'super_admin'
-     AND r.is_active = true
-    WHERE ai.provider = 'firebase'
-      AND ai.provider_subject = ${firebaseUid}
+    FROM identity.users u
+    JOIN identity.admin_profiles p
+      ON p.user_id = u.id
+     AND p.is_suspended = false
+    LEFT JOIN identity.auth_identities ai
+      ON ai.user_id = u.id
+     AND ai.provider = 'firebase'
+    WHERE u.deleted_at IS NULL
+      AND u.status IN ('active'::user_status, 'invited'::user_status)
+      AND (
+        ai.provider_subject = ${identity.firebaseUid}
+        OR (
+          ${identity.emailVerified === true}
+          AND ${normalizedEmail}::text IS NOT NULL
+          AND lower(u.email) = lower(${normalizedEmail})
+        )
+      )
     LIMIT 1
   `;
   return rows.length > 0;
@@ -67,7 +80,11 @@ export function createAdminSessionRouter(
         return;
       }
 
-      if (!(await dependencies.isAdministrator(req.user.id))) {
+      if (!(await dependencies.isAdministrator({
+        firebaseUid: req.user.id,
+        email: req.user.email,
+        emailVerified: req.user.emailVerified,
+      }))) {
         res.status(403).json({ error: "Administrator access required" });
         return;
       }
