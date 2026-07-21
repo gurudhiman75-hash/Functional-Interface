@@ -34,6 +34,14 @@ function optionRange(pkg: Avg001QuestionPackage) {
   const parameters = pkg.parameters;
   const variant = parameters.scenarioVariant;
 
+  if (
+    variant === "findChildAgeAfterYears" &&
+    parameters.answerType === "MEMBER_VALUE"
+  ) {
+    // The outer age-hardening layer replaces these authored anchors with four
+    // 1–12 year options after it finds a bounded generated answer.
+    return { minimum: 0, maximum: 100 };
+  }
   if (/newborn|child/i.test(variant) && parameters.answerType === "MEMBER_VALUE") {
     return { minimum: 0, maximum: 18 };
   }
