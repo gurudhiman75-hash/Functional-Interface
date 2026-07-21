@@ -62,6 +62,39 @@ jobs:
       - name: Test synthetic against a local fixture server
         run: node --test scripts/verify-multilingual-production.test.mjs
 
+  production-public-smoke:
+    if: github.event_name == 'pull_request'
+    needs: validate-synthetic-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      EXAMTREE_BASE_URL: https://examtree-new.onrender.com
+      EXAMTREE_ALLOWED_ORIGIN: https://sarbedutech.web.app
+      EXAMTREE_SMOKE_REPORT_PATH: artifacts/reports/multilingual-production-public-smoke.json
+      EXAMTREE_SMOKE_ATTEMPTS: '8'
+      EXAMTREE_SMOKE_INITIAL_DELAY_MS: '4000'
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Probe public production surface
+        run: node scripts/verify-multilingual-production.mjs
+
+      - name: Upload public production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multilingual-production-public-smoke-${{ github.run_id }}
+          path: artifacts/reports/multilingual-production-public-smoke.json
+          if-no-files-found: error
+          retention-days: 30
+
   production-smoke:
     if: github.event_name != 'pull_request'
     needs: validate-synthetic-contract
