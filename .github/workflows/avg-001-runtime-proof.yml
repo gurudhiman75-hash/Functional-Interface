@@ -1,8 +1,9 @@
-name: Repair duplicated AVG CP-002 helper
+name: Validate AVG-001 runtime proof
 
 on:
   pull_request:
     branches:
+      - New-main
       - feat/avg-001-cp001-runtime-proof
     types: [opened, reopened, synchronize]
     paths:
@@ -10,55 +11,105 @@ on:
       - .github/workflows/avg-001-runtime-proof.yml
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: repair-avg-cp002-helper-${{ github.ref }}
-  cancel-in-progress: false
+  group: avg-001-runtime-proof-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  repair:
+  validate-avg-001:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 45
 
     steps:
-      - name: Checkout CP-003 branch
+      - name: Checkout source
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          ref: feat/avg-001-cp003-change-replacement
-          fetch-depth: 0
+          node-version: 22
 
-      - name: Remove duplicate helper declaration
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run AVG-001 proof gates
         run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
+          set -uo pipefail
+          LOG_DIR="$RUNNER_TEMP/avg-001-proof-logs"
+          mkdir -p "$LOG_DIR"
+          : > "$LOG_DIR/summary.tsv"
+          failed=0
 
-          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts")
-          text = path.read_text(encoding="utf-8")
-          marker = "function cp002ResultLabel(parameters: Avg001Parameters) {"
-          first = text.find(marker)
-          second = text.find(marker, first + 1) if first >= 0 else -1
-          if first < 0:
-              raise SystemExit("cp002ResultLabel helper is missing")
-          if second >= 0:
-              end = text.find("\n\nfunction renderCp002Explanation", second)
-              if end < 0:
-                  raise SystemExit("Could not locate the end of duplicated helper")
-              text = text[:second] + text[end + 2:]
-              path.write_text(text, encoding="utf-8")
-          PY
+          run_case() {
+            name="$1"
+            source="$2"
+            output="dist/quant-v4/${name}.mjs"
+            log="$LOG_DIR/${name}.log"
 
-      - name: Commit source repair
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts
-          if git diff --cached --quiet; then
-            echo "Duplicate already removed."
-            exit 0
-          fi
-          git diff --cached --check
-          git commit -m "fix(avg): remove duplicate CP-002 result label helper"
-          git push origin HEAD:feat/avg-001-cp003-change-replacement
+            echo "::group::${name}"
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" >"$log" 2>&1
+            status=$?
+            if [ "$status" -eq 0 ]; then
+              (cd artifacts/api-server && node "$output") >>"$log" 2>&1
+              status=$?
+            fi
+            cat "$log"
+            printf '%s\t%s\n' "$name" "$status" >> "$LOG_DIR/summary.tsv"
+            if [ "$status" -ne 0 ]; then
+              failed=1
+            fi
+            echo "::endgroup::"
+          }
+
+          run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
+          run_case avg-001-independent src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-independent-verifier-audit.ts
+          run_case avg-001-diversity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-diversity-audit.ts
+          run_case avg-001-context-realism src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-context-realism-audit.ts
+          run_case avg-001-editorial-naturalness src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-editorial-naturalness-audit.ts
+
+          run_case avg-001-cp002-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-coverage-audit.ts
+          run_case avg-001-cp002-ap-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-ap-validity-audit.ts
+          run_case avg-001-cp002-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-explanation-quality-audit.ts
+          run_case avg-001-cp002-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-residual-qa.ts
+
+          run_case avg-001-cp003-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-coverage-audit.ts
+          run_case avg-001-cp003-state-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-state-validity-audit.ts
+          run_case avg-001-cp003-editorial-naturalness src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-editorial-naturalness-audit.ts
+          run_case avg-001-cp003-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-explanation-quality-audit.ts
+          run_case avg-001-cp003-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-residual-qa.ts
+
+          run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
+          run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
+          run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
+
+          cat "$LOG_DIR/summary.tsv"
+          exit "$failed"
+
+      - name: Upload proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-proof-diagnostics
+          path: ${{ runner.temp }}/avg-001-proof-logs
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload review CSVs
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-runtime-proof-review
+          path: |
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-en.csv
+          if-no-files-found: error
+          retention-days: 7
