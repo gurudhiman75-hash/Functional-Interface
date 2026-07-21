@@ -41,7 +41,9 @@ function rationalText(value: unknown): string {
     const denominator = Number((value as { denominator: number }).denominator);
     if (denominator === 1) return String(numerator);
     const decimal = numerator / denominator;
-    return Number.isInteger(decimal * 10) ? decimal.toFixed(1) : `${numerator}/${denominator}`;
+    return Number.isInteger(decimal * 10)
+      ? decimal.toFixed(1)
+      : `${numerator}/${denominator}`;
   }
   return "";
 }
@@ -76,16 +78,30 @@ function originalCalculation(pkg: Avg001QuestionPackage): string {
   );
 }
 
+function lineContainsAnswer(line: string, answer: string): boolean {
+  const normalizedLine = line.replace(/,/g, "");
+  const normalizedAnswer = answer.replace(/,/g, "");
+  const escaped = normalizedAnswer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^0-9.])${escaped}([^0-9.]|$)`).test(normalizedLine);
+}
+
 function originalConclusion(pkg: Avg001QuestionPackage): string {
+  if (
+    pkg.parameters.scenarioVariant === "newbornAfterElapsedYears" &&
+    pkg.solveMode === "findAddedMemberValueFromShift"
+  ) {
+    return `Therefore, the new member was ${pkg.answer} years old at joining.`;
+  }
+
   return (
     [...pkg.explanation.lines]
       .reverse()
       .find(
         (line) =>
-          line.includes(pkg.answer) &&
+          lineContainsAnswer(line, pkg.answer) &&
           !/\$\$/.test(line) &&
           !/check|verification|indeed|again/i.test(line),
-      ) ?? `Therefore, the required answer is ${pkg.answer}.`
+      ) ?? `Therefore, the required result is ${pkg.answer}.`
   );
 }
 
@@ -215,9 +231,13 @@ function deepenCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   const elapsedYears = Number(values.elapsedYears ?? 0);
   const ageScenario = /Years|Elapsed/.test(pkg.parameters.scenarioVariant);
   const oldAverageNumber = numericValue(values.oldAverage);
+  const oldCountNumber = numericValue(values.oldCount);
   const averageAtChange = ageScenario
     ? rationalText(oldAverageNumber + elapsedYears)
     : oldAverage;
+  const totalAtChange = ageScenario
+    ? rationalText((oldAverageNumber + elapsedYears) * oldCountNumber)
+    : oldTotal;
 
   switch (pkg.solveMode) {
     case "findNewAverageAfterAddition":
@@ -227,7 +247,7 @@ function deepenCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
               `Before the new member joins, every original member has aged by ${elapsedYears} years, so the original group average also rises by ${elapsedYears} to ${averageAtChange}.`,
             ]
           : []),
-        `The existing ${oldCount} members have a combined total represented by average × count${oldTotal ? `, giving ${oldTotal}` : ""}.`,
+        `The existing ${oldCount} members have a combined total represented by average × count${totalAtChange ? `, giving ${totalAtChange}` : ""}.`,
         `Adding the new value ${addedValue} increases the total, while the count rises from ${oldCount} to ${newCount}.`,
         `The revised average is the updated total shared equally across all ${newCount} members.`,
       ]);
