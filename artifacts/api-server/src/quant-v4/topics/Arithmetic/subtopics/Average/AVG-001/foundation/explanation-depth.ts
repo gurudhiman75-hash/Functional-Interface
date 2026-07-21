@@ -160,6 +160,7 @@ function simplifyCp002(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
   ) {
     return withLines(pkg, [
       `The numbers are equally spaced, so their average is halfway between ${first} and ${last}.`,
+      `Only the first and last numbers are needed.`,
       calculation(pkg),
     ]);
   }
