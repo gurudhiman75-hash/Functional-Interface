@@ -741,11 +741,30 @@ function validateCp002(
     pkg.options.filter((option) => option === pkg.answer).length === 1,
     "Canonical answer appears once",
   );
-  addCheck(
-    "explanation-depth",
-    pkg.explanation.lines.length >= 6,
-    "Explanation contains at least six meaningful moves",
-  );
+  const minimumExplanationLines =
+  pkg.difficultyBand === "Easy" ? 4 : 5;
+addCheck(
+  "explanation-depth",
+  pkg.explanation.lines.length >= minimumExplanationLines &&
+    pkg.explanation.lines.length <= 8,
+  `Explanation contains ${minimumExplanationLines}–8 meaningful moves`,
+);
+addCheck(
+  "explanation-arithmetic",
+  pkg.explanation.lines.some(
+    (line) =>
+      line.includes("\times") ||
+      line.includes("\div") ||
+      line.includes("÷") ||
+      /[+−-]/.test(line),
+  ),
+  "Explanation contains substituted arithmetic or symmetry evidence",
+);
+addCheck(
+  "explanation-answer",
+  pkg.explanation.lines.some((line) => line.includes(pkg.answer)),
+  "Explanation contains the canonical answer",
+);
   addCheck(
     "maturity",
     pkg.maturity === "RUNTIME_PROOF" && !pkg.publiclyPublishable,
