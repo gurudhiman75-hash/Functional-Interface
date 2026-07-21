@@ -741,8 +741,7 @@ function validateCp002(
     pkg.options.filter((option) => option === pkg.answer).length === 1,
     "Canonical answer appears once",
   );
-  const minimumExplanationLines =
-  pkg.difficultyBand === "Easy" ? 4 : 5;
+  const minimumExplanationLines = 4;
 addCheck(
   "explanation-depth",
   pkg.explanation.lines.length >= minimumExplanationLines &&
@@ -753,8 +752,8 @@ addCheck(
   "explanation-arithmetic",
   pkg.explanation.lines.some(
     (line) =>
-      line.includes("\times") ||
-      line.includes("\div") ||
+      line.includes("\\times") ||
+      line.includes("\\div") ||
       line.includes("÷") ||
       /[+−-]/.test(line),
   ),

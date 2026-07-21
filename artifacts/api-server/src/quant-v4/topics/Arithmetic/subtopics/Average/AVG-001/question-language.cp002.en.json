@@ -85,7 +85,7 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "consecutiveIntegersEvenCount",
-      "template": "Find the average of {count} consecutive integers from {firstTerm} to {lastTerm}.",
+      "template": "What is the average of {count} consecutive integers from {firstTerm} to {lastTerm}?",
       "requiredVariables": [
         "count",
         "firstTerm",
