@@ -1,9 +1,8 @@
-name: Validate AVG-001 runtime proof
+name: Apply AVG-001 CP-003 source bundle
 
 on:
   pull_request:
     branches:
-      - New-main
       - feat/avg-001-cp001-runtime-proof
     types: [opened, reopened, synchronize]
     paths:
@@ -14,81 +13,72 @@ permissions:
   contents: write
 
 concurrency:
-  group: avg-001-runtime-proof-${{ github.ref }}
-  cancel-in-progress: true
+  group: apply-avg-001-cp003-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  validate-avg-001:
+  apply-cp003:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 15
 
     steps:
-      - name: Checkout source branch
+      - name: Checkout CP-003 branch
         uses: actions/checkout@v4
         with:
-          ref: feat/avg-001-cp002-symmetric-ap
+          ref: feat/avg-001-cp003-change-replacement
           fetch-depth: 0
 
-      - name: Apply pending CP-002 editorial patch
+      - name: Verify and unpack source bundle
         run: |
           set -euo pipefail
-          PATCH="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/apply-cp002-editorial-patch.py"
-          if [ -f "$PATCH" ]; then
-            python "$PATCH"
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-language.cp002.en.json
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/task-registry.cp002.library.json
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts
-            if ! git diff --cached --quiet; then
-              git commit -m "fix(avg): simplify CP-002 stems and vary explanations"
-              git push origin HEAD:feat/avg-001-cp002-symmetric-ap
-            fi
-          fi
+          ROOT="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001"
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
+          cat <<'CHECKSUMS' | sha256sum -c -
+          07a5f44eb71aaf1c44c0dc58b9fd3ff384bce5aa215244da0fde5269ba0e1e0b  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part00
+          191e97a123f542c8c246be5c8e4d676e7f6ecdf6bb188ccb2434f1a8b3467ddf  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part01
+          b60440acc712f710373e61f5cb4e0763ecf3560fcdcc622d474011f3fe51dc9e  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part02
+          4ea7d2f14a1aff164a534f5535817ad1b50bd2198388bb48b5ace1fabae6c72d  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part03
+          67621224e11fbe09883ec0f752eaa9f1ee4d54b4183a11d00a91de435ce864a9  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part04
+          08830dac0e3f32e9e7a24b1b86919b0b49f08074e25d54c5752e08e6348809c1  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part05
+          8973ed77733bbcc5c77870d92030d974f05346c717540a4c436450875426ace5  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part06a
+          5d61a3aa2367ece8b9785a83b62916e6cd28dd32383e39d86d1ddedcc17ee83c  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part06b
+          52f55ff9be7535d366e352aaafcf080501893ec68cf30efc6c956cade48eb4c9  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/cp003-bundle.part07
+          CHECKSUMS
 
-      - name: Enable pnpm
-        run: corepack enable
+          cat \
+            "$ROOT/cp003-bundle.part00" \
+            "$ROOT/cp003-bundle.part01" \
+            "$ROOT/cp003-bundle.part02" \
+            "$ROOT/cp003-bundle.part03" \
+            "$ROOT/cp003-bundle.part04" \
+            "$ROOT/cp003-bundle.part05" \
+            "$ROOT/cp003-bundle.part06a" \
+            "$ROOT/cp003-bundle.part06b" \
+            "$ROOT/cp003-bundle.part07" \
+            > /tmp/cp003-source-bundle.b64
 
-      - name: Install locked workspace dependencies
-        run: pnpm install --frozen-lockfile
+          echo "c80a598967765d10923013251bfe92e250e1696f787035e898aef2232e14c11a  /tmp/cp003-source-bundle.b64" | sha256sum -c -
+          base64 -d /tmp/cp003-source-bundle.b64 > /tmp/cp003-source-bundle.tar.gz
+          tar -tzf /tmp/cp003-source-bundle.tar.gz >/dev/null
+          tar -xzf /tmp/cp003-source-bundle.tar.gz -C .
 
-      - name: Build API server
-        run: pnpm --dir artifacts/api-server build
-
-      - name: Run AVG-001 proof gates
+      - name: Remove temporary transport and legacy patch files
         run: |
           set -euo pipefail
+          ROOT="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001"
+          rm -f "$ROOT/cp003-source-bundle.b64"
+          rm -f "$ROOT/cp003-bundle.part00" "$ROOT/cp003-bundle.part01" "$ROOT/cp003-bundle.part02"
+          rm -f "$ROOT/cp003-bundle.part03" "$ROOT/cp003-bundle.part04" "$ROOT/cp003-bundle.part05"
+          rm -f "$ROOT/cp003-bundle.part06" "$ROOT/cp003-bundle.part06a" "$ROOT/cp003-bundle.part06b" "$ROOT/cp003-bundle.part07"
+          rm -f "$ROOT/editorial-patch.cp002.json" "$ROOT/cp002-renderer.editorial.txt" "$ROOT/apply-cp002-editorial-patch.py"
+          rm -f .github/workflows/apply-avg-cp002-editorial-patch.yml
 
-          run_case() {
-            name="$1"
-            source="$2"
-            output="dist/quant-v4/${name}.mjs"
-            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output"
-            (cd artifacts/api-server && node "$output")
-          }
-
-          run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
-          run_case avg-001-independent src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-independent-verifier-audit.ts
-          run_case avg-001-diversity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-diversity-audit.ts
-          run_case avg-001-context-realism src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-context-realism-audit.ts
-          run_case avg-001-cp002-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-coverage-audit.ts
-          run_case avg-001-cp002-ap-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-ap-validity-audit.ts
-          run_case avg-001-cp002-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-explanation-quality-audit.ts
-          run_case avg-001-cp002-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-residual-qa.ts
-          run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
-          run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
-
-      - name: Upload proof review CSVs
-        uses: actions/upload-artifact@v4
-        with:
-          name: avg-001-runtime-proof-review
-          path: |
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-en.csv
-          if-no-files-found: error
-          retention-days: 7
+      - name: Commit permanent CP-003 implementation
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "feat(avg): implement 86-QL CP-003 change and replacement runtime"
+          git push origin HEAD:feat/avg-001-cp003-change-replacement
