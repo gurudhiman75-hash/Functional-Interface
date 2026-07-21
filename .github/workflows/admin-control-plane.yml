@@ -1,0 +1,109 @@
+name: Validate admin control plane
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/admin-access-control.ts
+      - artifacts/api-server/src/lib/admin-access-control.test.ts
+      - artifacts/api-server/src/lib/admin-rbac.ts
+      - artifacts/api-server/src/routes/admin-access-control.ts
+      - artifacts/api-server/src/routes/admin-session.ts
+      - artifacts/api-server/src/routes/admin-session.test.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/access-control/**
+      - artifacts/admin-app/src/pages/users/AdminTeamWorkspacePage.tsx
+      - artifacts/admin-app/src/pages/settings/RolesPermissionsWorkspacePage.tsx
+      - artifacts/admin-app/src/pages/settings/AuditLogsWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/frontend-truth-audit.md
+      - .github/workflows/admin-control-plane.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/lib/admin-access-control.ts
+      - artifacts/api-server/src/routes/admin-access-control.ts
+      - artifacts/admin-app/src/features/access-control/**
+      - artifacts/admin-app/src/pages/users/AdminTeamWorkspacePage.tsx
+      - artifacts/admin-app/src/pages/settings/RolesPermissionsWorkspacePage.tsx
+      - artifacts/admin-app/src/pages/settings/AuditLogsWorkspacePage.tsx
+      - .github/workflows/admin-control-plane.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-admin-control-plane-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-admin-control-plane:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical access-control boundary
+        run: |
+          grep -F 'adminAccessControlRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'identity.admin_profiles' artifacts/api-server/src/routes/admin-access-control.ts
+          grep -F 'identity.role_permissions' artifacts/api-server/src/routes/admin-access-control.ts
+          grep -F 'platform.audit_event_changes' artifacts/api-server/src/routes/admin-access-control.ts
+          grep -F 'FINAL_SUPER_ADMIN_PROTECTED' artifacts/api-server/src/lib/admin-access-control.ts
+          grep -F 'SUPER_ADMIN_ROLE_PROTECTED' artifacts/api-server/src/lib/admin-access-control.ts
+          grep -F 'activateCanonicalAdminInvitation' artifacts/api-server/src/routes/admin-session.ts
+          grep -F 'AdminTeamWorkspacePage' artifacts/admin-app/src/App.tsx
+          grep -F 'RolesPermissionsWorkspacePage' artifacts/admin-app/src/App.tsx
+          grep -F 'AuditLogsWorkspacePage' artifacts/admin-app/src/App.tsx
+          grep -F "path: '/users/team'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "path: '/settings/roles'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "path: '/settings/audit-logs'" artifacts/admin-app/src/app/nav/navigation.ts
+          ! grep -F '@/data/users' artifacts/admin-app/src/pages/users/AdminTeamWorkspacePage.tsx
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/settings/RolesPermissionsWorkspacePage.tsx
+          ! grep -F '@/app/store/' artifacts/admin-app/src/pages/settings/AuditLogsWorkspacePage.tsx
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify access-control routes are bundled
+        run: |
+          grep -R 'FINAL_SUPER_ADMIN_PROTECTED' artifacts/api-server/dist >/dev/null
+          grep -R 'admin.role.assigned' artifacts/api-server/dist >/dev/null
+          grep -R 'admin.role.updated' artifacts/api-server/dist >/dev/null
+          grep -R 'audit-events/export.csv' artifacts/api-server/dist >/dev/null
+
+      - name: Test access-control contracts
+        env:
+          DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-access-control.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-access-control.test.mjs
+          node artifacts/api-server/dist/admin-access-control.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-session.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-session.test.mjs
+          node artifacts/api-server/dist/admin-session.test.mjs
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Test admin application
+        run: pnpm run test:admin
+
+      - name: Build admin application
+        run: pnpm run build:admin
