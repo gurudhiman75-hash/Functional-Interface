@@ -17,7 +17,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -36,13 +36,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Classroom",
       "scenarioVariant": "seatNumbersConsecutiveOddCount",
-      "template": "A row contains {count} consecutively numbered seats, from seat {firstTerm} to seat {lastTerm}. Find the average seat number.",
+      "template": "A row has {count} seats numbered consecutively from {firstTerm} to {lastTerm}. Find the average seat number.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -61,12 +61,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Commerce",
       "scenarioVariant": "houseNumbersConsecutiveOddCount",
-      "template": "The consecutive house numbers on a short lane run from {firstTerm} to {lastTerm}. Find their average.",
+      "template": "House numbers on a lane run consecutively from {firstTerm} to {lastTerm}. Find their average.",
       "requiredVariables": [
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -85,13 +85,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "consecutiveIntegersEvenCount",
-      "template": "Find the average of {count} consecutive integers beginning with {firstTerm} and ending with {lastTerm}.",
+      "template": "Find the average of {count} consecutive integers from {firstTerm} to {lastTerm}.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -110,13 +110,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Classroom",
       "scenarioVariant": "serialNumbersFixedStepEvenDifference",
-      "template": "The serial numbers in a list form an arithmetic progression from {firstTerm} to {lastTerm}, increasing by {commonDifference}. Find their average.",
+      "template": "Serial numbers form an arithmetic progression from {firstTerm} to {lastTerm}, increasing by {commonDifference}. Find their average.",
       "requiredVariables": [
         "firstTerm",
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -135,13 +135,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Factory",
       "scenarioVariant": "dailyIncrementTargetsEvenDifference",
-      "template": "A production target rises by {commonDifference} units each day, from {firstTerm} units on the first day to {lastTerm} units on the last day. Find the average daily target.",
+      "template": "A daily target rises by {commonDifference} units, from {firstTerm} on the first day to {lastTerm} on the last. Find the average target.",
       "requiredVariables": [
         "commonDifference",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -160,14 +160,14 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "multiplesArithmeticProgressionEvenDifference",
-      "template": "The numbers {firstTerm}, {nextTerm}, …, {lastTerm} form an arithmetic progression with common difference {commonDifference}. Find their average.",
+      "template": "The numbers {firstTerm}, {nextTerm}, …, {lastTerm} have common difference {commonDifference}. Find their average.",
       "requiredVariables": [
         "firstTerm",
         "nextTerm",
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -186,14 +186,14 @@
       "answerType": "AVERAGE",
       "contextDomain": "Classroom",
       "scenarioVariant": "testScoresFixedStepOddDifferenceEvenCount",
-      "template": "A student's {count} practice-test scores form an arithmetic progression from {firstTerm} to {lastTerm}, with a common difference of {commonDifference}. Find the average score.",
+      "template": "A student's {count} test scores form an arithmetic progression from {firstTerm} to {lastTerm}, with common difference {commonDifference}. Find the average score.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -212,14 +212,14 @@
       "answerType": "AVERAGE",
       "contextDomain": "Factory",
       "scenarioVariant": "shiftTargetsFixedStepOddDifferenceEvenCount",
-      "template": "The output targets for {count} shifts form an arithmetic progression from {firstTerm} units to {lastTerm} units, increasing by {commonDifference} units each shift. Find the average target.",
+      "template": "Targets for {count} shifts rise from {firstTerm} units to {lastTerm} units by {commonDifference} each shift. Find the average target.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -238,14 +238,14 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "fixedIntervalSequenceOddCount",
-      "template": "A sequence has {count} equally spaced terms, first term {firstTerm}, last term {lastTerm}, and common difference {commonDifference}. Find its average.",
+      "template": "A sequence has {count} equally spaced terms from {firstTerm} to {lastTerm}, with common difference {commonDifference}. Find its average.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -264,14 +264,14 @@
       "answerType": "AVERAGE",
       "contextDomain": "Commerce",
       "scenarioVariant": "priceTagsFixedStepEvenDifference",
-      "template": "A set of {count} price tags forms an arithmetic progression from ₹{firstTerm} to ₹{lastTerm}, increasing by ₹{commonDifference}. Find the average price.",
+      "template": "{count} prices form an arithmetic progression from ₹{firstTerm} to ₹{lastTerm}, increasing by ₹{commonDifference}. Find the average price.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -290,13 +290,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "reverseDescribedApOddCount",
-      "template": "The first and last terms of an arithmetic progression are {firstTerm} and {lastTerm}. If it contains {count} terms, find the average without summing all terms.",
+      "template": "An arithmetic progression has {count} terms. Its first term is {firstTerm} and last term is {lastTerm}. Find the average.",
       "requiredVariables": [
         "firstTerm",
         "lastTerm",
         "count"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -315,13 +315,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Factory",
       "scenarioVariant": "weeklyOutputApOddDifferenceEvenCount",
-      "template": "The output over {count} consecutive periods forms an arithmetic progression from {firstTerm} units to {lastTerm} units. Find the average output per period.",
+      "template": "Output over {count} periods forms an arithmetic progression from {firstTerm} units to {lastTerm} units. Find the average output.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -340,13 +340,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "negativeToPositiveConsecutiveOddCount",
-      "template": "A set of {count} consecutive integers begins at {firstTerm} and ends at {lastTerm}. Find its average.",
+      "template": "{count} consecutive integers run from {firstTerm} to {lastTerm}. Find their average.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -370,7 +370,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -394,7 +394,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -413,12 +413,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Abstract",
       "scenarioVariant": "consecutiveOddMiddle",
-      "template": "The average of {count} consecutive odd numbers is {average}. Find the middle number.",
+      "template": "The average of {count} consecutive odd numbers is {average}. What is the middle number?",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -437,12 +437,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Classroom",
       "scenarioVariant": "seatNumberMiddle",
-      "template": "The average of {count} consecutively numbered seats is {average}. Find the number of the middle seat.",
+      "template": "The average of {count} consecutive seat numbers is {average}. Find the middle seat number.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -466,7 +466,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -485,13 +485,13 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Factory",
       "scenarioVariant": "targetMiddleEvenDifference",
-      "template": "The average of {count} equally spaced production targets is {average}. The targets increase by {commonDifference} units each time. Find the middle target.",
+      "template": "{count} production targets are equally spaced by {commonDifference} units and have average {average}. Find the middle target.",
       "requiredVariables": [
         "count",
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -510,12 +510,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Classroom",
       "scenarioVariant": "scoreApMiddle",
-      "template": "The average of {count} scores forming an arithmetic progression is {average}. Find the middle score.",
+      "template": "{count} equally spaced scores have average {average}. Find the middle score.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -540,7 +540,7 @@
         "commonDifference",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -559,12 +559,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Factory",
       "scenarioVariant": "dailyIncrementMiddle",
-      "template": "A {count}-day target schedule forms an arithmetic progression with average {average} units. Find the target on the middle day.",
+      "template": "A {count}-day target schedule forms an arithmetic progression with average {average} units. Find the middle day's target.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -583,12 +583,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Abstract",
       "scenarioVariant": "middleFromEndpointSymmetry",
-      "template": "An arithmetic progression contains {count} terms and has average {average}. Without listing the sequence, find its middle term.",
+      "template": "An arithmetic progression has {count} terms and average {average}. Find its middle term.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -607,12 +607,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Commerce",
       "scenarioVariant": "priceApMiddle",
-      "template": "The average price in a set of {count} equally spaced prices is ₹{average}. Find the middle price.",
+      "template": "{count} equally spaced prices have average ₹{average}. Find the middle price.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -636,7 +636,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -660,7 +660,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -684,7 +684,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -708,7 +708,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -732,7 +732,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -751,13 +751,13 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Classroom",
       "scenarioVariant": "largestSeatNumberFixedStep",
-      "template": "The average of {count} equally spaced seat numbers is {average}. Consecutive listed seats differ by {commonDifference}. Find the largest seat number.",
+      "template": "{count} seat numbers are equally spaced by {commonDifference} and have average {average}. Find the largest seat number.",
       "requiredVariables": [
         "count",
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -776,13 +776,13 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Factory",
       "scenarioVariant": "smallestProductionTargetFixedStep",
-      "template": "The average of {count} equally spaced production targets is {average} units. Consecutive targets differ by {commonDifference} units. Find the smallest target.",
+      "template": "{count} production targets are equally spaced by {commonDifference} units and have average {average}. Find the smallest target.",
       "requiredVariables": [
         "count",
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -807,7 +807,7 @@
         "commonDifference",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -826,13 +826,13 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Commerce",
       "scenarioVariant": "smallestPriceApEvenCount",
-      "template": "A set of {count} prices forms an arithmetic progression with common difference ₹{commonDifference} and average price ₹{average}. Find the smallest price.",
+      "template": "{count} prices form an arithmetic progression with common difference ₹{commonDifference} and average ₹{average}. Find the smallest price.",
       "requiredVariables": [
         "count",
         "commonDifference",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -851,12 +851,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Abstract",
       "scenarioVariant": "largestConsecutiveIntegerEvenCount",
-      "template": "An even-sized set of {count} consecutive integers has average {average}. Find the largest integer in the set.",
+      "template": "{count} consecutive integers have average {average}. Find the largest integer.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -875,12 +875,12 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Abstract",
       "scenarioVariant": "smallestConsecutiveIntegerEvenCount",
-      "template": "An even-sized set of {count} consecutive integers has average {average}. Find the smallest integer in the set.",
+      "template": "{count} consecutive integers have average {average}. Find the smallest integer.",
       "requiredVariables": [
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -899,13 +899,13 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Factory",
       "scenarioVariant": "largestShiftTargetOddDifferenceEvenCount",
-      "template": "The average target across {count} shifts is {average} units. The targets form an arithmetic progression increasing by {commonDifference} units. Find the largest target.",
+      "template": "Targets for {count} shifts form an arithmetic progression with average {average} units and common difference {commonDifference}. Find the largest target.",
       "requiredVariables": [
         "count",
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -924,13 +924,13 @@
       "answerType": "MEMBER_VALUE",
       "contextDomain": "Classroom",
       "scenarioVariant": "smallestScoreOddDifferenceEvenCount",
-      "template": "The average of {count} equally spaced scores is {average}. Adjacent scores differ by {commonDifference}. Find the smallest score.",
+      "template": "{count} equally spaced scores have average {average} and common difference {commonDifference}. Find the smallest score.",
       "requiredVariables": [
         "count",
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -949,13 +949,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "averageConsecutiveEvenFromEndpointsOddCount",
-      "template": "Find the average of the {count} consecutive even numbers from {firstTerm} to {lastTerm}.",
+      "template": "Find the average of {count} consecutive even numbers from {firstTerm} to {lastTerm}.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -974,13 +974,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "averageConsecutiveOddFromEndpointsOddCount",
-      "template": "Find the average of the {count} consecutive odd numbers from {firstTerm} to {lastTerm}.",
+      "template": "Find the average of {count} consecutive odd numbers from {firstTerm} to {lastTerm}.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -999,12 +999,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "averageConsecutiveEvenFromFirstOddCount",
-      "template": "Starting with {firstTerm}, {count} consecutive even numbers are written. Find their average.",
+      "template": "Starting with {firstTerm}, write {count} consecutive even numbers. Find their average.",
       "requiredVariables": [
         "firstTerm",
         "count"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1023,12 +1023,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "averageConsecutiveOddFromFirstOddCount",
-      "template": "Starting with {firstTerm}, {count} consecutive odd numbers are written. Find their average.",
+      "template": "Starting with {firstTerm}, write {count} consecutive odd numbers. Find their average.",
       "requiredVariables": [
         "firstTerm",
         "count"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1047,13 +1047,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Classroom",
       "scenarioVariant": "averageEvenSeatNumbersOddCount",
-      "template": "A block contains {count} consecutive even-numbered seats from {firstTerm} to {lastTerm}. Find the average seat number.",
+      "template": "A block has {count} consecutive even-numbered seats from {firstTerm} to {lastTerm}. Find the average seat number.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1077,7 +1077,7 @@
         "count",
         "firstTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1101,7 +1101,7 @@
         "count",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1120,12 +1120,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Commerce",
       "scenarioVariant": "averageOddHouseNumbers",
-      "template": "The odd-numbered houses on one side of a lane run consecutively from {firstTerm} to {lastTerm}. Find their average house number.",
+      "template": "Odd-numbered houses run from {firstTerm} to {lastTerm}. Find the average house number.",
       "requiredVariables": [
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1144,12 +1144,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Classroom",
       "scenarioVariant": "averageEvenRollNumbers",
-      "template": "The even roll numbers in a group run consecutively from {firstTerm} to {lastTerm}. Find their average.",
+      "template": "Even roll numbers run from {firstTerm} to {lastTerm}. Find their average.",
       "requiredVariables": [
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1168,12 +1168,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "averageOddSequenceLargeCount",
-      "template": "A sequence consists of {count} consecutive odd numbers, the first being {firstTerm}. Find its average.",
+      "template": "A sequence has {count} consecutive odd numbers starting with {firstTerm}. Find its average.",
       "requiredVariables": [
         "count",
         "firstTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1192,12 +1192,12 @@
       "answerType": "AVERAGE",
       "contextDomain": "Abstract",
       "scenarioVariant": "averageEvenSequenceLargeCount",
-      "template": "A sequence consists of {count} consecutive even numbers, the last being {lastTerm}. Find its average.",
+      "template": "A sequence has {count} consecutive even numbers ending with {lastTerm}. Find its average.",
       "requiredVariables": [
         "count",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1216,13 +1216,13 @@
       "answerType": "AVERAGE",
       "contextDomain": "Factory",
       "scenarioVariant": "averageEvenProductionCodes",
-      "template": "A set of {count} consecutive even production codes starts at {firstTerm} and ends at {lastTerm}. Find the average code.",
+      "template": "{count} consecutive even production codes run from {firstTerm} to {lastTerm}. Find the average code.",
       "requiredVariables": [
         "count",
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",

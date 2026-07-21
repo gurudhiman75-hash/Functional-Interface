@@ -394,55 +394,137 @@ function buildCp002ReasoningEvidence(
   };
 }
 
+function cp002ResultLabel(parameters: Avg001Parameters) {
+  const variant = parameters.scenarioVariant;
+  if (variant.includes("seat")) return "seat number";
+  if (variant.includes("house")) return "house number";
+  if (variant.includes("price")) return "price";
+  if (variant.includes("score")) return "score";
+  if (variant.includes("target")) return "target";
+  if (variant.includes("output")) return "output";
+  if (variant.includes("roll")) return "roll number";
+  if (variant.includes("code")) return "code";
+  if (parameters.solveMode === "findMiddleTermFromAverage") return "middle term";
+  if (parameters.solveMode === "findExtremeFromAverageAndCount") {
+    return parameters.values.targetExtreme === "smallest" ? "smallest term" : "largest term";
+  }
+  return "average";
+}
+
 function renderCp002Explanation(
   parameters: Avg001Parameters,
   solver: Avg001SolverResult,
   evidence: Avg001ReasoningEvidence,
 ) {
+  const entry = getAvg001QuestionEntry(parameters.questionLanguageId);
   const givens = evidence.givens;
-  if (
-    parameters.solveMode === "findAverageOfConsecutiveSet" ||
-    parameters.solveMode === "findAverageOfOddOrEvenSet"
-  ) {
-    return {
-      lines: [
-        `The ${givens.count} values are equally spaced, so terms pair symmetrically from the two ends.`,
-        `Each end-pair has the same mean; therefore the whole progression has the same mean as its first and last terms.`,
-        "Use average = (first term + last term) ÷ 2.",
-        `$$\\text{Average}=(${givens.firstTerm}+${givens.lastTerm})\\div2=${solver.answer}$$`,
-        `Check: ${solver.answer} × ${givens.count} = ${natural(parameters.values.total)}, the exact sequence total.`,
-        "This symmetry shortcut avoids adding every term separately.",
-        `Therefore, the ${evidence.finalContext} is ${solver.answer}.`,
-      ],
-    };
-  }
+  const first = String(givens.firstTerm ?? parameters.renderVariables.firstTerm);
+  const last = String(givens.lastTerm ?? parameters.renderVariables.lastTerm);
+  const count = Number(givens.count ?? parameters.values.count);
+  const average = String(givens.average ?? parameters.renderVariables.average);
+  const difference = String(givens.commonDifference ?? parameters.renderVariables.commonDifference);
+  const label = cp002ResultLabel(parameters);
+  const total = natural(parameters.values.total);
+  const halfSpan = String(evidence.intermediateValues.halfSpan ?? "");
+  const totalSpan = String(evidence.intermediateValues.totalSpan ?? "");
+  const isSmallest = parameters.values.targetExtreme === "smallest";
 
-  if (parameters.solveMode === "findMiddleTermFromAverage") {
-    return {
-      lines: [
-        `There are ${givens.count} equally spaced terms, and this count is odd.`,
-        "An odd arithmetic progression has one central term with matching pairs at equal distances on both sides.",
-        "Those symmetric pairs balance around the central term.",
-        "Therefore, middle term = average.",
-        `$$\\text{Middle term}=${givens.average}$$`,
+  switch (entry.explanationStrategyId) {
+    case "ap-average-endpoint-pairs":
+      return { lines: [
+        `Pair the first and last terms: ${first} and ${last}.`,
+        "Every pair taken from opposite ends has the same average.",
+        `$$\text{Average}=(${first}+${last})\div2=${solver.answer}$$`,
+        `So the ${label} is ${solver.answer}.`,
+        `Check: ${solver.answer}\times${count}=${total}.`,
+      ] };
+    case "ap-average-direct-formula":
+      return { lines: [
+        "For an arithmetic progression, the average is halfway between the first and last terms.",
+        `Here the endpoints are ${first} and ${last}.`,
+        `$$(${first}+${last})\div2=${solver.answer}$$`,
+        `Hence, the ${label} is ${solver.answer}.`,
+      ] };
+    case "ap-average-centre-balance":
+      return { lines: [
+        `The terms rise by an equal amount each time.`,
+        `Values equally far from the two ends balance around the centre.`,
+        `The centre value is the mean of ${first} and ${last}.`,
+        `$$\text{Average}=(${first}+${last})\div2=${solver.answer}$$`,
+        `Therefore, the ${label} is ${solver.answer}.`,
+      ] };
+    case "ap-middle-equals-average":
+      return { lines: [
+        `There are ${count} equally spaced terms, so there is one middle term.`,
+        "Pairs on the two sides are equally far from the middle.",
+        "Their deviations cancel, so the middle term equals the average.",
+        `$$\text{Middle term}=${average}$$`,
+        `Thus, the ${label} is ${solver.answer}.`,
+      ] };
+    case "ap-middle-balanced-pairs":
+      return { lines: [
+        "Imagine matching the first term with the last, the second with the second-last, and so on.",
+        `Each pair balances at ${average}.`,
+        `With an odd number of terms, the unpaired central term must also be ${average}.`,
+        `So the ${label} is ${solver.answer}.`,
         `Check: ${evidence.verification}.`,
-        `Hence, the ${evidence.finalContext} is ${solver.answer}.`,
-      ],
-    };
+      ] };
+    case "ap-middle-direct-symmetry":
+      return { lines: [
+        "In an odd-sized arithmetic progression, the central term is the point of symmetry.",
+        `The progression is centred at its average, ${average}.`,
+        `Therefore, middle term = average = ${solver.answer}.`,
+        `Hence, the ${label} is ${solver.answer}.`,
+      ] };
+    case "ap-extreme-half-span":
+      return { lines: [
+        `There are ${count - 1} equal gaps of ${difference}.`,
+        `$$\text{Total span}=(${count}-1)\times${difference}=${totalSpan}$$`,
+        `The average is halfway between the two extremes, so the half-span is ${halfSpan}.`,
+        `$$${average}${isSmallest ? "-" : "+"}${halfSpan}=${solver.answer}$$`,
+        `So the ${label} is ${solver.answer}.`,
+      ] };
+    case "ap-extreme-offset-count":
+      return { lines: [
+        `From the centre to either end, the offset is half of (${count}-1) gaps.`,
+        `Each gap is ${difference}, giving an offset of ${halfSpan}.`,
+        `${isSmallest ? "Subtract" : "Add"} this offset ${isSmallest ? "from" : "to"} the average ${average}.`,
+        `$$${average}${isSmallest ? "-" : "+"}${halfSpan}=${solver.answer}$$`,
+        `Hence, the ${label} is ${solver.answer}.`,
+      ] };
+    case "ap-extreme-reconstruct-ends":
+      return { lines: [
+        `The two extreme terms are equally far from the average ${average}.`,
+        `Their distance from the average is ${halfSpan}.`,
+        `So the endpoints are ${average}-${halfSpan} and ${average}+${halfSpan}.`,
+        `The requested ${label} is ${solver.answer}.`,
+        `Check: ${evidence.verification}.`,
+      ] };
+    case "odd-even-endpoint-mean":
+      return { lines: [
+        `The first number is ${first} and the last is ${last}.`,
+        "Consecutive odd or even numbers are equally spaced, so their average is the endpoint mean.",
+        `$$(${first}+${last})\div2=${solver.answer}$$`,
+        `So the ${label} is ${solver.answer}.`,
+      ] };
+    case "odd-even-middle-balance":
+      return { lines: [
+        "The numbers are equally spaced by 2.",
+        `Numbers at equal distances from the ends balance around the centre.`,
+        `That centre is (${first}+${last})÷2=${solver.answer}.`,
+        `Hence, the ${label} is ${solver.answer}.`,
+        `Check: ${solver.answer}\times${count}=${total}.`,
+      ] };
+    case "odd-even-first-last-shortcut":
+      return { lines: [
+        "There is no need to add all the terms.",
+        `For an equally spaced list, use (first + last) ÷ 2.`,
+        `$$\text{Average}=(${first}+${last})\div2=${solver.answer}$$`,
+        `Therefore, the ${label} is ${solver.answer}.`,
+      ] };
+    default:
+      throw new Error(`No CP-002 explanation renderer for ${entry.explanationStrategyId}`);
   }
-
-  return {
-    lines: [
-      `The progression has ${givens.count} terms with common difference ${givens.commonDifference}.`,
-      "From the smallest term to the largest term, there are count − 1 equal gaps.",
-      `$$\\text{Total span}=(${givens.count}-1)\\times${givens.commonDifference}=${evidence.intermediateValues.totalSpan}$$`,
-      "The average lies exactly halfway between the two extreme terms.",
-      `$$\\text{Half span}=${evidence.intermediateValues.totalSpan}\\div2=${evidence.intermediateValues.halfSpan}$$`,
-      `Now calculate the requested extreme: ${evidence.decisiveCalculation}.`,
-      `Check: ${evidence.verification}.`,
-      `Therefore, the ${evidence.finalContext} is ${solver.answer}.`,
-    ],
-  };
 }
 
 function formatOption(

@@ -15,7 +15,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -39,7 +39,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -62,7 +62,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -86,7 +86,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -110,7 +110,7 @@
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -134,7 +134,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -159,7 +159,7 @@
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -184,7 +184,7 @@
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -209,7 +209,7 @@
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -234,7 +234,7 @@
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -259,7 +259,7 @@
         "lastTerm",
         "commonDifference"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -283,7 +283,7 @@
         "lastTerm",
         "count"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-centre-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -307,7 +307,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-endpoint-pairs",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -331,7 +331,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfConsecutiveSet",
+      "explanationStrategyId": "ap-average-direct-formula",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -354,7 +354,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -377,7 +377,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -400,7 +400,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -423,7 +423,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -446,7 +446,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -470,7 +470,7 @@
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -493,7 +493,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -517,7 +517,7 @@
         "commonDifference",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -540,7 +540,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -563,7 +563,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-equals-average",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -586,7 +586,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-balanced-pairs",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -609,7 +609,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findMiddleTermFromAverage",
+      "explanationStrategyId": "ap-middle-direct-symmetry",
       "distractorStrategyIds": [
         "usePreviousTerm",
         "useNextTerm",
@@ -632,7 +632,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -655,7 +655,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -678,7 +678,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -701,7 +701,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -725,7 +725,7 @@
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -749,7 +749,7 @@
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -773,7 +773,7 @@
         "commonDifference",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -797,7 +797,7 @@
         "commonDifference",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -820,7 +820,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -843,7 +843,7 @@
         "count",
         "average"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-half-span",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -867,7 +867,7 @@
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-offset-count",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -891,7 +891,7 @@
         "average",
         "commonDifference"
       ],
-      "explanationStrategyId": "findExtremeFromAverageAndCount",
+      "explanationStrategyId": "ap-extreme-reconstruct-ends",
       "distractorStrategyIds": [
         "offByOneOffset",
         "useOppositeExtreme",
@@ -915,7 +915,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -939,7 +939,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -962,7 +962,7 @@
         "firstTerm",
         "count"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -985,7 +985,7 @@
         "firstTerm",
         "count"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1009,7 +1009,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1032,7 +1032,7 @@
         "count",
         "firstTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1055,7 +1055,7 @@
         "count",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1078,7 +1078,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1101,7 +1101,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1124,7 +1124,7 @@
         "count",
         "firstTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-endpoint-mean",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1147,7 +1147,7 @@
         "count",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-middle-balance",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
@@ -1171,7 +1171,7 @@
         "firstTerm",
         "lastTerm"
       ],
-      "explanationStrategyId": "findAverageOfOddOrEvenSet",
+      "explanationStrategyId": "odd-even-first-last-shortcut",
       "distractorStrategyIds": [
         "doubleEndpointMean",
         "useLowerMiddle",
