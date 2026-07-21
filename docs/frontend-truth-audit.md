@@ -69,7 +69,7 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/content/questions/generate` | LIVE | Question Studio generation, quality gates, immutable revision, regeneration, review, and conversion. |
 | `/content/questions` | LIVE | Canonical Question Bank list, taxonomy, lifecycle, and reconciliation. |
 | `/content/questions/:id` | LIVE | Canonical question versions, editing, taxonomy, and lifecycle actions. |
-| `/content/review` | LIVE | Unified generated/authored queue, reviewer ownership, threaded discussion, SLA ageing, lifecycle actions and current-versus-previous comparison. |
+| `/content/review` | LIVE | Unified generated/authored queue, reviewer ownership, threaded discussion, SLA ageing, immutable version comparison, chapter-scoped duplicate intelligence, readiness reporting and audited freeze governance. |
 | `/content/coverage` | LIVE | Exam-version coverage targets and recursive Question Bank readiness rollups. |
 | `/content/taxonomy` | LIVE | Canonical taxonomy node, edge, exam mapping, activation and target management. |
 | `/tests` | LIVE | Canonical test drafts, QA states, schedules, and published versions. |
@@ -85,6 +85,8 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxonomy_edges`, and `catalog.exam_taxonomy_nodes` tables. It requires no schema migration. All writes require `content.taxonomy.manage`, are transactionally validated, cycle-safe, soft-archivable, and recorded in `platform.audit_events`. Coverage counts use the canonical current question version and recursively roll descendant links into parent nodes; leaf-only summaries avoid double counting.
 
 Content Review coordinates the existing Question Studio and Question Bank lifecycle engines instead of creating another approval engine. Reviewer assignments, comments, replies, resolutions and ownership changes are immutable `platform.audit_events`; generated-item ownership is also reflected in `content.generation_run_items.reviewer_user_id`. Saved review views are browser UI preferences only and contain filters, not business records.
+
+Content intelligence extends that same workspace without adding a parallel workflow or schema. It scans current canonical Question Bank versions inside a selected chapter or subtopic subtree, detects exact normalized stems, number/variable-template matches and high-confidence lexical-semantic near duplicates, and stores editorial decisions as immutable `content.duplicate.decision.recorded` audit events. Freeze readiness combines target coverage, approval completeness, unresolved placeholders, critical duplicate decisions, open Content Review comments, test usage and scan completeness. A freeze records the exact deterministic SHA-256 report hash through `content.chapter.freeze.changed`; later content changes make the recorded freeze visibly stale. Hindi and Punjabi remain explicitly `not_connected` until canonical per-language review and publication gates exist.
 
 Test QA extends the existing canonical test lifecycle rather than replacing it. It reads `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, `assessment.test_questions`, and `assessment.test_publications`; reviewer assignment, comments, replies, resolutions and reopen events are immutable `platform.audit_events`. Approval, scheduling and publication are blocked server-side until the current test version has an assigned reviewer, no unresolved QA comments, and no existing structural/content validation errors. No database migration is required.
 
@@ -141,7 +143,7 @@ Mounted operational API groups:
 - immutable audit-event exploration and export;
 - Question Studio;
 - Question Bank;
-- Content Review collaboration and queue composition;
+- Content Review collaboration, queue composition, duplicate intelligence and chapter freeze governance;
 - taxonomy hierarchy and coverage planning;
 - Test Builder and publishing;
 - Test QA collaboration, version comparison and release gate;
@@ -158,9 +160,11 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-1. Add full Question Bank duplicate comparison and chapter-freeze readiness into Content Review.
-2. Add operational health, background-job visibility and error telemetry.
-3. Add translation review and language-specific publication gates.
+Completed in the current Content Review release: full chapter-scoped duplicate comparison, machine-readable readiness reporting and audit-governed freeze/reopen state.
+
+1. Add operational health, background-job visibility and error telemetry.
+2. Add translation review and language-specific publication gates.
+3. Complete canonical student administration: identity search, attempts, access state, sessions and account history.
 
 ### P0 — student production truth and reliability
 
