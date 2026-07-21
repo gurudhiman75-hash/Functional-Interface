@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/src/lib/admin-control-plane-hardening.ts
       - artifacts/api-server/src/lib/admin-control-plane-hardening.test.ts
       - artifacts/api-server/src/lib/admin-rbac.ts
+      - artifacts/api-server/src/middlewares/auth.ts
       - artifacts/api-server/src/routes/admin-access-control.ts
       - artifacts/api-server/src/routes/admin-access-control-hardening.ts
       - artifacts/api-server/src/routes/admin-audit-events-hardening.ts
@@ -33,6 +34,7 @@ on:
       - artifacts/api-server/src/lib/admin-access-control.ts
       - artifacts/api-server/src/lib/admin-control-plane-hardening.ts
       - artifacts/api-server/src/lib/admin-control-plane-hardening.test.ts
+      - artifacts/api-server/src/middlewares/auth.ts
       - artifacts/api-server/src/routes/admin-access-control.ts
       - artifacts/api-server/src/routes/admin-access-control-hardening.ts
       - artifacts/api-server/src/routes/admin-audit-events-hardening.ts
@@ -75,6 +77,7 @@ jobs:
           grep -F 'adminAuditEventsHardeningRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminAccessControlHardeningRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminAccessControlRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'if (req.user?.id)' artifacts/api-server/src/middlewares/auth.ts
           grep -F 'identity.admin_profiles' artifacts/api-server/src/routes/admin-access-control.ts
           grep -F 'identity.role_permissions' artifacts/api-server/src/routes/admin-access-control.ts
           grep -F 'platform.audit_event_changes' artifacts/api-server/src/routes/admin-access-control.ts
