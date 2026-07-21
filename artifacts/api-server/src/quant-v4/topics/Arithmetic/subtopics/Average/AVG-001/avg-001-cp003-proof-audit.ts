@@ -180,6 +180,20 @@ for (const entry of entries) {
     if (new Set(pkg.options).size !== 4) {
       failures.push(`${entry.qlId}:${index}: duplicate options`);
     }
+    if (
+      !pkg.validation.checks.some(
+        (check) => check.name === "misconception-options" && check.passed,
+      )
+    ) {
+      failures.push(`${entry.qlId}:${index}: misconception option gate missing`);
+    }
+    if (
+      !pkg.validation.checks.some(
+        (check) => check.name === "context-realistic-options" && check.passed,
+      )
+    ) {
+      failures.push(`${entry.qlId}:${index}: realistic option gate missing`);
+    }
   }
 }
 
@@ -211,6 +225,10 @@ console.log(
       strategyCounts: Object.fromEntries(
         [...strategiesByMode].map(([mode, strategies]) => [mode, strategies.size]),
       ),
+      optionQualityGates: [
+        "misconception-options",
+        "context-realistic-options",
+      ],
       failures,
     },
     null,
