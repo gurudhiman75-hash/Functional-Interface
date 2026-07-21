@@ -52,12 +52,10 @@ jobs:
 
       - name: Build student application for E2E
         env:
-          VITE_FIREBASE_API_KEY: examtree-e2e-api-key
-          VITE_FIREBASE_AUTH_DOMAIN: examtree-e2e.firebaseapp.com
-          VITE_FIREBASE_PROJECT_ID: examtree-e2e
-          VITE_FIREBASE_STORAGE_BUCKET: examtree-e2e.appspot.com
-          VITE_FIREBASE_MESSAGING_SENDER_ID: "1234567890"
-          VITE_FIREBASE_APP_ID: 1:1234567890:web:e2e
+          VITE_E2E_AUTH_TOKEN: examtree-e2e-access-token
+          VITE_E2E_AUTH_UID: e2e-student
+          VITE_E2E_AUTH_EMAIL: student.e2e@examtree.local
+          VITE_E2E_AUTH_NAME: E2E Student
         run: pnpm run build:web
 
       - name: Run canonical student browser journeys
