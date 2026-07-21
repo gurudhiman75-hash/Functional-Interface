@@ -27,6 +27,30 @@ function wordCount(line: string) {
     .filter(Boolean).length;
 }
 
+function numericValue(value: unknown): number {
+  if (typeof value === "number") return value;
+  if (typeof value === "string") return Number(value.replace(/,/g, ""));
+  if (
+    value &&
+    typeof value === "object" &&
+    "numerator" in value &&
+    "denominator" in value
+  ) {
+    return (
+      Number((value as { numerator: number }).numerator) /
+      Number((value as { denominator: number }).denominator)
+    );
+  }
+  return Number.NaN;
+}
+
+function containsAnswer(line: string, answer: string) {
+  const normalizedLine = line.replace(/,/g, "");
+  const normalizedAnswer = answer.replace(/,/g, "");
+  const escaped = normalizedAnswer.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^0-9.])${escaped}([^0-9.]|$)`).test(normalizedLine);
+}
+
 for (const entry of getAvg001QuestionEntries()) {
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({
@@ -44,10 +68,11 @@ for (const entry of getAvg001QuestionEntries()) {
     );
     const substantialProse = proseLines.filter((line) => wordCount(line) >= 7);
     const joined = lines.join(" ");
+    const normalizedJoined = joined.replace(/,/g, "");
     const conceptPattern = conceptPatterns[pkg.canonicalProblemId];
     const contextualConclusion = lines.some(
       (line) =>
-        line.includes(pkg.answer) &&
+        containsAnswer(line, pkg.answer) &&
         !/\$\$/.test(line) &&
         !/check|verification|indeed|again/i.test(line),
     );
@@ -74,8 +99,32 @@ for (const entry of getAvg001QuestionEntries()) {
     if (!contextualConclusion) {
       failures.push(`${entry.qlId}:${index}: missing contextual conclusion containing the answer`);
     }
+    if (/required answer|required result/i.test(joined)) {
+      failures.push(`${entry.qlId}:${index}: uses a generic rather than contextual conclusion`);
+    }
     if (equationLines.length >= proseLines.length) {
       failures.push(`${entry.qlId}:${index}: calculation lines dominate the explanation`);
+    }
+
+    const values = pkg.parameters.values as Record<string, unknown>;
+    if (
+      pkg.parameters.scenarioVariant === "familyAgeElapsedTime" &&
+      pkg.solveMode === "findNewAverageAfterAddition"
+    ) {
+      const expectedAgedTotal =
+        (numericValue(values.oldAverage) + numericValue(values.elapsedYears)) *
+        numericValue(values.oldCount);
+      if (!normalizedJoined.includes(String(expectedAgedTotal))) {
+        failures.push(
+          `${entry.qlId}:${index}: explanation omits the aged group total ${expectedAgedTotal}`,
+        );
+      }
+    }
+    if (
+      pkg.parameters.scenarioVariant === "newbornAfterElapsedYears" &&
+      /\bchild\b/i.test(joined)
+    ) {
+      failures.push(`${entry.qlId}:${index}: reintroduces child wording for the joining member`);
     }
   }
 }
