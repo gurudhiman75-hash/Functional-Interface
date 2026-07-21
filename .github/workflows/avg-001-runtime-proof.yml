@@ -32,16 +32,22 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import re
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts")
           text = path.read_text(encoding="utf-8")
-          old = '''  addCheck(
-            "explanation-depth",
-            pkg.explanation.lines.length >= 6,
-            "Explanation contains at least six meaningful moves",
-          );'''
-          new = '''  const minimumExplanationLines =
+          if "minimumExplanationLines" in text:
+              raise SystemExit(0)
+
+          pattern = re.compile(
+              r'''  addCheck\(\n'''
+              r'''    "explanation-depth",\n'''
+              r'''    pkg\.explanation\.lines\.length >= 6,\n'''
+              r'''    "Explanation contains at least six meaningful moves",\n'''
+              r'''  \);'''
+          )
+          replacement = '''  const minimumExplanationLines =
             pkg.difficultyBand === "Easy" ? 4 : 5;
           addCheck(
             "explanation-depth",
@@ -65,11 +71,10 @@ jobs:
             pkg.explanation.lines.some((line) => line.includes(pkg.answer)),
             "Explanation contains the canonical answer",
           );'''
-          if old not in text:
-              if "minimumExplanationLines" in text:
-                  raise SystemExit(0)
-              raise SystemExit("Obsolete CP-002 explanation check was not found")
-          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          updated, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit(f"Expected one obsolete explanation-depth check; found {count}")
+          path.write_text(updated, encoding="utf-8")
           PY
 
       - name: Commit validator alignment
