@@ -20,7 +20,7 @@ export default defineConfig({
     video: "retain-on-failure",
   },
   webServer: {
-    command: "pnpm --dir artifacts/examtree serve -- --port 4173",
+    command: "PORT=4173 pnpm --dir artifacts/examtree serve",
     url: "http://127.0.0.1:4173",
     timeout: 120_000,
     reuseExistingServer: !process.env.CI,
