@@ -1,88 +1,92 @@
 -- Canonical multilingual translation operations
 -- Additive PostgreSQL 17 migration for ExamTree.
--- This file is intentionally idempotent and must be validated on a temporary
--- Neon branch before it is applied to the production branch.
+-- This migration intentionally avoids procedural DO blocks so it can be parsed
+-- by Neon migration tooling. It is safe to execute repeatedly.
 
 ALTER TABLE catalog.languages
-  ADD COLUMN IF NOT EXISTS direction varchar(3) NOT NULL DEFAULT 'ltr',
+  ADD COLUMN IF NOT EXISTS direction varchar(3),
   ADD COLUMN IF NOT EXISTS script_code varchar(16),
   ADD COLUMN IF NOT EXISTS fallback_language_id uuid,
-  ADD COLUMN IF NOT EXISTS updated_at timestamptz NOT NULL DEFAULT now();
-
-DO $$
-BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_constraint
-    WHERE conname = 'languages_direction_check'
-      AND conrelid = 'catalog.languages'::regclass
-  ) THEN
-    ALTER TABLE catalog.languages
-      ADD CONSTRAINT languages_direction_check
-      CHECK (direction IN ('ltr', 'rtl')) NOT VALID;
-  END IF;
-
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_constraint
-    WHERE conname = 'languages_fallback_language_id_fkey'
-      AND conrelid = 'catalog.languages'::regclass
-  ) THEN
-    ALTER TABLE catalog.languages
-      ADD CONSTRAINT languages_fallback_language_id_fkey
-      FOREIGN KEY (fallback_language_id)
-      REFERENCES catalog.languages(id)
-      ON DELETE SET NULL
-      NOT VALID;
-  END IF;
-END $$;
-
-ALTER TABLE catalog.languages VALIDATE CONSTRAINT languages_direction_check;
-ALTER TABLE catalog.languages VALIDATE CONSTRAINT languages_fallback_language_id_fkey;
+  ADD COLUMN IF NOT EXISTS updated_at timestamptz;
 
 UPDATE catalog.languages
-SET script_code = CASE lower(code)
-  WHEN 'en' THEN 'Latn'
-  WHEN 'hi' THEN 'Deva'
-  WHEN 'pa' THEN 'Guru'
-  ELSE script_code
-END
-WHERE script_code IS NULL;
+SET direction = COALESCE(direction, 'ltr'),
+    updated_at = COALESCE(updated_at, now()),
+    script_code = CASE lower(code)
+      WHEN 'en' THEN COALESCE(script_code, 'Latn')
+      WHEN 'hi' THEN COALESCE(script_code, 'Deva')
+      WHEN 'pa' THEN COALESCE(script_code, 'Guru')
+      ELSE script_code
+    END
+WHERE direction IS NULL
+   OR updated_at IS NULL
+   OR script_code IS NULL;
+
+ALTER TABLE catalog.languages
+  ALTER COLUMN direction SET DEFAULT 'ltr',
+  ALTER COLUMN direction SET NOT NULL,
+  ALTER COLUMN updated_at SET DEFAULT now(),
+  ALTER COLUMN updated_at SET NOT NULL;
+
+ALTER TABLE catalog.languages
+  DROP CONSTRAINT IF EXISTS languages_direction_check;
+ALTER TABLE catalog.languages
+  ADD CONSTRAINT languages_direction_check
+  CHECK (direction IN ('ltr', 'rtl')) NOT VALID;
+ALTER TABLE catalog.languages
+  VALIDATE CONSTRAINT languages_direction_check;
+
+ALTER TABLE catalog.languages
+  DROP CONSTRAINT IF EXISTS languages_fallback_language_id_fkey;
+ALTER TABLE catalog.languages
+  ADD CONSTRAINT languages_fallback_language_id_fkey
+  FOREIGN KEY (fallback_language_id)
+  REFERENCES catalog.languages(id)
+  ON DELETE SET NULL
+  NOT VALID;
+ALTER TABLE catalog.languages
+  VALIDATE CONSTRAINT languages_fallback_language_id_fkey;
 
 ALTER TABLE content.question_translations
   ADD COLUMN IF NOT EXISTS translator_user_id uuid,
   ADD COLUMN IF NOT EXISTS submitted_at timestamptz,
-  ADD COLUMN IF NOT EXISTS quality_snapshot jsonb NOT NULL DEFAULT '{}'::jsonb,
-  ADD COLUMN IF NOT EXISTS created_at timestamptz NOT NULL DEFAULT now(),
-  ADD COLUMN IF NOT EXISTS updated_at timestamptz NOT NULL DEFAULT now();
+  ADD COLUMN IF NOT EXISTS quality_snapshot jsonb,
+  ADD COLUMN IF NOT EXISTS created_at timestamptz,
+  ADD COLUMN IF NOT EXISTS updated_at timestamptz;
 
-DO $$
-BEGIN
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_constraint
-    WHERE conname = 'question_translations_translator_user_id_fkey'
-      AND conrelid = 'content.question_translations'::regclass
-  ) THEN
-    ALTER TABLE content.question_translations
-      ADD CONSTRAINT question_translations_translator_user_id_fkey
-      FOREIGN KEY (translator_user_id)
-      REFERENCES identity.users(id)
-      ON DELETE SET NULL
-      NOT VALID;
-  END IF;
-
-  IF NOT EXISTS (
-    SELECT 1 FROM pg_constraint
-    WHERE conname = 'question_translations_status_check'
-      AND conrelid = 'content.question_translations'::regclass
-  ) THEN
-    ALTER TABLE content.question_translations
-      ADD CONSTRAINT question_translations_status_check
-      CHECK (status IN ('draft', 'in_review', 'needs_fix', 'approved', 'rejected', 'archived'))
-      NOT VALID;
-  END IF;
-END $$;
+UPDATE content.question_translations
+SET quality_snapshot = COALESCE(quality_snapshot, '{}'::jsonb),
+    created_at = COALESCE(created_at, now()),
+    updated_at = COALESCE(updated_at, now())
+WHERE quality_snapshot IS NULL
+   OR created_at IS NULL
+   OR updated_at IS NULL;
 
 ALTER TABLE content.question_translations
+  ALTER COLUMN quality_snapshot SET DEFAULT '{}'::jsonb,
+  ALTER COLUMN quality_snapshot SET NOT NULL,
+  ALTER COLUMN created_at SET DEFAULT now(),
+  ALTER COLUMN created_at SET NOT NULL,
+  ALTER COLUMN updated_at SET DEFAULT now(),
+  ALTER COLUMN updated_at SET NOT NULL;
+
+ALTER TABLE content.question_translations
+  DROP CONSTRAINT IF EXISTS question_translations_translator_user_id_fkey;
+ALTER TABLE content.question_translations
+  ADD CONSTRAINT question_translations_translator_user_id_fkey
+  FOREIGN KEY (translator_user_id)
+  REFERENCES identity.users(id)
+  ON DELETE SET NULL
+  NOT VALID;
+ALTER TABLE content.question_translations
   VALIDATE CONSTRAINT question_translations_translator_user_id_fkey;
+
+ALTER TABLE content.question_translations
+  DROP CONSTRAINT IF EXISTS question_translations_status_check;
+ALTER TABLE content.question_translations
+  ADD CONSTRAINT question_translations_status_check
+  CHECK (status IN ('draft', 'in_review', 'needs_fix', 'approved', 'rejected', 'archived'))
+  NOT VALID;
 ALTER TABLE content.question_translations
   VALIDATE CONSTRAINT question_translations_status_check;
 
