@@ -10,30 +10,53 @@ const cp001 = entries.filter((entry) => entry.cpId === "AVG-CP-001");
 const cp002 = entries.filter((entry) => entry.cpId === "AVG-CP-002");
 const cp003 = entries.filter((entry) => entry.cpId === "AVG-CP-003");
 
-assert.equal(entries.length, 88);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 88);
-assert.equal(cp001.length, 24);
-assert.equal(cp002.length, 50);
-assert.equal(cp003.length, 14);
-assert.deepEqual(
-  cp003.map((entry) => entry.qlId),
-  Array.from({ length: 14 }, (_, index) => `AVG-QL-${String(index + 123).padStart(3, "0")}`),
+const expectedCpCounts = {
+  "AVG-CP-001": 24,
+  "AVG-CP-002": 50,
+  "AVG-CP-003": 86,
+} as const;
+const expectedTotal = Object.values(expectedCpCounts).reduce(
+  (sum, count) => sum + count,
+  0,
 );
 
-const cp003Modes = [
-  "findNewAverageAfterAddition",
-  "findNewAverageAfterRemoval",
-  "findNewAverageAfterReplacement",
-  "findAddedMemberValueFromShift",
-  "findRemovedMemberValueFromShift",
-  "findReplacementValueFromShift",
-  "findInningsValueOrNewCricketAverage",
-];
-for (const mode of cp003Modes) {
-  assert.equal(cp003.filter((entry) => entry.solveMode === mode).length, 2, `${mode} proof count`);
+assert.equal(entries.length, expectedTotal);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, expectedTotal);
+assert.equal(cp001.length, expectedCpCounts["AVG-CP-001"]);
+assert.equal(cp002.length, expectedCpCounts["AVG-CP-002"]);
+assert.equal(cp003.length, expectedCpCounts["AVG-CP-003"]);
+assert.deepEqual(
+  cp003.map((entry) => entry.qlId),
+  Array.from({ length: 86 }, (_, index) =>
+    `AVG-QL-${String(index + 123).padStart(3, "0")}`,
+  ),
+);
+
+const expectedCp003ModeCounts: Record<string, number> = {
+  findNewAverageAfterAddition: 13,
+  findNewAverageAfterRemoval: 12,
+  findNewAverageAfterReplacement: 13,
+  findAddedMemberValueFromShift: 13,
+  findRemovedMemberValueFromShift: 12,
+  findReplacementValueFromShift: 11,
+  findInningsValueOrNewCricketAverage: 12,
+};
+for (const [mode, expectedCount] of Object.entries(expectedCp003ModeCounts)) {
+  assert.equal(
+    cp003.filter((entry) => entry.solveMode === mode).length,
+    expectedCount,
+    `${mode} allocation`,
+  );
 }
-assert.equal(cp003.filter((entry) => entry.scenarioVariant.toLowerCase().includes("years")).length >= 2, true);
-assert.equal(cp003.filter((entry) => entry.contextDomain === "Sports").length, 2);
+assert.equal(
+  cp003.filter((entry) => entry.scenarioVariant.toLowerCase().includes("years"))
+    .length >= 6,
+  true,
+);
+assert.equal(
+  cp003.filter((entry) => entry.contextDomain === "Sports").length >= 8,
+  true,
+);
 
 let generated = 0;
 for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
@@ -61,4 +84,18 @@ for (const qlId of ["AVG-QL-001", "AVG-QL-073", "AVG-QL-123"]) {
   }
 }
 
-console.log(JSON.stringify({ qlCount: entries.length, cp001QlCount: cp001.length, cp002QlCount: cp002.length, cp003ProofQlCount: cp003.length, seedsPerQl: 12, generated, status: "PASS" }, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      qlCount: entries.length,
+      cp001QlCount: cp001.length,
+      cp002QlCount: cp002.length,
+      cp003QlCount: cp003.length,
+      seedsPerQl: 12,
+      generated,
+      status: "PASS",
+    },
+    null,
+    2,
+  ),
+);
