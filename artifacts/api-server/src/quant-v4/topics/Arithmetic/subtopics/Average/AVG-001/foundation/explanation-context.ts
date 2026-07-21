@@ -20,6 +20,7 @@ const LABEL_OVERRIDES: Record<string, string> = {
   "combined monthly salary": "total monthly salary",
   "average daily sales": "average sale per day",
   "new average marks": "new average",
+  "child's age": "new member's age",
 };
 
 function groupIndianDigits(value: string) {
