@@ -350,14 +350,14 @@ export function SystemHealthWorkspacePage() {
 
             <TabsContent value="errors" className="space-y-4">
               <Card><CardContent className="grid gap-3 p-4 sm:grid-cols-2">
-                <select className="h-10 rounded-md border bg-background px-3 text-sm" value={errorSource} onChange={(event) => setErrorSource(event.target.value)}><option value="all">All sources</option>{errorSources.map((source) => <option key={source} value={source}>{source.replaceAll('_', ' ')}</option>)}</select>
+                <select className="h-10 rounded-md border bg-background px-3 text-sm" value={errorSource} onChange={(event) => setErrorSource(event.target.value)}><option value="all">All sources</option>{errorSources.map((source) => <option key={source} value={source}>{source.replace(/_/g, ' ')}</option>)}</select>
                 <select className="h-10 rounded-md border bg-background px-3 text-sm" value={errorSeverity} onChange={(event) => setErrorSeverity(event.target.value)}><option value="all">All severities</option><option value="critical">Critical</option><option value="error">Error</option><option value="warning">Warning</option></select>
               </CardContent></Card>
               <div className="space-y-3">
                 {filteredErrors.map((entry) => (
                   <Card key={entry.id} className={errorTone(entry)}>
                     <CardContent className="p-4">
-                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div><div className="flex flex-wrap items-center gap-2"><Badge variant="outline" className="capitalize">{entry.source.replaceAll('_', ' ')}</Badge><Badge variant={entry.severity === 'warning' ? 'outline' : 'destructive'} className="capitalize">{entry.severity}</Badge></div><h3 className="mt-2 font-semibold">{entry.title}</h3><p className="mt-1 text-sm text-muted-foreground">{entry.message}</p>{entry.entityId && <p className="mt-2 font-mono text-[11px] text-muted-foreground">{entry.entityType}: {entry.entityId}</p>}</div><span className="shrink-0 text-xs text-muted-foreground">{formatTime(entry.occurredAt)}</span></div>
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div><div className="flex flex-wrap items-center gap-2"><Badge variant="outline" className="capitalize">{entry.source.replace(/_/g, ' ')}</Badge><Badge variant={entry.severity === 'warning' ? 'outline' : 'destructive'} className="capitalize">{entry.severity}</Badge></div><h3 className="mt-2 font-semibold">{entry.title}</h3><p className="mt-1 text-sm text-muted-foreground">{entry.message}</p>{entry.entityId && <p className="mt-2 font-mono text-[11px] text-muted-foreground">{entry.entityType}: {entry.entityId}</p>}</div><span className="shrink-0 text-xs text-muted-foreground">{formatTime(entry.occurredAt)}</span></div>
                     </CardContent>
                   </Card>
                 ))}
