@@ -120,7 +120,9 @@ jobs:
       - name: Typecheck student application
         id: student_typecheck
         continue-on-error: true
-        run: pnpm --dir artifacts/examtree typecheck 2>&1 | tee student-typecheck-full.log
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/examtree typecheck 2>&1 | tee student-typecheck-full.log
 
       - name: Upload full-workflow student diagnostics
         uses: actions/upload-artifact@v4
