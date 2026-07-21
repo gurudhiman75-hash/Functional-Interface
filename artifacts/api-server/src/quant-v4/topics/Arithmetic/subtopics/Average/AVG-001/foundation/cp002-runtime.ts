@@ -428,6 +428,23 @@ function cp002ResultLabel(parameters: Avg001Parameters) {
   return "average";
 }
 
+function cp002ResultLabel(parameters: Avg001Parameters) {
+  const variant = parameters.scenarioVariant;
+  if (variant.includes("seat")) return "seat number";
+  if (variant.includes("house")) return "house number";
+  if (variant.includes("price")) return "price";
+  if (variant.includes("score")) return "score";
+  if (variant.includes("target")) return "target";
+  if (variant.includes("output")) return "output";
+  if (variant.includes("roll")) return "roll number";
+  if (variant.includes("code")) return "code";
+  if (parameters.solveMode === "findMiddleTermFromAverage") return "middle term";
+  if (parameters.solveMode === "findExtremeFromAverageAndCount") {
+    return parameters.values.targetExtreme === "smallest" ? "smallest term" : "largest term";
+  }
+  return "average";
+}
+
 function renderCp002Explanation(
   parameters: Avg001Parameters,
   solver: Avg001SolverResult,
