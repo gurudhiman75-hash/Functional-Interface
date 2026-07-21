@@ -5,7 +5,6 @@ import path from "path";
 import { fileURLToPath } from "url";
 import router from "./routes";
 import { logger } from "./lib/logger";
-import billingWebhookHandler from "./routes/billing-webhook";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -64,7 +63,15 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 app.options("/api/{*splat}", cors(corsOptions));
-app.post("/api/billing/webhook", express.raw({ type: "application/json" }), webhookRateLimit, billingWebhookHandler);
+app.post(
+  "/api/billing/webhook",
+  express.raw({ type: "application/json" }),
+  webhookRateLimit,
+  (_req, res) => res.status(410).json({
+    error: "Legacy billing webhook is retired",
+    code: "LEGACY_FEATURE_RETIRED",
+  }),
+);
 
 app.use(
   express.json({
