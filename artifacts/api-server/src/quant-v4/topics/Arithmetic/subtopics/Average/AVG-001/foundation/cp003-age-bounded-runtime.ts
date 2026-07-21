@@ -18,10 +18,11 @@ function hash(value: string) {
 }
 
 function isJoiningAgeScenario(pkg: Avg001QuestionPackage) {
-  return (
-    pkg.parameters.scenarioVariant === "familyAgeElapsedTime" ||
-    pkg.parameters.scenarioVariant === "newbornAfterElapsedYears"
-  );
+  return [
+    "familyAgeElapsedTime",
+    "newbornAfterElapsedYears",
+    "findChildAgeAfterYears",
+  ].includes(pkg.parameters.scenarioVariant);
 }
 
 function requiresBoundedJoiningAge(pkg: Avg001QuestionPackage) {
