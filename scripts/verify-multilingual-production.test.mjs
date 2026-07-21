@@ -4,6 +4,8 @@ import test from 'node:test';
 
 import { runProductionSmoke } from './verify-multilingual-production.mjs';
 
+const FIXTURE_TOKEN = 'fixture-admin-token-value-1234567890';
+
 function json(res, status, body, headers = {}) {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', ...headers });
   res.end(JSON.stringify(body));
@@ -36,13 +38,28 @@ async function createFixtureServer() {
       return;
     }
 
+    if (url.pathname === '/firebase/accounts:signInWithPassword') {
+      assert.equal(url.searchParams.get('key'), 'fixture-firebase-key');
+      let body = '';
+      req.on('data', (chunk) => { body += chunk; });
+      req.on('end', () => {
+        const credentials = JSON.parse(body);
+        if (credentials.email === 'smoke@example.com' && credentials.password === 'fixture-password') {
+          json(res, 200, { idToken: FIXTURE_TOKEN, localId: 'fixture-user' });
+        } else {
+          json(res, 400, { error: { message: 'INVALID_LOGIN_CREDENTIALS' } });
+        }
+      });
+      return;
+    }
+
     if (url.pathname.startsWith('/api/admin/translations')) {
       const authorization = req.headers.authorization;
       if (!authorization) {
         json(res, 401, { error: 'No token provided' });
         return;
       }
-      if (authorization !== 'Bearer fixture-admin-token') {
+      if (authorization !== `Bearer ${FIXTURE_TOKEN}`) {
         json(res, 401, { error: 'Invalid token' });
         return;
       }
@@ -103,7 +120,7 @@ test('production synthetic validates public, protected and authenticated multili
     const report = await runProductionSmoke({
       baseUrl: fixture.baseUrl,
       allowedOrigin: 'https://sarbedutech.web.app',
-      adminToken: 'fixture-admin-token',
+      adminToken: FIXTURE_TOKEN,
       outputPath: null,
       attempts: 1,
       initialDelayMs: 1,
@@ -115,6 +132,7 @@ test('production synthetic validates public, protected and authenticated multili
     assert.equal(report.checks.invalidTokenProtection.status, 'passed');
     assert.equal(report.checks.cors.status, 'passed');
     assert.equal(report.checks.adminSpa.status, 'passed');
+    assert.equal(report.checks.authenticationBootstrap.mode, 'provided_id_token');
     assert.equal(report.checks.authenticatedTranslationReads.status, 'passed');
     assert.equal(report.checks.authenticatedTranslationReads.questionDetail, 'passed');
     assert.equal(report.checks.authenticatedTranslationReads.testDetail, 'passed');
@@ -123,7 +141,31 @@ test('production synthetic validates public, protected and authenticated multili
   }
 });
 
-test('production synthetic remains useful without an admin token', async () => {
+test('production synthetic mints a fresh Firebase token from a dedicated smoke account', async () => {
+  const fixture = await createFixtureServer();
+  try {
+    const report = await runProductionSmoke({
+      baseUrl: fixture.baseUrl,
+      allowedOrigin: 'https://sarbedutech.web.app',
+      adminEmail: 'smoke@example.com',
+      adminPassword: 'fixture-password',
+      firebaseApiKey: 'fixture-firebase-key',
+      firebaseAuthUrl: `${fixture.baseUrl}/firebase/accounts:signInWithPassword`,
+      outputPath: null,
+      attempts: 1,
+      initialDelayMs: 1,
+    });
+
+    assert.equal(report.ok, true);
+    assert.equal(report.checks.authenticationBootstrap.status, 'passed');
+    assert.equal(report.checks.authenticationBootstrap.mode, 'firebase_password');
+    assert.equal(report.checks.authenticatedTranslationReads.status, 'passed');
+  } finally {
+    await fixture.close();
+  }
+});
+
+test('production synthetic remains useful without administrator credentials', async () => {
   const fixture = await createFixtureServer();
   try {
     const report = await runProductionSmoke({
@@ -136,6 +178,7 @@ test('production synthetic remains useful without an admin token', async () => {
     });
 
     assert.equal(report.ok, true);
+    assert.equal(report.checks.authenticationBootstrap.status, 'skipped');
     assert.equal(report.checks.authenticatedTranslationReads.status, 'skipped');
   } finally {
     await fixture.close();
