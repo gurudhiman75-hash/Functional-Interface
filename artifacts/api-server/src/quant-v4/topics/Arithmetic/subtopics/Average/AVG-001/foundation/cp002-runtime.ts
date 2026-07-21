@@ -411,6 +411,23 @@ function cp002ResultLabel(parameters: Avg001Parameters) {
   return "average";
 }
 
+function cp002ResultLabel(parameters: Avg001Parameters) {
+  const variant = parameters.scenarioVariant;
+  if (variant.includes("seat")) return "seat number";
+  if (variant.includes("house")) return "house number";
+  if (variant.includes("price")) return "price";
+  if (variant.includes("score")) return "score";
+  if (variant.includes("target")) return "target";
+  if (variant.includes("output")) return "output";
+  if (variant.includes("roll")) return "roll number";
+  if (variant.includes("code")) return "code";
+  if (parameters.solveMode === "findMiddleTermFromAverage") return "middle term";
+  if (parameters.solveMode === "findExtremeFromAverageAndCount") {
+    return parameters.values.targetExtreme === "smallest" ? "smallest term" : "largest term";
+  }
+  return "average";
+}
+
 function renderCp002Explanation(
   parameters: Avg001Parameters,
   solver: Avg001SolverResult,
@@ -434,23 +451,23 @@ function renderCp002Explanation(
       return { lines: [
         `Pair the first and last terms: ${first} and ${last}.`,
         "Every pair taken from opposite ends has the same average.",
-        `$$\text{Average}=(${first}+${last})\div2=${solver.answer}$$`,
+        `$$\\text{Average}=(${first}+${last})\\div2=${solver.answer}$$`,
         `So the ${label} is ${solver.answer}.`,
-        `Check: ${solver.answer}\times${count}=${total}.`,
+        `Check: ${solver.answer}\\times${count}=${total}.`,
       ] };
     case "ap-average-direct-formula":
       return { lines: [
         "For an arithmetic progression, the average is halfway between the first and last terms.",
         `Here the endpoints are ${first} and ${last}.`,
-        `$$(${first}+${last})\div2=${solver.answer}$$`,
+        `$$(${first}+${last})\\div2=${solver.answer}$$`,
         `Hence, the ${label} is ${solver.answer}.`,
       ] };
     case "ap-average-centre-balance":
       return { lines: [
-        `The terms rise by an equal amount each time.`,
-        `Values equally far from the two ends balance around the centre.`,
+        "The terms rise by an equal amount each time.",
+        "Values equally far from the two ends balance around the centre.",
         `The centre value is the mean of ${first} and ${last}.`,
-        `$$\text{Average}=(${first}+${last})\div2=${solver.answer}$$`,
+        `$$\\text{Average}=(${first}+${last})\\div2=${solver.answer}$$`,
         `Therefore, the ${label} is ${solver.answer}.`,
       ] };
     case "ap-middle-equals-average":
@@ -458,14 +475,14 @@ function renderCp002Explanation(
         `There are ${count} equally spaced terms, so there is one middle term.`,
         "Pairs on the two sides are equally far from the middle.",
         "Their deviations cancel, so the middle term equals the average.",
-        `$$\text{Middle term}=${average}$$`,
+        `$$\\text{Middle term}=${average}$$`,
         `Thus, the ${label} is ${solver.answer}.`,
       ] };
     case "ap-middle-balanced-pairs":
       return { lines: [
-        "Imagine matching the first term with the last, the second with the second-last, and so on.",
+        "Match the first term with the last, the second with the second-last, and so on.",
         `Each pair balances at ${average}.`,
-        `With an odd number of terms, the unpaired central term must also be ${average}.`,
+        `With an odd number of terms, the central term must also be ${average}.`,
         `So the ${label} is ${solver.answer}.`,
         `Check: ${evidence.verification}.`,
       ] };
@@ -479,14 +496,14 @@ function renderCp002Explanation(
     case "ap-extreme-half-span":
       return { lines: [
         `There are ${count - 1} equal gaps of ${difference}.`,
-        `$$\text{Total span}=(${count}-1)\times${difference}=${totalSpan}$$`,
-        `The average is halfway between the two extremes, so the half-span is ${halfSpan}.`,
+        `$$\\text{Total span}=(${count}-1)\\times${difference}=${totalSpan}$$`,
+        `The average is halfway between the extremes, so the half-span is ${halfSpan}.`,
         `$$${average}${isSmallest ? "-" : "+"}${halfSpan}=${solver.answer}$$`,
         `So the ${label} is ${solver.answer}.`,
       ] };
     case "ap-extreme-offset-count":
       return { lines: [
-        `From the centre to either end, the offset is half of (${count}-1) gaps.`,
+        `From the centre to either end, the offset is half of ${count - 1} gaps.`,
         `Each gap is ${difference}, giving an offset of ${halfSpan}.`,
         `${isSmallest ? "Subtract" : "Add"} this offset ${isSmallest ? "from" : "to"} the average ${average}.`,
         `$$${average}${isSmallest ? "-" : "+"}${halfSpan}=${solver.answer}$$`,
@@ -504,22 +521,22 @@ function renderCp002Explanation(
       return { lines: [
         `The first number is ${first} and the last is ${last}.`,
         "Consecutive odd or even numbers are equally spaced, so their average is the endpoint mean.",
-        `$$(${first}+${last})\div2=${solver.answer}$$`,
+        `$$(${first}+${last})\\div2=${solver.answer}$$`,
         `So the ${label} is ${solver.answer}.`,
       ] };
     case "odd-even-middle-balance":
       return { lines: [
         "The numbers are equally spaced by 2.",
-        `Numbers at equal distances from the ends balance around the centre.`,
+        "Numbers at equal distances from the ends balance around the centre.",
         `That centre is (${first}+${last})÷2=${solver.answer}.`,
         `Hence, the ${label} is ${solver.answer}.`,
-        `Check: ${solver.answer}\times${count}=${total}.`,
+        `Check: ${solver.answer}\\times${count}=${total}.`,
       ] };
     case "odd-even-first-last-shortcut":
       return { lines: [
         "There is no need to add all the terms.",
-        `For an equally spaced list, use (first + last) ÷ 2.`,
-        `$$\text{Average}=(${first}+${last})\div2=${solver.answer}$$`,
+        "For an equally spaced list, use (first + last) ÷ 2.",
+        `$$\\text{Average}=(${first}+${last})\\div2=${solver.answer}$$`,
         `Therefore, the ${label} is ${solver.answer}.`,
       ] };
     default:
