@@ -9,7 +9,14 @@ import type {
 function numeric(value: unknown): number | undefined {
   if (typeof value === "number") return value;
   if (typeof value === "string") {
-    const parsed = Number(value.replace(/,/g, ""));
+    const normalized = value.replace(/,/g, "").trim();
+    const fraction = normalized.match(/^(-?\d+)\/(\d+)$/);
+    if (fraction) {
+      const denominator = Number(fraction[2]);
+      if (denominator === 0) return undefined;
+      return Number(fraction[1]) / denominator;
+    }
+    const parsed = Number(normalized);
     return Number.isFinite(parsed) ? parsed : undefined;
   }
   if (
@@ -47,7 +54,7 @@ function optionRange(pkg: Avg001QuestionPackage) {
 
 function misconceptionLinkedCount(pkg: Avg001QuestionPackage) {
   const values = pkg.parameters.values as Record<string, unknown>;
-  const answer = Number(pkg.answer.replace(/,/g, ""));
+  const answer = numeric(pkg.answer);
   const directAnchors = [
     values.oldAverage,
     values.currentAverage,
@@ -69,11 +76,12 @@ function misconceptionLinkedCount(pkg: Avg001QuestionPackage) {
 
   return pkg.options
     .filter((option) => option !== pkg.answer)
-    .map((option) => Number(option.replace(/,/g, "")))
+    .map(numeric)
+    .filter((option): option is number => option !== undefined)
     .filter(
       (option) =>
         directAnchors.some((anchor) => option === anchor) ||
-        (Number.isFinite(answer) && Math.abs(option - answer) <= nearStep),
+        (answer !== undefined && Math.abs(option - answer) <= nearStep),
     ).length;
 }
 
@@ -112,10 +120,10 @@ export function runAvg001Cp003Pipeline(input: {
     {
       name: "context-realistic-options",
       passed: base.options.every((option) => {
-        const value = Number(option.replace(/,/g, ""));
-        return Number.isFinite(value) && value >= range.minimum && value <= range.maximum;
+        const value = numeric(option);
+        return value !== undefined && value >= range.minimum && value <= range.maximum;
       }),
-      message: "Every option stays within the scenario-specific realistic range",
+      message: `Every option stays within ${range.minimum}–${range.maximum} for ${base.questionLanguageId}: ${base.options.join(", ")}`,
     },
   ];
   const checks = [...retainedChecks, ...replacementChecks];
