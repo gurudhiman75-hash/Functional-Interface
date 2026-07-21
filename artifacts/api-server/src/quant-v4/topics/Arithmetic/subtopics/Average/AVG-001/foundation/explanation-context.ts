@@ -16,6 +16,12 @@ const MONEY_SCENARIOS = new Set([
   "salaryLeavingValue",
 ]);
 
+const LABEL_OVERRIDES: Record<string, string> = {
+  "combined monthly salary": "total monthly salary",
+  "average daily sales": "average sale per day",
+  "new average marks": "new average",
+};
+
 function groupIndianDigits(value: string) {
   const match = value.match(/^(-?)(\d+)(\.\d+)?$/);
   if (!match) return value;
@@ -56,6 +62,14 @@ function displayAnswer(pkg: Avg001QuestionPackage) {
   return grouped;
 }
 
+function contextLabel(raw: string) {
+  const normalized = raw
+    .replace(/^the\s+/i, "")
+    .replace(/\s+in rupees$/i, "")
+    .trim();
+  return LABEL_OVERRIDES[normalized] ?? normalized;
+}
+
 export function applyAvg001ContextualConclusion(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
@@ -65,7 +79,7 @@ export function applyAvg001ContextualConclusion(
   if (genericIndex < 0) return pkg;
 
   const entry = getAvg001QuestionEntry(pkg.questionLanguageId);
-  const label = entry.finalContext.replace(/^the\s+/i, "");
+  const label = contextLabel(entry.finalContext);
   const lines = [...pkg.explanation.lines];
   lines[genericIndex] = `Therefore, the ${label} is ${displayAnswer(pkg)}.`;
 
