@@ -36,7 +36,7 @@ const bannedPatterns: Array<[RegExp, string]> = [
 const cp002Cue =
   /consecutive|arithmetic progression|equally spaced|common difference|fixed amount|equal amount|uniformly|increase(?:s|d)? by|rise(?:s)? by|steps of|differ by|differing by|odd-numbered|even roll numbers/i;
 const cp003Cue =
-  /joins|leaves|removed|excluded|replaced|corrected|remaining group|next innings/i;
+  /joins|leaves|removed|excluded|replaced|corrected|remaining group|next innings|is added|is born|retires|withdraws|after one more|new member|new employee|new worker|new player/i;
 
 for (const entry of entries) {
   const expectedPlaceholders = [...entry.requiredVariables].sort();
@@ -89,19 +89,20 @@ if (formalTerminologyCount > 5) {
   );
 }
 
+const expectedCounts = {
+  "AVG-CP-001": 24,
+  "AVG-CP-002": 50,
+  "AVG-CP-003": 86,
+};
 const counts = Object.fromEntries(
-  ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].map((cpId) => [
+  Object.keys(expectedCounts).map((cpId) => [
     cpId,
     entries.filter((entry) => entry.cpId === cpId).length,
   ]),
 );
 
-assert.deepEqual(counts, {
-  "AVG-CP-001": 24,
-  "AVG-CP-002": 50,
-  "AVG-CP-003": 14,
-});
-assert.equal(getAvg001EditorialStemOverrideIds().length, 76);
+assert.deepEqual(counts, expectedCounts);
+assert.equal(getAvg001EditorialStemOverrideIds().length, 62);
 assert.equal(failures.length, 0, failures.join("\n"));
 
 console.log(
