@@ -22,6 +22,8 @@ on:
       - artifacts/admin-app/src/app/nav/navigation.ts
       - artifacts/admin-app/src/test/admin-navigation.test.ts
       - docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+      - docs/database-migrations/2026-07-21-multilingual-translation-validation.md
+      - scripts/validate-multilingual-migration.mjs
       - docs/frontend-truth-audit.md
       - .github/workflows/multilingual-translations.yml
   push:
@@ -44,6 +46,8 @@ on:
       - artifacts/admin-app/src/app/nav/navigation.ts
       - artifacts/admin-app/src/test/admin-navigation.test.ts
       - docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+      - docs/database-migrations/2026-07-21-multilingual-translation-validation.md
+      - scripts/validate-multilingual-migration.mjs
       - docs/frontend-truth-audit.md
       - .github/workflows/multilingual-translations.yml
 
@@ -74,12 +78,16 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Validate parser-safe migration contract
+        run: node scripts/validate-multilingual-migration.mjs
+
       - name: Enforce canonical multilingual boundary
         run: |
           grep -F 'content.question_translation_options' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
           grep -F 'assessment.test_version_translations' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
           grep -F 'content.translation_terms' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
           grep -F 'content.translations.review' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
+          ! grep -E 'DO[[:space:]]+\$\$' docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
           grep -F 'adminTranslationHardeningRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'adminTestLocalizationGateRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'publishedTestMultilingualRunnerRouter' artifacts/api-server/src/routes/index.ts
