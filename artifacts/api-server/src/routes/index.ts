@@ -26,6 +26,7 @@ import adminTestQaRouter from "./admin-test-qa";
 import adminTestTranslationsRouter from "./admin-test-translations";
 import adminTestsRouter from "./admin-tests";
 import adminTranslationActionsRouter from "./admin-translation-actions";
+import adminTranslationHardeningRouter from "./admin-translation-hardening";
 import adminTranslationsRouter from "./admin-translations";
 import publishedTestsRouter from "./published-tests";
 import publishedTestRunnerRouter from "./published-test-runner";
@@ -72,6 +73,8 @@ router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 // Translation operations own language configuration, terminology, question and
 // test localization, reviewer workflow, and publication-readiness evidence.
+// Focused correctness guards are mounted first for affected mutations.
+router.use("/admin/translations", adminTranslationHardeningRouter);
 router.use("/admin/translations", adminTranslationActionsRouter);
 router.use("/admin/translations", adminTestTranslationsRouter);
 router.use("/admin/translations", adminTranslationsRouter);
