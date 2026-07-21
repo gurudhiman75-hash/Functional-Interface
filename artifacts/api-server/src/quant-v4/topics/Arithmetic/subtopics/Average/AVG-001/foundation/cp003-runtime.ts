@@ -36,6 +36,24 @@ function natural(value: Rational) {
   return formatRational(value, "EXACT_INTEGER");
 }
 
+function groupIndianDigits(value: string) {
+  const match = value.match(/^(-?)(\d+)(\.\d+)?$/);
+  if (!match) return value;
+  const [, sign, integer, decimal = ""] = match;
+  if (integer.length <= 3) return `${sign}${integer}${decimal}`;
+  const lastThree = integer.slice(-3);
+  const leading = integer.slice(0, -3);
+  const groupedLeading = leading.replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+  return `${sign}${groupedLeading},${lastThree}${decimal}`;
+}
+
+function stemValue(entry: ReturnType<typeof getAvg001QuestionEntry>, value: Rational) {
+  const rendered = natural(value);
+  return entry.contextDomain === "Workplace"
+    ? groupIndianDigits(rendered)
+    : rendered;
+}
+
 function generateCp003Parameters(input: {
   questionLanguageId: string;
   seed: string;
@@ -99,6 +117,17 @@ function generateCp003Parameters(input: {
     entry.solveMode === "findNewAverageAfterAddition" ||
     entry.solveMode === "findAddedMemberValueFromShift"
   ) {
+    const shiftPool = entry.contextDomain === "Classroom"
+      ? [1, 2, 3, 4, 5]
+      : [2, 3, 4, 5];
+    const validShifts = shiftPool.filter((candidate) => {
+      const candidateValue = toNumber(oldAverage) + candidate * (n + 1);
+      return entry.contextDomain !== "Classroom" || candidateValue <= 100;
+    });
+    if (!validShifts.length) {
+      throw new Error(`No valid addition construction for ${entry.qlId}`);
+    }
+    shift = pick(validShifts, next);
     newCount = n + 1;
     newAverage = add(oldAverage, rational(shift));
     addedValue = subtract(
@@ -111,7 +140,10 @@ function generateCp003Parameters(input: {
   ) {
     const minimumRemoved = entry.contextDomain === "Workplace" ? 10000 : 1;
     const maximumRemoved = entry.contextDomain === "Classroom" ? 100 : Number.POSITIVE_INFINITY;
-    const validShifts = [1, 2, 3, 4, 5].filter((candidate) => {
+    const shiftPool = entry.contextDomain === "Workplace"
+      ? [500, 1000, 1500, 2000]
+      : [1, 2, 3, 4, 5];
+    const validShifts = shiftPool.filter((candidate) => {
       const candidateValue = toNumber(oldAverage) - candidate * (n - 1);
       return candidateValue >= minimumRemoved && candidateValue <= maximumRemoved;
     });
@@ -125,10 +157,21 @@ function generateCp003Parameters(input: {
       multiply(oldAverage, rational(n)),
       multiply(newAverage, rational(newCount)),
     );
-  } else if (entry.solveMode === "findNewAverageAfterReplacement" || entry.solveMode === "findReplacementValueFromShift") {
+  } else if (
+    entry.solveMode === "findNewAverageAfterReplacement" ||
+    entry.solveMode === "findReplacementValueFromShift"
+  ) {
+    outgoingValue = subtract(oldAverage, rational(5));
+    const validShifts = [1, 2, 3, 4, 5].filter((candidate) => {
+      const candidateValue = toNumber(outgoingValue!) + n * candidate;
+      return entry.contextDomain !== "Classroom" || candidateValue <= 100;
+    });
+    if (!validShifts.length) {
+      throw new Error(`No valid replacement construction for ${entry.qlId}`);
+    }
+    shift = pick(validShifts, next);
     newCount = n;
     newAverage = add(oldAverage, rational(shift));
-    outgoingValue = subtract(oldAverage, rational(5));
     incomingValue = add(outgoingValue, multiply(rational(n), rational(shift)));
   } else if (entry.solveMode === "findInningsValueOrNewCricketAverage") {
     newCount = n + 1;
@@ -146,17 +189,17 @@ function generateCp003Parameters(input: {
   const renderVariables: Record<string, string | number> = {
     oldCount: n,
     newCount,
-    oldAverage: natural(oldAverage),
-    newAverage: natural(newAverage),
-    oldTotal: natural(oldTotal),
-    newTotal: natural(newTotal),
+    oldAverage: stemValue(entry, oldAverage),
+    newAverage: stemValue(entry, newAverage),
+    oldTotal: stemValue(entry, oldTotal),
+    newTotal: stemValue(entry, newTotal),
     elapsedYears,
     inningsCount: n,
   };
-  if (addedValue) renderVariables.addedValue = natural(addedValue);
-  if (removedValue) renderVariables.removedValue = natural(removedValue);
-  if (outgoingValue) renderVariables.outgoingValue = natural(outgoingValue);
-  if (incomingValue) renderVariables.incomingValue = natural(incomingValue);
+  if (addedValue) renderVariables.addedValue = stemValue(entry, addedValue);
+  if (removedValue) renderVariables.removedValue = stemValue(entry, removedValue);
+  if (outgoingValue) renderVariables.outgoingValue = stemValue(entry, outgoingValue);
+  if (incomingValue) renderVariables.incomingValue = stemValue(entry, incomingValue);
 
   return {
     packageId: AVG_001_PACKAGE_ID,
