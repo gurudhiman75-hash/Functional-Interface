@@ -17,6 +17,14 @@ declare global {
 }
 
 export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  // Mounted collaboration and hardening routers may share one request. Once a
+  // trusted upstream invocation has verified the Firebase token, reuse that
+  // server-populated identity instead of verifying the same token again.
+  if (req.user?.id) {
+    next();
+    return;
+  }
+
   if (!auth) {
     return void res.status(500).json({ error: "Authentication not configured" });
   }
