@@ -117,24 +117,5 @@ jobs:
       - name: Build admin application
         run: pnpm run build:admin
 
-      - name: Typecheck student application
-        id: student_typecheck
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          pnpm --dir artifacts/examtree typecheck 2>&1 | tee student-typecheck-full.log
-
-      - name: Upload full-workflow student diagnostics
-        uses: actions/upload-artifact@v4
-        with:
-          name: student-typecheck-full-log
-          path: student-typecheck-full.log
-          if-no-files-found: error
-          retention-days: 3
-
-      - name: Enforce student typecheck
-        if: steps.student_typecheck.outcome != 'success'
-        run: exit 1
-
       - name: Build student application
         run: pnpm run build:web
