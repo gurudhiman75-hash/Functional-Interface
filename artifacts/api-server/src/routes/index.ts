@@ -23,7 +23,10 @@ import adminTestBlueprintsRouter from "./admin-test-blueprints";
 import adminTestSeriesRouter from "./admin-test-series";
 import adminTestQaGateRouter from "./admin-test-qa-gate";
 import adminTestQaRouter from "./admin-test-qa";
+import adminTestTranslationsRouter from "./admin-test-translations";
 import adminTestsRouter from "./admin-tests";
+import adminTranslationActionsRouter from "./admin-translation-actions";
+import adminTranslationsRouter from "./admin-translations";
 import publishedTestsRouter from "./published-tests";
 import publishedTestRunnerRouter from "./published-test-runner";
 import attemptReliabilityRouter from "./attempt-reliability";
@@ -67,6 +70,11 @@ router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
+// Translation operations own language configuration, terminology, question and
+// test localization, reviewer workflow, and publication-readiness evidence.
+router.use("/admin/translations", adminTranslationActionsRouter);
+router.use("/admin/translations", adminTestTranslationsRouter);
+router.use("/admin/translations", adminTranslationsRouter);
 // Operational visibility reuses the canonical jobs, generation, validation,
 // outbox and audit foundations without creating a parallel monitoring store.
 // Response redaction is mounted first and the focused mutation router owns job actions.
