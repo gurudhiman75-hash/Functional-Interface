@@ -79,6 +79,7 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests/series` | LIVE | Immutable series versions, ordered test membership, availability windows, progression policy and release readiness. |
 | `/tests/blueprints` | LIVE | Immutable exam patterns, taxonomy/language/difficulty quotas, Question Bank shortage preview and deterministic draft assembly. |
 | `/users/team` | LIVE | Canonical administrator invitations, profiles, reporting lines, role grants, suspension, disablement and session revocation. |
+| `/analytics/system-health` | LIVE | Canonical API/database status, background-job queues and attempts, worker signals, generation/validation failures, outbox backlog, redacted operational errors and audited safe job actions. |
 | `/settings/roles` | LIVE | Server-enforced role definitions and granular permission assignment with protected system roles. |
 | `/settings/audit-logs` | LIVE | Immutable event search, actor/entity/date filtering, field-change detail and CSV export. |
 
@@ -96,12 +97,14 @@ Test Series uses `assessment.test_series`, `assessment.test_series_versions`, an
 
 The admin control plane reuses the existing `identity.users`, `identity.auth_identities`, `identity.admin_profiles`, `identity.roles`, `identity.permissions`, `identity.role_permissions`, `identity.user_roles`, and `identity.sessions` tables. It requires no schema migration. Administrators are pre-authorized by verified email, linked to Firebase on first sign-in, and resolved through the existing server-side RBAC middleware. Role changes, profile changes, invitations, suspension, disablement and session revocation are transactional and append immutable `platform.audit_events` plus `platform.audit_event_changes`. The API prevents removal or suspension of the final active super administrator and prevents weakening or deactivating the protected `super_admin` role.
 
+System Health reuses `operations.jobs`, `operations.job_attempts`, `operations.job_logs`, `content.generation_runs`, `content.generation_run_items`, `content.validation_runs`, `content.validation_checks`, and `platform.outbox_events`; it requires no migration. Read access requires `jobs.read`, and manual retry/cancel requires `jobs.manage`. Retry is limited to failed/cancelled jobs, cancellation is limited to queued/retrying jobs, and every mutation appends an immutable audit event. API responses recursively redact sensitive keys and embedded authorization, credential and database-URL text. Component states are derived from persisted signals and thresholds rather than mock status. The current canonical database has generation/outbox history but no observed worker jobs, attempts, logs or validation runs, so those components are explicitly shown as `unknown`/`not observed`. Persistent request-level exception storage and an active worker/outbox publisher remain separate operational follow-up work.
+
 ### In-progress admin workspaces
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
 - Students
-- Test Analytics, Question Analytics, Content Quality, System Health
+- Test Analytics, Question Analytics and Content Quality
 - Exam Configuration and Languages
 
 ### Planned admin workspaces
@@ -130,7 +133,8 @@ The production admin shell does not expose:
 - the former browser-store Test QA pipeline, fake reviewers, local QA comments, or locally simulated publication versions;
 - prototype blueprint rules, browser-local blueprint versions, or local test assembly presented as canonical data;
 - prototype series membership, browser-local release windows, or local progression state presented as canonical data;
-- prototype administrator arrays, role matrices, role switching or local audit entries presented as production access control.
+- prototype administrator arrays, role matrices, role switching or local audit entries presented as production access control;
+- mock worker heartbeats, fake queue failures, browser-local job state or unredacted operational payloads presented as monitoring truth.
 
 Prototype files may remain temporarily as design references, but they are outside the production route graph. Visibility in the admin navigation represents product scope and implementation status, not availability of prototype data.
 
@@ -149,6 +153,7 @@ Mounted operational API groups:
 - Test QA collaboration, version comparison and release gate;
 - Exam Blueprint CRUD, coverage preview and deterministic draft assembly;
 - Test Series CRUD, immutable versioning, ordered membership and release readiness;
+- System Health, canonical job inspection, safe queue actions and redacted pipeline/error telemetry;
 - student Test Series discovery, canonical progress and server-enforced access;
 - durable attempt sessions, revisioned draft recovery, transactional idempotent submission and committed result reads;
 - categories/subcategories and standalone published tests;
@@ -160,11 +165,11 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-Completed in the current Content Review release: full chapter-scoped duplicate comparison, machine-readable readiness reporting and audit-governed freeze/reopen state.
+Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, plus canonical System Health visibility across jobs, pipelines, outbox and operational failures.
 
-1. Add operational health, background-job visibility and error telemetry.
-2. Add translation review and language-specific publication gates.
-3. Complete canonical student administration: identity search, attempts, access state, sessions and account history.
+1. Add translation review and language-specific publication gates.
+2. Complete canonical student administration: identity search, attempts, access state, sessions and account history.
+3. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.
 
 ### P0 — student production truth and reliability
 
@@ -189,7 +194,7 @@ Completed in the current Content Review release: full chapter-scoped duplicate c
 
 1. Packages, orders, Razorpay verification, coupons, entitlements, refunds, and expiry.
 2. Admin student/support/notification workspaces.
-3. Monitoring, error tracking, rate limiting, backups, recovery drills, staging, and load tests.
+3. External alerting, rate limiting, backups, recovery drills, staging, load tests and production observability drills.
 
 ## Definition of done for promoting an admin workspace to Live
 

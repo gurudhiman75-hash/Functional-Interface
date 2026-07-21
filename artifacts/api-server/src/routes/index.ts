@@ -13,6 +13,9 @@ import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
+import adminSystemHealthActionsRouter from "./admin-system-health-actions";
+import adminSystemHealthRedactionRouter from "./admin-system-health-redaction";
+import adminSystemHealthRouter from "./admin-system-health";
 import adminTaxonomyCoverageRouter from "./admin-taxonomy-coverage";
 import adminTaxonomyRouter from "./admin-taxonomy";
 import adminTestBlueprintAssemblyRouter from "./admin-test-blueprint-assembly";
@@ -64,6 +67,12 @@ router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionsRouter);
+// Operational visibility reuses the canonical jobs, generation, validation,
+// outbox and audit foundations without creating a parallel monitoring store.
+// Response redaction is mounted first and the focused mutation router owns job actions.
+router.use("/admin/system-health", adminSystemHealthRedactionRouter);
+router.use("/admin/system-health", adminSystemHealthActionsRouter);
+router.use("/admin/system-health", adminSystemHealthRouter);
 router.use("/admin/taxonomy", adminTaxonomyCoverageRouter);
 router.use("/admin/taxonomy", adminTaxonomyRouter);
 // Assembly is mounted first so preview and draft creation always use the

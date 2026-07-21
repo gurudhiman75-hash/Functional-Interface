@@ -68,7 +68,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Test Analytics', path: '/analytics/tests', icon: BarChart3, status: 'in_progress', summary: 'Attempt volume, score distribution, completion and section-level performance.', milestone: 'Canonical attempt aggregation and percentile pipeline.' },
     { label: 'Question Analytics', path: '/analytics/questions', icon: BarChart3, status: 'in_progress', summary: 'Accuracy, discrimination, option selection and timing for each question version.', milestone: 'Question-version response aggregation and anomaly detection.' },
     { label: 'Content Quality', path: '/analytics/content-quality', icon: Activity, status: 'in_progress', summary: 'Monitor review throughput, quality blockers, duplicates and chapter readiness.', milestone: 'Question Studio and Question Bank quality metrics API.' },
-    { label: 'System Health', path: '/analytics/system-health', icon: HeartPulse, status: 'in_progress', summary: 'Operational visibility into API, database, generation and publication failures.', milestone: 'Health checks, error events and latency telemetry.' },
+    { label: 'System Health', path: '/analytics/system-health', icon: HeartPulse, status: 'live', permission: 'jobs.read', summary: 'Inspect API and database health, worker signals, canonical job queues, pipeline failures, outbox backlog and redacted operational errors.' },
   ] },
   { id: 'settings', label: 'Settings', items: [
     { label: 'Exam Configuration', path: '/settings/exam-config', icon: Settings, status: 'in_progress', summary: 'Configure supported exams, scoring rules and operational defaults.', milestone: 'Canonical exam-version management UI.' },
