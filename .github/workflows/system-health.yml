@@ -83,7 +83,7 @@ jobs:
           grep -R 'operations.job.retry_requested' artifacts/api-server/dist >/dev/null
           grep -R 'JOB_CANCEL_NOT_ALLOWED' artifacts/api-server/dist >/dev/null
           grep -R 'Request exception capture' artifacts/api-server/dist >/dev/null
-          grep -R 'outbox publisher' artifacts/api-server/dist >/dev/null
+          grep -R 'Outbox publisher' artifacts/api-server/dist >/dev/null
 
       - name: Test System Health contracts
         env:
