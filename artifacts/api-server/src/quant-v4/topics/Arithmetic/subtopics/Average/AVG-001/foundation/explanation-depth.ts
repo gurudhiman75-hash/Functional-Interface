@@ -71,6 +71,10 @@ function cleanNumber(value: number) {
   return String(Number(value.toFixed(2)));
 }
 
+function mathNumber(value: string) {
+  return value.replace(/,/g, "");
+}
+
 function shown(pkg: Avg001QuestionPackage, key: string): string {
   const renderVariables = pkg.parameters.renderVariables as Record<string, unknown>;
   const values = pkg.parameters.values as Record<string, unknown>;
@@ -136,9 +140,9 @@ function simplifyCp001(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
     case "findMissingValueFromAverage":
       return withLines(pkg, [
         `The required total for ${count} ${entity.plural} is ${total}.`,
-        `The known ${entity.plural} total ${knownTotal}.`,
-        `Subtract the known total to get the missing ${entity.singular}.`,
-        calculation(pkg),
+        `The known values add up to ${knownTotal}.`,
+        `Subtract the known total from the required total.`,
+        `$$${mathNumber(total)}-${mathNumber(knownTotal)}=${mathNumber(pkg.answer)}$$`,
       ]);
 
     default:
@@ -240,7 +244,7 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
           : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
         `New total = ${newAverage} × ${newCount}.`,
-        `The joining value is new total minus old total.`,
+        `The difference between the two totals gives the new value.`,
         calculation(pkg),
       ]);
 
@@ -251,7 +255,7 @@ function simplifyCp003(pkg: Avg001QuestionPackage): Avg001QuestionPackage {
           : []),
         `Old total = ${averageAtChangeText} × ${oldCount} = ${oldTotalAtChange}.`,
         `Remaining total = ${newAverage} × ${newCount}.`,
-        `The removed value is old total minus remaining total.`,
+        `The difference between these totals gives the removed value.`,
         calculation(pkg),
       ]);
 
