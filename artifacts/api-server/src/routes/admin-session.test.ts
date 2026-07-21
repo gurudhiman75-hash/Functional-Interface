@@ -61,6 +61,7 @@ function dependencies(overrides: Partial<Parameters<typeof createAdminSessionRou
     authenticate: authenticated,
     isDatabaseConfigured: databaseConfigured,
     isAdministrator: async () => true,
+    activateInvitation: async () => undefined,
     bootstrap: async () => ({ session, firstAdministrator: true, pendingRoleAssignment: false }),
     ...overrides,
   };
@@ -73,6 +74,7 @@ test('bootstrap rejects an unauthenticated request', async () => {
 
 test('bootstrap reports a missing canonical database before querying RBAC', async () => {
   let administratorCheckCalled = false;
+  let activationCalled = false;
   let bootstrapCalled = false;
   const result = await requestBootstrap(createAdminSessionRouter(dependencies({
     isDatabaseConfigured: () => false,
@@ -80,6 +82,7 @@ test('bootstrap reports a missing canonical database before querying RBAC', asyn
       administratorCheckCalled = true;
       return true;
     },
+    activateInvitation: async () => { activationCalled = true; },
     bootstrap: async () => {
       bootstrapCalled = true;
       return { session, firstAdministrator: true, pendingRoleAssignment: false };
@@ -88,20 +91,41 @@ test('bootstrap reports a missing canonical database before querying RBAC', asyn
   assert.equal(result.status, 503);
   assert.equal(result.body.code, 'DATABASE_URL_REQUIRED');
   assert.equal(administratorCheckCalled, false);
+  assert.equal(activationCalled, false);
   assert.equal(bootstrapCalled, false);
 });
 
 test('bootstrap rejects an authenticated non-admin without writing identity data', async () => {
+  let activationCalled = false;
   let bootstrapCalled = false;
   const result = await requestBootstrap(createAdminSessionRouter(dependencies({
     isAdministrator: async () => false,
+    activateInvitation: async () => { activationCalled = true; },
     bootstrap: async () => {
       bootstrapCalled = true;
       return { session, firstAdministrator: false, pendingRoleAssignment: false };
     },
   })));
   assert.equal(result.status, 403);
+  assert.equal(activationCalled, false);
   assert.equal(bootstrapCalled, false);
+});
+
+test('pre-authorized invitations activate before canonical session resolution', async () => {
+  const calls: string[] = [];
+  const result = await requestBootstrap(createAdminSessionRouter(dependencies({
+    isAdministrator: async (identity) => {
+      calls.push(`authorize:${identity.email}:${identity.emailVerified}`);
+      return true;
+    },
+    activateInvitation: async () => { calls.push('activate'); },
+    bootstrap: async () => {
+      calls.push('bootstrap');
+      return { session, firstAdministrator: false, pendingRoleAssignment: false };
+    },
+  })));
+  assert.equal(result.status, 200);
+  assert.deepEqual(calls, ['authorize:admin@example.test:true', 'activate', 'bootstrap']);
 });
 
 test('first bootstrap returns the server-resolved super-admin session', async () => {
