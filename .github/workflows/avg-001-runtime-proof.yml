@@ -32,21 +32,25 @@ jobs:
         run: |
           set -euo pipefail
           python - <<'PY'
+          import re
           from pathlib import Path
 
           path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts")
           text = path.read_text(encoding="utf-8")
-          old = '''        line.includes("÷") ||
-                /[+−-]/.test(line),'''
-          new = '''        line.includes("÷") ||
+          if 'symmetr|balance|halfway' in text:
+              raise SystemExit(0)
+
+          pattern = re.compile(
+              r'''line\.includes\("÷"\)\s*\|\|\s*/\[\+−-\]/\.test\(line\),'''
+          )
+          replacement = '''line.includes("÷") ||
                 line.includes("=") ||
                 /[+−-]/.test(line) ||
                 /symmetr|balance|halfway/i.test(line),'''
-          if old not in text:
-              if 'symmetr|balance|halfway' in text:
-                  raise SystemExit(0)
-              raise SystemExit("CP-002 explanation evidence check was not found")
-          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          updated, count = pattern.subn(replacement, text, count=1)
+          if count != 1:
+              raise SystemExit(f"Expected one CP-002 arithmetic-evidence condition; found {count}")
+          path.write_text(updated, encoding="utf-8")
           PY
 
       - name: Commit validator repair
