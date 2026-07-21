@@ -140,6 +140,7 @@ function misconceptionCandidate(
         ),
       );
     case "averageDifferenceOnly":
+    case "useAverageDifference":
       return absolute(averageShift);
     case "useNewTotal":
     case "useRemainingTotal":
