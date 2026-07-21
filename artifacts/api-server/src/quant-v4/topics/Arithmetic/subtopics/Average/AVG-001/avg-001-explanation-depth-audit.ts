@@ -8,15 +8,17 @@ let cases = 0;
 
 const conceptPatterns: Record<string, RegExp> = {
   "AVG-CP-001":
-    /equal share|distributed evenly|equal groups|combined total|required full total|remaining gap|known contribution/i,
+    /multiply the average|divide the total|known total|required total|shared among|total is/i,
   "AVG-CP-002":
-    /equally spaced|opposite pair|opposite-end|balanced pair|deviation|halfway|equal gaps|complete span|centre/i,
+    /equally spaced|halfway|middle term|equal gaps|half-span|span/i,
   "AVG-CP-003":
-    /combined total|changes both|count rises|count remains|count stays|reduces both|difference between|total gap|target total|total rise|updated total|remaining group/i,
+    /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|current runs|required runs/i,
 };
 
-const formulaOnlyOpeners =
-  /^(use:|substitute\b|average\s*=|total\s*=|count\s*=|middle term\s*=)/i;
+const bannedTextbookLanguage =
+  /representative share|equal-share groups?|opposite-end pairs?|common mean of|deviations? cancel|point of symmetry|combined total represented by|unaccounted for|revised average is the updated total shared equally|must supply exactly|locates the requested/i;
+
+const formulaOnlyOpeners = /^(use:|substitute\b)/i;
 
 function wordCount(line: string) {
   return line
@@ -62,47 +64,56 @@ for (const entry of getAvg001QuestionEntries()) {
 
     const lines = pkg.explanation.lines.map((line) => line.trim()).filter(Boolean);
     const equationLines = lines.filter((line) => /\$\$/.test(line));
-    const proseLines = lines.filter(
-      (line) => !/\$\$/.test(line) && !/check|verification|indeed|again/i.test(line),
+    const conclusionLines = lines.filter(
+      (line) => containsAnswer(line, pkg.answer) && !/\$\$/.test(line),
     );
-    const substantialProse = proseLines.filter((line) => wordCount(line) >= 7);
+    const reasoningLines = lines.filter(
+      (line) => !/\$\$/.test(line) && !conclusionLines.includes(line),
+    );
     const joined = lines.join(" ");
     const normalizedJoined = joined.replace(/,/g, "");
     const conceptPattern = conceptPatterns[pkg.canonicalProblemId];
-    const contextualConclusion = lines.some(
-      (line) =>
-        containsAnswer(line, pkg.answer) &&
-        !/\$\$/.test(line) &&
-        !/check|verification|indeed|again/i.test(line),
-    );
+    const totalWords = lines.reduce((sum, line) => sum + wordCount(line), 0);
 
-    if (lines.length < 5) {
-      failures.push(`${entry.qlId}:${index}: fewer than five explanation lines`);
+    if (lines.length < 3 || lines.length > 6) {
+      failures.push(
+        `${entry.qlId}:${index}: expected three to six explanation lines, found ${lines.length}`,
+      );
     }
     if (equationLines.length < 1 || equationLines.length > 2) {
       failures.push(
         `${entry.qlId}:${index}: expected one or two calculation lines, found ${equationLines.length}`,
       );
     }
-    if (substantialProse.length < 3) {
-      failures.push(
-        `${entry.qlId}:${index}: only ${substantialProse.length} substantial reasoning lines`,
-      );
+    if (reasoningLines.length < 1) {
+      failures.push(`${entry.qlId}:${index}: missing a plain-language reasoning step`);
+    }
+    if (reasoningLines.every((line) => wordCount(line) < 6)) {
+      failures.push(`${entry.qlId}:${index}: reasoning is too thin`);
     }
     if (!conceptPattern?.test(joined)) {
-      failures.push(`${entry.qlId}:${index}: missing CP-specific conceptual reasoning`);
+      failures.push(`${entry.qlId}:${index}: missing CP-specific reasoning`);
+    }
+    if (bannedTextbookLanguage.test(joined)) {
+      failures.push(`${entry.qlId}:${index}: contains formal textbook-style wording`);
     }
     if (lines.some((line) => formulaOnlyOpeners.test(line))) {
-      failures.push(`${entry.qlId}:${index}: begins a line with formula-only instruction`);
+      failures.push(`${entry.qlId}:${index}: begins with a formula instruction`);
     }
-    if (!contextualConclusion) {
-      failures.push(`${entry.qlId}:${index}: missing contextual conclusion containing the answer`);
+    if (!conclusionLines.length) {
+      failures.push(`${entry.qlId}:${index}: missing a contextual conclusion with the answer`);
     }
     if (/required answer|required result/i.test(joined)) {
-      failures.push(`${entry.qlId}:${index}: uses a generic rather than contextual conclusion`);
+      failures.push(`${entry.qlId}:${index}: uses a generic conclusion`);
     }
-    if (equationLines.length >= proseLines.length) {
-      failures.push(`${entry.qlId}:${index}: calculation lines dominate the explanation`);
+    if (reasoningLines.some((line) => wordCount(line) > 22)) {
+      failures.push(`${entry.qlId}:${index}: contains an overly long reasoning sentence`);
+    }
+    if (totalWords > 75) {
+      failures.push(`${entry.qlId}:${index}: explanation is too verbose (${totalWords} words)`);
+    }
+    if (/check:|verification:|indeed,/i.test(joined)) {
+      failures.push(`${entry.qlId}:${index}: includes an unnecessary verification line`);
     }
 
     const values = pkg.parameters.values as Record<string, unknown>;
