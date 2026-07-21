@@ -147,9 +147,11 @@ function misconceptionCandidate(
       return newTotal;
     case "wrongCount":
       if (parameters.solveMode === "findAddedMemberValueFromShift") {
-        return subtract(
-          multiply(newAverage, rational(oldCount)),
-          oldTotalAtChange,
+        return absolute(
+          subtract(
+            multiply(newAverage, rational(oldCount)),
+            oldTotalAtChange,
+          ),
         );
       }
       if (parameters.solveMode === "findRemovedMemberValueFromShift") {
