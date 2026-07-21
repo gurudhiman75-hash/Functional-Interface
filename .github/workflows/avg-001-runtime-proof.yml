@@ -11,7 +11,7 @@ on:
       - .github/workflows/avg-001-runtime-proof.yml
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: avg-001-runtime-proof-${{ github.ref }}
@@ -20,31 +20,11 @@ concurrency:
 jobs:
   validate-avg-001:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 45
 
     steps:
-      - name: Checkout source branch
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/avg-001-cp002-symmetric-ap
-          fetch-depth: 0
-
-      - name: Apply pending CP-002 editorial patch
-        run: |
-          set -euo pipefail
-          PATCH="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/apply-cp002-editorial-patch.py"
-          if [ -f "$PATCH" ]; then
-            python "$PATCH"
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-language.cp002.en.json
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/task-registry.cp002.library.json
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-runtime.ts
-            if ! git diff --cached --quiet; then
-              git commit -m "fix(avg): simplify CP-002 stems and vary explanations"
-              git push origin HEAD:feat/avg-001-cp002-symmetric-ap
-            fi
-          fi
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -80,8 +60,10 @@ jobs:
           run_case avg-001-cp002-ap-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-ap-validity-audit.ts
           run_case avg-001-cp002-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-explanation-quality-audit.ts
           run_case avg-001-cp002-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-residual-qa.ts
+          run_case avg-001-cp003-proof src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-proof-audit.ts
           run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
           run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
+          run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
 
       - name: Upload proof review CSVs
         uses: actions/upload-artifact@v4
@@ -90,5 +72,6 @@ jobs:
           path: |
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-en.csv
           if-no-files-found: error
           retention-days: 7
