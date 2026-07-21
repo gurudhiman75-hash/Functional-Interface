@@ -62,7 +62,10 @@ jobs:
           tar -tzf /tmp/cp003-source-bundle.tar.gz >/dev/null
           tar -xzf /tmp/cp003-source-bundle.tar.gz -C .
 
-      - name: Remove temporary transport and legacy patch files
+          # Workflow files are updated separately through the GitHub connector.
+          git checkout HEAD -- .github/workflows/avg-001-runtime-proof.yml
+
+      - name: Remove temporary non-workflow transport files
         run: |
           set -euo pipefail
           ROOT="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001"
@@ -71,9 +74,8 @@ jobs:
           rm -f "$ROOT/cp003-bundle.part03" "$ROOT/cp003-bundle.part04" "$ROOT/cp003-bundle.part05"
           rm -f "$ROOT/cp003-bundle.part06" "$ROOT/cp003-bundle.part06a" "$ROOT/cp003-bundle.part06b" "$ROOT/cp003-bundle.part07"
           rm -f "$ROOT/editorial-patch.cp002.json" "$ROOT/cp002-renderer.editorial.txt" "$ROOT/apply-cp002-editorial-patch.py"
-          rm -f .github/workflows/apply-avg-cp002-editorial-patch.yml
 
-      - name: Commit permanent CP-003 implementation
+      - name: Commit permanent CP-003 source
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
