@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { isoToLocalDateTimeInput, localDateTimeInputToIso } from '@/features/access-control/datetime';
 import { useAuditEvents } from '@/features/access-control/useAuditEvents';
 import type { AuditEventSummary } from '@/features/access-control/api';
 
@@ -135,8 +136,8 @@ export function AuditLogsWorkspacePage() {
           <div><Label className="text-xs">Effective role</Label><Select value={audit.filters.roleKey || 'all'} onValueChange={(value) => audit.updateFilters({ roleKey: value === 'all' ? undefined : value })}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All roles</SelectItem>{audit.facets.roles.map((role) => <SelectItem key={role} value={role}>{role}</SelectItem>)}</SelectContent></Select></div>
           <div><Label className="text-xs">Action</Label><Select value={audit.filters.actionKey || 'all'} onValueChange={(value) => audit.updateFilters({ actionKey: value === 'all' ? undefined : value })}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All actions</SelectItem>{audit.facets.actions.map((action) => <SelectItem key={action} value={action}>{action}</SelectItem>)}</SelectContent></Select></div>
           <div><Label className="text-xs">Entity type</Label><Select value={audit.filters.entityType || 'all'} onValueChange={(value) => audit.updateFilters({ entityType: value === 'all' ? undefined : value })}><SelectTrigger className="mt-1"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All entities</SelectItem>{audit.facets.entityTypes.map((entity) => <SelectItem key={entity} value={entity}>{entity}</SelectItem>)}</SelectContent></Select></div>
-          <div><Label className="text-xs">From</Label><Input className="mt-1" type="datetime-local" value={audit.filters.from?.slice(0, 16) || ''} onChange={(event) => audit.updateFilters({ from: event.target.value ? new Date(event.target.value).toISOString() : undefined })} /></div>
-          <div><Label className="text-xs">To</Label><Input className="mt-1" type="datetime-local" value={audit.filters.to?.slice(0, 16) || ''} onChange={(event) => audit.updateFilters({ to: event.target.value ? new Date(event.target.value).toISOString() : undefined })} /></div>
+          <div><Label className="text-xs">From</Label><Input className="mt-1" type="datetime-local" value={isoToLocalDateTimeInput(audit.filters.from)} onChange={(event) => audit.updateFilters({ from: localDateTimeInputToIso(event.target.value) })} /></div>
+          <div><Label className="text-xs">To</Label><Input className="mt-1" type="datetime-local" value={isoToLocalDateTimeInput(audit.filters.to)} onChange={(event) => audit.updateFilters({ to: localDateTimeInputToIso(event.target.value) })} /></div>
         </div>
         <div className="mt-3 flex justify-end"><Button variant="ghost" size="sm" onClick={() => { setSearch(''); audit.clearFilters(); }}>Clear filters</Button></div>
       </Card>
