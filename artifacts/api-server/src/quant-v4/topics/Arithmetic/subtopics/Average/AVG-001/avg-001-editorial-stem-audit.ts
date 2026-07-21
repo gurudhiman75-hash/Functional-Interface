@@ -34,7 +34,7 @@ const bannedPatterns: Array<[RegExp, string]> = [
 ];
 
 const cp002Cue =
-  /consecutive|arithmetic progression|equally spaced|common difference|odd-numbered|even roll numbers/i;
+  /consecutive|arithmetic progression|equally spaced|common difference|fixed amount|equal amount|uniformly|increase(?:s|d)? by|rise(?:s)? by|steps of|differ by|differing by|odd-numbered|even roll numbers/i;
 const cp003Cue =
   /joins|leaves|removed|excluded|replaced|corrected|remaining group|next innings/i;
 
@@ -64,11 +64,29 @@ for (const entry of entries) {
     failures.push(`${entry.qlId}: CP-001 stem leaks an AP/consecutive-set cue`);
   }
   if (entry.cpId === "AVG-CP-002" && !cp002Cue.test(entry.template)) {
-    failures.push(`${entry.qlId}: CP-002 stem does not make symmetry/AP structure explicit`);
+    failures.push(`${entry.qlId}: CP-002 stem does not make symmetry/fixed-step structure explicit`);
   }
   if (entry.cpId === "AVG-CP-003" && !cp003Cue.test(entry.template)) {
     failures.push(`${entry.qlId}: CP-003 stem does not make the group change explicit`);
   }
+  if (
+    entry.cpId === "AVG-CP-003" &&
+    (entry.scenarioVariant === "familyAgeElapsedTime" ||
+      entry.scenarioVariant === "newbornAfterElapsedYears") &&
+    /\bchild\b/i.test(entry.template)
+  ) {
+    failures.push(`${entry.qlId}: neutral family-member wording required for the 1–18 age range`);
+  }
+}
+
+const cp002Entries = entries.filter((entry) => entry.cpId === "AVG-CP-002");
+const formalTerminologyCount = cp002Entries.filter((entry) =>
+  /\barithmetic progression\b|\bsequence\b/i.test(entry.template),
+).length;
+if (formalTerminologyCount > 5) {
+  failures.push(
+    `CP-002 overuses formal AP/sequence terminology (${formalTerminologyCount} of ${cp002Entries.length})`,
+  );
 }
 
 const counts = Object.fromEntries(
@@ -92,6 +110,7 @@ console.log(
       entryCount: entries.length,
       overrideCount: getAvg001EditorialStemOverrideIds().length,
       counts,
+      formalCp002TerminologyCount: formalTerminologyCount,
       normalizedDuplicateCount: 0,
       failures,
       status: "PASS",
