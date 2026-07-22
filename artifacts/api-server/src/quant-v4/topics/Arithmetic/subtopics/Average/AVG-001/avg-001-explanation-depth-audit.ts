@@ -29,8 +29,10 @@ function numericValue(value: unknown): number {
   return Number.NaN;
 }
 function containsAnswer(line: string, answer: string) {
-  const tokens = line.replace(/,/g, "").match(/-?\d+(?:\.\d+)?(?:\/\d+)?/g) ?? [];
-  return tokens.includes(answer.replace(/,/g, ""));
+  const pattern = /-?\d+(?:\.\d+)?(?:\/\d+)?/g;
+  const lineTokens = line.replace(/,/g, "").match(pattern) ?? [];
+  const answerToken = answer.replace(/,/g, "").match(pattern)?.[0];
+  return Boolean(answerToken && lineTokens.includes(answerToken));
 }
 
 const entries = getAvg001QuestionEntries();
