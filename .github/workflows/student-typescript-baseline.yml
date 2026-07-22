@@ -71,6 +71,9 @@ jobs:
           }
           NODE
 
+      - name: Verify canonical admin login handoff
+        run: node artifacts/examtree/scripts/verify-admin-login-handoff.mjs
+
       - name: Run strict student typecheck
         id: typecheck
         continue-on-error: true
