@@ -1,0 +1,99 @@
+name: Validate canonical Student Administration
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/lib/admin-student-administration.ts
+      - artifacts/api-server/src/lib/admin-student-administration.test.ts
+      - artifacts/api-server/src/routes/admin-students.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/students/**
+      - artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
+      - artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/student-administration-foundation.md
+      - docs/frontend-truth-audit.md
+      - .github/workflows/student-administration.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/lib/admin-student-administration.ts
+      - artifacts/api-server/src/lib/admin-student-administration.test.ts
+      - artifacts/api-server/src/routes/admin-students.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/students/**
+      - artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
+      - artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - docs/student-administration-foundation.md
+      - docs/frontend-truth-audit.md
+      - .github/workflows/student-administration.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: canonical-student-administration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-student-administration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical read-only boundary
+        run: |
+          grep -F 'router.use("/admin/students", adminStudentsRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-students.ts
+          ! grep -E "router\.(post|put|patch|delete)" artifacts/api-server/src/routes/admin-students.ts
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
+          ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
+          grep -F "permission: 'users.students.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "path: '/users/students/:id'" artifacts/admin-app/src/App.tsx
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Verify Student Administration route bundle
+        run: |
+          grep -R 'STUDENT_NOT_FOUND' artifacts/api-server/dist >/dev/null
+          grep -R 'users.students.read' artifacts/api-server/dist >/dev/null
+          grep -R 'identity.student_profiles' artifacts/api-server/dist >/dev/null
+
+      - name: Test Student Administration contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/lib/admin-student-administration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-student-administration.test.mjs
+          node artifacts/api-server/dist/admin-student-administration.test.mjs
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Test admin application
+        run: pnpm run test:admin
+
+      - name: Build admin application
+        run: pnpm run build:admin
