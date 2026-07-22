@@ -62,12 +62,28 @@ jobs:
 
           const student = JSON.parse(await readFile('artifacts/examtree/package.json', 'utf8'));
           const admin = JSON.parse(await readFile('artifacts/admin-app/package.json', 'utf8'));
+          const lockfile = await readFile('pnpm-lock.yaml', 'utf8');
+          const adminImporter = lockfile
+            .split('\n  artifacts/admin-app:\n')[1]
+            ?.split('\n  artifacts/api-server:\n')[0] ?? '';
 
           if (student.dependencies?.['@workspace/api-zod'] !== 'workspace:*') {
             throw new Error('ExamTree must declare @workspace/api-zod as a workspace dependency.');
           }
+          if (admin.dependencies?.react !== 'catalog:' || admin.dependencies?.['react-dom'] !== 'catalog:') {
+            throw new Error('Admin React runtime must use the canonical workspace catalog.');
+          }
           if (admin.devDependencies?.['@types/react'] !== 'catalog:' || admin.devDependencies?.['@types/react-dom'] !== 'catalog:') {
             throw new Error('Admin and student applications must share the catalog React declaration graph.');
+          }
+          if (admin.dependencies?.recharts !== student.devDependencies?.recharts) {
+            throw new Error('Admin and student applications must use the same Recharts compatibility range.');
+          }
+          if (!adminImporter.includes("react:\n        specifier: 'catalog:'\n        version: 19.1.0")) {
+            throw new Error('Admin lock importer must resolve the canonical React 19 runtime.');
+          }
+          if (adminImporter.includes('react@18.') || adminImporter.includes('react-dom@18.')) {
+            throw new Error('Admin lock importer contains a stale React 18 peer context.');
           }
           NODE
 
@@ -98,6 +114,9 @@ jobs:
 
       - name: Typecheck admin application
         run: pnpm run typecheck:admin
+
+      - name: Build admin production application
+        run: pnpm run build:admin
 
       - name: Build student production application
         run: pnpm --dir artifacts/examtree build
