@@ -11,7 +11,7 @@ const cp002 = entries.filter((entry) => entry.cpId === "AVG-CP-002");
 const cp003 = entries.filter((entry) => entry.cpId === "AVG-CP-003");
 
 const expectedCpCounts = {
-  "AVG-CP-001": 24,
+  "AVG-CP-001": 72,
   "AVG-CP-002": 50,
   "AVG-CP-003": 86,
 } as const;
@@ -26,11 +26,31 @@ assert.equal(cp001.length, expectedCpCounts["AVG-CP-001"]);
 assert.equal(cp002.length, expectedCpCounts["AVG-CP-002"]);
 assert.equal(cp003.length, expectedCpCounts["AVG-CP-003"]);
 assert.deepEqual(
+  cp001.map((entry) => entry.qlId),
+  Array.from({ length: 72 }, (_, index) =>
+    `AVG-QL-${String(index + 1).padStart(3, "0")}`,
+  ),
+);
+assert.deepEqual(
   cp003.map((entry) => entry.qlId),
   Array.from({ length: 86 }, (_, index) =>
     `AVG-QL-${String(index + 123).padStart(3, "0")}`,
   ),
 );
+
+const expectedCp001ModeCounts: Record<string, number> = {
+  findSumFromAverageAndCount: 18,
+  findAverageFromSumAndCount: 18,
+  findCountFromSumAndAverage: 18,
+  findMissingValueFromAverage: 18,
+};
+for (const [mode, expectedCount] of Object.entries(expectedCp001ModeCounts)) {
+  assert.equal(
+    cp001.filter((entry) => entry.solveMode === mode).length,
+    expectedCount,
+    `${mode} CP-001 allocation`,
+  );
+}
 
 const expectedCp003ModeCounts: Record<string, number> = {
   findNewAverageAfterAddition: 13,
