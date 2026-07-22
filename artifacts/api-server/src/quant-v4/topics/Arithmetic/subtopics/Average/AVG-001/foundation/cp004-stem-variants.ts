@@ -113,11 +113,11 @@ function countTemplate(context: PairContext, index: number) {
   const unknownAverage = unitText(context.unitKind, "{unknownAverage}");
   const combinedAverage = unitText(context.unitKind, "{combinedAverage}");
   const patterns = [
-    `{knownCount} ${context.first} average ${knownAverage}. The ${context.second} average ${unknownAverage}; together all ${context.members} average ${combinedAverage}. Find the number of ${context.second}.`,
-    `{knownCount} ${context.first}, averaging ${knownAverage}, are combined with some ${context.second} averaging ${unknownAverage}. The overall average is ${combinedAverage}. How many ${context.second} are there?`,
+    `{knownCount} ${context.first} average ${knownAverage}. Some ${context.second} average ${unknownAverage}. Together they average ${combinedAverage}. Find the number of ${context.second}.`,
+    `{knownCount} ${context.first} at ${knownAverage} are joined by ${context.second} at ${unknownAverage}. The overall average is ${combinedAverage}. How many joined?`,
     `{knownCount} ${context.first} and some ${context.second} have combined average ${combinedAverage}. Their group averages are ${knownAverage} and ${unknownAverage}. Find the second group's size.`,
-    `The first group has {knownCount} ${context.first} at average ${knownAverage}. The ${context.second} average ${unknownAverage}; together they average ${combinedAverage}. Find the second-group count.`,
-    `After some ${context.second} join {knownCount} ${context.first}, the combined average is ${combinedAverage}. Their averages are ${unknownAverage} and ${knownAverage}. Find how many joined.`,
+    `{knownCount} ${context.first} average ${knownAverage}; the ${context.second} average ${unknownAverage}. Their combined average is ${combinedAverage}. Find the second-group count.`,
+    `Some ${context.second} at ${unknownAverage} join {knownCount} ${context.first} at ${knownAverage}. The combined average is ${combinedAverage}. How many joined?`,
   ];
   return patterns[index % patterns.length]!;
 }
