@@ -36,6 +36,22 @@ No database migration is required. The production permission catalogue already c
 
 At the start of this release, production contained zero `identity.student_profiles`. The Students workspace therefore treats an empty directory as a valid canonical state. It does not display prototype students or infer student accounts from unrelated/orphan attempt rows.
 
+## Runtime validation evidence
+
+A disposable Neon branch, `student-admin-pr67-runtime-validation` (`br-shy-art-atnxl13f`), was cloned from the production branch. A temporary canonical student, Firebase identity, active session and evaluated attempt were inserted only on that branch.
+
+The production-shaped queries verified:
+
+- search plus account-status and preferred-language filtering;
+- attempt and evaluated-attempt counts;
+- average score and latest-attempt aggregation;
+- active-session aggregation;
+- profile identity and authentication-provider reads;
+- attempt-to-publication/test/version joins;
+- session metadata selection without refresh-token hashes.
+
+The fixture returned one evaluated attempt with an average score of `72.5` and one active session. The server masking contract converts the fixture IP to `49.36.x.x`. The disposable branch was deleted after validation. Production data was not modified.
+
 ## Explicitly deferred mutation release
 
 - Suspend or reactivate a student.
