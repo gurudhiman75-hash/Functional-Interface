@@ -100,10 +100,10 @@ function multiTemplate(context: MultiContext, index: number) {
   const ordinalGroups =
     context.groupCount === 3 ? "first, second and third groups" : "first, second, third and fourth groups";
   const patterns = [
-    `${groupNames} contain ${counts.join(", ")} ${context.members} respectively. Their average ${context.measure} values are ${averages.join(", ")}. Find the combined average.`,
-    `A combined set is formed from ${context.groupCount} groups of ${context.members}. The group sizes are ${counts.join(", ")}, and their respective averages are ${averages.join(", ")}. Find the overall average ${context.measure}.`,
-    `The ${ordinalGroups} have ${counts.join(", ")} ${context.members}, with average ${context.measure} values ${averages.join(", ")}. What is the weighted average for all groups together?`,
-    `${context.groupCount === 3 ? "Three" : "Four"} separate groups report average ${context.measure} values of ${averages.join(", ")} for ${counts.join(", ")} ${context.members} respectively. Find their combined average.`,
+    `${groupNames} contain ${counts.join(", ")} ${context.members}, with respective averages ${averages.join(", ")}. Find the combined average ${context.measure}.`,
+    `${context.groupCount} groups of ${context.members} have sizes ${counts.join(", ")} and averages ${averages.join(", ")} respectively. Find the overall average ${context.measure}.`,
+    `The ${ordinalGroups} contain ${counts.join(", ")} ${context.members} and average ${averages.join(", ")} respectively. Find their weighted average.`,
+    `For ${context.groupCount} groups of ${context.members}, the counts are ${counts.join(", ")} and the averages are ${averages.join(", ")}. Find the combined average.`,
   ];
   return patterns[index % patterns.length]!;
 }
@@ -113,11 +113,11 @@ function countTemplate(context: PairContext, index: number) {
   const unknownAverage = unitText(context.unitKind, "{unknownAverage}");
   const combinedAverage = unitText(context.unitKind, "{combinedAverage}");
   const patterns = [
-    `{knownCount} ${context.first} have an average ${context.measure} of ${knownAverage}. A second group of ${context.second} averages ${unknownAverage}. If all ${context.members} average ${combinedAverage}, find the number of ${context.second}.`,
-    `A group of {knownCount} ${context.first} averaging ${knownAverage} is combined with some ${context.second} averaging ${unknownAverage}. The overall average becomes ${combinedAverage}. How many ${context.second} are there?`,
-    `The combined average of {knownCount} ${context.first} and an unknown number of ${context.second} is ${combinedAverage}. Their separate averages are ${knownAverage} and ${unknownAverage}. Find the unknown group size.`,
-    `There are {knownCount} ${context.first}, whose average ${context.measure} is ${knownAverage}. The ${context.second} average ${unknownAverage}; together they average ${combinedAverage}. Determine the number of ${context.second}.`,
-    `An existing group of {knownCount} ${context.first} has average ${knownAverage}. After another group of ${context.second}, averaging ${unknownAverage}, joins it, the combined average is ${combinedAverage}. Find the size of the new group.`,
+    `{knownCount} ${context.first} average ${knownAverage}. The ${context.second} average ${unknownAverage}; together all ${context.members} average ${combinedAverage}. Find the number of ${context.second}.`,
+    `{knownCount} ${context.first}, averaging ${knownAverage}, are combined with some ${context.second} averaging ${unknownAverage}. The overall average is ${combinedAverage}. How many ${context.second} are there?`,
+    `{knownCount} ${context.first} and some ${context.second} have combined average ${combinedAverage}. Their group averages are ${knownAverage} and ${unknownAverage}. Find the second group's size.`,
+    `The first group has {knownCount} ${context.first} at average ${knownAverage}. The ${context.second} average ${unknownAverage}; together they average ${combinedAverage}. Find the second-group count.`,
+    `After some ${context.second} join {knownCount} ${context.first}, the combined average is ${combinedAverage}. Their averages are ${unknownAverage} and ${knownAverage}. Find how many joined.`,
   ];
   return patterns[index % patterns.length]!;
 }
@@ -126,11 +126,11 @@ function missingTemplate(context: PairContext, index: number) {
   const average1 = unitText(context.unitKind, "{average1}");
   const combinedAverage = unitText(context.unitKind, "{combinedAverage}");
   const patterns = [
-    `{count1} ${context.first} average ${average1}. They are combined with {count2} ${context.second}, and all ${context.members} average ${combinedAverage}. Find the average ${context.measure} of the second group.`,
-    `A group of {count1} ${context.first} has average ${average1}. After adding {count2} ${context.second}, the combined average is ${combinedAverage}. What is the second group's average ${context.measure}?`,
-    `The overall average for {count1} ${context.first} and {count2} ${context.second} is ${combinedAverage}. If the first group averages ${average1}, find the average ${context.measure} of ${context.second}.`,
-    `{count1} ${context.first} with average ${average1} are merged with {count2} ${context.second}. The resulting average is ${combinedAverage}. Determine the missing group average.`,
-    `Two groups contain {count1} ${context.first} and {count2} ${context.second}. The first group's average is ${average1}, and the combined average is ${combinedAverage}. Find the second group's average ${context.measure}.`,
+    `{count1} ${context.first} average ${average1}. With {count2} ${context.second}, all ${context.members} average ${combinedAverage}. Find the second group's average ${context.measure}.`,
+    `{count1} ${context.first} have average ${average1}. After {count2} ${context.second} are added, the combined average is ${combinedAverage}. Find the second-group average.`,
+    `{count1} ${context.first} and {count2} ${context.second} average ${combinedAverage} together. If the first group averages ${average1}, find the average of ${context.second}.`,
+    `{count1} ${context.first} at average ${average1} are merged with {count2} ${context.second}. The new average is ${combinedAverage}. Determine the missing group average.`,
+    `Two groups contain {count1} ${context.first} and {count2} ${context.second}. The first averages ${average1}; together they average ${combinedAverage}. Find the second average.`,
   ];
   return patterns[index % patterns.length]!;
 }
