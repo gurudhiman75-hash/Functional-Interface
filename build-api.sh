@@ -5,8 +5,9 @@ set -euo pipefail
 corepack enable
 corepack prepare pnpm@10.33.0 --activate
 
-# Install all dependencies, including build-time tooling.
-pnpm install --frozen-lockfile --prod=false
+# Render preserves build caches between deploys. Force pnpm to relink the exact
+# frozen dependency graph so stale React declaration symlinks cannot survive.
+pnpm install --frozen-lockfile --prod=false --force
 
 # Build the student and admin applications, then assemble a single static tree.
 # Both applications call the API through the production Render origin.
