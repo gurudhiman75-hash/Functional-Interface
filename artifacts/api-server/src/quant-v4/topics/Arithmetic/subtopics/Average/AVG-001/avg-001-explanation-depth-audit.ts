@@ -127,6 +127,7 @@ for (const entry of entries) {
     const isCountAnswer = pkg.parameters.answerType === "COUNT";
     const ageStem = /\bage\b|\byears?\b/i.test(pkg.stem);
     const cricketStem =
+      pkg.parameters.contextDomain === "Sports" &&
       /\bruns?\b|\binnings?\b|\bbatter\b|\bbatting\b|\bcricketer\b/i.test(
         pkg.stem,
       );
