@@ -1,0 +1,133 @@
+name: Monitor multilingual production operations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - scripts/verify-multilingual-production.mjs
+      - scripts/verify-multilingual-production.test.mjs
+      - .github/workflows/multilingual-production-smoke.yml
+      - docs/frontend-truth-audit.md
+  push:
+    branches:
+      - New-main
+    paths:
+      - scripts/verify-multilingual-production.mjs
+      - scripts/verify-multilingual-production.test.mjs
+      - .github/workflows/multilingual-production-smoke.yml
+      - docs/frontend-truth-audit.md
+      - artifacts/api-server/src/routes/admin-translations.ts
+      - artifacts/api-server/src/routes/admin-test-translations.ts
+      - artifacts/api-server/src/routes/published-test-multilingual-runner.ts
+      - artifacts/admin-app/src/pages/settings/LanguagesPage.tsx
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Production ExamTree origin, without /api
+        required: false
+        default: https://examtree-new.onrender.com
+      allowed_origin:
+        description: Browser origin expected to pass CORS
+        required: false
+        default: https://sarbedutech.web.app
+
+permissions:
+  contents: read
+
+concurrency:
+  group: multilingual-production-smoke-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-synthetic-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Validate synthetic syntax
+        run: node --check scripts/verify-multilingual-production.mjs
+
+      - name: Test synthetic against a local fixture server
+        run: node --test scripts/verify-multilingual-production.test.mjs
+
+  production-public-smoke:
+    if: github.event_name == 'pull_request'
+    needs: validate-synthetic-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      EXAMTREE_BASE_URL: https://examtree-new.onrender.com
+      EXAMTREE_ALLOWED_ORIGIN: https://sarbedutech.web.app
+      EXAMTREE_SMOKE_REPORT_PATH: artifacts/reports/multilingual-production-public-smoke.json
+      EXAMTREE_SMOKE_ATTEMPTS: '8'
+      EXAMTREE_SMOKE_INITIAL_DELAY_MS: '4000'
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Probe public production surface
+        run: node scripts/verify-multilingual-production.mjs
+
+      - name: Upload public production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multilingual-production-public-smoke-${{ github.run_id }}
+          path: artifacts/reports/multilingual-production-public-smoke.json
+          if-no-files-found: error
+          retention-days: 30
+
+  production-smoke:
+    if: github.event_name != 'pull_request'
+    needs: validate-synthetic-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      EXAMTREE_BASE_URL: ${{ inputs.base_url || vars.EXAMTREE_PRODUCTION_BASE_URL || 'https://examtree-new.onrender.com' }}
+      EXAMTREE_ALLOWED_ORIGIN: ${{ inputs.allowed_origin || vars.EXAMTREE_PRODUCTION_WEB_ORIGIN || 'https://sarbedutech.web.app' }}
+      EXAMTREE_ADMIN_ID_TOKEN: ${{ secrets.EXAMTREE_ADMIN_ID_TOKEN }}
+      EXAMTREE_SMOKE_ADMIN_EMAIL: ${{ secrets.EXAMTREE_SMOKE_ADMIN_EMAIL }}
+      EXAMTREE_SMOKE_ADMIN_PASSWORD: ${{ secrets.EXAMTREE_SMOKE_ADMIN_PASSWORD }}
+      EXAMTREE_FIREBASE_API_KEY: ${{ secrets.EXAMTREE_FIREBASE_API_KEY || vars.EXAMTREE_FIREBASE_API_KEY }}
+      EXAMTREE_SMOKE_REPORT_PATH: artifacts/reports/multilingual-production-smoke.json
+      EXAMTREE_SMOKE_ATTEMPTS: '8'
+      EXAMTREE_SMOKE_INITIAL_DELAY_MS: '4000'
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run production multilingual synthetic
+        run: node scripts/verify-multilingual-production.mjs
+
+      - name: Upload production smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: multilingual-production-smoke-${{ github.run_id }}
+          path: artifacts/reports/multilingual-production-smoke.json
+          if-no-files-found: error
+          retention-days: 30

@@ -22,7 +22,7 @@ This document defines which frontend surfaces are connected to ExamTree's canoni
 | `/test-series/:id` | LIVE | Authenticated canonical series progress, availability, lock reasons, best scores and next-test action. | Add release notifications and richer completion summaries. |
 | `/category/:id`, `/subcategory/:id` | LIVE | Canonical standalone-test discovery by exam family/exam. | Improve empty states and mobile layouts. |
 | `/published-tests/:id` | LIVE | Canonical standalone published-test detail. Series-bound tests are reserved for their series journey. | Add complete instruction and eligibility metadata. |
-| `/test/:id` | LIVE | Durable authenticated attempt session with cross-refresh resume, optimistic draft revisions, offline retry, server-checked series context and idempotent transactional submission. | Add stronger timer and multi-device UX. |
+| `/test/:id` | LIVE | Durable authenticated attempt session with cross-refresh resume, optimistic draft revisions, offline retry, server-checked series context and idempotent transactional submission. Approved multilingual tests deliver approved question, option, explanation and test metadata while preserving the source answer key for scoring. | Add stronger timer and multi-device UX. |
 | `/result?attemptId=...` | LIVE | Reads only the committed canonical result snapshot, preserves immutable solution review and returns students to their Test Series when applicable. | Add canonical rank, percentile and weak-area analytics after those services exist. |
 | `/dashboard` | LIVE | Canonical server-backed attempt history and published-test count. | Add topic/section insights after analytics APIs exist. |
 | `/profile` | LIVE_INCOMPLETE | Authentication/profile shell. | Persist editable profile fields canonically. |
@@ -80,6 +80,7 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests/blueprints` | LIVE | Immutable exam patterns, taxonomy/language/difficulty quotas, Question Bank shortage preview and deterministic draft assembly. |
 | `/users/team` | LIVE | Canonical administrator invitations, profiles, reporting lines, role grants, suspension, disablement and session revocation. |
 | `/analytics/system-health` | LIVE | Canonical API/database status, background-job queues and attempts, worker signals, generation/validation failures, outbox backlog, redacted operational errors and audited safe job actions. |
+| `/settings/languages` | LIVE | Canonical language availability, exam mappings, question/test translation queues, terminology governance, reviewer ownership, lifecycle review and language-specific publication readiness. |
 | `/settings/roles` | LIVE | Server-enforced role definitions and granular permission assignment with protected system roles. |
 | `/settings/audit-logs` | LIVE | Immutable event search, actor/entity/date filtering, field-change detail and CSV export. |
 
@@ -87,9 +88,11 @@ The taxonomy release uses the existing `catalog.taxonomy_nodes`, `catalog.taxono
 
 Content Review coordinates the existing Question Studio and Question Bank lifecycle engines instead of creating another approval engine. Reviewer assignments, comments, replies, resolutions and ownership changes are immutable `platform.audit_events`; generated-item ownership is also reflected in `content.generation_run_items.reviewer_user_id`. Saved review views are browser UI preferences only and contain filters, not business records.
 
-Content intelligence extends that same workspace without adding a parallel workflow or schema. It scans current canonical Question Bank versions inside a selected chapter or subtopic subtree, detects exact normalized stems, number/variable-template matches and high-confidence lexical-semantic near duplicates, and stores editorial decisions as immutable `content.duplicate.decision.recorded` audit events. Freeze readiness combines target coverage, approval completeness, unresolved placeholders, critical duplicate decisions, open Content Review comments, test usage and scan completeness. A freeze records the exact deterministic SHA-256 report hash through `content.chapter.freeze.changed`; later content changes make the recorded freeze visibly stale. Hindi and Punjabi remain explicitly `not_connected` until canonical per-language review and publication gates exist.
+Content intelligence extends that same workspace without adding a parallel workflow or schema. It scans current canonical Question Bank versions inside a selected chapter or subtopic subtree, detects exact normalized stems, number/variable-template matches and high-confidence lexical-semantic near duplicates, and stores editorial decisions as immutable `content.duplicate.decision.recorded` audit events. Freeze readiness combines target coverage, approval completeness, unresolved placeholders, critical duplicate decisions, open Content Review comments, test usage and scan completeness. A freeze records the exact deterministic SHA-256 report hash through `content.chapter.freeze.changed`; later content changes make the recorded freeze visibly stale. Hindi and Punjabi readiness is now resolved through canonical per-language translation review rather than structural placeholder mirrors.
 
-Test QA extends the existing canonical test lifecycle rather than replacing it. It reads `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, `assessment.test_questions`, and `assessment.test_publications`; reviewer assignment, comments, replies, resolutions and reopen events are immutable `platform.audit_events`. Approval, scheduling and publication are blocked server-side until the current test version has an assigned reviewer, no unresolved QA comments, and no existing structural/content validation errors. No database migration is required.
+Translation Operations uses `catalog.languages`, `catalog.exam_version_languages`, `content.question_translations`, `content.question_translation_options`, `content.translation_terms`, `assessment.test_version_translations`, and `assessment.test_section_translations`. Question and test translations have translator/reviewer ownership, quality snapshots, comments, audited lifecycle transitions and approved-only publication gates. Test approval, scheduling and publication are blocked until every configured non-source language has approved test metadata, complete translated section labels, approved question translations and exact option parity. Student scoring continues to use the immutable source option answer key. Production migration `5c96a8a8-3d31-4278-80a4-b85ba934ca0d` was applied to the canonical Neon branch. A scheduled production synthetic checks service health, authentication enforcement, CORS, admin SPA delivery and optional authenticated translation reads without mutating business data.
+
+Test QA extends the existing canonical test lifecycle rather than replacing it. It reads `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, `assessment.test_questions`, and `assessment.test_publications`; reviewer assignment, comments, replies, resolutions and reopen events are immutable `platform.audit_events`. Approval, scheduling and publication are blocked server-side until the current test version has an assigned reviewer, no unresolved QA comments, no existing structural/content validation errors and complete localization readiness. No additional Test QA schema is required.
 
 Exam Blueprints uses the existing `assessment.test_blueprints`, `assessment.test_blueprint_versions`, and `assessment.test_blueprint_sections` tables. Blueprint edits create immutable versions. Each section stores canonical taxonomy targets, language, easy/medium/hard quotas, marks, timing and negative marking rules. Coverage preview resolves published Question Bank versions recursively through taxonomy descendants, requires approved translations where applicable, prevents question/stem reuse within one test, and reports shortages before any draft is created. Successful assembly creates an ordinary canonical draft in `assessment.tests`, `assessment.test_versions`, `assessment.test_sections`, and `assessment.test_questions`, so the result continues through Test Builder and Test QA. No database migration is required.
 
@@ -105,7 +108,7 @@ These are visible with a `Next` badge and render roadmap detail until canonical 
 
 - Students
 - Test Analytics, Question Analytics and Content Quality
-- Exam Configuration and Languages
+- Exam Configuration
 
 ### Planned admin workspaces
 
@@ -153,8 +156,10 @@ Mounted operational API groups:
 - Test QA collaboration, version comparison and release gate;
 - Exam Blueprint CRUD, coverage preview and deterministic draft assembly;
 - Test Series CRUD, immutable versioning, ordered membership and release readiness;
+- Translation Operations coverage, language/exam configuration, question/test translation lifecycle, terminology, comments, ownership and publication readiness;
 - System Health, canonical job inspection, safe queue actions and redacted pipeline/error telemetry;
 - student Test Series discovery, canonical progress and server-enforced access;
+- multilingual published-test delivery with source-key scoring;
 - durable attempt sessions, revisioned draft recovery, transactional idempotent submission and committed result reads;
 - categories/subcategories and standalone published tests;
 - canonical attempt history.
@@ -165,16 +170,17 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, plus canonical System Health visibility across jobs, pipelines, outbox and operational failures.
+Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, and canonical multilingual Translation Operations with language-specific publication gates and production schema activation.
 
-1. Add translation review and language-specific publication gates.
-2. Complete canonical student administration: identity search, attempts, access state, sessions and account history.
-3. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.
+1. Complete canonical student administration: identity search, attempts, access state, sessions and account history.
+2. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.
+3. Complete canonical Exam Configuration and remove the final settings roadmap shell.
 
 ### P0 — student production truth and reliability
 
-1. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
-2. Verify current Firebase/Render deployment journeys after each admin release that changes shared authentication or publication behavior.
+1. Restore the strict student TypeScript baseline without weakening compiler settings.
+2. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
+3. Maintain authenticated Firebase/Render browser smoke coverage after releases that change shared authentication, translation or publication behaviour.
 
 ### P1 — student value
 
@@ -188,7 +194,7 @@ Completed in the current releases: chapter-scoped duplicate intelligence and fre
 1. Complete Percentage and Ratio manual review.
 2. Add Average, Profit & Loss, Interest, Time & Work, Speed/Distance, Mixture, Number System, Algebra, Geometry, Mensuration, Trigonometry, and DI.
 3. Add Reasoning, English, General Awareness, Banking, Punjab GK, Punjabi, and Computer Knowledge engines.
-4. Replace structural Hindi/Punjabi mirrors with reviewed localization.
+4. Replace structural Hindi/Punjabi mirrors with reviewed localization through the live Translation Operations workflow.
 
 ### P2 — monetization and operations
 
