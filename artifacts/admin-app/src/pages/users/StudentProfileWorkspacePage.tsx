@@ -29,7 +29,7 @@ function statusTone(status: StudentStatus): 'success' | 'warning' | 'destructive
 }
 
 function titleCase(value: string) {
-  return value.replaceAll('.', ' ').replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+  return value.replace(/[._]/g, ' ').replace(/\b\w/g, (letter: string) => letter.toUpperCase());
 }
 
 function secondsLabel(value: number) {
