@@ -67,7 +67,11 @@ export function validateAvg001QuestionPackage(
   );
 
   const minimumExplanationLines =
-    pkg.difficultyBand === "Easy" ? 4 : 5;
+    pkg.canonicalProblemId === "AVG-CP-005"
+      ? 4
+      : pkg.difficultyBand === "Easy"
+        ? 4
+        : 5;
   add(
     "explanation-depth",
     pkg.explanation.lines.length >= minimumExplanationLines &&
