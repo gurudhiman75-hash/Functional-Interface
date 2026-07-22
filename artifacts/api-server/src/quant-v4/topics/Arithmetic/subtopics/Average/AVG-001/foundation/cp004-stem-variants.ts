@@ -156,6 +156,10 @@ export function applyAvg001Cp004StemVariant<T extends Avg001QuestionLanguageEntr
     if (context) template = missingTemplate(context, index);
   }
 
+  if (entry.qlId === "AVG-QL-231") {
+    template = "Four candidate groups have {count1}, {count2}, {count3}, and {count4} members. Their averages are {average1}, {average2}, {average3}, and {average4} marks. Find the average for all candidates.";
+  }
+
   if (entry.qlId === "AVG-QL-245") {
     template = "{knownCount} first-region branches average ₹{knownAverage}. Second-region branches average ₹{unknownAverage}; all branches average ₹{combinedAverage}. How many are in the second region?";
   }
