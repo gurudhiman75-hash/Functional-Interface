@@ -88,6 +88,7 @@ const expectedCounts = {
   "AVG-CP-001": 72,
   "AVG-CP-002": 50,
   "AVG-CP-003": 86,
+  "AVG-CP-004": 65,
 };
 const counts = Object.fromEntries(
   Object.keys(expectedCounts).map((cpId) => [
