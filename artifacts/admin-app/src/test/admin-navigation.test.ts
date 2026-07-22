@@ -46,13 +46,14 @@ describe('admin navigation roadmap', () => {
       '/tests/qa',
       '/tests/series',
       '/tests/blueprints',
+      '/users/students',
       '/users/team',
       '/analytics/system-health',
       '/settings/languages',
       '/settings/roles',
       '/settings/audit-logs',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 16, in_progress: 5, planned: 12 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 17, in_progress: 4, planned: 12 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -62,6 +63,7 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/tests/qa']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/series']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/blueprints']?.permission).toBe('tests.read');
+    expect(NAV_LOOKUP['/users/students']?.permission).toBe('users.students.read');
     expect(NAV_LOOKUP['/users/team']?.permission).toBe('users.admins.read');
     expect(NAV_LOOKUP['/analytics/system-health']?.permission).toBe('jobs.read');
     expect(NAV_LOOKUP['/settings/languages']?.permission).toBe('content.translations.read');
