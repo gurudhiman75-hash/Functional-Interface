@@ -144,6 +144,7 @@ console.log(
         ]),
       ),
       technicalStemPatternCount: technicalStemPatterns.length,
+      maxStemLength: Math.max(...entries.map((entry) => entry.template.length)),
       failureCount: failures.length,
       failures,
       status: failures.length ? "FAIL" : "PASS",
