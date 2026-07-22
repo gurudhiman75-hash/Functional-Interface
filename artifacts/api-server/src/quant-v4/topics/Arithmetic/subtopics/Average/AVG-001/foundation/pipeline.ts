@@ -2,6 +2,7 @@ import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
 import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-polish";
+import { applyAvg001Cp005ExplanationVariants } from "./cp005-explanation-variants";
 import { runAvg001Cp005Pipeline } from "./cp005-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { applyAvg001ContextualConclusion } from "./explanation-context";
@@ -29,7 +30,7 @@ export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: s
   if (entry.cpId === "AVG-CP-002") return finalizeExplanation(runAvg001Cp002Pipeline({ questionLanguageId, seed, language }));
   if (entry.cpId === "AVG-CP-003") return finalizeExplanation(runAvg001Cp003Pipeline({ questionLanguageId, seed, language }));
   if (entry.cpId === "AVG-CP-004") return applyAvg001Cp004ExplanationVariants(finalizeExplanation(runAvg001Cp004ExactPipeline({ questionLanguageId, seed, language })));
-  if (entry.cpId === "AVG-CP-005") return runAvg001Cp005Pipeline({ questionLanguageId, seed, language });
+  if (entry.cpId === "AVG-CP-005") return applyAvg001Cp005ExplanationVariants(runAvg001Cp005Pipeline({ questionLanguageId, seed, language }));
 
   const parameters = generateAvg001Parameters({ questionLanguageId, seed, language });
   const solver = solveAvg001(parameters);
