@@ -9,24 +9,30 @@ const banned = [/apply the formula/i, /using the standard method/i, /substitute 
 let cases = 0;
 
 function explanationShape(lines: string[]) {
-  return lines.map((line) => line.toLowerCase().replace(/₹?\d+(?:\.\d+)?/g, "#").replace(/\\times|\\div/g, "op").replace(/\s+/g, " ").trim()).join(" | ");
+  return lines.map((line) => line.toLowerCase().replace(/₹?\d+(?:,\d+)*(?:\.\d+)?/g, "#").replace(/\\times|\\div/g, "op").replace(/\s+/g, " ").trim()).join(" | ");
 }
 
 for (const entry of entries) {
   for (let index = 0; index < 5; index += 1) {
     const pkg = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed: `avg-cp005-explanation:${entry.qlId}:${index}` });
     cases += 1;
-    const text = pkg.explanation.lines.join("\n");
-    if (pkg.explanation.lines.length < 5 || pkg.explanation.lines.length > 8) failures.push(`${entry.qlId}:${index}: invalid explanation depth`);
-    if (!pkg.explanation.lines.some((line) => line.includes("\\times") || line.includes("\\div") || /[+\-]=?/.test(line))) failures.push(`${entry.qlId}:${index}: no substituted arithmetic`);
+    const lines = pkg.explanation.lines;
+    const text = lines.join("\n");
+    const equationLines = lines.filter((line) => /\$\$/.test(line));
+    if (lines.length < 4 || lines.length > 6) failures.push(`${entry.qlId}:${index}: invalid explanation depth`);
+    if (equationLines.length !== 2) failures.push(`${entry.qlId}:${index}: expected exactly two calculation lines`);
+    if (!equationLines.some((line) => line.includes("\\times") || line.includes("\\div") || /[+\-]=?/.test(line))) failures.push(`${entry.qlId}:${index}: no substituted arithmetic`);
     if (!text.includes(pkg.answer)) failures.push(`${entry.qlId}:${index}: final answer missing`);
     if (banned.some((pattern) => pattern.test(text))) failures.push(`${entry.qlId}:${index}: generic/internal explanation phrase`);
-    if (pkg.explanation.lines.some((line) => !line.trim())) failures.push(`${entry.qlId}:${index}: empty explanation line`);
-    if (entry.unitKind === "currency" && !text.includes("₹")) failures.push(`${entry.qlId}:${index}: currency unit missing`);
-    if (entry.unitKind === "marks" && !/marks/.test(text)) failures.push(`${entry.qlId}:${index}: marks unit missing`);
-    if (entry.unitKind === "kg" && !/kg/.test(text)) failures.push(`${entry.qlId}:${index}: weight unit missing`);
+    if (lines.some((line) => !line.trim())) failures.push(`${entry.qlId}:${index}: empty explanation line`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "currency" && !text.includes("₹")) failures.push(`${entry.qlId}:${index}: currency unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "marks" && !/marks/.test(text)) failures.push(`${entry.qlId}:${index}: marks unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "kg" && !/kg/.test(text)) failures.push(`${entry.qlId}:${index}: weight unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "years" && !/years/.test(text)) failures.push(`${entry.qlId}:${index}: age unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "runs" && !/runs/.test(text)) failures.push(`${entry.qlId}:${index}: runs unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "units" && !/units/.test(text)) failures.push(`${entry.qlId}:${index}: output unit missing`);
     const family = structures.get(entry.solveMode) ?? new Set<string>();
-    family.add(explanationShape(pkg.explanation.lines));
+    family.add(explanationShape(lines));
     structures.set(entry.solveMode, family);
   }
 }
