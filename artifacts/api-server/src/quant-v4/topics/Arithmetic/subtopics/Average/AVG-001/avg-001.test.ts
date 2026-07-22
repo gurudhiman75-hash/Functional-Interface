@@ -9,11 +9,13 @@ const entries = getAvg001QuestionEntries();
 const cp001 = entries.filter((entry) => entry.cpId === "AVG-CP-001");
 const cp002 = entries.filter((entry) => entry.cpId === "AVG-CP-002");
 const cp003 = entries.filter((entry) => entry.cpId === "AVG-CP-003");
+const cp004 = entries.filter((entry) => entry.cpId === "AVG-CP-004");
 
 const expectedCpCounts = {
   "AVG-CP-001": 72,
   "AVG-CP-002": 50,
   "AVG-CP-003": 86,
+  "AVG-CP-004": 65,
 } as const;
 const expectedTotal = Object.values(expectedCpCounts).reduce(
   (sum, count) => sum + count,
@@ -25,6 +27,7 @@ assert.equal(new Set(entries.map((entry) => entry.qlId)).size, expectedTotal);
 assert.equal(cp001.length, expectedCpCounts["AVG-CP-001"]);
 assert.equal(cp002.length, expectedCpCounts["AVG-CP-002"]);
 assert.equal(cp003.length, expectedCpCounts["AVG-CP-003"]);
+assert.equal(cp004.length, expectedCpCounts["AVG-CP-004"]);
 assert.deepEqual(
   cp001.map((entry) => entry.qlId),
   Array.from({ length: 72 }, (_, index) =>
@@ -35,6 +38,12 @@ assert.deepEqual(
   cp003.map((entry) => entry.qlId),
   Array.from({ length: 86 }, (_, index) =>
     `AVG-QL-${String(index + 123).padStart(3, "0")}`,
+  ),
+);
+assert.deepEqual(
+  cp004.map((entry) => entry.qlId),
+  Array.from({ length: 65 }, (_, index) =>
+    `AVG-QL-${String(index + 209).padStart(3, "0")}`,
   ),
 );
 
@@ -78,6 +87,22 @@ assert.equal(
   true,
 );
 
+const expectedCp004ModeCounts: Record<string, number> = {
+  findCombinedAverageOfTwoGroups: 16,
+  findCombinedAverageOfThreeOrFourGroups: 12,
+  findGroupCountFromCombinedAverage: 11,
+  findMissingGroupAverage: 11,
+  findAverageSpeedEqualDistance: 8,
+  findAverageSpeedEqualTime: 7,
+};
+for (const [mode, expectedCount] of Object.entries(expectedCp004ModeCounts)) {
+  assert.equal(
+    cp004.filter((entry) => entry.solveMode === mode).length,
+    expectedCount,
+    `${mode} CP-004 allocation`,
+  );
+}
+
 let generated = 0;
 for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
   for (let index = 0; index < 12; index += 1) {
@@ -95,7 +120,7 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
   }
 }
 
-for (const qlId of ["AVG-QL-001", "AVG-QL-073", "AVG-QL-123"]) {
+for (const qlId of ["AVG-QL-001", "AVG-QL-073", "AVG-QL-123", "AVG-QL-209"]) {
   for (const language of ["hi", "pa"] as const) {
     assert.throws(
       () => runAvg001Pipeline({ questionLanguageId: qlId, seed: "unsupported", language }),
@@ -111,6 +136,7 @@ console.log(
       cp001QlCount: cp001.length,
       cp002QlCount: cp002.length,
       cp003QlCount: cp003.length,
+      cp004QlCount: cp004.length,
       seedsPerQl: 12,
       generated,
       status: "PASS",
