@@ -98,7 +98,7 @@ const counts = Object.fromEntries(
 );
 
 assert.deepEqual(counts, expectedCounts);
-assert.equal(getAvg001EditorialStemOverrideIds().length, 65);
+assert.equal(getAvg001EditorialStemOverrideIds().length, 87);
 assert.equal(failures.length, 0, failures.join("\n"));
 
 console.log(
