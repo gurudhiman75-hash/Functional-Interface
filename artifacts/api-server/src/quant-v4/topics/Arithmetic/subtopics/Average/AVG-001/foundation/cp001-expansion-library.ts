@@ -62,14 +62,14 @@ function buildMode(input: {
 }
 
 const sumRows: ExpansionRow[] = [
-  ["marksTotal", "Classroom", "The average marks of {count} candidates in a test are {average}. Find the total marks scored by all candidates."],
+  ["marksTotal", "Classroom", "The average marks of {count} students in a test are {average}. Find the total marks scored by the class."],
   ["dailyOutputTotal", "Factory", "A packaging unit produces an average of {average} boxes per day for {count} days. Find its total production."],
   ["weeklySalesTotal", "Commerce", "A retail counter records average sales of ₹{average} per day for {count} days. Find the total sales."],
   ["salaryGroupTotal", "Workplace", "The average monthly salary of {count} contract employees is ₹{average}. Find their combined monthly salary."],
   ["passengerTotal", "Transport", "A shuttle carries an average of {average} passengers per trip for {count} trips. Find the total passengers carried."],
   ["expenseTotal", "Household", "A hostel spends an average of ₹{average} per day on meals for {count} days. Find the total expenditure."],
   ["marksTotal", "Classroom", "In a coaching batch, {count} students have an average score of {average}. What is their combined score?"],
-  ["dailyOutputTotal", "Factory", "A printing press completes an average of {average} copies per shift over {count} shifts. Find the total number of copies."],
+  ["dailyOutputTotal", "Factory", "A printing press completes an average of {average} units per day for {count} days. Find its total production."],
   ["weeklySalesTotal", "Commerce", "An online store receives an average of ₹{average} in orders each day for {count} days. Find the total order value."],
   ["salaryGroupTotal", "Workplace", "A department has {count} employees with an average salary of ₹{average}. What is the total salary paid to them?"],
   ["passengerTotal", "Transport", "A ferry transports an average of {average} passengers on each of {count} trips. Find the total passenger count."],
@@ -83,26 +83,26 @@ const averageRows: ExpansionRow[] = [
   ["expenseAverage", "Household", "A family spends ₹{total} on travel during {count} days. Find the average expenditure per day."],
   ["distanceAverage", "Transport", "A survey vehicle covers {total} km in {count} days. Find the average distance covered per day."],
   ["observationAverage", "Abstract", "The sum of {count} recorded values is {total}. Find their average."],
-  ["marksAverage", "Classroom", "The combined score in {count} practice sets is {total}. What is the average score per set?"],
+  ["marksAverage", "Classroom", "The combined score in {count} practice tests is {total}. What is the average score per test?"],
   ["outputAverage", "Factory", "An assembly line completes {total} units in {count} hours. What is the average output per hour?"],
   ["salesAverage", "Commerce", "An online seller receives orders worth ₹{total} in {count} days. What is the average daily order value?"],
   ["expenseAverage", "Household", "A hostel spends ₹{total} on supplies over {count} days. What is the average daily expenditure?"],
   ["distanceAverage", "Transport", "A cyclist travels a total of {total} km over {count} days. What is the average daily distance?"],
-  ["observationAverage", "Abstract", "A data set contains {count} observations with a total of {total}. What is the arithmetic average?"],
+  ["observationAverage", "Abstract", "A data set contains {count} numbers with a total of {total}. What is their arithmetic average?"],
 ];
 
 const countRows: ExpansionRow[] = [
   ["dayCount", "Factory", "A unit produces {total} items at an average of {average} items per day. Find the number of production days."],
   ["studentCount", "Classroom", "A class has total marks of {total} and an average of {average} marks per student. Find the number of students."],
-  ["transactionCount", "Commerce", "Orders worth ₹{total} have an average value of ₹{average}. Find the number of orders."],
+  ["transactionCount", "Commerce", "Transactions worth ₹{total} have an average value of ₹{average}. Find the number of transactions."],
   ["employeeCount", "Workplace", "A team receives a total monthly salary of ₹{total}. If the average salary is ₹{average}, find the number of employees."],
   ["tripCount", "Transport", "A shuttle carries {total} passengers in total, averaging {average} passengers per trip. Find the number of trips."],
   ["dayCountFromExpense", "Household", "A family spends ₹{total} at an average of ₹{average} per day. Find the number of days covered by this expenditure."],
   ["dayCount", "Factory", "A workshop completes {total} components at an average of {average} per day. For how many days did it operate?"],
-  ["studentCount", "Classroom", "The combined score of a batch is {total}. If the average score is {average}, how many candidates are in the batch?"],
+  ["studentCount", "Classroom", "The combined score of a batch is {total}. If the average score is {average}, how many students are in the batch?"],
   ["transactionCount", "Commerce", "A payment system processes transactions totalling ₹{total}, with an average of ₹{average} per transaction. Find the transaction count."],
-  ["employeeCount", "Workplace", "The monthly payroll is ₹{total}, and the average salary per worker is ₹{average}. How many workers are on the payroll?"],
-  ["tripCount", "Transport", "A ferry transports {total} passengers at an average of {average} passengers per journey. How many journeys were made?"],
+  ["employeeCount", "Workplace", "The monthly payroll is ₹{total}, and the average salary per employee is ₹{average}. How many employees are on the payroll?"],
+  ["tripCount", "Transport", "A ferry transports {total} passengers at an average of {average} passengers per trip. How many trips were made?"],
   ["dayCountFromExpense", "Household", "A hostel uses ₹{total} at an average daily expense of ₹{average}. For how many days will the amount last?"],
 ];
 
