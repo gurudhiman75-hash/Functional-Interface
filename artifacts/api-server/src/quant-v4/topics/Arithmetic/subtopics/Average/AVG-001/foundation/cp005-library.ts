@@ -25,11 +25,7 @@ const modes: Array<{ mode: Avg001SolveMode; count: number; answerType: Avg001Que
   { mode: "findCorrectedAverageFromMultipleMistakes", count: 5, answerType: "AVERAGE", strategies: ["net-two-entry-correction", "rebuild-two-entry-total", "combine-deltas-then-divide"] },
 ];
 
-const difficulty: Avg001Difficulty[] = [
-  ...Array(17).fill("Easy"),
-  ...Array(20).fill("Medium"),
-  ...Array(19).fill("Hard"),
-] as Avg001Difficulty[];
+const difficulty: Avg001Difficulty[] = [...Array(17).fill("Easy"), ...Array(20).fill("Medium"), ...Array(19).fill("Hard")] as Avg001Difficulty[];
 
 function value(kind: UnitKind, token: string) {
   if (kind === "currency") return `₹${token}`;
@@ -77,7 +73,7 @@ function template(mode: Avg001SolveMode, c: Context, variant: number) {
       `An entry was recorded as ${wrong}. Fixing it changed the average of {count} ${c.subject} from ${reported} to ${corrected}. Find the corrected entry.`,
       `The average for {count} ${c.subject} rises from ${reported} to ${corrected} when the recorded value ${wrong} is fixed. Find its true value.`,
       `A list of {count} ${c.subject} has average ${reported} with one value shown as ${wrong}. The actual average is ${corrected}. Find the replacement value.`,
-      `Using ${wrong} for one record produced average ${reported} for {count} ${c.subject}. The right average is ${corrected}. Determine the correct record.`,
+      `Using ${wrong} for one record produced average ${reported} for {count} ${c.subject}. The right average is ${corrected}. Find the correct record.`,
       `One wrong value ${wrong} caused the average of {count} ${c.subject} to be ${reported} instead of ${corrected}. What is the correct value?`,
       `For {count} ${c.subject}, the reported and true averages are ${reported} and ${corrected}. If ${wrong} was entered, find what belonged there.`,
       `The mean changes from ${reported} to ${corrected} after correcting one ${wrong} entry among {count} ${c.subject}. Find the new entry.`,
@@ -112,7 +108,7 @@ function template(mode: Avg001SolveMode, c: Context, variant: number) {
       `One entry was ${wrong} instead of ${correct}. This changed the average by ${change}. How many ${c.subject} were included?`,
       `Correcting a value from ${wrong} to ${correct} changed the average ${c.measure} by ${change}. Find the number of ${c.subject}.`,
       `The total correction is ${difference}, and the average changes by ${change}. Find how many ${c.subject} are in the set.`,
-      `A value changes from ${wrong} to ${correct}, shifting the average by ${change}. Determine the count of ${c.subject}.`,
+      `A value changes from ${wrong} to ${correct}, shifting the average by ${change}. Find the count of ${c.subject}.`,
       `The difference between one wrong and correct entry is ${difference}. If the average changes by ${change}, find the number of ${c.subject}.`,
       `Replacing ${wrong} with ${correct} changes the mean by ${change}. How many records were averaged?`,
     ],
@@ -136,7 +132,7 @@ let id = 274;
 let globalIndex = 0;
 for (const family of modes) {
   for (let index = 0; index < family.count; index += 1) {
-    const context = contexts[(globalIndex * 3 + index) % contexts.length]!;
+    const context = contexts[globalIndex % contexts.length]!;
     const unitKind = context.unitKind;
     const questionTemplate = template(family.mode, context, index);
     entries.push({
