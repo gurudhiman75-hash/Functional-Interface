@@ -1,20 +1,21 @@
 name: Refresh admin React lock graph
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/render-admin-recharts-build
+      - New-main
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
 
 jobs:
   refresh-lockfile:
-    if: github.actor != 'github-actions[bot]'
+    if: github.head_ref == 'fix/render-admin-recharts-build' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout branch
+      - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
           ref: fix/render-admin-recharts-build
