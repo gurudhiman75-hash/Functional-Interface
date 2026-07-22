@@ -19,6 +19,22 @@ let cases = 0;
 let weightedCases = 0;
 let speedCases = 0;
 
+function countInputRange(variant: string): [number, number] {
+  return /Salary|Sales|Revenue|Expense/i.test(variant)
+    ? [10000, 100000]
+    : /Weight/i.test(variant)
+      ? [10, 80]
+      : /Age/i.test(variant)
+        ? [15, 65]
+        : /Marks|Scores/i.test(variant)
+          ? [0, 100]
+          : /Output/i.test(variant)
+            ? [5, 150]
+            : /Passengers/i.test(variant)
+              ? [5, 100]
+              : [1, 200];
+}
+
 for (const entry of entries) {
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({
@@ -34,6 +50,9 @@ for (const entry of entries) {
     }
     if (/undefined|NaN|Infinity|null|\{[A-Za-z]/.test(pkg.stem)) {
       failures.push(`${entry.qlId}:${index}: unresolved stem`);
+    }
+    if (pkg.seed !== `avg-cp004-validity:${entry.qlId}:${index}` || pkg.parameters.seed !== pkg.seed) {
+      failures.push(`${entry.qlId}:${index}: external seed identity changed`);
     }
 
     if (entry.solveMode === "findAverageSpeedEqualDistance" || entry.solveMode === "findAverageSpeedEqualTime") {
@@ -70,12 +89,24 @@ for (const entry of entries) {
       failures.push(`${entry.qlId}:${index}: combined average outside group bounds`);
     }
 
+    if (/Salary|Sales|Revenue|Expense/i.test(entry.scenarioVariant)) {
+      const currencyValues = [...averages, values.combinedAverage!];
+      if (currencyValues.some((value) => value.denominator !== 1)) {
+        failures.push(`${entry.qlId}:${index}: currency state contains fractional rupees`);
+      }
+    }
+
     if (entry.solveMode === "findGroupCountFromCombinedAverage") {
       const expected = divide(
         multiply(rational(values.knownGroupCount!), subtract(values.combinedAverage!, values.knownGroupAverage!)),
         subtract(values.unknownGroupAverage!, values.combinedAverage!),
       );
       if (!equals(expected, pkg.solver.exactAnswer)) failures.push(`${entry.qlId}:${index}: unknown count mismatch`);
+
+      const [minimum, maximum] = countInputRange(entry.scenarioVariant);
+      if (numericAverages.some((average) => average < minimum || average > maximum)) {
+        failures.push(`${entry.qlId}:${index}: count-task inputs outside ${minimum}–${maximum}`);
+      }
     }
 
     if (entry.solveMode === "findMissingGroupAverage") {
