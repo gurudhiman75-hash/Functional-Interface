@@ -156,5 +156,9 @@ export function applyAvg001Cp004StemVariant<T extends Avg001QuestionLanguageEntr
     if (context) template = missingTemplate(context, index);
   }
 
+  if (entry.qlId === "AVG-QL-245") {
+    template = "{knownCount} first-region branches average ₹{knownAverage}. Second-region branches average ₹{unknownAverage}; all branches average ₹{combinedAverage}. How many are in the second region?";
+  }
+
   return template === entry.template ? entry : { ...entry, template };
 }
