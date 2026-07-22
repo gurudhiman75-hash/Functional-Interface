@@ -127,7 +127,7 @@ function missingTemplate(context: PairContext, index: number) {
     `{count1} ${context.first} average ${average1}. Adding {count2} ${context.second} makes the average ${combinedAverage}. Find the average of the ${context.second}.`,
     `{count1} ${context.first} and {count2} ${context.second} average ${combinedAverage} together. The ${context.first} average ${average1}. What do the ${context.second} average?`,
     `{count1} ${context.first} averaging ${average1} are joined by {count2} ${context.second}. The average becomes ${combinedAverage}. Find the average of the ${context.second}.`,
-    `There are {count1} ${context.first} and {count2} ${context.second}. The ${context.first} average ${average1}; everyone averages ${combinedAverage}. Find the average of the ${context.second}.`,
+    `All ${context.members} average ${combinedAverage}. There are {count1} ${context.first} averaging ${average1} and {count2} ${context.second}. Find the average of the ${context.second}.`,
   ];
   return patterns[index % patterns.length]!;
 }
