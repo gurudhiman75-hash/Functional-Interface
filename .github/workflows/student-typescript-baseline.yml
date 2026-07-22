@@ -1,0 +1,70 @@
+name: Validate student TypeScript baseline
+
+on:
+  push:
+    branches:
+      - fix/student-typescript-baseline
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/examtree/**
+      - lib/api-zod/**
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - tsconfig.base.json
+      - .github/workflows/student-typescript-baseline.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: student-typescript-baseline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  strict-student-typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run strict student typecheck
+        id: typecheck
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p artifacts/reports
+          pnpm --dir artifacts/examtree typecheck 2>&1 | tee artifacts/reports/student-typecheck.log
+
+      - name: Upload student typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-typecheck-${{ github.run_id }}
+          path: artifacts/reports/student-typecheck.log
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce strict student typecheck
+        if: steps.typecheck.outcome != 'success'
+        run: exit 1
+
+      - name: Build student production application
+        run: pnpm --dir artifacts/examtree build
