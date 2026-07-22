@@ -53,6 +53,21 @@ A disposable Neon branch, `student-admin-pr67-runtime-validation` (`br-shy-art-a
 
 The production-shaped queries verified search/filtering, attempt aggregates, profile/authentication reads, attempt-to-publication joins and session selection without refresh-token hashes. The fixture returned one evaluated attempt with an average score of `72.5` and one active session. The server masking contract converted the fixture IP to `49.36.x.x`. The disposable branch was deleted after validation; production was not modified.
 
+## Account-operation runtime validation evidence
+
+A second disposable Neon branch, `student-account-operations-pr68-runtime-validation` (`br-super-tree-at3kuk08`), was cloned from production. Temporary student and session fixtures exercised the production-shaped transactional sequence.
+
+Validation proved:
+
+- suspension locked the student row, changed the account to `suspended`, and revoked two active sessions in one transaction;
+- repeating suspension produced an audited idempotent no-op with no additional state change;
+- standalone session revocation removed one newly created active session without changing the suspended account status;
+- reactivation restored the account to `active` without recreating any revoked session;
+- four immutable operation audit events and four field-level changes were stored with mandatory reasons and state metadata;
+- the final account was active with zero active sessions.
+
+The disposable branch was deleted after validation. Production schema and data were not modified.
+
 ## Still deferred
 
 - Grant, revoke or extend entitlements.
