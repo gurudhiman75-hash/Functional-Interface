@@ -144,7 +144,7 @@ function renderTwoGroup(
     return replaceExplanation(pkg, [
       `Start from the first group's average, ${displayValue(entry, averages[0])}.`,
       `The second group is ${displayValue(entry, absolute(gap))} ${direction(gap)}, and it contains ${counts[1]} members.`,
-      `Its weighted effect on all ${combinedCount} members is ${displayValue(entry, absolute(adjustment))}.`,
+      `Across the combined count of ${combinedCount}, its weighted effect is ${displayValue(entry, absolute(adjustment))}.`,
       `$$${mathValue(averages[0])}${plusOrMinus(adjustment)}${mathValue(absolute(adjustment))}=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
     ]);
@@ -158,7 +158,7 @@ function renderTwoGroup(
     );
     return replaceExplanation(pkg, [
       `The two group averages differ by ${displayValue(entry, absolute(gap))}.`,
-      `Only ${counts[1]} of the ${combinedCount} members carry the second group's side of this difference.`,
+      `The weighted deviations depend on ${counts[1]} of the ${combinedCount} members.`,
       `Move ${displayValue(entry, absolute(movement))} from the first average toward the second average.`,
       `$$${mathValue(averages[0])}${plusOrMinus(movement)}${mathValue(absolute(movement))}=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
@@ -168,7 +168,7 @@ function renderTwoGroup(
   return replaceExplanation(pkg, [
     `The first group total is ${displayValue(entry, averages[0])} × ${counts[0]} = ${displayValue(entry, totals[0])}.`,
     `The second group total is ${displayValue(entry, averages[1])} × ${counts[1]} = ${displayValue(entry, totals[1])}.`,
-    `Together, the total is ${displayValue(entry, combinedTotal)} for ${combinedCount} members.`,
+    `Together, the combined total is ${displayValue(entry, combinedTotal)} for ${combinedCount} members.`,
     weightedFormula(averages, counts, combinedCount, pkg.answer),
     conclusion(pkg, entry),
   ]);
@@ -194,9 +194,9 @@ function renderMultiGroup(
       )
       .join("; ");
     return replaceExplanation(pkg, [
-      `Write one total for each group: ${contributions}.`,
-      `Adding these group totals gives ${displayValue(entry, combinedTotal)}.`,
-      `The groups contain ${combinedCount} members altogether.`,
+      `Write one group total for each group: ${contributions}.`,
+      `Adding these group totals gives the combined total ${displayValue(entry, combinedTotal)}.`,
+      `The combined count is ${combinedCount}.`,
       `$$${mathValue(combinedTotal)}\\div${combinedCount}=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
     ]);
@@ -213,17 +213,17 @@ function renderMultiGroup(
     const adjustment = divide(netChange, rational(combinedCount));
     return replaceExplanation(pkg, [
       `Use the first group's average, ${displayValue(entry, base)}, as the reference level.`,
-      `After weighting the other groups by their sizes, the net change is ${displayValue(entry, absolute(netChange))} ${netChange.numerator < 0 ? "downward" : "upward"}.`,
-      `Spread this change across all ${combinedCount} members.`,
+      `The weighted deviations of the other groups give a net ${displayValue(entry, absolute(netChange))} ${netChange.numerator < 0 ? "decrease" : "increase"}.`,
+      `Spread this change across the combined count of ${combinedCount}.`,
       `$$${mathValue(base)}${plusOrMinus(adjustment)}${mathValue(absolute(adjustment))}=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
     ]);
   }
 
   return replaceExplanation(pkg, [
-    `Each group contributes its average multiplied by its own count.`,
-    `The resulting group totals are ${totals.map((total) => displayValue(entry, total)).join(", ")}.`,
-    `Their sum is ${displayValue(entry, combinedTotal)}, and the combined count is ${combinedCount}.`,
+    `Each group contributes a group total equal to its average multiplied by its count.`,
+    `The group totals are ${totals.map((total) => displayValue(entry, total)).join(", ")}.`,
+    `Their combined total is ${displayValue(entry, combinedTotal)}, and the combined count is ${combinedCount}.`,
     weightedFormula(averages, counts, combinedCount, pkg.answer),
     conclusion(pkg, entry),
   ]);
@@ -246,7 +246,7 @@ function renderUnknownCount(
   if (strategy === "weighted-count-equation") {
     return replaceExplanation(pkg, [
       `Let the number in the second group be x.`,
-      `Its total is ${mathValue(unknownAverage)}x, while the first group's total is ${mathValue(knownAverage)}×${knownCount}.`,
+      `Its group total is ${mathValue(unknownAverage)}x, while the known group total is ${mathValue(knownAverage)}×${knownCount}.`,
       `The combined total must also equal ${mathValue(combinedAverage)}(${knownCount}+x).`,
       `$$${mathValue(knownAverage)}\\times${knownCount}+${mathValue(unknownAverage)}x=${mathValue(combinedAverage)}(${knownCount}+x)\\Rightarrow x=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
@@ -265,8 +265,8 @@ function renderUnknownCount(
 
   return replaceExplanation(pkg, [
     `The known group creates a weighted gap of ${knownCount} × ${displayValue(entry, absolute(knownSide))} = ${displayValue(entry, absolute(knownWeightedGap))}.`,
-    `Each member of the second group offsets ${displayValue(entry, absolute(unknownSide))} of that gap.`,
-    `Divide the total gap by the offset supplied by one second-group member.`,
+    `The weighted deviations must offset each other around the combined average.`,
+    `Each second-group member offsets ${displayValue(entry, absolute(unknownSide))} of that gap.`,
     `$$${mathValue(absolute(knownWeightedGap))}\\div${mathValue(absolute(unknownSide))}=${mathValue(pkg.answer)}$$`,
     conclusion(pkg, entry),
   ]);
@@ -295,8 +295,8 @@ function renderMissingAverage(
   if (strategy === "weighted-missing-equation") {
     return replaceExplanation(pkg, [
       `Let the second group's average be x.`,
-      `The first group contributes ${mathValue(knownAverage)}×${knownCount}, and the second contributes ${unknownCount}x.`,
-      `Together they must total ${mathValue(combinedAverage)}×${combinedCount}.`,
+      `The known group total is ${mathValue(knownAverage)}×${knownCount}, and the second group total is ${unknownCount}x.`,
+      `The combined total equation is ${mathValue(combinedAverage)}×${combinedCount}.`,
       `$$${mathValue(knownAverage)}\\times${knownCount}+${unknownCount}x=${mathValue(combinedAverage)}\\times${combinedCount}\\Rightarrow x=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
     ]);
@@ -304,18 +304,18 @@ function renderMissingAverage(
 
   if (strategy === "weighted-missing-balance") {
     return replaceExplanation(pkg, [
-      `The first group's average is ${displayValue(entry, absolute(knownDeviation))} ${knownDeviation.numerator < 0 ? "above" : "below"} the combined average.`,
-      `Across ${knownCount} members, this creates a weighted difference of ${displayValue(entry, absolute(multiply(knownDeviation, rational(knownCount))))}.`,
-      `The ${unknownCount} members in the second group must balance that difference.`,
+      `The known group's average is ${displayValue(entry, absolute(knownDeviation))} ${knownDeviation.numerator < 0 ? "above" : "below"} the combined average.`,
+      `Its weighted deviation across ${knownCount} members is ${displayValue(entry, absolute(multiply(knownDeviation, rational(knownCount))))}.`,
+      `The weighted deviations must balance across the ${unknownCount} members of the second group.`,
       `$$${mathValue(combinedAverage)}${plusOrMinus(adjustment)}${mathValue(absolute(adjustment))}=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
     ]);
   }
 
   return replaceExplanation(pkg, [
-    `The required total for all ${combinedCount} members is ${displayValue(entry, combinedAverage)} × ${combinedCount} = ${displayValue(entry, combinedTotal)}.`,
-    `The known group contributes ${displayValue(entry, knownAverage)} × ${knownCount} = ${displayValue(entry, knownTotal)}.`,
-    `So the second group must contribute ${displayValue(entry, missingTotal)} in total.`,
+    `The required combined total for ${combinedCount} members is ${displayValue(entry, combinedAverage)} × ${combinedCount} = ${displayValue(entry, combinedTotal)}.`,
+    `The known group total is ${displayValue(entry, knownAverage)} × ${knownCount} = ${displayValue(entry, knownTotal)}.`,
+    `So the second group total is ${displayValue(entry, missingTotal)}.`,
     `$$${mathValue(missingTotal)}\\div${unknownCount}=${mathValue(pkg.answer)}$$`,
     conclusion(pkg, entry),
   ]);
@@ -334,7 +334,7 @@ function renderEqualDistance(
 
   if (strategy === "speed-harmonic-time") {
     return replaceExplanation(pkg, [
-      `Take the distance of each leg as ${mathValue(product)} km.`,
+      `For equal distances, take each leg as ${mathValue(product)} km.`,
       `The two travel times are then ${mathValue(speed2)} hours and ${mathValue(speed1)} hours.`,
       `Total distance is ${mathValue(multiply(rational(2), product))} km and total time is ${mathValue(sum)} hours.`,
       `$$${mathValue(multiply(rational(2), product))}\\div${mathValue(sum)}=${mathValue(pkg.answer)}$$`,
@@ -345,7 +345,7 @@ function renderEqualDistance(
   if (strategy === "speed-harmonic-formula") {
     return replaceExplanation(pkg, [
       `Equal distances do not give the two speeds equal time weight.`,
-      `The slower leg takes longer, so the arithmetic mean is not valid.`,
+      `The slower speed takes longer, so the arithmetic mean is not valid.`,
       `Use the equal-distance average-speed formula.`,
       `$$\\frac{2\\times${mathValue(speed1)}\\times${mathValue(speed2)}}{${mathValue(speed1)}+${mathValue(speed2)}}=${mathValue(pkg.answer)}$$`,
       conclusion(pkg, entry),
@@ -353,7 +353,7 @@ function renderEqualDistance(
   }
 
   return replaceExplanation(pkg, [
-    `Both legs cover the same distance, but at ${displayValue(entry, speed1)} and ${displayValue(entry, speed2)}.`,
+    `Both legs cover equal distances, at ${displayValue(entry, speed1)} and ${displayValue(entry, speed2)}.`,
     `Average speed is total distance divided by total travel time.`,
     `For equal distances, this becomes twice the product divided by the sum.`,
     `$$2\\times${mathValue(speed1)}\\times${mathValue(speed2)}\\div(${mathValue(speed1)}+${mathValue(speed2)})=${mathValue(pkg.answer)}$$`,
@@ -376,7 +376,7 @@ function renderEqualTime(
 
   if (strategy === "speed-equal-time-total") {
     return replaceExplanation(pkg, [
-      `Assume each rate applies for one hour.`,
+      `The rates apply for the same amount of time; assume one hour at each rate.`,
       `The two periods produce a total ${quantity} of ${mathValue(add(speed1, speed2))} in two hours.`,
       `Average rate is total ${quantity} divided by total time.`,
       `$$(${mathValue(speed1)}+${mathValue(speed2)})\\div2=${mathValue(pkg.answer)}$$`,
@@ -386,7 +386,7 @@ function renderEqualTime(
 
   if (strategy === "speed-equal-time-balance") {
     return replaceExplanation(pkg, [
-      `The two rates act for equal time, so the average lies exactly halfway between them.`,
+      `The same amount of time gives both rates equal weight.`,
       `Their difference is ${displayValue(entry, subtract(higher, lower))}.`,
       `Add half of this difference to the lower rate.`,
       `$$${mathValue(lower)}+${mathValue(halfGap)}=${mathValue(pkg.answer)}$$`,
@@ -395,7 +395,7 @@ function renderEqualTime(
   }
 
   return replaceExplanation(pkg, [
-    `Both rates apply for the same duration, so they carry equal weight.`,
+    `Both rates apply for the same amount of time, so they have equal weight.`,
     `Add ${displayValue(entry, speed1)} and ${displayValue(entry, speed2)}.`,
     `Divide their sum by two.`,
     `$$(${mathValue(speed1)}+${mathValue(speed2)})\\div2=${mathValue(pkg.answer)}$$`,
