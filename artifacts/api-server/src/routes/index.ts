@@ -13,6 +13,7 @@ import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionsRouter from "./admin-questions";
+import adminStudentsRouter from "./admin-students";
 import adminSystemHealthActionsRouter from "./admin-system-health-actions";
 import adminSystemHealthRedactionRouter from "./admin-system-health-redaction";
 import adminSystemHealthRouter from "./admin-system-health";
@@ -68,6 +69,9 @@ router.use("/admin/session", adminSessionRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
+// Student Administration is read-only in its foundation release and exposes
+// only canonical identity, attempt, session and audit records.
+router.use("/admin/students", adminStudentsRouter);
 // Content intelligence extends the canonical review queue with deterministic
 // duplicate scanning and audit-derived chapter freeze governance.
 router.use("/admin/content-review", adminContentIntelligenceRouter);
