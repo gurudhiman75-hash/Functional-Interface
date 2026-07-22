@@ -65,8 +65,32 @@ const editorialStemOverrides: Record<string, string> = {
 
   "AVG-QL-197": "A batter averages {oldAverage} runs after {inningsCount} innings. Find the score needed in the next innings to make the average {newAverage}.",
 
-  "AVG-QL-241": "{knownCount} parcels in the first lot average {knownAverage} kg. The second lot averages {unknownAverage} kg. Their combined average is {combinedAverage} kg. Find the number of parcels in the second lot.",
-  "AVG-QL-245": "There are {knownCount} branches in the first region averaging ₹{knownAverage}. The second region averages ₹{unknownAverage}; overall average is ₹{combinedAverage}. Find its number of branches.",
+  "AVG-QL-212": "{count1} urban outlets average sales of ₹{average1}, while {count2} rural outlets average ₹{average2}. Find their combined average sales.",
+
+  "AVG-QL-225": "Three student groups contain {count1}, {count2}, and {count3} students. Their average marks are {average1}, {average2}, and {average3}. Find the combined average.",
+  "AVG-QL-226": "Three worker groups contain {count1}, {count2}, and {count3} workers. Their average outputs are {average1}, {average2}, and {average3} units. Find the combined average.",
+  "AVG-QL-227": "Three departments have {count1}, {count2}, and {count3} employees. Their average salaries are ₹{average1}, ₹{average2}, and ₹{average3}. Find the combined average salary.",
+  "AVG-QL-228": "Three package groups contain {count1}, {count2}, and {count3} packages. Their average weights are {average1}, {average2}, and {average3} kg. Find the combined average weight.",
+  "AVG-QL-229": "Three outlet groups contain {count1}, {count2}, and {count3} outlets. Their average sales are ₹{average1}, ₹{average2}, and ₹{average3}. Find the combined average sales.",
+  "AVG-QL-230": "Three age groups contain {count1}, {count2}, and {count3} people. Their average ages are {average1}, {average2}, and {average3} years. Find the combined average age.",
+  "AVG-QL-231": "Four batches contain {count1}, {count2}, {count3}, and {count4} candidates. Their average scores are {average1}, {average2}, {average3}, and {average4} marks. Find the combined average.",
+  "AVG-QL-232": "Four units have {count1}, {count2}, {count3}, and {count4} machines. Their average outputs are {average1}, {average2}, {average3}, and {average4} units. Find the combined average.",
+  "AVG-QL-233": "Four teams have {count1}, {count2}, {count3}, and {count4} players. Their batting averages are {average1}, {average2}, {average3}, and {average4} runs. Find the combined average.",
+  "AVG-QL-234": "Four departments have {count1}, {count2}, {count3}, and {count4} employees. Their average salaries are ₹{average1}, ₹{average2}, ₹{average3}, and ₹{average4}. Find the combined average salary.",
+  "AVG-QL-235": "Four parcel lots contain {count1}, {count2}, {count3}, and {count4} parcels. Their average weights are {average1}, {average2}, {average3}, and {average4} kg. Find the combined average weight.",
+  "AVG-QL-236": "Four groups contain {count1}, {count2}, {count3}, and {count4} values. Their averages are {average1}, {average2}, {average3}, and {average4}. Find the overall average.",
+
+  "AVG-QL-237": "{knownCount} boys average {knownAverage} marks. The girls average {unknownAverage} marks, and the whole class averages {combinedAverage} marks. Find the number of girls.",
+  "AVG-QL-238": "{knownCount} morning-shift workers average {knownAverage} units. Evening-shift workers average {unknownAverage} units, and all workers average {combinedAverage} units. Find their number.",
+  "AVG-QL-239": "{knownCount} permanent employees average ₹{knownAverage}. Contract employees average ₹{unknownAverage}, and all employees average ₹{combinedAverage}. Find the number of contract employees.",
+  "AVG-QL-240": "{knownCount} urban outlets average sales of ₹{knownAverage}. Rural outlets average ₹{unknownAverage}, and all outlets average ₹{combinedAverage}. Find the number of rural outlets.",
+  "AVG-QL-241": "The first lot has {knownCount} parcels averaging {knownAverage} kg. The second lot averages {unknownAverage} kg, and both lots average {combinedAverage} kg. Find the number of parcels in the second lot.",
+  "AVG-QL-242": "{knownCount} day trips average {knownAverage} passengers. Night trips average {unknownAverage} passengers, and all trips average {combinedAverage} passengers. Find the number of night trips.",
+  "AVG-QL-243": "{knownCount} men average {knownAverage} years. The women average {unknownAverage} years, and all people average {combinedAverage} years. Find the number of women.",
+  "AVG-QL-244": "Section A has {knownCount} students averaging {knownAverage} marks. Section B averages {unknownAverage} marks, and the whole class averages {combinedAverage} marks. Find the number of students in Section B.",
+  "AVG-QL-245": "The first region has {knownCount} branches averaging ₹{knownAverage}. The second region averages ₹{unknownAverage}, and all branches average ₹{combinedAverage}. Find the number of branches in the second region.",
+  "AVG-QL-246": "{knownCount} older machines average {knownAverage} units. Newer machines average {unknownAverage} units, and all machines average {combinedAverage} units. Find the number of newer machines.",
+  "AVG-QL-247": "Department A has {knownCount} employees averaging ₹{knownAverage}. Department B averages ₹{unknownAverage}, and all employees average ₹{combinedAverage}. Find the number of employees in Department B.",
 };
 
 export function applyAvg001EditorialStem<T extends { qlId: string; template: string }>(entry: T): T {
