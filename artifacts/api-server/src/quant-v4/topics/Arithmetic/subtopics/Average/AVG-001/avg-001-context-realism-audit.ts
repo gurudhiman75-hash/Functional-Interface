@@ -46,10 +46,11 @@ function within(value: number, range: [number, number]) {
 
 const failures: string[] = [];
 let cases = 0;
-
-for (const entry of getAvg001QuestionEntries().filter(
+const cp001Entries = getAvg001QuestionEntries().filter(
   (item) => item.cpId === "AVG-CP-001",
-)) {
+);
+
+for (const entry of cp001Entries) {
   const profile = bounds[entry.scenarioVariant];
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({
@@ -88,6 +89,7 @@ console.log(
   JSON.stringify(
     {
       cases,
+      cp001QlCount: cp001Entries.length,
       profiledScenarioCount: Object.keys(bounds).length,
       failureCount: failures.length,
       failures: failures.slice(0, 100),
@@ -96,5 +98,5 @@ console.log(
     2,
   ),
 );
-assert.equal(cases, 288);
+assert.equal(cases, cp001Entries.length * 12);
 assert.equal(failures.length, 0, failures.join("\n"));
