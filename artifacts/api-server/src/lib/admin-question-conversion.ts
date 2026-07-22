@@ -171,7 +171,7 @@ export async function convertApprovedGenerationItem(
       ${normalized.difficulty},
       ${normalized.stem},
       ${normalized.explanation},
-      ${client.json(normalized.answerModel)},
+      ${JSON.stringify(normalized.answerModel)}::jsonb,
       1,
       0,
       'Approved from generated question review',
@@ -236,7 +236,7 @@ export async function convertApprovedGenerationItem(
       ${questionVersionId}::uuid,
       'Approved generated item converted to Question Bank',
       ${`Created ${publicCode} from approved generation item`},
-      ${client.json({ generationItemId: itemId, generationRunCode: row.generationRunCode })}
+      ${JSON.stringify({ generationItemId: itemId, generationRunCode: row.generationRunCode })}::jsonb
     )
   `;
 
