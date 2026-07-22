@@ -58,5 +58,5 @@ jobs:
         shell: bash
         run: |
           test -f artifacts/api-server/dist/index.mjs
-          test -f artifacts/hosting/index.html
-          test -f artifacts/hosting/admin/index.html
+          test -f artifacts/examtree/dist/public/index.html
+          test -f artifacts/examtree/dist/public/admin/index.html
