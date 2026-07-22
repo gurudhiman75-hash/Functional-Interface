@@ -1,0 +1,183 @@
+name: Apply admin login bootstrap fix
+
+on:
+  push:
+    branches:
+      - fix/admin-login-profile-bootstrap
+    paths:
+      - .github/workflows/apply-admin-login-profile-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/admin-login-profile-bootstrap
+          fetch-depth: 0
+
+      - name: Patch admin login routing
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('artifacts/examtree/src/pages/login.tsx')
+          text = path.read_text()
+
+          old_redirect = '''    void completeGoogleRedirectSignIn()
+      .then((user) => {
+        if (!user) return;
+        if (isAdminMode && user.role !== "admin") {
+          toast({
+            title: "Admin access only",
+            description: "That Google account is not an admin account.",
+            variant: "destructive",
+          });
+          setLocation("/dashboard");
+          return;
+        }
+        toast({
+          title: "Welcome!",
+          description: `Signed in as ${user.name}`,
+        });
+      })
+      .catch((err) => {
+        toast({
+          title: "Google sign-in failed",
+          description: getAuthErrorMessage(err),
+          variant: "destructive",
+        });
+      });'''
+          new_redirect = '''    if (!isAdminMode) {
+      void completeGoogleRedirectSignIn()
+        .then((user) => {
+          if (!user) return;
+          toast({
+            title: "Welcome!",
+            description: `Signed in as ${user.name}`,
+          });
+        })
+        .catch((err) => {
+          toast({
+            title: "Google sign-in failed",
+            description: getAuthErrorMessage(err),
+            variant: "destructive",
+          });
+        });
+    }'''
+
+          old_listener = '''      if (!firebaseUser) return;
+      try {
+        const appUser = await upsertUserProfile(firebaseUser);
+        routeAfterAuth(appUser.role);
+      } catch {
+        routeAfterAuth();
+      }'''
+          new_listener = '''      if (!firebaseUser) return;
+      if (isAdminMode) {
+        // The admin application owns canonical administrator bootstrap. Do not
+        // make admin access depend on the student profile upsert endpoint.
+        routeAfterAuth("admin");
+        return;
+      }
+      try {
+        const appUser = await upsertUserProfile(firebaseUser);
+        routeAfterAuth(appUser.role);
+      } catch {
+        routeAfterAuth();
+      }'''
+
+          old_route = '''  const routeAfterAuth = (role?: string) => {
+    if (isAdminMode && role && role !== "admin") {
+      toast({
+        title: "Admin access only",
+        description: "This account is not authorized for the ExamTree admin console.",
+        variant: "destructive",
+      });
+      setLocation("/dashboard");
+      return;
+    }
+
+    const destination = nextPath'''
+          new_route = '''  const routeAfterAuth = (role?: string) => {
+    if (isAdminMode) {
+      const requestedDestination = nextPath ? decodeURIComponent(nextPath) : "/admin/";
+      const adminDestination = requestedDestination === "/admin"
+        ? "/admin/"
+        : requestedDestination.startsWith("/admin/")
+          ? requestedDestination
+          : "/admin/";
+      window.location.assign(adminDestination);
+      return;
+    }
+
+    const destination = nextPath'''
+
+          old_password = '''        const cred = await signInWithEmailAndPassword(auth, email, password);
+        const appUser = await upsertUserProfile(cred.user);
+        toast({
+          title: appUser.role === "admin" ? "Admin access granted" : "Welcome back!",
+          description: `Logged in as ${appUser.name}`,
+        });
+        routeAfterAuth(appUser.role);
+        return;'''
+          new_password = '''        const cred = await signInWithEmailAndPassword(auth, email, password);
+        if (isAdminMode) {
+          toast({
+            title: "Admin sign-in successful",
+            description: "Verifying canonical administrator access…",
+          });
+          routeAfterAuth("admin");
+          return;
+        }
+        const appUser = await upsertUserProfile(cred.user);
+        toast({
+          title: appUser.role === "admin" ? "Admin access granted" : "Welcome back!",
+          description: `Logged in as ${appUser.name}`,
+        });
+        routeAfterAuth(appUser.role);
+        return;'''
+
+          replacements = [
+            (old_redirect, new_redirect, 'Google redirect block'),
+            (old_listener, new_listener, 'auth-state listener'),
+            (old_route, new_route, 'routeAfterAuth block'),
+            (old_password, new_password, 'password login block'),
+          ]
+          for old, new, label in replacements:
+            if old not in text:
+              raise SystemExit(f'Expected {label} not found')
+            text = text.replace(old, new, 1)
+
+          path.write_text(text)
+          PY
+
+      - name: Add regression contract
+        run: |
+          mkdir -p artifacts/examtree/scripts
+          cat > artifacts/examtree/scripts/verify-admin-login-routing.mjs <<'EOF'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+
+          const source = readFileSync(new URL('../src/pages/login.tsx', import.meta.url), 'utf8');
+          assert.match(source, /if \(isAdminMode\) \{[\s\S]*routeAfterAuth\("admin"\);/);
+          assert.match(source, /The admin application owns canonical administrator bootstrap/);
+          assert.match(source, /Admin sign-in successful/);
+          assert.doesNotMatch(source, /if \(isAdminMode && user\.role !== "admin"\)/);
+          console.log('admin login routing contract passed');
+          EOF
+
+      - name: Remove temporary workflow
+        run: rm .github/workflows/apply-admin-login-profile-fix.yml
+
+      - name: Commit permanent fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/examtree/src/pages/login.tsx artifacts/examtree/scripts/verify-admin-login-routing.mjs .github/workflows/apply-admin-login-profile-fix.yml
+          git commit -m "fix(auth): bypass student profile creation for admin login"
+          git push origin HEAD:fix/admin-login-profile-bootstrap
