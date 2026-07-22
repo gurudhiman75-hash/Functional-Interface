@@ -6,6 +6,7 @@ on:
       - fix/student-typescript-baseline
     paths:
       - .github/workflows/apply-student-typescript-fixes.yml
+      - scripts/apply-student-typescript-fixes.mjs
   pull_request:
     branches:
       - New-main
