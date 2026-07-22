@@ -1,7 +1,7 @@
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
-import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-variants";
+import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-polish";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { applyAvg001ContextualConclusion } from "./explanation-context";
 import { applyAvg001ExplanationDepth } from "./explanation-depth";
