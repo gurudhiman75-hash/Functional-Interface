@@ -64,6 +64,9 @@ const editorialStemOverrides: Record<string, string> = {
   "AVG-QL-122": "A factory labels {count} batches with consecutive even numbers from {firstTerm} to {lastTerm}. Find the mean batch number.",
 
   "AVG-QL-197": "A batter averages {oldAverage} runs after {inningsCount} innings. Find the score needed in the next innings to make the average {newAverage}.",
+
+  "AVG-QL-241": "{knownCount} parcels in the first lot average {knownAverage} kg. The second lot averages {unknownAverage} kg. Their combined average is {combinedAverage} kg. Find the number of parcels in the second lot.",
+  "AVG-QL-245": "There are {knownCount} branches in the first region averaging ₹{knownAverage}. The second region averages ₹{unknownAverage}; overall average is ₹{combinedAverage}. Find its number of branches.",
 };
 
 export function applyAvg001EditorialStem<T extends { qlId: string; template: string }>(entry: T): T {
