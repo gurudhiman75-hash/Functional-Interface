@@ -62,6 +62,7 @@ function dependencies(overrides: Partial<Parameters<typeof createAdminSessionRou
     isDatabaseConfigured: databaseConfigured,
     isAdministrator: async () => true,
     activateInvitation: async () => undefined,
+    relinkIdentity: async () => undefined,
     bootstrap: async () => ({ session, firstAdministrator: true, pendingRoleAssignment: false }),
     ...overrides,
   };
@@ -75,6 +76,7 @@ test('bootstrap rejects an unauthenticated request', async () => {
 test('bootstrap reports a missing canonical database before querying RBAC', async () => {
   let administratorCheckCalled = false;
   let activationCalled = false;
+  let relinkCalled = false;
   let bootstrapCalled = false;
   const result = await requestBootstrap(createAdminSessionRouter(dependencies({
     isDatabaseConfigured: () => false,
@@ -83,6 +85,7 @@ test('bootstrap reports a missing canonical database before querying RBAC', asyn
       return true;
     },
     activateInvitation: async () => { activationCalled = true; },
+    relinkIdentity: async () => { relinkCalled = true; },
     bootstrap: async () => {
       bootstrapCalled = true;
       return { session, firstAdministrator: true, pendingRoleAssignment: false };
@@ -92,15 +95,18 @@ test('bootstrap reports a missing canonical database before querying RBAC', asyn
   assert.equal(result.body.code, 'DATABASE_URL_REQUIRED');
   assert.equal(administratorCheckCalled, false);
   assert.equal(activationCalled, false);
+  assert.equal(relinkCalled, false);
   assert.equal(bootstrapCalled, false);
 });
 
 test('bootstrap rejects an authenticated non-admin without writing identity data', async () => {
   let activationCalled = false;
+  let relinkCalled = false;
   let bootstrapCalled = false;
   const result = await requestBootstrap(createAdminSessionRouter(dependencies({
     isAdministrator: async () => false,
     activateInvitation: async () => { activationCalled = true; },
+    relinkIdentity: async () => { relinkCalled = true; },
     bootstrap: async () => {
       bootstrapCalled = true;
       return { session, firstAdministrator: false, pendingRoleAssignment: false };
@@ -108,10 +114,11 @@ test('bootstrap rejects an authenticated non-admin without writing identity data
   })));
   assert.equal(result.status, 403);
   assert.equal(activationCalled, false);
+  assert.equal(relinkCalled, false);
   assert.equal(bootstrapCalled, false);
 });
 
-test('pre-authorized invitations activate before canonical session resolution', async () => {
+test('pre-authorized invitations activate and relink before canonical session resolution', async () => {
   const calls: string[] = [];
   const result = await requestBootstrap(createAdminSessionRouter(dependencies({
     isAdministrator: async (identity) => {
@@ -119,13 +126,21 @@ test('pre-authorized invitations activate before canonical session resolution', 
       return true;
     },
     activateInvitation: async () => { calls.push('activate'); },
+    relinkIdentity: async (identity) => {
+      calls.push(`relink:${identity.firebaseUid}:${identity.emailVerified}`);
+    },
     bootstrap: async () => {
       calls.push('bootstrap');
       return { session, firstAdministrator: false, pendingRoleAssignment: false };
     },
   })));
   assert.equal(result.status, 200);
-  assert.deepEqual(calls, ['authorize:admin@example.test:true', 'activate', 'bootstrap']);
+  assert.deepEqual(calls, [
+    'authorize:admin@example.test:true',
+    'activate',
+    'relink:firebase-admin-1:true',
+    'bootstrap',
+  ]);
 });
 
 test('first bootstrap returns the server-resolved super-admin session', async () => {

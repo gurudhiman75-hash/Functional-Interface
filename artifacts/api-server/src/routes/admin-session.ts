@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { Router, type RequestHandler } from "express";
 
 import {
@@ -19,6 +20,7 @@ export type AdminSessionRouteDependencies = {
   isDatabaseConfigured: () => boolean;
   isAdministrator: (identity: AdminBootstrapIdentity) => Promise<boolean>;
   activateInvitation: (identity: AdminBootstrapIdentity) => Promise<void>;
+  relinkIdentity: (identity: AdminBootstrapIdentity) => Promise<void>;
   bootstrap: (input: {
     firebaseUid: string;
     email?: string;
@@ -68,6 +70,73 @@ export async function activateCanonicalAdminInvitation(identity: AdminBootstrapI
   `;
 }
 
+export async function relinkCanonicalAdminFirebaseIdentity(identity: AdminBootstrapIdentity): Promise<void> {
+  const normalizedEmail = identity.email?.trim().toLowerCase() || null;
+  if (!identity.emailVerified || !normalizedEmail) return;
+
+  try {
+    await sqlClient.begin(async (tx) => {
+      await tx`SELECT pg_advisory_xact_lock(hashtext('examtree.identity.firebase-admin-bootstrap'))`;
+
+      const administrators = await tx`
+        SELECT u.id::text AS "userId"
+        FROM identity.users u
+        JOIN identity.admin_profiles p
+          ON p.user_id = u.id
+         AND p.is_suspended = false
+        WHERE u.deleted_at IS NULL
+          AND u.status IN ('active'::user_status, 'invited'::user_status)
+          AND lower(u.email) = lower(${normalizedEmail})
+        LIMIT 1
+        FOR UPDATE
+      `;
+      const userId = administrators[0]?.userId ? String(administrators[0].userId) : "";
+      if (!userId) return;
+
+      const conflicting = await tx`
+        SELECT user_id::text AS "userId"
+        FROM identity.auth_identities
+        WHERE provider = 'firebase'
+          AND provider_subject = ${identity.firebaseUid}
+        FOR UPDATE
+      `;
+      if (conflicting[0] && String(conflicting[0].userId) !== userId) {
+        throw new AdminIdentityError(
+          "FIREBASE_IDENTITY_CONFLICT",
+          "This Firebase identity is already linked to another ExamTree user",
+          409,
+        );
+      }
+
+      await tx`
+        INSERT INTO identity.auth_identities (
+          id, user_id, provider, provider_subject, created_at, updated_at
+        ) VALUES (
+          ${randomUUID()}::uuid,
+          ${userId}::uuid,
+          'firebase',
+          ${identity.firebaseUid},
+          now(),
+          now()
+        )
+        ON CONFLICT (user_id, provider) DO UPDATE
+          SET provider_subject = EXCLUDED.provider_subject,
+              updated_at = now()
+      `;
+    });
+  } catch (error) {
+    if (error instanceof AdminIdentityError) throw error;
+    if ((error as { code?: string })?.code === "23505") {
+      throw new AdminIdentityError(
+        "FIREBASE_IDENTITY_CONFLICT",
+        "This Firebase identity is already linked to another ExamTree user",
+        409,
+      );
+    }
+    throw error;
+  }
+}
+
 export function isProductionDatabaseConfigured(): boolean {
   return process.env.NODE_ENV !== "production" || Boolean(process.env.DATABASE_URL?.trim());
 }
@@ -78,6 +147,7 @@ export function createAdminSessionRouter(
     isDatabaseConfigured: isProductionDatabaseConfigured,
     isAdministrator: isCanonicalAdministrator,
     activateInvitation: activateCanonicalAdminInvitation,
+    relinkIdentity: relinkCanonicalAdminFirebaseIdentity,
     bootstrap: bootstrapAdminIdentity,
   },
 ) {
@@ -109,6 +179,7 @@ export function createAdminSessionRouter(
       }
 
       await dependencies.activateInvitation(identity);
+      await dependencies.relinkIdentity(identity);
       const result = await dependencies.bootstrap({
         firebaseUid: req.user.id,
         email: req.user.email,
