@@ -21,6 +21,14 @@ on:
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
       - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - artifacts/examtree/src/lib/data.ts
+      - artifacts/examtree/src/lib/lang-utils.ts
+      - artifacts/examtree/src/lib/storage.ts
+      - artifacts/examtree/src/pages/result.tsx
+      - artifacts/examtree/src/pages/test.tsx
+      - artifacts/examtree/package.json
+      - lib/api-zod/**
+      - pnpm-lock.yaml
       - docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
       - docs/database-migrations/2026-07-21-multilingual-translation-validation.md
       - scripts/validate-multilingual-migration.mjs
@@ -45,6 +53,14 @@ on:
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
       - artifacts/admin-app/src/test/admin-navigation.test.ts
+      - artifacts/examtree/src/lib/data.ts
+      - artifacts/examtree/src/lib/lang-utils.ts
+      - artifacts/examtree/src/lib/storage.ts
+      - artifacts/examtree/src/pages/result.tsx
+      - artifacts/examtree/src/pages/test.tsx
+      - artifacts/examtree/package.json
+      - lib/api-zod/**
+      - pnpm-lock.yaml
       - docs/database-migrations/2026-07-21-multilingual-translation-operations.sql
       - docs/database-migrations/2026-07-21-multilingual-translation-validation.md
       - scripts/validate-multilingual-migration.mjs
