@@ -1,5 +1,6 @@
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
+import { runAvg001Cp004Pipeline } from "./cp004-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { applyAvg001ContextualConclusion } from "./explanation-context";
 import { applyAvg001ExplanationDepth } from "./explanation-depth";
@@ -46,6 +47,11 @@ export function runAvg001Pipeline(
   if (entry.cpId === "AVG-CP-003") {
     return finalizeExplanation(
       runAvg001Cp003Pipeline({ questionLanguageId, seed, language }),
+    );
+  }
+  if (entry.cpId === "AVG-CP-004") {
+    return finalizeExplanation(
+      runAvg001Cp004Pipeline({ questionLanguageId, seed, language }),
     );
   }
 
