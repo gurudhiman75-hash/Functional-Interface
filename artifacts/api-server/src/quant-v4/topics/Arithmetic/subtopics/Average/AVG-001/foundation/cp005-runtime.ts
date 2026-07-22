@@ -73,18 +73,96 @@ function optionsFor(answer: Rational, entry: ReturnType<typeof getAvg001Question
   const correctIndex = hash(`${seed}:${entry.qlId}:options`) % 4; const rendered = wrong.map((value) => formatAnswer(value, entry)); rendered.splice(correctIndex, 0, answerText); return { options: rendered, correctIndex };
 }
 
-function explanation(entry: ReturnType<typeof getAvg001QuestionEntry>, s: ReturnType<typeof buildState>, answer: string) {
-  const count = s.count; const reported = unitValue(s.reportedAverage, entry); const corrected = unitValue(s.correctedAverage, entry); const wrong = unitValue(s.incorrectValue, entry);
-  const displayedCorrect = entry.solveMode === "findCorrectedAverageFromMultipleMistakes" ? s.correctValues[0]! : s.correctValue;
-  const correct = unitValue(displayedCorrect, entry); const delta = unitValue(s.entryDifference, entry); const avgChange = unitValue(s.averageChange, entry); const signWord = s.correctionDirection === "increase" ? "added to" : "subtracted from";
-  if (entry.solveMode === "findCorrectedAverageFromMultipleMistakes") {
-    const wrong2 = unitValue(s.incorrectValues[1]!, entry); const correct2 = unitValue(s.correctValues[1]!, entry);
-    return [`The reported total is ${reported} \\times ${count}.`, `The first entry changes from ${wrong} to ${correct}.`, `The second entry changes from ${wrong2} to ${correct2}.`, `Together the two corrections change the average by ${delta} \\div ${count} = ${avgChange}.`, `Therefore, the correct average is ${answer}.`];
+function conclusion(mode: string, answer: string) {
+  switch (mode) {
+    case "findCorrectedAverageFromMistake": return `Therefore, the corrected average is ${answer}.`;
+    case "findReportedAverageBeforeCorrection": return `Therefore, the earlier reported average was ${answer}.`;
+    case "findCorrectValueFromAverageShift": return `Therefore, the correct entry was ${answer}.`;
+    case "findIncorrectValueFromCorrection": return `Therefore, the wrongly entered value was ${answer}.`;
+    case "findEntryDifferenceFromAverageCorrection": return `Therefore, the entry error was ${answer}.`;
+    case "findAverageChangeFromEntryCorrection": return `Therefore, the average changes by ${answer}.`;
+    case "findNumberOfItemsFromTotalCorrection": return `Therefore, ${answer} records were included.`;
+    case "findCorrectedAverageFromMultipleMistakes": return `Therefore, the corrected average is ${answer}.`;
+    default: return `Therefore, the answer is ${answer}.`;
   }
-  const strategy = entry.explanationStrategyId;
-  if (/total|rebuild/.test(strategy)) return [`The reported total is ${reported} \\times ${count}.`, `Replacing ${wrong} with ${correct} changes the total by ${delta}.`, `That correction is ${signWord} the reported total.`, `Dividing the corrected total by ${count} gives ${corrected}.`, `Therefore, the required answer is ${answer}.`];
-  if (/equation|scale|delta|gap|ratio/.test(strategy)) return [`The average changes from ${reported} to ${corrected}.`, `Average change = ${avgChange}.`, `Total correction = ${count} \\times ${avgChange} = ${delta}.`, `Use correct entry − wrong entry = total correction, with the sign set by the direction of change.`, `Therefore, the required answer is ${answer}.`];
-  return [`One wrong entry affects the total of all ${count} records.`, `The entry changes from ${wrong} to ${correct}, a correction of ${delta}.`, `Average correction = ${delta} \\div ${count} = ${avgChange}.`, `Apply this correction to ${reported} to obtain ${corrected}.`, `Therefore, the required answer is ${answer}.`];
+}
+
+function explanation(entry: ReturnType<typeof getAvg001QuestionEntry>, s: ReturnType<typeof buildState>, answer: string) {
+  const count = s.count;
+  const reported = plain(s.reportedAverage, entry);
+  const corrected = plain(s.correctedAverage, entry);
+  const wrong = plain(s.incorrectValue, entry);
+  const correct = plain(s.correctValue, entry);
+  const delta = plain(s.entryDifference, entry);
+  const signedDelta = plain(s.netCorrection, entry);
+  const averageChange = plain(s.averageChange, entry);
+  const finalLine = conclusion(entry.solveMode, answer);
+
+  switch (entry.solveMode) {
+    case "findCorrectedAverageFromMistake":
+      return [
+        `The entry correction changes the reported total across all ${count} records.`,
+        `$$\text{Entry correction}=${correct}-${wrong}=${signedDelta}$$`,
+        `$$\text{Corrected average}=${reported}+(${signedDelta}\div${count})=${corrected}$$`,
+        finalLine,
+      ];
+    case "findReportedAverageBeforeCorrection":
+      return [
+        `Reverse the entry correction to recover the average shown before the record was fixed.`,
+        `$$\text{Entry correction}=${correct}-${wrong}=${signedDelta}$$`,
+        `$$\text{Reported average}=${corrected}-(${signedDelta}\div${count})=${reported}$$`,
+        finalLine,
+      ];
+    case "findCorrectValueFromAverageShift":
+      return [
+        `The average shift across ${count} records gives the full entry correction.`,
+        `$$\text{Entry correction}=(${corrected}-${reported})\times${count}=${signedDelta}$$`,
+        `$$\text{Correct entry}=${wrong}+${signedDelta}=${correct}$$`,
+        finalLine,
+      ];
+    case "findIncorrectValueFromCorrection":
+      return [
+        `The average shift first reveals how much the wrong entry changed the total.`,
+        `$$\text{Entry correction}=(${corrected}-${reported})\times${count}=${signedDelta}$$`,
+        `$$\text{Wrong entry}=${correct}-${signedDelta}=${wrong}$$`,
+        finalLine,
+      ];
+    case "findEntryDifferenceFromAverageCorrection":
+      return [
+        `A one-record error changes the total by the average change multiplied by the count.`,
+        `$$\text{Average change}=|${corrected}-${reported}|=${averageChange}$$`,
+        `$$\text{Entry error}=${count}\times${averageChange}=${delta}$$`,
+        finalLine,
+      ];
+    case "findAverageChangeFromEntryCorrection":
+      return [
+        `Spread the single entry correction evenly across all ${count} records.`,
+        `$$\text{Entry error}=|${correct}-${wrong}|=${delta}$$`,
+        `$$\text{Average change}=${delta}\div${count}=${averageChange}$$`,
+        finalLine,
+      ];
+    case "findNumberOfItemsFromTotalCorrection":
+      return [
+        `The record count equals the total entry correction divided by the average change.`,
+        `$$\text{Entry error}=|${correct}-${wrong}|=${delta}$$`,
+        `$$\text{Count}=${delta}\div${averageChange}=${count}$$`,
+        finalLine,
+      ];
+    case "findCorrectedAverageFromMultipleMistakes": {
+      const wrong1 = plain(s.incorrectValues[0]!, entry);
+      const wrong2 = plain(s.incorrectValues[1]!, entry);
+      const correct1 = plain(s.correctValues[0]!, entry);
+      const correct2 = plain(s.correctValues[1]!, entry);
+      return [
+        `Combine both entry corrections before adjusting the reported total.`,
+        `$$\text{Net correction}=(${correct1}-${wrong1})+(${correct2}-${wrong2})=${signedDelta}$$`,
+        `$$\text{Corrected average}=${reported}+(${signedDelta}\div${count})=${corrected}$$`,
+        finalLine,
+      ];
+    }
+    default:
+      throw new Error(`Unsupported CP-005 explanation mode: ${entry.solveMode}`);
+  }
 }
 
 export function runAvg001Cp005Pipeline(input: { questionLanguageId: string; seed: string; language: Avg001Language }): Avg001QuestionPackage {
