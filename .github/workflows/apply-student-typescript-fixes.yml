@@ -6,12 +6,19 @@ on:
       - fix/student-typescript-baseline
     paths:
       - .github/workflows/apply-student-typescript-fixes.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - .github/workflows/apply-student-typescript-fixes.yml
+      - scripts/apply-student-typescript-fixes.mjs
 
 permissions:
   contents: write
 
 concurrency:
-  group: apply-student-typescript-fixes
+  group: apply-student-typescript-fixes-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -57,6 +64,7 @@ jobs:
         run: git rm scripts/apply-student-typescript-fixes.mjs .github/workflows/apply-student-typescript-fixes.yml
 
       - name: Commit verified fixes
+        if: github.event_name == 'push'
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
