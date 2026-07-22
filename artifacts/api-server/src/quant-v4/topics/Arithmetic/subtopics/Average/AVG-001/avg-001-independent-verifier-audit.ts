@@ -7,8 +7,9 @@ let unsupported = 0;
 let mismatch = 0;
 let displayMismatch = 0;
 let cases = 0;
+const questionLanguageIds = getAvg001QuestionLanguageIds();
 
-for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
+for (const questionLanguageId of questionLanguageIds) {
   for (let index = 0; index < 12; index += 1) {
     const questionPackage = runAvg001Pipeline({
       questionLanguageId,
@@ -22,7 +23,7 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
 }
 
 console.log(JSON.stringify({ cases, unsupported, mismatch, displayMismatch }, null, 2));
-assert.equal(cases, 1056);
+assert.equal(cases, questionLanguageIds.length * 12);
 assert.equal(unsupported, 0);
 assert.equal(mismatch, 0);
 assert.equal(displayMismatch, 0);

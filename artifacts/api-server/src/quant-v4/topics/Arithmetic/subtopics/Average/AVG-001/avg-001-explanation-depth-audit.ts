@@ -12,7 +12,7 @@ const conceptPatterns: Record<string, RegExp> = {
   "AVG-CP-002":
     /equally spaced|halfway|middle term|equal gaps|half-span|span/i,
   "AVG-CP-003":
-    /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|current runs|required runs/i,
+    /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs/i,
 };
 
 const bannedTextbookLanguage =
@@ -52,7 +52,9 @@ function containsAnswer(line: string, answer: string) {
   return tokens.includes(answer.replace(/,/g, ""));
 }
 
-for (const entry of getAvg001QuestionEntries()) {
+const entries = getAvg001QuestionEntries();
+
+for (const entry of entries) {
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({
       questionLanguageId: entry.qlId,
@@ -75,6 +77,7 @@ for (const entry of getAvg001QuestionEntries()) {
     );
     const joined = lines.join(" ");
     const normalizedJoined = joined.replace(/,/g, "");
+    const conclusionText = conclusionLines.join(" ");
     const conceptPattern = conceptPatterns[pkg.canonicalProblemId];
     const totalWords = lines.reduce((sum, line) => sum + wordCount(line), 0);
 
@@ -119,6 +122,42 @@ for (const entry of getAvg001QuestionEntries()) {
       failures.push(`${entry.qlId}:${index}: includes an unnecessary verification line`);
     }
 
+    const isCountAnswer = pkg.parameters.answerType === "COUNT";
+    const ageStem = /\bage\b|\byears?\b/i.test(pkg.stem);
+    const cricketStem =
+      /\bruns?\b|\binnings?\b|\bbatter\b|\bbatting\b|\bcricketer\b/i.test(
+        pkg.stem,
+      );
+
+    if (!isCountAnswer && pkg.stem.includes("₹") && !conclusionText.includes("₹")) {
+      failures.push(`${entry.qlId}:${index}: currency conclusion omits ₹`);
+    }
+    if (!isCountAnswer && ageStem && !/\byears?\b/i.test(conclusionText)) {
+      failures.push(`${entry.qlId}:${index}: age conclusion omits years`);
+    }
+    if (ageStem && /\bruns?\b/i.test(conclusionText)) {
+      failures.push(`${entry.qlId}:${index}: age conclusion incorrectly uses runs`);
+    }
+    if (!isCountAnswer && /\bkg\b/i.test(pkg.stem) && !/\bkg\b/i.test(conclusionText)) {
+      failures.push(`${entry.qlId}:${index}: weight conclusion omits kg`);
+    }
+    if (!isCountAnswer && /\bunits?\b/i.test(pkg.stem) && !/\bunits?\b/i.test(conclusionText)) {
+      failures.push(`${entry.qlId}:${index}: output conclusion omits units`);
+    }
+    if (!isCountAnswer && /\bmarks?\b/i.test(pkg.stem) && !/\bmarks?\b/i.test(conclusionText)) {
+      failures.push(`${entry.qlId}:${index}: marks conclusion omits marks`);
+    }
+    if (
+      !isCountAnswer &&
+      /\bkm\b|kilomet/i.test(pkg.stem) &&
+      !/\bkm\b/i.test(conclusionText)
+    ) {
+      failures.push(`${entry.qlId}:${index}: distance conclusion omits km`);
+    }
+    if (!isCountAnswer && cricketStem && !ageStem && !/\bruns?\b/i.test(conclusionText)) {
+      failures.push(`${entry.qlId}:${index}: cricket conclusion omits runs`);
+    }
+
     const values = pkg.parameters.values as Record<string, unknown>;
     if (
       pkg.parameters.scenarioVariant === "familyAgeElapsedTime" &&
@@ -156,5 +195,5 @@ console.log(
   ),
 );
 
-assert.equal(cases, 1056);
+assert.equal(cases, entries.length * 12);
 assert.equal(failures.length, 0, failures.join("\n"));

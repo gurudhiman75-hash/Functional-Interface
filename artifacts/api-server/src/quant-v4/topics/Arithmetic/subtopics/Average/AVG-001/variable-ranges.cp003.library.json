@@ -1,0 +1,352 @@
+{
+  "profiles": {
+    "abstract": {
+      "counts": [
+        5,
+        6,
+        8,
+        10,
+        12,
+        15
+      ],
+      "averages": [
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        60,
+        70
+      ],
+      "deltas": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "memberMinimum": 1,
+      "memberMaximum": 500
+    },
+    "marks": {
+      "counts": [
+        5,
+        6,
+        8,
+        10,
+        12
+      ],
+      "averages": [
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75
+      ],
+      "deltas": [
+        1,
+        2,
+        3
+      ],
+      "memberMinimum": 0,
+      "memberMaximum": 100
+    },
+    "salary": {
+      "counts": [
+        8,
+        10,
+        12,
+        15
+      ],
+      "averages": [
+        25000,
+        30000,
+        35000,
+        40000,
+        45000
+      ],
+      "deltas": [
+        500,
+        1000,
+        1500
+      ],
+      "memberMinimum": 10000,
+      "memberMaximum": 200000
+    },
+    "output": {
+      "counts": [
+        5,
+        6,
+        8,
+        10,
+        12
+      ],
+      "averages": [
+        30,
+        40,
+        50,
+        60,
+        75,
+        90
+      ],
+      "deltas": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "memberMinimum": 5,
+      "memberMaximum": 500
+    },
+    "weight": {
+      "counts": [
+        5,
+        6,
+        8,
+        10
+      ],
+      "averages": [
+        50,
+        55,
+        60,
+        65,
+        70
+      ],
+      "deltas": [
+        1,
+        2,
+        3
+      ],
+      "memberMinimum": 30,
+      "memberMaximum": 150
+    },
+    "parcel": {
+      "counts": [
+        5,
+        6,
+        8,
+        10
+      ],
+      "averages": [
+        12,
+        15,
+        18,
+        20,
+        24,
+        28
+      ],
+      "deltas": [
+        1,
+        2
+      ],
+      "memberMinimum": 5,
+      "memberMaximum": 80
+    },
+    "sales": {
+      "counts": [
+        5,
+        7,
+        10,
+        12,
+        15
+      ],
+      "averages": [
+        1200,
+        1500,
+        2000,
+        2500,
+        3000,
+        4000
+      ],
+      "deltas": [
+        100,
+        200,
+        300
+      ],
+      "memberMinimum": 100,
+      "memberMaximum": 20000
+    },
+    "price": {
+      "counts": [
+        5,
+        6,
+        8,
+        10
+      ],
+      "averages": [
+        200,
+        300,
+        400,
+        500,
+        600,
+        800
+      ],
+      "deltas": [
+        20,
+        30,
+        50
+      ],
+      "memberMinimum": 10,
+      "memberMaximum": 5000
+    },
+    "age": {
+      "counts": [
+        4,
+        5,
+        6,
+        8,
+        10,
+        12
+      ],
+      "averages": [
+        28,
+        30,
+        32,
+        35,
+        38,
+        40,
+        42,
+        45
+      ],
+      "deltas": [
+        1,
+        2
+      ],
+      "years": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "memberMinimum": 1,
+      "memberMaximum": 90
+    },
+    "sportsAge": {
+      "counts": [
+        8,
+        10,
+        11
+      ],
+      "averages": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        30,
+        32
+      ],
+      "deltas": [
+        1
+      ],
+      "memberMinimum": 18,
+      "memberMaximum": 40
+    },
+    "cricket": {
+      "counts": [
+        5,
+        6,
+        8,
+        10,
+        12,
+        15,
+        18,
+        20
+      ],
+      "averages": [
+        25,
+        30,
+        35,
+        40,
+        45,
+        50
+      ],
+      "deltas": [
+        1,
+        2,
+        3
+      ],
+      "memberMinimum": 0,
+      "memberMaximum": 250
+    },
+    "studentAge": {
+      "counts": [
+        6,
+        8,
+        10
+      ],
+      "averages": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "deltas": [
+        1
+      ],
+      "years": [
+        1,
+        2,
+        3
+      ],
+      "memberMinimum": 5,
+      "memberMaximum": 25
+    },
+    "childAge": {
+      "counts": [
+        4,
+        5,
+        6
+      ],
+      "averages": [
+        28,
+        30,
+        32,
+        35
+      ],
+      "deltas": [
+        3,
+        4,
+        5
+      ],
+      "years": [
+        2,
+        3,
+        4
+      ],
+      "memberMinimum": 5,
+      "memberMaximum": 18
+    },
+    "teacherStudentAge": {
+      "counts": [
+        10,
+        12,
+        15,
+        18
+      ],
+      "averages": [
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "deltas": [
+        1,
+        2
+      ],
+      "years": [
+        2,
+        3,
+        4
+      ],
+      "memberMinimum": 25,
+      "memberMaximum": 65
+    }
+  }
+}
