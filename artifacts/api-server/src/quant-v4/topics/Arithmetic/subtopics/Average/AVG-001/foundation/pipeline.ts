@@ -2,61 +2,34 @@ import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
 import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-polish";
+import { runAvg001Cp005Pipeline } from "./cp005-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { applyAvg001ContextualConclusion } from "./explanation-context";
 import { applyAvg001ExplanationDepth } from "./explanation-depth";
 import { renderAvg001Explanation } from "./explanation-renderer";
 import { independentlyVerifyAvg001 } from "./independent-verifier";
-import {
-  getAvg001QuestionEntry,
-  getAvg001QuestionLanguageIds,
-  renderTemplate,
-} from "./library";
+import { getAvg001QuestionEntry, getAvg001QuestionLanguageIds, renderTemplate } from "./library";
 import { generateAvg001Options } from "./option-generator";
 import { generateAvg001Parameters } from "./parameter-generator";
 import { buildAvg001ReasoningEvidence } from "./reasoning-evidence";
 import { solveAvg001 } from "./solver";
-import {
-  AVG_001_PACKAGE_ID,
-  type Avg001Language,
-  type Avg001QuestionPackage,
-} from "./types";
+import { AVG_001_PACKAGE_ID, type Avg001Language, type Avg001QuestionPackage } from "./types";
 import { validateAvg001QuestionPackage } from "./validator";
 
 function finalizeExplanation(pkg: Avg001QuestionPackage) {
   return applyAvg001ContextualConclusion(applyAvg001ExplanationDepth(pkg));
 }
 
-export function runAvg001Pipeline(
-  input: {
-    questionLanguageId?: string;
-    seed?: string;
-    language?: Avg001Language;
-  } = {},
-): Avg001QuestionPackage {
-  const questionLanguageId =
-    input.questionLanguageId ?? getAvg001QuestionLanguageIds()[0]!;
+export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {
+  const questionLanguageId = input.questionLanguageId ?? getAvg001QuestionLanguageIds()[0]!;
   const seed = input.seed ?? `avg-001:${questionLanguageId}:default`;
   const language = input.language ?? "en";
   const entry = getAvg001QuestionEntry(questionLanguageId);
 
-  if (entry.cpId === "AVG-CP-002") {
-    return finalizeExplanation(
-      runAvg001Cp002Pipeline({ questionLanguageId, seed, language }),
-    );
-  }
-  if (entry.cpId === "AVG-CP-003") {
-    return finalizeExplanation(
-      runAvg001Cp003Pipeline({ questionLanguageId, seed, language }),
-    );
-  }
-  if (entry.cpId === "AVG-CP-004") {
-    return applyAvg001Cp004ExplanationVariants(
-      finalizeExplanation(
-        runAvg001Cp004ExactPipeline({ questionLanguageId, seed, language }),
-      ),
-    );
-  }
+  if (entry.cpId === "AVG-CP-002") return finalizeExplanation(runAvg001Cp002Pipeline({ questionLanguageId, seed, language }));
+  if (entry.cpId === "AVG-CP-003") return finalizeExplanation(runAvg001Cp003Pipeline({ questionLanguageId, seed, language }));
+  if (entry.cpId === "AVG-CP-004") return applyAvg001Cp004ExplanationVariants(finalizeExplanation(runAvg001Cp004ExactPipeline({ questionLanguageId, seed, language })));
+  if (entry.cpId === "AVG-CP-005") return runAvg001Cp005Pipeline({ questionLanguageId, seed, language });
 
   const parameters = generateAvg001Parameters({ questionLanguageId, seed, language });
   const solver = solveAvg001(parameters);
@@ -66,7 +39,6 @@ export function runAvg001Pipeline(
   const stem = renderTemplate(entry.template, parameters.renderVariables);
   const { options, correctIndex } = generateAvg001Options(parameters, solver);
   const mathematicalFingerprint = buildAvg001MathematicalFingerprint(parameters, solver);
-
   const base = {
     packageId: AVG_001_PACKAGE_ID,
     archetypeId: AVG_001_PACKAGE_ID,
@@ -90,26 +62,9 @@ export function runAvg001Pipeline(
     maturity: "RUNTIME_PROOF" as const,
     publiclyPublishable: false,
     mathematicalFingerprint,
-    traceability: {
-      packageId: AVG_001_PACKAGE_ID,
-      canonicalProblemId: entry.cpId,
-      questionLanguageId,
-      taskKind: entry.taskKind,
-      solveMode: entry.solveMode,
-      answerType: entry.answerType,
-      contextDomain: entry.contextDomain,
-      scenarioVariant: entry.scenarioVariant,
-    },
+    traceability: { packageId: AVG_001_PACKAGE_ID, canonicalProblemId: entry.cpId, questionLanguageId, taskKind: entry.taskKind, solveMode: entry.solveMode, answerType: entry.answerType, contextDomain: entry.contextDomain, scenarioVariant: entry.scenarioVariant },
   };
-
   const validation = validateAvg001QuestionPackage(base);
-  if (!validation.valid) {
-    throw new Error(
-      validation.checks
-        .filter((item) => !item.passed)
-        .map((item) => `${item.name}: ${item.message}`)
-        .join("\n"),
-    );
-  }
+  if (!validation.valid) throw new Error(validation.checks.filter((item) => !item.passed).map((item) => `${item.name}: ${item.message}`).join("\n"));
   return finalizeExplanation({ ...base, validation });
 }
