@@ -1,0 +1,62 @@
+name: Validate Render production build
+
+on:
+  push:
+    branches:
+      - New-main
+    paths:
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - artifacts/admin-app/**
+      - artifacts/examtree/**
+      - artifacts/api-server/**
+      - scripts/assemble-hosting.mjs
+      - .github/workflows/render-production-build.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - build-api.sh
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - artifacts/admin-app/**
+      - artifacts/examtree/**
+      - artifacts/api-server/**
+      - scripts/assemble-hosting.mjs
+      - .github/workflows/render-production-build.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-production-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  render-production-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run exact Render build command
+        run: bash build-api.sh
+
+      - name: Verify deployment artifacts
+        shell: bash
+        run: |
+          test -f artifacts/api-server/dist/index.mjs
+          test -f artifacts/hosting/index.html
+          test -f artifacts/hosting/admin/index.html
