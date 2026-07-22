@@ -242,7 +242,7 @@ export function createQuestionVersion(questionId: string, input: QuestionVersion
   });
 }
 
-export function updateQuestionTaxonomy(
+export async function updateQuestionTaxonomy(
   questionId: string,
   input: {
     expectedLockVersion: number;
@@ -251,10 +251,11 @@ export function updateQuestionTaxonomy(
     taxonomyNodeIds: string[];
   },
 ) {
-  return request<QuestionDetailResponse>(`/admin/questions/${encodeURIComponent(questionId)}/taxonomy`, {
+  await request<unknown>(`/admin/questions/${encodeURIComponent(questionId)}/taxonomy`, {
     method: 'PATCH',
     body: JSON.stringify(input),
   });
+  return getQuestionDetail(questionId);
 }
 
 export function transitionQuestion(
