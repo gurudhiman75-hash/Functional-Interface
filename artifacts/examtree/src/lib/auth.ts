@@ -40,6 +40,22 @@ export function createDevelopmentSession({
   return appUser;
 }
 
+function isAdminLoginHandoff(): boolean {
+  return typeof window !== "undefined" && window.location.pathname.startsWith("/login/admin");
+}
+
+function createAdminHandoffUser(firebaseUser: FirebaseUser): User {
+  const email = firebaseUser.email?.trim().toLowerCase() ?? "";
+  return {
+    id: firebaseUser.uid,
+    email,
+    name: firebaseUser.displayName?.trim() || email.split("@")[0] || "ExamTree Administrator",
+    // This role only selects the /admin/ destination. The admin application then
+    // verifies the Firebase token against canonical RBAC before rendering anything.
+    role: "admin",
+  };
+}
+
 async function fetchOrCreateUserProfile(
   firebaseUser: FirebaseUser,
 ): Promise<User> {
@@ -71,6 +87,10 @@ export async function upsertUserProfile(
       name: firebaseUser.displayName ?? undefined,
       role: "student",
     });
+  }
+
+  if (isAdminLoginHandoff()) {
+    return createAdminHandoffUser(firebaseUser);
   }
 
   return fetchOrCreateUserProfile(firebaseUser);
