@@ -15,6 +15,19 @@ const oldGenericPhrases = [
   "Use the two weighted deviations to find the unknown group size.",
 ];
 
+const technicalStemPatterns: Array<[RegExp, string]> = [
+  [/\bweighted average\b/i, "uses technical 'weighted average' wording"],
+  [/\brespective averages\b/i, "uses formal 'respective averages' wording"],
+  [/\bdetermine the\b/i, "uses formal 'determine' wording"],
+  [/\bgroup [A-D]\b/i, "uses abstract Group A/B/C/D labels"],
+  [/\bfirst set\b/i, "uses abstract set wording"],
+  [/\bcombined group\b/i, "uses technical combined-group wording"],
+  [/\bmissing group average\b/i, "uses internal missing-group wording"],
+  [/\bsecond-group\b/i, "uses hyphenated internal group wording"],
+  [/\bthe counts are\b/i, "uses catalogue-like count wording"],
+  [/\bhave sizes\b/i, "uses catalogue-like group-size wording"],
+];
+
 function normalizeExplanation(lines: string[]) {
   return lines
     .slice(0, -1)
@@ -43,6 +56,10 @@ const explanationsByMode = new Map<string, Map<string, string>>();
 const stemSignaturesByMode = new Map<string, Set<string>>();
 
 for (const entry of entries) {
+  for (const [pattern, reason] of technicalStemPatterns) {
+    if (pattern.test(entry.template)) failures.push(`${entry.qlId}: ${reason}`);
+  }
+
   const packageResult = runAvg001Pipeline({
     questionLanguageId: entry.qlId,
     seed: `avg-cp004-variety:${entry.qlId}`,
@@ -126,6 +143,7 @@ console.log(
           signatures.size,
         ]),
       ),
+      technicalStemPatternCount: technicalStemPatterns.length,
       failureCount: failures.length,
       failures,
       status: failures.length ? "FAIL" : "PASS",
