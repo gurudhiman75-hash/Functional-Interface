@@ -4,11 +4,13 @@ import cp003QuestionLanguage from "../question-language.cp003.en.json";
 import taskRegistry from "../task-registry.library.json";
 import cp002TaskRegistry from "../task-registry.cp002.library.json";
 import cp003TaskRegistry from "../task-registry.cp003.library.json";
+import { cp001ExpansionEntries } from "./cp001-expansion-library";
 import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
+  ...cp001ExpansionEntries,
   ...(cp002QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...(cp003QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
 ]
@@ -18,6 +20,7 @@ const entries = [
 const registryById = new Map(
   [
     ...(taskRegistry.entries as Avg001QuestionLanguageEntry[]),
+    ...cp001ExpansionEntries,
     ...(cp002TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
     ...(cp003TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
   ]
