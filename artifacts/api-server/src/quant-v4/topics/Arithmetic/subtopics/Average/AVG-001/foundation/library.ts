@@ -23,10 +23,15 @@ function applyCp004RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
 
 function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001QuestionLanguageEntry {
   if (entry.cpId !== "AVG-CP-005") return entry;
-  if (entry.answerType === "COUNT") {
-    return { ...entry, displayPolicy: "EXACT_INTEGER" };
+  let normalized = entry.answerType === "COUNT" ? { ...entry, displayPolicy: "EXACT_INTEGER" as const } : entry;
+  if (entry.qlId === "AVG-QL-325") {
+    normalized = {
+      ...normalized,
+      template: "For {count} machines, the reported average is {reportedAverage} units. Values {incorrectValue} and {incorrectValue2} should be {correctValue} and {correctValue2}. Find the correct average.",
+      requiredVariables: ["count", "reportedAverage", "incorrectValue", "incorrectValue2", "correctValue", "correctValue2"],
+    };
   }
-  return entry;
+  return normalized;
 }
 
 const normalizeEntry = (entry: Avg001QuestionLanguageEntry) =>
