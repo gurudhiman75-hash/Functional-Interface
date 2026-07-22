@@ -13,6 +13,8 @@ const conceptPatterns: Record<string, RegExp> = {
     /equally spaced|halfway|middle term|equal gaps|half-span|span/i,
   "AVG-CP-003":
     /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs/i,
+  "AVG-CP-004":
+    /group total|combined count|combined total|weighted deviations|equal distances|slower speed|same amount of time|equal weight/i,
 };
 
 const bannedTextbookLanguage =
@@ -125,6 +127,7 @@ for (const entry of entries) {
     const isCountAnswer = pkg.parameters.answerType === "COUNT";
     const ageStem = /\bage\b|\byears?\b/i.test(pkg.stem);
     const cricketStem =
+      pkg.parameters.contextDomain === "Sports" &&
       /\bruns?\b|\binnings?\b|\bbatter\b|\bbatting\b|\bcricketer\b/i.test(
         pkg.stem,
       );

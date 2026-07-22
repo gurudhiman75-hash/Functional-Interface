@@ -26,7 +26,7 @@ export interface Avg001QuestionLanguageEntry {
   cpId: Avg001CanonicalProblemId; qlId: string; taskKind: Avg001TaskKind; solveMode: Avg001SolveMode;
   difficulty: Avg001Difficulty; answerType: Avg001AnswerType; contextDomain: string; scenarioVariant: string;
   template: string; requiredVariables: string[]; explanationStrategyId: string; distractorStrategyIds: string[];
-  displayPolicy: Avg001DisplayPolicy; active: boolean; finalContext: string;
+  displayPolicy: Avg001DisplayPolicy; active: boolean; finalContext: string; unitKind?: string;
 }
 export interface Avg001Parameters {
   packageId: typeof AVG_001_PACKAGE_ID; canonicalProblemId: Avg001CanonicalProblemId; questionLanguageId: string;
@@ -40,12 +40,27 @@ export interface Avg001Parameters {
     commonDifference?: Rational; targetExtreme?: "smallest" | "largest";
     sequenceParity?: "odd" | "even" | "any";
     oldCount?: number; newCount?: number;
-    oldAverage?: Rational; newAverage?: Rational;
-    oldTotal?: Rational; newTotal?: Rational;
+    oldAverage?: Rational; currentAverage?: Rational; newAverage?: Rational;
+    oldTotal?: Rational; currentTotal?: Rational; newTotal?: Rational;
     addedValue?: Rational; removedValue?: Rational;
     outgoingValue?: Rational; incomingValue?: Rational;
-    elapsedYears?: number; inningsCount?: number;
+    oldValue?: Rational; newValue?: Rational;
+    replacementTarget?: "old" | "new";
+    elapsedYears?: number; yearsElapsed?: number; inningsCount?: number;
+    nextScore?: Rational;
     targetKind?: "newAverage" | "memberValue";
+    groupCounts?: number[];
+    groupAverages?: Rational[];
+    groupTotals?: Rational[];
+    combinedCount?: number;
+    combinedAverage?: Rational;
+    combinedTotal?: Rational;
+    knownGroupCount?: number;
+    knownGroupAverage?: Rational;
+    unknownGroupCount?: number;
+    unknownGroupAverage?: Rational;
+    speed1?: Rational;
+    speed2?: Rational;
   };
   renderVariables: Record<string, string | number>;
 }

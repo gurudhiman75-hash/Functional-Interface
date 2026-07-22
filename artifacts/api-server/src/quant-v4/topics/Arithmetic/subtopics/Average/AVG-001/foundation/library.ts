@@ -5,16 +5,60 @@ import taskRegistry from "../task-registry.library.json";
 import cp002TaskRegistry from "../task-registry.cp002.library.json";
 import cp003TaskRegistry from "../task-registry.cp003.library.json";
 import { cp001ExpansionEntries } from "./cp001-expansion-library";
+import { cp004Entries } from "./cp004-library";
+import { applyAvg001Cp004StemVariant } from "./cp004-stem-variants";
 import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
+
+function applyCp004RuntimeMetadata(
+  entry: Avg001QuestionLanguageEntry,
+): Avg001QuestionLanguageEntry {
+  if (entry.cpId !== "AVG-CP-004") return entry;
+
+  let normalized: Avg001QuestionLanguageEntry =
+    entry.unitKind === "currency"
+      ? {
+          ...entry,
+          displayPolicy: "EXACT_INTEGER",
+        }
+      : entry;
+
+  if (entry.solveMode !== "findGroupCountFromCombinedAverage") {
+    return normalized;
+  }
+
+  const variant = entry.scenarioVariant;
+  const unitKind = /Salary|Sales|Revenue|Expense/i.test(variant)
+    ? "currency"
+    : /Weight/i.test(variant)
+      ? "kg"
+      : /Age/i.test(variant)
+        ? "years"
+        : /Marks|Scores/i.test(variant)
+          ? "marks"
+          : /Output/i.test(variant)
+            ? "units"
+            : "none";
+
+  normalized = {
+    ...normalized,
+    unitKind,
+    displayPolicy: unitKind === "currency" ? "EXACT_INTEGER" : normalized.displayPolicy,
+  };
+
+  return normalized;
+}
 
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...cp001ExpansionEntries,
   ...(cp002QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...(cp003QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
+  ...cp004Entries,
 ]
+  .map(applyCp004RuntimeMetadata)
   .map(applyAvg001EditorialStem)
+  .map(applyAvg001Cp004StemVariant)
   .filter((entry) => entry.active);
 
 const registryById = new Map(
@@ -23,8 +67,11 @@ const registryById = new Map(
     ...cp001ExpansionEntries,
     ...(cp002TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
     ...(cp003TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
+    ...cp004Entries,
   ]
+    .map(applyCp004RuntimeMetadata)
     .map(applyAvg001EditorialStem)
+    .map(applyAvg001Cp004StemVariant)
     .map((entry) => [entry.qlId, entry]),
 );
 
