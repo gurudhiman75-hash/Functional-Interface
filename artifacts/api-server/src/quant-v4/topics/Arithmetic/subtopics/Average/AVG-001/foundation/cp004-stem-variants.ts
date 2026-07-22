@@ -97,10 +97,10 @@ function multiTemplate(context: MultiContext, index: number) {
   );
   const groupWord = context.groupCount === 3 ? "three groups" : "four groups";
   const patterns = [
-    `The ${groupWord} have ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. Find the average ${context.measure} for all.`,
-    `${context.groupCount} groups contain ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. What is the average ${context.measure} for everyone?`,
+    `The ${groupWord} have ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. Find the average for all ${context.members}.`,
+    `${context.groupCount} groups contain ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. What is the average when all are taken together?`,
     `The ${groupWord} have ${counts.join(", ")} ${context.members}, with averages ${averages.join(", ")}. Find the average when all are taken together.`,
-    `For the ${groupWord}, the numbers are ${counts.join(", ")} and the averages are ${averages.join(", ")}. Find the average ${context.measure} for all.`,
+    `For the ${groupWord}, the numbers are ${counts.join(", ")} and the averages are ${averages.join(", ")}. Find the average when all are taken together.`,
   ];
   return patterns[index % patterns.length]!;
 }
