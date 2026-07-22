@@ -1,6 +1,6 @@
 # ExamTree frontend truth audit
 
-Date: 2026-07-21
+Date: 2026-07-22
 
 This document defines which frontend surfaces are connected to ExamTree's canonical APIs and database. Student production navigation exposes only usable student journeys. The admin console exposes its complete intended information architecture, but every workspace is explicitly labelled `LIVE`, `IN_PROGRESS`, or `PLANNED`; non-live routes render an honest roadmap page and never display prototype records.
 
@@ -78,6 +78,8 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests/qa` | LIVE | Canonical QA queue, reviewer ownership, issue resolution, immutable version comparison, candidate-content preview and server-enforced approval/publication gate. |
 | `/tests/series` | LIVE | Immutable series versions, ordered test membership, availability windows, progression policy and release readiness. |
 | `/tests/blueprints` | LIVE | Immutable exam patterns, taxonomy/language/difficulty quotas, Question Bank shortage preview and deterministic draft assembly. |
+| `/users/students` | LIVE | Read-only canonical student directory with server-side search, status/language filters, attempt summaries and honest empty state. |
+| `/users/students/:id` | LIVE | Canonical identity, account state, recent attempts, privacy-safe sessions and audit-derived account timeline. |
 | `/users/team` | LIVE | Canonical administrator invitations, profiles, reporting lines, role grants, suspension, disablement and session revocation. |
 | `/analytics/system-health` | LIVE | Canonical API/database status, background-job queues and attempts, worker signals, generation/validation failures, outbox backlog, redacted operational errors and audited safe job actions. |
 | `/settings/languages` | LIVE | Canonical language availability, exam mappings, question/test translation queues, terminology governance, reviewer ownership, lifecycle review and language-specific publication readiness. |
@@ -98,6 +100,8 @@ Exam Blueprints uses the existing `assessment.test_blueprints`, `assessment.test
 
 Test Series uses `assessment.test_series`, `assessment.test_series_versions`, and `assessment.test_series_items`. Series edits create immutable versions and never rewrite previous membership. Every member test must belong to the selected exam version, and duplicate membership is blocked. Current versions store optional availability windows, open/sequential/score-gated progression, default completion score and ordered member-level unlock/score/required rules. Release readiness is blocked when a series is archived, empty, expired, or contains tests that are not QA approved, scheduled, live or completed. All create, version, archive and restore actions are immutable `platform.audit_events`. Migration `b4ea416f-eea3-4033-8503-bd21fe6f5faa` was applied additively to the canonical Neon project and is recorded in `docs/database-migrations/2026-07-20-canonical-test-series.sql`.
 
+Student Administration reuses `identity.users`, `identity.student_profiles`, `identity.auth_identities`, `identity.sessions`, `learning.attempts`, `assessment.test_publications`, `assessment.tests`, `assessment.test_versions`, and `platform.audit_events`. It requires no migration and its foundation release is read-only under `users.students.read`. Directory search and filters execute server-side, session IP addresses are masked before response serialization, refresh-token hashes are never returned, and only users with canonical `identity.student_profiles` are listed. Production currently has no student-profile rows, so the live workspace truthfully renders an empty canonical state rather than prototype records. Student suspension, session revocation, entitlement overrides and support notes remain a separate audited mutation release.
+
 The admin control plane reuses the existing `identity.users`, `identity.auth_identities`, `identity.admin_profiles`, `identity.roles`, `identity.permissions`, `identity.role_permissions`, `identity.user_roles`, and `identity.sessions` tables. It requires no schema migration. Administrators are pre-authorized by verified email, linked to Firebase on first sign-in, and resolved through the existing server-side RBAC middleware. Role changes, profile changes, invitations, suspension, disablement and session revocation are transactional and append immutable `platform.audit_events` plus `platform.audit_event_changes`. The API prevents removal or suspension of the final active super administrator and prevents weakening or deactivating the protected `super_admin` role.
 
 System Health reuses `operations.jobs`, `operations.job_attempts`, `operations.job_logs`, `content.generation_runs`, `content.generation_run_items`, `content.validation_runs`, `content.validation_checks`, and `platform.outbox_events`; it requires no migration. Read access requires `jobs.read`, and manual retry/cancel requires `jobs.manage`. Retry is limited to failed/cancelled jobs, cancellation is limited to queued/retrying jobs, and every mutation appends an immutable audit event. API responses recursively redact sensitive keys and embedded authorization, credential and database-URL text. Component states are derived from persisted signals and thresholds rather than mock status. The current canonical database has generation/outbox history but no observed worker jobs, attempts, logs or validation runs, so those components are explicitly shown as `unknown`/`not observed`. Persistent request-level exception storage and an active worker/outbox publisher remain separate operational follow-up work.
@@ -106,7 +110,6 @@ System Health reuses `operations.jobs`, `operations.job_attempts`, `operations.j
 
 These are visible with a `Next` badge and render roadmap detail until canonical integration is complete:
 
-- Students
 - Test Analytics, Question Analytics and Content Quality
 - Exam Configuration
 
@@ -130,6 +133,7 @@ The production admin shell does not expose:
 - fake administrator names;
 - the `PrototypeStoreProvider` as the runtime application store;
 - mock entity search across students, orders, packages, support, and generated batches;
+- prototype student profiles, hard-coded attempts/devices/events, local suspension controls or browser-store entitlement actions presented as canonical Student Administration;
 - an "all systems operational" claim without monitoring evidence;
 - the former browser-store coverage tree or locally calculated mock coverage records;
 - the former prototype Content Review queue, fake reviewers, local comments, or mock similarity results;
@@ -147,6 +151,7 @@ Mounted operational API groups:
 
 - admin session and RBAC;
 - administrator team, role and permission management;
+- canonical read-only Student Administration directory, profile, attempts, masked sessions and account timeline;
 - immutable audit-event exploration and export;
 - Question Studio;
 - Question Bank;
@@ -170,9 +175,9 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, and canonical multilingual Translation Operations with language-specific publication gates and production schema activation.
+Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, canonical multilingual Translation Operations with language-specific publication gates and production schema activation, and the read-only canonical Student Administration directory/profile foundation.
 
-1. Complete canonical student administration: identity search, attempts, access state, sessions and account history.
+1. Add audited Student Administration mutations: suspension/reactivation, session revocation and later entitlement/support operations.
 2. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.
 3. Complete canonical Exam Configuration and remove the final settings roadmap shell.
 
@@ -199,7 +204,7 @@ Completed in the current releases: chapter-scoped duplicate intelligence and fre
 ### P2 — monetization and operations
 
 1. Packages, orders, Razorpay verification, coupons, entitlements, refunds, and expiry.
-2. Admin student/support/notification workspaces.
+2. Student mutation, support and notification workspaces.
 3. External alerting, rate limiting, backups, recovery drills, staging, load tests and production observability drills.
 
 ## Definition of done for promoting an admin workspace to Live
