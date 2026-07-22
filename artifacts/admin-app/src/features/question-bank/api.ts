@@ -258,15 +258,16 @@ export async function updateQuestionTaxonomy(
   return getQuestionDetail(questionId);
 }
 
-export function transitionQuestion(
+export async function transitionQuestion(
   questionId: string,
   action: QuestionLifecycleAction,
   input: { expectedLockVersion: number; reason?: string },
 ) {
-  return request<QuestionDetailResponse>(
+  await request<unknown>(
     `/admin/questions/${encodeURIComponent(questionId)}/actions/${action}`,
     { method: 'POST', body: JSON.stringify(input) },
   );
+  return getQuestionDetail(questionId);
 }
 
 export function reconcileApprovedQuestions() {
