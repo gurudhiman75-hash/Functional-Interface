@@ -1,6 +1,8 @@
 export const STUDENT_STATUSES = ['active', 'invited', 'suspended', 'disabled'] as const;
+export const STUDENT_ACCOUNT_ACTIONS = ['suspend', 'reactivate', 'revoke-sessions'] as const;
 
 export type StudentStatus = typeof STUDENT_STATUSES[number];
+export type StudentAccountAction = typeof STUDENT_ACCOUNT_ACTIONS[number];
 
 export class StudentAdministrationError extends Error {
   constructor(
@@ -54,6 +56,101 @@ export function normalizeStudentDirectoryQuery(input: Record<string, unknown>) {
     pageSize,
     offset: (page - 1) * pageSize,
   };
+}
+
+export function normalizeStudentAccountAction(value: unknown): StudentAccountAction {
+  const action = first(value).trim().toLowerCase();
+  if (!STUDENT_ACCOUNT_ACTIONS.includes(action as StudentAccountAction)) {
+    throw new StudentAdministrationError('INVALID_STUDENT_ACTION', 'Unsupported student account action');
+  }
+  return action as StudentAccountAction;
+}
+
+export function normalizeStudentActionRequest(input: unknown): {
+  reason: string;
+  expectedStatus: StudentStatus | null;
+} {
+  const source = input && typeof input === 'object' && !Array.isArray(input)
+    ? input as Record<string, unknown>
+    : {};
+  const reason = first(source.reason).trim().replace(/\s+/g, ' ').slice(0, 500);
+  const expectedStatusValue = first(source.expectedStatus).trim().toLowerCase();
+
+  if (reason.length < 12) {
+    throw new StudentAdministrationError(
+      'STUDENT_ACTION_REASON_REQUIRED',
+      'Provide a meaningful reason of at least 12 characters',
+    );
+  }
+  if (expectedStatusValue && !STUDENT_STATUSES.includes(expectedStatusValue as StudentStatus)) {
+    throw new StudentAdministrationError('INVALID_EXPECTED_STUDENT_STATUS', 'Invalid expected student status');
+  }
+
+  return {
+    reason,
+    expectedStatus: (expectedStatusValue || null) as StudentStatus | null,
+  };
+}
+
+export function planStudentAccountAction(input: {
+  action: StudentAccountAction;
+  currentStatus: StudentStatus;
+}) {
+  const { action, currentStatus } = input;
+
+  if (action === 'suspend') {
+    if (currentStatus === 'disabled') {
+      throw new StudentAdministrationError(
+        'STUDENT_ACTION_NOT_ALLOWED',
+        'Disabled student accounts cannot be suspended through this workflow',
+        409,
+      );
+    }
+    return {
+      nextStatus: 'suspended' as const,
+      statusChanged: currentStatus !== 'suspended',
+      revokeActiveSessions: true,
+    };
+  }
+
+  if (action === 'reactivate') {
+    if (currentStatus === 'disabled' || currentStatus === 'invited') {
+      throw new StudentAdministrationError(
+        'STUDENT_ACTION_NOT_ALLOWED',
+        'Only active or suspended student accounts can use the reactivation workflow',
+        409,
+      );
+    }
+    return {
+      nextStatus: 'active' as const,
+      statusChanged: currentStatus !== 'active',
+      revokeActiveSessions: false,
+    };
+  }
+
+  return {
+    nextStatus: currentStatus,
+    statusChanged: false,
+    revokeActiveSessions: true,
+  };
+}
+
+export function assertExpectedStudentStatus(input: {
+  expectedStatus: StudentStatus | null;
+  currentStatus: StudentStatus;
+  desiredStatus: StudentStatus;
+}): void {
+  if (
+    input.expectedStatus
+    && input.expectedStatus !== input.currentStatus
+    && input.currentStatus !== input.desiredStatus
+  ) {
+    throw new StudentAdministrationError(
+      'STUDENT_STATE_CHANGED',
+      'The student account changed after this profile was loaded. Refresh and review the current state.',
+      409,
+    );
+  }
 }
 
 export function maskStudentIp(value: unknown): string | null {

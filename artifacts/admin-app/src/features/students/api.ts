@@ -1,6 +1,7 @@
 import { getFirebaseAuth } from '@/integrations/firebase';
 
 export type StudentStatus = 'active' | 'invited' | 'suspended' | 'disabled';
+export type StudentAccountAction = 'suspend' | 'reactivate' | 'revoke-sessions';
 
 export interface StudentSummary {
   id: string;
@@ -103,6 +104,21 @@ export interface StudentDirectoryFilters {
   pageSize?: number;
 }
 
+export interface StudentAccountOperation {
+  action: StudentAccountAction;
+  changed: boolean;
+  previousStatus: StudentStatus;
+  status: StudentStatus;
+  sessionsRevoked: number;
+  auditEventId: string;
+  occurredAt: string;
+}
+
+export interface StudentAccountOperationResponse {
+  operation: StudentAccountOperation;
+  generatedAt: string;
+}
+
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
@@ -112,9 +128,14 @@ async function token() {
   return user.getIdToken();
 }
 
-async function request<T>(path: string): Promise<T> {
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const headers = new Headers(init?.headers);
+  headers.set('Authorization', `Bearer ${await token()}`);
+  if (init?.body) headers.set('Content-Type', 'application/json');
+
   const response = await fetch(`${apiBase}${path}`, {
-    headers: { Authorization: `Bearer ${await token()}` },
+    ...init,
+    headers,
   });
   const body = await response.json().catch(() => null) as ({ error?: string; code?: string } & T) | null;
   if (!response.ok) {
@@ -143,4 +164,18 @@ export function getStudentDirectory(filters: StudentDirectoryFilters = {}) {
 
 export function getStudentProfile(studentId: string) {
   return request<StudentProfileResponse>(`/admin/students/${encodeURIComponent(studentId)}`);
+}
+
+export function runStudentAccountOperation(
+  studentId: string,
+  action: StudentAccountAction,
+  input: { reason: string; expectedStatus?: StudentStatus },
+) {
+  return request<StudentAccountOperationResponse>(
+    `/admin/students/${encodeURIComponent(studentId)}/actions/${encodeURIComponent(action)}`,
+    {
+      method: 'POST',
+      body: JSON.stringify(input),
+    },
+  );
 }

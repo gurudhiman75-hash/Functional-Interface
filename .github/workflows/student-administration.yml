@@ -8,6 +8,7 @@ on:
     paths:
       - artifacts/api-server/src/lib/admin-student-administration.ts
       - artifacts/api-server/src/lib/admin-student-administration.test.ts
+      - artifacts/api-server/src/routes/admin-student-actions.ts
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/features/students/**
@@ -25,6 +26,7 @@ on:
     paths:
       - artifacts/api-server/src/lib/admin-student-administration.ts
       - artifacts/api-server/src/lib/admin-student-administration.test.ts
+      - artifacts/api-server/src/routes/admin-student-actions.ts
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/features/students/**
@@ -65,13 +67,22 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Enforce canonical read-only boundary
+      - name: Enforce canonical RBAC and mutation boundary
         run: |
+          grep -F 'router.use("/admin/students", adminStudentActionsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-students.ts
-          ! grep -E "router\.(post|put|patch|delete)" artifacts/api-server/src/routes/admin-students.ts
+          grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F "router.post(" artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F "FOR UPDATE OF u" artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F "platform.audit_events" artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F "platform.audit_event_changes" artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F "STUDENT_ACTION_REASON_REQUIRED" artifacts/api-server/src/lib/admin-student-administration.ts
+          grep -F "STUDENT_STATE_CHANGED" artifacts/api-server/src/lib/admin-student-administration.ts
+          ! grep -E "firebase-admin|deleteUser|disableUser|refresh_token_hash" artifacts/api-server/src/routes/admin-student-actions.ts
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
+          grep -F "hasPermission('users.students.manage')" artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
           grep -F "permission: 'users.students.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "path: '/users/students/:id'" artifacts/admin-app/src/App.tsx
 
@@ -82,7 +93,11 @@ jobs:
         run: |
           grep -R 'STUDENT_NOT_FOUND' artifacts/api-server/dist >/dev/null
           grep -R 'users.students.read' artifacts/api-server/dist >/dev/null
-          grep -R 'identity.student_profiles' artifacts/api-server/dist >/dev/null
+          grep -R 'users.students.manage' artifacts/api-server/dist >/dev/null
+          grep -R 'student.account.suspended' artifacts/api-server/dist >/dev/null
+          grep -R 'student.account.reactivated' artifacts/api-server/dist >/dev/null
+          grep -R 'student.sessions.revoked' artifacts/api-server/dist >/dev/null
+          grep -R 'platform.audit_event_changes' artifacts/api-server/dist >/dev/null
 
       - name: Test Student Administration contracts
         run: |

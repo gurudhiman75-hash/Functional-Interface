@@ -3,9 +3,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   getStudentDirectory,
   getStudentProfile,
+  runStudentAccountOperation,
+  type StudentAccountAction,
   type StudentDirectoryFilters,
   type StudentDirectoryResponse,
   type StudentProfileResponse,
+  type StudentStatus,
 } from './api';
 
 const EMPTY_DIRECTORY: StudentDirectoryResponse = {
@@ -20,6 +23,12 @@ const EMPTY_DIRECTORY: StudentDirectoryResponse = {
 
 function errorMessage(error: unknown, fallback: string) {
   return error instanceof Error ? error.message : fallback;
+}
+
+function errorCode(error: unknown): string | null {
+  return error && typeof error === 'object' && 'code' in error
+    ? String((error as { code?: unknown }).code ?? '') || null
+    : null;
 }
 
 export function useStudentDirectory(filters: StudentDirectoryFilters) {
@@ -48,6 +57,7 @@ export function useStudentDirectory(filters: StudentDirectoryFilters) {
 export function useStudentProfile(studentId: string | undefined) {
   const [data, setData] = useState<StudentProfileResponse | null>(null);
   const [loading, setLoading] = useState(Boolean(studentId));
+  const [mutating, setMutating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -70,5 +80,32 @@ export function useStudentProfile(studentId: string | undefined) {
 
   useEffect(() => { void refresh(); }, [refresh]);
 
-  return { data, loading, error, refresh };
+  const runAction = useCallback(async (
+    action: StudentAccountAction,
+    reason: string,
+    expectedStatus?: StudentStatus,
+  ) => {
+    if (!studentId) throw new Error('Student ID is required for this operation.');
+    setMutating(true);
+    setError(null);
+    try {
+      const result = await runStudentAccountOperation(studentId, action, { reason, expectedStatus });
+      setData(await getStudentProfile(studentId));
+      return result.operation;
+    } catch (caught) {
+      if (errorCode(caught) === 'STUDENT_STATE_CHANGED') {
+        try {
+          setData(await getStudentProfile(studentId));
+        } catch {
+          setData(null);
+        }
+      }
+      setError(errorMessage(caught, 'Unable to complete the student account operation.'));
+      throw caught;
+    } finally {
+      setMutating(false);
+    }
+  }, [studentId]);
+
+  return { data, loading, mutating, error, refresh, runAction };
 }

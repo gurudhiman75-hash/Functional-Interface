@@ -79,7 +79,7 @@ The compact sidebar must retain every navigation icon and show a status dot; col
 | `/tests/series` | LIVE | Immutable series versions, ordered test membership, availability windows, progression policy and release readiness. |
 | `/tests/blueprints` | LIVE | Immutable exam patterns, taxonomy/language/difficulty quotas, Question Bank shortage preview and deterministic draft assembly. |
 | `/users/students` | LIVE | Read-only canonical student directory with server-side search, status/language filters, attempt summaries and honest empty state. |
-| `/users/students/:id` | LIVE | Canonical identity, account state, recent attempts, privacy-safe sessions and audit-derived account timeline. |
+| `/users/students/:id` | LIVE | Canonical identity, attempts, privacy-safe sessions, account timeline, audited suspension/reactivation and active-session revocation. |
 | `/users/team` | LIVE | Canonical administrator invitations, profiles, reporting lines, role grants, suspension, disablement and session revocation. |
 | `/analytics/system-health` | LIVE | Canonical API/database status, background-job queues and attempts, worker signals, generation/validation failures, outbox backlog, redacted operational errors and audited safe job actions. |
 | `/settings/languages` | LIVE | Canonical language availability, exam mappings, question/test translation queues, terminology governance, reviewer ownership, lifecycle review and language-specific publication readiness. |
@@ -100,7 +100,7 @@ Exam Blueprints uses the existing `assessment.test_blueprints`, `assessment.test
 
 Test Series uses `assessment.test_series`, `assessment.test_series_versions`, and `assessment.test_series_items`. Series edits create immutable versions and never rewrite previous membership. Every member test must belong to the selected exam version, and duplicate membership is blocked. Current versions store optional availability windows, open/sequential/score-gated progression, default completion score and ordered member-level unlock/score/required rules. Release readiness is blocked when a series is archived, empty, expired, or contains tests that are not QA approved, scheduled, live or completed. All create, version, archive and restore actions are immutable `platform.audit_events`. Migration `b4ea416f-eea3-4033-8503-bd21fe6f5faa` was applied additively to the canonical Neon project and is recorded in `docs/database-migrations/2026-07-20-canonical-test-series.sql`.
 
-Student Administration reuses `identity.users`, `identity.student_profiles`, `identity.auth_identities`, `identity.sessions`, `learning.attempts`, `assessment.test_publications`, `assessment.tests`, `assessment.test_versions`, and `platform.audit_events`. It requires no migration and its foundation release is read-only under `users.students.read`. Directory search and filters execute server-side, session IP addresses are masked before response serialization, refresh-token hashes are never returned, and only users with canonical `identity.student_profiles` are listed. Production currently has no student-profile rows, so the live workspace truthfully renders an empty canonical state rather than prototype records. Student suspension, session revocation, entitlement overrides and support notes remain a separate audited mutation release.
+Student Administration reuses `identity.users`, `identity.student_profiles`, `identity.auth_identities`, `identity.sessions`, `learning.attempts`, `assessment.test_publications`, `assessment.tests`, `assessment.test_versions`, `platform.audit_events`, and `platform.audit_event_changes`. It requires no migration. Directory/profile reads require `users.students.read`; suspend, reactivate and active-session revocation require `users.students.manage`. Mutations require meaningful reasons, lock the canonical student row, detect stale conflicting state, support idempotent retries, revoke sessions transactionally and append immutable audit evidence. Session IP addresses remain masked, refresh-token hashes are never returned, disabled accounts are not silently restored, and Firebase identities are not modified. Production currently has no student-profile rows, so the live workspace truthfully renders an empty canonical state rather than prototype records. Entitlement, payment and support-note operations remain deferred until their canonical services exist.
 
 The admin control plane reuses the existing `identity.users`, `identity.auth_identities`, `identity.admin_profiles`, `identity.roles`, `identity.permissions`, `identity.role_permissions`, `identity.user_roles`, and `identity.sessions` tables. It requires no schema migration. Administrators are pre-authorized by verified email, linked to Firebase on first sign-in, and resolved through the existing server-side RBAC middleware. Role changes, profile changes, invitations, suspension, disablement and session revocation are transactional and append immutable `platform.audit_events` plus `platform.audit_event_changes`. The API prevents removal or suspension of the final active super administrator and prevents weakening or deactivating the protected `super_admin` role.
 
@@ -151,7 +151,7 @@ Mounted operational API groups:
 
 - admin session and RBAC;
 - administrator team, role and permission management;
-- canonical read-only Student Administration directory, profile, attempts, masked sessions and account timeline;
+- canonical Student Administration directory, profile, attempts, masked sessions, account timeline and audited account/session operations;
 - immutable audit-event exploration and export;
 - Question Studio;
 - Question Bank;
@@ -175,17 +175,17 @@ Compatibility/retired responses still exist for packages, bundles, leaderboard, 
 
 ### P0 — admin operations
 
-Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, canonical multilingual Translation Operations with language-specific publication gates and production schema activation, and the read-only canonical Student Administration directory/profile foundation.
+Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, canonical multilingual Translation Operations with language-specific publication gates and production schema activation, and canonical Student Administration reads plus audited suspension/reactivation/session-revocation operations.
 
-1. Add audited Student Administration mutations: suspension/reactivation, session revocation and later entitlement/support operations.
-2. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.
-3. Complete canonical Exam Configuration and remove the final settings roadmap shell.
+1. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.
+2. Complete canonical Exam Configuration and remove the final settings roadmap shell.
 
 ### P0 — student production truth and reliability
 
-1. Restore the strict student TypeScript baseline without weakening compiler settings.
-2. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
-3. Maintain authenticated Firebase/Render browser smoke coverage after releases that change shared authentication, translation or publication behaviour.
+The strict student TypeScript baseline is restored without weakening compiler safety.
+
+1. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.
+2. Maintain authenticated Firebase/Render browser smoke coverage after releases that change shared authentication, translation or publication behaviour.
 
 ### P1 — student value
 
