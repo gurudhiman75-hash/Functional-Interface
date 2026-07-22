@@ -108,8 +108,8 @@ await updateJson('artifacts/examtree/tsconfig.json', (config) => {
   content = replaceOnce(
     content,
     'import {\n  getAdminQuestions,\n  getAdminTests,\n  type TestAttempt,\n} from "@/lib/storage";\nimport type {\n  SeatingDiagramData,\n  SeatingExplanationFlow,\n} from "@workspace/api-zod";',
-    'import {\n  getAdminQuestions,\n  getAdminTests,\n} from "@/lib/storage";\nimport type {\n  SeatingDiagramData,\n  SeatingExplanationFlow,\n  TestAttempt,\n} from "@workspace/api-zod";',
-    'data canonical attempt import',
+    'import {\n  getAdminQuestions,\n  getAdminTests,\n} from "@/lib/storage";\nimport type {\n  SeatingDiagramData,\n  SeatingExplanationFlow,\n  TestAttempt as CanonicalTestAttempt,\n} from "@workspace/api-zod";\n\nexport type TestAttempt = CanonicalTestAttempt;',
+    'data canonical attempt import and export',
   );
   content = replaceOnce(
     content,
@@ -122,6 +122,36 @@ await updateJson('artifacts/examtree/tsconfig.json', (config) => {
     /export interface TestAttempt \{[\s\S]*?\n\}\n\nexport async function getAnalytics/,
     'export async function getAnalytics',
     'data duplicate attempt declaration',
+  );
+  await write(path, content);
+}
+
+{
+  const path = 'artifacts/examtree/src/pages/activity.tsx';
+  let content = await read(path);
+  content = replaceOnce(
+    content,
+    'function formatDate(value: string) {',
+    'function formatDate(value: string | Date) {',
+    'activity canonical attempt date',
+  );
+  await write(path, content);
+}
+
+{
+  const path = 'artifacts/examtree/src/pages/result.tsx';
+  let content = await read(path);
+  content = replaceOnce(
+    content,
+    '  textHi?: string;\n  textPa?: string;\n  optionsHi?: string[];\n  optionsPa?: string[];\n  explanationHi?: string;\n  explanationPa?: string;',
+    '  textHi?: string | null;\n  textPa?: string | null;\n  optionsHi?: string[] | null;\n  optionsPa?: string[] | null;\n  explanationHi?: string | null;\n  explanationPa?: string | null;',
+    'result nullable multilingual review fields',
+  );
+  content = replaceOnce(
+    content,
+    '  difficulty?: number | null;',
+    '  difficulty?: "Easy" | "Medium" | "Hard" | null;',
+    'result canonical difficulty',
   );
   await write(path, content);
 }
