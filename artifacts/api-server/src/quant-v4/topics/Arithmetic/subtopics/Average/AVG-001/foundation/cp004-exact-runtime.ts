@@ -21,6 +21,25 @@ function restoreExternalIdentity(
   };
 }
 
+function isCurrencyScenario(pkg: Avg001QuestionPackage) {
+  return /Salary|Sales|Revenue|Expense/i.test(
+    pkg.parameters.scenarioVariant,
+  );
+}
+
+function hasWholeCurrencyInputs(pkg: Avg001QuestionPackage) {
+  if (!isCurrencyScenario(pkg)) return true;
+  const values = pkg.parameters.values;
+  return [
+    ...(values.groupAverages ?? []),
+    values.combinedAverage,
+    values.knownGroupAverage,
+    values.unknownGroupAverage,
+  ]
+    .filter((value): value is NonNullable<typeof value> => value != null)
+    .every((value) => value.denominator === 1);
+}
+
 function hasRealisticCountInputs(pkg: Avg001QuestionPackage) {
   if (pkg.solveMode !== "findGroupCountFromCombinedAverage") return true;
 
@@ -48,7 +67,7 @@ export function runAvg001Cp004ExactPipeline(input: {
   seed: string;
   language: Avg001Language;
 }): Avg001QuestionPackage {
-  for (let attempt = 0; attempt < 64; attempt += 1) {
+  for (let attempt = 0; attempt < 96; attempt += 1) {
     const internalSeed =
       attempt === 0 ? input.seed : `${input.seed}:cp004-exact-retry:${attempt}`;
     try {
@@ -56,7 +75,9 @@ export function runAvg001Cp004ExactPipeline(input: {
         ...input,
         seed: internalSeed,
       });
-      if (!hasRealisticCountInputs(pkg)) continue;
+      if (!hasRealisticCountInputs(pkg) || !hasWholeCurrencyInputs(pkg)) {
+        continue;
+      }
       return restoreExternalIdentity(
         pkg,
         input.questionLanguageId,
