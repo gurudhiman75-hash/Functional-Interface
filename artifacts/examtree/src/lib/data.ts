@@ -2,12 +2,14 @@ import { ApiError, apiRequest } from "@/lib/api";
 import {
   getAdminQuestions,
   getAdminTests,
-  type TestAttempt,
 } from "@/lib/storage";
 import type {
   SeatingDiagramData,
   SeatingExplanationFlow,
+  TestAttempt as CanonicalTestAttempt,
 } from "@workspace/api-zod";
+
+export type TestAttempt = CanonicalTestAttempt;
 
 // Define types locally for now
 export type Category = {
@@ -186,10 +188,10 @@ function getLocalAdminTest(id: string): Test | null {
   const questions = getAdminQuestions().filter(
     (question) => question.testId === id,
   );
-  const sections = (test.sections.length
+  const sectionNames: string[] = test.sections.length
     ? test.sections
-    : ["General"]
-  ).map((sectionName, sectionIndex) => ({
+    : ["General"];
+  const sections = sectionNames.map((sectionName, sectionIndex) => ({
     id:
       test.sectionIds?.[sectionIndex] ??
       `${sectionName
@@ -450,57 +452,6 @@ export interface AnalyticsResponse {
     testName: string;
     score: number;
     createdAt: string;
-  }[];
-}
-
-export interface TestAttempt {
-  id: string;
-  userId: string;
-  testId: string;
-  testName: string;
-  category: string;
-  score: number;
-  correct: number;
-  wrong: number;
-  unanswered: number;
-  totalQuestions: number;
-  timeSpent: number;
-  createdAt: string;
-  /** "REAL" | "PRACTICE" — null/absent means legacy row, treated as REAL */
-  attemptType?: "REAL" | "PRACTICE" | null;
-  sectionStats?: {
-    name: string;
-    correct: number;
-    wrong: number;
-    unanswered: number;
-    totalQuestions: number;
-    accuracy: number;
-  }[];
-  sectionTimeSpent?: {
-    name: string;
-    minutesSpent: number;
-  }[];
-  questionReview?: {
-    questionId: number;
-    section: string;
-    text: string;
-    options: string[];
-    textHi?: string;
-    textPa?: string;
-    optionsHi?: string[];
-    optionsPa?: string[];
-    explanationHi?: string;
-    explanationPa?: string;
-    seatingDiagram?: SeatingDiagramData | null;
-    seatingExplanationFlow?: SeatingExplanationFlow | null;
-    proceduralLogic?: unknown | null;
-    languages?: unknown | null;
-    motifs?: unknown | null;
-    inferenceTrace?: unknown | null;
-    selected: number | null;
-    correct: number;
-    flagged: boolean;
-    explanation: string;
   }[];
 }
 

@@ -1,0 +1,100 @@
+name: Validate student TypeScript baseline
+
+on:
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/examtree/**
+      - artifacts/admin-app/package.json
+      - lib/api-zod/**
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - tsconfig.base.json
+      - .github/workflows/student-typescript-baseline.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/examtree/**
+      - artifacts/admin-app/package.json
+      - lib/api-zod/**
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - tsconfig.base.json
+      - .github/workflows/student-typescript-baseline.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: student-typescript-baseline-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  strict-student-typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enforce canonical workspace type graph
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+
+          const student = JSON.parse(await readFile('artifacts/examtree/package.json', 'utf8'));
+          const admin = JSON.parse(await readFile('artifacts/admin-app/package.json', 'utf8'));
+
+          if (student.dependencies?.['@workspace/api-zod'] !== 'workspace:*') {
+            throw new Error('ExamTree must declare @workspace/api-zod as a workspace dependency.');
+          }
+          if (admin.devDependencies?.['@types/react'] !== 'catalog:' || admin.devDependencies?.['@types/react-dom'] !== 'catalog:') {
+            throw new Error('Admin and student applications must share the catalog React declaration graph.');
+          }
+          NODE
+
+      - name: Run strict student typecheck
+        id: typecheck
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p artifacts/reports
+          pnpm --dir artifacts/examtree typecheck 2>&1 | tee artifacts/reports/student-typecheck.log
+
+      - name: Upload student typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: student-typecheck-${{ github.run_id }}
+          path: artifacts/reports/student-typecheck.log
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Enforce strict student typecheck
+        if: steps.typecheck.outcome != 'success'
+        run: exit 1
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+
+      - name: Build student production application
+        run: pnpm --dir artifacts/examtree build

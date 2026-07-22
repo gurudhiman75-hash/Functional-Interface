@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getTests, getUserAttempts, type TestAttempt } from "@/lib/data";
 import { getUser } from "@/lib/storage";
 
-function formatDate(value: string) {
+function formatDate(value: string | Date) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "—";
   return new Intl.DateTimeFormat("en-IN", {
