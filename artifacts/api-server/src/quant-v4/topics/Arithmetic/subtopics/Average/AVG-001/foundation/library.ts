@@ -9,6 +9,35 @@ import { cp004Entries } from "./cp004-library";
 import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
+function applyCp004RuntimeMetadata(
+  entry: Avg001QuestionLanguageEntry,
+): Avg001QuestionLanguageEntry {
+  if (
+    entry.cpId !== "AVG-CP-004" ||
+    entry.solveMode !== "findGroupCountFromCombinedAverage"
+  ) {
+    return entry;
+  }
+
+  const variant = entry.scenarioVariant;
+  const unitKind = /Salary|Sales|Revenue|Expense/i.test(variant)
+    ? "currency"
+    : /Weight/i.test(variant)
+      ? "kg"
+      : /Age/i.test(variant)
+        ? "years"
+        : /Marks|Scores/i.test(variant)
+          ? "marks"
+          : /Output/i.test(variant)
+            ? "units"
+            : "none";
+
+  return {
+    ...entry,
+    unitKind,
+  };
+}
+
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...cp001ExpansionEntries,
@@ -16,6 +45,7 @@ const entries = [
   ...(cp003QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...cp004Entries,
 ]
+  .map(applyCp004RuntimeMetadata)
   .map(applyAvg001EditorialStem)
   .filter((entry) => entry.active);
 
@@ -27,6 +57,7 @@ const registryById = new Map(
     ...(cp003TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
     ...cp004Entries,
   ]
+    .map(applyCp004RuntimeMetadata)
     .map(applyAvg001EditorialStem)
     .map((entry) => [entry.qlId, entry]),
 );
