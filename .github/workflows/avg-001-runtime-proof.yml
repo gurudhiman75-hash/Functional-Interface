@@ -73,6 +73,7 @@ jobs:
           run_case avg-001-cp003-residual src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-residual-qa.ts
           run_case avg-001-cp004-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-coverage-audit.ts
           run_case avg-001-cp004-state-validity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-state-validity-audit.ts
+          run_case avg-001-cp004-variety src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp004-variety-audit.ts
           run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
           run_case avg-001-cp001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-review-export.ts
           run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
