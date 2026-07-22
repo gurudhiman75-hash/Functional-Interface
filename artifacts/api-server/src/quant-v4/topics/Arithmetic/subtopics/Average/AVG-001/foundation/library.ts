@@ -12,11 +12,18 @@ import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 function applyCp004RuntimeMetadata(
   entry: Avg001QuestionLanguageEntry,
 ): Avg001QuestionLanguageEntry {
-  if (
-    entry.cpId !== "AVG-CP-004" ||
-    entry.solveMode !== "findGroupCountFromCombinedAverage"
-  ) {
-    return entry;
+  if (entry.cpId !== "AVG-CP-004") return entry;
+
+  let normalized: Avg001QuestionLanguageEntry =
+    entry.unitKind === "currency"
+      ? {
+          ...entry,
+          displayPolicy: "EXACT_INTEGER",
+        }
+      : entry;
+
+  if (entry.solveMode !== "findGroupCountFromCombinedAverage") {
+    return normalized;
   }
 
   const variant = entry.scenarioVariant;
@@ -32,10 +39,13 @@ function applyCp004RuntimeMetadata(
             ? "units"
             : "none";
 
-  return {
-    ...entry,
+  normalized = {
+    ...normalized,
     unitKind,
+    displayPolicy: unitKind === "currency" ? "EXACT_INTEGER" : normalized.displayPolicy,
   };
+
+  return normalized;
 }
 
 const entries = [
