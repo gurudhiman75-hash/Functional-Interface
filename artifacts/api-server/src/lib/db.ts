@@ -17,6 +17,8 @@ type JsonCapableSql = {
   savepoint?: (...args: unknown[]) => unknown;
 };
 
+type VariadicFunction = (...args: unknown[]) => unknown;
+
 function installSafeJsonSerializer(client: JsonCapableSql): void {
   Object.defineProperty(client, "json", {
     configurable: true,
@@ -25,7 +27,7 @@ function installSafeJsonSerializer(client: JsonCapableSql): void {
   });
 
   if (typeof client.savepoint === "function") {
-    const nativeSavepoint = client.savepoint.bind(client);
+    const nativeSavepoint = client.savepoint.bind(client) as VariadicFunction;
     Object.defineProperty(client, "savepoint", {
       configurable: true,
       writable: true,
@@ -52,7 +54,7 @@ function installSafeJsonSerializer(client: JsonCapableSql): void {
  */
 installSafeJsonSerializer(sqlClient);
 
-const nativeBegin = sqlClient.begin.bind(sqlClient);
+const nativeBegin = sqlClient.begin.bind(sqlClient) as VariadicFunction;
 Object.defineProperty(sqlClient, "begin", {
   configurable: true,
   writable: true,
@@ -65,7 +67,7 @@ Object.defineProperty(sqlClient, "begin", {
         return callback(transaction);
       };
     }
-    return nativeBegin(...args as Parameters<typeof nativeBegin>);
+    return nativeBegin(...args);
   },
 });
 
