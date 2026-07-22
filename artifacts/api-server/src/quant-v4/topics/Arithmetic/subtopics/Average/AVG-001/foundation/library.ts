@@ -21,6 +21,17 @@ function applyCp004RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
   return normalized;
 }
 
+function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001QuestionLanguageEntry {
+  if (entry.cpId !== "AVG-CP-005") return entry;
+  if (entry.answerType === "COUNT") {
+    return { ...entry, displayPolicy: "EXACT_INTEGER" };
+  }
+  return entry;
+}
+
+const normalizeEntry = (entry: Avg001QuestionLanguageEntry) =>
+  applyCp005RuntimeMetadata(applyCp004RuntimeMetadata(entry));
+
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...cp001ExpansionEntries,
@@ -29,7 +40,7 @@ const entries = [
   ...cp004Entries,
   ...cp005Entries,
 ]
-  .map(applyCp004RuntimeMetadata)
+  .map(normalizeEntry)
   .map(applyAvg001EditorialStem)
   .map(applyAvg001Cp004StemVariant)
   .filter((entry) => entry.active);
@@ -43,7 +54,7 @@ const registryById = new Map(
     ...cp004Entries,
     ...cp005Entries,
   ]
-    .map(applyCp004RuntimeMetadata)
+    .map(normalizeEntry)
     .map(applyAvg001EditorialStem)
     .map(applyAvg001Cp004StemVariant)
     .map((entry) => [entry.qlId, entry]),
