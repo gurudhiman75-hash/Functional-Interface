@@ -22,54 +22,17 @@ const shiftStrategies = new Set([
   "rebuild-two-entry-total",
 ]);
 
-const modeReasoning: Record<string, [string, string, string]> = {
-  findCorrectedAverageFromMistake: [
-    "Correct the single entry first, then spread that total change across all records.",
-    "Convert the entry difference into a per-record average adjustment.",
-    "Rebuild the reported total with the corrected entry before taking the mean again.",
-  ],
-  findReportedAverageBeforeCorrection: [
-    "Reverse the single entry correction to recover the earlier average.",
-    "Move backwards by the per-record effect of the corrected entry.",
-    "Restore the earlier total by undoing the correction, then divide by the unchanged count.",
-  ],
-  findCorrectValueFromAverageShift: [
-    "Scale the average shift by the record count to recover the full entry correction.",
-    "The change per record builds up to the amount missing from the wrong entry.",
-    "Compare the reported and corrected totals to find what the entry must become.",
-  ],
-  findIncorrectValueFromCorrection: [
-    "Scale the average shift to find the total correction, then work back from the correct entry.",
-    "The per-record change shows how far the earlier entry was from the correct one.",
-    "Compare the two totals and subtract their difference from the correct entry.",
-  ],
-  findEntryDifferenceFromAverageCorrection: [
-    "Multiply the average change by the number of records to find the single-entry error.",
-    "Each record shares the effect of one wrong entry, so scale the change back up.",
-    "The gap between the corrected and reported totals equals the entry error.",
-  ],
-  findAverageChangeFromEntryCorrection: [
-    "Find the entry difference and distribute it across all records.",
-    "Treat the correction as a per-record adjustment to the mean.",
-    "Compare the old and new totals, then divide their difference by the record count.",
-  ],
-  findNumberOfItemsFromTotalCorrection: [
-    "Divide the full entry correction by its effect on the average.",
-    "The count tells how many equal shares of the average change make the total correction.",
-    "Compare the total gap with the per-record gap to recover the number of records.",
-  ],
-  findCorrectedAverageFromMultipleMistakes: [
-    "Combine both entry corrections, then spread their net effect across all records.",
-    "Find the per-record effect of the two corrections taken together.",
-    "Rebuild the reported total by replacing both wrong entries before dividing again.",
-  ],
-};
-
 function styleIndex(strategy: string) {
   if (directStrategies.has(strategy)) return 0;
   if (shiftStrategies.has(strategy)) return 1;
   return 2;
 }
+
+const reasoningByStyle = [
+  "Handle the entry correction directly before solving for the requested value.",
+  "Treat the entry correction as an average shift across the unchanged record count.",
+  "Use the entry correction to rebuild and compare the reported and corrected totals.",
+] as const;
 
 function varyEquation(line: string, style: number) {
   if (style === 0) return line;
@@ -103,9 +66,8 @@ export function applyAvg001Cp005ExplanationVariants(
   if (pkg.canonicalProblemId !== "AVG-CP-005") return pkg;
   const strategy = String(pkg.traceability.explanationStrategyId ?? "");
   const style = styleIndex(strategy);
-  const reasoning = modeReasoning[pkg.solveMode]?.[style] ?? pkg.explanation.lines[0]!;
   const lines = [
-    reasoning,
+    reasoningByStyle[style],
     ...pkg.explanation.lines.slice(1, -1).map((line) => varyEquation(line, style)),
     pkg.explanation.lines.at(-1)!,
   ];
