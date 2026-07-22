@@ -110,10 +110,10 @@ function countTemplate(context: PairContext, index: number) {
   const unknownAverage = unitText(context.unitKind, "{unknownAverage}");
   const combinedAverage = unitText(context.unitKind, "{combinedAverage}");
   const patterns = [
-    `{knownCount} ${context.first} average ${knownAverage}. Some ${context.second} average ${unknownAverage}. All ${context.members} average ${combinedAverage}. How many ${context.second} are there?`,
+    `{knownCount} ${context.first} average ${knownAverage}. ${context.second} average ${unknownAverage}. Together, they average ${combinedAverage}. How many ${context.second} are there?`,
     `{knownCount} ${context.first} average ${knownAverage}. Some ${context.second} averaging ${unknownAverage} are added, making the average ${combinedAverage}. Find their number.`,
-    `{knownCount} ${context.first} and some ${context.second} average ${combinedAverage} together. Their averages are ${knownAverage} and ${unknownAverage}. How many ${context.second} are there?`,
-    `{knownCount} ${context.first} average ${knownAverage}; the ${context.second} average ${unknownAverage}. Together they average ${combinedAverage}. How many ${context.second} are there?`,
+    `{knownCount} ${context.first} and some ${context.second} average ${combinedAverage} together. Their averages are ${knownAverage} and ${unknownAverage}. How many ${context.second}?`,
+    `{knownCount} ${context.first} average ${knownAverage}; ${context.second} average ${unknownAverage}. Together, they average ${combinedAverage}. How many ${context.second}?`,
     `Some ${context.second} averaging ${unknownAverage} join {knownCount} ${context.first} averaging ${knownAverage}. The average becomes ${combinedAverage}. How many joined?`,
   ];
   return patterns[index % patterns.length]!;
