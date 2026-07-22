@@ -12,6 +12,7 @@ import adminContentReviewRouter from "./admin-content-review";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
+import adminQuestionLifecycleHardeningRouter from "./admin-question-lifecycle-hardening";
 import adminQuestionTaxonomyHardeningRouter from "./admin-question-taxonomy-hardening";
 import adminQuestionsRouter from "./admin-questions";
 import adminStudentActionsRouter from "./admin-student-actions";
@@ -82,6 +83,7 @@ router.use("/admin/content-review", adminContentReviewRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
+router.use("/admin/questions", adminQuestionLifecycleHardeningRouter);
 router.use("/admin/questions", adminQuestionTaxonomyHardeningRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 // Translation operations own language configuration, terminology, question and
