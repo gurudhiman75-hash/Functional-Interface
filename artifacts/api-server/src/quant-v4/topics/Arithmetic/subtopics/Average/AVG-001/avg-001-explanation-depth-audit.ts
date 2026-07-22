@@ -11,7 +11,7 @@ const conceptPatterns: Record<string, RegExp> = {
   "AVG-CP-002": /equally spaced|halfway|middle term|equal gaps|half-span|span/i,
   "AVG-CP-003": /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs/i,
   "AVG-CP-004": /group total|combined count|combined total|weighted deviations|equal distances|slower speed|same amount of time|equal weight/i,
-  "AVG-CP-005": /entry correction|entry error|average shift|average change|reported total|corrected average|wrong entry|correct entry|net correction|change in total|difference in (?:the )?entr(?:y|ies)|mistaken entry|recorded total|corrected total|correct average|earlier total|replace(?:d|ment| it)?|remove it|correct both entries|gap in totals|difference in totals/i,
+  "AVG-CP-005": /entry correction|entry error|average shift|average change|change in average|reported total|corrected average|correct average|earlier average|wrong entry|correct entry|wrong value|correct value|net correction|change in total|total change|difference in (?:the )?(?:entr(?:y|ies)|values?)|mistaken entry|recorded total|corrected total|earlier total|replace(?:d|ment| it)?|remove it|correct both (?:entries|values)|gap in totals|difference in totals/i,
 };
 
 const bannedTextbookLanguage = /representative share|equal-share groups?|opposite-end pairs?|common mean of|deviations? cancel|point of symmetry|combined total represented by|unaccounted for|revised average is the updated total shared equally|must supply exactly|locates the requested/i;
