@@ -1,0 +1,73 @@
+name: Apply Student Operations Truth Sync
+
+on:
+  push:
+    branches:
+      - feat/student-account-operations
+    paths:
+      - .github/workflows/apply-student-operations-truth-sync.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/student-account-operations
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply asserted truth-audit edits
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile, writeFile, unlink } from 'node:fs/promises';
+
+          const path = 'docs/frontend-truth-audit.md';
+          let source = await readFile(path, 'utf8');
+          const replacements = [
+            [
+              '| `/users/students/:id` | LIVE | Canonical identity, account state, recent attempts, privacy-safe sessions and audit-derived account timeline. |',
+              '| `/users/students/:id` | LIVE | Canonical identity, attempts, privacy-safe sessions, account timeline, audited suspension/reactivation and active-session revocation. |',
+            ],
+            [
+              'Student Administration reuses `identity.users`, `identity.student_profiles`, `identity.auth_identities`, `identity.sessions`, `learning.attempts`, `assessment.test_publications`, `assessment.tests`, `assessment.test_versions`, and `platform.audit_events`. It requires no migration and its foundation release is read-only under `users.students.read`. Directory search and filters execute server-side, session IP addresses are masked before response serialization, refresh-token hashes are never returned, and only users with canonical `identity.student_profiles` are listed. Production currently has no student-profile rows, so the live workspace truthfully renders an empty canonical state rather than prototype records. Student suspension, session revocation, entitlement overrides and support notes remain a separate audited mutation release.',
+              'Student Administration reuses `identity.users`, `identity.student_profiles`, `identity.auth_identities`, `identity.sessions`, `learning.attempts`, `assessment.test_publications`, `assessment.tests`, `assessment.test_versions`, `platform.audit_events`, and `platform.audit_event_changes`. It requires no migration. Directory/profile reads require `users.students.read`; suspend, reactivate and active-session revocation require `users.students.manage`. Mutations require meaningful reasons, lock the canonical student row, detect stale conflicting state, support idempotent retries, revoke sessions transactionally and append immutable audit evidence. Session IP addresses remain masked, refresh-token hashes are never returned, disabled accounts are not silently restored, and Firebase identities are not modified. Production currently has no student-profile rows, so the live workspace truthfully renders an empty canonical state rather than prototype records. Entitlement, payment and support-note operations remain deferred until their canonical services exist.',
+            ],
+            [
+              '- canonical read-only Student Administration directory, profile, attempts, masked sessions and account timeline;',
+              '- canonical Student Administration directory, profile, attempts, masked sessions, account timeline and audited account/session operations;',
+            ],
+            [
+              'Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, canonical multilingual Translation Operations with language-specific publication gates and production schema activation, and the read-only canonical Student Administration directory/profile foundation.\n\n1. Add audited Student Administration mutations: suspension/reactivation, session revocation and later entitlement/support operations.\n2. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.\n3. Complete canonical Exam Configuration and remove the final settings roadmap shell.',
+              'Completed in the current releases: chapter-scoped duplicate intelligence and freeze governance, canonical System Health visibility, canonical multilingual Translation Operations with language-specific publication gates and production schema activation, and canonical Student Administration reads plus audited suspension/reactivation/session-revocation operations.\n\n1. Connect the persistent request-exception sink and deploy/observe the background worker and outbox publisher through the live System Health surface.\n2. Complete canonical Exam Configuration and remove the final settings roadmap shell.',
+            ],
+            [
+              '1. Restore the strict student TypeScript baseline without weakening compiler settings.\n2. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.\n3. Maintain authenticated Firebase/Render browser smoke coverage after releases that change shared authentication, translation or publication behaviour.',
+              'The strict student TypeScript baseline is restored without weakening compiler safety.\n\n1. Add explicit multi-device takeover UX and background-sync observability around canonical draft retries.\n2. Maintain authenticated Firebase/Render browser smoke coverage after releases that change shared authentication, translation or publication behaviour.',
+            ],
+          ];
+
+          for (const [before, after] of replacements) {
+            const occurrences = source.split(before).length - 1;
+            if (occurrences !== 1) throw new Error(`Expected one truth-audit occurrence, found ${occurrences}: ${before.slice(0, 90)}`);
+            source = source.replace(before, after);
+          }
+
+          await writeFile(path, source);
+          await unlink('.github/workflows/apply-student-operations-truth-sync.yml');
+          NODE
+
+      - name: Commit synchronized truth
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/frontend-truth-audit.md .github/workflows/apply-student-operations-truth-sync.yml
+          git commit -m "docs(student-admin): activate audited account operations"
+          git push origin HEAD:feat/student-account-operations
