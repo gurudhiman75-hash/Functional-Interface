@@ -28,8 +28,8 @@ function styleIndex(strategy: string) {
   return 2;
 }
 
-function text(value: unknown) {
-  return String(value ?? "");
+function value(raw: unknown) {
+  return String(raw ?? "");
 }
 
 function conclusion(pkg: Avg001QuestionPackage) {
@@ -56,157 +56,132 @@ function conclusion(pkg: Avg001QuestionPackage) {
 
 function buildLines(pkg: Avg001QuestionPackage, style: number) {
   const v = pkg.parameters.renderVariables;
-  const count = text(v.count);
-  const reported = text(v.reportedAverage);
-  const corrected = text(v.correctedAverage);
-  const wrong = text(v.incorrectValue);
-  const correct = text(v.correctValue);
-  const wrong2 = text(v.incorrectValue2);
-  const correct2 = text(v.correctValue2);
-  const difference = text(v.entryDifference);
-  const change = text(v.averageChange);
-  const signedCorrection = text((pkg.parameters.values as Record<string, unknown>).netCorrection &&
-    (pkg.parameters.values as Record<string, { numerator?: number; denominator?: number }>).netCorrection);
+  const count = value(v.count);
+  const reported = value(v.reportedAverage);
+  const corrected = value(v.correctedAverage);
+  const wrong = value(v.incorrectValue);
+  const correct = value(v.correctValue);
+  const wrong2 = value(v.incorrectValue2);
+  const correct2 = value(v.correctValue2);
+  const difference = value(v.entryDifference);
+  const change = value(v.averageChange);
   const finalLine = conclusion(pkg);
 
   switch (pkg.solveMode) {
-    case "findCorrectedAverageFromMistake": {
+    case "findCorrectedAverageFromMistake":
       if (style === 0) return [
         `${wrong} was used instead of ${correct}, so the recorded total must be corrected first.`,
-        `$$\text{Change in total}=${correct}-${wrong}$$`,
-        `$$\text{Correct average}=${reported}+\frac{${correct}-${wrong}}{${count}}=${corrected}$$`,
+        `$$Change in total = ${correct} - ${wrong}$$`,
+        `$$Correct average = ${reported} + [(${correct} - ${wrong}) ÷ ${count}] = ${corrected}$$`,
         finalLine,
       ];
       if (style === 1) return [
         `Only one entry is wrong, so its difference is shared across all ${count} records.`,
-        `$$\text{Difference in the entry}=${correct}-${wrong}$$`,
-        `$$\text{Change in average}=\frac{${correct}-${wrong}}{${count}},\quad ${reported}+\frac{${correct}-${wrong}}{${count}}=${corrected}$$`,
+        `$$Difference in the entry = ${correct} - ${wrong}$$`,
+        `$$Correct average = ${reported} + [(${correct} - ${wrong}) ÷ ${count}] = ${corrected}$$`,
         finalLine,
       ];
       return [
-        `The reported total is based on the wrong entry ${wrong}; replace it with ${correct}.`,
-        `$$\text{Corrected total}=(${reported}\times${count})-${wrong}+${correct}$$`,
-        `$$\text{Correct average}=\frac{(${reported}\times${count})-${wrong}+${correct}}{${count}}=${corrected}$$`,
+        `The reported total includes ${wrong}; remove it and put ${correct} in its place.`,
+        `$$Corrected total = (${reported} × ${count}) - ${wrong} + ${correct}$$`,
+        `$$Correct average = [(${reported} × ${count}) - ${wrong} + ${correct}] ÷ ${count} = ${corrected}$$`,
         finalLine,
       ];
-    }
 
-    case "findReportedAverageBeforeCorrection": {
+    case "findReportedAverageBeforeCorrection":
       if (style === 0) return [
         `The correction from ${wrong} to ${correct} changed the total, so undo that change to recover the earlier average.`,
-        `$$\text{Change in total}=${correct}-${wrong}$$`,
-        `$$\text{Earlier average}=${corrected}-\frac{${correct}-${wrong}}{${count}}=${reported}$$`,
+        `$$Change in total = ${correct} - ${wrong}$$`,
+        `$$Earlier average = ${corrected} - [(${correct} - ${wrong}) ÷ ${count}] = ${reported}$$`,
         finalLine,
       ];
       if (style === 1) return [
-        `The corrected average differs from the old average by the entry correction divided among ${count} records.`,
-        `$$\text{Average change}=\frac{${correct}-${wrong}}{${count}}$$`,
-        `$$\text{Earlier average}=${corrected}-\frac{${correct}-${wrong}}{${count}}=${reported}$$`,
+        `The entry correction was shared across ${count} records, which changed the average by an equal amount per record.`,
+        `$$Change in average = (${correct} - ${wrong}) ÷ ${count}$$`,
+        `$$Earlier average = ${corrected} - [(${correct} - ${wrong}) ÷ ${count}] = ${reported}$$`,
         finalLine,
       ];
       return [
         `Start from the correct total and put the wrong entry back to reconstruct the earlier total.`,
-        `$$\text{Earlier total}=(${corrected}\times${count})-${correct}+${wrong}$$`,
-        `$$\text{Earlier average}=\frac{(${corrected}\times${count})-${correct}+${wrong}}{${count}}=${reported}$$`,
+        `$$Earlier total = (${corrected} × ${count}) - ${correct} + ${wrong}$$`,
+        `$$Earlier average = [(${corrected} × ${count}) - ${correct} + ${wrong}] ÷ ${count} = ${reported}$$`,
         finalLine,
       ];
-    }
 
-    case "findCorrectValueFromAverageShift": {
-      if (style === 0) return [
-        `The average changed from ${reported} to ${corrected} for ${count} records, so the total changed by that average difference times ${count}.`,
-        `$$\text{Change in total}=(${corrected}-${reported})\times${count}$$`,
-        `$$\text{Correct entry}=${wrong}+(${corrected}-${reported})\times${count}=${correct}$$`,
-        finalLine,
-      ];
-      if (style === 1) return [
-        `Each record contributes to the average change, so scale the change back to the full total.`,
-        `$$\text{Required correction}=(${corrected}-${reported})\times${count}$$`,
-        `$$\text{Correct entry}=${wrong}+(${corrected}-${reported})\times${count}=${correct}$$`,
+    case "findCorrectValueFromAverageShift":
+      if (style === 2) return [
+        `The corrected and reported totals differ only because of the mistaken entry.`,
+        `$$Difference in totals = (${corrected} × ${count}) - (${reported} × ${count})$$`,
+        `$$Correct entry = ${wrong} + [(${corrected} × ${count}) - (${reported} × ${count})] = ${correct}$$`,
         finalLine,
       ];
       return [
-        `Compare the corrected total with the reported total; their difference belongs entirely to the mistaken entry.`,
-        `$$\text{Difference of totals}=(${corrected}\times${count})-(${reported}\times${count})$$`,
-        `$$\text{Correct entry}=${wrong}+(${corrected}\times${count})-(${reported}\times${count})=${correct}$$`,
+        `The average changed from ${reported} to ${corrected} for ${count} records, so scale that change up to the total.`,
+        `$$Change in total = (${corrected} - ${reported}) × ${count}$$`,
+        `$$Correct entry = ${wrong} + [(${corrected} - ${reported}) × ${count}] = ${correct}$$`,
         finalLine,
       ];
-    }
 
-    case "findIncorrectValueFromCorrection": {
-      if (style === 0) return [
-        `The shift in average shows how much the total changed when the entry was corrected.`,
-        `$$\text{Change in total}=(${corrected}-${reported})\times${count}$$`,
-        `$$\text{Wrong entry}=${correct}-(${corrected}-${reported})\times${count}=${wrong}$$`,
-        finalLine,
-      ];
-      if (style === 1) return [
-        `Spread over ${count} records, the average change came from one mistaken entry.`,
-        `$$\text{Entry correction}=(${corrected}-${reported})\times${count}$$`,
-        `$$\text{Wrong entry}=${correct}-(${corrected}-${reported})\times${count}=${wrong}$$`,
-        finalLine,
-      ];
-      return [
+    case "findIncorrectValueFromCorrection":
+      if (style === 2) return [
         `The gap between the corrected and reported totals is exactly the amount by which the entry was changed.`,
-        `$$\text{Gap in totals}=(${corrected}\times${count})-(${reported}\times${count})$$`,
-        `$$\text{Wrong entry}=${correct}-[(${corrected}\times${count})-(${reported}\times${count})]=${wrong}$$`,
+        `$$Gap in totals = (${corrected} × ${count}) - (${reported} × ${count})$$`,
+        `$$Wrong entry = ${correct} - [(${corrected} × ${count}) - (${reported} × ${count})] = ${wrong}$$`,
         finalLine,
       ];
-    }
-
-    case "findEntryDifferenceFromAverageCorrection": {
-      const firstLine = style === 2
-        ? `The difference between the corrected and reported totals is the error in the single entry.`
-        : `A change in one entry is spread over all ${count} records, so multiply the average change by ${count}.`;
       return [
-        firstLine,
-        `$$\text{Change in average}=|${corrected}-${reported}|=${change}$$`,
-        `$$\text{Difference in entries}=${change}\times${count}=${difference}$$`,
+        `The shift in average shows how much the total changed when the entry was corrected.`,
+        `$$Change in total = (${corrected} - ${reported}) × ${count}$$`,
+        `$$Wrong entry = ${correct} - [(${corrected} - ${reported}) × ${count}] = ${wrong}$$`,
         finalLine,
       ];
-    }
 
-    case "findAverageChangeFromEntryCorrection": {
-      const firstLine = style === 2
-        ? `Replacing ${wrong} with ${correct} changes the total by their difference; divide that change among ${count} records.`
-        : `The wrong entry and correct entry differ by ${difference}, and this difference is shared by ${count} records.`;
+    case "findEntryDifferenceFromAverageCorrection":
       return [
-        firstLine,
-        `$$\text{Difference in entries}=|${correct}-${wrong}|=${difference}$$`,
-        `$$\text{Change in average}=\frac{${difference}}{${count}}=${change}$$`,
+        style === 2
+          ? `The difference between the corrected and reported totals is the error in the single entry.`
+          : `A change in one entry is spread over all ${count} records, so multiply the average change by ${count}.`,
+        `$$Change in average = |${corrected} - ${reported}| = ${change}$$`,
+        `$$Difference in entries = ${change} × ${count} = ${difference}$$`,
         finalLine,
       ];
-    }
 
-    case "findNumberOfItemsFromTotalCorrection": {
-      const firstLine = style === 2
-        ? `The total changed by the difference between ${wrong} and ${correct}; the average changed by ${change} per record.`
-        : `The number of records is how many average-change shares make up the full entry correction.`;
+    case "findAverageChangeFromEntryCorrection":
       return [
-        firstLine,
-        `$$\text{Difference in entries}=|${correct}-${wrong}|=${difference}$$`,
-        `$$\text{Number of records}=\frac{${difference}}{${change}}=${count}$$`,
+        style === 2
+          ? `Replacing ${wrong} with ${correct} changes the total by their difference; divide that change among ${count} records.`
+          : `The wrong and correct entries differ by ${difference}, and this difference is shared by ${count} records.`,
+        `$$Difference in entries = |${correct} - ${wrong}| = ${difference}$$`,
+        `$$Change in average = ${difference} ÷ ${count} = ${change}$$`,
         finalLine,
       ];
-    }
 
-    case "findCorrectedAverageFromMultipleMistakes": {
+    case "findNumberOfItemsFromTotalCorrection":
+      return [
+        style === 2
+          ? `The total changed by the difference between ${wrong} and ${correct}; the average changed by ${change} per record.`
+          : `The number of records is how many average-change shares make up the full entry correction.`,
+        `$$Difference in entries = |${correct} - ${wrong}| = ${difference}$$`,
+        `$$Number of records = ${difference} ÷ ${change} = ${count}$$`,
+        finalLine,
+      ];
+
+    case "findCorrectedAverageFromMultipleMistakes":
       if (style === 2) return [
         `Rebuild the reported total by removing both wrong entries and adding both correct entries.`,
-        `$$\text{Corrected total}=(${reported}\times${count})-${wrong}-${wrong2}+${correct}+${correct2}$$`,
-        `$$\text{Correct average}=\frac{(${reported}\times${count})-${wrong}-${wrong2}+${correct}+${correct2}}{${count}}=${corrected}$$`,
+        `$$Corrected total = (${reported} × ${count}) - ${wrong} - ${wrong2} + ${correct} + ${correct2}$$`,
+        `$$Correct average = [(${reported} × ${count}) - ${wrong} - ${wrong2} + ${correct} + ${correct2}] ÷ ${count} = ${corrected}$$`,
         finalLine,
       ];
       return [
         `Correct both entries first, then share their combined effect across all ${count} records.`,
-        `$$\text{Net change}=(${correct}-${wrong})+(${correct2}-${wrong2})$$`,
-        `$$\text{Correct average}=${reported}+\frac{(${correct}-${wrong})+(${correct2}-${wrong2})}{${count}}=${corrected}$$`,
+        `$$Net change = (${correct} - ${wrong}) + (${correct2} - ${wrong2})$$`,
+        `$$Correct average = ${reported} + [(${correct} - ${wrong}) + (${correct2} - ${wrong2})] ÷ ${count} = ${corrected}$$`,
         finalLine,
       ];
-    }
 
     default:
-      return pkg.explanation.lines.map((line) => line.replace(/div/g, "\\div"));
+      return pkg.explanation.lines.map((line) => line.replace(/div/g, "÷"));
   }
 }
 
@@ -215,10 +190,5 @@ export function applyAvg001Cp005ExplanationVariants(
 ): Avg001QuestionPackage {
   if (pkg.canonicalProblemId !== "AVG-CP-005") return pkg;
   const strategy = String(pkg.traceability.explanationStrategyId ?? "");
-  return {
-    ...pkg,
-    explanation: {
-      lines: buildLines(pkg, styleIndex(strategy)),
-    },
-  };
+  return { ...pkg, explanation: { lines: buildLines(pkg, styleIndex(strategy)) } };
 }
