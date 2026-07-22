@@ -24,6 +24,9 @@ function applyCp004RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
 function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001QuestionLanguageEntry {
   if (entry.cpId !== "AVG-CP-005") return entry;
   let normalized = entry.answerType === "COUNT" ? { ...entry, displayPolicy: "EXACT_INTEGER" as const } : entry;
+  if (entry.qlId === "AVG-QL-316") {
+    normalized = { ...normalized, displayPolicy: "EXACT_DECIMAL_1" };
+  }
   if (entry.qlId === "AVG-QL-325") {
     normalized = {
       ...normalized,
