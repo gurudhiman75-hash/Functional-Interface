@@ -69,21 +69,22 @@ function boundedPair(
   entry: ReturnType<typeof getAvg001QuestionEntry>,
 ) {
   const { minimum, maximum } = valueBounds(entry);
-  let incorrect = initialIncorrect;
-  let correct = add(incorrect, correction);
-  const low = Math.min(toNumber(incorrect), toNumber(correct));
-  if (low < minimum) {
-    const shift = rational(Math.ceil(minimum - low) + 1);
-    incorrect = add(incorrect, shift);
-    correct = add(correct, shift);
+  const correctionNumber = toNumber(correction);
+  if (Math.abs(correctionNumber) > maximum - minimum) {
+    throw new Error(`Correction exceeds realistic range for ${entry.qlId}`);
   }
-  const high = Math.max(toNumber(incorrect), toNumber(correct));
-  if (high > maximum) {
-    const shift = rational(Math.ceil(high - maximum) + 1);
-    incorrect = subtract(incorrect, shift);
-    correct = subtract(correct, shift);
-  }
-  if (toNumber(incorrect) < minimum || toNumber(correct) < minimum || toNumber(incorrect) > maximum || toNumber(correct) > maximum) {
+  const lower = correctionNumber >= 0 ? minimum : minimum - correctionNumber;
+  const upper = correctionNumber >= 0 ? maximum - correctionNumber : maximum;
+  const denominator = initialIncorrect.denominator;
+  const chosen = Math.min(upper, Math.max(lower, toNumber(initialIncorrect)));
+  const incorrect = rational(Math.round(chosen * denominator), denominator);
+  const correct = add(incorrect, correction);
+  if (
+    toNumber(incorrect) < minimum ||
+    toNumber(correct) < minimum ||
+    toNumber(incorrect) > maximum ||
+    toNumber(correct) > maximum
+  ) {
     throw new Error(`Unable to create realistic CP-005 values for ${entry.qlId}`);
   }
   return { incorrect, correct };
@@ -142,13 +143,12 @@ function buildState(entry: ReturnType<typeof getAvg001QuestionEntry>, seed: stri
 
   const singlePair = boundedPair(add(correctedAverage, offset), netCorrection, entry);
 
-  const splitSize = entry.displayPolicy === "EXACT_DECIMAL_1"
-    ? rational(1)
-    : entry.unitKind === "currency"
-      ? rational(5000)
-      : rational(pick([2, 3, 4, 5], next));
-  const firstCorrection = add(netCorrection, splitSize);
-  const secondCorrection = rational(-splitSize.numerator, splitSize.denominator);
+  const netNumber = toNumber(netCorrection);
+  const firstNumber = netNumber >= 0
+    ? Math.max(1, Math.floor(netNumber / 2))
+    : Math.min(-1, Math.ceil(netNumber / 2));
+  const firstCorrection = rational(firstNumber);
+  const secondCorrection = subtract(netCorrection, firstCorrection);
   const firstPair = boundedPair(add(correctedAverage, offset), firstCorrection, entry);
   const secondPair = boundedPair(add(correctedAverage, multiply(offset, rational(2))), secondCorrection, entry);
 
