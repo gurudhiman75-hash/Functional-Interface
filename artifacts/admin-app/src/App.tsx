@@ -42,6 +42,12 @@ const LanguagesPage = lazy(() =>
 const AdminTeamPage = lazy(() =>
   import('@/pages/users/AdminTeamWorkspacePage').then((module) => ({ default: module.AdminTeamWorkspacePage })),
 );
+const StudentsPage = lazy(() =>
+  import('@/pages/users/StudentsWorkspacePage').then((module) => ({ default: module.StudentsWorkspacePage })),
+);
+const StudentProfilePage = lazy(() =>
+  import('@/pages/users/StudentProfileWorkspacePage').then((module) => ({ default: module.StudentProfileWorkspacePage })),
+);
 const RolesPermissionsPage = lazy(() =>
   import('@/pages/settings/RolesPermissionsWorkspacePage').then((module) => ({ default: module.RolesPermissionsWorkspacePage })),
 );
@@ -84,6 +90,8 @@ const router = createBrowserRouter([
       { path: '/tests', element: <TestsPage /> },
 
       { path: '/commerce/*', element: <PendingWorkspacePage /> },
+      { path: '/users/students/:id', element: <StudentProfilePage /> },
+      { path: '/users/students', element: <StudentsPage /> },
       { path: '/users/team', element: <AdminTeamPage /> },
       { path: '/users/*', element: <PendingWorkspacePage /> },
       { path: '/analytics/system-health', element: <SystemHealthPage /> },
