@@ -12,19 +12,61 @@ if (!connectionString) {
 /** The single canonical ExamTree PostgreSQL client. */
 export const sqlClient = postgres(connectionString);
 
+type JsonCapableSql = {
+  json?: (value: unknown) => unknown;
+  savepoint?: (...args: unknown[]) => unknown;
+};
+
+function installSafeJsonSerializer(client: JsonCapableSql): void {
+  Object.defineProperty(client, "json", {
+    configurable: true,
+    writable: true,
+    value: (value: unknown): string => JSON.stringify(value),
+  });
+
+  if (typeof client.savepoint === "function") {
+    const nativeSavepoint = client.savepoint.bind(client);
+    Object.defineProperty(client, "savepoint", {
+      configurable: true,
+      writable: true,
+      value: (...args: unknown[]) => {
+        const callbackIndex = args.findIndex((argument) => typeof argument === "function");
+        if (callbackIndex >= 0) {
+          const callback = args[callbackIndex] as (transaction: JsonCapableSql) => unknown;
+          args[callbackIndex] = (transaction: JsonCapableSql) => {
+            installSafeJsonSerializer(transaction);
+            return callback(transaction);
+          };
+        }
+        return nativeSavepoint(...args);
+      },
+    });
+  }
+}
+
 /**
- * postgres.js 3.4.x can pass plain objects through its json() helper in some
- * prepared/transactional paths. Node then reaches Buffer.byteLength(object)
- * and throws ERR_INVALID_ARG_TYPE. ExamTree uses json()/tx.json() throughout
- * the admin control plane, so normalize the helper once at the shared client.
- *
- * PostgreSQL receives valid JSON text; explicit ::json/::jsonb casts continue
- * to work, and JSON/JSONB target columns infer their native type on INSERT.
+ * postgres.js 3.4.x can pass plain objects through json() in prepared and
+ * transactional paths. Node then reaches Buffer.byteLength(object) and throws
+ * ERR_INVALID_ARG_TYPE. ExamTree uses sql.json()/tx.json() across the admin
+ * control plane, so normalize the root client, every transaction and savepoint.
  */
-Object.defineProperty(sqlClient, "json", {
+installSafeJsonSerializer(sqlClient);
+
+const nativeBegin = sqlClient.begin.bind(sqlClient);
+Object.defineProperty(sqlClient, "begin", {
   configurable: true,
   writable: true,
-  value: (value: unknown): string => JSON.stringify(value),
+  value: (...args: unknown[]) => {
+    const callbackIndex = args.findIndex((argument) => typeof argument === "function");
+    if (callbackIndex >= 0) {
+      const callback = args[callbackIndex] as (transaction: JsonCapableSql) => unknown;
+      args[callbackIndex] = (transaction: JsonCapableSql) => {
+        installSafeJsonSerializer(transaction);
+        return callback(transaction);
+      };
+    }
+    return nativeBegin(...args as Parameters<typeof nativeBegin>);
+  },
 });
 
 /**
