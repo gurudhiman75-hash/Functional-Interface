@@ -26,11 +26,11 @@ for (const entry of entries) {
     if (banned.some((pattern) => pattern.test(text))) failures.push(`${entry.qlId}:${index}: generic/internal explanation phrase`);
     if (lines.some((line) => !line.trim())) failures.push(`${entry.qlId}:${index}: empty explanation line`);
     if (entry.answerType !== "COUNT" && entry.unitKind === "currency" && !text.includes("₹")) failures.push(`${entry.qlId}:${index}: currency unit missing`);
-    if (entry.answerType !== "COUNT" && entry.unitKind === "marks" && !/marks/.test(text)) failures.push(`${entry.qlId}:${index}: marks unit missing`);
-    if (entry.answerType !== "COUNT" && entry.unitKind === "kg" && !/kg/.test(text)) failures.push(`${entry.qlId}:${index}: weight unit missing`);
-    if (entry.answerType !== "COUNT" && entry.unitKind === "years" && !/years/.test(text)) failures.push(`${entry.qlId}:${index}: age unit missing`);
-    if (entry.answerType !== "COUNT" && entry.unitKind === "runs" && !/runs/.test(text)) failures.push(`${entry.qlId}:${index}: runs unit missing`);
-    if (entry.answerType !== "COUNT" && entry.unitKind === "units" && !/units/.test(text)) failures.push(`${entry.qlId}:${index}: output unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "marks" && !/\bmarks?\b/.test(text)) failures.push(`${entry.qlId}:${index}: marks unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "kg" && !/\bkg\b/.test(text)) failures.push(`${entry.qlId}:${index}: weight unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "years" && !/\byears?\b/.test(text)) failures.push(`${entry.qlId}:${index}: age unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "runs" && !/\bruns?\b/.test(text)) failures.push(`${entry.qlId}:${index}: runs unit missing`);
+    if (entry.answerType !== "COUNT" && entry.unitKind === "units" && !/\bunits?\b/.test(text)) failures.push(`${entry.qlId}:${index}: output unit missing`);
     const family = structures.get(entry.solveMode) ?? new Set<string>();
     family.add(explanationShape(lines));
     structures.set(entry.solveMode, family);
