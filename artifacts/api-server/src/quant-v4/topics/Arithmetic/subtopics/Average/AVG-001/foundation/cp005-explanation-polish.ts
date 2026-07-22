@@ -25,10 +25,21 @@ function normalizeUnits(text: string) {
 
 function contextualize(text: string, singular: string, plural: string) {
   return normalizeUnits(text)
+    .replace(/\bentry correction\b/gi, "correction")
+    .replace(/\bmistaken entry\b/gi, "wrong value")
+    .replace(/\bwrong entry\b/gi, "wrong value")
+    .replace(/\bcorrect entry\b/gi, "correct value")
+    .replace(/\bentries\b/gi, "values")
+    .replace(/\bentry\b/gi, "value")
     .replace(/\bEach record\b/g, `Each ${singular}`)
     .replace(/\bone record\b/gi, `one ${singular}`)
     .replace(/\brecord count\b/gi, `${singular} count`)
-    .replace(/\brecords\b/g, plural);
+    .replace(/\bper record\b/gi, `per ${singular}`)
+    .replace(/\ball records\b/gi, `all ${plural}`)
+    .replace(/\brecords\b/g, plural)
+    .replace(/average-change shares/gi, "equal parts of the average change")
+    .replace(/scale that change up to the total/gi, "multiply that change by the number of values")
+    .replace(/scale the average change/gi, "multiply the average change");
 }
 
 export function applyAvg001Cp005ExplanationPolish(
@@ -51,7 +62,7 @@ export function applyAvg001Cp005ExplanationPolish(
     const averageChange = String(variables.averageChange);
     const count = String(variables.count);
     lines = [
-      `Each ${singular} accounts for ${averageChange} of the total change, while the mistaken entry changed the total by ${difference}.`,
+      `Each ${singular} accounts for ${averageChange} of the total change, while the wrong value changed the total by ${difference}.`,
       `$$Total change = |${correct} - ${wrong}| = ${difference}$$`,
       `$$Number of ${plural} = total change ÷ change per ${singular} = ${difference} ÷ ${averageChange} = ${count}$$`,
       `So ${pkg.answer} ${plural} were included.`,
