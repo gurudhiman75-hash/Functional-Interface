@@ -41,6 +41,8 @@ Administrators with `users.students.manage` can:
 - reactivate a suspended student without recreating revoked sessions;
 - revoke active sessions without changing account status.
 
+Read-only administrators retain the complete profile, attempt, session and timeline views but receive no mutation controls. The confirmation interface requires an operation-specific reason, blocks duplicate submission while a mutation is running, reports the immutable audit identifier, and refreshes the canonical profile after completion or stale-state rejection.
+
 Every operation requires a meaningful reason, locks the canonical user row, supports idempotent retries, detects stale conflicting state, and appends an immutable `platform.audit_events` record. Actual status/session changes also append field-level `platform.audit_event_changes` evidence. Deleted or missing profiles are rejected, disabled accounts are not silently restored, Firebase authentication is not modified, and refresh-token hashes never leave the server.
 
 ## Production truth
