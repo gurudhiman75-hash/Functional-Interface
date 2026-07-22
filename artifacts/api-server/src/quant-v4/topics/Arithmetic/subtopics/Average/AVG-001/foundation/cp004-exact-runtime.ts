@@ -1,3 +1,4 @@
+import { toNumber } from "./math";
 import { runAvg001Cp004Pipeline } from "./cp004-runtime";
 import type {
   Avg001Language,
@@ -20,20 +21,44 @@ function restoreExternalIdentity(
   };
 }
 
+function hasRealisticCountInputs(pkg: Avg001QuestionPackage) {
+  if (pkg.solveMode !== "findGroupCountFromCombinedAverage") return true;
+
+  const averages = pkg.parameters.values.groupAverages?.map(toNumber) ?? [];
+  const variant = pkg.parameters.scenarioVariant;
+  const range: [number, number] = /Salary|Sales|Revenue|Expense/i.test(variant)
+    ? [10000, 100000]
+    : /Weight/i.test(variant)
+      ? [10, 80]
+      : /Age/i.test(variant)
+        ? [15, 65]
+        : /Marks|Scores/i.test(variant)
+          ? [0, 100]
+          : /Output/i.test(variant)
+            ? [5, 150]
+            : /Passengers/i.test(variant)
+              ? [5, 100]
+              : [1, 200];
+
+  return averages.every((average) => average >= range[0] && average <= range[1]);
+}
+
 export function runAvg001Cp004ExactPipeline(input: {
   questionLanguageId: string;
   seed: string;
   language: Avg001Language;
 }): Avg001QuestionPackage {
-  for (let attempt = 0; attempt < 32; attempt += 1) {
+  for (let attempt = 0; attempt < 64; attempt += 1) {
     const internalSeed =
       attempt === 0 ? input.seed : `${input.seed}:cp004-exact-retry:${attempt}`;
     try {
+      const pkg = runAvg001Cp004Pipeline({
+        ...input,
+        seed: internalSeed,
+      });
+      if (!hasRealisticCountInputs(pkg)) continue;
       return restoreExternalIdentity(
-        runAvg001Cp004Pipeline({
-          ...input,
-          seed: internalSeed,
-        }),
+        pkg,
         input.questionLanguageId,
         input.seed,
       );
@@ -44,6 +69,6 @@ export function runAvg001Cp004ExactPipeline(input: {
   }
 
   throw new Error(
-    `Unable to construct an exact-display CP-004 state for ${input.questionLanguageId}`,
+    `Unable to construct an exact and context-realistic CP-004 state for ${input.questionLanguageId}`,
   );
 }
