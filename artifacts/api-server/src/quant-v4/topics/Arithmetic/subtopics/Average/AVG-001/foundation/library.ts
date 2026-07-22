@@ -6,6 +6,7 @@ import cp002TaskRegistry from "../task-registry.cp002.library.json";
 import cp003TaskRegistry from "../task-registry.cp003.library.json";
 import { cp001ExpansionEntries } from "./cp001-expansion-library";
 import { cp004Entries } from "./cp004-library";
+import { applyAvg001Cp004StemVariant } from "./cp004-stem-variants";
 import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
@@ -57,6 +58,7 @@ const entries = [
 ]
   .map(applyCp004RuntimeMetadata)
   .map(applyAvg001EditorialStem)
+  .map(applyAvg001Cp004StemVariant)
   .filter((entry) => entry.active);
 
 const registryById = new Map(
@@ -69,6 +71,7 @@ const registryById = new Map(
   ]
     .map(applyCp004RuntimeMetadata)
     .map(applyAvg001EditorialStem)
+    .map(applyAvg001Cp004StemVariant)
     .map((entry) => [entry.qlId, entry]),
 );
 
