@@ -46,12 +46,12 @@ type ReviewItem = {
   section: string;
   text: string;
   options: string[];
-  textHi?: string;
-  textPa?: string;
-  optionsHi?: string[];
-  optionsPa?: string[];
-  explanationHi?: string;
-  explanationPa?: string;
+  textHi?: string | null;
+  textPa?: string | null;
+  optionsHi?: string[] | null;
+  optionsPa?: string[] | null;
+  explanationHi?: string | null;
+  explanationPa?: string | null;
   selected: number | null;
   correct: number;
   flagged: boolean;
@@ -62,7 +62,7 @@ type ReviewItem = {
   languages?: unknown | null;
   motifs?: unknown | null;
   inferenceTrace?: unknown | null;
-  difficulty?: number | null;
+  difficulty?: "Easy" | "Medium" | "Hard" | null;
   topic?: string | null;
 };
 

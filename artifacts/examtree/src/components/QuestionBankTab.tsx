@@ -1304,7 +1304,7 @@ export default function QuestionBankTab() {
                       <div>
                         <p className="text-xs font-semibold text-muted-foreground mb-1.5">Full Question</p>
                         <div className="text-sm text-foreground">
-                          <MathText content={q.text} />
+                          <MathText content={q.text ?? ""} />
                         </div>
                         <div className="mt-2 grid grid-cols-2 gap-1">
                           {(q.options as string[]).map((opt, i) => (

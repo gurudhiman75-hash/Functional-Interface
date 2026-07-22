@@ -411,7 +411,7 @@ function SlotNode({
 }
 
 function activeLabels(
-  trace: InferenceTraceLike,
+  trace: InferenceTraceLike | undefined,
   activeStep: number,
 ) {
   const text =

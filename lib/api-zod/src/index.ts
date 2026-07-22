@@ -313,6 +313,8 @@ export type Question = {
   options: string[];
   correct: number;
   section: string;
+  topic?: string | null;
+  difficulty?: "Easy" | "Medium" | "Hard" | null;
   explanation: string | null;
   // Optional translation fields — present when the test has multi-language support
   textHi?: string | null;
@@ -334,6 +336,8 @@ export type TestAttempt = {
   score: number;
   /** Marks-based score: sum of +marksPerQuestion for correct and -negativeMarks for wrong */
   actualScore?: number | null;
+  marksPerQuestion?: number;
+  negativeMarks?: number;
   correct: number;
   wrong: number;
   unanswered: number;
@@ -342,6 +346,8 @@ export type TestAttempt = {
   createdAt: string | Date;
   /** "REAL" | "PRACTICE" — absent/null means legacy row, treated as REAL */
   attemptType?: "REAL" | "PRACTICE" | null;
+  isFirstAttempt?: boolean;
+  originalAttemptId?: string;
   sectionStats?: {
     name: string;
     correct: number;
@@ -359,6 +365,14 @@ export type TestAttempt = {
     section: string;
     text: string;
     options: string[];
+    topic?: string | null;
+    difficulty?: "Easy" | "Medium" | "Hard" | null;
+    textHi?: string | null;
+    textPa?: string | null;
+    optionsHi?: string[] | null;
+    optionsPa?: string[] | null;
+    explanationHi?: string | null;
+    explanationPa?: string | null;
     selected: number | null;
     correct: number;
     flagged: boolean;

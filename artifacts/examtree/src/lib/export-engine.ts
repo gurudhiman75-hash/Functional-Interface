@@ -759,7 +759,14 @@ function makeZip(files: Array<{ name: string; data: string }>) {
     ...uint16(0),
   ]);
 
-  return new Blob([...localParts, ...centralParts, end], {
+  const archive = new Uint8Array(offset + centralSize + end.length);
+  let cursor = 0;
+  for (const part of [...localParts, ...centralParts, end]) {
+    archive.set(part, cursor);
+    cursor += part.length;
+  }
+
+  return new Blob([archive.buffer], {
     type: MIME_TYPES.docx,
   });
 }

@@ -1,6 +1,5 @@
 import type {
-  SeatingDiagramData,
-  SeatingExplanationFlow,
+  TestAttempt as CanonicalTestAttempt,
 } from "@workspace/api-zod";
 import {
   clearAllCanonicalAttemptSessions,
@@ -28,62 +27,10 @@ export interface User {
   role?: "admin" | "student";
 }
 
-export interface TestAttempt {
-  id?: string;
-  userId?: string;
-  testId: string;
-  testName: string;
-  category: string;
-  score: number;
-  /** Marks-based score: sum of +marksPerQuestion for correct and -negativeMarks for wrong. */
-  actualScore?: number | null;
-  /** Marks config at time of attempt — returned by server. */
-  marksPerQuestion?: number;
-  negativeMarks?: number;
-  correct: number;
-  wrong: number;
-  unanswered: number;
-  totalQuestions: number;
-  timeSpent: number;
-  createdAt: string;
-  attemptType: "REAL" | "PRACTICE";
-  isFirstAttempt?: boolean;
-  originalAttemptId?: string;
-  sectionStats?: {
-    name: string;
-    correct: number;
-    wrong: number;
-    unanswered: number;
-    totalQuestions: number;
-    accuracy: number;
-  }[];
-  sectionTimeSpent?: {
-    name: string;
-    minutesSpent: number;
-  }[];
-  questionReview?: {
-    questionId: number;
-    section: string;
-    text: string;
-    options: string[];
-    textHi?: string;
-    textPa?: string;
-    optionsHi?: string[];
-    optionsPa?: string[];
-    explanationHi?: string;
-    explanationPa?: string;
-    seatingDiagram?: SeatingDiagramData | null;
-    seatingExplanationFlow?: SeatingExplanationFlow | null;
-    proceduralLogic?: unknown | null;
-    languages?: unknown | null;
-    motifs?: unknown | null;
-    inferenceTrace?: unknown | null;
-    selected: number | null;
-    correct: number;
-    flagged: boolean;
-    explanation: string;
-  }[];
-}
+export type TestAttempt = CanonicalTestAttempt;
+
+type LocalAttemptInput = Omit<TestAttempt, "id" | "userId" | "createdAt"> &
+  Partial<Pick<TestAttempt, "id" | "userId" | "createdAt">>;
 
 export interface ActiveTestSession {
   testId: string;
@@ -180,11 +127,17 @@ export function acknowledgeStreakCelebration(): void {
   }
 }
 
-export const addAttempt = (attempt: TestAttempt) => {
+export const addAttempt = (attempt: LocalAttemptInput) => {
+  const normalized: TestAttempt = {
+    ...attempt,
+    id: attempt.id ?? `local-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    userId: attempt.userId ?? "local",
+    createdAt: attempt.createdAt ?? new Date().toISOString(),
+  };
   const attempts = getAttempts();
-  attempts.unshift(attempt);
+  attempts.unshift(normalized);
   Storage.set("attempts", attempts);
-  if (attempt.attemptType === "REAL") {
+  if ((normalized.attemptType ?? "REAL") === "REAL") {
     updateStreak();
   }
 };
