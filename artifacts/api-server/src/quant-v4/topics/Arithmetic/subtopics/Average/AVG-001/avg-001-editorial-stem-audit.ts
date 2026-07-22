@@ -85,7 +85,7 @@ if (formalTerminologyCount > 5) {
 }
 
 const expectedCounts = {
-  "AVG-CP-001": 24,
+  "AVG-CP-001": 72,
   "AVG-CP-002": 50,
   "AVG-CP-003": 86,
 };
