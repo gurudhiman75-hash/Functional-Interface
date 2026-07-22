@@ -58,7 +58,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Entitlements', path: '/commerce/entitlements', icon: KeyRound, status: 'planned', summary: 'Inspect and manage the products and tests each student can access.', milestone: 'Server-enforced entitlement engine and administrative overrides.' },
   ] },
   { id: 'users', label: 'Users', items: [
-    { label: 'Students', path: '/users/students', icon: Users, status: 'in_progress', summary: 'Search student identities, attempts, access state and account history.', milestone: 'Canonical student profile and attempt-detail APIs.' },
+    { label: 'Students', path: '/users/students', icon: Users, status: 'live', permission: 'users.students.read', summary: 'Search canonical student identities and inspect account state, attempts, sessions and account history through privacy-safe read APIs.' },
     { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'live', permission: 'users.admins.read', summary: 'Authorize administrators, manage profiles, role grants, suspension and session revocation through canonical identity records.' },
     { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
     { label: 'Notifications', path: '/users/notifications', icon: Bell, status: 'planned', summary: 'Compose and target operational, product and exam notifications.', milestone: 'Template, audience, delivery and engagement tracking.' },
