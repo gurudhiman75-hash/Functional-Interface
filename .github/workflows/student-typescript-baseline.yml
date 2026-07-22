@@ -3,19 +3,30 @@ name: Validate student TypeScript baseline
 on:
   push:
     branches:
-      - fix/student-typescript-baseline
-  pull_request:
-    branches:
       - New-main
-    types: [opened, reopened, synchronize]
     paths:
       - artifacts/examtree/**
+      - artifacts/admin-app/package.json
       - lib/api-zod/**
       - package.json
       - pnpm-lock.yaml
       - pnpm-workspace.yaml
       - tsconfig.base.json
       - .github/workflows/student-typescript-baseline.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/examtree/**
+      - artifacts/admin-app/package.json
+      - lib/api-zod/**
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - tsconfig.base.json
+      - .github/workflows/student-typescript-baseline.yml
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -44,6 +55,22 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Enforce canonical workspace type graph
+        run: |
+          node --input-type=module <<'NODE'
+          import { readFile } from 'node:fs/promises';
+
+          const student = JSON.parse(await readFile('artifacts/examtree/package.json', 'utf8'));
+          const admin = JSON.parse(await readFile('artifacts/admin-app/package.json', 'utf8'));
+
+          if (student.dependencies?.['@workspace/api-zod'] !== 'workspace:*') {
+            throw new Error('ExamTree must declare @workspace/api-zod as a workspace dependency.');
+          }
+          if (admin.devDependencies?.['@types/react'] !== 'catalog:' || admin.devDependencies?.['@types/react-dom'] !== 'catalog:') {
+            throw new Error('Admin and student applications must share the catalog React declaration graph.');
+          }
+          NODE
+
       - name: Run strict student typecheck
         id: typecheck
         continue-on-error: true
@@ -65,6 +92,9 @@ jobs:
       - name: Enforce strict student typecheck
         if: steps.typecheck.outcome != 'success'
         run: exit 1
+
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
 
       - name: Build student production application
         run: pnpm --dir artifacts/examtree build
