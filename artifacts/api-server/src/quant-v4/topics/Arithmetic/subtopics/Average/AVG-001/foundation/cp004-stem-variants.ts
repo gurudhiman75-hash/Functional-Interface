@@ -97,10 +97,10 @@ function multiTemplate(context: MultiContext, index: number) {
   );
   const groupWord = context.groupCount === 3 ? "three groups" : "four groups";
   const patterns = [
-    `The ${groupWord} contain ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. Find the average ${context.measure} for all ${context.members}.`,
-    `${context.groupCount} groups have ${counts.join(", ")} ${context.members}, and their averages are ${averages.join(", ")}. What is the average ${context.measure} when all are taken together?`,
-    `The numbers of ${context.members} in the ${groupWord} are ${counts.join(", ")}. Their average ${context.measure} values are ${averages.join(", ")}. Find the average for everyone together.`,
-    `For the ${groupWord}, the numbers of ${context.members} are ${counts.join(", ")} and the averages are ${averages.join(", ")}. Find the average ${context.measure} for all groups together.`,
+    `The ${groupWord} have ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. Find the average ${context.measure} for all.`,
+    `${context.groupCount} groups contain ${counts.join(", ")} ${context.members}. Their averages are ${averages.join(", ")}. What is the average ${context.measure} for everyone?`,
+    `The ${groupWord} have ${counts.join(", ")} ${context.members}, with averages ${averages.join(", ")}. Find the average when all are taken together.`,
+    `For the ${groupWord}, the numbers are ${counts.join(", ")} and the averages are ${averages.join(", ")}. Find the average ${context.measure} for all.`,
   ];
   return patterns[index % patterns.length]!;
 }
@@ -110,11 +110,11 @@ function countTemplate(context: PairContext, index: number) {
   const unknownAverage = unitText(context.unitKind, "{unknownAverage}");
   const combinedAverage = unitText(context.unitKind, "{combinedAverage}");
   const patterns = [
-    `{knownCount} ${context.first} average ${knownAverage}. Some ${context.second} average ${unknownAverage}. The average for all ${context.members} is ${combinedAverage}. How many ${context.second} are there?`,
-    `{knownCount} ${context.first} have average ${knownAverage}. After some ${context.second}, averaging ${unknownAverage}, are added, the average becomes ${combinedAverage}. Find their number.`,
-    `The average for {knownCount} ${context.first} and some ${context.second} is ${combinedAverage}. Their separate averages are ${knownAverage} and ${unknownAverage}. How many ${context.second} are there?`,
-    `{knownCount} ${context.first} average ${knownAverage}, and the ${context.second} average ${unknownAverage}. Together they average ${combinedAverage}. Find the number of ${context.second}.`,
-    `Some ${context.second}, averaging ${unknownAverage}, join {knownCount} ${context.first} averaging ${knownAverage}. The average then becomes ${combinedAverage}. How many ${context.second} joined?`,
+    `{knownCount} ${context.first} average ${knownAverage}. Some ${context.second} average ${unknownAverage}. All ${context.members} average ${combinedAverage}. How many ${context.second} are there?`,
+    `{knownCount} ${context.first} average ${knownAverage}. Some ${context.second} averaging ${unknownAverage} are added, making the average ${combinedAverage}. Find their number.`,
+    `{knownCount} ${context.first} and some ${context.second} average ${combinedAverage} together. Their averages are ${knownAverage} and ${unknownAverage}. How many ${context.second} are there?`,
+    `{knownCount} ${context.first} average ${knownAverage}; the ${context.second} average ${unknownAverage}. Together they average ${combinedAverage}. How many ${context.second} are there?`,
+    `Some ${context.second} averaging ${unknownAverage} join {knownCount} ${context.first} averaging ${knownAverage}. The average becomes ${combinedAverage}. How many joined?`,
   ];
   return patterns[index % patterns.length]!;
 }
@@ -123,11 +123,11 @@ function missingTemplate(context: PairContext, index: number) {
   const average1 = unitText(context.unitKind, "{average1}");
   const combinedAverage = unitText(context.unitKind, "{combinedAverage}");
   const patterns = [
-    `{count1} ${context.first} average ${average1}. With {count2} ${context.second}, all ${context.members} average ${combinedAverage}. Find the average ${context.measure} of the ${context.second}.`,
-    `{count1} ${context.first} have average ${average1}. After {count2} ${context.second} are added, the average for all ${context.members} is ${combinedAverage}. Find the average of the ${context.second}.`,
-    `{count1} ${context.first} and {count2} ${context.second} average ${combinedAverage} together. If the ${context.first} average ${average1}, what is the average ${context.measure} of the ${context.second}?`,
-    `{count1} ${context.first}, averaging ${average1}, are joined by {count2} ${context.second}. The average then becomes ${combinedAverage}. Find the average of the ${context.second}.`,
-    `There are {count1} ${context.first} and {count2} ${context.second}. The ${context.first} average ${average1}, while everyone together averages ${combinedAverage}. Find the average of the ${context.second}.`,
+    `{count1} ${context.first} average ${average1}. With {count2} ${context.second}, all ${context.members} average ${combinedAverage}. Find the average of the ${context.second}.`,
+    `{count1} ${context.first} average ${average1}. Adding {count2} ${context.second} makes the average ${combinedAverage}. Find the average of the ${context.second}.`,
+    `{count1} ${context.first} and {count2} ${context.second} average ${combinedAverage} together. The ${context.first} average ${average1}. What do the ${context.second} average?`,
+    `{count1} ${context.first} averaging ${average1} are joined by {count2} ${context.second}. The average becomes ${combinedAverage}. Find the average of the ${context.second}.`,
+    `There are {count1} ${context.first} and {count2} ${context.second}. The ${context.first} average ${average1}; everyone averages ${combinedAverage}. Find the average of the ${context.second}.`,
   ];
   return patterns[index % patterns.length]!;
 }
