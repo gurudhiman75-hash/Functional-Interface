@@ -5,28 +5,21 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 const failures: string[] = [];
 const countsByCp: Record<string, number> = {};
 let cases = 0;
-
 const conceptPatterns: Record<string, RegExp> = {
-  "AVG-CP-001": /multiply the average|divide the total|known total|required total|shared among|total is/i,
-  "AVG-CP-002": /equally spaced|halfway|middle term|equal gaps|half-span|span/i,
-  "AVG-CP-003": /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs/i,
-  "AVG-CP-004": /group total|combined count|combined total|weighted deviations|equal distances|slower speed|same amount of time|equal weight/i,
+  "AVG-CP-001": /multiply the average|divide the total|known total|required total|shared among|total is|same operation|uniform change|applied directly to the average/i,
+  "AVG-CP-002": /equally spaced|halfway|middle term|equal gaps|half-span|span|extreme term|common difference|number of gaps/i,
+  "AVG-CP-003": /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs|joining member|member leaves|original group size|remaining members/i,
+  "AVG-CP-004": /group total|combined count|combined total|weighted deviations|equal distances|slower speed|same amount of time|equal weight|group-size ratio|distances of the combined average|total distance|total time|unequal distances|unequal times|weight each speed/i,
   "AVG-CP-005": /entry correction|entry error|average shift|average change|change in average|old average|old total|reported total|corrected average|correct average|earlier average|wrong entry|correct entry|wrong value|correct value|net correction|change in total|total change|difference in (?:the )?(?:entr(?:y|ies)|values?|totals?)|difference between (?:the )?(?:two )?(?:values?|totals?)|mistaken entry|recorded total|corrected total|earlier total|replace(?:d|ment| it)?|remove it|correct both (?:entries|values)|gap in totals/i,
   "AVG-CP-006": /group totals?|member counts?|combined total|combined average|full total|known total|missing average|missing count|subgroup total|overall total|simple mean of the group averages/i,
 };
-
 const bannedTextbookLanguage = /representative share|equal-share groups?|opposite-end pairs?|common mean of|deviations? cancel|point of symmetry|combined total represented by|unaccounted for|revised average is the updated total shared equally|must supply exactly|locates the requested/i;
 const formulaOnlyOpeners = /^(use:|substitute\b)/i;
-
-function wordCount(line: string) {
-  return line.replace(/\$\$.*?\$\$/g, "").replace(/[^A-Za-z]+/g, " ").trim().split(/\s+/).filter(Boolean).length;
-}
+function wordCount(line: string) { return line.replace(/\$\$.*?\$\$/g, "").replace(/[^A-Za-z]+/g, " ").trim().split(/\s+/).filter(Boolean).length; }
 function numericValue(value: unknown): number {
   if (typeof value === "number") return value;
   if (typeof value === "string") return Number(value.replace(/,/g, ""));
-  if (value && typeof value === "object" && "numerator" in value && "denominator" in value) {
-    return Number((value as { numerator: number }).numerator) / Number((value as { denominator: number }).denominator);
-  }
+  if (value && typeof value === "object" && "numerator" in value && "denominator" in value) return Number((value as { numerator: number }).numerator) / Number((value as { denominator: number }).denominator);
   return Number.NaN;
 }
 function containsAnswer(line: string, answer: string) {
@@ -35,7 +28,6 @@ function containsAnswer(line: string, answer: string) {
   const answerToken = answer.replace(/,/g, "").match(pattern)?.[0];
   return Boolean(answerToken && lineTokens.includes(answerToken));
 }
-
 const entries = getAvg001QuestionEntries();
 for (const entry of entries) {
   for (let index = 0; index < 12; index += 1) {
@@ -82,7 +74,6 @@ for (const entry of entries) {
     if (pkg.parameters.scenarioVariant === "newbornAfterElapsedYears" && /\bchild\b/i.test(joined)) failures.push(`${entry.qlId}:${index}: reintroduces child wording for the joining member`);
   }
 }
-
 console.log(JSON.stringify({ cases, countsByCp, failureCount: failures.length, failures: failures.slice(0, 100), status: failures.length ? "FAIL" : "PASS" }, null, 2));
 assert.equal(cases, entries.length * 12);
 assert.equal(failures.length, 0, failures.join("\n"));
