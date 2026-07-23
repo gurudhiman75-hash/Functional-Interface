@@ -33,7 +33,7 @@ const leads = [
   "A data set", "A performance record", "A monthly report", "A selection list",
   "A production summary", "A score sheet", "A departmental record", "A survey table",
 ] as const;
-const seriesLeads = ["A number series", "An equally spaced score series", "A sequence of readings", "A fixed-interval series", "A row of consecutive values", "An arithmetic sequence"] as const;
+const seriesLeads = ["A number series", "An equally spaced score series", "A set of equally spaced readings", "A fixed-interval series", "A row of consecutive values", "A set of equally spaced values"] as const;
 const ratioLeads = ["Two classes", "Two departments", "Two teams", "Two employee groups", "Two production units", "Two districts", "Two training batches", "Two account groups"] as const;
 const travelLeads = ["A bus journey", "A delivery trip", "A train route", "A highway journey", "A service vehicle trip", "A field inspection tour"] as const;
 
