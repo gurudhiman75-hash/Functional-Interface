@@ -6,12 +6,14 @@ import { AVG_001_PACKAGE_ID, type Avg001Language, type Avg001Parameters, type Av
 function hash(value: string) { let h = 2166136261; for (let i = 0; i < value.length; i += 1) { h ^= value.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
 function prng(seed: string) { let state = hash(seed) || 1; return () => { state = (Math.imul(state, 1664525) + 1013904223) >>> 0; return state / 4294967296; }; }
 function pick<T>(items: readonly T[], next: () => number) { return items[Math.floor(next() * items.length)]!; }
+function seedOrdinal(seed: string) { const match = seed.match(/:(\d+)$/); return match ? Number(match[1]) : hash(seed); }
 function format(value: Rational, answerType: string) { return answerType === "RATIO" ? `${value.numerator}:${value.denominator}` : formatRational(value, "EXACT_INTEGER"); }
 
 type GapState = Record<string, number | boolean | Rational> & { answer: Rational };
 
 function stateFor(mode: string, seed: string, localIndex: number): GapState {
   const next = prng(`${seed}:${mode}:${localIndex}:gap`);
+  const variant = seedOrdinal(seed);
   if (mode === "findAverageAfterUniformTransformation") {
     const count = pick([8, 10, 12, 15, 20], next);
     const oldAverage = pick([24, 30, 36, 40, 45, 50], next);
@@ -28,32 +30,32 @@ function stateFor(mode: string, seed: string, localIndex: number): GapState {
     return { count, difference, average, extreme, greatest, answer: rational(mode.includes("TermCount") ? count : difference) };
   }
   if (mode === "findOriginalCountFromJoiningMemberShift") {
-    const rows = [[8,30,2],[10,40,3],[12,35,2],[15,45,2],[20,50,2],[10,30,4]] as const;
-    const [count, oldAverage, shift] = rows[localIndex % rows.length]!;
+    const rows = [[8,30,2],[10,40,3],[12,35,2],[15,45,2],[20,50,2],[10,30,4],[14,38,2],[18,42,2]] as const;
+    const [count, oldAverage, shift] = rows[variant % rows.length]!;
     const memberValue = oldAverage + shift * (count + 1);
     return { count, oldAverage, shift, memberValue, newAverage: oldAverage + shift, answer: rational(count) };
   }
   if (mode === "findOriginalCountFromLeavingMemberShift") {
-    const rows = [[8,40,2],[10,45,-2],[12,50,2],[15,55,-2],[20,60,2],[10,50,-3]] as const;
-    const [count, oldAverage, delta] = rows[localIndex % rows.length]!;
+    const rows = [[8,40,2],[10,45,-2],[12,50,2],[15,55,-2],[20,60,2],[10,50,-3],[14,48,2],[18,58,-2]] as const;
+    const [count, oldAverage, delta] = rows[variant % rows.length]!;
     const newAverage = oldAverage + delta;
     const memberValue = oldAverage - delta * (count - 1);
     return { count, oldAverage, shift: Math.abs(delta), memberValue, newAverage, answer: rational(count) };
   }
   if (mode === "findGroupCountRatioFromCombinedAverage") {
     const pairs = [[30,50,40],[35,55,43],[40,70,52],[45,75,57],[50,80,62],[30,60,48],[40,60,48],[50,70,62]] as const;
-    const [lower, upper, combined] = pairs[localIndex % pairs.length]!;
+    const [lower, upper, combined] = pairs[variant % pairs.length]!;
     const divisor = gcd(upper - combined, combined - lower);
     return { lower, upper, combined, answer: rational((upper - combined) / divisor, (combined - lower) / divisor) };
   }
   if (mode === "findAverageSpeedForUnequalDistances") {
-    const rows = [[60,30,120,60],[80,40,240,80],[90,45,180,60],[120,60,240,80],[100,50,200,100],[150,75,150,50]] as const;
-    const [distance1, speed1, distance2, speed2] = rows[localIndex % rows.length]!;
+    const rows = [[60,30,120,60],[80,40,240,80],[90,45,180,60],[120,60,240,80],[100,50,200,100],[150,75,150,50],[120,40,120,60],[180,60,120,40]] as const;
+    const [distance1, speed1, distance2, speed2] = rows[variant % rows.length]!;
     const answer = divide(rational(distance1 + distance2), add(divide(rational(distance1), rational(speed1)), divide(rational(distance2), rational(speed2))));
     return { distance1, speed1, distance2, speed2, answer };
   }
-  const rows = [[30,2,60,1],[40,1,70,2],[45,2,75,1],[50,3,80,2],[36,2,72,1],[60,1,90,2]] as const;
-  const [speed1, time1, speed2, time2] = rows[localIndex % rows.length]!;
+  const rows = [[30,2,60,1],[40,1,70,2],[45,2,75,1],[50,3,80,2],[36,2,72,1],[60,1,90,2],[50,2,70,3],[48,3,72,1]] as const;
+  const [speed1, time1, speed2, time2] = rows[variant % rows.length]!;
   const answer = divide(rational(speed1 * time1 + speed2 * time2), rational(time1 + time2));
   return { speed1, time1, speed2, time2, answer };
 }
