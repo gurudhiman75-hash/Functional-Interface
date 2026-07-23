@@ -9,6 +9,7 @@ import adminAccessControlHardeningRouter from "./admin-access-control-hardening"
 import adminAccessControlRouter from "./admin-access-control";
 import adminContentIntelligenceRouter from "./admin-content-intelligence";
 import adminContentReviewRouter from "./admin-content-review";
+import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
@@ -81,6 +82,7 @@ router.use("/admin/students", adminStudentsRouter);
 // duplicate scanning and audit-derived chapter freeze governance.
 router.use("/admin/content-review", adminContentIntelligenceRouter);
 router.use("/admin/content-review", adminContentReviewRouter);
+router.use("/admin/question-studio", adminQuestionStudioBulkHardeningRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
