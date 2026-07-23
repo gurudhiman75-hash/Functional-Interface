@@ -13,6 +13,7 @@ import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
+import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mixed-difficulty";
 import adminQuestionStudioRouter from "./admin-question-studio";
 import adminQuestionBulkWorkflowRouter from "./admin-question-bulk-workflow";
 import adminQuestionLifecycleHardeningRouter from "./admin-question-lifecycle-hardening";
@@ -89,6 +90,9 @@ router.use("/admin/question-studio", adminQuestionStudioBulkHardeningRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioAverageRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
+// Mixed difficulty shadows only POST /runs requests with difficulty=Mixed.
+// Ordinary Easy, Medium and Hard generation continues through the canonical route.
+router.use("/admin/question-studio", adminQuestionStudioMixedDifficultyRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
 router.use("/admin/questions", adminQuestionBulkWorkflowRouter);
 router.use("/admin/questions", adminQuestionLifecycleHardeningRouter);
