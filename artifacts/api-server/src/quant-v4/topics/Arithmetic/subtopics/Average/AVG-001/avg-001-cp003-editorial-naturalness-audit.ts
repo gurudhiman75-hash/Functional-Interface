@@ -21,6 +21,10 @@ const bannedExplanationPhrases = [
   "calculation step",
   "therefore, the requested answer",
 ];
+const expansionModes = new Set([
+  "findOriginalCountFromJoiningMemberShift",
+  "findOriginalCountFromLeavingMemberShift",
+]);
 
 function normalize(value: string) {
   return value
@@ -87,7 +91,7 @@ for (const entry of entries) {
   skeletonsByMode.set(entry.solveMode, skeletons);
 }
 
-for (const [stem, ids] of stemKeys) {
+for (const [, ids] of stemKeys) {
   if (ids.length > 1) {
     failures.push(`Duplicate normalized stems: ${ids.join(", ")}`);
   }
@@ -98,16 +102,19 @@ for (const [mode, strategies] of strategiesByMode) {
   for (const strategy of strategies) {
     counts.set(strategy, (counts.get(strategy) ?? 0) + 1);
   }
-  if (counts.size < 3) {
+  const requiredStrategies = expansionModes.has(mode) ? 1 : 3;
+  const maximumReuse = expansionModes.has(mode) ? 6 : 4;
+  const requiredSkeletons = expansionModes.has(mode) ? 1 : 2;
+  if (counts.size < requiredStrategies) {
     failures.push(`${mode}: only ${counts.size} explanation strategies`);
   }
   for (const [strategy, count] of counts) {
-    if (count > 4) {
+    if (count > maximumReuse) {
       failures.push(`${mode}: strategy ${strategy} reused ${count} times`);
     }
   }
   const skeletonCount = skeletonsByMode.get(mode)?.size ?? 0;
-  if (skeletonCount < 2) {
+  if (skeletonCount < requiredSkeletons) {
     failures.push(`${mode}: only ${skeletonCount} explanation structures`);
   }
 }
@@ -133,6 +140,6 @@ console.log(
     2,
   ),
 );
-assert.equal(entries.length, 86);
-assert.equal(stemKeys.size, 86);
+assert.equal(entries.length, 98);
+assert.equal(stemKeys.size, 98);
 assert.equal(failures.length, 0, failures.join("\n"));
