@@ -12,32 +12,45 @@ const allocations: Array<{ cpId: Avg001QuestionLanguageEntry["cpId"]; mode: Avg0
 ];
 
 const contexts = [
-  { domain: "Education", noun: "students", unit: "marks", unitKind: "marks" },
-  { domain: "Workforce", noun: "employees", unit: "units", unitKind: "units" },
-  { domain: "Sports", noun: "players", unit: "runs", unitKind: "runs" },
-  { domain: "Demography", noun: "residents", unit: "years", unitKind: "years" },
-  { domain: "Finance", noun: "accounts", unit: "rupees", unitKind: "currency" },
-  { domain: "Production", noun: "machines", unit: "units", unitKind: "units" },
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Workforce", unit: "units", unitKind: "units" },
+  { domain: "Sports", unit: "runs", unitKind: "runs" },
+  { domain: "Demography", unit: "years", unitKind: "years" },
+  { domain: "Finance", unit: "rupees", unitKind: "currency" },
+  { domain: "Production", unit: "units", unitKind: "units" },
 ] as const;
 
+const leads = [
+  "A data set", "A performance record", "A monthly report", "A selection list",
+  "A production summary", "A score sheet", "A departmental record", "A survey table",
+] as const;
+const seriesLeads = ["A number series", "An equally spaced score series", "A sequence of readings", "A fixed-interval series", "A row of consecutive values", "An arithmetic sequence"] as const;
+const groupLeads = ["A training batch", "A work team", "A class", "A sports squad", "A survey group", "A production unit"] as const;
+const ratioLeads = ["Two classes", "Two departments", "Two teams", "Two employee groups", "Two production units", "Two districts", "Two training batches", "Two account groups"] as const;
+const travelLeads = ["A bus journey", "A delivery trip", "A train route", "A highway journey", "A service vehicle trip", "A field inspection tour"] as const;
+
 function template(mode: Avg001SolveMode, index: number) {
-  const prefix = index % 2 === 0 ? "In a survey" : "During an assessment";
-  if (mode === "findAverageAfterUniformTransformation") return index % 3 === 0
-    ? `${prefix}, the average of {count} values is {oldAverage}. Each value is increased by {change}. Find the new average.`
-    : index % 3 === 1
-      ? `${prefix}, the average of {count} values is {oldAverage}. Every value is multiplied by {factor}. What is the new average?`
-      : `${prefix}, the average of {count} values is {oldAverage}. Each value is first multiplied by {factor} and then increased by {change}. Find the resulting average.`;
-  if (mode === "findTermCountFromAverageAndExtreme") return `The average of an equally spaced series is {average}, its {extremeLabel} term is {extremeValue}, and the common difference is {commonDifference}. Find the number of terms.`;
-  if (mode === "findCommonDifferenceFromAverageCountAndExtreme") return `An equally spaced series has {count} terms and average {average}. Its {extremeLabel} term is {extremeValue}. Find the common difference.`;
-  if (mode === "findOriginalCountFromJoiningMemberShift") return `The average of a group is {oldAverage} {unit}. A new member with value {memberValue} {unit} joins, raising the average by {averageChange} {unit}. Find the original group size.`;
-  if (mode === "findOriginalCountFromLeavingMemberShift") return `The average of a group is {oldAverage} {unit}. A member with value {memberValue} {unit} leaves, changing the average to {newAverage} {unit}. Find the original group size.`;
-  if (mode === "findGroupCountRatioFromCombinedAverage") return `Two groups have averages {groupAverage1} and {groupAverage2}. Their combined average is {combinedAverage}. Find the ratio of their sizes.`;
-  if (mode === "findAverageSpeedForUnequalDistances") return `A vehicle covers {distance1} km at {speed1} km/h and {distance2} km at {speed2} km/h. Find its average speed for the whole journey.`;
-  return `A vehicle travels at {speed1} km/h for {time1} hours and at {speed2} km/h for {time2} hours. Find its average speed.`;
+  if (mode === "findAverageAfterUniformTransformation") {
+    const lead = leads[index]!;
+    if (index % 3 === 0) return `${lead} contains {count} values with average {oldAverage}. Each value is increased by {change}. Find the new average.`;
+    if (index % 3 === 1) return `${lead} has {count} entries averaging {oldAverage}. Every entry is multiplied by {factor}. What is the resulting average?`;
+    return `${lead} has {count} observations with average {oldAverage}. Each observation is multiplied by {factor} and then increased by {change}. Find the final average.`;
+  }
+  if (mode === "findTermCountFromAverageAndExtreme") return `${seriesLeads[index]} has average {average}, {extremeLabel} term {extremeValue}, and common difference {commonDifference}. Find the number of terms.`;
+  if (mode === "findCommonDifferenceFromAverageCountAndExtreme") return `${seriesLeads[index]} contains {count} terms with average {average}. Its {extremeLabel} term is {extremeValue}. Find the common difference.`;
+  if (mode === "findOriginalCountFromJoiningMemberShift") return `${groupLeads[index]} has average {oldAverage} {unit}. A new member with value {memberValue} {unit} joins and raises the average by {averageChange} {unit}. Find the original group size.`;
+  if (mode === "findOriginalCountFromLeavingMemberShift") return `${groupLeads[index]} has average {oldAverage} {unit}. A member with value {memberValue} {unit} leaves, after which the average becomes {newAverage} {unit}. Find the original group size.`;
+  if (mode === "findGroupCountRatioFromCombinedAverage") return `${ratioLeads[index]} have averages {groupAverage1} and {groupAverage2}; together they average {combinedAverage}. Find the ratio of their sizes.`;
+  if (mode === "findAverageSpeedForUnequalDistances") return `${travelLeads[index]} covers {distance1} km at {speed1} km/h and another {distance2} km at {speed2} km/h. Find the average speed for the entire route.`;
+  return `${travelLeads[index]} continues at {speed1} km/h for {time1} hours and then at {speed2} km/h for {time2} hours. Find the average speed.`;
 }
 
-function variables(mode: Avg001SolveMode) {
-  if (mode === "findAverageAfterUniformTransformation") return ["count", "oldAverage", "factor", "change"];
+function variables(mode: Avg001SolveMode, index: number) {
+  if (mode === "findAverageAfterUniformTransformation") {
+    if (index % 3 === 0) return ["count", "oldAverage", "change"];
+    if (index % 3 === 1) return ["count", "oldAverage", "factor"];
+    return ["count", "oldAverage", "factor", "change"];
+  }
   if (mode === "findTermCountFromAverageAndExtreme") return ["average", "extremeLabel", "extremeValue", "commonDifference"];
   if (mode === "findCommonDifferenceFromAverageCountAndExtreme") return ["count", "average", "extremeLabel", "extremeValue"];
   if (mode === "findOriginalCountFromJoiningMemberShift") return ["oldAverage", "memberValue", "averageChange", "unit"];
@@ -50,7 +63,7 @@ function variables(mode: Avg001SolveMode) {
 let nextId = 374;
 export const gapExpansionEntries: Avg001QuestionLanguageEntry[] = allocations.flatMap((allocation) =>
   Array.from({ length: allocation.count }, (_, localIndex) => {
-    const context = contexts[(nextId + localIndex) % contexts.length]!;
+    const context = contexts[(nextId - 374) % contexts.length]!;
     const qlId = `AVG-QL-${String(nextId++).padStart(3, "0")}`;
     return {
       cpId: allocation.cpId,
@@ -62,7 +75,7 @@ export const gapExpansionEntries: Avg001QuestionLanguageEntry[] = allocations.fl
       contextDomain: allocation.mode.includes("Speed") ? "Travel" : context.domain,
       scenarioVariant: `${allocation.mode}:${localIndex + 1}`,
       template: template(allocation.mode, localIndex),
-      requiredVariables: variables(allocation.mode),
+      requiredVariables: variables(allocation.mode, localIndex),
       explanationStrategyId: `gap:${allocation.mode}`,
       distractorStrategyIds: ["nearby-value", "inverse-operation", "unweighted-shortcut"],
       displayPolicy: "EXACT_INTEGER",
