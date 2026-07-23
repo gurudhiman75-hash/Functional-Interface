@@ -18,7 +18,7 @@ export type Avg001SolveMode =
   | "findAverageOfConsecutiveSet" | "findMiddleTermFromAverage" | "findExtremeFromAverageAndCount" | "findAverageOfOddOrEvenSet"
   | "findNewAverageAfterAddition" | "findNewAverageAfterRemoval" | "findNewAverageAfterReplacement" | "findAddedMemberValueFromShift" | "findRemovedMemberValueFromShift" | "findReplacementValueFromShift" | "findInningsValueOrNewCricketAverage"
   | "findCombinedAverageOfTwoGroups" | "findCombinedAverageOfThreeOrFourGroups" | "findGroupCountFromCombinedAverage" | "findMissingGroupAverage" | "findAverageSpeedEqualDistance" | "findAverageSpeedEqualTime"
-  | "findCorrectedAverageFromMistake" | "findCorrectValueFromAverageShift" | "findIncorrectValueFromCorrection" | "findNumberOfItemsFromTotalCorrection"
+  | "findCorrectedAverageFromMistake" | "findReportedAverageBeforeCorrection" | "findCorrectValueFromAverageShift" | "findIncorrectValueFromCorrection" | "findEntryDifferenceFromAverageCorrection" | "findAverageChangeFromEntryCorrection" | "findNumberOfItemsFromTotalCorrection" | "findCorrectedAverageFromMultipleMistakes"
   | "findClassAverageFromSectionAverages" | "findSuperGroupAverageFromSubgroups" | "findMissingSectionAverage" | "findSectionCountFromOverallAverage";
 
 export interface Rational { numerator: number; denominator: number }
@@ -61,6 +61,16 @@ export interface Avg001Parameters {
     unknownGroupAverage?: Rational;
     speed1?: Rational;
     speed2?: Rational;
+    reportedAverage?: Rational;
+    correctedAverage?: Rational;
+    incorrectValue?: Rational;
+    correctValue?: Rational;
+    entryDifference?: Rational;
+    averageChange?: Rational;
+    correctionDirection?: "increase" | "decrease";
+    incorrectValues?: Rational[];
+    correctValues?: Rational[];
+    netCorrection?: Rational;
   };
   renderVariables: Record<string, string | number>;
 }
