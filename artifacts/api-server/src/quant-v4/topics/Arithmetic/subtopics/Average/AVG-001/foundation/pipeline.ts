@@ -5,6 +5,7 @@ import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-polish"
 import { applyAvg001Cp005ExplanationPolish } from "./cp005-explanation-polish";
 import { applyAvg001Cp005ExplanationVariants } from "./cp005-explanation-variants";
 import { runAvg001Cp005Pipeline } from "./cp005-runtime";
+import { runAvg001Cp006Pipeline } from "./cp006-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { applyAvg001ContextualConclusion } from "./explanation-context";
 import { applyAvg001ExplanationDepth } from "./explanation-depth";
@@ -38,6 +39,7 @@ export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: s
       ),
     );
   }
+  if (entry.cpId === "AVG-CP-006") return runAvg001Cp006Pipeline({ questionLanguageId, seed, language });
 
   const parameters = generateAvg001Parameters({ questionLanguageId, seed, language });
   const solver = solveAvg001(parameters);
