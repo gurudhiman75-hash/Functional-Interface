@@ -9,6 +9,7 @@ import { cp004Entries } from "./cp004-library";
 import { cp005Entries } from "./cp005-library";
 import { cp006Entries } from "./cp006-library";
 import { applyAvg001Cp004StemVariant } from "./cp004-stem-variants";
+import { applyAvg001Cp006FinalStemOverride } from "./cp006-final-stem-overrides";
 import { applyAvg001Cp006StemPolish } from "./cp006-stem-polish";
 import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
@@ -38,7 +39,7 @@ function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
 }
 
 const normalizeEntry = (entry: Avg001QuestionLanguageEntry) => applyCp005RuntimeMetadata(applyCp004RuntimeMetadata(entry));
-const polishEntry = (entry: Avg001QuestionLanguageEntry) => applyAvg001Cp006StemPolish(applyAvg001Cp004StemVariant(applyAvg001EditorialStem(normalizeEntry(entry))));
+const polishEntry = (entry: Avg001QuestionLanguageEntry) => applyAvg001Cp006FinalStemOverride(applyAvg001Cp006StemPolish(applyAvg001Cp004StemVariant(applyAvg001EditorialStem(normalizeEntry(entry)))));
 
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
