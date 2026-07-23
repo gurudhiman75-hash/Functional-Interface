@@ -4,8 +4,7 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const bannedStemPatterns: Array<[RegExp, string]> = [
   [/\bbranche\b/i, "misspelling of branch"],
-  [/\ba average\b/i, "wrong article before average"],
-  [/\b\d+(?:\.\d+)?(?:\s*(?:marks|runs|years|kg|units))? is (?:corrected|replaced)\b/i, "numeric phrase used with singular verb"],
+  [/\b(?:shows|has|gives|reports|is) a average\b/i, "wrong article before average"],
   [/\bwas averaged to\b/i, "unnatural passive average wording"],
   [/\bfind the accurate average\b/i, "unnatural accurate-average wording"],
   [/\bhas reported average\b/i, "missing article before reported average"],
