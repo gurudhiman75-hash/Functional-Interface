@@ -1,4 +1,4 @@
-import { getFirebaseAuth } from '@/integrations/firebase';
+import { adminRequest } from '@/lib/admin-request';
 
 export type GenerationRunStatus =
   | 'draft'
@@ -160,58 +160,34 @@ export interface RegenerateGenerationItemsResult {
   failed: Array<{ itemId: string; message: string }>;
 }
 
-const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
-const apiBase = (configuredBase || '/api').replace(/\/$/, '');
-
-async function getToken() {
-  const auth = getFirebaseAuth();
-  const user = auth?.currentUser;
-  if (!user) {
-    throw new Error('Your ExamTree admin session has expired. Sign in again.');
-  }
-  return user.getIdToken();
-}
-
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const token = await getToken();
-  const response = await fetch(`${apiBase}${path}`, {
-    ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-      ...init?.headers,
-    },
-  });
-
-  const body = await response.json().catch(() => null) as ({ error?: string } & T) | null;
-  if (!response.ok) {
-    throw new Error(body?.error || `Question Studio request failed (${response.status}).`);
-  }
-  if (!body) {
-    throw new Error('Question Studio returned an empty response.');
-  }
-  return body;
-}
-
 export function getQuestionStudioCapabilities() {
-  return request<QuestionStudioCapabilities>('/admin/question-studio/capabilities');
+  return adminRequest<QuestionStudioCapabilities>(
+    '/admin/question-studio/capabilities',
+    undefined,
+    { fallbackMessage: 'Unable to load Question Studio capabilities.' },
+  );
 }
 
 export function getQuestionStudioDashboard() {
-  return request<QuestionStudioDashboard>('/admin/question-studio/dashboard');
+  return adminRequest<QuestionStudioDashboard>(
+    '/admin/question-studio/dashboard',
+    undefined,
+    { fallbackMessage: 'Unable to load the Question Studio dashboard.' },
+  );
 }
 
 export function createGenerationRun(input: CreateGenerationRunInput) {
-  return request<{
+  return adminRequest<{
     id: string;
     publicCode: string;
     status: GenerationRunStatus;
     itemCount: number;
     generationSystem: string;
-  }>('/admin/question-studio/runs', {
-    method: 'POST',
-    body: JSON.stringify(input),
-  });
+  }>(
+    '/admin/question-studio/runs',
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to create the generation run.' },
+  );
 }
 
 export function updateGenerationItems(input: {
@@ -219,7 +195,7 @@ export function updateGenerationItems(input: {
   status: GenerationItemStatus;
   reason?: string;
 }) {
-  return request<{
+  return adminRequest<{
     items: Array<{
       id: string;
       generationRunId: string;
@@ -230,15 +206,16 @@ export function updateGenerationItems(input: {
     updatedCount: number;
     converted: ConvertedQuestion[];
     convertedCount: number;
-  }>('/admin/question-studio/items/bulk', {
-    method: 'PATCH',
-    body: JSON.stringify(input),
-  });
+  }>(
+    '/admin/question-studio/items/bulk',
+    { method: 'PATCH', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to update generated questions.' },
+  );
 }
 
 export function reviseGenerationItem(input: ReviseGenerationItemInput) {
   const { itemId, ...body } = input;
-  return request<{
+  return adminRequest<{
     kind: 'updated';
     item: {
       id: string;
@@ -250,15 +227,17 @@ export function reviseGenerationItem(input: ReviseGenerationItemInput) {
       payload: Record<string, unknown>;
     };
     quality: QuestionStudioQualityReport;
-  }>(`/admin/question-studio/items/${encodeURIComponent(itemId)}/revision`, {
-    method: 'PATCH',
-    body: JSON.stringify(body),
-  });
+  }>(
+    `/admin/question-studio/items/${encodeURIComponent(itemId)}/revision`,
+    { method: 'PATCH', body: JSON.stringify(body) },
+    { fallbackMessage: 'Unable to save the generated-item revision.', affectedRecord: itemId },
+  );
 }
 
 export function regenerateGenerationItems(input: RegenerateGenerationItemsInput) {
-  return request<RegenerateGenerationItemsResult>('/admin/question-studio/items/regenerate', {
-    method: 'POST',
-    body: JSON.stringify(input),
-  });
+  return adminRequest<RegenerateGenerationItemsResult>(
+    '/admin/question-studio/items/regenerate',
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to regenerate selected questions.' },
+  );
 }
