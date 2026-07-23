@@ -19,6 +19,7 @@ import adminQuestionTaxonomyHardeningRouter from "./admin-question-taxonomy-hard
 import adminQuestionsRouter from "./admin-questions";
 import adminStudentActionsRouter from "./admin-student-actions";
 import adminStudentsRouter from "./admin-students";
+import adminRequestFailuresRouter from "./admin-request-failures";
 import adminSystemHealthActionsRouter from "./admin-system-health-actions";
 import adminSystemHealthRedactionRouter from "./admin-system-health-redaction";
 import adminSystemHealthRouter from "./admin-system-health";
@@ -100,7 +101,8 @@ router.use("/admin/translations", adminTestTranslationsRouter);
 router.use("/admin/translations", adminTranslationsRouter);
 // Operational visibility reuses the canonical jobs, generation, validation,
 // outbox and audit foundations without creating a parallel monitoring store.
-// Response redaction is mounted first and the focused mutation router owns job actions.
+// Request failures are exposed before the wider telemetry routers.
+router.use("/admin/system-health", adminRequestFailuresRouter);
 router.use("/admin/system-health", adminSystemHealthRedactionRouter);
 router.use("/admin/system-health", adminSystemHealthActionsRouter);
 router.use("/admin/system-health", adminSystemHealthRouter);
