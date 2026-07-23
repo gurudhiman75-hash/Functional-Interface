@@ -1,0 +1,36 @@
+name: Apply AVG natural exam language
+
+on:
+  push:
+    branches:
+      - feat/avg-001-natural-exam-language
+    paths:
+      - .github/avg-natural-exam-language.trigger
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout editorial branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/avg-001-natural-exam-language
+          fetch-depth: 0
+      - name: Apply editorial source changes
+        run: python artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/apply-natural-exam-language.py
+      - name: Remove temporary patch machinery
+        run: |
+          rm artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/apply-natural-exam-language.py
+          rm .github/workflows/apply-avg-natural-exam-language.yml
+          rm .github/avg-natural-exam-language.trigger
+      - name: Commit natural-language pass
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "fix(avg): make stems read like natural exam questions"
+          git push origin HEAD:feat/avg-001-natural-exam-language
