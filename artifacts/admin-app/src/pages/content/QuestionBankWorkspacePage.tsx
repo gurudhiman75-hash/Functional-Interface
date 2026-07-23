@@ -12,6 +12,7 @@ import {
   Send,
   Sparkles,
   Tags,
+  Upload,
   X,
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -36,15 +37,19 @@ import {
   getLiveQuestions,
   getQuestionTaxonomyOptions,
   reconcileApprovedQuestions,
-  transitionQuestion,
-  updateQuestionTaxonomy,
   type LiveQuestion,
   type QuestionStatus,
   type TaxonomyOptionsResponse,
 } from '@/features/question-bank/api';
+import {
+  runQuestionBulkWorkflow,
+  type QuestionBulkAction,
+} from '@/features/question-bank/bulk-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
 const PAGE_SIZE = 25;
+
+type ReadinessFilter = 'all' | 'missing-taxonomy' | 'ready-to-publish' | 'published';
 
 function formatStatus(value: string) {
   return value.replace(/_/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
@@ -69,6 +74,26 @@ function statusClass(status: QuestionStatus) {
 
 function taxonomyName(question: LiveQuestion, nodeType: string) {
   return question.taxonomy.find((node) => node.nodeType === nodeType)?.name ?? '';
+}
+
+function hasCompleteTaxonomy(question: LiveQuestion) {
+  return Boolean(
+    question.examVersionId
+    && question.primaryTaxonomyNodeId
+    && taxonomyName(question, 'subject')
+    && taxonomyName(question, 'topic'),
+  );
+}
+
+function isReadyToPublish(question: LiveQuestion) {
+  return Boolean(
+    question.approvedVersionId
+    && hasCompleteTaxonomy(question)
+    && question.stem.trim()
+    && question.explanation.trim()
+    && question.options.length >= 2
+    && question.options.filter((option) => option.isCorrect).length === 1,
+  );
 }
 
 interface BulkTaxonomyState {
@@ -100,6 +125,7 @@ export function QuestionBankWorkspacePage() {
   const [difficulty, setDifficulty] = useState('all');
   const [status, setStatus] = useState('all');
   const [topic, setTopic] = useState('all');
+  const [readiness, setReadiness] = useState<ReadinessFilter>('all');
   const [page, setPage] = useState(1);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkTaxonomy, setBulkTaxonomy] = useState<BulkTaxonomyState>(EMPTY_BULK_TAXONOMY);
@@ -117,7 +143,9 @@ export function QuestionBankWorkspacePage() {
       ]);
       setQuestions(questionResult.questions);
       setTaxonomyOptions(optionResult);
-      setSelectedIds((current) => new Set([...current].filter((id) => questionResult.questions.some((question) => question.id === id))));
+      setSelectedIds((current) => new Set(
+        [...current].filter((id) => questionResult.questions.some((question) => question.id === id)),
+      ));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Question Bank.');
     } finally {
@@ -138,6 +166,9 @@ export function QuestionBankWorkspacePage() {
       if (difficulty !== 'all' && question.difficulty !== difficulty) return false;
       if (status !== 'all' && question.status !== status) return false;
       if (topic !== 'all' && taxonomyName(question, 'topic') !== topic) return false;
+      if (readiness === 'missing-taxonomy' && hasCompleteTaxonomy(question)) return false;
+      if (readiness === 'ready-to-publish' && (!isReadyToPublish(question) || question.status === 'published')) return false;
+      if (readiness === 'published' && !question.publishedVersionId) return false;
       if (!query) return true;
       return [
         question.publicCode,
@@ -149,14 +180,14 @@ export function QuestionBankWorkspacePage() {
         taxonomyName(question, 'topic'),
       ].join(' ').toLowerCase().includes(query);
     });
-  }, [questions, search, difficulty, status, topic]);
+  }, [questions, search, difficulty, status, topic, readiness]);
 
-  useEffect(() => { setPage(1); }, [search, difficulty, status, topic]);
+  useEffect(() => { setPage(1); }, [search, difficulty, status, topic, readiness]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const selected = questions.filter((question) => selectedIds.has(question.id));
-  const hasFilters = Boolean(search.trim()) || difficulty !== 'all' || status !== 'all' || topic !== 'all';
+  const hasFilters = Boolean(search.trim()) || difficulty !== 'all' || status !== 'all' || topic !== 'all' || readiness !== 'all';
 
   const exams = useMemo(
     () => taxonomyOptions?.exams.filter((exam) => exam.familyId === bulkTaxonomy.familyId) ?? [],
@@ -189,27 +220,40 @@ export function QuestionBankWorkspacePage() {
     });
   };
 
-  const finishBulk = async (label: string, operation: (question: LiveQuestion) => Promise<unknown>) => {
+  const runBulk = async (
+    action: QuestionBulkAction,
+    label: string,
+    extra: Record<string, unknown> = {},
+  ) => {
     if (selected.length === 0) return;
     setBulkBusy(true);
-    let completed = 0;
-    const failures: string[] = [];
-    for (const question of selected) {
-      try {
-        await operation(question);
-        completed += 1;
-      } catch (caught) {
-        failures.push(`${question.publicCode}: ${caught instanceof Error ? caught.message : 'failed'}`);
+    try {
+      const response = await runQuestionBulkWorkflow({
+        action,
+        items: selected.map((question) => ({
+          questionId: question.id,
+          expectedLockVersion: question.lockVersion,
+        })),
+        reason: bulkReason.trim() || undefined,
+        ...extra,
+      });
+      const failures = response.results.filter((result) => !result.ok);
+      await load();
+      setSelectedIds(new Set(failures.map((result) => result.questionId)));
+      if (failures.length === 0) {
+        setBulkReason('');
+        showToast.success(label, `${response.succeeded} question${response.succeeded === 1 ? '' : 's'} updated.`);
+      } else {
+        const first = failures[0];
+        showToast.warning(
+          `${label} partially completed`,
+          `${response.succeeded} updated, ${response.failed} failed. ${first.publicCode ? `${first.publicCode}: ` : ''}${first.message || first.code || 'Failed'}. Failed questions remain selected for retry.`,
+        );
       }
-    }
-    await load();
-    setBulkBusy(false);
-    if (failures.length === 0) {
-      setSelectedIds(new Set());
-      setBulkReason('');
-      showToast.success(label, `${completed} question${completed === 1 ? '' : 's'} updated.`);
-    } else {
-      showToast.warning(`${label} partially completed`, `${completed} updated, ${failures.length} failed. ${failures[0]}`);
+    } catch (caught) {
+      showToast.error(label, caught instanceof Error ? caught.message : 'Bulk update failed.');
+    } finally {
+      setBulkBusy(false);
     }
   };
 
@@ -218,40 +262,57 @@ export function QuestionBankWorkspacePage() {
       showToast.warning('Taxonomy incomplete', 'Select an exam, subject and topic.');
       return;
     }
-    await finishBulk('Taxonomy assigned', (question) => updateQuestionTaxonomy(question.id, {
-      expectedLockVersion: question.lockVersion,
+    await runBulk('assign-taxonomy', 'Taxonomy assigned', {
       examVersionId: bulkTaxonomy.examVersionId,
       primaryTaxonomyNodeId: bulkTaxonomy.topicId,
       taxonomyNodeIds: [bulkTaxonomy.subjectId, bulkTaxonomy.topicId],
-    }));
+    });
   };
 
   const changeBulkDifficulty = async () => {
+    if (selected.length === 0) return;
     const reason = bulkReason.trim() || `Bulk difficulty changed to ${bulkDifficulty}`;
-    await finishBulk('Difficulty changed', (question) => createQuestionVersion(question.id, {
-      expectedLockVersion: question.lockVersion,
-      stem: question.stem,
-      explanation: question.explanation,
-      difficulty: bulkDifficulty,
-      questionType: question.questionType,
-      changeReason: reason,
-      options: question.options.map((option) => ({ text: option.text, isCorrect: option.isCorrect })),
-    }));
+    setBulkBusy(true);
+    let completed = 0;
+    const failedIds: string[] = [];
+    let firstFailure = '';
+    for (const question of selected) {
+      try {
+        await createQuestionVersion(question.id, {
+          expectedLockVersion: question.lockVersion,
+          stem: question.stem,
+          explanation: question.explanation,
+          difficulty: bulkDifficulty,
+          questionType: question.questionType,
+          changeReason: reason,
+          options: question.options.map((option) => ({ text: option.text, isCorrect: option.isCorrect })),
+        });
+        completed += 1;
+      } catch (caught) {
+        failedIds.push(question.id);
+        if (!firstFailure) firstFailure = `${question.publicCode}: ${caught instanceof Error ? caught.message : 'failed'}`;
+      }
+    }
+    await load();
+    setSelectedIds(new Set(failedIds));
+    setBulkBusy(false);
+    if (failedIds.length === 0) {
+      showToast.success('Difficulty changed', `${completed} question${completed === 1 ? '' : 's'} updated.`);
+    } else {
+      showToast.warning('Difficulty partially changed', `${completed} updated, ${failedIds.length} failed. ${firstFailure}. Failed questions remain selected.`);
+    }
   };
 
-  const bulkLifecycle = async (action: 'submit-review' | 'archive', label: string) => {
+  const bulkLifecycle = async (action: Exclude<QuestionBulkAction, 'assign-taxonomy'>, label: string) => {
     if (action === 'archive' && !bulkReason.trim()) {
       showToast.warning('Reason required', 'Enter an archive reason.');
       return;
     }
-    await finishBulk(label, (question) => transitionQuestion(question.id, action, {
-      expectedLockVersion: question.lockVersion,
-      reason: bulkReason.trim() || undefined,
-    }));
+    await runBulk(action, label);
   };
 
   const clearFilters = () => {
-    setSearch(''); setDifficulty('all'); setStatus('all'); setTopic('all');
+    setSearch(''); setDifficulty('all'); setStatus('all'); setTopic('all'); setReadiness('all');
   };
 
   return (
@@ -280,25 +341,28 @@ export function QuestionBankWorkspacePage() {
               <Select value={bulkTaxonomy.topicId} onValueChange={(value) => setBulkTaxonomy((current) => ({ ...current, topicId: value }))} disabled={!bulkTaxonomy.subjectId}><SelectTrigger><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent>{bulkTopics.map((node) => <SelectItem key={node.id} value={node.id}>{node.name}</SelectItem>)}</SelectContent></Select>
               <Button onClick={() => void assignBulkTaxonomy()} disabled={bulkBusy || !canEdit}><Tags className="mr-1.5 h-4 w-4" /> Assign taxonomy</Button>
             </div>
-            <div className="grid gap-3 sm:grid-cols-[180px_minmax(0,1fr)_auto_auto_auto]">
+            <div className="grid gap-3 lg:grid-cols-[180px_minmax(220px,1fr)_repeat(5,auto)]">
               <Select value={bulkDifficulty} onValueChange={setBulkDifficulty}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="Easy">Easy</SelectItem><SelectItem value="Medium">Medium</SelectItem><SelectItem value="Hard">Hard</SelectItem></SelectContent></Select>
-              <div className="space-y-1"><Label className="sr-only">Bulk reason</Label><Textarea value={bulkReason} onChange={(event) => setBulkReason(event.target.value)} rows={1} placeholder="Reason for difficulty change or archive" /></div>
+              <div className="space-y-1"><Label className="sr-only">Bulk reason</Label><Textarea value={bulkReason} onChange={(event) => setBulkReason(event.target.value)} rows={1} placeholder="Optional reason; required for archive" /></div>
               <Button variant="outline" onClick={() => void changeBulkDifficulty()} disabled={bulkBusy || !canEdit}>Change difficulty</Button>
               <Button variant="outline" onClick={() => void bulkLifecycle('submit-review', 'Submitted for review')} disabled={bulkBusy || !canEdit}><Send className="mr-1.5 h-4 w-4" /> Submit review</Button>
+              <Button variant="outline" onClick={() => void bulkLifecycle('approve', 'Questions approved')} disabled={bulkBusy || !canEdit}><CheckCircle2 className="mr-1.5 h-4 w-4" /> Approve</Button>
+              <Button onClick={() => void bulkLifecycle('publish', 'Questions published')} disabled={bulkBusy || !canEdit}><Upload className="mr-1.5 h-4 w-4" /> Publish</Button>
               <Button variant="destructive" onClick={() => void bulkLifecycle('archive', 'Questions archived')} disabled={bulkBusy || !canArchive}><Archive className="mr-1.5 h-4 w-4" /> Archive</Button>
             </div>
-            <div className="flex justify-end"><Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set())} disabled={bulkBusy}><X className="mr-1.5 h-4 w-4" /> Clear selection</Button></div>
+            <div className="flex items-center justify-between gap-3 text-xs text-muted-foreground"><span>Partial failures stay selected automatically so you can correct and retry only those questions.</span><Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set())} disabled={bulkBusy}><X className="mr-1.5 h-4 w-4" /> Clear selection</Button></div>
           </CardContent>
         </Card>
       )}
 
       <Card>
         <CardContent className="p-0">
-          <div className="flex flex-col gap-3 border-b p-4 lg:flex-row lg:items-center">
+          <div className="flex flex-col gap-3 border-b p-4 xl:flex-row xl:items-center">
             <div className="relative min-w-0 flex-1"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search question, code, exam or taxonomy..." className="pl-9" /></div>
-            <Select value={status} onValueChange={setStatus}><SelectTrigger className="w-full lg:w-44"><SelectValue placeholder="Status" /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem>{Array.from(new Set(questions.map((question) => question.status))).sort().map((value) => <SelectItem key={value} value={value}>{formatStatus(value)}</SelectItem>)}</SelectContent></Select>
-            <Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger className="w-full lg:w-44"><SelectValue placeholder="Difficulty" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{Array.from(new Set(questions.map((question) => question.difficulty))).sort().map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
-            <Select value={topic} onValueChange={setTopic}><SelectTrigger className="w-full lg:w-52"><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent><SelectItem value="all">All topics</SelectItem>{topics.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
+            <Select value={readiness} onValueChange={(value) => setReadiness(value as ReadinessFilter)}><SelectTrigger className="w-full xl:w-48"><SelectValue placeholder="Readiness" /></SelectTrigger><SelectContent><SelectItem value="all">All readiness</SelectItem><SelectItem value="missing-taxonomy">Missing taxonomy</SelectItem><SelectItem value="ready-to-publish">Ready to publish</SelectItem><SelectItem value="published">Published to builder</SelectItem></SelectContent></Select>
+            <Select value={status} onValueChange={setStatus}><SelectTrigger className="w-full xl:w-44"><SelectValue placeholder="Status" /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem>{Array.from(new Set(questions.map((question) => question.status))).sort().map((value) => <SelectItem key={value} value={value}>{formatStatus(value)}</SelectItem>)}</SelectContent></Select>
+            <Select value={difficulty} onValueChange={setDifficulty}><SelectTrigger className="w-full xl:w-44"><SelectValue placeholder="Difficulty" /></SelectTrigger><SelectContent><SelectItem value="all">All difficulties</SelectItem>{Array.from(new Set(questions.map((question) => question.difficulty))).sort().map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
+            <Select value={topic} onValueChange={setTopic}><SelectTrigger className="w-full xl:w-52"><SelectValue placeholder="Topic" /></SelectTrigger><SelectContent><SelectItem value="all">All topics</SelectItem>{topics.map((value) => <SelectItem key={value} value={value}>{value}</SelectItem>)}</SelectContent></Select>
             {hasFilters && <Button variant="ghost" size="sm" onClick={clearFilters}><X className="mr-1.5 h-4 w-4" /> Clear</Button>}
           </div>
 
@@ -306,8 +370,8 @@ export function QuestionBankWorkspacePage() {
             <>
               <div className="hidden overflow-x-auto md:block">
                 <table className="w-full text-left text-sm">
-                  <thead className="border-b bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground"><tr><th className="w-10 px-4 py-3"><input type="checkbox" checked={visible.length > 0 && visible.every((question) => selectedIds.has(question.id))} onChange={toggleVisible} aria-label="Select visible questions" /></th><th className="px-4 py-3 font-medium">Question</th><th className="px-4 py-3 font-medium">Exam / Taxonomy</th><th className="px-4 py-3 font-medium">Difficulty</th><th className="px-4 py-3 font-medium">Status</th><th className="px-4 py-3 font-medium">Updated</th></tr></thead>
-                  <tbody className="divide-y">{visible.map((question) => <tr key={question.id} className="hover:bg-muted/20"><td className="px-4 py-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} aria-label={`Select ${question.publicCode}`} /></td><td className="max-w-xl px-4 py-3"><Link to={`/content/questions/${question.id}`} className="line-clamp-2 font-medium leading-5 hover:text-primary">{question.stem}</Link><div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground"><span>{question.publicCode}</span><span>•</span><span>v{question.versionNumber}</span><span>•</span><span>{question.questionType}</span></div></td><td className="px-4 py-3 text-muted-foreground"><p>{question.examName || 'No exam'}</p><p className="text-xs">{taxonomyName(question, 'subject') || 'No subject'}{taxonomyName(question, 'topic') ? ` • ${taxonomyName(question, 'topic')}` : ''}</p></td><td className="px-4 py-3"><Badge variant="secondary">{question.difficulty}</Badge></td><td className="px-4 py-3"><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge>{question.publishedVersionId && question.status !== 'published' && <p className="mt-1 text-[10px] font-medium text-primary">Published version active</p>}</td><td className="px-4 py-3 text-muted-foreground">{formatDate(question.updatedAt)}</td></tr>)}</tbody>
+                  <thead className="border-b bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground"><tr><th className="w-10 px-4 py-3"><input type="checkbox" checked={visible.length > 0 && visible.every((question) => selectedIds.has(question.id))} onChange={toggleVisible} aria-label="Select visible questions" /></th><th className="px-4 py-3 font-medium">Question</th><th className="px-4 py-3 font-medium">Exam / Taxonomy</th><th className="px-4 py-3 font-medium">Readiness</th><th className="px-4 py-3 font-medium">Difficulty</th><th className="px-4 py-3 font-medium">Status</th><th className="px-4 py-3 font-medium">Updated</th></tr></thead>
+                  <tbody className="divide-y">{visible.map((question) => <tr key={question.id} className="hover:bg-muted/20"><td className="px-4 py-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} aria-label={`Select ${question.publicCode}`} /></td><td className="max-w-xl px-4 py-3"><Link to={`/content/questions/${question.id}`} className="line-clamp-2 font-medium leading-5 hover:text-primary">{question.stem}</Link><div className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground"><span>{question.publicCode}</span><span>•</span><span>v{question.versionNumber}</span><span>•</span><span>{question.questionType}</span></div></td><td className="px-4 py-3 text-muted-foreground"><p>{question.examName || 'No exam'}</p><p className="text-xs">{taxonomyName(question, 'subject') || 'No subject'}{taxonomyName(question, 'topic') ? ` • ${taxonomyName(question, 'topic')}` : ''}</p></td><td className="px-4 py-3">{question.publishedVersionId ? <Badge className="bg-primary/10 text-primary">Published</Badge> : isReadyToPublish(question) ? <Badge className="bg-success/10 text-success">Ready</Badge> : !hasCompleteTaxonomy(question) ? <Badge variant="outline">Needs taxonomy</Badge> : <Badge variant="secondary">Not ready</Badge>}</td><td className="px-4 py-3"><Badge variant="secondary">{question.difficulty}</Badge></td><td className="px-4 py-3"><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge>{question.publishedVersionId && question.status !== 'published' && <p className="mt-1 text-[10px] font-medium text-primary">Published version active</p>}</td><td className="px-4 py-3 text-muted-foreground">{formatDate(question.updatedAt)}</td></tr>)}</tbody>
                 </table>
               </div>
               <div className="divide-y md:hidden">{visible.map((question) => <div key={question.id} className="p-4"><div className="flex items-start gap-3"><input type="checkbox" checked={selectedIds.has(question.id)} onChange={() => toggleSelected(question.id)} className="mt-1" aria-label={`Select ${question.publicCode}`} /><Link to={`/content/questions/${question.id}`} className="min-w-0 flex-1"><div className="flex flex-wrap items-center justify-between gap-2"><Badge variant="outline">{question.publicCode}</Badge><Badge className={statusClass(question.status)}>{formatStatus(question.status)}</Badge></div><p className="mt-3 line-clamp-3 text-sm font-medium leading-5">{question.stem}</p><div className="mt-3 flex flex-wrap gap-2 text-xs text-muted-foreground"><span>{question.examName || 'No exam'}</span><span>•</span><span>{taxonomyName(question, 'topic') || 'No topic'}</span><span>•</span><span>{question.difficulty}</span></div></Link></div></div>)}</div>
