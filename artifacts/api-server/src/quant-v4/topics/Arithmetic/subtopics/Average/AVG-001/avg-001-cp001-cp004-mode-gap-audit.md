@@ -18,11 +18,11 @@ The audit asks whether a structurally distinct SSC, Banking, RRB, or Punjab-exam
 
 CP-001 to CP-004 are strong but not yet coverage-complete. A targeted expansion is recommended before chapter freeze.
 
-- **Required new solve modes:** 7
-- **Recommended new QLs:** 48
+- **Required new solve modes:** 8
+- **Recommended new QLs:** 52
 - **Optional QL-only additions under existing modes:** 12
-- **Recommended CP-001 to CP-004 total after required expansion:** 321 QLs
-- **Recommended full AVG-001 total after required expansion:** 421 QLs
+- **Recommended CP-001 to CP-004 total after required expansion:** 325 QLs
+- **Recommended full AVG-001 total after required expansion:** 425 QLs
 
 The existing 273 QLs should remain stable. Add new IDs after `AVG-QL-373`; do not renumber or rewrite approved QLs unless a defect is found.
 
@@ -200,7 +200,7 @@ Add 4 variants involving several members joining or leaving with a known group a
 
 ### Verdict
 
-**Two major exam families and one important rate family are missing. CP-004 has the highest-value expansion need.**
+**Three distinct exam families are missing. CP-004 has the highest-value expansion need.**
 
 ### Required modes
 
@@ -256,8 +256,6 @@ The existing two-group, three/four-group, missing-average, and one-missing-count
 6. `findAverageSpeedForUnequalTimes`
 7. `findTermCountFromAverageAndExtreme`
 8. `findCommonDifferenceFromAverageCountAndExtreme`
-
-Although eight names appear above, the CP-004 unequal-speed implementation may use one typed mode with a weighting basis discriminator only if the runtime, validator, explanation, and audits can still distinguish unequal-distance from unequal-time reasoning. The preferred explicit contract is three CP-004 modes and seven total new modes only if unequal speed is represented as one mode. Otherwise use eight new modes and keep the two speed families explicit.
 
 ## Freeze decision
 
