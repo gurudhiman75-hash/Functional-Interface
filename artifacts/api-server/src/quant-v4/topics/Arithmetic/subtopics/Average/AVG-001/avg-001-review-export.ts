@@ -38,4 +38,4 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
 const output = path.resolve("src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv");
 fs.writeFileSync(output, `${rows.join("\n")}\n`, "utf8");
 console.log(JSON.stringify({ rows: rows.length - 1, output }, null, 2));
-if (rows.length - 1 !== 329) throw new Error(`Expected 329 combined Average review rows; got ${rows.length - 1}`);
+if (rows.length - 1 !== 373) throw new Error(`Expected 373 combined Average review rows; got ${rows.length - 1}`);

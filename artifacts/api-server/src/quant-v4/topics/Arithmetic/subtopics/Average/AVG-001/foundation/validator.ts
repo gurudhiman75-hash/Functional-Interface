@@ -84,6 +84,8 @@ export function validateAvg001QuestionPackage(
       (line) =>
         line.includes("\\times") ||
         line.includes("\\div") ||
+        line.includes("×") ||
+        line.includes("÷") ||
         /[+\-]=?/.test(line),
     ),
     "Explanation contains substituted arithmetic",

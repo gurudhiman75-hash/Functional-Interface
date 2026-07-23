@@ -7,7 +7,10 @@ import cp003TaskRegistry from "../task-registry.cp003.library.json";
 import { cp001ExpansionEntries } from "./cp001-expansion-library";
 import { cp004Entries } from "./cp004-library";
 import { cp005Entries } from "./cp005-library";
+import { cp006Entries } from "./cp006-library";
 import { applyAvg001Cp004StemVariant } from "./cp004-stem-variants";
+import { applyAvg001Cp006FinalStemOverride } from "./cp006-final-stem-overrides";
+import { applyAvg001Cp006StemPolish } from "./cp006-stem-polish";
 import { applyAvg001EditorialStem } from "./editorial-stem-overrides";
 import type { Avg001QuestionLanguageEntry, Avg001SolveMode } from "./types";
 
@@ -24,9 +27,7 @@ function applyCp004RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
 function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001QuestionLanguageEntry {
   if (entry.cpId !== "AVG-CP-005") return entry;
   let normalized = entry.answerType === "COUNT" ? { ...entry, displayPolicy: "EXACT_INTEGER" as const } : entry;
-  if (entry.qlId === "AVG-QL-316") {
-    normalized = { ...normalized, displayPolicy: "EXACT_DECIMAL_1" };
-  }
+  if (entry.qlId === "AVG-QL-316") normalized = { ...normalized, displayPolicy: "EXACT_DECIMAL_1" };
   if (entry.qlId === "AVG-QL-325") {
     normalized = {
       ...normalized,
@@ -37,8 +38,8 @@ function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
   return normalized;
 }
 
-const normalizeEntry = (entry: Avg001QuestionLanguageEntry) =>
-  applyCp005RuntimeMetadata(applyCp004RuntimeMetadata(entry));
+const normalizeEntry = (entry: Avg001QuestionLanguageEntry) => applyCp005RuntimeMetadata(applyCp004RuntimeMetadata(entry));
+const polishEntry = (entry: Avg001QuestionLanguageEntry) => applyAvg001Cp006FinalStemOverride(applyAvg001Cp006StemPolish(applyAvg001Cp004StemVariant(applyAvg001EditorialStem(normalizeEntry(entry)))));
 
 const entries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
@@ -47,10 +48,9 @@ const entries = [
   ...(cp003QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...cp004Entries,
   ...cp005Entries,
+  ...cp006Entries,
 ]
-  .map(normalizeEntry)
-  .map(applyAvg001EditorialStem)
-  .map(applyAvg001Cp004StemVariant)
+  .map(polishEntry)
   .filter((entry) => entry.active);
 
 const registryById = new Map(
@@ -61,10 +61,9 @@ const registryById = new Map(
     ...(cp003TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
     ...cp004Entries,
     ...cp005Entries,
+    ...cp006Entries,
   ]
-    .map(normalizeEntry)
-    .map(applyAvg001EditorialStem)
-    .map(applyAvg001Cp004StemVariant)
+    .map(polishEntry)
     .map((entry) => [entry.qlId, entry]),
 );
 
