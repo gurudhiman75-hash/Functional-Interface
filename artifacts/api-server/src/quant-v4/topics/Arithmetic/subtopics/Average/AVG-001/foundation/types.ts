@@ -19,7 +19,8 @@ export type Avg001SolveMode =
   | "findNewAverageAfterAddition" | "findNewAverageAfterRemoval" | "findNewAverageAfterReplacement" | "findAddedMemberValueFromShift" | "findRemovedMemberValueFromShift" | "findReplacementValueFromShift" | "findInningsValueOrNewCricketAverage"
   | "findCombinedAverageOfTwoGroups" | "findCombinedAverageOfThreeOrFourGroups" | "findGroupCountFromCombinedAverage" | "findMissingGroupAverage" | "findAverageSpeedEqualDistance" | "findAverageSpeedEqualTime"
   | "findCorrectedAverageFromMistake" | "findReportedAverageBeforeCorrection" | "findCorrectValueFromAverageShift" | "findIncorrectValueFromCorrection" | "findEntryDifferenceFromAverageCorrection" | "findAverageChangeFromEntryCorrection" | "findNumberOfItemsFromTotalCorrection" | "findCorrectedAverageFromMultipleMistakes"
-  | "findClassAverageFromSectionAverages" | "findSuperGroupAverageFromSubgroups" | "findMissingSectionAverage" | "findSectionCountFromOverallAverage";
+  | "findClassAverageFromSectionAverages" | "findSuperGroupAverageFromSubgroups" | "findMissingSectionAverage" | "findSectionCountFromOverallAverage"
+  | "findMissingSubgroupCount" | "findSubgroupTotalFromHierarchy" | "findOverallTotalFromHierarchy" | "findMissingLowerLevelAverage";
 
 export interface Rational { numerator: number; denominator: number }
 export interface Avg001QuestionLanguageEntry {
@@ -71,6 +72,23 @@ export interface Avg001Parameters {
     incorrectValues?: Rational[];
     correctValues?: Rational[];
     netCorrection?: Rational;
+    subgroupCounts?: number[];
+    subgroupAverages?: Rational[];
+    subgroupTotals?: Rational[];
+    parentCount?: number;
+    parentAverage?: Rational;
+    parentTotal?: Rational;
+    upperGroupCounts?: number[];
+    upperGroupAverages?: Rational[];
+    upperGroupTotals?: Rational[];
+    overallCount?: number;
+    overallAverage?: Rational;
+    overallTotal?: Rational;
+    missingSubgroupIndex?: number;
+    missingSubgroupCount?: number;
+    missingSubgroupAverage?: Rational;
+    missingSubgroupTotal?: Rational;
+    hierarchyDepth?: 1 | 2;
   };
   renderVariables: Record<string, string | number>;
 }
