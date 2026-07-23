@@ -87,6 +87,19 @@ export interface OperationalErrorEvent {
   metadata: unknown;
 }
 
+export interface AdminRequestFailure {
+  id: string;
+  correlationId: string;
+  occurredAt: string;
+  method: string;
+  path: string;
+  statusCode: number;
+  code: string | null;
+  message: string;
+  durationMs: number;
+  actorUserId: string | null;
+}
+
 export interface GenerationHealthRun {
   id: string;
   publicCode: string;
@@ -201,7 +214,12 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const body = await response.json().catch(() => null) as ({ error?: string; code?: string; details?: unknown } & T) | null;
   if (!response.ok) {
     const error = new Error(body?.error || `System Health request failed (${response.status}).`);
-    Object.assign(error, { code: body?.code, status: response.status, details: body?.details });
+    Object.assign(error, {
+      code: body?.code,
+      status: response.status,
+      details: body?.details,
+      correlationId: response.headers.get('X-Correlation-Id'),
+    });
     throw error;
   }
   if (!body) throw new Error('System Health returned an empty response.');
@@ -210,6 +228,15 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export function getSystemHealthOverview() {
   return request<SystemHealthOverview>('/admin/system-health/overview');
+}
+
+export function getAdminRequestFailures(limit = 200) {
+  return request<{
+    failures: AdminRequestFailure[];
+    count: number;
+    generatedAt: string;
+    retention: string;
+  }>(`/admin/system-health/request-failures?limit=${encodeURIComponent(String(limit))}`);
 }
 
 export function getOperationalJob(jobId: string) {
