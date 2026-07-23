@@ -20,6 +20,15 @@ const contexts = [
   { domain: "Production", unit: "units", unitKind: "units" },
 ] as const;
 
+const memberContexts = [
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Sports", unit: "runs", unitKind: "runs" },
+  { domain: "Workforce", unit: "points", unitKind: "units" },
+  { domain: "Production", unit: "units", unitKind: "units" },
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Sports", unit: "runs", unitKind: "runs" },
+] as const;
+
 const leads = [
   "A data set", "A performance record", "A monthly report", "A selection list",
   "A production summary", "A score sheet", "A departmental record", "A survey table",
@@ -63,7 +72,9 @@ function variables(mode: Avg001SolveMode, index: number) {
 let nextId = 374;
 export const gapExpansionEntries: Avg001QuestionLanguageEntry[] = allocations.flatMap((allocation) =>
   Array.from({ length: allocation.count }, (_, localIndex) => {
-    const context = contexts[(nextId - 374) % contexts.length]!;
+    const context = allocation.cpId === "AVG-CP-003"
+      ? memberContexts[localIndex]!
+      : contexts[(nextId - 374) % contexts.length]!;
     const qlId = `AVG-QL-${String(nextId++).padStart(3, "0")}`;
     return {
       cpId: allocation.cpId,
