@@ -36,6 +36,9 @@ const TestSeriesPage = lazy(() =>
 const SystemHealthPage = lazy(() =>
   import('@/pages/analytics/SystemHealthWorkspacePage').then((module) => ({ default: module.SystemHealthWorkspacePage })),
 );
+const RequestFailuresPage = lazy(() =>
+  import('@/pages/analytics/RequestFailuresPage').then((module) => ({ default: module.RequestFailuresPage })),
+);
 const LanguagesPage = lazy(() =>
   import('@/pages/settings/LanguagesPage').then((module) => ({ default: module.LanguagesPage })),
 );
@@ -94,6 +97,7 @@ const router = createBrowserRouter([
       { path: '/users/students', element: <StudentsPage /> },
       { path: '/users/team', element: <AdminTeamPage /> },
       { path: '/users/*', element: <PendingWorkspacePage /> },
+      { path: '/analytics/request-failures', element: <RequestFailuresPage /> },
       { path: '/analytics/system-health', element: <SystemHealthPage /> },
       { path: '/analytics/*', element: <PendingWorkspacePage /> },
       { path: '/settings/languages', element: <LanguagesPage /> },
