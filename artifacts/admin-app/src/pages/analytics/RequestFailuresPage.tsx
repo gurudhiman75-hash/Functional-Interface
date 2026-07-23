@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AlertTriangle, CheckCircle2, Clipboard, ExternalLink, Loader2, RefreshCw, RotateCcw, Search } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
@@ -51,6 +51,7 @@ function copyText(label: string, value: string) {
 
 export function RequestFailuresPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { hasPermission } = useAdminPermissions();
   const canManage = hasPermission('jobs.manage');
   const [failures, setFailures] = useState<AdminRequestFailure[]>([]);
@@ -60,7 +61,7 @@ export function RequestFailuresPage() {
   const [loading, setLoading] = useState(true);
   const [mutatingId, setMutatingId] = useState<string | null>(null);
   const [error, setError] = useState('');
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => searchParams.get('correlation') ?? '');
   const [statusFilter, setStatusFilter] = useState('all');
   const [methodFilter, setMethodFilter] = useState('all');
   const [resolutionFilter, setResolutionFilter] = useState('unresolved');
@@ -84,6 +85,13 @@ export function RequestFailuresPage() {
   }, []);
 
   useEffect(() => { void load(); }, [load]);
+  useEffect(() => {
+    const correlation = searchParams.get('correlation');
+    if (correlation) {
+      setSearch(correlation);
+      setResolutionFilter('all');
+    }
+  }, [searchParams]);
 
   const methods = useMemo(() => Array.from(new Set(failures.map((failure) => failure.method))).sort(), [failures]);
 
