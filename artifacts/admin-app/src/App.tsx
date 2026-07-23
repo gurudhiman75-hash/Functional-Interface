@@ -25,7 +25,7 @@ const CoveragePage = lazy(() =>
   import('@/pages/content/CoveragePlannerPage').then((module) => ({ default: module.CoveragePlannerPage })),
 );
 const TestBuilderPage = lazy(() =>
-  import('@/pages/tests/TestBuilderPage').then((module) => ({ default: module.TestBuilderPage })),
+  import('@/pages/tests/TestBuilderRecoveryPage').then((module) => ({ default: module.TestBuilderRecoveryPage })),
 );
 const ExamBlueprintsPage = lazy(() =>
   import('@/pages/tests/ExamBlueprintsWorkspacePage').then((module) => ({ default: module.ExamBlueprintsWorkspacePage })),
