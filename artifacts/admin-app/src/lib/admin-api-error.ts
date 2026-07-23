@@ -25,8 +25,26 @@ export class AdminApiError extends Error implements AdminApiErrorShape {
   }
 }
 
-export function toAdminApiError(error: unknown, fallbackMessage = 'The admin request failed.'): AdminApiError {
-  if (error instanceof AdminApiError) return error;
+export interface AdminApiErrorFallbackOptions {
+  fallbackMessage?: string;
+  affectedRecord?: string | null;
+}
+
+export function toAdminApiError(
+  error: unknown,
+  fallback: string | AdminApiErrorFallbackOptions = 'The admin request failed.',
+): AdminApiError {
+  const fallbackMessage = typeof fallback === 'string'
+    ? fallback
+    : fallback.fallbackMessage ?? 'The admin request failed.';
+  const fallbackRecord = typeof fallback === 'string'
+    ? null
+    : fallback.affectedRecord ?? null;
+
+  if (error instanceof AdminApiError) {
+    if (!error.affectedRecord && fallbackRecord) error.affectedRecord = fallbackRecord;
+    return error;
+  }
   if (error instanceof Error) {
     const value = error as Error & Partial<AdminApiErrorShape>;
     return new AdminApiError({
@@ -35,7 +53,7 @@ export function toAdminApiError(error: unknown, fallbackMessage = 'The admin req
       status: typeof value.status === 'number' ? value.status : null,
       details: value.details,
       correlationId: typeof value.correlationId === 'string' ? value.correlationId : null,
-      affectedRecord: typeof value.affectedRecord === 'string' ? value.affectedRecord : null,
+      affectedRecord: typeof value.affectedRecord === 'string' ? value.affectedRecord : fallbackRecord,
     });
   }
   return new AdminApiError({
@@ -44,7 +62,7 @@ export function toAdminApiError(error: unknown, fallbackMessage = 'The admin req
     status: null,
     details: null,
     correlationId: null,
-    affectedRecord: null,
+    affectedRecord: fallbackRecord,
   });
 }
 
