@@ -54,6 +54,7 @@ jobs:
           run_case avg-001-diversity src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-diversity-audit.ts
           run_case avg-001-context-realism src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-context-realism-audit.ts
           run_case avg-001-editorial-stems src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-editorial-stem-audit.ts
+          run_case avg-001-natural-exam-language src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-natural-exam-language-audit.ts
           run_case avg-001-explanation-depth src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-explanation-depth-audit.ts
           run_case avg-001-question-studio src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-question-studio-integration-audit.ts
           run_case avg-001-cp001-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-coverage-audit.ts
