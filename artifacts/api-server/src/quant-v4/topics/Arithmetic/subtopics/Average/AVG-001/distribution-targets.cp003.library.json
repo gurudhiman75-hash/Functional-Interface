@@ -1,0 +1,17 @@
+{
+  "phase": "CP003_PRODUCTION_INCREMENT",
+  "difficulty": {
+    "Easy": 18,
+    "Medium": 30,
+    "Hard": 38
+  },
+  "answerType": {
+    "AVERAGE": 43,
+    "MEMBER_VALUE": 43
+  },
+  "languages": [
+    "en"
+  ],
+  "maturity": "RUNTIME_PROOF",
+  "publiclyPublishable": false
+}

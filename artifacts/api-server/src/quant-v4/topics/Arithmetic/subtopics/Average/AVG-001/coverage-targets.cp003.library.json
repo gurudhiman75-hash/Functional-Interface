@@ -1,0 +1,40 @@
+{
+  "phase": "CP003_PRODUCTION_INCREMENT",
+  "activeQlCount": 86,
+  "qlRange": [
+    "AVG-QL-123",
+    "AVG-QL-208"
+  ],
+  "canonicalProblemTargets": {
+    "AVG-CP-003": 86
+  },
+  "solveModeTargets": {
+    "findNewAverageAfterAddition": 13,
+    "findNewAverageAfterRemoval": 12,
+    "findNewAverageAfterReplacement": 13,
+    "findAddedMemberValueFromShift": 13,
+    "findRemovedMemberValueFromShift": 12,
+    "findReplacementValueFromShift": 11,
+    "findInningsValueOrNewCricketAverage": 12
+  },
+  "difficultyTargets": {
+    "Easy": 18,
+    "Medium": 30,
+    "Hard": 38
+  },
+  "requiredScenarioSubfamilies": {
+    "ageShiftMinimum": 15,
+    "cricket": 12,
+    "requiredVariants": [
+      "newbornAfterElapsedYears",
+      "teacherJoinsClassAfterYears",
+      "memberLeavesAfterYears"
+    ]
+  },
+  "seedsPerQl": 12,
+  "minimumUniqueFingerprints": {
+    "Easy": 6,
+    "Medium": 8,
+    "Hard": 8
+  }
+}

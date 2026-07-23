@@ -1,0 +1,2110 @@
+{
+  "packageId": "AVG-001",
+  "entries": [
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-123",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "addNumber",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-124",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "addTestScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-125",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "employeeJoinsSalary",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-126",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "machineAddedOutput",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-127",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Household",
+      "scenarioVariant": "parcelAddedWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-128",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "newDaySales",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-129",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Family",
+      "scenarioVariant": "familyMemberJoinsAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-130",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "playerJoinsSquadAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-131",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "teacherJoinsClassAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-132",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Family",
+      "scenarioVariant": "newbornAfterElapsedYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed"
+      ],
+      "explanationStrategyId": "add-age-newborn",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-133",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Family",
+      "scenarioVariant": "childJoinsFamilyAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-134",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "employeeJoinsAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-135",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterAddition",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "addLowValue",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "explanationStrategyId": "add-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-136",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "removeNumber",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-137",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "removeTestScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-138",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "employeeLeavesSalary",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-139",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Household",
+      "scenarioVariant": "personLeavesWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-140",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "dayRemovedSales",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-141",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "machineRemovedOutput",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-142",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Family",
+      "scenarioVariant": "familyMemberLeavesAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-143",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "playerLeavesSquadAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-144",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Family",
+      "scenarioVariant": "memberLeavesAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-145",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "employeeRetiresAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-146",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "studentLeavesAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-147",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterRemoval",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "removeHighValue",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "explanationStrategyId": "remove-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-148",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "replaceNumber",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-delta",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-149",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "replaceTestScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-150",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Easy",
+      "answerType": "AVERAGE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "replaceSalary",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-151",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "replaceMachineOutput",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-delta",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-152",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Household",
+      "scenarioVariant": "replaceParcelWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-153",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "replacePrice",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-154",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "replacePlayerAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-delta",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-155",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Medium",
+      "answerType": "AVERAGE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "replaceDaySales",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-156",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "replaceReading",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-157",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Family",
+      "scenarioVariant": "replaceMemberAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-158",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "teacherReplacedAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-159",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "workerReplacedAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-160",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findNewAverageAfterReplacement",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "replaceValueDecrease",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "explanationStrategyId": "replace-new-delta",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-161",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "findAddedNumber",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-total-gap",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-162",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findNextTestScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-163",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "findEmployeeSalary",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-164",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Household",
+      "scenarioVariant": "findPersonWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-total-gap",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-165",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "findNewDaySales",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-166",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "findMachineOutput",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-167",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Family",
+      "scenarioVariant": "findFamilyMemberAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-total-gap",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-168",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "findPlayerAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-169",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findTeacherAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-170",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Family",
+      "scenarioVariant": "findChildAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-171",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "findWorkerAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-172",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Household",
+      "scenarioVariant": "findParcelWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-173",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findAddedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "findAddedPrice",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "added-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-174",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "findRemovedNumber",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-total-gap",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-175",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findRemovedScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-176",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "findLeavingSalary",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-177",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Household",
+      "scenarioVariant": "findLeavingWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-total-gap",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-178",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "findRemovedDaySales",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-179",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "findRemovedMachineOutput",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-180",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Family",
+      "scenarioVariant": "findLeavingAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-total-gap",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-181",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "findLeavingPlayerAge",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-182",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Family",
+      "scenarioVariant": "findLeavingAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-183",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "findRetiringAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-184",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findStudentAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-185",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findRemovedMemberValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "findRemovedPrice",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "removed-value-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-186",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "findNewReplacementNumber",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-value-delta",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-187",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findCorrectScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-188",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Workplace",
+      "scenarioVariant": "findNewSalary",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-value-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-189",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Factory",
+      "scenarioVariant": "findNewOutput",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-value-delta",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-190",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Household",
+      "scenarioVariant": "findNewParcelWeight",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-value-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-191",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "findOldPrice",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-old-value",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-192",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findOldScore",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-old-value",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-193",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Family",
+      "scenarioVariant": "findNewAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-194",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Classroom",
+      "scenarioVariant": "findTeacherReplacementAgeAfterYears",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-age-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-195",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Commerce",
+      "scenarioVariant": "findNewDaySales",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-value-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-196",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findReplacementValueFromShift",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Abstract",
+      "scenarioVariant": "findOldReading",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newValue",
+        "newAverage"
+      ],
+      "explanationStrategyId": "replacement-old-value",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "requested member value"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-197",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns1",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-198",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Easy",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns2",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-199",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns3",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-200",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns4",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-201",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns5",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-202",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Medium",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns6",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-shift",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-203",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketNewAverage1",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "explanationStrategyId": "cricket-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-204",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketNewAverage2",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "explanationStrategyId": "cricket-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-205",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketNewAverage3",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "explanationStrategyId": "cricket-new-shortcut",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-206",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketNewAverage4",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "explanationStrategyId": "cricket-new-total",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-207",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Hard",
+      "answerType": "MEMBER_VALUE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketRequiredRuns7",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "explanationStrategyId": "cricket-required-equation",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "required next-innings score"
+    },
+    {
+      "cpId": "AVG-CP-003",
+      "qlId": "AVG-QL-208",
+      "taskKind": "incrementDecrementReplacementApplication",
+      "solveMode": "findInningsValueOrNewCricketAverage",
+      "difficulty": "Hard",
+      "answerType": "AVERAGE",
+      "contextDomain": "Sports",
+      "scenarioVariant": "cricketNewAverage5",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "explanationStrategyId": "cricket-new-balance",
+      "distractorStrategyIds": [
+        "oldAverageTrap",
+        "countDenominatorTrap",
+        "nearArithmeticError"
+      ],
+      "displayPolicy": "EXACT_INTEGER",
+      "active": true,
+      "finalContext": "new average"
+    }
+  ]
+}

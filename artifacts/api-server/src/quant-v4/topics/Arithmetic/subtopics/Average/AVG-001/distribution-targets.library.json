@@ -1,0 +1,17 @@
+{
+  "phase": "RUNTIME_PROOF",
+  "difficulty": {
+    "Easy": 8,
+    "Medium": 8,
+    "Hard": 8
+  },
+  "answerType": {
+    "ABSOLUTE": 6,
+    "AVERAGE": 6,
+    "COUNT": 6,
+    "MEMBER_VALUE": 6
+  },
+  "languages": [
+    "en"
+  ]
+}

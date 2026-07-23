@@ -1,0 +1,16 @@
+{
+  "phase": "CP002_COMPLETE",
+  "canonicalProblemId": "AVG-CP-002",
+  "difficulty": {
+    "Easy": 22,
+    "Medium": 15,
+    "Hard": 13
+  },
+  "answerType": {
+    "AVERAGE": 26,
+    "MEMBER_VALUE": 24
+  },
+  "languages": [
+    "en"
+  ]
+}
