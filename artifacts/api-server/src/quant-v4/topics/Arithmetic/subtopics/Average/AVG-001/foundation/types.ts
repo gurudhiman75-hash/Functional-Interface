@@ -20,7 +20,7 @@ export type Avg001SolveMode =
   | "findCombinedAverageOfTwoGroups" | "findCombinedAverageOfThreeOrFourGroups" | "findGroupCountFromCombinedAverage" | "findMissingGroupAverage" | "findAverageSpeedEqualDistance" | "findAverageSpeedEqualTime"
   | "findCorrectedAverageFromMistake" | "findReportedAverageBeforeCorrection" | "findCorrectValueFromAverageShift" | "findIncorrectValueFromCorrection" | "findEntryDifferenceFromAverageCorrection" | "findAverageChangeFromEntryCorrection" | "findNumberOfItemsFromTotalCorrection" | "findCorrectedAverageFromMultipleMistakes"
   | "findClassAverageFromSectionAverages" | "findSuperGroupAverageFromSubgroups" | "findMissingSectionAverage" | "findSectionCountFromOverallAverage"
-  | "findMissingSubgroupCount" | "findSubgroupTotalFromHierarchy" | "findOverallTotalFromHierarchy" | "findMissingLowerLevelAverage";
+  | "findMissingSubgroupCount" | "findSubgroupTotalFromAverageAndCount" | "findOverallTotalFromHierarchy" | "findMissingLowerLevelAverage";
 
 export interface Rational { numerator: number; denominator: number }
 export interface Avg001QuestionLanguageEntry {
@@ -78,6 +78,9 @@ export interface Avg001Parameters {
     parentCount?: number;
     parentAverage?: Rational;
     parentTotal?: Rational;
+    upperGroupCount?: number;
+    upperGroupAverage?: Rational;
+    upperGroupTotal?: Rational;
     upperGroupCounts?: number[];
     upperGroupAverages?: Rational[];
     upperGroupTotals?: Rational[];
@@ -88,7 +91,7 @@ export interface Avg001Parameters {
     missingSubgroupCount?: number;
     missingSubgroupAverage?: Rational;
     missingSubgroupTotal?: Rational;
-    hierarchyDepth?: 1 | 2;
+    hierarchyDepth?: 1 | 2 | 3;
   };
   renderVariables: Record<string, string | number>;
 }
