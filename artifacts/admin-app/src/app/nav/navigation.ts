@@ -1,5 +1,5 @@
 import {
-  Activity, BarChart3, Bell, Box, CalendarClock, ClipboardCheck, FileQuestion,
+  Activity, AlertTriangle, BarChart3, Bell, Box, CalendarClock, ClipboardCheck, FileQuestion,
   FileText, HeartPulse, Image as ImageIcon, KeyRound, Languages, LayoutDashboard,
   Layers, LifeBuoy, ListChecks, Lock, Network, Palette, Plug, ScrollText, Settings,
   ShieldCheck, ShoppingCart, Sparkles, Target, Ticket, TrendingUp, Users,
@@ -69,6 +69,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Question Analytics', path: '/analytics/questions', icon: BarChart3, status: 'in_progress', summary: 'Accuracy, discrimination, option selection and timing for each question version.', milestone: 'Question-version response aggregation and anomaly detection.' },
     { label: 'Content Quality', path: '/analytics/content-quality', icon: Activity, status: 'in_progress', summary: 'Monitor review throughput, quality blockers, duplicates and chapter readiness.', milestone: 'Question Studio and Question Bank quality metrics API.' },
     { label: 'System Health', path: '/analytics/system-health', icon: HeartPulse, status: 'live', permission: 'jobs.read', summary: 'Inspect API and database health, worker signals, canonical job queues, pipeline failures, outbox backlog and redacted operational errors.' },
+    { label: 'Request Failures', path: '/analytics/request-failures', icon: AlertTriangle, status: 'live', permission: 'jobs.read', summary: 'Inspect recent failed admin API requests, copy correlation details, filter endpoints and return directly to the affected workspace.' },
   ] },
   { id: 'settings', label: 'Settings', items: [
     { label: 'Exam Configuration', path: '/settings/exam-config', icon: Settings, status: 'in_progress', summary: 'Configure supported exams, scoring rules and operational defaults.', milestone: 'Canonical exam-version management UI.' },
