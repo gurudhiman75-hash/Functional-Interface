@@ -7,6 +7,7 @@ import router from "./routes";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
 import { webhookRateLimit } from "./middlewares/rateLimit";
+import { adminRequestObservability } from "./middlewares/admin-request-observability";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -58,7 +59,8 @@ const corsOptions: CorsOptions = {
   },
   credentials: true,
   methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Examtree-Device"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Examtree-Device", "X-Correlation-Id"],
+  exposedHeaders: ["X-Correlation-Id"],
   optionsSuccessStatus: 204,
 };
 
@@ -82,7 +84,7 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-app.use("/api", router);
+app.use("/api", adminRequestObservability, router);
 
 // ── Serve frontend static files ───────────────────────────────────────────────
 // In production, serve both built Vite applications so one Render service can
