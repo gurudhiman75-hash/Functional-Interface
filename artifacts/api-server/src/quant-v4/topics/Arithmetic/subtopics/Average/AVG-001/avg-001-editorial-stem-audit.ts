@@ -85,10 +85,10 @@ if (formalTerminologyCount > 5) {
 }
 
 const expectedCounts = {
-  "AVG-CP-001": 72,
-  "AVG-CP-002": 50,
-  "AVG-CP-003": 86,
-  "AVG-CP-004": 65,
+  "AVG-CP-001": 80,
+  "AVG-CP-002": 62,
+  "AVG-CP-003": 98,
+  "AVG-CP-004": 85,
 };
 const counts = Object.fromEntries(
   Object.keys(expectedCounts).map((cpId) => [
