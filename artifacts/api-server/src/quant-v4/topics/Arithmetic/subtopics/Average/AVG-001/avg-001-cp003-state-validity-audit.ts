@@ -121,7 +121,7 @@ console.log(
     2,
   ),
 );
-assert.equal(cases, 1032);
+assert.equal(cases, 1176);
 assert.equal(ageShiftCases, 216);
 assert.equal(cricketCases, 144);
 assert.equal(failures.length, 0, failures.join("\n"));

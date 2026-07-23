@@ -8,6 +8,7 @@ import { cp001ExpansionEntries } from "./cp001-expansion-library";
 import { cp004Entries } from "./cp004-library";
 import { cp005Entries } from "./cp005-library";
 import { cp006Entries } from "./cp006-library";
+import { gapExpansionEntries } from "./gap-expansion-library";
 import { applyAvg001Cp004StemVariant } from "./cp004-stem-variants";
 import { applyAvg001Cp006FinalStemOverride } from "./cp006-final-stem-overrides";
 import { applyAvg001Cp006StemPolish } from "./cp006-stem-polish";
@@ -41,7 +42,7 @@ function applyCp005RuntimeMetadata(entry: Avg001QuestionLanguageEntry): Avg001Qu
 const normalizeEntry = (entry: Avg001QuestionLanguageEntry) => applyCp005RuntimeMetadata(applyCp004RuntimeMetadata(entry));
 const polishEntry = (entry: Avg001QuestionLanguageEntry) => applyAvg001Cp006FinalStemOverride(applyAvg001Cp006StemPolish(applyAvg001Cp004StemVariant(applyAvg001EditorialStem(normalizeEntry(entry)))));
 
-const entries = [
+const sourceEntries = [
   ...(questionLanguage.entries as Avg001QuestionLanguageEntry[]),
   ...cp001ExpansionEntries,
   ...(cp002QuestionLanguage.entries as Avg001QuestionLanguageEntry[]),
@@ -49,24 +50,11 @@ const entries = [
   ...cp004Entries,
   ...cp005Entries,
   ...cp006Entries,
-]
-  .map(polishEntry)
-  .filter((entry) => entry.active);
+  ...gapExpansionEntries,
+];
 
-const registryById = new Map(
-  [
-    ...(taskRegistry.entries as Avg001QuestionLanguageEntry[]),
-    ...cp001ExpansionEntries,
-    ...(cp002TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
-    ...(cp003TaskRegistry.entries as Avg001QuestionLanguageEntry[]),
-    ...cp004Entries,
-    ...cp005Entries,
-    ...cp006Entries,
-  ]
-    .map(polishEntry)
-    .map((entry) => [entry.qlId, entry]),
-);
-
+const entries = sourceEntries.map(polishEntry).filter((entry) => entry.active);
+const registryById = new Map(sourceEntries.map(polishEntry).map((entry) => [entry.qlId, entry]));
 const PLACEHOLDER_ALIASES: Record<string, string> = { elapsedYears: "yearsElapsed", yearsElapsed: "elapsedYears" };
 
 export function getAvg001QuestionEntries() { return [...entries]; }

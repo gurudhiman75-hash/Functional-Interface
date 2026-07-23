@@ -17,25 +17,16 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
   const seed = `avg-review:${questionLanguageId}:0`;
   const questionPackage = runAvg001Pipeline({ questionLanguageId, seed });
   rows.push([
-    questionPackage.packageId,
-    questionPackage.canonicalProblemId,
-    questionPackage.questionLanguageId,
-    questionPackage.taskKind,
-    questionPackage.solveMode,
-    questionPackage.difficultyBand,
-    questionPackage.parameters.answerType,
-    questionPackage.questionId,
-    questionPackage.seed,
-    questionPackage.mathematicalFingerprint,
-    questionPackage.stem,
+    questionPackage.packageId, questionPackage.canonicalProblemId, questionPackage.questionLanguageId,
+    questionPackage.taskKind, questionPackage.solveMode, questionPackage.difficultyBand,
+    questionPackage.parameters.answerType, questionPackage.questionId, questionPackage.seed,
+    questionPackage.mathematicalFingerprint, questionPackage.stem,
     questionPackage.options.map((option, index) => `${String.fromCharCode(65 + index)}. ${option}`).join("\n"),
-    questionPackage.correctIndex,
-    questionPackage.answer,
-    questionPackage.explanation.lines.join("\n"),
+    questionPackage.correctIndex, questionPackage.answer, questionPackage.explanation.lines.join("\n"),
     "", "", "", "", "", "", "", "PENDING", "", "", "", "",
   ].map(csv).join(","));
 }
 const output = path.resolve("src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv");
 fs.writeFileSync(output, `${rows.join("\n")}\n`, "utf8");
 console.log(JSON.stringify({ rows: rows.length - 1, output }, null, 2));
-if (rows.length - 1 !== 373) throw new Error(`Expected 373 combined Average review rows; got ${rows.length - 1}`);
+if (rows.length - 1 !== 425) throw new Error(`Expected 425 combined Average review rows; got ${rows.length - 1}`);

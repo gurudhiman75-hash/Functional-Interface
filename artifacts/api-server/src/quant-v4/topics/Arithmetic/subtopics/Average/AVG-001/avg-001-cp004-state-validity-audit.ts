@@ -4,6 +4,7 @@ import {
   add,
   divide,
   equals,
+  gcd,
   multiply,
   rational,
   subtract,
@@ -18,6 +19,7 @@ const failures: string[] = [];
 let cases = 0;
 let weightedCases = 0;
 let speedCases = 0;
+let ratioCases = 0;
 
 function countInputRange(variant: string): [number, number] {
   return /Salary|Sales|Revenue|Expense/i.test(variant)
@@ -43,6 +45,7 @@ for (const entry of entries) {
     });
     cases += 1;
     const values = pkg.parameters.values;
+    const rv = pkg.parameters.renderVariables;
 
     if (!pkg.validation.valid) failures.push(`${entry.qlId}:${index}: package validation failed`);
     if (pkg.options.length !== 4 || new Set(pkg.options).size !== 4 || pkg.options[pkg.correctIndex] !== pkg.answer) {
@@ -67,6 +70,47 @@ for (const entry of entries) {
       if (answer < Math.min(toNumber(speed1), toNumber(speed2)) || answer > Math.max(toNumber(speed1), toNumber(speed2))) {
         failures.push(`${entry.qlId}:${index}: speed answer outside bounds`);
       }
+      continue;
+    }
+
+    if (entry.solveMode === "findAverageSpeedForUnequalDistances") {
+      speedCases += 1;
+      const distance1 = Number(rv.distance1);
+      const distance2 = Number(rv.distance2);
+      const speed1 = Number(rv.speed1);
+      const speed2 = Number(rv.speed2);
+      const expected = divide(
+        rational(distance1 + distance2),
+        add(divide(rational(distance1), rational(speed1)), divide(rational(distance2), rational(speed2))),
+      );
+      if (!equals(expected, pkg.solver.exactAnswer)) failures.push(`${entry.qlId}:${index}: unequal-distance speed mismatch`);
+      const answer = toNumber(pkg.solver.exactAnswer);
+      if (answer < Math.min(speed1, speed2) || answer > Math.max(speed1, speed2)) failures.push(`${entry.qlId}:${index}: unequal-distance speed outside bounds`);
+      continue;
+    }
+
+    if (entry.solveMode === "findAverageSpeedForUnequalTimes") {
+      speedCases += 1;
+      const speed1 = Number(rv.speed1);
+      const speed2 = Number(rv.speed2);
+      const time1 = Number(rv.time1);
+      const time2 = Number(rv.time2);
+      const expected = divide(rational(speed1 * time1 + speed2 * time2), rational(time1 + time2));
+      if (!equals(expected, pkg.solver.exactAnswer)) failures.push(`${entry.qlId}:${index}: unequal-time speed mismatch`);
+      const answer = toNumber(pkg.solver.exactAnswer);
+      if (answer < Math.min(speed1, speed2) || answer > Math.max(speed1, speed2)) failures.push(`${entry.qlId}:${index}: unequal-time speed outside bounds`);
+      continue;
+    }
+
+    if (entry.solveMode === "findGroupCountRatioFromCombinedAverage") {
+      ratioCases += 1;
+      const lower = Number(rv.groupAverage1);
+      const upper = Number(rv.groupAverage2);
+      const combined = Number(rv.combinedAverage);
+      const divisor = gcd(upper - combined, combined - lower);
+      const expected = rational((upper - combined) / divisor, (combined - lower) / divisor);
+      if (!equals(expected, pkg.solver.exactAnswer)) failures.push(`${entry.qlId}:${index}: group ratio mismatch`);
+      if (!(lower < combined && combined < upper)) failures.push(`${entry.qlId}:${index}: combined average not between group averages`);
       continue;
     }
 
@@ -123,12 +167,14 @@ console.log(JSON.stringify({
   cases,
   weightedCases,
   speedCases,
+  ratioCases,
   failureCount: failures.length,
   failures: failures.slice(0, 100),
   status: failures.length ? "FAIL" : "PASS",
 }, null, 2));
 
-assert.equal(cases, 780);
+assert.equal(cases, 1020);
 assert.equal(weightedCases, 600);
-assert.equal(speedCases, 180);
+assert.equal(speedCases, 324);
+assert.equal(ratioCases, 96);
 assert.equal(failures.length, 0, failures.join("\n"));

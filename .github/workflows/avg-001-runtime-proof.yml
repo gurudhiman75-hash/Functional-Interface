@@ -71,7 +71,9 @@ jobs:
           run_case avg-001-cp005-editorial-variation src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-editorial-variation-audit.ts
           run_case avg-001-cp005-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-explanation-quality-audit.ts
           run_case avg-001-cp006-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp006-coverage-audit.ts
+          run_case avg-001-gap-expansion src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-gap-expansion-audit.ts
           run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
+          run_case avg-001-gap-expansion-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-gap-expansion-review-export.ts
           run_case avg-001-cp001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-review-export.ts
           run_case avg-001-cp002-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-review-export.ts
           run_case avg-001-cp003-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-review-export.ts
@@ -93,6 +95,7 @@ jobs:
           name: avg-001-runtime-proof-review
           path: |
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-gap-expansion-human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-en.csv

@@ -35,6 +35,8 @@ const bannedPatterns: Array<[RegExp, string]> = [
 
 const cp002Cue =
   /consecutive|arithmetic progression|equally spaced|common difference|fixed amount|equal amount|uniformly|increase(?:s|d)? by|rise(?:s)? by|steps of|differ by|differing by|odd-numbered|even roll numbers/i;
+const cp001ForbiddenCue =
+  /consecutive|arithmetic progression|equally spaced|common difference|steps of|differ by|differing by|odd-numbered|even roll numbers/i;
 
 for (const entry of entries) {
   const expectedPlaceholders = [...entry.requiredVariables].sort();
@@ -58,7 +60,7 @@ for (const entry of entries) {
   if (prior) failures.push(`${entry.qlId}: duplicates normalized stem ${prior}`);
   normalizedTemplates.set(normalized, entry.qlId);
 
-  if (entry.cpId === "AVG-CP-001" && cp002Cue.test(entry.template)) {
+  if (entry.cpId === "AVG-CP-001" && cp001ForbiddenCue.test(entry.template)) {
     failures.push(`${entry.qlId}: CP-001 stem leaks an AP/consecutive-set cue`);
   }
   if (entry.cpId === "AVG-CP-002" && !cp002Cue.test(entry.template)) {
@@ -85,10 +87,10 @@ if (formalTerminologyCount > 5) {
 }
 
 const expectedCounts = {
-  "AVG-CP-001": 72,
-  "AVG-CP-002": 50,
-  "AVG-CP-003": 86,
-  "AVG-CP-004": 65,
+  "AVG-CP-001": 80,
+  "AVG-CP-002": 62,
+  "AVG-CP-003": 98,
+  "AVG-CP-004": 85,
 };
 const counts = Object.fromEntries(
   Object.keys(expectedCounts).map((cpId) => [

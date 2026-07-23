@@ -38,6 +38,42 @@ for (const entry of entries) {
     } = pkg.parameters.values;
 
     if (
+      entry.solveMode === "findTermCountFromAverageAndExtreme" ||
+      entry.solveMode === "findCommonDifferenceFromAverageCountAndExtreme"
+    ) {
+      if (!commonDifference || !isInteger(commonDifference) || commonDifference.numerator <= 0) {
+        failures.push(`${entry.qlId}:${index}: invalid reverse-AP common difference`);
+        continue;
+      }
+      if (!Number.isInteger(count) || count < 3 || count % 2 === 0) {
+        failures.push(`${entry.qlId}:${index}: reverse-AP count must be a positive odd integer`);
+        continue;
+      }
+
+      const extremeValue = Number(pkg.parameters.renderVariables.extremeValue);
+      const averageValue = average.numerator / average.denominator;
+      const differenceValue = commonDifference.numerator / commonDifference.denominator;
+      const oneSideGaps = (count - 1) / 2;
+      const expectedDistance = oneSideGaps * differenceValue;
+      if (Math.abs(Math.abs(extremeValue - averageValue) - expectedDistance) > 1e-9) {
+        failures.push(`${entry.qlId}:${index}: reverse-AP extreme distance mismatch`);
+      }
+
+      if (entry.solveMode === "findTermCountFromAverageAndExtreme") {
+        const expectedCount = (2 * Math.abs(extremeValue - averageValue)) / differenceValue + 1;
+        if (!Number.isInteger(expectedCount) || pkg.solver.exactAnswer.numerator !== expectedCount || pkg.solver.exactAnswer.denominator !== 1) {
+          failures.push(`${entry.qlId}:${index}: reverse term-count answer mismatch`);
+        }
+      } else {
+        const expectedDifference = (2 * Math.abs(extremeValue - averageValue)) / (count - 1);
+        if (Math.abs(expectedDifference - differenceValue) > 1e-9 || !equals(pkg.solver.exactAnswer, commonDifference)) {
+          failures.push(`${entry.qlId}:${index}: reverse common-difference answer mismatch`);
+        }
+      }
+      continue;
+    }
+
+    if (
       !firstTerm ||
       !lastTerm ||
       !middleTerm ||
@@ -127,6 +163,6 @@ console.log(
   ),
 );
 
-assert.equal(entries.length, 50);
-assert.equal(cases, 600);
+assert.equal(entries.length, 62);
+assert.equal(cases, 744);
 assert.equal(failures.length, 0, failures.join("\n"));
