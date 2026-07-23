@@ -26,6 +26,7 @@ import adminTaxonomyCoverageRouter from "./admin-taxonomy-coverage";
 import adminTaxonomyRouter from "./admin-taxonomy";
 import adminTestBlueprintAssemblyRouter from "./admin-test-blueprint-assembly";
 import adminTestBlueprintsRouter from "./admin-test-blueprints";
+import adminTestBulkWorkflowRouter from "./admin-test-bulk-workflow";
 import adminTestLocalizationGateRouter from "./admin-test-localization-gate";
 import adminTestSeriesRouter from "./admin-test-series";
 import adminTestQaGateRouter from "./admin-test-qa-gate";
@@ -111,6 +112,9 @@ router.use("/admin/test-blueprints", adminTestBlueprintAssemblyRouter);
 router.use("/admin/test-blueprints", adminTestBlueprintsRouter);
 router.use("/admin/test-series", adminTestSeriesRouter);
 router.use("/admin/test-qa", adminTestQaRouter);
+// Bulk lifecycle owns its explicit /bulk/actions/* paths and is mounted before
+// the single-test localization and QA gates.
+router.use("/admin/tests", adminTestBulkWorkflowRouter);
 // Localization must pass before the ordinary QA collaboration gate and lifecycle.
 router.use("/admin/tests", adminTestLocalizationGateRouter);
 router.use("/admin/tests", adminTestQaGateRouter);
