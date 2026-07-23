@@ -69,7 +69,15 @@ function verify(mode: string, s: GapState): Rational {
     const divisor = gcd(n("upper") - n("combined"), n("combined") - n("lower"));
     return rational((n("upper") - n("combined")) / divisor, (n("combined") - n("lower")) / divisor);
   }
-  if (mode === "findAverageSpeedForUnequalDistances") return divide(rational(n("distance1") + n("distance2")), add(divide(rational(n("distance1")), rational(n("speed1"))), divide(rational(n("distance2")), rational(n("speed2"))));
+  if (mode === "findAverageSpeedForUnequalDistances") {
+    return divide(
+      rational(n("distance1") + n("distance2")),
+      add(
+        divide(rational(n("distance1")), rational(n("speed1"))),
+        divide(rational(n("distance2")), rational(n("speed2"))),
+      ),
+    );
+  }
   return divide(rational(n("speed1") * n("time1") + n("speed2") * n("time2")), rational(n("time1") + n("time2")));
 }
 
