@@ -21,36 +21,90 @@ const contexts = [
 ] as const;
 
 const memberScenarios = [
-  { lead: "A class", domain: "Education", unit: "marks", unitKind: "marks" },
-  { lead: "A cricket squad", domain: "Sports", unit: "runs", unitKind: "runs" },
-  { lead: "A work team", domain: "Workforce", unit: "units", unitKind: "units" },
-  { lead: "A production unit", domain: "Production", unit: "units", unitKind: "units" },
-  { lead: "A training batch", domain: "Education", unit: "marks", unitKind: "marks" },
-  { lead: "A batting group", domain: "Sports", unit: "runs", unitKind: "runs" },
+  { lead: "A class", member: "student", plural: "students", verb: "scoring", domain: "Education", unit: "marks", unitKind: "marks" },
+  { lead: "A cricket squad", member: "player", plural: "players", verb: "scoring", domain: "Sports", unit: "runs", unitKind: "runs" },
+  { lead: "A work team", member: "worker", plural: "workers", verb: "producing", domain: "Workforce", unit: "units", unitKind: "units" },
+  { lead: "A production unit", member: "machine", plural: "machines", verb: "producing", domain: "Production", unit: "units", unitKind: "units" },
+  { lead: "A training batch", member: "trainee", plural: "trainees", verb: "scoring", domain: "Education", unit: "marks", unitKind: "marks" },
+  { lead: "A batting group", member: "batter", plural: "batters", verb: "scoring", domain: "Sports", unit: "runs", unitKind: "runs" },
 ] as const;
 
-const leads = [
-  "A data set", "A performance record", "A monthly report", "A selection list",
-  "A production summary", "A score sheet", "A departmental record", "A survey table",
+const transformationContexts = [
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Statistics", unit: "values", unitKind: "none" },
+  { domain: "Measurement", unit: "readings", unitKind: "none" },
+  { domain: "Statistics", unit: "values", unitKind: "none" },
+  { domain: "Statistics", unit: "observations", unitKind: "none" },
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Administration", unit: "values", unitKind: "none" },
+  { domain: "Measurement", unit: "measurements", unitKind: "none" },
 ] as const;
-const seriesLeads = ["A number series", "An equally spaced score series", "A set of equally spaced readings", "A fixed-interval series", "A row of consecutive values", "A set of equally spaced values"] as const;
-const ratioLeads = ["Two classes", "Two departments", "Two teams", "Two employee groups", "Two production units", "Two districts", "Two training batches", "Two account groups"] as const;
-const travelLeads = ["A bus journey", "A delivery trip", "A train route", "A highway journey", "A service vehicle trip", "A field inspection tour"] as const;
+
+const ratioContexts = [
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Workforce", unit: "units", unitKind: "units" },
+  { domain: "Sports", unit: "runs", unitKind: "runs" },
+  { domain: "Demography", unit: "years", unitKind: "years" },
+  { domain: "Production", unit: "units", unitKind: "units" },
+  { domain: "Geography", unit: "rainfall", unitKind: "none" },
+  { domain: "Education", unit: "marks", unitKind: "marks" },
+  { domain: "Finance", unit: "rupees", unitKind: "currency" },
+] as const;
+
+const transformationTemplates = [
+  "The average of {count} test scores is {oldAverage}. If {change} marks are added to every score, find the new average.",
+  "The average of {count} observations is {oldAverage}. If every observation is multiplied by {factor}, what is the new average?",
+  "The average of {count} readings is {oldAverage}. Each reading is multiplied by {factor} and then increased by {change}. Find the new average.",
+  "The average of {count} selected values is {oldAverage}. If {change} is added to each value, find the new average.",
+  "The average of {count} observations is {oldAverage}. If each observation is multiplied by {factor}, find the new average.",
+  "The average of {count} scores is {oldAverage}. Each score is multiplied by {factor} and then increased by {change}. Find the new average.",
+  "The average of {count} recorded values is {oldAverage}. If every value is increased by {change}, find the new average.",
+  "The average of {count} measurements is {oldAverage}. If each measurement is multiplied by {factor}, what is the new average?",
+] as const;
+
+const seriesLeads = [
+  "An arithmetic progression",
+  "An equally spaced score series",
+  "A set of equally spaced readings",
+  "An equally spaced number series",
+  "A sequence of consecutive values",
+  "A set of equally spaced values",
+] as const;
+
+const ratioTemplates = [
+  "Two classes have average marks of {groupAverage1} and {groupAverage2}. Their combined average is {combinedAverage}. Find the ratio of the numbers of students in the two classes.",
+  "Two departments have average outputs of {groupAverage1} units and {groupAverage2} units. Their combined average output is {combinedAverage} units. Find the ratio of their staff strengths.",
+  "Two teams average {groupAverage1} runs and {groupAverage2} runs. Their combined average is {combinedAverage} runs. Find the ratio of the numbers of players in the teams.",
+  "Two employee groups have average ages of {groupAverage1} years and {groupAverage2} years. Their combined average age is {combinedAverage} years. Find the ratio of their sizes.",
+  "Two production units have average outputs of {groupAverage1} units and {groupAverage2} units. Their combined average output is {combinedAverage} units. Find the ratio of their numbers of machines.",
+  "Two districts record average rainfall of {groupAverage1} cm and {groupAverage2} cm. Their combined average rainfall is {combinedAverage} cm. Find the ratio of the numbers of observations.",
+  "Two training batches have average marks of {groupAverage1} and {groupAverage2}. Their combined average is {combinedAverage}. Find the ratio of the numbers of trainees.",
+  "Two groups of accounts have average balances of ₹{groupAverage1} thousand and ₹{groupAverage2} thousand. Their combined average balance is ₹{combinedAverage} thousand. Find the ratio of the numbers of accounts.",
+] as const;
+
+const travelLeads = ["A bus", "A delivery van", "A train", "A car", "A service vehicle", "An inspection vehicle"] as const;
 
 function template(mode: Avg001SolveMode, index: number) {
-  if (mode === "findAverageAfterUniformTransformation") {
-    const lead = leads[index]!;
-    if (index % 3 === 0) return `${lead} contains {count} values with average {oldAverage}. Each value is increased by {change}. Find the new average.`;
-    if (index % 3 === 1) return `${lead} has {count} entries averaging {oldAverage}. Every entry is multiplied by {factor}. What is the resulting average?`;
-    return `${lead} has {count} observations with average {oldAverage}. Each observation is multiplied by {factor} and then increased by {change}. Find the final average.`;
+  if (mode === "findAverageAfterUniformTransformation") return transformationTemplates[index]!;
+  if (mode === "findTermCountFromAverageAndExtreme") {
+    return `${seriesLeads[index]} has an average of {average}, a {extremeLabel} term of {extremeValue}, and a common difference of {commonDifference}. How many terms does it contain?`;
   }
-  if (mode === "findTermCountFromAverageAndExtreme") return `${seriesLeads[index]} has average {average}, {extremeLabel} term {extremeValue}, and common difference {commonDifference}. Find the number of terms.`;
-  if (mode === "findCommonDifferenceFromAverageCountAndExtreme") return `${seriesLeads[index]} contains {count} terms with average {average}. Its {extremeLabel} term is {extremeValue}. Find the common difference.`;
-  if (mode === "findOriginalCountFromJoiningMemberShift") return `${memberScenarios[index]!.lead} has average {oldAverage} {unit}. A new member with value {memberValue} {unit} joins and raises the average by {averageChange} {unit}. Find the original group size.`;
-  if (mode === "findOriginalCountFromLeavingMemberShift") return `${memberScenarios[index]!.lead} has average {oldAverage} {unit}. A member with value {memberValue} {unit} leaves, after which the average becomes {newAverage} {unit}. Find the original group size.`;
-  if (mode === "findGroupCountRatioFromCombinedAverage") return `${ratioLeads[index]} have average scores of {groupAverage1} and {groupAverage2}; their combined average score is {combinedAverage}. Find the ratio of their sizes.`;
-  if (mode === "findAverageSpeedForUnequalDistances") return `${travelLeads[index]} covers {distance1} km at {speed1} km/h and another {distance2} km at {speed2} km/h. Find the average speed for the entire route.`;
-  return `${travelLeads[index]} continues at {speed1} km/h for {time1} hours and then at {speed2} km/h for {time2} hours. Find the average speed.`;
+  if (mode === "findCommonDifferenceFromAverageCountAndExtreme") {
+    return `${seriesLeads[index]} contains {count} terms and has an average of {average}. Its {extremeLabel} term is {extremeValue}. Find the common difference.`;
+  }
+  if (mode === "findOriginalCountFromJoiningMemberShift") {
+    const scenario = memberScenarios[index]!;
+    return `${scenario.lead} has an average of {oldAverage} {unit}. A new ${scenario.member} ${scenario.verb} {memberValue} {unit} joins, raising the average by {averageChange} {unit}. How many ${scenario.plural} were there originally?`;
+  }
+  if (mode === "findOriginalCountFromLeavingMemberShift") {
+    const scenario = memberScenarios[index]!;
+    return `${scenario.lead} has an average of {oldAverage} {unit}. A ${scenario.member} ${scenario.verb} {memberValue} {unit} leaves, and the average becomes {newAverage} {unit}. How many ${scenario.plural} were there originally?`;
+  }
+  if (mode === "findGroupCountRatioFromCombinedAverage") return ratioTemplates[index]!;
+  if (mode === "findAverageSpeedForUnequalDistances") {
+    return `${travelLeads[index]} travels {distance1} km at {speed1} km/h and then {distance2} km at {speed2} km/h. Find the average speed for the whole journey.`;
+  }
+  return `${travelLeads[index]} travels at {speed1} km/h for {time1} h and at {speed2} km/h for {time2} h. Find the average speed for the whole journey.`;
 }
 
 function variables(mode: Avg001SolveMode, index: number) {
@@ -73,7 +127,11 @@ export const gapExpansionEntries: Avg001QuestionLanguageEntry[] = allocations.fl
   Array.from({ length: allocation.count }, (_, localIndex) => {
     const context = allocation.cpId === "AVG-CP-003"
       ? memberScenarios[localIndex]!
-      : contexts[(nextId - 374) % contexts.length]!;
+      : allocation.mode === "findAverageAfterUniformTransformation"
+        ? transformationContexts[localIndex]!
+        : allocation.mode === "findGroupCountRatioFromCombinedAverage"
+          ? ratioContexts[localIndex]!
+          : contexts[(nextId - 374) % contexts.length]!;
     const qlId = `AVG-QL-${String(nextId++).padStart(3, "0")}`;
     return {
       cpId: allocation.cpId,
