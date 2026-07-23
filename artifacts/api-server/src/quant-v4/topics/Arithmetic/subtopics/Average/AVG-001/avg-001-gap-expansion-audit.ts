@@ -25,6 +25,8 @@ for (const entry of entries) {
   for (let index = 0; index < 12; index += 1) {
     const pkg = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed: `avg-gap-proof:${entry.qlId}:${index}` });
     cases += 1;
+    const joined = pkg.explanation.lines.join(" ");
+    const values = pkg.parameters.values;
     if (!pkg.validation.valid) failures.push(`${entry.qlId}:${index}: validation`);
     if (!equals(pkg.solver.exactAnswer, pkg.independentVerification.exactAnswer)) failures.push(`${entry.qlId}:${index}: verifier mismatch`);
     if (pkg.options.length !== 4 || new Set(pkg.options).size !== 4) failures.push(`${entry.qlId}:${index}: option uniqueness`);
@@ -32,9 +34,20 @@ for (const entry of entries) {
     if (/[{}]|undefined|NaN|Infinity|null/.test(pkg.stem)) failures.push(`${entry.qlId}:${index}: unresolved stem`);
     if (pkg.explanation.lines.length !== 5) failures.push(`${entry.qlId}:${index}: explanation lines`);
     if (pkg.explanation.lines.filter((line) => /\$\$/.test(line)).length !== 2) failures.push(`${entry.qlId}:${index}: calculation lines`);
-    if (/reconstruct|recover|derive|determine|solve mode|weighted aggregation/i.test(pkg.explanation.lines.join(" "))) failures.push(`${entry.qlId}:${index}: formal wording`);
+    if (/reconstruct|recover|derive|determine|solve mode|weighted aggregation/i.test(joined)) failures.push(`${entry.qlId}:${index}: formal wording`);
+    if (/× 1 \+|× 1\$\$|\+ 0\$\$/.test(joined)) failures.push(`${entry.qlId}:${index}: hidden no-op in explanation`);
     if (pkg.parameters.answerType === "COUNT" && (!Number.isInteger(pkg.solver.exactAnswer.numerator / pkg.solver.exactAnswer.denominator) || pkg.solver.exactAnswer.numerator <= 0)) failures.push(`${entry.qlId}:${index}: invalid count`);
-    if (pkg.parameters.answerType === "RATIO" && !/^\d+:\d+$/.test(pkg.answer)) failures.push(`${entry.qlId}:${index}: invalid ratio display`);
+    if (pkg.parameters.answerType === "RATIO") {
+      if (!/^\d+:\d+$/.test(pkg.answer)) failures.push(`${entry.qlId}:${index}: invalid ratio display`);
+      if (pkg.options.some((option) => !/^\d+:\d+$/.test(option))) failures.push(`${entry.qlId}:${index}: invalid ratio option`);
+    }
+    if (entry.solveMode.includes("Speed") && pkg.solver.exactAnswer.denominator !== 1) failures.push(`${entry.qlId}:${index}: non-integer speed fixture`);
+    if (entry.solveMode.includes("Joining") || entry.solveMode.includes("Leaving")) {
+      const member = values.addedValue ?? values.removedValue;
+      const numeric = member ? member.numerator / member.denominator : 0;
+      if (!Number.isFinite(numeric) || numeric <= 0 || numeric > 150) failures.push(`${entry.qlId}:${index}: unrealistic member value ${numeric}`);
+      if (/years|rupees/i.test(pkg.stem)) failures.push(`${entry.qlId}:${index}: unsuitable reverse-count context`);
+    }
   }
 }
 for (const language of ["hi", "pa"] as const) assert.throws(() => runAvg001Pipeline({ questionLanguageId: "AVG-QL-374", seed: "unsupported", language }), /English only/);
