@@ -2,72 +2,41 @@ import { strict as assert } from "node:assert";
 import coverage from "./coverage-targets.cp003.library.json";
 import { getAvg001QuestionEntries } from "./foundation/library";
 
-const entries = getAvg001QuestionEntries().filter(
-  (entry) => entry.cpId === "AVG-CP-003",
-);
+const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
+const originalEntries = entries.filter((entry) => Number(entry.qlId.slice(-3)) >= 123 && Number(entry.qlId.slice(-3)) <= 208);
+const expansionEntries = entries.filter((entry) => Number(entry.qlId.slice(-3)) >= 394 && Number(entry.qlId.slice(-3)) <= 405);
 const failures: string[] = [];
 
-if (entries.length !== coverage.activeQlCount) {
-  failures.push(`QL count ${entries.length}; expected ${coverage.activeQlCount}`);
-}
-
-const expectedIds = Array.from(
-  { length: 86 },
-  (_, index) => `AVG-QL-${String(index + 123).padStart(3, "0")}`,
-);
-if (
-  JSON.stringify(entries.map((entry) => entry.qlId)) !==
-  JSON.stringify(expectedIds)
-) {
-  failures.push("CP-003 QL IDs are not the stable AVG-QL-123–208 range");
-}
+if (originalEntries.length !== coverage.activeQlCount) failures.push(`Original QL count ${originalEntries.length}; expected ${coverage.activeQlCount}`);
+const originalIds = Array.from({ length: 86 }, (_, index) => `AVG-QL-${String(index + 123).padStart(3, "0")}`);
+const expansionIds = Array.from({ length: 12 }, (_, index) => `AVG-QL-${String(index + 394).padStart(3, "0")}`);
+if (JSON.stringify(originalEntries.map((entry) => entry.qlId)) !== JSON.stringify(originalIds)) failures.push("CP-003 original IDs changed");
+if (JSON.stringify(expansionEntries.map((entry) => entry.qlId)) !== JSON.stringify(expansionIds)) failures.push("CP-003 expansion IDs are not AVG-QL-394–405");
 
 for (const [mode, target] of Object.entries(coverage.solveModeTargets)) {
-  const count = entries.filter((entry) => entry.solveMode === mode).length;
+  const count = originalEntries.filter((entry) => entry.solveMode === mode).length;
+  if (count !== target) failures.push(`${mode}: ${count}; expected ${target}`);
+}
+const expansionModeTargets = { findOriginalCountFromJoiningMemberShift: 6, findOriginalCountFromLeavingMemberShift: 6 };
+for (const [mode, target] of Object.entries(expansionModeTargets)) {
+  const count = expansionEntries.filter((entry) => entry.solveMode === mode).length;
   if (count !== target) failures.push(`${mode}: ${count}; expected ${target}`);
 }
 
-for (const [difficulty, target] of Object.entries(
-  coverage.difficultyTargets,
-)) {
-  const count = entries.filter(
-    (entry) => entry.difficulty === difficulty,
-  ).length;
-  if (count !== target) {
-    failures.push(`${difficulty}: ${count}; expected ${target}`);
-  }
+for (const [difficulty, target] of Object.entries(coverage.difficultyTargets)) {
+  const count = originalEntries.filter((entry) => entry.difficulty === difficulty).length;
+  if (count !== target) failures.push(`Original ${difficulty}: ${count}; expected ${target}`);
+}
+for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  const count = expansionEntries.filter((entry) => entry.difficulty === difficulty).length;
+  if (count !== 4) failures.push(`Expansion ${difficulty}: ${count}; expected 4`);
 }
 
-const ageShiftEntries = entries.filter(
-  (entry) =>
-    entry.scenarioVariant.includes("AfterYears") ||
-    entry.scenarioVariant.includes("ElapsedYears"),
-);
-if (
-  ageShiftEntries.length <
-  coverage.requiredScenarioSubfamilies.ageShiftMinimum
-) {
-  failures.push(
-    `Age-shift QLs: ${ageShiftEntries.length}; expected at least ${coverage.requiredScenarioSubfamilies.ageShiftMinimum}`,
-  );
-}
-
-const cricketEntries = entries.filter(
-  (entry) =>
-    entry.solveMode === "findInningsValueOrNewCricketAverage",
-);
-if (cricketEntries.length !== coverage.requiredScenarioSubfamilies.cricket) {
-  failures.push(
-    `Cricket QLs: ${cricketEntries.length}; expected ${coverage.requiredScenarioSubfamilies.cricket}`,
-  );
-}
-
-for (const variant of coverage.requiredScenarioSubfamilies
-  .requiredVariants) {
-  if (!entries.some((entry) => entry.scenarioVariant === variant)) {
-    failures.push(`Missing required scenario variant ${variant}`);
-  }
-}
+const ageShiftEntries = originalEntries.filter((entry) => entry.scenarioVariant.includes("AfterYears") || entry.scenarioVariant.includes("ElapsedYears"));
+if (ageShiftEntries.length < coverage.requiredScenarioSubfamilies.ageShiftMinimum) failures.push(`Age-shift QLs: ${ageShiftEntries.length}; expected at least ${coverage.requiredScenarioSubfamilies.ageShiftMinimum}`);
+const cricketEntries = originalEntries.filter((entry) => entry.solveMode === "findInningsValueOrNewCricketAverage");
+if (cricketEntries.length !== coverage.requiredScenarioSubfamilies.cricket) failures.push(`Cricket QLs: ${cricketEntries.length}; expected ${coverage.requiredScenarioSubfamilies.cricket}`);
+for (const variant of coverage.requiredScenarioSubfamilies.requiredVariants) if (!originalEntries.some((entry) => entry.scenarioVariant === variant)) failures.push(`Missing required original scenario variant ${variant}`);
 
 const exactTemplates = new Map<string, string[]>();
 for (const entry of entries) {
@@ -76,23 +45,8 @@ for (const entry of entries) {
   ids.push(entry.qlId);
   exactTemplates.set(normalized, ids);
 }
-for (const [template, ids] of exactTemplates) {
-  if (ids.length > 1) {
-    failures.push(`Exact duplicate stem template: ${ids.join(", ")}`);
-  }
-}
+for (const ids of exactTemplates.values()) if (ids.length > 1) failures.push(`Exact duplicate stem template: ${ids.join(", ")}`);
 
-console.log(
-  JSON.stringify(
-    {
-      qlCount: entries.length,
-      ageShiftQlCount: ageShiftEntries.length,
-      cricketQlCount: cricketEntries.length,
-      failureCount: failures.length,
-      failures,
-    },
-    null,
-    2,
-  ),
-);
+console.log(JSON.stringify({ qlCount: entries.length, originalQlCount: originalEntries.length, expansionQlCount: expansionEntries.length, ageShiftQlCount: ageShiftEntries.length, cricketQlCount: cricketEntries.length, failureCount: failures.length, failures }, null, 2));
+assert.equal(entries.length, 98);
 assert.equal(failures.length, 0, failures.join("\n"));
