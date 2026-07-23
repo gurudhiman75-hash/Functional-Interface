@@ -27,6 +27,18 @@ const EMPTY_CAPABILITIES: QuestionStudioCapabilities = {
   maxBatchSize: 50,
 };
 
+type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
+  attempted?: number;
+  succeeded?: number;
+  failed?: number;
+  results?: Array<{
+    itemId: string;
+    ok: boolean;
+    code?: string;
+    message?: string;
+  }>;
+};
+
 export function useQuestionStudio() {
   const [dashboard, setDashboard] = useState<QuestionStudioDashboard>(EMPTY_DASHBOARD);
   const [capabilities, setCapabilities] = useState<QuestionStudioCapabilities>(EMPTY_CAPABILITIES);
@@ -68,8 +80,6 @@ export function useQuestionStudio() {
     setError(null);
     try {
       const result = await createGenerationRun(input);
-      // The run is complete once the API has persisted it. Do not keep the
-      // button in its generating state while the large review dashboard reloads.
       setGenerating(false);
       await refresh();
       return result;
@@ -90,8 +100,19 @@ export function useQuestionStudio() {
     setUpdating(true);
     setError(null);
     try {
-      const result = await updateGenerationItems(input);
+      const result = await updateGenerationItems(input) as BulkReviewResult;
       await refresh();
+
+      if (Number(result.failed ?? 0) > 0) {
+        const failures = (result.results ?? []).filter((entry) => !entry.ok);
+        const first = failures[0];
+        const message = `${Number(result.succeeded ?? result.updatedCount)} updated, ${Number(result.failed)} failed. ${first?.itemId ?? 'Item'}: ${first?.message ?? 'Review update failed.'}`;
+        const partialError = new Error(message);
+        Object.assign(partialError, { code: first?.code ?? 'PARTIAL_BULK_FAILURE', result });
+        setError(message);
+        throw partialError;
+      }
+
       return result;
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : 'Unable to update generated items.';
