@@ -6,7 +6,7 @@ const failures: string[] = [];
 const countsByCp: Record<string, number> = {};
 let cases = 0;
 const conceptPatterns: Record<string, RegExp> = {
-  "AVG-CP-001": /multiply the average|divide the total|known total|required total|shared among|total is|same operation|uniform change|applied directly to the average/i,
+  "AVG-CP-001": /multiply the average|divide the total|known total|required total|shared among|total is|same operation|same two operations|uniform change|applied directly to the average|average increases by|number of observations remains unchanged/i,
   "AVG-CP-002": /equally spaced|halfway|middle term|equal gaps|half-span|span|extreme term|common difference|number of gaps/i,
   "AVG-CP-003": /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs|joining member|member leaves|original group size|remaining members/i,
   "AVG-CP-004": /group total|combined count|combined total|weighted deviations|equal distances|slower speed|same amount of time|equal weight|group-size ratio|distances of the combined average|total distance|total time|unequal distances|unequal times|weight each speed/i,
@@ -55,17 +55,17 @@ for (const entry of entries) {
     if (reasoningLines.some((line) => wordCount(line) > 22)) failures.push(`${entry.qlId}:${index}: contains an overly long reasoning sentence`);
     if (totalWords > 75) failures.push(`${entry.qlId}:${index}: explanation is too verbose (${totalWords} words)`);
     if (/check:|verification:|indeed,/i.test(joined)) failures.push(`${entry.qlId}:${index}: includes an unnecessary verification line`);
-    const isCountAnswer = pkg.parameters.answerType === "COUNT";
+    const isUnitlessAnswer = pkg.parameters.answerType === "COUNT" || pkg.parameters.answerType === "RATIO";
     const ageStem = /\bage\b|\byears?\b/i.test(pkg.stem);
     const cricketStem = pkg.parameters.contextDomain === "Sports" && /\bruns?\b|\binnings?\b|\bbatter\b|\bbatting\b|\bcricketer\b/i.test(pkg.stem);
-    if (!isCountAnswer && pkg.stem.includes("₹") && !conclusionText.includes("₹")) failures.push(`${entry.qlId}:${index}: currency conclusion omits ₹`);
-    if (!isCountAnswer && ageStem && !/\byears?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: age conclusion omits years`);
+    if (!isUnitlessAnswer && pkg.stem.includes("₹") && !conclusionText.includes("₹")) failures.push(`${entry.qlId}:${index}: currency conclusion omits ₹`);
+    if (!isUnitlessAnswer && ageStem && !/\byears?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: age conclusion omits years`);
     if (ageStem && /\bruns?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: age conclusion incorrectly uses runs`);
-    if (!isCountAnswer && /\bkg\b/i.test(pkg.stem) && !/\bkg\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: weight conclusion omits kg`);
-    if (!isCountAnswer && /\bunits?\b/i.test(pkg.stem) && !/\bunits?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: output conclusion omits units`);
-    if (!isCountAnswer && /\bmarks?\b/i.test(pkg.stem) && !/\bmarks?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: marks conclusion omits marks`);
-    if (!isCountAnswer && /\bkm\b|kilomet/i.test(pkg.stem) && !/\bkm\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: distance conclusion omits km`);
-    if (!isCountAnswer && cricketStem && !ageStem && !/\bruns?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: cricket conclusion omits runs`);
+    if (!isUnitlessAnswer && /\bkg\b/i.test(pkg.stem) && !/\bkg\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: weight conclusion omits kg`);
+    if (!isUnitlessAnswer && /\bunits?\b/i.test(pkg.stem) && !/\bunits?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: output conclusion omits units`);
+    if (!isUnitlessAnswer && /\bmarks?\b/i.test(pkg.stem) && !/\bmarks?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: marks conclusion omits marks`);
+    if (!isUnitlessAnswer && /\bkm\b|kilomet/i.test(pkg.stem) && !/\bkm\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: distance conclusion omits km`);
+    if (!isUnitlessAnswer && cricketStem && !ageStem && !/\bruns?\b/i.test(conclusionText)) failures.push(`${entry.qlId}:${index}: cricket conclusion omits runs`);
     const values = pkg.parameters.values as Record<string, unknown>;
     if (pkg.parameters.scenarioVariant === "familyAgeElapsedTime" && pkg.solveMode === "findNewAverageAfterAddition") {
       const expectedAgedTotal = (numericValue(values.oldAverage) + numericValue(values.elapsedYears)) * numericValue(values.oldCount);
