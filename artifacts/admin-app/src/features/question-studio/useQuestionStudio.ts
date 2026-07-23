@@ -22,10 +22,17 @@ const EMPTY_DASHBOARD: QuestionStudioDashboard = {
 const EMPTY_CAPABILITIES: QuestionStudioCapabilities = {
   generationSystem: 'quant-v4',
   packages: [],
-  difficulties: ['Easy', 'Medium', 'Hard'],
+  difficulties: ['Easy', 'Medium', 'Hard', 'Mixed'],
   languages: ['en'],
   maxBatchSize: 50,
 };
+
+function withMixedDifficulty(capabilities: QuestionStudioCapabilities): QuestionStudioCapabilities {
+  const difficulties = capabilities.difficulties.includes('Mixed')
+    ? capabilities.difficulties
+    : [...capabilities.difficulties, 'Mixed'];
+  return { ...capabilities, difficulties };
+}
 
 type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
   attempted?: number;
@@ -57,7 +64,7 @@ export function useQuestionStudio() {
         getQuestionStudioCapabilities(),
       ]);
       setDashboard(nextDashboard);
-      setCapabilities(nextCapabilities);
+      setCapabilities(withMixedDifficulty(nextCapabilities));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Question Studio.');
     } finally {
