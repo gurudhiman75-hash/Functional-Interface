@@ -1,4 +1,4 @@
-import { getFirebaseAuth } from '@/integrations/firebase';
+import { adminRequest } from '@/lib/admin-request';
 
 export type LiveTestStatus =
   | 'draft'
@@ -200,52 +200,44 @@ export type TestLifecycleAction =
   | 'archive'
   | 'restore-draft';
 
-const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
-const apiBase = (configuredBase || '/api').replace(/\/$/, '');
-
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const user = getFirebaseAuth()?.currentUser;
-  if (!user) throw new Error('Your ExamTree admin session has expired. Sign in again.');
-
-  const response = await fetch(`${apiBase}${path}`, {
-    ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${await user.getIdToken()}`,
-      ...init?.headers,
-    },
-  });
-  const body = await response.json().catch(() => null) as ({ error?: string; code?: string; details?: unknown } & T) | null;
-  if (!response.ok) {
-    const error = new Error(body?.error || `Test Builder request failed (${response.status}).`);
-    Object.assign(error, { code: body?.code, status: response.status, details: body?.details });
-    throw error;
-  }
-  if (!body) throw new Error('Test Builder returned an empty response.');
-  return body;
-}
-
 export function getTestCatalog() {
-  return request<{ examVersions: TestCatalogExamVersion[]; generatedAt: string }>('/admin/tests/catalog');
+  return adminRequest<{ examVersions: TestCatalogExamVersion[]; generatedAt: string }>(
+    '/admin/tests/catalog',
+    undefined,
+    { fallbackMessage: 'Unable to load the Test Builder catalog.' },
+  );
 }
 
 export function getLiveTests() {
-  return request<{ tests: LiveTestSummary[]; generatedAt: string }>('/admin/tests');
+  return adminRequest<{ tests: LiveTestSummary[]; generatedAt: string }>(
+    '/admin/tests',
+    undefined,
+    { fallbackMessage: 'Unable to load tests.' },
+  );
 }
 
 export function getLiveTest(testId: string) {
-  return request<LiveTestDetail>(`/admin/tests/${encodeURIComponent(testId)}`);
+  return adminRequest<LiveTestDetail>(
+    `/admin/tests/${encodeURIComponent(testId)}`,
+    undefined,
+    { fallbackMessage: 'Unable to load the selected test.', affectedRecord: testId },
+  );
 }
 
 export function createLiveTest(input: TestDraftInput) {
-  return request<LiveTestDetail>('/admin/tests', { method: 'POST', body: JSON.stringify(input) });
+  return adminRequest<LiveTestDetail>(
+    '/admin/tests',
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to create the test draft.' },
+  );
 }
 
 export function saveLiveTestDraft(testId: string, input: TestDraftInput) {
-  return request<LiveTestDetail>(`/admin/tests/${encodeURIComponent(testId)}/draft`, {
-    method: 'PUT',
-    body: JSON.stringify(input),
-  });
+  return adminRequest<LiveTestDetail>(
+    `/admin/tests/${encodeURIComponent(testId)}/draft`,
+    { method: 'PUT', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to save the test draft.', affectedRecord: testId },
+  );
 }
 
 export function transitionLiveTest(
@@ -258,10 +250,11 @@ export function transitionLiveTest(
     closesAt?: string;
   },
 ) {
-  return request<LiveTestDetail>(`/admin/tests/${encodeURIComponent(testId)}/actions/${action}`, {
-    method: 'POST',
-    body: JSON.stringify(input),
-  });
+  return adminRequest<LiveTestDetail>(
+    `/admin/tests/${encodeURIComponent(testId)}/actions/${action}`,
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: `Unable to ${action.replace('-', ' ')} the test.`, affectedRecord: testId },
+  );
 }
 
 export function autoAssembleTest(input: {
@@ -270,11 +263,15 @@ export function autoAssembleTest(input: {
   seed?: string;
   difficulties?: string[];
 }) {
-  return request<{
+  return adminRequest<{
     questions: Array<{ id: string; publicCode: string; questionVersionId: string; difficulty: string; stem: string }>;
     requestedCount: number;
     selectedCount: number;
     shortages: string[];
     generatedAt: string;
-  }>('/admin/tests/auto-assemble', { method: 'POST', body: JSON.stringify(input) });
+  }>(
+    '/admin/tests/auto-assemble',
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to auto-assemble the test.' },
+  );
 }
