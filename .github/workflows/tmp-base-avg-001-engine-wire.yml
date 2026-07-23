@@ -1,17 +1,17 @@
 name: Temporary base AVG-001 engine wire
 
 on:
-  push:
+  pull_request_target:
     branches:
       - feat/avg-001-cp001-runtime-proof
-    paths:
-      - .github/workflows/tmp-base-avg-001-engine-wire.yml
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: write
 
 jobs:
   patch:
+    if: github.event.pull_request.head.ref == 'feat/avg-001-question-studio-integration'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
