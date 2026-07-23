@@ -1,4 +1,4 @@
-import { getFirebaseAuth } from '@/integrations/firebase';
+import { adminRequest } from '@/lib/admin-request';
 
 export type QuestionStatus =
   | 'draft'
@@ -191,55 +191,46 @@ export type QuestionLifecycleAction =
   | 'unpublish'
   | 'archive';
 
-const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
-const apiBase = (configuredBase || '/api').replace(/\/$/, '');
-
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const user = getFirebaseAuth()?.currentUser;
-  if (!user) throw new Error('Your ExamTree admin session has expired. Sign in again.');
-
-  const response = await fetch(`${apiBase}${path}`, {
-    ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${await user.getIdToken()}`,
-      ...init?.headers,
-    },
-  });
-
-  const body = await response.json().catch(() => null) as ({ error?: string; code?: string; details?: unknown } & T) | null;
-  if (!response.ok) {
-    const error = new Error(body?.error || `Question Bank request failed (${response.status}).`);
-    Object.assign(error, { code: body?.code, status: response.status, details: body?.details });
-    throw error;
-  }
-  if (!body) throw new Error('Question Bank returned an empty response.');
-  return body;
-}
-
 export function getLiveQuestions() {
-  return request<{ questions: LiveQuestion[]; generatedAt: string }>('/admin/questions');
+  return adminRequest<{ questions: LiveQuestion[]; generatedAt: string }>(
+    '/admin/questions',
+    undefined,
+    { fallbackMessage: 'Unable to load Question Bank.' },
+  );
 }
 
 export const getLiveApprovedQuestions = getLiveQuestions;
 
 export function getPublishedQuestions() {
-  return request<{ questions: PublishedQuestion[]; generatedAt: string }>('/admin/questions/published');
+  return adminRequest<{ questions: PublishedQuestion[]; generatedAt: string }>(
+    '/admin/questions/published',
+    undefined,
+    { fallbackMessage: 'Unable to load published questions.' },
+  );
 }
 
 export function getQuestionTaxonomyOptions() {
-  return request<TaxonomyOptionsResponse>('/admin/questions/taxonomy/options');
+  return adminRequest<TaxonomyOptionsResponse>(
+    '/admin/questions/taxonomy/options',
+    undefined,
+    { fallbackMessage: 'Unable to load question taxonomy options.' },
+  );
 }
 
 export function getQuestionDetail(questionId: string) {
-  return request<QuestionDetailResponse>(`/admin/questions/${encodeURIComponent(questionId)}`);
+  return adminRequest<QuestionDetailResponse>(
+    `/admin/questions/${encodeURIComponent(questionId)}`,
+    undefined,
+    { fallbackMessage: 'Unable to load the selected question.', affectedRecord: questionId },
+  );
 }
 
 export function createQuestionVersion(questionId: string, input: QuestionVersionInput) {
-  return request<QuestionDetailResponse>(`/admin/questions/${encodeURIComponent(questionId)}/versions`, {
-    method: 'POST',
-    body: JSON.stringify(input),
-  });
+  return adminRequest<QuestionDetailResponse>(
+    `/admin/questions/${encodeURIComponent(questionId)}/versions`,
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to create a question version.', affectedRecord: questionId },
+  );
 }
 
 export async function updateQuestionTaxonomy(
@@ -251,10 +242,11 @@ export async function updateQuestionTaxonomy(
     taxonomyNodeIds: string[];
   },
 ) {
-  await request<unknown>(`/admin/questions/${encodeURIComponent(questionId)}/taxonomy`, {
-    method: 'PATCH',
-    body: JSON.stringify(input),
-  });
+  await adminRequest<unknown>(
+    `/admin/questions/${encodeURIComponent(questionId)}/taxonomy`,
+    { method: 'PATCH', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to update question taxonomy.', affectedRecord: questionId },
+  );
   return getQuestionDetail(questionId);
 }
 
@@ -263,15 +255,16 @@ export async function transitionQuestion(
   action: QuestionLifecycleAction,
   input: { expectedLockVersion: number; reason?: string },
 ) {
-  await request<unknown>(
+  await adminRequest<unknown>(
     `/admin/questions/${encodeURIComponent(questionId)}/actions/${action}`,
     { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: `Unable to ${action.replace('-', ' ')} the question.`, affectedRecord: questionId },
   );
   return getQuestionDetail(questionId);
 }
 
 export function reconcileApprovedQuestions() {
-  return request<{
+  return adminRequest<{
     converted: Array<{
       itemId: string;
       questionId: string;
@@ -279,5 +272,9 @@ export function reconcileApprovedQuestions() {
       publicCode: string;
     }>;
     convertedCount: number;
-  }>('/admin/questions/reconcile-approved', { method: 'POST', body: '{}' });
+  }>(
+    '/admin/questions/reconcile-approved',
+    { method: 'POST', body: '{}' },
+    { fallbackMessage: 'Unable to reconcile approved generated questions.' },
+  );
 }
