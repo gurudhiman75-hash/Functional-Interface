@@ -29,48 +29,45 @@ jobs:
           path = Path('artifacts/api-server/src/quant-v4/generation-engine.ts')
           text = path.read_text()
 
-          import_anchor = '''import {
-            getRap003ActiveCanonicalProblemIds,
-            runRap003Pipeline,
-            type Rap003CanonicalProblemId,
-          } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-003";
-          '''
-          avg_import = import_anchor + '''import {
-            AVG_001_QUESTION_STUDIO_CP_IDS,
-            runAvg001QuestionStudioPipeline,
-            type Avg001QuestionStudioCpId,
-          } from "./topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
-          '''
           if 'runAvg001QuestionStudioPipeline' not in text:
-              text = text.replace(import_anchor, avg_import)
+              anchor = 'import {\n  existsSync,'
+              addition = '''import {
+  AVG_001_QUESTION_STUDIO_CP_IDS,
+  runAvg001QuestionStudioPipeline,
+  type Avg001QuestionStudioCpId,
+} from "./topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
+'''
+              if anchor not in text:
+                  raise SystemExit('missing import anchor')
+              text = text.replace(anchor, addition + anchor, 1)
 
-          type_anchor = '  | "RAP-003";'
           if '| "AVG-001"' not in text:
-              text = text.replace(type_anchor, '  | "RAP-003"\n  | "AVG-001";')
+              anchor = '  | "RAP-003";'
+              if anchor not in text:
+                  raise SystemExit('missing package type anchor')
+              text = text.replace(anchor, '  | "RAP-003"\n  | "AVG-001";', 1)
 
-          runtime_anchor = '''  {
-            packageId: "RAP-001",
-            topic: "Arithmetic",
-            subtopic: "Ratio & Proportion",
-          '''
-          avg_runtime = '''  {
-            packageId: "AVG-001",
-            topic: "Arithmetic",
-            subtopic: "Average",
-            label: "Average",
-            cpIds: AVG_001_QUESTION_STUDIO_CP_IDS,
-            supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
-            run: (cpId, input) =>
-              runAvg001QuestionStudioPipeline(cpId as Avg001QuestionStudioCpId, {
-                difficulty: input.difficulty,
-                language: input.language,
-                questionLanguageId: input.questionLanguageId,
-                seed: input.seed,
-              }),
-          },
-          ''' + runtime_anchor
           if 'packageId: "AVG-001"' not in text:
-              text = text.replace(runtime_anchor, avg_runtime)
+              anchor = '  {\n    packageId: "RAP-001",'
+              addition = '''  {
+    packageId: "AVG-001",
+    topic: "Arithmetic",
+    subtopic: "Average",
+    label: "Average",
+    cpIds: AVG_001_QUESTION_STUDIO_CP_IDS,
+    supportedLanguages: ENGLISH_ONLY_PREVIEW_LANGUAGES,
+    run: (cpId, input) =>
+      runAvg001QuestionStudioPipeline(cpId as Avg001QuestionStudioCpId, {
+        difficulty: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
+'''
+              if anchor not in text:
+                  raise SystemExit('missing runtime package anchor')
+              text = text.replace(anchor, addition + anchor, 1)
 
           for needle in ['runAvg001QuestionStudioPipeline', '| "AVG-001";', 'packageId: "AVG-001"']:
               if needle not in text:
