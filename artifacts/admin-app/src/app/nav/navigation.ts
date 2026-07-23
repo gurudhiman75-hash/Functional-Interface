@@ -7,28 +7,9 @@ import {
 } from 'lucide-react';
 
 export type AdminWorkspaceStatus = 'live' | 'in_progress' | 'planned';
-
-export const WORKSPACE_STATUS_LABELS: Record<AdminWorkspaceStatus, string> = {
-  live: 'Live',
-  in_progress: 'In progress',
-  planned: 'Planned',
-};
-
-export interface NavItem {
-  label: string;
-  path: string;
-  icon: LucideIcon;
-  status: AdminWorkspaceStatus;
-  permission?: string;
-  summary: string;
-  milestone?: string;
-}
-
-export interface NavGroup {
-  id: string;
-  label: string;
-  items: NavItem[];
-}
+export const WORKSPACE_STATUS_LABELS: Record<AdminWorkspaceStatus, string> = { live: 'Live', in_progress: 'In progress', planned: 'Planned' };
+export interface NavItem { label: string; path: string; icon: LucideIcon; status: AdminWorkspaceStatus; permission?: string; summary: string; milestone?: string; }
+export interface NavGroup { id: string; label: string; items: NavItem[]; }
 
 export const NAV_GROUPS: NavGroup[] = [
   { id: 'overview', label: 'Overview', items: [
@@ -49,7 +30,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Test QA', path: '/tests/qa', icon: ClipboardCheck, status: 'live', permission: 'tests.read', summary: 'Canonical pre-publication validation, reviewer ownership, issue resolution, candidate preview and release gate.' },
     { label: 'Test Series', path: '/tests/series', icon: Box, status: 'live', permission: 'tests.read', summary: 'Create immutable exam-series versions with ordered tests, release windows, readiness checks and progression rules.' },
     { label: 'Exam Blueprints', path: '/tests/blueprints', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Define immutable exam structures, preview Question Bank shortages and assemble deterministic test drafts.' },
-    { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'planned', summary: 'Schedule releases, expiry, embargoes and campaign-aligned test publication.', milestone: 'Scheduled publication worker and calendar operations.' },
+    { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Plan releases, inspect missed schedules, drag QA-approved tests onto dates, publish immediately, postpone or unschedule.' },
   ] },
   { id: 'commerce', label: 'Commerce', items: [
     { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'planned', summary: 'Create paid and free offerings and map canonical tests to sellable packages.', milestone: 'Package catalogue, pricing and test entitlement mapping.' },
@@ -81,13 +62,5 @@ export const NAV_GROUPS: NavGroup[] = [
   ] },
 ];
 
-export const NAV_LOOKUP: Record<string, NavItem> = Object.fromEntries(
-  NAV_GROUPS.flatMap((group) => group.items.map((item) => [item.path, item])),
-);
-
-export const ADMIN_WORKSPACE_COUNTS = NAV_GROUPS
-  .flatMap((group) => group.items)
-  .reduce<Record<AdminWorkspaceStatus, number>>(
-    (counts, item) => ({ ...counts, [item.status]: counts[item.status] + 1 }),
-    { live: 0, in_progress: 0, planned: 0 },
-  );
+export const NAV_LOOKUP: Record<string, NavItem> = Object.fromEntries(NAV_GROUPS.flatMap((group) => group.items.map((item) => [item.path, item])));
+export const ADMIN_WORKSPACE_COUNTS = NAV_GROUPS.flatMap((group) => group.items).reduce<Record<AdminWorkspaceStatus, number>>((counts, item) => ({ ...counts, [item.status]: counts[item.status] + 1 }), { live: 0, in_progress: 0, planned: 0 });
