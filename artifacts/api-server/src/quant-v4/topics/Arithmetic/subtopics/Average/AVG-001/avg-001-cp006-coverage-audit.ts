@@ -40,7 +40,8 @@ for (const entry of entries) {
     if (!pkg.explanation.lines.some((line) => line.includes(pkg.answer))) failures.push(`${entry.qlId}:${index}: answer missing from explanation`);
     const explanationText = pkg.explanation.lines.join(" ");
     if (/reconstruct|recover|derive|determine|hierarchical resolution|weighted aggregation|solve mode/i.test(explanationText)) failures.push(`${entry.qlId}:${index}: formal/internal wording`);
-    if (/;\s*quad|\\quad|,\s*;|;;|\$\$\s*\$\$/.test(explanationText)) failures.push(`${entry.qlId}:${index}: malformed equation text`);
+    if (/;\s*quad|\\quad|,\s*;|;;/.test(explanationText)) failures.push(`${entry.qlId}:${index}: malformed equation text`);
+    if (pkg.explanation.lines.some((line) => /^\s*\$\$\s*\$\$\s*$/.test(line))) failures.push(`${entry.qlId}:${index}: empty equation line`);
     const equationLines = pkg.explanation.lines.filter((line) => /\$\$/.test(line));
     if (equationLines.length !== 2) failures.push(`${entry.qlId}:${index}: expected exactly two calculation lines`);
     const values = pkg.parameters.values;
