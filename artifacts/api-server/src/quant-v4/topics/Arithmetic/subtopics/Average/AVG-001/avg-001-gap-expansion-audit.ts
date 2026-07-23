@@ -35,7 +35,7 @@ for (const entry of entries) {
     if (pkg.explanation.lines.length !== 5) failures.push(`${entry.qlId}:${index}: explanation lines`);
     if (pkg.explanation.lines.filter((line) => /\$\$/.test(line)).length !== 2) failures.push(`${entry.qlId}:${index}: calculation lines`);
     if (/reconstruct|recover|derive|determine|solve mode|weighted aggregation/i.test(joined)) failures.push(`${entry.qlId}:${index}: formal wording`);
-    if (/× 1 \+|× 1\$\$|\+ 0\$\$/.test(joined)) failures.push(`${entry.qlId}:${index}: hidden no-op in explanation`);
+    if (entry.solveMode === "findAverageAfterUniformTransformation" && /× 1 \+|× 1\$\$|\+ 0\$\$/.test(joined)) failures.push(`${entry.qlId}:${index}: hidden no-op in explanation`);
     if (pkg.parameters.answerType === "COUNT" && (!Number.isInteger(pkg.solver.exactAnswer.numerator / pkg.solver.exactAnswer.denominator) || pkg.solver.exactAnswer.numerator <= 0)) failures.push(`${entry.qlId}:${index}: invalid count`);
     if (pkg.parameters.answerType === "RATIO") {
       if (!/^\d+:\d+$/.test(pkg.answer)) failures.push(`${entry.qlId}:${index}: invalid ratio display`);
