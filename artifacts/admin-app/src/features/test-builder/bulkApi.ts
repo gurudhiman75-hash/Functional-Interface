@@ -1,4 +1,4 @@
-import { getFirebaseAuth } from '@/integrations/firebase';
+import { adminRequest } from '@/lib/admin-request';
 import type { TestLifecycleAction } from './api';
 
 export interface BulkTestLifecycleResult {
@@ -20,10 +20,7 @@ export interface BulkTestLifecycleResponse {
   generatedAt: string;
 }
 
-const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
-const apiBase = (configuredBase || '/api').replace(/\/$/, '');
-
-export async function bulkTransitionTests(
+export function bulkTransitionTests(
   action: TestLifecycleAction,
   input: {
     items: Array<{ testId: string; expectedCurrentDraftVersionId: string }>;
@@ -32,19 +29,9 @@ export async function bulkTransitionTests(
     closesAt?: string;
   },
 ) {
-  const user = getFirebaseAuth()?.currentUser;
-  if (!user) throw new Error('Your ExamTree admin session has expired. Sign in again.');
-
-  const response = await fetch(`${apiBase}/admin/tests/bulk/actions/${action}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${await user.getIdToken()}`,
-    },
-    body: JSON.stringify(input),
-  });
-  const body = await response.json().catch(() => null) as ({ error?: string } & BulkTestLifecycleResponse) | null;
-  if (!response.ok) throw new Error(body?.error || `Bulk test update failed (${response.status}).`);
-  if (!body) throw new Error('Bulk test update returned an empty response.');
-  return body;
+  return adminRequest<BulkTestLifecycleResponse>(
+    `/admin/tests/bulk/actions/${action}`,
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: `Unable to ${action.replace('-', ' ')} the selected tests.` },
+  );
 }
