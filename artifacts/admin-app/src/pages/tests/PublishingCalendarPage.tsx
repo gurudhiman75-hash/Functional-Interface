@@ -1,348 +1,83 @@
-import { useMemo, useState } from 'react';
-import {
-  CalendarClock, ChevronLeft, ChevronRight, Plus, Rocket, Clock, Eye, Calendar,
-  AlertTriangle, ShieldCheck, CheckCircle2,
-} from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { CalendarClock, ChevronLeft, ChevronRight, ExternalLink, List, Loader2, RefreshCw, Rocket, Undo2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+import { AdminErrorAlert } from '@/components/shared/AdminErrorAlert';
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatusBadge, testStatusTone } from '@/components/shared/StatusBadge';
 import { showToast } from '@/components/shared/toast';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { useTests } from '@/app/store/selectors';
-import { usePrototypeStore } from '@/app/store/PrototypeStore';
-import { EXAMS, EXAM_FAMILIES, type ExamFamily } from '@/data/exams';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { getLiveTests, transitionLiveTest, type LiveTestSummary } from '@/features/test-builder/api';
+import { toAdminApiError, type AdminApiError } from '@/lib/admin-api-error';
 
-const FAMILY_DOT: Record<ExamFamily, string> = {
-  SSC: 'bg-info',
-  Banking: 'bg-success',
-  Railway: 'bg-warning',
-  'Punjab State': 'bg-brand-accent',
-};
-
-const FAMILY_RING: Record<ExamFamily, string> = {
-  SSC: 'border-l-info',
-  Banking: 'border-l-success',
-  Railway: 'border-l-warning',
-  'Punjab State': 'border-l-brand-accent',
-};
-
-const FAMILY_CHIP: Record<ExamFamily | 'All', string> = {
-  All: 'border-primary bg-primary/10 text-primary',
-  SSC: 'border-info/30 bg-info/10 text-info',
-  Banking: 'border-success/30 bg-success/10 text-success',
-  Railway: 'border-warning/30 bg-warning/10 text-warning',
-  'Punjab State': 'border-brand-accent/30 bg-brand-accent/10 text-brand-accent',
-};
-
-const examFamily = (code: string): ExamFamily => EXAMS.find((e) => e.code === code)?.family ?? 'SSC';
-
-function publicationRisk(test: { status: string; totalQuestions: number; attempts: number }): 'low' | 'medium' | 'high' {
-  if (test.status === 'Under QA') return 'medium';
-  if (test.status === 'Draft' || test.status === 'Content Ready') return 'high';
-  return 'low';
-}
-
-const RISK_TONE: Record<string, 'success' | 'warning' | 'destructive'> = {
-  low: 'success',
-  medium: 'warning',
-  high: 'destructive',
-};
-
-const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+function dayKey(value: Date | string) { const date = typeof value === 'string' ? new Date(value) : value; return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; }
+function addDays(value: Date, days: number) { const next = new Date(value); next.setDate(next.getDate() + days); return next; }
+function setting(test: LiveTestSummary, key: string, fallback: string) { const value = test.settings?.[key]; return typeof value === 'string' && value ? value : fallback; }
+function warning(test: LiveTestSummary) { if (!test.scheduledAt) return test.status === 'qa_approved' ? 'Ready but unscheduled' : null; return test.status === 'scheduled' && new Date(test.scheduledAt).getTime() < Date.now() ? 'Missed publication time' : null; }
 
 export function PublishingCalendarPage() {
-  const tests = useTests();
-  const { dispatch, audit } = usePrototypeStore();
-  const [family, setFamily] = useState<ExamFamily | 'All'>('All');
-  const [monthOffset, setMonthOffset] = useState(0);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const [tests, setTests] = useState<LiveTestSummary[]>([]);
+  const [month, setMonth] = useState(() => new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+  const [view, setView] = useState<'calendar' | 'list'>('calendar');
+  const [exam, setExam] = useState('all');
+  const [status, setStatus] = useState('all');
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [busyId, setBusyId] = useState<string | null>(null);
+  const [error, setError] = useState<AdminApiError | null>(null);
 
-  const baseYear = 2026;
-  const baseMonth = 6;
-  const calDate = new Date(baseYear, baseMonth + monthOffset, 1);
-  const calYear = calDate.getFullYear();
-  const calMonth = calDate.getMonth();
-  const monthLabel = calDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const load = useCallback(async () => {
+    setLoading(true); setError(null);
+    try { setTests((await getLiveTests()).tests); }
+    catch (caught) { setError(toAdminApiError(caught, { fallbackMessage: 'Unable to load the Publishing Calendar.' })); }
+    finally { setLoading(false); }
+  }, []);
+  useEffect(() => { void load(); }, [load]);
 
-  const scheduled = useMemo(() => tests.filter((t) => t.scheduledDate), [tests]);
+  const filtered = useMemo(() => tests.filter((test) => {
+    if (exam !== 'all' && test.examVersionId !== exam) return false;
+    if (status !== 'all' && test.status !== status) return false;
+    const term = search.trim().toLowerCase();
+    return !term || `${test.title ?? ''} ${test.publicCode} ${test.examName}`.toLowerCase().includes(term);
+  }), [exam, search, status, tests]);
+  const scheduled = filtered.filter((test) => Boolean(test.scheduledAt));
+  const unscheduled = filtered.filter((test) => !test.scheduledAt && ['qa_approved', 'draft', 'content_ready', 'under_qa', 'needs_fix'].includes(test.status));
+  const exams = Array.from(new Map(tests.map((test) => [test.examVersionId, test.examName])).entries());
+  const first = addDays(month, -month.getDay());
+  const end = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+  const last = addDays(end, 6 - end.getDay());
+  const days: Date[] = []; for (let cursor = first; cursor <= last; cursor = addDays(cursor, 1)) days.push(cursor);
 
-  const byDate = useMemo(() => {
-    const map: Record<string, typeof tests> = {};
-    scheduled.forEach((t) => {
-      if (!t.scheduledDate) return;
-      (map[t.scheduledDate] ??= []).push(t);
-    });
-    return map;
-  }, [scheduled, tests]);
-
-  const filteredByDate = useMemo(() => {
-    if (family === 'All') return byDate;
-    const map: Record<string, typeof tests> = {};
-    Object.entries(byDate).forEach(([date, dateTests]) => {
-      const f = dateTests.filter((t) => examFamily(t.exam) === family);
-      if (f.length) map[date] = f;
-    });
-    return map;
-  }, [byDate, family, tests]);
-
-  const conflictingDates = useMemo(() => {
-    return Object.entries(filteredByDate)
-      .filter(([, dateTests]) => dateTests.length > 1)
-      .map(([date]) => date);
-  }, [filteredByDate]);
-
-  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-  const firstWeekday = new Date(calYear, calMonth, 1).getDay();
-  const todayISO = new Date().toISOString().slice(0, 10);
-
-  const upcoming = useMemo(
-    () =>
-      [...scheduled]
-        .filter((t) => family === 'All' || examFamily(t.exam) === family)
-        .sort((a, b) => (a.scheduledDate ?? '').localeCompare(b.scheduledDate ?? ''))
-        .slice(0, 12),
-    [scheduled, family],
-  );
-
-  const releaseWindows = useMemo(() => {
-    const windows: { time: string; tests: typeof tests }[] = [];
-    const timeMap: Record<string, typeof tests> = {};
-    scheduled.forEach((t) => {
-      const time = '10:00 AM';
-      (timeMap[time] ??= []).push(t);
-    });
-    Object.entries(timeMap).forEach(([time, t]) => windows.push({ time, tests: t }));
-    return windows;
-  }, [scheduled, tests]);
-
-  const selectedDayTests = selectedDate ? filteredByDate[selectedDate] ?? [] : [];
-
-  const handleReschedule = (testId: string, testName: string) => {
-    const dateStr = new Date(Date.now() + 14 * 86400000).toISOString().slice(0, 10);
-    const test = tests.find((t) => t.id === testId);
-    if (!test) return;
-    const updated = { ...test, scheduledDate: dateStr, status: 'Scheduled' as const };
-    dispatch({ type: 'UPDATE_TEST', test: updated, audit: audit('TEST_RESCHEDULED', 'test', testId, testName, test.scheduledDate ?? '', dateStr, `Rescheduled to ${dateStr}`) });
-    showToast.success('Test rescheduled', `${testName} moved to ${dateStr}.`);
+  const mutate = async (test: LiveTestSummary, action: 'schedule' | 'publish' | 'restore-draft', scheduledAt?: string) => {
+    if (!test.currentDraftVersionId) return showToast.error('Draft version missing', 'Save the test in Test Builder first.');
+    setBusyId(test.id); setError(null);
+    try {
+      await transitionLiveTest(test.id, action, { expectedCurrentDraftVersionId: test.currentDraftVersionId, scheduledAt, reason: action === 'restore-draft' ? 'Unscheduled from Publishing Calendar' : undefined });
+      showToast.success(action === 'publish' ? 'Test published' : action === 'schedule' ? 'Schedule updated' : 'Test unscheduled', test.publicCode);
+      await load();
+    } catch (caught) { setError(toAdminApiError(caught, { fallbackMessage: 'Unable to update the publication schedule.', affectedRecord: test.id })); }
+    finally { setBusyId(null); }
   };
 
-  const handlePublishNow = (testId: string, testName: string) => {
-    const test = tests.find((t) => t.id === testId);
-    if (!test) return;
-    const updated = { ...test, status: 'Live' as const, scheduledDate: null };
-    dispatch({ type: 'UPDATE_TEST', test: updated, audit: audit('TEST_PUBLISHED', 'test', testId, testName, test.status, 'Live', `Published ${testName}`) });
-    showToast.success('Published', `${testName} is now live.`);
+  const scheduleOnDay = (test: LiveTestSummary, day: Date) => {
+    if (!['qa_approved', 'scheduled'].includes(test.status)) return showToast.warning('QA approval required', 'Only QA-approved tests can be scheduled.');
+    const next = new Date(day); next.setHours(9, 0, 0, 0); void mutate(test, 'schedule', next.toISOString());
   };
 
-  return (
-    <div>
-      <PageHeader
-        title="Publishing Calendar"
-        description="Schedule and track test releases across all exam categories with conflict detection."
-        icon={<CalendarClock className="h-5 w-5" />}
-        actions={<Button size="sm" onClick={() => showToast.info('Schedule Test', 'Test scheduling form would open here.')}><Plus className="mr-1.5 h-4 w-4" /> Schedule Test</Button>}
-      />
-
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        {(['All', ...EXAM_FAMILIES] as const).map((f) => (
-          <button
-            key={f}
-            onClick={() => setFamily(f)}
-            className={cn(
-              'rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
-              family === f ? FAMILY_CHIP[f] : 'border-border bg-card text-muted-foreground hover:bg-muted',
-            )}
-          >
-            {f === 'All' ? 'All Families' : f}
-          </button>
-        ))}
-      </div>
-
-      <div className="grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <CardTitle className="text-base">{monthLabel}</CardTitle>
-            <div className="flex items-center gap-1">
-              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setMonthOffset((m) => m - 1)}><ChevronLeft className="h-4 w-4" /></Button>
-              <Button variant="outline" size="sm" className="h-8" onClick={() => setMonthOffset(0)}>Today</Button>
-              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => setMonthOffset((m) => m + 1)}><ChevronRight className="h-4 w-4" /></Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-7 gap-1.5">
-              {WEEKDAYS.map((d) => (
-                <div key={d} className="pb-1 text-center text-xs font-medium uppercase tracking-wider text-muted-foreground">{d}</div>
-              ))}
-              {Array.from({ length: firstWeekday }).map((_, i) => (
-                <div key={`b-${i}`} />
-              ))}
-              {Array.from({ length: daysInMonth }).map((_, i) => {
-                const day = i + 1;
-                const dateISO = `${calYear}-${String(calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const dayTests = filteredByDate[dateISO] ?? [];
-                const isToday = dateISO === todayISO;
-                const hasConflict = conflictingDates.includes(dateISO);
-                const isSelected = selectedDate === dateISO;
-                return (
-                  <button
-                    key={day}
-                    onClick={() => setSelectedDate(dateISO)}
-                    className={cn(
-                      'min-h-[88px] rounded-lg border p-1.5 text-left transition-colors',
-                      isToday ? 'border-primary bg-primary/5' : 'border-border bg-muted/20',
-                      hasConflict && 'ring-1 ring-error/40',
-                      isSelected && 'ring-2 ring-primary',
-                      dayTests.length > 0 && 'hover:bg-muted/40',
-                    )}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className={cn('text-xs font-semibold', isToday ? 'text-primary' : 'text-muted-foreground')}>{day}</span>
-                      {hasConflict && <AlertTriangle className="h-3 w-3 text-error" />}
-                      {dayTests.length > 0 && !hasConflict && <CheckCircle2 className="h-3 w-3 text-success" />}
-                    </div>
-                    <div className="mt-1 space-y-1">
-                      {dayTests.slice(0, 3).map((t) => {
-                        const fam = examFamily(t.exam);
-                        return (
-                          <div key={t.id} className={cn('truncate rounded border-l-2 bg-background px-1.5 py-0.5 text-[10px] font-medium text-foreground', FAMILY_RING[fam])}>
-                            {t.name}
-                          </div>
-                        );
-                      })}
-                      {dayTests.length > 3 && (
-                        <p className="px-1 text-[10px] font-medium text-muted-foreground">+{dayTests.length - 3} more</p>
-                      )}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center gap-4 border-t pt-3">
-              <span className="text-xs font-medium text-muted-foreground">Legend:</span>
-              {EXAM_FAMILIES.map((f) => (
-                <div key={f} className="flex items-center gap-1.5">
-                  <span className={cn('h-2.5 w-2.5 rounded-full', FAMILY_DOT[f])} />
-                  <span className="text-xs text-muted-foreground">{f}</span>
-                </div>
-              ))}
-              <div className="flex items-center gap-1.5">
-                <AlertTriangle className="h-3 w-3 text-error" />
-                <span className="text-xs text-muted-foreground">Conflict</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="space-y-4">
-          {/* Selected day detail */}
-          {selectedDate && (
-            <Card>
-              <CardHeader className="space-y-0">
-                <CardTitle className="text-base">{selectedDate}</CardTitle>
-                <p className="text-xs text-muted-foreground">{selectedDayTests.length} test(s) scheduled</p>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {selectedDayTests.length === 0 ? (
-                  <p className="py-4 text-center text-sm text-muted-foreground">No tests on this date.</p>
-                ) : (
-                  selectedDayTests.map((t) => {
-                    const fam = examFamily(t.exam);
-                    const risk = publicationRisk(t);
-                    return (
-                      <div key={t.id} className="rounded-lg border p-3">
-                        <div className="flex items-start justify-between gap-2">
-                          <p className="truncate text-sm font-medium">{t.name}</p>
-                          <StatusBadge tone={testStatusTone(t.status)} dot className="shrink-0 text-[10px]">{t.status}</StatusBadge>
-                        </div>
-                        <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground">
-                          <span className={cn('h-2 w-2 rounded-full', FAMILY_DOT[fam])} />
-                          <span>{t.examName}</span>
-                        </div>
-                        <div className="mt-1.5 flex items-center gap-2">
-                          <StatusBadge tone={RISK_TONE[risk]} className="text-[10px]">Risk: {risk}</StatusBadge>
-                          {t.status === 'Under QA' && <StatusBadge tone="info" className="text-[10px]"><ShieldCheck className="mr-0.5 h-2.5 w-2.5" />In QA</StatusBadge>}
-                        </div>
-                        <div className="mt-2 flex gap-1.5">
-                          <Button variant="outline" size="sm" className="h-7 flex-1 text-xs" onClick={() => handlePublishNow(t.id, t.name)}><Rocket className="mr-1 h-3 w-3" /> Publish</Button>
-                          <Button variant="ghost" size="sm" className="h-7 flex-1 text-xs" onClick={() => handleReschedule(t.id, t.name)}>Reschedule</Button>
-                        </div>
-                      </div>
-                    );
-                  })
-                )}
-                {selectedDayTests.length > 1 && (
-                  <div className="rounded-lg border border-error/30 bg-error/5 p-2.5">
-                    <p className="flex items-center gap-1.5 text-xs text-error">
-                      <AlertTriangle className="h-3 w-3" /> {selectedDayTests.length} tests on the same day may conflict.
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Upcoming releases */}
-          <Card>
-            <CardHeader className="space-y-0">
-              <CardTitle className="text-base">Upcoming Releases</CardTitle>
-              <p className="text-xs text-muted-foreground">{upcoming.length} scheduled tests</p>
-            </CardHeader>
-            <CardContent className="space-y-2 max-h-[400px] overflow-y-auto">
-              {upcoming.map((t) => {
-                const fam = examFamily(t.exam);
-                const risk = publicationRisk(t);
-                return (
-                  <div key={t.id} className="rounded-lg border p-3">
-                    <div className="flex items-start justify-between gap-2">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-medium text-foreground">{t.name}</p>
-                        <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                          <span className={cn('h-2 w-2 shrink-0 rounded-full', FAMILY_DOT[fam])} />
-                          {t.examName} - {fam}
-                        </p>
-                      </div>
-                      <StatusBadge tone={testStatusTone(t.status)} dot className="shrink-0">{t.status}</StatusBadge>
-                    </div>
-                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1"><Calendar className="h-3 w-3" />{t.scheduledDate}</span>
-                      <span className="flex items-center gap-1"><Clock className="h-3 w-3" />10:00 AM</span>
-                      <StatusBadge tone={RISK_TONE[risk]} className="text-[10px]">{risk} risk</StatusBadge>
-                    </div>
-                    <div className="mt-2.5 flex items-center gap-1.5">
-                      <Button variant="outline" size="sm" className="h-7 flex-1 text-xs" onClick={() => handlePublishNow(t.id, t.name)}><Rocket className="mr-1 h-3 w-3" /> Publish</Button>
-                      <Button variant="ghost" size="sm" className="h-7 flex-1 text-xs" onClick={() => handleReschedule(t.id, t.name)}>Reschedule</Button>
-                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => showToast.info('Preview', `Previewing ${t.name}.`)}><Eye className="h-3.5 w-3.5" /></Button>
-                    </div>
-                  </div>
-                );
-              })}
-              {upcoming.length === 0 && (
-                <p className="py-8 text-center text-sm text-muted-foreground">No scheduled tests for this family.</p>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Release windows */}
-          <Card>
-            <CardHeader className="space-y-0">
-              <CardTitle className="text-base">Release Windows</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              {releaseWindows.map((w) => (
-                <div key={w.time} className="flex items-center justify-between rounded-lg border p-3">
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-sm font-medium">{w.time}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">{w.tests.length} test(s)</span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
+  return <div className="space-y-5">
+    <PageHeader title="Publishing Calendar" description="Plan, postpone and publish QA-approved tests from one release workspace." icon={<CalendarClock className="h-5 w-5" />} actions={<div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className="mr-1.5 h-4 w-4" /> Refresh</Button><Button variant={view === 'calendar' ? 'default' : 'outline'} onClick={() => setView('calendar')}><CalendarClock className="mr-1.5 h-4 w-4" /> Calendar</Button><Button variant={view === 'list' ? 'default' : 'outline'} onClick={() => setView('list')}><List className="mr-1.5 h-4 w-4" /> List</Button></div>} />
+    {error && <AdminErrorAlert error={error} title="Publishing Calendar operation failed" onRetry={load} />}
+    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Scheduled" value={scheduled.length} /><Metric label="Unscheduled queue" value={unscheduled.length} /><Metric label="Missed releases" value={tests.filter((test) => warning(test) === 'Missed publication time').length} danger /><Metric label="Live" value={tests.filter((test) => test.status === 'live').length} /></div>
+    <Card><CardContent className="grid gap-3 p-4 lg:grid-cols-[minmax(0,1fr)_240px_220px]"><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search title, code, or exam" /><Select value={exam} onValueChange={setExam}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All exams</SelectItem>{exams.map(([id, name]) => <SelectItem key={id} value={id}>{name}</SelectItem>)}</SelectContent></Select><Select value={status} onValueChange={setStatus}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem>{Array.from(new Set(tests.map((test) => test.status))).sort().map((value) => <SelectItem key={value} value={value}>{value.replace(/_/g, ' ')}</SelectItem>)}</SelectContent></Select></CardContent></Card>
+    {loading ? <Card><CardContent className="flex min-h-64 items-center justify-center text-sm text-muted-foreground"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading publishing schedule…</CardContent></Card> : <>
+      <Card><CardHeader><CardTitle className="text-base">Unscheduled tests</CardTitle></CardHeader><CardContent>{unscheduled.length === 0 ? <p className="py-6 text-center text-sm text-muted-foreground">No tests are waiting for a release date.</p> : <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">{unscheduled.map((test) => <div key={test.id} draggable onDragStart={(event) => event.dataTransfer.setData('text/test-id', test.id)} className="rounded-lg border p-3"><div className="flex justify-between gap-2"><div><p className="font-medium">{test.title || 'Untitled test'}</p><p className="text-xs text-muted-foreground">{test.publicCode} · {test.examName}</p></div><Badge variant="outline">{test.status.replace(/_/g, ' ')}</Badge></div>{warning(test) && <p className="mt-2 text-xs text-warning">{warning(test)}</p>}<div className="mt-3 flex gap-2"><Button size="sm" variant="outline" onClick={() => navigate(`/tests/builder?edit=${test.id}`)}>Builder</Button><Button size="sm" variant="outline" onClick={() => navigate('/tests/qa')}>Test QA</Button></div></div>)}</div>}</CardContent></Card>
+      {view === 'calendar' ? <Card><CardHeader><div className="flex items-center justify-between"><Button variant="outline" size="icon" onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))}><ChevronLeft className="h-4 w-4" /></Button><CardTitle>{month.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })}</CardTitle><Button variant="outline" size="icon" onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1))}><ChevronRight className="h-4 w-4" /></Button></div></CardHeader><CardContent><div className="grid grid-cols-7 border-l border-t text-xs">{['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map((label) => <div key={label} className="border-b border-r p-2 text-center font-medium text-muted-foreground">{label}</div>)}{days.map((day) => { const items = scheduled.filter((test) => test.scheduledAt && dayKey(test.scheduledAt) === dayKey(day)); return <div key={day.toISOString()} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { const test = tests.find((item) => item.id === event.dataTransfer.getData('text/test-id')); if (test) scheduleOnDay(test, day); }} className={`min-h-32 border-b border-r p-2 ${day.getMonth() === month.getMonth() ? '' : 'bg-muted/20'}`}><div className="flex justify-between"><span>{day.getDate()}</span>{items.length > 3 && <Badge variant="destructive" className="text-[10px]">Crowded</Badge>}</div><div className="mt-2 space-y-1">{items.map((test) => <button key={test.id} draggable onDragStart={(event) => event.dataTransfer.setData('text/test-id', test.id)} onClick={() => navigate(`/tests/${test.id}`)} className="w-full rounded border bg-background p-1.5 text-left"><p className="truncate font-medium">{test.title || test.publicCode}</p><p className="text-[10px] text-muted-foreground">{new Date(test.scheduledAt!).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })} · {test.examCode}</p>{warning(test) && <p className="text-[10px] text-destructive">{warning(test)}</p>}</button>)}</div></div>; })}</div></CardContent></Card> : <Card><CardContent className="overflow-x-auto p-0"><table className="w-full min-w-[900px] text-sm"><thead className="border-b bg-muted/30 text-left text-xs uppercase text-muted-foreground"><tr><th className="p-4">Test</th><th className="p-4">Release</th><th className="p-4">Access</th><th className="p-4">Language</th><th className="p-4">Warning</th><th className="p-4" /></tr></thead><tbody>{scheduled.sort((a,b) => new Date(a.scheduledAt!).getTime() - new Date(b.scheduledAt!).getTime()).map((test) => <tr key={test.id} className="border-b"><td className="p-4"><p className="font-medium">{test.title || 'Untitled test'}</p><p className="text-xs text-muted-foreground">{test.publicCode} · {test.examName}</p></td><td className="p-4">{new Date(test.scheduledAt!).toLocaleString('en-IN')}</td><td className="p-4">{setting(test, 'access', 'free')}</td><td className="p-4">{setting(test, 'languageCode', 'en').toUpperCase()}</td><td className="p-4">{warning(test) || '—'}</td><td className="p-4"><div className="flex justify-end gap-2"><Button size="sm" variant="outline" onClick={() => navigate(`/tests/builder?edit=${test.id}`)}><ExternalLink className="mr-1.5 h-3.5 w-3.5" /> Builder</Button><Button size="sm" onClick={() => void mutate(test, 'publish')} disabled={busyId === test.id}><Rocket className="mr-1.5 h-3.5 w-3.5" /> Publish now</Button><Button size="sm" variant="outline" onClick={() => void mutate(test, 'restore-draft')} disabled={busyId === test.id}><Undo2 className="mr-1.5 h-3.5 w-3.5" /> Unschedule</Button></div></td></tr>)}</tbody></table></CardContent></Card>}
+    </>}
+  </div>;
 }
+
+function Metric({ label, value, danger = false }: { label: string; value: number; danger?: boolean }) { return <Card><CardContent className="p-4"><p className="text-xs uppercase text-muted-foreground">{label}</p><p className={`mt-1 text-2xl font-semibold ${danger ? 'text-destructive' : ''}`}>{value}</p></CardContent></Card>; }
