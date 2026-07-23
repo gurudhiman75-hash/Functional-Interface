@@ -72,10 +72,17 @@ function optionsFor(answer: Rational, entry: ReturnType<typeof getAvg001Question
 }
 
 function finalLine(mode: string, answer: string) {
-  if (mode.includes("Count")) return `So the missing count is ${answer}.`;
-  if (mode.includes("Total")) return `So the required total is ${answer}.`;
-  if (mode.includes("Missing")) return `So the missing average is ${answer}.`;
-  return `So the combined average is ${answer}.`;
+  switch (mode) {
+    case "findClassAverageFromSectionAverages":
+    case "findSuperGroupAverageFromSubgroups": return `So the combined average is ${answer}.`;
+    case "findMissingSectionAverage":
+    case "findMissingLowerLevelAverage": return `So the missing average is ${answer}.`;
+    case "findSectionCountFromOverallAverage":
+    case "findMissingSubgroupCount": return `So the required count is ${answer}.`;
+    case "findSubgroupTotalFromAverageAndCount": return `So the group total is ${answer}.`;
+    case "findOverallTotalFromHierarchy": return `So the combined total is ${answer}.`;
+    default: return `So the answer is ${answer}.`;
+  }
 }
 function explanation(entry: ReturnType<typeof getAvg001QuestionEntry>, s: State, answer: string) {
   const c = s.counts;
@@ -102,7 +109,7 @@ function explanation(entry: ReturnType<typeof getAvg001QuestionEntry>, s: State,
     "The two group averages lie equally far from the combined average.",
     `$$Lower difference = ${oa} - ${a[0]} = ${plain(subtract(s.overallAverage, s.averages[0]!), entry)}$$`,
     `$$Upper difference = ${a[2]} - ${oa} = ${plain(subtract(s.averages[2]!, s.overallAverage), entry)}$$`,
-    `$$Missing count = ${c[0]} × ${plain(subtract(s.overallAverage, s.averages[0]!), entry)} ÷ ${plain(subtract(s.averages[2]!, s.overallAverage), entry)} = ${c[2]}$$`,
+    `$$Required count = ${c[0]} × ${plain(subtract(s.overallAverage, s.averages[0]!), entry)} ÷ ${plain(subtract(s.averages[2]!, s.overallAverage), entry)} = ${c[2]}$$`,
     end,
   ];
   if (entry.solveMode === "findMissingSubgroupCount") return [
@@ -113,17 +120,17 @@ function explanation(entry: ReturnType<typeof getAvg001QuestionEntry>, s: State,
     end,
   ];
   if (entry.solveMode === "findSubgroupTotalFromAverageAndCount") return [
-    "Multiply the subgroup average by its member count.",
+    "Multiply the group average by its member count.",
     `$$Average = ${a[0]}$$`,
     `$$Count = ${c[0]}$$`,
-    `$$Subgroup total = ${a[0]} × ${c[0]} = ${t[0]}$$`,
+    `$$Group total = ${a[0]} × ${c[0]} = ${t[0]}$$`,
     end,
   ];
   if (entry.solveMode === "findOverallTotalFromHierarchy") return [
-    "Find the total of each lower group and add them.",
+    "Find the total of each group and add them.",
     `$$First total = ${c[0]} × ${a[0]} = ${t[0]}$$`,
     `$$Other totals = ${c[1]} × ${a[1]} = ${t[1]},\; ${c[2]} × ${a[2]} = ${t[2]}$$`,
-    `$$Overall total = ${t[0]} + ${t[1]} + ${t[2]} = ${ot}$$`,
+    `$$Combined total = ${t[0]} + ${t[1]} + ${t[2]} = ${ot}$$`,
     end,
   ];
   throw new Error(`Unsupported CP-006 explanation mode: ${entry.solveMode}`);
