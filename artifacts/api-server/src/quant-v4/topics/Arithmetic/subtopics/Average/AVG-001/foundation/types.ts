@@ -14,10 +14,10 @@ export type Avg001TaskKind =
   | "errorDetectionDeltaCorrectionApplication"
   | "multiStageHierarchicalSystemsApplication";
 export type Avg001SolveMode =
-  | "findSumFromAverageAndCount" | "findAverageFromSumAndCount" | "findCountFromSumAndAverage" | "findMissingValueFromAverage"
-  | "findAverageOfConsecutiveSet" | "findMiddleTermFromAverage" | "findExtremeFromAverageAndCount" | "findAverageOfOddOrEvenSet"
-  | "findNewAverageAfterAddition" | "findNewAverageAfterRemoval" | "findNewAverageAfterReplacement" | "findAddedMemberValueFromShift" | "findRemovedMemberValueFromShift" | "findReplacementValueFromShift" | "findInningsValueOrNewCricketAverage"
-  | "findCombinedAverageOfTwoGroups" | "findCombinedAverageOfThreeOrFourGroups" | "findGroupCountFromCombinedAverage" | "findMissingGroupAverage" | "findAverageSpeedEqualDistance" | "findAverageSpeedEqualTime"
+  | "findSumFromAverageAndCount" | "findAverageFromSumAndCount" | "findCountFromSumAndAverage" | "findMissingValueFromAverage" | "findAverageAfterUniformTransformation"
+  | "findAverageOfConsecutiveSet" | "findMiddleTermFromAverage" | "findExtremeFromAverageAndCount" | "findAverageOfOddOrEvenSet" | "findTermCountFromAverageAndExtreme" | "findCommonDifferenceFromAverageCountAndExtreme"
+  | "findNewAverageAfterAddition" | "findNewAverageAfterRemoval" | "findNewAverageAfterReplacement" | "findAddedMemberValueFromShift" | "findRemovedMemberValueFromShift" | "findReplacementValueFromShift" | "findInningsValueOrNewCricketAverage" | "findOriginalCountFromJoiningMemberShift" | "findOriginalCountFromLeavingMemberShift"
+  | "findCombinedAverageOfTwoGroups" | "findCombinedAverageOfThreeOrFourGroups" | "findGroupCountFromCombinedAverage" | "findMissingGroupAverage" | "findAverageSpeedEqualDistance" | "findAverageSpeedEqualTime" | "findGroupCountRatioFromCombinedAverage" | "findAverageSpeedForUnequalDistances" | "findAverageSpeedForUnequalTimes"
   | "findCorrectedAverageFromMistake" | "findReportedAverageBeforeCorrection" | "findCorrectValueFromAverageShift" | "findIncorrectValueFromCorrection" | "findEntryDifferenceFromAverageCorrection" | "findAverageChangeFromEntryCorrection" | "findNumberOfItemsFromTotalCorrection" | "findCorrectedAverageFromMultipleMistakes"
   | "findClassAverageFromSectionAverages" | "findSuperGroupAverageFromSubgroups" | "findMissingSectionAverage" | "findSectionCountFromOverallAverage"
   | "findMissingSubgroupCount" | "findSubgroupTotalFromAverageAndCount" | "findOverallTotalFromHierarchy" | "findMissingLowerLevelAverage";
