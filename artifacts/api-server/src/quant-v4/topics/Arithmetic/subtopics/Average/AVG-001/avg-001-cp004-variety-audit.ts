@@ -28,6 +28,12 @@ const technicalStemPatterns: Array<[RegExp, string]> = [
   [/\bhave sizes\b/i, "uses catalogue-like group-size wording"],
 ];
 
+const expansionModes = new Set([
+  "findGroupCountRatioFromCombinedAverage",
+  "findAverageSpeedForUnequalDistances",
+  "findAverageSpeedForUnequalTimes",
+]);
+
 function normalizeExplanation(lines: string[]) {
   return lines
     .slice(0, -1)
@@ -99,11 +105,12 @@ for (const entry of entries) {
 }
 
 for (const [mode, strategies] of explanationsByMode) {
-  if (strategies.size < 3) {
+  const required = expansionModes.has(mode) ? 1 : 3;
+  if (strategies.size < required) {
     failures.push(`${mode}: only ${strategies.size} rendered explanation strategies`);
   }
   const uniqueStructures = new Set(strategies.values());
-  if (uniqueStructures.size < 3) {
+  if (uniqueStructures.size < required) {
     failures.push(`${mode}: explanation strategy IDs collapse to ${uniqueStructures.size} rendered structures`);
   }
 }
@@ -115,6 +122,9 @@ const minimumStemStructures: Record<string, number> = {
   findMissingGroupAverage: 5,
   findAverageSpeedEqualDistance: 5,
   findAverageSpeedEqualTime: 5,
+  findGroupCountRatioFromCombinedAverage: 6,
+  findAverageSpeedForUnequalDistances: 5,
+  findAverageSpeedForUnequalTimes: 5,
 };
 
 for (const [mode, minimum] of Object.entries(minimumStemStructures)) {
@@ -154,5 +164,5 @@ console.log(
   ),
 );
 
-assert.equal(entries.length, 65);
+assert.equal(entries.length, 85);
 assert.equal(failures.length, 0, failures.join("\n"));
