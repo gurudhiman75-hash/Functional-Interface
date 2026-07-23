@@ -1,0 +1,24 @@
+{
+  "domains": [
+    "Classroom",
+    "Family",
+    "Sports",
+    "Factory",
+    "Transport",
+    "Commerce",
+    "Workplace",
+    "Household",
+    "Abstract"
+  ],
+  "proofTarget": {
+    "Classroom": 4,
+    "Factory": 4,
+    "Commerce": 4,
+    "Household": 4,
+    "Transport": 3,
+    "Workplace": 2,
+    "Abstract": 2,
+    "Family": 0,
+    "Sports": 0
+  }
+}

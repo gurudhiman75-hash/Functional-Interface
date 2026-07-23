@@ -1,0 +1,18 @@
+{
+  "policies": {
+    "EXACT_INTEGER": {
+      "kind": "integer"
+    },
+    "EXACT_DECIMAL_1": {
+      "kind": "fixedDecimal",
+      "places": 1
+    },
+    "EXACT_DECIMAL_2": {
+      "kind": "fixedDecimal",
+      "places": 2
+    },
+    "EXACT_FRACTION": {
+      "kind": "fraction"
+    }
+  }
+}

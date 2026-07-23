@@ -1,0 +1,998 @@
+{
+  "packageId": "AVG-001",
+  "cpId": "AVG-CP-003",
+  "status": "NOT_STARTED",
+  "languages": [
+    "hi",
+    "pa"
+  ],
+  "entries": [
+    {
+      "qlId": "AVG-QL-123",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "addNumber",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-124",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "addTestScore",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-125",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "employeeJoinsSalary",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-126",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "machineAddedOutput",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-127",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "parcelAddedWeight",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-128",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "newDaySales",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-129",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "familyMemberJoinsAge",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-130",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "playerJoinsSquadAge",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-131",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "addedValue"
+      ],
+      "scenarioVariant": "teacherJoinsClassAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-132",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed"
+      ],
+      "scenarioVariant": "newbornAfterElapsedYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-133",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "addedValue"
+      ],
+      "scenarioVariant": "childJoinsFamilyAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-134",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "addedValue"
+      ],
+      "scenarioVariant": "employeeJoinsAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-135",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "addedValue"
+      ],
+      "scenarioVariant": "addLowValue",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-136",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "removeNumber",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-137",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "removeTestScore",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-138",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "employeeLeavesSalary",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-139",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "personLeavesWeight",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-140",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "dayRemovedSales",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-141",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "machineRemovedOutput",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-142",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "familyMemberLeavesAge",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-143",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "playerLeavesSquadAge",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-144",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "removedValue"
+      ],
+      "scenarioVariant": "memberLeavesAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-145",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "removedValue"
+      ],
+      "scenarioVariant": "employeeRetiresAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-146",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "removedValue"
+      ],
+      "scenarioVariant": "studentLeavesAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-147",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "removedValue"
+      ],
+      "scenarioVariant": "removeHighValue",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-148",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceNumber",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-149",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceTestScore",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-150",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceSalary",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-151",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceMachineOutput",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-152",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceParcelWeight",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-153",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replacePrice",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-154",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replacePlayerAge",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-155",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceDaySales",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-156",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceReading",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-157",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceMemberAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-158",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "teacherReplacedAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-159",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "workerReplacedAfterYears",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-160",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newValue"
+      ],
+      "scenarioVariant": "replaceValueDecrease",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-161",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findAddedNumber",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-162",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNextTestScore",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-163",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findEmployeeSalary",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-164",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findPersonWeight",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-165",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewDaySales",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-166",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findMachineOutput",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-167",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findFamilyMemberAge",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-168",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findPlayerAge",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-169",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "scenarioVariant": "findTeacherAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-170",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "scenarioVariant": "findChildAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-171",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "scenarioVariant": "findWorkerAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-172",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findParcelWeight",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-173",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findAddedPrice",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-174",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findRemovedNumber",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-175",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findRemovedScore",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-176",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findLeavingSalary",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-177",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findLeavingWeight",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-178",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findRemovedDaySales",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-179",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findRemovedMachineOutput",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-180",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findLeavingAge",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-181",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findLeavingPlayerAge",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-182",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "scenarioVariant": "findLeavingAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-183",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "scenarioVariant": "findRetiringAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-184",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "newAverage"
+      ],
+      "scenarioVariant": "findStudentAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-185",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "findRemovedPrice",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-186",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewReplacementNumber",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-187",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findCorrectScore",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-188",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewSalary",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-189",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewOutput",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-190",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewParcelWeight",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-191",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findOldPrice",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-192",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findOldScore",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-193",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-194",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "yearsElapsed",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findTeacherReplacementAgeAfterYears",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-195",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "oldValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findNewDaySales",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-196",
+      "requiredVariables": [
+        "oldCount",
+        "oldAverage",
+        "newValue",
+        "newAverage"
+      ],
+      "scenarioVariant": "findOldReading",
+      "grammaticalContext": "requested member value",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-197",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns1",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-198",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns2",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-199",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns3",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-200",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns4",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-201",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns5",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-202",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns6",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-203",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "scenarioVariant": "cricketNewAverage1",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-204",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "scenarioVariant": "cricketNewAverage2",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-205",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "scenarioVariant": "cricketNewAverage3",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-206",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "scenarioVariant": "cricketNewAverage4",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-207",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "newAverage"
+      ],
+      "scenarioVariant": "cricketRequiredRuns7",
+      "grammaticalContext": "required next-innings score",
+      "localizationStatus": "NOT_STARTED"
+    },
+    {
+      "qlId": "AVG-QL-208",
+      "requiredVariables": [
+        "inningsCount",
+        "oldAverage",
+        "nextScore"
+      ],
+      "scenarioVariant": "cricketNewAverage5",
+      "grammaticalContext": "new average",
+      "localizationStatus": "NOT_STARTED"
+    }
+  ]
+}

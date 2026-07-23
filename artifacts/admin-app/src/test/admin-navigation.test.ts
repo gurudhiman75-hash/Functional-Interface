@@ -14,11 +14,11 @@ describe('admin navigation roadmap', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
       'overview', 'content', 'tests', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(33);
+    expect(items).toHaveLength(34);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
       'Question Studio', 'Content Review', 'Coverage Planner', 'Sections & Topics',
-      'Test QA', 'Test Series', 'Exam Blueprints', 'Packages', 'Students', 'Admin Team',
-      'Question Analytics', 'System Health', 'Languages', 'Roles & Permissions', 'Audit Logs',
+      'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Packages', 'Students', 'Admin Team',
+      'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
   });
 
@@ -46,14 +46,16 @@ describe('admin navigation roadmap', () => {
       '/tests/qa',
       '/tests/series',
       '/tests/blueprints',
+      '/tests/calendar',
       '/users/students',
       '/users/team',
       '/analytics/system-health',
+      '/analytics/request-failures',
       '/settings/languages',
       '/settings/roles',
       '/settings/audit-logs',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 17, in_progress: 4, planned: 12 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 19, in_progress: 4, planned: 11 });
   });
 
   it('protects canonical operations with read permissions', () => {
@@ -63,9 +65,11 @@ describe('admin navigation roadmap', () => {
     expect(NAV_LOOKUP['/tests/qa']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/series']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/tests/blueprints']?.permission).toBe('tests.read');
+    expect(NAV_LOOKUP['/tests/calendar']?.permission).toBe('tests.read');
     expect(NAV_LOOKUP['/users/students']?.permission).toBe('users.students.read');
     expect(NAV_LOOKUP['/users/team']?.permission).toBe('users.admins.read');
     expect(NAV_LOOKUP['/analytics/system-health']?.permission).toBe('jobs.read');
+    expect(NAV_LOOKUP['/analytics/request-failures']?.permission).toBe('jobs.read');
     expect(NAV_LOOKUP['/settings/languages']?.permission).toBe('content.translations.read');
     expect(NAV_LOOKUP['/settings/roles']?.permission).toBe('settings.roles.manage');
     expect(NAV_LOOKUP['/settings/audit-logs']?.permission).toBe('audit.read');

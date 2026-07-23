@@ -1,0 +1,12 @@
+{
+  "useOneFewerObservation": "Uses count − 1 while reconstructing the total.",
+  "useOneMoreObservation": "Uses count + 1 while reconstructing the total.",
+  "divideByOneFewer": "Divides the total by count − 1.",
+  "divideByOneMore": "Divides the total by count + 1.",
+  "countOffByOneLow": "Returns one fewer observation than the exact count.",
+  "countOffByOneHigh": "Returns one more observation than the exact count.",
+  "countOffByTwoHigh": "Makes a two-place counting error.",
+  "assumeMissingEqualsAverage": "Assumes the missing observation must equal the average.",
+  "arithmeticOffsetLow": "Makes a small downward arithmetic error after using the right method.",
+  "arithmeticOffsetHigh": "Makes a small upward arithmetic error after using the right method."
+}
