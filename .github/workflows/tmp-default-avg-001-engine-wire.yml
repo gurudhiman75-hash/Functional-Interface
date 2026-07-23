@@ -1,17 +1,17 @@
 name: Temporary default AVG-001 engine wire
 
 on:
-  pull_request_target:
+  push:
     branches:
-      - feat/avg-001-cp001-runtime-proof
-    types: [opened, reopened, synchronize, ready_for_review]
+      - New-main
+    paths:
+      - .github/avg-001-engine-wire.trigger
 
 permissions:
   contents: write
 
 jobs:
   patch:
-    if: github.event.pull_request.head.ref == 'feat/avg-001-question-studio-integration'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
