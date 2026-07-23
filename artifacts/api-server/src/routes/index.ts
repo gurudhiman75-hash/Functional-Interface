@@ -5,6 +5,7 @@ import usersRouter from "./users";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
 import adminContentReviewRouter from "./admin-content-review";
+import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioRouter from "./admin-question-studio";
@@ -41,6 +42,7 @@ router.use("/published-tests", publishedTestsRouter);
 // question and test lifecycle engines while enforcing their production gates.
 router.use("/admin/session", adminSessionRouter);
 router.use("/admin/content-review", adminContentReviewRouter);
+router.use("/admin/question-studio", adminQuestionStudioAverageRouter);
 router.use("/admin/question-studio", adminQuestionStudioQualityRouter);
 router.use("/admin/question-studio", adminQuestionStudioRegenerationRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);
