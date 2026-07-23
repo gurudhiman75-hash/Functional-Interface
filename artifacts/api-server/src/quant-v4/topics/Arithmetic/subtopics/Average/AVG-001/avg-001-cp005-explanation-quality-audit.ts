@@ -5,7 +5,26 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-005");
 const failures: string[] = [];
 const structures = new Map<string, Set<string>>();
-const banned = [/apply the formula/i, /using the standard method/i, /substitute the values/i, /hence solved/i, /error delta/i, /solve mode/i];
+const banned = [
+  /apply the formula/i,
+  /using the standard method/i,
+  /substitute the values/i,
+  /hence solved/i,
+  /error delta/i,
+  /solve mode/i,
+  /reconstruct(?:ed|ion)?/i,
+  /recover(?:ed|y)?/i,
+  /derive(?:d|ation)?/i,
+  /determine(?:d)?/i,
+  /rebuild(?:ing|t)?/i,
+  /restore(?:d|ation)?/i,
+  /scale(?:d| that)?/i,
+  /average shift/i,
+  /net correction/i,
+  /per-record/i,
+  /earlier (?:average|total)/i,
+  /reported (?:average|total)/i,
+];
 let cases = 0;
 
 function explanationShape(lines: string[]) {
@@ -23,7 +42,7 @@ for (const entry of entries) {
     if (equationLines.length !== 2) failures.push(`${entry.qlId}:${index}: expected exactly two calculation lines`);
     if (!equationLines.some((line) => line.includes("\\times") || line.includes("\\div") || /[+\-]=?/.test(line))) failures.push(`${entry.qlId}:${index}: no substituted arithmetic`);
     if (!text.includes(pkg.answer)) failures.push(`${entry.qlId}:${index}: final answer missing`);
-    if (banned.some((pattern) => pattern.test(text))) failures.push(`${entry.qlId}:${index}: generic/internal explanation phrase`);
+    if (banned.some((pattern) => pattern.test(text))) failures.push(`${entry.qlId}:${index}: formal or internal explanation phrase`);
     if (lines.some((line) => !line.trim())) failures.push(`${entry.qlId}:${index}: empty explanation line`);
     if (entry.answerType !== "COUNT" && entry.unitKind === "currency" && !text.includes("₹")) failures.push(`${entry.qlId}:${index}: currency unit missing`);
     if (entry.answerType !== "COUNT" && entry.unitKind === "marks" && !/\bmarks?\b/.test(text)) failures.push(`${entry.qlId}:${index}: marks unit missing`);
