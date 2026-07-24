@@ -1,16 +1,19 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Activity, ArrowLeft, Laptop, MessageSquare, RefreshCw, Shield, UserRound } from 'lucide-react';
+import { Activity, ArrowLeft, Laptop, MessageSquare, PencilLine, RefreshCw, Shield, UserRound } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { showToast } from '@/components/shared/toast';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { addStudentNote, getStudentNotes, type StudentAccountAction, type StudentNote } from '@/features/students/api';
+import { addStudentNote, getStudentNotes, revokeStudentSession, updateStudentProfile, type StudentAccountAction, type StudentNote } from '@/features/students/api';
 import { useStudentProfile } from '@/features/students/useStudentAdministration';
 
 const fmt = (value: unknown) => value ? new Date(String(value)).toLocaleString() : '—';
@@ -23,21 +26,46 @@ export function StudentDetailPage() {
   const [note, setNote] = useState('');
   const [notes, setNotes] = useState<StudentNote[]>([]);
   const [savingNote, setSavingNote] = useState(false);
-  const loadNotes = async () => { if (!id) return; try { setNotes((await getStudentNotes(id)).notes); } catch (caught) { showToast.error('Unable to load notes', caught instanceof Error ? caught.message : 'Request failed.'); } };
-  useEffect(() => { void loadNotes(); }, [id]);
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [revokingSessionId, setRevokingSessionId] = useState<string | null>(null);
+  const [form, setForm] = useState({ displayName: '', email: '', phone: '', preferredLanguageCode: 'en' });
+
+  useEffect(() => { if (id) void getStudentNotes(id).then((result) => setNotes(result.notes)).catch(() => setNotes([])); }, [id]);
+  useEffect(() => { if (data?.student) setForm({ displayName: data.student.displayName, email: data.student.email, phone: data.student.phone ?? '', preferredLanguageCode: data.student.preferredLanguageCode }); }, [data?.student]);
+
+  const requireReason = () => {
+    if (reason.trim().length >= 3) return true;
+    showToast.warning('Reason required', 'Enter an operational reason. It will be written to the audit log.');
+    return false;
+  };
 
   const execute = async (action: StudentAccountAction) => {
-    if (!data?.student) return;
-    if (!reason.trim()) { showToast.warning('Reason required', 'Enter an operational reason before changing a student account.'); return; }
+    if (!data?.student || !requireReason()) return;
     try { const operation = await runAction(action, reason.trim(), data.student.status); showToast.success('Student operation completed', operation.sessionsRevoked ? `${operation.sessionsRevoked} active session(s) revoked.` : `Account status is now ${title(operation.status)}.`); setReason(''); }
     catch (caught) { showToast.error('Student operation failed', caught instanceof Error ? caught.message : 'Unable to complete the operation.'); }
   };
 
+  const saveProfile = async () => {
+    if (!id || !requireReason()) return;
+    setSavingProfile(true);
+    try { const result = await updateStudentProfile(id, { ...form, phone: form.phone.trim() || null, reason: reason.trim() }); await refresh(); showToast.success('Student profile updated', `${result.profile.changedFields.length} field(s) changed.`); setReason(''); }
+    catch (caught) { showToast.error('Profile update failed', caught instanceof Error ? caught.message : 'Unable to update student profile.'); }
+    finally { setSavingProfile(false); }
+  };
+
+  const revokeOneSession = async (sessionId: string) => {
+    if (!id || !requireReason()) return;
+    setRevokingSessionId(sessionId);
+    try { const result = await revokeStudentSession(id, sessionId, reason.trim()); await refresh(); showToast.success('Session revoked', result.operation.changed ? 'The selected session can no longer be used.' : 'The selected session had already been revoked.'); setReason(''); }
+    catch (caught) { showToast.error('Session revocation failed', caught instanceof Error ? caught.message : 'Unable to revoke the selected session.'); }
+    finally { setRevokingSessionId(null); }
+  };
+
   const saveNote = async () => {
-    if (!id || !note.trim()) return showToast.warning('Note required', 'Enter an internal note first.');
+    if (!id || note.trim().length < 2) return;
     setSavingNote(true);
-    try { await addStudentNote(id, note.trim()); setNote(''); await loadNotes(); await refresh(); showToast.success('Note saved', 'The internal note is now part of the immutable audit history.'); }
-    catch (caught) { showToast.error('Unable to save note', caught instanceof Error ? caught.message : 'Request failed.'); }
+    try { const result = await addStudentNote(id, note.trim()); setNotes((current) => [result.note, ...current]); setNote(''); await refresh(); showToast.success('Internal note added', 'The note is stored as immutable audit evidence.'); }
+    catch (caught) { showToast.error('Unable to add note', caught instanceof Error ? caught.message : 'Unable to add internal note.'); }
     finally { setSavingNote(false); }
   };
 
@@ -46,15 +74,15 @@ export function StudentDetailPage() {
 
   const { student, attempts, sessions, timeline } = data;
   return <div className="space-y-5">
-    <PageHeader title={student.displayName} description={`${student.registrationCode} · Canonical student profile`} icon={<UserRound className="h-5 w-5" />} actions={<div className="flex gap-2"><Button variant="outline" onClick={() => { void refresh(); void loadNotes(); }} disabled={loading || mutating}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button asChild variant="outline"><Link to="/users/students"><ArrowLeft className="mr-1.5 h-4 w-4" />Back</Link></Button></div>} />
+    <PageHeader title={student.displayName} description={`${student.registrationCode} · Canonical student profile`} icon={<UserRound className="h-5 w-5" />} actions={<div className="flex gap-2"><Button variant="outline" onClick={() => void refresh()} disabled={loading || mutating || savingProfile}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button><Button asChild variant="outline"><Link to="/users/students"><ArrowLeft className="mr-1.5 h-4 w-4" />Back</Link></Button></div>} />
     {error && <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">{error}</div>}
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Status" value={<StatusBadge tone={student.status === 'active' ? 'success' : student.status === 'suspended' || student.status === 'disabled' ? 'destructive' : 'neutral'} dot>{title(student.status)}</StatusBadge>} /><Metric label="Attempts" value={student.attemptCount} /><Metric label="Average score" value={student.averageScore == null ? '—' : student.averageScore} /><Metric label="Active sessions" value={student.activeSessionCount} /></div>
-    <Card className="border-warning/30"><CardHeader><CardTitle className="flex items-center gap-2 text-base"><Shield className="h-4 w-4" />Account operations</CardTitle></CardHeader><CardContent className="space-y-3"><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Required: support, security or policy reason. This is written to the audit log." /><div className="flex flex-wrap gap-2">{student.status === 'suspended' || student.status === 'disabled' ? <Button onClick={() => void execute('reactivate')} disabled={mutating}>Reactivate account</Button> : <Button variant="destructive" onClick={() => void execute('suspend')} disabled={mutating}>Suspend and revoke sessions</Button>}<Button variant="outline" onClick={() => void execute('revoke-sessions')} disabled={mutating || student.activeSessionCount === 0}>Revoke active sessions</Button></div></CardContent></Card>
+    <Card className="border-warning/30"><CardHeader><CardTitle className="flex items-center gap-2 text-base"><Shield className="h-4 w-4" />Administrative reason</CardTitle></CardHeader><CardContent><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Required for account, profile and session changes. Written to immutable audit evidence." /></CardContent></Card>
     <Tabs defaultValue="profile"><TabsList><TabsTrigger value="profile">Profile</TabsTrigger><TabsTrigger value="attempts">Attempts ({attempts.length})</TabsTrigger><TabsTrigger value="sessions">Sessions ({sessions.length})</TabsTrigger><TabsTrigger value="notes">Notes ({notes.length})</TabsTrigger><TabsTrigger value="timeline">Timeline ({timeline.length})</TabsTrigger></TabsList>
-      <TabsContent value="profile" className="mt-4"><Card><CardContent className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3"><Detail label="Email" value={student.email} /><Detail label="Phone" value={student.phone ?? '—'} /><Detail label="Language" value={student.preferredLanguageCode.toUpperCase()} /><Detail label="Auth providers" value={student.authProviders.join(', ') || '—'} /><Detail label="Registered" value={fmt(student.createdAt)} /><Detail label="Last login" value={fmt(student.lastLoginAt)} /><Detail label="Latest attempt" value={fmt(student.latestAttemptAt)} /><Detail label="Student UUID" value={student.id} /><Detail label="Profile updated" value={fmt(student.profileUpdatedAt)} /></CardContent></Card></TabsContent>
+      <TabsContent value="profile" className="mt-4 space-y-4"><Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><PencilLine className="h-4 w-4" />Editable canonical profile</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-4 sm:grid-cols-2"><Field label="Display name"><Input value={form.displayName} onChange={(event) => setForm((current) => ({ ...current, displayName: event.target.value }))} /></Field><Field label="Email"><Input type="email" value={form.email} onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))} /></Field><Field label="Phone"><Input value={form.phone} onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))} placeholder="Optional" /></Field><Field label="Preferred language"><Select value={form.preferredLanguageCode} onValueChange={(value) => setForm((current) => ({ ...current, preferredLanguageCode: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="en">English</SelectItem><SelectItem value="hi">Hindi</SelectItem><SelectItem value="pa">Punjabi</SelectItem></SelectContent></Select></Field></div><Button onClick={() => void saveProfile()} disabled={savingProfile || mutating}>{savingProfile ? 'Saving…' : 'Save profile changes'}</Button></CardContent></Card><Card><CardHeader><CardTitle className="text-base">Account operations</CardTitle></CardHeader><CardContent className="space-y-3"><div className="flex flex-wrap gap-2">{student.status === 'suspended' || student.status === 'disabled' ? <Button onClick={() => void execute('reactivate')} disabled={mutating}>Reactivate account</Button> : <Button variant="destructive" onClick={() => void execute('suspend')} disabled={mutating}>Suspend and revoke sessions</Button>}<Button variant="outline" onClick={() => void execute('revoke-sessions')} disabled={mutating || student.activeSessionCount === 0}>Revoke all active sessions</Button></div><p className="text-xs text-muted-foreground">Firebase provider subjects remain read-only. Updating canonical email does not rewrite the linked Firebase identity.</p></CardContent></Card><Card><CardContent className="grid gap-3 p-4 sm:grid-cols-2 xl:grid-cols-3"><Detail label="Registration code" value={student.registrationCode} /><Detail label="Auth providers" value={student.authProviders.join(', ') || '—'} /><Detail label="Registered" value={fmt(student.createdAt)} /><Detail label="Last login" value={fmt(student.lastLoginAt)} /><Detail label="Latest attempt" value={fmt(student.latestAttemptAt)} /><Detail label="Student UUID" value={student.id} /></CardContent></Card></TabsContent>
       <TabsContent value="attempts" className="mt-4"><Card><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Test</TableHead><TableHead>Status</TableHead><TableHead className="text-right">Score</TableHead><TableHead className="text-right">Correct</TableHead><TableHead className="text-right">Incorrect</TableHead><TableHead>Activity</TableHead></TableRow></TableHeader><TableBody>{attempts.length ? attempts.map((attempt) => <TableRow key={attempt.id}><TableCell><div className="font-medium">{attempt.testTitle || attempt.testPublicCode || 'Test attempt'}</div><div className="text-xs text-muted-foreground">Attempt {attempt.attemptNumber}</div></TableCell><TableCell>{title(attempt.status)}</TableCell><TableCell className="text-right">{attempt.finalScore ?? attempt.rawScore ?? '—'}</TableCell><TableCell className="text-right">{attempt.correctCount ?? '—'}</TableCell><TableCell className="text-right">{attempt.incorrectCount ?? '—'}</TableCell><TableCell className="text-xs text-muted-foreground">{fmt(attempt.submittedAt || attempt.startedAt)}</TableCell></TableRow>) : <TableRow><TableCell colSpan={6} className="py-10 text-center text-muted-foreground">No attempts recorded.</TableCell></TableRow>}</TableBody></Table></CardContent></Card></TabsContent>
-      <TabsContent value="sessions" className="mt-4"><div className="grid gap-3">{sessions.length ? sessions.map((session) => <Card key={session.id}><CardContent className="flex flex-col justify-between gap-3 p-4 sm:flex-row sm:items-center"><div className="flex gap-3"><Laptop className="mt-0.5 h-4 w-4 text-muted-foreground" /><div><p className="font-medium">{session.deviceName || 'Unknown device'}</p><p className="text-xs text-muted-foreground">{session.maskedIpAddress || 'IP unavailable'} · {session.userAgent || 'User agent unavailable'}</p><p className="mt-1 text-xs text-muted-foreground">Created {fmt(session.createdAt)} · Expires {fmt(session.expiresAt)}</p></div></div><StatusBadge tone={session.state === 'active' ? 'success' : 'neutral'} dot>{title(session.state)}</StatusBadge></CardContent></Card>) : <Card><CardContent className="py-10 text-center text-muted-foreground">No sessions recorded.</CardContent></Card>}</div></TabsContent>
-      <TabsContent value="notes" className="mt-4"><Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><MessageSquare className="h-4 w-4" />Internal support notes</CardTitle></CardHeader><CardContent className="space-y-4"><Textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Add a private support, moderation or account-management note" maxLength={2000} /><Button onClick={() => void saveNote()} disabled={savingNote || !note.trim()}>Save internal note</Button><div className="divide-y rounded-lg border">{notes.length ? notes.map((entry) => <div key={entry.id} className="p-3"><p className="whitespace-pre-wrap text-sm">{entry.content}</p><p className="mt-2 text-xs text-muted-foreground">{entry.authorName || 'Administrator'} · {fmt(entry.occurredAt)}</p></div>) : <div className="p-8 text-center text-sm text-muted-foreground">No internal notes yet.</div>}</div></CardContent></Card></TabsContent>
+      <TabsContent value="sessions" className="mt-4"><div className="grid gap-3">{sessions.length ? sessions.map((session) => <Card key={session.id}><CardContent className="flex flex-col justify-between gap-3 p-4 sm:flex-row sm:items-center"><div className="flex gap-3"><Laptop className="mt-0.5 h-4 w-4 text-muted-foreground" /><div><p className="font-medium">{session.deviceName || 'Unknown device'}</p><p className="text-xs text-muted-foreground">{session.maskedIpAddress || 'IP unavailable'} · {session.userAgent || 'User agent unavailable'}</p><p className="mt-1 text-xs text-muted-foreground">Created {fmt(session.createdAt)} · Expires {fmt(session.expiresAt)}</p></div></div><div className="flex items-center gap-2"><StatusBadge tone={session.state === 'active' ? 'success' : 'neutral'} dot>{title(session.state)}</StatusBadge>{session.state === 'active' && <Button size="sm" variant="outline" onClick={() => void revokeOneSession(session.id)} disabled={revokingSessionId === session.id}>{revokingSessionId === session.id ? 'Revoking…' : 'Revoke session'}</Button>}</div></CardContent></Card>) : <Card><CardContent className="py-10 text-center text-muted-foreground">No sessions recorded.</CardContent></Card>}</div></TabsContent>
+      <TabsContent value="notes" className="mt-4 space-y-4"><Card><CardHeader><CardTitle className="flex items-center gap-2 text-base"><MessageSquare className="h-4 w-4" />Add internal note</CardTitle></CardHeader><CardContent className="space-y-3"><Textarea value={note} onChange={(event) => setNote(event.target.value)} placeholder="Support, moderation or account context. Notes are private and immutable." /><Button onClick={() => void saveNote()} disabled={savingNote || note.trim().length < 2}>{savingNote ? 'Saving…' : 'Add note'}</Button></CardContent></Card><div className="grid gap-3">{notes.map((entry) => <Card key={entry.id}><CardContent className="p-4"><p className="text-sm">{entry.content}</p><p className="mt-2 text-xs text-muted-foreground">{entry.authorName || 'Administrator'} · {fmt(entry.occurredAt)}</p></CardContent></Card>)}{!notes.length && <Card><CardContent className="py-10 text-center text-muted-foreground">No internal notes recorded.</CardContent></Card>}</div></TabsContent>
       <TabsContent value="timeline" className="mt-4"><Card><CardContent className="divide-y p-0">{timeline.length ? timeline.map((event) => <div key={event.id} className="flex gap-3 p-4"><Activity className="mt-0.5 h-4 w-4 text-muted-foreground" /><div><p className="text-sm font-medium">{event.title}</p><p className="text-xs text-muted-foreground">{title(event.type)} · {fmt(event.occurredAt)}</p>{event.detail && <p className="mt-1 text-xs text-muted-foreground">{event.detail}</p>}</div></div>) : <div className="py-10 text-center text-muted-foreground">No timeline events recorded.</div>}</CardContent></Card></TabsContent>
     </Tabs>
   </div>;
@@ -62,3 +90,4 @@ export function StudentDetailPage() {
 
 function Metric({ label, value }: { label: string; value: ReactNode }) { return <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">{label}</p><div className="mt-2 text-xl font-semibold">{value}</div></CardContent></Card>; }
 function Detail({ label, value }: { label: string; value: ReactNode }) { return <div className="rounded-lg border bg-muted/20 p-3"><p className="text-xs text-muted-foreground">{label}</p><div className="mt-1 break-words text-sm font-medium">{value}</div></div>; }
+function Field({ label, children }: { label: string; children: ReactNode }) { return <div className="space-y-2"><Label>{label}</Label>{children}</div>; }
