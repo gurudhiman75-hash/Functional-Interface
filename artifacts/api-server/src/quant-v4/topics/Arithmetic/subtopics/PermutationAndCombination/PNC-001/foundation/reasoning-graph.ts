@@ -4,6 +4,7 @@ const CONCEPT_IDS={
  evaluateFactorialValue:"FACTORIAL_DEFINITION",evaluateFactorialUnitExpression:"FACTORIAL_ZERO_ONE_IDENTITY",simplifyFactorialQuotient:"FACTORIAL_CANCELLATION",recoverFactorialArgument:"FACTORIAL_INVERSE_SEARCH",recoverFactorialQuotientArgument:"FACTORIAL_QUOTIENT_INVERSE_SEARCH",
  arrangeAllDistinctObjects:"PERMUTATION_ALL_DISTINCT",arrangeRFromNDistinctObjects:"PERMUTATION_ORDERED_SELECTION",recoverPermutationParameter:"PERMUTATION_INVERSE_SEARCH",
  selectRFromNDistinctObjects:"COMBINATION_UNORDERED_SELECTION",recoverCombinationParameter:"COMBINATION_INVERSE_SEARCH",recoverComplementaryCombinationIndex:"COMBINATION_SYMMETRY",
+ arrangeAllMultisetObjects:"MULTISET_IDENTICAL_CORRECTION",arrangeMultisetAfterFixingPosition:"MULTISET_FIXED_POSITION",findMultisetOvercountFactor:"MULTISET_OVERCOUNT_FACTOR",recoverMultisetMultiplicity:"MULTISET_INVERSE_SEARCH",
 }as const;
 export function buildPnc001ReasoningEvidence(parameters:Pnc001Parameters,solver:Pnc001SolverResult,verification:Pnc001IndependentVerification):Pnc001ReasoningEvidence{
  const intermediateValues:Record<string,string|number>={};const e=solver.evidence;
@@ -12,7 +13,10 @@ export function buildPnc001ReasoningEvidence(parameters:Pnc001Parameters,solver:
   factorialArgument:e.factorialArgument,factorialValue:e.factorialValue,factorialUpper:e.factorialUpper,factorialLower:e.factorialLower,factorialTarget:e.factorialTarget,matchedFactorialArgument:e.matchedFactorialArgument,
   permutationTotalObjects:e.permutationTotalObjects,permutationSelectedObjects:e.permutationSelectedObjects,permutationTarget:e.permutationTarget,
   combinationTotalObjects:e.combinationTotalObjects,combinationSelectedObjects:e.combinationSelectedObjects,combinationOrderedCount:e.combinationOrderedCount,combinationSelectionFactorial:e.combinationSelectionFactorial,combinationTarget:e.combinationTarget,combinationKnownSelection:e.combinationKnownSelection,
+  multisetTotalObjects:e.multisetTotalObjects,multisetRemainingObjects:e.multisetRemainingObjects,multisetNumerator:e.multisetNumerator,multisetDenominator:e.multisetDenominator,multisetTarget:e.multisetTarget,fixedObjectMultiplicityBefore:e.fixedObjectMultiplicityBefore,recoveredMultisetMultiplicity:e.recoveredMultisetMultiplicity,
  }))if(value!==undefined)intermediateValues[key]=value;
+ if(e.multisetMultiplicities)intermediateValues.multisetMultiplicities=e.multisetMultiplicities.join(",");
+ if(e.multisetRemainingMultiplicities)intermediateValues.multisetRemainingMultiplicities=e.multisetRemainingMultiplicities.join(",");
  for(const item of e.caseCounts??[])intermediateValues[`case${item.label}Count`]=item.count;
  return{conceptId:CONCEPT_IDS[parameters.solveMode],givens:{...parameters.renderVariables},equations:[solver.equation],intermediateValues,decisiveCalculation:solver.equation,verification:`${verification.method}: ${verification.answer}`};
 }
