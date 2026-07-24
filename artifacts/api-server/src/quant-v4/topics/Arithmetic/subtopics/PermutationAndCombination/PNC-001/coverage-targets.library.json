@@ -1,0 +1,16 @@
+{
+  "packageId": "PNC-001",
+  "checkpoint": "PNC-CP-001-RUNTIME-PROOF",
+  "canonicalProblemCount": 1,
+  "questionLanguageCount": 48,
+  "explanationStrategyCount": 5,
+  "activeLanguageCount": 1,
+  "qlRange": {"first":"PNC-QL-001","last":"PNC-QL-048"},
+  "solveModeMinimums": {
+    "countSequentialIndependentChoices": 14,
+    "countMutuallyExclusiveAlternatives": 10,
+    "countDisjointCasePartition": 10,
+    "countUsingSimpleComplement": 8,
+    "recoverMissingStageChoiceCount": 6
+  }
+}
