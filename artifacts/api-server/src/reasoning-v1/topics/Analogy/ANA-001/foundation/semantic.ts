@@ -15,8 +15,23 @@ export class SemanticFactRegistry {
     if (!fact.id.trim() || !fact.left.trim() || !fact.right.trim() || !fact.relation.trim()) {
       throw new Error("Semantic facts require id, left, right and relation.");
     }
+    if (!fact.predicate.trim() || !fact.explanation.trim()) {
+      throw new Error(`Semantic fact ${fact.id} requires natural-language predicate and explanation text.`);
+    }
+    if (!fact.answerCategory.trim() || !fact.sourceCategory.trim()) {
+      throw new Error(`Semantic fact ${fact.id} requires source and answer categories.`);
+    }
     if (!/^\d+\.\d+\.\d+$/.test(fact.version)) {
       throw new Error(`Semantic fact ${fact.id} has an invalid semantic version.`);
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fact.verifiedAt)) {
+      throw new Error(`Semantic fact ${fact.id} has an invalid verification date.`);
+    }
+    if (fact.validFrom && !/^\d{4}-\d{2}-\d{2}$/.test(fact.validFrom)) {
+      throw new Error(`Semantic fact ${fact.id} has an invalid validFrom date.`);
+    }
+    if (fact.validTo && !/^\d{4}-\d{2}-\d{2}$/.test(fact.validTo)) {
+      throw new Error(`Semantic fact ${fact.id} has an invalid validTo date.`);
     }
     const key = semanticKey(fact.left, fact.relation, fact.direction);
     const existing = this.facts.get(key);
@@ -40,9 +55,7 @@ export class SemanticFactRegistry {
 
 export function applySemanticFact(fact: SemanticFact, input: string): string {
   const normalized = input.trim().toLocaleLowerCase("en-IN");
-  const expected = (fact.direction === "FORWARD" ? fact.left : fact.right)
-    .trim()
-    .toLocaleLowerCase("en-IN");
+  const expected = (fact.direction === "FORWARD" ? fact.left : fact.right).trim().toLocaleLowerCase("en-IN");
   if (normalized !== expected) {
     throw new Error(`Fact ${fact.id} cannot be applied to ${input} in ${fact.direction} direction.`);
   }
