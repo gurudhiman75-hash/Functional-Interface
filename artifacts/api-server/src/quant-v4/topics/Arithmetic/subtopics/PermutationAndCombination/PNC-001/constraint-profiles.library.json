@@ -1,0 +1,16 @@
+{
+  "packageId": "PNC-001",
+  "ownership": "HUMAN_OWNED",
+  "profiles": {
+    "NONE": {"operation":"product","requiresDisjointCases":false,"requiresExactDivision":false},
+    "MUTUALLY_EXCLUSIVE": {"operation":"sum","requiresDisjointCases":true,"requiresExactDivision":false},
+    "DISJOINT_CASES": {"operation":"sumOfProducts","requiresDisjointCases":true,"requiresExactDivision":false},
+    "SIMPLE_COMPLEMENT": {"operation":"totalMinusInvalid","requiresDisjointCases":false,"requiresExactDivision":false},
+    "EXACT_FACTOR_RECOVERY": {"operation":"exactDivision","requiresDisjointCases":false,"requiresExactDivision":true},
+    "FACTORIAL_VALUE": {"operation":"factorial","requiresNonNegativeArgument":true,"requiresExactDivision":false},
+    "FACTORIAL_UNIT_EXPRESSION": {"operation":"factorialWithZeroOrOneFactorial","requiresNonNegativeArgument":true,"requiresExactDivision":false},
+    "FACTORIAL_QUOTIENT": {"operation":"factorialQuotient","requiresUpperAtLeastLower":true,"requiresExactDivision":true},
+    "FACTORIAL_INVERSE": {"operation":"boundedFactorialInverse","requiresUniqueExactMatch":true,"requiresExactDivision":false},
+    "FACTORIAL_QUOTIENT_INVERSE": {"operation":"boundedFactorialQuotientInverse","requiresUniqueExactMatch":true,"requiresExactDivision":true}
+  }
+}

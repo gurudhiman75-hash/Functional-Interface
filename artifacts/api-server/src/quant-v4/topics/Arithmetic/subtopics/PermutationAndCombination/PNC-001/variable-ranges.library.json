@@ -1,0 +1,16 @@
+{
+  "packageId": "PNC-001",
+  "ownership": "HUMAN_OWNED",
+  "answerCeiling": 1000000000,
+  "ranges": {
+    "Easy": {"twoStage":[3,4,5,6,7,8],"threeStage":[2,3,4,5],"invalid":[1,2,3,4],"recovered":[2,3,4,5,6],"factorial":[3,4,5,6],"factorialGap":[1,2]},
+    "Medium": {"twoStage":[5,6,7,8,9,10,12],"threeStage":[3,4,5,6,7],"invalid":[2,3,4,5,6,7],"recovered":[4,5,6,7,8,9],"factorial":[5,6,7,8],"factorialGap":[2,3]},
+    "Hard": {"twoStage":[8,9,10,12,14,15],"threeStage":[5,6,7,8,9],"invalid":[4,5,6,7,8,9,10],"recovered":[6,7,8,9,10,12],"factorial":[7,8,9,10],"factorialGap":[2,3,4]}
+  },
+  "generation": {
+    "maxAttempts": 24,
+    "minimumAnswer": 1,
+    "preferDistinctStageCounts": true,
+    "maximumFactorialArgument": 12
+  }
+}

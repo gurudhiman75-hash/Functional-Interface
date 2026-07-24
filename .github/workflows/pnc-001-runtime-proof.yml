@@ -1,0 +1,96 @@
+name: Validate PNC-001 runtime proof
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
+      - .github/workflows/pnc-001-runtime-proof.yml
+  push:
+    branches:
+      - feat/pnc-001-cp001-runtime-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
+      - .github/workflows/pnc-001-runtime-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck PNC-001 module
+        id: typecheck
+        continue-on-error: true
+        run: |
+          set +e
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001 -name '*.ts' -print) \
+            > ../../pnc-001-typecheck.log 2>&1
+          status=$?
+          cd ../..
+          echo "$status" > pnc-001-typecheck-exit.txt
+          exit 0
+
+      - name: Publish typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-typecheck-diagnostics
+          path: |
+            pnc-001-typecheck.log
+            pnc-001-typecheck-exit.txt
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Enforce typecheck result
+        run: test "$(cat pnc-001-typecheck-exit.txt)" = "0"
+
+      - name: Bundle PNC-001 proof test
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001.test.mjs
+
+      - name: Run PNC-001 proof test
+        run: node artifacts/api-server/dist/quant-v4/pnc-001.test.mjs

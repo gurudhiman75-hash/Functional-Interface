@@ -1,0 +1,29 @@
+{
+  "packageId": "PNC-001",
+  "checkpoint": "PNC-CP-001-FACTORIAL-EXTENSION-RUNTIME-PROOF",
+  "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
+  "observedDifficultyCounts": {
+    "Easy": 27,
+    "Medium": 22,
+    "Hard": 9
+  },
+  "observedSolveModeCounts": {
+    "countSequentialIndependentChoices": 14,
+    "countMutuallyExclusiveAlternatives": 10,
+    "countDisjointCasePartition": 10,
+    "countUsingSimpleComplement": 8,
+    "recoverMissingStageChoiceCount": 6,
+    "evaluateFactorialValue": 2,
+    "evaluateFactorialUnitExpression": 2,
+    "simplifyFactorialQuotient": 3,
+    "recoverFactorialArgument": 2,
+    "recoverFactorialQuotientArgument": 1
+  },
+  "editorialCaps": {
+    "maximumExactTemplateDuplicates": 0,
+    "maximumSingleContextShare": 0.2,
+    "maximumGenericDistractorFallbackShare": 0.1
+  },
+  "interpretation": "The counts above describe the currently admitted 58-QL checkpoint only.",
+  "admissionRule": "Future distributions emerge from admitted coverage. Do not copy these counts or modes into later work."
+}
