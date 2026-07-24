@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Response } from "express";
 
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -11,10 +11,17 @@ type CanonicalUserRow = {
   id: string;
   email: string;
   displayName: string;
+  status: string;
   createdAt: Date | string;
   updatedAt: Date | string;
   isAdmin: boolean;
 };
+
+class CanonicalAccountAccessError extends Error {
+  constructor(public readonly status: string) {
+    super(status === "suspended" ? "This ExamTree account is suspended" : "This ExamTree account is unavailable");
+  }
+}
 
 function toEpoch(value: Date | string): number {
   return value instanceof Date ? value.getTime() : new Date(value).getTime();
@@ -27,6 +34,7 @@ function toAppUser(row: CanonicalUserRow, firebaseUid: string) {
     email: row.email,
     name: row.displayName,
     role: row.isAdmin ? "admin" : "student",
+    status: row.status,
     createdAt: toEpoch(row.createdAt),
     updatedAt: toEpoch(row.updatedAt),
   };
@@ -38,6 +46,7 @@ async function loadCanonicalUser(firebaseUid: string): Promise<CanonicalUserRow 
       u.id::text AS id,
       u.email,
       u.display_name AS "displayName",
+      u.status::text AS status,
       u.created_at AS "createdAt",
       u.updated_at AS "updatedAt",
       EXISTS (
@@ -81,6 +90,7 @@ async function ensureCanonicalUser(input: {
         u.id::text AS id,
         u.email,
         u.display_name AS "displayName",
+        u.status::text AS status,
         u.created_at AS "createdAt",
         u.updated_at AS "updatedAt"
       FROM identity.users u
@@ -104,7 +114,6 @@ async function ensureCanonicalUser(input: {
         UPDATE identity.users
         SET email = ${normalizedEmail},
             display_name = ${displayName},
-            status = 'active',
             last_login_at = now(),
             updated_at = now()
         WHERE id = ${userId}::uuid
@@ -207,15 +216,31 @@ async function userFromRequest(req: Parameters<typeof authenticate>[0]) {
   const email = req.user?.email ?? "";
   const displayName = req.user?.displayName ?? email.split("@")[0] ?? "User";
   const row = await ensureCanonicalUser({ firebaseUid, email, displayName });
+
+  if (!row.isAdmin && row.status !== "active") {
+    throw new CanonicalAccountAccessError(row.status);
+  }
+
   return toAppUser(row, firebaseUid);
+}
+
+function sendUserError(res: Response, error: unknown, fallback: string) {
+  if (error instanceof CanonicalAccountAccessError) {
+    return res.status(403).json({
+      error: error.message,
+      code: error.status === "suspended" ? "ACCOUNT_SUSPENDED" : "ACCOUNT_UNAVAILABLE",
+      status: error.status,
+    });
+  }
+  console.error(fallback, error);
+  return res.status(500).json({ error: fallback });
 }
 
 router.get("/me", authenticate, async (req, res) => {
   try {
     return res.json(await userFromRequest(req));
   } catch (error) {
-    console.error("Unable to load canonical user", error);
-    return res.status(500).json({ error: "Unable to load user profile" });
+    return sendUserError(res, error, "Unable to load user profile");
   }
 });
 
@@ -223,8 +248,7 @@ router.post("/", authenticate, async (req, res) => {
   try {
     return res.json(await userFromRequest(req));
   } catch (error) {
-    console.error("Unable to create canonical user", error);
-    return res.status(500).json({ error: "Unable to create user profile" });
+    return sendUserError(res, error, "Unable to create user profile");
   }
 });
 
