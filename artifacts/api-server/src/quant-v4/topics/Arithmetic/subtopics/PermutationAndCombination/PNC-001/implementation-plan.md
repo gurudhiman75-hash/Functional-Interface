@@ -6,44 +6,47 @@ The first admitted set contained 48 English QLs covering counting principles, ca
 
 ## Completed checkpoint 2 — Factorial coverage extension
 
-A reference-led coverage-gap review identified factorial reasoning as the highest-value missing family that still belongs inside CP-001.
+A reference-led gap review admitted ten factorial QLs, `PNC-QL-049` through `PNC-QL-058`, and five solve contracts required by them.
 
-The extension admitted ten materially distinct QLs, `PNC-QL-049` through `PNC-QL-058`, and five required solve modes:
+## Completed checkpoint 3 — Unrestricted distinct permutations
 
-- direct factorial value;
-- unit-factorial expressions using `0! = 1! = 1`;
-- exact factorial quotient cancellation;
-- bounded recovery from a factorial target;
-- bounded recovery from a two-factor factorial quotient.
+A fresh reference/runtime review identified order-sensitive arrangements as the next material gap and approved:
 
-The current implementation therefore contains 58 English QLs and ten active modes. These are checkpoint observations, not reusable quotas.
+```text
+PNC-CP-002 — Unrestricted Ordered Arrangements of Distinct Objects
+```
+
+Eight materially distinct QLs were admitted as `PNC-QL-059` through `PNC-QL-066`. Three modes were introduced because the admitted content required them:
+
+- arrange all distinct objects;
+- arrange `r` from `n` distinct objects without repetition;
+- recover a missing permutation parameter.
+
+The package currently contains 66 English QLs and 13 active modes. These are checkpoint observations, not reusable quotas.
 
 Delivered across the current scope:
 
-- task registry and human-owned language library;
-- exact integer and factorial math;
+- human-owned language, registry, constraint, range and explanation libraries;
+- exact integer, factorial and `nPr` math;
 - deterministic parameter generation;
-- solver evidence;
-- independent verification;
-- evidence-driven explanations;
+- authoritative solver evidence;
+- independent enumeration and bounded-search verification;
 - semantic distractors;
 - validation, coverage audits and bundled tests;
 - no generation-engine edits.
 
 ## Next checkpoint selection
 
-Do not automatically implement a pre-numbered CP or a predetermined QL range.
+Do not automatically implement combinations or allocate another CP/QL range.
 
-Before the next checkpoint:
+Before any next checkpoint:
 
-1. inspect uploaded/reference P&C books, PYQs and the existing motif/scenario inventory;
+1. inspect references/PYQs and the current runtime inventory;
 2. produce a fresh coverage-gap matrix;
-3. identify the highest-value uncovered reasoning family;
-4. decide whether the gap belongs in CP-001 or requires a new CP;
-5. admit only materially distinct QLs;
-6. introduce only the solve modes required by those admitted QLs;
-7. implement solver, evidence, explanation, distractor and validator behaviour together;
-8. stop expansion when new proposals become semantic near-clones rather than coverage gains.
+3. decide whether the highest-value gap needs a new QL, mode, CP or package;
+4. admit only materially distinct content;
+5. implement solver, evidence, explanation, distractor and validator behaviour together;
+6. stop expansion when proposals become semantic near-clones rather than coverage gains.
 
 ## Merge rule
 
