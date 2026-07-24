@@ -1,0 +1,2 @@
+import type { LexicalPair } from "./types";
+export const DEFICIENCY_QUALITY_PAIRS: readonly LexicalPair[] = [["Illiteracy","Literacy"],["Blindness","Sight"],["Deafness","Hearing"],["Poverty","Wealth"],["Cowardice","Courage"],["Ignorance","Knowledge"],["Weakness","Strength"],["Dishonesty","Honesty"],["Impatience","Patience"],["Injustice","Justice"],["Disloyalty","Loyalty"],["Insecurity","Security"]];
