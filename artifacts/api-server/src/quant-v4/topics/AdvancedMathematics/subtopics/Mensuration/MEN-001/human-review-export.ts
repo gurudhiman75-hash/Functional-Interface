@@ -27,6 +27,7 @@ const rows: string[][] = [[
   "correctOption",
   "answer",
   "explanation",
+  "explanationIllustration",
   "validation",
 ]];
 
@@ -34,6 +35,7 @@ const markdown: string[] = [
   "# MEN-001 / MEN-CP-001 Human Review Export",
   "",
   "Three deterministic samples are exported per QL to CSV. The Markdown view shows the first sample for each QL.",
+  "Question diagrams and explanation illustrations are reviewed separately.",
   "",
 ];
 
@@ -46,6 +48,9 @@ for (const qlId of getMen001QuestionLanguageIds()) {
       seed,
     });
     const correctOption = question.options[question.correctIndex] ?? "";
+    const explanationIllustration = question.explanation.illustration
+      ? JSON.stringify(question.explanation.illustration)
+      : "NONE";
     rows.push([
       qlId,
       question.difficultyBand,
@@ -56,6 +61,7 @@ for (const qlId of getMen001QuestionLanguageIds()) {
       correctOption,
       question.answer,
       question.explanation.lines.join(" | "),
+      explanationIllustration,
       question.validation.valid ? "PASS" : question.validation.checks.filter((check) => !check.passed).map((check) => `${check.name}: ${check.message}`).join(" | "),
     ]);
 
@@ -66,6 +72,8 @@ for (const qlId of getMen001QuestionLanguageIds()) {
         `**Difficulty:** ${question.difficultyBand}`,
         "",
         `**Stem:** ${question.stem}`,
+        "",
+        "**Question diagram:** None",
         "",
         "**Options:**",
         "",
@@ -80,6 +88,23 @@ for (const qlId of getMen001QuestionLanguageIds()) {
         "",
         ...question.explanation.lines.map((line) => `- ${line}`),
         "",
+      );
+      if (question.explanation.illustration) {
+        markdown.push(
+          "**Explanation illustration:**",
+          "",
+          `- Kind: ${question.explanation.illustration.kind}`,
+          `- Purpose: ${question.explanation.illustration.purpose}`,
+          `- Placement: ${question.explanation.illustration.placement}`,
+          `- Labels: ${JSON.stringify(question.explanation.illustration.labels)}`,
+          `- Accessible text: ${question.explanation.illustration.accessibleText}`,
+          "- Rendering: structured, font-neutral data; not drawn to scale",
+          "",
+        );
+      } else {
+        markdown.push("**Explanation illustration:** Not needed", "");
+      }
+      markdown.push(
         `**Validation:** ${question.validation.valid ? "PASS" : "FAIL"}`,
         "",
       );
