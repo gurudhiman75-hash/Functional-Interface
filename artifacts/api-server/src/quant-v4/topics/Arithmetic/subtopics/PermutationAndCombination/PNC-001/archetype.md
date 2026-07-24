@@ -19,12 +19,14 @@ Target exams: SSC, Banking, Railways, Punjab State and comparable aptitude exami
 
 ## Current checkpoint
 
-- active implemented CPs: `PNC-CP-001` through `PNC-CP-005`;
-- current QLs: `PNC-QL-001` through `PNC-QL-094`;
-- current solve modes: 30;
+- active implemented CPs: `PNC-CP-001` through `PNC-CP-006`;
+- current QLs: `PNC-QL-001` through `PNC-QL-104`;
+- current solve modes: 34;
 - English runtime proof only;
 - `publiclyPublishable: false`;
-- CP-006 remains pending;
+- all six ownership boundaries have runtime coverage;
 - no generation-engine, admin or production routing is active.
 
-The package currently covers counting principles, supporting factorial reasoning, distinct permutations, distinct combinations, digit/code formation and the implemented multiset portion of word arrangements. It provides exact counting authority that Probability may consume later without duplicating it.
+The package currently covers counting principles, supporting factorial reasoning, distinct permutations, distinct combinations, digit/code formation, the implemented multiset portion of word arrangements, and selection followed by arrangement or role assignment. It provides exact counting authority that Probability may consume later without duplicating it.
+
+The next package-level action is a saturation, editorial and freeze-readiness audit. That audit may approve targeted additions inside an existing CP, but the existence of six implemented CPs does not itself impose a fixed final QL count.
