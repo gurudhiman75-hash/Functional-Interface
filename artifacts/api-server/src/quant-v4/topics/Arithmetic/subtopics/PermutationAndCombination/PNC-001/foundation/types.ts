@@ -1,5 +1,5 @@
 export const PNC_001_PACKAGE_ID = "PNC-001" as const;
-export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002"] as const;
+export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002", "PNC-CP-003"] as const;
 export const PNC_001_ACTIVE_CP_IDS = PNC_001_CP_IDS;
 
 export type Pnc001CanonicalProblemId = (typeof PNC_001_CP_IDS)[number];
@@ -8,7 +8,7 @@ export type Pnc001Language = "en" | "hi" | "pa";
 export type Pnc001Difficulty = "Easy" | "Medium" | "Hard";
 export type Pnc001Maturity = "DESIGN_LOCKED" | "RUNTIME_PROOF" | "MVP_QA" | "PRODUCTION_QA" | "MANUAL_REVIEW" | "FROZEN";
 export type Pnc001AnswerType = "COUNT";
-export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation";
+export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation" | "distinctCombination";
 
 export type Pnc001SolveMode =
   | "countSequentialIndependentChoices"
@@ -23,7 +23,10 @@ export type Pnc001SolveMode =
   | "recoverFactorialQuotientArgument"
   | "arrangeAllDistinctObjects"
   | "arrangeRFromNDistinctObjects"
-  | "recoverPermutationParameter";
+  | "recoverPermutationParameter"
+  | "selectRFromNDistinctObjects"
+  | "recoverCombinationParameter"
+  | "recoverComplementaryCombinationIndex";
 
 export interface Pnc001QuestionLanguageEntry {
   qlId: string;
@@ -111,6 +114,13 @@ export interface Pnc001SolverEvidence {
   permutationFactors?: number[];
   permutationTarget?: number;
   recoveredPermutationParameter?: "n" | "r";
+  combinationTotalObjects?: number;
+  combinationSelectedObjects?: number;
+  combinationOrderedCount?: number;
+  combinationSelectionFactorial?: number;
+  combinationTarget?: number;
+  combinationKnownSelection?: number;
+  recoveredCombinationParameter?: "n" | "r" | "complementaryR";
   operation:
     | "PRODUCT"
     | "SUM"
@@ -124,7 +134,10 @@ export interface Pnc001SolverEvidence {
     | "FACTORIAL_QUOTIENT_INVERSE"
     | "PERMUTATION_ALL"
     | "PERMUTATION_PARTIAL"
-    | "PERMUTATION_INVERSE";
+    | "PERMUTATION_INVERSE"
+    | "COMBINATION_DIRECT"
+    | "COMBINATION_INVERSE"
+    | "COMBINATION_SYMMETRY";
 }
 
 export interface Pnc001SolverResult {

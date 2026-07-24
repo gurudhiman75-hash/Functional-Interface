@@ -14,6 +14,10 @@
     "FACTORIAL_QUOTIENT_INVERSE": {"operation":"boundedFactorialQuotientInverse","requiresUniqueExactMatch":true,"requiresExactDivision":true},
     "DISTINCT_ALL_OBJECTS": {"operation":"permutationAllDistinct","orderMatters":true,"repetitionAllowed":false,"selectedEqualsTotal":true},
     "DISTINCT_ORDERED_SELECTION": {"operation":"permutationPartialDistinct","orderMatters":true,"repetitionAllowed":false,"requiresSelectedAtMostTotal":true},
-    "PERMUTATION_INVERSE": {"operation":"boundedPermutationInverse","orderMatters":true,"repetitionAllowed":false,"requiresUniqueExactMatch":true}
+    "PERMUTATION_INVERSE": {"operation":"boundedPermutationInverse","orderMatters":true,"repetitionAllowed":false,"requiresUniqueExactMatch":true},
+    "DISTINCT_UNORDERED_SELECTION": {"operation":"combinationDistinct","orderMatters":false,"repetitionAllowed":false,"requiresSelectedAtMostTotal":true},
+    "COMBINATION_INVERSE": {"operation":"boundedCombinationInverse","orderMatters":false,"repetitionAllowed":false,"requiresUniqueExactMatch":true},
+    "COMBINATION_INVERSE_LOWER_HALF": {"operation":"boundedCombinationInverse","orderMatters":false,"repetitionAllowed":false,"searchDomain":"rAtMostHalfN","requiresUniqueExactMatch":true},
+    "COMBINATION_SYMMETRY": {"operation":"combinationSymmetry","identity":"nCr=nC(n-r)","requiresKnownIndexBelowHalf":true,"requiresRecoveredIndexAboveHalf":true}
   }
 }
