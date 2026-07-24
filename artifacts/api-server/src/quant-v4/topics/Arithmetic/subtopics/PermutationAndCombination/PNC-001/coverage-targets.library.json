@@ -1,21 +1,21 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-002-UNRESTRICTED-PERMUTATIONS-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-004-REPEATED-OBJECTS-RUNTIME-PROOF",
   "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
   "currentCoverage": {
-    "activeCanonicalProblemCount": 2,
-    "activeQuestionLanguageCount": 66,
-    "activeSolveModeCount": 13,
-    "activeExplanationStrategyCount": 13,
+    "activeCanonicalProblemCount": 4,
+    "activeQuestionLanguageCount": 82,
+    "activeSolveModeCount": 20,
+    "activeExplanationStrategyCount": 20,
     "activeLanguageCount": 1,
     "firstQuestionLanguageId": "PNC-QL-001",
-    "lastQuestionLanguageId": "PNC-QL-066"
+    "lastQuestionLanguageId": "PNC-QL-082"
   },
   "verification": {
-    "workflowRunId": 30069922425,
+    "workflowRunId": 30075581021,
     "strictTargetedTypecheck": "PASS",
     "bundledRuntimeProof": "PASS",
-    "seedCases": 792,
+    "seedCases": 984,
     "generatedTwicePerSeed": true
   },
   "admissionPolicy": {
