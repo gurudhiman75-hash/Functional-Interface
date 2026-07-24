@@ -1,6 +1,6 @@
 # MEN-001 CP-001 to CP-004 Exhaustiveness Audit
 
-Status: implementation checkpoint pending final CI and generated-content review.
+Status: runtime-proof implementation and generated-content audit complete.
 
 ## Audit principle
 
@@ -78,6 +78,7 @@ The parallel CP-004 implementation had already added uncovered floor area after 
 - QL, task-registry and solve-mode inventories remain exhaustive mirrors.
 - every QL declares exactly three named misconception strategies.
 - question stems remain text-only; explanation diagrams are emitted only for reverse radius/width and border-subtraction reasoning where they materially help.
+- explanation diagrams preserve the source measurement unit even when the answer is a count or rate.
 
 ## Ownership boundaries retained
 
@@ -86,9 +87,17 @@ The parallel CP-004 implementation had already added uncovered floor area after 
 - Geometry owns theorem/property reasoning.
 - Trigonometry owns `1/2 ab sin C` and trig-ratio side recovery.
 
-## Verification target
+## Verified checkpoint
 
-The final checkpoint must prove dynamically:
+Final audited runtime snapshot:
+
+- 4 active canonical problems;
+- 125 active English QLs;
+- 106 registry-derived solve modes;
+- 2,500 deterministic generated questions at 20 seeds per QL;
+- 375 generated human-review samples at 3 samples per QL.
+
+The dedicated MEN-001 workflow verified:
 
 - every active QL has exactly one task contract and one runtime solve mode;
 - every registered solve mode has active QL coverage;
@@ -96,5 +105,8 @@ The final checkpoint must prove dynamically:
 - exact answer/unit contracts including rates, revolutions and surds;
 - no duplicate or correct-answer-colliding misconception option;
 - shape and area conservation for reverse path, road, annulus, tiling and rate families;
-- explanation-illustration necessity, accessibility and font neutrality;
+- explicit `π = 22/7` policy for circular runtime questions;
+- explanation-illustration necessity, accessibility, source-unit correctness and font neutrality;
 - English-only, unpublished runtime-proof status.
+
+Generated-content review also tightened reverse-rate distractors and corrected a count-answer diagram that had inherited centimetres instead of the metre units stated in its stem.
