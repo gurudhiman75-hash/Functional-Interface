@@ -5,7 +5,7 @@ import {
   AVG_001_CP002_MULTILINGUAL_PILOT,
   getAvg001Cp002LocalizedQlIds,
   runAvg001Cp002LocalizationPilot,
-} from "./foundation/cp002-localization-pilot";
+} from "./foundation/cp002-localization-pilot-runtime";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const cpEntries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-002");
