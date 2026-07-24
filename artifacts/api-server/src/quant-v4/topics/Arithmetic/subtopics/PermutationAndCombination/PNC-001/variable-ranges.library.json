@@ -3,9 +3,9 @@
   "ownership": "HUMAN_OWNED",
   "answerCeiling": 1000000000,
   "ranges": {
-    "Easy": {"twoStage":[3,4,5,6,7,8],"threeStage":[2,3,4,5],"invalid":[1,2,3,4],"recovered":[2,3,4,5,6],"factorial":[3,4,5,6],"factorialGap":[1,2],"permutationN":[4,5,6,7],"permutationR":[2,3],"combinationN":[5,6,7,8,9],"combinationR":[2,3]},
-    "Medium": {"twoStage":[5,6,7,8,9,10,12],"threeStage":[3,4,5,6,7],"invalid":[2,3,4,5,6,7],"recovered":[4,5,6,7,8,9],"factorial":[5,6,7,8],"factorialGap":[2,3],"permutationN":[6,7,8,9],"permutationR":[2,3,4],"combinationN":[7,8,9,10,11,12],"combinationR":[2,3,4]},
-    "Hard": {"twoStage":[8,9,10,12,14,15],"threeStage":[5,6,7,8,9],"invalid":[4,5,6,7,8,9,10],"recovered":[6,7,8,9,10,12],"factorial":[7,8,9,10],"factorialGap":[2,3,4],"permutationN":[8,9,10],"permutationR":[3,4,5],"combinationN":[9,10,11,12,13,14],"combinationR":[2,3,4,5]}
+    "Easy": {"twoStage":[3,4,5,6,7,8],"threeStage":[2,3,4,5],"invalid":[1,2,3,4],"recovered":[2,3,4,5,6],"factorial":[3,4,5,6],"factorialGap":[1,2],"permutationN":[4,5,6,7],"permutationR":[2,3],"combinationN":[5,6,7,8,9],"combinationR":[2,3],"multisetTotal":[5,6,7],"multisetRepeat":[2,3]},
+    "Medium": {"twoStage":[5,6,7,8,9,10,12],"threeStage":[3,4,5,6,7],"invalid":[2,3,4,5,6,7],"recovered":[4,5,6,7,8,9],"factorial":[5,6,7,8],"factorialGap":[2,3],"permutationN":[6,7,8,9],"permutationR":[2,3,4],"combinationN":[7,8,9,10,11,12],"combinationR":[2,3,4],"multisetTotal":[7,8,9],"multisetRepeat":[2,3,4]},
+    "Hard": {"twoStage":[8,9,10,12,14,15],"threeStage":[5,6,7,8,9],"invalid":[4,5,6,7,8,9,10],"recovered":[6,7,8,9,10,12],"factorial":[7,8,9,10],"factorialGap":[2,3,4],"permutationN":[8,9,10],"permutationR":[3,4,5],"combinationN":[9,10,11,12,13,14],"combinationR":[2,3,4,5],"multisetTotal":[8,9,10,11],"multisetRepeat":[2,3,4,5]}
   },
   "generation": {
     "maxAttempts": 24,
@@ -13,6 +13,8 @@
     "preferDistinctStageCounts": true,
     "maximumFactorialArgument": 12,
     "maximumPermutationObjects": 10,
-    "maximumCombinationObjects": 14
+    "maximumCombinationObjects": 14,
+    "maximumMultisetObjects": 11,
+    "maximumMultisetMultiplicity": 5
   }
 }
