@@ -1,9 +1,9 @@
 import questionLanguageBase from "../question-language.en.json";
 import questionLanguageCp003 from "../question-language.cp003.en.json";
-import questionLanguageCp004 from "../question-language.cp004.en.json";
+import questionLanguageCp005 from "../question-language.cp005.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistryCp003 from "../task-registry.cp003.library.json";
-import taskRegistryCp004 from "../task-registry.cp004.library.json";
+import taskRegistryCp005 from "../task-registry.cp005.library.json";
 import variableRanges from "../variable-ranges.library.json";
 import constraintProfiles from "../constraint-profiles.library.json";
 import explanationLibrary from "../explanation.en.json";
@@ -36,12 +36,12 @@ type VariableRanges = {
 const qlEntries = [
   ...(questionLanguageBase.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp003.entries as Pnc001QuestionLanguageEntry[]),
-  ...(questionLanguageCp004.entries as Pnc001QuestionLanguageEntry[]),
+  ...(questionLanguageCp005.entries as Pnc001QuestionLanguageEntry[]),
 ];
 const registryGroups = [
   ...(taskRegistryBase.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp003.groups as Pnc001RegistryGroup[]),
-  ...(taskRegistryCp004.groups as Pnc001RegistryGroup[]),
+  ...(taskRegistryCp005.groups as Pnc001RegistryGroup[]),
 ];
 const qlById = new Map(qlEntries.map((entry) => [entry.qlId, entry]));
 const expandedEntries: Pnc001QuestionEntry[] = registryGroups.flatMap((group) => group.qlIds.map((qlId) => {
