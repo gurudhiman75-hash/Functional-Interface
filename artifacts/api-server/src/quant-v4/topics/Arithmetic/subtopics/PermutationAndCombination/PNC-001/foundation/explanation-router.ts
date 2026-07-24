@@ -8,7 +8,7 @@ export function renderPnc001RoutedExplanation(
   solver: Pnc001SolverResult,
   reasoning: Pnc001ReasoningEvidence,
 ): Pnc001Explanation {
-  if (parameters.solveMode === "findDictionaryRankOfWord") {
+  if (String(parameters.solveMode) === "findDictionaryRankOfWord") {
     return renderPnc001DictionaryRankExplanation(parameters, solver, reasoning);
   }
   return parameters.canonicalProblemId === "PNC-CP-006"
