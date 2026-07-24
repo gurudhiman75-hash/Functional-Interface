@@ -13,21 +13,38 @@ Generate SSC, Banking and Punjab-state-exam style plane-mensuration questions wi
 - `MEN-CP-005` — Composite, Inscribed & Regular Plane Figures.
 - `MEN-CP-006` — Boundary Conservation, Scaling & Unit Transformation.
 
-## Runtime-proof scope
+## Active runtime-proof scope
 
-Only `MEN-CP-001` is active initially. Its first five QLs prove:
+Only `MEN-CP-001` is active. It contains 24 English QLs across 14 solve modes:
 
-- direct triangle area from base and height;
-- reverse height recovery;
-- Heron's formula with exact integer area;
-- right-triangle area;
-- exact equilateral-triangle surd output.
+- direct triangle area from base and perpendicular height;
+- reverse height and reverse base recovery;
+- Heron's formula with exact integer states;
+- right-triangle area from perpendicular legs;
+- exact equilateral-triangle area with preserved `√3`;
+- equilateral side/perimeter reverse problems;
+- isosceles altitude and area recovery;
+- side-ratio plus perimeter recovery;
+- largest/smallest side from a ratio and perimeter;
+- triangular plot area-cost applications.
+
+The runtime-proof suite generates 20 deterministic states per QL: 480 questions in total.
 
 ## Mathematical rules
 
-- Length and area are different dimensions.
-- Area answers must carry square units.
+- Length, area and cost are distinct answer dimensions.
+- Linear and square units must match the requested quantity.
 - Triangle sides must satisfy triangle inequality.
-- Exact surds remain exact.
+- Isosceles altitude states must satisfy Pythagoras exactly.
+- Ratio-derived sides must conserve the stated perimeter.
+- Exact surds remain exact unless approximation is explicitly requested.
+- Cost equals the computed area multiplied by the registered rate.
 - Difficulty comes from the mathematical state, not inflated arithmetic.
-- Stem, solver, options and explanation must agree on the same generated values.
+- Stem, solver, options, reasoning graph and explanation use one generated state.
+
+## Current maturity
+
+- `MEN-CP-001`: `RUNTIME_PROOF`
+- publicly publishable: `false`
+- supported runtime language: English only
+- Question Studio wiring: intentionally deferred until integration review
