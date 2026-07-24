@@ -1,0 +1,2 @@
+import type { SemanticPair } from "./types";
+export const QUANTITY_UNIT_PAIRS: readonly SemanticPair[] = [["Force","Newton"],["Power","Watt"],["Electric current","Ampere"],["Electrical resistance","Ohm"],["Energy","Joule"],["Pressure","Pascal"],["Frequency","Hertz"],["Electric charge","Coulomb"],["Potential difference","Volt"],["Capacitance","Farad"],["Magnetic flux","Weber"],["Inductance","Henry"]];
