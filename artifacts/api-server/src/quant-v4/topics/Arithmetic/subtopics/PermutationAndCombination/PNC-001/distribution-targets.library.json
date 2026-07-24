@@ -1,17 +1,23 @@
 {
   "packageId": "PNC-001",
   "checkpoint": "PNC-CP-001-RUNTIME-PROOF",
-  "difficultyCounts": {"Easy":22,"Medium":18,"Hard":8},
-  "solveModeCounts": {
-    "countSequentialIndependentChoices":14,
-    "countMutuallyExclusiveAlternatives":10,
-    "countDisjointCasePartition":10,
-    "countUsingSimpleComplement":8,
-    "recoverMissingStageChoiceCount":6
+  "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
+  "observedDifficultyCounts": {
+    "Easy": 22,
+    "Medium": 18,
+    "Hard": 8
+  },
+  "observedSolveModeCounts": {
+    "countSequentialIndependentChoices": 14,
+    "countMutuallyExclusiveAlternatives": 10,
+    "countDisjointCasePartition": 10,
+    "countUsingSimpleComplement": 8,
+    "recoverMissingStageChoiceCount": 6
   },
   "editorialCaps": {
-    "maximumExactTemplateDuplicates":0,
-    "maximumSingleContextShare":0.2,
-    "maximumGenericDistractorFallbackShare":0.1
-  }
+    "maximumExactTemplateDuplicates": 0,
+    "maximumSingleContextShare": 0.2,
+    "maximumGenericDistractorFallbackShare": 0.1
+  },
+  "futureDistributionRule": "Do not copy these counts into later CPs; classify and admit content according to demonstrated need."
 }
