@@ -54,7 +54,7 @@ A new CP is not justified at this point.
 
 ## 4. QL admission decision
 
-Ten QLs are admitted because the review found ten materially distinct stem/solve directions across four new runtime contracts:
+Ten QLs are admitted because the review found ten materially distinct stem/solve directions across five new runtime contracts:
 
 1. direct `n!` evaluation;
 2. predecessor factorial evaluation;
@@ -71,7 +71,7 @@ The resulting IDs are `PNC-QL-049` through `PNC-QL-058`. This is the admitted ch
 
 ## 5. Solve-mode decision
 
-Only four new modes are justified:
+Five new modes are justified:
 
 - `evaluateFactorialValue`;
 - `evaluateFactorialUnitExpression`;
