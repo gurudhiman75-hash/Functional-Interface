@@ -1,4 +1,6 @@
+import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
+import { validateAvg001QuestionPackage } from "./validator";
 
 export const AVG_001_ENGLISH_RELEASE = Object.freeze({
   releaseId: "AVG-001-EN-v1",
@@ -59,15 +61,21 @@ export function applyAvg001EnglishRelease(
       `${AVG_001_ENGLISH_RELEASE.releaseId} approves English only; received ${pkg.language}`,
     );
   }
-  if (!pkg.validation.valid || pkg.validation.checks.some((check) => !check.passed)) {
+
+  const humanized = applyAvg001HumanAuthoredExplanation(pkg);
+  const { validation: _previousValidation, ...candidate } = humanized;
+  const validation = validateAvg001QuestionPackage(candidate);
+  const validated: Avg001QuestionPackage = { ...humanized, validation };
+
+  if (!validated.validation.valid || validated.validation.checks.some((check) => !check.passed)) {
     throw new Error(
-      `${pkg.questionLanguageId}: cannot apply ${AVG_001_ENGLISH_RELEASE.releaseId} to an invalid package`,
+      `${pkg.questionLanguageId}: cannot apply ${AVG_001_ENGLISH_RELEASE.releaseId} after explanation authorship validation`,
     );
   }
 
-  const checks = releaseValidationChecks(pkg);
+  const checks = releaseValidationChecks(validated);
   return {
-    ...pkg,
+    ...validated,
     maturity: "FROZEN",
     publiclyPublishable: true,
     validation: {
@@ -75,7 +83,7 @@ export function applyAvg001EnglishRelease(
       checks,
     },
     traceability: {
-      ...pkg.traceability,
+      ...validated.traceability,
       releaseId: AVG_001_ENGLISH_RELEASE.releaseId,
       releaseStatus: AVG_001_ENGLISH_RELEASE.status,
       editorialStatus: AVG_001_ENGLISH_RELEASE.editorialStatus,
