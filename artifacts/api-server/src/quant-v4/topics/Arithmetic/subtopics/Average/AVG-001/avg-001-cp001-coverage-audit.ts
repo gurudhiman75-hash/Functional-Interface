@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { AVG_001_CP_DIFFICULTY_TARGETS } from "./foundation/difficulty-calibration";
 import { getAvg001QuestionEntries, getAvg001RegistryEntry } from "./foundation/library";
 
 const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-001");
@@ -23,7 +24,7 @@ for (const [mode, expected] of Object.entries(modeTargets)) {
   if (actual !== expected) failures.push(`${mode}: ${actual}; expected ${expected}`);
 }
 
-const difficultyTargets = { Easy: 27, Medium: 27, Hard: 26 };
+const difficultyTargets = AVG_001_CP_DIFFICULTY_TARGETS["AVG-CP-001"];
 for (const [difficulty, expected] of Object.entries(difficultyTargets)) {
   const actual = entries.filter((entry) => entry.difficulty === difficulty).length;
   if (actual !== expected) failures.push(`${difficulty}: ${actual}; expected ${expected}`);
@@ -41,7 +42,7 @@ for (const entry of entries) {
   if (prior) failures.push(`${entry.qlId}: duplicates normalized stem ${prior}`);
   normalizedStems.set(normalized, entry.qlId);
   const registry = getAvg001RegistryEntry(entry.qlId);
-  if (registry.cpId !== entry.cpId || registry.qlId !== entry.qlId || registry.solveMode !== entry.solveMode || registry.answerType !== entry.answerType) failures.push(`${entry.qlId}: registry metadata mismatch`);
+  if (registry.cpId !== entry.cpId || registry.qlId !== entry.qlId || registry.solveMode !== entry.solveMode || registry.answerType !== entry.answerType || registry.difficulty !== entry.difficulty) failures.push(`${entry.qlId}: registry metadata mismatch`);
   if (JSON.stringify([...registry.requiredVariables].sort()) !== JSON.stringify([...entry.requiredVariables].sort())) failures.push(`${entry.qlId}: registry required-variable mismatch`);
 }
 
