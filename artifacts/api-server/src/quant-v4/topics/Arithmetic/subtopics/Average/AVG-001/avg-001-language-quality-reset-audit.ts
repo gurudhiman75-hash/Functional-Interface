@@ -32,7 +32,7 @@ function normalize(value: string) {
 }
 
 function arithmeticLine(line: string) {
-  return /\$\$|\\times|\\div|×|÷|[+\-]=?|=/.test(line);
+  return /\$\$|\\times|\\div|×|÷/.test(line) || /\d[\d,.]*\s*[+\-]\s*\d/.test(line);
 }
 
 function proseSignature(pkg: Avg001QuestionPackage) {
