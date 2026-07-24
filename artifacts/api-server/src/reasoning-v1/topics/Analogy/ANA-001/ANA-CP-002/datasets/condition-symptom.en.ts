@@ -1,0 +1,2 @@
+import type { LexicalPair } from "./types";
+export const CONDITION_SYMPTOM_PAIRS: readonly LexicalPair[] = [["Fever","High temperature"],["Anaemia","Fatigue"],["Dehydration","Thirst"],["Common cold","Runny nose"],["Migraine","Severe headache"],["Jaundice","Yellowing of skin"],["Asthma","Breathlessness"],["Allergy","Itching"],["Food poisoning","Vomiting"],["Conjunctivitis","Red eyes"],["Diabetes","Frequent urination"],["Arthritis","Joint pain"]];
