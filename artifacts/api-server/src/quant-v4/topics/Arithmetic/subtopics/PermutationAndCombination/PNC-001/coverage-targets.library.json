@@ -1,14 +1,15 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-001-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-001-FACTORIAL-EXTENSION-RUNTIME-PROOF",
   "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
   "currentCoverage": {
     "activeCanonicalProblemCount": 1,
-    "activeQuestionLanguageCount": 48,
-    "activeExplanationStrategyCount": 5,
+    "activeQuestionLanguageCount": 58,
+    "activeSolveModeCount": 10,
+    "activeExplanationStrategyCount": 10,
     "activeLanguageCount": 1,
     "firstQuestionLanguageId": "PNC-QL-001",
-    "lastQuestionLanguageId": "PNC-QL-048"
+    "lastQuestionLanguageId": "PNC-QL-058"
   },
   "admissionPolicy": {
     "questionLanguages": "Add only for a material coverage distinction; no fixed final count.",
