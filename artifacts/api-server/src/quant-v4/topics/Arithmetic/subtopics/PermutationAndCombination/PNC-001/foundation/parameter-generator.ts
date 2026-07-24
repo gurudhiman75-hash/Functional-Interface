@@ -1,5 +1,5 @@
 import { getPnc001QuestionEntries, getPnc001QuestionEntry, getPnc001VariableRanges } from "./library";
-import { combinationExact, createSeededRandom, factorialExact, hashSeed, multisetPermutationExact, permutationExact, pickSeeded, productExact } from "./math";
+import { combinationExact, createSeededRandom, factorialExact, hashSeed, multisetPermutationExact, permutationExact, pickSeeded, powerExact, productExact } from "./math";
 import { PNC_001_ACTIVE_CP_IDS, PNC_001_PACKAGE_ID, type Pnc001ActiveCanonicalProblemId, type Pnc001Difficulty, type Pnc001ParameterInput, type Pnc001Parameters, type Pnc001QuestionEntry } from "./types";
 
 function pickValues(pool: readonly number[], count: number, random: () => number, preferDistinct: boolean): number[] {
@@ -30,6 +30,10 @@ function pickMultisetState(totalPool: readonly number[], repeatPool: readonly nu
     .filter((repeatB) => repeatA + repeatB <= totalObjects - 1)
     .map((repeatB) => ({ totalObjects, repeatA, repeatB, distinctObjects: totalObjects - repeatA - repeatB }))));
   return pickSeeded(states, random);
+}
+function pickDigitLength(maximumDigit: number, lengths: readonly number[], zeroIncluded: boolean, random: () => number): number {
+  const availableSymbols = maximumDigit + (zeroIncluded ? 1 : 0);
+  return pickSeeded(lengths.filter((length) => length >= 2 && length <= availableSymbols), random);
 }
 function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, number> {
   const ranges = getPnc001VariableRanges(); const pool = ranges.ranges[entry.difficulty];
@@ -84,6 +88,49 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
       const n = pickSeeded(pool.combinationN.filter((value) => value >= 5), random);
       const knownR = pickSeeded(validCombinationR(pool.combinationR, n, true).filter((value) => value < n / 2), random);
       return { totalObjects: n, knownSelection: knownR, solutionR: n - knownR, halfObjects: Math.floor(n / 2) };
+    }
+    case "formNumbersWithoutRepetitionNoZero": {
+      const maximumDigit = pickSeeded(pool.digitMaximum.filter((value) => value >= 3), random);
+      return { maximumDigit, length: pickDigitLength(maximumDigit, pool.digitLength, false, random) };
+    }
+    case "formNumbersWithoutRepetitionWithZero": {
+      const maximumDigit = pickSeeded(pool.digitMaximum.filter((value) => value >= 3), random);
+      return { maximumDigit, length: pickDigitLength(maximumDigit, pool.digitLength, true, random) };
+    }
+    case "formCodesWithRepetition":
+    case "formNumbersWithRepetitionAndZero": {
+      const maximumDigit = pickSeeded(pool.digitMaximum, random);
+      const length = pickSeeded(pool.digitLength.filter((value) => value <= ranges.generation.maximumCodeLength), random);
+      return { maximumDigit, length };
+    }
+    case "formParityNumbersWithoutRepetition": {
+      const zeroIncluded = entry.scenarioFamily !== "evenNoZero";
+      const maximumDigit = pickSeeded(pool.digitMaximum.filter((value) => value >= 4), random);
+      return { maximumDigit, length: pickDigitLength(maximumDigit, pool.digitLength, zeroIncluded, random) };
+    }
+    case "formDivisibleByFiveNumbersWithoutRepetition": {
+      const maximumDigit = pickSeeded(pool.digitMaximum.filter((value) => value >= 5), random);
+      return { maximumDigit, length: pickDigitLength(maximumDigit, pool.digitLength, true, random) };
+    }
+    case "formNumbersAboveLeadingThreshold": {
+      const maximumDigit = pickSeeded(pool.digitMaximum.filter((value) => value >= 5), random);
+      const thresholdDigit = pickSeeded(Array.from({ length: maximumDigit - 2 }, (_, index) => index + 2), random);
+      return { maximumDigit, thresholdDigit };
+    }
+    case "formAlphanumericCodes": {
+      const letterSlots = pickSeeded(pool.codeSlots.filter((value) => value >= 1), random);
+      const digitSlots = pickSeeded(pool.codeSlots.filter((value) => value >= 1), random);
+      return { letterSlots, digitSlots, letterChoices: pickSeeded(pool.letterChoices, random), digitChoices: pickSeeded(pool.digitChoices, random) };
+    }
+    case "recoverSymbolCountForCode": {
+      const length = pickSeeded(pool.codeSlots.filter((value) => value >= 2), random);
+      const maximumSymbols = ranges.generation.maximumCodeSymbols;
+      const solutionSymbols = pickSeeded(Array.from({ length: maximumSymbols - 2 }, (_, index) => index + 2), random);
+      return { length, maximumSymbols, solutionSymbols, target: powerExact(solutionSymbols, length, ranges.answerCeiling) };
+    }
+    case "formCodesWithExactlyOnePair": {
+      const symbolCount = pickSeeded(pool.digitMaximum.map((value) => value + 1).filter((value) => value >= 4), random);
+      return { symbolCount };
     }
     case "arrangeAllMultisetObjects": {
       if (entry.scenarioFamily === "wordApple") return { totalObjects: 5, repeatA: 2, distinctObjects: 3 };

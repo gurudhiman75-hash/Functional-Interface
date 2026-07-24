@@ -1,14 +1,14 @@
 import { strict as assert } from "node:assert";
 import { auditPnc001Coverage } from "./foundation/coverage-auditor";
 import { getPnc001QuestionEntries, getPnc001QuestionLanguageIds } from "./foundation/library";
-import { multisetOvercountFactorExact, multisetPermutationExact } from "./foundation/math";
+import { multisetOvercountFactorExact, multisetPermutationExact, powerExact } from "./foundation/math";
 import { runPnc001Pipeline } from "./foundation/pipeline";
 
 const entries = getPnc001QuestionEntries();
 
 // This protects the current reviewed checkpoint from accidental deletion or ID
 // drift. It does not define a final package or family size.
-const currentCheckpointIds = Array.from({ length: 82 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+const currentCheckpointIds = Array.from({ length: 94 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
 assert.equal(entries.length, currentCheckpointIds.length);
 assert.equal(new Set(entries.map((entry) => entry.qlId)).size, currentCheckpointIds.length);
 assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
@@ -16,7 +16,7 @@ assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
 const observedDifficultyCounts = Object.fromEntries(
   ["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]),
 );
-assert.deepEqual(observedDifficultyCounts, { Easy: 35, Medium: 33, Hard: 14 });
+assert.deepEqual(observedDifficultyCounts, { Easy: 37, Medium: 39, Hard: 18 });
 
 const observedSolveModeCounts = {
   countSequentialIndependentChoices: 14,
@@ -35,6 +35,16 @@ const observedSolveModeCounts = {
   selectRFromNDistinctObjects: 5,
   recoverCombinationParameter: 2,
   recoverComplementaryCombinationIndex: 1,
+  formNumbersWithoutRepetitionNoZero: 1,
+  formNumbersWithoutRepetitionWithZero: 1,
+  formCodesWithRepetition: 1,
+  formNumbersWithRepetitionAndZero: 1,
+  formParityNumbersWithoutRepetition: 3,
+  formDivisibleByFiveNumbersWithoutRepetition: 1,
+  formNumbersAboveLeadingThreshold: 1,
+  formAlphanumericCodes: 1,
+  recoverSymbolCountForCode: 1,
+  formCodesWithExactlyOnePair: 1,
   arrangeAllMultisetObjects: 4,
   arrangeMultisetAfterFixingPosition: 2,
   findMultisetOvercountFactor: 1,
@@ -140,7 +150,46 @@ const multisetInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-082", se
 assert.equal(multisetInverse.solver.evidence.operation, "MULTISET_INVERSE");
 assert.equal(multisetPermutationExact(multisetInverse.solver.evidence.multisetTotalObjects!, [multisetInverse.solver.numericAnswer]), multisetInverse.solver.evidence.multisetTarget);
 
-for (const [cpId, seed] of [["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-005", "cp5-routing"]] as const) {
+const noZeroNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-083", seed: "number-no-zero" });
+assert.equal(noZeroNumber.canonicalProblemId, "PNC-CP-004");
+assert.equal(noZeroNumber.solver.evidence.operation, "NUMBER_NO_ZERO_NO_REPEAT");
+assert.equal(noZeroNumber.solver.evidence.firstPositionChoices, noZeroNumber.solver.evidence.symbolCount);
+const zeroNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-084", seed: "number-with-zero" });
+assert.equal(zeroNumber.solver.evidence.operation, "NUMBER_WITH_ZERO_NO_REPEAT");
+assert.equal(zeroNumber.solver.evidence.firstPositionChoices, zeroNumber.solver.evidence.symbolCount! - 1);
+const repeatedCode = runPnc001Pipeline({ questionLanguageId: "PNC-QL-085", seed: "code-repetition" });
+assert.equal(repeatedCode.solver.evidence.operation, "CODE_REPETITION");
+assert.ok(repeatedCode.solver.evidence.positionChoices?.every(value => value === repeatedCode.solver.evidence.symbolCount));
+const repeatedNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-086", seed: "number-repetition" });
+assert.equal(repeatedNumber.solver.evidence.operation, "NUMBER_REPETITION");
+assert.equal(repeatedNumber.solver.evidence.firstPositionChoices, repeatedNumber.solver.evidence.symbolCount! - 1);
+const evenNoZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-087", seed: "even-no-zero" });
+assert.equal(evenNoZero.solver.evidence.operation, "PARITY_NUMBER");
+assert.ok(evenNoZero.solver.evidence.eligibleLastDigits?.every(digit => digit > 0 && digit % 2 === 0));
+const evenWithZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-088", seed: "even-with-zero" });
+assert.equal(evenWithZero.solver.evidence.caseCounts?.length, 2);
+assert.ok(evenWithZero.solver.evidence.eligibleLastDigits?.includes(0));
+const oddWithZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-089", seed: "odd-with-zero" });
+assert.ok(oddWithZero.solver.evidence.eligibleLastDigits?.every(digit => digit % 2 === 1));
+const divisibleByFive = runPnc001Pipeline({ questionLanguageId: "PNC-QL-090", seed: "divisible-five" });
+assert.equal(divisibleByFive.solver.evidence.operation, "DIVISIBLE_BY_FIVE");
+assert.deepEqual(divisibleByFive.solver.evidence.eligibleLastDigits, [0, 5]);
+assert.equal(divisibleByFive.solver.evidence.caseCounts?.length, 2);
+const threshold = runPnc001Pipeline({ questionLanguageId: "PNC-QL-091", seed: "threshold" });
+assert.equal(threshold.solver.evidence.operation, "THRESHOLD_NUMBER");
+assert.ok(threshold.solver.evidence.qualifyingFirstDigits?.every(digit => digit >= threshold.parameters.values.thresholdDigit!));
+const alphanumeric = runPnc001Pipeline({ questionLanguageId: "PNC-QL-092", seed: "alphanumeric" });
+assert.equal(alphanumeric.solver.evidence.operation, "ALPHANUMERIC_CODE");
+assert.equal(alphanumeric.solver.evidence.letterStageCount! * alphanumeric.solver.evidence.digitStageCount!, alphanumeric.solver.numericAnswer);
+const codeInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-093", seed: "code-inverse" });
+assert.equal(codeInverse.solver.evidence.operation, "CODE_REPETITION_INVERSE");
+assert.equal(powerExact(codeInverse.solver.numericAnswer, codeInverse.solver.evidence.digitLength!), codeInverse.solver.evidence.codeTarget);
+const onePair = runPnc001Pipeline({ questionLanguageId: "PNC-QL-094", seed: "one-pair" });
+assert.equal(onePair.solver.evidence.operation, "CODE_EXACTLY_ONE_PAIR");
+assert.equal(onePair.solver.evidence.patternArrangementCount, 12);
+assert.equal(onePair.solver.evidence.repeatedSymbolChoices, onePair.solver.evidence.symbolCount);
+
+for (const [cpId, seed] of [["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-004", "cp4-routing"], ["PNC-CP-005", "cp5-routing"]] as const) {
   assert.equal(runPnc001Pipeline(cpId, { seed }).canonicalProblemId, cpId);
 }
 for (const language of ["hi", "pa"] as const) {
@@ -149,7 +198,7 @@ for (const language of ["hi", "pa"] as const) {
 
 console.log(JSON.stringify({
   checkpointQlCount: entries.length,
-  activeCanonicalProblems: 4,
+  activeCanonicalProblems: 5,
   observedDifficultyCounts,
   observedSolveModeCounts,
   seedsPerQl: 12,

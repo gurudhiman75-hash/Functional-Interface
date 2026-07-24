@@ -1,5 +1,5 @@
 export const PNC_001_PACKAGE_ID = "PNC-001" as const;
-export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002", "PNC-CP-003", "PNC-CP-005"] as const;
+export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002", "PNC-CP-003", "PNC-CP-004", "PNC-CP-005"] as const;
 export const PNC_001_ACTIVE_CP_IDS = PNC_001_CP_IDS;
 
 export type Pnc001CanonicalProblemId = (typeof PNC_001_CP_IDS)[number];
@@ -8,7 +8,7 @@ export type Pnc001Language = "en" | "hi" | "pa";
 export type Pnc001Difficulty = "Easy" | "Medium" | "Hard";
 export type Pnc001Maturity = "DESIGN_LOCKED" | "RUNTIME_PROOF" | "MVP_QA" | "PRODUCTION_QA" | "MANUAL_REVIEW" | "FROZEN";
 export type Pnc001AnswerType = "COUNT";
-export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation" | "distinctCombination" | "multisetPermutation";
+export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation" | "distinctCombination" | "digitCodeFormation" | "multisetPermutation";
 
 export type Pnc001SolveMode =
   | "countSequentialIndependentChoices"
@@ -27,6 +27,16 @@ export type Pnc001SolveMode =
   | "selectRFromNDistinctObjects"
   | "recoverCombinationParameter"
   | "recoverComplementaryCombinationIndex"
+  | "formNumbersWithoutRepetitionNoZero"
+  | "formNumbersWithoutRepetitionWithZero"
+  | "formCodesWithRepetition"
+  | "formNumbersWithRepetitionAndZero"
+  | "formParityNumbersWithoutRepetition"
+  | "formDivisibleByFiveNumbersWithoutRepetition"
+  | "formNumbersAboveLeadingThreshold"
+  | "formAlphanumericCodes"
+  | "recoverSymbolCountForCode"
+  | "formCodesWithExactlyOnePair"
   | "arrangeAllMultisetObjects"
   | "arrangeMultisetAfterFixingPosition"
   | "findMultisetOvercountFactor"
@@ -125,6 +135,26 @@ export interface Pnc001SolverEvidence {
   combinationTarget?: number;
   combinationKnownSelection?: number;
   recoveredCombinationParameter?: "n" | "r" | "complementaryR";
+  digitMaximum?: number;
+  digitLength?: number;
+  symbolCount?: number;
+  firstPositionChoices?: number;
+  remainingPositions?: number;
+  positionChoices?: number[];
+  eligibleLastDigits?: number[];
+  qualifyingFirstDigits?: number[];
+  suffixArrangementCount?: number;
+  letterSlots?: number;
+  digitSlots?: number;
+  letterChoices?: number;
+  digitChoices?: number;
+  letterStageCount?: number;
+  digitStageCount?: number;
+  codeTarget?: number;
+  recoveredCodeSymbolCount?: number;
+  repeatedSymbolChoices?: number;
+  otherSymbolSelectionCount?: number;
+  patternArrangementCount?: number;
   multisetTotalObjects?: number;
   multisetRemainingObjects?: number;
   multisetMultiplicities?: number[];
@@ -151,6 +181,16 @@ export interface Pnc001SolverEvidence {
     | "COMBINATION_DIRECT"
     | "COMBINATION_INVERSE"
     | "COMBINATION_SYMMETRY"
+    | "NUMBER_NO_ZERO_NO_REPEAT"
+    | "NUMBER_WITH_ZERO_NO_REPEAT"
+    | "CODE_REPETITION"
+    | "NUMBER_REPETITION"
+    | "PARITY_NUMBER"
+    | "DIVISIBLE_BY_FIVE"
+    | "THRESHOLD_NUMBER"
+    | "ALPHANUMERIC_CODE"
+    | "CODE_REPETITION_INVERSE"
+    | "CODE_EXACTLY_ONE_PAIR"
     | "MULTISET_DIRECT"
     | "MULTISET_FIXED"
     | "MULTISET_OVERCOUNT"

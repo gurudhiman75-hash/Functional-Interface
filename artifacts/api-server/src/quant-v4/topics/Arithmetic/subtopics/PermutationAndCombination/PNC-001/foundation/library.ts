@@ -1,12 +1,15 @@
 import questionLanguageBase from "../question-language.en.json";
 import questionLanguageCp003 from "../question-language.cp003.en.json";
+import questionLanguageCp004 from "../question-language.cp004.en.json";
 import questionLanguageCp005 from "../question-language.cp005.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistryCp003 from "../task-registry.cp003.library.json";
+import taskRegistryCp004 from "../task-registry.cp004.library.json";
 import taskRegistryCp005 from "../task-registry.cp005.library.json";
 import variableRanges from "../variable-ranges.library.json";
 import constraintProfiles from "../constraint-profiles.library.json";
 import explanationLibrary from "../explanation.en.json";
+import explanationLibraryCp004 from "../explanation.cp004.en.json";
 import type {
   Pnc001Difficulty,
   Pnc001QuestionEntry,
@@ -25,22 +28,27 @@ type VariableRanges = {
     permutationN: number[]; permutationR: number[];
     combinationN: number[]; combinationR: number[];
     multisetTotal: number[]; multisetRepeat: number[];
+    digitMaximum: number[]; digitLength: number[];
+    letterChoices: number[]; digitChoices: number[]; codeSlots: number[];
   }>;
   generation: {
     maxAttempts: number; minimumAnswer: number; preferDistinctStageCounts: boolean;
     maximumFactorialArgument: number; maximumPermutationObjects: number; maximumCombinationObjects: number;
     maximumMultisetObjects: number; maximumMultisetMultiplicity: number;
+    maximumDigit: number; maximumCodeLength: number; maximumCodeSymbols: number;
   };
 };
 
 const qlEntries = [
   ...(questionLanguageBase.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp003.entries as Pnc001QuestionLanguageEntry[]),
+  ...(questionLanguageCp004.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp005.entries as Pnc001QuestionLanguageEntry[]),
 ];
 const registryGroups = [
   ...(taskRegistryBase.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp003.groups as Pnc001RegistryGroup[]),
+  ...(taskRegistryCp004.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp005.groups as Pnc001RegistryGroup[]),
 ];
 const qlById = new Map(qlEntries.map((entry) => [entry.qlId, entry]));
@@ -71,7 +79,13 @@ for (const ql of qlEntries) if (!entryIds.includes(ql.qlId)) throw new Error(`PN
 
 const entries = expandedEntries.filter((entry) => entry.active).sort((a, b) => a.qlId.localeCompare(b.qlId));
 const entryById = new Map(entries.map((entry) => [entry.qlId, entry]));
-const strategies = explanationLibrary.strategies as Record<string, ExplanationStrategy>;
+const strategies = {
+  ...(explanationLibrary.strategies as Record<string, ExplanationStrategy>),
+  ...(explanationLibraryCp004.strategies as Record<string, ExplanationStrategy>),
+};
+if (Object.keys(strategies).length !== Object.keys(explanationLibrary.strategies).length + Object.keys(explanationLibraryCp004.strategies).length) {
+  throw new Error("Duplicate PNC-001 explanation strategy ids across libraries");
+}
 
 export function getPnc001QuestionEntries(): Pnc001QuestionEntry[] { return entries.map((e) => ({ ...e, requiredVariables: [...e.requiredVariables] })); }
 export function getPnc001QuestionEntry(qlId: string): Pnc001QuestionEntry {
