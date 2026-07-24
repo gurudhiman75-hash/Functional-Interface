@@ -1,0 +1,76 @@
+{
+  "packageId": "MEN-001",
+  "language": "en",
+  "entries": [
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-001",
+      "solveMode": "findTriangleAreaBaseHeight",
+      "difficulty": "Easy",
+      "template": "A triangular field has a base of {base} cm and a perpendicular height of {height} cm. Find its area.",
+      "requiredVariables": ["base", "height"],
+      "answerDimension": "AREA",
+      "unitPolicy": "SQUARE_CENTIMETRES",
+      "explanationStrategyId": "triangle-base-height-direct",
+      "distractorStrategyIds": ["omit-half-factor", "add-base-height", "use-perimeter-like-value"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-002",
+      "solveMode": "findMissingHeightFromAreaAndBase",
+      "difficulty": "Medium",
+      "template": "The area of a triangle is {area} cm² and its base is {base} cm. Find the corresponding perpendicular height.",
+      "requiredVariables": ["area", "base"],
+      "answerDimension": "LENGTH",
+      "unitPolicy": "CENTIMETRES",
+      "explanationStrategyId": "triangle-reverse-height",
+      "distractorStrategyIds": ["omit-double-area", "divide-base-by-area", "add-area-base"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-003",
+      "solveMode": "findTriangleAreaHeron",
+      "difficulty": "Hard",
+      "template": "The three sides of a triangular plot are {sideA} cm, {sideB} cm and {sideC} cm. Find its area using Heron's formula.",
+      "requiredVariables": ["sideA", "sideB", "sideC"],
+      "answerDimension": "AREA",
+      "unitPolicy": "SQUARE_CENTIMETRES",
+      "explanationStrategyId": "triangle-heron-exact",
+      "distractorStrategyIds": ["use-full-perimeter", "omit-square-root", "use-side-product-half"],
+      "diagramRequirement": "OPTIONAL",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-004",
+      "solveMode": "findRightTriangleAreaFromLegs",
+      "difficulty": "Easy",
+      "template": "The perpendicular sides of a right-angled triangle are {legA} cm and {legB} cm. Find its area.",
+      "requiredVariables": ["legA", "legB"],
+      "answerDimension": "AREA",
+      "unitPolicy": "SQUARE_CENTIMETRES",
+      "explanationStrategyId": "right-triangle-leg-area",
+      "distractorStrategyIds": ["omit-half-factor", "add-legs", "use-hypotenuse-as-area"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-005",
+      "solveMode": "findEquilateralTriangleArea",
+      "difficulty": "Medium",
+      "template": "Each side of an equilateral triangle is {side} cm. Find its exact area.",
+      "requiredVariables": ["side"],
+      "answerDimension": "AREA",
+      "unitPolicy": "SQUARE_CENTIMETRES",
+      "explanationStrategyId": "equilateral-exact-surd",
+      "distractorStrategyIds": ["omit-root-three", "omit-quarter-factor", "use-perimeter"],
+      "diagramRequirement": "NONE",
+      "active": true
+    }
+  ]
+}
