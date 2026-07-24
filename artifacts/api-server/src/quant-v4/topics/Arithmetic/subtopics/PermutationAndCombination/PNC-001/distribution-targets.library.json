@@ -1,0 +1,17 @@
+{
+  "packageId": "PNC-001",
+  "checkpoint": "PNC-CP-001-RUNTIME-PROOF",
+  "difficultyCounts": {"Easy":22,"Medium":18,"Hard":8},
+  "solveModeCounts": {
+    "countSequentialIndependentChoices":14,
+    "countMutuallyExclusiveAlternatives":10,
+    "countDisjointCasePartition":10,
+    "countUsingSimpleComplement":8,
+    "recoverMissingStageChoiceCount":6
+  },
+  "editorialCaps": {
+    "maximumExactTemplateDuplicates":0,
+    "maximumSingleContextShare":0.2,
+    "maximumGenericDistractorFallbackShare":0.1
+  }
+}
