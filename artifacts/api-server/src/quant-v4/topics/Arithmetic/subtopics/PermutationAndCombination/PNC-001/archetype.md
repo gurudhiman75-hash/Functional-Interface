@@ -9,11 +9,12 @@ Target exams: SSC, Banking, Railways, Punjab State and comparable aptitude exami
 ## Package boundary
 
 - currently owns only the implemented `PNC-CP-001`;
-- currently owns `PNC-QL-001` through `PNC-QL-048` as a checkpoint snapshot;
+- currently owns `PNC-QL-001` through `PNC-QL-058` as a checkpoint snapshot;
+- currently covers counting principles, case partition, simple complement, missing-factor recovery and foundational factorial reasoning;
 - has no predetermined final QL count;
 - has no reserved list of future CP IDs;
 - receives a new CP or solve mode only when a documented coverage gap requires a distinct mathematical/runtime contract;
 - may later be split into another package only if size, architecture or review safety justifies the split;
 - provides exact counting authority that Probability may consume later without duplicating it.
 
-Current checkpoint: English runtime proof for `PNC-CP-001 — Fundamental Counting Principle & Case Partition`.
+Current checkpoint: English runtime proof for `PNC-CP-001 — Fundamental Counting Principle, Case Partition & Factorial Reasoning`.
