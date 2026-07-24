@@ -14,6 +14,20 @@ assert.deepEqual(
   Array.from({ length: 24 }, (_, index) => `MEN-001-QL-${String(index + 1).padStart(3, "0")}`),
 );
 
+const GENERIC_FALLBACK_OPTIONS = new Set([
+  "Cannot be determined",
+  "Both are equal",
+  "None of these",
+  "Insufficient information",
+]);
+
+function optionCarriesUnit(option: string, unit: string) {
+  if (unit === "₹") return option.startsWith("₹");
+  if (unit === "cm²") return option.includes("cm²") || option.includes("\\text{cm}^{2}");
+  if (unit === "m²") return option.includes("m²") || option.includes("\\text{m}^{2}");
+  return option.endsWith(` ${unit}`);
+}
+
 function fixedSolver(
   qlId: string,
   values: ReturnType<typeof generateMen001Parameters>["values"],
@@ -79,7 +93,44 @@ for (const qlId of getMen001QuestionLanguageIds()) {
     assert.equal(new Set(first.options).size, 4);
     assert.equal(first.publiclyPublishable, false);
     assert.equal(first.maturity, "RUNTIME_PROOF");
-    assert.equal(first.options[first.correctIndex], first.solver.canonicalAnswer.kind === "symbolic" ? first.solver.canonicalAnswer.rendered : first.solver.canonicalAnswer.display);
+    assert.equal(
+      first.options[first.correctIndex],
+      first.solver.canonicalAnswer.kind === "symbolic"
+        ? first.solver.canonicalAnswer.rendered
+        : first.solver.canonicalAnswer.display,
+    );
+    assert.equal(
+      first.options.some((option) => GENERIC_FALLBACK_OPTIONS.has(option)),
+      false,
+      `${qlId} used a generic option fallback.`,
+    );
+    for (const option of first.options) {
+      assert.equal(
+        optionCarriesUnit(option, first.solver.unit),
+        true,
+        `${qlId} option has an incompatible unit: ${option}`,
+      );
+    }
+    assert.ok(
+      Array.isArray(first.traceability.distractorStrategyIds) &&
+        first.traceability.distractorStrategyIds.length >= 3,
+      `${qlId} must expose misconception traceability.`,
+    );
+    if (first.solveMode === "findTriangleAreaHeron") {
+      assert.equal(
+        first.options.includes(`${first.solver.workingValues.radicand} ${first.solver.unit}`),
+        false,
+        `${qlId} must not expose the unsquared Heron radicand as an option.`,
+      );
+    }
+    if (first.solveMode === "findTriangularPlotCost") {
+      const weakFallback = Number(first.solver.workingValues.cost) + Number(first.solver.workingValues.ratePerSquareMetre);
+      assert.equal(
+        first.options.includes(`₹${weakFallback}`),
+        false,
+        `${qlId} must not use cost-plus-rate as a distractor.`,
+      );
+    }
     seenQlIds.add(first.questionLanguageId);
     seenSolveModes.add(first.solveMode);
     seenUnits.add(first.solver.unit);
@@ -88,7 +139,9 @@ for (const qlId of getMen001QuestionLanguageIds()) {
 
 assert.deepEqual([...seenQlIds].sort(), getMen001QuestionLanguageIds().sort());
 assert.equal(seenSolveModes.size, 14);
-for (const unit of ["cm", "m", "cm²", "m²", "₹"]) assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
+for (const unit of ["cm", "m", "cm²", "m²", "₹"]) {
+  assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
+}
 assert.throws(
   () => runMen001Pipeline("MEN-CP-001", { language: "hi", seed: "unsupported-language" }),
   /supports English only/,
