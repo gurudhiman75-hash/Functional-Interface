@@ -1,5 +1,5 @@
 export const PNC_001_PACKAGE_ID = "PNC-001" as const;
-export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002", "PNC-CP-003", "PNC-CP-004", "PNC-CP-005"] as const;
+export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002", "PNC-CP-003", "PNC-CP-004", "PNC-CP-005", "PNC-CP-006"] as const;
 export const PNC_001_ACTIVE_CP_IDS = PNC_001_CP_IDS;
 
 export type Pnc001CanonicalProblemId = (typeof PNC_001_CP_IDS)[number];
@@ -8,7 +8,7 @@ export type Pnc001Language = "en" | "hi" | "pa";
 export type Pnc001Difficulty = "Easy" | "Medium" | "Hard";
 export type Pnc001Maturity = "DESIGN_LOCKED" | "RUNTIME_PROOF" | "MVP_QA" | "PRODUCTION_QA" | "MANUAL_REVIEW" | "FROZEN";
 export type Pnc001AnswerType = "COUNT";
-export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation" | "distinctCombination" | "digitCodeFormation" | "multisetPermutation";
+export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation" | "distinctCombination" | "digitCodeFormation" | "multisetPermutation" | "selectionRoleAssignment";
 
 export type Pnc001SolveMode =
   | "countSequentialIndependentChoices"
@@ -40,7 +40,11 @@ export type Pnc001SolveMode =
   | "arrangeAllMultisetObjects"
   | "arrangeMultisetAfterFixingPosition"
   | "findMultisetOvercountFactor"
-  | "recoverMultisetMultiplicity";
+  | "recoverMultisetMultiplicity"
+  | "selectThenAssignDistinctRoles"
+  | "selectThenArrangeAllSelected"
+  | "findRoleAssignmentMultiplier"
+  | "recoverSelectionRoleParameter";
 
 export interface Pnc001QuestionLanguageEntry {
   qlId: string;
@@ -164,6 +168,16 @@ export interface Pnc001SolverEvidence {
   multisetTarget?: number;
   fixedObjectMultiplicityBefore?: number;
   recoveredMultisetMultiplicity?: number;
+  mixedTotalObjects?: number;
+  mixedSelectedObjects?: number;
+  mixedRoleCount?: number;
+  mixedSelectionCount?: number;
+  mixedRoleAssignmentCount?: number;
+  mixedTarget?: number;
+  mixedEquivalentPermutationCount?: number;
+  recoveredMixedParameter?: "n" | "selected" | "roles";
+  mixedSearchMinimum?: number;
+  mixedSearchMaximum?: number;
   operation:
     | "PRODUCT"
     | "SUM"
@@ -194,7 +208,11 @@ export interface Pnc001SolverEvidence {
     | "MULTISET_DIRECT"
     | "MULTISET_FIXED"
     | "MULTISET_OVERCOUNT"
-    | "MULTISET_INVERSE";
+    | "MULTISET_INVERSE"
+    | "MIXED_SELECT_ASSIGN"
+    | "MIXED_SELECT_ARRANGE_ALL"
+    | "MIXED_ROLE_MULTIPLIER"
+    | "MIXED_INVERSE";
 }
 
 export interface Pnc001SolverResult {
