@@ -6,39 +6,52 @@
 |---|---|---:|---|
 | `PNC-CP-001` | Fundamental Counting Principle, Case Partition & Factorial Reasoning | 58 | Runtime proof |
 | `PNC-CP-002` | Unrestricted Ordered Arrangements of Distinct Objects | 8 | Runtime proof |
-| **Current package snapshot** |  | **66** |  |
+| `PNC-CP-003` | Unrestricted Unordered Selection of Distinct Objects | 8 | Runtime proof |
+| `PNC-CP-004` | Repeated Objects, Word Arrangements & Multisets | 8 | Runtime proof |
+| **Current package snapshot** |  | **82** |  |
 
-The current active IDs are `PNC-QL-001` through `PNC-QL-066`. These values describe the reviewed checkpoint and are not final CP or package sizes.
+The current active IDs are `PNC-QL-001` through `PNC-QL-082`. These values describe the reviewed checkpoint and are not final CP or package sizes.
 
 ## CP-001 scope currently represented
 
 - addition and multiplication counting principles;
 - disjoint cases and simple complement;
 - exact missing-factor recovery;
-- factorial definition and `0! = 1! = 1`;
-- factorial cancellation;
-- bounded factorial and factorial-quotient inverse reasoning.
+- factorial definition, identities, cancellation and bounded inverse reasoning.
 
 ## CP-002 scope currently represented
 
-- arranging all distinct objects in ordered positions;
-- arranging `r` objects from `n` distinct objects without repetition;
-- ranked awards and distinct-office assignment as `nPr` applications;
-- bounded exact recovery of either `n` or `r` from a permutation target.
+- arranging all distinct objects;
+- arranging `r` from `n` distinct objects without repetition;
+- ranked awards and distinct-office assignment;
+- bounded recovery of either permutation parameter.
 
-CP-002 is separate because it introduces order-sensitive object/slot state, no-repetition selection, exact `nPr` authority and permutation-specific validation. It remains in package `PNC-001` because the shared exact-counting runtime is still coherent and reviewable.
+## CP-003 scope currently represented
+
+- direct unordered selection of distinct objects;
+- committee, team, pair and triple applications;
+- bounded recovery of combination parameters;
+- complementary-index symmetry.
+
+## CP-004 scope currently represented
+
+- direct multiset arrangements with one, two or three repeated categories;
+- word and non-word repeated-object contexts;
+- fixing a unique or repeated object in one position;
+- identifying the identical-swap overcount factor;
+- bounded recovery of one repeated multiplicity.
+
+CP-004 is separate because it changes the identity policy: exchanging identical objects does not create a new outcome. It therefore requires explicit multiplicity state, exact denominator correction, multiset-specific evidence and independent unique-string enumeration. It remains inside `PNC-001` because the shared exact-counting runtime is still coherent and reviewable.
 
 ## Candidate coverage backlog
 
 The following remain candidates for fresh review, not pre-created CPs:
 
-- basic combinations and direct unordered selection;
 - digit, number, code and password formation;
-- word, letter and repeated-object arrangements;
-- selection followed by ordered roles when structurally beyond current `nPr` forms;
+- repetition-allowed strings;
 - together/apart/block restrictions;
 - positional, relative-order, alternation and gap constraints;
-- category-constrained selection;
+- category-constrained selection and committee casework;
 - circular arrangements;
 - grouping and distribution;
 - mixed advanced counting systems.
