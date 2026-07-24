@@ -5,7 +5,7 @@ import {
   AVG_001_CP003_MULTILINGUAL_PILOT,
   getAvg001Cp003LocalizedQlIds,
   runAvg001Cp003LocalizationPilot,
-} from "./foundation/cp003-localization-pilot-runtime";
+} from "./foundation/cp003-localization-review-runtime";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const cpEntries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
@@ -55,19 +55,11 @@ for (const entry of cpEntries) {
 
       if (localized.language !== language) fail(`${entry.qlId}:${language}:${seedIndex}: wrong language`);
       if (localized.canonicalProblemId !== "AVG-CP-003") fail(`${entry.qlId}:${language}:${seedIndex}: wrong CP`);
-      if (localized.maturity !== "MANUAL_REVIEW" || localized.publiclyPublishable) {
-        fail(`${entry.qlId}:${language}:${seedIndex}: wrong release boundary`);
-      }
+      if (localized.maturity !== "MANUAL_REVIEW" || localized.publiclyPublishable) fail(`${entry.qlId}:${language}:${seedIndex}: wrong release boundary`);
       const failedChecks = localized.validation.checks.filter((check) => !check.passed).map((check) => check.name);
-      if (!localized.validation.valid || failedChecks.length) {
-        fail(`${entry.qlId}:${language}:${seedIndex}: localization validation failed [${failedChecks.join(",")}]`);
-      }
-      if (localized.traceability.localizationReleaseId !== AVG_001_CP003_MULTILINGUAL_PILOT.releaseId) {
-        fail(`${entry.qlId}:${language}:${seedIndex}: missing localization release ID`);
-      }
-      if (localized.traceability.sourceEnglishReleaseId !== english.traceability.releaseId) {
-        fail(`${entry.qlId}:${language}:${seedIndex}: wrong English source release`);
-      }
+      if (!localized.validation.valid || failedChecks.length) fail(`${entry.qlId}:${language}:${seedIndex}: localization validation failed [${failedChecks.join(",")}]`);
+      if (localized.traceability.localizationReleaseId !== AVG_001_CP003_MULTILINGUAL_PILOT.releaseId) fail(`${entry.qlId}:${language}:${seedIndex}: missing localization release ID`);
+      if (localized.traceability.sourceEnglishReleaseId !== english.traceability.releaseId) fail(`${entry.qlId}:${language}:${seedIndex}: wrong English source release`);
       if (localized.answer !== english.answer) fail(`${entry.qlId}:${language}:${seedIndex}: answer changed`);
       if (localized.correctIndex !== english.correctIndex) fail(`${entry.qlId}:${language}:${seedIndex}: correct index changed`);
       if (JSON.stringify(localized.options) !== JSON.stringify(english.options)) fail(`${entry.qlId}:${language}:${seedIndex}: options changed`);
