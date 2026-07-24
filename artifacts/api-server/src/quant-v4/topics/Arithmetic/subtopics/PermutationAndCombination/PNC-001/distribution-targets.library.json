@@ -24,5 +24,6 @@
     "maximumSingleContextShare": 0.2,
     "maximumGenericDistractorFallbackShare": 0.1
   },
+  "interpretation": "The counts above describe the currently admitted 58-QL checkpoint only.",
   "admissionRule": "Future distributions emerge from admitted coverage. Do not copy these counts or modes into later work."
 }
