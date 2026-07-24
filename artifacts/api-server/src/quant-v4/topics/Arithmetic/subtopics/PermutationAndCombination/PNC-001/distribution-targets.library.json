@@ -1,11 +1,11 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-002-UNRESTRICTED-PERMUTATIONS-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-004-REPEATED-OBJECTS-RUNTIME-PROOF",
   "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
   "observedDifficultyCounts": {
-    "Easy": 31,
-    "Medium": 25,
-    "Hard": 10
+    "Easy": 35,
+    "Medium": 33,
+    "Hard": 14
   },
   "observedSolveModeCounts": {
     "countSequentialIndependentChoices": 14,
@@ -20,13 +20,20 @@
     "recoverFactorialQuotientArgument": 1,
     "arrangeAllDistinctObjects": 3,
     "arrangeRFromNDistinctObjects": 3,
-    "recoverPermutationParameter": 2
+    "recoverPermutationParameter": 2,
+    "selectRFromNDistinctObjects": 5,
+    "recoverCombinationParameter": 2,
+    "recoverComplementaryCombinationIndex": 1,
+    "arrangeAllMultisetObjects": 4,
+    "arrangeMultisetAfterFixingPosition": 2,
+    "findMultisetOvercountFactor": 1,
+    "recoverMultisetMultiplicity": 1
   },
   "editorialCaps": {
     "maximumExactTemplateDuplicates": 0,
     "maximumSingleContextShare": 0.2,
     "maximumGenericDistractorFallbackShare": 0.1
   },
-  "interpretation": "The counts above describe the currently admitted 66-QL checkpoint only.",
+  "interpretation": "The counts above describe the currently admitted 82-QL checkpoint only.",
   "admissionRule": "Future distributions emerge from admitted coverage. Do not copy these counts or modes into later work."
 }
