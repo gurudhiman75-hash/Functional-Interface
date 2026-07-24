@@ -11,6 +11,13 @@
     "firstQuestionLanguageId": "PNC-QL-001",
     "lastQuestionLanguageId": "PNC-QL-058"
   },
+  "verification": {
+    "workflowRunId": 30068306106,
+    "strictTargetedTypecheck": "PASS",
+    "bundledRuntimeProof": "PASS",
+    "seedCases": 696,
+    "generatedTwicePerSeed": true
+  },
   "admissionPolicy": {
     "questionLanguages": "Add only for a material coverage distinction; no fixed final count.",
     "solveModes": "Add only when an approved QL family needs a distinct solver/evidence/validator contract.",
