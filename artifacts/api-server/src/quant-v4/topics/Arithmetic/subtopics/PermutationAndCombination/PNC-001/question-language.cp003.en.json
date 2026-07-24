@@ -1,0 +1,16 @@
+{
+  "packageId": "PNC-001",
+  "canonicalProblemId": "PNC-CP-003",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-067","cpId":"PNC-CP-003","difficulty":"Easy","template":"In how many ways can {selectedObjects} students be selected from {totalObjects} students?"},
+    {"qlId":"PNC-QL-068","cpId":"PNC-CP-003","difficulty":"Medium","template":"In how many ways can a committee of {selectedObjects} members be formed from {totalObjects} eligible persons if no offices are assigned?"},
+    {"qlId":"PNC-QL-069","cpId":"PNC-CP-003","difficulty":"Easy","template":"How many different teams of {selectedObjects} players can be selected from {totalObjects} players?"},
+    {"qlId":"PNC-QL-070","cpId":"PNC-CP-003","difficulty":"Easy","template":"If each pair among {totalObjects} people shakes hands exactly once, how many handshakes occur?"},
+    {"qlId":"PNC-QL-071","cpId":"PNC-CP-003","difficulty":"Medium","template":"How many triangles can be formed by choosing vertices from {totalObjects} points when no three points are collinear?"},
+    {"qlId":"PNC-QL-072","cpId":"PNC-CP-003","difficulty":"Medium","template":"If nC{selectedObjects} = {target}, find n."},
+    {"qlId":"PNC-QL-073","cpId":"PNC-CP-003","difficulty":"Hard","template":"If {totalObjects}Cr = {target}, find r, where 1 ≤ r ≤ {halfObjects}."},
+    {"qlId":"PNC-QL-074","cpId":"PNC-CP-003","difficulty":"Medium","template":"If {totalObjects}C{knownSelection} = {totalObjects}Cr and r > {halfObjects}, find r."}
+  ]
+}
