@@ -59,8 +59,7 @@ export interface Pnc001RegistryGroup {
 }
 export interface Pnc001QuestionEntry extends Pnc001QuestionLanguageEntry {
   taskKind: Pnc001AnyTaskKind;
-  /** CP-006 strings are narrowed at the library composition seam and routed by canonicalProblemId. */
-  solveMode: Pnc001SolveMode;
+  solveMode: Pnc001AnySolveMode;
   answerType: Pnc001AnswerType; explanationId: string; requiredVariables: string[]; scenarioFamily: string;
   constraintProfile: string; distractorProfile: string; active: boolean;
 }
