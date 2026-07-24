@@ -22,6 +22,17 @@
     "MULTISET_ALL_OBJECTS": {"operation":"multisetPermutation","orderMatters":true,"identityPolicy":"identicalMultiplicities","requiresMultiplicitySumAtMostTotal":true,"requiresExactDivision":true},
     "MULTISET_FIXED_POSITION": {"operation":"multisetPermutationAfterFixingOneObject","orderMatters":true,"identityPolicy":"identicalMultiplicities","fixedPositions":1,"requiresExactDivision":true},
     "MULTISET_OVERCOUNT_FACTOR": {"operation":"multisetOvercountFactor","identityPolicy":"identicalMultiplicities","requiresFactorialCorrectionProduct":true},
-    "MULTISET_INVERSE": {"operation":"boundedMultisetMultiplicityInverse","identityPolicy":"oneRepeatedCategory","requiresUniqueExactMatch":true,"requiresExactDivision":true}
+    "MULTISET_INVERSE": {"operation":"boundedMultisetMultiplicityInverse","identityPolicy":"oneRepeatedCategory","requiresUniqueExactMatch":true,"requiresExactDivision":true},
+    "DIGIT_NO_ZERO_NO_REPEAT": {"operation":"numberFormation","leadingZeroAllowed":false,"zeroAvailable":false,"repetitionAllowed":false},
+    "DIGIT_WITH_ZERO_NO_REPEAT": {"operation":"numberFormation","leadingZeroAllowed":false,"zeroAvailable":true,"repetitionAllowed":false},
+    "CODE_REPETITION_ALLOWED": {"operation":"codeFormation","leadingZeroAllowed":true,"zeroAvailable":true,"repetitionAllowed":true},
+    "NUMBER_WITH_ZERO_REPETITION_ALLOWED": {"operation":"numberFormation","leadingZeroAllowed":false,"zeroAvailable":true,"repetitionAllowed":true},
+    "PARITY_NO_ZERO_NO_REPEAT": {"operation":"parityNumberFormation","leadingZeroAllowed":false,"zeroAvailable":false,"repetitionAllowed":false,"lastDigitRestricted":true},
+    "PARITY_WITH_ZERO_NO_REPEAT": {"operation":"parityNumberFormation","leadingZeroAllowed":false,"zeroAvailable":true,"repetitionAllowed":false,"lastDigitRestricted":true},
+    "DIVISIBLE_BY_FIVE_NO_REPEAT": {"operation":"divisibleByFiveNumberFormation","leadingZeroAllowed":false,"zeroAvailable":true,"repetitionAllowed":false,"lastDigitSet":[0,5]},
+    "THRESHOLD_PREFIX_NO_REPEAT": {"operation":"thresholdNumberFormation","leadingZeroAllowed":false,"zeroAvailable":true,"repetitionAllowed":false,"length":4,"thresholdByLeadingDigit":true},
+    "ALPHANUMERIC_FIXED_PATTERN": {"operation":"alphanumericCodeFormation","fixedLetterThenDigitSlots":true,"repetitionAllowed":true},
+    "CODE_REPETITION_INVERSE": {"operation":"boundedCodeAlphabetInverse","repetitionAllowed":true,"requiresUniqueExactMatch":true},
+    "CODE_EXACTLY_ONE_PAIR": {"operation":"codeFormationWithMultiplicityPattern","length":4,"multiplicityPattern":[2,1,1],"leadingZeroAllowed":true}
   }
 }
