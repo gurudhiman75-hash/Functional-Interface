@@ -24,11 +24,9 @@ function positive(values: Values, key: keyof Values) {
 }
 
 function refineOuterCircularState(values: Values): Values {
-  const pathWidth = positive(values, "pathWidth");
+  const pathWidth = Math.min(positive(values, "pathWidth"), 7);
   const generatedInnerRadius = positive(values, "innerRadius");
-  const innerRadius = generatedInnerRadius > pathWidth
-    ? generatedInnerRadius
-    : 2 * pathWidth;
+  const innerRadius = Math.max(generatedInnerRadius, 3 * pathWidth);
   const outerRadius = innerRadius + pathWidth;
   const innerArea = piArea(innerRadius);
   const outerArea = piArea(outerRadius);
@@ -36,6 +34,7 @@ function refineOuterCircularState(values: Values): Values {
   const ratePerSquareMetre = values.ratePerSquareMetre;
   return {
     ...values,
+    pathWidth,
     innerRadius,
     outerRadius,
     innerArea,
@@ -48,17 +47,17 @@ function refineOuterCircularState(values: Values): Values {
 }
 
 function refineInnerCircularState(values: Values): Values {
-  const pathWidth = positive(values, "pathWidth");
+  const generatedPathWidth = positive(values, "pathWidth");
+  const pathWidth = Math.min(generatedPathWidth, 7);
   const generatedOuterRadius = positive(values, "outerRadius");
-  const generatedInnerRadius = generatedOuterRadius - pathWidth;
-  const innerRadius = generatedInnerRadius > pathWidth
-    ? generatedInnerRadius
-    : 2 * pathWidth;
+  const generatedInnerRadius = generatedOuterRadius - generatedPathWidth;
+  const innerRadius = Math.max(generatedInnerRadius, 3 * pathWidth);
   const outerRadius = innerRadius + pathWidth;
   const innerArea = piArea(innerRadius);
   const outerArea = piArea(outerRadius);
   return {
     ...values,
+    pathWidth,
     innerRadius,
     outerRadius,
     innerArea,
@@ -69,9 +68,8 @@ function refineInnerCircularState(values: Values): Values {
 
 function refinePathTileState(values: Values): Values {
   const area = positive(values, "area");
-  const tileLength = positive(values, "tileLength");
-  const generatedTileBreadth = positive(values, "tileBreadth");
-  const tileBreadth = generatedTileBreadth > 1 ? generatedTileBreadth : 2;
+  const tileLength = 1;
+  const tileBreadth = 0.5;
   const tileArea = tileLength * tileBreadth;
   const tileCount = area / tileArea;
   if (!Number.isInteger(tileCount)) {
@@ -79,9 +77,38 @@ function refinePathTileState(values: Values): Values {
   }
   return {
     ...values,
+    tileLength,
     tileBreadth,
     tileArea,
     tileCount,
+  };
+}
+
+function refinePaintingState(values: Values): Values {
+  const generatedLength = positive(values, "outerLength");
+  const ratePerSquareMetre = positive(values, "ratePerSquareMetre");
+  const presets: Record<number, readonly [number, number, number, number]> = {
+    12: [8, 4, 2, 2],
+    15: [10, 5, 2, 2],
+    18: [12, 6, 3, 2],
+    20: [15, 8, 3, 2],
+    24: [18, 9, 4, 3],
+  };
+  const [outerLength, outerBreadth, innerLength, innerBreadth] =
+    presets[generatedLength] ?? [12, 6, 3, 2];
+  const outerArea = outerLength * outerBreadth;
+  const innerArea = innerLength * innerBreadth;
+  const area = outerArea - innerArea;
+  return {
+    ...values,
+    outerLength,
+    outerBreadth,
+    innerLength,
+    innerBreadth,
+    outerArea,
+    innerArea,
+    area,
+    cost: area * ratePerSquareMetre,
   };
 }
 
@@ -89,6 +116,7 @@ const outerCircularArea = MEN_001_CP004_SOLVE_MODE_REGISTRY.findOuterCircularPat
 const innerCircularArea = MEN_001_CP004_SOLVE_MODE_REGISTRY.findInnerCircularPathArea;
 const circularPathCost = MEN_001_CP004_SOLVE_MODE_REGISTRY.findCircularPathCost;
 const pathTiles = MEN_001_CP004_ADDITIONAL_SOLVE_MODE_REGISTRY.findOuterRectangularPathTilesRequired;
+const paintingCost = MEN_001_CP004_ADDITIONAL_SOLVE_MODE_REGISTRY.findPaintingCostExcludingRectangularDoor;
 
 export const MEN_001_CP004_RUNTIME_SOLVE_MODE_REGISTRY = {
   ...MEN_001_CP004_SOLVE_MODE_REGISTRY,
@@ -112,5 +140,10 @@ export const MEN_001_CP004_RUNTIME_SOLVE_MODE_REGISTRY = {
     ...pathTiles,
     generateValues: (seed: string) =>
       refinePathTileState(pathTiles.generateValues(seed)),
+  },
+  findPaintingCostExcludingRectangularDoor: {
+    ...paintingCost,
+    generateValues: (seed: string) =>
+      refinePaintingState(paintingCost.generateValues(seed)),
   },
 } as const;
