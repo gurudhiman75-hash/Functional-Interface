@@ -11,6 +11,11 @@ const CONCEPT_IDS = {
   countDisjointCasePartition: "DISJOINT_CASE_PARTITION",
   countUsingSimpleComplement: "SIMPLE_COMPLEMENT",
   recoverMissingStageChoiceCount: "EXACT_FACTOR_RECOVERY",
+  evaluateFactorialValue: "FACTORIAL_DEFINITION",
+  evaluateFactorialUnitExpression: "FACTORIAL_ZERO_ONE_IDENTITY",
+  simplifyFactorialQuotient: "FACTORIAL_CANCELLATION",
+  recoverFactorialArgument: "FACTORIAL_INVERSE_SEARCH",
+  recoverFactorialQuotientArgument: "FACTORIAL_QUOTIENT_INVERSE_SEARCH",
 } as const;
 
 export function buildPnc001ReasoningEvidence(
@@ -21,6 +26,14 @@ export function buildPnc001ReasoningEvidence(
   const intermediateValues: Record<string, string | number> = {};
   if (solver.evidence.totalCount !== undefined) intermediateValues.totalCount = solver.evidence.totalCount;
   if (solver.evidence.invalidCount !== undefined) intermediateValues.invalidCount = solver.evidence.invalidCount;
+  if (solver.evidence.factorialArgument !== undefined) intermediateValues.factorialArgument = solver.evidence.factorialArgument;
+  if (solver.evidence.factorialValue !== undefined) intermediateValues.factorialValue = solver.evidence.factorialValue;
+  if (solver.evidence.factorialUpper !== undefined) intermediateValues.factorialUpper = solver.evidence.factorialUpper;
+  if (solver.evidence.factorialLower !== undefined) intermediateValues.factorialLower = solver.evidence.factorialLower;
+  if (solver.evidence.factorialTarget !== undefined) intermediateValues.factorialTarget = solver.evidence.factorialTarget;
+  if (solver.evidence.matchedFactorialArgument !== undefined) {
+    intermediateValues.matchedFactorialArgument = solver.evidence.matchedFactorialArgument;
+  }
   for (const item of solver.evidence.caseCounts ?? []) intermediateValues[`case${item.label}Count`] = item.count;
 
   return {
