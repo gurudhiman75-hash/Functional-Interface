@@ -1,0 +1,46 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-001",
+      "taskKind": "triangleMeasurementApplication",
+      "solveMode": "findTriangleAreaBaseHeight",
+      "answerDimension": "AREA",
+      "requiredVariables": ["base", "height"]
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-002",
+      "taskKind": "triangleMeasurementApplication",
+      "solveMode": "findMissingHeightFromAreaAndBase",
+      "answerDimension": "LENGTH",
+      "requiredVariables": ["area", "base"]
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-003",
+      "taskKind": "triangleMeasurementApplication",
+      "solveMode": "findTriangleAreaHeron",
+      "answerDimension": "AREA",
+      "requiredVariables": ["sideA", "sideB", "sideC"]
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-004",
+      "taskKind": "triangleMeasurementApplication",
+      "solveMode": "findRightTriangleAreaFromLegs",
+      "answerDimension": "AREA",
+      "requiredVariables": ["legA", "legB"]
+    },
+    {
+      "cpId": "MEN-CP-001",
+      "qlId": "MEN-001-QL-005",
+      "taskKind": "triangleMeasurementApplication",
+      "solveMode": "findEquilateralTriangleArea",
+      "answerDimension": "AREA",
+      "requiredVariables": ["side"]
+    }
+  ]
+}
