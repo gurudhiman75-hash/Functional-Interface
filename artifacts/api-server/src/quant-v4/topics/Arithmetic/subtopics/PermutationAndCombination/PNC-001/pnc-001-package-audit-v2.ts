@@ -14,35 +14,20 @@ function csvCell(value: unknown): string {
   const text = String(value ?? "").replace(/\r?\n/g, "\n");
   return `"${text.replace(/"/g, '""')}"`;
 }
-
 function normalizeExact(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/\{[a-z0-9_]+\}/g, "{value}")
-    .replace(/\s+/g, " ")
-    .trim();
+  return value.toLowerCase().replace(/\{[a-z0-9_]+\}/g, "{value}").replace(/\s+/g, " ").trim();
 }
-
 function normalizeSemantic(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/\{[a-z0-9_]+\}/g, " value ")
-    .replace(/\b\d+(?:\.\d+)?\b/g, " number ")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+  return value.toLowerCase().replace(/\{[a-z0-9_]+\}/g, " value ").replace(/\b\d+(?:\.\d+)?\b/g, " number ").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
 }
-
 const stopWords = new Set([
   "a", "an", "and", "are", "as", "at", "be", "by", "can", "each", "every", "find", "for", "from",
   "has", "have", "how", "if", "in", "into", "is", "it", "many", "may", "number", "of", "one", "or",
   "the", "there", "these", "this", "to", "value", "ways", "what", "when", "which", "with",
 ]);
-
 function tokenSet(value: string): Set<string> {
   return new Set(normalizeSemantic(value).split(" ").filter((token) => token.length > 2 && !stopWords.has(token)));
 }
-
 function jaccard(left: Set<string>, right: Set<string>): number {
   const union = new Set([...left, ...right]);
   if (union.size === 0) return 0;
@@ -50,7 +35,6 @@ function jaccard(left: Set<string>, right: Set<string>): number {
   for (const token of left) if (right.has(token)) intersection += 1;
   return intersection / union.size;
 }
-
 function countsBy<T>(values: T[], key: (value: T) => string): Record<string, number> {
   const counts: Record<string, number> = {};
   for (const value of values) {
@@ -72,8 +56,7 @@ type Finding = {
 };
 
 const entries = getPnc001QuestionEntries();
-assert.equal(entries.length, 104, "Audit baseline must contain 104 active QLs");
-
+assert.equal(entries.length, 106, "Audit baseline must contain 106 active QLs");
 const cpCounts = countsBy(entries, (entry) => entry.cpId);
 const modeCounts = countsBy(entries, (entry) => String(entry.solveMode));
 const scenarioCounts = countsBy(entries, (entry) => `${entry.cpId}|${entry.scenarioFamily}`);
@@ -121,22 +104,12 @@ const ownershipFlags: Array<{ severity: Severity; qlId: string; cpId: string; re
 for (const entry of entries) {
   const original = entry.template.toLowerCase();
   if (entry.cpId === "PNC-CP-002" && /leading\s+zero|divisib|\beven\b|\bodd\b|\bdigits?\b/.test(original)) {
-    ownershipFlags.push({
-      severity: "HIGH",
-      qlId: entry.qlId,
-      cpId: entry.cpId,
-      reason: "CP-002 contains number-specific semantics owned by CP-004.",
-      template: entry.template,
-    });
+    ownershipFlags.push({ severity: "HIGH", qlId: entry.qlId, cpId: entry.cpId, reason: "CP-002 contains number-specific semantics owned by CP-004.", template: entry.template });
   }
-  if (entry.cpId === "PNC-CP-003" && /\bchair(person)?\b|\bcaptain\b|\boffices?\b|\bmedals?\b|\branked?\b/.test(original)) {
-    ownershipFlags.push({
-      severity: "HIGH",
-      qlId: entry.qlId,
-      cpId: entry.cpId,
-      reason: "CP-003 appears to assign an ordered role inside unordered-selection ownership.",
-      template: entry.template,
-    });
+  const mentionsOrderedRole = /\bchair(person)?\b|\bcaptain\b|\boffices?\b|\bmedals?\b|\branked?\b/.test(original);
+  const explicitlyExcludesRoles = /no\s+offices?\s+(?:are\s+)?assigned|without\s+assigning\s+(?:any\s+)?offices?/.test(original);
+  if (entry.cpId === "PNC-CP-003" && mentionsOrderedRole && !explicitlyExcludesRoles) {
+    ownershipFlags.push({ severity: "HIGH", qlId: entry.qlId, cpId: entry.cpId, reason: "CP-003 appears to assign an ordered role inside unordered-selection ownership.", template: entry.template });
   }
 }
 
@@ -149,16 +122,8 @@ const contextConcentration = Object.entries(cpCounts).map(([cpId, total]) => {
 });
 
 const stressRows: Array<{
-  qlId: string;
-  cpId: string;
-  solveMode: string;
-  generated: number;
-  uniqueStems: number;
-  uniqueAnswers: number;
-  uniqueFingerprints: number;
-  uniqueParameterStates: number;
-  minimumAnswer: number;
-  maximumAnswer: number;
+  qlId: string; cpId: string; solveMode: string; generated: number; uniqueStems: number; uniqueAnswers: number;
+  uniqueFingerprints: number; uniqueParameterStates: number; minimumAnswer: number; maximumAnswer: number;
 }> = [];
 let stressGenerated = 0;
 let repeatabilityChecks = 0;
@@ -175,17 +140,14 @@ for (const entry of entries) {
   const parameterStates = new Set<string>();
   let minimumAnswer = Number.POSITIVE_INFINITY;
   let maximumAnswer = Number.NEGATIVE_INFINITY;
-
   for (let index = 0; index < STRESS_SEEDS_PER_QL; index += 1) {
-    const seed = `pnc-package-audit-v2:${entry.qlId}:${index}`;
+    const seed = `pnc-package-audit-v3:${entry.qlId}:${index}`;
     const generated = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed });
     stressGenerated += 1;
-
     if (!generated.validation.valid) validationFailures += 1;
     if (generated.independentVerification.answer !== generated.solver.numericAnswer) verifierFailures += 1;
     if (new Set(generated.options).size !== 4 || generated.options[generated.correctIndex] !== generated.answer) optionFailures += 1;
     if (generated.explanation.lines.length < 3 || !generated.explanation.lines.join(" ").includes(generated.answer)) explanationFailures += 1;
-
     if (index < REPEATABILITY_SEEDS_PER_QL) {
       const repeated = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed });
       repeatabilityChecks += 1;
@@ -194,32 +156,18 @@ for (const entry of entries) {
       assert.equal(repeated.answer, generated.answer, `${entry.qlId} repeatability answer`);
       assert.deepEqual(repeated.explanation, generated.explanation, `${entry.qlId} repeatability explanation`);
     }
-
     stems.add(generated.stem);
     answers.add(generated.answer);
     fingerprints.add(generated.mathematicalFingerprint);
     parameterStates.add(JSON.stringify(generated.parameters.values));
     minimumAnswer = Math.min(minimumAnswer, generated.solver.numericAnswer);
     maximumAnswer = Math.max(maximumAnswer, generated.solver.numericAnswer);
-
     if (index === 0) {
       const normalized = normalizeSemantic(generated.explanation.lines.join(" "));
       renderedExplanationGroups.set(normalized, [...(renderedExplanationGroups.get(normalized) ?? []), entry.qlId]);
     }
   }
-
-  stressRows.push({
-    qlId: entry.qlId,
-    cpId: entry.cpId,
-    solveMode: String(entry.solveMode),
-    generated: STRESS_SEEDS_PER_QL,
-    uniqueStems: stems.size,
-    uniqueAnswers: answers.size,
-    uniqueFingerprints: fingerprints.size,
-    uniqueParameterStates: parameterStates.size,
-    minimumAnswer,
-    maximumAnswer,
-  });
+  stressRows.push({ qlId: entry.qlId, cpId: entry.cpId, solveMode: String(entry.solveMode), generated: STRESS_SEEDS_PER_QL, uniqueStems: stems.size, uniqueAnswers: answers.size, uniqueFingerprints: fingerprints.size, uniqueParameterStates: parameterStates.size, minimumAnswer, maximumAnswer });
 }
 
 const renderedExplanationDuplicates = [...renderedExplanationGroups.entries()]
@@ -229,73 +177,30 @@ const lowDiversityRows = stressRows.filter((row) => row.uniqueParameterStates < 
 
 const findings: Finding[] = [];
 function addFinding(severity: Severity, scope: string, category: string, finding: string, requiredAction: string): void {
-  findings.push({
-    findingId: `PNC-RVW-${String(findings.length + 1).padStart(3, "0")}`,
-    severity,
-    scope,
-    category,
-    finding,
-    requiredAction,
-    status: "OPEN",
-  });
+  findings.push({ findingId: `PNC-RVW-${String(findings.length + 1).padStart(3, "0")}`, severity, scope, category, finding, requiredAction, status: "OPEN" });
 }
-
 if (validationFailures || verifierFailures || optionFailures || explanationFailures) {
-  addFinding(
-    "BLOCKER",
-    "PNC-001 runtime",
-    "runtime",
-    `Stress failures: validation=${validationFailures}, verifier=${verifierFailures}, options=${optionFailures}, explanations=${explanationFailures}.`,
-    "Repair every failing seed and rerun the complete package audit.",
-  );
+  addFinding("BLOCKER", "PNC-001 runtime", "runtime", `Stress failures: validation=${validationFailures}, verifier=${verifierFailures}, options=${optionFailures}, explanations=${explanationFailures}.`, "Repair every failing seed and rerun the complete package audit.");
 }
 for (const flag of ownershipFlags) addFinding(flag.severity, flag.qlId, "ownership", flag.reason, "Rewrite or reclassify the QL.");
-if (exactTemplateDuplicates.length > 0) {
-  addFinding("HIGH", "English QL library", "duplicate", `${exactTemplateDuplicates.length} literal-normalized exact-template group(s) remain.`, "Remove or materially differentiate exact duplicates.");
-}
-if (nearDuplicateCandidates.length > 0) {
-  addFinding("MEDIUM", "English QL library", "semantic duplicate", `${nearDuplicateCandidates.length} same-CP/same-mode similarity candidate(s) require human review.`, "Retain only pairs with a documented structural, difficulty, context or localization distinction.");
-}
-if (lowDiversityRows.length > 0) {
-  addFinding("OBSERVATION", lowDiversityRows.map((row) => row.qlId).join(", "), "diversity", `${lowDiversityRows.length} QL(s) generated fewer than five states over 50 seeds; many are intentionally fixed-word or fixed-expression families.`, "Classify each during human review; widen only where fixedness is not pedagogically intended.");
-}
+if (exactTemplateDuplicates.length > 0) addFinding("HIGH", "English QL library", "duplicate", `${exactTemplateDuplicates.length} literal-normalized exact-template group(s) remain.`, "Remove or materially differentiate exact duplicates.");
+if (nearDuplicateCandidates.length > 0) addFinding("MEDIUM", "English QL library", "semantic duplicate", `${nearDuplicateCandidates.length} same-CP/same-mode similarity candidate(s) require human review.`, "Retain only pairs with a documented structural, difficulty, context or localization distinction.");
+if (lowDiversityRows.length > 0) addFinding("OBSERVATION", lowDiversityRows.map((row) => row.qlId).join(", "), "diversity", `${lowDiversityRows.length} QL(s) generated fewer than five states over 50 seeds; fixed-word and fixed-expression families may be intentional.`, "Classify each during human review; widen only where fixedness is not pedagogically intended.");
 
 const cp005Modes = new Set(entries.filter((entry) => entry.cpId === "PNC-CP-005").map((entry) => String(entry.solveMode)));
-const cp005HasDictionaryRank = [...cp005Modes].some((mode) => /rank|dictionary/i.test(mode));
+const cp005HasDictionaryRank = cp005Modes.has("findDictionaryRankOfWord");
 const cp005HasPartialLetterSelection = [...cp005Modes].some((mode) => /select.*letter|partial.*multiset/i.test(mode));
-if (!cp005HasDictionaryRank) {
-  addFinding(
-    "HIGH",
-    "PNC-CP-005",
-    "coverage",
-    "Dictionary-order/rank word arrangements are absent although CP-005 ownership admits curated dictionary-rank questions and SSC reference material contains this family.",
-    "Implement a bounded dictionary-rank contract with independent enumeration and admit only evidence-backed QLs.",
-  );
-}
-if (!cp005HasPartialLetterSelection) {
-  addFinding(
-    "MEDIUM",
-    "PNC-CP-005",
-    "coverage",
-    "Selecting and arranging a subset of letters where repeated-letter identity changes the count is not represented.",
-    "Compare against CP-006; add a CP-005 contract only if multiset identity materially changes solver and validator behavior.",
-  );
-}
-
+if (!cp005HasDictionaryRank) addFinding("HIGH", "PNC-CP-005", "coverage", "Dictionary-order/rank word arrangements are absent.", "Implement a bounded dictionary-rank contract with independent enumeration.");
+if (!cp005HasPartialLetterSelection) addFinding("MEDIUM", "PNC-CP-005", "coverage", "Selecting and arranging a subset of letters where repeated-letter identity changes the count is not represented.", "Defer unless reference evidence proves a multiset-specific contract distinct from CP-006 or later restriction packages.");
 for (const row of contextConcentration) {
-  if (row.total >= 8 && row.largestFamily && row.largestFamily.share > 0.45) {
-    addFinding("MEDIUM", row.cpId, "editorial", `${row.largestFamily.scenarioFamily} accounts for ${(row.largestFamily.share * 100).toFixed(1)}% of the CP.`, "Review concentration and diversify only when it adds real exam or localization value.");
-  }
+  if (row.total >= 8 && row.largestFamily && row.largestFamily.share > 0.45) addFinding("MEDIUM", row.cpId, "editorial", `${row.largestFamily.scenarioFamily} accounts for ${(row.largestFamily.share * 100).toFixed(1)}% of the CP.`, "Review concentration and diversify only when it adds real exam or localization value.");
 }
-if (renderedExplanationDuplicates.length > 0) {
-  addFinding("HIGH", "English explanations", "explanation", `${renderedExplanationDuplicates.length} rendered explanation duplicate group(s) remain.`, "Rewrite the affected QL-specific narratives.");
-}
-addFinding("HIGH", "PNC-001 English corpus", "manual review", "Automated proof does not constitute completed human review of all active QLs.", "Complete the generated 104-row review CSV and close all REWRITE/REJECT rows before English freeze.");
+if (renderedExplanationDuplicates.length > 0) addFinding("HIGH", "English explanations", "explanation", `${renderedExplanationDuplicates.length} rendered explanation duplicate group(s) remain.`, "Rewrite the affected QL-specific narratives.");
+addFinding("HIGH", "PNC-001 English corpus", "manual review", "Automated proof does not constitute completed human review of all active QLs.", "Complete the generated 106-row review CSV and close all REWRITE/REJECT rows before English freeze.");
 addFinding("MEDIUM", "PNC-001 localization", "localization", "Hindi/Punjabi terminology and CP-005 word-localization policy are not human-approved.", "Freeze English first, then approve terminology and word-handling policy.");
 
 const blockingFindings = findings.filter((finding) => finding.severity === "BLOCKER" || finding.severity === "HIGH");
 const verdict = blockingFindings.length > 0 ? "REPAIR REQUIRED" : "ELIGIBLE FOR ENGLISH FREEZE REVIEW";
-
 const audit = {
   packageId: PACKAGE_ID,
   generatedAt: new Date().toISOString(),
@@ -357,32 +262,12 @@ const reviewColumns = [
 const reviewRows = entries.map((entry, index) => {
   const generated = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed: `pnc-human-review:${entry.qlId}` });
   return {
-    index: index + 1,
-    packageId: PACKAGE_ID,
-    cpId: entry.cpId,
-    qlId: entry.qlId,
-    taskKind: entry.taskKind,
-    solveMode: entry.solveMode,
-    difficulty: entry.difficulty,
-    seed: generated.seed,
-    mathematicalFingerprint: generated.mathematicalFingerprint,
-    stem: generated.stem,
-    options: generated.options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option}`).join("\n"),
-    correctIndex: generated.correctIndex,
-    correctAnswer: generated.answer,
-    explanation: generated.explanation.lines.join("\n"),
-    stemRealism: "",
-    mathematicalValidity: "",
-    solverCorrect: "",
-    optionQuality: "",
-    explanationQuality: "",
-    difficultyAccuracy: "",
-    examRelevance: "",
-    editorialStatus: "PENDING",
-    defectCategory: "",
-    reviewNotes: "",
-    reviewer: "",
-    reviewedAt: "",
+    index: index + 1, packageId: PACKAGE_ID, cpId: entry.cpId, qlId: entry.qlId, taskKind: entry.taskKind,
+    solveMode: entry.solveMode, difficulty: entry.difficulty, seed: generated.seed, mathematicalFingerprint: generated.mathematicalFingerprint,
+    stem: generated.stem, options: generated.options.map((option, optionIndex) => `${String.fromCharCode(65 + optionIndex)}. ${option}`).join("\n"),
+    correctIndex: generated.correctIndex, correctAnswer: generated.answer, explanation: generated.explanation.lines.join("\n"),
+    stemRealism: "", mathematicalValidity: "", solverCorrect: "", optionQuality: "", explanationQuality: "", difficultyAccuracy: "",
+    examRelevance: "", editorialStatus: "PENDING", defectCategory: "", reviewNotes: "", reviewer: "", reviewedAt: "",
   };
 });
 const reviewCsv = [reviewColumns.map(csvCell).join(","), ...reviewRows.map((row) => reviewColumns.map((column) => csvCell(row[column])).join(","))].join("\n");
