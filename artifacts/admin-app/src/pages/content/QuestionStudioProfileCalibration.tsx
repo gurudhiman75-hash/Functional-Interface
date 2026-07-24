@@ -102,7 +102,7 @@ export function QuestionStudioProfileCalibration() {
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
-        {error && <AdminErrorAlert error={error} title="Calibration failed" onRetry={run} compact />}
+        {error != null && <AdminErrorAlert error={error} title="Calibration failed" onRetry={run} />}
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-6">
           <div className="space-y-2 xl:col-span-2"><Label>Generation package</Label><Select value={packageId} onValueChange={setPackageId}><SelectTrigger><SelectValue placeholder="Select package" /></SelectTrigger><SelectContent>{packages.map((item) => <SelectItem key={item.packageId} value={item.packageId}>{item.packageId} · {item.label}</SelectItem>)}</SelectContent></Select></div>
           <div className="space-y-2"><Label>Left profile</Label><Select value={leftProfileId} onValueChange={setLeftProfileId}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{EXAMS.map((exam) => <SelectItem key={exam.code} value={exam.code}>{exam.name}</SelectItem>)}</SelectContent></Select></div>
