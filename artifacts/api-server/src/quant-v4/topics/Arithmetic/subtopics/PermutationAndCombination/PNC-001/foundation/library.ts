@@ -68,7 +68,7 @@ const expandedEntries: Pnc001QuestionEntry[] = registryGroups.flatMap((group) =>
   return {
     ...languageEntry,
     taskKind: group.taskKind,
-    solveMode: group.solveMode,
+    solveMode: group.solveMode as Pnc001SolveMode,
     answerType: group.answerType,
     explanationId: group.explanationId,
     requiredVariables: [...group.requiredVariables],
