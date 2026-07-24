@@ -1,67 +1,77 @@
 # PNC-001 Need-Based Implementation Plan
 
-## Completed checkpoint 1 — Initial CP-001 runtime proof
+The six CP ownership boundaries in PNC-001 are fixed by the family roadmap. QLs, solve modes and checkpoint sizes inside them remain need-based.
 
-The first admitted set contained 48 English QLs covering counting principles, case partition, simple complement and exact missing-factor recovery.
+## Completed checkpoint 1 — CP-001 counting foundations
 
-## Completed checkpoint 2 — Factorial coverage extension
+The initial 48 English QLs covered counting principles, case partition, simple complement and exact missing-factor recovery.
 
-A reference-led gap review admitted ten factorial QLs, `PNC-QL-049` through `PNC-QL-058`, and five solve contracts required by them.
+## Completed checkpoint 2 — CP-001 factorial foundation extension
 
-## Completed checkpoint 3 — Unrestricted distinct permutations
+A reference-led review admitted ten factorial QLs, `PNC-QL-049` through `PNC-QL-058`, and the five runtime contracts they required.
 
-The next review approved `PNC-CP-002 — Unrestricted Ordered Arrangements of Distinct Objects`, with eight QLs (`059`–`066`) and three required modes.
+## Completed checkpoint 3 — CP-002 distinct permutations
 
-## Completed checkpoint 4 — Unrestricted distinct combinations
+Eight QLs, `PNC-QL-059` through `PNC-QL-066`, introduced all-object arrangements, partial `nPr` and bounded inverse parameters.
 
-The next review approved `PNC-CP-003 — Unrestricted Unordered Selection of Distinct Objects`, with eight QLs (`067`–`074`) and three required modes for direct selection, bounded inverse search and complementary-index symmetry.
+## Completed checkpoint 4 — CP-003 basic combinations
 
-## Completed checkpoint 5 — Repeated objects and multisets
+Eight QLs, `PNC-QL-067` through `PNC-QL-074`, introduced direct unordered selection, bounded inverse combinations and complementary-index symmetry.
 
-Reference and runtime comparison showed that every existing arrangement contract still assumed distinct objects. This justified:
+## Completed checkpoint 5 — CP-005 repeated-object/multiset portion
+
+Eight QLs, `PNC-QL-075` through `PNC-QL-082`, implemented direct multiset arrangements, fixed-position multiplicity reduction, overcount factors and bounded multiplicity recovery.
+
+This work belongs to `PNC-CP-005 — Word, Letter & Multiset Arrangements`. CP-005 remains open to additional need-based word/letter directions.
+
+## Completed checkpoint 6 — CP-004 digit, number and code formation
+
+Twelve QLs, `PNC-QL-083` through `PNC-QL-094`, implemented:
+
+- leading-zero semantics;
+- repetition allowed/forbidden;
+- number versus code distinction;
+- parity and divisibility-by-5 final-digit cases;
+- controlled prefix thresholds;
+- alphanumeric stages;
+- inverse code alphabet size;
+- exactly-one-pair code patterns.
+
+The current package snapshot is 94 English QLs and 30 active solve modes. These are descriptive regression values, not targets.
+
+## Next fixed ownership target — CP-006
+
+The only wholly unimplemented CP in PNC-001 is:
 
 ```text
-PNC-CP-004 — Repeated Objects, Word Arrangements & Multisets
+PNC-CP-006 — Selection-Then-Arrangement & Role Assignment
 ```
 
-Eight materially distinct QLs were admitted as `PNC-QL-075` through `PNC-QL-082`. Four modes were introduced because the admitted content required them:
+Before implementing its first checkpoint:
 
-- arrange all multiset objects;
-- arrange the remaining multiset after fixing one position;
-- identify the identical-swap overcount factor;
-- recover one bounded repeated multiplicity.
+1. compare reference/PYQ motifs against CP-002 and CP-003 coverage;
+2. admit only mixed select-then-order constructions that neither earlier CP owns cleanly;
+3. document the required QLs and solve modes without assigning a quota;
+4. implement solver, evidence, independent verification, explanation, distractors and validators together;
+5. keep complex multi-condition systems deferred to CP-012.
 
-The package currently contains 82 English QLs and 20 active modes. These are checkpoint observations, not reusable quotas.
+Likely CP-006 candidate directions include committees with offices, selecting finalists and assigning ranks, captain/vice-captain selection, and choosing a subset before arranging all or some selected members. These are candidates within a fixed CP boundary, not pre-approved QLs.
 
-Delivered across the current scope:
+## After CP-006
 
-- human-owned base and CP-specific companion libraries;
-- exact integer, factorial, `nPr`, `nCr` and multiset math;
-- deterministic parameter generation;
-- authoritative solver evidence;
-- independent ordered, subset and multiset enumeration;
-- bounded inverse verification;
-- evidence-driven explanations and semantic distractors;
-- validation, coverage audits and bundled tests;
-- no generation-engine edits.
+Run a package-wide review across CP-001 through CP-006 for:
 
-## Next checkpoint selection
+- coverage saturation;
+- ownership overlap;
+- exact and near duplicates;
+- editorial realism;
+- context concentration;
+- solver/verifier stability;
+- placeholder and localization readiness;
+- integration and freeze readiness.
 
-Do not automatically implement a numbered CP or allocate another QL range.
-
-Before any next checkpoint:
-
-1. inspect references/PYQs and the current runtime inventory;
-2. produce a fresh coverage-gap matrix;
-3. decide whether the highest-value gap needs a new QL, mode, CP or package;
-4. admit only materially distinct content;
-5. implement solver, evidence, explanation, distractor and validator behaviour together;
-6. stop expansion when proposals become semantic near-clones rather than coverage gains.
-
-Potential candidates such as digit formation, together/apart restrictions, circular arrangements and category-constrained selection remain unowned until that review.
+Only after that review should package PNC-002 implementation begin with CP-007.
 
 ## Merge rule
 
-Every checkpoint must preserve registry/language parity, deterministic generation and complete runtime support for all active QLs. A checkpoint may be merged with any justified QL count; incomplete admitted families are not mergeable.
-
-Generation-engine integration, English freeze and localization occur only after coverage and maturity audits justify them, not after a predetermined number of CPs or QLs.
+Every checkpoint must preserve registry/language parity, deterministic generation, independent verification where practical and complete runtime support for every active QL. Generation-engine integration, publication and localization remain deferred until package-level maturity approval.

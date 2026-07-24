@@ -1,27 +1,28 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-004-REPEATED-OBJECTS-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-004-DIGIT-NUMBER-CODE-RUNTIME-PROOF",
   "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
   "currentCoverage": {
-    "activeCanonicalProblemCount": 4,
-    "activeQuestionLanguageCount": 82,
-    "activeSolveModeCount": 20,
-    "activeExplanationStrategyCount": 20,
+    "activeCanonicalProblemCount": 5,
+    "activeQuestionLanguageCount": 94,
+    "activeSolveModeCount": 30,
+    "activeExplanationStrategyCount": 30,
     "activeLanguageCount": 1,
     "firstQuestionLanguageId": "PNC-QL-001",
-    "lastQuestionLanguageId": "PNC-QL-082"
+    "lastQuestionLanguageId": "PNC-QL-094"
   },
   "verification": {
-    "workflowRunId": 30075581021,
+    "workflowRunId": 30078944764,
     "strictTargetedTypecheck": "PASS",
     "bundledRuntimeProof": "PASS",
-    "seedCases": 984,
+    "seedCases": 1128,
     "generatedTwicePerSeed": true
   },
-  "admissionPolicy": {
+  "roadmapPolicy": {
+    "packages": "The end-to-end family roadmap contains two packages with six CP ownership boundaries each.",
+    "canonicalProblems": "CP ownership IDs PNC-CP-001 through PNC-CP-012 are fixed by the roadmap.",
     "questionLanguages": "Add only for a material coverage distinction; no fixed final count.",
-    "solveModes": "Add only when an approved QL family needs a distinct solver/evidence/validator contract.",
-    "canonicalProblems": "Allocate an ID only after a documented ownership decision.",
-    "packages": "Create only when size, architecture or review safety justifies a split."
+    "solveModes": "Add only when approved QLs need a distinct solver, evidence and validator contract.",
+    "difficulty": "Assign from actual structural complexity; do not impose future quotas."
   }
 }
