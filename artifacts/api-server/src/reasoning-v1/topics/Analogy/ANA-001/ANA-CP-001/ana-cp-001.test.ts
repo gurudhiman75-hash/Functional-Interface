@@ -15,9 +15,14 @@ for (const ql of ANA_CP001_QLS) {
   assert.equal(factsForRule(ql.ruleId).length, 4, `${ql.ruleId} must have four curated facts`);
   const generated = generateSemanticAnalogy(ql.qlId, Number(ql.qlId.slice(-3)));
   assert.equal(generated.options.length, 4);
-  assert.equal(new Set(generated.options.map((option) => String(option.value).toLowerCase())).size, 4);
+  assert.equal(new Set(generated.options.map((option) => JSON.stringify(option.value).toLowerCase())).size, 4);
   assert.equal(generated.options.filter((option) => option.errorLabel === null).length, 1);
-  assert.equal(generated.options[generated.correctIndex].value, generated.targetB);
+  const correctValue = generated.options[generated.correctIndex].value;
+  if (ql.presentationMode === "MISSING_FOURTH_TERM") {
+    assert.equal(correctValue, generated.targetB);
+  } else {
+    assert.deepEqual(correctValue, [generated.targetA, generated.targetB]);
+  }
   assert.ok(generated.explanationTrace.sourceDemonstration.length > 0);
   assert.ok(generated.explanationTrace.targetApplication.length > 0);
 }
