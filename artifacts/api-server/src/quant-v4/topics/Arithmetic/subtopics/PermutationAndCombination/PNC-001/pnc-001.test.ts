@@ -5,9 +5,9 @@ import { runPnc001Pipeline } from "./foundation/pipeline";
 
 const entries = getPnc001QuestionEntries();
 
-// These assertions protect the current reviewed checkpoint from accidental
-// deletion or ID drift. They are not design targets for future expansion.
-const currentCheckpointIds = Array.from({ length: 58 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+// This protects the current reviewed checkpoint from accidental deletion or ID
+// drift. It does not define a final package or family size.
+const currentCheckpointIds = Array.from({ length: 66 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
 assert.equal(entries.length, currentCheckpointIds.length);
 assert.equal(new Set(entries.map((entry) => entry.qlId)).size, currentCheckpointIds.length);
 assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
@@ -15,7 +15,7 @@ assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
 const observedDifficultyCounts = Object.fromEntries(
   ["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]),
 );
-assert.deepEqual(observedDifficultyCounts, { Easy: 27, Medium: 22, Hard: 9 });
+assert.deepEqual(observedDifficultyCounts, { Easy: 31, Medium: 25, Hard: 10 });
 
 const observedSolveModeCounts = {
   countSequentialIndependentChoices: 14,
@@ -28,6 +28,9 @@ const observedSolveModeCounts = {
   simplifyFactorialQuotient: 3,
   recoverFactorialArgument: 2,
   recoverFactorialQuotientArgument: 1,
+  arrangeAllDistinctObjects: 3,
+  arrangeRFromNDistinctObjects: 3,
+  recoverPermutationParameter: 2,
 } as const;
 for (const [mode, observed] of Object.entries(observedSolveModeCounts)) {
   assert.equal(entries.filter((entry) => entry.solveMode === mode).length, observed, mode);
@@ -82,12 +85,35 @@ assert.equal(
   quotientInverse.parameters.values.target,
 );
 
+const arrangeAll = runPnc001Pipeline({ questionLanguageId: "PNC-QL-059", seed: "arrange-all" });
+assert.equal(arrangeAll.canonicalProblemId, "PNC-CP-002");
+assert.equal(arrangeAll.solver.evidence.operation, "PERMUTATION_ALL");
+assert.equal(arrangeAll.solver.evidence.permutationSelectedObjects, arrangeAll.solver.evidence.permutationTotalObjects);
+
+const arrangePartial = runPnc001Pipeline({ questionLanguageId: "PNC-QL-062", seed: "arrange-partial" });
+assert.equal(arrangePartial.solver.evidence.operation, "PERMUTATION_PARTIAL");
+assert.equal(arrangePartial.solver.evidence.permutationFactors?.length, arrangePartial.solver.evidence.permutationSelectedObjects);
+
+const recoverN = runPnc001Pipeline({ questionLanguageId: "PNC-QL-065", seed: "recover-permutation-n" });
+assert.equal(recoverN.solver.evidence.operation, "PERMUTATION_INVERSE");
+assert.equal(recoverN.solver.evidence.recoveredPermutationParameter, "n");
+assert.equal(recoverN.solver.numericAnswer, recoverN.solver.evidence.permutationTotalObjects);
+
+const recoverR = runPnc001Pipeline({ questionLanguageId: "PNC-QL-066", seed: "recover-permutation-r" });
+assert.equal(recoverR.solver.evidence.operation, "PERMUTATION_INVERSE");
+assert.equal(recoverR.solver.evidence.recoveredPermutationParameter, "r");
+assert.equal(recoverR.solver.numericAnswer, recoverR.solver.evidence.permutationSelectedObjects);
+
+const routedCp2 = runPnc001Pipeline("PNC-CP-002", { seed: "cp2-routing" });
+assert.equal(routedCp2.canonicalProblemId, "PNC-CP-002");
+
 for (const language of ["hi", "pa"] as const) {
   assert.throws(() => runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "unsupported", language }), /English only/);
 }
 
 console.log(JSON.stringify({
   checkpointQlCount: entries.length,
+  activeCanonicalProblems: 2,
   observedDifficultyCounts,
   observedSolveModeCounts,
   seedsPerQl: 12,

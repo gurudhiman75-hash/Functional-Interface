@@ -1,5 +1,5 @@
 export const PNC_001_PACKAGE_ID = "PNC-001" as const;
-export const PNC_001_CP_IDS = ["PNC-CP-001"] as const;
+export const PNC_001_CP_IDS = ["PNC-CP-001", "PNC-CP-002"] as const;
 export const PNC_001_ACTIVE_CP_IDS = PNC_001_CP_IDS;
 
 export type Pnc001CanonicalProblemId = (typeof PNC_001_CP_IDS)[number];
@@ -8,13 +8,8 @@ export type Pnc001Language = "en" | "hi" | "pa";
 export type Pnc001Difficulty = "Easy" | "Medium" | "Hard";
 export type Pnc001Maturity = "DESIGN_LOCKED" | "RUNTIME_PROOF" | "MVP_QA" | "PRODUCTION_QA" | "MANUAL_REVIEW" | "FROZEN";
 export type Pnc001AnswerType = "COUNT";
-export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning";
+export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning" | "distinctPermutation";
 
-/**
- * Solve modes are intentionally limited to modes required by currently active
- * QLs. Add a mode only with the first approved QL family that needs a distinct
- * solver/evidence/validator contract.
- */
 export type Pnc001SolveMode =
   | "countSequentialIndependentChoices"
   | "countMutuallyExclusiveAlternatives"
@@ -25,7 +20,10 @@ export type Pnc001SolveMode =
   | "evaluateFactorialUnitExpression"
   | "simplifyFactorialQuotient"
   | "recoverFactorialArgument"
-  | "recoverFactorialQuotientArgument";
+  | "recoverFactorialQuotientArgument"
+  | "arrangeAllDistinctObjects"
+  | "arrangeRFromNDistinctObjects"
+  | "recoverPermutationParameter";
 
 export interface Pnc001QuestionLanguageEntry {
   qlId: string;
@@ -108,6 +106,11 @@ export interface Pnc001SolverEvidence {
   displayedShift?: number;
   unitFactorial?: "0!" | "1!";
   unitOperation?: "ADD" | "SUBTRACT";
+  permutationTotalObjects?: number;
+  permutationSelectedObjects?: number;
+  permutationFactors?: number[];
+  permutationTarget?: number;
+  recoveredPermutationParameter?: "n" | "r";
   operation:
     | "PRODUCT"
     | "SUM"
@@ -118,7 +121,10 @@ export interface Pnc001SolverEvidence {
     | "FACTORIAL_UNIT_EXPRESSION"
     | "FACTORIAL_QUOTIENT"
     | "FACTORIAL_INVERSE"
-    | "FACTORIAL_QUOTIENT_INVERSE";
+    | "FACTORIAL_QUOTIENT_INVERSE"
+    | "PERMUTATION_ALL"
+    | "PERMUTATION_PARTIAL"
+    | "PERMUTATION_INVERSE";
 }
 
 export interface Pnc001SolverResult {

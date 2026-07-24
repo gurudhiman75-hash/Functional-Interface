@@ -24,9 +24,9 @@ function recordMatches(actual: Record<string, number>, snapshot: Record<string, 
 export function auditPnc001Coverage(): Pnc001CoverageAudit {
   const entries = getPnc001QuestionEntries();
 
-  // Regression snapshot for the currently reviewed CP-001 checkpoint. This is
-  // intentionally not a final package/family target.
-  const checkpointIds = Array.from({ length: 58 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+  // Regression snapshot for the currently reviewed package checkpoint. It
+  // protects admitted content from deletion/ID drift and is not a final target.
+  const checkpointIds = Array.from({ length: 66 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
   const actualIds = new Set(entries.map((entry) => entry.qlId));
   const missingIds = checkpointIds.filter((id) => !actualIds.has(id));
   const duplicateGroups = new Map<string, number>();
@@ -49,7 +49,7 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const observedDifficultySnapshot: Record<string, number> = { Easy: 27, Medium: 22, Hard: 9 };
+  const observedDifficultySnapshot: Record<string, number> = { Easy: 31, Medium: 25, Hard: 10 };
   const observedSolveModeSnapshot: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
@@ -61,6 +61,9 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     simplifyFactorialQuotient: 3,
     recoverFactorialArgument: 2,
     recoverFactorialQuotientArgument: 1,
+    arrangeAllDistinctObjects: 3,
+    arrangeRFromNDistinctObjects: 3,
+    recoverPermutationParameter: 2,
   };
   const snapshotMatches = recordMatches(difficultyCounts, observedDifficultySnapshot)
     && recordMatches(solveModeCounts, observedSolveModeSnapshot);

@@ -1,351 +1,51 @@
-import {
-  descendingFactors,
-  divideExact,
-  factorialExact,
-  factorialQuotientExact,
-  productExact,
-  subtractExact,
-  sumExact,
-} from "./math";
-import type {
-  Pnc001IndependentVerification,
-  Pnc001Parameters,
-  Pnc001SolverResult,
-} from "./types";
+import { descendingFactors, divideExact, factorialExact, factorialQuotientExact, permutationExact, productExact, subtractExact, sumExact } from "./math";
+import type { Pnc001IndependentVerification, Pnc001Parameters, Pnc001SolverResult } from "./types";
 import { getPnc001VariableRanges } from "./library";
 
-function cartesianEnumeration(stageCounts: number[]): number {
-  let count = 0;
-  const visit = (stage: number): void => {
-    if (stage === stageCounts.length) {
-      count += 1;
-      return;
-    }
-    for (let index = 0; index < stageCounts[stage]!; index += 1) visit(stage + 1);
-  };
-  visit(0);
-  return count;
-}
+function cartesianEnumeration(stageCounts:number[]):number{let count=0;const visit=(s:number):void=>{if(s===stageCounts.length){count++;return;}for(let i=0;i<stageCounts[s]!;i++)visit(s+1);};visit(0);return count;}
+function independentFactorial(n:number):number{return n<=1?1:n*independentFactorial(n-1);}
+function independentRangeProduct(upper:number,lower:number):number{let result=1;for(let v=upper;v>lower;v--)result*=v;return result;}
+function enumerateOrderedSelections(n:number,r:number):number{let count=0;const used=Array.from({length:n},()=>false);const visit=(slot:number):void=>{if(slot===r){count++;return;}for(let i=0;i<n;i++){if(used[i])continue;used[i]=true;visit(slot+1);used[i]=false;}};visit(0);return count;}
+function readInteger(p:Pnc001Parameters,key:string):number{const found=p.values[key];if(typeof found!=="number"||!Number.isInteger(found))throw new Error(`Missing integer PNC-001 value: ${key}`);return found;}
+function assertNever(value:never):never{throw new Error(`Unsupported PNC-001 solve mode: ${String(value)}`);}
+function result(answer:number,equation:string,mathJax:string,evidence:Pnc001SolverResult["evidence"]):Pnc001SolverResult{return{exactAnswer:String(answer),answer:String(answer),numericAnswer:answer,equation,mathJax,evidence};}
 
-function independentFactorial(argument: number): number {
-  if (argument <= 1) return 1;
-  return argument * independentFactorial(argument - 1);
-}
-
-function independentRangeProduct(upper: number, lower: number): number {
-  let result = 1;
-  for (let value = upper; value > lower; value -= 1) result *= value;
-  return result;
-}
-
-function readInteger(parameters: Pnc001Parameters, key: string): number {
-  const found = parameters.values[key];
-  if (typeof found !== "number" || !Number.isInteger(found)) {
-    throw new Error(`Missing integer PNC-001 value: ${key}`);
-  }
-  return found;
-}
-
-function assertNever(value: never): never {
-  throw new Error(`Unsupported PNC-001 solve mode: ${String(value)}`);
-}
-
-export function solvePnc001(parameters: Pnc001Parameters): Pnc001SolverResult {
-  const ranges = getPnc001VariableRanges();
-  const ceiling = ranges.answerCeiling;
-  const value = (key: string): number => readInteger(parameters, key);
-
-  switch (parameters.solveMode) {
-    case "countSequentialIndependentChoices": {
-      const stages = parameters.requiredVariables.map(value);
-      const answer = productExact(stages, ceiling);
-      const expression = stages.join(" × ");
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${expression} = ${answer}`,
-        mathJax: `${stages.join(" \\times ")} = ${answer}`,
-        evidence: { operation: "PRODUCT", stageCounts: stages, totalCount: answer },
-      };
-    }
-    case "countMutuallyExclusiveAlternatives": {
-      const stages = parameters.requiredVariables.map(value);
-      const answer = sumExact(stages, ceiling);
-      const expression = stages.join(" + ");
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${expression} = ${answer}`,
-        mathJax: `${stages.join(" + ")} = ${answer}`,
-        evidence: { operation: "SUM", stageCounts: stages, totalCount: answer },
-      };
-    }
-    case "countDisjointCasePartition": {
-      const caseAFactors = [value("caseAFirst"), value("caseARest")];
-      const caseBFactors = [value("caseBFirst"), value("caseBRest")];
-      const caseA = productExact(caseAFactors, ceiling);
-      const caseB = productExact(caseBFactors, ceiling);
-      const answer = sumExact([caseA, caseB], ceiling);
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `(${caseAFactors.join(" × ")}) + (${caseBFactors.join(" × ")}) = ${answer}`,
-        mathJax: `(${caseAFactors.join(" \\times ")}) + (${caseBFactors.join(" \\times ")}) = ${answer}`,
-        evidence: {
-          operation: "SUM_OF_PRODUCTS",
-          caseCounts: [
-            { label: "A", count: caseA, factors: caseAFactors },
-            { label: "B", count: caseB, factors: caseBFactors },
-          ],
-          totalCount: answer,
-        },
-      };
-    }
-    case "countUsingSimpleComplement": {
-      const stages = [value("choiceA"), value("choiceB")];
-      const total = productExact(stages, ceiling);
-      const invalid = value("invalidChoices");
-      const answer = subtractExact(total, invalid);
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${stages.join(" × ")} − ${invalid} = ${answer}`,
-        mathJax: `${stages.join(" \\times ")} - ${invalid} = ${answer}`,
-        evidence: { operation: "COMPLEMENT", stageCounts: stages, totalCount: total, invalidCount: invalid },
-      };
-    }
-    case "recoverMissingStageChoiceCount": {
-      const total = value("totalChoices");
-      const known = value("knownChoices");
-      const answer = divideExact(total, known);
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${total} ÷ ${known} = ${answer}`,
-        mathJax: `\\frac{${total}}{${known}} = ${answer}`,
-        evidence: { operation: "EXACT_DIVISION", totalChoices: total, knownChoices: known, totalCount: answer },
-      };
-    }
-    case "evaluateFactorialValue": {
-      const argument = parameters.scenarioFamily === "factorialPredecessor"
-        ? value("n") - 1
-        : value("factorialArgument");
-      const answer = factorialExact(argument, ceiling);
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${argument}! = ${answer}`,
-        mathJax: `${argument}! = ${answer}`,
-        evidence: {
-          operation: "FACTORIAL",
-          factorialArgument: argument,
-          factorialValue: answer,
-          factorialFactors: descendingFactors(argument, 0),
-          totalCount: answer,
-        },
-      };
-    }
-    case "evaluateFactorialUnitExpression": {
-      const argument = value("factorialArgument");
-      const factorialValue = factorialExact(argument, ceiling);
-      const isAddition = parameters.scenarioFamily === "zeroPlusFactorial";
-      const answer = isAddition ? sumExact([1, factorialValue], ceiling) : subtractExact(factorialValue, 1);
-      const operator = isAddition ? "+" : "−";
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `1 ${operator} ${factorialValue} = ${answer}`,
-        mathJax: `1 ${isAddition ? "+" : "-"} ${factorialValue} = ${answer}`,
-        evidence: {
-          operation: "FACTORIAL_UNIT_EXPRESSION",
-          factorialArgument: argument,
-          factorialValue,
-          factorialFactors: descendingFactors(argument, 0),
-          unitFactorial: isAddition ? "0!" : "1!",
-          unitOperation: isAddition ? "ADD" : "SUBTRACT",
-          totalCount: answer,
-        },
-      };
-    }
-    case "simplifyFactorialQuotient": {
-      let upper: number;
-      let lower: number;
-      if (parameters.scenarioFamily === "numericFactorialQuotient") {
-        upper = value("upper");
-        lower = value("lower");
-      } else {
-        const n = value("n");
-        upper = n + (parameters.scenarioFamily === "doubleSuccessorFactorialQuotient" ? 2 : 1);
-        lower = n;
-      }
-      const factors = descendingFactors(upper, lower);
-      const answer = factorialQuotientExact(upper, lower, ceiling);
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${upper}! ÷ ${lower}! = ${factors.join(" × ")} = ${answer}`,
-        mathJax: `\\frac{${upper}!}{${lower}!} = ${factors.join(" \\times ")} = ${answer}`,
-        evidence: {
-          operation: "FACTORIAL_QUOTIENT",
-          factorialUpper: upper,
-          factorialLower: lower,
-          factorialFactors: factors,
-          totalCount: answer,
-        },
-      };
-    }
-    case "recoverFactorialArgument": {
-      const target = value("target");
-      let matchedArgument = -1;
-      for (let candidate = 0; candidate <= ranges.generation.maximumFactorialArgument; candidate += 1) {
-        if (factorialExact(candidate, ceiling) === target) {
-          matchedArgument = candidate;
-          break;
-        }
-      }
-      if (matchedArgument < 0) throw new Error(`No factorial argument matches target ${target}`);
-      const shift = parameters.scenarioFamily === "shiftedFactorialInverse" ? 1 : 0;
-      const answer = matchedArgument - shift;
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${matchedArgument}! = ${target}; n = ${matchedArgument} − ${shift} = ${answer}`,
-        mathJax: `${matchedArgument}! = ${target},\quad n = ${matchedArgument} - ${shift} = ${answer}`,
-        evidence: {
-          operation: "FACTORIAL_INVERSE",
-          factorialTarget: target,
-          matchedFactorialArgument: matchedArgument,
-          displayedShift: shift,
-          totalCount: answer,
-        },
-      };
-    }
-    case "recoverFactorialQuotientArgument": {
-      const target = value("target");
-      let answer = -1;
-      for (let candidate = 2; candidate <= ranges.generation.maximumFactorialArgument; candidate += 1) {
-        if (factorialQuotientExact(candidate, candidate - 2, ceiling) === target) {
-          answer = candidate;
-          break;
-        }
-      }
-      if (answer < 0) throw new Error(`No two-step factorial quotient argument matches target ${target}`);
-      return {
-        exactAnswer: String(answer),
-        answer: String(answer),
-        numericAnswer: answer,
-        equation: `${answer}! ÷ ${answer - 2}! = ${answer} × ${answer - 1} = ${target}`,
-        mathJax: `\\frac{${answer}!}{${answer - 2}!} = ${answer} \\times ${answer - 1} = ${target}`,
-        evidence: {
-          operation: "FACTORIAL_QUOTIENT_INVERSE",
-          factorialUpper: answer,
-          factorialLower: answer - 2,
-          factorialFactors: [answer, answer - 1],
-          factorialTarget: target,
-          matchedFactorialArgument: answer,
-          totalCount: answer,
-        },
-      };
-    }
-    default:
-      return assertNever(parameters.solveMode);
+export function solvePnc001(p:Pnc001Parameters):Pnc001SolverResult{
+  const ranges=getPnc001VariableRanges(),ceiling=ranges.answerCeiling,value=(key:string)=>readInteger(p,key);
+  switch(p.solveMode){
+    case"countSequentialIndependentChoices":{const stages=p.requiredVariables.map(value),answer=productExact(stages,ceiling);return result(answer,`${stages.join(" × ")} = ${answer}`,`${stages.join(" \\times ")} = ${answer}`,{operation:"PRODUCT",stageCounts:stages,totalCount:answer});}
+    case"countMutuallyExclusiveAlternatives":{const stages=p.requiredVariables.map(value),answer=sumExact(stages,ceiling);return result(answer,`${stages.join(" + ")} = ${answer}`,`${stages.join(" + ")} = ${answer}`,{operation:"SUM",stageCounts:stages,totalCount:answer});}
+    case"countDisjointCasePartition":{const a=[value("caseAFirst"),value("caseARest")],b=[value("caseBFirst"),value("caseBRest")],ac=productExact(a,ceiling),bc=productExact(b,ceiling),answer=sumExact([ac,bc],ceiling);return result(answer,`(${a.join(" × ")}) + (${b.join(" × ")}) = ${answer}`,`(${a.join(" \\times ")}) + (${b.join(" \\times ")}) = ${answer}`,{operation:"SUM_OF_PRODUCTS",caseCounts:[{label:"A",count:ac,factors:a},{label:"B",count:bc,factors:b}],totalCount:answer});}
+    case"countUsingSimpleComplement":{const stages=[value("choiceA"),value("choiceB")],total=productExact(stages,ceiling),invalid=value("invalidChoices"),answer=subtractExact(total,invalid);return result(answer,`${stages.join(" × ")} − ${invalid} = ${answer}`,`${stages.join(" \\times ")} - ${invalid} = ${answer}`,{operation:"COMPLEMENT",stageCounts:stages,totalCount:total,invalidCount:invalid});}
+    case"recoverMissingStageChoiceCount":{const total=value("totalChoices"),known=value("knownChoices"),answer=divideExact(total,known);return result(answer,`${total} ÷ ${known} = ${answer}`,`\\frac{${total}}{${known}} = ${answer}`,{operation:"EXACT_DIVISION",totalChoices:total,knownChoices:known,totalCount:answer});}
+    case"evaluateFactorialValue":{const arg=p.scenarioFamily==="factorialPredecessor"?value("n")-1:value("factorialArgument"),answer=factorialExact(arg,ceiling);return result(answer,`${arg}! = ${answer}`,`${arg}! = ${answer}`,{operation:"FACTORIAL",factorialArgument:arg,factorialValue:answer,factorialFactors:descendingFactors(arg,0),totalCount:answer});}
+    case"evaluateFactorialUnitExpression":{const arg=value("factorialArgument"),fv=factorialExact(arg,ceiling),add=p.scenarioFamily==="zeroPlusFactorial",answer=add?sumExact([1,fv],ceiling):subtractExact(fv,1),op=add?"+":"−";return result(answer,`1 ${op} ${fv} = ${answer}`,`1 ${add?"+":"-"} ${fv} = ${answer}`,{operation:"FACTORIAL_UNIT_EXPRESSION",factorialArgument:arg,factorialValue:fv,factorialFactors:descendingFactors(arg,0),unitFactorial:add?"0!":"1!",unitOperation:add?"ADD":"SUBTRACT",totalCount:answer});}
+    case"simplifyFactorialQuotient":{let upper:number,lower:number;if(p.scenarioFamily==="numericFactorialQuotient"){upper=value("upper");lower=value("lower");}else{const n=value("n");upper=n+(p.scenarioFamily==="doubleSuccessorFactorialQuotient"?2:1);lower=n;}const factors=descendingFactors(upper,lower),answer=factorialQuotientExact(upper,lower,ceiling);return result(answer,`${upper}! ÷ ${lower}! = ${factors.join(" × ")} = ${answer}`,`\\frac{${upper}!}{${lower}!} = ${factors.join(" \\times ")} = ${answer}`,{operation:"FACTORIAL_QUOTIENT",factorialUpper:upper,factorialLower:lower,factorialFactors:factors,totalCount:answer});}
+    case"recoverFactorialArgument":{const target=value("target");let matched=-1;for(let c=0;c<=ranges.generation.maximumFactorialArgument;c++){if(factorialExact(c,ceiling)===target){matched=c;break;}}if(matched<0)throw new Error(`No factorial argument matches target ${target}`);const shift=p.scenarioFamily==="shiftedFactorialInverse"?1:0,answer=matched-shift;return result(answer,`${matched}! = ${target}; n = ${matched} − ${shift} = ${answer}`,`${matched}! = ${target},\\quad n = ${matched} - ${shift} = ${answer}`,{operation:"FACTORIAL_INVERSE",factorialTarget:target,matchedFactorialArgument:matched,displayedShift:shift,totalCount:answer});}
+    case"recoverFactorialQuotientArgument":{const target=value("target");let answer=-1;for(let c=2;c<=ranges.generation.maximumFactorialArgument;c++){if(factorialQuotientExact(c,c-2,ceiling)===target){answer=c;break;}}if(answer<0)throw new Error(`No factorial quotient argument matches ${target}`);return result(answer,`${answer}! ÷ ${answer-2}! = ${answer} × ${answer-1} = ${target}`,`\\frac{${answer}!}{${answer-2}!} = ${answer} \\times ${answer-1} = ${target}`,{operation:"FACTORIAL_QUOTIENT_INVERSE",factorialUpper:answer,factorialLower:answer-2,factorialFactors:[answer,answer-1],factorialTarget:target,matchedFactorialArgument:answer,totalCount:answer});}
+    case"arrangeAllDistinctObjects":{const n=value("totalObjects"),r=n,factors=descendingFactors(n,0),answer=permutationExact(n,r,ceiling);return result(answer,`${n}P${r} = ${n}! = ${factors.join(" × ")} = ${answer}`,`{}^{${n}}P_{${r}} = ${n}! = ${answer}`,{operation:"PERMUTATION_ALL",permutationTotalObjects:n,permutationSelectedObjects:r,permutationFactors:factors,totalCount:answer});}
+    case"arrangeRFromNDistinctObjects":{const n=value("totalObjects"),r=p.scenarioFamily==="rankedMedals"?3:value("selectedObjects"),factors=descendingFactors(n,n-r),answer=permutationExact(n,r,ceiling);return result(answer,`${n}P${r} = ${factors.join(" × ")} = ${answer}`,`{}^{${n}}P_{${r}} = ${factors.join(" \\times ")} = ${answer}`,{operation:"PERMUTATION_PARTIAL",permutationTotalObjects:n,permutationSelectedObjects:r,permutationFactors:factors,totalCount:answer});}
+    case"recoverPermutationParameter":{const target=value("target");if(p.scenarioFamily==="recoverTotalObjects"){const r=value("selectedObjects");let n=-1;for(let c=r;c<=ranges.generation.maximumPermutationObjects;c++){if(permutationExact(c,r,ceiling)===target){n=c;break;}}if(n<0)throw new Error(`No n matches ${target}`);return result(n,`${n}P${r} = ${target}`,`{}^{${n}}P_{${r}} = ${target}`,{operation:"PERMUTATION_INVERSE",permutationTotalObjects:n,permutationSelectedObjects:r,permutationFactors:descendingFactors(n,n-r),permutationTarget:target,recoveredPermutationParameter:"n",totalCount:n});}const n=value("totalObjects");let r=-1;for(let c=2;c<=n;c++){if(permutationExact(n,c,ceiling)===target){r=c;break;}}if(r<0)throw new Error(`No r matches ${target}`);return result(r,`${n}P${r} = ${target}`,`{}^{${n}}P_{${r}} = ${target}`,{operation:"PERMUTATION_INVERSE",permutationTotalObjects:n,permutationSelectedObjects:r,permutationFactors:descendingFactors(n,n-r),permutationTarget:target,recoveredPermutationParameter:"r",totalCount:r});}
+    default:return assertNever(p.solveMode);
   }
 }
 
-export function verifyPnc001Independently(parameters: Pnc001Parameters): Pnc001IndependentVerification {
-  const ranges = getPnc001VariableRanges();
-  const value = (key: string): number => readInteger(parameters, key);
-  switch (parameters.solveMode) {
-    case "countSequentialIndependentChoices": {
-      const answer = cartesianEnumeration(parameters.requiredVariables.map(value));
-      return { supported: true, answer, method: "Cartesian-product enumeration" };
-    }
-    case "countMutuallyExclusiveAlternatives": {
-      let answer = 0;
-      for (const key of parameters.requiredVariables) {
-        for (let index = 0; index < value(key); index += 1) answer += 1;
-      }
-      return { supported: true, answer, method: "Alternative-item enumeration" };
-    }
-    case "countDisjointCasePartition": {
-      const answer = cartesianEnumeration([value("caseAFirst"), value("caseARest")])
-        + cartesianEnumeration([value("caseBFirst"), value("caseBRest")]);
-      return { supported: true, answer, method: "Independent enumeration of disjoint cases" };
-    }
-    case "countUsingSimpleComplement": {
-      const unrestricted = cartesianEnumeration([value("choiceA"), value("choiceB")]);
-      const answer = unrestricted - value("invalidChoices");
-      return { supported: true, answer, method: "Enumerated unrestricted outcomes minus stated invalid outcomes" };
-    }
-    case "recoverMissingStageChoiceCount": {
-      const total = value("totalChoices");
-      const known = value("knownChoices");
-      let answer = -1;
-      for (let candidate = 1; candidate <= total; candidate += 1) {
-        if (cartesianEnumeration([known, candidate]) === total) {
-          answer = candidate;
-          break;
-        }
-      }
-      return { supported: answer > 0, answer, method: "Bounded search for the exact missing factor" };
-    }
-    case "evaluateFactorialValue": {
-      const argument = parameters.scenarioFamily === "factorialPredecessor"
-        ? value("n") - 1
-        : value("factorialArgument");
-      return { supported: true, answer: independentFactorial(argument), method: "Recursive factorial evaluation" };
-    }
-    case "evaluateFactorialUnitExpression": {
-      const base = independentFactorial(value("factorialArgument"));
-      const answer = parameters.scenarioFamily === "zeroPlusFactorial" ? 1 + base : base - 1;
-      return { supported: true, answer, method: "Recursive factorial plus independent unit-factorial identity" };
-    }
-    case "simplifyFactorialQuotient": {
-      let upper: number;
-      let lower: number;
-      if (parameters.scenarioFamily === "numericFactorialQuotient") {
-        upper = value("upper");
-        lower = value("lower");
-      } else {
-        const n = value("n");
-        upper = n + (parameters.scenarioFamily === "doubleSuccessorFactorialQuotient" ? 2 : 1);
-        lower = n;
-      }
-      return { supported: true, answer: independentRangeProduct(upper, lower), method: "Independent descending range product" };
-    }
-    case "recoverFactorialArgument": {
-      const target = value("target");
-      let matched = -1;
-      for (let candidate = 0; candidate <= ranges.generation.maximumFactorialArgument; candidate += 1) {
-        if (independentFactorial(candidate) === target) {
-          matched = candidate;
-          break;
-        }
-      }
-      const shift = parameters.scenarioFamily === "shiftedFactorialInverse" ? 1 : 0;
-      return { supported: matched >= shift, answer: matched - shift, method: "Bounded recursive-factorial search" };
-    }
-    case "recoverFactorialQuotientArgument": {
-      const target = value("target");
-      let answer = -1;
-      for (let candidate = 2; candidate <= ranges.generation.maximumFactorialArgument; candidate += 1) {
-        if (independentRangeProduct(candidate, candidate - 2) === target) {
-          answer = candidate;
-          break;
-        }
-      }
-      return { supported: answer > 0, answer, method: "Bounded independent range-product search" };
-    }
-    default:
-      return assertNever(parameters.solveMode);
+export function verifyPnc001Independently(p:Pnc001Parameters):Pnc001IndependentVerification{
+  const ranges=getPnc001VariableRanges(),value=(key:string)=>readInteger(p,key);
+  switch(p.solveMode){
+    case"countSequentialIndependentChoices":return{supported:true,answer:cartesianEnumeration(p.requiredVariables.map(value)),method:"Cartesian-product enumeration"};
+    case"countMutuallyExclusiveAlternatives":{let answer=0;for(const key of p.requiredVariables)for(let i=0;i<value(key);i++)answer++;return{supported:true,answer,method:"Alternative-item enumeration"};}
+    case"countDisjointCasePartition":return{supported:true,answer:cartesianEnumeration([value("caseAFirst"),value("caseARest")])+cartesianEnumeration([value("caseBFirst"),value("caseBRest")]),method:"Independent enumeration of disjoint cases"};
+    case"countUsingSimpleComplement":return{supported:true,answer:cartesianEnumeration([value("choiceA"),value("choiceB")])-value("invalidChoices"),method:"Enumerated unrestricted outcomes minus invalid"};
+    case"recoverMissingStageChoiceCount":{const total=value("totalChoices"),known=value("knownChoices");let answer=-1;for(let c=1;c<=total;c++){if(cartesianEnumeration([known,c])===total){answer=c;break;}}return{supported:answer>0,answer,method:"Bounded exact factor search"};}
+    case"evaluateFactorialValue":{const arg=p.scenarioFamily==="factorialPredecessor"?value("n")-1:value("factorialArgument");return{supported:true,answer:independentFactorial(arg),method:"Recursive factorial"};}
+    case"evaluateFactorialUnitExpression":{const base=independentFactorial(value("factorialArgument"));return{supported:true,answer:p.scenarioFamily==="zeroPlusFactorial"?base+1:base-1,method:"Recursive factorial with unit identity"};}
+    case"simplifyFactorialQuotient":{let upper:number,lower:number;if(p.scenarioFamily==="numericFactorialQuotient"){upper=value("upper");lower=value("lower");}else{const n=value("n");upper=n+(p.scenarioFamily==="doubleSuccessorFactorialQuotient"?2:1);lower=n;}return{supported:true,answer:independentRangeProduct(upper,lower),method:"Independent descending range product"};}
+    case"recoverFactorialArgument":{const target=value("target");let matched=-1;for(let c=0;c<=ranges.generation.maximumFactorialArgument;c++){if(independentFactorial(c)===target){matched=c;break;}}const shift=p.scenarioFamily==="shiftedFactorialInverse"?1:0;return{supported:matched>=shift,answer:matched-shift,method:"Bounded recursive-factorial search"};}
+    case"recoverFactorialQuotientArgument":{const target=value("target");let answer=-1;for(let c=2;c<=ranges.generation.maximumFactorialArgument;c++){if(independentRangeProduct(c,c-2)===target){answer=c;break;}}return{supported:answer>0,answer,method:"Bounded range-product search"};}
+    case"arrangeAllDistinctObjects":{const n=value("totalObjects");return{supported:true,answer:enumerateOrderedSelections(n,n),method:"Recursive enumeration of all ordered selections"};}
+    case"arrangeRFromNDistinctObjects":{const n=value("totalObjects"),r=p.scenarioFamily==="rankedMedals"?3:value("selectedObjects");return{supported:true,answer:enumerateOrderedSelections(n,r),method:"Recursive no-repetition ordered-selection enumeration"};}
+    case"recoverPermutationParameter":{const target=value("target");if(p.scenarioFamily==="recoverTotalObjects"){const r=value("selectedObjects");let answer=-1;for(let n=r;n<=ranges.generation.maximumPermutationObjects;n++){if(enumerateOrderedSelections(n,r)===target){answer=n;break;}}return{supported:answer>0,answer,method:"Bounded enumeration search for n"};}const n=value("totalObjects");let answer=-1;for(let r=2;r<=n;r++){if(enumerateOrderedSelections(n,r)===target){answer=r;break;}}return{supported:answer>0,answer,method:"Bounded enumeration search for r"};}
+    default:return assertNever(p.solveMode);
   }
 }

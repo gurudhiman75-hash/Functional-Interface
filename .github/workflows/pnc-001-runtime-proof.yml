@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - New-main
+      - feat/pnc-001-cp001-runtime-proof
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
@@ -11,6 +12,7 @@ on:
   push:
     branches:
       - feat/pnc-001-cp001-runtime-proof
+      - feat/pnc-cp002-unrestricted-permutations-proof
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
       - .github/workflows/pnc-001-runtime-proof.yml
@@ -93,4 +95,23 @@ jobs:
           --outfile=dist/quant-v4/pnc-001.test.mjs
 
       - name: Run PNC-001 proof test
-        run: node artifacts/api-server/dist/quant-v4/pnc-001.test.mjs
+        continue-on-error: true
+        run: |
+          set +e
+          node artifacts/api-server/dist/quant-v4/pnc-001.test.mjs > pnc-001-runtime-proof.log 2>&1
+          echo "$?" > pnc-001-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish runtime proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-runtime-proof-diagnostics
+          path: |
+            pnc-001-runtime-proof.log
+            pnc-001-runtime-proof-exit.txt
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Enforce runtime proof result
+        run: test "$(cat pnc-001-runtime-proof-exit.txt)" = "0"
