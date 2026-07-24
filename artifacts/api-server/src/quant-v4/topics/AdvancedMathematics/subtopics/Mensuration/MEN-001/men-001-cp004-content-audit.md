@@ -1,81 +1,61 @@
 # MEN-001 CP-004 Content Audit
 
-## Checkpoint
+Status: runtime-proof and generated-content review complete.
 
-`MEN-CP-004 — Paths, Borders, Flooring, Fencing and Cost Applications`
+## Scope
 
-This checkpoint extends the existing MEN-001 runtime proof. It does not publish questions or wire them into Question Studio or public generation routing.
+`MEN-CP-004 — Paths, Borders, Flooring, Fencing and Cost Applications` now covers:
 
-## Final current coverage
+- inside and outside rectangular, square and circular paths;
+- direct path area, path cost and reverse path-width recovery;
+- crossed roads with overlap correction and remaining field area;
+- rectangular and square floor-tile counts;
+- complete and partial tiling, including uncovered area;
+- inside and outside path paving-tile counts;
+- tile purchase, flooring, paving and painting costs;
+- reverse area-rate and fencing-rate recovery;
+- rectangular and circular fencing;
+- gate exclusions and gate-width recovery;
+- multiple wire rounds and multiple-round fencing cost.
 
-- outside and inside rectangular paths;
-- outside and inside square borders;
-- outside and inside circular paths under explicit `π = 22/7`;
-- direct paving/path cost;
-- reverse square-path width recovery;
-- rectangular and square tile counts;
-- tile purchase cost and area-rate flooring cost;
-- rectangular fencing, gate exclusions and multiple wire rounds;
-- circular fencing under explicit `π = 22/7`;
-- reverse gate-width recovery;
-- tile count for an inside rectangular border;
-- uncovered floor area after placing a rectangular mat;
-- painting cost after excluding a rectangular door;
-- paving-tile count for an outside rectangular path;
-- fencing cost for multiple complete rounds.
+## Content rules
 
-The current authority range is `MEN-001-QL-301` through `MEN-001-QL-324`.
-The inventory contains 24 English QLs across 23 registered solve modes. These figures describe this checkpoint; the runtime remains registry-derived rather than dependent on a hardcoded package total.
+- all current question stems are text-complete and use `diagramRequirement: NONE`;
+- explanation illustrations appear only for border subtraction or reverse-width reasoning;
+- circular questions explicitly state `π = 22/7`;
+- count answers distinguish `tiles` from `revolutions`;
+- rate answers use `₹/m²` or `₹/m`, not plain currency;
+- all tile and path states divide exactly;
+- crossed-road area subtracts the overlap exactly once;
+- each QL has three named, misconception-derived distractors;
+- question, solver, options, reasoning graph, validation and explanation share one generated state.
 
-## Ownership and separation
+## Editorial review corrections
 
-- English stems and explanation strategies are human-owned.
-- Every QL declares exactly three named misconception strategies.
-- Question-stem diagrams remain `NONE`; all required measurements are textual.
-- Explanation illustrations are restricted to path/border states where outer-versus-inner geometry materially clarifies the solution.
-- Tile count uses a first-class `COUNT / TILES / tiles` answer contract.
-- CP-006 retains ownership of mixed-unit conversion, scaling and boundary-conservation transformations.
+Generated samples were used to correct:
 
-## Exact-state and realism policy
+- duplicate or colliding misconception options;
+- disproportionate circular path states;
+- implausibly large wall and paving dimensions;
+- overly extreme reverse-rate distractors;
+- an explanation diagram that inherited centimetres from a count answer despite a metre-based stem.
 
-- all generated dimensions, rates, counts and costs are positive;
-- path and border areas are exact outer-minus-inner differences;
-- circular states preserve integer values under `π = 22/7`;
-- circular path width is limited to 7 m and remains proportionate to the retained radius;
-- floor and border areas divide exactly by tile area;
-- metre-based outside-path paving uses realistic `1 m × 0.5 m` slabs;
-- wall and door states use realistic exam-context dimensions;
-- gates are strictly smaller than their enclosing boundary;
-- all costs and counts remain exact integers.
+## Verified checkpoint
 
-## Runtime proof
+The full MEN-001 CP-001–CP-004 package currently contains:
 
-Final verified branch head:
+- 125 active English QLs;
+- 106 registry-derived solve modes;
+- 2,500 deterministic runtime cases;
+- 375 generated review samples.
 
-`d0cc90a570185765d8854626b2d00a972fb6652d`
+The final branch head passed the dedicated MEN-001 runtime workflow, integrated admin-panel validation and Render production-build validation.
 
-Successful dedicated workflow run:
+## Deliberate exclusions
 
-`30100794518`
-
-The package-wide workflow verified:
-
-1. QL, task-registry and solve-mode exhaustiveness;
-2. deterministic generation across all 99 active QLs;
-3. 1,980 generated runtime cases at 20 seeds per QL;
-4. exact answer and unit compatibility, including tile counts;
-5. four unique misconception-derived options with no generic fallback;
-6. path-area, tile-count, cost and gate-conservation invariants;
-7. explicit π policy for circular application questions;
-8. explanation-illustration necessity, accessibility and font neutrality;
-9. generation and upload of 297 human-review samples.
-
-## Deliberately excluded
-
-- mixed centimetre/metre conversion;
-- scale-factor transformations;
-- perimeter-preserving reshaping;
-- Hindi and Punjabi content;
-- production SVG/UI rendering;
-- Question Studio and generation-engine integration;
-- public publication or mock-test exposure.
+- mixed-unit conversion, wire reshaping, scaling and boundary conservation remain in CP-006;
+- irregular composite and shaded figures remain in CP-005;
+- theorem/property reasoning remains in Geometry;
+- Question Studio and public generation routing remain disabled;
+- Hindi and Punjabi are not yet implemented;
+- maturity remains `RUNTIME_PROOF` and `publiclyPublishable: false`.
