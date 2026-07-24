@@ -1,8 +1,9 @@
-import { getPnc001ExplanationStrategy, renderPnc001Template } from "./library";
+import { getPnc001ExplanationStrategy, getPnc001QlSpecificExplanation, renderPnc001Template } from "./library";
 import type { Pnc001Explanation, Pnc001Parameters, Pnc001ReasoningEvidence, Pnc001SolverResult } from "./types";
 function readableList(values:number[]):string{if(values.length<=1)return String(values[0]??"");if(values.length===2)return`${values[0]} and ${values[1]}`;return`${values.slice(0,-1).join(", ")} and ${values.at(-1)}`;}
 export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc001SolverResult,_reasoning:Pnc001ReasoningEvidence):Pnc001Explanation{
   const strategy=getPnc001ExplanationStrategy(parameters.explanationId);if(strategy.solveMode!==parameters.solveMode)throw new Error(`PNC-001 explanation ${parameters.explanationId} does not support ${parameters.solveMode}`);
+  const qlExplanation=getPnc001QlSpecificExplanation(parameters.questionLanguageId);
   const e=solver.evidence,stages=e.stageCounts??[],caseA=e.caseCounts?.[0],caseB=e.caseCounts?.[1];
   const factorialFactors=e.factorialFactors??[],permutationFactors=e.permutationFactors??[];
   const permutationN=e.permutationTotalObjects??parameters.values.totalObjects??0,permutationR=e.permutationSelectedObjects??parameters.values.selectedObjects??0;
@@ -59,5 +60,5 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
     maximumMultiplicity:parameters.values.maximumMultiplicity??0,
     matchedMultiplicityEquation:`${e.multisetTotalObjects??parameters.values.totalObjects??0}! ÷ ${e.recoveredMultisetMultiplicity??solver.numericAnswer}! = ${e.multisetTarget??parameters.values.target??0}`,
   };
-  return{explanationId:parameters.explanationId,lines:[strategy.concept,...strategy.lines.map(line=>renderPnc001Template(line,variables))]};
+  return{explanationId:parameters.explanationId,lines:qlExplanation.lines.map(line=>renderPnc001Template(line,variables))};
 }
