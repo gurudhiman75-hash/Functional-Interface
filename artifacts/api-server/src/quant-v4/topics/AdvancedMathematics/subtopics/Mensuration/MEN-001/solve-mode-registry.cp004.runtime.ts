@@ -1,4 +1,5 @@
 import { MEN_001_CP004_SOLVE_MODE_REGISTRY } from "./solve-mode-registry.cp004";
+import { MEN_001_CP004_ADDITIONAL_SOLVE_MODE_REGISTRY } from "./solve-mode-registry.cp004.additional";
 import type { Men001Parameters } from "./types";
 
 type Values = Men001Parameters["values"];
@@ -72,6 +73,7 @@ const circularPathCost = MEN_001_CP004_SOLVE_MODE_REGISTRY.findCircularPathCost;
 
 export const MEN_001_CP004_RUNTIME_SOLVE_MODE_REGISTRY = {
   ...MEN_001_CP004_SOLVE_MODE_REGISTRY,
+  ...MEN_001_CP004_ADDITIONAL_SOLVE_MODE_REGISTRY,
   findOuterCircularPathArea: {
     ...outerCircularArea,
     generateValues: (seed: string) =>
