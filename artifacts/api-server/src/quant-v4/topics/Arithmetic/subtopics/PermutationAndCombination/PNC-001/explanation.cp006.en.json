@@ -1,0 +1,43 @@
+{
+  "packageId": "PNC-001",
+  "canonicalProblemId": "PNC-CP-006",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "strategies": {
+    "PNC-EXP-031": {
+      "solveMode": "selectThenAssignDistinctRoles",
+      "concept": "Selection creates the eligible group; the distinct roles are then assigned within that selected group.",
+      "lines": [
+        "Choose {selectedObjects} from {totalObjects}: {selectionCount} ways.",
+        "Assign {roleCount} distinct roles to different selected members: {roleAssignmentCount} ways.",
+        "The stages are sequential, so multiply: {selectionCount} × {roleAssignmentCount} = {answer}."
+      ]
+    },
+    "PNC-EXP-032": {
+      "solveMode": "selectThenArrangeAllSelected",
+      "concept": "First choose the group, then order every chosen member or object.",
+      "lines": [
+        "Choose {selectedObjects} from {totalObjects}: {selectionCount} ways.",
+        "Arrange all {selectedObjects} selected objects: {roleAssignmentCount} ways.",
+        "Thus {selectionCount} × {roleAssignmentCount} = {answer}; equivalently, {totalObjects}P{selectedObjects} = {answer}."
+      ]
+    },
+    "PNC-EXP-033": {
+      "solveMode": "findRoleAssignmentMultiplier",
+      "concept": "The selection-only count is multiplied by the number of ordered role assignments within one selected group.",
+      "lines": [
+        "For a fixed selected group of {selectedObjects}, assign {roleCount} distinct roles in {roleAssignmentCount} ways.",
+        "Therefore the role stage multiplies the selection count by {answer}."
+      ]
+    },
+    "PNC-EXP-034": {
+      "solveMode": "recoverSelectionRoleParameter",
+      "concept": "Test the stated bounded values in the complete selection-then-role expression.",
+      "lines": [
+        "The mixed count is nCs × sPk, where selection is followed by ordered role assignment.",
+        "Search the stated domain {inverseDomain}.",
+        "The exact match is {matchedMixedEquation}, so the required value is {answer}."
+      ]
+    }
+  }
+}
