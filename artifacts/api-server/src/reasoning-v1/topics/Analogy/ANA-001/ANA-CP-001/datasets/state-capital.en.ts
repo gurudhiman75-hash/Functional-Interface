@@ -1,0 +1,2 @@
+import type { SemanticPair } from "./types";
+export const STATE_CAPITAL_PAIRS: readonly SemanticPair[] = [["Punjab","Chandigarh"],["Rajasthan","Jaipur"],["Bihar","Patna"],["Assam","Dispur"],["Gujarat","Gandhinagar"],["Odisha","Bhubaneswar"],["Kerala","Thiruvananthapuram"],["Karnataka","Bengaluru"],["Tamil Nadu","Chennai"],["Jharkhand","Ranchi"],["Uttarakhand","Dehradun"],["Himachal Pradesh","Shimla"]];
