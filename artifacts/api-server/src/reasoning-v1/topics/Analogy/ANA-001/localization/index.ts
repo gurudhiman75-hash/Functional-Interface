@@ -1,14 +1,22 @@
 import { ANA_CP001_HI_CORE_FACTS } from "../ANA-CP-001/locales/hi-IN/core-facts";
+import { ANA_CP001_HI_REMAINING_FACTS } from "../ANA-CP-001/locales/hi-IN/remaining-semantic-facts";
 import { ANA_CP001_PA_CORE_FACTS } from "../ANA-CP-001/locales/pa-IN/core-facts";
+import { ANA_CP001_PA_REMAINING_FACTS } from "../ANA-CP-001/locales/pa-IN/remaining-semantic-facts";
 import { ANA_CP002_HI_SYNONYM_ANTONYM_FACTS } from "../ANA-CP-002/locales/hi-IN/synonym-antonym";
+import { ANA_CP002_HI_REMAINING_FACTS } from "../ANA-CP-002/locales/hi-IN/remaining-lexical-facts";
 import { ANA_CP002_PA_SYNONYM_ANTONYM_FACTS } from "../ANA-CP-002/locales/pa-IN/synonym-antonym";
+import { ANA_CP002_PA_REMAINING_FACTS } from "../ANA-CP-002/locales/pa-IN/remaining-lexical-facts";
 import type { LocalizedAnalogyFact } from "./types";
 
 export const ANA_LOCALIZED_FACTS: readonly LocalizedAnalogyFact[] = [
   ...ANA_CP001_HI_CORE_FACTS,
+  ...ANA_CP001_HI_REMAINING_FACTS,
   ...ANA_CP001_PA_CORE_FACTS,
+  ...ANA_CP001_PA_REMAINING_FACTS,
   ...ANA_CP002_HI_SYNONYM_ANTONYM_FACTS,
+  ...ANA_CP002_HI_REMAINING_FACTS,
   ...ANA_CP002_PA_SYNONYM_ANTONYM_FACTS,
+  ...ANA_CP002_PA_REMAINING_FACTS,
 ];
 
 export function localizedFactsFor(locale: "hi-IN" | "pa-IN", relation: string): readonly LocalizedAnalogyFact[] {
