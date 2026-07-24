@@ -1,4 +1,4 @@
-import { combinationExact, createSeededRandom, factorialExact, permutationExact, productExact, shuffleSeeded, sumExact } from "./math";
+import { combinationExact, createSeededRandom, factorialExact, multisetPermutationExact, permutationExact, productExact, shuffleSeeded, sumExact } from "./math";
 import type { Pnc001Parameters, Pnc001SolverResult } from "./types";
 function uniquePositiveIntegers(values:number[],correct:number):number[]{return[...new Set(values.filter(v=>Number.isInteger(v)&&v>0&&v!==correct))];}
 function assertNever(value:never):never{throw new Error(`Unsupported PNC-001 solve mode for options: ${String(value)}`);}
@@ -21,6 +21,10 @@ export function buildPnc001Options(parameters:Pnc001Parameters,solver:Pnc001Solv
   case"selectRFromNDistinctObjects":{const n=e.combinationTotalObjects??2,r=e.combinationSelectedObjects??1,ordered=e.combinationOrderedCount??permutationExact(n,r);candidates=[ordered,Math.pow(n,r),factorialExact(r),combinationExact(n,Math.max(0,r-1))];break;}
   case"recoverCombinationParameter":{const n=e.combinationTotalObjects??correct,r=e.combinationSelectedObjects??correct,t=e.combinationTarget??correct;candidates=[n,r,Math.max(1,correct-1),Math.min(t,correct+1)];break;}
   case"recoverComplementaryCombinationIndex":{const n=e.combinationTotalObjects??correct,known=e.combinationKnownSelection??1;candidates=[known,Math.floor(n/2),Math.max(1,n-known-1),n-known+1];break;}
+  case"arrangeAllMultisetObjects":{const numerator=e.multisetNumerator??correct,denominator=e.multisetDenominator??1,m=e.multisetMultiplicities??[];candidates=[numerator,denominator,m.length?Math.floor(numerator/factorialExact(m[0]!)):correct+1,factorialExact(Math.max(1,(e.multisetTotalObjects??2)-1))];break;}
+  case"arrangeMultisetAfterFixingPosition":{const numerator=e.multisetNumerator??correct,remaining=e.multisetRemainingObjects??1,original=e.multisetMultiplicities??[];candidates=[numerator,multisetPermutationExact(e.multisetTotalObjects??remaining,original),original.length?Math.floor(numerator/productExact(original.map(factorialExact))):correct+1,factorialExact(Math.max(1,remaining-1))];break;}
+  case"findMultisetOvercountFactor":{const m=e.multisetMultiplicities??[];candidates=[sumExact(m),productExact(m),factorialExact(m[0]??1),correct+(m[0]??2)];break;}
+  case"recoverMultisetMultiplicity":{const total=e.multisetTotalObjects??correct;candidates=[Math.max(1,correct-1),correct+1,Math.max(1,total-correct),Math.min(e.multisetTarget??correct+2,correct+2)];break;}
   default:return assertNever(parameters.solveMode);
  }
  const distractors=uniquePositiveIntegers(candidates,correct);for(let offset=1;distractors.length<3;offset++)for(const c of[correct+offset,correct-offset]){if(c>0&&c!==correct&&!distractors.includes(c))distractors.push(c);if(distractors.length>=3)break;}
