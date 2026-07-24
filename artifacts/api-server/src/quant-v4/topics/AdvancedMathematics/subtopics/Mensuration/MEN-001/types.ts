@@ -35,17 +35,21 @@ export type Men001AnswerDimension =
   | "RATE"
   | "ANGLE"
   | "COUNT";
+/** Unit policies consumed by the original CP-001–004 registries. */
 export type Men001UnitPolicy =
   | "CENTIMETRES"
   | "METRES"
   | "SQUARE_CENTIMETRES"
   | "SQUARE_METRES"
   | "RUPEES"
+  | "DEGREES"
+  | "TILES";
+/** Additive policies used by exhaustiveness modes without widening legacy registry maps. */
+export type Men001ExtendedUnitPolicy =
   | "RUPEES_PER_SQUARE_METRE"
   | "RUPEES_PER_METRE"
-  | "DEGREES"
-  | "TILES"
   | "REVOLUTIONS";
+export type Men001AnyUnitPolicy = Men001UnitPolicy | Men001ExtendedUnitPolicy;
 export type Men001DiagramRequirement = "REQUIRED" | "OPTIONAL" | "NONE";
 
 export type ExactSpatialNumber =
@@ -94,7 +98,7 @@ export interface Men001QuestionLanguageEntry {
   template: string;
   requiredVariables: string[];
   answerDimension: Men001AnswerDimension;
-  unitPolicy: Men001UnitPolicy;
+  unitPolicy: Men001AnyUnitPolicy;
   explanationStrategyId: string;
   distractorStrategyIds: string[];
   /** Diagram attached to the question stem, not to its explanation. */
@@ -121,6 +125,7 @@ export interface Men001Parameters {
   taskKind: Men001TaskKind;
   solveMode: Men001SolveMode;
   answerDimension: Men001AnswerDimension;
+  /** Legacy field type retained for existing registries; parameter generation validates extended policies before casting. */
   unitPolicy: Men001UnitPolicy;
   seed: string;
   values: {
