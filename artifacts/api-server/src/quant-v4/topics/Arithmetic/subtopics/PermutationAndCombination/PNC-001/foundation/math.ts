@@ -26,6 +26,18 @@ export function permutationExact(n: number, r: number, ceiling = Number.MAX_SAFE
   assertNonNegativeInteger(n, "permutation n"); assertNonNegativeInteger(r, "permutation r"); if (r > n) throw new Error(`permutation r ${r} exceeds n ${n}`);
   return factorialQuotientExact(n, n - r, ceiling);
 }
+export function combinationExact(n: number, r: number, ceiling = Number.MAX_SAFE_INTEGER): number {
+  assertNonNegativeInteger(n, "combination n"); assertNonNegativeInteger(r, "combination r"); if (r > n) throw new Error(`combination r ${r} exceeds n ${n}`);
+  const reducedR = Math.min(r, n - r);
+  let numerator = 1n;
+  let denominator = 1n;
+  for (let index = 1; index <= reducedR; index += 1) {
+    numerator *= BigInt(n - reducedR + index);
+    denominator *= BigInt(index);
+  }
+  if (numerator % denominator !== 0n) throw new Error(`Combination ${n}C${r} is not integral`);
+  return toSafeCount(numerator / denominator, `${n}C${r}`, ceiling);
+}
 export function descendingFactors(upper: number, lowerExclusive: number): number[] {
   assertNonNegativeInteger(upper, "upper factor"); assertNonNegativeInteger(lowerExclusive, "lower exclusive factor"); if (lowerExclusive > upper) throw new Error("lower exclusive factor exceeds upper factor");
   return Array.from({ length: upper - lowerExclusive }, (_, index) => upper - index);
