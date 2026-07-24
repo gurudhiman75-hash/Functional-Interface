@@ -77,6 +77,7 @@ export interface Men001QuestionLanguageEntry {
   unitPolicy: Men001UnitPolicy;
   explanationStrategyId: string;
   distractorStrategyIds: string[];
+  /** Diagram attached to the question stem, not to its explanation. */
   diagramRequirement: Men001DiagramRequirement;
   active: boolean;
 }
@@ -148,9 +149,37 @@ export interface Men001ReasoningGraph {
   nodes: Men001ReasoningNode[];
 }
 
+export type Men001ExplanationIllustration =
+  | {
+      kind: "TRIANGLE_SIDE_LABELS";
+      purpose: "HERON_SIDE_MAPPING";
+      placement: "AFTER_SIDE_RECOVERY";
+      notToScale: true;
+      labels: {
+        sideA: string;
+        sideB: string;
+        sideC: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "ISOSCELES_ALTITUDE_SPLIT";
+      purpose: "ALTITUDE_BISECTS_BASE";
+      placement: "BEFORE_PYTHAGORAS";
+      notToScale: true;
+      labels: {
+        equalSide: string;
+        base: string;
+        halfBase: string;
+        height: string;
+      };
+      accessibleText: string;
+    };
+
 export interface Men001Explanation {
   strategyId: string;
   lines: string[];
+  illustration?: Men001ExplanationIllustration;
 }
 
 export interface Men001ValidationCheck {
