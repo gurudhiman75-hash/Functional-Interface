@@ -1,3 +1,7 @@
+import {
+  buildMen001ExplanationIllustration,
+  hasMen001ExplanationIllustration,
+} from "./explanation-illustration";
 import { validateMen001Libraries } from "./library";
 import type {
   Men001QuestionPackage,
@@ -30,6 +34,13 @@ export function validateMen001QuestionPackage(
     question.solver.canonicalAnswer.kind === "symbolic"
       ? question.solver.canonicalAnswer.rendered
       : question.solver.canonicalAnswer.display;
+  const expectedIllustration = buildMen001ExplanationIllustration(
+    question.parameters,
+    question.solver,
+  );
+  const illustrationPayload = question.explanation.illustration
+    ? JSON.stringify(question.explanation.illustration)
+    : "";
 
   checks.push(check("library-contract", libraryValidation.valid, libraryValidation.valid ? "Question-language and registry contracts agree." : libraryValidation.failures.join("; ")));
   checks.push(check("english-only-runtime-proof", question.language === "en", "MEN-001 runtime proof must expose English only."));
@@ -42,7 +53,16 @@ export function validateMen001QuestionPackage(
   checks.push(check("dimension-unit-contract", dimensionUnitValid(question), "Length, area and cost answers must use compatible units."));
   checks.push(check("reasoning-depth", question.reasoningGraph.nodes.length >= 3, "The reasoning graph must contain identification, relation and evaluation stages."));
   checks.push(check("explanation-depth", question.explanation.lines.length >= 5, "The explanation must contain at least five meaningful lines."));
-  checks.push(check("finite-output", !/NaN|undefined|null|Infinity/i.test(`${question.stem} ${question.answer} ${question.options.join(" ")} ${question.explanation.lines.join(" ")}`), "Rendered output must not contain invalid runtime values."));
+  checks.push(check("explanation-illustration-policy", JSON.stringify(question.explanation.illustration ?? null) === JSON.stringify(expectedIllustration ?? null), "Explanation illustration must match the solve-mode illustration policy."));
+  checks.push(check("explanation-illustration-necessity", Boolean(question.explanation.illustration) === hasMen001ExplanationIllustration(question.solveMode), "Illustrations must appear only for solve modes that genuinely benefit from them."));
+  checks.push(check("explanation-illustration-font-neutral", !/font[-_ ]?(family|size|weight)|typeface/i.test(illustrationPayload), "Explanation illustration data must not embed font styling."));
+  checks.push(check("finite-output", !/NaN|undefined|null|Infinity/i.test(`${question.stem} ${question.answer} ${question.options.join(" ")} ${question.explanation.lines.join(" ")} ${illustrationPayload}`), "Rendered output must not contain invalid runtime values."));
+
+  if (question.explanation.illustration) {
+    checks.push(check("explanation-illustration-accessibility", question.explanation.illustration.accessibleText.trim().length >= 30, "Every explanation illustration requires meaningful accessible text."));
+    checks.push(check("explanation-illustration-not-to-scale", question.explanation.illustration.notToScale === true, "Current explanation diagrams must be explicitly marked not to scale."));
+    checks.push(check("explanation-illustration-labels", Object.values(question.explanation.illustration.labels).every((label) => typeof label === "string" && label.trim().length > 0), "Every explanation illustration label must be populated from solved values."));
+  }
 
   if (["findTriangleAreaHeron", "findTriangleAreaFromSideRatioAndPerimeter"].includes(question.solveMode)) {
     const sideA = Number(question.solver.workingValues.sideA ?? 0);
