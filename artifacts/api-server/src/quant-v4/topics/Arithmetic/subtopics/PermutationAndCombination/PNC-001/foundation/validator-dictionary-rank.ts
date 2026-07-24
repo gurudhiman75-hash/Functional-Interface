@@ -5,10 +5,7 @@ import type { Pnc001QuestionPackage, Pnc001ValidationCheck, Pnc001ValidationResu
 function check(name: string, passed: boolean, message: string): Pnc001ValidationCheck {
   return { name, passed, message };
 }
-
-function sortedLetters(word: string): string {
-  return [...word].sort().join("");
-}
+function sortedLetters(word: string): string { return [...word].sort().join(""); }
 
 export function validatePnc001DictionaryRankQuestionPackage(pkg: Pnc001QuestionPackage): Pnc001ValidationResult {
   const checks: Pnc001ValidationCheck[] = [];
@@ -25,7 +22,7 @@ export function validatePnc001DictionaryRankQuestionPackage(pkg: Pnc001QuestionP
   checks.push(check("cp-id", pkg.canonicalProblemId === "PNC-CP-005", "Dictionary-rank validator accepts CP-005 only"));
   checks.push(check("language", pkg.language === "en", "Runtime proof is English only"));
   checks.push(check("registry-cp", entry.cpId === pkg.canonicalProblemId, "QL and CP must agree"));
-  checks.push(check("registry-mode", String(entry.solveMode) === "findDictionaryRankOfWord" && pkg.solveMode === "findDictionaryRankOfWord", "QL and runtime mode must be dictionary rank"));
+  checks.push(check("registry-mode", String(entry.solveMode) === "findDictionaryRankOfWord" && String(pkg.solveMode) === "findDictionaryRankOfWord", "QL and runtime mode must be dictionary rank"));
   checks.push(check("registry-task-kind", entry.taskKind === "multisetPermutation", "Dictionary rank remains a multiset-permutation task"));
   checks.push(check("registry-difficulty", entry.difficulty === pkg.difficultyBand, "QL and difficulty must agree"));
   checks.push(check("constraint-profile", Boolean(getPnc001ConstraintProfile(entry.constraintProfile)), "Constraint profile must exist"));
