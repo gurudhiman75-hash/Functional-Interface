@@ -17,6 +17,7 @@ export interface StudentAccountOperation { action: StudentAccountAction; changed
 export interface StudentAccountOperationResponse { operation: StudentAccountOperation; generatedAt: string; }
 export interface StudentNote { id: string; content: string; authorName: string | null; actorUserId?: string | null; occurredAt: string; }
 export interface DeletedStudent { id: string; email: string; phone: string | null; displayName: string; status: StudentStatus; deletedAt: string; createdAt: string; registrationCode: string; preferredLanguageCode: string; }
+export interface FirebaseStudentSyncResponse { scanned: number; created: number; linked: number; existing: number; skipped: number; failed: number; results: Array<{ uid: string; email: string | null; status: string; studentId?: string; message?: string }>; generatedAt: string; }
 
 const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
 const apiBase = (configuredBase || '/api').replace(/\/$/, '');
@@ -33,3 +34,4 @@ export function addStudentNote(studentId: string, content: string) { return requ
 export function runStudentBulkAction(studentIds: string[], action: StudentBulkAction, reason: string) { return request<{ attempted: number; succeeded: number; failed: number; results: Array<{ studentId: string; ok: boolean; status?: string; sessionsRevoked?: number; message?: string }> }>(`/admin/students/bulk/actions/${encodeURIComponent(action)}`, { method: 'POST', body: JSON.stringify({ studentIds, reason }) }); }
 export function updateStudentProfile(studentId: string, input: { displayName: string; email: string; phone: string | null; preferredLanguageCode: string; reason: string }) { return request<{ profile: { displayName: string; email: string; phone: string | null; preferredLanguageCode: string; changedFields: string[]; auditEventId: string } }>(`/admin/students/${encodeURIComponent(studentId)}/profile`, { method: 'PATCH', body: JSON.stringify(input) }); }
 export function revokeStudentSession(studentId: string, sessionId: string, reason: string) { return request<{ operation: { sessionId: string; changed: boolean; auditEventId: string } }>(`/admin/students/${encodeURIComponent(studentId)}/sessions/${encodeURIComponent(sessionId)}/revoke`, { method: 'POST', body: JSON.stringify({ reason }) }); }
+export function syncFirebaseStudents(reason: string) { return request<FirebaseStudentSyncResponse>('/admin/students/sync-firebase', { method: 'POST', body: JSON.stringify({ reason }) }); }
