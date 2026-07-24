@@ -1,15 +1,25 @@
 {
   "phase": "RUNTIME_PROOF",
   "difficulty": {
-    "Easy": 8,
-    "Medium": 8,
-    "Hard": 8
+    "Easy": 109,
+    "Medium": 187,
+    "Hard": 129
   },
   "answerType": {
-    "ABSOLUTE": 6,
-    "AVERAGE": 6,
-    "COUNT": 6,
-    "MEMBER_VALUE": 6
+    "ABSOLUTE": 28,
+    "AVERAGE": 206,
+    "COUNT": 63,
+    "DIFFERENCE": 17,
+    "MEMBER_VALUE": 103,
+    "RATIO": 8
+  },
+  "canonicalProblem": {
+    "AVG-CP-001": 80,
+    "AVG-CP-002": 62,
+    "AVG-CP-003": 98,
+    "AVG-CP-004": 85,
+    "AVG-CP-005": 56,
+    "AVG-CP-006": 44
   },
   "languages": [
     "en"
