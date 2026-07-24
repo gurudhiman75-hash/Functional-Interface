@@ -5,6 +5,7 @@ import {
   multiply,
   rational,
   subtract,
+  toNumber,
 } from "./math";
 import type {
   Avg001DisplayPolicy,
@@ -49,12 +50,34 @@ function answerPolicy(pkg: Avg001QuestionPackage): Avg001DisplayPolicy {
     : pkg.parameters.displayPolicy;
 }
 
+function groupIndianDigits(value: string) {
+  const match = value.match(/^(-?)(\d+)(\.\d+)?$/);
+  if (!match) return value;
+  const [, sign, integer, decimal = ""] = match;
+  if (integer.length <= 3) return `${sign}${integer}${decimal}`;
+  const lastThree = integer.slice(-3);
+  const leading = integer.slice(0, -3);
+  return `${sign}${leading.replace(/\B(?=(\d{2})+(?!\d))/g, ",")},${lastThree}${decimal}`;
+}
+
+function renderDistractor(value: Rational, policy: Avg001DisplayPolicy) {
+  const numeric = toNumber(value);
+  if (policy === "EXACT_INTEGER") return String(Math.round(numeric));
+  if (policy === "EXACT_DECIMAL_1") return numeric.toFixed(1);
+  if (policy === "EXACT_DECIMAL_2") return numeric.toFixed(2);
+  return formatRational(value, "EXACT_FRACTION");
+}
+
 function formatLikeAnswer(pkg: Avg001QuestionPackage, value: Rational) {
   const policy = answerPolicy(pkg);
-  const rendered = formatRational(value, policy);
+  const rendered = renderDistractor(value, policy);
   const canonicalRaw = formatRational(pkg.solver.exactAnswer, policy);
   if (pkg.answer === canonicalRaw) return rendered;
+  if (pkg.answer.startsWith("₹")) return `₹${groupIndianDigits(rendered)}`;
   if (pkg.answer.includes(canonicalRaw)) return pkg.answer.replace(canonicalRaw, rendered);
+
+  const match = pkg.answer.match(/^([^0-9-]*)(-?[0-9][0-9,]*(?:\.[0-9]+)?(?:\/[0-9]+)?)(.*)$/);
+  if (match) return `${match[1]}${rendered}${match[3]}`;
   return rendered;
 }
 
@@ -113,12 +136,7 @@ export function applyAvg001SupplementalDistractorRealism(
 ): Avg001QuestionPackage {
   const selected: Array<{ strategyId: string; rendered: string }> = [];
   for (const candidate of candidatesFor(pkg)) {
-    let rendered: string;
-    try {
-      rendered = formatLikeAnswer(pkg, candidate.value);
-    } catch {
-      continue;
-    }
+    const rendered = formatLikeAnswer(pkg, candidate.value);
     if (rendered === pkg.answer || selected.some((item) => item.rendered === rendered)) continue;
     selected.push({ strategyId: candidate.strategyId, rendered });
     if (selected.length === 3) break;
