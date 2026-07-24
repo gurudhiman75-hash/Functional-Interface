@@ -10,34 +10,44 @@ A reference-led gap review admitted ten factorial QLs, `PNC-QL-049` through `PNC
 
 ## Completed checkpoint 3 — Unrestricted distinct permutations
 
-A fresh reference/runtime review identified order-sensitive arrangements as the next material gap and approved:
+The next review approved `PNC-CP-002 — Unrestricted Ordered Arrangements of Distinct Objects`, with eight QLs (`059`–`066`) and three required modes.
+
+## Completed checkpoint 4 — Unrestricted distinct combinations
+
+The next review approved `PNC-CP-003 — Unrestricted Unordered Selection of Distinct Objects`, with eight QLs (`067`–`074`) and three required modes for direct selection, bounded inverse search and complementary-index symmetry.
+
+## Completed checkpoint 5 — Repeated objects and multisets
+
+Reference and runtime comparison showed that every existing arrangement contract still assumed distinct objects. This justified:
 
 ```text
-PNC-CP-002 — Unrestricted Ordered Arrangements of Distinct Objects
+PNC-CP-004 — Repeated Objects, Word Arrangements & Multisets
 ```
 
-Eight materially distinct QLs were admitted as `PNC-QL-059` through `PNC-QL-066`. Three modes were introduced because the admitted content required them:
+Eight materially distinct QLs were admitted as `PNC-QL-075` through `PNC-QL-082`. Four modes were introduced because the admitted content required them:
 
-- arrange all distinct objects;
-- arrange `r` from `n` distinct objects without repetition;
-- recover a missing permutation parameter.
+- arrange all multiset objects;
+- arrange the remaining multiset after fixing one position;
+- identify the identical-swap overcount factor;
+- recover one bounded repeated multiplicity.
 
-The package currently contains 66 English QLs and 13 active modes. These are checkpoint observations, not reusable quotas.
+The package currently contains 82 English QLs and 20 active modes. These are checkpoint observations, not reusable quotas.
 
 Delivered across the current scope:
 
-- human-owned language, registry, constraint, range and explanation libraries;
-- exact integer, factorial and `nPr` math;
+- human-owned base and CP-specific companion libraries;
+- exact integer, factorial, `nPr`, `nCr` and multiset math;
 - deterministic parameter generation;
 - authoritative solver evidence;
-- independent enumeration and bounded-search verification;
-- semantic distractors;
+- independent ordered, subset and multiset enumeration;
+- bounded inverse verification;
+- evidence-driven explanations and semantic distractors;
 - validation, coverage audits and bundled tests;
 - no generation-engine edits.
 
 ## Next checkpoint selection
 
-Do not automatically implement combinations or allocate another CP/QL range.
+Do not automatically implement a numbered CP or allocate another QL range.
 
 Before any next checkpoint:
 
@@ -47,6 +57,8 @@ Before any next checkpoint:
 4. admit only materially distinct content;
 5. implement solver, evidence, explanation, distractor and validator behaviour together;
 6. stop expansion when proposals become semantic near-clones rather than coverage gains.
+
+Potential candidates such as digit formation, together/apart restrictions, circular arrangements and category-constrained selection remain unowned until that review.
 
 ## Merge rule
 
