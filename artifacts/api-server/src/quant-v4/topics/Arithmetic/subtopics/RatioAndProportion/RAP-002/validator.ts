@@ -14,7 +14,7 @@ function hasReducibleClaimedRatio(pkg: Rap002QuestionPackage) {
 }
 
 function hasHiddenConditionalTarget(pkg: Rap002QuestionPackage) {
-  if (pkg.questionLanguageId !== "RAP-QL-512") return false;
+  if (pkg.language !== "en" || pkg.questionLanguageId !== "RAP-QL-512") return false;
   const values = pkg.parameters.variables;
   return !pkg.stem.includes(String(values.personA)) || !pkg.stem.includes(String(values.personC));
 }
@@ -23,16 +23,8 @@ export function validateRap002QuestionPackage(pkg: Rap002QuestionPackage): Rap00
   const numericVariables = Object.entries(pkg.parameters.variables).filter(([, value]) => typeof value === "number") as [string, number][];
   const numericAnswer = Number(pkg.solver.answerValue);
   const checks = [
-    {
-      name: "stem-present",
-      passed: pkg.stem.trim().length > 0,
-      message: "Stem must be present.",
-    },
-    {
-      name: "answer-present",
-      passed: pkg.answer.trim().length > 0,
-      message: "Answer must be present.",
-    },
+    { name: "stem-present", passed: pkg.stem.trim().length > 0, message: "Stem must be present." },
+    { name: "answer-present", passed: pkg.answer.trim().length > 0, message: "Answer must be present." },
     {
       name: "no-unresolved-placeholders",
       passed: !hasUnresolvedPlaceholder(pkg.stem) && !pkg.explanation.lines.some(hasUnresolvedPlaceholder),

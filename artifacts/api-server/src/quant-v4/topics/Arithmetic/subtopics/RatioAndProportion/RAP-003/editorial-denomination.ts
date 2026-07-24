@@ -20,65 +20,83 @@ function result(parameters: Rap003Parameters, lines: string[]): Rap003Explanatio
   return { explanationId: parameters.explanationId, lines };
 }
 
-function threeValues(parameters: Rap003Parameters) {
+function denominationValues(parameters: Rap003Parameters) {
   const denoms = [n(parameters, "denominationA"), n(parameters, "denominationB"), n(parameters, "denominationC")];
   const ratios = [n(parameters, "ratioA"), n(parameters, "ratioB"), n(parameters, "ratioC")];
+  if (parameters.variables.denominationD !== undefined) {
+    denoms.push(n(parameters, "denominationD"));
+    ratios.push(n(parameters, "ratioD"));
+  }
   const weighted = ratios.map((ratio, index) => ratio * denoms[index]!);
-  return { denoms, ratios, weighted, weightedSum: weighted.reduce((sum, value) => sum + value, 0), ratioSum: ratios.reduce((sum, value) => sum + value, 0) };
+  return {
+    denoms,
+    ratios,
+    weighted,
+    weightedSum: weighted.reduce((sum, value) => sum + value, 0),
+    ratioSum: ratios.reduce((sum, value) => sum + value, 0),
+  };
 }
 
 function totalFromUnit(parameters: Rap003Parameters, solver: Rap003SolverResult, finalLabel: string) {
-  const { denoms, ratios, weighted, weightedSum } = threeValues(parameters);
+  const { denoms, ratios, weighted, weightedSum } = denominationValues(parameters);
   const unit = n(parameters, "commonUnit");
   const final = answer(solver);
+  const contributionLines = ratios.map((ratio, index) =>
+    line(`Value contributed by type ${index + 1}`, `${ratio}x\\times${denoms[index]}=${weighted[index]}x`),
+  );
   return result(parameters, [
-    line("Let the three counts be the ratio parts multiplied by the common unit.", `${ratios[0]}x:${ratios[1]}x:${ratios[2]}x`),
-    line("Value contributed by the first type", `${ratios[0]}x\\times${denoms[0]}=${weighted[0]}x`),
-    line("Value contributed by the second type", `${ratios[1]}x\\times${denoms[1]}=${weighted[1]}x`),
-    line("Value contributed by the third type", `${ratios[2]}x\\times${denoms[2]}=${weighted[2]}x`),
-    line("Total value for one common ratio unit", `${weighted[0]}+${weighted[1]}+${weighted[2]}=${weightedSum}`),
+    line("Let the counts be the ratio parts multiplied by the common unit.", ratios.map((ratio) => `${ratio}x`).join(":")),
+    ...contributionLines,
+    line("Total value for one common ratio unit", `${weighted.join("+")}=${weightedSum}`),
     line(`Use x=${unit}.`, `${weightedSum}\\times${unit}=${final}`),
     `So, the ${finalLabel} is ${final}.`,
   ]);
 }
 
 function targetCountFromValue(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { denoms, ratios, weightedSum } = threeValues(parameters);
+  const { denoms, ratios, weightedSum } = denominationValues(parameters);
   const totalValue = n(parameters, "totalValue");
   const unit = totalValue / weightedSum;
   const targetDenom = n(parameters, "targetDenomination");
   const targetIndex = denoms.indexOf(targetDenom);
+  if (targetIndex < 0) throw new Error(`Unknown target denomination in explanation: ${targetDenom}`);
+  const targetRatio = ratios[targetIndex]!;
   const final = answer(solver);
   return result(parameters, [
-    line("Let the counts be the ratio parts multiplied by x.", `${ratios[0]}x:${ratios[1]}x:${ratios[2]}x`),
-    line("The total value represented by one x is", `${ratios[0]}\\times${denoms[0]}+${ratios[1]}\\times${denoms[1]}+${ratios[2]}\\times${denoms[2]}=${weightedSum}`),
+    line("Let the counts be the ratio parts multiplied by x.", ratios.map((ratio) => `${ratio}x`).join(":")),
+    line(
+      "The total value represented by one x is",
+      `${ratios.map((ratio, index) => `${ratio}\\times${denoms[index]}`).join("+")}=${weightedSum}`,
+    ),
     line("Use the given total value.", `${weightedSum}x=${totalValue}`),
     line("Solve for x.", `x=\\frac{${totalValue}}{${weightedSum}}=${unit}`),
-    line(`The ${targetDenom}-value type has ${ratios[targetIndex]} ratio parts.`, `${ratios[targetIndex]}\\times${unit}=${final}`),
+    line(`The ${targetDenom}-value type has ${targetRatio} ratio parts.`, `${targetRatio}\\times${unit}=${final}`),
     "This count, together with the other ratio counts, reproduces the total value.",
     `So, the number of ${targetDenom}-value items is ${final}.`,
   ]);
 }
 
 function directTargetCount(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { denoms, ratios } = threeValues(parameters);
+  const { denoms, ratios } = denominationValues(parameters);
   const unit = n(parameters, "commonUnit");
   const target = n(parameters, "targetDenomination");
   const index = denoms.indexOf(target);
+  if (index < 0) throw new Error(`Unknown target denomination in explanation: ${target}`);
+  const targetRatio = ratios[index]!;
   const final = answer(solver);
   return result(parameters, [
-    line("The three item counts follow the stated ratio.", `${ratios.join(":")}`),
+    line("The item counts follow the stated ratio.", ratios.join(":")),
     line("The common multiplier is", `x=${unit}`),
-    line("Therefore, the three counts are", `${ratios[0]}\\times${unit}:${ratios[1]}\\times${unit}:${ratios[2]}\\times${unit}`),
-    line(`The ${target}-value type corresponds to ${ratios[index]} ratio parts.`, `${ratios[index]}\\times${unit}`),
-    line("Evaluating gives", `${ratios[index] * unit}=${final}`),
+    line("Therefore, the counts are", ratios.map((ratio) => `${ratio}\\times${unit}`).join(":")),
+    line(`The ${target}-value type corresponds to ${targetRatio} ratio parts.`, `${targetRatio}\\times${unit}`),
+    line("Evaluating gives", `${targetRatio * unit}=${final}`),
     "No denomination multiplication is needed because the question asks for count.",
     `So, there are ${final} items of value ${target}.`,
   ]);
 }
 
 function swapValue(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { weightedSum } = threeValues(parameters);
+  const { weightedSum } = denominationValues(parameters);
   const unit = n(parameters, "commonUnit");
   const original = weightedSum * unit;
   const delta = n(parameters, "swapCount") * (n(parameters, "toDenomination") - n(parameters, "fromDenomination"));
@@ -95,11 +113,11 @@ function swapValue(parameters: Rap003Parameters, solver: Rap003SolverResult) {
 }
 
 function totalCountFromValue(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { ratios, weightedSum, ratioSum } = threeValues(parameters);
+  const { ratios, weightedSum, ratioSum } = denominationValues(parameters);
   const unit = n(parameters, "totalValue") / weightedSum;
   const final = answer(solver);
   return result(parameters, [
-    line("Let the three counts be the ratio parts multiplied by x.", `${ratios[0]}x:${ratios[1]}x:${ratios[2]}x`),
+    line("Let the counts be the ratio parts multiplied by x.", ratios.map((ratio) => `${ratio}x`).join(":")),
     line("Value represented by one x is", `${weightedSum}`),
     line("Use the total value to find x.", `${weightedSum}x=${n(parameters, "totalValue")}`),
     line("Therefore,", `x=${n(parameters, "totalValue")}\\div${weightedSum}=${unit}`),
@@ -110,36 +128,34 @@ function totalCountFromValue(parameters: Rap003Parameters, solver: Rap003SolverR
 }
 
 function totalValueFromCount(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { ratios, weightedSum, ratioSum } = threeValues(parameters);
+  const { ratios, weightedSum, ratioSum } = denominationValues(parameters);
   const unit = n(parameters, "totalCount") / ratioSum;
   const final = answer(solver);
   return result(parameters, [
     line("Add the count-ratio parts.", `${ratios.join("+")}=${ratioSum}`),
     line("Find one count-ratio unit.", `x=\\frac{${n(parameters, "totalCount")}}{${ratioSum}}=${unit}`),
-    line("The three counts are", `${ratios[0] * unit}:${ratios[1] * unit}:${ratios[2] * unit}`),
+    line("The counts are", ratios.map((ratio) => ratio * unit).join(":")),
     line("The value of one ratio unit is", `${weightedSum}`),
     line("Multiply by the common count unit.", `${weightedSum}\\times${unit}=${final}`),
-    "This includes the value of every item in all three groups.",
+    "This includes the value of every item in all groups.",
     `So, the total value is ${final}.`,
   ]);
 }
 
 function valueRatio(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { denoms, ratios, weighted } = threeValues(parameters);
+  const { denoms, ratios, weighted } = denominationValues(parameters);
   const final = answer(solver);
   return result(parameters, [
     "Value contribution equals count part multiplied by denomination.",
-    line("First type", `${ratios[0]}\\times${denoms[0]}=${weighted[0]}`),
-    line("Second type", `${ratios[1]}\\times${denoms[1]}=${weighted[1]}`),
-    line("Third type", `${ratios[2]}\\times${denoms[2]}=${weighted[2]}`),
-    line("Form the three value contributions as a ratio.", `${weighted.join(":")}`),
+    ...ratios.map((ratio, index) => line(`Type ${index + 1}`, `${ratio}\\times${denoms[index]}=${weighted[index]}`)),
+    line("Form the value contributions as a ratio.", weighted.join(":")),
     line("Reduce if necessary.", `${weighted.join(":")}=${final}`),
     `So, the value-contribution ratio is ${final}.`,
   ]);
 }
 
 function averageValue(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const { ratios, weightedSum, ratioSum } = threeValues(parameters);
+  const { ratios, weightedSum, ratioSum } = denominationValues(parameters);
   const final = answer(solver);
   return result(parameters, [
     "Average item value is total weighted value divided by total count parts.",
@@ -153,14 +169,11 @@ function averageValue(parameters: Rap003Parameters, solver: Rap003SolverResult) 
 }
 
 function fourType(parameters: Rap003Parameters, solver: Rap003SolverResult) {
-  const denoms = [n(parameters, "denominationA"), n(parameters, "denominationB"), n(parameters, "denominationC"), n(parameters, "denominationD")];
-  const ratios = [n(parameters, "ratioA"), n(parameters, "ratioB"), n(parameters, "ratioC"), n(parameters, "ratioD")];
-  const weightedSum = ratios.reduce((sum, ratio, index) => sum + ratio * denoms[index]!, 0);
-  const ratioSum = ratios.reduce((sum, value) => sum + value, 0);
+  const { denoms, ratios, weightedSum, ratioSum } = denominationValues(parameters);
   const unit = n(parameters, "totalValue") / weightedSum;
   const final = answer(solver);
   return result(parameters, [
-    line("Let the four counts be the ratio parts multiplied by x.", `${ratios.map((ratio) => `${ratio}x`).join(":")}`),
+    line("Let the four counts be the ratio parts multiplied by x.", ratios.map((ratio) => `${ratio}x`).join(":")),
     line("Value represented by one x is", `${ratios.map((ratio, index) => `${ratio}\\times${denoms[index]}`).join("+")}=${weightedSum}`),
     line("Use the total value.", `${weightedSum}x=${n(parameters, "totalValue")}`),
     line("Solve for x.", `x=${unit}`),

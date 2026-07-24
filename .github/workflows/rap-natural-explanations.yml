@@ -7,6 +7,8 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/**
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/quant-v4/generation-engine-core.ts
       - .github/workflows/rap-natural-explanations.yml
 
 permissions:
@@ -60,17 +62,23 @@ jobs:
           }
 
           run_case rap-001-package-test src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001.test.ts dist/quant-v4/rap-001.test.mjs
+          run_case rap-001-localization-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001-localization-audit.ts dist/quant-v4/rap-001-localization-audit.mjs
           run_case rap-002-package-test src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002.test.ts dist/quant-v4/rap-002.test.mjs
+          run_case rap-002-localization-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-localization-audit.ts dist/quant-v4/rap-002-localization-audit.mjs
           run_case rap-003-package-test src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003.test.ts dist/quant-v4/rap-003.test.mjs
+          run_case rap-003-localization-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-localization-audit.ts dist/quant-v4/rap-003-localization-audit.mjs
           run_case rap-001-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-001/rap-001-explanation-quality-audit.ts dist/quant-v4/rap-001-explanation-quality-audit.mjs
           run_case rap-002-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-002/rap-002-explanation-quality-audit.ts dist/quant-v4/rap-002-explanation-quality-audit.mjs
           run_case rap-003-explanation-audit src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-explanation-quality-audit.ts dist/quant-v4/rap-003-explanation-quality-audit.mjs
           run_case rap-answer-consistency src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-answer-consistency-audit.ts dist/quant-v4/rap-answer-consistency-audit.mjs
           run_case rap-human-review-export src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-review-export.ts dist/quant-v4/rap-review-export.mjs
+          run_case rap-localization-review-export src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-localization-review-export.ts dist/quant-v4/rap-localization-review-export.mjs
+          run_case rap-question-studio-localization-smoke src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/rap-question-studio-localization-smoke.ts dist/quant-v4/rap-question-studio-localization-smoke.mjs
 
           find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name '*explanation-quality-report.md' -exec cp {} validation-logs/ \;
           find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-answer-consistency-audit-report.md' -exec cp {} validation-logs/ \;
-          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-*-human-review-en.csv' -exec cp {} validation-logs/review-csv/ \;
+          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-*-human-review-*.csv' -exec cp {} validation-logs/review-csv/ \;
+          find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-all-human-review-*.csv' -exec cp {} validation-logs/review-csv/ \;
           find artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion -name 'rap-*-same-ql-diversity-en.csv' -exec cp {} validation-logs/review-csv/ \;
 
           echo "$status" > validation-logs/status.txt

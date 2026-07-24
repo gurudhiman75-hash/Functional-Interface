@@ -1,5 +1,6 @@
 import { renderRap001Explanation } from "./explanation-renderer";
-import { buildRap001SemanticTrace, getQuestionEntry, renderTemplate, resolveRap001EntityVariables } from "./library";
+import { buildRap001SemanticTrace, renderTemplate, resolveRap001EntityVariables } from "./library";
+import { getEffectiveRap001QuestionEntry } from "./effective-question-entry";
 import { generateRap001Parameters, type Rap001ParameterInput } from "./parameter-generator";
 import { buildRap001ReasoningGraph } from "./reasoning-graph";
 import { solveRap001 } from "./solver";
@@ -31,7 +32,10 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
     solver.answer,
   );
   const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language, parameters.entityReferences);
-  const renderedStem = renderTemplate(getQuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template, renderVariables);
+  const renderedStem = renderTemplate(
+    getEffectiveRap001QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template,
+    renderVariables,
+  );
   const stem = polishEnglishRapStem(
     renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
     parameters.language,

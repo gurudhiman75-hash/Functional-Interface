@@ -1,6 +1,6 @@
 import { formatExplanationSteps, validateExplanationPipeline, type ExplanationEvidence, type ExplanationRenderer } from "../../../../../common/explanation-engine";
 import type { Rap001Explanation, Rap001Parameters, Rap001ReasoningGraph, Rap001SolverResult } from "../types";
-import { renderLocalizedRap001Explanation } from "./localized-explanation-renderer";
+import { renderSimpleLocalizedRap001Explanation } from "./simple-localized-explanation";
 
 import { SimpleLinkageRenderer } from "./renderers/simple-linkage-renderer";
 import { RatioNormalizationRenderer } from "./renderers/ratio-normalization-renderer";
@@ -59,6 +59,7 @@ function polishNarrative(narrative: string, taskKind: string, first: string, sec
     .replace(/\bthe second group\b/gi, second)
     .replace(/\bsecond group\b/gi, second)
     .replace(/\bthe third group\b/gi, third)
+    .replace(/\bthird group\b/gi, third)
     .replace(new RegExp(`\\b(${PLURAL_SUBJECTS}) has\\b`, "gi"), "$1 have");
 
   if (taskKind === "weightedMapping") {
@@ -85,7 +86,7 @@ function naturalFallbackRenderer(
 
 export function renderRap001Explanation(parameters: Rap001Parameters, solver: Rap001SolverResult, _graph: Rap001ReasoningGraph): Rap001Explanation {
   if (parameters.language !== "en") {
-    return renderLocalizedRap001Explanation(parameters, solver);
+    return renderSimpleLocalizedRap001Explanation(parameters, solver);
   }
 
   const variables = explanationVariables(parameters);

@@ -61,11 +61,18 @@ export function validateRap001Parameters(parameters: Rap001Parameters): Rap001Va
   ];
   try {
     const explanationSteps = getExplanationSteps(parameters.canonicalProblemId, parameters.taskKind, parameters.language);
+    const variantCount = getExplanationVariantCount(parameters.canonicalProblemId, parameters.taskKind, parameters.language);
     checks.push(check("taskExplanationFamily", explanationSteps.length > 0, "TaskKind-specific explanation family must exist."));
-    checks.push(check("explanationVariantCount", getExplanationVariantCount(parameters.canonicalProblemId, parameters.taskKind, parameters.language) > 1, "TaskKind explanation must provide multiple variants."));
+    checks.push(check(
+      "explanationVariantCount",
+      parameters.language === "en" ? variantCount > 1 : variantCount > 0,
+      parameters.language === "en"
+        ? "English task explanations must provide multiple variants."
+        : "A verified human-authored localized explanation family must exist.",
+    ));
   } catch {
     checks.push(check("taskExplanationFamily", false, "TaskKind-specific explanation family must exist."));
-    checks.push(check("explanationVariantCount", false, "TaskKind explanation must provide multiple variants."));
+    checks.push(check("explanationVariantCount", false, "A valid explanation family must exist."));
   }
 
   if (semantic) {
