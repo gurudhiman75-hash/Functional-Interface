@@ -26,7 +26,7 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
 
   // Regression snapshot for the currently reviewed CP-001 checkpoint. This is
   // intentionally not a final package/family target.
-  const checkpointIds = Array.from({ length: 48 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+  const checkpointIds = Array.from({ length: 58 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
   const actualIds = new Set(entries.map((entry) => entry.qlId));
   const missingIds = checkpointIds.filter((id) => !actualIds.has(id));
   const duplicateGroups = new Map<string, number>();
@@ -49,13 +49,18 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const observedDifficultySnapshot: Record<string, number> = { Easy: 22, Medium: 18, Hard: 8 };
+  const observedDifficultySnapshot: Record<string, number> = { Easy: 27, Medium: 22, Hard: 9 };
   const observedSolveModeSnapshot: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
     countDisjointCasePartition: 10,
     countUsingSimpleComplement: 8,
     recoverMissingStageChoiceCount: 6,
+    evaluateFactorialValue: 2,
+    evaluateFactorialUnitExpression: 2,
+    simplifyFactorialQuotient: 3,
+    recoverFactorialArgument: 2,
+    recoverFactorialQuotientArgument: 1,
   };
   const snapshotMatches = recordMatches(difficultyCounts, observedDifficultySnapshot)
     && recordMatches(solveModeCounts, observedSolveModeSnapshot);
