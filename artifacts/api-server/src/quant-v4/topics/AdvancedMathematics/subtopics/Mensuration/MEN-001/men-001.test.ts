@@ -1,9 +1,8 @@
 import { strict as assert } from "node:assert";
-import { hasMen001ExplanationIllustration } from "./explanation-illustration";
+import { hasMen001ExplanationIllustration } from "./explanation-illustration.all";
 import {
   getMen001ActiveCanonicalProblemIds,
   getMen001QuestionEntries,
-  getMen001QuestionEntry,
   getMen001QuestionLanguageIds,
   validateMen001Libraries,
 } from "./library";
@@ -26,6 +25,7 @@ const GENERIC_FALLBACK_OPTIONS = new Set([
 
 function optionCarriesUnit(option: string, unit: string) {
   if (unit === "₹") return option.startsWith("₹");
+  if (unit === "°") return option.endsWith("°");
   if (unit === "cm²") return option.includes("cm²") || option.includes("\\text{cm}^{2}");
   if (unit === "m²") return option.includes("m²") || option.includes("\\text{m}^{2}");
   return option.endsWith(` ${unit}`);
@@ -75,6 +75,25 @@ assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-125", { area: 128, height: 8,
 assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-126", { diagonalA: 12, diagonalB: 18 }).answer, "108 cm²");
 assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-127", { area: 108, diagonalA: 12 }).answer, "18 m");
 assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-128", { diagonal: 16, perpendicularA: 7, perpendicularB: 9 }).answer, "128 m²");
+
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-201", { radius: 7 }).answer, "44 m");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-203", { diameter: 14 }).answer, "44 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-204", { radius: 7 }).answer, "154 m²");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-206", { circumference: 44 }).answer, "7 m");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-207", { area: 154 }).answer, "7 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-208", { circumference: 44 }).answer, "154 cm²");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-209", { radius: 7 }).answer, "77 cm²");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-210", { radius: 7 }).answer, "36 m");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-211", { radius: 14 }).answer, "154 cm²");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-212", { radius: 14 }).answer, "50 m");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-213", { radius: 14, angleDegrees: 90 }).answer, "22 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-215", { radius: 14, angleDegrees: 90 }).answer, "154 cm²");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-217", { radius: 14, angleDegrees: 90 }).answer, "50 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-218", { arcLength: 22, radius: 14 }).answer, "90°");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-219", { sectorArea: 154, radius: 14 }).answer, "90°");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-220", { outerRadius: 14, innerRadius: 7 }).answer, "462 cm²");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-222", { area: 462, innerRadius: 7 }).answer, "14 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-223", { radius: 7, revolutions: 5 }).answer, "220 cm");
 
 const seenQlIds = new Set<string>();
 const seenSolveModes = new Set<string>();
@@ -169,6 +188,19 @@ for (const entry of getMen001QuestionEntries()) {
     if (first.solveMode === "findQuadrilateralAreaFromDiagonalPerpendiculars") {
       assert.equal(first.explanation.illustration?.kind, "QUADRILATERAL_DIAGONAL_PERPENDICULARS");
     }
+    if (["findArcLength", "findSectorArea", "findSectorPerimeter", "findCentralAngleFromArcLength", "findCentralAngleFromSectorArea"].includes(first.solveMode)) {
+      assert.equal(first.explanation.illustration?.kind, "CIRCLE_CENTRAL_ANGLE");
+    }
+    if (["findAnnulusArea", "findOuterRadiusFromAnnulusArea"].includes(first.solveMode)) {
+      assert.equal(first.explanation.illustration?.kind, "ANNULUS_RADII");
+    }
+    if (["findSemicirclePerimeter", "findQuadrantPerimeter"].includes(first.solveMode)) {
+      assert.equal(first.explanation.illustration?.kind, "CIRCLE_PART_BOUNDARY");
+    }
+    if (first.canonicalProblemId === "MEN-CP-003") {
+      assert.ok(first.stem.includes("π = 22/7"));
+      assert.equal(first.solver.workingValues.piPolicy, "22/7");
+    }
 
     seenQlIds.add(first.questionLanguageId);
     seenSolveModes.add(first.solveMode);
@@ -186,10 +218,13 @@ for (const kind of [
   "RECTANGLE_DIAGONAL_SPLIT",
   "RHOMBUS_HALF_DIAGONALS",
   "QUADRILATERAL_DIAGONAL_PERPENDICULARS",
+  "CIRCLE_CENTRAL_ANGLE",
+  "ANNULUS_RADII",
+  "CIRCLE_PART_BOUNDARY",
 ]) {
   assert.equal(seenIllustrationKinds.has(kind), true, `${kind} explanation illustration not covered.`);
 }
-for (const unit of ["cm", "m", "cm²", "m²", "₹"]) {
+for (const unit of ["cm", "m", "cm²", "m²", "₹", "°"]) {
   assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
 }
 assert.throws(

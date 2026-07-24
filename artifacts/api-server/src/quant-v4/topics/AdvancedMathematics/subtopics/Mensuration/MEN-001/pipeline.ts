@@ -1,4 +1,4 @@
-import { buildMen001Options } from "./distractor-strategies";
+import { buildMen001Options } from "./distractor-strategies.all";
 import { renderMen001Explanation } from "./explanation-renderer";
 import { getMen001QuestionEntry, renderMen001Template } from "./library";
 import { generateMen001Parameters, type Men001ParameterInput } from "./parameter-generator";
@@ -71,3 +71,9 @@ export function runMen001Pipeline(
 
 export const runMen001Cp001Pipeline = (input: Men001ParameterInput = {}) =>
   runMen001Pipeline("MEN-CP-001", input);
+
+export const runMen001Cp002Pipeline = (input: Men001ParameterInput = {}) =>
+  runMen001Pipeline("MEN-CP-002", input);
+
+export const runMen001Cp003Pipeline = (input: Men001ParameterInput = {}) =>
+  runMen001Pipeline("MEN-CP-003", input);
