@@ -62,21 +62,29 @@ function wordOptions(target: SemanticFact, allFacts: readonly SemanticFact[], se
 }
 
 function pairOptions(target: SemanticFact, allFacts: readonly SemanticFact[], seed: number) {
-  const pool = shuffle(allFacts.filter((fact) => fact.id !== target.id), seed * 43 + 17);
-  if (pool.length < 6) throw new Error(`Rule ${target.relation} cannot produce enough pair distractors.`);
-  const distractors = [
-    { value: [pool[0].left, pool[1].right] as const, errorLabel: "MISMATCHED_VALID_CATEGORIES" },
-    { value: [pool[2].left, pool[3].right] as const, errorLabel: "MISMATCHED_VALID_CATEGORIES" },
-    { value: [pool[4].left, pool[5].right] as const, errorLabel: "MISMATCHED_VALID_CATEGORIES" },
-  ];
-  const options = shuffle([
+  const leftPool = shuffle(allFacts.filter((fact) => fact.id !== target.id), seed * 43 + 17);
+  const rightPool = shuffle(allFacts.filter((fact) => fact.id !== target.id), seed * 47 + 19);
+  const validPairs = new Set(allFacts.map((fact) => canonical([fact.left, fact.right])));
+  const usedPairs = new Set<string>();
+  const distractors: { value: readonly [string, string]; errorLabel: string }[] = [];
+
+  for (const leftFact of leftPool) {
+    for (const rightFact of rightPool) {
+      const value = [leftFact.left, rightFact.right] as const;
+      const key = canonical(value);
+      if (validPairs.has(key) || usedPairs.has(key)) continue;
+      distractors.push({ value, errorLabel: "MISMATCHED_VALID_CATEGORIES" });
+      usedPairs.add(key);
+      if (distractors.length === 3) break;
+    }
+    if (distractors.length === 3) break;
+  }
+
+  if (distractors.length !== 3) throw new Error(`Rule ${target.relation} cannot produce three false but category-valid pairs.`);
+  return shuffle([
     { value: [target.left, target.right] as const, errorLabel: null },
     ...distractors,
-  ], seed * 47 + 19);
-  if (new Set(options.map((option) => canonical(option.value))).size !== 4) {
-    throw new Error(`Rule ${target.relation} produced duplicate pair options.`);
-  }
-  return options;
+  ], seed * 53 + 23);
 }
 
 export function generateSemanticAnalogy(qlId: string, seed = 0): GeneratedSemanticAnalogy {
@@ -97,16 +105,8 @@ export function generateSemanticAnalogy(qlId: string, seed = 0): GeneratedSemant
 
   const explanationTrace: ExplanationTrace = {
     ruleStatement: definition.ruleStatement,
-    sourceDemonstration: [{
-      label: "Given pair",
-      expression: `${source.left} → ${source.right}`,
-      result: source.predicate,
-    }],
-    targetApplication: [{
-      label: "Apply the same relationship",
-      expression: `${target.left} → ${target.right}`,
-      result: target.predicate,
-    }],
+    sourceDemonstration: [{ label: "Given pair", expression: `${source.left} → ${source.right}`, result: source.predicate }],
+    targetApplication: [{ label: "Apply the same relationship", expression: `${target.left} → ${target.right}`, result: target.predicate }],
     conclusion: ql.presentationMode === "MISSING_FOURTH_TERM"
       ? `Therefore, ${target.right} is the correct answer.`
       : `Therefore, ${target.left} : ${target.right} preserves the same relationship.`,
