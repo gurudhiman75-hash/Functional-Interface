@@ -19,13 +19,21 @@ function cartesianEnumeration(stageCounts: number[]): number {
   return count;
 }
 
+function readInteger(parameters: Pnc001Parameters, key: string): number {
+  const found = parameters.values[key];
+  if (typeof found !== "number" || !Number.isInteger(found)) {
+    throw new Error(`Missing integer PNC-001 value: ${key}`);
+  }
+  return found;
+}
+
+function assertNever(value: never): never {
+  throw new Error(`Unsupported PNC-001 solve mode: ${String(value)}`);
+}
+
 export function solvePnc001(parameters: Pnc001Parameters): Pnc001SolverResult {
   const ceiling = getPnc001VariableRanges().answerCeiling;
-  const value = (key: string): number => {
-    const found = parameters.values[key];
-    if (!Number.isInteger(found)) throw new Error(`Missing integer PNC-001 value: ${key}`);
-    return found;
-  };
+  const value = (key: string): number => readInteger(parameters, key);
 
   switch (parameters.solveMode) {
     case "countSequentialIndependentChoices": {
@@ -103,15 +111,13 @@ export function solvePnc001(parameters: Pnc001Parameters): Pnc001SolverResult {
         evidence: { operation: "EXACT_DIVISION", totalChoices: total, knownChoices: known, totalCount: answer },
       };
     }
-    default: {
-      const exhaustive: never = parameters.solveMode;
-      throw new Error(`Unsupported PNC-001 solve mode: ${exhaustive}`);
-    }
+    default:
+      return assertNever(parameters.solveMode);
   }
 }
 
 export function verifyPnc001Independently(parameters: Pnc001Parameters): Pnc001IndependentVerification {
-  const value = (key: string) => parameters.values[key]!;
+  const value = (key: string): number => readInteger(parameters, key);
   switch (parameters.solveMode) {
     case "countSequentialIndependentChoices": {
       const answer = cartesianEnumeration(parameters.requiredVariables.map(value));
@@ -119,11 +125,14 @@ export function verifyPnc001Independently(parameters: Pnc001Parameters): Pnc001I
     }
     case "countMutuallyExclusiveAlternatives": {
       let answer = 0;
-      for (const key of parameters.requiredVariables) for (let index = 0; index < value(key); index += 1) answer += 1;
+      for (const key of parameters.requiredVariables) {
+        for (let index = 0; index < value(key); index += 1) answer += 1;
+      }
       return { supported: true, answer, method: "Alternative-item enumeration" };
     }
     case "countDisjointCasePartition": {
-      const answer = cartesianEnumeration([value("caseAFirst"), value("caseARest")]) + cartesianEnumeration([value("caseBFirst"), value("caseBRest")]);
+      const answer = cartesianEnumeration([value("caseAFirst"), value("caseARest")])
+        + cartesianEnumeration([value("caseBFirst"), value("caseBRest")]);
       return { supported: true, answer, method: "Independent enumeration of disjoint cases" };
     }
     case "countUsingSimpleComplement": {
@@ -143,5 +152,7 @@ export function verifyPnc001Independently(parameters: Pnc001Parameters): Pnc001I
       }
       return { supported: answer > 0, answer, method: "Bounded search for the exact missing factor" };
     }
+    default:
+      return assertNever(parameters.solveMode);
   }
 }
