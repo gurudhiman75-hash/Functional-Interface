@@ -1,20 +1,30 @@
 # PNC-001 Archetype
 
-`PNC-001 — Permutation & Combination Core`
+`PNC-001 — Counting Foundations, Basic Permutations & Basic Combinations`
 
-This package establishes the active counting authority for ExamTree Quant V4. Its scope grows need-by-need from reviewed books, PYQs, runtime gaps and editorial coverage audits.
+This is the first of the two agreed P&C packages. Its six CP ownership boundaries are fixed, while the QLs, solve modes and difficulty distribution inside each CP remain need-based.
 
 Target exams: SSC, Banking, Railways, Punjab State and comparable aptitude examinations.
 
-## Package boundary
+## Fixed package boundary
 
-- currently owns the implemented `PNC-CP-001` through `PNC-CP-004`;
-- currently owns `PNC-QL-001` through `PNC-QL-082` as a checkpoint snapshot;
-- currently covers counting principles, factorial reasoning, unrestricted distinct permutations, unrestricted distinct combinations and repeated-object arrangements;
-- has no predetermined final QL count;
-- has no reserved list of future CP IDs;
-- receives a new CP or solve mode only when a documented coverage gap requires a distinct mathematical/runtime contract;
-- may later be split into another package only if size, architecture or review safety justifies the split;
-- provides exact counting authority that Probability may consume later without duplicating it.
+`PNC-001` owns:
 
-Current checkpoint: English runtime proof for four active CPs, ending with `PNC-CP-004 — Repeated Objects, Word Arrangements & Multisets`.
+- `PNC-CP-001 — Fundamental Counting Principle & Case Partition`;
+- `PNC-CP-002 — Distinct Linear Permutations & Positional Assignments`;
+- `PNC-CP-003 — Basic Combinations & Direct Selection Applications`;
+- `PNC-CP-004 — Digit, Number, Code & Password Formation`;
+- `PNC-CP-005 — Word, Letter & Multiset Arrangements`;
+- `PNC-CP-006 — Selection-Then-Arrangement & Role Assignment`.
+
+## Current checkpoint
+
+- active implemented CPs: `PNC-CP-001` through `PNC-CP-005`;
+- current QLs: `PNC-QL-001` through `PNC-QL-094`;
+- current solve modes: 30;
+- English runtime proof only;
+- `publiclyPublishable: false`;
+- CP-006 remains pending;
+- no generation-engine, admin or production routing is active.
+
+The package currently covers counting principles, supporting factorial reasoning, distinct permutations, distinct combinations, digit/code formation and the implemented multiset portion of word arrangements. It provides exact counting authority that Probability may consume later without duplicating it.
