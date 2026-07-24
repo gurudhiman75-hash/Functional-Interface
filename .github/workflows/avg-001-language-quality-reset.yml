@@ -1,0 +1,68 @@
+name: Validate AVG-001 language quality reset
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-language-quality-reset.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-language-quality-reset-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-avg-001-language-quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Run language quality audit and exports
+        run: |
+          set -euo pipefail
+          : > avg-language-quality-diagnostics.log
+          run_case() {
+            name="$1"
+            source="$2"
+            output="dist/quant-v4/${name}.mjs"
+            echo "===== $name =====" | tee -a avg-language-quality-diagnostics.log
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-language-quality-diagnostics.log
+            (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-language-quality-diagnostics.log
+          }
+          run_case avg-001-language-quality-reset src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-reset-audit.ts
+          run_case avg-001-language-quality-review src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-review-export.ts
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-language-quality-diagnostics
+          path: avg-language-quality-diagnostics.log
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload English Hindi and Punjabi review CSVs
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-language-quality-review
+          path: |
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-review-en.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-review-hi.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-language-quality-review-pa.csv
+          if-no-files-found: error
+          retention-days: 14
