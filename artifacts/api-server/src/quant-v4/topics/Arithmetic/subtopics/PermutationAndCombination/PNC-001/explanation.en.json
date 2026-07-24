@@ -27,6 +27,31 @@
       "solveMode": "recoverMissingStageChoiceCount",
       "concept": "The total is the product of the known and missing stage counts, so use exact division.",
       "lines": ["Let the missing stage count be x. Then {knownChoices} × x = {totalChoices}.", "Thus x = {totalChoices} ÷ {knownChoices} = {answer}.", "Therefore, the missing stage has {answer} choices."]
+    },
+    "PNC-EXP-006": {
+      "solveMode": "evaluateFactorialValue",
+      "concept": "A factorial is the product of all positive integers from the argument down to 1.",
+      "lines": ["The factorial argument is {factorialArgument}.", "So {factorialArgument}! = {factorialExpansion} = {answer}.", "Therefore, the required value is {answer}."]
+    },
+    "PNC-EXP-007": {
+      "solveMode": "evaluateFactorialUnitExpression",
+      "concept": "Use the identity 0! = 1! = 1, then evaluate the remaining factorial exactly.",
+      "lines": ["Here, {unitFactorial} = 1 and {factorialArgument}! = {factorialValue}.", "Therefore, {calculation}.", "Hence, the required value is {answer}."]
+    },
+    "PNC-EXP-008": {
+      "solveMode": "simplifyFactorialQuotient",
+      "concept": "Cancel the common lower factorial and multiply only the uncancelled consecutive factors.",
+      "lines": ["Expand {upper}! as {quotientExpansion} × {lower}!.", "After cancelling {lower}!, the quotient is {factorList}.", "Thus, {calculation}, so the answer is {answer}."]
+    },
+    "PNC-EXP-009": {
+      "solveMode": "recoverFactorialArgument",
+      "concept": "Find the unique non-negative integer whose factorial equals the given target, then account for any displayed shift.",
+      "lines": ["The target is {target}.", "Since {matchedArgument}! = {target}, the factorial argument is {matchedArgument}.", "Applying the question's shift gives n = {answer}."]
+    },
+    "PNC-EXP-010": {
+      "solveMode": "recoverFactorialQuotientArgument",
+      "concept": "Cancel (n - 2)! so that n!/(n - 2)! becomes n(n - 1), then find the exact integer match.",
+      "lines": ["The equation becomes n(n - 1) = {target}.", "For n = {answer}, {answer} × {previousInteger} = {target}.", "Therefore, n = {answer}."]
     }
   }
 }
