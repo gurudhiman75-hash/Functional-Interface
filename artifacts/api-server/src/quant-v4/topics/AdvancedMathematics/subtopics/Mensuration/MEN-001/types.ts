@@ -12,22 +12,29 @@ export const MEN_001_CP_IDS = [
   "MEN-CP-006",
 ] as const;
 
-export const MEN_001_ACTIVE_CP_IDS = ["MEN-CP-001", "MEN-CP-002"] as const;
+export const MEN_001_ACTIVE_CP_IDS = [
+  "MEN-CP-001",
+  "MEN-CP-002",
+  "MEN-CP-003",
+] as const;
 
 export type Men001CanonicalProblemId = (typeof MEN_001_CP_IDS)[number];
-export type Men001ActiveCanonicalProblemId = (typeof MEN_001_ACTIVE_CP_IDS)[number];
+export type Men001ActiveCanonicalProblemId =
+  (typeof MEN_001_ACTIVE_CP_IDS)[number];
 export type Men001Language = "en" | "hi" | "pa";
 export type Men001Difficulty = "Easy" | "Medium" | "Hard";
 export type Men001TaskKind =
   | "triangleMeasurementApplication"
-  | "quadrilateralMeasurementApplication";
-export type Men001AnswerDimension = "LENGTH" | "AREA" | "COST";
+  | "quadrilateralMeasurementApplication"
+  | "circleMeasurementApplication";
+export type Men001AnswerDimension = "LENGTH" | "AREA" | "COST" | "ANGLE";
 export type Men001UnitPolicy =
   | "CENTIMETRES"
   | "METRES"
   | "SQUARE_CENTIMETRES"
   | "SQUARE_METRES"
-  | "RUPEES";
+  | "RUPEES"
+  | "DEGREES";
 export type Men001DiagramRequirement = "REQUIRED" | "OPTIONAL" | "NONE";
 
 export type ExactSpatialNumber =
@@ -137,6 +144,24 @@ export interface Men001Parameters {
     parallelSideB?: number;
     perpendicularA?: number;
     perpendicularB?: number;
+    radius?: number;
+    diameter?: number;
+    circumference?: number;
+    radiusSquare?: number;
+    fullArea?: number;
+    semicircleArc?: number;
+    quadrantArc?: number;
+    angleDegrees?: number;
+    arcLength?: number;
+    sectorArea?: number;
+    outerRadius?: number;
+    innerRadius?: number;
+    outerArea?: number;
+    innerArea?: number;
+    radiusSquareDifference?: number;
+    outerRadiusSquare?: number;
+    revolutions?: number;
+    distance?: number;
   };
   renderVariables: Record<string, string | number>;
 }
@@ -146,7 +171,7 @@ export interface Men001SolverResult {
   canonicalAnswer: Men001CanonicalAnswer;
   answer: string;
   answerDimension: Men001AnswerDimension;
-  unit: "cm" | "m" | "cm²" | "m²" | "₹";
+  unit: "cm" | "m" | "cm²" | "m²" | "₹" | "°";
   equation: string;
   workingValues: Record<string, string | number>;
 }
@@ -178,7 +203,12 @@ export type Men001ExplanationIllustration =
       purpose: "ALTITUDE_BISECTS_BASE";
       placement: "BEFORE_PYTHAGORAS";
       notToScale: true;
-      labels: { equalSide: string; base: string; halfBase: string; height: string };
+      labels: {
+        equalSide: string;
+        base: string;
+        halfBase: string;
+        height: string;
+      };
       accessibleText: string;
     }
   | {
@@ -208,7 +238,46 @@ export type Men001ExplanationIllustration =
       purpose: "SPLIT_INTO_TWO_TRIANGLES";
       placement: "BEFORE_AREA_ADDITION";
       notToScale: true;
-      labels: { diagonal: string; perpendicularA: string; perpendicularB: string };
+      labels: {
+        diagonal: string;
+        perpendicularA: string;
+        perpendicularB: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "CIRCLE_CENTRAL_ANGLE";
+      purpose: "ARC_OR_SECTOR_FRACTION";
+      placement: "BEFORE_FRACTION_CALCULATION";
+      notToScale: true;
+      labels: {
+        radius: string;
+        centralAngle: string;
+        measuredPart: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "ANNULUS_RADII";
+      purpose: "OUTER_MINUS_INNER_CIRCLE";
+      placement: "BEFORE_AREA_SUBTRACTION";
+      notToScale: true;
+      labels: {
+        outerRadius: string;
+        innerRadius: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "CIRCLE_PART_BOUNDARY";
+      purpose: "CURVE_PLUS_STRAIGHT_EDGES";
+      placement: "BEFORE_PERIMETER_ADDITION";
+      notToScale: true;
+      labels: {
+        radius: string;
+        curvedBoundary: string;
+        straightEdges: string;
+      };
       accessibleText: string;
     };
 
