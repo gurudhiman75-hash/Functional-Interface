@@ -1,0 +1,114 @@
+import questionLanguage from "../question-language.en.json";
+import taskRegistry from "../task-registry.library.json";
+import variableRanges from "../variable-ranges.library.json";
+import constraintProfiles from "../constraint-profiles.library.json";
+import explanationLibrary from "../explanation.en.json";
+import type {
+  Pnc001Difficulty,
+  Pnc001QuestionEntry,
+  Pnc001QuestionLanguageEntry,
+  Pnc001RegistryGroup,
+  Pnc001SolveMode,
+} from "./types";
+
+type ExplanationStrategy = {
+  solveMode: Pnc001SolveMode;
+  concept: string;
+  lines: string[];
+};
+
+type VariableRanges = {
+  packageId: "PNC-001";
+  answerCeiling: number;
+  ranges: Record<Pnc001Difficulty, {
+    twoStage: number[];
+    threeStage: number[];
+    invalid: number[];
+    recovered: number[];
+  }>;
+  generation: {
+    maxAttempts: number;
+    minimumAnswer: number;
+    preferDistinctStageCounts: boolean;
+  };
+};
+
+const qlEntries = (questionLanguage.entries as Pnc001QuestionLanguageEntry[]);
+const registryGroups = (taskRegistry.groups as Pnc001RegistryGroup[]);
+const qlById = new Map(qlEntries.map((entry) => [entry.qlId, entry]));
+
+const expandedEntries: Pnc001QuestionEntry[] = registryGroups.flatMap((group) =>
+  group.qlIds.map((qlId) => {
+    const languageEntry = qlById.get(qlId);
+    if (!languageEntry) throw new Error(`PNC-001 registry references missing English QL ${qlId}`);
+    if (languageEntry.cpId !== group.cpId) throw new Error(`PNC-001 CP mismatch for ${qlId}`);
+    if (languageEntry.difficulty !== group.difficulty) throw new Error(`PNC-001 difficulty mismatch for ${qlId}`);
+    return {
+      ...languageEntry,
+      taskKind: group.taskKind,
+      solveMode: group.solveMode,
+      answerType: group.answerType,
+      explanationId: group.explanationId,
+      requiredVariables: [...group.requiredVariables],
+      scenarioFamily: group.scenarioFamily,
+      constraintProfile: group.constraintProfile,
+      distractorProfile: group.distractorProfile,
+      active: group.active,
+    };
+  }),
+);
+
+const entryIds = expandedEntries.map((entry) => entry.qlId);
+if (new Set(entryIds).size !== entryIds.length) throw new Error("Duplicate PNC-001 QL ids in task registry");
+if (entryIds.length !== qlEntries.length) throw new Error(`PNC-001 registry/language count mismatch: ${entryIds.length}/${qlEntries.length}`);
+for (const ql of qlEntries) if (!entryIds.includes(ql.qlId)) throw new Error(`PNC-001 English QL missing from registry: ${ql.qlId}`);
+
+const entries = expandedEntries.filter((entry) => entry.active).sort((left, right) => left.qlId.localeCompare(right.qlId));
+const entryById = new Map(entries.map((entry) => [entry.qlId, entry]));
+const strategies = explanationLibrary.strategies as Record<string, ExplanationStrategy>;
+
+export function getPnc001QuestionEntries(): Pnc001QuestionEntry[] {
+  return entries.map((entry) => ({ ...entry, requiredVariables: [...entry.requiredVariables] }));
+}
+
+export function getPnc001QuestionEntry(qlId: string): Pnc001QuestionEntry {
+  const entry = entryById.get(qlId);
+  if (!entry) throw new Error(`Unknown active PNC-001 QL: ${qlId}`);
+  return { ...entry, requiredVariables: [...entry.requiredVariables] };
+}
+
+export function getPnc001QuestionLanguageIds(): string[] {
+  return entries.map((entry) => entry.qlId);
+}
+
+export function getPnc001QlIdsForSolveMode(mode: Pnc001SolveMode): string[] {
+  return entries.filter((entry) => entry.solveMode === mode).map((entry) => entry.qlId);
+}
+
+export function getPnc001ExplanationStrategy(explanationId: string): ExplanationStrategy {
+  const strategy = strategies[explanationId];
+  if (!strategy) throw new Error(`Unknown PNC-001 explanation strategy: ${explanationId}`);
+  return { ...strategy, lines: [...strategy.lines] };
+}
+
+export function getPnc001VariableRanges(): VariableRanges {
+  return variableRanges as VariableRanges;
+}
+
+export function getPnc001ConstraintProfile(profileId: string): Record<string, unknown> {
+  const profiles = constraintProfiles.profiles as Record<string, Record<string, unknown>>;
+  const profile = profiles[profileId];
+  if (!profile) throw new Error(`Unknown PNC-001 constraint profile: ${profileId}`);
+  return { ...profile };
+}
+
+export function renderPnc001Template(template: string, variables: Record<string, string | number>): string {
+  const unresolved: string[] = [];
+  const rendered = template.replace(/\{([A-Za-z0-9_]+)\}/g, (_, key: string) => {
+    if (Object.prototype.hasOwnProperty.call(variables, key)) return String(variables[key]);
+    unresolved.push(key);
+    return `{${key}}`;
+  });
+  if (unresolved.length > 0) throw new Error(`Unresolved PNC-001 placeholders: ${unresolved.join(", ")}`);
+  return rendered;
+}
