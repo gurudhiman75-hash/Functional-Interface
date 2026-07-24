@@ -1,0 +1,48 @@
+import type { LocalizedAnalogyFact } from "../../../localization/types";
+
+function fact(id: string, canonicalFactId: string, relation: string, left: string, right: string, predicate: string): LocalizedAnalogyFact {
+  return { id, canonicalFactId, relation, locale: "pa-IN", left, right, predicate, mode: "LANGUAGE_SPECIFIC", version: "1.0.0", status: "CURATED", reviewedByNativeSpeaker: false };
+}
+
+export const ANA_CP002_PA_REMAINING_FACTS: readonly LocalizedAnalogyFact[] = [
+  fact("ANA-PA-LF-IU-001","ANA-LF-025","LEX_INTENSITY_UP","ਗੁੰਮਗਰਮ","ਗਰਮ","ਗਰਮ, ਗੁੰਮਗਰਮ ਨਾਲੋਂ ਵੱਧ ਤੀਬਰ ਅਵਸਥਾ ਹੈ।"),
+  fact("ANA-PA-LF-IU-002","ANA-LF-026","LEX_INTENSITY_UP","ਠੰਢਾ","ਬਰਫੀਲਾ","ਬਰਫੀਲਾ, ਠੰਢੇ ਨਾਲੋਂ ਵੱਧ ਤੀਬਰ ਅਵਸਥਾ ਹੈ।"),
+  fact("ANA-PA-LF-IU-003","ANA-LF-027","LEX_INTENSITY_UP","ਨਾਪਸੰਦ","ਨਫ਼ਰਤ","ਨਫ਼ਰਤ, ਨਾਪਸੰਦ ਨਾਲੋਂ ਵੱਧ ਤੀਬਰ ਭਾਵਨਾ ਹੈ।"),
+  fact("ANA-PA-LF-IU-004","ANA-LF-028","LEX_INTENSITY_UP","ਪਸੰਦ","ਪਿਆਰ","ਪਿਆਰ, ਪਸੰਦ ਨਾਲੋਂ ਵੱਧ ਤੀਬਰ ਭਾਵਨਾ ਹੈ।"),
+  fact("ANA-PA-LF-ID-001","ANA-LF-037","LEX_INTENSITY_DOWN","ਉਬਲਦਾ","ਗਰਮ","ਗਰਮ, ਉਬਲਦੇ ਨਾਲੋਂ ਘੱਟ ਤੀਬਰ ਅਵਸਥਾ ਹੈ।"),
+  fact("ANA-PA-LF-ID-002","ANA-LF-038","LEX_INTENSITY_DOWN","ਜਮਿਆ ਹੋਇਆ","ਠੰਢਾ","ਠੰਢਾ, ਜਮੇ ਹੋਏ ਨਾਲੋਂ ਘੱਟ ਤੀਬਰ ਅਵਸਥਾ ਹੈ।"),
+  fact("ANA-PA-LF-ID-003","ANA-LF-039","LEX_INTENSITY_DOWN","ਕ੍ਰੋਧਿਤ","ਨਾਰਾਜ਼","ਨਾਰਾਜ਼, ਕ੍ਰੋਧਿਤ ਨਾਲੋਂ ਘੱਟ ਤੀਬਰ ਭਾਵਨਾ ਹੈ।"),
+  fact("ANA-PA-LF-ID-004","ANA-LF-040","LEX_INTENSITY_DOWN","ਦਹਿਸ਼ਤਜ਼ਦਾ","ਡਰਿਆ","ਡਰਿਆ, ਦਹਿਸ਼ਤਜ਼ਦਾ ਨਾਲੋਂ ਘੱਟ ਤੀਬਰ ਭਾਵਨਾ ਹੈ।"),
+  fact("ANA-PA-LF-CE-001","ANA-LF-049","LEX_CAUSE_EFFECT","ਸੁੱਖਾ","ਫਸਲ ਨਾਸ਼","ਸੁੱਖਾ ਫਸਲ ਨਾਸ਼ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-CE-002","ANA-LF-050","LEX_CAUSE_EFFECT","ਭਾਰੀ ਮੀਂਹ","ਹੜ੍ਹ","ਭਾਰੀ ਮੀਂਹ ਹੜ੍ਹ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-CE-003","ANA-LF-051","LEX_CAUSE_EFFECT","ਕਸਰਤ","ਤੰਦਰੁਸਤੀ","ਕਸਰਤ ਤੰਦਰੁਸਤੀ ਵਧਾਉਂਦੀ ਹੈ।"),
+  fact("ANA-PA-LF-CE-004","ANA-LF-052","LEX_CAUSE_EFFECT","ਪ੍ਰਦੂਸ਼ਣ","ਬਿਮਾਰੀ","ਪ੍ਰਦੂਸ਼ਣ ਬਿਮਾਰੀ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-EC-001","ANA-LF-061","LEX_EFFECT_CAUSE","ਹੜ੍ਹ","ਭਾਰੀ ਮੀਂਹ","ਭਾਰੀ ਮੀਂਹ ਹੜ੍ਹ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-EC-002","ANA-LF-062","LEX_EFFECT_CAUSE","ਥਕਾਵਟ","ਨੀਂਦ ਦੀ ਘਾਟ","ਨੀਂਦ ਦੀ ਘਾਟ ਥਕਾਵਟ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦੀ ਹੈ।"),
+  fact("ANA-PA-LF-EC-003","ANA-LF-063","LEX_EFFECT_CAUSE","ਜ਼ੰਗ","ਆਕਸੀਕਰਨ","ਆਕਸੀਕਰਨ ਜ਼ੰਗ ਦਾ ਕਾਰਨ ਬਣਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-EC-004","ANA-LF-064","LEX_EFFECT_CAUSE","ਬੇਰੁਜ਼ਗਾਰੀ","ਆਰਥਿਕ ਮੰਦੀ","ਆਰਥਿਕ ਮੰਦੀ ਬੇਰੁਜ਼ਗਾਰੀ ਦਾ ਕਾਰਨ ਬਣ ਸਕਦੀ ਹੈ।"),
+  fact("ANA-PA-LF-CS-001","ANA-LF-073","LEX_CONDITION_SYMPTOM","ਬੁਖਾਰ","ਉੱਚ ਤਾਪਮਾਨ","ਉੱਚ ਤਾਪਮਾਨ ਬੁਖਾਰ ਦਾ ਮੁੱਖ ਲੱਛਣ ਹੈ।"),
+  fact("ANA-PA-LF-CS-002","ANA-LF-074","LEX_CONDITION_SYMPTOM","ਖੂਨ ਦੀ ਕਮੀ","ਥਕਾਵਟ","ਥਕਾਵਟ ਖੂਨ ਦੀ ਕਮੀ ਦਾ ਆਮ ਲੱਛਣ ਹੈ।"),
+  fact("ANA-PA-LF-CS-003","ANA-LF-075","LEX_CONDITION_SYMPTOM","ਪਾਣੀ ਦੀ ਘਾਟ","ਪਿਆਸ","ਵੱਧ ਪਿਆਸ ਪਾਣੀ ਦੀ ਘਾਟ ਦਾ ਲੱਛਣ ਹੈ।"),
+  fact("ANA-PA-LF-CS-004","ANA-LF-076","LEX_CONDITION_SYMPTOM","ਜ਼ੁਕਾਮ","ਨੱਕ ਵਗਣਾ","ਨੱਕ ਵਗਣਾ ਜ਼ੁਕਾਮ ਦਾ ਆਮ ਲੱਛਣ ਹੈ।"),
+  fact("ANA-PA-LF-AR-001","ANA-LF-085","LEX_ACTION_RESULT","ਅਧਿਐਨ","ਗਿਆਨ","ਅਧਿਐਨ ਨਾਲ ਗਿਆਨ ਪ੍ਰਾਪਤ ਹੁੰਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-AR-002","ANA-LF-086","LEX_ACTION_RESULT","ਅਭਿਆਸ","ਸੁਧਾਰ","ਅਭਿਆਸ ਨਾਲ ਸੁਧਾਰ ਹੁੰਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-AR-003","ANA-LF-087","LEX_ACTION_RESULT","ਬਚਤ","ਸੰਚੈ","ਬਚਤ ਨਾਲ ਸੰਚੈ ਹੁੰਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-AR-004","ANA-LF-088","LEX_ACTION_RESULT","ਨਿਵੇਸ਼","ਮੁਨਾਫ਼ਾ","ਨਿਵੇਸ਼ ਤੋਂ ਮੁਨਾਫ਼ਾ ਮਿਲ ਸਕਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-OC-001","ANA-LF-097","LEX_OBJECT_CHARACTERISTIC","ਬਰਫ਼","ਠੰਢੀ","ਠੰਢਕ ਬਰਫ਼ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ।"),
+  fact("ANA-PA-LF-OC-002","ANA-LF-098","LEX_OBJECT_CHARACTERISTIC","ਅੱਗ","ਗਰਮ","ਗਰਮੀ ਅੱਗ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ।"),
+  fact("ANA-PA-LF-OC-003","ANA-LF-099","LEX_OBJECT_CHARACTERISTIC","ਚੀਨੀ","ਮਿੱਠੀ","ਮਿਠਾਸ ਚੀਨੀ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ।"),
+  fact("ANA-PA-LF-OC-004","ANA-LF-100","LEX_OBJECT_CHARACTERISTIC","ਨਿੰਬੂ","ਖੱਟਾ","ਖਟਾਸ ਨਿੰਬੂ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ।"),
+  fact("ANA-PA-LF-WD-001","ANA-LF-109","LEX_WORD_DEFINITION","ਦੋਭਾਸ਼ੀ","ਦੋ ਭਾਸ਼ਾਵਾਂ ਬੋਲਣ ਵਾਲਾ","ਦੋਭਾਸ਼ੀ ਦਾ ਅਰਥ ਦੋ ਭਾਸ਼ਾਵਾਂ ਬੋਲਣ ਵਾਲਾ ਹੈ।"),
+  fact("ANA-PA-LF-WD-002","ANA-LF-110","LEX_WORD_DEFINITION","ਰਾਤਰੀਚਰ","ਰਾਤ ਨੂੰ ਸਰਗਰਮ","ਰਾਤਰੀਚਰ ਦਾ ਅਰਥ ਰਾਤ ਨੂੰ ਸਰਗਰਮ ਰਹਿਣ ਵਾਲਾ ਹੈ।"),
+  fact("ANA-PA-LF-WD-003","ANA-LF-111","LEX_WORD_DEFINITION","ਜਲਚਰ","ਪਾਣੀ ਵਿੱਚ ਰਹਿਣ ਵਾਲਾ","ਜਲਚਰ ਦਾ ਅਰਥ ਪਾਣੀ ਵਿੱਚ ਰਹਿਣ ਵਾਲਾ ਹੈ।"),
+  fact("ANA-PA-LF-WD-004","ANA-LF-112","LEX_WORD_DEFINITION","ਸ਼ਾਕਾਹਾਰੀ","ਪੌਦੇ ਖਾਣ ਵਾਲਾ ਜੀਵ","ਸ਼ਾਕਾਹਾਰੀ ਉਹ ਜੀਵ ਹੈ ਜੋ ਪੌਦੇ ਖਾਂਦਾ ਹੈ।"),
+  fact("ANA-PA-LF-DQ-001","ANA-LF-121","LEX_DEFICIENCY_MISSING_QUALITY","ਅਨਪੜ੍ਹਤਾ","ਸਾਖਰਤਾ","ਅਨਪੜ੍ਹਤਾ ਸਾਖਰਤਾ ਦੀ ਘਾਟ ਹੈ।"),
+  fact("ANA-PA-LF-DQ-002","ANA-LF-122","LEX_DEFICIENCY_MISSING_QUALITY","ਅੰਨ੍ਹਾਪਣ","ਨਜ਼ਰ","ਅੰਨ੍ਹਾਪਣ ਨਜ਼ਰ ਦੀ ਘਾਟ ਹੈ।"),
+  fact("ANA-PA-LF-DQ-003","ANA-LF-123","LEX_DEFICIENCY_MISSING_QUALITY","ਬਹਿਰਾਪਣ","ਸੁਣਨ ਦੀ ਸਮਰੱਥਾ","ਬਹਿਰਾਪਣ ਸੁਣਨ ਦੀ ਸਮਰੱਥਾ ਦੀ ਘਾਟ ਹੈ।"),
+  fact("ANA-PA-LF-DQ-004","ANA-LF-124","LEX_DEFICIENCY_MISSING_QUALITY","ਗਰੀਬੀ","ਸਮ੍ਰਿੱਧੀ","ਗਰੀਬੀ ਸਮ੍ਰਿੱਧੀ ਦੀ ਘਾਟ ਹੈ।"),
+  fact("ANA-PA-LF-SS-001","ANA-LF-133","LEX_STUDY_SUBJECT","ਬੋਟਨੀ","ਪੌਦੇ","ਬੋਟਨੀ ਪੌਦਿਆਂ ਦਾ ਅਧਿਐਨ ਹੈ।"),
+  fact("ANA-PA-LF-SS-002","ANA-LF-134","LEX_STUDY_SUBJECT","ਜ਼ੂਆਲੋਜੀ","ਜਾਨਵਰ","ਜ਼ੂਆਲੋਜੀ ਜਾਨਵਰਾਂ ਦਾ ਅਧਿਐਨ ਹੈ।"),
+  fact("ANA-PA-LF-SS-003","ANA-LF-135","LEX_STUDY_SUBJECT","ਭੂਵਿਗਿਆਨ","ਧਰਤੀ","ਭੂਵਿਗਿਆਨ ਧਰਤੀ ਦਾ ਅਧਿਐਨ ਹੈ।"),
+  fact("ANA-PA-LF-SS-004","ANA-LF-136","LEX_STUDY_SUBJECT","ਖਗੋਲ ਵਿਗਿਆਨ","ਖਗੋਲੀ ਪਿੰਡ","ਖਗੋਲ ਵਿਗਿਆਨ ਖਗੋਲੀ ਪਿੰਡਾਂ ਦਾ ਅਧਿਐਨ ਹੈ।"),
+];
