@@ -2,85 +2,68 @@
 
 The six CP ownership boundaries in PNC-001 are fixed by the family roadmap. QLs, solve modes and checkpoint sizes inside them remain need-based.
 
-## Completed checkpoint 1 — CP-001 counting foundations
+## Completed checkpoints
 
-The initial 48 English QLs covered counting principles, case partition, simple complement and exact missing-factor recovery.
+1. CP-001 counting foundations: 48 QLs.
+2. CP-001 factorial foundation extension: QL-049 through QL-058.
+3. CP-002 distinct permutations: QL-059 through QL-066.
+4. CP-003 basic combinations: QL-067 through QL-074.
+5. CP-005 repeated-object/multiset foundation: QL-075 through QL-082.
+6. CP-004 digit, number and code formation: QL-083 through QL-094.
+7. CP-006 selection then arrangement/roles: QL-095 through QL-104.
+8. Package-wide saturation repair: CP-005 dictionary rank through QL-105 and QL-106.
+9. Full 106-QL editorial, duplicate, ownership and runtime stress review.
 
-## Completed checkpoint 2 — CP-001 factorial foundation extension
+## Dictionary-rank repair
 
-A reference-led review admitted ten factorial QLs, `PNC-QL-049` through `PNC-QL-058`, and the five runtime contracts they required.
+Reference evidence justified one additional CP-005 contract:
 
-## Completed checkpoint 3 — CP-002 distinct permutations
+- `findDictionaryRankOfWord`.
 
-Eight QLs, `PNC-QL-059` through `PNC-QL-066`, introduced all-object arrangements, partial `nPr` and bounded inverse parameters.
+Two QLs were sufficient:
 
-## Completed checkpoint 4 — CP-003 basic combinations
+- `PNC-QL-105`: distinct-letter dictionary rank;
+- `PNC-QL-106`: repeated-letter dictionary rank with multiset correction.
 
-Eight QLs, `PNC-QL-067` through `PNC-QL-074`, introduced direct unordered selection, bounded inverse combinations and complementary-index symmetry.
+The production solver counts preceding lexicographic blocks. A recursive enumerator independently lists all distinct words in order and verifies the rank.
 
-## Completed checkpoint 5 — CP-005 repeated-object/multiset portion
+## Current reviewed checkpoint
 
-Eight QLs, `PNC-QL-075` through `PNC-QL-082`, implemented direct multiset arrangements, fixed-position multiplicity reduction, overcount factors and bounded multiplicity recovery.
+- six active CPs;
+- 106 English QLs;
+- 35 active solve modes;
+- 106 QL-specific natural explanations;
+- 39 Easy / 45 Medium / 22 Hard;
+- 1,272 runtime proof cases;
+- 5,300 package stress cases;
+- 1,060 repeatability checks;
+- 106 completed human-review rows;
+- review verdict: `ELIGIBLE FOR ENGLISH FREEZE REVIEW`.
 
-This work belongs to `PNC-CP-005 — Word, Letter & Multiset Arrangements`. CP-005 remains open to additional need-based word/letter directions.
+These values describe the current checkpoint and are not future quotas.
 
-## Completed checkpoint 6 — CP-004 digit, number and code formation
+## Completed audit decisions
 
-Twelve QLs, `PNC-QL-083` through `PNC-QL-094`, implemented:
+- twelve semantic-similarity pairs: reviewed and accepted for material distinctions;
+- twenty-two fixed-state QLs: reviewed and accepted as intentionally fixed;
+- fourteen QLs: traceably repaired for stem or explanation quality;
+- CP-005 partial-letter selection: deferred pending evidence of a distinct contract;
+- Hindi/Punjabi authoring: deferred until English freeze;
+- publication and production integration: not approved.
 
-- leading-zero semantics;
-- repetition allowed/forbidden;
-- number versus code distinction;
-- parity and divisibility-by-5 final-digit cases;
-- controlled prefix thresholds;
-- alphanumeric stages;
-- inverse code alphabet size;
-- exactly-one-pair code patterns.
+## Next gate
 
-## Completed checkpoint 7 — CP-006 selection then arrangement/roles
+The next PNC-001 action is explicit product-owner English freeze approval. Until then:
 
-Ten QLs, `PNC-QL-095` through `PNC-QL-104`, implemented:
+- `publiclyPublishable` remains `false`;
+- generation-engine and Question Studio routing remain disabled;
+- no localization is authored;
+- no additional PNC-001 QL is admitted without a fresh material-gap review.
 
-- selecting a committee/team before one, two or three distinct appointments;
-- shortlisting finalists before ranked awards;
-- selecting a subset before arranging every selected item;
-- explicit `nCs × sPk` and `nCs × s! = nPs` evidence;
-- the role-assignment multiplier `sPk`;
-- bounded unique recovery of the pool size, selected-group size or role count.
-
-Four solve contracts were sufficient at semantic saturation:
-
-- `selectThenAssignDistinctRoles`;
-- `selectThenArrangeAllSelected`;
-- `findRoleAssignmentMultiplier`;
-- `recoverSelectionRoleParameter`.
-
-The current PNC-001 snapshot is 104 English QLs and 34 active solve modes. These are descriptive regression values, not targets.
-
-## Next package action — PNC-001 saturation and freeze-readiness audit
-
-All six PNC-001 ownership boundaries now have runtime coverage. Before beginning PNC-002, run a package-wide review across CP-001 through CP-006 for:
-
-- coverage saturation and important PYQ/reference gaps;
-- ownership overlap between CP-002, CP-003 and CP-006;
-- exact and near duplicates;
-- editorial realism and exam-style stems;
-- context concentration;
-- solver/verifier stability across representative and stress seeds;
-- placeholder and localization readiness;
-- CP-005 word/letter completeness;
-- integration and freeze readiness.
-
-The audit may justify targeted additions or corrections within an existing CP. It must not expand the corpus merely to meet a count.
-
-## After PNC-001 maturity review
-
-Only after the package-level review should PNC-002 implementation begin with:
+After this audit PR is accepted, PNC-002 may begin with:
 
 ```text
 PNC-CP-007 — Together, Apart & Block Restrictions
 ```
 
-## Merge rule
-
-Every checkpoint must preserve registry/language parity, deterministic generation, independent verification where practical and complete runtime support for every active QL. Generation-engine integration, publication and localization remain deferred until package-level maturity approval.
+CP-007 implementation must remain independent of PNC-001 publication status and follow the same need-based admission rule.
