@@ -1,5 +1,5 @@
 import { getPnc001QuestionEntries, getPnc001QuestionEntry, getPnc001VariableRanges } from "./library";
-import { createSeededRandom, factorialExact, hashSeed, permutationExact, pickSeeded, productExact } from "./math";
+import { combinationExact, createSeededRandom, factorialExact, hashSeed, permutationExact, pickSeeded, productExact } from "./math";
 import { PNC_001_ACTIVE_CP_IDS, PNC_001_PACKAGE_ID, type Pnc001ActiveCanonicalProblemId, type Pnc001Difficulty, type Pnc001ParameterInput, type Pnc001Parameters, type Pnc001QuestionEntry } from "./types";
 
 function pickValues(pool: readonly number[], count: number, random: () => number, preferDistinct: boolean): number[] {
@@ -21,6 +21,10 @@ function selectEntry(input: Pnc001ParameterInput, seed: string, cpId: Pnc001Acti
   return pickSeeded(eligible, createSeededRandom(`${seed}:ql`));
 }
 function validPermutationR(pool: readonly number[], n: number): number[] { return pool.filter((r) => r >= 2 && r <= n); }
+function validCombinationR(pool: readonly number[], n: number, lowerHalfOnly = false): number[] {
+  const ceiling = lowerHalfOnly ? Math.floor(n / 2) : n;
+  return pool.filter((r) => r >= 1 && r <= ceiling);
+}
 function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, number> {
   const ranges = getPnc001VariableRanges(); const pool = ranges.ranges[entry.difficulty];
   const random = createSeededRandom(`${seed}:${entry.qlId}:values`); const distinct = ranges.generation.preferDistinctStageCounts;
@@ -53,6 +57,27 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
     case "recoverPermutationParameter": {
       if(entry.scenarioFamily==="recoverTotalObjects"){const r=pickSeeded(validPermutationR(pool.permutationR,6),random);const n=pickSeeded(pool.permutationN.filter(v=>v>=r),random);return{solutionN:n,selectedObjects:r,target:permutationExact(n,r,ranges.answerCeiling)};}
       const n=pickSeeded(pool.permutationN,random);const r=pickSeeded(validPermutationR(pool.permutationR,n),random);return{totalObjects:n,solutionR:r,target:permutationExact(n,r,ranges.answerCeiling)};
+    }
+    case "selectRFromNDistinctObjects": {
+      const n = pickSeeded(pool.combinationN, random);
+      const fixedR = entry.scenarioFamily === "unorderedPairs" ? 2 : entry.scenarioFamily === "unorderedTriples" ? 3 : undefined;
+      const r = fixedR ?? pickSeeded(validCombinationR(pool.combinationR, n), random);
+      return { totalObjects: n, selectedObjects: r };
+    }
+    case "recoverCombinationParameter": {
+      if (entry.scenarioFamily === "recoverCombinationTotal") {
+        const r = pickSeeded(validCombinationR(pool.combinationR, 8), random);
+        const n = pickSeeded(pool.combinationN.filter((value) => value >= r + 1), random);
+        return { solutionN: n, selectedObjects: r, target: combinationExact(n, r, ranges.answerCeiling) };
+      }
+      const n = pickSeeded(pool.combinationN, random);
+      const r = pickSeeded(validCombinationR(pool.combinationR, n, true), random);
+      return { totalObjects: n, solutionR: r, halfObjects: Math.floor(n / 2), target: combinationExact(n, r, ranges.answerCeiling) };
+    }
+    case "recoverComplementaryCombinationIndex": {
+      const n = pickSeeded(pool.combinationN.filter((value) => value >= 5), random);
+      const knownR = pickSeeded(validCombinationR(pool.combinationR, n, true).filter((value) => value < n / 2), random);
+      return { totalObjects: n, knownSelection: knownR, solutionR: n - knownR, halfObjects: Math.floor(n / 2) };
     }
     default: { const exhaustive: never = entry.solveMode; throw new Error(`Unsupported PNC-001 solve mode: ${exhaustive}`); }
   }
