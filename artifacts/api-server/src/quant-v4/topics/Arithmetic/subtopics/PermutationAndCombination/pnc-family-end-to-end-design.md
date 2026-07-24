@@ -1,561 +1,299 @@
-# Permutation & Combination — End-to-End Quant V4 Design
+# Permutation & Combination — Need-Based End-to-End Quant V4 Design
 
-> **Status:** Frozen implementation blueprint.
+> **Status:** Architecture and governance blueprint.
 > **Family:** `PermutationAndCombination`
-> **Packages:** `PNC-001`, `PNC-002`
 > **Topic path:** `Arithmetic → Permutation & Combination`
 > **Target exams:** SSC, Banking, Railways, Punjab State and comparable aptitude examinations.
 > **Design date:** 2026-07-24
-> **Implementation rule:** Do not begin package expansion until this document is committed. Any later scope change must be recorded in a dated design-amendment section rather than silently changing CP ownership.
+> **Design amendment:** 2026-07-24 — removed fixed family QL totals, fixed CP totals, predetermined package boundaries and advance solve-mode inventories. Coverage now grows only from demonstrated exam/content/runtime need.
 
 ---
 
-## 1. Executive Summary
+## 1. Core Principle
 
-This document defines the complete Permutation & Combination family for ExamTree Quant V4. It follows the mature package conventions already used by Percentage, Ratio & Proportion and Average:
+The P&C design freezes **how the chapter is built and judged**, not how many artifacts it must contain.
 
-- canonical-problem-first chapter design;
-- human-owned question and explanation libraries;
-- typed task registry and solve modes;
-- deterministic parameter generation;
-- one authoritative solver;
-- reasoning evidence consumed by customized explanations;
-- chapter-specific validators;
-- coverage, duplicate, placeholder, runtime and maturity audits;
-- English-first implementation followed by controlled Hindi/Punjabi localization;
-- checkpointed feature branches and freeze records.
+The following are deliberately **not fixed in advance**:
 
-The family is intentionally split into only two packages. This avoids ten shallow folders while keeping foundational and advanced counting logic independently testable.
+- total number of QLs;
+- QLs per canonical problem;
+- final number of canonical problems;
+- final number of packages;
+- solve-mode count;
+- difficulty percentages;
+- explanation-strategy count;
+- implementation checkpoint count.
 
-| Package | Title | CPs | English QLs | Primary role |
-|---|---|---:|---:|---|
-| `PNC-001` | Counting Foundations, Basic Permutations & Basic Combinations | `PNC-CP-001`–`006` | 360 | Core counting authority and unrestricted forms |
-| `PNC-002` | Restricted Arrangements, Grouping & Advanced Selection | `PNC-CP-007`–`012` | 360 | Constraint casework, circular counting, grouping and mixed systems |
-| **Family total** |  | **12** | **720** | Complete exam-oriented P&C coverage |
+A new QL, solve mode, CP or package is added only when a reviewed coverage matrix shows a real gap that cannot be represented cleanly by an existing artifact.
 
-Probability is not part of this family. Probability may consume P&C counting utilities later, but it must not own or duplicate factorial, permutation, combination, multiset, circular or grouping logic.
+Current counts are snapshots of implemented content. They are not quotas, ceilings or promises of a final corpus size.
 
 ---
 
-## 2. Family Placement and Naming
+## 2. What “End to End” Means
 
-### 2.1 Repository path
+End-to-end design means that every admitted question family has a complete path through:
 
 ```text
-artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/
-├── pnc-family-end-to-end-design.md
-├── PNC-001/
-└── PNC-002/
+exam/content need
+    ↓
+canonical-problem ownership decision
+    ↓
+QL admission and human-authored stem
+    ↓
+typed task-registry contract
+    ↓
+deterministic parameter generation
+    ↓
+authoritative exact solver
+    ↓
+independent verification where practical
+    ↓
+reasoning evidence
+    ↓
+customized explanation
+    ↓
+semantic distractors
+    ↓
+package validation and audits
+    ↓
+manual review and maturity decision
 ```
 
-The runtime topic remains `Arithmetic` for consistency with the current Quant V4 generation engine and admin taxonomy. The product-facing subtopic label is `Permutation & Combination`.
-
-### 2.2 ID conventions
-
-- Package IDs: `PNC-001`, `PNC-002`
-- Canonical problem IDs: `PNC-CP-001` through `PNC-CP-012`
-- Question-language IDs: `PNC-QL-001` through `PNC-QL-720`
-- Explanation-family IDs: `PNC-EXP-001` onward
-- Question IDs: generated per runtime instance; never hard-coded into human libraries
-
-IDs are continuous across the family. `PNC-002` must not restart CP or QL numbering.
+It does not mean predicting every future question, solve mode or package before implementation evidence exists.
 
 ---
 
-## 3. Scope Boundary
+## 3. Stable Family Scope
 
-### 3.1 Included
-
-The P&C family includes:
+The stable conceptual scope includes exam-relevant counting problems involving:
 
 - addition and multiplication counting principles;
-- mutually exclusive case partitioning and complementary counting;
-- factorials, `nPr`, `nCr` and their exact integer identities;
-- unrestricted linear arrangements;
-- basic and conditional selections;
-- fixed-position and role-assignment problems;
-- digit/number formation with repetition, leading-zero, parity, divisibility and threshold constraints;
-- word arrangements with distinct and repeated letters;
-- word rank for small manually validated profiles;
-- together/apart/block restrictions;
-- fixed position, relative order, alternation and gap methods;
-- circular-table arrangements;
-- limited necklace/garland reflection equivalence as a hard tagged sub-family;
-- committee and team constraints;
-- handshake, lines, triangles and diagonals as direct `nCr` applications;
-- grouping people or objects into labeled/unlabeled groups;
-- distribution of distinct or identical objects under small exam-safe constraints;
-- grid/path counting where it is a pure counting problem;
-- small derangement problems using explicit inclusion–exclusion;
-- mixed selection-then-arrangement casework.
+- disjoint case partition and complementary counting;
+- factorials, permutations and combinations;
+- ordered and unordered selection;
+- linear and circular arrangements;
+- digit, number, code and password formation;
+- word and repeated-object arrangements;
+- positional, adjacency, gap, alternation and relative-order constraints;
+- conditional committee/team selection;
+- grouping and distribution;
+- small bounded inclusion–exclusion, derangement and path-counting patterns when supported by target exams;
+- mixed selection-then-arrangement systems.
 
-### 3.2 Excluded
+Probability remains separate. It may consume shared P&C counting utilities later, but it must not duplicate their mathematical authority.
 
-These do not belong in PNC-001 or PNC-002:
+### Excluded by default
 
-- probability, conditional probability, Bayes theorem or expected value;
-- binomial expansion as an algebra chapter;
+- advanced olympiad combinatorics without target-exam evidence;
 - generating functions;
-- Stirling numbers, Bell numbers or unrestricted set-partition theory;
-- graph-theory counting beyond direct lines/triangles/diagonals;
-- recurrence-heavy olympiad combinatorics;
-- pigeonhole principle as a standalone chapter;
-- combinations with repetition when it becomes an unbounded algebraic partition problem outside exam scope;
 - unrestricted integer partitions;
-- advanced inclusion–exclusion with many intersecting sets.
+- Bell/Stirling-number theory as standalone content;
+- recurrence-heavy combinatorics;
+- advanced graph enumeration;
+- broad inclusion–exclusion systems with many uncontrolled intersections.
 
-### 3.3 Deferred/low-weight material
-
-The following may exist only in tagged Hard QLs and must not dominate the package:
-
-- necklace/garland reflection equivalence;
-- dictionary rank with repeated letters;
-- derangements;
-- restricted grid paths;
-- identical-object distribution with positivity constraints.
+An excluded family may be reconsidered only through a documented coverage-gap decision.
 
 ---
 
-## 4. Package Map and Exact QL Allocation
+## 4. Need-Based Taxonomy
 
-### 4.1 `PNC-001` — Counting Foundations, Basic Permutations & Basic Combinations
+### 4.1 Active canonical problems
 
-| CP | Name | QL range | Count |
-|---|---|---:|---:|
-| `PNC-CP-001` | Fundamental Counting Principle & Case Partition | `PNC-QL-001`–`048` | 48 |
-| `PNC-CP-002` | Distinct Linear Permutations & Positional Assignments | `PNC-QL-049`–`102` | 54 |
-| `PNC-CP-003` | Basic Combinations & Direct Selection Applications | `PNC-QL-103`–`156` | 54 |
-| `PNC-CP-004` | Digit, Number, Code & Password Formation | `PNC-QL-157`–`234` | 78 |
-| `PNC-CP-005` | Word, Letter & Multiset Arrangements | `PNC-QL-235`–`300` | 66 |
-| `PNC-CP-006` | Selection-Then-Arrangement & Role Assignment | `PNC-QL-301`–`360` | 60 |
-| **Total** |  |  | **360** |
+Only implemented or actively approved CPs receive stable IDs.
 
-Target difficulty distribution:
+Current active CP:
 
-| CP | Easy | Medium | Hard | Total |
-|---|---:|---:|---:|---:|
-| CP-001 | 22 | 18 | 8 | 48 |
-| CP-002 | 19 | 19 | 16 | 54 |
-| CP-003 | 18 | 20 | 16 | 54 |
-| CP-004 | 25 | 28 | 25 | 78 |
-| CP-005 | 18 | 22 | 26 | 66 |
-| CP-006 | 14 | 15 | 31 | 60 |
-| **Total** | **116** | **122** | **122** | **360** |
+| CP ID | Name | Current implemented QLs | Status |
+|---|---|---:|---|
+| `PNC-CP-001` | Fundamental Counting Principle & Case Partition | 48 | Runtime proof |
 
-### 4.2 `PNC-002` — Restricted Arrangements, Grouping & Advanced Selection
+The count of 48 records the present checkpoint. It is not a final CP size. CP-001 may receive more QLs later if a genuine uncovered scenario, reasoning topology, difficulty band or language requirement is discovered.
 
-| CP | Name | QL range | Count |
-|---|---|---:|---:|
-| `PNC-CP-007` | Together, Apart & Block Restrictions | `PNC-QL-361`–`432` | 72 |
-| `PNC-CP-008` | Position, Relative Order, Alternation & Gap Constraints | `PNC-QL-433`–`504` | 72 |
-| `PNC-CP-009` | Conditional Selection from Categories | `PNC-QL-505`–`570` | 66 |
-| `PNC-CP-010` | Circular Arrangements & Rotational Symmetry | `PNC-QL-571`–`618` | 48 |
-| `PNC-CP-011` | Grouping & Distribution | `PNC-QL-619`–`666` | 48 |
-| `PNC-CP-012` | Mixed Advanced Counting Systems | `PNC-QL-667`–`720` | 54 |
-| **Total** |  |  | **360** |
+### 4.2 Candidate coverage families
 
-Target difficulty distribution:
+The following are a **coverage backlog**, not pre-created CPs and not a mandatory implementation order:
 
-| CP | Easy | Medium | Hard | Total |
-|---|---:|---:|---:|---:|
-| CP-007 | 16 | 30 | 26 | 72 |
-| CP-008 | 12 | 30 | 30 | 72 |
-| CP-009 | 16 | 28 | 22 | 66 |
-| CP-010 | 12 | 20 | 16 | 48 |
-| CP-011 | 10 | 18 | 20 | 48 |
-| CP-012 | 6 | 18 | 30 | 54 |
-| **Total** | **72** | **144** | **144** | **360** |
+- distinct linear permutations and ordered positions;
+- direct combinations and selection applications;
+- digit/number/code formation;
+- word and multiset arrangements;
+- selection followed by role assignment;
+- together/apart/block restrictions;
+- position, relative order, alternation and gap constraints;
+- category-constrained selection;
+- circular arrangements;
+- grouping and distribution;
+- mixed advanced counting systems.
 
-PNC-002 intentionally skews toward Medium/Hard because every CP contains at least one structural constraint.
+Before promoting a candidate family to a CP, the design review must establish:
 
----
+1. it appears materially in target exams or reference material;
+2. it has a coherent mathematical authority;
+3. it cannot be represented cleanly inside an existing CP;
+4. it needs independent parameter, solver, validator or explanation behavior;
+5. its addition improves coverage rather than merely increasing count.
 
-## 5. Canonical Problems
+### 4.3 Package creation
 
-## `PNC-CP-001 — Fundamental Counting Principle & Case Partition`
+`PNC-001` is the only committed package at present.
 
-**Mission:** Establish the counting model before formulas are introduced.
+A second package is created only when one or more of these conditions becomes true:
 
-Include:
+- the active package becomes operationally too large to review safely;
+- the new family requires a materially different runtime or validator architecture;
+- CP ownership becomes ambiguous inside one package;
+- separate maturity/freeze cycles are beneficial;
+- shared-file conflict risk is reduced by the split.
 
-- multiplication principle for sequential independent stages;
-- addition principle for mutually exclusive alternatives;
-- case partition where different first choices create different later counts;
-- complementary counting for one simple forbidden condition;
-- reverse tasks where total outcomes and all but one stage count are given;
-- route, outfit, menu, code, transport, subject-choice and task-allocation contexts.
-
-Core invariants:
-
-- multiply only when every outcome requires one choice from each stage;
-- add only across disjoint cases;
-- case totals must not overlap;
-- complementary count is `total − invalid`.
-
-## `PNC-CP-002 — Distinct Linear Permutations & Positional Assignments`
-
-Include:
-
-- arranging all `n` distinct objects: `n!`;
-- arranging `r` of `n` distinct objects: `nPr`;
-- filling ordered positions;
-- fixed named object in a position;
-- one or more pre-filled positions;
-- recovering small `n` or `r` from a permutation value;
-- shelf, queue, race-rank, seat, flag and ordered-code contexts.
-
-Exclude together/apart and alternation restrictions; those belong to PNC-002.
-
-## `PNC-CP-003 — Basic Combinations & Direct Selection Applications`
-
-Include:
-
-- choosing `r` from `n` where order does not matter;
-- `nCr = nC(n-r)` symmetry;
-- direct compulsory inclusion/exclusion with one named member;
-- handshake counts;
-- line segments from points;
-- triangles from non-collinear points;
-- diagonals of a polygon;
-- recovering small `n` from a combination value;
-- direct team/committee selection without category constraints.
-
-Conditional category counts belong to CP-009.
-
-## `PNC-CP-004 — Digit, Number, Code & Password Formation`
-
-Include:
-
-- fixed-length numbers with and without repetition;
-- leading-zero restrictions;
-- even/odd last-digit casework;
-- divisibility by 5, 4 or other small exam-safe rules;
-- numbers greater/less than a threshold with controlled first-digit cases;
-- repetition required, prohibited or exactly once;
-- codes/passwords where leading zero is allowed;
-- alphanumeric codes with separate letter/digit stages;
-- reverse tasks asking for available symbols or code length only when the answer is uniquely recoverable.
-
-Every task must state whether repetition is allowed. Number and code semantics must not be mixed: a code may start with zero; a fixed-length number may not.
-
-## `PNC-CP-005 — Word, Letter & Multiset Arrangements`
-
-Include:
-
-- distinct-letter arrangements;
-- repeated-letter multinomial arrangements;
-- fixed initial/final letter;
-- simple vowels-together or consonants-together forms;
-- selecting and arranging a subset of letters;
-- manually curated dictionary-rank tasks for small words;
-- words with one or two repeated-letter groups;
-- book/category analogues only when they are truly multiset arrangements.
-
-All word profiles must be human-curated with verified letter counts. The generator must never infer multiplicities from an uncontrolled natural-language word at runtime.
-
-## `PNC-CP-006 — Selection-Then-Arrangement & Role Assignment`
-
-Include:
-
-- choose a team, then choose captain/vice-captain;
-- choose a committee, then assign distinct offices;
-- select candidates for ordered prizes or ranks;
-- choose objects and place them into ordered slots;
-- allocate distinct roles across simple categories;
-- multi-stage codes that require selecting a symbol set before ordering it;
-- compare `nCr × r!` with `nPr` through actual scenarios.
-
-This CP is the bridge from PNC-001 to PNC-002. Restrictions involving together/apart, category minimums or circular seating remain in PNC-002.
-
-## `PNC-CP-007 — Together, Apart & Block Restrictions`
-
-Include:
-
-- two or more named entities together;
-- named entities never together via complement;
-- two disjoint blocks;
-- all members of a category together;
-- books of the same subject together;
-- internal order of each block;
-- exactly one adjacent named pair only when cases are disjoint and validator-backed.
-
-The explanation must explicitly count the external units and internal block orders.
-
-## `PNC-CP-008 — Position, Relative Order, Alternation & Gap Constraints`
-
-Include:
-
-- fixed end or middle positions;
-- named entities with a stated number between them;
-- relative order preserved among selected entities;
-- men/women or category alternation;
-- no two of a category adjacent using gaps;
-- end-position restrictions;
-- one category occupying odd/even positions;
-- small seat patterns with non-overlapping constraints.
-
-Do not use generic subtraction when a gap construction is the cleaner counting model.
-
-## `PNC-CP-009 — Conditional Selection from Categories`
-
-Include:
-
-- exactly `k` from a category;
-- at least/at most category counts;
-- one or more compulsory members;
-- named members who cannot serve together;
-- minimum representation from each category;
-- majority/minority composition;
-- case sums and simple complement methods;
-- committees/teams drawn from two or three small categories.
-
-Each case must be explicitly disjoint and the reasoning evidence must list every included case count.
-
-## `PNC-CP-010 — Circular Arrangements & Rotational Symmetry`
-
-Include:
-
-- ordinary round-table arrangements: `(n−1)!`;
-- fixing one reference person;
-- named persons together/not together around a circle;
-- alternation around a circle;
-- fixed relative neighbor constraints;
-- clockwise/anticlockwise positional statements;
-- low-weight necklace/garland reflection equivalence with an explicit `reflectionEquivalent` profile.
-
-Table seating and necklace/garland counting must use different solve modes. Reflection must never be divided by two unless the profile says mirror images are identical and no exceptional symmetry invalidates the shortcut.
-
-## `PNC-CP-011 — Grouping & Distribution`
-
-Include:
-
-- dividing distinct people into labeled groups;
-- dividing into equal unlabeled groups with identical-group correction;
-- forming pairs;
-- sequentially selecting disjoint subgroups;
-- distributing distinct objects to distinct recipients;
-- small surjective/nonempty distributions using inclusion–exclusion;
-- limited identical-object distributions using stars-and-bars where target-exam appropriate;
-- positive versus nonnegative allocation distinctions.
-
-The solver must preserve the difference between labeled and unlabeled groups.
-
-## `PNC-CP-012 — Mixed Advanced Counting Systems`
-
-Include:
-
-- selection followed by restricted arrangement;
-- multi-condition number formation;
-- multi-condition word arrangement;
-- committee with posts and category restrictions;
-- restricted grid/path counting;
-- small derangements through inclusion–exclusion;
-- hybrid complement plus case partition;
-- problems where two valid methods are compared and proven equivalent.
-
-Every QL in this CP must have a bounded case topology and a brute-force oracle for small generated parameters.
+Package names and boundaries must not be reserved merely to satisfy an earlier roadmap.
 
 ---
 
-## 6. Type System
+## 5. Need-Based QL Policy
 
-Each package has its own exported types but shares a family math module after PNC-001 is stable.
+### 5.1 QL admission rule
 
-### 6.1 Core types
+A QL is added only when it contributes at least one material distinction:
 
-```ts
-export type PncPackageId = "PNC-001" | "PNC-002";
-export type PncLanguage = "en" | "hi" | "pa";
-export type PncDifficultyBand = "Easy" | "Medium" | "Hard";
+- a new reasoning topology;
+- a new solve direction;
+- a new constraint combination;
+- a new answer demand;
+- a meaningful difficulty step;
+- an exam-relevant context family;
+- a distinct misconception/distractor opportunity;
+- a language or wording need not represented by an existing stem.
 
-export type PncAnswerType =
-  | "COUNT"
-  | "PERMUTATION_COUNT"
-  | "COMBINATION_COUNT"
-  | "NUMBER_FORMATION_COUNT"
-  | "WORD_ARRANGEMENT_COUNT"
-  | "CIRCULAR_COUNT"
-  | "GROUPING_COUNT"
-  | "UNKNOWN_PARAMETER"
-  | "RANK";
-```
+Noun replacement, cosmetic paraphrasing and shallow template multiplication are not valid reasons to add a QL.
 
-### 6.2 Task-registry entry
+### 5.2 No fixed terminal ID
 
-```ts
-export interface PncTaskRegistryEntry {
-  cpId: PncCanonicalProblemId;
-  taskKind: PncTaskKind;
-  solveMode: PncSolveMode;
-  answerType: PncAnswerType;
-  explanationId: string;
-  requiredVariables: string[];
-  scenarioFamily: string;
-  contextTag: string;
-  constraintProfile?: string;
-  distractorProfile: string;
-  difficulty: PncDifficultyBand;
-}
-```
-
-### 6.3 Solve modes
-
-#### CP-001
-
-- `countSequentialIndependentChoices`
-- `countMutuallyExclusiveAlternatives`
-- `countDisjointCasePartition`
-- `countUsingSimpleComplement`
-- `recoverMissingStageChoiceCount`
-
-#### CP-002
-
-- `arrangeAllDistinctObjects`
-- `arrangeRFromNDistinctObjects`
-- `fillOrderedPositions`
-- `arrangeWithFixedNamedPosition`
-- `recoverParameterFromPermutationCount`
-
-#### CP-003
-
-- `chooseRFromNDistinctObjects`
-- `chooseUsingCombinationSymmetry`
-- `chooseWithSingleCompulsoryMember`
-- `chooseWithSingleExcludedMember`
-- `countHandshakesOrPairs`
-- `countGeometricSelections`
-- `recoverParameterFromCombinationCount`
-
-#### CP-004
-
-- `formFixedLengthNumbersNoRepetition`
-- `formFixedLengthNumbersWithRepetition`
-- `formNumbersWithLeadingZeroRestriction`
-- `formEvenOrOddNumbers`
-- `formNumbersDivisibleBySmallBase`
-- `formNumbersAboveOrBelowThreshold`
-- `formCodesOrPasswords`
-- `formAlphanumericCodes`
-- `formWithExactRepetitionCondition`
-
-#### CP-005
-
-- `arrangeDistinctLetters`
-- `arrangeRepeatedLetters`
-- `arrangeWithFixedInitialOrFinalLetter`
-- `arrangeVowelsOrConsonantsTogetherBasic`
-- `selectAndArrangeLetters`
-- `findDictionaryRankDistinctLetters`
-- `findDictionaryRankRepeatedLetters`
-
-#### CP-006
-
-- `chooseCommitteeThenAssignPosts`
-- `chooseTeamThenCaptain`
-- `selectThenFillOrderedSlots`
-- `assignDistinctPrizesOrRanks`
-- `allocateRolesAcrossSimpleCategories`
-- `showPermutationCombinationEquivalence`
-
-#### CP-007
-
-- `arrangeNamedEntitiesTogether`
-- `arrangeNamedEntitiesNotTogether`
-- `arrangeMultipleBlocks`
-- `arrangeCategoryTogether`
-- `arrangeBooksGroupedBySubject`
-- `countExactlyOneAdjacentNamedPair`
-
-#### CP-008
-
-- `arrangeWithFixedEndOrMiddlePositions`
-- `arrangeWithSpecifiedEntitiesBetween`
-- `arrangePreservingRelativeOrder`
-- `arrangeAlternatingCategories`
-- `arrangeNoTwoCategoryMembersAdjacent`
-- `arrangeCategoryInOddOrEvenPositions`
-- `arrangeWithCombinedPositionConstraints`
-
-#### CP-009
-
-- `chooseExactCategoryComposition`
-- `chooseAtLeastCategoryCount`
-- `chooseAtMostCategoryCount`
-- `chooseWithCompulsoryNamedMembers`
-- `chooseWithMutuallyExclusiveNamedMembers`
-- `chooseWithMinimumRepresentation`
-- `chooseUsingComplementAcrossCategories`
-
-#### CP-010
-
-- `arrangeAroundRoundTable`
-- `arrangeTogetherAroundCircle`
-- `arrangeNotTogetherAroundCircle`
-- `arrangeAlternatingAroundCircle`
-- `arrangeWithCircularNeighborConstraint`
-- `arrangeNecklaceOrGarland`
-
-#### CP-011
-
-- `divideIntoLabeledGroups`
-- `divideIntoEqualUnlabeledGroups`
-- `formDisjointPairs`
-- `selectSequentialDisjointSubgroups`
-- `distributeDistinctObjectsToRecipients`
-- `distributeDistinctObjectsNonempty`
-- `distributeIdenticalObjectsNonnegative`
-- `distributeIdenticalObjectsPositive`
-
-#### CP-012
-
-- `selectThenArrangeWithRestrictions`
-- `mixedNumberFormationCasework`
-- `mixedWordArrangementCasework`
-- `committeeWithPostsAndRestrictions`
-- `countRestrictedGridPaths`
-- `countSmallDerangements`
-- `countUsingMultiConditionComplement`
-- `proveEquivalentCountingMethods`
-
----
-
-## 7. Package File Shape
-
-Each package follows the mature Quant V4 package pattern.
+QL IDs are monotonic and never reused, but there is no predetermined last ID.
 
 ```text
-PNC-00X/
+PNC-QL-001, PNC-QL-002, ...
+```
+
+The next ID is allocated when a QL is admitted. A later package, if created, continues the family sequence unless a documented migration decision changes the convention.
+
+### 5.3 Coverage saturation
+
+A CP is considered coverage-saturated only when review shows:
+
+- all identified reasoning topologies are represented;
+- solve directions are adequately covered;
+- difficulty is supported by real structural differences;
+- target-exam contexts are sufficiently diverse;
+- new proposed QLs mostly collapse into existing semantic fingerprints;
+- duplicate and near-clone risk rises faster than coverage gain;
+- runtime and explanation behavior are stable across representative seeds.
+
+Saturation is an audit conclusion, not a numeric threshold.
+
+### 5.4 Current checkpoint counts
+
+Checkpoint manifests and tests may record exact current counts to prevent accidental deletion or ID drift. Such counts are **descriptive snapshots**, not design targets for future expansion.
+
+---
+
+## 6. Need-Based Solve-Mode Policy
+
+### 6.1 Solve modes are discovered, not forecast
+
+A solve mode is introduced only when an admitted QL family requires a materially distinct solution contract.
+
+A new mode must differ in at least one of:
+
+- authoritative equation or counting construction;
+- required parameter structure;
+- intermediate evidence;
+- validation invariants;
+- independent verification method;
+- explanation flow;
+- distractor semantics.
+
+A different context or wording alone does not justify a new solve mode.
+
+### 6.2 Reuse versus split test
+
+Reuse an existing solve mode when:
+
+- the same values feed the same mathematical construction;
+- the same evidence structure supports the explanation;
+- the same validator invariants apply;
+- only entities, contexts or surface wording differ.
+
+Create a new solve mode when forcing reuse would require optional-field sprawl, hidden branches, misleading evidence, ambiguous validation or a solver switch based on context text.
+
+### 6.3 Current active solve modes
+
+The modes below exist because CP-001 currently needs them:
+
+- `countSequentialIndependentChoices`;
+- `countMutuallyExclusiveAlternatives`;
+- `countDisjointCasePartition`;
+- `countUsingSimpleComplement`;
+- `recoverMissingStageChoiceCount`.
+
+They are an implementation snapshot. No future permutation, combination, circular, grouping or distribution modes are predeclared. Those types are added when their first approved QLs are implemented.
+
+### 6.4 Solve-mode review checklist
+
+Every proposed mode must document:
+
+1. representative QLs;
+2. solver formula or construction;
+3. required variables;
+4. evidence payload;
+5. validator invariants;
+6. independent verification approach, or why one is impractical;
+7. explanation strategy;
+8. misconception/distractor profile;
+9. why an existing mode cannot own it cleanly.
+
+---
+
+## 7. Canonical-Problem Policy
+
+A CP is a mathematical/runtime ownership boundary, not a folder quota.
+
+Create a new CP only when a group of QLs shares:
+
+- one clear conceptual mission;
+- a coherent set of solver operations;
+- common validator invariants;
+- a recognizable exam family;
+- enough distinct coverage to warrant separate audits.
+
+Do not create a CP merely because a textbook has a heading for it. Conversely, split a CP when it accumulates unrelated authorities or branching that weakens traceability.
+
+CP IDs are allocated at approval time. Candidate families remain unnumbered until then.
+
+---
+
+## 8. Runtime Architecture
+
+Each active package follows the mature Quant V4 shape:
+
+```text
+PACKAGE/
 ├── archetype.md
 ├── canonical-problems.md
 ├── difficulty-framework.md
 ├── reasoning-patterns.md
 ├── implementation-plan.md
 ├── library-authority-map.md
+├── question-language.en.json
 ├── task-registry.library.json
 ├── variable-ranges.library.json
 ├── constraint-profiles.library.json
-├── word-profiles.library.json           # required when package owns word tasks
 ├── coverage-targets.library.json
 ├── distribution-targets.library.json
-├── question-language.en.json
-├── question-language.hi.json
-├── question-language.pa.json
 ├── explanation.en.json
-├── explanation.hi.json
-├── explanation.pa.json
 ├── index.ts
-├── types.ts                             # thin re-export
-├── math.ts                              # thin re-export or family re-export
-├── parameter-generator.ts              # thin re-export
-├── solver.ts                            # thin re-export
-├── reasoning-graph.ts                   # thin re-export
-├── explanation-renderer.ts              # thin re-export
-├── validator.ts                         # thin re-export
-├── pipeline.ts                          # thin re-export
-├── coverage-auditor.ts                  # thin re-export
-├── pnc-00x.test.ts
-├── pnc-00x-content-audit.ts
-├── pnc-00x-multilingual-audit.ts
+├── package.test.ts
 └── foundation/
     ├── types.ts
     ├── library.ts
@@ -564,559 +302,230 @@ PNC-00X/
     ├── solver.ts
     ├── reasoning-graph.ts
     ├── explanation-renderer.ts
+    ├── option-generator.ts
     ├── validator.ts
     ├── pipeline.ts
     └── coverage-auditor.ts
 ```
 
-A family-shared math module may be introduced after PNC-001 stabilizes:
-
-```text
-PermutationAndCombination/shared/
-├── exact-counting.ts
-├── brute-force-oracles.ts
-├── constraint-types.ts
-└── index.ts
-```
-
-PNC-002 may consume this module. It must not copy factorial or combination implementations.
+The filenames `coverage-targets` and `distribution-targets` are retained for compatibility with Quant V4 conventions. In P&C they store the **current reviewed checkpoint contract**, not a predetermined final corpus target.
 
 ---
 
-## 8. Human-Owned Libraries
+## 9. Library Authority
 
-### 8.1 `task-registry.library.json`
+- `question-language.*.json` owns human-authored stems.
+- `task-registry.library.json` owns QL-to-CP, task-kind, solve-mode, variable, constraint, explanation and distractor mappings.
+- `variable-ranges.library.json` owns curated parameter pools and safety ceilings.
+- `constraint-profiles.library.json` owns semantic conditions.
+- `explanation.*.json` owns human explanation strategy text.
+- `foundation/solver.ts` is the sole answer authority.
+- reasoning evidence is produced from solver-owned intermediate values.
+- explanation and option layers consume solver output; they do not recompute the answer independently.
+- coverage/distribution manifests describe the current reviewed checkpoint.
 
-Authoritative mapping from every QL to:
-
-- CP;
-- task kind;
-- solve mode;
-- answer type;
-- explanation family;
-- required placeholders;
-- scenario/context family;
-- restriction profile;
-- distractor profile;
-- difficulty.
-
-No runtime code may silently infer a different solve mode from stem wording.
-
-### 8.2 `variable-ranges.library.json`
-
-Curated pools must include:
-
-- `n` values generally from 3 to 12;
-- `r` values satisfying `0 ≤ r ≤ n`;
-- stage-choice vectors;
-- category counts;
-- digit sets including profiles with and without zero;
-- code lengths;
-- group sizes;
-- circle sizes;
-- grid dimensions;
-- answer ceilings;
-- difficulty-specific parameter caps.
-
-All pools must be chosen so answers remain exact positive integers and safe for the option-generation pipeline.
-
-### 8.3 `constraint-profiles.library.json`
-
-Human-owned named profiles such as:
-
-- `NO_REPETITION`
-- `REPETITION_ALLOWED`
-- `LEADING_ZERO_FORBIDDEN`
-- `EVEN_LAST_DIGIT`
-- `NAMED_PAIR_TOGETHER`
-- `NAMED_PAIR_APART`
-- `ALTERNATING_CATEGORIES`
-- `NO_ADJACENT_CATEGORY`
-- `ROTATION_EQUIVALENT`
-- `REFLECTION_EQUIVALENT`
-- `LABELED_GROUPS`
-- `UNLABELED_EQUAL_GROUPS`
-- `NONEMPTY_RECIPIENTS`
-
-Profiles contain semantic flags only. They do not contain precomputed answers.
-
-### 8.4 `word-profiles.library.json`
-
-Each entry records:
-
-```jsonc
-{
-  "word": "BANANA",
-  "letters": ["B", "A", "N", "A", "N", "A"],
-  "multiplicities": { "A": 3, "N": 2, "B": 1 },
-  "vowels": ["A"],
-  "consonants": ["B", "N"],
-  "dictionaryOrder": ["A", "B", "N"],
-  "allowedSolveModes": ["arrangeRepeatedLetters"]
-}
-```
-
-The audit must recompute multiplicities from `letters` and reject metadata drift.
-
-### 8.5 Coverage and distribution targets
-
-`coverage-targets.library.json` records exact CP, QL, explanation-family and language counts.
-
-`distribution-targets.library.json` records:
-
-- exact per-CP QL count;
-- exact package difficulty counts;
-- minimum solve-mode representation;
-- scenario-family caps;
-- maximum repeated context share;
-- low-weight advanced-family ceilings.
+Human-owned libraries must not be generated by uncontrolled noun swapping or bulk paraphrase scripts.
 
 ---
 
-## 9. Exact Counting Math Contract
+## 10. Exact Counting Math
 
-### 9.1 Internal arithmetic
+Counting operations must preserve exact integers.
 
-All core combinatorial calculations must use exact integer arithmetic. Implement with `bigint` internally, then convert to `number` only after proving the result is within `Number.MAX_SAFE_INTEGER` and within the configured product ceiling.
+Shared helpers are introduced only as needed, including:
 
-Required helpers:
+- exact product and sum;
+- factorial;
+- `nPr`;
+- `nCr`;
+- multinomial division;
+- exact quotient validation;
+- bounded inclusion–exclusion;
+- grouping corrections;
+- symmetry corrections.
 
-- `factorialBigInt(n)`
-- `permutationBigInt(n, r)`
-- `combinationBigInt(n, r)` using multiplicative cancellation
-- `multinomialBigInt(total, multiplicities)`
-- `circularPermutationBigInt(n)`
-- `fallingProductBigInt(start, length)`
-- `productBigInt(values)`
-- `sumBigInt(values)`
-- `starsAndBarsNonnegativeBigInt(objects, boxes)`
-- `starsAndBarsPositiveBigInt(objects, boxes)`
-- `derangementBigInt(n)` for small `n`
-- `assertSafeCount(value, context)`
+Use `bigint` internally where intermediate products may exceed safe integer arithmetic. Display conversion must enforce a configured product-safe ceiling until the UI supports arbitrary-size answers.
 
-### 9.2 Mathematical invariants
-
-- `nPr = nCr × r!`
-- `nCr = nC(n-r)`
-- all factorial inputs are non-negative integers;
-- all combination/permutation inputs satisfy `0 ≤ r ≤ n`;
-- multinomial multiplicities sum to the total;
-- ordinary circular arrangements divide linear arrangements by `n`, not by `2n`;
-- unlabeled equal groups divide by the factorial of the number of identical groups;
-- nonempty distribution counts exclude empty-recipient assignments;
-- leading zero is excluded only for numbers, not codes;
-- every final answer is a non-negative integer; product-facing generated questions should normally have a positive answer.
-
-### 9.3 Answer ceiling
-
-Default runtime ceiling: `9_000_000_000_000_000` is technically safe, but product QLs should target substantially smaller counts. The package validator should enforce a configurable chapter ceiling, initially `1_000_000_000`, unless a reviewed QL explicitly allows a larger safe integer.
+A helper is not added merely because it may be useful someday.
 
 ---
 
-## 10. Parameter Generation Contract
+## 11. Parameter Generation
 
-The parameter generator selects a QL first, then generates values compatible with that registry entry. It must not generate a random topology and later search for a matching sentence.
+Generators must be deterministic by seed and driven by the admitted QL contract.
 
-Generation order:
+Required properties:
 
-1. validate package and CP;
-2. select eligible QLs by CP, difficulty and language;
-3. select one deterministic QL using the seed;
-4. load its solve mode, constraint profile and required variables;
-5. generate candidate parameters from curated pools;
-6. compute derived evidence with the solver;
-7. reject candidates violating semantic, answer-ceiling, uniqueness or display constraints;
-8. render stem and explanation;
-9. validate the complete package.
+- all declared placeholders resolve;
+- generated values satisfy the QL’s constraint profile;
+- impossible or ambiguous cases are rejected before rendering;
+- answers remain exam-safe and display-safe;
+- repeated seeds reproduce parameters, stem, answer, options and explanation;
+- difficulty comes from structural choices, not arbitrary large numbers.
 
-Rejection must be bounded. Every QL family should have constructive parameter generation where possible rather than unbounded retry loops.
+Curated profiles are preferred over random unconstrained word/digit/object inputs.
 
 ---
 
-## 11. Solver and Reasoning Evidence
+## 12. Solver and Evidence Contract
 
-The solver is the sole mathematical answer authority. Explanations and options consume solver evidence; they must not independently recalculate the answer using duplicate formulas.
+Each solve mode returns:
 
-Suggested solver result:
+- exact answer;
+- display answer;
+- equation or construction summary;
+- MathJax where useful;
+- normalized evidence containing the decisive stage, case, invalid, block, gap, selection or symmetry counts.
 
-```ts
-export interface PncSolverResult {
-  answer: number;
-  exactAnswer: string;
-  formula: string;
-  mathJax: string;
-  method: PncCountingMethod;
-  evidence: {
-    ordered: boolean;
-    totalCount?: number;
-    validCount?: number;
-    invalidCount?: number;
-    caseCounts?: Array<{ label: string; count: number }>;
-    stageCounts?: number[];
-    blockCount?: number;
-    internalOrders?: number[];
-    gapCount?: number;
-    multiplicities?: number[];
-    symmetryDivisor?: number;
-    groupDivisor?: number;
-    numeratorFactors?: number[];
-    denominatorFactors?: number[];
-    selectedFormula?: string;
-  };
-}
-```
+Evidence must be sufficient for the explanation renderer to describe the actual generated question without duplicating mathematical logic.
 
-Every solve mode defines required evidence fields. Validators reject a package whose explanation family requires evidence the solver did not produce.
+Independent verification is required where bounded enumeration, search or an algebraically independent identity is practical. Where it is not practical, the limitation must be documented and compensated with stronger invariants and reference cases.
 
 ---
 
-## 12. Customized Explanation Architecture
+## 13. Explanation Architecture
 
-P&C must not use one generic explanation per CP. The explanation authority is **solve-mode/family based**, with optional task-specific variants.
+Explanation strategies are also need-based.
 
-Each explanation should establish:
+Create a new strategy only when an existing strategy cannot truthfully explain the new evidence structure. Several solve modes may share one strategy when their reasoning flow is genuinely the same; one solve mode may require variants when explanation pedagogy materially differs.
 
-1. what one outcome consists of;
+Every explanation should state:
+
+1. what is being counted;
 2. whether order matters;
-3. whether cases are sequential or mutually exclusive;
-4. which restrictions apply;
-5. the valid units, blocks, gaps, cases, groups or symmetry divisor;
-6. the exact count for every case or stage;
-7. why counts are multiplied, added, divided or subtracted;
-8. the final answer.
+3. what constraints apply;
+4. why counts are multiplied, added, subtracted or divided;
+5. relevant intermediate counts;
+6. the final answer in context.
 
-Example evidence-driven structure for `arrangeNamedEntitiesTogether`:
-
-```text
-Treat the named entities as one block.
-The block and the remaining entities form {{externalUnitCount}} units.
-They can be arranged in {{externalArrangementCount}} ways.
-The named entities can be ordered inside the block in {{internalArrangementCount}} ways.
-Therefore, total arrangements = {{externalArrangementCount}} × {{internalArrangementCount}} = {{answer}}.
-```
-
-For casework, explanations must enumerate cases from `solver.evidence.caseCounts`; prose may not mention a case absent from the evidence.
+No explanation may contain hardcoded numbers that are not sourced from parameters or solver evidence.
 
 ---
 
-## 13. Distractor Architecture
+## 14. Distractor Architecture
 
-Distractors must correspond to identifiable counting mistakes. The initial taxonomy is:
+Distractors should model genuine counting mistakes, such as:
 
-- `PERMUTATION_COMBINATION_SWAP`
-- `USED_N_FACTORIAL_INSTEAD_OF_NPR`
-- `IGNORED_INTERNAL_BLOCK_ORDER`
-- `SUBTRACTED_FROM_WRONG_TOTAL`
-- `FORGOT_REPEATED_FACTORIAL_DIVISOR`
-- `LEADING_ZERO_ALLOWED_IN_NUMBER`
-- `LEADING_ZERO_FORBIDDEN_IN_CODE`
-- `REPETITION_RULE_REVERSED`
-- `PARITY_CASE_OMITTED`
-- `CASE_OVERLAP_DOUBLE_COUNT`
-- `CASE_OMITTED`
-- `COMPLEMENT_INVALID_COUNT_ERROR`
-- `GAP_COUNT_OFF_BY_ONE`
-- `CIRCULAR_TREATED_AS_LINEAR`
-- `NECKLACE_REFLECTION_DIVISOR_OMITTED`
-- `NECKLACE_DIVIDED_BY_TWO_WHEN_NOT_ALLOWED`
-- `HANDSHAKE_DOUBLE_COUNT`
-- `DIAGONAL_FORMULA_USED_WITHOUT_REMOVING_SIDES`
-- `ROLE_ASSIGNMENT_FACTORIAL_OMITTED`
-- `LABELED_UNLABELED_GROUPS_CONFUSED`
-- `EMPTY_RECIPIENT_CASES_INCLUDED`
-- `POSITIVE_NONNEGATIVE_DISTRIBUTION_CONFUSED`
-- `DICTIONARY_RANK_OFF_BY_ONE`
-- `FACTORIAL_ARITHMETIC_SLIP`
+- addition instead of multiplication;
+- permutation versus combination confusion;
+- omitted internal block order;
+- overlap or missing case;
+- failure to remove leading-zero outcomes;
+- incorrect circular symmetry factor;
+- repeated-object division omission;
+- wrong gap count;
+- failure to apply a compulsory/excluded-member condition;
+- exact-division or factorial slip.
 
-At least two distractors per QL should be structurally derived from its solve mode. Generic `answer ± k` is only a final fallback and should be reported by the audit.
+A new distractor profile is admitted when a new misconception appears in implemented content. Profiles are not prefilled for hypothetical future modes.
 
 ---
 
-## 14. Difficulty Framework
+## 15. Difficulty Framework
 
-Difficulty is determined by three dimensions:
+Difficulty is evaluated per QL using:
 
-- **SC — Structural Complexity:** number of stages, cases, blocks, categories or constraints;
-- **CE — Computational Effort:** factorial size, number of products/sums and simplification burden;
-- **RD — Reasoning Depth:** direct formula, model choice, complement, case partition, symmetry correction or hybrid proof.
+- structural complexity;
+- number of disjoint cases;
+- constraint interaction;
+- reasoning depth;
+- reverse/inverse demand;
+- computational effort;
+- likelihood of a standard misconception.
 
-### Easy
+No fixed Easy/Medium/Hard percentage is imposed on the final family. Audits instead flag unjustified skews and verify that every difficulty label is supported by actual structure.
 
-- one direct rule;
-- small values;
-- explicit statement of repetition/order;
-- one factorial, `nPr`, `nCr` or multiplication/addition operation;
-- no more than one simple constraint.
-
-### Medium
-
-- one meaningful restriction;
-- two or three cases;
-- leading-zero plus parity;
-- repeated letters;
-- simple together/apart;
-- category selection with exact composition;
-- direct circular table counting.
-
-### Hard
-
-- multiple interacting constraints;
-- complement plus casework;
-- gap method;
-- circular restrictions;
-- unlabeled grouping;
-- nonempty distributions;
-- dictionary rank;
-- derangement;
-- restricted paths;
-- selection followed by restricted arrangement.
-
-A large factorial alone does not make a question Hard.
+A checkpoint may record its current difficulty distribution for regression control.
 
 ---
 
-## 15. Validation and Test Strategy
+## 16. Audits and Quality Gates
 
-### 15.1 Static library audits
+Every checkpoint must run applicable checks for:
 
-- all JSON files parse;
-- QL IDs are unique and exactly cover their planned ranges;
-- registry and language files have exact key parity;
-- every CP receives its exact target count;
-- every solve mode reaches its minimum representation;
-- required placeholders equal rendered-template placeholders;
-- no unregistered placeholders;
-- no unresolved placeholders after generation;
-- exact duplicate English templates = 0;
-- near-clone families reviewed and bounded;
-- word multiplicities and vowel/consonant metadata verified;
-- all constraint-profile references exist;
-- explanation IDs exist and match their solve modes.
+- JSON parse;
+- QL/registry parity;
+- unique active IDs;
+- placeholder contract;
+- unresolved rendered tokens;
+- deterministic generation;
+- finite positive integer answers;
+- solver/independent-verifier agreement;
+- option uniqueness and single correct answer;
+- exact duplicate templates;
+- semantic near-clones;
+- mathematical fingerprints;
+- context concentration;
+- difficulty justification;
+- explanation evidence alignment;
+- runtime sampling;
+- language exposure safety.
 
-### 15.2 Mathematical property tests
-
-- factorial recurrence;
-- `nPr = nCr × r!`;
-- combination symmetry;
-- Pascal identity for safe ranges;
-- multinomial total consistency;
-- circular count equals `n!/n`;
-- block method equals brute-force count for small `n`;
-- not-together complement equals brute-force count;
-- gap-method counts equal enumeration;
-- number-formation counts equal enumeration for small digit sets;
-- repeated-letter counts equal unique-string enumeration for small words;
-- category case sums equal subset enumeration;
-- labeled/unlabeled grouping counts equal partition enumeration for small sizes;
-- nonempty distribution equals surjection enumeration;
-- derangement count equals permutation enumeration for small `n`;
-- restricted path count equals dynamic-programming oracle.
-
-### 15.3 Runtime sampling
-
-For every QL:
-
-- generate deterministic samples across Easy/Medium/Hard where eligible;
-- answer is integer, non-negative and safe;
-- correct option appears exactly once;
-- all options are unique;
-- no option is negative for count answers;
-- stem is natural and unambiguous;
-- order/repetition/circular/reflection semantics are explicit;
-- explanation reaches the solver answer without arithmetic drift;
-- traceability fields match the registry;
-- same seed is deterministic;
-- different seeds provide bounded parameter diversity.
-
-### 15.4 Editorial audit
-
-Reject:
-
-- classroom wrappers repeated at scale;
-- shallow noun swaps;
-- missing statement of whether repetition is allowed;
-- ambiguous committee roles;
-- unclear circular equivalence;
-- words whose repeated-letter counts are wrong;
-- case explanations that skip or overlap cases;
-- stems that rely on unstated assumptions;
-- artificial contexts where a direct mathematical question would be more natural.
+The audit asks “what remains uncovered?” rather than “have we reached a planned count?”
 
 ---
 
-## 16. Multilingual Strategy
+## 17. Multilingual Policy
 
-Implementation is English-first.
+English is implemented and reviewed first.
 
-### Stage A
+Hindi and Punjabi are added only after the English mathematical/runtime contract is stable. Localization must preserve:
 
-- English runtime complete and reviewed.
-- Hindi/Punjabi structural companion files may exist only for key parity checks.
-- Non-English product exposure remains off.
+- placeholder parity;
+- mathematical semantics;
+- natural exam wording;
+- explanation evidence alignment;
+- script and terminology quality.
 
-### Stage B
-
-- localize by solve-mode family, not by machine-translating 720 templates blindly;
-- retain Latin mathematical notation where standard;
-- preserve exact placeholder sets;
-- localize context nouns and grammar together;
-- use Punjabi names/contexts naturally, without forcing every question into Punjab-specific wording;
-- audit mathematical operators, units, digit references and circular-direction terms.
-
-A language is not publication-ready until its stems, explanations, placeholders and runtime sampling all pass.
+Structural placeholder files must not be exposed as complete translations.
 
 ---
 
-## 17. Generation-Engine Integration
+## 18. Checkpoint Workflow
 
-Integration occurs only after a package passes its internal runtime proof.
+For each next checkpoint:
 
-Required changes:
+1. inspect books, PYQs, current runtime and existing QLs;
+2. produce a coverage-gap matrix;
+3. decide whether the gap needs a new QL, solve mode, CP or package;
+4. implement the smallest coherent coverage set;
+5. run strict targeted typecheck and bundled tests;
+6. run content/runtime audits;
+7. perform manual realism review;
+8. record actual counts and remaining gaps;
+9. merge only when the checkpoint is internally complete.
 
-- add package ID to `QuantV4PackageId`;
-- import package pipeline and CP type;
-- register package label, topic, subtopic and active CP IDs;
-- keep supported languages English-only until localization freeze;
-- verify admin Question Studio discovery;
-- verify direct package request, CP request and random package sampling;
-- avoid editing shared routing concurrently from multiple chapter branches.
-
-Suggested labels:
-
-- `PNC-001`: `Counting Foundations, Permutations & Combinations`
-- `PNC-002`: `Restricted Arrangements & Advanced Selection`
+There is no rule such as “50 QLs per CP” or “10 solve modes per package.”
 
 ---
 
-## 18. Phased Implementation Plan
+## 19. Current Checkpoint
 
-### Phase 0 — Design freeze
+As of 2026-07-24:
 
-- commit this document;
-- create implementation branch from the design commit;
-- add PNC-001 package planning documents.
+- active package: `PNC-001`;
+- active CP: `PNC-CP-001`;
+- implemented English QLs: `PNC-QL-001` through `PNC-QL-048`;
+- active solve modes: five, all required by current CP-001 content;
+- maturity: `RUNTIME_PROOF`;
+- publicly publishable: `false`;
+- generation-engine routing: not added;
+- Hindi/Punjabi: not implemented.
 
-### Phase 1 — PNC-001 CP-001 runtime proof
-
-Implement the complete CP-001 target (`PNC-QL-001`–`048`), not a five-question toy scaffold.
-
-Required files:
-
-- Phase A markdown documents;
-- task registry entries for QL 001–048;
-- English question library;
-- English explanation families;
-- curated variable and constraint profiles;
-- foundation types, exact math, generator, solver, reasoning graph, renderer, validator and pipeline;
-- CP-001 tests and content audit.
-
-Do not wire the generation engine in this checkpoint.
-
-### Phase 2 — PNC-001 CP-002
-
-Add QL 049–102, permutation math/property tests, positional assignment families and distractors.
-
-### Phase 3 — PNC-001 CP-003
-
-Add QL 103–156, combination applications and geometric-selection validators.
-
-### Phase 4 — PNC-001 CP-004
-
-Add QL 157–234 with dedicated digit/code enumerator oracles and explicit leading-zero semantics.
-
-### Phase 5 — PNC-001 CP-005
-
-Add QL 235–300 and curated word profiles. Dictionary-rank families remain low-weight until manual review.
-
-### Phase 6 — PNC-001 CP-006
-
-Add QL 301–360, role assignments and mixed select/arrange bridge logic.
-
-### Phase 7 — PNC-001 chapter audit and integration
-
-- full duplicate, placeholder, render, option, oracle and runtime audit;
-- generation-engine registration;
-- English freeze record;
-- no public HI/PA exposure.
-
-### Phase 8 — PNC-002 CP-by-CP implementation
-
-Implement CP-007 through CP-012 in separate checkpoints, consuming the frozen PNC shared counting authority.
-
-### Phase 9 — Family audit
-
-- cross-package solve-mode ownership;
-- no duplicated QL shell families;
-- no duplicated math implementations;
-- PNC-001/PNC-002 routing and sampling;
-- final English family freeze;
-- multilingual work tracked separately.
+These values describe the repository now. They do not define the final chapter size.
 
 ---
 
-## 19. Branch and Parallel-Work Safety
+## 20. Next Decision
 
-Recommended branches:
+The next step is not automatically “implement a pre-numbered CP-002 with a fixed QL range.”
 
-```text
-feat/pnc-family-end-to-end-design
-feat/pnc-001-cp001-runtime-proof
-feat/pnc-001-cp002
-...
-feat/pnc-002-cp007
-```
+The next step is to review reference books/PYQs and the current P&C motif/scenario inventory, identify the highest-value uncovered family, and then decide:
 
-Rules:
+- whether it belongs inside CP-001 or requires a new CP;
+- how many distinct QLs are justified;
+- which solve modes are genuinely required;
+- whether current runtime types should be extended;
+- what evidence, validators and distractors the family needs.
 
-- PNC work stays inside `PermutationAndCombination/` until a package is integration-ready;
-- shared `generation-engine.ts` edits happen in one controlled integration checkpoint;
-- Mensuration and Average branches must not be used as the PNC base;
-- each checkpoint records its base commit and final commit;
-- package branches merge into a stable PNC feature base before any merge to `New-main`;
-- never merge incomplete QL ranges that leave registry/language parity broken.
-
----
-
-## 20. Freeze Criteria
-
-A package is freeze-ready only when:
-
-- planned English QL count is exact;
-- every CP and solve mode meets coverage targets;
-- JSON parse errors = 0;
-- exact duplicate templates = 0;
-- unresolved placeholders = 0;
-- missing required placeholders = 0;
-- unregistered placeholders = 0;
-- solver/property/oracle tests pass;
-- every sampled answer is an exact safe integer;
-- correct option appears exactly once;
-- generic distractor fallback usage is below the documented ceiling;
-- explanation evidence and final answer agree;
-- generation-engine smoke passes after integration;
-- editorial review finds no critical ambiguity;
-- Hindi/Punjabi are either genuinely localized and audited or explicitly marked structural/non-product.
-
----
-
-## 21. Immediate Next Checkpoint
-
-Proceed with:
-
-```text
-PNC-001 → PNC-CP-001
-Fundamental Counting Principle & Case Partition
-PNC-QL-001 through PNC-QL-048
-```
-
-The first runtime proof must establish:
-
-- exact counting utilities;
-- task-registry and placeholder contracts;
-- evidence-driven explanation rendering;
-- semantic distractors;
-- brute-force/property verification for small cases;
-- deterministic seed behavior;
-- chapter-local tests without shared generation-engine edits.
-
-This checkpoint becomes the architectural foundation for the remaining eleven CPs.
+That decision must be documented before implementation begins.
