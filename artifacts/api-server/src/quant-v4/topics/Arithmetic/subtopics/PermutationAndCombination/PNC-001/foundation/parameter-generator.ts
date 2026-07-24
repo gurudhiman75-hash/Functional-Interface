@@ -1,5 +1,5 @@
 import { getPnc001QuestionEntries, getPnc001QuestionEntry, getPnc001VariableRanges } from "./library";
-import { combinationExact, createSeededRandom, factorialExact, hashSeed, permutationExact, pickSeeded, productExact } from "./math";
+import { combinationExact, createSeededRandom, factorialExact, hashSeed, multisetPermutationExact, permutationExact, pickSeeded, productExact } from "./math";
 import { PNC_001_ACTIVE_CP_IDS, PNC_001_PACKAGE_ID, type Pnc001ActiveCanonicalProblemId, type Pnc001Difficulty, type Pnc001ParameterInput, type Pnc001Parameters, type Pnc001QuestionEntry } from "./types";
 
 function pickValues(pool: readonly number[], count: number, random: () => number, preferDistinct: boolean): number[] {
@@ -24,6 +24,12 @@ function validPermutationR(pool: readonly number[], n: number): number[] { retur
 function validCombinationR(pool: readonly number[], n: number, lowerHalfOnly = false): number[] {
   const ceiling = lowerHalfOnly ? Math.floor(n / 2) : n;
   return pool.filter((r) => r >= 1 && r <= ceiling);
+}
+function pickMultisetState(totalPool: readonly number[], repeatPool: readonly number[], random: () => number): { totalObjects: number; repeatA: number; repeatB: number; distinctObjects: number } {
+  const states = totalPool.flatMap((totalObjects) => repeatPool.flatMap((repeatA) => repeatPool
+    .filter((repeatB) => repeatA + repeatB <= totalObjects - 1)
+    .map((repeatB) => ({ totalObjects, repeatA, repeatB, distinctObjects: totalObjects - repeatA - repeatB }))));
+  return pickSeeded(states, random);
 }
 function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, number> {
   const ranges = getPnc001VariableRanges(); const pool = ranges.ranges[entry.difficulty];
@@ -78,6 +84,24 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
       const n = pickSeeded(pool.combinationN.filter((value) => value >= 5), random);
       const knownR = pickSeeded(validCombinationR(pool.combinationR, n, true).filter((value) => value < n / 2), random);
       return { totalObjects: n, knownSelection: knownR, solutionR: n - knownR, halfObjects: Math.floor(n / 2) };
+    }
+    case "arrangeAllMultisetObjects": {
+      if (entry.scenarioFamily === "wordApple") return { totalObjects: 5, repeatA: 2, distinctObjects: 3 };
+      if (entry.scenarioFamily === "wordBalloon") return { totalObjects: 7, repeatA: 2, repeatB: 2, distinctObjects: 3 };
+      if (entry.scenarioFamily === "wordMississippi") return { totalObjects: 11, repeatA: 4, repeatB: 4, repeatC: 2, distinctObjects: 1 };
+      return pickMultisetState(pool.multisetTotal, pool.multisetRepeat, random);
+    }
+    case "arrangeMultisetAfterFixingPosition": {
+      return entry.scenarioFamily === "balloonFixedUnique"
+        ? { totalObjects: 7, repeatA: 2, repeatB: 2, fixedMultiplicity: 1 }
+        : { totalObjects: 7, repeatA: 2, repeatB: 2, fixedMultiplicity: 2 };
+    }
+    case "findMultisetOvercountFactor": return pickMultisetState(pool.multisetTotal, pool.multisetRepeat, random);
+    case "recoverMultisetMultiplicity": {
+      const totalObjects = pickSeeded(pool.multisetTotal.filter((value) => value >= 6), random);
+      const maximumMultiplicity = Math.min(ranges.generation.maximumMultisetMultiplicity, totalObjects - 1);
+      const solutionMultiplicity = pickSeeded(Array.from({ length: maximumMultiplicity - 1 }, (_, index) => index + 2), random);
+      return { totalObjects, maximumMultiplicity, solutionMultiplicity, target: multisetPermutationExact(totalObjects, [solutionMultiplicity], ranges.answerCeiling) };
     }
     default: { const exhaustive: never = entry.solveMode; throw new Error(`Unsupported PNC-001 solve mode: ${exhaustive}`); }
   }
