@@ -7,10 +7,13 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
   const factorialFactors=e.factorialFactors??[],permutationFactors=e.permutationFactors??[];
   const permutationN=e.permutationTotalObjects??parameters.values.totalObjects??0,permutationR=e.permutationSelectedObjects??parameters.values.selectedObjects??0;
   const combinationN=e.combinationTotalObjects??parameters.values.totalObjects??0,combinationR=e.combinationSelectedObjects??parameters.values.selectedObjects??0;
+  const multisetMultiplicities=e.multisetMultiplicities??[];
+  const remainingMultiplicities=e.multisetRemainingMultiplicities??[];
   const calculation=parameters.taskKind==="fundamentalCountingApplication"?solver.equation.replace(` = ${solver.answer}`,""):solver.equation;
   const permutationKnowns=e.recoveredPermutationParameter==="n"?`r = ${permutationR}`:`n = ${permutationN}`;
   const combinationKnowns=e.recoveredCombinationParameter==="n"?`r = ${combinationR}`:`n = ${combinationN}`;
-  const target=e.combinationTarget??e.permutationTarget??e.factorialTarget??parameters.values.target??0;
+  const target=e.multisetTarget??e.combinationTarget??e.permutationTarget??e.factorialTarget??parameters.values.target??0;
+  const multisetDenominatorExpression=multisetMultiplicities.map(value=>`${value}!`).join(" × ")||"1";
   const variables:Record<string,string|number>={
     ...parameters.renderVariables,answer:solver.answer,stageList:readableList(stages),calculation,unrestrictedCalculation:stages.join(" × "),
     totalCount:e.totalCount??solver.numericAnswer,invalidCount:e.invalidCount??0,
@@ -27,6 +30,15 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
     orderedCount:e.combinationOrderedCount??0,selectionFactorial:e.combinationSelectionFactorial??1,
     combinationKnowns,matchedCombinationEquation:`${combinationN}C${combinationR} = ${target}`,
     knownSelection:e.combinationKnownSelection??parameters.values.knownSelection??0,
+    multisetTotalObjects:e.multisetTotalObjects??parameters.values.totalObjects??0,
+    multisetRemainingObjects:e.multisetRemainingObjects??0,
+    multiplicityList:readableList(multisetMultiplicities),
+    remainingMultiplicityList:remainingMultiplicities.length?readableList(remainingMultiplicities):"none",
+    multisetNumerator:e.multisetNumerator!==undefined?`${e.multisetTotalObjects??e.multisetRemainingObjects}! = ${e.multisetNumerator}`:"",
+    multisetDenominator:e.multisetDenominator!==undefined?`${multisetDenominatorExpression} = ${e.multisetDenominator}`:"",
+    multisetDenominatorCalculation:e.multisetDenominator!==undefined?`${multisetDenominatorExpression} = ${e.multisetDenominator}`:"",
+    maximumMultiplicity:parameters.values.maximumMultiplicity??0,
+    matchedMultiplicityEquation:`${e.multisetTotalObjects??parameters.values.totalObjects??0}! ÷ ${e.recoveredMultisetMultiplicity??solver.numericAnswer}! = ${e.multisetTarget??parameters.values.target??0}`,
   };
   return{explanationId:parameters.explanationId,lines:[strategy.concept,...strategy.lines.map(line=>renderPnc001Template(line,variables))]};
 }
