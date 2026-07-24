@@ -22,7 +22,7 @@ function recordMatches(actual: Record<string, number>, snapshot: Record<string, 
 
 export function auditPnc001Coverage(): Pnc001CoverageAudit {
   const entries = getPnc001QuestionEntries();
-  const checkpointIds = Array.from({ length: 82 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+  const checkpointIds = Array.from({ length: 94 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
   const actualIds = new Set(entries.map((entry) => entry.qlId));
   const missingIds = checkpointIds.filter((id) => !actualIds.has(id));
   const duplicateGroups = new Map<string, number>();
@@ -44,7 +44,7 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const observedDifficultySnapshot: Record<string, number> = { Easy: 35, Medium: 33, Hard: 14 };
+  const observedDifficultySnapshot: Record<string, number> = { Easy: 37, Medium: 39, Hard: 18 };
   const observedSolveModeSnapshot: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
@@ -62,6 +62,16 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     selectRFromNDistinctObjects: 5,
     recoverCombinationParameter: 2,
     recoverComplementaryCombinationIndex: 1,
+    formNumbersWithoutRepetitionNoZero: 1,
+    formNumbersWithoutRepetitionWithZero: 1,
+    formCodesWithRepetition: 1,
+    formNumbersWithRepetitionAndZero: 1,
+    formParityNumbersWithoutRepetition: 3,
+    formDivisibleByFiveNumbersWithoutRepetition: 1,
+    formNumbersAboveLeadingThreshold: 1,
+    formAlphanumericCodes: 1,
+    recoverSymbolCountForCode: 1,
+    formCodesWithExactlyOnePair: 1,
     arrangeAllMultisetObjects: 4,
     arrangeMultisetAfterFixingPosition: 2,
     findMultisetOvercountFactor: 1,
