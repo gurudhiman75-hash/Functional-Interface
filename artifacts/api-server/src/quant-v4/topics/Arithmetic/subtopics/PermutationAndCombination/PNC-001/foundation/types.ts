@@ -58,8 +58,11 @@ export interface Pnc001RegistryGroup {
   constraintProfile: string; distractorProfile: string; difficulty: Pnc001Difficulty; active: boolean;
 }
 export interface Pnc001QuestionEntry extends Pnc001QuestionLanguageEntry {
-  taskKind: Pnc001AnyTaskKind; solveMode: Pnc001AnySolveMode; answerType: Pnc001AnswerType; explanationId: string;
-  requiredVariables: string[]; scenarioFamily: string; constraintProfile: string; distractorProfile: string; active: boolean;
+  taskKind: Pnc001AnyTaskKind;
+  /** Compatibility boundary: CP-006 modes are validated after canonical-problem routing. */
+  solveMode: any;
+  answerType: Pnc001AnswerType; explanationId: string; requiredVariables: string[]; scenarioFamily: string;
+  constraintProfile: string; distractorProfile: string; active: boolean;
 }
 export interface Pnc001ParameterInput {
   canonicalProblemId?: Pnc001ActiveCanonicalProblemId; cpId?: Pnc001ActiveCanonicalProblemId; difficulty?: Pnc001Difficulty;
