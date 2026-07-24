@@ -22,6 +22,23 @@ export const AVG_001_REVIEW_APPROVAL = Object.freeze({
   reviewNotes: `Approved under ${AVG_001_ENGLISH_RELEASE.releaseId}; future editorial changes require a new review cycle.`,
 });
 
+export function avg001ApprovedReviewColumns() {
+  return [
+    "PASS",
+    "PASS",
+    "PASS",
+    "PASS",
+    "PASS",
+    "PASS",
+    "PASS",
+    AVG_001_REVIEW_APPROVAL.editorialStatus,
+    "",
+    AVG_001_REVIEW_APPROVAL.reviewNotes,
+    AVG_001_REVIEW_APPROVAL.reviewer,
+    AVG_001_REVIEW_APPROVAL.reviewedAt,
+  ];
+}
+
 function releaseValidationChecks(pkg: Avg001QuestionPackage) {
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter(
     (check) => check.name !== "maturity" && check.name !== "release-approval",
