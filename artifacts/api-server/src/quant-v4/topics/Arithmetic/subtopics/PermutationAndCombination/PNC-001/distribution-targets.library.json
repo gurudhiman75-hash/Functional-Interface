@@ -19,5 +19,5 @@
     "maximumSingleContextShare": 0.2,
     "maximumGenericDistractorFallbackShare": 0.1
   },
-  "futureDistributionRule": "Do not copy these counts into later CPs; classify and admit content according to demonstrated need."
+  "admissionRule": "Future distributions emerge from admitted coverage. Do not copy these counts or modes into later work."
 }
