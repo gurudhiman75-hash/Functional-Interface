@@ -1,0 +1,30 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-001","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaBaseHeight","answerDimension":"AREA","requiredVariables":["base","height"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-002","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaBaseHeight","answerDimension":"AREA","requiredVariables":["base","height"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-003","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaBaseHeight","answerDimension":"AREA","requiredVariables":["base","height"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-004","taskKind":"triangleMeasurementApplication","solveMode":"findMissingHeightFromAreaAndBase","answerDimension":"LENGTH","requiredVariables":["area","base"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-005","taskKind":"triangleMeasurementApplication","solveMode":"findMissingHeightFromAreaAndBase","answerDimension":"LENGTH","requiredVariables":["area","base"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-006","taskKind":"triangleMeasurementApplication","solveMode":"findMissingBaseFromAreaAndHeight","answerDimension":"LENGTH","requiredVariables":["area","height"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-007","taskKind":"triangleMeasurementApplication","solveMode":"findMissingBaseFromAreaAndHeight","answerDimension":"LENGTH","requiredVariables":["area","height"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-008","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaHeron","answerDimension":"AREA","requiredVariables":["sideA","sideB","sideC"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-009","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaHeron","answerDimension":"AREA","requiredVariables":["sideA","sideB","sideC"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-010","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaHeron","answerDimension":"AREA","requiredVariables":["sideA","sideB","sideC"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-011","taskKind":"triangleMeasurementApplication","solveMode":"findRightTriangleAreaFromLegs","answerDimension":"AREA","requiredVariables":["legA","legB"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-012","taskKind":"triangleMeasurementApplication","solveMode":"findRightTriangleAreaFromLegs","answerDimension":"AREA","requiredVariables":["legA","legB"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-013","taskKind":"triangleMeasurementApplication","solveMode":"findEquilateralTriangleArea","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-014","taskKind":"triangleMeasurementApplication","solveMode":"findEquilateralTriangleArea","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-015","taskKind":"triangleMeasurementApplication","solveMode":"findEquilateralPerimeterFromArea","answerDimension":"LENGTH","requiredVariables":["areaCoefficient"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-016","taskKind":"triangleMeasurementApplication","solveMode":"findEquilateralSideFromPerimeter","answerDimension":"LENGTH","requiredVariables":["perimeter"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-017","taskKind":"triangleMeasurementApplication","solveMode":"findIsoscelesTriangleArea","answerDimension":"AREA","requiredVariables":["equalSide","base"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-018","taskKind":"triangleMeasurementApplication","solveMode":"findIsoscelesTriangleArea","answerDimension":"AREA","requiredVariables":["equalSide","base"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-019","taskKind":"triangleMeasurementApplication","solveMode":"findIsoscelesHeight","answerDimension":"LENGTH","requiredVariables":["equalSide","base"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-020","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaFromSideRatioAndPerimeter","answerDimension":"AREA","requiredVariables":["ratioA","ratioB","ratioC","perimeter"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-021","taskKind":"triangleMeasurementApplication","solveMode":"findTriangleAreaFromSideRatioAndPerimeter","answerDimension":"AREA","requiredVariables":["ratioA","ratioB","ratioC","perimeter"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-022","taskKind":"triangleMeasurementApplication","solveMode":"findLargestTriangleSideFromRatioAndPerimeter","answerDimension":"LENGTH","requiredVariables":["ratioA","ratioB","ratioC","perimeter"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-023","taskKind":"triangleMeasurementApplication","solveMode":"findSmallestTriangleSideFromRatioAndPerimeter","answerDimension":"LENGTH","requiredVariables":["ratioA","ratioB","ratioC","perimeter"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-024","taskKind":"triangleMeasurementApplication","solveMode":"findTriangularPlotCost","answerDimension":"COST","requiredVariables":["base","height","ratePerSquareMetre"]}
+  ]
+}
