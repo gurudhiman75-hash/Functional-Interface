@@ -142,9 +142,9 @@ export const MEN_001_CP004_DISTRACTOR_STRATEGIES = {
 
   "use-one-wire-round": ({ solver }: Context) =>
     option(number(solver.workingValues.perimeter), solver),
-  "multiply-semiperimeter-by-rounds": ({ solver }: Context) =>
+  "use-one-extra-wire-round": ({ solver }: Context) =>
     option(
-      number(solver.workingValues.perimeter) * number(solver.workingValues.rounds) / 2,
+      number(solver.workingValues.perimeter) * (number(solver.workingValues.rounds) + 1),
       solver,
     ),
   "add-rounds-to-perimeter": ({ solver }: Context) =>
