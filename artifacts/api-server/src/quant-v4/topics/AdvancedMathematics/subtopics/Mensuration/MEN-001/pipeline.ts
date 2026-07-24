@@ -9,7 +9,7 @@ import {
   type Men001ActiveCanonicalProblemId,
   type Men001QuestionPackage,
 } from "./types";
-import { validateMen001QuestionPackage } from "./validator.all";
+import { validateMen001QuestionPackage } from "./validator.final";
 
 export function runMen001Pipeline(
   cpId: Men001ActiveCanonicalProblemId,
