@@ -49,7 +49,7 @@ The full MEN-001 CP-001–CP-004 package currently contains:
 - 2,500 deterministic runtime cases;
 - 375 generated review samples.
 
-Final verified branch head:
+Final code-bearing head:
 
 `57ce9afd6ecff8a1810491ef5bab86c574513105`
 
@@ -58,6 +58,16 @@ Successful workflows on that head:
 - MEN-001 runtime proof: `30103924501`;
 - integrated admin-panel validation: `30103924532`;
 - Render production build: `30103924510`.
+
+Latest documentation head:
+
+`684022cdca9749ee2352e3ab211680d39a8c2b80`
+
+Successful workflows on that head:
+
+- MEN-001 runtime proof: `30104074426`;
+- integrated admin-panel validation: `30104074737`;
+- Render production build: `30104074366`.
 
 ## Deliberate exclusions
 
