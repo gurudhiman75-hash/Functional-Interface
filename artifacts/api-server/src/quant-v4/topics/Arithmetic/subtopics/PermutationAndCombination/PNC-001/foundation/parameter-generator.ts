@@ -58,7 +58,9 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
   }
 }
 export function generatePnc001Parameters(input: Pnc001ParameterInput = {}): Pnc001Parameters {
-  const cpId=(input.canonicalProblemId??input.cpId??"PNC-CP-001") as Pnc001ActiveCanonicalProblemId;
+  const explicitCp = input.canonicalProblemId ?? input.cpId;
+  const qlOwner = input.questionLanguageId ? getPnc001QuestionEntry(input.questionLanguageId).cpId : undefined;
+  const cpId = (explicitCp ?? qlOwner ?? "PNC-CP-001") as Pnc001ActiveCanonicalProblemId;
   if (!(PNC_001_ACTIVE_CP_IDS as readonly string[]).includes(cpId)) throw new Error(`Unsupported PNC canonical problem: ${cpId}`);
   if ((input.language??"en")!=="en") throw new Error("PNC-001 runtime proof is English only");
   const seed=input.seed??`pnc-001:${cpId}:${input.questionLanguageId??input.difficulty??input.difficultyBand??"mixed"}:default`;
