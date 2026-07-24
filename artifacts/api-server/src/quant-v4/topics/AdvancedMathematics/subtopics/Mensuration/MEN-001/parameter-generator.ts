@@ -3,7 +3,7 @@ import {
   getMen001QuestionEntry,
   getMen001RegistryEntry,
 } from "./library";
-import { getMen001SolveModeDefinition } from "./solve-mode-registry";
+import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import {
   MEN_001_PACKAGE_ID,
   type Men001ActiveCanonicalProblemId,
