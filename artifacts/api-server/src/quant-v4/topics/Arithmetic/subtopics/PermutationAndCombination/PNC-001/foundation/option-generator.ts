@@ -1,8 +1,18 @@
-import { createSeededRandom, productExact, shuffleSeeded, sumExact } from "./math";
+import {
+  createSeededRandom,
+  factorialExact,
+  productExact,
+  shuffleSeeded,
+  sumExact,
+} from "./math";
 import type { Pnc001Parameters, Pnc001SolverResult } from "./types";
 
 function uniquePositiveIntegers(values: number[], correct: number): number[] {
   return [...new Set(values.filter((value) => Number.isInteger(value) && value > 0 && value !== correct))];
+}
+
+function assertNever(value: never): never {
+  throw new Error(`Unsupported PNC-001 solve mode for options: ${String(value)}`);
 }
 
 export function buildPnc001Options(
@@ -57,6 +67,46 @@ export function buildPnc001Options(
       candidates = [total - known, known, Math.max(1, Math.floor(total / (known + 1))), correct + known];
       break;
     }
+    case "evaluateFactorialValue": {
+      const argument = evidence.factorialArgument ?? 2;
+      candidates = [
+        factorialExact(Math.max(0, argument - 1)),
+        factorialExact(argument + 1),
+        argument * argument,
+        correct + argument,
+      ];
+      break;
+    }
+    case "evaluateFactorialUnitExpression": {
+      const factorialValue = evidence.factorialValue ?? correct;
+      candidates = [factorialValue, factorialValue + 2, Math.max(1, factorialValue - 2), 1];
+      break;
+    }
+    case "simplifyFactorialQuotient": {
+      const factors = evidence.factorialFactors ?? [];
+      const upper = evidence.factorialUpper ?? correct;
+      const lower = evidence.factorialLower ?? 0;
+      candidates = [
+        sumExact(factors),
+        factors.length > 1 ? productExact(factors.slice(0, -1)) : upper - lower,
+        factorialExact(Math.max(0, upper - lower)),
+        upper * Math.max(1, lower),
+      ];
+      break;
+    }
+    case "recoverFactorialArgument": {
+      const matched = evidence.matchedFactorialArgument ?? correct;
+      const target = evidence.factorialTarget ?? correct;
+      candidates = [matched, Math.max(1, correct - 1), correct + 1, target];
+      break;
+    }
+    case "recoverFactorialQuotientArgument": {
+      const target = evidence.factorialTarget ?? correct;
+      candidates = [Math.max(1, correct - 1), correct + 1, Math.max(1, Math.round(Math.sqrt(target))), target];
+      break;
+    }
+    default:
+      return assertNever(parameters.solveMode);
   }
 
   const distractors = uniquePositiveIntegers(candidates, correct);
@@ -67,7 +117,10 @@ export function buildPnc001Options(
     }
   }
 
-  const shuffled = shuffleSeeded([correct, ...distractors.slice(0, 3)], createSeededRandom(`${parameters.seed}:${parameters.questionLanguageId}:options`));
+  const shuffled = shuffleSeeded(
+    [correct, ...distractors.slice(0, 3)],
+    createSeededRandom(`${parameters.seed}:${parameters.questionLanguageId}:options`),
+  );
   return {
     options: shuffled.map(String),
     correctIndex: shuffled.indexOf(correct),
