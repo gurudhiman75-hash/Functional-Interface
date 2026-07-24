@@ -28,6 +28,10 @@ function normalizeStem(stem: string) {
   return stem.toLowerCase().replace(/\s+/g, " ").trim();
 }
 
+function normalizeAnswerEvidence(value: string) {
+  return value.toLowerCase().replace(/[₹,\s]/g, "");
+}
+
 function hasInternalToken(value: string) {
   return /undefined|NaN|Infinity|null|\{[A-Za-z][A-Za-z0-9_]*\}/.test(value);
 }
@@ -119,8 +123,10 @@ for (const entry of entries) {
     if (pkg.explanation.lines.length < 4 || pkg.explanation.lines.length > 8) {
       fail(`${entry.qlId}:${seedIndex}: explanation depth outside 4–8 lines`);
     }
-    if (!pkg.explanation.lines.some((line) => line.includes(pkg.answer))) {
-      fail(`${entry.qlId}:${seedIndex}: explanation omits final answer`);
+    const answerEvidence = normalizeAnswerEvidence(pkg.answer);
+    const explanationEvidence = normalizeAnswerEvidence(pkg.explanation.lines.join(" "));
+    if (!answerEvidence || !explanationEvidence.includes(answerEvidence)) {
+      fail(`${entry.qlId}:${seedIndex}: explanation omits final answer evidence`);
     }
     if (
       pkg.stem !== repeated.stem ||
