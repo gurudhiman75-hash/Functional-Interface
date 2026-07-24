@@ -124,7 +124,7 @@ function explanation(
   return [first, formula, substitution, evaluation, answer];
 }
 
-const RADII = [7, 14, 21, 28, 35] as const;
+const RADII = [14, 28, 42, 56, 70] as const;
 const ARC_STATES = [[7, 90], [14, 45], [21, 60], [28, 135], [35, 72], [14, 180]] as const;
 const SECTOR_STATES = [[14, 90], [21, 120], [28, 45], [14, 180], [35, 72], [28, 135]] as const;
 const ANNULUS_STATES = [[14, 7], [21, 14], [28, 21], [35, 14], [42, 28]] as const;
