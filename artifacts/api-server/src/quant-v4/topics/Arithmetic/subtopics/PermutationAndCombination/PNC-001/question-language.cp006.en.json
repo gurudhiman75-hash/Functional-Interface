@@ -1,0 +1,18 @@
+{
+  "packageId": "PNC-001",
+  "canonicalProblemId": "PNC-CP-006",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-095","cpId":"PNC-CP-006","difficulty":"Easy","template":"From {totalObjects} students, a committee of {selectedObjects} is to be formed and one committee member is to be appointed chairperson. In how many ways can this be done?"},
+    {"qlId":"PNC-QL-096","cpId":"PNC-CP-006","difficulty":"Medium","template":"From {totalObjects} players, a team of {selectedObjects} is selected. A captain and a vice-captain are then appointed from the selected team. In how many ways can the complete selection and appointment be made?"},
+    {"qlId":"PNC-QL-097","cpId":"PNC-CP-006","difficulty":"Medium","template":"A committee of {selectedObjects} is chosen from {totalObjects} members. The posts of chairperson, secretary and treasurer are then assigned to three different committee members. Find the number of possible outcomes."},
+    {"qlId":"PNC-QL-098","cpId":"PNC-CP-006","difficulty":"Medium","template":"From {totalObjects} contestants, {selectedObjects} finalists are shortlisted. Among the finalists, {roleCount} distinct ranks are awarded. In how many ways can the shortlist and ranked awards be decided?"},
+    {"qlId":"PNC-QL-099","cpId":"PNC-CP-006","difficulty":"Medium","template":"From {totalObjects} distinct books, {selectedObjects} books are chosen and all the chosen books are arranged in a row. How many outcomes are possible?"},
+    {"qlId":"PNC-QL-100","cpId":"PNC-CP-006","difficulty":"Medium","template":"From {totalObjects} speakers, {selectedObjects} are chosen and assigned to {selectedObjects} numbered presentation slots, one speaker per slot. In how many ways can this be done?"},
+    {"qlId":"PNC-QL-101","cpId":"PNC-CP-006","difficulty":"Easy","template":"After a group of {selectedObjects} people has been selected, {roleCount} distinct offices are assigned to different members of that group. By what factor does the office assignment multiply the selection-only count?"},
+    {"qlId":"PNC-QL-102","cpId":"PNC-CP-006","difficulty":"Hard","template":"A group of {selectedObjects} is chosen from n people and then {roleCount} distinct offices are assigned to different selected members. If the total number of outcomes is {target}, find n, where {minimumTotalObjects} ≤ n ≤ {maximumTotalObjects}."},
+    {"qlId":"PNC-QL-103","cpId":"PNC-CP-006","difficulty":"Hard","template":"From {totalObjects} people, a group of s is chosen and then {roleCount} distinct offices are assigned to different selected members. If the total number of outcomes is {target}, find s, where {minimumSelectedObjects} ≤ s ≤ {maximumSelectedObjects}."},
+    {"qlId":"PNC-QL-104","cpId":"PNC-CP-006","difficulty":"Hard","template":"A group of {selectedObjects} is chosen from {totalObjects} people and then k distinct offices are assigned to different selected members. If the total number of outcomes is {target}, find k, where 1 ≤ k ≤ {maximumRoleCount}."}
+  ]
+}
