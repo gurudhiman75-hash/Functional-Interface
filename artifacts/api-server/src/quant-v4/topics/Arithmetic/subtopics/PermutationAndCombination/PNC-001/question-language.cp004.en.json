@@ -1,0 +1,16 @@
+{
+  "packageId": "PNC-001",
+  "canonicalProblemId": "PNC-CP-004",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-075","cpId":"PNC-CP-004","difficulty":"Easy","template":"How many distinct arrangements can be formed from all the letters of the word APPLE?"},
+    {"qlId":"PNC-QL-076","cpId":"PNC-CP-004","difficulty":"Medium","template":"How many distinct arrangements can be formed from all the letters of the word BALLOON?"},
+    {"qlId":"PNC-QL-077","cpId":"PNC-CP-004","difficulty":"Hard","template":"How many distinct arrangements can be formed from all the letters of the word MISSISSIPPI?"},
+    {"qlId":"PNC-QL-078","cpId":"PNC-CP-004","difficulty":"Medium","template":"A row contains {repeatA} identical red flags, {repeatB} identical blue flags and {distinctObjects} other flags that are all different. How many distinct arrangements of the flags are possible?"},
+    {"qlId":"PNC-QL-079","cpId":"PNC-CP-004","difficulty":"Medium","template":"How many distinct arrangements of the letters of BALLOON begin with B?"},
+    {"qlId":"PNC-QL-080","cpId":"PNC-CP-004","difficulty":"Hard","template":"How many distinct arrangements of the letters of BALLOON begin with L?"},
+    {"qlId":"PNC-QL-081","cpId":"PNC-CP-004","difficulty":"Medium","template":"A collection contains {totalObjects} objects, including {repeatA} identical objects of one type and {repeatB} identical objects of another type; all remaining objects are distinct. By what factor does {totalObjects}! overcount the distinct arrangements?"},
+    {"qlId":"PNC-QL-082","cpId":"PNC-CP-004","difficulty":"Hard","template":"A collection has {totalObjects} objects. Exactly x of them are identical and all the others are distinct. If the collection has {target} distinct arrangements, find x, where 2 ≤ x ≤ {maximumMultiplicity}."}
+  ]
+}
