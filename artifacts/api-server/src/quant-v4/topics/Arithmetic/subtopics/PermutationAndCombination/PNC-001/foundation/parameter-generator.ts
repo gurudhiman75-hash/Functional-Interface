@@ -1,6 +1,6 @@
 import { getPnc001QuestionEntries, getPnc001QuestionEntry, getPnc001VariableRanges } from "./library";
 import { combinationExact, createSeededRandom, factorialExact, hashSeed, multisetPermutationExact, permutationExact, pickSeeded, powerExact, productExact } from "./math";
-import { PNC_001_ACTIVE_CP_IDS, PNC_001_PACKAGE_ID, type Pnc001ActiveCanonicalProblemId, type Pnc001Difficulty, type Pnc001ParameterInput, type Pnc001Parameters, type Pnc001QuestionEntry } from "./types";
+import { PNC_001_ACTIVE_CP_IDS, PNC_001_PACKAGE_ID, type Pnc001ActiveCanonicalProblemId, type Pnc001Difficulty, type Pnc001ParameterInput, type Pnc001Parameters, type Pnc001QuestionEntry, type Pnc001SolveMode } from "./types";
 
 function pickValues(pool: readonly number[], count: number, random: () => number, preferDistinct: boolean): number[] {
   if (!preferDistinct || pool.length < count) return Array.from({ length: count }, () => pickSeeded(pool, random));
@@ -227,5 +227,5 @@ export function generatePnc001Parameters(input: Pnc001ParameterInput = {}): Pnc0
   const entry=selectEntry(input,seed,cpId); if(entry.cpId!==cpId) throw new Error(`PNC-001 QL ${entry.qlId} does not belong to ${cpId}`);
   const values=buildValues(entry,seed); const suffix=hashSeed(`${seed}:${entry.qlId}`).toString(16).padStart(8,"0");
   const renderVariables=Object.fromEntries(entry.requiredVariables.map((key)=>[key,values[key]!]));
-  return {packageId:PNC_001_PACKAGE_ID,canonicalProblemId:cpId,questionLanguageId:entry.qlId,questionId:`${entry.qlId}-${suffix}`,seed,language:"en",difficulty:entry.difficulty as Pnc001Difficulty,taskKind:entry.taskKind,solveMode:entry.solveMode,answerType:entry.answerType,explanationId:entry.explanationId,requiredVariables:[...entry.requiredVariables],scenarioFamily:entry.scenarioFamily,constraintProfile:entry.constraintProfile,distractorProfile:entry.distractorProfile,values,renderVariables};
+  return {packageId:PNC_001_PACKAGE_ID,canonicalProblemId:cpId,questionLanguageId:entry.qlId,questionId:`${entry.qlId}-${suffix}`,seed,language:"en",difficulty:entry.difficulty as Pnc001Difficulty,taskKind:entry.taskKind,solveMode:entry.solveMode as Pnc001SolveMode,answerType:entry.answerType,explanationId:entry.explanationId,requiredVariables:[...entry.requiredVariables],scenarioFamily:entry.scenarioFamily,constraintProfile:entry.constraintProfile,distractorProfile:entry.distractorProfile,values,renderVariables};
 }
