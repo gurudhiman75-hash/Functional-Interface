@@ -6,6 +6,15 @@ import type {
   Men001SolverResult,
 } from "./types";
 
+function hash(value: string) {
+  let result = 2166136261;
+  for (const character of value) {
+    result ^= character.charCodeAt(0);
+    result = Math.imul(result, 16777619);
+  }
+  return result >>> 0;
+}
+
 function required(parameters: Men001Parameters, key: string) {
   const value = (parameters.values as Record<string, number | undefined>)[key];
   if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
@@ -49,6 +58,8 @@ function unitResult(
   };
 }
 
+const equilateralSideFromArea =
+  MEN_001_EXHAUSTIVENESS_SOLVE_MODE_REGISTRY.findEquilateralSideFromArea;
 const wheelRevolutions =
   MEN_001_EXHAUSTIVENESS_SOLVE_MODE_REGISTRY.findWheelRevolutionsFromDistance;
 const areaRate = MEN_001_EXHAUSTIVENESS_SOLVE_MODE_REGISTRY.findAreaRateFromTotalCost;
@@ -56,6 +67,16 @@ const fencingRate = MEN_001_EXHAUSTIVENESS_SOLVE_MODE_REGISTRY.findFencingRateFr
 
 export const MEN_001_EXHAUSTIVENESS_RUNTIME_SOLVE_MODE_REGISTRY = {
   ...MEN_001_EXHAUSTIVENESS_SOLVE_MODE_REGISTRY,
+  findEquilateralSideFromArea: {
+    ...equilateralSideFromArea,
+    generateValues: (seed: string) => {
+      // Side 8 makes two distinct misconception formulas both evaluate to 16.
+      // Other exact states preserve the same mathematical family without option collision.
+      const sides = [6, 10, 12, 14, 16, 18, 20] as const;
+      const side = sides[hash(`${seed}:equilateral-side-area-safe`) % sides.length]!;
+      return { side, areaCoefficient: side ** 2 / 4 };
+    },
+  },
   findWheelRevolutionsFromDistance: {
     ...wheelRevolutions,
     solve: (parameters: Men001Parameters) => {
