@@ -14,6 +14,7 @@ import explanationLibrary from "../explanation.en.json";
 import explanationLibraryCp004 from "../explanation.cp004.en.json";
 import explanationLibraryCp006 from "../explanation.cp006.en.json";
 import qlSpecificExplanationLibrary from "../explanation-by-ql.en.json";
+import qlSpecificExplanationLibraryCp005Rank from "../explanation-by-ql.cp005-rank.en.json";
 import type {
   Pnc001Difficulty,
   Pnc001QuestionEntry,
@@ -98,7 +99,16 @@ const expectedStrategyCount = Object.keys(explanationLibrary.strategies).length
   + Object.keys(explanationLibraryCp006.strategies).length;
 if (Object.keys(strategies).length !== expectedStrategyCount) throw new Error("Duplicate PNC-001 explanation strategy ids across libraries");
 
-const qlSpecificExplanations = qlSpecificExplanationLibrary.entries as Record<string, QlSpecificExplanation>;
+const baseQlSpecificExplanations = qlSpecificExplanationLibrary.entries as Record<string, QlSpecificExplanation>;
+const rankQlSpecificExplanations = qlSpecificExplanationLibraryCp005Rank.entries as Record<string, QlSpecificExplanation>;
+const qlSpecificExplanations: Record<string, QlSpecificExplanation> = {
+  ...baseQlSpecificExplanations,
+  ...rankQlSpecificExplanations,
+};
+const expectedQlSpecificCount = Object.keys(baseQlSpecificExplanations).length + Object.keys(rankQlSpecificExplanations).length;
+if (Object.keys(qlSpecificExplanations).length !== expectedQlSpecificCount) {
+  throw new Error("Duplicate PNC-001 QL-specific explanation ids across libraries");
+}
 const qlSpecificIds = Object.keys(qlSpecificExplanations).sort();
 const activeIds = entries.map((entry) => entry.qlId);
 if (JSON.stringify(qlSpecificIds) !== JSON.stringify(activeIds)) {
