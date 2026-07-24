@@ -6,34 +6,36 @@ Difficulty is based on structural complexity, computational effort and reasoning
 
 - one direct addition or multiplication rule;
 - direct factorial evaluation or `0! = 1! = 1`;
-- one-step factorial cancellation;
 - arranging all distinct objects;
-- a familiar fixed-rank application such as awarding three different medals.
+- direct familiar unordered selection;
+- a short word arrangement with one repeated category.
 
 ## Medium
 
 - three-stage counting or disjoint product cases;
 - simple complement or bounded factorial recovery;
-- multi-factor factorial cancellation;
-- identifying that order matters in a code or office-assignment context;
-- direct partial permutation with `2 ≤ r < n`;
-- bounded recovery of `n` from an exact `nPr` target.
+- partial permutation or direct `nCr` interpretation;
+- combination symmetry;
+- multiset arrangements with two repeated categories;
+- fixing a unique object before arranging the remaining multiset;
+- identifying the overcount factor from identical swaps.
 
 ## Hard
 
-- less obvious case structure or reverse demand;
-- inverse factorial quotient reasoning;
-- bounded recovery of `r` from a permutation target, where several candidate values must be checked and the order-sensitive interpretation must be preserved.
+- inverse factorial, permutation or combination reasoning with an explicit search domain;
+- a word with several repeated categories and a larger exact correction;
+- fixing one copy of a repeated object and updating its multiplicity correctly;
+- bounded recovery of an unknown repeated multiplicity.
 
 ## Need-based distribution rule
 
 No final Easy/Medium/Hard quota is fixed for PNC-001 or the P&C family. Each QL receives the difficulty supported by its actual structure.
 
-The current two-CP package checkpoint contains:
+The current four-CP package checkpoint contains:
 
-- Easy: 31;
-- Medium: 25;
-- Hard: 10;
-- Total: 66.
+- Easy: 35;
+- Medium: 33;
+- Hard: 14;
+- Total: 82.
 
 These are observed checkpoint counts used for regression control. They are not targets for future CPs or expansion.

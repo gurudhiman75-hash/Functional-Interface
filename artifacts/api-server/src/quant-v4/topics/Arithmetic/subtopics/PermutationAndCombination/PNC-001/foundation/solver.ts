@@ -1,4 +1,16 @@
-import { combinationExact, descendingFactors, divideExact, factorialExact, factorialQuotientExact, permutationExact, productExact, subtractExact, sumExact } from "./math";
+import {
+  combinationExact,
+  descendingFactors,
+  divideExact,
+  factorialExact,
+  factorialQuotientExact,
+  multisetOvercountFactorExact,
+  multisetPermutationExact,
+  permutationExact,
+  productExact,
+  subtractExact,
+  sumExact,
+} from "./math";
 import type { Pnc001IndependentVerification, Pnc001Parameters, Pnc001SolverResult } from "./types";
 import { getPnc001VariableRanges } from "./library";
 
@@ -7,9 +19,28 @@ function independentFactorial(n:number):number{return n<=1?1:n*independentFactor
 function independentRangeProduct(upper:number,lower:number):number{let result=1;for(let v=upper;v>lower;v--)result*=v;return result;}
 function enumerateOrderedSelections(n:number,r:number):number{let count=0;const used=Array.from({length:n},()=>false);const visit=(slot:number):void=>{if(slot===r){count++;return;}for(let i=0;i<n;i++){if(used[i])continue;used[i]=true;visit(slot+1);used[i]=false;}};visit(0);return count;}
 function enumerateUnorderedSelections(n:number,r:number):number{let count=0;const visit=(start:number,selected:number):void=>{if(selected===r){count++;return;}for(let i=start;i<n;i++)visit(i+1,selected+1);};visit(0,0);return count;}
+function enumerateMultisetArrangements(total:number,multiplicities:number[]):number{
+  const repeated=multiplicities.reduce((sum,value)=>sum+value,0);
+  const counts=[...multiplicities,...Array.from({length:total-repeated},()=>1)];
+  let count=0;
+  const visit=(position:number):void=>{if(position===total){count++;return;}for(let index=0;index<counts.length;index++){if(counts[index]===0)continue;counts[index]!--;visit(position+1);counts[index]!++;}};
+  visit(0);return count;
+}
+function independentOvercountFactor(multiplicities:number[]):number{return multiplicities.reduce((product,multiplicity)=>product*independentFactorial(multiplicity),1);}
 function readInteger(p:Pnc001Parameters,key:string):number{const found=p.values[key];if(typeof found!=="number"||!Number.isInteger(found))throw new Error(`Missing integer PNC-001 value: ${key}`);return found;}
 function assertNever(value:never):never{throw new Error(`Unsupported PNC-001 solve mode: ${String(value)}`);}
 function result(answer:number,equation:string,mathJax:string,evidence:Pnc001SolverResult["evidence"]):Pnc001SolverResult{return{exactAnswer:String(answer),answer:String(answer),numericAnswer:answer,equation,mathJax,evidence};}
+function directMultisetState(p:Pnc001Parameters,value:(key:string)=>number):{total:number;multiplicities:number[]}{
+  if(p.scenarioFamily==="wordApple")return{total:5,multiplicities:[2]};
+  if(p.scenarioFamily==="wordBalloon")return{total:7,multiplicities:[2,2]};
+  if(p.scenarioFamily==="wordMississippi")return{total:11,multiplicities:[4,4,2]};
+  return{total:value("repeatA")+value("repeatB")+value("distinctObjects"),multiplicities:[value("repeatA"),value("repeatB")]};
+}
+function fixedMultisetState(p:Pnc001Parameters):{total:number;remaining:number;original:number[];remainingMultiplicities:number[];fixedBefore:number}{
+  return p.scenarioFamily==="balloonFixedUnique"
+    ?{total:7,remaining:6,original:[2,2],remainingMultiplicities:[2,2],fixedBefore:1}
+    :{total:7,remaining:6,original:[2,2],remainingMultiplicities:[2],fixedBefore:2};
+}
 
 export function solvePnc001(p:Pnc001Parameters):Pnc001SolverResult{
   const ranges=getPnc001VariableRanges(),ceiling=ranges.answerCeiling,value=(key:string)=>readInteger(p,key);
@@ -30,6 +61,10 @@ export function solvePnc001(p:Pnc001Parameters):Pnc001SolverResult{
     case"selectRFromNDistinctObjects":{const n=value("totalObjects"),r=p.scenarioFamily==="unorderedPairs"?2:p.scenarioFamily==="unorderedTriples"?3:value("selectedObjects"),ordered=permutationExact(n,r,ceiling),rf=factorialExact(r,ceiling),answer=combinationExact(n,r,ceiling);return result(answer,`${n}C${r} = ${ordered} ÷ ${rf} = ${answer}`,`{}^{${n}}C_{${r}} = \\frac{${ordered}}{${rf}} = ${answer}`,{operation:"COMBINATION_DIRECT",combinationTotalObjects:n,combinationSelectedObjects:r,combinationOrderedCount:ordered,combinationSelectionFactorial:rf,totalCount:answer});}
     case"recoverCombinationParameter":{const target=value("target");if(p.scenarioFamily==="recoverCombinationTotal"){const r=value("selectedObjects");let n=-1;for(let c=r;c<=ranges.generation.maximumCombinationObjects;c++){if(combinationExact(c,r,ceiling)===target){n=c;break;}}if(n<0)throw new Error(`No combination n matches ${target}`);return result(n,`${n}C${r} = ${target}`,`{}^{${n}}C_{${r}} = ${target}`,{operation:"COMBINATION_INVERSE",combinationTotalObjects:n,combinationSelectedObjects:r,combinationOrderedCount:permutationExact(n,r,ceiling),combinationSelectionFactorial:factorialExact(r,ceiling),combinationTarget:target,recoveredCombinationParameter:"n",totalCount:n});}const n=value("totalObjects"),half=value("halfObjects");let r=-1;for(let c=1;c<=half;c++){if(combinationExact(n,c,ceiling)===target){r=c;break;}}if(r<0)throw new Error(`No lower-half combination r matches ${target}`);return result(r,`${n}C${r} = ${target}`,`{}^{${n}}C_{${r}} = ${target}`,{operation:"COMBINATION_INVERSE",combinationTotalObjects:n,combinationSelectedObjects:r,combinationOrderedCount:permutationExact(n,r,ceiling),combinationSelectionFactorial:factorialExact(r,ceiling),combinationTarget:target,recoveredCombinationParameter:"r",totalCount:r});}
     case"recoverComplementaryCombinationIndex":{const n=value("totalObjects"),known=value("knownSelection"),answer=n-known,target=combinationExact(n,known,ceiling);return result(answer,`${n}C${known} = ${n}C${answer}`,`{}^{${n}}C_{${known}} = {}^{${n}}C_{${answer}}`,{operation:"COMBINATION_SYMMETRY",combinationTotalObjects:n,combinationSelectedObjects:answer,combinationKnownSelection:known,combinationTarget:target,recoveredCombinationParameter:"complementaryR",totalCount:answer});}
+    case"arrangeAllMultisetObjects":{const{total,multiplicities}=directMultisetState(p,value),numerator=factorialExact(total,ceiling),denominator=multisetOvercountFactorExact(multiplicities,ceiling),answer=multisetPermutationExact(total,multiplicities,ceiling),divisor=multiplicities.map(m=>`${m}!`).join(" × ");return result(answer,`${total}! ÷ (${divisor}) = ${numerator} ÷ ${denominator} = ${answer}`,`\\frac{${total}!}{${multiplicities.map(m=>`${m}!`).join(" \\times ")}} = ${answer}`,{operation:"MULTISET_DIRECT",multisetTotalObjects:total,multisetMultiplicities:multiplicities,multisetNumerator:numerator,multisetDenominator:denominator,totalCount:answer});}
+    case"arrangeMultisetAfterFixingPosition":{const state=fixedMultisetState(p),numerator=factorialExact(state.remaining,ceiling),denominator=multisetOvercountFactorExact(state.remainingMultiplicities,ceiling),answer=multisetPermutationExact(state.remaining,state.remainingMultiplicities,ceiling),divisor=state.remainingMultiplicities.map(m=>`${m}!`).join(" × ");return result(answer,`${state.remaining}! ÷ (${divisor}) = ${numerator} ÷ ${denominator} = ${answer}`,`\\frac{${state.remaining}!}{${state.remainingMultiplicities.map(m=>`${m}!`).join(" \\times ")}} = ${answer}`,{operation:"MULTISET_FIXED",multisetTotalObjects:state.total,multisetRemainingObjects:state.remaining,multisetMultiplicities:state.original,multisetRemainingMultiplicities:state.remainingMultiplicities,multisetNumerator:numerator,multisetDenominator:denominator,fixedObjectMultiplicityBefore:state.fixedBefore,totalCount:answer});}
+    case"findMultisetOvercountFactor":{const total=value("totalObjects"),multiplicities=[value("repeatA"),value("repeatB")],answer=multisetOvercountFactorExact(multiplicities,ceiling);return result(answer,`${multiplicities.map(m=>`${m}!`).join(" × ")} = ${answer}`,`${multiplicities.map(m=>`${m}!`).join(" \\times ")} = ${answer}`,{operation:"MULTISET_OVERCOUNT",multisetTotalObjects:total,multisetMultiplicities:multiplicities,multisetDenominator:answer,totalCount:answer});}
+    case"recoverMultisetMultiplicity":{const total=value("totalObjects"),target=value("target"),maximum=value("maximumMultiplicity");let answer=-1;for(let multiplicity=2;multiplicity<=maximum;multiplicity++){if(multisetPermutationExact(total,[multiplicity],ceiling)===target){answer=multiplicity;break;}}if(answer<0)throw new Error(`No multiset multiplicity matches ${target}`);const numerator=factorialExact(total,ceiling),denominator=factorialExact(answer,ceiling);return result(answer,`${total}! ÷ ${answer}! = ${target}`,`\\frac{${total}!}{${answer}!} = ${target}`,{operation:"MULTISET_INVERSE",multisetTotalObjects:total,multisetMultiplicities:[answer],multisetNumerator:numerator,multisetDenominator:denominator,multisetTarget:target,recoveredMultisetMultiplicity:answer,totalCount:answer});}
     default:return assertNever(p.solveMode);
   }
 }
@@ -53,6 +88,10 @@ export function verifyPnc001Independently(p:Pnc001Parameters):Pnc001IndependentV
     case"selectRFromNDistinctObjects":{const n=value("totalObjects"),r=p.scenarioFamily==="unorderedPairs"?2:p.scenarioFamily==="unorderedTriples"?3:value("selectedObjects");return{supported:true,answer:enumerateUnorderedSelections(n,r),method:"Recursive increasing-index subset enumeration"};}
     case"recoverCombinationParameter":{const target=value("target");if(p.scenarioFamily==="recoverCombinationTotal"){const r=value("selectedObjects");let answer=-1;for(let n=r;n<=ranges.generation.maximumCombinationObjects;n++){if(enumerateUnorderedSelections(n,r)===target){answer=n;break;}}return{supported:answer>0,answer,method:"Bounded subset-enumeration search for n"};}const n=value("totalObjects"),half=value("halfObjects");let answer=-1;for(let r=1;r<=half;r++){if(enumerateUnorderedSelections(n,r)===target){answer=r;break;}}return{supported:answer>0,answer,method:"Bounded lower-half subset search for r"};}
     case"recoverComplementaryCombinationIndex":{const n=value("totalObjects"),known=value("knownSelection"),half=value("halfObjects"),target=enumerateUnorderedSelections(n,known);let answer=-1;for(let r=half+1;r<=n;r++){if(enumerateUnorderedSelections(n,r)===target){answer=r;break;}}return{supported:answer>half,answer,method:"Upper-half subset search using equal cardinality counts"};}
+    case"arrangeAllMultisetObjects":{const{total,multiplicities}=directMultisetState(p,value);return{supported:true,answer:enumerateMultisetArrangements(total,multiplicities),method:"Recursive enumeration of unique multiset strings"};}
+    case"arrangeMultisetAfterFixingPosition":{const state=fixedMultisetState(p);return{supported:true,answer:enumerateMultisetArrangements(state.remaining,state.remainingMultiplicities),method:"Recursive enumeration after fixing one object"};}
+    case"findMultisetOvercountFactor":{const multiplicities=[value("repeatA"),value("repeatB")];return{supported:true,answer:independentOvercountFactor(multiplicities),method:"Independent product of recursive multiplicity factorials"};}
+    case"recoverMultisetMultiplicity":{const total=value("totalObjects"),target=value("target"),maximum=value("maximumMultiplicity");let answer=-1;for(let multiplicity=2;multiplicity<=maximum;multiplicity++){if(enumerateMultisetArrangements(total,[multiplicity])===target){answer=multiplicity;break;}}return{supported:answer>0,answer,method:"Bounded recursive-multiset search for multiplicity"};}
     default:return assertNever(p.solveMode);
   }
 }

@@ -38,6 +38,32 @@ export function combinationExact(n: number, r: number, ceiling = Number.MAX_SAFE
   if (numerator % denominator !== 0n) throw new Error(`Combination ${n}C${r} is not integral`);
   return toSafeCount(numerator / denominator, `${n}C${r}`, ceiling);
 }
+function factorialBigInt(argument: number): bigint {
+  assertNonNegativeInteger(argument, "factorial argument");
+  let result = 1n;
+  for (let factor = 2; factor <= argument; factor += 1) result *= BigInt(factor);
+  return result;
+}
+export function multisetOvercountFactorExact(multiplicities: number[], ceiling = Number.MAX_SAFE_INTEGER): number {
+  let denominator = 1n;
+  for (const [index, multiplicity] of multiplicities.entries()) {
+    if (!Number.isInteger(multiplicity) || multiplicity < 1) throw new Error(`multiplicity[${index}] must be a positive integer`);
+    denominator *= factorialBigInt(multiplicity);
+  }
+  return toSafeCount(denominator, "multiset overcount factor", ceiling);
+}
+export function multisetPermutationExact(total: number, multiplicities: number[], ceiling = Number.MAX_SAFE_INTEGER): number {
+  assertNonNegativeInteger(total, "multiset total");
+  const repeatedTotal = multiplicities.reduce((sum, multiplicity, index) => {
+    if (!Number.isInteger(multiplicity) || multiplicity < 1) throw new Error(`multiplicity[${index}] must be a positive integer`);
+    return sum + multiplicity;
+  }, 0);
+  if (repeatedTotal > total) throw new Error(`multiset multiplicities sum ${repeatedTotal} exceeds total ${total}`);
+  const numerator = factorialBigInt(total);
+  const denominator = multiplicities.reduce((product, multiplicity) => product * factorialBigInt(multiplicity), 1n);
+  if (numerator % denominator !== 0n) throw new Error(`Multiset arrangement ${total}!/${multiplicities.map((m) => `${m}!`).join("×")} is not integral`);
+  return toSafeCount(numerator / denominator, "multiset permutation", ceiling);
+}
 export function descendingFactors(upper: number, lowerExclusive: number): number[] {
   assertNonNegativeInteger(upper, "upper factor"); assertNonNegativeInteger(lowerExclusive, "lower exclusive factor"); if (lowerExclusive > upper) throw new Error("lower exclusive factor exceeds upper factor");
   return Array.from({ length: upper - lowerExclusive }, (_, index) => upper - index);
