@@ -4,9 +4,9 @@
 
 | CP | Name | Current implemented QLs | Status |
 |---|---|---:|---|
-| `PNC-CP-001` | Fundamental Counting Principle & Case Partition | 48 | Runtime proof |
+| `PNC-CP-001` | Fundamental Counting Principle, Case Partition & Factorial Reasoning | 58 | Runtime proof |
 
-The current QLs are `PNC-QL-001` through `PNC-QL-048`. This range records the implemented checkpoint; it is not a fixed final size for CP-001.
+The current QLs are `PNC-QL-001` through `PNC-QL-058`. This range records the implemented checkpoint; it is not a fixed final size for CP-001.
 
 ## CP-001 scope currently represented
 
@@ -14,9 +14,14 @@ The current QLs are `PNC-QL-001` through `PNC-QL-048`. This range records the im
 - addition principle for mutually exclusive alternatives;
 - disjoint case partition;
 - one-condition complementary counting;
-- recovery of a missing stage count from an exact product.
+- recovery of a missing stage count from an exact product;
+- direct factorial evaluation;
+- the `0! = 1! = 1` identity inside small exact expressions;
+- consecutive factorial cancellation;
+- recovery of an argument from an exact factorial target;
+- recovery of an argument from a two-factor factorial quotient.
 
-CP-001 teaches the counting model without relying on `nPr` or `nCr`. Every explanation states whether counts are multiplied, added, subtracted or divided and why.
+CP-001 teaches the foundational counting arithmetic without yet introducing full `nPr` or `nCr` state. Every explanation identifies the operation, exposes solver-owned intermediate evidence and states why the construction is valid.
 
 ## Candidate coverage backlog
 
