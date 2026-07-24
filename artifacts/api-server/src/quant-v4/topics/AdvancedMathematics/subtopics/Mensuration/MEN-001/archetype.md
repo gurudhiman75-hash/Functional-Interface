@@ -15,36 +15,60 @@ Generate SSC, Banking and Punjab-state-exam style plane-mensuration questions wi
 
 ## Active runtime-proof scope
 
-Only `MEN-CP-001` is active. It contains 24 English QLs across 14 solve modes:
+`MEN-CP-001` through `MEN-CP-004` are active.
 
-- direct triangle area from base and perpendicular height;
-- reverse height and reverse base recovery;
-- Heron's formula with exact integer states;
-- right-triangle area from perpendicular legs;
-- exact equilateral-triangle area with preserved `√3`;
-- equilateral side/perimeter reverse problems;
-- isosceles altitude and area recovery;
-- side-ratio plus perimeter recovery;
-- largest/smallest side from a ratio and perimeter;
-- triangular plot area-cost applications.
+Current checkpoint:
 
-The runtime-proof suite generates 20 deterministic states per QL: 480 questions in total.
+- 125 active English QLs;
+- 106 registry-derived solve modes;
+- 20 deterministic states per QL;
+- 2,500 generated runtime-proof questions;
+- 375 generated human-review samples.
+
+These figures describe the current checkpoint. They are not fixed quotas or terminal identifiers.
+
+### MEN-CP-001 — triangles
+
+Coverage includes direct and reverse area, perimeter, Heron's formula, right-triangle side and area recovery, exact equilateral area and height, isosceles height and area, side-ratio/perimeter recovery, and area-cost applications.
+
+### MEN-CP-002 — quadrilaterals
+
+Coverage includes rectangle, square, parallelogram, rhombus, trapezium, kite and general diagonal-plus-perpendicular quadrilateral measurement. Direct, reverse, perimeter, diagonal and area families are represented.
+
+### MEN-CP-003 — circles
+
+Coverage includes radius, diameter, circumference, area, semicircles, quadrants, arcs, sectors, central-angle recovery, annuli and wheel-distance/revolution problems. Every circular question explicitly states `π = 22/7`.
+
+### MEN-CP-004 — applications
+
+Coverage includes inside/outside rectangular, square and circular paths; reverse path-width recovery; crossed roads; uncovered area; paving and tile counts; flooring, painting and paving costs; area and fencing rate recovery; fencing with gates and multiple rounds.
 
 ## Mathematical rules
 
-- Length, area and cost are distinct answer dimensions.
-- Linear and square units must match the requested quantity.
+- Length, area, cost, rate, angle and count are distinct answer dimensions.
+- Linear, square, currency-rate, degree, tile and revolution units must match the requested quantity.
 - Triangle sides must satisfy triangle inequality.
-- Isosceles altitude states must satisfy Pythagoras exactly.
+- Right-triangle and isosceles recovery states must satisfy Pythagoras exactly.
 - Ratio-derived sides must conserve the stated perimeter.
 - Exact surds remain exact unless approximation is explicitly requested.
-- Cost equals the computed area multiplied by the registered rate.
+- Circular states use the explicit registered `π = 22/7` policy.
+- Border and annular states conserve outer-minus-inner area.
+- Crossed-road states use inclusion-exclusion and subtract overlap once.
+- Tile counts are exact whole-number area quotients.
+- Cost and reverse-rate states conserve `cost = measure × rate`.
 - Difficulty comes from the mathematical state, not inflated arithmetic.
-- Stem, solver, options, reasoning graph and explanation use one generated state.
+- Stem, solver, options, reasoning graph, validation and explanation use one generated state.
+
+## Ownership boundaries
+
+- `MEN-CP-005` owns irregular composite, inscribed, shaded and regular-polygon figures.
+- `MEN-CP-006` owns mixed-unit conversion, scaling, wire reshaping and boundary-conservation transformations.
+- Geometry owns theorem/property reasoning.
+- Trigonometry owns trigonometric side/area recovery.
 
 ## Current maturity
 
-- `MEN-CP-001`: `RUNTIME_PROOF`
+- `MEN-CP-001` through `MEN-CP-004`: `RUNTIME_PROOF`
 - publicly publishable: `false`
 - supported runtime language: English only
 - Question Studio wiring: intentionally deferred until integration review
