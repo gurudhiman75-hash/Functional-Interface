@@ -7,6 +7,7 @@ import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
 
+const AUTHORSHIP = "AVG-001 deterministic human-authored presentation v2";
 const failures: string[] = [];
 const englishExplanations = new Map<string, string[]>();
 const englishProse = new Map<string, string[]>();
@@ -28,11 +29,38 @@ function fail(message: string) {
 }
 
 function normalize(value: string) {
-  return value.toLowerCase().replace(/₹?[\d,.]+(?:\/\d+)?/g, "#").replace(/\s+/g, " ").trim();
+  return value
+    .toLowerCase()
+    .replace(/₹?[\d,.]+(?:\/\d+)?/g, "#")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function arithmeticLine(line: string) {
   return /\$\$|\\times|\\div|×|÷/.test(line) || /\d[\d,.]*\s*[+\-]\s*\d/.test(line);
+}
+
+function answerToken(pkg: Avg001QuestionPackage) {
+  const match = String(pkg.answer)
+    .replaceAll(",", "")
+    .match(/-?\d+(?:\.\d+)?(?::-?\d+(?:\.\d+)?)?/);
+  return match?.[0] ?? String(pkg.answer).trim();
+}
+
+function containsCalculatedAnswer(pkg: Avg001QuestionPackage) {
+  const answer = answerToken(pkg);
+  return pkg.explanation.lines.some((line) => {
+    if (!arithmeticLine(line)) return false;
+    const compact = line.replaceAll(",", "").replaceAll(" ", "").replaceAll("₹", "");
+    const marker = `=${answer}`;
+    let index = compact.indexOf(marker);
+    while (index >= 0) {
+      const next = compact[index + marker.length] ?? "";
+      if (!/[0-9.:]/.test(next)) return true;
+      index = compact.indexOf(marker, index + 1);
+    }
+    return false;
+  });
 }
 
 function proseSignature(pkg: Avg001QuestionPackage) {
@@ -56,6 +84,33 @@ function localizedRunner(cpId: string) {
   throw new Error(`No localized quality runtime for ${cpId}`);
 }
 
+function checkAuthorship(pkg: Avg001QuestionPackage, scope: string) {
+  if (pkg.traceability.explanationAuthorship !== AUTHORSHIP) {
+    fail(`${scope}: explanation authorship marker missing`);
+  }
+  if (typeof pkg.traceability.explanationOpeningVariant !== "number") {
+    fail(`${scope}: explanation opening variant missing`);
+  }
+  if (typeof pkg.traceability.explanationConclusionVariant !== "number") {
+    fail(`${scope}: explanation conclusion variant missing`);
+  }
+}
+
+function checkExplanation(pkg: Avg001QuestionPackage, scope: string) {
+  if (pkg.explanation.lines.length < 4 || pkg.explanation.lines.length > 8) {
+    fail(`${scope}: explanation has ${pkg.explanation.lines.length} lines`);
+  }
+  if (!pkg.explanation.lines.some((line) => line.includes(pkg.answer))) {
+    fail(`${scope}: explanation omits answer evidence`);
+  }
+  if (!pkg.explanation.lines.some(arithmeticLine)) {
+    fail(`${scope}: explanation omits substituted arithmetic`);
+  }
+  if (!containsCalculatedAnswer(pkg)) {
+    fail(`${scope}: no arithmetic line calculates the displayed answer`);
+  }
+}
+
 const entries = getAvg001QuestionEntries();
 for (const entry of entries) {
   const seed = `avg-language-quality:${entry.qlId}`;
@@ -63,20 +118,11 @@ for (const entry of entries) {
   const repeatedEnglish = runAvg001Pipeline({ questionLanguageId: entry.qlId, seed, language: "en" });
 
   if (!english.validation.valid || english.validation.checks.some((check) => !check.passed)) {
-    fail(`${entry.qlId}: English package fails validation`);
+    const failed = english.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",");
+    fail(`${entry.qlId}: English package fails validation [${failed}]`);
   }
-  if (english.traceability.explanationAuthorship !== "AVG-001 deterministic human-authored presentation v1") {
-    fail(`${entry.qlId}: English explanation authorship marker missing`);
-  }
-  if (english.explanation.lines.length < 4 || english.explanation.lines.length > 8) {
-    fail(`${entry.qlId}: English explanation has ${english.explanation.lines.length} lines`);
-  }
-  if (!english.explanation.lines.some((line) => line.includes(english.answer))) {
-    fail(`${entry.qlId}: English explanation omits answer evidence`);
-  }
-  if (!english.explanation.lines.some(arithmeticLine)) {
-    fail(`${entry.qlId}: English explanation omits arithmetic`);
-  }
+  checkAuthorship(english, entry.qlId);
+  checkExplanation(english, entry.qlId);
   if (JSON.stringify(english.explanation) !== JSON.stringify(repeatedEnglish.explanation)) {
     fail(`${entry.qlId}: English explanation is not deterministic`);
   }
@@ -84,36 +130,39 @@ for (const entry of entries) {
   add(englishExplanations, normalize(english.explanation.lines.join("\n")), entry.qlId);
   add(englishProse, proseSignature(english), entry.qlId);
 
-  if (entry.cpId === "AVG-CP-001" || entry.cpId === "AVG-CP-002" || entry.cpId === "AVG-CP-003") {
+  if (["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)) {
     const runner = localizedRunner(entry.cpId);
     for (const language of ["hi", "pa"] as const) {
       const localized = runner({ questionLanguageId: entry.qlId, seed, language });
       const repeated = runner({ questionLanguageId: entry.qlId, seed, language });
+      const scope = `${entry.qlId}:${language}`;
       const languageExplanations = localizedExplanations.get(language)!;
       const languageProse = localizedProse.get(language)!;
       const languageStems = localizedStemStructures.get(language)!;
 
       if (!localized.validation.valid || localized.validation.checks.some((check) => !check.passed)) {
         const failed = localized.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",");
-        fail(`${entry.qlId}:${language}: localized validation fails [${failed}]`);
+        fail(`${scope}: localized validation fails [${failed}]`);
       }
-      if (localized.traceability.explanationAuthorship !== "AVG-001 deterministic human-authored presentation v1") {
-        fail(`${entry.qlId}:${language}: explanation authorship marker missing`);
-      }
+      checkAuthorship(localized, scope);
+      checkExplanation(localized, scope);
       if (localized.answer !== english.answer || localized.correctIndex !== english.correctIndex) {
-        fail(`${entry.qlId}:${language}: answer or correct index changed`);
+        fail(`${scope}: answer or correct index changed`);
       }
       if (JSON.stringify(localized.options) !== JSON.stringify(english.options)) {
-        fail(`${entry.qlId}:${language}: options changed`);
+        fail(`${scope}: options changed`);
       }
       if (JSON.stringify(localized.parameters.values) !== JSON.stringify(english.parameters.values)) {
-        fail(`${entry.qlId}:${language}: mathematical parameters changed`);
+        fail(`${scope}: mathematical parameters changed`);
       }
       if (localized.mathematicalFingerprint !== english.mathematicalFingerprint) {
-        fail(`${entry.qlId}:${language}: mathematical fingerprint changed`);
+        fail(`${scope}: mathematical fingerprint changed`);
       }
-      if (JSON.stringify(localized.explanation) !== JSON.stringify(repeated.explanation) || localized.stem !== repeated.stem) {
-        fail(`${entry.qlId}:${language}: localized presentation is not deterministic`);
+      if (
+        JSON.stringify(localized.explanation) !== JSON.stringify(repeated.explanation) ||
+        localized.stem !== repeated.stem
+      ) {
+        fail(`${scope}: localized presentation is not deterministic`);
       }
 
       add(languageExplanations, normalize(localized.explanation.lines.join("\n")), entry.qlId);
@@ -129,11 +178,14 @@ for (const language of ["hi", "pa"] as const) {
   assertNoDuplicateGroups(`${language} full explanation`, localizedExplanations.get(language)!);
   assertNoDuplicateGroups(`${language} prose structure`, localizedProse.get(language)!);
   for (const [signature, qlIds] of localizedStemStructures.get(language)!) {
-    if (qlIds.length > 3) fail(`${language}: over-repeated normalized stem structure ${qlIds.join(", ")} :: ${signature}`);
+    if (qlIds.length > 3) {
+      fail(`${language}: over-repeated normalized stem structure ${qlIds.join(", ")} :: ${signature}`);
+    }
   }
 }
 
 console.log(JSON.stringify({
+  authorship: AUTHORSHIP,
   englishQlCount: entries.length,
   localizedQlCountPerLanguage: entries.filter((entry) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)).length,
   englishExactExplanationGroups: englishExplanations.size,
@@ -143,8 +195,10 @@ console.log(JSON.stringify({
   punjabiExactExplanationGroups: localizedExplanations.get("pa")!.size,
   punjabiProseGroups: localizedProse.get("pa")!.size,
   failureCount: failures.length,
-  failures: failures.slice(0, 250),
-  verdict: failures.length ? "FAIL" : "PASS — STEMS CONTEXTUAL AND EVERY EXPLANATION PROSE SIGNATURE UNIQUE",
+  failures: failures.slice(0, 300),
+  verdict: failures.length
+    ? "FAIL"
+    : "PASS — CONTEXTUAL STEMS, UNIQUE PROSE AND DECISIVE ARITHMETIC",
 }, null, 2));
 
 assert.equal(failures.length, 0, failures.join("\n"));
