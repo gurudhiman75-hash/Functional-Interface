@@ -1,0 +1,35 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-025","taskKind":"triangleMeasurementApplication","solveMode":"findTrianglePerimeterFromSides","answerDimension":"LENGTH","requiredVariables":["sideA","sideB","sideC"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-026","taskKind":"triangleMeasurementApplication","solveMode":"findRightTriangleHypotenuseFromLegs","answerDimension":"LENGTH","requiredVariables":["legA","legB"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-027","taskKind":"triangleMeasurementApplication","solveMode":"findRightTriangleMissingLeg","answerDimension":"LENGTH","requiredVariables":["sideC","legA"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-028","taskKind":"triangleMeasurementApplication","solveMode":"findEquilateralHeightFromSide","answerDimension":"LENGTH","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-001","qlId":"MEN-001-QL-029","taskKind":"triangleMeasurementApplication","solveMode":"findEquilateralSideFromArea","answerDimension":"LENGTH","requiredVariables":["areaCoefficient"]},
+
+    {"cpId":"MEN-CP-002","qlId":"MEN-001-QL-129","taskKind":"quadrilateralMeasurementApplication","solveMode":"findSquareSideFromPerimeter","answerDimension":"LENGTH","requiredVariables":["perimeter"]},
+    {"cpId":"MEN-CP-002","qlId":"MEN-001-QL-130","taskKind":"quadrilateralMeasurementApplication","solveMode":"findRhombusAreaFromBaseHeight","answerDimension":"AREA","requiredVariables":["base","height"]},
+    {"cpId":"MEN-CP-002","qlId":"MEN-001-QL-131","taskKind":"quadrilateralMeasurementApplication","solveMode":"findKitePerimeterFromAdjacentPairs","answerDimension":"LENGTH","requiredVariables":["sideA","sideB"]},
+    {"cpId":"MEN-CP-002","qlId":"MEN-001-QL-132","taskKind":"quadrilateralMeasurementApplication","solveMode":"findTrapeziumPerimeterFromSides","answerDimension":"LENGTH","requiredVariables":["parallelSideA","parallelSideB","sideA","sideB"]},
+
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-224","taskKind":"circleMeasurementApplication","solveMode":"findCircleDiameterFromCircumference","answerDimension":"LENGTH","requiredVariables":["circumference"]},
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-225","taskKind":"circleMeasurementApplication","solveMode":"findCircleDiameterFromArea","answerDimension":"LENGTH","requiredVariables":["area"]},
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-226","taskKind":"circleMeasurementApplication","solveMode":"findRadiusFromArcLengthAndAngle","answerDimension":"LENGTH","requiredVariables":["arcLength","angleDegrees"]},
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-227","taskKind":"circleMeasurementApplication","solveMode":"findRadiusFromSectorAreaAndAngle","answerDimension":"LENGTH","requiredVariables":["sectorArea","angleDegrees"]},
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-228","taskKind":"circleMeasurementApplication","solveMode":"findInnerRadiusFromAnnulusArea","answerDimension":"LENGTH","requiredVariables":["area","outerRadius"]},
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-229","taskKind":"circleMeasurementApplication","solveMode":"findWheelRevolutionsFromDistance","answerDimension":"COUNT","requiredVariables":["radius","distance"]},
+    {"cpId":"MEN-CP-003","qlId":"MEN-001-QL-230","taskKind":"circleMeasurementApplication","solveMode":"findWheelRadiusFromDistanceAndRevolutions","answerDimension":"LENGTH","requiredVariables":["distance","revolutions"]},
+
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-325","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterRectangularPathWidthFromArea","answerDimension":"LENGTH","requiredVariables":["innerLength","innerBreadth","area"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-326","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findInnerRectangularPathWidthFromArea","answerDimension":"LENGTH","requiredVariables":["outerLength","outerBreadth","area"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-327","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterCircularPathWidthFromArea","answerDimension":"LENGTH","requiredVariables":["innerRadius","area"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-328","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findInnerCircularPathWidthFromArea","answerDimension":"LENGTH","requiredVariables":["outerRadius","area"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-329","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findCrossRoadArea","answerDimension":"AREA","requiredVariables":["pathWidth","gateWidth","length","breadth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-330","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findRemainingFieldAreaAfterCrossRoads","answerDimension":"AREA","requiredVariables":["pathWidth","gateWidth","length","breadth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-331","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findUncoveredFloorAreaAfterTiles","answerDimension":"AREA","requiredVariables":["floorLength","floorBreadth","tileCount","tileLength","tileBreadth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-332","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findAreaRateFromTotalCost","answerDimension":"RATE","requiredVariables":["area","cost"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-333","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findFencingRateFromTotalCost","answerDimension":"RATE","requiredVariables":["length","breadth","cost"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-334","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findInnerRectangularPathTilesRequired","answerDimension":"COUNT","requiredVariables":["outerLength","outerBreadth","pathWidth","tileLength","tileBreadth"]}
+  ]
+}
