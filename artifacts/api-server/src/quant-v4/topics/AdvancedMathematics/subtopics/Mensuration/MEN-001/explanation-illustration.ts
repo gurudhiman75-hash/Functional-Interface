@@ -77,7 +77,7 @@ function buildRectangleDiagonalMap(
   const unit = linearUnit(solver);
   const diagonal = requiredNumber(solver, "diagonal");
   const length = requiredNumber(solver, "length");
-  const breadth = requiredNumber(solver, "breadth");
+  requiredNumber(solver, "breadth");
   return {
     kind: "RECTANGLE_DIAGONAL_SPLIT",
     purpose: "DIAGONAL_FORMS_RIGHT_TRIANGLE",
@@ -86,9 +86,9 @@ function buildRectangleDiagonalMap(
     labels: {
       diagonal: `${diagonal} ${unit}`,
       length: `${length} ${unit}`,
-      breadth: `${breadth} ${unit}`,
+      breadth: `x ${unit}`,
     },
-    accessibleText: `Rectangle with length ${length} ${unit}, breadth ${breadth} ${unit}, and diagonal ${diagonal} ${unit}; the diagonal forms a right triangle; not drawn to scale.`,
+    accessibleText: `Rectangle with known length ${length} ${unit}, diagonal ${diagonal} ${unit}, and unknown breadth x; the diagonal forms a right triangle; not drawn to scale.`,
   };
 }
 
@@ -101,7 +101,7 @@ function buildRhombusHalfDiagonalMap(
   const diagonalB = requiredNumber(solver, "diagonalB");
   const halfDiagonalA = requiredNumber(solver, "halfDiagonalA");
   const halfDiagonalB = requiredNumber(solver, "halfDiagonalB");
-  const side = requiredNumber(solver, "side");
+  requiredNumber(solver, "side");
   return {
     kind: "RHOMBUS_HALF_DIAGONALS",
     purpose: "DIAGONALS_BISECT_AT_RIGHT_ANGLES",
@@ -112,9 +112,9 @@ function buildRhombusHalfDiagonalMap(
       diagonalB: `${diagonalB} ${unit}`,
       halfDiagonalA: `${halfDiagonalA} ${unit}`,
       halfDiagonalB: `${halfDiagonalB} ${unit}`,
-      side: `${side} ${unit}`,
+      side: `x ${unit}`,
     },
-    accessibleText: `Rhombus whose perpendicular diagonals ${diagonalA} ${unit} and ${diagonalB} ${unit} bisect into half-diagonals ${halfDiagonalA} ${unit} and ${halfDiagonalB} ${unit}; each side is ${side} ${unit}; not drawn to scale.`,
+    accessibleText: `Rhombus whose perpendicular diagonals ${diagonalA} ${unit} and ${diagonalB} ${unit} bisect into half-diagonals ${halfDiagonalA} ${unit} and ${halfDiagonalB} ${unit}; a side is marked x; not drawn to scale.`,
   };
 }
 
