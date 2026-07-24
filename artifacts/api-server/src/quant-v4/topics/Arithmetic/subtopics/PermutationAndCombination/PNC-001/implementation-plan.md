@@ -1,18 +1,33 @@
 # PNC-001 Need-Based Implementation Plan
 
-## Completed checkpoint — CP-001 runtime proof
+## Completed checkpoint 1 — Initial CP-001 runtime proof
 
-The current implementation contains 48 English QLs because those were the distinct reviewed QLs admitted for the first runtime proof. The number is a checkpoint snapshot, not a reusable quota.
+The first admitted set contained 48 English QLs covering counting principles, case partition, simple complement and exact missing-factor recovery.
 
-Delivered:
+## Completed checkpoint 2 — Factorial coverage extension
+
+A reference-led coverage-gap review identified factorial reasoning as the highest-value missing family that still belongs inside CP-001.
+
+The extension admitted ten materially distinct QLs, `PNC-QL-049` through `PNC-QL-058`, and five required solve modes:
+
+- direct factorial value;
+- unit-factorial expressions using `0! = 1! = 1`;
+- exact factorial quotient cancellation;
+- bounded recovery from a factorial target;
+- bounded recovery from a two-factor factorial quotient.
+
+The current implementation therefore contains 58 English QLs and ten active modes. These are checkpoint observations, not reusable quotas.
+
+Delivered across the current scope:
 
 - task registry and human-owned language library;
-- exact integer math;
+- exact integer and factorial math;
 - deterministic parameter generation;
 - solver evidence;
-- explanation rendering for the five solve modes currently required;
+- independent verification;
+- evidence-driven explanations;
 - semantic distractors;
-- validation and bundled tests;
+- validation, coverage audits and bundled tests;
 - no generation-engine edits.
 
 ## Next checkpoint selection
@@ -22,12 +37,12 @@ Do not automatically implement a pre-numbered CP or a predetermined QL range.
 Before the next checkpoint:
 
 1. inspect uploaded/reference P&C books, PYQs and the existing motif/scenario inventory;
-2. produce a coverage-gap matrix;
+2. produce a fresh coverage-gap matrix;
 3. identify the highest-value uncovered reasoning family;
 4. decide whether the gap belongs in CP-001 or requires a new CP;
 5. admit only materially distinct QLs;
 6. introduce only the solve modes required by those admitted QLs;
-7. implement solver, evidence, explanation, distractor and validator behavior together;
+7. implement solver, evidence, explanation, distractor and validator behaviour together;
 8. stop expansion when new proposals become semantic near-clones rather than coverage gains.
 
 ## Merge rule
