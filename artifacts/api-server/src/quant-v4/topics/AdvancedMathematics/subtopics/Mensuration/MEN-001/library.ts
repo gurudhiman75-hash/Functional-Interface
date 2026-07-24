@@ -3,11 +3,13 @@ import questionLanguageBase from "./question-language.en.json";
 import questionLanguageCp003 from "./question-language.cp003.en.json";
 import questionLanguageCp004 from "./question-language.cp004.en.json";
 import questionLanguageCp004Additional from "./question-language.cp004.additional.en.json";
+import questionLanguageExhaustiveness from "./question-language.exhaustiveness.en.json";
 import { getMen001SolveModeIds } from "./solve-mode-registry.all";
 import taskRegistryBase from "./task-registry.library.json";
 import taskRegistryCp003 from "./task-registry.cp003.library.json";
 import taskRegistryCp004 from "./task-registry.cp004.library.json";
 import taskRegistryCp004Additional from "./task-registry.cp004.additional.library.json";
+import taskRegistryExhaustiveness from "./task-registry.exhaustiveness.library.json";
 import {
   MEN_001_ACTIVE_CP_IDS,
   MEN_001_PACKAGE_ID,
@@ -21,12 +23,14 @@ const questionLanguageSources = [
   questionLanguageCp003,
   questionLanguageCp004,
   questionLanguageCp004Additional,
+  questionLanguageExhaustiveness,
 ] as const;
 const taskRegistrySources = [
   taskRegistryBase,
   taskRegistryCp003,
   taskRegistryCp004,
   taskRegistryCp004Additional,
+  taskRegistryExhaustiveness,
 ] as const;
 
 const questionEntries = questionLanguageSources
@@ -62,7 +66,12 @@ function unitMatchesDimension(entry: Men001QuestionLanguageEntry) {
     return entry.unitPolicy === "SQUARE_CENTIMETRES" || entry.unitPolicy === "SQUARE_METRES";
   }
   if (entry.answerDimension === "ANGLE") return entry.unitPolicy === "DEGREES";
-  if (entry.answerDimension === "COUNT") return entry.unitPolicy === "TILES";
+  if (entry.answerDimension === "COUNT") {
+    return entry.unitPolicy === "TILES" || entry.unitPolicy === "REVOLUTIONS";
+  }
+  if (entry.answerDimension === "RATE") {
+    return entry.unitPolicy === "RUPEES_PER_SQUARE_METRE" || entry.unitPolicy === "RUPEES_PER_METRE";
+  }
   return entry.answerDimension === "COST" && entry.unitPolicy === "RUPEES";
 }
 
@@ -74,6 +83,8 @@ function requiresExplicitPiPolicy(entry: Men001QuestionLanguageEntry) {
       "findInnerCircularPathArea",
       "findCircularPathCost",
       "findCircularFencingCost",
+      "findOuterCircularPathWidthFromArea",
+      "findInnerCircularPathWidthFromArea",
     ].includes(entry.solveMode)
   );
 }
