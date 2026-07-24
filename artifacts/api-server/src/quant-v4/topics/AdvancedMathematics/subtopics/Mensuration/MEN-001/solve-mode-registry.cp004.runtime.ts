@@ -18,7 +18,7 @@ function piArea(radius: number) {
 function positive(values: Values, key: keyof Values) {
   const value = values[key];
   if (typeof value !== "number" || !Number.isFinite(value) || value <= 0) {
-    throw new Error(`MEN-001 CP-004 refined circular state requires positive ${String(key)}.`);
+    throw new Error(`MEN-001 CP-004 refined state requires positive ${String(key)}.`);
   }
   return value;
 }
@@ -67,9 +67,28 @@ function refineInnerCircularState(values: Values): Values {
   };
 }
 
+function refinePathTileState(values: Values): Values {
+  const area = positive(values, "area");
+  const tileLength = positive(values, "tileLength");
+  const generatedTileBreadth = positive(values, "tileBreadth");
+  const tileBreadth = generatedTileBreadth > 1 ? generatedTileBreadth : 2;
+  const tileArea = tileLength * tileBreadth;
+  const tileCount = area / tileArea;
+  if (!Number.isInteger(tileCount)) {
+    throw new Error(`MEN-001 CP-004 refined path-tile state must divide exactly.`);
+  }
+  return {
+    ...values,
+    tileBreadth,
+    tileArea,
+    tileCount,
+  };
+}
+
 const outerCircularArea = MEN_001_CP004_SOLVE_MODE_REGISTRY.findOuterCircularPathArea;
 const innerCircularArea = MEN_001_CP004_SOLVE_MODE_REGISTRY.findInnerCircularPathArea;
 const circularPathCost = MEN_001_CP004_SOLVE_MODE_REGISTRY.findCircularPathCost;
+const pathTiles = MEN_001_CP004_ADDITIONAL_SOLVE_MODE_REGISTRY.findOuterRectangularPathTilesRequired;
 
 export const MEN_001_CP004_RUNTIME_SOLVE_MODE_REGISTRY = {
   ...MEN_001_CP004_SOLVE_MODE_REGISTRY,
@@ -88,5 +107,10 @@ export const MEN_001_CP004_RUNTIME_SOLVE_MODE_REGISTRY = {
     ...circularPathCost,
     generateValues: (seed: string) =>
       refineOuterCircularState(circularPathCost.generateValues(seed)),
+  },
+  findOuterRectangularPathTilesRequired: {
+    ...pathTiles,
+    generateValues: (seed: string) =>
+      refinePathTileState(pathTiles.generateValues(seed)),
   },
 } as const;
