@@ -10,5 +10,10 @@
     "firstQuestionLanguageId": "PNC-QL-001",
     "lastQuestionLanguageId": "PNC-QL-048"
   },
-  "futureExpansionRule": "Add QLs, solve modes, CPs or packages only for documented coverage need; no fixed final counts."
+  "admissionPolicy": {
+    "questionLanguages": "Add only for a material coverage distinction; no fixed final count.",
+    "solveModes": "Add only when an approved QL family needs a distinct solver/evidence/validator contract.",
+    "canonicalProblems": "Allocate an ID only after a documented ownership decision.",
+    "packages": "Create only when size, architecture or review safety justifies a split."
+  }
 }
