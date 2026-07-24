@@ -22,6 +22,7 @@ import { getAvg001QuestionEntry, getAvg001QuestionLanguageIds, renderTemplate } 
 import { generateAvg001Options } from "./option-generator";
 import { generateAvg001Parameters } from "./parameter-generator";
 import { applyAvg001RatioDistractorRealism } from "./ratio-distractor-realism";
+import { applyAvg001EnglishRelease } from "./release";
 import { buildAvg001ReasoningEvidence } from "./reasoning-evidence";
 import { solveAvg001 } from "./solver";
 import {
@@ -36,15 +37,17 @@ function finalizeExplanation(pkg: Avg001QuestionPackage) {
 }
 
 function finalizePackage(pkg: Avg001QuestionPackage) {
+  let finalized: Avg001QuestionPackage;
   if (isAvg001BoundedChildAgeQuestion(pkg)) {
-    return applyAvg001BoundedAgeDistractorRealism(pkg);
+    finalized = applyAvg001BoundedAgeDistractorRealism(pkg);
+  } else if (supportsAvg001SupplementalDistractors(pkg)) {
+    finalized = applyAvg001SupplementalDistractorRealism(pkg);
+  } else {
+    finalized = pkg.solveMode === "findGroupCountRatioFromCombinedAverage"
+      ? applyAvg001RatioDistractorRealism(pkg)
+      : applyAvg001DistractorRealism(pkg);
   }
-  if (supportsAvg001SupplementalDistractors(pkg)) {
-    return applyAvg001SupplementalDistractorRealism(pkg);
-  }
-  return pkg.solveMode === "findGroupCountRatioFromCombinedAverage"
-    ? applyAvg001RatioDistractorRealism(pkg)
-    : applyAvg001DistractorRealism(pkg);
+  return applyAvg001EnglishRelease(finalized);
 }
 
 export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {
