@@ -1,10 +1,7 @@
 import { buildQuantV4AnswerOptions } from "../../../../../shared/answers/option-generation";
 import { renderMen001Explanation } from "./explanation-renderer";
 import { getMen001QuestionEntry, renderMen001Template } from "./library";
-import {
-  generateMen001Parameters,
-  type Men001ParameterInput,
-} from "./parameter-generator";
+import { generateMen001Parameters, type Men001ParameterInput } from "./parameter-generator";
 import { buildMen001ReasoningGraph } from "./reasoning-graph";
 import { solveMen001 } from "./solver";
 import {
@@ -15,12 +12,13 @@ import {
 } from "./types";
 import { validateMen001QuestionPackage } from "./validator";
 
-function unitOption(value: number, unit: "cm" | "cm²") {
-  return `${value} ${unit}`;
+function numericOption(value: number, solver: Men001SolverResult) {
+  return solver.unit === "₹" ? `₹${value}` : `${value} ${solver.unit}`;
 }
 
-function symbolicAreaOption(coefficient: number, radicand = 3) {
-  return `$$${coefficient}\\sqrt{${radicand}}\\,\\text{cm}^{2}$$`;
+function symbolicAreaOption(coefficient: number, solver: Men001SolverResult, radicand = 3) {
+  const latexUnit = solver.unit === "m²" ? "\\text{m}^{2}" : "\\text{cm}^{2}";
+  return `$$${coefficient}\\sqrt{${radicand}}\\,${latexUnit}$$`;
 }
 
 function buildMen001Distractors(solver: Men001SolverResult, solveMode: string) {
@@ -28,40 +26,86 @@ function buildMen001Distractors(solver: Men001SolverResult, solveMode: string) {
   switch (solveMode) {
     case "findTriangleAreaBaseHeight":
       return [
-        unitOption(Number(values.base) * Number(values.height), "cm²"),
-        unitOption(Number(values.base) + Number(values.height), "cm²"),
-        unitOption(Number(values.area) + Number(values.base), "cm²"),
+        numericOption(Number(values.base) * Number(values.height), solver),
+        numericOption(Number(values.base) + Number(values.height), solver),
+        numericOption(Number(values.area) + Number(values.base), solver),
       ];
     case "findMissingHeightFromAreaAndBase":
       return [
-        unitOption(Number(values.area) / Number(values.base), "cm"),
-        unitOption(Number(values.base), "cm"),
-        unitOption(Number(values.height) + 2, "cm"),
+        numericOption(Number(values.area) / Number(values.base), solver),
+        numericOption(Number(values.base), solver),
+        numericOption(Number(values.height) + 2, solver),
+      ];
+    case "findMissingBaseFromAreaAndHeight":
+      return [
+        numericOption(Number(values.area) / Number(values.height), solver),
+        numericOption(Number(values.height), solver),
+        numericOption(Number(values.base) + 2, solver),
       ];
     case "findTriangleAreaHeron":
       return [
-        unitOption(
-          Number(values.sideA) + Number(values.sideB) + Number(values.sideC),
-          "cm²",
-        ),
-        unitOption(Number(values.semiperimeter), "cm²"),
-        unitOption(Number(values.radicand), "cm²"),
+        numericOption(Number(values.sideA) + Number(values.sideB) + Number(values.sideC), solver),
+        numericOption(Number(values.semiperimeter), solver),
+        numericOption(Number(values.radicand), solver),
       ];
     case "findRightTriangleAreaFromLegs":
       return [
-        unitOption(Number(values.legA) * Number(values.legB), "cm²"),
-        unitOption(Number(values.legA) + Number(values.legB), "cm²"),
-        unitOption(Number(values.area) + Number(values.legA), "cm²"),
+        numericOption(Number(values.legA) * Number(values.legB), solver),
+        numericOption(Number(values.legA) + Number(values.legB), solver),
+        numericOption(Number(values.area) + Number(values.legA), solver),
       ];
     case "findEquilateralTriangleArea": {
       const coefficient = Number(values.coefficient);
       const side = Number(values.side);
       return [
-        unitOption(coefficient, "cm²"),
-        symbolicAreaOption(side * side),
-        symbolicAreaOption(Math.max(1, coefficient * 2)),
+        numericOption(coefficient, solver),
+        symbolicAreaOption(side * side, solver),
+        symbolicAreaOption(Math.max(1, coefficient * 2), solver),
       ];
     }
+    case "findEquilateralPerimeterFromArea":
+      return [
+        numericOption(Number(values.side), solver),
+        numericOption(Number(values.side) * 2, solver),
+        numericOption(Number(values.perimeter) + Number(values.side), solver),
+      ];
+    case "findEquilateralSideFromPerimeter":
+      return [
+        numericOption(Number(values.perimeter), solver),
+        numericOption(Number(values.perimeter) / 2, solver),
+        numericOption(Number(values.side) + 3, solver),
+      ];
+    case "findIsoscelesTriangleArea":
+      return [
+        numericOption((Number(values.base) * Number(values.equalSide)) / 2, solver),
+        numericOption(Number(values.base) * Number(values.height), solver),
+        numericOption(Number(values.base) + 2 * Number(values.equalSide), solver),
+      ];
+    case "findIsoscelesHeight":
+      return [
+        numericOption(Number(values.equalSide), solver),
+        numericOption(Number(values.halfBase), solver),
+        numericOption(Number(values.height) + 2, solver),
+      ];
+    case "findTriangleAreaFromSideRatioAndPerimeter":
+      return [
+        numericOption(Number(values.semiperimeter), solver),
+        numericOption((Number(values.sideA) * Number(values.sideB)) / 2, solver),
+        numericOption(Number(values.area) * 2, solver),
+      ];
+    case "findLargestTriangleSideFromRatioAndPerimeter":
+    case "findSmallestTriangleSideFromRatioAndPerimeter":
+      return [
+        numericOption(Number(values.scale), solver),
+        numericOption(Number(values.sideB), solver),
+        numericOption(Number(values.targetSide) + Number(values.scale), solver),
+      ];
+    case "findTriangularPlotCost":
+      return [
+        numericOption(Number(values.cost) * 2, solver),
+        numericOption(Number(values.area), solver),
+        numericOption(Number(values.cost) + Number(values.ratePerSquareMetre), solver),
+      ];
     default:
       return [];
   }
@@ -94,6 +138,7 @@ export function runMen001Pipeline(
   });
   const mathematicalFingerprint = [
     parameters.solveMode,
+    parameters.unitPolicy,
     ...Object.entries(parameters.values)
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([key, value]) => `${key}=${value}`),
