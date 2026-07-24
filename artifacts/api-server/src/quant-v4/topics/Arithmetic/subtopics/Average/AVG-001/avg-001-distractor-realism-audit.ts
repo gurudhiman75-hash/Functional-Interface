@@ -101,6 +101,7 @@ console.log(JSON.stringify({
   qlCount: getAvg001QuestionLanguageIds().length,
   cases,
   solveModeCount: strategiesByMode.size,
+  boundedCombinedAverageModeCount: boundedCombinedAverageModes.size,
   strategyCountsByMode: Object.fromEntries(
     [...strategiesByMode.entries()].map(([solveMode, strategies]) => [solveMode, strategies.size]),
   ),
