@@ -59,11 +59,32 @@ export interface SemanticFact {
   right: string;
   relation: string;
   direction: AnalogyDirection;
+  predicate: string;
   explanation: string;
+  answerCategory: string;
+  sourceCategory: string;
+  difficulty: "EASY" | "MEDIUM" | "HARD";
   locale: "en-IN" | "hi-IN" | "pa-IN";
   examSuitability: readonly ("SSC" | "BANKING" | "PUNJAB")[];
   version: string;
   status: "CURATED" | "REVIEW" | "RETIRED";
+  verifiedAt: string;
+  sourceType: "STABLE_GENERAL_KNOWLEDGE" | "STANDARD_SCIENCE" | "STANDARD_LANGUAGE";
+  factRisk: "LOW" | "MEDIUM" | "HIGH";
+  validFrom?: string;
+  validTo?: string;
+  editorialNote?: string;
+}
+
+export interface SemanticRelationDefinition {
+  id: string;
+  label: string;
+  ruleStatement: string;
+  sourceCategory: string;
+  answerCategory: string;
+  predicateTemplate: string;
+  minimumFactCount: number;
+  distractorPolicy: "SAME_ANSWER_CATEGORY" | "SAME_RELATION_VALID_PAIRS";
 }
 
 export interface OptionValidationResult {
