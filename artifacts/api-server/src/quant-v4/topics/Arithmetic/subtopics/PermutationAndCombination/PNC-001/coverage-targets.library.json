@@ -1,21 +1,21 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-001-FACTORIAL-EXTENSION-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-002-UNRESTRICTED-PERMUTATIONS-RUNTIME-PROOF",
   "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
   "currentCoverage": {
-    "activeCanonicalProblemCount": 1,
-    "activeQuestionLanguageCount": 58,
-    "activeSolveModeCount": 10,
-    "activeExplanationStrategyCount": 10,
+    "activeCanonicalProblemCount": 2,
+    "activeQuestionLanguageCount": 66,
+    "activeSolveModeCount": 13,
+    "activeExplanationStrategyCount": 13,
     "activeLanguageCount": 1,
     "firstQuestionLanguageId": "PNC-QL-001",
-    "lastQuestionLanguageId": "PNC-QL-058"
+    "lastQuestionLanguageId": "PNC-QL-066"
   },
   "verification": {
-    "workflowRunId": 30068306106,
+    "workflowRunId": 30069922425,
     "strictTargetedTypecheck": "PASS",
     "bundledRuntimeProof": "PASS",
-    "seedCases": 696,
+    "seedCases": 792,
     "generatedTwicePerSeed": true
   },
   "admissionPolicy": {
