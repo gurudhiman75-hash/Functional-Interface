@@ -1,37 +1,41 @@
 # PNC-001 Canonical-Problem Discovery
 
-## Active CP
+## Active CPs
 
 | CP | Name | Current implemented QLs | Status |
 |---|---|---:|---|
 | `PNC-CP-001` | Fundamental Counting Principle, Case Partition & Factorial Reasoning | 58 | Runtime proof |
+| `PNC-CP-002` | Unrestricted Ordered Arrangements of Distinct Objects | 8 | Runtime proof |
+| **Current package snapshot** |  | **66** |  |
 
-The current QLs are `PNC-QL-001` through `PNC-QL-058`. This range records the implemented checkpoint; it is not a fixed final size for CP-001.
+The current active IDs are `PNC-QL-001` through `PNC-QL-066`. These values describe the reviewed checkpoint and are not final CP or package sizes.
 
 ## CP-001 scope currently represented
 
-- multiplication principle for sequential independent choices;
-- addition principle for mutually exclusive alternatives;
-- disjoint case partition;
-- one-condition complementary counting;
-- recovery of a missing stage count from an exact product;
-- direct factorial evaluation;
-- the `0! = 1! = 1` identity inside small exact expressions;
-- consecutive factorial cancellation;
-- recovery of an argument from an exact factorial target;
-- recovery of an argument from a two-factor factorial quotient.
+- addition and multiplication counting principles;
+- disjoint cases and simple complement;
+- exact missing-factor recovery;
+- factorial definition and `0! = 1! = 1`;
+- factorial cancellation;
+- bounded factorial and factorial-quotient inverse reasoning.
 
-CP-001 teaches the foundational counting arithmetic without yet introducing full `nPr` or `nCr` state. Every explanation identifies the operation, exposes solver-owned intermediate evidence and states why the construction is valid.
+## CP-002 scope currently represented
+
+- arranging all distinct objects in ordered positions;
+- arranging `r` objects from `n` distinct objects without repetition;
+- ranked awards and distinct-office assignment as `nPr` applications;
+- bounded exact recovery of either `n` or `r` from a permutation target.
+
+CP-002 is separate because it introduces order-sensitive object/slot state, no-repetition selection, exact `nPr` authority and permutation-specific validation. It remains in package `PNC-001` because the shared exact-counting runtime is still coherent and reviewable.
 
 ## Candidate coverage backlog
 
-The following families are candidates for future review, not pre-created CPs:
+The following remain candidates for fresh review, not pre-created CPs:
 
-- distinct linear permutations and positional assignment;
-- basic combinations and direct selection applications;
+- basic combinations and direct unordered selection;
 - digit, number, code and password formation;
 - word, letter and repeated-object arrangements;
-- selection followed by ordered roles;
+- selection followed by ordered roles when structurally beyond current `nPr` forms;
 - together/apart/block restrictions;
 - positional, relative-order, alternation and gap constraints;
 - category-constrained selection;
