@@ -25,11 +25,14 @@ type VariableRanges = {
     threeStage: number[];
     invalid: number[];
     recovered: number[];
+    factorial: number[];
+    factorialGap: number[];
   }>;
   generation: {
     maxAttempts: number;
     minimumAnswer: number;
     preferDistinctStageCounts: boolean;
+    maximumFactorialArgument: number;
   };
 };
 
