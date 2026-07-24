@@ -1,11 +1,11 @@
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-quality";
-import { applyAvg001LocalizedStemQuality } from "./localized-stem-quality";
+import { applyAvg001LocalizedStemQualityRefinement } from "./localized-stem-quality-refinement";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
 
-const HI_UNNATURAL = /(?:[\d,.]+ का एक मान समूह|एक नया सदस्य शामिल होने पर|हटाए गए सदस्य का मान|एक सदस्य हटने पर|अंक का एक स्कोर|उत्पादन-श्रृंखला|मूल्य-श्रृंखला|स्कोर-श्रृंखला|दूरी-श्रृंखला)/;
-const PA_UNNATURAL = /(?:[\d,.]+ ਦਾ ਇੱਕ ਮੁੱਲ ਸਮੂਹ|ਇੱਕ ਨਵਾਂ ਮੈਂਬਰ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ|ਹਟਾਏ ਗਏ ਮੈਂਬਰ ਦਾ ਮੁੱਲ|ਇੱਕ ਮੈਂਬਰ ਹਟਣ ਉੱਤੇ|ਅੰਕ ਦਾ ਇੱਕ ਸਕੋਰ|ਉਤਪਾਦਨ ਲੜੀ|ਕੀਮਤਾਂ ਦੀ ਲੜੀ|ਸਕੋਰ ਲੜੀ|ਦੂਰੀ ਲੜੀ)/;
+const HI_UNNATURAL = /(?:[\d,.]+ का एक मान समूह|एक नया सदस्य शामिल होने पर|हटाए गए सदस्य का मान|एक सदस्य हटने पर|अंक का एक स्कोर|उत्पादन-श्रृंखला|मूल्य-श्रृंखला|स्कोर-श्रृंखला|दूरी-श्रृंखला|बीच का संख्या|सबसे बड़ा संख्या|सबसे छोटा संख्या)/;
+const PA_UNNATURAL = /(?:[\d,.]+ ਦਾ ਇੱਕ ਮੁੱਲ ਸਮੂਹ|ਇੱਕ ਨਵਾਂ ਮੈਂਬਰ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ|ਹਟਾਏ ਗਏ ਮੈਂਬਰ ਦਾ ਮੁੱਲ|ਇੱਕ ਮੈਂਬਰ ਹਟਣ ਉੱਤੇ|ਅੰਕ ਦਾ ਇੱਕ ਸਕੋਰ|ਉਤਪਾਦਨ ਲੜੀ|ਕੀਮਤਾਂ ਦੀ ਲੜੀ|ਸਕੋਰ ਲੜੀ|ਦੂਰੀ ਲੜੀ|ਵਿਚਕਾਰਲਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਵੱਡਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਛੋਟਾ ਸੰਖਿਆ)/;
 
 function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) {
   const replaced = new Set([
@@ -37,7 +37,7 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
     {
       name: "localized-context-naturalness",
       passed: !unnatural.test(pkg.stem),
-      message: "Localized stem avoids generic member/value wording and artificial context labels",
+      message: "Localized stem avoids generic member/value wording, artificial labels and gender errors",
     },
     {
       name: "localized-explanation",
@@ -64,7 +64,7 @@ export function applyAvg001LocalizedPresentationQuality(
   pkg: Avg001QuestionPackage,
   language: PilotLanguage,
 ): Avg001QuestionPackage {
-  const stemPolished = applyAvg001LocalizedStemQuality(pkg, language);
+  const stemPolished = applyAvg001LocalizedStemQualityRefinement(pkg, language);
   const humanized = applyAvg001HumanAuthoredExplanation(stemPolished);
   return { ...humanized, validation: refreshValidation(humanized, language) };
 }
