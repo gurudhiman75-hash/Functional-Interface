@@ -1,4 +1,4 @@
-name: Validate AVG-001 runtime proof
+name: Validate AVG-001 English freeze
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: avg-001-runtime-proof-${{ github.ref }}
+  group: avg-001-english-freeze-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,17 +37,17 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Run AVG-001 proof gates
+      - name: Run AVG-001 proof and freeze gates
         run: |
           set -euo pipefail
-          : > avg-proof-diagnostics.log
+          : > avg-freeze-diagnostics.log
           run_case() {
             name="$1"
             source="$2"
             output="dist/quant-v4/${name}.mjs"
-            echo "===== $name =====" | tee -a avg-proof-diagnostics.log
-            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-proof-diagnostics.log
-            (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-proof-diagnostics.log
+            echo "===== $name =====" | tee -a avg-freeze-diagnostics.log
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-freeze-diagnostics.log
+            (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-freeze-diagnostics.log
           }
           run_case avg-001-test src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001.test.ts
           run_case avg-001-independent src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-independent-verifier-audit.ts
@@ -79,6 +79,7 @@ jobs:
           run_case avg-001-cp005-explanation-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-explanation-quality-audit.ts
           run_case avg-001-cp006-coverage src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp006-coverage-audit.ts
           run_case avg-001-gap-expansion src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-gap-expansion-audit.ts
+          run_case avg-001-freeze-readiness src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-freeze-readiness-audit.ts
           run_case avg-001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-review-export.ts
           run_case avg-001-gap-expansion-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-gap-expansion-review-export.ts
           run_case avg-001-cp001-review-export src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-review-export.ts
@@ -91,15 +92,15 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: avg-001-proof-diagnostics
-          path: avg-proof-diagnostics.log
+          name: avg-001-freeze-diagnostics
+          path: avg-freeze-diagnostics.log
           if-no-files-found: warn
           retention-days: 7
-      - name: Upload proof review CSVs
+      - name: Upload approved English review CSVs
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: avg-001-runtime-proof-review
+          name: avg-001-approved-english-review
           path: |
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-gap-expansion-human-review-en.csv
@@ -110,4 +111,4 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp005-human-review-en.csv
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp006-human-review-en.csv
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14

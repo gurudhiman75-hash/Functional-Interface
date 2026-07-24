@@ -1,52 +1,44 @@
-# AVG-001 CP-001 Runtime Proof
+# AVG-001 Runtime and Release Status
 
-Status: **AVG-001 English runtime proof complete; ready for product-owner review.**
+Status: **APPROVED / PASS — ENGLISH FREEZE READY**
 
-## Implemented scope
+The original CP-001 runtime-proof milestone has been superseded by the chapter-wide English release `AVG-001-EN-v1`.
 
-- 24 human-authored English QLs;
-- six QLs per CP-001 solve mode;
-- exact 8 Easy / 8 Medium / 8 Hard distribution;
-- exact rational arithmetic with a separate display layer;
+## Current implemented scope
+
+- 425 active English QLs across six canonical problems;
+- 45 solve modes;
+- calibrated distribution of 109 Easy / 187 Medium / 129 Hard;
+- exact rational arithmetic and independent mathematical verification;
 - deterministic constructive parameter generation;
-- scenario-specific numeric realism profiles;
-- independent mathematical verifier;
-- structured reasoning evidence;
-- context-aware, teacher-style explanations with substituted arithmetic;
-- misconception-driven options with fail-fast collision handling;
-- deterministic 24-row English review CSV;
-- deferred Hindi/Punjabi localization contract only;
-- maturity `RUNTIME_PROOF` and `publiclyPublishable: false`.
+- scenario and context realism controls;
+- misconception-based distractors;
+- structured, substituted explanations;
+- Question Studio registration and production routing;
+- release maturity `FROZEN`;
+- `publiclyPublishable: true` for validated English packages;
+- Hindi and Punjabi explicitly excluded from this release.
 
-## Automated proof gates
+## Final automated verification
 
-| Gate | Cases | Result |
-|---|---:|---|
-| Forced generation and determinism | 288 | Pass |
-| Independent mathematical verification | 288 | Pass |
-| Same-QL mathematical diversity | 288 | Pass |
-| Scenario-context realism | 288 | Pass |
-| **Total checked generations** | **1,152** | **Pass** |
+- chapter test: 5,100 generated packages — pass;
+- independent verifier: 5,100 cases, zero mismatch — pass;
+- dedicated freeze audit: 1,275 generated packages — pass;
+- unsupported-language checks: 850 — pass;
+- unresolved placeholder/internal-token failures: 0;
+- cross-QL exact rendered duplicate stem groups: 0;
+- approved combined review export: 425/425 rows;
+- approved CP review exports: 425/425 rows;
+- API, Question Studio, Render, admin, student and hosting production checks — pass.
 
-Additional repository checks passed:
+## Editorial state
 
-- API server build;
-- canonical Question Studio and admin production gates;
-- admin typecheck and tests;
-- complete admin application build;
-- student application build;
-- single-site hosting assembly.
+All generated English review rows carry:
 
-## Editorial review state
+- seven quality fields marked `PASS`;
+- editorial status `APPROVED`;
+- reviewer `ExamTree product owner`;
+- review date `2026-07-24`;
+- release note referencing `AVG-001-EN-v1`.
 
-The generated 24-row primary CSV has been inspected for stems, numeric realism, options and explanations. Root-cause corrections were applied and the CSV was regenerated. Its formal product-owner review status remains `PENDING`.
-
-## Exposure state
-
-- English runtime only;
-- Hindi and Punjabi explicitly rejected;
-- package not yet registered in Question Studio;
-- not publicly publishable;
-- no production-complete or freeze claim.
-
-The next implementation stage begins only after the CP-001 proof is accepted: CP-002, followed by the remaining CPs in the locked design order.
+See `avg-001-freeze-record.md` for the release boundary and change-control rules.
