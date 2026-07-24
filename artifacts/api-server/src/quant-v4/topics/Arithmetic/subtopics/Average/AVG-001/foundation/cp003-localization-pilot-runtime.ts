@@ -21,53 +21,94 @@ function value(pkg: Avg001QuestionPackage, key: string) {
   return String(pkg.parameters.renderVariables[key] ?? "");
 }
 
-function localizedUnit(pkg: Avg001QuestionPackage, language: PilotLanguage) {
-  const unit = value(pkg, "unit");
-  if (language === "hi") {
-    if (unit === "marks") return "अंक";
-    if (unit === "runs") return "रन";
-    return "इकाइयाँ";
-  }
-  if (unit === "marks") return "ਅੰਕ";
-  if (unit === "runs") return "ਦੌੜਾਂ";
-  return "ਇਕਾਈਆਂ";
-}
-
-function memberLabels(pkg: Avg001QuestionPackage, language: PilotLanguage) {
+function gapContext(pkg: Avg001QuestionPackage, language: PilotLanguage) {
   const domain = pkg.parameters.contextDomain;
+  const oldAverage = value(pkg, "oldAverage");
+  const memberValue = value(pkg, "memberValue");
+
   if (language === "hi") {
-    if (domain === "Education") return { singular: "विद्यार्थी", plural: "विद्यार्थी" };
-    if (domain === "Sports") return { singular: "खिलाड़ी", plural: "खिलाड़ी" };
-    if (domain === "Workforce") return { singular: "कर्मी", plural: "कर्मी" };
-    if (domain === "Production") return { singular: "मशीन", plural: "मशीनें" };
-    return { singular: "सदस्य", plural: "सदस्य" };
+    if (domain === "Education") {
+      return {
+        lead: `एक कक्षा के विद्यार्थियों के अंकों का औसत ${oldAverage} है।`,
+        joining: `${memberValue} अंक प्राप्त करने वाला एक नया विद्यार्थी शामिल होता है`,
+        leaving: `${memberValue} अंक प्राप्त करने वाला एक विद्यार्थी कक्षा छोड़ देता है`,
+        plural: "विद्यार्थियों",
+        unit: "अंक",
+      };
+    }
+    if (domain === "Sports") {
+      return {
+        lead: `एक टीम के खिलाड़ियों का औसत स्कोर ${oldAverage} रन है।`,
+        joining: `${memberValue} रन बनाने वाला एक नया खिलाड़ी शामिल होता है`,
+        leaving: `${memberValue} रन बनाने वाला एक खिलाड़ी टीम छोड़ देता है`,
+        plural: "खिलाड़ियों",
+        unit: "रन",
+      };
+    }
+    if (domain === "Production") {
+      return {
+        lead: `एक उत्पादन इकाई की मशीनों का औसत उत्पादन ${oldAverage} इकाइयाँ है।`,
+        joining: `${memberValue} इकाइयों का उत्पादन करने वाली एक नई मशीन जोड़ी जाती है`,
+        leaving: `${memberValue} इकाइयों का उत्पादन करने वाली एक मशीन हटा दी जाती है`,
+        plural: "मशीनों",
+        unit: "इकाइयाँ",
+      };
+    }
+    return {
+      lead: `एक कार्य-दल के कर्मियों का औसत उत्पादन ${oldAverage} इकाइयाँ है।`,
+      joining: `${memberValue} इकाइयों का उत्पादन करने वाला एक नया कर्मी शामिल होता है`,
+      leaving: `${memberValue} इकाइयों का उत्पादन करने वाला एक कर्मी दल छोड़ देता है`,
+      plural: "कर्मियों",
+      unit: "इकाइयाँ",
+    };
   }
-  if (domain === "Education") return { singular: "ਵਿਦਿਆਰਥੀ", plural: "ਵਿਦਿਆਰਥੀ" };
-  if (domain === "Sports") return { singular: "ਖਿਡਾਰੀ", plural: "ਖਿਡਾਰੀ" };
-  if (domain === "Workforce") return { singular: "ਕਾਮਾ", plural: "ਕਾਮੇ" };
-  if (domain === "Production") return { singular: "ਮਸ਼ੀਨ", plural: "ਮਸ਼ੀਨਾਂ" };
-  return { singular: "ਮੈਂਬਰ", plural: "ਮੈਂਬਰ" };
+
+  if (domain === "Education") {
+    return {
+      lead: `ਇੱਕ ਜਮਾਤ ਦੇ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਅੰਕਾਂ ਦੀ ਔਸਤ ${oldAverage} ਹੈ।`,
+      joining: `${memberValue} ਅੰਕ ਲੈਣ ਵਾਲਾ ਇੱਕ ਨਵਾਂ ਵਿਦਿਆਰਥੀ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ`,
+      leaving: `${memberValue} ਅੰਕ ਲੈਣ ਵਾਲਾ ਇੱਕ ਵਿਦਿਆਰਥੀ ਜਮਾਤ ਛੱਡ ਦਿੰਦਾ ਹੈ`,
+      plural: "ਵਿਦਿਆਰਥੀਆਂ",
+      unit: "ਅੰਕ",
+    };
+  }
+  if (domain === "Sports") {
+    return {
+      lead: `ਇੱਕ ਟੀਮ ਦੇ ਖਿਡਾਰੀਆਂ ਦਾ ਔਸਤ ਸਕੋਰ ${oldAverage} ਦੌੜਾਂ ਹੈ।`,
+      joining: `${memberValue} ਦੌੜਾਂ ਬਣਾਉਣ ਵਾਲਾ ਇੱਕ ਨਵਾਂ ਖਿਡਾਰੀ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ`,
+      leaving: `${memberValue} ਦੌੜਾਂ ਬਣਾਉਣ ਵਾਲਾ ਇੱਕ ਖਿਡਾਰੀ ਟੀਮ ਛੱਡ ਦਿੰਦਾ ਹੈ`,
+      plural: "ਖਿਡਾਰੀਆਂ",
+      unit: "ਦੌੜਾਂ",
+    };
+  }
+  if (domain === "Production") {
+    return {
+      lead: `ਇੱਕ ਉਤਪਾਦਨ ਇਕਾਈ ਦੀਆਂ ਮਸ਼ੀਨਾਂ ਦਾ ਔਸਤ ਉਤਪਾਦਨ ${oldAverage} ਇਕਾਈਆਂ ਹੈ।`,
+      joining: `${memberValue} ਇਕਾਈਆਂ ਦਾ ਉਤਪਾਦਨ ਕਰਨ ਵਾਲੀ ਇੱਕ ਨਵੀਂ ਮਸ਼ੀਨ ਜੋੜੀ ਜਾਂਦੀ ਹੈ`,
+      leaving: `${memberValue} ਇਕਾਈਆਂ ਦਾ ਉਤਪਾਦਨ ਕਰਨ ਵਾਲੀ ਇੱਕ ਮਸ਼ੀਨ ਹਟਾਈ ਜਾਂਦੀ ਹੈ`,
+      plural: "ਮਸ਼ੀਨਾਂ",
+      unit: "ਇਕਾਈਆਂ",
+    };
+  }
+  return {
+    lead: `ਇੱਕ ਕਾਰਜ-ਦਲ ਦੇ ਕਾਮਿਆਂ ਦਾ ਔਸਤ ਉਤਪਾਦਨ ${oldAverage} ਇਕਾਈਆਂ ਹੈ।`,
+    joining: `${memberValue} ਇਕਾਈਆਂ ਦਾ ਉਤਪਾਦਨ ਕਰਨ ਵਾਲਾ ਇੱਕ ਨਵਾਂ ਕਾਮਾ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ`,
+    leaving: `${memberValue} ਇਕਾਈਆਂ ਦਾ ਉਤਪਾਦਨ ਕਰਨ ਵਾਲਾ ਇੱਕ ਕਾਮਾ ਦਲ ਛੱਡ ਦਿੰਦਾ ਹੈ`,
+    plural: "ਕਾਮਿਆਂ",
+    unit: "ਇਕਾਈਆਂ",
+  };
 }
 
 function gapStem(pkg: Avg001QuestionPackage, language: PilotLanguage) {
-  const oldAverage = value(pkg, "oldAverage");
-  const memberValue = value(pkg, "memberValue");
-  const averageChange = value(pkg, "averageChange");
-  const newAverage = value(pkg, "newAverage");
-  const unit = localizedUnit(pkg, language);
-  const member = memberLabels(pkg, language);
-
+  const context = gapContext(pkg, language);
   if (pkg.solveMode === "findOriginalCountFromJoiningMemberShift") {
-    if (language === "hi") {
-      return `एक समूह का औसत ${oldAverage} ${unit} है। ${memberValue} ${unit} वाला एक नया ${member.singular} जुड़ने पर औसत ${averageChange} ${unit} बढ़ जाता है। प्रारंभ में ${member.plural} की संख्या ज्ञात कीजिए।`;
-    }
-    return `ਇੱਕ ਸਮੂਹ ਦੀ ਔਸਤ ${oldAverage} ${unit} ਹੈ। ${memberValue} ${unit} ਵਾਲਾ ਇੱਕ ਨਵਾਂ ${member.singular} ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ${averageChange} ${unit} ਵਧ ਜਾਂਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ${member.plural} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
+    return language === "hi"
+      ? `${context.lead} ${context.joining}, जिससे औसत ${value(pkg, "averageChange")} ${context.unit} बढ़ जाता है। प्रारंभ में ${context.plural} की संख्या ज्ञात कीजिए।`
+      : `${context.lead} ${context.joining}, ਜਿਸ ਨਾਲ ਔਸਤ ${value(pkg, "averageChange")} ${context.unit} ਵਧ ਜਾਂਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ${context.plural} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
   }
-
-  if (language === "hi") {
-    return `एक समूह का औसत ${oldAverage} ${unit} है। ${memberValue} ${unit} वाला एक ${member.singular} हटने पर औसत ${newAverage} ${unit} हो जाता है। प्रारंभ में ${member.plural} की संख्या ज्ञात कीजिए।`;
-  }
-  return `ਇੱਕ ਸਮੂਹ ਦੀ ਔਸਤ ${oldAverage} ${unit} ਹੈ। ${memberValue} ${unit} ਵਾਲਾ ਇੱਕ ${member.singular} ਹਟਣ ਉੱਤੇ ਔਸਤ ${newAverage} ${unit} ਹੋ ਜਾਂਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ${member.plural} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
+  return language === "hi"
+    ? `${context.lead} ${context.leaving}, जिसके बाद औसत ${value(pkg, "newAverage")} ${context.unit} हो जाता है। प्रारंभ में ${context.plural} की संख्या ज्ञात कीजिए।`
+    : `${context.lead} ${context.leaving}, ਜਿਸ ਤੋਂ ਬਾਅਦ ਔਸਤ ${value(pkg, "newAverage")} ${context.unit} ਹੋ ਜਾਂਦੀ ਹੈ। ਸ਼ੁਰੂ ਵਿੱਚ ${context.plural} ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`;
 }
 
 function gapExplanation(pkg: Avg001QuestionPackage, language: PilotLanguage) {
@@ -75,9 +116,10 @@ function gapExplanation(pkg: Avg001QuestionPackage, language: PilotLanguage) {
   const memberValue = value(pkg, "memberValue");
   const shift = value(pkg, "averageChange");
   const answer = pkg.answer;
+  const context = gapContext(pkg, language);
   const final = language === "hi"
-    ? `अतः प्रारंभिक सदस्यों की संख्या ${answer} है।`
-    : `ਇਸ ਲਈ ਸ਼ੁਰੂਆਤੀ ਮੈਂਬਰਾਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`;
+    ? `अतः प्रारंभिक ${context.plural} की संख्या ${answer} है।`
+    : `ਇਸ ਲਈ ਸ਼ੁਰੂਆਤੀ ${context.plural} ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`;
 
   if (pkg.solveMode === "findOriginalCountFromJoiningMemberShift") {
     return {
@@ -153,10 +195,7 @@ export function runAvg001Cp003LocalizationPilot(input: {
   if (english.canonicalProblemId !== "AVG-CP-003") {
     throw new Error(`${input.questionLanguageId} is outside the AVG-001 CP-003 multilingual pilot`);
   }
-  if (
-    english.solveMode !== "findOriginalCountFromJoiningMemberShift" &&
-    english.solveMode !== "findOriginalCountFromLeavingMemberShift"
-  ) {
+  if (english.solveMode !== "findOriginalCountFromJoiningMemberShift" && english.solveMode !== "findOriginalCountFromLeavingMemberShift") {
     return runBasePilot(input);
   }
 
