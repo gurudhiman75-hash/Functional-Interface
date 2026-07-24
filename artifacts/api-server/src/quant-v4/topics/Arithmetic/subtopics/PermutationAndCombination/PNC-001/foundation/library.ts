@@ -2,14 +2,18 @@ import questionLanguageBase from "../question-language.en.json";
 import questionLanguageCp003 from "../question-language.cp003.en.json";
 import questionLanguageCp004 from "../question-language.cp004.en.json";
 import questionLanguageCp005 from "../question-language.cp005.en.json";
+import questionLanguageCp006 from "../question-language.cp006.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistryCp003 from "../task-registry.cp003.library.json";
 import taskRegistryCp004 from "../task-registry.cp004.library.json";
 import taskRegistryCp005 from "../task-registry.cp005.library.json";
+import taskRegistryCp006 from "../task-registry.cp006.library.json";
 import variableRanges from "../variable-ranges.library.json";
 import constraintProfiles from "../constraint-profiles.library.json";
 import explanationLibrary from "../explanation.en.json";
 import explanationLibraryCp004 from "../explanation.cp004.en.json";
+import explanationLibraryCp006 from "../explanation.cp006.en.json";
+import qlSpecificExplanationLibrary from "../explanation-by-ql.en.json";
 import type {
   Pnc001Difficulty,
   Pnc001QuestionEntry,
@@ -19,6 +23,7 @@ import type {
 } from "./types";
 
 type ExplanationStrategy = { solveMode: Pnc001SolveMode; concept: string; lines: string[] };
+type QlSpecificExplanation = { lines: string[] };
 type VariableRanges = {
   packageId: "PNC-001";
   answerCeiling: number;
@@ -30,12 +35,14 @@ type VariableRanges = {
     multisetTotal: number[]; multisetRepeat: number[];
     digitMaximum: number[]; digitLength: number[];
     letterChoices: number[]; digitChoices: number[]; codeSlots: number[];
+    mixedPool: number[]; mixedSelection: number[]; mixedRoles: number[];
   }>;
   generation: {
     maxAttempts: number; minimumAnswer: number; preferDistinctStageCounts: boolean;
     maximumFactorialArgument: number; maximumPermutationObjects: number; maximumCombinationObjects: number;
     maximumMultisetObjects: number; maximumMultisetMultiplicity: number;
     maximumDigit: number; maximumCodeLength: number; maximumCodeSymbols: number;
+    maximumMixedPool: number; maximumMixedSelection: number; maximumMixedRoles: number;
   };
 };
 
@@ -44,12 +51,14 @@ const qlEntries = [
   ...(questionLanguageCp003.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp004.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp005.entries as Pnc001QuestionLanguageEntry[]),
+  ...(questionLanguageCp006.entries as Pnc001QuestionLanguageEntry[]),
 ];
 const registryGroups = [
   ...(taskRegistryBase.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp003.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp004.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp005.groups as Pnc001RegistryGroup[]),
+  ...(taskRegistryCp006.groups as Pnc001RegistryGroup[]),
 ];
 const qlById = new Map(qlEntries.map((entry) => [entry.qlId, entry]));
 const expandedEntries: Pnc001QuestionEntry[] = registryGroups.flatMap((group) => group.qlIds.map((qlId) => {
@@ -61,7 +70,7 @@ const expandedEntries: Pnc001QuestionEntry[] = registryGroups.flatMap((group) =>
   return {
     ...languageEntry,
     taskKind: group.taskKind,
-    solveMode: group.solveMode,
+    solveMode: group.solveMode as Pnc001SolveMode,
     answerType: group.answerType,
     explanationId: group.explanationId,
     requiredVariables: [...group.requiredVariables],
@@ -82,9 +91,26 @@ const entryById = new Map(entries.map((entry) => [entry.qlId, entry]));
 const strategies = {
   ...(explanationLibrary.strategies as Record<string, ExplanationStrategy>),
   ...(explanationLibraryCp004.strategies as Record<string, ExplanationStrategy>),
+  ...(explanationLibraryCp006.strategies as Record<string, ExplanationStrategy>),
 };
-if (Object.keys(strategies).length !== Object.keys(explanationLibrary.strategies).length + Object.keys(explanationLibraryCp004.strategies).length) {
-  throw new Error("Duplicate PNC-001 explanation strategy ids across libraries");
+const expectedStrategyCount = Object.keys(explanationLibrary.strategies).length
+  + Object.keys(explanationLibraryCp004.strategies).length
+  + Object.keys(explanationLibraryCp006.strategies).length;
+if (Object.keys(strategies).length !== expectedStrategyCount) throw new Error("Duplicate PNC-001 explanation strategy ids across libraries");
+
+const qlSpecificExplanations = qlSpecificExplanationLibrary.entries as Record<string, QlSpecificExplanation>;
+const qlSpecificIds = Object.keys(qlSpecificExplanations).sort();
+const activeIds = entries.map((entry) => entry.qlId);
+if (JSON.stringify(qlSpecificIds) !== JSON.stringify(activeIds)) {
+  throw new Error(`PNC-001 QL-specific explanation parity mismatch: ${qlSpecificIds.length}/${activeIds.length}`);
+}
+const normalizedExplanationTexts = qlSpecificIds.map((qlId) => qlSpecificExplanations[qlId]!.lines.join(" ").trim().replace(/\s+/g, " ").toLowerCase());
+if (new Set(normalizedExplanationTexts).size !== normalizedExplanationTexts.length) {
+  throw new Error("Duplicate PNC-001 QL-specific explanation text");
+}
+for (const qlId of qlSpecificIds) {
+  const lines = qlSpecificExplanations[qlId]!.lines;
+  if (lines.length < 3 || lines.some((line) => !line.trim())) throw new Error(`PNC-001 explanation ${qlId} must contain at least three non-empty lines`);
 }
 
 export function getPnc001QuestionEntries(): Pnc001QuestionEntry[] { return entries.map((e) => ({ ...e, requiredVariables: [...e.requiredVariables] })); }
@@ -97,6 +123,11 @@ export function getPnc001QlIdsForSolveMode(mode: Pnc001SolveMode): string[] { re
 export function getPnc001ExplanationStrategy(explanationId: string): ExplanationStrategy {
   const strategy = strategies[explanationId]; if (!strategy) throw new Error(`Unknown PNC-001 explanation strategy: ${explanationId}`);
   return { ...strategy, lines: [...strategy.lines] };
+}
+export function getPnc001QlSpecificExplanation(qlId: string): QlSpecificExplanation {
+  const explanation = qlSpecificExplanations[qlId];
+  if (!explanation) throw new Error(`Unknown PNC-001 QL-specific explanation: ${qlId}`);
+  return { lines: [...explanation.lines] };
 }
 export function getPnc001VariableRanges(): VariableRanges { return variableRanges as VariableRanges; }
 export function getPnc001ConstraintProfile(profileId: string): Record<string, unknown> {

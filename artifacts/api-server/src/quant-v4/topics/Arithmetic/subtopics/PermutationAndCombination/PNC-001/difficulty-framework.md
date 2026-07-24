@@ -10,7 +10,9 @@ Difficulty is based on structural complexity, computational effort and reasoning
 - direct familiar unordered selection;
 - a short word arrangement with one repeated category;
 - direct non-zero-digit number formation;
-- repetition-allowed code formation with no leading restriction.
+- repetition-allowed code formation with no leading restriction;
+- selecting a committee and appointing one chairperson;
+- finding the role-assignment multiplier for a fixed selected group.
 
 ## Medium
 
@@ -24,7 +26,9 @@ Difficulty is based on structural complexity, computational effort and reasoning
 - leading-zero correction;
 - odd/even final-digit restriction without a multi-case zero split;
 - alphanumeric stage multiplication;
-- bounded inverse alphabet recovery.
+- bounded inverse alphabet recovery;
+- selecting a group before two or three distinct appointments;
+- selecting and arranging every chosen object while preserving the `nCs × s! = nPs` bridge.
 
 ## Hard
 
@@ -35,17 +39,18 @@ Difficulty is based on structural complexity, computational effort and reasoning
 - even numbers with separate zero and non-zero-even final cases;
 - divisibility-by-5 cases with different first-position counts;
 - controlled threshold-prefix reasoning;
-- exact multiplicity pattern `2,1,1` in codes.
+- exact multiplicity pattern `2,1,1` in codes;
+- bounded unique recovery of the pool size, selected-group size or role count from `nCs × sPk`.
 
 ## Need-based distribution rule
 
 No final Easy/Medium/Hard quota is fixed for PNC-001 or the P&C family. Each QL receives the difficulty supported by its actual structure.
 
-The current five-active-CP checkpoint contains:
+The current six-active-CP checkpoint contains:
 
-- Easy: 37;
-- Medium: 39;
-- Hard: 18;
-- Total: 94.
+- Easy: 39;
+- Medium: 44;
+- Hard: 21;
+- Total: 104.
 
-These are observed checkpoint counts used for regression control. They are not targets for CP-006 or either package.
+These are observed checkpoint counts used for regression control. They are not targets for future additions or PNC-002.

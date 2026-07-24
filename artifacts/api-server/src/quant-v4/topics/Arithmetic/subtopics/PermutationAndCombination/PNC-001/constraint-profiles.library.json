@@ -33,6 +33,12 @@
     "THRESHOLD_PREFIX_NO_REPEAT": {"operation":"thresholdNumberFormation","leadingZeroAllowed":false,"zeroAvailable":true,"repetitionAllowed":false,"length":4,"thresholdByLeadingDigit":true},
     "ALPHANUMERIC_FIXED_PATTERN": {"operation":"alphanumericCodeFormation","fixedLetterThenDigitSlots":true,"repetitionAllowed":true},
     "CODE_REPETITION_INVERSE": {"operation":"boundedCodeAlphabetInverse","repetitionAllowed":true,"requiresUniqueExactMatch":true},
-    "CODE_EXACTLY_ONE_PAIR": {"operation":"codeFormationWithMultiplicityPattern","length":4,"multiplicityPattern":[2,1,1],"leadingZeroAllowed":true}
+    "CODE_EXACTLY_ONE_PAIR": {"operation":"codeFormationWithMultiplicityPattern","length":4,"multiplicityPattern":[2,1,1],"leadingZeroAllowed":true},
+    "MIXED_SELECT_ASSIGN_ROLES": {"operation":"selectionThenOrderedRoleAssignment","selectionOrderMatters":false,"roleOrderMatters":true,"requiresRoleCountBelowSelection":true},
+    "MIXED_SELECT_ARRANGE_ALL": {"operation":"selectionThenArrangeAllSelected","selectionOrderMatters":false,"roleOrderMatters":true,"selectedEqualsRoleCount":true,"identity":"nCsTimesSFactorialEqualsNPr"},
+    "MIXED_ROLE_MULTIPLIER": {"operation":"orderedRoleMultiplierWithinSelectedGroup","selectionCountExcludedFromAnswer":true,"requiresRoleCountAtMostSelection":true},
+    "MIXED_INVERSE_TOTAL": {"operation":"boundedMixedInverse","recover":"totalObjects","requiresUniqueExactMatch":true},
+    "MIXED_INVERSE_SELECTED": {"operation":"boundedMixedInverse","recover":"selectedObjects","requiresUniqueExactMatch":true},
+    "MIXED_INVERSE_ROLES": {"operation":"boundedMixedInverse","recover":"roleCount","requiresUniqueExactMatch":true,"maximumRoleCountBelowSelection":true}
   }
 }

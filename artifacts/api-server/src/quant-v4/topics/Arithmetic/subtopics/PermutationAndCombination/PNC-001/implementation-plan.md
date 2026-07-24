@@ -37,40 +37,49 @@ Twelve QLs, `PNC-QL-083` through `PNC-QL-094`, implemented:
 - inverse code alphabet size;
 - exactly-one-pair code patterns.
 
-The current package snapshot is 94 English QLs and 30 active solve modes. These are descriptive regression values, not targets.
+## Completed checkpoint 7 — CP-006 selection then arrangement/roles
 
-## Next fixed ownership target — CP-006
+Ten QLs, `PNC-QL-095` through `PNC-QL-104`, implemented:
 
-The only wholly unimplemented CP in PNC-001 is:
+- selecting a committee/team before one, two or three distinct appointments;
+- shortlisting finalists before ranked awards;
+- selecting a subset before arranging every selected item;
+- explicit `nCs × sPk` and `nCs × s! = nPs` evidence;
+- the role-assignment multiplier `sPk`;
+- bounded unique recovery of the pool size, selected-group size or role count.
 
-```text
-PNC-CP-006 — Selection-Then-Arrangement & Role Assignment
-```
+Four solve contracts were sufficient at semantic saturation:
 
-Before implementing its first checkpoint:
+- `selectThenAssignDistinctRoles`;
+- `selectThenArrangeAllSelected`;
+- `findRoleAssignmentMultiplier`;
+- `recoverSelectionRoleParameter`.
 
-1. compare reference/PYQ motifs against CP-002 and CP-003 coverage;
-2. admit only mixed select-then-order constructions that neither earlier CP owns cleanly;
-3. document the required QLs and solve modes without assigning a quota;
-4. implement solver, evidence, independent verification, explanation, distractors and validators together;
-5. keep complex multi-condition systems deferred to CP-012.
+The current PNC-001 snapshot is 104 English QLs and 34 active solve modes. These are descriptive regression values, not targets.
 
-Likely CP-006 candidate directions include committees with offices, selecting finalists and assigning ranks, captain/vice-captain selection, and choosing a subset before arranging all or some selected members. These are candidates within a fixed CP boundary, not pre-approved QLs.
+## Next package action — PNC-001 saturation and freeze-readiness audit
 
-## After CP-006
+All six PNC-001 ownership boundaries now have runtime coverage. Before beginning PNC-002, run a package-wide review across CP-001 through CP-006 for:
 
-Run a package-wide review across CP-001 through CP-006 for:
-
-- coverage saturation;
-- ownership overlap;
+- coverage saturation and important PYQ/reference gaps;
+- ownership overlap between CP-002, CP-003 and CP-006;
 - exact and near duplicates;
-- editorial realism;
+- editorial realism and exam-style stems;
 - context concentration;
-- solver/verifier stability;
+- solver/verifier stability across representative and stress seeds;
 - placeholder and localization readiness;
+- CP-005 word/letter completeness;
 - integration and freeze readiness.
 
-Only after that review should package PNC-002 implementation begin with CP-007.
+The audit may justify targeted additions or corrections within an existing CP. It must not expand the corpus merely to meet a count.
+
+## After PNC-001 maturity review
+
+Only after the package-level review should PNC-002 implementation begin with:
+
+```text
+PNC-CP-007 — Together, Apart & Block Restrictions
+```
 
 ## Merge rule
 

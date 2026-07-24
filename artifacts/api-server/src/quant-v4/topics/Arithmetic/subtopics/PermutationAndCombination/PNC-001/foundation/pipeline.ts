@@ -1,9 +1,9 @@
-import { renderPnc001Explanation } from "./explanation-renderer";
+import { renderPnc001RoutedExplanation } from "./explanation-router";
 import { getPnc001QuestionEntry, renderPnc001Template } from "./library";
-import { buildPnc001Options } from "./option-generator";
+import { buildPnc001RoutedOptions } from "./option-router";
 import { generatePnc001Parameters } from "./parameter-generator";
-import { buildPnc001ReasoningEvidence } from "./reasoning-graph";
-import { solvePnc001, verifyPnc001Independently } from "./solver";
+import { buildPnc001RoutedReasoningEvidence } from "./reasoning-router";
+import { solvePnc001Routed, verifyPnc001RoutedIndependently } from "./solver-router";
 import {
   PNC_001_ACTIVE_CP_IDS,
   PNC_001_PACKAGE_ID,
@@ -11,7 +11,7 @@ import {
   type Pnc001ParameterInput,
   type Pnc001QuestionPackage,
 } from "./types";
-import { validatePnc001QuestionPackage } from "./validator";
+import { validatePnc001RoutedQuestionPackage } from "./validator-router";
 
 export function getPnc001ActiveCanonicalProblemIds(): readonly Pnc001ActiveCanonicalProblemId[] {
   return PNC_001_ACTIVE_CP_IDS;
@@ -28,14 +28,14 @@ export function runPnc001Pipeline(
     : cpOrInput;
   const parameters = generatePnc001Parameters(input);
   const entry = getPnc001QuestionEntry(parameters.questionLanguageId);
-  const solver = solvePnc001(parameters);
-  const independentVerification = verifyPnc001Independently(parameters);
-  const reasoningEvidence = buildPnc001ReasoningEvidence(parameters, solver, independentVerification);
-  const explanation = renderPnc001Explanation(parameters, solver, reasoningEvidence);
+  const solver = solvePnc001Routed(parameters);
+  const independentVerification = verifyPnc001RoutedIndependently(parameters);
+  const reasoningEvidence = buildPnc001RoutedReasoningEvidence(parameters, solver, independentVerification);
+  const explanation = renderPnc001RoutedExplanation(parameters, solver, reasoningEvidence);
   const stem = renderPnc001Template(entry.template, parameters.renderVariables);
-  const optionBundle = buildPnc001Options(parameters, solver);
+  const optionBundle = buildPnc001RoutedOptions(parameters, solver);
   const mathematicalFingerprint = [
-    parameters.solveMode,
+    String(parameters.solveMode),
     ...Object.entries(parameters.values).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => `${key}=${value}`),
     `answer=${solver.answer}`,
   ].join("|");
@@ -71,14 +71,14 @@ export function runPnc001Pipeline(
       explanationId: parameters.explanationId,
       difficulty: parameters.difficulty,
       taskKind: parameters.taskKind,
-      solveMode: parameters.solveMode,
+      solveMode: String(parameters.solveMode),
       constraintProfile: parameters.constraintProfile,
       distractorProfile: parameters.distractorProfile,
       answer: solver.answer,
     },
   };
 
-  return { ...basePackage, validation: validatePnc001QuestionPackage(basePackage) };
+  return { ...basePackage, validation: validatePnc001RoutedQuestionPackage(basePackage) };
 }
 
 export function runPnc001ForLanguages(

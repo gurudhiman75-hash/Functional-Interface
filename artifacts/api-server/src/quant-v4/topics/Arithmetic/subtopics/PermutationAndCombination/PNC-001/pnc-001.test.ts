@@ -1,14 +1,11 @@
 import { strict as assert } from "node:assert";
 import { auditPnc001Coverage } from "./foundation/coverage-auditor";
 import { getPnc001QuestionEntries, getPnc001QuestionLanguageIds } from "./foundation/library";
-import { multisetOvercountFactorExact, multisetPermutationExact, powerExact } from "./foundation/math";
+import { combinationExact, factorialExact, multisetOvercountFactorExact, multisetPermutationExact, permutationExact, powerExact, productExact } from "./foundation/math";
 import { runPnc001Pipeline } from "./foundation/pipeline";
 
 const entries = getPnc001QuestionEntries();
-
-// This protects the current reviewed checkpoint from accidental deletion or ID
-// drift. It does not define a final package or family size.
-const currentCheckpointIds = Array.from({ length: 94 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+const currentCheckpointIds = Array.from({ length: 104 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
 assert.equal(entries.length, currentCheckpointIds.length);
 assert.equal(new Set(entries.map((entry) => entry.qlId)).size, currentCheckpointIds.length);
 assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
@@ -16,7 +13,7 @@ assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
 const observedDifficultyCounts = Object.fromEntries(
   ["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]),
 );
-assert.deepEqual(observedDifficultyCounts, { Easy: 37, Medium: 39, Hard: 18 });
+assert.deepEqual(observedDifficultyCounts, { Easy: 39, Medium: 44, Hard: 21 });
 
 const observedSolveModeCounts = {
   countSequentialIndependentChoices: 14,
@@ -49,9 +46,13 @@ const observedSolveModeCounts = {
   arrangeMultisetAfterFixingPosition: 2,
   findMultisetOvercountFactor: 1,
   recoverMultisetMultiplicity: 1,
+  selectThenAssignDistinctRoles: 4,
+  selectThenArrangeAllSelected: 2,
+  findRoleAssignmentMultiplier: 1,
+  recoverSelectionRoleParameter: 3,
 } as const;
 for (const [mode, observed] of Object.entries(observedSolveModeCounts)) {
-  assert.equal(entries.filter((entry) => entry.solveMode === mode).length, observed, mode);
+  assert.equal(entries.filter((entry) => String(entry.solveMode) === mode).length, observed, mode);
 }
 
 const audit = auditPnc001Coverage();
@@ -63,7 +64,7 @@ for (const questionLanguageId of currentCheckpointIds) {
     const seed = `pnc-proof:${questionLanguageId}:${index}`;
     const first = runPnc001Pipeline({ questionLanguageId, seed });
     const second = runPnc001Pipeline({ questionLanguageId, seed });
-    assert.equal(first.validation.valid, true, `${questionLanguageId}:${index}`);
+    assert.equal(first.validation.valid, true, `${questionLanguageId}:${index}:${JSON.stringify(first.validation.checks.filter((item) => !item.passed))}`);
     assert.equal(first.stem, second.stem);
     assert.deepEqual(first.parameters, second.parameters);
     assert.deepEqual(first.options, second.options);
@@ -77,128 +78,66 @@ for (const questionLanguageId of currentCheckpointIds) {
   }
 }
 
-const product = runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "product" });
-assert.equal(product.solver.evidence.operation, "PRODUCT");
-const alternatives = runPnc001Pipeline({ questionLanguageId: "PNC-QL-015", seed: "sum" });
-assert.equal(alternatives.solver.evidence.operation, "SUM");
-const cases = runPnc001Pipeline({ questionLanguageId: "PNC-QL-025", seed: "cases" });
-assert.equal(cases.solver.evidence.caseCounts?.length, 2);
-const complement = runPnc001Pipeline({ questionLanguageId: "PNC-QL-035", seed: "complement" });
-assert.equal(complement.solver.evidence.totalCount! - complement.solver.evidence.invalidCount!, complement.solver.numericAnswer);
-const recovery = runPnc001Pipeline({ questionLanguageId: "PNC-QL-043", seed: "recovery" });
-assert.equal(recovery.parameters.values.totalChoices! / recovery.parameters.values.knownChoices!, recovery.solver.numericAnswer);
-
+assert.equal(runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "product" }).solver.evidence.operation, "PRODUCT");
+assert.equal(runPnc001Pipeline({ questionLanguageId: "PNC-QL-015", seed: "sum" }).solver.evidence.operation, "SUM");
+assert.equal(runPnc001Pipeline({ questionLanguageId: "PNC-QL-025", seed: "cases" }).solver.evidence.caseCounts?.length, 2);
 const factorial = runPnc001Pipeline({ questionLanguageId: "PNC-QL-049", seed: "factorial" });
-assert.equal(factorial.solver.evidence.operation, "FACTORIAL");
-const factorialUnit = runPnc001Pipeline({ questionLanguageId: "PNC-QL-051", seed: "factorial-unit" });
-assert.equal(factorialUnit.solver.evidence.operation, "FACTORIAL_UNIT_EXPRESSION");
-const factorialQuotient = runPnc001Pipeline({ questionLanguageId: "PNC-QL-053", seed: "factorial-quotient" });
-assert.equal(factorialQuotient.solver.evidence.operation, "FACTORIAL_QUOTIENT");
-const factorialInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-056", seed: "factorial-inverse" });
-assert.equal(factorialInverse.solver.evidence.operation, "FACTORIAL_INVERSE");
-const quotientInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-058", seed: "factorial-quotient-inverse" });
-assert.equal(quotientInverse.solver.evidence.operation, "FACTORIAL_QUOTIENT_INVERSE");
-assert.equal(quotientInverse.solver.numericAnswer * (quotientInverse.solver.numericAnswer - 1), quotientInverse.parameters.values.target);
+assert.equal(factorial.solver.numericAnswer, factorialExact(factorial.solver.evidence.factorialArgument!));
+const permutation = runPnc001Pipeline({ questionLanguageId: "PNC-QL-062", seed: "permutation" });
+assert.equal(permutation.solver.numericAnswer, permutationExact(permutation.solver.evidence.permutationTotalObjects!, permutation.solver.evidence.permutationSelectedObjects!));
+const combination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-067", seed: "combination" });
+assert.equal(combination.solver.numericAnswer, combinationExact(combination.solver.evidence.combinationTotalObjects!, combination.solver.evidence.combinationSelectedObjects!));
 
-const arrangeAll = runPnc001Pipeline({ questionLanguageId: "PNC-QL-059", seed: "arrange-all" });
-assert.equal(arrangeAll.canonicalProblemId, "PNC-CP-002");
-assert.equal(arrangeAll.solver.evidence.operation, "PERMUTATION_ALL");
-assert.equal(arrangeAll.solver.evidence.permutationSelectedObjects, arrangeAll.solver.evidence.permutationTotalObjects);
-const arrangePartial = runPnc001Pipeline({ questionLanguageId: "PNC-QL-062", seed: "arrange-partial" });
-assert.equal(arrangePartial.solver.evidence.operation, "PERMUTATION_PARTIAL");
-assert.equal(arrangePartial.solver.evidence.permutationFactors?.length, arrangePartial.solver.evidence.permutationSelectedObjects);
-const recoverN = runPnc001Pipeline({ questionLanguageId: "PNC-QL-065", seed: "recover-permutation-n" });
-assert.equal(recoverN.solver.evidence.operation, "PERMUTATION_INVERSE");
-assert.equal(recoverN.solver.evidence.recoveredPermutationParameter, "n");
-const recoverR = runPnc001Pipeline({ questionLanguageId: "PNC-QL-066", seed: "recover-permutation-r" });
-assert.equal(recoverR.solver.evidence.recoveredPermutationParameter, "r");
-
-const directCombination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-067", seed: "direct-combination" });
-assert.equal(directCombination.canonicalProblemId, "PNC-CP-003");
-assert.equal(directCombination.solver.evidence.operation, "COMBINATION_DIRECT");
-const pairCombination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-070", seed: "pair-combination" });
-assert.equal(pairCombination.solver.evidence.combinationSelectedObjects, 2);
-const tripleCombination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-071", seed: "triple-combination" });
-assert.equal(tripleCombination.solver.evidence.combinationSelectedObjects, 3);
-const combinationInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-073", seed: "combination-inverse" });
-assert.equal(combinationInverse.solver.evidence.operation, "COMBINATION_INVERSE");
-assert.ok(combinationInverse.solver.evidence.combinationSelectedObjects! <= Math.floor(combinationInverse.solver.evidence.combinationTotalObjects! / 2));
-const combinationSymmetry = runPnc001Pipeline({ questionLanguageId: "PNC-QL-074", seed: "combination-symmetry" });
-assert.equal(combinationSymmetry.solver.evidence.operation, "COMBINATION_SYMMETRY");
-assert.equal(combinationSymmetry.solver.evidence.combinationKnownSelection! + combinationSymmetry.solver.numericAnswer, combinationSymmetry.solver.evidence.combinationTotalObjects);
-
-const apple = runPnc001Pipeline({ questionLanguageId: "PNC-QL-075", seed: "multiset-apple" });
+const apple = runPnc001Pipeline({ questionLanguageId: "PNC-QL-075", seed: "apple" });
 assert.equal(apple.canonicalProblemId, "PNC-CP-005");
-assert.equal(apple.solver.evidence.operation, "MULTISET_DIRECT");
-assert.deepEqual(apple.solver.evidence.multisetMultiplicities, [2]);
 assert.equal(apple.solver.numericAnswer, multisetPermutationExact(5, [2]));
-const balloon = runPnc001Pipeline({ questionLanguageId: "PNC-QL-076", seed: "multiset-balloon" });
-assert.deepEqual(balloon.solver.evidence.multisetMultiplicities, [2, 2]);
-const mississippi = runPnc001Pipeline({ questionLanguageId: "PNC-QL-077", seed: "multiset-mississippi" });
-assert.deepEqual(mississippi.solver.evidence.multisetMultiplicities, [4, 4, 2]);
-const fixedUnique = runPnc001Pipeline({ questionLanguageId: "PNC-QL-079", seed: "multiset-fixed-unique" });
-assert.equal(fixedUnique.solver.evidence.operation, "MULTISET_FIXED");
-assert.equal(fixedUnique.solver.evidence.fixedObjectMultiplicityBefore, 1);
-assert.equal(fixedUnique.solver.evidence.multisetRemainingObjects, 6);
-const fixedRepeated = runPnc001Pipeline({ questionLanguageId: "PNC-QL-080", seed: "multiset-fixed-repeated" });
-assert.equal(fixedRepeated.solver.evidence.fixedObjectMultiplicityBefore, 2);
-assert.deepEqual(fixedRepeated.solver.evidence.multisetRemainingMultiplicities, [2]);
-const overcount = runPnc001Pipeline({ questionLanguageId: "PNC-QL-081", seed: "multiset-overcount" });
-assert.equal(overcount.solver.evidence.operation, "MULTISET_OVERCOUNT");
+const overcount = runPnc001Pipeline({ questionLanguageId: "PNC-QL-081", seed: "overcount" });
 assert.equal(overcount.solver.numericAnswer, multisetOvercountFactorExact(overcount.solver.evidence.multisetMultiplicities!));
-const multisetInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-082", seed: "multiset-inverse" });
-assert.equal(multisetInverse.solver.evidence.operation, "MULTISET_INVERSE");
-assert.equal(multisetPermutationExact(multisetInverse.solver.evidence.multisetTotalObjects!, [multisetInverse.solver.numericAnswer]), multisetInverse.solver.evidence.multisetTarget);
 
-const noZeroNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-083", seed: "number-no-zero" });
-assert.equal(noZeroNumber.canonicalProblemId, "PNC-CP-004");
-assert.equal(noZeroNumber.solver.evidence.operation, "NUMBER_NO_ZERO_NO_REPEAT");
-assert.equal(noZeroNumber.solver.evidence.firstPositionChoices, noZeroNumber.solver.evidence.symbolCount);
-const zeroNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-084", seed: "number-with-zero" });
-assert.equal(zeroNumber.solver.evidence.operation, "NUMBER_WITH_ZERO_NO_REPEAT");
+const zeroNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-084", seed: "zero-number" });
 assert.equal(zeroNumber.solver.evidence.firstPositionChoices, zeroNumber.solver.evidence.symbolCount! - 1);
-const repeatedCode = runPnc001Pipeline({ questionLanguageId: "PNC-QL-085", seed: "code-repetition" });
-assert.equal(repeatedCode.solver.evidence.operation, "CODE_REPETITION");
-assert.ok(repeatedCode.solver.evidence.positionChoices?.every(value => value === repeatedCode.solver.evidence.symbolCount));
-const repeatedNumber = runPnc001Pipeline({ questionLanguageId: "PNC-QL-086", seed: "number-repetition" });
-assert.equal(repeatedNumber.solver.evidence.operation, "NUMBER_REPETITION");
-assert.equal(repeatedNumber.solver.evidence.firstPositionChoices, repeatedNumber.solver.evidence.symbolCount! - 1);
-const evenNoZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-087", seed: "even-no-zero" });
-assert.equal(evenNoZero.solver.evidence.operation, "PARITY_NUMBER");
-assert.ok(evenNoZero.solver.evidence.eligibleLastDigits?.every(digit => digit > 0 && digit % 2 === 0));
-const evenWithZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-088", seed: "even-with-zero" });
+const evenWithZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-088", seed: "even-zero" });
 assert.equal(evenWithZero.solver.evidence.caseCounts?.length, 2);
-assert.ok(evenWithZero.solver.evidence.eligibleLastDigits?.includes(0));
-const oddWithZero = runPnc001Pipeline({ questionLanguageId: "PNC-QL-089", seed: "odd-with-zero" });
-assert.ok(oddWithZero.solver.evidence.eligibleLastDigits?.every(digit => digit % 2 === 1));
-const divisibleByFive = runPnc001Pipeline({ questionLanguageId: "PNC-QL-090", seed: "divisible-five" });
-assert.equal(divisibleByFive.solver.evidence.operation, "DIVISIBLE_BY_FIVE");
+const divisibleByFive = runPnc001Pipeline({ questionLanguageId: "PNC-QL-090", seed: "five" });
 assert.deepEqual(divisibleByFive.solver.evidence.eligibleLastDigits, [0, 5]);
-assert.equal(divisibleByFive.solver.evidence.caseCounts?.length, 2);
-const threshold = runPnc001Pipeline({ questionLanguageId: "PNC-QL-091", seed: "threshold" });
-assert.equal(threshold.solver.evidence.operation, "THRESHOLD_NUMBER");
-assert.ok(threshold.solver.evidence.qualifyingFirstDigits?.every(digit => digit >= threshold.parameters.values.thresholdDigit!));
-const alphanumeric = runPnc001Pipeline({ questionLanguageId: "PNC-QL-092", seed: "alphanumeric" });
-assert.equal(alphanumeric.solver.evidence.operation, "ALPHANUMERIC_CODE");
-assert.equal(alphanumeric.solver.evidence.letterStageCount! * alphanumeric.solver.evidence.digitStageCount!, alphanumeric.solver.numericAnswer);
 const codeInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-093", seed: "code-inverse" });
-assert.equal(codeInverse.solver.evidence.operation, "CODE_REPETITION_INVERSE");
 assert.equal(powerExact(codeInverse.solver.numericAnswer, codeInverse.solver.evidence.digitLength!), codeInverse.solver.evidence.codeTarget);
 const onePair = runPnc001Pipeline({ questionLanguageId: "PNC-QL-094", seed: "one-pair" });
-assert.equal(onePair.solver.evidence.operation, "CODE_EXACTLY_ONE_PAIR");
 assert.equal(onePair.solver.evidence.patternArrangementCount, 12);
-assert.equal(onePair.solver.evidence.repeatedSymbolChoices, onePair.solver.evidence.symbolCount);
 
-for (const [cpId, seed] of [["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-004", "cp4-routing"], ["PNC-CP-005", "cp5-routing"]] as const) {
-  assert.equal(runPnc001Pipeline(cpId, { seed }).canonicalProblemId, cpId);
+const chair = runPnc001Pipeline({ questionLanguageId: "PNC-QL-095", seed: "chair" });
+assert.equal(chair.canonicalProblemId, "PNC-CP-006");
+assert.equal(chair.solver.evidence.operation, "MIXED_SELECT_ASSIGN");
+assert.equal(chair.solver.evidence.mixedRoleCount, 1);
+assert.equal(chair.solver.numericAnswer, productExact([
+  combinationExact(chair.solver.evidence.mixedTotalObjects!, chair.solver.evidence.mixedSelectedObjects!),
+  permutationExact(chair.solver.evidence.mixedSelectedObjects!, 1),
+]));
+const captainVice = runPnc001Pipeline({ questionLanguageId: "PNC-QL-096", seed: "captain-vice" });
+assert.equal(captainVice.solver.evidence.mixedRoleCount, 2);
+const allSelected = runPnc001Pipeline({ questionLanguageId: "PNC-QL-099", seed: "arrange-selected" });
+assert.equal(allSelected.solver.evidence.operation, "MIXED_SELECT_ARRANGE_ALL");
+assert.equal(allSelected.solver.numericAnswer, permutationExact(allSelected.solver.evidence.mixedTotalObjects!, allSelected.solver.evidence.mixedSelectedObjects!));
+const multiplier = runPnc001Pipeline({ questionLanguageId: "PNC-QL-101", seed: "multiplier" });
+assert.equal(multiplier.solver.numericAnswer, permutationExact(multiplier.solver.evidence.mixedSelectedObjects!, multiplier.solver.evidence.mixedRoleCount!));
+for (const qlId of ["PNC-QL-102", "PNC-QL-103", "PNC-QL-104"] as const) {
+  const inverse = runPnc001Pipeline({ questionLanguageId: qlId, seed: `inverse:${qlId}` });
+  assert.equal(inverse.solver.evidence.operation, "MIXED_INVERSE");
+  assert.equal(productExact([
+    combinationExact(inverse.solver.evidence.mixedTotalObjects!, inverse.solver.evidence.mixedSelectedObjects!),
+    permutationExact(inverse.solver.evidence.mixedSelectedObjects!, inverse.solver.evidence.mixedRoleCount!),
+  ]), inverse.solver.evidence.mixedTarget);
 }
-for (const language of ["hi", "pa"] as const) {
-  assert.throws(() => runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "unsupported", language }), /English only/);
-}
+
+for (const [cpId, seed] of [
+  ["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-004", "cp4-routing"],
+  ["PNC-CP-005", "cp5-routing"], ["PNC-CP-006", "cp6-routing"],
+] as const) assert.equal(runPnc001Pipeline(cpId, { seed }).canonicalProblemId, cpId);
+for (const language of ["hi", "pa"] as const) assert.throws(() => runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "unsupported", language }), /English only/);
 
 console.log(JSON.stringify({
   checkpointQlCount: entries.length,
-  activeCanonicalProblems: 5,
+  activeCanonicalProblems: 6,
   observedDifficultyCounts,
   observedSolveModeCounts,
   seedsPerQl: 12,

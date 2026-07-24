@@ -121,3 +121,24 @@ jobs:
 
       - name: Enforce runtime proof result
         run: test "$(cat pnc-001-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle question and explanation export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001-generate-review-export.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001-generate-review-export.mjs
+
+      - name: Generate question and explanation export
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-001-generate-review-export.mjs
+
+      - name: Publish question and explanation export
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-question-explanation-review
+          path: artifacts/api-server/dist/quant-v4/pnc-001-review-export/
+          if-no-files-found: error
+          retention-days: 7
