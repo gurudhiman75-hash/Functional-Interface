@@ -41,15 +41,15 @@ export type Pnc001SolveMode =
   | "arrangeAllMultisetObjects"
   | "arrangeMultisetAfterFixingPosition"
   | "findMultisetOvercountFactor"
-  | "recoverMultisetMultiplicity"
-  | "findDictionaryRankOfWord";
+  | "recoverMultisetMultiplicity";
 
+export type Pnc001DictionaryRankSolveMode = "findDictionaryRankOfWord";
 export type Pnc001Cp006SolveMode =
   | "selectThenAssignDistinctRoles"
   | "selectThenArrangeAllSelected"
   | "findRoleAssignmentMultiplier"
   | "recoverSelectionRoleParameter";
-export type Pnc001AnySolveMode = Pnc001SolveMode | Pnc001Cp006SolveMode;
+export type Pnc001AnySolveMode = Pnc001SolveMode | Pnc001DictionaryRankSolveMode | Pnc001Cp006SolveMode;
 export type Pnc001AnyTaskKind = Pnc001TaskKind | Pnc001Cp006TaskKind;
 
 export interface Pnc001QuestionLanguageEntry { qlId: string; cpId: Pnc001CanonicalProblemId; difficulty: Pnc001Difficulty; template: string; }
