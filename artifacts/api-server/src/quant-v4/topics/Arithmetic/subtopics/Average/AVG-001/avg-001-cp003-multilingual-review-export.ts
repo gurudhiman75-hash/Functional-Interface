@@ -5,7 +5,7 @@ import {
   AVG_001_CP003_MULTILINGUAL_PILOT,
   getAvg001Cp003LocalizedQlIds,
   runAvg001Cp003LocalizationPilot,
-} from "./foundation/cp003-localization-pilot";
+} from "./foundation/cp003-localization-pilot-runtime";
 
 const header = [
   "packageId", "cpId", "qlId", "language", "solveMode", "difficulty",
@@ -52,8 +52,8 @@ for (const language of AVG_001_CP003_MULTILINGUAL_PILOT.languages) {
     `avg-001-cp003-human-review-${language}.csv`,
   );
   fs.writeFileSync(output, `${rows.join("\n")}\n`, "utf8");
-  if (rows.length - 1 !== 86) {
-    throw new Error(`Expected 86 ${language} CP-003 review rows; got ${rows.length - 1}`);
+  if (rows.length - 1 !== 98) {
+    throw new Error(`Expected 98 ${language} CP-003 review rows; got ${rows.length - 1}`);
   }
   console.log(JSON.stringify({
     releaseId: AVG_001_CP003_MULTILINGUAL_PILOT.releaseId,
