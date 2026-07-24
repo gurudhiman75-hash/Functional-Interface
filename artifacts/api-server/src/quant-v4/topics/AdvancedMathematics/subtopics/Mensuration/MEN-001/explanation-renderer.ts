@@ -1,3 +1,4 @@
+import { buildMen001ExplanationIllustration } from "./explanation-illustration";
 import { getMen001QuestionEntry } from "./library";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry";
 import type {
@@ -14,8 +15,10 @@ export function renderMen001Explanation(
 ): Men001Explanation {
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
   const definition = getMen001SolveModeDefinition(parameters.solveMode);
+  const illustration = buildMen001ExplanationIllustration(parameters, solver);
   return {
     strategyId: entry.explanationStrategyId,
     lines: definition.explain(parameters, solver),
+    ...(illustration ? { illustration } : {}),
   };
 }
