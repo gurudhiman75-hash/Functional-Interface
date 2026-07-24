@@ -1,3 +1,6 @@
+import type { Men001SolveMode } from "./solve-mode-registry";
+export type { Men001SolveMode } from "./solve-mode-registry";
+
 export const MEN_001_PACKAGE_ID = "MEN-001" as const;
 
 export const MEN_001_CP_IDS = [
@@ -24,22 +27,6 @@ export type Men001UnitPolicy =
   | "SQUARE_METRES"
   | "RUPEES";
 export type Men001DiagramRequirement = "REQUIRED" | "OPTIONAL" | "NONE";
-
-export type Men001SolveMode =
-  | "findTriangleAreaBaseHeight"
-  | "findMissingHeightFromAreaAndBase"
-  | "findMissingBaseFromAreaAndHeight"
-  | "findTriangleAreaHeron"
-  | "findRightTriangleAreaFromLegs"
-  | "findEquilateralTriangleArea"
-  | "findEquilateralPerimeterFromArea"
-  | "findEquilateralSideFromPerimeter"
-  | "findIsoscelesTriangleArea"
-  | "findIsoscelesHeight"
-  | "findTriangleAreaFromSideRatioAndPerimeter"
-  | "findLargestTriangleSideFromRatioAndPerimeter"
-  | "findSmallestTriangleSideFromRatioAndPerimeter"
-  | "findTriangularPlotCost";
 
 export type ExactSpatialNumber =
   | { kind: "INTEGER"; value: number }
