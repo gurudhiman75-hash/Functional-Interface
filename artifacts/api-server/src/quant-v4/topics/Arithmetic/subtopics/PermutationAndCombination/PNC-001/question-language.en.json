@@ -50,6 +50,16 @@
     {"qlId":"PNC-QL-045","cpId":"PNC-CP-001","difficulty":"Easy","template":"There are {totalChoices} routes from A to C through B. If there are {knownChoices} roads from A to B and every such road can connect to every road from B to C, how many roads run from B to C?"},
     {"qlId":"PNC-QL-046","cpId":"PNC-CP-001","difficulty":"Medium","template":"A badge system produces {totalChoices} emblem-ribbon combinations. If {knownChoices} emblems are available, how many ribbon designs are there?"},
     {"qlId":"PNC-QL-047","cpId":"PNC-CP-001","difficulty":"Medium","template":"A college offers {totalChoices} subject-slot combinations. If there are {knownChoices} subjects and each is offered in the same set of slots, how many slots are available?"},
-    {"qlId":"PNC-QL-048","cpId":"PNC-CP-001","difficulty":"Hard","template":"A service catalogue contains {totalChoices} plan-add-on combinations. If {knownChoices} plans can each use every add-on, how many add-ons are available?"}
+    {"qlId":"PNC-QL-048","cpId":"PNC-CP-001","difficulty":"Hard","template":"A service catalogue contains {totalChoices} plan-add-on combinations. If {knownChoices} plans can each use every add-on, how many add-ons are available?"},
+    {"qlId":"PNC-QL-049","cpId":"PNC-CP-001","difficulty":"Easy","template":"Evaluate {factorialArgument}!."},
+    {"qlId":"PNC-QL-050","cpId":"PNC-CP-001","difficulty":"Easy","template":"If n = {n}, what is the value of (n - 1)!?"},
+    {"qlId":"PNC-QL-051","cpId":"PNC-CP-001","difficulty":"Easy","template":"Evaluate 0! + {factorialArgument}!."},
+    {"qlId":"PNC-QL-052","cpId":"PNC-CP-001","difficulty":"Easy","template":"Find the value of {factorialArgument}! - 1!."},
+    {"qlId":"PNC-QL-053","cpId":"PNC-CP-001","difficulty":"Medium","template":"Simplify ({upper}!)/({lower}!)."},
+    {"qlId":"PNC-QL-054","cpId":"PNC-CP-001","difficulty":"Easy","template":"If n = {n}, evaluate (n + 1)!/n!."},
+    {"qlId":"PNC-QL-055","cpId":"PNC-CP-001","difficulty":"Medium","template":"If n = {n}, evaluate (n + 2)!/n!."},
+    {"qlId":"PNC-QL-056","cpId":"PNC-CP-001","difficulty":"Medium","template":"If n! = {target}, find n."},
+    {"qlId":"PNC-QL-057","cpId":"PNC-CP-001","difficulty":"Medium","template":"If (n + 1)! = {target}, find n."},
+    {"qlId":"PNC-QL-058","cpId":"PNC-CP-001","difficulty":"Hard","template":"If n!/(n - 2)! = {target}, find n."}
   ]
 }
