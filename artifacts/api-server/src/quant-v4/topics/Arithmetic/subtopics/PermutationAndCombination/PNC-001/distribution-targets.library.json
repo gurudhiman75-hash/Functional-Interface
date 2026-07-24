@@ -1,11 +1,11 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-004-DIGIT-NUMBER-CODE-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-006-SELECTION-ROLE-ASSIGNMENT-RUNTIME-PROOF",
   "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
   "observedDifficultyCounts": {
-    "Easy": 37,
-    "Medium": 39,
-    "Hard": 18
+    "Easy": 39,
+    "Medium": 44,
+    "Hard": 21
   },
   "observedSolveModeCounts": {
     "countSequentialIndependentChoices": 14,
@@ -37,13 +37,17 @@
     "arrangeAllMultisetObjects": 4,
     "arrangeMultisetAfterFixingPosition": 2,
     "findMultisetOvercountFactor": 1,
-    "recoverMultisetMultiplicity": 1
+    "recoverMultisetMultiplicity": 1,
+    "selectThenAssignDistinctRoles": 4,
+    "selectThenArrangeAllSelected": 2,
+    "findRoleAssignmentMultiplier": 1,
+    "recoverSelectionRoleParameter": 3
   },
   "editorialCaps": {
     "maximumExactTemplateDuplicates": 0,
     "maximumSingleContextShare": 0.2,
     "maximumGenericDistractorFallbackShare": 0.1
   },
-  "interpretation": "The counts above describe the currently admitted 94-QL checkpoint only.",
+  "interpretation": "The counts above describe the currently admitted 104-QL checkpoint only.",
   "admissionRule": "Future QL volumes, solve modes and difficulty distributions remain need-based within the fixed CP ownership map."
 }
