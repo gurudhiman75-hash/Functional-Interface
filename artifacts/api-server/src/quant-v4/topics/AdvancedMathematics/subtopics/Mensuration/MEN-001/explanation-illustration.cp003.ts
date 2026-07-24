@@ -18,9 +18,19 @@ function number(solver: Men001SolverResult, key: string) {
   return value;
 }
 
-function linearUnit(solver: Men001SolverResult): "cm" | "m" {
+function linearUnit(
+  parameters: Men001Parameters,
+  solver: Men001SolverResult,
+): "cm" | "m" {
   if (solver.unit === "cm" || solver.unit === "cm²") return "cm";
   if (solver.unit === "m" || solver.unit === "m²") return "m";
+  if (
+    solver.unit === "°" &&
+    (parameters.solveMode === "findCentralAngleFromArcLength" ||
+      parameters.solveMode === "findCentralAngleFromSectorArea")
+  ) {
+    return "cm";
+  }
   throw new Error(
     `MEN-001 CP-003 cannot derive a linear illustration unit from ${solver.unit}.`,
   );
@@ -30,7 +40,7 @@ function centralAngleIllustration(
   parameters: Men001Parameters,
   solver: Men001SolverResult,
 ): Men001ExplanationIllustration {
-  const unit = linearUnit(solver);
+  const unit = linearUnit(parameters, solver);
   const radius = number(solver, "radius");
   const knownAngle = Number(solver.workingValues.angleDegrees);
   const recoveringAngle =
@@ -69,7 +79,7 @@ function annulusIllustration(
   parameters: Men001Parameters,
   solver: Men001SolverResult,
 ): Men001ExplanationIllustration {
-  const unit = linearUnit(solver);
+  const unit = linearUnit(parameters, solver);
   const innerRadius = number(solver, "innerRadius");
   const recoveringOuter =
     parameters.solveMode === "findOuterRadiusFromAnnulusArea";
@@ -95,7 +105,7 @@ function boundaryIllustration(
   parameters: Men001Parameters,
   solver: Men001SolverResult,
 ): Men001ExplanationIllustration {
-  const unit = linearUnit(solver);
+  const unit = linearUnit(parameters, solver);
   const radius = number(solver, "radius");
   const semicircle = parameters.solveMode === "findSemicirclePerimeter";
   const curvedBoundary = semicircle
