@@ -3,6 +3,7 @@ import questionLanguageCp003 from "../question-language.cp003.en.json";
 import questionLanguageCp004 from "../question-language.cp004.en.json";
 import questionLanguageCp005 from "../question-language.cp005.en.json";
 import questionLanguageCp006 from "../question-language.cp006.en.json";
+import questionLanguageEditorialRepairs from "../question-language.editorial-repairs.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistryCp003 from "../task-registry.cp003.library.json";
 import taskRegistryCp004 from "../task-registry.cp004.library.json";
@@ -15,6 +16,7 @@ import explanationLibraryCp004 from "../explanation.cp004.en.json";
 import explanationLibraryCp006 from "../explanation.cp006.en.json";
 import qlSpecificExplanationLibrary from "../explanation-by-ql.en.json";
 import qlSpecificExplanationLibraryCp005Rank from "../explanation-by-ql.cp005-rank.en.json";
+import qlSpecificExplanationEditorialRepairs from "../explanation-by-ql.editorial-repairs.en.json";
 import type {
   Pnc001Difficulty,
   Pnc001QuestionEntry,
@@ -25,6 +27,7 @@ import type {
 
 type ExplanationStrategy = { solveMode: Pnc001SolveMode; concept: string; lines: string[] };
 type QlSpecificExplanation = { lines: string[] };
+type QuestionLanguageRepair = { template: string };
 type VariableRanges = {
   packageId: "PNC-001";
   answerCeiling: number;
@@ -47,13 +50,23 @@ type VariableRanges = {
   };
 };
 
-const qlEntries = [
+const rawQlEntries = [
   ...(questionLanguageBase.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp003.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp004.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp005.entries as Pnc001QuestionLanguageEntry[]),
   ...(questionLanguageCp006.entries as Pnc001QuestionLanguageEntry[]),
 ];
+const questionRepairs = questionLanguageEditorialRepairs.entries as Record<string, QuestionLanguageRepair>;
+const rawQlIds = new Set(rawQlEntries.map((entry) => entry.qlId));
+for (const qlId of Object.keys(questionRepairs)) {
+  if (!rawQlIds.has(qlId)) throw new Error(`PNC-001 editorial stem override references unknown QL ${qlId}`);
+}
+const qlEntries = rawQlEntries.map((entry) => {
+  const repair = questionRepairs[entry.qlId];
+  return repair ? { ...entry, template: repair.template } : entry;
+});
+
 const registryGroups = [
   ...(taskRegistryBase.groups as Pnc001RegistryGroup[]),
   ...(taskRegistryCp003.groups as Pnc001RegistryGroup[]),
@@ -101,14 +114,24 @@ if (Object.keys(strategies).length !== expectedStrategyCount) throw new Error("D
 
 const baseQlSpecificExplanations = qlSpecificExplanationLibrary.entries as Record<string, QlSpecificExplanation>;
 const rankQlSpecificExplanations = qlSpecificExplanationLibraryCp005Rank.entries as Record<string, QlSpecificExplanation>;
-const qlSpecificExplanations: Record<string, QlSpecificExplanation> = {
+const originalQlSpecificExplanations: Record<string, QlSpecificExplanation> = {
   ...baseQlSpecificExplanations,
   ...rankQlSpecificExplanations,
 };
-const expectedQlSpecificCount = Object.keys(baseQlSpecificExplanations).length + Object.keys(rankQlSpecificExplanations).length;
-if (Object.keys(qlSpecificExplanations).length !== expectedQlSpecificCount) {
-  throw new Error("Duplicate PNC-001 QL-specific explanation ids across libraries");
+const expectedOriginalCount = Object.keys(baseQlSpecificExplanations).length + Object.keys(rankQlSpecificExplanations).length;
+if (Object.keys(originalQlSpecificExplanations).length !== expectedOriginalCount) {
+  throw new Error("Duplicate PNC-001 base QL-specific explanation ids across libraries");
 }
+const explanationRepairs = qlSpecificExplanationEditorialRepairs.entries as Record<string, QlSpecificExplanation>;
+for (const qlId of Object.keys(explanationRepairs)) {
+  if (!Object.prototype.hasOwnProperty.call(originalQlSpecificExplanations, qlId)) {
+    throw new Error(`PNC-001 editorial explanation override references unknown QL ${qlId}`);
+  }
+}
+const qlSpecificExplanations: Record<string, QlSpecificExplanation> = {
+  ...originalQlSpecificExplanations,
+  ...explanationRepairs,
+};
 const qlSpecificIds = Object.keys(qlSpecificExplanations).sort();
 const activeIds = entries.map((entry) => entry.qlId);
 if (JSON.stringify(qlSpecificIds) !== JSON.stringify(activeIds)) {
