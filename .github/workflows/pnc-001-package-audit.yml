@@ -1,0 +1,84 @@
+name: Audit PNC-001 package readiness
+
+on:
+  push:
+    branches:
+      - audit/pnc-001-package-freeze-readiness
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
+      - .github/workflows/pnc-001-package-audit.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
+      - .github/workflows/pnc-001-package-audit.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-pnc-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit-pnc-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck PNC-001 audit and runtime
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001 -name '*.ts' -print)
+
+      - name: Bundle package audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001-package-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001-package-audit.mjs
+
+      - name: Run package audit
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-001-package-audit.mjs
+
+      - name: Publish package audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-package-audit
+          path: artifacts/api-server/dist/quant-v4/pnc-001-package-audit/
+          if-no-files-found: error
+          retention-days: 14
