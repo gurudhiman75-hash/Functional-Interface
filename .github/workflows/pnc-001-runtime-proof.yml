@@ -1,6 +1,13 @@
 name: Validate PNC-001 runtime proof
 
 on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
+      - .github/workflows/pnc-001-runtime-proof.yml
   push:
     branches:
       - feat/pnc-001-cp001-runtime-proof
