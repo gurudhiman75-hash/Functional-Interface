@@ -1,4 +1,4 @@
-import { buildMen001ExplanationIllustration } from "./explanation-illustration";
+import { buildMen001ExplanationIllustration } from "./explanation-illustration.all";
 import { getMen001QuestionEntry } from "./library";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import type {
