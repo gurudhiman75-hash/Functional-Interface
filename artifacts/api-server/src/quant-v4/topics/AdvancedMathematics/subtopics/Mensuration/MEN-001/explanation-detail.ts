@@ -10,10 +10,7 @@ function number(values: WorkingValues, key: string): number | undefined {
   return Number.isFinite(value) ? value : undefined;
 }
 
-function hasNumbers(
-  values: WorkingValues,
-  keys: readonly string[],
-): values is WorkingValues {
+function hasNumbers(values: WorkingValues, keys: readonly string[]) {
   return keys.every((key) => number(values, key) !== undefined);
 }
 
@@ -25,7 +22,6 @@ const TRIANGLE_BASE_HEIGHT_MODES = new Set([
   "findTriangleAreaBaseHeight",
   "findMissingHeightFromAreaAndBase",
   "findMissingBaseFromAreaAndHeight",
-  "findRightTriangleAreaFromLegs",
   "findTriangularPlotCost",
 ]);
 
@@ -34,13 +30,6 @@ function buildVerificationLine(
   solver: Men001SolverResult,
 ): string {
   const values = solver.workingValues;
-
-  if (hasNumbers(values, ["outerArea", "innerArea", "area"])) {
-    const outerArea = number(values, "outerArea")!;
-    const innerArea = number(values, "innerArea")!;
-    const area = number(values, "area")!;
-    return `Check: outer area − inner area = ${format(outerArea)} − ${format(innerArea)} = ${format(area)}, which matches the required region.`;
-  }
 
   if (hasNumbers(values, ["cost", "area", "ratePerSquareMetre"])) {
     const cost = number(values, "cost")!;
@@ -89,7 +78,21 @@ function buildVerificationLine(
     const roadB = number(values, "roadAreaB")!;
     const overlap = number(values, "overlapArea")!;
     const union = number(values, "roadArea")!;
-    return `Check: ${format(roadA)} + ${format(roadB)} − ${format(overlap)} = ${format(union)}, so the road overlap is counted only once.`;
+    return `Check: ${format(roadA)} + ${format(roadB)} − ${format(overlap)} = ${format(union)}, so the overlap is counted only once.`;
+  }
+
+  if (hasNumbers(values, ["circumference", "revolutions", "distance"])) {
+    const circumference = number(values, "circumference")!;
+    const revolutions = number(values, "revolutions")!;
+    const distance = number(values, "distance")!;
+    return `Check: ${format(circumference)} × ${format(revolutions)} = ${format(distance)}, so the wheel-distance relation is satisfied.`;
+  }
+
+  if (hasNumbers(values, ["diagonal", "length", "breadth"])) {
+    const diagonal = number(values, "diagonal")!;
+    const length = number(values, "length")!;
+    const breadth = number(values, "breadth")!;
+    return `Check: ${format(length)}² + ${format(breadth)}² = ${format(diagonal)}², confirming the rectangle's right-triangle relation.`;
   }
 
   if (hasNumbers(values, ["legA", "legB", "sideC"])) {
@@ -106,6 +109,19 @@ function buildVerificationLine(
     return `Check: ${format(halfBase)}² + ${format(height)}² = ${format(equalSide)}², confirming the isosceles altitude construction.`;
   }
 
+  if (hasNumbers(values, ["halfDiagonalA", "halfDiagonalB", "side"])) {
+    const halfA = number(values, "halfDiagonalA")!;
+    const halfB = number(values, "halfDiagonalB")!;
+    const side = number(values, "side")!;
+    return `Check: ${format(halfA)}² + ${format(halfB)}² = ${format(side)}², confirming the rhombus side recovered from its half-diagonals.`;
+  }
+
+  if (hasNumbers(values, ["radicand", "area"])) {
+    const radicand = number(values, "radicand")!;
+    const area = number(values, "area")!;
+    return `Check: ${format(area)}² = ${format(radicand)}, so the evaluated Heron square root is exact.`;
+  }
+
   if (hasNumbers(values, ["sideA", "sideB", "sideC", "perimeter"])) {
     const sideA = number(values, "sideA")!;
     const sideB = number(values, "sideB")!;
@@ -114,18 +130,11 @@ function buildVerificationLine(
     return `Check: ${format(sideA)} + ${format(sideB)} + ${format(sideC)} = ${format(perimeter)}, so the side lengths reproduce the stated perimeter.`;
   }
 
-  if (hasNumbers(values, ["circumference", "revolutions", "distance"])) {
-    const circumference = number(values, "circumference")!;
-    const revolutions = number(values, "revolutions")!;
-    const distance = number(values, "distance")!;
-    return `Check: ${format(circumference)} × ${format(revolutions)} = ${format(distance)}, so the wheel-distance relation is satisfied.`;
-  }
-
   if (hasNumbers(values, ["angleDegrees", "circumference", "arcLength"])) {
     const angle = number(values, "angleDegrees")!;
     const circumference = number(values, "circumference")!;
     const arcLength = number(values, "arcLength")!;
-    return `Check: (${format(angle)}/360) × ${format(circumference)} = ${format(arcLength)}, reproducing the stated arc length.`;
+    return `Check: (${format(angle)}/360) × ${format(circumference)} = ${format(arcLength)}, reproducing the arc length.`;
   }
 
   if (hasNumbers(values, ["angleDegrees", "fullArea", "sectorArea"])) {
@@ -135,17 +144,41 @@ function buildVerificationLine(
     return `Check: (${format(angle)}/360) × ${format(fullArea)} = ${format(sectorArea)}, reproducing the sector area.`;
   }
 
+  if (hasNumbers(values, ["diagonalA", "diagonalB", "area"])) {
+    const diagonalA = number(values, "diagonalA")!;
+    const diagonalB = number(values, "diagonalB")!;
+    const area = number(values, "area")!;
+    return `Check: (${format(diagonalA)} × ${format(diagonalB)})/2 = ${format(area)}, confirming the diagonal-area relation.`;
+  }
+
+  if (hasNumbers(values, ["parallelSideA", "parallelSideB", "height", "area"])) {
+    const sideA = number(values, "parallelSideA")!;
+    const sideB = number(values, "parallelSideB")!;
+    const height = number(values, "height")!;
+    const area = number(values, "area")!;
+    return `Check: [(${format(sideA)} + ${format(sideB)})/2] × ${format(height)} = ${format(area)}, confirming the trapezium area.`;
+  }
+
+  if (hasNumbers(values, ["diagonal", "perpendicularA", "perpendicularB", "area"])) {
+    const diagonal = number(values, "diagonal")!;
+    const perpendicularA = number(values, "perpendicularA")!;
+    const perpendicularB = number(values, "perpendicularB")!;
+    const area = number(values, "area")!;
+    return `Check: (${format(diagonal)}/2) × (${format(perpendicularA)} + ${format(perpendicularB)}) = ${format(area)}, confirming the two-triangle area sum.`;
+  }
+
+  if (hasNumbers(values, ["outerArea", "innerArea", "area"])) {
+    const outerArea = number(values, "outerArea")!;
+    const innerArea = number(values, "innerArea")!;
+    const area = number(values, "area")!;
+    return `Check: outer area − inner area = ${format(outerArea)} − ${format(innerArea)} = ${format(area)}, matching the required region.`;
+  }
+
   if (hasNumbers(values, ["length", "breadth", "area"])) {
     const length = number(values, "length")!;
     const breadth = number(values, "breadth")!;
     const area = number(values, "area")!;
     return `Check: ${format(length)} × ${format(breadth)} = ${format(area)}, which reproduces the rectangular area.`;
-  }
-
-  if (hasNumbers(values, ["side", "area"])) {
-    const side = number(values, "side")!;
-    const area = number(values, "area")!;
-    return `Check: ${format(side)}² = ${format(area)}, so the recovered square measurement is consistent.`;
   }
 
   if (hasNumbers(values, ["base", "height", "area"])) {
@@ -158,10 +191,29 @@ function buildVerificationLine(
     return `Check: ${format(base)} × ${format(height)} = ${format(area)}, confirming the base-height area relation.`;
   }
 
+  if (hasNumbers(values, ["side", "areaCoefficient"])) {
+    const side = number(values, "side")!;
+    const coefficient = number(values, "areaCoefficient")!;
+    return `Check: ${format(side)}²/4 = ${format(coefficient)}, so the exact equilateral-area coefficient is preserved.`;
+  }
+
+  if (hasNumbers(values, ["side", "area"])) {
+    const side = number(values, "side")!;
+    const area = number(values, "area")!;
+    return `Check: ${format(side)}² = ${format(area)}, so the recovered square measurement is consistent.`;
+  }
+
   if (hasNumbers(values, ["radius", "diameter"])) {
     const radius = number(values, "radius")!;
     const diameter = number(values, "diameter")!;
     return `Check: 2 × ${format(radius)} = ${format(diameter)}, so the radius-diameter relation is preserved.`;
+  }
+
+  if (hasNumbers(values, ["length", "breadth", "perimeter"])) {
+    const length = number(values, "length")!;
+    const breadth = number(values, "breadth")!;
+    const perimeter = number(values, "perimeter")!;
+    return `Check: 2 × (${format(length)} + ${format(breadth)}) = ${format(perimeter)}, reproducing the rectangular boundary.`;
   }
 
   if (hasNumbers(values, ["side", "perimeter"])) {
@@ -174,7 +226,32 @@ function buildVerificationLine(
   return `Check: substituting the computed value back into the governing relation reproduces ${solver.answer}.`;
 }
 
-function buildInterpretationLine(solver: Men001SolverResult): string {
+function buildInterpretationLine(
+  originalLines: readonly string[],
+  solver: Men001SolverResult,
+): string {
+  const originalText = originalLines.join(" ").toLowerCase();
+  const alreadyExplainsUnit = /square unit|linear unit|two-dimensional|expressed in degrees|per square metre|per metre|reported in revolutions|no rounding/.test(originalText);
+
+  if (alreadyExplainsUnit) {
+    switch (solver.answerDimension) {
+      case "AREA":
+        return "This value measures the region covered by the figure rather than the length of its boundary.";
+      case "LENGTH":
+        return "This value measures a side, radius, height or boundary rather than a surface area.";
+      case "COST":
+        return "This amount represents the complete charge for the measured work.";
+      case "RATE":
+        return "Multiplying this unit rate by the corresponding measure recovers the stated total cost.";
+      case "ANGLE":
+        return "This angle represents the required fraction of a complete 360° circle.";
+      case "COUNT":
+        return solver.unit === "revolutions"
+          ? "The count refers to complete wheel turns rather than travelled length."
+          : "The count refers to individual paving or flooring units rather than area.";
+    }
+  }
+
   switch (solver.answerDimension) {
     case "AREA":
       return `The required quantity is two-dimensional, so the final answer is expressed in ${solver.unit}.`;
@@ -201,6 +278,6 @@ export function enrichMen001ExplanationLines(
   return [
     ...lines,
     buildVerificationLine(parameters, solver),
-    buildInterpretationLine(solver),
+    buildInterpretationLine(lines, solver),
   ];
 }
