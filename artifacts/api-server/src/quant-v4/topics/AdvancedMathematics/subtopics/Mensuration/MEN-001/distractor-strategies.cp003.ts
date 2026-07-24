@@ -27,7 +27,12 @@ function numericOption(value: number, solver: Men001SolverResult) {
     throw new Error(`MEN-001 CP-003 distractor produced invalid value ${value}.`);
   }
   if (solver.unit === "₹") return `₹${formatted(value)}`;
-  if (solver.unit === "°") return `${formatted(value)}°`;
+  if (solver.unit === "°") {
+    if (value > 360) {
+      throw new Error(`MEN-001 CP-003 angle distractor exceeds 360°: ${value}.`);
+    }
+    return `${formatted(value)}°`;
+  }
   return `${formatted(value)} ${solver.unit}`;
 }
 
@@ -47,15 +52,22 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
     numericOption(piTimes(number(solver.workingValues.radius)), solver),
   "use-diameter-only": ({ solver }: DistractorContext) =>
     numericOption(2 * number(solver.workingValues.radius), solver),
-  "use-circle-area-as-length": ({ solver }: DistractorContext) =>
-    numericOption(piTimes(number(solver.workingValues.radius) ** 2), solver),
+  "use-semicircle-perimeter-as-circumference": ({ solver }: DistractorContext) =>
+    numericOption(
+      piTimes(number(solver.workingValues.radius)) +
+        2 * number(solver.workingValues.radius),
+      solver,
+    ),
 
   "use-two-pi-diameter": ({ solver }: DistractorContext) =>
     numericOption(2 * piTimes(number(solver.workingValues.diameter)), solver),
   "retain-diameter": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.diameter), solver),
-  "use-circle-area-from-diameter-as-length": ({ solver }: DistractorContext) =>
-    numericOption(piTimes((number(solver.workingValues.diameter) / 2) ** 2), solver),
+  "use-pi-radius-from-diameter": ({ solver }: DistractorContext) =>
+    numericOption(
+      piTimes(number(solver.workingValues.diameter) / 2),
+      solver,
+    ),
 
   "use-circumference-as-area": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.circumference), solver),
@@ -78,8 +90,8 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
   "halve-area-before-radius-root": ({ solver }: DistractorContext) =>
     numericOption(Math.sqrt(number(solver.workingValues.area) * PI_DENOMINATOR / (2 * PI_NUMERATOR)), solver),
 
-  "square-circumference-as-area": ({ solver }: DistractorContext) =>
-    numericOption(number(solver.workingValues.circumference) ** 2, solver),
+  "double-area-from-circumference": ({ solver }: DistractorContext) =>
+    numericOption(2 * correctNumericValue(solver), solver),
   "use-recovered-radius-as-area": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.radius), solver),
 
@@ -87,8 +99,8 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
     numericOption(number(solver.workingValues.fullArea), solver),
   "use-quarter-circle-area": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.fullArea) / 4, solver),
-  "use-semicircle-arc-as-area": ({ solver }: DistractorContext) =>
-    numericOption(number(solver.workingValues.semicircleArc), solver),
+  "omit-pi-semicircle-area": ({ solver }: DistractorContext) =>
+    numericOption(number(solver.workingValues.radius) ** 2 / 2, solver),
 
   "use-semicircle-arc-only": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.semicircleArc), solver),
@@ -99,8 +111,8 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
 
   "use-semicircle-area": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.fullArea) / 2, solver),
-  "use-quarter-circumference-as-area": ({ solver }: DistractorContext) =>
-    numericOption(number(solver.workingValues.circumference) / 4, solver),
+  "omit-pi-quadrant-area": ({ solver }: DistractorContext) =>
+    numericOption(number(solver.workingValues.radius) ** 2 / 4, solver),
 
   "use-quadrant-arc-only": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.quadrantArc), solver),
@@ -121,7 +133,12 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
   "use-arc-length-as-sector-area": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.arcLength), solver),
   "omit-pi-sector-area": ({ solver }: DistractorContext) =>
-    numericOption(number(solver.workingValues.radius) ** 2 * number(solver.workingValues.angleDegrees) / 360, solver),
+    numericOption(
+      number(solver.workingValues.radius) ** 2 *
+        number(solver.workingValues.angleDegrees) /
+        360,
+      solver,
+    ),
 
   "use-sector-arc-only": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.arcLength), solver),
@@ -132,13 +149,23 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
     numericOption(correctNumericValue(solver) / 2, solver),
   "omit-two-pi-in-central-angle": ({ solver }: DistractorContext) =>
     numericOption(correctNumericValue(solver) * 2, solver),
-  "divide-arc-by-radius-only": ({ solver }: DistractorContext) =>
-    numericOption(number(solver.workingValues.arcLength) * 360 / number(solver.workingValues.radius), solver),
+  "treat-arc-fraction-as-percent": ({ solver }: DistractorContext) =>
+    numericOption(
+      number(solver.workingValues.arcLength) /
+        number(solver.workingValues.circumference) *
+        100,
+      solver,
+    ),
 
   "use-180-in-sector-angle": ({ solver }: DistractorContext) =>
     numericOption(correctNumericValue(solver) / 2, solver),
-  "omit-radius-square-in-sector-angle": ({ solver }: DistractorContext) =>
-    numericOption(correctNumericValue(solver) * number(solver.workingValues.radius), solver),
+  "treat-sector-fraction-as-percent": ({ solver }: DistractorContext) =>
+    numericOption(
+      number(solver.workingValues.sectorArea) /
+        number(solver.workingValues.fullArea) *
+        100,
+      solver,
+    ),
   "double-sector-angle": ({ solver }: DistractorContext) =>
     numericOption(correctNumericValue(solver) * 2, solver),
 
@@ -160,6 +187,10 @@ export const MEN_001_CP003_DISTRACTOR_STRATEGIES = {
     numericOption(number(solver.workingValues.radius) * number(solver.workingValues.revolutions), solver),
   "multiply-diameter-by-revolutions": ({ solver }: DistractorContext) =>
     numericOption(number(solver.workingValues.diameter) * number(solver.workingValues.revolutions), solver),
-  "add-circumference-and-revolutions": ({ solver }: DistractorContext) =>
-    numericOption(number(solver.workingValues.circumference) + number(solver.workingValues.revolutions), solver),
+  "miss-one-wheel-revolution": ({ solver }: DistractorContext) =>
+    numericOption(
+      number(solver.workingValues.circumference) *
+        (number(solver.workingValues.revolutions) - 1),
+      solver,
+    ),
 } as const satisfies Record<string, DistractorStrategy>;
