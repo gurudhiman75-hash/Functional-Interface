@@ -3,55 +3,18 @@
   "language": "en",
   "ownership": "HUMAN_OWNED",
   "strategies": {
-    "PNC-EXP-001": {
-      "solveMode": "countSequentialIndependentChoices",
-      "concept": "Every outcome uses one choice from each stage, so the stage counts are multiplied.",
-      "lines": ["The available stage counts are {stageList}.", "Using the multiplication principle, total outcomes = {calculation}.", "Therefore, the required number of outcomes is {answer}."]
-    },
-    "PNC-EXP-002": {
-      "solveMode": "countMutuallyExclusiveAlternatives",
-      "concept": "Exactly one non-overlapping alternative is selected, so the counts are added.",
-      "lines": ["The alternative groups contain {stageList} choices.", "Because the alternatives are mutually exclusive, total choices = {calculation}.", "Therefore, the required number of choices is {answer}."]
-    },
-    "PNC-EXP-003": {
-      "solveMode": "countDisjointCasePartition",
-      "concept": "Count each disjoint case by multiplication, then add the case totals.",
-      "lines": ["Case A contributes {caseACalculation} = {caseACount} outcomes.", "Case B contributes {caseBCalculation} = {caseBCount} outcomes.", "The cases do not overlap, so total outcomes = {caseACount} + {caseBCount} = {answer}."]
-    },
-    "PNC-EXP-004": {
-      "solveMode": "countUsingSimpleComplement",
-      "concept": "Count all unrestricted outcomes and subtract the invalid outcomes.",
-      "lines": ["Unrestricted outcomes = {unrestrictedCalculation} = {totalCount}.", "Invalid outcomes = {invalidCount}.", "Valid outcomes = {totalCount} - {invalidCount} = {answer}."]
-    },
-    "PNC-EXP-005": {
-      "solveMode": "recoverMissingStageChoiceCount",
-      "concept": "The total is the product of the known and missing stage counts, so use exact division.",
-      "lines": ["Let the missing stage count be x. Then {knownChoices} × x = {totalChoices}.", "Thus x = {totalChoices} ÷ {knownChoices} = {answer}.", "Therefore, the missing stage has {answer} choices."]
-    },
-    "PNC-EXP-006": {
-      "solveMode": "evaluateFactorialValue",
-      "concept": "A factorial is the product of all positive integers from the argument down to 1.",
-      "lines": ["The factorial argument is {factorialArgument}.", "So {factorialArgument}! = {factorialExpansion} = {answer}.", "Therefore, the required value is {answer}."]
-    },
-    "PNC-EXP-007": {
-      "solveMode": "evaluateFactorialUnitExpression",
-      "concept": "Use the identity 0! = 1! = 1, then evaluate the remaining factorial exactly.",
-      "lines": ["Here, {unitFactorial} = 1 and {factorialArgument}! = {factorialValue}.", "Therefore, {calculation}.", "Hence, the required value is {answer}."]
-    },
-    "PNC-EXP-008": {
-      "solveMode": "simplifyFactorialQuotient",
-      "concept": "Cancel the common lower factorial and multiply only the uncancelled consecutive factors.",
-      "lines": ["Expand {upper}! as {quotientExpansion} × {lower}!.", "After cancelling {lower}!, the quotient is {factorList}.", "Thus, {calculation}, so the answer is {answer}."]
-    },
-    "PNC-EXP-009": {
-      "solveMode": "recoverFactorialArgument",
-      "concept": "Find the unique non-negative integer whose factorial equals the given target, then account for any displayed shift.",
-      "lines": ["The target is {target}.", "Since {matchedArgument}! = {target}, the factorial argument is {matchedArgument}.", "Applying the question's shift gives n = {answer}."]
-    },
-    "PNC-EXP-010": {
-      "solveMode": "recoverFactorialQuotientArgument",
-      "concept": "Cancel (n - 2)! so that n!/(n - 2)! becomes n(n - 1), then find the exact integer match.",
-      "lines": ["The equation becomes n(n - 1) = {target}.", "For n = {answer}, {answer} × {previousInteger} = {target}.", "Therefore, n = {answer}."]
-    }
+    "PNC-EXP-001": {"solveMode":"countSequentialIndependentChoices","concept":"Every outcome uses one choice from each stage, so the stage counts are multiplied.","lines":["The available stage counts are {stageList}.","Using the multiplication principle, total outcomes = {calculation}.","Therefore, the required number of outcomes is {answer}."]},
+    "PNC-EXP-002": {"solveMode":"countMutuallyExclusiveAlternatives","concept":"Exactly one non-overlapping alternative is selected, so the counts are added.","lines":["The alternative groups contain {stageList} choices.","Because the alternatives are mutually exclusive, total choices = {calculation}.","Therefore, the required number of choices is {answer}."]},
+    "PNC-EXP-003": {"solveMode":"countDisjointCasePartition","concept":"Count each disjoint case by multiplication, then add the case totals.","lines":["Case A contributes {caseACalculation} = {caseACount} outcomes.","Case B contributes {caseBCalculation} = {caseBCount} outcomes.","The cases do not overlap, so total outcomes = {caseACount} + {caseBCount} = {answer}."]},
+    "PNC-EXP-004": {"solveMode":"countUsingSimpleComplement","concept":"Count all unrestricted outcomes and subtract the invalid outcomes.","lines":["Unrestricted outcomes = {unrestrictedCalculation} = {totalCount}.","Invalid outcomes = {invalidCount}.","Valid outcomes = {totalCount} - {invalidCount} = {answer}."]},
+    "PNC-EXP-005": {"solveMode":"recoverMissingStageChoiceCount","concept":"The total is the product of the known and missing stage counts, so use exact division.","lines":["Let the missing stage count be x. Then {knownChoices} × x = {totalChoices}.","Thus x = {totalChoices} ÷ {knownChoices} = {answer}.","Therefore, the missing stage has {answer} choices."]},
+    "PNC-EXP-006": {"solveMode":"evaluateFactorialValue","concept":"A factorial is the product of all positive integers from the argument down to 1.","lines":["The factorial argument is {factorialArgument}.","So {factorialArgument}! = {factorialExpansion} = {answer}.","Therefore, the required value is {answer}."]},
+    "PNC-EXP-007": {"solveMode":"evaluateFactorialUnitExpression","concept":"Use the identity 0! = 1! = 1, then evaluate the remaining factorial exactly.","lines":["Here, {unitFactorial} = 1 and {factorialArgument}! = {factorialValue}.","Therefore, {calculation}.","Hence, the required value is {answer}."]},
+    "PNC-EXP-008": {"solveMode":"simplifyFactorialQuotient","concept":"Cancel the common lower factorial and multiply only the uncancelled consecutive factors.","lines":["Expand {upper}! as {quotientExpansion} × {lower}!.","After cancelling {lower}!, the quotient is {factorList}.","Thus, {calculation}, so the answer is {answer}."]},
+    "PNC-EXP-009": {"solveMode":"recoverFactorialArgument","concept":"Find the unique non-negative integer whose factorial equals the given target, then account for any displayed shift.","lines":["The target is {target}.","Since {matchedArgument}! = {target}, the factorial argument is {matchedArgument}.","Applying the question's shift gives n = {answer}."]},
+    "PNC-EXP-010": {"solveMode":"recoverFactorialQuotientArgument","concept":"Cancel (n - 2)! so that n!/(n - 2)! becomes n(n - 1), then find the exact integer match.","lines":["The equation becomes n(n - 1) = {target}.","For n = {answer}, {answer} × {previousInteger} = {target}.","Therefore, n = {answer}."]},
+    "PNC-EXP-011": {"solveMode":"arrangeAllDistinctObjects","concept":"All objects are distinct and every object is placed, so the number of ordered arrangements is n!.","lines":["There are {totalObjects} distinct objects and {totalObjects} ordered positions.","Thus the count is {totalObjects}! = {factorList} = {answer}.","Therefore, the number of arrangements is {answer}."]},
+    "PNC-EXP-012": {"solveMode":"arrangeRFromNDistinctObjects","concept":"Order matters and repetition is not allowed, so use nPr = n!/(n-r)!.","lines":["Here n = {totalObjects} and r = {selectedObjects}.","The ordered choices contribute the factors {factorList}.","Therefore, {calculation}, giving {answer} arrangements."]},
+    "PNC-EXP-013": {"solveMode":"recoverPermutationParameter","concept":"Search the bounded valid permutation parameters until nPr matches the target exactly.","lines":["The known permutation data are {permutationKnowns} and target {target}.","The exact match is {matchedPermutationEquation}.","Therefore, the missing parameter is {answer}."]}
   }
 }
