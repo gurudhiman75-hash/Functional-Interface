@@ -8,6 +8,11 @@ export function productExact(values: number[], ceiling = Number.MAX_SAFE_INTEGER
   let result = 1n; for (const [index, value] of values.entries()) { assertNonNegativeInteger(value, `factor[${index}]`); result *= BigInt(value); }
   return toSafeCount(result, "product", ceiling);
 }
+export function powerExact(base: number, exponent: number, ceiling = Number.MAX_SAFE_INTEGER): number {
+  assertNonNegativeInteger(base, "power base"); assertNonNegativeInteger(exponent, "power exponent");
+  let result = 1n; for (let index = 0; index < exponent; index += 1) result *= BigInt(base);
+  return toSafeCount(result, `${base}^${exponent}`, ceiling);
+}
 export function sumExact(values: number[], ceiling = Number.MAX_SAFE_INTEGER): number {
   let result = 0n; for (const [index, value] of values.entries()) { assertNonNegativeInteger(value, `term[${index}]`); result += BigInt(value); }
   return toSafeCount(result, "sum", ceiling);
