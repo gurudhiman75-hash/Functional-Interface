@@ -5,40 +5,35 @@ Difficulty is based on structural complexity, computational effort and reasoning
 ## Easy
 
 - one direct addition or multiplication rule;
-- two stages or two alternative groups;
-- small explicit values;
-- no hidden overlap;
-- direct recovery by exact division;
-- direct factorial evaluation or use of `0! = 1! = 1`;
-- one-step cancellation such as `(n + 1)!/n!`.
+- direct factorial evaluation or `0! = 1! = 1`;
+- one-step factorial cancellation;
+- arranging all distinct objects;
+- a familiar fixed-rank application such as awarding three different medals.
 
 ## Medium
 
-- three sequential stages;
-- three alternative groups;
-- two disjoint product cases;
-- one simple complement after a product total;
-- contexts requiring the learner to identify the correct rule;
+- three-stage counting or disjoint product cases;
+- simple complement or bounded factorial recovery;
 - multi-factor factorial cancellation;
-- bounded recovery from an exact factorial target.
+- identifying that order matters in a code or office-assignment context;
+- direct partial permutation with `2 ≤ r < n`;
+- bounded recovery of `n` from an exact `nPr` target.
 
 ## Hard
 
-- larger but still exam-safe values;
-- less obvious disjoint case structure;
-- complement or reverse recovery embedded in realistic wording;
-- multi-stage contexts where addition and multiplication traps are both plausible;
-- inverse factorial quotient reasoning requiring transformation before search.
+- less obvious case structure or reverse demand;
+- inverse factorial quotient reasoning;
+- bounded recovery of `r` from a permutation target, where several candidate values must be checked and the order-sensitive interpretation must be preserved.
 
 ## Need-based distribution rule
 
 No final Easy/Medium/Hard quota is fixed for PNC-001 or the P&C family. Each QL receives the difficulty supported by its actual structure.
 
-The current CP-001 checkpoint contains:
+The current two-CP package checkpoint contains:
 
-- Easy: 27;
-- Medium: 22;
-- Hard: 9;
-- Total: 58.
+- Easy: 31;
+- Medium: 25;
+- Hard: 10;
+- Total: 66.
 
 These are observed checkpoint counts used for regression control. They are not targets for future CPs or expansion.
