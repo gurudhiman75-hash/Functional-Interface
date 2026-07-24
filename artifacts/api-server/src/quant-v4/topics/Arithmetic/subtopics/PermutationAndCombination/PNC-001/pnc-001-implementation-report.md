@@ -1,24 +1,41 @@
 # PNC-001 CP-001 Implementation Report
 
-> **Package:** `PNC-001 — Counting Foundations, Basic Permutations & Basic Combinations`
+> **Package:** `PNC-001 — Permutation & Combination Core`
 > **Implemented checkpoint:** `PNC-CP-001 — Fundamental Counting Principle & Case Partition`
-> **QL range:** `PNC-QL-001` through `PNC-QL-048`
+> **Current QL range:** `PNC-QL-001` through `PNC-QL-048`
 > **Branch:** `feat/pnc-001-cp001-runtime-proof`
 > **Draft PR:** `#87`
-> **Design commit:** `8ad8aa1a00663d1d2b0d929b29b29446592aa8fc`
 > **Implementation status:** Runtime proof complete
 > **Date:** 2026-07-24
 
 ---
 
-## 1. Delivered Scope
+## 1. Need-Based Design Amendment
 
-The checkpoint implements the complete planned CP-001 corpus rather than a small scaffold:
+The original draft incorrectly treated a projected family size, CP inventory and solve-mode inventory as fixed in advance. That assumption has been removed.
+
+The governing design now states:
+
+- no fixed final QL count;
+- no fixed QLs per CP;
+- no reserved terminal QL ID;
+- no fixed final CP or package count;
+- no predeclared future solve modes;
+- no mandatory difficulty percentage;
+- new artifacts are admitted only for demonstrated coverage/runtime need.
+
+The 48 QLs and five solve modes in this report describe the current implemented checkpoint. They are not quotas or limits for future work.
+
+---
+
+## 2. Delivered Scope
+
+The checkpoint currently contains:
 
 - 48 human-authored English QLs;
-- 22 Easy, 18 Medium and 8 Hard;
-- five typed solve modes;
-- human-owned task registry, variable ranges, constraints, coverage targets, distribution targets and explanation strategies;
+- observed difficulty distribution of 22 Easy, 18 Medium and 8 Hard;
+- five solve modes required by the admitted CP-001 QLs;
+- human-owned task registry, variable ranges, constraints and explanation strategies;
 - deterministic seeded parameter generation;
 - exact integer counting helpers backed by `bigint` where products are formed;
 - one authoritative solver;
@@ -26,37 +43,29 @@ The checkpoint implements the complete planned CP-001 corpus rather than a small
 - normalized reasoning evidence;
 - evidence-driven customized explanations;
 - semantic distractor generation;
-- package validation;
-- coverage/content auditing;
+- package validation and coverage auditing;
 - a bundled 576-seed runtime proof;
 - a dedicated GitHub Actions gate.
 
-The family-level end-to-end blueprint is stored in:
-
-```text
-PermutationAndCombination/pnc-family-end-to-end-design.md
-```
-
-It freezes two packages, 12 canonical problems and 720 planned English QLs.
-
 ---
 
-## 2. Implemented Solve Modes
+## 3. Active Solve Modes
 
-| Solve mode | QLs | Counting authority |
+| Solve mode | Current QLs | Counting authority |
 |---|---:|---|
 | `countSequentialIndependentChoices` | 14 | Multiplication principle |
 | `countMutuallyExclusiveAlternatives` | 10 | Addition principle |
 | `countDisjointCasePartition` | 10 | Sum of disjoint case products |
 | `countUsingSimpleComplement` | 8 | Unrestricted total minus invalid outcomes |
 | `recoverMissingStageChoiceCount` | 6 | Exact factor recovery |
-| **Total** | **48** |  |
 
-CP-001 intentionally does not use factorial, `nPr` or `nCr`; those begin in CP-002 and CP-003.
+These modes exist because current QLs require distinct solver/evidence contracts. Future modes will be added only with the first approved QL family that needs them.
+
+CP-001 intentionally does not use factorial, `nPr` or `nCr` because no admitted CP-001 QL requires them.
 
 ---
 
-## 3. Runtime Architecture
+## 4. Runtime Architecture
 
 ```text
 Question library + task registry
@@ -80,65 +89,18 @@ Package validator
 Question package
 ```
 
-### Authority rules
+Authority rules:
 
-- English stems are owned by `question-language.en.json`.
-- QL behavior is owned by `task-registry.library.json`.
-- numeric pools are owned by `variable-ranges.library.json`.
-- semantic restrictions are owned by `constraint-profiles.library.json`.
-- the solver is the sole answer authority.
-- explanations and options consume the solver result and evidence.
-
----
-
-## 4. Main Files Added
-
-### Design and package documents
-
-- `pnc-family-end-to-end-design.md`
-- `PNC-001/archetype.md`
-- `PNC-001/canonical-problems.md`
-- `PNC-001/difficulty-framework.md`
-- `PNC-001/reasoning-patterns.md`
-- `PNC-001/implementation-plan.md`
-- `PNC-001/library-authority-map.md`
-
-### Human-owned libraries
-
-- `question-language.en.json`
-- `task-registry.library.json`
-- `variable-ranges.library.json`
-- `constraint-profiles.library.json`
-- `coverage-targets.library.json`
-- `distribution-targets.library.json`
-- `explanation.en.json`
-
-### Runtime foundation
-
-- `foundation/types.ts`
-- `foundation/library.ts`
-- `foundation/math.ts`
-- `foundation/parameter-generator.ts`
-- `foundation/solver.ts`
-- `foundation/reasoning-graph.ts`
-- `foundation/explanation-renderer.ts`
-- `foundation/option-generator.ts`
-- `foundation/validator.ts`
-- `foundation/pipeline.ts`
-- `foundation/coverage-auditor.ts`
-- `index.ts`
-
-### Verification
-
-- `pnc-001.test.ts`
-- `pnc-001-content-audit.md`
-- `.github/workflows/pnc-001-runtime-proof.yml`
+- English stems are owned by `question-language.en.json`;
+- QL behavior is owned by `task-registry.library.json`;
+- numeric pools are owned by `variable-ranges.library.json`;
+- semantic restrictions are owned by `constraint-profiles.library.json`;
+- the solver is the sole answer authority;
+- explanations and options consume solver result/evidence.
 
 ---
 
 ## 5. Verification Results
-
-The dedicated pull-request workflow checks the PR merge ref against the current `New-main` base.
 
 | Gate | Result |
 |---|---|
@@ -146,7 +108,7 @@ The dedicated pull-request workflow checks the PR merge ref against the current 
 | Strict targeted TypeScript compilation | PASS |
 | esbuild test bundling | PASS |
 | CP-001 bundled runtime proof | PASS |
-| 48-Ql coverage audit | PASS |
+| Current 48-QL coverage snapshot | PASS |
 | Determinism | PASS |
 | Independent solver agreement | PASS |
 | Four unique options | PASS |
@@ -154,61 +116,40 @@ The dedicated pull-request workflow checks the PR merge ref against the current 
 | Placeholder resolution | PASS |
 | English-only enforcement | PASS |
 
-Runtime test volume:
+Runtime volume:
 
-- 48 QLs;
+- 48 current QLs;
 - 12 seed cases per QL;
 - 576 seed cases total;
-- every seed generated twice for exact determinism comparison;
-- dedicated method-level assertions for all five solve modes.
+- every seed generated twice for deterministic comparison;
+- method-level assertions for all five active solve modes.
 
-### Repository-wide typecheck note
-
-The repository-wide API-server typecheck currently reports pre-existing errors in unrelated database, knowledge-generator, admin and general generation files. The diagnostic output contained no `PermutationAndCombination`/`PNC-001` paths. Therefore, the PNC workflow uses a strict compiler invocation scoped to the new module and its tests; that targeted gate passes.
+The repository-wide API-server typecheck has unrelated pre-existing failures outside P&C. The PNC workflow therefore uses a strict targeted compiler invocation covering the new module and tests; that gate passes.
 
 ---
 
 ## 6. Safety State
 
-- only `PNC-CP-001` is active;
-- `PNC-CP-002` through `PNC-CP-006` are typed/planned but not exposed;
+- only `PNC-CP-001` exists in runtime types;
 - runtime language is English only;
 - Hindi and Punjabi requests fail explicitly;
 - `publiclyPublishable` is `false`;
 - maturity is `RUNTIME_PROOF`;
 - `generation-engine.ts` has not been edited;
-- no admin or production routing has been changed.
-
-This keeps P&C safe to develop in parallel with Average and Mensuration.
+- no admin or production routing has changed.
 
 ---
 
-## 7. Known Limits
+## 7. Next Decision
 
-This checkpoint does not yet include:
+There is no automatic next CP number or predetermined QL range.
 
-- factorials or unrestricted linear permutations;
-- combinations;
-- digit/number/code formation;
-- word/multiset arrangements;
-- role assignment;
-- any PNC-002 restricted systems;
-- Hindi/Punjabi localization;
-- generation-engine integration;
-- chapter-wide semantic near-duplicate scoring;
-- final production/editorial freeze.
+The next checkpoint begins with a coverage-gap review of reference books, PYQs and current motif/scenario code. That review decides:
 
----
+- the highest-value uncovered family;
+- whether it belongs in CP-001 or needs a new CP;
+- how many genuinely distinct QLs are needed;
+- which new solve modes, if any, are required;
+- the solver, evidence, explanation, distractor and validator contracts.
 
-## 8. Next Checkpoint
-
-Proceed with:
-
-```text
-PNC-001 → PNC-CP-002
-Distinct Linear Permutations & Positional Assignments
-PNC-QL-049 through PNC-QL-102
-54 English QLs
-```
-
-CP-002 should extend the shared exact-math authority with factorial and permutation helpers while preserving all CP-001 contracts and tests. Generation-engine integration should remain deferred until the full PNC-001 package has passed its chapter-wide audit.
+Expansion stops at semantic saturation, not at a planned count.
