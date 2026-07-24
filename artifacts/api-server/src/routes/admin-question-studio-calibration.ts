@@ -41,6 +41,24 @@ function normalizeStem(question: Record<string, unknown>) {
     .trim();
 }
 
+function profileScore(question: Record<string, unknown>, profile: Profile) {
+  const stem = text(question.text ?? question.stem).toLowerCase();
+  const numbers = stem.match(/\d+(?:\.\d+)?/g) ?? [];
+  const decimals = numbers.filter((token) => token.includes(".")).length;
+  const largeNumbers = numbers.filter((token) => Number(token) >= 10000).length;
+  let score = profile.preferredContexts.reduce((sum, context) => sum + (stem.includes(context) ? 5 : 0), 0);
+  if (profile.calculationComplexity === "friendly") score -= decimals * 3 + largeNumbers * 2;
+  if (profile.calculationComplexity === "moderate") score += Math.min(2, numbers.length);
+  if (profile.calculationComplexity === "intensive") score += Math.min(5, numbers.length) + decimals * 2 + largeNumbers;
+  return score;
+}
+
+function selectForProfile(candidates: Record<string, unknown>[], profile: Profile, count: number) {
+  return [...candidates]
+    .sort((left, right) => profileScore(right, profile) - profileScore(left, profile) || text(left.questionId).localeCompare(text(right.questionId)))
+    .slice(0, count);
+}
+
 function metrics(questions: Record<string, unknown>[], profile: Profile) {
   let numberCount = 0;
   let totalDigits = 0;
@@ -85,11 +103,11 @@ router.post("/calibration", requireAdminPermission("content.generation.read"), a
   const seed = text(req.body?.seed) || "exam-profile-calibration";
 
   try {
-    const generate = async (profile: Profile) => {
-      const result = await generateQuantV4Questions({ packageId: packageId as never, topic, subtopic, difficulty, language: "en", seed: `${seed}:${profile.id}`, count });
-      return (Array.isArray(result.questions) ? result.questions : []) as Record<string, unknown>[];
-    };
-    const [leftQuestions, rightQuestions] = await Promise.all([generate(left), generate(right)]);
+    const candidateCount = Math.min(100, count * 2);
+    const result = await generateQuantV4Questions({ packageId: packageId as never, topic, subtopic, difficulty, language: "en", seed: `${seed}:shared-candidate-pool`, count: candidateCount });
+    const candidates = (Array.isArray(result.questions) ? result.questions : []) as Record<string, unknown>[];
+    const leftQuestions = selectForProfile(candidates, left, count);
+    const rightQuestions = selectForProfile(candidates, right, count);
     const leftMetrics = metrics(leftQuestions, left);
     const rightMetrics = metrics(rightQuestions, right);
     const leftStems = new Set(leftQuestions.map(normalizeStem));
@@ -98,12 +116,13 @@ router.post("/calibration", requireAdminPermission("content.generation.read"), a
     const contextSeparation = Math.abs(leftMetrics.contextMatchPercent - rightMetrics.contextMatchPercent);
     const numericDifference = Math.round(
       Math.abs(leftMetrics.averageDigitCount - rightMetrics.averageDigitCount) * 15 +
-      Math.abs(leftMetrics.decimalFrequencyPercent - rightMetrics.decimalFrequencyPercent),
+      Math.abs(leftMetrics.decimalFrequencyPercent - rightMetrics.decimalFrequencyPercent) +
+      Math.abs(leftMetrics.averageNumbersPerQuestion - rightMetrics.averageNumbersPerQuestion) * 8,
     );
     const timeDifferenceSeconds = Math.abs(left.targetTimeSeconds - right.targetTimeSeconds);
     const accepted = count * 2;
-    const candidatePool = count * 4;
-    const thresholds = { contextSeparationMin: 10, numericDifferenceMin: 8, nearIdenticalMax: 25 };
+    const candidatePool = candidates.length * 2;
+    const thresholds = { contextSeparationMin: 10, numericDifferenceMin: 8, nearIdenticalMax: 75 };
     const passed = contextSeparation >= thresholds.contextSeparationMin && numericDifference >= thresholds.numericDifferenceMin && nearIdenticalPercent <= thresholds.nearIdenticalMax;
 
     res.json({
@@ -113,6 +132,7 @@ router.post("/calibration", requireAdminPermission("content.generation.read"), a
       difficulty,
       seed,
       count,
+      candidatePoolSize: candidates.length,
       left: { profile: left, metrics: leftMetrics },
       right: { profile: right, metrics: rightMetrics },
       comparison: {
@@ -120,11 +140,11 @@ router.post("/calibration", requireAdminPermission("content.generation.read"), a
         numericComplexityDifferencePercent: numericDifference,
         estimatedTimeDifferenceSeconds: timeDifferenceSeconds,
         nearIdenticalPercent,
-        acceptedFromCandidatePoolPercent: Math.round((accepted / candidatePool) * 100),
+        acceptedFromCandidatePoolPercent: Math.round((accepted / Math.max(1, candidatePool)) * 100),
         calibrationStatus: passed ? "pass" : "needs-calibration",
         thresholds,
         warnings: [
-          ...(nearIdenticalPercent > thresholds.nearIdenticalMax ? ["The two profiles produced too many structurally identical stems."] : []),
+          ...(nearIdenticalPercent > thresholds.nearIdenticalMax ? ["The two profiles selected too many structurally identical stems from the shared pool."] : []),
           ...(contextSeparation < thresholds.contextSeparationMin ? ["Context separation is below the minimum threshold."] : []),
           ...(numericDifference < thresholds.numericDifferenceMin ? ["Numeric complexity separation is below the minimum threshold."] : []),
         ],
@@ -133,7 +153,8 @@ router.post("/calibration", requireAdminPermission("content.generation.read"), a
     });
   } catch (error) {
     console.error("Question Studio calibration failed", error);
-    res.status(500).json({ error: error instanceof Error ? error.message : "Unable to run profile calibration", code: "PROFILE_CALIBRATION_FAILED" });
+    const statusCode = Number((error as { statusCode?: unknown })?.statusCode);
+    res.status(Number.isFinite(statusCode) ? statusCode : 500).json({ error: error instanceof Error ? error.message : "Unable to run profile calibration", code: "PROFILE_CALIBRATION_FAILED" });
   }
 });
 
