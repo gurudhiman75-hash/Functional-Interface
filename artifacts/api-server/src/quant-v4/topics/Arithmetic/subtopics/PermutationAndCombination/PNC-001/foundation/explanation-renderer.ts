@@ -14,8 +14,9 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
   const calculation=parameters.taskKind==="fundamentalCountingApplication"?solver.equation.replace(` = ${solver.answer}`,""):solver.equation;
   const permutationKnowns=e.recoveredPermutationParameter==="n"?`r = ${permutationR}`:`n = ${permutationN}`;
   const combinationKnowns=e.recoveredCombinationParameter==="n"?`r = ${combinationR}`:`n = ${combinationN}`;
-  const target=e.multisetTarget??e.combinationTarget??e.permutationTarget??e.factorialTarget??parameters.values.target??0;
+  const target=e.codeTarget??e.multisetTarget??e.combinationTarget??e.permutationTarget??e.factorialTarget??parameters.values.target??0;
   const multisetDenominatorExpression=activeMultisetMultiplicities.map(value=>`${value}!`).join(" × ")||"1";
+  const caseSummary=(e.caseCounts??[]).map(item=>`${item.label}: ${item.count}`).join("; ");
   const variables:Record<string,string|number>={
     ...parameters.renderVariables,answer:solver.answer,stageList:readableList(stages),calculation,unrestrictedCalculation:stages.join(" × "),
     totalCount:e.totalCount??solver.numericAnswer,invalidCount:e.invalidCount??0,
@@ -32,6 +33,22 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
     orderedCount:e.combinationOrderedCount??0,selectionFactorial:e.combinationSelectionFactorial??1,
     combinationKnowns,matchedCombinationEquation:`${combinationN}C${combinationR} = ${target}`,
     knownSelection:e.combinationKnownSelection??parameters.values.knownSelection??0,
+    symbolCount:e.symbolCount??parameters.values.symbolCount??0,
+    length:e.digitLength??parameters.values.length??0,
+    firstPositionChoices:e.firstPositionChoices??0,
+    remainingPositions:e.remainingPositions??Math.max(0,(e.digitLength??parameters.values.length??0)-1),
+    positionChoiceList:readableList(e.positionChoices??[]),
+    remainingPositionChoiceList:readableList((e.positionChoices??[]).slice(1)),
+    eligibleLastDigitList:readableList(e.eligibleLastDigits??[]),
+    caseSummary,
+    qualifyingFirstDigitList:readableList(e.qualifyingFirstDigits??[]),
+    suffixArrangementCount:e.suffixArrangementCount??0,
+    letterStageCount:e.letterStageCount??0,
+    digitStageCount:e.digitStageCount??0,
+    matchedCodeEquation:`${e.recoveredCodeSymbolCount??solver.numericAnswer}^${e.digitLength??parameters.values.length??0} = ${e.codeTarget??parameters.values.target??0}`,
+    repeatedSymbolChoices:e.repeatedSymbolChoices??0,
+    otherSymbolSelectionCount:e.otherSymbolSelectionCount??0,
+    patternArrangementCount:e.patternArrangementCount??0,
     multisetTotalObjects:e.multisetTotalObjects??parameters.values.totalObjects??0,
     multisetRemainingObjects:e.multisetRemainingObjects??0,
     multiplicityList:readableList(multisetMultiplicities),
