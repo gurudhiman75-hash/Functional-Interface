@@ -1,5 +1,7 @@
-import questionLanguage from "../question-language.en.json";
-import taskRegistry from "../task-registry.library.json";
+import questionLanguageBase from "../question-language.en.json";
+import questionLanguageCp003 from "../question-language.cp003.en.json";
+import taskRegistryBase from "../task-registry.library.json";
+import taskRegistryCp003 from "../task-registry.cp003.library.json";
 import variableRanges from "../variable-ranges.library.json";
 import constraintProfiles from "../constraint-profiles.library.json";
 import explanationLibrary from "../explanation.en.json";
@@ -17,16 +19,24 @@ type VariableRanges = {
   answerCeiling: number;
   ranges: Record<Pnc001Difficulty, {
     twoStage: number[]; threeStage: number[]; invalid: number[]; recovered: number[];
-    factorial: number[]; factorialGap: number[]; permutationN: number[]; permutationR: number[];
+    factorial: number[]; factorialGap: number[];
+    permutationN: number[]; permutationR: number[];
+    combinationN: number[]; combinationR: number[];
   }>;
   generation: {
     maxAttempts: number; minimumAnswer: number; preferDistinctStageCounts: boolean;
-    maximumFactorialArgument: number; maximumPermutationObjects: number;
+    maximumFactorialArgument: number; maximumPermutationObjects: number; maximumCombinationObjects: number;
   };
 };
 
-const qlEntries = questionLanguage.entries as Pnc001QuestionLanguageEntry[];
-const registryGroups = taskRegistry.groups as Pnc001RegistryGroup[];
+const qlEntries = [
+  ...(questionLanguageBase.entries as Pnc001QuestionLanguageEntry[]),
+  ...(questionLanguageCp003.entries as Pnc001QuestionLanguageEntry[]),
+];
+const registryGroups = [
+  ...(taskRegistryBase.groups as Pnc001RegistryGroup[]),
+  ...(taskRegistryCp003.groups as Pnc001RegistryGroup[]),
+];
 const qlById = new Map(qlEntries.map((entry) => [entry.qlId, entry]));
 const expandedEntries: Pnc001QuestionEntry[] = registryGroups.flatMap((group) => group.qlIds.map((qlId) => {
   const languageEntry = qlById.get(qlId);
