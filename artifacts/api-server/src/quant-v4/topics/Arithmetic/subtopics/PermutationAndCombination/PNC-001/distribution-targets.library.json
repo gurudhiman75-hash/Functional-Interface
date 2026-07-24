@@ -1,11 +1,11 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-006-SELECTION-ROLE-ASSIGNMENT-RUNTIME-PROOF",
+  "checkpoint": "PNC-001-ENGLISH-FREEZE-REVIEW-ELIGIBLE",
   "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
   "observedDifficultyCounts": {
     "Easy": 39,
-    "Medium": 44,
-    "Hard": 21
+    "Medium": 45,
+    "Hard": 22
   },
   "observedSolveModeCounts": {
     "countSequentialIndependentChoices": 14,
@@ -38,16 +38,19 @@
     "arrangeMultisetAfterFixingPosition": 2,
     "findMultisetOvercountFactor": 1,
     "recoverMultisetMultiplicity": 1,
+    "findDictionaryRankOfWord": 2,
     "selectThenAssignDistinctRoles": 4,
     "selectThenArrangeAllSelected": 2,
     "findRoleAssignmentMultiplier": 1,
     "recoverSelectionRoleParameter": 3
   },
-  "editorialCaps": {
-    "maximumExactTemplateDuplicates": 0,
-    "maximumSingleContextShare": 0.2,
-    "maximumGenericDistractorFallbackShare": 0.1
+  "reviewedEditorialSignals": {
+    "acceptedSemanticSimilarityPairs": 12,
+    "acceptedFixedStateQuestionLanguages": 22,
+    "traceablyRepairedQuestionLanguages": 14,
+    "exactTemplateDuplicateGroups": 0,
+    "renderedExplanationDuplicateGroups": 0
   },
-  "interpretation": "The counts above describe the currently admitted 104-QL checkpoint only.",
+  "interpretation": "The counts describe the currently admitted and reviewed 106-QL English checkpoint only.",
   "admissionRule": "Future QL volumes, solve modes and difficulty distributions remain need-based within the fixed CP ownership map."
 }
