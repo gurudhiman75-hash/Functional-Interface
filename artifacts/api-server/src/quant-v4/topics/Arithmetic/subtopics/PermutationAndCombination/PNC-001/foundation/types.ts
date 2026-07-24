@@ -8,7 +8,7 @@ export type Pnc001Language = "en" | "hi" | "pa";
 export type Pnc001Difficulty = "Easy" | "Medium" | "Hard";
 export type Pnc001Maturity = "DESIGN_LOCKED" | "RUNTIME_PROOF" | "MVP_QA" | "PRODUCTION_QA" | "MANUAL_REVIEW" | "FROZEN";
 export type Pnc001AnswerType = "COUNT";
-export type Pnc001TaskKind = "fundamentalCountingApplication";
+export type Pnc001TaskKind = "fundamentalCountingApplication" | "factorialReasoning";
 
 /**
  * Solve modes are intentionally limited to modes required by currently active
@@ -20,7 +20,12 @@ export type Pnc001SolveMode =
   | "countMutuallyExclusiveAlternatives"
   | "countDisjointCasePartition"
   | "countUsingSimpleComplement"
-  | "recoverMissingStageChoiceCount";
+  | "recoverMissingStageChoiceCount"
+  | "evaluateFactorialValue"
+  | "evaluateFactorialUnitExpression"
+  | "simplifyFactorialQuotient"
+  | "recoverFactorialArgument"
+  | "recoverFactorialQuotientArgument";
 
 export interface Pnc001QuestionLanguageEntry {
   qlId: string;
@@ -93,7 +98,27 @@ export interface Pnc001SolverEvidence {
   invalidCount?: number;
   knownChoices?: number;
   totalChoices?: number;
-  operation: "PRODUCT" | "SUM" | "SUM_OF_PRODUCTS" | "COMPLEMENT" | "EXACT_DIVISION";
+  factorialArgument?: number;
+  factorialValue?: number;
+  factorialUpper?: number;
+  factorialLower?: number;
+  factorialFactors?: number[];
+  factorialTarget?: number;
+  matchedFactorialArgument?: number;
+  displayedShift?: number;
+  unitFactorial?: "0!" | "1!";
+  unitOperation?: "ADD" | "SUBTRACT";
+  operation:
+    | "PRODUCT"
+    | "SUM"
+    | "SUM_OF_PRODUCTS"
+    | "COMPLEMENT"
+    | "EXACT_DIVISION"
+    | "FACTORIAL"
+    | "FACTORIAL_UNIT_EXPRESSION"
+    | "FACTORIAL_QUOTIENT"
+    | "FACTORIAL_INVERSE"
+    | "FACTORIAL_QUOTIENT_INVERSE";
 }
 
 export interface Pnc001SolverResult {
