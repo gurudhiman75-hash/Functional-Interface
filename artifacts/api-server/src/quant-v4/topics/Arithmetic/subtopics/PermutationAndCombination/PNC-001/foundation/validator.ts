@@ -3,6 +3,7 @@ import {
   getPnc001QuestionEntry,
   getPnc001VariableRanges,
 } from "./library";
+import { factorialExact, factorialQuotientExact } from "./math";
 import type {
   Pnc001QuestionPackage,
   Pnc001ValidationCheck,
@@ -63,6 +64,32 @@ export function validatePnc001QuestionPackage(pkg: Pnc001QuestionPackage): Pnc00
     const total = pkg.solver.evidence.totalCount!;
     const invalid = pkg.solver.evidence.invalidCount!;
     checks.push(check("valid-complement", invalid > 0 && invalid < total && total - invalid === answer, "Complement count must subtract a proper invalid subset"));
+  }
+  if (pkg.solveMode === "evaluateFactorialValue") {
+    const argument = pkg.solver.evidence.factorialArgument!;
+    checks.push(check("factorial-value", factorialExact(argument, ranges.answerCeiling) === answer, "Factorial answer must equal the exact factorial value"));
+  }
+  if (pkg.solveMode === "evaluateFactorialUnitExpression") {
+    const base = pkg.solver.evidence.factorialValue!;
+    const expected = pkg.solver.evidence.unitOperation === "ADD" ? base + 1 : base - 1;
+    checks.push(check("factorial-unit-expression", expected === answer, "0! or 1! must contribute exactly one"));
+  }
+  if (pkg.solveMode === "simplifyFactorialQuotient") {
+    const upper = pkg.solver.evidence.factorialUpper!;
+    const lower = pkg.solver.evidence.factorialLower!;
+    checks.push(check("factorial-quotient-order", upper >= lower, "Upper factorial argument must be at least the lower argument"));
+    checks.push(check("factorial-quotient-value", factorialQuotientExact(upper, lower, ranges.answerCeiling) === answer, "Factorial quotient must match exact cancellation"));
+  }
+  if (pkg.solveMode === "recoverFactorialArgument") {
+    const matched = pkg.solver.evidence.matchedFactorialArgument!;
+    const shift = pkg.solver.evidence.displayedShift ?? 0;
+    const target = pkg.solver.evidence.factorialTarget!;
+    checks.push(check("factorial-inverse-target", factorialExact(matched, ranges.answerCeiling) === target, "Recovered factorial argument must recreate the target"));
+    checks.push(check("factorial-inverse-shift", matched - shift === answer, "Displayed shift must be applied exactly once"));
+  }
+  if (pkg.solveMode === "recoverFactorialQuotientArgument") {
+    const target = pkg.solver.evidence.factorialTarget!;
+    checks.push(check("factorial-quotient-inverse", answer >= 2 && answer * (answer - 1) === target, "Recovered n must satisfy n(n - 1) = target"));
   }
 
   return { valid: checks.every((item) => item.passed), checks };
