@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - New-main
+      - feat/men-001-cp001-runtime-proof
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/**
