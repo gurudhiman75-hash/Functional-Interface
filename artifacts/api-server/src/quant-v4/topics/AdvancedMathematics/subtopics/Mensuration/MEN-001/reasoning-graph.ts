@@ -1,4 +1,4 @@
-import { getMen001SolveModeDefinition } from "./solve-mode-registry";
+import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import type {
   Men001Parameters,
   Men001ReasoningGraph,
@@ -15,10 +15,11 @@ export function buildMen001ReasoningGraph(
     nodes: [
       {
         nodeId: "identify-state",
-        operation: "IDENTIFY_TRIANGLE_STATE",
-        description: "Identify the supplied triangle measurements, their units and the requested output dimension.",
+        operation: "IDENTIFY_PLANE_MEASUREMENT_STATE",
+        description: "Identify the supplied shape measurements, their units and the requested output dimension.",
         inputs: parameters.renderVariables,
         outputs: {
+          canonicalProblemId: parameters.canonicalProblemId,
           solveMode: parameters.solveMode,
           answerDimension: parameters.answerDimension,
           unitPolicy: parameters.unitPolicy,

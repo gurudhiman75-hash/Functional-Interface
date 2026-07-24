@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - New-main
+      - feat/men-001-cp001-runtime-proof
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/**
@@ -50,7 +51,19 @@ jobs:
           --outfile=dist/quant-v4/men-001.test.mjs
 
       - name: Run MEN-001 runtime proof
-        run: node artifacts/api-server/dist/quant-v4/men-001.test.mjs
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/men-001.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/men-001-runtime-proof.log
+
+      - name: Upload MEN-001 runtime log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-001-runtime-log
+          path: artifacts/api-server/dist/quant-v4/men-001-runtime-proof.log
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Bundle MEN-001 human review export
         run: >-

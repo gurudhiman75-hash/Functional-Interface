@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { getMen001QuestionLanguageIds } from "./library";
+import { getMen001QuestionEntries, getMen001QuestionLanguageIds } from "./library";
 import { runMen001Pipeline } from "./pipeline";
+import type { Men001ActiveCanonicalProblemId } from "./types";
 
 const outputDir = path.resolve(
   process.cwd(),
@@ -15,6 +16,7 @@ function csvCell(value: unknown) {
 }
 
 const rows: string[][] = [[
+  "cpId",
   "qlId",
   "difficulty",
   "solveMode",
@@ -32,17 +34,18 @@ const rows: string[][] = [[
 ]];
 
 const markdown: string[] = [
-  "# MEN-001 / MEN-CP-001 Human Review Export",
+  "# MEN-001 Human Review Export",
   "",
-  "Three deterministic samples are exported per QL to CSV. The Markdown view shows the first sample for each QL.",
+  "Three deterministic samples are exported per active QL to CSV. The Markdown view shows the first sample for each QL.",
   "Question diagrams and explanation illustrations are reviewed separately.",
   "",
 ];
 
-for (const qlId of getMen001QuestionLanguageIds()) {
+for (const entry of getMen001QuestionEntries()) {
+  const qlId = entry.qlId;
   for (let index = 0; index < 3; index += 1) {
     const seed = `men-001-human-review:${qlId}:${index}`;
-    const question = runMen001Pipeline("MEN-CP-001", {
+    const question = runMen001Pipeline(entry.cpId as Men001ActiveCanonicalProblemId, {
       language: "en",
       questionLanguageId: qlId,
       seed,
@@ -52,6 +55,7 @@ for (const qlId of getMen001QuestionLanguageIds()) {
       ? JSON.stringify(question.explanation.illustration)
       : "NONE";
     rows.push([
+      question.canonicalProblemId,
       qlId,
       question.difficultyBand,
       question.solveMode,
@@ -67,7 +71,7 @@ for (const qlId of getMen001QuestionLanguageIds()) {
 
     if (index === 0) {
       markdown.push(
-        `## ${qlId} — ${question.solveMode}`,
+        `## ${question.canonicalProblemId} / ${qlId} — ${question.solveMode}`,
         "",
         `**Difficulty:** ${question.difficultyBand}`,
         "",
