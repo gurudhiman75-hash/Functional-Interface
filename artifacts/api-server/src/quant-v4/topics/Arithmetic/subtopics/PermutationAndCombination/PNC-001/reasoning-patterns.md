@@ -45,8 +45,15 @@
 29. **Multiset overcount factor** — identify the product of multiplicity factorials.
 30. **Multiplicity inverse search** — recover a bounded repeated multiplicity from an exact target.
 
-These are the 30 patterns required by currently admitted QLs. Future modes are added only when a new QL requires a distinct solver/evidence/validator contract.
+## Active CP-006 patterns
+
+31. **Select then assign distinct roles** — choose the eligible group with `nCs`, then assign `k` ordered roles with `sPk`.
+32. **Select then arrange all selected** — multiply `nCs` by `s!` and preserve the identity `nCs × s! = nPs`.
+33. **Role-assignment multiplier** — isolate `sPk` as the factor that distinguishes role assignment from selection alone.
+34. **Mixed inverse search** — recover bounded `n`, `s` or `k` from an exact `nCs × sPk` target with a unique domain match.
+
+These are the 34 patterns required by currently admitted QLs. Future modes are added only when a new QL requires a distinct solver/evidence/validator contract.
 
 ## Evidence contract
 
-The solver returns decisive stage, factorial, permutation, combination, digit/code or multiset evidence. CP-004 evidence includes symbol count, length, first-position choices, final-digit cases, threshold prefixes, alphanumeric stage totals, inverse targets and multiplicity-pattern factors. CP-005 evidence includes total/remaining objects, multiplicities, factorial numerator, correction denominator and inverse target. Explanation prose consumes this evidence and does not recalculate answers independently.
+The solver returns decisive stage, factorial, permutation, combination, digit/code, multiset or mixed-selection evidence. CP-004 evidence includes symbol count, length, first-position choices, final-digit cases, threshold prefixes, alphanumeric stage totals, inverse targets and multiplicity-pattern factors. CP-005 evidence includes total/remaining objects, multiplicities, factorial numerator, correction denominator and inverse target. CP-006 evidence includes the original pool, selected-group size, role count, selection count, role-assignment count, equivalent `nPr` value where applicable, inverse target and bounded search domain. Explanation prose consumes this evidence and does not recalculate answers independently.
