@@ -113,7 +113,7 @@ export function solveMen001(parameters: Men001Parameters): Men001SolverResult {
         ...integerAnswer(area, "cm²", "AREA"),
         answerDimension: "AREA",
         unit: "cm²",
-        equation: `A = \\sqrt{s(s-a)(s-b)(s-c)}`,
+        equation: "A = \\sqrt{s(s-a)(s-b)(s-c)}",
         workingValues: { sideA, sideB, sideC, semiperimeter, radicand, area },
       };
     }
@@ -140,5 +140,7 @@ export function solveMen001(parameters: Men001Parameters): Men001SolverResult {
         workingValues: { side, coefficient, radicand: 3 },
       };
     }
+    default:
+      throw new Error(`Unsupported MEN-001 solve mode: ${String(parameters.solveMode)}`);
   }
 }
