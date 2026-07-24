@@ -21,7 +21,13 @@ function numeric(solver: Men001SolverResult, key: string) {
 function sourceUnit(parameters: Men001Parameters, solver: Men001SolverResult): "cm" | "m" {
   if (solver.unit === "cm" || solver.unit === "cm²") return "cm";
   if (solver.unit === "m" || solver.unit === "m²") return "m";
-  return String(parameters.questionLanguageId).includes("227") ? "m" : "cm";
+  if (
+    parameters.solveMode === "findRadiusFromSectorAreaAndAngle" ||
+    parameters.solveMode === "findInnerRectangularPathTilesRequired"
+  ) {
+    return "m";
+  }
+  return "cm";
 }
 
 function reverseCircleRadius(
