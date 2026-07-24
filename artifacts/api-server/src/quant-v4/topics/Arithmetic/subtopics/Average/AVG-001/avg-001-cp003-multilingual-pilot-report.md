@@ -6,9 +6,9 @@ Candidate release: `AVG-001-CP003-HI-PA-v1-CANDIDATE`
 
 - package: `AVG-001`;
 - canonical problem: `AVG-CP-003`;
-- active QLs: 86;
+- active QLs: 98 (86 core QLs plus 12 reverse-count expansion QLs);
 - languages: Hindi (`hi`) and Punjabi (`pa`);
-- solve families: addition, removal, replacement, reverse added value, reverse removed value, reverse replacement value and cricket innings;
+- solve families: addition, removal, replacement, reverse added value, reverse removed value, reverse replacement value, cricket innings, original count after joining and original count after leaving;
 - age-shift, newborn, child-age, salary, sales, marks, output, weight and cricket contexts are rendered separately;
 - the frozen English solver, parameters, answer, options, correct index and mathematical fingerprint remain authoritative and unchanged.
 
@@ -24,7 +24,7 @@ This is manual-review infrastructure, not a production localization release.
 
 ## Automated gate
 
-The dedicated audit generates each of the 86 QLs in both languages with three seeds: 516 localized packages.
+The dedicated audit generates each of the 98 QLs in both languages with three seeds: 588 localized packages.
 
 It verifies:
 
@@ -38,4 +38,4 @@ It verifies:
 - zero exact cross-QL localized stem duplicates;
 - rejection of QLs outside CP-003.
 
-Separate 86-row Hindi and Punjabi CSVs are generated for manual language review.
+Separate 98-row Hindi and Punjabi CSVs are generated for manual language review.
