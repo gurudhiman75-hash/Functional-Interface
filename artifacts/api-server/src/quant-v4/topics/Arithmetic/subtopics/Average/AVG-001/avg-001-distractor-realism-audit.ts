@@ -23,6 +23,13 @@ function numericOption(option: string) {
   return match ? Number(match[0]) : Number.NaN;
 }
 
+function allowedWeightedOptionStep(answer: string, displayPolicy: string) {
+  if (answer.startsWith("₹")) return 500.51;
+  if (displayPolicy === "EXACT_DECIMAL_1") return 0.11;
+  if (displayPolicy === "EXACT_DECIMAL_2") return 0.011;
+  return 1.01;
+}
+
 const failures: string[] = [];
 const strategiesByMode = new Map<string, Set<string>>();
 let cases = 0;
@@ -42,10 +49,11 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
       const averages = pkg.parameters.values.groupAverages ?? pkg.parameters.values.subgroupAverages ?? [];
       const minimum = Math.min(...averages.map(toNumber));
       const maximum = Math.max(...averages.map(toNumber));
+      const allowedStep = allowedWeightedOptionStep(pkg.answer, pkg.parameters.displayPolicy);
       for (const option of pkg.options) {
         const numeric = numericOption(option);
-        if (!Number.isFinite(numeric) || numeric < minimum - 0.51 || numeric > maximum + 0.51) {
-          failures.push(`${questionLanguageId}:${index}: weighted-average option outside supplied range ${minimum}–${maximum}: ${option}`);
+        if (!Number.isFinite(numeric) || numeric < minimum - allowedStep || numeric > maximum + allowedStep) {
+          failures.push(`${questionLanguageId}:${index}: weighted-average option too far from supplied range ${minimum}–${maximum}: ${option}`);
         }
       }
     }
