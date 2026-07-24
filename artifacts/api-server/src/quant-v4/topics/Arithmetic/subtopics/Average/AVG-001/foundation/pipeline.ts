@@ -20,6 +20,10 @@ import { generateAvg001Parameters } from "./parameter-generator";
 import { applyAvg001RatioDistractorRealism } from "./ratio-distractor-realism";
 import { buildAvg001ReasoningEvidence } from "./reasoning-evidence";
 import { solveAvg001 } from "./solver";
+import {
+  applyAvg001SupplementalDistractorRealism,
+  supportsAvg001SupplementalDistractors,
+} from "./supplemental-distractor-realism";
 import { AVG_001_PACKAGE_ID, type Avg001Language, type Avg001QuestionPackage } from "./types";
 import { validateAvg001QuestionPackage } from "./validator";
 
@@ -28,6 +32,9 @@ function finalizeExplanation(pkg: Avg001QuestionPackage) {
 }
 
 function finalizePackage(pkg: Avg001QuestionPackage) {
+  if (supportsAvg001SupplementalDistractors(pkg)) {
+    return applyAvg001SupplementalDistractorRealism(pkg);
+  }
   return pkg.solveMode === "findGroupCountRatioFromCombinedAverage"
     ? applyAvg001RatioDistractorRealism(pkg)
     : applyAvg001DistractorRealism(pkg);
