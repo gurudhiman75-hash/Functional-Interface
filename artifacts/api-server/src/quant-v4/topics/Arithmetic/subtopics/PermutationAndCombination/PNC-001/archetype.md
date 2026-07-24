@@ -8,13 +8,13 @@ Target exams: SSC, Banking, Railways, Punjab State and comparable aptitude exami
 
 ## Package boundary
 
-- currently owns the implemented `PNC-CP-001` and `PNC-CP-002`;
-- currently owns `PNC-QL-001` through `PNC-QL-066` as a checkpoint snapshot;
-- currently covers counting principles, factorial reasoning and unrestricted ordered arrangements of distinct objects;
+- currently owns the implemented `PNC-CP-001` through `PNC-CP-004`;
+- currently owns `PNC-QL-001` through `PNC-QL-082` as a checkpoint snapshot;
+- currently covers counting principles, factorial reasoning, unrestricted distinct permutations, unrestricted distinct combinations and repeated-object arrangements;
 - has no predetermined final QL count;
 - has no reserved list of future CP IDs;
 - receives a new CP or solve mode only when a documented coverage gap requires a distinct mathematical/runtime contract;
 - may later be split into another package only if size, architecture or review safety justifies the split;
 - provides exact counting authority that Probability may consume later without duplicating it.
 
-Current checkpoint: English runtime proof for two active CPs, ending with `PNC-CP-002 — Unrestricted Ordered Arrangements of Distinct Objects`.
+Current checkpoint: English runtime proof for four active CPs, ending with `PNC-CP-004 — Repeated Objects, Word Arrangements & Multisets`.
