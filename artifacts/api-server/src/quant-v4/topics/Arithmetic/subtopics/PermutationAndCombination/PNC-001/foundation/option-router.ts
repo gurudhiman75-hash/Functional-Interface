@@ -7,7 +7,7 @@ export function buildPnc001RoutedOptions(
   parameters: Pnc001Parameters,
   solver: Pnc001SolverResult,
 ): { options: string[]; correctIndex: number } {
-  if (parameters.solveMode === "findDictionaryRankOfWord") return buildPnc001DictionaryRankOptions(parameters, solver);
+  if (String(parameters.solveMode) === "findDictionaryRankOfWord") return buildPnc001DictionaryRankOptions(parameters, solver);
   return parameters.canonicalProblemId === "PNC-CP-006"
     ? buildPnc001Cp006Options(parameters, solver)
     : buildPnc001Options(parameters, solver);
