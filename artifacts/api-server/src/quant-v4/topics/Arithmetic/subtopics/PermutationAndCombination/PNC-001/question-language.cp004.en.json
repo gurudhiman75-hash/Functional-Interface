@@ -1,0 +1,20 @@
+{
+  "packageId": "PNC-001",
+  "canonicalProblemId": "PNC-CP-004",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-083","cpId":"PNC-CP-004","difficulty":"Easy","template":"Using the digits 1 through {maximumDigit}, how many {length}-digit numbers can be formed without repetition?"},
+    {"qlId":"PNC-QL-084","cpId":"PNC-CP-004","difficulty":"Medium","template":"Using the digits 0 through {maximumDigit}, how many {length}-digit numbers can be formed without repetition?"},
+    {"qlId":"PNC-QL-085","cpId":"PNC-CP-004","difficulty":"Easy","template":"A {length}-character numeric code uses the symbols 0 through {maximumDigit}. If repetition is allowed and a code may begin with 0, how many codes are possible?"},
+    {"qlId":"PNC-QL-086","cpId":"PNC-CP-004","difficulty":"Medium","template":"Using the digits 0 through {maximumDigit}, how many {length}-digit numbers can be formed if repetition is allowed?"},
+    {"qlId":"PNC-QL-087","cpId":"PNC-CP-004","difficulty":"Medium","template":"Using the digits 1 through {maximumDigit}, how many {length}-digit even numbers can be formed without repetition?"},
+    {"qlId":"PNC-QL-088","cpId":"PNC-CP-004","difficulty":"Hard","template":"Using the digits 0 through {maximumDigit}, how many {length}-digit even numbers can be formed without repetition?"},
+    {"qlId":"PNC-QL-089","cpId":"PNC-CP-004","difficulty":"Medium","template":"Using the digits 0 through {maximumDigit}, how many {length}-digit odd numbers can be formed without repetition?"},
+    {"qlId":"PNC-QL-090","cpId":"PNC-CP-004","difficulty":"Hard","template":"Using the digits 0 through {maximumDigit}, how many {length}-digit numbers divisible by 5 can be formed without repetition?"},
+    {"qlId":"PNC-QL-091","cpId":"PNC-CP-004","difficulty":"Hard","template":"Using the digits 0 through {maximumDigit} without repetition, how many 4-digit numbers greater than {thresholdDigit}000 can be formed?"},
+    {"qlId":"PNC-QL-092","cpId":"PNC-CP-004","difficulty":"Medium","template":"A code consists of {letterSlots} letters followed by {digitSlots} digits. If {letterChoices} letters and {digitChoices} digits are available and repetition is allowed, how many codes are possible?"},
+    {"qlId":"PNC-QL-093","cpId":"PNC-CP-004","difficulty":"Medium","template":"A {length}-character code is formed from n symbols with repetition allowed. If {target} codes are possible, find n, where 2 ≤ n ≤ {maximumSymbols}."},
+    {"qlId":"PNC-QL-094","cpId":"PNC-CP-004","difficulty":"Hard","template":"Using {symbolCount} distinct symbols, how many 4-character codes can be formed if exactly one symbol is used twice and the other two symbols are distinct?"}
+  ]
+}
