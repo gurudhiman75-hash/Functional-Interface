@@ -13,6 +13,7 @@ import constraintProfiles from "../constraint-profiles.library.json";
 import explanationLibrary from "../explanation.en.json";
 import explanationLibraryCp004 from "../explanation.cp004.en.json";
 import explanationLibraryCp006 from "../explanation.cp006.en.json";
+import qlSpecificExplanationLibrary from "../explanation-by-ql.en.json";
 import type {
   Pnc001Difficulty,
   Pnc001QuestionEntry,
@@ -22,6 +23,7 @@ import type {
 } from "./types";
 
 type ExplanationStrategy = { solveMode: Pnc001SolveMode; concept: string; lines: string[] };
+type QlSpecificExplanation = { lines: string[] };
 type VariableRanges = {
   packageId: "PNC-001";
   answerCeiling: number;
@@ -96,6 +98,21 @@ const expectedStrategyCount = Object.keys(explanationLibrary.strategies).length
   + Object.keys(explanationLibraryCp006.strategies).length;
 if (Object.keys(strategies).length !== expectedStrategyCount) throw new Error("Duplicate PNC-001 explanation strategy ids across libraries");
 
+const qlSpecificExplanations = qlSpecificExplanationLibrary.entries as Record<string, QlSpecificExplanation>;
+const qlSpecificIds = Object.keys(qlSpecificExplanations).sort();
+const activeIds = entries.map((entry) => entry.qlId);
+if (JSON.stringify(qlSpecificIds) !== JSON.stringify(activeIds)) {
+  throw new Error(`PNC-001 QL-specific explanation parity mismatch: ${qlSpecificIds.length}/${activeIds.length}`);
+}
+const normalizedExplanationTexts = qlSpecificIds.map((qlId) => qlSpecificExplanations[qlId]!.lines.join(" ").trim().replace(/\s+/g, " ").toLowerCase());
+if (new Set(normalizedExplanationTexts).size !== normalizedExplanationTexts.length) {
+  throw new Error("Duplicate PNC-001 QL-specific explanation text");
+}
+for (const qlId of qlSpecificIds) {
+  const lines = qlSpecificExplanations[qlId]!.lines;
+  if (lines.length < 3 || lines.some((line) => !line.trim())) throw new Error(`PNC-001 explanation ${qlId} must contain at least three non-empty lines`);
+}
+
 export function getPnc001QuestionEntries(): Pnc001QuestionEntry[] { return entries.map((e) => ({ ...e, requiredVariables: [...e.requiredVariables] })); }
 export function getPnc001QuestionEntry(qlId: string): Pnc001QuestionEntry {
   const entry = entryById.get(qlId); if (!entry) throw new Error(`Unknown active PNC-001 QL: ${qlId}`);
@@ -106,6 +123,11 @@ export function getPnc001QlIdsForSolveMode(mode: Pnc001SolveMode): string[] { re
 export function getPnc001ExplanationStrategy(explanationId: string): ExplanationStrategy {
   const strategy = strategies[explanationId]; if (!strategy) throw new Error(`Unknown PNC-001 explanation strategy: ${explanationId}`);
   return { ...strategy, lines: [...strategy.lines] };
+}
+export function getPnc001QlSpecificExplanation(qlId: string): QlSpecificExplanation {
+  const explanation = qlSpecificExplanations[qlId];
+  if (!explanation) throw new Error(`Unknown PNC-001 QL-specific explanation: ${qlId}`);
+  return { lines: [...explanation.lines] };
 }
 export function getPnc001VariableRanges(): VariableRanges { return variableRanges as VariableRanges; }
 export function getPnc001ConstraintProfile(profileId: string): Record<string, unknown> {
