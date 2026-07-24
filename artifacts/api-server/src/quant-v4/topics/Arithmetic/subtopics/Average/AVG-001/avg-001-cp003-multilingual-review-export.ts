@@ -5,7 +5,7 @@ import {
   AVG_001_CP003_MULTILINGUAL_PILOT,
   getAvg001Cp003LocalizedQlIds,
   runAvg001Cp003LocalizationPilot,
-} from "./foundation/cp003-localization-pilot-runtime";
+} from "./foundation/cp003-localization-review-runtime";
 
 const header = [
   "packageId", "cpId", "qlId", "language", "solveMode", "difficulty",
