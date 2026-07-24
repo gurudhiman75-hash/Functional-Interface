@@ -23,11 +23,17 @@ Difficulty is based on structural complexity, computational effort and reasoning
 - larger but still exam-safe values;
 - less obvious disjoint case structure;
 - complement or reverse recovery embedded in realistic wording;
-- three-stage contexts where addition and multiplication traps are both plausible.
+- multi-stage contexts where addition and multiplication traps are both plausible.
 
-## CP-001 exact target
+## Need-based distribution rule
 
-- Easy: 22
-- Medium: 18
-- Hard: 8
-- Total: 48
+No final Easy/Medium/Hard quota is fixed for PNC-001 or the P&C family. Each QL receives the difficulty supported by its actual structure.
+
+The current CP-001 checkpoint happens to contain:
+
+- Easy: 22;
+- Medium: 18;
+- Hard: 8;
+- Total: 48.
+
+These are observed checkpoint counts used for regression control. They are not targets for future CPs or expansion.
