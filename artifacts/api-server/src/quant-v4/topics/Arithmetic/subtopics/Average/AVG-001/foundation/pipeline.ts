@@ -1,3 +1,7 @@
+import {
+  applyAvg001BoundedAgeDistractorRealism,
+  isAvg001BoundedChildAgeQuestion,
+} from "./bounded-age-distractor-realism";
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
@@ -32,6 +36,9 @@ function finalizeExplanation(pkg: Avg001QuestionPackage) {
 }
 
 function finalizePackage(pkg: Avg001QuestionPackage) {
+  if (isAvg001BoundedChildAgeQuestion(pkg)) {
+    return applyAvg001BoundedAgeDistractorRealism(pkg);
+  }
   if (supportsAvg001SupplementalDistractors(pkg)) {
     return applyAvg001SupplementalDistractorRealism(pkg);
   }
