@@ -98,11 +98,14 @@ function candidatesFor(pkg: Avg001QuestionPackage) {
     pkg.solveMode === "findCombinedAverageOfThreeOrFourGroups"
   ) {
     const averages = values.groupAverages ?? [];
-    put("added-group-averages-without-weighting", sum(averages));
-    put("divided-total-by-number-of-groups", divide(values.combinedTotal!, rational(averages.length)));
-    put("selected-first-group-average", averages[0]!);
-    put("selected-last-group-average", averages.at(-1)!);
     put("used-unweighted-mean", divide(sum(averages), rational(averages.length)));
+    put("selected-first-group-average", averages[0]!);
+    if (averages[1]) put("selected-second-group-average", averages[1]);
+    put("selected-last-group-average", averages.at(-1)!);
+    if (averages.length === 2) {
+      put("gave-first-group-double-weight", divide(add(multiply(averages[0]!, rational(2)), averages[1]!), rational(3)));
+      put("gave-second-group-double-weight", divide(add(averages[0]!, multiply(averages[1]!, rational(2))), rational(3)));
+    }
   } else if (pkg.solveMode === "findAverageAfterUniformTransformation") {
     const oldAverage = values.oldAverage ?? values.average;
     const factor = numericVariable(pkg, "factor");
