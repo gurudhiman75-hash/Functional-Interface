@@ -30,12 +30,26 @@ export function validateMen001QuestionPackage(
   question: Question,
 ): Men001ValidationResult {
   const base = validateBaseMen001QuestionPackage(question);
-  const checks = base.checks.filter((item) => item.name !== "dimension-unit-contract");
+  const checks = base.checks.filter(
+    (item) =>
+      item.name !== "dimension-unit-contract" &&
+      item.name !== "explanation-depth",
+  );
 
   checks.push(check(
     "dimension-unit-contract",
     dimensionUnitValid(question),
     "Length, area, cost, rate, angle and count answers must use compatible units.",
+  ));
+  checks.push(check(
+    "explanation-depth",
+    question.explanation.lines.length >= 7,
+    "The explanation must contain the worked method, a numerical verification and a final interpretation line.",
+  ));
+  checks.push(check(
+    "explanation-verification-step",
+    question.explanation.lines.some((line) => line.startsWith("Check:")),
+    "Every explanation must contain an explicit numerical consistency check.",
   ));
 
   if (["findRightTriangleHypotenuseFromLegs", "findRightTriangleMissingLeg"].includes(question.solveMode)) {
