@@ -61,16 +61,16 @@ jobs:
             --types node \
             $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001 -name '*.ts' -print)
 
-      - name: Bundle corrected package audit
+      - name: Bundle final reviewed package audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001-package-audit-v2.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001-package-audit-final.ts
           --bundle
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-001-package-audit.mjs
 
-      - name: Run package audit
+      - name: Run final package audit
         working-directory: artifacts/api-server
         run: node dist/quant-v4/pnc-001-package-audit.mjs
 
