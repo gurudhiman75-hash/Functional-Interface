@@ -17,16 +17,22 @@ Target exams: SSC, Banking, Railways, Punjab State and comparable aptitude exami
 - `PNC-CP-005 — Word, Letter & Multiset Arrangements`;
 - `PNC-CP-006 — Selection-Then-Arrangement & Role Assignment`.
 
-## Current checkpoint
+## Current reviewed checkpoint
 
 - active implemented CPs: `PNC-CP-001` through `PNC-CP-006`;
-- current QLs: `PNC-QL-001` through `PNC-QL-104`;
-- current solve modes: 34;
-- English runtime proof only;
+- current QLs: `PNC-QL-001` through `PNC-QL-106`;
+- current solve modes: 35;
+- QL-specific English explanations: 106;
+- observed difficulty: 39 Easy / 45 Medium / 22 Hard;
+- runtime proof: 1,272 deterministic cases;
+- package stress proof: 5,300 cases and 1,060 repeatability checks;
+- completed English review rows: 106;
+- review verdict: `ELIGIBLE FOR ENGLISH FREEZE REVIEW`;
 - `publiclyPublishable: false`;
-- all six ownership boundaries have runtime coverage;
-- no generation-engine, admin or production routing is active.
+- no generation-engine, Question Studio, admin or public production routing is active.
 
-The package currently covers counting principles, supporting factorial reasoning, distinct permutations, distinct combinations, digit/code formation, the implemented multiset portion of word arrangements, and selection followed by arrangement or role assignment. It provides exact counting authority that Probability may consume later without duplicating it.
+## Current represented scope
 
-The next package-level action is a saturation, editorial and freeze-readiness audit. That audit may approve targeted additions inside an existing CP, but the existence of six implemented CPs does not itself impose a fixed final QL count.
+The package covers counting principles, supporting factorial reasoning, unrestricted distinct permutations, unrestricted combinations, digit/code formation, multiset and word arrangements including dictionary rank, and explicit selection followed by arrangement or role assignment.
+
+The package is eligible for explicit product-owner English freeze review. It is not yet frozen, published or production-integrated. Future QLs or modes require a fresh material-gap review; no fixed volume target applies.
