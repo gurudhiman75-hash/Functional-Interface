@@ -1,4 +1,4 @@
-import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation";
+import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-quality";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 import { validateAvg001QuestionPackage } from "./validator";
 
