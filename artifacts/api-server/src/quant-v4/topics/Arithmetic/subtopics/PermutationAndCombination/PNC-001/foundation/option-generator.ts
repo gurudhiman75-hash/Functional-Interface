@@ -1,11 +1,11 @@
-import { createSeededRandom, factorialExact, permutationExact, productExact, shuffleSeeded, sumExact } from "./math";
+import { combinationExact, createSeededRandom, factorialExact, permutationExact, productExact, shuffleSeeded, sumExact } from "./math";
 import type { Pnc001Parameters, Pnc001SolverResult } from "./types";
 function uniquePositiveIntegers(values:number[],correct:number):number[]{return[...new Set(values.filter(v=>Number.isInteger(v)&&v>0&&v!==correct))];}
 function assertNever(value:never):never{throw new Error(`Unsupported PNC-001 solve mode for options: ${String(value)}`);}
 export function buildPnc001Options(parameters:Pnc001Parameters,solver:Pnc001SolverResult):{options:string[];correctIndex:number}{
  const correct=solver.numericAnswer,e=solver.evidence;let candidates:number[]=[];
  switch(parameters.solveMode){
-  case"countSequentialIndependentChoices":{const s=e.stageCounts??[];candidates=[sumExact(s),s.length>1?productExact(s.slice(0,-1)):correct+1,productExact(s.map((v,i)=>i? v:v+1)),correct+(s[0]??2)];break;}
+  case"countSequentialIndependentChoices":{const s=e.stageCounts??[];candidates=[sumExact(s),s.length>1?productExact(s.slice(0,-1)):correct+1,productExact(s.map((v,i)=>i?v:v+1)),correct+(s[0]??2)];break;}
   case"countMutuallyExclusiveAlternatives":{const s=e.stageCounts??[];candidates=[productExact(s),Math.max(...s),correct+Math.min(...s),correct-Math.min(...s)];break;}
   case"countDisjointCasePartition":{const cases=e.caseCounts??[],f=cases.flatMap(i=>i.factors);candidates=[productExact(f),sumExact(f),cases[0]?.count??correct+1,cases[1]?.count??correct+2];break;}
   case"countUsingSimpleComplement":{const t=e.totalCount??correct,i=e.invalidCount??1;candidates=[t,t+i,i,Math.max(1,t-2*i)];break;}
@@ -18,6 +18,9 @@ export function buildPnc001Options(parameters:Pnc001Parameters,solver:Pnc001Solv
   case"arrangeAllDistinctObjects":{const n=e.permutationTotalObjects??2;candidates=[n*n,Math.max(1,factorialExact(n-1)),n,Math.max(1,Math.floor(correct/n))];break;}
   case"arrangeRFromNDistinctObjects":{const n=e.permutationTotalObjects??2,r=e.permutationSelectedObjects??2;candidates=[factorialExact(r),Math.max(1,Math.round(correct/factorialExact(r))),Math.pow(n,r),permutationExact(n,Math.max(1,r-1))];break;}
   case"recoverPermutationParameter":{const n=e.permutationTotalObjects??correct,r=e.permutationSelectedObjects??correct,t=e.permutationTarget??correct;candidates=[n,r,Math.max(1,correct-1),Math.min(t,correct+1)];break;}
+  case"selectRFromNDistinctObjects":{const n=e.combinationTotalObjects??2,r=e.combinationSelectedObjects??1,ordered=e.combinationOrderedCount??permutationExact(n,r);candidates=[ordered,Math.pow(n,r),factorialExact(r),combinationExact(n,Math.max(0,r-1))];break;}
+  case"recoverCombinationParameter":{const n=e.combinationTotalObjects??correct,r=e.combinationSelectedObjects??correct,t=e.combinationTarget??correct;candidates=[n,r,Math.max(1,correct-1),Math.min(t,correct+1)];break;}
+  case"recoverComplementaryCombinationIndex":{const n=e.combinationTotalObjects??correct,known=e.combinationKnownSelection??1;candidates=[known,Math.floor(n/2),Math.max(1,n-known-1),n-known+1];break;}
   default:return assertNever(parameters.solveMode);
  }
  const distractors=uniquePositiveIntegers(candidates,correct);for(let offset=1;distractors.length<3;offset++)for(const c of[correct+offset,correct-offset]){if(c>0&&c!==correct&&!distractors.includes(c))distractors.push(c);if(distractors.length>=3)break;}
