@@ -16,6 +16,11 @@ function placeholders(template: string): string[] {
   return [...new Set([...template.matchAll(/\{([A-Za-z0-9_]+)\}/g)].map((match) => match[1]!))].sort();
 }
 
+function recordMatches(actual: Record<string, number>, expected: Record<string, number>): boolean {
+  return Object.keys(actual).length === Object.keys(expected).length
+    && Object.entries(expected).every(([key, count]) => actual[key] === count);
+}
+
 export function auditPnc001Coverage(): Pnc001CoverageAudit {
   const entries = getPnc001QuestionEntries();
   const expectedIds = Array.from({ length: 48 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
@@ -41,16 +46,16 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const expectedDifficulty = { Easy: 22, Medium: 18, Hard: 8 };
-  const expectedModes = {
+  const expectedDifficulty: Record<string, number> = { Easy: 22, Medium: 18, Hard: 8 };
+  const expectedModes: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
     countDisjointCasePartition: 10,
     countUsingSimpleComplement: 8,
     recoverMissingStageChoiceCount: 6,
   };
-  const distributionsMatch = JSON.stringify(difficultyCounts) === JSON.stringify(expectedDifficulty)
-    && Object.entries(expectedModes).every(([mode, count]) => solveModeCounts[mode] === count);
+  const distributionsMatch = recordMatches(difficultyCounts, expectedDifficulty)
+    && recordMatches(solveModeCounts, expectedModes);
 
   return {
     valid: entries.length === 48
