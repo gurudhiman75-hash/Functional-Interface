@@ -43,6 +43,9 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Typecheck API server
+        run: pnpm --dir artifacts/api-server typecheck
+
       - name: Bundle PNC-001 proof test
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
