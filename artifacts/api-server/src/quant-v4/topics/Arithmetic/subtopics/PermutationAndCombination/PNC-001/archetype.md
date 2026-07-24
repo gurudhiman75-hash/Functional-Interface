@@ -1,16 +1,19 @@
 # PNC-001 Archetype
 
-`PNC-001 — Counting Foundations, Basic Permutations & Basic Combinations`
+`PNC-001 — Permutation & Combination Core`
 
-This package establishes the core counting authority for ExamTree Quant V4. It covers the fundamental addition and multiplication principles, unrestricted linear permutations, basic combinations, digit/number/code formation, word and multiset arrangements, and selection followed by ordered role assignment.
+This package establishes the active counting authority for ExamTree Quant V4. Its scope grows need-by-need from reviewed books, PYQs, runtime gaps and editorial coverage audits.
 
 Target exams: SSC, Banking, Railways, Punjab State and comparable aptitude examinations.
 
-Package boundary:
+## Package boundary
 
-- owns `PNC-CP-001` through `PNC-CP-006`;
-- owns `PNC-QL-001` through `PNC-QL-360`;
-- does not own restricted together/apart, gap, circular, grouping or advanced category-selection systems;
-- provides exact counting utilities later consumed by `PNC-002` and Probability without duplicating mathematical authority.
+- currently owns only the implemented `PNC-CP-001`;
+- currently owns `PNC-QL-001` through `PNC-QL-048` as a checkpoint snapshot;
+- has no predetermined final QL count;
+- has no reserved list of future CP IDs;
+- receives a new CP or solve mode only when a documented coverage gap requires a distinct mathematical/runtime contract;
+- may later be split into another package only if size, architecture or review safety justifies the split;
+- provides exact counting authority that Probability may consume later without duplicating it.
 
-Current checkpoint: complete English runtime proof for `PNC-CP-001`, QLs `PNC-QL-001` through `PNC-QL-048`.
+Current checkpoint: English runtime proof for `PNC-CP-001 — Fundamental Counting Principle & Case Partition`.
