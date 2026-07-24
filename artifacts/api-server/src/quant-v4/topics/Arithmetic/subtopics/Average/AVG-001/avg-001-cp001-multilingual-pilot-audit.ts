@@ -92,8 +92,10 @@ for (const entry of cpEntries) {
       }
 
       const prose = proseOnly(localized.explanation.lines);
-      const expectedScript = language === "hi" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
-      const wrongScript = language === "hi" ? /[\u0A00-\u0A7F]/ : /[\u0900-\u097F]/;
+      const devanagariLetters = /[\u0900-\u0963\u0970-\u097F]/;
+      const gurmukhiLetters = /[\u0A01-\u0A74]/;
+      const expectedScript = language === "hi" ? devanagariLetters : gurmukhiLetters;
+      const wrongScript = language === "hi" ? gurmukhiLetters : devanagariLetters;
       if (!expectedScript.test(localized.stem) || !expectedScript.test(prose)) {
         fail(`${entry.qlId}:${language}:${seedIndex}: expected script missing`);
       }
