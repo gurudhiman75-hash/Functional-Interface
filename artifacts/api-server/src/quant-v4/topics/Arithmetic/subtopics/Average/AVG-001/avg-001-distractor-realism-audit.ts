@@ -1,5 +1,6 @@
 import { strict as assert } from "node:assert";
 import { getAvg001QuestionLanguageIds } from "./foundation/library";
+import { toNumber } from "./foundation/math";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const genericFallbackStrategies = new Set([
@@ -8,6 +9,19 @@ const genericFallbackStrategies = new Set([
   "misconception:double-counted-result",
   "misconception:halved-result",
 ]);
+
+const boundedCombinedAverageModes = new Set([
+  "findCombinedAverageOfTwoGroups",
+  "findCombinedAverageOfThreeOrFourGroups",
+  "findClassAverageFromSectionAverages",
+  "findSuperGroupAverageFromSubgroups",
+]);
+
+function numericOption(option: string) {
+  const normalized = option.replace(/[₹,]/g, "");
+  const match = normalized.match(/-?\d+(?:\.\d+)?/);
+  return match ? Number(match[0]) : Number.NaN;
+}
 
 const failures: string[] = [];
 const strategiesByMode = new Map<string, Set<string>>();
@@ -23,6 +37,18 @@ for (const questionLanguageId of getAvg001QuestionLanguageIds()) {
     if (new Set(pkg.options).size !== 4) failures.push(`${questionLanguageId}:${index}: options are not unique`);
     if (pkg.options[pkg.correctIndex] !== pkg.answer) failures.push(`${questionLanguageId}:${index}: correct index mismatch`);
     if (pkg.options.filter((option) => option === pkg.answer).length !== 1) failures.push(`${questionLanguageId}:${index}: answer does not appear exactly once`);
+
+    if (boundedCombinedAverageModes.has(pkg.solveMode)) {
+      const averages = pkg.parameters.values.groupAverages ?? pkg.parameters.values.subgroupAverages ?? [];
+      const minimum = Math.min(...averages.map(toNumber));
+      const maximum = Math.max(...averages.map(toNumber));
+      for (const option of pkg.options) {
+        const numeric = numericOption(option);
+        if (!Number.isFinite(numeric) || numeric < minimum - 0.51 || numeric > maximum + 0.51) {
+          failures.push(`${questionLanguageId}:${index}: weighted-average option outside supplied range ${minimum}–${maximum}: ${option}`);
+        }
+      }
+    }
 
     if (pkg.traceability.distractorPolicy !== "MISCONCEPTION_V1") {
       failures.push(`${questionLanguageId}:${index}: missing misconception distractor policy`);
