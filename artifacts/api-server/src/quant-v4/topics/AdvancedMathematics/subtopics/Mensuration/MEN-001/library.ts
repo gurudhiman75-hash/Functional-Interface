@@ -5,6 +5,7 @@ import {
   MEN_001_PACKAGE_ID,
   type Men001ActiveCanonicalProblemId,
   type Men001QuestionLanguageEntry,
+  type Men001SolveMode,
   type Men001TaskRegistryEntry,
 } from "./types";
 
@@ -14,12 +15,56 @@ const questionEntries = (questionLanguage.entries as Men001QuestionLanguageEntry
 const registryEntries = taskRegistry.entries as Men001TaskRegistryEntry[];
 const registryByQlId = new Map(registryEntries.map((entry) => [entry.qlId, entry]));
 
+const EXPECTED_RUNTIME_PROOF_QL_IDS = Array.from(
+  { length: 24 },
+  (_, index) => `MEN-001-QL-${String(index + 1).padStart(3, "0")}`,
+);
+
+const EXPECTED_RUNTIME_PROOF_SOLVE_MODES: readonly Men001SolveMode[] = [
+  "findTriangleAreaBaseHeight",
+  "findMissingHeightFromAreaAndBase",
+  "findMissingBaseFromAreaAndHeight",
+  "findTriangleAreaHeron",
+  "findRightTriangleAreaFromLegs",
+  "findEquilateralTriangleArea",
+  "findEquilateralPerimeterFromArea",
+  "findEquilateralSideFromPerimeter",
+  "findIsoscelesTriangleArea",
+  "findIsoscelesHeight",
+  "findTriangleAreaFromSideRatioAndPerimeter",
+  "findLargestTriangleSideFromRatioAndPerimeter",
+  "findSmallestTriangleSideFromRatioAndPerimeter",
+  "findTriangularPlotCost",
+];
+
 function sorted(values: readonly string[]) {
   return [...values].sort((left, right) => left.localeCompare(right));
 }
 
 function sameStrings(left: readonly string[], right: readonly string[]) {
   return JSON.stringify(sorted(left)) === JSON.stringify(sorted(right));
+}
+
+function normalizeTemplateIdentity(template: string) {
+  return template
+    .toLowerCase()
+    .replace(/\{[A-Za-z0-9_]+\}/g, "{value}")
+    .replace(/[^a-z0-9{}₹²√]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function unitMatchesDimension(entry: Men001QuestionLanguageEntry) {
+  if (entry.answerDimension === "LENGTH") {
+    return entry.unitPolicy === "CENTIMETRES" || entry.unitPolicy === "METRES";
+  }
+  if (entry.answerDimension === "AREA") {
+    return (
+      entry.unitPolicy === "SQUARE_CENTIMETRES" ||
+      entry.unitPolicy === "SQUARE_METRES"
+    );
+  }
+  return entry.answerDimension === "COST" && entry.unitPolicy === "RUPEES";
 }
 
 export function extractMen001Placeholders(template: string) {
@@ -77,12 +122,37 @@ export function validateMen001Libraries() {
   if (taskRegistry.packageId !== MEN_001_PACKAGE_ID) {
     failures.push(`Task-registry packageId must be ${MEN_001_PACKAGE_ID}.`);
   }
+  if (taskRegistry.ownership !== "HUMAN_OWNED") {
+    failures.push("MEN-001 task-registry ownership must remain HUMAN_OWNED.");
+  }
   if (new Set(qlIds).size !== qlIds.length) failures.push("Duplicate active QL IDs detected.");
   if (new Set(registryQlIds).size !== registryQlIds.length) {
     failures.push("Duplicate task-registry QL IDs detected.");
   }
   if (!sameStrings(qlIds, registryQlIds)) {
     failures.push("Question-language and task-registry QL sets differ.");
+  }
+  if (!sameStrings(qlIds, EXPECTED_RUNTIME_PROOF_QL_IDS)) {
+    failures.push("MEN-CP-001 runtime proof must expose the contiguous QL range 001-024.");
+  }
+
+  const normalizedTemplates = questionEntries.map((entry) =>
+    normalizeTemplateIdentity(entry.template),
+  );
+  if (new Set(normalizedTemplates).size !== normalizedTemplates.length) {
+    failures.push("Exact normalized English template duplicates detected.");
+  }
+
+  const activeSolveModes = questionEntries.map((entry) => entry.solveMode);
+  for (const solveMode of EXPECTED_RUNTIME_PROOF_SOLVE_MODES) {
+    if (!activeSolveModes.includes(solveMode)) {
+      failures.push(`Missing MEN-CP-001 solve-mode coverage: ${solveMode}.`);
+    }
+  }
+  for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+    if (!questionEntries.some((entry) => entry.difficulty === difficulty)) {
+      failures.push(`Missing ${difficulty} QL coverage.`);
+    }
   }
 
   for (const entry of questionEntries) {
@@ -102,6 +172,31 @@ export function validateMen001Libraries() {
     }
     if (!MEN_001_ACTIVE_CP_IDS.includes(entry.cpId as Men001ActiveCanonicalProblemId)) {
       failures.push(`${entry.qlId}: inactive CP exposed during runtime proof.`);
+    }
+    if (typeof entry.template !== "string" || entry.template.trim().length < 25) {
+      failures.push(`${entry.qlId}: English template is missing or too short.`);
+    }
+    if (!/[?.]$/.test(entry.template.trim())) {
+      failures.push(`${entry.qlId}: English template must end with exam-style punctuation.`);
+    }
+    if (
+      typeof entry.explanationStrategyId !== "string" ||
+      entry.explanationStrategyId.trim().length === 0
+    ) {
+      failures.push(`${entry.qlId}: explanation strategy is missing.`);
+    }
+    if (
+      !Array.isArray(entry.distractorStrategyIds) ||
+      entry.distractorStrategyIds.length < 3 ||
+      new Set(entry.distractorStrategyIds).size !== entry.distractorStrategyIds.length
+    ) {
+      failures.push(`${entry.qlId}: at least three unique distractor strategies are required.`);
+    }
+    if (!unitMatchesDimension(entry)) {
+      failures.push(`${entry.qlId}: unit policy is incompatible with answer dimension.`);
+    }
+    if (!["REQUIRED", "OPTIONAL", "NONE"].includes(entry.diagramRequirement)) {
+      failures.push(`${entry.qlId}: invalid diagram requirement.`);
     }
   }
 
