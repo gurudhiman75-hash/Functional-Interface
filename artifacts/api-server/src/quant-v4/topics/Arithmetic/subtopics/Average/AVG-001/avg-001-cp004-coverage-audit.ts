@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { AVG_001_CP_DIFFICULTY_TARGETS } from "./foundation/difficulty-calibration";
 import { getAvg001QuestionEntries, getAvg001RegistryEntry } from "./foundation/library";
 
 const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-004");
@@ -29,15 +30,10 @@ for (const [mode, expected] of Object.entries(expansionModeTargets)) {
   if (actual !== expected) failures.push(`${mode}: ${actual}; expected ${expected}`);
 }
 
-const originalDifficultyTargets = { Easy: 21, Medium: 22, Hard: 22 };
-for (const [difficulty, expected] of Object.entries(originalDifficultyTargets)) {
-  const actual = originalEntries.filter((entry) => entry.difficulty === difficulty).length;
-  if (actual !== expected) failures.push(`Original ${difficulty}: ${actual}; expected ${expected}`);
-}
-const expansionDifficultyTargets = { Easy: 7, Medium: 7, Hard: 6 };
-for (const [difficulty, expected] of Object.entries(expansionDifficultyTargets)) {
-  const actual = expansionEntries.filter((entry) => entry.difficulty === difficulty).length;
-  if (actual !== expected) failures.push(`Expansion ${difficulty}: ${actual}; expected ${expected}`);
+const difficultyTargets = AVG_001_CP_DIFFICULTY_TARGETS["AVG-CP-004"];
+for (const [difficulty, expected] of Object.entries(difficultyTargets)) {
+  const actual = entries.filter((entry) => entry.difficulty === difficulty).length;
+  if (actual !== expected) failures.push(`${difficulty}: ${actual}; expected ${expected}`);
 }
 
 function placeholders(template: string) {
@@ -54,7 +50,7 @@ for (const entry of entries) {
   const expectedPlaceholders = [...entry.requiredVariables].sort();
   if (JSON.stringify(actualPlaceholders) !== JSON.stringify(expectedPlaceholders)) failures.push(`${entry.qlId}: placeholder mismatch`);
   const registry = getAvg001RegistryEntry(entry.qlId);
-  if (registry.cpId !== entry.cpId || registry.solveMode !== entry.solveMode || registry.answerType !== entry.answerType) failures.push(`${entry.qlId}: registry metadata mismatch`);
+  if (registry.cpId !== entry.cpId || registry.solveMode !== entry.solveMode || registry.answerType !== entry.answerType || registry.difficulty !== entry.difficulty) failures.push(`${entry.qlId}: registry metadata mismatch`);
   const key = normalize(entry.template);
   const prior = normalized.get(key);
   if (prior) failures.push(`${entry.qlId}: normalized duplicate of ${prior}`);
@@ -67,6 +63,6 @@ for (const entry of entries) {
 }
 for (const [mode, strategies] of Object.entries(originalStrategyCounts)) if (strategies.size < 3) failures.push(`${mode}: only ${strategies.size} original explanation strategies`);
 
-console.log(JSON.stringify({ qlCount: entries.length, originalQlCount: originalEntries.length, expansionQlCount: expansionEntries.length, modeCounts: Object.fromEntries([...Object.keys(originalModeTargets), ...Object.keys(expansionModeTargets)].map((mode) => [mode, entries.filter((entry) => entry.solveMode === mode).length])), difficultyCounts: Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length])), originalStrategyCounts: Object.fromEntries(Object.entries(originalStrategyCounts).map(([mode, strategies]) => [mode, strategies.size])), uniqueNormalizedStems: normalized.size, failures, status: failures.length ? "FAIL" : "PASS" }, null, 2));
+console.log(JSON.stringify({ qlCount: entries.length, originalQlCount: originalEntries.length, expansionQlCount: expansionEntries.length, modeCounts: Object.fromEntries([...Object.keys(originalModeTargets), ...Object.keys(expansionModeTargets)].map((mode) => [mode, entries.filter((entry) => entry.solveMode === mode).length])), difficultyCounts: Object.fromEntries(Object.keys(difficultyTargets).map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length])), originalStrategyCounts: Object.fromEntries(Object.entries(originalStrategyCounts).map(([mode, strategies]) => [mode, strategies.size])), uniqueNormalizedStems: normalized.size, failures, status: failures.length ? "FAIL" : "PASS" }, null, 2));
 assert.equal(entries.length, 85);
 assert.equal(failures.length, 0, failures.join("\n"));

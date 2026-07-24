@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { AVG_001_CP_DIFFICULTY_TARGETS } from "./foundation/difficulty-calibration";
 import { getAvg001QuestionEntries, getAvg001RegistryEntry } from "./foundation/library";
 
 const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-005");
@@ -14,7 +15,7 @@ const modeTargets: Record<string, number> = {
   findNumberOfItemsFromTotalCorrection: 6,
   findCorrectedAverageFromMultipleMistakes: 5,
 };
-const difficultyTargets = { Easy: 17, Medium: 20, Hard: 19 };
+const difficultyTargets = AVG_001_CP_DIFFICULTY_TARGETS["AVG-CP-005"];
 
 if (JSON.stringify(entries.map((entry) => entry.qlId)) !== JSON.stringify(expectedIds)) failures.push("CP-005 IDs are not AVG-QL-274–329");
 for (const [mode, expected] of Object.entries(modeTargets)) {
@@ -39,7 +40,7 @@ for (const entry of entries) {
   const required = [...entry.requiredVariables].sort();
   if (JSON.stringify(actual) !== JSON.stringify(required)) failures.push(`${entry.qlId}: placeholder contract mismatch`);
   const registry = getAvg001RegistryEntry(entry.qlId);
-  if (registry.cpId !== entry.cpId || registry.solveMode !== entry.solveMode || registry.answerType !== entry.answerType) failures.push(`${entry.qlId}: registry mismatch`);
+  if (registry.cpId !== entry.cpId || registry.solveMode !== entry.solveMode || registry.answerType !== entry.answerType || registry.difficulty !== entry.difficulty) failures.push(`${entry.qlId}: registry mismatch`);
   const key = normalize(entry.template);
   const prior = normalized.get(key);
   if (prior) failures.push(`${entry.qlId}: normalized duplicate of ${prior}`);

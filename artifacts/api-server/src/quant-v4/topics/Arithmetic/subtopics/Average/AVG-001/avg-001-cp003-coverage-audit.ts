@@ -1,5 +1,6 @@
 import { strict as assert } from "node:assert";
 import coverage from "./coverage-targets.cp003.library.json";
+import { AVG_001_CP_DIFFICULTY_TARGETS } from "./foundation/difficulty-calibration";
 import { getAvg001QuestionEntries } from "./foundation/library";
 
 const entries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
@@ -23,13 +24,10 @@ for (const [mode, target] of Object.entries(expansionModeTargets)) {
   if (count !== target) failures.push(`${mode}: ${count}; expected ${target}`);
 }
 
-for (const [difficulty, target] of Object.entries(coverage.difficultyTargets)) {
-  const count = originalEntries.filter((entry) => entry.difficulty === difficulty).length;
-  if (count !== target) failures.push(`Original ${difficulty}: ${count}; expected ${target}`);
-}
-for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-  const count = expansionEntries.filter((entry) => entry.difficulty === difficulty).length;
-  if (count !== 4) failures.push(`Expansion ${difficulty}: ${count}; expected 4`);
+const difficultyTargets = AVG_001_CP_DIFFICULTY_TARGETS["AVG-CP-003"];
+for (const [difficulty, target] of Object.entries(difficultyTargets)) {
+  const count = entries.filter((entry) => entry.difficulty === difficulty).length;
+  if (count !== target) failures.push(`${difficulty}: ${count}; expected ${target}`);
 }
 
 const ageShiftEntries = originalEntries.filter((entry) => entry.scenarioVariant.includes("AfterYears") || entry.scenarioVariant.includes("ElapsedYears"));
@@ -47,6 +45,6 @@ for (const entry of entries) {
 }
 for (const ids of exactTemplates.values()) if (ids.length > 1) failures.push(`Exact duplicate stem template: ${ids.join(", ")}`);
 
-console.log(JSON.stringify({ qlCount: entries.length, originalQlCount: originalEntries.length, expansionQlCount: expansionEntries.length, ageShiftQlCount: ageShiftEntries.length, cricketQlCount: cricketEntries.length, failureCount: failures.length, failures }, null, 2));
+console.log(JSON.stringify({ qlCount: entries.length, originalQlCount: originalEntries.length, expansionQlCount: expansionEntries.length, difficultyCounts: Object.fromEntries(Object.keys(difficultyTargets).map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length])), ageShiftQlCount: ageShiftEntries.length, cricketQlCount: cricketEntries.length, failureCount: failures.length, failures }, null, 2));
 assert.equal(entries.length, 98);
 assert.equal(failures.length, 0, failures.join("\n"));

@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { AVG_001_CP_DIFFICULTY_TARGETS } from "./foundation/difficulty-calibration";
 import { equals } from "./foundation/math";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
@@ -21,9 +22,10 @@ assert.equal(entries.length, 44);
 assert.deepEqual(entries.map((entry) => entry.qlId), Array.from({ length: 44 }, (_, index) => `AVG-QL-${String(index + 330).padStart(3, "0")}`));
 for (const [mode, count] of Object.entries(expectedModes)) assert.equal(entries.filter((entry) => entry.solveMode === mode).length, count, mode);
 assert.equal(new Set(entries.map((entry) => entry.contextDomain)).size >= 6, true);
+const difficultyTargets = AVG_001_CP_DIFFICULTY_TARGETS["AVG-CP-006"];
 assert.deepEqual(
-  Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length])),
-  { Easy: 14, Medium: 15, Hard: 15 },
+  Object.fromEntries(Object.keys(difficultyTargets).map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length])),
+  difficultyTargets,
 );
 
 for (const entry of entries) {
@@ -58,6 +60,6 @@ for (const language of ["hi", "pa"] as const) {
   assert.throws(() => runAvg001Pipeline({ questionLanguageId: "AVG-QL-330", seed: "unsupported", language }), /English only/);
 }
 
-console.log(JSON.stringify({ qlCount: entries.length, cases, modeCounts: expectedModes, failureCount: failures.length, failures: failures.slice(0, 100), status: failures.length ? "FAIL" : "PASS" }, null, 2));
+console.log(JSON.stringify({ qlCount: entries.length, cases, modeCounts: expectedModes, difficultyCounts: Object.fromEntries(Object.keys(difficultyTargets).map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length])), failureCount: failures.length, failures: failures.slice(0, 100), status: failures.length ? "FAIL" : "PASS" }, null, 2));
 assert.equal(cases, 528);
 assert.equal(failures.length, 0, failures.join("\n"));
