@@ -16,16 +16,19 @@ function placeholders(template: string): string[] {
   return [...new Set([...template.matchAll(/\{([A-Za-z0-9_]+)\}/g)].map((match) => match[1]!))].sort();
 }
 
-function recordMatches(actual: Record<string, number>, expected: Record<string, number>): boolean {
-  return Object.keys(actual).length === Object.keys(expected).length
-    && Object.entries(expected).every(([key, count]) => actual[key] === count);
+function recordMatches(actual: Record<string, number>, snapshot: Record<string, number>): boolean {
+  return Object.keys(actual).length === Object.keys(snapshot).length
+    && Object.entries(snapshot).every(([key, count]) => actual[key] === count);
 }
 
 export function auditPnc001Coverage(): Pnc001CoverageAudit {
   const entries = getPnc001QuestionEntries();
-  const expectedIds = Array.from({ length: 48 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+
+  // Regression snapshot for the currently reviewed CP-001 checkpoint. This is
+  // intentionally not a final package/family target.
+  const checkpointIds = Array.from({ length: 48 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
   const actualIds = new Set(entries.map((entry) => entry.qlId));
-  const missingIds = expectedIds.filter((id) => !actualIds.has(id));
+  const missingIds = checkpointIds.filter((id) => !actualIds.has(id));
   const duplicateGroups = new Map<string, number>();
   const placeholderMismatches: string[] = [];
   const difficultyCounts: Record<string, number> = {};
@@ -46,25 +49,25 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const expectedDifficulty: Record<string, number> = { Easy: 22, Medium: 18, Hard: 8 };
-  const expectedModes: Record<string, number> = {
+  const observedDifficultySnapshot: Record<string, number> = { Easy: 22, Medium: 18, Hard: 8 };
+  const observedSolveModeSnapshot: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
     countDisjointCasePartition: 10,
     countUsingSimpleComplement: 8,
     recoverMissingStageChoiceCount: 6,
   };
-  const distributionsMatch = recordMatches(difficultyCounts, expectedDifficulty)
-    && recordMatches(solveModeCounts, expectedModes);
+  const snapshotMatches = recordMatches(difficultyCounts, observedDifficultySnapshot)
+    && recordMatches(solveModeCounts, observedSolveModeSnapshot);
 
   return {
-    valid: entries.length === 48
-      && actualIds.size === 48
+    valid: entries.length === checkpointIds.length
+      && actualIds.size === checkpointIds.length
       && missingIds.length === 0
       && exactDuplicateTemplates === 0
       && placeholderMismatches.length === 0
       && invalidRuntimeSamples.length === 0
-      && distributionsMatch,
+      && snapshotMatches,
     qlCount: entries.length,
     exactDuplicateTemplates,
     missingIds,
