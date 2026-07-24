@@ -5,6 +5,7 @@ on:
     branches:
       - New-main
       - feat/pnc-001-cp001-runtime-proof
+      - feat/pnc-cp002-unrestricted-permutations-proof
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
@@ -13,6 +14,7 @@ on:
     branches:
       - feat/pnc-001-cp001-runtime-proof
       - feat/pnc-cp002-unrestricted-permutations-proof
+      - feat/pnc-cp003-unrestricted-combinations-proof
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
       - .github/workflows/pnc-001-runtime-proof.yml
