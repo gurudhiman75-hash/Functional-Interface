@@ -118,7 +118,7 @@ assert.equal(combinationSymmetry.solver.evidence.operation, "COMBINATION_SYMMETR
 assert.equal(combinationSymmetry.solver.evidence.combinationKnownSelection! + combinationSymmetry.solver.numericAnswer, combinationSymmetry.solver.evidence.combinationTotalObjects);
 
 const apple = runPnc001Pipeline({ questionLanguageId: "PNC-QL-075", seed: "multiset-apple" });
-assert.equal(apple.canonicalProblemId, "PNC-CP-004");
+assert.equal(apple.canonicalProblemId, "PNC-CP-005");
 assert.equal(apple.solver.evidence.operation, "MULTISET_DIRECT");
 assert.deepEqual(apple.solver.evidence.multisetMultiplicities, [2]);
 assert.equal(apple.solver.numericAnswer, multisetPermutationExact(5, [2]));
@@ -140,7 +140,7 @@ const multisetInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-082", se
 assert.equal(multisetInverse.solver.evidence.operation, "MULTISET_INVERSE");
 assert.equal(multisetPermutationExact(multisetInverse.solver.evidence.multisetTotalObjects!, [multisetInverse.solver.numericAnswer]), multisetInverse.solver.evidence.multisetTarget);
 
-for (const [cpId, seed] of [["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-004", "cp4-routing"]] as const) {
+for (const [cpId, seed] of [["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-005", "cp5-routing"]] as const) {
   assert.equal(runPnc001Pipeline(cpId, { seed }).canonicalProblemId, cpId);
 }
 for (const language of ["hi", "pa"] as const) {
