@@ -22,7 +22,7 @@ function recordMatches(actual: Record<string, number>, snapshot: Record<string, 
 
 export function auditPnc001Coverage(): Pnc001CoverageAudit {
   const entries = getPnc001QuestionEntries();
-  const checkpointIds = Array.from({ length: 94 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+  const checkpointIds = Array.from({ length: 104 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
   const actualIds = new Set(entries.map((entry) => entry.qlId));
   const missingIds = checkpointIds.filter((id) => !actualIds.has(id));
   const duplicateGroups = new Map<string, number>();
@@ -38,13 +38,13 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     const required = [...entry.requiredVariables].sort();
     if (JSON.stringify(found) !== JSON.stringify(required)) placeholderMismatches.push(entry.qlId);
     difficultyCounts[entry.difficulty] = (difficultyCounts[entry.difficulty] ?? 0) + 1;
-    solveModeCounts[entry.solveMode] = (solveModeCounts[entry.solveMode] ?? 0) + 1;
+    solveModeCounts[String(entry.solveMode)] = (solveModeCounts[String(entry.solveMode)] ?? 0) + 1;
     const sample = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed: `audit:${entry.qlId}` });
     if (!sample.validation.valid) invalidRuntimeSamples.push(entry.qlId);
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const observedDifficultySnapshot: Record<string, number> = { Easy: 37, Medium: 39, Hard: 18 };
+  const observedDifficultySnapshot: Record<string, number> = { Easy: 39, Medium: 44, Hard: 21 };
   const observedSolveModeSnapshot: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
@@ -76,6 +76,10 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     arrangeMultisetAfterFixingPosition: 2,
     findMultisetOvercountFactor: 1,
     recoverMultisetMultiplicity: 1,
+    selectThenAssignDistinctRoles: 4,
+    selectThenArrangeAllSelected: 2,
+    findRoleAssignmentMultiplier: 1,
+    recoverSelectionRoleParameter: 3,
   };
   const snapshotMatches = recordMatches(difficultyCounts, observedDifficultySnapshot)
     && recordMatches(solveModeCounts, observedSolveModeSnapshot);
