@@ -16,11 +16,24 @@
 ## Active CP-002 patterns
 
 11. **Arrange all distinct objects** — all `n` objects fill `n` ordered positions, giving `n!`.
-12. **Ordered selection without repetition** — choose and order `r` from `n` distinct objects, giving `nPr = n!/(n-r)!`.
-13. **Permutation-parameter inverse search** — recover the missing `n` or `r` by bounded exact search against an `nPr` target.
+12. **Ordered selection without repetition** — choose and order `r` from `n` distinct objects, giving `nPr`.
+13. **Permutation-parameter inverse search** — recover the missing `n` or `r` from an exact target.
+
+## Active CP-003 patterns
+
+14. **Unordered selection** — divide the ordered `nPr` count by the `r!` internal orders of each selected set.
+15. **Combination-parameter inverse search** — recover the missing `n` or lower-half `r` from an exact `nCr` target.
+16. **Combination symmetry** — use `nCr = nC(n-r)` to recover the complementary index.
+
+## Active CP-004 patterns
+
+17. **Identical-object correction** — begin with `n!` and divide by every repeated multiplicity factorial.
+18. **Fixed-position multiset reduction** — fix one object, reduce its multiplicity when necessary, then arrange the remaining multiset.
+19. **Multiset overcount factor** — identify the product of multiplicity factorials that measures all indistinguishable swaps.
+20. **Multiplicity inverse search** — search the stated bounded multiplicities until the exact multiset count recreates the target.
 
 These are the patterns required by currently admitted QLs. The file is extended only when newly approved QLs introduce a genuinely different reasoning construction.
 
 ## Evidence contract
 
-The solver returns the chosen method and the decisive stage, case, factorial or permutation evidence. For CP-002 this includes `n`, `r`, order/repetition semantics, consecutive permutation factors, the target where applicable, and the recovered parameter. Explanation prose consumes this evidence and must not recalculate the answer independently.
+The solver returns the chosen method and decisive stage, factorial, permutation, combination or multiset evidence. CP-004 evidence includes total and remaining objects, original and remaining repeated multiplicities, all-distinct numerator, identical-swap denominator, target where applicable, and the recovered multiplicity. Explanation prose consumes this evidence and must not recalculate the answer independently.
