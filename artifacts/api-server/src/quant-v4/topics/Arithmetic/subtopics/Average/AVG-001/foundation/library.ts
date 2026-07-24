@@ -8,6 +8,7 @@ import { cp001ExpansionEntries } from "./cp001-expansion-library";
 import { cp004Entries } from "./cp004-library";
 import { cp005Entries } from "./cp005-library";
 import { cp006Entries } from "./cp006-library";
+import { applyAvg001DifficultyCalibration } from "./difficulty-calibration";
 import { gapExpansionEntries } from "./gap-expansion-library";
 import { applyAvg001Cp004StemVariant } from "./cp004-stem-variants";
 import { applyAvg001Cp005FinalStemOverride } from "./cp005-final-stem-overrides";
@@ -56,8 +57,9 @@ const sourceEntries = [
   ...gapExpansionEntries,
 ];
 
-const entries = sourceEntries.map(polishEntry).filter((entry) => entry.active);
-const registryById = new Map(sourceEntries.map(polishEntry).map((entry) => [entry.qlId, entry]));
+const calibratedEntries = applyAvg001DifficultyCalibration(sourceEntries.map(polishEntry));
+const entries = calibratedEntries.filter((entry) => entry.active);
+const registryById = new Map(calibratedEntries.map((entry) => [entry.qlId, entry]));
 const PLACEHOLDER_ALIASES: Record<string, string> = { elapsedYears: "yearsElapsed", yearsElapsed: "elapsedYears" };
 
 export function getAvg001QuestionEntries() { return [...entries]; }
