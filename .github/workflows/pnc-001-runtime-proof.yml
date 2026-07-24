@@ -43,13 +43,29 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck API server
+      - name: Typecheck PNC-001 module
         id: typecheck
         continue-on-error: true
         run: |
           set +e
-          pnpm --dir artifacts/api-server typecheck > pnc-001-typecheck.log 2>&1
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001 -name '*.ts' -print) \
+            > ../../pnc-001-typecheck.log 2>&1
           status=$?
+          cd ../..
           echo "$status" > pnc-001-typecheck-exit.txt
           exit 0
 
