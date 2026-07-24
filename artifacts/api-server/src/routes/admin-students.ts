@@ -107,7 +107,7 @@ router.get('/', requireAdminPermission('users.students.read'), async (req, res) 
             SELECT COUNT(*)::int
             FROM identity.sessions s
             JOIN identity.student_profiles profile ON profile.user_id = s.user_id
-            JOIN identity.users session_user ON session_user.id = profile.user_id AND session_user.deleted_at IS NULL
+            JOIN identity.users active_user ON active_user.id = profile.user_id AND active_user.deleted_at IS NULL
             WHERE s.revoked_at IS NULL AND s.expires_at > now()
           ), 0)::int AS "activeSessions"
         FROM identity.users u
