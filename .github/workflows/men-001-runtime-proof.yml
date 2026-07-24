@@ -51,3 +51,25 @@ jobs:
 
       - name: Run MEN-001 runtime proof
         run: node artifacts/api-server/dist/quant-v4/men-001.test.mjs
+
+      - name: Bundle MEN-001 human review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/human-review-export.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/men-001-human-review-export.mjs
+
+      - name: Generate MEN-001 human review export
+        run: node artifacts/api-server/dist/quant-v4/men-001-human-review-export.mjs
+
+      - name: Upload MEN-001 human review export
+        uses: actions/upload-artifact@v4
+        with:
+          name: men-001-human-review
+          path: |
+            artifacts/api-server/dist/quant-v4/men-001-human-review.csv
+            artifacts/api-server/dist/quant-v4/men-001-human-review.md
+          if-no-files-found: error
+          retention-days: 7
