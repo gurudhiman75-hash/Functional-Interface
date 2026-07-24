@@ -25,11 +25,20 @@ export function renderPnc001Explanation(
   const stages = solver.evidence.stageCounts ?? [];
   const caseA = solver.evidence.caseCounts?.[0];
   const caseB = solver.evidence.caseCounts?.[1];
+  const factorialFactors = solver.evidence.factorialFactors ?? [];
+  const factorialArgument = solver.evidence.factorialArgument ?? parameters.values.factorialArgument ?? 0;
+  const upper = solver.evidence.factorialUpper ?? parameters.values.upper ?? 0;
+  const lower = solver.evidence.factorialLower ?? parameters.values.lower ?? 0;
+  const matchedArgument = solver.evidence.matchedFactorialArgument ?? parameters.values.matchedFactorialArgument ?? 0;
+  const calculation = parameters.taskKind === "factorialReasoning"
+    ? solver.equation
+    : solver.equation.replace(` = ${solver.answer}`, "");
+
   const variables: Record<string, string | number> = {
     ...parameters.renderVariables,
     answer: solver.answer,
     stageList: readableList(stages),
-    calculation: solver.equation.replace(` = ${solver.answer}`, ""),
+    calculation,
     unrestrictedCalculation: stages.join(" × "),
     totalCount: solver.evidence.totalCount ?? solver.numericAnswer,
     invalidCount: solver.evidence.invalidCount ?? 0,
@@ -39,6 +48,17 @@ export function renderPnc001Explanation(
     caseBCalculation: caseB?.factors.join(" × ") ?? "",
     knownChoices: solver.evidence.knownChoices ?? parameters.values.knownChoices ?? 0,
     totalChoices: solver.evidence.totalChoices ?? parameters.values.totalChoices ?? 0,
+    factorialArgument,
+    factorialValue: solver.evidence.factorialValue ?? solver.numericAnswer,
+    factorialExpansion: factorialFactors.length > 0 ? factorialFactors.join(" × ") : "1",
+    unitFactorial: solver.evidence.unitFactorial ?? "0!",
+    upper,
+    lower,
+    quotientExpansion: factorialFactors.join(" × "),
+    factorList: factorialFactors.join(" × "),
+    target: solver.evidence.factorialTarget ?? parameters.values.target ?? 0,
+    matchedArgument,
+    previousInteger: solver.numericAnswer - 1,
   };
 
   return {
