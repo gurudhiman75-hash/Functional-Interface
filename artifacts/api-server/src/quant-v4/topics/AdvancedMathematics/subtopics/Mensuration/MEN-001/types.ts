@@ -1,5 +1,5 @@
-import type { Men001SolveMode } from "./solve-mode-registry";
-export type { Men001SolveMode } from "./solve-mode-registry";
+import type { Men001SolveMode } from "./solve-mode-registry.all";
+export type { Men001SolveMode } from "./solve-mode-registry.all";
 
 export const MEN_001_PACKAGE_ID = "MEN-001" as const;
 
@@ -12,13 +12,15 @@ export const MEN_001_CP_IDS = [
   "MEN-CP-006",
 ] as const;
 
-export const MEN_001_ACTIVE_CP_IDS = ["MEN-CP-001"] as const;
+export const MEN_001_ACTIVE_CP_IDS = ["MEN-CP-001", "MEN-CP-002"] as const;
 
 export type Men001CanonicalProblemId = (typeof MEN_001_CP_IDS)[number];
 export type Men001ActiveCanonicalProblemId = (typeof MEN_001_ACTIVE_CP_IDS)[number];
 export type Men001Language = "en" | "hi" | "pa";
 export type Men001Difficulty = "Easy" | "Medium" | "Hard";
-export type Men001TaskKind = "triangleMeasurementApplication";
+export type Men001TaskKind =
+  | "triangleMeasurementApplication"
+  | "quadrilateralMeasurementApplication";
 export type Men001AnswerDimension = "LENGTH" | "AREA" | "COST";
 export type Men001UnitPolicy =
   | "CENTIMETRES"
@@ -122,6 +124,19 @@ export interface Men001Parameters {
     scale?: number;
     ratePerSquareMetre?: number;
     cost?: number;
+    length?: number;
+    breadth?: number;
+    diagonal?: number;
+    diagonalCoefficient?: number;
+    adjacentSide?: number;
+    diagonalA?: number;
+    diagonalB?: number;
+    halfDiagonalA?: number;
+    halfDiagonalB?: number;
+    parallelSideA?: number;
+    parallelSideB?: number;
+    perpendicularA?: number;
+    perpendicularB?: number;
   };
   renderVariables: Record<string, string | number>;
 }
@@ -155,11 +170,7 @@ export type Men001ExplanationIllustration =
       purpose: "HERON_SIDE_MAPPING";
       placement: "AFTER_SIDE_RECOVERY";
       notToScale: true;
-      labels: {
-        sideA: string;
-        sideB: string;
-        sideC: string;
-      };
+      labels: { sideA: string; sideB: string; sideC: string };
       accessibleText: string;
     }
   | {
@@ -167,12 +178,37 @@ export type Men001ExplanationIllustration =
       purpose: "ALTITUDE_BISECTS_BASE";
       placement: "BEFORE_PYTHAGORAS";
       notToScale: true;
+      labels: { equalSide: string; base: string; halfBase: string; height: string };
+      accessibleText: string;
+    }
+  | {
+      kind: "RECTANGLE_DIAGONAL_SPLIT";
+      purpose: "DIAGONAL_FORMS_RIGHT_TRIANGLE";
+      placement: "BEFORE_PYTHAGORAS";
+      notToScale: true;
+      labels: { diagonal: string; length: string; breadth: string };
+      accessibleText: string;
+    }
+  | {
+      kind: "RHOMBUS_HALF_DIAGONALS";
+      purpose: "DIAGONALS_BISECT_AT_RIGHT_ANGLES";
+      placement: "BEFORE_PYTHAGORAS";
+      notToScale: true;
       labels: {
-        equalSide: string;
-        base: string;
-        halfBase: string;
-        height: string;
+        diagonalA: string;
+        diagonalB: string;
+        halfDiagonalA: string;
+        halfDiagonalB: string;
+        side: string;
       };
+      accessibleText: string;
+    }
+  | {
+      kind: "QUADRILATERAL_DIAGONAL_PERPENDICULARS";
+      purpose: "SPLIT_INTO_TWO_TRIANGLES";
+      placement: "BEFORE_AREA_ADDITION";
+      notToScale: true;
+      labels: { diagonal: string; perpendicularA: string; perpendicularB: string };
       accessibleText: string;
     };
 
