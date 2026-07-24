@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Activity, Download, RefreshCw, Search, ShieldAlert, UserCheck, Users } from 'lucide-react';
 
@@ -59,6 +59,6 @@ export function StudentsPage() {
   );
 }
 
-function Metric({ label, value, icon }: { label: string; value: number; icon: React.ReactNode }) {
+function Metric({ label, value, icon }: { label: string; value: number; icon: ReactNode }) {
   return <Card><CardContent className="flex items-center justify-between p-4"><div><p className="text-xs text-muted-foreground">{label}</p><p className="mt-1 text-2xl font-semibold">{value.toLocaleString()}</p></div><div className="rounded-lg bg-muted p-2 text-muted-foreground">{icon}</div></CardContent></Card>;
 }
