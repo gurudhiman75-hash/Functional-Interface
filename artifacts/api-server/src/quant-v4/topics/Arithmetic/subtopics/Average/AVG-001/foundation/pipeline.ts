@@ -17,6 +17,7 @@ import { independentlyVerifyAvg001 } from "./independent-verifier";
 import { getAvg001QuestionEntry, getAvg001QuestionLanguageIds, renderTemplate } from "./library";
 import { generateAvg001Options } from "./option-generator";
 import { generateAvg001Parameters } from "./parameter-generator";
+import { applyAvg001RatioDistractorRealism } from "./ratio-distractor-realism";
 import { buildAvg001ReasoningEvidence } from "./reasoning-evidence";
 import { solveAvg001 } from "./solver";
 import { AVG_001_PACKAGE_ID, type Avg001Language, type Avg001QuestionPackage } from "./types";
@@ -27,7 +28,9 @@ function finalizeExplanation(pkg: Avg001QuestionPackage) {
 }
 
 function finalizePackage(pkg: Avg001QuestionPackage) {
-  return applyAvg001DistractorRealism(pkg);
+  return pkg.solveMode === "findGroupCountRatioFromCombinedAverage"
+    ? applyAvg001RatioDistractorRealism(pkg)
+    : applyAvg001DistractorRealism(pkg);
 }
 
 export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {
