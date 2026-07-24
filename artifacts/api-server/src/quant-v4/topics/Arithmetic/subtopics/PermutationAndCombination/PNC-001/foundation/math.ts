@@ -46,6 +46,33 @@ export function divideExact(total: number, divisor: number): number {
   return total / divisor;
 }
 
+export function factorialExact(argument: number, ceiling = Number.MAX_SAFE_INTEGER): number {
+  assertNonNegativeInteger(argument, "factorial argument");
+  let result = 1n;
+  for (let factor = 2; factor <= argument; factor += 1) result *= BigInt(factor);
+  return toSafeCount(result, `${argument}!`, ceiling);
+}
+
+export function factorialQuotientExact(
+  upper: number,
+  lower: number,
+  ceiling = Number.MAX_SAFE_INTEGER,
+): number {
+  assertNonNegativeInteger(upper, "upper factorial argument");
+  assertNonNegativeInteger(lower, "lower factorial argument");
+  if (lower > upper) throw new Error(`lower factorial argument ${lower} exceeds upper argument ${upper}`);
+  let result = 1n;
+  for (let factor = lower + 1; factor <= upper; factor += 1) result *= BigInt(factor);
+  return toSafeCount(result, `${upper}!/${lower}!`, ceiling);
+}
+
+export function descendingFactors(upper: number, lowerExclusive: number): number[] {
+  assertNonNegativeInteger(upper, "upper factor");
+  assertNonNegativeInteger(lowerExclusive, "lower exclusive factor");
+  if (lowerExclusive > upper) throw new Error("lower exclusive factor exceeds upper factor");
+  return Array.from({ length: upper - lowerExclusive }, (_, index) => upper - index);
+}
+
 export function hashSeed(seed: string): number {
   let hash = 2166136261;
   for (let index = 0; index < seed.length; index += 1) {
