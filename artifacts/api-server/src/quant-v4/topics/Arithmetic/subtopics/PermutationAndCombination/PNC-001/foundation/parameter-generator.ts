@@ -35,6 +35,18 @@ function pickDigitLength(maximumDigit: number, lengths: readonly number[], zeroI
   const availableSymbols = maximumDigit + (zeroIncluded ? 1 : 0);
   return pickSeeded(lengths.filter((length) => length >= 2 && length <= availableSymbols), random);
 }
+function mixedCountExact(totalObjects: number, selectedObjects: number, roleCount: number, ceiling: number): number {
+  return productExact([
+    combinationExact(totalObjects, selectedObjects, ceiling),
+    permutationExact(selectedObjects, roleCount, ceiling),
+  ], ceiling);
+}
+function fixedMixedRoleCount(entry: Pnc001QuestionEntry): number | undefined {
+  if (entry.scenarioFamily === "committeeChair") return 1;
+  if (entry.scenarioFamily === "teamCaptainVice") return 2;
+  if (entry.scenarioFamily === "committeeThreeOffices") return 3;
+  return undefined;
+}
 function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, number> {
   const ranges = getPnc001VariableRanges(); const pool = ranges.ranges[entry.difficulty];
   const random = createSeededRandom(`${seed}:${entry.qlId}:values`); const distinct = ranges.generation.preferDistinctStageCounts;
@@ -149,6 +161,58 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
       const maximumMultiplicity = Math.min(ranges.generation.maximumMultisetMultiplicity, totalObjects - 1);
       const solutionMultiplicity = pickSeeded(Array.from({ length: maximumMultiplicity - 1 }, (_, index) => index + 2), random);
       return { totalObjects, maximumMultiplicity, solutionMultiplicity, target: multisetPermutationExact(totalObjects, [solutionMultiplicity], ranges.answerCeiling) };
+    }
+    case "selectThenAssignDistinctRoles": {
+      const fixedRoles = fixedMixedRoleCount(entry);
+      const states = pool.mixedPool.flatMap((totalObjects) => pool.mixedSelection
+        .filter((selectedObjects) => selectedObjects < totalObjects)
+        .flatMap((selectedObjects) => {
+          const roles = fixedRoles === undefined ? pool.mixedRoles.filter((roleCount) => roleCount >= 1 && roleCount < selectedObjects) : [fixedRoles];
+          return roles.filter((roleCount) => roleCount < selectedObjects).map((roleCount) => ({ totalObjects, selectedObjects, roleCount }));
+        }));
+      return pickSeeded(states, random);
+    }
+    case "selectThenArrangeAllSelected": {
+      const states = pool.mixedPool.flatMap((totalObjects) => pool.mixedSelection
+        .filter((selectedObjects) => selectedObjects < totalObjects)
+        .map((selectedObjects) => ({ totalObjects, selectedObjects, roleCount: selectedObjects })));
+      return pickSeeded(states, random);
+    }
+    case "findRoleAssignmentMultiplier": {
+      const selectedObjects = pickSeeded(pool.mixedSelection.filter((value) => value >= 3), random);
+      const roleCount = pickSeeded(pool.mixedRoles.filter((value) => value >= 1 && value <= selectedObjects), random);
+      return { selectedObjects, roleCount };
+    }
+    case "recoverSelectionRoleParameter": {
+      if (entry.scenarioFamily === "recoverMixedTotalObjects") {
+        const selectedObjects = pickSeeded(pool.mixedSelection, random);
+        const roleCount = pickSeeded(pool.mixedRoles.filter((value) => value < selectedObjects), random);
+        const minimumTotalObjects = selectedObjects + 1;
+        const maximumTotalObjects = ranges.generation.maximumMixedPool;
+        const solutionN = pickSeeded(pool.mixedPool.filter((value) => value >= minimumTotalObjects), random);
+        return { selectedObjects, roleCount, minimumTotalObjects, maximumTotalObjects, solutionN, target: mixedCountExact(solutionN, selectedObjects, roleCount, ranges.answerCeiling) };
+      }
+      if (entry.scenarioFamily === "recoverMixedSelectedObjects") {
+        const states = pool.mixedPool.flatMap((totalObjects) => pool.mixedRoles.flatMap((roleCount) => {
+          const minimumSelectedObjects = roleCount + 1;
+          const maximumSelectedObjects = Math.min(ranges.generation.maximumMixedSelection, totalObjects - 1);
+          const selections = Array.from({ length: Math.max(0, maximumSelectedObjects - minimumSelectedObjects + 1) }, (_, index) => minimumSelectedObjects + index);
+          const targets = selections.map((selectedObjects) => ({ selectedObjects, target: mixedCountExact(totalObjects, selectedObjects, roleCount, ranges.answerCeiling) }));
+          return targets.filter((candidate) => targets.filter((other) => other.target === candidate.target).length === 1)
+            .map((candidate) => ({ totalObjects, roleCount, minimumSelectedObjects, maximumSelectedObjects, solutionSelected: candidate.selectedObjects, target: candidate.target }));
+        }));
+        return pickSeeded(states, random);
+      }
+      const states = pool.mixedPool.flatMap((totalObjects) => pool.mixedSelection
+        .filter((selectedObjects) => selectedObjects < totalObjects && selectedObjects >= 3)
+        .flatMap((selectedObjects) => {
+          const maximumRoleCount = Math.min(ranges.generation.maximumMixedRoles, selectedObjects - 2);
+          return Array.from({ length: maximumRoleCount }, (_, index) => {
+            const solutionRoles = index + 1;
+            return { totalObjects, selectedObjects, maximumRoleCount, solutionRoles, target: mixedCountExact(totalObjects, selectedObjects, solutionRoles, ranges.answerCeiling) };
+          });
+        }));
+      return pickSeeded(states, random);
     }
     default: { const exhaustive: never = entry.solveMode; throw new Error(`Unsupported PNC-001 solve mode: ${exhaustive}`); }
   }
