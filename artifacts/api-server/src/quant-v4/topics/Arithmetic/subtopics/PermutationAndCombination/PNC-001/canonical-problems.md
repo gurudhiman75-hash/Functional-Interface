@@ -1,39 +1,33 @@
-# PNC-001 Canonical-Problem Discovery
+# PNC-001 Canonical Problems
 
-## Active CPs
+## Fixed package ownership map
 
-| CP | Name | Current implemented QLs | Status |
+`PNC-001 — Counting Foundations, Basic Permutations & Basic Combinations` owns six agreed CP boundaries:
+
+1. `PNC-CP-001 — Fundamental Counting Principle & Case Partition`
+2. `PNC-CP-002 — Distinct Linear Permutations & Positional Assignments`
+3. `PNC-CP-003 — Basic Combinations & Direct Selection Applications`
+4. `PNC-CP-004 — Digit, Number, Code & Password Formation`
+5. `PNC-CP-005 — Word, Letter & Multiset Arrangements`
+6. `PNC-CP-006 — Selection-Then-Arrangement & Role Assignment`
+
+QL counts and solve modes inside these CPs are need-based.
+
+## Current implementation state
+
+| CP | Current represented scope | Current QLs | Status |
 |---|---|---:|---|
-| `PNC-CP-001` | Fundamental Counting Principle, Case Partition & Factorial Reasoning | 58 | Runtime proof |
-| `PNC-CP-002` | Unrestricted Ordered Arrangements of Distinct Objects | 8 | Runtime proof |
-| `PNC-CP-003` | Unrestricted Unordered Selection of Distinct Objects | 8 | Runtime proof |
-| `PNC-CP-004` | Repeated Objects, Word Arrangements & Multisets | 8 | Runtime proof |
+| `PNC-CP-001` | counting principles, case partition, complement, factor recovery and supporting factorial reasoning | 58 | Runtime proof |
+| `PNC-CP-002` | unrestricted ordered arrangements and inverse `nPr` tasks | 8 | Runtime proof |
+| `PNC-CP-003` | unrestricted unordered selection, inverse `nCr` and symmetry | 8 | Runtime proof |
+| `PNC-CP-004` | digit/number/code/password formation | 0 | Pending |
+| `PNC-CP-005` | repeated-object and multiset arrangements | 8 | Partial CP runtime proof |
+| `PNC-CP-006` | selection followed by arrangement or role assignment | 0 | Pending |
 | **Current package snapshot** |  | **82** |  |
 
-The current active IDs are `PNC-QL-001` through `PNC-QL-082`. These values describe the reviewed checkpoint and are not final CP or package sizes.
+Current IDs are `PNC-QL-001` through `PNC-QL-082`. IDs reflect admission order, not CP order.
 
-## CP-001 scope currently represented
-
-- addition and multiplication counting principles;
-- disjoint cases and simple complement;
-- exact missing-factor recovery;
-- factorial definition, identities, cancellation and bounded inverse reasoning.
-
-## CP-002 scope currently represented
-
-- arranging all distinct objects;
-- arranging `r` from `n` distinct objects without repetition;
-- ranked awards and distinct-office assignment;
-- bounded recovery of either permutation parameter.
-
-## CP-003 scope currently represented
-
-- direct unordered selection of distinct objects;
-- committee, team, pair and triple applications;
-- bounded recovery of combination parameters;
-- complementary-index symmetry.
-
-## CP-004 scope currently represented
+## Current CP-005 represented scope
 
 - direct multiset arrangements with one, two or three repeated categories;
 - word and non-word repeated-object contexts;
@@ -41,19 +35,17 @@ The current active IDs are `PNC-QL-001` through `PNC-QL-082`. These values descr
 - identifying the identical-swap overcount factor;
 - bounded recovery of one repeated multiplicity.
 
-CP-004 is separate because it changes the identity policy: exchanging identical objects does not create a new outcome. It therefore requires explicit multiplicity state, exact denominator correction, multiset-specific evidence and independent unique-string enumeration. It remains inside `PNC-001` because the shared exact-counting runtime is still coherent and reviewable.
+CP-005 may receive additional word/letter directions only when they add a material coverage distinction.
 
-## Candidate coverage backlog
+## Second package roadmap
 
-The following remain candidates for fresh review, not pre-created CPs:
+`PNC-002 — Restricted Arrangements, Grouping & Advanced Selection` owns:
 
-- digit, number, code and password formation;
-- repetition-allowed strings;
-- together/apart/block restrictions;
-- positional, relative-order, alternation and gap constraints;
-- category-constrained selection and committee casework;
-- circular arrangements;
-- grouping and distribution;
-- mixed advanced counting systems.
+- `PNC-CP-007 — Together, Apart & Block Restrictions`;
+- `PNC-CP-008 — Position, Relative Order, Alternation & Gap Constraints`;
+- `PNC-CP-009 — Conditional Selection from Categories`;
+- `PNC-CP-010 — Circular Arrangements & Rotational Symmetry`;
+- `PNC-CP-011 — Grouping & Distribution`;
+- `PNC-CP-012 — Mixed Advanced Counting Systems`.
 
-A candidate receives a CP ID only after reference/PYQ review shows that it needs a distinct solver, evidence, validator or explanation authority. Its QL count is determined by actual coverage need and stopped at semantic saturation.
+These CP boundaries are planned and fixed, but their QLs and solve modes remain need-based.
