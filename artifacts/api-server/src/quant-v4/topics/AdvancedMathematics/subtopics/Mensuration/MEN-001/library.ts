@@ -1,6 +1,6 @@
 import { hasMen001DistractorStrategy } from "./distractor-strategies";
 import questionLanguage from "./question-language.en.json";
-import { getMen001SolveModeIds } from "./solve-mode-registry";
+import { getMen001SolveModeIds } from "./solve-mode-registry.all";
 import taskRegistry from "./task-registry.library.json";
 import {
   MEN_001_ACTIVE_CP_IDS,
@@ -41,14 +41,6 @@ function unitMatchesDimension(entry: Men001QuestionLanguageEntry) {
     return entry.unitPolicy === "SQUARE_CENTIMETRES" || entry.unitPolicy === "SQUARE_METRES";
   }
   return entry.answerDimension === "COST" && entry.unitPolicy === "RUPEES";
-}
-
-function validateContiguousQlSequence(qlIds: readonly string[]) {
-  const numbers = qlIds
-    .map((qlId) => /^MEN-001-QL-(\d{3})$/.exec(qlId))
-    .map((match) => match ? Number(match[1]) : NaN)
-    .sort((left, right) => left - right);
-  return numbers.length > 0 && numbers.every((value, index) => value === index + 1);
 }
 
 export function extractMen001Placeholders(template: string) {
@@ -114,8 +106,8 @@ export function validateMen001Libraries() {
   if (new Set(qlIds).size !== qlIds.length) failures.push("Duplicate active QL IDs detected.");
   if (new Set(registryQlIds).size !== registryQlIds.length) failures.push("Duplicate task-registry QL IDs detected.");
   if (!sameStrings(qlIds, registryQlIds)) failures.push("Question-language and task-registry QL sets differ.");
-  if (!validateContiguousQlSequence(qlIds)) {
-    failures.push("Active MEN-001 QLs must form a contiguous package-local sequence beginning at 001.");
+  for (const qlId of qlIds) {
+    if (!/^MEN-001-QL-\d{3,}$/.test(qlId)) failures.push(`${qlId}: invalid package-local QL identity.`);
   }
   if (!sameStrings(librarySolveModes, runtimeSolveModes)) {
     failures.push("Question-language solve modes and runtime solve-mode registry are not exhaustive mirrors.");
@@ -126,9 +118,13 @@ export function validateMen001Libraries() {
     failures.push("Exact normalized English template duplicates detected.");
   }
 
-  for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-    if (!questionEntries.some((entry) => entry.difficulty === difficulty)) {
-      failures.push(`Missing ${difficulty} QL coverage.`);
+  for (const cpId of MEN_001_ACTIVE_CP_IDS) {
+    const cpEntries = questionEntries.filter((entry) => entry.cpId === cpId);
+    if (cpEntries.length === 0) failures.push(`${cpId}: active CP has no QLs.`);
+    for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+      if (!cpEntries.some((entry) => entry.difficulty === difficulty)) {
+        failures.push(`${cpId}: missing ${difficulty} QL coverage.`);
+      }
     }
   }
 
@@ -137,7 +133,9 @@ export function validateMen001Libraries() {
     if (!registry) continue;
     if (entry.cpId !== registry.cpId) failures.push(`${entry.qlId}: CP mismatch.`);
     if (entry.solveMode !== registry.solveMode) failures.push(`${entry.qlId}: solve-mode mismatch.`);
-    if (entry.answerDimension !== registry.answerDimension) failures.push(`${entry.qlId}: answer-dimension mismatch.`);
+    if (entry.answerDimension !== registry.answerDimension) {
+      failures.push(`${entry.qlId}: answer-dimension mismatch.`);
+    }
     if (!sameStrings(entry.requiredVariables, registry.requiredVariables)) {
       failures.push(`${entry.qlId}: required-variable contract mismatch.`);
     }
@@ -171,8 +169,8 @@ export function validateMen001Libraries() {
     if (!unitMatchesDimension(entry)) {
       failures.push(`${entry.qlId}: unit policy is incompatible with answer dimension.`);
     }
-    if (entry.diagramRequirement !== "NONE") {
-      failures.push(`${entry.qlId}: CP-001 text-defined questions must not request ornamental diagrams.`);
+    if (!["REQUIRED", "OPTIONAL", "NONE"].includes(entry.diagramRequirement)) {
+      failures.push(`${entry.qlId}: invalid question-diagram requirement.`);
     }
   }
 
