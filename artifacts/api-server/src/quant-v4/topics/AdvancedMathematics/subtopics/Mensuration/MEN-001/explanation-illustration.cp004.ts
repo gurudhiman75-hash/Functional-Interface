@@ -38,6 +38,7 @@ function rectangularBand(
   const innerBreadth = square ? innerLength : numeric(solver, "innerBreadth");
   const pathWidth = numeric(solver, "pathWidth");
   const position = String(solver.workingValues.pathPosition ?? "BORDER");
+  const widthDescription = recoveringWidth ? `unknown uniform width x ${unit}` : `uniform width ${pathWidth} ${unit}`;
   return {
     kind: "RECTANGULAR_BORDER_BAND",
     purpose: "OUTER_MINUS_INNER_RECTANGLE",
@@ -51,7 +52,7 @@ function rectangularBand(
       pathWidth: recoveringWidth ? `x ${unit}` : `${pathWidth} ${unit}`,
       region: position === "OUTSIDE" ? "outside path" : position === "INSIDE" ? "inside border" : "border region",
     },
-    accessibleText: `Rectangular border diagram with outer dimensions ${outerLength} ${unit} by ${outerBreadth} ${unit}, inner dimensions ${innerLength} ${unit} by ${innerBreadth} ${unit}, and ${recoveringWidth ? "unknown" : pathWidth} ${unit} uniform width; the required region is the outer rectangle minus the inner rectangle; not drawn to scale.`,
+    accessibleText: `Rectangular border diagram with outer dimensions ${outerLength} ${unit} by ${outerBreadth} ${unit}, inner dimensions ${innerLength} ${unit} by ${innerBreadth} ${unit}, and ${widthDescription}; the required region is the outer rectangle minus the inner rectangle; not drawn to scale.`,
   };
 }
 
