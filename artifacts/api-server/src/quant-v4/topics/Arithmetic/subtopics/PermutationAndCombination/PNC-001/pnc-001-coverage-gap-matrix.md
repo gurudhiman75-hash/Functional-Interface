@@ -3,7 +3,8 @@
 > **Review date:** 2026-07-24  
 > **Current active CP before this decision:** `PNC-CP-001 — Fundamental Counting Principle & Case Partition`  
 > **Current active QLs before this decision:** `PNC-QL-001` through `PNC-QL-048`  
-> **Decision:** Extend the existing CP with factorial reasoning; do not create a new CP or reserve a fixed final count.
+> **Decision:** Extend the existing CP with factorial reasoning; do not create a new CP or reserve a fixed final count.  
+> **Implementation result:** COMPLETE and runtime-proof green for the admitted set.
 
 ## 1. Evidence reviewed
 
@@ -25,17 +26,17 @@ The references consistently place factorial reasoning immediately after the addi
 
 ## 2. Coverage matrix
 
-| Candidate family | Current QL coverage | Reference evidence | Runtime distinction | Decision |
+| Candidate family | Coverage before review | Reference evidence | Runtime distinction | Decision |
 |---|---|---|---|---|
 | Addition/multiplication counting principles | Strong | Strong | Already implemented | No expansion now |
 | Disjoint cases and simple complement | Strong | Moderate | Already implemented | No expansion now |
 | Missing stage factor | Present | Moderate | Already implemented | No expansion now |
-| Direct factorial value | Missing | Strong | Exact factorial operation and evidence | Admit |
-| `0!`/`1!` inside a small factorial expression | Missing | Strong | Unit-factorial identity plus exact expression evaluation | Admit |
-| Consecutive factorial quotient/cancellation | Missing | Strong | Factorial quotient, exact cancellation and range-product evidence | Admit |
-| Shifted quotient such as `(n+1)!/n!` or `(n+2)!/n!` | Missing | Strong | Requires transformed numerator/denominator evidence | Admit |
-| Recover `n` from `n! = target` | Missing | Moderate | Inverse bounded factorial search | Admit |
-| Recover `n` from `n!/(n-k)! = target` | Missing | Moderate | Inverse bounded quotient search with exact-match validation | Admit |
+| Direct factorial value | Missing | Strong | Exact factorial operation and evidence | Admit and implement |
+| `0!`/`1!` inside a small factorial expression | Missing | Strong | Unit-factorial identity plus exact expression evaluation | Admit and implement |
+| Consecutive factorial quotient/cancellation | Missing | Strong | Factorial quotient, exact cancellation and range-product evidence | Admit and implement |
+| Shifted quotient such as `(n+1)!/n!` or `(n+2)!/n!` | Missing | Strong | Requires transformed numerator/denominator evidence | Admit and implement |
+| Recover `n` from `n! = target` | Missing | Moderate | Inverse bounded factorial search | Admit and implement |
+| Recover `n` from `n!/(n-k)! = target` | Missing | Moderate | Inverse bounded quotient search with exact-match validation | Admit and implement |
 | Unrestricted `nPr` arrangements | Missing | Strong | New order/slot state and permutation authority | Defer pending separate gap review |
 | Basic `nCr` selections | Missing | Strong | New unordered-selection state and combination authority | Defer pending separate gap review |
 | Repeated letters, digits, circular, restrictions, grouping | Missing | Strong but structurally later | Materially different solvers/validators | Defer |
@@ -54,7 +55,7 @@ A new CP is not justified at this point.
 
 ## 4. QL admission decision
 
-Ten QLs are admitted because the review found ten materially distinct stem/solve directions across five new runtime contracts:
+Ten QLs were admitted because the review found ten materially distinct stem/solve directions across five new runtime contracts:
 
 1. direct `n!` evaluation;
 2. predecessor factorial evaluation;
@@ -71,7 +72,7 @@ The resulting IDs are `PNC-QL-049` through `PNC-QL-058`. This is the admitted ch
 
 ## 5. Solve-mode decision
 
-Five new modes are justified:
+Five new modes were justified and implemented:
 
 - `evaluateFactorialValue`;
 - `evaluateFactorialUnitExpression`;
@@ -83,13 +84,28 @@ The final two inverse operations remain separate because their search domain, ev
 
 No permutation, combination, multiset, digit or circular solve mode is declared in advance.
 
-## 6. Stop condition
+## 6. Completion evidence
 
-This factorial extension stops when:
+The admitted extension passed:
 
-- the admitted directions above are implemented end to end;
+- exact factorial and factorial-quotient solving;
+- independent recursive/range-product verification;
+- deterministic parameter generation;
+- evidence-driven explanations;
+- semantic distractors;
+- placeholder and duplicate audits;
+- strict targeted TypeScript compilation;
+- 696 seed cases, each generated twice.
+
+Successful workflow run: `30068306106`.
+
+## 7. Stop condition reached
+
+This extension stops here because:
+
+- all admitted directions are implemented end to end;
 - formula and independent verification agree;
 - exact duplicate and placeholder audits are clean;
-- new factorial proposals collapse into existing mathematical fingerprints or cosmetic paraphrases.
+- further factorial proposals currently collapse into represented mathematical fingerprints or cosmetic paraphrases.
 
 The next chapter decision must repeat this evidence-led gap review.
