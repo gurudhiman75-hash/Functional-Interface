@@ -28,15 +28,24 @@ export type Men001TaskKind =
   | "quadrilateralMeasurementApplication"
   | "circleMeasurementApplication"
   | "pathBorderFlooringFencingApplication";
-export type Men001AnswerDimension = "LENGTH" | "AREA" | "COST" | "ANGLE" | "COUNT";
+export type Men001AnswerDimension =
+  | "LENGTH"
+  | "AREA"
+  | "COST"
+  | "RATE"
+  | "ANGLE"
+  | "COUNT";
 export type Men001UnitPolicy =
   | "CENTIMETRES"
   | "METRES"
   | "SQUARE_CENTIMETRES"
   | "SQUARE_METRES"
   | "RUPEES"
+  | "RUPEES_PER_SQUARE_METRE"
+  | "RUPEES_PER_METRE"
   | "DEGREES"
-  | "TILES";
+  | "TILES"
+  | "REVOLUTIONS";
 export type Men001DiagramRequirement = "REQUIRED" | "OPTIONAL" | "NONE";
 
 export type ExactSpatialNumber =
@@ -117,6 +126,7 @@ export interface Men001Parameters {
   values: {
     base?: number;
     height?: number;
+    heightCoefficient?: number;
     area?: number;
     sideA?: number;
     sideB?: number;
@@ -132,6 +142,7 @@ export interface Men001Parameters {
     ratioC?: number;
     scale?: number;
     ratePerSquareMetre?: number;
+    ratePerMetre?: number;
     cost?: number;
     length?: number;
     breadth?: number;
@@ -162,6 +173,7 @@ export interface Men001Parameters {
     innerArea?: number;
     radiusSquareDifference?: number;
     outerRadiusSquare?: number;
+    innerRadiusSquare?: number;
     revolutions?: number;
     distance?: number;
     pathWidth?: number;
@@ -178,12 +190,20 @@ export interface Men001Parameters {
     tileBreadth?: number;
     tileArea?: number;
     tileCount?: number;
+    coveredArea?: number;
     costPerTile?: number;
-    ratePerMetre?: number;
     gateWidth?: number;
     rounds?: number;
     fenceLength?: number;
     wireLength?: number;
+    roadWidthA?: number;
+    roadWidthB?: number;
+    roadAreaA?: number;
+    roadAreaB?: number;
+    overlapArea?: number;
+    roadArea?: number;
+    fieldArea?: number;
+    discriminant?: number;
   };
   renderVariables: Record<string, string | number>;
 }
@@ -193,7 +213,17 @@ export interface Men001SolverResult {
   canonicalAnswer: Men001CanonicalAnswer;
   answer: string;
   answerDimension: Men001AnswerDimension;
-  unit: "cm" | "m" | "cm²" | "m²" | "₹" | "°" | "tiles";
+  unit:
+    | "cm"
+    | "m"
+    | "cm²"
+    | "m²"
+    | "₹"
+    | "₹/m²"
+    | "₹/m"
+    | "°"
+    | "tiles"
+    | "revolutions";
   equation: string;
   workingValues: Record<string, string | number>;
 }
