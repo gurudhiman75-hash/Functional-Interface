@@ -1,22 +1,37 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-006-SELECTION-ROLE-ASSIGNMENT-RUNTIME-PROOF",
+  "checkpoint": "PNC-001-ENGLISH-FREEZE-REVIEW-ELIGIBLE",
   "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
   "currentCoverage": {
     "activeCanonicalProblemCount": 6,
-    "activeQuestionLanguageCount": 104,
-    "activeSolveModeCount": 34,
-    "activeExplanationStrategyCount": 34,
+    "activeQuestionLanguageCount": 106,
+    "activeSolveModeCount": 35,
+    "activeQlSpecificExplanationCount": 106,
     "activeLanguageCount": 1,
     "firstQuestionLanguageId": "PNC-QL-001",
-    "lastQuestionLanguageId": "PNC-QL-104"
+    "lastQuestionLanguageId": "PNC-QL-106"
   },
   "verification": {
-    "workflowRunId": 30083673548,
+    "runtimeProofStatus": "PASS",
     "strictTargetedTypecheck": "PASS",
     "bundledRuntimeProof": "PASS",
-    "seedCases": 1248,
-    "generatedTwicePerSeed": true
+    "runtimeSeedCases": 1272,
+    "generatedTwicePerRuntimeSeed": true,
+    "packageStressCases": 5300,
+    "packageRepeatabilityChecks": 1060,
+    "completedEnglishReviewRows": 106,
+    "exactTemplateDuplicateGroups": 0,
+    "renderedExplanationDuplicateGroups": 0,
+    "validatorFailures": 0,
+    "independentVerifierDisagreements": 0,
+    "optionContractFailures": 0,
+    "explanationContractFailures": 0
+  },
+  "reviewVerdict": "ELIGIBLE_FOR_ENGLISH_FREEZE_REVIEW",
+  "publication": {
+    "publiclyPublishable": false,
+    "productionIntegrationApproved": false,
+    "questionStudioExposureApproved": false
   },
   "roadmapPolicy": {
     "packages": "The end-to-end family roadmap contains two packages with six CP ownership boundaries each.",
