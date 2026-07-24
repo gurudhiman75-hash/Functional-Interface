@@ -22,10 +22,10 @@ QL counts, solve modes and difficulty distributions inside these CPs are need-ba
 | `PNC-CP-003` | unrestricted unordered selection, inverse `nCr` and symmetry | 8 | Runtime proof |
 | `PNC-CP-004` | digit/number/code formation, leading zero, repetition, parity, divisibility, threshold, mixed stages and one-pair pattern | 12 | Runtime proof |
 | `PNC-CP-005` | repeated-object and multiset arrangements | 8 | Partial CP runtime proof |
-| `PNC-CP-006` | selection followed by arrangement or role assignment | 0 | Pending |
-| **Current package snapshot** |  | **94** |  |
+| `PNC-CP-006` | select a group, then assign roles or arrange the selected group; role multiplier and bounded inverse directions | 10 | Runtime proof |
+| **Current package snapshot** |  | **104** |  |
 
-Current IDs are `PNC-QL-001` through `PNC-QL-094`. IDs reflect admission order, not CP order.
+Current IDs are `PNC-QL-001` through `PNC-QL-104`. IDs reflect admission order, not CP order.
 
 ## Current CP-004 represented scope
 
@@ -47,7 +47,17 @@ Current IDs are `PNC-QL-001` through `PNC-QL-094`. IDs reflect admission order, 
 - identifying the identical-swap overcount factor;
 - bounded recovery of one repeated multiplicity.
 
-CP-004 and CP-005 may receive additional QLs only when they add a material distinction inside their fixed ownership boundaries.
+## Current CP-006 represented scope
+
+- committee selection followed by one, two or three distinct appointments;
+- shortlist selection followed by ranked awards;
+- selecting objects or people and arranging every selected item;
+- explicit `nCs × sPk` stage evidence;
+- explicit `nCs × s! = nPs` bridge evidence;
+- role-assignment multiplier `sPk` after a fixed selection;
+- bounded unique recovery of the original pool, selected-group size or role count.
+
+All six PNC-001 ownership boundaries now have runtime coverage. CP-004 and CP-005 may receive additional QLs only when they add a material distinction inside their fixed ownership boundaries. The next package-level action is a saturation and freeze-readiness audit, not automatic corpus expansion.
 
 ## Second package roadmap
 
