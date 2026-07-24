@@ -13,13 +13,13 @@ export function renderMen001Explanation(
 ): Men001Explanation {
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
   const values = solver.workingValues;
-  let lines: string[];
+  let lines: string[] = [];
 
   switch (parameters.solveMode) {
     case "findTriangleAreaBaseHeight":
       lines = [
         "The base and the perpendicular height are given, so the direct triangle-area relation applies.",
-        `Area of a triangle = 1/2 × base × height.`,
+        "Area of a triangle = 1/2 × base × height.",
         `Substituting the values gives 1/2 × ${values.base} × ${values.height}.`,
         `This equals ${values.area}.`,
         `Therefore, the area of the triangle is ${solver.answer}.`,
@@ -69,5 +69,8 @@ export function renderMen001Explanation(
       break;
   }
 
+  if (lines.length === 0) {
+    throw new Error(`No MEN-001 explanation strategy for ${parameters.solveMode}.`);
+  }
   return { strategyId: entry.explanationStrategyId, lines };
 }
