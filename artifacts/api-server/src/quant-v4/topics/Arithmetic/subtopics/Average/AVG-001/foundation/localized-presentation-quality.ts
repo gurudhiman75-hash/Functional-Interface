@@ -1,5 +1,6 @@
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-quality";
 import { applyAvg001LocalizedStemQualityRefinement } from "./localized-stem-quality-refinement";
+import { applyAvg001LocalizedStemVariation } from "./localized-stem-variation";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
@@ -64,7 +65,8 @@ export function applyAvg001LocalizedPresentationQuality(
   pkg: Avg001QuestionPackage,
   language: PilotLanguage,
 ): Avg001QuestionPackage {
-  const stemPolished = applyAvg001LocalizedStemQualityRefinement(pkg, language);
-  const humanized = applyAvg001HumanAuthoredExplanation(stemPolished);
+  const refinedStem = applyAvg001LocalizedStemQualityRefinement(pkg, language);
+  const variedStem = applyAvg001LocalizedStemVariation(refinedStem, language);
+  const humanized = applyAvg001HumanAuthoredExplanation(variedStem);
   return { ...humanized, validation: refreshValidation(humanized, language) };
 }
