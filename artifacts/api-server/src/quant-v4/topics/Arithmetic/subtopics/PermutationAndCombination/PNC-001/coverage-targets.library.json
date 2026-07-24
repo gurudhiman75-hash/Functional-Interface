@@ -1,21 +1,21 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-004-DIGIT-NUMBER-CODE-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-006-SELECTION-ROLE-ASSIGNMENT-RUNTIME-PROOF",
   "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
   "currentCoverage": {
-    "activeCanonicalProblemCount": 5,
-    "activeQuestionLanguageCount": 94,
-    "activeSolveModeCount": 30,
-    "activeExplanationStrategyCount": 30,
+    "activeCanonicalProblemCount": 6,
+    "activeQuestionLanguageCount": 104,
+    "activeSolveModeCount": 34,
+    "activeExplanationStrategyCount": 34,
     "activeLanguageCount": 1,
     "firstQuestionLanguageId": "PNC-QL-001",
-    "lastQuestionLanguageId": "PNC-QL-094"
+    "lastQuestionLanguageId": "PNC-QL-104"
   },
   "verification": {
-    "workflowRunId": 30078944764,
+    "workflowRunId": 30083673548,
     "strictTargetedTypecheck": "PASS",
     "bundledRuntimeProof": "PASS",
-    "seedCases": 1128,
+    "seedCases": 1248,
     "generatedTwicePerSeed": true
   },
   "roadmapPolicy": {
