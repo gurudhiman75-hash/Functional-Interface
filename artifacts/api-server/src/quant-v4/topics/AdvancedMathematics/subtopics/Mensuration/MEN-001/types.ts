@@ -16,16 +16,30 @@ export type Men001ActiveCanonicalProblemId = (typeof MEN_001_ACTIVE_CP_IDS)[numb
 export type Men001Language = "en" | "hi" | "pa";
 export type Men001Difficulty = "Easy" | "Medium" | "Hard";
 export type Men001TaskKind = "triangleMeasurementApplication";
-export type Men001AnswerDimension = "LENGTH" | "AREA";
-export type Men001UnitPolicy = "CENTIMETRES" | "SQUARE_CENTIMETRES";
+export type Men001AnswerDimension = "LENGTH" | "AREA" | "COST";
+export type Men001UnitPolicy =
+  | "CENTIMETRES"
+  | "METRES"
+  | "SQUARE_CENTIMETRES"
+  | "SQUARE_METRES"
+  | "RUPEES";
 export type Men001DiagramRequirement = "REQUIRED" | "OPTIONAL" | "NONE";
 
 export type Men001SolveMode =
   | "findTriangleAreaBaseHeight"
   | "findMissingHeightFromAreaAndBase"
+  | "findMissingBaseFromAreaAndHeight"
   | "findTriangleAreaHeron"
   | "findRightTriangleAreaFromLegs"
-  | "findEquilateralTriangleArea";
+  | "findEquilateralTriangleArea"
+  | "findEquilateralPerimeterFromArea"
+  | "findEquilateralSideFromPerimeter"
+  | "findIsoscelesTriangleArea"
+  | "findIsoscelesHeight"
+  | "findTriangleAreaFromSideRatioAndPerimeter"
+  | "findLargestTriangleSideFromRatioAndPerimeter"
+  | "findSmallestTriangleSideFromRatioAndPerimeter"
+  | "findTriangularPlotCost";
 
 export type ExactSpatialNumber =
   | { kind: "INTEGER"; value: number }
@@ -42,6 +56,15 @@ export type Men001CanonicalAnswer =
       kind: "unit";
       value: number;
       unit: string;
+      precision: number;
+      display: string;
+      rounding: "exact";
+      metadata: Record<string, unknown>;
+    }
+  | {
+      kind: "currency";
+      value: number;
+      currency: "₹";
       precision: number;
       display: string;
       rounding: "exact";
@@ -102,6 +125,15 @@ export interface Men001Parameters {
     legA?: number;
     legB?: number;
     side?: number;
+    perimeter?: number;
+    areaCoefficient?: number;
+    equalSide?: number;
+    ratioA?: number;
+    ratioB?: number;
+    ratioC?: number;
+    scale?: number;
+    ratePerSquareMetre?: number;
+    cost?: number;
   };
   renderVariables: Record<string, string | number>;
 }
@@ -111,7 +143,7 @@ export interface Men001SolverResult {
   canonicalAnswer: Men001CanonicalAnswer;
   answer: string;
   answerDimension: Men001AnswerDimension;
-  unit: "cm" | "cm²";
+  unit: "cm" | "m" | "cm²" | "m²" | "₹";
   equation: string;
   workingValues: Record<string, string | number>;
 }
