@@ -27,10 +27,10 @@ export const MEN_001_CP004_ADDITIONAL_DISTRACTOR_STRATEGIES = {
     option(number(solver.workingValues.outerArea), solver),
   "report-mat-area-as-uncovered": ({ solver }: Context) =>
     option(number(solver.workingValues.innerArea), solver),
-  "multiply-dimension-differences": ({ solver }: Context) =>
+  "subtract-mat-length-only": ({ solver }: Context) =>
     option(
       (number(solver.workingValues.outerLength) - number(solver.workingValues.innerLength)) *
-        (number(solver.workingValues.outerBreadth) - number(solver.workingValues.innerBreadth)),
+        number(solver.workingValues.outerBreadth),
       solver,
     ),
 
