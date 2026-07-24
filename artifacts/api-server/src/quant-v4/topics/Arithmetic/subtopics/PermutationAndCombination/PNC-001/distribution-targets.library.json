@@ -1,11 +1,11 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-004-REPEATED-OBJECTS-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-004-DIGIT-NUMBER-CODE-RUNTIME-PROOF",
   "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
   "observedDifficultyCounts": {
-    "Easy": 35,
-    "Medium": 33,
-    "Hard": 14
+    "Easy": 37,
+    "Medium": 39,
+    "Hard": 18
   },
   "observedSolveModeCounts": {
     "countSequentialIndependentChoices": 14,
@@ -24,6 +24,16 @@
     "selectRFromNDistinctObjects": 5,
     "recoverCombinationParameter": 2,
     "recoverComplementaryCombinationIndex": 1,
+    "formNumbersWithoutRepetitionNoZero": 1,
+    "formNumbersWithoutRepetitionWithZero": 1,
+    "formCodesWithRepetition": 1,
+    "formNumbersWithRepetitionAndZero": 1,
+    "formParityNumbersWithoutRepetition": 3,
+    "formDivisibleByFiveNumbersWithoutRepetition": 1,
+    "formNumbersAboveLeadingThreshold": 1,
+    "formAlphanumericCodes": 1,
+    "recoverSymbolCountForCode": 1,
+    "formCodesWithExactlyOnePair": 1,
     "arrangeAllMultisetObjects": 4,
     "arrangeMultisetAfterFixingPosition": 2,
     "findMultisetOvercountFactor": 1,
@@ -34,6 +44,6 @@
     "maximumSingleContextShare": 0.2,
     "maximumGenericDistractorFallbackShare": 0.1
   },
-  "interpretation": "The counts above describe the currently admitted 82-QL checkpoint only.",
-  "admissionRule": "Future distributions emerge from admitted coverage. Do not copy these counts or modes into later work."
+  "interpretation": "The counts above describe the currently admitted 94-QL checkpoint only.",
+  "admissionRule": "Future QL volumes, solve modes and difficulty distributions remain need-based within the fixed CP ownership map."
 }
