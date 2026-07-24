@@ -1,1 +1,8 @@
-import fs from "node:fs";import path from "node:path";import{getAvg001QuestionEntries}from"./foundation/library";import{runAvg001Pipeline}from"./foundation/pipeline";const header=["packageId","cpId","qlId","taskKind","solveMode","difficulty","answerType","questionId","seed","parameterFingerprint","stem","options","correctIndex","correctAnswer","explanation","stemRealism","mathematicalValidity","solverCorrect","optionQuality","explanationQuality","difficultyAccuracy","examRelevance","editorialStatus","defectCategory","reviewNotes","reviewer","reviewedAt"];const csv=(v:unknown)=>`"${String(v??"").replaceAll('"','""')}"`;const rows=[header.map(csv).join(",")];for(const e of getAvg001QuestionEntries().filter(i=>i.cpId==="AVG-CP-003")){const seed=`avg-cp003-review:${e.qlId}:0`;const p=runAvg001Pipeline({questionLanguageId:e.qlId,seed});rows.push([p.packageId,p.canonicalProblemId,p.questionLanguageId,p.taskKind,p.solveMode,p.difficultyBand,p.parameters.answerType,p.questionId,p.seed,p.mathematicalFingerprint,p.stem,p.options.map((o,i)=>`${String.fromCharCode(65+i)}. ${o}`).join("\n"),p.correctIndex,p.answer,p.explanation.lines.join("\n"),"","","","","","","","PENDING","","","",""].map(csv).join(","));}const output=path.resolve("src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-en.csv");fs.writeFileSync(output,`${rows.join("\n")}\n`,`utf8`);console.log(JSON.stringify({rows:rows.length-1,output},null,2));if(rows.length-1!==98)throw new Error(`Expected 98 CP-003 review rows; got ${rows.length-1}`);
+import { writeAvg001ApprovedReviewCsv } from "./foundation/review-export";
+
+writeAvg001ApprovedReviewCsv({
+  outputFile: "avg-001-cp003-human-review-en.csv",
+  expectedRows: 98,
+  seedPrefix: "avg-cp003-review",
+  select: (entry) => entry.cpId === "AVG-CP-003",
+});
