@@ -9,11 +9,13 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
   const combinationN=e.combinationTotalObjects??parameters.values.totalObjects??0,combinationR=e.combinationSelectedObjects??parameters.values.selectedObjects??0;
   const multisetMultiplicities=e.multisetMultiplicities??[];
   const remainingMultiplicities=e.multisetRemainingMultiplicities??[];
+  const activeMultisetMultiplicities=parameters.solveMode==="arrangeMultisetAfterFixingPosition"?remainingMultiplicities:multisetMultiplicities;
+  const activeMultisetFactorialArgument=e.multisetRemainingObjects??e.multisetTotalObjects??0;
   const calculation=parameters.taskKind==="fundamentalCountingApplication"?solver.equation.replace(` = ${solver.answer}`,""):solver.equation;
   const permutationKnowns=e.recoveredPermutationParameter==="n"?`r = ${permutationR}`:`n = ${permutationN}`;
   const combinationKnowns=e.recoveredCombinationParameter==="n"?`r = ${combinationR}`:`n = ${combinationN}`;
   const target=e.multisetTarget??e.combinationTarget??e.permutationTarget??e.factorialTarget??parameters.values.target??0;
-  const multisetDenominatorExpression=multisetMultiplicities.map(value=>`${value}!`).join(" × ")||"1";
+  const multisetDenominatorExpression=activeMultisetMultiplicities.map(value=>`${value}!`).join(" × ")||"1";
   const variables:Record<string,string|number>={
     ...parameters.renderVariables,answer:solver.answer,stageList:readableList(stages),calculation,unrestrictedCalculation:stages.join(" × "),
     totalCount:e.totalCount??solver.numericAnswer,invalidCount:e.invalidCount??0,
@@ -34,7 +36,7 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
     multisetRemainingObjects:e.multisetRemainingObjects??0,
     multiplicityList:readableList(multisetMultiplicities),
     remainingMultiplicityList:remainingMultiplicities.length?readableList(remainingMultiplicities):"none",
-    multisetNumerator:e.multisetNumerator!==undefined?`${e.multisetTotalObjects??e.multisetRemainingObjects}! = ${e.multisetNumerator}`:"",
+    multisetNumerator:e.multisetNumerator!==undefined?`${activeMultisetFactorialArgument}! = ${e.multisetNumerator}`:"",
     multisetDenominator:e.multisetDenominator!==undefined?`${multisetDenominatorExpression} = ${e.multisetDenominator}`:"",
     multisetDenominatorCalculation:e.multisetDenominator!==undefined?`${multisetDenominatorExpression} = ${e.multisetDenominator}`:"",
     maximumMultiplicity:parameters.values.maximumMultiplicity??0,
