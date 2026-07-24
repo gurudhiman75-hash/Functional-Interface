@@ -1,13 +1,14 @@
 import { strict as assert } from "node:assert";
 import { auditPnc001Coverage } from "./foundation/coverage-auditor";
 import { getPnc001QuestionEntries, getPnc001QuestionLanguageIds } from "./foundation/library";
+import { multisetOvercountFactorExact, multisetPermutationExact } from "./foundation/math";
 import { runPnc001Pipeline } from "./foundation/pipeline";
 
 const entries = getPnc001QuestionEntries();
 
 // This protects the current reviewed checkpoint from accidental deletion or ID
 // drift. It does not define a final package or family size.
-const currentCheckpointIds = Array.from({ length: 66 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+const currentCheckpointIds = Array.from({ length: 82 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
 assert.equal(entries.length, currentCheckpointIds.length);
 assert.equal(new Set(entries.map((entry) => entry.qlId)).size, currentCheckpointIds.length);
 assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
@@ -15,7 +16,7 @@ assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
 const observedDifficultyCounts = Object.fromEntries(
   ["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]),
 );
-assert.deepEqual(observedDifficultyCounts, { Easy: 31, Medium: 25, Hard: 10 });
+assert.deepEqual(observedDifficultyCounts, { Easy: 35, Medium: 33, Hard: 14 });
 
 const observedSolveModeCounts = {
   countSequentialIndependentChoices: 14,
@@ -31,6 +32,13 @@ const observedSolveModeCounts = {
   arrangeAllDistinctObjects: 3,
   arrangeRFromNDistinctObjects: 3,
   recoverPermutationParameter: 2,
+  selectRFromNDistinctObjects: 5,
+  recoverCombinationParameter: 2,
+  recoverComplementaryCombinationIndex: 1,
+  arrangeAllMultisetObjects: 4,
+  arrangeMultisetAfterFixingPosition: 2,
+  findMultisetOvercountFactor: 1,
+  recoverMultisetMultiplicity: 1,
 } as const;
 for (const [mode, observed] of Object.entries(observedSolveModeCounts)) {
   assert.equal(entries.filter((entry) => entry.solveMode === mode).length, observed, mode);
@@ -80,40 +88,68 @@ const factorialInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-056", s
 assert.equal(factorialInverse.solver.evidence.operation, "FACTORIAL_INVERSE");
 const quotientInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-058", seed: "factorial-quotient-inverse" });
 assert.equal(quotientInverse.solver.evidence.operation, "FACTORIAL_QUOTIENT_INVERSE");
-assert.equal(
-  quotientInverse.solver.numericAnswer * (quotientInverse.solver.numericAnswer - 1),
-  quotientInverse.parameters.values.target,
-);
+assert.equal(quotientInverse.solver.numericAnswer * (quotientInverse.solver.numericAnswer - 1), quotientInverse.parameters.values.target);
 
 const arrangeAll = runPnc001Pipeline({ questionLanguageId: "PNC-QL-059", seed: "arrange-all" });
 assert.equal(arrangeAll.canonicalProblemId, "PNC-CP-002");
 assert.equal(arrangeAll.solver.evidence.operation, "PERMUTATION_ALL");
 assert.equal(arrangeAll.solver.evidence.permutationSelectedObjects, arrangeAll.solver.evidence.permutationTotalObjects);
-
 const arrangePartial = runPnc001Pipeline({ questionLanguageId: "PNC-QL-062", seed: "arrange-partial" });
 assert.equal(arrangePartial.solver.evidence.operation, "PERMUTATION_PARTIAL");
 assert.equal(arrangePartial.solver.evidence.permutationFactors?.length, arrangePartial.solver.evidence.permutationSelectedObjects);
-
 const recoverN = runPnc001Pipeline({ questionLanguageId: "PNC-QL-065", seed: "recover-permutation-n" });
 assert.equal(recoverN.solver.evidence.operation, "PERMUTATION_INVERSE");
 assert.equal(recoverN.solver.evidence.recoveredPermutationParameter, "n");
-assert.equal(recoverN.solver.numericAnswer, recoverN.solver.evidence.permutationTotalObjects);
-
 const recoverR = runPnc001Pipeline({ questionLanguageId: "PNC-QL-066", seed: "recover-permutation-r" });
-assert.equal(recoverR.solver.evidence.operation, "PERMUTATION_INVERSE");
 assert.equal(recoverR.solver.evidence.recoveredPermutationParameter, "r");
-assert.equal(recoverR.solver.numericAnswer, recoverR.solver.evidence.permutationSelectedObjects);
 
-const routedCp2 = runPnc001Pipeline("PNC-CP-002", { seed: "cp2-routing" });
-assert.equal(routedCp2.canonicalProblemId, "PNC-CP-002");
+const directCombination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-067", seed: "direct-combination" });
+assert.equal(directCombination.canonicalProblemId, "PNC-CP-003");
+assert.equal(directCombination.solver.evidence.operation, "COMBINATION_DIRECT");
+const pairCombination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-070", seed: "pair-combination" });
+assert.equal(pairCombination.solver.evidence.combinationSelectedObjects, 2);
+const tripleCombination = runPnc001Pipeline({ questionLanguageId: "PNC-QL-071", seed: "triple-combination" });
+assert.equal(tripleCombination.solver.evidence.combinationSelectedObjects, 3);
+const combinationInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-073", seed: "combination-inverse" });
+assert.equal(combinationInverse.solver.evidence.operation, "COMBINATION_INVERSE");
+assert.ok(combinationInverse.solver.evidence.combinationSelectedObjects! <= Math.floor(combinationInverse.solver.evidence.combinationTotalObjects! / 2));
+const combinationSymmetry = runPnc001Pipeline({ questionLanguageId: "PNC-QL-074", seed: "combination-symmetry" });
+assert.equal(combinationSymmetry.solver.evidence.operation, "COMBINATION_SYMMETRY");
+assert.equal(combinationSymmetry.solver.evidence.combinationKnownSelection! + combinationSymmetry.solver.numericAnswer, combinationSymmetry.solver.evidence.combinationTotalObjects);
 
+const apple = runPnc001Pipeline({ questionLanguageId: "PNC-QL-075", seed: "multiset-apple" });
+assert.equal(apple.canonicalProblemId, "PNC-CP-004");
+assert.equal(apple.solver.evidence.operation, "MULTISET_DIRECT");
+assert.deepEqual(apple.solver.evidence.multisetMultiplicities, [2]);
+assert.equal(apple.solver.numericAnswer, multisetPermutationExact(5, [2]));
+const balloon = runPnc001Pipeline({ questionLanguageId: "PNC-QL-076", seed: "multiset-balloon" });
+assert.deepEqual(balloon.solver.evidence.multisetMultiplicities, [2, 2]);
+const mississippi = runPnc001Pipeline({ questionLanguageId: "PNC-QL-077", seed: "multiset-mississippi" });
+assert.deepEqual(mississippi.solver.evidence.multisetMultiplicities, [4, 4, 2]);
+const fixedUnique = runPnc001Pipeline({ questionLanguageId: "PNC-QL-079", seed: "multiset-fixed-unique" });
+assert.equal(fixedUnique.solver.evidence.operation, "MULTISET_FIXED");
+assert.equal(fixedUnique.solver.evidence.fixedObjectMultiplicityBefore, 1);
+assert.equal(fixedUnique.solver.evidence.multisetRemainingObjects, 6);
+const fixedRepeated = runPnc001Pipeline({ questionLanguageId: "PNC-QL-080", seed: "multiset-fixed-repeated" });
+assert.equal(fixedRepeated.solver.evidence.fixedObjectMultiplicityBefore, 2);
+assert.deepEqual(fixedRepeated.solver.evidence.multisetRemainingMultiplicities, [2]);
+const overcount = runPnc001Pipeline({ questionLanguageId: "PNC-QL-081", seed: "multiset-overcount" });
+assert.equal(overcount.solver.evidence.operation, "MULTISET_OVERCOUNT");
+assert.equal(overcount.solver.numericAnswer, multisetOvercountFactorExact(overcount.solver.evidence.multisetMultiplicities!));
+const multisetInverse = runPnc001Pipeline({ questionLanguageId: "PNC-QL-082", seed: "multiset-inverse" });
+assert.equal(multisetInverse.solver.evidence.operation, "MULTISET_INVERSE");
+assert.equal(multisetPermutationExact(multisetInverse.solver.evidence.multisetTotalObjects!, [multisetInverse.solver.numericAnswer]), multisetInverse.solver.evidence.multisetTarget);
+
+for (const [cpId, seed] of [["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-004", "cp4-routing"]] as const) {
+  assert.equal(runPnc001Pipeline(cpId, { seed }).canonicalProblemId, cpId);
+}
 for (const language of ["hi", "pa"] as const) {
   assert.throws(() => runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "unsupported", language }), /English only/);
 }
 
 console.log(JSON.stringify({
   checkpointQlCount: entries.length,
-  activeCanonicalProblems: 2,
+  activeCanonicalProblems: 4,
   observedDifficultyCounts,
   observedSolveModeCounts,
   seedsPerQl: 12,
