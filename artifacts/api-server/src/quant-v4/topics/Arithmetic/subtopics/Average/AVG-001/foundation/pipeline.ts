@@ -1,3 +1,7 @@
+import {
+  applyAvg001BoundedAgeDistractorRealism,
+  isAvg001BoundedChildAgeQuestion,
+} from "./bounded-age-distractor-realism";
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
@@ -7,6 +11,7 @@ import { applyAvg001Cp005ExplanationVariants } from "./cp005-explanation-variant
 import { runAvg001Cp005Pipeline } from "./cp005-runtime";
 import { applyAvg001Cp006ExplanationPolish } from "./cp006-explanation-polish";
 import { runAvg001Cp006ExactPipeline } from "./cp006-exact-runtime";
+import { applyAvg001DistractorRealism } from "./distractor-realism";
 import { runAvg001GapExpansionPipeline } from "./gap-expansion-runtime";
 import { buildAvg001MathematicalFingerprint } from "./diversity";
 import { applyAvg001ContextualConclusion } from "./explanation-context";
@@ -16,13 +21,30 @@ import { independentlyVerifyAvg001 } from "./independent-verifier";
 import { getAvg001QuestionEntry, getAvg001QuestionLanguageIds, renderTemplate } from "./library";
 import { generateAvg001Options } from "./option-generator";
 import { generateAvg001Parameters } from "./parameter-generator";
+import { applyAvg001RatioDistractorRealism } from "./ratio-distractor-realism";
 import { buildAvg001ReasoningEvidence } from "./reasoning-evidence";
 import { solveAvg001 } from "./solver";
+import {
+  applyAvg001SupplementalDistractorRealism,
+  supportsAvg001SupplementalDistractors,
+} from "./supplemental-distractor-realism";
 import { AVG_001_PACKAGE_ID, type Avg001Language, type Avg001QuestionPackage } from "./types";
 import { validateAvg001QuestionPackage } from "./validator";
 
 function finalizeExplanation(pkg: Avg001QuestionPackage) {
   return applyAvg001ContextualConclusion(applyAvg001ExplanationDepth(pkg));
+}
+
+function finalizePackage(pkg: Avg001QuestionPackage) {
+  if (isAvg001BoundedChildAgeQuestion(pkg)) {
+    return applyAvg001BoundedAgeDistractorRealism(pkg);
+  }
+  if (supportsAvg001SupplementalDistractors(pkg)) {
+    return applyAvg001SupplementalDistractorRealism(pkg);
+  }
+  return pkg.solveMode === "findGroupCountRatioFromCombinedAverage"
+    ? applyAvg001RatioDistractorRealism(pkg)
+    : applyAvg001DistractorRealism(pkg);
 }
 
 export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {
@@ -32,18 +54,38 @@ export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: s
   const entry = getAvg001QuestionEntry(questionLanguageId);
   const numericId = Number(questionLanguageId.slice(-3));
 
-  if (numericId >= 374 && numericId <= 425) return runAvg001GapExpansionPipeline({ questionLanguageId, seed, language });
-  if (entry.cpId === "AVG-CP-002") return finalizeExplanation(runAvg001Cp002Pipeline({ questionLanguageId, seed, language }));
-  if (entry.cpId === "AVG-CP-003") return finalizeExplanation(runAvg001Cp003Pipeline({ questionLanguageId, seed, language }));
-  if (entry.cpId === "AVG-CP-004") return applyAvg001Cp004ExplanationVariants(finalizeExplanation(runAvg001Cp004ExactPipeline({ questionLanguageId, seed, language })));
-  if (entry.cpId === "AVG-CP-005") {
-    return applyAvg001Cp005ExplanationPolish(
-      applyAvg001Cp005ExplanationVariants(
-        runAvg001Cp005Pipeline({ questionLanguageId, seed, language }),
+  if (numericId >= 374 && numericId <= 425) {
+    return finalizePackage(runAvg001GapExpansionPipeline({ questionLanguageId, seed, language }));
+  }
+  if (entry.cpId === "AVG-CP-002") {
+    return finalizePackage(finalizeExplanation(runAvg001Cp002Pipeline({ questionLanguageId, seed, language })));
+  }
+  if (entry.cpId === "AVG-CP-003") {
+    return finalizePackage(finalizeExplanation(runAvg001Cp003Pipeline({ questionLanguageId, seed, language })));
+  }
+  if (entry.cpId === "AVG-CP-004") {
+    return finalizePackage(
+      applyAvg001Cp004ExplanationVariants(
+        finalizeExplanation(runAvg001Cp004ExactPipeline({ questionLanguageId, seed, language })),
       ),
     );
   }
-  if (entry.cpId === "AVG-CP-006") return applyAvg001Cp006ExplanationPolish(runAvg001Cp006ExactPipeline({ questionLanguageId, seed, language }));
+  if (entry.cpId === "AVG-CP-005") {
+    return finalizePackage(
+      applyAvg001Cp005ExplanationPolish(
+        applyAvg001Cp005ExplanationVariants(
+          runAvg001Cp005Pipeline({ questionLanguageId, seed, language }),
+        ),
+      ),
+    );
+  }
+  if (entry.cpId === "AVG-CP-006") {
+    return finalizePackage(
+      applyAvg001Cp006ExplanationPolish(
+        runAvg001Cp006ExactPipeline({ questionLanguageId, seed, language }),
+      ),
+    );
+  }
 
   const parameters = generateAvg001Parameters({ questionLanguageId, seed, language });
   const solver = solveAvg001(parameters);
@@ -80,5 +122,5 @@ export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: s
   };
   const validation = validateAvg001QuestionPackage(base);
   if (!validation.valid) throw new Error(validation.checks.filter((item) => !item.passed).map((item) => `${item.name}: ${item.message}`).join("\n"));
-  return finalizeExplanation({ ...base, validation });
+  return finalizePackage(finalizeExplanation({ ...base, validation }));
 }
