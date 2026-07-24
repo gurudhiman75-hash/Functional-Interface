@@ -2,10 +2,12 @@ import { hasMen001DistractorStrategy } from "./distractor-strategies.all";
 import questionLanguageBase from "./question-language.en.json";
 import questionLanguageCp003 from "./question-language.cp003.en.json";
 import questionLanguageCp004 from "./question-language.cp004.en.json";
+import questionLanguageCp004Additional from "./question-language.cp004.additional.en.json";
 import { getMen001SolveModeIds } from "./solve-mode-registry.all";
 import taskRegistryBase from "./task-registry.library.json";
 import taskRegistryCp003 from "./task-registry.cp003.library.json";
 import taskRegistryCp004 from "./task-registry.cp004.library.json";
+import taskRegistryCp004Additional from "./task-registry.cp004.additional.library.json";
 import {
   MEN_001_ACTIVE_CP_IDS,
   MEN_001_PACKAGE_ID,
@@ -18,11 +20,13 @@ const questionLanguageSources = [
   questionLanguageBase,
   questionLanguageCp003,
   questionLanguageCp004,
+  questionLanguageCp004Additional,
 ] as const;
 const taskRegistrySources = [
   taskRegistryBase,
   taskRegistryCp003,
   taskRegistryCp004,
+  taskRegistryCp004Additional,
 ] as const;
 
 const questionEntries = questionLanguageSources
