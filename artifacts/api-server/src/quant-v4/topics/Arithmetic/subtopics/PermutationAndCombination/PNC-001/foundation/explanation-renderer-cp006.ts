@@ -1,4 +1,4 @@
-import { getPnc001ExplanationStrategy, renderPnc001Template } from "./library";
+import { getPnc001ExplanationStrategy, getPnc001QlSpecificExplanation, renderPnc001Template } from "./library";
 import type { Pnc001Cp006SolveMode, Pnc001Explanation, Pnc001Parameters, Pnc001ReasoningEvidence, Pnc001SolverResult } from "./types";
 
 export function renderPnc001Cp006Explanation(
@@ -9,6 +9,7 @@ export function renderPnc001Cp006Explanation(
   const strategy = getPnc001ExplanationStrategy(parameters.explanationId);
   const mode = parameters.solveMode as unknown as Pnc001Cp006SolveMode;
   if (String(strategy.solveMode) !== mode) throw new Error(`PNC-001 explanation ${parameters.explanationId} does not support ${mode}`);
+  const qlExplanation = getPnc001QlSpecificExplanation(parameters.questionLanguageId);
   const evidence = solver.evidence;
   const totalObjects = evidence.mixedTotalObjects ?? parameters.values.totalObjects ?? 0;
   const selectedObjects = evidence.mixedSelectedObjects ?? parameters.values.selectedObjects ?? 0;
@@ -22,6 +23,7 @@ export function renderPnc001Cp006Explanation(
   const variables: Record<string, string | number> = {
     ...parameters.renderVariables,
     answer: solver.answer,
+    calculation: solver.equation,
     totalObjects,
     selectedObjects,
     roleCount,
@@ -32,6 +34,6 @@ export function renderPnc001Cp006Explanation(
   };
   return {
     explanationId: parameters.explanationId,
-    lines: [strategy.concept, ...strategy.lines.map((line) => renderPnc001Template(line, variables))],
+    lines: qlExplanation.lines.map((line) => renderPnc001Template(line, variables)),
   };
 }
