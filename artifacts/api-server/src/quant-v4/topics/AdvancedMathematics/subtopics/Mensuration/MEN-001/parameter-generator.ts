@@ -8,6 +8,7 @@ import {
   type Men001ActiveCanonicalProblemId,
   type Men001Difficulty,
   type Men001Parameters,
+  type Men001SolveMode,
 } from "./types";
 
 export interface Men001ParameterInput {
@@ -31,7 +32,10 @@ function pick<T>(values: readonly T[], seed: string, salt: string) {
   return values[seedHash(`${seed}:${salt}`) % values.length]!;
 }
 
-function generateValues(solveMode: string, seed: string) {
+function generateValues(
+  solveMode: Men001SolveMode,
+  seed: string,
+): Men001Parameters["values"] {
   switch (solveMode) {
     case "findTriangleAreaBaseHeight": {
       const [base, height] = pick(
@@ -95,8 +99,6 @@ function generateValues(solveMode: string, seed: string) {
       const side = pick([4, 6, 8, 10, 12, 14] as const, seed, "equilateral-side");
       return { side };
     }
-    default:
-      throw new Error(`Unsupported MEN-001 solve mode: ${solveMode}`);
   }
 }
 
@@ -132,7 +134,7 @@ export function generateMen001Parameters(
   const values = generateValues(entry.solveMode, seed);
   const renderVariables = Object.fromEntries(
     entry.requiredVariables.map((variable) => {
-      const value = values[variable as keyof typeof values];
+      const value = values[variable as keyof Men001Parameters["values"]];
       if (value === undefined) {
         throw new Error(`${entry.qlId} did not generate required variable ${variable}.`);
       }
