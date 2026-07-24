@@ -68,8 +68,12 @@ export function applyAvg001EnglishRelease(
   const validated: Avg001QuestionPackage = { ...humanized, validation };
 
   if (!validated.validation.valid || validated.validation.checks.some((check) => !check.passed)) {
+    const failures = validated.validation.checks
+      .filter((check) => !check.passed)
+      .map((check) => `${check.name}: ${check.message}`)
+      .join("; ");
     throw new Error(
-      `${pkg.questionLanguageId}: cannot apply ${AVG_001_ENGLISH_RELEASE.releaseId} after explanation authorship validation`,
+      `${pkg.questionLanguageId}: cannot apply ${AVG_001_ENGLISH_RELEASE.releaseId} after explanation authorship validation [${failures}]`,
     );
   }
 
