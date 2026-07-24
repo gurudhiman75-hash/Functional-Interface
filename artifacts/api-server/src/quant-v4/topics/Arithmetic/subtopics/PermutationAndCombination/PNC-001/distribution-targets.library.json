@@ -1,18 +1,23 @@
 {
   "packageId": "PNC-001",
-  "checkpoint": "PNC-CP-001-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-001-FACTORIAL-EXTENSION-RUNTIME-PROOF",
   "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
   "observedDifficultyCounts": {
-    "Easy": 22,
-    "Medium": 18,
-    "Hard": 8
+    "Easy": 27,
+    "Medium": 22,
+    "Hard": 9
   },
   "observedSolveModeCounts": {
     "countSequentialIndependentChoices": 14,
     "countMutuallyExclusiveAlternatives": 10,
     "countDisjointCasePartition": 10,
     "countUsingSimpleComplement": 8,
-    "recoverMissingStageChoiceCount": 6
+    "recoverMissingStageChoiceCount": 6,
+    "evaluateFactorialValue": 2,
+    "evaluateFactorialUnitExpression": 2,
+    "simplifyFactorialQuotient": 3,
+    "recoverFactorialArgument": 2,
+    "recoverFactorialQuotientArgument": 1
   },
   "editorialCaps": {
     "maximumExactTemplateDuplicates": 0,
