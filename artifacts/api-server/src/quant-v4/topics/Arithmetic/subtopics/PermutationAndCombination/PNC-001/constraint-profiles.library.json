@@ -18,6 +18,10 @@
     "DISTINCT_UNORDERED_SELECTION": {"operation":"combinationDistinct","orderMatters":false,"repetitionAllowed":false,"requiresSelectedAtMostTotal":true},
     "COMBINATION_INVERSE": {"operation":"boundedCombinationInverse","orderMatters":false,"repetitionAllowed":false,"requiresUniqueExactMatch":true},
     "COMBINATION_INVERSE_LOWER_HALF": {"operation":"boundedCombinationInverse","orderMatters":false,"repetitionAllowed":false,"searchDomain":"rAtMostHalfN","requiresUniqueExactMatch":true},
-    "COMBINATION_SYMMETRY": {"operation":"combinationSymmetry","identity":"nCr=nC(n-r)","requiresKnownIndexBelowHalf":true,"requiresRecoveredIndexAboveHalf":true}
+    "COMBINATION_SYMMETRY": {"operation":"combinationSymmetry","identity":"nCr=nC(n-r)","requiresKnownIndexBelowHalf":true,"requiresRecoveredIndexAboveHalf":true},
+    "MULTISET_ALL_OBJECTS": {"operation":"multisetPermutation","orderMatters":true,"identityPolicy":"identicalMultiplicities","requiresMultiplicitySumAtMostTotal":true,"requiresExactDivision":true},
+    "MULTISET_FIXED_POSITION": {"operation":"multisetPermutationAfterFixingOneObject","orderMatters":true,"identityPolicy":"identicalMultiplicities","fixedPositions":1,"requiresExactDivision":true},
+    "MULTISET_OVERCOUNT_FACTOR": {"operation":"multisetOvercountFactor","identityPolicy":"identicalMultiplicities","requiresFactorialCorrectionProduct":true},
+    "MULTISET_INVERSE": {"operation":"boundedMultisetMultiplicityInverse","identityPolicy":"oneRepeatedCategory","requiresUniqueExactMatch":true,"requiresExactDivision":true}
   }
 }
