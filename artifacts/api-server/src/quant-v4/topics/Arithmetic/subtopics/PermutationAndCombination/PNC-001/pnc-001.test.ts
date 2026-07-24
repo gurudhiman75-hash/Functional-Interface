@@ -4,30 +4,33 @@ import { getPnc001QuestionEntries, getPnc001QuestionLanguageIds } from "./founda
 import { runPnc001Pipeline } from "./foundation/pipeline";
 
 const entries = getPnc001QuestionEntries();
-const expectedIds = Array.from({ length: 48 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
-assert.equal(entries.length, 48);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 48);
-assert.deepEqual(getPnc001QuestionLanguageIds(), expectedIds);
 
-const difficultyCounts = Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]));
-assert.deepEqual(difficultyCounts, { Easy: 22, Medium: 18, Hard: 8 });
+// These assertions protect the current reviewed checkpoint from accidental
+// deletion or ID drift. They are not design targets for future expansion.
+const currentCheckpointIds = Array.from({ length: 48 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+assert.equal(entries.length, currentCheckpointIds.length);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, currentCheckpointIds.length);
+assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
 
-const solveModeCounts = {
+const observedDifficultyCounts = Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]));
+assert.deepEqual(observedDifficultyCounts, { Easy: 22, Medium: 18, Hard: 8 });
+
+const observedSolveModeCounts = {
   countSequentialIndependentChoices: 14,
   countMutuallyExclusiveAlternatives: 10,
   countDisjointCasePartition: 10,
   countUsingSimpleComplement: 8,
   recoverMissingStageChoiceCount: 6,
 } as const;
-for (const [mode, expected] of Object.entries(solveModeCounts)) {
-  assert.equal(entries.filter((entry) => entry.solveMode === mode).length, expected, mode);
+for (const [mode, observed] of Object.entries(observedSolveModeCounts)) {
+  assert.equal(entries.filter((entry) => entry.solveMode === mode).length, observed, mode);
 }
 
 const audit = auditPnc001Coverage();
 assert.equal(audit.valid, true, JSON.stringify(audit, null, 2));
 
 let generated = 0;
-for (const questionLanguageId of expectedIds) {
+for (const questionLanguageId of currentCheckpointIds) {
   for (let index = 0; index < 12; index += 1) {
     const seed = `pnc-proof:${questionLanguageId}:${index}`;
     const first = runPnc001Pipeline({ questionLanguageId, seed });
@@ -61,4 +64,12 @@ for (const language of ["hi", "pa"] as const) {
   assert.throws(() => runPnc001Pipeline({ questionLanguageId: "PNC-QL-001", seed: "unsupported", language }), /English only/);
 }
 
-console.log(JSON.stringify({ qlCount: entries.length, difficultyCounts, solveModeCounts, seedsPerQl: 12, generated, audit, status: "PASS" }, null, 2));
+console.log(JSON.stringify({
+  checkpointQlCount: entries.length,
+  observedDifficultyCounts,
+  observedSolveModeCounts,
+  seedsPerQl: 12,
+  generated,
+  audit,
+  status: "PASS",
+}, null, 2));
