@@ -3,7 +3,13 @@ import {
   getPnc001QuestionEntry,
   getPnc001VariableRanges,
 } from "./library";
-import { createSeededRandom, hashSeed, pickSeeded, productExact } from "./math";
+import {
+  createSeededRandom,
+  factorialExact,
+  hashSeed,
+  pickSeeded,
+  productExact,
+} from "./math";
 import {
   PNC_001_PACKAGE_ID,
   type Pnc001ActiveCanonicalProblemId,
@@ -77,6 +83,48 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
       const [knownChoices, missingChoices] = pickValues(pool.recovered, 2, random, distinct);
       const totalChoices = productExact([knownChoices!, missingChoices!], ranges.answerCeiling);
       return { knownChoices: knownChoices!, missingChoices: missingChoices!, totalChoices };
+    }
+    case "evaluateFactorialValue": {
+      const selected = pickSeeded(pool.factorial, random);
+      return entry.scenarioFamily === "factorialPredecessor"
+        ? { n: Math.max(2, selected) }
+        : { factorialArgument: selected };
+    }
+    case "evaluateFactorialUnitExpression": {
+      return { factorialArgument: pickSeeded(pool.factorial, random) };
+    }
+    case "simplifyFactorialQuotient": {
+      if (entry.scenarioFamily === "numericFactorialQuotient") {
+        const upper = pickSeeded(pool.factorial, random);
+        const validGaps = pool.factorialGap.filter((gap) => gap <= upper);
+        const gap = pickSeeded(validGaps, random);
+        return { upper, lower: upper - gap };
+      }
+      const maximumOffset = entry.scenarioFamily === "doubleSuccessorFactorialQuotient" ? 2 : 1;
+      const candidates = pool.factorial.filter((value) => value + maximumOffset <= ranges.generation.maximumFactorialArgument);
+      return { n: pickSeeded(candidates, random) };
+    }
+    case "recoverFactorialArgument": {
+      if (entry.scenarioFamily === "shiftedFactorialInverse") {
+        const candidates = pool.factorial.filter((value) => value + 1 <= ranges.generation.maximumFactorialArgument);
+        const solutionN = pickSeeded(candidates, random);
+        return {
+          solutionN,
+          matchedFactorialArgument: solutionN + 1,
+          target: factorialExact(solutionN + 1, ranges.answerCeiling),
+        };
+      }
+      const solutionN = pickSeeded(pool.factorial, random);
+      return {
+        solutionN,
+        matchedFactorialArgument: solutionN,
+        target: factorialExact(solutionN, ranges.answerCeiling),
+      };
+    }
+    case "recoverFactorialQuotientArgument": {
+      const candidates = pool.factorial.filter((value) => value >= 2);
+      const solutionN = pickSeeded(candidates, random);
+      return { solutionN, target: productExact([solutionN, solutionN - 1], ranges.answerCeiling) };
     }
     default: {
       const exhaustive: never = entry.solveMode;
