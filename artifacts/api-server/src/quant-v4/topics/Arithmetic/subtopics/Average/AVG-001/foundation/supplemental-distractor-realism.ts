@@ -50,6 +50,14 @@ function answerPolicy(pkg: Avg001QuestionPackage): Avg001DisplayPolicy {
     : pkg.parameters.displayPolicy;
 }
 
+function displayStep(pkg: Avg001QuestionPackage) {
+  if (pkg.answer.startsWith("₹")) return rational(500);
+  const policy = answerPolicy(pkg);
+  if (policy === "EXACT_DECIMAL_1") return rational(1, 10);
+  if (policy === "EXACT_DECIMAL_2") return rational(1, 100);
+  return rational(1);
+}
+
 function groupIndianDigits(value: string) {
   const match = value.match(/^(-?)(\d+)(\.\d+)?$/);
   if (!match) return value;
@@ -106,6 +114,9 @@ function candidatesFor(pkg: Avg001QuestionPackage) {
       put("gave-first-group-double-weight", divide(add(multiply(averages[0]!, rational(2)), averages[1]!), rational(3)));
       put("gave-second-group-double-weight", divide(add(averages[0]!, multiply(averages[1]!, rational(2))), rational(3)));
     }
+    const ordered = [...averages].sort((left, right) => toNumber(left) - toNumber(right));
+    put("read-lower-group-one-step-low", subtract(ordered[0]!, displayStep(pkg)));
+    put("read-upper-group-one-step-high", add(ordered.at(-1)!, displayStep(pkg)));
   } else if (pkg.solveMode === "findAverageAfterUniformTransformation") {
     const oldAverage = values.oldAverage ?? values.average;
     const factor = numericVariable(pkg, "factor");
