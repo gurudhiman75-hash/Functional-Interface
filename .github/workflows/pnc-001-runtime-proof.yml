@@ -1,0 +1,49 @@
+name: Validate PNC-001 runtime proof
+
+on:
+  push:
+    branches:
+      - feat/pnc-001-cp001-runtime-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/**
+      - .github/workflows/pnc-001-runtime-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle PNC-001 proof test
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001.test.mjs
+
+      - name: Run PNC-001 proof test
+        run: node artifacts/api-server/dist/quant-v4/pnc-001.test.mjs
