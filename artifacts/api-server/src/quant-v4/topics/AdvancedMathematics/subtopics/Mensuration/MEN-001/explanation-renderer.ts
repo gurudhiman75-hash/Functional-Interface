@@ -1,6 +1,6 @@
 import { buildMen001ExplanationIllustration } from "./explanation-illustration";
 import { getMen001QuestionEntry } from "./library";
-import { getMen001SolveModeDefinition } from "./solve-mode-registry";
+import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import type {
   Men001Explanation,
   Men001Parameters,
