@@ -8,7 +8,7 @@ export function buildPnc001RoutedReasoningEvidence(
   solver: Pnc001SolverResult,
   verification: Pnc001IndependentVerification,
 ): Pnc001ReasoningEvidence {
-  if (parameters.solveMode === "findDictionaryRankOfWord") {
+  if (String(parameters.solveMode) === "findDictionaryRankOfWord") {
     return buildPnc001DictionaryRankReasoningEvidence(parameters, solver, verification);
   }
   return parameters.canonicalProblemId === "PNC-CP-006"
