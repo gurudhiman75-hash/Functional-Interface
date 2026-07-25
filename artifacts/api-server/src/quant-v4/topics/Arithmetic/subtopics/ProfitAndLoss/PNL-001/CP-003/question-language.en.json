@@ -1,0 +1,15 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-003",
+  "language": "en",
+  "status": "ACTIVE_DISCOVERY",
+  "entries": {
+    "PNL-QL-071": {"template":"A trader purchases different lots of articles at the given unit costs and sells them at the stated unit prices. Calculate the overall percentage gain or loss.","difficulty":"Medium"},
+    "PNL-QL-072": {"template":"Two articles are sold for the same selling price. One is sold at a {firstRatePercent}% {firstDirection}, while the other is sold at a {secondRatePercent}% {secondDirection}. Calculate the overall percentage gain or loss.","difficulty":"Hard"},
+    "PNL-QL-073": {"template":"Two articles have the same cost price. One is sold at a {firstRatePercent}% {firstDirection}, while the other is sold at a {secondRatePercent}% {secondDirection}. Find the overall profit or loss percentage.","difficulty":"Medium"},
+    "PNL-QL-074": {"template":"A dealer buys {totalQuantity} identical articles at ₹{unitCostPrice} each. Different groups are sold at the stated prices, while the remaining stock is unsold or recovered at the stated value. Calculate the overall percentage gain or loss.","difficulty":"Hard"},
+    "PNL-QL-075": {"template":"A trader buys {totalQuantity} articles at ₹{unitCostPrice} each. Of these, {damagedQuantity} articles are damaged and recovered at ₹{damagedRecoveryPerUnit} each. At what price per article should the remaining stock be sold to obtain the required overall result?","difficulty":"Hard"},
+    "PNL-QL-076": {"template":"A wholesaler pays for {paidQuantity} articles and receives {freeQuantity} additional articles free. If every article is sold at ₹{unitSellingPrice}, calculate the overall percentage gain or loss.","difficulty":"Hard"}
+  },
+  "entryCount": 6
+}
