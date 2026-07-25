@@ -1,3 +1,4 @@
+import { getMen001NaturalExplanationProfile } from "./natural-explanation-authorship";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import type {
   Men001QuestionPackage,
@@ -11,11 +12,62 @@ function check(name: string, passed: boolean, message: string): Men001Validation
   return { name, passed, message };
 }
 
+function hasWorkedArithmetic(lines: readonly string[]) {
+  return lines.some(
+    (line) => /\d/.test(line) && /[=×÷+−\-√²π]/.test(line),
+  );
+}
+
 export function validateMen001QuestionPackage(
   question: Question,
 ): Men001ValidationResult {
   const result = validateAllMen001QuestionPackage(question);
-  const checks = [...result.checks];
+  const checks = result.checks.filter(
+    (item) =>
+      item.name !== "explanation-depth" &&
+      item.name !== "explanation-verification-step",
+  );
+  const profile = getMen001NaturalExplanationProfile(
+    question.questionLanguageId,
+  );
+  const expectedConclusion = profile?.conclusion.replace(
+    "{answer}",
+    question.answer,
+  );
+  const explanationLines = question.explanation.lines;
+  const genericPaddingPattern = /^(Check:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers)/;
+
+  checks.push(check(
+    "natural-explanation-profile",
+    Boolean(profile),
+    "Every QL must have a deliberately authored explanation profile.",
+  ));
+  checks.push(check(
+    "natural-explanation-opening",
+    Boolean(profile) && explanationLines[0] === profile?.opening,
+    "The explanation must begin with its QL-specific, context-aware opening.",
+  ));
+  checks.push(check(
+    "natural-explanation-conclusion",
+    Boolean(expectedConclusion) &&
+      explanationLines[explanationLines.length - 1] === expectedConclusion,
+    "The explanation must end with its QL-specific contextual conclusion.",
+  ));
+  checks.push(check(
+    "natural-explanation-length",
+    explanationLines.length >= 4 && explanationLines.length <= 8,
+    "The explanation should be complete but concise, normally four to eight lines.",
+  ));
+  checks.push(check(
+    "natural-explanation-worked-arithmetic",
+    hasWorkedArithmetic(explanationLines),
+    "Natural prose must retain the verified numerical working.",
+  ));
+  checks.push(check(
+    "natural-explanation-no-generic-padding",
+    explanationLines.every((line) => !genericPaddingPattern.test(line)),
+    "Explanations must not rely on repeated check labels or generic unit padding.",
+  ));
 
   if ([
     "findOuterRectangularPathTilesRequired",
