@@ -142,9 +142,11 @@ export function validatePnc002Cp010QuestionPackage(
   checks.push(check("explanation-placeholders", !/\{[A-Za-z][A-Za-z0-9_]*\}/.test(explanationText), "Explanation must resolve placeholders"));
   checks.push(check("reasoning-equation", pkg.reasoningEvidence.equations.includes(`\\(${pkg.solver.mathJax}\\)`), "Reasoning must use solver-owned TeX"));
   const visible = [pkg.stem, ...pkg.options, ...pkg.explanation.lines, ...pkg.reasoningEvidence.equations, pkg.reasoningEvidence.decisiveCalculation];
+  const malformedLatexCommands = visible.filter((value) => !latexCommandsWellFormed(value));
+  const rawFormulaFailures = visible.filter((value) => !visibleFormulaIsFormatted(value));
   checks.push(check("latex-balanced", visible.every(latexBalanced), "Visible LaTeX delimiters must be balanced"));
-  checks.push(check("latex-commands", visible.every(latexCommandsWellFormed), "Visible TeX commands must be escaped, paired and free of control characters"));
-  checks.push(check("latex-no-raw-formulas", visible.every(visibleFormulaIsFormatted), "Visible formulas must be math-delimited"));
+  checks.push(check("latex-commands", malformedLatexCommands.length === 0, `Visible TeX commands must be escaped, paired and free of control characters: ${JSON.stringify(malformedLatexCommands)}`));
+  checks.push(check("latex-no-raw-formulas", rawFormulaFailures.length === 0, `Visible formulas must be math-delimited: ${JSON.stringify(rawFormulaFailures)}`));
   checks.push(check("not-public", pkg.publiclyPublishable === false, "Runtime proof must remain unpublished"));
 
   return { valid: checks.every((item) => item.passed), checks };
