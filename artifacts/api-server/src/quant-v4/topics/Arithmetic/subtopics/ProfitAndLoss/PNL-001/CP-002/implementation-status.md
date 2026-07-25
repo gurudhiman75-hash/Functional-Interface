@@ -32,7 +32,14 @@ Count policy: OPEN ENDED
 
 ## Current QL discovery set
 
-PNL-QL-037 through PNL-QL-063 are runtime-backed discovery QLs: 27 English entries. This count remains open and does not define the final size of CP-002.
+PNL-QL-037 through PNL-QL-063 are runtime-backed discovery QLs.
+
+- English: 27 entries
+- Hindi: 27 structural-parity entries
+- Punjabi: 27 structural-parity entries
+- Task registry: 27 entries
+
+The count remains open and does not define the final size of CP-002.
 
 ## Editorial rules carried forward from CP-001 review
 
@@ -43,14 +50,16 @@ PNL-QL-037 through PNL-QL-063 are runtime-backed discovery QLs: 27 English entri
 
 ## Runtime proof
 
-`pnl-cp002-runtime-proof.test.ts` covers:
+`pnl-cp-002.test.ts` covers representative cases for:
 
-- equivalent successive discounts
-- buy-X-get-Y equivalence
+- direct discount and equivalent successive discounts
+- missing successive discount
+- markup-discount calibration
+- buy-X-get-Y equivalence and effective unit price
+- flat coupon after discount
+- discount-versus-cashback comparison
 - three-stage successive discounts
-- coupon eligibility and ineligibility
 - capped cashback
-- cashback on original marked price after discount
 - fraction and ratio discount conversions
 
 Execution remains deferred until the repository-level test/build pass, consistent with the current PNL workflow.
@@ -58,8 +67,8 @@ Execution remains deferred until the repository-level test/build pass, consisten
 ## Pending discovery and completion work
 
 - Mixed-offer comparison where eligibility differs by minimum spend
+- Coupon-order comparison when a flat coupon changes the percentage-discount base
 - Table, caselet and statement/data-sufficiency forms
-- Hindi and Punjabi parity
 - CP-specific independent verifier beyond example assertions
 - Placeholder, duplicate, semantic and QL-depth audits
 - Reference-book and PYQ reconciliation
