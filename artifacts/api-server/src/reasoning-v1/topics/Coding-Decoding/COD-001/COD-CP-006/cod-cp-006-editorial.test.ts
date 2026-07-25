@@ -27,7 +27,11 @@ for (const logic of COD_CP006_QUESTION_LOGICS) {
     const firstStages = compositeStageResult(question.ruleId, question.ruleContext, firstEvidence.source);
     const targetStages = compositeStageResult(question.ruleId, question.ruleContext, question.structuredPrompt.targetWord);
 
-    assert.ok(question.stem.length >= 70 && question.stem.length <= 700, `${logic.qlId}/${seed} stem length ${question.stem.length}`);
+    assert.ok(question.stem.length >= 70 && question.stem.length <= 450, `${logic.qlId}/${seed} stem length ${question.stem.length}`);
+    assert.equal(question.structuredPrompt.evidence.length <= 3, true, `${logic.qlId}/${seed} displays too many examples`);
+    assert.equal(/two[- ](?:stage|step)|apply the same|given that/i.test(question.stem), false, `${logic.qlId}/${seed} uses robotic or mechanism-revealing wording`);
+    const stemSentences = question.stem.match(/[^.!?]+[.!?]/g)?.map((sentence) => sentence.trim()) ?? [question.stem.trim()];
+    assert.equal(new Set(stemSentences).size, stemSentences.length, `${logic.qlId}/${seed} repeats a sentence`);
     assert.equal(question.stem.includes("{{"), false);
     assert.equal(question.stem.includes("COD-CP"), false);
     assert.equal(question.stem.includes("COD_"), false);
@@ -80,6 +84,12 @@ for (const logic of COD_CP006_QUESTION_LOGICS) {
   assert.ok(stems.size >= 17, `${logic.qlId} has only ${stems.size}/20 unique stems`);
   assert.ok(rules.size >= 17, `${logic.qlId} has only ${rules.size}/20 unique Rule explanations`);
 }
+
+const badRegressionStem = "Given that ‘ORANGE’ is coded as ‘GJRFXV’, ‘BANK’ is coded as ‘MQEG’, ‘FLOWER’ is coded as ‘THATRM’, and ‘TEAM’ is coded as ‘ODIY’, apply the same two-step rule to ‘STONE’.";
+const repairedRegression = generateCodCp006Question("COD-QL-140", 1);
+assert.notEqual(repairedRegression.stem, badRegressionStem);
+assert.equal(repairedRegression.structuredPrompt.evidence.length, 3);
+assert.equal(/two[- ](?:stage|step)|apply the same|given that/i.test(repairedRegression.stem), false);
 
 assert.equal(generated, 640);
 assert.ok(missingQuestions > 0);
