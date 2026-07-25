@@ -456,8 +456,8 @@ function stemFor(pkg: Avg001QuestionPackage, language: PilotLanguage) {
 function refreshedValidation(pkg: Avg001QuestionPackage, stem: string, language: PilotLanguage) {
   const excluded = new Set(["localized-stem", "resolved-stem", "localized-script"]);
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter((check) => !excluded.has(check.name));
-  const expected = language === "hi" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
-  const wrong = language === "hi" ? /[\u0A00-\u0A7F]/ : /[\u0900-\u097F]/;
+  const expected = language === "hi" ? /[\u0900-\u0963\u0970-\u097F]/ : /[\u0A01-\u0A74]/;
+  const wrong = language === "hi" ? /[\u0A01-\u0A74]/ : /[\u0900-\u0963\u0970-\u097F]/;
   const banned = language === "hi"
     ? /स्कोर समूह में|दिन समूह में|मशीन समूह में|पार्सल समूह में|एक नया सदस्य|नए सदस्य का मूल्य|मशीन समूह से|एक बच्चा के|उत्पादन वाली एक मशीन समूह/
     : /ਸਕੋਰ ਸਮੂਹ ਵਿੱਚ|ਦਿਨ ਸਮੂਹ ਵਿੱਚ|ਮਸ਼ੀਨ ਸਮੂਹ ਵਿੱਚ|ਪਾਰਸਲ ਸਮੂਹ ਵਿੱਚ|ਇੱਕ ਨਵਾਂ ਮੈਂਬਰ|ਨਵੇਂ ਮੈਂਬਰ ਦਾ ਮੁੱਲ|ਮਸ਼ੀਨ ਸਮੂਹ ਵਿੱਚੋਂ|ਇੱਕ ਬੱਚਾ ਦੇ|ਉਤਪਾਦਨ ਵਾਲੀ ਇੱਕ ਮਸ਼ੀਨ ਸਮੂਹ/;

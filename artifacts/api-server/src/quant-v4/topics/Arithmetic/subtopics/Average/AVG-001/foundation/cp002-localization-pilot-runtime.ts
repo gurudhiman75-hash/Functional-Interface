@@ -197,8 +197,8 @@ function middleTermExplanation(pkg: Avg001QuestionPackage, language: PilotLangua
 function refreshedValidation(pkg: Avg001QuestionPackage, stem: string, language: PilotLanguage) {
   const excluded = new Set(["localized-stem", "resolved-stem", "localized-script"]);
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter((check) => !excluded.has(check.name));
-  const expected = language === "hi" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
-  const wrong = language === "hi" ? /[\u0A00-\u0A7F]/ : /[\u0900-\u097F]/;
+  const expected = language === "hi" ? /[\u0900-\u0963\u0970-\u097F]/ : /[\u0A01-\u0A74]/;
+  const wrong = language === "hi" ? /[\u0A01-\u0A74]/ : /[\u0900-\u0963\u0970-\u097F]/;
   checks.push(
     { name: "localized-stem", passed: expected.test(stem) && !wrong.test(stem), message: "Stem uses the requested script" },
     { name: "resolved-stem", passed: !/[{}]|undefined|NaN|Infinity|null/.test(stem), message: "Stem is fully rendered" },
