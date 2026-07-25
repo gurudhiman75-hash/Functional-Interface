@@ -26,24 +26,14 @@ function renderOptions(question: GeneratedPathQuestion): string {
   return question.options.map((option, index) => {
     const letter = String.fromCharCode(65 + index);
     const correct = index === question.correctIndex;
-    const error = option.errorLabel ? `<span class="error-label">${escapeHtml(option.errorLabel)}</span>` : "";
-    return `<li class="${correct ? "correct" : ""}"><strong>${letter}.</strong> ${escapeHtml(option.label)} ${error}</li>`;
+    return `<li class="${correct ? "correct" : ""}"><strong>${letter}.</strong> ${escapeHtml(option.label)}</li>`;
   }).join("");
 }
 
-function renderGiven(question: GeneratedPathQuestion): string {
-  return `<section class="given"><h3>Given — simplified</h3><ul>${question.explanation.given.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>`;
-}
-
-function renderSteps(question: GeneratedPathQuestion): string {
-  return question.explanation.steps.map((step) => [
-    `<section class="step">`,
-    `<h4>Step ${step.stepNumber}: ${escapeHtml(step.title)}</h4>`,
-    `<p>${escapeHtml(step.statement)}</p>`,
-    `<div class="calculation">${escapeHtml(step.calculation)}</div>`,
-    `<p class="result"><strong>Result:</strong> ${escapeHtml(step.result)}</p>`,
-    `</section>`,
-  ].join("")).join("");
+function renderMovementWalkthrough(question: GeneratedPathQuestion): string {
+  return question.explanation.movementLines
+    .map((line) => `<p class="movement-line">${escapeHtml(line)}</p>`)
+    .join("");
 }
 
 function renderQuestion(question: GeneratedPathQuestion, reviewNumber: number): string {
@@ -52,22 +42,18 @@ function renderQuestion(question: GeneratedPathQuestion, reviewNumber: number): 
     `<article class="question" id="${escapeHtml(question.qlId)}-seed-${question.seed}">`,
     `<header class="question-header">`,
     `<h2>Review ${reviewNumber}: ${escapeHtml(question.qlId)} · Seed ${question.seed}</h2>`,
-    `<div class="badges"><span>${escapeHtml(question.difficulty)}</span><span>${escapeHtml(question.ruleId)}</span><span>${escapeHtml(question.metadata.answerDemand)}</span></div>`,
+    `<div class="badges"><span>${escapeHtml(question.difficulty)}</span><span>${escapeHtml(question.metadata.answerDemand)}</span></div>`,
     `</header>`,
-    `<h3>Question statement</h3>`,
+    `<h3>Question</h3>`,
     `<p class="stem">${escapeHtml(question.stem)}</p>`,
     `<ol class="options">${renderOptions(question)}</ol>`,
     `<div class="answer"><strong>Correct answer:</strong> ${correctLetter}. ${escapeHtml(question.options[question.correctIndex].label)} <span class="machine-answer">(${escapeHtml(answerLabel(question))})</span></div>`,
     `<h3>Explanation</h3>`,
-    renderGiven(question),
+    `<p class="given">${escapeHtml(question.explanation.given)}</p>`,
+    `<div class="walkthrough">${renderMovementWalkthrough(question)}</div>`,
+    `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,
     `<h3>Diagram</h3>`,
     `<div class="diagram">${question.explanation.diagram.svg}</div>`,
-    `<p class="method"><strong>Method:</strong> ${escapeHtml(question.explanation.method)}</p>`,
-    `<h3>Solution</h3>`,
-    renderSteps(question),
-    `<p class="asked"><strong>What was asked:</strong> ${escapeHtml(question.explanation.askedRelation)}</p>`,
-    `<p class="conclusion"><strong>Conclusion:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,
-    `<p class="trap"><strong>Closest trap:</strong> ${escapeHtml(question.explanation.closestTrapRejection)}</p>`,
     `</article>`,
   ].join("");
 }
@@ -84,7 +70,7 @@ function renderHtml(questions: readonly GeneratedPathQuestion[]): string {
 :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #eef2f7; }
 * { box-sizing: border-box; }
 body { margin: 0; padding: 24px; }
-main { max-width: 1120px; margin: 0 auto; }
+main { max-width: 1040px; margin: 0 auto; }
 .cover, .question { background: #fff; border: 1px solid #d1d5db; border-radius: 16px; box-shadow: 0 8px 24px rgba(15,23,42,.06); }
 .cover { padding: 28px; margin-bottom: 24px; }
 .cover h1 { margin: 0 0 8px; }
@@ -94,28 +80,19 @@ main { max-width: 1120px; margin: 0 auto; }
 .question-header h2 { margin: 0 0 10px; }
 .badges { display: flex; flex-wrap: wrap; gap: 8px; }
 .badges span { background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 999px; padding: 4px 9px; font-size: 12px; font-weight: 700; color: #3730a3; }
-.stem { line-height: 1.7; background: #f8fafc; border-left: 5px solid #2563eb; border-radius: 8px; padding: 18px; font-size: 16px; }
+.stem { line-height: 1.75; background: #f8fafc; border-left: 5px solid #2563eb; border-radius: 8px; padding: 18px; font-size: 16px; }
 .options { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .options li { border: 1px solid #d1d5db; border-radius: 9px; padding: 11px 13px; }
 .options li.correct { background: #ecfdf5; border-color: #10b981; }
-.error-label { display: inline-block; margin-left: 8px; color: #991b1b; font-size: 11px; font-weight: 700; }
 .answer { background: #ecfdf5; border: 1px solid #10b981; border-radius: 9px; padding: 13px; margin: 16px 0 22px; }
 .machine-answer { color: #4b5563; font-size: 12px; }
-.given { background: #f8fafc; border: 1px solid #94a3b8; border-radius: 10px; padding: 14px 18px; margin: 12px 0 18px; }
-.given h3 { margin-top: 0; }
-.given li { margin: 7px 0; line-height: 1.5; }
-.method { background: #f5f3ff; border: 1px solid #a78bfa; border-radius: 9px; padding: 12px 14px; }
-.step { border: 1px solid #dbe3ee; border-radius: 10px; padding: 14px 16px; margin: 12px 0; }
-.step h4 { margin: 0 0 8px; color: #1d4ed8; }
-.step p { margin: 7px 0; line-height: 1.55; }
-.calculation { background: #111827; color: #f9fafb; border-radius: 8px; padding: 11px 13px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; }
-.result { color: #065f46; }
-.asked, .conclusion, .trap { border-radius: 9px; padding: 12px 14px; }
-.asked { background: #fff7ed; border: 1px solid #fb923c; }
-.conclusion { background: #eff6ff; border: 1px solid #60a5fa; }
-.trap { background: #fef2f2; border: 1px solid #f87171; }
+.given { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 9px; padding: 14px 16px; line-height: 1.6; }
+.walkthrough { margin: 14px 0; }
+.movement-line { margin: 0; padding: 8px 4px; line-height: 1.55; border-bottom: 1px solid #e5e7eb; }
+.movement-line:last-child { border-bottom: 0; }
+.conclusion { background: #eff6ff; border: 1px solid #60a5fa; border-radius: 9px; padding: 13px 15px; line-height: 1.6; }
 .diagram { overflow-x: auto; border: 1px solid #d1d5db; border-radius: 12px; padding: 10px; background: #fff; }
-.diagram svg { width: 100%; min-width: 700px; height: auto; }
+.diagram svg { width: 100%; min-width: 620px; height: auto; }
 @media print { body { background: #fff; padding: 0; } .cover, .question { box-shadow: none; page-break-after: always; } }
 @media (max-width: 760px) { body { padding: 10px; } .options { grid-template-columns: 1fr; } .question { padding: 16px; } }
 </style>
@@ -126,7 +103,7 @@ main { max-width: 1120px; margin: 0 auto; }
 <h1>ExamTree Reasoning V1 — DIR-CP-002 Review File</h1>
 <p><strong>Coverage:</strong> ${DIR_CP002_QLS.length} implemented QLs × ${REVIEW_SEEDS.length} seeds = ${questions.length} questions.</p>
 <p><strong>QLs:</strong> ${DIR_CP002_QLS.map((ql) => ql.qlId).join(", ")}</p>
-<p>Each item contains an exam-style continuous stem, simplified given information, a clear diagram with protected text labels, detailed solution steps, options, and the correct answer.</p>
+<p>Each item contains an exam-style question, a short one-line-at-a-time movement explanation, one direct conclusion, and a plain movement diagram at the end.</p>
 </section>
 ${cards}
 </main>
