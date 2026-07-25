@@ -15,6 +15,12 @@ No standalone final-facing-after-path QL was added because ordinary path distanc
 
 Every stem is one continuous paragraph. It states the starting facing direction, the first distance, each subsequent turn followed by the next distance, and the exact result required.
 
+Example form:
+
+```text
+Aman starts from a point facing South and walks 8 metres, then turns right and walks 12 metres. In which direction is Aman's final position from the starting point?
+```
+
 The stem does not use numbered instructions, point labels, coordinate language, or disclose the compass direction after every turn.
 
 ## Explanation contract
@@ -53,13 +59,13 @@ The diagram does not display the answer, requested relation, final-facing soluti
 
 To prevent visually misleading diagrams, generation rejects paths that revisit an earlier point, retrace or overlap an earlier leg, or cross a non-adjacent leg. Every accepted route is therefore simple and non-self-intersecting.
 
-## Exact validation
+## Validation contract
 
-GitHub Actions run `30151744952` passed on head `3e504d57499d00cca4373940290939b22bee0165`:
+The 400-case proof verifies:
 
-- strict DIR-001 TypeScript check;
-- foundation and CP-001 regression proofs;
-- 400 deterministic CP-002 cases;
+- strict DIR-001 TypeScript compatibility;
+- foundation and CP-001 regressions;
+- deterministic generation;
 - continuous exam-style stems;
 - exactly one initial compass direction disclosed in each stem;
 - one movement explanation line per generated leg;
@@ -78,7 +84,7 @@ GitHub Actions run `30151744952` passed on head `3e504d57499d00cca4373940290939b
 - at least 180 unique stems per QL;
 - answer-position balance below the required `1.35` ratio.
 
-The generated 10-question HTML review corpus was visually inspected. Route lines, distance labels, Start/Finish markers and the compass remained readable across all sampled path shapes.
+The generated 10-question HTML review corpus is visually inspected after generation for route shape and label readability.
 
 ## Execution honesty
 
