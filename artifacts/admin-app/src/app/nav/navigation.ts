@@ -1,5 +1,5 @@
 import {
-  Activity, AlertTriangle, BarChart3, Bell, Box, CalendarClock, ClipboardCheck, ClipboardList, FileQuestion,
+  Activity, AlertTriangle, BarChart3, Bell, Box, CalendarClock, ClipboardCheck, ClipboardList, FileJson, FileQuestion,
   FileText, HeartPulse, Image as ImageIcon, KeyRound, Languages, LayoutDashboard,
   Layers, LifeBuoy, ListChecks, Lock, Network, Palette, Plug, ScrollText, Settings,
   ShieldCheck, ShoppingCart, Sparkles, Target, Ticket, TrendingUp, Users,
@@ -42,6 +42,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Students', path: '/users/students', icon: Users, status: 'live', permission: 'users.students.read', summary: 'Search canonical student identities and inspect account state, attempts, sessions and account history through privacy-safe read APIs.' },
     { label: 'Attempt Administration', path: '/users/attempts', icon: ClipboardList, status: 'live', permission: 'users.students.read', summary: 'Search canonical attempts and inspect immutable test publication, timing, score and result evidence.' },
     { label: 'Attempt Investigations', path: '/users/attempt-investigations', icon: ClipboardCheck, status: 'live', permission: 'users.students.read', summary: 'Assign and resolve technical complaints, score disputes and suspicious attempt cases without editing canonical results.' },
+    { label: 'Attempt Evidence Exports', path: '/users/attempt-exports', icon: FileJson, status: 'live', permission: 'users.students.read', summary: 'Create audited privacy-scoped support and compliance packages from canonical attempt, integrity, investigation and audit evidence.' },
     { label: 'Account Recovery', path: '/users/recovery', icon: LifeBuoy, status: 'live', permission: 'users.students.read', summary: 'Review self-service account recovery requests and begin verified identity recovery without creating duplicate students.' },
     { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'live', permission: 'users.admins.read', summary: 'Authorize administrators, manage profiles, role grants, suspension and session revocation through canonical identity records.' },
     { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
