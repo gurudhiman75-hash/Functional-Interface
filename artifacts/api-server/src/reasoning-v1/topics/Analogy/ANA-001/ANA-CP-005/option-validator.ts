@@ -33,6 +33,24 @@ function evidenceForOption(
     : null;
 }
 
+function isValidUnderIntendedRule(
+  ruleId: string,
+  context: AlphabetRuleContext,
+  presentationMode: AlphabetPresentationMode,
+  target: AlphabetPair,
+  value: AlphabetOptionValue,
+): boolean {
+  if (presentationMode === "DIRECT_COMPLETION") {
+    return typeof value === "string" && value === target.right;
+  }
+  if (!Array.isArray(value)) return false;
+  try {
+    return solveAlphabetRule(ruleId, context, value[0]) === value[1];
+  } catch {
+    return false;
+  }
+}
+
 export function validateAlphabetOptions(
   ruleId: string,
   context: AlphabetRuleContext,
@@ -45,15 +63,9 @@ export function validateAlphabetOptions(
   const keys = options.map((option) => optionKey(option.value));
   if (new Set(keys).size !== 4) throw new Error("ANA-CP-005 options must be unique.");
 
-  const correctFlags = options.map((option) => {
-    if (presentationMode === "DIRECT_COMPLETION") {
-      return typeof option.value === "string" && option.value === target.right;
-    }
-    if (!Array.isArray(option.value)) return false;
-    const [left, right] = option.value;
-    return solveAlphabetRule(ruleId, context, left) === right;
-  });
-
+  const correctFlags = options.map((option) =>
+    isValidUnderIntendedRule(ruleId, context, presentationMode, target, option.value),
+  );
   const correctIndexes = correctFlags
     .map((isCorrect, index) => (isCorrect ? index : -1))
     .filter((index) => index >= 0);
