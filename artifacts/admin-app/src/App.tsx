@@ -33,6 +33,7 @@ const RecoveryRequestsPage = lazy(() => import('@/pages/users/RecoveryRequestsPa
 const AttemptsPage = lazy(() => import('@/pages/users/AttemptsWorkspacePage').then((module) => ({ default: module.AttemptsWorkspacePage })));
 const AttemptDetailPage = lazy(() => import('@/pages/users/AttemptsWorkspacePage').then((module) => ({ default: module.AttemptDetailPage })));
 const AttemptInvestigationsPage = lazy(() => import('@/pages/users/AttemptInvestigationsPage').then((module) => ({ default: module.AttemptInvestigationsPage })));
+const AttemptExportsPage = lazy(() => import('@/pages/users/AttemptExportsPage').then((module) => ({ default: module.AttemptExportsPage })));
 const RolesPermissionsPage = lazy(() => import('@/pages/settings/RolesPermissionsWorkspacePage').then((module) => ({ default: module.RolesPermissionsWorkspacePage })));
 const AuditLogsPage = lazy(() => import('@/pages/settings/AuditLogsWorkspacePage').then((module) => ({ default: module.AuditLogsWorkspacePage })));
 
@@ -59,6 +60,7 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/tests/:id', element: <TestDetailPage /> },
   { path: '/tests', element: <TestsPage /> },
   { path: '/commerce/*', element: <PendingWorkspacePage /> },
+  { path: '/users/attempt-exports', element: <AttemptExportsPage /> },
   { path: '/users/attempt-investigations', element: <AttemptInvestigationsPage /> },
   { path: '/users/attempts/:id', element: <AttemptDetailPage /> },
   { path: '/users/attempts', element: <AttemptsPage /> },
