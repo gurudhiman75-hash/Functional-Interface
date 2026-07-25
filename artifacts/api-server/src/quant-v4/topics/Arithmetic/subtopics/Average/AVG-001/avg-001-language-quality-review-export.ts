@@ -4,6 +4,7 @@ import path from "node:path";
 import { runAvg001Cp001LocalizationPilot } from "./foundation/cp001-localization-quality-runtime";
 import { runAvg001Cp002LocalizationPilot } from "./foundation/cp002-localization-quality-runtime";
 import { runAvg001Cp003LocalizationPilot } from "./foundation/cp003-localization-quality-runtime";
+import { runAvg001Cp004LocalizationPilot } from "./foundation/cp004-localization-quality-runtime";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
@@ -18,6 +19,7 @@ const header = [
 
 const csv = (value: unknown) => `"${String(value ?? "").replaceAll('"', '""')}"`;
 const entries = getAvg001QuestionEntries();
+const localizedCpIds = ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003", "AVG-CP-004"];
 
 function row(pkg: Avg001QuestionPackage) {
   return [
@@ -43,6 +45,7 @@ function localizedRunner(cpId: string) {
   if (cpId === "AVG-CP-001") return runAvg001Cp001LocalizationPilot;
   if (cpId === "AVG-CP-002") return runAvg001Cp002LocalizationPilot;
   if (cpId === "AVG-CP-003") return runAvg001Cp003LocalizationPilot;
+  if (cpId === "AVG-CP-004") return runAvg001Cp004LocalizationPilot;
   throw new Error(`No localized quality runtime for ${cpId}`);
 }
 
@@ -55,9 +58,10 @@ for (const entry of entries) {
 }
 fs.writeFileSync(path.join(outputRoot, "avg-001-language-quality-review-en.csv"), `${englishRows.join("\n")}\n`, "utf8");
 
+const localizedEntries = entries.filter((entry) => localizedCpIds.includes(entry.cpId));
 for (const language of ["hi", "pa"] as const) {
   const rows = [header.map(csv).join(",")];
-  for (const entry of entries.filter((item) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(item.cpId))) {
+  for (const entry of localizedEntries) {
     const seed = `avg-language-quality-review:${entry.qlId}`;
     rows.push(row(localizedRunner(entry.cpId)({ questionLanguageId: entry.qlId, seed, language })));
   }
@@ -66,7 +70,7 @@ for (const language of ["hi", "pa"] as const) {
 
 console.log(JSON.stringify({
   englishRows: englishRows.length - 1,
-  hindiRows: entries.filter((entry) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)).length,
-  punjabiRows: entries.filter((entry) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)).length,
+  hindiRows: localizedEntries.length,
+  punjabiRows: localizedEntries.length,
   outputRoot,
 }, null, 2));

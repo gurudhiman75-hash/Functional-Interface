@@ -1,8 +1,10 @@
 import { strict as assert } from "node:assert";
 
+import "./avg-001-cp004-multilingual-pilot-audit";
 import { runAvg001Cp001LocalizationPilot } from "./foundation/cp001-localization-quality-runtime";
 import { runAvg001Cp002LocalizationPilot } from "./foundation/cp002-localization-quality-runtime";
 import { runAvg001Cp003LocalizationPilot } from "./foundation/cp003-localization-quality-runtime";
+import { runAvg001Cp004LocalizationPilot } from "./foundation/cp004-localization-quality-runtime";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
@@ -11,6 +13,8 @@ const AUTHORSHIP = "AVG-001 deterministic human-authored presentation v2";
 const STEM_VARIATION = "AVG-001 localized stem variation finalizer v1";
 const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
 const CP003_FINAL_POLISH = "AVG-CP-003 manually differentiated prose v1";
+const CP004_AUTHORSHIP = "AVG-CP-004 context-authored localization v1";
+const LOCALIZED_CP_IDS = ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003", "AVG-CP-004"];
 const CP003_MANUALLY_DIFFERENTIATED = new Set([
   "AVG-QL-156",
   "AVG-QL-160",
@@ -96,6 +100,7 @@ function localizedRunner(cpId: string) {
   if (cpId === "AVG-CP-001") return runAvg001Cp001LocalizationPilot;
   if (cpId === "AVG-CP-002") return runAvg001Cp002LocalizationPilot;
   if (cpId === "AVG-CP-003") return runAvg001Cp003LocalizationPilot;
+  if (cpId === "AVG-CP-004") return runAvg001Cp004LocalizationPilot;
   throw new Error(`No localized quality runtime for ${cpId}`);
 }
 
@@ -120,6 +125,13 @@ function checkAuthorship(pkg: Avg001QuestionPackage, scope: string) {
     pkg.traceability.cp003ExplanationFinalPolish !== CP003_FINAL_POLISH
   ) {
     fail(`${scope}: CP-003 manually differentiated prose marker missing`);
+  }
+  if (
+    pkg.language !== "en" &&
+    pkg.canonicalProblemId === "AVG-CP-004" &&
+    pkg.traceability.cp004LocalizationAuthorship !== CP004_AUTHORSHIP
+  ) {
+    fail(`${scope}: CP-004 context-authored localization marker missing`);
   }
 }
 
@@ -157,7 +169,7 @@ for (const entry of entries) {
   add(englishExplanations, normalize(english.explanation.lines.join("\n")), entry.qlId);
   add(englishProse, proseSignature(english), entry.qlId);
 
-  if (["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)) {
+  if (LOCALIZED_CP_IDS.includes(entry.cpId)) {
     const runner = localizedRunner(entry.cpId);
     for (const language of ["hi", "pa"] as const) {
       const localized = runner({ questionLanguageId: entry.qlId, seed, language });
@@ -214,8 +226,9 @@ console.log(JSON.stringify({
   authorship: AUTHORSHIP,
   localizedStemVariation: STEM_VARIATION,
   cp003Authorship: CP003_AUTHORSHIP,
+  cp004Authorship: CP004_AUTHORSHIP,
   englishQlCount: entries.length,
-  localizedQlCountPerLanguage: entries.filter((entry) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)).length,
+  localizedQlCountPerLanguage: entries.filter((entry) => LOCALIZED_CP_IDS.includes(entry.cpId)).length,
   englishExactExplanationGroups: englishExplanations.size,
   englishProseGroups: englishProse.size,
   hindiExactExplanationGroups: localizedExplanations.get("hi")!.size,
