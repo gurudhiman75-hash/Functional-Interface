@@ -1,0 +1,68 @@
+{
+  "packageId": "PNC-001",
+  "reviewedAt": "2026-07-24",
+  "reviewer": "ExamTree editorial audit",
+  "scope": "All 106 active English QLs and one deterministic rendered sample per QL",
+  "reviewStatus": "COMPLETE_FOR_ENGLISH_FREEZE_REVIEW",
+  "defaultDecision": {
+    "stemRealism": "PASS",
+    "mathematicalValidity": "PASS",
+    "solverCorrect": "PASS",
+    "optionQuality": "PASS",
+    "explanationQuality": "PASS",
+    "difficultyAccuracy": "PASS",
+    "examRelevance": "PASS",
+    "editorialStatus": "ACCEPTED",
+    "reviewNotes": "Reviewed against the rendered question, options, correct answer, solver evidence and QL-specific explanation."
+  },
+  "repairedQlDecisions": {
+    "PNC-QL-036": "Stem rewritten to remain grammatical when exactly one route is closed.",
+    "PNC-QL-052": "Explanation corrected so the larger factorial is evaluated before subtracting 1!.",
+    "PNC-QL-054": "Explanation rewritten around cancellation of n! and the remaining factor.",
+    "PNC-QL-056": "Inverse-factorial explanation rewritten to identify the exact matching factorial naturally.",
+    "PNC-QL-064": "Explanation now uses the generated number of offices rather than a stale fixed value.",
+    "PNC-QL-078": "Stem rewritten as additional distinct flags to avoid singular/plural failure.",
+    "PNC-QL-083": "Explanation now uses the generated digit length rather than a stale three-digit phrase.",
+    "PNC-QL-084": "Explanation now uses the generated digit length and states the leading-zero rule directly.",
+    "PNC-QL-087": "Even-number explanation now names the eligible final digits and the actual calculation.",
+    "PNC-QL-089": "Odd-number explanation now names the eligible final digits and the actual calculation.",
+    "PNC-QL-091": "Threshold explanation now consumes the generated qualifying first digits instead of a stale numeric threshold.",
+    "PNC-QL-092": "Alphanumeric-code explanation now consumes the generated letter-slot and digit-slot counts.",
+    "PNC-QL-102": "Inverse mixed-count explanation now consumes the generated role count rather than a stale two-office phrase.",
+    "PNC-QL-103": "Stem rewritten to remain grammatical when the generated role count is one."
+  },
+  "acceptedNearDuplicatePairs": [
+    {"left":"PNC-QL-054","right":"PNC-QL-055","decision":"ACCEPTED","reason":"One uncancelled factorial factor versus two uncancelled factors creates a distinct simplification depth."},
+    {"left":"PNC-QL-079","right":"PNC-QL-080","decision":"ACCEPTED","reason":"Fixing a unique letter versus one copy of a repeated letter changes the remaining multiplicities and denominator."},
+    {"left":"PNC-QL-087","right":"PNC-QL-088","decision":"ACCEPTED","reason":"Zero is absent in one family and present in the other; the latter requires a separate zero-ending case."},
+    {"left":"PNC-QL-102","right":"PNC-QL-103","decision":"ACCEPTED","reason":"The inverse unknown is total pool size n in one QL and selected-group size s in the other."},
+    {"left":"PNC-QL-102","right":"PNC-QL-104","decision":"ACCEPTED","reason":"The inverse unknown is total pool size n in one QL and role count k in the other."},
+    {"left":"PNC-QL-103","right":"PNC-QL-104","decision":"ACCEPTED","reason":"The inverse unknown is selected-group size s in one QL and role count k in the other."},
+    {"left":"PNC-QL-087","right":"PNC-QL-089","decision":"ACCEPTED","reason":"Even-number formation without zero and odd-number formation with zero use different eligible endings and first-position constraints."},
+    {"left":"PNC-QL-088","right":"PNC-QL-089","decision":"ACCEPTED","reason":"Even numbers with zero require a zero/non-zero-even case split; odd numbers do not."},
+    {"left":"PNC-QL-075","right":"PNC-QL-076","decision":"ACCEPTED","reason":"APPLE has one repeated category whereas BALLOON has two repeated categories."},
+    {"left":"PNC-QL-075","right":"PNC-QL-077","decision":"ACCEPTED","reason":"One repeated category is contrasted with three repeated categories and a substantially larger multiset."},
+    {"left":"PNC-QL-076","right":"PNC-QL-077","decision":"ACCEPTED","reason":"Two repeated categories are contrasted with three repeated categories and different multiplicities."},
+    {"left":"PNC-QL-105","right":"PNC-QL-106","decision":"ACCEPTED","reason":"The distinct-letter rank contract is contrasted with repeated-letter dictionary rank requiring multiset correction."}
+  ],
+  "acceptedFixedStateQlIds": [
+    "PNC-QL-049","PNC-QL-050","PNC-QL-051","PNC-QL-052","PNC-QL-054","PNC-QL-055","PNC-QL-056","PNC-QL-057","PNC-QL-058",
+    "PNC-QL-059","PNC-QL-060","PNC-QL-061","PNC-QL-063","PNC-QL-075","PNC-QL-076","PNC-QL-077","PNC-QL-079","PNC-QL-080",
+    "PNC-QL-094","PNC-QL-101","PNC-QL-105","PNC-QL-106"
+  ],
+  "acceptedFixedStateReason": "These are intentionally fixed expressions, fixed words, fixed contextual role counts or exact multiplicity patterns. Artificial numeric variation would weaken naturalness or change the contract being tested.",
+  "deferredCoverage": [
+    {
+      "scope": "PNC-CP-005 partial letter selection and arrangement",
+      "status": "DEFERRED",
+      "reason": "No current reference evidence proves a multiset-specific solver/evidence/validator contract distinct from CP-006 selection-then-arrangement or the later restriction and mixed-system CPs."
+    }
+  ],
+  "localizationDecision": {
+    "status": "DEFERRED",
+    "reason": "Hindi and Punjabi terminology and word-localization policy follow the English freeze; they do not block eligibility for English freeze review."
+  },
+  "finalDecision": "ELIGIBLE_FOR_ENGLISH_FREEZE_REVIEW",
+  "publicationDecision": "KEEP_UNPUBLISHED",
+  "productionIntegrationDecision": "NOT_APPROVED"
+}

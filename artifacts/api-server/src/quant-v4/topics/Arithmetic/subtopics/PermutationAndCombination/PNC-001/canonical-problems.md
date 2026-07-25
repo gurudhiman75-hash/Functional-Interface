@@ -13,41 +13,45 @@
 
 QL counts, solve modes and difficulty distributions inside these CPs are need-based.
 
-## Current implementation state
+## Current reviewed implementation state
 
 | CP | Current represented scope | Current QLs | Status |
 |---|---|---:|---|
-| `PNC-CP-001` | counting principles, case partition, complement, factor recovery and supporting factorial reasoning | 58 | Runtime proof |
-| `PNC-CP-002` | unrestricted ordered arrangements and inverse `nPr` tasks | 8 | Runtime proof |
-| `PNC-CP-003` | unrestricted unordered selection, inverse `nCr` and symmetry | 8 | Runtime proof |
-| `PNC-CP-004` | digit/number/code formation, leading zero, repetition, parity, divisibility, threshold, mixed stages and one-pair pattern | 12 | Runtime proof |
-| `PNC-CP-005` | repeated-object and multiset arrangements | 8 | Partial CP runtime proof |
-| `PNC-CP-006` | select a group, then assign roles or arrange the selected group; role multiplier and bounded inverse directions | 10 | Runtime proof |
-| **Current package snapshot** |  | **104** |  |
+| `PNC-CP-001` | counting principles, case partition, complement, factor recovery and supporting factorial reasoning | 58 | Reviewed / saturated |
+| `PNC-CP-002` | unrestricted ordered arrangements and inverse `nPr` tasks | 8 | Reviewed / saturated |
+| `PNC-CP-003` | unrestricted unordered selection, inverse `nCr` and symmetry | 8 | Reviewed / saturated |
+| `PNC-CP-004` | digit/number/code formation, leading zero, repetition, parity, divisibility, threshold, mixed stages and one-pair pattern | 12 | Reviewed / saturated for basic formation |
+| `PNC-CP-005` | multiset arrangements, fixed-position multiplicity, overcount/inverse multiplicity and dictionary rank | 10 | Reviewed / evidence-backed saturation |
+| `PNC-CP-006` | select a group, then assign roles or arrange the selected group; role multiplier and bounded inverse directions | 10 | Reviewed / saturated |
+| **Current package snapshot** |  | **106** | **Eligible for English freeze review** |
 
-Current IDs are `PNC-QL-001` through `PNC-QL-104`. IDs reflect admission order, not CP order.
+Current IDs are `PNC-QL-001` through `PNC-QL-106`. IDs reflect admission order, not CP order.
 
-## Current CP-004 represented scope
+## CP-004 represented scope
 
 - numbers from non-zero digits without repetition;
 - zero-inclusive numbers with leading-zero correction;
 - repetition-allowed codes versus repetition-allowed numbers;
 - even and odd number formation through last-digit cases;
 - divisibility by 5 through ending-0 and ending-5 cases;
-- controlled thousand-threshold prefixes;
+- controlled leading-threshold prefixes;
 - fixed-pattern alphanumeric codes;
 - bounded recovery of a repetition-allowed code alphabet;
 - length-four codes with multiplicity pattern `2,1,1`.
 
-## Current CP-005 represented scope
+## CP-005 represented scope
 
 - direct multiset arrangements with one, two or three repeated categories;
 - word and non-word repeated-object contexts;
 - fixing a unique or repeated object in one position;
 - identifying the identical-swap overcount factor;
-- bounded recovery of one repeated multiplicity.
+- bounded recovery of one repeated multiplicity;
+- dictionary rank for a distinct-letter word;
+- dictionary rank for a repeated-letter word with multiset correction.
 
-## Current CP-006 represented scope
+Partial letter selection/arrangement remains deferred because no current evidence proves a CP-005-specific contract distinct from CP-006 or later packages.
+
+## CP-006 represented scope
 
 - committee selection followed by one, two or three distinct appointments;
 - shortlist selection followed by ranked awards;
@@ -57,7 +61,7 @@ Current IDs are `PNC-QL-001` through `PNC-QL-104`. IDs reflect admission order, 
 - role-assignment multiplier `sPk` after a fixed selection;
 - bounded unique recovery of the original pool, selected-group size or role count.
 
-All six PNC-001 ownership boundaries now have runtime coverage. CP-004 and CP-005 may receive additional QLs only when they add a material distinction inside their fixed ownership boundaries. The next package-level action is a saturation and freeze-readiness audit, not automatic corpus expansion.
+All six PNC-001 boundaries have reviewed runtime coverage. The package is eligible for explicit English freeze review but remains unpublished and unintegrated.
 
 ## Second package roadmap
 

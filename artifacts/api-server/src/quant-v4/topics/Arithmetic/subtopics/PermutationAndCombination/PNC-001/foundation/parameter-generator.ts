@@ -162,6 +162,9 @@ function buildValues(entry: Pnc001QuestionEntry, seed: string): Record<string, n
       const solutionMultiplicity = pickSeeded(Array.from({ length: maximumMultiplicity - 1 }, (_, index) => index + 2), random);
       return { totalObjects, maximumMultiplicity, solutionMultiplicity, target: multisetPermutationExact(totalObjects, [solutionMultiplicity], ranges.answerCeiling) };
     }
+    case "findDictionaryRankOfWord": {
+      return { dictionaryWordVariant: entry.scenarioFamily === "dictionaryRankRahul" ? 1 : 2 };
+    }
     case "selectThenAssignDistinctRoles": {
       const fixedRoles = fixedMixedRoleCount(entry);
       const states = pool.mixedPool.flatMap((totalObjects) => pool.mixedSelection

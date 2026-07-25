@@ -1,0 +1,16 @@
+{
+  "packageId": "PNC-001",
+  "language": "en",
+  "ownership": "HUMAN_OWNED_EDITORIAL_OVERRIDE",
+  "entries": {
+    "PNC-QL-036": {
+      "template": "There are {choiceA} first-leg routes and {choiceB} second-leg routes. If {invalidChoices} of the complete routes are closed, how many routes remain?"
+    },
+    "PNC-QL-078": {
+      "template": "A row contains {repeatA} identical red flags, {repeatB} identical blue flags and {distinctObjects} additional distinct flags. How many distinct arrangements of the flags are possible?"
+    },
+    "PNC-QL-103": {
+      "template": "From {totalObjects} people, a group of s is chosen. The number of distinct offices then assigned to different selected members is {roleCount}. If the total number of outcomes is {target}, find s, where {minimumSelectedObjects} ≤ s ≤ {maximumSelectedObjects}."
+    }
+  }
+}

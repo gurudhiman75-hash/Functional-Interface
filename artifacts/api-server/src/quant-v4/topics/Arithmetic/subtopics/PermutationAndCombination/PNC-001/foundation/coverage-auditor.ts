@@ -22,7 +22,7 @@ function recordMatches(actual: Record<string, number>, snapshot: Record<string, 
 
 export function auditPnc001Coverage(): Pnc001CoverageAudit {
   const entries = getPnc001QuestionEntries();
-  const checkpointIds = Array.from({ length: 104 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+  const checkpointIds = Array.from({ length: 106 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
   const actualIds = new Set(entries.map((entry) => entry.qlId));
   const missingIds = checkpointIds.filter((id) => !actualIds.has(id));
   const duplicateGroups = new Map<string, number>();
@@ -40,11 +40,14 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     difficultyCounts[entry.difficulty] = (difficultyCounts[entry.difficulty] ?? 0) + 1;
     solveModeCounts[String(entry.solveMode)] = (solveModeCounts[String(entry.solveMode)] ?? 0) + 1;
     const sample = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed: `audit:${entry.qlId}` });
-    if (!sample.validation.valid) invalidRuntimeSamples.push(entry.qlId);
+    if (!sample.validation.valid) {
+      const failed = sample.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",");
+      invalidRuntimeSamples.push(`${entry.qlId}:${failed}`);
+    }
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
-  const observedDifficultySnapshot: Record<string, number> = { Easy: 39, Medium: 44, Hard: 21 };
+  const observedDifficultySnapshot: Record<string, number> = { Easy: 39, Medium: 45, Hard: 22 };
   const observedSolveModeSnapshot: Record<string, number> = {
     countSequentialIndependentChoices: 14,
     countMutuallyExclusiveAlternatives: 10,
@@ -76,6 +79,7 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     arrangeMultisetAfterFixingPosition: 2,
     findMultisetOvercountFactor: 1,
     recoverMultisetMultiplicity: 1,
+    findDictionaryRankOfWord: 2,
     selectThenAssignDistinctRoles: 4,
     selectThenArrangeAllSelected: 2,
     findRoleAssignmentMultiplier: 1,

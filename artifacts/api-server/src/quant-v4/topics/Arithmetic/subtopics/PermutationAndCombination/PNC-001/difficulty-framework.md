@@ -28,7 +28,8 @@ Difficulty is based on structural complexity, computational effort and reasoning
 - alphanumeric stage multiplication;
 - bounded inverse alphabet recovery;
 - selecting a group before two or three distinct appointments;
-- selecting and arranging every chosen object while preserving the `nCs × s! = nPs` bridge.
+- selecting and arranging every chosen object while preserving the `nCs × s! = nPs` bridge;
+- dictionary rank for a short distinct-letter word.
 
 ## Hard
 
@@ -40,17 +41,18 @@ Difficulty is based on structural complexity, computational effort and reasoning
 - divisibility-by-5 cases with different first-position counts;
 - controlled threshold-prefix reasoning;
 - exact multiplicity pattern `2,1,1` in codes;
-- bounded unique recovery of the pool size, selected-group size or role count from `nCs × sPk`.
+- bounded unique recovery of the pool size, selected-group size or role count from `nCs × sPk`;
+- dictionary rank where repeated letters require multiset-corrected lexicographic blocks.
 
 ## Need-based distribution rule
 
 No final Easy/Medium/Hard quota is fixed for PNC-001 or the P&C family. Each QL receives the difficulty supported by its actual structure.
 
-The current six-active-CP checkpoint contains:
+The current reviewed six-CP checkpoint contains:
 
 - Easy: 39;
-- Medium: 44;
-- Hard: 21;
-- Total: 104.
+- Medium: 45;
+- Hard: 22;
+- Total: 106.
 
 These are observed checkpoint counts used for regression control. They are not targets for future additions or PNC-002.
