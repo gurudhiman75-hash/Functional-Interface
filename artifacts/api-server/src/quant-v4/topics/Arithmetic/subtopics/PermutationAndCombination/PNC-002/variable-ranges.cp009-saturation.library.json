@@ -1,0 +1,21 @@
+{
+  "packageId": "PNC-002",
+  "pools": {
+    "specifiedAtLeastStates": [
+      {"totalObjects":11,"committeeSize":5,"specifiedCount":5,"minimumSpecified":3,"maximumSpecified":5},
+      {"totalObjects":12,"committeeSize":6,"specifiedCount":5,"minimumSpecified":2,"maximumSpecified":5}
+    ],
+    "specifiedRangeStates": [
+      {"totalObjects":12,"committeeSize":6,"specifiedCount":5,"minimumSpecified":2,"maximumSpecified":3},
+      {"totalObjects":11,"committeeSize":5,"specifiedCount":4,"minimumSpecified":1,"maximumSpecified":2}
+    ],
+    "dualMinimumCategoryStates": [
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"minimumFromA":2,"maximumFromA":4,"minimumFromB":2},
+      {"categoryA":6,"categoryB":7,"committeeSize":5,"minimumFromA":2,"maximumFromA":4,"minimumFromB":1}
+    ],
+    "boundedCategoryStates": [
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"minimumFromA":2,"maximumFromA":3,"minimumFromB":0},
+      {"categoryA":6,"categoryB":7,"committeeSize":5,"minimumFromA":1,"maximumFromA":3,"minimumFromB":0}
+    ]
+  }
+}
