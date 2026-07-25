@@ -50,7 +50,7 @@ const TITLE_PARAGRAPHS: Record<string, string> = {
 };
 
 function humanizeMath(value: string) {
-  let text = value
+  const text = value
     .trim()
     .replace(/^Substitution:\s*/i, "")
     .replace(/^Calculation:\s*/i, "")
@@ -73,6 +73,7 @@ function humanizeMath(value: string) {
 }
 
 function semanticTitle(section: Extract<Men001ExplanationSection, { kind: "STEP" }>) {
+  if (section.title === "Find the Semicircle's Radius") return section.title;
   const text = [...section.paragraphs, ...section.equations].join(" ").toLowerCase();
   if (/pythagoras/.test(text)) return "Apply Pythagoras";
   if (/ratio sum/.test(text)) return "Add the Ratio Parts";
