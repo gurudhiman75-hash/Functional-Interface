@@ -76,18 +76,33 @@ jobs:
           --outfile=dist/quant-v4/pnc-001-latex-proof.mjs
 
       - name: Run PNC-001 proof
+        id: pnc-proof
         working-directory: artifacts/api-server
         run: |
           set +e
           node dist/quant-v4/pnc-001-latex-proof.mjs > /tmp/pnc-proof.log 2>&1
           status=$?
           set -e
+          echo "status=$status" >> "$GITHUB_OUTPUT"
           if [ "$status" -ne 0 ]; then
             echo "PNC proof failed; compact diagnostic follows:"
             tail -n 100 /tmp/pnc-proof.log
-            exit "$status"
+          else
+            cat /tmp/pnc-proof.log
           fi
-          cat /tmp/pnc-proof.log
+
+      - name: Publish PNC proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-latex-proof-diagnostics
+          path: /tmp/pnc-proof.log
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce PNC proof result
+        if: steps.pnc-proof.outputs.status != '0'
+        run: exit 1
 
       - name: Typecheck admin application
         run: pnpm --dir artifacts/admin-app typecheck
