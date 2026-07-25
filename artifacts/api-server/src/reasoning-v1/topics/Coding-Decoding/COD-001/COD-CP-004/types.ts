@@ -52,6 +52,7 @@ export interface PositionTransformPrompt {
   targetWord: string;
   encodedTarget?: string;
   missingIndex?: number;
+  displayedTargetCode?: string;
 }
 
 export interface GeneratedCodCp004Question {
@@ -71,7 +72,7 @@ export interface GeneratedCodCp004Question {
   correctIndex: number;
   explanation: ExplanationTrace;
   metadata: {
-    runtimeVersion: "cod-001-cp004-v1";
+    runtimeVersion: "cod-001-cp004-v2";
     publiclyPublishable: false;
     maturity: "RUNTIME_PROOF";
     hiddenFingerprint: string;
