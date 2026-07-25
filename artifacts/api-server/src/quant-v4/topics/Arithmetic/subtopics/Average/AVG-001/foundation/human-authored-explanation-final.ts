@@ -1,3 +1,4 @@
+import { finalizeAvg001Cp002ContextSupport } from "./cp002-context-support-finalizer";
 import { applyAvg001Cp003ExplanationAnswerEvidence } from "./cp003-explanation-answer-evidence";
 import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
 import { applyAvg001Cp003ExplanationFinalPolish } from "./cp003-explanation-final-polish";
@@ -140,6 +141,7 @@ export function applyAvg001HumanAuthoredExplanation(
   const answerComplete = applyAvg001Cp003ExplanationAnswerEvidence(manuallyDifferentiated);
   const contracted = applyAvg001ExplanationContract(answerComplete);
   const depthComplete = finalizeAvg001ExplanationDepth(contracted);
-  const symbolComplete = finalizeAvg001ExplanationSymbols(depthComplete);
+  const cp002SupportComplete = finalizeAvg001Cp002ContextSupport(depthComplete);
+  const symbolComplete = finalizeAvg001ExplanationSymbols(cp002SupportComplete);
   return finalizeAvg001ExplanationOpening(symbolComplete);
 }
