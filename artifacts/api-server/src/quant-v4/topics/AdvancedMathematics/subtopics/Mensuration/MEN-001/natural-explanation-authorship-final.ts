@@ -182,7 +182,9 @@ export function authorFinalMen001ExplanationLines(
   }
 
   const opening = finishSentence(profile.opening);
-  const working = compactNaturalWorking(authored.slice(1, -1));
+  const working = parameters.canonicalProblemId === "MEN-CP-006"
+    ? authored.slice(1, -1).map(finishSentence)
+    : compactNaturalWorking(authored.slice(1, -1));
   const bridge = SHORT_CASE_BRIDGES[parameters.questionLanguageId];
   const conclusion = naturalConclusion(profile.conclusion, solver.answer);
 
