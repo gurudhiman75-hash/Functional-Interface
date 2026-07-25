@@ -1,0 +1,12 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-143","cpId":"PNC-CP-008","difficulty":"Medium","template":"Among {totalObjects} distinct files, files A, B and C must occupy positions 2, 4 and 6 respectively. In how many arrangements is this possible?"},
+    {"qlId":"PNC-QL-144","cpId":"PNC-CP-008","difficulty":"Medium","template":"Among {totalObjects} distinct books, three specified books must occupy positions 1, 4 and 7 in any order. How many arrangements are possible?"},
+    {"qlId":"PNC-QL-145","cpId":"PNC-CP-008","difficulty":"Hard","template":"In how many arrangements of {totalObjects} distinct people are there at most {maximumGap} people between two particular people?"},
+    {"qlId":"PNC-QL-146","cpId":"PNC-CP-008","difficulty":"Medium","template":"In how many arrangements of {totalObjects} distinct people does A appear before B with B exactly {positionDistance} positions after A?"},
+    {"qlId":"PNC-QL-147","cpId":"PNC-CP-008","difficulty":"Hard","template":"Among {totalObjects} distinct people, at least {minimumInClass} of {specifiedCount} specified people must occupy odd-numbered positions. How many arrangements are possible?"}
+  ]
+}

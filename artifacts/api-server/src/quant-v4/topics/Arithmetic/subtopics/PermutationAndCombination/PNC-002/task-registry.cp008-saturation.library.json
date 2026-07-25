@@ -1,0 +1,12 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-008",
+  "ownership": "HUMAN_OWNED",
+  "groups": [
+    {"qlIds":["PNC-QL-143"],"cpId":"PNC-CP-008","taskKind":"linearPositionGapRestriction","solveMode":"countObjectsAtPrescribedPositions","answerType":"COUNT","explanationId":"PNC-EXP-143","requiredVariables":["totalObjects"],"scenarioFamily":"threeObjectsAtPrescribedPositions","constraintProfile":"OBJECTS_AT_PRESCRIBED_POSITIONS","distractorProfile":"PRESCRIBED_POSITIONS","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-144"],"cpId":"PNC-CP-008","taskKind":"linearPositionGapRestriction","solveMode":"countSpecifiedSetInPositionSet","answerType":"COUNT","explanationId":"PNC-EXP-144","requiredVariables":["totalObjects"],"scenarioFamily":"threeObjectsInPositionSet","constraintProfile":"SPECIFIED_SET_IN_POSITION_SET","distractorProfile":"POSITION_SET","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-145"],"cpId":"PNC-CP-008","taskKind":"linearPositionGapRestriction","solveMode":"countAtMostGapBetweenPair","answerType":"COUNT","explanationId":"PNC-EXP-145","requiredVariables":["totalObjects","maximumGap"],"scenarioFamily":"atMostGapBetweenPair","constraintProfile":"AT_MOST_GAP_BETWEEN_PAIR","distractorProfile":"AT_MOST_GAP","difficulty":"Hard","active":true},
+    {"qlIds":["PNC-QL-146"],"cpId":"PNC-CP-008","taskKind":"linearPositionGapRestriction","solveMode":"countDirectionalExactGapBetweenPair","answerType":"COUNT","explanationId":"PNC-EXP-146","requiredVariables":["totalObjects","positionDistance"],"scenarioFamily":"directionalExactGap","constraintProfile":"DIRECTIONAL_EXACT_GAP","distractorProfile":"DIRECTIONAL_GAP","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-147"],"cpId":"PNC-CP-008","taskKind":"linearPositionGapRestriction","solveMode":"countAtLeastSpecifiedObjectsInPositionClass","answerType":"COUNT","explanationId":"PNC-EXP-147","requiredVariables":["totalObjects","specifiedCount","minimumInClass","eligibleClassPositions"],"scenarioFamily":"atLeastSpecifiedInOddPositions","constraintProfile":"AT_LEAST_SPECIFIED_IN_POSITION_CLASS","distractorProfile":"AT_LEAST_POSITION_CLASS","difficulty":"Hard","active":true}
+  ]
+}

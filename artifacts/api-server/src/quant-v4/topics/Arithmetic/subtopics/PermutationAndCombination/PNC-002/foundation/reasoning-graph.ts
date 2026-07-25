@@ -10,8 +10,9 @@ export function buildPnc002ReasoningEvidence(
   solver: Pnc002SolverResult,
   verification: Pnc002IndependentVerification,
 ): Pnc002ReasoningEvidence {
+  if (parameters.canonicalProblemId !== "PNC-CP-007") throw new Error("CP-007 reasoning received another canonical problem");
   const evidence = solver.evidence;
-  const conceptId = {
+  const concepts: Record<string, string> = {
     countSingleBlockTogether: "PNC-LINEAR-SINGLE-BLOCK",
     countSingleBlockNotTogether: "PNC-LINEAR-BLOCK-COMPLEMENT",
     countMultipleBlocksTogether: "PNC-LINEAR-MULTIPLE-BLOCKS",
@@ -21,15 +22,12 @@ export function buildPnc002ReasoningEvidence(
     countOneBlockTogetherOtherNotTogether: "PNC-LINEAR-ONE-BLOCK-OTHER-BROKEN",
     countNotAllSpecifiedBlocksTogether: "PNC-LINEAR-MULTIPLE-BLOCK-COMPLEMENT",
     recoverBlockRestrictionParameter: "PNC-LINEAR-BLOCK-INVERSE",
-  }[parameters.solveMode];
-
+  };
+  const conceptId = concepts[parameters.solveMode];
+  if (!conceptId) throw new Error(`Unsupported CP-007 reasoning mode ${parameters.solveMode}`);
   return {
     conceptId,
-    givens: {
-      totalObjects: evidence.totalObjects,
-      blockSizes: evidence.blockSizes.join(", "),
-      restriction: parameters.constraintProfile,
-    },
+    givens: { totalObjects: evidence.totalObjects, blockSizes: evidence.blockSizes.join(", "), restriction: parameters.constraintProfile },
     equations: [`\\(${solver.mathJax}\\)`],
     intermediateValues: {
       unitCount: evidence.unitCount,
