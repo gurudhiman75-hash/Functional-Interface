@@ -2,10 +2,7 @@ import { buildMen001ExplanationIllustration } from "./explanation-illustration.a
 import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
-import {
-  buildMen001StructuredExplanation,
-  flattenMen001StructuredExplanation,
-} from "./structured-explanation";
+import { buildMen001StructuredExplanation } from "./structured-explanation";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -37,7 +34,7 @@ export function renderMen001Explanation(
     strategyId: entry.explanationStrategyId,
     displayFormat: "KEY_RULE_STEPS_FINAL_ANSWER",
     sections,
-    lines: flattenMen001StructuredExplanation(sections),
+    lines: authoredLines,
     ...(illustration ? { illustration } : {}),
   };
 }
