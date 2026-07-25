@@ -43,15 +43,22 @@ jobs:
         run: |
           grep -F 'router.use("/admin/analytics", adminTestAnalyticsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F "router.get('/tests'" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F "router.get('/tests/export.csv'" artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F "router.get('/tests/:publicationId'" artifacts/api-server/src/routes/admin-test-analytics.ts
+          test "$(grep -n "router.get('/tests/export.csv'" artifacts/api-server/src/routes/admin-test-analytics.ts | cut -d: -f1)" -lt "$(grep -n "router.get('/tests/:publicationId'" artifacts/api-server/src/routes/admin-test-analytics.ts | cut -d: -f1)"
           grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F "status::text IN ('evaluated', 'practice_evaluated')" artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'COUNT(DISTINCT a.user_id)' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'make_interval(days => ${days * 2})' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'completionRatePoints' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'periodComparison: true' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'aggregateCsvExport: true' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F "res.setHeader('Content-Type', 'text/csv; charset=utf-8')" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F "res.setHeader('Cache-Control', 'no-store')" artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'percentile_cont(0.50)' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'ntile(10) OVER' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'cohortPercentiles: true' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'studentRank: false' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'sectionAnalytics: false' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'questionAnalytics: false' artifacts/api-server/src/routes/admin-test-analytics.ts
@@ -60,9 +67,11 @@ jobs:
           grep -F "path: '/analytics/tests'" artifacts/admin-app/src/App.tsx
           grep -F "label: 'Test Analytics'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "status: 'live'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Canonical attempt volume' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          grep -F 'equal-window trend comparison' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          grep -F 'Export CSV' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          grep -F 'vs previous window' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
           grep -F 'Cohort score percentiles' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
-          grep -F 'These are aggregate cohort percentiles, not student ranks.' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          grep -F 'Percentiles are aggregate cohort benchmarks, not student ranks.' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
           ! grep -F '@/data/analytics' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
           ! grep -F 'demonstration data' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
       - name: Build API server
