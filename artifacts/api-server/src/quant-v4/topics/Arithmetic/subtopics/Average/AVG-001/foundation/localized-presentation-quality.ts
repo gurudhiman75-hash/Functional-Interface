@@ -1,3 +1,4 @@
+import { finalizeAvg001Cp003ExplanationContext } from "./cp003-explanation-context-finalizer";
 import { applyAvg001Cp003LocalizedStemAuthorship } from "./cp003-localized-stem-authorship";
 import { applyAvg001Cp003LocalizedStemFinalPolish } from "./cp003-localized-stem-final-polish";
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
@@ -22,6 +23,7 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
     "localized-context-naturalness",
     "localized-context-fidelity",
     "localized-grammar-guard",
+    "localized-explanation-context",
     "localized-explanation-authorship",
   ]);
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter((check) => !replaced.has(check.name));
@@ -34,7 +36,10 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
   const unnatural = language === "hi" ? HI_UNNATURAL : PA_UNNATURAL;
   const cp003Authored =
     pkg.canonicalProblemId !== "AVG-CP-003" ||
-    pkg.traceability.cp003ExplanationAuthorship === "AVG-CP-003 context-authored explanations v1";
+    (
+      pkg.traceability.cp003ExplanationAuthorship === "AVG-CP-003 context-authored explanations v1" &&
+      pkg.traceability.cp003ExplanationContextFinalizer === "AVG-CP-003 localized context finalizer v1"
+    );
 
   checks.push(
     {
@@ -63,6 +68,13 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
       name: "localized-grammar-guard",
       passed: pkg.traceability.localizedStemGrammarGuard === "AVG-001 localized stem grammar guard v1",
       message: "Localized stem passed the final Hindi/Punjabi agreement and word-order layer",
+    },
+    {
+      name: "localized-explanation-context",
+      passed:
+        pkg.canonicalProblemId !== "AVG-CP-003" ||
+        pkg.traceability.cp003ExplanationContextFinalizer === "AVG-CP-003 localized context finalizer v1",
+      message: "Localized CP-003 explanation uses scenario-specific nouns, units and member roles",
     },
     {
       name: "localized-explanation",
@@ -96,5 +108,6 @@ export function applyAvg001LocalizedPresentationQuality(
   const contextPolishedStem = applyAvg001LocalizedStemContextFinalPolish(contextFaithfulStem, language);
   const grammarGuardedStem = applyAvg001LocalizedStemGrammarGuard(contextPolishedStem, language);
   const humanized = applyAvg001HumanAuthoredExplanation(grammarGuardedStem);
-  return { ...humanized, validation: refreshValidation(humanized, language) };
+  const contextFinalized = finalizeAvg001Cp003ExplanationContext(humanized);
+  return { ...contextFinalized, validation: refreshValidation(contextFinalized, language) };
 }
