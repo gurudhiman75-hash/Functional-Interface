@@ -120,3 +120,24 @@ jobs:
 
       - name: Enforce CP-002 proof result
         run: test "$(cat dir-cp-002-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle CP-002 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002-generate-review-export.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
+
+      - name: Generate CP-002 question review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
+
+      - name: Publish CP-002 question review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-002-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-002-review-export/
+          if-no-files-found: error
+          retention-days: 14
