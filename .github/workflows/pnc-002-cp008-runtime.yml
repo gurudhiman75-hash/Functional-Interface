@@ -1,0 +1,77 @@
+name: Validate PNC-002 CP-008 runtime proof
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp008-position-gap-runtime-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp008-runtime.yml
+  pull_request:
+    branches:
+      - feat/pnc-002-cp007-runtime-proof
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp008-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-cp008-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-cp008:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
+      - name: Bundle CP-008 runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp008.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-cp008-proof.mjs
+      - name: Run CP-008 proof and generate review export
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-002-cp008-proof.mjs
+      - name: Publish CP-008 review files
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp008-question-explanation-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp008-review/
+          if-no-files-found: error
+          retention-days: 14
