@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { shiftLetter } from "../foundation/alphabet";
-import { applyUniformLetterGroupShift, squaredDigitSumLetter } from "./foundation/mixed-arithmetic";
+import {
+  applyUniformLetterGroupShift,
+  squaredDigitSumLetter,
+} from "./foundation/mixed-arithmetic";
 import {
   clusterNumberToken,
   letterGroupToken,
@@ -13,7 +16,10 @@ import {
   type MixedResult,
   type MixedToken,
 } from "./foundation/mixed-token";
-import { matchingProvisionalMixedRules, type ProvisionalMixedEvidence } from "./provisional-independent-solver";
+import {
+  matchingProvisionalMixedRules,
+  type ProvisionalMixedEvidence,
+} from "./provisional-independent-solver";
 import {
   ANA_CP008_PROVISIONAL_RULES,
   provisionalMixedContextKey,
@@ -33,19 +39,27 @@ const bounded = (value: number) => Number.isSafeInteger(value) && Math.abs(value
 
 function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToken[] {
   const inputs: MixedToken[] = [];
-  if (rule.inputKind === "LETTER_GROUP") {
-    for (const first of ALPHABET) for (const second of ALPHABET) {
-      if (first !== second) inputs.push(letterGroupToken(first + second));
+  if (rule.inputKind === "LETTER") {
+    inputs.push(...[...ALPHABET].map(letterToken));
+  } else if (rule.inputKind === "LETTER_GROUP") {
+    for (const first of ALPHABET) {
+      for (const second of ALPHABET) {
+        if (first !== second) inputs.push(letterGroupToken(first + second));
+      }
     }
   } else if (rule.inputKind === "LETTER_NUMBER") {
-    for (const letter of ALPHABET) for (let number = 8; number <= 64; number += 1) {
-      inputs.push(letterNumberToken(letter, number));
+    for (const letter of ALPHABET) {
+      for (let number = 8; number <= 64; number += 1) {
+        inputs.push(letterNumberToken(letter, number));
+      }
     }
   } else if (rule.inputKind === "CLUSTER_NUMBER") {
     for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
       for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
         const letters = ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length];
-        for (let number = -25; number <= 60; number += 5) inputs.push(clusterNumberToken(letters, number));
+        for (let number = -25; number <= 100; number += 1) {
+          inputs.push(clusterNumberToken(letters, number));
+        }
       }
     }
   } else if (rule.inputKind === "NUMBER_LETTER") {
@@ -57,7 +71,10 @@ function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToke
   return inputs;
 }
 
-function findAcceptedPair(rule: ProvisionalMixedRuleDefinition, context: ProvisionalMixedContext): AcceptedPair | null {
+function findAcceptedPair(
+  rule: ProvisionalMixedRuleDefinition,
+  context: ProvisionalMixedContext,
+): AcceptedPair | null {
   const inputs = inputsForRule(rule).filter((input) => rule.accepts(input, context));
   const intendedContextKey = provisionalMixedContextKey(context);
   for (let sourceIndex = 0; sourceIndex < inputs.length; sourceIndex += 1) {
@@ -71,8 +88,10 @@ function findAcceptedPair(rule: ProvisionalMixedRuleDefinition, context: Provisi
         { input: sourceInput, output: sourceOutput },
         { input: targetInput, output: targetOutput },
       ];
-      const matches = matchingProvisionalMixedRules(evidence).filter((match) => match.priority <= rule.priority);
-      if (matches.length === 1 && matches[0].ruleId === rule.id && matches[0].contextKey === intendedContextKey) {
+      const matches = matchingProvisionalMixedRules(evidence)
+        .filter((match) => match.priority <= rule.priority);
+      if (matches.length === 1 && matches[0].ruleId === rule.id &&
+          matches[0].contextKey === intendedContextKey) {
         return { sourceInput, sourceOutput, targetInput, targetOutput };
       }
     }
@@ -80,15 +99,18 @@ function findAcceptedPair(rule: ProvisionalMixedRuleDefinition, context: Provisi
   return null;
 }
 
-const sameResultKind = (left: MixedResult, right: MixedResult) => left.kind === right.kind;
+const sameResultKind = (left: MixedResult, right: MixedResult): boolean => left.kind === right.kind;
 
 function genericCandidates(correct: MixedResult): readonly MixedResult[] {
   switch (correct.kind) {
     case "NUMBER":
-      return [-3, -2, -1, 1, 2, 3].map((delta) => correct.number + delta)
-        .filter(bounded).map(numberToken);
+      return [-5, -3, -2, -1, 1, 2, 3, 5]
+        .map((delta) => correct.number + delta)
+        .filter(bounded)
+        .map(numberToken);
     case "LETTER":
-      return [-3, -2, -1, 1, 2, 3].map((delta) => letterToken(shiftLetter(correct.letter, delta)));
+      return [-3, -2, -1, 1, 2, 3]
+        .map((delta) => letterToken(shiftLetter(correct.letter, delta)));
     case "LETTER_NUMBER":
       return [
         letterNumberToken(shiftLetter(correct.letter, 1), correct.number),
@@ -113,10 +135,14 @@ function genericCandidates(correct: MixedResult): readonly MixedResult[] {
       return [
         ...(plus ? [clusterNumberToken(plus, correct.number)] : []),
         ...(minus ? [clusterNumberToken(minus, correct.number)] : []),
-        clusterNumberToken(correct.letters, correct.number + 1),
-        clusterNumberToken(correct.letters, correct.number - 1),
-        ...(plus ? [clusterNumberToken(plus, correct.number + 1)] : []),
-        ...(minus ? [clusterNumberToken(minus, correct.number - 1)] : []),
+        ...(bounded(correct.number + 1) ? [clusterNumberToken(correct.letters, correct.number + 1)] : []),
+        ...(bounded(correct.number - 1) ? [clusterNumberToken(correct.letters, correct.number - 1)] : []),
+        ...(plus && bounded(correct.number + 1)
+          ? [clusterNumberToken(plus, correct.number + 1)]
+          : []),
+        ...(minus && bounded(correct.number - 1)
+          ? [clusterNumberToken(minus, correct.number - 1)]
+          : []),
       ];
     }
     case "LETTER_GROUP":
@@ -155,35 +181,50 @@ function formsAlternative(pair: AcceptedPair, candidate: MixedResult): boolean {
   ]).length > 0;
 }
 
-const summaries: Array<{ ruleId: string; contextKey: string; acceptedDistractors: number; rejectedAlternatives: number }> = [];
+const summaries: Array<{
+  ruleId: string;
+  contextKey: string;
+  acceptedDistractors: number;
+  rejectedAlternatives: number;
+}> = [];
 
-for (const rule of ANA_CP008_PROVISIONAL_RULES) for (const context of rule.contexts) {
-  const pair = findAcceptedPair(rule, context);
-  assert.ok(pair, `${rule.id} ${provisionalMixedContextKey(context)} has no accepted pair.`);
-  const distractors: MixedResult[] = [];
-  let rejectedAlternatives = 0;
-  for (const candidate of rawCandidates(rule, context, pair)) {
-    if (!sameResultKind(pair.targetOutput, candidate) || sameMixedToken(pair.targetOutput, candidate)) continue;
-    if (distractors.some((existing) => sameMixedToken(existing, candidate))) continue;
-    if (formsAlternative(pair, candidate)) {
-      rejectedAlternatives += 1;
-      continue;
+for (const rule of ANA_CP008_PROVISIONAL_RULES) {
+  for (const context of rule.contexts) {
+    const pair = findAcceptedPair(rule, context);
+    assert.ok(pair, `${rule.id} ${provisionalMixedContextKey(context)} has no accepted pair.`);
+    const distractors: MixedResult[] = [];
+    let rejectedAlternatives = 0;
+
+    for (const candidate of rawCandidates(rule, context, pair)) {
+      if (!sameResultKind(pair.targetOutput, candidate) || sameMixedToken(pair.targetOutput, candidate)) {
+        continue;
+      }
+      if (distractors.some((existing) => sameMixedToken(existing, candidate))) continue;
+      if (formsAlternative(pair, candidate)) {
+        rejectedAlternatives += 1;
+        continue;
+      }
+      distractors.push(candidate);
+      if (distractors.length === 3) break;
     }
-    distractors.push(candidate);
-    if (distractors.length === 3) break;
+
+    assert.equal(
+      distractors.length,
+      3,
+      `${rule.id} ${provisionalMixedContextKey(context)} cannot produce three safe distractors.`,
+    );
+    assert.equal(new Set([pair.targetOutput, ...distractors].map(mixedTokenKey)).size, 4);
+    summaries.push({
+      ruleId: rule.id,
+      contextKey: provisionalMixedContextKey(context),
+      acceptedDistractors: distractors.length,
+      rejectedAlternatives,
+    });
   }
-  assert.equal(distractors.length, 3,
-    `${rule.id} ${provisionalMixedContextKey(context)} cannot produce three safe distractors.`);
-  assert.equal(new Set([pair.targetOutput, ...distractors].map(mixedTokenKey)).size, 4);
-  summaries.push({
-    ruleId: rule.id,
-    contextKey: provisionalMixedContextKey(context),
-    acceptedDistractors: distractors.length,
-    rejectedAlternatives,
-  });
 }
 
-assert.equal(summaries.length, 69);
+assert.equal(summaries.length, 74);
+
 console.log("ANA-CP-008 provisional option-yield audit passed.", {
   contexts: summaries.length,
   validatedOptionSets: summaries.length,
