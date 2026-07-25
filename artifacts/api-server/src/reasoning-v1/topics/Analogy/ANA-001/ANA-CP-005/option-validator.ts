@@ -1,4 +1,8 @@
-import { solveAlphabetRule, type AlphabetPair } from "./independent-solver";
+import {
+  matchingAlphabetRules,
+  solveAlphabetRule,
+  type AlphabetPair,
+} from "./independent-solver";
 import type { AlphabetPresentationMode } from "./question-language.en";
 import type { AlphabetRuleContext } from "./rule-definitions";
 
@@ -13,10 +17,27 @@ function optionKey(value: AlphabetOptionValue): string {
   return Array.isArray(value) ? `${value[0]}:${value[1]}` : value;
 }
 
+function evidenceForOption(
+  presentationMode: AlphabetPresentationMode,
+  source: AlphabetPair,
+  target: AlphabetPair,
+  value: AlphabetOptionValue,
+): readonly AlphabetPair[] | null {
+  if (presentationMode === "DIRECT_COMPLETION") {
+    return typeof value === "string"
+      ? [source, { left: target.left, right: value }]
+      : null;
+  }
+  return Array.isArray(value)
+    ? [source, { left: value[0], right: value[1] }]
+    : null;
+}
+
 export function validateAlphabetOptions(
   ruleId: string,
   context: AlphabetRuleContext,
   presentationMode: AlphabetPresentationMode,
+  source: AlphabetPair,
   target: AlphabetPair,
   options: readonly AlphabetOption[],
 ): number {
@@ -39,6 +60,19 @@ export function validateAlphabetOptions(
   if (correctIndexes.length !== 1) {
     throw new Error(`ANA-CP-005 expected one correct option, found ${correctIndexes.length}.`);
   }
+
+  for (const [index, option] of options.entries()) {
+    if (index === correctIndexes[0]) continue;
+    const evidence = evidenceForOption(presentationMode, source, target, option.value);
+    if (!evidence) throw new Error("ANA-CP-005 option shape does not match its presentation mode.");
+    const competingMatches = matchingAlphabetRules(evidence);
+    if (competingMatches.length > 0) {
+      throw new Error(
+        `ANA-CP-005 distractor ${index} forms a registered alternative rule: ${competingMatches.map((match) => match.ruleId).join(", ")}.`,
+      );
+    }
+  }
+
   if (options[correctIndexes[0]].errorLabel !== null) {
     throw new Error("The correct ANA-CP-005 option must have a null error label.");
   }
