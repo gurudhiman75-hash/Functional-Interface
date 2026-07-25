@@ -44,7 +44,7 @@ jobs:
       - name: Bundle MEN-001 runtime proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/men-001.test.ts
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/men-001-natural-runtime.test.ts
           --bundle
           --platform=node
           --format=esm
