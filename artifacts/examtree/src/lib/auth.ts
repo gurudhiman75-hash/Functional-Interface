@@ -17,13 +17,13 @@ import {
   type User,
 } from "@/lib/storage";
 
-const ACCOUNT_BLOCK_NOTICE_KEY = "examtree.account-block-notice-shown";
-
 type DevelopmentSessionOptions = {
   email: string;
   name?: string;
   role: "admin" | "student";
 };
+
+type BlockedAccountCode = "ACCOUNT_SUSPENDED" | "ACCOUNT_UNAVAILABLE";
 
 export function createDevelopmentSession({
   email,
@@ -59,33 +59,28 @@ function createAdminHandoffUser(firebaseUser: FirebaseUser): User {
   };
 }
 
-function blockedAccountCode(error: unknown): string | undefined {
-  if (!(error instanceof ApiError) || error.status !== 403) return undefined;
+function getBlockedAccountCode(error: unknown): BlockedAccountCode | null {
+  if (!(error instanceof ApiError) || error.status !== 403) return null;
   const code = getApiErrorCode(error.body);
-  return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE" ? code : undefined;
+  return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE" ? code : null;
 }
 
-function isBlockedAccountError(error: unknown): boolean {
-  return blockedAccountCode(error) != null;
+function blockedAccountNotice(code: BlockedAccountCode): string {
+  if (code === "ACCOUNT_SUSPENDED") {
+    return "Your ExamTree account has been suspended by an administrator. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support if you believe this is a mistake.";
+  }
+  return "Your ExamTree account is currently unavailable or has been removed. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support for assistance.";
 }
 
-function showBlockedAccountNotice(code?: string): void {
-  if (typeof window === "undefined") return;
-  try {
-    if (window.sessionStorage.getItem(ACCOUNT_BLOCK_NOTICE_KEY) === "1") return;
-    window.sessionStorage.setItem(ACCOUNT_BLOCK_NOTICE_KEY, "1");
-  } catch {
-    // A browser may block session storage. The notice can still be shown.
+async function terminateBlockedStudentSession(code: BlockedAccountCode): Promise<void> {
+  if (typeof window !== "undefined") {
+    const noticeKey = `examtree.blocked-account-notice.${code}`;
+    if (!window.sessionStorage.getItem(noticeKey)) {
+      window.sessionStorage.setItem(noticeKey, "shown");
+      window.alert(blockedAccountNotice(code));
+    }
   }
 
-  const message = code === "ACCOUNT_SUSPENDED"
-    ? "Your ExamTree account has been suspended by an administrator. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support if you believe this is a mistake."
-    : "Your ExamTree account is currently unavailable. You have been signed out. Please contact ExamTree support for assistance.";
-  window.alert(message);
-}
-
-async function terminateBlockedStudentSession(code?: string): Promise<void> {
-  showBlockedAccountNotice(code);
   clearAuth();
   clearStudentLocalData();
   const auth = getFirebaseAuth();
@@ -93,7 +88,8 @@ async function terminateBlockedStudentSession(code?: string): Promise<void> {
     await signOut(auth).catch(() => undefined);
   }
   if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
-    window.location.replace(`/login?reason=${code === "ACCOUNT_SUSPENDED" ? "account-suspended" : "account-unavailable"}`);
+    const reason = code === "ACCOUNT_SUSPENDED" ? "account-suspended" : "account-unavailable";
+    window.location.replace(`/login?reason=${reason}`);
   }
 }
 
@@ -105,8 +101,9 @@ async function fetchOrCreateUserProfile(
     setUser(existing);
     return existing;
   } catch (error) {
-    if (isBlockedAccountError(error)) {
-      await terminateBlockedStudentSession(blockedAccountCode(error));
+    const blockedCode = getBlockedAccountCode(error);
+    if (blockedCode) {
+      await terminateBlockedStudentSession(blockedCode);
       throw error;
     }
 
@@ -122,8 +119,9 @@ async function fetchOrCreateUserProfile(
       setUser(created);
       return created;
     } catch (createError) {
-      if (isBlockedAccountError(createError)) {
-        await terminateBlockedStudentSession(blockedAccountCode(createError));
+      const createBlockedCode = getBlockedAccountCode(createError);
+      if (createBlockedCode) {
+        await terminateBlockedStudentSession(createBlockedCode);
       }
       throw createError;
     }
@@ -153,12 +151,6 @@ export async function signInWithGoogle(): Promise<User> {
   const auth = getFirebaseAuth();
   if (!auth) {
     throw new Error("Firebase auth not available in development mode");
-  }
-
-  try {
-    window.sessionStorage.removeItem(ACCOUNT_BLOCK_NOTICE_KEY);
-  } catch {
-    // Best effort only.
   }
 
   const provider = new GoogleAuthProvider();
@@ -193,8 +185,9 @@ export function syncAuthSession() {
     try {
       await fetchOrCreateUserProfile(currentFirebaseUser);
     } catch (error) {
-      if (isBlockedAccountError(error)) {
-        await terminateBlockedStudentSession(blockedAccountCode(error));
+      const blockedCode = getBlockedAccountCode(error);
+      if (blockedCode) {
+        await terminateBlockedStudentSession(blockedCode);
         currentFirebaseUser = null;
       } else {
         console.warn("Failed to sync auth session:", error);
@@ -213,9 +206,9 @@ export function syncAuthSession() {
     await verifyCurrentAccount();
   });
 
-  // Suspension must take effect in an already-open test runner. The backend
-  // also checks every protected request, while this short poll ejects an idle
-  // or locally active tab even when no navigation/refresh occurs.
+  // Suspension, disabling, and deletion must take effect in an already-open test
+  // runner. The backend checks every protected request, while this short poll
+  // ejects an idle or locally active tab even when no navigation/refresh occurs.
   const statusTimer = window.setInterval(() => {
     void verifyCurrentAccount();
   }, 3_000);
@@ -243,12 +236,6 @@ export async function startGoogleRedirectSignIn() {
   const auth = getFirebaseAuth();
   if (!auth) {
     throw new Error("Firebase auth not available in development mode");
-  }
-
-  try {
-    window.sessionStorage.removeItem(ACCOUNT_BLOCK_NOTICE_KEY);
-  } catch {
-    // Best effort only.
   }
 
   const provider = new GoogleAuthProvider();
