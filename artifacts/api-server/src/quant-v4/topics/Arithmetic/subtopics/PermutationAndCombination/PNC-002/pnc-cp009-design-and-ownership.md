@@ -9,9 +9,9 @@
 CP-009 owns unordered selection where validity depends on:
 
 - compulsory or excluded named members;
-- exact, at-least or at-most category quotas;
+- exact, at-least, at-most or bounded category quotas;
 - participation from every required category;
-- exact or bounded counts from a specially identified subset;
+- exact, at-least, at-most or bounded counts from a specially identified subset;
 - direct logical relations between named members;
 - a named-member condition combined with an exact category quota;
 - bounded recovery from a conditional-selection count.
@@ -29,13 +29,20 @@ CP-009 does not own:
 
 ## Need-based QL admission
 
-The current design admits `PNC-QL-148` through `PNC-QL-172`. The 25 QLs were discovered from material condition families rather than fixed in advance.
+The final current-English design admits `PNC-QL-148` through `PNC-QL-176`. The 29 QLs were discovered from material condition families rather than fixed in advance.
+
+The initial 25-QL checkpoint was expanded after its saturation audit identified two uncovered contracts:
+
+1. an inclusive lower/upper range for the count selected from a specified subset;
+2. simultaneous lower and upper category bounds.
+
+These became QLs `PNC-QL-173` through `PNC-QL-176` under two reusable range modes.
 
 Noun substitutions and numeric variants are not separate QLs unless they change the solver, evidence or validator contract.
 
 ## Solve contracts
 
-Nineteen contracts are required:
+Twenty-one contracts are required:
 
 1. compulsory members;
 2. excluded members;
@@ -55,8 +62,16 @@ Nineteen contracts are required:
 16. at most a stated count from a specified subset;
 17. compulsory named member plus exact category quota;
 18. excluded named member plus exact category quota;
-19. bounded conditional-selection inverse.
+19. bounded conditional-selection inverse;
+20. inclusive range from a specified subset;
+21. simultaneous two-category range.
 
 ## Proof boundary
 
-Production formulas use exact combination arithmetic. Independent verification enumerates every fixed-size subset and evaluates the actual named-member and category predicates. The checkpoint remains English-only and unpublished.
+Production formulas use exact combination arithmetic. Independent verification enumerates every fixed-size subset and evaluates the actual named-member, category and inclusive-range predicates. The final proof covers 29 QLs × 12 seeds = 348 deterministic cases, with each case generated twice. The checkpoint remains English-only and unpublished.
+
+## Saturation verdict
+
+`SATURATED FOR CURRENT ENGLISH OWNERSHIP AT RUNTIME-PROOF MATURITY`
+
+The next fixed package boundary is `PNC-CP-010 — Circular Arrangements & Rotational Symmetry`.
