@@ -1,3 +1,4 @@
+import { finalizeAvg001ExplanationLanguage } from "./human-authored-explanation-language-finalizer";
 import type { Avg001QuestionPackage } from "./types";
 
 export function finalizeAvg001ExplanationSymbols(
@@ -10,7 +11,7 @@ export function finalizeAvg001ExplanationSymbols(
       .replaceAll("—", "-")
       .replace(/\s+x\s+/g, " × "),
   );
-  return {
+  const normalized: Avg001QuestionPackage = {
     ...pkg,
     explanation: { lines },
     traceability: {
@@ -18,4 +19,5 @@ export function finalizeAvg001ExplanationSymbols(
       explanationSymbolFinalizer: "AVG-001 normalized arithmetic symbols v1",
     },
   };
+  return finalizeAvg001ExplanationLanguage(normalized);
 }
