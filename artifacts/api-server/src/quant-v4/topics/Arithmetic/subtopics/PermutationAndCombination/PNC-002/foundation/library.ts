@@ -2,56 +2,72 @@ import questionLanguageBase from "../question-language.en.json";
 import questionLanguageSaturation from "../question-language.cp007-saturation.en.json";
 import questionLanguageCp008 from "../question-language.cp008.en.json";
 import questionLanguageCp008Saturation from "../question-language.cp008-saturation.en.json";
+import questionLanguageCp009 from "../question-language.cp009.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistrySaturation from "../task-registry.cp007-saturation.library.json";
 import taskRegistryCp008 from "../task-registry.cp008.library.json";
 import taskRegistryCp008Saturation from "../task-registry.cp008-saturation.library.json";
+import taskRegistryCp009 from "../task-registry.cp009.library.json";
 import explanationLibraryBase from "../explanation-by-ql.en.json";
 import explanationLibrarySaturation from "../explanation-by-ql.cp007-saturation.en.json";
 import explanationLibraryCp008 from "../explanation-by-ql.cp008.en.json";
 import explanationLibraryCp008Saturation from "../explanation-by-ql.cp008-saturation.en.json";
+import explanationLibraryCp009 from "../explanation-by-ql.cp009.en.json";
 import variableRangesBase from "../variable-ranges.library.json";
 import variableRangesSaturation from "../variable-ranges.cp007-saturation.library.json";
 import variableRangesCp008 from "../variable-ranges.cp008.library.json";
 import variableRangesCp008Saturation from "../variable-ranges.cp008-saturation.library.json";
+import variableRangesCp009 from "../variable-ranges.cp009.library.json";
 import constraintProfilesBase from "../constraint-profiles.library.json";
 import constraintProfilesSaturation from "../constraint-profiles.cp007-saturation.library.json";
 import constraintProfilesCp008 from "../constraint-profiles.cp008.library.json";
 import constraintProfilesCp008Saturation from "../constraint-profiles.cp008-saturation.library.json";
+import constraintProfilesCp009 from "../constraint-profiles.cp009.library.json";
 import type {
   Pnc002QuestionEntry,
   Pnc002QuestionLanguageEntry,
   Pnc002RegistryGroup,
 } from "./types";
 
-type ExplanationRecord = { lines: string[] };
+interface ExplanationRecord { lines: string[] }
 type VariableRanges = {
   packageId: string;
   answerCeiling: number;
   pools: typeof variableRangesBase.pools
     & typeof variableRangesSaturation.pools
     & typeof variableRangesCp008.pools
-    & typeof variableRangesCp008Saturation.pools;
+    & typeof variableRangesCp008Saturation.pools
+    & typeof variableRangesCp009.pools;
 };
 type ConstraintProfile = { orderMatters: boolean; linear: boolean; rule: string };
+type RegistryOverride = Partial<Pick<
+  Pnc002RegistryGroup,
+  "difficulty" | "explanationId" | "requiredVariables" | "scenarioFamily" | "constraintProfile" | "distractorProfile" | "solveMode" | "taskKind"
+>>;
 
 const qlEntries = [
   ...questionLanguageBase.entries,
   ...questionLanguageSaturation.entries,
   ...questionLanguageCp008.entries,
   ...questionLanguageCp008Saturation.entries,
+  ...questionLanguageCp009.entries,
 ] as Pnc002QuestionLanguageEntry[];
 const registryGroups = [
   ...taskRegistryBase.groups,
   ...taskRegistrySaturation.groups,
   ...taskRegistryCp008.groups,
   ...taskRegistryCp008Saturation.groups,
+  ...taskRegistryCp009.groups,
 ] as Pnc002RegistryGroup[];
+const registryOverrides = {
+  ...(taskRegistryCp009.perQlOverrides ?? {}),
+} as Record<string, RegistryOverride>;
 const explanations = {
   ...explanationLibraryBase.entries,
   ...explanationLibrarySaturation.entries,
   ...explanationLibraryCp008.entries,
   ...explanationLibraryCp008Saturation.entries,
+  ...explanationLibraryCp009.entries,
 } as Record<string, ExplanationRecord>;
 const variableRanges: VariableRanges = {
   packageId: variableRangesBase.packageId,
@@ -61,6 +77,7 @@ const variableRanges: VariableRanges = {
     ...variableRangesSaturation.pools,
     ...variableRangesCp008.pools,
     ...variableRangesCp008Saturation.pools,
+    ...variableRangesCp009.pools,
   },
 };
 const constraintProfiles = {
@@ -68,6 +85,7 @@ const constraintProfiles = {
   ...constraintProfilesSaturation.profiles,
   ...constraintProfilesCp008.profiles,
   ...constraintProfilesCp008Saturation.profiles,
+  ...constraintProfilesCp009.profiles,
 } as Record<string, ConstraintProfile>;
 
 const registryByQl = new Map<string, Pnc002RegistryGroup>();
@@ -82,19 +100,20 @@ for (const group of registryGroups) {
 const entries: Pnc002QuestionEntry[] = qlEntries.map((ql) => {
   const registry = registryByQl.get(ql.qlId);
   if (!registry) throw new Error(`Missing PNC-002 registry record for ${ql.qlId}`);
-  if (registry.cpId !== ql.cpId) throw new Error(`PNC-002 CP mismatch for ${ql.qlId}`);
-  if (registry.difficulty !== ql.difficulty) throw new Error(`PNC-002 difficulty mismatch for ${ql.qlId}`);
+  const effective = { ...registry, ...(registryOverrides[ql.qlId] ?? {}) } as Pnc002RegistryGroup;
+  if (effective.cpId !== ql.cpId) throw new Error(`PNC-002 CP mismatch for ${ql.qlId}`);
+  if (effective.difficulty !== ql.difficulty) throw new Error(`PNC-002 difficulty mismatch for ${ql.qlId}`);
   return {
     ...ql,
-    taskKind: registry.taskKind,
-    solveMode: registry.solveMode,
-    answerType: registry.answerType,
-    explanationId: registry.explanationId,
-    requiredVariables: [...registry.requiredVariables],
-    scenarioFamily: registry.scenarioFamily,
-    constraintProfile: registry.constraintProfile,
-    distractorProfile: registry.distractorProfile,
-    active: registry.active,
+    taskKind: effective.taskKind,
+    solveMode: effective.solveMode,
+    answerType: effective.answerType,
+    explanationId: effective.explanationId,
+    requiredVariables: [...effective.requiredVariables],
+    scenarioFamily: effective.scenarioFamily,
+    constraintProfile: effective.constraintProfile,
+    distractorProfile: effective.distractorProfile,
+    active: effective.active,
   };
 });
 
@@ -102,6 +121,9 @@ const qlIds = entries.map((entry) => entry.qlId);
 if (new Set(qlIds).size !== qlIds.length) throw new Error("Duplicate PNC-002 question-language IDs");
 for (const qlId of registryByQl.keys()) {
   if (!qlIds.includes(qlId)) throw new Error(`Registry record ${qlId} has no PNC-002 language entry`);
+}
+for (const qlId of Object.keys(registryOverrides)) {
+  if (!registryByQl.has(qlId)) throw new Error(`PNC-002 registry override ${qlId} has no group ownership`);
 }
 const explanationIds = Object.keys(explanations).sort();
 if (JSON.stringify(explanationIds) !== JSON.stringify([...qlIds].sort())) {
