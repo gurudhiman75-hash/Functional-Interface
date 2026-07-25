@@ -35,6 +35,9 @@ jobs:
       - name: Run CP-001 to CP-004 editorial regression audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
 
+      - name: Enforce standard competitive-exam stem language
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-standard-exam-stems.test.ts
+
       - name: Export CP-001 to CP-004 editorial review corpus
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/export-cp001-cp004-review.ts cod-review-output
 
