@@ -1,8 +1,13 @@
-import questionLanguage from "../question-language.en.json";
-import taskRegistry from "../task-registry.library.json";
-import explanationLibrary from "../explanation-by-ql.en.json";
-import variableRanges from "../variable-ranges.library.json";
-import constraintProfiles from "../constraint-profiles.library.json";
+import questionLanguageBase from "../question-language.en.json";
+import questionLanguageSaturation from "../question-language.cp007-saturation.en.json";
+import taskRegistryBase from "../task-registry.library.json";
+import taskRegistrySaturation from "../task-registry.cp007-saturation.library.json";
+import explanationLibraryBase from "../explanation-by-ql.en.json";
+import explanationLibrarySaturation from "../explanation-by-ql.cp007-saturation.en.json";
+import variableRangesBase from "../variable-ranges.library.json";
+import variableRangesSaturation from "../variable-ranges.cp007-saturation.library.json";
+import constraintProfilesBase from "../constraint-profiles.library.json";
+import constraintProfilesSaturation from "../constraint-profiles.cp007-saturation.library.json";
 import type {
   Pnc002QuestionEntry,
   Pnc002QuestionLanguageEntry,
@@ -10,12 +15,37 @@ import type {
 } from "./types";
 
 type ExplanationRecord = { lines: string[] };
-type VariableRanges = typeof variableRanges;
+type VariableRanges = {
+  packageId: string;
+  answerCeiling: number;
+  pools: typeof variableRangesBase.pools & typeof variableRangesSaturation.pools;
+};
 type ConstraintProfile = { orderMatters: boolean; linear: boolean; rule: string };
 
-const qlEntries = questionLanguage.entries as Pnc002QuestionLanguageEntry[];
-const registryGroups = taskRegistry.groups as Pnc002RegistryGroup[];
-const explanations = explanationLibrary.entries as Record<string, ExplanationRecord>;
+const qlEntries = [
+  ...questionLanguageBase.entries,
+  ...questionLanguageSaturation.entries,
+] as Pnc002QuestionLanguageEntry[];
+const registryGroups = [
+  ...taskRegistryBase.groups,
+  ...taskRegistrySaturation.groups,
+] as Pnc002RegistryGroup[];
+const explanations = {
+  ...explanationLibraryBase.entries,
+  ...explanationLibrarySaturation.entries,
+} as Record<string, ExplanationRecord>;
+const variableRanges: VariableRanges = {
+  packageId: variableRangesBase.packageId,
+  answerCeiling: variableRangesBase.answerCeiling,
+  pools: {
+    ...variableRangesBase.pools,
+    ...variableRangesSaturation.pools,
+  },
+};
+const constraintProfiles = {
+  ...constraintProfilesBase.profiles,
+  ...constraintProfilesSaturation.profiles,
+} as Record<string, ConstraintProfile>;
 
 const registryByQl = new Map<string, Pnc002RegistryGroup>();
 for (const group of registryGroups) {
@@ -87,7 +117,7 @@ export function getPnc002VariableRanges(): VariableRanges {
 }
 
 export function getPnc002ConstraintProfile(profileId: string): ConstraintProfile {
-  const profile = (constraintProfiles.profiles as Record<string, ConstraintProfile>)[profileId];
+  const profile = constraintProfiles[profileId];
   if (!profile) throw new Error(`Unknown PNC-002 constraint profile: ${profileId}`);
   return { ...profile };
 }
