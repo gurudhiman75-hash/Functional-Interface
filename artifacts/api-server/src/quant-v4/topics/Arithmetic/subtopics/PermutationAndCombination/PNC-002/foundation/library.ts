@@ -5,6 +5,7 @@ import questionLanguageCp008Saturation from "../question-language.cp008-saturati
 import questionLanguageCp009 from "../question-language.cp009.en.json";
 import questionLanguageCp009Saturation from "../question-language.cp009-saturation.en.json";
 import questionLanguageCp010 from "../question-language.cp010.en.json";
+import questionLanguageCp010Saturation from "../question-language.cp010-saturation.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistrySaturation from "../task-registry.cp007-saturation.library.json";
 import taskRegistryCp008 from "../task-registry.cp008.library.json";
@@ -12,6 +13,7 @@ import taskRegistryCp008Saturation from "../task-registry.cp008-saturation.libra
 import taskRegistryCp009 from "../task-registry.cp009.library.json";
 import taskRegistryCp009Saturation from "../task-registry.cp009-saturation.library.json";
 import taskRegistryCp010 from "../task-registry.cp010.library.json";
+import taskRegistryCp010Saturation from "../task-registry.cp010-saturation.library.json";
 import explanationLibraryBase from "../explanation-by-ql.en.json";
 import explanationLibrarySaturation from "../explanation-by-ql.cp007-saturation.en.json";
 import explanationLibraryCp008 from "../explanation-by-ql.cp008.en.json";
@@ -20,6 +22,7 @@ import explanationLibraryCp009 from "../explanation-by-ql.cp009.en.json";
 import explanationLibraryCp009Saturation from "../explanation-by-ql.cp009-saturation.en.json";
 import explanationLibraryCp010 from "../explanation-by-ql.cp010.en.json";
 import explanationLibraryCp010Editorial from "../explanation-by-ql.cp010-editorial.en.json";
+import explanationLibraryCp010Saturation from "../explanation-by-ql.cp010-saturation.en.json";
 import variableRangesBase from "../variable-ranges.library.json";
 import variableRangesSaturation from "../variable-ranges.cp007-saturation.library.json";
 import variableRangesCp008 from "../variable-ranges.cp008.library.json";
@@ -34,6 +37,7 @@ import constraintProfilesCp008Saturation from "../constraint-profiles.cp008-satu
 import constraintProfilesCp009 from "../constraint-profiles.cp009.library.json";
 import constraintProfilesCp009Saturation from "../constraint-profiles.cp009-saturation.library.json";
 import constraintProfilesCp010 from "../constraint-profiles.cp010.library.json";
+import constraintProfilesCp010Saturation from "../constraint-profiles.cp010-saturation.library.json";
 import type {
   Pnc002QuestionEntry,
   Pnc002QuestionLanguageEntry,
@@ -66,6 +70,7 @@ const qlEntries = [
   ...questionLanguageCp009.entries,
   ...questionLanguageCp009Saturation.entries,
   ...questionLanguageCp010.entries,
+  ...questionLanguageCp010Saturation.entries,
 ] as Pnc002QuestionLanguageEntry[];
 const registryGroups = [
   ...taskRegistryBase.groups,
@@ -75,6 +80,7 @@ const registryGroups = [
   ...taskRegistryCp009.groups,
   ...taskRegistryCp009Saturation.groups,
   ...taskRegistryCp010.groups,
+  ...taskRegistryCp010Saturation.groups,
 ] as Pnc002RegistryGroup[];
 const registryOverrides = {
   ...(taskRegistryCp009.perQlOverrides ?? {}),
@@ -89,6 +95,7 @@ const explanations = {
   ...explanationLibraryCp009Saturation.entries,
   ...explanationLibraryCp010.entries,
   ...explanationLibraryCp010Editorial.entries,
+  ...explanationLibraryCp010Saturation.entries,
 } as Record<string, ExplanationRecord>;
 const variableRanges: VariableRanges = {
   packageId: variableRangesBase.packageId,
@@ -111,6 +118,7 @@ const constraintProfiles = {
   ...constraintProfilesCp009.profiles,
   ...constraintProfilesCp009Saturation.profiles,
   ...constraintProfilesCp010.profiles,
+  ...constraintProfilesCp010Saturation.profiles,
 } as Record<string, ConstraintProfile>;
 
 const registryByQl = new Map<string, Pnc002RegistryGroup>();
