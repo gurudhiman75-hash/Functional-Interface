@@ -1,4 +1,4 @@
-name: Validate DIR-001 runtime proof
+name: Apply and validate DIR-CP-003 shortest-distance illustration
 
 on:
   pull_request:
@@ -6,53 +6,257 @@ on:
       - feat/reasoning-dir-001-design
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
       - .github/workflows/dir-001-runtime-proof.yml
   push:
     branches:
-      - feat/dir-001-foundation
-      - feat/dir-cp-002-path-facing
       - feat/dir-cp-003-displacement
-      - feat/dir-cp-004-relative-position
-      - feat/dir-cp-005-multiple-movers
-      - feat/dir-cp-006-coded-directions
-      - feat/dir-cp-007-sun-shadow
-      - feat/dir-cp-008-advanced-synthesis
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
       - .github/workflows/dir-001-runtime-proof.yml
-  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: validate-dir-001-${{ github.ref }}
+  group: apply-dir-cp-003-shortest-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-dir-001:
+  patch-and-validate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-
     steps:
-      - name: Checkout source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/dir-cp-003-displacement
+          fetch-depth: 0
+
+      - name: Apply guarded correction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001')
+          generator = root / 'DIR-CP-003/generator.ts'
+          diagram = root / 'DIR-CP-002/path-diagram.ts'
+          exporter = root / 'DIR-CP-003/dir-cp-003-generate-review-export.ts'
+          test = root / 'DIR-CP-003/dir-cp-003.test.ts'
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected one match, found {count}')
+              return text.replace(old, new, 1)
+
+          text = generator.read_text()
+          text = replace_once(
+              text,
+              'import { exactDistanceFromComponents, formatDistanceWithUnit, type DistanceDisplayMode, type ExactDistanceValue } from "../foundation/exact-distance";',
+              'import { exactDistanceFromComponents, formatDistanceValue, formatDistanceWithUnit, type DistanceDisplayMode, type ExactDistanceValue } from "../foundation/exact-distance";',
+              'exact-distance import',
+          )
+          text = replace_once(
+              text,
+              '''export interface DistanceExplanation {
+            readonly given: string;
+            readonly movementLines: readonly string[];
+            readonly netLine: string;
+            readonly conclusion: string;
+            readonly diagram: PathDiagramSpec;
+          }''',
+              '''export interface DistanceExplanation {
+            readonly given: string;
+            readonly movementLines: readonly string[];
+            readonly netLine: string;
+            readonly calculationLine: string | null;
+            readonly conclusion: string;
+            readonly diagram: PathDiagramSpec;
+          }''',
+              'DistanceExplanation interface',
+          )
+          text = replace_once(
+              text,
+              '''function baseExplanation(path: BuiltDistancePath, exact: ExactDistanceValue, conclusion: string): DistanceExplanation {
+            return {
+              given: `${path.person.name} starts facing ${DISTANCE_DIRECTION_LABELS[path.initialFacing]}. Reading each turn in order gives the following movements.`,
+              movementLines: movementWalkthrough(path),
+              netLine: netLineFor(exact),
+              conclusion,
+              diagram: buildPathDiagram(path.solved),
+            };
+          }''',
+              '''function shortestDistanceCalculation(exact: ExactDistanceValue, displayMode: DistanceDisplayMode): string {
+            const horizontal = Math.round(Math.abs(exact.dx));
+            const vertical = Math.round(Math.abs(exact.dy));
+            const rendered = formatDistanceWithUnit(exact, displayMode);
+
+            if (horizontal === 0 || vertical === 0) {
+              const remaining = horizontal === 0 ? vertical : horizontal;
+              return `Only one net direction remains after cancellation. Therefore, the straight line from Start to Finish is ${remaining} metres.`;
+            }
+
+            const rootStep = `√(${horizontal}² + ${vertical}²) = √${exact.squaredDistance}`;
+            if (displayMode === "INTEGER") {
+              return `The shortest route is the straight line from Start to Finish: ${rootStep} = ${rendered}.`;
+            }
+            if (displayMode === "RADICAL") {
+              const simplified = formatDistanceValue(exact, "RADICAL");
+              const simplification = simplified === `√${exact.squaredDistance}` ? "" : ` = ${simplified}`;
+              return `The shortest route is the straight line from Start to Finish: ${rootStep}${simplification} metres.`;
+            }
+            return `The shortest route is the straight line from Start to Finish: ${rootStep} ≈ ${rendered}.`;
+          }
+
+          function baseExplanation(
+            path: BuiltDistancePath,
+            exact: ExactDistanceValue,
+            conclusion: string,
+            displayMode: DistanceDisplayMode,
+            illustrateShortestDistance: boolean,
+          ): DistanceExplanation {
+            const shortestDistanceLabel = illustrateShortestDistance ? formatDistanceWithUnit(exact, displayMode) : undefined;
+            return {
+              given: `${path.person.name} starts facing ${DISTANCE_DIRECTION_LABELS[path.initialFacing]}. Reading each turn in order gives the following movements.`,
+              movementLines: movementWalkthrough(path),
+              netLine: netLineFor(exact),
+              calculationLine: illustrateShortestDistance ? shortestDistanceCalculation(exact, displayMode) : null,
+              conclusion,
+              diagram: buildPathDiagram(path.solved, shortestDistanceLabel ? { shortestDistanceLabel } : {}),
+            };
+          }''',
+              'baseExplanation block',
+          )
+          old_call = 'explanation: baseExplanation(path, exact, conclusion),'
+          if text.count(old_call) != 5:
+              raise SystemExit(f'baseExplanation calls: expected five, found {text.count(old_call)}')
+          text = text.replace(old_call, 'explanation: baseExplanation(path, exact, conclusion, "INTEGER", false),', 1)
+          text = text.replace(old_call, 'explanation: baseExplanation(path, exact, conclusion, displayMode, true),', 1)
+          text = text.replace(old_call, 'explanation: baseExplanation(path, exact, conclusion, "INTEGER", true),')
+          generator.write_text(text)
+
+          text = diagram.read_text()
+          text = replace_once(
+              text,
+              '''export interface PathDiagramSpec {
+            readonly kind: "DIRECTION_PATH_DIAGRAM";
+            readonly title: string;
+            readonly coordinateConvention: "EAST_POSITIVE_X_NORTH_POSITIVE_Y";
+            readonly points: readonly PathDiagramPoint[];
+            readonly segments: readonly PathDiagramSegment[];
+            readonly svg: string;
+          }''',
+              '''export interface PathDiagramSpec {
+            readonly kind: "DIRECTION_PATH_DIAGRAM";
+            readonly title: string;
+            readonly coordinateConvention: "EAST_POSITIVE_X_NORTH_POSITIVE_Y";
+            readonly points: readonly PathDiagramPoint[];
+            readonly segments: readonly PathDiagramSegment[];
+            readonly svg: string;
+          }
+
+          export interface PathDiagramOptions {
+            readonly shortestDistanceLabel?: string;
+          }''',
+              'PathDiagramOptions interface',
+          )
+          text = replace_once(
+              text,
+              'function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {',
+              'function renderSvg(spec: Omit<PathDiagramSpec, "svg">, options: PathDiagramOptions): string {',
+              'renderSvg signature',
+          )
+          text = replace_once(
+              text,
+              '  const pointById = new Map(spec.points.map((point) => [point.id, point]));\n\n  const routeLines',
+              '''  const pointById = new Map(spec.points.map((point) => [point.id, point]));
+
+            const shortestDistanceOverlay = options.shortestDistanceLabel
+              ? (() => {
+                  const start = spec.points.find((point) => point.role === "START");
+                  const finish = spec.points.find((point) => point.role === "END");
+                  if (!start || !finish) throw new Error("Shortest-distance illustration requires Start and Finish points");
+                  const from = project(start.coordinate);
+                  const to = project(finish.coordinate);
+                  return [
+                    `<line data-role="shortest-distance-line" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>`,
+                    `<g data-role="shortest-distance-key">`,
+                    `<rect x="568" y="158" width="140" height="72" rx="10" fill="#eff6ff" stroke="#60a5fa"/>`,
+                    `<line x1="584" y1="181" x2="616" y2="181" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 6"/>`,
+                    `<text x="638" y="185" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">Straight line</text>`,
+                    `<text x="638" y="211" text-anchor="middle" font-size="13" font-weight="800" fill="#111827">${escapeXml(options.shortestDistanceLabel)}</text>`,
+                    `</g>`,
+                  ].join("");
+                })()
+              : "";
+
+            const routeLines''',
+              'shortest-distance overlay insertion',
+          )
+          text = replace_once(text, '    routeLines,\n    points,', '    shortestDistanceOverlay,\n    routeLines,\n    points,', 'SVG overlay order')
+          text = replace_once(
+              text,
+              'export function buildPathDiagram(solved: SolvedPath): PathDiagramSpec {',
+              'export function buildPathDiagram(solved: SolvedPath, options: PathDiagramOptions = {}): PathDiagramSpec {',
+              'buildPathDiagram signature',
+          )
+          text = replace_once(text, '  return { ...withoutSvg, svg: renderSvg(withoutSvg) };', '  return { ...withoutSvg, svg: renderSvg(withoutSvg, options) };', 'renderSvg invocation')
+          diagram.write_text(text)
+
+          text = exporter.read_text()
+          text = replace_once(
+              text,
+              '    `<p class="net">${escapeHtml(question.explanation.netLine)}</p>`,\n    `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,',
+              '    `<p class="net">${escapeHtml(question.explanation.netLine)}</p>`,\n    question.explanation.calculationLine ? `<p class="calculation">${escapeHtml(question.explanation.calculationLine)}</p>` : "",\n    `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,',
+              'calculation paragraph',
+          )
+          text = replace_once(
+              text,
+              '.net { background: #fffbeb; border: 1px solid #fbbf24; border-radius: 9px; padding: 12px 14px; line-height: 1.6; }\n.conclusion',
+              '.net { background: #fffbeb; border: 1px solid #fbbf24; border-radius: 9px; padding: 12px 14px; line-height: 1.6; }\n.calculation { background: #f0f9ff; border: 1px solid #38bdf8; border-radius: 9px; padding: 12px 14px; line-height: 1.65; font-weight: 650; }\n.conclusion',
+              'calculation CSS',
+          )
+          text = replace_once(
+              text,
+              'Each item contains a natural exam question, a short movement walkthrough, one net-movement sentence, one direct conclusion, and a plain route diagram at the end.',
+              'Each item contains a natural exam question, a short movement walkthrough, the net movement, a visible straight-line shortest-distance calculation, one direct conclusion, and a plain route diagram at the end.',
+              'cover copy',
+          )
+          exporter.write_text(text)
+
+          text = test.read_text()
+          text = replace_once(
+              text,
+              '''    assert.equal((generated.explanation.diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+              assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));''',
+              '''    assert.equal((generated.explanation.diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+              const illustratesShortestDistance = ql.answerDemand !== "MISSING_MOVEMENT_DISTANCE";
+              assert.equal(generated.explanation.calculationLine !== null, illustratesShortestDistance);
+              assert.equal((generated.explanation.diagram.svg.match(/data-role="shortest-distance-line"/g) ?? []).length, illustratesShortestDistance ? 1 : 0);
+              assert.equal((generated.explanation.diagram.svg.match(/data-role="shortest-distance-key"/g) ?? []).length, illustratesShortestDistance ? 1 : 0);
+              if (illustratesShortestDistance) {
+                assert.ok(generated.explanation.calculationLine!.includes("straight line"));
+                assert.ok(generated.explanation.calculationLine!.includes("Start"));
+                assert.ok(generated.explanation.calculationLine!.includes("Finish"));
+                assert.ok(generated.explanation.calculationLine!.includes("√") || generated.explanation.calculationLine!.includes("Only one net direction"));
+              }
+              assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));''',
+              'proof assertions',
+          )
+          test.write_text(text)
+          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Enable pnpm
-        run: corepack enable
-
-      - name: Install locked dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Typecheck DIR-001 module
+      - name: Install dependencies
         run: |
-          set +e
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Strict typecheck
+        run: |
           cd artifacts/api-server
           pnpm exec tsc \
             --noEmit \
@@ -66,150 +270,23 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print) \
-            > ../../dir-001-typecheck.log 2>&1
-          status="$?"
-          cd ../..
-          echo "$status" > dir-001-typecheck-exit.txt
-          cat dir-001-typecheck.log
-          exit 0
+            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
 
-      - name: Publish DIR-001 typecheck diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-001-typecheck-diagnostics
-          path: |
-            dir-001-typecheck.log
-            dir-001-typecheck-exit.txt
-          if-no-files-found: error
-          retention-days: 7
-
-      - name: Enforce DIR-001 typecheck result
-        run: test "$(cat dir-001-typecheck-exit.txt)" = "0"
-
-      - name: Bundle foundation proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/foundation/foundation.test.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/reasoning-v1/dir-001-foundation.test.mjs
-
-      - name: Run foundation proof
-        run: node artifacts/api-server/dist/reasoning-v1/dir-001-foundation.test.mjs
-
-      - name: Bundle CP-001 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-001/dir-cp-001.test.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-001.test.mjs
-
-      - name: Run CP-001 proof
-        run: node artifacts/api-server/dist/reasoning-v1/dir-cp-001.test.mjs
-
-      - name: Bundle CP-002 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002.test.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-002.test.mjs
-
-      - name: Run CP-002 proof
+      - name: Validate CP-002 regression and CP-003 proof
         run: |
-          set +e
-          node artifacts/api-server/dist/reasoning-v1/dir-cp-002.test.mjs > dir-cp-002-runtime-proof.log 2>&1
-          echo "$?" > dir-cp-002-runtime-proof-exit.txt
-          exit 0
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-cp-002.test.mjs
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-002.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-cp-003.test.mjs
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-003.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003-generate-review-export.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
+          cd artifacts/api-server
+          node dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
 
-      - name: Publish CP-002 proof diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-002-runtime-proof-diagnostics
-          path: |
-            dir-cp-002-runtime-proof.log
-            dir-cp-002-runtime-proof-exit.txt
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Enforce CP-002 proof result
-        run: test "$(cat dir-cp-002-runtime-proof-exit.txt)" = "0"
-
-      - name: Bundle CP-002 review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002-generate-review-export.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
-
-      - name: Generate CP-002 question review files
-        working-directory: artifacts/api-server
-        run: node dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
-
-      - name: Publish CP-002 question review files
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-002-question-review
-          path: artifacts/api-server/dist/reasoning-v1/dir-cp-002-review-export/
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Bundle CP-003 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-003.test.mjs
-
-      - name: Run CP-003 proof
+      - name: Restore permanent workflow and push correction
         run: |
-          set +e
-          node artifacts/api-server/dist/reasoning-v1/dir-cp-003.test.mjs > dir-cp-003-runtime-proof.log 2>&1
-          echo "$?" > dir-cp-003-runtime-proof-exit.txt
-          exit 0
-
-      - name: Publish CP-003 proof diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-003-runtime-proof-diagnostics
-          path: |
-            dir-cp-003-runtime-proof.log
-            dir-cp-003-runtime-proof-exit.txt
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Enforce CP-003 proof result
-        run: test "$(cat dir-cp-003-runtime-proof-exit.txt)" = "0"
-
-      - name: Bundle CP-003 review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003-generate-review-export.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
-
-      - name: Generate CP-003 question review files
-        working-directory: artifacts/api-server
-        run: node dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
-
-      - name: Publish CP-003 question review files
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-003-question-review
-          path: artifacts/api-server/dist/reasoning-v1/dir-cp-003-review-export/
-          if-no-files-found: error
-          retention-days: 14
+          git checkout 2768ae10a4e753cb93621c0a5c2beacfa0064295 -- .github/workflows/dir-001-runtime-proof.yml
+          git config user.name "ExamTree automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add .github/workflows/dir-001-runtime-proof.yml artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001
+          git commit -m "fix(reasoning): illustrate CP-003 shortest-distance derivation"
+          git push origin HEAD:feat/dir-cp-003-displacement
