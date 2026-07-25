@@ -25,6 +25,7 @@ import adminStudentDirectoryHardeningRouter from "./admin-student-directory-hard
 import adminStudentFirebaseSyncRouter from "./admin-student-firebase-sync";
 import adminStudentProfileManagementRouter from "./admin-student-profile-management";
 import adminStudentOperationsRouter from "./admin-student-operations";
+import adminStudentDisableActionsRouter from "./admin-student-disable-actions";
 import adminStudentActionsRouter from "./admin-student-actions";
 import adminStudentsRouter from "./admin-students";
 import adminRequestFailuresRouter from "./admin-request-failures";
@@ -79,6 +80,7 @@ router.use("/admin/students", adminStudentDirectoryHardeningRouter);
 router.use("/admin/students", adminStudentFirebaseSyncRouter);
 router.use("/admin/students", adminStudentProfileManagementRouter);
 router.use("/admin/students", adminStudentOperationsRouter);
+router.use("/admin/students", adminStudentDisableActionsRouter);
 router.use("/admin/students", adminStudentActionsRouter);
 router.use("/admin/students", adminStudentsRouter);
 router.use("/admin/content-review", adminContentIntelligenceRouter);
