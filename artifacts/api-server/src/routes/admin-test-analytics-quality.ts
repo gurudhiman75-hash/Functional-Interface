@@ -7,6 +7,7 @@ import { authenticate } from '../middlewares/auth';
 const router = Router();
 const text = (value: unknown, maximum = 180) => typeof value === 'string' ? value.trim().slice(0, maximum) : '';
 const completed = `('evaluated', 'practice_evaluated')`;
+const MAX_VISIBLE_PUBLICATIONS = 250;
 
 router.use(authenticate);
 
@@ -60,7 +61,6 @@ router.get('/tests/quality', requireAdminPermission('users.students.read'), asyn
         CASE WHEN ("missingFinalScore" + "missingEvaluatedAt" + "missingResultSnapshot" + "responseCountMismatch" + "negativeTimeSpent") > 0 THEN 0
              WHEN "missingResponseCounts" > 0 OR "scoredSample" < 20 THEN 1 ELSE 2 END,
         "issueCount" DESC, "latestActivityAt" DESC
-      LIMIT 250
     `;
 
     const summary = rows.reduce((acc, row) => {
@@ -76,7 +76,9 @@ router.get('/tests/quality', requireAdminPermission('users.students.read'), asyn
     return res.json({
       windowDays: days,
       summary,
-      publications: rows,
+      publications: rows.slice(0, MAX_VISIBLE_PUBLICATIONS),
+      resultLimit: MAX_VISIBLE_PUBLICATIONS,
+      truncated: rows.length > MAX_VISIBLE_PUBLICATIONS,
       thresholds: { usableSample: 20, strongSample: 50 },
       freshness: {
         latestActivityAt: rows.reduce<string | null>((latest, row) => {
