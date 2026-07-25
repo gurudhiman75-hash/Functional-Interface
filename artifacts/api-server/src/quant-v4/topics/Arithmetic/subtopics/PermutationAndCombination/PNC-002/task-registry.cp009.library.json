@@ -21,7 +21,8 @@
     {"qlIds":["PNC-QL-167"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"countAtMostTSpecifiedMembers","answerType":"COUNT","explanationId":"PNC-EXP-167","requiredVariables":["totalObjects","committeeSize","specifiedCount","maximumSpecified"],"scenarioFamily":"atMostSpecifiedMembers","constraintProfile":"AT_MOST_SPECIFIED_MEMBERS","distractorProfile":"AT_MOST_SPECIFIED","difficulty":"Hard","active":true},
     {"qlIds":["PNC-QL-169"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"countNamedCompulsoryWithCategoryQuota","answerType":"COUNT","explanationId":"PNC-EXP-169","requiredVariables":["categoryA","categoryB","committeeSize","requiredFromA"],"scenarioFamily":"namedCompulsoryCategoryQuota","constraintProfile":"NAMED_COMPULSORY_CATEGORY_QUOTA","distractorProfile":"COMPULSORY_QUOTA","difficulty":"Hard","active":true},
     {"qlIds":["PNC-QL-170"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"countNamedExcludedWithCategoryQuota","answerType":"COUNT","explanationId":"PNC-EXP-170","requiredVariables":["categoryA","categoryB","committeeSize","requiredFromA"],"scenarioFamily":"namedExcludedCategoryQuota","constraintProfile":"NAMED_EXCLUDED_CATEGORY_QUOTA","distractorProfile":"EXCLUDED_QUOTA","difficulty":"Hard","active":true},
-    {"qlIds":["PNC-QL-171","PNC-QL-172"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"recoverConditionalSelectionParameter","answerType":"COUNT","explanationId":"PNC-EXP-CONDITIONAL-INVERSE","requiredVariables":["committeeSize","target","searchMinimum","searchMaximum"],"scenarioFamily":"conditionalSelectionInverse","constraintProfile":"CONDITIONAL_SELECTION_INVERSE","distractorProfile":"CONDITIONAL_INVERSE","difficulty":"Hard","active":true}
+    {"qlIds":["PNC-QL-171"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"recoverConditionalSelectionParameter","answerType":"COUNT","explanationId":"PNC-EXP-171","requiredVariables":["committeeSize","target","searchMinimum","searchMaximum"],"scenarioFamily":"recoverConditionalTotalObjects","constraintProfile":"CONDITIONAL_SELECTION_INVERSE","distractorProfile":"CONDITIONAL_INVERSE","difficulty":"Hard","active":true},
+    {"qlIds":["PNC-QL-172"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"recoverConditionalSelectionParameter","answerType":"COUNT","explanationId":"PNC-EXP-172","requiredVariables":["categoryB","committeeSize","requiredFromA","target","searchMinimum","searchMaximum"],"scenarioFamily":"recoverConditionalCategorySize","constraintProfile":"CONDITIONAL_SELECTION_INVERSE","distractorProfile":"CONDITIONAL_INVERSE","difficulty":"Hard","active":true}
   ],
   "perQlOverrides": {
     "PNC-QL-149":{"difficulty":"Medium","explanationId":"PNC-EXP-149"},
@@ -29,7 +30,6 @@
     "PNC-QL-154":{"difficulty":"Medium","explanationId":"PNC-EXP-154"},
     "PNC-QL-155":{"difficulty":"Medium","explanationId":"PNC-EXP-155"},
     "PNC-QL-156":{"difficulty":"Medium","explanationId":"PNC-EXP-156"},
-    "PNC-QL-168":{"difficulty":"Medium","explanationId":"PNC-EXP-168"},
-    "PNC-QL-172":{"explanationId":"PNC-EXP-172"}
+    "PNC-QL-168":{"difficulty":"Medium","explanationId":"PNC-EXP-168"}
   }
 }
