@@ -65,7 +65,8 @@ requireText(nav, "label: 'Test Analytics'", 'analytics navigation');
 requireText(nav, "label: 'Analytics Data Quality'", 'quality navigation');
 requireText(page, 'No prior baseline', 'null baseline UI');
 requireText(page, 'aggregate cohort benchmarks, not student ranks', 'rank scope disclosure');
-requireText(qualityPage, 'Never repair analytics by editing aggregate outputs', 'quality remediation boundary');
+requireText(qualityPage, 'do not correct analytics by editing aggregate outputs', 'quality remediation boundary');
+requireText(qualityPage, 'Global totals include all matched publications', 'quality result-limit disclosure');
 forbid(page, /@\/data\/analytics|demonstration data/i, 'prototype analytics data');
 
 console.log('Test Analytics freeze contracts validated.');
