@@ -18,6 +18,8 @@ function optionCarriesUnit(option: string, unit: string) {
   if (unit === "₹/m²") return option.startsWith("₹") && option.endsWith("/m²");
   if (unit === "₹/m") return option.startsWith("₹") && option.endsWith("/m");
   if (unit === "°") return option.endsWith("°");
+  if (unit === "%") return option.endsWith("%");
+  if (unit === "times") return option.endsWith(" times");
   if (unit === "cm²") return option.includes("cm²") || option.includes("\\text{cm}^{2}");
   if (unit === "m²") return option.includes("m²") || option.includes("\\text{m}^{2}");
   if (unit === "cm") return option.endsWith(" cm") || option.includes("\\text{cm}");
@@ -88,6 +90,9 @@ for (const entry of getMen001QuestionEntries()) {
       assert.ok(first.stem.includes("π = 22/7"));
       assert.equal(first.solver.workingValues.piPolicy, "22/7");
     }
+    if (first.solver.workingValues.piPolicy === "22/7") {
+      assert.ok(first.stem.includes("π = 22/7"));
+    }
 
     seenQlIds.add(first.questionLanguageId);
     seenSolveModes.add(first.solveMode);
@@ -99,7 +104,7 @@ for (const entry of getMen001QuestionEntries()) {
 assert.deepEqual([...seenQlIds].sort(), getMen001QuestionLanguageIds().sort());
 assert.deepEqual([...seenSolveModes].sort(), getMen001SolveModeIds().sort());
 assert.deepEqual([...seenCpIds].sort(), getMen001ActiveCanonicalProblemIds().sort());
-for (const unit of ["cm", "m", "cm²", "m²", "₹", "₹/m²", "₹/m", "°", "tiles", "revolutions"]) {
+for (const unit of ["cm", "m", "cm²", "m²", "₹", "₹/m²", "₹/m", "°", "tiles", "revolutions", "%", "times"]) {
   assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
 }
 for (const kind of [
