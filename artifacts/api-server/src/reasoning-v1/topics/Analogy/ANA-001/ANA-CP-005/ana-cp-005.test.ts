@@ -135,6 +135,21 @@ for (const ql of ANA_CP005_QLS) {
       }
     }
 
+    for (const [index, option] of generated.options.entries()) {
+      if (index === generated.correctIndex) continue;
+      const evidence = generated.presentationMode === "DIRECT_COMPLETION"
+        ? [generated.source, { left: generated.target.left, right: option.value as string }]
+        : [generated.source, {
+            left: (option.value as readonly [string, string])[0],
+            right: (option.value as readonly [string, string])[1],
+          }];
+      assert.equal(
+        matchingAlphabetRules(evidence).length,
+        0,
+        `${generated.qlId} seed ${seed} has a distractor valid under another registered rule.`,
+      );
+    }
+
     assert.ok(generated.explanation.ruleStatement.length > 20);
     assert.ok(generated.explanation.sourceDemonstration.includes(generated.source.left));
     assert.ok(generated.explanation.targetApplication.includes(generated.target.left));
