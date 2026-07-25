@@ -40,7 +40,10 @@ export function auditPnc001Coverage(): Pnc001CoverageAudit {
     difficultyCounts[entry.difficulty] = (difficultyCounts[entry.difficulty] ?? 0) + 1;
     solveModeCounts[String(entry.solveMode)] = (solveModeCounts[String(entry.solveMode)] ?? 0) + 1;
     const sample = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed: `audit:${entry.qlId}` });
-    if (!sample.validation.valid) invalidRuntimeSamples.push(entry.qlId);
+    if (!sample.validation.valid) {
+      const failed = sample.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",");
+      invalidRuntimeSamples.push(`${entry.qlId}:${failed}`);
+    }
   }
 
   const exactDuplicateTemplates = [...duplicateGroups.values()].filter((count) => count > 1).length;
