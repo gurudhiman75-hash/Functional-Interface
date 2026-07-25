@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/reasoning-ana-001-cp008-pilot
+      - feat/reasoning-ana-001-cp008-presentation-pilot
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/**
       - .github/workflows/ana-cp-008-pilot.yml
@@ -26,7 +27,7 @@ concurrency:
 jobs:
   pilot-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -59,3 +60,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-yield-simulation.ts
       - name: Prove four-option construction yield
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-option-yield.ts
+      - name: Prove presentation-mode yield
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-presentation-yield.ts
