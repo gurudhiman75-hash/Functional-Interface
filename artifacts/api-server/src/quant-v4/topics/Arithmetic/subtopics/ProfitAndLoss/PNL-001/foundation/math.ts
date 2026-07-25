@@ -1,6 +1,7 @@
 import type { Money, PriceLedger, RateResult, Rational } from "./types";
 import {
   asPercent,
+  compareRational,
   divideRational,
   multiplyRational,
   rational,
@@ -19,9 +20,7 @@ export function profitOrLossAmount(ledger: PriceLedger): Money {
 export function profitOrLossRateOnCost(ledger: PriceLedger): RateResult {
   const base = resolveEffectiveCost(ledger);
   const comparison = compareMoney(ledger.sellingPrice, base);
-  if (comparison === 0) {
-    return { direction: "NO_CHANGE", rate: rational(0), base: "EFFECTIVE_COST" };
-  }
+  if (comparison === 0) return { direction: "NO_CHANGE", rate: rational(0), base: "EFFECTIVE_COST" };
   const absoluteDifference = comparison > 0
     ? subtractMoney(ledger.sellingPrice, base)
     : subtractMoney(base, ledger.sellingPrice);
@@ -33,13 +32,12 @@ export function profitOrLossRateOnCost(ledger: PriceLedger): RateResult {
 }
 
 export function marginOnSellingPrice(ledger: PriceLedger): RateResult {
-  const comparison = compareMoney(ledger.sellingPrice, resolveEffectiveCost(ledger));
-  if (comparison === 0) {
-    return { direction: "NO_CHANGE", rate: rational(0), base: "SELLING_PRICE" };
-  }
+  const base = resolveEffectiveCost(ledger);
+  const comparison = compareMoney(ledger.sellingPrice, base);
+  if (comparison === 0) return { direction: "NO_CHANGE", rate: rational(0), base: "SELLING_PRICE" };
   const absoluteDifference = comparison > 0
-    ? subtractMoney(ledger.sellingPrice, resolveEffectiveCost(ledger))
-    : subtractMoney(resolveEffectiveCost(ledger), ledger.sellingPrice);
+    ? subtractMoney(ledger.sellingPrice, base)
+    : subtractMoney(base, ledger.sellingPrice);
   return {
     direction: comparison > 0 ? "PROFIT" : "LOSS",
     rate: asPercent(divideRational(rational(absoluteDifference.paise), rational(ledger.sellingPrice.paise))),
@@ -47,17 +45,21 @@ export function marginOnSellingPrice(ledger: PriceLedger): RateResult {
   };
 }
 
+function rateMultiplier(direction: "PROFIT" | "LOSS", ratePercent: Rational): Rational {
+  const rateFraction = divideRational(ratePercent, rational(100));
+  const multiplier = direction === "PROFIT"
+    ? rational(rateFraction.denominator + rateFraction.numerator, rateFraction.denominator)
+    : rational(rateFraction.denominator - rateFraction.numerator, rateFraction.denominator);
+  if (multiplier.numerator <= 0n) throw new Error("Commercial multiplier must be positive.");
+  return multiplier;
+}
+
 export function sellingPriceFromCostAndRate(input: {
   costPrice: Money;
   direction: "PROFIT" | "LOSS";
   ratePercent: Rational;
 }): Money {
-  const rateFraction = divideRational(input.ratePercent, rational(100));
-  const multiplier = input.direction === "PROFIT"
-    ? rational(rateFraction.denominator + rateFraction.numerator, rateFraction.denominator)
-    : rational(rateFraction.denominator - rateFraction.numerator, rateFraction.denominator);
-  if (multiplier.numerator < 0n) throw new Error("Loss rate cannot exceed 100%.");
-  return multiplyMoney(input.costPrice, multiplier);
+  return multiplyMoney(input.costPrice, rateMultiplier(input.direction, input.ratePercent));
 }
 
 export function costPriceFromSellingPriceAndRate(input: {
@@ -65,44 +67,30 @@ export function costPriceFromSellingPriceAndRate(input: {
   direction: "PROFIT" | "LOSS";
   ratePercent: Rational;
 }): Money {
-  const rateFraction = divideRational(input.ratePercent, rational(100));
-  const multiplier = input.direction === "PROFIT"
-    ? rational(rateFraction.denominator + rateFraction.numerator, rateFraction.denominator)
-    : rational(rateFraction.denominator - rateFraction.numerator, rateFraction.denominator);
-  if (multiplier.numerator <= 0n) throw new Error("Reverse multiplier must be positive.");
-  return multiplyMoney(input.sellingPrice, divideRational(rational(1), multiplier));
+  return multiplyMoney(
+    input.sellingPrice,
+    divideRational(rational(1), rateMultiplier(input.direction, input.ratePercent)),
+  );
 }
 
-export function costPriceFromAmountAndRate(input: {
-  amount: Money;
-  ratePercent: Rational;
-}): Money {
+export function costPriceFromAmountAndRate(input: { amount: Money; ratePercent: Rational }): Money {
   if (input.ratePercent.numerator <= 0n) throw new Error("Rate must be positive.");
   return multiplyMoney(input.amount, divideRational(rational(100), input.ratePercent));
 }
 
-export function rateFromAmountAndCost(input: {
-  amount: Money;
-  costPrice: Money;
-}): Rational {
+export function rateFromAmountAndCost(input: { amount: Money; costPrice: Money }): Rational {
   if (input.costPrice.paise <= 0n) throw new Error("Cost price must be positive.");
   return asPercent(divideRational(rational(input.amount.paise), rational(input.costPrice.paise)));
 }
 
-export function rateFromCostSellingRatio(input: {
-  costPart: Rational;
-  sellingPart: Rational;
-}): RateResult {
-  const comparison = input.sellingPart.numerator * input.costPart.denominator
-    - input.costPart.numerator * input.sellingPart.denominator;
-  if (comparison === 0n) {
-    return { direction: "NO_CHANGE", rate: rational(0), base: "COST_PRICE" };
-  }
-  const absoluteDifference = comparison > 0n
+export function rateFromCostSellingRatio(input: { costPart: Rational; sellingPart: Rational }): RateResult {
+  const comparison = compareRational(input.sellingPart, input.costPart);
+  if (comparison === 0) return { direction: "NO_CHANGE", rate: rational(0), base: "COST_PRICE" };
+  const absoluteDifference = comparison > 0
     ? subtractRational(input.sellingPart, input.costPart)
     : subtractRational(input.costPart, input.sellingPart);
   return {
-    direction: comparison > 0n ? "PROFIT" : "LOSS",
+    direction: comparison > 0 ? "PROFIT" : "LOSS",
     rate: asPercent(divideRational(absoluteDifference, input.costPart)),
     base: "COST_PRICE",
   };
@@ -112,12 +100,7 @@ export function costSellingRatioFromRate(input: {
   direction: "PROFIT" | "LOSS";
   ratePercent: Rational;
 }): Readonly<{ costPart: Rational; sellingPart: Rational }> {
-  const rateFraction = divideRational(input.ratePercent, rational(100));
-  const sellingPart = input.direction === "PROFIT"
-    ? rational(rateFraction.denominator + rateFraction.numerator, rateFraction.denominator)
-    : rational(rateFraction.denominator - rateFraction.numerator, rateFraction.denominator);
-  if (sellingPart.numerator <= 0n) throw new Error("Selling-price ratio part must be positive.");
-  return { costPart: rational(1), sellingPart };
+  return { costPart: rational(1), sellingPart: rateMultiplier(input.direction, input.ratePercent) };
 }
 
 export function profitPercentOnCostFromMarginOnSelling(marginPercent: Rational): Rational {
@@ -125,10 +108,7 @@ export function profitPercentOnCostFromMarginOnSelling(marginPercent: Rational):
   if (marginFraction.numerator >= marginFraction.denominator) {
     throw new Error("Profit margin on selling price must be below 100%.");
   }
-  return asPercent(divideRational(
-    marginFraction,
-    subtractRational(rational(1), marginFraction),
-  ));
+  return asPercent(divideRational(marginFraction, subtractRational(rational(1), marginFraction)));
 }
 
 export function marginOnSellingFromProfitPercentOnCost(profitPercent: Rational): Rational {
@@ -139,12 +119,85 @@ export function marginOnSellingFromProfitPercentOnCost(profitPercent: Rational):
   ));
 }
 
+export function rateFromAmountFraction(input: {
+  direction: "PROFIT" | "LOSS";
+  amountFraction: Rational;
+  fractionBase: "COST_PRICE" | "SELLING_PRICE";
+}): Rational {
+  if (input.amountFraction.numerator < 0n) throw new Error("Fraction cannot be negative.");
+  if (input.fractionBase === "COST_PRICE") return asPercent(input.amountFraction);
+  const denominator = input.direction === "PROFIT"
+    ? subtractRational(rational(1), input.amountFraction)
+    : rational(input.amountFraction.denominator + input.amountFraction.numerator, input.amountFraction.denominator);
+  if (denominator.numerator <= 0n) throw new Error("Invalid selling-price fraction.");
+  return asPercent(divideRational(input.amountFraction, denominator));
+}
+
+export function amountFractionFromRate(input: {
+  direction: "PROFIT" | "LOSS";
+  ratePercent: Rational;
+  fractionBase: "COST_PRICE" | "SELLING_PRICE";
+}): Rational {
+  const rateFraction = divideRational(input.ratePercent, rational(100));
+  if (input.fractionBase === "COST_PRICE") return rateFraction;
+  return input.direction === "PROFIT"
+    ? divideRational(rateFraction, rational(rateFraction.denominator + rateFraction.numerator, rateFraction.denominator))
+    : divideRational(rateFraction, rational(rateFraction.denominator - rateFraction.numerator, rateFraction.denominator));
+}
+
+export function sellingPriceDifferenceFromCostAndRates(input: {
+  costPrice: Money;
+  firstDirection: "PROFIT" | "LOSS";
+  firstRatePercent: Rational;
+  secondDirection: "PROFIT" | "LOSS";
+  secondRatePercent: Rational;
+}): Money {
+  const first = sellingPriceFromCostAndRate({
+    costPrice: input.costPrice,
+    direction: input.firstDirection,
+    ratePercent: input.firstRatePercent,
+  });
+  const second = sellingPriceFromCostAndRate({
+    costPrice: input.costPrice,
+    direction: input.secondDirection,
+    ratePercent: input.secondRatePercent,
+  });
+  return { paise: first.paise >= second.paise ? first.paise - second.paise : second.paise - first.paise };
+}
+
+export function costPriceFromSellingPriceDifference(input: {
+  difference: Money;
+  firstDirection: "PROFIT" | "LOSS";
+  firstRatePercent: Rational;
+  secondDirection: "PROFIT" | "LOSS";
+  secondRatePercent: Rational;
+}): Money {
+  const first = rateMultiplier(input.firstDirection, input.firstRatePercent);
+  const second = rateMultiplier(input.secondDirection, input.secondRatePercent);
+  const delta = compareRational(first, second) >= 0
+    ? subtractRational(first, second)
+    : subtractRational(second, first);
+  if (delta.numerator === 0n) throw new Error("Selling conditions must produce different prices.");
+  return multiplyMoney(input.difference, divideRational(rational(1), delta));
+}
+
+export function secondConditionRate(input: {
+  firstSellingPrice: Money;
+  firstDirection: "PROFIT" | "LOSS";
+  firstRatePercent: Rational;
+  secondSellingPrice: Money;
+}): RateResult {
+  const costPrice = costPriceFromSellingPriceAndRate({
+    sellingPrice: input.firstSellingPrice,
+    direction: input.firstDirection,
+    ratePercent: input.firstRatePercent,
+  });
+  return profitOrLossRateOnCost({ costPrice, sellingPrice: input.secondSellingPrice });
+}
+
 export function sellingPriceAfterDiscount(markedPrice: Money, discountPercent: Rational): Money {
   const discountFraction = divideRational(discountPercent, rational(100));
-  const multiplier = rational(
-    discountFraction.denominator - discountFraction.numerator,
-    discountFraction.denominator,
-  );
+  const multiplier = rational(discountFraction.denominator - discountFraction.numerator, discountFraction.denominator);
   if (multiplier.numerator < 0n) throw new Error("Discount cannot exceed 100%.");
   return multiplyMoney(markedPrice, multiplier);
 }
