@@ -76,7 +76,7 @@ jobs:
           --outfile=dist/quant-v4/pnc-001-latex-proof.mjs
 
       - name: Run PNC-001 proof
-        id: pnc-proof
+        id: pnc_proof
         working-directory: artifacts/api-server
         run: |
           set +e
@@ -101,7 +101,7 @@ jobs:
           retention-days: 7
 
       - name: Enforce PNC proof result
-        if: steps.pnc-proof.outputs.status != '0'
+        if: steps.pnc_proof.outputs.status != '0'
         run: exit 1
 
       - name: Typecheck admin application
