@@ -53,6 +53,7 @@ const genericRuleStatements = [
 const difficultiesByQl = new Map<string, Set<string>>();
 let generated = 0;
 let recoveryQuestions = 0;
+let scalarRecoveryQuestions = 0;
 let trapSpecificQuestions = 0;
 let exactRuleQuestions = 0;
 
@@ -109,9 +110,23 @@ for (const checkpoint of checkpoints) {
         assert.equal(typeof displayed, "string", `${qlId}/${seed} must expose a masked target code`);
         assert.equal((displayed.match(/\?/g) ?? []).length, 1, `${qlId}/${seed} must show exactly one blank`);
         assert.equal(question.stem.includes(displayed), true, `${qlId}/${seed} stem must display the masked code`);
-        if (checkpoint.checkpointId === "COD-CP-002" && question.structuredPrompt.outputShape === "SEQUENCE") {
-          assert.equal(displayed.split("-").length, question.structuredPrompt.targetWord.length);
-          assert.equal(displayed.split("-")[question.structuredPrompt.missingIndex], "?");
+        if (checkpoint.checkpointId === "COD-CP-002") {
+          const application = question.explanation.targetApplication.join(" ");
+          assert.equal(/\bis shown as \?; therefore/i.test(application), false, `${qlId}/${seed} uses a generic recovery sentence`);
+          if (question.structuredPrompt.outputShape === "SEQUENCE") {
+            assert.equal(displayed.split("-").length, question.structuredPrompt.targetWord.length);
+            assert.equal(displayed.split("-")[question.structuredPrompt.missingIndex], "?");
+          } else {
+            const targetWord: string = question.structuredPrompt.targetWord;
+            for (const letter of new Set([...targetWord])) {
+              const rank = letter.charCodeAt(0) - 64;
+              assert.equal(application.includes(`${letter}=${rank}`), true, `${qlId}/${seed} scalar recovery must show ${letter}=${rank}`);
+            }
+            const correct = question.options[question.correctIndex]!.value;
+            assert.equal(application.includes(`= ${correct}`), true, `${qlId}/${seed} scalar recovery must show the completed arithmetic`);
+            assert.equal(application.includes(`? = ${correct}`), true, `${qlId}/${seed} scalar recovery must explicitly resolve the blank`);
+            scalarRecoveryQuestions += 1;
+          }
         }
         if (["COD-CP-003", "COD-CP-004"].includes(checkpoint.checkpointId)) {
           assert.equal([...displayed].length, question.structuredPrompt.targetWord.length);
@@ -130,6 +145,7 @@ for (const [qlId, difficulties] of difficultiesByQl) {
 assert.equal(difficultiesByQl.size, 112);
 assert.equal(generated, 2240);
 assert.equal(recoveryQuestions, 260);
+assert.equal(scalarRecoveryQuestions, 20);
 assert.equal(trapSpecificQuestions, generated);
 assert.equal(exactRuleQuestions, generated);
 
@@ -138,6 +154,7 @@ console.log(JSON.stringify({
   qls: difficultiesByQl.size,
   generated,
   recoveryQuestions,
+  scalarRecoveryQuestions,
   trapSpecificQuestions,
   exactRuleQuestions,
   stableDifficultyQls: [...difficultiesByQl.values()].filter((values) => values.size === 1).length,
