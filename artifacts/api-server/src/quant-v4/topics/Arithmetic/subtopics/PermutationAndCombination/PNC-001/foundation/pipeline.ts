@@ -1,4 +1,5 @@
 import { renderPnc001RoutedExplanation } from "./explanation-router";
+import { formatPnc001LatexText } from "./latex-format";
 import { getPnc001QuestionEntry, renderPnc001Template } from "./library";
 import { buildPnc001RoutedOptions } from "./option-router";
 import { generatePnc001Parameters } from "./parameter-generator";
@@ -31,9 +32,14 @@ export function runPnc001Pipeline(
   const solver = solvePnc001Routed(parameters);
   const independentVerification = verifyPnc001RoutedIndependently(parameters);
   const reasoningEvidence = buildPnc001RoutedReasoningEvidence(parameters, solver, independentVerification);
-  const explanation = renderPnc001RoutedExplanation(parameters, solver, reasoningEvidence);
-  const stem = renderPnc001Template(entry.template, parameters.renderVariables);
+  const rawExplanation = renderPnc001RoutedExplanation(parameters, solver, reasoningEvidence);
+  const explanation = {
+    ...rawExplanation,
+    lines: rawExplanation.lines.map(formatPnc001LatexText),
+  };
+  const stem = formatPnc001LatexText(renderPnc001Template(entry.template, parameters.renderVariables));
   const optionBundle = buildPnc001RoutedOptions(parameters, solver);
+  const options = optionBundle.options.map(formatPnc001LatexText);
   const mathematicalFingerprint = [
     String(parameters.solveMode),
     ...Object.entries(parameters.values).sort(([left], [right]) => left.localeCompare(right)).map(([key, value]) => `${key}=${value}`),
@@ -52,7 +58,7 @@ export function runPnc001Pipeline(
     taskKind: parameters.taskKind,
     solveMode: parameters.solveMode,
     stem,
-    options: optionBundle.options,
+    options,
     correctIndex: optionBundle.correctIndex,
     answer: solver.answer,
     parameters,
@@ -75,6 +81,7 @@ export function runPnc001Pipeline(
       constraintProfile: parameters.constraintProfile,
       distractorProfile: parameters.distractorProfile,
       answer: solver.answer,
+      formulaRendering: "LATEX_MATHJAX",
     },
   };
 

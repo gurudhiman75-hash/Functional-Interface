@@ -43,12 +43,13 @@ export type Pnc001SolveMode =
   | "findMultisetOvercountFactor"
   | "recoverMultisetMultiplicity";
 
+export type Pnc001DictionaryRankSolveMode = "findDictionaryRankOfWord";
 export type Pnc001Cp006SolveMode =
   | "selectThenAssignDistinctRoles"
   | "selectThenArrangeAllSelected"
   | "findRoleAssignmentMultiplier"
   | "recoverSelectionRoleParameter";
-export type Pnc001AnySolveMode = Pnc001SolveMode | Pnc001Cp006SolveMode;
+export type Pnc001AnySolveMode = Pnc001SolveMode | Pnc001DictionaryRankSolveMode | Pnc001Cp006SolveMode;
 export type Pnc001AnyTaskKind = Pnc001TaskKind | Pnc001Cp006TaskKind;
 
 export interface Pnc001QuestionLanguageEntry { qlId: string; cpId: Pnc001CanonicalProblemId; difficulty: Pnc001Difficulty; template: string; }
@@ -75,6 +76,13 @@ export interface Pnc001Parameters {
   renderVariables: Record<string, string | number>;
 }
 
+export interface Pnc001DictionaryRankContribution {
+  position: number;
+  currentLetter: string;
+  smallerLetter: string;
+  remainingArrangementCount: number;
+}
+
 export interface Pnc001SolverEvidence {
   stageCounts?: number[]; caseCounts?: Array<{ label: string; count: number; factors: number[] }>;
   totalCount?: number; invalidCount?: number; knownChoices?: number; totalChoices?: number;
@@ -94,6 +102,8 @@ export interface Pnc001SolverEvidence {
   multisetTotalObjects?: number; multisetRemainingObjects?: number; multisetMultiplicities?: number[];
   multisetRemainingMultiplicities?: number[]; multisetNumerator?: number; multisetDenominator?: number;
   multisetTarget?: number; fixedObjectMultiplicityBefore?: number; recoveredMultisetMultiplicity?: number;
+  dictionarySourceWord?: string; dictionaryTargetWord?: string; dictionarySortedLetters?: string;
+  dictionaryRankContributions?: Pnc001DictionaryRankContribution[]; dictionaryPrecedingCount?: number; dictionaryRank?: number;
   mixedTotalObjects?: number; mixedSelectedObjects?: number; mixedRoleCount?: number; mixedSelectionCount?: number;
   mixedRoleAssignmentCount?: number; mixedTarget?: number; mixedEquivalentPermutationCount?: number;
   recoveredMixedParameter?: "n" | "selected" | "roles"; mixedSearchMinimum?: number; mixedSearchMaximum?: number;
@@ -105,7 +115,7 @@ export interface Pnc001SolverEvidence {
     | "NUMBER_NO_ZERO_NO_REPEAT" | "NUMBER_WITH_ZERO_NO_REPEAT" | "CODE_REPETITION" | "NUMBER_REPETITION"
     | "PARITY_NUMBER" | "DIVISIBLE_BY_FIVE" | "THRESHOLD_NUMBER" | "ALPHANUMERIC_CODE"
     | "CODE_REPETITION_INVERSE" | "CODE_EXACTLY_ONE_PAIR"
-    | "MULTISET_DIRECT" | "MULTISET_FIXED" | "MULTISET_OVERCOUNT" | "MULTISET_INVERSE"
+    | "MULTISET_DIRECT" | "MULTISET_FIXED" | "MULTISET_OVERCOUNT" | "MULTISET_INVERSE" | "DICTIONARY_RANK"
     | "MIXED_SELECT_ASSIGN" | "MIXED_SELECT_ARRANGE_ALL" | "MIXED_ROLE_MULTIPLIER" | "MIXED_INVERSE";
 }
 export interface Pnc001SolverResult { exactAnswer: string; answer: string; numericAnswer: number; equation: string; mathJax: string; evidence: Pnc001SolverEvidence; }

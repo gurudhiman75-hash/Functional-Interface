@@ -1,0 +1,84 @@
+{
+  "packageId": "PNC-001",
+  "language": "en",
+  "ownership": "HUMAN_OWNED_EDITORIAL_OVERRIDE",
+  "entries": {
+    "PNC-QL-052": {
+      "lines": [
+        "Since 1! equals 1, evaluate the larger factorial and then subtract 1.",
+        "The calculation is {calculation}.",
+        "Therefore, the required value is {answer}."
+      ]
+    },
+    "PNC-QL-054": {
+      "lines": [
+        "The numerator contains the whole factor n! along with one extra factor.",
+        "After n! cancels, the calculation reduces to {calculation}.",
+        "Hence the value is {answer}."
+      ]
+    },
+    "PNC-QL-056": {
+      "lines": [
+        "Look for the integer whose factorial is exactly the given target.",
+        "The matching factorial is {matchedArgument}! = {target}.",
+        "Therefore, n = {answer}."
+      ]
+    },
+    "PNC-QL-064": {
+      "lines": [
+        "The {selectedObjects} offices are different, so changing which candidate holds which office creates a new outcome.",
+        "Choose and order {selectedObjects} candidates from {totalObjects}; the calculation is {calculation}.",
+        "Therefore, the offices can be filled in {answer} ways."
+      ]
+    },
+    "PNC-QL-083": {
+      "lines": [
+        "A {length}-digit number has ordered positions, and no digit may be used twice.",
+        "Fill the positions successively without replacement: {calculation}.",
+        "So {answer} such numbers can be formed."
+      ]
+    },
+    "PNC-QL-084": {
+      "lines": [
+        "A {length}-digit number cannot begin with 0, although 0 may be used in a later position.",
+        "Choose a non-zero first digit and then fill the remaining positions without repetition: {calculation}.",
+        "Hence {answer} valid numbers are possible."
+      ]
+    },
+    "PNC-QL-087": {
+      "lines": [
+        "An even number must end in one of the available even digits: {eligibleLastDigitList}.",
+        "After the final digit is chosen, fill the remaining positions without repetition; the calculation is {calculation}.",
+        "Hence {answer} even numbers can be formed."
+      ]
+    },
+    "PNC-QL-089": {
+      "lines": [
+        "An odd number must end in one of the available odd digits: {eligibleLastDigitList}.",
+        "For each ending, choose a non-zero first digit and fill the remaining position without repetition; the calculation is {calculation}.",
+        "So {answer} odd numbers can be formed."
+      ]
+    },
+    "PNC-QL-091": {
+      "lines": [
+        "To be greater than the stated threshold, the first digit may be chosen from {qualifyingFirstDigitList}.",
+        "For each qualifying first digit, the remaining positions can be filled in {suffixArrangementCount} ways, giving {calculation}.",
+        "Therefore, {answer} numbers satisfy the condition."
+      ]
+    },
+    "PNC-QL-092": {
+      "lines": [
+        "The code has a fixed pattern of {letterSlots} letter positions followed by {digitSlots} digit positions.",
+        "Because repetition is allowed, every position keeps its full set of choices: {calculation}.",
+        "Therefore, {answer} alphanumeric codes can be formed."
+      ]
+    },
+    "PNC-QL-102": {
+      "lines": [
+        "The total has two stages: choose the group and then assign {roleCount} distinct offices within it.",
+        "Search the stated values of n until the complete count matches the target: {matchedMixedEquation}.",
+        "The unique solution is n = {answer}."
+      ]
+    }
+  }
+}

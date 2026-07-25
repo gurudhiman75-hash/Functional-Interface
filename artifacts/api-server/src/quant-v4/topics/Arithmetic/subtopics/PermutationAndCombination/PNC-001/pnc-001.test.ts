@@ -5,7 +5,7 @@ import { combinationExact, factorialExact, multisetOvercountFactorExact, multise
 import { runPnc001Pipeline } from "./foundation/pipeline";
 
 const entries = getPnc001QuestionEntries();
-const currentCheckpointIds = Array.from({ length: 104 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
+const currentCheckpointIds = Array.from({ length: 106 }, (_, index) => `PNC-QL-${String(index + 1).padStart(3, "0")}`);
 assert.equal(entries.length, currentCheckpointIds.length);
 assert.equal(new Set(entries.map((entry) => entry.qlId)).size, currentCheckpointIds.length);
 assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
@@ -13,7 +13,7 @@ assert.deepEqual(getPnc001QuestionLanguageIds(), currentCheckpointIds);
 const observedDifficultyCounts = Object.fromEntries(
   ["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]),
 );
-assert.deepEqual(observedDifficultyCounts, { Easy: 39, Medium: 44, Hard: 21 });
+assert.deepEqual(observedDifficultyCounts, { Easy: 39, Medium: 45, Hard: 22 });
 
 const observedSolveModeCounts = {
   countSequentialIndependentChoices: 14,
@@ -46,6 +46,7 @@ const observedSolveModeCounts = {
   arrangeMultisetAfterFixingPosition: 2,
   findMultisetOvercountFactor: 1,
   recoverMultisetMultiplicity: 1,
+  findDictionaryRankOfWord: 2,
   selectThenAssignDistinctRoles: 4,
   selectThenArrangeAllSelected: 2,
   findRoleAssignmentMultiplier: 1,
@@ -128,6 +129,20 @@ for (const qlId of ["PNC-QL-102", "PNC-QL-103", "PNC-QL-104"] as const) {
     permutationExact(inverse.solver.evidence.mixedSelectedObjects!, inverse.solver.evidence.mixedRoleCount!),
   ]), inverse.solver.evidence.mixedTarget);
 }
+
+const rahulRank = runPnc001Pipeline({ questionLanguageId: "PNC-QL-105", seed: "rahul-rank" });
+assert.equal(rahulRank.canonicalProblemId, "PNC-CP-005");
+assert.equal(rahulRank.solver.evidence.operation, "DICTIONARY_RANK");
+assert.equal(rahulRank.solver.evidence.dictionaryTargetWord, "RAHUL");
+assert.equal(rahulRank.solver.evidence.dictionaryPrecedingCount, 73);
+assert.equal(rahulRank.solver.numericAnswer, 74);
+assert.equal(rahulRank.independentVerification.answer, 74);
+const naagiRank = runPnc001Pipeline({ questionLanguageId: "PNC-QL-106", seed: "naagi-rank" });
+assert.equal(naagiRank.solver.evidence.dictionarySourceWord, "AGAIN");
+assert.equal(naagiRank.solver.evidence.dictionaryTargetWord, "NAAGI");
+assert.equal(naagiRank.solver.evidence.dictionaryPrecedingCount, 48);
+assert.equal(naagiRank.solver.numericAnswer, 49);
+assert.equal(naagiRank.independentVerification.answer, 49);
 
 for (const [cpId, seed] of [
   ["PNC-CP-002", "cp2-routing"], ["PNC-CP-003", "cp3-routing"], ["PNC-CP-004", "cp4-routing"],

@@ -11,6 +11,8 @@
     {"qlId":"PNC-QL-079","cpId":"PNC-CP-005","difficulty":"Medium","template":"How many distinct arrangements of the letters of BALLOON begin with B?"},
     {"qlId":"PNC-QL-080","cpId":"PNC-CP-005","difficulty":"Hard","template":"How many distinct arrangements of the letters of BALLOON begin with L?"},
     {"qlId":"PNC-QL-081","cpId":"PNC-CP-005","difficulty":"Medium","template":"A collection contains {totalObjects} objects, including {repeatA} identical objects of one type and {repeatB} identical objects of another type; all remaining objects are distinct. By what factor does {totalObjects}! overcount the distinct arrangements?"},
-    {"qlId":"PNC-QL-082","cpId":"PNC-CP-005","difficulty":"Hard","template":"A collection has {totalObjects} objects. Exactly x of them are identical and all the others are distinct. If the collection has {target} distinct arrangements, find x, where 2 ≤ x ≤ {maximumMultiplicity}."}
+    {"qlId":"PNC-QL-082","cpId":"PNC-CP-005","difficulty":"Hard","template":"A collection has {totalObjects} objects. Exactly x of them are identical and all the others are distinct. If the collection has {target} distinct arrangements, find x, where 2 ≤ x ≤ {maximumMultiplicity}."},
+    {"qlId":"PNC-QL-105","cpId":"PNC-CP-005","difficulty":"Medium","template":"When all arrangements of the letters of RAHUL are listed in dictionary order, what is the position of RAHUL?"},
+    {"qlId":"PNC-QL-106","cpId":"PNC-CP-005","difficulty":"Hard","template":"All distinct arrangements of the letters of AGAIN are listed in dictionary order. What is the position of NAAGI?"}
   ]
 }

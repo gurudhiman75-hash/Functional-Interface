@@ -1,0 +1,23 @@
+{
+  "packageId": "PNC-001",
+  "canonicalProblemId": "PNC-CP-005",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "policy": "QL_SPECIFIC_NATURAL_EXPLANATIONS",
+  "entries": {
+    "PNC-QL-105": {
+      "lines": [
+        "Dictionary order is decided from left to right. Before RAHUL, count every valid arrangement formed by placing a smaller available letter at the first position where the word can differ.",
+        "Those earlier blocks contain {precedingCount} arrangements altogether, so RAHUL comes immediately after them.",
+        "Therefore, RAHUL is in position {answer}."
+      ]
+    },
+    "PNC-QL-106": {
+      "lines": [
+        "NAAGI uses the same letters as AGAIN, including the two identical A's, so repeated arrangements must not be counted twice.",
+        "All distinct words beginning with A, G or I come before NAAGI; together those blocks contain {precedingCount} words.",
+        "Hence NAAGI is the {answer}th distinct arrangement in dictionary order."
+      ]
+    }
+  }
+}
