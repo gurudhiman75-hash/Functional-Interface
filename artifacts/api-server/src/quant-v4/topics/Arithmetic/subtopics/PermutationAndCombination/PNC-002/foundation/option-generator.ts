@@ -49,19 +49,43 @@ export function buildPnc002Options(
       break;
     }
     case "countBlockWithExternalPairApart": {
-      const ignoringApart = productExact([
-        evidence.externalArrangementCount,
-        evidence.internalArrangementMultiplier,
-      ]);
-      const invalidOnly = productExact([
-        evidence.adjacentExternalPairCount ?? 0,
-        evidence.internalArrangementMultiplier,
-      ]);
+      const ignoringApart = productExact([evidence.externalArrangementCount, evidence.internalArrangementMultiplier]);
+      const invalidOnly = productExact([evidence.adjacentExternalPairCount ?? 0, evidence.internalArrangementMultiplier]);
       distractors = uniquePositive([
         ignoringApart,
         invalidOnly,
         evidence.validUnitArrangementCount ?? 0,
         factorialExact(evidence.totalObjects),
+      ], correct);
+      break;
+    }
+    case "countTwoBlocksTogetherNotAdjacent":
+    case "countBlockWithOutsiderNotAdjacent": {
+      const ignoringSeparation = productExact([evidence.externalArrangementCount, evidence.internalArrangementMultiplier]);
+      const invalidOnly = productExact([evidence.forbiddenAdjacentUnitCount ?? 0, evidence.internalArrangementMultiplier]);
+      distractors = uniquePositive([
+        ignoringSeparation,
+        invalidOnly,
+        evidence.validUnitArrangementCount ?? 0,
+        factorialExact(evidence.totalObjects),
+      ], correct);
+      break;
+    }
+    case "countOneBlockTogetherOtherNotTogether": {
+      distractors = uniquePositive([
+        evidence.primaryRestrictionCount ?? 0,
+        evidence.allSpecifiedBlocksTogetherCount ?? 0,
+        evidence.primaryExternalArrangementCount ?? 0,
+        factorialExact(evidence.totalObjects),
+      ], correct);
+      break;
+    }
+    case "countNotAllSpecifiedBlocksTogether": {
+      distractors = uniquePositive([
+        evidence.unrestrictedCount ?? 0,
+        evidence.allSpecifiedBlocksTogetherCount ?? 0,
+        evidence.externalArrangementCount,
+        (evidence.unrestrictedCount ?? 0) - evidence.externalArrangementCount,
       ], correct);
       break;
     }
