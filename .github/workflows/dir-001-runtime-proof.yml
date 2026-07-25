@@ -141,3 +141,54 @@ jobs:
           path: artifacts/api-server/dist/reasoning-v1/dir-cp-002-review-export/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Bundle CP-003 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-003.test.mjs
+
+      - name: Run CP-003 proof
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-003.test.mjs > dir-cp-003-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-003-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish CP-003 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-003-runtime-proof-diagnostics
+          path: |
+            dir-cp-003-runtime-proof.log
+            dir-cp-003-runtime-proof-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce CP-003 proof result
+        run: test "$(cat dir-cp-003-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle CP-003 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003-generate-review-export.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
+
+      - name: Generate CP-003 question review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
+
+      - name: Publish CP-003 question review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-003-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-003-review-export/
+          if-no-files-found: error
+          retention-days: 14
