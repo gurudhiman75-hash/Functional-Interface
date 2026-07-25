@@ -34,6 +34,7 @@ const CP010_OPERATIONS = new Set<Pnc002SolverEvidence["operation"]>([
   "CIRCULAR_TWO_BLOCKS_NOT_ADJACENT",
   "CIRCULAR_AT_LEAST_ONE_PAIR",
   "CIRCULAR_NEITHER_PAIR",
+  "CIRCULAR_EXACTLY_ONE_PAIR",
   "CIRCULAR_PERSON_BETWEEN_NEIGHBORS",
   "CIRCULAR_OPPOSITE_PAIR",
   "CLOCKWISE_ADJACENT_PAIR",
@@ -87,6 +88,17 @@ export function validatePnc002Cp010QuestionPackage(
   }
   if (pkg.solveMode === "countCircularNoTwoCategoryAdjacent") {
     checks.push(check("gap-capacity", (e.smallCount ?? 0) <= (e.largeCount ?? 0), "Separated circular members cannot exceed available gaps"));
+  }
+  if (pkg.solveMode === "countCircularExactlyOnePairTogether") {
+    checks.push(check(
+      "exclusive-pair-contract",
+      e.operation === "CIRCULAR_EXACTLY_ONE_PAIR"
+        && e.blockSizes.length === 2
+        && e.blockSizes.every((size) => size === 2)
+        && (e.primaryRestrictionCount ?? 0) > (e.allSpecifiedBlocksTogetherCount ?? 0)
+        && (e.allSpecifiedBlocksTogetherCount ?? 0) > 0,
+      "Exactly-one-pair mode must expose two disjoint pair blocks and both one-pair and overlap counts",
+    ));
   }
 
   const explanationText = pkg.explanation.lines.join(" ");
