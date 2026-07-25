@@ -27,6 +27,33 @@ for (const mode of getMen001SolveModeIds()) {
   );
 }
 
+assert.equal(
+  toMen001LatexEquation("Aremaining = LB − (Lw₁ + Bw₂ − w₁w₂)"),
+  "A_{\\text{remaining}} = L B - (L w_{1} + B w_{2} - w_{1}w_{2})",
+  "Adjacent single-letter products must remain mathematical variables.",
+);
+assert.equal(
+  toMen001LatexEquation("P₂ = kP₁"),
+  "P_{2} = k P_{1}",
+  "Scale-factor products must remain mathematical variables.",
+);
+assert.equal(
+  toMen001LatexEquation("increase % = [(1 + p/100)² − 1] × 100"),
+  "\\text{increase} \\% = [(1 + p/100)^{2} - 1] \\times 100",
+  "Percentage-change variables must not be converted into prose.",
+);
+assert.equal(
+  toMen001LatexEquation("n = 2640 ÷ 220 = 12"),
+  "n = 2640 \\div 220 = 12",
+  "Count variables must remain mathematical variables.",
+);
+assert.ok(
+  toMen001LatexEquation("lving the resulting quadratic gives w = 4").startsWith("\\text{Solving}"),
+  "The legacy prefix-removal artefact must be repaired for display.",
+);
+
+const forbiddenNotation = /\\text\{(?:LB|Lw|Bw|kP|p|n|lving)\}/;
+
 for (const entry of getMen001QuestionEntries()) {
   for (let sample = 0; sample < 3; sample += 1) {
     const question = runMen001Pipeline(
@@ -49,6 +76,10 @@ for (const entry of getMen001QuestionEntries()) {
       assert.ok(
         section.equations.every(isMen001LatexEquation),
         `${entry.qlId} contains a non-LaTeX ${section.kind} equation.`,
+      );
+      assert.ok(
+        section.equations.every((equation) => !forbiddenNotation.test(equation)),
+        `${entry.qlId} converts a mathematical variable or truncated narrative into prose notation.`,
       );
     }
 
@@ -80,5 +111,5 @@ for (const entry of getMen001QuestionEntries()) {
 }
 
 console.log(
-  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with MathJax-ready equations.`,
+  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with MathJax-ready equations and preserved mathematical variables.`,
 );
