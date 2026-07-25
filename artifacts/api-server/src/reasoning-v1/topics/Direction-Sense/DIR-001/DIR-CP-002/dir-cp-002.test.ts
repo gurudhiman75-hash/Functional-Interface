@@ -26,20 +26,62 @@ for (const ql of DIR_CP002_QLS) {
     assert.equal(generated.options[generated.correctIndex].errorLabel, null);
     assert.equal(generated.metadata.solverVerified, true);
     assert.equal(generated.metadata.solveMode, null);
-    assert.ok(generated.explanation.steps.length >= 3);
-    assert.ok(generated.explanation.conclusion.length > 30);
+
+    const stemLines = generated.stem.split("\n");
+    assert.ok(stemLines[0].includes("starts at point O"));
+    assert.ok(stemLines.at(-1)?.startsWith("Question:"));
+    assert.ok(generated.stem.includes("without changing position"));
+    assert.ok(generated.stem.includes("without turning during the movement"));
+    assert.ok(generated.stem.includes("reference point"));
+    assert.ok(!generated.stem.includes("final position from the starting point"));
+    assert.ok(!generated.stem.includes("Where is the final position"));
+
+    assert.ok(generated.explanation.steps.length >= generated.metadata.legCount * 2);
+    assert.deepEqual(
+      generated.explanation.steps.map((step) => step.stepNumber),
+      generated.explanation.steps.map((_, index) => index + 1),
+    );
+    assert.ok(generated.explanation.steps.every((step) => step.title.length > 5));
+    assert.ok(generated.explanation.steps.every((step) => step.statement.length > 20));
+    assert.ok(generated.explanation.steps.every((step) => step.calculation.length > 5));
+    assert.ok(generated.explanation.steps.every((step) => step.result.length > 15));
+    assert.ok(generated.explanation.coordinateConvention.includes("East = +x"));
+    assert.ok(generated.explanation.askedRelation.includes("Point"));
+    assert.ok(generated.explanation.conclusion.length > 40);
+    assert.equal(Object.keys(generated.explanation).at(-1), "diagram");
+
+    const diagram = generated.explanation.diagram;
+    assert.equal(diagram.kind, "DIRECTION_PATH_DIAGRAM");
+    assert.equal(diagram.points.length, generated.metadata.legCount + 1);
+    assert.equal(diagram.segments.length, generated.metadata.legCount);
+    assert.equal(diagram.points[0].label, "O");
+    assert.equal(diagram.points[0].role, "START");
+    assert.equal(diagram.points.at(-1)?.role, "END");
+    assert.ok(diagram.svg.startsWith("<svg"));
+    assert.ok(diagram.svg.includes("Dashed red arrow = the exact relation asked"));
+    assert.ok(diagram.svg.includes(diagram.askedRelation.label));
+    assert.ok(diagram.svg.includes("marker-end=\"url(#questionArrow)\""));
+
     assert.ok(!generated.stem.includes("DIR_"));
     assert.ok(!generated.explanation.conclusion.includes("DIR_"));
 
     if (ql.answerDemand === "ENDPOINT_DIRECTION") {
       assert.equal(typeof generated.correctAnswer, "string");
-      endpointDirections.add(generated.correctAnswer as string);
+      const answer = generated.correctAnswer as string;
+      endpointDirections.add(answer);
       reverseQueryValues.add(generated.metadata.reverseQuery);
+      assert.equal(diagram.askedRelation.direction, answer);
+      assert.equal(diagram.finalFacing, null);
+      assert.equal(diagram.askedRelation.fromLabel, generated.metadata.reverseQuery ? diagram.points.at(-1)?.label : "O");
+      assert.equal(diagram.askedRelation.toLabel, generated.metadata.reverseQuery ? "O" : diagram.points.at(-1)?.label);
     } else {
       const answer = generated.correctAnswer as CombinedPathAnswer;
       endpointDirections.add(answer.endpointDirection);
       finalFacings.add(answer.finalFacing);
       assert.ok(generated.options.every((option) => typeof option.value === "object"));
+      assert.equal(diagram.askedRelation.direction, answer.endpointDirection);
+      assert.equal(diagram.finalFacing?.direction, answer.finalFacing);
+      assert.ok(diagram.svg.includes("Purple arrow = final facing direction"));
     }
 
     difficulties.add(generated.difficulty);
@@ -59,7 +101,7 @@ const minPositionCount = Math.min(...answerPositions);
 const maxPositionCount = Math.max(...answerPositions);
 assert.ok(maxPositionCount / minPositionCount < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
-console.log("DIR-CP-002 exhaustive runtime proof passed.", {
+console.log("DIR-CP-002 unambiguous stem, detailed explanation and diagram proof passed.", {
   qlCount: DIR_CP002_QLS.length,
   generatedCases: DIR_CP002_QLS.length * 200,
   endpointDirections: [...endpointDirections].sort(),
