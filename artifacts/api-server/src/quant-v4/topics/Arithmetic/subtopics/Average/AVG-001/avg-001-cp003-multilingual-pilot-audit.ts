@@ -11,6 +11,7 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
 const CP003_CONTEXT_FINALIZER = "AVG-CP-003 localized context finalizer v2";
 const CP003_GRAMMAR_FINALIZER = "AVG-CP-003 localized explanation grammar finalizer v2";
+const CP003_EQUATION_LABEL_FINALIZER = "AVG-CP-003 localized equation labels v1";
 const cpEntries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
 const localizedQlIds = getAvg001Cp003LocalizedQlIds();
 const failures: string[] = [];
@@ -26,8 +27,8 @@ const proseOnly = (lines: string[]) => lines.join("\n").replace(/\$\$[\s\S]*?\$\
 const hindiRunWord = /(?:^|[^\u0900-\u097F])रन(?:$|[^\u0900-\u097F])|रनों/;
 const punjabiRunWord = /ਦੌੜ|ਪਾਰੀ|ਬੱਲੇਬਾਜ਼/;
 const forbiddenGrammar = {
-  hi: /(?:0 वर्ष बीतने|पहले 0 वर्ष बाद|पुराना अंक के साथ|पुराना माप के साथ|ज्ञात नया अंक|ज्ञात नया माप|नए सदस्य का आयु|नए शिक्षक का आयु|अगले दिन का बिक्री|का अंतर को|नई औसत दैनिक बिक्री|आयु के अंतर से आवश्यक आयु|एक नई संख्या [\d,.]+ को समूह|जिसके बाद रन का औसत)/,
-  pa: /(?:0 ਸਾਲ ਬੀਤਣ|ਪਹਿਲਾਂ 0 ਸਾਲ ਬਾਅਦ|ਪੁਰਾਣਾ ਅੰਕ ਨਾਲ|ਪੁਰਾਣਾ ਮਾਪ ਨਾਲ|ਜਾਣੀ ਨਵਾਂ ਅੰਕ|ਜਾਣੀ ਨਵਾਂ ਮਾਪ|ਜਾਣੀ ਹੋਈ ਨਵੇਂ|ਨਵੇਂ ਮੈਂਬਰ ਦਾ ਉਮਰ|ਨਵੇਂ ਅਧਿਆਪਕ ਦਾ ਉਮਰ|ਅਗਲੇ ਦਿਨ ਦਾ ਵਿਕਰੀ|ਦਾ ਫਰਕ ਨੂੰ|ਨਵੀਂ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ|ਉਮਰ ਦੇ ਫਰਕ ਤੋਂ ਲੋੜੀਂਦੀ ਉਮਰ|ਇੱਕ ਨਵੀਂ ਸੰਖਿਆ [\d,.]+ ਨੂੰ ਸਮੂਹ|ਜਿਸ ਤੋਂ ਬਾਅਦ ਦੌੜਾਂ ਦੀ ਔਸਤ|ਟੀਮ ਦਾ ਔਸਤ ਸਕੋਰ [\d,.]+ ਹੋ ਜਾਂਦੀ ਹੈ)/,
+  hi: /(?:0 वर्ष बीतने|पहले 0 वर्ष बाद|पुराना अंक के साथ|पुराना माप के साथ|ज्ञात नया अंक|ज्ञात नया माप|नए सदस्य का आयु|नए शिक्षक का आयु|अगले दिन का बिक्री|का अंतर को|नई औसत दैनिक बिक्री|आयु के अंतर से आवश्यक आयु|एक नई संख्या [\d,.]+ को समूह|जिसके बाद रन का औसत|जोड़ा गया मान|हटाया गया मान|नया मान|पुराना मान)/,
+  pa: /(?:0 ਸਾਲ ਬੀਤਣ|ਪਹਿਲਾਂ 0 ਸਾਲ ਬਾਅਦ|ਪੁਰਾਣਾ ਅੰਕ ਨਾਲ|ਪੁਰਾਣਾ ਮਾਪ ਨਾਲ|ਜਾਣੀ ਨਵਾਂ ਅੰਕ|ਜਾਣੀ ਨਵਾਂ ਮਾਪ|ਜਾਣੀ ਹੋਈ ਨਵੇਂ|ਨਵੇਂ ਮੈਂਬਰ ਦਾ ਉਮਰ|ਨਵੇਂ ਅਧਿਆਪਕ ਦਾ ਉਮਰ|ਅਗਲੇ ਦਿਨ ਦਾ ਵਿਕਰੀ|ਦਾ ਫਰਕ ਨੂੰ|ਨਵੀਂ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ|ਉਮਰ ਦੇ ਫਰਕ ਤੋਂ ਲੋੜੀਂਦੀ ਉਮਰ|ਇੱਕ ਨਵੀਂ ਸੰਖਿਆ [\d,.]+ ਨੂੰ ਸਮੂਹ|ਜਿਸ ਤੋਂ ਬਾਅਦ ਦੌੜਾਂ ਦੀ ਔਸਤ|ਟੀਮ ਦਾ ਔਸਤ ਸਕੋਰ [\d,.]+ ਹੋ ਜਾਂਦੀ ਹੈ|ਜੋੜਿਆ ਮੁੱਲ|ਹਟਾਇਆ ਮੁੱਲ|ਨਵਾਂ ਮੁੱਲ|ਪੁਰਾਣਾ ਮੁੱਲ)/,
 };
 
 if (cpEntries.length !== 98) fail(`expected 98 CP-003 QLs; got ${cpEntries.length}`);
@@ -73,6 +74,7 @@ for (const entry of cpEntries) {
       if (localized.traceability.cp003ExplanationAuthorship !== CP003_AUTHORSHIP) fail(`${scope}: authorship marker missing`);
       if (localized.traceability.cp003ExplanationContextFinalizer !== CP003_CONTEXT_FINALIZER) fail(`${scope}: context finalizer marker missing`);
       if (localized.traceability.cp003ExplanationGrammarFinalizer !== CP003_GRAMMAR_FINALIZER) fail(`${scope}: grammar finalizer marker missing`);
+      if (localized.traceability.cp003EquationLabelFinalizer !== CP003_EQUATION_LABEL_FINALIZER) fail(`${scope}: equation-label finalizer marker missing`);
       if (localized.answer !== english.answer) fail(`${scope}: answer changed`);
       if (localized.correctIndex !== english.correctIndex) fail(`${scope}: correct index changed`);
       if (JSON.stringify(localized.options) !== JSON.stringify(english.options)) fail(`${scope}: options changed`);
@@ -94,7 +96,7 @@ for (const entry of cpEntries) {
       if (localized.explanation.lines.length < 4 || localized.explanation.lines.length > 8) fail(`${scope}: explanation line count`);
       if (!localized.explanation.lines.some((line) => line.includes(localized.answer))) fail(`${scope}: answer evidence missing`);
       if (!localized.explanation.lines.some((line) => /×|÷|\\times|\\div|\+|-/.test(line))) fail(`${scope}: substituted arithmetic missing`);
-      const grammarMatch = `${localized.stem}\n${prose}`.match(forbiddenGrammar[language]);
+      const grammarMatch = `${localized.stem}\n${fullExplanation}`.match(forbiddenGrammar[language]);
       if (grammarMatch) fail(`${scope}: known language defect remains [${grammarMatch[0]}]`);
 
       const marksContext = language === "hi" ? /अंक|परीक्षा/.test(localized.stem) : /ਅੰਕ|ਪ੍ਰੀਖਿਆ/.test(localized.stem);
