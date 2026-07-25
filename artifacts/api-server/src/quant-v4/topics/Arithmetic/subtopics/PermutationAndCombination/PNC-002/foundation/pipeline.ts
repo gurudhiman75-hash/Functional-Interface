@@ -1,43 +1,41 @@
 import { renderPnc002Explanation } from "./explanation-renderer";
-import {
-  getPnc002QuestionEntry,
-  renderPnc002Template,
-} from "./library";
+import { renderPnc002Cp008Explanation } from "./explanation-renderer-cp008";
+import { getPnc002QuestionEntry, renderPnc002Template } from "./library";
 import { buildPnc002Options } from "./option-generator";
+import { buildPnc002Cp008Options } from "./option-generator-cp008";
 import { generatePnc002Parameters } from "./parameter-generator";
 import { buildPnc002ReasoningEvidence } from "./reasoning-graph";
-import {
-  solvePnc002,
-  verifyPnc002Independently,
-} from "./solver";
-import type {
-  Pnc002ParameterInput,
-  Pnc002QuestionPackage,
-} from "./types";
+import { buildPnc002Cp008ReasoningEvidence } from "./reasoning-graph-cp008";
+import { solvePnc002, verifyPnc002Independently } from "./solver";
+import { solvePnc002Cp008, verifyPnc002Cp008Independently } from "./solver-cp008";
+import type { Pnc002ParameterInput, Pnc002QuestionPackage } from "./types";
 import { validatePnc002QuestionPackage } from "./validator";
+import { validatePnc002Cp008QuestionPackage } from "./validator-cp008";
 
-export function runPnc002Pipeline(
-  input: Pnc002ParameterInput = {},
-): Pnc002QuestionPackage {
+export function runPnc002Pipeline(input: Pnc002ParameterInput = {}): Pnc002QuestionPackage {
   const parameters = generatePnc002Parameters(input);
   const entry = getPnc002QuestionEntry(parameters.questionLanguageId);
-  const solver = solvePnc002(parameters);
-  const independentVerification = verifyPnc002Independently(parameters);
-  const reasoningEvidence = buildPnc002ReasoningEvidence(
-    parameters,
-    solver,
-    independentVerification,
-  );
-  const explanation = renderPnc002Explanation(parameters, solver, reasoningEvidence);
+  const isCp008 = parameters.canonicalProblemId === "PNC-CP-008";
+  const solver = isCp008 ? solvePnc002Cp008(parameters) : solvePnc002(parameters);
+  const independentVerification = isCp008
+    ? verifyPnc002Cp008Independently(parameters)
+    : verifyPnc002Independently(parameters);
+  const reasoningEvidence = isCp008
+    ? buildPnc002Cp008ReasoningEvidence(parameters, solver, independentVerification)
+    : buildPnc002ReasoningEvidence(parameters, solver, independentVerification);
+  const explanation = isCp008
+    ? renderPnc002Cp008Explanation(parameters, solver, reasoningEvidence)
+    : renderPnc002Explanation(parameters, solver, reasoningEvidence);
   const stem = renderPnc002Template(entry.template, parameters.renderVariables);
-  const optionBundle = buildPnc002Options(parameters, solver);
+  const optionBundle = isCp008
+    ? buildPnc002Cp008Options(parameters, solver)
+    : buildPnc002Options(parameters, solver);
   const mathematicalFingerprint = [
     String(parameters.solveMode),
     ...Object.entries(parameters.values)
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([key, value]) => `${key}=${Array.isArray(value) ? value.join("-") : value}`),
   ].join("|");
-
   const packageWithoutValidation: Pnc002QuestionPackage = {
     packageId: "PNC-002",
     archetypeId: "PNC-002",
@@ -72,9 +70,10 @@ export function runPnc002Pipeline(
       formulaRendering: "LATEX_MATHJAX",
     },
   };
-
   return {
     ...packageWithoutValidation,
-    validation: validatePnc002QuestionPackage(packageWithoutValidation),
+    validation: isCp008
+      ? validatePnc002Cp008QuestionPackage(packageWithoutValidation)
+      : validatePnc002QuestionPackage(packageWithoutValidation),
   };
 }
