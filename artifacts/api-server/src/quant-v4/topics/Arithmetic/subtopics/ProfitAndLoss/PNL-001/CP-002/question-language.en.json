@@ -17,7 +17,13 @@
     "PNL-QL-047": {"template":"A shopkeeper marks an article {markupPercent}% above its cost price and allows a discount of {discountPercent}% on the marked price. Calculate the percentage gain or loss.","difficulty":"Hard"},
     "PNL-QL-048": {"template":"An article costing ₹{costPrice} is marked {markupPercent}% above cost price and sold after allowing a discount of {discountPercent}%. Find the profit or loss incurred.","difficulty":"Hard"},
     "PNL-QL-049": {"template":"An article costs ₹{costPrice} and is marked at ₹{markedPrice}. What discount should be allowed to earn a {targetRatePercent}% {targetDirection}?","difficulty":"Hard"},
-    "PNL-QL-050": {"template":"A trader wants to earn a {targetRatePercent}% {targetDirection} after allowing a discount of {discountPercent}%. By what percentage above cost price should the article be marked?","difficulty":"Hard"}
+    "PNL-QL-050": {"template":"A trader wants to earn a {targetRatePercent}% {targetDirection} after allowing a discount of {discountPercent}%. By what percentage above cost price should the article be marked?","difficulty":"Hard"},
+    "PNL-QL-051": {"template":"A retailer offers ‘Buy {paidUnits}, Get {freeUnits} Free’ on identical articles. Find the equivalent discount percentage.","difficulty":"Medium"},
+    "PNL-QL-052": {"template":"Each article is marked at ₹{unitMarkedPrice}. Under a ‘Buy {paidUnits}, Get {freeUnits} Free’ offer, find the effective price per article.","difficulty":"Medium"},
+    "PNL-QL-053": {"template":"A customer pays ₹{billedPrice} and later receives cashback of ₹{cashbackAmount}. Find the effective price paid.","difficulty":"Easy"},
+    "PNL-QL-054": {"template":"A payment of ₹{billedPrice} is eligible for {cashbackPercent}% cashback. Find the effective price after cashback.","difficulty":"Medium"},
+    "PNL-QL-055": {"template":"An article marked at ₹{markedPrice} is sold at a discount of {discountPercent}%, after which a coupon of ₹{couponAmount} is applied. Find the effective price paid.","difficulty":"Medium"},
+    "PNL-QL-056": {"template":"On an article marked at ₹{markedPrice}, one seller offers a discount of {discountPercent}%, while another offers cashback of ₹{cashbackAmount} after charging the marked price. Which offer gives the lower effective price, and by how much?","difficulty":"Hard"}
   },
-  "entryCount": 14
+  "entryCount": 20
 }
