@@ -20,7 +20,9 @@ Branch: `feat/dir-001-foundation`
 - Generic four-option uniqueness and exactly-one-correct validation.
 - Stable path and relation topology fingerprints.
 - Standalone exhaustive foundation contract test.
+- Need-based chapter runtime registry.
 - Package and foundation entry points.
+- First three need-proven English QLs under `DIR-CP-001`.
 
 ## Need-based policy correction
 
@@ -40,6 +42,7 @@ A new QL is permitted only after a material runtime difference is documented. A 
 ```text
 DIR-001-CHAPTER-MANIFEST.ts
 DIR-001-NEED-BASED-QL-POLICY.md
+chapter-registry.ts
 index.ts
 foundation/types.ts
 foundation/directions.ts
@@ -51,19 +54,30 @@ foundation/option-validator.ts
 foundation/fingerprint.ts
 foundation/index.ts
 foundation/foundation.test.ts
+DIR-CP-001/rule-definitions.ts
+DIR-CP-001/independent-solver.ts
+DIR-CP-001/question-language.en.ts
+DIR-CP-001/task-registry.ts
+DIR-CP-001/generator.ts
+DIR-CP-001/index.ts
+DIR-CP-001/dir-cp-001.test.ts
+DIR-CP-001/dir-cp-001-implementation-report.md
 ```
 
 ## Validation status
 
 - Tests written: yes.
-- Static strict-TypeScript review: completed manually and two total-serialization defects corrected.
-- Tests executed in a checked-out repository: not yet.
-- CI executed: not yet.
-- Production QLs implemented: none.
+- Strict TypeScript source-equivalent compile: passed.
+- Core foundation runtime assertions: passed.
+- CP-001 source-equivalent runtime audit: passed for 600 cases.
+- Answer-position balance defect found and corrected: yes.
+- Exact tests executed from a checked-out repository: not yet.
+- CI executed: not yet; the draft PR produced no matching workflow run.
+- Production QLs implemented: 3 need-proven English QLs.
 - Question Studio integration: not yet.
 
-No unexecuted test is claimed as passing.
+The local source-equivalent execution is evidence of code correctness, but it is not represented as repository CI or as execution from a full checked-out workspace.
 
 ## Next implementation boundary
 
-Before starting `DIR-CP-001`, execute the foundation test through the repository test runner and resolve any compile or runtime failure. Then research and allocate only the QLs that prove a distinct orientation/facing runtime need.
+Perform human review of the three CP-001 patterns and search real exam formats for any additional materially different orientation contract. Do not expand CP-001 by quota. When no further need is proven, proceed to CP-002 using the already implemented path foundation.
