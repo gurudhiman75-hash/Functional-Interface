@@ -24,6 +24,30 @@ function shortenCp006Concept(line: string) {
     );
 }
 
+function rendered(pkg: Avg001QuestionPackage, key: string) {
+  const value = pkg.parameters.renderVariables[key] ?? pkg.parameters.values[key];
+  return value === undefined || value === null ? "" : String(value);
+}
+
+function ageShiftMethod(pkg: Avg001QuestionPackage) {
+  const scenario = String(pkg.parameters.scenarioVariant ?? "");
+  if (!/(?:AfterYears|ElapsedYears)/.test(scenario)) return undefined;
+  const years = rendered(pkg, "yearsElapsed") || rendered(pkg, "elapsedYears");
+  if (pkg.language === "hi") {
+    return years
+      ? `${years} वर्ष बाद, समूह बदलने से पहले प्रत्येक मूल आयु में ${years} वर्ष जोड़ें।`
+      : "समूह बदलने से पहले बीते वर्षों का प्रभाव प्रत्येक मूल आयु में जोड़ें।";
+  }
+  if (pkg.language === "pa") {
+    return years
+      ? `${years} ਸਾਲ ਬਾਅਦ, ਸਮੂਹ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਹਰ ਮੂਲ ਉਮਰ ਵਿੱਚ ${years} ਸਾਲ ਜੋੜੋ।`
+      : "ਸਮੂਹ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਬੀਤੇ ਸਾਲਾਂ ਦਾ ਅਸਰ ਹਰ ਮੂਲ ਉਮਰ ਵਿੱਚ ਜੋੜੋ।";
+  }
+  return years
+    ? `After ${years} years, add ${years} years to every original age before changing the group.`
+    : "After the elapsed time, update every original age before changing the group.";
+}
+
 export function finalizeAvg001ExplanationCleanup(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
@@ -32,12 +56,16 @@ export function finalizeAvg001ExplanationCleanup(
       pkg.canonicalProblemId === "AVG-CP-006" ? shortenCp006Concept(line) : line,
     ),
   );
+  const ageMethod = ageShiftMethod(pkg);
+  if (ageMethod && lines.length > 1 && !lines.join(" ").toLowerCase().includes("after")) {
+    lines[1] = ageMethod;
+  }
   return {
     ...pkg,
     explanation: { lines },
     traceability: {
       ...pkg.traceability,
-      explanationFinalCleanup: "AVG-001 explanation final cleanup v1",
+      explanationFinalCleanup: "AVG-001 explanation final cleanup v2",
     },
   };
 }
