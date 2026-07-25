@@ -1,6 +1,6 @@
 # COD-CP-003 Runtime-Proof Implementation Report
 
-Status: English runtime proof complete in source; repository CI and exact editorial review pending.
+Status: English runtime proof complete, exact samples reviewed, and repository CI verified; publication approval remains deferred.
 
 ## Scope
 
@@ -43,26 +43,37 @@ Fixed special cases such as ROT13 are intentionally not registered because they 
 - difficulty derived from operation, direction, magnitude, inference, word length and wrap burden;
 - exact review export and 100-seed-per-QL audit.
 
-## Planned validation
+## Verified validation
 
-The committed test generates `2,800` questions (`28 QLs × 100 seeds`) and verifies:
+The cumulative `Reasoning COD-001 Runtime` workflow executed CP-001, CP-002 and CP-003 successfully on PR #123. The Render production build also passed. The broad admin workflow remains an inherited base-branch failure already reproduced on unrelated merged reasoning changes.
 
-- exact QL continuity and two-rule registry;
-- determinism;
-- four unique options and one correct answer;
-- independent solver agreement;
-- unique minimum-priority rule inference;
-- curated English evidence words;
-- target non-exposure;
-- forward/backward/opposite block contracts;
-- forced wrap coverage;
-- renderer, task, answer-type and difficulty coverage;
-- answer-position balance below `1.20` max/min ratio.
+CP-003 result:
+
+- generated questions: `2,800` (`28 QLs × 100 seeds`);
+- answer positions: `668 / 713 / 714 / 705`;
+- answer-position max/min ratio: approximately `1.069`;
+- wrap-using questions: `1,959`, including all `400` forced-wrap samples from QLs `077`–`080`;
+- both canonical rules covered;
+- task directions covered: encode, decode, infer-and-encode, choose matching code and recover missing letter;
+- answer types covered: letter cluster and single code token;
+- renderers covered: inline pair, example-target block and mapping table;
+- difficulties covered: Easy, Medium and Hard;
+- determinism, option uniqueness, single-answer behavior, independent solver agreement, unique rule inference, direction blocks, curated words, target non-exposure and wrap contracts passed for every sampled instance.
+
+## Exact editorial review
+
+The seed-1 output across all 28 QLs was inspected after CI. The review confirmed:
+
+- natural English source words rather than synthetic clusters;
+- correct forward, backward and opposite-letter demonstrations;
+- accurate cyclic-wrap explanations;
+- decode items that do not expose the target word in evidence;
+- missing-letter items that hide the actual wrapped position;
+- plausible wrong-direction, off-by-one, opposite-map and position distractors;
+- no critical stem or explanation defects requiring a correction commit.
 
 ## Deferred work
 
-- GitHub Actions execution;
-- exact review-export inspection and editorial correction;
 - Hindi and Punjabi localization;
 - Question Studio discovery;
 - production publishability;
