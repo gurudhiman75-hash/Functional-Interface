@@ -135,3 +135,8 @@ export function containsUndelimitedPnc001Formula(value: string): boolean {
     || /\b[A-Za-z]\s*(?:≥|≤|=)\s*\d+\b/.test(proseOnly)
     || /\d+\s*[×÷]\s*\d+/.test(proseOnly);
 }
+
+export function containsUnresolvedPnc001Placeholder(value: string): boolean {
+  const proseOnly = value.replace(EXISTING_MATH, " ");
+  return /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(proseOnly);
+}
