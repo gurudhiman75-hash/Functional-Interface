@@ -1,78 +1,43 @@
 # PNL-CP-002 Implementation Status
 
-Status: ACTIVE DISCOVERY AND IMPLEMENTATION
-Count policy: OPEN ENDED
+Status: FREEZE CANDIDATE
+Count policy: DISCOVERED, NOT QUOTA-DRIVEN
+Stable QL range: PNL-QL-037 through PNL-QL-068
 
-## Implemented runtime-backed modes
+## Coverage
 
-- Marked price and discount percentage to selling price
-- Marked price and selling price to discount percentage
-- Selling price and discount percentage to marked price
-- Marked price and discount percentage to discount amount
-- Marked price and discount amount to discount percentage
-- Marked price and discount amount to selling price
-- Successive discounts to final selling price
-- Successive discounts to a single equivalent discount
-- Known discount and equivalent discount to missing successive discount
-- Single discount versus successive discounts, including the better offer and rupee difference
-- Cost price, markup and discount to selling price and profit/loss result
-- Marked price, cost price and target profit/loss rate to required discount
-- Cost price, discount and target profit/loss rate to required markup
-- Buy-X-get-Y to equivalent discount and effective unit price
-- Flat and percentage cashback to effective price
-- Discount followed by a flat coupon
-- Discount offer versus cashback offer comparison
-- Three or more successive discounts to final selling price
-- Minimum-spend coupon eligibility and effective price
-- Discount followed by a percentage coupon
-- Percentage cashback with a maximum cap
-- Cashback calculated on original marked price after discount
-- Discount fraction to discount percentage
-- Paid-price to marked-price ratio to discount percentage
+CP-002 covers marked-price and discount forward/reverse relations, discount amounts, successive and equivalent discounts, missing discounts, markup-discount-profit calibration, required markup/discount inverses, buy-X-get-Y, cashback, coupons, eligibility thresholds, cashback caps and bases, mixed-offer comparisons, fraction/ratio forms, and table/caselet/statement/algebraic representations.
 
-## Current QL discovery set
+## Structural parity
 
-PNL-QL-037 through PNL-QL-063 are runtime-backed discovery QLs.
+- Task registry: 32
+- English: 32
+- Hindi: 32
+- Punjabi: 32
 
-- English: 27 entries
-- Hindi: 27 structural-parity entries
-- Punjabi: 27 structural-parity entries
-- Task registry: 27 entries
+## Editorial contract
 
-The count remains open and does not define the final size of CP-002.
+- Use direct exam-style asks.
+- Do not use generic classroom wording such as “What was the result of the transaction?”
+- Use approved profit/loss endings where applicable.
+- Distractors must map to identifiable misconceptions; arbitrary plus/minus offsets are prohibited.
 
-## Editorial rules carried forward from CP-001 review
+## Runtime proof and verification
 
-- Use direct exam-style asks rather than generic phrases such as “What was the result of the transaction?”
-- Approved profit/loss endings include “Find the profit or loss incurred”, “Calculate the profit or loss made by the retailer”, “Find the profit or loss percentage”, and “Calculate the percentage gain or loss” where semantically appropriate.
-- Distractors must map to identifiable misconceptions. Arbitrary plus/minus offsets are prohibited.
-- Typical discount distractors should reflect wrong percentage bases, treating successive discounts as additive, reversing retained-value multipliers, ignoring coupon eligibility or cashback caps, confusing billed price with effective cost, and applying cashback to the wrong base.
+`pnl-cp-002.test.ts` covers representative direct, inverse, promotion, coupon, cashback, cap, fraction, ratio and calibration cases.
 
-## Runtime proof
+`cp002-independent-verifier.ts` recomputes conditional-promotion results and rejects mode/result mismatches.
 
-`pnl-cp-002.test.ts` covers representative cases for:
+The final mixed-offer runtime includes minimum-spend coupon versus discount comparison and flat-coupon ordering where the percentage base changes.
 
-- direct discount and equivalent successive discounts
-- missing successive discount
-- markup-discount calibration
-- buy-X-get-Y equivalence and effective unit price
-- flat coupon after discount
-- discount-versus-cashback comparison
-- three-stage successive discounts
-- capped cashback
-- fraction and ratio discount conversions
+## Completion audit
 
-Execution remains deferred until the repository-level test/build pass, consistent with the current PNL workflow.
+See `completion-audit.md` for solve-mode, representation, multilingual, ownership and QL-depth findings.
 
-## Pending discovery and completion work
+## Deferred gate
 
-- Mixed-offer comparison where eligibility differs by minimum spend
-- Coupon-order comparison when a flat coupon changes the percentage-discount base
-- Table, caselet and statement/data-sufficiency forms
-- CP-specific independent verifier beyond example assertions
-- Placeholder, duplicate, semantic and QL-depth audits
-- Reference-book and PYQ reconciliation
+Node/esbuild execution and repository TypeScript/build checks remain deferred to the consolidated PNL integration pass. Reopen CP-002 if those checks fail.
 
-## Exit rule
+## Reopen rule
 
-CP-002 may be frozen only after direct/reverse symmetry, promotion ownership, marked-price-profit calibration, reference-book reconciliation, QL-depth, multilingual parity and realistic-distractor audits show no meaningful uncovered mode.
+Reopen only for a runtime/test defect or a genuinely distinct reference-book/PYQ mode. Otherwise CP-002 is complete for implementation sequencing.
