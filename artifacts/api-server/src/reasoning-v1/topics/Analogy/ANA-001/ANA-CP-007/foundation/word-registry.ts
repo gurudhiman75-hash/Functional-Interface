@@ -94,7 +94,7 @@ const PILOT_WORD_INPUTS: readonly PilotWordInput[] = [
   { id: "ANA-WORD-074", word: "WELCOME" },
   { id: "ANA-WORD-075", word: "THANKS" },
   { id: "ANA-WORD-076", word: "COLLEGE" },
-  { id: "ANA-WORD-077", word: "SCHOOL" },
+  { id: "ANA-WORD-077", word: "STUDENT" },
   { id: "ANA-WORD-078", word: "COMMITTEE", lexicalBand: "STANDARD_EXAM" },
   { id: "ANA-WORD-079", word: "BOOKKEEPER", lexicalBand: "STANDARD_EXAM" },
   { id: "ANA-WORD-080", word: "LANGUAGE", lexicalBand: "STANDARD_EXAM" },
