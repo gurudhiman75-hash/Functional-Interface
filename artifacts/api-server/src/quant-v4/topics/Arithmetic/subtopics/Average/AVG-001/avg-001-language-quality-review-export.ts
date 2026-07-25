@@ -5,6 +5,7 @@ import { runAvg001Cp001LocalizationPilot } from "./foundation/cp001-localization
 import { runAvg001Cp002LocalizationPilot } from "./foundation/cp002-localization-quality-runtime";
 import { runAvg001Cp003LocalizationPilot } from "./foundation/cp003-localization-quality-runtime";
 import { runAvg001Cp004LocalizationPilot } from "./foundation/cp004-localization-quality-runtime";
+import { runAvg001Cp005LocalizationPilot } from "./foundation/cp005-localization-quality-runtime";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
@@ -19,7 +20,7 @@ const header = [
 
 const csv = (value: unknown) => `"${String(value ?? "").replaceAll('"', '""')}"`;
 const entries = getAvg001QuestionEntries();
-const localizedCpIds = ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003", "AVG-CP-004"];
+const localizedCpIds = ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003", "AVG-CP-004", "AVG-CP-005"];
 
 function row(pkg: Avg001QuestionPackage) {
   return [
@@ -46,6 +47,7 @@ function localizedRunner(cpId: string) {
   if (cpId === "AVG-CP-002") return runAvg001Cp002LocalizationPilot;
   if (cpId === "AVG-CP-003") return runAvg001Cp003LocalizationPilot;
   if (cpId === "AVG-CP-004") return runAvg001Cp004LocalizationPilot;
+  if (cpId === "AVG-CP-005") return runAvg001Cp005LocalizationPilot;
   throw new Error(`No localized quality runtime for ${cpId}`);
 }
 
