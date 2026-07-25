@@ -1,0 +1,32 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-148","cpId":"PNC-CP-009","difficulty":"Easy","template":"A committee of {committeeSize} is to be selected from {totalObjects} people. In how many ways can it be formed if one particular person must be included?"},
+    {"qlId":"PNC-QL-149","cpId":"PNC-CP-009","difficulty":"Medium","template":"A team of {committeeSize} is chosen from {totalObjects} players. How many teams are possible if two particular players must both be selected?"},
+    {"qlId":"PNC-QL-150","cpId":"PNC-CP-009","difficulty":"Easy","template":"A committee of {committeeSize} is selected from {totalObjects} people. In how many ways can it be formed if one particular person cannot be selected?"},
+    {"qlId":"PNC-QL-151","cpId":"PNC-CP-009","difficulty":"Medium","template":"A panel of {committeeSize} is chosen from {totalObjects} candidates. How many panels are possible if two particular candidates are both excluded?"},
+    {"qlId":"PNC-QL-152","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is selected from {totalObjects} people. Person A must be included and person B must be excluded. How many committees are possible?"},
+    {"qlId":"PNC-QL-153","cpId":"PNC-CP-009","difficulty":"Easy","template":"A committee of {committeeSize} is formed from {categoryA} women and {categoryB} men. In how many ways can exactly {requiredFromA} women be selected?"},
+    {"qlId":"PNC-QL-154","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is formed from {categoryA} teachers and {categoryB} students. In how many ways can equal numbers of teachers and students be selected?"},
+    {"qlId":"PNC-QL-155","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is formed from {categoryA} women and {categoryB} men. In how many ways can women form a strict majority of the committee?"},
+    {"qlId":"PNC-QL-156","cpId":"PNC-CP-009","difficulty":"Medium","template":"A project group of {committeeSize} is selected from {categoryA} engineers and {categoryB} analysts. How many groups contain at least {minimumFromA} engineers?"},
+    {"qlId":"PNC-QL-157","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is selected from {categoryA} senior officers and {categoryB} junior officers. How many committees contain at most {maximumFromA} senior officers?"},
+    {"qlId":"PNC-QL-158","cpId":"PNC-CP-009","difficulty":"Easy","template":"A committee of {committeeSize} is formed from {categoryA} women and {categoryB} men. In how many ways can the committee contain at least one woman?"},
+    {"qlId":"PNC-QL-159","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is selected from {categoryA} members of Department A and {categoryB} members of Department B. How many committees contain at least one member from each department?"},
+    {"qlId":"PNC-QL-160","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee is formed from {categoryA} teachers, {categoryB} clerks and {categoryC} officers. In how many ways can exactly {requiredA} teachers, {requiredB} clerks and {requiredC} officers be selected?"},
+    {"qlId":"PNC-QL-161","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is selected from {categoryA} teachers, {categoryB} clerks and {categoryC} officers. How many committees contain at least one member from each category?"},
+    {"qlId":"PNC-QL-162","cpId":"PNC-CP-009","difficulty":"Easy","template":"A committee of {committeeSize} is selected from {totalObjects} people. In how many ways can exactly one of A and B be selected?"},
+    {"qlId":"PNC-QL-163","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is selected from {totalObjects} people. In how many ways can at least one of the two particular people A and B be selected?"},
+    {"qlId":"PNC-QL-164","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is selected from {totalObjects} people. A and B cannot both be members of the committee. How many committees are possible?"},
+    {"qlId":"PNC-QL-165","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is selected from {totalObjects} people. A and B must either both be selected or both be left out. How many committees are possible?"},
+    {"qlId":"PNC-QL-166","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is selected from {totalObjects} people. If B is selected, A must also be selected. How many committees satisfy this condition?"},
+    {"qlId":"PNC-QL-167","cpId":"PNC-CP-009","difficulty":"Hard","template":"Among {totalObjects} people, {specifiedCount} are specially identified. How many committees of {committeeSize} contain at most {maximumSpecified} of those identified people?"},
+    {"qlId":"PNC-QL-168","cpId":"PNC-CP-009","difficulty":"Medium","template":"Among {totalObjects} people, {specifiedCount} are specially identified. How many committees of {committeeSize} contain exactly {requiredSpecified} of those identified people?"},
+    {"qlId":"PNC-QL-169","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is formed from {categoryA} women and {categoryB} men. One particular woman must be selected, and the committee must contain exactly {requiredFromA} women in all. How many committees are possible?"},
+    {"qlId":"PNC-QL-170","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is formed from {categoryA} men and {categoryB} women. One particular man is unavailable, and the committee must contain exactly {requiredFromA} men. How many committees are possible?"},
+    {"qlId":"PNC-QL-171","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} must include one particular person. If it can be formed in {target} ways from a group of \(n\) people, find \(n\), where \({searchMinimum} \le n \le {searchMaximum}\)."},
+    {"qlId":"PNC-QL-172","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is formed from \(a\) members of Category A and {categoryB} members of Category B, with exactly {requiredFromA} members chosen from Category A. If the committee can be formed in {target} ways, find \(a\), where \({searchMinimum} \le a \le {searchMaximum}\)."}
+  ]
+}
