@@ -1,0 +1,511 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-010",
+  "ownership": "HUMAN_OWNED",
+  "groups": [
+    {
+      "qlIds": [
+        "PNC-QL-177"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countRoundTableDistinct",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-177",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "roundTableDistinct",
+      "constraintProfile": "COUNTROUNDTABLEDISTINCT",
+      "distractorProfile": "CIRCULAR_SYMMETRY",
+      "difficulty": "Easy",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-178"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countRoundTableDistinct",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-178",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "roundTableReference",
+      "constraintProfile": "COUNTROUNDTABLEDISTINCT",
+      "distractorProfile": "CIRCULAR_SYMMETRY",
+      "difficulty": "Easy",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-179"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularSpecifiedBlockTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-179",
+      "requiredVariables": [
+        "totalObjects",
+        "blockSize"
+      ],
+      "scenarioFamily": "circularPairTogether",
+      "constraintProfile": "COUNTCIRCULARSPECIFIEDBLOCKTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Easy",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-180"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularSpecifiedBlockApart",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-180",
+      "requiredVariables": [
+        "totalObjects",
+        "blockSize"
+      ],
+      "scenarioFamily": "circularPairApart",
+      "constraintProfile": "COUNTCIRCULARSPECIFIEDBLOCKAPART",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-181"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularSpecifiedBlockTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-181",
+      "requiredVariables": [
+        "totalObjects",
+        "blockSize"
+      ],
+      "scenarioFamily": "circularGroupTogether",
+      "constraintProfile": "COUNTCIRCULARSPECIFIEDBLOCKTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-182"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularMultipleBlocksTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-182",
+      "requiredVariables": [
+        "totalObjects",
+        "firstBlockSize",
+        "secondBlockSize"
+      ],
+      "scenarioFamily": "circularTwoPairsTogether",
+      "constraintProfile": "COUNTCIRCULARMULTIPLEBLOCKSTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-183"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularMultipleBlocksTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-183",
+      "requiredVariables": [
+        "totalObjects",
+        "firstBlockSize",
+        "secondBlockSize"
+      ],
+      "scenarioFamily": "circularPairGroupTogether",
+      "constraintProfile": "COUNTCIRCULARMULTIPLEBLOCKSTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-184"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularBlockWithExternalPairApart",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-184",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularPairTogetherOtherApart",
+      "constraintProfile": "COUNTCIRCULARBLOCKWITHEXTERNALPAIRAPART",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-185"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularTwoBlocksNotAdjacent",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-185",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularTwoPairBlocksSeparated",
+      "constraintProfile": "COUNTCIRCULARTWOBLOCKSNOTADJACENT",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-186"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularAtLeastOnePairTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-186",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularAtLeastOnePairTogether",
+      "constraintProfile": "COUNTCIRCULARATLEASTONEPAIRTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-187"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularNeitherPairTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-187",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularNeitherPairTogether",
+      "constraintProfile": "COUNTCIRCULARNEITHERPAIRTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-188"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countPersonBetweenTwoNeighbors",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-188",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularPersonBetweenNeighbors",
+      "constraintProfile": "COUNTPERSONBETWEENTWONEIGHBORS",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-189"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countOppositePair",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-189",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularOppositePair",
+      "constraintProfile": "COUNTOPPOSITEPAIR",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-190"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countClockwiseAdjacentPair",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-190",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularClockwiseAdjacent",
+      "constraintProfile": "COUNTCLOCKWISEADJACENTPAIR",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-191"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countClockwiseExactGap",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-191",
+      "requiredVariables": [
+        "totalObjects",
+        "gapCount"
+      ],
+      "scenarioFamily": "circularClockwiseExactGap",
+      "constraintProfile": "COUNTCLOCKWISEEXACTGAP",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-192"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countClockwiseAtLeastGap",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-192",
+      "requiredVariables": [
+        "totalObjects",
+        "minimumGap"
+      ],
+      "scenarioFamily": "circularClockwiseAtLeastGap",
+      "constraintProfile": "COUNTCLOCKWISEATLEASTGAP",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-193"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countClockwiseAtMostGap",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-193",
+      "requiredVariables": [
+        "totalObjects",
+        "maximumGap"
+      ],
+      "scenarioFamily": "circularClockwiseAtMostGap",
+      "constraintProfile": "COUNTCLOCKWISEATMOSTGAP",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-194"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countPrescribedClockwiseOrder",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-194",
+      "requiredVariables": [
+        "totalObjects",
+        "orderLength"
+      ],
+      "scenarioFamily": "circularClockwiseOrderThree",
+      "constraintProfile": "COUNTPRESCRIBEDCLOCKWISEORDER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-195"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countPrescribedClockwiseOrder",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-195",
+      "requiredVariables": [
+        "totalObjects",
+        "orderLength"
+      ],
+      "scenarioFamily": "circularClockwiseOrderFour",
+      "constraintProfile": "COUNTPRESCRIBEDCLOCKWISEORDER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-196"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularAlternation",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-196",
+      "requiredVariables": [
+        "categorySize",
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularEqualAlternation",
+      "constraintProfile": "COUNTCIRCULARALTERNATION",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-197"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularNoTwoCategoryAdjacent",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-197",
+      "requiredVariables": [
+        "largeCount",
+        "smallCount",
+        "totalObjects"
+      ],
+      "scenarioFamily": "circularCategoryNonAdjacent",
+      "constraintProfile": "COUNTCIRCULARNOTWOCATEGORYADJACENT",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-198"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularNoTwoCategoryAdjacent",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-198",
+      "requiredVariables": [
+        "specifiedCount",
+        "totalObjects",
+        "largeCount",
+        "smallCount"
+      ],
+      "scenarioFamily": "circularSpecifiedNonAdjacent",
+      "constraintProfile": "COUNTCIRCULARNOTWOCATEGORYADJACENT",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-199"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "recoverCircularParameter",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-199",
+      "requiredVariables": [
+        "target"
+      ],
+      "scenarioFamily": "recoverRoundTableTotal",
+      "constraintProfile": "RECOVERCIRCULARPARAMETER",
+      "distractorProfile": "CIRCULAR_SYMMETRY",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-200"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "recoverCircularParameter",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-200",
+      "requiredVariables": [
+        "target"
+      ],
+      "scenarioFamily": "recoverCircularPairTotal",
+      "constraintProfile": "RECOVERCIRCULARPARAMETER",
+      "distractorProfile": "CIRCULAR_INVERSE",
+      "difficulty": "Hard",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-201"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countRotationOnlyOrnaments",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-201",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "rotationOnlyDisplay",
+      "constraintProfile": "COUNTROTATIONONLYORNAMENTS",
+      "distractorProfile": "CIRCULAR_SYMMETRY",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-202"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countDihedralDistinctOrnaments",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-202",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "dihedralDistinctNecklace",
+      "constraintProfile": "COUNTDIHEDRALDISTINCTORNAMENTS",
+      "distractorProfile": "CIRCULAR_SYMMETRY",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": [
+        "PNC-QL-203"
+      ],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countDihedralPairTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-203",
+      "requiredVariables": [
+        "totalObjects"
+      ],
+      "scenarioFamily": "dihedralPairNecklace",
+      "constraintProfile": "COUNTDIHEDRALPAIRTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    }
+  ]
+}

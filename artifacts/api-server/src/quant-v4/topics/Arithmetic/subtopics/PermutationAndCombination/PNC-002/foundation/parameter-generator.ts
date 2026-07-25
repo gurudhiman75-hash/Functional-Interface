@@ -14,6 +14,7 @@ import {
   isPnc002Cp008SaturationScenario,
 } from "./parameter-generator-cp008-saturation";
 import { buildPnc002Cp009Values } from "./parameter-generator-cp009";
+import { buildPnc002Cp010Values } from "./parameter-generator-cp010";
 import type {
   Pnc002GeneratedValue,
   Pnc002ParameterInput,
@@ -97,13 +98,15 @@ export function generatePnc002Parameters(input: Pnc002ParameterInput = {}): Pnc0
     if (!candidates.length) throw new Error("No active PNC-002 QL matches the requested filters");
     entry = pickSeeded(candidates, createSeededRandom(`${seed}:entry`));
   }
-  const values = entry.cpId === "PNC-CP-009"
-    ? buildPnc002Cp009Values(entry, seed)
-    : isPnc002Cp008SaturationScenario(entry)
-      ? buildPnc002Cp008SaturationValues(entry, seed)
-      : entry.cpId === "PNC-CP-008"
-        ? buildPnc002Cp008Values(entry, seed)
-        : buildCp007Values(entry, seed);
+  const values = entry.cpId === "PNC-CP-010"
+    ? buildPnc002Cp010Values(entry, seed)
+    : entry.cpId === "PNC-CP-009"
+      ? buildPnc002Cp009Values(entry, seed)
+      : isPnc002Cp008SaturationScenario(entry)
+        ? buildPnc002Cp008SaturationValues(entry, seed)
+        : entry.cpId === "PNC-CP-008"
+          ? buildPnc002Cp008Values(entry, seed)
+          : buildCp007Values(entry, seed);
   const renderVariables = Object.fromEntries(entry.requiredVariables.map((key) => [key, numericValue(values, key)]));
   const suffix = hashSeed(`${seed}:${entry.qlId}`).toString(16).padStart(8, "0");
   return {

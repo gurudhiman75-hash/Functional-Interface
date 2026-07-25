@@ -6,8 +6,8 @@
 |---|---|---|
 | `PNC-CP-007` | specified objects together/apart, one or more linear blocks, internal block orders and direct block complements | Current English ownership saturated; runtime proof |
 | `PNC-CP-008` | fixed positions, starts/ends, relative order, alternation, position classes and explicit gap placement | Current English ownership saturated; runtime proof |
-| `PNC-CP-009` | compulsory/excluded members, named-member logic, category quotas and bounded conditional selection | Current English ownership saturated; runtime proof |
-| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Next boundary |
+| `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Current English ownership saturated; runtime proof |
+| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Initial English runtime checkpoint; saturation audit open |
 | `PNC-CP-011` | labelled/unlabelled grouping and distribution | Not started |
 | `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
 
@@ -34,32 +34,41 @@
 - two independent relative-order chains;
 - strict alternation for equal groups, one-extra groups and a fixed starting category;
 - gap placement so no two members of a category or specified set are adjacent;
-- exact, at least and at most gap restrictions between a specified pair;
-- directional exact-gap counting with one named object before another;
+- exact, at least and at most separation between a specified pair;
+- directional exact separation with one named object before another;
 - exact and at-least counts of specified objects in odd/even position classes;
 - bounded recovery of an exact gap parameter.
 
 ## CP-009 represented scope
 
-- compulsory, excluded, and compulsory-plus-excluded named members;
-- exact, at-least and at-most quotas across two categories;
-- at least one member from one category or from every required category;
-- exact distributions and positive participation across three categories;
+- compulsory, excluded and compulsory-plus-excluded named members;
+- exact, at-least, at-most and inclusive-range category quotas;
+- participation from one, two or three required categories;
 - exact, at-least, at-most and inclusive-range counts from a specified subset;
-- exactly one, at least one, not both, all-or-none and implication relations between named members;
-- simultaneous lower and upper bounds across two categories;
-- a compulsory or excluded named member combined with an exact category quota;
-- bounded recovery of total pool size or category size from a conditional count.
+- all-or-none, implication and not-all-together member conditions;
+- named compulsory/excluded members combined with category quotas;
+- bounded recovery of total pool size or category size.
+
+## CP-010 current represented scope
+
+- distinct round-table arrangements and reference-person normalization;
+- one or more circular blocks, complements and pair-event inclusion–exclusion;
+- neighbouring, opposite and directed clockwise conditions;
+- exact, minimum and maximum clockwise gaps;
+- prescribed clockwise relative order;
+- equal-category alternation and circular gap placement;
+- bounded recovery from unrestricted or pair-together circular counts;
+- rotation-only circular displays;
+- distinct necklaces under rotation and reflection;
+- reflection-equivalent necklaces with a specified adjacent pair.
 
 ## Negative boundaries
 
-CP-007 through CP-009 do not own:
+The active CPs do not own:
 
-- unrestricted direct selection — CP-003;
-- selection followed by offices, ranks or arrangement — CP-006;
-- circular arrangements or circular restrictions — CP-010;
-- labelled or unlabelled grouping and distribution — CP-011;
-- broader mixed event systems whose primary contract is general inclusion–exclusion — CP-012;
+- grouping/distribution into labelled or unlabelled groups — CP-011;
+- mixed selection-plus-circular systems or broader advanced inclusion–exclusion — CP-012;
+- repeated-colour necklace systems requiring Burnside/Pólya analysis — CP-012 unless separately justified;
 - word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005.
 
-Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-176`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-177`.
+Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-203`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-204`.

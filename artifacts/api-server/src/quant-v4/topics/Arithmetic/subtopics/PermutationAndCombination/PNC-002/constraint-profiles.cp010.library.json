@@ -1,0 +1,110 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "COUNTROUNDTABLEDISTINCT": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countRoundTableDistinct"
+    },
+    "COUNTCIRCULARSPECIFIEDBLOCKTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularSpecifiedBlockTogether"
+    },
+    "COUNTCIRCULARSPECIFIEDBLOCKAPART": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularSpecifiedBlockApart"
+    },
+    "COUNTCIRCULARMULTIPLEBLOCKSTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularMultipleBlocksTogether"
+    },
+    "COUNTCIRCULARBLOCKWITHEXTERNALPAIRAPART": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularBlockWithExternalPairApart"
+    },
+    "COUNTCIRCULARTWOBLOCKSNOTADJACENT": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularTwoBlocksNotAdjacent"
+    },
+    "COUNTCIRCULARATLEASTONEPAIRTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularAtLeastOnePairTogether"
+    },
+    "COUNTCIRCULARNEITHERPAIRTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularNeitherPairTogether"
+    },
+    "COUNTPERSONBETWEENTWONEIGHBORS": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countPersonBetweenTwoNeighbors"
+    },
+    "COUNTOPPOSITEPAIR": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countOppositePair"
+    },
+    "COUNTCLOCKWISEADJACENTPAIR": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countClockwiseAdjacentPair"
+    },
+    "COUNTCLOCKWISEEXACTGAP": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countClockwiseExactGap"
+    },
+    "COUNTCLOCKWISEATLEASTGAP": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countClockwiseAtLeastGap"
+    },
+    "COUNTCLOCKWISEATMOSTGAP": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countClockwiseAtMostGap"
+    },
+    "COUNTPRESCRIBEDCLOCKWISEORDER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countPrescribedClockwiseOrder"
+    },
+    "COUNTCIRCULARALTERNATION": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularAlternation"
+    },
+    "COUNTCIRCULARNOTWOCATEGORYADJACENT": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countCircularNoTwoCategoryAdjacent"
+    },
+    "RECOVERCIRCULARPARAMETER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "recoverCircularParameter"
+    },
+    "COUNTROTATIONONLYORNAMENTS": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countRotationOnlyOrnaments"
+    },
+    "COUNTDIHEDRALDISTINCTORNAMENTS": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countDihedralDistinctOrnaments"
+    },
+    "COUNTDIHEDRALPAIRTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "countDihedralPairTogether"
+    }
+  }
+}
