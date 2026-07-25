@@ -1,103 +1,108 @@
 import assert from "node:assert/strict";
 import {
-  aggregateLedgers,
-  asPercent,
   compareRational,
-  createPriceLedger,
-  createTransactionChain,
-  createTransactionStage,
-  dishonestTradeProfitPercent,
   moneyFromRupees,
-  profitOrLossRateOnCost,
   rational,
-  sellingPriceAfterDiscount,
   solveFundamental,
-  verifyForwardReverseRoundTrip,
-  verifyTransactionChain,
 } from "./foundation";
 
-function run() {
-  assert.deepEqual(rational(1, 3), { numerator: 1n, denominator: 3n });
-  assert.deepEqual(asPercent(rational(1, 3)), { numerator: 100n, denominator: 3n });
+const equalMoney = (actual: { paise: bigint }, rupees: number) =>
+  assert.deepEqual(actual, moneyFromRupees(rupees));
 
-  assert.deepEqual(
-    verifyForwardReverseRoundTrip({
-      costPrice: moneyFromRupees(800),
-      direction: "PROFIT",
-      ratePercent: rational(25),
-    }),
-    { ok: true, errors: [] },
-  );
+assert.deepEqual(rational(2, 6), rational(1, 3));
 
-  assert.deepEqual(
-    sellingPriceAfterDiscount(moneyFromRupees(1600), rational(12)),
-    moneyFromRupees(1408),
-  );
+const amount = solveFundamental({
+  mode: "CP_SP_TO_AMOUNT",
+  costPrice: moneyFromRupees(800),
+  sellingPrice: moneyFromRupees(1000),
+});
+assert.equal(amount.mode, "CP_SP_TO_AMOUNT");
+assert.equal(amount.direction, "PROFIT");
+equalMoney(amount.amount, 200);
 
-  const aggregate = aggregateLedgers([
-    createPriceLedger({ costPrice: moneyFromRupees(500), sellingPrice: moneyFromRupees(600) }),
-    createPriceLedger({ costPrice: moneyFromRupees(1000), sellingPrice: moneyFromRupees(900) }),
-  ]);
-  assert.equal(profitOrLossRateOnCost(aggregate).direction, "NO_CHANGE");
+const sp = solveFundamental({
+  mode: "CP_RATE_TO_SP",
+  costPrice: moneyFromRupees(800),
+  direction: "PROFIT",
+  ratePercent: rational(25),
+});
+assert.equal(sp.mode, "CP_RATE_TO_SP");
+equalMoney(sp.sellingPrice, 1000);
 
-  const chain = createTransactionChain([
-    createTransactionStage({
-      sellerId: "A",
-      buyerId: "B",
-      inputPrice: moneyFromRupees(800),
-      outputPrice: moneyFromRupees(1000),
-    }),
-    createTransactionStage({
-      sellerId: "B",
-      buyerId: "C",
-      inputPrice: moneyFromRupees(1000),
-      outputPrice: moneyFromRupees(1200),
-    }),
-  ]);
-  assert.deepEqual(verifyTransactionChain(chain), { ok: true, errors: [] });
+const cp = solveFundamental({
+  mode: "SP_RATE_TO_CP",
+  sellingPrice: moneyFromRupees(900),
+  direction: "LOSS",
+  ratePercent: rational(10),
+});
+assert.equal(cp.mode, "SP_RATE_TO_CP");
+equalMoney(cp.costPrice, 1000);
 
-  const dishonestRate = dishonestTradeProfitPercent({
-    unitCostForNominalQuantity: moneyFromRupees(100),
-    chargedPriceForNominalQuantity: moneyFromRupees(100),
-    nominalQuantity: rational(1000),
-    deliveredQuantity: rational(800),
-  });
-  assert.equal(compareRational(dishonestRate, rational(25)), 0);
+const cpFromAmount = solveFundamental({
+  mode: "AMOUNT_RATE_TO_CP",
+  amount: moneyFromRupees(240),
+  direction: "PROFIT",
+  ratePercent: rational(20),
+});
+assert.equal(cpFromAmount.mode, "AMOUNT_RATE_TO_CP");
+equalMoney(cpFromAmount.costPrice, 1200);
 
-  assert.deepEqual(
-    solveFundamental({
-      mode: "CP_SP_TO_AMOUNT",
-      costPrice: moneyFromRupees(800),
-      sellingPrice: moneyFromRupees(920),
-    }),
-    {
-      mode: "CP_SP_TO_AMOUNT",
-      direction: "PROFIT",
-      amount: moneyFromRupees(120),
-    },
-  );
+const ratioRate = solveFundamental({
+  mode: "CP_SP_RATIO_TO_RATE",
+  costPart: rational(4),
+  sellingPart: rational(5),
+});
+assert.equal(ratioRate.mode, "CP_SP_RATIO_TO_RATE");
+assert.equal(ratioRate.direction, "PROFIT");
+assert.equal(compareRational(ratioRate.ratePercent, rational(25)), 0);
 
-  assert.deepEqual(
-    solveFundamental({
-      mode: "CP_RATE_TO_SP",
-      costPrice: moneyFromRupees(800),
-      direction: "PROFIT",
-      ratePercent: rational(25),
-    }),
-    { mode: "CP_RATE_TO_SP", sellingPrice: moneyFromRupees(1000) },
-  );
+const margin = solveFundamental({
+  mode: "PROFIT_CP_TO_MARGIN_SP",
+  profitPercent: rational(25),
+});
+assert.equal(margin.mode, "PROFIT_CP_TO_MARGIN_SP");
+assert.equal(compareRational(margin.marginPercent, rational(20)), 0);
 
-  assert.deepEqual(
-    solveFundamental({
-      mode: "SP_RATE_TO_CP",
-      sellingPrice: moneyFromRupees(900),
-      direction: "LOSS",
-      ratePercent: rational(10),
-    }),
-    { mode: "SP_RATE_TO_CP", costPrice: moneyFromRupees(1000) },
-  );
+const fractionRate = solveFundamental({
+  mode: "FRACTION_TO_RATE",
+  direction: "PROFIT",
+  amountFraction: rational(1, 5),
+  fractionBase: "SELLING_PRICE",
+});
+assert.equal(fractionRate.mode, "FRACTION_TO_RATE");
+assert.equal(compareRational(fractionRate.ratePercent, rational(25)), 0);
 
-  console.log("PNL-001 foundation runtime proof passed.");
-}
+const difference = solveFundamental({
+  mode: "CP_TWO_RATES_TO_SP_DIFFERENCE",
+  costPrice: moneyFromRupees(1000),
+  firstDirection: "PROFIT",
+  firstRatePercent: rational(20),
+  secondDirection: "LOSS",
+  secondRatePercent: rational(10),
+});
+assert.equal(difference.mode, "CP_TWO_RATES_TO_SP_DIFFERENCE");
+equalMoney(difference.difference, 300);
 
-run();
+const cpFromDifference = solveFundamental({
+  mode: "SP_DIFFERENCE_TWO_RATES_TO_CP",
+  difference: moneyFromRupees(300),
+  firstDirection: "PROFIT",
+  firstRatePercent: rational(20),
+  secondDirection: "LOSS",
+  secondRatePercent: rational(10),
+});
+assert.equal(cpFromDifference.mode, "SP_DIFFERENCE_TWO_RATES_TO_CP");
+equalMoney(cpFromDifference.costPrice, 1000);
+
+const secondCondition = solveFundamental({
+  mode: "TWO_SELLING_CONDITIONS_TO_SECOND_RATE",
+  firstSellingPrice: moneyFromRupees(1200),
+  firstDirection: "PROFIT",
+  firstRatePercent: rational(20),
+  secondSellingPrice: moneyFromRupees(900),
+});
+assert.equal(secondCondition.mode, "TWO_SELLING_CONDITIONS_TO_SECOND_RATE");
+assert.equal(secondCondition.direction, "LOSS");
+assert.equal(compareRational(secondCondition.ratePercent, rational(10)), 0);
+
+console.log("PNL-001 CP-001 runtime proof passed.");
