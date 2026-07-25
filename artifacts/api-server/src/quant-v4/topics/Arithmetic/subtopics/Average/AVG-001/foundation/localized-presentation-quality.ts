@@ -1,5 +1,5 @@
-import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
 import { applyAvg001Cp003LocalizedStemAuthorship } from "./cp003-localized-stem-authorship";
+import { applyAvg001Cp003LocalizedStemFinalPolish } from "./cp003-localized-stem-final-polish";
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
@@ -70,8 +70,8 @@ export function applyAvg001LocalizedPresentationQuality(
   pkg: Avg001QuestionPackage,
   language: PilotLanguage,
 ): Avg001QuestionPackage {
-  const polishedStem = applyAvg001Cp003LocalizedStemAuthorship(pkg, language);
+  const authoredStem = applyAvg001Cp003LocalizedStemAuthorship(pkg, language);
+  const polishedStem = applyAvg001Cp003LocalizedStemFinalPolish(authoredStem, language);
   const humanized = applyAvg001HumanAuthoredExplanation(polishedStem);
-  const contextAuthored = applyAvg001Cp003ExplanationAuthorship(humanized);
-  return { ...contextAuthored, validation: refreshValidation(contextAuthored, language) };
+  return { ...humanized, validation: refreshValidation(humanized, language) };
 }
