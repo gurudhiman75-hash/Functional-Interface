@@ -87,17 +87,65 @@ function languageOf(pkg: Avg001QuestionPackage): Language {
   return pkg.language === "hi" || pkg.language === "pa" ? pkg.language : "en";
 }
 
+function withoutClosingPunctuation(value: string) {
+  return value.trim().replace(/[.!?।]+$/u, "");
+}
+
 function capitaliseEnglish(value: string) {
   return value.length === 0 ? value : `${value[0].toUpperCase()}${value.slice(1)}`;
 }
 
-function directOpening(line: string, language: Language) {
+function lowerInitialEnglish(value: string) {
+  return value.length === 0 ? value : `${value[0].toLowerCase()}${value.slice(1)}`;
+}
+
+function englishContextualOpening(concept: string, context: string, variant: number) {
+  const cleanConcept = withoutClosingPunctuation(concept);
+  const lowerConcept = lowerInitialEnglish(cleanConcept);
+  const cleanContext = withoutClosingPunctuation(context || "the requested quantity");
+  const capitalContext = capitaliseEnglish(cleanContext);
+  const openings = [
+    `${cleanConcept}.`,
+    `To find ${cleanContext}, ${lowerConcept}.`,
+    `${capitalContext} is obtained from the fact that ${lowerConcept}.`,
+    `For ${cleanContext}, use the relation that ${lowerConcept}.`,
+    `The calculation of ${cleanContext} starts with the fact that ${lowerConcept}.`,
+    `To calculate ${cleanContext}, first use the fact that ${lowerConcept}.`,
+    `${capitalContext} comes from applying the relation that ${lowerConcept}.`,
+    `Use the fact that ${lowerConcept} to obtain ${cleanContext}.`,
+    `Finding ${cleanContext} depends on the relation that ${lowerConcept}.`,
+    `For this ${cleanContext} calculation, ${lowerConcept}.`,
+    `${capitalContext} can be calculated because ${lowerConcept}.`,
+    `The route to ${cleanContext} is to use the fact that ${lowerConcept}.`,
+    `Calculate ${cleanContext} from the relation that ${lowerConcept}.`,
+    `Apply the relation that ${lowerConcept} when calculating ${cleanContext}.`,
+    `The arithmetic for ${cleanContext} begins with the fact that ${lowerConcept}.`,
+    `To obtain ${cleanContext}, work from the fact that ${lowerConcept}.`,
+    `${capitalContext} is determined by the relation that ${lowerConcept}.`,
+    `Use this starting relation for ${cleanContext}: ${cleanConcept}.`,
+    `For ${cleanContext}, the starting relation is ${lowerConcept}.`,
+    `The first step toward ${cleanContext} is to use the fact that ${lowerConcept}.`,
+    `Compute ${cleanContext} by applying the relation that ${lowerConcept}.`,
+    `The relation needed for ${cleanContext} is that ${lowerConcept}.`,
+    `Begin the ${cleanContext} calculation with the fact that ${lowerConcept}.`,
+  ] as const;
+  return openings[variant] ?? openings[0];
+}
+
+function directOpening(pkg: Avg001QuestionPackage, line: string) {
+  const language = languageOf(pkg);
   const prefixes = language === "hi" ? HI_PREFIXES : language === "pa" ? PA_PREFIXES : EN_PREFIXES;
   const index = prefixes.findIndex((prefix) => line.startsWith(`${prefix}:`));
   if (index < 0) return line;
 
   const concept = line.slice(prefixes[index].length + 1).trim();
-  return language === "en" ? capitaliseEnglish(concept) : concept;
+  if (language !== "en") return concept;
+
+  return englishContextualOpening(
+    capitaliseEnglish(concept),
+    pkg.reasoningEvidence.finalContext,
+    index,
+  );
 }
 
 export function finalizeAvg001ExplanationOpening(
@@ -106,7 +154,7 @@ export function finalizeAvg001ExplanationOpening(
   const lines = [...pkg.explanation.lines];
   if (lines.length === 0) return pkg;
 
-  const firstLine = directOpening(lines[0], languageOf(pkg));
+  const firstLine = directOpening(pkg, lines[0]);
   if (firstLine === lines[0]) return pkg;
 
   lines[0] = firstLine;
