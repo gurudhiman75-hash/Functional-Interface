@@ -68,8 +68,8 @@ function contextChecks(pkg: Avg001QuestionPackage, language: Language) {
 
   check(!/(स्कोर|दिन|मशीन|पार्सल|कीमत|बिक्री).*समूह में शामिल/.test(text), "non-person joins a group in Hindi");
   check(!/(ਸਕੋਰ|ਦਿਨ|ਮਸ਼ੀਨ|ਪਾਰਸਲ|ਕੀਮਤ|ਵਿਕਰੀ).*ਸਮੂਹ ਵਿੱਚ ਸ਼ਾਮਲ/.test(text), "non-person joins a group in Punjabi");
-  check(!/मशीन[^।?]*(होता|जाता) है/.test(text), "Hindi machine gender mismatch");
-  check(!/ਮਸ਼ੀਨ[^।?]*(ਹੁੰਦਾ|ਜਾਂਦਾ) ਹੈ/.test(text), "Punjabi machine gender mismatch");
+  check(!/एक (?:नई )?मशीन (?:समूह में )?शामिल होता है|एक मशीन (?:समूह से )?हट जाता है/.test(text), "Hindi machine gender mismatch");
+  check(!/ਇੱਕ (?:ਨਵੀਂ )?ਮਸ਼ੀਨ (?:ਸਮੂਹ ਵਿੱਚ )?ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ|ਇੱਕ ਮਸ਼ੀਨ (?:ਸਮੂਹ ਵਿੱਚੋਂ )?ਹਟ ਜਾਂਦਾ ਹੈ/.test(text), "Punjabi machine gender mismatch");
   check(!/एक बच्चा के|ਇੱਕ ਬੱਚਾ ਦੇ/.test(text), "child oblique-case error");
 
   if (!isAge(pkg) && !pkg.solveMode.includes("OriginalCount")) {

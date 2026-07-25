@@ -155,7 +155,7 @@ function hindiAgeStem(pkg: Avg001QuestionPackage) {
     case "findNewAverageAfterReplacement":
       return `${lead} ${after}${oldValue} वर्ष के ${role.oblique} के स्थान पर ${newValue} वर्ष का ${role.direct} आता है। नई औसत आयु ज्ञात कीजिए।`;
     case "findAddedMemberValueFromShift":
-      return `${lead} ${after}एक ${role.direct} के शामिल होने पर औसत आयु ${newAverage} वर्ष हो जाती है। उस ${role.oblique} की आयु ज्ञात कीजिए।`;
+      return `${lead} ${after}एक ${role.oblique} के शामिल होने पर औसत आयु ${newAverage} वर्ष हो जाती है। उस ${role.oblique} की आयु ज्ञात कीजिए।`;
     case "findRemovedMemberValueFromShift":
       return `${lead} ${after}एक ${role.direct} के जाने पर औसत आयु ${newAverage} वर्ष हो जाती है। जाने वाले ${role.oblique} की आयु ज्ञात कीजिए।`;
     case "findReplacementValueFromShift":
@@ -194,7 +194,7 @@ function punjabiAgeStem(pkg: Avg001QuestionPackage) {
     case "findNewAverageAfterReplacement":
       return `${lead} ${after}${oldValue} ਸਾਲ ਦੇ ${role.oblique} ਦੀ ਥਾਂ ${newValue} ਸਾਲ ਦਾ ${role.direct} ਆਉਂਦਾ ਹੈ। ਨਵੀਂ ਔਸਤ ਉਮਰ ਪਤਾ ਕਰੋ।`;
     case "findAddedMemberValueFromShift":
-      return `${lead} ${after}ਇੱਕ ${role.direct} ਦੇ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ਉਮਰ ${newAverage} ਸਾਲ ਹੋ ਜਾਂਦੀ ਹੈ। ਉਸ ${role.oblique} ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।`;
+      return `${lead} ${after}ਇੱਕ ${role.oblique} ਦੇ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ਉਮਰ ${newAverage} ਸਾਲ ਹੋ ਜਾਂਦੀ ਹੈ। ਉਸ ${role.oblique} ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।`;
     case "findRemovedMemberValueFromShift":
       return `${lead} ${after}ਇੱਕ ${role.direct} ਦੇ ਜਾਣ ਉੱਤੇ ਔਸਤ ਉਮਰ ${newAverage} ਸਾਲ ਹੋ ਜਾਂਦੀ ਹੈ। ਜਾਣ ਵਾਲੇ ${role.oblique} ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।`;
     case "findReplacementValueFromShift":
@@ -376,8 +376,10 @@ function hindiNonAgeStem(pkg: Avg001QuestionPackage, k: Kind) {
     case "findNewAverageAfterReplacement":
       return `${c.lead} ${c.replace}। नया औसत ज्ञात कीजिए।`;
     case "findAddedMemberValueFromShift":
+      if (k === "output") return `${c.lead} एक और मशीन जोड़ने पर औसत उत्पादन ${displayed(newAverage)} हो जाता है। नई मशीन का उत्पादन ज्ञात कीजिए।`;
       return `${c.lead} एक और ${c.noun} शामिल होने पर औसत ${displayed(newAverage)} हो जाता है। शामिल ${c.answer} ज्ञात कीजिए।`;
     case "findRemovedMemberValueFromShift":
+      if (k === "output") return `${c.lead} एक मशीन हटाने पर औसत उत्पादन ${displayed(newAverage)} हो जाता है। हटाई गई मशीन का उत्पादन ज्ञात कीजिए।`;
       return `${c.lead} एक ${c.noun} हटाने पर औसत ${displayed(newAverage)} हो जाता है। हटाया गया ${c.answer} ज्ञात कीजिए।`;
     case "findReplacementValueFromShift":
       if (target === "old") return `${c.lead} एक अज्ञात ${c.answer} के स्थान पर ${displayed(newValue)} रखने से औसत ${displayed(newAverage)} हो जाता है। पुराना ${c.answer} ज्ञात कीजिए।`;
@@ -434,8 +436,10 @@ function punjabiNonAgeStem(pkg: Avg001QuestionPackage, k: Kind) {
     case "findNewAverageAfterReplacement":
       return `${c.lead} ${c.replace}। ਨਵੀਂ ਔਸਤ ਪਤਾ ਕਰੋ।`;
     case "findAddedMemberValueFromShift":
+      if (k === "output") return `${c.lead} ਇੱਕ ਹੋਰ ਮਸ਼ੀਨ ਜੋੜਨ ਉੱਤੇ ਔਸਤ ਉਤਪਾਦਨ ${displayed(newAverage)} ਹੋ ਜਾਂਦਾ ਹੈ। ਨਵੀਂ ਮਸ਼ੀਨ ਦਾ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`;
       return `${c.lead} ਇੱਕ ਹੋਰ ${c.noun} ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਮਲ ${c.answer} ਪਤਾ ਕਰੋ।`;
     case "findRemovedMemberValueFromShift":
+      if (k === "output") return `${c.lead} ਇੱਕ ਮਸ਼ੀਨ ਹਟਾਉਣ ਉੱਤੇ ਔਸਤ ਉਤਪਾਦਨ ${displayed(newAverage)} ਹੋ ਜਾਂਦਾ ਹੈ। ਹਟਾਈ ਗਈ ਮਸ਼ੀਨ ਦਾ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`;
       return `${c.lead} ਇੱਕ ${c.noun} ਹਟਾਉਣ ਉੱਤੇ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਹਟਾਇਆ ਗਿਆ ${c.answer} ਪਤਾ ਕਰੋ।`;
     case "findReplacementValueFromShift":
       if (target === "old") return `${c.lead} ਇੱਕ ਅਣਜਾਣ ${c.answer} ਦੀ ਥਾਂ ${displayed(newValue)} ਰੱਖਣ ਨਾਲ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਪੁਰਾਣਾ ${c.answer} ਪਤਾ ਕਰੋ।`;
