@@ -67,17 +67,46 @@ function normalizeAcademicMarks(text: string) {
     .replace(/\baverage mark when both groups\b/gi, "average marks when both groups");
 }
 
+function ensureMarksConclusion(
+  pkg: Avg001QuestionPackage,
+  lines: string[],
+) {
+  if (
+    pkg.parameters.answerType === "COUNT" ||
+    pkg.parameters.answerType === "RATIO" ||
+    !/\bmarks?\b/i.test(pkg.stem)
+  ) {
+    return lines;
+  }
+
+  const conclusionIndex = lines.findLastIndex((line) =>
+    !/\$\$/.test(line) && line.includes(pkg.answer),
+  );
+  if (conclusionIndex < 0 || /\bmarks?\b/i.test(lines[conclusionIndex]!)) return lines;
+
+  const updated = [...lines];
+  const conclusion = updated[conclusionIndex]!;
+  updated[conclusionIndex] = /[.!?]$/.test(conclusion)
+    ? conclusion.replace(/([.!?])$/, " marks$1")
+    : `${conclusion} marks.`;
+  return updated;
+}
+
 export function applyAvg001AcademicMarksTerminology(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
   if (pkg.language !== "en" || !ACADEMIC_MARK_QL_IDS.has(pkg.questionLanguageId)) return pkg;
 
+  const stem = normalizeAcademicMarks(pkg.stem);
+  const normalizedLines = pkg.explanation.lines.map(normalizeAcademicMarks);
+  const lines = ensureMarksConclusion({ ...pkg, stem }, normalizedLines);
+
   return {
     ...pkg,
-    stem: normalizeAcademicMarks(pkg.stem),
+    stem,
     explanation: {
       ...pkg.explanation,
-      lines: pkg.explanation.lines.map(normalizeAcademicMarks),
+      lines,
     },
     traceability: {
       ...pkg.traceability,
