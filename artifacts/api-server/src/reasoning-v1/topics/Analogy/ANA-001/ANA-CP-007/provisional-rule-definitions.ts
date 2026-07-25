@@ -2,7 +2,6 @@ import { shiftLetter } from "../foundation/alphabet";
 import { equalityPattern } from "./foundation/word-pattern";
 import {
   ANA_CP007_VOWELS,
-  alphabetPositionSequence,
   alphabetPositionSum,
   extractWordPositions,
   normalizeWordStructureToken,
@@ -14,7 +13,6 @@ export type ProvisionalWordRuleId =
   | "WORD_REMOVE_VOWELS"
   | "WORD_REMOVE_CONSONANTS"
   | "WORD_POSITION_EXTRACTION"
-  | "WORD_ALPHABET_POSITION_SEQUENCE"
   | "WORD_ALPHABET_POSITION_SUM"
   | "WORD_LENGTH_RULE"
   | "WORD_EQUALITY_PATTERN"
@@ -142,14 +140,6 @@ export const ANA_CP007_PROVISIONAL_RULES: readonly ProvisionalWordRuleDefinition
         normalizeWordStructureToken(word),
         extractWordPositions(word, context.parity, context.order),
       )
-      : null,
-  },
-  {
-    id: "WORD_ALPHABET_POSITION_SEQUENCE",
-    priority: 1,
-    contexts: FIXED_CONTEXT,
-    apply: (word, context) => context.kind === "FIXED"
-      ? alphabetPositionSequence(word)
       : null,
   },
   {
