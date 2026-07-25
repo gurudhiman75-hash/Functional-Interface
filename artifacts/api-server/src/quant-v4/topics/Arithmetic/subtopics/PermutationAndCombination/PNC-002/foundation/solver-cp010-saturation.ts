@@ -80,7 +80,7 @@ export function solvePnc002Cp010Saturation(parameters: Pnc002AnyParameters): Pnc
   const bothPairs = twoPairsTogether(totalObjects, ceiling);
   const oneExclusiveCase = subtractExact(onePair, bothPairs);
   const answer = productExact([2, oneExclusiveCase], ceiling);
-  return result(answer, `2 × (${onePair} - ${bothPairs}) = ${answer}`, `2 \\times \left(${onePair} - ${bothPairs}\right) = ${answer}`, {
+  return result(answer, `2 × (${onePair} - ${bothPairs}) = ${answer}`, `2 \\times \\left(${onePair} - ${bothPairs}\\right) = ${answer}`, {
     ...evidenceBase(totalObjects, "CIRCULAR_EXACTLY_ONE_PAIR"),
     blockSizes: [2, 2],
     groupedObjectCount: 4,
