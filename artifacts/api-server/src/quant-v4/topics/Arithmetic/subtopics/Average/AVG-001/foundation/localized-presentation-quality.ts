@@ -10,6 +10,7 @@ import {
 } from "./localized-stem-context-fidelity";
 import { applyAvg001LocalizedStemContextFinalPolish } from "./localized-stem-context-final-polish";
 import { applyAvg001LocalizedStemGrammarGuard } from "./localized-stem-grammar-guard";
+import { finalizeAvg001LocalizedStemVariation } from "./localized-stem-variation-finalizer";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
@@ -17,6 +18,7 @@ type PilotLanguage = "hi" | "pa";
 const CP003_CONTEXT_FINALIZER = "AVG-CP-003 localized context finalizer v2";
 const CP003_GRAMMAR_FINALIZER = "AVG-CP-003 localized explanation grammar finalizer v2";
 const CP003_EQUATION_LABEL_FINALIZER = "AVG-CP-003 localized equation labels v1";
+const STEM_VARIATION_FINALIZER = "AVG-001 localized stem variation finalizer v1";
 const HI_UNNATURAL = /(?:[\d,.]+ का एक मान समूह|एक नया सदस्य शामिल होने पर|हटाए गए सदस्य का मान|एक सदस्य हटने पर|अंक का एक स्कोर|उत्पादन-श्रृंखला|मूल्य-श्रृंखला|स्कोर-श्रृंखला|दूरी-श्रृंखला|बीच का संख्या|सबसे बड़ा संख्या|सबसे छोटा संख्या|समूह का पहला मान|संख्याएँ के|मान का पहला मान|आँकड़े की संख्या|परीक्षा-अंक की संख्या|मानों का औसत [^।]+। इसमें|एक और कीमत शामिल|एक परीक्षा का परिणाम हटाने|वजनों का औसत|दर्ज राशियों का औसत|औसत [\d,.]+ इकाइयाँ हो जाता है|औसत [\d,.]+ रन हो जाता है)/;
 const PA_UNNATURAL = /(?:[\d,.]+ ਦਾ ਇੱਕ ਮੁੱਲ ਸਮੂਹ|ਇੱਕ ਨਵਾਂ ਮੈਂਬਰ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ|ਹਟਾਏ ਗਏ ਮੈਂਬਰ ਦਾ ਮੁੱਲ|ਇੱਕ ਮੈਂਬਰ ਹਟਣ ਉੱਤੇ|ਅੰਕ ਦਾ ਇੱਕ ਸਕੋਰ|ਉਤਪਾਦਨ ਲੜੀ|ਕੀਮਤਾਂ ਦੀ ਲੜੀ|ਸਕੋਰ ਲੜੀ|ਦੂਰੀ ਲੜੀ|ਵਿਚਕਾਰਲਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਵੱਡਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਛੋਟਾ ਸੰਖਿਆ|ਸਮੂਹ ਦਾ ਪਹਿਲਾ ਮੁੱਲ|ਅੰਕੜੇ ਦੀ ਗਿਣਤੀ|ਪ੍ਰੀਖਿਆ ਅੰਕ ਦੀ ਗਿਣਤੀ|ਮੁੱਲਾਂ ਦੀ ਔਸਤ [^।]+। ਇਸ ਵਿੱਚ|ਇੱਕ ਹੋਰ ਕੀਮਤ ਸ਼ਾਮਲ|ਇੱਕ ਪ੍ਰੀਖਿਆ ਦਾ ਨਤੀਜਾ ਹਟਾਉਣ|ਵਜ਼ਨਾਂ ਦੀ ਔਸਤ|ਦਰਜ ਰਕਮਾਂ ਦੀ ਔਸਤ|ਔਸਤ [\d,.]+ ਇਕਾਈਆਂ ਹੋ ਜਾਂਦੀ ਹੈ|ਔਸਤ [\d,.]+ ਦੌੜਾਂ ਹੋ ਜਾਂਦੀ ਹੈ)/;
 
@@ -28,6 +30,7 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
     "localized-context-naturalness",
     "localized-context-fidelity",
     "localized-grammar-guard",
+    "localized-stem-variation",
     "localized-explanation-context",
     "localized-explanation-grammar",
     "localized-equation-labels",
@@ -77,6 +80,11 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
       name: "localized-grammar-guard",
       passed: pkg.traceability.localizedStemGrammarGuard === "AVG-001 localized stem grammar guard v1",
       message: "Localized stem passed the final Hindi/Punjabi agreement and word-order layer",
+    },
+    {
+      name: "localized-stem-variation",
+      passed: pkg.traceability.localizedStemVariationFinalizer === STEM_VARIATION_FINALIZER,
+      message: "Localized stem preserves chapter-wide human-authored phrasing variation",
     },
     {
       name: "localized-explanation-context",
@@ -130,7 +138,8 @@ export function applyAvg001LocalizedPresentationQuality(
   const contextFaithfulStem = applyAvg001LocalizedStemContextFidelity(polishedStem, language);
   const contextPolishedStem = applyAvg001LocalizedStemContextFinalPolish(contextFaithfulStem, language);
   const grammarGuardedStem = applyAvg001LocalizedStemGrammarGuard(contextPolishedStem, language);
-  const humanized = applyAvg001HumanAuthoredExplanation(grammarGuardedStem);
+  const variedStem = finalizeAvg001LocalizedStemVariation(grammarGuardedStem, language);
+  const humanized = applyAvg001HumanAuthoredExplanation(variedStem);
   const contextFinalized = finalizeAvg001Cp003ExplanationContext(humanized);
   const grammarFinalized = finalizeAvg001Cp003ExplanationGrammar(contextFinalized);
   const equationFinalized = finalizeAvg001Cp003EquationLabels(grammarFinalized);
