@@ -1,7 +1,7 @@
 export type CodDifficulty = "EASY" | "MEDIUM" | "HARD";
 export type CodLocale = "en-IN" | "hi-IN" | "pa-IN";
 export type CodRenderer = "INLINE_CODE_PAIR" | "EXAMPLE_TARGET_BLOCK" | "MAPPING_TABLE";
-export type CodAnswerType = "LETTER_CLUSTER" | "DIGIT_SEQUENCE" | "SYMBOL_SEQUENCE" | "SINGLE_CODE_TOKEN";
+export type CodAnswerType = "LETTER_CLUSTER" | "DIGIT_SEQUENCE" | "SYMBOL_SEQUENCE" | "SINGLE_CODE_TOKEN" | "NUMBER";
 export type CodTokenKind = "LETTER" | "DIGIT" | "SYMBOL";
 
 export interface ExplanationTrace {
