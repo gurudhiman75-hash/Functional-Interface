@@ -4,7 +4,8 @@ import { validateDirectionOptions } from "../foundation/option-validator";
 import { createInitialPathState, solvePath } from "../foundation/path-state";
 import type { Coordinate, Direction, DirectionOption, PathOperation, SolvedPath } from "../foundation/types";
 import { solveOrderedPathIndependent } from "./independent-solver";
-import { PATH_DIRECTION_LABELS, renderCombinedStem, renderEndpointStem, renderPathSequence } from "./question-language.en";
+import { buildPathDiagram, type PathDiagramSpec } from "./path-diagram";
+import { PATH_DIRECTION_LABELS, renderCombinedStem, renderEndpointStem } from "./question-language.en";
 import { dirCp002Ql } from "./task-registry";
 
 const CARDINAL_DIRECTIONS = ["NORTH", "EAST", "SOUTH", "WEST"] as const;
@@ -22,11 +23,22 @@ export interface RenderedPathOption<T extends PathAnswerValue = PathAnswerValue>
   readonly label: string;
 }
 
+export interface PathExplanationStep {
+  readonly stepNumber: number;
+  readonly title: string;
+  readonly statement: string;
+  readonly calculation: string;
+  readonly result: string;
+}
+
 export interface PathExplanation {
   readonly concept: string;
-  readonly steps: readonly { readonly statement: string; readonly result: string }[];
+  readonly coordinateConvention: string;
+  readonly steps: readonly PathExplanationStep[];
+  readonly askedRelation: string;
   readonly conclusion: string;
   readonly closestTrapRejection: string;
+  readonly diagram: PathDiagramSpec;
 }
 
 export interface GeneratedPathQuestion {
@@ -98,15 +110,14 @@ function buildPath(seed: number): BuiltPath {
         facingAfterMove: "UNCHANGED",
       });
       if (leg < legCount - 1) {
-        const turn = pick(
+        operations.push(pick(
           [
             { kind: "TURN", sense: "CLOCKWISE", degrees: 90 },
             { kind: "TURN", sense: "ANTICLOCKWISE", degrees: 90 },
             { kind: "TURN", sense: "CLOCKWISE", degrees: 180 },
           ] as const,
           random,
-        );
-        operations.push(turn);
+        ));
       }
     }
 
@@ -138,7 +149,6 @@ function uniqueDirectionDistractors(correct: Direction, vector: Coordinate): rea
 }
 
 function directionOptions(correct: Direction, vector: Coordinate, seed: number): readonly RenderedPathOption<Direction>[] {
-  const random = seededRandom(seed * 43 + 29);
   return shuffle(
     [
       { value: correct, label: PATH_DIRECTION_LABELS[correct], errorLabel: null },
@@ -147,7 +157,7 @@ function directionOptions(correct: Direction, vector: Coordinate, seed: number):
         label: PATH_DIRECTION_LABELS[option.value],
       })),
     ],
-    random,
+    seededRandom(seed * 43 + 29),
   );
 }
 
@@ -158,7 +168,6 @@ function combinedLabel(answer: CombinedPathAnswer): string {
 function combinedOptions(correct: CombinedPathAnswer, seed: number): readonly RenderedPathOption<CombinedPathAnswer>[] {
   const wrongEndpoint = oppositeDirection(correct.endpointDirection);
   const wrongFacing = oppositeDirection(correct.finalFacing);
-  const random = seededRandom(seed * 47 + 31);
   return shuffle(
     [
       { value: correct, label: combinedLabel(correct), errorLabel: null },
@@ -178,13 +187,32 @@ function combinedOptions(correct: CombinedPathAnswer, seed: number): readonly Re
         errorLabel: "ENDPOINT_AND_FACING_REVERSED",
       },
     ],
-    random,
+    seededRandom(seed * 47 + 31),
   );
+}
+
+function pointLabel(moveIndex: number): string {
+  if (moveIndex === 0) return "O";
+  return String.fromCharCode(64 + moveIndex);
 }
 
 function normalizedCoordinate(value: number): number {
   const rounded = Math.round(value * 1e9) / 1e9;
   return Object.is(rounded, -0) ? 0 : rounded;
+}
+
+function coordinateText(coordinate: Coordinate): string {
+  return `(${normalizedCoordinate(coordinate.x)}, ${normalizedCoordinate(coordinate.y)})`;
+}
+
+function turnName(before: Direction, after: Direction, degrees: number): string {
+  return `${PATH_DIRECTION_LABELS[before]} → ${degrees}° turn → ${PATH_DIRECTION_LABELS[after]}`;
+}
+
+function vectorInterpretation(vector: Coordinate): string {
+  const xPart = vector.x > 0 ? "east" : vector.x < 0 ? "west" : "no east-west change";
+  const yPart = vector.y > 0 ? "north" : vector.y < 0 ? "south" : "no north-south change";
+  return `${xPart} and ${yPart}`;
 }
 
 function explanationFor(
@@ -193,31 +221,82 @@ function explanationFor(
   reverseQuery: boolean,
   includeFacing: boolean,
 ): PathExplanation {
-  const steps = path.solved.trace.map((step) => {
-    const position = `(${normalizedCoordinate(step.after.position.x)}, ${normalizedCoordinate(step.after.position.y)})`;
-    if (step.operation.kind === "TURN") {
-      return {
-        statement: `Apply the next turn while remaining at ${position}.`,
-        result: `Facing ${PATH_DIRECTION_LABELS[step.after.facing]}`,
-      };
+  const steps: PathExplanationStep[] = [
+    {
+      stepNumber: 1,
+      title: "Fix the origin and compass axes",
+      statement: `Take point O as the origin. ${path.person} starts at O facing ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
+      calculation: "O = (0, 0); East = +x; West = −x; North = +y; South = −y",
+      result: `Initial position ${coordinateText(path.solved.initial.position)}; initial facing ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
+    },
+  ];
+
+  let moveIndex = 0;
+  for (const trace of path.solved.trace) {
+    const beforePoint = pointLabel(moveIndex);
+    if (trace.operation.kind === "TURN") {
+      steps.push({
+        stepNumber: steps.length + 1,
+        title: `Turn at point ${beforePoint}`,
+        statement: `The turn changes only the facing direction. ${path.person} remains at point ${beforePoint}.`,
+        calculation: turnName(trace.before.facing, trace.after.facing, trace.operation.degrees),
+        result: `Coordinate remains ${coordinateText(trace.after.position)}; new facing is ${PATH_DIRECTION_LABELS[trace.after.facing]}.`,
+      });
+      continue;
     }
-    return {
-      statement: `Move ${step.operation.distance} metres towards ${PATH_DIRECTION_LABELS[step.movementDirection!]}.`,
-      result: `Position ${position}; facing ${PATH_DIRECTION_LABELS[step.after.facing]}`,
-    };
+
+    moveIndex += 1;
+    const afterPoint = pointLabel(moveIndex);
+    const dx = trace.after.position.x - trace.before.position.x;
+    const dy = trace.after.position.y - trace.before.position.y;
+    steps.push({
+      stepNumber: steps.length + 1,
+      title: `Move from ${beforePoint} to ${afterPoint}`,
+      statement: `${path.person} moves ${trace.operation.distance} metres towards ${PATH_DIRECTION_LABELS[trace.movementDirection!]}, without turning during the movement.`,
+      calculation: `${beforePoint} ${coordinateText(trace.before.position)} + (${normalizedCoordinate(dx)}, ${normalizedCoordinate(dy)}) = ${afterPoint} ${coordinateText(trace.after.position)}`,
+      result: `Point ${afterPoint} is at ${coordinateText(trace.after.position)}; facing is ${PATH_DIRECTION_LABELS[trace.after.facing]}.`,
+    });
+  }
+
+  const finalPointLabel = pointLabel(moveIndex);
+  const finalPosition = path.solved.final.position;
+  const relationVector = reverseQuery
+    ? { x: -finalPosition.x, y: -finalPosition.y }
+    : { x: finalPosition.x, y: finalPosition.y };
+  const referenceLabel = reverseQuery ? finalPointLabel : "O";
+  const subjectLabel = reverseQuery ? "O" : finalPointLabel;
+  steps.push({
+    stepNumber: steps.length + 1,
+    title: "Use the reference point named in the question",
+    statement: `The question asks for point ${subjectLabel} with respect to point ${referenceLabel}. Therefore subtract the reference coordinate from the subject coordinate.`,
+    calculation: `${subjectLabel} − ${referenceLabel} = (${normalizedCoordinate(relationVector.x)}, ${normalizedCoordinate(relationVector.y)})`,
+    result: `The vector points ${vectorInterpretation(relationVector)}, so the required direction is ${PATH_DIRECTION_LABELS[endpoint]}.`,
   });
-  const final = path.solved.final.position;
-  const vectorText = reverseQuery
-    ? `From the final position to the start, the net vector is (${normalizedCoordinate(-final.x)}, ${normalizedCoordinate(-final.y)}).`
-    : `From the start to the final position, the net vector is (${normalizedCoordinate(final.x)}, ${normalizedCoordinate(final.y)}).`;
+
+  if (includeFacing) {
+    steps.push({
+      stepNumber: steps.length + 1,
+      title: "Read the final facing separately",
+      statement: `Position and facing are different facts. The last coordinate gives location; the final path state gives facing.`,
+      calculation: `Final facing = ${PATH_DIRECTION_LABELS[path.solved.final.facing]}`,
+      result: `${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at point ${finalPointLabel}.`,
+    });
+  }
+
+  const askedRelation = `Point ${subjectLabel} from point ${referenceLabel} = ${PATH_DIRECTION_LABELS[endpoint]}`;
   const conclusion = includeFacing
-    ? `${vectorText} Therefore, the endpoint is ${PATH_DIRECTION_LABELS[endpoint]} of the start and the final facing is ${PATH_DIRECTION_LABELS[path.solved.final.facing]}.`
-    : `${vectorText} Therefore, the required direction is ${PATH_DIRECTION_LABELS[endpoint]}.`;
+    ? `Therefore, point ${finalPointLabel} is ${PATH_DIRECTION_LABELS[endpoint]} of point O, and ${path.person} finally faces ${PATH_DIRECTION_LABELS[path.solved.final.facing]}.`
+    : `Therefore, point ${subjectLabel} is ${PATH_DIRECTION_LABELS[endpoint]} of point ${referenceLabel}.`;
+  const diagram = buildPathDiagram(path.solved, reverseQuery, endpoint, includeFacing);
+
   return {
-    concept: "Replay every movement and turn in order, then compare the required reference and subject coordinates.",
+    concept: "Track position and facing as separate states. Turns change facing without changing coordinates; movements change coordinates in the current facing direction.",
+    coordinateConvention: "East = +x, West = −x, North = +y, South = −y.",
     steps,
+    askedRelation,
     conclusion,
-    closestTrapRejection: "Do not report the last movement direction or reverse the asked relationship unless the question asks from the endpoint back to the start.",
+    closestTrapRejection: "The final movement direction, the final facing direction, and the direction of one point from another are not automatically the same. Use the exact reference point stated in the question.",
+    diagram,
   };
 }
 
@@ -265,11 +344,12 @@ export function generateDirCp002Question(qlId: string, seed = 0): GeneratedPathQ
       ruleId: ql.ruleId,
       seed,
       difficulty: difficultyFor(ql.answerDemand, path.legCount),
-      stem: renderEndpointStem(path.person, path.initialFacing, path.operations, reverseQuery, seed),
+      stem: renderEndpointStem(path.person, path.solved, reverseQuery),
       structuredPrompt: {
         person: path.person,
         initialFacing: path.initialFacing,
         operations: path.operations,
+        labelledPoints: explanationFor(path, correct, reverseQuery, false).diagram.points,
         queryReference: reverseQuery ? "START_FROM_FINAL" : "FINAL_FROM_START",
       },
       options,
@@ -291,18 +371,24 @@ export function generateDirCp002Question(qlId: string, seed = 0): GeneratedPathQ
     pairNormalize,
   );
   if (!validation.valid) throw new Error(validation.errors.join("; "));
+  const explanation = explanationFor(path, generatedEndpoint, false, true);
   return {
     qlId,
     checkpointId: "DIR-CP-002",
     ruleId: ql.ruleId,
     seed,
     difficulty: difficultyFor(ql.answerDemand, path.legCount),
-    stem: renderCombinedStem(path.person, path.initialFacing, path.operations, seed),
-    structuredPrompt: { person: path.person, initialFacing: path.initialFacing, operations: path.operations },
+    stem: renderCombinedStem(path.person, path.solved),
+    structuredPrompt: {
+      person: path.person,
+      initialFacing: path.initialFacing,
+      operations: path.operations,
+      labelledPoints: explanation.diagram.points,
+    },
     options,
     correctIndex: validation.satisfyingOptionIndexes[0],
     correctAnswer: correct,
-    explanation: explanationFor(path, generatedEndpoint, false, true),
+    explanation,
     metadata: { answerDemand: ql.answerDemand, legCount: path.legCount, reverseQuery: false, solverVerified: true, solveMode: null },
   };
 }
