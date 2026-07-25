@@ -1,0 +1,13 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "policy": "QL_SPECIFIC_NATURAL_EXPLANATIONS",
+  "entries": {
+    "PNC-QL-143": {"lines":["Files A, B and C already have their own prescribed positions, so those placements are fixed rather than interchangeable.","Only the remaining {remainingObjects} files need to be arranged in the unfilled positions.","The count is {equation}, giving {answer} arrangements."]},
+    "PNC-QL-144": {"lines":["The three specified books must fill the three named positions, but they may exchange those positions among themselves.","Arrange those three books in the chosen position set, then arrange every remaining book in the other places.","Thus {equation}, so {answer} arrangements satisfy the condition."]},
+    "PNC-QL-145": {"lines":["Accept every ordered pair of positions that leaves from zero up to {maximumGap} people between the two particular people.","Those allowed separations provide {orderedPositionPairCount} ordered position pairs; the remaining people can then be arranged freely.","The calculation {equation} gives {answer} valid arrangements."]},
+    "PNC-QL-146": {"lines":["Because A must appear before B, only the left-to-right orientation is allowed.","There are {directionalPositionPairCount} position pairs with exactly {gapCount} intervening places, followed by a free arrangement of everyone else.","Therefore {equation}, producing {answer} arrangements."]},
+    "PNC-QL-147": {"lines":["The requirement allows several cases, beginning with {minimumInClass} specified people in odd positions and continuing through every feasible larger count.","For each case, choose the specified people using odd positions, assign all specified people to the two position classes, and arrange the ordinary people in the remaining places.","Adding the verified case counts gives {equation}, so the answer is {answer}."]}
+  }
+}
