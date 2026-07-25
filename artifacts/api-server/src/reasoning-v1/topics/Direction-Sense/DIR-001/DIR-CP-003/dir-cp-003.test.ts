@@ -58,6 +58,11 @@ for (const ql of DIR_CP003_QLS) {
     assert.ok(!generated.explanation.diagram.svg.includes("solution"));
     assert.equal((generated.explanation.diagram.svg.match(/data-role="movement-leg"/g) ?? []).length, generated.metadata.legCount);
     assert.equal((generated.explanation.diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+    assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));
+    const routeCoordinates = [...generated.explanation.diagram.svg.matchAll(/data-role="movement-leg" x1="([^"]+)" y1="([^"]+)" x2="([^"]+)" y2="([^"]+)"/g)];
+    assert.equal(routeCoordinates.length, generated.metadata.legCount);
+    assert.ok(routeCoordinates.every((match) => Number(match[1]) <= 550 + 1e-9 && Number(match[3]) <= 550 + 1e-9), "Route entered the reserved compass zone");
+    assert.ok(routeCoordinates.every((match) => Number(match[2]) <= 375 + 1e-9 && Number(match[4]) <= 375 + 1e-9), "Route entered the reserved footer zone");
 
     profiles.add(generated.metadata.pathProfile);
     displayModes.add(generated.metadata.displayMode);
