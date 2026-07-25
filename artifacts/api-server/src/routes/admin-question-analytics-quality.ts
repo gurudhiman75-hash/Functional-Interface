@@ -26,16 +26,38 @@ router.get('/questions/quality', requireAdminPermission('users.students.read'), 
   try {
     const [rawAttemptRows, catalogRows] = await Promise.all([
       sqlClient`
+        WITH matched_publications AS (
+          SELECT DISTINCT p.id
+          FROM assessment.test_publications p
+          JOIN assessment.tests t ON t.id = p.test_id
+          JOIN assessment.test_versions tv ON tv.id = p.test_version_id
+          LEFT JOIN assessment.test_questions tq ON tq.test_version_id = tv.id
+          LEFT JOIN content.question_versions v ON v.id = tq.question_version_id
+          WHERE ${search} = '' OR lower(tv.title) LIKE ${`%${search}%`}
+            OR lower(t.public_code) LIKE ${`%${search}%`} OR lower(v.stem) LIKE ${`%${search}%`}
+            OR lower(tq.question_version_id::text) = ${search}
+        )
         SELECT a.id::text AS "attemptId", a.test_publication_id::text AS "publicationId",
           a.evaluated_at AS "evaluatedAt", a.result_snapshot AS "resultSnapshot"
         FROM learning.attempts a
+        JOIN matched_publications matched ON matched.id = a.test_publication_id
         WHERE a.started_at >= now() - make_interval(days => ${days})
           AND a.status::text IN ('evaluated', 'practice_evaluated')
-          AND a.test_publication_id IS NOT NULL
         ORDER BY a.evaluated_at DESC NULLS LAST
         LIMIT ${ATTEMPT_SCAN_LIMIT + 1}
       `,
       sqlClient`
+        WITH matched_publications AS (
+          SELECT DISTINCT p.id
+          FROM assessment.test_publications p
+          JOIN assessment.tests t ON t.id = p.test_id
+          JOIN assessment.test_versions tv ON tv.id = p.test_version_id
+          LEFT JOIN assessment.test_questions tq ON tq.test_version_id = tv.id
+          LEFT JOIN content.question_versions v ON v.id = tq.question_version_id
+          WHERE ${search} = '' OR lower(tv.title) LIKE ${`%${search}%`}
+            OR lower(t.public_code) LIKE ${`%${search}%`} OR lower(v.stem) LIKE ${`%${search}%`}
+            OR lower(tq.question_version_id::text) = ${search}
+        )
         SELECT p.id::text AS "publicationId", p.publication_number AS "publicationNumber",
           t.public_code AS "testPublicCode", tv.title AS "testTitle",
           tq.id::text AS "testQuestionId", tq.question_version_id::text AS "questionVersionId",
@@ -44,16 +66,14 @@ router.get('/questions/quality', requireAdminPermission('users.students.read'), 
           COALESCE(json_agg(json_build_object('key', o.option_key, 'text', o.text,
             'sortOrder', o.sort_order, 'isCorrect', o.is_correct) ORDER BY o.sort_order)
             FILTER (WHERE o.id IS NOT NULL), '[]'::json) AS options
-        FROM assessment.test_publications p
+        FROM matched_publications matched
+        JOIN assessment.test_publications p ON p.id = matched.id
         JOIN assessment.tests t ON t.id = p.test_id
         JOIN assessment.test_versions tv ON tv.id = p.test_version_id
         JOIN assessment.test_questions tq ON tq.test_version_id = tv.id
         JOIN assessment.test_sections section ON section.id = tq.test_section_id
         JOIN content.question_versions v ON v.id = tq.question_version_id
         LEFT JOIN content.question_options o ON o.question_version_id = v.id
-        WHERE (${search} = '' OR lower(tv.title) LIKE ${`%${search}%`}
-          OR lower(t.public_code) LIKE ${`%${search}%`} OR lower(v.stem) LIKE ${`%${search}%`}
-          OR lower(tq.question_version_id::text) = ${search})
         GROUP BY p.id, p.publication_number, t.public_code, tv.title, tq.id,
           tq.question_version_id, tq.test_section_id, section.name, section.sort_order, v.stem, tq.position
         ORDER BY tv.title, p.publication_number, section.sort_order, tq.position
