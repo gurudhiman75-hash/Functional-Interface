@@ -47,7 +47,7 @@
     "atMostCategoryStates": [
       {"categoryA":6,"categoryB":5,"committeeSize":5,"maximumFromA":2},
       {"categoryA":7,"categoryB":6,"committeeSize":6,"maximumFromA":3},
-      {"categoryA":5,"categoryB":7,"committeeSize":5,"maximumFromA":1}
+      {"categoryA":5,"categoryB":7,"committeeSize":5,"maximumFromA":2}
     ],
     "atLeastOneCategoryStates": [
       {"categoryA":5,"categoryB":7,"committeeSize":4},
@@ -60,8 +60,8 @@
       {"categoryA":7,"categoryB":5,"committeeSize":6}
     ],
     "exactThreeCategoryStates": [
-      {"categoryA":5,"categoryB":4,"categoryC":3,"requiredA":2,"requiredB":2,"requiredC":1},
-      {"categoryA":6,"categoryB":5,"categoryC":4,"requiredA":3,"requiredB":1,"requiredC":2}
+      {"categoryA":5,"categoryB":4,"categoryC":3,"requiredA":2,"requiredB":2,"requiredC":2},
+      {"categoryA":6,"categoryB":5,"categoryC":4,"requiredA":3,"requiredB":2,"requiredC":2}
     ],
     "atLeastOneEachThreeStates": [
       {"categoryA":4,"categoryB":4,"categoryC":3,"committeeSize":5},
