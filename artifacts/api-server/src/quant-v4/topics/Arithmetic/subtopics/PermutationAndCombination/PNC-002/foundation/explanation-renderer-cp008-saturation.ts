@@ -15,14 +15,15 @@ export function renderPnc002Cp008SaturationExplanation(
   const authored = getPnc002Explanation(parameters.questionLanguageId);
   const variables: Record<string, string | number> = {
     answer: solver.answer,
-    equation: `\\(${solver.mathJax}\\)`,
-    calculation: `\\(${solver.mathJax}\\)`,
+    equation: `\(${solver.mathJax}\)`,
+    calculation: `\(${solver.mathJax}\)`,
     totalObjects: e.totalObjects,
     prescribedObjectCount: e.prescribedObjectCount ?? "",
     remainingObjects: e.remainingObjects ?? "",
     positionSetAssignmentCount: e.positionSetAssignmentCount ?? "",
     maximumGap: e.maximumGap ?? parameters.renderVariables.maximumGap ?? "",
-    gapCount: e.gapCount ?? parameters.renderVariables.gapCount ?? "",
+    gapCount: e.gapCount ?? "",
+    positionDistance: parameters.renderVariables.positionDistance ?? "",
     orderedPositionPairCount: e.orderedPositionPairCount ?? "",
     directionalPositionPairCount: e.directionalPositionPairCount ?? "",
     specifiedCount: e.specifiedCount ?? parameters.renderVariables.specifiedCount ?? "",
