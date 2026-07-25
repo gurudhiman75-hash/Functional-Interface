@@ -6,9 +6,9 @@ const failures: string[] = [];
 const countsByCp: Record<string, number> = {};
 let cases = 0;
 const conceptPatterns: Record<string, RegExp> = {
-  "AVG-CP-001": /multiply the average|divide the total|known total|required total|shared among|total is|same operation|same two operations|uniform change|applied directly to the average|average increases by|number of observations remains unchanged/i,
+  "AVG-CP-001": /multiply the average|divide the total|average is the total divided|number of observations is the total divided|known total|required total|missing value is the required total|shared among|total is|same operation|same two operations|uniform change|applied directly to the average|average increases by|number of observations remains unchanged/i,
   "AVG-CP-002": /equally spaced|halfway|middle term|equal gaps|half-span|span|extreme term|common difference|number of gaps/i,
-  "AVG-CP-003": /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs|joining member|member leaves|original group size|remaining members/i,
+  "AVG-CP-003": /old total|new total|remaining total|count stays|add |subtract |replace |difference between|total rises|total falls|current runs|required runs|previous run total and next score|target run total|convert the old average into an old total|joining member|member leaves|original group size|remaining members/i,
   "AVG-CP-004": /group total|combined count|combined total|weighted deviations|equal distances|slower speed|same amount of time|equal weight|group-size ratio|distances of the combined average|total distance|total time|unequal distances|unequal times|weight each speed/i,
   "AVG-CP-005": /entry correction|entry error|average shift|average change|change in average|old average|old total|reported total|corrected average|correct average|earlier average|wrong entry|correct entry|wrong value|correct value|net correction|change in total|total change|difference in (?:the )?(?:entr(?:y|ies)|values?|totals?)|difference between (?:the )?(?:two )?(?:values?|totals?)|mistaken entry|recorded total|corrected total|earlier total|replace(?:d|ment| it)?|remove it|correct both (?:entries|values)|gap in totals/i,
   "AVG-CP-006": /group totals?|member counts?|combined total|combined average|full total|known total|missing average|missing count|subgroup total|overall total|simple mean of the group averages/i,
@@ -43,7 +43,7 @@ for (const entry of entries) {
     const conclusionText = conclusionLines.join(" ");
     const conceptPattern = conceptPatterns[pkg.canonicalProblemId];
     const totalWords = lines.reduce((sum, line) => sum + wordCount(line), 0);
-    if (lines.length < 3 || lines.length > 6) failures.push(`${entry.qlId}:${index}: expected three to six explanation lines, found ${lines.length}`);
+    if (lines.length !== 4) failures.push(`${entry.qlId}:${index}: expected four explanation lines, found ${lines.length}`);
     if (equationLines.length < 1 || equationLines.length > 2) failures.push(`${entry.qlId}:${index}: expected one or two calculation lines, found ${equationLines.length}`);
     if (reasoningLines.length < 1) failures.push(`${entry.qlId}:${index}: missing a plain-language reasoning step`);
     if (reasoningLines.every((line) => wordCount(line) < 6)) failures.push(`${entry.qlId}:${index}: reasoning is too thin`);
