@@ -44,9 +44,11 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check
+      - name: Capture strict TypeScript result
         working-directory: artifacts/api-server
+        shell: bash
         run: |
+          set +e
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -61,7 +63,24 @@ jobs:
             --skipLibCheck \
             --types node \
             $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006 -name '*.ts' -print) \
-            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts \
+            2>&1 | tee /tmp/ana-cp-006-tsc.log
+          echo "${PIPESTATUS[0]}" > /tmp/ana-cp-006-tsc-exit
+          exit 0
+
+      - name: Publish TypeScript diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-006-typescript-diagnostics
+          path: |
+            /tmp/ana-cp-006-tsc.log
+            /tmp/ana-cp-006-tsc-exit
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce strict TypeScript result
+        run: test "$(cat /tmp/ana-cp-006-tsc-exit)" = "0"
 
       - name: Run English runtime audit
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006.test.ts
