@@ -31,6 +31,7 @@ import variableRangesCp008Saturation from "../variable-ranges.cp008-saturation.l
 import variableRangesCp009 from "../variable-ranges.cp009.library.json";
 import variableRangesCp009Saturation from "../variable-ranges.cp009-saturation.library.json";
 import variableRangesCp010 from "../variable-ranges.cp010.library.json";
+import variableRangesCp010FinalGap from "../variable-ranges.cp010-final-gap.library.json";
 import constraintProfilesBase from "../constraint-profiles.library.json";
 import constraintProfilesSaturation from "../constraint-profiles.cp007-saturation.library.json";
 import constraintProfilesCp008 from "../constraint-profiles.cp008.library.json";
@@ -55,7 +56,8 @@ type VariableRanges = {
     & typeof variableRangesCp008Saturation.pools
     & typeof variableRangesCp009.pools
     & typeof variableRangesCp009Saturation.pools
-    & typeof variableRangesCp010.pools;
+    & typeof variableRangesCp010.pools
+    & typeof variableRangesCp010FinalGap.pools;
 };
 type ConstraintProfile = { orderMatters: boolean; linear: boolean; rule: string };
 type RegistryOverride = Partial<Pick<
@@ -110,6 +112,7 @@ const variableRanges: VariableRanges = {
     ...variableRangesCp009.pools,
     ...variableRangesCp009Saturation.pools,
     ...variableRangesCp010.pools,
+    ...variableRangesCp010FinalGap.pools,
   },
 };
 const constraintProfiles = {
