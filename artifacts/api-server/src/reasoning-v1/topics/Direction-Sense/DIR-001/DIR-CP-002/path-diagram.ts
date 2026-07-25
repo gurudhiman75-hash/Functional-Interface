@@ -36,10 +36,10 @@ function escapeXml(value: string): string {
 function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
   const width = 720;
   const height = 460;
-  const plotLeft = 80;
-  const plotRight = width - 80;
-  const plotTop = 82;
-  const plotBottom = height - 62;
+  const plotLeft = 90;
+  const plotRight = width - 170;
+  const plotTop = 92;
+  const plotBottom = height - 85;
   const coordinates = spec.points.map((point) => point.coordinate);
   const rawMinX = Math.min(...coordinates.map((point) => point.x));
   const rawMaxX = Math.max(...coordinates.map((point) => point.x));
