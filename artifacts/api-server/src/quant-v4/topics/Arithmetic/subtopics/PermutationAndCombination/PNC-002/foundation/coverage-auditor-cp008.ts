@@ -6,7 +6,7 @@ function increment(target: Record<string, number>, key: string): void { target[k
 
 export function auditPnc002Cp008Coverage(): Pnc002CoverageAudit {
   const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-008");
-  const expectedQlIds = Array.from({ length: 18 }, (_, index) => `PNC-QL-${String(index + 125).padStart(3, "0")}`);
+  const expectedQlIds = Array.from({ length: 23 }, (_, index) => `PNC-QL-${String(index + 125).padStart(3, "0")}`);
   const actualIds = entries.map((entry) => entry.qlId);
   const missingQlIds = expectedQlIds.filter((qlId) => !actualIds.includes(qlId));
   const duplicateQlIds = [...new Set(actualIds.filter((qlId, index) => actualIds.indexOf(qlId) !== index))];
@@ -23,7 +23,7 @@ export function auditPnc002Cp008Coverage(): Pnc002CoverageAudit {
     if (!sample.validation.valid) invalidRuntimeSamples.push(`${entry.qlId}:${sample.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",")}`);
   }
   const exactDuplicateTemplateGroups = [...templateGroups.values()].filter((qlIds) => qlIds.length > 1);
-  const expectedDifficultyCounts = { Easy: 4, Medium: 8, Hard: 6 };
+  const expectedDifficultyCounts = { Easy: 4, Medium: 11, Hard: 8 };
   const expectedSolveModeCounts = {
     countObjectAtExactPosition: 1,
     countObjectAtEitherEnd: 1,
@@ -37,13 +37,18 @@ export function auditPnc002Cp008Coverage(): Pnc002CoverageAudit {
     countAtLeastGapBetweenPair: 1,
     countSpecifiedObjectsInPositionClass: 2,
     recoverPositionGapParameter: 1,
+    countObjectsAtPrescribedPositions: 1,
+    countSpecifiedSetInPositionSet: 1,
+    countAtMostGapBetweenPair: 1,
+    countDirectionalExactGapBetweenPair: 1,
+    countAtLeastSpecifiedObjectsInPositionClass: 1,
   };
-  const passed = entries.length === 18
+  const passed = entries.length === 23
     && missingQlIds.length === 0
     && duplicateQlIds.length === 0
     && exactDuplicateTemplateGroups.length === 0
     && invalidRuntimeSamples.length === 0
     && JSON.stringify(difficultyCounts) === JSON.stringify(expectedDifficultyCounts)
     && JSON.stringify(solveModeCounts) === JSON.stringify(expectedSolveModeCounts);
-  return { passed, activeQlCount: entries.length, expectedQlCount: 18, missingQlIds, duplicateQlIds, exactDuplicateTemplateGroups, difficultyCounts, solveModeCounts, invalidRuntimeSamples };
+  return { passed, activeQlCount: entries.length, expectedQlCount: 23, missingQlIds, duplicateQlIds, exactDuplicateTemplateGroups, difficultyCounts, solveModeCounts, invalidRuntimeSamples };
 }
