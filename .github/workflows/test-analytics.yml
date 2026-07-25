@@ -1,0 +1,70 @@
+name: Validate Test Analytics
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-test-analytics.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/test-analytics.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-test-analytics.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/test-analytics.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-analytics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Enforce canonical analytics contracts
+        run: |
+          grep -F 'router.use("/admin/analytics", adminTestAnalyticsRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F "router.get('/tests'" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F "status::text IN ('evaluated', 'practice_evaluated')" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'COUNT(DISTINCT a.user_id)' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'completionRate' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'sectionAnalytics: false' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'questionAnalytics: false' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'percentile: false' artifacts/api-server/src/routes/admin-test-analytics.ts
+          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F "path: '/analytics/tests'" artifacts/admin-app/src/App.tsx
+          grep -F "label: 'Test Analytics'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "status: 'live'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Canonical attempt volume' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          grep -F 'Deliberately deferred analytics' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          ! grep -F '@/data/analytics' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          ! grep -F 'demonstration data' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin
