@@ -91,8 +91,25 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Run explanation editorial audit
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-editorial.test.ts
+      - name: Capture explanation editorial audit
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-editorial.test.ts 2>&1 | tee /tmp/ana-cp-006-editorial.log
+          echo "${PIPESTATUS[0]}" > /tmp/ana-cp-006-editorial-exit
+          exit 0
+      - name: Publish editorial diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-006-editorial-diagnostics
+          path: |
+            /tmp/ana-cp-006-editorial.log
+            /tmp/ana-cp-006-editorial-exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce explanation editorial audit
+        run: test "$(cat /tmp/ana-cp-006-editorial-exit)" = "0"
 
   reviews:
     runs-on: ubuntu-latest
