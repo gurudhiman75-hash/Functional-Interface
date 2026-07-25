@@ -32,7 +32,7 @@ export const ANA_CP004_RULES: readonly NumberSetRuleDefinition[] = [
   { id: "SET_SUM_MULTIPLIER", label: "add the first two numbers and multiply the sum by a fixed number", priority: 5, contexts: kValues(2,3,4,5), minInput: 2, maxInput: 24, apply: (a,b,c) => (a+b)*c.k!, explain: (a,b,r,c) => `(${a} + ${b}) × ${c.k} = ${r}` },
   { id: "SET_DIFF_MULTIPLIER", label: "multiply the absolute difference of the first two numbers by a fixed number", priority: 5, contexts: kValues(2,3,4,5), minInput: 3, maxInput: 35, apply: (a,b,c) => Math.abs(a-b) ? Math.abs(a-b)*c.k! : null, explain: (a,b,r,c) => `|${a} - ${b}| × ${c.k} = ${r}` },
   { id: "SET_CONSECUTIVE_CONSTRUCTION", label: "the third number continues the consecutive pattern", priority: 2, contexts: fixed(), minInput: 2, maxInput: 50, apply: (a,b) => b===a+1 ? b+1 : null, explain: (a,b,c) => `${a}, ${b}, ${c} are consecutive numbers` },
-  { id: "SET_MATCHING_TRIPLES", label: "the third number equals twice the sum of the first two", priority: 5, contexts: fixed(), minInput: 2, maxInput: 24, apply: (a,b) => 2*(a+b), explain: (a,b,c) => `2 × (${a} + ${b}) = ${c}` },
+  { id: "SET_MATCHING_TRIPLES", label: "add the product and the sum of the first two numbers", priority: 6, contexts: fixed(), minInput: 2, maxInput: 24, apply: (a,b) => a*b+a+b, explain: (a,b,c) => `(${a} × ${b}) + ${a} + ${b} = ${c}` },
   { id: "SET_CORRESPONDING_MISSING_MEMBER", label: "the third number is the first plus twice the second", priority: 5, contexts: fixed(), minInput: 2, maxInput: 24, apply: (a,b) => a+2*b, explain: (a,b,c) => `${a} + (2 × ${b}) = ${c}` },
 ];
 
