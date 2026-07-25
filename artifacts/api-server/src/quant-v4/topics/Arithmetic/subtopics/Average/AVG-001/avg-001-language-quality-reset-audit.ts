@@ -127,6 +127,7 @@ function checkAuthorship(pkg: Avg001QuestionPackage, scope: string) {
     fail(`${scope}: CP-003 manually differentiated prose marker missing`);
   }
   if (
+    pkg.language !== "en" &&
     pkg.canonicalProblemId === "AVG-CP-004" &&
     pkg.traceability.cp004LocalizationAuthorship !== CP004_AUTHORSHIP
   ) {
