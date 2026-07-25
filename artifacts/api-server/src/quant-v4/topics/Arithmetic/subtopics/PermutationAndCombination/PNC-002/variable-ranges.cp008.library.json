@@ -1,0 +1,48 @@
+{
+  "packageId": "PNC-002",
+  "pools": {
+    "exactPositionStates": [
+      {"totalObjects":6,"fixedPosition":2},
+      {"totalObjects":7,"fixedPosition":4},
+      {"totalObjects":8,"fixedPosition":5}
+    ],
+    "positionTotalObjects": [6,7,8],
+    "relativeOrderTotalObjects": [6,7,8],
+    "equalAlternationCategoryCount": [3,4],
+    "unequalAlternationStates": [
+      {"largeCount":3,"smallCount":2},
+      {"largeCount":4,"smallCount":3}
+    ],
+    "noAdjacencyCategoryStates": [
+      {"largeCount":4,"smallCount":2},
+      {"largeCount":4,"smallCount":3},
+      {"largeCount":5,"smallCount":3}
+    ],
+    "noAdjacencySpecifiedStates": [
+      {"totalObjects":7,"specifiedCount":3},
+      {"totalObjects":8,"specifiedCount":3},
+      {"totalObjects":8,"specifiedCount":4}
+    ],
+    "exactGapStates": [
+      {"totalObjects":7,"gapCount":1},
+      {"totalObjects":8,"gapCount":2},
+      {"totalObjects":8,"gapCount":3}
+    ],
+    "atLeastGapStates": [
+      {"totalObjects":7,"minimumGap":2},
+      {"totalObjects":8,"minimumGap":2},
+      {"totalObjects":8,"minimumGap":3}
+    ],
+    "allEvenPositionStates": [
+      {"totalObjects":7,"specifiedCount":2},
+      {"totalObjects":8,"specifiedCount":3},
+      {"totalObjects":8,"specifiedCount":4}
+    ],
+    "exactOddPositionStates": [
+      {"totalObjects":7,"specifiedCount":3,"requiredInClass":2},
+      {"totalObjects":8,"specifiedCount":3,"requiredInClass":1},
+      {"totalObjects":8,"specifiedCount":4,"requiredInClass":2}
+    ],
+    "inverseGapValues": [1,2,3,4]
+  }
+}
