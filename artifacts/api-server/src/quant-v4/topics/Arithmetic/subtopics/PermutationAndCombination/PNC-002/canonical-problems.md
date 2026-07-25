@@ -7,7 +7,7 @@
 | `PNC-CP-007` | specified objects together/apart, one or more linear blocks, internal block orders and direct block complements | Current English ownership saturated; runtime proof |
 | `PNC-CP-008` | fixed positions, starts/ends, relative order, alternation, position classes and explicit gap placement | Current English ownership saturated; runtime proof |
 | `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Current English ownership saturated; runtime proof |
-| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Initial English runtime checkpoint; saturation audit open |
+| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Saturation-expanded English runtime checkpoint; final gap audit open |
 | `PNC-CP-011` | labelled/unlabelled grouping and distribution | Not started |
 | `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
 
@@ -52,7 +52,9 @@
 ## CP-010 current represented scope
 
 - distinct round-table arrangements and reference-person normalization;
-- one or more circular blocks, complements and pair-event inclusion–exclusion;
+- one or more circular blocks and direct complements;
+- a specified circular group not entirely consecutive;
+- pair-event inclusion–exclusion for at least one, neither and exactly one of two disjoint pairs together;
 - neighbouring, opposite and directed clockwise conditions;
 - exact, minimum and maximum clockwise gaps;
 - prescribed clockwise relative order;
@@ -71,4 +73,4 @@ The active CPs do not own:
 - repeated-colour necklace systems requiring Burnside/Pólya analysis — CP-012 unless separately justified;
 - word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005.
 
-Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-203`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-204`.
+Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-205`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-206`.
