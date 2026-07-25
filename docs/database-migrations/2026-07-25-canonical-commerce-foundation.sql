@@ -202,14 +202,14 @@ CREATE INDEX commerce_payment_events_unprocessed_idx ON commerce.payment_events 
 CREATE INDEX commerce_entitlements_user_active_idx ON commerce.entitlements (user_id, ends_at) WHERE status = 'active';
 CREATE INDEX commerce_entitlement_tests_test_idx ON commerce.entitlement_tests (test_id, entitlement_id);
 
-INSERT INTO identity.permissions (code, name, description)
+INSERT INTO identity.permissions (key, description)
 VALUES
-  ('commerce.products.read', 'Read commerce products', 'View canonical package and product records.'),
-  ('commerce.products.manage', 'Manage commerce products', 'Create and version canonical package and product records.'),
-  ('commerce.orders.read', 'Read commerce orders', 'View canonical order and payment evidence.'),
-  ('commerce.orders.manage', 'Manage commerce orders', 'Perform approved order, payment and refund operations.'),
-  ('commerce.coupons.read', 'Read commerce coupons', 'View canonical coupon definitions and redemption evidence.'),
-  ('commerce.coupons.manage', 'Manage commerce coupons', 'Create and manage canonical coupon definitions.'),
-  ('commerce.entitlements.read', 'Read commerce entitlements', 'View canonical student entitlement records.'),
-  ('commerce.entitlements.manage', 'Manage commerce entitlements', 'Grant or revoke entitlements through audited workflows.')
-ON CONFLICT (code) DO NOTHING;
+  ('commerce.products.read', 'View canonical package and product records.'),
+  ('commerce.products.manage', 'Create and version canonical package and product records.'),
+  ('commerce.orders.read', 'View canonical order and payment evidence.'),
+  ('commerce.orders.manage', 'Perform approved order, payment and refund operations.'),
+  ('commerce.coupons.read', 'View canonical coupon definitions and redemption evidence.'),
+  ('commerce.coupons.manage', 'Create and manage canonical coupon definitions.'),
+  ('commerce.entitlements.read', 'View canonical student entitlement records.'),
+  ('commerce.entitlements.manage', 'Grant or revoke entitlements through audited workflows.')
+ON CONFLICT (key) DO NOTHING;
