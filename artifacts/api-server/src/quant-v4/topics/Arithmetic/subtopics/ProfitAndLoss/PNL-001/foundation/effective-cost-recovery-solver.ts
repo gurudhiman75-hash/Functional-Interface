@@ -79,6 +79,23 @@ function ceilDivide(numerator: bigint, denominator: bigint): bigint {
   return (numerator + denominator - 1n) / denominator;
 }
 
+function effectiveUnitCostFromWastage(
+  totalInputCost: Money,
+  inputQuantity: bigint,
+  wastedQuantity: bigint,
+): { usableQuantity: bigint; effectiveUnitCost: Money } {
+  if (totalInputCost.paise <= 0n) throw new Error("Total input cost must be positive.");
+  if (inputQuantity <= 0n || wastedQuantity < 0n || wastedQuantity >= inputQuantity) {
+    throw new Error("Wastage quantities must leave at least one usable unit.");
+  }
+  const usableQuantity = inputQuantity - wastedQuantity;
+  if (totalInputCost.paise % usableQuantity !== 0n) throw new Error("Effective unit cost is not an exact paise amount.");
+  return {
+    usableQuantity,
+    effectiveUnitCost: moneyFromPaise(totalInputCost.paise / usableQuantity),
+  };
+}
+
 export function solveEffectiveCostRecovery(request: EffectiveCostRecoveryRequest): EffectiveCostRecoveryResult {
   switch (request.mode) {
     case "FLAT_COMPONENTS_TO_EFFECTIVE_COST": {
@@ -107,29 +124,16 @@ export function solveEffectiveCostRecovery(request: EffectiveCostRecoveryRequest
       return { mode: request.mode, targetEffectiveCost, maximumExpense: moneyFromPaise(expense) };
     }
     case "WASTAGE_TO_EFFECTIVE_UNIT_COST": {
-      if (request.inputQuantity <= 0n || request.wastedQuantity < 0n || request.wastedQuantity >= request.inputQuantity) {
-        throw new Error("Wastage quantities must leave at least one usable unit.");
-      }
-      const usableQuantity = request.inputQuantity - request.wastedQuantity;
-      if (request.totalInputCost.paise % usableQuantity !== 0n) throw new Error("Effective unit cost is not an exact paise amount.");
-      return {
-        mode: request.mode,
-        usableQuantity,
-        effectiveUnitCost: moneyFromPaise(request.totalInputCost.paise / usableQuantity),
-      };
+      const result = effectiveUnitCostFromWastage(request.totalInputCost, request.inputQuantity, request.wastedQuantity);
+      return { mode: request.mode, ...result };
     }
     case "WASTAGE_AND_TARGET_RATE_TO_UNIT_SP": {
-      const unitCostResult = solveEffectiveCostRecovery({
-        mode: "WASTAGE_TO_EFFECTIVE_UNIT_COST",
-        totalInputCost: request.totalInputCost,
-        inputQuantity: request.inputQuantity,
-        wastedQuantity: request.wastedQuantity,
-      });
+      const unitCost = effectiveUnitCostFromWastage(request.totalInputCost, request.inputQuantity, request.wastedQuantity);
       return {
         mode: request.mode,
-        usableQuantity: unitCostResult.usableQuantity,
-        effectiveUnitCost: unitCostResult.effectiveUnitCost,
-        requiredUnitSellingPrice: priceFromRate(unitCostResult.effectiveUnitCost, request.direction, request.ratePercent),
+        usableQuantity: unitCost.usableQuantity,
+        effectiveUnitCost: unitCost.effectiveUnitCost,
+        requiredUnitSellingPrice: priceFromRate(unitCost.effectiveUnitCost, request.direction, request.ratePercent),
       };
     }
     case "FIXED_VARIABLE_COST_TO_BREAK_EVEN_QUANTITY": {
