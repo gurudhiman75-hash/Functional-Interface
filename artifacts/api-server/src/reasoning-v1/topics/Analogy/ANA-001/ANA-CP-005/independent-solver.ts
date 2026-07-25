@@ -1,5 +1,9 @@
 import { letterFromPosition, letterPosition } from "../foundation/alphabet";
-import { ANA_CP005_RULES, type AlphabetRuleContext } from "./rule-definitions";
+import {
+  ANA_CP005_RULES,
+  sameAlphabetRuleContext,
+  type AlphabetRuleContext,
+} from "./rule-definitions";
 
 export interface AlphabetPair {
   left: string;
@@ -10,10 +14,6 @@ export interface AlphabetRuleMatch {
   ruleId: string;
   context: AlphabetRuleContext;
   priority: number;
-}
-
-function sameContext(left: AlphabetRuleContext, right: AlphabetRuleContext): boolean {
-  return left.shift === right.shift;
 }
 
 export function matchingAlphabetRules(pairs: readonly AlphabetPair[]): AlphabetRuleMatch[] {
@@ -46,7 +46,9 @@ export function verifyAlphabetTransfer(
   target: AlphabetPair,
 ): boolean {
   const matches = matchingAlphabetRules([source, target]);
-  return matches.some((match) => match.ruleId === ruleId && sameContext(match.context, context));
+  return matches.some(
+    (match) => match.ruleId === ruleId && sameAlphabetRuleContext(match.context, context),
+  );
 }
 
 export function allEligibleLetters(ruleId: string): string[] {
