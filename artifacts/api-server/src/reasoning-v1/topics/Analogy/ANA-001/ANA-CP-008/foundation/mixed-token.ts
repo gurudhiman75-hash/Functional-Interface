@@ -8,18 +8,16 @@ export type MixedToken =
 
 export type MixedResult = MixedToken;
 
-const MAX_PILOT_NUMBER = 9999;
+const MAX_PILOT_ABSOLUTE_NUMBER = 9999;
 
 function normalizeLetters(value: string): string {
   const letters = value.trim().toUpperCase();
-  if (!/^[A-Z]+$/.test(letters)) {
-    throw new Error(`Invalid mixed-token letters: ${value}`);
-  }
+  if (!/^[A-Z]+$/.test(letters)) throw new Error(`Invalid mixed-token letters: ${value}`);
   return letters;
 }
 
 function normalizeNumber(value: number): number {
-  if (!Number.isSafeInteger(value) || value < 1 || value > MAX_PILOT_NUMBER) {
+  if (!Number.isSafeInteger(value) || Math.abs(value) > MAX_PILOT_ABSOLUTE_NUMBER) {
     throw new Error(`Invalid mixed-token number: ${value}`);
   }
   return value;
@@ -33,9 +31,7 @@ export function letterToken(letter: string): MixedToken {
 
 export function letterGroupToken(letters: string): MixedToken {
   const normalized = normalizeLetters(letters);
-  if (normalized.length < 2 || normalized.length > 6) {
-    throw new Error(`LETTER_GROUP requires 2..6 letters: ${letters}`);
-  }
+  if (normalized.length < 2 || normalized.length > 6) throw new Error(`LETTER_GROUP requires 2..6 letters: ${letters}`);
   return { kind: "LETTER_GROUP", letters: normalized };
 }
 
@@ -57,43 +53,29 @@ export function numberLetterToken(number: number, letter: string): MixedToken {
 
 export function clusterNumberToken(letters: string, number: number): MixedToken {
   const normalized = normalizeLetters(letters);
-  if (normalized.length < 2 || normalized.length > 6) {
-    throw new Error(`CLUSTER_NUMBER requires 2..6 letters: ${letters}`);
-  }
+  if (normalized.length < 2 || normalized.length > 6) throw new Error(`CLUSTER_NUMBER requires 2..6 letters: ${letters}`);
   return { kind: "CLUSTER_NUMBER", letters: normalized, number: normalizeNumber(number) };
 }
 
 export function renderMixedToken(token: MixedToken): string {
   switch (token.kind) {
-    case "LETTER":
-      return token.letter;
-    case "LETTER_GROUP":
-      return token.letters;
-    case "NUMBER":
-      return String(token.number);
-    case "LETTER_NUMBER":
-      return `${token.letter}${token.number}`;
-    case "NUMBER_LETTER":
-      return `${token.number}${token.letter}`;
-    case "CLUSTER_NUMBER":
-      return `${token.letters}${token.number}`;
+    case "LETTER": return token.letter;
+    case "LETTER_GROUP": return token.letters;
+    case "NUMBER": return String(token.number);
+    case "LETTER_NUMBER": return `${token.letter}${token.number}`;
+    case "NUMBER_LETTER": return `${token.number}${token.letter}`;
+    case "CLUSTER_NUMBER": return `${token.letters}${token.number}`;
   }
 }
 
 export function mixedTokenKey(token: MixedToken): string {
   switch (token.kind) {
-    case "LETTER":
-      return `LETTER:${token.letter}`;
-    case "LETTER_GROUP":
-      return `LETTER_GROUP:${token.letters}`;
-    case "NUMBER":
-      return `NUMBER:${token.number}`;
-    case "LETTER_NUMBER":
-      return `LETTER_NUMBER:${token.letter}:${token.number}`;
-    case "NUMBER_LETTER":
-      return `NUMBER_LETTER:${token.number}:${token.letter}`;
-    case "CLUSTER_NUMBER":
-      return `CLUSTER_NUMBER:${token.letters}:${token.number}`;
+    case "LETTER": return `LETTER:${token.letter}`;
+    case "LETTER_GROUP": return `LETTER_GROUP:${token.letters}`;
+    case "NUMBER": return `NUMBER:${token.number}`;
+    case "LETTER_NUMBER": return `LETTER_NUMBER:${token.letter}:${token.number}`;
+    case "NUMBER_LETTER": return `NUMBER_LETTER:${token.number}:${token.letter}`;
+    case "CLUSTER_NUMBER": return `CLUSTER_NUMBER:${token.letters}:${token.number}`;
   }
 }
 
@@ -101,44 +83,37 @@ export function sameMixedToken(left: MixedToken | null, right: MixedToken | null
   return left !== null && right !== null && mixedTokenKey(left) === mixedTokenKey(right);
 }
 
+const SIGNED_INTEGER_PATTERN = "-?(?:0|[1-9]\\d{0,3})";
+
 export function parseMixedTokenForReview(value: string): MixedToken {
   const normalized = value.trim().toUpperCase();
   if (/^[A-Z]$/.test(normalized)) return letterToken(normalized);
   if (/^[A-Z]{2,6}$/.test(normalized)) return letterGroupToken(normalized);
-  if (/^[1-9]\d{0,3}$/.test(normalized)) return numberToken(Number(normalized));
+  if (new RegExp(`^${SIGNED_INTEGER_PATTERN}$`).test(normalized)) return numberToken(Number(normalized));
 
-  const numberFirst = normalized.match(/^([1-9]\d{0,3})([A-Z])$/);
+  const numberFirst = normalized.match(new RegExp(`^(${SIGNED_INTEGER_PATTERN})([A-Z])$`));
   if (numberFirst) return numberLetterToken(Number(numberFirst[1]), numberFirst[2]);
 
-  const letterFirst = normalized.match(/^([A-Z]{1,6})([1-9]\d{0,3})$/);
+  const letterFirst = normalized.match(new RegExp(`^([A-Z]{1,6})(${SIGNED_INTEGER_PATTERN})$`));
   if (!letterFirst) throw new Error(`Cannot parse mixed review token: ${value}`);
   const letters = letterFirst[1];
   const number = Number(letterFirst[2]);
-  return letters.length === 1
-    ? letterNumberToken(letters, number)
-    : clusterNumberToken(letters, number);
+  return letters.length === 1 ? letterNumberToken(letters, number) : clusterNumberToken(letters, number);
 }
 
 export function assertMixedTokenRoundTrip(token: MixedToken): void {
   const parsed = parseMixedTokenForReview(renderMixedToken(token));
-  if (!sameMixedToken(parsed, token)) {
-    throw new Error(`Mixed token failed round-trip: ${mixedTokenKey(token)}`);
-  }
+  if (!sameMixedToken(parsed, token)) throw new Error(`Mixed token failed round-trip: ${mixedTokenKey(token)}`);
 }
 
 export function mixedTokenLetterText(token: MixedToken): string | null {
   switch (token.kind) {
-    case "LETTER":
-      return token.letter;
-    case "LETTER_GROUP":
-      return token.letters;
+    case "LETTER": return token.letter;
+    case "LETTER_GROUP": return token.letters;
     case "LETTER_NUMBER":
-    case "NUMBER_LETTER":
-      return token.letter;
-    case "CLUSTER_NUMBER":
-      return token.letters;
-    case "NUMBER":
-      return null;
+    case "NUMBER_LETTER": return token.letter;
+    case "CLUSTER_NUMBER": return token.letters;
+    case "NUMBER": return null;
   }
 }
 
@@ -147,10 +122,8 @@ export function mixedTokenNumber(token: MixedToken): number | null {
     case "NUMBER":
     case "LETTER_NUMBER":
     case "NUMBER_LETTER":
-    case "CLUSTER_NUMBER":
-      return token.number;
+    case "CLUSTER_NUMBER": return token.number;
     case "LETTER":
-    case "LETTER_GROUP":
-      return null;
+    case "LETTER_GROUP": return null;
   }
 }
