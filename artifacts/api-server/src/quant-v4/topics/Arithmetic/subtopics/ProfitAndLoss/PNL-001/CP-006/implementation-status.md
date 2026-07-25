@@ -1,89 +1,89 @@
 # PNL-CP-006 Implementation Status
 
-Status: ACTIVE DISCOVERY AND IMPLEMENTATION
+Status: FREEZE CANDIDATE
 
 Branch: `feat/pnl-001-cp006-effective-cost-recovery`
 
-Count policy: OPEN ENDED UNTIL GAP AUDIT
+Count policy: DISCOVERED, NOT QUOTA-DRIVEN
 
-Current discovery range: `PNL-QL-150` through `PNL-QL-163`
+Stable QL range: `PNL-QL-150` through `PNL-QL-186`
+
+## Structural parity
+
+- Task registry: 37
+- English: 37
+- Hindi: 37
+- Punjabi: 37
+- Multilingual explanation patterns: 37
 
 ## Ownership
 
-CP-006 owns effective cost, commercial recovery and break-even reasoning where purchase price alone is not the complete cost base.
+CP-006 owns effective cost, manufacturing and wastage-adjusted cost, contribution and break-even, commercial recovery, and commission-adjusted realization where purchase price alone is not the complete commercial base.
 
 Included:
 
-- repairs, transport, packaging, installation and other flat overheads;
-- overhead expressed as a percentage of purchase price;
-- selling price or result measured on effective cost;
-- maximum allowable expense for a target result;
+- repairs, transport, packaging, installation and other flat expenses;
+- overhead as a percentage of purchase price or purchase plus flat expenses;
+- forward and reverse effective-cost relations;
+- profit/loss measured on effective cost;
+- manufacturing material, labour, prime-cost overhead, packaging and scrap recovery;
 - wastage-adjusted usable-output cost;
-- fixed cost, variable cost, contribution and break-even quantity;
-- quantity required for a target absolute profit;
-- break-even selling price per unit;
-- recovery after an earlier loss;
-- inverse effective cost from total recovery and result rate.
+- fixed cost, variable cost, unit contribution and break-even quantity;
+- target-profit quantity and selling price;
+- reverse fixed-cost and variable-cost forms;
+- contribution-margin ratio and break-even revenue;
+- weighted multi-product break-even mix;
+- margin of safety;
+- recovery after earlier losses or prior recoveries;
+- recovery percentage on reduced capital;
+- commission deducted from realization and inverse gross-price calibration outside a trader chain.
 
 Excluded to avoid duplication:
 
-- plain remaining-stock or damaged-stock recovery already owned by CP-003;
-- intermediary commission in a trader chain already owned by CP-004;
-- false weight and short quantity owned by CP-005;
-- marked-price promotion semantics owned by CP-002.
+- basic CP/SP and selling-price-difference identities owned by CP-001;
+- remaining stock, damaged stock and inventory quantity recovery owned by CP-003;
+- commission-bearing intermediary chains owned by CP-004;
+- dishonest quantity or measure owned by CP-005;
+- marked-price discounts and promotions owned by CP-002.
 
-## Implemented runtime modes
+## Runtime
 
-1. Flat expense components to effective cost
-2. Purchase price plus percentage overhead to effective cost
-3. Effective cost and profit/loss rate to selling price
-4. Purchase price, expenses and selling price to overall result
-5. Selling price and target result to maximum allowable expense
-6. Wastage to effective cost per usable unit
-7. Wastage and target result to required unit selling price
-8. Fixed and variable costs to break-even quantity
-9. Fixed and variable costs plus target profit to required quantity
-10. Fixed cost and quantity to break-even selling price per unit
-11. Earlier loss plus a second purchase to required later selling price
-12. Total recovery and result rate to effective cost
+Core solver:
 
-## Current QLs
+- `foundation/effective-cost-recovery-solver.ts`
 
-The first English discovery set contains 14 runtime-backed QLs. This count is not frozen and is not a quota.
+Advanced solver:
 
-Hindi and Punjabi are intentionally deferred until the English solve-mode inventory stabilises.
+- `foundation/effective-cost-advanced-solver.ts`
 
-## Runtime proof
+Independent verifier:
 
-`pnl-cp-006.test.ts` contains representative assertions for:
+- `foundation/cp006-independent-verifier.ts`
 
-- flat and percentage overheads;
-- profit rate on effective cost;
-- maximum allowable expense;
-- wastage-adjusted unit cost and target selling price;
-- break-even quantity;
-- target-profit quantity;
-- break-even unit selling price;
-- recovery after an earlier loss;
-- inverse effective cost.
+Representative proof:
 
-Repository-level execution remains pending for the consolidated test/build pass.
+- `pnl-cp-006.test.ts`
 
-## Pending discovery
+## Editorial and QA artifacts
 
-- manufacturing cost breakdown with multiple percentage bases;
-- flat plus percentage overhead combinations and their inverses;
-- break-even revenue and contribution-margin percentage;
-- unknown fixed cost, variable cost, unit contribution or target revenue;
-- multiple-product weighted contribution mix;
-- recovery after several prior sales or losses;
-- effective-cost questions with retained scrap or by-product value;
-- commission or recovery deductions outside a trader chain;
-- table, caselet, statement, algebraic and data-sufficiency representations;
-- independent verifier and misconception-driven distractor contract;
-- multilingual parity;
-- reference-book and PYQ reconciliation.
+- `distractor-contract.md`
+- `explanation-patterns.multilingual.json`
+- `explanation-quality-audit.md`
+- `cp-006-structural-audit.ts`
+- `completion-audit.md`
 
-## Exit rule
+## Representation coverage
 
-CP-006 may be frozen only after direct/reverse symmetry, percentage-base, wastage, contribution, recovery, representation, explanation, distractor, multilingual and source-pattern audits show no meaningful uncovered mode.
+Direct, inverse, table, caselet, statement, algebraic and data-sufficiency forms are present. Representation variants reuse established solver identities.
+
+## Source reconciliation
+
+Coverage was checked against the PNL concept ontology, exhaustive discovery plan and reference-pattern ledger ECR-001 through ECR-006. No unresolved owned pattern remains.
+
+## Execution status
+
+Repository cloning was blocked in the execution container by unavailable outbound DNS. Tests and structural audits are committed but must be executed by PR CI or the consolidated PNL integration pass.
+
+## Reopen rule
+
+Reopen only for a compile/runtime failure, a rendered multilingual defect, or a genuinely distinct source-backed SSC, Banking or Punjab examination mode.
