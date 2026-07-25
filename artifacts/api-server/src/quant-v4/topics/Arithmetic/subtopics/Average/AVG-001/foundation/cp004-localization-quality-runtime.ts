@@ -11,7 +11,7 @@ export const AVG_001_CP004_MULTILINGUAL_PILOT = Object.freeze({
   packageId: "AVG-001",
   canonicalProblemId: "AVG-CP-004",
   languages: ["hi", "pa"] as const,
-  qlCount: 65,
+  qlCount: 85,
   status: "MANUAL_REVIEW",
   editorialStatus: "PENDING",
   publiclyPublishable: false,
