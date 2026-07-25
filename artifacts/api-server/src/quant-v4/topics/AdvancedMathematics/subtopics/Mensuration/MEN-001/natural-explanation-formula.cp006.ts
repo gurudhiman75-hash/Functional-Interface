@@ -14,7 +14,7 @@ const CP006_FORMULA_LINES: Record<string, string> = {
   "MEN-001-QL-413": "To reverse an enlargement, use A₁ = A₂ ÷ k².",
   "MEN-001-QL-414": "For a uniform increase of p%, area increase % = [(1 + p/100)² − 1] × 100.",
   "MEN-001-QL-415": "For a uniform decrease of p%, area decrease % = [1 − (1 − p/100)²] × 100.",
-  "MEN-001-QL-416": "With independent changes, the new area factor is (1 + x/100)(1 − y/100).",
+  "MEN-001-QL-416": "With independent changes, the area ratio is A₂/A₁ = (1 + x/100)(1 − y/100).",
   "MEN-001-QL-417": "With independent changes, use A₂ = A₁(1 + x/100)(1 − y/100).",
   "MEN-001-QL-418": "Use actual length = map length × ground distance represented by 1 cm.",
   "MEN-001-QL-419": "Use map length = actual length ÷ ground distance represented by 1 cm.",
