@@ -32,6 +32,11 @@ import {
   verifyPnc002Cp009SaturationIndependently,
 } from "./solver-cp009-saturation";
 import { solvePnc002Cp010, verifyPnc002Cp010Independently } from "./solver-cp010";
+import {
+  isPnc002Cp010SaturationQlId,
+  solvePnc002Cp010Saturation,
+  verifyPnc002Cp010SaturationIndependently,
+} from "./solver-cp010-saturation";
 import type {
   Pnc002Cp008SolveMode,
   Pnc002ParameterInput,
@@ -53,31 +58,36 @@ export function runPnc002Pipeline(input: Pnc002ParameterInput = {}): Pnc002Quest
   const isCp010 = parameters.canonicalProblemId === "PNC-CP-010";
   const isCp008Saturation = isCp008 && isPnc002Cp008SaturationMode(parameters.solveMode);
   const isCp009Saturation = isCp009 && isPnc002Cp009SaturationMode(parameters.solveMode);
+  const isCp010Saturation = isCp010 && isPnc002Cp010SaturationQlId(parameters.questionLanguageId);
   const cp007Parameters = parameters as Pnc002Parameters;
   const cp008Parameters = parameters as Pnc002Parameters<Pnc002Cp008SolveMode>;
 
-  const solver = isCp010
-    ? solvePnc002Cp010(parameters)
-    : isCp009Saturation
-      ? solvePnc002Cp009Saturation(parameters)
-      : isCp009
-        ? solvePnc002Cp009(parameters)
-        : isCp008Saturation
-          ? solvePnc002Cp008Saturation(parameters)
-          : isCp008
-            ? solvePnc002Cp008(cp008Parameters)
-            : solvePnc002(cp007Parameters);
-  const independentVerification = isCp010
-    ? verifyPnc002Cp010Independently(parameters)
-    : isCp009Saturation
-      ? verifyPnc002Cp009SaturationIndependently(parameters)
-      : isCp009
-        ? verifyPnc002Cp009Independently(parameters)
-        : isCp008Saturation
-          ? verifyPnc002Cp008SaturationIndependently(parameters)
-          : isCp008
-            ? verifyPnc002Cp008Independently(cp008Parameters)
-            : verifyPnc002Independently(cp007Parameters);
+  const solver = isCp010Saturation
+    ? solvePnc002Cp010Saturation(parameters)
+    : isCp010
+      ? solvePnc002Cp010(parameters)
+      : isCp009Saturation
+        ? solvePnc002Cp009Saturation(parameters)
+        : isCp009
+          ? solvePnc002Cp009(parameters)
+          : isCp008Saturation
+            ? solvePnc002Cp008Saturation(parameters)
+            : isCp008
+              ? solvePnc002Cp008(cp008Parameters)
+              : solvePnc002(cp007Parameters);
+  const independentVerification = isCp010Saturation
+    ? verifyPnc002Cp010SaturationIndependently(parameters)
+    : isCp010
+      ? verifyPnc002Cp010Independently(parameters)
+      : isCp009Saturation
+        ? verifyPnc002Cp009SaturationIndependently(parameters)
+        : isCp009
+          ? verifyPnc002Cp009Independently(parameters)
+          : isCp008Saturation
+            ? verifyPnc002Cp008SaturationIndependently(parameters)
+            : isCp008
+              ? verifyPnc002Cp008Independently(cp008Parameters)
+              : verifyPnc002Independently(cp007Parameters);
   const reasoningEvidence = isCp010
     ? buildPnc002Cp010ReasoningEvidence(parameters, solver, independentVerification)
     : isCp009Saturation
