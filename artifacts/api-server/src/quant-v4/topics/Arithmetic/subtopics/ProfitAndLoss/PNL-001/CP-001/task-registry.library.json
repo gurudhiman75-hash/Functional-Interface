@@ -1,0 +1,26 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-001",
+  "status": "ACTIVE_EXPANSION",
+  "countPolicy": "OPEN_ENDED",
+  "title": "Fundamental Price Relations",
+  "entries": {
+    "PNL-QL-001": {"solveMode":"CP_SP_TO_AMOUNT","direction":"PROFIT","answerSemantic":"profitAmount","requiredVariables":["costPrice","sellingPrice"],"difficulty":"Easy"},
+    "PNL-QL-002": {"solveMode":"CP_SP_TO_AMOUNT","direction":"LOSS","answerSemantic":"lossAmount","requiredVariables":["costPrice","sellingPrice"],"difficulty":"Easy"},
+    "PNL-QL-003": {"solveMode":"CP_SP_TO_RATE","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"profitPercentOnCP","requiredVariables":["costPrice","sellingPrice"],"difficulty":"Easy"},
+    "PNL-QL-004": {"solveMode":"CP_SP_TO_RATE","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"lossPercentOnCP","requiredVariables":["costPrice","sellingPrice"],"difficulty":"Easy"},
+    "PNL-QL-005": {"solveMode":"CP_RATE_TO_SP","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"sellingPrice","requiredVariables":["costPrice","profitPercent"],"difficulty":"Easy"},
+    "PNL-QL-006": {"solveMode":"CP_RATE_TO_SP","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"sellingPrice","requiredVariables":["costPrice","lossPercent"],"difficulty":"Easy"},
+    "PNL-QL-007": {"solveMode":"SP_RATE_TO_CP","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["sellingPrice","profitPercent"],"difficulty":"Medium"},
+    "PNL-QL-008": {"solveMode":"SP_RATE_TO_CP","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["sellingPrice","lossPercent"],"difficulty":"Medium"}
+  },
+  "pendingDiscovery": [
+    "amount-and-rate-to-cost-price",
+    "cost-selling-ratio-to-rate",
+    "rate-to-cost-selling-ratio",
+    "profit-as-fraction-of-selling-price",
+    "margin-on-selling-price",
+    "difference-between-selling-prices",
+    "coupled-fundamental-inverse-forms"
+  ]
+}
