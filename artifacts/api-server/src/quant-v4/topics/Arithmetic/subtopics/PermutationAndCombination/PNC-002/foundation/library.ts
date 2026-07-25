@@ -1,18 +1,23 @@
 import questionLanguageBase from "../question-language.en.json";
 import questionLanguageSaturation from "../question-language.cp007-saturation.en.json";
 import questionLanguageCp008 from "../question-language.cp008.en.json";
+import questionLanguageCp008Saturation from "../question-language.cp008-saturation.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistrySaturation from "../task-registry.cp007-saturation.library.json";
 import taskRegistryCp008 from "../task-registry.cp008.library.json";
+import taskRegistryCp008Saturation from "../task-registry.cp008-saturation.library.json";
 import explanationLibraryBase from "../explanation-by-ql.en.json";
 import explanationLibrarySaturation from "../explanation-by-ql.cp007-saturation.en.json";
 import explanationLibraryCp008 from "../explanation-by-ql.cp008.en.json";
+import explanationLibraryCp008Saturation from "../explanation-by-ql.cp008-saturation.en.json";
 import variableRangesBase from "../variable-ranges.library.json";
 import variableRangesSaturation from "../variable-ranges.cp007-saturation.library.json";
 import variableRangesCp008 from "../variable-ranges.cp008.library.json";
+import variableRangesCp008Saturation from "../variable-ranges.cp008-saturation.library.json";
 import constraintProfilesBase from "../constraint-profiles.library.json";
 import constraintProfilesSaturation from "../constraint-profiles.cp007-saturation.library.json";
 import constraintProfilesCp008 from "../constraint-profiles.cp008.library.json";
+import constraintProfilesCp008Saturation from "../constraint-profiles.cp008-saturation.library.json";
 import type {
   Pnc002QuestionEntry,
   Pnc002QuestionLanguageEntry,
@@ -23,7 +28,10 @@ type ExplanationRecord = { lines: string[] };
 type VariableRanges = {
   packageId: string;
   answerCeiling: number;
-  pools: typeof variableRangesBase.pools & typeof variableRangesSaturation.pools & typeof variableRangesCp008.pools;
+  pools: typeof variableRangesBase.pools
+    & typeof variableRangesSaturation.pools
+    & typeof variableRangesCp008.pools
+    & typeof variableRangesCp008Saturation.pools;
 };
 type ConstraintProfile = { orderMatters: boolean; linear: boolean; rule: string };
 
@@ -31,16 +39,19 @@ const qlEntries = [
   ...questionLanguageBase.entries,
   ...questionLanguageSaturation.entries,
   ...questionLanguageCp008.entries,
+  ...questionLanguageCp008Saturation.entries,
 ] as Pnc002QuestionLanguageEntry[];
 const registryGroups = [
   ...taskRegistryBase.groups,
   ...taskRegistrySaturation.groups,
   ...taskRegistryCp008.groups,
+  ...taskRegistryCp008Saturation.groups,
 ] as Pnc002RegistryGroup[];
 const explanations = {
   ...explanationLibraryBase.entries,
   ...explanationLibrarySaturation.entries,
   ...explanationLibraryCp008.entries,
+  ...explanationLibraryCp008Saturation.entries,
 } as Record<string, ExplanationRecord>;
 const variableRanges: VariableRanges = {
   packageId: variableRangesBase.packageId,
@@ -49,12 +60,14 @@ const variableRanges: VariableRanges = {
     ...variableRangesBase.pools,
     ...variableRangesSaturation.pools,
     ...variableRangesCp008.pools,
+    ...variableRangesCp008Saturation.pools,
   },
 };
 const constraintProfiles = {
   ...constraintProfilesBase.profiles,
   ...constraintProfilesSaturation.profiles,
   ...constraintProfilesCp008.profiles,
+  ...constraintProfilesCp008Saturation.profiles,
 } as Record<string, ConstraintProfile>;
 
 const registryByQl = new Map<string, Pnc002RegistryGroup>();
