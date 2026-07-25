@@ -9,6 +9,8 @@ import {
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
+const CP003_CONTEXT_FINALIZER = "AVG-CP-003 localized context finalizer v2";
+const CP003_GRAMMAR_FINALIZER = "AVG-CP-003 localized explanation grammar finalizer v1";
 const cpEntries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
 const localizedQlIds = getAvg001Cp003LocalizedQlIds();
 const failures: string[] = [];
@@ -21,6 +23,12 @@ let generated = 0;
 const fail = (message: string) => failures.push(message);
 const normalize = (value: string) => value.toLowerCase().replace(/\s+/g, " ").trim();
 const proseOnly = (lines: string[]) => lines.join("\n").replace(/\$\$[\s\S]*?\$\$/g, "");
+const hindiRunWord = /(?:^|[^\u0900-\u097F])रन(?:$|[^\u0900-\u097F])|रनों/;
+const punjabiRunWord = /ਦੌੜ|ਪਾਰੀ|ਬੱਲੇਬਾਜ਼/;
+const forbiddenGrammar = {
+  hi: /(?:0 वर्ष|पुराना अंक के साथ|पुराना माप के साथ|ज्ञात नया अंक|ज्ञात नया माप|नए सदस्य का आयु|नए शिक्षक का आयु|अगले दिन का बिक्री|अंतर औसत-वृद्धि से भाग दें|एक नई संख्या [\d,.]+ को समूह|जिसके बाद रन का औसत)/,
+  pa: /(?:0 ਸਾਲ|ਪੁਰਾਣਾ ਅੰਕ ਨਾਲ|ਪੁਰਾਣਾ ਮਾਪ ਨਾਲ|ਜਾਣੀ ਨਵਾਂ ਅੰਕ|ਜਾਣੀ ਨਵਾਂ ਮਾਪ|ਨਵੇਂ ਮੈਂਬਰ ਦਾ ਉਮਰ|ਨਵੇਂ ਅਧਿਆਪਕ ਦਾ ਉਮਰ|ਅਗਲੇ ਦਿਨ ਦਾ ਵਿਕਰੀ|ਫਰਕ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ|ਇੱਕ ਨਵੀਂ ਸੰਖਿਆ [\d,.]+ ਨੂੰ ਸਮੂਹ|ਜਿਸ ਤੋਂ ਬਾਅਦ ਦੌੜਾਂ ਦੀ ਔਸਤ)/,
+};
 
 if (cpEntries.length !== 98) fail(`expected 98 CP-003 QLs; got ${cpEntries.length}`);
 if (localizedQlIds.length !== 98) fail(`expected 98 localized QL IDs; got ${localizedQlIds.length}`);
@@ -62,6 +70,8 @@ for (const entry of cpEntries) {
       if (localized.traceability.localizationReleaseId !== AVG_001_CP003_MULTILINGUAL_PILOT.releaseId) fail(`${entry.qlId}:${language}:${seedIndex}: missing localization release ID`);
       if (localized.traceability.sourceEnglishReleaseId !== english.traceability.releaseId) fail(`${entry.qlId}:${language}:${seedIndex}: wrong English source release`);
       if (localized.traceability.cp003ExplanationAuthorship !== CP003_AUTHORSHIP) fail(`${entry.qlId}:${language}:${seedIndex}: context-authored explanation marker missing`);
+      if (localized.traceability.cp003ExplanationContextFinalizer !== CP003_CONTEXT_FINALIZER) fail(`${entry.qlId}:${language}:${seedIndex}: context finalizer marker missing`);
+      if (localized.traceability.cp003ExplanationGrammarFinalizer !== CP003_GRAMMAR_FINALIZER) fail(`${entry.qlId}:${language}:${seedIndex}: grammar finalizer marker missing`);
       if (localized.answer !== english.answer) fail(`${entry.qlId}:${language}:${seedIndex}: answer changed`);
       if (localized.correctIndex !== english.correctIndex) fail(`${entry.qlId}:${language}:${seedIndex}: correct index changed`);
       if (JSON.stringify(localized.options) !== JSON.stringify(english.options)) fail(`${entry.qlId}:${language}:${seedIndex}: options changed`);
@@ -71,6 +81,7 @@ for (const entry of cpEntries) {
       if (/[{}]|undefined|NaN|Infinity|null/.test(localized.stem)) fail(`${entry.qlId}:${language}:${seedIndex}: unresolved/internal stem token`);
       if (/[A-Za-z]/.test(localized.stem)) fail(`${entry.qlId}:${language}:${seedIndex}: Latin text remains in stem`);
 
+      const fullExplanation = localized.explanation.lines.join("\n");
       const prose = proseOnly(localized.explanation.lines);
       const devanagariLetters = /[\u0900-\u0963\u0970-\u097F]/;
       const gurmukhiLetters = /[\u0A01-\u0A74]/;
@@ -82,9 +93,18 @@ for (const entry of cpEntries) {
       if (localized.explanation.lines.length < 4 || localized.explanation.lines.length > 8) fail(`${entry.qlId}:${language}:${seedIndex}: explanation line count`);
       if (!localized.explanation.lines.some((line) => line.includes(localized.answer))) fail(`${entry.qlId}:${language}:${seedIndex}: answer evidence missing`);
       if (!localized.explanation.lines.some((line) => /×|÷|\\times|\\div|\+|-/.test(line))) fail(`${entry.qlId}:${language}:${seedIndex}: substituted arithmetic missing`);
+      if (forbiddenGrammar[language].test(`${localized.stem}\n${prose}`)) fail(`${entry.qlId}:${language}:${seedIndex}: known language defect remains`);
+
+      const marksContext = language === "hi" ? /अंक|परीक्षा/.test(localized.stem) : /ਅੰਕ|ਪ੍ਰੀਖਿਆ/.test(localized.stem);
+      const outputContext = language === "hi" ? /उत्पादन|मशीन/.test(localized.stem) : /ਉਤਪਾਦਨ|ਮਸ਼ੀਨ/.test(localized.stem);
+      const readingContext = language === "hi" ? /माप|प्रेक्षण/.test(localized.stem) : /ਮਾਪ|ਪ੍ਰੇਖਣ/.test(localized.stem);
+      const explanationHasRuns = language === "hi" ? hindiRunWord.test(fullExplanation) : punjabiRunWord.test(fullExplanation);
+      if ((marksContext || outputContext || readingContext) && explanationHasRuns) fail(`${entry.qlId}:${language}:${seedIndex}: cricket wording leaked into non-cricket explanation`);
+      if (outputContext && (language === "hi" ? /अतिरिक्त अंक|अंक-अंतर/.test(fullExplanation) : /ਵਾਧੂ ਅੰਕ|ਅੰਕ-ਫਰਕ/.test(fullExplanation))) fail(`${entry.qlId}:${language}:${seedIndex}: marks wording leaked into output explanation`);
 
       const yearsElapsed = Number(localized.parameters.values.yearsElapsed ?? 0);
       if (yearsElapsed > 0 && !localized.stem.includes(String(yearsElapsed))) fail(`${entry.qlId}:${language}:${seedIndex}: elapsed years missing`);
+      if (yearsElapsed > 0 && !fullExplanation.includes(String(yearsElapsed))) fail(`${entry.qlId}:${language}:${seedIndex}: elapsed years not explained`);
       if (/cricket/i.test(entry.scenarioVariant) && !localized.stem.includes(String(localized.parameters.values.inningsCount))) fail(`${entry.qlId}:${language}:${seedIndex}: innings count missing`);
 
       if (
