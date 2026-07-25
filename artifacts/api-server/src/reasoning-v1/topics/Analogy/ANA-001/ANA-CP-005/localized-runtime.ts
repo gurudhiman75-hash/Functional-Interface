@@ -94,8 +94,8 @@ function renderStem(base: GeneratedAlphabetAnalogy, locale: AlphabetLocale): str
     return `${source.left} : ${source.right} :: ${target.left} : ?`;
   }
   const prefix = hi
-    ? "उस अक्षर-युग्म को चुनिए जो इसी संबंध का पालन करता है"
-    : "ਉਹ ਅੱਖਰ-ਜੋੜਾ ਚੁਣੋ ਜੋ ਇਸੇ ਸੰਬੰਧ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ";
+    ? "वह अक्षर-जोड़ा चुनिए जिसमें यही संबंध है"
+    : "ਉਹ ਅੱਖਰ-ਜੋੜਾ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਇਹੀ ਸੰਬੰਧ ਹੈ";
   if (layout === "ARROW") return `${prefix}: ${source.left} → ${source.right}`;
   if (layout === "TWO_ROW_TABLE") return `${prefix}: | ${source.left} | ${source.right} |`;
   if (layout === "BOXED_PAIRS") return `${prefix}: [ ${source.left} : ${source.right} ]`;
@@ -118,7 +118,7 @@ export function generateLocalizedAlphabetAnalogy(
       sourceDemonstration: localizedStep(base.ruleId, base.source.left, base.source.right, base.context, locale),
       targetApplication: localizedStep(base.ruleId, base.target.left, base.target.right, base.context, locale),
       conclusion: base.presentationMode === "MISSING_FOURTH_TERM"
-        ? (hi ? `अतः ${base.target.right} लुप्त अक्षर है।` : `ਇਸ ਲਈ ${base.target.right} ਗੁੰਮ ਅੱਖਰ ਹੈ।`)
+        ? (hi ? `अतः रिक्त स्थान पर ${base.target.right} आएगा।` : `ਇਸ ਲਈ ਖਾਲੀ ਥਾਂ 'ਤੇ ${base.target.right} ਆਵੇਗਾ।`)
         : (hi ? `अतः ${base.target.left} : ${base.target.right} समान नियम का पालन करता है।` : `ਇਸ ਲਈ ${base.target.left} : ${base.target.right} ਉਸੇ ਨਿਯਮ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ।`),
       closestTrapRejection: hi
         ? "अन्य विकल्प निकटवर्ती स्थान, विपरीत अक्षर या दिशा की सामान्य भूलों से बने हैं, पर दिखाए गए नियम से नहीं।"
