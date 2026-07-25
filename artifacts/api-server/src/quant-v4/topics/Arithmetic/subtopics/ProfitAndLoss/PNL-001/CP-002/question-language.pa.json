@@ -32,6 +32,8 @@
     "PNL-QL-065":{"template":"ਸਾਰਣੀ ਵਿੱਚ ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ ਦੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਹਨ: {offerTable}। ਪੇਸ਼ਕਸ਼ {selectedOffer} ਹੇਠ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"TABLE"},
     "PNL-QL-066":{"template":"ਇੱਕ ਵੇਚਣ ਵਾਲਾ ਵਸਤੂ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ। ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"CASELET"},
     "PNL-QL-067":{"template":"{firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਗਈ। ਸਮਤੁੱਲ ਛੂਟ ਬਾਰੇ ਸਹੀ ਕਥਨ ਚੁਣੋ।","difficulty":"Medium","representation":"STATEMENT"},
-    "PNL-QL-068":{"template":"ਅੰਕਿਤ ਮੁੱਲ {markedPriceExpression} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ {sellingPriceExpression} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"ALGEBRAIC"}
-  },"entryCount":32
+    "PNL-QL-068":{"template":"ਅੰਕਿਤ ਮੁੱਲ {markedPriceExpression} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ {sellingPriceExpression} ਹੈ। ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard","representation":"ALGEBRAIC"},
+    "PNL-QL-069":{"template":"₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਵਸਤੂ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਉਪਲਬਧ ਹੈ। ਛੂਟ-ਫਿਰ-ਕੂਪਨ ਅਤੇ ਕੂਪਨ-ਫਿਰ-ਛੂਟ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਵਧੀਆ ਕ੍ਰਮ ਅਤੇ ਮੁੱਲ ਅੰਤਰ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-070":{"template":"ਲਕਸ਼ਿਤ ਲਾਭ ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰਨ ਵਾਸਤੇ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ। ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕਿਹੜਾ ਕਥਨ ਕਾਫ਼ੀ ਹੈ।","difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
+  },"entryCount":34
 }
