@@ -35,6 +35,31 @@ function shortenCp006Concept(line: string) {
     );
 }
 
+function rendered(pkg: Avg001QuestionPackage, key: string) {
+  const value = pkg.parameters.renderVariables[key] ?? pkg.parameters.values[key];
+  return value === undefined || value === null ? "" : String(value);
+}
+
+function elapsedAgeOpening(pkg: Avg001QuestionPackage) {
+  const scenario = String(pkg.parameters.scenarioVariant ?? "");
+  if (!/(?:AfterYears|ElapsedYears)/.test(scenario)) return undefined;
+
+  const years = rendered(pkg, "yearsElapsed") || rendered(pkg, "elapsedYears");
+  if (pkg.language === "hi") {
+    return years
+      ? `${years} वर्ष बाद, मूल आयुओं को अद्यतन करके पुराना कुल निकालें।`
+      : "बीते वर्षों के बाद मूल आयुओं को अद्यतन करके पुराना कुल निकालें।";
+  }
+  if (pkg.language === "pa") {
+    return years
+      ? `${years} ਸਾਲ ਬਾਅਦ, ਮੂਲ ਉਮਰਾਂ ਨੂੰ ਅਪਡੇਟ ਕਰਕੇ ਪੁਰਾਣਾ ਕੁੱਲ ਕੱਢੋ।`
+      : "ਬੀਤੇ ਸਾਲਾਂ ਤੋਂ ਬਾਅਦ ਮੂਲ ਉਮਰਾਂ ਨੂੰ ਅਪਡੇਟ ਕਰਕੇ ਪੁਰਾਣਾ ਕੁੱਲ ਕੱਢੋ।";
+  }
+  return years
+    ? `After ${years} years, update every original age before forming the old total.`
+    : "After the elapsed years, update every original age before forming the old total.";
+}
+
 export function finalizeAvg001ExplanationCleanup(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
@@ -49,13 +74,15 @@ export function finalizeAvg001ExplanationCleanup(
   const lines = cleaned.length > 1
     ? [cleaned[0]!, ...cleaned.slice(2)]
     : cleaned;
+  const ageOpening = elapsedAgeOpening(pkg);
+  if (ageOpening && lines.length) lines[0] = ageOpening;
 
   return {
     ...pkg,
     explanation: { lines },
     traceability: {
       ...pkg.traceability,
-      explanationFinalCleanup: "AVG-001 explanation final cleanup v4",
+      explanationFinalCleanup: "AVG-001 explanation final cleanup v5",
       explanationLineContract: "AVG-001 four-line explanations v1",
     },
   };
