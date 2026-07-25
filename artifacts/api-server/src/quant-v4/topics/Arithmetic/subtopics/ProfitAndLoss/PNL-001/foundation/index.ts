@@ -18,6 +18,7 @@ export * from "./dishonest-trade-advanced-solver";
 export * from "./cp002-independent-verifier";
 export * from "./cp003-independent-verifier";
 export * from "./cp004-independent-verifier";
+export * from "./cp005-independent-verifier";
 export * from "./independent-verifier";
 export * from "./parameter-generator";
 export * from "./validator";
