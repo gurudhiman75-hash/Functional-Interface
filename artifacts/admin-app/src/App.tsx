@@ -24,6 +24,7 @@ const PublishingCalendarPage = lazy(() => import('@/pages/tests/PublishingCalend
 const ExamBlueprintsPage = lazy(() => import('@/pages/tests/ExamBlueprintsWorkspacePage').then((module) => ({ default: module.ExamBlueprintsWorkspacePage })));
 const TestSeriesPage = lazy(() => import('@/pages/tests/TestSeriesWorkspacePage').then((module) => ({ default: module.TestSeriesWorkspacePage })));
 const TestAnalyticsPage = lazy(() => import('@/pages/analytics/TestAnalyticsPage').then((module) => ({ default: module.TestAnalyticsPage })));
+const TestAnalyticsDetailPage = lazy(() => import('@/pages/analytics/TestAnalyticsPage').then((module) => ({ default: module.TestAnalyticsDetailPage })));
 const SystemHealthPage = lazy(() => import('@/pages/analytics/SystemHealthWorkspacePage').then((module) => ({ default: module.SystemHealthWorkspacePage })));
 const RequestFailuresPage = lazy(() => import('@/pages/analytics/RequestFailuresPage').then((module) => ({ default: module.RequestFailuresPage })));
 const LanguagesPage = lazy(() => import('@/pages/settings/LanguagesPage').then((module) => ({ default: module.LanguagesPage })));
@@ -70,6 +71,7 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/users/recovery', element: <RecoveryRequestsPage /> },
   { path: '/users/team', element: <AdminTeamPage /> },
   { path: '/users/*', element: <PendingWorkspacePage /> },
+  { path: '/analytics/tests/:publicationId', element: <TestAnalyticsDetailPage /> },
   { path: '/analytics/tests', element: <TestAnalyticsPage /> },
   { path: '/analytics/request-failures', element: <RequestFailuresPage /> },
   { path: '/analytics/system-health', element: <SystemHealthPage /> },
