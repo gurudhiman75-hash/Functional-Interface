@@ -65,6 +65,12 @@ function getBlockedAccountCode(error: unknown): BlockedAccountCode | null {
   return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE" ? code : null;
 }
 
+function isRevokedSessionError(error: unknown): boolean {
+  return error instanceof ApiError
+    && error.status === 401
+    && getApiErrorCode(error.body) === "SESSION_REVOKED";
+}
+
 function blockedAccountNotice(code: BlockedAccountCode): string {
   if (code === "ACCOUNT_SUSPENDED") {
     return "Your ExamTree account has been suspended by an administrator. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support if you believe this is a mistake.";
@@ -72,12 +78,15 @@ function blockedAccountNotice(code: BlockedAccountCode): string {
   return "Your ExamTree account is currently unavailable or has been removed. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support for assistance.";
 }
 
-async function terminateBlockedStudentSession(code: BlockedAccountCode): Promise<void> {
+async function terminateStudentSession(input: {
+  reason: "account-suspended" | "account-unavailable" | "session-revoked";
+  notice: string;
+}): Promise<void> {
   if (typeof window !== "undefined") {
-    const noticeKey = `examtree.blocked-account-notice.${code}`;
+    const noticeKey = `examtree.auth-notice.${input.reason}`;
     if (!window.sessionStorage.getItem(noticeKey)) {
       window.sessionStorage.setItem(noticeKey, "shown");
-      window.alert(blockedAccountNotice(code));
+      window.alert(input.notice);
     }
   }
 
@@ -88,9 +97,22 @@ async function terminateBlockedStudentSession(code: BlockedAccountCode): Promise
     await signOut(auth).catch(() => undefined);
   }
   if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
-    const reason = code === "ACCOUNT_SUSPENDED" ? "account-suspended" : "account-unavailable";
-    window.location.replace(`/login?reason=${reason}`);
+    window.location.replace(`/login?reason=${input.reason}`);
   }
+}
+
+async function terminateBlockedStudentSession(code: BlockedAccountCode): Promise<void> {
+  await terminateStudentSession({
+    reason: code === "ACCOUNT_SUSPENDED" ? "account-suspended" : "account-unavailable",
+    notice: blockedAccountNotice(code),
+  });
+}
+
+async function terminateRevokedStudentSession(): Promise<void> {
+  await terminateStudentSession({
+    reason: "session-revoked",
+    notice: "Your ExamTree session was ended by an administrator. You have been signed out on this device. Sign in again to continue using ExamTree.",
+  });
 }
 
 async function fetchOrCreateUserProfile(
@@ -104,6 +126,10 @@ async function fetchOrCreateUserProfile(
     const blockedCode = getBlockedAccountCode(error);
     if (blockedCode) {
       await terminateBlockedStudentSession(blockedCode);
+      throw error;
+    }
+    if (isRevokedSessionError(error)) {
+      await terminateRevokedStudentSession();
       throw error;
     }
 
@@ -122,6 +148,8 @@ async function fetchOrCreateUserProfile(
       const createBlockedCode = getBlockedAccountCode(createError);
       if (createBlockedCode) {
         await terminateBlockedStudentSession(createBlockedCode);
+      } else if (isRevokedSessionError(createError)) {
+        await terminateRevokedStudentSession();
       }
       throw createError;
     }
@@ -189,6 +217,9 @@ export function syncAuthSession() {
       if (blockedCode) {
         await terminateBlockedStudentSession(blockedCode);
         currentFirebaseUser = null;
+      } else if (isRevokedSessionError(error)) {
+        await terminateRevokedStudentSession();
+        currentFirebaseUser = null;
       } else {
         console.warn("Failed to sync auth session:", error);
       }
@@ -206,7 +237,7 @@ export function syncAuthSession() {
     await verifyCurrentAccount();
   });
 
-  // Suspension, disabling, and deletion must take effect in an already-open test
+  // Account state and token revocation must take effect in an already-open test
   // runner. The backend checks every protected request, while this short poll
   // ejects an idle or locally active tab even when no navigation/refresh occurs.
   const statusTimer = window.setInterval(() => {
