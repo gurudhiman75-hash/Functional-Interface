@@ -83,3 +83,6 @@ export const runMen001Cp004Pipeline = (input: Men001ParameterInput = {}) =>
 
 export const runMen001Cp005Pipeline = (input: Men001ParameterInput = {}) =>
   runMen001Pipeline("MEN-CP-005", input);
+
+export const runMen001Cp006Pipeline = (input: Men001ParameterInput = {}) =>
+  runMen001Pipeline("MEN-CP-006", input);
