@@ -1,11 +1,11 @@
-import { authorMen001ExplanationLines } from "./natural-explanation-authorship";
+import { authorAllMen001ExplanationLines } from "./natural-explanation-authorship.all";
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
 import type { Men001Parameters, Men001SolverResult } from "./types";
 
 const REDUNDANT_NARRATIVE_ENDING = /^(Therefore|Hence|Thus|So|Accordingly|The required|The final|The answer|A square unit|A linear unit|The numerical rate)/i;
 const GENERIC_UNIT_LINE = /(square unit is used|linear unit is used|area is two-dimensional|length is one-dimensional|expressed in rupees|reported in revolutions)/i;
 const ROBOTIC_PREFIX = /^(Therefore,|Hence,|Thus,|So,|So |Therefore |Hence |Thus )/i;
-const FORMULA_CONSTANTS = new Set(["1", "2", "3", "4", "7", "22", "360"]);
+const FORMULA_CONSTANTS = new Set(["1", "2", "3", "4", "6", "7", "14", "22", "360"]);
 
 const SHORT_CASE_BRIDGES: Record<string, string> = {
   "MEN-001-QL-013":
@@ -16,6 +16,10 @@ const SHORT_CASE_BRIDGES: Record<string, string> = {
     "This equal division works because all three sides of an equilateral frame are identical.",
   "MEN-001-QL-110":
     "Only the positive square root is relevant, because a physical side length cannot be negative.",
+  "MEN-001-QL-353":
+    "The exact √3 form is retained because the regular hexagon is built from equilateral triangles.",
+  "MEN-001-QL-354":
+    "Keeping √3 exact avoids an unnecessary decimal approximation.",
 };
 
 function isRedundantEnding(line: string) {
@@ -163,7 +167,7 @@ export function authorFinalMen001ExplanationLines(
   parameters: Men001Parameters,
   solver: Men001SolverResult,
 ): string[] {
-  const authored = authorMen001ExplanationLines(
+  const authored = authorAllMen001ExplanationLines(
     originalLines,
     parameters,
     solver,
