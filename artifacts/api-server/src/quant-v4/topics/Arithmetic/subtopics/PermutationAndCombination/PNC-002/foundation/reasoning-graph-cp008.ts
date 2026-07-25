@@ -1,12 +1,12 @@
 import type {
   Pnc002IndependentVerification,
-  Pnc002Parameters,
+  Pnc002AnyParameters,
   Pnc002ReasoningEvidence,
   Pnc002SolverResult,
 } from "./types";
 
 export function buildPnc002Cp008ReasoningEvidence(
-  parameters: Pnc002Parameters,
+  parameters: Pnc002AnyParameters,
   solver: Pnc002SolverResult,
   verification: Pnc002IndependentVerification,
 ): Pnc002ReasoningEvidence {
