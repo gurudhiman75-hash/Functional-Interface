@@ -18,6 +18,7 @@ const NAMED_SYMBOLS = new Map<string, string>([
   ["lb", "l b"],
   ["bh", "b h"],
   ["min", "\\min"],
+  ["lving", "\\text{Solving}"],
 ]);
 
 const SINGLE_LETTER_SYMBOLS = new Set([
