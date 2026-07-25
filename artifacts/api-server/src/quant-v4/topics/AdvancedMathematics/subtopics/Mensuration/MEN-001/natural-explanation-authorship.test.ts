@@ -11,6 +11,7 @@ import {
   getMen001Cp006FormulaLineIds,
 } from "./natural-explanation-formula.cp006";
 import { runMen001Pipeline } from "./pipeline";
+import { assertMen001StructuredExplanation } from "./structured-explanation";
 import type { Men001ActiveCanonicalProblemId } from "./types";
 
 function proseSignature(lines: readonly string[]) {
@@ -44,6 +45,7 @@ assert.deepEqual(
 
 const signatureOwner = new Map<string, string>();
 const lineCountDistribution = new Map<number, number>();
+const stepCountDistribution = new Map<number, number>();
 const roboticOpening = /^(Check:|Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
 
 for (const entry of getMen001QuestionEntries()) {
@@ -67,7 +69,7 @@ for (const entry of getMen001QuestionEntries()) {
     assert.ok(
       question.explanation.lines.length >= 3 &&
         question.explanation.lines.length <= 9,
-      `${entry.qlId} should use only as many lines as its reasoning needs.`,
+      `${entry.qlId} should use only as many compatibility lines as its reasoning needs.`,
     );
     assert.equal(
       question.explanation.lines.some((line) => roboticOpening.test(line)),
@@ -80,6 +82,40 @@ for (const entry of getMen001QuestionEntries()) {
       ),
       `${entry.qlId} lost its worked arithmetic.`,
     );
+
+    assertMen001StructuredExplanation(question.explanation, question.answer);
+    const keyRule = question.explanation.sections[0];
+    assert.equal(keyRule?.kind, "KEY_RULE");
+    assert.ok(
+      keyRule?.equations.some((equation) => equation.includes("=")),
+      `${entry.qlId} Key Rule must show an explicit governing formula.`,
+    );
+    const finalSection = question.explanation.sections.at(-1);
+    assert.equal(finalSection?.kind, "FINAL_ANSWER");
+    assert.deepEqual(finalSection?.equations, [question.answer]);
+
+    const structuredSteps = question.explanation.sections.filter(
+      (section) => section.kind === "STEP",
+    );
+    assert.ok(
+      structuredSteps.every(
+        (step) => step.paragraphs.length > 0 || step.equations.length > 0,
+      ),
+      `${entry.qlId} contains an empty structured step.`,
+    );
+
+    if (entry.solveMode === "findRectangleSemicircleCompositeArea") {
+      assert.deepEqual(
+        structuredSteps.map((step) => step.title),
+        [
+          "Area of the Rectangle",
+          "Find the Semicircle's Radius",
+          "Area of the Semicircle",
+          "Add the Two Areas",
+        ],
+        `${entry.qlId} must retain the full composite-area reasoning sequence.`,
+      );
+    }
 
     if (entry.cpId === "MEN-CP-006") {
       assert.equal(
@@ -108,6 +144,10 @@ for (const entry of getMen001QuestionEntries()) {
         lineCount,
         (lineCountDistribution.get(lineCount) ?? 0) + 1,
       );
+      stepCountDistribution.set(
+        structuredSteps.length,
+        (stepCountDistribution.get(structuredSteps.length) ?? 0) + 1,
+      );
     }
   }
 }
@@ -115,11 +155,18 @@ for (const entry of getMen001QuestionEntries()) {
 assert.equal(signatureOwner.size, qlIds.length);
 assert.ok(
   lineCountDistribution.size >= 3,
-  "The chapter should not force every explanation into the same line structure.",
+  "The chapter should not force every compatibility explanation into the same line structure.",
+);
+assert.ok(
+  stepCountDistribution.size >= 2,
+  "The structured explanations should use a need-based number of steps.",
 );
 console.log(
   `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
 );
 console.log(
-  `Explanation line-count distribution: ${JSON.stringify(Object.fromEntries([...lineCountDistribution].sort(([a], [b]) => a - b)))}`,
+  `Compatibility line-count distribution: ${JSON.stringify(Object.fromEntries([...lineCountDistribution].sort(([a], [b]) => a - b)))}`,
+);
+console.log(
+  `Structured step-count distribution: ${JSON.stringify(Object.fromEntries([...stepCountDistribution].sort(([a], [b]) => a - b)))}`,
 );
