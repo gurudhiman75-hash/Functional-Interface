@@ -32,6 +32,7 @@ export function renderMen001Explanation(
       parameters,
       solver,
     ),
+    parameters.solveMode,
   );
   return {
     strategyId: entry.explanationStrategyId,
