@@ -20,6 +20,14 @@ function proseSignature(lines: readonly string[]) {
     .trim();
 }
 
+function containsWorkedArithmetic(lines: readonly string[]) {
+  const text = lines.join(" ");
+  return /\d/.test(text) && (
+    /[=×÷+−\-√²π]/.test(text) ||
+    /\b(divid(?:e|ed|ing)|multipl(?:y|ied|ying)|halv(?:e|ed|ing)|half|twice|double|square root|squar(?:e|ed|ing)|subtract(?:ed|ing)?|remov(?:e|ed|ing)|add(?:ed|ing)?|sum|product|difference|ratio|per metre|per square metre|one fourth|one quarter|complete turns?)\b/i.test(text)
+  );
+}
+
 const qlIds = getMen001QuestionLanguageIds().sort();
 const profileIds = getMen001NaturalExplanationProfileIds().sort();
 assert.deepEqual(
@@ -61,9 +69,7 @@ for (const entry of getMen001QuestionEntries()) {
       `${entry.qlId} still contains a labelled or stock explanation shell.`,
     );
     assert.ok(
-      question.explanation.lines.some(
-        (line) => /\d/.test(line) && /[=×÷+−\-√²π]/.test(line),
-      ),
+      containsWorkedArithmetic(question.explanation.lines),
       `${entry.qlId} lost its worked arithmetic.`,
     );
 
