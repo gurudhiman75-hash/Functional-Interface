@@ -17,6 +17,8 @@ import {
   type User,
 } from "@/lib/storage";
 
+const ACCOUNT_BLOCK_NOTICE_KEY = "examtree.account-block-notice-shown";
+
 type DevelopmentSessionOptions = {
   email: string;
   name?: string;
@@ -57,13 +59,33 @@ function createAdminHandoffUser(firebaseUser: FirebaseUser): User {
   };
 }
 
-function isBlockedAccountError(error: unknown): boolean {
-  if (!(error instanceof ApiError) || error.status !== 403) return false;
+function blockedAccountCode(error: unknown): string | undefined {
+  if (!(error instanceof ApiError) || error.status !== 403) return undefined;
   const code = getApiErrorCode(error.body);
-  return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE";
+  return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE" ? code : undefined;
 }
 
-async function terminateBlockedStudentSession(): Promise<void> {
+function isBlockedAccountError(error: unknown): boolean {
+  return blockedAccountCode(error) != null;
+}
+
+function showBlockedAccountNotice(code?: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    if (window.sessionStorage.getItem(ACCOUNT_BLOCK_NOTICE_KEY) === "1") return;
+    window.sessionStorage.setItem(ACCOUNT_BLOCK_NOTICE_KEY, "1");
+  } catch {
+    // A browser may block session storage. The notice can still be shown.
+  }
+
+  const message = code === "ACCOUNT_SUSPENDED"
+    ? "Your ExamTree account has been suspended by an administrator. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support if you believe this is a mistake."
+    : "Your ExamTree account is currently unavailable. You have been signed out. Please contact ExamTree support for assistance.";
+  window.alert(message);
+}
+
+async function terminateBlockedStudentSession(code?: string): Promise<void> {
+  showBlockedAccountNotice(code);
   clearAuth();
   clearStudentLocalData();
   const auth = getFirebaseAuth();
@@ -71,7 +93,7 @@ async function terminateBlockedStudentSession(): Promise<void> {
     await signOut(auth).catch(() => undefined);
   }
   if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
-    window.location.replace("/login?reason=account-suspended");
+    window.location.replace(`/login?reason=${code === "ACCOUNT_SUSPENDED" ? "account-suspended" : "account-unavailable"}`);
   }
 }
 
@@ -84,7 +106,7 @@ async function fetchOrCreateUserProfile(
     return existing;
   } catch (error) {
     if (isBlockedAccountError(error)) {
-      await terminateBlockedStudentSession();
+      await terminateBlockedStudentSession(blockedAccountCode(error));
       throw error;
     }
 
@@ -101,7 +123,7 @@ async function fetchOrCreateUserProfile(
       return created;
     } catch (createError) {
       if (isBlockedAccountError(createError)) {
-        await terminateBlockedStudentSession();
+        await terminateBlockedStudentSession(blockedAccountCode(createError));
       }
       throw createError;
     }
@@ -131,6 +153,12 @@ export async function signInWithGoogle(): Promise<User> {
   const auth = getFirebaseAuth();
   if (!auth) {
     throw new Error("Firebase auth not available in development mode");
+  }
+
+  try {
+    window.sessionStorage.removeItem(ACCOUNT_BLOCK_NOTICE_KEY);
+  } catch {
+    // Best effort only.
   }
 
   const provider = new GoogleAuthProvider();
@@ -166,7 +194,7 @@ export function syncAuthSession() {
       await fetchOrCreateUserProfile(currentFirebaseUser);
     } catch (error) {
       if (isBlockedAccountError(error)) {
-        await terminateBlockedStudentSession();
+        await terminateBlockedStudentSession(blockedAccountCode(error));
         currentFirebaseUser = null;
       } else {
         console.warn("Failed to sync auth session:", error);
@@ -215,6 +243,12 @@ export async function startGoogleRedirectSignIn() {
   const auth = getFirebaseAuth();
   if (!auth) {
     throw new Error("Firebase auth not available in development mode");
+  }
+
+  try {
+    window.sessionStorage.removeItem(ACCOUNT_BLOCK_NOTICE_KEY);
+  } catch {
+    // Best effort only.
   }
 
   const provider = new GoogleAuthProvider();
