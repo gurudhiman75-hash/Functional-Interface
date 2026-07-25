@@ -44,7 +44,7 @@ function block(start: number, ruleId: CodCp001RuleId, outputKind: CodTokenKind, 
       evidenceMode: overlapTask ? "OVERLAPPING_EXAMPLES" : taskKind === "RECOVER_MISSING_CODE" ? "EXPLICIT_TABLE" : "WORD_EXAMPLES",
       allowedDifficulties: difficultyProfiles[offset]!,
       targetLength: offset < 3 ? [3, 4] : [4, 6],
-      exampleCount: overlap ? [2, 4] : [1, 3],
+      exampleCount: overlapTask ? [2, 4] : [1, 3],
       status: "IMPLEMENTED",
     } satisfies CodCp001QuestionLogic;
   });
