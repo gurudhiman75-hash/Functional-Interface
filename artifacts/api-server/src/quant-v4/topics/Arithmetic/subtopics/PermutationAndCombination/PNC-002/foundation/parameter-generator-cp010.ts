@@ -21,10 +21,10 @@ export function buildPnc002Cp010Values(
     case "PNC-QL-178":
       return { totalObjects: pickSeeded(pools.roundTableTotals, random) };
     case "PNC-QL-179":
-      return { ...copyState(pickSeeded(pools.blockStates.filter((state: { totalObjects: number; blockSize: number }) => state.blockSize === 2), random)) };
     case "PNC-QL-180":
       return { ...copyState(pickSeeded(pools.blockStates.filter((state: { totalObjects: number; blockSize: number }) => state.blockSize === 2), random)) };
     case "PNC-QL-181":
+    case "PNC-QL-204":
       return copyState(pickSeeded(pools.blockStates.filter((state: { totalObjects: number; blockSize: number }) => state.blockSize >= 3), random));
     case "PNC-QL-182": {
       const totalObjects = pickSeeded(pools.twoPairTotals, random);
@@ -38,6 +38,7 @@ export function buildPnc002Cp010Values(
     case "PNC-QL-185":
     case "PNC-QL-186":
     case "PNC-QL-187":
+    case "PNC-QL-205":
       return { totalObjects: pickSeeded(pools.pairConditionTotals, random), blockSizes: [2, 2] };
     case "PNC-QL-188":
     case "PNC-QL-190":
