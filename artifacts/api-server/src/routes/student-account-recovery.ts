@@ -7,7 +7,6 @@ import { rateLimit } from '../middlewares/rateLimit';
 const router = Router();
 const recoveryRateLimit = rateLimit(5, 60 * 60, 'student-account-recovery');
 const GENERIC_MESSAGE = 'If the details match an ExamTree student account, a recovery request has been recorded for support review.';
-const ACTIVE_REQUEST_WINDOW_DAYS = 7;
 const CLOSED_REQUEST_COOLDOWN_HOURS = 24;
 
 function text(value: unknown): string {
@@ -55,21 +54,24 @@ router.post('/request', recoveryRateLimit, async (req, res) => {
 
         const recent = await tx`
           SELECT id::text AS id, occurred_at AS "occurredAt",
-            COALESCE(metadata ->> 'reviewState', 'pending') AS "reviewState"
+            COALESCE(metadata ->> 'reviewState', 'pending') AS "reviewState",
+            COALESCE(metadata ->> 'resolvedAt', metadata ->> 'reviewedAt') AS "closedAt"
           FROM platform.audit_events
           WHERE action_key = 'student.recovery.requested'
             AND entity_id = ${studentId}::uuid
-            AND occurred_at > now() - (${ACTIVE_REQUEST_WINDOW_DAYS} * interval '1 day')
           ORDER BY occurred_at DESC
           LIMIT 1
         `;
         const previous = recent[0];
         const previousState = String(previous?.reviewState ?? '');
-        const isActiveDuplicate = previous && (previousState === 'pending' || previousState === 'under_review');
-        const previousAt = previous?.occurredAt ? new Date(String(previous.occurredAt)).getTime() : 0;
-        const isClosedCooldown = previous
+        // Never create another queue item while one is still actionable, regardless
+        // of how long support review takes.
+        const isActiveDuplicate = Boolean(previous) && (previousState === 'pending' || previousState === 'under_review');
+        const closedAt = previous?.closedAt ? new Date(String(previous.closedAt)).getTime() : 0;
+        const isClosedCooldown = Boolean(previous)
           && (previousState === 'resolved' || previousState === 'rejected')
-          && Date.now() - previousAt < CLOSED_REQUEST_COOLDOWN_HOURS * 60 * 60 * 1000;
+          && closedAt > 0
+          && Date.now() - closedAt < CLOSED_REQUEST_COOLDOWN_HOURS * 60 * 60 * 1000;
 
         if (isActiveDuplicate || isClosedCooldown) return;
 
@@ -96,7 +98,6 @@ router.post('/request', recoveryRateLimit, async (req, res) => {
               accountStatusAtRequest: String(student.status),
               accountDeletedAtRequest: Boolean(student.deletedAt),
               reviewState: 'pending',
-              activeDuplicateWindowDays: ACTIVE_REQUEST_WINDOW_DAYS,
               closedRequestCooldownHours: CLOSED_REQUEST_COOLDOWN_HOURS,
             })}
           )
