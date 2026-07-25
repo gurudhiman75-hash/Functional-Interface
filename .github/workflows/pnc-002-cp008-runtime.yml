@@ -42,7 +42,15 @@ jobs:
       - name: Strict TypeScript check
         shell: bash
         run: |
-          mkdir -p artifacts/api-server/dist/quant-v4/pnc-002-cp008-diagnostics
+          diagnostic_dir="artifacts/api-server/dist/quant-v4/pnc-002-cp008-diagnostics"
+          source_dir="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation"
+          mkdir -p "$diagnostic_dir/sources"
+          cp "$source_dir/solver-cp008.ts" "$diagnostic_dir/sources/"
+          cp "$source_dir/option-generator-cp008.ts" "$diagnostic_dir/sources/"
+          cp "$source_dir/parameter-generator.ts" "$diagnostic_dir/sources/"
+          cp "$source_dir/pipeline.ts" "$diagnostic_dir/sources/"
+          cp "$source_dir/reasoning-graph-cp008.ts" "$diagnostic_dir/sources/"
+          cp "$source_dir/explanation-renderer-cp008.ts" "$diagnostic_dir/sources/"
           cd artifacts/api-server
           set +e
           pnpm exec tsc \
