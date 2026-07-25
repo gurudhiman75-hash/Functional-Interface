@@ -38,10 +38,23 @@ const bannedStemLanguage = [
   /\bcommon letter codes in ‘/i,
 ];
 
+const genericRuleStatements = [
+  /^Each letter has one fixed/i,
+  /^The examples use direct substitution/i,
+  /^The numerical coding rule is:/i,
+  /^All the examples use this method:/i,
+  /^The common coding rule is:/i,
+  /^The letter relation is:/i,
+  /^Comparing corresponding letters gives this rule:/i,
+  /^The same method is used in each example:/i,
+  /^The coding pattern is:/i,
+];
+
 const difficultiesByQl = new Map<string, Set<string>>();
 let generated = 0;
 let recoveryQuestions = 0;
 let trapSpecificQuestions = 0;
+let exactRuleQuestions = 0;
 
 for (const checkpoint of checkpoints) {
   for (const qlId of checkpoint.qlIds) {
@@ -59,15 +72,27 @@ for (const checkpoint of checkpoints) {
       assert.equal(question.stem.includes("{{"), false);
       assert.equal(question.stem.includes("undefined"), false);
 
+      const firstEvidence = question.structuredPrompt.evidence[0];
+      const evidenceSource = firstEvidence.source ?? firstEvidence.word;
+      const ruleStatement = question.explanation.ruleStatement;
+      assert.ok(evidenceSource, `${qlId}/${seed} has no first evidence source`);
+      assert.equal(ruleStatement.includes(`${evidenceSource} → ${firstEvidence.code}`), true, `${qlId}/${seed} rule must name an actual displayed example`);
+      assert.equal(ruleStatement.includes("→"), true, `${qlId}/${seed} rule must show the observed transformation`);
+      assert.equal(ruleStatement.includes("Therefore"), true, `${qlId}/${seed} rule must state the exact inference after the worked example`);
+      for (const generic of genericRuleStatements) {
+        assert.equal(generic.test(ruleStatement), false, `${qlId}/${seed} still uses a generic rule statement: ${ruleStatement}`);
+      }
+      exactRuleQuestions += 1;
+
       const explanationText = [
-        question.explanation.ruleStatement,
+        ruleStatement,
         ...question.explanation.sourceDemonstration,
         ...question.explanation.targetApplication,
         question.explanation.conclusion,
         question.explanation.closestTrapRejection ?? "",
       ].join(" ");
       const explanationWords = explanationText.trim().split(/\s+/).filter(Boolean).length;
-      assert.ok(explanationWords <= 145, `${qlId}/${seed} explanation is too long (${explanationWords} words)`);
+      assert.ok(explanationWords <= 155, `${qlId}/${seed} explanation is too long (${explanationWords} words)`);
       assert.ok(question.explanation.sourceDemonstration.length >= 1 && question.explanation.sourceDemonstration.length <= 2);
       if (checkpoint.checkpointId === "COD-CP-004") assert.equal(question.explanation.sourceDemonstration.length, 1);
 
@@ -106,6 +131,7 @@ assert.equal(difficultiesByQl.size, 112);
 assert.equal(generated, 2240);
 assert.equal(recoveryQuestions, 260);
 assert.equal(trapSpecificQuestions, generated);
+assert.equal(exactRuleQuestions, generated);
 
 console.log(JSON.stringify({
   checkpoints: checkpoints.map((checkpoint) => checkpoint.checkpointId),
@@ -113,5 +139,6 @@ console.log(JSON.stringify({
   generated,
   recoveryQuestions,
   trapSpecificQuestions,
+  exactRuleQuestions,
   stableDifficultyQls: [...difficultiesByQl.values()].filter((values) => values.size === 1).length,
 }, null, 2));
