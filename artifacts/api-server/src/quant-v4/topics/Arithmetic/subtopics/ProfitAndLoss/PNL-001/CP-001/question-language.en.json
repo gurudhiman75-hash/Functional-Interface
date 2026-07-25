@@ -11,6 +11,15 @@
     "PNL-QL-005": {"template":"An appliance costs a dealer ₹{costPrice}. At what price should it be sold to earn a profit of {profitPercent}%?","difficulty":"Easy"},
     "PNL-QL-006": {"template":"A machine was purchased for ₹{costPrice}. If it is sold at a loss of {lossPercent}%, what is its selling price?","difficulty":"Easy"},
     "PNL-QL-007": {"template":"An article was sold for ₹{sellingPrice} at a profit of {profitPercent}%. Find its cost price.","difficulty":"Medium"},
-    "PNL-QL-008": {"template":"By selling a cupboard for ₹{sellingPrice}, a seller incurred a loss of {lossPercent}%. What was the cupboard's cost price?","difficulty":"Medium"}
+    "PNL-QL-008": {"template":"By selling a cupboard for ₹{sellingPrice}, a seller incurred a loss of {lossPercent}%. What was the cupboard's cost price?","difficulty":"Medium"},
+    "PNL-QL-009": {"template":"A trader earned ₹{profitAmount}, which was {profitPercent}% of the cost price. Find the cost price of the article.","difficulty":"Medium"},
+    "PNL-QL-010": {"template":"The loss on selling a machine was ₹{lossAmount}, equal to {lossPercent}% of its cost price. What was the cost price?","difficulty":"Medium"},
+    "PNL-QL-011": {"template":"An article costing ₹{costPrice} yielded a profit of ₹{profitAmount}. Find the profit percentage.","difficulty":"Easy"},
+    "PNL-QL-012": {"template":"A dealer lost ₹{lossAmount} on an item bought for ₹{costPrice}. What was the loss percentage?","difficulty":"Easy"},
+    "PNL-QL-013": {"template":"The ratio of the cost price to the selling price of an article is {costPart}:{sellingPart}. Find the profit or loss percentage.","difficulty":"Medium"},
+    "PNL-QL-014": {"template":"An article is sold at a profit of {profitPercent}%. What is the ratio of its cost price to selling price?","difficulty":"Medium"},
+    "PNL-QL-015": {"template":"A seller incurs a loss of {lossPercent}% on an article. Determine the ratio of cost price to selling price.","difficulty":"Medium"},
+    "PNL-QL-016": {"template":"The profit on an article is {marginPercent}% of its selling price. Express the profit as a percentage of cost price.","difficulty":"Hard"},
+    "PNL-QL-017": {"template":"A trader earns {profitPercent}% profit on cost price. What percentage of the selling price does the profit represent?","difficulty":"Hard"}
   }
 }
