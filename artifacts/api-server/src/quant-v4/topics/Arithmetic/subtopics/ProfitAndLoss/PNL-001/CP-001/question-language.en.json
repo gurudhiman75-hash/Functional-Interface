@@ -1,0 +1,16 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-001",
+  "language": "en",
+  "status": "ACTIVE_EXPANSION",
+  "entries": {
+    "PNL-QL-001": {"template":"A retailer purchased a mixer for ₹{costPrice} and sold it for ₹{sellingPrice}. What profit did the retailer make?","difficulty":"Easy"},
+    "PNL-QL-002": {"template":"A shopkeeper bought a study table for ₹{costPrice} but sold it for ₹{sellingPrice}. Find the loss incurred.","difficulty":"Easy"},
+    "PNL-QL-003": {"template":"A bicycle was bought for ₹{costPrice} and sold for ₹{sellingPrice}. Find the profit percentage.","difficulty":"Easy"},
+    "PNL-QL-004": {"template":"A trader paid ₹{costPrice} for an article and later sold it for ₹{sellingPrice}. What was the loss percentage?","difficulty":"Easy"},
+    "PNL-QL-005": {"template":"An appliance costs a dealer ₹{costPrice}. At what price should it be sold to earn a profit of {profitPercent}%?","difficulty":"Easy"},
+    "PNL-QL-006": {"template":"A machine was purchased for ₹{costPrice}. If it is sold at a loss of {lossPercent}%, what is its selling price?","difficulty":"Easy"},
+    "PNL-QL-007": {"template":"An article was sold for ₹{sellingPrice} at a profit of {profitPercent}%. Find its cost price.","difficulty":"Medium"},
+    "PNL-QL-008": {"template":"By selling a cupboard for ₹{sellingPrice}, a seller incurred a loss of {lossPercent}%. What was the cupboard's cost price?","difficulty":"Medium"}
+  }
+}
