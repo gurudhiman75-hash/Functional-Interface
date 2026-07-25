@@ -2,6 +2,7 @@ import { strict as assert } from "node:assert";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import decisionsJson from "./pnc-001-editorial-review-decisions.json";
+import { containsUnresolvedPnc001Placeholder } from "./foundation/latex";
 import { getPnc001QuestionEntries } from "./foundation/library";
 import { runPnc001Pipeline } from "./foundation/pipeline";
 
@@ -156,7 +157,8 @@ for (const entry of entries) {
     if (!generated.validation.valid) validationFailures += 1;
     if (!generated.independentVerification.supported || generated.independentVerification.answer !== generated.solver.numericAnswer) verifierFailures += 1;
     if (generated.options.length !== 4 || new Set(generated.options).size !== 4 || generated.options[generated.correctIndex] !== generated.answer) optionFailures += 1;
-    if (generated.explanation.lines.length < 3 || !generated.explanation.lines.join(" ").includes(generated.answer) || /\{[A-Za-z0-9_]+\}/.test(generated.explanation.lines.join(" "))) explanationFailures += 1;
+    const explanationText = generated.explanation.lines.join(" ");
+    if (generated.explanation.lines.length < 3 || !explanationText.includes(generated.answer) || containsUnresolvedPnc001Placeholder(explanationText)) explanationFailures += 1;
     if (index < REPEATABILITY_SEEDS_PER_QL) {
       const repeated = runPnc001Pipeline({ questionLanguageId: entry.qlId, seed });
       repeatabilityChecks += 1;
@@ -172,7 +174,7 @@ for (const entry of entries) {
     minimumAnswer = Math.min(minimumAnswer, generated.solver.numericAnswer);
     maximumAnswer = Math.max(maximumAnswer, generated.solver.numericAnswer);
     if (index === 0) {
-      const normalized = normalizeSemantic(generated.explanation.lines.join(" "));
+      const normalized = normalizeSemantic(explanationText);
       renderedExplanationGroups.set(normalized, [...(renderedExplanationGroups.get(normalized) ?? []), entry.qlId]);
     }
   }
