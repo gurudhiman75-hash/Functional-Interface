@@ -33,7 +33,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Publishing Calendar', path: '/tests/calendar', icon: CalendarClock, status: 'live', permission: 'tests.read', summary: 'Plan releases, inspect missed schedules, drag QA-approved tests onto dates, publish immediately, postpone or unschedule.' },
   ] },
   { id: 'commerce', label: 'Commerce', items: [
-    { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'planned', summary: 'Create paid and free offerings and map canonical tests to sellable packages.', milestone: 'Package catalogue, pricing and test entitlement mapping.' },
+    { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'live', permission: 'commerce.products.read', summary: 'Canonical package inventory with immutable versions, minor-unit pricing, ordered test membership and audited lifecycle controls.', milestone: 'Production activation requires the additive Commerce migration to be applied and verified.' },
     { label: 'Orders & Payments', path: '/commerce/orders', icon: ShoppingCart, status: 'planned', summary: 'Reconcile orders, payments, refunds and payment-provider events.', milestone: 'Razorpay verification, order ledger and refund workflow.' },
     { label: 'Coupons', path: '/commerce/coupons', icon: Ticket, status: 'planned', summary: 'Configure discount codes, usage limits and campaign windows.', milestone: 'Canonical promotion rules and redemption audit.' },
     { label: 'Entitlements', path: '/commerce/entitlements', icon: KeyRound, status: 'planned', summary: 'Inspect and manage the products and tests each student can access.', milestone: 'Server-enforced entitlement engine and administrative overrides.' },
