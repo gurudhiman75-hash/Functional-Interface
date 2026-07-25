@@ -5,6 +5,7 @@ import { generateCodCp001Question } from "./generator";
 import { solveCodCp001 } from "./independent-solver";
 import { validateOptions } from "../foundation/option-validator";
 import { mappingFromEvidence } from "../foundation/mapping";
+import { COD_CP001_WORD_POOL } from "./word-pool.en";
 
 const expectedIds = Array.from({ length: 24 }, (_, index) => `COD-QL-${String(index + 1).padStart(3, "0")}`);
 assert.deepEqual(COD_CP001_QUESTION_LOGICS.map((logic) => logic.qlId), expectedIds);
@@ -31,6 +32,7 @@ for (const logic of COD_CP001_QUESTION_LOGICS) {
     assert.equal(first.metadata.mappingInjective, true);
     assert.equal(first.metadata.ambiguityAccepted, true);
     assert.equal(first.structuredPrompt.evidence.some((pair) => pair.source === first.structuredPrompt.target), false, "Target must not be exposed as an evidence source");
+    assert.equal(first.structuredPrompt.evidence.every((pair) => COD_CP001_WORD_POOL.includes(pair.source as never)), true, "Evidence must use curated words rather than synthetic clusters");
     if (first.structuredPrompt.encodedTarget) {
       assert.equal(first.structuredPrompt.evidence.some((pair) => pair.code === first.structuredPrompt.encodedTarget), false, "Decode answer must not be exposed verbatim in evidence");
     }
