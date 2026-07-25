@@ -1,0 +1,23 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-006",
+  "language": "en",
+  "status": "ACTIVE_DISCOVERY",
+  "entries": {
+    "PNL-QL-150": {"template":"A machine is purchased for ₹{purchasePrice}. The buyer spends ₹{repairExpense} on repairs, ₹{transportExpense} on transport and ₹{installationExpense} on installation. Find the effective cost of the machine.","difficulty":"Easy"},
+    "PNL-QL-151": {"template":"A trader purchases an article for ₹{purchasePrice}. Incidental expenses amount to {overheadPercent}% of the purchase price. Find the effective cost.","difficulty":"Easy"},
+    "PNL-QL-152": {"template":"An article is bought for ₹{purchasePrice} and ₹{expenses} is spent before sale. Find the selling price required to earn {profitPercent}% profit on the effective cost.","difficulty":"Medium"},
+    "PNL-QL-153": {"template":"A trader buys an article for ₹{purchasePrice} and incurs ₹{expenses} as additional expenses. At what price should it be sold if a loss of {lossPercent}% is accepted on the effective cost?","difficulty":"Medium"},
+    "PNL-QL-154": {"template":"An article is purchased for ₹{purchasePrice}, and additional expenses of ₹{expenses} are incurred. It is sold for ₹{sellingPrice}. Calculate the percentage gain or loss on the effective cost.","difficulty":"Medium"},
+    "PNL-QL-155": {"template":"An article is purchased for ₹{purchasePrice} and sold for ₹{sellingPrice}. Find the maximum additional expense that can be incurred while still obtaining {targetRatePercent}% {targetDirection} on the effective cost.","difficulty":"Hard"},
+    "PNL-QL-156": {"template":"A production batch costs ₹{totalInputCost} and contains {inputQuantity} units of material. If {wastedQuantity} units are wasted, find the effective cost per usable unit.","difficulty":"Medium"},
+    "PNL-QL-157": {"template":"A batch costing ₹{totalInputCost} contains {inputQuantity} units, of which {wastedQuantity} units are wasted. Find the selling price per usable unit required for an overall {targetRatePercent}% {targetDirection}.","difficulty":"Hard"},
+    "PNL-QL-158": {"template":"A manufacturer has a fixed cost of ₹{fixedCost}. The variable cost and selling price are ₹{variableCostPerUnit} and ₹{sellingPricePerUnit} per unit respectively. Find the minimum number of units required to break even.","difficulty":"Medium"},
+    "PNL-QL-159": {"template":"A manufacturer incurs a fixed cost of ₹{fixedCost}. Each unit costs ₹{variableCostPerUnit} to produce and sells for ₹{sellingPricePerUnit}. How many units must be sold to earn a profit of at least ₹{targetProfit}?","difficulty":"Hard"},
+    "PNL-QL-160": {"template":"A business has a fixed cost of ₹{fixedCost} and a variable cost of ₹{variableCostPerUnit} per unit. If {quantity} units are produced and sold, find the break-even selling price per unit.","difficulty":"Medium"},
+    "PNL-QL-161": {"template":"A trader buys one article for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}, incurring a loss. He buys another article for ₹{secondCostPrice}. At what price should the second article be sold so that the two transactions together result in neither profit nor loss?","difficulty":"Hard"},
+    "PNL-QL-162": {"template":"A trader buys one article for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}. He then buys another article for ₹{secondCostPrice}. Find the selling price of the second article required for an overall {targetRatePercent}% {targetDirection} across both transactions.","difficulty":"Hard"},
+    "PNL-QL-163": {"template":"The total amount realised from a commercial transaction is ₹{totalRecovery}, representing a {ratePercent}% {direction} on the effective cost. Find the effective cost.","difficulty":"Medium"}
+  },
+  "entryCount": 14
+}
