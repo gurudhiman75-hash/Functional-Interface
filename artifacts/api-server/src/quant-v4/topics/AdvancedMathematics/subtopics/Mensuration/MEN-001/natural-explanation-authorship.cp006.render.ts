@@ -1,3 +1,5 @@
+import { getMen001Cp006FormulaLine } from "./natural-explanation-formula.cp006";
+
 const KEEP_FINAL_WORKING = new Set([
   "MEN-001-QL-412",
   "MEN-001-QL-414",
@@ -28,12 +30,17 @@ export function selectMen001Cp006WorkingLines(
     ? [...working]
     : working.slice(0, -1);
 
-  if (SKIP_REPEATED_FIRST_WORKING.has(questionLanguageId)) {
-    const withoutRepeatedOpening = working.slice(1);
-    return withoutRepeatedOpening.length >= 3
-      ? withoutRepeatedOpening
-      : selected;
-  }
+  const numericalWorking = SKIP_REPEATED_FIRST_WORKING.has(questionLanguageId)
+    ? (() => {
+        const withoutRepeatedOpening = working.slice(1);
+        return withoutRepeatedOpening.length >= 3
+          ? withoutRepeatedOpening
+          : selected;
+      })()
+    : selected;
 
-  return selected;
+  return [
+    getMen001Cp006FormulaLine(questionLanguageId),
+    ...numericalWorking,
+  ];
 }
