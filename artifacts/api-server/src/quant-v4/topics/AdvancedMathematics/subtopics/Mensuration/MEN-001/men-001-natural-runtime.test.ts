@@ -29,6 +29,14 @@ function optionCarriesUnit(option: string, unit: string) {
   return false;
 }
 
+const CP006_STEM_REALISM_FRAGMENTS: Record<string, string> = {
+  "MEN-001-QL-403": "A tarpaulin section covers",
+  "MEN-001-QL-404": "A floor section covers",
+  "MEN-001-QL-420": "A mapped land region occupies",
+  "MEN-001-QL-431": "A wire boundary forms a rectangle",
+  "MEN-001-QL-432": "A farmer has exactly",
+};
+
 const seenQlIds = new Set<string>();
 const seenSolveModes = new Set<string>();
 const seenUnits = new Set<string>();
@@ -75,6 +83,14 @@ for (const entry of getMen001QuestionEntries()) {
     assert.equal(first.publiclyPublishable, false);
     assert.equal(first.maturity, "RUNTIME_PROOF");
     assert.ok(first.options.every((option) => optionCarriesUnit(option, first.solver.unit)));
+
+    const requiredStemFragment = CP006_STEM_REALISM_FRAGMENTS[first.questionLanguageId];
+    if (requiredStemFragment) {
+      assert.ok(
+        first.stem.includes(requiredStemFragment),
+        `${first.questionLanguageId} must retain its audited exam-realistic context.`,
+      );
+    }
 
     const shouldIllustrate = hasMen001ExplanationIllustration(first.solveMode);
     assert.equal(Boolean(first.explanation.illustration), shouldIllustrate);
@@ -131,5 +147,5 @@ assert.throws(
 );
 
 console.log(
-  `MEN-001 natural runtime proof passed for ${getMen001QuestionLanguageIds().length * 20} generated questions across ${getMen001ActiveCanonicalProblemIds().length} active CPs and ${getMen001SolveModeIds().length} solve modes.`,
+  `MEN-001 natural runtime proof passed for ${getMen001QuestionLanguageIds().length * 20} generated questions across ${getMen001ActiveCanonicalProblemIds().length} active CPs and ${getMen001SolveModeIds().length} solve modes, including the CP-006 stem-realism guard.`,
 );
