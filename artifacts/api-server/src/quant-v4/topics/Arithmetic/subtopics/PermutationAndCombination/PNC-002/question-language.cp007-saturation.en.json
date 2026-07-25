@@ -37,7 +37,7 @@
       "qlId": "PNC-QL-124",
       "cpId": "PNC-CP-007",
       "difficulty": "Hard",
-      "template": "Two specified pairs among \(n\) distinct people must each remain together, but the two pair-blocks must not be adjacent. If the number of arrangements is {target}, find \(n\), where \(5 \le n \le 8\)."
+      "template": "Two specified pairs among \\(n\\) distinct people must each remain together, but the two pair-blocks must not be adjacent. If the number of arrangements is {target}, find \\(n\\), where \\(5 \\le n \\le 8\\)."
     }
   ]
 }
