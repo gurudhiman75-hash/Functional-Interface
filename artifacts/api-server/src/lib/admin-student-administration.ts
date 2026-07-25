@@ -1,5 +1,5 @@
 export const STUDENT_STATUSES = ['active', 'invited', 'suspended', 'disabled'] as const;
-export const STUDENT_ACCOUNT_ACTIONS = ['suspend', 'reactivate', 'revoke-sessions'] as const;
+export const STUDENT_ACCOUNT_ACTIONS = ['suspend', 'reactivate', 'disable', 'enable', 'revoke-sessions'] as const;
 
 export type StudentStatus = typeof STUDENT_STATUSES[number];
 export type StudentAccountAction = typeof STUDENT_ACCOUNT_ACTIONS[number];
@@ -124,6 +124,29 @@ export function planStudentAccountAction(input: {
     return {
       nextStatus: 'active' as const,
       statusChanged: currentStatus !== 'active',
+      revokeActiveSessions: false,
+    };
+  }
+
+  if (action === 'disable') {
+    return {
+      nextStatus: 'disabled' as const,
+      statusChanged: currentStatus !== 'disabled',
+      revokeActiveSessions: true,
+    };
+  }
+
+  if (action === 'enable') {
+    if (currentStatus !== 'disabled') {
+      throw new StudentAdministrationError(
+        'STUDENT_ACTION_NOT_ALLOWED',
+        'Only disabled student accounts can use the enable workflow',
+        409,
+      );
+    }
+    return {
+      nextStatus: 'suspended' as const,
+      statusChanged: true,
       revokeActiveSessions: false,
     };
   }
