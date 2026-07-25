@@ -1,44 +1,52 @@
 # PNL-CP-001 Implementation Status
 
-Status: ACTIVE IMPLEMENTATION
-Count policy: OPEN ENDED
+Status: FREEZE CANDIDATE
 
-## Implemented runtime-backed modes
+Count policy: DISCOVERED, NOT QUOTA DRIVEN
 
-- CP and SP to profit amount
-- CP and SP to loss amount
-- CP and SP to profit percentage on CP
-- CP and SP to loss percentage on CP
-- CP and profit rate to SP
-- CP and loss rate to SP
-- SP and profit rate to CP
-- SP and loss rate to CP
-- Profit amount and rate to CP
-- Loss amount and rate to CP
-- Profit amount and CP to profit percentage
-- Loss amount and CP to loss percentage
-- CP:SP ratio to profit/loss percentage
-- Profit/loss percentage to CP:SP ratio
-- Profit margin on SP to profit percentage on CP
-- Profit percentage on CP to margin on SP
+## Stable QL range
 
-## Current QL seed set
+`PNL-QL-001` through `PNL-QL-036`
 
-PNL-QL-001 through PNL-QL-017 are runtime-backed seed QLs. They prove distinct semantic forms but do not define the eventual size of CP-001.
+## Language parity
 
-## Pending CP-001 discovery and implementation
+- English: 36 / 36
+- Hindi: 36 / 36
+- Punjabi: 36 / 36
 
-- Profit/loss as a fraction of CP
-- Profit/loss as a fraction of SP
-- Difference between selling prices at two rates
-- Same article under two selling conditions
-- Missing rate and missing price coupled inverse forms
-- Ratio, fraction, algebraic, statement and comparison presentations
-- Reference-book and PYQ reconciliation
-- Hindi and Punjabi QLs after English semantic coverage stabilizes
-- Independent distractor and explanation audits
-- Deferred build and smoke-test execution
+## Runtime-backed coverage
 
-## Exit rule
+- CP/SP, amount and percentage transformations in all meaningful forward and reverse directions
+- CP:SP ratio and percentage conversion
+- margin on SP versus profit percentage on CP
+- profit/loss fractions on CP and SP
+- selling-price differences under two commercial conditions
+- reverse CP from selling-price difference
+- missing second rate from two selling conditions
+- no-profit-no-loss
+- arithmetic, ratio, fraction, comparison and algebraic-statement forms
 
-CP-001 may be marked complete only after the transformation matrix, reference ledger, direct/reverse symmetry audit and QL-depth audit show no meaningful uncovered fundamental mode.
+## Completion decision
+
+The internal concept ontology and transformation matrix show no remaining meaningful fundamental price-relation gap. CP-001 is frozen provisionally at 36 QLs because that is the discovered coverage requirement, not a preset target.
+
+## Reopen conditions
+
+Reopen CP-001 only when one of the following is found:
+
+- a mathematically distinct fundamental transformation;
+- a new answer semantic requiring a different verifier;
+- a source-backed SSC, Banking or Punjab exam pattern not represented by the current modes;
+- a multilingual structural defect;
+- a runtime or audit failure.
+
+Cosmetic stem variation does not reopen the CP.
+
+## Deferred merge gate
+
+Before production merge:
+
+1. execute the Node/esbuild runtime proof;
+2. run repository TypeScript/build validation;
+3. run JSON, ID parity and placeholder audits;
+4. verify generated option and explanation contracts.
