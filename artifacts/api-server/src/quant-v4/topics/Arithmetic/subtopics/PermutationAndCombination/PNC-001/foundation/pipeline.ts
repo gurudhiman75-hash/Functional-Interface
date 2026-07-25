@@ -1,5 +1,10 @@
 import { renderPnc001RoutedExplanation } from "./explanation-router";
-import { formatPnc001MathText, hasBalancedPnc001MathDelimiters, containsUndelimitedPnc001Formula } from "./latex";
+import {
+  containsUndelimitedPnc001Formula,
+  formatPnc001MathText,
+  hasBalancedPnc001MathDelimiters,
+  maskPnc001MathGroupsForLegacyValidation,
+} from "./latex";
 import { getPnc001QuestionEntry, renderPnc001Template } from "./library";
 import { buildPnc001RoutedOptions } from "./option-router";
 import { generatePnc001Parameters } from "./parameter-generator";
@@ -85,7 +90,15 @@ export function runPnc001Pipeline(
     },
   };
 
-  const routedValidation = validatePnc001RoutedQuestionPackage(basePackage);
+  const legacyValidationPackage: Pnc001QuestionPackage = {
+    ...basePackage,
+    stem: maskPnc001MathGroupsForLegacyValidation(basePackage.stem),
+    explanation: {
+      ...basePackage.explanation,
+      lines: basePackage.explanation.lines.map(maskPnc001MathGroupsForLegacyValidation),
+    },
+  };
+  const routedValidation = validatePnc001RoutedQuestionPackage(legacyValidationPackage);
   const renderedTexts = [basePackage.stem, ...basePackage.options, ...basePackage.explanation.lines];
   const latexChecks: Pnc001ValidationCheck[] = [
     {
