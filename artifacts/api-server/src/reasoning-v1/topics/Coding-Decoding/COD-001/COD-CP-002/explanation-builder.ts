@@ -18,20 +18,22 @@ function describeRule(ruleId: CodCp002RuleId, context: CodCp002RuleContext): str
 }
 
 function wordWorking(ruleId: CodCp002RuleId, context: CodCp002RuleContext, word: string, code: string): string {
-  const ranks = [...word].map(forwardRank);
+  const letters = [...word];
+  const ranks = letters.map(forwardRank);
+  const assignments = letters.map((letter, index) => `${letter}=${ranks[index]}`).join(", ");
   switch (ruleId) {
-    case "A1Z26_SEQUENCE_CODE": return `${word} → ${code}: ${[...word].map((letter) => `${letter}=${forwardRank(letter)}`).join(", ")}`;
-    case "Z1A26_SEQUENCE_CODE": return `${word} → ${code}: ${[...word].map((letter) => `${letter}=${reverseRank(letter)}`).join(", ")}`;
-    case "RANK_PLUS_CONSTANT_SEQUENCE": return `${word} → ${code}: (${ranks.join(", ")}) + ${context.constant} at each place`;
-    case "RANK_MINUS_CONSTANT_SEQUENCE": return `${word} → ${code}: (${ranks.join(", ")}) − ${context.constant} at each place`;
-    case "SUM_OF_FORWARD_RANKS": return `${word} → ${code}: ${ranks.join(" + ")} = ${code}`;
-    case "SUM_PLUS_WORD_LENGTH": return `${word} → ${code}: (${ranks.join(" + ")}) + ${word.length} = ${code}`;
-    case "SUM_MINUS_WORD_LENGTH": return `${word} → ${code}: (${ranks.join(" + ")}) − ${word.length} = ${code}`;
-    case "POSITION_WEIGHTED_SUM": return `${word} → ${code}: ${ranks.map((rank, index) => `${rank}×${index + 1}`).join(" + ")} = ${code}`;
+    case "A1Z26_SEQUENCE_CODE": return `${word} → ${code}: ${assignments}`;
+    case "Z1A26_SEQUENCE_CODE": return `${word} → ${code}: ${letters.map((letter) => `${letter}=${reverseRank(letter)}`).join(", ")}`;
+    case "RANK_PLUS_CONSTANT_SEQUENCE": return `${word} → ${code}: ${assignments}; add ${context.constant} to each value`;
+    case "RANK_MINUS_CONSTANT_SEQUENCE": return `${word} → ${code}: ${assignments}; subtract ${context.constant} from each value`;
+    case "SUM_OF_FORWARD_RANKS": return `${word} → ${code}: ${assignments}; ${ranks.join(" + ")} = ${code}`;
+    case "SUM_PLUS_WORD_LENGTH": return `${word} → ${code}: ${assignments}; (${ranks.join(" + ")}) + ${word.length} = ${code}`;
+    case "SUM_MINUS_WORD_LENGTH": return `${word} → ${code}: ${assignments}; (${ranks.join(" + ")}) − ${word.length} = ${code}`;
+    case "POSITION_WEIGHTED_SUM": return `${word} → ${code}: ${assignments}; ${ranks.map((rank, index) => `${rank}×${index + 1}`).join(" + ")} = ${code}`;
     case "ODD_EVEN_POSITION_DIFFERENCE": {
       const odd = ranks.filter((_, index) => index % 2 === 0);
       const even = ranks.filter((_, index) => index % 2 === 1);
-      return `${word} → ${code}: |(${odd.join(" + ")}) − (${even.join(" + ") || "0"})| = ${code}`;
+      return `${word} → ${code}: ${assignments}; |(${odd.join(" + ")}) − (${even.join(" + ") || "0"})| = ${code}`;
     }
   }
 }
@@ -110,10 +112,17 @@ export function buildCodCp002Explanation(input: {
   if (input.prompt.taskKind === "DECODE_TARGET") {
     targetApplication = [decodeWorking(input.ruleId, input.context, input.prompt.encodedTarget!, input.answer)];
   } else if (input.prompt.taskKind === "RECOVER_MISSING_VALUE") {
-    targetApplication = [
-      `${wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`,
-      `${input.prompt.targetWord} is shown as ${input.prompt.displayedTargetCode}; therefore ‘?’ must be ${input.answer}.`,
-    ];
+    const exactWorking = `${wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`;
+    if (input.prompt.outputShape === "SCALAR") {
+      targetApplication = [exactWorking, `Therefore, ? = ${input.answer}.`];
+    } else {
+      const missingIndex = input.prompt.missingIndex!;
+      const sourceLetter = input.prompt.targetWord[missingIndex]!;
+      targetApplication = [
+        exactWorking,
+        `At the position marked ‘?’, ${sourceLetter} has the code value ${input.answer}; therefore, ? = ${input.answer}.`,
+      ];
+    }
   } else {
     targetApplication = [`${wordWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)}.`];
   }
