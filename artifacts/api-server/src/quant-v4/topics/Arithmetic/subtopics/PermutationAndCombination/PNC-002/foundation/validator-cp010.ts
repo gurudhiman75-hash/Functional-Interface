@@ -20,6 +20,12 @@ function latexBalanced(value: string): boolean {
   return countToken(value, "\\(") === countToken(value, "\\)")
     && countToken(value, "\\[") === countToken(value, "\\]");
 }
+function latexCommandsWellFormed(value: string): boolean {
+  return !/[\u0000-\u001F\u007F]/.test(value)
+    && !/(^|[^\\])left\s*[([{]/.test(value)
+    && !/(^|[^\\])right\s*[)\]}]/.test(value)
+    && countToken(value, "\\left") === countToken(value, "\\right");
+}
 function visibleFormulaIsFormatted(value: string): boolean {
   const plain = stripDelimitedMath(value);
   return !/\b\d+!/.test(plain) && !/[×÷≤≥]/.test(plain) && !/\b[nakrc]\s*=/.test(plain);
@@ -109,6 +115,7 @@ export function validatePnc002Cp010QuestionPackage(
   checks.push(check("reasoning-equation", pkg.reasoningEvidence.equations.includes(`\\(${pkg.solver.mathJax}\\)`), "Reasoning must use solver-owned TeX"));
   const visible = [pkg.stem, ...pkg.options, ...pkg.explanation.lines, ...pkg.reasoningEvidence.equations, pkg.reasoningEvidence.decisiveCalculation];
   checks.push(check("latex-balanced", visible.every(latexBalanced), "Visible LaTeX delimiters must be balanced"));
+  checks.push(check("latex-commands", visible.every(latexCommandsWellFormed), "Visible TeX commands must be escaped, paired and free of control characters"));
   checks.push(check("latex-no-raw-formulas", visible.every(visibleFormulaIsFormatted), "Visible formulas must be math-delimited"));
   checks.push(check("not-public", pkg.publiclyPublishable === false, "Runtime proof must remain unpublished"));
 
