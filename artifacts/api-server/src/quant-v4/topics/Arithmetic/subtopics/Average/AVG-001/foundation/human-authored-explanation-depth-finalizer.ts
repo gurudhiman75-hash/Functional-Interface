@@ -67,13 +67,13 @@ const CP001_SUPPORT_HI: Record<string, string> = {
   missingDistance: "आवश्यक कुल दूरी में से ज्ञात दिनों की दूरी घटाएँ; शेष दूरी अंतिम दिन तय की गई है।",
   missingObservation: "लापता संख्या आवश्यक योग और ज्ञात योग के अंतर के बराबर है।",
   "findAverageAfterUniformTransformation:1": "हर परीक्षा-अंक में समान राशि जोड़ने पर औसत में भी उतनी ही वृद्धि होती है।",
-  "findAverageAfterUniformTransformation:2": "हर प्रेक्षण को एक ही गुणक से गुणा करने पर औसत भी उसी गुणक से गुणा होता है।",
+  "findAverageAfterUniformTransformation:2": "हर मान को दिए गुणक से गुणा करने पर औसत भी उसी गुणक से गुणा होता है।",
   "findAverageAfterUniformTransformation:3": "हर माप पर किए गए गुणा और जोड़ को उसी क्रम में औसत पर लागू करें।",
   "findAverageAfterUniformTransformation:4": "हर चुने हुए मान में समान राशि जोड़ने पर औसत में भी वही राशि जुड़ती है।",
-  "findAverageAfterUniformTransformation:5": "सभी प्रेक्षणों पर समान गुणक लगाने से औसत भी उसी अनुपात में बदलता है।",
-  "findAverageAfterUniformTransformation:6": "पहले औसत अंक को दिए गुणक से गुणा करें, फिर समान वृद्धि जोड़ें।",
+  "findAverageAfterUniformTransformation:5": "सभी मानों पर समान गुणक लागू करने से उनका औसत भी उसी अनुपात में बदलता है।",
+  "findAverageAfterUniformTransformation:6": "पहले अंकों के औसत को दिए गुणक से गुणा करें, फिर समान वृद्धि जोड़ें।",
   "findAverageAfterUniformTransformation:7": "हर दर्ज मान में बराबर वृद्धि करने पर औसत भी उतना ही बढ़ता है।",
-  "findAverageAfterUniformTransformation:8": "हर माप को समान गुणक से गुणा करने पर औसत भी उसी गुणक से बढ़ता है।",
+  "findAverageAfterUniformTransformation:8": "हर माप को समान गुणक से गुणा करने पर औसत भी उसी गुणक से गुणा होता है।",
 };
 
 const CP001_SUPPORT_PA: Record<string, string> = {
@@ -101,14 +101,14 @@ const CP001_SUPPORT_PA: Record<string, string> = {
   missingExpense: "ਸਾਰੇ ਦਿਨਾਂ ਦੇ ਲੋੜੀਂਦੇ ਖਰਚ ਵਿੱਚੋਂ ਜਾਣੇ ਦਿਨਾਂ ਦਾ ਖਰਚ ਘਟਾਓ।",
   missingDistance: "ਲੋੜੀਂਦੀ ਕੁੱਲ ਦੂਰੀ ਵਿੱਚੋਂ ਜਾਣੇ ਦਿਨਾਂ ਦੀ ਦੂਰੀ ਘਟਾਓ; ਬਾਕੀ ਦੂਰੀ ਆਖਰੀ ਦਿਨ ਤੈਅ ਕੀਤੀ ਗਈ ਹੈ।",
   missingObservation: "ਗੁੰਮ ਸੰਖਿਆ ਲੋੜੀਂਦੇ ਜੋੜ ਅਤੇ ਜਾਣੇ ਜੋੜ ਦੇ ਫਰਕ ਦੇ ਬਰਾਬਰ ਹੈ।",
-  "findAverageAfterUniformTransformation:1": "ਹਰ ਪ੍ਰੀਖਿਆ-ਅੰਕ ਵਿੱਚ ਇੱਕੋ ਰਕਮ ਜੋੜਨ ਉੱਤੇ ਔਸਤ ਵਿੱਚ ਵੀ ਉਤਨਾ ਹੀ ਵਾਧਾ ਹੁੰਦਾ ਹੈ।",
+  "findAverageAfterUniformTransformation:1": "ਹਰ ਪ੍ਰੀਖਿਆ-ਅੰਕ ਵਿੱਚ ਇੱਕੋ ਰਕਮ ਜੋੜਨ ਉੱਤੇ ਔਸਤ ਵਿੱਚ ਵੀ ਉੱਨਾ ਹੀ ਵਾਧਾ ਹੁੰਦਾ ਹੈ।",
   "findAverageAfterUniformTransformation:2": "ਹਰ ਮੁੱਲ ਨੂੰ ਇੱਕੋ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰਨ ਉੱਤੇ ਔਸਤ ਵੀ ਉਸੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਹੁੰਦੀ ਹੈ।",
   "findAverageAfterUniformTransformation:3": "ਹਰ ਮਾਪ ਉੱਤੇ ਕੀਤੇ ਗੁਣਾ ਅਤੇ ਜੋੜ ਨੂੰ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਔਸਤ ਉੱਤੇ ਲਗਾਓ।",
   "findAverageAfterUniformTransformation:4": "ਹਰ ਚੁਣੇ ਮੁੱਲ ਵਿੱਚ ਇੱਕੋ ਰਕਮ ਜੋੜਨ ਉੱਤੇ ਔਸਤ ਵਿੱਚ ਵੀ ਉਹੀ ਰਕਮ ਜੁੜਦੀ ਹੈ।",
   "findAverageAfterUniformTransformation:5": "ਸਾਰੇ ਮੁੱਲਾਂ ਉੱਤੇ ਇੱਕੋ ਗੁਣਕ ਲਗਾਉਣ ਨਾਲ ਔਸਤ ਵੀ ਉਸੇ ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲਦੀ ਹੈ।",
-  "findAverageAfterUniformTransformation:6": "ਪਹਿਲਾਂ ਔਸਤ ਅੰਕਾਂ ਨੂੰ ਦਿੱਤੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰੋ, ਫਿਰ ਇੱਕੋ ਵਾਧਾ ਜੋੜੋ।",
+  "findAverageAfterUniformTransformation:6": "ਪਹਿਲਾਂ ਅੰਕਾਂ ਦੀ ਔਸਤ ਨੂੰ ਦਿੱਤੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰੋ, ਫਿਰ ਇੱਕੋ ਵਾਧਾ ਜੋੜੋ।",
   "findAverageAfterUniformTransformation:7": "ਹਰ ਦਰਜ ਮੁੱਲ ਵਿੱਚ ਬਰਾਬਰ ਵਾਧਾ ਕਰਨ ਉੱਤੇ ਔਸਤ ਵੀ ਉਤਨੀ ਹੀ ਵਧਦੀ ਹੈ।",
-  "findAverageAfterUniformTransformation:8": "ਹਰ ਮਾਪ ਨੂੰ ਇੱਕੋ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰਨ ਉੱਤੇ ਔਸਤ ਵੀ ਉਸੇ ਗੁਣਕ ਨਾਲ ਵਧਦੀ ਹੈ।",
+  "findAverageAfterUniformTransformation:8": "ਹਰ ਮਾਪ ਨੂੰ ਇੱਕੋ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਕਰਨ ਉੱਤੇ ਔਸਤ ਵੀ ਉਸੇ ਗੁਣਕ ਨਾਲ ਗੁਣਾ ਹੁੰਦੀ ਹੈ।",
 };
 
 function supportEnglish(pkg: Avg001QuestionPackage) {
