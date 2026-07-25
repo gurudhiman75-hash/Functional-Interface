@@ -5,6 +5,7 @@ import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import { buildMen001StructuredExplanation } from "./structured-explanation";
 import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
 import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
+import { restoreMen001SpecificStepAuthorship } from "./structured-specific-title-restorer";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -26,17 +27,20 @@ export function renderMen001Explanation(
     parameters,
     solver,
   );
-  const sections = normalizeMen001StructuredSections(
-    enhanceMen001StructuredSections(
-      buildMen001StructuredExplanation(
+  const sections = restoreMen001SpecificStepAuthorship(
+    normalizeMen001StructuredSections(
+      enhanceMen001StructuredSections(
+        buildMen001StructuredExplanation(
+          originalLines,
+          authoredLines,
+          parameters,
+          solver,
+        ),
         originalLines,
-        authoredLines,
         parameters,
         solver,
       ),
-      originalLines,
-      parameters,
-      solver,
+      parameters.solveMode,
     ),
     parameters.solveMode,
   );
