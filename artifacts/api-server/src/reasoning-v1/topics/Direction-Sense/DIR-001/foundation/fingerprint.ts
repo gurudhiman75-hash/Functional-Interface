@@ -1,4 +1,5 @@
-import type { PathOperation, PositionRelation } from "./types";
+import { solveEntityPositions } from "./entity-position-graph";
+import type { Coordinate, PathOperation, PositionRelation } from "./types";
 
 function canonicalNumber(value: number): number {
   if (!Number.isFinite(value)) {
@@ -23,6 +24,17 @@ function stableSerialize(value: unknown): string {
     .join(",")}}`;
 }
 
+function normalizedCoordinate(coordinate: Coordinate, minimumX: number, minimumY: number): Coordinate {
+  return {
+    x: canonicalNumber(coordinate.x - minimumX),
+    y: canonicalNumber(coordinate.y - minimumY),
+  };
+}
+
+function coordinateKey(coordinate: Coordinate): string {
+  return `${canonicalNumber(coordinate.x)},${canonicalNumber(coordinate.y)}`;
+}
+
 export function pathTopologyFingerprint(operations: readonly PathOperation[]): string {
   const topology = operations.map((operation) => {
     if (operation.kind === "TURN") {
@@ -38,19 +50,42 @@ export function pathTopologyFingerprint(operations: readonly PathOperation[]): s
   return `PATH:${stableSerialize(topology)}`;
 }
 
+/**
+ * Produces a relation fingerprint that is independent of entity names,
+ * relation order, and which equivalent side of a relation was stated.
+ */
 export function relationTopologyFingerprint(relations: readonly PositionRelation[]): string {
-  const normalized = relations
-    .map((relation) => ({
-      fromEntity: relation.fromEntity.trim(),
-      toEntity: relation.toEntity.trim(),
-      vector: { x: relation.vector.x, y: relation.vector.y },
-    }))
-    .sort((left, right) => {
-      const leftKey = `${left.fromEntity}\u0000${left.toEntity}`;
-      const rightKey = `${right.fromEntity}\u0000${right.toEntity}`;
-      return leftKey.localeCompare(rightKey);
-    });
-  return `RELATION:${stableSerialize(normalized)}`;
+  if (relations.length === 0) {
+    return "RELATION:EMPTY";
+  }
+
+  const solution = solveEntityPositions(relations);
+  if (!solution.connected || solution.contradictions.length > 0) {
+    throw new Error("Cannot fingerprint a disconnected or contradictory relation graph");
+  }
+
+  const coordinateEntries = Object.entries(solution.coordinates);
+  const minimumX = Math.min(...coordinateEntries.map(([, coordinate]) => coordinate.x));
+  const minimumY = Math.min(...coordinateEntries.map(([, coordinate]) => coordinate.y));
+  const normalizedByEntity = Object.fromEntries(
+    coordinateEntries.map(([entity, coordinate]) => [entity, normalizedCoordinate(coordinate, minimumX, minimumY)]),
+  ) as Readonly<Record<string, Coordinate>>;
+
+  const nodes = Object.values(normalizedByEntity).map(coordinateKey).sort();
+  const edges = relations
+    .map((relation) => {
+      const from = normalizedByEntity[relation.fromEntity.trim()];
+      const to = normalizedByEntity[relation.toEntity.trim()];
+      if (!from || !to) {
+        throw new Error(`Relation references an unresolved entity: ${relation.fromEntity} -> ${relation.toEntity}`);
+      }
+      const forward = `${coordinateKey(from)}>${coordinateKey(to)}`;
+      const reverse = `${coordinateKey(to)}>${coordinateKey(from)}`;
+      return forward < reverse ? forward : reverse;
+    })
+    .sort();
+
+  return `RELATION:${stableSerialize({ nodes, edges })}`;
 }
 
 export function canonicalFingerprint(value: unknown): string {
