@@ -1,3 +1,4 @@
+import { finalizeAvg001ExplanationCleanup } from "./human-authored-explanation-final-cleanup";
 import { finalizeAvg001ExplanationLanguage } from "./human-authored-explanation-language-finalizer";
 import type { Avg001QuestionPackage } from "./types";
 
@@ -19,5 +20,7 @@ export function finalizeAvg001ExplanationSymbols(
       explanationSymbolFinalizer: "AVG-001 normalized arithmetic symbols v1",
     },
   };
-  return finalizeAvg001ExplanationLanguage(normalized);
+  return finalizeAvg001ExplanationCleanup(
+    finalizeAvg001ExplanationLanguage(normalized),
+  );
 }
