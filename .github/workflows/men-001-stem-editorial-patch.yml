@@ -1,0 +1,71 @@
+name: Apply MEN-001 stem editorial patch
+
+on:
+  push:
+    branches:
+      - feat/men-001-cp006-runtime-proof
+    paths:
+      - .github/workflows/men-001-stem-editorial-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-stem-editorial-patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/men-001-cp006-runtime-proof
+          fetch-depth: 0
+
+      - name: Apply audited stem corrections
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const languagePath = 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/question-language.cp006.en.json';
+          const language = JSON.parse(fs.readFileSync(languagePath, 'utf8'));
+          const replacements = new Map([
+            ['MEN-001-QL-403', 'A tarpaulin section covers {area} cm². Express this area in square metres.'],
+            ['MEN-001-QL-404', 'A floor section covers {area} m². Convert this area into square centimetres.'],
+            ['MEN-001-QL-420', 'A mapped land region occupies {area} cm² on a map where 1 cm represents {scale} m. Find its actual area in square metres.'],
+            ['MEN-001-QL-431', "A wire boundary forms a rectangle of length {length} m and breadth {breadth} m. The same wire is reshaped into a square. By how much does the enclosed area increase?"],
+            ['MEN-001-QL-432', 'A farmer has exactly {perimeter} m of fencing for a rectangular enclosure. What is the greatest possible area that can be enclosed?'],
+          ]);
+
+          for (const entry of language.entries) {
+            const replacement = replacements.get(entry.qlId);
+            if (replacement) entry.template = replacement;
+          }
+
+          const missing = [...replacements.keys()].filter(
+            (qlId) => !language.entries.some((entry) => entry.qlId === qlId && entry.template === replacements.get(qlId)),
+          );
+          if (missing.length > 0) {
+            throw new Error(`Stem replacements were not applied: ${missing.join(', ')}`);
+          }
+          fs.writeFileSync(languagePath, `${JSON.stringify(language, null, 2)}\n`, 'utf8');
+
+          const profilePath = 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/natural-explanation-authorship.cp006.ts';
+          let profiles = fs.readFileSync(profilePath, 'utf8');
+          profiles = profiles
+            .replace('The sheet has area {answer}.', 'The tarpaulin section has area {answer}.')
+            .replace("The plot's actual area is {answer}.", "The mapped region's actual area is {answer}.");
+          if (!profiles.includes('The tarpaulin section has area {answer}.') || !profiles.includes("The mapped region's actual area is {answer}.")) {
+            throw new Error('Context-compatible explanation conclusions were not applied.');
+          }
+          fs.writeFileSync(profilePath, profiles, 'utf8');
+          NODE
+
+      - name: Commit editorial corrections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/question-language.cp006.en.json \
+            artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/natural-explanation-authorship.cp006.ts
+          git diff --cached --check
+          git commit -m "fix(mensuration): polish CP-006 stem realism"
+          git push origin HEAD:feat/men-001-cp006-runtime-proof
