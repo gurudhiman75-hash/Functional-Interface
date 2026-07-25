@@ -1,4 +1,4 @@
-import { getMen001Cp006FormulaLine } from "./explanation-formula.cp006";
+import { getMen001Cp006FormulaLine } from "./natural-explanation-formula.cp006";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -154,23 +154,53 @@ function removeWorkingPrefix(value: string) {
 }
 
 function stepTitle(value: string, solveMode: string, stepNumber: number) {
-  const text = `${solveMode} ${value}`.toLowerCase();
-  if (/convert|centimetre|metre|unit/.test(text)) return "Convert the Units";
-  if (/radius/.test(text) && /diameter|half|÷\s*2|\/\s*2/.test(text)) return "Find the Radius";
-  if (/rectangle/.test(text) && /area|a\s*=/.test(text)) return "Area of the Rectangle";
-  if (/triangle/.test(text) && /area|a\s*=/.test(text)) return "Area of the Triangle";
-  if (/semicircle/.test(text) && /area|a\s*=/.test(text)) return "Area of the Semicircle";
-  if (/circle/.test(text) && /area|a\s*=/.test(text)) return "Area of the Circle";
-  if (/square/.test(text) && /area|a\s*=/.test(text)) return "Area of the Square";
-  if (/hexagon/.test(text) && /area|a\s*=/.test(text)) return "Area of the Regular Hexagon";
-  if (/perimeter|circumference|boundary|wire/.test(text)) return "Calculate the Boundary";
-  if (/scale factor|ratio/.test(text)) return "Apply the Scale Relation";
-  if (/percentage|percent|%/.test(text)) return "Apply the Percentage Change";
-  if (/add|total|sum|combine|\+/.test(text)) return "Combine the Results";
-  if (/subtract|difference|remaining|−|\s-\s/.test(text)) return "Subtract the Required Part";
-  if (/square root|√/.test(text)) return "Take the Positive Square Root";
-  if (/cost|rate|₹/.test(text)) return "Calculate the Cost or Rate";
+  const line = value.toLowerCase();
+  const mode = solveMode.toLowerCase();
+  if (/add|total|sum|combine|\+/.test(line)) return "Combine the Results";
+  if (/subtract|difference|remaining|−|\s-\s/.test(line)) return "Subtract the Required Part";
+  if (/convert|centimetre|metre|unit/.test(line)) return "Convert the Units";
+  if (/radius/.test(line) && /diameter|half|÷\s*2|\/\s*2/.test(line)) return "Find the Radius";
+  if (/rectangle/.test(line) && /area|a\s*=/.test(line)) return "Area of the Rectangle";
+  if (/triangle/.test(line) && /area|a\s*=/.test(line)) return "Area of the Triangle";
+  if (/semicircle/.test(line) && /area|a\s*=/.test(line)) return "Area of the Semicircle";
+  if (/circle/.test(line) && /area|a\s*=/.test(line)) return "Area of the Circle";
+  if (/square/.test(line) && /area|a\s*=/.test(line)) return "Area of the Square";
+  if (/hexagon/.test(line) && /area|a\s*=/.test(line)) return "Area of the Regular Hexagon";
+  if (/perimeter|circumference|boundary|wire/.test(line)) return "Calculate the Boundary";
+  if (/scale factor|ratio/.test(line)) return "Apply the Scale Relation";
+  if (/percentage|percent|%/.test(line)) return "Apply the Percentage Change";
+  if (/square root|√/.test(line)) return "Take the Positive Square Root";
+  if (/cost|rate|₹/.test(line)) return "Calculate the Cost or Rate";
+  if (/convert|unit/.test(mode)) return "Convert the Units";
+  if (/perimeter|circumference|boundary|wire/.test(mode)) return "Calculate the Boundary";
+  if (/scale|similar/.test(mode)) return "Apply the Scale Relation";
+  if (/area/.test(mode)) return stepNumber === 1 ? "Substitute in the Area Formula" : "Simplify the Area";
   return stepNumber === 1 ? "Substitute the Given Values" : "Simplify the Calculation";
+}
+
+function instructionForStep(title: string) {
+  const instructions: Record<string, string> = {
+    "Combine the Results": "Combine the component values using the relation stated in the Key Rule.",
+    "Subtract the Required Part": "Subtract the excluded or inner part from the complete measure.",
+    "Convert the Units": "Write all measurements in compatible units before calculating.",
+    "Find the Radius": "Use the diameter-radius relationship before applying the circle formula.",
+    "Area of the Rectangle": "Multiply the rectangle's length by its breadth.",
+    "Area of the Triangle": "Use the base and corresponding perpendicular height.",
+    "Area of the Semicircle": "Use half of the full-circle area.",
+    "Area of the Circle": "Substitute the radius in the circle-area formula.",
+    "Area of the Square": "Square the side length.",
+    "Area of the Regular Hexagon": "Use the regular-hexagon area relation and simplify exactly.",
+    "Calculate the Boundary": "Use only the boundary segments that belong to the required perimeter.",
+    "Apply the Scale Relation": "Substitute the known corresponding measures in the scale relation.",
+    "Apply the Percentage Change": "Convert each percentage change into its multiplicative factor.",
+    "Take the Positive Square Root": "Take the positive root because a physical measurement cannot be negative.",
+    "Calculate the Cost or Rate": "Combine the required measure with the stated cost or rate relation.",
+    "Substitute in the Area Formula": "Place the given measurements into the selected area formula.",
+    "Simplify the Area": "Simplify the numerical expression to obtain the area.",
+    "Substitute the Given Values": "Substitute the supplied measurements into the governing formula.",
+    "Simplify the Calculation": "Simplify the expression carefully while preserving the correct unit.",
+  };
+  return instructions[title] ?? "Carry out this part of the calculation exactly.";
 }
 
 function genericSteps(
@@ -188,12 +218,13 @@ function genericSteps(
 
   const steps = cleaned.map((line, index): Men001ExplanationSection => {
     const stepNumber = index + 1;
+    const title = stepTitle(line, parameters.solveMode, stepNumber);
     const hasEquation = line.includes("=");
     return {
       kind: "STEP",
       stepNumber,
-      title: stepTitle(line, parameters.solveMode, stepNumber),
-      paragraphs: hasEquation ? [] : [finishSentence(line)],
+      title,
+      paragraphs: hasEquation ? [instructionForStep(title)] : [finishSentence(line)],
       equations: hasEquation ? [readableEquation(line.replace(/[.]$/, ""))] : [],
     };
   });
