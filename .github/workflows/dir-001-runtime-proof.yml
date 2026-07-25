@@ -16,10 +16,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: export-dir-cp-003-shortest-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   transform-validate-export:
     runs-on: ubuntu-latest
@@ -29,32 +25,220 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: feat/dir-cp-003-displacement
-          fetch-depth: 0
 
-      - name: Reapply previously validated guarded patch
+      - name: Apply shortest-distance explanation and diagram correction
         run: |
           python - <<'PY'
           from pathlib import Path
-          import subprocess
 
-          workflow = subprocess.check_output(
-              [
-                  "git",
-                  "show",
-                  "90d4b20ebc0922dac73d9ed08c1f2ff0496d0feb:.github/workflows/dir-001-runtime-proof.yml",
-              ],
-              text=True,
+          root = Path('artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001')
+          generator = root / 'DIR-CP-003/generator.ts'
+          diagram = root / 'DIR-CP-002/path-diagram.ts'
+          exporter = root / 'DIR-CP-003/dir-cp-003-generate-review-export.ts'
+          test = root / 'DIR-CP-003/dir-cp-003.test.ts'
+
+          def replace_once(text: str, old: str, new: str, label: str) -> str:
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f'{label}: expected one match, found {count}')
+              return text.replace(old, new, 1)
+
+          text = generator.read_text()
+          text = replace_once(
+              text,
+              'import { exactDistanceFromComponents, formatDistanceWithUnit, type DistanceDisplayMode, type ExactDistanceValue } from "../foundation/exact-distance";',
+              'import { exactDistanceFromComponents, formatDistanceValue, formatDistanceWithUnit, type DistanceDisplayMode, type ExactDistanceValue } from "../foundation/exact-distance";',
+              'exact-distance import',
           )
-          start_marker = "          python - <<'PY'\n"
-          end_marker = "\n          PY\n"
-          script = workflow.split(start_marker, 1)[1].split(end_marker, 1)[0]
-          script = "\n".join(
-              line[10:] if line.startswith("          ") else line
-              for line in script.splitlines()
+          text = replace_once(
+              text,
+              '''export interface DistanceExplanation {
+            readonly given: string;
+            readonly movementLines: readonly string[];
+            readonly netLine: string;
+            readonly conclusion: string;
+            readonly diagram: PathDiagramSpec;
+          }''',
+              '''export interface DistanceExplanation {
+            readonly given: string;
+            readonly movementLines: readonly string[];
+            readonly netLine: string;
+            readonly calculationLine: string | null;
+            readonly conclusion: string;
+            readonly diagram: PathDiagramSpec;
+          }''',
+              'DistanceExplanation interface',
           )
-          Path("/tmp/dir-cp-003-shortest-patch.py").write_text(script + "\n")
+          text = replace_once(
+              text,
+              '''function baseExplanation(path: BuiltDistancePath, exact: ExactDistanceValue, conclusion: string): DistanceExplanation {
+            return {
+              given: `${path.person.name} starts facing ${DISTANCE_DIRECTION_LABELS[path.initialFacing]}. Reading each turn in order gives the following movements.`,
+              movementLines: movementWalkthrough(path),
+              netLine: netLineFor(exact),
+              conclusion,
+              diagram: buildPathDiagram(path.solved),
+            };
+          }''',
+              '''function shortestDistanceCalculation(exact: ExactDistanceValue, displayMode: DistanceDisplayMode): string {
+            const horizontal = Math.round(Math.abs(exact.dx));
+            const vertical = Math.round(Math.abs(exact.dy));
+            const rendered = formatDistanceWithUnit(exact, displayMode);
+
+            if (horizontal === 0 || vertical === 0) {
+              const remaining = horizontal === 0 ? vertical : horizontal;
+              return `Only one net direction remains after cancellation. Therefore, the straight line from Start to Finish is ${remaining} metres.`;
+            }
+
+            const rootStep = `√(${horizontal}² + ${vertical}²) = √${exact.squaredDistance}`;
+            if (displayMode === "INTEGER") {
+              return `The shortest route is the straight line from Start to Finish: ${rootStep} = ${rendered}.`;
+            }
+            if (displayMode === "RADICAL") {
+              const simplified = formatDistanceValue(exact, "RADICAL");
+              const simplification = simplified === `√${exact.squaredDistance}` ? "" : ` = ${simplified}`;
+              return `The shortest route is the straight line from Start to Finish: ${rootStep}${simplification} metres.`;
+            }
+            return `The shortest route is the straight line from Start to Finish: ${rootStep} ≈ ${rendered}.`;
+          }
+
+          function baseExplanation(
+            path: BuiltDistancePath,
+            exact: ExactDistanceValue,
+            conclusion: string,
+            displayMode: DistanceDisplayMode,
+            illustrateShortestDistance: boolean,
+          ): DistanceExplanation {
+            const shortestDistanceLabel = illustrateShortestDistance ? formatDistanceWithUnit(exact, displayMode) : undefined;
+            return {
+              given: `${path.person.name} starts facing ${DISTANCE_DIRECTION_LABELS[path.initialFacing]}. Reading each turn in order gives the following movements.`,
+              movementLines: movementWalkthrough(path),
+              netLine: netLineFor(exact),
+              calculationLine: illustrateShortestDistance ? shortestDistanceCalculation(exact, displayMode) : null,
+              conclusion,
+              diagram: buildPathDiagram(path.solved, shortestDistanceLabel ? { shortestDistanceLabel } : {}),
+            };
+          }''',
+              'baseExplanation block',
+          )
+          old_call = 'explanation: baseExplanation(path, exact, conclusion),'
+          if text.count(old_call) != 5:
+              raise SystemExit(f'baseExplanation calls: expected five, found {text.count(old_call)}')
+          text = text.replace(old_call, 'explanation: baseExplanation(path, exact, conclusion, "INTEGER", false),', 1)
+          text = text.replace(old_call, 'explanation: baseExplanation(path, exact, conclusion, displayMode, true),', 1)
+          text = text.replace(old_call, 'explanation: baseExplanation(path, exact, conclusion, "INTEGER", true),')
+          generator.write_text(text)
+
+          text = diagram.read_text()
+          text = replace_once(
+              text,
+              '''export interface PathDiagramSpec {
+            readonly kind: "DIRECTION_PATH_DIAGRAM";
+            readonly title: string;
+            readonly coordinateConvention: "EAST_POSITIVE_X_NORTH_POSITIVE_Y";
+            readonly points: readonly PathDiagramPoint[];
+            readonly segments: readonly PathDiagramSegment[];
+            readonly svg: string;
+          }''',
+              '''export interface PathDiagramSpec {
+            readonly kind: "DIRECTION_PATH_DIAGRAM";
+            readonly title: string;
+            readonly coordinateConvention: "EAST_POSITIVE_X_NORTH_POSITIVE_Y";
+            readonly points: readonly PathDiagramPoint[];
+            readonly segments: readonly PathDiagramSegment[];
+            readonly svg: string;
+          }
+
+          export interface PathDiagramOptions {
+            readonly shortestDistanceLabel?: string;
+          }''',
+              'PathDiagramOptions interface',
+          )
+          text = replace_once(
+              text,
+              'function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {',
+              'function renderSvg(spec: Omit<PathDiagramSpec, "svg">, options: PathDiagramOptions): string {',
+              'renderSvg signature',
+          )
+          text = replace_once(
+              text,
+              '  const pointById = new Map(spec.points.map((point) => [point.id, point]));\n\n  const routeLines',
+              '''  const pointById = new Map(spec.points.map((point) => [point.id, point]));
+
+            const shortestDistanceOverlay = options.shortestDistanceLabel
+              ? (() => {
+                  const start = spec.points.find((point) => point.role === "START");
+                  const finish = spec.points.find((point) => point.role === "END");
+                  if (!start || !finish) throw new Error("Shortest-distance illustration requires Start and Finish points");
+                  const from = project(start.coordinate);
+                  const to = project(finish.coordinate);
+                  return [
+                    `<line data-role="shortest-distance-line" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>`,
+                    `<g data-role="shortest-distance-key">`,
+                    `<rect x="568" y="158" width="140" height="72" rx="10" fill="#eff6ff" stroke="#60a5fa"/>`,
+                    `<line x1="584" y1="181" x2="616" y2="181" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 6"/>`,
+                    `<text x="638" y="185" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">Straight line</text>`,
+                    `<text x="638" y="211" text-anchor="middle" font-size="13" font-weight="800" fill="#111827">${escapeXml(options.shortestDistanceLabel)}</text>`,
+                    `</g>`,
+                  ].join("");
+                })()
+              : "";
+
+            const routeLines''',
+              'shortest-distance overlay insertion',
+          )
+          text = replace_once(text, '    routeLines,\n    points,', '    shortestDistanceOverlay,\n    routeLines,\n    points,', 'SVG overlay order')
+          text = replace_once(
+              text,
+              'export function buildPathDiagram(solved: SolvedPath): PathDiagramSpec {',
+              'export function buildPathDiagram(solved: SolvedPath, options: PathDiagramOptions = {}): PathDiagramSpec {',
+              'buildPathDiagram signature',
+          )
+          text = replace_once(text, '  return { ...withoutSvg, svg: renderSvg(withoutSvg) };', '  return { ...withoutSvg, svg: renderSvg(withoutSvg, options) };', 'renderSvg invocation')
+          diagram.write_text(text)
+
+          text = exporter.read_text()
+          text = replace_once(
+              text,
+              '    `<p class="net">${escapeHtml(question.explanation.netLine)}</p>`,\n    `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,',
+              '    `<p class="net">${escapeHtml(question.explanation.netLine)}</p>`,\n    question.explanation.calculationLine ? `<p class="calculation">${escapeHtml(question.explanation.calculationLine)}</p>` : "",\n    `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,',
+              'calculation paragraph',
+          )
+          text = replace_once(
+              text,
+              '.net { background: #fffbeb; border: 1px solid #fbbf24; border-radius: 9px; padding: 12px 14px; line-height: 1.6; }\n.conclusion',
+              '.net { background: #fffbeb; border: 1px solid #fbbf24; border-radius: 9px; padding: 12px 14px; line-height: 1.6; }\n.calculation { background: #f0f9ff; border: 1px solid #38bdf8; border-radius: 9px; padding: 12px 14px; line-height: 1.65; font-weight: 650; }\n.conclusion',
+              'calculation CSS',
+          )
+          text = replace_once(
+              text,
+              'Each item contains a natural exam question, a short movement walkthrough, one net-movement sentence, one direct conclusion, and a plain route diagram at the end.',
+              'Each item contains a natural exam question, a short movement walkthrough, the net movement, a visible straight-line shortest-distance calculation, one direct conclusion, and a plain route diagram at the end.',
+              'cover copy',
+          )
+          exporter.write_text(text)
+
+          text = test.read_text()
+          text = replace_once(
+              text,
+              '''    assert.equal((generated.explanation.diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+              assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));''',
+              '''    assert.equal((generated.explanation.diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+              const illustratesShortestDistance = ql.answerDemand !== "MISSING_MOVEMENT_DISTANCE";
+              assert.equal(generated.explanation.calculationLine !== null, illustratesShortestDistance);
+              assert.equal((generated.explanation.diagram.svg.match(/data-role="shortest-distance-line"/g) ?? []).length, illustratesShortestDistance ? 1 : 0);
+              assert.equal((generated.explanation.diagram.svg.match(/data-role="shortest-distance-key"/g) ?? []).length, illustratesShortestDistance ? 1 : 0);
+              if (illustratesShortestDistance) {
+                assert.ok(generated.explanation.calculationLine!.includes("straight line"));
+                assert.ok(generated.explanation.calculationLine!.includes("Start"));
+                assert.ok(generated.explanation.calculationLine!.includes("Finish"));
+                assert.ok(generated.explanation.calculationLine!.includes("√") || generated.explanation.calculationLine!.includes("Only one net direction"));
+              }
+              assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));''',
+              'proof assertions',
+          )
+          test.write_text(text)
           PY
-          python /tmp/dir-cp-003-shortest-patch.py
 
       - name: Set up Node
         uses: actions/setup-node@v4
