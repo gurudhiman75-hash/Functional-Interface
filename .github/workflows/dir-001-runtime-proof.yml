@@ -101,4 +101,22 @@ jobs:
           --outfile=dist/reasoning-v1/dir-cp-002.test.mjs
 
       - name: Run CP-002 proof
-        run: node artifacts/api-server/dist/reasoning-v1/dir-cp-002.test.mjs
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-002.test.mjs > dir-cp-002-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-002-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish CP-002 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-002-runtime-proof-diagnostics
+          path: |
+            dir-cp-002-runtime-proof.log
+            dir-cp-002-runtime-proof-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce CP-002 proof result
+        run: test "$(cat dir-cp-002-runtime-proof-exit.txt)" = "0"
