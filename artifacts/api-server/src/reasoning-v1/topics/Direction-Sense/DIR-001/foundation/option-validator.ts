@@ -7,7 +7,8 @@ function defaultNormalize(value: unknown): string {
   if (typeof value === "string") {
     return value.trim().toLocaleLowerCase("en-IN").replace(/\s+/g, " ");
   }
-  return JSON.stringify(value, Object.keys((value ?? {}) as Record<string, unknown>).sort());
+  const serialized = JSON.stringify(value, Object.keys((value ?? {}) as Record<string, unknown>).sort());
+  return serialized ?? "undefined";
 }
 
 export function validateDirectionOptions<T>(
