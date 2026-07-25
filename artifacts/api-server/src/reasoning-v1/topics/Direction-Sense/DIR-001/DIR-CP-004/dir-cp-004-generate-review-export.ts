@@ -25,7 +25,7 @@ function renderQuestion(question: GeneratedRelativeGraphQuestion, reviewNumber: 
     `<div class="placements">${placements}</div>`,
     `<p class="result">${escapeHtml(question.explanation.resultLine)}</p>`,
     question.explanation.calculationLine ? `<p class="calculation">${escapeHtml(question.explanation.calculationLine)}</p>` : "",
-    `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,
+    `<p class="conclusion">${escapeHtml(question.explanation.conclusion)}</p>`,
     `<h3>Diagram</h3><div class="diagram">${question.explanation.diagram.svg}</div>`,
     `</article>`,
   ].join("");
