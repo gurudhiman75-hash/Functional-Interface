@@ -55,6 +55,12 @@ async function enforceCanonicalStudentStatus(req: Request, res: Response): Promi
   return true;
 }
 
+function isRevokedTokenError(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const code = "code" in error ? String((error as { code?: unknown }).code ?? "") : "";
+  return code === "auth/id-token-revoked" || code === "auth/user-disabled";
+}
+
 export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   // Mounted collaboration and hardening routers may share one request. Once a
   // trusted upstream invocation has verified the Firebase token, reuse that
@@ -75,20 +81,28 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
 
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith("Bearer ")) {
-    return void res.status(401).json({ error: "No token provided" });
+    return void res.status(401).json({ error: "No token provided", code: "AUTH_TOKEN_REQUIRED" });
   }
 
   const token = authHeader.substring(7);
   try {
-    const decodedToken = await auth.verifyIdToken(token);
+    // checkRevoked=true makes admin session revocation effective immediately
+    // instead of allowing an already-issued Firebase ID token for up to an hour.
+    const decodedToken = await auth.verifyIdToken(token, true);
     req.user = {
       id: decodedToken.uid,
       email: decodedToken.email,
       displayName: typeof decodedToken.name === "string" ? decodedToken.name : undefined,
       emailVerified: decodedToken.email_verified,
     };
-  } catch {
-    return void res.status(401).json({ error: "Invalid token" });
+  } catch (error) {
+    if (isRevokedTokenError(error)) {
+      return void res.status(401).json({
+        error: "Your ExamTree session was ended by an administrator.",
+        code: "SESSION_REVOKED",
+      });
+    }
+    return void res.status(401).json({ error: "Invalid token", code: "AUTH_TOKEN_INVALID" });
   }
 
   try {
