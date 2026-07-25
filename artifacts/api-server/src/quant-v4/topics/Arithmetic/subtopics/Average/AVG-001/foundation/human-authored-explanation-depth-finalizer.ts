@@ -11,7 +11,7 @@ const CP001_SUPPORT_EN: Record<string, string> = {
   dailyOutputTotal: "Repeating the average daily output for every working day gives the full production.",
   weeklySalesTotal: "Use the average daily sale once for each of the stated days.",
   salaryGroupTotal: "One average salary for each employee gives the combined monthly payroll.",
-  passengerTotal: "Trips multiplied by the average passengers per trip gives the overall passenger count.",
+  passengerTotal: "The number of trips multiplied by the average passengers per trip gives the overall passenger count.",
   expenseTotal: "Repeat the average daily expenditure across all the stated days.",
   marksAverage: "Share the total marks equally across the number of tests.",
   outputAverage: "Divide the production by the hours to obtain the output per hour.",
@@ -29,7 +29,7 @@ const CP001_SUPPORT_EN: Record<string, string> = {
   missingOutput: "The last shift supplies the gap between required production and known production.",
   missingSale: "The final day's sale is the gap between the required total and the known days' sales.",
   missingExpense: "Subtract the known days' spending from the amount required for all days.",
-  missingDistance: "The last journey covers the distance left after removing the known days' distance.",
+  missingDistance: "Subtract the known days' distance from the required total; the remainder is the last day's distance.",
   missingObservation: "The missing number is the difference between the required sum and the known sum.",
 };
 
@@ -56,7 +56,7 @@ const CP001_SUPPORT_HI: Record<string, string> = {
   missingOutput: "अंतिम पाली का उत्पादन आवश्यक कुल और ज्ञात उत्पादन के अंतर के बराबर है।",
   missingSale: "अंतिम दिन की बिक्री आवश्यक कुल बिक्री और ज्ञात दिनों की बिक्री का अंतर है।",
   missingExpense: "सभी दिनों के आवश्यक खर्च में से ज्ञात दिनों का खर्च घटाएँ।",
-  missingDistance: "ज्ञात दिनों की दूरी घटाने के बाद बची दूरी अंतिम दिन तय की गई।",
+  missingDistance: "आवश्यक कुल दूरी में से ज्ञात दिनों की दूरी घटाएँ; शेष दूरी अंतिम दिन तय की गई है।",
   missingObservation: "लापता संख्या आवश्यक योग और ज्ञात योग के अंतर के बराबर है।",
 };
 
@@ -83,7 +83,7 @@ const CP001_SUPPORT_PA: Record<string, string> = {
   missingOutput: "ਆਖਰੀ ਸ਼ਿਫਟ ਦਾ ਉਤਪਾਦਨ ਲੋੜੀਂਦੇ ਕੁੱਲ ਅਤੇ ਜਾਣੇ ਉਤਪਾਦਨ ਦੇ ਫਰਕ ਦੇ ਬਰਾਬਰ ਹੈ।",
   missingSale: "ਆਖਰੀ ਦਿਨ ਦੀ ਵਿਕਰੀ ਲੋੜੀਂਦੀ ਕੁੱਲ ਵਿਕਰੀ ਅਤੇ ਜਾਣੇ ਦਿਨਾਂ ਦੀ ਵਿਕਰੀ ਦਾ ਫਰਕ ਹੈ।",
   missingExpense: "ਸਾਰੇ ਦਿਨਾਂ ਦੇ ਲੋੜੀਂਦੇ ਖਰਚ ਵਿੱਚੋਂ ਜਾਣੇ ਦਿਨਾਂ ਦਾ ਖਰਚ ਘਟਾਓ।",
-  missingDistance: "ਜਾਣੇ ਦਿਨਾਂ ਦੀ ਦੂਰੀ ਘਟਾਉਣ ਤੋਂ ਬਾਅਦ ਬਚੀ ਦੂਰੀ ਆਖਰੀ ਦਿਨ ਤੈਅ ਕੀਤੀ ਗਈ।",
+  missingDistance: "ਲੋੜੀਂਦੀ ਕੁੱਲ ਦੂਰੀ ਵਿੱਚੋਂ ਜਾਣੇ ਦਿਨਾਂ ਦੀ ਦੂਰੀ ਘਟਾਓ; ਬਾਕੀ ਦੂਰੀ ਆਖਰੀ ਦਿਨ ਤੈਅ ਕੀਤੀ ਗਈ ਹੈ।",
   missingObservation: "ਗੁੰਮ ਸੰਖਿਆ ਲੋੜੀਂਦੇ ਜੋੜ ਅਤੇ ਜਾਣੇ ਜੋੜ ਦੇ ਫਰਕ ਦੇ ਬਰਾਬਰ ਹੈ।",
 };
 
