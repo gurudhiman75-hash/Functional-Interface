@@ -1,0 +1,73 @@
+name: Validate AVG-001 multilingual stem quality
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/avg-001-multilingual-stem-quality.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: avg-001-multilingual-stem-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-avg-001-multilingual-stems:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Run multilingual stem audit and regenerate review sheets
+        run: |
+          set -euo pipefail
+          : > avg-multilingual-stem-quality.log
+          run_case() {
+            name="$1"
+            source="$2"
+            output="dist/quant-v4/${name}.mjs"
+            echo "===== $name =====" | tee -a avg-multilingual-stem-quality.log
+            pnpm --dir artifacts/api-server exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output" 2>&1 | tee -a avg-multilingual-stem-quality.log
+            (cd artifacts/api-server && node "$output") 2>&1 | tee -a avg-multilingual-stem-quality.log
+          }
+          run_case avg-001-multilingual-stem-quality src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-multilingual-stem-quality-audit.ts
+          run_case avg-001-cp001-multilingual-review src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-multilingual-review-export.ts
+          run_case avg-001-cp002-multilingual-review src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-multilingual-review-export.ts
+          run_case avg-001-cp003-multilingual-review src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-multilingual-review-export.ts
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-multilingual-stem-quality-diagnostics
+          path: avg-multilingual-stem-quality.log
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Upload regenerated Hindi and Punjabi review sheets
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: avg-001-cp001-cp003-multilingual-stem-review
+          path: |
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-human-review-hi.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp001-human-review-pa.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-hi.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp002-human-review-pa.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-hi.csv
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-cp003-human-review-pa.csv
+          if-no-files-found: error
+          retention-days: 14
