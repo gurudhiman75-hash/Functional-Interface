@@ -20,8 +20,8 @@ function ratioStem(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguag
   const second = ratioValue(shown(pkg, "groupAverage2"), words.unit, language);
   const combined = ratioValue(shown(pkg, "combinedAverage"), words.unit, language);
   return language === "hi"
-    ? `${words.firstAverage} ${first} और ${words.secondAverage} ${second} है। ${words.combinedAverage} ${combined} है। ${words.ratio} ज्ञात कीजिए।`
-    : `${words.firstAverage} ${first} ਅਤੇ ${words.secondAverage} ${second} ਹੈ। ${words.combinedAverage} ${combined} ਹੈ। ${words.ratio} ਪਤਾ ਕਰੋ।`;
+    ? `${words.firstAverage} ${first} है। ${words.secondAverage} ${second} है। ${words.combinedAverage} ${combined} है। ${words.ratio} ज्ञात कीजिए।`
+    : `${words.firstAverage} ${first} ਹੈ। ${words.secondAverage} ${second} ਹੈ। ${words.combinedAverage} ${combined} ਹੈ। ${words.ratio} ਪਤਾ ਕਰੋ।`;
 }
 
 function travelStem(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguage) {
@@ -32,14 +32,14 @@ function travelStem(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLangua
     const distance1 = shown(pkg, "distance1");
     const distance2 = shown(pkg, "distance2");
     return language === "hi"
-      ? `${subject} पहले ${distance1} किमी की दूरी ${speed1} किमी/घंटा और फिर ${distance2} किमी की दूरी ${speed2} किमी/घंटा की गति से तय करता है। पूरी यात्रा की औसत गति ज्ञात कीजिए।`
-      : `${subject} ਪਹਿਲਾਂ ${distance1} ਕਿਮੀ ਦੀ ਦੂਰੀ ${speed1} ਕਿਮੀ/ਘੰਟਾ ਅਤੇ ਫਿਰ ${distance2} ਕਿਮੀ ਦੀ ਦੂਰੀ ${speed2} ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ਨਾਲ ਤੈਅ ਕਰਦਾ ਹੈ। ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ਪਤਾ ਕਰੋ।`;
+      ? `${subject} की यात्रा में पहले ${distance1} किमी की दूरी ${speed1} किमी/घंटा और फिर ${distance2} किमी की दूरी ${speed2} किमी/घंटा की गति से तय की जाती है। पूरी यात्रा की औसत गति ज्ञात कीजिए।`
+      : `${subject} ਦੀ ਯਾਤਰਾ ਵਿੱਚ ਪਹਿਲਾਂ ${distance1} ਕਿਮੀ ਦੀ ਦੂਰੀ ${speed1} ਕਿਮੀ/ਘੰਟਾ ਅਤੇ ਫਿਰ ${distance2} ਕਿਮੀ ਦੀ ਦੂਰੀ ${speed2} ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ਨਾਲ ਤੈਅ ਕੀਤੀ ਜਾਂਦੀ ਹੈ। ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ਪਤਾ ਕਰੋ।`;
   }
   const time1 = shown(pkg, "time1");
   const time2 = shown(pkg, "time2");
   return language === "hi"
-    ? `${subject} ${speed1} किमी/घंटा की गति से ${time1} घंटे और ${speed2} किमी/घंटा की गति से ${time2} घंटे चलता है। पूरी यात्रा की औसत गति ज्ञात कीजिए।`
-    : `${subject} ${speed1} ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ਨਾਲ ${time1} ਘੰਟੇ ਅਤੇ ${speed2} ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ਨਾਲ ${time2} ਘੰਟੇ ਚਲਦਾ ਹੈ। ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ਪਤਾ ਕਰੋ।`;
+    ? `${subject} की यात्रा में ${speed1} किमी/घंटा की गति ${time1} घंटे और ${speed2} किमी/घंटा की गति ${time2} घंटे तक रहती है। पूरी यात्रा की औसत गति ज्ञात कीजिए।`
+    : `${subject} ਦੀ ਯਾਤਰਾ ਵਿੱਚ ${speed1} ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ${time1} ਘੰਟੇ ਅਤੇ ${speed2} ਕਿਮੀ/ਘੰਟਾ ਦੀ ਗਤੀ ${time2} ਘੰਟੇ ਤੱਕ ਰਹਿੰਦੀ ਹੈ। ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ਪਤਾ ਕਰੋ।`;
 }
 
 export function localizedGapStem(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguage) {
