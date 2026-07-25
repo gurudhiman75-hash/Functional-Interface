@@ -159,6 +159,15 @@ function pairSelectionOptions(
   ], seed * 29 + 17);
 }
 
+function placeCorrectOption(options: readonly AlphabetOption[], desiredIndex: number): AlphabetOption[] {
+  const result = [...options];
+  const currentIndex = result.findIndex((option) => option.errorLabel === null);
+  if (currentIndex < 0) throw new Error("ANA-CP-005 options do not contain a marked correct answer.");
+  const [correct] = result.splice(currentIndex, 1);
+  result.splice(desiredIndex, 0, correct);
+  return result;
+}
+
 const LAYOUTS: readonly AlphabetLayout[] = ["INLINE", "ARROW", "TWO_ROW_TABLE", "BOXED_PAIRS"];
 
 function renderMissingStem(source: AlphabetPair, target: AlphabetPair, layout: AlphabetLayout): string {
@@ -188,9 +197,12 @@ export function generateAlphabetAnalogy(qlId: string, seed = 0): GeneratedAlphab
     throw new Error("Independent solver rejected ANA-CP-005 instance.");
   }
 
-  const options = ql.presentationMode === "MISSING_FOURTH_TERM"
+  const rawOptions = ql.presentationMode === "MISSING_FOURTH_TERM"
     ? missingTermOptions(target, seed)
     : pairSelectionOptions(ql.ruleId, context, target, seed);
+  const qlNumber = Number.parseInt(qlId.slice(-3), 10);
+  const desiredCorrectIndex = ((Math.abs(seed) % 4) + (qlNumber % 4)) % 4;
+  const options = placeCorrectOption(rawOptions, desiredCorrectIndex);
   const correctIndex = validateAlphabetOptions(ql.ruleId, context, ql.presentationMode, target, options);
 
   return {
