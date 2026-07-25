@@ -9,17 +9,17 @@ import {
 import { getPnc002VariableRanges } from "./library";
 import type {
   Pnc002IndependentVerification,
-  Pnc002Parameters,
+  Pnc002AnyParameters,
   Pnc002SolverEvidence,
   Pnc002SolverResult,
 } from "./types";
 
-function numberValue(parameters: Pnc002Parameters, key: string): number {
+function numberValue(parameters: Pnc002AnyParameters, key: string): number {
   const value = parameters.values[key];
   if (typeof value !== "number") throw new Error(`PNC-002 CP-008 value ${key} is not numeric`);
   return value;
 }
-function numberArrayValue(parameters: Pnc002Parameters, key: string): number[] {
+function numberArrayValue(parameters: Pnc002AnyParameters, key: string): number[] {
   const value = parameters.values[key];
   if (!Array.isArray(value) || !value.every(Number.isInteger)) throw new Error(`PNC-002 CP-008 value ${key} is not an integer array`);
   return [...value];
@@ -102,7 +102,7 @@ export function countSpecifiedObjectsInPositionClassExact(
   ], ceiling);
 }
 
-function solveExactPosition(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveExactPosition(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const fixedPosition = numberValue(parameters, "fixedPosition");
@@ -111,7 +111,7 @@ function solveExactPosition(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "OBJECT_AT_EXACT_POSITION"), fixedPosition, remainingObjects: totalObjects - 1,
   });
 }
-function solveEitherEnd(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveEitherEnd(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const answer = countObjectAtEitherEndExact(totalObjects, ceiling);
@@ -119,7 +119,7 @@ function solveEitherEnd(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "OBJECT_AT_EITHER_END"), allowedPositionCount: 2, remainingObjects: totalObjects - 1, endAssignmentCount: 2,
   });
 }
-function solveBothEnds(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveBothEnds(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const answer = countSpecifiedObjectsAtBothEndsExact(totalObjects, ceiling);
@@ -127,7 +127,7 @@ function solveBothEnds(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "SPECIFIED_OBJECTS_AT_BOTH_ENDS"), remainingObjects: totalObjects - 2, endAssignmentCount: 2,
   });
 }
-function solveExcludedEnds(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveExcludedEnds(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const answer = countObjectExcludedFromEndsExact(totalObjects, ceiling);
@@ -135,7 +135,7 @@ function solveExcludedEnds(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "OBJECT_EXCLUDED_FROM_ENDS"), allowedPositionCount: totalObjects - 2, remainingObjects: totalObjects - 1,
   });
 }
-function solveRelativeOrder(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveRelativeOrder(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const chainLength = numberValue(parameters, "chainLength");
@@ -145,7 +145,7 @@ function solveRelativeOrder(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "PRESCRIBED_RELATIVE_ORDER"), chainLengths: [chainLength], relativeOrderDivisor,
   });
 }
-function solveIndependentChains(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveIndependentChains(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const chainLengths = numberArrayValue(parameters, "chainLengths");
@@ -157,7 +157,7 @@ function solveIndependentChains(parameters: Pnc002Parameters): Pnc002SolverResul
     ...neutralEvidence(totalObjects, "INDEPENDENT_RELATIVE_ORDER_CHAINS"), chainLengths, relativeOrderDivisor,
   });
 }
-function solveAlternation(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveAlternation(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const largeCount = numberValue(parameters, "largeCount");
   const smallCount = numberValue(parameters, "smallCount");
@@ -168,7 +168,7 @@ function solveAlternation(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "STRICT_ALTERNATION"), largeCount, smallCount, orientationCount,
   });
 }
-function solveNoAdjacency(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveNoAdjacency(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const largeCount = numberValue(parameters, "largeCount");
   const smallCount = numberValue(parameters, "smallCount");
@@ -180,7 +180,7 @@ function solveNoAdjacency(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "NO_TWO_CATEGORY_MEMBERS_ADJACENT"), largeCount, smallCount, gapSlotCount, chosenGapCount,
   });
 }
-function solveExactGap(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveExactGap(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const gapCount = numberValue(parameters, "gapCount");
@@ -190,7 +190,7 @@ function solveExactGap(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "EXACT_GAP_BETWEEN_PAIR"), gapCount, orderedPositionPairCount, remainingObjects: totalObjects - 2,
   });
 }
-function solveAtLeastGap(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveAtLeastGap(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const minimumGap = numberValue(parameters, "minimumGap");
@@ -200,7 +200,7 @@ function solveAtLeastGap(parameters: Pnc002Parameters): Pnc002SolverResult {
     ...neutralEvidence(totalObjects, "AT_LEAST_GAP_BETWEEN_PAIR"), minimumGap, orderedPositionPairCount, remainingObjects: totalObjects - 2,
   });
 }
-function solvePositionClass(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solvePositionClass(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const specifiedCount = numberValue(parameters, "specifiedCount");
@@ -219,7 +219,7 @@ function solvePositionClass(parameters: Pnc002Parameters): Pnc002SolverResult {
     { ...neutralEvidence(totalObjects, "SPECIFIED_OBJECTS_IN_POSITION_CLASS"), specifiedCount, requiredInClass, eligibleClassPositions, ineligibleClassPositions, selectedSpecifiedCount, eligibleAssignmentCount, ineligibleAssignmentCount, ordinaryArrangementCount },
   );
 }
-function solveInverseGap(parameters: Pnc002Parameters): Pnc002SolverResult {
+function solveInverseGap(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   const ceiling = getPnc002VariableRanges().answerCeiling;
   const totalObjects = numberValue(parameters, "totalObjects");
   const target = numberValue(parameters, "target");
@@ -237,7 +237,7 @@ function solveInverseGap(parameters: Pnc002Parameters): Pnc002SolverResult {
   });
 }
 
-export function solvePnc002Cp008(parameters: Pnc002Parameters): Pnc002SolverResult {
+export function solvePnc002Cp008(parameters: Pnc002AnyParameters): Pnc002SolverResult {
   if (parameters.canonicalProblemId !== "PNC-CP-008") throw new Error("CP-008 solver received another canonical problem");
   switch (parameters.solveMode) {
     case "countObjectAtExactPosition": return solveExactPosition(parameters);
@@ -273,7 +273,7 @@ function countByPermutationEnumeration(totalObjects: number, predicate: (permuta
 function positionsIncrease(permutation: number[], items: number[]): boolean {
   return items.every((item, index) => index === 0 || permutation.indexOf(items[index - 1]!) < permutation.indexOf(item));
 }
-function enumerateDirect(parameters: Pnc002Parameters): number {
+function enumerateDirect(parameters: Pnc002AnyParameters): number {
   const totalObjects = numberValue(parameters, "totalObjects");
   switch (parameters.solveMode) {
     case "countObjectAtExactPosition": {
@@ -330,7 +330,7 @@ function enumerateDirect(parameters: Pnc002Parameters): number {
   }
 }
 
-export function verifyPnc002Cp008Independently(parameters: Pnc002Parameters): Pnc002IndependentVerification {
+export function verifyPnc002Cp008Independently(parameters: Pnc002AnyParameters): Pnc002IndependentVerification {
   if (parameters.solveMode !== "recoverPositionGapParameter") {
     return { supported: true, answer: enumerateDirect(parameters), method: "Exhaustive enumeration of distinct linear permutations with position, order, alternation and gap predicates" };
   }
@@ -339,7 +339,7 @@ export function verifyPnc002Cp008Independently(parameters: Pnc002Parameters): Pn
   const searchMaximum = numberValue(parameters, "searchMaximum");
   const matches: number[] = [];
   for (let candidate = searchMinimum; candidate <= searchMaximum; candidate += 1) {
-    const direct: Pnc002Parameters = { ...parameters, solveMode: "countExactGapBetweenPair", values: { ...parameters.values, gapCount: candidate } };
+    const direct: Pnc002AnyParameters = { ...parameters, solveMode: "countExactGapBetweenPair", values: { ...parameters.values, gapCount: candidate } };
     if (enumerateDirect(direct) === target) matches.push(candidate);
   }
   return { supported: matches.length === 1, answer: matches[0] ?? -1, method: "Bounded gap search using exhaustive permutation enumeration for each candidate" };
