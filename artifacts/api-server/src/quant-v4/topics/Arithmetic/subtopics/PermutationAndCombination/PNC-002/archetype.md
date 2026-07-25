@@ -18,16 +18,18 @@
 5. `PNC-CP-011 — Grouping & Distribution`
 6. `PNC-CP-012 — Mixed Advanced Counting Systems`
 
-## Current checkpoint
+## Current reviewed checkpoint
 
 - active CPs: 1;
-- English QLs: `PNC-QL-107` through `PNC-QL-118`;
-- active solve modes: 5;
-- QL-specific natural explanations: 12;
-- deterministic runtime proof: 144 cases, each generated twice;
+- English QLs: `PNC-QL-107` through `PNC-QL-124`;
+- active solve modes: 9;
+- QL-specific natural explanations: 18;
+- difficulty: 1 Easy / 8 Medium / 9 Hard;
+- deterministic runtime proof: 216 cases, each generated twice;
 - independent verification: exhaustive linear-permutation enumeration;
 - formula rendering: delimited LaTeX/MathJax;
+- CP-007 coverage verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - maturity: `RUNTIME_PROOF`;
 - `publiclyPublishable: false`.
 
-QL and solve-mode volumes remain need-based. This checkpoint does not predeclare the final size of CP-007 or PNC-002.
+Saturation means the material CP-007 predicates are represented. It is not freeze, localization, publication or production-integration approval. The next implementation boundary is CP-008.
