@@ -11,12 +11,17 @@ const NAMED_SYMBOLS = new Map<string, string>([
   ["Ptotal", "P_{\\text{total}}"],
   ["lmap", "l_{\\text{map}}"],
   ["bmap", "b_{\\text{map}}"],
+  ["LB", "L B"],
+  ["Lw", "L w"],
+  ["Bw", "B w"],
+  ["kP", "k P"],
   ["lb", "l b"],
   ["bh", "b h"],
+  ["min", "\\min"],
 ]);
 
 const SINGLE_LETTER_SYMBOLS = new Set([
-  "A", "P", "C", "L", "B", "R", "r", "l", "b", "h", "a", "c", "d", "s", "w", "k", "x", "y", "z",
+  "A", "P", "C", "L", "B", "R", "r", "l", "b", "h", "a", "c", "d", "s", "w", "k", "n", "p", "x", "y", "z",
 ]);
 
 function placeholder(index: number) {
@@ -95,7 +100,7 @@ export function toMen001LatexEquation(input: string) {
 
   value = value
     .replace(/\\text\{[^{}]*\}/g, (match) => protect(protectedValues, match))
-    .replace(/\\(?:sqrt|frac|times|div|cdot|pi|theta|max)\b/g, (match) => protect(protectedValues, match));
+    .replace(/\\(?:sqrt|frac|times|div|cdot|pi|theta|max|min)\b/g, (match) => protect(protectedValues, match));
 
   value = protectTextCompounds(value, protectedValues)
     .replace(/cm²/g, () => protect(protectedValues, "\\,\\text{cm}^{2}"))
