@@ -2,7 +2,7 @@ import { endpointDirection } from "../foundation/answer-classifier";
 import { classifyDirection, oppositeDirection, turnLeft, turnRight } from "../foundation/directions";
 import { validateDirectionOptions } from "../foundation/option-validator";
 import { createInitialPathState, solvePath } from "../foundation/path-state";
-import type { Coordinate, Direction, DirectionOption, PathOperation, SolvedPath } from "../foundation/types";
+import type { Coordinate, Direction, DirectionOption, PathOperation, SolvedPath, TurnOperation } from "../foundation/types";
 import { solveOrderedPathIndependent } from "./independent-solver";
 import { buildPathDiagram, type PathDiagramSpec } from "./path-diagram";
 import { PATH_DIRECTION_LABELS, renderCombinedStem, renderEndpointStem } from "./question-language.en";
@@ -205,8 +205,11 @@ function coordinateText(coordinate: Coordinate): string {
   return `(${normalizedCoordinate(coordinate.x)}, ${normalizedCoordinate(coordinate.y)})`;
 }
 
-function turnName(before: Direction, after: Direction, degrees: number): string {
-  return `${PATH_DIRECTION_LABELS[before]} → ${degrees}° turn → ${PATH_DIRECTION_LABELS[after]}`;
+function turnCalculation(before: Direction, after: Direction, turn: TurnOperation): string {
+  const turnLabel = turn.degrees === 180
+    ? "180° about-turn"
+    : `${turn.degrees}° ${turn.sense === "CLOCKWISE" ? "right/clockwise" : "left/anticlockwise"} turn`;
+  return `${PATH_DIRECTION_LABELS[before]} → ${turnLabel} → ${PATH_DIRECTION_LABELS[after]}`;
 }
 
 function vectorInterpretation(vector: Coordinate): string {
@@ -239,7 +242,7 @@ function explanationFor(
         stepNumber: steps.length + 1,
         title: `Turn at point ${beforePoint}`,
         statement: `The turn changes only the facing direction. ${path.person} remains at point ${beforePoint}.`,
-        calculation: turnName(trace.before.facing, trace.after.facing, trace.operation.degrees),
+        calculation: turnCalculation(trace.before.facing, trace.after.facing, trace.operation),
         result: `Coordinate remains ${coordinateText(trace.after.position)}; new facing is ${PATH_DIRECTION_LABELS[trace.after.facing]}.`,
       });
       continue;
@@ -277,7 +280,7 @@ function explanationFor(
     steps.push({
       stepNumber: steps.length + 1,
       title: "Read the final facing separately",
-      statement: `Position and facing are different facts. The last coordinate gives location; the final path state gives facing.`,
+      statement: "Position and facing are different facts. The last coordinate gives location; the final path state gives facing.",
       calculation: `Final facing = ${PATH_DIRECTION_LABELS[path.solved.final.facing]}`,
       result: `${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at point ${finalPointLabel}.`,
     });
@@ -285,8 +288,8 @@ function explanationFor(
 
   const askedRelation = `Point ${subjectLabel} from point ${referenceLabel} = ${PATH_DIRECTION_LABELS[endpoint]}`;
   const conclusion = includeFacing
-    ? `Therefore, point ${finalPointLabel} is ${PATH_DIRECTION_LABELS[endpoint]} of point O, and ${path.person} finally faces ${PATH_DIRECTION_LABELS[path.solved.final.facing]}.`
-    : `Therefore, point ${subjectLabel} is ${PATH_DIRECTION_LABELS[endpoint]} of point ${referenceLabel}.`;
+    ? `Therefore, taking point O as the reference, point ${finalPointLabel} lies to the ${PATH_DIRECTION_LABELS[endpoint]} of O; after reaching ${finalPointLabel}, ${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]}.`
+    : `Therefore, taking point ${referenceLabel} as the reference, point ${subjectLabel} lies to the ${PATH_DIRECTION_LABELS[endpoint]} of point ${referenceLabel}.`;
   const diagram = buildPathDiagram(path.solved, reverseQuery, endpoint, includeFacing);
 
   return {
@@ -338,6 +341,7 @@ export function generateDirCp002Question(qlId: string, seed = 0): GeneratedPathQ
     const options = directionOptions(correct, queryVector, seed * 61 + 43);
     const validation = validateDirectionOptions(options, (value) => value === correct);
     if (!validation.valid) throw new Error(validation.errors.join("; "));
+    const explanation = explanationFor(path, correct, reverseQuery, false);
     return {
       qlId,
       checkpointId: "DIR-CP-002",
@@ -349,13 +353,13 @@ export function generateDirCp002Question(qlId: string, seed = 0): GeneratedPathQ
         person: path.person,
         initialFacing: path.initialFacing,
         operations: path.operations,
-        labelledPoints: explanationFor(path, correct, reverseQuery, false).diagram.points,
+        labelledPoints: explanation.diagram.points,
         queryReference: reverseQuery ? "START_FROM_FINAL" : "FINAL_FROM_START",
       },
       options,
       correctIndex: validation.satisfyingOptionIndexes[0],
       correctAnswer: correct,
-      explanation: explanationFor(path, correct, reverseQuery, false),
+      explanation,
       metadata: { answerDemand: ql.answerDemand, legCount: path.legCount, reverseQuery, solverVerified: true, solveMode: null },
     };
   }
