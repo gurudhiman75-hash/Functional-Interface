@@ -14,20 +14,30 @@ export type TransactionFeeResult =
   | { mode: "NET_TARGET_AND_COMMISSION_TO_GROSS_SP"; grossSellingPrice: Money }
   | { mode: "MIDDLE_TRADER_NET_RESULT"; effectiveCost: Money; netReceipt: Money; direction: "PROFIT" | "LOSS" | "NO_CHANGE"; amount: Money; ratePercent: Rational };
 
-function validatePercent(rate: Rational): void {
-  if (rate.denominator <= 0n || rate.numerator < 0n || rate.numerator >= 100n * rate.denominator) {
-    throw new Error("Percentage must lie from zero up to, but not including, 100.");
+function validateNonNegativeRate(rate: Rational): void {
+  if (rate.denominator <= 0n || rate.numerator < 0n) {
+    throw new Error("Rate must be non-negative with a positive denominator.");
+  }
+}
+
+function validateCommission(rate: Rational): void {
+  validateNonNegativeRate(rate);
+  if (rate.numerator >= 100n * rate.denominator) {
+    throw new Error("Commission must be below 100%.");
   }
 }
 
 function salePrice(base: Money, direction: "PROFIT" | "LOSS", rate: Rational): Money {
-  validatePercent(rate);
+  validateNonNegativeRate(rate);
+  if (direction === "LOSS" && rate.numerator >= 100n * rate.denominator) {
+    throw new Error("Loss rate must be below 100%.");
+  }
   const change = multiplyMoney(base, divideRational(rate, rational(100)));
   return moneyFromPaise(direction === "PROFIT" ? base.paise + change.paise : base.paise - change.paise);
 }
 
 function netReceipt(gross: Money, commissionPercent: Rational) {
-  validatePercent(commissionPercent);
+  validateCommission(commissionPercent);
   const commissionAmount = multiplyMoney(gross, divideRational(commissionPercent, rational(100)));
   return { commissionAmount, netReceipt: moneyFromPaise(gross.paise - commissionAmount.paise) };
 }
@@ -42,7 +52,7 @@ export function solveTransactionFee(request: TransactionFeeRequest): Transaction
     case "GROSS_SP_AND_COMMISSION_TO_NET_RECEIPT":
       return { mode: request.mode, ...netReceipt(request.grossSellingPrice, request.commissionPercent) };
     case "NET_TARGET_AND_COMMISSION_TO_GROSS_SP": {
-      validatePercent(request.commissionPercent);
+      validateCommission(request.commissionPercent);
       const retained = 100n * request.commissionPercent.denominator - request.commissionPercent.numerator;
       return {
         mode: request.mode,
