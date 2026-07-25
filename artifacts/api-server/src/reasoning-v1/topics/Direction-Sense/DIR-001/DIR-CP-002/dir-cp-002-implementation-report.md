@@ -31,32 +31,36 @@ No fixed solve-mode enum is used. Runtime metadata reports `solveMode: null`.
 - chapter-registry discovery for `DIR-QL-004` and `DIR-QL-005`;
 - 200-seed-per-QL exhaustive test.
 
-## Logic-audit results
+## Exact runtime-proof results
 
-A source-equivalent audit of the committed deterministic algorithm covered 400 generated cases:
+GitHub Actions run `30148936525` executed the committed branch and passed:
 
 ```text
-QL count:                    2
-Seeds per QL:                200
-Generated cases:             400
-Endpoint-direction coverage: 8 / 8
-Final-facing coverage:       North, East, South, West
-Query-reference coverage:    forward and reversed
-Difficulty coverage:         Easy, Medium, Hard
-Stem diversity:              200 / 200 for each QL
-Answer positions:            112, 95, 87, 106
-Max/min ratio:               1.287
-Required ratio:              below 1.35
+DIR-001 strict typecheck:     passed
+Foundation proof:             passed
+DIR-CP-001 proof:             passed
+DIR-CP-002 proof:             passed
+QL count:                     2
+Seeds per QL:                 200
+Generated cases:              400
+Endpoint-direction coverage:  8 / 8
+Final-facing coverage:        North, East, South, West
+Query-reference coverage:     forward and reversed
+Difficulty coverage:          Easy, Medium, Hard
+Stem diversity:               200 / 200 for each QL
+Answer positions:             112, 95, 87, 106
+Max/min ratio:                1.287
+Required ratio:               below 1.35
 ```
 
-The audit also verified deterministic reconstruction, non-zero endpoint paths, option uniqueness and independent state agreement in the equivalent runtime model.
+The proof verifies deterministic replay, non-zero endpoint paths, option uniqueness, exact independent coordinate/facing agreement and chapter-wide compile compatibility.
 
 ## Execution honesty
 
 - Tests written: yes.
 - Source-equivalent deterministic logic audit: passed.
-- Exact committed test from a checked-out repository: not executed because the execution sandbox could not resolve `github.com` for the sparse clone.
-- GitHub Actions: pending after draft PR creation.
+- Exact committed tests in GitHub Actions: passed.
+- GitHub Actions workflow: `Validate DIR-001 runtime proof`, run `30148936525`.
 - English human editorial review: not complete.
 - Hindi and Punjabi runtime: not started.
 - Freeze-ready: no.
