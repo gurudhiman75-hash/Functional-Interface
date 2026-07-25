@@ -5,9 +5,10 @@ import {
   AVG_001_CP003_MULTILINGUAL_PILOT,
   getAvg001Cp003LocalizedQlIds,
   runAvg001Cp003LocalizationPilot,
-} from "./foundation/cp003-localization-review-runtime";
+} from "./foundation/cp003-localization-quality-runtime";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 
+const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
 const cpEntries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
 const localizedQlIds = getAvg001Cp003LocalizedQlIds();
 const failures: string[] = [];
@@ -60,6 +61,7 @@ for (const entry of cpEntries) {
       if (!localized.validation.valid || failedChecks.length) fail(`${entry.qlId}:${language}:${seedIndex}: localization validation failed [${failedChecks.join(",")}]`);
       if (localized.traceability.localizationReleaseId !== AVG_001_CP003_MULTILINGUAL_PILOT.releaseId) fail(`${entry.qlId}:${language}:${seedIndex}: missing localization release ID`);
       if (localized.traceability.sourceEnglishReleaseId !== english.traceability.releaseId) fail(`${entry.qlId}:${language}:${seedIndex}: wrong English source release`);
+      if (localized.traceability.cp003ExplanationAuthorship !== CP003_AUTHORSHIP) fail(`${entry.qlId}:${language}:${seedIndex}: context-authored explanation marker missing`);
       if (localized.answer !== english.answer) fail(`${entry.qlId}:${language}:${seedIndex}: answer changed`);
       if (localized.correctIndex !== english.correctIndex) fail(`${entry.qlId}:${language}:${seedIndex}: correct index changed`);
       if (JSON.stringify(localized.options) !== JSON.stringify(english.options)) fail(`${entry.qlId}:${language}:${seedIndex}: options changed`);
@@ -77,9 +79,9 @@ for (const entry of cpEntries) {
       if (!expectedScript.test(localized.stem) || !expectedScript.test(prose)) fail(`${entry.qlId}:${language}:${seedIndex}: expected script missing`);
       if (wrongScript.test(`${localized.stem}\n${prose}`)) fail(`${entry.qlId}:${language}:${seedIndex}: cross-script contamination`);
       if (/\b(average|find|total|member|student|employee|score|runs|years|therefore|so)\b/i.test(prose)) fail(`${entry.qlId}:${language}:${seedIndex}: English prose fallback`);
-      if (localized.explanation.lines.length !== 4) fail(`${entry.qlId}:${language}:${seedIndex}: explanation line count`);
+      if (localized.explanation.lines.length < 4 || localized.explanation.lines.length > 8) fail(`${entry.qlId}:${language}:${seedIndex}: explanation line count`);
       if (!localized.explanation.lines.some((line) => line.includes(localized.answer))) fail(`${entry.qlId}:${language}:${seedIndex}: answer evidence missing`);
-      if (!localized.explanation.lines.some((line) => /×|÷|\+|-/.test(line))) fail(`${entry.qlId}:${language}:${seedIndex}: substituted arithmetic missing`);
+      if (!localized.explanation.lines.some((line) => /×|÷|\\times|\\div|\+|-/.test(line))) fail(`${entry.qlId}:${language}:${seedIndex}: substituted arithmetic missing`);
 
       const yearsElapsed = Number(localized.parameters.values.yearsElapsed ?? 0);
       if (yearsElapsed > 0 && !localized.stem.includes(String(yearsElapsed))) fail(`${entry.qlId}:${language}:${seedIndex}: elapsed years missing`);
@@ -120,6 +122,7 @@ console.log(JSON.stringify({
   releaseId: AVG_001_CP003_MULTILINGUAL_PILOT.releaseId,
   status: AVG_001_CP003_MULTILINGUAL_PILOT.status,
   editorialStatus: AVG_001_CP003_MULTILINGUAL_PILOT.editorialStatus,
+  qualityRuntime: "cp003-localization-quality-runtime",
   qlCount: cpEntries.length,
   modeCounts: Object.fromEntries(Object.keys(expectedModeCounts).map((mode) => [mode, cpEntries.filter((entry) => entry.solveMode === mode).length])),
   languages: AVG_001_CP003_MULTILINGUAL_PILOT.languages,
