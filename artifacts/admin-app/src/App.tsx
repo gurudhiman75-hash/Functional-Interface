@@ -1,5 +1,6 @@
 import './App.css';
 import { lazy, Suspense } from 'react';
+import { MathJaxContext } from 'better-react-mathjax';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import { AdminLayout } from '@/app/layout/AdminLayout';
@@ -14,6 +15,20 @@ import { LiveDashboardPage } from '@/pages/overview/LiveDashboardPage';
 import { TestDetailPage } from '@/pages/tests/TestDetailPage';
 import { TestQAWorkspacePage } from '@/pages/tests/TestQAWorkspacePage';
 import { TestsPage } from '@/pages/tests/TestsPage';
+
+const MATH_JAX_CONFIG = {
+  loader: { load: ['input/tex', 'output/chtml', '[tex]/ams', '[tex]/boldsymbol'] },
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    packages: { '[+]': ['ams', 'boldsymbol'] },
+  },
+  options: {
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'math-only',
+  },
+};
 
 const QuestionStudioPage = lazy(() => import('@/pages/content/QuestionStudioOperationsPage').then((module) => ({ default: module.QuestionStudioOperationsPage })));
 const TaxonomyPage = lazy(() => import('@/pages/content/TaxonomyWorkspacePage').then((module) => ({ default: module.TaxonomyWorkspacePage })));
@@ -63,9 +78,20 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/analytics/*', element: <PendingWorkspacePage /> },
   { path: '/settings/languages', element: <LanguagesPage /> },
   { path: '/settings/roles', element: <RolesPermissionsPage /> },
-  { path: '/settings/audit-logs', element: <AuditLogsPage /> },
+  { path: '/settings/audit-logs', element: <AuditLogsWorkspacePage /> },
   { path: '/settings/*', element: <PendingWorkspacePage /> },
   { path: '*', element: <NotFoundPage /> },
 ]}], { basename: '/admin' });
 
-export default function App() { return <ThemeProvider><Suspense fallback={<RouteFallback />}><RouterProvider router={router} /></Suspense><Toaster /></ThemeProvider>; }
+export default function App() {
+  return (
+    <ThemeProvider>
+      <MathJaxContext version={3} config={MATH_JAX_CONFIG}>
+        <Suspense fallback={<RouteFallback />}>
+          <RouterProvider router={router} />
+        </Suspense>
+        <Toaster />
+      </MathJaxContext>
+    </ThemeProvider>
+  );
+}
