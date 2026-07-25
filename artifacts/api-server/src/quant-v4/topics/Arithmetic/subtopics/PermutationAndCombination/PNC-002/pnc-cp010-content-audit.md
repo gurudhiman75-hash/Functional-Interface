@@ -1,6 +1,6 @@
-# PNC-CP-010 Saturation-Expanded Content Audit
+# PNC-CP-010 Final English Content Audit
 
-## Represented current scope
+## Represented scope
 
 - unrestricted distinct round-table seating;
 - reference-person normalization;
@@ -20,35 +20,57 @@
 - inverse recovery for unrestricted and pair-together counts;
 - rotation-only circular displays;
 - reflection-equivalent distinct necklaces;
-- reflection-equivalent necklaces with a specified adjacent pair.
+- reflection-equivalent necklaces with a specified adjacent pair;
+- unrestricted proper-subset selection followed by rotation-only circular arrangement;
+- unrestricted proper-subset selection followed by rotation-plus-reflection ring arrangement;
+- round-table seating equivalence based on every person's unordered neighbour pair.
 
-## Second-audit admissions
+## Audit admissions
 
-The initial 27-QL checkpoint left two materially distinct exam contracts uncovered:
+The initial 27-QL checkpoint left two materially distinct contracts uncovered:
 
-1. **A larger specified group not all consecutive.** The pair-apart QL did not visibly represent the common group-complement form, although both use the same solver authority. This became `PNC-QL-204` without creating a duplicate solve mode.
+1. **A larger specified group not all consecutive.** The pair-apart QL did not visibly represent the group-complement form. This became `PNC-QL-204` while reusing the same solver authority.
 2. **Exactly one of two pair events.** “At least one” and “neither” do not cover the exclusive event. This became `PNC-QL-205` with a new solve mode and XOR-based independent verifier.
 
-The active checkpoint is now 29 QLs and 22 solve modes. These values were discovered through ownership review and are not predetermined quotas.
+The final source-backed audit then found three further contracts:
+
+3. **Choose `r` of `n`, then arrange circularly with reverse orders different.** This became `PNC-QL-206`.
+4. **Choose `r` of `n` for a reversible ring with reverse orders identical.** This became `PNC-QL-207`.
+5. **Identify round-table seatings by unchanged unordered neighbour sets.** This became `PNC-QL-208`.
+
+The active checkpoint is therefore 32 QLs and 25 solve modes. The counts were discovered through ownership and gap audits rather than fixed in advance.
+
+## Final review evidence
+
+The 32-row generated English review confirms:
+
+- contiguous IDs `PNC-QL-177..208`;
+- all rows valid;
+- exact solver and independent-enumerator agreement;
+- four unique positive options with one correct answer;
+- answer positions represented across all four indices;
+- no exact or normalized stem duplicate groups;
+- no exact or normalized explanation duplicate groups;
+- no unresolved placeholders;
+- no malformed TeX commands, control characters or undelimited formulas;
+- QL-specific misconception traps for QLs 206–208.
 
 ## Deliberately excluded
 
 - repeated colours or repeated bead types requiring Burnside/Pólya analysis;
-- mixed selection followed by circular arrangement;
+- named-member, category, quota or other conditional selection followed by circular arrangement;
 - circular distribution/grouping systems;
+- broader mixed systems whose primary authority is CP-011 or CP-012;
 - linear restrictions already owned by CP-007 or CP-008;
 - ambiguous statements such as “k people between A and B” without a stated direction or arc convention;
 - cosmetic contexts that reuse an existing mathematical fingerprint;
-- fixed labelled-seat questions whose circular rotational normalization disappears and whose primary ownership is ordinary positional arrangement;
-- undirected separation variants that collapse to the existing opposite-seat or directed-gap contracts after the arc convention is made precise.
+- fixed labelled-seat questions whose rotational normalization disappears;
+- undirected separation variants that collapse to existing opposite-seat or directed-gap contracts after the arc convention is made precise.
 
-## Final gap-audit questions
+Pure unrestricted selection of a proper subset followed immediately by circular equivalence is retained in CP-010. It crosses into CP-012 only when the selection layer itself contains substantive conditions.
 
-Generated review and the expanded runtime proof must still confirm that no separate contract is required for:
+## Verdict
 
-- a larger circular block under reflection equivalence;
-- nontrivial multi-event inclusion–exclusion beyond two disjoint pair events;
-- a target-exam pattern combining a fixed circular reference with a genuinely new adjacency predicate;
-- any sourced pattern whose formula, evidence, independent predicate, explanation and distractor semantics are not already represented by the 22 current modes.
+`SATURATED FOR CURRENT ENGLISH OWNERSHIP AT RUNTIME-PROOF MATURITY`
 
-No further QL will be admitted merely for a different noun, table size, block size or wording. CP-010 remains open until the 29-QL generated review and final gap audit are clean.
+No further QL is justified merely by changing nouns, values, table sizes, block sizes or wording. Localization, publication and chapter freeze remain separate stages.
