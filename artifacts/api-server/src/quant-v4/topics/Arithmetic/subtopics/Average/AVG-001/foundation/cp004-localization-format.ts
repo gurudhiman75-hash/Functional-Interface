@@ -22,6 +22,9 @@ export function contextUnit(pkg: Avg001QuestionPackage): Avg001Cp004UnitKind {
   if (pkg.solveMode === "findGroupCountFromCombinedAverage") {
     return avg001Cp004PairLexicon(variant(pkg), "hi").unit;
   }
+  if (pkg.solveMode === "findAverageSpeedForUnequalDistances" || pkg.solveMode === "findAverageSpeedForUnequalTimes") {
+    return "kmh";
+  }
   return entryUnit(pkg);
 }
 
