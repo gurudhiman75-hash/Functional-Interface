@@ -1,6 +1,7 @@
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import { validateMen001Cp005 } from "./validator.cp005";
+import { validateMen001Cp005Exhaustiveness } from "./validator.cp005.exhaustiveness";
 import { validateMen001Cp005Overlap } from "./validator.cp005.overlap";
 import type {
   Men001QuestionPackage,
@@ -108,6 +109,7 @@ export function validateMen001QuestionPackage(
 
   checks.push(...validateMen001Cp005(question));
   checks.push(...validateMen001Cp005Overlap(question));
+  checks.push(...validateMen001Cp005Exhaustiveness(question));
 
   return { valid: checks.every((item) => item.passed), checks };
 }
