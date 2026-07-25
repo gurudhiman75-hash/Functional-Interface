@@ -23,8 +23,20 @@ function separator(outputKind: CodCp001QuestionLogic["outputKind"]): string {
   return outputKind === "SYMBOL" ? " " : "";
 }
 
-function difficulty(logic: CodCp001QuestionLogic, random: SeededRandom): CodDifficulty {
-  return random.pick(logic.allowedDifficulties);
+function deriveDifficulty(logic: CodCp001QuestionLogic, prompt: DirectMappingPrompt): CodDifficulty {
+  let burden = 0;
+  if (prompt.target.length >= 5) burden += 1;
+  if (prompt.evidence.length >= 3) burden += 1;
+  if (prompt.taskKind === "DECODE_TARGET" || prompt.taskKind === "RECOVER_MISSING_CODE") burden += 1;
+  if (prompt.taskKind === "INFER_FROM_OVERLAP") burden += 2;
+  if (prompt.outputKind === "SYMBOL") burden += 1;
+  const desired: CodDifficulty = burden >= 4 ? "HARD" : burden >= 2 ? "MEDIUM" : "EASY";
+  if (logic.allowedDifficulties.includes(desired)) return desired;
+  const order: readonly CodDifficulty[] = ["EASY", "MEDIUM", "HARD"];
+  const desiredIndex = order.indexOf(desired);
+  return [...logic.allowedDifficulties].sort(
+    (left, right) => Math.abs(order.indexOf(left) - desiredIndex) - Math.abs(order.indexOf(right) - desiredIndex),
+  )[0]!;
 }
 
 function pickTargetWord(logic: CodCp001QuestionLogic, random: SeededRandom): string {
@@ -40,7 +52,7 @@ function buildMapping(letters: readonly string[], outputKind: CodCp001QuestionLo
   return mapping;
 }
 
-function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, random: SeededRandom): string[] {
+function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, random: SeededRandom): string[] | null {
   const targetLetters = new Set([...target]);
   const candidates = random.shuffle(COD_CP001_WORD_POOL.filter((word) => word !== target && word.length >= 3 && word.length <= 6));
   const selected: string[] = [];
@@ -56,7 +68,8 @@ function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, rando
       const relevant = [...new Set([...word].filter((letter) => targetLetters.has(letter)))];
       const newCoverage = relevant.filter((letter) => !covered.has(letter)).length;
       const overlap = selected.length === 0 ? 0 : relevant.filter((letter) => covered.has(letter)).length;
-      const score = newCoverage * 10 + overlap * 3 - Math.max(0, word.length - 5);
+      const extraLetters = new Set([...word].filter((letter) => !targetLetters.has(letter))).size;
+      const score = newCoverage * 12 + overlap * 4 - extraLetters * 2 - Math.max(0, word.length - 5);
       if (newCoverage > 0 && score > bestScore) {
         best = word;
         bestScore = score;
@@ -67,21 +80,16 @@ function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, rando
     for (const letter of best) if (targetLetters.has(letter)) covered.add(letter);
   }
 
-  const uncovered = [...targetLetters].filter((letter) => !covered.has(letter));
-  if (uncovered.length > 0) {
-    const bridge = selected.length > 0 ? [...selected[0]!].find((letter) => targetLetters.has(letter)) : undefined;
-    let cluster = `${bridge ?? ""}${uncovered.join("")}`;
-    if (cluster === target) cluster = `${cluster.slice(1)}${cluster[0]}`;
-    if (cluster.length < 2) cluster = `${cluster}${cluster}`;
-    selected.push(cluster);
-    for (const letter of uncovered) covered.add(letter);
-  }
+  if ([...targetLetters].some((letter) => !covered.has(letter))) return null;
 
   while (selected.length < desiredMinimum) {
-    const shared = [...targetLetters][selected.length % targetLetters.size]!;
-    const candidate = candidates.find((word) => !selected.includes(word) && word.includes(shared));
-    if (candidate) selected.push(candidate);
-    else selected.push(`${shared}${[...targetLetters].find((letter) => letter !== shared) ?? shared}`);
+    const candidate = candidates.find((word) => {
+      if (selected.includes(word)) return false;
+      const selectedLetters = new Set(selected.flatMap((item) => [...item]));
+      return [...word].some((letter) => selectedLetters.has(letter));
+    });
+    if (!candidate) return null;
+    selected.push(candidate);
   }
 
   if (logic.evidenceMode === "OVERLAPPING_EXAMPLES") {
@@ -90,27 +98,54 @@ function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, rando
       return index > 0 && [...word].some((letter) => previous.has(letter));
     });
     if (!hasOverlap) {
-      const shared = [...targetLetters][0]!;
-      const other = [...targetLetters][1] ?? shared;
-      selected.push(`${shared}${other}`);
+      if (selected.length >= desiredMaximum) return null;
+      const selectedLetters = new Set(selected.flatMap((item) => [...item]));
+      const bridge = candidates.find((word) => !selected.includes(word) && [...word].some((letter) => selectedLetters.has(letter)));
+      if (!bridge) return null;
+      selected.push(bridge);
     }
   }
 
   return selected;
 }
 
-function buildStem(prompt: DirectMappingPrompt): string {
+function buildStem(prompt: DirectMappingPrompt, styleIndex: number): string {
   const examples = prompt.evidence.map((pair) => `${pair.source} → ${pair.code}`).join(", ");
+  const style = styleIndex % 4;
   if (prompt.taskKind === "DECODE_TARGET") {
-    return `In a certain code, ${examples}. Using the same direct substitution, which word is represented by ${prompt.encodedTarget}?`;
+    const variants = [
+      `In a certain code, ${examples}. Using the same direct substitution, which word is represented by ${prompt.encodedTarget}?`,
+      `The examples ${examples} follow one fixed letter-to-code map. Decode ${prompt.encodedTarget}.`,
+      `Observe ${examples}. What original word produces the code ${prompt.encodedTarget} under this same mapping?`,
+      `Using the substitution established by ${examples}, identify the word coded as ${prompt.encodedTarget}.`,
+    ];
+    return variants[style]!;
   }
   if (prompt.taskKind === "RECOVER_MISSING_CODE") {
-    return `The same fixed substitution is used throughout the table. Which code should replace the blank for ${prompt.missingSource}?`;
+    const variants = [
+      `The coded examples and mapping table use the same fixed substitution. Which code should replace the blank for ${prompt.missingSource}?`,
+      `One entry for ${prompt.missingSource} is missing from the table. Use the accompanying coded examples to find it.`,
+      `Complete the direct-substitution table: what is the code of ${prompt.missingSource}?`,
+      `The same letter map applies to the examples and table. Determine the missing code beside ${prompt.missingSource}.`,
+    ];
+    return variants[style]!;
   }
   if (prompt.taskKind === "INFER_FROM_OVERLAP") {
-    return `Study the overlapping coded examples ${examples}. If the same letter always has the same code, how will ${prompt.target} be written?`;
+    const variants = [
+      `Study the overlapping coded examples ${examples}. If the same letter always has the same code, how will ${prompt.target} be written?`,
+      `The examples ${examples} share letters and use one consistent substitution. Find the code for ${prompt.target}.`,
+      `Infer the fixed letter map from ${examples}, then encode ${prompt.target}.`,
+      `Use the common letters in ${examples} to recover the substitution and write the code of ${prompt.target}.`,
+    ];
+    return variants[style]!;
   }
-  return `In a certain code, ${examples}. Using the same direct substitution, how will ${prompt.target} be written?`;
+  const variants = [
+    `In a certain code, ${examples}. Using the same direct substitution, how will ${prompt.target} be written?`,
+    `The coding examples are ${examples}. Apply the identical letter map to ${prompt.target}.`,
+    `Each letter keeps the substitution shown in ${examples}. What is the code for ${prompt.target}?`,
+    `Following the fixed mapping illustrated by ${examples}, encode ${prompt.target}.`,
+  ];
+  return variants[style]!;
 }
 
 function mappingFingerprint(mapping: DirectMap): string {
@@ -121,6 +156,7 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
   const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp001-v1`);
   const target = pickTargetWord(logic, random);
   const evidenceWords = chooseEvidenceWords(target, logic, random);
+  if (!evidenceWords) return null;
   const allLetters = [...new Set([...target, ...evidenceWords.join("")])];
   if (allLetters.length > tokenPool(logic.outputKind).length) return null;
   const mapping = buildMapping(allLetters, logic.outputKind, random);
@@ -159,6 +195,7 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
   validateOptions(options);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const recovered = mappingFromEvidence(evidence, sep);
+  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-style`).int(0, 3);
   const question: GeneratedCodQuestion = {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -166,14 +203,14 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
     ruleId: logic.ruleId,
     seed,
     locale: "en-IN",
-    difficulty: difficulty(logic, random),
+    difficulty: deriveDifficulty(logic, prompt),
     renderer: logic.renderer,
     answerType: logic.answerType,
-    stem: buildStem(prompt),
+    stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp001Explanation(prompt, recovered, answer),
+    explanation: buildCodCp001Explanation(prompt, recovered, answer, styleIndex),
     metadata: {
       runtimeVersion: "cod-001-cp001-v1",
       publiclyPublishable: false,
