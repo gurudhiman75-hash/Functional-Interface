@@ -6,6 +6,10 @@ import {
 import {
   getAllMen001NaturalExplanationProfileIds,
 } from "./natural-explanation-authorship.all";
+import {
+  getMen001Cp006FormulaLine,
+  getMen001Cp006FormulaLineIds,
+} from "./natural-explanation-formula.cp006";
 import { runMen001Pipeline } from "./pipeline";
 import type { Men001ActiveCanonicalProblemId } from "./types";
 
@@ -26,6 +30,16 @@ assert.deepEqual(
   profileIds,
   qlIds,
   "Every active QL must have exactly one natural explanation profile.",
+);
+
+const cp006QlIds = getMen001QuestionEntries()
+  .filter((entry) => entry.cpId === "MEN-CP-006")
+  .map((entry) => entry.qlId)
+  .sort();
+assert.deepEqual(
+  getMen001Cp006FormulaLineIds().sort(),
+  cp006QlIds,
+  "Every active CP-006 QL must have exactly one explicit formula line.",
 );
 
 const signatureOwner = new Map<string, string>();
@@ -66,6 +80,18 @@ for (const entry of getMen001QuestionEntries()) {
       ),
       `${entry.qlId} lost its worked arithmetic.`,
     );
+
+    if (entry.cpId === "MEN-CP-006") {
+      assert.equal(
+        question.explanation.lines[1],
+        getMen001Cp006FormulaLine(entry.qlId),
+        `${entry.qlId} must show its governing formula immediately after the contextual opening.`,
+      );
+      assert.ok(
+        question.explanation.lines[1]!.includes("="),
+        `${entry.qlId} formula line must contain an explicit mathematical relation.`,
+      );
+    }
 
     if (sample === 0) {
       const signature = proseSignature(question.explanation.lines);
