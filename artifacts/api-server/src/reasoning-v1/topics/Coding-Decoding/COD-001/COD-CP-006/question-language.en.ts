@@ -47,9 +47,9 @@ function sixQlBlock(start: number, ruleId: CodCp006RuleId): CodCp006QuestionLogi
     logic(start, ruleId, "ENCODE_TARGET"),
     logic(start + 1, ruleId, "CHOOSE_MATCHING_CODE"),
     logic(start + 2, ruleId, "DECODE_TARGET"),
-    logic(start + 3, ruleId, "INFER_AND_ENCODE", { examples: [3, 4], requireMixedLengths: true }),
-    logic(start + 4, ruleId, "RECOVER_MISSING_TOKEN", { examples: [3, 4] }),
-    logic(start + 5, ruleId, "ENCODE_TARGET", { examples: [3, 4], targetLength: [6, 6], requireWrap: true }),
+    logic(start + 3, ruleId, "INFER_AND_ENCODE", { examples: [3, 3], requireMixedLengths: true }),
+    logic(start + 4, ruleId, "RECOVER_MISSING_TOKEN", { examples: [3, 3] }),
+    logic(start + 5, ruleId, "ENCODE_TARGET", { examples: [3, 3], targetLength: [6, 6], requireWrap: true }),
   ];
 }
 
@@ -57,8 +57,8 @@ function fourQlBlock(start: number, ruleId: CodCp006RuleId): CodCp006QuestionLog
   return [
     logic(start, ruleId, "ENCODE_TARGET"),
     logic(start + 1, ruleId, "DECODE_TARGET"),
-    logic(start + 2, ruleId, "INFER_AND_ENCODE", { examples: [3, 4], requireMixedLengths: true }),
-    logic(start + 3, ruleId, "RECOVER_MISSING_TOKEN", { examples: [3, 4] }),
+    logic(start + 2, ruleId, "INFER_AND_ENCODE", { examples: [3, 3], requireMixedLengths: true }),
+    logic(start + 3, ruleId, "RECOVER_MISSING_TOKEN", { examples: [3, 3] }),
   ];
 }
 
@@ -68,10 +68,10 @@ export const COD_CP006_QUESTION_LOGICS: readonly CodCp006QuestionLogic[] = [
   ...sixQlBlock(149, "HALF_SWAP_THEN_ODD_EVEN_SHIFT"),
   logic(155, "ROTATE_THEN_CLASS_SHIFT", "ENCODE_TARGET"),
   logic(156, "ROTATE_THEN_CLASS_SHIFT", "CHOOSE_MATCHING_CODE"),
-  logic(157, "ROTATE_THEN_CLASS_SHIFT", "RECOVER_MISSING_TOKEN", { examples: [3, 4] }),
-  logic(158, "ROTATE_THEN_CLASS_SHIFT", "INFER_AND_ENCODE", { examples: [3, 4], requireMixedLengths: true }),
-  logic(159, "ROTATE_THEN_CLASS_SHIFT", "ENCODE_TARGET", { examples: [3, 4], requireMixedLengths: true }),
-  logic(160, "ROTATE_THEN_CLASS_SHIFT", "ENCODE_TARGET", { examples: [3, 4], targetLength: [6, 6], requireWrap: true }),
+  logic(157, "ROTATE_THEN_CLASS_SHIFT", "RECOVER_MISSING_TOKEN", { examples: [3, 3] }),
+  logic(158, "ROTATE_THEN_CLASS_SHIFT", "INFER_AND_ENCODE", { examples: [3, 3], requireMixedLengths: true }),
+  logic(159, "ROTATE_THEN_CLASS_SHIFT", "ENCODE_TARGET", { examples: [3, 3], requireMixedLengths: true }),
+  logic(160, "ROTATE_THEN_CLASS_SHIFT", "ENCODE_TARGET", { examples: [3, 3], targetLength: [6, 6], requireWrap: true }),
   ...fourQlBlock(161, "OPPOSITE_MAP_WITH_POSITION_PERMUTATION"),
   ...fourQlBlock(165, "TRANSFORM_THEN_RANK_SEQUENCE"),
 ];
