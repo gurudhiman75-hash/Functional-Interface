@@ -1,15 +1,16 @@
-# PNC-CP-010 Saturation-Expanded Implementation Report
+# PNC-CP-010 Final English Runtime-Proof Implementation Report
 
 ## Scope delivered
 
 - canonical problem: `PNC-CP-010 — Circular Arrangements & Rotational Symmetry`;
 - branch base: merged CP-009 state;
-- immutable QL range: `PNC-QL-177` through `PNC-QL-205`;
-- active QLs: 29;
-- need-based solve modes: 22;
-- observed difficulty: 3 Easy / 13 Medium / 13 Hard;
+- immutable QL range: `PNC-QL-177` through `PNC-QL-208`;
+- active QLs: 32;
+- need-based solve modes: 25;
+- observed difficulty: 3 Easy / 15 Medium / 14 Hard;
 - English runtime only;
 - maturity: `RUNTIME_PROOF`;
+- verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - `publiclyPublishable: false`.
 
 ## Runtime architecture
@@ -17,49 +18,57 @@
 The checkpoint contains CP-specific human-owned language, registry, range, constraint and explanation libraries plus:
 
 - deterministic parameter generation;
-- exact circular and dihedral solvers;
+- exact factorial, combination, circular and dihedral solvers;
 - solver-owned evidence;
 - QL-specific natural explanations;
 - misconception-oriented four-option generation;
-- independent circular enumeration;
+- independent circular and subset enumeration;
 - CP-specific validation and coverage audit;
-- deterministic review export.
+- deterministic JSON and CSV review export.
 
-## Saturation expansion
+## Need-based expansion history
 
-The initial checkpoint contained 27 QLs (`PNC-QL-177..203`) and 21 solve modes. A second ownership audit identified two meaningful gaps rather than inflating the chapter with cosmetic variants:
+The initial checkpoint contained 27 QLs (`PNC-QL-177..203`) and 21 solve modes.
+
+The second ownership audit admitted:
 
 1. a larger specified circular group must not all occupy consecutive seats — `PNC-QL-204`;
 2. exactly one of two disjoint specified pairs must sit together — `PNC-QL-205`.
 
-The first reuses the existing circular-block-complement authority because its solver, evidence and validator remain the same. The second adds an exclusive pair-event contract with the exact formula `2 × (one-pair count − both-pairs count)` and an independently enumerated XOR adjacency predicate.
+The final source-backed audit admitted:
+
+3. choose `r` of `n` distinct objects and arrange the chosen objects circularly, identifying rotations but not reflections — `PNC-QL-206`;
+4. choose `r` of `n` distinct objects for a reversible ring, identifying rotations and reflections — `PNC-QL-207`;
+5. round-table arrangements identified by every person's unordered neighbour pair — `PNC-QL-208`.
+
+QL-204 reuses the circular-block-complement authority because its solver, evidence and validator are unchanged. QLs 205–208 add distinct contracts because their event or equivalence relation changes the independent predicate, explanation and misconception model.
 
 ## Mathematical boundaries
 
-Round-table rotation, one-sided rotation-only ornament counting and reflection-equivalent necklace counting have separate solve modes and evidence. Reflection division is never silently applied to table seating.
+Round-table rotation, one-sided rotation-only displays, reflection-equivalent rings and neighbour-set equivalence remain separate modes even when their formulas share factorial divisors.
 
-Circular restrictions include block compression, complements, inclusion–exclusion, exclusive pair events, directed clockwise spacing, relative order, alternation, gap placement and bounded inverse recovery.
+Pure unrestricted subset selection followed directly by a circular equivalence rule belongs to CP-010. Named-member, category, quota or other conditional selection followed by circular arrangement remains CP-012. Repeated-colour systems requiring Burnside/Pólya analysis also remain outside this checkpoint.
 
-Repeated-colour necklaces requiring Burnside/Pólya analysis remain outside CP-010. Grouping/distribution remains CP-011, while mixed selection-plus-circular systems remain CP-012.
+## Final proof contract
 
-## Current proof contract
+The bundled proof requires:
 
-The bundled proof now requires:
-
-- 29 contiguous QLs;
-- 22 solve modes;
-- 3 Easy / 13 Medium / 13 Hard;
-- 232 deterministic runtime cases (`29 × 8`);
+- 32 contiguous QLs;
+- 25 solve modes;
+- 3 Easy / 15 Medium / 14 Hard;
+- 256 deterministic runtime cases (`32 × 8`);
 - every case generated twice;
-- independent enumeration agreement;
-- four positive unique options;
-- exact answer-index agreement;
+- exact production-solver and independent-enumerator agreement;
+- four positive unique options with exact correct-index agreement;
+- QL-specific misconception traps for the final source-backed modes;
 - unresolved-placeholder rejection;
-- delimited LaTeX/MathJax calculations;
-- direct solver contracts for QLs 204 and 205;
-- review JSON and CSV export containing 29 rows.
+- escaped, paired and delimited LaTeX/MathJax calculations;
+- direct evidence contracts for QLs 204 through 208;
+- review JSON and CSV export containing 32 rows.
 
-These values are regression snapshots discovered from current ownership coverage, not fixed future quotas.
+The final review export has contiguous IDs `PNC-QL-177..208`, all 32 rows valid, no normalized stem or explanation duplicate groups, clean TeX, and answer positions distributed across all four indices.
+
+These values are discovered regression snapshots, not fixed future quotas.
 
 ## Release safety
 
@@ -68,4 +77,4 @@ These values are regression snapshots discovered from current ownership coverage
 - no admin discovery;
 - no public-test routing;
 - Hindi and Punjabi not started;
-- final saturation verdict withheld until the expanded proof, generated review and final gap audit pass.
+- English saturation does not constitute publication or chapter freeze.
