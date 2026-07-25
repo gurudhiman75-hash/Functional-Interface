@@ -1,0 +1,58 @@
+name: Validate PNC-002 CP-007 runtime proof
+
+on:
+  push:
+    branches:
+      - feat/pnc-cp007-block-restrictions-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp007-runtime-proof.yml
+  pull_request:
+    branches: [New-main]
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-cp007-runtime-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck package
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --resolveJsonModule --allowSyntheticDefaultImports --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
+      - name: Bundle proof
+        continue-on-error: true
+        run: |
+          set +e
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pnc-002-proof.mjs > pnc-002-bundle.log 2>&1
+          echo "$?" > pnc-002-bundle-exit.txt
+          exit 0
+      - name: Publish bundle diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-bundle-diagnostics
+          path: |
+            pnc-002-bundle.log
+            pnc-002-bundle-exit.txt
+          if-no-files-found: error
+          retention-days: 3
+      - name: Enforce bundle result
+        run: test "$(cat pnc-002-bundle-exit.txt)" = "0"
+      - name: Run proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-002-proof.mjs
