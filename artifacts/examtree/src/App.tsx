@@ -75,6 +75,7 @@ const queryClient = new QueryClient();
 function ProtectedRoute({ component: Component }: { component: React.ComponentType }) { const user = getUser(); const [location] = useLocation(); if (!user) return <Redirect to={`/login/student?next=${encodeURIComponent(location)}`} />; return <Component />; }
 function AnalyticsUnavailable() { return <UnavailableFeature title="Performance analytics is being rebuilt" description="Server-backed rankings, percentiles, weak-area analysis, and cross-device progress will appear here after the canonical analytics APIs are complete." />; }
 function CommerceUnavailable() { return <UnavailableFeature title="Packages and payments are not live yet" description="Canonical packages, Razorpay verification, orders, coupons, and entitlements are still being implemented. Live tests remain available through the Tests section." />; }
+function LoginRecoveryShortcut({ location }: { location: string }) { if (location !== '/login' && !location.startsWith('/login/student')) return null; return <a href="/account-recovery" className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-full border bg-background px-4 py-2 text-sm font-medium text-primary shadow-lg hover:bg-muted">Can’t access your account?</a>; }
 
 function Router() {
   const [location] = useLocation();
@@ -117,7 +118,7 @@ function Router() {
     <Route path="/admin" component={() => <AdminRedirect />} />
     <Route path="/admin/generator" component={() => <AdminRedirect to="/admin/content/questions/generate" />} />
     <Route component={() => renderRoute(NotFound)} />
-  </Switch></div></Suspense>;
+  </Switch><LoginRecoveryShortcut location={location} /></div></Suspense>;
 }
 function RouteSkeleton() { return <div className="examtree-shell min-h-screen bg-background"><div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8"><div className="space-y-5"><div className="skeleton-shimmer h-12 w-48 rounded-md" /><div className="grid gap-4 md:grid-cols-3"><div className="skeleton-shimmer h-40 rounded-md" /><div className="skeleton-shimmer h-40 rounded-md" /><div className="skeleton-shimmer h-40 rounded-md" /></div><div className="skeleton-shimmer h-72 rounded-md" /></div></div></div>; }
 function App() { useEffect(() => { let unsubscribe = () => {}; try { unsubscribe = syncAuthSession(); } catch (error) { console.warn("Auth sync failed, continuing without auth:", error); } return () => unsubscribe(); }, []); return <AppErrorBoundary><MathJaxContext version={3} config={MATH_JAX_CONFIG}><QueryClientProvider client={queryClient}><ExamCatalogProvider><TooltipProvider><WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}><Router /></WouterRouter><Toaster /></TooltipProvider></ExamCatalogProvider></QueryClientProvider></MathJaxContext></AppErrorBoundary>; }
