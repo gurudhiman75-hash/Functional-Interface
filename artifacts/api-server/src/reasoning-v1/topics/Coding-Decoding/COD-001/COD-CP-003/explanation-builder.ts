@@ -85,10 +85,10 @@ export function buildCodCp003Explanation(input: {
   }
 
   const openings = [
-    "The given pairs show that",
     "The common coding rule is:",
+    "The letter relation is:",
+    "All the examples use this rule:",
     "Comparing corresponding letters gives this rule:",
-    "The same alphabet relation is used in every example:",
   ] as const;
 
   return {
