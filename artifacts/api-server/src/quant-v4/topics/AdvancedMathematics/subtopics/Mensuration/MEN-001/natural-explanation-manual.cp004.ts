@@ -63,21 +63,25 @@ export function writeMen001Cp004Working(
     case "MEN-001-QL-320":
       return [`The border occupies ${v("area")} cm², while one tile covers ${v("tileArea")} cm². Thus ${v("area")} ÷ ${v("tileArea")} = ${v("tileCount")} tiles fit the border exactly.`];
     case "MEN-001-QL-321":
-      return [`The floor covers ${v("floorArea")} m² and the mat covers ${v("coveredArea")} m². The visible part is ${v("floorArea")} − ${v("coveredArea")} = ${v("area")} m².`];
+      return [`The floor covers ${v("outerArea")} m² and the mat covers ${v("innerArea")} m². The visible part is ${v("outerArea")} − ${v("innerArea")} = ${v("area")} m².`];
     case "MEN-001-QL-322":
       return [`The wall has area ${v("outerArea")} m² and the door removes ${v("innerArea")} m², leaving ${v("area")} m² to paint. At ₹${v("ratePerSquareMetre")} per square metre, the charge is ₹${v("cost")}.`];
     case "MEN-001-QL-323":
       return [`The outside path covers ${v("area")} m². Since one paving tile covers ${v("tileArea")} m², the path takes ${v("area")} ÷ ${v("tileArea")} = ${v("tileCount")} tiles.`];
     case "MEN-001-QL-324":
-      return [`The field perimeter is ${v("perimeter")} m. Three rounds use ${v("wireLength")} m in all, and at ₹${v("ratePerMetre")} per metre the cost is ₹${v("cost")}.`];
+      return [`The field perimeter is ${v("perimeter")} m. Across ${v("rounds")} rounds, the fence length is ${v("wireLength")} m, and at ₹${v("ratePerMetre")} per metre the cost is ₹${v("cost")}.`];
     case "MEN-001-QL-325":
       return [`If the width is w, the outer dimensions are (${v("innerLength")} + 2w) and (${v("innerBreadth")} + 2w). Setting their added area equal to ${v("area")} m² and solving gives w = ${v("pathWidth")} m.`];
     case "MEN-001-QL-326":
       return [`An inside width w leaves dimensions (${v("outerLength")} − 2w) by (${v("outerBreadth")} − 2w). The given border area leads to the positive solution w = ${v("pathWidth")} m.`];
-    case "MEN-001-QL-327":
-      return [`The annular area gives R² = ${v("innerRadius")}² + ${v("area")} ÷ (22/7) = ${v("outerRadiusSquare")}. Hence R = ${v("outerRadius")} m and the path width is ${v("outerRadius")} − ${v("innerRadius")} = ${v("pathWidth")} m.`];
-    case "MEN-001-QL-328":
-      return [`The remaining inner radius satisfies r² = ${v("outerRadius")}² − ${v("area")} ÷ (22/7) = ${v("innerRadiusSquare")}. Thus r = ${v("innerRadius")} m, leaving a path width of ${v("pathWidth")} m.`];
+    case "MEN-001-QL-327": {
+      const outerRadiusSquare = value(parameters, solver, "outerRadius") ** 2;
+      return [`The annular area gives R² = ${v("innerRadius")}² + ${v("radiusSquareDifference")} = ${format(outerRadiusSquare)}. Hence R = ${v("outerRadius")} m and the path width is ${v("outerRadius")} − ${v("innerRadius")} = ${v("pathWidth")} m.`];
+    }
+    case "MEN-001-QL-328": {
+      const innerRadiusSquare = value(parameters, solver, "innerRadius") ** 2;
+      return [`The remaining inner radius satisfies r² = ${v("outerRadius")}² − ${v("radiusSquareDifference")} = ${format(innerRadiusSquare)}. Thus r = ${v("innerRadius")} m, leaving a path width of ${v("pathWidth")} m.`];
+    }
     case "MEN-001-QL-329":
       return [`The two road strips cover ${v("roadAreaA")} m² and ${v("roadAreaB")} m². Their ${v("overlapArea")} m² crossing was counted twice, so the actual occupied area is ${v("roadAreaA")} + ${v("roadAreaB")} − ${v("overlapArea")} = ${v("roadArea")} m².`];
     case "MEN-001-QL-330":
