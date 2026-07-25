@@ -1,6 +1,6 @@
 import { buildMen001ExplanationIllustration } from "./explanation-illustration.all";
 import { getMen001QuestionEntry } from "./library";
-import { authorMen001ExplanationLines } from "./natural-explanation-authorship";
+import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import type {
   Men001Explanation,
@@ -17,7 +17,7 @@ export function renderMen001Explanation(
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
   const definition = getMen001SolveModeDefinition(parameters.solveMode);
   const illustration = buildMen001ExplanationIllustration(parameters, solver);
-  const lines = authorMen001ExplanationLines(
+  const lines = authorFinalMen001ExplanationLines(
     definition.explain(parameters, solver),
     parameters,
     solver,
