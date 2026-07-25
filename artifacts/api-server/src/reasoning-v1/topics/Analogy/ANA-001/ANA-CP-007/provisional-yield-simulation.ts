@@ -51,7 +51,6 @@ function eligibleForContext(
       return entry.word.length >= 5 && output.length >= 2 &&
         output !== removeVowels(entry.word) && output !== removeConsonants(entry.word);
     }
-    case "WORD_ALPHABET_POSITION_SEQUENCE":
     case "WORD_ALPHABET_POSITION_SUM":
       return entry.word.length >= 4 && entry.word.length <= 8;
     case "WORD_LENGTH_RULE":
