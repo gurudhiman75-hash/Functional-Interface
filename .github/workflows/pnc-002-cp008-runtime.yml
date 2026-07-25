@@ -80,7 +80,12 @@ jobs:
           --outfile=dist/quant-v4/pnc-002-cp008-proof.mjs
       - name: Run CP-008 proof and generate review export
         working-directory: artifacts/api-server
-        run: node dist/quant-v4/pnc-002-cp008-proof.mjs
+        shell: bash
+        run: |
+          set +e
+          node dist/quant-v4/pnc-002-cp008-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-cp008-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
       - name: Publish CP-008 review files
         if: always()
         uses: actions/upload-artifact@v4
