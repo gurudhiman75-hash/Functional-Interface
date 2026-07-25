@@ -32,6 +32,8 @@
     "PNL-QL-065":{"template":"तालिका में ₹{markedPrice} अंकित मूल्य वाली वस्तु के प्रस्ताव दिए हैं: {offerTable}। प्रस्ताव {selectedOffer} का विक्रय मूल्य ज्ञात कीजिए।","difficulty":"Hard","representation":"TABLE"},
     "PNL-QL-066":{"template":"एक विक्रेता वस्तु ₹{costPrice} में खरीदता है, {markupPercent}% अधिक अंकित करता है और {discountPercent}% छूट देता है। लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard","representation":"CASELET"},
     "PNL-QL-067":{"template":"{firstDiscountPercent}% और {secondDiscountPercent}% क्रमिक छूट दी गई। समतुल्य छूट के बारे में सही कथन चुनिए।","difficulty":"Medium","representation":"STATEMENT"},
-    "PNL-QL-068":{"template":"अंकित मूल्य {markedPriceExpression} और विक्रय मूल्य {sellingPriceExpression} है। छूट प्रतिशत ज्ञात कीजिए।","difficulty":"Hard","representation":"ALGEBRAIC"}
-  },"entryCount":32
+    "PNL-QL-068":{"template":"अंकित मूल्य {markedPriceExpression} और विक्रय मूल्य {sellingPriceExpression} है। छूट प्रतिशत ज्ञात कीजिए।","difficulty":"Hard","representation":"ALGEBRAIC"},
+    "PNL-QL-069":{"template":"₹{markedPrice} अंकित मूल्य वाली वस्तु पर {discountPercent}% छूट और ₹{couponAmount} का कूपन उपलब्ध है। छूट-फिर-कूपन और कूपन-फिर-छूट की तुलना कर बेहतर क्रम और मूल्य अंतर ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-070":{"template":"लक्षित लाभ के लिए आवश्यक छूट ज्ञात करने हेतु कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए। तय कीजिए कि कौन-सा कथन पर्याप्त है।","difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
+  },"entryCount":34
 }
