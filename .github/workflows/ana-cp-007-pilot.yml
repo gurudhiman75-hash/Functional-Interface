@@ -4,13 +4,13 @@ name: Validate ANA-CP-007 pilot foundation
 on:
   push:
     branches:
-      - feat/reasoning-ana-001-cp007-pilot-foundation
+      - feat/reasoning-ana-001-cp007-pilot-refresh
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
       - .github/workflows/ana-cp-007-pilot.yml
   pull_request:
     branches:
-      - feat/reasoning-ana-001-cp007-design
+      - New-main
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
