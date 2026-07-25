@@ -5,6 +5,7 @@ import questionLanguageCp008Saturation from "../question-language.cp008-saturati
 import questionLanguageCp009 from "../question-language.cp009.en.json";
 import questionLanguageCp009Saturation from "../question-language.cp009-saturation.en.json";
 import questionLanguageCp010 from "../question-language.cp010.en.json";
+import questionLanguageCp010Editorial from "../question-language.cp010-editorial.en.json";
 import questionLanguageCp010Saturation from "../question-language.cp010-saturation.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistrySaturation from "../task-registry.cp007-saturation.library.json";
@@ -62,6 +63,7 @@ type RegistryOverride = Partial<Pick<
   "difficulty" | "explanationId" | "requiredVariables" | "scenarioFamily" | "constraintProfile" | "distractorProfile" | "solveMode" | "taskKind"
 >>;
 
+const questionLanguageOverrides = questionLanguageCp010Editorial.entries as Record<string, { template: string }>;
 const qlEntries = [
   ...questionLanguageBase.entries,
   ...questionLanguageSaturation.entries,
@@ -71,7 +73,7 @@ const qlEntries = [
   ...questionLanguageCp009Saturation.entries,
   ...questionLanguageCp010.entries,
   ...questionLanguageCp010Saturation.entries,
-] as Pnc002QuestionLanguageEntry[];
+].map((entry) => ({ ...entry, ...(questionLanguageOverrides[entry.qlId] ?? {}) })) as Pnc002QuestionLanguageEntry[];
 const registryGroups = [
   ...taskRegistryBase.groups,
   ...taskRegistrySaturation.groups,
@@ -157,6 +159,9 @@ for (const qlId of registryByQl.keys()) {
 }
 for (const qlId of Object.keys(registryOverrides)) {
   if (!registryByQl.has(qlId)) throw new Error(`PNC-002 registry override ${qlId} has no group ownership`);
+}
+for (const qlId of Object.keys(questionLanguageOverrides)) {
+  if (!qlIds.includes(qlId)) throw new Error(`PNC-002 language override ${qlId} has no question ownership`);
 }
 const explanationIds = Object.keys(explanations).sort();
 if (JSON.stringify(explanationIds) !== JSON.stringify([...qlIds].sort())) {
