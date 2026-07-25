@@ -5,9 +5,13 @@ import {
 } from "./library";
 import {
   countBlockWithExternalPairApartExact,
+  countBlockWithOutsiderNotAdjacentExact,
   countMultipleBlocksTogetherExact,
+  countNotAllSpecifiedBlocksTogetherExact,
+  countOneBlockTogetherOtherNotTogetherExact,
   countSingleBlockNotTogetherExact,
   countSingleBlockTogetherExact,
+  countTwoBlocksTogetherNotAdjacentExact,
 } from "./solver";
 import {
   factorialExact,
@@ -24,27 +28,18 @@ function check(name: string, passed: boolean, message: string): Pnc002Validation
 }
 
 const DELIMITED_MATH = /\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$[^$\n]+?\$/g;
-
-function stripDelimitedMath(value: string): string {
-  return value.replace(DELIMITED_MATH, " ");
-}
-
-function countToken(value: string, token: string): number {
-  return value.split(token).length - 1;
-}
-
+function stripDelimitedMath(value: string): string { return value.replace(DELIMITED_MATH, " "); }
+function countToken(value: string, token: string): number { return value.split(token).length - 1; }
 function latexBalanced(value: string): boolean {
   return countToken(value, "\\(") === countToken(value, "\\)")
     && countToken(value, "\\[") === countToken(value, "\\]");
 }
-
 function visibleFormulaIsFormatted(value: string): boolean {
   const plain = stripDelimitedMath(value);
   return !/\b\d+!/.test(plain)
     && !/[×÷≤≥]/.test(plain)
     && !/\b[nk]\s*=/.test(plain);
 }
-
 function valuesAreValid(pkg: Pnc002QuestionPackage): boolean {
   return Object.values(pkg.parameters.values).every((value) =>
     typeof value === "number"
@@ -102,6 +97,33 @@ export function validatePnc002QuestionPackage(pkg: Pnc002QuestionPackage): Pnc00
       checks.push(check("external-pair-domain", evidence.blockSizes[0]! + 2 <= evidence.totalObjects, "External pair must be disjoint from required block"));
       checks.push(check("unit-complement", (evidence.validUnitArrangementCount ?? -1) + (evidence.adjacentExternalPairCount ?? -1) === evidence.externalArrangementCount, "Valid and adjacent unit arrangements must partition the unit space"));
       break;
+    case "countTwoBlocksTogetherNotAdjacent":
+      expectedAnswer = countTwoBlocksTogetherNotAdjacentExact(evidence.totalObjects, evidence.blockSizes, ranges.answerCeiling);
+      checks.push(check("separated-block-operation", evidence.operation === "TWO_BLOCKS_TOGETHER_NOT_ADJACENT", "Separated blocks must expose their own operation"));
+      checks.push(check("exactly-two-blocks", evidence.blockSizes.length === 2, "Separated-block mode requires exactly two blocks"));
+      checks.push(check("separated-unit-partition", (evidence.validUnitArrangementCount ?? -1) + (evidence.forbiddenAdjacentUnitCount ?? -1) === evidence.externalArrangementCount, "Separated and touching block-unit arrangements must partition the unit space"));
+      break;
+    case "countBlockWithOutsiderNotAdjacent":
+      expectedAnswer = countBlockWithOutsiderNotAdjacentExact(evidence.totalObjects, evidence.blockSizes[0]!, ranges.answerCeiling);
+      checks.push(check("block-outsider-operation", evidence.operation === "BLOCK_WITH_OUTSIDER_NOT_ADJACENT", "Block/outsider restriction must expose its own operation"));
+      checks.push(check("outsider-domain", evidence.blockSizes[0]! + 2 <= evidence.totalObjects, "Named outsider and at least one other object must remain outside the block"));
+      checks.push(check("outsider-unit-partition", (evidence.validUnitArrangementCount ?? -1) + (evidence.forbiddenAdjacentUnitCount ?? -1) === evidence.externalArrangementCount, "Allowed and block-adjacent outsider placements must partition the unit space"));
+      break;
+    case "countOneBlockTogetherOtherNotTogether":
+      expectedAnswer = countOneBlockTogetherOtherNotTogetherExact(evidence.totalObjects, evidence.blockSizes, ranges.answerCeiling);
+      checks.push(check("one-block-other-broken-operation", evidence.operation === "ONE_BLOCK_TOGETHER_OTHER_BROKEN", "Mixed together/broken mode must expose its own operation"));
+      checks.push(check("mixed-two-groups", evidence.blockSizes.length === 2, "Mixed together/broken mode requires two disjoint groups"));
+      checks.push(check("primary-count", evidence.primaryRestrictionCount === countSingleBlockTogetherExact(evidence.totalObjects, evidence.blockSizes[0]!, ranges.answerCeiling), "Primary count must keep only the first group together"));
+      checks.push(check("simultaneous-count", evidence.allSpecifiedBlocksTogetherCount === countMultipleBlocksTogetherExact(evidence.totalObjects, evidence.blockSizes, ranges.answerCeiling), "Forbidden count must keep both groups together"));
+      checks.push(check("mixed-complement", (evidence.allSpecifiedBlocksTogetherCount ?? -1) + pkg.solver.numericAnswer === evidence.primaryRestrictionCount, "Valid and both-together cases must partition the primary restriction"));
+      break;
+    case "countNotAllSpecifiedBlocksTogether":
+      expectedAnswer = countNotAllSpecifiedBlocksTogetherExact(evidence.totalObjects, evidence.blockSizes, ranges.answerCeiling);
+      checks.push(check("not-all-operation", evidence.operation === "NOT_ALL_BLOCKS_TOGETHER", "Multiple-block complement must expose its own operation"));
+      checks.push(check("not-all-unrestricted", evidence.unrestrictedCount === factorialExact(evidence.totalObjects, ranges.answerCeiling), "Not-all mode must begin from all arrangements"));
+      checks.push(check("not-all-forbidden", evidence.allSpecifiedBlocksTogetherCount === countMultipleBlocksTogetherExact(evidence.totalObjects, evidence.blockSizes, ranges.answerCeiling), "Forbidden count must require all specified blocks simultaneously"));
+      checks.push(check("not-all-partition", (evidence.allSpecifiedBlocksTogetherCount ?? -1) + pkg.solver.numericAnswer === evidence.unrestrictedCount, "Valid and all-block cases must partition the unrestricted space"));
+      break;
     case "recoverBlockRestrictionParameter":
       checks.push(check("inverse-operation", evidence.operation === "BLOCK_INVERSE", "Inverse mode must expose inverse operation"));
       checks.push(check("inverse-target", evidence.target !== undefined && evidence.target > 0, "Inverse mode must expose a positive target"));
@@ -128,21 +150,12 @@ export function validatePnc002QuestionPackage(pkg: Pnc002QuestionPackage): Pnc00
   checks.push(check("explanation-placeholders", !/\{[A-Za-z][A-Za-z0-9_]*\}/.test(explanationText), "Explanation must resolve every placeholder"));
   checks.push(check("reasoning-equation", pkg.reasoningEvidence.equations.includes(`\\(${pkg.solver.mathJax}\\)`), "Reasoning must include solver-owned TeX calculation"));
 
-  const visibleText = [
-    pkg.stem,
-    ...pkg.options,
-    ...pkg.explanation.lines,
-    ...pkg.reasoningEvidence.equations,
-    pkg.reasoningEvidence.decisiveCalculation,
-  ];
+  const visibleText = [pkg.stem, ...pkg.options, ...pkg.explanation.lines, ...pkg.reasoningEvidence.equations, pkg.reasoningEvidence.decisiveCalculation];
   checks.push(check("latex-balanced", visibleText.every(latexBalanced), "All user-facing LaTeX delimiters must be balanced"));
   checks.push(check("latex-no-raw-formulas", visibleText.every(visibleFormulaIsFormatted), "Visible factorials, operators and symbolic equations must be inside MathJax delimiters"));
   const solverHasDelimiters = ["$", "\\(", "\\)", "\\[", "\\]"].some((token) => pkg.solver.mathJax.includes(token));
   checks.push(check("latex-solver-source", Boolean(pkg.solver.mathJax.trim()) && !solverHasDelimiters, "Solver must expose delimiter-free TeX authority"));
   checks.push(check("not-public", pkg.publiclyPublishable === false, "Runtime-proof package must remain unpublished"));
 
-  return {
-    valid: checks.every((item) => item.passed),
-    checks,
-  };
+  return { valid: checks.every((item) => item.passed), checks };
 }
