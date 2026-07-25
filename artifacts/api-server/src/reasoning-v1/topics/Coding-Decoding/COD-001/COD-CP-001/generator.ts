@@ -116,31 +116,31 @@ function buildStem(prompt: DirectMappingPrompt, styleIndex: number): string {
     return [
       `In a certain code, ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
       `If ${examples}, what is the original word for the code ‘${prompt.encodedTarget}’?`,
-      `The same letter code is used in ${examples}. Identify the word represented by ‘${prompt.encodedTarget}’.`,
-      `Study the codes ${examples}. Which word gives the code ‘${prompt.encodedTarget}’?`,
+      `The same letter code applies to these examples: ${examples}. Identify the word represented by ‘${prompt.encodedTarget}’.`,
+      `Study these codes: ${examples}. Which word gives the code ‘${prompt.encodedTarget}’?`,
     ][style]!;
   }
   if (prompt.taskKind === "RECOVER_MISSING_CODE") {
     return [
-      `In the same coding system as ${examples}, complete the entry ${prompt.missingSource} → ?.`,
-      `Using ${examples}, what should replace the blank in ${prompt.missingSource} → ?`,
-      `The table follows the coding shown by ${examples}. Find the missing code for ${prompt.missingSource}.`,
-      `From the coded examples ${examples}, determine the value of ${prompt.missingSource} in the table.`,
+      `In the coding system shown by these examples—${examples}—complete the entry ${prompt.missingSource} → ?.`,
+      `Using these examples—${examples}—what should replace the blank in ${prompt.missingSource} → ?`,
+      `The table follows these coded examples: ${examples}. Find the missing code for ${prompt.missingSource}.`,
+      `Given that ${examples}, determine the table value for ${prompt.missingSource}.`,
     ][style]!;
   }
   if (prompt.taskKind === "INFER_FROM_OVERLAP") {
     return [
       `In a certain code, ${examples}. How will ‘${prompt.target}’ be coded?`,
       `If ${examples}, which option is the correct code for ‘${prompt.target}’?`,
-      `Study the common letter codes in ${examples}. Find the code for ‘${prompt.target}’.`,
-      `The same letter has the same code in ${examples}. What is the code of ‘${prompt.target}’?`,
+      `Study the common letter codes in these examples: ${examples}. Find the code for ‘${prompt.target}’.`,
+      `The same letter keeps the same code in these examples: ${examples}. What is the code of ‘${prompt.target}’?`,
     ][style]!;
   }
   return [
     `In a certain code, ${examples}. How will ‘${prompt.target}’ be coded?`,
     `If ${examples}, what is the code for ‘${prompt.target}’?`,
-    `Using the same coding system as ${examples}, find the code of ‘${prompt.target}’.`,
-    `The coding used in ${examples} is also applied to ‘${prompt.target}’. Which option is correct?`,
+    `Given that ${examples}, find the code of ‘${prompt.target}’ in the same coding system.`,
+    `The coding shown by these examples—${examples}—is also applied to ‘${prompt.target}’. Which option is correct?`,
   ][style]!;
 }
 
