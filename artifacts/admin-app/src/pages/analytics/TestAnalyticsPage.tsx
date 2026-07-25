@@ -1,146 +1,116 @@
-import { BarChart3, Download, Users, Target, Clock, TrendingDown } from 'lucide-react';
-import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
-} from 'recharts';
+import { useEffect, useMemo, useState } from 'react';
+import { BarChart3, Clock, RefreshCw, Search, Target, Users } from 'lucide-react';
+
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatCard } from '@/components/shared/StatCard';
-import { StatusBadge } from '@/components/shared/StatusBadge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
 import { showToast } from '@/components/shared/toast';
-import { cn } from '@/lib/utils';
-import { TEST_PERFORMANCE, SECTION_PERFORMANCE } from '@/data/analytics';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { getFirebaseAuth } from '@/integrations/firebase';
 
-const DROP_OFF = [
-  { section: 'Started Test', value: 100, count: 98000, color: 'chart-1' },
-  { section: 'Quant Attempted', value: 94, count: 92120, color: 'chart-2' },
-  { section: 'Reasoning Attempted', value: 81, count: 79380, color: 'chart-3' },
-  { section: 'English Attempted', value: 73, count: 71540, color: 'chart-4' },
-  { section: 'GA Attempted', value: 62, count: 60760, color: 'chart-5' },
-  { section: 'Completed', value: 58, count: 56840, color: 'chart-6' },
-];
+const apiBase = ((import.meta.env.VITE_API_URL as string | undefined)?.trim() || '/api').replace(/\/$/, '');
+const number = (value: unknown) => Number(value ?? 0).toLocaleString();
+const score = (value: unknown) => value == null ? '—' : Number(value).toLocaleString(undefined, { maximumFractionDigits: 2 });
+const duration = (seconds: unknown) => {
+  const value = Math.max(0, Number(seconds ?? 0));
+  if (!value) return '—';
+  const hours = Math.floor(value / 3600);
+  const minutes = Math.floor((value % 3600) / 60);
+  return hours ? `${hours}h ${minutes}m` : `${minutes}m`;
+};
+const date = (value: unknown) => value ? new Date(String(value)).toLocaleString() : '—';
 
-const tooltipStyle = {
-  background: 'hsl(var(--popover))', border: '1px solid hsl(var(--border))',
-  borderRadius: 8, fontSize: 12, color: 'hsl(var(--popover-foreground))',
+async function request<T>(path: string): Promise<T> {
+  const user = getFirebaseAuth()?.currentUser;
+  if (!user) throw new Error('Your administrator session has expired.');
+  const response = await fetch(`${apiBase}${path}`, { headers: { Authorization: `Bearer ${await user.getIdToken()}` } });
+  const body = await response.json().catch(() => null) as ({ error?: string } & T) | null;
+  if (!response.ok) throw new Error(body?.error || `Test Analytics request failed (${response.status}).`);
+  if (!body) throw new Error('Test Analytics returned an empty response.');
+  return body;
+}
+
+type Summary = {
+  totalAttempts: number; completedAttempts: number; evaluatedAttempts: number; practiceEvaluatedAttempts: number;
+  uniqueStudents: number; publicationsAttempted: number; averageFinalScore: number | null; averageTimeSeconds: number | null; completionRate: number;
+};
+type TestRow = {
+  testId: string; testPublicCode: string; testTitle: string; publicationId: string; publicationNumber: number;
+  totalAttempts: number; completedAttempts: number; evaluatedAttempts: number; practiceEvaluatedAttempts: number;
+  uniqueStudents: number; averageFinalScore: number | null; minimumFinalScore: number | null; maximumFinalScore: number | null;
+  averageTimeSeconds: number | null; latestActivityAt: string | null; completionRate: number;
+};
+type TrendRow = { day: string; attempts: number; completed: number; averageFinalScore: number | null; completionRate: number };
+type ScoreBand = { band: string; count: number; minimumScore: number | null; maximumScore: number | null };
+type AnalyticsResponse = {
+  windowDays: number; summary: Summary; tests: TestRow[]; dailyTrend: TrendRow[]; scoreDistribution: ScoreBand[];
+  capabilities: { sectionAnalytics: boolean; questionAnalytics: boolean; percentile: boolean; reason: string };
 };
 
 export function TestAnalyticsPage() {
-  return (
-    <div>
-      <PageHeader
-        title="Test Analytics"
-        description="Test attempts, completion rates, and performance."
-        icon={<BarChart3 className="h-5 w-5" />}
-        actions={
-          <>
-            <Select defaultValue="all">
-              <SelectTrigger className="w-[180px]"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Exams</SelectItem>
-                <SelectItem value="SSC_CGL_T1">SSC CGL Tier 1</SelectItem>
-                <SelectItem value="SSC_CHSL_T1">SSC CHSL Tier 1</SelectItem>
-                <SelectItem value="IBPS_PO_PRE">IBPS PO Prelims</SelectItem>
-                <SelectItem value="RRB_NTPC_CBT1">RRB NTPC CBT 1</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button variant="outline" size="sm" onClick={() => showToast.success('Export started', 'Test analytics report is being generated.')}>
-              <Download className="mr-1.5 h-4 w-4" /> Export
-            </Button>
-          </>
-        }
-      />
+  const [windowDays, setWindowDays] = useState('30');
+  const [search, setSearch] = useState('');
+  const [appliedSearch, setAppliedSearch] = useState('');
+  const [data, setData] = useState<AnalyticsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Total Attempts" value="80,200" icon={Users} delta={{ value: '6.4%', positive: true }} sublabel="vs last month" tone="primary" />
-        <StatCard label="Avg Completion Rate" value="75.5%" icon={Target} delta={{ value: '1.2%', positive: true }} sublabel="across all tests" tone="success" />
-        <StatCard label="Avg Score" value="58.7" icon={BarChart3} delta={{ value: '0.8', positive: false }} sublabel="out of 100" tone="info" />
-        <StatCard label="Avg Time" value="55.8 min" icon={Clock} delta={{ value: '1.4 min', positive: false }} sublabel="per attempt" tone="warning" />
-      </div>
+  const load = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams({ days: windowDays, limit: '50' });
+      if (appliedSearch) params.set('search', appliedSearch);
+      setData(await request<AnalyticsResponse>(`/admin/analytics/tests?${params}`));
+    } catch (error) {
+      showToast.error('Unable to load test analytics', error instanceof Error ? error.message : 'Request failed.');
+    } finally { setLoading(false); }
+  };
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardHeader><CardTitle className="text-base">Test Performance</CardTitle><p className="text-xs text-muted-foreground">Attempts per test</p></CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={TEST_PERFORMANCE} margin={{ left: -16, right: 8, top: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="test" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted))' }} />
-                <Bar dataKey="attempts" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} name="Attempts" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+  useEffect(() => { void load(); }, [windowDays, appliedSearch]);
 
-        <Card>
-          <CardHeader><CardTitle className="text-base">Completion Rate</CardTitle><p className="text-xs text-muted-foreground">Completion percentage per test</p></CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={TEST_PERFORMANCE} margin={{ left: -16, right: 8, top: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="test" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} unit="%" />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted))' }} />
-                <Bar dataKey="completion" fill="hsl(var(--chart-3))" radius={[4, 4, 0, 0]} name="Completion %" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
+  const peakAttempts = useMemo(() => Math.max(1, ...(data?.dailyTrend.map((row) => Number(row.attempts)) ?? [1])), [data]);
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader><CardTitle className="text-base">Section Performance</CardTitle><p className="text-xs text-muted-foreground">Accuracy and skip rate per section</p></CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={SECTION_PERFORMANCE} margin={{ left: -16, right: 8, top: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="section" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} unit="%" />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted))' }} />
-                <Legend wrapperStyle={{ fontSize: 12 }} />
-                <Bar dataKey="accuracy" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} name="Accuracy %" />
-                <Bar dataKey="skip" fill="hsl(var(--chart-5))" radius={[4, 4, 0, 0]} name="Skip Rate %" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+  return <div className="space-y-5">
+    <PageHeader
+      title="Test Analytics"
+      description="Canonical attempt volume, completion, score and timing aggregates from immutable test publications."
+      icon={<BarChart3 className="h-5 w-5" />}
+      actions={<Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button>}
+    />
 
-        <Card>
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div>
-              <CardTitle className="text-base flex items-center gap-2"><TrendingDown className="h-4 w-4 text-warning" /> Drop-off Analysis</CardTitle>
-              <p className="text-xs text-muted-foreground">Section-wise completion</p>
-            </div>
-            <StatusBadge tone="warning" dot>42% drop</StatusBadge>
-          </CardHeader>
-          <CardContent className="space-y-3 pt-2">
-            {DROP_OFF.map((d) => {
-              const loss = d.value;
-              return (
-                <div key={d.section}>
-                  <div className="mb-1 flex items-center justify-between text-xs">
-                    <span className="font-medium">{d.section}</span>
-                    <span className="text-muted-foreground">{d.count.toLocaleString()}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Progress value={d.value} className="h-2.5" />
-                    <span className={cn('w-9 shrink-0 text-right text-xs font-semibold', loss < 70 ? 'text-warning' : 'text-success')}>{d.value}%</span>
-                  </div>
-                </div>
-              );
-            })}
-          </CardContent>
-        </Card>
-      </div>
+    <Card><CardContent className="flex flex-col gap-3 p-4 md:flex-row">
+      <div className="flex flex-1 gap-2"><Input value={search} onChange={(event) => setSearch(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter') setAppliedSearch(search.trim()); }} placeholder="Search test title or public code" /><Button onClick={() => setAppliedSearch(search.trim())}><Search className="mr-1.5 h-4 w-4" />Search</Button></div>
+      <Select value={windowDays} onValueChange={setWindowDays}><SelectTrigger className="md:w-48"><SelectValue /></SelectTrigger><SelectContent><SelectItem value="7">Last 7 days</SelectItem><SelectItem value="30">Last 30 days</SelectItem><SelectItem value="90">Last 90 days</SelectItem><SelectItem value="365">Last 365 days</SelectItem></SelectContent></Select>
+    </CardContent></Card>
 
-      <p className="mt-8 text-center text-xs text-muted-foreground">All test analytics values are demonstration data for prototype evaluation only.</p>
+    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+      <Metric icon={<BarChart3 className="h-4 w-4" />} label="Attempts" value={number(data?.summary.totalAttempts)} />
+      <Metric icon={<Target className="h-4 w-4" />} label="Completion" value={`${score(data?.summary.completionRate)}%`} />
+      <Metric icon={<Users className="h-4 w-4" />} label="Unique students" value={number(data?.summary.uniqueStudents)} />
+      <Metric icon={<BarChart3 className="h-4 w-4" />} label="Average final score" value={score(data?.summary.averageFinalScore)} />
+      <Metric icon={<Clock className="h-4 w-4" />} label="Average time" value={duration(data?.summary.averageTimeSeconds)} />
+      <Metric icon={<Target className="h-4 w-4" />} label="Publications" value={number(data?.summary.publicationsAttempted)} />
     </div>
-  );
+
+    <div className="grid gap-4 xl:grid-cols-2">
+      <Card><CardHeader><CardTitle className="text-base">Daily attempt trend</CardTitle></CardHeader><CardContent className="space-y-2">
+        {data?.dailyTrend.length ? data.dailyTrend.map((row) => <div key={row.day} className="grid grid-cols-[86px_1fr_70px] items-center gap-3 text-xs"><span className="text-muted-foreground">{new Date(`${row.day}T00:00:00`).toLocaleDateString()}</span><div className="h-3 overflow-hidden rounded-full bg-muted"><div className="h-full rounded-full bg-primary" style={{ width: `${Math.max(2, (Number(row.attempts) / peakAttempts) * 100)}%` }} /></div><span className="text-right font-medium">{number(row.attempts)}</span></div>) : <Empty loading={loading} text="No attempt activity exists in this period." />}
+      </CardContent></Card>
+      <Card><CardHeader><CardTitle className="text-base">Relative score distribution</CardTitle></CardHeader><CardContent className="space-y-3">
+        {data?.scoreDistribution.some((band) => Number(band.count) > 0) ? data.scoreDistribution.filter((band) => Number(band.count) > 0).map((band) => <div key={band.band} className="flex items-center justify-between rounded-md border p-3"><div><p className="text-sm font-medium">{band.band}</p><p className="text-xs text-muted-foreground">Observed range {score(band.minimumScore)} to {score(band.maximumScore)}</p></div><span className="text-lg font-semibold">{number(band.count)}</span></div>) : <Empty loading={loading} text="No scored attempts exist in this period." />}
+      </CardContent></Card>
+    </div>
+
+    <Card><CardHeader><CardTitle className="text-base">Performance by immutable publication</CardTitle></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Test</TableHead><TableHead className="text-right">Attempts</TableHead><TableHead className="text-right">Students</TableHead><TableHead className="text-right">Completion</TableHead><TableHead className="text-right">Average score</TableHead><TableHead className="text-right">Average time</TableHead><TableHead>Latest activity</TableHead></TableRow></TableHeader><TableBody>
+      {data?.tests.length ? data.tests.map((test) => <TableRow key={test.publicationId}><TableCell><p className="font-medium">{test.testTitle}</p><p className="text-xs text-muted-foreground">{test.testPublicCode} · Publication {test.publicationNumber}</p></TableCell><TableCell className="text-right">{number(test.totalAttempts)}</TableCell><TableCell className="text-right">{number(test.uniqueStudents)}</TableCell><TableCell className="text-right">{score(test.completionRate)}%</TableCell><TableCell className="text-right">{score(test.averageFinalScore)}</TableCell><TableCell className="text-right">{duration(test.averageTimeSeconds)}</TableCell><TableCell className="text-xs text-muted-foreground">{date(test.latestActivityAt)}</TableCell></TableRow>) : <TableRow><TableCell colSpan={7}><Empty loading={loading} text="No tests match the selected period and search." /></TableCell></TableRow>}
+    </TableBody></Table></CardContent></Card>
+
+    <Card className="border-dashed"><CardContent className="p-4"><p className="font-medium">Deliberately deferred analytics</p><p className="mt-1 text-sm text-muted-foreground">{data?.capabilities.reason || 'Section, question and percentile analytics remain unavailable until their canonical aggregation contracts are verified.'}</p></CardContent></Card>
+  </div>;
 }
+
+function Metric({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) { return <Card><CardContent className="p-4"><div className="flex items-center gap-2 text-xs text-muted-foreground">{icon}{label}</div><p className="mt-2 text-xl font-semibold">{value}</p></CardContent></Card>; }
+function Empty({ loading, text }: { loading: boolean; text: string }) { return <div className="py-8 text-center text-sm text-muted-foreground">{loading ? 'Loading canonical analytics…' : text}</div>; }
+
+export default TestAnalyticsPage;
