@@ -9,11 +9,18 @@ const text = (value: unknown, maximum = 180) => typeof value === 'string' ? valu
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const completedStatus = sqlClient`a.status::text IN ('evaluated', 'practice_evaluated')`;
 const rate = (part: unknown, whole: unknown) => Number(whole) > 0 ? Math.round((Number(part) / Number(whole)) * 10000) / 100 : 0;
-const relativeDelta = (current: unknown, previous: unknown) => Number(previous) !== 0
+const hasNumber = (value: unknown) => value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value));
+const relativeDelta = (current: unknown, previous: unknown) => hasNumber(current) && hasNumber(previous) && Number(previous) !== 0
   ? Math.round(((Number(current) - Number(previous)) / Math.abs(Number(previous))) * 10000) / 100
   : null;
-const pointDelta = (current: unknown, previous: unknown) => Math.round((Number(current) - Number(previous)) * 100) / 100;
-const csv = (value: unknown) => `"${String(value ?? '').replace(/"/g, '""')}"`;
+const pointDelta = (current: unknown, previous: unknown, validBaseline = true) => validBaseline && hasNumber(current) && hasNumber(previous)
+  ? Math.round((Number(current) - Number(previous)) * 100) / 100
+  : null;
+const csvSafe = (value: unknown) => {
+  const raw = String(value ?? '');
+  const neutralized = /^[=+\-@]/.test(raw) ? `'${raw}` : raw;
+  return `"${neutralized.replace(/"/g, '""')}"`;
+};
 
 router.use(authenticate);
 
@@ -120,6 +127,7 @@ router.get('/tests', requireAdminPermission('users.students.read'), async (req, 
     const previous = previousSummaryRows[0] ?? {};
     const completionRate = rate(summary.completedAttempts, summary.totalAttempts);
     const previousCompletionRate = rate(previous.completedAttempts, previous.totalAttempts);
+    const previousHasAttempts = Number(previous.totalAttempts ?? 0) > 0;
     const previousByPublication = new Map(previousTestRows.map((row) => [String(row.publicationId), row]));
 
     return res.json({
@@ -132,24 +140,25 @@ router.get('/tests', requireAdminPermission('users.students.read'), async (req, 
           totalAttemptsPercent: relativeDelta(summary.totalAttempts, previous.totalAttempts),
           uniqueStudentsPercent: relativeDelta(summary.uniqueStudents, previous.uniqueStudents),
           publicationsAttemptedPercent: relativeDelta(summary.publicationsAttempted, previous.publicationsAttempted),
-          completionRatePoints: pointDelta(completionRate, previousCompletionRate),
+          completionRatePoints: pointDelta(completionRate, previousCompletionRate, previousHasAttempts),
           averageFinalScorePercent: relativeDelta(summary.averageFinalScore, previous.averageFinalScore),
           averageTimeSecondsPercent: relativeDelta(summary.averageTimeSeconds, previous.averageTimeSeconds),
         },
       },
       tests: testRows.map((row) => {
-        const prior = previousByPublication.get(String(row.publicationId)) ?? {};
+        const prior = previousByPublication.get(String(row.publicationId));
         const rowCompletionRate = rate(row.completedAttempts, row.totalAttempts);
-        const priorCompletionRate = rate(prior.completedAttempts, prior.totalAttempts);
+        const priorCompletionRate = rate(prior?.completedAttempts, prior?.totalAttempts);
+        const priorHasAttempts = Number(prior?.totalAttempts ?? 0) > 0;
         return {
           ...row,
           completionRate: rowCompletionRate,
           comparison: {
-            previousTotalAttempts: Number(prior.totalAttempts ?? 0),
-            attemptsPercent: relativeDelta(row.totalAttempts, prior.totalAttempts),
-            uniqueStudentsPercent: relativeDelta(row.uniqueStudents, prior.uniqueStudents),
-            completionRatePoints: pointDelta(rowCompletionRate, priorCompletionRate),
-            averageFinalScorePercent: relativeDelta(row.averageFinalScore, prior.averageFinalScore),
+            previousTotalAttempts: Number(prior?.totalAttempts ?? 0),
+            attemptsPercent: relativeDelta(row.totalAttempts, prior?.totalAttempts),
+            uniqueStudentsPercent: relativeDelta(row.uniqueStudents, prior?.uniqueStudents),
+            completionRatePoints: pointDelta(rowCompletionRate, priorCompletionRate, priorHasAttempts),
+            averageFinalScorePercent: relativeDelta(row.averageFinalScore, prior?.averageFinalScore),
           },
         };
       }),
@@ -199,11 +208,11 @@ router.get('/tests/export.csv', requireAdminPermission('users.students.read'), a
       row.testPublicCode, row.testTitle, row.publicationId, row.publicationNumber, days,
       row.totalAttempts, row.completedAttempts, rate(row.completedAttempts, row.totalAttempts), row.uniqueStudents,
       row.averageFinalScore, row.averageTimeSeconds, row.latestActivityAt ? new Date(String(row.latestActivityAt)).toISOString() : '',
-    ].map(csv).join(','));
+    ].map(csvSafe).join(','));
     res.setHeader('Content-Type', 'text/csv; charset=utf-8');
     res.setHeader('Content-Disposition', `attachment; filename="examtree-test-analytics-${days}d.csv"`);
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(200).send([header.map(csv).join(','), ...lines].join('\n'));
+    return res.status(200).send([header.map(csvSafe).join(','), ...lines].join('\n'));
   } catch (error) {
     console.error('Unable to export canonical test analytics', error);
     return res.status(500).json({ error: 'Unable to export test analytics', code: 'ADMIN_TEST_ANALYTICS_EXPORT_FAILED' });
@@ -295,6 +304,7 @@ router.get('/tests/:publicationId', requireAdminPermission('users.students.read'
     const previous = previousRows[0] ?? {};
     const completionRate = rate(summary.completedAttempts, summary.totalAttempts);
     const previousCompletionRate = rate(previous.completedAttempts, previous.totalAttempts);
+    const previousHasAttempts = Number(previous.totalAttempts ?? 0) > 0;
     const percentile = percentileRows[0] ?? { sample: 0 };
 
     return res.json({
@@ -306,7 +316,7 @@ router.get('/tests/:publicationId', requireAdminPermission('users.students.read'
         deltas: {
           totalAttemptsPercent: relativeDelta(summary.totalAttempts, previous.totalAttempts),
           uniqueStudentsPercent: relativeDelta(summary.uniqueStudents, previous.uniqueStudents),
-          completionRatePoints: pointDelta(completionRate, previousCompletionRate),
+          completionRatePoints: pointDelta(completionRate, previousCompletionRate, previousHasAttempts),
           averageFinalScorePercent: relativeDelta(summary.averageFinalScore, previous.averageFinalScore),
           averageTimeSecondsPercent: relativeDelta(summary.averageTimeSeconds, previous.averageTimeSeconds),
         },
