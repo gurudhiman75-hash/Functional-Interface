@@ -49,20 +49,25 @@ jobs:
           grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'result_snapshot AS "resultSnapshot"' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "router.post('/bulk/actions/abandon'" artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "router.post('/:attemptId/actions/abandon'" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'slice(0, 100)' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "String(attempt.status) !== 'in_progress'" artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'ATTEMPT_NOT_STALE' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'ATTEMPT_STATE_CHANGED' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "'student.attempt.abandoned'" artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'scoreFieldsChanged: false' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'resultSnapshotChanged: false' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "ae.entity_type = 'attempt'" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'ORDER BY ae.occurred_at DESC' artifacts/api-server/src/routes/admin-attempts.ts
           ! grep -E 'SET (raw_score|final_score|correct_count|incorrect_count|unattempted_count|result_snapshot)' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "ADD VALUE IF NOT EXISTS %L', status_type_name, 'abandoned'" docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
           grep -F "path: '/users/attempts/:id'" artifacts/admin-app/src/App.tsx
           grep -F "path: '/users/attempts'" artifacts/admin-app/src/App.tsx
           grep -F "label: 'Attempt Administration'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Stale in-progress attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
-          grep -F 'Abandon stale attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          grep -F 'Guarded stale-attempt cleanup' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          grep -F 'Abandon selected' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          grep -F 'Attempt audit timeline' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
           grep -F 'Scores, responses and the canonical result snapshot are preserved unchanged.' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
           ! grep -Ei 'delete attempt|change score|override score|reset attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
       - name: Build API server
