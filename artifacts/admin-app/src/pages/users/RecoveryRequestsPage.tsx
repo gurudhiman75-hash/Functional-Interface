@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { RefreshCw, ShieldCheck } from 'lucide-react';
+import { KeyRound, RefreshCw, ShieldCheck } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
@@ -18,6 +18,9 @@ type RecoveryRequest = {
   reviewState: ReviewState;
   reviewedAt: string | null;
   reviewNote: string | null;
+  assignedToUserId: string | null;
+  operationAuditEventId: string | null;
+  resolvedAt: string | null;
   studentId: string;
   displayName: string;
   email: string;
@@ -62,13 +65,13 @@ export function RecoveryRequestsPage() {
 
   useEffect(() => { void load(); }, [state]);
 
-  const review = async (requestId: string, reviewState: ReviewState) => {
+  const review = async (requestId: string, reviewState: 'under_review' | 'rejected') => {
     const note = (notes[requestId] || '').trim();
     if (note.length < 12) return showToast.warning('Review note required', 'Enter at least 12 characters explaining the decision.');
     setWorkingId(requestId);
     try {
       await request(`/admin/students/recovery-requests/${requestId}`, { method: 'PATCH', body: JSON.stringify({ reviewState, reviewNote: note }) });
-      showToast.success('Recovery request updated', `Request marked ${reviewState.replace('_', ' ')}.`);
+      showToast.success('Recovery request updated', reviewState === 'under_review' ? 'The request is assigned and ready for verified relinking.' : 'The request was rejected with an audit note.');
       await load();
     } catch (error) {
       showToast.error('Unable to update request', error instanceof Error ? error.message : 'Request failed.');
@@ -78,9 +81,9 @@ export function RecoveryRequestsPage() {
   };
 
   return <div className="space-y-5">
-    <PageHeader title="Account Recovery" description="Review student recovery requests before verified Firebase identity relinking." icon={<ShieldCheck className="h-5 w-5" />} actions={<Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button>} />
+    <PageHeader title="Account Recovery" description="Review requests, assign them, and resolve them only through verified Firebase identity relinking." icon={<ShieldCheck className="h-5 w-5" />} actions={<Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button>} />
     <div className="max-w-xs"><Select value={state} onValueChange={(value) => setState(value as ReviewState)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="pending">Pending</SelectItem><SelectItem value="under_review">Under review</SelectItem><SelectItem value="resolved">Resolved</SelectItem><SelectItem value="rejected">Rejected</SelectItem></SelectContent></Select></div>
-    <div className="grid gap-4">{requests.map((entry) => <Card key={entry.id}><CardContent className="space-y-4 p-4"><div className="flex flex-col justify-between gap-2 sm:flex-row"><div><Link className="font-semibold hover:underline" to={`/users/students/${entry.studentId}`}>{entry.displayName}</Link><p className="text-xs text-muted-foreground">{entry.registrationCode} · {entry.email} · {entry.status}</p></div><p className="text-xs text-muted-foreground">{new Date(entry.occurredAt).toLocaleString()}</p></div><div className="rounded-md border bg-muted/20 p-3 text-sm">{entry.explanation}</div>{entry.reviewNote && <p className="text-sm text-muted-foreground">Latest review note: {entry.reviewNote}</p>}<Textarea value={notes[entry.id] || ''} onChange={(event) => setNotes((current) => ({ ...current, [entry.id]: event.target.value }))} placeholder="Required review note (minimum 12 characters)" /><div className="flex flex-wrap gap-2"><Button variant="outline" disabled={workingId === entry.id} onClick={() => void review(entry.id, 'under_review')}>Mark under review</Button><Button disabled={workingId === entry.id} onClick={() => void review(entry.id, 'resolved')}>Resolve</Button><Button variant="destructive" disabled={workingId === entry.id} onClick={() => void review(entry.id, 'rejected')}>Reject</Button></div></CardContent></Card>)}{!loading && requests.length === 0 && <Card><CardContent className="py-12 text-center text-muted-foreground">No recovery requests in this state.</CardContent></Card>}</div>
+    <div className="grid gap-4">{requests.map((entry) => <Card key={entry.id}><CardContent className="space-y-4 p-4"><div className="flex flex-col justify-between gap-2 sm:flex-row"><div><Link className="font-semibold hover:underline" to={`/users/students/${entry.studentId}`}>{entry.displayName}</Link><p className="text-xs text-muted-foreground">{entry.registrationCode} · {entry.email} · {entry.status}</p></div><p className="text-xs text-muted-foreground">{new Date(entry.occurredAt).toLocaleString()}</p></div><div className="rounded-md border bg-muted/20 p-3 text-sm">{entry.explanation}</div>{entry.reviewNote && <p className="text-sm text-muted-foreground">Latest review note: {entry.reviewNote}</p>}{entry.operationAuditEventId && <div className="rounded-md border border-emerald-500/30 bg-emerald-500/5 p-3 text-xs text-emerald-700">Resolved through verified relink audit {entry.operationAuditEventId}.</div>}{state !== 'resolved' && state !== 'rejected' && <Textarea value={notes[entry.id] || ''} onChange={(event) => setNotes((current) => ({ ...current, [entry.id]: event.target.value }))} placeholder="Required review note (minimum 12 characters)" />}<div className="flex flex-wrap gap-2">{state === 'pending' && <Button variant="outline" disabled={workingId === entry.id} onClick={() => void review(entry.id, 'under_review')}>Mark under review</Button>}{state === 'under_review' && <Button asChild><Link to={`/users/students/${entry.studentId}?recoveryRequestId=${entry.id}`}><KeyRound className="mr-1.5 h-4 w-4" />Open verified recovery</Link></Button>}{state !== 'resolved' && state !== 'rejected' && <Button variant="destructive" disabled={workingId === entry.id} onClick={() => void review(entry.id, 'rejected')}>Reject</Button>}</div></CardContent></Card>)}{!loading && requests.length === 0 && <Card><CardContent className="py-12 text-center text-muted-foreground">No recovery requests in this state.</CardContent></Card>}</div>
   </div>;
 }
 
