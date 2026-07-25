@@ -18,7 +18,7 @@ const RULE_TEXT: Record<SetLocale, Record<string, (context: { k?: number; ratio?
     SET_SUM_MULTIPLIER: (c) => `पहली दो संख्याओं का योग करके ${c.k} से गुणा करते हैं`,
     SET_DIFF_MULTIPLIER: (c) => `पहली दो संख्याओं का धनात्मक अंतर लेकर ${c.k} से गुणा करते हैं`,
     SET_CONSECUTIVE_CONSTRUCTION: () => "तीनों संख्याएँ क्रमागत हैं",
-    SET_MATCHING_TRIPLES: () => "तीसरी संख्या पहली दो संख्याओं के योग की दुगुनी है",
+    SET_MATCHING_TRIPLES: () => "पहली दो संख्याओं के गुणनफल और योग को जोड़ते हैं",
     SET_CORRESPONDING_MISSING_MEMBER: () => "तीसरी संख्या पहली संख्या और दूसरी संख्या की दुगुनी के योग के बराबर है",
   },
   "pa-IN": {
@@ -36,7 +36,7 @@ const RULE_TEXT: Record<SetLocale, Record<string, (context: { k?: number; ratio?
     SET_SUM_MULTIPLIER: (c) => `ਪਹਿਲੀਆਂ ਦੋ ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜ ਕਰਕੇ ${c.k} ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ`,
     SET_DIFF_MULTIPLIER: (c) => `ਪਹਿਲੀਆਂ ਦੋ ਸੰਖਿਆਵਾਂ ਦਾ ਧਨਾਤਮਕ ਅੰਤਰ ਲੈ ਕੇ ${c.k} ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ`,
     SET_CONSECUTIVE_CONSTRUCTION: () => "ਤਿੰਨੋਂ ਸੰਖਿਆਵਾਂ ਲਗਾਤਾਰ ਹਨ",
-    SET_MATCHING_TRIPLES: () => "ਤੀਜੀ ਸੰਖਿਆ ਪਹਿਲੀਆਂ ਦੋ ਸੰਖਿਆਵਾਂ ਦੇ ਜੋੜ ਦੀ ਦੁੱਗਣੀ ਹੈ",
+    SET_MATCHING_TRIPLES: () => "ਪਹਿਲੀਆਂ ਦੋ ਸੰਖਿਆਵਾਂ ਦੇ ਗੁਣਨਫਲ ਅਤੇ ਜੋੜ ਨੂੰ ਆਪਸ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ",
     SET_CORRESPONDING_MISSING_MEMBER: () => "ਤੀਜੀ ਸੰਖਿਆ ਪਹਿਲੀ ਸੰਖਿਆ ਅਤੇ ਦੂਜੀ ਸੰਖਿਆ ਦੀ ਦੁੱਗਣੀ ਦੇ ਜੋੜ ਦੇ ਬਰਾਬਰ ਹੈ",
   },
 };
