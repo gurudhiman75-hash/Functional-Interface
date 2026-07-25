@@ -54,7 +54,7 @@
       "answerDimension": "AREA",
       "unitPolicy": "SQUARE_METRES",
       "explanationStrategyId": "cp005-hexagon-area-from-perimeter",
-      "distractorStrategyIds": ["cp005-use-perimeter-as-hexagon-side", "cp005-half-recovered-hexagon-area", "cp005-use-one-recovered-equilateral-triangle"],
+      "distractorStrategyIds": ["cp005-divide-perimeter-by-three-for-hexagon-area", "cp005-half-recovered-hexagon-area", "cp005-use-one-recovered-equilateral-triangle"],
       "diagramRequirement": "NONE",
       "active": true
     },
