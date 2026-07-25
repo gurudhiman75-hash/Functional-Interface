@@ -92,7 +92,7 @@ for (const entry of getMen001QuestionEntries()) {
     assert.equal(first.correctIndex, second.correctIndex);
     assert.deepEqual(first.explanation, second.explanation);
     assert.equal(first.reasoningGraph.nodes.length, 3);
-    assert.ok(first.explanation.lines.length >= 3 && first.explanation.lines.length <= 9);
+    assert.ok(first.explanation.lines.length >= 2 && first.explanation.lines.length <= 6);
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options).size, 4);
     assert.equal(first.publiclyPublishable, false);
