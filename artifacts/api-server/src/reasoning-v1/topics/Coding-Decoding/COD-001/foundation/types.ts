@@ -55,7 +55,7 @@ export interface GeneratedCodQuestion {
   correctIndex: number;
   explanation: ExplanationTrace;
   metadata: {
-    runtimeVersion: "cod-001-cp001-v1";
+    runtimeVersion: "cod-001-cp001-v2";
     publiclyPublishable: false;
     maturity: "RUNTIME_PROOF";
     hiddenFingerprint: string;
