@@ -32,13 +32,13 @@ export interface PathExplanationStep {
 }
 
 export interface PathExplanation {
-  readonly concept: string;
-  readonly coordinateConvention: string;
+  readonly given: readonly string[];
+  readonly diagram: PathDiagramSpec;
+  readonly method: string;
   readonly steps: readonly PathExplanationStep[];
   readonly askedRelation: string;
   readonly conclusion: string;
   readonly closestTrapRejection: string;
-  readonly diagram: PathDiagramSpec;
 }
 
 export interface GeneratedPathQuestion {
@@ -205,11 +205,16 @@ function coordinateText(coordinate: Coordinate): string {
   return `(${normalizedCoordinate(coordinate.x)}, ${normalizedCoordinate(coordinate.y)})`;
 }
 
-function turnCalculation(before: Direction, after: Direction, turn: TurnOperation): string {
-  const turnLabel = turn.degrees === 180
-    ? "180° about-turn"
-    : `${turn.degrees}° ${turn.sense === "CLOCKWISE" ? "right/clockwise" : "left/anticlockwise"} turn`;
-  return `${PATH_DIRECTION_LABELS[before]} → ${turnLabel} → ${PATH_DIRECTION_LABELS[after]}`;
+function turnSummary(turn: TurnOperation): string {
+  if (turn.degrees === 180) return "about-turn";
+  return turn.sense === "CLOCKWISE" ? "right turn" : "left turn";
+}
+
+function simplifiedMovement(path: BuiltPath): string {
+  return path.solved.trace.map((trace) => {
+    if (trace.operation.kind === "TURN") return turnSummary(trace.operation);
+    return `${trace.operation.distance} m ${PATH_DIRECTION_LABELS[trace.movementDirection!]}`;
+  }).join(" → ");
 }
 
 function vectorInterpretation(vector: Coordinate): string {
@@ -224,44 +229,54 @@ function explanationFor(
   reverseQuery: boolean,
   includeFacing: boolean,
 ): PathExplanation {
+  const finalPointLabel = pointLabel(path.legCount);
+  const required = reverseQuery
+    ? "Find the direction of the starting point from the final position."
+    : includeFacing
+      ? "Find the final position from the starting point and the final facing direction."
+      : "Find the final position from the starting point.";
+  const given = [
+    `Starting direction: ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
+    `Simplified path: ${simplifiedMovement(path)}.`,
+    `Required: ${required}`,
+  ];
+  const diagram = buildPathDiagram(path.solved, reverseQuery, endpoint, includeFacing);
   const steps: PathExplanationStep[] = [
     {
       stepNumber: 1,
-      title: "Fix the origin and compass axes",
-      statement: `Take point O as the origin. ${path.person} starts at O facing ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
-      calculation: "O = (0, 0); East = +x; West = −x; North = +y; South = −y",
-      result: `Initial position ${coordinateText(path.solved.initial.position)}; initial facing ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
+      title: "Mark the starting point",
+      statement: `Let the starting point be O. Use East as +x and North as +y.`,
+      calculation: "O = (0, 0)",
+      result: `${path.person} starts at O facing ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
     },
   ];
 
   let moveIndex = 0;
+  let pendingTurn: TurnOperation | null = null;
   for (const trace of path.solved.trace) {
-    const beforePoint = pointLabel(moveIndex);
     if (trace.operation.kind === "TURN") {
-      steps.push({
-        stepNumber: steps.length + 1,
-        title: `Turn at point ${beforePoint}`,
-        statement: `The turn changes only the facing direction. ${path.person} remains at point ${beforePoint}.`,
-        calculation: turnCalculation(trace.before.facing, trace.after.facing, trace.operation),
-        result: `Coordinate remains ${coordinateText(trace.after.position)}; new facing is ${PATH_DIRECTION_LABELS[trace.after.facing]}.`,
-      });
+      pendingTurn = trace.operation;
       continue;
     }
 
+    const beforePoint = pointLabel(moveIndex);
     moveIndex += 1;
     const afterPoint = pointLabel(moveIndex);
     const dx = trace.after.position.x - trace.before.position.x;
     const dy = trace.after.position.y - trace.before.position.y;
+    const turnContext = pendingTurn
+      ? `After the ${turnSummary(pendingTurn)}, the facing direction becomes ${PATH_DIRECTION_LABELS[trace.movementDirection!]}. `
+      : "";
     steps.push({
       stepNumber: steps.length + 1,
-      title: `Move from ${beforePoint} to ${afterPoint}`,
-      statement: `${path.person} moves ${trace.operation.distance} metres towards ${PATH_DIRECTION_LABELS[trace.movementDirection!]}, without turning during the movement.`,
+      title: `Plot the movement to ${afterPoint}`,
+      statement: `${turnContext}${path.person} moves ${trace.operation.distance} metres ${PATH_DIRECTION_LABELS[trace.movementDirection!]} from ${beforePoint} to ${afterPoint}.`,
       calculation: `${beforePoint} ${coordinateText(trace.before.position)} + (${normalizedCoordinate(dx)}, ${normalizedCoordinate(dy)}) = ${afterPoint} ${coordinateText(trace.after.position)}`,
-      result: `Point ${afterPoint} is at ${coordinateText(trace.after.position)}; facing is ${PATH_DIRECTION_LABELS[trace.after.facing]}.`,
+      result: `${afterPoint} is located at ${coordinateText(trace.after.position)}.`,
     });
+    pendingTurn = null;
   }
 
-  const finalPointLabel = pointLabel(moveIndex);
   const finalPosition = path.solved.final.position;
   const relationVector = reverseQuery
     ? { x: -finalPosition.x, y: -finalPosition.y }
@@ -270,36 +285,39 @@ function explanationFor(
   const subjectLabel = reverseQuery ? "O" : finalPointLabel;
   steps.push({
     stepNumber: steps.length + 1,
-    title: "Use the reference point named in the question",
-    statement: `The question asks for point ${subjectLabel} with respect to point ${referenceLabel}. Therefore subtract the reference coordinate from the subject coordinate.`,
+    title: "Read the required relation",
+    statement: `The required direction is of ${subjectLabel} from ${referenceLabel}. Subtract the reference coordinate from the required point coordinate.`,
     calculation: `${subjectLabel} − ${referenceLabel} = (${normalizedCoordinate(relationVector.x)}, ${normalizedCoordinate(relationVector.y)})`,
-    result: `The vector points ${vectorInterpretation(relationVector)}, so the required direction is ${PATH_DIRECTION_LABELS[endpoint]}.`,
+    result: `The net direction is ${vectorInterpretation(relationVector)}, which is ${PATH_DIRECTION_LABELS[endpoint]}.`,
   });
 
   if (includeFacing) {
     steps.push({
       stepNumber: steps.length + 1,
-      title: "Read the final facing separately",
-      statement: "Position and facing are different facts. The last coordinate gives location; the final path state gives facing.",
+      title: "Read the final facing",
+      statement: "The final facing is obtained from the last turn and movement direction, independently of the final location.",
       calculation: `Final facing = ${PATH_DIRECTION_LABELS[path.solved.final.facing]}`,
-      result: `${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at point ${finalPointLabel}.`,
+      result: `${path.person} faces ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at the end.`,
     });
   }
 
-  const askedRelation = `Point ${subjectLabel} from point ${referenceLabel} = ${PATH_DIRECTION_LABELS[endpoint]}`;
+  const askedRelation = reverseQuery
+    ? `Starting point from final position = ${PATH_DIRECTION_LABELS[endpoint]}`
+    : `Final position from starting point = ${PATH_DIRECTION_LABELS[endpoint]}`;
   const conclusion = includeFacing
-    ? `Therefore, taking point O as the reference, point ${finalPointLabel} lies to the ${PATH_DIRECTION_LABELS[endpoint]} of O; after reaching ${finalPointLabel}, ${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]}.`
-    : `Therefore, taking point ${referenceLabel} as the reference, point ${subjectLabel} lies to the ${PATH_DIRECTION_LABELS[endpoint]} of point ${referenceLabel}.`;
-  const diagram = buildPathDiagram(path.solved, reverseQuery, endpoint, includeFacing);
+    ? `The final position is ${PATH_DIRECTION_LABELS[endpoint]} of the starting point, and ${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at the end.`
+    : reverseQuery
+      ? `The starting point is ${PATH_DIRECTION_LABELS[endpoint]} of ${path.person}'s final position.`
+      : `${path.person}'s final position is ${PATH_DIRECTION_LABELS[endpoint]} of the starting point.`;
 
   return {
-    concept: "Track position and facing as separate states. Turns change facing without changing coordinates; movements change coordinates in the current facing direction.",
-    coordinateConvention: "East = +x, West = −x, North = +y, South = −y.",
+    given,
+    diagram,
+    method: "Convert the movement into directions, draw the path from the starting point, and compare only the two positions named in the question.",
     steps,
     askedRelation,
     conclusion,
-    closestTrapRejection: "The final movement direction, the final facing direction, and the direction of one point from another are not automatically the same. Use the exact reference point stated in the question.",
-    diagram,
+    closestTrapRejection: "Do not confuse the final facing direction with the direction of the final position, and do not reverse the stated reference relationship.",
   };
 }
 
