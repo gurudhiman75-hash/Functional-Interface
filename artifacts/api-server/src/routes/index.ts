@@ -4,6 +4,7 @@ import healthRouter from "./health";
 import usersRouter from "./users";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
+import studentAccountRecoveryRouter from "./student-account-recovery";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -64,6 +65,7 @@ router.use(healthRouter);
 router.use("/users", usersRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
+router.use("/account-recovery", studentAccountRecoveryRouter);
 
 router.use(studentTestSeriesRouter);
 router.use(attemptReliabilityRouter);
