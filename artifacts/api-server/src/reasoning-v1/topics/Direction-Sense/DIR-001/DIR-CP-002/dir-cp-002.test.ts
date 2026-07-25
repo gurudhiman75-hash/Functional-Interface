@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
-import type { Coordinate } from "../foundation/types";
+import type { Coordinate, Direction } from "../foundation/types";
 import { DIR_CP002_QLS } from "./task-registry";
 import { generateDirCp002Question, type CombinedPathAnswer } from "./generator";
 import type { PathDiagramSegment, PathDiagramSpec } from "./path-diagram";
+import { PATH_DIRECTION_LABELS } from "./question-language.en";
 
 const EPSILON = 1e-9;
 
@@ -29,6 +30,14 @@ function diagramSegmentCoordinates(diagram: PathDiagramSpec, segment: PathDiagra
     start: pointById.get(segment.fromPointId)!,
     end: pointById.get(segment.toPointId)!,
   };
+}
+
+function directionFromVector(dx: number, dy: number): Direction {
+  if (nearlyEqual(dx, 0) && dy > 0) return "NORTH";
+  if (nearlyEqual(dx, 0) && dy < 0) return "SOUTH";
+  if (dx > 0 && nearlyEqual(dy, 0)) return "EAST";
+  if (dx < 0 && nearlyEqual(dy, 0)) return "WEST";
+  throw new Error(`Expected a cardinal diagram leg, received (${dx}, ${dy})`);
 }
 
 function segmentsConflict(
@@ -66,10 +75,24 @@ function segmentsConflict(
   return true;
 }
 
-function assertClearDiagramRoute(diagram: PathDiagramSpec): void {
+function assertClearDiagramRoute(diagram: PathDiagramSpec, movementLines: readonly string[]): void {
   const coordinateKeys = diagram.points.map((point) => `${point.coordinate.x}:${point.coordinate.y}`);
   assert.equal(new Set(coordinateKeys).size, coordinateKeys.length, "Diagram route must not revisit a point");
   const segments = diagram.segments.map((segment) => diagramSegmentCoordinates(diagram, segment));
+
+  diagram.segments.forEach((segment, index) => {
+    const coordinates = segments[index];
+    const dx = coordinates.end.x - coordinates.start.x;
+    const dy = coordinates.end.y - coordinates.start.y;
+    const actualDistance = Math.abs(dx) + Math.abs(dy);
+    assert.ok(nearlyEqual(actualDistance, segment.distance), `Diagram leg ${index + 1} has the wrong distance`);
+    assert.equal(directionFromVector(dx, dy), segment.direction, `Diagram leg ${index + 1} has the wrong direction`);
+    assert.ok(
+      movementLines[index].includes(`${segment.distance} metres ${PATH_DIRECTION_LABELS[segment.direction]}`),
+      `Diagram leg ${index + 1} disagrees with the movement explanation`,
+    );
+  });
+
   for (let left = 0; left < segments.length; left += 1) {
     for (let right = left + 1; right < segments.length; right += 1) {
       assert.equal(
@@ -137,7 +160,7 @@ for (const ql of DIR_CP002_QLS) {
     assert.equal(diagram.points[0].role, "START");
     assert.equal(diagram.points.at(-1)?.label, "Finish");
     assert.equal(diagram.points.at(-1)?.role, "END");
-    assertClearDiagramRoute(diagram);
+    assertClearDiagramRoute(diagram, generated.explanation.movementLines);
     assert.ok(diagram.svg.startsWith("<svg"));
     assert.equal((diagram.svg.match(/data-role="movement-leg"/g) ?? []).length, generated.metadata.legCount);
     assert.equal((diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
@@ -165,7 +188,7 @@ for (const ql of DIR_CP002_QLS) {
       endpointDirections.add(answer.endpointDirection);
       finalFacings.add(answer.finalFacing);
       assert.ok(generated.options.every((option) => typeof option.value === "object"));
-      assert.ok(generated.explanation.conclusion.includes(`facing ${answer.finalFacing.replace("_", "-")}`) || generated.explanation.conclusion.includes("facing"));
+      assert.ok(generated.explanation.conclusion.includes("facing"));
     }
 
     difficulties.add(generated.difficulty);
