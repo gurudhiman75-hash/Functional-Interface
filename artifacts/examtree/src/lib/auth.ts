@@ -23,7 +23,7 @@ type DevelopmentSessionOptions = {
   role: "admin" | "student";
 };
 
-type BlockedAccountCode = "ACCOUNT_SUSPENDED" | "ACCOUNT_UNAVAILABLE";
+type BlockedAccountCode = "ACCOUNT_SUSPENDED" | "ACCOUNT_UNAVAILABLE" | "ACCOUNT_RECOVERY_COMPLETED";
 
 export function createDevelopmentSession({
   email,
@@ -62,7 +62,11 @@ function createAdminHandoffUser(firebaseUser: FirebaseUser): User {
 function getBlockedAccountCode(error: unknown): BlockedAccountCode | null {
   if (!(error instanceof ApiError) || error.status !== 403) return null;
   const code = getApiErrorCode(error.body);
-  return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE" ? code : null;
+  return code === "ACCOUNT_SUSPENDED"
+    || code === "ACCOUNT_UNAVAILABLE"
+    || code === "ACCOUNT_RECOVERY_COMPLETED"
+    ? code
+    : null;
 }
 
 function isRevokedSessionError(error: unknown): boolean {
@@ -72,6 +76,9 @@ function isRevokedSessionError(error: unknown): boolean {
 }
 
 function blockedAccountNotice(code: BlockedAccountCode): string {
+  if (code === "ACCOUNT_RECOVERY_COMPLETED") {
+    return "Your ExamTree account recovery was completed successfully. For your protection, you have been signed out and the account remains suspended until an administrator completes the final reactivation review.";
+  }
   if (code === "ACCOUNT_SUSPENDED") {
     return "Your ExamTree account has been suspended by an administrator. You have been signed out and cannot continue tests or submit attempts. Please contact ExamTree support if you believe this is a mistake.";
   }
@@ -79,7 +86,7 @@ function blockedAccountNotice(code: BlockedAccountCode): string {
 }
 
 async function terminateStudentSession(input: {
-  reason: "account-suspended" | "account-unavailable" | "session-revoked";
+  reason: "account-suspended" | "account-unavailable" | "account-recovery-completed" | "session-revoked";
   notice: string;
 }): Promise<void> {
   if (typeof window !== "undefined") {
@@ -103,7 +110,11 @@ async function terminateStudentSession(input: {
 
 async function terminateBlockedStudentSession(code: BlockedAccountCode): Promise<void> {
   await terminateStudentSession({
-    reason: code === "ACCOUNT_SUSPENDED" ? "account-suspended" : "account-unavailable",
+    reason: code === "ACCOUNT_RECOVERY_COMPLETED"
+      ? "account-recovery-completed"
+      : code === "ACCOUNT_SUSPENDED"
+        ? "account-suspended"
+        : "account-unavailable",
     notice: blockedAccountNotice(code),
   });
 }
