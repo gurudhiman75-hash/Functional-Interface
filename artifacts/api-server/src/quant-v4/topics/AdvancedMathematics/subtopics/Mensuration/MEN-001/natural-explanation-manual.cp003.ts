@@ -58,8 +58,11 @@ export function writeMen001Cp003Working(
       return [`The outer circle covers ${v("outerArea")} cm² and the inner circle ${v("innerArea")} cm². Removing the inner disc leaves ${v("outerArea")} − ${v("innerArea")} = ${v("area")} cm².`];
     case "MEN-001-QL-221":
       return [`The two circular areas are ${v("outerArea")} m² and ${v("innerArea")} m², so the path between them covers ${v("area")} m².`];
-    case "MEN-001-QL-222":
-      return [`The ring gives R² − r² = ${v("radiusSquareDifference")}. Adding r² = ${v("innerRadiusSquare")} gives R² = ${v("outerRadiusSquare")}, hence R = ${v("outerRadius")} cm.`];
+    case "MEN-001-QL-222": {
+      const innerSquare = value(parameters, solver, "innerRadius") ** 2;
+      const outerSquare = value(parameters, solver, "outerRadius") ** 2;
+      return [`The ring gives R² − r² = ${v("radiusSquareDifference")}. Adding r² = ${format(innerSquare)} gives R² = ${format(outerSquare)}, hence R = ${v("outerRadius")} cm.`];
+    }
     case "MEN-001-QL-223":
       return [`One turn covers ${v("circumference")} cm. Over ${v("revolutions")} turns, the distance is ${v("circumference")} × ${v("revolutions")} = ${v("distance")} cm.`];
     case "MEN-001-QL-224":
@@ -70,8 +73,11 @@ export function writeMen001Cp003Working(
       return [`From L = (θ/360)2πr, r = 360 × ${v("arcLength")} ÷ [2 × (22/7) × ${v("angleDegrees")}] = ${v("radius")} cm.`];
     case "MEN-001-QL-227":
       return [`Scaling the sector to a full circle gives r² = 360 × ${v("sectorArea")} ÷ [(22/7) × ${v("angleDegrees")}] = ${v("radiusSquare")}. Its positive square root is ${v("radius")} m.`];
-    case "MEN-001-QL-228":
-      return [`The ring gives R² − r² = ${v("radiusSquareDifference")}. Subtracting this from R² = ${v("outerRadiusSquare")} leaves r² = ${v("innerRadiusSquare")}, so r = ${v("innerRadius")} cm.`];
+    case "MEN-001-QL-228": {
+      const outerSquare = value(parameters, solver, "outerRadius") ** 2;
+      const innerSquare = value(parameters, solver, "innerRadius") ** 2;
+      return [`The ring gives R² − r² = ${v("radiusSquareDifference")}. Subtracting this from R² = ${format(outerSquare)} leaves r² = ${format(innerSquare)}, so r = ${v("innerRadius")} cm.`];
+    }
     case "MEN-001-QL-229":
       return [`Each revolution covers 2 × 22/7 × ${v("radius")} = ${v("circumference")} cm. The wheel therefore makes ${v("distance")} ÷ ${v("circumference")} = ${v("revolutions")} complete turns.`];
     case "MEN-001-QL-230":
