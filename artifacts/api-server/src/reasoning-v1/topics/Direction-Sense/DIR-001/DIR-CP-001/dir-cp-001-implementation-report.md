@@ -29,7 +29,8 @@ No fixed solve-mode enum is used. The QLs declare solver capabilities, and gener
 - instance-derived difficulty;
 - structured prompts;
 - value-grounded explanation steps;
-- chapter-registry discovery.
+- chapter-registry discovery;
+- relation topology fingerprints invariant to names, relation ordering and equivalent reverse statements.
 
 ## Validation performed
 
@@ -55,14 +56,20 @@ Stem diversity:
 Answer positions:            160, 156, 133, 151
 Max/min ratio:               1.203
 Required ratio:              below 1.35
+Name-invariant fingerprints: passed
 ```
 
 The first run exposed a 1.366 answer-position ratio because forward and inverse QLs shared the same option-shuffle stream. The streams were separated and the audit then passed at 1.203.
+
+Editorial review also found that the missing-turn stem explicitly stated that a turn occurred while offering `No turn` as a distractor. The wording was corrected so the stem asks for the change in facing without revealing that a turn necessarily occurred.
+
+A duplicate-audit review found that relation fingerprints originally included entity names. They now canonicalize solved coordinates and edges, so name-only rewrites, reordered relations and equivalent reverse statements produce the same topology fingerprint.
 
 ## Honest execution status
 
 - Source-equivalent strict TypeScript compile: passed.
 - Source-equivalent runtime proof: passed.
+- Source-equivalent name-invariant fingerprint proof: passed.
 - Exact test file executed from a checked-out repository: not yet.
 - GitHub Actions / repository CI: not executed; no matching workflow ran for the draft PR.
 - English human editorial approval: not complete.
