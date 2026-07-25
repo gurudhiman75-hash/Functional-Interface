@@ -29,6 +29,13 @@ const bannedStemLanguage = [
   /\buniform alphabet transformation\b/i,
   /\brecover the substitution\b/i,
   /\bhidden position\b/i,
+  /\bcoding in ‘/i,
+  /\bsame rule as ‘/i,
+  /\brelation in ‘/i,
+  /\brule (?:is )?used in ‘/i,
+  /\bcoding system as ‘/i,
+  /\bletter code is used in ‘/i,
+  /\bcommon letter codes in ‘/i,
 ];
 
 const difficultiesByQl = new Map<string, Set<string>>();
@@ -47,7 +54,7 @@ for (const checkpoint of checkpoints) {
 
       assert.ok(question.stem.length >= 35 && question.stem.length <= 520, `${qlId}/${seed} has an unsuitable stem length`);
       for (const banned of bannedStemLanguage) {
-        assert.equal(banned.test(question.stem), false, `${qlId}/${seed} exposes internal authoring language: ${question.stem}`);
+        assert.equal(banned.test(question.stem), false, `${qlId}/${seed} exposes internal or malformed language: ${question.stem}`);
       }
       assert.equal(question.stem.includes("{{"), false);
       assert.equal(question.stem.includes("undefined"), false);
