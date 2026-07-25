@@ -10,7 +10,7 @@ on:
 jobs:
   cod-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -31,3 +31,16 @@ jobs:
 
       - name: Run COD-CP-004 exhaustive runtime audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-004/cod-cp-004.test.ts
+
+      - name: Run CP-001 to CP-004 editorial regression audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
+
+      - name: Export CP-001 to CP-004 editorial review corpus
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/export-cp001-cp004-review.ts cod-review-output
+
+      - name: Upload editorial review corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp001-cp004-editorial-review
+          path: cod-review-output
+          retention-days: 7
