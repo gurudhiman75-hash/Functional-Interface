@@ -18,6 +18,8 @@ export function generateDirectionQuestion(qlId: string, seed = 0) {
   switch (ql.checkpointId) {
     case "DIR-CP-001":
       return generateDirCp001Question(qlId, seed);
+    default:
+      throw new Error(`Checkpoint ${String(ql.checkpointId)} is not wired into DIR-001 generation`);
   }
 }
 
