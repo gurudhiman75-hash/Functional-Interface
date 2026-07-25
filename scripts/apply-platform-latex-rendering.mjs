@@ -79,4 +79,25 @@ patchFile('artifacts/admin-app/src/pages/content/QuestionBankWorkspacePage.tsx',
   },
 ]);
 
+const validatorRoot = 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation';
+for (const validator of ['validator.ts', 'validator-cp006.ts', 'validator-dictionary-rank.ts']) {
+  patchFile(`${validatorRoot}/${validator}`, [
+    {
+      label: 'TeX-safe placeholder import',
+      before: 'import { getPnc001ConstraintProfile',
+      after: 'import { containsUnresolvedPnc001Placeholder } from "./latex";\nimport { getPnc001ConstraintProfile',
+    },
+    {
+      label: 'stem placeholder check',
+      before: '!/\\{[A-Za-z0-9_]+\\}/.test(pkg.stem)',
+      after: '!containsUnresolvedPnc001Placeholder(pkg.stem)',
+    },
+    {
+      label: 'explanation placeholder check',
+      before: '!/\\{[A-Za-z0-9_]+\\}/.test(explanationText)',
+      after: '!containsUnresolvedPnc001Placeholder(explanationText)',
+    },
+  ]);
+}
+
 console.log('Platform LaTeX rendering patches applied.');
