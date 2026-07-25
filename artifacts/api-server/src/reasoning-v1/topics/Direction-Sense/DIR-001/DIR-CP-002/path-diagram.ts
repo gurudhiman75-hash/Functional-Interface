@@ -71,8 +71,7 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">, options: PathDiagramOptio
           `<line data-role="shortest-distance-line" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>`,
           `<g data-role="shortest-distance-key">`,
           `<rect x="568" y="158" width="140" height="72" rx="10" fill="#eff6ff" stroke="#60a5fa"/>`,
-          `<line x1="584" y1="181" x2="616" y2="181" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 6"/>`,
-          `<text x="638" y="185" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">Straight line</text>`,
+          `<text x="638" y="184" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">Shortest distance</text>`,
           `<text x="638" y="211" text-anchor="middle" font-size="13" font-weight="800" fill="#111827">${escapeXml(options.shortestDistanceLabel)}</text>`,
           `</g>`,
         ].join("");
