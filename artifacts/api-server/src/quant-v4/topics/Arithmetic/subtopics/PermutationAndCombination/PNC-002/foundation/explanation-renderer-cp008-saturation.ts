@@ -15,8 +15,8 @@ export function renderPnc002Cp008SaturationExplanation(
   const authored = getPnc002Explanation(parameters.questionLanguageId);
   const variables: Record<string, string | number> = {
     answer: solver.answer,
-    equation: `\(${solver.mathJax}\)`,
-    calculation: `\(${solver.mathJax}\)`,
+    equation: `\\(${solver.mathJax}\\)`,
+    calculation: `\\(${solver.mathJax}\\)`,
     totalObjects: e.totalObjects,
     prescribedObjectCount: e.prescribedObjectCount ?? "",
     remainingObjects: e.remainingObjects ?? "",
