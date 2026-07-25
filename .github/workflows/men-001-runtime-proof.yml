@@ -101,5 +101,6 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/men-001-human-review.csv
             artifacts/api-server/dist/quant-v4/men-001-human-review.md
+            artifacts/api-server/dist/quant-v4/men-001-human-review.html
           if-no-files-found: error
           retention-days: 7
