@@ -46,7 +46,16 @@ jobs:
           if (missing.length > 0) {
             throw new Error(`Stem replacements were not applied: ${missing.join(', ')}`);
           }
-          fs.writeFileSync(languagePath, `${JSON.stringify(language, null, 2)}\n`, 'utf8');
+
+          let serialized = JSON.stringify(language, null, 2);
+          serialized = serialized.replace(
+            /      "(requiredVariables|distractorStrategyIds)": \[\n((?:        ".*"(?:,\n|\n))+?)      \]/g,
+            (_match, key, body) => {
+              const values = [...body.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+              return `      "${key}": [${values.map((value) => JSON.stringify(value)).join(', ')}]`;
+            },
+          );
+          fs.writeFileSync(languagePath, `${serialized}\n`, 'utf8');
 
           const profilePath = 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/natural-explanation-authorship.cp006.ts';
           let profiles = fs.readFileSync(profilePath, 'utf8');
@@ -67,5 +76,5 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/question-language.cp006.en.json \
             artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/natural-explanation-authorship.cp006.ts
           git diff --cached --check
-          git commit -m "fix(mensuration): polish CP-006 stem realism"
+          git commit -m "style(mensuration): preserve compact CP-006 registries"
           git push origin HEAD:feat/men-001-cp006-runtime-proof
