@@ -46,6 +46,8 @@ async function typeset(root: Element) {
 
 export function MathRenderingProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
+    if (typeof navigator !== 'undefined' && /jsdom/i.test(navigator.userAgent)) return;
+
     configureMathJax();
     const root = document.getElementById('root');
     if (!root) return;
