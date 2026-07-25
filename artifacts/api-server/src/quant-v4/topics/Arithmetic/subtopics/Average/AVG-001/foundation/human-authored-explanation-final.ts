@@ -3,6 +3,7 @@ import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-autho
 import { applyAvg001Cp003ExplanationFinalPolish } from "./cp003-explanation-final-polish";
 import { applyAvg001ExplanationContract } from "./human-authored-explanation-contract";
 import { finalizeAvg001ExplanationDepth } from "./human-authored-explanation-depth-finalizer";
+import { finalizeAvg001ExplanationOpening } from "./human-authored-explanation-opening-finalizer";
 import { finalizeAvg001ExplanationSymbols } from "./human-authored-explanation-symbol-finalizer";
 import { applyAvg001HumanAuthoredExplanation as applyAuthoredPlanner } from "./human-authored-explanation-quality";
 import type { Avg001QuestionPackage } from "./types";
@@ -139,5 +140,6 @@ export function applyAvg001HumanAuthoredExplanation(
   const answerComplete = applyAvg001Cp003ExplanationAnswerEvidence(manuallyDifferentiated);
   const contracted = applyAvg001ExplanationContract(answerComplete);
   const depthComplete = finalizeAvg001ExplanationDepth(contracted);
-  return finalizeAvg001ExplanationSymbols(depthComplete);
+  const symbolComplete = finalizeAvg001ExplanationSymbols(depthComplete);
+  return finalizeAvg001ExplanationOpening(symbolComplete);
 }

@@ -4,6 +4,8 @@ import { finalizeAvg001Cp003ExplanationGrammar } from "./cp003-explanation-gramm
 import { applyAvg001Cp003LocalizedStemAuthorship } from "./cp003-localized-stem-authorship";
 import { applyAvg001Cp003LocalizedStemFinalPolish } from "./cp003-localized-stem-final-polish";
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
+import { finalizeAvg001ExplanationOpening } from "./human-authored-explanation-opening-finalizer";
+import { finalizeAvg001LocalizedExplanationOpeningVariant } from "./localized-explanation-opening-variant-finalizer";
 import {
   applyAvg001LocalizedStemContextFidelity,
   AVG_001_LOCALIZED_STEM_CONTEXT_FIDELITY,
@@ -152,5 +154,7 @@ export function applyAvg001LocalizedPresentationQuality(
   const contextFinalized = finalizeAvg001Cp003ExplanationContext(humanized);
   const grammarFinalized = finalizeAvg001Cp003ExplanationGrammar(contextFinalized);
   const equationFinalized = finalizeAvg001Cp003EquationLabels(grammarFinalized);
-  return { ...equationFinalized, validation: refreshValidation(equationFinalized, language) };
+  const openingFinalized = finalizeAvg001ExplanationOpening(equationFinalized);
+  const variantFinalized = finalizeAvg001LocalizedExplanationOpeningVariant(openingFinalized);
+  return { ...variantFinalized, validation: refreshValidation(variantFinalized, language) };
 }
