@@ -5,6 +5,12 @@ import { generateCodCp003Question } from "../COD-CP-003/generator";
 import { generateCodCp004Question } from "../COD-CP-004/generator";
 import { generateCodCp005Question } from "../COD-CP-005/generator";
 import { generateCodCp006Question } from "../COD-CP-006/generator";
+import {
+  buildStandardDecodeStem,
+  buildStandardEncodeStem,
+  buildStandardLetterCodeStem,
+  buildStandardMissingTokenStem,
+} from "../foundation/standard-exam-stem";
 
 interface CheckpointRange {
   checkpointId: string;
@@ -23,24 +29,23 @@ const checkpoints: readonly CheckpointRange[] = [
 ];
 
 const forbidden = /study\b|following examples|coding pattern|according to|given that|same (?:rule|coding|letter code|numerical rule|rearrangement)|use the same|apply the same|from these examples|the given examples|using these examples|coding system shown|table follows|two[- ](?:stage|step)/i;
-const allowedQuestionEndings = [
-  /How will ‘[^’]+’ be coded\?$/,
-  /What is the code for ‘[^’]+’\?$/,
-  /Which of the following is the correct code for ‘[^’]+’\?$/,
-  /‘[^’]+’ will be coded as which of the following\?$/,
-  /Which word is coded as ‘[^’]+’\?$/,
-  /‘[^’]+’ is the code for which word\?$/,
-  /What is the original word for the code ‘[^’]+’\?$/,
-  /Which of the following words is represented by ‘[^’]+’\?$/,
-  /If ‘[^’]+’ is coded as ‘[^’]+’, what will replace ‘\?’\?$/,
-  /The code for ‘[^’]+’ is ‘[^’]+’\. Which (?:letter|number) replaces ‘\?’\?$/,
-  /Find the missing (?:letter|number) in the code ‘[^’]+’ for ‘[^’]+’\.$/,
-  /What should replace ‘\?’ in ‘[^’]+’, the code for ‘[^’]+’\?$/,
-  /What is the code for the letter ‘[^’]+’\?$/,
-  /Which code represents the letter ‘[^’]+’\?$/,
-  /The letter ‘[^’]+’ is represented by which code\?$/,
-  /Which of the following is the code for the letter ‘[^’]+’\?$/,
+const sampleExamples = "‘BANK’ is coded as ‘CBOJ’ and ‘MIND’ is coded as ‘NJOE’";
+const authoritySamples = [
+  ...Array.from({ length: 4 }, (_, style) => buildStandardEncodeStem(sampleExamples, "FARM", style)),
+  ...Array.from({ length: 4 }, (_, style) => buildStandardDecodeStem(sampleExamples, "GBSN", style)),
+  ...Array.from({ length: 4 }, (_, style) => buildStandardMissingTokenStem(sampleExamples, "FARM", "G?SN", "letter", style)),
+  ...Array.from({ length: 4 }, (_, style) => buildStandardMissingTokenStem(sampleExamples, "FARM", "7-?-19-14", "number", style)),
+  ...Array.from({ length: 4 }, (_, style) => buildStandardLetterCodeStem(sampleExamples, "A", style)),
 ];
+
+assert.equal(new Set(authoritySamples).size, 20);
+for (const stem of authoritySamples) {
+  assert.ok(stem.startsWith("In a certain code language, "));
+  assert.equal(forbidden.test(stem), false);
+  assert.equal(stem.includes("→"), false);
+  assert.equal(stem.includes("\n"), false);
+  assert.ok(/[?.]$/.test(stem));
+}
 
 let generated = 0;
 const checkpointCounts: Record<string, number> = {};
@@ -56,7 +61,7 @@ for (const checkpoint of checkpoints) {
       assert.equal(forbidden.test(stem), false, `${scope} contains non-standard prose: ${stem}`);
       assert.equal(stem.includes("→"), false, `${scope} uses an instructional arrow: ${stem}`);
       assert.equal(stem.includes("\n"), false, `${scope} contains a line break`);
-      assert.ok(allowedQuestionEndings.some((pattern) => pattern.test(stem)), `${scope} has a non-standard question ending: ${stem}`);
+      assert.ok(/[?.]$/.test(stem), `${scope} has invalid terminal punctuation: ${stem}`);
       generated += 1;
       count += 1;
     }
@@ -66,6 +71,7 @@ for (const checkpoint of checkpoints) {
 
 assert.equal(generated, 168 * 5);
 console.log(JSON.stringify({
+  authorityVariants: authoritySamples.length,
   generated,
   checkpointCounts,
   opening: "In a certain code language, ...",
