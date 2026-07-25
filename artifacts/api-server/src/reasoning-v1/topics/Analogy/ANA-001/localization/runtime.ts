@@ -42,16 +42,16 @@ const RULE_TEXT: Record<SupportedLocale, Record<string, string>> = {
     LEX_DEFICIENCY_MISSING_QUALITY: "पहला पद दूसरे गुण के अभाव को दर्शाता है।", LEX_STUDY_SUBJECT: "पहला विषय दूसरे का अध्ययन करता है।",
   },
   "pa-IN": {
-    SEM_COUNTRY_CAPITAL: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।", SEM_STATE_CAPITAL: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।", SEM_COUNTRY_CURRENCY: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਦੇਸ਼ ਦੀ ਮੁਦਰਾ ਹੈ।",
-    SEM_ANIMAL_YOUNG: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਜਾਨਵਰ ਦੇ ਬੱਚੇ ਦਾ ਨਾਮ ਹੈ।", SEM_MALE_FEMALE: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਨਰ ਜਾਨਵਰ ਦਾ ਮਾਦਾ ਰੂਪ ਹੈ।", SEM_ANIMAL_SOUND: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਜਾਨਵਰ ਦੀ ਵਿਸ਼ੇਸ਼ ਆਵਾਜ਼ ਹੈ।",
-    SEM_ANIMAL_MOVEMENT: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਜਾਨਵਰ ਦੀ ਵਿਸ਼ੇਸ਼ ਚਾਲ ਹੈ।", SEM_WORKER_WORKPLACE: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਵਿਅਕਤੀ ਦਾ ਆਮ ਕਾਰਜਸਥਾਨ ਹੈ।", SEM_WORKER_TOOL: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਕਾਰੀਗਰ ਦਾ ਮੁੱਖ ਸੰਦ ਹੈ।",
-    SEM_WORKER_PRODUCT: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਉਤਪਾਦਕ ਵੱਲੋਂ ਬਣਾਈ ਵਸਤੂ ਹੈ।", SEM_INSTRUMENT_MEASUREMENT: "ਦੂਜਾ ਪਦ ਉਹ ਮਾਤਰਾ ਹੈ ਜਿਸਨੂੰ ਪਹਿਲਾ ਯੰਤਰ ਮਾਪਦਾ ਹੈ।", SEM_QUANTITY_UNIT: "ਦੂਜਾ ਪਦ ਪਹਿਲੀ ਭੌਤਿਕ ਮਾਤਰਾ ਦੀ ਐਸਆਈ ਇਕਾਈ ਹੈ।",
-    SEM_OBJECT_FUNCTION: "ਦੂਜਾ ਪਦ ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਮੁੱਖ ਕੰਮ ਹੈ।", SEM_PART_WHOLE: "ਪਹਿਲਾ ਪਦ ਦੂਜੇ ਦਾ ਹਿੱਸਾ ਹੈ।", SEM_MEMBER_CLASS: "ਪਹਿਲਾ ਪਦ ਦੂਜੇ ਵਰਗ ਦਾ ਮੈਂਬਰ ਹੈ।",
-    SEM_INDIVIDUAL_GROUP: "ਦੂਜਾ ਪਦ ਉਹ ਸਮੂਹ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾ ਵਿਅਕਤੀ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ।", SEM_PRODUCT_MATERIAL: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਉਤਪਾਦ ਦੀ ਮੁੱਖ ਸਮੱਗਰੀ ਹੈ।", SEM_PLACE_PURPOSE: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਸਥਾਨ ਦਾ ਮੁੱਖ ਉਦੇਸ਼ ਹੈ।",
+    SEM_COUNTRY_CAPITAL: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਦੇਸ਼ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।", SEM_STATE_CAPITAL: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਰਾਜ ਦੀ ਰਾਜਧਾਨੀ ਹੈ।", SEM_COUNTRY_CURRENCY: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਦੇਸ਼ ਦੀ ਮੁਦਰਾ ਹੈ।",
+    SEM_ANIMAL_YOUNG: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਜਾਨਵਰ ਦੇ ਬੱਚੇ ਦਾ ਨਾਮ ਹੈ।", SEM_MALE_FEMALE: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਨਰ ਜਾਨਵਰ ਦਾ ਮਾਦਾ ਰੂਪ ਹੈ।", SEM_ANIMAL_SOUND: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਜਾਨਵਰ ਦੀ ਵਿਸ਼ੇਸ਼ ਆਵਾਜ਼ ਹੈ।",
+    SEM_ANIMAL_MOVEMENT: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਜਾਨਵਰ ਦੀ ਵਿਸ਼ੇਸ਼ ਚਾਲ ਹੈ।", SEM_WORKER_WORKPLACE: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਵਿਅਕਤੀ ਦਾ ਆਮ ਕਾਰਜਸਥਾਨ ਹੈ।", SEM_WORKER_TOOL: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਕਾਰੀਗਰ ਦਾ ਮੁੱਖ ਸੰਦ ਹੈ।",
+    SEM_WORKER_PRODUCT: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਉਤਪਾਦਕ ਵੱਲੋਂ ਬਣਾਈ ਵਸਤੂ ਹੈ।", SEM_INSTRUMENT_MEASUREMENT: "ਦੂਜਾ ਸ਼ਬਦ ਉਹ ਮਾਤਰਾ ਹੈ ਜਿਸਨੂੰ ਪਹਿਲਾ ਯੰਤਰ ਮਾਪਦਾ ਹੈ।", SEM_QUANTITY_UNIT: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੀ ਭੌਤਿਕ ਮਾਤਰਾ ਦੀ ਐਸਆਈ ਇਕਾਈ ਹੈ।",
+    SEM_OBJECT_FUNCTION: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੀ ਵਸਤੂ ਦਾ ਮੁੱਖ ਕੰਮ ਹੈ।", SEM_PART_WHOLE: "ਪਹਿਲਾ ਸ਼ਬਦ ਦੂਜੇ ਦਾ ਹਿੱਸਾ ਹੈ।", SEM_MEMBER_CLASS: "ਪਹਿਲਾ ਸ਼ਬਦ ਦੂਜੇ ਵਰਗ ਦਾ ਮੈਂਬਰ ਹੈ।",
+    SEM_INDIVIDUAL_GROUP: "ਦੂਜਾ ਸ਼ਬਦ ਉਹ ਸਮੂਹ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾ ਵਿਅਕਤੀ ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ।", SEM_PRODUCT_MATERIAL: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਉਤਪਾਦ ਦੀ ਮੁੱਖ ਸਮੱਗਰੀ ਹੈ।", SEM_PLACE_PURPOSE: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਸਥਾਨ ਦਾ ਮੁੱਖ ਉਦੇਸ਼ ਹੈ।",
     LEX_SYNONYM: "ਦੋਵੇਂ ਸ਼ਬਦ ਸਮਾਨਾਰਥਕ ਹਨ।", LEX_ANTONYM: "ਦੋਵੇਂ ਸ਼ਬਦ ਵਿਰੋਧੀ ਹਨ।", LEX_INTENSITY_UP: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਨਾਲੋਂ ਵੱਧ ਤੀਬਰ ਹੈ।", LEX_INTENSITY_DOWN: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਨਾਲੋਂ ਘੱਟ ਤੀਬਰ ਹੈ।",
-    LEX_CAUSE_EFFECT: "ਪਹਿਲਾ ਕਾਰਨ ਅਤੇ ਦੂਜਾ ਉਸਦਾ ਪ੍ਰਭਾਵ ਹੈ।", LEX_EFFECT_CAUSE: "ਪਹਿਲਾ ਪ੍ਰਭਾਵ ਅਤੇ ਦੂਜਾ ਉਸਦਾ ਕਾਰਨ ਹੈ।", LEX_CONDITION_SYMPTOM: "ਦੂਜਾ ਪਦ ਪਹਿਲੀ ਹਾਲਤ ਦਾ ਆਮ ਲੱਛਣ ਹੈ।",
-    LEX_ACTION_RESULT: "ਦੂਜਾ ਪਦ ਪਹਿਲੀ ਕਿਰਿਆ ਦਾ ਆਮ ਨਤੀਜਾ ਹੈ।", LEX_OBJECT_CHARACTERISTIC: "ਦੂਜਾ ਪਦ ਪਹਿਲੀ ਵਸਤੂ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ।", LEX_WORD_DEFINITION: "ਦੂਜਾ ਪਦ ਪਹਿਲੇ ਸ਼ਬਦ ਦੀ ਪਰਿਭਾਸ਼ਾ ਹੈ।",
-    LEX_DEFICIENCY_MISSING_QUALITY: "ਪਹਿਲਾ ਪਦ ਦੂਜੇ ਗੁਣ ਦੀ ਘਾਟ ਦਰਸਾਉਂਦਾ ਹੈ।", LEX_STUDY_SUBJECT: "ਪਹਿਲਾ ਵਿਸ਼ਾ ਦੂਜੇ ਦਾ ਅਧਿਐਨ ਕਰਦਾ ਹੈ।",
+    LEX_CAUSE_EFFECT: "ਪਹਿਲਾ ਕਾਰਨ ਅਤੇ ਦੂਜਾ ਉਸਦਾ ਪ੍ਰਭਾਵ ਹੈ।", LEX_EFFECT_CAUSE: "ਪਹਿਲਾ ਪ੍ਰਭਾਵ ਅਤੇ ਦੂਜਾ ਉਸਦਾ ਕਾਰਨ ਹੈ।", LEX_CONDITION_SYMPTOM: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੀ ਹਾਲਤ ਦਾ ਆਮ ਲੱਛਣ ਹੈ।",
+    LEX_ACTION_RESULT: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੀ ਕਿਰਿਆ ਦਾ ਆਮ ਨਤੀਜਾ ਹੈ।", LEX_OBJECT_CHARACTERISTIC: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੀ ਵਸਤੂ ਦੀ ਮੁੱਖ ਵਿਸ਼ੇਸ਼ਤਾ ਹੈ।", LEX_WORD_DEFINITION: "ਦੂਜਾ ਸ਼ਬਦ ਪਹਿਲੇ ਸ਼ਬਦ ਦੀ ਪਰਿਭਾਸ਼ਾ ਹੈ।",
+    LEX_DEFICIENCY_MISSING_QUALITY: "ਪਹਿਲਾ ਸ਼ਬਦ ਦੂਜੇ ਗੁਣ ਦੀ ਘਾਟ ਦਰਸਾਉਂਦਾ ਹੈ।", LEX_STUDY_SUBJECT: "ਪਹਿਲਾ ਵਿਸ਼ਾ ਦੂਜੇ ਦਾ ਅਧਿਐਨ ਕਰਦਾ ਹੈ।",
   },
 };
 
@@ -146,7 +146,7 @@ export function generateLocalizedAnalogy(qlId: string, locale: SupportedLocale, 
       conclusion,
       closestTrapRejection: locale === "hi-IN"
         ? "अन्य विकल्प सही प्रकार के हैं, पर लक्ष्य पद के साथ ठीक वही संबंध नहीं बनाते।"
-        : "ਹੋਰ ਵਿਕਲਪ ਸਹੀ ਕਿਸਮ ਦੇ ਹਨ, ਪਰ ਦਿੱਤੇ ਹੋਏ ਪਦ ਨਾਲ ਬਿਲਕੁਲ ਉਹੀ ਸੰਬੰਧ ਨਹੀਂ ਬਣਾਉਂਦੇ।",
+        : "ਹੋਰ ਵਿਕਲਪ ਸਹੀ ਕਿਸਮ ਦੇ ਹਨ, ਪਰ ਦਿੱਤੇ ਹੋਏ ਸ਼ਬਦ ਨਾਲ ਬਿਲਕੁਲ ਉਹੀ ਸੰਬੰਧ ਨਹੀਂ ਬਣਾਉਂਦੇ।",
     },
   };
 }
