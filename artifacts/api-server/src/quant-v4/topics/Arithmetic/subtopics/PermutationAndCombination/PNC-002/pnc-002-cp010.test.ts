@@ -26,16 +26,17 @@ import {
   countRotationOnlyOrnamentsExact,
   countRoundTableDistinctExact,
 } from "./foundation/solver-cp010";
+import { countCircularExactlyOnePairTogetherExact } from "./foundation/solver-cp010-saturation";
 
 const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-010");
-const checkpointIds = Array.from({ length: 27 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
-assert.equal(entries.length, 27);
+const checkpointIds = Array.from({ length: 29 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
+assert.equal(entries.length, 29);
 assert.deepEqual(entries.map((entry) => entry.qlId), checkpointIds);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 27);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 29);
 const difficultyCounts = Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]));
-assert.deepEqual(difficultyCounts, { Easy: 3, Medium: 12, Hard: 12 });
+assert.deepEqual(difficultyCounts, { Easy: 3, Medium: 13, Hard: 13 });
 const solveModeCounts = Object.fromEntries([...new Set(entries.map((entry) => entry.solveMode))].map((solveMode) => [solveMode, entries.filter((entry) => entry.solveMode === solveMode).length]));
-assert.equal(Object.keys(solveModeCounts).length, 21);
+assert.equal(Object.keys(solveModeCounts).length, 22);
 
 assert.equal(countRoundTableDistinctExact(6), 120);
 assert.equal(countCircularSpecifiedBlockTogetherExact(7, 3), 144);
@@ -46,6 +47,7 @@ assert.equal(countCircularBlockWithExternalPairApartExact(8, 2), 960);
 assert.equal(countCircularTwoBlocksNotAdjacentExact(8, [2, 2]), 288);
 assert.equal(countCircularAtLeastOnePairTogetherExact(8), 2400);
 assert.equal(countCircularNeitherPairTogetherExact(8), 2640);
+assert.equal(countCircularExactlyOnePairTogetherExact(8), 1920);
 assert.equal(countPersonBetweenTwoNeighborsExact(7), 48);
 assert.equal(countOppositePairExact(8), 720);
 assert.equal(countClockwiseAdjacentPairExact(7), 120);
@@ -70,6 +72,8 @@ assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-199", seed: "cp010-
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-200", seed: "cp010-pair-inverse" }).solver.evidence.recoveredParameter, "circularObjects");
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-201", seed: "cp010-rotation-contract" }).solver.evidence.reflectionSymmetryDivisor, 1);
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-202", seed: "cp010-reflection-contract" }).solver.evidence.reflectionSymmetryDivisor, 2);
+assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-204", seed: "cp010-block-apart-saturation" }).solver.evidence.operation, "CIRCULAR_BLOCK_APART");
+assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-205", seed: "cp010-exclusive-pair-saturation" }).solver.evidence.operation, "CIRCULAR_EXACTLY_ONE_PAIR");
 
 let generatedCases = 0;
 for (const entry of entries) {
@@ -91,7 +95,7 @@ for (const entry of entries) {
     generatedCases += 1;
   }
 }
-assert.equal(generatedCases, 216);
+assert.equal(generatedCases, 232);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-177", language: "hi", seed: "unsupported-hi" }), /not implemented/);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-177", language: "pa", seed: "unsupported-pa" }), /not implemented/);
 const audit = auditPnc002Cp010Coverage();
