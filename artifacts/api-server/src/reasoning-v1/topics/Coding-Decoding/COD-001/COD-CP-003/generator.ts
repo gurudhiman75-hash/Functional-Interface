@@ -2,6 +2,7 @@ import type { CodDifficulty, GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
+import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { auditAlphabetTransformRule } from "./ambiguity-checker";
 import { buildCodCp003Distractors } from "./distractors";
 import { buildCodCp003Explanation } from "./explanation-builder";
@@ -56,35 +57,12 @@ function deriveDifficulty(logic: CodCp003QuestionLogic): CodDifficulty {
 function buildStem(prompt: AlphabetTransformPrompt, style: number): string {
   const examples = joinCodeExamples(prompt.evidence);
   if (prompt.taskKind === "DECODE_TARGET") {
-    return [
-      `In a certain code, ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
-      `If ${examples}, what is the original word for ‘${prompt.encodedTarget}’?`,
-      `Study these examples: ${examples}. Decode ‘${prompt.encodedTarget}’.`,
-      `The same rule applies to these examples: ${examples}. Which word is represented by ‘${prompt.encodedTarget}’?`,
-    ][style]!;
+    return buildStandardDecodeStem(examples, prompt.encodedTarget!, style);
   }
   if (prompt.taskKind === "RECOVER_MISSING_LETTER") {
-    return [
-      `In a certain code, ${examples}. ‘${prompt.targetWord}’ is coded as ‘${prompt.displayedTargetCode}’. Which letter replaces ‘?’?`,
-      `If ${examples}, complete the code ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `From these examples—${examples}—find the missing letter in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `The given examples are: ${examples}. What should replace ‘?’ in the code ‘${prompt.displayedTargetCode}’ for ‘${prompt.targetWord}’?`,
-    ][style]!;
+    return buildStandardMissingTokenStem(examples, prompt.targetWord, prompt.displayedTargetCode!, "letter", style);
   }
-  if (prompt.taskKind === "CHOOSE_MATCHING_CODE") {
-    return [
-      `In a certain code, ${examples}. Which option gives the code for ‘${prompt.targetWord}’?`,
-      `If ${examples}, select the correct code for ‘${prompt.targetWord}’.`,
-      `Study these examples: ${examples}. Which code matches ‘${prompt.targetWord}’?`,
-      `Given that ${examples}, choose the code of ‘${prompt.targetWord}’.`,
-    ][style]!;
-  }
-  return [
-    `In a certain code, ${examples}. How will ‘${prompt.targetWord}’ be written?`,
-    `If ${examples}, what is the code for ‘${prompt.targetWord}’?`,
-    `Given that ${examples}, use the same rule to find the code of ‘${prompt.targetWord}’.`,
-    `Study these examples: ${examples}. Determine the code for ‘${prompt.targetWord}’.`,
-  ][style]!;
+  return buildStandardEncodeStem(examples, prompt.targetWord, style);
 }
 
 function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: number): GeneratedCodCp003Question | null {

@@ -5,6 +5,7 @@ import { SeededRandom } from "../foundation/prng";
 import { encodeWithMapping, evidenceCoversWord, mappingFromEvidence } from "../foundation/mapping";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples } from "../foundation/editorial";
+import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardLetterCodeStem } from "../foundation/standard-exam-stem";
 import { getCodCp001QuestionLogic } from "./question-language.en";
 import { COD_CP001_WORD_POOL } from "./word-pool.en";
 import { auditDirectMapping } from "./ambiguity-checker";
@@ -111,37 +112,13 @@ function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, rando
 
 function buildStem(prompt: DirectMappingPrompt, styleIndex: number): string {
   const examples = joinCodeExamples(prompt.evidence);
-  const style = styleIndex % 4;
   if (prompt.taskKind === "DECODE_TARGET") {
-    return [
-      `In a certain code, ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
-      `If ${examples}, what is the original word for the code ‘${prompt.encodedTarget}’?`,
-      `The same letter code applies to these examples: ${examples}. Identify the word represented by ‘${prompt.encodedTarget}’.`,
-      `Study these codes: ${examples}. Which word gives the code ‘${prompt.encodedTarget}’?`,
-    ][style]!;
+    return buildStandardDecodeStem(examples, prompt.encodedTarget!, styleIndex);
   }
   if (prompt.taskKind === "RECOVER_MISSING_CODE") {
-    return [
-      `In the coding system shown by these examples—${examples}—complete the entry ${prompt.missingSource} → ?.`,
-      `Using these examples—${examples}—what should replace the blank in ${prompt.missingSource} → ?`,
-      `The table follows these coded examples: ${examples}. Find the missing code for ${prompt.missingSource}.`,
-      `Given that ${examples}, determine the table value for ${prompt.missingSource}.`,
-    ][style]!;
+    return buildStandardLetterCodeStem(examples, prompt.missingSource!, styleIndex);
   }
-  if (prompt.taskKind === "INFER_FROM_OVERLAP") {
-    return [
-      `In a certain code, ${examples}. How will ‘${prompt.target}’ be coded?`,
-      `If ${examples}, which option is the correct code for ‘${prompt.target}’?`,
-      `Study the common letter codes in these examples: ${examples}. Find the code for ‘${prompt.target}’.`,
-      `The same letter keeps the same code in these examples: ${examples}. What is the code of ‘${prompt.target}’?`,
-    ][style]!;
-  }
-  return [
-    `In a certain code, ${examples}. How will ‘${prompt.target}’ be coded?`,
-    `If ${examples}, what is the code for ‘${prompt.target}’?`,
-    `Given that ${examples}, find the code of ‘${prompt.target}’ in the same coding system.`,
-    `The coding shown by these examples—${examples}—is also applied to ‘${prompt.target}’. Which option is correct?`,
-  ][style]!;
+  return buildStandardEncodeStem(examples, prompt.target, styleIndex);
 }
 
 function mappingFingerprint(mapping: DirectMap): string {

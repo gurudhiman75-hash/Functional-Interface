@@ -35,6 +35,30 @@ jobs:
       - name: Run CP-001 to CP-004 editorial regression audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
 
+      - name: Run standard competitive-exam stem audit
+        id: standard_stems
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-standard-exam-stems.test.ts > cod-standard-exam-stems.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload standard stem audit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-standard-exam-stem-audit
+          path: cod-standard-exam-stems.log
+          retention-days: 7
+
+      - name: Enforce standard competitive-exam stem result
+        shell: bash
+        run: |
+          cat cod-standard-exam-stems.log
+          test "${{ steps.standard_stems.outputs.exit_code }}" = "0"
+
       - name: Export CP-001 to CP-004 editorial review corpus
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/export-cp001-cp004-review.ts cod-review-output
 
