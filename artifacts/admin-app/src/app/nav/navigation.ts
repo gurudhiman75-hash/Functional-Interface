@@ -35,7 +35,7 @@ export const NAV_GROUPS: NavGroup[] = [
   { id: 'commerce', label: 'Commerce', items: [
     { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'live', permission: 'commerce.products.read', summary: 'Canonical package inventory with immutable versions, minor-unit pricing, ordered test membership and audited lifecycle controls.' },
     { label: 'Orders & Payments', path: '/commerce/orders', icon: ShoppingCart, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical order ledger, frozen pricing snapshots, signature-verified provider events, captured-payment reconciliation and entitlement evidence.', milestone: 'Refund mutations remain deferred until provider refund verification is implemented.' },
-    { label: 'Coupons', path: '/commerce/coupons', icon: Ticket, status: 'planned', summary: 'Configure discount codes, usage limits and campaign windows.', milestone: 'Canonical promotion rules and redemption audit.' },
+    { label: 'Coupons', path: '/commerce/coupons', icon: Ticket, status: 'live', permission: 'commerce.coupons.read', summary: 'Canonical fixed and percentage discounts with package scope, campaign windows, redemption limits and paid-order evidence.' },
     { label: 'Entitlements', path: '/commerce/entitlements', icon: KeyRound, status: 'planned', summary: 'Inspect and manage the products and tests each student can access.', milestone: 'Administrative grant and revocation workflow.' },
   ] },
   { id: 'users', label: 'Users', items: [
