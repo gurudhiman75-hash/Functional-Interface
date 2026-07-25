@@ -11,117 +11,114 @@ Only two QLs are currently justified:
 | `DIR-QL-004` | Endpoint direction | Replays an ordered movement path and classifies the final coordinate from either query reference |
 | `DIR-QL-005` | Endpoint direction plus final facing | Produces and validates a compound answer containing two independently derived state properties |
 
-A standalone final-facing-after-path QL was not added. In ordinary distance-bearing stems, displayed distances would not contribute to the facing answer, violating the chapter rule that displayed elements should have a reasoning role.
+A standalone final-facing-after-path QL was not added because ordinary path distances would not contribute to that answer. Path length, names, individual turn combinations and wording remain generated-instance variation. No fixed solve-mode enum is used; runtime metadata reports `solveMode: null`.
 
-Single versus multiple turns, right/left/about turns, path length, query reversal, names and wording variants remain generated-instance variation.
+## Exam-style statement contract
 
-No fixed solve-mode enum is used. Runtime metadata reports `solveMode: null`.
+The earlier point-labelled, numbered-operation stems were rejected as instructional rather than exam-like.
 
-## Statement-quality correction
+Every generated stem now:
 
-Compressed path prose was removed. Every stem now has this explicit structure:
+- is one continuous paragraph;
+- states only the starting point and initial facing direction;
+- gives the first distance;
+- continues through right, left or about turns followed by the next distance;
+- does not name artificial points `O`, `A`, `B`, and so on;
+- does not number operations;
+- does not disclose the compass direction after each turn or movement;
+- asks directly for the final position from the start, the start from the final position, or the compound position/facing answer.
 
-1. name point `O` as the starting point;
-2. state the initial facing direction;
-3. label every reached point `A`, `B`, `C`, and so on;
-4. state each movement as one numbered operation;
-5. state that movement occurs without turning;
-6. state each turn as a separate numbered operation;
-7. state that a turn changes facing without changing position;
-8. name the exact reference point and subject point in the final question.
-
-The runtime no longer uses vague demands such as “Where is the final position relative to the start?” It asks forms such as:
+Representative form:
 
 ```text
-Taking point O as the reference point, in which direction is point B located?
+Aman starts from a point facing South and walks 8 metres. Aman then turns right and walks 12 metres. In which direction is Aman's final position from the starting point?
 ```
 
-or the explicitly reversed form:
+The runtime test enforces one-line prose, exactly one disclosed compass direction in the stem, one `walks` clause per leg, and absence of instructional point labels or facing disclosures.
+
+## Explanation order
+
+Every explanation now follows this fixed editorial order:
+
+1. `given` — three short lines containing the starting direction, simplified directional path and required quantity;
+2. `diagram` — a visual representation before calculations;
+3. `method` — the intended reasoning approach;
+4. detailed solution steps;
+5. the exact asked relation;
+6. conclusion;
+7. closest-trap rejection.
+
+Example simplified path:
 
 ```text
-Taking point B as the reference point, in which direction is point O located?
+9 m West → about-turn → 3 m East → right turn → 12 m South → left turn → 15 m East
 ```
 
-## Explanation and diagram contract
+The detailed steps then introduce `O`, `A`, `B`, and so on only inside the solution, where they help construct the diagram and coordinate calculation.
 
-Every explanation is point-wise and includes:
+## Clear diagram contract
 
-- numbered steps;
-- a title for every step;
-- the compass-coordinate convention;
-- the coordinate before and after every movement;
-- the displacement vector for every leg;
-- an explicit statement that turns do not change coordinates;
-- the before-facing, turn direction/angle and after-facing;
-- separate resolution of the reference-to-subject relation;
-- separate final-facing resolution for compound questions;
-- a detailed conclusion that repeats the reference, subject and answer;
-- misconception rejection;
-- a final structured movement diagram.
+The diagram is emitted as both a machine-readable `PathDiagramSpec` and self-contained SVG.
 
-The diagram is emitted both as a machine-readable `PathDiagramSpec` and a self-contained SVG. It contains:
+To prevent text obstruction:
 
-- labelled points and coordinates;
-- solid route arrows for actual movement;
-- distance and compass-direction labels on each leg;
-- a dashed red arrow for the exact relation asked;
-- a purple final-facing arrow for compound questions;
-- a warning that the diagram is not necessarily to scale.
+- route lines contain only small numbered markers;
+- full movement descriptions are placed in a separate right-side legend;
+- every legend row has an opaque white background and border;
+- the exact asked relation is drawn as a curved dashed red arrow, away from straight route lines;
+- its text appears in a separate bottom callout;
+- compound questions show the final-facing arrow on the route and its text in the side legend;
+- point letters remain inside high-contrast circles;
+- no coordinate text is placed across route lines.
 
-The `diagram` field is deliberately the final explanation field, and the test enforces this ordering.
+The generated HTML review file was visually inspected after CI generation. Adjacent short-leg labels no longer overlap each other or the diagram title.
 
 ## Runtime implemented
 
 - deterministic two-to-five-leg cardinal paths;
-- relative forward movement with right, left and about turns;
-- bounded deterministic rejection of zero-displacement paths;
-- endpoint query in both final-from-start and start-from-final directions;
-- compound endpoint/facing answer contract;
-- independent path replay that does not call the production `solvePath` function;
-- coordinate and facing agreement checks;
-- misconception-driven direction and compound distractors;
-- structured prompts with labelled points;
+- forward movement with right, left and about turns;
+- bounded rejection of zero-displacement paths;
+- both query-reference directions;
+- compound endpoint/facing answers;
+- independent path replay and coordinate/facing verification;
+- misconception-driven distractors;
 - chapter-registry discovery for `DIR-QL-004` and `DIR-QL-005`;
-- 200-seed-per-QL exhaustive test;
-- retained CI diagnostics for future editorial failures.
+- 200-seed-per-QL exhaustive proof;
+- HTML and JSONL editorial review export.
 
-## Exact runtime-proof results
+## Exact proof
 
-GitHub Actions run `30149562665` executed the committed branch and passed:
+GitHub Actions run `30150926436` passed on runtime head `3a1c1a304230ba06f4c3154d173f212b08222a3c`:
 
 ```text
-DIR-001 strict typecheck:          passed
-Foundation proof:                  passed
-DIR-CP-001 proof:                  passed
-DIR-CP-002 proof:                  passed
-QL count:                          2
-Seeds per QL:                      200
-Generated cases:                   400
-Unambiguous point-labelled stems:  passed
-Detailed numbered explanations:    passed
-Diagram-last contract:             passed
-Diagram/answer relation parity:    passed
-Endpoint-direction coverage:       8 / 8
-Final-facing coverage:             North, East, South, West
-Query-reference coverage:          forward and reversed
-Difficulty coverage:               Easy, Medium, Hard
-Stem diversity:                    200 / 200 for each QL
-Answer positions:                  112, 95, 87, 106
-Max/min ratio:                     1.287
-Required ratio:                    below 1.35
+DIR-001 strict typecheck:        passed
+Foundation proof:                passed
+DIR-CP-001 proof:                passed
+DIR-CP-002 proof:                passed
+Generated cases:                 400
+Exam-style one-line stems:       passed
+Only initial direction exposed:  passed
+Given-first explanation order:   passed
+Curved asked-relation arrow:     passed
+Protected movement labels:       passed
+Endpoint directions:             8 / 8
+Final facings:                   North, East, South, West
+Query references:                forward and reversed
+Difficulty:                      Easy, Medium, Hard
+Stem diversity:                  200 / 200 per QL
+Answer positions:                112, 95, 87, 106
+Max/min ratio:                   1.287
 ```
-
-The first strengthened run correctly rejected a conclusion that was mathematically correct but too terse. The conclusion was expanded to restate the reference point, subject point and answer direction, and the unchanged quality gate then passed.
 
 ## Execution honesty
 
-- Tests written: yes.
-- Exact committed tests in GitHub Actions: passed.
-- GitHub Actions workflow: `Validate DIR-001 runtime proof`, run `30149562665`.
-- English human editorial review: still required across exported samples.
+- Exact committed runtime tests: passed.
+- Generated HTML/JSONL review export: passed.
+- Visual inspection of endpoint and compound diagrams: completed for representative generated samples.
+- Full English human review of all exported questions: still required.
 - Hindi and Punjabi runtime: not started.
 - Freeze-ready: no.
 
-## Next need-based decision
+## Next boundary
 
-Do not add another CP-002 QL merely for volume. First visually inspect the point-labelled statements, detailed explanations and SVG diagrams. If no additional hidden-state, answer-demand, solver or renderer contract is found, merge CP-002 and proceed to `DIR-CP-003` for distance, displacement and shortest return.
+Review the regenerated 10-question HTML corpus. Do not add another CP-002 QL merely for volume. If no new hidden-state, answer-demand, solver or renderer contract is found, merge CP-002 and proceed to `DIR-CP-003` for distance, displacement and shortest return.
