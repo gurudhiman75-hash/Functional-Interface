@@ -1,0 +1,27 @@
+{
+  "cpId": "PNL-CP-003",
+  "policy": "MISCONCEPTION_DRIVEN_ONLY",
+  "prohibited": [
+    "arbitrary plus or minus offsets from the correct answer",
+    "direction-only duplicates with the same magnitude",
+    "options that violate quantity reconciliation",
+    "options produced by ignoring all unsold or damaged stock without semantic intent"
+  ],
+  "approvedMisconceptions": [
+    "simple-average of group percentages instead of cost-weighted aggregation",
+    "using selling-price weights where cost-price weights are required",
+    "adding equal profit and loss rates and declaring no change under equal selling prices",
+    "applying the equal-SP special identity to equal-CP articles",
+    "ignoring free units in total quantity",
+    "charging cost to free units received from the supplier",
+    "treating unsold stock as sold at cost without being stated",
+    "omitting salvage or damaged-stock recovery",
+    "using only the cost of good units instead of the full original inventory cost",
+    "computing the target percentage on recovered amount instead of total cost",
+    "finding the required total recovery but returning it as a per-unit price",
+    "using arithmetic mean instead of weighted rate for unequal groups",
+    "reversing profit and loss multipliers in inverse reconstruction",
+    "using sold quantity rather than remaining quantity in an unsold-stock inverse",
+    "treating a recovered fraction of cost as the loss fraction without subtracting from one"
+  ]
+}
