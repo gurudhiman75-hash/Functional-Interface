@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { auditPnc002Cp010Coverage } from "./foundation/coverage-auditor-cp010";
 import { getPnc002QuestionEntries } from "./foundation/library";
+import { factorialExact } from "./foundation/math";
 import { runPnc002Pipeline } from "./foundation/pipeline";
 import {
   countCircularAlternationExact,
