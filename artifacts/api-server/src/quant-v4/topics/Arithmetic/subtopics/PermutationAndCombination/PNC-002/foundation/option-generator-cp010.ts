@@ -10,11 +10,45 @@ export function buildPnc002Cp010Options(
   solver: Pnc002SolverResult,
 ): { options: string[]; correctIndex: number } {
   const correct = solver.numericAnswer;
+  const evidence = solver.evidence;
   let distractors: number[];
   if (parameters.solveMode === "recoverCircularParameter") {
     distractors = uniquePositive([correct - 1, correct + 1, correct + 2, correct - 2], correct);
+  } else if (parameters.solveMode === "countCircularSelectionRotationOnly") {
+    const selectedObjects = evidence.selectedObjectCount ?? 0;
+    const selectionCount = evidence.selectionCount ?? 0;
+    const selectedCircularOrders = evidence.selectedCircularArrangementCount ?? 0;
+    const linearSelectionAndArrangement = correct * selectedObjects;
+    const reflectionEquivalentCount = Math.floor(correct / 2);
+    distractors = uniquePositive([
+      linearSelectionAndArrangement,
+      selectionCount,
+      reflectionEquivalentCount,
+      selectedCircularOrders,
+    ], correct);
+  } else if (parameters.solveMode === "countCircularSelectionDihedral") {
+    const selectedObjects = evidence.selectedObjectCount ?? 0;
+    const selectionCount = evidence.selectionCount ?? 0;
+    const rotationOnlyCount = correct * 2;
+    const linearSelectionAndArrangement = rotationOnlyCount * selectedObjects;
+    const linearWithReflectionOnly = Math.floor(linearSelectionAndArrangement / 2);
+    distractors = uniquePositive([
+      rotationOnlyCount,
+      linearSelectionAndArrangement,
+      linearWithReflectionOnly,
+      selectionCount,
+    ], correct);
+  } else if (parameters.solveMode === "countCircularDistinctNeighborSets") {
+    const n = evidence.totalObjects;
+    const unrestrictedCircular = factorialExact(n - 1);
+    const linearCount = factorialExact(n);
+    distractors = uniquePositive([
+      unrestrictedCircular,
+      Math.floor(linearCount / 2),
+      linearCount,
+    ], correct);
   } else {
-    const n = solver.evidence.totalObjects;
+    const n = evidence.totalObjects;
     const unrestrictedCircular = n >= 2 ? factorialExact(n - 1) : 1;
     const linearCount = factorialExact(n);
     distractors = uniquePositive([
