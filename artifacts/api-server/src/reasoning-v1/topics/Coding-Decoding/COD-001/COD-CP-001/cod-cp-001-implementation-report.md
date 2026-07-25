@@ -1,6 +1,6 @@
 # COD-CP-001 Runtime-Proof Implementation Report
 
-Status: English runtime proof complete and repository CI verified; human editorial approval pending.
+Status: English runtime proof complete, editorially corrected and repository CI verified; publication approval remains deferred.
 
 ## Scope
 
@@ -27,22 +27,32 @@ Status: English runtime proof complete and repository CI verified; human editori
 - exact review exporter;
 - 100-seed-per-QL runtime audit.
 
+## Editorial corrections
+
+The exact runtime review identified and resolved three weaknesses before merge:
+
+1. synthetic two-letter evidence clusters were removed; every displayed evidence source must now come from the curated English word registry;
+2. difficulty is derived from reasoning burden instead of being selected randomly from an allowed list;
+3. stems, rule statements, applications and conclusions now use deterministic editorial variation rather than one repeated skeleton.
+
+The runtime test permanently enforces curated evidence membership so the synthetic-cluster defect cannot silently return through another seed.
+
 ## Validation executed
 
-The checkpoint source was first compiled with TypeScript in an isolated local harness and the committed test logic was executed with Node. The same committed audit then executed successfully in GitHub Actions through the `Reasoning COD-001 Runtime` workflow on PR #117.
+The revised checkpoint source was compiled with TypeScript in an isolated local harness and the committed test logic was executed with Node. The same revised audit then executed successfully in GitHub Actions through the `Reasoning COD-001 Runtime` workflow on PR #117.
 
 Verified audit result:
 
 - generated questions: `2,400` (`24 QLs × 100 seeds`);
-- answer positions: `573 / 606 / 607 / 614`;
-- answer-position max/min ratio: approximately `1.072`;
+- answer positions: `593 / 604 / 561 / 642`;
+- answer-position max/min ratio: approximately `1.144`;
 - renderers covered: `EXAMPLE_TARGET_BLOCK`, `INLINE_CODE_PAIR`, `MAPPING_TABLE`;
 - task directions covered: encode, decode, overlap inference and missing-code recovery;
 - answer types covered: letter cluster, digit sequence, symbol sequence and single token;
 - difficulties covered: Easy, Medium and Hard;
-- deterministic equality, solver agreement, injectivity, evidence coverage, ambiguity acceptance and option contracts passed for every sampled instance.
+- deterministic equality, solver agreement, injectivity, evidence coverage, ambiguity acceptance, curated-evidence and option contracts passed for every sampled instance.
 
-Repository workflow result: **success**.
+Repository workflow result on the editorially revised head: **success**.
 
 ## Repository runtime command
 
@@ -54,9 +64,9 @@ pnpm dlx tsx .\artifacts\api-server\src\reasoning-v1\topics\Coding-Decoding\COD-
 
 The exact runtime review can be produced by importing `exportCodCp001Review` from `export-review.ts` and writing its CSV output to an uncommitted review file.
 
-## Remaining before checkpoint freeze
+## Deferred work
 
-- inspect the full 24-row exact review export across several seeds;
-- tune any weak or overly mechanical stems and distractors;
-- record English editorial approval;
-- keep localization and Question Studio discovery deferred until English acceptance.
+- Hindi and Punjabi localization;
+- Question Studio discovery;
+- production publishability;
+- chapter-wide freeze, which remains dependent on later checkpoints and final cross-CP audits.
