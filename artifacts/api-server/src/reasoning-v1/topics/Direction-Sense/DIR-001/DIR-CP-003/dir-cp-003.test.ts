@@ -58,6 +58,16 @@ for (const ql of DIR_CP003_QLS) {
     assert.ok(!generated.explanation.diagram.svg.includes("solution"));
     assert.equal((generated.explanation.diagram.svg.match(/data-role="movement-leg"/g) ?? []).length, generated.metadata.legCount);
     assert.equal((generated.explanation.diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+    const illustratesShortestDistance = ql.answerDemand !== "MISSING_MOVEMENT_DISTANCE";
+    assert.equal(generated.explanation.calculationLine !== null, illustratesShortestDistance);
+    assert.equal((generated.explanation.diagram.svg.match(/data-role="shortest-distance-line"/g) ?? []).length, illustratesShortestDistance ? 1 : 0);
+    assert.equal((generated.explanation.diagram.svg.match(/data-role="shortest-distance-key"/g) ?? []).length, illustratesShortestDistance ? 1 : 0);
+    if (illustratesShortestDistance) {
+      assert.ok(generated.explanation.calculationLine!.includes("straight line"));
+      assert.ok(generated.explanation.calculationLine!.includes("Start"));
+      assert.ok(generated.explanation.calculationLine!.includes("Finish"));
+      assert.ok(generated.explanation.calculationLine!.includes("√") || generated.explanation.calculationLine!.includes("Only one net direction"));
+    }
     assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));
     const routeCoordinates = [...generated.explanation.diagram.svg.matchAll(/data-role="movement-leg" x1="([^"]+)" y1="([^"]+)" x2="([^"]+)" y2="([^"]+)"/g)];
     assert.equal(routeCoordinates.length, generated.metadata.legCount);

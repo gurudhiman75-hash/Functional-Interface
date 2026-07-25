@@ -1,6 +1,6 @@
 import { distanceBetween } from "../foundation/coordinates";
 import { oppositeDirection, turnLeft, turnRight } from "../foundation/directions";
-import { exactDistanceFromComponents, formatDistanceWithUnit, type DistanceDisplayMode, type ExactDistanceValue } from "../foundation/exact-distance";
+import { exactDistanceFromComponents, formatDistanceValue, formatDistanceWithUnit, type DistanceDisplayMode, type ExactDistanceValue } from "../foundation/exact-distance";
 import { createInitialPathState, solvePath } from "../foundation/path-state";
 import type { Coordinate, Direction, DirectionOption, PathOperation, SolvedPath, TurnOperation } from "../foundation/types";
 import { buildPathDiagram, type PathDiagramSpec } from "../DIR-CP-002/path-diagram";
@@ -78,6 +78,7 @@ export interface DistanceExplanation {
   readonly given: string;
   readonly movementLines: readonly string[];
   readonly netLine: string;
+  readonly calculationLine: string | null;
   readonly conclusion: string;
   readonly diagram: PathDiagramSpec;
 }
@@ -470,13 +471,43 @@ function netLineFor(exact: ExactDistanceValue): string {
   return `The net movement is ${parts.join(" and ")}.`;
 }
 
-function baseExplanation(path: BuiltDistancePath, exact: ExactDistanceValue, conclusion: string): DistanceExplanation {
+function shortestDistanceCalculation(exact: ExactDistanceValue, displayMode: DistanceDisplayMode): string {
+  const horizontal = Math.round(Math.abs(exact.dx));
+  const vertical = Math.round(Math.abs(exact.dy));
+  const rendered = formatDistanceWithUnit(exact, displayMode);
+
+  if (horizontal === 0 || vertical === 0) {
+    const remaining = horizontal === 0 ? vertical : horizontal;
+    return `Only one net direction remains after cancellation. Therefore, the straight line from Start to Finish is ${remaining} metres.`;
+  }
+
+  const rootStep = `√(${horizontal}² + ${vertical}²) = √${exact.squaredDistance}`;
+  if (displayMode === "INTEGER") {
+    return `The shortest route is the straight line from Start to Finish: ${rootStep} = ${rendered}.`;
+  }
+  if (displayMode === "RADICAL") {
+    const simplified = formatDistanceValue(exact, "RADICAL");
+    const simplification = simplified === `√${exact.squaredDistance}` ? "" : ` = ${simplified}`;
+    return `The shortest route is the straight line from Start to Finish: ${rootStep}${simplification} metres.`;
+  }
+  return `The shortest route is the straight line from Start to Finish: ${rootStep} ≈ ${rendered}.`;
+}
+
+function baseExplanation(
+  path: BuiltDistancePath,
+  exact: ExactDistanceValue,
+  conclusion: string,
+  displayMode: DistanceDisplayMode,
+  illustrateShortestDistance: boolean,
+): DistanceExplanation {
+  const shortestDistanceLabel = illustrateShortestDistance ? formatDistanceWithUnit(exact, displayMode) : undefined;
   return {
     given: `${path.person.name} starts facing ${DISTANCE_DIRECTION_LABELS[path.initialFacing]}. Reading each turn in order gives the following movements.`,
     movementLines: movementWalkthrough(path),
     netLine: netLineFor(exact),
+    calculationLine: illustrateShortestDistance ? shortestDistanceCalculation(exact, displayMode) : null,
     conclusion,
-    diagram: buildPathDiagram(path.solved),
+    diagram: buildPathDiagram(path.solved, shortestDistanceLabel ? { shortestDistanceLabel } : {}),
   };
 }
 
@@ -534,7 +565,7 @@ export function generateDirCp003Question(qlId: string, seed = 0): GeneratedDista
       options,
       correctIndex,
       correctAnswer: correct,
-      explanation: baseExplanation(path, exact, conclusion),
+      explanation: baseExplanation(path, exact, conclusion, "INTEGER", false),
       metadata: {
         answerDemand: ql.answerDemand,
         legCount: moveCount(path.operations),
@@ -567,7 +598,7 @@ export function generateDirCp003Question(qlId: string, seed = 0): GeneratedDista
       options,
       correctIndex,
       correctAnswer: correct,
-      explanation: baseExplanation(path, exact, conclusion),
+      explanation: baseExplanation(path, exact, conclusion, displayMode, true),
       metadata: {
         answerDemand: ql.answerDemand,
         legCount: moveCount(path.operations),
@@ -601,7 +632,7 @@ export function generateDirCp003Question(qlId: string, seed = 0): GeneratedDista
       options,
       correctIndex,
       correctAnswer: correct,
-      explanation: baseExplanation(path, exact, conclusion),
+      explanation: baseExplanation(path, exact, conclusion, "INTEGER", true),
       metadata: { answerDemand: ql.answerDemand, legCount, pathProfile: path.profile, reverseQuery: false, displayMode: "INTEGER", solverVerified: true, solveMode: null },
     };
   }
@@ -627,7 +658,7 @@ export function generateDirCp003Question(qlId: string, seed = 0): GeneratedDista
       options,
       correctIndex,
       correctAnswer: correct,
-      explanation: baseExplanation(path, exact, conclusion),
+      explanation: baseExplanation(path, exact, conclusion, "INTEGER", true),
       metadata: { answerDemand: ql.answerDemand, legCount, pathProfile: path.profile, reverseQuery, displayMode: "INTEGER", solverVerified: true, solveMode: null },
     };
   }
@@ -651,7 +682,7 @@ export function generateDirCp003Question(qlId: string, seed = 0): GeneratedDista
     options,
     correctIndex,
     correctAnswer: correct,
-    explanation: baseExplanation(path, exact, conclusion),
+    explanation: baseExplanation(path, exact, conclusion, "INTEGER", true),
     metadata: { answerDemand: ql.answerDemand, legCount, pathProfile: path.profile, reverseQuery: false, displayMode: "INTEGER", solverVerified: true, solveMode: null },
   };
 }

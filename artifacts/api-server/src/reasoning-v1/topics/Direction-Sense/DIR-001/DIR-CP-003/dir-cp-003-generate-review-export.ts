@@ -45,6 +45,7 @@ function renderQuestion(question: GeneratedDistanceQuestion, reviewNumber: numbe
     `<p class="given">${escapeHtml(question.explanation.given)}</p>`,
     `<div class="walkthrough">${renderMovementWalkthrough(question)}</div>`,
     `<p class="net">${escapeHtml(question.explanation.netLine)}</p>`,
+    question.explanation.calculationLine ? `<p class="calculation">${escapeHtml(question.explanation.calculationLine)}</p>` : "",
     `<p class="conclusion"><strong>Therefore:</strong> ${escapeHtml(question.explanation.conclusion)}</p>`,
     `<h3>Diagram</h3>`,
     `<div class="diagram">${question.explanation.diagram.svg}</div>`,
@@ -84,6 +85,7 @@ main { max-width: 1040px; margin: 0 auto; }
 .movement-line { margin: 0; padding: 8px 4px; line-height: 1.55; border-bottom: 1px solid #e5e7eb; }
 .movement-line:last-child { border-bottom: 0; }
 .net { background: #fffbeb; border: 1px solid #fbbf24; border-radius: 9px; padding: 12px 14px; line-height: 1.6; }
+.calculation { background: #f0f9ff; border: 1px solid #38bdf8; border-radius: 9px; padding: 12px 14px; line-height: 1.65; font-weight: 650; }
 .conclusion { background: #eff6ff; border: 1px solid #60a5fa; border-radius: 9px; padding: 13px 15px; line-height: 1.6; }
 .diagram { overflow-x: auto; border: 1px solid #d1d5db; border-radius: 12px; padding: 10px; background: #fff; }
 .diagram svg { width: 100%; min-width: 620px; height: auto; }
@@ -97,7 +99,7 @@ main { max-width: 1040px; margin: 0 auto; }
 <h1>ExamTree Reasoning V1 — DIR-CP-003 Review File</h1>
 <p><strong>Coverage:</strong> ${DIR_CP003_QLS.length} need-based QLs × ${REVIEW_SEEDS.length} seeds = ${questions.length} questions.</p>
 <p><strong>QLs:</strong> ${DIR_CP003_QLS.map((ql) => ql.qlId).join(", ")}</p>
-<p>Each item contains a natural exam question, a short movement walkthrough, one net-movement sentence, one direct conclusion, and a plain route diagram at the end.</p>
+<p>Each item contains a natural exam question, a short movement walkthrough, the net movement, a visible straight-line shortest-distance calculation, one direct conclusion, and a plain route diagram at the end.</p>
 </section>
 ${cards}
 </main>

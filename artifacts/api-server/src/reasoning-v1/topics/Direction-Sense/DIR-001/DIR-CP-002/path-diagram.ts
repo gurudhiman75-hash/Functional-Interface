@@ -24,6 +24,10 @@ export interface PathDiagramSpec {
   readonly svg: string;
 }
 
+export interface PathDiagramOptions {
+  readonly shortestDistanceLabel?: string;
+}
+
 function escapeXml(value: string): string {
   return value
     .replaceAll("&", "&amp;")
@@ -33,7 +37,7 @@ function escapeXml(value: string): string {
     .replaceAll("'", "&apos;");
 }
 
-function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
+function renderSvg(spec: Omit<PathDiagramSpec, "svg">, options: PathDiagramOptions): string {
   const width = 720;
   const height = 460;
   const plotLeft = 90;
@@ -55,6 +59,25 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
     y: plotBottom - verticalPadding - (coordinate.y - rawMinY) * scale,
   });
   const pointById = new Map(spec.points.map((point) => [point.id, point]));
+
+  const shortestDistanceOverlay = options.shortestDistanceLabel
+    ? (() => {
+        const start = spec.points.find((point) => point.role === "START");
+        const finish = spec.points.find((point) => point.role === "END");
+        if (!start || !finish) throw new Error("Shortest-distance illustration requires Start and Finish points");
+        const from = project(start.coordinate);
+        const to = project(finish.coordinate);
+        return [
+          `<line data-role="shortest-distance-line" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>`,
+          `<g data-role="shortest-distance-key">`,
+          `<rect x="568" y="158" width="140" height="72" rx="10" fill="#eff6ff" stroke="#60a5fa"/>`,
+          `<line x1="584" y1="181" x2="616" y2="181" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 6"/>`,
+          `<text x="638" y="185" text-anchor="middle" font-size="12" font-weight="800" fill="#1e3a8a">Straight line</text>`,
+          `<text x="638" y="211" text-anchor="middle" font-size="13" font-weight="800" fill="#111827">${escapeXml(options.shortestDistanceLabel)}</text>`,
+          `</g>`,
+        ].join("");
+      })()
+    : "";
 
   const routeLines = spec.segments.map((segment) => {
     const from = project(pointById.get(segment.fromPointId)!.coordinate);
@@ -120,6 +143,7 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
     `</defs>`,
     `<rect x="1" y="1" width="718" height="458" rx="14" fill="#ffffff" stroke="#d1d5db"/>`,
     `<text x="360" y="35" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">Movement path</text>`,
+    shortestDistanceOverlay,
     routeLines,
     points,
     distanceLabels,
@@ -129,7 +153,7 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
   ].join("");
 }
 
-export function buildPathDiagram(solved: SolvedPath): PathDiagramSpec {
+export function buildPathDiagram(solved: SolvedPath, options: PathDiagramOptions = {}): PathDiagramSpec {
   const points: PathDiagramPoint[] = [
     { id: "P0", label: "Start", coordinate: solved.initial.position, role: "START" },
   ];
@@ -165,5 +189,5 @@ export function buildPathDiagram(solved: SolvedPath): PathDiagramSpec {
     points,
     segments,
   };
-  return { ...withoutSvg, svg: renderSvg(withoutSvg) };
+  return { ...withoutSvg, svg: renderSvg(withoutSvg, options) };
 }
