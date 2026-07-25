@@ -90,9 +90,6 @@ export function independentlyApplyProvisionalWordRule(
     case "WORD_POSITION_EXTRACTION":
       if (context.kind !== "POSITION_EXTRACTION" || context.order !== "FORWARD") return null;
       return independentPositionExtraction(normalized, context.parity);
-    case "WORD_ALPHABET_POSITION_SEQUENCE":
-      if (context.kind !== "FIXED") return null;
-      return [...normalized].map(letterPosition);
     case "WORD_ALPHABET_POSITION_SUM":
       if (context.kind !== "FIXED") return null;
       return [...normalized].reduce((sum, letter) => sum + letterPosition(letter), 0);
