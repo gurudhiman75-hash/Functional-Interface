@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
+import { squaredDigitSumLetter } from "./foundation/mixed-arithmetic";
 import {
+  clusterNumberToken,
   letterGroupToken,
   letterNumberToken,
   mixedTokenKey,
+  numberLetterToken,
   sameMixedToken,
   type MixedToken,
 } from "./foundation/mixed-token";
@@ -52,9 +55,32 @@ function letterNumberInputs(): readonly MixedToken[] {
   return inputs;
 }
 
+function clusterNumberInputs(): readonly MixedToken[] {
+  const inputs: MixedToken[] = [];
+  for (let index = 0; index < ALPHABET.length; index += 1) {
+    const first = ALPHABET[index];
+    const second = ALPHABET[(index + 5) % ALPHABET.length];
+    for (let number = 20; number <= 60; number += 2) {
+      inputs.push(clusterNumberToken(first + second, number));
+    }
+  }
+  return inputs;
+}
+
+function numberLetterInputs(): readonly MixedToken[] {
+  const inputs: MixedToken[] = [];
+  for (let number = 10; number <= 999 && inputs.length < 300; number += 1) {
+    const letter = squaredDigitSumLetter(number);
+    if (letter) inputs.push(numberLetterToken(number, letter));
+  }
+  return inputs;
+}
+
 const INPUTS_BY_KIND: Readonly<Record<string, readonly MixedToken[]>> = {
   LETTER_GROUP: letterGroupInputs(),
   LETTER_NUMBER: letterNumberInputs(),
+  CLUSTER_NUMBER: clusterNumberInputs(),
+  NUMBER_LETTER: numberLetterInputs(),
 };
 
 function candidateInputs(
@@ -132,7 +158,7 @@ const yields = ANA_CP008_PROVISIONAL_RULES.flatMap((rule) =>
   rule.contexts.map((context) => simulateContext(rule, context)),
 );
 
-assert.equal(yields.length, 51);
+assert.equal(yields.length, 60);
 assert.equal(yields.reduce((sum, entry) => sum + entry.solverDisagreements, 0), 0);
 for (const entry of yields) {
   assert.ok(entry.eligibleInputs >= 20, `${entry.contextKey} has only ${entry.eligibleInputs} eligible inputs.`);
