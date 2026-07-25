@@ -1,8 +1,9 @@
 import { assertContinuousDirectionQlIds } from "./DIR-001-CHAPTER-MANIFEST";
 import { DIR_CP001_QLS, generateDirCp001Question } from "./DIR-CP-001";
 import { DIR_CP002_QLS, generateDirCp002Question } from "./DIR-CP-002";
+import { DIR_CP003_QLS, generateDirCp003Question } from "./DIR-CP-003";
 
-export const DIR_001_QLS = [...DIR_CP001_QLS, ...DIR_CP002_QLS] as const;
+export const DIR_001_QLS = [...DIR_CP001_QLS, ...DIR_CP002_QLS, ...DIR_CP003_QLS] as const;
 
 assertContinuousDirectionQlIds(DIR_001_QLS);
 
@@ -21,6 +22,8 @@ export function generateDirectionQuestion(qlId: string, seed = 0) {
       return generateDirCp001Question(qlId, seed);
     case "DIR-CP-002":
       return generateDirCp002Question(qlId, seed);
+    case "DIR-CP-003":
+      return generateDirCp003Question(qlId, seed);
     default:
       throw new Error(`Checkpoint ${String(ql.checkpointId)} is not wired into DIR-001 generation`);
   }
