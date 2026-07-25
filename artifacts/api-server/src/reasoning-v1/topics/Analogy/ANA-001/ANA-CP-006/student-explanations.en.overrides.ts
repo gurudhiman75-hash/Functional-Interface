@@ -57,3 +57,21 @@ parity.explain = (input, output, context) => {
   return `Start with ${input}. Its odd-position letters are ${groups.odd}, and its even-position letters are ${groups.even}. ` +
     `Write ${parityProfileText(context.profile)}. This gives ${output}.`;
 };
+
+const shiftThenReverse = ANA_CP006_RULES.find((rule) => rule.id === "CLUSTER_SHIFT_THEN_REVERSE");
+if (!shiftThenReverse) throw new Error("Missing CP-006 shift-then-reverse rule.");
+shiftThenReverse.explain = (input, output, context) => {
+  if (context.kind !== "ORDERED_POSITION_VECTOR") return `${input} becomes ${output}.`;
+  const changed = [...input]
+    .map((letter, index) => shiftLetter(letter, context.shifts[index]))
+    .join("");
+  const movements = [...input]
+    .map((letter, index) => {
+      const amount = context.shifts[index];
+      const direction = amount > 0 ? "forward" : "backward";
+      return `${letter} moves ${Math.abs(amount)} place${Math.abs(amount) === 1 ? "" : "s"} ${direction} to ${changed[index]}`;
+    })
+    .join("; ");
+  return `There are two operations in a fixed order. First change ${input} position by position: ${movements}. ` +
+    `This gives ${changed}. Then reverse ${changed} to obtain ${output}.`;
+};
