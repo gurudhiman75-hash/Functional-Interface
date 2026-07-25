@@ -1,29 +1,32 @@
-export type AlphabetPresentationMode = "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
+export type AlphabetPresentationMode = "DIRECT_COMPLETION" | "PAIR_SELECTION";
 
 const RULES = [
-  ["Forward alphabet shift", "ALPHA_SHIFT_FORWARD"],
-  ["Backward alphabet shift", "ALPHA_SHIFT_BACKWARD"],
+  ["Fixed forward shift", "ALPHA_FIXED_SHIFT_FORWARD"],
+  ["Fixed backward shift", "ALPHA_FIXED_SHIFT_BACKWARD"],
+  ["Cyclic forward shift", "ALPHA_CYCLIC_SHIFT_FORWARD"],
+  ["Cyclic backward shift", "ALPHA_CYCLIC_SHIFT_BACKWARD"],
   ["Opposite alphabet letter", "ALPHA_OPPOSITE"],
-  ["Opposite letter then forward shift", "ALPHA_OPPOSITE_FORWARD"],
-  ["Opposite letter then backward shift", "ALPHA_OPPOSITE_BACKWARD"],
-  ["Double alphabet position", "ALPHA_POSITION_DOUBLE"],
-  ["Double alphabet position minus one", "ALPHA_POSITION_DOUBLE_MINUS_ONE"],
-  ["Half an even alphabet position", "ALPHA_POSITION_HALF"],
-  ["Round up half of an odd alphabet position", "ALPHA_POSITION_HALF_ROUND_UP"],
-  ["Opposite of doubled alphabet position", "ALPHA_OPPOSITE_OF_DOUBLE"],
+  ["Equal positional distance", "ALPHA_EQUAL_DISTANCE"],
+  ["Reverse-position transform", "ALPHA_REVERSE_POSITION"],
+  ["Doubled positional movement", "ALPHA_DOUBLED_MOVEMENT"],
+  ["Vowel/consonant class correspondence", "ALPHA_CLASS_CORRESPONDENCE"],
+  ["Two-step position transform", "ALPHA_TWO_STEP_POSITION"],
 ] as const;
 
 export const ANA_CP005_QLS = RULES.flatMap(([title, ruleId], ruleIndex) =>
-  (["MISSING_FOURTH_TERM", "EQUIVALENT_PAIR_SELECTION"] as const).map((presentationMode, modeIndex) => ({
+  (["DIRECT_COMPLETION", "PAIR_SELECTION"] as const).map((presentationMode, modeIndex) => ({
     qlId: `ANA-QL-${String(141 + ruleIndex * 2 + modeIndex).padStart(3, "0")}`,
     cpId: "ANA-CP-005",
-    title: `${title} — ${presentationMode === "MISSING_FOURTH_TERM" ? "complete analogy" : "select equivalent pair"}`,
-    taskKind: presentationMode === "MISSING_FOURTH_TERM" ? "alphabetMissingTerm" : "alphabetPairSelection",
-    solveMode: "ALPHABET_RULE_TRANSFER",
+    title: `${title} — ${presentationMode === "DIRECT_COMPLETION" ? "direct completion" : "pair selection"}`,
+    taskKind: "singleLetterTransform",
+    solveMode: "ALPHABET_RULE",
     ruleId,
     presentationMode: presentationMode as AlphabetPresentationMode,
-    difficultyBand: ruleIndex < 3 ? "EASY_TO_MEDIUM" : ruleIndex < 7 ? "MEDIUM" : "MEDIUM_TO_HARD",
-    answerType: presentationMode === "MISSING_FOURTH_TERM" ? "LETTER" : "LETTER_PAIR",
+    difficultyBand: presentationMode === "DIRECT_COMPLETION" ? "EASY" : "MEDIUM",
+    answerType: presentationMode === "DIRECT_COMPLETION" ? "LETTER" : "LETTER_PAIR",
+    requiredDatasets: ["alphabet.core"] as const,
+    requiredVariables: ["sourceLetter", "ruleParams", "targetLetter"] as const,
+    distractorKinds: ["wrongDirection", "offByOne", "noWrapTrap"] as const,
     renderer: "STRUCTURED_TEXT",
     localeMode: "TRANSLATABLE",
   })),
