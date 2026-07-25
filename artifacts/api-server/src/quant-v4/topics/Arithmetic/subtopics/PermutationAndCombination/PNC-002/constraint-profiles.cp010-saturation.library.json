@@ -1,0 +1,10 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "COUNTCIRCULAREXACTLYONEPAIRTOGETHER": {
+      "orderMatters": true,
+      "linear": false,
+      "rule": "Exactly one of two disjoint specified pairs is adjacent in a rotation-normalized circular arrangement."
+    }
+  }
+}
