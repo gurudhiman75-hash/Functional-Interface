@@ -9,7 +9,7 @@ function increment(target: Record<string, number>, key: string): void {
 export function auditPnc002Coverage(): Pnc002CoverageAudit {
   const entries = getPnc002QuestionEntries();
   const expectedQlIds = Array.from(
-    { length: 12 },
+    { length: 18 },
     (_, index) => `PNC-QL-${String(index + 107).padStart(3, "0")}`,
   );
   const actualIds = entries.map((entry) => entry.qlId);
@@ -27,10 +27,7 @@ export function auditPnc002Coverage(): Pnc002CoverageAudit {
     templateGroups.set(normalized, [...(templateGroups.get(normalized) ?? []), entry.qlId]);
     increment(difficultyCounts, entry.difficulty);
     increment(solveModeCounts, entry.solveMode);
-    const sample = runPnc002Pipeline({
-      questionLanguageId: entry.qlId,
-      seed: `coverage:${entry.qlId}`,
-    });
+    const sample = runPnc002Pipeline({ questionLanguageId: entry.qlId, seed: `coverage:${entry.qlId}` });
     if (!sample.validation.valid) {
       const failed = sample.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",");
       invalidRuntimeSamples.push(`${entry.qlId}:${failed}`);
@@ -38,13 +35,17 @@ export function auditPnc002Coverage(): Pnc002CoverageAudit {
   }
 
   const exactDuplicateTemplateGroups = [...templateGroups.values()].filter((qlIds) => qlIds.length > 1);
-  const expectedDifficultyCounts = { Easy: 1, Medium: 5, Hard: 6 };
+  const expectedDifficultyCounts = { Easy: 1, Medium: 8, Hard: 9 };
   const expectedSolveModeCounts = {
     countSingleBlockTogether: 2,
     countSingleBlockNotTogether: 2,
     countMultipleBlocksTogether: 4,
     countBlockWithExternalPairApart: 1,
-    recoverBlockRestrictionParameter: 3,
+    recoverBlockRestrictionParameter: 4,
+    countTwoBlocksTogetherNotAdjacent: 2,
+    countBlockWithOutsiderNotAdjacent: 1,
+    countOneBlockTogetherOtherNotTogether: 1,
+    countNotAllSpecifiedBlocksTogether: 1,
   };
 
   const passed = entries.length === expectedQlIds.length
