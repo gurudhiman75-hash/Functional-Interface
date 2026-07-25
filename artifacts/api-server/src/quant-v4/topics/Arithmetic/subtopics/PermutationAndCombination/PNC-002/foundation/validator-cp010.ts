@@ -41,7 +41,15 @@ export function validatePnc002Cp010QuestionPackage(
   checks.push(check("registry-difficulty", entry.difficulty === pkg.difficultyBand, "QL and difficulty must agree"));
   checks.push(check("constraint-profile", Boolean(getPnc002ConstraintProfile(entry.constraintProfile)), "Constraint profile must exist"));
   checks.push(check("circular-domain", e.totalObjects >= 3, "Circular systems require at least three objects"));
-  checks.push(check("operation", e.operation.startsWith("CIRCULAR_") || e.operation.startsWith("CLOCKWISE_") || (e.operation.includes("ORNAMENT") || e.operation.startsWith("DIHEDRAL_")), "CP-010 must expose circular or ornament evidence"));
+  checks.push(check(
+    "operation",
+    e.operation.startsWith("ROUND_TABLE_")
+      || e.operation.startsWith("CIRCULAR_")
+      || e.operation.startsWith("CLOCKWISE_")
+      || e.operation.includes("ORNAMENT")
+      || e.operation.startsWith("DIHEDRAL_"),
+    "CP-010 must expose round-table, circular, clockwise or ornament evidence",
+  ));
   checks.push(check("solver-answer", Number.isInteger(pkg.solver.numericAnswer) && pkg.solver.numericAnswer > 0, "Solver answer must be a positive integer"));
   checks.push(check("answer-string", pkg.answer === String(pkg.solver.numericAnswer), "Displayed answer must match solver"));
   checks.push(check("answer-ceiling", pkg.solver.numericAnswer <= ceiling, "Answer must remain under the configured ceiling"));
