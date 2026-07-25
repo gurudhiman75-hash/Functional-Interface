@@ -14,9 +14,16 @@ assert.equal(ANA_CP004_RULES.length, 16);
 assert.equal(new Set(ANA_CP004_RULES.map((rule) => rule.id)).size, 16);
 
 const answerPositions = [0, 0, 0, 0];
+const layouts = new Set<string>();
+const difficulties = new Set<string>();
+const missingPositions = new Set<number>();
+const stemsByQl = new Map<string, Set<string>>();
 let generatedCount = 0;
+
 for (const ql of ANA_CP004_QLS) {
-  for (let seed = 0; seed < 50; seed += 1) {
+  const qlStems = new Set<string>();
+  stemsByQl.set(ql.qlId, qlStems);
+  for (let seed = 0; seed < 60; seed += 1) {
     const first = generateSetAnalogy(ql.qlId, seed);
     const second = generateSetAnalogy(ql.qlId, seed);
     assert.deepEqual(first, second, `${ql.qlId}/${seed} must be deterministic`);
@@ -33,9 +40,18 @@ for (const ql of ANA_CP004_QLS) {
     assert.ok(first.explanation.ruleStatement.length > 15);
     assert.ok(first.explanation.sourceDemonstration.includes(String(first.source.first)));
     assert.ok(first.explanation.targetApplication.includes(String(first.target.first)));
+    assert.ok(first.stem.length > 12);
+    layouts.add(first.layout);
+    difficulties.add(first.difficulty);
+    qlStems.add(first.stem);
+
     if (first.presentationMode === "MISSING_MEMBER") {
       assert.equal(first.options[first.correctIndex].value, first.target.third);
+      assert.notEqual(first.missingPosition, null);
+      missingPositions.add(first.missingPosition!);
+      assert.ok(first.stem.includes("?"));
     } else {
+      assert.equal(first.missingPosition, null);
       assert.deepEqual(first.options[first.correctIndex].value, [first.target.first, first.target.second, first.target.third]);
       for (const [index, option] of first.options.entries()) {
         if (index === first.correctIndex) continue;
@@ -46,11 +62,22 @@ for (const ql of ANA_CP004_QLS) {
     answerPositions[first.correctIndex] += 1;
     generatedCount += 1;
   }
+  assert.ok(qlStems.size >= 12, `${ql.qlId} lacks visible stem variety: ${qlStems.size}`);
 }
+
+assert.deepEqual([...layouts].sort(), ["BOXED_SETS", "INLINE", "TWO_ROW_TABLE", "VERTICAL_GRID"]);
+assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.deepEqual([...missingPositions].sort(), [0, 1, 2]);
 
 const minimum = Math.min(...answerPositions);
 const maximum = Math.max(...answerPositions);
 assert.ok(minimum > 0);
 assert.ok(maximum / minimum < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
-console.log("ANA-CP-004 exhaustive contract test passed.", { generatedCount, answerPositions });
+console.log("ANA-CP-004 expanded variety audit passed.", {
+  generatedCount,
+  answerPositions,
+  layouts: [...layouts],
+  difficulties: [...difficulties],
+  missingPositions: [...missingPositions],
+});
