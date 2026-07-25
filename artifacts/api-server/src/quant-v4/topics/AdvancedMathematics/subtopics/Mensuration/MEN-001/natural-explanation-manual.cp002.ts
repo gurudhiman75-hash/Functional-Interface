@@ -51,7 +51,7 @@ export function writeMen001Cp002Working(
     case "MEN-001-QL-116":
       return [`Dividing the ${v("area")} cm² area by the ${v("height")} cm perpendicular height gives a base of ${v("base")} cm.`];
     case "MEN-001-QL-117":
-      return [`Each adjacent side occurs twice on the boundary, hence 2(${v("sideA")} + ${v("sideB")}) = ${v("perimeter")} ${answerUnit}.`];
+      return [`Each adjacent side occurs twice on the boundary, hence 2(${v("base")} + ${v("adjacentSide")}) = ${v("perimeter")} ${answerUnit}.`];
     case "MEN-001-QL-118":
       return [`The perpendicular diagonals give half their product: ${v("diagonalA")} × ${v("diagonalB")} ÷ 2 = ${v("area")} ${answerUnit}.`];
     case "MEN-001-QL-119":
