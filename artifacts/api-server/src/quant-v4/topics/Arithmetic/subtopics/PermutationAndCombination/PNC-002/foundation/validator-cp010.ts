@@ -5,6 +5,7 @@ import {
 } from "./library";
 import type {
   Pnc002QuestionPackage,
+  Pnc002SolverEvidence,
   Pnc002ValidationCheck,
   Pnc002ValidationResult,
 } from "./types";
@@ -24,6 +25,30 @@ function visibleFormulaIsFormatted(value: string): boolean {
   return !/\b\d+!/.test(plain) && !/[×÷≤≥]/.test(plain) && !/\b[nakrc]\s*=/.test(plain);
 }
 
+const CP010_OPERATIONS = new Set<Pnc002SolverEvidence["operation"]>([
+  "ROUND_TABLE_DISTINCT",
+  "CIRCULAR_BLOCK_TOGETHER",
+  "CIRCULAR_BLOCK_APART",
+  "CIRCULAR_MULTIPLE_BLOCKS",
+  "CIRCULAR_BLOCK_WITH_EXTERNAL_PAIR_APART",
+  "CIRCULAR_TWO_BLOCKS_NOT_ADJACENT",
+  "CIRCULAR_AT_LEAST_ONE_PAIR",
+  "CIRCULAR_NEITHER_PAIR",
+  "CIRCULAR_PERSON_BETWEEN_NEIGHBORS",
+  "CIRCULAR_OPPOSITE_PAIR",
+  "CLOCKWISE_ADJACENT_PAIR",
+  "CLOCKWISE_EXACT_GAP",
+  "CLOCKWISE_AT_LEAST_GAP",
+  "CLOCKWISE_AT_MOST_GAP",
+  "PRESCRIBED_CLOCKWISE_ORDER",
+  "CIRCULAR_ALTERNATION",
+  "CIRCULAR_NO_TWO_CATEGORY_ADJACENT",
+  "CIRCULAR_INVERSE",
+  "ROTATION_ONLY_ORNAMENTS",
+  "DIHEDRAL_DISTINCT_ORNAMENTS",
+  "DIHEDRAL_PAIR_TOGETHER",
+]);
+
 export function validatePnc002Cp010QuestionPackage(
   pkg: Pnc002QuestionPackage,
 ): Pnc002ValidationResult {
@@ -41,15 +66,7 @@ export function validatePnc002Cp010QuestionPackage(
   checks.push(check("registry-difficulty", entry.difficulty === pkg.difficultyBand, "QL and difficulty must agree"));
   checks.push(check("constraint-profile", Boolean(getPnc002ConstraintProfile(entry.constraintProfile)), "Constraint profile must exist"));
   checks.push(check("circular-domain", e.totalObjects >= 3, "Circular systems require at least three objects"));
-  checks.push(check(
-    "operation",
-    e.operation.startsWith("ROUND_TABLE_")
-      || e.operation.startsWith("CIRCULAR_")
-      || e.operation.startsWith("CLOCKWISE_")
-      || e.operation.includes("ORNAMENT")
-      || e.operation.startsWith("DIHEDRAL_"),
-    "CP-010 must expose round-table, circular, clockwise or ornament evidence",
-  ));
+  checks.push(check("operation", CP010_OPERATIONS.has(e.operation), "CP-010 must expose an approved circular evidence operation"));
   checks.push(check("solver-answer", Number.isInteger(pkg.solver.numericAnswer) && pkg.solver.numericAnswer > 0, "Solver answer must be a positive integer"));
   checks.push(check("answer-string", pkg.answer === String(pkg.solver.numericAnswer), "Displayed answer must match solver"));
   checks.push(check("answer-ceiling", pkg.solver.numericAnswer <= ceiling, "Answer must remain under the configured ceiling"));
