@@ -7,7 +7,6 @@ import {
   renderForwardFacingStem,
   renderInverseFacingStem,
   renderMissingTurnStem,
-  renderTurnSequence,
 } from "./question-language.en";
 import {
   solveFinalFacingIndependent,
@@ -194,7 +193,7 @@ export function generateDirCp001Question(qlId: string, seed = 0): GeneratedOrien
     if (generatedAnswer !== independentAnswer) {
       throw new Error(`Independent solver disagreed for ${qlId} seed ${seed}`);
     }
-    const options = directionOptions(generatedAnswer, seed);
+    const options = directionOptions(generatedAnswer, seed * 3 + 1);
     const validation = validateDirectionOptions(options, (value) => value === generatedAnswer);
     if (!validation.valid) throw new Error(validation.errors.join("; "));
     const correctIndex = validation.satisfyingOptionIndexes[0];
@@ -226,7 +225,7 @@ export function generateDirCp001Question(qlId: string, seed = 0): GeneratedOrien
     if (independentAnswer !== initialFacing) {
       throw new Error(`Independent inverse solver disagreed for ${qlId} seed ${seed}`);
     }
-    const options = directionOptions(initialFacing, seed);
+    const options = directionOptions(initialFacing, seed * 3 + 2);
     const validation = validateDirectionOptions(options, (value) => value === initialFacing);
     if (!validation.valid) throw new Error(validation.errors.join("; "));
     const correctIndex = validation.satisfyingOptionIndexes[0];
@@ -260,7 +259,7 @@ export function generateDirCp001Question(qlId: string, seed = 0): GeneratedOrien
   if (independentAnswer !== correctTurn) {
     throw new Error(`Independent turn reconstruction disagreed for ${qlId} seed ${seed}`);
   }
-  const options = turnOptions(correctTurn, seed);
+  const options = turnOptions(correctTurn, seed * 3 + 3);
   const validation = validateDirectionOptions(options, (value) => value === correctTurn);
   if (!validation.valid) throw new Error(validation.errors.join("; "));
   const correctIndex = validation.satisfyingOptionIndexes[0];
