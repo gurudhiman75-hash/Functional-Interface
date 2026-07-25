@@ -15,8 +15,8 @@ export function renderPnc002Cp010Explanation(
   const authored = getPnc002Explanation(parameters.questionLanguageId);
   const variables: Record<string, string | number> = {
     answer: solver.answer,
-    equation: `\(${solver.mathJax}\)`,
-    calculation: `\(${solver.mathJax}\)`,
+    equation: String.raw`\(${solver.mathJax}\)`,
+    calculation: String.raw`\(${solver.mathJax}\)`,
     totalObjects: e.totalObjects,
     totalObjectsMinusOne: e.totalObjects - 1,
     totalObjectsMinusTwo: e.totalObjects - 2,
