@@ -15,13 +15,15 @@ export function renderPnc002Cp010Explanation(
   const authored = getPnc002Explanation(parameters.questionLanguageId);
   const variables: Record<string, string | number> = {
     answer: solver.answer,
-    equation: `\\(${solver.mathJax}\\)`,
-    calculation: `\\(${solver.mathJax}\\)`,
+    equation: `\(${solver.mathJax}\)`,
+    calculation: `\(${solver.mathJax}\)`,
     totalObjects: e.totalObjects,
     totalObjectsMinusOne: e.totalObjects - 1,
     totalObjectsMinusTwo: e.totalObjects - 2,
     blockSize: e.blockSizes[0] ?? parameters.renderVariables.blockSize ?? "",
     secondBlockSize: e.blockSizes[1] ?? parameters.renderVariables.secondBlockSize ?? "",
+    selectedObjects: e.selectedObjectCount ?? parameters.renderVariables.selectedObjects ?? "",
+    selectionCount: e.selectionCount ?? "",
     clockwisePositionChoices: e.clockwisePositionChoices ?? "",
     clockwiseOrderDivisor: e.clockwiseOrderDivisor ?? "",
     largeCount: e.largeCount ?? parameters.renderVariables.largeCount ?? "",
