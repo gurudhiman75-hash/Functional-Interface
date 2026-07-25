@@ -1,13 +1,18 @@
 import questionLanguageBase from "../question-language.en.json";
 import questionLanguageSaturation from "../question-language.cp007-saturation.en.json";
+import questionLanguageCp008 from "../question-language.cp008.en.json";
 import taskRegistryBase from "../task-registry.library.json";
 import taskRegistrySaturation from "../task-registry.cp007-saturation.library.json";
+import taskRegistryCp008 from "../task-registry.cp008.library.json";
 import explanationLibraryBase from "../explanation-by-ql.en.json";
 import explanationLibrarySaturation from "../explanation-by-ql.cp007-saturation.en.json";
+import explanationLibraryCp008 from "../explanation-by-ql.cp008.en.json";
 import variableRangesBase from "../variable-ranges.library.json";
 import variableRangesSaturation from "../variable-ranges.cp007-saturation.library.json";
+import variableRangesCp008 from "../variable-ranges.cp008.library.json";
 import constraintProfilesBase from "../constraint-profiles.library.json";
 import constraintProfilesSaturation from "../constraint-profiles.cp007-saturation.library.json";
+import constraintProfilesCp008 from "../constraint-profiles.cp008.library.json";
 import type {
   Pnc002QuestionEntry,
   Pnc002QuestionLanguageEntry,
@@ -18,21 +23,24 @@ type ExplanationRecord = { lines: string[] };
 type VariableRanges = {
   packageId: string;
   answerCeiling: number;
-  pools: typeof variableRangesBase.pools & typeof variableRangesSaturation.pools;
+  pools: typeof variableRangesBase.pools & typeof variableRangesSaturation.pools & typeof variableRangesCp008.pools;
 };
 type ConstraintProfile = { orderMatters: boolean; linear: boolean; rule: string };
 
 const qlEntries = [
   ...questionLanguageBase.entries,
   ...questionLanguageSaturation.entries,
+  ...questionLanguageCp008.entries,
 ] as Pnc002QuestionLanguageEntry[];
 const registryGroups = [
   ...taskRegistryBase.groups,
   ...taskRegistrySaturation.groups,
+  ...taskRegistryCp008.groups,
 ] as Pnc002RegistryGroup[];
 const explanations = {
   ...explanationLibraryBase.entries,
   ...explanationLibrarySaturation.entries,
+  ...explanationLibraryCp008.entries,
 } as Record<string, ExplanationRecord>;
 const variableRanges: VariableRanges = {
   packageId: variableRangesBase.packageId,
@@ -40,11 +48,13 @@ const variableRanges: VariableRanges = {
   pools: {
     ...variableRangesBase.pools,
     ...variableRangesSaturation.pools,
+    ...variableRangesCp008.pools,
   },
 };
 const constraintProfiles = {
   ...constraintProfilesBase.profiles,
   ...constraintProfilesSaturation.profiles,
+  ...constraintProfilesCp008.profiles,
 } as Record<string, ConstraintProfile>;
 
 const registryByQl = new Map<string, Pnc002RegistryGroup>();
@@ -95,41 +105,26 @@ for (const [qlId, explanation] of Object.entries(explanations)) {
 export function getPnc002QuestionEntries(): Pnc002QuestionEntry[] {
   return entries.map((entry) => ({ ...entry, requiredVariables: [...entry.requiredVariables] }));
 }
-
 export function getPnc002QuestionEntry(qlId: string): Pnc002QuestionEntry {
   const entry = entries.find((candidate) => candidate.qlId === qlId);
   if (!entry) throw new Error(`Unknown PNC-002 question language ID: ${qlId}`);
   return { ...entry, requiredVariables: [...entry.requiredVariables] };
 }
-
-export function getPnc002QuestionLanguageIds(): string[] {
-  return entries.map((entry) => entry.qlId);
-}
-
+export function getPnc002QuestionLanguageIds(): string[] { return entries.map((entry) => entry.qlId); }
 export function getPnc002Explanation(qlId: string): ExplanationRecord {
   const explanation = explanations[qlId];
   if (!explanation) throw new Error(`Missing PNC-002 explanation for ${qlId}`);
   return { lines: [...explanation.lines] };
 }
-
-export function getPnc002VariableRanges(): VariableRanges {
-  return variableRanges;
-}
-
+export function getPnc002VariableRanges(): VariableRanges { return variableRanges; }
 export function getPnc002ConstraintProfile(profileId: string): ConstraintProfile {
   const profile = constraintProfiles[profileId];
   if (!profile) throw new Error(`Unknown PNC-002 constraint profile: ${profileId}`);
   return { ...profile };
 }
-
-export function renderPnc002Template(
-  template: string,
-  variables: Record<string, string | number>,
-): string {
+export function renderPnc002Template(template: string, variables: Record<string, string | number>): string {
   let rendered = template;
-  for (const [key, value] of Object.entries(variables)) {
-    rendered = rendered.split(`{${key}}`).join(String(value));
-  }
+  for (const [key, value] of Object.entries(variables)) rendered = rendered.split(`{${key}}`).join(String(value));
   const unresolved = [...rendered.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)].map((match) => match[1]);
   if (unresolved.length) throw new Error(`Unresolved PNC-002 placeholders: ${unresolved.join(", ")}`);
   return rendered;
