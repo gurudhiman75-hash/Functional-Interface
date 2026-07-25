@@ -16,6 +16,7 @@ export * from "./transaction-fee-solver";
 export * from "./dishonest-trade-solver";
 export * from "./dishonest-trade-advanced-solver";
 export * from "./effective-cost-recovery-solver";
+export * from "./effective-cost-advanced-solver";
 export * from "./cp002-independent-verifier";
 export * from "./cp003-independent-verifier";
 export * from "./cp004-independent-verifier";
