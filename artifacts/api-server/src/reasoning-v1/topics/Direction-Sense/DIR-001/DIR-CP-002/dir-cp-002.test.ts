@@ -27,16 +27,27 @@ for (const ql of DIR_CP002_QLS) {
     assert.equal(generated.metadata.solverVerified, true);
     assert.equal(generated.metadata.solveMode, null);
 
-    const stemLines = generated.stem.split("\n");
-    assert.ok(stemLines[0].includes("starts at point O"));
-    assert.ok(stemLines.at(-1)?.startsWith("Question:"));
-    assert.ok(generated.stem.includes("without changing position"));
-    assert.ok(generated.stem.includes("without turning during the movement"));
-    assert.ok(generated.stem.includes("reference point"));
-    assert.ok(!generated.stem.includes("final position from the starting point"));
-    assert.ok(!generated.stem.includes("Where is the final position"));
+    assert.ok(generated.stem.includes("starts from a point facing"));
+    assert.ok(generated.stem.includes("starting point"));
+    assert.equal(generated.stem.split("\n").length, 1, "Question statement must be continuous exam prose");
+    assert.equal((generated.stem.match(/\bwalks\b/g) ?? []).length, generated.metadata.legCount);
+    assert.equal((generated.stem.match(/\b(?:North|South|East|West)\b/g) ?? []).length, 1, "Stem must reveal only the initial compass direction");
+    assert.ok(!generated.stem.includes("point O"));
+    assert.ok(!generated.stem.match(/point [A-Z]/));
+    assert.ok(!generated.stem.includes("without changing position"));
+    assert.ok(!generated.stem.includes("without turning"));
+    assert.ok(!generated.stem.includes("is now facing"));
+    assert.ok(!generated.stem.includes("facing direction remains"));
+    assert.ok(!generated.stem.match(/^\d+\./));
 
-    assert.ok(generated.explanation.steps.length >= generated.metadata.legCount * 2);
+    const explanationKeys = Object.keys(generated.explanation);
+    assert.deepEqual(explanationKeys.slice(0, 2), ["given", "diagram"]);
+    assert.equal(generated.explanation.given.length, 3);
+    assert.ok(generated.explanation.given[0].startsWith("Starting direction:"));
+    assert.ok(generated.explanation.given[1].startsWith("Simplified path:"));
+    assert.ok(generated.explanation.given[2].startsWith("Required:"));
+    assert.ok(generated.explanation.method.length > 40);
+    assert.ok(generated.explanation.steps.length >= generated.metadata.legCount + 2);
     assert.deepEqual(
       generated.explanation.steps.map((step) => step.stepNumber),
       generated.explanation.steps.map((_, index) => index + 1),
@@ -45,10 +56,8 @@ for (const ql of DIR_CP002_QLS) {
     assert.ok(generated.explanation.steps.every((step) => step.statement.length > 20));
     assert.ok(generated.explanation.steps.every((step) => step.calculation.length > 5));
     assert.ok(generated.explanation.steps.every((step) => step.result.length > 15));
-    assert.ok(generated.explanation.coordinateConvention.includes("East = +x"));
-    assert.ok(generated.explanation.askedRelation.includes("Point"));
+    assert.ok(generated.explanation.askedRelation.includes("="));
     assert.ok(generated.explanation.conclusion.length > 40);
-    assert.equal(Object.keys(generated.explanation).at(-1), "diagram");
 
     const diagram = generated.explanation.diagram;
     assert.equal(diagram.kind, "DIRECTION_PATH_DIAGRAM");
@@ -58,9 +67,14 @@ for (const ql of DIR_CP002_QLS) {
     assert.equal(diagram.points[0].role, "START");
     assert.equal(diagram.points.at(-1)?.role, "END");
     assert.ok(diagram.svg.startsWith("<svg"));
-    assert.ok(diagram.svg.includes("Dashed red arrow = the exact relation asked"));
+    assert.ok(diagram.svg.includes("Dashed red curve shows the exact relation asked"));
     assert.ok(diagram.svg.includes(diagram.askedRelation.label));
-    assert.ok(diagram.svg.includes("marker-end=\"url(#questionArrow)\""));
+    assert.ok(diagram.svg.includes("data-role=\"asked-relation-arrow\""));
+    assert.ok(diagram.svg.includes(" Q "), "Asked relation must be curved away from route lines");
+    assert.ok(diagram.svg.includes("data-role=\"asked-relation-label\""));
+    assert.equal((diagram.svg.match(/data-role="segment-label"/g) ?? []).length, generated.metadata.legCount);
+    assert.equal((diagram.svg.match(/data-role="segment-label"><rect/g) ?? []).length, generated.metadata.legCount);
+    assert.ok(diagram.svg.includes("fill=\"#ffffff\""), "Route text must have opaque white backgrounds");
 
     assert.ok(!generated.stem.includes("DIR_"));
     assert.ok(!generated.explanation.conclusion.includes("DIR_"));
@@ -81,7 +95,8 @@ for (const ql of DIR_CP002_QLS) {
       assert.ok(generated.options.every((option) => typeof option.value === "object"));
       assert.equal(diagram.askedRelation.direction, answer.endpointDirection);
       assert.equal(diagram.finalFacing?.direction, answer.finalFacing);
-      assert.ok(diagram.svg.includes("Purple arrow = final facing direction"));
+      assert.ok(diagram.svg.includes("data-role=\"final-facing-arrow\""));
+      assert.ok(diagram.svg.includes("data-role=\"final-facing-label\""));
     }
 
     difficulties.add(generated.difficulty);
@@ -101,7 +116,7 @@ const minPositionCount = Math.min(...answerPositions);
 const maxPositionCount = Math.max(...answerPositions);
 assert.ok(maxPositionCount / minPositionCount < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
-console.log("DIR-CP-002 unambiguous stem, detailed explanation and diagram proof passed.", {
+console.log("DIR-CP-002 exam-stem, given-first explanation and clear-diagram proof passed.", {
   qlCount: DIR_CP002_QLS.length,
   generatedCases: DIR_CP002_QLS.length * 200,
   endpointDirections: [...endpointDirections].sort(),
