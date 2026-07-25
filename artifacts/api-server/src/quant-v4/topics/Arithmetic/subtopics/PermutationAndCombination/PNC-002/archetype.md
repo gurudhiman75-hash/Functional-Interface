@@ -25,26 +25,27 @@
 ## Current reviewed state
 
 - active CPs: 4;
-- English QLs: `PNC-QL-107` through `PNC-QL-205`;
-- active English QLs: 99;
-- active solve modes: 69;
-- QL-specific natural explanations: 99;
-- observed difficulty: 13 Easy / 46 Medium / 40 Hard;
+- English QLs: `PNC-QL-107` through `PNC-QL-208`;
+- active English QLs: 102;
+- active solve modes: 72;
+- QL-specific natural explanations: 102;
+- observed difficulty: 13 Easy / 48 Medium / 41 Hard;
 - CP-007 deterministic runtime proof: 216 cases, each generated twice;
 - CP-008 deterministic runtime proof: 276 cases, each generated twice;
 - CP-009 deterministic runtime proof: 348 cases, each generated twice;
-- CP-010 saturation-expanded deterministic runtime checkpoint: 232 cases, each generated twice;
+- CP-010 deterministic runtime proof: 256 cases, each generated twice;
 - independent verification:
   - exhaustive linear-permutation enumeration for CP-007 and CP-008;
   - exhaustive fixed-size subset enumeration for CP-009;
-  - exhaustive reference-fixed circular enumeration for CP-010;
-  - canonical mirrored representatives for reflection-equivalent ornament modes;
+  - exhaustive reference-fixed circular enumeration for CP-010 restrictions;
+  - exhaustive subset selection followed by canonical circular enumeration for choose-then-circle modes;
+  - canonical mirrored representatives for reflection-equivalent ornaments, rings and neighbour-set seatings;
 - formula rendering: delimited LaTeX/MathJax;
 - CP-007 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - CP-008 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - CP-009 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
-- CP-010 verdict: `SATURATION-EXPANDED ENGLISH RUNTIME CHECKPOINT — FINAL GAP AUDIT OPEN`;
+- CP-010 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - maturity: `RUNTIME_PROOF`;
 - `publiclyPublishable: false`.
 
-Saturation means a CP's material English predicates are represented and proof-backed. It is not freeze, localization, publication or production-integration approval. CP-010 now includes the two material contracts discovered by its second ownership audit, but it remains open until the expanded proof, generated review and final gap audit pass.
+Saturation means the material English predicates currently owned by a CP are represented and proof-backed. It is not freeze, localization, publication or production-integration approval. CP-010 passed its final source-backed gap audit, 32-QL generated review and exact runtime proof; Hindi, Punjabi and publication remain separate future stages.
