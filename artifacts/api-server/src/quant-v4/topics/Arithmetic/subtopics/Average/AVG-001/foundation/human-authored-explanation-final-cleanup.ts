@@ -8,6 +8,17 @@ function cleanRepeatedUnits(line: string) {
     .replaceAll("₹₹", "₹");
 }
 
+function softenFormalEnglish(line: string) {
+  if (/\$\$/.test(line)) return line;
+  return line
+    .replace(/\breconstruct\b/gi, "rebuild")
+    .replace(/\brecover\b/gi, "find")
+    .replace(/\bderive\b/gi, "find")
+    .replace(/\bdetermine\b/gi, "find")
+    .replace(/\bweighted aggregation\b/gi, "weighted total")
+    .replace(/\bsolve mode\b/gi, "method");
+}
+
 function shortenCp006Concept(line: string) {
   return line
     .replace(
@@ -51,11 +62,13 @@ function ageShiftMethod(pkg: Avg001QuestionPackage) {
 export function finalizeAvg001ExplanationCleanup(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
-  const lines = pkg.explanation.lines.map((line) =>
-    cleanRepeatedUnits(
-      pkg.canonicalProblemId === "AVG-CP-006" ? shortenCp006Concept(line) : line,
-    ),
-  );
+  const lines = pkg.explanation.lines.map((line) => {
+    const shortened = pkg.canonicalProblemId === "AVG-CP-006"
+      ? shortenCp006Concept(line)
+      : line;
+    const unitClean = cleanRepeatedUnits(shortened);
+    return pkg.language === "en" ? softenFormalEnglish(unitClean) : unitClean;
+  });
   const ageMethod = ageShiftMethod(pkg);
   if (ageMethod && lines.length > 1 && !lines.join(" ").toLowerCase().includes("after")) {
     lines[1] = ageMethod;
@@ -65,7 +78,7 @@ export function finalizeAvg001ExplanationCleanup(
     explanation: { lines },
     traceability: {
       ...pkg.traceability,
-      explanationFinalCleanup: "AVG-001 explanation final cleanup v2",
+      explanationFinalCleanup: "AVG-001 explanation final cleanup v3",
     },
   };
 }
