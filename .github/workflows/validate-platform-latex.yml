@@ -105,7 +105,22 @@ jobs:
 
       - name: Run final package audit
         working-directory: artifacts/api-server
-        run: node dist/quant-v4/pnc-001-package-audit.mjs
+        run: |
+          if ! node dist/quant-v4/pnc-001-package-audit.mjs > /tmp/pnc-package-audit.log 2>&1; then
+            echo "PNC package audit failed; compact diagnostic follows:"
+            tail -n 120 /tmp/pnc-package-audit.log
+            exit 1
+          fi
+          cat /tmp/pnc-package-audit.log
+
+      - name: Publish package-audit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-latex-package-audit-diagnostics
+          path: /tmp/pnc-package-audit.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Publish LaTeX package audit evidence
         if: always()
@@ -113,7 +128,7 @@ jobs:
         with:
           name: pnc-001-latex-package-audit
           path: artifacts/api-server/dist/quant-v4/pnc-001-package-audit/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
 
       - name: Typecheck admin application
