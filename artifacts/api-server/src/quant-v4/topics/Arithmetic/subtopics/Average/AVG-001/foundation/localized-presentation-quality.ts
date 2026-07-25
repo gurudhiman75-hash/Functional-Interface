@@ -1,6 +1,10 @@
 import { applyAvg001Cp003LocalizedStemAuthorship } from "./cp003-localized-stem-authorship";
 import { applyAvg001Cp003LocalizedStemFinalPolish } from "./cp003-localized-stem-final-polish";
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
+import {
+  applyAvg001LocalizedStemContextFidelity,
+  AVG_001_LOCALIZED_STEM_CONTEXT_FIDELITY,
+} from "./localized-stem-context-fidelity";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
@@ -14,6 +18,7 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
     "localized-stem",
     "localized-explanation",
     "localized-context-naturalness",
+    "localized-context-fidelity",
     "localized-explanation-authorship",
   ]);
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter((check) => !replaced.has(check.name));
@@ -45,6 +50,13 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
       message: "Localized stem avoids generic member/value wording, artificial labels and known grammar errors",
     },
     {
+      name: "localized-context-fidelity",
+      passed:
+        pkg.traceability.localizedStemContextFidelity ===
+        AVG_001_LOCALIZED_STEM_CONTEXT_FIDELITY,
+      message: "Localized stem preserves the English scenario entity rather than only mathematical parity",
+    },
+    {
       name: "localized-explanation",
       passed:
         pkg.explanation.lines.length >= 4 &&
@@ -72,6 +84,7 @@ export function applyAvg001LocalizedPresentationQuality(
 ): Avg001QuestionPackage {
   const authoredStem = applyAvg001Cp003LocalizedStemAuthorship(pkg, language);
   const polishedStem = applyAvg001Cp003LocalizedStemFinalPolish(authoredStem, language);
-  const humanized = applyAvg001HumanAuthoredExplanation(polishedStem);
+  const contextFaithfulStem = applyAvg001LocalizedStemContextFidelity(polishedStem, language);
+  const humanized = applyAvg001HumanAuthoredExplanation(contextFaithfulStem);
   return { ...humanized, validation: refreshValidation(humanized, language) };
 }
