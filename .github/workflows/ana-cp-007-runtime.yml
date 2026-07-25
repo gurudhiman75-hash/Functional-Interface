@@ -1,5 +1,6 @@
 name: Validate ANA-CP-007 runtime
 
+# Final merge-ref proof: all CP-007 changes remain review-only and newly added.
 on:
   push:
     branches:
