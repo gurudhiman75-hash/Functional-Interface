@@ -5,18 +5,29 @@ import type { AlphabetTransformPrompt, CodCp003RuleContext, CodCp003RuleId } fro
 
 function describeRule(ruleId: CodCp003RuleId, context: CodCp003RuleContext): string {
   if (ruleId === "OPPOSITE_ALPHABET_MAP") {
-    return "Replace every letter by its opposite letter in the alphabet: A↔Z, B↔Y, C↔X, and so on.";
+    return "each letter is replaced by its opposite alphabet partner (A↔Z, B↔Y, C↔X, and so on)";
   }
   const shift = context.shift ?? 0;
   return shift > 0
-    ? `Move every letter ${shift} place${shift === 1 ? "" : "s"} forward in the alphabet; continue from A after Z.`
-    : `Move every letter ${Math.abs(shift)} place${shift === -1 ? "" : "s"} backward in the alphabet; continue from Z before A.`;
+    ? `every letter moves exactly ${shift} place${shift === 1 ? "" : "s"} forward, with wrapping after Z`
+    : `every letter moves exactly ${Math.abs(shift)} place${shift === -1 ? "" : "s"} backward, with wrapping before A`;
+}
+
+function evidenceSteps(source: string, code: string): string {
+  return [...source].map((letter, index) => `${letter}→${code[index]}`).join(", ");
+}
+
+function exactRuleStatement(prompt: AlphabetTransformPrompt, ruleId: CodCp003RuleId, context: CodCp003RuleContext): string {
+  const example = prompt.evidence[0]!;
+  const wrapNote = ruleId === "UNIFORM_CYCLIC_SHIFT" && wordUsesWrap(example.source, context.shift ?? 0)
+    ? " One or more letters cross A/Z, so cyclic wrapping is used."
+    : "";
+  return `In ${example.source} → ${example.code}, ${evidenceSteps(example.source, example.code)}. Therefore, ${describeRule(ruleId, context)}.${wrapNote}`;
 }
 
 function evidenceWorking(ruleId: CodCp003RuleId, context: CodCp003RuleContext, source: string, code: string): string {
-  const steps = [...source].map((letter, index) => `${letter}→${code[index]}`).join(", ");
-  if (ruleId === "OPPOSITE_ALPHABET_MAP") return `${source} → ${code}: ${steps}. Each pair consists of opposite alphabet letters.`;
-  return `${source} → ${code}: ${steps}${wordUsesWrap(source, context.shift ?? 0) ? "; the alphabet wraps at A/Z" : ""}.`;
+  if (ruleId === "OPPOSITE_ALPHABET_MAP") return `${source} → ${code} confirms ${evidenceSteps(source, code)}; every pair consists of opposite alphabet letters.`;
+  return `${source} → ${code} confirms ${evidenceSteps(source, code)}${wordUsesWrap(source, context.shift ?? 0) ? "; the alphabet wraps at A/Z" : ""}.`;
 }
 
 function targetWorking(ruleId: CodCp003RuleId, context: CodCp003RuleContext, target: string, code: string): string {
@@ -67,9 +78,8 @@ export function buildCodCp003Explanation(input: {
   styleIndex: number;
   options: readonly GeneratedOption[];
 }): ExplanationTrace {
-  const evidenceLimit = ["INFER_AND_ENCODE", "CHOOSE_MATCHING_CODE"].includes(input.prompt.taskKind) ? 2 : 1;
   const sourceDemonstration = input.prompt.evidence
-    .slice(0, evidenceLimit)
+    .slice(1, 2)
     .map((pair) => evidenceWorking(input.ruleId, input.context, pair.source, pair.code));
 
   let targetApplication: string[];
@@ -84,15 +94,8 @@ export function buildCodCp003Explanation(input: {
     targetApplication = [targetWorking(input.ruleId, input.context, input.prompt.targetWord, input.fullTargetCode)];
   }
 
-  const openings = [
-    "The common coding rule is:",
-    "The letter relation is:",
-    "All the examples use this rule:",
-    "Comparing corresponding letters gives this rule:",
-  ] as const;
-
   return {
-    ruleStatement: `${openings[input.styleIndex % openings.length]} ${describeRule(input.ruleId, input.context)}`,
+    ruleStatement: exactRuleStatement(input.prompt, input.ruleId, input.context),
     sourceDemonstration,
     targetApplication,
     conclusion: conclusionFor(input.answer, input.styleIndex),
