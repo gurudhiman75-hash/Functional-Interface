@@ -22,6 +22,18 @@ function text(
 function svg(body: string, accessibleText: string) {
   return `<svg class="mensuration-diagram" viewBox="0 0 440 260" role="img" aria-label="${escapeHtml(accessibleText)}" xmlns="http://www.w3.org/2000/svg">
     <title>${escapeHtml(accessibleText)}</title>
+    <style>
+      .sector-fill { fill: #f2dfc5; stroke: none; }
+      .angle-arc { fill: none; stroke: #bd5a22; stroke-width: 3; stroke-linecap: round; }
+      .boundary-accent { fill: none; stroke: #16805d; stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; }
+      .piece-a { fill: #dceaf7; }
+      .piece-b { fill: #f2dfc5; }
+      .cutout-fill { fill: #ffffff; }
+      .translucent { fill-opacity: .76; }
+      .overlap-fill { fill: #aed8bf; fill-opacity: .9; stroke: none; }
+      .centre-dot { fill: #17324d; }
+      .dimension-line { fill: none; stroke: #64748b; stroke-width: 1.5; }
+    </style>
     ${body}
   </svg>`;
 }
@@ -72,15 +84,28 @@ function sectorPath(
   return `M ${cx} ${cy} L ${start.x.toFixed(2)} ${start.y.toFixed(2)} A ${radius} ${radius} 0 ${largeArc} 1 ${end.x.toFixed(2)} ${end.y.toFixed(2)} Z`;
 }
 
+function recoveredCentralAngle(labels: Record<string, string>, answer: string) {
+  const known = numericLabel(labels.centralAngle);
+  if (known !== undefined) return known;
+  const answerAngle = numericLabel(answer);
+  if (answerAngle !== undefined) return answerAngle;
+
+  const radius = numericLabel(labels.radius);
+  const measuredPart = numericLabel(labels.measuredPart);
+  if (!radius || measuredPart === undefined) return 90;
+  if (/sector/i.test(labels.measuredPart ?? "")) {
+    return (measuredPart * 360) / ((22 / 7) * radius * radius);
+  }
+  return (measuredPart * 360) / (2 * (22 / 7) * radius);
+}
+
 function renderCentralAngle(
   illustration: Men001ExplanationIllustration,
-  solveMode: string,
+  descriptor: string,
   answer: string,
 ) {
   const labels = illustration.labels as Record<string, string>;
-  const knownAngle = numericLabel(labels.centralAngle);
-  const recoveredAngle = numericLabel(answer);
-  const angle = clamp(knownAngle ?? recoveredAngle ?? 90, 20, 340);
+  const angle = clamp(recoveredCentralAngle(labels, answer), 20, 340);
   const cx = 220;
   const cy = 132;
   const radius = 94;
@@ -89,8 +114,8 @@ function renderCentralAngle(
   const midpoint = polarPoint(cx, cy, 112, angle / 2);
   const radiusLabel = polarPoint(cx, cy, 52, 0);
   const angleLabel = polarPoint(cx, cy, 43, angle / 2);
-  const usesSector = /Sector/i.test(solveMode) || /sector/i.test(labels.measuredPart ?? "");
-  const showsPerimeter = /Perimeter/i.test(solveMode);
+  const usesSector = /sector/i.test(descriptor);
+  const showsPerimeter = /perimeter/i.test(descriptor);
 
   return svg(`
     <circle cx="${cx}" cy="${cy}" r="${radius}" class="shape"/>
@@ -108,15 +133,15 @@ function renderCentralAngle(
 
 function renderCirclePartBoundary(
   illustration: Men001ExplanationIllustration,
-  solveMode: string,
+  descriptor: string,
 ) {
   const labels = illustration.labels as Record<string, string>;
-  if (/Quadrant/i.test(solveMode)) {
+  if (/quadrant|two radii/i.test(descriptor)) {
     return svg(`
       <path d="M 135 205 L 135 65 A 140 140 0 0 1 275 205 Z" class="shape sector-fill"/>
       <path d="M 135 65 A 140 140 0 0 1 275 205" class="arc"/>
       <path d="M 135 205 L 135 65 M 135 205 L 275 205" class="boundary-accent"/>
-      <rect x="135" y="191" width="14" height="14" class="right-angle"/>
+      <path d="M135 205 h14 v-14" class="right-angle"/>
       ${text(222, 112, labels.curvedBoundary, "start")}
       ${text(205, 232, labels.straightEdges)}
       ${text(120, 137, labels.radius, "end")}
@@ -181,12 +206,12 @@ function renderPerpendicularQuadrilateral(
 
 function renderCompositeArea(
   illustration: Men001ExplanationIllustration,
-  solveMode: string,
+  descriptor: string,
 ) {
   const labels = illustration.labels as Record<string, string>;
   const operation = labels.operation ?? "";
 
-  if (/RectangleSemicircleCompositeArea|RectangleLengthFromCompositeArea/i.test(solveMode)) {
+  if (/rectangle.*semicircle|semicircle.*rectangle/i.test(descriptor) && !/two semicircle|stadium/i.test(descriptor)) {
     return svg(`
       <rect x="65" y="65" width="230" height="150" class="shape piece-a"/>
       <path d="M295 65 A75 75 0 0 1 295 215 Z" class="shape piece-b"/>
@@ -197,7 +222,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/StadiumCompositeArea/i.test(solveMode)) {
+  if (/stadium|two semicircles = one circle/i.test(descriptor)) {
     return svg(`
       <rect x="120" y="65" width="200" height="150" class="shape piece-a"/>
       <path d="M120 65 A75 75 0 0 0 120 215 Z" class="shape piece-b"/>
@@ -209,7 +234,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/RectangleTriangleCompositeArea/i.test(solveMode)) {
+  if (/triangle/i.test(labels.secondaryShape ?? "")) {
     return svg(`
       <rect x="95" y="105" width="250" height="120" class="shape piece-a"/>
       <polygon points="95,105 220,35 345,105" class="shape piece-b"/>
@@ -220,7 +245,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/TwoRectangleCompositeArea/i.test(solveMode)) {
+  if (/two rectangle|second rectangle/i.test(descriptor) && !/overlap/i.test(descriptor)) {
     return svg(`
       <rect x="60" y="70" width="210" height="150" class="shape piece-a"/>
       <rect x="270" y="125" width="115" height="95" class="shape piece-b"/>
@@ -231,7 +256,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/LShapeAreaBySubtraction/i.test(solveMode)) {
+  if (/corner rectangular cut-out|l-shaped/i.test(descriptor)) {
     return svg(`
       <path d="M70 45 H365 V215 H235 V135 H70 Z" class="shape piece-a"/>
       <rect x="235" y="45" width="130" height="90" class="cutout-fill"/>
@@ -242,7 +267,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/SquareMinusCircleShadedArea|SquareSideFromShadedArea/i.test(solveMode)) {
+  if (/square.*inscribed circle|inscribed circle.*square/i.test(descriptor)) {
     return svg(`
       <rect x="100" y="25" width="220" height="220" class="shape piece-a"/>
       <circle cx="210" cy="135" r="110" class="shape cutout-fill"/>
@@ -252,7 +277,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/CircleMinusSquareShadedArea|CircleRadiusFromCircleMinusSquareShadedArea/i.test(solveMode)) {
+  if (/outer circle.*inscribed square|circle.*subtracting.*square|circle.*outside.*square/i.test(descriptor)) {
     return svg(`
       <circle cx="220" cy="132" r="108" class="shape piece-a"/>
       <polygon points="220,24 328,132 220,240 112,132" class="shape cutout-fill"/>
@@ -262,7 +287,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/RectangleMinusTwoSemicirclesArea/i.test(solveMode)) {
+  if (/two semicircles forming one circle/i.test(descriptor)) {
     return svg(`
       <rect x="70" y="60" width="300" height="160" class="shape piece-a"/>
       <path d="M70 60 A80 80 0 0 1 70 220 Z" class="shape cutout-fill"/>
@@ -273,7 +298,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/FourCornerQuadrantsShadedArea/i.test(solveMode)) {
+  if (/four corner quadrants/i.test(descriptor)) {
     return svg(`
       <rect x="90" y="20" width="240" height="240" class="shape piece-a"/>
       <path d="M90 20 H210 A120 120 0 0 1 90 140 Z" class="shape cutout-fill"/>
@@ -286,7 +311,7 @@ function renderCompositeArea(
     `, illustration.accessibleText);
   }
 
-  if (/OverlappingRectanglesUnionArea/i.test(solveMode)) {
+  if (/overlap/i.test(descriptor)) {
     return svg(`
       <rect x="55" y="55" width="235" height="140" class="shape piece-a translucent"/>
       <rect x="175" y="100" width="210" height="125" class="shape piece-b translucent"/>
@@ -309,11 +334,11 @@ function renderCompositeArea(
 
 function renderInscribedRelation(
   illustration: Men001ExplanationIllustration,
-  solveMode: string,
+  descriptor: string,
 ) {
   const labels = illustration.labels as Record<string, string>;
 
-  if (/InscribedSquareAreaInCircle/i.test(solveMode)) {
+  if (/outerShape.*circle|square diagonal = circle diameter|circle.*square/i.test(descriptor) && !/circle diameter = square side/i.test(descriptor)) {
     return svg(`
       <circle cx="220" cy="130" r="105" class="shape"/>
       <polygon points="220,25 325,130 220,235 115,130" class="shape inner secondary-fill"/>
@@ -324,7 +349,7 @@ function renderInscribedRelation(
     `, illustration.accessibleText);
   }
 
-  if (/LargestCircleRadiusInRectangle/i.test(solveMode)) {
+  if (/rectangle|smaller rectangle side/i.test(descriptor)) {
     return svg(`
       <rect x="55" y="60" width="330" height="140" class="shape"/>
       <circle cx="220" cy="130" r="70" class="shape inner secondary-fill"/>
@@ -375,23 +400,11 @@ function renderRegularHexagon(
 
 function renderCompositeBoundary(
   illustration: Men001ExplanationIllustration,
-  solveMode: string,
+  descriptor: string,
 ) {
   const labels = illustration.labels as Record<string, string>;
 
-  if (/RectangleSemicircleCompositePerimeter/i.test(solveMode)) {
-    return svg(`
-      <path d="M70 205 L70 55 L285 55 A75 75 0 0 1 285 205 Z" class="shape piece-a"/>
-      <line x1="285" y1="55" x2="285" y2="205" class="guide omitted"/>
-      <path d="M70 205 L70 55 L285 55 M285 205 L70 205" class="boundary-accent"/>
-      <path d="M285 55 A75 75 0 0 1 285 205" class="arc"/>
-      ${text(150, 230, labels.straightBoundary)}
-      ${text(350, 132, labels.curvedBoundary, "start")}
-      ${text(275, 140, labels.omittedSharedEdge, "end")}
-    `, illustration.accessibleText);
-  }
-
-  if (/StadiumCompositePerimeter|StadiumStraightLengthFromPerimeter/i.test(solveMode)) {
+  if (/two equal straight stadium sides|two semicircular arcs forming one full circumference|stadium/i.test(descriptor)) {
     return svg(`
       <path d="M125 55 H315 A75 75 0 0 1 315 205 H125 A75 75 0 0 1 125 55 Z" class="shape piece-a"/>
       <line x1="125" y1="55" x2="125" y2="205" class="guide omitted"/>
@@ -403,7 +416,7 @@ function renderCompositeBoundary(
     `, illustration.accessibleText);
   }
 
-  if (/LShapePerimeter/i.test(solveMode)) {
+  if (/l-shape|all exposed straight segments/i.test(descriptor)) {
     return svg(`
       <path d="M70 45 H365 V125 H240 V220 H70 Z" class="shape piece-a boundary-accent"/>
       ${text(175, 142, labels.straightBoundary)}
@@ -411,7 +424,7 @@ function renderCompositeBoundary(
     `, illustration.accessibleText);
   }
 
-  if (/JoinedRectanglesCompositePerimeter/i.test(solveMode)) {
+  if (/joined|both rectangles|shared attachment edge 10/i.test(descriptor)) {
     return svg(`
       <rect x="55" y="50" width="245" height="170" class="shape piece-a"/>
       <rect x="300" y="105" width="95" height="115" class="shape piece-b"/>
@@ -422,7 +435,7 @@ function renderCompositeBoundary(
     `, illustration.accessibleText);
   }
 
-  if (/SquareWithCircularHoleBoundary/i.test(solveMode)) {
+  if (/inner circular boundary|circular pond|outer square boundary/i.test(descriptor)) {
     return svg(`
       <rect x="105" y="20" width="220" height="220" class="shape piece-a boundary-accent"/>
       <circle cx="215" cy="130" r="62" class="shape cutout-fill arc"/>
@@ -433,20 +446,23 @@ function renderCompositeBoundary(
   }
 
   return svg(`
-    <path d="M70 205 L70 75 L275 75 A92 92 0 0 1 275 205 Z" class="shape piece-a"/>
-    <line x1="275" y1="75" x2="275" y2="205" class="guide omitted"/>
-    ${text(145, 225, labels.straightBoundary)}
-    ${text(350, 130, labels.curvedBoundary)}
-    ${text(265, 142, labels.omittedSharedEdge, "end")}
+    <path d="M70 205 L70 55 L285 55 A75 75 0 0 1 285 205 Z" class="shape piece-a"/>
+    <line x1="285" y1="55" x2="285" y2="205" class="guide omitted"/>
+    <path d="M70 205 L70 55 L285 55 M285 205 L70 205" class="boundary-accent"/>
+    <path d="M285 55 A75 75 0 0 1 285 205" class="arc"/>
+    ${text(150, 230, labels.straightBoundary)}
+    ${text(350, 132, labels.curvedBoundary, "start")}
+    ${text(275, 140, labels.omittedSharedEdge, "end")}
   `, illustration.accessibleText);
 }
 
 export function renderMen001ReviewIllustration(
   illustration: Men001ExplanationIllustration,
-  solveMode: string,
-  answer: string,
+  solveMode = "",
+  answer = "",
 ): string {
   const labels = illustration.labels as Record<string, string>;
+  const descriptor = `${solveMode} ${illustration.accessibleText} ${Object.values(labels).join(" ")}`;
 
   switch (illustration.kind) {
     case "TRIANGLE_SIDE_LABELS":
@@ -485,7 +501,7 @@ export function renderMen001ReviewIllustration(
       return renderPerpendicularQuadrilateral(illustration);
 
     case "CIRCLE_CENTRAL_ANGLE":
-      return renderCentralAngle(illustration, solveMode, answer);
+      return renderCentralAngle(illustration, descriptor, answer);
 
     case "ANNULUS_RADII":
       return svg(`
@@ -498,7 +514,7 @@ export function renderMen001ReviewIllustration(
       `, illustration.accessibleText);
 
     case "CIRCLE_PART_BOUNDARY":
-      return renderCirclePartBoundary(illustration, solveMode);
+      return renderCirclePartBoundary(illustration, descriptor);
 
     case "RECTANGULAR_BORDER_BAND":
       return svg(`
@@ -528,15 +544,15 @@ export function renderMen001ReviewIllustration(
       `, illustration.accessibleText);
 
     case "COMPOSITE_AREA_PARTS":
-      return renderCompositeArea(illustration, solveMode);
+      return renderCompositeArea(illustration, descriptor);
 
     case "INSCRIBED_PLANE_RELATION":
-      return renderInscribedRelation(illustration, solveMode);
+      return renderInscribedRelation(illustration, descriptor);
 
     case "REGULAR_HEXAGON_SPLIT":
       return renderRegularHexagon(illustration);
 
     case "COMPOSITE_EXPOSED_BOUNDARY":
-      return renderCompositeBoundary(illustration, solveMode);
+      return renderCompositeBoundary(illustration, descriptor);
   }
 }
