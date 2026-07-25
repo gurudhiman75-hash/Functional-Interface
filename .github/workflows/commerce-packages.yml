@@ -48,6 +48,7 @@ jobs:
           grep -F 'CREATE TABLE commerce.products' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
           grep -F 'CREATE TABLE commerce.product_versions' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
           grep -F 'CREATE TABLE commerce.product_version_tests' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'INSERT INTO identity.permissions (key, description)' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
           grep -F 'commerce.products.read' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
           grep -F 'commerce.products.manage' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
           grep -F 'router.use("/admin/commerce/products", adminCommerceProductsRouter)' artifacts/api-server/src/routes/index.ts
@@ -58,11 +59,15 @@ jobs:
           grep -F 'commerce.product.version.created' artifacts/api-server/src/routes/admin-commerce-products.ts
           grep -F 'PACKAGE_NOT_READY' artifacts/api-server/src/routes/admin-commerce-products.ts
           grep -F 'COMMERCE_SCHEMA_REQUIRED' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F "path: '/commerce/packages/:productId'" artifacts/admin-app/src/App.tsx
           grep -F "path: '/commerce/packages'" artifacts/admin-app/src/App.tsx
           grep -F "label: 'Packages'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "permission: 'commerce.products.read'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Canonical Commerce schema is not deployed' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
-          ! grep -E '@/data/|prototype products|demo package' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F 'Create immutable version' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F 'Package is activation-ready' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F "method: 'POST'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F "new Intl.NumberFormat('en-US'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          ! grep -E '@/data/|prototype products|demo package|Canonical Commerce schema is not deployed' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
