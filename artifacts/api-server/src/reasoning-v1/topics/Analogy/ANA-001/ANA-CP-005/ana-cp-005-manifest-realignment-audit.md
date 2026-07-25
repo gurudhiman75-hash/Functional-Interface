@@ -16,6 +16,8 @@ The original merged runtime was logically correct but did not implement the audi
 | pair mode | `EQUIVALENT_PAIR_SELECTION` | `PAIR_SELECTION` |
 | rule ownership | custom ten-family set | audited ten-family set |
 
+Pair-selection QLs use runtime answer type `LETTER_PAIR`, because the selectable payload is a complete pair. The audited manifest labels these as `LETTER`; the implementation normalizes that field without changing the canonical QL, solve mode or presentation ownership.
+
 ## QL-by-QL correction
 
 | QLs | Previous family | Canonical family | Action |
@@ -54,6 +56,10 @@ The audited manifest names the families but does not fully specify parameter dom
 
 These definitions are deterministic, independently solvable, collision-auditable and suitable for four-option generation. Any later change to these meanings requires a manifest amendment rather than a silent runtime edit.
 
+## Global option uniqueness
+
+A distractor is not accepted merely because it is wrong under the intended rule. The complete source-plus-option evidence is checked against every registered CP-005 rule and context. Any distractor that forms another valid alphabet relationship is discarded. This closes the alternative-rule ambiguity that is especially important for equal-distance and reverse-position pair selection.
+
 ## Removed families
 
 The discarded half, rounded-half and opposite-of-double rules remain mathematically usable ideas, but they are not owned by the audited CP-005 registry. They should not be reintroduced under existing QL IDs without a chapter-level manifest revision.
@@ -66,4 +72,4 @@ The realignment becomes merge-ready only after:
 2. Hindi/Punjabi parity audit passes;
 3. regenerated reviews are inspected;
 4. new family wording is accepted;
-5. no complete collision or equal-or-simpler ambiguity remains.
+5. no complete collision, alternative-option rule or equal-or-simpler ambiguity remains.
