@@ -13,26 +13,31 @@ Count policy: OPEN ENDED
 - CP and loss rate to SP
 - SP and profit rate to CP
 - SP and loss rate to CP
+- Profit amount and rate to CP
+- Loss amount and rate to CP
+- Profit amount and CP to profit percentage
+- Loss amount and CP to loss percentage
+- CP:SP ratio to profit/loss percentage
+- Profit/loss percentage to CP:SP ratio
+- Profit margin on SP to profit percentage on CP
+- Profit percentage on CP to margin on SP
 
 ## Current QL seed set
 
-PNL-QL-001 through PNL-QL-008 are initial proof QLs only. They do not define the eventual size of CP-001.
+PNL-QL-001 through PNL-QL-017 are runtime-backed seed QLs. They prove distinct semantic forms but do not define the eventual size of CP-001.
 
 ## Pending CP-001 discovery and implementation
 
-- Profit/loss amount plus rate to CP
-- Profit/loss amount plus CP to rate
-- CP:SP ratio to rate
-- Rate to CP:SP ratio
 - Profit/loss as a fraction of CP
 - Profit/loss as a fraction of SP
-- Margin on SP versus profit percentage on CP
 - Difference between selling prices at two rates
 - Same article under two selling conditions
-- Missing rate and missing price inverse forms
+- Missing rate and missing price coupled inverse forms
 - Ratio, fraction, algebraic, statement and comparison presentations
+- Reference-book and PYQ reconciliation
 - Hindi and Punjabi QLs after English semantic coverage stabilizes
 - Independent distractor and explanation audits
+- Deferred build and smoke-test execution
 
 ## Exit rule
 
