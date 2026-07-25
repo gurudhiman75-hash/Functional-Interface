@@ -33,10 +33,29 @@ jobs:
 
       - name: Reapply previously validated guarded patch
         run: |
-          git show 90d4b20ebc0922dac73d9ed08c1f2ff0496d0feb:.github/workflows/dir-001-runtime-proof.yml \
-            | sed -n '39,247p' \
-            | sed 's/^          //' \
-            > /tmp/dir-cp-003-shortest-patch.py
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          workflow = subprocess.check_output(
+              [
+                  "git",
+                  "show",
+                  "90d4b20ebc0922dac73d9ed08c1f2ff0496d0feb:.github/workflows/dir-001-runtime-proof.yml",
+              ],
+              text=True,
+          )
+          start_marker = "          python - <<'PY'\n"
+          end_marker = "\n          PY\n"
+          if start_marker not in workflow or end_marker not in workflow:
+              raise SystemExit("Unable to locate the validated patch script markers")
+          script = workflow.split(start_marker, 1)[1].split(end_marker, 1)[0]
+          script = "\n".join(
+              line[10:] if line.startswith("          ") else line
+              for line in script.splitlines()
+          )
+          Path("/tmp/dir-cp-003-shortest-patch.py").write_text(script + "\n")
+          PY
           python /tmp/dir-cp-003-shortest-patch.py
 
       - name: Set up Node
