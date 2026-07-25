@@ -28,6 +28,7 @@ const TestAnalyticsDetailPage = lazy(() => import('@/pages/analytics/TestAnalyti
 const TestAnalyticsQualityPage = lazy(() => import('@/pages/analytics/TestAnalyticsQualityPage').then((module) => ({ default: module.TestAnalyticsQualityPage })));
 const QuestionAnalyticsPage = lazy(() => import('@/pages/analytics/QuestionAnalyticsPage').then((module) => ({ default: module.QuestionAnalyticsPage })));
 const QuestionAnalyticsDetailPage = lazy(() => import('@/pages/analytics/QuestionAnalyticsPage').then((module) => ({ default: module.QuestionAnalyticsDetailPage })));
+const QuestionAnalyticsQualityPage = lazy(() => import('@/pages/analytics/QuestionAnalyticsQualityPage').then((module) => ({ default: module.QuestionAnalyticsQualityPage })));
 const SystemHealthPage = lazy(() => import('@/pages/analytics/SystemHealthWorkspacePage').then((module) => ({ default: module.SystemHealthWorkspacePage })));
 const RequestFailuresPage = lazy(() => import('@/pages/analytics/RequestFailuresPage').then((module) => ({ default: module.RequestFailuresPage })));
 const LanguagesPage = lazy(() => import('@/pages/settings/LanguagesPage').then((module) => ({ default: module.LanguagesPage })));
@@ -77,6 +78,7 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/analytics/tests/quality', element: <TestAnalyticsQualityPage /> },
   { path: '/analytics/tests/:publicationId', element: <TestAnalyticsDetailPage /> },
   { path: '/analytics/tests', element: <TestAnalyticsPage /> },
+  { path: '/analytics/questions/quality', element: <QuestionAnalyticsQualityPage /> },
   { path: '/analytics/questions/:questionVersionId', element: <QuestionAnalyticsDetailPage /> },
   { path: '/analytics/questions', element: <QuestionAnalyticsPage /> },
   { path: '/analytics/request-failures', element: <RequestFailuresPage /> },
