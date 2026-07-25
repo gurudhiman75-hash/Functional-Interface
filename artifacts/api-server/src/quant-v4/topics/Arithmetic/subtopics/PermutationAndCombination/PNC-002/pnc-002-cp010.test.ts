@@ -32,6 +32,14 @@ import {
   countCircularSelectionDihedralExact,
   countCircularSelectionRotationOnlyExact,
 } from "./foundation/solver-cp010-saturation";
+import type { Pnc002ValidationResult } from "./foundation/types";
+
+function failedChecks(validation: Pnc002ValidationResult): string {
+  return validation.checks
+    .filter((item) => !item.passed)
+    .map((item) => `${item.name}: ${item.message}`)
+    .join(" | ");
+}
 
 const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-010");
 const checkpointIds = Array.from({ length: 32 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
@@ -74,7 +82,7 @@ for (const qlId of checkpointIds) {
   assert.equal(sample.canonicalProblemId, "PNC-CP-010");
   assert.equal(sample.taskKind, "circularArrangement");
   assert.equal(sample.independentVerification.answer, sample.solver.numericAnswer, `${qlId} independent verifier`);
-  assert.equal(sample.validation.valid, true, `${qlId}: ${sample.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",")}`);
+  assert.equal(sample.validation.valid, true, `${qlId}: ${failedChecks(sample.validation)}`);
 }
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-199", seed: "cp010-round-inverse" }).solver.evidence.recoveredParameter, "circularObjects");
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-200", seed: "cp010-pair-inverse" }).solver.evidence.recoveredParameter, "circularObjects");
@@ -96,7 +104,7 @@ for (const entry of entries) {
     assert.equal(second.stem, first.stem, `${entry.qlId} stem determinism`);
     assert.deepEqual(second.options, first.options, `${entry.qlId} option determinism`);
     assert.deepEqual(second.explanation, first.explanation, `${entry.qlId} explanation determinism`);
-    assert.equal(first.validation.valid, true, `${entry.qlId}: ${first.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",")}`);
+    assert.equal(first.validation.valid, true, `${entry.qlId}: ${failedChecks(first.validation)}`);
     assert.equal(first.independentVerification.answer, first.solver.numericAnswer);
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options).size, 4);
