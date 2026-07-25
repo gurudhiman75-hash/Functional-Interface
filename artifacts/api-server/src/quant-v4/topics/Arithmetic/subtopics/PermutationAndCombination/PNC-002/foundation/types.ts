@@ -63,7 +63,10 @@ export type Pnc002Cp010SolveMode =
   | "recoverCircularParameter"
   | "countRotationOnlyOrnaments"
   | "countDihedralDistinctOrnaments"
-  | "countDihedralPairTogether";
+  | "countDihedralPairTogether"
+  | "countCircularSelectionRotationOnly"
+  | "countCircularSelectionDihedral"
+  | "countCircularDistinctNeighborSets";
 export type Pnc002SolveMode = Pnc002Cp007SolveMode | Pnc002Cp008SolveMode | Pnc002Cp009SolveMode | Pnc002Cp010SolveMode;
 
 export interface Pnc002QuestionLanguageEntry { qlId: string; cpId: Pnc002ActiveCanonicalProblemId; difficulty: Pnc002Difficulty; template: string; }
@@ -115,7 +118,8 @@ export interface Pnc002SolverEvidence {
     | "CIRCULAR_OPPOSITE_PAIR" | "CLOCKWISE_ADJACENT_PAIR" | "CLOCKWISE_EXACT_GAP"
     | "CLOCKWISE_AT_LEAST_GAP" | "CLOCKWISE_AT_MOST_GAP" | "PRESCRIBED_CLOCKWISE_ORDER"
     | "CIRCULAR_ALTERNATION" | "CIRCULAR_NO_TWO_CATEGORY_ADJACENT" | "CIRCULAR_INVERSE"
-    | "ROTATION_ONLY_ORNAMENTS" | "DIHEDRAL_DISTINCT_ORNAMENTS" | "DIHEDRAL_PAIR_TOGETHER";
+    | "ROTATION_ONLY_ORNAMENTS" | "DIHEDRAL_DISTINCT_ORNAMENTS" | "DIHEDRAL_PAIR_TOGETHER"
+    | "CIRCULAR_SELECTION_ROTATION_ONLY" | "CIRCULAR_SELECTION_DIHEDRAL" | "CIRCULAR_DISTINCT_NEIGHBOR_SETS";
   totalObjects: number; blockSizes: number[]; groupedObjectCount: number; blockCount: number; unitCount: number;
   externalArrangementCount: number; internalArrangementCounts: number[]; internalArrangementMultiplier: number;
   unrestrictedCount?: number; forbiddenTogetherCount?: number; validUnitArrangementCount?: number;
@@ -137,6 +141,7 @@ export interface Pnc002SolverEvidence {
   circularUnitCount?: number; rotationalSymmetryDivisor?: number; reflectionSymmetryDivisor?: number;
   clockwisePositionChoices?: number; clockwiseGap?: number; minimumClockwiseGap?: number; maximumClockwiseGap?: number;
   clockwiseOrderLength?: number; clockwiseOrderDivisor?: number; oppositeSeatOffset?: number; adjacentOrientationCount?: number;
+  selectedObjectCount?: number; selectionCount?: number; selectedCircularArrangementCount?: number;
   target?: number; recoveredParameter?: "n" | "blockSize" | "gap" | "totalObjects" | "categorySize" | "circularObjects";
   searchMinimum?: number; searchMaximum?: number;
 }
