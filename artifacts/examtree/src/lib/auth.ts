@@ -5,9 +5,10 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signInWithRedirect,
+  signOut,
   type User as FirebaseUser,
 } from "firebase/auth";
-import { apiRequest } from "@/lib/api";
+import { ApiError, apiRequest, getApiErrorCode } from "@/lib/api";
 import { getFirebaseAuth } from "@/lib/firebase";
 import {
   clearAuth,
@@ -56,6 +57,21 @@ function createAdminHandoffUser(firebaseUser: FirebaseUser): User {
   };
 }
 
+function isBlockedAccountError(error: unknown): boolean {
+  if (!(error instanceof ApiError) || error.status !== 403) return false;
+  const code = getApiErrorCode(error.body);
+  return code === "ACCOUNT_SUSPENDED" || code === "ACCOUNT_UNAVAILABLE";
+}
+
+async function terminateBlockedStudentSession(): Promise<void> {
+  clearAuth();
+  clearStudentLocalData();
+  const auth = getFirebaseAuth();
+  if (auth?.currentUser) {
+    await signOut(auth).catch(() => undefined);
+  }
+}
+
 async function fetchOrCreateUserProfile(
   firebaseUser: FirebaseUser,
 ): Promise<User> {
@@ -63,17 +79,29 @@ async function fetchOrCreateUserProfile(
     const existing = await apiRequest<User>("/users/me");
     setUser(existing);
     return existing;
-  } catch {
-    const created = await apiRequest<User>("/users", {
-      method: "POST",
-      body: JSON.stringify({
-        id: firebaseUser.uid,
-        email: firebaseUser.email ?? "",
-        name: firebaseUser.displayName?.trim() || firebaseUser.email?.split("@")[0] || "User",
-      }),
-    });
-    setUser(created);
-    return created;
+  } catch (error) {
+    if (isBlockedAccountError(error)) {
+      await terminateBlockedStudentSession();
+      throw error;
+    }
+
+    try {
+      const created = await apiRequest<User>("/users", {
+        method: "POST",
+        body: JSON.stringify({
+          id: firebaseUser.uid,
+          email: firebaseUser.email ?? "",
+          name: firebaseUser.displayName?.trim() || firebaseUser.email?.split("@")[0] || "User",
+        }),
+      });
+      setUser(created);
+      return created;
+    } catch (createError) {
+      if (isBlockedAccountError(createError)) {
+        await terminateBlockedStudentSession();
+      }
+      throw createError;
+    }
   }
 }
 
@@ -134,6 +162,10 @@ export function syncAuthSession() {
     try {
       await fetchOrCreateUserProfile(firebaseUser);
     } catch (error) {
+      if (isBlockedAccountError(error)) {
+        await terminateBlockedStudentSession();
+        return;
+      }
       console.warn("Failed to sync auth session:", error);
     }
   });
