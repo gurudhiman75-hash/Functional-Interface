@@ -15,6 +15,7 @@ export * from "./transaction-chain-solver";
 export * from "./transaction-fee-solver";
 export * from "./cp002-independent-verifier";
 export * from "./cp003-independent-verifier";
+export * from "./cp004-independent-verifier";
 export * from "./independent-verifier";
 export * from "./parameter-generator";
 export * from "./validator";
