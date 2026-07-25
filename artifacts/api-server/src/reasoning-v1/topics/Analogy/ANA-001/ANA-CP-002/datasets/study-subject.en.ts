@@ -1,0 +1,2 @@
+import type { LexicalPair } from "./types";
+export const STUDY_SUBJECT_PAIRS: readonly LexicalPair[] = [["Botany","Plants"],["Zoology","Animals"],["Geology","Earth"],["Astronomy","Celestial bodies"],["Entomology","Insects"],["Ornithology","Birds"],["Seismology","Earthquakes"],["Meteorology","Atmosphere and weather"],["Ecology","Organisms and environment"],["Anthropology","Humans and societies"],["Numismatics","Coins"],["Etymology","Word origins"]];

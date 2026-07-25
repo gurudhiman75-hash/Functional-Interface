@@ -1,0 +1,2 @@
+import type { LexicalPair } from "./types";
+export const WORD_DEFINITION_PAIRS: readonly LexicalPair[] = [["Bilingual","Speaking two languages"],["Nocturnal","Active at night"],["Aquatic","Living in water"],["Herbivore","Plant-eating animal"],["Anonymous","Of unknown name"],["Transparent","Allowing light to pass through"],["Portable","Easy to carry"],["Fragile","Easily broken"],["Optimist","Person expecting good outcomes"],["Illiterate","Unable to read or write"],["Omnivore","Animal eating plants and meat"],["Dormant","Temporarily inactive"]];

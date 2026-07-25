@@ -1,0 +1,2 @@
+import type { LexicalPair } from "./types";
+export const EFFECT_CAUSE_PAIRS: readonly LexicalPair[] = [["Flooding","Heavy rain"],["Fatigue","Lack of sleep"],["Rust","Oxidation"],["Unemployment","Economic slowdown"],["Dehydration","Water loss"],["Traffic jam","Road blockage"],["Soil erosion","Deforestation"],["Tooth decay","Poor oral hygiene"],["Burn","Heat"],["Obesity","Excess calorie intake"],["Power cut","Grid failure"],["Hearing loss","Loud noise exposure"]];

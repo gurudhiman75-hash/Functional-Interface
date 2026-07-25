@@ -1,0 +1,2 @@
+import type { SemanticPair } from "./types";
+export const INSTRUMENT_MEASUREMENT_PAIRS: readonly SemanticPair[] = [["Thermometer","Temperature"],["Barometer","Atmospheric pressure"],["Ammeter","Electric current"],["Speedometer","Speed"],["Voltmeter","Voltage"],["Hygrometer","Humidity"],["Anemometer","Wind speed"],["Odometer","Distance travelled"],["Altimeter","Altitude"],["Seismograph","Earthquake vibrations"],["Rain gauge","Rainfall"],["Weighing scale","Mass"]];

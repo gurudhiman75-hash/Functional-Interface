@@ -1,0 +1,2 @@
+import type { SemanticPair } from "./types";
+export const PLACE_PURPOSE_PAIRS: readonly SemanticPair[] = [["School","Education"],["Hospital","Medical treatment"],["Library","Reading and reference"],["Court","Adjudication"],["Bank","Financial services"],["Post office","Postal services"],["Fire station","Emergency response"],["Police station","Law enforcement"],["Laboratory","Experimentation"],["Museum","Preservation and exhibition"],["Stadium","Sports"],["Railway station","Rail transport"]];

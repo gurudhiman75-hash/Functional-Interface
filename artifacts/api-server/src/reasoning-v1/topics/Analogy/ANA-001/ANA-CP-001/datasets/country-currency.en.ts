@@ -1,0 +1,2 @@
+import type { SemanticPair } from "./types";
+export const COUNTRY_CURRENCY_PAIRS: readonly SemanticPair[] = [["Japan","Yen"],["United Kingdom","Pound sterling"],["Bangladesh","Taka"],["Nepal","Nepalese rupee"],["India","Indian rupee"],["United States","US dollar"],["China","Renminbi"],["Russia","Ruble"],["Thailand","Baht"],["South Korea","Won"],["Saudi Arabia","Riyal"],["United Arab Emirates","Dirham"]];

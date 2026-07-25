@@ -1,0 +1,2 @@
+import type { SemanticPair } from "./types";
+export const OBJECT_FUNCTION_PAIRS: readonly SemanticPair[] = [["Knife","Cut"],["Pen","Write"],["Key","Unlock"],["Needle","Sew"],["Scissors","Trim"],["Compass","Draw circles"],["Thermometer","Measure temperature"],["Umbrella","Protect from rain"],["Telescope","Observe distant objects"],["Microscope","Magnify small objects"],["Eraser","Remove pencil marks"],["Calculator","Perform calculations"]];

@@ -1,0 +1,48 @@
+import type { LocalizedAnalogyFact } from "../../../localization/types";
+
+function fact(id: string, canonicalFactId: string, relation: string, left: string, right: string, predicate: string): LocalizedAnalogyFact {
+  return { id, canonicalFactId, relation, locale: "hi-IN", left, right, predicate, mode: "LANGUAGE_SPECIFIC", version: "1.0.0", status: "CURATED", reviewedByNativeSpeaker: false };
+}
+
+export const ANA_CP002_HI_REMAINING_FACTS: readonly LocalizedAnalogyFact[] = [
+  fact("ANA-HI-LF-IU-001","ANA-LF-025","LEX_INTENSITY_UP","गुनगुना","गरम","गरम, गुनगुना की अपेक्षा अधिक तीव्र अवस्था है।"),
+  fact("ANA-HI-LF-IU-002","ANA-LF-026","LEX_INTENSITY_UP","ठंडा","शीतल","शीतल, ठंडा की अधिक तीव्र अवस्था है।"),
+  fact("ANA-HI-LF-IU-003","ANA-LF-027","LEX_INTENSITY_UP","नापसंद","घृणा","घृणा, नापसंद की अधिक तीव्र भावना है।"),
+  fact("ANA-HI-LF-IU-004","ANA-LF-028","LEX_INTENSITY_UP","पसंद","प्रेम","प्रेम, पसंद की अधिक तीव्र भावना है।"),
+  fact("ANA-HI-LF-ID-001","ANA-LF-037","LEX_INTENSITY_DOWN","उबलता","गरम","गरम, उबलता की अपेक्षा कम तीव्र अवस्था है।"),
+  fact("ANA-HI-LF-ID-002","ANA-LF-038","LEX_INTENSITY_DOWN","हिमांकित","ठंडा","ठंडा, हिमांकित की अपेक्षा कम तीव्र अवस्था है।"),
+  fact("ANA-HI-LF-ID-003","ANA-LF-039","LEX_INTENSITY_DOWN","क्रोधित","नाराज़","नाराज़, क्रोधित की अपेक्षा कम तीव्र भावना है।"),
+  fact("ANA-HI-LF-ID-004","ANA-LF-040","LEX_INTENSITY_DOWN","आतंकित","भयभीत","भयभीत, आतंकित की अपेक्षा कम तीव्र भावना है।"),
+  fact("ANA-HI-LF-CE-001","ANA-LF-049","LEX_CAUSE_EFFECT","सूखा","फसल नष्ट होना","सूखा फसल नष्ट होने का कारण बन सकता है।"),
+  fact("ANA-HI-LF-CE-002","ANA-LF-050","LEX_CAUSE_EFFECT","भारी वर्षा","बाढ़","भारी वर्षा बाढ़ का कारण बन सकती है।"),
+  fact("ANA-HI-LF-CE-003","ANA-LF-051","LEX_CAUSE_EFFECT","व्यायाम","स्वास्थ्य","व्यायाम बेहतर स्वास्थ्य का कारण बनता है।"),
+  fact("ANA-HI-LF-CE-004","ANA-LF-052","LEX_CAUSE_EFFECT","प्रदूषण","बीमारी","प्रदूषण बीमारी का कारण बन सकता है।"),
+  fact("ANA-HI-LF-EC-001","ANA-LF-061","LEX_EFFECT_CAUSE","बाढ़","भारी वर्षा","भारी वर्षा बाढ़ का कारण बन सकती है।"),
+  fact("ANA-HI-LF-EC-002","ANA-LF-062","LEX_EFFECT_CAUSE","थकान","नींद की कमी","नींद की कमी थकान का कारण बन सकती है।"),
+  fact("ANA-HI-LF-EC-003","ANA-LF-063","LEX_EFFECT_CAUSE","जंग","ऑक्सीकरण","ऑक्सीकरण जंग का कारण बनता है।"),
+  fact("ANA-HI-LF-EC-004","ANA-LF-064","LEX_EFFECT_CAUSE","बेरोज़गारी","आर्थिक मंदी","आर्थिक मंदी बेरोज़गारी का कारण बन सकती है।"),
+  fact("ANA-HI-LF-CS-001","ANA-LF-073","LEX_CONDITION_SYMPTOM","बुखार","उच्च तापमान","उच्च तापमान बुखार का प्रमुख लक्षण है।"),
+  fact("ANA-HI-LF-CS-002","ANA-LF-074","LEX_CONDITION_SYMPTOM","रक्ताल्पता","थकान","थकान रक्ताल्पता का सामान्य लक्षण है।"),
+  fact("ANA-HI-LF-CS-003","ANA-LF-075","LEX_CONDITION_SYMPTOM","निर्जलीकरण","प्यास","अत्यधिक प्यास निर्जलीकरण का लक्षण है।"),
+  fact("ANA-HI-LF-CS-004","ANA-LF-076","LEX_CONDITION_SYMPTOM","जुकाम","नाक बहना","नाक बहना जुकाम का सामान्य लक्षण है।"),
+  fact("ANA-HI-LF-AR-001","ANA-LF-085","LEX_ACTION_RESULT","अध्ययन","ज्ञान","अध्ययन से ज्ञान प्राप्त होता है।"),
+  fact("ANA-HI-LF-AR-002","ANA-LF-086","LEX_ACTION_RESULT","अभ्यास","सुधार","अभ्यास से सुधार होता है।"),
+  fact("ANA-HI-LF-AR-003","ANA-LF-087","LEX_ACTION_RESULT","बचत","संचय","बचत से संचय होता है।"),
+  fact("ANA-HI-LF-AR-004","ANA-LF-088","LEX_ACTION_RESULT","निवेश","प्रतिफल","निवेश से प्रतिफल प्राप्त हो सकता है।"),
+  fact("ANA-HI-LF-OC-001","ANA-LF-097","LEX_OBJECT_CHARACTERISTIC","बर्फ","ठंडी","ठंडक बर्फ की प्रमुख विशेषता है।"),
+  fact("ANA-HI-LF-OC-002","ANA-LF-098","LEX_OBJECT_CHARACTERISTIC","आग","गरम","गर्मी आग की प्रमुख विशेषता है।"),
+  fact("ANA-HI-LF-OC-003","ANA-LF-099","LEX_OBJECT_CHARACTERISTIC","चीनी","मीठी","मिठास चीनी की प्रमुख विशेषता है।"),
+  fact("ANA-HI-LF-OC-004","ANA-LF-100","LEX_OBJECT_CHARACTERISTIC","नींबू","खट्टा","खट्टापन नींबू की प्रमुख विशेषता है।"),
+  fact("ANA-HI-LF-WD-001","ANA-LF-109","LEX_WORD_DEFINITION","द्विभाषी","दो भाषाएँ बोलने वाला","द्विभाषी का अर्थ दो भाषाएँ बोलने वाला है।"),
+  fact("ANA-HI-LF-WD-002","ANA-LF-110","LEX_WORD_DEFINITION","निशाचर","रात में सक्रिय","निशाचर का अर्थ रात में सक्रिय रहने वाला है।"),
+  fact("ANA-HI-LF-WD-003","ANA-LF-111","LEX_WORD_DEFINITION","जलीय","जल में रहने वाला","जलीय का अर्थ जल में रहने वाला है।"),
+  fact("ANA-HI-LF-WD-004","ANA-LF-112","LEX_WORD_DEFINITION","शाकाहारी","पौधे खाने वाला प्राणी","शाकाहारी वह प्राणी है जो पौधे खाता है।"),
+  fact("ANA-HI-LF-DQ-001","ANA-LF-121","LEX_DEFICIENCY_MISSING_QUALITY","निरक्षरता","साक्षरता","निरक्षरता साक्षरता का अभाव है।"),
+  fact("ANA-HI-LF-DQ-002","ANA-LF-122","LEX_DEFICIENCY_MISSING_QUALITY","अंधता","दृष्टि","अंधता दृष्टि का अभाव है।"),
+  fact("ANA-HI-LF-DQ-003","ANA-LF-123","LEX_DEFICIENCY_MISSING_QUALITY","बहरापन","श्रवण","बहरापन श्रवण का अभाव है।"),
+  fact("ANA-HI-LF-DQ-004","ANA-LF-124","LEX_DEFICIENCY_MISSING_QUALITY","गरीबी","समृद्धि","गरीबी समृद्धि का अभाव है।"),
+  fact("ANA-HI-LF-SS-001","ANA-LF-133","LEX_STUDY_SUBJECT","वनस्पति विज्ञान","पौधे","वनस्पति विज्ञान पौधों का अध्ययन है।"),
+  fact("ANA-HI-LF-SS-002","ANA-LF-134","LEX_STUDY_SUBJECT","प्राणी विज्ञान","पशु","प्राणी विज्ञान पशुओं का अध्ययन है।"),
+  fact("ANA-HI-LF-SS-003","ANA-LF-135","LEX_STUDY_SUBJECT","भूविज्ञान","पृथ्वी","भूविज्ञान पृथ्वी का अध्ययन है।"),
+  fact("ANA-HI-LF-SS-004","ANA-LF-136","LEX_STUDY_SUBJECT","खगोल विज्ञान","खगोलीय पिंड","खगोल विज्ञान खगोलीय पिंडों का अध्ययन है।"),
+];
