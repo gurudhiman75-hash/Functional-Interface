@@ -15,10 +15,6 @@ const SHORT_CASE_BRIDGES: Record<string, string> = {
     "This equal division works because all three sides of an equilateral frame are identical.",
   "MEN-001-QL-110":
     "Only the positive square root is relevant, because a physical side length cannot be negative.",
-  "MEN-001-QL-332":
-    "Dividing the full charge by the covered area gives the cost of one square metre.",
-  "MEN-001-QL-333":
-    "The total fencing cost is spread over every metre of the boundary.",
 };
 
 function isRedundantEnding(line: string) {
@@ -36,15 +32,23 @@ function capitalizeFirst(value: string) {
   return value[0]!.toUpperCase() + value.slice(1);
 }
 
+function startsWithEquation(value: string) {
+  return /^[a-zA-Z](?:²)?\s*=/.test(value) || /^(rate|area|perimeter|diameter|radius|height|base|breadth|length)\s*=/i.test(value);
+}
+
+function capitalizeProseFirst(value: string) {
+  return startsWithEquation(value) ? value : capitalizeFirst(value);
+}
+
 function lowerProseFirst(value: string) {
-  if (!value || /^[A-Za-z][A-Za-z0-9_ ]*\s*=/.test(value)) return value;
+  if (!value || /^[a-zA-Z](?:²)?\s*=/.test(value)) return value;
   return value[0]!.toLowerCase() + value.slice(1);
 }
 
 function softenWorkingLine(line: string) {
   let text = line.trim();
-  text = text.replace(/^Substitution gives\s*/i, "With the values inserted, ");
-  text = text.replace(/^Substitution:\s*/i, "Putting in the given values, ");
+  text = text.replace(/^Substitution gives\s*/i, "Using these values, ");
+  text = text.replace(/^Substitution:\s*/i, "Using the given measurements, ");
   text = text.replace(/^Calculation:\s*/i, "");
   text = text.replace(/^This gives\s+/i, "");
   text = text.replace(/^By Pythagoras,\s*/i, "Pythagoras gives ");
@@ -59,13 +63,14 @@ function softenWorkingLine(line: string) {
   text = text.replace(/^Inner area\s*=\s*/i, "The inner figure has area ");
   text = text.replace(/^Path area\s*=\s*/i, "Their difference is ");
   text = text.replace(/^Remaining area\s*=\s*/i, "Subtracting the road area leaves ");
+  text = text.replace(/^Rate\s*=/, "rate =");
   text = text.replace(ROBOTIC_PREFIX, "");
-  return finishSentence(capitalizeFirst(text));
+  return finishSentence(capitalizeProseFirst(text));
 }
 
 function isShortResult(line: string) {
   const plain = line.replace(/^[A-Z][a-z]+,\s*/i, "").trim();
-  return plain.length <= 52 && /^[A-Za-z][A-Za-z0-9_ ]*\s*=/.test(plain);
+  return plain.length <= 52 && /^(?:[A-Za-z](?:²)?|rate|area|perimeter|diameter|radius|height|base|breadth|length)\s*=/.test(plain);
 }
 
 function mergeCalculationWithResult(calculation: string, result: string) {
@@ -74,13 +79,13 @@ function mergeCalculationWithResult(calculation: string, result: string) {
     .replace(/[.]$/, "")
     .replace(/^This gives\s+/i, "")
     .replace(/^which gives\s+/i, "");
-  return finishSentence(`${left}, giving ${right}`);
+  return finishSentence(`${left}, giving ${lowerProseFirst(right)}`);
 }
 
 function mergeFormulaWithSubstitution(formula: string, substitution: string) {
   const left = formula.replace(/[.]$/, "");
   const right = substitution.replace(/[.]$/, "");
-  return finishSentence(`${left}; ${lowerProseFirst(right)}`);
+  return finishSentence(`${left}. ${capitalizeProseFirst(right)}`);
 }
 
 function mergeSingleResultPass(lines: readonly string[]) {
@@ -104,10 +109,7 @@ function mergeSingleResultPass(lines: readonly string[]) {
   return merged;
 }
 
-function compactNaturalWorking(
-  lines: readonly string[],
-  questionLanguageId: string,
-) {
+function compactNaturalWorking(lines: readonly string[]) {
   let working = lines
     .filter((line) => !isRedundantEnding(line))
     .map(softenWorkingLine)
@@ -115,13 +117,7 @@ function compactNaturalWorking(
 
   working = mergeSingleResultPass(working);
 
-  const qlNumber = Number(questionLanguageId.split("-").at(-1) ?? 0);
-  if (
-    working.length >= 2 &&
-    working.length <= 4 &&
-    Number.isFinite(qlNumber) &&
-    qlNumber % 2 === 0
-  ) {
+  if (working.length >= 2 && working.length <= 4) {
     const first = working[0]!;
     const second = working[1]!;
     const firstHasFormula = first.includes("=") && !/\d/.test(first);
@@ -129,8 +125,8 @@ function compactNaturalWorking(
     if (
       firstHasFormula &&
       secondHasValues &&
-      !/\b(giving|which gives)\b/i.test(second) &&
-      first.length + second.length < 215
+      !/\b(giving|which gives)\b/i.test(first) &&
+      first.length + second.length < 230
     ) {
       working.splice(0, 2, mergeFormulaWithSubstitution(first, second));
     }
@@ -169,10 +165,7 @@ export function authorFinalMen001ExplanationLines(
   }
 
   const opening = finishSentence(profile.opening);
-  const working = compactNaturalWorking(
-    authored.slice(1, -1),
-    parameters.questionLanguageId,
-  );
+  const working = compactNaturalWorking(authored.slice(1, -1));
   const bridge = SHORT_CASE_BRIDGES[parameters.questionLanguageId];
   const conclusion = naturalConclusion(profile.conclusion, solver.answer);
 
