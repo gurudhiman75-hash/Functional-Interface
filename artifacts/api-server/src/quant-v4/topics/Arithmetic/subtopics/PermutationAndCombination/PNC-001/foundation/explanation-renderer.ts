@@ -1,4 +1,5 @@
 import { getPnc001ExplanationStrategy, getPnc001QlSpecificExplanation, renderPnc001Template } from "./library";
+import { formatPnc001MathJax, formatPnc001MathText } from "./latex";
 import type { Pnc001Explanation, Pnc001Parameters, Pnc001ReasoningEvidence, Pnc001SolverResult } from "./types";
 function readableList(values:number[]):string{if(values.length<=1)return String(values[0]??"");if(values.length===2)return`${values[0]} and ${values[1]}`;return`${values.slice(0,-1).join(", ")} and ${values.at(-1)}`;}
 export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc001SolverResult,_reasoning:Pnc001ReasoningEvidence):Pnc001Explanation{
@@ -12,27 +13,27 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
   const remainingMultiplicities=e.multisetRemainingMultiplicities??[];
   const activeMultisetMultiplicities=parameters.solveMode==="arrangeMultisetAfterFixingPosition"?remainingMultiplicities:multisetMultiplicities;
   const activeMultisetFactorialArgument=e.multisetRemainingObjects??e.multisetTotalObjects??0;
-  const calculation=parameters.taskKind==="fundamentalCountingApplication"?solver.equation.replace(` = ${solver.answer}`,""):solver.equation;
+  const calculationTex=parameters.taskKind==="fundamentalCountingApplication"?solver.mathJax.replace(` = ${solver.answer}`,""):solver.mathJax;
   const permutationKnowns=e.recoveredPermutationParameter==="n"?`r = ${permutationR}`:`n = ${permutationN}`;
   const combinationKnowns=e.recoveredCombinationParameter==="n"?`r = ${combinationR}`:`n = ${combinationN}`;
   const target=e.codeTarget??e.multisetTarget??e.combinationTarget??e.permutationTarget??e.factorialTarget??parameters.values.target??0;
-  const multisetDenominatorExpression=activeMultisetMultiplicities.map(value=>`${value}!`).join(" × ")||"1";
+  const multisetDenominatorExpression=activeMultisetMultiplicities.map(value=>`${value}!`).join(" \\times ")||"1";
   const caseSummary=(e.caseCounts??[]).map(item=>`${item.label}: ${item.count}`).join("; ");
   const variables:Record<string,string|number>={
-    ...parameters.renderVariables,answer:solver.answer,stageList:readableList(stages),calculation,unrestrictedCalculation:stages.join(" × "),
+    ...parameters.renderVariables,answer:solver.answer,stageList:readableList(stages),calculation:formatPnc001MathJax(calculationTex),unrestrictedCalculation:formatPnc001MathJax(stages.join(" \\times ")),
     totalCount:e.totalCount??solver.numericAnswer,invalidCount:e.invalidCount??0,
-    caseACount:caseA?.count??0,caseBCount:caseB?.count??0,caseACalculation:caseA?.factors.join(" × ")??"",caseBCalculation:caseB?.factors.join(" × ")??"",
+    caseACount:caseA?.count??0,caseBCount:caseB?.count??0,caseACalculation:formatPnc001MathJax(caseA?.factors.join(" \\times ")??""),caseBCalculation:formatPnc001MathJax(caseB?.factors.join(" \\times ")??""),
     knownChoices:e.knownChoices??parameters.values.knownChoices??0,totalChoices:e.totalChoices??parameters.values.totalChoices??0,
     factorialArgument:e.factorialArgument??parameters.values.factorialArgument??0,factorialValue:e.factorialValue??solver.numericAnswer,
-    factorialExpansion:factorialFactors.length?factorialFactors.join(" × "):"1",unitFactorial:e.unitFactorial??"0!",
+    factorialExpansion:formatPnc001MathJax(factorialFactors.length?factorialFactors.join(" \\times "):"1"),unitFactorial:formatPnc001MathJax(e.unitFactorial??"0!"),
     upper:e.factorialUpper??parameters.values.upper??0,lower:e.factorialLower??parameters.values.lower??0,
-    quotientExpansion:factorialFactors.join(" × "),factorList:(permutationFactors.length?permutationFactors:factorialFactors).join(" × "),
+    quotientExpansion:formatPnc001MathJax(factorialFactors.join(" \\times ")),factorList:formatPnc001MathJax((permutationFactors.length?permutationFactors:factorialFactors).join(" \\times ")),
     target,matchedArgument:e.matchedFactorialArgument??parameters.values.matchedFactorialArgument??0,previousInteger:solver.numericAnswer-1,
     totalObjects:e.combinationTotalObjects??e.permutationTotalObjects??parameters.values.totalObjects??0,
     selectedObjects:e.combinationSelectedObjects??e.permutationSelectedObjects??parameters.values.selectedObjects??0,
-    permutationKnowns,matchedPermutationEquation:`${permutationN}P${permutationR} = ${e.permutationTarget??parameters.values.target??solver.numericAnswer}`,
+    permutationKnowns:formatPnc001MathText(permutationKnowns),matchedPermutationEquation:formatPnc001MathJax(`{}^{${permutationN}}P_{${permutationR}} = ${e.permutationTarget??parameters.values.target??solver.numericAnswer}`),
     orderedCount:e.combinationOrderedCount??0,selectionFactorial:e.combinationSelectionFactorial??1,
-    combinationKnowns,matchedCombinationEquation:`${combinationN}C${combinationR} = ${target}`,
+    combinationKnowns:formatPnc001MathText(combinationKnowns),matchedCombinationEquation:formatPnc001MathJax(`\\binom{${combinationN}}{${combinationR}} = ${target}`),
     knownSelection:e.combinationKnownSelection??parameters.values.knownSelection??0,
     symbolCount:e.symbolCount??parameters.values.symbolCount??0,
     length:e.digitLength??parameters.values.length??0,
@@ -46,7 +47,7 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
     suffixArrangementCount:e.suffixArrangementCount??0,
     letterStageCount:e.letterStageCount??0,
     digitStageCount:e.digitStageCount??0,
-    matchedCodeEquation:`${e.recoveredCodeSymbolCount??solver.numericAnswer}^${e.digitLength??parameters.values.length??0} = ${e.codeTarget??parameters.values.target??0}`,
+    matchedCodeEquation:formatPnc001MathJax(`${e.recoveredCodeSymbolCount??solver.numericAnswer}^{${e.digitLength??parameters.values.length??0}} = ${e.codeTarget??parameters.values.target??0}`),
     repeatedSymbolChoices:e.repeatedSymbolChoices??0,
     otherSymbolSelectionCount:e.otherSymbolSelectionCount??0,
     patternArrangementCount:e.patternArrangementCount??0,
@@ -54,11 +55,11 @@ export function renderPnc001Explanation(parameters:Pnc001Parameters,solver:Pnc00
     multisetRemainingObjects:e.multisetRemainingObjects??0,
     multiplicityList:readableList(multisetMultiplicities),
     remainingMultiplicityList:remainingMultiplicities.length?readableList(remainingMultiplicities):"none",
-    multisetNumerator:e.multisetNumerator!==undefined?`${activeMultisetFactorialArgument}! = ${e.multisetNumerator}`:"",
-    multisetDenominator:e.multisetDenominator!==undefined?`${multisetDenominatorExpression} = ${e.multisetDenominator}`:"",
-    multisetDenominatorCalculation:e.multisetDenominator!==undefined?`${multisetDenominatorExpression} = ${e.multisetDenominator}`:"",
+    multisetNumerator:e.multisetNumerator!==undefined?formatPnc001MathJax(`${activeMultisetFactorialArgument}! = ${e.multisetNumerator}`):"",
+    multisetDenominator:e.multisetDenominator!==undefined?formatPnc001MathJax(`${multisetDenominatorExpression} = ${e.multisetDenominator}`):"",
+    multisetDenominatorCalculation:e.multisetDenominator!==undefined?formatPnc001MathJax(`${multisetDenominatorExpression} = ${e.multisetDenominator}`):"",
     maximumMultiplicity:parameters.values.maximumMultiplicity??0,
-    matchedMultiplicityEquation:`${e.multisetTotalObjects??parameters.values.totalObjects??0}! ÷ ${e.recoveredMultisetMultiplicity??solver.numericAnswer}! = ${e.multisetTarget??parameters.values.target??0}`,
+    matchedMultiplicityEquation:formatPnc001MathJax(`\\frac{${e.multisetTotalObjects??parameters.values.totalObjects??0}!}{${e.recoveredMultisetMultiplicity??solver.numericAnswer}!} = ${e.multisetTarget??parameters.values.target??0}`),
   };
-  return{explanationId:parameters.explanationId,lines:qlExplanation.lines.map(line=>renderPnc001Template(line,variables))};
+  return{explanationId:parameters.explanationId,lines:qlExplanation.lines.map(line=>formatPnc001MathText(renderPnc001Template(line,variables)))};
 }
