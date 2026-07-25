@@ -113,6 +113,10 @@ for (const kind of [
   "CIRCLE_PART_BOUNDARY",
   "RECTANGULAR_BORDER_BAND",
   "CIRCULAR_BORDER_BAND",
+  "COMPOSITE_AREA_PARTS",
+  "INSCRIBED_PLANE_RELATION",
+  "REGULAR_HEXAGON_SPLIT",
+  "COMPOSITE_EXPOSED_BOUNDARY",
 ]) {
   assert.equal(seenIllustrationKinds.has(kind), true, `${kind} not covered`);
 }

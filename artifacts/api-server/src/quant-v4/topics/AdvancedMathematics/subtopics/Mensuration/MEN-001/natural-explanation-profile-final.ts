@@ -1,7 +1,7 @@
 import {
-  getMen001NaturalExplanationProfile,
-  type Men001NaturalExplanationProfile,
-} from "./natural-explanation-authorship";
+  getAllMen001NaturalExplanationProfile,
+} from "./natural-explanation-authorship.all";
+import type { Men001NaturalExplanationProfile } from "./natural-explanation-authorship";
 
 const DYNAMIC_SAFE_OVERRIDES: Record<
   string,
@@ -62,7 +62,7 @@ const DYNAMIC_SAFE_OVERRIDES: Record<
 export function getFinalMen001NaturalExplanationProfile(
   questionLanguageId: string,
 ): Men001NaturalExplanationProfile | undefined {
-  const base = getMen001NaturalExplanationProfile(questionLanguageId);
+  const base = getAllMen001NaturalExplanationProfile(questionLanguageId);
   if (!base) return undefined;
   return {
     ...base,
