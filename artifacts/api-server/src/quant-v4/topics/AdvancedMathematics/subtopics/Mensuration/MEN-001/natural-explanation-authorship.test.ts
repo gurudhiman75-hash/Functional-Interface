@@ -25,6 +25,10 @@ function proseSignature(lines: readonly string[]) {
     .trim();
 }
 
+function stripMathDelimiters(value: string) {
+  return value.trim().replace(/^\$\$/, "").replace(/\$\$$/, "").trim();
+}
+
 const qlIds = getMen001QuestionLanguageIds().sort();
 const profileIds = getAllMen001NaturalExplanationProfileIds().sort();
 assert.deepEqual(
@@ -92,7 +96,7 @@ for (const entry of getMen001QuestionEntries()) {
     );
     const finalSection = question.explanation.sections.at(-1);
     assert.equal(finalSection?.kind, "FINAL_ANSWER");
-    assert.deepEqual(finalSection?.equations, [question.answer]);
+    assert.deepEqual(finalSection?.equations, [stripMathDelimiters(question.answer)]);
 
     const structuredSteps = question.explanation.sections.filter(
       (section) => section.kind === "STEP",
@@ -102,6 +106,12 @@ for (const entry of getMen001QuestionEntries()) {
         (step) => step.paragraphs.length > 0 || step.equations.length > 0,
       ),
       `${entry.qlId} contains an empty structured step.`,
+    );
+    assert.ok(
+      structuredSteps.every(
+        (step, index) => index === 0 || step.title !== structuredSteps[index - 1]!.title,
+      ),
+      `${entry.qlId} repeats an adjacent structured step title.`,
     );
 
     if (entry.solveMode === "findRectangleSemicircleCompositeArea") {
