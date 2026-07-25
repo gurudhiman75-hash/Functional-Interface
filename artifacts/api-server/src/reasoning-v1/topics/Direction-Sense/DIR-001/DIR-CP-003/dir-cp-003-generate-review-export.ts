@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { generateDirCp003Question, type DirCp003Answer, type GeneratedDistanceQuestion } from "./generator";
+import { generateDirCp003Question, type GeneratedDistanceQuestion } from "./generator";
 import { DIR_CP003_QLS } from "./task-registry";
 
 const REVIEW_SEEDS = [0, 1, 2, 3, 4] as const;
@@ -13,12 +13,6 @@ function escapeHtml(value: string): string {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
-}
-
-function answerSummary(answer: DirCp003Answer): string {
-  if (answer.kind === "DISTANCE") return `${answer.distance} metres`;
-  if (answer.kind === "DIRECTION_DISTANCE") return `${answer.direction}; ${answer.distance} metres`;
-  return `total ${answer.totalDistance} metres; shortest ${answer.displacement} metres`;
 }
 
 function renderOptions(question: GeneratedDistanceQuestion): string {
@@ -46,7 +40,7 @@ function renderQuestion(question: GeneratedDistanceQuestion, reviewNumber: numbe
     `<h3>Question</h3>`,
     `<p class="stem">${escapeHtml(question.stem)}</p>`,
     `<ol class="options">${renderOptions(question)}</ol>`,
-    `<div class="answer"><strong>Correct answer:</strong> ${correctLetter}. ${escapeHtml(question.options[question.correctIndex].label)} <span class="machine-answer">(${escapeHtml(answerSummary(question.correctAnswer))})</span></div>`,
+    `<div class="answer"><strong>Correct answer:</strong> ${correctLetter}. ${escapeHtml(question.options[question.correctIndex].label)}</div>`,
     `<h3>Explanation</h3>`,
     `<p class="given">${escapeHtml(question.explanation.given)}</p>`,
     `<div class="walkthrough">${renderMovementWalkthrough(question)}</div>`,
@@ -85,7 +79,6 @@ main { max-width: 1040px; margin: 0 auto; }
 .options li { border: 1px solid #d1d5db; border-radius: 9px; padding: 11px 13px; }
 .options li.correct { background: #ecfdf5; border-color: #10b981; }
 .answer { background: #ecfdf5; border: 1px solid #10b981; border-radius: 9px; padding: 13px; margin: 16px 0 22px; }
-.machine-answer { color: #4b5563; font-size: 12px; }
 .given { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 9px; padding: 14px 16px; line-height: 1.6; }
 .walkthrough { margin: 14px 0; }
 .movement-line { margin: 0; padding: 8px 4px; line-height: 1.55; border-bottom: 1px solid #e5e7eb; }
