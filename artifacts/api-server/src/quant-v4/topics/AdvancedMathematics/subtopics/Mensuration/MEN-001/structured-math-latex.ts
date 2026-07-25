@@ -137,6 +137,7 @@ export function toMen001LatexEquation(input: string) {
 
   return restoreProtected(spaced, protectedValues)
     .replace(/\s+/g, " ")
+    .replace(/\s+\\,/g, "\\,")
     .trim();
 }
 
