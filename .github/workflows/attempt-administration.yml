@@ -9,6 +9,7 @@ on:
       - artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
+      - docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
       - .github/workflows/attempt-administration.yml
   push:
     branches: [New-main]
@@ -18,6 +19,7 @@ on:
       - artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
+      - docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
       - .github/workflows/attempt-administration.yml
   workflow_dispatch:
 
@@ -39,18 +41,29 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Enforce canonical read-only attempt contracts
+      - name: Enforce canonical attempt contracts
         run: |
           grep -F 'router.use("/admin/attempts", adminAttemptsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F 'result_snapshot AS "resultSnapshot"' artifacts/api-server/src/routes/admin-attempts.ts
-          ! grep -E 'router\.(post|patch|put|delete)' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "router.post('/:attemptId/actions/abandon'" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "String(attempt.status) !== 'in_progress'" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'ATTEMPT_NOT_STALE' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'ATTEMPT_STATE_CHANGED' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "'student.attempt.abandoned'" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'scoreFieldsChanged: false' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'resultSnapshotChanged: false' artifacts/api-server/src/routes/admin-attempts.ts
+          ! grep -E 'SET (raw_score|final_score|correct_count|incorrect_count|unattempted_count|result_snapshot)' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "ADD VALUE IF NOT EXISTS %L', status_type_name, 'abandoned'" docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
           grep -F "path: '/users/attempts/:id'" artifacts/admin-app/src/App.tsx
           grep -F "path: '/users/attempts'" artifacts/admin-app/src/App.tsx
           grep -F "label: 'Attempt Administration'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Canonical result snapshot' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          grep -F 'Stale in-progress attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          grep -F 'Abandon stale attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          grep -F 'Scores, responses and the canonical result snapshot are preserved unchanged.' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
           ! grep -Ei 'delete attempt|change score|override score|reset attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
