@@ -29,6 +29,7 @@ const OrdersPaymentsPage = lazy(() => import('@/pages/commerce/OrdersPaymentsWor
 const OrderPaymentDetailPage = lazy(() => import('@/pages/commerce/OrdersPaymentsWorkspacePage').then((module) => ({ default: module.OrderPaymentDetailPage })));
 const CouponsPage = lazy(() => import('@/pages/commerce/CouponsWorkspacePage').then((module) => ({ default: module.CouponsWorkspacePage })));
 const EntitlementsPage = lazy(() => import('@/pages/commerce/EntitlementsWorkspacePage').then((module) => ({ default: module.EntitlementsWorkspacePage })));
+const BusinessAnalyticsPage = lazy(() => import('@/pages/analytics/BusinessAnalyticsPage').then((module) => ({ default: module.BusinessAnalyticsPage })));
 const TestAnalyticsPage = lazy(() => import('@/pages/analytics/TestAnalyticsPage').then((module) => ({ default: module.TestAnalyticsPage })));
 const TestAnalyticsDetailPage = lazy(() => import('@/pages/analytics/TestAnalyticsPage').then((module) => ({ default: module.TestAnalyticsDetailPage })));
 const TestAnalyticsQualityPage = lazy(() => import('@/pages/analytics/TestAnalyticsQualityPage').then((module) => ({ default: module.TestAnalyticsQualityPage })));
@@ -87,6 +88,7 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/users/recovery', element: <RecoveryRequestsPage /> },
   { path: '/users/team', element: <AdminTeamPage /> },
   { path: '/users/*', element: <PendingWorkspacePage /> },
+  { path: '/analytics/business', element: <BusinessAnalyticsPage /> },
   { path: '/analytics/tests/quality', element: <TestAnalyticsQualityPage /> },
   { path: '/analytics/tests/:publicationId', element: <TestAnalyticsDetailPage /> },
   { path: '/analytics/tests', element: <TestAnalyticsPage /> },
