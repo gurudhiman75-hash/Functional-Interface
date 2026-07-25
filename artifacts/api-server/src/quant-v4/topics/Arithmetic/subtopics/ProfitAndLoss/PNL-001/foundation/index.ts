@@ -12,6 +12,7 @@ export * from "./coupon-order-solver";
 export * from "./inventory-solver";
 export * from "./inventory-advanced-solver";
 export * from "./cp002-independent-verifier";
+export * from "./cp003-independent-verifier";
 export * from "./independent-verifier";
 export * from "./parameter-generator";
 export * from "./validator";
