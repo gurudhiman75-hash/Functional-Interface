@@ -15,6 +15,8 @@ on:
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
       - docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
+      - docs/attempt-administration-freeze-readiness.md
+      - .github/scripts/validate-attempt-administration.mjs
       - .github/workflows/attempt-administration.yml
   push:
     branches: [New-main]
@@ -30,6 +32,8 @@ on:
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
       - docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
+      - docs/attempt-administration-freeze-readiness.md
+      - .github/scripts/validate-attempt-administration.mjs
       - .github/workflows/attempt-administration.yml
   workflow_dispatch:
 
@@ -51,65 +55,18 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Enforce canonical attempt contracts
+      - name: Run Attempt Administration freeze contracts
+        run: node .github/scripts/validate-attempt-administration.mjs
+      - name: Enforce key canonical contracts
         run: |
-          grep -F 'router.use("/admin/attempts", adminAttemptExportsRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F 'router.use("/admin/attempts", adminAttemptInvestigationsRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F 'router.use("/admin/attempts", adminAttemptIntegrityRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F 'router.use("/admin/attempts", adminAttemptsRouter)' artifacts/api-server/src/routes/index.ts
-          test "$(grep -n 'adminAttemptExportsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminAttemptInvestigationsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
-          test "$(grep -n 'adminAttemptInvestigationsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminAttemptIntegrityRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
-          test "$(grep -n 'adminAttemptIntegrityRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminAttemptsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
-          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F 'result_snapshot AS "resultSnapshot"' artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F "router.post('/bulk/actions/abandon'" artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F "router.post('/:attemptId/actions/abandon'" artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F 'ATTEMPT_NOT_STALE' artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F 'ATTEMPT_STATE_CHANGED' artifacts/api-server/src/routes/admin-attempts.ts
-          grep -F "'student.attempt.abandoned'" artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "router.get('/integrity'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          grep -F "router.get('/:attemptId/integrity'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          grep -F "router.post('/:attemptId/notes'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          grep -F "'MISSING_RESULT_SNAPSHOT'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          grep -F "'RESPONSE_COUNT_MISMATCH'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          grep -F "'ACTIVE_ATTEMPT_HAS_COMPLETION_FIELDS'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          grep -F "'student.attempt.review_note.added'" artifacts/api-server/src/routes/admin-attempt-integrity.ts
+          grep -F "router.post('/bulk/actions/abandon'" artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "router.get('/investigations'" artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          grep -F "router.post('/:attemptId/investigations'" artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          grep -F "router.patch('/investigations/:caseId'" artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          grep -F 'ATTEMPT_INVESTIGATION_ALREADY_ACTIVE' artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          grep -F 'ATTEMPT_INVESTIGATION_REVIEW_REQUIRED' artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          grep -F 'ATTEMPT_INVESTIGATION_ASSIGNED_TO_ANOTHER_ADMIN' artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          grep -F 'scoreMutationAllowed: false' artifacts/api-server/src/routes/admin-attempt-investigations.ts
+          grep -F 'COUNT(*) FILTER (WHERE state =' artifacts/api-server/src/routes/admin-attempt-investigations.ts
           grep -F "router.get('/exports'" artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F "router.post('/:attemptId/exports'" artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F "'student.attempt.evidence_exported'" artifacts/api-server/src/routes/admin-attempt-exports.ts
           grep -F "schema: 'examtree.attempt-evidence.v1'" artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F 'excludesAuthenticationIdentities: true' artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F 'excludesSessionsAndTokens: true' artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F "res.setHeader('Cache-Control', 'no-store')" artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F 'scoreFieldsChanged: false' artifacts/api-server/src/routes/admin-attempt-exports.ts
-          grep -F 'resultSnapshotChanged: false' artifacts/api-server/src/routes/admin-attempt-exports.ts
-          ! grep -E 'UPDATE learning\.attempts|SET (raw_score|final_score|correct_count|incorrect_count|unattempted_count|result_snapshot)' artifacts/api-server/src/routes/admin-attempt-exports.ts
-          ! grep -E 'UPDATE learning\.attempts|SET (raw_score|final_score|correct_count|incorrect_count|unattempted_count|result_snapshot)' artifacts/api-server/src/routes/admin-attempt-investigations.ts
-          ! grep -E 'SET (raw_score|final_score|correct_count|incorrect_count|unattempted_count|result_snapshot)' artifacts/api-server/src/routes/admin-attempt-integrity.ts
-          ! grep -E 'SET (raw_score|final_score|correct_count|incorrect_count|unattempted_count|result_snapshot)' artifacts/api-server/src/routes/admin-attempts.ts
           grep -F "ADD VALUE IF NOT EXISTS %L', status_type_name, 'abandoned'" docs/database-migrations/2026-07-25-attempt-abandonment-status.sql
-          grep -F "path: '/users/attempt-exports'" artifacts/admin-app/src/App.tsx
-          grep -F "path: '/users/attempt-investigations'" artifacts/admin-app/src/App.tsx
-          grep -F "label: 'Attempt Evidence Exports'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F "label: 'Attempt Investigations'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Authentication identities, sessions, tokens, payments and entitlements are excluded.' artifacts/admin-app/src/pages/users/AttemptExportsPage.tsx
-          grep -F 'Every export is recorded as an immutable audit event.' artifacts/admin-app/src/pages/users/AttemptExportsPage.tsx
-          grep -F 'Investigations never change stored scores, responses or result snapshots.' artifacts/admin-app/src/pages/users/AttemptInvestigationsPage.tsx
-          grep -F 'Attempt integrity diagnostics' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
-          grep -F 'Immutable review notes' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
-          grep -F 'Attempt audit timeline' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
-          ! grep -Ei 'change score|override score|reset attempt' artifacts/admin-app/src/pages/users/AttemptExportsPage.tsx
-          ! grep -Ei 'change score|override score|reset attempt' artifacts/admin-app/src/pages/users/AttemptInvestigationsPage.tsx
+          grep -F '**Source implementation: freeze-ready.**' docs/attempt-administration-freeze-readiness.md
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
