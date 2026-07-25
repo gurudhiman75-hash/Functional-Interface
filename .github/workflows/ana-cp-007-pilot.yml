@@ -7,6 +7,13 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
       - .github/workflows/ana-cp-007-pilot.yml
+  pull_request:
+    branches:
+      - feat/reasoning-ana-001-cp007-design
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
+      - .github/workflows/ana-cp-007-pilot.yml
   workflow_dispatch:
 
 permissions:
