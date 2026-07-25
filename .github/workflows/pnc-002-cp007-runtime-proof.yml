@@ -34,7 +34,9 @@ jobs:
           cd artifacts/api-server
           pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --resolveJsonModule --allowSyntheticDefaultImports --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
       - name: Bundle proof
-        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pnc-002-proof.mjs
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/pnc-002-proof.mjs
       - name: Run proof
         working-directory: artifacts/api-server
         run: node dist/quant-v4/pnc-002-proof.mjs
