@@ -11,6 +11,8 @@ export * from "./offer-comparison-solver";
 export * from "./coupon-order-solver";
 export * from "./inventory-solver";
 export * from "./inventory-advanced-solver";
+export * from "./transaction-chain-solver";
+export * from "./transaction-fee-solver";
 export * from "./cp002-independent-verifier";
 export * from "./cp003-independent-verifier";
 export * from "./independent-verifier";
