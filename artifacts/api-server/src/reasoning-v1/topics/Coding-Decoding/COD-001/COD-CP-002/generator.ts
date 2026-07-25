@@ -1,6 +1,7 @@
 import type { CodDifficulty, GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
+import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
 import { COD_CP001_WORD_POOL } from "../COD-CP-001/word-pool.en";
 import { auditNumericCodingRule } from "./ambiguity-checker";
 import { buildCodCp002Distractors } from "./distractors";
@@ -38,38 +39,45 @@ function chooseWords(logic: CodCp002QuestionLogic, constant: number | undefined,
   return { target, evidence };
 }
 
-function deriveDifficulty(logic: CodCp002QuestionLogic, prompt: NumericCodingPrompt): CodDifficulty {
-  let burden = logic.outputShape === "SCALAR" ? 1 : 0;
-  if (["RANK_PLUS_CONSTANT_SEQUENCE", "RANK_MINUS_CONSTANT_SEQUENCE"].includes(logic.ruleId)) burden += 2;
-  if (prompt.evidence.length >= 3) burden += 1;
-  if (prompt.targetWord.length >= 5) burden += 1;
-  if (["DECODE_TARGET", "RECOVER_MISSING_VALUE"].includes(prompt.taskKind)) burden += 1;
-  if (["INFER_AND_ENCODE", "CHOOSE_MATCHING_CODE"].includes(prompt.taskKind)) burden += 1;
-  if (["POSITION_WEIGHTED_SUM", "ODD_EVEN_POSITION_DIFFERENCE"].includes(logic.ruleId)) burden += 2;
-  const desired: CodDifficulty = burden >= 4 ? "HARD" : burden >= 2 ? "MEDIUM" : "EASY";
-  if (logic.allowedDifficulties.includes(desired)) return desired;
-  return logic.allowedDifficulties[0]!;
+function deriveDifficulty(logic: CodCp002QuestionLogic): CodDifficulty {
+  if (["POSITION_WEIGHTED_SUM", "ODD_EVEN_POSITION_DIFFERENCE"].includes(logic.ruleId)) return "HARD";
+  if (logic.outputShape === "SCALAR") return "MEDIUM";
+  if (["RANK_PLUS_CONSTANT_SEQUENCE", "RANK_MINUS_CONSTANT_SEQUENCE"].includes(logic.ruleId)) return "MEDIUM";
+  if (["RECOVER_MISSING_VALUE", "INFER_AND_ENCODE", "CHOOSE_MATCHING_CODE"].includes(logic.taskKind)) return "MEDIUM";
+  return "EASY";
 }
 
 function buildStem(prompt: NumericCodingPrompt, style: number): string {
-  const examples = prompt.evidence.map((pair) => `${pair.word} → ${pair.code}`).join(", ");
-  if (prompt.taskKind === "DECODE_TARGET") return [
-    `In a certain code, ${examples}. Using the same rule, which word is represented by ${prompt.encodedTarget}?`,
-    `The examples ${examples} follow one alphabet-number rule. Decode ${prompt.encodedTarget}.`,
-    `Observe ${examples}. What word gives the code ${prompt.encodedTarget}?`,
-    `Apply the inverse of the rule shown by ${examples} to ${prompt.encodedTarget}.`,
-  ][style]!;
-  if (prompt.taskKind === "RECOVER_MISSING_VALUE") return [
-    `The examples ${examples} use one numerical coding rule. Which value completes the code of ${prompt.targetWord}?`,
-    `Infer the rule from ${examples}, then fill the blank in the code of ${prompt.targetWord}.`,
-    `Using the pattern established by ${examples}, determine the missing numerical entry for ${prompt.targetWord}.`,
-    `Complete the coded value of ${prompt.targetWord} from the rule visible in ${examples}.`,
-  ][style]!;
+  const examples = joinCodeExamples(prompt.evidence.map((pair) => ({ source: pair.word, code: pair.code })));
+  if (prompt.taskKind === "DECODE_TARGET") {
+    return [
+      `In a certain code, ${examples}. Which word is represented by ‘${prompt.encodedTarget}’?`,
+      `If ${examples}, what word has the code ‘${prompt.encodedTarget}’?`,
+      `Study the coding in ${examples}. Decode ‘${prompt.encodedTarget}’.`,
+      `The same numerical rule is used in ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
+    ][style]!;
+  }
+  if (prompt.taskKind === "RECOVER_MISSING_VALUE") {
+    return [
+      `In a certain code, ${examples}. The code for ‘${prompt.targetWord}’ is ‘${prompt.displayedTargetCode}’. What replaces ‘?’?`,
+      `If ${examples}, complete ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
+      `Using the same rule as ${examples}, find the missing number in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
+      `The examples ${examples} follow one rule. Which number should replace ‘?’ in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’?`,
+    ][style]!;
+  }
+  if (prompt.taskKind === "CHOOSE_MATCHING_CODE") {
+    return [
+      `In a certain code, ${examples}. Which option gives the code for ‘${prompt.targetWord}’?`,
+      `If ${examples}, select the correct code for ‘${prompt.targetWord}’.`,
+      `Study the numerical relation in ${examples}. Which code matches ‘${prompt.targetWord}’?`,
+      `The same rule is used for ${examples}. Choose the code of ‘${prompt.targetWord}’.`,
+    ][style]!;
+  }
   return [
-    `In a certain code, ${examples}. How will ${prompt.targetWord} be coded?`,
-    `The examples ${examples} follow one rank-based rule. Find the code for ${prompt.targetWord}.`,
-    `Infer the numerical coding method from ${examples} and apply it to ${prompt.targetWord}.`,
-    `Using the same alphabet-number relation shown in ${examples}, code ${prompt.targetWord}.`,
+    `In a certain code, ${examples}. How will ‘${prompt.targetWord}’ be coded?`,
+    `If ${examples}, what is the code for ‘${prompt.targetWord}’?`,
+    `Using the same numerical rule as ${examples}, find the code of ‘${prompt.targetWord}’.`,
+    `Study ${examples} and determine the code for ‘${prompt.targetWord}’.`,
   ][style]!;
 }
 
@@ -78,7 +86,7 @@ function fingerprint(ruleId: string, context: object): string {
 }
 
 function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: number): GeneratedCodCp002Question | null {
-  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp002-v1`);
+  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp002-v2`);
   const context = chooseContext(logic, random);
   const chosen = chooseWords(logic, context.constant, random);
   if (!chosen) return null;
@@ -97,9 +105,15 @@ function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: nu
   if (logic.outputShape === "SCALAR" && fullTargetCode === "0") return null;
   let encodedTarget: string | undefined;
   let missingIndex: number | undefined;
+  let displayedTargetCode: string | undefined;
   if (logic.taskKind === "DECODE_TARGET") encodedTarget = fullTargetCode;
-  if (logic.taskKind === "RECOVER_MISSING_VALUE" && logic.outputShape === "SEQUENCE") {
-    missingIndex = random.int(0, fullTargetCode.split("-").length - 1);
+  if (logic.taskKind === "RECOVER_MISSING_VALUE") {
+    if (logic.outputShape === "SEQUENCE") {
+      missingIndex = random.int(0, fullTargetCode.split("-").length - 1);
+      displayedTargetCode = maskCodeAt(fullTargetCode, missingIndex, "-");
+    } else {
+      displayedTargetCode = "?";
+    }
   }
   const prompt: NumericCodingPrompt = {
     taskKind: logic.taskKind,
@@ -108,12 +122,13 @@ function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: nu
     targetWord: chosen.target,
     encodedTarget,
     missingIndex,
+    displayedTargetCode,
     separator: "-",
   };
   const answer = solveCodCp002(prompt);
   let distractors;
   try {
-    distractors = buildCodCp002Distractors({ correct: answer, fullTargetCode, targetWord: chosen.target, taskKind: logic.taskKind, intendedRuleId: logic.ruleId, intendedContext: context, missingIndex, seed: `${logic.qlId}:${seed}:${attempt}:options` });
+    distractors = buildCodCp002Distractors({ correct: answer, fullTargetCode, targetWord: chosen.target, taskKind: logic.taskKind, intendedRuleId: logic.ruleId, intendedContext: context, missingIndex, seed: `${logic.qlId}:${seed}:${attempt}:options-v2` });
   } catch {
     return null;
   }
@@ -121,7 +136,7 @@ function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: nu
   const options = random.shuffle(unshuffled);
   validateOptions(options);
   const correctIndex = options.findIndex((option) => option.isCorrect);
-  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial`).int(0, 3);
+  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v2`).int(0, 3);
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -130,16 +145,16 @@ function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: nu
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic, prompt),
+    difficulty: deriveDifficulty(logic),
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp002Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex }),
+    explanation: buildCodCp002Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
     metadata: {
-      runtimeVersion: "cod-001-cp002-v1",
+      runtimeVersion: "cod-001-cp002-v2",
       publiclyPublishable: false,
       maturity: "RUNTIME_PROOF",
       hiddenFingerprint: fingerprint(logic.ruleId, context),
