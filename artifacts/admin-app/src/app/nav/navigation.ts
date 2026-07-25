@@ -40,6 +40,7 @@ export const NAV_GROUPS: NavGroup[] = [
   ] },
   { id: 'users', label: 'Users', items: [
     { label: 'Students', path: '/users/students', icon: Users, status: 'live', permission: 'users.students.read', summary: 'Search canonical student identities and inspect account state, attempts, sessions and account history through privacy-safe read APIs.' },
+    { label: 'Account Recovery', path: '/users/recovery', icon: LifeBuoy, status: 'live', permission: 'users.students.read', summary: 'Review self-service account recovery requests and begin verified identity recovery without creating duplicate students.' },
     { label: 'Admin Team', path: '/users/team', icon: ShieldCheck, status: 'live', permission: 'users.admins.read', summary: 'Authorize administrators, manage profiles, role grants, suspension and session revocation through canonical identity records.' },
     { label: 'Support Requests', path: '/users/support', icon: LifeBuoy, status: 'planned', summary: 'Triage student support tickets with assignment, status and resolution history.', milestone: 'Support ticket ingestion and workflow APIs.' },
     { label: 'Notifications', path: '/users/notifications', icon: Bell, status: 'planned', summary: 'Compose and target operational, product and exam notifications.', milestone: 'Template, audience, delivery and engagement tracking.' },
