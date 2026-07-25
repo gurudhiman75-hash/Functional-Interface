@@ -13,6 +13,10 @@ const exactStems = new Map<string, Map<string, string[]>>([
   ["hi", new Map()],
   ["pa", new Map()],
 ]);
+const forbiddenGrammar = {
+  hi: /(?:\b\d+ एक विभाग|की \d+ दिनों की ऑर्डरों|वस्तुएँ बनाए|मध्य कीमत|सबसे (?:छोटा|बड़ा) कीमत|पहला [₹\d,.]+ इकाइयाँ|अंतिम [₹\d,.]+ इकाइयाँ है)/,
+  pa: /(?:\b\d+ ਇੱਕ ਵਿਭਾਗ|ਦੀ \d+ ਦਿਨਾਂ ਦੀ ਆਰਡਰਾਂ|ਵਸਤਾਂ ਬਣਾਏ|ਵਿਚਕਾਰਲਾ ਕੀਮਤ|ਸਭ ਤੋਂ (?:ਛੋਟਾ|ਵੱਡਾ) ਕੀਮਤ|ਪਹਿਲਾ [₹\d,.]+ ਇਕਾਈਆਂ|ਆਖਰੀ [₹\d,.]+ ਇਕਾਈਆਂ ਹੈ|ਅੰਤਿਮ [₹\d,.]+ ਇਕਾਈਆਂ ਹੈ)/,
+};
 let generated = 0;
 
 function fail(message: string) {
@@ -57,6 +61,9 @@ for (const entry of entries) {
       ) {
         fail(`${scope}: context-fidelity marker missing`);
       }
+      if (localized.traceability.localizedStemGrammarGuard !== "AVG-001 localized stem grammar guard v1") {
+        fail(`${scope}: grammar-guard marker missing`);
+      }
       if (!localized.validation.valid || localized.validation.checks.some((check) => !check.passed)) {
         const failed = localized.validation.checks
           .filter((check) => !check.passed)
@@ -66,6 +73,9 @@ for (const entry of entries) {
       }
       if (localized.stem !== repeated.stem) {
         fail(`${scope}: stem is not deterministic`);
+      }
+      if (forbiddenGrammar[language].test(localized.stem)) {
+        fail(`${scope}: known grammar defect remains :: ${localized.stem}`);
       }
 
       const tokens = avg001LocalizedContextTokens(entry.qlId, language);
@@ -96,7 +106,7 @@ console.log(JSON.stringify({
   ),
   failureCount: failures.length,
   failures: failures.slice(0, 200),
-  verdict: failures.length ? "FAIL" : "PASS — CONTEXT FIDELITY VERIFIED",
+  verdict: failures.length ? "FAIL" : "PASS — CONTEXT AND GRAMMAR VERIFIED",
 }, null, 2));
 
 assert.equal(failures.length, 0, failures.join("\n"));
