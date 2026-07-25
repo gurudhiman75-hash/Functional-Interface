@@ -1,0 +1,20 @@
+{
+  "packageId": "MEN-001",
+  "language": "en",
+  "entries": [
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-361",
+      "solveMode": "findOverlappingRectanglesUnionArea",
+      "difficulty": "Hard",
+      "template": "A composite floor is formed by two rectangles measuring {length} m by {breadth} m and {componentLength} m by {componentBreadth} m. They overlap in a rectangular region {overlapLength} m by {overlapBreadth} m. Find the total floor area covered by their union.",
+      "requiredVariables": ["length", "breadth", "componentLength", "componentBreadth", "overlapLength", "overlapBreadth"],
+      "answerDimension": "AREA",
+      "unitPolicy": "SQUARE_METRES",
+      "explanationStrategyId": "cp005-overlapping-rectangles-union",
+      "distractorStrategyIds": ["cp005-add-overlap-twice", "cp005-subtract-overlap-twice", "cp005-report-overlap-area-only"],
+      "diagramRequirement": "NONE",
+      "active": true
+    }
+  ]
+}

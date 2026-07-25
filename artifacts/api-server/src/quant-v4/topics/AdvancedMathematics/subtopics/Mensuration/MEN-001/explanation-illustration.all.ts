@@ -15,6 +15,10 @@ import {
   hasMen001Cp004AdditionalExplanationIllustration,
 } from "./explanation-illustration.cp004.additional";
 import {
+  buildMen001Cp005ExplanationIllustration,
+  hasMen001Cp005ExplanationIllustration,
+} from "./explanation-illustration.cp005";
+import {
   buildMen001ExhaustivenessExplanationIllustration,
   hasMen001ExhaustivenessExplanationIllustration,
 } from "./explanation-illustration.exhaustiveness";
@@ -31,7 +35,8 @@ export function hasMen001ExplanationIllustration(mode: Men001SolveMode) {
     hasMen001Cp003ExplanationIllustration(mode) ||
     hasMen001Cp004ExplanationIllustration(mode) ||
     hasMen001Cp004AdditionalExplanationIllustration(mode) ||
-    hasMen001ExhaustivenessExplanationIllustration(mode)
+    hasMen001ExhaustivenessExplanationIllustration(mode) ||
+    hasMen001Cp005ExplanationIllustration(mode)
   );
 }
 
@@ -44,6 +49,7 @@ export function buildMen001ExplanationIllustration(
     buildMen001Cp003ExplanationIllustration(parameters, solver) ??
     buildMen001Cp004ExplanationIllustration(parameters, solver) ??
     buildMen001Cp004AdditionalExplanationIllustration(parameters, solver) ??
-    buildMen001ExhaustivenessExplanationIllustration(parameters, solver)
+    buildMen001ExhaustivenessExplanationIllustration(parameters, solver) ??
+    buildMen001Cp005ExplanationIllustration(parameters, solver)
   );
 }

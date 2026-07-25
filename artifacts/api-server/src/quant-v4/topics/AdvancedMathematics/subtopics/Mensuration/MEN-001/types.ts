@@ -17,6 +17,7 @@ export const MEN_001_ACTIVE_CP_IDS = [
   "MEN-CP-002",
   "MEN-CP-003",
   "MEN-CP-004",
+  "MEN-CP-005",
 ] as const;
 
 export type Men001CanonicalProblemId = (typeof MEN_001_CP_IDS)[number];
@@ -27,7 +28,8 @@ export type Men001TaskKind =
   | "triangleMeasurementApplication"
   | "quadrilateralMeasurementApplication"
   | "circleMeasurementApplication"
-  | "pathBorderFlooringFencingApplication";
+  | "pathBorderFlooringFencingApplication"
+  | "compositeInscribedRegularPlaneFigureApplication";
 export type Men001AnswerDimension =
   | "LENGTH"
   | "AREA"
@@ -35,7 +37,6 @@ export type Men001AnswerDimension =
   | "RATE"
   | "ANGLE"
   | "COUNT";
-/** Unit policies consumed by the original CP-001–004 registries. */
 export type Men001UnitPolicy =
   | "CENTIMETRES"
   | "METRES"
@@ -44,7 +45,6 @@ export type Men001UnitPolicy =
   | "RUPEES"
   | "DEGREES"
   | "TILES";
-/** Additive policies used by exhaustiveness modes without widening legacy registry maps. */
 export type Men001ExtendedUnitPolicy =
   | "RUPEES_PER_SQUARE_METRE"
   | "RUPEES_PER_METRE"
@@ -101,7 +101,6 @@ export interface Men001QuestionLanguageEntry {
   unitPolicy: Men001AnyUnitPolicy;
   explanationStrategyId: string;
   distractorStrategyIds: string[];
-  /** Diagram attached to the question stem, not to its explanation. */
   diagramRequirement: Men001DiagramRequirement;
   active: boolean;
 }
@@ -125,7 +124,6 @@ export interface Men001Parameters {
   taskKind: Men001TaskKind;
   solveMode: Men001SolveMode;
   answerDimension: Men001AnswerDimension;
-  /** Legacy field type retained for existing registries; parameter generation validates extended policies before casting. */
   unitPolicy: Men001UnitPolicy;
   seed: string;
   values: {
@@ -209,6 +207,21 @@ export interface Men001Parameters {
     roadArea?: number;
     fieldArea?: number;
     discriminant?: number;
+    rectangleArea?: number;
+    semicircleArea?: number;
+    triangleArea?: number;
+    componentLength?: number;
+    componentBreadth?: number;
+    componentArea?: number;
+    cutoutLength?: number;
+    cutoutBreadth?: number;
+    cutoutArea?: number;
+    squareArea?: number;
+    circleArea?: number;
+    straightLength?: number;
+    smallerSide?: number;
+    hexagonAreaCoefficient?: number;
+    compositePerimeter?: number;
   };
   renderVariables: Record<string, string | number>;
 }
@@ -342,6 +355,51 @@ export type Men001ExplanationIllustration =
         innerRadius: string;
         pathWidth: string;
         region: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "COMPOSITE_AREA_PARTS";
+      purpose: "ADD_OR_SUBTRACT_STANDARD_SHAPES";
+      placement: "BEFORE_AREA_COMBINATION";
+      notToScale: true;
+      labels: {
+        primaryShape: string;
+        secondaryShape: string;
+        operation: "ADD" | "SUBTRACT";
+        sharedBoundary: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "INSCRIBED_PLANE_RELATION";
+      purpose: "CONNECT_OUTER_AND_INNER_MEASURES";
+      placement: "BEFORE_INSCRIBED_CALCULATION";
+      notToScale: true;
+      labels: {
+        outerShape: string;
+        innerShape: string;
+        relation: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "REGULAR_HEXAGON_SPLIT";
+      purpose: "SIX_EQUILATERAL_TRIANGLES";
+      placement: "BEFORE_AREA_ADDITION";
+      notToScale: true;
+      labels: { side: string; triangleCount: "6" };
+      accessibleText: string;
+    }
+  | {
+      kind: "COMPOSITE_EXPOSED_BOUNDARY";
+      purpose: "COUNT_ONLY_OUTER_BOUNDARY";
+      placement: "BEFORE_PERIMETER_ADDITION";
+      notToScale: true;
+      labels: {
+        straightBoundary: string;
+        curvedBoundary: string;
+        omittedSharedEdge: string;
       };
       accessibleText: string;
     };

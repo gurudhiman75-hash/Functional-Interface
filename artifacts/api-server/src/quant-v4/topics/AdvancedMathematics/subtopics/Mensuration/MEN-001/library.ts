@@ -3,12 +3,18 @@ import questionLanguageBase from "./question-language.en.json";
 import questionLanguageCp003 from "./question-language.cp003.en.json";
 import questionLanguageCp004 from "./question-language.cp004.en.json";
 import questionLanguageCp004Additional from "./question-language.cp004.additional.en.json";
+import questionLanguageCp005 from "./question-language.cp005.en.json";
+import questionLanguageCp005Exhaustiveness from "./question-language.cp005.exhaustiveness.en.json";
+import questionLanguageCp005Overlap from "./question-language.cp005.overlap.en.json";
 import questionLanguageExhaustiveness from "./question-language.exhaustiveness.en.json";
 import { getMen001SolveModeIds } from "./solve-mode-registry.all";
 import taskRegistryBase from "./task-registry.library.json";
 import taskRegistryCp003 from "./task-registry.cp003.library.json";
 import taskRegistryCp004 from "./task-registry.cp004.library.json";
 import taskRegistryCp004Additional from "./task-registry.cp004.additional.library.json";
+import taskRegistryCp005 from "./task-registry.cp005.library.json";
+import taskRegistryCp005Exhaustiveness from "./task-registry.cp005.exhaustiveness.library.json";
+import taskRegistryCp005Overlap from "./task-registry.cp005.overlap.library.json";
 import taskRegistryExhaustiveness from "./task-registry.exhaustiveness.library.json";
 import {
   MEN_001_ACTIVE_CP_IDS,
@@ -24,6 +30,9 @@ const questionLanguageSources = [
   questionLanguageCp004,
   questionLanguageCp004Additional,
   questionLanguageExhaustiveness,
+  questionLanguageCp005,
+  questionLanguageCp005Overlap,
+  questionLanguageCp005Exhaustiveness,
 ] as const;
 const taskRegistrySources = [
   taskRegistryBase,
@@ -31,6 +40,9 @@ const taskRegistrySources = [
   taskRegistryCp004,
   taskRegistryCp004Additional,
   taskRegistryExhaustiveness,
+  taskRegistryCp005,
+  taskRegistryCp005Overlap,
+  taskRegistryCp005Exhaustiveness,
 ] as const;
 
 const questionEntries = questionLanguageSources
@@ -41,12 +53,12 @@ const registryEntries = taskRegistrySources.flatMap(
 );
 const registryByQlId = new Map(registryEntries.map((entry) => [entry.qlId, entry]));
 
-function sorted(values: readonly string[]) {
-  return [...values].sort((left, right) => left.localeCompare(right));
+function sortedUnique(values: readonly string[]) {
+  return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
 
 function sameStrings(left: readonly string[], right: readonly string[]) {
-  return JSON.stringify(sorted(left)) === JSON.stringify(sorted(right));
+  return JSON.stringify(sortedUnique(left)) === JSON.stringify(sortedUnique(right));
 }
 
 function normalizeTemplateIdentity(template: string) {
@@ -75,9 +87,28 @@ function unitMatchesDimension(entry: Men001QuestionLanguageEntry) {
   return entry.answerDimension === "COST" && entry.unitPolicy === "RUPEES";
 }
 
+const CP005_PI_MODES = new Set([
+  "findRectangleSemicircleCompositeArea",
+  "findStadiumCompositeArea",
+  "findSquareMinusCircleShadedArea",
+  "findCircleMinusSquareShadedArea",
+  "findRectangleMinusTwoSemicirclesArea",
+  "findFourCornerQuadrantsShadedArea",
+  "findInscribedCircleAreaInSquare",
+  "findInscribedSquareAreaInCircle",
+  "findRectangleSemicircleCompositePerimeter",
+  "findStadiumCompositePerimeter",
+  "findRectangleLengthFromCompositeArea",
+  "findSquareSideFromShadedArea",
+  "findSquareWithCircularHoleBoundary",
+  "findStadiumStraightLengthFromPerimeter",
+  "findCircleRadiusFromCircleMinusSquareShadedArea",
+]);
+
 function requiresExplicitPiPolicy(entry: Men001QuestionLanguageEntry) {
   return (
     entry.cpId === "MEN-CP-003" ||
+    CP005_PI_MODES.has(entry.solveMode) ||
     [
       "findOuterCircularPathArea",
       "findInnerCircularPathArea",

@@ -1,0 +1,14 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-361",
+      "taskKind": "compositeInscribedRegularPlaneFigureApplication",
+      "solveMode": "findOverlappingRectanglesUnionArea",
+      "answerDimension": "AREA",
+      "requiredVariables": ["length", "breadth", "componentLength", "componentBreadth", "overlapLength", "overlapBreadth"]
+    }
+  ]
+}

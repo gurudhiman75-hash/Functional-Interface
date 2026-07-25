@@ -15,15 +15,15 @@ Generate SSC, Banking and Punjab-state-exam style plane-mensuration questions wi
 
 ## Active runtime-proof scope
 
-`MEN-CP-001` through `MEN-CP-004` are active.
+`MEN-CP-001` through `MEN-CP-005` are active.
 
 Current checkpoint:
 
-- 125 active English QLs;
-- 106 registry-derived solve modes;
+- 158 active English QLs;
+- 132 registry-derived solve modes;
 - 20 deterministic states per QL;
-- 2,500 generated runtime-proof questions;
-- 375 generated human-review samples.
+- 3,160 generated runtime-proof questions;
+- 474 generated human-review samples.
 
 These figures describe the current checkpoint. They are not fixed quotas or terminal identifiers.
 
@@ -43,6 +43,10 @@ Coverage includes radius, diameter, circumference, area, semicircles, quadrants,
 
 Coverage includes inside/outside rectangular, square and circular paths; reverse path-width recovery; crossed roads; uncovered area; paving and tile counts; flooring, painting and paving costs; area and fencing rate recovery; fencing with gates and multiple rounds.
 
+### MEN-CP-005 — composite and inscribed figures
+
+Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-triangle and two-rectangle composites, overlapping rectangle unions, L-shaped regions, shaded square/circle combinations, semicircular and quadrant cut-outs, inscribed and largest-fit figures, exact regular-hexagon measurement, shared-edge and inner-hole boundaries, exposed composite boundaries, and reverse recovery from composite area, shaded area, regular-polygon perimeter and stadium perimeter.
+
 ## Mathematical rules
 
 - Length, area, cost, rate, angle and count are distinct answer dimensions.
@@ -52,7 +56,13 @@ Coverage includes inside/outside rectangular, square and circular paths; reverse
 - Ratio-derived sides must conserve the stated perimeter.
 - Exact surds remain exact unless approximation is explicitly requested.
 - Circular states use the explicit registered `π = 22/7` policy.
-- Border and annular states conserve outer-minus-inner area.
+- Border, annular, shaded and cut-out states conserve outer-minus-inner area.
+- Composite addition states contain non-overlapping components and conserve their summed area.
+- Overlapping composite states use inclusion–exclusion and subtract the common region exactly once.
+- Inscribed figures preserve the defining diameter/diagonal relation.
+- Composite perimeter questions count only exposed boundary and omit shared internal edges.
+- A region with a hole counts both its outer boundary and its inner boundary when both touch the required region.
+- Reverse composite-boundary states reproduce the stated total perimeter after recovery.
 - Crossed-road states use inclusion-exclusion and subtract overlap once.
 - Tile counts are exact whole-number area quotients.
 - Cost and reverse-rate states conserve `cost = measure × rate`.
@@ -61,14 +71,14 @@ Coverage includes inside/outside rectangular, square and circular paths; reverse
 
 ## Ownership boundaries
 
-- `MEN-CP-005` owns irregular composite, inscribed, shaded and regular-polygon figures.
+- `MEN-CP-005` owns composite, inscribed, shaded and regular-polygon figures.
 - `MEN-CP-006` owns mixed-unit conversion, scaling, wire reshaping and boundary-conservation transformations.
 - Geometry owns theorem/property reasoning.
 - Trigonometry owns trigonometric side/area recovery.
 
 ## Current maturity
 
-- `MEN-CP-001` through `MEN-CP-004`: `RUNTIME_PROOF`
+- `MEN-CP-001` through `MEN-CP-005`: `RUNTIME_PROOF`
 - publicly publishable: `false`
 - supported runtime language: English only
 - Question Studio wiring: intentionally deferred until integration review

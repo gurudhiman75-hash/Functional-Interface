@@ -1,0 +1,12 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-362","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findJoinedRectanglesCompositePerimeter","answerDimension":"LENGTH","requiredVariables":["length","breadth","componentLength","componentBreadth","sharedEdge"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-363","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findSquareWithCircularHoleBoundary","answerDimension":"LENGTH","requiredVariables":["side","radius"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-364","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRegularHexagonSideFromPerimeter","answerDimension":"LENGTH","requiredVariables":["perimeter"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-365","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRegularHexagonAreaFromPerimeter","answerDimension":"AREA","requiredVariables":["perimeter"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-366","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findStadiumStraightLengthFromPerimeter","answerDimension":"LENGTH","requiredVariables":["perimeter","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-367","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findCircleRadiusFromCircleMinusSquareShadedArea","answerDimension":"LENGTH","requiredVariables":["area"]}
+  ]
+}
