@@ -1,0 +1,35 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-010",
+  "ownership": "HUMAN_OWNED",
+  "groups": [
+    {
+      "qlIds": ["PNC-QL-204"],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularSpecifiedBlockApart",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-204",
+      "requiredVariables": ["totalObjects", "blockSize"],
+      "scenarioFamily": "circularGroupApart",
+      "constraintProfile": "COUNTCIRCULARSPECIFIEDBLOCKAPART",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Medium",
+      "active": true
+    },
+    {
+      "qlIds": ["PNC-QL-205"],
+      "cpId": "PNC-CP-010",
+      "taskKind": "circularArrangement",
+      "solveMode": "countCircularExactlyOnePairTogether",
+      "answerType": "COUNT",
+      "explanationId": "PNC-EXP-205",
+      "requiredVariables": ["totalObjects"],
+      "scenarioFamily": "circularExactlyOnePairTogether",
+      "constraintProfile": "COUNTCIRCULAREXACTLYONEPAIRTOGETHER",
+      "distractorProfile": "CIRCULAR_RESTRICTION",
+      "difficulty": "Hard",
+      "active": true
+    }
+  ]
+}
