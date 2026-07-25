@@ -12,7 +12,7 @@ import { buildPnc002Cp008Values } from "./parameter-generator-cp008";
 import type {
   Pnc002GeneratedValue,
   Pnc002ParameterInput,
-  Pnc002Parameters,
+  Pnc002AnyParameters,
   Pnc002QuestionEntry,
 } from "./types";
 import { PNC_002_PACKAGE_ID } from "./types";
@@ -74,7 +74,7 @@ function numericValue(values: Record<string, Pnc002GeneratedValue>, key: string)
   return value;
 }
 
-export function generatePnc002Parameters(input: Pnc002ParameterInput = {}): Pnc002Parameters {
+export function generatePnc002Parameters(input: Pnc002ParameterInput = {}): Pnc002AnyParameters {
   const language = input.language ?? "en";
   if (language !== "en") throw new Error(`PNC-002 language ${language} is not implemented`);
   const seed = input.seed ?? "pnc-002-default-seed";
