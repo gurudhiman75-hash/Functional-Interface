@@ -1,4 +1,5 @@
 import "./student-explanations.en";
+import "./student-explanations.en.overrides";
 
 export type ClusterPresentationMode = "DIRECT_COMPLETION" | "PAIR_SELECTION";
 
