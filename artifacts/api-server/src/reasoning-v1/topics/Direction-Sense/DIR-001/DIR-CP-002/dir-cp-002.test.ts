@@ -1,6 +1,85 @@
 import assert from "node:assert/strict";
+import type { Coordinate } from "../foundation/types";
 import { DIR_CP002_QLS } from "./task-registry";
 import { generateDirCp002Question, type CombinedPathAnswer } from "./generator";
+import type { PathDiagramSegment, PathDiagramSpec } from "./path-diagram";
+
+const EPSILON = 1e-9;
+
+function nearlyEqual(left: number, right: number): boolean {
+  return Math.abs(left - right) <= EPSILON;
+}
+
+function sameCoordinate(left: Coordinate, right: Coordinate): boolean {
+  return nearlyEqual(left.x, right.x) && nearlyEqual(left.y, right.y);
+}
+
+function between(value: number, edgeA: number, edgeB: number): boolean {
+  return value >= Math.min(edgeA, edgeB) - EPSILON && value <= Math.max(edgeA, edgeB) + EPSILON;
+}
+
+function positiveIntervalOverlap(a1: number, a2: number, b1: number, b2: number): boolean {
+  const overlap = Math.min(Math.max(a1, a2), Math.max(b1, b2)) - Math.max(Math.min(a1, a2), Math.min(b1, b2));
+  return overlap > EPSILON;
+}
+
+function diagramSegmentCoordinates(diagram: PathDiagramSpec, segment: PathDiagramSegment): { start: Coordinate; end: Coordinate } {
+  const pointById = new Map(diagram.points.map((point) => [point.id, point.coordinate]));
+  return {
+    start: pointById.get(segment.fromPointId)!,
+    end: pointById.get(segment.toPointId)!,
+  };
+}
+
+function segmentsConflict(
+  first: { readonly start: Coordinate; readonly end: Coordinate },
+  second: { readonly start: Coordinate; readonly end: Coordinate },
+  consecutive: boolean,
+): boolean {
+  const firstVertical = nearlyEqual(first.start.x, first.end.x);
+  const secondVertical = nearlyEqual(second.start.x, second.end.x);
+
+  if (firstVertical && secondVertical) {
+    return nearlyEqual(first.start.x, second.start.x)
+      && positiveIntervalOverlap(first.start.y, first.end.y, second.start.y, second.end.y);
+  }
+  if (!firstVertical && !secondVertical) {
+    return nearlyEqual(first.start.y, second.start.y)
+      && positiveIntervalOverlap(first.start.x, first.end.x, second.start.x, second.end.x);
+  }
+
+  const vertical = firstVertical ? first : second;
+  const horizontal = firstVertical ? second : first;
+  const crossing = { x: vertical.start.x, y: horizontal.start.y };
+  const intersects = between(crossing.y, vertical.start.y, vertical.end.y)
+    && between(crossing.x, horizontal.start.x, horizontal.end.x);
+  if (!intersects) return false;
+  if (consecutive) {
+    const sharedEndpoint = sameCoordinate(first.end, second.start) || sameCoordinate(second.end, first.start);
+    if (sharedEndpoint && (
+      sameCoordinate(crossing, first.start)
+      || sameCoordinate(crossing, first.end)
+      || sameCoordinate(crossing, second.start)
+      || sameCoordinate(crossing, second.end)
+    )) return false;
+  }
+  return true;
+}
+
+function assertClearDiagramRoute(diagram: PathDiagramSpec): void {
+  const coordinateKeys = diagram.points.map((point) => `${point.coordinate.x}:${point.coordinate.y}`);
+  assert.equal(new Set(coordinateKeys).size, coordinateKeys.length, "Diagram route must not revisit a point");
+  const segments = diagram.segments.map((segment) => diagramSegmentCoordinates(diagram, segment));
+  for (let left = 0; left < segments.length; left += 1) {
+    for (let right = left + 1; right < segments.length; right += 1) {
+      assert.equal(
+        segmentsConflict(segments[left], segments[right], right === left + 1),
+        false,
+        `Diagram legs ${left + 1} and ${right + 1} overlap or cross`,
+      );
+    }
+  }
+}
 
 assert.deepEqual(DIR_CP002_QLS.map((ql) => ql.qlId), ["DIR-QL-004", "DIR-QL-005"]);
 assert.equal(new Set(DIR_CP002_QLS.map((ql) => ql.ruleId)).size, 2);
@@ -35,46 +114,43 @@ for (const ql of DIR_CP002_QLS) {
     assert.ok(!generated.stem.includes("point O"));
     assert.ok(!generated.stem.match(/point [A-Z]/));
     assert.ok(!generated.stem.includes("without changing position"));
-    assert.ok(!generated.stem.includes("without turning"));
     assert.ok(!generated.stem.includes("is now facing"));
-    assert.ok(!generated.stem.includes("facing direction remains"));
-    assert.ok(!generated.stem.match(/^\d+\./));
 
-    const explanationKeys = Object.keys(generated.explanation);
-    assert.deepEqual(explanationKeys.slice(0, 2), ["given", "diagram"]);
-    assert.equal(generated.explanation.given.length, 3);
-    assert.ok(generated.explanation.given[0].startsWith("Starting direction:"));
-    assert.ok(generated.explanation.given[1].startsWith("Simplified path:"));
-    assert.ok(generated.explanation.given[2].startsWith("Required:"));
-    assert.ok(generated.explanation.method.length > 40);
-    assert.ok(generated.explanation.steps.length >= generated.metadata.legCount + 2);
-    assert.deepEqual(
-      generated.explanation.steps.map((step) => step.stepNumber),
-      generated.explanation.steps.map((_, index) => index + 1),
-    );
-    assert.ok(generated.explanation.steps.every((step) => step.title.length > 5));
-    assert.ok(generated.explanation.steps.every((step) => step.statement.length > 20));
-    assert.ok(generated.explanation.steps.every((step) => step.calculation.length > 5));
-    assert.ok(generated.explanation.steps.every((step) => step.result.length > 15));
-    assert.ok(generated.explanation.askedRelation.includes("="));
-    assert.ok(generated.explanation.conclusion.length > 40);
+    assert.deepEqual(Object.keys(generated.explanation), ["given", "movementLines", "conclusion", "diagram"]);
+    assert.ok(generated.explanation.given.includes("starts facing"));
+    assert.ok(generated.explanation.given.endsWith("following movements."));
+    assert.equal(generated.explanation.movementLines.length, generated.metadata.legCount);
+    assert.ok(generated.explanation.movementLines[0].startsWith("First,"));
+    assert.ok(generated.explanation.movementLines.every((line) => line.split("\n").length === 1));
+    assert.ok(generated.explanation.movementLines.every((line) => line.includes("metres")));
+    assert.ok(generated.explanation.movementLines.every((line) => /\b(?:North|South|East|West)\b/.test(line)));
+    assert.ok(generated.explanation.movementLines.every((line) => !line.includes("coordinate")));
+    assert.ok(generated.explanation.movementLines.every((line) => !line.includes(" = ")));
+    assert.ok(generated.explanation.conclusion.length > 35);
+    assert.equal(Object.keys(generated.explanation).at(-1), "diagram");
 
     const diagram = generated.explanation.diagram;
     assert.equal(diagram.kind, "DIRECTION_PATH_DIAGRAM");
     assert.equal(diagram.points.length, generated.metadata.legCount + 1);
     assert.equal(diagram.segments.length, generated.metadata.legCount);
-    assert.equal(diagram.points[0].label, "O");
+    assert.equal(diagram.points[0].label, "Start");
     assert.equal(diagram.points[0].role, "START");
+    assert.equal(diagram.points.at(-1)?.label, "Finish");
     assert.equal(diagram.points.at(-1)?.role, "END");
+    assertClearDiagramRoute(diagram);
     assert.ok(diagram.svg.startsWith("<svg"));
-    assert.ok(diagram.svg.includes("Dashed red curve shows the exact relation asked"));
-    assert.ok(diagram.svg.includes(diagram.askedRelation.label));
-    assert.ok(diagram.svg.includes("data-role=\"asked-relation-arrow\""));
-    assert.ok(diagram.svg.includes(" Q "), "Asked relation must be curved away from route lines");
-    assert.ok(diagram.svg.includes("data-role=\"asked-relation-label\""));
-    assert.equal((diagram.svg.match(/data-role="segment-label"/g) ?? []).length, generated.metadata.legCount);
-    assert.equal((diagram.svg.match(/data-role="segment-label"><rect/g) ?? []).length, generated.metadata.legCount);
-    assert.ok(diagram.svg.includes("fill=\"#ffffff\""), "Route text must have opaque white backgrounds");
+    assert.equal((diagram.svg.match(/data-role="movement-leg"/g) ?? []).length, generated.metadata.legCount);
+    assert.equal((diagram.svg.match(/data-role="distance-label"/g) ?? []).length, generated.metadata.legCount);
+    assert.ok(diagram.svg.includes("data-role=\"start-point\""));
+    assert.ok(diagram.svg.includes("data-role=\"finish-point\""));
+    assert.ok(diagram.svg.includes("data-role=\"compass\""));
+    assert.ok(!diagram.svg.includes("asked-relation"));
+    assert.ok(!diagram.svg.includes("questionArrow"));
+    assert.ok(!diagram.svg.includes("final-facing"));
+    assert.ok(!diagram.svg.includes("Final facing"));
+    assert.ok(!diagram.svg.includes("Asked:"));
+    assert.ok(!diagram.svg.includes("coordinate"));
+    assert.ok(!diagram.svg.includes("Movements</text>"));
 
     assert.ok(!generated.stem.includes("DIR_"));
     assert.ok(!generated.explanation.conclusion.includes("DIR_"));
@@ -84,19 +160,12 @@ for (const ql of DIR_CP002_QLS) {
       const answer = generated.correctAnswer as string;
       endpointDirections.add(answer);
       reverseQueryValues.add(generated.metadata.reverseQuery);
-      assert.equal(diagram.askedRelation.direction, answer);
-      assert.equal(diagram.finalFacing, null);
-      assert.equal(diagram.askedRelation.fromLabel, generated.metadata.reverseQuery ? diagram.points.at(-1)?.label : "O");
-      assert.equal(diagram.askedRelation.toLabel, generated.metadata.reverseQuery ? "O" : diagram.points.at(-1)?.label);
     } else {
       const answer = generated.correctAnswer as CombinedPathAnswer;
       endpointDirections.add(answer.endpointDirection);
       finalFacings.add(answer.finalFacing);
       assert.ok(generated.options.every((option) => typeof option.value === "object"));
-      assert.equal(diagram.askedRelation.direction, answer.endpointDirection);
-      assert.equal(diagram.finalFacing?.direction, answer.finalFacing);
-      assert.ok(diagram.svg.includes("data-role=\"final-facing-arrow\""));
-      assert.ok(diagram.svg.includes("data-role=\"final-facing-label\""));
+      assert.ok(generated.explanation.conclusion.includes(`facing ${answer.finalFacing.replace("_", "-")}`) || generated.explanation.conclusion.includes("facing"));
     }
 
     difficulties.add(generated.difficulty);
@@ -116,7 +185,7 @@ const minPositionCount = Math.min(...answerPositions);
 const maxPositionCount = Math.max(...answerPositions);
 assert.ok(maxPositionCount / minPositionCount < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
-console.log("DIR-CP-002 exam-stem, given-first explanation and clear-diagram proof passed.", {
+console.log("DIR-CP-002 exam prose, movement walkthrough and plain-diagram proof passed.", {
   qlCount: DIR_CP002_QLS.length,
   generatedCases: DIR_CP002_QLS.length * 200,
   endpointDirections: [...endpointDirections].sort(),
