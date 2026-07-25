@@ -12,6 +12,7 @@ import {
 } from '../lib/admin-student-administration';
 import { requireAdminPermission, type AdminSession } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
+import { auth } from '../lib/firebase-admin';
 import { authenticate } from '../middlewares/auth';
 
 const router = Router();
@@ -21,6 +22,10 @@ type AuditChange = {
   fieldPath: string;
   beforeValue?: unknown;
   afterValue?: unknown;
+};
+
+type FirebaseTokenRevoker = {
+  revokeRefreshTokens(uid: string): Promise<void>;
 };
 
 function number(value: unknown): number {
@@ -46,6 +51,13 @@ function session(req: Request): AdminSession {
     );
   }
   return req.adminSession;
+}
+
+function firebaseTokenRevoker(): FirebaseTokenRevoker | null {
+  const candidate = auth as Partial<FirebaseTokenRevoker> | null;
+  return candidate && typeof candidate.revokeRefreshTokens === 'function'
+    ? candidate as FirebaseTokenRevoker
+    : null;
 }
 
 async function writeStudentAuditEvent(
@@ -116,6 +128,14 @@ router.post(
             u.display_name AS "displayName",
             u.updated_at AS "updatedAt",
             sp.registration_code AS "registrationCode",
+            (
+              SELECT ai.provider_subject
+              FROM identity.auth_identities ai
+              WHERE ai.user_id = u.id
+                AND ai.provider = 'firebase'
+              ORDER BY ai.created_at ASC
+              LIMIT 1
+            ) AS "firebaseUid",
             (
               SELECT COUNT(*)::int
               FROM identity.sessions s
@@ -209,6 +229,7 @@ router.post(
             nextStatus: plan.nextStatus,
             activeSessionCountBefore: number(target.activeSessionCount),
             sessionsRevoked,
+            firebaseIdentityLinked: Boolean(target.firebaseUid),
             changed,
             idempotentNoOp: !changed,
           },
@@ -221,12 +242,43 @@ router.post(
           previousStatus: currentStatus,
           status: plan.nextStatus,
           sessionsRevoked,
+          firebaseUid: target.firebaseUid ? String(target.firebaseUid) : null,
           auditEventId,
           occurredAt: new Date().toISOString(),
         };
       });
 
-      res.json({ operation, generatedAt: new Date().toISOString() });
+      let firebaseTokensRevoked = false;
+      if (operation.action !== 'reactivate' && operation.firebaseUid) {
+        const revoker = firebaseTokenRevoker();
+        if (!revoker) {
+          throw new StudentAdministrationError(
+            'FIREBASE_SESSION_REVOCATION_UNAVAILABLE',
+            'Canonical sessions were revoked, but Firebase session revocation is unavailable',
+            503,
+          );
+        }
+        try {
+          await revoker.revokeRefreshTokens(operation.firebaseUid);
+          firebaseTokensRevoked = true;
+        } catch (error) {
+          console.error('Unable to revoke Firebase refresh tokens', error);
+          throw new StudentAdministrationError(
+            'FIREBASE_SESSION_REVOCATION_FAILED',
+            'Canonical sessions were revoked, but Firebase sessions could not be revoked',
+            502,
+          );
+        }
+      }
+
+      const { firebaseUid: _firebaseUid, ...safeOperation } = operation;
+      res.json({
+        operation: {
+          ...safeOperation,
+          firebaseTokensRevoked,
+        },
+        generatedAt: new Date().toISOString(),
+      });
     } catch (error) {
       sendError(res, error, 'Unable to complete the student account operation');
     }
