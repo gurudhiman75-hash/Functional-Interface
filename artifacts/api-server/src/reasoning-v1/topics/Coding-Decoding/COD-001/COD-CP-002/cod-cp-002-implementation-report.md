@@ -1,6 +1,6 @@
 # COD-CP-002 Runtime-Proof Implementation Report
 
-Status: English runtime proof complete in source and locally stress-tested; repository CI and final PR review pending.
+Status: English runtime proof complete, editorially corrected and repository CI verified; publication approval remains deferred.
 
 ## Scope
 
@@ -37,7 +37,9 @@ Status: English runtime proof complete in source and locally stress-tested; repo
 - deterministic difficulty derived from reasoning burden;
 - exact review export and 100-seed-per-QL runtime audit.
 
-## Local validation result
+## Verified validation result
+
+The committed COD workflow executed both the merged CP-001 audit and the new CP-002 audit successfully on PR #122. The production build also passed. The broad admin workflow failure is inherited from the current base and is reproduced on merged PR #121, which changed only Analogy answer balance.
 
 - generated questions: `2,800` (`28 QLs × 100 seeds`);
 - answer positions: `714 / 720 / 680 / 686`;
@@ -58,7 +60,6 @@ Status: English runtime proof complete in source and locally stress-tested; repo
 
 ## Deferred work
 
-- GitHub Actions execution;
 - Hindi and Punjabi localization;
 - Question Studio discovery;
 - production publishability;
