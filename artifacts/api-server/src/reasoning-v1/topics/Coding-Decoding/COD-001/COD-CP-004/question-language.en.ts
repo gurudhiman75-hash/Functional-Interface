@@ -23,7 +23,7 @@ function logic(number: number, ruleId: CodCp004RuleId, taskKind: CodCp004TaskKin
     taskKind,
     answerType: answerType(taskKind),
     renderer: renderer(taskKind),
-    allowedDifficulties: ["EASY", "MEDIUM", "HARD"],
+    allowedDifficulties: ["MEDIUM", "HARD"],
     targetLength: input.targetLength ?? [4, 6],
     exampleCount: input.examples ?? [2, 3],
     requireWrap: input.requireWrap ?? false,
