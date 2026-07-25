@@ -6,7 +6,7 @@ function increment(target: Record<string, number>, key: string): void { target[k
 
 export function auditPnc002Cp010Coverage(): Pnc002CoverageAudit {
   const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-010");
-  const expectedQlIds = Array.from({ length: 29 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
+  const expectedQlIds = Array.from({ length: 32 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
   const actualIds = entries.map((entry) => entry.qlId);
   const missingQlIds = expectedQlIds.filter((qlId) => !actualIds.includes(qlId));
   const duplicateQlIds = [...new Set(actualIds.filter((qlId, index) => actualIds.indexOf(qlId) !== index))];
