@@ -1,0 +1,79 @@
+name: Validate platform LaTeX rendering
+
+on:
+  push:
+    branches:
+      - feat/platform-latex-rendering-pnc001
+  pull_request:
+    branches:
+      - audit/pnc-001-package-freeze-readiness
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-platform-latex-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck PNC-001 LaTeX runtime
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001 -name '*.ts' -print)
+
+      - name: Bundle PNC-001 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001-latex-proof.mjs
+
+      - name: Run PNC-001 proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-001-latex-proof.mjs
+
+      - name: Typecheck admin application
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Test admin application
+        run: pnpm --dir artifacts/admin-app test
+
+      - name: Build admin application
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Build student application
+        run: pnpm --dir artifacts/examtree build
