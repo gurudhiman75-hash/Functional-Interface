@@ -116,11 +116,19 @@ Ownership exclusions:
 - false quantity and measure manipulation remain in CP-005;
 - marked-price discounts and promotions remain in CP-002.
 
-## Deferred execution gate
+## Execution gate
 
-The container could not clone GitHub because outbound DNS was unavailable. The source files, proof and executable structural audit are committed, but repository TypeScript/Node execution must be confirmed by PR CI or the consolidated PNL integration pass.
+The focused GitHub Actions workflow `Validate PNL CP-006` completed successfully on the freeze-candidate head.
 
-A compile, runtime or structural failure must reopen CP-006.
+Passed steps:
+
+- locked workspace dependency installation;
+- esbuild bundling of `pnl-cp-006.test.ts`;
+- execution of the complete CP-006 runtime proof;
+- esbuild bundling of `cp-006-structural-audit.ts`;
+- execution of the multilingual and placeholder structural audit.
+
+The broader admin workflow also built the ExamTree API server successfully. Its later failure came from an unrelated admin-app tone type error. Vercel statuses failed because of account build-rate limits, not CP-006 code.
 
 ## Freeze decision
 
@@ -128,6 +136,6 @@ No meaningful uncovered CP-006 solve mode remains after effective-cost, manufact
 
 Reopen only for:
 
-- an execution defect;
+- a future execution regression;
 - a placeholder or translation defect found in rendered review;
 - or a genuinely distinct source-backed SSC, Banking or Punjab exam pattern.
