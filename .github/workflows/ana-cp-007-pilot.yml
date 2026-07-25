@@ -1,5 +1,6 @@
 name: Validate ANA-CP-007 pilot foundation
 
+# Pilot proof only: no permanent QL allocation or production exposure.
 on:
   push:
     branches:
