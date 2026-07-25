@@ -18,6 +18,18 @@ function hasWorkedArithmetic(lines: readonly string[]) {
   );
 }
 
+function naturalConclusion(value: string, answer: string) {
+  const text = value
+    .replace("{answer}", answer)
+    .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
+    .replace(/\s+therefore\s+/i, " ")
+    .replace(/\s+hence\s+/i, " ")
+    .replace(/\s+thus\s+/i, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+  return /[.!?]$/.test(text) ? text : `${text}.`;
+}
+
 export function validateMen001QuestionPackage(
   question: Question,
 ): Men001ValidationResult {
@@ -30,12 +42,11 @@ export function validateMen001QuestionPackage(
   const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
-  const expectedConclusion = profile?.conclusion.replace(
-    "{answer}",
-    question.answer,
-  );
+  const expectedConclusion = profile
+    ? naturalConclusion(profile.conclusion, question.answer)
+    : undefined;
   const explanationLines = question.explanation.lines;
-  const genericPaddingPattern = /^(Check:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers)/;
+  const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers|Therefore, the required|Hence, the required|Thus, the required)/i;
 
   checks.push(check(
     "natural-explanation-profile",
@@ -51,12 +62,12 @@ export function validateMen001QuestionPackage(
     "natural-explanation-conclusion",
     Boolean(expectedConclusion) &&
       explanationLines[explanationLines.length - 1] === expectedConclusion,
-    "The explanation must end with its QL-specific contextual conclusion.",
+    "The explanation must end with its contextual conclusion rather than a shared answer shell.",
   ));
   checks.push(check(
     "natural-explanation-length",
-    explanationLines.length >= 4 && explanationLines.length <= 9,
-    "The explanation should be complete but concise, normally four to eight lines and at most nine for multi-stage methods.",
+    explanationLines.length >= 3 && explanationLines.length <= 9,
+    "The explanation should use only as many lines as the reasoning needs.",
   ));
   checks.push(check(
     "natural-explanation-worked-arithmetic",
@@ -66,7 +77,7 @@ export function validateMen001QuestionPackage(
   checks.push(check(
     "natural-explanation-no-generic-padding",
     explanationLines.every((line) => !genericPaddingPattern.test(line)),
-    "Explanations must not rely on repeated check labels or generic unit padding.",
+    "Explanations must not use formula labels, repeated check lines or generic unit padding.",
   ));
 
   if ([
