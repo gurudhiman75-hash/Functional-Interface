@@ -70,6 +70,9 @@ async function terminateBlockedStudentSession(): Promise<void> {
   if (auth?.currentUser) {
     await signOut(auth).catch(() => undefined);
   }
+  if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
+    window.location.replace("/login?reason=account-suspended");
+  }
 }
 
 async function fetchOrCreateUserProfile(
@@ -153,22 +156,46 @@ export function syncAuthSession() {
     return () => {};
   }
 
-  return onAuthStateChanged(auth, async (firebaseUser) => {
+  let currentFirebaseUser: FirebaseUser | null = auth.currentUser;
+  let statusCheckInFlight = false;
+
+  const verifyCurrentAccount = async () => {
+    if (!currentFirebaseUser || statusCheckInFlight) return;
+    statusCheckInFlight = true;
+    try {
+      await fetchOrCreateUserProfile(currentFirebaseUser);
+    } catch (error) {
+      if (isBlockedAccountError(error)) {
+        await terminateBlockedStudentSession();
+        currentFirebaseUser = null;
+      } else {
+        console.warn("Failed to sync auth session:", error);
+      }
+    } finally {
+      statusCheckInFlight = false;
+    }
+  };
+
+  const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    currentFirebaseUser = firebaseUser;
     if (!firebaseUser) {
       clearAuth();
       return;
     }
-
-    try {
-      await fetchOrCreateUserProfile(firebaseUser);
-    } catch (error) {
-      if (isBlockedAccountError(error)) {
-        await terminateBlockedStudentSession();
-        return;
-      }
-      console.warn("Failed to sync auth session:", error);
-    }
+    await verifyCurrentAccount();
   });
+
+  // Suspension must take effect in an already-open test runner. The backend
+  // also checks every protected request, while this short poll ejects an idle
+  // or locally active tab even when no navigation/refresh occurs.
+  const statusTimer = window.setInterval(() => {
+    void verifyCurrentAccount();
+  }, 3_000);
+
+  return () => {
+    window.clearInterval(statusTimer);
+    unsubscribe();
+  };
 }
 
 export async function deleteCurrentStudentAccount() {
