@@ -6,20 +6,24 @@ import { getPnc002QuestionEntries, getPnc002QuestionLanguageIds } from "./founda
 import { runPnc002Pipeline } from "./foundation/pipeline";
 import {
   countBlockWithExternalPairApartExact,
+  countBlockWithOutsiderNotAdjacentExact,
   countMultipleBlocksTogetherExact,
+  countNotAllSpecifiedBlocksTogetherExact,
+  countOneBlockTogetherOtherNotTogetherExact,
   countSingleBlockNotTogetherExact,
   countSingleBlockTogetherExact,
+  countTwoBlocksTogetherNotAdjacentExact,
 } from "./foundation/solver";
 
 const entries = getPnc002QuestionEntries();
 const checkpointIds = Array.from(
-  { length: 12 },
+  { length: 18 },
   (_, index) => `PNC-QL-${String(index + 107).padStart(3, "0")}`,
 );
 
-assert.equal(entries.length, 12);
+assert.equal(entries.length, 18);
 assert.deepEqual(getPnc002QuestionLanguageIds(), checkpointIds);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 12);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 18);
 
 const difficultyCounts = Object.fromEntries(
   ["Easy", "Medium", "Hard"].map((difficulty) => [
@@ -27,7 +31,7 @@ const difficultyCounts = Object.fromEntries(
     entries.filter((entry) => entry.difficulty === difficulty).length,
   ]),
 );
-assert.deepEqual(difficultyCounts, { Easy: 1, Medium: 5, Hard: 6 });
+assert.deepEqual(difficultyCounts, { Easy: 1, Medium: 8, Hard: 9 });
 
 const solveModeCounts = Object.fromEntries(
   [...new Set(entries.map((entry) => entry.solveMode))].map((solveMode) => [
@@ -40,25 +44,28 @@ assert.deepEqual(solveModeCounts, {
   countSingleBlockNotTogether: 2,
   countMultipleBlocksTogether: 4,
   countBlockWithExternalPairApart: 1,
-  recoverBlockRestrictionParameter: 3,
+  recoverBlockRestrictionParameter: 4,
+  countTwoBlocksTogetherNotAdjacent: 2,
+  countBlockWithOutsiderNotAdjacent: 1,
+  countOneBlockTogetherOtherNotTogether: 1,
+  countNotAllSpecifiedBlocksTogether: 1,
 });
 
 assert.equal(countSingleBlockTogetherExact(7, 2), 1440);
 assert.equal(countSingleBlockNotTogetherExact(7, 2), 3600);
 assert.equal(countMultipleBlocksTogetherExact(8, [2, 3]), 1440);
 assert.equal(countBlockWithExternalPairApartExact(8, 3), 2880);
+assert.equal(countTwoBlocksTogetherNotAdjacentExact(7, [2, 2]), 288);
+assert.equal(countTwoBlocksTogetherNotAdjacentExact(8, [2, 3]), 864);
+assert.equal(countBlockWithOutsiderNotAdjacentExact(8, 3), 2880);
+assert.equal(countOneBlockTogetherOtherNotTogetherExact(8, [2, 3]), 8640);
+assert.equal(countNotAllSpecifiedBlocksTogetherExact(7, [2, 2]), 4560);
 
-const twoPairs = runPnc002Pipeline({
-  questionLanguageId: "PNC-QL-111",
-  seed: "two-pairs-proof",
-});
+const twoPairs = runPnc002Pipeline({ questionLanguageId: "PNC-QL-111", seed: "two-pairs-proof" });
 assert.deepEqual(twoPairs.solver.evidence.blockSizes, [2, 2]);
 assert.equal(twoPairs.solver.evidence.operation, "MULTIPLE_BLOCKS");
 
-const mixedRestriction = runPnc002Pipeline({
-  questionLanguageId: "PNC-QL-115",
-  seed: "mixed-block-proof",
-});
+const mixedRestriction = runPnc002Pipeline({ questionLanguageId: "PNC-QL-115", seed: "mixed-block-proof" });
 assert.equal(mixedRestriction.solver.evidence.operation, "BLOCK_WITH_EXTERNAL_PAIR_APART");
 assert.equal(
   (mixedRestriction.solver.evidence.validUnitArrangementCount ?? 0)
@@ -66,11 +73,35 @@ assert.equal(
   mixedRestriction.solver.evidence.externalArrangementCount,
 );
 
-for (const qlId of ["PNC-QL-116", "PNC-QL-117", "PNC-QL-118"]) {
-  const inverse = runPnc002Pipeline({
-    questionLanguageId: qlId,
-    seed: `inverse-proof:${qlId}`,
-  });
+const separatedBlocks = runPnc002Pipeline({ questionLanguageId: "PNC-QL-120", seed: "separated-block-proof" });
+assert.equal(separatedBlocks.solver.evidence.operation, "TWO_BLOCKS_TOGETHER_NOT_ADJACENT");
+assert.equal(
+  (separatedBlocks.solver.evidence.validUnitArrangementCount ?? 0)
+    + (separatedBlocks.solver.evidence.forbiddenAdjacentUnitCount ?? 0),
+  separatedBlocks.solver.evidence.externalArrangementCount,
+);
+
+const blockOutsider = runPnc002Pipeline({ questionLanguageId: "PNC-QL-121", seed: "block-outsider-proof" });
+assert.equal(blockOutsider.solver.evidence.operation, "BLOCK_WITH_OUTSIDER_NOT_ADJACENT");
+
+const oneBlockOtherBroken = runPnc002Pipeline({ questionLanguageId: "PNC-QL-122", seed: "one-block-other-broken-proof" });
+assert.equal(oneBlockOtherBroken.solver.evidence.operation, "ONE_BLOCK_TOGETHER_OTHER_BROKEN");
+assert.equal(
+  (oneBlockOtherBroken.solver.evidence.allSpecifiedBlocksTogetherCount ?? 0)
+    + oneBlockOtherBroken.solver.numericAnswer,
+  oneBlockOtherBroken.solver.evidence.primaryRestrictionCount,
+);
+
+const notAllBlocks = runPnc002Pipeline({ questionLanguageId: "PNC-QL-123", seed: "not-all-blocks-proof" });
+assert.equal(notAllBlocks.solver.evidence.operation, "NOT_ALL_BLOCKS_TOGETHER");
+assert.equal(
+  (notAllBlocks.solver.evidence.allSpecifiedBlocksTogetherCount ?? 0)
+    + notAllBlocks.solver.numericAnswer,
+  notAllBlocks.solver.evidence.unrestrictedCount,
+);
+
+for (const qlId of ["PNC-QL-116", "PNC-QL-117", "PNC-QL-118", "PNC-QL-124"]) {
+  const inverse = runPnc002Pipeline({ questionLanguageId: qlId, seed: `inverse-proof:${qlId}` });
   assert.equal(inverse.solver.evidence.operation, "BLOCK_INVERSE");
   assert.equal(inverse.independentVerification.answer, inverse.solver.numericAnswer);
   assert.equal(inverse.validation.valid, true);
@@ -86,9 +117,7 @@ for (const entry of entries) {
     assert.equal(second.stem, first.stem, `${entry.qlId} stem determinism`);
     assert.deepEqual(second.options, first.options, `${entry.qlId} option determinism`);
     assert.deepEqual(second.explanation, first.explanation, `${entry.qlId} explanation determinism`);
-    assert.equal(first.validation.valid, true, `${entry.qlId} validation: ${
-      first.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",")
-    }`);
+    assert.equal(first.validation.valid, true, `${entry.qlId} validation: ${first.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",")}`);
     assert.equal(first.independentVerification.answer, first.solver.numericAnswer);
     assert.equal(first.options.length, 4);
     assert.equal(new Set(first.options).size, 4);
@@ -99,14 +128,8 @@ for (const entry of entries) {
   }
 }
 
-assert.throws(
-  () => runPnc002Pipeline({ questionLanguageId: "PNC-QL-107", language: "hi", seed: "unsupported-hi" }),
-  /not implemented/,
-);
-assert.throws(
-  () => runPnc002Pipeline({ questionLanguageId: "PNC-QL-107", language: "pa", seed: "unsupported-pa" }),
-  /not implemented/,
-);
+assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-107", language: "hi", seed: "unsupported-hi" }), /not implemented/);
+assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-107", language: "pa", seed: "unsupported-pa" }), /not implemented/);
 
 const audit = auditPnc002Coverage();
 assert.equal(audit.passed, true, JSON.stringify(audit, null, 2));
@@ -114,10 +137,7 @@ assert.equal(audit.passed, true, JSON.stringify(audit, null, 2));
 const reviewDirectory = resolve(process.cwd(), "dist/quant-v4/pnc-002-cp007-review");
 mkdirSync(reviewDirectory, { recursive: true });
 const reviewRows = entries.map((entry) => {
-  const generated = runPnc002Pipeline({
-    questionLanguageId: entry.qlId,
-    seed: `pnc-002-review:${entry.qlId}`,
-  });
+  const generated = runPnc002Pipeline({ questionLanguageId: entry.qlId, seed: `pnc-002-review:${entry.qlId}` });
   return {
     qlId: entry.qlId,
     cpId: entry.cpId,
@@ -134,31 +154,13 @@ const reviewRows = entries.map((entry) => {
     mathematicalFingerprint: generated.mathematicalFingerprint,
   };
 });
-writeFileSync(
-  resolve(reviewDirectory, "pnc-002-cp007-question-explanation-review.json"),
-  `${JSON.stringify(reviewRows, null, 2)}\n`,
-  "utf8",
-);
+writeFileSync(resolve(reviewDirectory, "pnc-002-cp007-question-explanation-review.json"), `${JSON.stringify(reviewRows, null, 2)}\n`, "utf8");
 
 function csvCell(value: unknown): string {
   const text = String(value ?? "").replace(/\r?\n/g, "\\n");
   return `"${text.replace(/"/g, '""')}"`;
 }
-const columns = [
-  "qlId",
-  "cpId",
-  "difficulty",
-  "solveMode",
-  "stem",
-  "options",
-  "correctIndex",
-  "answer",
-  "equation",
-  "mathJax",
-  "explanation",
-  "validation",
-  "mathematicalFingerprint",
-] as const;
+const columns = ["qlId", "cpId", "difficulty", "solveMode", "stem", "options", "correctIndex", "answer", "equation", "mathJax", "explanation", "validation", "mathematicalFingerprint"] as const;
 const csvRows = [
   columns.map(csvCell).join(","),
   ...reviewRows.map((row) => columns.map((column) => {
@@ -166,11 +168,7 @@ const csvRows = [
     return csvCell(Array.isArray(value) ? value.join("\n") : value);
   }).join(",")),
 ];
-writeFileSync(
-  resolve(reviewDirectory, "pnc-002-cp007-question-explanation-review.csv"),
-  `${csvRows.join("\n")}\n`,
-  "utf8",
-);
+writeFileSync(resolve(reviewDirectory, "pnc-002-cp007-question-explanation-review.csv"), `${csvRows.join("\n")}\n`, "utf8");
 
 console.log(JSON.stringify({
   packageId: "PNC-002",
