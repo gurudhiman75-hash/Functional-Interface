@@ -1,0 +1,7 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "SPECIFIED_MEMBER_RANGE":{"orderMatters":false,"linear":false,"rule":"The number selected from the specially identified subset must lie within an inclusive lower and upper bound."},
+    "TWO_CATEGORY_RANGE":{"orderMatters":false,"linear":false,"rule":"The Category-A selection count must lie within the feasible interval imposed by the stated category bounds."}
+  }
+}

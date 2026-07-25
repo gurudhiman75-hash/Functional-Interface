@@ -1,13 +1,13 @@
 export const PNC_002_PACKAGE_ID = "PNC-002" as const;
 export const PNC_002_CP_IDS = ["PNC-CP-007", "PNC-CP-008", "PNC-CP-009", "PNC-CP-010", "PNC-CP-011", "PNC-CP-012"] as const;
-export const PNC_002_ACTIVE_CP_IDS = ["PNC-CP-007", "PNC-CP-008"] as const;
+export const PNC_002_ACTIVE_CP_IDS = ["PNC-CP-007", "PNC-CP-008", "PNC-CP-009"] as const;
 export type Pnc002CanonicalProblemId = (typeof PNC_002_CP_IDS)[number];
 export type Pnc002ActiveCanonicalProblemId = (typeof PNC_002_ACTIVE_CP_IDS)[number];
 export type Pnc002Language = "en" | "hi" | "pa";
 export type Pnc002Difficulty = "Easy" | "Medium" | "Hard";
 export type Pnc002Maturity = "DESIGN_LOCKED" | "RUNTIME_PROOF" | "MVP_QA" | "PRODUCTION_QA" | "MANUAL_REVIEW" | "FROZEN";
 export type Pnc002AnswerType = "COUNT";
-export type Pnc002TaskKind = "linearBlockRestriction" | "linearPositionGapRestriction";
+export type Pnc002TaskKind = "linearBlockRestriction" | "linearPositionGapRestriction" | "conditionalSelection";
 export type Pnc002Cp007SolveMode =
   | "countSingleBlockTogether" | "countSingleBlockNotTogether" | "countMultipleBlocksTogether"
   | "countBlockWithExternalPairApart" | "countTwoBlocksTogetherNotAdjacent" | "countBlockWithOutsiderNotAdjacent"
@@ -19,7 +19,29 @@ export type Pnc002Cp008SolveMode =
   | "countSpecifiedObjectsInPositionClass" | "recoverPositionGapParameter"
   | "countObjectsAtPrescribedPositions" | "countSpecifiedSetInPositionSet" | "countAtMostGapBetweenPair"
   | "countDirectionalExactGapBetweenPair" | "countAtLeastSpecifiedObjectsInPositionClass";
-export type Pnc002SolveMode = Pnc002Cp007SolveMode | Pnc002Cp008SolveMode;
+export type Pnc002Cp009SolveMode =
+  | "countWithCompulsoryMembers"
+  | "countWithExcludedMembers"
+  | "countWithCompulsoryAndExcludedMembers"
+  | "countExactlyFromTwoCategories"
+  | "countAtLeastFromTwoCategories"
+  | "countAtMostFromTwoCategories"
+  | "countAtLeastOneFromCategory"
+  | "countAtLeastOneFromEachOfTwoCategories"
+  | "countExactThreeCategoryDistribution"
+  | "countAtLeastOneFromEachOfThreeCategories"
+  | "countExactlyTSpecifiedMembers"
+  | "countAtLeastOneSpecifiedMember"
+  | "countNotAllSpecifiedMembersTogether"
+  | "countAllOrNoneSpecifiedMembers"
+  | "countImplicationBetweenSpecifiedMembers"
+  | "countAtMostTSpecifiedMembers"
+  | "countNamedCompulsoryWithCategoryQuota"
+  | "countNamedExcludedWithCategoryQuota"
+  | "recoverConditionalSelectionParameter"
+  | "countSpecifiedMemberRange"
+  | "countTwoCategoryRange";
+export type Pnc002SolveMode = Pnc002Cp007SolveMode | Pnc002Cp008SolveMode | Pnc002Cp009SolveMode;
 
 export interface Pnc002QuestionLanguageEntry { qlId: string; cpId: Pnc002ActiveCanonicalProblemId; difficulty: Pnc002Difficulty; template: string; }
 export interface Pnc002RegistryGroup {
@@ -55,7 +77,15 @@ export interface Pnc002SolverEvidence {
     | "NO_TWO_CATEGORY_MEMBERS_ADJACENT" | "EXACT_GAP_BETWEEN_PAIR" | "AT_LEAST_GAP_BETWEEN_PAIR"
     | "SPECIFIED_OBJECTS_IN_POSITION_CLASS" | "POSITION_GAP_INVERSE"
     | "OBJECTS_AT_PRESCRIBED_POSITIONS" | "SPECIFIED_SET_IN_POSITION_SET" | "AT_MOST_GAP_BETWEEN_PAIR"
-    | "DIRECTIONAL_EXACT_GAP" | "AT_LEAST_SPECIFIED_IN_POSITION_CLASS";
+    | "DIRECTIONAL_EXACT_GAP" | "AT_LEAST_SPECIFIED_IN_POSITION_CLASS"
+    | "COMPULSORY_MEMBERS" | "EXCLUDED_MEMBERS" | "COMPULSORY_AND_EXCLUDED"
+    | "EXACT_TWO_CATEGORY_QUOTA" | "AT_LEAST_TWO_CATEGORY_QUOTA" | "AT_MOST_TWO_CATEGORY_QUOTA"
+    | "AT_LEAST_ONE_CATEGORY" | "AT_LEAST_ONE_EACH_TWO_CATEGORIES"
+    | "EXACT_THREE_CATEGORY_DISTRIBUTION" | "AT_LEAST_ONE_EACH_THREE_CATEGORIES"
+    | "EXACT_SPECIFIED_MEMBERS" | "AT_LEAST_ONE_SPECIFIED_MEMBER" | "NOT_ALL_SPECIFIED_TOGETHER"
+    | "ALL_OR_NONE_SPECIFIED" | "MEMBER_IMPLICATION" | "AT_MOST_SPECIFIED_MEMBERS"
+    | "NAMED_COMPULSORY_CATEGORY_QUOTA" | "NAMED_EXCLUDED_CATEGORY_QUOTA" | "CONDITIONAL_SELECTION_INVERSE"
+    | "SPECIFIED_MEMBER_RANGE" | "TWO_CATEGORY_RANGE";
   totalObjects: number; blockSizes: number[]; groupedObjectCount: number; blockCount: number; unitCount: number;
   externalArrangementCount: number; internalArrangementCounts: number[]; internalArrangementMultiplier: number;
   unrestrictedCount?: number; forbiddenTogetherCount?: number; validUnitArrangementCount?: number;
@@ -69,7 +99,13 @@ export interface Pnc002SolverEvidence {
   eligibleClassPositions?: number; ineligibleClassPositions?: number; selectedSpecifiedCount?: number;
   eligibleAssignmentCount?: number; ineligibleAssignmentCount?: number; ordinaryArrangementCount?: number;
   positionSetAssignmentCount?: number; acceptedClassCounts?: number[]; positionClassCaseCounts?: number[];
-  target?: number; recoveredParameter?: "n" | "blockSize" | "gap"; searchMinimum?: number; searchMaximum?: number;
+  committeeSize?: number; compulsoryCount?: number; excludedCount?: number; remainingEligibleCount?: number;
+  remainingSelectionCount?: number; categorySizes?: number[]; requiredCategoryCounts?: number[];
+  requiredFromA?: number; requiredFromB?: number; minimumFromA?: number; maximumFromA?: number; minimumFromB?: number;
+  acceptedSelectionCounts?: number[]; selectionCaseCounts?: number[]; forbiddenCount?: number;
+  requiredSpecified?: number; minimumSpecified?: number; maximumSpecified?: number; remainingCategoryASelection?: number;
+  target?: number; recoveredParameter?: "n" | "blockSize" | "gap" | "totalObjects" | "categorySize";
+  searchMinimum?: number; searchMaximum?: number;
 }
 export interface Pnc002SolverResult { exactAnswer: string; answer: string; numericAnswer: number; equation: string; mathJax: string; evidence: Pnc002SolverEvidence; }
 export interface Pnc002IndependentVerification { supported: boolean; answer: number; method: string; }

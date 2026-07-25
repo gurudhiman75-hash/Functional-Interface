@@ -1,0 +1,24 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "COMPULSORY_MEMBERS":{"orderMatters":false,"linear":false,"rule":"All named compulsory members must belong to the selected set."},
+    "EXCLUDED_MEMBERS":{"orderMatters":false,"linear":false,"rule":"All named excluded members must remain outside the selected set."},
+    "COMPULSORY_AND_EXCLUDED":{"orderMatters":false,"linear":false,"rule":"The compulsory member is selected and the excluded member is not selected."},
+    "EXACT_TWO_CATEGORY_QUOTA":{"orderMatters":false,"linear":false,"rule":"The selected set contains exactly the required count from Category A and the balance from Category B."},
+    "AT_LEAST_TWO_CATEGORY_QUOTA":{"orderMatters":false,"linear":false,"rule":"The selected set contains at least the stated count from Category A."},
+    "AT_MOST_TWO_CATEGORY_QUOTA":{"orderMatters":false,"linear":false,"rule":"The selected set contains at most the stated count from Category A."},
+    "AT_LEAST_ONE_CATEGORY":{"orderMatters":false,"linear":false,"rule":"At least one selected member belongs to Category A."},
+    "AT_LEAST_ONE_EACH_TWO_CATEGORIES":{"orderMatters":false,"linear":false,"rule":"At least one selected member belongs to each of two categories."},
+    "EXACT_THREE_CATEGORY_DISTRIBUTION":{"orderMatters":false,"linear":false,"rule":"The selected set follows the stated exact distribution across three categories."},
+    "AT_LEAST_ONE_EACH_THREE_CATEGORIES":{"orderMatters":false,"linear":false,"rule":"At least one selected member belongs to each of three categories."},
+    "EXACT_SPECIFIED_MEMBERS":{"orderMatters":false,"linear":false,"rule":"Exactly the stated number of specially identified members are selected."},
+    "AT_LEAST_ONE_SPECIFIED_MEMBER":{"orderMatters":false,"linear":false,"rule":"At least one specially identified member is selected."},
+    "NOT_ALL_SPECIFIED_TOGETHER":{"orderMatters":false,"linear":false,"rule":"The specially identified members may not all be selected together."},
+    "ALL_OR_NONE_SPECIFIED":{"orderMatters":false,"linear":false,"rule":"Either every specially identified member is selected or none is selected."},
+    "MEMBER_IMPLICATION":{"orderMatters":false,"linear":false,"rule":"Selecting B requires selecting A; committees containing B without A are invalid."},
+    "AT_MOST_SPECIFIED_MEMBERS":{"orderMatters":false,"linear":false,"rule":"At most the stated number of specially identified members are selected."},
+    "NAMED_COMPULSORY_CATEGORY_QUOTA":{"orderMatters":false,"linear":false,"rule":"A named Category-A member is compulsory and the final Category-A quota is exact."},
+    "NAMED_EXCLUDED_CATEGORY_QUOTA":{"orderMatters":false,"linear":false,"rule":"A named Category-A member is unavailable and the final Category-A quota is exact."},
+    "CONDITIONAL_SELECTION_INVERSE":{"orderMatters":false,"linear":false,"rule":"A bounded integer parameter is recovered from an exact conditional-selection count."}
+  }
+}

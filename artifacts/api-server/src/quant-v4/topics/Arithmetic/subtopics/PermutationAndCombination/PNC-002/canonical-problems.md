@@ -6,8 +6,8 @@
 |---|---|---|
 | `PNC-CP-007` | specified objects together/apart, one or more linear blocks, internal block orders and direct block complements | Current English ownership saturated; runtime proof |
 | `PNC-CP-008` | fixed positions, starts/ends, relative order, alternation, position classes and explicit gap placement | Current English ownership saturated; runtime proof |
-| `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Next boundary |
-| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Not started |
+| `PNC-CP-009` | compulsory/excluded members, named-member logic, category quotas and bounded conditional selection | Current English ownership saturated; runtime proof |
+| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Next boundary |
 | `PNC-CP-011` | labelled/unlabelled grouping and distribution | Not started |
 | `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
 
@@ -39,14 +39,27 @@
 - exact and at-least counts of specified objects in odd/even position classes;
 - bounded recovery of an exact gap parameter.
 
+## CP-009 represented scope
+
+- compulsory, excluded, and compulsory-plus-excluded named members;
+- exact, at-least and at-most quotas across two categories;
+- at least one member from one category or from every required category;
+- exact distributions and positive participation across three categories;
+- exact, at-least, at-most and inclusive-range counts from a specified subset;
+- exactly one, at least one, not both, all-or-none and implication relations between named members;
+- simultaneous lower and upper bounds across two categories;
+- a compulsory or excluded named member combined with an exact category quota;
+- bounded recovery of total pool size or category size from a conditional count.
+
 ## Negative boundaries
 
-CP-007 and CP-008 do not own:
+CP-007 through CP-009 do not own:
 
-- circular together/apart, position or gap conditions — CP-010;
-- compulsory/excluded member selection or category quotas — CP-009;
+- unrestricted direct selection — CP-003;
+- selection followed by offices, ranks or arrangement — CP-006;
+- circular arrangements or circular restrictions — CP-010;
 - labelled or unlabelled grouping and distribution — CP-011;
-- exactly-one event systems or broader mixed inclusion–exclusion — CP-012;
+- broader mixed event systems whose primary contract is general inclusion–exclusion — CP-012;
 - word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005.
 
-Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-147`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-148`.
+Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-176`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-177`.

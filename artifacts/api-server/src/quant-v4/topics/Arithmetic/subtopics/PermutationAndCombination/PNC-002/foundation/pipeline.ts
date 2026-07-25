@@ -1,14 +1,20 @@
 import { renderPnc002Explanation } from "./explanation-renderer";
 import { renderPnc002Cp008Explanation } from "./explanation-renderer-cp008";
 import { renderPnc002Cp008SaturationExplanation } from "./explanation-renderer-cp008-saturation";
+import { renderPnc002Cp009Explanation } from "./explanation-renderer-cp009";
+import { renderPnc002Cp009SaturationExplanation } from "./explanation-renderer-cp009-saturation";
 import { getPnc002QuestionEntry, renderPnc002Template } from "./library";
 import { buildPnc002Options } from "./option-generator";
 import { buildPnc002Cp008Options } from "./option-generator-cp008";
 import { buildPnc002Cp008SaturationOptions } from "./option-generator-cp008-saturation";
+import { buildPnc002Cp009Options } from "./option-generator-cp009";
+import { buildPnc002Cp009SaturationOptions } from "./option-generator-cp009-saturation";
 import { generatePnc002Parameters } from "./parameter-generator";
 import { buildPnc002ReasoningEvidence } from "./reasoning-graph";
 import { buildPnc002Cp008ReasoningEvidence } from "./reasoning-graph-cp008";
 import { buildPnc002Cp008SaturationReasoningEvidence } from "./reasoning-graph-cp008-saturation";
+import { buildPnc002Cp009ReasoningEvidence } from "./reasoning-graph-cp009";
+import { buildPnc002Cp009SaturationReasoningEvidence } from "./reasoning-graph-cp009-saturation";
 import { solvePnc002, verifyPnc002Independently } from "./solver";
 import { solvePnc002Cp008, verifyPnc002Cp008Independently } from "./solver-cp008";
 import {
@@ -16,6 +22,12 @@ import {
   solvePnc002Cp008Saturation,
   verifyPnc002Cp008SaturationIndependently,
 } from "./solver-cp008-saturation";
+import { solvePnc002Cp009, verifyPnc002Cp009Independently } from "./solver-cp009";
+import {
+  isPnc002Cp009SaturationMode,
+  solvePnc002Cp009Saturation,
+  verifyPnc002Cp009SaturationIndependently,
+} from "./solver-cp009-saturation";
 import type {
   Pnc002Cp008SolveMode,
   Pnc002ParameterInput,
@@ -25,41 +37,65 @@ import type {
 import { validatePnc002QuestionPackage } from "./validator";
 import { validatePnc002Cp008QuestionPackage } from "./validator-cp008";
 import { validatePnc002Cp008SaturationQuestionPackage } from "./validator-cp008-saturation";
+import { validatePnc002Cp009QuestionPackage } from "./validator-cp009";
+import { validatePnc002Cp009SaturationQuestionPackage } from "./validator-cp009-saturation";
 
 export function runPnc002Pipeline(input: Pnc002ParameterInput = {}): Pnc002QuestionPackage {
   const parameters = generatePnc002Parameters(input);
   const entry = getPnc002QuestionEntry(parameters.questionLanguageId);
   const isCp008 = parameters.canonicalProblemId === "PNC-CP-008";
+  const isCp009 = parameters.canonicalProblemId === "PNC-CP-009";
   const isCp008Saturation = isCp008 && isPnc002Cp008SaturationMode(parameters.solveMode);
+  const isCp009Saturation = isCp009 && isPnc002Cp009SaturationMode(parameters.solveMode);
   const cp007Parameters = parameters as Pnc002Parameters;
   const cp008Parameters = parameters as Pnc002Parameters<Pnc002Cp008SolveMode>;
 
-  const solver = isCp008Saturation
-    ? solvePnc002Cp008Saturation(parameters)
-    : isCp008
-      ? solvePnc002Cp008(cp008Parameters)
-      : solvePnc002(cp007Parameters);
-  const independentVerification = isCp008Saturation
-    ? verifyPnc002Cp008SaturationIndependently(parameters)
-    : isCp008
-      ? verifyPnc002Cp008Independently(cp008Parameters)
-      : verifyPnc002Independently(cp007Parameters);
-  const reasoningEvidence = isCp008Saturation
-    ? buildPnc002Cp008SaturationReasoningEvidence(parameters, solver, independentVerification)
-    : isCp008
-      ? buildPnc002Cp008ReasoningEvidence(cp008Parameters, solver, independentVerification)
-      : buildPnc002ReasoningEvidence(cp007Parameters, solver, independentVerification);
-  const explanation = isCp008Saturation
-    ? renderPnc002Cp008SaturationExplanation(parameters, solver, reasoningEvidence)
-    : isCp008
-      ? renderPnc002Cp008Explanation(cp008Parameters, solver, reasoningEvidence)
-      : renderPnc002Explanation(cp007Parameters, solver, reasoningEvidence);
+  const solver = isCp009Saturation
+    ? solvePnc002Cp009Saturation(parameters)
+    : isCp009
+      ? solvePnc002Cp009(parameters)
+      : isCp008Saturation
+        ? solvePnc002Cp008Saturation(parameters)
+        : isCp008
+          ? solvePnc002Cp008(cp008Parameters)
+          : solvePnc002(cp007Parameters);
+  const independentVerification = isCp009Saturation
+    ? verifyPnc002Cp009SaturationIndependently(parameters)
+    : isCp009
+      ? verifyPnc002Cp009Independently(parameters)
+      : isCp008Saturation
+        ? verifyPnc002Cp008SaturationIndependently(parameters)
+        : isCp008
+          ? verifyPnc002Cp008Independently(cp008Parameters)
+          : verifyPnc002Independently(cp007Parameters);
+  const reasoningEvidence = isCp009Saturation
+    ? buildPnc002Cp009SaturationReasoningEvidence(parameters, solver, independentVerification)
+    : isCp009
+      ? buildPnc002Cp009ReasoningEvidence(parameters, solver, independentVerification)
+      : isCp008Saturation
+        ? buildPnc002Cp008SaturationReasoningEvidence(parameters, solver, independentVerification)
+        : isCp008
+          ? buildPnc002Cp008ReasoningEvidence(cp008Parameters, solver, independentVerification)
+          : buildPnc002ReasoningEvidence(cp007Parameters, solver, independentVerification);
+  const explanation = isCp009Saturation
+    ? renderPnc002Cp009SaturationExplanation(parameters, solver, reasoningEvidence)
+    : isCp009
+      ? renderPnc002Cp009Explanation(parameters, solver, reasoningEvidence)
+      : isCp008Saturation
+        ? renderPnc002Cp008SaturationExplanation(parameters, solver, reasoningEvidence)
+        : isCp008
+          ? renderPnc002Cp008Explanation(cp008Parameters, solver, reasoningEvidence)
+          : renderPnc002Explanation(cp007Parameters, solver, reasoningEvidence);
   const stem = renderPnc002Template(entry.template, parameters.renderVariables);
-  const optionBundle = isCp008Saturation
-    ? buildPnc002Cp008SaturationOptions(parameters, solver)
-    : isCp008
-      ? buildPnc002Cp008Options(cp008Parameters, solver)
-      : buildPnc002Options(cp007Parameters, solver);
+  const optionBundle = isCp009Saturation
+    ? buildPnc002Cp009SaturationOptions(parameters, solver)
+    : isCp009
+      ? buildPnc002Cp009Options(parameters, solver)
+      : isCp008Saturation
+        ? buildPnc002Cp008SaturationOptions(parameters, solver)
+        : isCp008
+          ? buildPnc002Cp008Options(cp008Parameters, solver)
+          : buildPnc002Options(cp007Parameters, solver);
   const mathematicalFingerprint = [
     String(parameters.solveMode),
     ...Object.entries(parameters.values)
@@ -102,10 +138,14 @@ export function runPnc002Pipeline(input: Pnc002ParameterInput = {}): Pnc002Quest
   };
   return {
     ...packageWithoutValidation,
-    validation: isCp008Saturation
-      ? validatePnc002Cp008SaturationQuestionPackage(packageWithoutValidation)
-      : isCp008
-        ? validatePnc002Cp008QuestionPackage(packageWithoutValidation)
-        : validatePnc002QuestionPackage(packageWithoutValidation),
+    validation: isCp009Saturation
+      ? validatePnc002Cp009SaturationQuestionPackage(packageWithoutValidation)
+      : isCp009
+        ? validatePnc002Cp009QuestionPackage(packageWithoutValidation)
+        : isCp008Saturation
+          ? validatePnc002Cp008SaturationQuestionPackage(packageWithoutValidation)
+          : isCp008
+            ? validatePnc002Cp008QuestionPackage(packageWithoutValidation)
+            : validatePnc002QuestionPackage(packageWithoutValidation),
   };
 }

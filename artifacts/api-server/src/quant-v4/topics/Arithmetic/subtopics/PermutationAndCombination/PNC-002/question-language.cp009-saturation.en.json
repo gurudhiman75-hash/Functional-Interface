@@ -1,0 +1,11 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"qlId":"PNC-QL-173","cpId":"PNC-CP-009","difficulty":"Medium","template":"Among {totalObjects} people, {specifiedCount} are specially identified. How many committees of {committeeSize} contain at least {minimumSpecified} of those identified people?"},
+    {"qlId":"PNC-QL-174","cpId":"PNC-CP-009","difficulty":"Hard","template":"Among {totalObjects} people, {specifiedCount} are specially identified. How many committees of {committeeSize} contain from {minimumSpecified} through {maximumSpecified} identified people?"},
+    {"qlId":"PNC-QL-175","cpId":"PNC-CP-009","difficulty":"Medium","template":"A committee of {committeeSize} is selected from {categoryA} members of Category A and {categoryB} members of Category B. How many committees contain at least {minimumFromA} from Category A and at least {minimumFromB} from Category B?"},
+    {"qlId":"PNC-QL-176","cpId":"PNC-CP-009","difficulty":"Hard","template":"A committee of {committeeSize} is selected from {categoryA} members of Category A and {categoryB} members of Category B. How many committees contain from {minimumFromA} through {maximumFromA} members of Category A?"}
+  ]
+}
