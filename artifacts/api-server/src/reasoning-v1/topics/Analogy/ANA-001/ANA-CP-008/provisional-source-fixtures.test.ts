@@ -14,6 +14,7 @@ import {
   sameMixedToken,
 } from "./foundation/mixed-token";
 import {
+  provisionalMixedContextKey,
   provisionalMixedRuleById,
   type ProvisionalMixedContext,
   type ProvisionalMixedRuleId,
@@ -91,7 +92,7 @@ const fixtures: readonly SourceFixture[] = [
     ],
   },
   {
-    source: "Official-style three-pair item: TG13 : RC-2 :: GP19 : EL4",
+    source: "Three-pair item: TG13 : RC-2 :: GP19 : EL4",
     ruleId: "MIXED_CLUSTER_NUMBER_INDEPENDENT_VECTOR",
     context: { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-2, -4], numberDelta: -15 },
     evidence: [
@@ -136,11 +137,9 @@ for (const fixture of fixtures) {
     assert.ok(sameMixedToken(
       independentlyApplyProvisionalMixedRule(fixture.ruleId, fixture.context, evidence.input), evidence.output));
   }
+  const expectedContextKey = provisionalMixedContextKey(fixture.context);
   const matches = matchingProvisionalMixedRules(fixture.evidence);
-  assert.ok(matches.some((match) => match.ruleId === fixture.ruleId &&
-    match.contextKey === provisionalMixedRuleById(fixture.ruleId).contexts
-      .map((context) => JSON.stringify(context)).includes(JSON.stringify(fixture.context))
-      ? true : match.ruleId === fixture.ruleId));
+  assert.ok(matches.some((match) => match.ruleId === fixture.ruleId && match.contextKey === expectedContextKey));
 }
 
 console.log("ANA-CP-008 source fixture audit passed.", {
