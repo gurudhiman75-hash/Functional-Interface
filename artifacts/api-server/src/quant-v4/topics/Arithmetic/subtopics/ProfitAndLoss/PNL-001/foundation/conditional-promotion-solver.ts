@@ -84,18 +84,30 @@ export function solveConditionalPromotion(request: ConditionalPromotionRequest):
       };
     }
     case "DISCOUNT_FRACTION_TO_PERCENT": {
-      if (request.discountFraction.numerator < 0n || request.discountFraction.numerator > request.discountFraction.denominator) {
+      if (
+        request.discountFraction.denominator <= 0n ||
+        request.discountFraction.numerator < 0n ||
+        request.discountFraction.numerator > request.discountFraction.denominator
+      ) {
         throw new Error("Discount fraction must lie between zero and one.");
       }
       return {
         mode: request.mode,
-        discountPercent: multiplyMoney({ paise: 100n }, request.discountFraction).paise === 0n
-          ? rational(0)
-          : rational(100n * request.discountFraction.numerator, request.discountFraction.denominator),
+        discountPercent: rational(
+          100n * request.discountFraction.numerator,
+          request.discountFraction.denominator,
+        ),
       };
     }
     case "PAID_TO_MARKED_RATIO_TO_DISCOUNT": {
-      if (request.markedPart.numerator <= 0n || request.paidPart.numerator < 0n) throw new Error("Ratio parts must be valid.");
+      if (
+        request.markedPart.denominator <= 0n ||
+        request.paidPart.denominator <= 0n ||
+        request.markedPart.numerator <= 0n ||
+        request.paidPart.numerator < 0n
+      ) {
+        throw new Error("Ratio parts must be valid.");
+      }
       const retained = divideRational(request.paidPart, request.markedPart);
       if (retained.numerator > retained.denominator) throw new Error("Paid part cannot exceed marked part in a discount question.");
       return {
