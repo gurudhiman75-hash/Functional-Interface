@@ -1,3 +1,5 @@
+import "./student-explanations.en";
+
 export type ClusterPresentationMode = "DIRECT_COMPLETION" | "PAIR_SELECTION";
 
 const RULE_FAMILIES = [
