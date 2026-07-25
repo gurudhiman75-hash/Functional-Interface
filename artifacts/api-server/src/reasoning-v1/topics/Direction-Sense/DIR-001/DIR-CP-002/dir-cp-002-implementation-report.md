@@ -18,7 +18,7 @@ Every stem is one continuous paragraph. It states the starting facing direction,
 Example form:
 
 ```text
-Aman starts from a point facing South and walks 8 metres, then turns right and walks 12 metres. In which direction is Aman's final position from the starting point?
+Aman starts from a point facing South and walks 8 metres; then turns right and walks 12 metres. In which direction is Aman's final position from the starting point?
 ```
 
 The stem does not use numbered instructions, point labels, coordinate language, or disclose the compass direction after every turn.
