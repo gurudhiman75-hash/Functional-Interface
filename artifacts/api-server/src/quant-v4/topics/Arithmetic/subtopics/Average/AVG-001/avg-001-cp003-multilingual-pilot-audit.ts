@@ -10,7 +10,7 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
 const CP003_CONTEXT_FINALIZER = "AVG-CP-003 localized context finalizer v2";
-const CP003_GRAMMAR_FINALIZER = "AVG-CP-003 localized explanation grammar finalizer v1";
+const CP003_GRAMMAR_FINALIZER = "AVG-CP-003 localized explanation grammar finalizer v2";
 const cpEntries = getAvg001QuestionEntries().filter((entry) => entry.cpId === "AVG-CP-003");
 const localizedQlIds = getAvg001Cp003LocalizedQlIds();
 const failures: string[] = [];
@@ -26,8 +26,8 @@ const proseOnly = (lines: string[]) => lines.join("\n").replace(/\$\$[\s\S]*?\$\
 const hindiRunWord = /(?:^|[^\u0900-\u097F])रन(?:$|[^\u0900-\u097F])|रनों/;
 const punjabiRunWord = /ਦੌੜ|ਪਾਰੀ|ਬੱਲੇਬਾਜ਼/;
 const forbiddenGrammar = {
-  hi: /(?:0 वर्ष बीतने|पहले 0 वर्ष बाद|पुराना अंक के साथ|पुराना माप के साथ|ज्ञात नया अंक|ज्ञात नया माप|नए सदस्य का आयु|नए शिक्षक का आयु|अगले दिन का बिक्री|अंतर औसत-वृद्धि से भाग दें|एक नई संख्या [\d,.]+ को समूह|जिसके बाद रन का औसत)/,
-  pa: /(?:0 ਸਾਲ ਬੀਤਣ|ਪਹਿਲਾਂ 0 ਸਾਲ ਬਾਅਦ|ਪੁਰਾਣਾ ਅੰਕ ਨਾਲ|ਪੁਰਾਣਾ ਮਾਪ ਨਾਲ|ਜਾਣੀ ਨਵਾਂ ਅੰਕ|ਜਾਣੀ ਨਵਾਂ ਮਾਪ|ਨਵੇਂ ਮੈਂਬਰ ਦਾ ਉਮਰ|ਨਵੇਂ ਅਧਿਆਪਕ ਦਾ ਉਮਰ|ਅਗਲੇ ਦਿਨ ਦਾ ਵਿਕਰੀ|ਫਰਕ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ|ਇੱਕ ਨਵੀਂ ਸੰਖਿਆ [\d,.]+ ਨੂੰ ਸਮੂਹ|ਜਿਸ ਤੋਂ ਬਾਅਦ ਦੌੜਾਂ ਦੀ ਔਸਤ)/,
+  hi: /(?:0 वर्ष बीतने|पहले 0 वर्ष बाद|पुराना अंक के साथ|पुराना माप के साथ|ज्ञात नया अंक|ज्ञात नया माप|नए सदस्य का आयु|नए शिक्षक का आयु|अगले दिन का बिक्री|का अंतर को|नई औसत दैनिक बिक्री|आयु के अंतर से आवश्यक आयु|एक नई संख्या [\d,.]+ को समूह|जिसके बाद रन का औसत)/,
+  pa: /(?:0 ਸਾਲ ਬੀਤਣ|ਪਹਿਲਾਂ 0 ਸਾਲ ਬਾਅਦ|ਪੁਰਾਣਾ ਅੰਕ ਨਾਲ|ਪੁਰਾਣਾ ਮਾਪ ਨਾਲ|ਜਾਣੀ ਨਵਾਂ ਅੰਕ|ਜਾਣੀ ਨਵਾਂ ਮਾਪ|ਜਾਣੀ ਹੋਈ ਨਵੇਂ|ਨਵੇਂ ਮੈਂਬਰ ਦਾ ਉਮਰ|ਨਵੇਂ ਅਧਿਆਪਕ ਦਾ ਉਮਰ|ਅਗਲੇ ਦਿਨ ਦਾ ਵਿਕਰੀ|ਦਾ ਫਰਕ ਨੂੰ|ਨਵੀਂ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ|ਉਮਰ ਦੇ ਫਰਕ ਤੋਂ ਲੋੜੀਂਦੀ ਉਮਰ|ਇੱਕ ਨਵੀਂ ਸੰਖਿਆ [\d,.]+ ਨੂੰ ਸਮੂਹ|ਜਿਸ ਤੋਂ ਬਾਅਦ ਦੌੜਾਂ ਦੀ ਔਸਤ|ਟੀਮ ਦਾ ਔਸਤ ਸਕੋਰ [\d,.]+ ਹੋ ਜਾਂਦੀ ਹੈ)/,
 };
 
 if (cpEntries.length !== 98) fail(`expected 98 CP-003 QLs; got ${cpEntries.length}`);
