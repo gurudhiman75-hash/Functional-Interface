@@ -24,14 +24,18 @@ import {
   countWithCompulsoryMembersExact,
   countWithExcludedMembersExact,
 } from "./foundation/solver-cp009";
+import {
+  countSpecifiedMemberRangeExact,
+  countTwoCategoryRangeExact,
+} from "./foundation/solver-cp009-saturation";
 
 const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-009");
-const checkpointIds = Array.from({ length: 25 }, (_, index) => `PNC-QL-${String(index + 148).padStart(3, "0")}`);
-assert.equal(entries.length, 25);
+const checkpointIds = Array.from({ length: 29 }, (_, index) => `PNC-QL-${String(index + 148).padStart(3, "0")}`);
+assert.equal(entries.length, 29);
 assert.deepEqual(entries.map((entry) => entry.qlId), checkpointIds);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 25);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 29);
 const difficultyCounts = Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]));
-assert.deepEqual(difficultyCounts, { Easy: 5, Medium: 12, Hard: 8 });
+assert.deepEqual(difficultyCounts, { Easy: 5, Medium: 14, Hard: 10 });
 const solveModeCounts = Object.fromEntries([...new Set(entries.map((entry) => entry.solveMode))].map((solveMode) => [solveMode, entries.filter((entry) => entry.solveMode === solveMode).length]));
 assert.deepEqual(solveModeCounts, {
   countWithCompulsoryMembers: 2,
@@ -53,6 +57,8 @@ assert.deepEqual(solveModeCounts, {
   countNamedCompulsoryWithCategoryQuota: 1,
   countNamedExcludedWithCategoryQuota: 1,
   recoverConditionalSelectionParameter: 2,
+  countSpecifiedMemberRange: 2,
+  countTwoCategoryRange: 2,
 });
 
 assert.equal(countWithCompulsoryMembersExact(9, 4, 1), 56);
@@ -73,6 +79,8 @@ assert.equal(countImplicationBetweenSpecifiedMembersExact(10, 5), 182);
 assert.equal(countAtMostTSpecifiedMembersExact(10, 5, 4, 2).answer, 186);
 assert.equal(countNamedCompulsoryWithCategoryQuotaExact(6, 5, 5, 3), 100);
 assert.equal(countNamedExcludedWithCategoryQuotaExact(6, 5, 5, 2), 100);
+assert.deepEqual(countSpecifiedMemberRangeExact(11, 5, 5, 3, 5), { answer: 181, acceptedCounts: [3, 4, 5], caseCounts: [150, 30, 1] });
+assert.deepEqual(countTwoCategoryRangeExact(7, 6, 6, 2, 4, 2), { answer: 1540, acceptedCounts: [2, 3, 4], caseCounts: [315, 700, 525] });
 
 for (const qlId of checkpointIds) {
   const sample = runPnc002Pipeline({ questionLanguageId: qlId, seed: `cp009-contract:${qlId}` });
@@ -85,6 +93,16 @@ const poolInverse = runPnc002Pipeline({ questionLanguageId: "PNC-QL-171", seed: 
 assert.equal(poolInverse.solver.evidence.recoveredParameter, "totalObjects");
 const categoryInverse = runPnc002Pipeline({ questionLanguageId: "PNC-QL-172", seed: "cp009-category-inverse-proof" });
 assert.equal(categoryInverse.solver.evidence.recoveredParameter, "categorySize");
+for (const [qlId, operation] of [
+  ["PNC-QL-173", "SPECIFIED_MEMBER_RANGE"],
+  ["PNC-QL-174", "SPECIFIED_MEMBER_RANGE"],
+  ["PNC-QL-175", "TWO_CATEGORY_RANGE"],
+  ["PNC-QL-176", "TWO_CATEGORY_RANGE"],
+] as const) {
+  const sample = runPnc002Pipeline({ questionLanguageId: qlId, seed: `cp009-saturation-contract:${qlId}` });
+  assert.equal(sample.solver.evidence.operation, operation);
+  assert.ok((sample.solver.evidence.selectionCaseCounts?.length ?? 0) >= 1);
+}
 
 let generatedCases = 0;
 for (const entry of entries) {
@@ -106,7 +124,7 @@ for (const entry of entries) {
     generatedCases += 1;
   }
 }
-assert.equal(generatedCases, 300);
+assert.equal(generatedCases, 348);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-148", language: "hi", seed: "unsupported-hi" }), /not implemented/);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-148", language: "pa", seed: "unsupported-pa" }), /not implemented/);
 const audit = auditPnc002Cp009Coverage();
