@@ -11,6 +11,8 @@ on:
       - artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-test-analytics.mjs
+      - docs/test-analytics-freeze-readiness.md
       - .github/workflows/test-analytics.yml
   push:
     branches: [New-main]
@@ -22,6 +24,8 @@ on:
       - artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-test-analytics.mjs
+      - docs/test-analytics-freeze-readiness.md
       - .github/workflows/test-analytics.yml
   workflow_dispatch:
 
@@ -43,37 +47,23 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+      - name: Run Test Analytics freeze validator
+        run: node .github/scripts/validate-test-analytics.mjs
       - name: Enforce canonical analytics contracts
         run: |
           grep -F 'router.use("/admin/analytics", adminTestAnalyticsQualityRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/analytics", adminTestAnalyticsRouter)' artifacts/api-server/src/routes/index.ts
           test "$(grep -n 'adminTestAnalyticsQualityRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminTestAnalyticsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
           grep -F "router.get('/tests/quality'" artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'missingFinalScore' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'missingResultSnapshot' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'responseCountMismatch' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'negativeTimeSpent' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F "WHEN \"scoredSample\" >= 50 THEN 'strong'" artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F "WHEN \"scoredSample\" >= 20 THEN 'usable'" artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F 'readOnly: true' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
-          grep -F "router.get('/tests'" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'rows.slice(0, MAX_VISIBLE_PUBLICATIONS)' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
+          grep -F 'truncated: rows.length > MAX_VISIBLE_PUBLICATIONS' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
           grep -F "router.get('/tests/export.csv'" artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F "router.get('/tests/:publicationId'" artifacts/api-server/src/routes/admin-test-analytics.ts
           test "$(grep -n "router.get('/tests/export.csv'" artifacts/api-server/src/routes/admin-test-analytics.ts | cut -d: -f1)" -lt "$(grep -n "router.get('/tests/:publicationId'" artifacts/api-server/src/routes/admin-test-analytics.ts | cut -d: -f1)"
-          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F "status::text IN ('evaluated', 'practice_evaluated')" artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'COUNT(DISTINCT a.user_id)' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'make_interval(days => ${days * 2})' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'completionRatePoints' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'periodComparison: true' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F 'aggregateCsvExport: true' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F "res.setHeader('Content-Type', 'text/csv; charset=utf-8')" artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'hasNumber' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'previousHasAttempts' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F 'const csvSafe' artifacts/api-server/src/routes/admin-test-analytics.ts
+          grep -F '/^[=+\-@]/' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F "res.setHeader('Cache-Control', 'no-store')" artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'percentile_cont(0.50)' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'ntile(10) OVER' artifacts/api-server/src/routes/admin-test-analytics.ts
@@ -81,14 +71,9 @@ jobs:
           grep -F 'sectionAnalytics: false' artifacts/api-server/src/routes/admin-test-analytics.ts
           grep -F 'questionAnalytics: false' artifacts/api-server/src/routes/admin-test-analytics.ts
           ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-test-analytics.ts
-          grep -F "path: '/analytics/tests/quality'" artifacts/admin-app/src/App.tsx
-          grep -F "path: '/analytics/tests/:publicationId'" artifacts/admin-app/src/App.tsx
-          test "$(grep -n "path: '/analytics/tests/quality'" artifacts/admin-app/src/App.tsx | cut -d: -f1)" -lt "$(grep -n "path: '/analytics/tests/:publicationId'" artifacts/admin-app/src/App.tsx | cut -d: -f1)"
-          grep -F "label: 'Analytics Data Quality'" artifacts/admin-app/src/app/nav/navigation.ts
-          grep -F 'Read-only diagnostics' artifacts/admin-app/src/pages/analytics/TestAnalyticsQualityPage.tsx
-          grep -F 'Diagnostics never modify attempts.' artifacts/admin-app/src/pages/analytics/TestAnalyticsQualityPage.tsx
-          grep -F 'equal-window trend comparison' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
-          grep -F 'Export CSV' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
+          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-test-analytics-quality.ts
+          grep -F 'Global totals include all matched publications' artifacts/admin-app/src/pages/analytics/TestAnalyticsQualityPage.tsx
+          grep -F 'No prior baseline' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
           ! grep -F '@/data/analytics' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
           ! grep -F 'demonstration data' artifacts/admin-app/src/pages/analytics/TestAnalyticsPage.tsx
       - name: Build API server
