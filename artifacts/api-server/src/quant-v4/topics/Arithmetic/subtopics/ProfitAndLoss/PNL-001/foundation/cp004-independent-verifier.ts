@@ -18,22 +18,9 @@ function multiplier(stage: TransactionStage): Rational {
   );
 }
 
-function multiplyFraction(
-  numerator: bigint,
-  denominator: bigint,
-  factor: Rational,
-): { numerator: bigint; denominator: bigint } {
-  return {
-    numerator: numerator * factor.numerator,
-    denominator: denominator * factor.denominator,
-  };
-}
-
-function roundedPaise(numerator: bigint, denominator: bigint): bigint {
-  if (denominator <= 0n) throw new Error("Verifier denominator must be positive.");
-  const quotient = numerator / denominator;
-  const remainder = numerator % denominator;
-  return remainder * 2n >= denominator ? quotient + 1n : quotient;
+function exactPaise(numerator: bigint, denominator: bigint): bigint | null {
+  if (denominator <= 0n || numerator % denominator !== 0n) return null;
+  return numerator / denominator;
 }
 
 export function verifyTransactionChainFinal(
@@ -47,11 +34,12 @@ export function verifyTransactionChainFinal(
   let numerator = initialCostPrice.paise;
   let denominator = 1n;
   for (const stage of stages) {
-    const next = multiplyFraction(numerator, denominator, multiplier(stage));
-    numerator = next.numerator;
-    denominator = next.denominator;
+    const factor = multiplier(stage);
+    numerator *= factor.numerator;
+    denominator *= factor.denominator;
   }
-  const expectedPaise = roundedPaise(numerator, denominator);
+  const expectedPaise = exactPaise(numerator, denominator);
+  if (expectedPaise === null) return { valid: false, reason: "Expected chain value is not an exact paise amount." };
   return {
     valid: expectedPaise === actualFinalSellingPrice.paise,
     expectedPaise,
@@ -74,7 +62,8 @@ export function verifyTransactionChainInitial(
     numerator *= factor.denominator;
     denominator *= factor.numerator;
   }
-  const expectedPaise = roundedPaise(numerator, denominator);
+  const expectedPaise = exactPaise(numerator, denominator);
+  if (expectedPaise === null) return { valid: false, reason: "Expected reverse-chain value is not an exact paise amount." };
   return {
     valid: expectedPaise === actualInitialCostPrice.paise,
     expectedPaise,
@@ -89,10 +78,11 @@ export function verifyCommissionNetReceipt(
 ): Cp004Verification {
   const retainedNumerator = 100n * commissionPercent.denominator - commissionPercent.numerator;
   const retainedDenominator = 100n * commissionPercent.denominator;
-  const expectedPaise = roundedPaise(
+  const expectedPaise = exactPaise(
     grossSellingPrice.paise * retainedNumerator,
     retainedDenominator,
   );
+  if (expectedPaise === null) return { valid: false, reason: "Expected net receipt is not an exact paise amount." };
   return {
     valid: expectedPaise === actualNetReceipt.paise,
     expectedPaise,
