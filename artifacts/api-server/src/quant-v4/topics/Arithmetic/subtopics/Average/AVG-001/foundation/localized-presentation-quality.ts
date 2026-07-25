@@ -5,6 +5,7 @@ import {
   applyAvg001LocalizedStemContextFidelity,
   AVG_001_LOCALIZED_STEM_CONTEXT_FIDELITY,
 } from "./localized-stem-context-fidelity";
+import { applyAvg001LocalizedStemContextFinalPolish } from "./localized-stem-context-final-polish";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
@@ -85,6 +86,7 @@ export function applyAvg001LocalizedPresentationQuality(
   const authoredStem = applyAvg001Cp003LocalizedStemAuthorship(pkg, language);
   const polishedStem = applyAvg001Cp003LocalizedStemFinalPolish(authoredStem, language);
   const contextFaithfulStem = applyAvg001LocalizedStemContextFidelity(polishedStem, language);
-  const humanized = applyAvg001HumanAuthoredExplanation(contextFaithfulStem);
+  const contextPolishedStem = applyAvg001LocalizedStemContextFinalPolish(contextFaithfulStem, language);
+  const humanized = applyAvg001HumanAuthoredExplanation(contextPolishedStem);
   return { ...humanized, validation: refreshValidation(humanized, language) };
 }
