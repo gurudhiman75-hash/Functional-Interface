@@ -7,6 +7,7 @@ export * from "./solver";
 export * from "./discount-solver";
 export * from "./promotion-solver";
 export * from "./conditional-promotion-solver";
+export * from "./cp002-independent-verifier";
 export * from "./independent-verifier";
 export * from "./parameter-generator";
 export * from "./validator";
