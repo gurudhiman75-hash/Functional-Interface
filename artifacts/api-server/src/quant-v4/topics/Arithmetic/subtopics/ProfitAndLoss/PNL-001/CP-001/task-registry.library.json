@@ -12,15 +12,23 @@
     "PNL-QL-005": {"solveMode":"CP_RATE_TO_SP","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"sellingPrice","requiredVariables":["costPrice","profitPercent"],"difficulty":"Easy"},
     "PNL-QL-006": {"solveMode":"CP_RATE_TO_SP","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"sellingPrice","requiredVariables":["costPrice","lossPercent"],"difficulty":"Easy"},
     "PNL-QL-007": {"solveMode":"SP_RATE_TO_CP","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["sellingPrice","profitPercent"],"difficulty":"Medium"},
-    "PNL-QL-008": {"solveMode":"SP_RATE_TO_CP","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["sellingPrice","lossPercent"],"difficulty":"Medium"}
+    "PNL-QL-008": {"solveMode":"SP_RATE_TO_CP","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["sellingPrice","lossPercent"],"difficulty":"Medium"},
+    "PNL-QL-009": {"solveMode":"AMOUNT_RATE_TO_CP","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["profitAmount","profitPercent"],"difficulty":"Medium"},
+    "PNL-QL-010": {"solveMode":"AMOUNT_RATE_TO_CP","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"costPrice","requiredVariables":["lossAmount","lossPercent"],"difficulty":"Medium"},
+    "PNL-QL-011": {"solveMode":"AMOUNT_CP_TO_RATE","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"profitPercentOnCP","requiredVariables":["profitAmount","costPrice"],"difficulty":"Easy"},
+    "PNL-QL-012": {"solveMode":"AMOUNT_CP_TO_RATE","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"lossPercentOnCP","requiredVariables":["lossAmount","costPrice"],"difficulty":"Easy"},
+    "PNL-QL-013": {"solveMode":"CP_SP_RATIO_TO_RATE","answerSemantic":"profitOrLossPercentOnCP","requiredVariables":["costPart","sellingPart"],"difficulty":"Medium"},
+    "PNL-QL-014": {"solveMode":"RATE_TO_CP_SP_RATIO","direction":"PROFIT","percentageBase":"COST_PRICE","answerSemantic":"costSellingRatio","requiredVariables":["profitPercent"],"difficulty":"Medium"},
+    "PNL-QL-015": {"solveMode":"RATE_TO_CP_SP_RATIO","direction":"LOSS","percentageBase":"COST_PRICE","answerSemantic":"costSellingRatio","requiredVariables":["lossPercent"],"difficulty":"Medium"},
+    "PNL-QL-016": {"solveMode":"MARGIN_SP_TO_PROFIT_CP","direction":"PROFIT","percentageBase":"SELLING_PRICE_TO_COST_PRICE","answerSemantic":"profitPercentOnCP","requiredVariables":["marginPercent"],"difficulty":"Hard"},
+    "PNL-QL-017": {"solveMode":"PROFIT_CP_TO_MARGIN_SP","direction":"PROFIT","percentageBase":"COST_PRICE_TO_SELLING_PRICE","answerSemantic":"profitMarginOnSP","requiredVariables":["profitPercent"],"difficulty":"Hard"}
   },
   "pendingDiscovery": [
-    "amount-and-rate-to-cost-price",
-    "cost-selling-ratio-to-rate",
-    "rate-to-cost-selling-ratio",
-    "profit-as-fraction-of-selling-price",
-    "margin-on-selling-price",
+    "profit-or-loss-as-fraction-of-cost-price",
+    "profit-or-loss-as-fraction-of-selling-price",
     "difference-between-selling-prices",
-    "coupled-fundamental-inverse-forms"
+    "same-article-two-sale-conditions",
+    "missing-rate-coupled-inverse-forms",
+    "algebraic-and-statement-presentations"
   ]
 }
