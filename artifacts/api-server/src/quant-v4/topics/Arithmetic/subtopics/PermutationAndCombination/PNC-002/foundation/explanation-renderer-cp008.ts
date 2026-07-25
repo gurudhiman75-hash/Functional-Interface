@@ -13,6 +13,9 @@ export function renderPnc002Cp008Explanation(
 ): Pnc002Explanation {
   const e = solver.evidence;
   const authored = getPnc002Explanation(parameters.questionLanguageId);
+  const internalGapValue = typeof parameters.values.gapCount === "number"
+    ? parameters.values.gapCount
+    : "";
   const variables: Record<string, string | number> = {
     answer: solver.answer,
     equation: `\\(${solver.mathJax}\\)`,
@@ -26,7 +29,7 @@ export function renderPnc002Cp008Explanation(
     smallCount: e.smallCount ?? parameters.renderVariables.smallCount ?? "",
     orientationCount: e.orientationCount ?? parameters.renderVariables.orientationCount ?? "",
     gapSlotCount: e.gapSlotCount ?? "",
-    gapCount: e.gapCount ?? parameters.values.gapCount ?? "",
+    gapCount: e.gapCount ?? internalGapValue,
     positionDistance: parameters.renderVariables.positionDistance ?? "",
     minimumGap: e.minimumGap ?? parameters.renderVariables.minimumGap ?? "",
     orderedPositionPairCount: e.orderedPositionPairCount ?? "",
