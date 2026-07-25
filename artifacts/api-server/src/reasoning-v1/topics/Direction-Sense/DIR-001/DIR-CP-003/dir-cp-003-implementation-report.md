@@ -31,15 +31,20 @@ Shortest return is handled as reference reversal inside `DIR-QL-007`; it does no
 
 ## Explanation and diagram contract
 
-The learner-facing explanation follows the approved CP-002 style:
+The learner-facing explanation follows the approved lightweight CP-002 style while visibly justifying the numeric result:
 
 1. one brief starting sentence;
 2. one plain sentence per movement leg;
-3. one net-movement sentence;
-4. one direct conclusion;
-5. one plain route diagram at the end.
+3. one net horizontal/vertical movement sentence;
+4. one direct shortest-distance calculation;
+5. one direct conclusion;
+6. one plain route diagram at the end.
 
-The diagram is reused from the approved plain path renderer and contains only Start, Finish, route arrows, distances, turn points and a small compass. It does not contain coordinate calculations, answer arrows, final-facing arrows, legends or embedded solution commentary.
+For two non-zero net components, the calculation shows the straight-line step in the form `√(horizontal² + vertical²)` and then the integer, simplified-radical or one-decimal result. For an axis-aligned result, it explains that only one net direction remains after cancellation.
+
+For `DIR-QL-006`, `DIR-QL-007`, `DIR-QL-008` and `DIR-QL-010`, the final diagram includes a light dashed Start-to-Finish line and a separate protected key containing `Shortest distance` and its value. The key contains no crossing line. `DIR-QL-009` does not show this overlay because its answer demand is the missing movement length rather than displacement.
+
+The route diagram otherwise remains plain: Start, Finish, route arrows, distances, turn points and a small compass. It does not contain coordinates, final-facing arrows, heavy method boxes or embedded solution commentary.
 
 ## Validation
 
@@ -51,6 +56,11 @@ The checkpoint proof generates `120` seeds per QL (`600` cases total) and checks
 - four unique options with one correct answer;
 - independent-solver agreement;
 - movement/explanation/diagram parity;
+- shortest-distance calculation presence for all displacement QLs;
+- exact one-to-one Start-to-Finish dashed-line and key presence;
+- no shortest-distance overlay for the inverse missing-movement QL;
+- no line inside the shortest-distance key;
+- reserved compass/footer zones and unobstructed key text;
 - axis and Pythagorean coverage;
 - all eight direction-distance answers;
 - both query references;
