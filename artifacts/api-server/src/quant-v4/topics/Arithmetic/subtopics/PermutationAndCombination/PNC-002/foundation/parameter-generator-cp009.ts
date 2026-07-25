@@ -116,6 +116,18 @@ export function buildPnc002Cp009Values(
         searchMaximum: Math.max(...pools.inverseCategoryAValues),
       };
     }
+    case "PNC-QL-173":
+      return copyState(pickSeeded(pools.specifiedAtLeastStates, random));
+    case "PNC-QL-174":
+      return copyState(pickSeeded(pools.specifiedRangeStates, random));
+    case "PNC-QL-175": {
+      const state = copyState(pickSeeded(pools.dualMinimumCategoryStates, random));
+      return { ...state, totalObjects: state.categoryA + state.categoryB };
+    }
+    case "PNC-QL-176": {
+      const state = copyState(pickSeeded(pools.boundedCategoryStates, random));
+      return { ...state, totalObjects: state.categoryA + state.categoryB };
+    }
     default:
       throw new Error(`Unsupported PNC-002 CP-009 QL: ${entry.qlId}`);
   }
