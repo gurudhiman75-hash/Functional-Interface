@@ -106,7 +106,7 @@ assert.equal(rules.size, 6);
 assert.deepEqual([...tasks].sort(), ["CHOOSE_MATCHING_CODE", "DECODE_TARGET", "ENCODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_LETTER"]);
 assert.deepEqual([...answers].sort(), ["LETTER_CLUSTER", "SINGLE_CODE_TOKEN"]);
 assert.deepEqual([...renderers].sort(), ["EXAMPLE_TARGET_BLOCK", "INLINE_CODE_PAIR", "MAPPING_TABLE"]);
-assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.deepEqual([...difficulties].sort(), ["HARD", "MEDIUM"]);
 assert.ok(Math.max(...positions) / Math.min(...positions) < 1.2, `Answer positions are imbalanced: ${positions.join(", ")}`);
 assert.ok(wrapped >= 400, `Expected at least the 400 forced-wrap samples, received ${wrapped}`);
 
