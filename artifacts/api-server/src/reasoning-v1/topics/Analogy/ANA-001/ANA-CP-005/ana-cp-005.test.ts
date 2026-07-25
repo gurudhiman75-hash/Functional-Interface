@@ -1,10 +1,23 @@
 import assert from "node:assert/strict";
-import { letterFromPosition } from "../foundation/alphabet";
+import { letterFromPosition, letterPosition } from "../foundation/alphabet";
 import { checkAlphabetAmbiguity } from "./ambiguity-checker";
 import { generateAlphabetAnalogy } from "./generator";
 import { matchingAlphabetRules, solveAlphabetRule } from "./independent-solver";
 import { ANA_CP005_QLS } from "./question-language.en";
 import { ANA_CP005_RULES } from "./rule-definitions";
+
+const EXPECTED_RULE_IDS = [
+  "ALPHA_FIXED_SHIFT_FORWARD",
+  "ALPHA_FIXED_SHIFT_BACKWARD",
+  "ALPHA_CYCLIC_SHIFT_FORWARD",
+  "ALPHA_CYCLIC_SHIFT_BACKWARD",
+  "ALPHA_OPPOSITE",
+  "ALPHA_EQUAL_DISTANCE",
+  "ALPHA_REVERSE_POSITION",
+  "ALPHA_DOUBLED_MOVEMENT",
+  "ALPHA_CLASS_CORRESPONDENCE",
+  "ALPHA_TWO_STEP_POSITION",
+] as const;
 
 assert.equal(ANA_CP005_QLS.length, 20);
 assert.equal(new Set(ANA_CP005_QLS.map((ql) => ql.qlId)).size, 20);
@@ -12,25 +25,32 @@ assert.deepEqual(
   ANA_CP005_QLS.map((ql) => ql.qlId),
   Array.from({ length: 20 }, (_, index) => `ANA-QL-${String(141 + index).padStart(3, "0")}`),
 );
-assert.equal(ANA_CP005_RULES.length, 10);
-assert.equal(new Set(ANA_CP005_RULES.map((rule) => rule.id)).size, 10);
+assert.deepEqual(ANA_CP005_RULES.map((rule) => rule.id), EXPECTED_RULE_IDS);
+assert.deepEqual(
+  ANA_CP005_QLS.filter((_, index) => index % 2 === 0).map((ql) => ql.presentationMode),
+  Array(10).fill("DIRECT_COMPLETION"),
+);
+assert.deepEqual(
+  ANA_CP005_QLS.filter((_, index) => index % 2 === 1).map((ql) => ql.presentationMode),
+  Array(10).fill("PAIR_SELECTION"),
+);
+assert.ok(ANA_CP005_QLS.every((ql) => ql.taskKind === "singleLetterTransform"));
+assert.ok(ANA_CP005_QLS.every((ql) => ql.solveMode === "ALPHABET_RULE"));
 
-// Registry-level collision audit: no two rule/context combinations may produce
-// the same complete mapping across their shared eligible domain.
+// Registry-level collision audit: compare only positions where both contexts
+// actually produce a valid output. Null outside a rule domain is not a mapping.
 for (let firstIndex = 0; firstIndex < ANA_CP005_RULES.length; firstIndex += 1) {
   const firstRule = ANA_CP005_RULES[firstIndex];
   for (const firstContext of firstRule.contexts) {
     for (let secondIndex = firstIndex + 1; secondIndex < ANA_CP005_RULES.length; secondIndex += 1) {
       const secondRule = ANA_CP005_RULES[secondIndex];
       for (const secondContext of secondRule.contexts) {
-        const sharedPositions = firstRule.eligibleInputPositions.filter((position) =>
-          secondRule.eligibleInputPositions.includes(position),
+        const sharedLetters = Array.from({ length: 26 }, (_, index) => letterFromPosition(index + 1))
+          .filter((letter) => firstRule.apply(letter, firstContext) && secondRule.apply(letter, secondContext));
+        if (sharedLetters.length < 2) continue;
+        const identical = sharedLetters.every(
+          (letter) => firstRule.apply(letter, firstContext) === secondRule.apply(letter, secondContext),
         );
-        if (sharedPositions.length < 2) continue;
-        const identical = sharedPositions.every((position) => {
-          const letter = letterFromPosition(position);
-          return firstRule.apply(letter, firstContext) === secondRule.apply(letter, secondContext);
-        });
         assert.equal(
           identical,
           false,
@@ -74,7 +94,33 @@ for (const ql of ANA_CP005_QLS) {
     const matches = matchingAlphabetRules([generated.source, generated.target]);
     assert.ok(matches.some((match) => match.ruleId === generated.ruleId));
 
-    if (generated.presentationMode === "MISSING_FOURTH_TERM") {
+    if (generated.ruleId === "ALPHA_FIXED_SHIFT_FORWARD") {
+      assert.ok(letterPosition(generated.source.left) + generated.context.shift! <= 26);
+      assert.ok(letterPosition(generated.target.left) + generated.context.shift! <= 26);
+    }
+    if (generated.ruleId === "ALPHA_FIXED_SHIFT_BACKWARD") {
+      assert.ok(letterPosition(generated.source.left) - generated.context.shift! >= 1);
+      assert.ok(letterPosition(generated.target.left) - generated.context.shift! >= 1);
+    }
+    if (generated.ruleId === "ALPHA_CYCLIC_SHIFT_FORWARD") {
+      assert.ok(letterPosition(generated.source.left) + generated.context.shift! > 26);
+      assert.ok(letterPosition(generated.target.left) + generated.context.shift! > 26);
+      assert.ok(generated.explanation.sourceDemonstration.includes("- 26"));
+    }
+    if (generated.ruleId === "ALPHA_CYCLIC_SHIFT_BACKWARD") {
+      assert.ok(letterPosition(generated.source.left) - generated.context.shift! < 1);
+      assert.ok(letterPosition(generated.target.left) - generated.context.shift! < 1);
+      assert.ok(generated.explanation.sourceDemonstration.includes("+ 26"));
+    }
+    if (generated.ruleId === "ALPHA_EQUAL_DISTANCE") {
+      assert.notEqual(
+        letterPosition(generated.source.left) <= 13,
+        letterPosition(generated.target.left) <= 13,
+        "Equal-distance evidence must activate both direction branches.",
+      );
+    }
+
+    if (generated.presentationMode === "DIRECT_COMPLETION") {
       assert.ok(generated.options.every((option) => typeof option.value === "string"));
       assert.equal(generated.options[generated.correctIndex].value, generated.target.right);
     } else {
@@ -103,8 +149,9 @@ const minAnswerPosition = Math.min(...answerPositions);
 const maxAnswerPosition = Math.max(...answerPositions);
 assert.ok(maxAnswerPosition / minAnswerPosition < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
-console.log("ANA-CP-005 exhaustive runtime audit passed.", {
+console.log("ANA-CP-005 canonical exhaustive runtime audit passed.", {
   generatedCount,
+  ruleIds: EXPECTED_RULE_IDS,
   layouts: [...layouts],
   difficulties: [...difficulties],
   answerPositions,
