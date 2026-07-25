@@ -53,6 +53,9 @@ jobs:
           git add artifacts/admin-app/src/pages/content/QuestionStudioCockpitPage.tsx \
                   artifacts/admin-app/src/pages/content/QuestionDetailPage.tsx \
                   artifacts/admin-app/src/pages/content/QuestionBankWorkspacePage.tsx \
+                  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation/validator.ts \
+                  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation/validator-cp006.ts \
+                  artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/foundation/validator-dictionary-rank.ts \
                   pnpm-lock.yaml
           git commit -m "feat(platform): render question formulas with LaTeX"
           git push origin HEAD:feat/platform-latex-rendering-pnc001
