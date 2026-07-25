@@ -52,7 +52,8 @@ export function hasMen001Cp005ExplanationIllustration(mode: Men001SolveMode) {
     AREA_SUBTRACTION_MODES.has(mode) ||
     INSCRIBED_MODES.has(mode) ||
     PERIMETER_MODES.has(mode) ||
-    mode === "findRegularHexagonAreaFromSide"
+    mode === "findRegularHexagonAreaFromSide" ||
+    mode === "findOverlappingRectanglesUnionArea"
   );
 }
 
@@ -63,6 +64,23 @@ export function buildMen001Cp005ExplanationIllustration(
   const mode = parameters.solveMode;
   const values = solver.workingValues;
   const unit = linearUnit(parameters, solver);
+
+  if (mode === "findOverlappingRectanglesUnionArea") {
+    return {
+      kind: "COMPOSITE_AREA_PARTS",
+      purpose: "ADD_OR_SUBTRACT_STANDARD_SHAPES",
+      placement: "BEFORE_AREA_COMBINATION",
+      notToScale: true,
+      labels: {
+        primaryShape: `rectangle 1: ${text(values.rectangleArea, "A₁")} ${solver.unit}`,
+        secondaryShape: `rectangle 2: ${text(values.componentArea, "A₂")} ${solver.unit}`,
+        operation: "ADD BOTH, THEN SUBTRACT THE COMMON OVERLAP ONCE",
+        sharedBoundary: `overlap: ${text(values.overlapArea, "Aoverlap")} ${solver.unit}`,
+      },
+      accessibleText:
+        `Two rectangles overlap in a common rectangular region. Add their full areas and subtract the ${text(values.overlapArea, "common")} ${solver.unit} overlap once because it was counted in both rectangles.`,
+    };
+  }
 
   if (AREA_ADDITION_MODES.has(mode)) {
     const secondary = mode === "findRectangleSemicircleCompositeArea"
