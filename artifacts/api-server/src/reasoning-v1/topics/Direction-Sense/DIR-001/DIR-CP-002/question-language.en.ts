@@ -44,12 +44,13 @@ export function renderEndpointStem(
 ): string {
   const path = renderPathSequence(operations);
   const start = PATH_DIRECTION_LABELS[initialFacing];
+  const wordingVariant = Math.floor(variant / 2) % 2;
   if (reverseQuery) {
-    return variant % 2 === 0
+    return wordingVariant === 0
       ? `${person} starts facing ${start}. ${person} ${path}. In which direction is the starting point from ${person}'s final position?`
       : `Facing ${start} initially, ${person} ${path}. Where is the starting point relative to the final position?`;
   }
-  return variant % 2 === 0
+  return wordingVariant === 0
     ? `${person} starts facing ${start}. ${person} ${path}. In which direction is ${person}'s final position from the starting point?`
     : `Initially facing ${start}, ${person} ${path}. Where is the final position relative to the starting point?`;
 }
