@@ -1,0 +1,101 @@
+{
+  "packageId": "PNC-002",
+  "pools": {
+    "compulsoryOneStates": [
+      {"totalObjects":9,"committeeSize":4,"compulsoryCount":1},
+      {"totalObjects":10,"committeeSize":5,"compulsoryCount":1},
+      {"totalObjects":11,"committeeSize":4,"compulsoryCount":1}
+    ],
+    "compulsoryTwoStates": [
+      {"totalObjects":9,"committeeSize":4,"compulsoryCount":2},
+      {"totalObjects":10,"committeeSize":5,"compulsoryCount":2},
+      {"totalObjects":11,"committeeSize":6,"compulsoryCount":2}
+    ],
+    "excludedOneStates": [
+      {"totalObjects":9,"committeeSize":4,"excludedCount":1},
+      {"totalObjects":10,"committeeSize":5,"excludedCount":1},
+      {"totalObjects":11,"committeeSize":4,"excludedCount":1}
+    ],
+    "excludedTwoStates": [
+      {"totalObjects":9,"committeeSize":4,"excludedCount":2},
+      {"totalObjects":10,"committeeSize":5,"excludedCount":2},
+      {"totalObjects":11,"committeeSize":5,"excludedCount":2}
+    ],
+    "compulsoryExcludedStates": [
+      {"totalObjects":9,"committeeSize":4,"compulsoryCount":1,"excludedCount":1},
+      {"totalObjects":10,"committeeSize":5,"compulsoryCount":1,"excludedCount":1},
+      {"totalObjects":11,"committeeSize":5,"compulsoryCount":1,"excludedCount":1}
+    ],
+    "exactTwoCategoryStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":4,"requiredFromA":2},
+      {"categoryA":7,"categoryB":5,"committeeSize":5,"requiredFromA":3},
+      {"categoryA":6,"categoryB":6,"committeeSize":5,"requiredFromA":2}
+    ],
+    "equalTwoCategoryStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":4,"requiredFromA":2},
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"requiredFromA":3}
+    ],
+    "majorityCategoryStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":5,"minimumFromA":3},
+      {"categoryA":7,"categoryB":5,"committeeSize":6,"minimumFromA":4}
+    ],
+    "atLeastCategoryStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":5,"minimumFromA":2},
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"minimumFromA":3},
+      {"categoryA":5,"categoryB":7,"committeeSize":5,"minimumFromA":2}
+    ],
+    "atMostCategoryStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":5,"maximumFromA":2},
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"maximumFromA":3},
+      {"categoryA":5,"categoryB":7,"committeeSize":5,"maximumFromA":1}
+    ],
+    "atLeastOneCategoryStates": [
+      {"categoryA":5,"categoryB":7,"committeeSize":4},
+      {"categoryA":6,"categoryB":6,"committeeSize":5},
+      {"categoryA":4,"categoryB":8,"committeeSize":5}
+    ],
+    "atLeastOneEachTwoStates": [
+      {"categoryA":5,"categoryB":6,"committeeSize":4},
+      {"categoryA":6,"categoryB":7,"committeeSize":5},
+      {"categoryA":7,"categoryB":5,"committeeSize":6}
+    ],
+    "exactThreeCategoryStates": [
+      {"categoryA":5,"categoryB":4,"categoryC":3,"requiredA":2,"requiredB":2,"requiredC":1},
+      {"categoryA":6,"categoryB":5,"categoryC":4,"requiredA":3,"requiredB":1,"requiredC":2}
+    ],
+    "atLeastOneEachThreeStates": [
+      {"categoryA":4,"categoryB":4,"categoryC":3,"committeeSize":5},
+      {"categoryA":5,"categoryB":4,"categoryC":4,"committeeSize":6}
+    ],
+    "specifiedPairStates": [
+      {"totalObjects":9,"committeeSize":4,"specifiedCount":2},
+      {"totalObjects":10,"committeeSize":5,"specifiedCount":2},
+      {"totalObjects":11,"committeeSize":5,"specifiedCount":2}
+    ],
+    "exactSpecifiedStates": [
+      {"totalObjects":10,"committeeSize":5,"specifiedCount":4,"requiredSpecified":2},
+      {"totalObjects":11,"committeeSize":5,"specifiedCount":5,"requiredSpecified":3},
+      {"totalObjects":12,"committeeSize":6,"specifiedCount":4,"requiredSpecified":2}
+    ],
+    "atMostSpecifiedStates": [
+      {"totalObjects":10,"committeeSize":5,"specifiedCount":4,"maximumSpecified":2},
+      {"totalObjects":11,"committeeSize":5,"specifiedCount":5,"maximumSpecified":2},
+      {"totalObjects":12,"committeeSize":6,"specifiedCount":4,"maximumSpecified":1}
+    ],
+    "memberImplicationStates": [
+      {"totalObjects":9,"committeeSize":4},
+      {"totalObjects":10,"committeeSize":5},
+      {"totalObjects":11,"committeeSize":5}
+    ],
+    "namedCompulsoryQuotaStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":5,"requiredFromA":3},
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"requiredFromA":4}
+    ],
+    "namedExcludedQuotaStates": [
+      {"categoryA":6,"categoryB":5,"committeeSize":5,"requiredFromA":2},
+      {"categoryA":7,"categoryB":6,"committeeSize":6,"requiredFromA":3}
+    ],
+    "inverseTotalObjectValues": [7,8,9,10,11],
+    "inverseCategoryAValues": [4,5,6,7,8]
+  }
+}
