@@ -9,7 +9,6 @@ on:
       - .github/workflows/pnc-002-cp008-runtime.yml
   pull_request:
     branches:
-      - feat/pnc-002-cp007-runtime-proof
       - New-main
     types: [opened, reopened, synchronize]
     paths:
@@ -40,19 +39,8 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
       - name: Strict TypeScript check
-        shell: bash
         run: |
-          diagnostic_dir="artifacts/api-server/dist/quant-v4/pnc-002-cp008-diagnostics"
-          source_dir="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation"
-          mkdir -p "$diagnostic_dir/sources"
-          cp "$source_dir/solver-cp008.ts" "$diagnostic_dir/sources/"
-          cp "$source_dir/option-generator-cp008.ts" "$diagnostic_dir/sources/"
-          cp "$source_dir/parameter-generator.ts" "$diagnostic_dir/sources/"
-          cp "$source_dir/pipeline.ts" "$diagnostic_dir/sources/"
-          cp "$source_dir/reasoning-graph-cp008.ts" "$diagnostic_dir/sources/"
-          cp "$source_dir/explanation-renderer-cp008.ts" "$diagnostic_dir/sources/"
           cd artifacts/api-server
-          set +e
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -66,10 +54,7 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print) \
-            2>&1 | tee dist/quant-v4/pnc-002-cp008-diagnostics/tsc.log
-          status=${PIPESTATUS[0]}
-          exit "$status"
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
       - name: Bundle CP-008 runtime proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -80,25 +65,11 @@ jobs:
           --outfile=dist/quant-v4/pnc-002-cp008-proof.mjs
       - name: Run CP-008 proof and generate review export
         working-directory: artifacts/api-server
-        shell: bash
-        run: |
-          set +e
-          node dist/quant-v4/pnc-002-cp008-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-cp008-diagnostics/runtime.log
-          status=${PIPESTATUS[0]}
-          exit "$status"
+        run: node dist/quant-v4/pnc-002-cp008-proof.mjs
       - name: Publish CP-008 review files
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pnc-002-cp008-question-explanation-review
           path: artifacts/api-server/dist/quant-v4/pnc-002-cp008-review/
-          if-no-files-found: warn
-          retention-days: 14
-      - name: Publish CP-008 diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: pnc-002-cp008-diagnostics
-          path: artifacts/api-server/dist/quant-v4/pnc-002-cp008-diagnostics/
           if-no-files-found: error
-          retention-days: 3
+          retention-days: 14
