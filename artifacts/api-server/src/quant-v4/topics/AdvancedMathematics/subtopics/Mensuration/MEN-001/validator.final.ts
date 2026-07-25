@@ -18,6 +18,10 @@ function hasWorkedArithmetic(lines: readonly string[]) {
   );
 }
 
+function capitalizeFirst(value: string) {
+  return value.length === 0 ? value : value[0]!.toUpperCase() + value.slice(1);
+}
+
 function naturalConclusion(value: string, answer: string) {
   const text = value
     .replace("{answer}", answer)
@@ -27,7 +31,8 @@ function naturalConclusion(value: string, answer: string) {
     .replace(/\s+thus\s+/i, " ")
     .trim()
     .replace(/\s+/g, " ");
-  return /[.!?]$/.test(text) ? text : `${text}.`;
+  const sentence = capitalizeFirst(text);
+  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`;
 }
 
 export function validateMen001QuestionPackage(
