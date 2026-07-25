@@ -146,7 +146,7 @@ export function generateLocalizedAnalogy(qlId: string, locale: SupportedLocale, 
       conclusion,
       closestTrapRejection: locale === "hi-IN"
         ? "अन्य विकल्प सही प्रकार के हैं, पर लक्ष्य पद के साथ ठीक वही संबंध नहीं बनाते।"
-        : "ਹੋਰ ਵਿਕਲਪ ਸਹੀ ਕਿਸਮ ਦੇ ਹਨ, ਪਰ ਲਕਸ਼ ਪਦ ਨਾਲ ਬਿਲਕੁਲ ਉਹੀ ਸੰਬੰਧ ਨਹੀਂ ਬਣਾਉਂਦੇ।",
+        : "ਹੋਰ ਵਿਕਲਪ ਸਹੀ ਕਿਸਮ ਦੇ ਹਨ, ਪਰ ਦਿੱਤੇ ਹੋਏ ਪਦ ਨਾਲ ਬਿਲਕੁਲ ਉਹੀ ਸੰਬੰਧ ਨਹੀਂ ਬਣਾਉਂਦੇ।",
     },
   };
 }
