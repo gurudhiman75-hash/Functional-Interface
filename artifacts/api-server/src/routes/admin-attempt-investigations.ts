@@ -21,50 +21,81 @@ router.get('/investigations', requireAdminPermission('users.students.read'), asy
   if (category !== 'all' && !CATEGORIES.has(category)) return res.status(400).json({ error: 'Unsupported investigation category', code: 'INVALID_INVESTIGATION_CATEGORY' });
 
   try {
-    const rows = await sqlClient`
-      WITH opened AS (
-        SELECT ae.id, ae.entity_id AS attempt_id, ae.occurred_at AS opened_at,
-          ae.reason AS opening_reason, ae.metadata ->> 'caseId' AS case_id,
-          ae.metadata ->> 'category' AS category
-        FROM platform.audit_events ae
-        WHERE ae.action_key = 'student.attempt.investigation.opened'
-      )
-      SELECT opened.case_id AS "caseId", opened.attempt_id::text AS "attemptId",
-        opened.category, opened.opening_reason AS "openingReason", opened.opened_at AS "openedAt",
-        COALESCE(latest.metadata ->> 'state', 'open') AS state,
-        latest.metadata ->> 'assignedToUserId' AS "assignedToUserId",
-        assignee.display_name AS "assignedToName", latest.reason AS "latestReason",
-        latest.occurred_at AS "updatedAt", latest.action_key AS "latestActionKey",
-        a.status::text AS "attemptStatus", a.final_score AS "finalScore",
-        u.id::text AS "studentId", u.display_name AS "studentName", u.email AS "studentEmail",
-        sp.registration_code AS "registrationCode", t.public_code AS "testPublicCode", tv.title AS "testTitle"
-      FROM opened
-      JOIN learning.attempts a ON a.id = opened.attempt_id
-      JOIN identity.users u ON u.id = a.user_id
-      JOIN identity.student_profiles sp ON sp.user_id = u.id
-      JOIN assessment.test_publications p ON p.id = a.test_publication_id
-      JOIN assessment.tests t ON t.id = p.test_id
-      JOIN assessment.test_versions tv ON tv.id = p.test_version_id
-      JOIN LATERAL (
-        SELECT e.action_key, e.reason, e.occurred_at, e.metadata
-        FROM platform.audit_events e
-        WHERE e.entity_type = 'attempt' AND e.entity_id = opened.attempt_id
-          AND e.metadata ->> 'caseId' = opened.case_id
-        ORDER BY e.occurred_at DESC, e.id DESC LIMIT 1
-      ) latest ON true
-      LEFT JOIN identity.users assignee ON assignee.id::text = latest.metadata ->> 'assignedToUserId'
-      WHERE (${state} = 'all' OR COALESCE(latest.metadata ->> 'state', 'open') = ${state})
-        AND (${category} = 'all' OR opened.category = ${category})
-        AND (${search} = '' OR lower(u.display_name) LIKE ${`%${search}%`}
-          OR lower(u.email) LIKE ${`%${search}%`} OR lower(sp.registration_code) LIKE ${`%${search}%`}
-          OR lower(tv.title) LIKE ${`%${search}%`} OR lower(t.public_code) LIKE ${`%${search}%`}
-          OR opened.case_id = ${search} OR opened.attempt_id::text = ${search})
-      ORDER BY latest.occurred_at DESC
-      LIMIT 200
-    `;
-    const counts = rows.reduce<Record<string, number>>((acc, row) => {
-      const key = String(row.state); acc[key] = (acc[key] ?? 0) + 1; return acc;
-    }, { open: 0, under_review: 0, resolved: 0, rejected: 0 });
+    const [rows, countRows] = await Promise.all([
+      sqlClient`
+        WITH opened AS (
+          SELECT ae.id, ae.entity_id AS attempt_id, ae.occurred_at AS opened_at,
+            ae.reason AS opening_reason, ae.metadata ->> 'caseId' AS case_id,
+            ae.metadata ->> 'category' AS category
+          FROM platform.audit_events ae
+          WHERE ae.action_key = 'student.attempt.investigation.opened'
+        )
+        SELECT opened.case_id AS "caseId", opened.attempt_id::text AS "attemptId",
+          opened.category, opened.opening_reason AS "openingReason", opened.opened_at AS "openedAt",
+          COALESCE(latest.metadata ->> 'state', 'open') AS state,
+          latest.metadata ->> 'assignedToUserId' AS "assignedToUserId",
+          assignee.display_name AS "assignedToName", latest.reason AS "latestReason",
+          latest.occurred_at AS "updatedAt", latest.action_key AS "latestActionKey",
+          a.status::text AS "attemptStatus", a.final_score AS "finalScore",
+          u.id::text AS "studentId", u.display_name AS "studentName", u.email AS "studentEmail",
+          sp.registration_code AS "registrationCode", t.public_code AS "testPublicCode", tv.title AS "testTitle"
+        FROM opened
+        JOIN learning.attempts a ON a.id = opened.attempt_id
+        JOIN identity.users u ON u.id = a.user_id
+        JOIN identity.student_profiles sp ON sp.user_id = u.id
+        JOIN assessment.test_publications p ON p.id = a.test_publication_id
+        JOIN assessment.tests t ON t.id = p.test_id
+        JOIN assessment.test_versions tv ON tv.id = p.test_version_id
+        JOIN LATERAL (
+          SELECT e.action_key, e.reason, e.occurred_at, e.metadata
+          FROM platform.audit_events e
+          WHERE e.entity_type = 'attempt' AND e.entity_id = opened.attempt_id
+            AND e.metadata ->> 'caseId' = opened.case_id
+          ORDER BY e.occurred_at DESC, e.id DESC LIMIT 1
+        ) latest ON true
+        LEFT JOIN identity.users assignee ON assignee.id::text = latest.metadata ->> 'assignedToUserId'
+        WHERE (${state} = 'all' OR COALESCE(latest.metadata ->> 'state', 'open') = ${state})
+          AND (${category} = 'all' OR opened.category = ${category})
+          AND (${search} = '' OR lower(u.display_name) LIKE ${`%${search}%`}
+            OR lower(u.email) LIKE ${`%${search}%`} OR lower(sp.registration_code) LIKE ${`%${search}%`}
+            OR lower(tv.title) LIKE ${`%${search}%`} OR lower(t.public_code) LIKE ${`%${search}%`}
+            OR opened.case_id = ${search} OR opened.attempt_id::text = ${search})
+        ORDER BY latest.occurred_at DESC
+        LIMIT 200
+      `,
+      sqlClient`
+        WITH opened AS (
+          SELECT ae.entity_id AS attempt_id, ae.metadata ->> 'caseId' AS case_id
+          FROM platform.audit_events ae
+          WHERE ae.action_key = 'student.attempt.investigation.opened'
+        ), latest_cases AS (
+          SELECT COALESCE(latest.metadata ->> 'state', 'open') AS state
+          FROM opened
+          JOIN LATERAL (
+            SELECT e.metadata
+            FROM platform.audit_events e
+            WHERE e.entity_type = 'attempt' AND e.entity_id = opened.attempt_id
+              AND e.metadata ->> 'caseId' = opened.case_id
+            ORDER BY e.occurred_at DESC, e.id DESC LIMIT 1
+          ) latest ON true
+        )
+        SELECT
+          COUNT(*) FILTER (WHERE state = 'open')::int AS open,
+          COUNT(*) FILTER (WHERE state = 'under_review')::int AS "underReview",
+          COUNT(*) FILTER (WHERE state = 'resolved')::int AS resolved,
+          COUNT(*) FILTER (WHERE state = 'rejected')::int AS rejected,
+          COUNT(*)::int AS total
+        FROM latest_cases
+      `,
+    ]);
+    const aggregate = countRows[0] ?? {};
+    const counts = {
+      open: Number(aggregate.open ?? 0),
+      under_review: Number(aggregate.underReview ?? 0),
+      resolved: Number(aggregate.resolved ?? 0),
+      rejected: Number(aggregate.rejected ?? 0),
+      total: Number(aggregate.total ?? 0),
+    };
     return res.json({ investigations: rows, counts, generatedAt: new Date().toISOString() });
   } catch (error) {
     console.error('Unable to load attempt investigations', error);
