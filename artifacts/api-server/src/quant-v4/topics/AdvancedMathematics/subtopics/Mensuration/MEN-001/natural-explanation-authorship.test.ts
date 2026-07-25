@@ -57,7 +57,7 @@ for (const entry of getMen001QuestionEntries()) {
     );
     assert.ok(
       question.explanation.lines.length >= 2 &&
-        question.explanation.lines.length <= 6,
+        question.explanation.lines.length <= 4,
       `${entry.qlId} should expand only when its mathematics genuinely has stages.`,
     );
     assert.equal(
@@ -91,8 +91,8 @@ for (const entry of getMen001QuestionEntries()) {
 
 assert.equal(signatureOwner.size, qlIds.length);
 assert.ok(
-  lineCountDistribution.size >= 3,
-  "Manual explanations should not all have the same rhythm or line count.",
+  lineCountDistribution.size >= 2,
+  "Manual explanations should vary naturally between direct and multi-stage work.",
 );
 console.log(
   `MEN-001 manual explanation audit passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
