@@ -1,19 +1,20 @@
-# PNC-CP-010 Initial Implementation Report
+# PNC-CP-010 Saturation-Expanded Implementation Report
 
 ## Scope delivered
 
 - canonical problem: `PNC-CP-010 — Circular Arrangements & Rotational Symmetry`;
-- branch base: completed CP-009 head `ed03de7ff27c6025c26890748882550106323451`;
-- immutable QL range: `PNC-QL-177` through `PNC-QL-203`;
-- current checkpoint QLs: 27;
-- current need-based solve modes: 21;
+- branch base: merged CP-009 state;
+- immutable QL range: `PNC-QL-177` through `PNC-QL-205`;
+- active QLs: 29;
+- need-based solve modes: 22;
+- observed difficulty: 3 Easy / 13 Medium / 13 Hard;
 - English runtime only;
 - maturity: `RUNTIME_PROOF`;
 - `publiclyPublishable: false`.
 
 ## Runtime architecture
 
-The checkpoint adds CP-specific human-owned language, registry, range, constraint and explanation libraries plus:
+The checkpoint contains CP-specific human-owned language, registry, range, constraint and explanation libraries plus:
 
 - deterministic parameter generation;
 - exact circular and dihedral solvers;
@@ -24,28 +25,41 @@ The checkpoint adds CP-specific human-owned language, registry, range, constrain
 - CP-specific validation and coverage audit;
 - deterministic review export.
 
+## Saturation expansion
+
+The initial checkpoint contained 27 QLs (`PNC-QL-177..203`) and 21 solve modes. A second ownership audit identified two meaningful gaps rather than inflating the chapter with cosmetic variants:
+
+1. a larger specified circular group must not all occupy consecutive seats — `PNC-QL-204`;
+2. exactly one of two disjoint specified pairs must sit together — `PNC-QL-205`.
+
+The first reuses the existing circular-block-complement authority because its solver, evidence and validator remain the same. The second adds an exclusive pair-event contract with the exact formula `2 × (one-pair count − both-pairs count)` and an independently enumerated XOR adjacency predicate.
+
 ## Mathematical boundaries
 
 Round-table rotation, one-sided rotation-only ornament counting and reflection-equivalent necklace counting have separate solve modes and evidence. Reflection division is never silently applied to table seating.
 
-Circular restrictions include block compression, complements, inclusion–exclusion, directed clockwise spacing, relative order, alternation, gap placement and bounded inverse recovery.
+Circular restrictions include block compression, complements, inclusion–exclusion, exclusive pair events, directed clockwise spacing, relative order, alternation, gap placement and bounded inverse recovery.
 
-## Current proof snapshot
+Repeated-colour necklaces requiring Burnside/Pólya analysis remain outside CP-010. Grouping/distribution remains CP-011, while mixed selection-plus-circular systems remain CP-012.
 
-The bundled test is configured for:
+## Current proof contract
 
-- 27 QLs;
-- 21 solve modes;
-- 216 deterministic runtime cases (`27 × 8`);
+The bundled proof now requires:
+
+- 29 contiguous QLs;
+- 22 solve modes;
+- 3 Easy / 13 Medium / 13 Hard;
+- 232 deterministic runtime cases (`29 × 8`);
 - every case generated twice;
 - independent enumeration agreement;
 - four positive unique options;
 - exact answer-index agreement;
 - unresolved-placeholder rejection;
 - delimited LaTeX/MathJax calculations;
-- review JSON and CSV export.
+- direct solver contracts for QLs 204 and 205;
+- review JSON and CSV export containing 29 rows.
 
-These are current regression numbers, not future content quotas.
+These values are regression snapshots discovered from current ownership coverage, not fixed future quotas.
 
 ## Release safety
 
@@ -54,4 +68,4 @@ These are current regression numbers, not future content quotas.
 - no admin discovery;
 - no public-test routing;
 - Hindi and Punjabi not started;
-- saturation verdict intentionally withheld.
+- final saturation verdict withheld until the expanded proof, generated review and final gap audit pass.
