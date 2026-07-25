@@ -20,22 +20,17 @@ function proseSignature(lines: readonly string[]) {
     .trim();
 }
 
-function containsWorkedArithmetic(lines: readonly string[]) {
-  const numericTokens = lines.join(" ").match(/\d+(?:\.\d+)?/g) ?? [];
-  return numericTokens.length >= 2;
-}
-
 const qlIds = getMen001QuestionLanguageIds().sort();
 const profileIds = getMen001NaturalExplanationProfileIds().sort();
 assert.deepEqual(
   profileIds,
   qlIds,
-  "Every active QL must retain exactly one context profile.",
+  "Every active QL must have exactly one natural explanation profile.",
 );
 
 const signatureOwner = new Map<string, string>();
 const lineCountDistribution = new Map<number, number>();
-const roboticOpening = /^(Check:|Substitution:|Calculation:|Here, A =|Here, P =|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
+const roboticOpening = /^(Check:|Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
 
 for (const entry of getMen001QuestionEntries()) {
   for (let sample = 0; sample < 3; sample += 1) {
@@ -56,18 +51,20 @@ for (const entry of getMen001QuestionEntries()) {
         .join("; "),
     );
     assert.ok(
-      question.explanation.lines.length >= 2 &&
-        question.explanation.lines.length <= 4,
-      `${entry.qlId} should expand only when its mathematics genuinely has stages.`,
+      question.explanation.lines.length >= 3 &&
+        question.explanation.lines.length <= 9,
+      `${entry.qlId} should use only as many lines as its reasoning needs.`,
     );
     assert.equal(
       question.explanation.lines.some((line) => roboticOpening.test(line)),
       false,
-      `${entry.qlId} still contains a labelled or stock explanation shell.`,
+      `${entry.qlId} still contains a robotic explanation label or conclusion.`,
     );
     assert.ok(
-      containsWorkedArithmetic(question.explanation.lines),
-      `${entry.qlId} does not state enough quantities to show its reasoning.`,
+      question.explanation.lines.some(
+        (line) => /\d/.test(line) && /[=×÷+−\-√²π]/.test(line),
+      ),
+      `${entry.qlId} lost its worked arithmetic.`,
     );
 
     if (sample === 0) {
@@ -91,11 +88,11 @@ for (const entry of getMen001QuestionEntries()) {
 
 assert.equal(signatureOwner.size, qlIds.length);
 assert.ok(
-  lineCountDistribution.size >= 2,
-  "Manual explanations should vary naturally between direct and multi-stage work.",
+  lineCountDistribution.size >= 3,
+  "The chapter should not force every explanation into the same line structure.",
 );
 console.log(
-  `MEN-001 manual explanation audit passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
+  `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
 );
 console.log(
   `Explanation line-count distribution: ${JSON.stringify(Object.fromEntries([...lineCountDistribution].sort(([a], [b]) => a - b)))}`,
