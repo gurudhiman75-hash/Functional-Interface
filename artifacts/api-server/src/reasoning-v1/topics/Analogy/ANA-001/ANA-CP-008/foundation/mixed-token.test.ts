@@ -6,6 +6,7 @@ import {
   letterNumberToken,
   letterToken,
   mixedTokenKey,
+  numberLetterToken,
   numberToken,
   parseMixedTokenForReview,
   renderMixedToken,
@@ -19,6 +20,7 @@ const fixtures: readonly MixedToken[] = [
   letterGroupToken("ZKX"),
   numberToken(27),
   letterNumberToken("p", 21),
+  numberLetterToken(21, "i"),
   clusterNumberToken("zKx", 102),
 ];
 
@@ -31,6 +33,7 @@ assert.deepEqual(parseMixedTokenForReview("A"), { kind: "LETTER", letter: "A" })
 assert.deepEqual(parseMixedTokenForReview("AB"), { kind: "LETTER_GROUP", letters: "AB" });
 assert.deepEqual(parseMixedTokenForReview("27"), { kind: "NUMBER", number: 27 });
 assert.deepEqual(parseMixedTokenForReview("P21"), { kind: "LETTER_NUMBER", letter: "P", number: 21 });
+assert.deepEqual(parseMixedTokenForReview("21I"), { kind: "NUMBER_LETTER", number: 21, letter: "I" });
 assert.deepEqual(parseMixedTokenForReview("ZKX102"), {
   kind: "CLUSTER_NUMBER",
   letters: "ZKX",
@@ -39,11 +42,14 @@ assert.deepEqual(parseMixedTokenForReview("ZKX102"), {
 
 assert.equal(new Set(fixtures.map(mixedTokenKey)).size, fixtures.length);
 assert.throws(() => parseMixedTokenForReview("A021"));
+assert.throws(() => parseMixedTokenForReview("021A"));
 assert.throws(() => parseMixedTokenForReview("A0"));
+assert.throws(() => parseMixedTokenForReview("0A"));
 assert.throws(() => parseMixedTokenForReview("12345"));
 assert.throws(() => parseMixedTokenForReview("A-21"));
 assert.throws(() => letterGroupToken("A"));
 assert.throws(() => letterNumberToken("AB", 21));
+assert.throws(() => numberLetterToken(21, "AB"));
 assert.throws(() => clusterNumberToken("ABCDEFG", 21));
 assert.throws(() => numberToken(0));
 
