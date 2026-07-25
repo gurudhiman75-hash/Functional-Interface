@@ -10,10 +10,25 @@ export function applyAvg001Cp003LocalizedStemFinalPolish(
 
   let stem = pkg.stem;
   if (language === "hi") {
+    if (pkg.questionLanguageId === "AVG-QL-123") {
+      stem = stem.replace(
+        /एक नई संख्या ([\d,.]+) को समूह में जोड़ दिया जाता है।/,
+        "समूह में $1 जोड़ दिया जाता है।",
+      );
+    }
     if (pkg.questionLanguageId === "AVG-QL-165") {
       stem = stem.replace(/औसत (₹[\d,.]+) हो जाता है/, "औसत दैनिक बिक्री $1 हो जाती है");
     }
+    if (pkg.questionLanguageId === "AVG-QL-401" || pkg.questionLanguageId === "AVG-QL-405") {
+      stem = stem.replace("रन का औसत", "टीम का औसत स्कोर");
+    }
   } else {
+    if (pkg.questionLanguageId === "AVG-QL-123") {
+      stem = stem.replace(
+        /ਇੱਕ ਨਵੀਂ ਸੰਖਿਆ ([\d,.]+) ਨੂੰ ਸਮੂਹ ਵਿੱਚ ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।/,
+        "ਸਮੂਹ ਵਿੱਚ $1 ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ।",
+      );
+    }
     if (pkg.questionLanguageId === "AVG-QL-135") {
       stem = stem.replace("ਦਰਜ ਮੁੱਲਾਂ", "ਦਰਜ ਮਾਪਾਂ").replace("ਇੱਕ ਵਾਧੂ ਮੁੱਲ", "ਇੱਕ ਵਾਧੂ ਮਾਪ");
     }
@@ -29,6 +44,9 @@ export function applyAvg001Cp003LocalizedStemFinalPolish(
     if (pkg.questionLanguageId === "AVG-QL-165") {
       stem = stem.replace(/ਔਸਤ (₹[\d,.]+) ਹੋ ਜਾਂਦੀ ਹੈ/, "ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ $1 ਹੋ ਜਾਂਦੀ ਹੈ");
     }
+    if (pkg.questionLanguageId === "AVG-QL-401" || pkg.questionLanguageId === "AVG-QL-405") {
+      stem = stem.replace("ਦੌੜਾਂ ਦੀ ਔਸਤ", "ਟੀਮ ਦਾ ਔਸਤ ਸਕੋਰ");
+    }
   }
 
   return stem === pkg.stem
@@ -38,7 +56,7 @@ export function applyAvg001Cp003LocalizedStemFinalPolish(
         stem,
         traceability: {
           ...pkg.traceability,
-          cp003StemFinalPolish: "AVG-CP-003 manual language polish v1",
+          cp003StemFinalPolish: "AVG-CP-003 manual language polish v2",
         },
       };
 }
