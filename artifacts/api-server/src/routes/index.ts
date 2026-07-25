@@ -24,6 +24,7 @@ import adminStudentDirectoryResilientRouter from "./admin-student-directory-resi
 import adminStudentDirectoryHardeningRouter from "./admin-student-directory-hardening";
 import adminStudentFirebaseSyncRouter from "./admin-student-firebase-sync";
 import adminStudentProfileManagementRouter from "./admin-student-profile-management";
+import adminStudentAccountRecoveryRouter from "./admin-student-account-recovery";
 import adminStudentLifecycleConsistencyRouter from "./admin-student-lifecycle-consistency";
 import adminStudentOperationsRouter from "./admin-student-operations";
 import adminStudentDisableActionsRouter from "./admin-student-disable-actions";
@@ -80,6 +81,7 @@ router.use("/admin/students", adminStudentDirectoryResilientRouter);
 router.use("/admin/students", adminStudentDirectoryHardeningRouter);
 router.use("/admin/students", adminStudentFirebaseSyncRouter);
 router.use("/admin/students", adminStudentProfileManagementRouter);
+router.use("/admin/students", adminStudentAccountRecoveryRouter);
 router.use("/admin/students", adminStudentLifecycleConsistencyRouter);
 router.use("/admin/students", adminStudentOperationsRouter);
 router.use("/admin/students", adminStudentDisableActionsRouter);
