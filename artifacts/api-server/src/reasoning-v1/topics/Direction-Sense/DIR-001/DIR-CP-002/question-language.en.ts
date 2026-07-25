@@ -39,16 +39,17 @@ function renderPathNarrative(person: string, solved: SolvedPath): string {
     }
 
     if (!pendingTurn) {
-      clauses.push(`${person} then walks ${trace.operation.distance} metres`);
+      clauses.push(`then walks ${trace.operation.distance} metres`);
       continue;
     }
 
-    clauses.push(`${person} then ${turnVerb(pendingTurn)} and walks ${trace.operation.distance} metres`);
+    clauses.push(`then ${turnVerb(pendingTurn)} and walks ${trace.operation.distance} metres`);
     pendingTurn = null;
   }
 
-  if (pendingTurn) clauses.push(`${person} finally ${turnVerb(pendingTurn)}`);
-  return `${clauses.join(". ")}.`;
+  if (pendingTurn) clauses.push(`finally ${turnVerb(pendingTurn)}`);
+  const [first, ...rest] = clauses;
+  return `${first}${rest.length > 0 ? `, ${rest.join(", ")}` : ""}.`;
 }
 
 export function renderEndpointStem(
