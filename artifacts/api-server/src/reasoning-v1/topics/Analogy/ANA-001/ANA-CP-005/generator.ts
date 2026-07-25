@@ -2,7 +2,7 @@ import { letterFromPosition, letterPosition, oppositeLetter, shiftLetter } from 
 import { checkAlphabetAmbiguity } from "./ambiguity-checker";
 import { allEligibleLetters, verifyAlphabetTransfer, type AlphabetPair } from "./independent-solver";
 import { validateAlphabetOptions, type AlphabetOption } from "./option-validator";
-import { ANA_CP005_QLS } from "./question-language.en";
+import { ANA_CP005_QLS, type AlphabetPresentationMode } from "./question-language.en";
 import { alphabetRuleById, type AlphabetRuleContext } from "./rule-definitions";
 
 export type AlphabetDifficulty = "EASY" | "MEDIUM" | "HARD";
@@ -11,7 +11,7 @@ export type AlphabetLayout = "INLINE" | "ARROW" | "TWO_ROW_TABLE" | "BOXED_PAIRS
 export interface GeneratedAlphabetAnalogy {
   qlId: string;
   ruleId: string;
-  presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
+  presentationMode: AlphabetPresentationMode;
   difficulty: AlphabetDifficulty;
   layout: AlphabetLayout;
   context: AlphabetRuleContext;
@@ -69,6 +69,11 @@ function difficultyFits(difficulty: AlphabetDifficulty, source: AlphabetPair, ta
   return edgeCount > 0 || spread >= 18;
 }
 
+function evidenceShapeFits(ruleId: string, sourceLeft: string, targetLeft: string): boolean {
+  if (ruleId !== "ALPHA_EQUAL_DISTANCE") return true;
+  return (letterPosition(sourceLeft) <= 13) !== (letterPosition(targetLeft) <= 13);
+}
+
 function chooseInstance(
   ruleId: string,
   seed: number,
@@ -88,6 +93,7 @@ function chooseInstance(
         const targetLeft = inputs[targetIndex];
         const targetRight = rule.apply(targetLeft, context);
         if (!targetRight || targetRight === sourceRight || targetLeft === sourceLeft) continue;
+        if (!evidenceShapeFits(ruleId, sourceLeft, targetLeft)) continue;
         const target = { left: targetLeft, right: targetRight };
         if (!checkAlphabetAmbiguity(ruleId, context, [source, target]).accepted) continue;
         const candidate = { context, source, target };
@@ -120,7 +126,7 @@ function plausibleWrongLetters(target: AlphabetPair, seed: number): string[] {
   );
 }
 
-function missingTermOptions(target: AlphabetPair, seed: number): AlphabetOption[] {
+function directCompletionOptions(target: AlphabetPair, seed: number): AlphabetOption[] {
   const distractors = plausibleWrongLetters(target, seed * 17 + 7).slice(0, 3);
   if (distractors.length !== 3) throw new Error("Unable to produce three alphabet distractors.");
   return shuffle<AlphabetOption>([
@@ -146,7 +152,7 @@ function pairSelectionOptions(
       const value = [left, right] as const;
       const key = `${left}:${right}`;
       if (!distractors.some((option) => Array.isArray(option.value) && `${option.value[0]}:${option.value[1]}` === key)) {
-        distractors.push({ value, errorLabel: "WRONG_SHIFT_OR_POSITION_RULE" });
+        distractors.push({ value, errorLabel: "WRONG_DIRECTION_OFF_BY_ONE_OR_NO_WRAP" });
       }
       if (distractors.length === 3) break;
     }
@@ -170,7 +176,7 @@ function placeCorrectOption(options: readonly AlphabetOption[], desiredIndex: nu
 
 const LAYOUTS: readonly AlphabetLayout[] = ["INLINE", "ARROW", "TWO_ROW_TABLE", "BOXED_PAIRS"];
 
-function renderMissingStem(source: AlphabetPair, target: AlphabetPair, layout: AlphabetLayout): string {
+function renderCompletionStem(source: AlphabetPair, target: AlphabetPair, layout: AlphabetLayout): string {
   if (layout === "ARROW") return `${source.left} → ${source.right}  ::  ${target.left} → ?`;
   if (layout === "TWO_ROW_TABLE") {
     return `Complete the second row using the same alphabet relationship.\n\n| Pair | First letter | Second letter |\n|---|---|---|\n| A | ${source.left} | ${source.right} |\n| B | ${target.left} | ? |`;
@@ -186,6 +192,19 @@ function renderSelectionStem(source: AlphabetPair, layout: AlphabetLayout): stri
   return `Select the letter pair that follows the same relationship as ${source.left} : ${source.right}.`;
 }
 
+function trapRejection(ruleId: string): string {
+  if (ruleId.startsWith("ALPHA_CYCLIC_SHIFT")) {
+    return "The other options either move in the wrong direction, differ by one place, or stop at the alphabet boundary instead of wrapping.";
+  }
+  if (ruleId === "ALPHA_CLASS_CORRESPONDENCE") {
+    return "The other options ignore the vowel/consonant order, reverse the class direction, or use a simple nearby shift.";
+  }
+  if (ruleId === "ALPHA_EQUAL_DISTANCE") {
+    return "The other options keep one direction throughout or change the distance instead of moving equally toward the alphabet centre.";
+  }
+  return "The other options use the wrong direction, an off-by-one movement, or a simpler competing alphabet rule.";
+}
+
 export function generateAlphabetAnalogy(qlId: string, seed = 0): GeneratedAlphabetAnalogy {
   const ql = qlById(qlId);
   const rule = alphabetRuleById(ql.ruleId);
@@ -197,8 +216,8 @@ export function generateAlphabetAnalogy(qlId: string, seed = 0): GeneratedAlphab
     throw new Error("Independent solver rejected ANA-CP-005 instance.");
   }
 
-  const rawOptions = ql.presentationMode === "MISSING_FOURTH_TERM"
-    ? missingTermOptions(target, seed)
+  const rawOptions = ql.presentationMode === "DIRECT_COMPLETION"
+    ? directCompletionOptions(target, seed)
     : pairSelectionOptions(ql.ruleId, context, target, seed);
   const qlNumber = Number.parseInt(qlId.slice(-3), 10);
   const desiredCorrectIndex = ((Math.abs(seed) % 4) + (qlNumber % 4)) % 4;
@@ -214,8 +233,8 @@ export function generateAlphabetAnalogy(qlId: string, seed = 0): GeneratedAlphab
     context,
     source,
     target,
-    stem: ql.presentationMode === "MISSING_FOURTH_TERM"
-      ? renderMissingStem(source, target, layout)
+    stem: ql.presentationMode === "DIRECT_COMPLETION"
+      ? renderCompletionStem(source, target, layout)
       : renderSelectionStem(source, layout),
     options,
     correctIndex,
@@ -223,10 +242,10 @@ export function generateAlphabetAnalogy(qlId: string, seed = 0): GeneratedAlphab
       ruleStatement: `The relationship is: ${rule.label}.`,
       sourceDemonstration: rule.explain(source.left, source.right, context),
       targetApplication: rule.explain(target.left, target.right, context),
-      conclusion: ql.presentationMode === "MISSING_FOURTH_TERM"
+      conclusion: ql.presentationMode === "DIRECT_COMPLETION"
         ? `Therefore, ${target.right} is the missing letter.`
         : `Therefore, ${target.left} : ${target.right} follows the same rule.`,
-      closestTrapRejection: "The other options reflect nearby shifts, opposite letters, or position mistakes, but they do not preserve the demonstrated rule.",
+      closestTrapRejection: trapRejection(ql.ruleId),
     },
   };
 }
