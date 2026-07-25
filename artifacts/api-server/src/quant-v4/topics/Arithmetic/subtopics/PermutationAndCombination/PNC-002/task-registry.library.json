@@ -1,0 +1,11 @@
+{
+  "packageId": "PNC-002",
+  "groups": [
+    {"qlIds":["PNC-QL-107","PNC-QL-108","PNC-QL-109"],"cpId":"PNC-CP-007","taskKind":"restrictedLinearArrangement","solveMode":"countSingleBlockTogether","answerType":"COUNT","difficulty":"NEED_BASED"},
+    {"qlIds":["PNC-QL-110","PNC-QL-111"],"cpId":"PNC-CP-007","taskKind":"restrictedLinearArrangement","solveMode":"countMultipleBlocksTogether","answerType":"COUNT","difficulty":"NEED_BASED"},
+    {"qlIds":["PNC-QL-112","PNC-QL-113"],"cpId":"PNC-CP-007","taskKind":"restrictedLinearArrangement","solveMode":"countSpecifiedGroupNotAllTogether","answerType":"COUNT","difficulty":"NEED_BASED"},
+    {"qlIds":["PNC-QL-114","PNC-QL-115"],"cpId":"PNC-CP-007","taskKind":"restrictedLinearArrangement","solveMode":"countTwoSpecifiedApart","answerType":"COUNT","difficulty":"NEED_BASED"},
+    {"qlIds":["PNC-QL-116"],"cpId":"PNC-CP-007","taskKind":"restrictedLinearArrangement","solveMode":"countExactlyOnePairTogether","answerType":"COUNT","difficulty":"Hard"},
+    {"qlIds":["PNC-QL-117","PNC-QL-118"],"cpId":"PNC-CP-007","taskKind":"restrictedLinearArrangement","solveMode":"recoverTotalObjectsFromBlockCount","answerType":"COUNT","difficulty":"Hard"}
+  ]
+}

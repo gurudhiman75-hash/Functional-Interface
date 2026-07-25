@@ -1,0 +1,18 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "entries": [
+    {"qlId":"PNC-QL-107","cpId":"PNC-CP-007","difficulty":"Easy","template":"In how many ways can {totalObjects} distinct people stand in a row if two specified people must remain together?"},
+    {"qlId":"PNC-QL-108","cpId":"PNC-CP-007","difficulty":"Medium","template":"In how many ways can {totalObjects} distinct books be arranged on a shelf if three specified books must be kept together?"},
+    {"qlId":"PNC-QL-109","cpId":"PNC-CP-007","difficulty":"Medium","template":"In how many linear arrangements of {totalObjects} distinct objects must a specified group of {blockSize} objects appear consecutively?"},
+    {"qlId":"PNC-QL-110","cpId":"PNC-CP-007","difficulty":"Medium","template":"Among {totalObjects} distinct people, two specified pairs must each stand together. In how many rows can this happen?"},
+    {"qlId":"PNC-QL-111","cpId":"PNC-CP-007","difficulty":"Hard","template":"A row contains {totalObjects} distinct objects. A specified group of {blockSize} objects and another disjoint group of {secondBlockSize} objects must each remain together. How many arrangements are possible?"},
+    {"qlId":"PNC-QL-112","cpId":"PNC-CP-007","difficulty":"Medium","template":"In how many arrangements of {totalObjects} distinct people are three specified people not all together?"},
+    {"qlId":"PNC-QL-113","cpId":"PNC-CP-007","difficulty":"Hard","template":"In how many arrangements of {totalObjects} distinct objects is a specified group of {blockSize} objects not entirely consecutive?"},
+    {"qlId":"PNC-QL-114","cpId":"PNC-CP-007","difficulty":"Easy","template":"In how many rows of {totalObjects} distinct people do two specified people not stand together?"},
+    {"qlId":"PNC-QL-115","cpId":"PNC-CP-007","difficulty":"Medium","template":"Two specified books among {totalObjects} distinct books must not be adjacent. How many shelf arrangements are possible?"},
+    {"qlId":"PNC-QL-116","cpId":"PNC-CP-007","difficulty":"Hard","template":"Among {totalObjects} distinct people, exactly one of two disjoint specified pairs must stand together. In how many rows can this occur?"},
+    {"qlId":"PNC-QL-117","cpId":"PNC-CP-007","difficulty":"Hard","template":"Two specified people must remain together. If the number of possible rows is {target}, find the total number n of distinct people, where 4 ≤ n ≤ 8."},
+    {"qlId":"PNC-QL-118","cpId":"PNC-CP-007","difficulty":"Hard","template":"A specified group of three objects must remain consecutive. If there are {target} valid arrangements, find the total number n of distinct objects, where 5 ≤ n ≤ 8."}
+  ]
+}

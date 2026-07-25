@@ -1,0 +1,19 @@
+{
+  "packageId":"PNC-002",
+  "language":"en",
+  "ownership":"HUMAN_OWNED",
+  "entries":{
+    "PNC-QL-107":["Treat the two specified people as one unit because they cannot be separated.","This leaves {outerUnits} units to arrange, while the two people can switch places inside their unit.","Thus the count is {equation}, giving {answer} rows."],
+    "PNC-QL-108":["Bundle the three specified books into a single block before arranging the shelf.","The block and the remaining books make {outerUnits} units, and the three books have their own internal order.","Therefore {equation}, so the answer is {answer}."],
+    "PNC-QL-109":["The required consecutive group behaves like one larger object.","Arrange the resulting {outerUnits} units, then arrange the {blockSize} members within their block.","Multiplying these independent choices gives {equation} = {answer}."],
+    "PNC-QL-110":["Replace each specified pair by a block, so two blocks and the remaining people are arranged as units.","Each pair can reverse independently, contributing a factor of 2 for each block.","Hence {equation}, which equals {answer}."],
+    "PNC-QL-111":["Each required consecutive group is compressed into its own block.","After compression there are {outerUnits} units; the two blocks also have {blockSize}! and {secondBlockSize}! internal orders.","The complete count is {equation} = {answer}."],
+    "PNC-QL-112":["Start with every unrestricted row of the {totalObjects} people.","The unwanted rows are those where the three named people form one block, including all internal orders of that block.","Subtracting those rows gives {equation} = {answer}."],
+    "PNC-QL-113":["It is easier to subtract the forbidden case from all unrestricted arrangements.","The forbidden case treats the {blockSize} specified objects as one block and also counts their internal orders.","So the required number is {equation} = {answer}."],
+    "PNC-QL-114":["Count all rows first, then remove the rows in which the two named people form a single block.","The block can be arranged internally in two ways.","Therefore {equation}, leaving {answer} valid rows."],
+    "PNC-QL-115":["Every shelf arrangement is allowed except those where the two specified books are adjacent.","For the adjacent case, regard the books as one block and count both internal orders.","The complement is {equation} = {answer}."],
+    "PNC-QL-116":["Count the rows where the first pair is together and the second is apart, then double by symmetry.","For one chosen together-pair, subtract the rows where both pairs are blocks from the rows where that pair alone is forced together.","This gives {equation} = {answer}."],
+    "PNC-QL-117":["For each permitted value of n, two specified people together would give \((n-1)!\times2\) rows.","Only one value in the stated range matches the target {target}.","The exact match is {equation}, so n = {answer}."],
+    "PNC-QL-118":["A block of three objects gives \((n-2)!\times3!\) arrangements.","Check the allowed values of n until this expression equals {target}.","The unique match is {equation}, hence n = {answer}." ]
+  }
+}
