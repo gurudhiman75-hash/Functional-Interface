@@ -1,5 +1,5 @@
 import { letterPosition, oppositeLetter } from "../foundation/alphabet";
-import { generateAlphabetAnalogy, type AlphabetLayout, type GeneratedAlphabetAnalogy } from "./generator";
+import { generateAlphabetAnalogy, type GeneratedAlphabetAnalogy } from "./generator";
 import type { AlphabetRuleContext } from "./rule-definitions";
 
 export type AlphabetLocale = "hi-IN" | "pa-IN";
@@ -30,7 +30,7 @@ function ruleText(ruleId: string, context: AlphabetRuleContext, locale: Alphabet
     ALPHA_OPPOSITE_BACKWARD: `ਪਹਿਲਾਂ ਵਿਰੋਧੀ ਅੱਖਰ ਲੈ ਕੇ ${shift} ਥਾਂ ਪਿੱਛੇ ਜਾਂਦੇ ਹਾਂ`,
     ALPHA_POSITION_DOUBLE: "ਅੱਖਰ ਦੀ ਵਰਣਮਾਲਾ-ਸਥਿਤੀ ਨੂੰ ਦੁੱਗਣਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ",
     ALPHA_POSITION_DOUBLE_MINUS_ONE: "ਅੱਖਰ ਦੀ ਸਥਿਤੀ ਨੂੰ ਦੁੱਗਣਾ ਕਰਕੇ ਇੱਕ ਘਟਾਇਆ ਜਾਂਦਾ ਹੈ",
-    ALPHA_POSITION_HALF: "ਜੋੜੀ ਵਰਣਮਾਲਾ-ਸਥਿਤੀ ਨੂੰ ਅੱਧਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ",
+    ALPHA_POSITION_HALF: "ਜਿਸਤ ਵਰਣਮਾਲਾ-ਸਥਿਤੀ ਨੂੰ ਅੱਧਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ",
     ALPHA_POSITION_HALF_ROUND_UP: "ਟਾਂਕ ਵਰਣਮਾਲਾ-ਸਥਿਤੀ ਵਿੱਚ ਇੱਕ ਜੋੜ ਕੇ ਅੱਧਾ ਕੀਤਾ ਜਾਂਦਾ ਹੈ",
     ALPHA_OPPOSITE_OF_DOUBLE: "ਸਥਿਤੀ ਨੂੰ ਦੁੱਗਣਾ ਕਰਕੇ ਮਿਲੀ ਸਥਿਤੀ ਦਾ ਵਿਰੋਧੀ ਲਿਆ ਜਾਂਦਾ ਹੈ",
   };
