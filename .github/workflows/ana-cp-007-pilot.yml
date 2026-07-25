@@ -26,7 +26,7 @@ concurrency:
 jobs:
   pilot-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -55,3 +55,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/foundation/word-registry.audit.ts
       - name: Run provisional native-rule yield simulation
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/provisional-yield-simulation.ts
+      - name: Run CP-006 collision bridge
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/provisional-cp006-collision-audit.ts
