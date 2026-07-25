@@ -1,0 +1,24 @@
+name: Reasoning COD-001 Runtime
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**"
+      - ".github/workflows/reasoning-cod-001-runtime.yml"
+  workflow_dispatch:
+
+jobs:
+  cod-cp-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run COD-CP-001 exhaustive runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-001/cod-cp-001.test.ts
