@@ -67,6 +67,9 @@ for (const ql of DIR_CP003_QLS) {
       assert.ok(generated.explanation.calculationLine!.includes("Start"));
       assert.ok(generated.explanation.calculationLine!.includes("Finish"));
       assert.ok(generated.explanation.calculationLine!.includes("√") || generated.explanation.calculationLine!.includes("Only one net direction"));
+      const keyMarkup = generated.explanation.diagram.svg.match(/<g data-role="shortest-distance-key">(.*?)<\/g>/)?.[1] ?? "";
+      assert.ok(keyMarkup.includes("Shortest distance"));
+      assert.ok(!keyMarkup.includes("<line"), "Shortest-distance key text must not be crossed by a line");
     }
     assert.ok(generated.explanation.diagram.svg.includes('data-role="compass" transform="translate(654 80)"'));
     const routeCoordinates = [...generated.explanation.diagram.svg.matchAll(/data-role="movement-leg" x1="([^"]+)" y1="([^"]+)" x2="([^"]+)" y2="([^"]+)"/g)];
