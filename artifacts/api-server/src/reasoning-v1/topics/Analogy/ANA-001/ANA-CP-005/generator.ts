@@ -1,6 +1,6 @@
 import { letterFromPosition, letterPosition, oppositeLetter, shiftLetter } from "../foundation/alphabet";
 import { checkAlphabetAmbiguity } from "./ambiguity-checker";
-import { allEligibleLetters, solveAlphabetRule, verifyAlphabetTransfer, type AlphabetPair } from "./independent-solver";
+import { allEligibleLetters, verifyAlphabetTransfer, type AlphabetPair } from "./independent-solver";
 import { validateAlphabetOptions, type AlphabetOption } from "./option-validator";
 import { ANA_CP005_QLS } from "./question-language.en";
 import { alphabetRuleById, type AlphabetRuleContext } from "./rule-definitions";
@@ -81,12 +81,13 @@ function chooseInstance(
     const inputs = shuffle(allEligibleLetters(ruleId), seed * 13 + 5);
     for (let sourceIndex = 0; sourceIndex < inputs.length; sourceIndex += 1) {
       const sourceLeft = inputs[sourceIndex];
-      const sourceRight = solveAlphabetRule(ruleId, context, sourceLeft);
+      const sourceRight = rule.apply(sourceLeft, context);
+      if (!sourceRight) continue;
       const source = { left: sourceLeft, right: sourceRight };
       for (let targetIndex = sourceIndex + 1; targetIndex < inputs.length; targetIndex += 1) {
         const targetLeft = inputs[targetIndex];
-        const targetRight = solveAlphabetRule(ruleId, context, targetLeft);
-        if (targetRight === sourceRight || targetLeft === sourceLeft) continue;
+        const targetRight = rule.apply(targetLeft, context);
+        if (!targetRight || targetRight === sourceRight || targetLeft === sourceLeft) continue;
         const target = { left: targetLeft, right: targetRight };
         if (!checkAlphabetAmbiguity(ruleId, context, [source, target]).accepted) continue;
         const candidate = { context, source, target };
@@ -134,9 +135,11 @@ function pairSelectionOptions(
   target: AlphabetPair,
   seed: number,
 ): AlphabetOption[] {
+  const rule = alphabetRuleById(ruleId);
   const distractors: AlphabetOption[] = [];
   for (const left of shuffle(allEligibleLetters(ruleId), seed * 23 + 13)) {
-    const correctRight = solveAlphabetRule(ruleId, context, left);
+    const correctRight = rule.apply(left, context);
+    if (!correctRight) continue;
     if (left === target.left && correctRight === target.right) continue;
     for (const right of plausibleWrongLetters({ left, right: correctRight }, seed + letterPosition(left) * 31)) {
       if (right === correctRight) continue;
