@@ -25,12 +25,12 @@ const profileIds = getMen001NaturalExplanationProfileIds().sort();
 assert.deepEqual(
   profileIds,
   qlIds,
-  "Every active QL must have exactly one natural explanation profile.",
+  "Every active QL must retain exactly one context profile.",
 );
 
 const signatureOwner = new Map<string, string>();
 const lineCountDistribution = new Map<number, number>();
-const roboticOpening = /^(Check:|Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
+const roboticOpening = /^(Check:|Substitution:|Calculation:|Here, A =|Here, P =|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
 
 for (const entry of getMen001QuestionEntries()) {
   for (let sample = 0; sample < 3; sample += 1) {
@@ -51,14 +51,14 @@ for (const entry of getMen001QuestionEntries()) {
         .join("; "),
     );
     assert.ok(
-      question.explanation.lines.length >= 3 &&
-        question.explanation.lines.length <= 9,
-      `${entry.qlId} should use only as many lines as its reasoning needs.`,
+      question.explanation.lines.length >= 2 &&
+        question.explanation.lines.length <= 6,
+      `${entry.qlId} should expand only when its mathematics genuinely has stages.`,
     );
     assert.equal(
       question.explanation.lines.some((line) => roboticOpening.test(line)),
       false,
-      `${entry.qlId} still contains a robotic explanation label or conclusion.`,
+      `${entry.qlId} still contains a labelled or stock explanation shell.`,
     );
     assert.ok(
       question.explanation.lines.some(
@@ -89,10 +89,10 @@ for (const entry of getMen001QuestionEntries()) {
 assert.equal(signatureOwner.size, qlIds.length);
 assert.ok(
   lineCountDistribution.size >= 3,
-  "The chapter should not force every explanation into the same line structure.",
+  "Manual explanations should not all have the same rhythm or line count.",
 );
 console.log(
-  `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
+  `MEN-001 manual explanation audit passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
 );
 console.log(
   `Explanation line-count distribution: ${JSON.stringify(Object.fromEntries([...lineCountDistribution].sort(([a], [b]) => a - b)))}`,
