@@ -23,6 +23,7 @@ import {
   XCircle,
 } from 'lucide-react';
 
+import { MathText } from '@/components/shared/MathText';
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -697,7 +698,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
       <Card>
         <CardHeader><CardTitle className="text-base">Question stem</CardTitle></CardHeader>
         <CardContent>
-          <p className="whitespace-pre-wrap text-sm font-medium leading-7">{version.stem}</p>
+          <MathText content={version.stem} className="text-sm font-medium leading-7" />
         </CardContent>
       </Card>
       <Card>
@@ -715,9 +716,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
               ) : (
                 <Circle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               )}
-              <p className="text-sm">
-                <span className="font-semibold">{option.key}.</span> {option.text}
-              </p>
+              <div className="min-w-0 text-sm"><span className="mr-2 font-semibold">{option.key}.</span><MathText content={option.text} inline className="inline" /></div>
               {option.isCorrect && (
                 <Badge className="ml-auto bg-success/10 text-success hover:bg-success/10">Correct</Badge>
               )}
@@ -728,9 +727,7 @@ function QuestionPreview({ version }: { version: QuestionVersion }) {
       <Card>
         <CardHeader><CardTitle className="text-base">Explanation</CardTitle></CardHeader>
         <CardContent>
-          <p className="whitespace-pre-wrap text-sm leading-7 text-muted-foreground">
-            {version.explanation}
-          </p>
+          <MathText content={version.explanation} className="text-sm leading-7 text-muted-foreground" />
         </CardContent>
       </Card>
     </>
