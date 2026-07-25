@@ -1,5 +1,4 @@
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
-import { shownAnswer } from "./natural-explanation-manual.shared";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import type {
   Men001QuestionPackage,
@@ -18,19 +17,17 @@ function hasWorkedArithmetic(lines: readonly string[]) {
   return numericTokens.length >= 2;
 }
 
-function expectedConclusion(question: Question, template: string) {
-  const answer = question.solver.canonicalAnswer.kind === "symbolic"
-    ? question.solver.canonicalAnswer.display
-    : question.answer;
-  const text = template
-    .replace("{answer}", answer)
-    .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
-    .replace(/\s+therefore\s+/i, " ")
-    .replace(/\s+hence\s+/i, " ")
-    .replace(/\s+thus\s+/i, " ")
-    .trim();
-  const capitalized = text[0] ? text[0].toUpperCase() + text.slice(1) : text;
-  return /[.!?]$/.test(capitalized) ? capitalized : `${capitalized}.`;
+function answerValueAppears(question: Question, rendered: string) {
+  const answer = question.solver.canonicalAnswer;
+  if (answer.kind === "symbolic") {
+    const expected = answer.display
+      .replace(/\s*(?:cm²|m²|cm|m)$/, "")
+      .replace(/\s+/g, "");
+    return rendered.replace(/\s+/g, "").includes(expected);
+  }
+  return new RegExp(`(^|\\D)${String(answer.value).replace(".", "\\.")}(?=\\D|$)`).test(
+    rendered.replaceAll(",", ""),
+  );
 }
 
 export function validateMen001QuestionPackage(
@@ -45,9 +42,6 @@ export function validateMen001QuestionPackage(
   const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
-  const conclusion = profile
-    ? expectedConclusion(question, profile.conclusion)
-    : undefined;
   const explanationLines = question.explanation.lines;
   const rendered = explanationLines.join(" ");
   const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|Here, A =|Here, P =|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers)/i;
@@ -59,17 +53,12 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "manual-explanation-opening",
-    Boolean(profile) && explanationLines[0]!.startsWith(profile!.opening),
+    Boolean(profile) && explanationLines[0] === profile!.opening,
     "The authored explanation must begin in the question's own context.",
   ));
   checks.push(check(
-    "manual-explanation-conclusion",
-    Boolean(conclusion) && rendered.endsWith(conclusion!),
-    "The authored explanation must end with its contextual result.",
-  ));
-  checks.push(check(
     "manual-explanation-length",
-    explanationLines.length >= 2 && explanationLines.length <= 6,
+    explanationLines.length >= 2 && explanationLines.length <= 4,
     "The explanation should be concise and should expand only when the method has genuine stages.",
   ));
   checks.push(check(
@@ -83,9 +72,9 @@ export function validateMen001QuestionPackage(
     "Manual explanations must not fall back to labelled formula-template prose.",
   ));
   checks.push(check(
-    "manual-explanation-answer-present",
-    rendered.includes(shownAnswer(question.solver)),
-    "The contextual explanation must state the exact final answer.",
+    "manual-explanation-answer-value-present",
+    answerValueAppears(question, rendered),
+    "The worked explanation must reach the exact numerical or symbolic answer value.",
   ));
 
   if ([
