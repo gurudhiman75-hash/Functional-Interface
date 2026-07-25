@@ -1,0 +1,62 @@
+name: Validate Attempt Administration
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-attempts.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/attempt-administration.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-attempts.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/attempt-administration.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: attempt-administration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Enforce canonical read-only attempt contracts
+        run: |
+          grep -F 'router.use("/admin/attempts", adminAttemptsRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F 'result_snapshot AS "resultSnapshot"' artifacts/api-server/src/routes/admin-attempts.ts
+          ! grep -E 'router\.(post|patch|put|delete)' artifacts/api-server/src/routes/admin-attempts.ts
+          grep -F "path: '/users/attempts/:id'" artifacts/admin-app/src/App.tsx
+          grep -F "path: '/users/attempts'" artifacts/admin-app/src/App.tsx
+          grep -F "label: 'Attempt Administration'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Canonical result snapshot' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+          ! grep -Ei 'delete attempt|change score|override score|reset attempt' artifacts/admin-app/src/pages/users/AttemptsWorkspacePage.tsx
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin
