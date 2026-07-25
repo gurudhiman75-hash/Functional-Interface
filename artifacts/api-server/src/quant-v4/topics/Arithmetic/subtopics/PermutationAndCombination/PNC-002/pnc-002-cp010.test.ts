@@ -32,13 +32,16 @@ import {
   countCircularSelectionDihedralExact,
   countCircularSelectionRotationOnlyExact,
 } from "./foundation/solver-cp010-saturation";
-import type { Pnc002ValidationResult } from "./foundation/types";
+import type { Pnc002QuestionPackage, Pnc002ValidationResult } from "./foundation/types";
 
 function failedChecks(validation: Pnc002ValidationResult): string {
   return validation.checks
     .filter((item) => !item.passed)
     .map((item) => `${item.name}: ${item.message}`)
     .join(" | ");
+}
+function numericOptions(pkg: Pnc002QuestionPackage): Set<number> {
+  return new Set(pkg.options.map(Number));
 }
 
 const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-010");
@@ -90,9 +93,30 @@ assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-201", seed: "cp010-
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-202", seed: "cp010-reflection-contract" }).solver.evidence.reflectionSymmetryDivisor, 2);
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-204", seed: "cp010-block-apart-saturation" }).solver.evidence.operation, "CIRCULAR_BLOCK_APART");
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-205", seed: "cp010-exclusive-pair-saturation" }).solver.evidence.operation, "CIRCULAR_EXACTLY_ONE_PAIR");
-assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-206", seed: "cp010-selection-rotation" }).solver.evidence.operation, "CIRCULAR_SELECTION_ROTATION_ONLY");
-assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-207", seed: "cp010-selection-dihedral" }).solver.evidence.operation, "CIRCULAR_SELECTION_DIHEDRAL");
-assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-208", seed: "cp010-neighbor-sets" }).solver.evidence.operation, "CIRCULAR_DISTINCT_NEIGHBOR_SETS");
+
+const rotationSelection = runPnc002Pipeline({ questionLanguageId: "PNC-QL-206", seed: "cp010-selection-rotation" });
+assert.equal(rotationSelection.solver.evidence.operation, "CIRCULAR_SELECTION_ROTATION_ONLY");
+const rotationSelectionOptions = numericOptions(rotationSelection);
+const rotationSelectedCount = rotationSelection.solver.evidence.selectedObjectCount ?? 0;
+const rotationChooseOnly = rotationSelection.solver.evidence.selectionCount ?? 0;
+assert.equal(rotationSelectionOptions.has(rotationSelection.solver.numericAnswer * rotationSelectedCount), true, "QL-206 must include the linear nPr trap");
+assert.equal(rotationSelectionOptions.has(rotationChooseOnly), true, "QL-206 must include the choose-only trap");
+
+const dihedralSelection = runPnc002Pipeline({ questionLanguageId: "PNC-QL-207", seed: "cp010-selection-dihedral" });
+assert.equal(dihedralSelection.solver.evidence.operation, "CIRCULAR_SELECTION_DIHEDRAL");
+const dihedralSelectionOptions = numericOptions(dihedralSelection);
+const dihedralSelectedCount = dihedralSelection.solver.evidence.selectedObjectCount ?? 0;
+assert.equal(dihedralSelectionOptions.has(dihedralSelection.solver.numericAnswer * 2), true, "QL-207 must include the rotation-only trap");
+assert.equal(dihedralSelectionOptions.has(dihedralSelection.solver.numericAnswer * 2 * dihedralSelectedCount), true, "QL-207 must include the linear nPr trap");
+assert.equal(dihedralSelectionOptions.has(dihedralSelection.solver.numericAnswer * dihedralSelectedCount), true, "QL-207 must include the reflection-only linear trap");
+
+const neighborSets = runPnc002Pipeline({ questionLanguageId: "PNC-QL-208", seed: "cp010-neighbor-sets" });
+assert.equal(neighborSets.solver.evidence.operation, "CIRCULAR_DISTINCT_NEIGHBOR_SETS");
+const neighborSetOptions = numericOptions(neighborSets);
+const neighborTotal = neighborSets.solver.evidence.totalObjects;
+assert.equal(neighborSetOptions.has(factorialExact(neighborTotal - 1)), true, "QL-208 must include ordinary circular seating");
+assert.equal(neighborSetOptions.has(Math.floor(factorialExact(neighborTotal) / 2)), true, "QL-208 must include linear division by two");
+assert.equal(neighborSetOptions.has(factorialExact(neighborTotal)), true, "QL-208 must include unrestricted linear seating");
 
 let generatedCases = 0;
 for (const entry of entries) {
