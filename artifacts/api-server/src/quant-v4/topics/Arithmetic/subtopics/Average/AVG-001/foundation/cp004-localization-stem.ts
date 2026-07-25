@@ -1,3 +1,4 @@
+import { localizedGapStem } from "./cp004-localization-gap-stem";
 import { avg001Cp004MultiLexicon, avg001Cp004PairLexicon, avg001Cp004SpeedLexicon, type Avg001Cp004PilotLanguage } from "./cp004-localization-lexicon";
 import { contextUnit, display, joined } from "./cp004-localization-format";
 import { rationalText, shown, variant } from "./cp004-localization-values";
@@ -64,6 +65,13 @@ function speedStem(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguag
 }
 
 export function localizedStem(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguage) {
+  if (
+    pkg.solveMode === "findGroupCountRatioFromCombinedAverage" ||
+    pkg.solveMode === "findAverageSpeedForUnequalDistances" ||
+    pkg.solveMode === "findAverageSpeedForUnequalTimes"
+  ) {
+    return localizedGapStem(pkg, language);
+  }
   if (pkg.solveMode === "findCombinedAverageOfThreeOrFourGroups") return multiStem(pkg, language);
   if (pkg.solveMode === "findAverageSpeedEqualDistance" || pkg.solveMode === "findAverageSpeedEqualTime") return speedStem(pkg, language);
   return pairStem(pkg, language);
