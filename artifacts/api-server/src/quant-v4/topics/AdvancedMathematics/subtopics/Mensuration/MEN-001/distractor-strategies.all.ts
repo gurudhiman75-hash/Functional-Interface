@@ -5,6 +5,7 @@ import { MEN_001_CP003_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp0
 import { MEN_001_CP004_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp004";
 import { MEN_001_CP004_ADDITIONAL_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp004.additional";
 import { MEN_001_CP005_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp005";
+import { MEN_001_CP005_OVERLAP_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp005.overlap";
 import { MEN_001_CP005_SHAPE_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp005.shapes";
 import { MEN_001_EXHAUSTIVENESS_DISTRACTOR_STRATEGIES } from "./distractor-strategies.exhaustiveness";
 import { MEN_001_EXHAUSTIVENESS_REFINED_DISTRACTOR_STRATEGIES } from "./distractor-strategies.exhaustiveness.refined";
@@ -23,6 +24,7 @@ export const MEN_001_ALL_DISTRACTOR_STRATEGIES = {
   ...MEN_001_EXHAUSTIVENESS_REFINED_DISTRACTOR_STRATEGIES,
   ...MEN_001_CP005_DISTRACTOR_STRATEGIES,
   ...MEN_001_CP005_SHAPE_DISTRACTOR_STRATEGIES,
+  ...MEN_001_CP005_OVERLAP_DISTRACTOR_STRATEGIES,
 } as const;
 
 export type Men001AllDistractorStrategyId =
