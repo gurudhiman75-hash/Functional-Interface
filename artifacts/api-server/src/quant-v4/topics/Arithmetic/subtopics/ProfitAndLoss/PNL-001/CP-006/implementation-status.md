@@ -1,6 +1,6 @@
 # PNL-CP-006 Implementation Status
 
-Status: FREEZE CANDIDATE
+Status: FREEZE CANDIDATE — FOCUSED VALIDATION PASSED
 
 Branch: `feat/pnl-001-cp006-effective-cost-recovery`
 
@@ -71,6 +71,7 @@ Representative proof:
 - `explanation-quality-audit.md`
 - `cp-006-structural-audit.ts`
 - `completion-audit.md`
+- `freeze-readiness-report.md`
 
 ## Representation coverage
 
@@ -80,10 +81,20 @@ Direct, inverse, table, caselet, statement, algebraic and data-sufficiency forms
 
 Coverage was checked against the PNL concept ontology, exhaustive discovery plan and reference-pattern ledger ECR-001 through ECR-006. No unresolved owned pattern remains.
 
-## Execution status
+## Execution result
 
-Repository cloning was blocked in the execution container by unavailable outbound DNS. Tests and structural audits are committed but must be executed by PR CI or the consolidated PNL integration pass.
+Focused workflow: `Validate PNL CP-006`
+
+Passed:
+
+- locked dependency installation;
+- esbuild compilation and execution of `pnl-cp-006.test.ts`;
+- esbuild compilation and execution of `cp-006-structural-audit.ts`;
+- runtime assertions for all major direct/inverse families;
+- contiguous IDs, 37/37/37 language parity, required-placeholder equality and explanation-depth checks.
+
+The integrated admin workflow separately confirmed that the API server build succeeds. Its later failure is an unrelated admin-app `Tone` type error. Vercel statuses are build-rate-limit failures.
 
 ## Reopen rule
 
-Reopen only for a compile/runtime failure, a rendered multilingual defect, or a genuinely distinct source-backed SSC, Banking or Punjab examination mode.
+Reopen only for a future regression, a rendered multilingual defect, or a genuinely distinct source-backed SSC, Banking or Punjab examination mode.
