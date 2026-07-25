@@ -49,7 +49,8 @@ function renderPathNarrative(person: string, solved: SolvedPath): string {
 
   if (pendingTurn) clauses.push(`finally ${turnVerb(pendingTurn)}`);
   const [first, ...rest] = clauses;
-  return `${first}${rest.length > 0 ? `, ${rest.join(", ")}` : ""}.`;
+  if (rest.length === 0) return `${first}.`;
+  return `${first}; ${rest.join("; ")}.`;
 }
 
 export function renderEndpointStem(
