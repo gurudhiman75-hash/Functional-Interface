@@ -64,7 +64,7 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/analytics/*', element: <PendingWorkspacePage /> },
   { path: '/settings/languages', element: <LanguagesPage /> },
   { path: '/settings/roles', element: <RolesPermissionsPage /> },
-  { path: '/settings/audit-logs', element: <AuditLogsWorkspacePage /> },
+  { path: '/settings/audit-logs', element: <AuditLogsPage /> },
   { path: '/settings/*', element: <PendingWorkspacePage /> },
   { path: '*', element: <NotFoundPage /> },
 ]}], { basename: '/admin' });
