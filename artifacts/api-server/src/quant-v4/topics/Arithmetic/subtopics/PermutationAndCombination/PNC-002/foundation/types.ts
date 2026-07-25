@@ -16,7 +16,9 @@ export type Pnc002Cp008SolveMode =
   | "countObjectAtExactPosition" | "countObjectAtEitherEnd" | "countSpecifiedObjectsAtBothEnds" | "countObjectExcludedFromEnds"
   | "countPrescribedRelativeOrder" | "countIndependentRelativeOrderChains" | "countStrictAlternation"
   | "countNoTwoCategoryMembersAdjacent" | "countExactGapBetweenPair" | "countAtLeastGapBetweenPair"
-  | "countSpecifiedObjectsInPositionClass" | "recoverPositionGapParameter";
+  | "countSpecifiedObjectsInPositionClass" | "recoverPositionGapParameter"
+  | "countObjectsAtPrescribedPositions" | "countSpecifiedSetInPositionSet" | "countAtMostGapBetweenPair"
+  | "countDirectionalExactGapBetweenPair" | "countAtLeastSpecifiedObjectsInPositionClass";
 export type Pnc002SolveMode = Pnc002Cp007SolveMode | Pnc002Cp008SolveMode;
 
 export interface Pnc002QuestionLanguageEntry { qlId: string; cpId: Pnc002ActiveCanonicalProblemId; difficulty: Pnc002Difficulty; template: string; }
@@ -51,7 +53,9 @@ export interface Pnc002SolverEvidence {
     | "OBJECT_AT_EXACT_POSITION" | "OBJECT_AT_EITHER_END" | "SPECIFIED_OBJECTS_AT_BOTH_ENDS" | "OBJECT_EXCLUDED_FROM_ENDS"
     | "PRESCRIBED_RELATIVE_ORDER" | "INDEPENDENT_RELATIVE_ORDER_CHAINS" | "STRICT_ALTERNATION"
     | "NO_TWO_CATEGORY_MEMBERS_ADJACENT" | "EXACT_GAP_BETWEEN_PAIR" | "AT_LEAST_GAP_BETWEEN_PAIR"
-    | "SPECIFIED_OBJECTS_IN_POSITION_CLASS" | "POSITION_GAP_INVERSE";
+    | "SPECIFIED_OBJECTS_IN_POSITION_CLASS" | "POSITION_GAP_INVERSE"
+    | "OBJECTS_AT_PRESCRIBED_POSITIONS" | "SPECIFIED_SET_IN_POSITION_SET" | "AT_MOST_GAP_BETWEEN_PAIR"
+    | "DIRECTIONAL_EXACT_GAP" | "AT_LEAST_SPECIFIED_IN_POSITION_CLASS";
   totalObjects: number; blockSizes: number[]; groupedObjectCount: number; blockCount: number; unitCount: number;
   externalArrangementCount: number; internalArrangementCounts: number[]; internalArrangementMultiplier: number;
   unrestrictedCount?: number; forbiddenTogetherCount?: number; validUnitArrangementCount?: number;
@@ -60,10 +64,12 @@ export interface Pnc002SolverEvidence {
   allSpecifiedBlocksTogetherCount?: number; fixedPosition?: number; allowedPositionCount?: number; remainingObjects?: number;
   endAssignmentCount?: number; chainLengths?: number[]; relativeOrderDivisor?: number; largeCount?: number; smallCount?: number;
   orientationCount?: number; gapSlotCount?: number; chosenGapCount?: number; gapCount?: number; minimumGap?: number;
-  orderedPositionPairCount?: number; specifiedCount?: number; requiredInClass?: number; eligibleClassPositions?: number;
-  ineligibleClassPositions?: number; selectedSpecifiedCount?: number; eligibleAssignmentCount?: number;
-  ineligibleAssignmentCount?: number; ordinaryArrangementCount?: number; target?: number;
-  recoveredParameter?: "n" | "blockSize" | "gap"; searchMinimum?: number; searchMaximum?: number;
+  maximumGap?: number; orderedPositionPairCount?: number; directionalPositionPairCount?: number;
+  specifiedCount?: number; prescribedObjectCount?: number; requiredInClass?: number; minimumInClass?: number;
+  eligibleClassPositions?: number; ineligibleClassPositions?: number; selectedSpecifiedCount?: number;
+  eligibleAssignmentCount?: number; ineligibleAssignmentCount?: number; ordinaryArrangementCount?: number;
+  positionSetAssignmentCount?: number; acceptedClassCounts?: number[]; positionClassCaseCounts?: number[];
+  target?: number; recoveredParameter?: "n" | "blockSize" | "gap"; searchMinimum?: number; searchMaximum?: number;
 }
 export interface Pnc002SolverResult { exactAnswer: string; answer: string; numericAnswer: number; equation: string; mathJax: string; evidence: Pnc002SolverEvidence; }
 export interface Pnc002IndependentVerification { supported: boolean; answer: number; method: string; }
