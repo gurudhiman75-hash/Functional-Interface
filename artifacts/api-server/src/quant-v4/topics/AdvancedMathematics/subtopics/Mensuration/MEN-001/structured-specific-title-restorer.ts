@@ -21,6 +21,13 @@ const RECTANGLE_SEMICIRCLE_STEPS = [
   },
 ] as const;
 
+const FALLBACK_PARAGRAPHS = {
+  "Continue the Calculation":
+    "Use the previous result in the next part of the calculation.",
+  "Finalize the Numerical Result":
+    "Evaluate the remaining expression to obtain the required numerical value.",
+} as const;
+
 function spaceBeforeUnit(value: string) {
   return value
     .replace(/(√\d+|\d+(?:\.\d+)?)(m²|cm²|m|cm)\b/g, "$1 $2")
@@ -52,6 +59,15 @@ function refineTitle(
   return section.title;
 }
 
+function renumber(sections: Men001ExplanationSection[]) {
+  let stepNumber = 0;
+  return sections.map((section) => {
+    if (section.kind !== "STEP") return section;
+    stepNumber += 1;
+    return { ...section, stepNumber };
+  });
+}
+
 function mergeSameQuantityContinuations(sections: Men001ExplanationSection[]) {
   const result: Men001ExplanationSection[] = [];
   for (const section of sections) {
@@ -75,13 +91,32 @@ function mergeSameQuantityContinuations(sections: Men001ExplanationSection[]) {
     }
     result.push(section);
   }
+  return renumber(result);
+}
 
-  let stepNumber = 0;
-  return result.map((section) => {
+function guaranteeDistinctAdjacentTitles(sections: Men001ExplanationSection[]) {
+  let previousTitle = "";
+  const result = sections.map((section, sectionIndex): Men001ExplanationSection => {
     if (section.kind !== "STEP") return section;
-    stepNumber += 1;
-    return { ...section, stepNumber };
+    if (section.title !== previousTitle) {
+      previousTitle = section.title;
+      return section;
+    }
+
+    const hasLaterStep = sections
+      .slice(sectionIndex + 1)
+      .some((candidate) => candidate.kind === "STEP");
+    const title = hasLaterStep
+      ? "Continue the Calculation"
+      : "Finalize the Numerical Result";
+    previousTitle = title;
+    return {
+      ...section,
+      title,
+      paragraphs: [FALLBACK_PARAGRAPHS[title]],
+    };
   });
+  return renumber(result);
 }
 
 export function restoreMen001SpecificStepAuthorship(
@@ -115,5 +150,7 @@ export function restoreMen001SpecificStepAuthorship(
     };
   });
 
-  return mergeSameQuantityContinuations(refined);
+  return guaranteeDistinctAdjacentTitles(
+    mergeSameQuantityContinuations(refined),
+  );
 }
