@@ -54,6 +54,9 @@ const CP010_OPERATIONS = new Set<Pnc002SolverEvidence["operation"]>([
   "ROTATION_ONLY_ORNAMENTS",
   "DIHEDRAL_DISTINCT_ORNAMENTS",
   "DIHEDRAL_PAIR_TOGETHER",
+  "CIRCULAR_SELECTION_ROTATION_ONLY",
+  "CIRCULAR_SELECTION_DIHEDRAL",
+  "CIRCULAR_DISTINCT_NEIGHBOR_SETS",
 ]);
 
 export function validatePnc002Cp010QuestionPackage(
@@ -86,11 +89,16 @@ export function validatePnc002Cp010QuestionPackage(
   if (pkg.solveMode === "countOppositePair") {
     checks.push(check("opposite-even", e.totalObjects % 2 === 0 && e.oppositeSeatOffset === e.totalObjects / 2, "Opposite-seat mode requires an even table"));
   }
-  if (pkg.solveMode === "countDihedralDistinctOrnaments" || pkg.solveMode === "countDihedralPairTogether") {
-    checks.push(check("reflection-contract", e.reflectionSymmetryDivisor === 2, "Dihedral modes must record reflection equivalence"));
+  if (
+    pkg.solveMode === "countDihedralDistinctOrnaments"
+    || pkg.solveMode === "countDihedralPairTogether"
+    || pkg.solveMode === "countCircularSelectionDihedral"
+    || pkg.solveMode === "countCircularDistinctNeighborSets"
+  ) {
+    checks.push(check("reflection-contract", e.reflectionSymmetryDivisor === 2, "Reflection-equivalent modes must record divisor two"));
   }
-  if (pkg.solveMode === "countRotationOnlyOrnaments") {
-    checks.push(check("rotation-only-contract", e.reflectionSymmetryDivisor === 1, "Rotation-only ornaments must not divide by reflection"));
+  if (pkg.solveMode === "countRotationOnlyOrnaments" || pkg.solveMode === "countCircularSelectionRotationOnly") {
+    checks.push(check("rotation-only-contract", e.reflectionSymmetryDivisor === 1, "Rotation-only modes must not divide by reflection"));
   }
   if (pkg.solveMode === "countCircularNoTwoCategoryAdjacent") {
     checks.push(check("gap-capacity", (e.smallCount ?? 0) <= (e.largeCount ?? 0), "Separated circular members cannot exceed available gaps"));
@@ -104,6 +112,26 @@ export function validatePnc002Cp010QuestionPackage(
         && (e.primaryRestrictionCount ?? 0) > (e.allSpecifiedBlocksTogetherCount ?? 0)
         && (e.allSpecifiedBlocksTogetherCount ?? 0) > 0,
       "Exactly-one-pair mode must expose two disjoint pair blocks and both one-pair and overlap counts",
+    ));
+  }
+  if (pkg.solveMode === "countCircularSelectionRotationOnly" || pkg.solveMode === "countCircularSelectionDihedral") {
+    checks.push(check(
+      "circular-selection-contract",
+      (e.selectedObjectCount ?? 0) >= 3
+        && (e.selectedObjectCount ?? 0) < e.totalObjects
+        && (e.selectionCount ?? 0) > 0
+        && (e.selectedCircularArrangementCount ?? 0) > 0
+        && e.rotationalSymmetryDivisor === e.selectedObjectCount,
+      "Circular subset modes must expose a proper selected subset, selection count and selected-cycle count",
+    ));
+  }
+  if (pkg.solveMode === "countCircularDistinctNeighborSets") {
+    checks.push(check(
+      "neighbor-set-contract",
+      e.operation === "CIRCULAR_DISTINCT_NEIGHBOR_SETS"
+        && e.reflectionSymmetryDivisor === 2
+        && e.rotationalSymmetryDivisor === e.totalObjects,
+      "Neighbour-set equivalence must remove rotation and merge reversed cycles",
     ));
   }
 
