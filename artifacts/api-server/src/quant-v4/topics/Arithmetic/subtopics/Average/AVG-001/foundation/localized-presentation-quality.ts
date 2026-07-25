@@ -6,6 +6,7 @@ import {
   AVG_001_LOCALIZED_STEM_CONTEXT_FIDELITY,
 } from "./localized-stem-context-fidelity";
 import { applyAvg001LocalizedStemContextFinalPolish } from "./localized-stem-context-final-polish";
+import { applyAvg001LocalizedStemGrammarGuard } from "./localized-stem-grammar-guard";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
@@ -20,6 +21,7 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
     "localized-explanation",
     "localized-context-naturalness",
     "localized-context-fidelity",
+    "localized-grammar-guard",
     "localized-explanation-authorship",
   ]);
   const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter((check) => !replaced.has(check.name));
@@ -58,6 +60,11 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
       message: "Localized stem preserves the English scenario entity rather than only mathematical parity",
     },
     {
+      name: "localized-grammar-guard",
+      passed: pkg.traceability.localizedStemGrammarGuard === "AVG-001 localized stem grammar guard v1",
+      message: "Localized stem passed the final Hindi/Punjabi agreement and word-order layer",
+    },
+    {
       name: "localized-explanation",
       passed:
         pkg.explanation.lines.length >= 4 &&
@@ -87,6 +94,7 @@ export function applyAvg001LocalizedPresentationQuality(
   const polishedStem = applyAvg001Cp003LocalizedStemFinalPolish(authoredStem, language);
   const contextFaithfulStem = applyAvg001LocalizedStemContextFidelity(polishedStem, language);
   const contextPolishedStem = applyAvg001LocalizedStemContextFinalPolish(contextFaithfulStem, language);
-  const humanized = applyAvg001HumanAuthoredExplanation(contextPolishedStem);
+  const grammarGuardedStem = applyAvg001LocalizedStemGrammarGuard(contextPolishedStem, language);
+  const humanized = applyAvg001HumanAuthoredExplanation(grammarGuardedStem);
   return { ...humanized, validation: refreshValidation(humanized, language) };
 }
