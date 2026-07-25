@@ -1,0 +1,74 @@
+# COD-CP-001 Runtime-Proof Implementation Report
+
+Status: English runtime proof complete, editorially corrected and repository CI verified; publication approval remains deferred.
+
+## Scope
+
+- Exact QL range: `COD-QL-001` through `COD-QL-024`
+- Exact QL count: `24`
+- Canonical rules: `4`
+- Locale: English (`en-IN`)
+- Maturity: `RUNTIME_PROOF`
+- Publicly publishable: `false`
+- Question Studio discovery: deliberately not wired
+
+## Implemented contracts
+
+- chapter-local deterministic PRNG;
+- typed code, prompt, renderer, option and explanation contracts;
+- injective direct mappings and inverse decoding;
+- four QL blocks of six entries each;
+- letter, digit and symbol outputs;
+- encode, decode, missing-code and overlap-inference tasks;
+- independent solver reconstructed only from displayed evidence;
+- rejection of identity, uniform-shift and opposite-alphabet collapses;
+- evidence coverage and overlapping-example checks;
+- rule-aware distractors and independent option validation;
+- exact review exporter;
+- 100-seed-per-QL runtime audit.
+
+## Editorial corrections
+
+The exact runtime review identified and resolved three weaknesses before merge:
+
+1. synthetic two-letter evidence clusters were removed; every displayed evidence source must now come from the curated English word registry;
+2. difficulty is derived from reasoning burden instead of being selected randomly from an allowed list;
+3. stems, rule statements, applications and conclusions now use deterministic editorial variation rather than one repeated skeleton.
+
+The runtime test permanently enforces curated evidence membership so the synthetic-cluster defect cannot silently return through another seed.
+
+## Validation executed
+
+The revised checkpoint source was compiled with TypeScript in an isolated local harness and the committed test logic was executed with Node. The same revised audit then executed successfully in GitHub Actions through the `Reasoning COD-001 Runtime` workflow on PR #117.
+
+PR workflows rerun after each checkpoint-branch update so GitHub rebuilds and validates the synthetic merge against the then-current `New-main` head.
+
+Verified audit result:
+
+- generated questions: `2,400` (`24 QLs × 100 seeds`);
+- answer positions: `593 / 604 / 561 / 642`;
+- answer-position max/min ratio: approximately `1.144`;
+- renderers covered: `EXAMPLE_TARGET_BLOCK`, `INLINE_CODE_PAIR`, `MAPPING_TABLE`;
+- task directions covered: encode, decode, overlap inference and missing-code recovery;
+- answer types covered: letter cluster, digit sequence, symbol sequence and single token;
+- difficulties covered: Easy, Medium and Hard;
+- deterministic equality, solver agreement, injectivity, evidence coverage, ambiguity acceptance, curated-evidence and option contracts passed for every sampled instance.
+
+Repository workflow result on the editorially revised head: **success**.
+
+## Repository runtime command
+
+From the repository root:
+
+```powershell
+pnpm dlx tsx .\artifacts\api-server\src\reasoning-v1\topics\Coding-Decoding\COD-001\COD-CP-001\cod-cp-001.test.ts
+```
+
+The exact runtime review can be produced by importing `exportCodCp001Review` from `export-review.ts` and writing its CSV output to an uncommitted review file.
+
+## Deferred work
+
+- Hindi and Punjabi localization;
+- Question Studio discovery;
+- production publishability;
+- chapter-wide freeze, which remains dependent on later checkpoints and final cross-CP audits.
