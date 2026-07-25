@@ -4,7 +4,7 @@ import type { Men001Parameters, Men001SolverResult } from "./types";
 
 const REDUNDANT_NARRATIVE_ENDING = /^(Therefore|Hence|Thus|So|Accordingly|The required|The final|The answer|A square unit|A linear unit|The numerical rate)/i;
 const GENERIC_UNIT_LINE = /(square unit is used|linear unit is used|area is two-dimensional|length is one-dimensional|expressed in rupees|reported in revolutions)/i;
-const ROBOTIC_PREFIX = /^(Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|So |Therefore |Hence |Thus )/i;
+const ROBOTIC_PREFIX = /^(Therefore,|Hence,|Thus,|So,|So |Therefore |Hence |Thus )/i;
 
 const SHORT_CASE_BRIDGES: Record<string, string> = {
   "MEN-001-QL-013":
@@ -31,20 +31,28 @@ function finishSentence(value: string) {
   return /[.!?]$/.test(text) ? text : `${text}.`;
 }
 
-function lowerFirst(value: string) {
-  return value.length === 0 ? value : value[0]!.toLowerCase() + value.slice(1);
+function capitalizeFirst(value: string) {
+  if (!value) return value;
+  return value[0]!.toUpperCase() + value.slice(1);
+}
+
+function lowerProseFirst(value: string) {
+  if (!value || /^[A-Za-z][A-Za-z0-9_ ]*\s*=/.test(value)) return value;
+  return value[0]!.toLowerCase() + value.slice(1);
 }
 
 function softenWorkingLine(line: string) {
   let text = line.trim();
+  text = text.replace(/^Substitution gives\s*/i, "With the values inserted, ");
   text = text.replace(/^Substitution:\s*/i, "Putting in the given values, ");
-  text = text.replace(/^Calculation:\s*/i, "This gives ");
+  text = text.replace(/^Calculation:\s*/i, "");
+  text = text.replace(/^This gives\s+/i, "");
   text = text.replace(/^By Pythagoras,\s*/i, "Pythagoras gives ");
   text = text.replace(/^From (.+?), isolate ([^:]+):\s*/i, "Rearranging $1 gives ");
   text = text.replace(/^Semiperimeter:\s*/i, "The semiperimeter is ");
   text = text.replace(/^Area of a triangle\s*=\s*/i, "For a triangle, A = ");
   text = text.replace(/^Area\s*=\s*/i, "Here, A = ");
-  text = text.replace(/^Use\s+/i, "Using ");
+  text = text.replace(/^Use\s+/i, "Here, ");
   text = text.replace(/^Full area\s*=\s*/i, "The full circle has area ");
   text = text.replace(/^Semicircle area\s*=\s*/i, "Half of that is ");
   text = text.replace(/^Outer area\s*=\s*/i, "The outer figure has area ");
@@ -52,50 +60,60 @@ function softenWorkingLine(line: string) {
   text = text.replace(/^Path area\s*=\s*/i, "Their difference is ");
   text = text.replace(/^Remaining area\s*=\s*/i, "Subtracting the road area leaves ");
   text = text.replace(ROBOTIC_PREFIX, "");
-  return finishSentence(text);
+  return finishSentence(capitalizeFirst(text));
 }
 
 function isShortResult(line: string) {
   const plain = line.replace(/^[A-Z][a-z]+,\s*/i, "").trim();
-  return plain.length <= 48 && /^[A-Za-z][A-Za-z0-9_ ]*\s*=/.test(plain);
+  return plain.length <= 52 && /^[A-Za-z][A-Za-z0-9_ ]*\s*=/.test(plain);
 }
 
 function mergeCalculationWithResult(calculation: string, result: string) {
   const left = calculation.replace(/[.]$/, "");
-  const right = result.replace(/[.]$/, "");
-  return finishSentence(`${left}, which gives ${lowerFirst(right)}`);
+  const right = result
+    .replace(/[.]$/, "")
+    .replace(/^This gives\s+/i, "")
+    .replace(/^which gives\s+/i, "");
+  return finishSentence(`${left}, giving ${right}`);
 }
 
 function mergeFormulaWithSubstitution(formula: string, substitution: string) {
   const left = formula.replace(/[.]$/, "");
   const right = substitution.replace(/[.]$/, "");
-  return finishSentence(`${left}; ${lowerFirst(right)}`);
+  return finishSentence(`${left}; ${lowerProseFirst(right)}`);
+}
+
+function mergeSingleResultPass(lines: readonly string[]) {
+  const merged: string[] = [];
+  for (let index = 0; index < lines.length; index += 1) {
+    const current = lines[index]!;
+    const next = lines[index + 1];
+    if (
+      next &&
+      isShortResult(next) &&
+      current.includes("=") &&
+      !/\b(giving|which gives)\b/i.test(current) &&
+      current.length + next.length < 205
+    ) {
+      merged.push(mergeCalculationWithResult(current, next));
+      index += 1;
+    } else {
+      merged.push(current);
+    }
+  }
+  return merged;
 }
 
 function compactNaturalWorking(
   lines: readonly string[],
   questionLanguageId: string,
 ) {
-  const working = lines
+  let working = lines
     .filter((line) => !isRedundantEnding(line))
     .map(softenWorkingLine)
     .filter((line, index, values) => index === 0 || line !== values[index - 1]);
 
-  for (let index = working.length - 1; index > 0; index -= 1) {
-    const current = working[index]!;
-    const previous = working[index - 1]!;
-    if (
-      isShortResult(current) &&
-      previous.includes("=") &&
-      previous.length + current.length < 205
-    ) {
-      working.splice(
-        index - 1,
-        2,
-        mergeCalculationWithResult(previous, current),
-      );
-    }
-  }
+  working = mergeSingleResultPass(working);
 
   const qlNumber = Number(questionLanguageId.split("-").at(-1) ?? 0);
   if (
@@ -108,7 +126,12 @@ function compactNaturalWorking(
     const second = working[1]!;
     const firstHasFormula = first.includes("=") && !/\d/.test(first);
     const secondHasValues = second.includes("=") && /\d/.test(second);
-    if (firstHasFormula && secondHasValues && first.length + second.length < 215) {
+    if (
+      firstHasFormula &&
+      secondHasValues &&
+      !/\b(giving|which gives)\b/i.test(second) &&
+      first.length + second.length < 215
+    ) {
       working.splice(0, 2, mergeFormulaWithSubstitution(first, second));
     }
   }
@@ -117,14 +140,13 @@ function compactNaturalWorking(
 }
 
 function naturalConclusion(value: string, answer: string) {
-  return finishSentence(
-    value
-      .replace("{answer}", answer)
-      .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
-      .replace(/\s+therefore\s+/i, " ")
-      .replace(/\s+hence\s+/i, " ")
-      .replace(/\s+thus\s+/i, " "),
-  );
+  const text = value
+    .replace("{answer}", answer)
+    .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
+    .replace(/\s+therefore\s+/i, " ")
+    .replace(/\s+hence\s+/i, " ")
+    .replace(/\s+thus\s+/i, " ");
+  return finishSentence(capitalizeFirst(text.trim()));
 }
 
 export function authorFinalMen001ExplanationLines(
@@ -156,8 +178,8 @@ export function authorFinalMen001ExplanationLines(
 
   return [
     opening,
-    ...working,
     ...(bridge ? [bridge] : []),
+    ...working,
     conclusion,
   ];
 }
