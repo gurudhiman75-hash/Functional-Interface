@@ -8,7 +8,16 @@
     "PNL-QL-038": {"template":"An article marked at ₹{markedPrice} is sold for ₹{sellingPrice}. Find the discount percentage.","difficulty":"Easy"},
     "PNL-QL-039": {"template":"After allowing a discount of {discountPercent}%, a retailer sells an article for ₹{sellingPrice}. Find its marked price.","difficulty":"Medium"},
     "PNL-QL-040": {"template":"An article marked at ₹{markedPrice} is offered at successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the final selling price.","difficulty":"Medium"},
-    "PNL-QL-041": {"template":"A retailer offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the single equivalent discount.","difficulty":"Medium"}
+    "PNL-QL-041": {"template":"A retailer offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Find the single equivalent discount.","difficulty":"Medium"},
+    "PNL-QL-042": {"template":"An article is marked at ₹{markedPrice} and sold at a discount of {discountPercent}%. Find the discount allowed in rupees.","difficulty":"Easy"},
+    "PNL-QL-043": {"template":"A discount of ₹{discountAmount} is allowed on an article marked at ₹{markedPrice}. Find the discount percentage.","difficulty":"Easy"},
+    "PNL-QL-044": {"template":"The marked price of an article is ₹{markedPrice}. A discount of ₹{discountAmount} is allowed. Find the selling price.","difficulty":"Easy"},
+    "PNL-QL-045": {"template":"Two successive discounts are offered on an article. If the first discount is {knownDiscountPercent}% and the equivalent discount is {equivalentDiscountPercent}%, find the second discount.","difficulty":"Hard"},
+    "PNL-QL-046": {"template":"On an article marked at ₹{markedPrice}, one shop offers a single discount of {singleDiscountPercent}%, while another offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%. Which offer is better for the customer, and by how much?","difficulty":"Hard"},
+    "PNL-QL-047": {"template":"A shopkeeper marks an article {markupPercent}% above its cost price and allows a discount of {discountPercent}% on the marked price. Calculate the percentage gain or loss.","difficulty":"Hard"},
+    "PNL-QL-048": {"template":"An article costing ₹{costPrice} is marked {markupPercent}% above cost price and sold after allowing a discount of {discountPercent}%. Find the profit or loss incurred.","difficulty":"Hard"},
+    "PNL-QL-049": {"template":"An article costs ₹{costPrice} and is marked at ₹{markedPrice}. What discount should be allowed to earn a {targetRatePercent}% {targetDirection}?","difficulty":"Hard"},
+    "PNL-QL-050": {"template":"A trader wants to earn a {targetRatePercent}% {targetDirection} after allowing a discount of {discountPercent}%. By what percentage above cost price should the article be marked?","difficulty":"Hard"}
   },
-  "entryCount": 5
+  "entryCount": 14
 }
