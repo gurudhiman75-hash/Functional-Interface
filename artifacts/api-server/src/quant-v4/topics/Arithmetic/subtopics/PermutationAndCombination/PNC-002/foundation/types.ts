@@ -27,6 +27,10 @@ export type Pnc002SolveMode =
   | "countSingleBlockNotTogether"
   | "countMultipleBlocksTogether"
   | "countBlockWithExternalPairApart"
+  | "countTwoBlocksTogetherNotAdjacent"
+  | "countBlockWithOutsiderNotAdjacent"
+  | "countOneBlockTogetherOtherNotTogether"
+  | "countNotAllSpecifiedBlocksTogether"
   | "recoverBlockRestrictionParameter";
 
 export interface Pnc002QuestionLanguageEntry {
@@ -101,6 +105,10 @@ export interface Pnc002SolverEvidence {
     | "SINGLE_BLOCK_COMPLEMENT"
     | "MULTIPLE_BLOCKS"
     | "BLOCK_WITH_EXTERNAL_PAIR_APART"
+    | "TWO_BLOCKS_TOGETHER_NOT_ADJACENT"
+    | "BLOCK_WITH_OUTSIDER_NOT_ADJACENT"
+    | "ONE_BLOCK_TOGETHER_OTHER_BROKEN"
+    | "NOT_ALL_BLOCKS_TOGETHER"
     | "BLOCK_INVERSE";
   totalObjects: number;
   blockSizes: number[];
@@ -114,6 +122,12 @@ export interface Pnc002SolverEvidence {
   forbiddenTogetherCount?: number;
   validUnitArrangementCount?: number;
   adjacentExternalPairCount?: number;
+  forbiddenAdjacentUnitCount?: number;
+  primaryUnitCount?: number;
+  primaryExternalArrangementCount?: number;
+  primaryInternalArrangementMultiplier?: number;
+  primaryRestrictionCount?: number;
+  allSpecifiedBlocksTogetherCount?: number;
   target?: number;
   recoveredParameter?: "n" | "blockSize";
   searchMinimum?: number;
