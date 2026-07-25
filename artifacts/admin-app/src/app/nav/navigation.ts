@@ -34,7 +34,7 @@ export const NAV_GROUPS: NavGroup[] = [
   ] },
   { id: 'commerce', label: 'Commerce', items: [
     { label: 'Packages', path: '/commerce/packages', icon: Box, status: 'live', permission: 'commerce.products.read', summary: 'Canonical package inventory with immutable versions, minor-unit pricing, ordered test membership and audited lifecycle controls.' },
-    { label: 'Orders & Payments', path: '/commerce/orders', icon: ShoppingCart, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical order ledger, frozen pricing snapshots, signature-verified provider events, captured-payment reconciliation and entitlement evidence.', milestone: 'Refund mutations remain deferred until provider refund verification is implemented.' },
+    { label: 'Orders & Payments', path: '/commerce/orders', icon: ShoppingCart, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical order ledger, frozen pricing snapshots, signature-verified provider events, captured-payment reconciliation, verified refunds and entitlement evidence.' },
     { label: 'Coupons', path: '/commerce/coupons', icon: Ticket, status: 'live', permission: 'commerce.coupons.read', summary: 'Canonical fixed and percentage discounts with package scope, campaign windows, redemption limits and paid-order evidence.' },
     { label: 'Entitlements', path: '/commerce/entitlements', icon: KeyRound, status: 'live', permission: 'commerce.entitlements.read', summary: 'Canonical student access ledger with paid and manual grants, immutable test membership, expiry and audited revocation.', milestone: 'Paid-test delivery and attempt creation are server-enforced.' },
   ] },
@@ -49,7 +49,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Notifications', path: '/users/notifications', icon: Bell, status: 'planned', summary: 'Compose and target operational, product and exam notifications.', milestone: 'Template, audience, delivery and engagement tracking.' },
   ] },
   { id: 'analytics', label: 'Analytics', items: [
-    { label: 'Business Analytics', path: '/analytics/business', icon: TrendingUp, status: 'planned', summary: 'Revenue, conversion, retention and product performance reporting.', milestone: 'Commerce and entitlement data must be canonical first.' },
+    { label: 'Business Analytics', path: '/analytics/business', icon: TrendingUp, status: 'live', permission: 'commerce.orders.read', summary: 'Canonical gross and net revenue, conversion, package, coupon, refund and entitlement metrics with equal-window comparison, CSV export and data-quality checks.' },
     { label: 'Test Analytics', path: '/analytics/tests', icon: BarChart3, status: 'live', permission: 'users.students.read', summary: 'Canonical attempt volume, completion, relative score distribution, timing and immutable-publication performance.', milestone: 'Section analytics remain deferred until canonical response aggregation is verified.' },
     { label: 'Analytics Data Quality', path: '/analytics/tests/quality', icon: ShieldCheck, status: 'live', permission: 'users.students.read', summary: 'Read-only diagnostics for incomplete canonical attempt evidence, cohort reliability and analytics freshness.' },
     { label: 'Question Analytics', path: '/analytics/questions', icon: BarChart3, status: 'live', permission: 'users.students.read', summary: 'Canonical question exposure, direct and legacy linkage, immutable answer-key scoring, option selection, flags and persisted timing.', milestone: 'Discrimination remains deferred until a separately validated cohort method is implemented.' },
