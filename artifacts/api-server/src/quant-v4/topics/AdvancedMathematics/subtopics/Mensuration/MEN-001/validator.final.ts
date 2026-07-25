@@ -14,9 +14,11 @@ function check(name: string, passed: boolean, message: string): Men001Validation
 }
 
 function hasWorkedArithmetic(lines: readonly string[]) {
-  return lines.some(
-    (line) => /\d/.test(line) && /[=×÷+−\-√²π]/.test(line),
-  );
+  const text = lines.join(" ");
+  const hasNumbers = /\d/.test(text);
+  const hasSymbolicWork = /[=×÷+−\-√²π]/.test(text);
+  const hasVerbalWork = /\b(divid(?:e|ed|ing)|multipl(?:y|ied|ying)|halv(?:e|ed|ing)|half|twice|double|square root|squar(?:e|ed|ing)|subtract(?:ed|ing)?|remov(?:e|ed|ing)|add(?:ed|ing)?|sum|product|difference|ratio|per metre|per square metre|one fourth|one quarter|complete turns?)\b/i.test(text);
+  return hasNumbers && (hasSymbolicWork || hasVerbalWork);
 }
 
 function expectedConclusion(question: Question, template: string) {
@@ -76,7 +78,7 @@ export function validateMen001QuestionPackage(
   checks.push(check(
     "manual-explanation-worked-arithmetic",
     hasWorkedArithmetic(explanationLines),
-    "The explanation must show the actual numerical reasoning.",
+    "The explanation must show the actual numerical reasoning, either symbolically or in natural mathematical prose.",
   ));
   checks.push(check(
     "manual-explanation-no-robotic-labels",
