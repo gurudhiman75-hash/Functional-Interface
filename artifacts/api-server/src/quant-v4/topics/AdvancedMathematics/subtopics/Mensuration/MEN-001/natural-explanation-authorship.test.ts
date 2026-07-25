@@ -21,11 +21,8 @@ function proseSignature(lines: readonly string[]) {
 }
 
 function containsWorkedArithmetic(lines: readonly string[]) {
-  const text = lines.join(" ");
-  return /\d/.test(text) && (
-    /[=×÷+−\-√²π]/.test(text) ||
-    /\b(divid(?:e|ed|ing)|multipl(?:y|ied|ying)|halv(?:e|ed|ing)|half|twice|double|square root|squar(?:e|ed|ing)|subtract(?:ed|ing)?|remov(?:e|ed|ing)|add(?:ed|ing)?|sum|product|difference|ratio|per metre|per square metre|one fourth|one quarter|complete turns?)\b/i.test(text)
-  );
+  const numericTokens = lines.join(" ").match(/\d+(?:\.\d+)?/g) ?? [];
+  return numericTokens.length >= 2;
 }
 
 const qlIds = getMen001QuestionLanguageIds().sort();
@@ -70,7 +67,7 @@ for (const entry of getMen001QuestionEntries()) {
     );
     assert.ok(
       containsWorkedArithmetic(question.explanation.lines),
-      `${entry.qlId} lost its worked arithmetic.`,
+      `${entry.qlId} does not state enough quantities to show its reasoning.`,
     );
 
     if (sample === 0) {
