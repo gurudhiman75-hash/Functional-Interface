@@ -6,6 +6,8 @@ import { authenticate } from '../middlewares/auth';
 
 const router = Router();
 const text = (value: unknown, maximum = 180) => typeof value === 'string' ? value.trim().slice(0, maximum) : '';
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const completedStatus = sqlClient`a.status::text IN ('evaluated', 'practice_evaluated')`;
 
 router.use(authenticate);
 
@@ -19,13 +21,13 @@ router.get('/tests', requireAdminPermission('users.students.read'), async (req, 
       sqlClient`
         SELECT
           COUNT(*)::int AS "totalAttempts",
-          COUNT(*) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated'))::int AS "completedAttempts",
+          COUNT(*) FILTER (WHERE ${completedStatus})::int AS "completedAttempts",
           COUNT(*) FILTER (WHERE a.status::text = 'evaluated')::int AS "evaluatedAttempts",
           COUNT(*) FILTER (WHERE a.status::text = 'practice_evaluated')::int AS "practiceEvaluatedAttempts",
           COUNT(DISTINCT a.user_id)::int AS "uniqueStudents",
           COUNT(DISTINCT a.test_publication_id)::int AS "publicationsAttempted",
-          ROUND(AVG(a.final_score) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated') AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore",
-          ROUND(AVG(a.time_spent_seconds) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated'))::numeric, 0)::int AS "averageTimeSeconds"
+          ROUND(AVG(a.final_score) FILTER (WHERE ${completedStatus} AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore",
+          ROUND(AVG(a.time_spent_seconds) FILTER (WHERE ${completedStatus})::numeric, 0)::int AS "averageTimeSeconds"
         FROM learning.attempts a
         WHERE a.started_at >= now() - make_interval(days => ${days})
       `,
@@ -34,14 +36,14 @@ router.get('/tests', requireAdminPermission('users.students.read'), async (req, 
           t.id::text AS "testId", t.public_code AS "testPublicCode", tv.title AS "testTitle",
           p.id::text AS "publicationId", p.publication_number AS "publicationNumber",
           COUNT(*)::int AS "totalAttempts",
-          COUNT(*) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated'))::int AS "completedAttempts",
+          COUNT(*) FILTER (WHERE ${completedStatus})::int AS "completedAttempts",
           COUNT(*) FILTER (WHERE a.status::text = 'evaluated')::int AS "evaluatedAttempts",
           COUNT(*) FILTER (WHERE a.status::text = 'practice_evaluated')::int AS "practiceEvaluatedAttempts",
           COUNT(DISTINCT a.user_id)::int AS "uniqueStudents",
-          ROUND(AVG(a.final_score) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated') AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore",
-          MIN(a.final_score) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated')) AS "minimumFinalScore",
-          MAX(a.final_score) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated')) AS "maximumFinalScore",
-          ROUND(AVG(a.time_spent_seconds) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated'))::numeric, 0)::int AS "averageTimeSeconds",
+          ROUND(AVG(a.final_score) FILTER (WHERE ${completedStatus} AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore",
+          MIN(a.final_score) FILTER (WHERE ${completedStatus}) AS "minimumFinalScore",
+          MAX(a.final_score) FILTER (WHERE ${completedStatus}) AS "maximumFinalScore",
+          ROUND(AVG(a.time_spent_seconds) FILTER (WHERE ${completedStatus})::numeric, 0)::int AS "averageTimeSeconds",
           MAX(COALESCE(a.evaluated_at, a.submitted_at, a.updated_at)) AS "latestActivityAt"
         FROM learning.attempts a
         JOIN assessment.test_publications p ON p.id = a.test_publication_id
@@ -56,8 +58,8 @@ router.get('/tests', requireAdminPermission('users.students.read'), async (req, 
       sqlClient`
         SELECT date_trunc('day', a.started_at)::date::text AS day,
           COUNT(*)::int AS attempts,
-          COUNT(*) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated'))::int AS completed,
-          ROUND(AVG(a.final_score) FILTER (WHERE a.status::text IN ('evaluated', 'practice_evaluated') AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore"
+          COUNT(*) FILTER (WHERE ${completedStatus})::int AS completed,
+          ROUND(AVG(a.final_score) FILTER (WHERE ${completedStatus} AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore"
         FROM learning.attempts a
         WHERE a.started_at >= now() - make_interval(days => ${days})
         GROUP BY date_trunc('day', a.started_at)
@@ -116,14 +118,135 @@ router.get('/tests', requireAdminPermission('users.students.read'), async (req, 
       capabilities: {
         sectionAnalytics: false,
         questionAnalytics: false,
-        percentile: false,
-        reason: 'The first release intentionally exposes only aggregates directly supported by canonical attempt rows. Section, question and percentile analytics require separately verified canonical response aggregation.',
+        cohortPercentiles: true,
+        studentRank: false,
+        reason: 'Score percentiles are available directly from canonical final scores. Section, question and student-rank analytics remain deferred until their separate canonical contracts are verified.',
       },
       generatedAt: new Date().toISOString(),
     });
   } catch (error) {
     console.error('Unable to load canonical test analytics', error);
     return res.status(500).json({ error: 'Unable to load test analytics', code: 'ADMIN_TEST_ANALYTICS_FAILED' });
+  }
+});
+
+router.get('/tests/:publicationId', requireAdminPermission('users.students.read'), async (req, res) => {
+  const publicationId = text(req.params.publicationId, 80);
+  const days = Math.min(365, Math.max(7, Math.floor(Number(req.query.days) || 30)));
+  if (!uuid.test(publicationId)) return res.status(400).json({ error: 'Invalid publication ID', code: 'INVALID_TEST_PUBLICATION_ID' });
+
+  try {
+    const [publicationRows, summaryRows, trendRows, percentileRows, decileRows] = await Promise.all([
+      sqlClient`
+        SELECT p.id::text AS "publicationId", p.publication_number AS "publicationNumber",
+          p.published_at AS "publishedAt", p.closes_at AS "closesAt",
+          t.id::text AS "testId", t.public_code AS "testPublicCode",
+          tv.id::text AS "testVersionId", tv.title AS "testTitle", tv.duration_seconds AS "durationSeconds"
+        FROM assessment.test_publications p
+        JOIN assessment.tests t ON t.id = p.test_id
+        JOIN assessment.test_versions tv ON tv.id = p.test_version_id
+        WHERE p.id = ${publicationId}::uuid
+        LIMIT 1
+      `,
+      sqlClient`
+        SELECT COUNT(*)::int AS "totalAttempts",
+          COUNT(*) FILTER (WHERE ${completedStatus})::int AS "completedAttempts",
+          COUNT(*) FILTER (WHERE a.status::text = 'evaluated')::int AS "evaluatedAttempts",
+          COUNT(*) FILTER (WHERE a.status::text = 'practice_evaluated')::int AS "practiceEvaluatedAttempts",
+          COUNT(*) FILTER (WHERE a.status::text = 'in_progress')::int AS "inProgressAttempts",
+          COUNT(*) FILTER (WHERE a.status::text = 'abandoned')::int AS "abandonedAttempts",
+          COUNT(DISTINCT a.user_id)::int AS "uniqueStudents",
+          COUNT(*) FILTER (WHERE ${completedStatus} AND a.final_score IS NOT NULL)::int AS "scoredAttempts",
+          ROUND(AVG(a.final_score) FILTER (WHERE ${completedStatus} AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore",
+          MIN(a.final_score) FILTER (WHERE ${completedStatus}) AS "minimumFinalScore",
+          MAX(a.final_score) FILTER (WHERE ${completedStatus}) AS "maximumFinalScore",
+          ROUND(AVG(a.time_spent_seconds) FILTER (WHERE ${completedStatus})::numeric, 0)::int AS "averageTimeSeconds",
+          ROUND(AVG(a.correct_count) FILTER (WHERE ${completedStatus})::numeric, 2) AS "averageCorrect",
+          ROUND(AVG(a.incorrect_count) FILTER (WHERE ${completedStatus})::numeric, 2) AS "averageIncorrect",
+          ROUND(AVG(a.unattempted_count) FILTER (WHERE ${completedStatus})::numeric, 2) AS "averageUnattempted"
+        FROM learning.attempts a
+        WHERE a.test_publication_id = ${publicationId}::uuid
+          AND a.started_at >= now() - make_interval(days => ${days})
+      `,
+      sqlClient`
+        SELECT date_trunc('day', a.started_at)::date::text AS day,
+          COUNT(*)::int AS attempts,
+          COUNT(*) FILTER (WHERE ${completedStatus})::int AS completed,
+          COUNT(DISTINCT a.user_id)::int AS "uniqueStudents",
+          ROUND(AVG(a.final_score) FILTER (WHERE ${completedStatus} AND a.final_score IS NOT NULL)::numeric, 2) AS "averageFinalScore"
+        FROM learning.attempts a
+        WHERE a.test_publication_id = ${publicationId}::uuid
+          AND a.started_at >= now() - make_interval(days => ${days})
+        GROUP BY date_trunc('day', a.started_at)
+        ORDER BY day ASC
+      `,
+      sqlClient`
+        SELECT
+          percentile_cont(0.10) WITHIN GROUP (ORDER BY a.final_score) AS p10,
+          percentile_cont(0.25) WITHIN GROUP (ORDER BY a.final_score) AS p25,
+          percentile_cont(0.50) WITHIN GROUP (ORDER BY a.final_score) AS p50,
+          percentile_cont(0.75) WITHIN GROUP (ORDER BY a.final_score) AS p75,
+          percentile_cont(0.90) WITHIN GROUP (ORDER BY a.final_score) AS p90,
+          COUNT(*)::int AS sample
+        FROM learning.attempts a
+        WHERE a.test_publication_id = ${publicationId}::uuid
+          AND a.started_at >= now() - make_interval(days => ${days})
+          AND ${completedStatus} AND a.final_score IS NOT NULL
+      `,
+      sqlClient`
+        WITH ranked AS (
+          SELECT a.final_score::numeric AS score,
+            ntile(10) OVER (ORDER BY a.final_score) AS decile
+          FROM learning.attempts a
+          WHERE a.test_publication_id = ${publicationId}::uuid
+            AND a.started_at >= now() - make_interval(days => ${days})
+            AND ${completedStatus} AND a.final_score IS NOT NULL
+        )
+        SELECT decile, COUNT(*)::int AS count, MIN(score) AS "minimumScore",
+          MAX(score) AS "maximumScore", ROUND(AVG(score), 2) AS "averageScore"
+        FROM ranked GROUP BY decile ORDER BY decile ASC
+      `,
+    ]);
+
+    const publication = publicationRows[0];
+    if (!publication) return res.status(404).json({ error: 'Test publication not found', code: 'TEST_PUBLICATION_NOT_FOUND' });
+    const summary = summaryRows[0] ?? {};
+    const totalAttempts = Number(summary.totalAttempts ?? 0);
+    const completedAttempts = Number(summary.completedAttempts ?? 0);
+    const percentile = percentileRows[0] ?? { sample: 0 };
+
+    return res.json({
+      windowDays: days,
+      publication,
+      summary: {
+        ...summary,
+        completionRate: totalAttempts > 0 ? Math.round((completedAttempts / totalAttempts) * 10000) / 100 : 0,
+      },
+      cohortPercentiles: {
+        sample: Number(percentile.sample ?? 0),
+        p10: percentile.p10,
+        p25: percentile.p25,
+        median: percentile.p50,
+        p75: percentile.p75,
+        p90: percentile.p90,
+        method: 'PostgreSQL percentile_cont over canonical final_score values for completed attempts in the selected window.',
+      },
+      scoreDeciles: decileRows,
+      dailyTrend: trendRows.map((row) => ({
+        ...row,
+        completionRate: Number(row.attempts) > 0 ? Math.round((Number(row.completed) / Number(row.attempts)) * 10000) / 100 : 0,
+      })),
+      capabilities: {
+        cohortPercentiles: true,
+        studentRank: false,
+        sectionAnalytics: false,
+        questionAnalytics: false,
+      },
+      generatedAt: new Date().toISOString(),
+    });
+  } catch (error) {
+    console.error('Unable to load publication analytics drilldown', error);
+    return res.status(500).json({ error: 'Unable to load publication analytics', code: 'ADMIN_TEST_ANALYTICS_DETAIL_FAILED' });
   }
 });
 
