@@ -5,14 +5,14 @@ import {
   productExact,
   shuffleSeeded,
 } from "./math";
-import type { Pnc002Parameters, Pnc002SolverResult } from "./types";
+import type { Pnc002AnyParameters, Pnc002SolverResult } from "./types";
 
 function uniquePositive(values: number[], correct: number): number[] {
   return [...new Set(values.filter((value) => Number.isInteger(value) && value > 0 && value !== correct))];
 }
 
 export function buildPnc002Cp008Options(
-  parameters: Pnc002Parameters,
+  parameters: Pnc002AnyParameters,
   solver: Pnc002SolverResult,
 ): { options: string[]; correctIndex: number } {
   const correct = solver.numericAnswer;
