@@ -53,6 +53,19 @@ jobs:
             --types node \
             $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001 -name '*.ts' -print)
 
+      - name: Bundle rendered LaTeX corpus audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001-latex-audit.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001-latex-audit.mjs
+
+      - name: Audit all rendered PNC-001 formulas
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-001-latex-audit.mjs
+
       - name: Bundle PNC-001 proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
