@@ -1,6 +1,7 @@
 import { type Request, type Response, type NextFunction } from "express";
 import { auth } from "../lib/firebase-admin";
 import type { AdminSession } from "../lib/admin-rbac";
+import { sqlClient } from "../lib/db";
 
 declare global {
   namespace Express {
@@ -16,12 +17,55 @@ declare global {
   }
 }
 
+async function enforceCanonicalStudentStatus(req: Request, res: Response): Promise<boolean> {
+  const firebaseUid = req.user?.id;
+  if (!firebaseUid) return true;
+
+  const rows = await sqlClient`
+    SELECT u.status::text AS status, u.deleted_at AS "deletedAt"
+    FROM identity.auth_identities ai
+    JOIN identity.users u ON u.id = ai.user_id
+    JOIN identity.student_profiles sp ON sp.user_id = u.id
+    WHERE ai.provider = 'firebase'
+      AND ai.provider_subject = ${firebaseUid}
+    LIMIT 1
+  `;
+
+  const account = rows[0];
+  // First-login Firebase users do not have a canonical row yet. Allow the
+  // provisioning endpoint to create it. Admin identities do not have a student
+  // profile and therefore are also unaffected by this student-only guard.
+  if (!account) return true;
+
+  const status = String(account.status ?? "");
+  if (account.deletedAt || status === "disabled") {
+    res.status(403).json({
+      error: "This ExamTree account is unavailable.",
+      code: "ACCOUNT_UNAVAILABLE",
+    });
+    return false;
+  }
+  if (status === "suspended") {
+    res.status(403).json({
+      error: "This ExamTree account has been suspended.",
+      code: "ACCOUNT_SUSPENDED",
+    });
+    return false;
+  }
+  return true;
+}
+
 export const authenticate = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   // Mounted collaboration and hardening routers may share one request. Once a
   // trusted upstream invocation has verified the Firebase token, reuse that
-  // server-populated identity instead of verifying the same token again.
+  // server-populated identity, but still enforce the latest canonical status.
   if (req.user?.id) {
-    next();
+    try {
+      if (await enforceCanonicalStudentStatus(req, res)) next();
+    } catch (error) {
+      console.error("Unable to enforce canonical account status", error);
+      res.status(503).json({ error: "Unable to verify account status", code: "ACCOUNT_STATUS_UNAVAILABLE" });
+    }
     return;
   }
 
@@ -43,9 +87,14 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
       displayName: typeof decodedToken.name === "string" ? decodedToken.name : undefined,
       emailVerified: decodedToken.email_verified,
     };
-    next();
-    return;
   } catch {
     return void res.status(401).json({ error: "Invalid token" });
+  }
+
+  try {
+    if (await enforceCanonicalStudentStatus(req, res)) next();
+  } catch (error) {
+    console.error("Unable to enforce canonical account status", error);
+    res.status(503).json({ error: "Unable to verify account status", code: "ACCOUNT_STATUS_UNAVAILABLE" });
   }
 };
