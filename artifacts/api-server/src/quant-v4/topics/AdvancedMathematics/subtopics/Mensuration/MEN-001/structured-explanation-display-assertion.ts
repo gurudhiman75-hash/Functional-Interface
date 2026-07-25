@@ -1,26 +1,8 @@
+import {
+  isMen001LatexEquation,
+  toMen001LatexEquation,
+} from "./structured-math-latex";
 import type { Men001Explanation } from "./types";
-
-function humanizeExpectedAnswer(value: string) {
-  return value
-    .trim()
-    .replace(/^\$\$/, "")
-    .replace(/\$\$$/, "")
-    .replace(/\$/g, "")
-    .replace(/\\times/g, "×")
-    .replace(/\\div/g, "÷")
-    .replace(/\\cdot/g, "×")
-    .replace(/\\pi/g, "π")
-    .replace(/\\,/g, "")
-    .replace(/\\text\{([^{}]+)\}/g, "$1")
-    .replace(/\^\{2\}/g, "²")
-    .replace(/\\sqrt\{([^{}]+)\}/g, (_, radicand: string) =>
-      radicand.length === 1 ? `√${radicand}` : `√(${radicand})`)
-    .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, "$1/$2")
-    .replace(/[{}]/g, "")
-    .replace(/(√\d+|\d+(?:\.\d+)?)(m²|cm²|m|cm)\b/g, "$1 $2")
-    .replace(/\s+/g, " ")
-    .trim();
-}
 
 export function assertMen001StructuredExplanation(
   explanation: Men001Explanation,
@@ -37,10 +19,17 @@ export function assertMen001StructuredExplanation(
   if (
     !last ||
     last.kind !== "FINAL_ANSWER" ||
-    !last.equations.includes(humanizeExpectedAnswer(answer))
+    !last.equations.includes(toMen001LatexEquation(answer))
   ) {
-    throw new Error("MEN-001 explanation must end with the normalized canonical final answer.");
+    throw new Error("MEN-001 explanation must end with the canonical LaTeX final answer.");
   }
+
+  for (const section of explanation.sections) {
+    if (!section.equations.every(isMen001LatexEquation)) {
+      throw new Error(`MEN-001 ${section.kind} equations must be MathJax-ready LaTeX.`);
+    }
+  }
+
   const steps = explanation.sections.filter((section) => section.kind === "STEP");
   if (steps.length === 0) {
     throw new Error("MEN-001 explanation must contain at least one worked step.");
