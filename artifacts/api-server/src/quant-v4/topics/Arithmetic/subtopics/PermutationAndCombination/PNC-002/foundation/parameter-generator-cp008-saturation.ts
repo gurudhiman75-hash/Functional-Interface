@@ -42,8 +42,10 @@ export function buildPnc002Cp008SaturationValues(
       };
     case "atMostGapBetweenPair":
       return copyState(pickSeeded(pools.atMostGapStates, random));
-    case "directionalExactGap":
-      return copyState(pickSeeded(pools.directionalGapStates, random));
+    case "directionalExactGap": {
+      const state = copyState(pickSeeded(pools.directionalGapStates, random));
+      return { ...state, positionDistance: state.gapCount + 1 };
+    }
     case "atLeastSpecifiedInOddPositions": {
       const state = copyState(pickSeeded(pools.atLeastOddPositionStates, random));
       return {
