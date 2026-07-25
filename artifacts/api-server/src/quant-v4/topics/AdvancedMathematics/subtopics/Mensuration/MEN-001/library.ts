@@ -45,12 +45,12 @@ const registryEntries = taskRegistrySources.flatMap(
 );
 const registryByQlId = new Map(registryEntries.map((entry) => [entry.qlId, entry]));
 
-function sorted(values: readonly string[]) {
-  return [...values].sort((left, right) => left.localeCompare(right));
+function sortedUnique(values: readonly string[]) {
+  return [...new Set(values)].sort((left, right) => left.localeCompare(right));
 }
 
 function sameStrings(left: readonly string[], right: readonly string[]) {
-  return JSON.stringify(sorted(left)) === JSON.stringify(sorted(right));
+  return JSON.stringify(sortedUnique(left)) === JSON.stringify(sortedUnique(right));
 }
 
 function normalizeTemplateIdentity(template: string) {
