@@ -49,6 +49,10 @@ function toLatexExpression(raw: string): string {
   );
 
   expression = expression.replace(
+    /\((\d+|n)!\)\s*\/\s*\((\d+|n)!\)/g,
+    (_match: string, numerator: string, denominator: string) => `\\frac{${numerator}!}{${denominator}!}`,
+  );
+  expression = expression.replace(
     /\((n\s*[+-]\s*\d+)\)!\s*\/\s*n!/g,
     (_match: string, numerator: string) => `\\frac{(${numerator})!}{n!}`,
   );
@@ -139,6 +143,7 @@ export function hasUnformattedPncFormula(value: string): boolean {
     /\([^)]*n[^)]*\)!\s*\/\s*n!/,
     /n!\s*\/\s*\([^)]*\)!/,
     /\b\d+!\s*(?:\/|÷)\s*\d+!/,
+    /\(\d+!\)\s*\/\s*\(\d+!\)/,
     /\b\d+\^\d+\b/,
     /\b\d+\s*[×÷]\s*\d+/,
     /\b\d+(?:\s*[+−-]\s*\d+)+\s*=\s*\d+\b/,
