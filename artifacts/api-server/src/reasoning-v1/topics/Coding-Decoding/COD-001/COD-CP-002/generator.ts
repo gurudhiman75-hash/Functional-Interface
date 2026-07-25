@@ -53,31 +53,31 @@ function buildStem(prompt: NumericCodingPrompt, style: number): string {
     return [
       `In a certain code, ${examples}. Which word is represented by ‘${prompt.encodedTarget}’?`,
       `If ${examples}, what word has the code ‘${prompt.encodedTarget}’?`,
-      `Study the coding in ${examples}. Decode ‘${prompt.encodedTarget}’.`,
-      `The same numerical rule is used in ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
+      `Study these examples: ${examples}. Decode ‘${prompt.encodedTarget}’.`,
+      `The same numerical rule applies to these examples: ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
     ][style]!;
   }
   if (prompt.taskKind === "RECOVER_MISSING_VALUE") {
     return [
       `In a certain code, ${examples}. The code for ‘${prompt.targetWord}’ is ‘${prompt.displayedTargetCode}’. What replaces ‘?’?`,
       `If ${examples}, complete ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `Using the same rule as ${examples}, find the missing number in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `The examples ${examples} follow one rule. Which number should replace ‘?’ in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’?`,
+      `From these examples—${examples}—find the missing number in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
+      `The given examples are: ${examples}. Which number should replace ‘?’ in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’?`,
     ][style]!;
   }
   if (prompt.taskKind === "CHOOSE_MATCHING_CODE") {
     return [
       `In a certain code, ${examples}. Which option gives the code for ‘${prompt.targetWord}’?`,
       `If ${examples}, select the correct code for ‘${prompt.targetWord}’.`,
-      `Study the numerical relation in ${examples}. Which code matches ‘${prompt.targetWord}’?`,
-      `The same rule is used for ${examples}. Choose the code of ‘${prompt.targetWord}’.`,
+      `Study these examples: ${examples}. Which code matches ‘${prompt.targetWord}’?`,
+      `Given that ${examples}, choose the code of ‘${prompt.targetWord}’.`,
     ][style]!;
   }
   return [
     `In a certain code, ${examples}. How will ‘${prompt.targetWord}’ be coded?`,
     `If ${examples}, what is the code for ‘${prompt.targetWord}’?`,
-    `Using the same numerical rule as ${examples}, find the code of ‘${prompt.targetWord}’.`,
-    `Study ${examples} and determine the code for ‘${prompt.targetWord}’.`,
+    `Given that ${examples}, use the same numerical rule to find the code of ‘${prompt.targetWord}’.`,
+    `Study these examples: ${examples}. Determine the code for ‘${prompt.targetWord}’.`,
   ][style]!;
 }
 
