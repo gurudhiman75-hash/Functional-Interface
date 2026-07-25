@@ -22,7 +22,7 @@ function escapeHtml(value: unknown) {
 }
 
 function renderEquation(equation: string) {
-  return `<div class="worked-equation">${escapeHtml(equation)}</div>`;
+  return `<div class="worked-equation">\\[${escapeHtml(equation)}\\]</div>`;
 }
 
 function renderSection(section: Men001ExplanationSection) {
@@ -57,7 +57,7 @@ const cards: string[] = [];
 const markdown: string[] = [
   "# MEN-001 Student-Style Explanation Review",
   "",
-  "Each explanation follows Key Rule → named worked steps → Final Answer. The number of steps is determined by the mathematics.",
+  "Each explanation follows Key Rule → named worked steps → Final Answer. Equations are stored as MathJax-ready LaTeX, and the number of steps is determined by the mathematics.",
   "",
 ];
 let diagramCount = 0;
@@ -117,6 +117,7 @@ const html = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MEN-001 Student-Style Explanation Review</title>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 <style>
 :root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 body { margin: 0; background: #eef2f7; color: #172033; }
@@ -159,7 +160,7 @@ h3 { margin: 20px 0 9px; color: #526176; font-size: 15px; text-transform: upperc
 .key-rule { border-left: 5px solid #1f4e79; background: #f2f7fc; }
 .worked-step { border-left: 5px solid #b7791f; }
 .final-answer { border-left: 5px solid #198754; background: #eef9f1; }
-.worked-equation { margin: 10px 0; padding: 12px 14px; border-radius: 9px; background: #f7f9fc; border: 1px solid #d8e0ea; text-align: center; font-family: "Cambria Math", "STIX Two Math", Georgia, serif; font-size: 18px; font-weight: 650; overflow-wrap: anywhere; }
+.worked-equation { margin: 10px 0; padding: 12px 14px; border-radius: 9px; background: #f7f9fc; border: 1px solid #d8e0ea; text-align: center; font-size: 18px; font-weight: 650; overflow-x: auto; }
 .final-answer .worked-equation { font-size: 22px; font-weight: 800; }
 footer { margin-top: 18px; font-weight: 800; }
 footer.pass { color: #146b2e; }
@@ -183,7 +184,7 @@ footer.pass { color: #146b2e; }
 <header class="page-header">
 <h1>MEN-001 Student-Style Explanation Review</h1>
 <p>${getMen001QuestionEntries().length} questions, ${totalStepCount} need-based worked steps and ${diagramCount} explanation diagrams.</p>
-<p>Every solution follows Key Rule → named calculation steps → Final Answer. Steps are not fixed in advance.</p>
+<p>Every solution follows Key Rule → named calculation steps → Final Answer, with MathJax-rendered LaTeX equations.</p>
 <div class="controls">
 <button class="active" data-filter="all">All questions</button>
 <button data-filter="diagram">Only diagrams</button>
@@ -220,5 +221,5 @@ fs.writeFileSync(
   "utf8",
 );
 console.log(
-  `MEN-001 structured review created for ${getMen001QuestionEntries().length} QLs with ${totalStepCount} worked steps.`,
+  `MEN-001 structured review created for ${getMen001QuestionEntries().length} QLs with ${totalStepCount} worked steps and MathJax-ready equations.`,
 );
