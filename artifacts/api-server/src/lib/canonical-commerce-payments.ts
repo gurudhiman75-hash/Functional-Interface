@@ -34,8 +34,10 @@ export async function finalizeCapturedPayment(input: {
       pa.currency AS "paymentCurrency",
       o.status AS "orderStatus",
       o.total_minor::float8 AS "orderTotalMinor",
+      o.discount_minor::float8 AS "discountMinor",
       o.currency AS "orderCurrency",
-      o.user_id::text AS "userId"
+      o.user_id::text AS "userId",
+      o.coupon_id::text AS "couponId"
     FROM commerce.payment_attempts pa
     JOIN commerce.orders o ON o.id = pa.order_id
     WHERE pa.provider = ${input.provider}
@@ -76,6 +78,18 @@ export async function finalizeCapturedPayment(input: {
     SET status = 'paid', paid_at = COALESCE(paid_at, ${input.capturedAt ?? new Date().toISOString()}::timestamptz), updated_at = now()
     WHERE id = ${String(row.orderId)}::uuid
   `;
+
+  if (row.couponId && Number(row.discountMinor) > 0) {
+    await client`
+      INSERT INTO commerce.coupon_redemptions (
+        id, coupon_id, order_id, user_id, discount_minor, created_at
+      ) VALUES (
+        ${randomUUID()}::uuid, ${String(row.couponId)}::uuid, ${String(row.orderId)}::uuid,
+        ${String(row.userId)}::uuid, ${Number(row.discountMinor)}, now()
+      )
+      ON CONFLICT (order_id) DO NOTHING
+    `;
+  }
 
   const items = await client`
     SELECT oi.id::text AS "orderItemId", oi.product_version_id::text AS "productVersionId", pv.validity_days AS "validityDays"
