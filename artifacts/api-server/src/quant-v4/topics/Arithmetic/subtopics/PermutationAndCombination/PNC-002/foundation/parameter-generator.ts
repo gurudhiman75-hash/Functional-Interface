@@ -20,18 +20,23 @@ function asState<T extends Record<string, number>>(value: T): T {
   return { ...value };
 }
 
+function factorial(argument: number): number {
+  let result = 1;
+  for (let factor = 2; factor <= argument; factor += 1) result *= factor;
+  return result;
+}
+
 function forwardTogether(totalObjects: number, blockSize: number): number {
-  let unitsFactorial = 1;
-  for (let factor = 2; factor <= totalObjects - blockSize + 1; factor += 1) unitsFactorial *= factor;
-  let internalFactorial = 1;
-  for (let factor = 2; factor <= blockSize; factor += 1) internalFactorial *= factor;
-  return unitsFactorial * internalFactorial;
+  return factorial(totalObjects - blockSize + 1) * factorial(blockSize);
 }
 
 function forwardApart(totalObjects: number, blockSize: number): number {
-  let unrestricted = 1;
-  for (let factor = 2; factor <= totalObjects; factor += 1) unrestricted *= factor;
-  return unrestricted - forwardTogether(totalObjects, blockSize);
+  return factorial(totalObjects) - forwardTogether(totalObjects, blockSize);
+}
+
+function forwardSeparatedPairBlocks(totalObjects: number): number {
+  const unitCount = totalObjects - 2;
+  return (factorial(unitCount) - 2 * factorial(unitCount - 1)) * 4;
 }
 
 function buildValues(entry: Pnc002QuestionEntry, seed: string): Record<string, Pnc002GeneratedValue> {
@@ -58,35 +63,31 @@ function buildValues(entry: Pnc002QuestionEntry, seed: string): Record<string, P
     }
     case "blockTogetherExternalPairApart":
       return asState(pickSeeded(pools.blockExternalApartStates, random));
+    case "twoPairsTogetherBlocksSeparated":
+      return { totalObjects: pickSeeded(pools.separatedTwoPairTotalObjects, random), blockSizes: [2, 2] };
+    case "pairTrioTogetherBlocksSeparated":
+      return { totalObjects: pickSeeded(pools.separatedPairTrioTotalObjects, random), blockSizes: [2, 3] };
+    case "blockTogetherOutsiderNotAdjacent":
+      return asState(pickSeeded(pools.blockOutsiderStates, random));
+    case "pairTogetherTrioBroken":
+      return { totalObjects: pickSeeded(pools.pairTogetherTrioBrokenTotalObjects, random), blockSizes: [2, 3] };
+    case "atLeastOnePairBroken":
+      return { totalObjects: pickSeeded(pools.atLeastOnePairBrokenTotalObjects, random), blockSizes: [2, 2] };
     case "recoverNPairTogether": {
       const solution = pickSeeded(pools.inverseN, random);
-      return {
-        totalObjects: solution,
-        blockSize: 2,
-        target: forwardTogether(solution, 2),
-        searchMinimum: Math.min(...pools.inverseN),
-        searchMaximum: Math.max(...pools.inverseN),
-      };
+      return { totalObjects: solution, blockSize: 2, target: forwardTogether(solution, 2), searchMinimum: Math.min(...pools.inverseN), searchMaximum: Math.max(...pools.inverseN) };
     }
     case "recoverNPairApart": {
       const solution = pickSeeded(pools.inverseN, random);
-      return {
-        totalObjects: solution,
-        blockSize: 2,
-        target: forwardApart(solution, 2),
-        searchMinimum: Math.min(...pools.inverseN),
-        searchMaximum: Math.max(...pools.inverseN),
-      };
+      return { totalObjects: solution, blockSize: 2, target: forwardApart(solution, 2), searchMinimum: Math.min(...pools.inverseN), searchMaximum: Math.max(...pools.inverseN) };
     }
     case "recoverBlockSizeTogether": {
       const solution = pickSeeded(pools.inverseBlockSize, random);
-      return {
-        totalObjects: 8,
-        blockSize: solution,
-        target: forwardTogether(8, solution),
-        searchMinimum: Math.min(...pools.inverseBlockSize),
-        searchMaximum: Math.max(...pools.inverseBlockSize),
-      };
+      return { totalObjects: 8, blockSize: solution, target: forwardTogether(8, solution), searchMinimum: Math.min(...pools.inverseBlockSize), searchMaximum: Math.max(...pools.inverseBlockSize) };
+    }
+    case "recoverNSeparatedPairBlocks": {
+      const solution = pickSeeded(pools.inverseSeparatedN, random);
+      return { totalObjects: solution, blockSizes: [2, 2], target: forwardSeparatedPairBlocks(solution), searchMinimum: Math.min(...pools.inverseSeparatedN), searchMaximum: Math.max(...pools.inverseSeparatedN) };
     }
   }
   throw new Error(`Unsupported PNC-002 scenario family: ${entry.scenarioFamily}`);
@@ -121,9 +122,7 @@ export function generatePnc002Parameters(input: Pnc002ParameterInput = {}): Pnc0
   }
 
   const values = buildValues(entry, seed);
-  const renderVariables = Object.fromEntries(
-    entry.requiredVariables.map((key) => [key, numericValue(values, key)]),
-  );
+  const renderVariables = Object.fromEntries(entry.requiredVariables.map((key) => [key, numericValue(values, key)]));
   const suffix = hashSeed(`${seed}:${entry.qlId}`).toString(16).padStart(8, "0");
 
   return {
