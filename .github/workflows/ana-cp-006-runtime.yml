@@ -1,0 +1,89 @@
+name: Validate ANA-CP-006 runtime
+
+on:
+  push:
+    branches:
+      - feat/reasoning-ana-001-cp006-approved-explanations-2
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP006.md
+      - .github/workflows/ana-cp-006-runtime.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP006.md
+      - .github/workflows/ana-cp-006-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ana-cp-006-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-ana-cp-006:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006 -name '*.ts' -print) \
+            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+
+      - name: Run English runtime audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006.test.ts
+
+      - name: Run localized runtime audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-localized.test.ts
+
+      - name: Run explanation editorial audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-editorial.test.ts
+
+      - name: Generate review files
+        run: |
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/export-review.ts
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/export-localized-review.ts
+
+      - name: Publish review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-006-runtime-reviews
+          path: |
+            artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-runtime-review.md
+            artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-hindi-runtime-review.md
+            artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-punjabi-runtime-review.md
+          if-no-files-found: error
+          retention-days: 14
