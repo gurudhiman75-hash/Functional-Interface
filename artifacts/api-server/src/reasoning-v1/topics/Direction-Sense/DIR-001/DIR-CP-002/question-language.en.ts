@@ -1,4 +1,4 @@
-import type { Direction, PathTraceStep, SolvedPath, TurnOperation } from "../foundation/types";
+import type { Direction, SolvedPath, TurnOperation } from "../foundation/types";
 
 export const PATH_DIRECTION_LABELS: Readonly<Record<Direction, string>> = Object.freeze({
   NORTH: "North",
@@ -11,52 +11,44 @@ export const PATH_DIRECTION_LABELS: Readonly<Record<Direction, string>> = Object
   NORTH_WEST: "North-West",
 });
 
-function pointLabel(moveIndex: number): string {
-  if (moveIndex === 0) return "O";
-  return String.fromCharCode(64 + moveIndex);
-}
-
-function turnDescription(turn: TurnOperation): string {
+function turnVerb(turn: TurnOperation): string {
   if (turn.degrees === 90) {
-    return turn.sense === "CLOCKWISE" ? "90° to the right" : "90° to the left";
+    return turn.sense === "CLOCKWISE" ? "turns right" : "turns left";
   }
-  if (turn.degrees === 180) return "around through 180°";
-  return `${turn.degrees}° ${turn.sense === "CLOCKWISE" ? "clockwise" : "anticlockwise"}`;
+  if (turn.degrees === 180) return "turns around";
+  return `turns ${turn.degrees}° ${turn.sense === "CLOCKWISE" ? "clockwise" : "anticlockwise"}`;
 }
 
-function renderInstruction(
-  person: string,
-  trace: PathTraceStep,
-  operationNumber: number,
-  currentPointLabel: string,
-  nextPointLabel: string | null,
-): string {
-  if (trace.operation.kind === "TURN") {
-    return `${operationNumber}. At point ${currentPointLabel}, ${person} turns ${turnDescription(trace.operation)} without changing position. ${person} is now facing ${PATH_DIRECTION_LABELS[trace.after.facing]}.`;
+function renderPathNarrative(person: string, solved: SolvedPath): string {
+  const clauses: string[] = [];
+  let pendingTurn: TurnOperation | null = null;
+  let movementNumber = 0;
+
+  for (const trace of solved.trace) {
+    if (trace.operation.kind === "TURN") {
+      pendingTurn = trace.operation;
+      continue;
+    }
+
+    movementNumber += 1;
+    if (movementNumber === 1) {
+      clauses.push(
+        `${person} starts from a point facing ${PATH_DIRECTION_LABELS[solved.initial.facing]} and walks ${trace.operation.distance} metres`,
+      );
+      continue;
+    }
+
+    if (!pendingTurn) {
+      clauses.push(`${person} then walks ${trace.operation.distance} metres`);
+      continue;
+    }
+
+    clauses.push(`${person} then ${turnVerb(pendingTurn)} and walks ${trace.operation.distance} metres`);
+    pendingTurn = null;
   }
 
-  const movementDirection = PATH_DIRECTION_LABELS[trace.movementDirection!];
-  const destination = nextPointLabel!;
-  const facingNote = trace.after.facing === trace.before.facing
-    ? `${person}'s facing direction remains ${PATH_DIRECTION_LABELS[trace.after.facing]}.`
-    : `${person} is now facing ${PATH_DIRECTION_LABELS[trace.after.facing]}.`;
-  return `${operationNumber}. ${person} walks ${trace.operation.distance} metres straight from point ${currentPointLabel} to point ${destination}, towards ${movementDirection}, without turning during the movement. ${facingNote}`;
-}
-
-export function renderNumberedPathInstructions(person: string, solved: SolvedPath): readonly string[] {
-  const instructions: string[] = [];
-  let moveIndex = 0;
-  solved.trace.forEach((trace, index) => {
-    const currentPointLabel = pointLabel(moveIndex);
-    const nextPointLabel = trace.operation.kind === "MOVE" ? pointLabel(moveIndex + 1) : null;
-    instructions.push(renderInstruction(person, trace, index + 1, currentPointLabel, nextPointLabel));
-    if (trace.operation.kind === "MOVE") moveIndex += 1;
-  });
-  return instructions;
-}
-
-function renderStemHeader(person: string, initialFacing: Direction): string {
-  return `${person} starts at point O and is facing ${PATH_DIRECTION_LABELS[initialFacing]}.`;
+  if (pendingTurn) clauses.push(`${person} finally ${turnVerb(pendingTurn)}`);
+  return `${clauses.join(". ")}.`;
 }
 
 export function renderEndpointStem(
@@ -64,17 +56,14 @@ export function renderEndpointStem(
   solved: SolvedPath,
   reverseQuery: boolean,
 ): string {
-  const instructions = renderNumberedPathInstructions(person, solved);
-  const finalPointLabel = pointLabel(solved.trace.filter((trace) => trace.operation.kind === "MOVE").length);
+  const path = renderPathNarrative(person, solved);
   const question = reverseQuery
-    ? `Question: Taking point ${finalPointLabel} as the reference point, in which direction is point O located?`
-    : `Question: Taking point O as the reference point, in which direction is point ${finalPointLabel} located?`;
-  return [renderStemHeader(person, solved.initial.facing), ...instructions, question].join("\n");
+    ? `In which direction is the starting point from ${person}'s final position?`
+    : `In which direction is ${person}'s final position from the starting point?`;
+  return `${path} ${question}`;
 }
 
 export function renderCombinedStem(person: string, solved: SolvedPath): string {
-  const instructions = renderNumberedPathInstructions(person, solved);
-  const finalPointLabel = pointLabel(solved.trace.filter((trace) => trace.operation.kind === "MOVE").length);
-  const question = `Question: (i) Taking point O as the reference point, in which direction is point ${finalPointLabel} located? (ii) After reaching point ${finalPointLabel}, which direction is ${person} facing?`;
-  return [renderStemHeader(person, solved.initial.facing), ...instructions, question].join("\n");
+  const path = renderPathNarrative(person, solved);
+  return `${path} In which direction is ${person}'s final position from the starting point, and in which direction is ${person} facing at the end?`;
 }
