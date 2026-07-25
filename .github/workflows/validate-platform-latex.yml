@@ -94,6 +94,28 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+      - name: Bundle final reviewed package audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-001/pnc-001-package-audit-final.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-001-package-audit.mjs
+
+      - name: Run final package audit
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pnc-001-package-audit.mjs
+
+      - name: Publish LaTeX package audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-001-latex-package-audit
+          path: artifacts/api-server/dist/quant-v4/pnc-001-package-audit/
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Typecheck admin application
         run: pnpm --dir artifacts/admin-app typecheck
 
