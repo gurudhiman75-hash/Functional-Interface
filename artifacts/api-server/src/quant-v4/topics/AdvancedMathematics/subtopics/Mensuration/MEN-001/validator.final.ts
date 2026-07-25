@@ -3,6 +3,7 @@ import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } fro
 import { validateMen001Cp005 } from "./validator.cp005";
 import { validateMen001Cp005Exhaustiveness } from "./validator.cp005.exhaustiveness";
 import { validateMen001Cp005Overlap } from "./validator.cp005.overlap";
+import { validateMen001Cp006 } from "./validator.cp006";
 import type {
   Men001QuestionPackage,
   Men001ValidationCheck,
@@ -110,6 +111,7 @@ export function validateMen001QuestionPackage(
   checks.push(...validateMen001Cp005(question));
   checks.push(...validateMen001Cp005Overlap(question));
   checks.push(...validateMen001Cp005Exhaustiveness(question));
+  checks.push(...validateMen001Cp006(question));
 
   return { valid: checks.every((item) => item.passed), checks };
 }
