@@ -86,6 +86,12 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/men-001-structured-explanation.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/men-001-structured-explanation.log
 
+      - name: Build API production bundle
+        run: node artifacts/api-server/build.mjs
+
+      - name: Verify API production artifact
+        run: test -f artifacts/api-server/dist/index.mjs
+
       - name: Upload MEN-001 runtime logs
         if: always()
         uses: actions/upload-artifact@v4
