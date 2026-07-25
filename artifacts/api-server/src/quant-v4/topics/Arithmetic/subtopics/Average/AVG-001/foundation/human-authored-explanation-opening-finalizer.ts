@@ -99,35 +99,45 @@ function lowerInitialEnglish(value: string) {
   return value.length === 0 ? value : `${value[0].toLowerCase()}${value.slice(1)}`;
 }
 
-function englishContextualOpening(concept: string, context: string, variant: number) {
+function targetLabel(pkg: Avg001QuestionPackage) {
+  switch (pkg.parameters.answerType) {
+    case "ABSOLUTE": return "the total";
+    case "COUNT": return "the count";
+    case "AVERAGE": return "the average";
+    case "DIFFERENCE": return "the difference";
+    case "RATIO": return "the ratio";
+    case "MEMBER_VALUE": return "the missing value";
+  }
+}
+
+function englishContextualOpening(concept: string, target: string, variant: number) {
   const cleanConcept = withoutClosingPunctuation(concept);
   const lowerConcept = lowerInitialEnglish(cleanConcept);
-  const cleanContext = withoutClosingPunctuation(context || "the requested quantity");
-  const capitalContext = capitaliseEnglish(cleanContext);
+  const capitalTarget = capitaliseEnglish(target);
   const openings = [
     `${cleanConcept}.`,
-    `To find ${cleanContext}, ${lowerConcept}.`,
-    `${capitalContext} is obtained from the fact that ${lowerConcept}.`,
-    `For ${cleanContext}, use the relation that ${lowerConcept}.`,
-    `The calculation of ${cleanContext} starts with the fact that ${lowerConcept}.`,
-    `To calculate ${cleanContext}, first use the fact that ${lowerConcept}.`,
-    `${capitalContext} comes from applying the relation that ${lowerConcept}.`,
-    `Use the fact that ${lowerConcept} to obtain ${cleanContext}.`,
-    `Finding ${cleanContext} depends on the relation that ${lowerConcept}.`,
-    `For this ${cleanContext} calculation, ${lowerConcept}.`,
-    `${capitalContext} can be calculated because ${lowerConcept}.`,
-    `The route to ${cleanContext} is to use the fact that ${lowerConcept}.`,
-    `Calculate ${cleanContext} from the relation that ${lowerConcept}.`,
-    `Apply the relation that ${lowerConcept} when calculating ${cleanContext}.`,
-    `The arithmetic for ${cleanContext} begins with the fact that ${lowerConcept}.`,
-    `To obtain ${cleanContext}, work from the fact that ${lowerConcept}.`,
-    `${capitalContext} is determined by the relation that ${lowerConcept}.`,
-    `Use this starting relation for ${cleanContext}: ${cleanConcept}.`,
-    `For ${cleanContext}, the starting relation is ${lowerConcept}.`,
-    `The first step toward ${cleanContext} is to use the fact that ${lowerConcept}.`,
-    `Compute ${cleanContext} by applying the relation that ${lowerConcept}.`,
-    `The relation needed for ${cleanContext} is that ${lowerConcept}.`,
-    `Begin the ${cleanContext} calculation with the fact that ${lowerConcept}.`,
+    `${capitalTarget}: ${lowerConcept}.`,
+    `For ${target}, ${lowerConcept}.`,
+    `${cleanConcept}; find ${target}.`,
+    `Find ${target}: ${lowerConcept}.`,
+    `${cleanConcept}; calculate ${target}.`,
+    `To get ${target}, ${lowerConcept}.`,
+    `${cleanConcept}; get ${target}.`,
+    `${capitalTarget} comes from this: ${lowerConcept}.`,
+    `For ${target}: ${lowerConcept}.`,
+    `Compute ${target}: ${lowerConcept}.`,
+    `${cleanConcept}; solve for ${target}.`,
+    `Use this for ${target}: ${lowerConcept}.`,
+    `${capitalTarget} calculation: ${lowerConcept}.`,
+    `${cleanConcept}; obtain ${target}.`,
+    `Obtain ${target}: ${lowerConcept}.`,
+    `Find ${target} from this: ${lowerConcept}.`,
+    `${cleanConcept}; evaluate ${target}.`,
+    `For ${target}, start here: ${lowerConcept}.`,
+    `${capitalTarget} starts here: ${lowerConcept}.`,
+    `Apply this for ${target}: ${lowerConcept}.`,
+    `${cleanConcept}; determine ${target}.`,
+    `Start here for ${target}: ${lowerConcept}.`,
   ] as const;
   return openings[variant] ?? openings[0];
 }
@@ -143,7 +153,7 @@ function directOpening(pkg: Avg001QuestionPackage, line: string) {
 
   return englishContextualOpening(
     capitaliseEnglish(concept),
-    pkg.reasoningEvidence.finalContext,
+    targetLabel(pkg),
     index,
   );
 }
