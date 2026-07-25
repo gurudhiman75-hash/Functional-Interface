@@ -1,13 +1,13 @@
 import { getPnc002Explanation, renderPnc002Template } from "./library";
 import type {
   Pnc002Explanation,
-  Pnc002Parameters,
+  Pnc002AnyParameters,
   Pnc002ReasoningEvidence,
   Pnc002SolverResult,
 } from "./types";
 
 export function renderPnc002Cp008Explanation(
-  parameters: Pnc002Parameters,
+  parameters: Pnc002AnyParameters,
   solver: Pnc002SolverResult,
   reasoning: Pnc002ReasoningEvidence,
 ): Pnc002Explanation {
