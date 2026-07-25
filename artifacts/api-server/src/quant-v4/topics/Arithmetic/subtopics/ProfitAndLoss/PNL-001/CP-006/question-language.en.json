@@ -2,7 +2,7 @@
   "archetypeId": "PNL-001",
   "cpId": "PNL-CP-006",
   "language": "en",
-  "status": "ACTIVE_DISCOVERY",
+  "status": "FREEZE_CANDIDATE",
   "entries": {
     "PNL-QL-150": {"template":"A machine is purchased for ₹{purchasePrice}. The buyer spends ₹{repairExpense} on repairs, ₹{transportExpense} on transport and ₹{installationExpense} on installation. Find the effective cost of the machine.","difficulty":"Easy"},
     "PNL-QL-151": {"template":"A trader purchases an article for ₹{purchasePrice}. Incidental expenses amount to {overheadPercent}% of the purchase price. Find the effective cost.","difficulty":"Easy"},
@@ -17,7 +17,30 @@
     "PNL-QL-160": {"template":"A business has a fixed cost of ₹{fixedCost} and a variable cost of ₹{variableCostPerUnit} per unit. If {quantity} units are produced and sold, find the break-even selling price per unit.","difficulty":"Medium"},
     "PNL-QL-161": {"template":"A trader buys one article for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}, incurring a loss. He buys another article for ₹{secondCostPrice}. At what price should the second article be sold so that the two transactions together result in neither profit nor loss?","difficulty":"Hard"},
     "PNL-QL-162": {"template":"A trader buys one article for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}. He then buys another article for ₹{secondCostPrice}. Find the selling price of the second article required for an overall {targetRatePercent}% {targetDirection} across both transactions.","difficulty":"Hard"},
-    "PNL-QL-163": {"template":"The total amount realised from a commercial transaction is ₹{totalRecovery}, representing a {ratePercent}% {direction} on the effective cost. Find the effective cost.","difficulty":"Medium"}
+    "PNL-QL-163": {"template":"The total amount realised from a commercial transaction is ₹{totalRecovery}, representing a {ratePercent}% {direction} on the effective cost. Find the effective cost.","difficulty":"Medium"},
+    "PNL-QL-164": {"template":"An asset is purchased for ₹{purchasePrice}. Flat expenses are {flatExpenses}, followed by an overhead of {overheadPercent}% calculated on {overheadBase}. Find the effective cost.","difficulty":"Medium"},
+    "PNL-QL-165": {"template":"An asset bought for ₹{purchasePrice} has an effective cost of ₹{effectiveCost}. Find the total additional expense included in its cost.","difficulty":"Easy"},
+    "PNL-QL-166": {"template":"An asset is bought for ₹{purchasePrice}, incurs flat expenses {flatExpenses}, and has an effective cost of ₹{effectiveCost}. If the remaining overhead is based on {overheadBase}, find its percentage.","difficulty":"Hard"},
+    "PNL-QL-167": {"template":"A factory spends ₹{rawMaterialCost} on material and ₹{labourCost} on labour. Factory overhead is {factoryOverheadPercent}% of prime cost, packaging costs ₹{packagingCost}, and scrap brings ₹{scrapRecovery}. For an output of {outputQuantity} units, find the net production cost.","difficulty":"Hard"},
+    "PNL-QL-168": {"template":"A factory uses material worth ₹{rawMaterialCost} and labour worth ₹{labourCost}. Factory overhead is {factoryOverheadPercent}% of prime cost, packaging costs ₹{packagingCost}, scrap recovery is ₹{scrapRecovery}, and output is {outputQuantity} units. Find the effective cost per unit.","difficulty":"Hard"},
+    "PNL-QL-169": {"template":"Material costing ₹{totalInputCost} consists of {inputQuantity} units. After {wastedQuantity} units are wasted, the waste is sold for ₹{scrapRecovery}. Find the effective cost per usable unit.","difficulty":"Hard"},
+    "PNL-QL-170": {"template":"A product breaks even at {breakEvenQuantity} units. Its variable cost is ₹{variableCostPerUnit} per unit and selling price is ₹{sellingPricePerUnit} per unit. Find the fixed cost.","difficulty":"Medium"},
+    "PNL-QL-171": {"template":"A business has fixed costs of ₹{fixedCost} and breaks even after selling {breakEvenQuantity} units at ₹{sellingPricePerUnit} each. Find the variable cost per unit.","difficulty":"Hard"},
+    "PNL-QL-172": {"template":"A business has fixed costs of ₹{fixedCost} and variable cost of ₹{variableCostPerUnit} per unit. At what price per unit should {quantity} units be sold to earn ₹{targetProfit}?","difficulty":"Hard"},
+    "PNL-QL-173": {"template":"A business has fixed costs of ₹{fixedCost} and a contribution-margin ratio of {contributionMarginPercent}%. Find its break-even revenue.","difficulty":"Hard"},
+    "PNL-QL-174": {"template":"A business has fixed costs of ₹{fixedCost} and break-even revenue of ₹{breakEvenRevenue}. Find the contribution-margin ratio.","difficulty":"Hard"},
+    "PNL-QL-175": {"template":"A business sells products in the fixed mix {productMix}. If its fixed cost is ₹{fixedCost}, find the minimum number of complete product-mix bundles required to break even.","difficulty":"Hard"},
+    "PNL-QL-176": {"template":"Actual revenue is ₹{actualRevenue} and break-even revenue is ₹{breakEvenRevenue}. Find the margin of safety in rupees.","difficulty":"Medium"},
+    "PNL-QL-177": {"template":"Actual revenue is ₹{actualRevenue}, while break-even revenue is ₹{breakEvenRevenue}. Find the margin-of-safety percentage on actual revenue.","difficulty":"Hard"},
+    "PNL-QL-178": {"template":"The total effective cost of several commercial transactions is ₹{totalCost}. Earlier recoveries are {priorRecoveries}. Find the final recovery required to obtain an overall {targetRatePercent}% {targetDirection}.","difficulty":"Hard"},
+    "PNL-QL-179": {"template":"A trader loses {lossPercent}% of his capital. What profit percentage on the remaining capital is required to restore the original capital?","difficulty":"Medium"},
+    "PNL-QL-180": {"template":"An article has an effective cost of ₹{effectiveCost} and is sold for ₹{grossSellingPrice}. A commission of {commissionPercent}% is deducted from the selling price. Find the profit or loss amount and percentage.","difficulty":"Hard"},
+    "PNL-QL-181": {"template":"An article has an effective cost of ₹{effectiveCost}. A commission of {commissionPercent}% will be deducted from the gross selling price. Find the gross price required for {targetRatePercent}% {targetDirection} on effective cost.","difficulty":"Hard"},
+    "PNL-QL-182": {"template":"The manufacturing table gives material, labour, overhead and packaging costs: {manufacturingTable}. If output is {outputQuantity} units and scrap recovery is ₹{scrapRecovery}, find the effective cost per unit.","difficulty":"Hard","representation":"TABLE"},
+    "PNL-QL-183": {"template":"Read the break-even caselet: {caseletData}. Using fixed cost ₹{fixedCost} and product mix {productMix}, find the minimum number of complete bundles required to break even.","difficulty":"Hard","representation":"CASELET"},
+    "PNL-QL-184": {"template":"After a loss of {lossPercent}% of capital, select the correct statement about the profit percentage required on the remaining capital to recover the original amount.","difficulty":"Medium","representation":"STATEMENT"},
+    "PNL-QL-185": {"template":"The purchase price is {purchasePriceExpression}, flat expense is {flatExpenseExpression}, and effective cost is {effectiveCostExpression}. If overhead is calculated on {overheadBase}, find the overhead percentage.","difficulty":"Hard","representation":"ALGEBRAIC"},
+    "PNL-QL-186": {"template":"To determine the break-even quantity, consider Statement I: {statementOne}. Statement II: {statementTwo}. Decide whether either statement alone or both together are sufficient.","difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
   },
-  "entryCount": 14
+  "entryCount": 37
 }
