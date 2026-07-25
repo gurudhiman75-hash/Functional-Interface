@@ -4,6 +4,7 @@ import type { CodCp001QuestionLogic } from "./types";
 import { SeededRandom } from "../foundation/prng";
 import { encodeWithMapping, evidenceCoversWord, mappingFromEvidence } from "../foundation/mapping";
 import { validateOptions } from "../foundation/option-validator";
+import { joinCodeExamples } from "../foundation/editorial";
 import { getCodCp001QuestionLogic } from "./question-language.en";
 import { COD_CP001_WORD_POOL } from "./word-pool.en";
 import { auditDirectMapping } from "./ambiguity-checker";
@@ -23,20 +24,19 @@ function separator(outputKind: CodCp001QuestionLogic["outputKind"]): string {
   return outputKind === "SYMBOL" ? " " : "";
 }
 
-function deriveDifficulty(logic: CodCp001QuestionLogic, prompt: DirectMappingPrompt): CodDifficulty {
-  let burden = 0;
-  if (prompt.target.length >= 5) burden += 1;
-  if (prompt.evidence.length >= 3) burden += 1;
-  if (prompt.taskKind === "DECODE_TARGET" || prompt.taskKind === "RECOVER_MISSING_CODE") burden += 1;
-  if (prompt.taskKind === "INFER_FROM_OVERLAP") burden += 2;
-  if (prompt.outputKind === "SYMBOL") burden += 1;
-  const desired: CodDifficulty = burden >= 4 ? "HARD" : burden >= 2 ? "MEDIUM" : "EASY";
-  if (logic.allowedDifficulties.includes(desired)) return desired;
-  const order: readonly CodDifficulty[] = ["EASY", "MEDIUM", "HARD"];
-  const desiredIndex = order.indexOf(desired);
-  return [...logic.allowedDifficulties].sort(
-    (left, right) => Math.abs(order.indexOf(left) - desiredIndex) - Math.abs(order.indexOf(right) - desiredIndex),
-  )[0]!;
+function deriveDifficulty(logic: CodCp001QuestionLogic): CodDifficulty {
+  if (
+    logic.evidenceMode === "OVERLAPPING_EXAMPLES" &&
+    logic.taskKind === "INFER_FROM_OVERLAP" &&
+    logic.targetLength[1] >= 6
+  ) return "HARD";
+  if (
+    logic.evidenceMode === "OVERLAPPING_EXAMPLES" ||
+    logic.taskKind === "DECODE_TARGET" ||
+    logic.taskKind === "RECOVER_MISSING_CODE" ||
+    logic.outputKind === "SYMBOL"
+  ) return "MEDIUM";
+  return "EASY";
 }
 
 function pickTargetWord(logic: CodCp001QuestionLogic, random: SeededRandom): string {
@@ -110,42 +110,38 @@ function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, rando
 }
 
 function buildStem(prompt: DirectMappingPrompt, styleIndex: number): string {
-  const examples = prompt.evidence.map((pair) => `${pair.source} → ${pair.code}`).join(", ");
+  const examples = joinCodeExamples(prompt.evidence);
   const style = styleIndex % 4;
   if (prompt.taskKind === "DECODE_TARGET") {
-    const variants = [
-      `In a certain code, ${examples}. Using the same direct substitution, which word is represented by ${prompt.encodedTarget}?`,
-      `The examples ${examples} follow one fixed letter-to-code map. Decode ${prompt.encodedTarget}.`,
-      `Observe ${examples}. What original word produces the code ${prompt.encodedTarget} under this same mapping?`,
-      `Using the substitution established by ${examples}, identify the word coded as ${prompt.encodedTarget}.`,
-    ];
-    return variants[style]!;
+    return [
+      `In a certain code, ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
+      `If ${examples}, what is the original word for the code ‘${prompt.encodedTarget}’?`,
+      `The same letter code is used in ${examples}. Identify the word represented by ‘${prompt.encodedTarget}’.`,
+      `Study the codes ${examples}. Which word gives the code ‘${prompt.encodedTarget}’?`,
+    ][style]!;
   }
   if (prompt.taskKind === "RECOVER_MISSING_CODE") {
-    const variants = [
-      `The coded examples and mapping table use the same fixed substitution. Which code should replace the blank for ${prompt.missingSource}?`,
-      `One entry for ${prompt.missingSource} is missing from the table. Use the accompanying coded examples to find it.`,
-      `Complete the direct-substitution table: what is the code of ${prompt.missingSource}?`,
-      `The same letter map applies to the examples and table. Determine the missing code beside ${prompt.missingSource}.`,
-    ];
-    return variants[style]!;
+    return [
+      `In the same coding system as ${examples}, complete the entry ${prompt.missingSource} → ?.`,
+      `Using ${examples}, what should replace the blank in ${prompt.missingSource} → ?`,
+      `The table follows the coding shown by ${examples}. Find the missing code for ${prompt.missingSource}.`,
+      `From the coded examples ${examples}, determine the value of ${prompt.missingSource} in the table.`,
+    ][style]!;
   }
   if (prompt.taskKind === "INFER_FROM_OVERLAP") {
-    const variants = [
-      `Study the overlapping coded examples ${examples}. If the same letter always has the same code, how will ${prompt.target} be written?`,
-      `The examples ${examples} share letters and use one consistent substitution. Find the code for ${prompt.target}.`,
-      `Infer the fixed letter map from ${examples}, then encode ${prompt.target}.`,
-      `Use the common letters in ${examples} to recover the substitution and write the code of ${prompt.target}.`,
-    ];
-    return variants[style]!;
+    return [
+      `In a certain code, ${examples}. How will ‘${prompt.target}’ be coded?`,
+      `If ${examples}, which option is the correct code for ‘${prompt.target}’?`,
+      `Study the common letter codes in ${examples}. Find the code for ‘${prompt.target}’.`,
+      `The same letter has the same code in ${examples}. What is the code of ‘${prompt.target}’?`,
+    ][style]!;
   }
-  const variants = [
-    `In a certain code, ${examples}. Using the same direct substitution, how will ${prompt.target} be written?`,
-    `The coding examples are ${examples}. Apply the identical letter map to ${prompt.target}.`,
-    `Each letter keeps the substitution shown in ${examples}. What is the code for ${prompt.target}?`,
-    `Following the fixed mapping illustrated by ${examples}, encode ${prompt.target}.`,
-  ];
-  return variants[style]!;
+  return [
+    `In a certain code, ${examples}. How will ‘${prompt.target}’ be coded?`,
+    `If ${examples}, what is the code for ‘${prompt.target}’?`,
+    `Using the same coding system as ${examples}, find the code of ‘${prompt.target}’.`,
+    `The coding used in ${examples} is also applied to ‘${prompt.target}’. Which option is correct?`,
+  ][style]!;
 }
 
 function mappingFingerprint(mapping: DirectMap): string {
@@ -153,7 +149,7 @@ function mappingFingerprint(mapping: DirectMap): string {
 }
 
 function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: number): GeneratedCodQuestion | null {
-  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp001-v1`);
+  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp001-v2`);
   const target = pickTargetWord(logic, random);
   const evidenceWords = chooseEvidenceWords(target, logic, random);
   if (!evidenceWords) return null;
@@ -195,24 +191,24 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
   validateOptions(options);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const recovered = mappingFromEvidence(evidence, sep);
-  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-style`).int(0, 3);
-  const question: GeneratedCodQuestion = {
+  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-style-v2`).int(0, 3);
+  return {
     packageId: "COD-001",
     qlId: logic.qlId,
     checkpointId: "COD-CP-001",
     ruleId: logic.ruleId,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic, prompt),
+    difficulty: deriveDifficulty(logic),
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp001Explanation(prompt, recovered, answer, styleIndex),
+    explanation: buildCodCp001Explanation(prompt, recovered, answer, styleIndex, options),
     metadata: {
-      runtimeVersion: "cod-001-cp001-v1",
+      runtimeVersion: "cod-001-cp001-v2",
       publiclyPublishable: false,
       maturity: "RUNTIME_PROOF",
       hiddenFingerprint: mappingFingerprint(mapping),
@@ -221,7 +217,6 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
       ambiguityAccepted: audit.accepted,
     },
   };
-  return question;
 }
 
 export function generateCodCp001Question(qlId: string, seed: number): GeneratedCodQuestion {
