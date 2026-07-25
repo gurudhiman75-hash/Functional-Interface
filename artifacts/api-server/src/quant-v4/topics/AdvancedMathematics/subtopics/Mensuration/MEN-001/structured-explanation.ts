@@ -33,15 +33,29 @@ declare module "./types" {
   }
 }
 
+const FORMULA_OVERRIDES: Partial<Record<Men001Parameters["solveMode"], string[]>> = {
+  findRectangleSemicircleCompositeArea: [
+    "Total Area = Rectangle Area + Semicircle Area",
+    "Rectangle Area = l × b",
+    "Semicircle Area = ½ × πr²",
+  ],
+  findEquilateralSideFromPerimeter: ["a = P ÷ 3"],
+  findSquareSideFromArea: ["a = √A"],
+};
+
 function finishSentence(value: string) {
   const text = value.trim().replace(/\s+/g, " ");
   if (!text) return text;
   return /[.!?]$/.test(text) ? text : `${text}.`;
 }
 
+function stripMathDelimiters(value: string) {
+  return value.trim().replace(/^\$\$/, "").replace(/\$\$$/, "").trim();
+}
+
 function readableEquation(value: string) {
-  return value
-    .trim()
+  return stripMathDelimiters(value)
+    .replace(/[.]$/, "")
     .replace(/\(1\/2\)/g, "½")
     .replace(/\b1\/2\b/g, "½")
     .replace(/\s*=\s*/g, " = ")
@@ -54,8 +68,7 @@ function readableEquation(value: string) {
 }
 
 function areaUnit(solver: Men001SolverResult) {
-  if (solver.unit === "m²" || solver.unit === "cm²") return solver.unit;
-  return undefined;
+  return solver.unit === "m²" || solver.unit === "cm²" ? solver.unit : undefined;
 }
 
 function lengthUnit(solver: Men001SolverResult) {
@@ -83,17 +96,10 @@ function rectangleSemicircleSteps(
   const aUnit = areaUnit(solver);
   const lUnit = lengthUnit(solver);
   if (
-    length === undefined ||
-    breadth === undefined ||
-    radius === undefined ||
-    rectangleArea === undefined ||
-    semicircleArea === undefined ||
-    totalArea === undefined ||
-    !aUnit ||
-    !lUnit
-  ) {
-    return undefined;
-  }
+    length === undefined || breadth === undefined || radius === undefined ||
+    rectangleArea === undefined || semicircleArea === undefined ||
+    totalArea === undefined || !aUnit || !lUnit
+  ) return undefined;
 
   return [
     {
@@ -101,9 +107,7 @@ function rectangleSemicircleSteps(
       stepNumber: 1,
       title: "Area of the Rectangle",
       paragraphs: ["Multiply the rectangle's length by its breadth."],
-      equations: [
-        `Rectangle Area = ${length} × ${breadth} = ${rectangleArea} ${aUnit}`,
-      ],
+      equations: [`Rectangle Area = ${length} × ${breadth} = ${rectangleArea} ${aUnit}`],
     },
     {
       kind: "STEP",
@@ -129,12 +133,8 @@ function rectangleSemicircleSteps(
       kind: "STEP",
       stepNumber: 4,
       title: "Add the Two Areas",
-      paragraphs: [
-        "The rectangle and semicircle do not overlap, so their areas are added.",
-      ],
-      equations: [
-        `Total Area = ${rectangleArea} + ${semicircleArea} = ${totalArea} ${aUnit}`,
-      ],
+      paragraphs: ["The two parts do not overlap, so their areas are added."],
+      equations: [`Total Area = ${rectangleArea} + ${semicircleArea} = ${totalArea} ${aUnit}`],
     },
   ];
 }
@@ -148,12 +148,21 @@ function removeWorkingPrefix(value: string) {
     .replace(/^Using these values,\s*/i, "")
     .replace(/^With the given measurements,\s*/i, "")
     .replace(/^This gives\s*/i, "")
-    .replace(/^Therefore,?\s*/i, "")
-    .replace(/^Hence,?\s*/i, "")
+    .replace(/^(Therefore|Hence|Thus|So),?\s*/i, "")
     .trim();
 }
 
-function stepTitle(value: string, solveMode: string, stepNumber: number) {
+function isTerminalNarrative(value: string) {
+  return !value.includes("=") && /^(the required|the exact|the side length|the converted|the final|the answer)\b/i.test(value.trim());
+}
+
+function isSimpleResultEquation(value: string) {
+  if (!value.includes("=")) return false;
+  const right = value.split("=").at(-1)?.trim() ?? "";
+  return /\d|√|π/.test(right) && !/[+−×÷*/()]/.test(right);
+}
+
+function baseStepTitle(value: string, solveMode: string, stepNumber: number) {
   const line = value.toLowerCase();
   const mode = solveMode.toLowerCase();
   if (/add|total|sum|combine|\+/.test(line)) return "Combine the Results";
@@ -190,15 +199,17 @@ function instructionForStep(title: string) {
     "Area of the Circle": "Substitute the radius in the circle-area formula.",
     "Area of the Square": "Square the side length.",
     "Area of the Regular Hexagon": "Use the regular-hexagon area relation and simplify exactly.",
-    "Calculate the Boundary": "Use only the boundary segments that belong to the required perimeter.",
-    "Apply the Scale Relation": "Substitute the known corresponding measures in the scale relation.",
+    "Calculate the Boundary": "Use the boundary relation for the required perimeter or circumference.",
+    "Apply the Scale Relation": "Substitute the corresponding measures in the scale relation.",
     "Apply the Percentage Change": "Convert each percentage change into its multiplicative factor.",
     "Take the Positive Square Root": "Take the positive root because a physical measurement cannot be negative.",
-    "Calculate the Cost or Rate": "Combine the required measure with the stated cost or rate relation.",
+    "Calculate the Cost or Rate": "Combine the measure with the stated cost or rate relation.",
     "Substitute in the Area Formula": "Place the given measurements into the selected area formula.",
     "Simplify the Area": "Simplify the numerical expression to obtain the area.",
     "Substitute the Given Values": "Substitute the supplied measurements into the governing formula.",
-    "Simplify the Calculation": "Simplify the expression carefully while preserving the correct unit.",
+    "Simplify the Calculation": "Simplify the expression while preserving the correct unit.",
+    "Continue the Calculation": "Use the previous result in the next part of the calculation.",
+    "Complete the Calculation": "Evaluate the final numerical expression.",
   };
   return instructions[title] ?? "Carry out this part of the calculation exactly.";
 }
@@ -214,42 +225,71 @@ function genericSteps(
   const cleaned = source
     .map(removeWorkingPrefix)
     .filter(Boolean)
+    .filter((line) => !isTerminalNarrative(line))
     .filter((line, index, lines) => index === 0 || line !== lines[index - 1]);
 
+  let previousTitle = "";
   const steps = cleaned.map((line, index): Men001ExplanationSection => {
     const stepNumber = index + 1;
-    const title = stepTitle(line, parameters.solveMode, stepNumber);
     const hasEquation = line.includes("=");
+    let title = baseStepTitle(line, parameters.solveMode, stepNumber);
+    if (hasEquation && index > 0 && isSimpleResultEquation(line)) {
+      title = "Complete the Calculation";
+    } else if (title === previousTitle) {
+      title = index === cleaned.length - 1 ? "Complete the Calculation" : "Continue the Calculation";
+    }
+    previousTitle = title;
     return {
       kind: "STEP",
       stepNumber,
       title,
       paragraphs: hasEquation ? [instructionForStep(title)] : [finishSentence(line)],
-      equations: hasEquation ? [readableEquation(line.replace(/[.]$/, ""))] : [],
+      equations: hasEquation ? [readableEquation(line)] : [],
     };
   });
 
-  if (steps.length > 0) return steps;
-  return [
-    {
-      kind: "STEP",
-      stepNumber: 1,
-      title: "Apply the Formula",
-      paragraphs: ["Substitute the given measurements and simplify exactly."],
-      equations: [],
-    },
-  ];
+  return steps.length > 0 ? steps : [{
+    kind: "STEP",
+    stepNumber: 1,
+    title: "Apply the Formula",
+    paragraphs: ["Substitute the given measurements and simplify exactly."],
+    equations: [],
+  }];
 }
 
-function formulaNarrative(
-  originalLines: readonly string[],
-  parameters: Men001Parameters,
-) {
+function relationLine(originalLines: readonly string[], parameters: Men001Parameters) {
   if (parameters.canonicalProblemId === "MEN-CP-006") {
     return getMen001Cp006FormulaLine(parameters.questionLanguageId);
   }
-  const relation = originalLines[1];
-  return relation ? finishSentence(relation) : "Use the governing mensuration relation for the given figure.";
+  return originalLines[1] ?? "";
+}
+
+function relationEquation(value: string) {
+  const cleaned = value.trim().replace(/[.]$/, "");
+  const colon = cleaned.lastIndexOf(":");
+  if (colon >= 0) {
+    const afterColon = cleaned.slice(colon + 1).trim();
+    if (afterColon.includes("=")) return readableEquation(afterColon);
+  }
+  return readableEquation(cleaned);
+}
+
+function keyRuleContent(
+  originalLines: readonly string[],
+  parameters: Men001Parameters,
+  solver: Men001SolverResult,
+) {
+  const override = FORMULA_OVERRIDES[parameters.solveMode];
+  if (override) return { paragraphs: [] as string[], equations: override };
+
+  const relation = relationLine(originalLines, parameters);
+  if (relation.includes("=")) {
+    return { paragraphs: [] as string[], equations: [relationEquation(relation)] };
+  }
+  return {
+    paragraphs: relation ? [finishSentence(relation)] : [],
+    equations: [readableEquation(solver.equation)],
+  };
 }
 
 export function buildMen001StructuredExplanation(
@@ -260,7 +300,7 @@ export function buildMen001StructuredExplanation(
 ): Men001ExplanationSection[] {
   const opening = authoredLines[0] ?? originalLines[0] ?? "Identify the required measurement relation.";
   const conclusion = authoredLines.at(-1) ?? originalLines.at(-1) ?? `The required answer is ${solver.answer}.`;
-  const formula = readableEquation(solver.equation);
+  const keyRule = keyRuleContent(originalLines, parameters, solver);
   const detailed = rectangleSemicircleSteps(parameters, solver);
   const working = detailed ?? genericSteps(originalLines, authoredLines, parameters);
 
@@ -268,18 +308,15 @@ export function buildMen001StructuredExplanation(
     {
       kind: "KEY_RULE",
       title: "Key Rule",
-      paragraphs: [finishSentence(opening), formulaNarrative(originalLines, parameters)],
-      equations: [formula],
+      paragraphs: [finishSentence(opening), ...keyRule.paragraphs],
+      equations: keyRule.equations,
     },
-    ...working.map((section, index) => ({
-      ...section,
-      stepNumber: index + 1,
-    })),
+    ...working,
     {
       kind: "FINAL_ANSWER",
       title: "Final Answer",
       paragraphs: [finishSentence(conclusion)],
-      equations: [solver.answer],
+      equations: [stripMathDelimiters(solver.answer)],
     },
   ];
 }
@@ -291,11 +328,7 @@ export function flattenMen001StructuredExplanation(
     const heading = section.kind === "STEP"
       ? `Step ${section.stepNumber}: ${section.title}`
       : section.title;
-    return [
-      heading,
-      ...section.paragraphs,
-      ...section.equations.map((equation) => `$$${equation}$$`),
-    ];
+    return [heading, ...section.paragraphs, ...section.equations.map((equation) => `$$${equation}$$`)];
   });
 }
 
@@ -306,24 +339,25 @@ export function assertMen001StructuredExplanation(
   if (explanation.displayFormat !== "KEY_RULE_STEPS_FINAL_ANSWER") {
     throw new Error("MEN-001 explanation must use the structured worked format.");
   }
-  const [first, ...rest] = explanation.sections;
-  const last = rest.at(-1);
+  const first = explanation.sections[0];
+  const last = explanation.sections.at(-1);
   if (!first || first.kind !== "KEY_RULE" || first.equations.length === 0) {
     throw new Error("MEN-001 explanation must begin with a Key Rule and formula.");
   }
-  if (!last || last.kind !== "FINAL_ANSWER" || !last.equations.includes(answer)) {
+  if (!last || last.kind !== "FINAL_ANSWER" || !last.equations.includes(stripMathDelimiters(answer))) {
     throw new Error("MEN-001 explanation must end with the canonical final answer.");
   }
   const steps = explanation.sections.filter((section) => section.kind === "STEP");
-  if (steps.length === 0) {
-    throw new Error("MEN-001 explanation must contain at least one worked step.");
-  }
+  if (steps.length === 0) throw new Error("MEN-001 explanation must contain at least one worked step.");
   steps.forEach((step, index) => {
     if (step.stepNumber !== index + 1 || !step.title.trim()) {
       throw new Error("MEN-001 explanation steps must be sequential and titled.");
     }
     if (step.paragraphs.length === 0 && step.equations.length === 0) {
       throw new Error("MEN-001 explanation steps cannot be empty.");
+    }
+    if (index > 0 && step.title === steps[index - 1]!.title) {
+      throw new Error("MEN-001 adjacent explanation steps must use distinct titles.");
     }
   });
 }
