@@ -18,6 +18,9 @@ on:
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/examtree/src/lib/auth.ts
+      - artifacts/examtree/src/pages/account-recovery.tsx
+      - artifacts/examtree/src/pages/login.tsx
+      - artifacts/examtree/src/App.tsx
       - artifacts/admin-app/src/features/students/**
       - artifacts/admin-app/src/pages/users/StudentsPage.tsx
       - artifacts/admin-app/src/pages/users/StudentDetailPage.tsx
@@ -46,6 +49,9 @@ on:
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/examtree/src/lib/auth.ts
+      - artifacts/examtree/src/pages/account-recovery.tsx
+      - artifacts/examtree/src/pages/login.tsx
+      - artifacts/examtree/src/App.tsx
       - artifacts/admin-app/src/features/students/**
       - artifacts/admin-app/src/pages/users/StudentsPage.tsx
       - artifacts/admin-app/src/pages/users/StudentDetailPage.tsx
@@ -106,17 +112,23 @@ jobs:
           grep -F "priorStatus === 'disabled' ? 'disabled' : 'suspended'" artifacts/api-server/src/routes/admin-student-account-recovery.ts
           grep -F 'oldIdentityFingerprint' artifacts/api-server/src/routes/admin-student-account-recovery.ts
           grep -F 'newIdentityFingerprint' artifacts/api-server/src/routes/admin-student-account-recovery.ts
-          grep -F 'ACTIVE_REQUEST_WINDOW_DAYS' artifacts/api-server/src/routes/student-account-recovery.ts
           grep -F 'CLOSED_REQUEST_COOLDOWN_HOURS' artifacts/api-server/src/routes/student-account-recovery.ts
+          grep -F "previousState === 'pending' || previousState === 'under_review'" artifacts/api-server/src/routes/student-account-recovery.ts
+          grep -F "metadata ->> 'resolvedAt'" artifacts/api-server/src/routes/student-account-recovery.ts
+          grep -F "metadata ->> 'reviewedAt'" artifacts/api-server/src/routes/student-account-recovery.ts
           grep -F 'FOR UPDATE' artifacts/api-server/src/routes/student-account-recovery.ts
           grep -F 'isActiveDuplicate' artifacts/api-server/src/routes/student-account-recovery.ts
           grep -F 'isClosedCooldown' artifacts/api-server/src/routes/student-account-recovery.ts
           grep -F 'ACCOUNT_RECOVERY_COMPLETED' artifacts/api-server/src/middlewares/auth.ts
-          grep -F 'student.account.firebase_identity_relinked' artifacts/api-server/src/middlewares/auth.ts
+          grep -F 'later_lifecycle.occurred_at > recovery.occurred_at' artifacts/api-server/src/middlewares/auth.ts
+          grep -F "later_lifecycle.action_key LIKE 'student.account.%'" artifacts/api-server/src/middlewares/auth.ts
           grep -F 'verifyIdToken(token, true)' artifacts/api-server/src/middlewares/auth.ts
           grep -F 'SESSION_REVOKED' artifacts/api-server/src/middlewares/auth.ts
           grep -F 'ACCOUNT_RECOVERY_COMPLETED' artifacts/examtree/src/lib/auth.ts
           grep -F 'account-recovery-completed' artifacts/examtree/src/lib/auth.ts
+          grep -F 'Can’t access your account?' artifacts/examtree/src/pages/login.tsx
+          grep -F '/account-recovery' artifacts/examtree/src/App.tsx
+          grep -F '/account-recovery/request' artifacts/examtree/src/pages/account-recovery.tsx
           grep -F 'recoverStudentFirebaseIdentity' artifacts/admin-app/src/features/students/api.ts
           grep -F 'recoveryRequestId' artifacts/admin-app/src/features/students/api.ts
           grep -F 'Open verified recovery' artifacts/admin-app/src/pages/users/RecoveryRequestsPage.tsx
@@ -135,7 +147,7 @@ jobs:
           grep -R 'FIREBASE_RECOVERY_EMAIL_NOT_VERIFIED' artifacts/api-server/dist >/dev/null
           grep -R 'FIREBASE_RECOVERY_IDENTITY_CONFLICT' artifacts/api-server/dist >/dev/null
           grep -R 'ACCOUNT_RECOVERY_COMPLETED' artifacts/api-server/dist >/dev/null
-          grep -R 'ACTIVE_REQUEST_WINDOW_DAYS' artifacts/api-server/dist >/dev/null
+          grep -R 'CLOSED_REQUEST_COOLDOWN_HOURS' artifacts/api-server/dist >/dev/null
           grep -R 'revokeRefreshTokens' artifacts/api-server/dist >/dev/null
           grep -R 'SESSION_REVOKED' artifacts/api-server/dist >/dev/null
 
@@ -152,3 +164,6 @@ jobs:
 
       - name: Build admin application
         run: pnpm run build:admin
+
+      - name: Build student application
+        run: pnpm run build:web
