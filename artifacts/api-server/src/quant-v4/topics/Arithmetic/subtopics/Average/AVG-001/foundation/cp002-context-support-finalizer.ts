@@ -85,7 +85,7 @@ const SUPPORT_BY_SCENARIO: Record<string, string> = {
   averageEvenRollNumbers:
     "The first and last even roll numbers balance around the average roll number.",
   averageOddSequenceLargeCount:
-    "After finding the last odd number, average it with the first number.",
+    "For the longer odd-number sequence, the first and last numbers still share the average as their midpoint.",
   averageEvenSequenceLargeCount:
     "After finding the first even number, average it with the last number.",
   averageEvenProductionCodes:
