@@ -3,6 +3,7 @@ import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import { buildMen001StructuredExplanation } from "./structured-explanation";
+import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -24,11 +25,13 @@ export function renderMen001Explanation(
     parameters,
     solver,
   );
-  const sections = buildMen001StructuredExplanation(
-    originalLines,
-    authoredLines,
-    parameters,
-    solver,
+  const sections = normalizeMen001StructuredSections(
+    buildMen001StructuredExplanation(
+      originalLines,
+      authoredLines,
+      parameters,
+      solver,
+    ),
   );
   return {
     strategyId: entry.explanationStrategyId,
