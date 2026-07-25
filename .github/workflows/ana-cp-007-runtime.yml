@@ -1,0 +1,95 @@
+name: Validate ANA-CP-007 runtime
+
+on:
+  push:
+    branches:
+      - feat/reasoning-ana-001-cp007-runtime
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP007.md
+      - .github/workflows/ana-cp-007-runtime.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP007.md
+      - .github/workflows/ana-cp-007-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ana-cp-007-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007 -name '*.ts' -print) \
+            $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006 -name '*.ts' -print) \
+            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+
+  english-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run English runtime audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/ana-cp-007.test.ts
+
+  localized-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run Hindi and Punjabi parity audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/ana-cp-007-localized.test.ts
+
+  editorial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Run explanation editorial audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/ana-cp-007-editorial.test.ts
