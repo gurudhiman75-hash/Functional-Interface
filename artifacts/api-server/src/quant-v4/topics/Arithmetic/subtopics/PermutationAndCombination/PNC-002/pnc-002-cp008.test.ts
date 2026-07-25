@@ -17,14 +17,21 @@ import {
   countSpecifiedObjectsInPositionClassExact,
   countStrictAlternationExact,
 } from "./foundation/solver-cp008";
+import {
+  countAtLeastSpecifiedObjectsInPositionClassExact,
+  countAtMostGapBetweenPairExact,
+  countDirectionalExactGapBetweenPairExact,
+  countObjectsAtPrescribedPositionsExact,
+  countSpecifiedSetInPositionSetExact,
+} from "./foundation/solver-cp008-saturation";
 
 const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-008");
-const checkpointIds = Array.from({ length: 18 }, (_, index) => `PNC-QL-${String(index + 125).padStart(3, "0")}`);
-assert.equal(entries.length, 18);
+const checkpointIds = Array.from({ length: 23 }, (_, index) => `PNC-QL-${String(index + 125).padStart(3, "0")}`);
+assert.equal(entries.length, 23);
 assert.deepEqual(entries.map((entry) => entry.qlId), checkpointIds);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 18);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 23);
 const difficultyCounts = Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]));
-assert.deepEqual(difficultyCounts, { Easy: 4, Medium: 8, Hard: 6 });
+assert.deepEqual(difficultyCounts, { Easy: 4, Medium: 11, Hard: 8 });
 const solveModeCounts = Object.fromEntries([...new Set(entries.map((entry) => entry.solveMode))].map((solveMode) => [solveMode, entries.filter((entry) => entry.solveMode === solveMode).length]));
 assert.deepEqual(solveModeCounts, {
   countObjectAtExactPosition: 1,
@@ -39,6 +46,11 @@ assert.deepEqual(solveModeCounts, {
   countAtLeastGapBetweenPair: 1,
   countSpecifiedObjectsInPositionClass: 2,
   recoverPositionGapParameter: 1,
+  countObjectsAtPrescribedPositions: 1,
+  countSpecifiedSetInPositionSet: 1,
+  countAtMostGapBetweenPair: 1,
+  countDirectionalExactGapBetweenPair: 1,
+  countAtLeastSpecifiedObjectsInPositionClass: 1,
 });
 assert.equal(countObjectAtExactPositionExact(7), 720);
 assert.equal(countObjectAtEitherEndExact(7), 1440);
@@ -53,6 +65,15 @@ assert.equal(countExactGapBetweenPairExact(8, 2), 7200);
 assert.equal(countAtLeastGapBetweenPairExact(8, 2), 21600);
 assert.equal(countSpecifiedObjectsInPositionClassExact(8, 3, 3, 4), 2880);
 assert.equal(countSpecifiedObjectsInPositionClassExact(8, 4, 2, 4), 20736);
+assert.equal(countObjectsAtPrescribedPositionsExact(8, 3), 120);
+assert.equal(countSpecifiedSetInPositionSetExact(8, 3), 720);
+assert.equal(countAtMostGapBetweenPairExact(8, 2), 25920);
+assert.equal(countDirectionalExactGapBetweenPairExact(8, 2), 3600);
+assert.deepEqual(countAtLeastSpecifiedObjectsInPositionClassExact(8, 4, 2, 4), {
+  answer: 30528,
+  acceptedClassCounts: [2, 3, 4],
+  caseCounts: [20736, 9216, 576],
+});
 
 for (const qlId of checkpointIds) {
   const sample = runPnc002Pipeline({ questionLanguageId: qlId, seed: `cp008-contract:${qlId}` });
@@ -64,6 +85,20 @@ for (const qlId of checkpointIds) {
 const inverse = runPnc002Pipeline({ questionLanguageId: "PNC-QL-142", seed: "cp008-inverse-proof" });
 assert.equal(inverse.solver.evidence.operation, "POSITION_GAP_INVERSE");
 assert.equal(inverse.solver.evidence.recoveredParameter, "gap");
+
+const prescribedPositions = runPnc002Pipeline({ questionLanguageId: "PNC-QL-143", seed: "cp008-prescribed-positions-proof" });
+assert.equal(prescribedPositions.solver.evidence.operation, "OBJECTS_AT_PRESCRIBED_POSITIONS");
+assert.equal(prescribedPositions.solver.evidence.prescribedObjectCount, 3);
+const positionSet = runPnc002Pipeline({ questionLanguageId: "PNC-QL-144", seed: "cp008-position-set-proof" });
+assert.equal(positionSet.solver.evidence.operation, "SPECIFIED_SET_IN_POSITION_SET");
+assert.equal(positionSet.solver.evidence.positionSetAssignmentCount, 6);
+const atMostGap = runPnc002Pipeline({ questionLanguageId: "PNC-QL-145", seed: "cp008-at-most-gap-proof" });
+assert.equal(atMostGap.solver.evidence.operation, "AT_MOST_GAP_BETWEEN_PAIR");
+const directionalGap = runPnc002Pipeline({ questionLanguageId: "PNC-QL-146", seed: "cp008-directional-gap-proof" });
+assert.equal(directionalGap.solver.evidence.operation, "DIRECTIONAL_EXACT_GAP");
+const atLeastPositionClass = runPnc002Pipeline({ questionLanguageId: "PNC-QL-147", seed: "cp008-at-least-position-class-proof" });
+assert.equal(atLeastPositionClass.solver.evidence.operation, "AT_LEAST_SPECIFIED_IN_POSITION_CLASS");
+assert.ok((atLeastPositionClass.solver.evidence.acceptedClassCounts?.length ?? 0) >= 1);
 
 let generatedCases = 0;
 for (const entry of entries) {
@@ -85,6 +120,7 @@ for (const entry of entries) {
     generatedCases += 1;
   }
 }
+assert.equal(generatedCases, 276);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-125", language: "hi", seed: "unsupported-hi" }), /not implemented/);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-125", language: "pa", seed: "unsupported-pa" }), /not implemented/);
 const audit = auditPnc002Cp008Coverage();
