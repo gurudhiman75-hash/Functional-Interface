@@ -13,7 +13,7 @@
     "PNC-QL-114":["Count all rows first, then remove the rows in which the two named people form a single block.","The block can be arranged internally in two ways.","Therefore {equation}, leaving {answer} valid rows."],
     "PNC-QL-115":["Every shelf arrangement is allowed except those where the two specified books are adjacent.","For the adjacent case, regard the books as one block and count both internal orders.","The complement is {equation} = {answer}."],
     "PNC-QL-116":["Count the rows where the first pair is together and the second is apart, then double by symmetry.","For one chosen together-pair, subtract the rows where both pairs are blocks from the rows where that pair alone is forced together.","This gives {equation} = {answer}."],
-    "PNC-QL-117":["For each permitted value of n, two specified people together would give \((n-1)!\times2\) rows.","Only one value in the stated range matches the target {target}.","The exact match is {equation}, so n = {answer}."],
-    "PNC-QL-118":["A block of three objects gives \((n-2)!\times3!\) arrangements.","Check the allowed values of n until this expression equals {target}.","The unique match is {equation}, hence n = {answer}." ]
+    "PNC-QL-117":["For each permitted value of n, two specified people together would give \\((n-1)!\\times2\\) rows.","Only one value in the stated range matches the target {target}.","The exact match is {equation}, so n = {answer}."],
+    "PNC-QL-118":["A block of three objects gives \\((n-2)!\\times3!\\) arrangements.","Check the allowed values of n until this expression equals {target}.","The unique match is {equation}, hence n = {answer}." ]
   }
 }
