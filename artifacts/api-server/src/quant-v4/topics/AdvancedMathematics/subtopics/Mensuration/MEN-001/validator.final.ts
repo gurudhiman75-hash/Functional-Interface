@@ -1,4 +1,5 @@
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
+import { shownAnswer } from "./natural-explanation-manual.shared";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import type {
   Men001QuestionPackage,
@@ -18,21 +19,19 @@ function hasWorkedArithmetic(lines: readonly string[]) {
   );
 }
 
-function capitalizeFirst(value: string) {
-  return value.length === 0 ? value : value[0]!.toUpperCase() + value.slice(1);
-}
-
-function naturalConclusion(value: string, answer: string) {
-  const text = value
+function expectedConclusion(question: Question, template: string) {
+  const answer = question.solver.canonicalAnswer.kind === "symbolic"
+    ? question.solver.canonicalAnswer.display
+    : question.answer;
+  const text = template
     .replace("{answer}", answer)
     .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
     .replace(/\s+therefore\s+/i, " ")
     .replace(/\s+hence\s+/i, " ")
     .replace(/\s+thus\s+/i, " ")
-    .trim()
-    .replace(/\s+/g, " ");
-  const sentence = capitalizeFirst(text);
-  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`;
+    .trim();
+  const capitalized = text[0] ? text[0].toUpperCase() + text.slice(1) : text;
+  return /[.!?]$/.test(capitalized) ? capitalized : `${capitalized}.`;
 }
 
 export function validateMen001QuestionPackage(
@@ -47,42 +46,47 @@ export function validateMen001QuestionPackage(
   const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
-  const expectedConclusion = profile
-    ? naturalConclusion(profile.conclusion, question.answer)
+  const conclusion = profile
+    ? expectedConclusion(question, profile.conclusion)
     : undefined;
   const explanationLines = question.explanation.lines;
-  const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers|Therefore, the required|Hence, the required|Thus, the required)/i;
+  const rendered = explanationLines.join(" ");
+  const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|Here, A =|Here, P =|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers)/i;
 
   checks.push(check(
-    "natural-explanation-profile",
+    "manual-explanation-profile",
     Boolean(profile),
-    "Every QL must have a deliberately authored explanation profile.",
+    "Every QL must retain its context-aware editorial profile.",
   ));
   checks.push(check(
-    "natural-explanation-opening",
-    Boolean(profile) && explanationLines[0] === profile?.opening,
-    "The explanation must begin with its QL-specific, context-aware opening.",
+    "manual-explanation-opening",
+    Boolean(profile) && explanationLines[0]!.startsWith(profile!.opening),
+    "The authored explanation must begin in the question's own context.",
   ));
   checks.push(check(
-    "natural-explanation-conclusion",
-    Boolean(expectedConclusion) &&
-      explanationLines[explanationLines.length - 1] === expectedConclusion,
-    "The explanation must end with its contextual conclusion rather than a shared answer shell.",
+    "manual-explanation-conclusion",
+    Boolean(conclusion) && rendered.endsWith(conclusion!),
+    "The authored explanation must end with its contextual result.",
   ));
   checks.push(check(
-    "natural-explanation-length",
-    explanationLines.length >= 3 && explanationLines.length <= 9,
-    "The explanation should use only as many lines as the reasoning needs.",
+    "manual-explanation-length",
+    explanationLines.length >= 2 && explanationLines.length <= 6,
+    "The explanation should be concise and should expand only when the method has genuine stages.",
   ));
   checks.push(check(
-    "natural-explanation-worked-arithmetic",
+    "manual-explanation-worked-arithmetic",
     hasWorkedArithmetic(explanationLines),
-    "Natural prose must retain the verified numerical working.",
+    "The explanation must show the actual numerical reasoning.",
   ));
   checks.push(check(
-    "natural-explanation-no-generic-padding",
+    "manual-explanation-no-robotic-labels",
     explanationLines.every((line) => !genericPaddingPattern.test(line)),
-    "Explanations must not use formula labels, repeated check lines or generic unit padding.",
+    "Manual explanations must not fall back to labelled formula-template prose.",
+  ));
+  checks.push(check(
+    "manual-explanation-answer-present",
+    rendered.includes(shownAnswer(question.solver)),
+    "The contextual explanation must state the exact final answer.",
   ));
 
   if ([
