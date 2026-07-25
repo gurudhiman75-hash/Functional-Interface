@@ -1,7 +1,7 @@
 import { getFirebaseAuth } from '@/integrations/firebase';
 
 export type StudentStatus = 'active' | 'invited' | 'suspended' | 'disabled';
-export type StudentAccountAction = 'suspend' | 'reactivate' | 'revoke-sessions';
+export type StudentAccountAction = 'suspend' | 'reactivate' | 'disable' | 'enable' | 'revoke-sessions';
 export type StudentBulkAction = StudentAccountAction | 'soft-delete' | 'restore';
 
 export interface StudentSummary { id: string; email: string; phone: string | null; displayName: string; status: StudentStatus; lastLoginAt: string | null; createdAt: string; updatedAt: string; registrationCode: string; preferredLanguageCode: string; attemptCount: number; evaluatedAttemptCount: number; latestAttemptAt: string | null; averageScore: number | null; activeSessionCount: number; }
@@ -13,7 +13,7 @@ export interface StudentTimelineEvent { id: string; occurredAt: string; type: st
 export interface StudentProfile extends StudentSummary { profileCreatedAt: string; profileUpdatedAt: string; authProviders: string[]; }
 export interface StudentProfileResponse { student: StudentProfile; attempts: StudentAttempt[]; sessions: StudentSession[]; timeline: StudentTimelineEvent[]; generatedAt: string; }
 export interface StudentDirectoryFilters { search?: string; status?: StudentStatus | 'all'; language?: string | 'all'; page?: number; pageSize?: number; }
-export interface StudentAccountOperation { action: StudentAccountAction; changed: boolean; previousStatus: StudentStatus; status: StudentStatus; sessionsRevoked: number; auditEventId: string; occurredAt: string; }
+export interface StudentAccountOperation { action: StudentAccountAction; changed: boolean; previousStatus: StudentStatus; status: StudentStatus; sessionsRevoked: number; firebaseTokensRevoked?: boolean; auditEventId: string; occurredAt: string; }
 export interface StudentAccountOperationResponse { operation: StudentAccountOperation; generatedAt: string; }
 export interface StudentNote { id: string; content: string; authorName: string | null; actorUserId?: string | null; occurredAt: string; }
 export interface DeletedStudent { id: string; email: string; phone: string | null; displayName: string; status: StudentStatus; deletedAt: string; createdAt: string; registrationCode: string; preferredLanguageCode: string; }
