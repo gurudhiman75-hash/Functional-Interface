@@ -1,3 +1,4 @@
+import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
 import { applyAvg001HumanAuthoredExplanation as applyAuthoredPlanner } from "./human-authored-explanation-quality";
 import type { Avg001QuestionPackage } from "./types";
 
@@ -114,17 +115,19 @@ export function applyAvg001HumanAuthoredExplanation(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
   const planned = applyAuthoredPlanner(pkg);
-  if (planned.explanation.lines.some((line) => containsCalculatedAnswer(pkg, line))) {
-    return planned;
+  let arithmeticallyComplete = planned;
+
+  if (!planned.explanation.lines.some((line) => containsCalculatedAnswer(pkg, line))) {
+    const line = decisiveArithmetic(pkg);
+    if (line) {
+      const lines = [...planned.explanation.lines];
+      lines.splice(Math.max(1, lines.length - 1), 0, line);
+      arithmeticallyComplete = {
+        ...planned,
+        explanation: { lines: lines.slice(0, 8) },
+      };
+    }
   }
 
-  const line = decisiveArithmetic(pkg);
-  if (!line) return planned;
-
-  const lines = [...planned.explanation.lines];
-  lines.splice(Math.max(1, lines.length - 1), 0, line);
-  return {
-    ...planned,
-    explanation: { lines: lines.slice(0, 8) },
-  };
+  return applyAvg001Cp003ExplanationAuthorship(arithmeticallyComplete);
 }
