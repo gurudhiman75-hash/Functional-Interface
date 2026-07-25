@@ -15,7 +15,15 @@ function format(value: number) {
   return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
 }
 
+function option(value: number, solver: Men001SolverResult) {
+  return `${format(value)} ${solver.unit}`;
+}
+
 export const MEN_001_CP006_REFINED_DISTRACTOR_STRATEGIES = {
+  "cp006-map-actual-length-divide-by-scale": ({ solver }: Context) =>
+    option(positive(solver, "actualLength") / 100, solver),
+  "cp006-map-length-divide-by-square-scale": ({ solver }: Context) =>
+    option(positive(solver, "distance") / 100, solver),
   "cp006-map-area-divide-by-square-scale": ({ solver }: Context) =>
-    `${format(positive(solver, "actualArea") / 10)} ${solver.unit}`,
+    option(positive(solver, "actualArea") / 10, solver),
 } as const satisfies Record<string, Strategy>;
