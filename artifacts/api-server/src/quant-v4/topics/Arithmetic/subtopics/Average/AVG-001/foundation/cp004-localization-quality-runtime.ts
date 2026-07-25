@@ -80,6 +80,8 @@ export function runAvg001Cp004LocalizationPilot(input: {
       localizedStemContextFidelity: "AVG-001 localized stem context fidelity v1",
       localizedStemContextKind: "cp004-scenario",
       localizedStemGrammarGuard: "AVG-001 localized stem grammar guard v1",
+      localizedStemVariationFinalizer: "AVG-001 localized stem variation finalizer v1",
+      localizedStemVariationPolish: "AVG-001 localized stem variation polish v1",
       explanationAuthorship: "AVG-001 deterministic human-authored presentation v2",
       explanationOpeningVariant: qlNumber(english) % 23,
       explanationConclusionVariant: qlNumber(english) % 19,
