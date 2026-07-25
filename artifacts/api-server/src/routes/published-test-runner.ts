@@ -178,10 +178,28 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       const responseItems = Array.isArray(req.body?.responses)
         ? req.body.responses as Array<{ questionId: number; selectedOption: number | null; timeTaken?: number }>
         : [];
-      const responseMap = new Map(responseItems.map((item) => [Number(item.questionId), {
-        selected: item.selectedOption ?? null,
-        timeTakenSeconds: Number.isFinite(Number(item.timeTaken)) ? Math.max(0, Math.round(Number(item.timeTaken))) : null,
-      }]));
+      const responseMap = new Map<number, { selected: number | null; timeTakenSeconds: number | null }>();
+      for (const item of responseItems) {
+        const questionId = Number(item.questionId);
+        if (!Number.isInteger(questionId) || questionId < 0) {
+          throw new AttemptReliabilityError("ATTEMPT_INVALID_QUESTION_RESPONSE", "A question response contains an invalid question ID", 400, { questionId: item.questionId });
+        }
+        if (responseMap.has(questionId)) {
+          throw new AttemptReliabilityError("ATTEMPT_DUPLICATE_QUESTION_RESPONSE", "A question was submitted more than once", 400, { questionId });
+        }
+        const selected = item.selectedOption == null ? null : Number(item.selectedOption);
+        if (selected != null && !Number.isInteger(selected)) {
+          throw new AttemptReliabilityError("ATTEMPT_INVALID_OPTION_SELECTION", "A selected option must be an integer index", 400, { questionId, selectedOption: item.selectedOption });
+        }
+        const rawTime = item.timeTaken == null ? null : Number(item.timeTaken);
+        if (rawTime != null && (!Number.isFinite(rawTime) || rawTime < 0)) {
+          throw new AttemptReliabilityError("ATTEMPT_INVALID_QUESTION_TIME", "Question time must be a non-negative number of seconds", 400, { questionId, timeTaken: item.timeTaken });
+        }
+        responseMap.set(questionId, {
+          selected,
+          timeTakenSeconds: rawTime == null ? null : Math.round(rawTime),
+        });
+      }
       const flags = asRecord(req.body?.flags);
 
       const questionRows = await sql`
@@ -205,12 +223,21 @@ router.post("/attempts", authenticate, async (req, res, next) => {
 
       let correct = 0; let wrong = 0; let actualScore = 0;
       const sectionStatsMap = new Map<string, { correct: number; wrong: number; unanswered: number; totalQuestions: number }>();
+      const knownQuestionIds = new Set<number>();
       const questionReview = questionRows.map((row, index) => {
         const questionId = stableQuestionId(String(row.questionVersionId), index);
+        knownQuestionIds.add(questionId);
         const options = Array.isArray(row.options) ? row.options as Array<Record<string, unknown>> : [];
-        const correctIndex = options.findIndex((option) => Boolean(option.isCorrect));
+        const correctOptions = options.map((option, optionIndex) => Boolean(option.isCorrect) ? optionIndex : -1).filter((optionIndex) => optionIndex >= 0);
+        if (correctOptions.length !== 1) {
+          throw new AttemptReliabilityError("ATTEMPT_ANSWER_KEY_INVALID", "A question must have exactly one correct option before evaluation", 409, { questionVersionId: String(row.questionVersionId), correctOptionCount: correctOptions.length });
+        }
+        const correctIndex = correctOptions[0];
         const response = responseMap.get(questionId) ?? { selected: null, timeTakenSeconds: null };
         const selected = response.selected;
+        if (selected != null && (selected < 0 || selected >= options.length)) {
+          throw new AttemptReliabilityError("ATTEMPT_INVALID_OPTION_SELECTION", "A selected option is outside the immutable option set", 400, { questionId, selectedOption: selected, optionCount: options.length });
+        }
         const section = String(row.section);
         const stats = sectionStatsMap.get(section) ?? { correct: 0, wrong: 0, unanswered: 0, totalQuestions: 0 };
         stats.totalQuestions += 1;
@@ -230,12 +257,17 @@ router.post("/attempts", authenticate, async (req, res, next) => {
           selected,
           selectedOptionKey: selected == null ? null : String(options[selected]?.key ?? ""),
           correct: correctIndex,
-          correctOptionKey: correctIndex < 0 ? null : String(options[correctIndex]?.key ?? ""),
+          correctOptionKey: String(options[correctIndex]?.key ?? ""),
           timeTakenSeconds: response.timeTakenSeconds,
           flagged: Boolean(flags[String(questionId)]),
           explanation: String(row.explanation ?? ""),
         };
       });
+
+      const unknownResponseIds = Array.from(responseMap.keys()).filter((questionId) => !knownQuestionIds.has(questionId));
+      if (unknownResponseIds.length > 0) {
+        throw new AttemptReliabilityError("ATTEMPT_UNKNOWN_QUESTION_RESPONSE", "The submission contains responses for questions outside this immutable test version", 400, { questionIds: unknownResponseIds });
+      }
 
       actualScore = Math.round(actualScore * 100) / 100;
       const totalQuestions = questionRows.length;
@@ -252,6 +284,7 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       const result = {
         snapshotVersion: 2,
         linkageContract: "direct_question_version_v2",
+        questionTimingUnit: "seconds",
         id: attemptId,
         userId: req.user?.id ?? "",
         testId: String(attempt.testId),
