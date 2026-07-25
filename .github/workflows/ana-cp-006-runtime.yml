@@ -26,9 +26,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  typecheck:
+  typecheck-and-structure:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -54,10 +54,19 @@ jobs:
             --types node \
             $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006 -name '*.ts' -print) \
             src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+      - name: Run registry, fixture and fingerprint audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-structural.test.ts
 
   english-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    env:
+      ANA_CP006_SHARD_COUNT: "4"
+      ANA_CP006_SHARD_INDEX: ${{ matrix.shard }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -65,12 +74,21 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Run English runtime audit
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006.test.ts
+      - name: Run English runtime audit shard ${{ matrix.shard }}
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-sharded-runtime.test.ts
 
   localized-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        locale: [hi-IN, pa-IN]
+        shard: [0, 1, 2, 3]
+    env:
+      ANA_CP006_LOCALE: ${{ matrix.locale }}
+      ANA_CP006_SHARD_COUNT: "4"
+      ANA_CP006_SHARD_INDEX: ${{ matrix.shard }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -78,8 +96,8 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Run Hindi and Punjabi runtime audit
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-localized.test.ts
+      - name: Run ${{ matrix.locale }} runtime audit shard ${{ matrix.shard }}
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-sharded-localized.test.ts
 
   editorial:
     runs-on: ubuntu-latest
