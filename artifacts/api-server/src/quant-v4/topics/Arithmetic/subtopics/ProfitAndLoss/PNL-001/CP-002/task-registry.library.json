@@ -3,7 +3,7 @@
   "cpId": "PNL-CP-002",
   "status": "ACTIVE_DISCOVERY",
   "countPolicy": "OPEN_ENDED",
-  "title": "Marked Price, Discount and Promotions",
+  "title": "Marked Price, Discount and Successive Discounts",
   "entries": {
     "PNL-QL-037": {"solveMode":"MP_DISCOUNT_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","discountPercent"],"difficulty":"Easy"},
     "PNL-QL-038": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["markedPrice","sellingPrice"],"difficulty":"Easy"},
@@ -24,14 +24,19 @@
     "PNL-QL-053": {"solveMode":"CASHBACK_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["billedPrice","cashbackAmount"],"difficulty":"Easy"},
     "PNL-QL-054": {"solveMode":"CASHBACK_PERCENT_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["billedPrice","cashbackPercent"],"difficulty":"Medium"},
     "PNL-QL-055": {"solveMode":"DISCOUNT_THEN_FLAT_COUPON_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["markedPrice","discountPercent","couponAmount"],"difficulty":"Medium"},
-    "PNL-QL-056": {"solveMode":"DISCOUNT_VS_CASHBACK_COMPARE","answerSemantic":"betterOfferAndDifference","requiredVariables":["markedPrice","discountPercent","cashbackAmount"],"difficulty":"Hard"}
+    "PNL-QL-056": {"solveMode":"DISCOUNT_VS_CASHBACK_COMPARE","answerSemantic":"betterOfferAndDifference","requiredVariables":["markedPrice","discountPercent","cashbackAmount"],"difficulty":"Hard"},
+    "PNL-QL-057": {"solveMode":"THREE_PLUS_SUCCESSIVE_DISCOUNTS_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","firstDiscountPercent","secondDiscountPercent","thirdDiscountPercent"],"difficulty":"Hard"},
+    "PNL-QL-058": {"solveMode":"COUPON_MINIMUM_SPEND_TO_EFFECTIVE_PRICE","answerSemantic":"couponEligibilityAndEffectivePrice","requiredVariables":["billedPrice","minimumSpend","couponAmount"],"difficulty":"Medium"},
+    "PNL-QL-059": {"solveMode":"DISCOUNT_THEN_PERCENT_COUPON_TO_EFFECTIVE_PRICE","answerSemantic":"effectivePrice","requiredVariables":["markedPrice","discountPercent","couponPercent"],"difficulty":"Hard"},
+    "PNL-QL-060": {"solveMode":"PERCENT_CASHBACK_ON_BILLED_AMOUNT","answerSemantic":"cashbackAndEffectivePrice","requiredVariables":["billedPrice","cashbackPercent","cashbackCap"],"difficulty":"Hard"},
+    "PNL-QL-061": {"solveMode":"PERCENT_CASHBACK_ON_ORIGINAL_PRICE_AFTER_DISCOUNT","answerSemantic":"billedCashbackAndEffectivePrice","requiredVariables":["markedPrice","discountPercent","cashbackPercent","cashbackCap"],"difficulty":"Hard"},
+    "PNL-QL-062": {"solveMode":"DISCOUNT_FRACTION_TO_PERCENT","answerSemantic":"discountPercent","requiredVariables":["fractionNumerator","fractionDenominator"],"difficulty":"Medium"},
+    "PNL-QL-063": {"solveMode":"PAID_TO_MARKED_RATIO_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["paidPart","markedPart"],"difficulty":"Medium"}
   },
   "pendingDiscovery": [
-    "three-or-more-successive-discounts",
-    "coupon-order-semantics",
-    "cashback-on-paid-price-versus-marked-price",
-    "discount-fraction-and-ratio-presentations",
-    "table-caselet-and-statement-forms"
+    "table-caselet-and-statement-forms",
+    "promotion-comparison-with-mixed-eligibility",
+    "reference-book-and-pyq-reconciliation"
   ],
-  "entryCount": 20
+  "entryCount": 27
 }
