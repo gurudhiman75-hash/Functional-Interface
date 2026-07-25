@@ -8,6 +8,7 @@
 - Active checkpoints:
   - `PNC-CP-007 — Together, Apart & Block Restrictions`
   - `PNC-CP-008 — Position, Relative Order, Alternation & Gap Constraints`
+  - `PNC-CP-009 — Conditional Selection from Categories`
 - Language: English runtime proof
 - Publication: disabled
 
@@ -22,19 +23,23 @@
 
 ## Current reviewed state
 
-- active CPs: 2;
-- English QLs: `PNC-QL-107` through `PNC-QL-147`;
-- active English QLs: 41;
-- active solve modes: 26;
-- QL-specific natural explanations: 41;
-- observed difficulty: 5 Easy / 19 Medium / 17 Hard;
+- active CPs: 3;
+- English QLs: `PNC-QL-107` through `PNC-QL-176`;
+- active English QLs: 70;
+- active solve modes: 47;
+- QL-specific natural explanations: 70;
+- observed difficulty: 10 Easy / 33 Medium / 27 Hard;
 - CP-007 deterministic runtime proof: 216 cases, each generated twice;
 - CP-008 deterministic runtime proof: 276 cases, each generated twice;
-- independent verification: exhaustive linear-permutation enumeration against the actual ownership predicates;
+- CP-009 deterministic runtime proof: 348 cases, each generated twice;
+- independent verification:
+  - exhaustive linear-permutation enumeration for CP-007 and CP-008;
+  - exhaustive fixed-size subset enumeration for CP-009;
 - formula rendering: delimited LaTeX/MathJax;
 - CP-007 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - CP-008 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
+- CP-009 verdict: `SATURATED FOR CURRENT ENGLISH OWNERSHIP`;
 - maturity: `RUNTIME_PROOF`;
 - `publiclyPublishable: false`.
 
-Saturation means the material English predicates currently owned by CP-007 and CP-008 are represented and proof-backed. It is not freeze, localization, publication or production-integration approval. The next implementation boundary is `PNC-CP-009`.
+Saturation means the material English predicates currently owned by CP-007, CP-008 and CP-009 are represented and proof-backed. It is not freeze, localization, publication or production-integration approval. The next implementation boundary is `PNC-CP-010`.
