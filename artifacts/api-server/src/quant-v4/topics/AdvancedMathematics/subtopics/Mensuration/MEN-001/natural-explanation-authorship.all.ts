@@ -10,10 +10,19 @@ import {
   getMen001Cp005NaturalExplanationProfileIds,
 } from "./natural-explanation-authorship.cp005";
 import {
+  getMen001Cp005ExhaustivenessNaturalExplanationProfile,
+  getMen001Cp005ExhaustivenessNaturalExplanationProfileIds,
+} from "./natural-explanation-authorship.cp005.exhaustiveness";
+import {
   getMen001Cp005OverlapNaturalExplanationProfile,
   getMen001Cp005OverlapNaturalExplanationProfileIds,
 } from "./natural-explanation-authorship.cp005.overlap";
 import type { Men001Parameters, Men001SolverResult } from "./types";
+
+function usesDirectCp005Profile(questionLanguageId: string) {
+  const numericId = Number(questionLanguageId.split("-").at(-1) ?? 0);
+  return Number.isFinite(numericId) && numericId >= 361;
+}
 
 export function authorAllMen001ExplanationLines(
   originalLines: readonly string[],
@@ -21,8 +30,8 @@ export function authorAllMen001ExplanationLines(
   solver: Men001SolverResult,
 ): string[] {
   return parameters.canonicalProblemId === "MEN-CP-005"
-    ? parameters.questionLanguageId === "MEN-001-QL-361"
-      ? originalLines
+    ? usesDirectCp005Profile(parameters.questionLanguageId)
+      ? [...originalLines]
       : authorMen001Cp005ExplanationLines(originalLines, parameters, solver)
     : authorMen001ExplanationLines(originalLines, parameters, solver);
 }
@@ -33,7 +42,8 @@ export function getAllMen001NaturalExplanationProfile(
   return (
     getMen001NaturalExplanationProfile(questionLanguageId) ??
     getMen001Cp005NaturalExplanationProfile(questionLanguageId) ??
-    getMen001Cp005OverlapNaturalExplanationProfile(questionLanguageId)
+    getMen001Cp005OverlapNaturalExplanationProfile(questionLanguageId) ??
+    getMen001Cp005ExhaustivenessNaturalExplanationProfile(questionLanguageId)
   );
 }
 
@@ -42,5 +52,6 @@ export function getAllMen001NaturalExplanationProfileIds() {
     ...getMen001NaturalExplanationProfileIds(),
     ...getMen001Cp005NaturalExplanationProfileIds(),
     ...getMen001Cp005OverlapNaturalExplanationProfileIds(),
+    ...getMen001Cp005ExhaustivenessNaturalExplanationProfileIds(),
   ];
 }
