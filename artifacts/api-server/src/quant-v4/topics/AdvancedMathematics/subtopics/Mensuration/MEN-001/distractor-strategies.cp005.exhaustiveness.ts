@@ -61,8 +61,8 @@ export const MEN_001_CP005_EXHAUSTIVENESS_DISTRACTOR_STRATEGIES = {
   "cp005-divide-hexagon-perimeter-by-three": ({ solver }: Context) =>
     numericOption(number(solver, "perimeter") / 3, solver),
 
-  "cp005-use-perimeter-as-hexagon-side": ({ solver }: Context) =>
-    surdOption((3 * number(solver, "perimeter") ** 2) / 2, solver),
+  "cp005-divide-perimeter-by-three-for-hexagon-area": ({ solver }: Context) =>
+    surdOption(4 * number(solver, "hexagonAreaCoefficient"), solver),
   "cp005-half-recovered-hexagon-area": ({ solver }: Context) =>
     surdOption(number(solver, "hexagonAreaCoefficient") / 2, solver),
   "cp005-use-one-recovered-equilateral-triangle": ({ solver }: Context) =>
