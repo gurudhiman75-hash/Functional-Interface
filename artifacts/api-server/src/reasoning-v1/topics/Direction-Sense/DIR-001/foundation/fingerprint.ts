@@ -10,7 +10,8 @@ function canonicalNumber(value: number): number {
 
 function stableSerialize(value: unknown): string {
   if (value === null || typeof value !== "object") {
-    return JSON.stringify(typeof value === "number" ? canonicalNumber(value) : value);
+    const serialized = JSON.stringify(typeof value === "number" ? canonicalNumber(value) : value);
+    return serialized ?? "undefined";
   }
   if (Array.isArray(value)) {
     return `[${value.map(stableSerialize).join(",")}]`;
