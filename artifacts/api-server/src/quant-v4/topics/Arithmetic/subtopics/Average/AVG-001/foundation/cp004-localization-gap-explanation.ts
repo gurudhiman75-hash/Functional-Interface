@@ -1,4 +1,7 @@
-import { avg001Cp004RatioLexicon } from "./cp004-localization-gap-lexicon";
+import {
+  avg001Cp004RatioLexicon,
+  avg001Cp004TravelSubject,
+} from "./cp004-localization-gap-lexicon";
 import type { Avg001Cp004PilotLanguage } from "./cp004-localization-types";
 import { shown } from "./cp004-localization-values";
 import type { Avg001QuestionPackage } from "./types";
@@ -24,6 +27,7 @@ function ratioExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004Pilot
 }
 
 function distanceExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguage) {
+  const subject = avg001Cp004TravelSubject(pkg.parameters.scenarioVariant, language);
   const distance1 = Number(shown(pkg, "distance1"));
   const distance2 = Number(shown(pkg, "distance2"));
   const speed1 = Number(shown(pkg, "speed1"));
@@ -33,19 +37,20 @@ function distanceExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004Pi
   const totalDistance = distance1 + distance2;
   const totalTime = time1 + time2;
   return { lines: language === "hi" ? [
-    "असमान दूरियों के लिए औसत गति कुल दूरी को दोनों चरणों के कुल समय से भाग देकर मिलती है।",
+    `${subject} की असमान दूरियों वाली यात्रा में औसत गति कुल दूरी को दोनों चरणों के कुल समय से भाग देकर मिलती है।`,
     `$$कुल समय = ${distance1}÷${speed1} + ${distance2}÷${speed2} = ${time1}+${time2} = ${totalTime} घंटे$$`,
     `$$औसत गति = (${distance1}+${distance2})÷${totalTime} = ${totalDistance}÷${totalTime} = ${pkg.answer}$$`,
-    `अतः पूरी यात्रा की औसत गति ${pkg.answer} किमी/घंटा है।`,
+    `अतः ${subject} की पूरी यात्रा की औसत गति ${pkg.answer} किमी/घंटा है।`,
   ] : [
-    "ਅਸਮਾਨ ਦੂਰੀਆਂ ਲਈ ਔਸਤ ਗਤੀ ਕੁੱਲ ਦੂਰੀ ਨੂੰ ਦੋਵਾਂ ਪੜਾਵਾਂ ਦੇ ਕੁੱਲ ਸਮੇਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਮਿਲਦੀ ਹੈ।",
+    `${subject} ਦੀ ਅਸਮਾਨ ਦੂਰੀਆਂ ਵਾਲੀ ਯਾਤਰਾ ਵਿੱਚ ਔਸਤ ਗਤੀ ਕੁੱਲ ਦੂਰੀ ਨੂੰ ਦੋਵਾਂ ਪੜਾਵਾਂ ਦੇ ਕੁੱਲ ਸਮੇਂ ਨਾਲ ਭਾਗ ਦੇ ਕੇ ਮਿਲਦੀ ਹੈ।`,
     `$$ਕੁੱਲ ਸਮਾਂ = ${distance1}÷${speed1} + ${distance2}÷${speed2} = ${time1}+${time2} = ${totalTime} ਘੰਟੇ$$`,
     `$$ਔਸਤ ਗਤੀ = (${distance1}+${distance2})÷${totalTime} = ${totalDistance}÷${totalTime} = ${pkg.answer}$$`,
-    `ਇਸ ਲਈ ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ${pkg.answer} ਕਿਮੀ/ਘੰਟਾ ਹੈ।`,
+    `ਇਸ ਲਈ ${subject} ਦੀ ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ${pkg.answer} ਕਿਮੀ/ਘੰਟਾ ਹੈ।`,
   ] };
 }
 
 function timeExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguage) {
+  const subject = avg001Cp004TravelSubject(pkg.parameters.scenarioVariant, language);
   const speed1 = Number(shown(pkg, "speed1"));
   const speed2 = Number(shown(pkg, "speed2"));
   const time1 = Number(shown(pkg, "time1"));
@@ -55,15 +60,15 @@ function timeExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotL
   const totalDistance = firstDistance + secondDistance;
   const totalTime = time1 + time2;
   return { lines: language === "hi" ? [
-    "असमान समय के लिए प्रत्येक गति को उस गति पर बिताए समय से भार दिया जाता है।",
+    `${subject} की असमान समय वाली यात्रा में प्रत्येक गति को उस गति पर बिताए समय से भार दिया जाता है।`,
     `$$कुल दूरी = ${speed1}×${time1} + ${speed2}×${time2} = ${firstDistance}+${secondDistance} = ${totalDistance} किमी$$`,
     `$$औसत गति = ${totalDistance}÷(${time1}+${time2}) = ${totalDistance}÷${totalTime} = ${pkg.answer}$$`,
-    `अतः पूरी यात्रा की औसत गति ${pkg.answer} किमी/घंटा है।`,
+    `अतः ${subject} की पूरी यात्रा की औसत गति ${pkg.answer} किमी/घंटा है।`,
   ] : [
-    "ਅਸਮਾਨ ਸਮੇਂ ਲਈ ਹਰ ਗਤੀ ਨੂੰ ਉਸ ਗਤੀ ਉੱਤੇ ਬਿਤਾਏ ਸਮੇਂ ਅਨੁਸਾਰ ਭਾਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ।",
+    `${subject} ਦੀ ਅਸਮਾਨ ਸਮੇਂ ਵਾਲੀ ਯਾਤਰਾ ਵਿੱਚ ਹਰ ਗਤੀ ਨੂੰ ਉਸ ਗਤੀ ਉੱਤੇ ਬਿਤਾਏ ਸਮੇਂ ਅਨੁਸਾਰ ਭਾਰ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ।`,
     `$$ਕੁੱਲ ਦੂਰੀ = ${speed1}×${time1} + ${speed2}×${time2} = ${firstDistance}+${secondDistance} = ${totalDistance} ਕਿਮੀ$$`,
     `$$ਔਸਤ ਗਤੀ = ${totalDistance}÷(${time1}+${time2}) = ${totalDistance}÷${totalTime} = ${pkg.answer}$$`,
-    `ਇਸ ਲਈ ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ${pkg.answer} ਕਿਮੀ/ਘੰਟਾ ਹੈ।`,
+    `ਇਸ ਲਈ ${subject} ਦੀ ਪੂਰੀ ਯਾਤਰਾ ਦੀ ਔਸਤ ਗਤੀ ${pkg.answer} ਕਿਮੀ/ਘੰਟਾ ਹੈ।`,
   ] };
 }
 
