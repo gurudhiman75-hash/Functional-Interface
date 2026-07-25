@@ -32,7 +32,9 @@ export async function evaluateTestAccess(input: {
       FROM commerce.products p
       JOIN commerce.product_versions pv ON pv.product_id = p.id AND pv.version_number = p.current_version_number
       JOIN commerce.product_version_tests pvt ON pvt.product_version_id = pv.id
-      WHERE p.status = 'active' AND pvt.test_id = ${input.testId}::uuid
+      WHERE p.status = 'active'
+        AND pv.sale_price_minor > 0
+        AND pvt.test_id = ${input.testId}::uuid
     ) AS "paidAccessRequired"
   `;
   const paidAccessRequired = Boolean(paidRows[0]?.paidAccessRequired);
