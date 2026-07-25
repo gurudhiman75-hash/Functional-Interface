@@ -1,0 +1,90 @@
+{
+  "packageId": "MEN-001",
+  "language": "en",
+  "entries": [
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-362",
+      "solveMode": "findJoinedRectanglesCompositePerimeter",
+      "difficulty": "Medium",
+      "template": "A {componentLength} m by {componentBreadth} m rectangular room is attached externally to a {length} m by {breadth} m rectangular hall along the room's complete {sharedEdge} m side. Find the outside perimeter of the joined floor plan; do not count the shared edge.",
+      "requiredVariables": ["length", "breadth", "componentLength", "componentBreadth", "sharedEdge"],
+      "answerDimension": "LENGTH",
+      "unitPolicy": "METRES",
+      "explanationStrategyId": "cp005-joined-rectangles-perimeter",
+      "distractorStrategyIds": ["cp005-add-full-rectangle-perimeters", "cp005-subtract-shared-edge-once", "cp005-subtract-shared-edge-four-times"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-363",
+      "solveMode": "findSquareWithCircularHoleBoundary",
+      "difficulty": "Hard",
+      "template": "A circular pond of radius {radius} m lies fully inside a square park of side {side} m. Find the total length of the outer square boundary and the circular pond boundary adjoining the remaining land. Use π = 22/7.",
+      "requiredVariables": ["side", "radius"],
+      "answerDimension": "LENGTH",
+      "unitPolicy": "METRES",
+      "explanationStrategyId": "cp005-square-circular-hole-boundary",
+      "distractorStrategyIds": ["cp005-count-outer-boundary-only", "cp005-count-inner-boundary-only", "cp005-subtract-inner-boundary"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-364",
+      "solveMode": "findRegularHexagonSideFromPerimeter",
+      "difficulty": "Easy",
+      "template": "The perimeter of a regular hexagonal frame is {perimeter} cm. Find the length of each side.",
+      "requiredVariables": ["perimeter"],
+      "answerDimension": "LENGTH",
+      "unitPolicy": "CENTIMETRES",
+      "explanationStrategyId": "cp005-hexagon-side-from-perimeter",
+      "distractorStrategyIds": ["cp005-divide-hexagon-perimeter-by-five", "cp005-divide-hexagon-perimeter-by-seven", "cp005-divide-hexagon-perimeter-by-three"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-365",
+      "solveMode": "findRegularHexagonAreaFromPerimeter",
+      "difficulty": "Hard",
+      "template": "A regular hexagonal park has perimeter {perimeter} m. Determine its exact area in terms of √3.",
+      "requiredVariables": ["perimeter"],
+      "answerDimension": "AREA",
+      "unitPolicy": "SQUARE_METRES",
+      "explanationStrategyId": "cp005-hexagon-area-from-perimeter",
+      "distractorStrategyIds": ["cp005-divide-perimeter-by-three-for-hexagon-area", "cp005-half-recovered-hexagon-area", "cp005-use-one-recovered-equilateral-triangle"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-366",
+      "solveMode": "findStadiumStraightLengthFromPerimeter",
+      "difficulty": "Hard",
+      "template": "A stadium has two equal straight sides and two semicircular ends of diameter {breadth} m. If its total perimeter is {perimeter} m, find the length of each straight side. Use π = 22/7.",
+      "requiredVariables": ["perimeter", "breadth"],
+      "answerDimension": "LENGTH",
+      "unitPolicy": "METRES",
+      "explanationStrategyId": "cp005-reverse-stadium-straight-length",
+      "distractorStrategyIds": ["cp005-ignore-stadium-curved-boundary", "cp005-report-combined-straight-length", "cp005-halve-stadium-straight-length"],
+      "diagramRequirement": "NONE",
+      "active": true
+    },
+    {
+      "cpId": "MEN-CP-005",
+      "qlId": "MEN-001-QL-367",
+      "solveMode": "findCircleRadiusFromCircleMinusSquareShadedArea",
+      "difficulty": "Hard",
+      "template": "A square is inscribed in a circle. The area inside the circle but outside the square is {area} cm². Find the radius of the circle. Use π = 22/7.",
+      "requiredVariables": ["area"],
+      "answerDimension": "LENGTH",
+      "unitPolicy": "CENTIMETRES",
+      "explanationStrategyId": "cp005-reverse-circle-radius-from-shading",
+      "distractorStrategyIds": ["cp005-report-recovered-diameter", "cp005-report-half-recovered-radius", "cp005-treat-shaded-area-as-radius-square"],
+      "diagramRequirement": "NONE",
+      "active": true
+    }
+  ]
+}

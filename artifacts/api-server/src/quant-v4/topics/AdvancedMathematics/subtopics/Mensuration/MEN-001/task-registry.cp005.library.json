@@ -1,0 +1,32 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-335","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleSemicircleCompositeArea","answerDimension":"AREA","requiredVariables":["length","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-336","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleSemicircleCompositeArea","answerDimension":"AREA","requiredVariables":["length","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-337","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findStadiumCompositeArea","answerDimension":"AREA","requiredVariables":["straightLength","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-338","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleTriangleCompositeArea","answerDimension":"AREA","requiredVariables":["length","breadth","height"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-339","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleTriangleCompositeArea","answerDimension":"AREA","requiredVariables":["length","breadth","height"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-340","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findTwoRectangleCompositeArea","answerDimension":"AREA","requiredVariables":["length","breadth","componentLength","componentBreadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-341","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findLShapeAreaBySubtraction","answerDimension":"AREA","requiredVariables":["outerLength","outerBreadth","cutoutLength","cutoutBreadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-342","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findLShapeAreaBySubtraction","answerDimension":"AREA","requiredVariables":["outerLength","outerBreadth","cutoutLength","cutoutBreadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-343","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findSquareMinusCircleShadedArea","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-344","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findSquareMinusCircleShadedArea","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-345","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findCircleMinusSquareShadedArea","answerDimension":"AREA","requiredVariables":["radius"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-346","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleMinusTwoSemicirclesArea","answerDimension":"AREA","requiredVariables":["length","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-347","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findFourCornerQuadrantsShadedArea","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-348","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findInscribedCircleAreaInSquare","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-349","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findInscribedSquareAreaInCircle","answerDimension":"AREA","requiredVariables":["radius"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-350","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findInscribedSquareAreaInCircle","answerDimension":"AREA","requiredVariables":["radius"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-351","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findLargestCircleRadiusInRectangle","answerDimension":"LENGTH","requiredVariables":["length","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-352","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findLargestCircleRadiusInRectangle","answerDimension":"LENGTH","requiredVariables":["length","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-353","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRegularHexagonAreaFromSide","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-354","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRegularHexagonAreaFromSide","answerDimension":"AREA","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-355","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRegularHexagonPerimeterFromSide","answerDimension":"LENGTH","requiredVariables":["side"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-356","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleSemicircleCompositePerimeter","answerDimension":"LENGTH","requiredVariables":["length","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-357","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findStadiumCompositePerimeter","answerDimension":"LENGTH","requiredVariables":["straightLength","breadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-358","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findLShapePerimeter","answerDimension":"LENGTH","requiredVariables":["outerLength","outerBreadth","cutoutLength","cutoutBreadth"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-359","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findRectangleLengthFromCompositeArea","answerDimension":"LENGTH","requiredVariables":["breadth","area"]},
+    {"cpId":"MEN-CP-005","qlId":"MEN-001-QL-360","taskKind":"compositeInscribedRegularPlaneFigureApplication","solveMode":"findSquareSideFromShadedArea","answerDimension":"LENGTH","requiredVariables":["area"]}
+  ]
+}
