@@ -1,4 +1,4 @@
-import { letterFromPosition } from "../foundation/alphabet";
+import { letterFromPosition, letterPosition } from "../foundation/alphabet";
 import { ANA_CP005_RULES, type AlphabetRuleContext } from "./rule-definitions";
 
 export interface AlphabetPair {
@@ -19,7 +19,10 @@ function sameContext(left: AlphabetRuleContext, right: AlphabetRuleContext): boo
 export function matchingAlphabetRules(pairs: readonly AlphabetPair[]): AlphabetRuleMatch[] {
   return ANA_CP005_RULES.flatMap((rule) =>
     rule.contexts
-      .filter((context) => pairs.every((pair) => rule.apply(pair.left, context) === pair.right))
+      .filter((context) => pairs.every((pair) => {
+        const inputPosition = letterPosition(pair.left);
+        return rule.eligibleInputPositions.includes(inputPosition) && rule.apply(pair.left, context) === pair.right;
+      }))
       .map((context) => ({ ruleId: rule.id, context, priority: rule.priority })),
   );
 }
@@ -27,6 +30,10 @@ export function matchingAlphabetRules(pairs: readonly AlphabetPair[]): AlphabetR
 export function solveAlphabetRule(ruleId: string, context: AlphabetRuleContext, input: string): string {
   const rule = ANA_CP005_RULES.find((entry) => entry.id === ruleId);
   if (!rule) throw new Error(`Unknown alphabet rule: ${ruleId}`);
+  const inputPosition = letterPosition(input);
+  if (!rule.eligibleInputPositions.includes(inputPosition)) {
+    throw new Error(`${ruleId} is not eligible for input ${input}`);
+  }
   const result = rule.apply(input, context);
   if (!result) throw new Error(`${ruleId} is not valid for input ${input}`);
   return result;
