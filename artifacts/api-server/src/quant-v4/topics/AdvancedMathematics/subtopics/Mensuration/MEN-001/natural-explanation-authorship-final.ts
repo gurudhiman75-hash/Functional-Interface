@@ -1,4 +1,5 @@
 import { authorAllMen001ExplanationLines } from "./natural-explanation-authorship.all";
+import { selectMen001Cp006WorkingLines } from "./natural-explanation-authorship.cp006.render";
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
 import type { Men001Parameters, Men001SolverResult } from "./types";
 
@@ -183,7 +184,7 @@ export function authorFinalMen001ExplanationLines(
 
   const opening = finishSentence(profile.opening);
   const working = parameters.canonicalProblemId === "MEN-CP-006"
-    ? authored.slice(1, -1).map(finishSentence)
+    ? selectMen001Cp006WorkingLines(parameters.questionLanguageId, authored).map(finishSentence)
     : compactNaturalWorking(authored.slice(1, -1));
   const bridge = SHORT_CASE_BRIDGES[parameters.questionLanguageId];
   const conclusion = naturalConclusion(profile.conclusion, solver.answer);
