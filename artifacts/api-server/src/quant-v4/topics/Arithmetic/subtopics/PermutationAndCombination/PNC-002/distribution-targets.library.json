@@ -1,0 +1,19 @@
+{
+  "packageId": "PNC-002",
+  "checkpoint": "PNC-CP-007-RUNTIME-PROOF",
+  "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
+  "observedDifficultyCounts": {
+    "Easy": 1,
+    "Medium": 5,
+    "Hard": 6
+  },
+  "observedSolveModeCounts": {
+    "countSingleBlockTogether": 2,
+    "countSingleBlockNotTogether": 2,
+    "countMultipleBlocksTogether": 4,
+    "countBlockWithExternalPairApart": 1,
+    "recoverBlockRestrictionParameter": 3
+  },
+  "interpretation": "The counts describe the first CP-007 runtime-proof checkpoint only.",
+  "admissionRule": "Future QLs and modes remain need-based within the fixed PNC-002 ownership map."
+}
