@@ -75,23 +75,23 @@ function labelBox(
   y: number,
   options: { readonly fill?: string; readonly stroke?: string; readonly textColor?: string; readonly role: string },
 ): string {
-  const width = Math.max(58, Math.min(330, text.length * 7.2 + 24));
-  const height = 28;
+  const width = Math.max(90, Math.min(430, text.length * 7.2 + 26));
+  const height = 30;
   return [
     `<g data-role="${options.role}">`,
-    `<rect x="${x - width / 2}" y="${y - height / 2}" width="${width}" height="${height}" rx="7" fill="${options.fill ?? "#ffffff"}" stroke="${options.stroke ?? "#cbd5e1"}" stroke-width="1.5"/>`,
+    `<rect x="${x - width / 2}" y="${y - height / 2}" width="${width}" height="${height}" rx="8" fill="${options.fill ?? "#ffffff"}" stroke="${options.stroke ?? "#cbd5e1"}" stroke-width="1.5"/>`,
     `<text x="${x}" y="${y + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="${options.textColor ?? "#111827"}">${escapeXml(text)}</text>`,
     `</g>`,
   ].join("");
 }
 
 function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
-  const width = 760;
-  const height = 520;
-  const plotLeft = 105;
-  const plotRight = width - 105;
-  const plotTop = 105;
-  const plotBottom = 390;
+  const width = 900;
+  const height = 570;
+  const plotLeft = 95;
+  const plotRight = 600;
+  const plotTop = 125;
+  const plotBottom = 410;
   const coordinates = spec.points.map((point) => point.coordinate);
   const rawMinX = Math.min(...coordinates.map((point) => point.x));
   const rawMaxX = Math.max(...coordinates.map((point) => point.x));
@@ -114,21 +114,55 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
     return `<line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#1f2937" stroke-width="4" stroke-linecap="round" marker-end="url(#routeArrow)"/>`;
   }).join("");
 
-  const routeLabels = spec.segments.map((segment) => {
+  const routeNumbers = spec.segments.map((segment) => {
     const from = project(pointById.get(segment.fromPointId)!.coordinate);
     const to = project(pointById.get(segment.toPointId)!.coordinate);
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const length = Math.max(Math.hypot(dx, dy), 1);
-    const normalX = -dy / length;
-    const normalY = dx / length;
-    const sign = segment.sequence % 2 === 0 ? -1 : 1;
-    const offset = sign * (30 + ((segment.sequence - 1) % 3) * 16);
-    const labelX = (from.x + to.x) / 2 + normalX * offset;
-    const labelY = (from.y + to.y) / 2 + normalY * offset;
-    const text = `${segment.distance} m ${PATH_DIRECTION_LABELS[segment.direction]}`;
-    return labelBox(text, labelX, labelY, { role: "segment-label" });
+    const midX = (from.x + to.x) / 2;
+    const midY = (from.y + to.y) / 2;
+    return [
+      `<g data-role="route-number">`,
+      `<circle cx="${midX}" cy="${midY}" r="13" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>`,
+      `<text x="${midX}" y="${midY + 4}" text-anchor="middle" font-size="12" font-weight="800" fill="#1d4ed8">${segment.sequence}</text>`,
+      `</g>`,
+    ].join("");
   }).join("");
+
+  const legendX = 640;
+  const legendY = 98;
+  const legendWidth = 230;
+  const legendRowHeight = 36;
+  const legendRows = spec.segments.length + (spec.finalFacing ? 1 : 0);
+  const legendHeight = 52 + legendRows * legendRowHeight + 14;
+  const movementLegendRows = spec.segments.map((segment, index) => {
+    const y = legendY + 52 + index * legendRowHeight;
+    const text = `${segment.sequence}. ${segment.distance} m ${PATH_DIRECTION_LABELS[segment.direction]}`;
+    return [
+      `<g data-role="segment-label">`,
+      `<rect x="${legendX + 12}" y="${y - 15}" width="${legendWidth - 24}" height="30" rx="7" fill="#ffffff" stroke="#cbd5e1"/>`,
+      `<text x="${legendX + 24}" y="${y + 5}" text-anchor="start" font-size="13" font-weight="700" fill="#111827">${escapeXml(text)}</text>`,
+      `</g>`,
+    ].join("");
+  }).join("");
+
+  let finalFacingLegend = "";
+  if (spec.finalFacing) {
+    const y = legendY + 52 + spec.segments.length * legendRowHeight;
+    finalFacingLegend = [
+      `<g data-role="final-facing-label">`,
+      `<rect x="${legendX + 12}" y="${y - 15}" width="${legendWidth - 24}" height="30" rx="7" fill="#faf5ff" stroke="#7c3aed"/>`,
+      `<text x="${legendX + 24}" y="${y + 5}" text-anchor="start" font-size="13" font-weight="700" fill="#5b21b6">${escapeXml(spec.finalFacing.label)}</text>`,
+      `</g>`,
+    ].join("");
+  }
+
+  const movementLegend = [
+    `<g data-role="movement-legend">`,
+    `<rect x="${legendX}" y="${legendY}" width="${legendWidth}" height="${legendHeight}" rx="14" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>`,
+    `<text x="${legendX + legendWidth / 2}" y="${legendY + 31}" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">Movements</text>`,
+    movementLegendRows,
+    finalFacingLegend,
+    `</g>`,
+  ].join("");
 
   const askedFrom = project(pointById.get(spec.askedRelation.fromPointId)!.coordinate);
   const askedTo = project(pointById.get(spec.askedRelation.toPointId)!.coordinate);
@@ -137,11 +171,11 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
   const askedLength = Math.max(Math.hypot(askedDx, askedDy), 1);
   const askedNormalX = -askedDy / askedLength;
   const askedNormalY = askedDx / askedLength;
-  const curveOffset = 48;
+  const curveOffset = 52;
   const controlX = (askedFrom.x + askedTo.x) / 2 + askedNormalX * curveOffset;
   const controlY = (askedFrom.y + askedTo.y) / 2 + askedNormalY * curveOffset;
   const askedCurve = `<path data-role="asked-relation-arrow" d="M ${askedFrom.x} ${askedFrom.y} Q ${controlX} ${controlY} ${askedTo.x} ${askedTo.y}" fill="none" stroke="#dc2626" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round" marker-end="url(#questionArrow)"/>`;
-  const askedLabel = labelBox(spec.askedRelation.label, width / 2, 454, {
+  const askedLabel = labelBox(spec.askedRelation.label, 450, 495, {
     fill: "#fff7ed",
     stroke: "#dc2626",
     textColor: "#991b1b",
@@ -149,18 +183,11 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
   });
 
   let finalFacingArrow = "";
-  let finalFacingLabel = "";
   if (spec.finalFacing) {
     const point = project(pointById.get(spec.finalFacing.pointId)!.coordinate);
     const unit = directionUnit(spec.finalFacing.direction);
     const arrowEnd = { x: point.x + unit.x * 54, y: point.y - unit.y * 54 };
     finalFacingArrow = `<line data-role="final-facing-arrow" x1="${point.x}" y1="${point.y}" x2="${arrowEnd.x}" y2="${arrowEnd.y}" stroke="#7c3aed" stroke-width="4" stroke-linecap="round" marker-end="url(#facingArrow)"/>`;
-    finalFacingLabel = labelBox(spec.finalFacing.label, arrowEnd.x, arrowEnd.y - 22, {
-      fill: "#faf5ff",
-      stroke: "#7c3aed",
-      textColor: "#5b21b6",
-      role: "final-facing-label",
-    });
   }
 
   const points = spec.points.map((point) => {
@@ -173,13 +200,13 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
   }).join("");
 
   const compass = [
-    `<g data-role="compass" transform="translate(62 95)">`,
-    `<circle cx="0" cy="0" r="30" fill="#ffffff" stroke="#94a3b8"/>`,
+    `<g data-role="compass" transform="translate(57 100)">`,
+    `<circle cx="0" cy="0" r="29" fill="#ffffff" stroke="#94a3b8"/>`,
     `<line x1="0" y1="18" x2="0" y2="-19" stroke="#334155" stroke-width="2" marker-end="url(#compassArrow)"/>`,
     `<line x1="-18" y1="0" x2="18" y2="0" stroke="#94a3b8" stroke-width="1.5"/>`,
     `<text x="0" y="-35" text-anchor="middle" font-size="12" font-weight="800">N</text>`,
     `<text x="35" y="4" text-anchor="middle" font-size="12" font-weight="800">E</text>`,
-    `<text x="0" y="43" text-anchor="middle" font-size="12" font-weight="800">S</text>`,
+    `<text x="0" y="42" text-anchor="middle" font-size="12" font-weight="800">S</text>`,
     `<text x="-35" y="4" text-anchor="middle" font-size="12" font-weight="800">W</text>`,
     `</g>`,
   ].join("");
@@ -192,18 +219,18 @@ function renderSvg(spec: Omit<PathDiagramSpec, "svg">): string {
     `<marker id="facingArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#7c3aed"/></marker>`,
     `<marker id="compassArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#334155"/></marker>`,
     `</defs>`,
-    `<rect x="1" y="1" width="758" height="518" rx="16" fill="#ffffff" stroke="#d1d5db"/>`,
-    `<text x="380" y="34" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">${escapeXml(spec.title)}</text>`,
-    `<text x="380" y="57" text-anchor="middle" font-size="12" fill="#475569">Arrows show movement. The diagram is not necessarily to scale.</text>`,
+    `<rect x="1" y="1" width="898" height="568" rx="16" fill="#ffffff" stroke="#d1d5db"/>`,
+    `<text x="450" y="34" text-anchor="middle" font-size="20" font-weight="800" fill="#111827">${escapeXml(spec.title)}</text>`,
+    `<text x="450" y="58" text-anchor="middle" font-size="12" fill="#475569">Numbered arrows show the path. Full movement details are listed separately.</text>`,
     compass,
     routeLines,
     askedCurve,
     finalFacingArrow,
     points,
-    routeLabels,
-    finalFacingLabel,
+    routeNumbers,
+    movementLegend,
     askedLabel,
-    `<text x="380" y="494" text-anchor="middle" font-size="12" fill="#64748b">Dashed red curve shows the exact relation asked in the question.</text>`,
+    `<text x="450" y="538" text-anchor="middle" font-size="12" fill="#64748b">Dashed red curve shows the exact relation asked in the question.</text>`,
     `</svg>`,
   ].join("");
 }
