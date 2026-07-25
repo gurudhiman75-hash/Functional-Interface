@@ -1,4 +1,5 @@
 import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
+import { applyAvg001Cp003ExplanationFinalPolish } from "./cp003-explanation-final-polish";
 import { applyAvg001HumanAuthoredExplanation as applyAuthoredPlanner } from "./human-authored-explanation-quality";
 import type { Avg001QuestionPackage } from "./types";
 
@@ -129,5 +130,6 @@ export function applyAvg001HumanAuthoredExplanation(
     }
   }
 
-  return applyAvg001Cp003ExplanationAuthorship(arithmeticallyComplete);
+  const contextAuthored = applyAvg001Cp003ExplanationAuthorship(arithmeticallyComplete);
+  return applyAvg001Cp003ExplanationFinalPolish(contextAuthored);
 }
