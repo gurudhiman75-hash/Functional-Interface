@@ -5,6 +5,7 @@ import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import { buildMen001StructuredExplanation } from "./structured-explanation";
 import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
 import { polishMen001StructuredSections } from "./structured-final-polisher";
+import { latexizeMen001StructuredSections } from "./structured-math-latex";
 import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
 import { restoreMen001SpecificStepAuthorship } from "./structured-specific-title-restorer";
 import type {
@@ -28,25 +29,27 @@ export function renderMen001Explanation(
     parameters,
     solver,
   );
-  const sections = polishMen001StructuredSections(
-    restoreMen001SpecificStepAuthorship(
-      normalizeMen001StructuredSections(
-        enhanceMen001StructuredSections(
-          buildMen001StructuredExplanation(
+  const sections = latexizeMen001StructuredSections(
+    polishMen001StructuredSections(
+      restoreMen001SpecificStepAuthorship(
+        normalizeMen001StructuredSections(
+          enhanceMen001StructuredSections(
+            buildMen001StructuredExplanation(
+              originalLines,
+              authoredLines,
+              parameters,
+              solver,
+            ),
             originalLines,
-            authoredLines,
             parameters,
             solver,
           ),
-          originalLines,
-          parameters,
-          solver,
+          parameters.solveMode,
         ),
         parameters.solveMode,
       ),
       parameters.solveMode,
     ),
-    parameters.solveMode,
   );
   return {
     strategyId: entry.explanationStrategyId,
