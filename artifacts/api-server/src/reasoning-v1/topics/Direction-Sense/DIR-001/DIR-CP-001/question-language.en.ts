@@ -37,7 +37,10 @@ export function renderTurnSequence(turns: readonly TurnOperation[]): string {
     return renderTurn(turns[0]);
   }
   const phrases = turns.map(renderTurn);
-  return `${phrases.slice(0, -1).join(", then ")}, and then ${phrases.at(-1)}`;
+  if (phrases.length === 2) {
+    return `${phrases[0]} and then ${phrases[1]}`;
+  }
+  return `${phrases.slice(0, -1).join(", then ")}, and finally ${phrases.at(-1)}`;
 }
 
 export function renderForwardFacingStem(
@@ -72,7 +75,7 @@ export function renderInverseFacingStem(
     case 1:
       return `After ${person} ${sequence}, ${person}'s final facing direction is ${finalDirection}. Find the initial facing direction.`;
     default:
-      return `${person} ends up facing ${finalDirection} after the following movement of orientation: ${sequence}. Where was ${person} facing at the start?`;
+      return `${person} ${sequence}, ending up facing ${finalDirection}. In which direction was ${person} facing before these turns?`;
   }
 }
 
