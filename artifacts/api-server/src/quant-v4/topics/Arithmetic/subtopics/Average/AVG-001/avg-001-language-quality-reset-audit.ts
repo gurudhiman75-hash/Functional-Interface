@@ -8,6 +8,20 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
 
 const AUTHORSHIP = "AVG-001 deterministic human-authored presentation v2";
+const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
+const CP003_FINAL_POLISH = "AVG-CP-003 manually differentiated prose v1";
+const CP003_MANUALLY_DIFFERENTIATED = new Set([
+  "AVG-QL-156",
+  "AVG-QL-160",
+  "AVG-QL-394",
+  "AVG-QL-395",
+  "AVG-QL-398",
+  "AVG-QL-399",
+  "AVG-QL-400",
+  "AVG-QL-401",
+  "AVG-QL-404",
+  "AVG-QL-405",
+]);
 const failures: string[] = [];
 const englishExplanations = new Map<string, string[]>();
 const englishProse = new Map<string, string[]>();
@@ -93,6 +107,18 @@ function checkAuthorship(pkg: Avg001QuestionPackage, scope: string) {
   }
   if (typeof pkg.traceability.explanationConclusionVariant !== "number") {
     fail(`${scope}: explanation conclusion variant missing`);
+  }
+  if (
+    pkg.canonicalProblemId === "AVG-CP-003" &&
+    pkg.traceability.cp003ExplanationAuthorship !== CP003_AUTHORSHIP
+  ) {
+    fail(`${scope}: CP-003 context-authored explanation marker missing`);
+  }
+  if (
+    CP003_MANUALLY_DIFFERENTIATED.has(pkg.questionLanguageId) &&
+    pkg.traceability.cp003ExplanationFinalPolish !== CP003_FINAL_POLISH
+  ) {
+    fail(`${scope}: CP-003 manually differentiated prose marker missing`);
   }
 }
 
@@ -186,6 +212,7 @@ for (const language of ["hi", "pa"] as const) {
 
 console.log(JSON.stringify({
   authorship: AUTHORSHIP,
+  cp003Authorship: CP003_AUTHORSHIP,
   englishQlCount: entries.length,
   localizedQlCountPerLanguage: entries.filter((entry) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)).length,
   englishExactExplanationGroups: englishExplanations.size,
