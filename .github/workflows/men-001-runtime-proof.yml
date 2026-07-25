@@ -56,12 +56,29 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/men-001.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/men-001-runtime-proof.log
 
-      - name: Upload MEN-001 runtime log
+      - name: Bundle natural explanation authorship audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/natural-explanation-authorship.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/men-001-natural-explanation-authorship.test.mjs
+
+      - name: Run natural explanation authorship audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/men-001-natural-explanation-authorship.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/men-001-natural-explanation-authorship.log
+
+      - name: Upload MEN-001 runtime logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: men-001-runtime-log
-          path: artifacts/api-server/dist/quant-v4/men-001-runtime-proof.log
+          path: |
+            artifacts/api-server/dist/quant-v4/men-001-runtime-proof.log
+            artifacts/api-server/dist/quant-v4/men-001-natural-explanation-authorship.log
           if-no-files-found: error
           retention-days: 7
 
