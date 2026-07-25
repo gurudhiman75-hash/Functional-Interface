@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  cod-cp-001:
+  cod-runtime:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -22,3 +22,6 @@ jobs:
 
       - name: Run COD-CP-001 exhaustive runtime audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-001/cod-cp-001.test.ts
+
+      - name: Run COD-CP-002 exhaustive runtime audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-002/cod-cp-002.test.ts
