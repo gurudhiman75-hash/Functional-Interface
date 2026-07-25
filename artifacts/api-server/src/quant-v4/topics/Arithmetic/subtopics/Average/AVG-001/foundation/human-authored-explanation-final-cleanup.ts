@@ -40,45 +40,78 @@ function rendered(pkg: Avg001QuestionPackage, key: string) {
   return value === undefined || value === null ? "" : String(value);
 }
 
-function ageShiftMethod(pkg: Avg001QuestionPackage) {
+function elapsedAgeOpening(pkg: Avg001QuestionPackage) {
   const scenario = String(pkg.parameters.scenarioVariant ?? "");
   if (!/(?:AfterYears|ElapsedYears)/.test(scenario)) return undefined;
+
   const years = rendered(pkg, "yearsElapsed") || rendered(pkg, "elapsedYears");
+  const shownYears = years || (pkg.language === "en" ? "the elapsed" : "");
+
   if (pkg.language === "hi") {
+    if (scenario === "newbornAfterElapsedYears") {
+      return years
+        ? `${years} वर्ष बाद, मूल आयुओं से पुराना कुल निकालें; नवजात की आयु शून्य है।`
+        : "बीते वर्षों के बाद मूल आयुओं से पुराना कुल निकालें; नवजात की आयु शून्य है।";
+    }
+    if (scenario === "childJoinsFamilyAfterYears") {
+      return years
+        ? `${years} वर्ष बाद, मूल आयुओं को बढ़ाकर बच्चे की आयु पुराने कुल में जोड़ें।`
+        : "बीते वर्षों के बाद मूल आयुओं को बढ़ाकर बच्चे की आयु पुराने कुल में जोड़ें।";
+    }
     return years
-      ? `${years} वर्ष बाद, समूह बदलने से पहले प्रत्येक मूल आयु में ${years} वर्ष जोड़ें।`
-      : "समूह बदलने से पहले बीते वर्षों का प्रभाव प्रत्येक मूल आयु में जोड़ें।";
+      ? `${years} वर्ष बाद, मूल आयुओं को अद्यतन करके पुराना कुल निकालें।`
+      : "बीते वर्षों के बाद मूल आयुओं को अद्यतन करके पुराना कुल निकालें।";
   }
+
   if (pkg.language === "pa") {
+    if (scenario === "newbornAfterElapsedYears") {
+      return years
+        ? `${years} ਸਾਲ ਬਾਅਦ, ਮੂਲ ਉਮਰਾਂ ਤੋਂ ਪੁਰਾਣਾ ਕੁੱਲ ਕੱਢੋ; ਨਵਜੰਮੇ ਦੀ ਉਮਰ ਸਿਫ਼ਰ ਹੈ।`
+        : "ਬੀਤੇ ਸਾਲਾਂ ਤੋਂ ਬਾਅਦ ਮੂਲ ਉਮਰਾਂ ਤੋਂ ਪੁਰਾਣਾ ਕੁੱਲ ਕੱਢੋ; ਨਵਜੰਮੇ ਦੀ ਉਮਰ ਸਿਫ਼ਰ ਹੈ।";
+    }
+    if (scenario === "childJoinsFamilyAfterYears") {
+      return years
+        ? `${years} ਸਾਲ ਬਾਅਦ, ਮੂਲ ਉਮਰਾਂ ਵਧਾ ਕੇ ਬੱਚੇ ਦੀ ਉਮਰ ਪੁਰਾਣੇ ਕੁੱਲ ਵਿੱਚ ਜੋੜੋ।`
+        : "ਬੀਤੇ ਸਾਲਾਂ ਤੋਂ ਬਾਅਦ ਮੂਲ ਉਮਰਾਂ ਵਧਾ ਕੇ ਬੱਚੇ ਦੀ ਉਮਰ ਪੁਰਾਣੇ ਕੁੱਲ ਵਿੱਚ ਜੋੜੋ।";
+    }
     return years
-      ? `${years} ਸਾਲ ਬਾਅਦ, ਸਮੂਹ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਹਰ ਮੂਲ ਉਮਰ ਵਿੱਚ ${years} ਸਾਲ ਜੋੜੋ।`
-      : "ਸਮੂਹ ਬਦਲਣ ਤੋਂ ਪਹਿਲਾਂ ਬੀਤੇ ਸਾਲਾਂ ਦਾ ਅਸਰ ਹਰ ਮੂਲ ਉਮਰ ਵਿੱਚ ਜੋੜੋ।";
+      ? `${years} ਸਾਲ ਬਾਅਦ, ਮੂਲ ਉਮਰਾਂ ਨੂੰ ਅਪਡੇਟ ਕਰਕੇ ਪੁਰਾਣਾ ਕੁੱਲ ਕੱਢੋ।`
+      : "ਬੀਤੇ ਸਾਲਾਂ ਤੋਂ ਬਾਅਦ ਮੂਲ ਉਮਰਾਂ ਨੂੰ ਅਪਡੇਟ ਕਰਕੇ ਪੁਰਾਣਾ ਕੁੱਲ ਕੱਢੋ।";
   }
-  return years
-    ? `After ${years} years, add ${years} years to every original age before changing the group.`
-    : "After the elapsed time, update every original age before changing the group.";
+
+  if (scenario === "newbornAfterElapsedYears") {
+    return `After ${shownYears} years, update the original ages to form the old total; the newborn adds zero years.`;
+  }
+  if (scenario === "childJoinsFamilyAfterYears") {
+    return `After ${shownYears} years, update the original ages before adding the joining child's age to the old total.`;
+  }
+  return `After ${shownYears} years, update every original age before forming the old total.`;
 }
 
 export function finalizeAvg001ExplanationCleanup(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
-  const lines = pkg.explanation.lines.map((line) => {
+  const cleaned = pkg.explanation.lines.map((line) => {
     const shortened = pkg.canonicalProblemId === "AVG-CP-006"
       ? shortenCp006Concept(line)
       : line;
     const unitClean = cleanRepeatedUnits(shortened);
     return pkg.language === "en" ? softenFormalEnglish(unitClean) : unitClean;
   });
-  const ageMethod = ageShiftMethod(pkg);
-  if (ageMethod && lines.length > 1 && !lines.join(" ").toLowerCase().includes("after")) {
-    lines[1] = ageMethod;
-  }
+
+  const lines = cleaned.length > 1
+    ? [cleaned[0]!, ...cleaned.slice(2)]
+    : cleaned;
+  const ageOpening = elapsedAgeOpening(pkg);
+  if (ageOpening && lines.length) lines[0] = ageOpening;
+
   return {
     ...pkg,
     explanation: { lines },
     traceability: {
       ...pkg.traceability,
-      explanationFinalCleanup: "AVG-001 explanation final cleanup v3",
+      explanationFinalCleanup: "AVG-001 explanation final cleanup v6",
+      explanationLineContract: "AVG-001 four-line explanations v1",
     },
   };
 }

@@ -32,7 +32,7 @@ for (const entry of entries) {
     if (pkg.options.length !== 4 || new Set(pkg.options).size !== 4) failures.push(`${entry.qlId}:${index}: option uniqueness`);
     if (pkg.options[pkg.correctIndex] !== pkg.answer) failures.push(`${entry.qlId}:${index}: correct index`);
     if (/[{}]|undefined|NaN|Infinity|null/.test(pkg.stem)) failures.push(`${entry.qlId}:${index}: unresolved stem`);
-    if (pkg.explanation.lines.length !== 5) failures.push(`${entry.qlId}:${index}: explanation lines`);
+    if (pkg.explanation.lines.length !== 4) failures.push(`${entry.qlId}:${index}: explanation lines`);
     if (pkg.explanation.lines.filter((line) => /\$\$/.test(line)).length !== 2) failures.push(`${entry.qlId}:${index}: calculation lines`);
     if (/reconstruct|recover|derive|determine|solve mode|weighted aggregation/i.test(joined)) failures.push(`${entry.qlId}:${index}: formal wording`);
     if (entry.solveMode === "findAverageAfterUniformTransformation" && /× 1 \+|× 1\$\$|\+ 0\$\$/.test(joined)) failures.push(`${entry.qlId}:${index}: hidden no-op in explanation`);
