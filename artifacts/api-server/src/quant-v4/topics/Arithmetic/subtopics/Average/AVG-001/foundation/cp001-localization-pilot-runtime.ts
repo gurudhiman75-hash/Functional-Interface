@@ -3,47 +3,30 @@ import {
   getAvg001Cp001LocalizedQlIds,
   runAvg001Cp001LocalizationPilot as runBasePilot,
 } from "./cp001-localization-pilot";
-import type { Avg001QuestionPackage } from "./types";
+import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 export {
   AVG_001_CP001_MULTILINGUAL_PILOT,
   getAvg001Cp001LocalizedQlIds,
 };
 
-function normalizeMath(value: string) {
-  return value.includes("$$") ? value.replaceAll("+", "\\mathbin{+}") : value;
+type PilotLanguage = "hi" | "pa";
+
+function cleanNumber(value: unknown) {
+  const text = String(value ?? "");
+  return text.replace(/^(\d[\d,]*)\.0$/, "$1");
 }
 
-function polishStem(value: string, language: "hi" | "pa") {
-  if (language === "hi") {
-    return value
-      .replaceAll("संयुक्त स्कोर", "कुल स्कोर")
-      .replaceAll("संयुक्त वेतन", "कुल वेतन")
-      .replaceAll("माप-पाठों", "रीडिंगों")
-      .replaceAll("माप-पाठ", "रीडिंग")
-      .replace(
-        /कुल ([\d,.]+) यात्रियों और प्रति फेरा औसत ([\d,.]+) यात्रियों के आधार पर फेरों की संख्या ज्ञात कीजिए।/,
-        "एक वाहन ने कुल $1 यात्रियों को ले जाया। प्रति फेरा औसतन $2 यात्री थे। फेरों की संख्या ज्ञात कीजिए।",
-      );
-  }
-  return value
-    .replaceAll("ਮਿਲਿਆ-ਜੁਲਿਆ ਸਕੋਰ", "ਕੁੱਲ ਸਕੋਰ")
-    .replaceAll("ਮਿਲੀ-ਜੁਲੀ ਤਨਖਾਹ", "ਕੁੱਲ ਤਨਖਾਹ")
-    .replaceAll("ਪ੍ਰੀਖਿਆ ਅੰਕਾਂ", "ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕਾਂ")
-    .replaceAll("ਅਵਲੋਕਨਾਂ", "ਮੁੱਲਾਂ")
-    .replaceAll("ਅਵਲੋਕਨ", "ਮੁੱਲ")
-    .replace(
-      /ਕੁੱਲ ([\d,.]+) ਯਾਤਰੀਆਂ ਅਤੇ ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤ ([\d,.]+) ਯਾਤਰੀਆਂ ਦੇ ਆਧਾਰ ਉੱਤੇ ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।/,
-      "ਇੱਕ ਵਾਹਨ ਨੇ ਕੁੱਲ $1 ਯਾਤਰੀ ਲਿਜਾਏ। ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤਨ $2 ਯਾਤਰੀ ਸਨ। ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।",
-    );
+function value(pkg: Avg001QuestionPackage, key: string) {
+  return cleanNumber(pkg.parameters.renderVariables[key]);
 }
 
-function numericId(pkg: Avg001QuestionPackage) {
+function qlNumber(pkg: Avg001QuestionPackage) {
   return Number(pkg.questionLanguageId.slice(-3));
 }
 
 function contextIndex(pkg: Avg001QuestionPackage) {
-  const id = numericId(pkg);
+  const id = qlNumber(pkg);
   if (pkg.solveMode === "findSumFromAverageAndCount") return id <= 6 ? id - 1 : (id - 25) % 6;
   if (pkg.solveMode === "findAverageFromSumAndCount") return id <= 12 ? id - 7 : (id - 37) % 6;
   if (pkg.solveMode === "findCountFromSumAndAverage") return id <= 18 ? id - 13 : (id - 49) % 6;
@@ -51,186 +34,355 @@ function contextIndex(pkg: Avg001QuestionPackage) {
   return id - 374;
 }
 
-function rupees(answer: string) {
-  return answer.startsWith("₹") ? answer : `₹${answer}`;
+function wordingVariant(pkg: Avg001QuestionPackage) {
+  const id = qlNumber(pkg);
+  if (id >= 374) return id % 3;
+  if (id <= 24) return 0;
+  if (id <= 48) return 1;
+  return 2;
 }
 
-function localizedOpening(pkg: Avg001QuestionPackage, language: "hi" | "pa") {
-  const values = pkg.parameters.renderVariables;
-  const value = (key: string) => String(values[key] ?? "");
-  const index = contextIndex(pkg);
-
-  if (language === "hi") {
-    if (pkg.solveMode === "findSumFromAverageAndCount") return [
-      `औसत अंक ${value("average")} और विद्यार्थियों की संख्या ${value("count")} है।`,
-      `औसत दैनिक उत्पादन ${value("average")} इकाइयाँ और दिनों की संख्या ${value("count")} है।`,
-      `औसत दैनिक बिक्री ₹${value("average")} और दिनों की संख्या ${value("count")} है।`,
-      `औसत वेतन ₹${value("average")} और कर्मचारियों की संख्या ${value("count")} है।`,
-      `प्रति फेरा औसत ${value("average")} यात्री और फेरों की संख्या ${value("count")} है।`,
-      `औसत दैनिक खर्च ₹${value("average")} और दिनों की संख्या ${value("count")} है।`,
-    ][index]!;
-    if (pkg.solveMode === "findAverageFromSumAndCount") return [
-      `कुल अंक ${value("total")} और परीक्षाओं की संख्या ${value("count")} है।`,
-      `कुल उत्पादन ${value("total")} इकाइयाँ और समय ${value("count")} घंटे है।`,
-      `कुल बिक्री ₹${value("total")} और दिनों की संख्या ${value("count")} है।`,
-      `कुल खर्च ₹${value("total")} और दिनों की संख्या ${value("count")} है।`,
-      `कुल दूरी ${value("total")} किमी और दिनों की संख्या ${value("count")} है।`,
-      `संख्याओं का योग ${value("total")} और उनकी संख्या ${value("count")} है।`,
-    ][index]!;
-    if (pkg.solveMode === "findCountFromSumAndAverage") return [
-      `कुल उत्पादन ${value("total")} इकाइयाँ और औसत दैनिक उत्पादन ${value("average")} इकाइयाँ है।`,
-      `कुल अंक ${value("total")} और प्रति विद्यार्थी औसत ${value("average")} अंक है।`,
-      `कुल राशि ₹${value("total")} और प्रति लेन-देन औसत ₹${value("average")} है।`,
-      `कुल वेतन ₹${value("total")} और औसत वेतन ₹${value("average")} है।`,
-      `कुल यात्री ${value("total")} और प्रति फेरा औसत ${value("average")} यात्री है।`,
-      `कुल खर्च ₹${value("total")} और औसत दैनिक खर्च ₹${value("average")} है।`,
-    ][index]!;
-  } else {
-    if (pkg.solveMode === "findSumFromAverageAndCount") return [
-      `ਔਸਤ ਅੰਕ ${value("average")} ਅਤੇ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਔਸਤ ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ ${value("average")} ਇਕਾਈਆਂ ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ₹${value("average")} ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਔਸਤ ਤਨਖਾਹ ₹${value("average")} ਅਤੇ ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤ ${value("average")} ਯਾਤਰੀ ਅਤੇ ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ₹${value("average")} ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-    ][index]!;
-    if (pkg.solveMode === "findAverageFromSumAndCount") return [
-      `ਕੁੱਲ ਅੰਕ ${value("total")} ਅਤੇ ਪ੍ਰੀਖਿਆਵਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਕੁੱਲ ਉਤਪਾਦਨ ${value("total")} ਇਕਾਈਆਂ ਅਤੇ ਸਮਾਂ ${value("count")} ਘੰਟੇ ਹੈ।`,
-      `ਕੁੱਲ ਵਿਕਰੀ ₹${value("total")} ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਕੁੱਲ ਖਰਚ ₹${value("total")} ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਕੁੱਲ ਦੂਰੀ ${value("total")} ਕਿ.ਮੀ. ਅਤੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-      `ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜ ${value("total")} ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਗਿਣਤੀ ${value("count")} ਹੈ।`,
-    ][index]!;
-    if (pkg.solveMode === "findCountFromSumAndAverage") return [
-      `ਕੁੱਲ ਉਤਪਾਦਨ ${value("total")} ਇਕਾਈਆਂ ਅਤੇ ਔਸਤ ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ ${value("average")} ਇਕਾਈਆਂ ਹੈ।`,
-      `ਕੁੱਲ ਅੰਕ ${value("total")} ਅਤੇ ਪ੍ਰਤੀ ਵਿਦਿਆਰਥੀ ਔਸਤ ${value("average")} ਅੰਕ ਹੈ।`,
-      `ਕੁੱਲ ਰਕਮ ₹${value("total")} ਅਤੇ ਪ੍ਰਤੀ ਲੈਣ-ਦੇਣ ਔਸਤ ₹${value("average")} ਹੈ।`,
-      `ਕੁੱਲ ਤਨਖਾਹ ₹${value("total")} ਅਤੇ ਔਸਤ ਤਨਖਾਹ ₹${value("average")} ਹੈ।`,
-      `ਕੁੱਲ ਯਾਤਰੀ ${value("total")} ਅਤੇ ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤ ${value("average")} ਯਾਤਰੀ ਹੈ।`,
-      `ਕੁੱਲ ਖਰਚ ₹${value("total")} ਅਤੇ ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ₹${value("average")} ਹੈ।`,
-    ][index]!;
-  }
-  return pkg.explanation.lines[0]!;
+function pick<T>(items: readonly T[], index: number) {
+  return items[index % items.length]!;
 }
 
-function localizedConclusion(pkg: Avg001QuestionPackage, language: "hi" | "pa") {
-  const answer = pkg.answer;
-  const index = contextIndex(pkg);
-  if (language === "hi") {
-    if (pkg.solveMode === "findSumFromAverageAndCount") return [
-      `अतः कुल अंक ${answer} हैं।`,
-      `अतः कुल उत्पादन ${answer} इकाइयाँ है।`,
-      `अतः कुल बिक्री ${rupees(answer)} है।`,
-      `अतः कुल वेतन ${rupees(answer)} है।`,
-      `अतः कुल यात्रियों की संख्या ${answer} है।`,
-      `अतः कुल खर्च ${rupees(answer)} है।`,
-    ][index]!;
-    if (pkg.solveMode === "findAverageFromSumAndCount") return [
-      `अतः प्रति परीक्षा औसत ${answer} अंक है।`,
-      `अतः प्रति घंटा औसत उत्पादन ${answer} इकाइयाँ है।`,
-      `अतः औसत दैनिक बिक्री ${rupees(answer)} है।`,
-      `अतः औसत दैनिक खर्च ${rupees(answer)} है।`,
-      `अतः औसत दैनिक दूरी ${answer} किमी है।`,
-      `अतः अंकगणितीय औसत ${answer} है।`,
-    ][index]!;
-    if (pkg.solveMode === "findCountFromSumAndAverage") return [
-      `अतः कार्य-दिवसों की संख्या ${answer} है।`,
-      `अतः विद्यार्थियों की संख्या ${answer} है।`,
-      `अतः लेन-देन की संख्या ${answer} है।`,
-      `अतः कर्मचारियों की संख्या ${answer} है।`,
-      `अतः फेरों की संख्या ${answer} है।`,
-      `अतः दिनों की संख्या ${answer} है।`,
-    ][index]!;
-    if (pkg.solveMode === "findMissingValueFromAverage") return [
-      `अतः शेष परीक्षा का अंक ${answer} है।`,
-      `अतः शेष पाली का उत्पादन ${answer} इकाइयाँ है।`,
-      `अतः शेष दिन की बिक्री ${rupees(answer)} है।`,
-      `अतः शेष दिन का खर्च ${rupees(answer)} है।`,
-      `अतः शेष दिन की दूरी ${answer} किमी है।`,
-      `अतः शेष संख्या ${answer} है।`,
-    ][index]!;
-    return index === 0 || index === 5 ? `अतः नया औसत ${answer} अंक है।` : `अतः नया औसत ${answer} है।`;
+function hindiStem(pkg: Avg001QuestionPackage) {
+  const c = value(pkg, "count");
+  const a = value(pkg, "average");
+  const t = value(pkg, "total");
+  const k = value(pkg, "knownTotal");
+  const factor = value(pkg, "factor");
+  const change = value(pkg, "change");
+  const context = contextIndex(pkg);
+  const variant = wordingVariant(pkg);
+
+  if (pkg.solveMode === "findSumFromAverageAndCount") {
+    return pick([
+      [
+        `${c} विद्यार्थियों के अंकों का औसत ${a} है। सभी विद्यार्थियों के कुल अंक ज्ञात कीजिए।`,
+        `एक कक्षा में ${c} विद्यार्थियों के औसत अंक ${a} हैं। कक्षा के कुल अंक कितने हैं?`,
+        `${c} अभ्यर्थियों ने औसतन ${a} अंक प्राप्त किए। उनके अंकों का कुल योग ज्ञात कीजिए।`,
+      ],
+      [
+        `एक कारखाना ${c} दिनों तक प्रतिदिन औसतन ${a} इकाइयाँ बनाता है। कुल उत्पादन ज्ञात कीजिए।`,
+        `${c} दिनों का औसत दैनिक उत्पादन ${a} इकाइयाँ है। इन दिनों में कुल कितनी इकाइयाँ बनीं?`,
+        `एक उत्पादन केंद्र ने ${c} दिनों में प्रतिदिन औसतन ${a} वस्तुएँ बनाईं। कुल वस्तुओं की संख्या ज्ञात कीजिए।`,
+      ],
+      [
+        `एक दुकान की ${c} दिनों की औसत दैनिक बिक्री ₹${a} है। इन दिनों की कुल बिक्री ज्ञात कीजिए।`,
+        `${c} दिनों तक प्रतिदिन औसतन ₹${a} की बिक्री हुई। कुल बिक्री कितनी थी?`,
+        `एक विक्रेता ने ${c} दिनों में प्रतिदिन औसतन ₹${a} की बिक्री की। कुल बिक्री राशि ज्ञात कीजिए।`,
+      ],
+      [
+        `${c} कर्मचारियों का औसत मासिक वेतन ₹${a} है। सभी कर्मचारियों का कुल मासिक वेतन ज्ञात कीजिए।`,
+        `एक विभाग में ${c} कर्मचारी हैं और उनका औसत वेतन ₹${a} है। कुल वेतन कितना है?`,
+        `${c} कर्मचारियों को औसतन ₹${a} वेतन मिलता है। वेतन पर कुल कितनी राशि खर्च होती है?`,
+      ],
+      [
+        `एक बस ने ${c} फेरों में प्रति फेरा औसतन ${a} यात्रियों को पहुँचाया। सभी फेरों में कुल कितने यात्री ले जाए गए?`,
+        `${c} फेरों में औसतन ${a} यात्री प्रति फेरा यात्रा करते हैं। कुल यात्री-संख्या ज्ञात कीजिए।`,
+        `एक शटल के प्रत्येक फेरे में औसतन ${a} यात्री थे। ${c} फेरों में कुल कितने यात्री हुए?`,
+      ],
+      [
+        `एक परिवार ${c} दिनों तक प्रतिदिन औसतन ₹${a} खर्च करता है। कुल खर्च ज्ञात कीजिए।`,
+        `${c} दिनों का औसत दैनिक खर्च ₹${a} है। इस अवधि का कुल खर्च कितना है?`,
+        `एक छात्रावास में ${c} दिनों तक प्रतिदिन औसतन ₹${a} खर्च हुए। कुल व्यय ज्ञात कीजिए।`,
+      ],
+    ][context]!, variant);
   }
 
-  if (pkg.solveMode === "findSumFromAverageAndCount") return [
-    `ਇਸ ਲਈ ਕੁੱਲ ਅੰਕ ${answer} ਹਨ।`,
-    `ਇਸ ਲਈ ਕੁੱਲ ਉਤਪਾਦਨ ${answer} ਇਕਾਈਆਂ ਹੈ।`,
-    `ਇਸ ਲਈ ਕੁੱਲ ਵਿਕਰੀ ${rupees(answer)} ਹੈ।`,
-    `ਇਸ ਲਈ ਕੁੱਲ ਤਨਖਾਹ ${rupees(answer)} ਹੈ।`,
-    `ਇਸ ਲਈ ਕੁੱਲ ਯਾਤਰੀਆਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਕੁੱਲ ਖਰਚ ${rupees(answer)} ਹੈ।`,
-  ][index]!;
-  if (pkg.solveMode === "findAverageFromSumAndCount") return [
-    `ਇਸ ਲਈ ਪ੍ਰਤੀ ਪ੍ਰੀਖਿਆ ਔਸਤ ${answer} ਅੰਕ ਹੈ।`,
-    `ਇਸ ਲਈ ਪ੍ਰਤੀ ਘੰਟਾ ਔਸਤ ਉਤਪਾਦਨ ${answer} ਇਕਾਈਆਂ ਹੈ।`,
-    `ਇਸ ਲਈ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ${rupees(answer)} ਹੈ।`,
-    `ਇਸ ਲਈ ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ${rupees(answer)} ਹੈ।`,
-    `ਇਸ ਲਈ ਔਸਤ ਰੋਜ਼ਾਨਾ ਦੂਰੀ ${answer} ਕਿ.ਮੀ. ਹੈ।`,
-    `ਇਸ ਲਈ ਅੰਕਗਣਿਤ ਔਸਤ ${answer} ਹੈ।`,
-  ][index]!;
-  if (pkg.solveMode === "findCountFromSumAndAverage") return [
-    `ਇਸ ਲਈ ਕੰਮ ਦੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਲੈਣ-ਦੇਣ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ${answer} ਹੈ।`,
-  ][index]!;
-  if (pkg.solveMode === "findMissingValueFromAverage") return [
-    `ਇਸ ਲਈ ਬਾਕੀ ਪ੍ਰੀਖਿਆ ਦਾ ਅੰਕ ${answer} ਹੈ।`,
-    `ਇਸ ਲਈ ਬਾਕੀ ਸ਼ਿਫਟ ਦਾ ਉਤਪਾਦਨ ${answer} ਇਕਾਈਆਂ ਹੈ।`,
-    `ਇਸ ਲਈ ਬਾਕੀ ਦਿਨ ਦੀ ਵਿਕਰੀ ${rupees(answer)} ਹੈ।`,
-    `ਇਸ ਲਈ ਬਾਕੀ ਦਿਨ ਦਾ ਖਰਚ ${rupees(answer)} ਹੈ।`,
-    `ਇਸ ਲਈ ਬਾਕੀ ਦਿਨ ਦੀ ਦੂਰੀ ${answer} ਕਿ.ਮੀ. ਹੈ।`,
-    `ਇਸ ਲਈ ਬਾਕੀ ਸੰਖਿਆ ${answer} ਹੈ।`,
-  ][index]!;
-  return index === 0 || index === 5 ? `ਇਸ ਲਈ ਨਵੀਂ ਔਸਤ ${answer} ਅੰਕ ਹੈ।` : `ਇਸ ਲਈ ਨਵੀਂ ਔਸਤ ${answer} ਹੈ।`;
+  if (pkg.solveMode === "findAverageFromSumAndCount") {
+    return pick([
+      [
+        `${c} परीक्षाओं में कुल ${t} अंक प्राप्त हुए। प्रति परीक्षा औसत अंक ज्ञात कीजिए।`,
+        `एक अभ्यर्थी ने ${c} परीक्षाओं में कुल ${t} अंक बनाए। उसका औसत स्कोर कितना है?`,
+        `${c} टेस्टों के अंकों का योग ${t} है। औसत अंक ज्ञात कीजिए।`,
+      ],
+      [
+        `${c} घंटों में कुल ${t} इकाइयों का उत्पादन हुआ। प्रति घंटा औसत उत्पादन ज्ञात कीजिए।`,
+        `एक मशीन ने ${c} घंटों में ${t} पुर्जे बनाए। एक घंटे का औसत उत्पादन कितना है?`,
+        `${c} घंटों का कुल उत्पादन ${t} इकाइयाँ है। प्रति घंटा औसत निकालिए।`,
+      ],
+      [
+        `${c} दिनों की कुल बिक्री ₹${t} है। औसत दैनिक बिक्री ज्ञात कीजिए।`,
+        `एक दुकान ने ${c} दिनों में कुल ₹${t} की बिक्री की। प्रतिदिन की औसत बिक्री कितनी है?`,
+        `${c} दिनों में बिक्री से ₹${t} प्राप्त हुए। औसत दैनिक बिक्री निकालिए।`,
+      ],
+      [
+        `${c} दिनों में कुल ₹${t} खर्च हुए। औसत दैनिक खर्च ज्ञात कीजिए।`,
+        `एक परिवार ने ${c} दिनों में ₹${t} खर्च किए। प्रतिदिन का औसत खर्च कितना है?`,
+        `${c} दिनों का कुल व्यय ₹${t} है। औसत दैनिक व्यय निकालिए।`,
+      ],
+      [
+        `${c} दिनों में कुल ${t} किमी दूरी तय की गई। औसत दैनिक दूरी ज्ञात कीजिए।`,
+        `एक वाहन ने ${c} दिनों में ${t} किमी यात्रा की। प्रतिदिन औसतन कितनी दूरी तय हुई?`,
+        `${c} दिनों की कुल दूरी ${t} किमी है। एक दिन की औसत दूरी निकालिए।`,
+      ],
+      [
+        `${c} संख्याओं का योग ${t} है। उनका औसत ज्ञात कीजिए।`,
+        `${c} प्रेक्षणों का कुल योग ${t} है। अंकगणितीय औसत निकालिए।`,
+        `किसी आँकड़ा-समूह में ${c} मान हैं जिनका योग ${t} है। औसत कितना है?`,
+      ],
+    ][context]!, variant);
+  }
+
+  if (pkg.solveMode === "findCountFromSumAndAverage") {
+    return pick([
+      [
+        `कुल ${t} इकाइयों का उत्पादन हुआ और औसत दैनिक उत्पादन ${a} इकाइयाँ था। उत्पादन कितने दिनों तक चला?`,
+        `एक कार्यशाला ने प्रतिदिन औसतन ${a} पुर्जे बनाकर कुल ${t} पुर्जे तैयार किए। उसने कितने दिन काम किया?`,
+        `कुल उत्पादन ${t} इकाइयाँ और दैनिक औसत ${a} इकाइयाँ है। कार्य-दिवसों की संख्या ज्ञात कीजिए।`,
+      ],
+      [
+        `एक कक्षा के कुल अंक ${t} हैं और प्रति विद्यार्थी औसत ${a} अंक है। कक्षा में कितने विद्यार्थी हैं?`,
+        `विद्यार्थियों के अंकों का योग ${t} तथा औसत ${a} है। विद्यार्थियों की संख्या ज्ञात कीजिए।`,
+        `किसी बैच का कुल स्कोर ${t} और औसत स्कोर ${a} है। बैच में कितने विद्यार्थी हैं?`,
+      ],
+      [
+        `लेन-देन की कुल राशि ₹${t} है और प्रत्येक लेन-देन का औसत मूल्य ₹${a} है। लेन-देन की संख्या ज्ञात कीजिए।`,
+        `₹${t} की कुल राशि कई समान प्रकार के लेन-देन से बनी है, जिनका औसत ₹${a} है। कुल लेन-देन कितने हैं?`,
+        `कुल लेन-देन मूल्य ₹${t} और औसत मूल्य ₹${a} है। लेन-देन की संख्या निकालिए।`,
+      ],
+      [
+        `कर्मचारियों का कुल वेतन ₹${t} और औसत वेतन ₹${a} है। कर्मचारियों की संख्या ज्ञात कीजिए।`,
+        `वेतन पर कुल ₹${t} खर्च होते हैं और प्रति कर्मचारी औसत वेतन ₹${a} है। कुल कर्मचारी कितने हैं?`,
+        `कुल वेतन-भुगतान ₹${t} तथा औसत वेतन ₹${a} है। कर्मचारियों की संख्या निकालिए।`,
+      ],
+      [
+        `एक बस ने सभी फेरों में कुल ${t} यात्रियों को पहुँचाया। प्रति फेरा औसतन ${a} यात्री थे। फेरों की संख्या ज्ञात कीजिए।`,
+        `कुल ${t} यात्री ले जाए गए और प्रत्येक फेरे में औसतन ${a} यात्री थे। बस ने कितने फेरे लगाए?`,
+        `प्रति फेरा औसत यात्री-संख्या ${a} और कुल यात्री-संख्या ${t} है। फेरों की संख्या निकालिए।`,
+      ],
+      [
+        `कुल खर्च ₹${t} है और औसत दैनिक खर्च ₹${a} है। यह खर्च कितने दिनों का है?`,
+        `एक छात्रावास के पास ₹${t} हैं और वह प्रतिदिन औसतन ₹${a} खर्च करता है। राशि कितने दिन चलेगी?`,
+        `₹${t} की राशि प्रतिदिन औसतन ₹${a} खर्च होती है। दिनों की संख्या ज्ञात कीजिए।`,
+      ],
+    ][context]!, variant);
+  }
+
+  if (pkg.solveMode === "findMissingValueFromAverage") {
+    const knownCount = String(Math.max(0, Number(c) - 1));
+    return pick([
+      [
+        `${c} परीक्षाओं का औसत ${a} अंक है। पहली ${knownCount} परीक्षाओं में कुल ${k} अंक मिले। अंतिम परीक्षा के अंक ज्ञात कीजिए।`,
+        `एक अभ्यर्थी की ${c} परीक्षाओं का औसत ${a} है। ${knownCount} परीक्षाओं का कुल स्कोर ${k} है। शेष परीक्षा का स्कोर कितना है?`,
+        `${c} टेस्टों में औसत ${a} अंक है। पहले ${knownCount} टेस्टों के अंक ${k} हैं। अंतिम टेस्ट के अंक निकालिए।`,
+      ],
+      [
+        `${c} पालियों का औसत उत्पादन ${a} इकाइयाँ है। पहली ${knownCount} पालियों में कुल ${k} इकाइयाँ बनीं। अंतिम पाली का उत्पादन ज्ञात कीजिए।`,
+        `एक संयंत्र की ${c} पालियों का औसत ${a} इकाइयाँ है। ${knownCount} पालियों का उत्पादन ${k} इकाइयाँ है। शेष पाली में कितनी इकाइयाँ बनीं?`,
+        `${c} पालियों का औसत उत्पादन ${a} और पहली ${knownCount} पालियों का कुल उत्पादन ${k} है। अंतिम पाली का उत्पादन निकालिए।`,
+      ],
+      [
+        `${c} दिनों की औसत दैनिक बिक्री ₹${a} है। पहले ${knownCount} दिनों की कुल बिक्री ₹${k} है। अंतिम दिन की बिक्री ज्ञात कीजिए।`,
+        `एक दुकान की ${c} दिनों की औसत बिक्री ₹${a} प्रतिदिन है। ${knownCount} दिनों में ₹${k} की बिक्री हुई। शेष दिन की बिक्री कितनी थी?`,
+        `${c} दिनों की औसत दैनिक बिक्री ₹${a} और पहले ${knownCount} दिनों की बिक्री ₹${k} है। अंतिम दिन की बिक्री निकालिए।`,
+      ],
+      [
+        `${c} दिनों का औसत दैनिक खर्च ₹${a} है। पहले ${knownCount} दिनों में ₹${k} खर्च हुए। अंतिम दिन का खर्च ज्ञात कीजिए।`,
+        `एक छात्रावास ने ${c} दिनों में प्रतिदिन औसतन ₹${a} खर्च किए। पहले ${knownCount} दिनों का खर्च ₹${k} था। अंतिम दिन कितना खर्च हुआ?`,
+        `${c} दिनों का औसत खर्च ₹${a} प्रतिदिन है और ${knownCount} दिनों का खर्च ₹${k} है। शेष दिन का खर्च निकालिए।`,
+      ],
+      [
+        `${c} दिनों की औसत दैनिक दूरी ${a} किमी है। पहले ${knownCount} दिनों में ${k} किमी दूरी तय हुई। अंतिम दिन की दूरी ज्ञात कीजिए।`,
+        `एक साइकिल चालक ने ${c} दिनों में प्रतिदिन औसतन ${a} किमी यात्रा की। ${knownCount} दिनों में उसने ${k} किमी तय किए। अंतिम दिन कितनी दूरी तय की?`,
+        `${c} दिनों की औसत दूरी ${a} किमी प्रतिदिन और पहले ${knownCount} दिनों की दूरी ${k} किमी है। शेष दिन की दूरी निकालिए।`,
+      ],
+      [
+        `${c} संख्याओं का औसत ${a} है। इनमें से ${knownCount} संख्याओं का योग ${k} है। शेष संख्या ज्ञात कीजिए।`,
+        `${c} प्रेक्षणों का औसत ${a} है। ${knownCount} प्रेक्षणों का कुल योग ${k} है। अंतिम प्रेक्षण कितना है?`,
+        `किसी आँकड़ा-समूह में ${c} मानों का औसत ${a} है और ${knownCount} मानों का योग ${k} है। शेष मान निकालिए।`,
+      ],
+    ][context]!, variant);
+  }
+
+  const oldAverage = value(pkg, "oldAverage") || a;
+  if (context % 3 === 0) {
+    return `कुछ परीक्षा-अंकों का औसत ${oldAverage} है। प्रत्येक अंक में ${change} जोड़ने पर नया औसत ज्ञात कीजिए।`;
+  }
+  if (context % 3 === 1) {
+    return `कुछ प्रेक्षणों का औसत ${oldAverage} है। प्रत्येक प्रेक्षण को ${factor} से गुणा करने पर नया औसत क्या होगा?`;
+  }
+  return `कुछ रीडिंगों का औसत ${oldAverage} है। प्रत्येक रीडिंग को ${factor} से गुणा करके उसमें ${change} जोड़ दिया जाता है। नया औसत ज्ञात कीजिए।`;
 }
 
-function correctedValidation(pkg: Avg001QuestionPackage, language: "hi" | "pa") {
-  const allText = `${pkg.stem}\n${pkg.explanation.lines.join("\n")}`;
-  const devanagariLetters = /[\u0900-\u0963\u0970-\u097F]/;
-  const gurmukhiLetters = /[\u0A01-\u0A74]/;
-  const expectedScript = language === "hi" ? devanagariLetters : gurmukhiLetters;
-  const wrongScript = language === "hi" ? gurmukhiLetters : devanagariLetters;
-  const checks = pkg.validation.checks.map((check) => {
-    if (check.name === "localized-script") {
-      return {
-        ...check,
-        passed: expectedScript.test(allText) && !wrongScript.test(allText),
-        message: "Localized prose uses the expected Indic script; shared punctuation is ignored",
-      };
-    }
-    if (check.name === "localized-explanation") {
-      return {
-        ...check,
-        passed:
-          pkg.explanation.lines.length === 4 &&
-          pkg.explanation.lines.some((line) => line.includes(pkg.answer)),
-      };
-    }
-    return check;
-  });
+function punjabiStem(pkg: Avg001QuestionPackage) {
+  const c = value(pkg, "count");
+  const a = value(pkg, "average");
+  const t = value(pkg, "total");
+  const k = value(pkg, "knownTotal");
+  const factor = value(pkg, "factor");
+  const change = value(pkg, "change");
+  const context = contextIndex(pkg);
+  const variant = wordingVariant(pkg);
+
+  if (pkg.solveMode === "findSumFromAverageAndCount") {
+    return pick([
+      [
+        `${c} ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਅੰਕਾਂ ਦੀ ਔਸਤ ${a} ਹੈ। ਸਾਰੇ ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਕੁੱਲ ਅੰਕ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਜਮਾਤ ਵਿੱਚ ${c} ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਔਸਤ ਅੰਕ ${a} ਹਨ। ਜਮਾਤ ਦੇ ਕੁੱਲ ਅੰਕ ਕਿੰਨੇ ਹਨ?`,
+        `${c} ਉਮੀਦਵਾਰਾਂ ਨੇ ਔਸਤਨ ${a} ਅੰਕ ਪ੍ਰਾਪਤ ਕੀਤੇ। ਉਨ੍ਹਾਂ ਦੇ ਅੰਕਾਂ ਦਾ ਕੁੱਲ ਜੋੜ ਪਤਾ ਕਰੋ।`,
+      ],
+      [
+        `ਇੱਕ ਕਾਰਖਾਨਾ ${c} ਦਿਨਾਂ ਤੱਕ ਹਰ ਰੋਜ਼ ਔਸਤਨ ${a} ਇਕਾਈਆਂ ਬਣਾਉਂਦਾ ਹੈ। ਕੁੱਲ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`,
+        `${c} ਦਿਨਾਂ ਦਾ ਔਸਤ ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ ${a} ਇਕਾਈਆਂ ਹੈ। ਇਨ੍ਹਾਂ ਦਿਨਾਂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਬਣੀਆਂ?`,
+        `ਇੱਕ ਉਤਪਾਦਨ ਕੇਂਦਰ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ਹਰ ਰੋਜ਼ ਔਸਤਨ ${a} ਵਸਤਾਂ ਬਣਾਈਆਂ। ਕੁੱਲ ਵਸਤਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+      ],
+      [
+        `ਇੱਕ ਦੁਕਾਨ ਦੀ ${c} ਦਿਨਾਂ ਦੀ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ₹${a} ਹੈ। ਇਨ੍ਹਾਂ ਦਿਨਾਂ ਦੀ ਕੁੱਲ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।`,
+        `${c} ਦਿਨਾਂ ਤੱਕ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਦੀ ਵਿਕਰੀ ਹੋਈ। ਕੁੱਲ ਵਿਕਰੀ ਕਿੰਨੀ ਸੀ?`,
+        `ਇੱਕ ਵਿਕਰੇਤਾ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਦੀ ਵਿਕਰੀ ਕੀਤੀ। ਕੁੱਲ ਵਿਕਰੀ ਰਕਮ ਪਤਾ ਕਰੋ।`,
+      ],
+      [
+        `${c} ਕਰਮਚਾਰੀਆਂ ਦੀ ਔਸਤ ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ ₹${a} ਹੈ। ਸਾਰੇ ਕਰਮਚਾਰੀਆਂ ਦੀ ਕੁੱਲ ਮਹੀਨਾਵਾਰ ਤਨਖਾਹ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਵਿਭਾਗ ਵਿੱਚ ${c} ਕਰਮਚਾਰੀ ਹਨ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਔਸਤ ਤਨਖਾਹ ₹${a} ਹੈ। ਕੁੱਲ ਤਨਖਾਹ ਕਿੰਨੀ ਹੈ?`,
+        `${c} ਕਰਮਚਾਰੀਆਂ ਨੂੰ ਔਸਤਨ ₹${a} ਤਨਖਾਹ ਮਿਲਦੀ ਹੈ। ਤਨਖਾਹ ਉੱਤੇ ਕੁੱਲ ਕਿੰਨੀ ਰਕਮ ਖਰਚ ਹੁੰਦੀ ਹੈ?`,
+      ],
+      [
+        `ਇੱਕ ਬੱਸ ਨੇ ${c} ਚੱਕਰਾਂ ਵਿੱਚ ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤਨ ${a} ਯਾਤਰੀ ਪਹੁੰਚਾਏ। ਸਾਰੇ ਚੱਕਰਾਂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਯਾਤਰੀ ਲਿਜਾਏ ਗਏ?`,
+        `${c} ਚੱਕਰਾਂ ਵਿੱਚ ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤਨ ${a} ਯਾਤਰੀ ਸਫਰ ਕਰਦੇ ਹਨ। ਕੁੱਲ ਯਾਤਰੀ-ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਸ਼ਟਲ ਦੇ ਹਰ ਚੱਕਰ ਵਿੱਚ ਔਸਤਨ ${a} ਯਾਤਰੀ ਸਨ। ${c} ਚੱਕਰਾਂ ਵਿੱਚ ਕੁੱਲ ਕਿੰਨੇ ਯਾਤਰੀ ਹੋਏ?`,
+      ],
+      [
+        `ਇੱਕ ਪਰਿਵਾਰ ${c} ਦਿਨਾਂ ਤੱਕ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਖਰਚ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਖਰਚ ਪਤਾ ਕਰੋ।`,
+        `${c} ਦਿਨਾਂ ਦਾ ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ₹${a} ਹੈ। ਇਸ ਮਿਆਦ ਦਾ ਕੁੱਲ ਖਰਚ ਕਿੰਨਾ ਹੈ?`,
+        `ਇੱਕ ਹੋਸਟਲ ਵਿੱਚ ${c} ਦਿਨਾਂ ਤੱਕ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਖਰਚ ਹੋਏ। ਕੁੱਲ ਖਰਚ ਪਤਾ ਕਰੋ।`,
+      ],
+    ][context]!, variant);
+  }
+
+  if (pkg.solveMode === "findAverageFromSumAndCount") {
+    return pick([
+      [
+        `${c} ਪ੍ਰੀਖਿਆਵਾਂ ਵਿੱਚ ਕੁੱਲ ${t} ਅੰਕ ਮਿਲੇ। ਪ੍ਰਤੀ ਪ੍ਰੀਖਿਆ ਔਸਤ ਅੰਕ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਉਮੀਦਵਾਰ ਨੇ ${c} ਪ੍ਰੀਖਿਆਵਾਂ ਵਿੱਚ ਕੁੱਲ ${t} ਅੰਕ ਬਣਾਏ। ਉਸ ਦਾ ਔਸਤ ਸਕੋਰ ਕਿੰਨਾ ਹੈ?`,
+        `${c} ਟੈਸਟਾਂ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${t} ਹੈ। ਔਸਤ ਅੰਕ ਪਤਾ ਕਰੋ।`,
+      ],
+      [
+        `${c} ਘੰਟਿਆਂ ਵਿੱਚ ਕੁੱਲ ${t} ਇਕਾਈਆਂ ਦਾ ਉਤਪਾਦਨ ਹੋਇਆ। ਪ੍ਰਤੀ ਘੰਟਾ ਔਸਤ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਮਸ਼ੀਨ ਨੇ ${c} ਘੰਟਿਆਂ ਵਿੱਚ ${t} ਪੁਰਜ਼ੇ ਬਣਾਏ। ਇੱਕ ਘੰਟੇ ਦਾ ਔਸਤ ਉਤਪਾਦਨ ਕਿੰਨਾ ਹੈ?`,
+        `${c} ਘੰਟਿਆਂ ਦਾ ਕੁੱਲ ਉਤਪਾਦਨ ${t} ਇਕਾਈਆਂ ਹੈ। ਪ੍ਰਤੀ ਘੰਟਾ ਔਸਤ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਦਿਨਾਂ ਦੀ ਕੁੱਲ ਵਿਕਰੀ ₹${t} ਹੈ। ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਦੁਕਾਨ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ਕੁੱਲ ₹${t} ਦੀ ਵਿਕਰੀ ਕੀਤੀ। ਪ੍ਰਤੀ ਦਿਨ ਔਸਤ ਵਿਕਰੀ ਕਿੰਨੀ ਹੈ?`,
+        `${c} ਦਿਨਾਂ ਵਿੱਚ ਵਿਕਰੀ ਤੋਂ ₹${t} ਪ੍ਰਾਪਤ ਹੋਏ। ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਦਿਨਾਂ ਵਿੱਚ ਕੁੱਲ ₹${t} ਖਰਚ ਹੋਏ। ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਪਰਿਵਾਰ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ₹${t} ਖਰਚ ਕੀਤੇ। ਪ੍ਰਤੀ ਦਿਨ ਔਸਤ ਖਰਚ ਕਿੰਨਾ ਹੈ?`,
+        `${c} ਦਿਨਾਂ ਦਾ ਕੁੱਲ ਖਰਚ ₹${t} ਹੈ। ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਦਿਨਾਂ ਵਿੱਚ ਕੁੱਲ ${t} ਕਿਲੋਮੀਟਰ ਦੂਰੀ ਤੈਅ ਕੀਤੀ ਗਈ। ਔਸਤ ਰੋਜ਼ਾਨਾ ਦੂਰੀ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਵਾਹਨ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ${t} ਕਿਲੋਮੀਟਰ ਸਫਰ ਕੀਤਾ। ਹਰ ਰੋਜ਼ ਔਸਤਨ ਕਿੰਨੀ ਦੂਰੀ ਤੈਅ ਹੋਈ?`,
+        `${c} ਦਿਨਾਂ ਦੀ ਕੁੱਲ ਦੂਰੀ ${t} ਕਿਲੋਮੀਟਰ ਹੈ। ਇੱਕ ਦਿਨ ਦੀ ਔਸਤ ਦੂਰੀ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜ ${t} ਹੈ। ਉਨ੍ਹਾਂ ਦੀ ਔਸਤ ਪਤਾ ਕਰੋ।`,
+        `${c} ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਜੋੜ ${t} ਹੈ। ਅੰਕਗਣਿਤ ਔਸਤ ਕੱਢੋ।`,
+        `ਇੱਕ ਅੰਕੜਾ-ਸਮੂਹ ਵਿੱਚ ${c} ਮੁੱਲ ਹਨ ਜਿਨ੍ਹਾਂ ਦਾ ਜੋੜ ${t} ਹੈ। ਔਸਤ ਕਿੰਨੀ ਹੈ?`,
+      ],
+    ][context]!, variant);
+  }
+
+  if (pkg.solveMode === "findCountFromSumAndAverage") {
+    return pick([
+      [
+        `ਕੁੱਲ ${t} ਇਕਾਈਆਂ ਦਾ ਉਤਪਾਦਨ ਹੋਇਆ ਅਤੇ ਔਸਤ ਰੋਜ਼ਾਨਾ ਉਤਪਾਦਨ ${a} ਇਕਾਈਆਂ ਸੀ। ਉਤਪਾਦਨ ਕਿੰਨੇ ਦਿਨ ਚੱਲਿਆ?`,
+        `ਇੱਕ ਵਰਕਸ਼ਾਪ ਨੇ ਹਰ ਰੋਜ਼ ਔਸਤਨ ${a} ਪੁਰਜ਼ੇ ਬਣਾ ਕੇ ਕੁੱਲ ${t} ਪੁਰਜ਼ੇ ਤਿਆਰ ਕੀਤੇ। ਉਸ ਨੇ ਕਿੰਨੇ ਦਿਨ ਕੰਮ ਕੀਤਾ?`,
+        `ਕੁੱਲ ਉਤਪਾਦਨ ${t} ਇਕਾਈਆਂ ਅਤੇ ਰੋਜ਼ਾਨਾ ਔਸਤ ${a} ਇਕਾਈਆਂ ਹੈ। ਕੰਮ ਦੇ ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+      ],
+      [
+        `ਇੱਕ ਜਮਾਤ ਦੇ ਕੁੱਲ ਅੰਕ ${t} ਹਨ ਅਤੇ ਪ੍ਰਤੀ ਵਿਦਿਆਰਥੀ ਔਸਤ ${a} ਅੰਕ ਹੈ। ਜਮਾਤ ਵਿੱਚ ਕਿੰਨੇ ਵਿਦਿਆਰਥੀ ਹਨ?`,
+        `ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${t} ਅਤੇ ਔਸਤ ${a} ਹੈ। ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਬੈਚ ਦਾ ਕੁੱਲ ਸਕੋਰ ${t} ਅਤੇ ਔਸਤ ਸਕੋਰ ${a} ਹੈ। ਬੈਚ ਵਿੱਚ ਕਿੰਨੇ ਵਿਦਿਆਰਥੀ ਹਨ?`,
+      ],
+      [
+        `ਲੈਣ-ਦੇਣ ਦੀ ਕੁੱਲ ਰਕਮ ₹${t} ਹੈ ਅਤੇ ਹਰ ਲੈਣ-ਦੇਣ ਦਾ ਔਸਤ ਮੁੱਲ ₹${a} ਹੈ। ਲੈਣ-ਦੇਣ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+        `₹${t} ਦੀ ਕੁੱਲ ਰਕਮ ਕਈ ਲੈਣ-ਦੇਣ ਤੋਂ ਬਣੀ ਹੈ, ਜਿਨ੍ਹਾਂ ਦਾ ਔਸਤ ₹${a} ਹੈ। ਕੁੱਲ ਲੈਣ-ਦੇਣ ਕਿੰਨੇ ਹਨ?`,
+        `ਕੁੱਲ ਲੈਣ-ਦੇਣ ਮੁੱਲ ₹${t} ਅਤੇ ਔਸਤ ਮੁੱਲ ₹${a} ਹੈ। ਲੈਣ-ਦੇਣ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।`,
+      ],
+      [
+        `ਕਰਮਚਾਰੀਆਂ ਦੀ ਕੁੱਲ ਤਨਖਾਹ ₹${t} ਅਤੇ ਔਸਤ ਤਨਖਾਹ ₹${a} ਹੈ। ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+        `ਤਨਖਾਹ ਉੱਤੇ ਕੁੱਲ ₹${t} ਖਰਚ ਹੁੰਦੇ ਹਨ ਅਤੇ ਪ੍ਰਤੀ ਕਰਮਚਾਰੀ ਔਸਤ ਤਨਖਾਹ ₹${a} ਹੈ। ਕੁੱਲ ਕਰਮਚਾਰੀ ਕਿੰਨੇ ਹਨ?`,
+        `ਕੁੱਲ ਤਨਖਾਹ-ਭੁਗਤਾਨ ₹${t} ਅਤੇ ਔਸਤ ਤਨਖਾਹ ₹${a} ਹੈ। ਕਰਮਚਾਰੀਆਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।`,
+      ],
+      [
+        `ਇੱਕ ਬੱਸ ਨੇ ਸਾਰੇ ਚੱਕਰਾਂ ਵਿੱਚ ਕੁੱਲ ${t} ਯਾਤਰੀ ਪਹੁੰਚਾਏ। ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤਨ ${a} ਯਾਤਰੀ ਸਨ। ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+        `ਕੁੱਲ ${t} ਯਾਤਰੀ ਲਿਜਾਏ ਗਏ ਅਤੇ ਹਰ ਚੱਕਰ ਵਿੱਚ ਔਸਤਨ ${a} ਯਾਤਰੀ ਸਨ। ਬੱਸ ਨੇ ਕਿੰਨੇ ਚੱਕਰ ਲਗਾਏ?`,
+        `ਪ੍ਰਤੀ ਚੱਕਰ ਔਸਤ ਯਾਤਰੀ-ਗਿਣਤੀ ${a} ਅਤੇ ਕੁੱਲ ਯਾਤਰੀ-ਗਿਣਤੀ ${t} ਹੈ। ਚੱਕਰਾਂ ਦੀ ਗਿਣਤੀ ਕੱਢੋ।`,
+      ],
+      [
+        `ਕੁੱਲ ਖਰਚ ₹${t} ਹੈ ਅਤੇ ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ₹${a} ਹੈ। ਇਹ ਖਰਚ ਕਿੰਨੇ ਦਿਨਾਂ ਦਾ ਹੈ?`,
+        `ਇੱਕ ਹੋਸਟਲ ਕੋਲ ₹${t} ਹਨ ਅਤੇ ਉਹ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਖਰਚ ਕਰਦਾ ਹੈ। ਰਕਮ ਕਿੰਨੇ ਦਿਨ ਚੱਲੇਗੀ?`,
+        `₹${t} ਦੀ ਰਕਮ ਵਿੱਚੋਂ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਖਰਚ ਹੁੰਦੇ ਹਨ। ਦਿਨਾਂ ਦੀ ਗਿਣਤੀ ਪਤਾ ਕਰੋ।`,
+      ],
+    ][context]!, variant);
+  }
+
+  if (pkg.solveMode === "findMissingValueFromAverage") {
+    const knownCount = String(Math.max(0, Number(c) - 1));
+    return pick([
+      [
+        `${c} ਪ੍ਰੀਖਿਆਵਾਂ ਦੀ ਔਸਤ ${a} ਅੰਕ ਹੈ। ਪਹਿਲੀਆਂ ${knownCount} ਪ੍ਰੀਖਿਆਵਾਂ ਵਿੱਚ ਕੁੱਲ ${k} ਅੰਕ ਮਿਲੇ। ਆਖਰੀ ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਉਮੀਦਵਾਰ ਦੀਆਂ ${c} ਪ੍ਰੀਖਿਆਵਾਂ ਦੀ ਔਸਤ ${a} ਹੈ। ${knownCount} ਪ੍ਰੀਖਿਆਵਾਂ ਦਾ ਕੁੱਲ ਸਕੋਰ ${k} ਹੈ। ਬਾਕੀ ਪ੍ਰੀਖਿਆ ਦਾ ਸਕੋਰ ਕਿੰਨਾ ਹੈ?`,
+        `${c} ਟੈਸਟਾਂ ਵਿੱਚ ਔਸਤ ${a} ਅੰਕ ਹੈ। ਪਹਿਲੇ ${knownCount} ਟੈਸਟਾਂ ਦੇ ਅੰਕ ${k} ਹਨ। ਆਖਰੀ ਟੈਸਟ ਦੇ ਅੰਕ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਸ਼ਿਫਟਾਂ ਦਾ ਔਸਤ ਉਤਪਾਦਨ ${a} ਇਕਾਈਆਂ ਹੈ। ਪਹਿਲੀਆਂ ${knownCount} ਸ਼ਿਫਟਾਂ ਵਿੱਚ ਕੁੱਲ ${k} ਇਕਾਈਆਂ ਬਣੀਆਂ। ਆਖਰੀ ਸ਼ਿਫਟ ਦਾ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਪਲਾਂਟ ਦੀਆਂ ${c} ਸ਼ਿਫਟਾਂ ਦਾ ਔਸਤ ${a} ਇਕਾਈਆਂ ਹੈ। ${knownCount} ਸ਼ਿਫਟਾਂ ਦਾ ਉਤਪਾਦਨ ${k} ਇਕਾਈਆਂ ਹੈ। ਬਾਕੀ ਸ਼ਿਫਟ ਵਿੱਚ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਬਣੀਆਂ?`,
+        `${c} ਸ਼ਿਫਟਾਂ ਦਾ ਔਸਤ ਉਤਪਾਦਨ ${a} ਅਤੇ ਪਹਿਲੀਆਂ ${knownCount} ਸ਼ਿਫਟਾਂ ਦਾ ਕੁੱਲ ਉਤਪਾਦਨ ${k} ਹੈ। ਆਖਰੀ ਸ਼ਿਫਟ ਦਾ ਉਤਪਾਦਨ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਦਿਨਾਂ ਦੀ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ₹${a} ਹੈ। ਪਹਿਲੇ ${knownCount} ਦਿਨਾਂ ਦੀ ਕੁੱਲ ਵਿਕਰੀ ₹${k} ਹੈ। ਆਖਰੀ ਦਿਨ ਦੀ ਵਿਕਰੀ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਦੁਕਾਨ ਦੀ ${c} ਦਿਨਾਂ ਦੀ ਔਸਤ ਵਿਕਰੀ ₹${a} ਪ੍ਰਤੀ ਦਿਨ ਹੈ। ${knownCount} ਦਿਨਾਂ ਵਿੱਚ ₹${k} ਦੀ ਵਿਕਰੀ ਹੋਈ। ਬਾਕੀ ਦਿਨ ਦੀ ਵਿਕਰੀ ਕਿੰਨੀ ਸੀ?`,
+        `${c} ਦਿਨਾਂ ਦੀ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ ₹${a} ਅਤੇ ਪਹਿਲੇ ${knownCount} ਦਿਨਾਂ ਦੀ ਵਿਕਰੀ ₹${k} ਹੈ। ਆਖਰੀ ਦਿਨ ਦੀ ਵਿਕਰੀ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਦਿਨਾਂ ਦਾ ਔਸਤ ਰੋਜ਼ਾਨਾ ਖਰਚ ₹${a} ਹੈ। ਪਹਿਲੇ ${knownCount} ਦਿਨਾਂ ਵਿੱਚ ₹${k} ਖਰਚ ਹੋਏ। ਆਖਰੀ ਦਿਨ ਦਾ ਖਰਚ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਹੋਸਟਲ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ਹਰ ਰੋਜ਼ ਔਸਤਨ ₹${a} ਖਰਚ ਕੀਤੇ। ਪਹਿਲੇ ${knownCount} ਦਿਨਾਂ ਦਾ ਖਰਚ ₹${k} ਸੀ। ਆਖਰੀ ਦਿਨ ਕਿੰਨਾ ਖਰਚ ਹੋਇਆ?`,
+        `${c} ਦਿਨਾਂ ਦਾ ਔਸਤ ਖਰਚ ₹${a} ਪ੍ਰਤੀ ਦਿਨ ਹੈ ਅਤੇ ${knownCount} ਦਿਨਾਂ ਦਾ ਖਰਚ ₹${k} ਹੈ। ਬਾਕੀ ਦਿਨ ਦਾ ਖਰਚ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਦਿਨਾਂ ਦੀ ਔਸਤ ਰੋਜ਼ਾਨਾ ਦੂਰੀ ${a} ਕਿਲੋਮੀਟਰ ਹੈ। ਪਹਿਲੇ ${knownCount} ਦਿਨਾਂ ਵਿੱਚ ${k} ਕਿਲੋਮੀਟਰ ਦੂਰੀ ਤੈਅ ਹੋਈ। ਆਖਰੀ ਦਿਨ ਦੀ ਦੂਰੀ ਪਤਾ ਕਰੋ।`,
+        `ਇੱਕ ਸਾਈਕਲ ਸਵਾਰ ਨੇ ${c} ਦਿਨਾਂ ਵਿੱਚ ਹਰ ਰੋਜ਼ ਔਸਤਨ ${a} ਕਿਲੋਮੀਟਰ ਸਫਰ ਕੀਤਾ। ${knownCount} ਦਿਨਾਂ ਵਿੱਚ ਉਸ ਨੇ ${k} ਕਿਲੋਮੀਟਰ ਤੈਅ ਕੀਤੇ। ਆਖਰੀ ਦਿਨ ਕਿੰਨੀ ਦੂਰੀ ਤੈਅ ਕੀਤੀ?`,
+        `${c} ਦਿਨਾਂ ਦੀ ਔਸਤ ਦੂਰੀ ${a} ਕਿਲੋਮੀਟਰ ਪ੍ਰਤੀ ਦਿਨ ਅਤੇ ਪਹਿਲੇ ${knownCount} ਦਿਨਾਂ ਦੀ ਦੂਰੀ ${k} ਕਿਲੋਮੀਟਰ ਹੈ। ਬਾਕੀ ਦਿਨ ਦੀ ਦੂਰੀ ਕੱਢੋ।`,
+      ],
+      [
+        `${c} ਸੰਖਿਆਵਾਂ ਦੀ ਔਸਤ ${a} ਹੈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ${knownCount} ਸੰਖਿਆਵਾਂ ਦਾ ਜੋੜ ${k} ਹੈ। ਬਾਕੀ ਸੰਖਿਆ ਪਤਾ ਕਰੋ।`,
+        `${c} ਮੁੱਲਾਂ ਦੀ ਔਸਤ ${a} ਹੈ। ${knownCount} ਮੁੱਲਾਂ ਦਾ ਕੁੱਲ ਜੋੜ ${k} ਹੈ। ਆਖਰੀ ਮੁੱਲ ਕਿੰਨਾ ਹੈ?`,
+        `ਇੱਕ ਅੰਕੜਾ-ਸਮੂਹ ਵਿੱਚ ${c} ਮੁੱਲਾਂ ਦੀ ਔਸਤ ${a} ਹੈ ਅਤੇ ${knownCount} ਮੁੱਲਾਂ ਦਾ ਜੋੜ ${k} ਹੈ। ਬਾਕੀ ਮੁੱਲ ਕੱਢੋ।`,
+      ],
+    ][context]!, variant);
+  }
+
+  const oldAverage = value(pkg, "oldAverage") || a;
+  if (context % 3 === 0) return `ਕੁਝ ਪ੍ਰੀਖਿਆ ਅੰਕਾਂ ਦੀ ਔਸਤ ${oldAverage} ਹੈ। ਹਰ ਅੰਕ ਵਿੱਚ ${change} ਜੋੜਨ ਉੱਤੇ ਨਵੀਂ ਔਸਤ ਪਤਾ ਕਰੋ।`;
+  if (context % 3 === 1) return `ਕੁਝ ਮੁੱਲਾਂ ਦੀ ਔਸਤ ${oldAverage} ਹੈ। ਹਰ ਮੁੱਲ ਨੂੰ ${factor} ਨਾਲ ਗੁਣਾ ਕਰਨ ਉੱਤੇ ਨਵੀਂ ਔਸਤ ਕੀ ਹੋਵੇਗੀ?`;
+  return `ਕੁਝ ਮਾਪਾਂ ਦੀ ਔਸਤ ${oldAverage} ਹੈ। ਹਰ ਮਾਪ ਨੂੰ ${factor} ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਉਸ ਵਿੱਚ ${change} ਜੋੜਿਆ ਜਾਂਦਾ ਹੈ। ਨਵੀਂ ਔਸਤ ਪਤਾ ਕਰੋ।`;
+}
+
+function refreshedValidation(pkg: Avg001QuestionPackage, stem: string, language: PilotLanguage) {
+  const excluded = new Set(["localized-stem", "resolved-stem", "localized-script"]);
+  const checks: Avg001ValidationCheck[] = pkg.validation.checks.filter((check) => !excluded.has(check.name));
+  const expected = language === "hi" ? /[\u0900-\u097F]/ : /[\u0A00-\u0A7F]/;
+  const wrong = language === "hi" ? /[\u0A00-\u0A7F]/ : /[\u0900-\u097F]/;
+  checks.push(
+    { name: "localized-stem", passed: expected.test(stem) && !wrong.test(stem), message: "Stem uses the requested script" },
+    { name: "resolved-stem", passed: !/[{}]|undefined|NaN|Infinity|null/.test(stem), message: "Stem is fully rendered" },
+    { name: "context-first-stem", passed: !/संयुक्त स्कोर|मिलਿਆ-ਜੁਲਿਆ ਸਕੋਰ|एक प्रणाली|ਇੱਕ ਪ੍ਰਣਾਲੀ|\.0\b/.test(stem), message: "Stem avoids literal or machine-like phrasing" },
+  );
   return { valid: checks.every((check) => check.passed), checks };
 }
 
 export function runAvg001Cp001LocalizationPilot(input: {
   questionLanguageId: string;
   seed: string;
-  language: "hi" | "pa";
+  language: PilotLanguage;
 }): Avg001QuestionPackage {
   const base = runBasePilot(input);
-  const lines = base.explanation.lines.map(normalizeMath);
-  lines[0] = localizedOpening(base, input.language);
-  lines[lines.length - 1] = localizedConclusion(base, input.language);
-  const normalized: Avg001QuestionPackage = {
-    ...base,
-    stem: polishStem(base.stem, input.language),
-    explanation: { lines },
-  };
-  return {
-    ...normalized,
-    validation: correctedValidation(normalized, input.language),
-  };
+  const stem = input.language === "hi" ? hindiStem(base) : punjabiStem(base);
+  return { ...base, stem, validation: refreshedValidation(base, stem, input.language) };
 }
