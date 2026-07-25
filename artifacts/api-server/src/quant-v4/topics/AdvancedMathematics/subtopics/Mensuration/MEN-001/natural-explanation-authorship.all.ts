@@ -9,6 +9,10 @@ import {
   getMen001Cp005NaturalExplanationProfile,
   getMen001Cp005NaturalExplanationProfileIds,
 } from "./natural-explanation-authorship.cp005";
+import {
+  getMen001Cp005OverlapNaturalExplanationProfile,
+  getMen001Cp005OverlapNaturalExplanationProfileIds,
+} from "./natural-explanation-authorship.cp005.overlap";
 import type { Men001Parameters, Men001SolverResult } from "./types";
 
 export function authorAllMen001ExplanationLines(
@@ -17,7 +21,9 @@ export function authorAllMen001ExplanationLines(
   solver: Men001SolverResult,
 ): string[] {
   return parameters.canonicalProblemId === "MEN-CP-005"
-    ? authorMen001Cp005ExplanationLines(originalLines, parameters, solver)
+    ? parameters.questionLanguageId === "MEN-001-QL-361"
+      ? originalLines
+      : authorMen001Cp005ExplanationLines(originalLines, parameters, solver)
     : authorMen001ExplanationLines(originalLines, parameters, solver);
 }
 
@@ -26,7 +32,8 @@ export function getAllMen001NaturalExplanationProfile(
 ): Men001NaturalExplanationProfile | undefined {
   return (
     getMen001NaturalExplanationProfile(questionLanguageId) ??
-    getMen001Cp005NaturalExplanationProfile(questionLanguageId)
+    getMen001Cp005NaturalExplanationProfile(questionLanguageId) ??
+    getMen001Cp005OverlapNaturalExplanationProfile(questionLanguageId)
   );
 }
 
@@ -34,5 +41,6 @@ export function getAllMen001NaturalExplanationProfileIds() {
   return [
     ...getMen001NaturalExplanationProfileIds(),
     ...getMen001Cp005NaturalExplanationProfileIds(),
+    ...getMen001Cp005OverlapNaturalExplanationProfileIds(),
   ];
 }
