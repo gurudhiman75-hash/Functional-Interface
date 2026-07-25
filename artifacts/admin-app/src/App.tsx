@@ -25,6 +25,8 @@ const ExamBlueprintsPage = lazy(() => import('@/pages/tests/ExamBlueprintsWorksp
 const TestSeriesPage = lazy(() => import('@/pages/tests/TestSeriesWorkspacePage').then((module) => ({ default: module.TestSeriesWorkspacePage })));
 const PackagesPage = lazy(() => import('@/pages/commerce/PackagesWorkspacePage').then((module) => ({ default: module.PackagesWorkspacePage })));
 const PackageDetailPage = lazy(() => import('@/pages/commerce/PackagesWorkspacePage').then((module) => ({ default: module.PackageDetailPage })));
+const OrdersPaymentsPage = lazy(() => import('@/pages/commerce/OrdersPaymentsWorkspacePage').then((module) => ({ default: module.OrdersPaymentsWorkspacePage })));
+const OrderPaymentDetailPage = lazy(() => import('@/pages/commerce/OrdersPaymentsWorkspacePage').then((module) => ({ default: module.OrderPaymentDetailPage })));
 const TestAnalyticsPage = lazy(() => import('@/pages/analytics/TestAnalyticsPage').then((module) => ({ default: module.TestAnalyticsPage })));
 const TestAnalyticsDetailPage = lazy(() => import('@/pages/analytics/TestAnalyticsPage').then((module) => ({ default: module.TestAnalyticsDetailPage })));
 const TestAnalyticsQualityPage = lazy(() => import('@/pages/analytics/TestAnalyticsQualityPage').then((module) => ({ default: module.TestAnalyticsQualityPage })));
@@ -67,6 +69,8 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/tests/calendar', element: <PublishingCalendarPage /> },
   { path: '/tests/:id', element: <TestDetailPage /> },
   { path: '/tests', element: <TestsPage /> },
+  { path: '/commerce/orders/:orderId', element: <OrderPaymentDetailPage /> },
+  { path: '/commerce/orders', element: <OrdersPaymentsPage /> },
   { path: '/commerce/packages/:productId', element: <PackageDetailPage /> },
   { path: '/commerce/packages', element: <PackagesPage /> },
   { path: '/commerce/*', element: <PendingWorkspacePage /> },
@@ -96,14 +100,5 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
 ]}], { basename: '/admin' });
 
 export default function App() {
-  return (
-    <MathRenderingProvider>
-      <ThemeProvider>
-        <Suspense fallback={<RouteFallback />}>
-          <RouterProvider router={router} />
-        </Suspense>
-        <Toaster />
-      </ThemeProvider>
-    </MathRenderingProvider>
-  );
+  return <MathRenderingProvider><ThemeProvider><Suspense fallback={<RouteFallback />}><RouterProvider router={router} /></Suspense><Toaster /></ThemeProvider></MathRenderingProvider>;
 }
