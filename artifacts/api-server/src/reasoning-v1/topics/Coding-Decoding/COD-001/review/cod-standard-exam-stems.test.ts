@@ -28,7 +28,7 @@ const checkpoints: readonly CheckpointRange[] = [
   { checkpointId: "COD-CP-006", start: 137, end: 168, generate: generateCodCp006Question },
 ];
 
-const forbidden = /study\b|following examples|coding pattern|according to|given that|same (?:rule|coding|letter code|numerical rule|rearrangement)|use the same|apply the same|from these examples|the given examples|using these examples|coding system shown|table follows|two[- ](?:stage|step)/i;
+const forbidden = /study (?:these|the|common)|the following examples|according to (?:this|the) coding pattern|given that|the same (?:rule|coding|letter code|numerical rule|rearrangement)|use the same|apply the same|from these examples|the given examples|using these examples|coding system shown|table follows|two[- ](?:stage|step)/i;
 const sampleExamples = "‘BANK’ is coded as ‘CBOJ’ and ‘MIND’ is coded as ‘NJOE’";
 const authoritySamples = [
   ...Array.from({ length: 4 }, (_, style) => buildStandardEncodeStem(sampleExamples, "FARM", style)),
