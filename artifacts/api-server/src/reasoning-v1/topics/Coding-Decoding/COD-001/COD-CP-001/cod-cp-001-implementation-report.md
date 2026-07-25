@@ -1,6 +1,6 @@
 # COD-CP-001 Runtime-Proof Implementation Report
 
-Status: English runtime proof complete in source; repository CI and human editorial approval pending.
+Status: English runtime proof complete and repository CI verified; human editorial approval pending.
 
 ## Scope
 
@@ -27,11 +27,11 @@ Status: English runtime proof complete in source; repository CI and human editor
 - exact review exporter;
 - 100-seed-per-QL runtime audit.
 
-## Validation executed during implementation
+## Validation executed
 
-The checkpoint source was compiled with TypeScript in an isolated local harness and the committed test logic was executed with Node.
+The checkpoint source was first compiled with TypeScript in an isolated local harness and the committed test logic was executed with Node. The same committed audit then executed successfully in GitHub Actions through the `Reasoning COD-001 Runtime` workflow on PR #117.
 
-Observed audit result:
+Verified audit result:
 
 - generated questions: `2,400` (`24 QLs × 100 seeds`);
 - answer positions: `573 / 606 / 607 / 614`;
@@ -42,7 +42,7 @@ Observed audit result:
 - difficulties covered: Easy, Medium and Hard;
 - deterministic equality, solver agreement, injectivity, evidence coverage, ambiguity acceptance and option contracts passed for every sampled instance.
 
-This isolated execution does not replace repository CI. The same test must still be run from a checked-out project workspace.
+Repository workflow result: **success**.
 
 ## Repository runtime command
 
@@ -56,7 +56,6 @@ The exact runtime review can be produced by importing `exportCodCp001Review` fro
 
 ## Remaining before checkpoint freeze
 
-- execute the committed audit in repository CI or a checked-out workspace;
 - inspect the full 24-row exact review export across several seeds;
 - tune any weak or overly mechanical stems and distractors;
 - record English editorial approval;
