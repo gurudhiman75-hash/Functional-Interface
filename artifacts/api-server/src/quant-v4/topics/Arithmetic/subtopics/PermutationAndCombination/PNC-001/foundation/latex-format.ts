@@ -2,7 +2,7 @@ import type { Pnc001QuestionPackage, Pnc001ValidationCheck } from "./types";
 
 const DELIMITED_MATH = /\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$[^$\n]+?\$/g;
 const TOKEN_PATTERN = /@@PNC_LATEX_(\d+)@@/g;
-const FORMULA_START = /(?:\b(?:\d+|[nrsk])(?:P|C)(?:\d+|[nrsk])\b|\b[CP]\(\s*[A-Za-z0-9]+\s*,\s*[A-Za-z0-9]+\s*\)|\b(?:\d+|n)!|\((?:n\s*[+-]\s*\d+)\)!|\b\d+\^\d+\b|\b[nrsk]\s*(?:=|≥|≤|>|<)\s*\d+\b|\b\d+\s*[×÷]\s*\d+\b|\b\d+(?:\s*[+−-]\s*\d+)+\s*=\s*\d+\b|\bn\s*\(\s*n\s*[-+]\s*\d+\s*\))/g;
+const FORMULA_START = /(?:\b\d+\s*(?:≤|<)\s*[nrsk]\s*(?:≤|<)\s*\d+\b|\b(?:\d+|[nrsk])(?:P|C)(?:\d+|[nrsk])\b|\b[CP]\(\s*[A-Za-z0-9]+\s*,\s*[A-Za-z0-9]+\s*\)|\b(?:\d+|n)!|\((?:n\s*[+-]\s*\d+)\)!|\b\d+\^\d+\b|\b[nrsk]\s*(?:=|≥|≤|>|<)\s*\d+\b|\b\d+\s*[×÷]\s*\d+\b|\b\d+(?:\s*[+−-]\s*\d+)+\s*=\s*\d+\b|\bn\s*\(\s*n\s*[-+]\s*\d+\s*\))/g;
 const FORMULA_CHAR = /[0-9nrskPC!^×÷+−\-=≤≥<>()/,. \t]/;
 
 function spaceLatexBraces(tex: string): string {
@@ -96,8 +96,10 @@ function wrapFormulaSpans(value: string, protect: (segment: string) => string): 
     const match = FORMULA_START.exec(value);
     if (!match || match.index === undefined) break;
 
-    const start = match.index;
-    let end = start + match[0].length;
+    let start = match.index;
+    while (start > cursor && value[start - 1] === "(") start -= 1;
+
+    let end = match.index + match[0].length;
     while (end < value.length && FORMULA_CHAR.test(value[end]!)) end += 1;
     while (end > start && /[\s,.]/.test(value[end - 1]!)) end -= 1;
 
@@ -140,6 +142,7 @@ export function hasUnformattedPncFormula(value: string): boolean {
     /\b\d+\^\d+\b/,
     /\b\d+\s*[×÷]\s*\d+/,
     /\b\d+(?:\s*[+−-]\s*\d+)+\s*=\s*\d+\b/,
+    /\b\d+\s*(?:≤|<)\s*[nrsk]\s*(?:≤|<)\s*\d+\b/,
     /\b[nrsk]\s*(?:=|≥|≤|>|<)\s*\d+\b/,
   ].some((pattern) => pattern.test(plain));
 }
