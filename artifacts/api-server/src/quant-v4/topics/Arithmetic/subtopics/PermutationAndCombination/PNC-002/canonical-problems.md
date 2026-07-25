@@ -7,7 +7,7 @@
 | `PNC-CP-007` | specified objects together/apart, one or more linear blocks, internal block orders and direct block complements | Current English ownership saturated; runtime proof |
 | `PNC-CP-008` | fixed positions, starts/ends, relative order, alternation, position classes and explicit gap placement | Current English ownership saturated; runtime proof |
 | `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Current English ownership saturated; runtime proof |
-| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Saturation-expanded English runtime checkpoint; final gap audit open |
+| `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Current English ownership saturated; runtime proof |
 | `PNC-CP-011` | labelled/unlabelled grouping and distribution | Not started |
 | `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
 
@@ -49,7 +49,7 @@
 - named compulsory/excluded members combined with category quotas;
 - bounded recovery of total pool size or category size.
 
-## CP-010 current represented scope
+## CP-010 represented scope
 
 - distinct round-table arrangements and reference-person normalization;
 - one or more circular blocks and direct complements;
@@ -62,15 +62,21 @@
 - bounded recovery from unrestricted or pair-together circular counts;
 - rotation-only circular displays;
 - distinct necklaces under rotation and reflection;
-- reflection-equivalent necklaces with a specified adjacent pair.
+- reflection-equivalent necklaces with a specified adjacent pair;
+- choosing a proper subset of distinct objects and arranging the chosen objects circularly when rotations alone are identified;
+- choosing a proper subset of distinct objects for a reversible ring when rotations and reflections are identified;
+- round-table seatings identified by each person's unordered neighbour pair, which merges reversed cycles.
 
 ## Negative boundaries
 
 The active CPs do not own:
 
 - grouping/distribution into labelled or unlabelled groups — CP-011;
-- mixed selection-plus-circular systems or broader advanced inclusion–exclusion — CP-012;
+- conditional or category-restricted selection followed by a circular arrangement — CP-012;
+- broader advanced inclusion–exclusion systems whose primary authority is not a represented CP-010 circular event — CP-012;
 - repeated-colour necklace systems requiring Burnside/Pólya analysis — CP-012 unless separately justified;
 - word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005.
 
-Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-205`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-206`.
+Pure selection of an unrestricted proper subset followed directly by circular equivalence is CP-010 ownership. It becomes CP-012 only when the selection itself introduces named-member, category, quota or other mixed-system conditions.
+
+Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-208`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-209`.
