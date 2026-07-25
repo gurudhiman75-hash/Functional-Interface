@@ -1,4 +1,6 @@
+import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
+import { validateAvg001QuestionPackage } from "./validator";
 
 export const AVG_001_ENGLISH_RELEASE = Object.freeze({
   releaseId: "AVG-001-EN-v1",
@@ -51,6 +53,24 @@ function releaseValidationChecks(pkg: Avg001QuestionPackage) {
   return checks;
 }
 
+function preserveSupplementalValidation(
+  humanized: Avg001QuestionPackage,
+  regenerated: Avg001QuestionPackage["validation"],
+) {
+  const supplementalNames = new Set(["distractor-realism"]);
+  const supplemental = humanized.validation.checks.filter((check) =>
+    supplementalNames.has(check.name),
+  );
+  const checks = [
+    ...regenerated.checks.filter((check) => !supplementalNames.has(check.name)),
+    ...supplemental,
+  ];
+  return {
+    valid: checks.every((check) => check.passed),
+    checks,
+  };
+}
+
 export function applyAvg001EnglishRelease(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
@@ -59,15 +79,26 @@ export function applyAvg001EnglishRelease(
       `${AVG_001_ENGLISH_RELEASE.releaseId} approves English only; received ${pkg.language}`,
     );
   }
-  if (!pkg.validation.valid || pkg.validation.checks.some((check) => !check.passed)) {
+
+  const humanized = applyAvg001HumanAuthoredExplanation(pkg);
+  const { validation: _previousValidation, ...candidate } = humanized;
+  const regeneratedValidation = validateAvg001QuestionPackage(candidate);
+  const validation = preserveSupplementalValidation(humanized, regeneratedValidation);
+  const validated: Avg001QuestionPackage = { ...humanized, validation };
+
+  if (!validated.validation.valid || validated.validation.checks.some((check) => !check.passed)) {
+    const failures = validated.validation.checks
+      .filter((check) => !check.passed)
+      .map((check) => `${check.name}: ${check.message}`)
+      .join("; ");
     throw new Error(
-      `${pkg.questionLanguageId}: cannot apply ${AVG_001_ENGLISH_RELEASE.releaseId} to an invalid package`,
+      `${pkg.questionLanguageId}: cannot apply ${AVG_001_ENGLISH_RELEASE.releaseId} after explanation authorship validation [${failures}]`,
     );
   }
 
-  const checks = releaseValidationChecks(pkg);
+  const checks = releaseValidationChecks(validated);
   return {
-    ...pkg,
+    ...validated,
     maturity: "FROZEN",
     publiclyPublishable: true,
     validation: {
@@ -75,7 +106,7 @@ export function applyAvg001EnglishRelease(
       checks,
     },
     traceability: {
-      ...pkg.traceability,
+      ...validated.traceability,
       releaseId: AVG_001_ENGLISH_RELEASE.releaseId,
       releaseStatus: AVG_001_ENGLISH_RELEASE.status,
       editorialStatus: AVG_001_ENGLISH_RELEASE.editorialStatus,
