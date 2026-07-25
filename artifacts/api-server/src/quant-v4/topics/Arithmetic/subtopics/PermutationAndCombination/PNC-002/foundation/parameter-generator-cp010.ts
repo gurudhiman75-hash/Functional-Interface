@@ -90,6 +90,11 @@ export function buildPnc002Cp010Values(
     case "PNC-QL-202":
     case "PNC-QL-203":
       return { totalObjects: pickSeeded(pools.ornamentTotals, random), blockSize: entry.qlId === "PNC-QL-203" ? 2 : 0 };
+    case "PNC-QL-206":
+    case "PNC-QL-207":
+      return copyState(pickSeeded(pools.circularSelectionStates, random));
+    case "PNC-QL-208":
+      return { totalObjects: pickSeeded(pools.neighborSetTotals, random) };
     default:
       throw new Error(`Unsupported PNC-002 CP-010 QL: ${entry.qlId}`);
   }
