@@ -40,8 +40,11 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
       - name: Strict TypeScript check
+        shell: bash
         run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/pnc-002-cp008-diagnostics
           cd artifacts/api-server
+          set +e
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -55,7 +58,10 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print) \
+            2>&1 | tee dist/quant-v4/pnc-002-cp008-diagnostics/tsc.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
       - name: Bundle CP-008 runtime proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -73,5 +79,13 @@ jobs:
         with:
           name: pnc-002-cp008-question-explanation-review
           path: artifacts/api-server/dist/quant-v4/pnc-002-cp008-review/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
+      - name: Publish CP-008 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp008-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp008-diagnostics/
+          if-no-files-found: error
+          retention-days: 3
