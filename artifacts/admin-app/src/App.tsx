@@ -4,6 +4,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
 import { AdminLayout } from '@/app/layout/AdminLayout';
 import { ThemeProvider } from '@/app/theme/ThemeProvider';
+import { MathRenderingProvider } from '@/components/shared/MathRenderingProvider';
 import { Toaster } from '@/components/ui/sonner';
 import { ContentReviewPage } from '@/pages/content/ContentReviewPage';
 import { QuestionBankWorkspacePage } from '@/pages/content/QuestionBankWorkspacePage';
@@ -63,9 +64,20 @@ const router = createBrowserRouter([{ element: <AdminLayout />, children: [
   { path: '/analytics/*', element: <PendingWorkspacePage /> },
   { path: '/settings/languages', element: <LanguagesPage /> },
   { path: '/settings/roles', element: <RolesPermissionsPage /> },
-  { path: '/settings/audit-logs', element: <AuditLogsPage /> },
+  { path: '/settings/audit-logs', element: <AuditLogsWorkspacePage /> },
   { path: '/settings/*', element: <PendingWorkspacePage /> },
   { path: '*', element: <NotFoundPage /> },
 ]}], { basename: '/admin' });
 
-export default function App() { return <ThemeProvider><Suspense fallback={<RouteFallback />}><RouterProvider router={router} /></Suspense><Toaster /></ThemeProvider>; }
+export default function App() {
+  return (
+    <MathRenderingProvider>
+      <ThemeProvider>
+        <Suspense fallback={<RouteFallback />}>
+          <RouterProvider router={router} />
+        </Suspense>
+        <Toaster />
+      </ThemeProvider>
+    </MathRenderingProvider>
+  );
+}
