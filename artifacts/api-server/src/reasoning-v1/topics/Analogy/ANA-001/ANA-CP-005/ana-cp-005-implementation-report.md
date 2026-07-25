@@ -1,75 +1,84 @@
 # ANA-CP-005 Implementation Report
 
-Status: source-complete for English, Hindi and Punjabi; checked-out runtime execution pending.
+Status: canonical realignment source-complete; checked-out runtime execution and editorial review pending.
 
 ## Scope
 
-- 20 QLs: `ANA-QL-141` through `ANA-QL-160`
-- 10 single-letter alphabet rule families
-- 2 presentation modes per rule:
-  - missing fourth term
-  - equivalent pair selection
+- 20 permanent QLs: `ANA-QL-141` through `ANA-QL-160`
+- 10 audited single-letter alphabet families
+- canonical task kind: `singleLetterTransform`
+- canonical solve mode: `ALPHABET_RULE`
+- presentation modes: `DIRECT_COMPLETION`, `PAIR_SELECTION`
 - four structured-text layouts
 - deterministic seeded generation
-- independent solver validation
+- independent solver and complete-context validation
 - equal-or-simpler ambiguity rejection
-- registry-level complete-rule collision audit
-- rule-derived distractors with machine-readable error labels
+- registry-level collision audit
 - English, Hindi and Punjabi runtime support
-- English and localized review exporters
+- English and localized review exporters with trap notes
 
-## Rule families
+## Canonical rule families
 
 1. fixed forward shift
 2. fixed backward shift
-3. opposite alphabet letter
-4. opposite then forward shift
-5. opposite then backward shift
-6. double alphabet position
-7. double position minus one
-8. halve an even position
-9. add one to an odd position and halve
-10. opposite of the doubled position
+3. cyclic forward shift
+4. cyclic backward shift
+5. opposite alphabet letter
+6. equal positional distance
+7. reverse-position transform
+8. doubled positional movement
+9. vowel/consonant class correspondence
+10. two-step position transform
 
-## Runtime contracts
+## Removed from CP-005
+
+The earlier implementation contained half-position, rounded-half, double-minus-one and opposite-of-double standalone families. Those were mathematically valid but did not match the audited ANA-001 allocation, so they are no longer assigned to QLs 141–160.
+
+## Runtime protections
 
 Every generated question must have:
 
 - exactly four unique options;
 - exactly one correct answer;
+- a valid intended rule and complete context;
 - independent solver agreement;
-- an unambiguous source-and-target relationship;
+- no equal-or-simpler competing rule;
 - deterministic output for the same QL and seed;
-- explicit dynamic shift values in explanations;
-- no internal `ALPHA_*` identifiers in student-facing text;
-- four layout variants;
-- easy, medium and hard runtime bands.
+- explicit boundary-wrap arithmetic for cyclic shifts;
+- both direction branches visible for equal-distance evidence;
+- a non-zero reverse-position adjustment;
+- no internal `ALPHA_*` identifier in student-facing text;
+- localized question, explanation and trap-note parity.
 
-## Audit size
+All rule applications return `null` on ineligible inputs. Candidate discovery skips invalid inputs instead of allowing domain errors to reach alphabet-position conversion.
 
-The committed English audit samples:
+## Audit volume
+
+English audit:
 
 - 20 QLs;
 - 80 seeds per QL;
-- 1,600 generated English questions.
+- 1,600 generated questions.
 
-The committed localized audit samples:
+Localized audit:
 
 - 20 QLs;
 - 40 seeds per QL;
 - 2 locales;
-- 1,600 generated localized questions.
+- 1,600 generated questions.
 
-Total planned runtime audit volume: 3,200 questions.
+Total committed audit volume: 3,200 questions.
 
-## Important boundary
+## Ownership boundary
 
-This checkpoint covers only single-letter analogy. Multi-letter clusters remain reserved for `ANA-CP-006` (`ANA-QL-161` through `ANA-QL-200`). Figure analogy remains outside ANA-001.
+CP-005 contains only single-letter transformations. Multi-letter clusters, per-character transformations, rearrangement and cluster reversal remain in `ANA-CP-006`. Mixed number-letter rules remain in later advanced checkpoints. Figure analogy remains excluded from ANA-001.
 
-## Remaining before merge
+## Current merge gate
 
-- execute both tests in a checked-out repository;
-- inspect generated English, Hindi and Punjabi review files;
-- correct any runtime collision or editorial issue revealed by execution;
-- wire CP-005 into chapter-level discovery only after tests pass;
-- open a PR against `New-main` and merge after user approval.
+The feature branch must not be merged until:
+
+- the English canonical audit passes locally;
+- the Hindi/Punjabi canonical audit passes locally;
+- English, Hindi and Punjabi review files are regenerated;
+- the new equal-distance, reverse-position, class-correspondence and two-step samples receive editorial inspection;
+- no runtime collision or language defect remains.
