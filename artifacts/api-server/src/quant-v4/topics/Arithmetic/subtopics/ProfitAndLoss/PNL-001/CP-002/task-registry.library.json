@@ -1,0 +1,26 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-002",
+  "status": "ACTIVE_DISCOVERY",
+  "countPolicy": "OPEN_ENDED",
+  "title": "Marked Price, Discount and Successive Discounts",
+  "entries": {
+    "PNL-QL-037": {"solveMode":"MP_DISCOUNT_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","discountPercent"],"difficulty":"Easy"},
+    "PNL-QL-038": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"discountPercent","requiredVariables":["markedPrice","sellingPrice"],"difficulty":"Easy"},
+    "PNL-QL-039": {"solveMode":"SP_DISCOUNT_TO_MP","answerSemantic":"markedPrice","requiredVariables":["sellingPrice","discountPercent"],"difficulty":"Medium"},
+    "PNL-QL-040": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_SP","answerSemantic":"sellingPrice","requiredVariables":["markedPrice","firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium"},
+    "PNL-QL-041": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT","answerSemantic":"equivalentDiscountPercent","requiredVariables":["firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium"}
+  },
+  "pendingDiscovery": [
+    "discount-amount-forward-and-reverse",
+    "single-versus-successive-discount-comparison",
+    "missing-first-or-second-discount",
+    "three-or-more-successive-discounts",
+    "marked-price-discount-profit-calibration",
+    "buy-x-get-y-equivalent-discount",
+    "cashback-versus-discount-semantics",
+    "coupon-flat-discount-hybrid",
+    "discount-fraction-and-ratio-presentations",
+    "table-caselet-and-statement-forms"
+  ]
+}
