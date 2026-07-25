@@ -41,6 +41,8 @@ The runtime test permanently enforces curated evidence membership so the synthet
 
 The revised checkpoint source was compiled with TypeScript in an isolated local harness and the committed test logic was executed with Node. The same revised audit then executed successfully in GitHub Actions through the `Reasoning COD-001 Runtime` workflow on PR #117.
 
+PR workflows rerun after each checkpoint-branch update so GitHub rebuilds and validates the synthetic merge against the then-current `New-main` head.
+
 Verified audit result:
 
 - generated questions: `2,400` (`24 QLs × 100 seeds`);
