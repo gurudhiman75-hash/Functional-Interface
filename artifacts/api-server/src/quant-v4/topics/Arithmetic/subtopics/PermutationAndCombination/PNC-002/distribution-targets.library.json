@@ -1,19 +1,23 @@
 {
   "packageId": "PNC-002",
-  "checkpoint": "PNC-CP-007-RUNTIME-PROOF",
+  "checkpoint": "PNC-CP-007-SATURATION-RUNTIME-PROOF",
   "policy": "OBSERVED_DISTRIBUTION_NOT_FUTURE_QUOTA",
   "observedDifficultyCounts": {
     "Easy": 1,
-    "Medium": 5,
-    "Hard": 6
+    "Medium": 8,
+    "Hard": 9
   },
   "observedSolveModeCounts": {
     "countSingleBlockTogether": 2,
     "countSingleBlockNotTogether": 2,
     "countMultipleBlocksTogether": 4,
     "countBlockWithExternalPairApart": 1,
-    "recoverBlockRestrictionParameter": 3
+    "recoverBlockRestrictionParameter": 4,
+    "countTwoBlocksTogetherNotAdjacent": 2,
+    "countBlockWithOutsiderNotAdjacent": 1,
+    "countOneBlockTogetherOtherNotTogether": 1,
+    "countNotAllSpecifiedBlocksTogether": 1
   },
-  "interpretation": "The counts describe the first CP-007 runtime-proof checkpoint only.",
-  "admissionRule": "Future QLs and modes remain need-based within the fixed PNC-002 ownership map."
+  "interpretation": "The counts describe the saturated current English CP-007 runtime-proof checkpoint.",
+  "admissionRule": "A future CP-007 addition requires a newly evidenced material ownership gap rather than a noun substitution."
 }
