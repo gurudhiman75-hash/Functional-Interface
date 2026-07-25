@@ -55,8 +55,8 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-length",
-    explanationLines.length >= 4 && explanationLines.length <= 8,
-    "The explanation should be complete but concise, normally four to eight lines.",
+    explanationLines.length >= 4 && explanationLines.length <= 9,
+    "The explanation should be complete but concise, normally four to eight lines and at most nine for multi-stage methods.",
   ));
   checks.push(check(
     "natural-explanation-worked-arithmetic",
