@@ -1,6 +1,11 @@
 import { letterFromPosition, letterPosition, oppositeLetter, shiftLetter } from "../foundation/alphabet";
 import { checkAlphabetAmbiguity } from "./ambiguity-checker";
-import { allEligibleLetters, verifyAlphabetTransfer, type AlphabetPair } from "./independent-solver";
+import {
+  allEligibleLetters,
+  matchingAlphabetRules,
+  verifyAlphabetTransfer,
+  type AlphabetPair,
+} from "./independent-solver";
 import { validateAlphabetOptions, type AlphabetOption } from "./option-validator";
 import { ANA_CP005_QLS, type AlphabetPresentationMode } from "./question-language.en";
 import { alphabetRuleById, type AlphabetRuleContext } from "./rule-definitions";
@@ -126,18 +131,34 @@ function plausibleWrongLetters(target: AlphabetPair, seed: number): string[] {
   );
 }
 
-function directCompletionOptions(target: AlphabetPair, seed: number): AlphabetOption[] {
-  const distractors = plausibleWrongLetters(target, seed * 17 + 7).slice(0, 3);
-  if (distractors.length !== 3) throw new Error("Unable to produce three alphabet distractors.");
+function directCompletionOptions(source: AlphabetPair, target: AlphabetPair, seed: number): AlphabetOption[] {
+  const fallbackLetters = shuffle(
+    Array.from({ length: 26 }, (_, index) => letterFromPosition(index + 1)),
+    seed * 37 + 19,
+  );
+  const candidates = [...plausibleWrongLetters(target, seed * 17 + 7), ...fallbackLetters];
+  const distractors: AlphabetOption[] = [];
+
+  for (const value of candidates) {
+    if (value === target.right || value === target.left) continue;
+    if (distractors.some((option) => option.value === value)) continue;
+    const evidence = [source, { left: target.left, right: value }] as const;
+    if (matchingAlphabetRules(evidence).length > 0) continue;
+    distractors.push({ value, errorLabel: "WRONG_DIRECTION_OFF_BY_ONE_OR_NO_WRAP" });
+    if (distractors.length === 3) break;
+  }
+
+  if (distractors.length !== 3) throw new Error("Unable to produce three globally unambiguous alphabet distractors.");
   return shuffle<AlphabetOption>([
     { value: target.right, errorLabel: null },
-    ...distractors.map((value) => ({ value, errorLabel: "PLAUSIBLE_ALPHABET_TRANSFORM" })),
+    ...distractors,
   ], seed * 19 + 11);
 }
 
 function pairSelectionOptions(
   ruleId: string,
   context: AlphabetRuleContext,
+  source: AlphabetPair,
   target: AlphabetPair,
   seed: number,
 ): AlphabetOption[] {
@@ -147,18 +168,26 @@ function pairSelectionOptions(
     const correctRight = rule.apply(left, context);
     if (!correctRight) continue;
     if (left === target.left && correctRight === target.right) continue;
-    for (const right of plausibleWrongLetters({ left, right: correctRight }, seed + letterPosition(left) * 31)) {
+    const fallbackRights = shuffle(
+      Array.from({ length: 26 }, (_, index) => letterFromPosition(index + 1)),
+      seed + letterPosition(left) * 47,
+    );
+    const candidates = [
+      ...plausibleWrongLetters({ left, right: correctRight }, seed + letterPosition(left) * 31),
+      ...fallbackRights,
+    ];
+    for (const right of candidates) {
       if (right === correctRight) continue;
       const value = [left, right] as const;
       const key = `${left}:${right}`;
-      if (!distractors.some((option) => Array.isArray(option.value) && `${option.value[0]}:${option.value[1]}` === key)) {
-        distractors.push({ value, errorLabel: "WRONG_DIRECTION_OFF_BY_ONE_OR_NO_WRAP" });
-      }
+      if (distractors.some((option) => Array.isArray(option.value) && `${option.value[0]}:${option.value[1]}` === key)) continue;
+      if (matchingAlphabetRules([source, { left, right }]).length > 0) continue;
+      distractors.push({ value, errorLabel: "WRONG_DIRECTION_OFF_BY_ONE_OR_NO_WRAP" });
       if (distractors.length === 3) break;
     }
     if (distractors.length === 3) break;
   }
-  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three pair distractors.`);
+  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three globally unambiguous pair distractors.`);
   return shuffle<AlphabetOption>([
     { value: [target.left, target.right] as const, errorLabel: null },
     ...distractors,
@@ -217,12 +246,19 @@ export function generateAlphabetAnalogy(qlId: string, seed = 0): GeneratedAlphab
   }
 
   const rawOptions = ql.presentationMode === "DIRECT_COMPLETION"
-    ? directCompletionOptions(target, seed)
-    : pairSelectionOptions(ql.ruleId, context, target, seed);
+    ? directCompletionOptions(source, target, seed)
+    : pairSelectionOptions(ql.ruleId, context, source, target, seed);
   const qlNumber = Number.parseInt(qlId.slice(-3), 10);
   const desiredCorrectIndex = ((Math.abs(seed) % 4) + (qlNumber % 4)) % 4;
   const options = placeCorrectOption(rawOptions, desiredCorrectIndex);
-  const correctIndex = validateAlphabetOptions(ql.ruleId, context, ql.presentationMode, target, options);
+  const correctIndex = validateAlphabetOptions(
+    ql.ruleId,
+    context,
+    ql.presentationMode,
+    source,
+    target,
+    options,
+  );
 
   return {
     qlId,
