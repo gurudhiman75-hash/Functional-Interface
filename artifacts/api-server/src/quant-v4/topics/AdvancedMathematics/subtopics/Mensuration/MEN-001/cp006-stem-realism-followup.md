@@ -1,49 +1,44 @@
 # MEN-CP-006 — Stem Realism Follow-up
 
-## Purpose
+## Status
 
-This editorial follow-up records the remaining stem-level realism issues discovered after the mathematical, runtime, explanation-authorship, semantic-LaTeX and API-build gates passed.
+Complete.
 
-These are wording corrections only. They do not justify new solve modes, new QLs or changes to the CP-006 ownership matrix.
+This follow-up corrected five wording-level realism issues without changing QL IDs, placeholders, solve modes, answer dimensions, unit policies, distractor ownership or mathematical coverage.
 
-## Required corrections
+## Applied corrections
 
 ### MEN-001-QL-403
 
-The generated area can be as large as `25 m²`, which is implausible for a generic "sheet".
-
-Use a context that remains plausible across the complete state range, such as a tarpaulin, floor covering or fabric-roll section. Keep the square-unit conversion task unchanged.
+Replaced the generic "sheet" with a tarpaulin-section context that remains plausible across the complete generated area range.
 
 ### MEN-001-QL-404
 
-The phrase "small floor section" can render with an area of `25 m²` or more.
-
-Remove the subjective word "small" and use a neutral floor-area context.
+Removed the subjective word "small" from the floor-area conversion context.
 
 ### MEN-001-QL-420
 
-At a scale such as `1 cm represents 1000 m`, a map area of `25 cm²` represents `25 km²`. Calling this a "plot" is unrealistic.
-
-Use a scale-neutral context such as mapped region, forest zone, administrative area or land tract. Keep the squared-scale solve contract unchanged.
+Replaced "plot" with a mapped land region so large squared-scale states remain realistic.
 
 ### MEN-001-QL-431
 
-The current stem says that a rectangle itself is reshaped into a square. What is conserved is the boundary material, not the two-dimensional region.
-
-State explicitly that the same wire or fencing boundary is reshaped. Preserve the equal-perimeter area-comparison task.
+Clarified that a wire boundary, rather than the two-dimensional rectangle itself, is reshaped into a square.
 
 ### MEN-001-QL-432
 
-Clarify that the maximum is sought among all rectangular enclosures using the fixed boundary. A square is the maximizing rectangle.
+Reframed the fixed-perimeter maximum-area task as a farmer using a stated amount of fencing for a rectangular enclosure.
 
-A fencing or enclosure context is preferred over a purely abstract boundary statement.
+## Contract preservation
 
-## Editorial acceptance gate
+The revisions preserve:
 
-The follow-up is complete only when:
+- all 36 active CP-006 QLs and solve modes;
+- every registered placeholder and generated state;
+- answer dimensions and unit policies;
+- solver, validator and distractor contracts;
+- natural explanation structure and context-compatible conclusions;
+- the CP-006 ownership and exhaustiveness matrix.
 
-- each revised context remains plausible across every registered deterministic state;
-- no revision changes placeholders, answer dimensions, units, solve modes or distractor ownership;
-- the natural explanation opening and conclusion remain context-compatible;
-- the MEN-001 runtime, authorship, structured-LaTeX, API-build and review-export gates remain green;
-- generated stems read like exam questions rather than classroom conversion prompts.
+## Acceptance gate
+
+The follow-up is accepted only with green MEN-001 runtime, natural-authorship, semantic-LaTeX, API-production-bundle and review-export gates on the cleaned feature-branch head.
