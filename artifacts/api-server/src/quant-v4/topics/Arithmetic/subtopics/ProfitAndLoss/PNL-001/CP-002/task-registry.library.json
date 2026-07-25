@@ -36,8 +36,10 @@
     "PNL-QL-065": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_SP","answerSemantic":"tableRowSellingPrice","requiredVariables":["offerTable","selectedOffer","markedPrice"],"difficulty":"Hard","representation":"TABLE"},
     "PNL-QL-066": {"solveMode":"CP_MARKUP_DISCOUNT_TO_RESULT","answerSemantic":"caseletProfitOrLossPercent","requiredVariables":["caseletData","costPrice","markupPercent","discountPercent"],"difficulty":"Hard","representation":"CASELET"},
     "PNL-QL-067": {"solveMode":"SUCCESSIVE_DISCOUNTS_TO_EQUIVALENT","answerSemantic":"correctStatement","requiredVariables":["firstDiscountPercent","secondDiscountPercent"],"difficulty":"Medium","representation":"STATEMENT"},
-    "PNL-QL-068": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"algebraicDiscountPercent","requiredVariables":["markedPriceExpression","sellingPriceExpression"],"difficulty":"Hard","representation":"ALGEBRAIC"}
+    "PNL-QL-068": {"solveMode":"MP_SP_TO_DISCOUNT","answerSemantic":"algebraicDiscountPercent","requiredVariables":["markedPriceExpression","sellingPriceExpression"],"difficulty":"Hard","representation":"ALGEBRAIC"},
+    "PNL-QL-069": {"solveMode":"COUPON_ORDER_COMPARE","answerSemantic":"betterOrderAndDifference","requiredVariables":["markedPrice","discountPercent","couponAmount"],"difficulty":"Hard"},
+    "PNL-QL-070": {"solveMode":"MP_CP_TARGET_RATE_TO_DISCOUNT","answerSemantic":"dataSufficiency","requiredVariables":["statementOne","statementTwo","costPrice","markedPrice","targetRatePercent"],"difficulty":"Hard","representation":"DATA_SUFFICIENCY"}
   },
-  "entryCount": 32,
-  "freezeNote": "Count frozen after direct/reverse, promotion-semantics, conditional-eligibility, representation and QL-depth audits. Reopen only for a genuinely distinct book/PYQ mode."
+  "entryCount": 34,
+  "freezeNote": "Count frozen after direct/reverse, promotion-semantics, coupon-order, conditional-eligibility, representation and QL-depth audits. Reopen only for a genuinely distinct book/PYQ mode."
 }
