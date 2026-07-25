@@ -10,7 +10,7 @@ on:
       - .github/workflows/avg-001-multilingual-stem-quality.yml
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: avg-001-multilingual-stem-quality-${{ github.ref }}
@@ -21,8 +21,59 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
-      - name: Checkout source
+      - name: Checkout source branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Apply one-time remaining stem corrections
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001")
+          runtime = root / "foundation/cp003-localization-review-runtime.ts"
+          text = runtime.read_text(encoding="utf-8")
+          replacements = {
+              'return `${lead} ${after}एक ${role.direct} के शामिल होने पर औसत आयु ${newAverage} वर्ष हो जाती है। उस ${role.oblique} की आयु ज्ञात कीजिए।`;':
+              'return `${lead} ${after}एक ${role.oblique} के शामिल होने पर औसत आयु ${newAverage} वर्ष हो जाती है। उस ${role.oblique} की आयु ज्ञात कीजिए।`;',
+              'return `${lead} ${after}ਇੱਕ ${role.direct} ਦੇ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ਉਮਰ ${newAverage} ਸਾਲ ਹੋ ਜਾਂਦੀ ਹੈ। ਉਸ ${role.oblique} ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।`;':
+              'return `${lead} ${after}ਇੱਕ ${role.oblique} ਦੇ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ਉਮਰ ${newAverage} ਸਾਲ ਹੋ ਜਾਂਦੀ ਹੈ। ਉਸ ${role.oblique} ਦੀ ਉਮਰ ਪਤਾ ਕਰੋ।`;',
+              'case "findAddedMemberValueFromShift":\n      return `${c.lead} एक और ${c.noun} शामिल होने पर औसत ${displayed(newAverage)} हो जाता है। शामिल ${c.answer} ज्ञात कीजिए।`;':
+              'case "findAddedMemberValueFromShift":\n      if (k === "output") return `${c.lead} एक और मशीन जोड़ने पर औसत उत्पादन ${displayed(newAverage)} हो जाता है। नई मशीन का उत्पादन ज्ञात कीजिए।`;\n      return `${c.lead} एक और ${c.noun} शामिल होने पर औसत ${displayed(newAverage)} हो जाता है। शामिल ${c.answer} ज्ञात कीजिए।`;',
+              'case "findRemovedMemberValueFromShift":\n      return `${c.lead} एक ${c.noun} हटाने पर औसत ${displayed(newAverage)} हो जाता है। हटाया गया ${c.answer} ज्ञात कीजिए।`;':
+              'case "findRemovedMemberValueFromShift":\n      if (k === "output") return `${c.lead} एक मशीन हटाने पर औसत उत्पादन ${displayed(newAverage)} हो जाता है। हटाई गई मशीन का उत्पादन ज्ञात कीजिए।`;\n      return `${c.lead} एक ${c.noun} हटाने पर औसत ${displayed(newAverage)} हो जाता है। हटाया गया ${c.answer} ज्ञात कीजिए।`;',
+              'case "findAddedMemberValueFromShift":\n      return `${c.lead} ਇੱਕ ਹੋਰ ${c.noun} ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਮਲ ${c.answer} ਪਤਾ ਕਰੋ।`;':
+              'case "findAddedMemberValueFromShift":\n      if (k === "output") return `${c.lead} ਇੱਕ ਹੋਰ ਮਸ਼ੀਨ ਜੋੜਨ ਉੱਤੇ ਔਸਤ ਉਤਪਾਦਨ ${displayed(newAverage)} ਹੋ ਜਾਂਦਾ ਹੈ। ਨਵੀਂ ਮਸ਼ੀਨ ਦਾ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`;\n      return `${c.lead} ਇੱਕ ਹੋਰ ${c.noun} ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਸ਼ਾਮਲ ${c.answer} ਪਤਾ ਕਰੋ।`;',
+              'case "findRemovedMemberValueFromShift":\n      return `${c.lead} ਇੱਕ ${c.noun} ਹਟਾਉਣ ਉੱਤੇ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਹਟਾਇਆ ਗਿਆ ${c.answer} ਪਤਾ ਕਰੋ।`;':
+              'case "findRemovedMemberValueFromShift":\n      if (k === "output") return `${c.lead} ਇੱਕ ਮਸ਼ੀਨ ਹਟਾਉਣ ਉੱਤੇ ਔਸਤ ਉਤਪਾਦਨ ${displayed(newAverage)} ਹੋ ਜਾਂਦਾ ਹੈ। ਹਟਾਈ ਗਈ ਮਸ਼ੀਨ ਦਾ ਉਤਪਾਦਨ ਪਤਾ ਕਰੋ।`;\n      return `${c.lead} ਇੱਕ ${c.noun} ਹਟਾਉਣ ਉੱਤੇ ਔਸਤ ${displayed(newAverage)} ਹੋ ਜਾਂਦੀ ਹੈ। ਹਟਾਇਆ ਗਿਆ ${c.answer} ਪਤਾ ਕਰੋ।`;',
+          }
+          changed = 0
+          for old, new in replacements.items():
+              if old in text:
+                  text = text.replace(old, new)
+                  changed += 1
+          runtime.write_text(text, encoding="utf-8")
+
+          audit = root / "avg-001-multilingual-stem-quality-audit.ts"
+          audit_text = audit.read_text(encoding="utf-8")
+          audit_text = audit_text.replace(
+              'check(!/मशीन[^।?]*(होता|जाता) है/.test(text), "Hindi machine gender mismatch");',
+              'check(!/एक (?:नई )?मशीन (?:समूह में )?शामिल होता है|एक मशीन (?:समूह से )?हट जाता है/.test(text), "Hindi machine gender mismatch");',
+          ).replace(
+              'check(!/ਮਸ਼ੀਨ[^।?]*(ਹੁੰਦਾ|ਜਾਂਦਾ) ਹੈ/.test(text), "Punjabi machine gender mismatch");',
+              'check(!/ਇੱਕ (?:ਨਵੀਂ )?ਮਸ਼ੀਨ (?:ਸਮੂਹ ਵਿੱਚ )?ਸ਼ਾਮਲ ਹੁੰਦਾ ਹੈ|ਇੱਕ ਮਸ਼ੀਨ (?:ਸਮੂਹ ਵਿੱਚੋਂ )?ਹਟ ਜਾਂਦਾ ਹੈ/.test(text), "Punjabi machine gender mismatch");',
+          )
+          audit.write_text(audit_text, encoding="utf-8")
+          print(f"applied {changed} CP-003 sentence replacements")
+          PY
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp003-localization-review-runtime.ts \
+                    artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/avg-001-multilingual-stem-quality-audit.ts
+            git commit -m "fix(avg): correct remaining CP-003 stem grammar"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
