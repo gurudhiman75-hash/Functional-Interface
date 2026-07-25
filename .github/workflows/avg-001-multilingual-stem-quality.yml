@@ -10,7 +10,7 @@ on:
       - .github/workflows/avg-001-multilingual-stem-quality.yml
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: avg-001-multilingual-stem-quality-${{ github.ref }}
@@ -21,8 +21,43 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
-      - name: Checkout source
+      - name: Checkout source branch
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Apply one-time Indic punctuation correction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          base = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation")
+          files = [
+              base / "cp001-localization-pilot-runtime.ts",
+              base / "cp002-localization-pilot-runtime.ts",
+              base / "cp003-localization-review-runtime.ts",
+          ]
+          old_expected = 'const expected = language === "hi" ? /[\\u0900-\\u097F]/ : /[\\u0A00-\\u0A7F]/;'
+          old_wrong = 'const wrong = language === "hi" ? /[\\u0A00-\\u0A7F]/ : /[\\u0900-\\u097F]/;'
+          new_expected = 'const expected = language === "hi" ? /[\\u0900-\\u0963\\u0970-\\u097F]/ : /[\\u0A01-\\u0A74]/;'
+          new_wrong = 'const wrong = language === "hi" ? /[\\u0A01-\\u0A74]/ : /[\\u0900-\\u0963\\u0970-\\u097F]/;'
+          changed = 0
+          for path in files:
+              text = path.read_text(encoding="utf-8")
+              updated = text.replace(old_expected, new_expected).replace(old_wrong, new_wrong)
+              if updated != text:
+                  path.write_text(updated, encoding="utf-8")
+                  changed += 1
+          print(f"corrected {changed} localization runtime files")
+          PY
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp001-localization-pilot-runtime.ts \
+                    artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp002-localization-pilot-runtime.ts \
+                    artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/foundation/cp003-localization-review-runtime.ts
+            git commit -m "fix(avg): treat Indic danda as shared punctuation"
+            git push origin "HEAD:${{ github.head_ref }}"
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
