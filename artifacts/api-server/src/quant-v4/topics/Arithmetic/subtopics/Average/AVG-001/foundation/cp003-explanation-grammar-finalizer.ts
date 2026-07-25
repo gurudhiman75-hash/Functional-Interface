@@ -49,11 +49,6 @@ function agePhrase(stem: string, lang: Lang, form: Form) {
   return table[key][form];
 }
 
-function replaceConcept(line: string, concept: string) {
-  const index = line.indexOf(":");
-  return index >= 0 ? `${line.slice(0, index + 1)} ${concept}` : concept;
-}
-
 function ageMethod(pkg: Avg001QuestionPackage, lang: Lang, years: string) {
   const added = agePhrase(pkg.stem, lang, "added");
   const removed = agePhrase(pkg.stem, lang, "removed");
@@ -66,6 +61,7 @@ function ageMethod(pkg: Avg001QuestionPackage, lang: Lang, years: string) {
     if (pkg.solveMode === "findNewAverageAfterReplacement") return `${lead} फिर ${oldAge} घटाकर ${newAge} जोड़ें; संख्या वही रहती है।`;
     if (pkg.solveMode === "findAddedMemberValueFromShift") return `${lead} नई कुल आयु में से यह राशि घटाने पर ${added} मिलती है।`;
     if (pkg.solveMode === "findRemovedMemberValueFromShift") return `${lead} इसमें से शेष समूह की कुल आयु घटाने पर ${removed} मिलती है।`;
+    if (pkg.solveMode === "findReplacementValueFromShift") return `${lead} फिर बदली हुई कुल आयु और ज्ञात आयु से अज्ञात आयु निकालें।`;
     return `${lead} फिर ${oldAge} और ${newAge} के अंतर से आवश्यक आयु निकालें।`;
   }
   const lead = `ਪੁਰਾਣੀ ਕੁੱਲ ਉਮਰ ਕੱਢੋ ਅਤੇ ਹਰ ਮੂਲ ਮੈਂਬਰ ਲਈ ${years} ਸਾਲ ਜੋੜੋ।`;
@@ -74,6 +70,7 @@ function ageMethod(pkg: Avg001QuestionPackage, lang: Lang, years: string) {
   if (pkg.solveMode === "findNewAverageAfterReplacement") return `${lead} ਫਿਰ ${oldAge} ਘਟਾ ਕੇ ${newAge} ਜੋੜੋ; ਗਿਣਤੀ ਉਹੀ ਰਹਿੰਦੀ ਹੈ।`;
   if (pkg.solveMode === "findAddedMemberValueFromShift") return `${lead} ਨਵੀਂ ਕੁੱਲ ਉਮਰ ਵਿੱਚੋਂ ਇਹ ਰਕਮ ਘਟਾਉਣ ਉੱਤੇ ${added} ਮਿਲਦੀ ਹੈ।`;
   if (pkg.solveMode === "findRemovedMemberValueFromShift") return `${lead} ਇਸ ਵਿੱਚੋਂ ਬਾਕੀ ਸਮੂਹ ਦੀ ਕੁੱਲ ਉਮਰ ਘਟਾਉਣ ਉੱਤੇ ${removed} ਮਿਲਦੀ ਹੈ।`;
+  if (pkg.solveMode === "findReplacementValueFromShift") return `${lead} ਫਿਰ ਬਦਲੀ ਹੋਈ ਕੁੱਲ ਉਮਰ ਅਤੇ ਜਾਣੀ ਉਮਰ ਤੋਂ ਅਣਜਾਣ ਉਮਰ ਕੱਢੋ।`;
   return `${lead} ਫਿਰ ${oldAge} ਅਤੇ ${newAge} ਦੇ ਫਰਕ ਤੋਂ ਲੋੜੀਂਦੀ ਉਮਰ ਕੱਢੋ।`;
 }
 
@@ -85,14 +82,23 @@ function obliquePunjabi(value: string) {
   return value.replace(/^ਪੁਰਾਣਾ /, "ਪੁਰਾਣੇ ").replace(/^ਨਵਾਂ /, "ਨਵੇਂ ");
 }
 
+function knownPunjabi(value: string) {
+  return /^(?:ਨਵਾਂ|ਪੁਰਾਣਾ)/.test(value)
+    ? `ਜਾਣੇ ਹੋਏ ${obliquePunjabi(value)}`
+    : `ਜਾਣੀ ਹੋਈ ${value}`;
+}
+
 function polishHindi(line: string) {
   return line
     .replaceAll("अगली परीक्षा के अंक", "अगली परीक्षा का स्कोर")
     .replaceAll("हटाई गई परीक्षा के अंक", "हटाई गई परीक्षा का स्कोर")
+    .replaceAll("नई औसत दैनिक बिक्री", "नई दैनिक औसत बिक्री")
     .replace(/कुल में हुए परिवर्तन को ज्ञात (.+?) के साथ समायोजित करके (.+?) निकालें।/, (_match, known, target) => `कुल में हुए परिवर्तन और ज्ञात ${obliqueHindi(known)} से ${target} निकालें।`)
     .replace(/कुल में हुए परिवर्तन को (.+?) के साथ समायोजित करके (.+?) निकालें।/, (_match, oldValue, target) => `कुल में हुए परिवर्तन को ${obliqueHindi(oldValue)} में समायोजित करके ${target} निकालें।`)
     .replace(/(.+?) और पुराने औसत का अंतर बढ़े हुए समूह में औसत-वृद्धि पैदा करता है।/, "$1 और पुराने औसत के बीच का अंतर नए समूह की औसत-वृद्धि का कारण है।")
     .replace(/(.+?) और पुराने औसत का अंतर हटने के बाद शेष समूह का औसत बढ़ाता है।/, "$1 और पुराने औसत के बीच का अंतर हटने पर शेष समूह का औसत बढ़ाता है।")
+    .replace(/^.+? और पुराने औसत का अंतर औसत-वृद्धि से भाग दें; बढ़े हुए समूह की संख्या में से एक घटाएँ।$/, "इस अंतर को औसत-वृद्धि से भाग दें; बढ़े हुए समूह की संख्या में से एक घटाएँ।")
+    .replace(/^.+? और पुराने औसत का अंतर औसत-वृद्धि से भाग दें; शेष समूह की संख्या में एक जोड़ें।$/, "इस अंतर को औसत-वृद्धि से भाग दें; शेष समूह की संख्या में एक जोड़ें।")
     .replace(/(.+? का अंतर) औसत-वृद्धि से भाग दें;/, "$1 को औसत-वृद्धि से भाग दें;");
 }
 
@@ -100,10 +106,13 @@ function polishPunjabi(line: string) {
   return line
     .replaceAll("ਅਗਲੀ ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕ", "ਅਗਲੀ ਪ੍ਰੀਖਿਆ ਦਾ ਸਕੋਰ")
     .replaceAll("ਹਟਾਈ ਪ੍ਰੀਖਿਆ ਦੇ ਅੰਕ", "ਹਟਾਈ ਪ੍ਰੀਖਿਆ ਦਾ ਸਕੋਰ")
-    .replace(/ਕੁੱਲ ਵਿੱਚ ਆਏ ਬਦਲਾਅ ਨੂੰ ਜਾਣੀ (.+?) ਨਾਲ ਮਿਲਾ ਕੇ (.+?) ਕੱਢੋ।/, (_match, known, target) => `ਕੁੱਲ ਦੇ ਬਦਲਾਅ ਅਤੇ ਜਾਣੀ ਹੋਈ ${obliquePunjabi(known)} ਤੋਂ ${target} ਕੱਢੋ।`)
+    .replaceAll("ਨਵੀਂ ਔਸਤ ਰੋਜ਼ਾਨਾ ਵਿਕਰੀ", "ਨਵੀਂ ਰੋਜ਼ਾਨਾ ਔਸਤ ਵਿਕਰੀ")
+    .replace(/ਕੁੱਲ ਵਿੱਚ ਆਏ ਬਦਲਾਅ ਨੂੰ ਜਾਣੀ (.+?) ਨਾਲ ਮਿਲਾ ਕੇ (.+?) ਕੱਢੋ।/, (_match, known, target) => `ਕੁੱਲ ਦੇ ਬਦਲਾਅ ਅਤੇ ${knownPunjabi(known)} ਤੋਂ ${target} ਕੱਢੋ।`)
     .replace(/ਕੁੱਲ ਵਿੱਚ ਆਏ ਬਦਲਾਅ ਨੂੰ (.+?) ਨਾਲ ਮਿਲਾ ਕੇ (.+?) ਕੱਢੋ।/, (_match, oldValue, target) => `ਕੁੱਲ ਵਿੱਚ ਆਏ ਬਦਲਾਅ ਨੂੰ ${obliquePunjabi(oldValue)} ਨਾਲ ਮਿਲਾ ਕੇ ${target} ਕੱਢੋ।`)
     .replace(/(.+?) ਅਤੇ ਪੁਰਾਣੀ ਔਸਤ ਦਾ ਫਰਕ ਵਧੇ ਸਮੂਹ ਵਿੱਚ ਔਸਤ-ਵਾਧਾ ਪੈਦਾ ਕਰਦਾ ਹੈ।/, "$1 ਅਤੇ ਪੁਰਾਣੀ ਔਸਤ ਦੇ ਵਿਚਕਾਰਲਾ ਫਰਕ ਨਵੇਂ ਸਮੂਹ ਦੀ ਔਸਤ-ਵਾਧੇ ਦਾ ਕਾਰਨ ਹੈ।")
     .replace(/(.+?) ਅਤੇ ਪੁਰਾਣੀ ਔਸਤ ਦਾ ਫਰਕ ਹਟਣ ਤੋਂ ਬਾਅਦ ਬਾਕੀ ਸਮੂਹ ਦੀ ਔਸਤ ਵਧਾਉਂਦਾ ਹੈ।/, "$1 ਅਤੇ ਪੁਰਾਣੀ ਔਸਤ ਦੇ ਵਿਚਕਾਰਲਾ ਫਰਕ ਹਟਣ ਉੱਤੇ ਬਾਕੀ ਸਮੂਹ ਦੀ ਔਸਤ ਵਧਾਉਂਦਾ ਹੈ।")
+    .replace(/^.+? ਅਤੇ ਪੁਰਾਣੀ ਔਸਤ ਦਾ ਫਰਕ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ; ਵਧੇ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ਵਿੱਚੋਂ ਇੱਕ ਘਟਾਓ।$/, "ਇਸ ਫਰਕ ਨੂੰ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ; ਵਧੇ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ਵਿੱਚੋਂ ਇੱਕ ਘਟਾਓ।")
+    .replace(/^.+? ਅਤੇ ਪੁਰਾਣੀ ਔਸਤ ਦਾ ਫਰਕ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ; ਬਾਕੀ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਇੱਕ ਜੋੜੋ।$/, "ਇਸ ਫਰਕ ਨੂੰ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ; ਬਾਕੀ ਸਮੂਹ ਦੀ ਗਿਣਤੀ ਵਿੱਚ ਇੱਕ ਜੋੜੋ।")
     .replace(/(.+? ਦਾ ਫਰਕ) ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ;/, "$1 ਨੂੰ ਔਸਤ-ਵਾਧੇ ਨਾਲ ਭਾਗ ਦਿਓ;");
 }
 
@@ -131,7 +140,7 @@ export function finalizeAvg001Cp003ExplanationGrammar(
     explanation: { lines },
     traceability: {
       ...pkg.traceability,
-      cp003ExplanationGrammarFinalizer: "AVG-CP-003 localized explanation grammar finalizer v1",
+      cp003ExplanationGrammarFinalizer: "AVG-CP-003 localized explanation grammar finalizer v2",
     },
   };
 }
