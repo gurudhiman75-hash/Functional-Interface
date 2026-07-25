@@ -19,11 +19,11 @@ Generate SSC, Banking and Punjab-state-exam style plane-mensuration questions wi
 
 Current checkpoint:
 
-- 151 active English QLs;
-- 125 registry-derived solve modes;
+- 152 active English QLs;
+- 126 registry-derived solve modes;
 - 20 deterministic states per QL;
-- 3,020 generated runtime-proof questions;
-- 453 generated human-review samples.
+- 3,040 generated runtime-proof questions;
+- 456 generated human-review samples.
 
 These figures describe the current checkpoint. They are not fixed quotas or terminal identifiers.
 
@@ -45,7 +45,7 @@ Coverage includes inside/outside rectangular, square and circular paths; reverse
 
 ### MEN-CP-005 — composite and inscribed figures
 
-Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-triangle and two-rectangle composites, L-shaped regions, shaded square/circle combinations, semicircular and quadrant cut-outs, inscribed and largest-fit figures, exact regular-hexagon measurement, exposed composite boundaries and reverse recovery from composite or shaded area.
+Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-triangle and two-rectangle composites, overlapping rectangle unions, L-shaped regions, shaded square/circle combinations, semicircular and quadrant cut-outs, inscribed and largest-fit figures, exact regular-hexagon measurement, exposed composite boundaries and reverse recovery from composite or shaded area.
 
 ## Mathematical rules
 
@@ -58,6 +58,7 @@ Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-
 - Circular states use the explicit registered `π = 22/7` policy.
 - Border, annular, shaded and cut-out states conserve outer-minus-inner area.
 - Composite addition states contain non-overlapping components and conserve their summed area.
+- Overlapping composite states use inclusion–exclusion and subtract the common region exactly once.
 - Inscribed figures preserve the defining diameter/diagonal relation.
 - Composite perimeter questions count only exposed boundary and omit shared internal edges.
 - Crossed-road states use inclusion-exclusion and subtract overlap once.
