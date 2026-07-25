@@ -1,25 +1,47 @@
 import type { DirectMap } from "../foundation/mapping";
-import type { DirectMappingPrompt, ExplanationTrace } from "../foundation/types";
+import type { DirectMappingPrompt, ExplanationTrace, GeneratedOption } from "../foundation/types";
 import { splitCode } from "../foundation/code-values";
+import { conclusionFor, selectedDistractor } from "../foundation/editorial";
 
-const RULE_OPENINGS = [
-  "Each letter keeps one fixed code wherever it appears.",
-  "Treat the examples as a one-to-one substitution: the same source letter always gives the same code.",
-  "The coding is position-independent; every source letter has a fixed substitute.",
-  "Read the examples letter by letter and preserve each substitution throughout.",
-] as const;
+function ruleStatement(prompt: DirectMappingPrompt, styleIndex: number): string {
+  const codeKind = prompt.outputKind === "DIGIT" ? "number" : prompt.outputKind === "SYMBOL" ? "symbol" : "letter";
+  const variants = [
+    `Each letter has one fixed ${codeKind} code, and that code remains unchanged wherever the letter appears.`,
+    `The examples use direct substitution: the same letter is always replaced by the same ${codeKind}.`,
+    `Read the words letter by letter; every letter keeps one consistent ${codeKind} value.`,
+    `A fixed letter-to-${codeKind} mapping is used in all the given words.`,
+  ] as const;
+  return variants[styleIndex % variants.length]!;
+}
 
-const CONCLUSION_OPENINGS = [
-  "Therefore, the required answer is",
-  "So the required result is",
-  "This gives the answer",
-  "Hence the matching option is",
-] as const;
-
-function repeatedLetterNote(source: string, mapping: DirectMap): string | null {
+function evidenceWorking(prompt: DirectMappingPrompt, mapping: DirectMap, source: string, code: string): string {
+  const tokens = splitCode(code, prompt.separator);
+  const steps = [...source].map((letter, index) => `${letter}→${tokens[index]}`).join(", ");
   const repeated = [...new Set([...source].filter((letter, index, letters) => letters.indexOf(letter) !== index))];
-  if (repeated.length === 0) return null;
-  return repeated.map((letter) => `the repeated ${letter} remains ${mapping[letter]} each time`).join("; ");
+  const repetitionNote = repeated.length > 0
+    ? ` The repeated ${repeated.join(" and ")} keep${repeated.length === 1 ? "s" : ""} the same code each time.`
+    : "";
+  return `${source} → ${code} gives ${steps}.${repetitionNote}`;
+}
+
+function trapRejection(options: readonly GeneratedOption[]): string | undefined {
+  const trap = selectedDistractor(options);
+  if (!trap?.errorLabel) return undefined;
+  switch (trap.errorLabel) {
+    case "POSITION_SWAP":
+      return `${trap.value} uses the right substitutions in the wrong positions; the code must follow the letter order of the word.`;
+    case "REVERSE_ORDER":
+      return `${trap.value} reverses the code, but the examples do not reverse the order of letters.`;
+    case "OFF_BY_ONE_TOKEN":
+    case "LAST_TOKEN_SLIP":
+      return `${trap.value} changes one established substitution. A letter cannot take a new code after its value has been fixed by the examples.`;
+    case "DECODE_POSITION_ERROR":
+      return `${trap.value} rearranges or changes the decoded letters. Each code token must be read in its original position.`;
+    case "NEIGHBOUR_MAPPING_TRAP":
+      return `${trap.value} belongs to a different table entry; the examples fix only one code for the missing letter.`;
+    default:
+      return `${trap.value} does not preserve the same letter-by-letter mapping shown in the examples.`;
+  }
 }
 
 export function buildCodCp001Explanation(
@@ -27,32 +49,31 @@ export function buildCodCp001Explanation(
   mapping: DirectMap,
   answer: string,
   styleIndex: number,
+  options: readonly GeneratedOption[],
 ): ExplanationTrace {
-  const sourceDemonstration = prompt.evidence.map((pair) => {
-    const repetition = repeatedLetterNote(pair.source, mapping);
-    return repetition
-      ? `${pair.source} → ${pair.code}; ${repetition}.`
-      : `${pair.source} → ${pair.code} confirms the substitutions used for its letters.`;
-  });
+  const evidenceLimit = prompt.taskKind === "INFER_FROM_OVERLAP" ? 2 : 1;
+  const sourceDemonstration = prompt.evidence
+    .slice(0, evidenceLimit)
+    .map((pair) => evidenceWorking(prompt, mapping, pair.source, pair.code));
 
   let targetApplication: string[];
   if (prompt.taskKind === "DECODE_TARGET") {
     const tokens = splitCode(prompt.encodedTarget!, prompt.separator);
     const steps = tokens.map((token, index) => `${token}→${answer[index]}`).join(", ");
-    targetApplication = [`Decoding the required cluster position by position gives ${steps}.`];
+    targetApplication = [`Reading ${prompt.encodedTarget} in the same order gives ${steps}.`];
   } else if (prompt.taskKind === "RECOVER_MISSING_CODE") {
-    targetApplication = [`The displayed examples fix ${prompt.missingSource} as ${answer}, so the blank must contain ${answer}.`];
+    targetApplication = [`The examples show that ${prompt.missingSource} is always coded as ${answer}; therefore the blank table entry is ${answer}.`];
   } else {
     const tokens = splitCode(answer, prompt.separator);
     const steps = [...prompt.target].map((letter, index) => `${letter}→${tokens[index]}`).join(", ");
-    targetApplication = [`Applying the same map to ${prompt.target} gives ${steps}.`];
+    targetApplication = [`For ${prompt.target}, the substitutions are ${steps}, giving ${answer}.`];
   }
 
   return {
-    ruleStatement: RULE_OPENINGS[styleIndex % RULE_OPENINGS.length]!,
+    ruleStatement: ruleStatement(prompt, styleIndex),
     sourceDemonstration,
     targetApplication,
-    conclusion: `${CONCLUSION_OPENINGS[(styleIndex + 1) % CONCLUSION_OPENINGS.length]} ${answer}.`,
-    closestTrapRejection: "A position shift or reordered code would contradict the fixed substitutions visible in the examples.",
+    conclusion: conclusionFor(answer, styleIndex),
+    closestTrapRejection: trapRejection(options),
   };
 }
