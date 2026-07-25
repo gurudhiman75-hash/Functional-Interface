@@ -5,6 +5,7 @@ function humanizeExpectedAnswer(value: string) {
     .trim()
     .replace(/^\$\$/, "")
     .replace(/\$\$$/, "")
+    .replace(/\$/g, "")
     .replace(/\\times/g, "×")
     .replace(/\\div/g, "÷")
     .replace(/\\cdot/g, "×")
@@ -16,6 +17,7 @@ function humanizeExpectedAnswer(value: string) {
       radicand.length === 1 ? `√${radicand}` : `√(${radicand})`)
     .replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g, "$1/$2")
     .replace(/[{}]/g, "")
+    .replace(/(√\d+|\d+(?:\.\d+)?)(m²|cm²|m|cm)\b/g, "$1 $2")
     .replace(/\s+/g, " ")
     .trim();
 }
