@@ -1,0 +1,19 @@
+{
+  "packageId": "PNC-002",
+  "checkpoint": "PNC-CP-007-RUNTIME-PROOF",
+  "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
+  "currentCoverage": {
+    "activeCanonicalProblemCount": 1,
+    "activeQuestionLanguageCount": 12,
+    "activeSolveModeCount": 5,
+    "activeQlSpecificExplanationCount": 12,
+    "activeLanguageCount": 1,
+    "firstQuestionLanguageId": "PNC-QL-107",
+    "lastQuestionLanguageId": "PNC-QL-118"
+  },
+  "publication": {
+    "publiclyPublishable": false,
+    "productionIntegrationApproved": false,
+    "questionStudioExposureApproved": false
+  }
+}
