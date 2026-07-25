@@ -5,7 +5,7 @@ import {
   AVG_001_CP003_MULTILINGUAL_PILOT,
   getAvg001Cp003LocalizedQlIds,
   runAvg001Cp003LocalizationPilot,
-} from "./foundation/cp003-localization-review-runtime";
+} from "./foundation/cp003-localization-quality-runtime";
 
 const header = [
   "packageId", "cpId", "qlId", "language", "solveMode", "difficulty",
@@ -41,7 +41,7 @@ for (const language of AVG_001_CP003_MULTILINGUAL_PILOT.languages) {
       "", "", "", "", "", "", "",
       AVG_001_CP003_MULTILINGUAL_PILOT.editorialStatus,
       "",
-      `Candidate ${AVG_001_CP003_MULTILINGUAL_PILOT.releaseId}; not publishable until product-owner language review.`,
+      `Candidate ${AVG_001_CP003_MULTILINGUAL_PILOT.releaseId}; generated through the CP-003 quality runtime and not publishable until product-owner language review.`,
       "",
       "",
     ].map(csv).join(","));
@@ -57,6 +57,7 @@ for (const language of AVG_001_CP003_MULTILINGUAL_PILOT.languages) {
   }
   console.log(JSON.stringify({
     releaseId: AVG_001_CP003_MULTILINGUAL_PILOT.releaseId,
+    qualityRuntime: "cp003-localization-quality-runtime",
     language,
     rows: rows.length - 1,
     editorialStatus: AVG_001_CP003_MULTILINGUAL_PILOT.editorialStatus,
