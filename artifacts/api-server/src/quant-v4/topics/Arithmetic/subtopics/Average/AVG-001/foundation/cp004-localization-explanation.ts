@@ -1,3 +1,4 @@
+import { localizedGapExplanation } from "./cp004-localization-gap-explanation";
 import { avg001Cp004MultiLexicon, avg001Cp004PairLexicon, avg001Cp004SpeedLexicon, type Avg001Cp004PilotLanguage } from "./cp004-localization-lexicon";
 import { contextUnit, display } from "./cp004-localization-format";
 import { rationalText, shown, variant } from "./cp004-localization-values";
@@ -90,24 +91,24 @@ function speedExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004Pilot
   const speed2 = shown(pkg, "speed2");
   if (pkg.solveMode === "findAverageSpeedEqualDistance") {
     return { lines: language === "hi" ? [
-      `${resultContext(pkg, language)} में धीमे चरण का समय अधिक होता है, इसलिए दोनों गतियों का साधारण औसत नहीं लिया जाता।`,
+      `${resultContext(pkg, language)} निकालते समय धीमे चरण का समय अधिक होता है, इसलिए दोनों गतियों का साधारण औसत नहीं लिया जाता।`,
       `$$समान दूरी के लिए कुल समय = दूरी÷${speed1} + दूरी÷${speed2}$$`,
       `$$औसत गति = 2×${speed1}×${speed2}÷(${speed1}+${speed2}) = ${pkg.answer}$$`,
       finalLine(pkg, language),
     ] : [
-      `${resultContext(pkg, language)} ਵਿੱਚ ਹੌਲੇ ਪੜਾਅ ਦਾ ਸਮਾਂ ਵੱਧ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਦੋਵਾਂ ਗਤੀਆਂ ਦੀ ਸਧਾਰਨ ਔਸਤ ਨਹੀਂ ਲਈ ਜਾਂਦੀ।`,
+      `${resultContext(pkg, language)} ਕੱਢਦੇ ਸਮੇਂ ਹੌਲੇ ਪੜਾਅ ਦਾ ਸਮਾਂ ਵੱਧ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਦੋਵਾਂ ਗਤੀਆਂ ਦੀ ਸਧਾਰਨ ਔਸਤ ਨਹੀਂ ਲਈ ਜਾਂਦੀ।`,
       `$$ਬਰਾਬਰ ਦੂਰੀ ਲਈ ਕੁੱਲ ਸਮਾਂ = ਦੂਰੀ÷${speed1} + ਦੂਰੀ÷${speed2}$$`,
       `$$ਔਸਤ ਗਤੀ = 2×${speed1}×${speed2}÷(${speed1}+${speed2}) = ${pkg.answer}$$`,
       finalLine(pkg, language),
     ] };
   }
   return { lines: language === "hi" ? [
-    `${resultContext(pkg, language)} में दोनों दरें समान समय तक लागू होती हैं, इसलिए उनका भार बराबर है।`,
+    `${resultContext(pkg, language)} निकालते समय दोनों दरें समान समय तक लागू होती हैं, इसलिए उनका भार बराबर है।`,
     `$$समान समय में कुल प्रभाव = ${speed1}+${speed2}$$`,
     `$$औसत दर = (${speed1}+${speed2})÷2 = ${pkg.answer}$$`,
     finalLine(pkg, language),
   ] : [
-    `${resultContext(pkg, language)} ਵਿੱਚ ਦੋਵਾਂ ਦਰਾਂ ਬਰਾਬਰ ਸਮੇਂ ਲਈ ਲਾਗੂ ਹੁੰਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦਾ ਭਾਰ ਬਰਾਬਰ ਹੈ।`,
+    `${resultContext(pkg, language)} ਕੱਢਦੇ ਸਮੇਂ ਦੋਵਾਂ ਦਰਾਂ ਬਰਾਬਰ ਸਮੇਂ ਲਈ ਲਾਗੂ ਹੁੰਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦਾ ਭਾਰ ਬਰਾਬਰ ਹੈ।`,
     `$$ਬਰਾਬਰ ਸਮੇਂ ਵਿੱਚ ਕੁੱਲ ਪ੍ਰਭਾਵ = ${speed1}+${speed2}$$`,
     `$$ਔਸਤ ਦਰ = (${speed1}+${speed2})÷2 = ${pkg.answer}$$`,
     finalLine(pkg, language),
@@ -115,6 +116,13 @@ function speedExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004Pilot
 }
 
 export function localizedExplanation(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLanguage) {
+  if (
+    pkg.solveMode === "findGroupCountRatioFromCombinedAverage" ||
+    pkg.solveMode === "findAverageSpeedForUnequalDistances" ||
+    pkg.solveMode === "findAverageSpeedForUnequalTimes"
+  ) {
+    return localizedGapExplanation(pkg, language);
+  }
   if (pkg.solveMode === "findGroupCountFromCombinedAverage") return countExplanation(pkg, language);
   if (pkg.solveMode === "findMissingGroupAverage") return missingExplanation(pkg, language);
   if (pkg.solveMode === "findAverageSpeedEqualDistance" || pkg.solveMode === "findAverageSpeedEqualTime") return speedExplanation(pkg, language);
