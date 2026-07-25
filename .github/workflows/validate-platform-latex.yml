@@ -77,7 +77,17 @@ jobs:
 
       - name: Run PNC-001 proof
         working-directory: artifacts/api-server
-        run: node dist/quant-v4/pnc-001-latex-proof.mjs
+        run: |
+          set +e
+          node dist/quant-v4/pnc-001-latex-proof.mjs > /tmp/pnc-proof.log 2>&1
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            echo "PNC proof failed; compact diagnostic follows:"
+            tail -n 100 /tmp/pnc-proof.log
+            exit "$status"
+          fi
+          cat /tmp/pnc-proof.log
 
       - name: Typecheck admin application
         run: pnpm --dir artifacts/admin-app typecheck
