@@ -1,0 +1,21 @@
+{
+  "packageId": "PNC-002",
+  "pools": {
+    "multiPositionTotalObjects": [7,8],
+    "atMostGapStates": [
+      {"totalObjects":7,"maximumGap":1},
+      {"totalObjects":8,"maximumGap":2},
+      {"totalObjects":8,"maximumGap":3}
+    ],
+    "directionalGapStates": [
+      {"totalObjects":7,"gapCount":1},
+      {"totalObjects":8,"gapCount":2},
+      {"totalObjects":8,"gapCount":3}
+    ],
+    "atLeastOddPositionStates": [
+      {"totalObjects":7,"specifiedCount":3,"minimumInClass":2},
+      {"totalObjects":8,"specifiedCount":4,"minimumInClass":2},
+      {"totalObjects":8,"specifiedCount":4,"minimumInClass":3}
+    ]
+  }
+}
