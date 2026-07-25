@@ -28,6 +28,7 @@ for (const locale of locales) {
       assert.equal(localized.locale, locale);
       assert.equal(localized.qlId, english.qlId);
       assert.equal(localized.ruleId, english.ruleId);
+      assert.equal(localized.presentationMode, english.presentationMode);
       assert.deepEqual(localized.source, english.source);
       assert.deepEqual(localized.target, english.target);
       assert.deepEqual(localized.options, english.options);
@@ -38,18 +39,28 @@ for (const locale of locales) {
       assert.ok(localized.explanation.ruleStatement.length > 15);
       assert.ok(localized.explanation.sourceDemonstration.includes(localized.source.left));
       assert.ok(localized.explanation.targetApplication.includes(localized.target.left));
+      assert.ok(localized.explanation.closestTrapRejection.length > 20);
       assert.ok(!localized.explanation.ruleStatement.includes("ALPHA_"));
 
       if (locale === "hi-IN") {
         assert.ok(/[\u0900-\u097F]/.test(localized.explanation.ruleStatement));
         assert.ok(!localized.stem.includes("Select the"));
         assert.ok(!localized.stem.includes("Complete the"));
+        assert.ok(!localized.explanation.conclusion.includes("गुम"));
       } else {
         assert.ok(/[\u0A00-\u0A7F]/.test(localized.explanation.ruleStatement));
         assert.ok(!localized.stem.includes("Select the"));
         assert.ok(!localized.stem.includes("Complete the"));
         assert.ok(!localized.stem.includes("ਪਦ"));
         assert.ok(!localized.explanation.ruleStatement.includes("ਪਦ"));
+        assert.ok(!localized.explanation.conclusion.includes("ਗੁੰਮ"));
+      }
+
+      if (localized.ruleId === "ALPHA_CYCLIC_SHIFT_FORWARD") {
+        assert.ok(localized.explanation.sourceDemonstration.includes("- 26"));
+      }
+      if (localized.ruleId === "ALPHA_CYCLIC_SHIFT_BACKWARD") {
+        assert.ok(localized.explanation.sourceDemonstration.includes("+ 26"));
       }
 
       layouts[locale].add(localized.layout);
@@ -65,7 +76,7 @@ for (const locale of locales) {
   assert.ok(maxPosition / minPosition < 1.4, `${locale} answer positions are imbalanced.`);
 }
 
-console.log("ANA-CP-005 localized runtime audit passed.", {
+console.log("ANA-CP-005 canonical localized runtime audit passed.", {
   generatedCount,
   layouts: Object.fromEntries(locales.map((locale) => [locale, [...layouts[locale]]])),
   difficulties: Object.fromEntries(locales.map((locale) => [locale, [...difficulties[locale]]])),
