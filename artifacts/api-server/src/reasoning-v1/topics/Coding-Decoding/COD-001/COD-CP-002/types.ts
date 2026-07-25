@@ -50,6 +50,7 @@ export interface NumericCodingPrompt {
   targetWord: string;
   encodedTarget?: string;
   missingIndex?: number;
+  displayedTargetCode?: string;
   separator: string;
 }
 
@@ -70,7 +71,7 @@ export interface GeneratedCodCp002Question {
   correctIndex: number;
   explanation: import("../foundation/types").ExplanationTrace;
   metadata: {
-    runtimeVersion: "cod-001-cp002-v1";
+    runtimeVersion: "cod-001-cp002-v2";
     publiclyPublishable: false;
     maturity: "RUNTIME_PROOF";
     hiddenFingerprint: string;
