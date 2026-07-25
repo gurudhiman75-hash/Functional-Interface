@@ -78,4 +78,21 @@ A production-ready Quant package must verify:
 5. explanation text still contains the verified answer;
 6. the student and admin builds complete successfully.
 
-`PNC-001` is the first package to enforce this contract at runtime. Other Quant V4 packages should adopt the same boundary formatter rather than duplicating UI-specific transformations.
+## First verified package checkpoint
+
+`PNC-001` is the first package to enforce this contract at runtime.
+
+Verified on 2026-07-25:
+
+- 106 English QLs;
+- 1,272 deterministic runtime-proof cases;
+- 5,300 package stress cases;
+- zero raw permutation/combination tokens in visible output;
+- zero split multiplication or equality operators between MathJax blocks;
+- zero malformed chained bounds;
+- zero raw factorial quotient slashes in the 106-row review export;
+- complete admin tests and build: PASS;
+- student build and combined hosting output: PASS;
+- Render production build: PASS.
+
+Other Quant V4 packages should adopt the same package-boundary formatting and validation pattern rather than duplicating UI-specific transformations.
