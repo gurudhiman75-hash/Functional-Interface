@@ -1,10 +1,8 @@
 import { Router, type IRouter } from "express";
-
 import healthRouter from "./health";
 import usersRouter from "./users";
 import categoriesRouter from "./categories";
 import subcategoriesRouter from "./subcategories";
-import studentAccountRecoveryRouter from "./student-account-recovery";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -26,6 +24,7 @@ import adminStudentDirectoryHardeningRouter from "./admin-student-directory-hard
 import adminStudentFirebaseSyncRouter from "./admin-student-firebase-sync";
 import adminStudentProfileManagementRouter from "./admin-student-profile-management";
 import adminStudentAccountRecoveryRouter from "./admin-student-account-recovery";
+import adminStudentRecoveryRequestsRouter from "./admin-student-recovery-requests";
 import adminStudentLifecycleConsistencyRouter from "./admin-student-lifecycle-consistency";
 import adminStudentOperationsRouter from "./admin-student-operations";
 import adminStudentDisableActionsRouter from "./admin-student-disable-actions";
@@ -60,13 +59,10 @@ import adminSessionRouter from "./admin-session";
 import retiredLegacyRouter from "./retired-legacy";
 
 const router: IRouter = Router();
-
 router.use(healthRouter);
 router.use("/users", usersRouter);
 router.use("/categories", categoriesRouter);
 router.use("/subcategories", subcategoriesRouter);
-router.use("/account-recovery", studentAccountRecoveryRouter);
-
 router.use(studentTestSeriesRouter);
 router.use(attemptReliabilityRouter);
 router.use(canonicalAttemptResultsRouter);
@@ -74,7 +70,6 @@ router.use(canonicalStudentReadRouter);
 router.use(publishedTestMultilingualRunnerRouter);
 router.use(publishedTestRunnerRouter);
 router.use("/published-tests", publishedTestsRouter);
-
 router.use("/admin/session", adminSessionRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
@@ -84,6 +79,7 @@ router.use("/admin/students", adminStudentDirectoryHardeningRouter);
 router.use("/admin/students", adminStudentFirebaseSyncRouter);
 router.use("/admin/students", adminStudentProfileManagementRouter);
 router.use("/admin/students", adminStudentAccountRecoveryRouter);
+router.use("/admin/students", adminStudentRecoveryRequestsRouter);
 router.use("/admin/students", adminStudentLifecycleConsistencyRouter);
 router.use("/admin/students", adminStudentOperationsRouter);
 router.use("/admin/students", adminStudentDisableActionsRouter);
@@ -121,5 +117,4 @@ router.use("/admin/tests", adminTestLocalizationGateRouter);
 router.use("/admin/tests", adminTestQaGateRouter);
 router.use("/admin/tests", adminTestsRouter);
 router.use(retiredLegacyRouter);
-
 export default router;
