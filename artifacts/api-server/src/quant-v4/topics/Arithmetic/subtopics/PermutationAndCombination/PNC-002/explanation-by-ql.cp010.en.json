@@ -32,7 +32,7 @@
     },
     "PNC-QL-181": {
       "lines": [
-        "Compress the {blockSize} consecutive people into one circular block and retain all {blockSize}! internal orders.",
+        "Compress the {blockSize} consecutive people into one circular block, while keeping every possible internal order of that group.",
         "Applying the block count gives {equation}.",
         "Therefore, the stated group is consecutive in {answer} arrangements."
       ]
@@ -158,15 +158,15 @@
     },
     "PNC-QL-199": {
       "lines": [
-        "For n distinct people around a round table, rotational equivalence gives the count (n - 1)!.",
+        "For distinct people around a round table, fix one person and arrange everyone else.",
         "Search the stated bounded domain until this count equals {target}; the matching equation is {equation}.",
         "Therefore, n = {answer}."
       ]
     },
     "PNC-QL-200": {
       "lines": [
-        "A specified pair forms one block with two internal orders, so the circular count is 2(n - 2)!.",
-        "The bounded inverse search matches this expression to {target}: {equation}.",
+        "Treat the specified pair as one circular block and retain its two internal orders.",
+        "The bounded inverse search matches this count to {target}: {equation}.",
         "Hence, n = {answer}."
       ]
     },
