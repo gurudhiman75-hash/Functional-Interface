@@ -2,6 +2,10 @@ import { buildMen001ExplanationIllustration } from "./explanation-illustration.a
 import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
+import {
+  buildMen001StructuredExplanation,
+  flattenMen001StructuredExplanation,
+} from "./structured-explanation";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -17,14 +21,23 @@ export function renderMen001Explanation(
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
   const definition = getMen001SolveModeDefinition(parameters.solveMode);
   const illustration = buildMen001ExplanationIllustration(parameters, solver);
-  const lines = authorFinalMen001ExplanationLines(
-    definition.explain(parameters, solver),
+  const originalLines = definition.explain(parameters, solver);
+  const authoredLines = authorFinalMen001ExplanationLines(
+    originalLines,
+    parameters,
+    solver,
+  );
+  const sections = buildMen001StructuredExplanation(
+    originalLines,
+    authoredLines,
     parameters,
     solver,
   );
   return {
     strategyId: entry.explanationStrategyId,
-    lines,
+    displayFormat: "KEY_RULE_STEPS_FINAL_ANSWER",
+    sections,
+    lines: flattenMen001StructuredExplanation(sections),
     ...(illustration ? { illustration } : {}),
   };
 }
