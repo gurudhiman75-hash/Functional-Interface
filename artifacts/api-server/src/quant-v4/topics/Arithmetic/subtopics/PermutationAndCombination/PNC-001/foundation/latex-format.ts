@@ -2,25 +2,22 @@ import type { Pnc001QuestionPackage, Pnc001ValidationCheck } from "./types";
 
 const DELIMITED_MATH = /\\\[[\s\S]*?\\\]|\\\([\s\S]*?\\\)|\$\$[\s\S]*?\$\$|\$[^$\n]+?\$/g;
 const TOKEN_PATTERN = /@@PNC_LATEX_(\d+)@@/g;
+const FORMULA_START = /(?:\b(?:\d+|[nrsk])(?:P|C)(?:\d+|[nrsk])\b|\b[CP]\(\s*[A-Za-z0-9]+\s*,\s*[A-Za-z0-9]+\s*\)|\b(?:\d+|n)!|\((?:n\s*[+-]\s*\d+)\)!|\b\d+\^\d+\b|\b[nrsk]\s*(?:=|≥|≤|>|<)\s*\d+\b|\b\d+\s*[×÷]\s*\d+\b|\b\d+(?:\s*[+−-]\s*\d+)+\s*=\s*\d+\b|\bn\s*\(\s*n\s*[-+]\s*\d+\s*\))/g;
+const FORMULA_CHAR = /[0-9nrskPC!^×÷+−\-=≤≥<>()/,. \t]/;
 
 function spaceLatexBraces(tex: string): string {
-  return tex.replace(/\{([^{}]*)\}/g, (_match: string, inner: string) => {
-    const trimmed = inner.trim();
-    return trimmed ? `{ ${trimmed} }` : "{}";
-  });
+  let output = tex;
+  for (let pass = 0; pass < 3; pass += 1) {
+    output = output.replace(/\{([^{}]*)\}/g, (_match: string, inner: string) => {
+      const trimmed = inner.trim();
+      return trimmed ? `{ ${trimmed} }` : "{}";
+    });
+  }
+  return output;
 }
 
 function inlineMath(tex: string): string {
   return `\\(${spaceLatexBraces(tex.trim())}\\)`;
-}
-
-function texOperators(value: string): string {
-  return value
-    .replace(/\s*×\s*/g, " \\times ")
-    .replace(/\s*÷\s*/g, " \\div ")
-    .replace(/−/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 function delimiterCount(value: string, delimiter: string): number {
@@ -39,10 +36,78 @@ function combinationTex(n: string, r: string): string {
   return `\\binom{${n}}{${r}}`;
 }
 
-function relationTex(operator: string): string {
-  if (operator === "≥") return "\\ge";
-  if (operator === "≤") return "\\le";
-  return operator;
+function toLatexExpression(raw: string): string {
+  let expression = raw.trim();
+
+  expression = expression.replace(
+    /\bC\(\s*([A-Za-z0-9]+)\s*,\s*([A-Za-z0-9]+)\s*\)/g,
+    (_match: string, n: string, r: string) => combinationTex(n, r),
+  );
+  expression = expression.replace(
+    /\bP\(\s*([A-Za-z0-9]+)\s*,\s*([A-Za-z0-9]+)\s*\)/g,
+    (_match: string, n: string, r: string) => permutationTex(n, r),
+  );
+
+  expression = expression.replace(
+    /\((n\s*[+-]\s*\d+)\)!\s*\/\s*n!/g,
+    (_match: string, numerator: string) => `\\frac{(${numerator})!}{n!}`,
+  );
+  expression = expression.replace(
+    /n!\s*\/\s*\((n\s*-\s*\d+)\)!/g,
+    (_match: string, denominator: string) => `\\frac{n!}{(${denominator})!}`,
+  );
+  expression = expression.replace(
+    /\b(\d+|n)!\s*(?:\/|÷)\s*\(([^)]+)\)/g,
+    (_match: string, numerator: string, denominator: string) => `\\frac{${numerator}!}{${denominator}}`,
+  );
+  expression = expression.replace(
+    /\b(\d+|n)!\s*(?:\/|÷)\s*(\d+|n)!/g,
+    (_match: string, numerator: string, denominator: string) => `\\frac{${numerator}!}{${denominator}!}`,
+  );
+
+  expression = expression.replace(
+    /\b(\d+|[nrs])P(\d+|[nrsk])\b/g,
+    (_match: string, n: string, r: string) => permutationTex(n, r),
+  );
+  expression = expression.replace(
+    /\b(\d+|[nrs])C(\d+|[nrsk])\b/g,
+    (_match: string, n: string, r: string) => combinationTex(n, r),
+  );
+  expression = expression.replace(/\b(\d+)\^(\d+)\b/g, "$1^{$2}");
+  expression = expression
+    .replace(/\s*×\s*/g, " \\times ")
+    .replace(/\s*÷\s*/g, " \\div ")
+    .replace(/\s*≤\s*/g, " \\le ")
+    .replace(/\s*≥\s*/g, " \\ge ")
+    .replace(/−/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return expression;
+}
+
+function wrapFormulaSpans(value: string, protect: (segment: string) => string): string {
+  let output = "";
+  let cursor = 0;
+  let searchFrom = 0;
+
+  while (searchFrom < value.length) {
+    FORMULA_START.lastIndex = searchFrom;
+    const match = FORMULA_START.exec(value);
+    if (!match || match.index === undefined) break;
+
+    const start = match.index;
+    let end = start + match[0].length;
+    while (end < value.length && FORMULA_CHAR.test(value[end]!)) end += 1;
+    while (end > start && /[\s,.]/.test(value[end - 1]!)) end -= 1;
+
+    output += value.slice(cursor, start);
+    output += protect(inlineMath(toLatexExpression(value.slice(start, end))));
+    cursor = end;
+    searchFrom = end;
+  }
+
+  return output + value.slice(cursor);
 }
 
 export function formatPnc001LatexText(value: string): string {
@@ -53,105 +118,11 @@ export function formatPnc001LatexText(value: string): string {
     const index = protectedSegments.push(segment) - 1;
     return `@@PNC_LATEX_${index}@@`;
   };
-  const wrap = (tex: string): string => protect(inlineMath(tex));
 
-  let output = value.replace(DELIMITED_MATH, (match) => protect(match));
+  const protectedText = value.replace(DELIMITED_MATH, (match) => protect(match));
+  const formatted = wrapFormulaSpans(protectedText, protect);
 
-  output = output.replace(
-    /\b(\d+|[nrs])C(\d+|[nrsk])\s*×\s*(\d+|[nrs])P(\d+|[nrsk])(?:\s*=\s*(\d+)(?!\s*[×÷+−\-!CP]))?/g,
-    (_match: string, n: string, s: string, selected: string, roles: string, answer?: string) =>
-      wrap(`${combinationTex(n, s)} \\times ${permutationTex(selected, roles)}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\b(\d+|[nrs])C(\d+|[nrsk])\s*=\s*(\d+|[nrs])C(\d+|[nrsk])/g,
-    (_match: string, firstN: string, firstR: string, secondN: string, secondR: string) =>
-      wrap(`${combinationTex(firstN, firstR)} = ${combinationTex(secondN, secondR)}`),
-  );
-  output = output.replace(
-    /\b(\d+|[nrs])P(\d+|[nrsk])(?:\s*=\s*(\d+)(?!\s*[×÷+−\-!CP]))?/g,
-    (_match: string, n: string, r: string, answer?: string) =>
-      wrap(`${permutationTex(n, r)}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\b(\d+|[nrs])C(\d+|[nrsk])(?:\s*=\s*(\d+)(?!\s*[×÷+−\-!CP]))?/g,
-    (_match: string, n: string, r: string, answer?: string) =>
-      wrap(`${combinationTex(n, r)}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\bC\(\s*([A-Za-z])\s*,\s*([A-Za-z])\s*\)/g,
-    (_match: string, n: string, r: string) => wrap(combinationTex(n, r)),
-  );
-  output = output.replace(
-    /\bP\(\s*([A-Za-z])\s*,\s*([A-Za-z])\s*\)/g,
-    (_match: string, n: string, r: string) => wrap(permutationTex(n, r)),
-  );
-
-  output = output.replace(
-    /\((n\s*[+-]\s*\d+)\)!\s*\/\s*n!/g,
-    (_match: string, numerator: string) => wrap(`\\frac{(${texOperators(numerator)})!}{n!}`),
-  );
-  output = output.replace(
-    /n!\s*\/\s*\((n\s*-\s*\d+)\)!/g,
-    (_match: string, denominator: string) => wrap(`\\frac{n!}{(${texOperators(denominator)})!}`),
-  );
-  output = output.replace(
-    /(\d+!(?:\s*[×÷+−-]\s*\d+!)+)(?:\s*=\s*(\d+))?/g,
-    (_match: string, expression: string, answer?: string) =>
-      wrap(`${texOperators(expression)}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\(?(\d+)!\)?\s*(?:\/|÷)\s*\(?(\d+)!\)?(?:\s*=\s*(\d+))?/g,
-    (_match: string, numerator: string, denominator: string, answer?: string) =>
-      wrap(`\\frac{${numerator}!}{${denominator}!}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\((n\s*[+-]\s*\d+)\)!/g,
-    (_match: string, expression: string) => wrap(`(${texOperators(expression)})!`),
-  );
-
-  output = output.replace(
-    /\b(\d+)\^(\d+)\s*×\s*(\d+)\^(\d+)(?:\s*=\s*(\d+))?/g,
-    (_match: string, firstBase: string, firstExponent: string, secondBase: string, secondExponent: string, answer?: string) =>
-      wrap(`${firstBase}^{${firstExponent}} \\times ${secondBase}^{${secondExponent}}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\b(\d+)\^(\d+)(?:\s*=\s*(\d+))?/g,
-    (_match: string, base: string, exponent: string, answer?: string) =>
-      wrap(`${base}^{${exponent}}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\((\d+\s*×\s*\d+)\)\s*\+\s*\((\d+\s*×\s*\d+)\)(?:\s*=\s*(\d+))?/g,
-    (_match: string, first: string, second: string, answer?: string) =>
-      wrap(`(${texOperators(first)}) + (${texOperators(second)})${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\b(\d+(?:\s*[×÷+−-]\s*\d+){1,})(?:\s*=\s*(\d+))?/g,
-    (_match: string, expression: string, answer?: string) =>
-      wrap(`${texOperators(expression)}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(
-    /\b(\d+!)(?:\s*=\s*(\d+))?/g,
-    (_match: string, factorial: string, answer?: string) =>
-      wrap(`${factorial}${answer ? ` = ${answer}` : ""}`),
-  );
-  output = output.replace(/\bn!/g, () => wrap("n!"));
-
-  output = output.replace(
-    /\b(\d+)\s*≤\s*([nrsk])\s*≤\s*(\d+)\b/g,
-    (_match: string, minimum: string, symbol: string, maximum: string) =>
-      wrap(`${minimum} \\le ${symbol} \\le ${maximum}`),
-  );
-  output = output.replace(
-    /\b([nrsk])\s*(≥|≤|>|<)\s*(\d+)\b/g,
-    (_match: string, symbol: string, operator: string, number: string) =>
-      wrap(`${symbol} ${relationTex(operator)} ${number}`),
-  );
-  output = output.replace(
-    /\b([nrsk])\s*=\s*(\d+)\b/g,
-    (_match: string, symbol: string, number: string) => wrap(`${symbol} = ${number}`),
-  );
-
-  return output.replace(TOKEN_PATTERN, (_match: string, rawIndex: string) => {
+  return formatted.replace(TOKEN_PATTERN, (_match: string, rawIndex: string) => {
     const index = Number(rawIndex);
     return protectedSegments[index] ?? _match;
   });
@@ -162,12 +133,13 @@ export function hasUnformattedPncFormula(value: string): boolean {
   return [
     /\b(?:\d+|[nrs])P(?:\d+|[nrsk])\b/,
     /\b(?:\d+|[nrs])C(?:\d+|[nrsk])\b/,
-    /\b[CP]\(\s*[A-Za-z]\s*,\s*[A-Za-z]\s*\)/,
+    /\b[CP]\(\s*[A-Za-z0-9]+\s*,\s*[A-Za-z0-9]+\s*\)/,
     /\([^)]*n[^)]*\)!\s*\/\s*n!/,
     /n!\s*\/\s*\([^)]*\)!/,
     /\b\d+!\s*(?:\/|÷)\s*\d+!/,
     /\b\d+\^\d+\b/,
     /\b\d+\s*[×÷]\s*\d+/,
+    /\b\d+(?:\s*[+−-]\s*\d+)+\s*=\s*\d+\b/,
     /\b[nrsk]\s*(?:=|≥|≤|>|<)\s*\d+\b/,
   ].some((pattern) => pattern.test(plain));
 }
