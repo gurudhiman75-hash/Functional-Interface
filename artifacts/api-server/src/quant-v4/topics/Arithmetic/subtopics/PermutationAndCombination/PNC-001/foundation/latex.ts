@@ -140,3 +140,13 @@ export function containsUnresolvedPnc001Placeholder(value: string): boolean {
   const proseOnly = value.replace(EXISTING_MATH, " ");
   return /\{[A-Za-z_][A-Za-z0-9_]*\}/.test(proseOnly);
 }
+
+/**
+ * Legacy validators predate TeX and treat every `{...}` group as a template
+ * placeholder. Mask braces only inside delimited math before calling them.
+ * The returned package still retains the original TeX, and the new LaTeX gates
+ * validate that untouched content separately.
+ */
+export function maskPnc001MathGroupsForLegacyValidation(value: string): string {
+  return value.replace(EXISTING_MATH, (math) => math.replace(/[{}]/g, ""));
+}
