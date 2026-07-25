@@ -1,4 +1,4 @@
-import { getMen001NaturalExplanationProfile } from "./natural-explanation-authorship";
+import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import type {
   Men001QuestionPackage,
@@ -27,7 +27,7 @@ export function validateMen001QuestionPackage(
       item.name !== "explanation-depth" &&
       item.name !== "explanation-verification-step",
   );
-  const profile = getMen001NaturalExplanationProfile(
+  const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
   const expectedConclusion = profile?.conclusion.replace(
