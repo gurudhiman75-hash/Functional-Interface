@@ -5,9 +5,11 @@ import {
   type ProvisionalMixedEvidence,
 } from "./provisional-independent-solver";
 import {
+  clusterNumberToken,
   letterGroupToken,
   letterNumberToken,
   letterToken,
+  numberLetterToken,
   numberToken,
   sameMixedToken,
 } from "./foundation/mixed-token";
@@ -64,6 +66,24 @@ const fixtures: readonly SourceFixture[] = [
     evidence: [
       { input: letterNumberToken("P", 21), output: letterNumberToken("J", 28) },
       { input: letterNumberToken("G", 19), output: letterNumberToken("A", 26) },
+    ],
+  },
+  {
+    source: "Testbook analogy notes: PL36 : UQ41 :: MI49 : RN54",
+    ruleId: "MIXED_CLUSTER_NUMBER_SHARED_DELTA",
+    context: { kind: "CLUSTER_NUMBER_SHARED_DELTA", delta: 5 },
+    evidence: [
+      { input: clusterNumberToken("PL", 36), output: clusterNumberToken("UQ", 41) },
+      { input: clusterNumberToken("MI", 49), output: clusterNumberToken("RN", 54) },
+    ],
+  },
+  {
+    source: "Testbook analogy notes: 21I : 22P :: 13P : 14Y",
+    ruleId: "MIXED_NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR",
+    context: { kind: "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR", numberStep: 1 },
+    evidence: [
+      { input: numberLetterToken(21, "I"), output: numberLetterToken(22, "P") },
+      { input: numberLetterToken(13, "P"), output: numberLetterToken(14, "Y") },
     ],
   },
 ];

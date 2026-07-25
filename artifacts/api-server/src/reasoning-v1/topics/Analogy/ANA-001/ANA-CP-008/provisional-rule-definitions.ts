@@ -2,13 +2,17 @@ import {
   aggregateOrdinaryPositions,
   aggregateToLetterWithoutWrap,
   applyLetterShift,
+  applyUniformLetterGroupShift,
   applyWholeNumberOperation,
+  squaredDigitSumLetter,
   type PositionAggregate,
   type WholeNumberOperation,
 } from "./foundation/mixed-arithmetic";
 import {
+  clusterNumberToken,
   letterNumberToken,
   letterToken,
+  numberLetterToken,
   numberToken,
   type MixedResult,
   type MixedToken,
@@ -17,7 +21,9 @@ import {
 export type ProvisionalMixedRuleId =
   | "MIXED_LETTER_GROUP_SCALAR_AGGREGATE"
   | "MIXED_LETTER_GROUP_DERIVED_LETTER"
-  | "MIXED_TOKEN_INDEPENDENT_TRANSFORM";
+  | "MIXED_TOKEN_INDEPENDENT_TRANSFORM"
+  | "MIXED_CLUSTER_NUMBER_SHARED_DELTA"
+  | "MIXED_NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR";
 
 export type ProvisionalMixedContext =
   | { kind: "LETTER_GROUP_SCALAR"; aggregate: PositionAggregate }
@@ -27,7 +33,9 @@ export type ProvisionalMixedContext =
       letterShift: number;
       numberOperation: WholeNumberOperation;
       numberAmount: number;
-    };
+    }
+  | { kind: "CLUSTER_NUMBER_SHARED_DELTA"; delta: number }
+  | { kind: "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR"; numberStep: 1 };
 
 export interface ProvisionalMixedRuleDefinition {
   id: ProvisionalMixedRuleId;
@@ -66,6 +74,13 @@ const INDEPENDENT_CONTEXTS: readonly ProvisionalMixedContext[] = LETTER_SHIFTS.f
     numberAmount,
   })),
 );
+
+const SHARED_DELTA_CONTEXTS: readonly ProvisionalMixedContext[] = [-5, -3, -2, -1, 1, 2, 3, 5]
+  .map((delta) => ({ kind: "CLUSTER_NUMBER_SHARED_DELTA" as const, delta }));
+
+const DIGIT_SQUARE_CONTEXTS: readonly ProvisionalMixedContext[] = [
+  { kind: "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR", numberStep: 1 },
+];
 
 export const ANA_CP008_PROVISIONAL_RULES: readonly ProvisionalMixedRuleDefinition[] = [
   {
@@ -126,6 +141,54 @@ export const ANA_CP008_PROVISIONAL_RULES: readonly ProvisionalMixedRuleDefinitio
       return letter && number ? letterNumberToken(letter, number) : null;
     },
   },
+  {
+    id: "MIXED_CLUSTER_NUMBER_SHARED_DELTA",
+    priority: 2,
+    inputKind: "CLUSTER_NUMBER",
+    outputKind: "CLUSTER_NUMBER",
+    contexts: SHARED_DELTA_CONTEXTS,
+    accepts(input, context) {
+      if (input.kind !== "CLUSTER_NUMBER" || context.kind !== "CLUSTER_NUMBER_SHARED_DELTA") return false;
+      const letters = applyUniformLetterGroupShift(input.letters, context.delta);
+      const number = context.delta > 0
+        ? applyWholeNumberOperation(input.number, "ADD", context.delta)
+        : applyWholeNumberOperation(input.number, "SUBTRACT", Math.abs(context.delta));
+      return letters !== null && number !== null;
+    },
+    apply(input, context) {
+      if (!this.accepts(input, context) || input.kind !== "CLUSTER_NUMBER" || context.kind !== "CLUSTER_NUMBER_SHARED_DELTA") {
+        return null;
+      }
+      const letters = applyUniformLetterGroupShift(input.letters, context.delta);
+      const number = context.delta > 0
+        ? applyWholeNumberOperation(input.number, "ADD", context.delta)
+        : applyWholeNumberOperation(input.number, "SUBTRACT", Math.abs(context.delta));
+      return letters && number ? clusterNumberToken(letters, number) : null;
+    },
+  },
+  {
+    id: "MIXED_NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR",
+    priority: 3,
+    inputKind: "NUMBER_LETTER",
+    outputKind: "NUMBER_LETTER",
+    contexts: DIGIT_SQUARE_CONTEXTS,
+    accepts(input, context) {
+      if (input.kind !== "NUMBER_LETTER" || context.kind !== "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR") {
+        return false;
+      }
+      const expectedInputLetter = squaredDigitSumLetter(input.number);
+      const outputNumber = input.number + context.numberStep;
+      const outputLetter = squaredDigitSumLetter(outputNumber);
+      return expectedInputLetter === input.letter && outputLetter !== null && outputLetter !== input.letter;
+    },
+    apply(input, context) {
+      if (!this.accepts(input, context) || input.kind !== "NUMBER_LETTER" ||
+          context.kind !== "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR") return null;
+      const outputNumber = input.number + context.numberStep;
+      const outputLetter = squaredDigitSumLetter(outputNumber);
+      return outputLetter ? numberLetterToken(outputNumber, outputLetter) : null;
+    },
+  },
 ];
 
 export function provisionalMixedRuleById(ruleId: ProvisionalMixedRuleId): ProvisionalMixedRuleDefinition {
@@ -142,5 +205,9 @@ export function provisionalMixedContextKey(context: ProvisionalMixedContext): st
       return `LETTER_GROUP_TO_LETTER:${context.aggregate}`;
     case "INDEPENDENT_LETTER_NUMBER":
       return `INDEPENDENT:${context.letterShift}:${context.numberOperation}:${context.numberAmount}`;
+    case "CLUSTER_NUMBER_SHARED_DELTA":
+      return `CLUSTER_SHARED_DELTA:${context.delta}`;
+    case "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR":
+      return `NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR:${context.numberStep}`;
   }
 }

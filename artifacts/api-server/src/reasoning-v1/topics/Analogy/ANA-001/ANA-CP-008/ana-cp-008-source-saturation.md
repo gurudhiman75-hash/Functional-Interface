@@ -4,7 +4,7 @@ Status: **SOURCE AUDIT IN PROGRESS — COUNTS OPEN**
 
 ## 1. Purpose
 
-This audit identifies recurring mixed letter-number analogy patterns and separates them from pure letter analogy, pure number analogy, Coding-Decoding and alphanumeric-series questions.
+This audit identifies recurring mixed letter-number analogy patterns and separates them from pure letter analogy, pure number analogy, Coding-Decoding, alphanumeric series, and ANA-CP-009 advanced/meta analogy.
 
 A family is admitted only when:
 
@@ -15,19 +15,21 @@ A family is admitted only when:
 5. ambiguity and distractor audits can reject nearby alternatives;
 6. the family is not already owned elsewhere.
 
+The inherited `ANA-QL-223..ANA-QL-238` reservation is not a final count.
+
 ## 2. Source inventory
 
-### Testbook analogy overview
+### Testbook mixed-analogy overview
 
-Current Testbook material explicitly recognises “Letter and Number Based Analogy (Mixed Analogy)” as a separate type. It describes mixed pairs of letters and numbers and names addition/subtraction and place-value operations as common mechanisms.
+Current Testbook material explicitly recognises “Letter and Number Based Analogy (Mixed Analogy)” as a separate type.
 
-A readable worked example is:
+Readable example:
 
 ```text
 P21 : J28 :: G19 : ?
 ```
 
-The source explanation gives:
+Source rule:
 
 ```text
 P(16) − 6 = J(10)
@@ -37,20 +39,21 @@ G(7) − 6 = A(1)
 19 + 7 = 26
 ```
 
-Therefore the answer is `A26`.
+Answer: `A26`.
 
 This establishes an independent mixed-token authority in which the letter component and whole-number component undergo separate fixed operations.
 
 ### Oliveboard railway analogy practice, July 2026
 
-The practice page identifies mixed analogy among common railway patterns and includes:
+Readable examples:
 
 ```text
 AB : 2 :: CD : ?
 ZA : 27 :: YB : ?
+AE : F :: CG : ?
 ```
 
-The option sets support these transparent position aggregates:
+Supported rules:
 
 ```text
 AB → 1 × 2 = 2
@@ -58,38 +61,88 @@ CD → 3 × 4 = 12
 
 ZA → 26 + 1 = 27
 YB → 25 + 2 = 27
+
+AE → 1 + 5 = 6 → F
+CG → 3 + 7 = 10 → J
 ```
 
-This establishes sum and product of ordinary letter positions as recurring cross-domain analogy contexts.
+These establish:
 
-The same source contains:
+- ordinary-position sum to scalar;
+- ordinary-position product to scalar;
+- ordinary-position sum rendered as a letter.
+
+### Testbook analogy notes: shared-delta cluster-number transform
+
+Readable example:
 
 ```text
-AE : F :: CG : ?
+PL36 : UQ41 :: MI49 : ?
 ```
 
-with the described rule:
+Source rule:
 
 ```text
-A=1, E=5, 1+5=6 → F
-C=3, G=7, 3+7=10 → J
+P + 5 = U
+L + 5 = Q
+36 + 5 = 41
+
+M + 5 = R
+I + 5 = N
+49 + 5 = 54
 ```
 
-This establishes a letter-group-to-derived-letter authority based on position aggregation.
+Answer: `RN54`.
 
-### Recent mixed alphanumeric exam forms
+This establishes a cluster-number authority in which one signed delta is shared by every letter and the whole-number component.
 
-Current Testbook mixed-analogy pages include longer terms such as:
+It is more specific than an unrestricted pairing of any CP-006 rule with any numeric operation.
+
+### Testbook analogy notes: coupled number-letter invariant
+
+Readable example:
 
 ```text
-ZKX102 : UHW204
-XYR126 : ?
-LST305 : QPI610
+21I : 22P :: 13P : ?
 ```
 
-and other three-letter-plus-number forms.
+Source rule:
 
-These establish that modern exams ask composite cluster-number analogy, but many detailed letter operations are embedded in images. The family is source-real, but permanent profiles must not be inferred from answer strings alone. It remains admitted for pilot investigation but not frozen for production.
+```text
+21 → digit sum 3 → 3² = 9 → I
+22 → digit sum 4 → 4² = 16 → P
+
+13 → digit sum 4 → 4² = 16 → P
+14 → digit sum 5 → 5² = 25 → Y
+```
+
+The number increases by one and the attached letter is recomputed from the square of the new digit sum.
+
+Answer: `14Y`.
+
+This establishes a real digit-operation family. It is an explicit exception to the default whole-number rule because the source itself requires digit decomposition.
+
+### SSC GD Constable 2026 advanced mixed-cluster question
+
+Official-paper example reported by Testbook:
+
+```text
+ZKX102 : UHW204 :: XYR126 : ? :: LST305 : QPI610
+```
+
+The number component is doubled. The letter vector is not constant across the three pairs:
+
+```text
+ZKX → UHW uses −5, −3, −1
+XYR → OVU uses −9, −3, +3
+LST → QPI uses another pair-index-dependent vector
+```
+
+The target rule is inferred from progression across multiple complete evidence pairs, not from one stable pair-local transform.
+
+Ownership decision: **delegate to ANA-CP-009 advanced/meta analogy**.
+
+CP-008 may supply typed mixed tokens and shared arithmetic, but it must not register this as a normal pair-transfer authority.
 
 ### SATHEE Coding-Decoding boundary evidence
 
@@ -102,35 +155,39 @@ SATHEE materials classify the following under Coding-Decoding:
 - word-to-number position sums;
 - direct encode/decode prompts.
 
-Therefore visibility of letters and numbers alone does not make a question CP-008. The task framing and evidence structure determine ownership.
+Therefore visibility of letters and numbers alone does not make a question CP-008. Task framing and evidence structure determine ownership.
 
-## 3. Source-backed admitted authorities
+## 3. Source-backed provisional authorities
 
 ### A. `MIXED_LETTER_GROUP_SCALAR_AGGREGATE`
 
 Evidence:
 
 - `AB → 2` through product;
-- `ZA → 27` through sum.
+- `ZA → 27` through sum;
+- `BN → 16` through sum in Testbook notes.
 
-Admitted pilot contexts:
+Pilot contexts:
 
 ```text
 ORDINARY_POSITION_SUM
 ORDINARY_POSITION_PRODUCT
 ```
 
-Open design question:
+Open allocation question:
 
-Should sum and product become separate QLs or contexts of one letter-position aggregate authority? Pilot explanation, collision and analytics audits must decide.
+Should sum and product be two solve authorities or two contexts inside one aggregate authority? The answer depends on explanation, analytics, and misconception separation—not code reuse.
 
 ### B. `MIXED_LETTER_GROUP_DERIVED_LETTER`
 
 Evidence:
 
-- `AE → F` through `1+5=6→F`.
+```text
+AE → F
+CG → J
+```
 
-Admitted pilot context:
+Pilot context:
 
 ```text
 SUM_TO_ORDINARY_POSITION_LETTER
@@ -138,36 +195,73 @@ SUM_TO_ORDINARY_POSITION_LETTER
 
 Constraints:
 
-- raw sum must lie in `1..26` unless cyclic reduction receives independent source support;
+- raw sum must lie in `1..26`;
+- modulo reduction is not admitted;
 - every input letter contributes;
-- output must not be equally explained by a simpler fixed shift or midpoint rule.
+- source-target evidence must reject a simple shift, midpoint, or difference rule.
 
 ### C. `MIXED_TOKEN_INDEPENDENT_TRANSFORM`
 
 Evidence:
 
-- `P21 → J28` through letter `−6` and number `+7`.
+```text
+P21 → J28
+G19 → A26
+```
 
-Admitted pilot contexts:
+Pilot contexts:
 
-- letter fixed forward/backward shift;
-- whole-number fixed addition/subtraction.
+- fixed forward/backward letter shift;
+- fixed whole-number addition/subtraction;
+- both operations nonzero and bounded.
 
-Potential contexts requiring more source evidence:
+Multiplication/division and opposite-letter contexts remain unsourced.
 
-- whole-number multiplication/division;
-- opposite-letter transform plus number operation;
-- multi-letter cluster transform plus number operation.
-
-### D. `MIXED_CLUSTER_NUMBER_COMPOSITE`
+### D. `MIXED_CLUSTER_NUMBER_SHARED_DELTA`
 
 Evidence:
 
-- recurring modern three-letter-plus-number analogy forms.
+```text
+PL36 → UQ41
+MI49 → RN54
+```
 
-Status: **pilot-admitted, profile-deferred**.
+Pilot contexts:
 
-The typed parser and collision framework should be built, but no permanent rule profile is frozen until the source rule is readable or independently recovered from multiple complete pairs without ambiguity.
+- one nonzero signed delta applied uniformly to every cluster letter;
+- the same signed delta applied to the whole number;
+- bounded cluster length;
+- whole-number arithmetic only.
+
+This authority must reject:
+
+- different deltas on different letters;
+- independent letter and number deltas;
+- arbitrary CP-006 compositions;
+- digit operations.
+
+### E. `MIXED_NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR`
+
+Evidence:
+
+```text
+21I → 22P
+13P → 14Y
+```
+
+Pilot context:
+
+```text
+number step +1
+attached letter = square(digit sum of number), rendered as A=1..Z=26
+```
+
+Constraints:
+
+- input and output square values must lie in `1..26`;
+- attached input letter must already satisfy the invariant;
+- output letter must be recomputed, not independently shifted;
+- source and target letters must differ to avoid a decorative letter.
 
 ## 4. Candidate authorities requiring more evidence
 
@@ -181,7 +275,7 @@ letters strictly between A and B
 inclusive alphabet distance
 ```
 
-Risk: these are easily confused and produce off-by-one ambiguity. No permanent context until recurring readable source examples are recovered.
+Risk: off-by-one collision. No permanent context without recurring readable examples.
 
 ### Reverse-position aggregates
 
@@ -193,7 +287,7 @@ ordinary + reverse position
 product of reverse positions
 ```
 
-Risk: ordinary/reverse sums can collapse to constants, especially for opposite pairs.
+Risk: constant and opposite-pair collapse.
 
 ### Number-to-letter transparent analogy
 
@@ -205,7 +299,7 @@ Potential rules:
 n±k → letter
 ```
 
-Risk: direct overlap with Coding-Decoding. Admission requires analogy-framed source examples where no code recovery is involved.
+Risk: direct overlap with Coding-Decoding.
 
 ### Letter-driven numeric update
 
@@ -216,7 +310,7 @@ output number = input number + position(letter)
 output number = input number − sum(letter positions)
 ```
 
-Risk: unrestricted formulas and accidental fit.
+Risk: unrestricted equation fitting.
 
 ### Number-driven letter movement
 
@@ -226,9 +320,9 @@ Potential forms:
 output letter = input letter shifted by displayed number
 ```
 
-Risk: coding overlap and insufficient evidence from one pair.
+Risk: Coding-Decoding overlap and one-pair ambiguity.
 
-### Coupled invariant
+### Other coupled invariants
 
 Potential forms:
 
@@ -237,7 +331,7 @@ position(letter) + number = constant
 letter distance = numeric difference
 ```
 
-Risk: several invariants can fit one source pair. Requires at least two complete source pairs and full-rule matching.
+Risk: several invariants can fit one source pair.
 
 ## 5. Explicitly delegated patterns
 
@@ -250,52 +344,68 @@ Risk: several invariants can fit one source pair. Requires at least two complete
 | unknown code-table recovery | Coding-Decoding | hidden substitution system |
 | long mixed string position query | Alphanumeric Series | sequence navigation |
 | symbol replacement equation | Mathematical Operations | operator semantics |
+| pair-index-dependent mixed vector progression | CP-009 | relation evolves across multiple evidence pairs |
 
 ## 6. Collision risks discovered
 
 ### Sum versus product
 
-Pairs containing `A` or repeated low positions can make sum and product equal or close. Examples must activate distinct outputs across complete source and target evidence.
+Examples must activate distinct outputs across complete evidence. Avoid pairs where low positions make the rules coincide.
 
-### Position sum to number versus position sum to letter
+### Scalar output versus derived-letter output
 
-The arithmetic is shared, but output rendering and answer type differ. They may share a foundation function while remaining separate presentation authorities.
+They share arithmetic but differ in answer shape and student task. Shared foundation code does not imply one QL.
 
-### Independent mixed transform versus coupled transform
+### Independent versus shared-delta transform
 
-A displayed output may be explained either by two independent changes or by a coupled formula. Accept only when complete evidence uniquely supports one interpretation.
+A cluster question is shared-delta only when every letter and the whole number use exactly the same signed amount. Otherwise it belongs to the independent/composite family or remains excluded.
 
-### Whole-number arithmetic versus digit operations
+### Independent versus coupled transform
 
-The default is whole-number arithmetic. Digit splitting is prohibited unless the rule profile explicitly owns it and source instructions allow it.
+A displayed output may be explained by two independent changes or by a coupled invariant. Accept only when complete evidence uniquely supports one interpretation.
+
+### Whole-number versus digit operations
+
+Whole-number arithmetic remains the default. Digit splitting is admitted only in explicitly registered source-backed profiles such as the digit-sum-square successor.
+
+### Pair-local versus cross-pair progression
+
+A rule that changes with evidence-pair index is not a normal CP-008 transfer rule. It is delegated to CP-009.
 
 ### Mixed analogy versus coding
-
-The same arithmetic may appear in both topics. Ownership depends on task grammar:
 
 ```text
 A : B :: C : ?     → analogy transfer
 If A is coded as B → coding-decoding
 ```
 
-The underlying alphabet functions should be shared even when task ownership differs.
+Shared alphabet functions belong in foundations; QL ownership follows task grammar.
 
-## 7. Current source verdict
+## 7. Pilot status
+
+The expanded non-QL pilot contains:
 
 ```text
-Clearly source-backed pilot authorities: 3
-Source-real composite authority awaiting readable profiles: 1
-Candidate authorities requiring evidence: 6
-Delegated pattern groups: 7
+Source-backed provisional authorities: 5
+Provisional contexts: 60
+Readable source fixtures: 6
+Typed token shapes: 6
+Advanced/meta source pattern delegated to CP-009: 1
 Permanent QL count: OPEN
 Permanent solve-mode count: OPEN
 ```
 
-## 8. Next source actions
+Every context must retain:
+
+- at least 40 unambiguous source-target pairs;
+- zero solver disagreements;
+- four unique options with one correct answer.
+
+## 8. Remaining source actions
 
 1. recover the uploaded audited ANA-CP-008 manifest when File Library retrieval is restored;
-2. inspect uploaded reasoning books for letter-number analogy examples;
-3. recover readable rules for modern three-letter-plus-number questions;
-4. search official/past-paper examples for number-to-letter and coupled invariants;
-5. build a provisional typed-token pilot before any QL freeze;
-6. compare the discovered family set against the 16-QL reservation.
+2. inspect uploaded reasoning books for the unresolved candidate families;
+3. search official/past-paper examples for reverse-position, number-to-letter, and other coupled rules;
+4. audit direct completion, pair selection, inverse, and incorrect-pair task contracts;
+5. compare the saturated family set against the 16-QL reservation;
+6. freeze QLs only after no meaningful source-backed mode remains uncovered.

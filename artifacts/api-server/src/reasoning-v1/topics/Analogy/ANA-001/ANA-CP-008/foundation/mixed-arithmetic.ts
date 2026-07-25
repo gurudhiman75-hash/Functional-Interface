@@ -55,6 +55,25 @@ export function applyLetterShift(letter: string, shift: number): string | null {
   return shiftLetter(normalized, shift);
 }
 
+export function applyUniformLetterGroupShift(letters: string, shift: number): string | null {
+  const normalized = letters.trim().toUpperCase();
+  if (!/^[A-Z]{2,6}$/.test(normalized)) return null;
+  if (!Number.isSafeInteger(shift) || shift === 0 || Math.abs(shift) > 12) return null;
+  return [...normalized].map((letter) => shiftLetter(letter, shift)).join("");
+}
+
+export function decimalDigitSum(number: number): number | null {
+  if (!Number.isSafeInteger(number) || number < 1 || number > 9999) return null;
+  return [...String(number)].reduce((sum, digit) => sum + Number(digit), 0);
+}
+
+export function squaredDigitSumLetter(number: number): string | null {
+  const digitSum = decimalDigitSum(number);
+  if (digitSum === null) return null;
+  const position = digitSum * digitSum;
+  return position >= 1 && position <= 26 ? letterFromPosition(position) : null;
+}
+
 export function positionCalculationTrace(letters: string): string {
   return [...letters.trim().toUpperCase()]
     .map((letter) => `${letter}=${letterPosition(letter)}`)

@@ -1,10 +1,16 @@
 import assert from "node:assert/strict";
 import { shiftLetter } from "../foundation/alphabet";
 import {
+  applyUniformLetterGroupShift,
+  squaredDigitSumLetter,
+} from "./foundation/mixed-arithmetic";
+import {
+  clusterNumberToken,
   letterGroupToken,
   letterNumberToken,
   letterToken,
   mixedTokenKey,
+  numberLetterToken,
   numberToken,
   sameMixedToken,
   type MixedResult,
@@ -46,6 +52,24 @@ function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToke
       for (let number = 8; number <= 64; number += 1) {
         inputs.push(letterNumberToken(letter, number));
       }
+    }
+    return inputs;
+  }
+  if (rule.inputKind === "CLUSTER_NUMBER") {
+    const inputs: MixedToken[] = [];
+    for (let index = 0; index < ALPHABET.length; index += 1) {
+      const letters = ALPHABET[index] + ALPHABET[(index + 5) % ALPHABET.length];
+      for (let number = 20; number <= 60; number += 2) {
+        inputs.push(clusterNumberToken(letters, number));
+      }
+    }
+    return inputs;
+  }
+  if (rule.inputKind === "NUMBER_LETTER") {
+    const inputs: MixedToken[] = [];
+    for (let number = 10; number <= 999 && inputs.length < 300; number += 1) {
+      const letter = squaredDigitSumLetter(number);
+      if (letter) inputs.push(numberLetterToken(number, letter));
     }
     return inputs;
   }
@@ -110,8 +134,30 @@ function genericCandidates(correct: MixedResult): readonly MixedResult[] {
           ? [letterNumberToken(shiftLetter(correct.letter, -1), correct.number - 1)]
           : []),
       ];
+    case "NUMBER_LETTER":
+      return [
+        numberLetterToken(correct.number + 1, correct.letter),
+        ...(correct.number > 1 ? [numberLetterToken(correct.number - 1, correct.letter)] : []),
+        numberLetterToken(correct.number, shiftLetter(correct.letter, 1)),
+        numberLetterToken(correct.number, shiftLetter(correct.letter, -1)),
+        numberLetterToken(correct.number + 1, shiftLetter(correct.letter, 1)),
+        ...(correct.number > 1
+          ? [numberLetterToken(correct.number - 1, shiftLetter(correct.letter, -1))]
+          : []),
+      ];
+    case "CLUSTER_NUMBER": {
+      const plus = applyUniformLetterGroupShift(correct.letters, 1);
+      const minus = applyUniformLetterGroupShift(correct.letters, -1);
+      return [
+        ...(plus ? [clusterNumberToken(plus, correct.number)] : []),
+        ...(minus ? [clusterNumberToken(minus, correct.number)] : []),
+        clusterNumberToken(correct.letters, correct.number + 1),
+        ...(correct.number > 1 ? [clusterNumberToken(correct.letters, correct.number - 1)] : []),
+        ...(plus ? [clusterNumberToken(plus, correct.number + 1)] : []),
+        ...(minus && correct.number > 1 ? [clusterNumberToken(minus, correct.number - 1)] : []),
+      ];
+    }
     case "LETTER_GROUP":
-    case "CLUSTER_NUMBER":
       return [];
   }
 }
@@ -192,7 +238,7 @@ for (const rule of ANA_CP008_PROVISIONAL_RULES) {
   }
 }
 
-assert.equal(summaries.length, 51);
+assert.equal(summaries.length, 60);
 
 console.log("ANA-CP-008 provisional option-yield audit passed.", {
   contexts: summaries.length,
