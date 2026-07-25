@@ -1,10 +1,12 @@
 import { strict as assert } from "node:assert";
 
 import "./avg-001-cp004-multilingual-pilot-audit";
+import "./avg-001-cp005-multilingual-pilot-audit";
 import { runAvg001Cp001LocalizationPilot } from "./foundation/cp001-localization-quality-runtime";
 import { runAvg001Cp002LocalizationPilot } from "./foundation/cp002-localization-quality-runtime";
 import { runAvg001Cp003LocalizationPilot } from "./foundation/cp003-localization-quality-runtime";
 import { runAvg001Cp004LocalizationPilot } from "./foundation/cp004-localization-quality-runtime";
+import { runAvg001Cp005LocalizationPilot } from "./foundation/cp005-localization-quality-runtime";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
@@ -14,7 +16,8 @@ const STEM_VARIATION = "AVG-001 localized stem variation finalizer v1";
 const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
 const CP003_FINAL_POLISH = "AVG-CP-003 manually differentiated prose v1";
 const CP004_AUTHORSHIP = "AVG-CP-004 context-authored localization v1";
-const LOCALIZED_CP_IDS = ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003", "AVG-CP-004"];
+const CP005_AUTHORSHIP = "AVG-CP-005 context-authored localization v1";
+const LOCALIZED_CP_IDS = ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003", "AVG-CP-004", "AVG-CP-005"];
 const CP003_MANUALLY_DIFFERENTIATED = new Set([
   "AVG-QL-156",
   "AVG-QL-160",
@@ -101,6 +104,7 @@ function localizedRunner(cpId: string) {
   if (cpId === "AVG-CP-002") return runAvg001Cp002LocalizationPilot;
   if (cpId === "AVG-CP-003") return runAvg001Cp003LocalizationPilot;
   if (cpId === "AVG-CP-004") return runAvg001Cp004LocalizationPilot;
+  if (cpId === "AVG-CP-005") return runAvg001Cp005LocalizationPilot;
   throw new Error(`No localized quality runtime for ${cpId}`);
 }
 
@@ -133,13 +137,21 @@ function checkAuthorship(pkg: Avg001QuestionPackage, scope: string) {
   ) {
     fail(`${scope}: CP-004 context-authored localization marker missing`);
   }
+  if (
+    pkg.language !== "en" &&
+    pkg.canonicalProblemId === "AVG-CP-005" &&
+    pkg.traceability.cp005LocalizationAuthorship !== CP005_AUTHORSHIP
+  ) {
+    fail(`${scope}: CP-005 context-authored localization marker missing`);
+  }
 }
 
 function checkExplanation(pkg: Avg001QuestionPackage, scope: string) {
   if (pkg.explanation.lines.length < 4 || pkg.explanation.lines.length > 8) {
     fail(`${scope}: explanation has ${pkg.explanation.lines.length} lines`);
   }
-  if (!pkg.explanation.lines.some((line) => line.includes(pkg.answer))) {
+  const token = answerToken(pkg);
+  if (!pkg.explanation.lines.some((line) => line.replaceAll(",", "").replaceAll("₹", "").includes(token))) {
     fail(`${scope}: explanation omits answer evidence`);
   }
   if (!pkg.explanation.lines.some(arithmeticLine)) {
@@ -227,6 +239,7 @@ console.log(JSON.stringify({
   localizedStemVariation: STEM_VARIATION,
   cp003Authorship: CP003_AUTHORSHIP,
   cp004Authorship: CP004_AUTHORSHIP,
+  cp005Authorship: CP005_AUTHORSHIP,
   englishQlCount: entries.length,
   localizedQlCountPerLanguage: entries.filter((entry) => LOCALIZED_CP_IDS.includes(entry.cpId)).length,
   englishExactExplanationGroups: englishExplanations.size,
