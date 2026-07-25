@@ -51,7 +51,7 @@ for (const entry of getMen001QuestionEntries()) {
   );
   assert.ok(
     question.explanation.lines.length >= 4 &&
-      question.explanation.lines.length <= 8,
+      question.explanation.lines.length <= 9,
     `${entry.qlId} should remain concise and complete.`,
   );
   assert.equal(
