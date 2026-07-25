@@ -89,10 +89,10 @@ export function renderMissingTurnStem(
   const finalDirection = DIRECTION_LABELS[finalFacing];
   switch (variant % 3) {
     case 0:
-      return `${person} was facing ${initial}. After making one turn, ${person} faced ${finalDirection}. Which turn did ${person} make?`;
+      return `${person} was facing ${initial} and later faced ${finalDirection}. Which option correctly describes the change in facing?`;
     case 1:
-      return `A single turn changes ${person}'s facing direction from ${initial} to ${finalDirection}. Identify the turn.`;
+      return `${person}'s facing direction changes from ${initial} to ${finalDirection}. Which turn produces this change?`;
     default:
-      return `${person} initially faces ${initial} and finally faces ${finalDirection} after one relative turn. What was that turn?`;
+      return `${person} initially faces ${initial} and then faces ${finalDirection}. What turn would produce this change?`;
   }
 }
