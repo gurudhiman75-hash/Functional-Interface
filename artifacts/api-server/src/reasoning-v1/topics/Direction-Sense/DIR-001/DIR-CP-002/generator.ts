@@ -11,6 +11,7 @@ import { dirCp002Ql } from "./task-registry";
 const CARDINAL_DIRECTIONS = ["NORTH", "EAST", "SOUTH", "WEST"] as const;
 const DISTANCES = [3, 4, 5, 6, 7, 8, 9, 10, 12, 15] as const;
 const PERSON_NAMES = ["Aman", "Beena", "Charan", "Deepa", "Farhan", "Gurpreet", "Harpreet", "Isha"] as const;
+const EPSILON = 1e-9;
 
 export interface CombinedPathAnswer {
   readonly endpointDirection: Direction;
@@ -23,22 +24,11 @@ export interface RenderedPathOption<T extends PathAnswerValue = PathAnswerValue>
   readonly label: string;
 }
 
-export interface PathExplanationStep {
-  readonly stepNumber: number;
-  readonly title: string;
-  readonly statement: string;
-  readonly calculation: string;
-  readonly result: string;
-}
-
 export interface PathExplanation {
-  readonly given: readonly string[];
-  readonly diagram: PathDiagramSpec;
-  readonly method: string;
-  readonly steps: readonly PathExplanationStep[];
-  readonly askedRelation: string;
+  readonly given: string;
+  readonly movementLines: readonly string[];
   readonly conclusion: string;
-  readonly closestTrapRejection: string;
+  readonly diagram: PathDiagramSpec;
 }
 
 export interface GeneratedPathQuestion {
@@ -70,6 +60,11 @@ interface BuiltPath {
   readonly legCount: number;
 }
 
+interface RouteSegment {
+  readonly start: Coordinate;
+  readonly end: Coordinate;
+}
+
 function seededRandom(seed: number): () => number {
   let state = (seed ^ 0x9e3779b9) >>> 0;
   return () => {
@@ -94,8 +89,86 @@ function shuffle<T>(items: readonly T[], random: () => number): T[] {
   return result;
 }
 
+function nearlyEqual(left: number, right: number): boolean {
+  return Math.abs(left - right) <= EPSILON;
+}
+
+function sameCoordinate(left: Coordinate, right: Coordinate): boolean {
+  return nearlyEqual(left.x, right.x) && nearlyEqual(left.y, right.y);
+}
+
+function coordinateKey(coordinate: Coordinate): string {
+  return `${Math.round(coordinate.x * 1e9)}:${Math.round(coordinate.y * 1e9)}`;
+}
+
+function between(value: number, edgeA: number, edgeB: number): boolean {
+  return value >= Math.min(edgeA, edgeB) - EPSILON && value <= Math.max(edgeA, edgeB) + EPSILON;
+}
+
+function positiveIntervalOverlap(a1: number, a2: number, b1: number, b2: number): boolean {
+  const overlap = Math.min(Math.max(a1, a2), Math.max(b1, b2)) - Math.max(Math.min(a1, a2), Math.min(b1, b2));
+  return overlap > EPSILON;
+}
+
+function segmentsConflict(first: RouteSegment, second: RouteSegment, consecutive: boolean): boolean {
+  const firstVertical = nearlyEqual(first.start.x, first.end.x);
+  const secondVertical = nearlyEqual(second.start.x, second.end.x);
+
+  if (firstVertical && secondVertical) {
+    return nearlyEqual(first.start.x, second.start.x)
+      && positiveIntervalOverlap(first.start.y, first.end.y, second.start.y, second.end.y);
+  }
+
+  if (!firstVertical && !secondVertical) {
+    return nearlyEqual(first.start.y, second.start.y)
+      && positiveIntervalOverlap(first.start.x, first.end.x, second.start.x, second.end.x);
+  }
+
+  const vertical = firstVertical ? first : second;
+  const horizontal = firstVertical ? second : first;
+  const crossing = {
+    x: vertical.start.x,
+    y: horizontal.start.y,
+  };
+  const intersects = between(crossing.y, vertical.start.y, vertical.end.y)
+    && between(crossing.x, horizontal.start.x, horizontal.end.x);
+  if (!intersects) return false;
+
+  if (consecutive) {
+    const sharedEndpoint = sameCoordinate(first.end, second.start) || sameCoordinate(second.end, first.start);
+    if (sharedEndpoint && (
+      sameCoordinate(crossing, first.end)
+      || sameCoordinate(crossing, first.start)
+      || sameCoordinate(crossing, second.end)
+      || sameCoordinate(crossing, second.start)
+    )) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function routeIsDiagramClear(solved: SolvedPath): boolean {
+  const seenPoints = new Set<string>([coordinateKey(solved.initial.position)]);
+  const segments: RouteSegment[] = [];
+
+  for (const trace of solved.trace) {
+    if (trace.operation.kind !== "MOVE") continue;
+    if (seenPoints.has(coordinateKey(trace.after.position))) return false;
+    seenPoints.add(coordinateKey(trace.after.position));
+    segments.push({ start: trace.before.position, end: trace.after.position });
+  }
+
+  for (let left = 0; left < segments.length; left += 1) {
+    for (let right = left + 1; right < segments.length; right += 1) {
+      if (segmentsConflict(segments[left], segments[right], right === left + 1)) return false;
+    }
+  }
+  return true;
+}
+
 function buildPath(seed: number): BuiltPath {
-  for (let attempt = 0; attempt < 32; attempt += 1) {
+  for (let attempt = 0; attempt < 256; attempt += 1) {
     const random = seededRandom(seed * 41 + attempt * 101 + 17);
     const person = pick(PERSON_NAMES, random);
     const initialFacing = pick(CARDINAL_DIRECTIONS, random);
@@ -122,11 +195,11 @@ function buildPath(seed: number): BuiltPath {
     }
 
     const solved = solvePath(createInitialPathState(initialFacing), operations);
-    if (endpointDirection(solved.initial, solved.final) !== "SAME_POSITION") {
+    if (endpointDirection(solved.initial, solved.final) !== "SAME_POSITION" && routeIsDiagramClear(solved)) {
       return { person, initialFacing, operations, solved, legCount };
     }
   }
-  throw new Error(`Unable to construct a non-degenerate DIR-CP-002 path for seed ${seed}`);
+  throw new Error(`Unable to construct a clear non-degenerate DIR-CP-002 path for seed ${seed}`);
 }
 
 function uniqueDirectionDistractors(correct: Direction, vector: Coordinate): readonly { value: Direction; errorLabel: string }[] {
@@ -191,36 +264,34 @@ function combinedOptions(correct: CombinedPathAnswer, seed: number): readonly Re
   );
 }
 
-function pointLabel(moveIndex: number): string {
-  if (moveIndex === 0) return "O";
-  return String.fromCharCode(64 + moveIndex);
+function turnPhrase(turn: TurnOperation): string {
+  if (turn.degrees === 180) return "turning around";
+  return turn.sense === "CLOCKWISE" ? "turning right" : "turning left";
 }
 
-function normalizedCoordinate(value: number): number {
-  const rounded = Math.round(value * 1e9) / 1e9;
-  return Object.is(rounded, -0) ? 0 : rounded;
-}
+function movementWalkthrough(path: BuiltPath): readonly string[] {
+  const lines: string[] = [];
+  let pendingTurn: TurnOperation | null = null;
+  let movementNumber = 0;
 
-function coordinateText(coordinate: Coordinate): string {
-  return `(${normalizedCoordinate(coordinate.x)}, ${normalizedCoordinate(coordinate.y)})`;
-}
+  for (const trace of path.solved.trace) {
+    if (trace.operation.kind === "TURN") {
+      pendingTurn = trace.operation;
+      continue;
+    }
 
-function turnSummary(turn: TurnOperation): string {
-  if (turn.degrees === 180) return "about-turn";
-  return turn.sense === "CLOCKWISE" ? "right turn" : "left turn";
-}
-
-function simplifiedMovement(path: BuiltPath): string {
-  return path.solved.trace.map((trace) => {
-    if (trace.operation.kind === "TURN") return turnSummary(trace.operation);
-    return `${trace.operation.distance} m ${PATH_DIRECTION_LABELS[trace.movementDirection!]}`;
-  }).join(" → ");
-}
-
-function vectorInterpretation(vector: Coordinate): string {
-  const xPart = vector.x > 0 ? "east" : vector.x < 0 ? "west" : "no east-west change";
-  const yPart = vector.y > 0 ? "north" : vector.y < 0 ? "south" : "no north-south change";
-  return `${xPart} and ${yPart}`;
+    movementNumber += 1;
+    const direction = PATH_DIRECTION_LABELS[trace.movementDirection!];
+    if (movementNumber === 1) {
+      lines.push(`First, ${path.person} walks ${trace.operation.distance} metres ${direction}.`);
+    } else if (pendingTurn) {
+      lines.push(`After ${turnPhrase(pendingTurn)}, ${path.person} walks ${trace.operation.distance} metres ${direction}.`);
+    } else {
+      lines.push(`Next, ${path.person} walks ${trace.operation.distance} metres ${direction}.`);
+    }
+    pendingTurn = null;
+  }
+  return lines;
 }
 
 function explanationFor(
@@ -229,95 +300,17 @@ function explanationFor(
   reverseQuery: boolean,
   includeFacing: boolean,
 ): PathExplanation {
-  const finalPointLabel = pointLabel(path.legCount);
-  const required = reverseQuery
-    ? "Find the direction of the starting point from the final position."
-    : includeFacing
-      ? "Find the final position from the starting point and the final facing direction."
-      : "Find the final position from the starting point.";
-  const given = [
-    `Starting direction: ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
-    `Simplified path: ${simplifiedMovement(path)}.`,
-    `Required: ${required}`,
-  ];
-  const diagram = buildPathDiagram(path.solved, reverseQuery, endpoint, includeFacing);
-  const steps: PathExplanationStep[] = [
-    {
-      stepNumber: 1,
-      title: "Mark the starting point",
-      statement: `Let the starting point be O. Use East as +x and North as +y.`,
-      calculation: "O = (0, 0)",
-      result: `${path.person} starts at O facing ${PATH_DIRECTION_LABELS[path.initialFacing]}.`,
-    },
-  ];
-
-  let moveIndex = 0;
-  let pendingTurn: TurnOperation | null = null;
-  for (const trace of path.solved.trace) {
-    if (trace.operation.kind === "TURN") {
-      pendingTurn = trace.operation;
-      continue;
-    }
-
-    const beforePoint = pointLabel(moveIndex);
-    moveIndex += 1;
-    const afterPoint = pointLabel(moveIndex);
-    const dx = trace.after.position.x - trace.before.position.x;
-    const dy = trace.after.position.y - trace.before.position.y;
-    const turnContext = pendingTurn
-      ? `After the ${turnSummary(pendingTurn)}, the facing direction becomes ${PATH_DIRECTION_LABELS[trace.movementDirection!]}. `
-      : "";
-    steps.push({
-      stepNumber: steps.length + 1,
-      title: `Plot the movement to ${afterPoint}`,
-      statement: `${turnContext}${path.person} moves ${trace.operation.distance} metres ${PATH_DIRECTION_LABELS[trace.movementDirection!]} from ${beforePoint} to ${afterPoint}.`,
-      calculation: `${beforePoint} ${coordinateText(trace.before.position)} + (${normalizedCoordinate(dx)}, ${normalizedCoordinate(dy)}) = ${afterPoint} ${coordinateText(trace.after.position)}`,
-      result: `${afterPoint} is located at ${coordinateText(trace.after.position)}.`,
-    });
-    pendingTurn = null;
-  }
-
-  const finalPosition = path.solved.final.position;
-  const relationVector = reverseQuery
-    ? { x: -finalPosition.x, y: -finalPosition.y }
-    : { x: finalPosition.x, y: finalPosition.y };
-  const referenceLabel = reverseQuery ? finalPointLabel : "O";
-  const subjectLabel = reverseQuery ? "O" : finalPointLabel;
-  steps.push({
-    stepNumber: steps.length + 1,
-    title: "Read the required relation",
-    statement: `The required direction is of ${subjectLabel} from ${referenceLabel}. Subtract the reference coordinate from the required point coordinate.`,
-    calculation: `${subjectLabel} − ${referenceLabel} = (${normalizedCoordinate(relationVector.x)}, ${normalizedCoordinate(relationVector.y)})`,
-    result: `The net direction is ${vectorInterpretation(relationVector)}, which is ${PATH_DIRECTION_LABELS[endpoint]}.`,
-  });
-
-  if (includeFacing) {
-    steps.push({
-      stepNumber: steps.length + 1,
-      title: "Read the final facing",
-      statement: "The final facing is obtained from the last turn and movement direction, independently of the final location.",
-      calculation: `Final facing = ${PATH_DIRECTION_LABELS[path.solved.final.facing]}`,
-      result: `${path.person} faces ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at the end.`,
-    });
-  }
-
-  const askedRelation = reverseQuery
-    ? `Starting point from final position = ${PATH_DIRECTION_LABELS[endpoint]}`
-    : `Final position from starting point = ${PATH_DIRECTION_LABELS[endpoint]}`;
+  const given = `${path.person} starts facing ${PATH_DIRECTION_LABELS[path.initialFacing]}. Reading each turn in order gives the following movements.`;
   const conclusion = includeFacing
-    ? `The final position is ${PATH_DIRECTION_LABELS[endpoint]} of the starting point, and ${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at the end.`
+    ? `${path.person}'s final position is ${PATH_DIRECTION_LABELS[endpoint]} of the starting point, and ${path.person} is facing ${PATH_DIRECTION_LABELS[path.solved.final.facing]} at the end.`
     : reverseQuery
       ? `The starting point is ${PATH_DIRECTION_LABELS[endpoint]} of ${path.person}'s final position.`
       : `${path.person}'s final position is ${PATH_DIRECTION_LABELS[endpoint]} of the starting point.`;
-
   return {
     given,
-    diagram,
-    method: "Convert the movement into directions, draw the path from the starting point, and compare only the two positions named in the question.",
-    steps,
-    askedRelation,
+    movementLines: movementWalkthrough(path),
     conclusion,
-    closestTrapRejection: "Do not confuse the final facing direction with the direction of the final position, and do not reverse the stated reference relationship.",
+    diagram: buildPathDiagram(path.solved),
   };
 }
 
@@ -344,8 +337,8 @@ export function generateDirCp002Question(qlId: string, seed = 0): GeneratedPathQ
   if (
     generatedEndpoint !== independent.endpointDirection
     || path.solved.final.facing !== independent.finalFacing
-    || Math.abs(path.solved.final.position.x - independent.finalPosition.x) > 1e-9
-    || Math.abs(path.solved.final.position.y - independent.finalPosition.y) > 1e-9
+    || Math.abs(path.solved.final.position.x - independent.finalPosition.x) > EPSILON
+    || Math.abs(path.solved.final.position.y - independent.finalPosition.y) > EPSILON
   ) {
     throw new Error(`Independent path solver disagreed for ${qlId} seed ${seed}`);
   }
