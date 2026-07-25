@@ -2,16 +2,21 @@ name: Validate canonical Student Administration
 
 on:
   pull_request:
-    branches:
-      - New-main
+    branches: [New-main]
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/lib/admin-student-administration.ts
       - artifacts/api-server/src/lib/admin-student-administration.test.ts
+      - artifacts/api-server/src/middlewares/auth.ts
       - artifacts/api-server/src/routes/admin-student-actions.ts
+      - artifacts/api-server/src/routes/admin-student-account-lifecycle.ts
+      - artifacts/api-server/src/routes/admin-student-operations.ts
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
+      - artifacts/examtree/src/lib/auth.ts
       - artifacts/admin-app/src/features/students/**
+      - artifacts/admin-app/src/pages/users/StudentsPage.tsx
+      - artifacts/admin-app/src/pages/users/StudentDetailPage.tsx
       - artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
       - artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
@@ -21,15 +26,20 @@ on:
       - docs/frontend-truth-audit.md
       - .github/workflows/student-administration.yml
   push:
-    branches:
-      - New-main
+    branches: [New-main]
     paths:
       - artifacts/api-server/src/lib/admin-student-administration.ts
       - artifacts/api-server/src/lib/admin-student-administration.test.ts
+      - artifacts/api-server/src/middlewares/auth.ts
       - artifacts/api-server/src/routes/admin-student-actions.ts
+      - artifacts/api-server/src/routes/admin-student-account-lifecycle.ts
+      - artifacts/api-server/src/routes/admin-student-operations.ts
       - artifacts/api-server/src/routes/admin-students.ts
       - artifacts/api-server/src/routes/index.ts
+      - artifacts/examtree/src/lib/auth.ts
       - artifacts/admin-app/src/features/students/**
+      - artifacts/admin-app/src/pages/users/StudentsPage.tsx
+      - artifacts/admin-app/src/pages/users/StudentDetailPage.tsx
       - artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
       - artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
       - artifacts/admin-app/src/App.tsx
@@ -67,22 +77,37 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Enforce canonical RBAC and mutation boundary
+      - name: Enforce canonical RBAC and lifecycle boundaries
         run: |
+          grep -F 'router.use("/admin/students", adminStudentAccountLifecycleRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentActionsRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F 'router.use("/admin/students", adminStudentOperationsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-students.ts
           grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-student-actions.ts
-          grep -F "router.post(" artifacts/api-server/src/routes/admin-student-actions.ts
-          grep -F "FOR UPDATE OF u" artifacts/api-server/src/routes/admin-student-actions.ts
-          grep -F "platform.audit_events" artifacts/api-server/src/routes/admin-student-actions.ts
-          grep -F "platform.audit_event_changes" artifacts/api-server/src/routes/admin-student-actions.ts
-          grep -F "STUDENT_ACTION_REASON_REQUIRED" artifacts/api-server/src/lib/admin-student-administration.ts
-          grep -F "STUDENT_STATE_CHANGED" artifacts/api-server/src/lib/admin-student-administration.ts
-          ! grep -E "firebase-admin|deleteUser|disableUser|refresh_token_hash" artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-student-account-lifecycle.ts
+          grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-student-operations.ts
+          grep -F 'FOR UPDATE OF u' artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F 'FOR UPDATE OF u' artifacts/api-server/src/routes/admin-student-account-lifecycle.ts
+          grep -F 'platform.audit_events' artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F 'platform.audit_events' artifacts/api-server/src/routes/admin-student-account-lifecycle.ts
+          grep -F 'platform.audit_events' artifacts/api-server/src/routes/admin-student-operations.ts
+          grep -F 'revokeRefreshTokens' artifacts/api-server/src/routes/admin-student-actions.ts
+          grep -F 'revokeRefreshTokens' artifacts/api-server/src/routes/admin-student-account-lifecycle.ts
+          grep -F 'revokeRefreshTokens' artifacts/api-server/src/routes/admin-student-operations.ts
+          grep -F 'verifyIdToken(token, true)' artifacts/api-server/src/middlewares/auth.ts
+          grep -F 'ACCOUNT_SUSPENDED' artifacts/api-server/src/middlewares/auth.ts
+          grep -F 'ACCOUNT_UNAVAILABLE' artifacts/api-server/src/middlewares/auth.ts
+          grep -F 'SESSION_REVOKED' artifacts/api-server/src/middlewares/auth.ts
+          grep -F 'STUDENT_ACTION_REASON_REQUIRED' artifacts/api-server/src/lib/admin-student-administration.ts
+          grep -F 'STUDENT_STATE_CHANGED' artifacts/api-server/src/lib/admin-student-administration.ts
+          grep -F "'disable'" artifacts/api-server/src/lib/admin-student-administration.ts
+          grep -F "'enable'" artifacts/api-server/src/lib/admin-student-administration.ts
+          grep -F 'account-suspended' artifacts/examtree/src/lib/auth.ts
+          grep -F 'account-unavailable' artifacts/examtree/src/lib/auth.ts
+          grep -F 'session-revoked' artifacts/examtree/src/lib/auth.ts
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
-          grep -F "hasPermission('users.students.manage')" artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
           grep -F "permission: 'users.students.read'" artifacts/admin-app/src/app/nav/navigation.ts
           grep -F "path: '/users/students/:id'" artifacts/admin-app/src/App.tsx
 
@@ -96,10 +121,13 @@ jobs:
           grep -R 'users.students.manage' artifacts/api-server/dist >/dev/null
           grep -R 'student.account.suspended' artifacts/api-server/dist >/dev/null
           grep -R 'student.account.reactivated' artifacts/api-server/dist >/dev/null
+          grep -R 'student.account.disabled' artifacts/api-server/dist >/dev/null
+          grep -R 'student.account.enabled' artifacts/api-server/dist >/dev/null
           grep -R 'student.sessions.revoked' artifacts/api-server/dist >/dev/null
-          grep -R 'platform.audit_event_changes' artifacts/api-server/dist >/dev/null
+          grep -R 'revokeRefreshTokens' artifacts/api-server/dist >/dev/null
+          grep -R 'SESSION_REVOKED' artifacts/api-server/dist >/dev/null
 
-      - name: Test Student Administration contracts
+      - name: Test Student Administration lifecycle contracts
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/lib/admin-student-administration.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/admin-student-administration.test.mjs
           node artifacts/api-server/dist/admin-student-administration.test.mjs
