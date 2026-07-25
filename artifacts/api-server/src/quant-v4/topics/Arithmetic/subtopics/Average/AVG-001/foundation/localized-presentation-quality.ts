@@ -1,11 +1,12 @@
+import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
+import { applyAvg001Cp003LocalizedStemAuthorship } from "./cp003-localized-stem-authorship";
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
-import { applyAvg001LocalizedStemFinal } from "./localized-stem-final";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 type PilotLanguage = "hi" | "pa";
 
-const HI_UNNATURAL = /(?:[\d,.]+ का एक मान समूह|एक नया सदस्य शामिल होने पर|हटाए गए सदस्य का मान|एक सदस्य हटने पर|अंक का एक स्कोर|उत्पादन-श्रृंखला|मूल्य-श्रृंखला|स्कोर-श्रृंखला|दूरी-श्रृंखला|बीच का संख्या|सबसे बड़ा संख्या|सबसे छोटा संख्या|समूह का पहला मान|संख्याएँ के|मान का पहला मान|आँकड़े की संख्या|परीक्षा-अंक की संख्या)/;
-const PA_UNNATURAL = /(?:[\d,.]+ ਦਾ ਇੱਕ ਮੁੱਲ ਸਮੂਹ|ਇੱਕ ਨਵਾਂ ਮੈਂਬਰ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ|ਹਟਾਏ ਗਏ ਮੈਂਬਰ ਦਾ ਮੁੱਲ|ਇੱਕ ਮੈਂਬਰ ਹਟਣ ਉੱਤੇ|ਅੰਕ ਦਾ ਇੱਕ ਸਕੋਰ|ਉਤਪਾਦਨ ਲੜੀ|ਕੀਮਤਾਂ ਦੀ ਲੜੀ|ਸਕੋਰ ਲੜੀ|ਦੂਰੀ ਲੜੀ|ਵਿਚਕਾਰਲਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਵੱਡਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਛੋਟਾ ਸੰਖਿਆ|ਸਮੂਹ ਦਾ ਪਹਿਲਾ ਮੁੱਲ|ਅੰਕੜੇ ਦੀ ਗਿਣਤੀ|ਪ੍ਰੀਖਿਆ ਅੰਕ ਦੀ ਗਿਣਤੀ)/;
+const HI_UNNATURAL = /(?:[\d,.]+ का एक मान समूह|एक नया सदस्य शामिल होने पर|हटाए गए सदस्य का मान|एक सदस्य हटने पर|अंक का एक स्कोर|उत्पादन-श्रृंखला|मूल्य-श्रृंखला|स्कोर-श्रृंखला|दूरी-श्रृंखला|बीच का संख्या|सबसे बड़ा संख्या|सबसे छोटा संख्या|समूह का पहला मान|संख्याएँ के|मान का पहला मान|आँकड़े की संख्या|परीक्षा-अंक की संख्या|मानों का औसत [^।]+। इसमें|एक और कीमत शामिल|एक परीक्षा का परिणाम हटाने|वजनों का औसत|दर्ज राशियों का औसत|औसत [\d,.]+ इकाइयाँ हो जाता है|औसत [\d,.]+ रन हो जाता है)/;
+const PA_UNNATURAL = /(?:[\d,.]+ ਦਾ ਇੱਕ ਮੁੱਲ ਸਮੂਹ|ਇੱਕ ਨਵਾਂ ਮੈਂਬਰ ਸ਼ਾਮਲ ਹੋਣ ਉੱਤੇ|ਹਟਾਏ ਗਏ ਮੈਂਬਰ ਦਾ ਮੁੱਲ|ਇੱਕ ਮੈਂਬਰ ਹਟਣ ਉੱਤੇ|ਅੰਕ ਦਾ ਇੱਕ ਸਕੋਰ|ਉਤਪਾਦਨ ਲੜੀ|ਕੀਮਤਾਂ ਦੀ ਲੜੀ|ਸਕੋਰ ਲੜੀ|ਦੂਰੀ ਲੜੀ|ਵਿਚਕਾਰਲਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਵੱਡਾ ਸੰਖਿਆ|ਸਭ ਤੋਂ ਛੋਟਾ ਸੰਖਿਆ|ਸਮੂਹ ਦਾ ਪਹਿਲਾ ਮੁੱਲ|ਅੰਕੜੇ ਦੀ ਗਿਣਤੀ|ਪ੍ਰੀਖਿਆ ਅੰਕ ਦੀ ਗਿਣਤੀ|ਮੁੱਲਾਂ ਦੀ ਔਸਤ [^।]+। ਇਸ ਵਿੱਚ|ਇੱਕ ਹੋਰ ਕੀਮਤ ਸ਼ਾਮਲ|ਇੱਕ ਪ੍ਰੀਖਿਆ ਦਾ ਨਤੀਜਾ ਹਟਾਉਣ|ਵਜ਼ਨਾਂ ਦੀ ਔਸਤ|ਦਰਜ ਰਕਮਾਂ ਦੀ ਔਸਤ|ਔਸਤ [\d,.]+ ਇਕਾਈਆਂ ਹੋ ਜਾਂਦੀ ਹੈ|ਔਸਤ [\d,.]+ ਦੌੜਾਂ ਹੋ ਜਾਂਦੀ ਹੈ)/;
 
 function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) {
   const replaced = new Set([
@@ -23,6 +24,10 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
   const expectedScript = language === "hi" ? devanagariLetters : gurmukhiLetters;
   const wrongScript = language === "hi" ? gurmukhiLetters : devanagariLetters;
   const unnatural = language === "hi" ? HI_UNNATURAL : PA_UNNATURAL;
+  const cp003Authored =
+    pkg.canonicalProblemId !== "AVG-CP-003" ||
+    pkg.traceability.cp003ExplanationAuthorship === "AVG-CP-003 context-authored explanations v1";
+
   checks.push(
     {
       name: "localized-script",
@@ -53,8 +58,9 @@ function refreshValidation(pkg: Avg001QuestionPackage, language: PilotLanguage) 
       passed:
         pkg.traceability.explanationAuthorship === "AVG-001 deterministic human-authored presentation v2" &&
         typeof pkg.traceability.explanationOpeningVariant === "number" &&
-        typeof pkg.traceability.explanationConclusionVariant === "number",
-      message: "Localized explanation uses the context-preserving human-authored presentation planner",
+        typeof pkg.traceability.explanationConclusionVariant === "number" &&
+        cp003Authored,
+      message: "Localized explanation uses context-authored prose with deterministic arithmetic",
     },
   );
   return { valid: checks.every((check) => check.passed), checks };
@@ -64,7 +70,8 @@ export function applyAvg001LocalizedPresentationQuality(
   pkg: Avg001QuestionPackage,
   language: PilotLanguage,
 ): Avg001QuestionPackage {
-  const polishedStem = applyAvg001LocalizedStemFinal(pkg, language);
+  const polishedStem = applyAvg001Cp003LocalizedStemAuthorship(pkg, language);
   const humanized = applyAvg001HumanAuthoredExplanation(polishedStem);
-  return { ...humanized, validation: refreshValidation(humanized, language) };
+  const contextAuthored = applyAvg001Cp003ExplanationAuthorship(humanized);
+  return { ...contextAuthored, validation: refreshValidation(contextAuthored, language) };
 }
