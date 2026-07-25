@@ -17,17 +17,6 @@ function describeRule(ruleId: CodCp002RuleId, context: CodCp002RuleContext): str
   }
 }
 
-function openingFor(ruleId: CodCp002RuleId, styleIndex: number): string {
-  const variants = [
-    "The examples follow this rule:",
-    "Comparing the given words and numbers shows that",
-    "The same numerical rule is used throughout:",
-    "The coding is obtained as follows:",
-  ] as const;
-  const opening = variants[styleIndex % variants.length]!;
-  return `${opening} ${describeRule(ruleId, arguments[1] as never)}`;
-}
-
 function wordWorking(ruleId: CodCp002RuleId, context: CodCp002RuleContext, word: string, code: string): string {
   const ranks = [...word].map(forwardRank);
   switch (ruleId) {
@@ -54,7 +43,7 @@ function letterFromRank(rank: number): string {
 
 function decodeWorking(ruleId: CodCp002RuleId, context: CodCp002RuleContext, encoded: string, answer: string): string {
   const values = parseNumericSequence(encoded);
-  const steps = values.map((value, index) => {
+  const steps = values.map((value) => {
     let rank: number;
     if (ruleId === "A1Z26_SEQUENCE_CODE") rank = value;
     else if (ruleId === "Z1A26_SEQUENCE_CODE") rank = 27 - value;
@@ -126,10 +115,10 @@ export function buildCodCp002Explanation(input: {
   }
 
   const openings = [
-    "The examples follow this rule:",
-    "Comparing the given codes shows that",
-    "The same numerical method is used throughout:",
+    "The numerical coding rule is:",
+    "All the examples use this method:",
     "The code is formed as follows:",
+    "The common rule is:",
   ] as const;
 
   return {
