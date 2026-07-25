@@ -16,25 +16,40 @@ export const MEN_001_ACTIVE_CP_IDS = [
   "MEN-CP-001",
   "MEN-CP-002",
   "MEN-CP-003",
+  "MEN-CP-004",
 ] as const;
 
 export type Men001CanonicalProblemId = (typeof MEN_001_CP_IDS)[number];
-export type Men001ActiveCanonicalProblemId =
-  (typeof MEN_001_ACTIVE_CP_IDS)[number];
+export type Men001ActiveCanonicalProblemId = (typeof MEN_001_ACTIVE_CP_IDS)[number];
 export type Men001Language = "en" | "hi" | "pa";
 export type Men001Difficulty = "Easy" | "Medium" | "Hard";
 export type Men001TaskKind =
   | "triangleMeasurementApplication"
   | "quadrilateralMeasurementApplication"
-  | "circleMeasurementApplication";
-export type Men001AnswerDimension = "LENGTH" | "AREA" | "COST" | "ANGLE";
+  | "circleMeasurementApplication"
+  | "pathBorderFlooringFencingApplication";
+export type Men001AnswerDimension =
+  | "LENGTH"
+  | "AREA"
+  | "COST"
+  | "RATE"
+  | "ANGLE"
+  | "COUNT";
+/** Unit policies consumed by the original CP-001–004 registries. */
 export type Men001UnitPolicy =
   | "CENTIMETRES"
   | "METRES"
   | "SQUARE_CENTIMETRES"
   | "SQUARE_METRES"
   | "RUPEES"
-  | "DEGREES";
+  | "DEGREES"
+  | "TILES";
+/** Additive policies used by exhaustiveness modes without widening legacy registry maps. */
+export type Men001ExtendedUnitPolicy =
+  | "RUPEES_PER_SQUARE_METRE"
+  | "RUPEES_PER_METRE"
+  | "REVOLUTIONS";
+export type Men001AnyUnitPolicy = Men001UnitPolicy | Men001ExtendedUnitPolicy;
 export type Men001DiagramRequirement = "REQUIRED" | "OPTIONAL" | "NONE";
 
 export type ExactSpatialNumber =
@@ -83,7 +98,7 @@ export interface Men001QuestionLanguageEntry {
   template: string;
   requiredVariables: string[];
   answerDimension: Men001AnswerDimension;
-  unitPolicy: Men001UnitPolicy;
+  unitPolicy: Men001AnyUnitPolicy;
   explanationStrategyId: string;
   distractorStrategyIds: string[];
   /** Diagram attached to the question stem, not to its explanation. */
@@ -110,11 +125,13 @@ export interface Men001Parameters {
   taskKind: Men001TaskKind;
   solveMode: Men001SolveMode;
   answerDimension: Men001AnswerDimension;
+  /** Legacy field type retained for existing registries; parameter generation validates extended policies before casting. */
   unitPolicy: Men001UnitPolicy;
   seed: string;
   values: {
     base?: number;
     height?: number;
+    heightCoefficient?: number;
     area?: number;
     sideA?: number;
     sideB?: number;
@@ -130,6 +147,7 @@ export interface Men001Parameters {
     ratioC?: number;
     scale?: number;
     ratePerSquareMetre?: number;
+    ratePerMetre?: number;
     cost?: number;
     length?: number;
     breadth?: number;
@@ -160,8 +178,37 @@ export interface Men001Parameters {
     innerArea?: number;
     radiusSquareDifference?: number;
     outerRadiusSquare?: number;
+    innerRadiusSquare?: number;
     revolutions?: number;
     distance?: number;
+    pathWidth?: number;
+    outerLength?: number;
+    outerBreadth?: number;
+    innerLength?: number;
+    innerBreadth?: number;
+    outerSide?: number;
+    innerSide?: number;
+    floorLength?: number;
+    floorBreadth?: number;
+    floorArea?: number;
+    tileLength?: number;
+    tileBreadth?: number;
+    tileArea?: number;
+    tileCount?: number;
+    coveredArea?: number;
+    costPerTile?: number;
+    gateWidth?: number;
+    rounds?: number;
+    fenceLength?: number;
+    wireLength?: number;
+    roadWidthA?: number;
+    roadWidthB?: number;
+    roadAreaA?: number;
+    roadAreaB?: number;
+    overlapArea?: number;
+    roadArea?: number;
+    fieldArea?: number;
+    discriminant?: number;
   };
   renderVariables: Record<string, string | number>;
 }
@@ -171,7 +218,17 @@ export interface Men001SolverResult {
   canonicalAnswer: Men001CanonicalAnswer;
   answer: string;
   answerDimension: Men001AnswerDimension;
-  unit: "cm" | "m" | "cm²" | "m²" | "₹" | "°";
+  unit:
+    | "cm"
+    | "m"
+    | "cm²"
+    | "m²"
+    | "₹"
+    | "₹/m²"
+    | "₹/m"
+    | "°"
+    | "tiles"
+    | "revolutions";
   equation: string;
   workingValues: Record<string, string | number>;
 }
@@ -203,12 +260,7 @@ export type Men001ExplanationIllustration =
       purpose: "ALTITUDE_BISECTS_BASE";
       placement: "BEFORE_PYTHAGORAS";
       notToScale: true;
-      labels: {
-        equalSide: string;
-        base: string;
-        halfBase: string;
-        height: string;
-      };
+      labels: { equalSide: string; base: string; halfBase: string; height: string };
       accessibleText: string;
     }
   | {
@@ -238,11 +290,7 @@ export type Men001ExplanationIllustration =
       purpose: "SPLIT_INTO_TWO_TRIANGLES";
       placement: "BEFORE_AREA_ADDITION";
       notToScale: true;
-      labels: {
-        diagonal: string;
-        perpendicularA: string;
-        perpendicularB: string;
-      };
+      labels: { diagonal: string; perpendicularA: string; perpendicularB: string };
       accessibleText: string;
     }
   | {
@@ -250,11 +298,7 @@ export type Men001ExplanationIllustration =
       purpose: "ARC_OR_SECTOR_FRACTION";
       placement: "BEFORE_FRACTION_CALCULATION";
       notToScale: true;
-      labels: {
-        radius: string;
-        centralAngle: string;
-        measuredPart: string;
-      };
+      labels: { radius: string; centralAngle: string; measuredPart: string };
       accessibleText: string;
     }
   | {
@@ -262,10 +306,7 @@ export type Men001ExplanationIllustration =
       purpose: "OUTER_MINUS_INNER_CIRCLE";
       placement: "BEFORE_AREA_SUBTRACTION";
       notToScale: true;
-      labels: {
-        outerRadius: string;
-        innerRadius: string;
-      };
+      labels: { outerRadius: string; innerRadius: string };
       accessibleText: string;
     }
   | {
@@ -273,10 +314,34 @@ export type Men001ExplanationIllustration =
       purpose: "CURVE_PLUS_STRAIGHT_EDGES";
       placement: "BEFORE_PERIMETER_ADDITION";
       notToScale: true;
+      labels: { radius: string; curvedBoundary: string; straightEdges: string };
+      accessibleText: string;
+    }
+  | {
+      kind: "RECTANGULAR_BORDER_BAND";
+      purpose: "OUTER_MINUS_INNER_RECTANGLE";
+      placement: "BEFORE_AREA_SUBTRACTION" | "BEFORE_WIDTH_RECOVERY";
+      notToScale: true;
       labels: {
-        radius: string;
-        curvedBoundary: string;
-        straightEdges: string;
+        outerLength: string;
+        outerBreadth: string;
+        innerLength: string;
+        innerBreadth: string;
+        pathWidth: string;
+        region: string;
+      };
+      accessibleText: string;
+    }
+  | {
+      kind: "CIRCULAR_BORDER_BAND";
+      purpose: "OUTER_MINUS_INNER_CIRCLE";
+      placement: "BEFORE_AREA_SUBTRACTION";
+      notToScale: true;
+      labels: {
+        outerRadius: string;
+        innerRadius: string;
+        pathWidth: string;
+        region: string;
       };
       accessibleText: string;
     };

@@ -1,0 +1,10 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-321","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findUncoveredFloorAreaAfterRectangularMat","answerDimension":"AREA","requiredVariables":["outerLength","outerBreadth","innerLength","innerBreadth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-322","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findPaintingCostExcludingRectangularDoor","answerDimension":"COST","requiredVariables":["outerLength","outerBreadth","innerLength","innerBreadth","ratePerSquareMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-323","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterRectangularPathTilesRequired","answerDimension":"COUNT","requiredVariables":["innerLength","innerBreadth","pathWidth","tileLength","tileBreadth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-324","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findMultipleRoundRectangularFencingCost","answerDimension":"COST","requiredVariables":["length","breadth","rounds","ratePerMetre"]}
+  ]
+}

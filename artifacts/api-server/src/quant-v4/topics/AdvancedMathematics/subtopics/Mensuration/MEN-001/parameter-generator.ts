@@ -9,6 +9,7 @@ import {
   type Men001ActiveCanonicalProblemId,
   type Men001Difficulty,
   type Men001Parameters,
+  type Men001UnitPolicy,
 } from "./types";
 
 export interface Men001ParameterInput {
@@ -78,7 +79,9 @@ export function generateMen001Parameters(
     taskKind: registry.taskKind,
     solveMode: entry.solveMode,
     answerDimension: entry.answerDimension,
-    unitPolicy: entry.unitPolicy,
+    // Extended policies are validated by the QL library and consumed only by the
+    // exhaustiveness registry. The cast preserves compatibility with legacy CP solvers.
+    unitPolicy: entry.unitPolicy as Men001UnitPolicy,
     seed,
     values,
     renderVariables,

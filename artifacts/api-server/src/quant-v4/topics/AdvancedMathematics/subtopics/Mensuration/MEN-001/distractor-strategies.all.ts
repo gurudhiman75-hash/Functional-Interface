@@ -2,6 +2,10 @@ import {
   MEN_001_DISTRACTOR_STRATEGIES as MEN_001_CP001_CP002_DISTRACTOR_STRATEGIES,
 } from "./distractor-strategies";
 import { MEN_001_CP003_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp003";
+import { MEN_001_CP004_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp004";
+import { MEN_001_CP004_ADDITIONAL_DISTRACTOR_STRATEGIES } from "./distractor-strategies.cp004.additional";
+import { MEN_001_EXHAUSTIVENESS_DISTRACTOR_STRATEGIES } from "./distractor-strategies.exhaustiveness";
+import { MEN_001_EXHAUSTIVENESS_REFINED_DISTRACTOR_STRATEGIES } from "./distractor-strategies.exhaustiveness.refined";
 import type {
   Men001Parameters,
   Men001QuestionLanguageEntry,
@@ -11,6 +15,10 @@ import type {
 export const MEN_001_ALL_DISTRACTOR_STRATEGIES = {
   ...MEN_001_CP001_CP002_DISTRACTOR_STRATEGIES,
   ...MEN_001_CP003_DISTRACTOR_STRATEGIES,
+  ...MEN_001_CP004_DISTRACTOR_STRATEGIES,
+  ...MEN_001_CP004_ADDITIONAL_DISTRACTOR_STRATEGIES,
+  ...MEN_001_EXHAUSTIVENESS_DISTRACTOR_STRATEGIES,
+  ...MEN_001_EXHAUSTIVENESS_REFINED_DISTRACTOR_STRATEGIES,
 } as const;
 
 export type Men001AllDistractorStrategyId =

@@ -1,0 +1,26 @@
+{
+  "packageId": "MEN-001",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-301","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterRectangularPathArea","answerDimension":"AREA","requiredVariables":["innerLength","innerBreadth","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-302","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterRectangularPathArea","answerDimension":"AREA","requiredVariables":["innerLength","innerBreadth","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-303","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findInnerRectangularPathArea","answerDimension":"AREA","requiredVariables":["outerLength","outerBreadth","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-304","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterSquarePathArea","answerDimension":"AREA","requiredVariables":["innerSide","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-305","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findInnerSquarePathArea","answerDimension":"AREA","requiredVariables":["outerSide","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-306","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterCircularPathArea","answerDimension":"AREA","requiredVariables":["innerRadius","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-307","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findInnerCircularPathArea","answerDimension":"AREA","requiredVariables":["outerRadius","pathWidth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-308","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findRectangularPathCost","answerDimension":"COST","requiredVariables":["innerLength","innerBreadth","pathWidth","ratePerSquareMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-309","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findCircularPathCost","answerDimension":"COST","requiredVariables":["innerRadius","pathWidth","ratePerSquareMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-310","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findOuterSquarePathWidthFromArea","answerDimension":"LENGTH","requiredVariables":["innerSide","area"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-311","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findRectangularTilesRequiredForFloor","answerDimension":"COUNT","requiredVariables":["floorLength","floorBreadth","tileLength","tileBreadth"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-312","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findSquareTilesRequiredForFloor","answerDimension":"COUNT","requiredVariables":["floorLength","floorBreadth","tileLength"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-313","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findTilePurchaseCostForFloor","answerDimension":"COST","requiredVariables":["floorLength","floorBreadth","tileLength","tileBreadth","costPerTile"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-314","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findFlooringCostByAreaRate","answerDimension":"COST","requiredVariables":["length","breadth","ratePerSquareMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-315","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findRectangularFencingCost","answerDimension":"COST","requiredVariables":["length","breadth","ratePerMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-316","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findRectangularFencingCostWithGate","answerDimension":"COST","requiredVariables":["length","breadth","gateWidth","ratePerMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-317","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findWireLengthForMultipleRounds","answerDimension":"LENGTH","requiredVariables":["length","breadth","rounds"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-318","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findCircularFencingCost","answerDimension":"COST","requiredVariables":["radius","ratePerMetre"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-319","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findGateWidthFromUsedWire","answerDimension":"LENGTH","requiredVariables":["length","breadth","wireLength"]},
+    {"cpId":"MEN-CP-004","qlId":"MEN-001-QL-320","taskKind":"pathBorderFlooringFencingApplication","solveMode":"findRectangularBorderTilesRequired","answerDimension":"COUNT","requiredVariables":["outerLength","outerBreadth","pathWidth","tileLength","tileBreadth"]}
+  ]
+}

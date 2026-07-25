@@ -9,7 +9,7 @@ import {
   type Men001ActiveCanonicalProblemId,
   type Men001QuestionPackage,
 } from "./types";
-import { validateMen001QuestionPackage } from "./validator";
+import { validateMen001QuestionPackage } from "./validator.final";
 
 export function runMen001Pipeline(
   cpId: Men001ActiveCanonicalProblemId,
@@ -24,7 +24,7 @@ export function runMen001Pipeline(
   const optionResult = buildMen001Options(entry, parameters, solver);
   const mathematicalFingerprint = [
     parameters.solveMode,
-    parameters.unitPolicy,
+    entry.unitPolicy,
     ...Object.entries(parameters.values)
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([key, value]) => `${key}=${value}`),
@@ -77,3 +77,6 @@ export const runMen001Cp002Pipeline = (input: Men001ParameterInput = {}) =>
 
 export const runMen001Cp003Pipeline = (input: Men001ParameterInput = {}) =>
   runMen001Pipeline("MEN-CP-003", input);
+
+export const runMen001Cp004Pipeline = (input: Men001ParameterInput = {}) =>
+  runMen001Pipeline("MEN-CP-004", input);

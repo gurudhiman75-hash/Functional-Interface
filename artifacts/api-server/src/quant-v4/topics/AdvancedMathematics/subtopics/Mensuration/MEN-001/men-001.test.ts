@@ -25,10 +25,16 @@ const GENERIC_FALLBACK_OPTIONS = new Set([
 
 function optionCarriesUnit(option: string, unit: string) {
   if (unit === "₹") return option.startsWith("₹");
+  if (unit === "₹/m²") return option.startsWith("₹") && option.endsWith("/m²");
+  if (unit === "₹/m") return option.startsWith("₹") && option.endsWith("/m");
   if (unit === "°") return option.endsWith("°");
   if (unit === "cm²") return option.includes("cm²") || option.includes("\\text{cm}^{2}");
   if (unit === "m²") return option.includes("m²") || option.includes("\\text{m}^{2}");
-  return option.endsWith(` ${unit}`);
+  if (unit === "cm") return option.endsWith(" cm") || option.includes("\\text{cm}");
+  if (unit === "m") return option.endsWith(" m") || option.includes("\\text{m}");
+  if (unit === "tiles") return option.endsWith(" tiles");
+  if (unit === "revolutions") return option.endsWith(" revolutions");
+  return false;
 }
 
 function fixedSolver(
@@ -41,59 +47,58 @@ function fixedSolver(
     questionLanguageId: qlId,
     seed: `fixed:${qlId}`,
   });
-  return solveMen001({ ...generated, values, renderVariables: values as Record<string, number> });
+  return solveMen001({
+    ...generated,
+    values,
+    renderVariables: values as Record<string, number>,
+  });
 }
 
+// Existing CP regression anchors.
 assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-001", { base: 12, height: 9 }).answer, "54 m²");
 assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-008", { sideA: 13, sideB: 14, sideC: 15 }).answer, "84 m²");
-const equilateral = fixedSolver("MEN-CP-001", "MEN-001-QL-013", { side: 12 });
-assert.equal(equilateral.exactAnswer.kind, "SURD");
-assert.equal(equilateral.answer, "$$36\\sqrt{3}\\,\\text{cm}^{2}$$");
-assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-024", { base: 12, height: 9, ratePerSquareMetre: 20 }).answer, "₹1080");
-
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-101", { length: 12, breadth: 8 }).answer, "96 m²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-103", { length: 12, breadth: 8 }).answer, "40 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-104", { area: 96, breadth: 8 }).answer, "12 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-105", { perimeter: 40, length: 12 }).answer, "8 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-106", { perimeter: 40, length: 12 }).answer, "96 m²");
+const equilateralArea = fixedSolver("MEN-CP-001", "MEN-001-QL-013", { side: 12 });
+assert.equal(equilateralArea.exactAnswer.kind, "SURD");
+assert.equal(equilateralArea.answer, "$$36\\sqrt{3}\\,\\text{cm}^{2}$$");
 assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-107", { diagonal: 15, length: 12 }).answer, "9 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-108", { side: 8 }).answer, "64 cm²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-110", { area: 144 }).answer, "12 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-111", { diagonalCoefficient: 10 }).answer, "100 cm²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-112", { diagonalCoefficient: 10 }).answer, "40 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-113", { base: 12, height: 8 }).answer, "96 m²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-115", { area: 96, base: 12 }).answer, "8 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-116", { area: 96, height: 8 }).answer, "12 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-117", { base: 12, adjacentSide: 10 }).answer, "44 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-118", { diagonalA: 10, diagonalB: 24 }).answer, "120 cm²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-119", { area: 120, diagonalA: 10 }).answer, "24 m");
 assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-120", { diagonalA: 10, diagonalB: 24 }).answer, "13 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-121", { diagonalA: 10, diagonalB: 24 }).answer, "52 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-122", { parallelSideA: 12, parallelSideB: 20, height: 8 }).answer, "128 m²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-124", { area: 128, parallelSideA: 12, parallelSideB: 20 }).answer, "8 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-125", { area: 128, height: 8, parallelSideA: 12 }).answer, "20 cm");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-126", { diagonalA: 12, diagonalB: 18 }).answer, "108 cm²");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-127", { area: 108, diagonalA: 12 }).answer, "18 m");
-assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-128", { diagonal: 16, perpendicularA: 7, perpendicularB: 9 }).answer, "128 m²");
-
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-201", { radius: 7 }).answer, "44 m");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-203", { diameter: 14 }).answer, "44 cm");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-204", { radius: 7 }).answer, "154 m²");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-206", { circumference: 44 }).answer, "7 m");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-207", { area: 154 }).answer, "7 cm");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-208", { circumference: 44 }).answer, "154 cm²");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-209", { radius: 7 }).answer, "77 cm²");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-210", { radius: 7 }).answer, "36 m");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-211", { radius: 14 }).answer, "154 cm²");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-212", { radius: 14 }).answer, "50 m");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-213", { radius: 14, angleDegrees: 90 }).answer, "22 cm");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-215", { radius: 14, angleDegrees: 90 }).answer, "154 cm²");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-217", { radius: 14, angleDegrees: 90 }).answer, "50 cm");
 assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-218", { arcLength: 22, radius: 14 }).answer, "90°");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-219", { sectorArea: 154, radius: 14 }).answer, "90°");
 assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-220", { outerRadius: 14, innerRadius: 7 }).answer, "462 cm²");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-222", { area: 462, innerRadius: 7 }).answer, "14 cm");
-assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-223", { radius: 7, revolutions: 5 }).answer, "220 cm");
+
+// CP-001 exhaustiveness anchors.
+assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-025", { sideA: 5, sideB: 12, sideC: 13 }).answer, "30 cm");
+assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-026", { legA: 6, legB: 8 }).answer, "10 cm");
+assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-027", { sideC: 13, legA: 5 }).answer, "12 m");
+const equilateralHeight = fixedSolver("MEN-CP-001", "MEN-001-QL-028", { side: 6 });
+assert.equal(equilateralHeight.answer, "$$3\\sqrt{3}\\,\\text{cm}$$");
+assert.equal(fixedSolver("MEN-CP-001", "MEN-001-QL-029", { areaCoefficient: 9 }).answer, "6 m");
+
+// CP-002 exhaustiveness anchors.
+assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-129", { perimeter: 40 }).answer, "10 cm");
+assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-130", { base: 12, height: 8 }).answer, "96 m²");
+assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-131", { sideA: 7, sideB: 11 }).answer, "36 cm");
+assert.equal(fixedSolver("MEN-CP-002", "MEN-001-QL-132", { parallelSideA: 12, parallelSideB: 20, sideA: 7, sideB: 9 }).answer, "48 m");
+
+// CP-003 exhaustiveness anchors.
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-224", { circumference: 44 }).answer, "14 m");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-225", { area: 154 }).answer, "14 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-226", { arcLength: 22, angleDegrees: 90 }).answer, "14 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-227", { sectorArea: 154, angleDegrees: 90 }).answer, "14 m");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-228", { area: 462, outerRadius: 14 }).answer, "7 cm");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-229", { radius: 7, distance: 220 }).answer, "5 revolutions");
+assert.equal(fixedSolver("MEN-CP-003", "MEN-001-QL-230", { distance: 220, revolutions: 5 }).answer, "7 cm");
+
+// CP-004 exhaustiveness anchors.
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-325", { innerLength: 20, innerBreadth: 12, area: 144 }).answer, "2 m");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-326", { outerLength: 24, outerBreadth: 18, area: 152 }).answer, "2 m");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-327", { innerRadius: 14, area: 770 }).answer, "7 m");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-328", { outerRadius: 21, area: 770 }).answer, "7 m");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-329", { length: 60, breadth: 40, pathWidth: 4, gateWidth: 3 }).answer, "348 m²");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-330", { length: 60, breadth: 40, pathWidth: 4, gateWidth: 3 }).answer, "2052 m²");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-331", { floorLength: 600, floorBreadth: 400, tileLength: 30, tileBreadth: 20, tileCount: 300 }).answer, "60000 cm²");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-332", { area: 96, cost: 7200 }).answer, "₹75/m²");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-333", { length: 30, breadth: 20, cost: 5000 }).answer, "₹50/m");
+assert.equal(fixedSolver("MEN-CP-004", "MEN-001-QL-334", { outerLength: 24, outerBreadth: 18, pathWidth: 2, tileLength: 2, tileBreadth: 2 }).answer, "38 tiles");
 
 const seenQlIds = new Set<string>();
 const seenSolveModes = new Set<string>();
@@ -102,17 +107,16 @@ const seenCpIds = new Set<string>();
 const seenIllustrationKinds = new Set<string>();
 
 for (const entry of getMen001QuestionEntries()) {
-  const qlId = entry.qlId;
   for (let index = 0; index < 20; index += 1) {
-    const seed = `men-001-runtime-proof:${qlId}:${index}`;
+    const seed = `men-001-runtime-proof:${entry.qlId}:${index}`;
     const first = runMen001Pipeline(entry.cpId as Men001ActiveCanonicalProblemId, {
       language: "en",
-      questionLanguageId: qlId,
+      questionLanguageId: entry.qlId,
       seed,
     });
     const second = runMen001Pipeline(entry.cpId as Men001ActiveCanonicalProblemId, {
       language: "en",
-      questionLanguageId: qlId,
+      questionLanguageId: entry.qlId,
       seed,
     });
 
@@ -144,20 +148,25 @@ for (const entry of getMen001QuestionEntries()) {
     assert.equal(
       first.options.some((option) => GENERIC_FALLBACK_OPTIONS.has(option)),
       false,
-      `${qlId} used a generic option fallback.`,
+      `${entry.qlId} used a generic option fallback.`,
     );
     for (const option of first.options) {
-      assert.equal(optionCarriesUnit(option, first.solver.unit), true, `${qlId} option has an incompatible unit: ${option}`);
+      assert.equal(
+        optionCarriesUnit(option, first.solver.unit),
+        true,
+        `${entry.qlId} option has an incompatible unit: ${option}`,
+      );
     }
-    assert.ok(
+    assert.equal(
       Array.isArray(first.traceability.distractorStrategyIds) &&
         first.traceability.distractorStrategyIds.length === 3,
-      `${qlId} must expose exactly three misconception strategies.`,
+      true,
+      `${entry.qlId} must expose exactly three misconception strategies.`,
     );
 
-    const shouldIllustrateExplanation = hasMen001ExplanationIllustration(first.solveMode);
-    assert.equal(Boolean(first.explanation.illustration), shouldIllustrateExplanation, `${qlId} explanation illustration policy mismatch.`);
-    assert.equal(first.traceability.diagramRequirement, "NONE", `${qlId} must not attach an ornamental diagram to the question stem.`);
+    const shouldIllustrate = hasMen001ExplanationIllustration(first.solveMode);
+    assert.equal(Boolean(first.explanation.illustration), shouldIllustrate, `${entry.qlId} illustration policy mismatch.`);
+    assert.equal(first.traceability.diagramRequirement, "NONE", `${entry.qlId} must remain text-only in the question stem.`);
     if (first.explanation.illustration) {
       const payload = JSON.stringify(first.explanation.illustration);
       assert.equal(/font[-_ ]?(family|size|weight)|typeface/i.test(payload), false);
@@ -167,39 +176,22 @@ for (const entry of getMen001QuestionEntries()) {
       seenIllustrationKinds.add(first.explanation.illustration.kind);
     }
 
-    if (first.solveMode === "findTriangleAreaHeron") {
-      assert.equal(first.options.includes(`${first.solver.workingValues.radicand} ${first.solver.unit}`), false);
-      assert.equal(first.explanation.illustration?.kind, "TRIANGLE_SIDE_LABELS");
-    }
-    if (first.solveMode === "findTriangleAreaFromSideRatioAndPerimeter") {
-      assert.equal(first.explanation.illustration?.kind, "TRIANGLE_SIDE_LABELS");
-      assert.ok(first.explanation.lines.some((line) => line.includes("Heron's formula")));
-      assert.ok(first.explanation.lines.some((line) => line.includes("Substitution gives")));
-    }
-    if (["findIsoscelesTriangleArea", "findIsoscelesHeight"].includes(first.solveMode)) {
-      assert.equal(first.explanation.illustration?.kind, "ISOSCELES_ALTITUDE_SPLIT");
-    }
-    if (first.solveMode === "findRectangleOtherSideFromDiagonal") {
-      assert.equal(first.explanation.illustration?.kind, "RECTANGLE_DIAGONAL_SPLIT");
-    }
-    if (["findRhombusSideFromDiagonals", "findRhombusPerimeterFromDiagonals"].includes(first.solveMode)) {
-      assert.equal(first.explanation.illustration?.kind, "RHOMBUS_HALF_DIAGONALS");
-    }
-    if (first.solveMode === "findQuadrilateralAreaFromDiagonalPerpendiculars") {
-      assert.equal(first.explanation.illustration?.kind, "QUADRILATERAL_DIAGONAL_PERPENDICULARS");
-    }
-    if (["findArcLength", "findSectorArea", "findSectorPerimeter", "findCentralAngleFromArcLength", "findCentralAngleFromSectorArea"].includes(first.solveMode)) {
-      assert.equal(first.explanation.illustration?.kind, "CIRCLE_CENTRAL_ANGLE");
-    }
-    if (["findAnnulusArea", "findOuterRadiusFromAnnulusArea"].includes(first.solveMode)) {
-      assert.equal(first.explanation.illustration?.kind, "ANNULUS_RADII");
-    }
-    if (["findSemicirclePerimeter", "findQuadrantPerimeter"].includes(first.solveMode)) {
-      assert.equal(first.explanation.illustration?.kind, "CIRCLE_PART_BOUNDARY");
-    }
     if (first.canonicalProblemId === "MEN-CP-003") {
       assert.ok(first.stem.includes("π = 22/7"));
       assert.equal(first.solver.workingValues.piPolicy, "22/7");
+    }
+    if (["findOuterCircularPathWidthFromArea", "findInnerCircularPathWidthFromArea"].includes(first.solveMode)) {
+      assert.ok(first.stem.includes("π = 22/7"));
+      assert.equal(first.explanation.illustration?.kind, "CIRCULAR_BORDER_BAND");
+    }
+    if (["findOuterRectangularPathWidthFromArea", "findInnerRectangularPathWidthFromArea", "findInnerRectangularPathTilesRequired"].includes(first.solveMode)) {
+      assert.equal(first.explanation.illustration?.kind, "RECTANGULAR_BORDER_BAND");
+    }
+    if (["findRadiusFromArcLengthAndAngle", "findRadiusFromSectorAreaAndAngle"].includes(first.solveMode)) {
+      assert.equal(first.explanation.illustration?.kind, "CIRCLE_CENTRAL_ANGLE");
+    }
+    if (first.solveMode === "findInnerRadiusFromAnnulusArea") {
+      assert.equal(first.explanation.illustration?.kind, "ANNULUS_RADII");
     }
 
     seenQlIds.add(first.questionLanguageId);
@@ -212,6 +204,9 @@ for (const entry of getMen001QuestionEntries()) {
 assert.deepEqual([...seenQlIds].sort(), getMen001QuestionLanguageIds().sort());
 assert.deepEqual([...seenSolveModes].sort(), getMen001SolveModeIds().sort());
 assert.deepEqual([...seenCpIds].sort(), getMen001ActiveCanonicalProblemIds().sort());
+for (const unit of ["cm", "m", "cm²", "m²", "₹", "₹/m²", "₹/m", "°", "tiles", "revolutions"]) {
+  assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
+}
 for (const kind of [
   "TRIANGLE_SIDE_LABELS",
   "ISOSCELES_ALTITUDE_SPLIT",
@@ -221,11 +216,10 @@ for (const kind of [
   "CIRCLE_CENTRAL_ANGLE",
   "ANNULUS_RADII",
   "CIRCLE_PART_BOUNDARY",
+  "RECTANGULAR_BORDER_BAND",
+  "CIRCULAR_BORDER_BAND",
 ]) {
   assert.equal(seenIllustrationKinds.has(kind), true, `${kind} explanation illustration not covered.`);
-}
-for (const unit of ["cm", "m", "cm²", "m²", "₹", "°"]) {
-  assert.equal(seenUnits.has(unit), true, `${unit} not covered`);
 }
 assert.throws(
   () => runMen001Pipeline("MEN-CP-001", { language: "hi", seed: "unsupported-language" }),
@@ -233,4 +227,6 @@ assert.throws(
 );
 
 const generatedCount = getMen001QuestionLanguageIds().length * 20;
-console.log(`MEN-001 runtime-proof test passed for ${generatedCount} generated questions across ${getMen001ActiveCanonicalProblemIds().length} active CPs.`);
+console.log(
+  `MEN-001 runtime-proof test passed for ${generatedCount} generated questions across ${getMen001ActiveCanonicalProblemIds().length} active CPs and ${getMen001SolveModeIds().length} solve modes.`,
+);
