@@ -9,30 +9,20 @@ export type WholeNumberOperation = "ADD" | "SUBTRACT";
 
 export function ordinaryPositions(letters: string): readonly number[] {
   const normalized = letters.trim().toUpperCase();
-  if (!/^[A-Z]+$/.test(normalized)) {
-    throw new Error(`Invalid letters for position arithmetic: ${letters}`);
-  }
+  if (!/^[A-Z]+$/.test(normalized)) throw new Error(`Invalid letters for position arithmetic: ${letters}`);
   return [...normalized].map(letterPosition);
 }
 
-export function aggregateOrdinaryPositions(
-  letters: string,
-  aggregate: PositionAggregate,
-): number {
+export function aggregateOrdinaryPositions(letters: string, aggregate: PositionAggregate): number {
   const positions = ordinaryPositions(letters);
   const result = aggregate === "SUM"
     ? positions.reduce((sum, value) => sum + value, 0)
     : positions.reduce((product, value) => product * value, 1);
-  if (!Number.isSafeInteger(result) || result < 1 || result > 9999) {
-    throw new Error(`Unsafe mixed position aggregate: ${result}`);
-  }
+  if (!Number.isSafeInteger(result) || result < 1 || result > 9999) throw new Error(`Unsafe mixed position aggregate: ${result}`);
   return result;
 }
 
-export function aggregateToLetterWithoutWrap(
-  letters: string,
-  aggregate: PositionAggregate,
-): string | null {
+export function aggregateToLetterWithoutWrap(letters: string, aggregate: PositionAggregate): string | null {
   const value = aggregateOrdinaryPositions(letters, aggregate);
   return value >= 1 && value <= 26 ? letterFromPosition(value) : null;
 }
@@ -42,10 +32,10 @@ export function applyWholeNumberOperation(
   operation: WholeNumberOperation,
   amount: number,
 ): number | null {
-  if (!Number.isSafeInteger(input) || input < 1 || input > 9999) return null;
+  if (!Number.isSafeInteger(input) || Math.abs(input) > 9999) return null;
   if (!Number.isSafeInteger(amount) || amount < 1 || amount > 100) return null;
   const output = operation === "ADD" ? input + amount : input - amount;
-  return Number.isSafeInteger(output) && output >= 1 && output <= 9999 ? output : null;
+  return Number.isSafeInteger(output) && Math.abs(output) <= 9999 ? output : null;
 }
 
 export function applyLetterShift(letter: string, shift: number): string | null {
@@ -62,6 +52,13 @@ export function applyUniformLetterGroupShift(letters: string, shift: number): st
   return [...normalized].map((letter) => shiftLetter(letter, shift)).join("");
 }
 
+export function applyLetterShiftVector(letters: string, shifts: readonly number[]): string | null {
+  const normalized = letters.trim().toUpperCase();
+  if (!/^[A-Z]{2,6}$/.test(normalized) || normalized.length !== shifts.length) return null;
+  if (shifts.some((shift) => !Number.isSafeInteger(shift) || shift === 0 || Math.abs(shift) > 12)) return null;
+  return [...normalized].map((letter, index) => shiftLetter(letter, shifts[index])).join("");
+}
+
 export function decimalDigitSum(number: number): number | null {
   if (!Number.isSafeInteger(number) || number < 1 || number > 9999) return null;
   return [...String(number)].reduce((sum, digit) => sum + Number(digit), 0);
@@ -75,7 +72,5 @@ export function squaredDigitSumLetter(number: number): string | null {
 }
 
 export function positionCalculationTrace(letters: string): string {
-  return [...letters.trim().toUpperCase()]
-    .map((letter) => `${letter}=${letterPosition(letter)}`)
-    .join(", ");
+  return [...letters.trim().toUpperCase()].map((letter) => `${letter}=${letterPosition(letter)}`).join(", ");
 }
