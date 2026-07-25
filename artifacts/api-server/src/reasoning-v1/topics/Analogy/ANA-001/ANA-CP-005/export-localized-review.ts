@@ -36,6 +36,8 @@ for (const locale of locales) {
         "",
         `**Conclusion:** ${question.explanation.conclusion}`,
         "",
+        `**Trap note:** ${question.explanation.closestTrapRejection}`,
+        "",
         "---",
         "",
       );
