@@ -17,7 +17,7 @@ export interface ClusterOption {
 }
 
 function optionKey(value: ClusterOptionValue): string {
-  return Array.isArray(value) ? `${value[0]}:${value[1]}` : value;
+  return typeof value === "string" ? value : `${value[0]}:${value[1]}`;
 }
 
 function matchesIntendedRule(
