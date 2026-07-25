@@ -4,23 +4,33 @@ on:
   pull_request:
     branches: [New-main]
     paths:
+      - artifacts/api-server/src/routes/published-test-runner.ts
+      - artifacts/api-server/src/routes/admin-question-analytics-quality.ts
       - artifacts/api-server/src/routes/admin-question-analytics-detail.ts
       - artifacts/api-server/src/routes/admin-question-analytics.ts
       - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/QuestionAnalyticsQualityPage.tsx
       - artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-question-analytics.mjs
       - .github/workflows/question-analytics.yml
+      - docs/question-analytics-freeze-readiness.md
   push:
     branches: [New-main]
     paths:
+      - artifacts/api-server/src/routes/published-test-runner.ts
+      - artifacts/api-server/src/routes/admin-question-analytics-quality.ts
       - artifacts/api-server/src/routes/admin-question-analytics-detail.ts
       - artifacts/api-server/src/routes/admin-question-analytics.ts
       - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/QuestionAnalyticsQualityPage.tsx
       - artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
       - artifacts/admin-app/src/App.tsx
       - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-question-analytics.mjs
       - .github/workflows/question-analytics.yml
+      - docs/question-analytics-freeze-readiness.md
   workflow_dispatch:
 
 permissions:
@@ -41,43 +51,35 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Enforce canonical Question Analytics contracts
+      - name: Validate Question Analytics freeze contracts
+        run: node .github/scripts/validate-question-analytics.mjs
+      - name: Enforce route and scope boundaries
         run: |
+          grep -F 'router.use("/admin/analytics", adminQuestionAnalyticsQualityRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/analytics", adminQuestionAnalyticsDetailRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/analytics", adminQuestionAnalyticsRouter)' artifacts/api-server/src/routes/index.ts
-          test "$(grep -n 'adminQuestionAnalyticsDetailRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminQuestionAnalyticsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
-          grep -F "router.get('/questions'" artifacts/api-server/src/routes/admin-question-analytics.ts
+          grep -F "router.get('/questions/quality'" artifacts/api-server/src/routes/admin-question-analytics-quality.ts
           grep -F "router.get('/questions/:questionVersionId'" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-question-analytics.ts
-          grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-question-analytics.ts
-          grep -F 'FROM learning.attempts' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F 'JOIN assessment.test_publications' artifacts/api-server/src/routes/admin-question-analytics.ts
-          grep -F 'JOIN content.question_versions' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F 'stableQuestionId' artifacts/api-server/src/routes/admin-question-analytics.ts
-          grep -F 'stableQuestionId' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F 'unmatchedReviewItems' artifacts/api-server/src/routes/admin-question-analytics.ts
-          grep -F 'unmatchedAttempts' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F "code: 'LIMITED_SAMPLE'" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F "code: 'HIGH_SKIP_RATE'" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F "code: 'HIGH_FLAG_RATE'" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F "code: 'DOMINANT_WRONG_OPTION'" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F "code: 'LINKAGE_GAP'" artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F 'questionTiming: false' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
+          grep -F "router.get('/questions'" artifacts/api-server/src/routes/admin-question-analytics.ts
+          grep -F 'snapshotVersion: 2' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'linkageContract: "direct_question_version_v2"' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'questionVersionId: String(row.questionVersionId)' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'testQuestionId: String(row.testQuestionId)' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'selectedOptionKey:' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'timeTakenSeconds:' artifacts/api-server/src/routes/published-test-runner.ts
+          grep -F 'stableIdCollisions' artifacts/api-server/src/routes/admin-question-analytics-quality.ts
+          grep -F 'answerKeyMismatches' artifacts/api-server/src/routes/admin-question-analytics-quality.ts
+          grep -F 'missingQuestionItems' artifacts/api-server/src/routes/admin-question-analytics-quality.ts
+          grep -F 'questionTiming: timedResponses > 0' artifacts/api-server/src/routes/admin-question-analytics.ts
           grep -F 'discrimination: false' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          grep -F 'readOnly: true' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
-          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-question-analytics.ts
-          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
+          grep -F "path: '/analytics/questions/quality'" artifacts/admin-app/src/App.tsx
           grep -F "path: '/analytics/questions/:questionVersionId'" artifacts/admin-app/src/App.tsx
-          grep -F "path: '/analytics/questions'" artifacts/admin-app/src/App.tsx
-          test "$(grep -n "path: '/analytics/questions/:questionVersionId'" artifacts/admin-app/src/App.tsx | cut -d: -f1)" -lt "$(grep -n "path: '/analytics/questions'" artifacts/admin-app/src/App.tsx | cut -d: -f1)"
-          grep -F 'Canonical diagnostics' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
-          grep -F 'Option-selection diagnostics' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
-          grep -F 'Linkage gap detected' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
-          grep -F 'Declared scope boundary' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
-          ! grep -F '@/data/questions' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
-          ! grep -F '@/data/analytics' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
-          ! grep -F 'demonstration data' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
+          grep -F "label: 'Question Analytics Quality'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Never repair analytics by editing aggregate outputs' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsQualityPage.tsx
+          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-question-analytics-quality.ts
+          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-question-analytics-detail.ts
+          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-question-analytics.ts
+          ! grep -E '@/data/questions|@/data/analytics|demonstration data' artifacts/admin-app/src/pages/analytics/QuestionAnalyticsPage.tsx
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
