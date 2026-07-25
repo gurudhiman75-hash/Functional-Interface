@@ -1,4 +1,6 @@
+import { getMen001StructuredFormulaLines } from "./structured-formula-plans";
 import type { Men001ExplanationSection } from "./structured-explanation";
+import type { Men001SolveMode } from "./solve-mode-registry.all";
 
 const TITLE_PARAGRAPHS: Record<string, string> = {
   "Continue the Calculation":
@@ -9,6 +11,7 @@ const TITLE_PARAGRAPHS: Record<string, string> = {
 
 export function normalizeMen001StructuredSections(
   sections: readonly Men001ExplanationSection[],
+  solveMode: Men001SolveMode,
 ): Men001ExplanationSection[] {
   const stepIndexes = sections
     .map((section, index) => ({ section, index }))
@@ -18,6 +21,12 @@ export function normalizeMen001StructuredSections(
   let previousStepTitle = "";
 
   return sections.map((section, sectionIndex) => {
+    if (section.kind === "KEY_RULE") {
+      return {
+        ...section,
+        equations: getMen001StructuredFormulaLines(solveMode),
+      };
+    }
     if (section.kind !== "STEP") return section;
 
     let title = section.title;
@@ -32,7 +41,7 @@ export function normalizeMen001StructuredSections(
     return {
       ...section,
       title,
-      paragraphs: [TITLE_PARAGRAPHS[title]!, ...section.paragraphs],
+      paragraphs: [TITLE_PARAGRAPHS[title]!],
     };
   });
 }
