@@ -5,6 +5,7 @@ import type { Men001Parameters, Men001SolverResult } from "./types";
 const REDUNDANT_NARRATIVE_ENDING = /^(Therefore|Hence|Thus|So|Accordingly|The required|The final|The answer|A square unit|A linear unit|The numerical rate)/i;
 const GENERIC_UNIT_LINE = /(square unit is used|linear unit is used|area is two-dimensional|length is one-dimensional|expressed in rupees|reported in revolutions)/i;
 const ROBOTIC_PREFIX = /^(Therefore,|Hence,|Thus,|So,|So |Therefore |Hence |Thus )/i;
+const FORMULA_CONSTANTS = new Set(["1", "2", "3", "4", "7", "22", "360"]);
 
 const SHORT_CASE_BRIDGES: Record<string, string> = {
   "MEN-001-QL-013":
@@ -48,7 +49,7 @@ function lowerProseFirst(value: string) {
 function softenWorkingLine(line: string) {
   let text = line.trim();
   text = text.replace(/^Substitution gives\s*/i, "Using these values, ");
-  text = text.replace(/^Substitution:\s*/i, "Using the given measurements, ");
+  text = text.replace(/^Substitution:\s*/i, "With the given measurements, ");
   text = text.replace(/^Calculation:\s*/i, "");
   text = text.replace(/^This gives\s+/i, "");
   text = text.replace(/^By Pythagoras,\s*/i, "Pythagoras gives ");
@@ -70,7 +71,14 @@ function softenWorkingLine(line: string) {
 
 function isShortResult(line: string) {
   const plain = line.replace(/^[A-Z][a-z]+,\s*/i, "").trim();
-  return plain.length <= 52 && /^(?:[A-Za-z](?:²)?|rate|area|perimeter|diameter|radius|height|base|breadth|length)\s*=/.test(plain);
+  const match = plain.match(/^(?:[A-Za-z](?:²)?|rate|area|perimeter|diameter|radius|height|base|breadth|length)\s*=\s*(.+?)[.]?$/);
+  if (!match) return false;
+  const right = match[1]!;
+  return (
+    right.length <= 36 &&
+    /\d/.test(right) &&
+    !/[()×÷+−/]/.test(right)
+  );
 }
 
 function mergeCalculationWithResult(calculation: string, result: string) {
@@ -109,6 +117,13 @@ function mergeSingleResultPass(lines: readonly string[]) {
   return merged;
 }
 
+function looksLikeGeneralFormula(line: string) {
+  const relationPresent = line.includes("=") || /\b(equals|is given by)\b/i.test(line);
+  const genericMeasurePresent = /\b(base|height|side|radius|diameter|area|perimeter|cost|rate|length|breadth|diagonal|circumference|angle|product|sum|fencing length|parallel sides|adjacent sides)\b/i.test(line);
+  const numbers = line.match(/\d+/g) ?? [];
+  return relationPresent && genericMeasurePresent && numbers.every((value) => FORMULA_CONSTANTS.has(value));
+}
+
 function compactNaturalWorking(lines: readonly string[]) {
   let working = lines
     .filter((line) => !isRedundantEnding(line))
@@ -120,13 +135,11 @@ function compactNaturalWorking(lines: readonly string[]) {
   if (working.length >= 2 && working.length <= 4) {
     const first = working[0]!;
     const second = working[1]!;
-    const firstHasFormula = first.includes("=") && !/\d/.test(first);
-    const secondHasValues = second.includes("=") && /\d/.test(second);
     if (
-      firstHasFormula &&
-      secondHasValues &&
+      looksLikeGeneralFormula(first) &&
+      /\d/.test(second) &&
       !/\b(giving|which gives)\b/i.test(first) &&
-      first.length + second.length < 230
+      first.length + second.length < 240
     ) {
       working.splice(0, 2, mergeFormulaWithSubstitution(first, second));
     }
