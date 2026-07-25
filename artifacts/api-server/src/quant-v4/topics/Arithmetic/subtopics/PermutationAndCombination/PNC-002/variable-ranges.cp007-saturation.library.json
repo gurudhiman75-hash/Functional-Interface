@@ -1,0 +1,15 @@
+{
+  "packageId": "PNC-002",
+  "pools": {
+    "separatedTwoPairTotalObjects": [6,7,8],
+    "separatedPairTrioTotalObjects": [7,8],
+    "blockOutsiderStates": [
+      {"totalObjects":7,"blockSize":2},
+      {"totalObjects":8,"blockSize":3},
+      {"totalObjects":8,"blockSize":4}
+    ],
+    "pairTogetherTrioBrokenTotalObjects": [7,8],
+    "atLeastOnePairBrokenTotalObjects": [6,7,8],
+    "inverseSeparatedN": [5,6,7,8]
+  }
+}
