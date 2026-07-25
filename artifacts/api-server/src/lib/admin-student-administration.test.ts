@@ -50,9 +50,9 @@ assert.throws(
   (error: unknown) => error instanceof StudentAdministrationError && error.code === 'INVALID_STUDENT_ID',
 );
 
-assert.equal(normalizeStudentAccountAction(' SUSPEND '), 'suspend');
-assert.equal(normalizeStudentAccountAction('reactivate'), 'reactivate');
-assert.equal(normalizeStudentAccountAction('revoke-sessions'), 'revoke-sessions');
+for (const action of ['suspend', 'reactivate', 'disable', 'enable', 'revoke-sessions'] as const) {
+  assert.equal(normalizeStudentAccountAction(` ${action.toUpperCase()} `), action);
+}
 assert.throws(
   () => normalizeStudentAccountAction('delete'),
   (error: unknown) => error instanceof StudentAdministrationError && error.code === 'INVALID_STUDENT_ACTION',
@@ -87,6 +87,11 @@ assert.deepEqual(planStudentAccountAction({ action: 'suspend', currentStatus: 's
   statusChanged: false,
   revokeActiveSessions: true,
 });
+assert.throws(
+  () => planStudentAccountAction({ action: 'suspend', currentStatus: 'disabled' }),
+  (error: unknown) => error instanceof StudentAdministrationError && error.code === 'STUDENT_ACTION_NOT_ALLOWED',
+);
+
 assert.deepEqual(planStudentAccountAction({ action: 'reactivate', currentStatus: 'suspended' }), {
   nextStatus: 'active',
   statusChanged: true,
@@ -97,15 +102,39 @@ assert.deepEqual(planStudentAccountAction({ action: 'reactivate', currentStatus:
   statusChanged: false,
   revokeActiveSessions: false,
 });
+assert.throws(
+  () => planStudentAccountAction({ action: 'reactivate', currentStatus: 'disabled' }),
+  (error: unknown) => error instanceof StudentAdministrationError && error.code === 'STUDENT_ACTION_NOT_ALLOWED',
+);
+assert.throws(
+  () => planStudentAccountAction({ action: 'reactivate', currentStatus: 'invited' }),
+  (error: unknown) => error instanceof StudentAdministrationError && error.code === 'STUDENT_ACTION_NOT_ALLOWED',
+);
+
+assert.deepEqual(planStudentAccountAction({ action: 'disable', currentStatus: 'active' }), {
+  nextStatus: 'disabled',
+  statusChanged: true,
+  revokeActiveSessions: true,
+});
+assert.deepEqual(planStudentAccountAction({ action: 'disable', currentStatus: 'disabled' }), {
+  nextStatus: 'disabled',
+  statusChanged: false,
+  revokeActiveSessions: true,
+});
+assert.deepEqual(planStudentAccountAction({ action: 'enable', currentStatus: 'disabled' }), {
+  nextStatus: 'suspended',
+  statusChanged: true,
+  revokeActiveSessions: false,
+});
+assert.throws(
+  () => planStudentAccountAction({ action: 'enable', currentStatus: 'active' }),
+  (error: unknown) => error instanceof StudentAdministrationError && error.code === 'STUDENT_ACTION_NOT_ALLOWED',
+);
 assert.deepEqual(planStudentAccountAction({ action: 'revoke-sessions', currentStatus: 'suspended' }), {
   nextStatus: 'suspended',
   statusChanged: false,
   revokeActiveSessions: true,
 });
-assert.throws(
-  () => planStudentAccountAction({ action: 'reactivate', currentStatus: 'disabled' }),
-  (error: unknown) => error instanceof StudentAdministrationError && error.code === 'STUDENT_ACTION_NOT_ALLOWED',
-);
 
 assert.doesNotThrow(() => assertExpectedStudentStatus({
   expectedStatus: 'active',
@@ -126,4 +155,4 @@ assert.equal(maskStudentIp('2001:db8:85a3::8a2e:370:7334'), '2001:db8:…');
 assert.equal(maskStudentIp(''), null);
 assert.equal(maskStudentIp('private-host'), 'Redacted');
 
-console.log('admin student administration contracts passed');
+console.log('admin student administration lifecycle contracts passed');
