@@ -16,6 +16,8 @@ Decision: FREEZE CANDIDATE
 - Independent verifier added
 - Representative runtime proof expanded
 - Ontology and reference-ledger reconciliation complete
+- Focused GitHub Actions runtime proof passed
+- Focused GitHub Actions structural audit passed
 
 ## Discovered totals
 
@@ -24,10 +26,20 @@ Decision: FREEZE CANDIDATE
 - Language templates: 111 total across three languages
 - Explanation patterns: 111 total across three languages
 
-## Deferred gate
+## Execution evidence
 
-Actual TypeScript/Node execution is deferred to PR CI or the consolidated PNL integration pass because the execution container could not resolve GitHub for cloning.
+Workflow: `Validate PNL CP-006`
+
+Successful checks:
+
+- dependency installation from the locked workspace;
+- esbuild compilation of the CP-006 runtime proof;
+- runtime assertion execution;
+- esbuild compilation of the structural audit;
+- contiguous-ID, count, multilingual-placeholder and explanation-depth validation.
+
+The general API server build also passed in the integrated-admin workflow. Its later failure is an unrelated admin-app UI tone type error. Vercel failures are account build-rate-limit statuses.
 
 ## Freeze rule
 
-The CP may be treated as complete for implementation sequencing, but any compile, runtime, placeholder or rendered-language failure immediately reopens it.
+CP-006 is complete for implementation sequencing. Reopen only for a future regression, a rendered-language defect, or a genuinely distinct source-backed exam mode.
