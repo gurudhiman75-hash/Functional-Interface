@@ -12,7 +12,7 @@ function resultContext(pkg: Avg001QuestionPackage, language: Avg001Cp004PilotLan
   }
   const words = avg001Cp004PairLexicon(variant(pkg), language);
   if (pkg.solveMode === "findGroupCountFromCombinedAverage") return words.secondCount;
-  if (pkg.solveMode === "findMissingGroupAverage") return `${words.secondMeasure} ${language === "hi" ? "का औसत" : "ਦੀ ਔਸਤ"}`;
+  if (pkg.solveMode === "findMissingGroupAverage") return words.secondMeasure;
   return words.result;
 }
 
