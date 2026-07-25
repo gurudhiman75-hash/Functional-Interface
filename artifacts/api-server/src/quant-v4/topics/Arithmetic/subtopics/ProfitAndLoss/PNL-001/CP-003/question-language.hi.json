@@ -1,0 +1,29 @@
+{
+  "archetypeId":"PNL-001","cpId":"PNL-CP-003","language":"hi","status":"STRUCTURAL_PARITY",
+  "entries":{
+    "PNL-QL-071":{"template":"एक व्यापारी अलग-अलग खेपों को दिए गए प्रति इकाई क्रय मूल्यों पर खरीदता है और बताए गए मूल्यों पर बेचता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-072":{"template":"दो वस्तुएँ समान विक्रय मूल्य पर बेची जाती हैं। एक पर {firstRatePercent}% {firstDirection} और दूसरी पर {secondRatePercent}% {secondDirection} होता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-073":{"template":"दो वस्तुओं का क्रय मूल्य समान है। एक पर {firstRatePercent}% {firstDirection} और दूसरी पर {secondRatePercent}% {secondDirection} होता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-074":{"template":"एक विक्रेता {totalQuantity} समान वस्तुएँ ₹{unitCostPrice} प्रति वस्तु की दर से खरीदता है। विभिन्न समूह अलग मूल्यों पर बेचे जाते हैं और शेष माल का दिया गया वसूली मूल्य है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-075":{"template":"एक व्यापारी {totalQuantity} वस्तुएँ ₹{unitCostPrice} प्रति वस्तु की दर से खरीदता है। इनमें से {damagedQuantity} क्षतिग्रस्त हैं और प्रत्येक से ₹{damagedRecoveryPerUnit} वसूल होता है। अपेक्षित कुल परिणाम के लिए अच्छी वस्तुओं का प्रति इकाई विक्रय मूल्य ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-076":{"template":"एक थोक विक्रेता {paidQuantity} वस्तुओं का भुगतान करता है और {freeQuantity} वस्तुएँ मुफ्त पाता है। यदि सभी वस्तुएँ ₹{unitSellingPrice} प्रति वस्तु बेची जाएँ, तो कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-077":{"template":"समान वस्तुओं के विभिन्न समूह दिए गए लाभ या हानि प्रतिशत पर बेचे जाते हैं। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-078":{"template":"माल के कुछ समूह दिए गए प्रतिशतों पर बेचे गए हैं। कुल {targetRatePercent}% {targetDirection} प्राप्त करने के लिए शेष {unknownQuantity} वस्तुओं को किस लाभ या हानि प्रतिशत पर बेचना चाहिए?","difficulty":"Hard"},
+    "PNL-QL-079":{"template":"दिए गए समूह बताए गए प्रतिशतों पर बेचे गए हैं। कुल {targetRatePercent}% {targetDirection} पाने के लिए {unknownRatePercent}% {unknownDirection} पर कितनी अतिरिक्त वस्तुएँ बेचनी होंगी?","difficulty":"Hard"},
+    "PNL-QL-080":{"template":"एक विक्रेता {totalQuantity} वस्तुएँ ₹{unitCostPrice} प्रति वस्तु खरीदता है और बताए गए समूह दिए गए मूल्यों पर बेचता है। कुल {targetRatePercent}% {targetDirection} के लिए शेष वस्तुओं का प्रति इकाई विक्रय मूल्य ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-081":{"template":"एक विक्रेता {totalQuantity} वस्तुएँ ₹{unitCostPrice} प्रति वस्तु खरीदता है। अपेक्षित कुल परिणाम के लिए शेष माल को किस लाभ या हानि प्रतिशत पर बेचना चाहिए?","difficulty":"Hard"},
+    "PNL-QL-082":{"template":"₹{unitCostPrice} प्रति वस्तु की दर से खरीदी गई {totalQuantity} वस्तुओं में से {spoiledQuantity} खराब हो जाती हैं। अच्छी वस्तुएँ ₹{goodUnitSellingPrice} प्रति वस्तु बेची जाती हैं। कुल {targetRatePercent}% {targetDirection} के लिए प्रत्येक खराब वस्तु से आवश्यक वसूली ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-083":{"template":"दो वस्तुएँ समान विक्रय मूल्य पर बेची जाती हैं। एक पर {ratePercent}% लाभ और दूसरी पर उतने ही प्रतिशत की हानि होती है। कुल हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-084":{"template":"दो वस्तुएँ समान राशि में बेची जाती हैं। एक वस्तु का प्रतिशत और कुल परिणाम ज्ञात है। दूसरी वस्तु का लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-085":{"template":"एक माल का कुल क्रय मूल्य ₹{totalCostPrice} है। यदि उसे {ratePercent}% {direction} पर बेचा जाए, तो कुल विक्रय मूल्य ज्ञात कीजिए।","difficulty":"Easy"},
+    "PNL-QL-086":{"template":"एक माल कुल ₹{totalSellingPrice} में {ratePercent}% {direction} पर बेचा जाता है। कुल क्रय मूल्य ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-087":{"template":"एक व्यापारी माल की कुल लागत का {fractionNumerator}/{fractionDenominator} भाग वसूल करता है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-088":{"template":"तालिका में प्रत्येक समूह की मात्रा, प्रति इकाई लागत और विक्रय प्रतिशत दिया गया है। कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-089":{"template":"दिए गए माल-संबंधी केसलेट को पढ़कर बिके और शेष माल को ध्यान में रखते हुए कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-090":{"template":"दो वस्तुएँ समान मूल्य पर बेची जाती हैं, एक पर {ratePercent}% लाभ और दूसरी पर {ratePercent}% हानि। कुल परिणाम के बारे में सही कथन चुनिए।","difficulty":"Medium"},
+    "PNL-QL-091":{"template":"दो माल समूहों की लागत बीजीय रूप में और उनके विक्रय प्रतिशत दिए गए हैं। अपेक्षित कुल परिणाम के लिए अज्ञात समूह प्रतिशत ज्ञात कीजिए।","difficulty":"Hard"},
+    "PNL-QL-092":{"template":"माल का एक भाग पहले ही बेचा जा चुका है। जाँचिए कि शेष प्रत्येक वस्तु का आवश्यक विक्रय मूल्य ज्ञात करने के लिए दोनों कथन पर्याप्त हैं या नहीं।","difficulty":"Hard"},
+    "PNL-QL-093":{"template":"एक व्यापारी कई खेपें दिए गए मूल्यों पर खरीदता और बेचता है। कुल लाभ या हानि की राशि ज्ञात कीजिए।","difficulty":"Medium"},
+    "PNL-QL-094":{"template":"₹{unitCostPrice} प्रति वस्तु की दर से खरीदी गई {totalQuantity} वस्तुओं में से {spoiledQuantity} खराब हो जाती हैं और अच्छी वस्तुएँ ₹{goodUnitSellingPrice} प्रति वस्तु बेची जाती हैं। हानि से बचने के लिए प्रत्येक खराब वस्तु से न्यूनतम वसूली ज्ञात कीजिए।","difficulty":"Hard"}
+  },"entryCount":24
+}
