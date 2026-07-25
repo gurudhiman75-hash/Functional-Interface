@@ -3,12 +3,14 @@ import questionLanguageBase from "./question-language.en.json";
 import questionLanguageCp003 from "./question-language.cp003.en.json";
 import questionLanguageCp004 from "./question-language.cp004.en.json";
 import questionLanguageCp004Additional from "./question-language.cp004.additional.en.json";
+import questionLanguageCp005 from "./question-language.cp005.en.json";
 import questionLanguageExhaustiveness from "./question-language.exhaustiveness.en.json";
 import { getMen001SolveModeIds } from "./solve-mode-registry.all";
 import taskRegistryBase from "./task-registry.library.json";
 import taskRegistryCp003 from "./task-registry.cp003.library.json";
 import taskRegistryCp004 from "./task-registry.cp004.library.json";
 import taskRegistryCp004Additional from "./task-registry.cp004.additional.library.json";
+import taskRegistryCp005 from "./task-registry.cp005.library.json";
 import taskRegistryExhaustiveness from "./task-registry.exhaustiveness.library.json";
 import {
   MEN_001_ACTIVE_CP_IDS,
@@ -24,6 +26,7 @@ const questionLanguageSources = [
   questionLanguageCp004,
   questionLanguageCp004Additional,
   questionLanguageExhaustiveness,
+  questionLanguageCp005,
 ] as const;
 const taskRegistrySources = [
   taskRegistryBase,
@@ -31,6 +34,7 @@ const taskRegistrySources = [
   taskRegistryCp004,
   taskRegistryCp004Additional,
   taskRegistryExhaustiveness,
+  taskRegistryCp005,
 ] as const;
 
 const questionEntries = questionLanguageSources
@@ -75,9 +79,25 @@ function unitMatchesDimension(entry: Men001QuestionLanguageEntry) {
   return entry.answerDimension === "COST" && entry.unitPolicy === "RUPEES";
 }
 
+const CP005_PI_MODES = new Set([
+  "findRectangleSemicircleCompositeArea",
+  "findStadiumCompositeArea",
+  "findSquareMinusCircleShadedArea",
+  "findCircleMinusSquareShadedArea",
+  "findRectangleMinusTwoSemicirclesArea",
+  "findFourCornerQuadrantsShadedArea",
+  "findInscribedCircleAreaInSquare",
+  "findInscribedSquareAreaInCircle",
+  "findRectangleSemicircleCompositePerimeter",
+  "findStadiumCompositePerimeter",
+  "findRectangleLengthFromCompositeArea",
+  "findSquareSideFromShadedArea",
+]);
+
 function requiresExplicitPiPolicy(entry: Men001QuestionLanguageEntry) {
   return (
     entry.cpId === "MEN-CP-003" ||
+    CP005_PI_MODES.has(entry.solveMode) ||
     [
       "findOuterCircularPathArea",
       "findInnerCircularPathArea",
