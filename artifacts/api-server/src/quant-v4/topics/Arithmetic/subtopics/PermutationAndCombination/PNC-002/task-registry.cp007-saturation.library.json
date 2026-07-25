@@ -1,0 +1,13 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-007",
+  "ownership": "HUMAN_OWNED",
+  "groups": [
+    {"qlIds":["PNC-QL-119"],"cpId":"PNC-CP-007","taskKind":"linearBlockRestriction","solveMode":"countTwoBlocksTogetherNotAdjacent","answerType":"COUNT","explanationId":"PNC-EXP-119","requiredVariables":["totalObjects"],"scenarioFamily":"twoPairsTogetherBlocksSeparated","constraintProfile":"TWO_BLOCKS_TOGETHER_NOT_ADJACENT","distractorProfile":"SEPARATED_BLOCKS","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-120"],"cpId":"PNC-CP-007","taskKind":"linearBlockRestriction","solveMode":"countTwoBlocksTogetherNotAdjacent","answerType":"COUNT","explanationId":"PNC-EXP-120","requiredVariables":["totalObjects"],"scenarioFamily":"pairTrioTogetherBlocksSeparated","constraintProfile":"TWO_BLOCKS_TOGETHER_NOT_ADJACENT","distractorProfile":"SEPARATED_BLOCKS","difficulty":"Hard","active":true},
+    {"qlIds":["PNC-QL-121"],"cpId":"PNC-CP-007","taskKind":"linearBlockRestriction","solveMode":"countBlockWithOutsiderNotAdjacent","answerType":"COUNT","explanationId":"PNC-EXP-121","requiredVariables":["totalObjects","blockSize"],"scenarioFamily":"blockTogetherOutsiderNotAdjacent","constraintProfile":"BLOCK_WITH_OUTSIDER_NOT_ADJACENT","distractorProfile":"BLOCK_OUTSIDER_APART","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-122"],"cpId":"PNC-CP-007","taskKind":"linearBlockRestriction","solveMode":"countOneBlockTogetherOtherNotTogether","answerType":"COUNT","explanationId":"PNC-EXP-122","requiredVariables":["totalObjects"],"scenarioFamily":"pairTogetherTrioBroken","constraintProfile":"ONE_BLOCK_TOGETHER_OTHER_NOT_TOGETHER","distractorProfile":"ONE_BLOCK_OTHER_BROKEN","difficulty":"Hard","active":true},
+    {"qlIds":["PNC-QL-123"],"cpId":"PNC-CP-007","taskKind":"linearBlockRestriction","solveMode":"countNotAllSpecifiedBlocksTogether","answerType":"COUNT","explanationId":"PNC-EXP-123","requiredVariables":["totalObjects"],"scenarioFamily":"atLeastOnePairBroken","constraintProfile":"NOT_ALL_BLOCKS_TOGETHER","distractorProfile":"MULTIPLE_BLOCK_COMPLEMENT","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-124"],"cpId":"PNC-CP-007","taskKind":"linearBlockRestriction","solveMode":"recoverBlockRestrictionParameter","answerType":"COUNT","explanationId":"PNC-EXP-124","requiredVariables":["target"],"scenarioFamily":"recoverNSeparatedPairBlocks","constraintProfile":"BLOCK_INVERSE","distractorProfile":"BLOCK_INVERSE","difficulty":"Hard","active":true}
+  ]
+}
