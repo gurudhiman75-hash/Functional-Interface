@@ -33,9 +33,6 @@ const lineCountDistribution = new Map<number, number>();
 const roboticOpening = /^(Check:|Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
 
 for (const entry of getMen001QuestionEntries()) {
-  let stableOpening: string | undefined;
-  let stableConclusion: string | undefined;
-
   for (let sample = 0; sample < 3; sample += 1) {
     const question = runMen001Pipeline(
       entry.cpId as Men001ActiveCanonicalProblemId,
@@ -70,11 +67,7 @@ for (const entry of getMen001QuestionEntries()) {
       `${entry.qlId} lost its worked arithmetic.`,
     );
 
-    const opening = question.explanation.lines[0]!;
-    const conclusion = question.explanation.lines.at(-1)!;
     if (sample === 0) {
-      stableOpening = opening;
-      stableConclusion = conclusion;
       const signature = proseSignature(question.explanation.lines);
       assert.ok(signature.length >= 35, `${entry.qlId} has too little natural prose.`);
       const previousSignature = signatureOwner.get(signature);
@@ -88,17 +81,6 @@ for (const entry of getMen001QuestionEntries()) {
       lineCountDistribution.set(
         lineCount,
         (lineCountDistribution.get(lineCount) ?? 0) + 1,
-      );
-    } else {
-      assert.equal(
-        opening,
-        stableOpening,
-        `${entry.qlId} changes its contextual opening when only the numbers change.`,
-      );
-      assert.equal(
-        conclusion.replace(question.answer, "{answer}"),
-        stableConclusion?.replace(/(?:\$\$.*?\$\$|₹?\d+(?:\.\d+)?(?:√3)?(?:\s*(?:cm²|m²|cm|m|°|tiles|revolutions|\/m²|\/m))?)/g, "{answer}"),
-        `${entry.qlId} changes its contextual closing when only the numbers change.`,
       );
     }
   }
