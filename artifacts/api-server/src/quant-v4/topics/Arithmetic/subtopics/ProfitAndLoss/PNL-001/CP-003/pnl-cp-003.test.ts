@@ -18,7 +18,7 @@ assert.equal(verifyMultipleLotsResult(multipleLots, lotsResult).valid, true);
 
 const equalSpecial = solveInventoryAdvanced({ mode: "EQUAL_SP_EQUAL_RATES_SPECIAL", ratePercent: rational(20) });
 assert.equal(equalSpecial.direction, "LOSS");
-assert.equal(equalSpecial.ratePercent.numerator * 100n, equalSpecial.ratePercent.denominator * 4n);
+assert.equal(equalSpecial.ratePercent.numerator, equalSpecial.ratePercent.denominator * 4n);
 
 const unsold = solveInventoryAdvanced({
   mode: "UNSOLD_STOCK_REQUIRED_UNIT_PRICE",
@@ -48,7 +48,7 @@ const fraction = solveInventoryAdvanced({
   recoveredFraction: rational(9, 10),
 });
 assert.equal(fraction.direction, "LOSS");
-assert.equal(fraction.ratePercent.numerator * 100n, fraction.ratePercent.denominator * 10n);
+assert.equal(fraction.ratePercent.numerator, fraction.ratePercent.denominator * 10n);
 
 verifyInventoryIdentity(lotsResult.totalCost.paise === 200000n, "multiple-lot total cost");
 verifyInventoryIdentity(lotsResult.totalSelling.paise === 210000n, "multiple-lot total selling");
