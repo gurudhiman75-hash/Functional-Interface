@@ -4,6 +4,7 @@ import {
   clusterNumberToken,
   letterGroupToken,
   letterNumberToken,
+  letterToken,
   mixedTokenKey,
   numberLetterToken,
   sameMixedToken,
@@ -34,18 +35,22 @@ interface ContextYield {
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+const letterInputs = (): readonly MixedToken[] => [...ALPHABET].map(letterToken);
+
 function letterGroupInputs(): readonly MixedToken[] {
   const inputs: MixedToken[] = [];
-  for (const first of ALPHABET) for (const second of ALPHABET) {
-    if (first !== second) inputs.push(letterGroupToken(first + second));
+  for (const first of ALPHABET) {
+    for (const second of ALPHABET) {
+      if (first !== second) inputs.push(letterGroupToken(first + second));
+    }
   }
   return inputs;
 }
 
 function letterNumberInputs(): readonly MixedToken[] {
   const inputs: MixedToken[] = [];
-  for (const letter of ALPHABET) for (let number = 8; number <= 64; number += 1) {
-    inputs.push(letterNumberToken(letter, number));
+  for (const letter of ALPHABET) {
+    for (let number = 8; number <= 64; number += 1) inputs.push(letterNumberToken(letter, number));
   }
   return inputs;
 }
@@ -55,7 +60,9 @@ function clusterNumberInputs(): readonly MixedToken[] {
   for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
     for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
       const letters = ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length];
-      for (let number = -25; number <= 60; number += 5) inputs.push(clusterNumberToken(letters, number));
+      for (let number = -25; number <= 100; number += 1) {
+        inputs.push(clusterNumberToken(letters, number));
+      }
     }
   }
   return inputs;
@@ -71,17 +78,24 @@ function numberLetterInputs(): readonly MixedToken[] {
 }
 
 const INPUTS_BY_KIND: Readonly<Record<string, readonly MixedToken[]>> = {
+  LETTER: letterInputs(),
   LETTER_GROUP: letterGroupInputs(),
   LETTER_NUMBER: letterNumberInputs(),
   CLUSTER_NUMBER: clusterNumberInputs(),
   NUMBER_LETTER: numberLetterInputs(),
 };
 
-function candidateInputs(rule: ProvisionalMixedRuleDefinition, context: ProvisionalMixedContext): readonly MixedToken[] {
+function candidateInputs(
+  rule: ProvisionalMixedRuleDefinition,
+  context: ProvisionalMixedContext,
+): readonly MixedToken[] {
   return (INPUTS_BY_KIND[rule.inputKind] ?? []).filter((input) => rule.accepts(input, context));
 }
 
-function simulateContext(rule: ProvisionalMixedRuleDefinition, context: ProvisionalMixedContext): ContextYield {
+function simulateContext(
+  rule: ProvisionalMixedRuleDefinition,
+  context: ProvisionalMixedContext,
+): ContextYield {
   const inputs = candidateInputs(rule, context);
   let candidatePairs = 0;
   let acceptedPairs = 0;
@@ -106,6 +120,7 @@ function simulateContext(rule: ProvisionalMixedRuleDefinition, context: Provisio
         solverDisagreements += 1;
         continue;
       }
+
       if (mixedTokenKey(sourceOutput) === mixedTokenKey(targetOutput)) {
         sameOutputRejects += 1;
         if (candidatePairs >= maximumPairs) break outer;
@@ -116,10 +131,14 @@ function simulateContext(rule: ProvisionalMixedRuleDefinition, context: Provisio
         { input: sourceInput, output: sourceOutput },
         { input: targetInput, output: targetOutput },
       ];
-      const matches = matchingProvisionalMixedRules(evidence).filter((match) => match.priority <= rule.priority);
+      const matches = matchingProvisionalMixedRules(evidence)
+        .filter((match) => match.priority <= rule.priority);
       if (matches.length !== 1 || matches[0].ruleId !== rule.id ||
-          matches[0].contextKey !== provisionalMixedContextKey(context)) nativeCollisionRejects += 1;
-      else acceptedPairs += 1;
+          matches[0].contextKey !== provisionalMixedContextKey(context)) {
+        nativeCollisionRejects += 1;
+      } else {
+        acceptedPairs += 1;
+      }
 
       if (candidatePairs >= maximumPairs) break outer;
     }
@@ -138,18 +157,30 @@ function simulateContext(rule: ProvisionalMixedRuleDefinition, context: Provisio
 }
 
 const yields = ANA_CP008_PROVISIONAL_RULES.flatMap((rule) =>
-  rule.contexts.map((context) => simulateContext(rule, context)));
+  rule.contexts.map((context) => simulateContext(rule, context)),
+);
 
-assert.equal(yields.length, 69);
+assert.equal(yields.length, 74);
 assert.equal(yields.reduce((sum, entry) => sum + entry.solverDisagreements, 0), 0);
 for (const entry of yields) {
   assert.ok(entry.eligibleInputs >= 20, `${entry.contextKey} has only ${entry.eligibleInputs} eligible inputs.`);
   assert.ok(entry.acceptedPairs >= 40, `${entry.contextKey} has only ${entry.acceptedPairs} accepted pairs.`);
 }
 
-const ruleSummary = new Map<string, { contexts: number; eligibleInputs: number; acceptedPairs: number; collisionRejects: number }>();
+const ruleSummary = new Map<string, {
+  contexts: number;
+  eligibleInputs: number;
+  acceptedPairs: number;
+  collisionRejects: number;
+}>();
+
 for (const entry of yields) {
-  const current = ruleSummary.get(entry.ruleId) ?? { contexts: 0, eligibleInputs: 0, acceptedPairs: 0, collisionRejects: 0 };
+  const current = ruleSummary.get(entry.ruleId) ?? {
+    contexts: 0,
+    eligibleInputs: 0,
+    acceptedPairs: 0,
+    collisionRejects: 0,
+  };
   current.contexts += 1;
   current.eligibleInputs = Math.max(current.eligibleInputs, entry.eligibleInputs);
   current.acceptedPairs += entry.acceptedPairs;
@@ -160,5 +191,7 @@ for (const entry of yields) {
 console.log("ANA-CP-008 provisional yield simulation passed.", {
   contextCount: yields.length,
   ruleSummary: Object.fromEntries(ruleSummary),
-  weakestContexts: [...yields].sort((left, right) => left.acceptedPairs - right.acceptedPairs).slice(0, 10),
+  weakestContexts: [...yields]
+    .sort((left, right) => left.acceptedPairs - right.acceptedPairs)
+    .slice(0, 10),
 });

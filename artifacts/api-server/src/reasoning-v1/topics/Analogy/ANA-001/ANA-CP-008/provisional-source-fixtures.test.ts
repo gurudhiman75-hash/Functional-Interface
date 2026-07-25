@@ -56,6 +56,15 @@ const fixtures: readonly SourceFixture[] = [
     ],
   },
   {
+    source: "SSC MTS official analogy: R : 324 :: I : 81",
+    ruleId: "MIXED_SINGLE_LETTER_POSITION_POWER",
+    context: { kind: "SINGLE_LETTER_POSITION_POWER", exponent: 2 },
+    evidence: [
+      { input: letterToken("R"), output: numberToken(324) },
+      { input: letterToken("I"), output: numberToken(81) },
+    ],
+  },
+  {
     source: "Testbook mixed analogy: P21 : J28 :: G19 : A26",
     ruleId: "MIXED_TOKEN_INDEPENDENT_TRANSFORM",
     context: { kind: "INDEPENDENT_LETTER_NUMBER", letterShift: -6, numberOperation: "ADD", numberAmount: 7 },
@@ -127,6 +136,60 @@ const fixtures: readonly SourceFixture[] = [
       { input: clusterNumberToken("TX", 11), output: clusterNumberToken("WT", -10) },
     ],
   },
+  {
+    source: "SSC MTS 2024: DA2 : GD10 :: SP7 : VS35",
+    ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+    context: {
+      kind: "CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+      letterShifts: [3, 3],
+      numerator: 5,
+      denominator: 1,
+    },
+    evidence: [
+      { input: clusterNumberToken("DA", 2), output: clusterNumberToken("GD", 10) },
+      { input: clusterNumberToken("SP", 7), output: clusterNumberToken("VS", 35) },
+    ],
+  },
+  {
+    source: "Official mixed analogy: AK40 : EE100 :: DL80 : HF200",
+    ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+    context: {
+      kind: "CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+      letterShifts: [4, -6],
+      numerator: 5,
+      denominator: 2,
+    },
+    evidence: [
+      { input: clusterNumberToken("AK", 40), output: clusterNumberToken("EE", 100) },
+      { input: clusterNumberToken("DL", 80), output: clusterNumberToken("HF", 200) },
+    ],
+  },
+  {
+    source: "UKPSC official analogy: TR4 : XC64 :: AC3 : EN27",
+    ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_POWER",
+    context: {
+      kind: "CLUSTER_NUMBER_VECTOR_POWER",
+      letterShifts: [4, 11],
+      transform: "CUBE",
+    },
+    evidence: [
+      { input: clusterNumberToken("TR", 4), output: clusterNumberToken("XC", 64) },
+      { input: clusterNumberToken("AC", 3), output: clusterNumberToken("EN", 27) },
+    ],
+  },
+  {
+    source: "RRB Group D official analogy: FM25 : IJ125 :: NO36 : QL216",
+    ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_POWER",
+    context: {
+      kind: "CLUSTER_NUMBER_VECTOR_POWER",
+      letterShifts: [3, -3],
+      transform: "PERFECT_SQUARE_TO_CUBE",
+    },
+    evidence: [
+      { input: clusterNumberToken("FM", 25), output: clusterNumberToken("IJ", 125) },
+      { input: clusterNumberToken("NO", 36), output: clusterNumberToken("QL", 216) },
+    ],
+  },
 ];
 
 for (const fixture of fixtures) {
@@ -135,7 +198,9 @@ for (const fixture of fixtures) {
     assert.ok(rule.accepts(evidence.input, fixture.context), `${fixture.source} is outside generator eligibility.`);
     assert.ok(sameMixedToken(rule.apply(evidence.input, fixture.context), evidence.output));
     assert.ok(sameMixedToken(
-      independentlyApplyProvisionalMixedRule(fixture.ruleId, fixture.context, evidence.input), evidence.output));
+      independentlyApplyProvisionalMixedRule(fixture.ruleId, fixture.context, evidence.input),
+      evidence.output,
+    ));
   }
   const expectedContextKey = provisionalMixedContextKey(fixture.context);
   const matches = matchingProvisionalMixedRules(fixture.evidence);
