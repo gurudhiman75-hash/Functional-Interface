@@ -1,0 +1,27 @@
+{
+  "packageId": "PNC-002",
+  "answerCeiling": 5000000,
+  "pools": {
+    "singlePairTotalObjects": [6,7,8],
+    "singleGroupStates": [
+      {"totalObjects":7,"blockSize":3},
+      {"totalObjects":8,"blockSize":3},
+      {"totalObjects":8,"blockSize":4}
+    ],
+    "twoPairTotalObjects": [6,7,8],
+    "pairTrioTotalObjects": [7,8],
+    "threePairTotalObjects": [7,8],
+    "twoVariableGroupStates": [
+      {"totalObjects":8,"firstBlockSize":3,"secondBlockSize":2},
+      {"totalObjects":8,"firstBlockSize":3,"secondBlockSize":3},
+      {"totalObjects":8,"firstBlockSize":4,"secondBlockSize":2}
+    ],
+    "blockExternalApartStates": [
+      {"totalObjects":7,"blockSize":2},
+      {"totalObjects":8,"blockSize":2},
+      {"totalObjects":8,"blockSize":3}
+    ],
+    "inverseN": [5,6,7,8],
+    "inverseBlockSize": [2,3,4]
+  }
+}

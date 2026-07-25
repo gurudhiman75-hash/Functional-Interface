@@ -1,0 +1,20 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "policy": "QL_SPECIFIC_NATURAL_EXPLANATIONS",
+  "entries": {
+    "PNC-QL-107": {"lines":["Treat the two particular people as one temporary unit because they must occupy consecutive places.","This leaves {unitCount} units to arrange, and the two people can switch places inside their unit.","So the calculation is {equation}, giving {answer} arrangements."]},
+    "PNC-QL-108": {"lines":["The {blockSize} specified books have to travel as one block on the shelf.","Arrange that block with the remaining books, then arrange the books inside the block in every possible order.","The complete count is {equation}, so {answer} arrangements satisfy the condition."]},
+    "PNC-QL-109": {"lines":["Begin with every unrestricted arrangement and remove the arrangements in which the specified pair is together.","When together, the pair forms one unit and also has two internal orders.","Therefore {equation}, leaving {answer} valid arrangements."]},
+    "PNC-QL-110": {"lines":["The condition excludes only the arrangements in which all {blockSize} specified files form one consecutive block.","Count every unrestricted arrangement, count the forbidden block arrangements, and subtract.","That gives {equation}, so the required number is {answer}."]},
+    "PNC-QL-111": {"lines":["Each specified pair is compressed into its own block; the two blocks are separate units.","Arrange the resulting {unitCount} units, then allow both pairs to reverse internally.","Thus {equation}, which gives {answer} arrangements."]},
+    "PNC-QL-112": {"lines":["The specified pair and the specified trio become two independent blocks.","After arranging the {unitCount} outside units, multiply by the internal orders of the pair and the trio.","The count is {equation}, hence {answer} arrangements."]},
+    "PNC-QL-113": {"lines":["Compress each of the three specified pairs into a separate block.","The {unitCount} resulting units can be arranged freely, and every pair may swap its two members.","So {equation}, producing {answer} valid rows."]},
+    "PNC-QL-114": {"lines":["The two required groups are treated as two blocks, while every remaining book stays as a single unit.","Arrange the {unitCount} units and then multiply by the internal arrangements of both blocks.","Using {equation}, the number of shelf arrangements is {answer}."]},
+    "PNC-QL-115": {"lines":["First compress the required group into one block; this creates {unitCount} units.","Among those units, remove the cases in which the other specified pair is adjacent, then restore the internal orders of the required block.","The resulting calculation is {equation}, so {answer} arrangements remain."]},
+    "PNC-QL-116": {"lines":["For each allowed value of \\(n\\), two particular people together are treated as one unit with two internal orders.","The unique value whose block count equals {target} satisfies {equation}.","Therefore the original number of people is {answer}."]},
+    "PNC-QL-117": {"lines":["For each allowed \\(n\\), subtract the pair-together arrangements from all \\(n!\\) arrangements.","Only one value in the stated range produces the target {target}; it gives {equation}.","Hence the original number of people is {answer}."]},
+    "PNC-QL-118": {"lines":["For each allowed \\(k\\), compress the specified books into one block and include all \\(k!\\) internal orders.","The unique block size that produces {target} arrangements satisfies {equation}.","Therefore the required block contains {answer} books."]}
+  }
+}

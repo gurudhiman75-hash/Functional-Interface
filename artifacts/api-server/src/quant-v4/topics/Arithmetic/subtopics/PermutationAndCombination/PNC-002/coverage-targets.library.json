@@ -1,0 +1,20 @@
+{
+  "packageId": "PNC-002",
+  "checkpoint": "PNC-CP-007-SATURATION-RUNTIME-PROOF",
+  "policy": "DESCRIPTIVE_CHECKPOINT_SNAPSHOT_NOT_FINAL_TARGET",
+  "currentCoverage": {
+    "activeCanonicalProblemCount": 1,
+    "activeQuestionLanguageCount": 18,
+    "activeSolveModeCount": 9,
+    "activeQlSpecificExplanationCount": 18,
+    "activeLanguageCount": 1,
+    "firstQuestionLanguageId": "PNC-QL-107",
+    "lastQuestionLanguageId": "PNC-QL-124",
+    "cp007CoverageSaturated": true
+  },
+  "publication": {
+    "publiclyPublishable": false,
+    "productionIntegrationApproved": false,
+    "questionStudioExposureApproved": false
+  }
+}
