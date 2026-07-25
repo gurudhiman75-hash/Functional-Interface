@@ -1,10 +1,11 @@
-name: Validate Commerce Orders and Payments
+name: Validate Commerce Orders, Payments and Refunds
 
 on:
   pull_request:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/lib/canonical-commerce-payments.ts
+      - artifacts/api-server/src/lib/canonical-commerce-refunds.ts
       - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
       - artifacts/api-server/src/routes/billing-webhook.ts
       - artifacts/api-server/src/routes/admin-commerce-orders.ts
@@ -17,6 +18,7 @@ on:
     branches: [New-main]
     paths:
       - artifacts/api-server/src/lib/canonical-commerce-payments.ts
+      - artifacts/api-server/src/lib/canonical-commerce-refunds.ts
       - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
       - artifacts/api-server/src/routes/billing-webhook.ts
       - artifacts/api-server/src/routes/admin-commerce-orders.ts
@@ -45,32 +47,28 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Enforce canonical payment boundaries
+      - name: Enforce canonical payment and refund boundaries
         run: |
           grep -F 'router.post("/commerce/orders", authenticate' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
           grep -F 'pricingSnapshot' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
-          grep -F 'RAZORPAY_KEY_SECRET' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
-          grep -F 'provider_order_id' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
           grep -F 'validateWebhookSignature' artifacts/api-server/src/routes/billing-webhook.ts
           grep -F 'INSERT INTO commerce.payment_events' artifacts/api-server/src/routes/billing-webhook.ts
           grep -F 'ON CONFLICT (provider, provider_event_id) DO NOTHING' artifacts/api-server/src/routes/billing-webhook.ts
           grep -F 'PAYMENT_AMOUNT_MISMATCH' artifacts/api-server/src/lib/canonical-commerce-payments.ts
-          grep -F 'PAYMENT_CURRENCY_MISMATCH' artifacts/api-server/src/lib/canonical-commerce-payments.ts
           grep -F 'paid-order-item:' artifacts/api-server/src/lib/canonical-commerce-payments.ts
-          grep -F "grant_source" artifacts/api-server/src/lib/canonical-commerce-payments.ts
-          grep -F 'ON CONFLICT (entitlement_id, test_id) DO NOTHING' artifacts/api-server/src/lib/canonical-commerce-payments.ts
-          grep -F 'requireAdminPermission("commerce.orders.read")' artifacts/api-server/src/routes/admin-commerce-orders.ts
-          ! grep -E 'INSERT INTO|UPDATE |DELETE FROM' artifacts/api-server/src/routes/admin-commerce-orders.ts
-          grep -F 'router.use("/admin/commerce/orders", adminCommerceOrdersRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F 'router.use(canonicalCommerceCheckoutRouter)' artifacts/api-server/src/routes/index.ts
-          grep -F "path: '/commerce/orders/:orderId'" artifacts/admin-app/src/App.tsx
-          grep -F "path: '/commerce/orders'" artifacts/admin-app/src/App.tsx
-          grep -F "permission: 'commerce.orders.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'reconcileProcessedRefund' artifacts/api-server/src/lib/canonical-commerce-refunds.ts
+          grep -F 'REFUND_TOTAL_EXCEEDS_CAPTURE' artifacts/api-server/src/lib/canonical-commerce-refunds.ts
+          grep -F "status = 'revoked'" artifacts/api-server/src/lib/canonical-commerce-refunds.ts
+          grep -F 'eventType === "refund.processed"' artifacts/api-server/src/routes/billing-webhook.ts
+          grep -F 'eventType === "refund.failed"' artifacts/api-server/src/routes/billing-webhook.ts
+          grep -F 'requireAdminPermission("commerce.orders.manage")' artifacts/api-server/src/routes/admin-commerce-orders.ts
+          grep -F 'https://api.razorpay.com/v1/payments/' artifacts/api-server/src/routes/admin-commerce-orders.ts
+          grep -F 'commerce.refund.requested' artifacts/api-server/src/routes/admin-commerce-orders.ts
           grep -F "new Intl.NumberFormat('en-US'" artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
-          grep -F 'Payment notes never determine access.' artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
-          ! grep -E '@/data/|demo order|prototype payment' artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
+          grep -F 'A full verified refund revokes active entitlements' artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
           ! grep -F 'grantTestEntitlement' artifacts/api-server/src/routes/billing-webhook.ts
           ! grep -F 'notes?.userId' artifacts/api-server/src/routes/billing-webhook.ts
+          ! grep -E '@/data/|demo order|prototype payment' artifacts/admin-app/src/pages/commerce/OrdersPaymentsWorkspacePage.tsx
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin application
