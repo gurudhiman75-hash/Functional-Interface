@@ -22,7 +22,14 @@ async function enforceCanonicalStudentStatus(req: Request, res: Response): Promi
   if (!firebaseUid) return true;
 
   const rows = await sqlClient`
-    SELECT u.status::text AS status, u.deleted_at AS "deletedAt"
+    SELECT u.status::text AS status, u.deleted_at AS "deletedAt",
+      EXISTS (
+        SELECT 1
+        FROM platform.audit_events recovery
+        WHERE recovery.entity_id = u.id
+          AND recovery.action_key = 'student.account.firebase_identity_relinked'
+          AND recovery.occurred_at > now() - interval '30 days'
+      ) AS "recoveryRecentlyCompleted"
     FROM identity.auth_identities ai
     JOIN identity.users u ON u.id = ai.user_id
     JOIN identity.student_profiles sp ON sp.user_id = u.id
@@ -46,6 +53,13 @@ async function enforceCanonicalStudentStatus(req: Request, res: Response): Promi
     return false;
   }
   if (status === "suspended") {
+    if (account.recoveryRecentlyCompleted) {
+      res.status(403).json({
+        error: "Your account recovery was completed successfully. For your protection, the account remains suspended until an administrator completes the final reactivation review.",
+        code: "ACCOUNT_RECOVERY_COMPLETED",
+      });
+      return false;
+    }
     res.status(403).json({
       error: "This ExamTree account has been suspended.",
       code: "ACCOUNT_SUSPENDED",
