@@ -85,5 +85,5 @@ export const DIR_001_MANIFEST = Object.freeze({
   productCode: "REAS-DIR",
   allocationPolicy: DIR_001_ALLOCATION_POLICY,
   checkpoints: DIR_001_CHECKPOINTS,
-  registeredQls: [] as readonly DirectionQuestionLogicContract[],
+  runtimeRegistry: "chapter-registry.ts",
 });
