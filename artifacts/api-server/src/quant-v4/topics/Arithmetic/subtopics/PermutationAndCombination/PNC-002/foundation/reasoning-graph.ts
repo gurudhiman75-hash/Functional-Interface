@@ -16,6 +16,10 @@ export function buildPnc002ReasoningEvidence(
     countSingleBlockNotTogether: "PNC-LINEAR-BLOCK-COMPLEMENT",
     countMultipleBlocksTogether: "PNC-LINEAR-MULTIPLE-BLOCKS",
     countBlockWithExternalPairApart: "PNC-LINEAR-BLOCK-AND-APART",
+    countTwoBlocksTogetherNotAdjacent: "PNC-LINEAR-SEPARATED-BLOCKS",
+    countBlockWithOutsiderNotAdjacent: "PNC-LINEAR-BLOCK-OUTSIDER-SEPARATION",
+    countOneBlockTogetherOtherNotTogether: "PNC-LINEAR-ONE-BLOCK-OTHER-BROKEN",
+    countNotAllSpecifiedBlocksTogether: "PNC-LINEAR-MULTIPLE-BLOCK-COMPLEMENT",
     recoverBlockRestrictionParameter: "PNC-LINEAR-BLOCK-INVERSE",
   }[parameters.solveMode];
 
@@ -33,7 +37,10 @@ export function buildPnc002ReasoningEvidence(
       internalArrangementMultiplier: evidence.internalArrangementMultiplier,
       unrestrictedCount: evidence.unrestrictedCount ?? "",
       forbiddenTogetherCount: evidence.forbiddenTogetherCount ?? "",
+      forbiddenAdjacentUnitCount: evidence.forbiddenAdjacentUnitCount ?? "",
       validUnitArrangementCount: evidence.validUnitArrangementCount ?? "",
+      primaryRestrictionCount: evidence.primaryRestrictionCount ?? "",
+      allSpecifiedBlocksTogetherCount: evidence.allSpecifiedBlocksTogetherCount ?? "",
       target: evidence.target ?? "",
     },
     decisiveCalculation: `\\(${solver.mathJax}\\)`,
