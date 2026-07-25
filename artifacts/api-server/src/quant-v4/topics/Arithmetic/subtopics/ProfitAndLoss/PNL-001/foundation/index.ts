@@ -4,6 +4,7 @@ export * from "./money";
 export * from "./ledgers";
 export * from "./math";
 export * from "./solver";
+export * from "./discount-solver";
 export * from "./independent-verifier";
 export * from "./parameter-generator";
 export * from "./validator";
