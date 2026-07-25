@@ -1,0 +1,35 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-006",
+  "status": "ACTIVE_DISCOVERY",
+  "countPolicy": "OPEN_ENDED_UNTIL_GAP_AUDIT",
+  "title": "Effective Cost, Recovery and Break-Even",
+  "ownershipNote": "Owns overhead-adjusted effective cost, wastage-adjusted cost, break-even and commercial recovery. Plain partial-inventory recovery remains in CP-003; trader-chain commission remains in CP-004.",
+  "entries": {
+    "PNL-QL-150": {"solveMode":"FLAT_COMPONENTS_TO_EFFECTIVE_COST","answerSemantic":"effectiveCost","requiredVariables":["purchasePrice","repairExpense","transportExpense","installationExpense"],"difficulty":"Easy"},
+    "PNL-QL-151": {"solveMode":"PURCHASE_AND_OVERHEAD_RATE_TO_EFFECTIVE_COST","answerSemantic":"effectiveCost","requiredVariables":["purchasePrice","overheadPercent"],"difficulty":"Easy"},
+    "PNL-QL-152": {"solveMode":"EFFECTIVE_COST_AND_RATE_TO_SELLING_PRICE","answerSemantic":"sellingPrice","requiredVariables":["purchasePrice","expenses","profitPercent"],"difficulty":"Medium"},
+    "PNL-QL-153": {"solveMode":"EFFECTIVE_COST_AND_RATE_TO_SELLING_PRICE","answerSemantic":"sellingPrice","requiredVariables":["purchasePrice","expenses","lossPercent"],"difficulty":"Medium"},
+    "PNL-QL-154": {"solveMode":"PURCHASE_EXPENSES_AND_SP_TO_RESULT","answerSemantic":"profitOrLossPercentOnEffectiveCost","requiredVariables":["purchasePrice","expenses","sellingPrice"],"difficulty":"Medium"},
+    "PNL-QL-155": {"solveMode":"SP_TARGET_RATE_TO_MAX_EXPENSE","answerSemantic":"maximumAllowableExpense","requiredVariables":["purchasePrice","sellingPrice","targetDirection","targetRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-156": {"solveMode":"WASTAGE_TO_EFFECTIVE_UNIT_COST","answerSemantic":"effectiveUnitCost","requiredVariables":["totalInputCost","inputQuantity","wastedQuantity"],"difficulty":"Medium"},
+    "PNL-QL-157": {"solveMode":"WASTAGE_AND_TARGET_RATE_TO_UNIT_SP","answerSemantic":"requiredUnitSellingPrice","requiredVariables":["totalInputCost","inputQuantity","wastedQuantity","targetDirection","targetRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-158": {"solveMode":"FIXED_VARIABLE_COST_TO_BREAK_EVEN_QUANTITY","answerSemantic":"breakEvenQuantity","requiredVariables":["fixedCost","variableCostPerUnit","sellingPricePerUnit"],"difficulty":"Medium"},
+    "PNL-QL-159": {"solveMode":"FIXED_VARIABLE_COST_AND_TARGET_PROFIT_TO_QUANTITY","answerSemantic":"requiredQuantity","requiredVariables":["fixedCost","targetProfit","variableCostPerUnit","sellingPricePerUnit"],"difficulty":"Hard"},
+    "PNL-QL-160": {"solveMode":"FIXED_COST_QUANTITY_TO_BREAK_EVEN_SP","answerSemantic":"breakEvenSellingPricePerUnit","requiredVariables":["fixedCost","variableCostPerUnit","quantity"],"difficulty":"Medium"},
+    "PNL-QL-161": {"solveMode":"EARLIER_LOSS_TO_REQUIRED_NEXT_SP","answerSemantic":"requiredSecondSellingPriceForBreakEven","requiredVariables":["firstCostPrice","firstSellingPrice","secondCostPrice"],"difficulty":"Hard"},
+    "PNL-QL-162": {"solveMode":"EARLIER_LOSS_TO_REQUIRED_NEXT_SP","answerSemantic":"requiredSecondSellingPriceForTarget","requiredVariables":["firstCostPrice","firstSellingPrice","secondCostPrice","targetDirection","targetRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-163": {"solveMode":"TOTAL_RECOVERY_AND_RATE_TO_EFFECTIVE_COST","answerSemantic":"effectiveCost","requiredVariables":["totalRecovery","direction","ratePercent"],"difficulty":"Medium"}
+  },
+  "pendingDiscovery": [
+    "manufacturing-cost-breakdown-and-output",
+    "percentage-and-flat-overhead-combinations",
+    "break-even-revenue-and-contribution-margin",
+    "multiple-product-break-even-mix",
+    "recovery-after-several-earlier-sales",
+    "commission-on-recovery-with-effective-cost",
+    "table-caselet-statement-algebraic-and-data-sufficiency-forms",
+    "reference-book-and-pyq-reconciliation"
+  ],
+  "entryCount": 14
+}
