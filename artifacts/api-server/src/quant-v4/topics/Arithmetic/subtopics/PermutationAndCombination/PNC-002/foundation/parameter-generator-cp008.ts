@@ -55,8 +55,10 @@ export function buildPnc002Cp008Values(
       const state = copyState(pickSeeded(pools.noAdjacencySpecifiedStates, random));
       return { ...state, largeCount: state.totalObjects - state.specifiedCount, smallCount: state.specifiedCount };
     }
-    case "exactGapBetweenPair":
-      return copyState(pickSeeded(pools.exactGapStates, random));
+    case "exactGapBetweenPair": {
+      const state = copyState(pickSeeded(pools.exactGapStates, random));
+      return { ...state, positionDistance: state.gapCount + 1 };
+    }
     case "atLeastGapBetweenPair":
       return copyState(pickSeeded(pools.atLeastGapStates, random));
     case "allSpecifiedInEvenPositions": {
