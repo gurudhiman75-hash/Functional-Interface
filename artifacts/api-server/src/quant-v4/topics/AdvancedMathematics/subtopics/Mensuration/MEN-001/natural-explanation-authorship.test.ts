@@ -4,8 +4,8 @@ import {
   getMen001QuestionLanguageIds,
 } from "./library";
 import {
-  getMen001NaturalExplanationProfileIds,
-} from "./natural-explanation-authorship";
+  getAllMen001NaturalExplanationProfileIds,
+} from "./natural-explanation-authorship.all";
 import { runMen001Pipeline } from "./pipeline";
 import type { Men001ActiveCanonicalProblemId } from "./types";
 
@@ -21,7 +21,7 @@ function proseSignature(lines: readonly string[]) {
 }
 
 const qlIds = getMen001QuestionLanguageIds().sort();
-const profileIds = getMen001NaturalExplanationProfileIds().sort();
+const profileIds = getAllMen001NaturalExplanationProfileIds().sort();
 assert.deepEqual(
   profileIds,
   qlIds,
