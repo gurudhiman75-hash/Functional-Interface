@@ -19,11 +19,11 @@ Generate SSC, Banking and Punjab-state-exam style plane-mensuration questions wi
 
 Current checkpoint:
 
-- 152 active English QLs;
-- 126 registry-derived solve modes;
+- 158 active English QLs;
+- 132 registry-derived solve modes;
 - 20 deterministic states per QL;
-- 3,040 generated runtime-proof questions;
-- 456 generated human-review samples.
+- 3,160 generated runtime-proof questions;
+- 474 generated human-review samples.
 
 These figures describe the current checkpoint. They are not fixed quotas or terminal identifiers.
 
@@ -45,7 +45,7 @@ Coverage includes inside/outside rectangular, square and circular paths; reverse
 
 ### MEN-CP-005 — composite and inscribed figures
 
-Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-triangle and two-rectangle composites, overlapping rectangle unions, L-shaped regions, shaded square/circle combinations, semicircular and quadrant cut-outs, inscribed and largest-fit figures, exact regular-hexagon measurement, exposed composite boundaries and reverse recovery from composite or shaded area.
+Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-triangle and two-rectangle composites, overlapping rectangle unions, L-shaped regions, shaded square/circle combinations, semicircular and quadrant cut-outs, inscribed and largest-fit figures, exact regular-hexagon measurement, shared-edge and inner-hole boundaries, exposed composite boundaries, and reverse recovery from composite area, shaded area, regular-polygon perimeter and stadium perimeter.
 
 ## Mathematical rules
 
@@ -61,6 +61,8 @@ Coverage includes rectangle-plus-semicircle and stadium figures, rectangle-plus-
 - Overlapping composite states use inclusion–exclusion and subtract the common region exactly once.
 - Inscribed figures preserve the defining diameter/diagonal relation.
 - Composite perimeter questions count only exposed boundary and omit shared internal edges.
+- A region with a hole counts both its outer boundary and its inner boundary when both touch the required region.
+- Reverse composite-boundary states reproduce the stated total perimeter after recovery.
 - Crossed-road states use inclusion-exclusion and subtract overlap once.
 - Tile counts are exact whole-number area quotients.
 - Cost and reverse-rate states conserve `cost = measure × rate`.
