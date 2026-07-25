@@ -1,6 +1,7 @@
 import { applyAvg001Cp003ExplanationAnswerEvidence } from "./cp003-explanation-answer-evidence";
 import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
 import { applyAvg001Cp003ExplanationFinalPolish } from "./cp003-explanation-final-polish";
+import { applyAvg001ExplanationContract } from "./human-authored-explanation-contract";
 import { applyAvg001HumanAuthoredExplanation as applyAuthoredPlanner } from "./human-authored-explanation-quality";
 import type { Avg001QuestionPackage } from "./types";
 
@@ -133,5 +134,6 @@ export function applyAvg001HumanAuthoredExplanation(
 
   const contextAuthored = applyAvg001Cp003ExplanationAuthorship(arithmeticallyComplete);
   const manuallyDifferentiated = applyAvg001Cp003ExplanationFinalPolish(contextAuthored);
-  return applyAvg001Cp003ExplanationAnswerEvidence(manuallyDifferentiated);
+  const answerComplete = applyAvg001Cp003ExplanationAnswerEvidence(manuallyDifferentiated);
+  return applyAvg001ExplanationContract(answerComplete);
 }
