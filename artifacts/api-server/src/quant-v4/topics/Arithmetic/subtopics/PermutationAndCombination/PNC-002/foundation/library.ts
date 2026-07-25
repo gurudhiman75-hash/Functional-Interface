@@ -19,6 +19,7 @@ import explanationLibraryCp008Saturation from "../explanation-by-ql.cp008-satura
 import explanationLibraryCp009 from "../explanation-by-ql.cp009.en.json";
 import explanationLibraryCp009Saturation from "../explanation-by-ql.cp009-saturation.en.json";
 import explanationLibraryCp010 from "../explanation-by-ql.cp010.en.json";
+import explanationLibraryCp010Editorial from "../explanation-by-ql.cp010-editorial.en.json";
 import variableRangesBase from "../variable-ranges.library.json";
 import variableRangesSaturation from "../variable-ranges.cp007-saturation.library.json";
 import variableRangesCp008 from "../variable-ranges.cp008.library.json";
@@ -87,6 +88,7 @@ const explanations = {
   ...explanationLibraryCp009.entries,
   ...explanationLibraryCp009Saturation.entries,
   ...explanationLibraryCp010.entries,
+  ...explanationLibraryCp010Editorial.entries,
 } as Record<string, ExplanationRecord>;
 const variableRanges: VariableRanges = {
   packageId: variableRangesBase.packageId,
