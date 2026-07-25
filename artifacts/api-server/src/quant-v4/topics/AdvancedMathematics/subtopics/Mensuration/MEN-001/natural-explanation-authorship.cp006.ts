@@ -11,7 +11,7 @@ const PROFILES: Record<string, Men001NaturalExplanationProfile> = {
   },
   "MEN-001-QL-403": {
     opening: "Because the measurement is an area, the centimetre-to-metre conversion factor must be squared rather than used once.",
-    conclusion: "The sheet has area {answer}.",
+    conclusion: "The tarpaulin section has area {answer}.",
   },
   "MEN-001-QL-404": {
     opening: "Square metres and square centimetres differ by the square of the linear factor 100.",
@@ -79,7 +79,7 @@ const PROFILES: Record<string, Men001NaturalExplanationProfile> = {
   },
   "MEN-001-QL-420": {
     opening: "Map area is affected by the scale in both directions, so the linear scale must be squared.",
-    conclusion: "The plot's actual area is {answer}.",
+    conclusion: "The mapped region's actual area is {answer}.",
   },
   "MEN-001-QL-421": {
     opening: "To move from actual land area back to map area, the squared scale enlargement must be undone.",
