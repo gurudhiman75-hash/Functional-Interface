@@ -20,6 +20,7 @@ const AREA_SUBTRACTION_MODES = new Set<Men001SolveMode>([
   "findFourCornerQuadrantsShadedArea",
   "findRectangleLengthFromCompositeArea",
   "findSquareSideFromShadedArea",
+  "findCircleRadiusFromCircleMinusSquareShadedArea",
 ]);
 
 const INSCRIBED_MODES = new Set<Men001SolveMode>([
@@ -32,6 +33,9 @@ const PERIMETER_MODES = new Set<Men001SolveMode>([
   "findRectangleSemicircleCompositePerimeter",
   "findStadiumCompositePerimeter",
   "findLShapePerimeter",
+  "findJoinedRectanglesCompositePerimeter",
+  "findSquareWithCircularHoleBoundary",
+  "findStadiumStraightLengthFromPerimeter",
 ]);
 
 function text(value: unknown, fallback: string) {
@@ -53,6 +57,7 @@ export function hasMen001Cp005ExplanationIllustration(mode: Men001SolveMode) {
     INSCRIBED_MODES.has(mode) ||
     PERIMETER_MODES.has(mode) ||
     mode === "findRegularHexagonAreaFromSide" ||
+    mode === "findRegularHexagonAreaFromPerimeter" ||
     mode === "findOverlappingRectanglesUnionArea"
   );
 }
@@ -108,7 +113,8 @@ export function buildMen001Cp005ExplanationIllustration(
   if (AREA_SUBTRACTION_MODES.has(mode)) {
     const [primaryShape, secondaryShape] = mode === "findLShapeAreaBySubtraction"
       ? ["outer rectangle", "corner rectangular cut-out"]
-      : mode === "findCircleMinusSquareShadedArea"
+      : mode === "findCircleMinusSquareShadedArea" ||
+          mode === "findCircleRadiusFromCircleMinusSquareShadedArea"
         ? ["outer circle", "inscribed square"]
         : mode === "findRectangleMinusTwoSemicirclesArea"
           ? ["rectangle", "two semicircles forming one circle"]
@@ -125,12 +131,18 @@ export function buildMen001Cp005ExplanationIllustration(
       labels: {
         primaryShape,
         secondaryShape,
-        operation: "SUBTRACT",
+        operation: mode === "findCircleRadiusFromCircleMinusSquareShadedArea"
+          ? "USE THE DIFFERENCE TO RECOVER THE RADIUS"
+          : "SUBTRACT",
         sharedBoundary: mode === "findRectangleLengthFromCompositeArea"
           ? "remove the curved component before recovering the rectangle"
-          : "only the unremoved region is counted",
+          : mode === "findCircleRadiusFromCircleMinusSquareShadedArea"
+            ? "square diagonal equals the circle diameter"
+            : "only the unremoved region is counted",
       },
-      accessibleText: `The required region is obtained by taking the ${primaryShape} and subtracting the ${secondaryShape}.`,
+      accessibleText: mode === "findCircleRadiusFromCircleMinusSquareShadedArea"
+        ? "The square is inscribed in the circle, so its diagonal is the circle diameter. The stated circle-minus-square area is used to recover the radius."
+        : `The required region is obtained by taking the ${primaryShape} and subtracting the ${secondaryShape}.`,
     };
   }
 
@@ -158,7 +170,10 @@ export function buildMen001Cp005ExplanationIllustration(
     };
   }
 
-  if (mode === "findRegularHexagonAreaFromSide") {
+  if (
+    mode === "findRegularHexagonAreaFromSide" ||
+    mode === "findRegularHexagonAreaFromPerimeter"
+  ) {
     return {
       kind: "REGULAR_HEXAGON_SPLIT",
       purpose: "SIX_EQUILATERAL_TRIANGLES",
@@ -173,16 +188,42 @@ export function buildMen001Cp005ExplanationIllustration(
   }
 
   if (PERIMETER_MODES.has(mode)) {
+    if (mode === "findSquareWithCircularHoleBoundary") {
+      return {
+        kind: "COMPOSITE_EXPOSED_BOUNDARY",
+        purpose: "COUNT_ONLY_OUTER_BOUNDARY",
+        placement: "BEFORE_PERIMETER_ADDITION",
+        notToScale: true,
+        labels: {
+          straightBoundary: `outer square perimeter: ${text(values.outerPerimeter, "4s")} ${unit}`,
+          curvedBoundary: `inner circular boundary: ${text(values.innerCircumference, "2πr")} ${unit}`,
+          omittedSharedEdge: "none; both the outer and inner boundaries touch the remaining region",
+        },
+        accessibleText: "The remaining land is bounded by the outside square and by the circular pond edge, so both boundary lengths are included.",
+      };
+    }
+
     const straightBoundary = mode === "findRectangleSemicircleCompositePerimeter"
-      ? `two lengths and one breadth`
-      : mode === "findStadiumCompositePerimeter"
-        ? `two straight sides of ${text(values.straightLength, "l")} ${unit}`
-        : `all exposed straight segments of the L-shape`;
+      ? "two lengths and one breadth"
+      : mode === "findStadiumCompositePerimeter" ||
+          mode === "findStadiumStraightLengthFromPerimeter"
+        ? `two equal straight stadium sides of ${text(values.straightLength, "l")} ${unit}`
+        : mode === "findJoinedRectanglesCompositePerimeter"
+          ? "the exposed segments of both rectangles"
+          : "all exposed straight segments of the L-shape";
     const curvedBoundary = mode === "findRectangleSemicircleCompositePerimeter"
-      ? `one semicircular arc`
-      : mode === "findStadiumCompositePerimeter"
-        ? `two semicircular arcs forming one full circumference`
-        : `none`;
+      ? "one semicircular arc"
+      : mode === "findStadiumCompositePerimeter" ||
+          mode === "findStadiumStraightLengthFromPerimeter"
+        ? "two semicircular arcs forming one full circumference"
+        : "none";
+    const omittedSharedEdge = mode === "findLShapePerimeter"
+      ? "removed outer pieces are replaced by equal inner pieces"
+      : mode === "findJoinedRectanglesCompositePerimeter"
+        ? `shared attachment edge ${text(values.sharedEdge, "s")} ${unit} is omitted from both rectangles`
+        : mode === "findStadiumStraightLengthFromPerimeter"
+          ? "remove the curved boundary before splitting the remaining length equally"
+          : "the shared attachment edge is internal";
     return {
       kind: "COMPOSITE_EXPOSED_BOUNDARY",
       purpose: "COUNT_ONLY_OUTER_BOUNDARY",
@@ -191,11 +232,9 @@ export function buildMen001Cp005ExplanationIllustration(
       labels: {
         straightBoundary,
         curvedBoundary,
-        omittedSharedEdge: mode === "findLShapePerimeter"
-          ? "removed outer pieces are replaced by equal inner pieces"
-          : "the shared attachment edge is internal",
+        omittedSharedEdge,
       },
-      accessibleText: `Only the exposed boundary is counted: ${straightBoundary}; curved part: ${curvedBoundary}. Internal shared edges are omitted.`,
+      accessibleText: `Only the relevant exposed boundary is counted: ${straightBoundary}; curved part: ${curvedBoundary}. ${omittedSharedEdge}.`,
     };
   }
 
