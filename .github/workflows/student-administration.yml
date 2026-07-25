@@ -9,6 +9,7 @@ on:
       - artifacts/api-server/src/lib/admin-student-administration.test.ts
       - artifacts/api-server/src/middlewares/auth.ts
       - artifacts/api-server/src/routes/admin-student-actions.ts
+      - artifacts/api-server/src/routes/admin-student-account-recovery.ts
       - artifacts/api-server/src/routes/admin-student-disable-actions.ts
       - artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
       - artifacts/api-server/src/routes/admin-student-operations.ts
@@ -33,6 +34,7 @@ on:
       - artifacts/api-server/src/lib/admin-student-administration.test.ts
       - artifacts/api-server/src/middlewares/auth.ts
       - artifacts/api-server/src/routes/admin-student-actions.ts
+      - artifacts/api-server/src/routes/admin-student-account-recovery.ts
       - artifacts/api-server/src/routes/admin-student-disable-actions.ts
       - artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
       - artifacts/api-server/src/routes/admin-student-operations.ts
@@ -79,19 +81,31 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Enforce canonical RBAC and lifecycle consistency
+      - name: Enforce canonical RBAC, lifecycle and recovery safeguards
         run: |
+          grep -F 'router.use("/admin/students", adminStudentAccountRecoveryRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentLifecycleConsistencyRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentOperationsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentDisableActionsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentActionsRouter)' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/students", adminStudentsRouter)' artifacts/api-server/src/routes/index.ts
+          test "$(grep -n 'adminStudentAccountRecoveryRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminStudentLifecycleConsistencyRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
           test "$(grep -n 'adminStudentLifecycleConsistencyRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminStudentOperationsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
           test "$(grep -n 'adminStudentLifecycleConsistencyRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)" -lt "$(grep -n 'adminStudentActionsRouter)' artifacts/api-server/src/routes/index.ts | cut -d: -f1)"
           grep -F "requireAdminPermission('users.students.read')" artifacts/api-server/src/routes/admin-students.ts
           grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
+          grep -F "requireAdminPermission('users.students.manage')" artifacts/api-server/src/routes/admin-student-account-recovery.ts
           grep -F 'FOR UPDATE OF u' artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
+          grep -F 'FOR UPDATE OF u' artifacts/api-server/src/routes/admin-student-account-recovery.ts
           grep -F 'platform.audit_events' artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
+          grep -F 'student.account.firebase_identity_relinked' artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F 'getUserByEmail' artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F 'emailVerified' artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F 'FIREBASE_RECOVERY_IDENTITY_CONFLICT' artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F 'revokeRefreshTokens' artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F "priorStatus === 'disabled' ? 'disabled' : 'suspended'" artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F 'oldIdentityFingerprint' artifacts/api-server/src/routes/admin-student-account-recovery.ts
+          grep -F 'newIdentityFingerprint' artifacts/api-server/src/routes/admin-student-account-recovery.ts
           grep -F 'revokeFirebaseBeforeCommit' artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
           grep -F 'no account changes were committed' artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
           grep -F 'revokeRefreshTokens' artifacts/api-server/src/routes/admin-student-lifecycle-consistency.ts
@@ -106,6 +120,8 @@ jobs:
           grep -F 'account-suspended' artifacts/examtree/src/lib/auth.ts
           grep -F 'account-unavailable' artifacts/examtree/src/lib/auth.ts
           grep -F 'session-revoked' artifacts/examtree/src/lib/auth.ts
+          grep -F 'recoverStudentFirebaseIdentity' artifacts/admin-app/src/features/students/api.ts
+          grep -F 'Relink verified Firebase identity' artifacts/admin-app/src/pages/users/StudentDetailPage.tsx
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentsWorkspacePage.tsx
           ! grep -F 'usePrototypeStore' artifacts/admin-app/src/pages/users/StudentProfileWorkspacePage.tsx
           grep -F "permission: 'users.students.read'" artifacts/admin-app/src/app/nav/navigation.ts
@@ -123,6 +139,9 @@ jobs:
           grep -R 'student.account.reactivate' artifacts/api-server/dist >/dev/null
           grep -R 'student.account.disable' artifacts/api-server/dist >/dev/null
           grep -R 'student.account.enable' artifacts/api-server/dist >/dev/null
+          grep -R 'student.account.firebase_identity_relinked' artifacts/api-server/dist >/dev/null
+          grep -R 'FIREBASE_RECOVERY_EMAIL_NOT_VERIFIED' artifacts/api-server/dist >/dev/null
+          grep -R 'FIREBASE_RECOVERY_IDENTITY_CONFLICT' artifacts/api-server/dist >/dev/null
           grep -R 'revokeRefreshTokens' artifacts/api-server/dist >/dev/null
           grep -R 'SESSION_REVOKED' artifacts/api-server/dist >/dev/null
           grep -R 'no account changes were committed' artifacts/api-server/dist >/dev/null
