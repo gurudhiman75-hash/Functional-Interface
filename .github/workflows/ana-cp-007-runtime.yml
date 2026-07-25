@@ -65,8 +65,25 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Run English runtime audit
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/ana-cp-007.test.ts
+      - name: Capture English runtime audit
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/ana-cp-007.test.ts 2>&1 | tee /tmp/ana-cp-007-english.log
+          echo "${PIPESTATUS[0]}" > /tmp/ana-cp-007-english-exit
+          exit 0
+      - name: Publish English diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-007-english-diagnostics
+          path: |
+            /tmp/ana-cp-007-english.log
+            /tmp/ana-cp-007-english-exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce English runtime audit
+        run: test "$(cat /tmp/ana-cp-007-english-exit)" = "0"
 
   localized-runtime:
     runs-on: ubuntu-latest
