@@ -136,7 +136,7 @@ function englishContextualOpening(concept: string, target: string, variant: numb
     `For ${target}, start here: ${lowerConcept}.`,
     `${capitalTarget} starts here: ${lowerConcept}.`,
     `Apply this for ${target}: ${lowerConcept}.`,
-    `${cleanConcept}; determine ${target}.`,
+    `${cleanConcept}; work out ${target}.`,
     `Start here for ${target}: ${lowerConcept}.`,
   ] as const;
   return openings[variant] ?? openings[0];
