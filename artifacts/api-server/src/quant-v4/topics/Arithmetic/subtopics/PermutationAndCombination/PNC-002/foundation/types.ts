@@ -38,7 +38,9 @@ export type Pnc002Cp009SolveMode =
   | "countAtMostTSpecifiedMembers"
   | "countNamedCompulsoryWithCategoryQuota"
   | "countNamedExcludedWithCategoryQuota"
-  | "recoverConditionalSelectionParameter";
+  | "recoverConditionalSelectionParameter"
+  | "countSpecifiedMemberRange"
+  | "countTwoCategoryRange";
 export type Pnc002SolveMode = Pnc002Cp007SolveMode | Pnc002Cp008SolveMode | Pnc002Cp009SolveMode;
 
 export interface Pnc002QuestionLanguageEntry { qlId: string; cpId: Pnc002ActiveCanonicalProblemId; difficulty: Pnc002Difficulty; template: string; }
@@ -82,7 +84,8 @@ export interface Pnc002SolverEvidence {
     | "EXACT_THREE_CATEGORY_DISTRIBUTION" | "AT_LEAST_ONE_EACH_THREE_CATEGORIES"
     | "EXACT_SPECIFIED_MEMBERS" | "AT_LEAST_ONE_SPECIFIED_MEMBER" | "NOT_ALL_SPECIFIED_TOGETHER"
     | "ALL_OR_NONE_SPECIFIED" | "MEMBER_IMPLICATION" | "AT_MOST_SPECIFIED_MEMBERS"
-    | "NAMED_COMPULSORY_CATEGORY_QUOTA" | "NAMED_EXCLUDED_CATEGORY_QUOTA" | "CONDITIONAL_SELECTION_INVERSE";
+    | "NAMED_COMPULSORY_CATEGORY_QUOTA" | "NAMED_EXCLUDED_CATEGORY_QUOTA" | "CONDITIONAL_SELECTION_INVERSE"
+    | "SPECIFIED_MEMBER_RANGE" | "TWO_CATEGORY_RANGE";
   totalObjects: number; blockSizes: number[]; groupedObjectCount: number; blockCount: number; unitCount: number;
   externalArrangementCount: number; internalArrangementCounts: number[]; internalArrangementMultiplier: number;
   unrestrictedCount?: number; forbiddenTogetherCount?: number; validUnitArrangementCount?: number;
@@ -98,9 +101,9 @@ export interface Pnc002SolverEvidence {
   positionSetAssignmentCount?: number; acceptedClassCounts?: number[]; positionClassCaseCounts?: number[];
   committeeSize?: number; compulsoryCount?: number; excludedCount?: number; remainingEligibleCount?: number;
   remainingSelectionCount?: number; categorySizes?: number[]; requiredCategoryCounts?: number[];
-  requiredFromA?: number; requiredFromB?: number; minimumFromA?: number; maximumFromA?: number;
+  requiredFromA?: number; requiredFromB?: number; minimumFromA?: number; maximumFromA?: number; minimumFromB?: number;
   acceptedSelectionCounts?: number[]; selectionCaseCounts?: number[]; forbiddenCount?: number;
-  requiredSpecified?: number; maximumSpecified?: number; remainingCategoryASelection?: number;
+  requiredSpecified?: number; minimumSpecified?: number; maximumSpecified?: number; remainingCategoryASelection?: number;
   target?: number; recoveredParameter?: "n" | "blockSize" | "gap" | "totalObjects" | "categorySize";
   searchMinimum?: number; searchMaximum?: number;
 }
