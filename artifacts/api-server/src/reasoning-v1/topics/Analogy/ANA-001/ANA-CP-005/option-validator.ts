@@ -1,4 +1,5 @@
 import { solveAlphabetRule, type AlphabetPair } from "./independent-solver";
+import type { AlphabetPresentationMode } from "./question-language.en";
 import type { AlphabetRuleContext } from "./rule-definitions";
 
 export type AlphabetOptionValue = string | readonly [string, string];
@@ -15,7 +16,7 @@ function optionKey(value: AlphabetOptionValue): string {
 export function validateAlphabetOptions(
   ruleId: string,
   context: AlphabetRuleContext,
-  presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION",
+  presentationMode: AlphabetPresentationMode,
   target: AlphabetPair,
   options: readonly AlphabetOption[],
 ): number {
@@ -24,7 +25,7 @@ export function validateAlphabetOptions(
   if (new Set(keys).size !== 4) throw new Error("ANA-CP-005 options must be unique.");
 
   const correctFlags = options.map((option) => {
-    if (presentationMode === "MISSING_FOURTH_TERM") {
+    if (presentationMode === "DIRECT_COMPLETION") {
       return typeof option.value === "string" && option.value === target.right;
     }
     if (!Array.isArray(option.value)) return false;
