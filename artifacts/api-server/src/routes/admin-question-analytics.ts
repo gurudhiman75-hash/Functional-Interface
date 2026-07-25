@@ -5,6 +5,7 @@ import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
 
 const router = Router();
+const ATTEMPT_SCAN_LIMIT = 10000;
 const text = (value: unknown, maximum = 200) => typeof value === 'string' ? value.trim().slice(0, maximum) : '';
 
 function stableQuestionId(id: string, index = 0): number {
@@ -12,6 +13,8 @@ function stableQuestionId(id: string, index = 0): number {
   for (const char of id) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
   return hash || index + 1;
 }
+
+const rate = (part: number, whole: number) => whole > 0 ? Math.round((part / whole) * 10000) / 100 : 0;
 
 router.use(authenticate);
 
@@ -21,7 +24,7 @@ router.get('/questions', requireAdminPermission('users.students.read'), async (r
   const limit = Math.min(250, Math.max(10, Math.floor(Number(req.query.limit) || 100)));
 
   try {
-    const [attemptRows, catalogRows] = await Promise.all([
+    const [rawAttemptRows, catalogRows] = await Promise.all([
       sqlClient`
         SELECT a.id::text AS "attemptId", a.test_publication_id::text AS "publicationId",
           a.final_score AS "finalScore", a.result_snapshot AS "resultSnapshot"
@@ -30,7 +33,7 @@ router.get('/questions', requireAdminPermission('users.students.read'), async (r
           AND a.status::text IN ('evaluated', 'practice_evaluated')
           AND a.result_snapshot IS NOT NULL
         ORDER BY a.evaluated_at DESC NULLS LAST
-        LIMIT 10000
+        LIMIT ${ATTEMPT_SCAN_LIMIT + 1}
       `,
       sqlClient`
         SELECT p.id::text AS "publicationId", t.public_code AS "testPublicCode", tv.title AS "testTitle",
@@ -52,79 +55,135 @@ router.get('/questions', requireAdminPermission('users.students.read'), async (r
     ]);
 
     type Option = { key?: string; text?: string; sortOrder?: number; isCorrect?: boolean };
-    type Metric = {
+    type Placement = {
       publicationId: string; questionVersionId: string; testQuestionId: string; testSectionId: string;
+      testPublicCode: string; testTitle: string; sectionName: string; stem: string; options: Option[]; stableId: number;
+    };
+    type Metric = {
+      publicationId: string; questionVersionId: string; testQuestionIds: string[]; testSectionIds: string[];
       testPublicCode: string; testTitle: string; sectionName: string; stem: string; options: Option[];
-      exposures: number; answered: number; skipped: number; correct: number; incorrect: number; flagged: number;
-      timedResponses: number; totalTimeSeconds: number; optionSelections: number[];
-      directLinkages: number; legacyLinkages: number;
+      duplicatePlacements: number; exposures: number; answered: number; skipped: number; correct: number;
+      incorrect: number; flagged: number; timedResponses: number; totalTimeSeconds: number;
+      invalidResponseItems: number; optionSelections: number[]; directLinkages: number; legacyLinkages: number;
     };
 
-    const direct = new Map<string, Metric>();
-    const legacy = new Map<string, Metric>();
+    const metrics = new Map<string, Metric>();
+    const placementsByTestQuestion = new Map<string, Placement>();
+    const placementsByQuestionVersion = new Map<string, Placement[]>();
+    const placementsByStableId = new Map<string, Placement[]>();
+
     for (const row of catalogRows) {
       const publicationId = String(row.publicationId);
       const questionVersionId = String(row.questionVersionId);
-      const stableId = stableQuestionId(questionVersionId, Number(row.questionIndex));
       const options = Array.isArray(row.options) ? row.options as Option[] : [];
-      const metric: Metric = {
-        publicationId, questionVersionId, testQuestionId: String(row.testQuestionId), testSectionId: String(row.testSectionId),
-        testPublicCode: String(row.testPublicCode), testTitle: String(row.testTitle), sectionName: String(row.sectionName),
-        stem: String(row.stem), options, exposures: 0, answered: 0, skipped: 0, correct: 0, incorrect: 0,
-        flagged: 0, timedResponses: 0, totalTimeSeconds: 0,
-        optionSelections: Array.from({ length: options.length }, () => 0), directLinkages: 0, legacyLinkages: 0,
+      const placement: Placement = {
+        publicationId,
+        questionVersionId,
+        testQuestionId: String(row.testQuestionId),
+        testSectionId: String(row.testSectionId),
+        testPublicCode: String(row.testPublicCode),
+        testTitle: String(row.testTitle),
+        sectionName: String(row.sectionName),
+        stem: String(row.stem),
+        options,
+        stableId: stableQuestionId(questionVersionId, Number(row.questionIndex)),
       };
-      direct.set(`${publicationId}:${questionVersionId}`, metric);
-      legacy.set(`${publicationId}:${stableId}`, metric);
+      placementsByTestQuestion.set(`${publicationId}:${placement.testQuestionId}`, placement);
+      const qvKey = `${publicationId}:${questionVersionId}`;
+      placementsByQuestionVersion.set(qvKey, [...(placementsByQuestionVersion.get(qvKey) ?? []), placement]);
+      const stableKey = `${publicationId}:${placement.stableId}`;
+      placementsByStableId.set(stableKey, [...(placementsByStableId.get(stableKey) ?? []), placement]);
+
+      const existing = metrics.get(qvKey);
+      if (existing) {
+        existing.testQuestionIds.push(placement.testQuestionId);
+        existing.testSectionIds.push(placement.testSectionId);
+        existing.duplicatePlacements += 1;
+      } else {
+        metrics.set(qvKey, {
+          publicationId, questionVersionId, testQuestionIds: [placement.testQuestionId], testSectionIds: [placement.testSectionId],
+          testPublicCode: placement.testPublicCode, testTitle: placement.testTitle, sectionName: placement.sectionName,
+          stem: placement.stem, options, duplicatePlacements: 1, exposures: 0, answered: 0, skipped: 0,
+          correct: 0, incorrect: 0, flagged: 0, timedResponses: 0, totalTimeSeconds: 0,
+          invalidResponseItems: 0, optionSelections: Array.from({ length: options.length }, () => 0),
+          directLinkages: 0, legacyLinkages: 0,
+        });
+      }
     }
 
+    const attemptRows = rawAttemptRows.slice(0, ATTEMPT_SCAN_LIMIT);
+    const scanTruncated = rawAttemptRows.length > ATTEMPT_SCAN_LIMIT;
     let unmatchedReviewItems = 0;
     let reviewedItems = 0;
     let malformedReviewAttempts = 0;
+
     for (const attempt of attemptRows) {
-      const snapshot = attempt.resultSnapshot && typeof attempt.resultSnapshot === 'object' ? attempt.resultSnapshot as Record<string, unknown> : {};
+      const publicationId = String(attempt.publicationId);
+      const snapshot = attempt.resultSnapshot && typeof attempt.resultSnapshot === 'object'
+        ? attempt.resultSnapshot as Record<string, unknown>
+        : {};
       if (!Array.isArray(snapshot.questionReview)) { malformedReviewAttempts += 1; continue; }
-      const review = snapshot.questionReview as Array<Record<string, unknown>>;
-      for (const item of review) {
+
+      for (const item of snapshot.questionReview as Array<Record<string, unknown>>) {
         reviewedItems += 1;
-        const directId = typeof item.questionVersionId === 'string' ? item.questionVersionId : '';
-        const directMetric = directId ? direct.get(`${String(attempt.publicationId)}:${directId}`) : undefined;
-        const metric = directMetric ?? legacy.get(`${String(attempt.publicationId)}:${Number(item.questionId)}`);
+        const testQuestionId = typeof item.testQuestionId === 'string' ? item.testQuestionId : '';
+        const questionVersionId = typeof item.questionVersionId === 'string' ? item.questionVersionId : '';
+        const directPlacement = testQuestionId
+          ? placementsByTestQuestion.get(`${publicationId}:${testQuestionId}`)
+          : (questionVersionId ? placementsByQuestionVersion.get(`${publicationId}:${questionVersionId}`)?.[0] : undefined);
+        const legacyCandidates = placementsByStableId.get(`${publicationId}:${Number(item.questionId)}`) ?? [];
+        const legacyQuestionVersions = new Set(legacyCandidates.map((candidate) => candidate.questionVersionId));
+        const legacyPlacement = legacyQuestionVersions.size === 1 ? legacyCandidates[0] : undefined;
+        const placement = directPlacement ?? legacyPlacement;
+        if (!placement) { unmatchedReviewItems += 1; continue; }
+
+        const metric = metrics.get(`${publicationId}:${placement.questionVersionId}`);
         if (!metric) { unmatchedReviewItems += 1; continue; }
-        if (directMetric) metric.directLinkages += 1; else metric.legacyLinkages += 1;
+        if (directPlacement) metric.directLinkages += 1; else metric.legacyLinkages += 1;
         metric.exposures += 1;
-        const selected = item.selected == null ? null : Number(item.selected);
-        const correct = item.correct == null ? null : Number(item.correct);
-        if (selected == null) metric.skipped += 1;
-        else {
+
+        const selectedOptionKey = typeof item.selectedOptionKey === 'string' ? item.selectedOptionKey : '';
+        const rawSelected = item.selected == null ? null : Number(item.selected);
+        const selected = selectedOptionKey
+          ? metric.options.findIndex((option) => String(option.key ?? '') === selectedOptionKey)
+          : rawSelected;
+        if (rawSelected == null && !selectedOptionKey) {
+          metric.skipped += 1;
+        } else if (selected == null || !Number.isInteger(selected) || selected < 0 || selected >= metric.options.length) {
+          metric.invalidResponseItems += 1;
+        } else {
           metric.answered += 1;
-          if (selected >= 0 && selected < metric.optionSelections.length) metric.optionSelections[selected] += 1;
-          if (correct != null && selected === correct) metric.correct += 1;
+          metric.optionSelections[selected] = (metric.optionSelections[selected] ?? 0) + 1;
+          const correctIndex = metric.options.findIndex((option) => Boolean(option.isCorrect));
+          if (correctIndex >= 0 && selected === correctIndex) metric.correct += 1;
           else metric.incorrect += 1;
         }
+
         const time = item.timeTakenSeconds == null ? null : Number(item.timeTakenSeconds);
-        if (time != null && Number.isFinite(time) && time >= 0) { metric.timedResponses += 1; metric.totalTimeSeconds += time; }
+        if (time != null && Number.isFinite(time) && time >= 0) {
+          metric.timedResponses += 1;
+          metric.totalTimeSeconds += time;
+        }
         if (Boolean(item.flagged)) metric.flagged += 1;
       }
     }
 
-    const all = Array.from(direct.values()).filter((metric) => metric.exposures > 0);
+    const all = Array.from(metrics.values()).filter((metric) => metric.exposures > 0);
     const filtered = all.filter((metric) => !search || metric.stem.toLowerCase().includes(search)
       || metric.questionVersionId.toLowerCase().includes(search) || metric.testTitle.toLowerCase().includes(search)
       || metric.testPublicCode.toLowerCase().includes(search));
     const questions = filtered.map((metric) => ({
       ...metric,
-      answerRate: metric.exposures ? Math.round((metric.answered / metric.exposures) * 10000) / 100 : 0,
-      skipRate: metric.exposures ? Math.round((metric.skipped / metric.exposures) * 10000) / 100 : 0,
-      accuracy: metric.answered ? Math.round((metric.correct / metric.answered) * 10000) / 100 : null,
-      facility: metric.exposures ? Math.round((metric.correct / metric.exposures) * 10000) / 100 : 0,
-      flagRate: metric.exposures ? Math.round((metric.flagged / metric.exposures) * 10000) / 100 : 0,
+      answerRate: rate(metric.answered, metric.exposures),
+      skipRate: rate(metric.skipped, metric.exposures),
+      accuracy: metric.answered ? rate(metric.correct, metric.answered) : null,
+      facility: rate(metric.correct, metric.exposures),
+      flagRate: rate(metric.flagged, metric.exposures),
       averageTimeSeconds: metric.timedResponses ? Math.round((metric.totalTimeSeconds / metric.timedResponses) * 100) / 100 : null,
       linkageMethod: metric.directLinkages > 0 && metric.legacyLinkages > 0 ? 'mixed' : metric.directLinkages > 0 ? 'direct' : 'legacy',
       optionSelection: metric.options.map((option, index) => ({
         key: option.key ?? String(index + 1), text: option.text ?? '', isCorrect: Boolean(option.isCorrect),
-        count: metric.optionSelections[index] ?? 0,
-        shareOfAnswered: metric.answered ? Math.round(((metric.optionSelections[index] ?? 0) / metric.answered) * 10000) / 100 : 0,
+        count: metric.optionSelections[index] ?? 0, shareOfAnswered: rate(metric.optionSelections[index] ?? 0, metric.answered),
       })),
     })).sort((a, b) => b.exposures - a.exposures || (a.accuracy ?? 101) - (b.accuracy ?? 101)).slice(0, limit);
 
@@ -134,6 +193,9 @@ router.get('/questions', requireAdminPermission('users.students.read'), async (r
     const legacyLinkages = all.reduce((sum, row) => sum + row.legacyLinkages, 0);
     const timedResponses = all.reduce((sum, row) => sum + row.timedResponses, 0);
     const totalTimeSeconds = all.reduce((sum, row) => sum + row.totalTimeSeconds, 0);
+    const stableCollisionGroups = Array.from(placementsByStableId.values())
+      .filter((placements) => new Set(placements.map((placement) => placement.questionVersionId)).size > 1).length;
+    const duplicateQuestionPlacements = Array.from(metrics.values()).filter((metric) => metric.duplicatePlacements > 1).length;
 
     return res.json({
       windowDays: days,
@@ -141,15 +203,17 @@ router.get('/questions', requireAdminPermission('users.students.read'), async (r
         completedAttemptsScanned: attemptRows.length, questionsWithExposure: all.length,
         responseItems: all.reduce((sum, row) => sum + row.exposures, 0), answeredItems: answered,
         skippedItems: all.reduce((sum, row) => sum + row.skipped, 0),
-        overallAccuracy: answered ? Math.round((correct / answered) * 10000) / 100 : null,
+        invalidResponseItems: all.reduce((sum, row) => sum + row.invalidResponseItems, 0),
+        overallAccuracy: answered ? rate(correct, answered) : null,
         averageQuestionTimeSeconds: timedResponses ? Math.round((totalTimeSeconds / timedResponses) * 100) / 100 : null,
-        timedResponses, directLinkages, legacyLinkages, unmatchedReviewItems, reviewedItems, malformedReviewAttempts,
+        timedResponses, directLinkages, legacyLinkages, unmatchedReviewItems, reviewedItems,
+        malformedReviewAttempts, stableCollisionGroups, duplicateQuestionPlacements,
       },
-      questions, resultLimit: limit, truncated: filtered.length > limit,
+      questions, resultLimit: limit, truncated: filtered.length > limit, scanTruncated,
       capabilities: {
         correctness: true, optionSelection: true, flagAnalytics: true,
         questionTiming: timedResponses > 0, discrimination: false, directQuestionLinkage: directLinkages > 0,
-        reason: 'New result snapshots persist direct immutable question-version linkage and optional per-question timing. Legacy snapshots continue through stable-ID reconstruction. Discrimination remains deferred until a separately validated cohort method is implemented.',
+        reason: 'New result snapshots persist direct immutable question linkage, immutable option keys and optional per-question timing. Legacy snapshots continue through collision-safe stable-ID reconstruction. Discrimination remains deferred until a separately validated cohort method is implemented.',
       },
       readOnly: true, generatedAt: new Date().toISOString(),
     });
