@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Textarea } from '@/components/ui/textarea';
-import { getDeletedStudents, runStudentBulkAction, syncFirebaseStudents, type DeletedStudent, type StudentBulkAction } from '@/features/students/api';
+import { getDeletedStudents, runStudentBulkAction, syncFirebaseStudents, type DeletedStudent, type StudentBulkAction, type StudentBulkResult } from '@/features/students/api';
 import { useStudentDirectory } from '@/features/students/useStudentAdministration';
 
 const formatDate = (value: string | null) => value ? new Date(value).toLocaleString() : '—';
@@ -30,10 +30,11 @@ export function StudentsPage() {
   const [bulkAction, setBulkAction] = useState<StudentBulkAction>('suspend');
   const [reason, setReason] = useState('');
   const [working, setWorking] = useState(false);
+  const [bulkResults, setBulkResults] = useState<StudentBulkResult[]>([]);
   const filters = useMemo(() => ({ search, status: status as 'all', language, page, pageSize: 25 }), [search, status, language, page]);
   const directory = useStudentDirectory(filters);
 
-  useEffect(() => { setPage(1); setSelected(new Set()); }, [search, status, language, deletedView]);
+  useEffect(() => { setPage(1); setSelected(new Set()); setBulkResults([]); }, [search, status, language, deletedView]);
   const loadDeleted = async () => { try { const result = await getDeletedStudents({ search, page, pageSize: 25 }); setDeleted(result); } catch (caught) { showToast.error('Unable to load deleted students', caught instanceof Error ? caught.message : 'Request failed.'); } };
   useEffect(() => { if (deletedView) void loadDeleted(); }, [deletedView, search, page]);
 
@@ -44,12 +45,15 @@ export function StudentsPage() {
 
   const applyBulk = async () => {
     if (!selected.size) return showToast.warning('No students selected', 'Select one or more students first.');
-    if (!reason.trim()) return showToast.warning('Reason required', 'Enter an operational reason for the audit record.');
+    if (reason.trim().length < 12) return showToast.warning('Reason required', 'Enter a meaningful operational reason of at least 12 characters.');
     setWorking(true);
+    setBulkResults([]);
     try {
       const action = deletedView ? 'restore' : bulkAction;
       const result = await runStudentBulkAction([...selected], action, reason.trim());
-      showToast.success('Bulk operation completed', `${result.succeeded} succeeded, ${result.failed} failed.`);
+      setBulkResults(result.results);
+      if (result.failed) showToast.warning('Bulk operation completed with failures', `${result.succeeded} succeeded and ${result.failed} failed. Review the item results below.`);
+      else showToast.success('Bulk operation completed', `${result.succeeded} student account(s) updated successfully.`);
       setSelected(new Set()); setReason('');
       deletedView ? await loadDeleted() : await directory.refresh();
     } catch (caught) { showToast.error('Bulk operation failed', caught instanceof Error ? caught.message : 'Request failed.'); }
@@ -57,7 +61,7 @@ export function StudentsPage() {
   };
 
   const syncFirebase = async () => {
-    if (!reason.trim()) return showToast.warning('Reason required', 'Enter a reason before reconciling Firebase students.');
+    if (reason.trim().length < 12) return showToast.warning('Reason required', 'Enter a meaningful reason of at least 12 characters before reconciling Firebase students.');
     setWorking(true);
     try {
       const result = await syncFirebaseStudents(reason.trim());
@@ -82,7 +86,8 @@ export function StudentsPage() {
     {!deletedView && <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><Metric label="Total students" value={directory.stats.total} icon={<Users className="h-4 w-4" />} /><Metric label="Active" value={directory.stats.active} icon={<UserCheck className="h-4 w-4" />} /><Metric label="Suspended / disabled" value={directory.stats.suspended + directory.stats.disabled} icon={<ShieldAlert className="h-4 w-4" />} /><Metric label="Active sessions" value={directory.stats.activeSessions} icon={<Activity className="h-4 w-4" />} /></div>}
     <Card><CardContent className="space-y-4 p-4">
       <div className="grid gap-3 md:grid-cols-[1fr_190px_190px]"><div className="relative"><Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" /><Input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search name, email, phone, registration code or UUID" className="pl-9" /></div>{!deletedView && <><Select value={status} onValueChange={setStatus}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All statuses</SelectItem>{directory.facets.statuses.map((entry) => <SelectItem key={entry} value={entry}>{title(entry)}</SelectItem>)}</SelectContent></Select><Select value={language} onValueChange={setLanguage}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="all">All languages</SelectItem>{directory.facets.languages.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.code.toUpperCase()} · {entry.count}</SelectItem>)}</SelectContent></Select></>}</div>
-      <div className="grid gap-3 rounded-lg border bg-muted/20 p-3 md:grid-cols-[190px_1fr_auto]">{deletedView ? <div className="flex items-center text-sm font-medium">Restore selected accounts</div> : <Select value={bulkAction} onValueChange={(value) => setBulkAction(value as StudentBulkAction)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="suspend">Suspend</SelectItem><SelectItem value="reactivate">Reactivate</SelectItem><SelectItem value="revoke-sessions">Revoke sessions</SelectItem><SelectItem value="soft-delete">Soft delete</SelectItem></SelectContent></Select>}<Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Required operational reason (also used for Firebase sync)" className="min-h-10" /><Button onClick={() => void applyBulk()} disabled={working || !selected.size}>{deletedView ? 'Restore selected' : `Apply to ${selected.size}`}</Button></div>
+      <div className="grid gap-3 rounded-lg border bg-muted/20 p-3 md:grid-cols-[190px_1fr_auto]">{deletedView ? <div className="flex items-center text-sm font-medium">Restore selected as suspended</div> : <Select value={bulkAction} onValueChange={(value) => setBulkAction(value as StudentBulkAction)}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="suspend">Suspend</SelectItem><SelectItem value="reactivate">Reactivate</SelectItem><SelectItem value="disable">Disable</SelectItem><SelectItem value="enable">Enable as suspended</SelectItem><SelectItem value="revoke-sessions">Revoke sessions</SelectItem><SelectItem value="soft-delete">Soft delete</SelectItem></SelectContent></Select>}<Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Required operational reason — minimum 12 characters" className="min-h-10" /><Button onClick={() => void applyBulk()} disabled={working || !selected.size}>{deletedView ? 'Restore selected' : `Apply to ${selected.size}`}</Button></div>
+      {bulkResults.length > 0 && <div className="rounded-lg border p-3"><div className="mb-2 text-sm font-medium">Bulk operation results</div><div className="max-h-64 space-y-2 overflow-y-auto">{bulkResults.map((entry) => <div key={entry.studentId} className={`rounded-md border p-2 text-xs ${entry.ok ? 'bg-muted/20' : 'border-destructive/30 bg-destructive/5'}`}><div className="flex flex-wrap items-center justify-between gap-2"><span className="font-medium">{entry.displayName || entry.studentId}</span><StatusBadge tone={entry.ok ? 'success' : 'destructive'} dot>{entry.ok ? 'Succeeded' : 'Failed'}</StatusBadge></div><div className="mt-1 text-muted-foreground">{entry.ok ? `${entry.status ? `Status: ${title(entry.status)}. ` : ''}${entry.sessionsRevoked ? `${entry.sessionsRevoked} session(s) revoked. ` : ''}${entry.firebaseTokensRevoked ? 'Firebase tokens revoked.' : ''}` : `${entry.code ? `${entry.code}: ` : ''}${entry.message || 'Operation failed.'}`}</div></div>)}</div></div>}
       <div className="overflow-x-auto rounded-lg border"><Table><TableHeader><TableRow><TableHead className="w-10"><Checkbox checked={allSelected} onCheckedChange={(checked) => setSelected(checked ? new Set(visible.map((student) => student.id)) : new Set())} /></TableHead><TableHead>Student</TableHead><TableHead>Status</TableHead><TableHead>Language</TableHead>{!deletedView && <><TableHead className="text-right">Attempts</TableHead><TableHead className="text-right">Avg score</TableHead><TableHead className="text-right">Sessions</TableHead></>}<TableHead>{deletedView ? 'Deleted at' : 'Last activity'}</TableHead></TableRow></TableHeader><TableBody>{visible.length === 0 ? <TableRow><TableCell colSpan={8} className="py-10 text-center text-muted-foreground">No students match this view.</TableCell></TableRow> : visible.map((student) => <TableRow key={student.id} className="cursor-pointer" onClick={() => !deletedView && navigate(`/users/students/${student.id}`)}><TableCell onClick={(event) => event.stopPropagation()}><Checkbox checked={selected.has(student.id)} onCheckedChange={(checked) => setSelected((current) => { const next = new Set(current); checked ? next.add(student.id) : next.delete(student.id); return next; })} /></TableCell><TableCell><div className="font-medium">{student.displayName}</div><div className="text-xs text-muted-foreground">{student.registrationCode} · {student.email}</div></TableCell><TableCell><StatusBadge tone={student.status === 'active' ? 'success' : 'destructive'} dot>{title(student.status)}</StatusBadge></TableCell><TableCell>{student.preferredLanguageCode.toUpperCase()}</TableCell>{!deletedView && <><TableCell className="text-right">{'attemptCount' in student ? student.attemptCount : '—'}</TableCell><TableCell className="text-right">{'averageScore' in student ? student.averageScore ?? '—' : '—'}</TableCell><TableCell className="text-right">{'activeSessionCount' in student ? student.activeSessionCount : '—'}</TableCell></>}<TableCell className="text-xs text-muted-foreground">{formatDate(deletedView ? (student as DeletedStudent).deletedAt : ('latestAttemptAt' in student ? student.latestAttemptAt ?? student.lastLoginAt ?? student.createdAt : student.createdAt))}</TableCell></TableRow>)}</TableBody></Table></div>
       <div className="flex items-center justify-between text-xs text-muted-foreground"><span>Page {page} of {totalPages} · {total} matching students</span><div className="flex gap-2"><Button size="sm" variant="outline" disabled={page <= 1} onClick={() => setPage((value) => value - 1)}>Previous</Button><Button size="sm" variant="outline" disabled={page >= totalPages} onClick={() => setPage((value) => value + 1)}>Next</Button></div></div>
     </CardContent></Card>
