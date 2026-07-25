@@ -26,17 +26,22 @@ import {
   countRotationOnlyOrnamentsExact,
   countRoundTableDistinctExact,
 } from "./foundation/solver-cp010";
-import { countCircularExactlyOnePairTogetherExact } from "./foundation/solver-cp010-saturation";
+import {
+  countCircularDistinctNeighborSetsExact,
+  countCircularExactlyOnePairTogetherExact,
+  countCircularSelectionDihedralExact,
+  countCircularSelectionRotationOnlyExact,
+} from "./foundation/solver-cp010-saturation";
 
 const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-010");
-const checkpointIds = Array.from({ length: 29 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
-assert.equal(entries.length, 29);
+const checkpointIds = Array.from({ length: 32 }, (_, index) => `PNC-QL-${String(index + 177).padStart(3, "0")}`);
+assert.equal(entries.length, 32);
 assert.deepEqual(entries.map((entry) => entry.qlId), checkpointIds);
-assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 29);
+assert.equal(new Set(entries.map((entry) => entry.qlId)).size, 32);
 const difficultyCounts = Object.fromEntries(["Easy", "Medium", "Hard"].map((difficulty) => [difficulty, entries.filter((entry) => entry.difficulty === difficulty).length]));
-assert.deepEqual(difficultyCounts, { Easy: 3, Medium: 13, Hard: 13 });
+assert.deepEqual(difficultyCounts, { Easy: 3, Medium: 15, Hard: 14 });
 const solveModeCounts = Object.fromEntries([...new Set(entries.map((entry) => entry.solveMode))].map((solveMode) => [solveMode, entries.filter((entry) => entry.solveMode === solveMode).length]));
-assert.equal(Object.keys(solveModeCounts).length, 22);
+assert.equal(Object.keys(solveModeCounts).length, 25);
 
 assert.equal(countRoundTableDistinctExact(6), 120);
 assert.equal(countCircularSpecifiedBlockTogetherExact(7, 3), 144);
@@ -60,6 +65,9 @@ assert.equal(countCircularNoTwoCategoryAdjacentExact(5, 3), 1440);
 assert.equal(countRotationOnlyOrnamentsExact(7), 720);
 assert.equal(countDihedralDistinctOrnamentsExact(7), 360);
 assert.equal(countDihedralPairTogetherExact(7), 120);
+assert.equal(countCircularSelectionRotationOnlyExact(6, 4), 90);
+assert.equal(countCircularSelectionDihedralExact(6, 4), 45);
+assert.equal(countCircularDistinctNeighborSetsExact(6), 60);
 
 for (const qlId of checkpointIds) {
   const sample = runPnc002Pipeline({ questionLanguageId: qlId, seed: `cp010-contract:${qlId}` });
@@ -74,6 +82,9 @@ assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-201", seed: "cp010-
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-202", seed: "cp010-reflection-contract" }).solver.evidence.reflectionSymmetryDivisor, 2);
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-204", seed: "cp010-block-apart-saturation" }).solver.evidence.operation, "CIRCULAR_BLOCK_APART");
 assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-205", seed: "cp010-exclusive-pair-saturation" }).solver.evidence.operation, "CIRCULAR_EXACTLY_ONE_PAIR");
+assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-206", seed: "cp010-selection-rotation" }).solver.evidence.operation, "CIRCULAR_SELECTION_ROTATION_ONLY");
+assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-207", seed: "cp010-selection-dihedral" }).solver.evidence.operation, "CIRCULAR_SELECTION_DIHEDRAL");
+assert.equal(runPnc002Pipeline({ questionLanguageId: "PNC-QL-208", seed: "cp010-neighbor-sets" }).solver.evidence.operation, "CIRCULAR_DISTINCT_NEIGHBOR_SETS");
 
 let generatedCases = 0;
 for (const entry of entries) {
@@ -95,7 +106,7 @@ for (const entry of entries) {
     generatedCases += 1;
   }
 }
-assert.equal(generatedCases, 232);
+assert.equal(generatedCases, 256);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-177", language: "hi", seed: "unsupported-hi" }), /not implemented/);
 assert.throws(() => runPnc002Pipeline({ questionLanguageId: "PNC-QL-177", language: "pa", seed: "unsupported-pa" }), /not implemented/);
 const audit = auditPnc002Cp010Coverage();
