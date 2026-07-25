@@ -1,0 +1,50 @@
+name: Validate ANA-CP-007 pilot foundation
+
+on:
+  push:
+    branches:
+      - feat/reasoning-ana-001-cp007-pilot-foundation
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/**
+      - .github/workflows/ana-cp-007-pilot.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ana-cp-007-pilot-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pilot-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007 -name '*.ts' -print) \
+            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+      - name: Audit pilot word registry
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/foundation/word-registry.audit.ts
+      - name: Run provisional native-rule yield simulation
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/provisional-yield-simulation.ts
