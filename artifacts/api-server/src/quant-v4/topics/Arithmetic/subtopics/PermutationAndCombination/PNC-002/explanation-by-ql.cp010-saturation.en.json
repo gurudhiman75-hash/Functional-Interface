@@ -1,0 +1,21 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": {
+    "PNC-QL-204": {
+      "lines": [
+        "Count every round-table seating first, then remove the seatings in which the whole specified group forms one circular block.",
+        "That complement is {equation}.",
+        "So the group is not entirely consecutive in {answer} arrangements."
+      ]
+    },
+    "PNC-QL-205": {
+      "lines": [
+        "Exactly one pair together means either the first pair forms a block and the second does not, or the second pair forms a block and the first does not.",
+        "The two symmetric cases give {equation}.",
+        "Therefore, exactly one specified pair sits together in {answer} arrangements."
+      ]
+    }
+  }
+}
