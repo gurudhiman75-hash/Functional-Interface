@@ -53,6 +53,24 @@ function releaseValidationChecks(pkg: Avg001QuestionPackage) {
   return checks;
 }
 
+function preserveSupplementalValidation(
+  humanized: Avg001QuestionPackage,
+  regenerated: Avg001QuestionPackage["validation"],
+) {
+  const supplementalNames = new Set(["distractor-realism"]);
+  const supplemental = humanized.validation.checks.filter((check) =>
+    supplementalNames.has(check.name),
+  );
+  const checks = [
+    ...regenerated.checks.filter((check) => !supplementalNames.has(check.name)),
+    ...supplemental,
+  ];
+  return {
+    valid: checks.every((check) => check.passed),
+    checks,
+  };
+}
+
 export function applyAvg001EnglishRelease(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
@@ -64,7 +82,8 @@ export function applyAvg001EnglishRelease(
 
   const humanized = applyAvg001HumanAuthoredExplanation(pkg);
   const { validation: _previousValidation, ...candidate } = humanized;
-  const validation = validateAvg001QuestionPackage(candidate);
+  const regeneratedValidation = validateAvg001QuestionPackage(candidate);
+  const validation = preserveSupplementalValidation(humanized, regeneratedValidation);
   const validated: Avg001QuestionPackage = { ...humanized, validation };
 
   if (!validated.validation.valid || validated.validation.checks.some((check) => !check.passed)) {
