@@ -103,7 +103,7 @@ main { max-width: 1040px; margin: 0 auto; }
 <h1>ExamTree Reasoning V1 — DIR-CP-002 Review File</h1>
 <p><strong>Coverage:</strong> ${DIR_CP002_QLS.length} implemented QLs × ${REVIEW_SEEDS.length} seeds = ${questions.length} questions.</p>
 <p><strong>QLs:</strong> ${DIR_CP002_QLS.map((ql) => ql.qlId).join(", ")}</p>
-<p>Each item contains an exam-style question, a short one-line-at-a-time movement explanation, one direct conclusion, and a plain movement diagram at the end.</p>
+<p>Each item contains an exam-style question followed by a short movement walkthrough, one direct conclusion, and a plain movement diagram at the very end.</p>
 </section>
 ${cards}
 </main>
