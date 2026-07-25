@@ -6,7 +6,7 @@ function increment(target: Record<string, number>, key: string): void { target[k
 
 export function auditPnc002Cp009Coverage(): Pnc002CoverageAudit {
   const entries = getPnc002QuestionEntries().filter((entry) => entry.cpId === "PNC-CP-009");
-  const expectedQlIds = Array.from({ length: 25 }, (_, index) => `PNC-QL-${String(index + 148).padStart(3, "0")}`);
+  const expectedQlIds = Array.from({ length: 29 }, (_, index) => `PNC-QL-${String(index + 148).padStart(3, "0")}`);
   const actualIds = entries.map((entry) => entry.qlId);
   const missingQlIds = expectedQlIds.filter((qlId) => !actualIds.includes(qlId));
   const duplicateQlIds = [...new Set(actualIds.filter((qlId, index) => actualIds.indexOf(qlId) !== index))];
@@ -23,7 +23,7 @@ export function auditPnc002Cp009Coverage(): Pnc002CoverageAudit {
     if (!sample.validation.valid) invalidRuntimeSamples.push(`${entry.qlId}:${sample.validation.checks.filter((item) => !item.passed).map((item) => item.name).join(",")}`);
   }
   const exactDuplicateTemplateGroups = [...templateGroups.values()].filter((qlIds) => qlIds.length > 1);
-  const expectedDifficultyCounts = { Easy: 5, Medium: 12, Hard: 8 };
+  const expectedDifficultyCounts = { Easy: 5, Medium: 14, Hard: 10 };
   const expectedSolveModeCounts = {
     countWithCompulsoryMembers: 2,
     countWithExcludedMembers: 2,
@@ -44,13 +44,15 @@ export function auditPnc002Cp009Coverage(): Pnc002CoverageAudit {
     countNamedCompulsoryWithCategoryQuota: 1,
     countNamedExcludedWithCategoryQuota: 1,
     recoverConditionalSelectionParameter: 2,
+    countSpecifiedMemberRange: 2,
+    countTwoCategoryRange: 2,
   };
-  const passed = entries.length === 25
+  const passed = entries.length === 29
     && missingQlIds.length === 0
     && duplicateQlIds.length === 0
     && exactDuplicateTemplateGroups.length === 0
     && invalidRuntimeSamples.length === 0
     && JSON.stringify(difficultyCounts) === JSON.stringify(expectedDifficultyCounts)
     && JSON.stringify(solveModeCounts) === JSON.stringify(expectedSolveModeCounts);
-  return { passed, activeQlCount: entries.length, expectedQlCount: 25, missingQlIds, duplicateQlIds, exactDuplicateTemplateGroups, difficultyCounts, solveModeCounts, invalidRuntimeSamples };
+  return { passed, activeQlCount: entries.length, expectedQlCount: 29, missingQlIds, duplicateQlIds, exactDuplicateTemplateGroups, difficultyCounts, solveModeCounts, invalidRuntimeSamples };
 }
