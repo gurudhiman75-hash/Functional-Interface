@@ -9,6 +9,10 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 
 const failures: string[] = [];
 const qlIds = getAvg001Cp004LocalizedQlIds();
+const expectedQlIds = [
+  ...Array.from({ length: 65 }, (_, index) => `AVG-QL-${String(209 + index).padStart(3, "0")}`),
+  ...Array.from({ length: 20 }, (_, index) => `AVG-QL-${String(406 + index).padStart(3, "0")}`),
+];
 const stemGroups = new Map<string, string[]>();
 const explanationGroups = new Map<string, string[]>();
 let generated = 0;
@@ -18,6 +22,11 @@ const normalize = (value: string) => value
   .replace(/[\d,.]+/g, "#")
   .replace(/\s+/g, " ")
   .trim();
+
+const forbiddenGrammar = {
+  hi: /(?:(?:के अंक|का वेतन|की बिक्री|की आयु|का उत्पादन|का राजस्व|का दैनिक खर्च|की उपज|का वजन) का औसत|समान समय तक .* कार्य करती है)/,
+  pa: /(?:(?:ਦੇ ਅੰਕ|ਦੀ ਤਨਖਾਹ|ਦੀ ਵਿਕਰੀ|ਦੀ ਉਮਰ|ਦਾ ਉਤਪਾਦਨ|ਦਾ ਮਾਲੀਆ|ਦਾ ਰੋਜ਼ਾਨਾ ਖਰਚ|ਦੀ ਪੈਦਾਵਾਰ|ਦਾ ਵਜ਼ਨ) ਦੀ ਔਸਤ|ਬਰਾਬਰ ਸਮੇਂ ਲਈ .* ਕੰਮ ਕਰਦੀ ਹੈ)/,
+};
 
 for (const qlId of qlIds) {
   for (const language of AVG_001_CP004_MULTILINGUAL_PILOT.languages) {
@@ -48,10 +57,16 @@ for (const qlId of qlIds) {
       if (/[A-Za-z{}]|undefined|NaN|Infinity|null/.test(localized.stem)) {
         failures.push(`${scope}: unresolved or Latin fallback in stem :: ${localized.stem}`);
       }
+      if (forbiddenGrammar[language].test(localized.stem)) {
+        failures.push(`${scope}: known localized grammar defect :: ${localized.stem}`);
+      }
       if (localized.maturity !== "MANUAL_REVIEW" || localized.publiclyPublishable) {
         failures.push(`${scope}: localization escaped review-only status`);
       }
-      if (/boysGirlsMarks|twoSectionsScores|threeClassesMarks|fourBatchesMarks/i.test(english.parameters.scenarioVariant)) {
+      const academicMarks =
+        /boysGirlsMarks|twoSectionsScores|threeClassesMarks|fourBatchesMarks/i.test(english.parameters.scenarioVariant) ||
+        ["AVG-QL-406", "AVG-QL-412"].includes(qlId);
+      if (academicMarks) {
         if (language === "hi" && (!/अंक/.test(localized.stem) || /स्कोर/.test(localized.stem))) failures.push(`${scope}: Hindi marks terminology failed`);
         if (language === "pa" && (!/ਅੰਕ/.test(localized.stem) || /ਸਕੋਰ/.test(localized.stem))) failures.push(`${scope}: Punjabi marks terminology failed`);
       }
@@ -76,17 +91,22 @@ for (const [key, ids] of explanationGroups) {
 if (qlIds.length !== AVG_001_CP004_MULTILINGUAL_PILOT.qlCount) {
   failures.push(`inventory mismatch: expected ${AVG_001_CP004_MULTILINGUAL_PILOT.qlCount}, found ${qlIds.length}`);
 }
+if (JSON.stringify(qlIds) !== JSON.stringify(expectedQlIds)) {
+  failures.push(`QL inventory differs from the expected original and gap-expansion ranges`);
+}
 
 console.log(JSON.stringify({
   releaseId: AVG_001_CP004_MULTILINGUAL_PILOT.releaseId,
   qlCount: qlIds.length,
+  originalRange: "AVG-QL-209..AVG-QL-273",
+  gapExpansionRange: "AVG-QL-406..AVG-QL-425",
   languages: AVG_001_CP004_MULTILINGUAL_PILOT.languages,
   generated,
   normalizedStemGroups: stemGroups.size,
   normalizedExplanationGroups: explanationGroups.size,
   failureCount: failures.length,
   failures: failures.slice(0, 200),
-  verdict: failures.length ? "FAIL" : "PASS — CP-004 HINDI/PUNJABI RUNTIME PROOF",
+  verdict: failures.length ? "FAIL" : "PASS — EXHAUSTIVE CP-004 HINDI/PUNJABI RUNTIME PROOF",
 }, null, 2));
 
 assert.equal(failures.length, 0, failures.join("\n"));
