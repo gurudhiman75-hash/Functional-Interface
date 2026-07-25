@@ -6,6 +6,10 @@ import {
   getMen001StructuredFormulaLines,
   getMen001StructuredFormulaModeIds,
 } from "./structured-formula-plans";
+import {
+  isMen001LatexEquation,
+  toMen001LatexEquation,
+} from "./structured-math-latex";
 import type { Men001ActiveCanonicalProblemId } from "./types";
 
 assert.deepEqual(
@@ -37,9 +41,16 @@ for (const entry of getMen001QuestionEntries()) {
     assert.equal(keyRule?.kind, "KEY_RULE");
     assert.deepEqual(
       keyRule?.equations,
-      getMen001StructuredFormulaLines(question.solveMode),
-      `${entry.qlId} must render the authored formula plan for ${question.solveMode}.`,
+      getMen001StructuredFormulaLines(question.solveMode).map(toMen001LatexEquation),
+      `${entry.qlId} must render the authored formula plan as MathJax-ready LaTeX for ${question.solveMode}.`,
     );
+
+    for (const section of question.explanation.sections) {
+      assert.ok(
+        section.equations.every(isMen001LatexEquation),
+        `${entry.qlId} contains a non-LaTeX ${section.kind} equation.`,
+      );
+    }
 
     const steps = question.explanation.sections.filter(
       (section) => section.kind === "STEP",
@@ -60,10 +71,14 @@ for (const entry of getMen001QuestionEntries()) {
 
     const finalAnswer = question.explanation.sections.at(-1);
     assert.equal(finalAnswer?.kind, "FINAL_ANSWER");
-    assert.ok(finalAnswer?.equations.length === 1);
+    assert.deepEqual(
+      finalAnswer?.equations,
+      [toMen001LatexEquation(question.answer)],
+      `${entry.qlId} must render the canonical final answer as LaTeX.`,
+    );
   }
 }
 
 console.log(
-  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each.`,
+  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with MathJax-ready equations.`,
 );
