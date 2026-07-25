@@ -29,6 +29,14 @@ async function enforceCanonicalStudentStatus(req: Request, res: Response): Promi
         WHERE recovery.entity_id = u.id
           AND recovery.action_key = 'student.account.firebase_identity_relinked'
           AND recovery.occurred_at > now() - interval '30 days'
+          AND NOT EXISTS (
+            SELECT 1
+            FROM platform.audit_events later_lifecycle
+            WHERE later_lifecycle.entity_id = u.id
+              AND later_lifecycle.occurred_at > recovery.occurred_at
+              AND later_lifecycle.action_key LIKE 'student.account.%'
+              AND later_lifecycle.action_key <> 'student.account.firebase_identity_relinked'
+          )
       ) AS "recoveryRecentlyCompleted"
     FROM identity.auth_identities ai
     JOIN identity.users u ON u.id = ai.user_id
