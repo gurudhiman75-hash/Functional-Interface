@@ -37,18 +37,20 @@ export function buildPnc002Cp008Values(
       return { totalObjects: pickSeeded(pools.relativeOrderTotalObjects, random), chainLengths: [2, 2] };
     case "equalCategoriesAlternate": {
       const categoryCount = pickSeeded(pools.equalAlternationCategoryCount, random);
-      return { categoryCount, largeCount: categoryCount, smallCount: categoryCount, orientationCount: 2 };
+      return { totalObjects: 2 * categoryCount, categoryCount, largeCount: categoryCount, smallCount: categoryCount, orientationCount: 2 };
     }
     case "oneExtraCategoryAlternates": {
       const state = copyState(pickSeeded(pools.unequalAlternationStates, random));
-      return { ...state, orientationCount: 1 };
+      return { ...state, totalObjects: state.largeCount + state.smallCount, orientationCount: 1 };
     }
     case "equalCategoriesAlternateFixedStart": {
       const categoryCount = pickSeeded(pools.equalAlternationCategoryCount, random);
-      return { categoryCount, largeCount: categoryCount, smallCount: categoryCount, orientationCount: 1 };
+      return { totalObjects: 2 * categoryCount, categoryCount, largeCount: categoryCount, smallCount: categoryCount, orientationCount: 1 };
     }
-    case "menWomenNoAdjacency":
-      return copyState(pickSeeded(pools.noAdjacencyCategoryStates, random));
+    case "menWomenNoAdjacency": {
+      const state = copyState(pickSeeded(pools.noAdjacencyCategoryStates, random));
+      return { ...state, totalObjects: state.largeCount + state.smallCount };
+    }
     case "specifiedPeopleNoAdjacency": {
       const state = copyState(pickSeeded(pools.noAdjacencySpecifiedStates, random));
       return { ...state, largeCount: state.totalObjects - state.specifiedCount, smallCount: state.specifiedCount };
