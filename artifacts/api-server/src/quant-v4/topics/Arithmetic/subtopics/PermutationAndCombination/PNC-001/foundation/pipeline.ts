@@ -1,4 +1,5 @@
 import { renderPnc001RoutedExplanation } from "./explanation-router";
+import { formatPnc001MathText, hasBalancedPnc001MathDelimiters, containsUndelimitedPnc001Formula } from "./latex";
 import { getPnc001QuestionEntry, renderPnc001Template } from "./library";
 import { buildPnc001RoutedOptions } from "./option-router";
 import { generatePnc001Parameters } from "./parameter-generator";
@@ -10,6 +11,7 @@ import {
   type Pnc001ActiveCanonicalProblemId,
   type Pnc001ParameterInput,
   type Pnc001QuestionPackage,
+  type Pnc001ValidationCheck,
 } from "./types";
 import { validatePnc001RoutedQuestionPackage } from "./validator-router";
 
@@ -31,8 +33,12 @@ export function runPnc001Pipeline(
   const solver = solvePnc001Routed(parameters);
   const independentVerification = verifyPnc001RoutedIndependently(parameters);
   const reasoningEvidence = buildPnc001RoutedReasoningEvidence(parameters, solver, independentVerification);
-  const explanation = renderPnc001RoutedExplanation(parameters, solver, reasoningEvidence);
-  const stem = renderPnc001Template(entry.template, parameters.renderVariables);
+  const rawExplanation = renderPnc001RoutedExplanation(parameters, solver, reasoningEvidence);
+  const explanation = {
+    ...rawExplanation,
+    lines: rawExplanation.lines.map(formatPnc001MathText),
+  };
+  const stem = formatPnc001MathText(renderPnc001Template(entry.template, parameters.renderVariables));
   const optionBundle = buildPnc001RoutedOptions(parameters, solver);
   const mathematicalFingerprint = [
     String(parameters.solveMode),
@@ -75,10 +81,35 @@ export function runPnc001Pipeline(
       constraintProfile: parameters.constraintProfile,
       distractorProfile: parameters.distractorProfile,
       answer: solver.answer,
+      mathRendering: "DELIMITED_TEX",
     },
   };
 
-  return { ...basePackage, validation: validatePnc001RoutedQuestionPackage(basePackage) };
+  const routedValidation = validatePnc001RoutedQuestionPackage(basePackage);
+  const renderedTexts = [basePackage.stem, ...basePackage.options, ...basePackage.explanation.lines];
+  const latexChecks: Pnc001ValidationCheck[] = [
+    {
+      name: "latex-balanced-delimiters",
+      passed: renderedTexts.every(hasBalancedPnc001MathDelimiters),
+      message: "Rendered stems, options and explanations must have balanced TeX delimiters",
+    },
+    {
+      name: "latex-no-raw-formulas",
+      passed: renderedTexts.every((value) => !containsUndelimitedPnc001Formula(value)),
+      message: "Formula-bearing content must use delimited TeX rather than raw ASCII notation",
+    },
+    {
+      name: "latex-solver-authority",
+      passed: Boolean(solver.mathJax.trim()),
+      message: "Every solver result must expose a MathJax-ready equation",
+    },
+  ];
+  const validation = {
+    valid: routedValidation.valid && latexChecks.every((item) => item.passed),
+    checks: [...routedValidation.checks, ...latexChecks],
+  };
+
+  return { ...basePackage, validation };
 }
 
 export function runPnc001ForLanguages(
