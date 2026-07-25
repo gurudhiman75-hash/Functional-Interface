@@ -1,5 +1,6 @@
 import "./student-explanations.en";
 import "./student-explanations.en.overrides";
+import "./explanation-contract.en";
 
 export type ClusterPresentationMode = "DIRECT_COMPLETION" | "PAIR_SELECTION";
 
