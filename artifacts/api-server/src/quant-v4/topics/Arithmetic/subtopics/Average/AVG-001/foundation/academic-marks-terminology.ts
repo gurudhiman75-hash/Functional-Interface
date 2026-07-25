@@ -12,6 +12,7 @@ const ACADEMIC_MARK_QL_IDS = new Set([
 function normalizeAcademicMarks(text: string) {
   return text
     .replace(/\b(A student|A candidate) scores (?=(?:a total of )?[\d{])/gi, "$1 obtains ")
+    .replace(/\b(A new student|A student|A new trainee|A trainee) scoring ([\d,.{}]+) marks\b/gi, "$1 with $2 marks")
     .replace(/\bAfter scoring ([\d,.{}]+)(?!\s+marks)\b/gi, "After obtaining $1 marks")
     .replace(/\bmarks scored by\b/gi, "marks obtained by")
     .replace(
@@ -92,10 +93,15 @@ function ensureMarksConclusion(
   return updated;
 }
 
+function isAcademicMarksContext(pkg: Avg001QuestionPackage) {
+  return ACADEMIC_MARK_QL_IDS.has(pkg.questionLanguageId) ||
+    (/\bmarks?\b/i.test(pkg.stem) && /\b(?:student|students|class|test|tests|candidate|trainee|trainees|training batch)\b/i.test(pkg.stem));
+}
+
 export function applyAvg001AcademicMarksTerminology(
   pkg: Avg001QuestionPackage,
 ): Avg001QuestionPackage {
-  if (pkg.language !== "en" || !ACADEMIC_MARK_QL_IDS.has(pkg.questionLanguageId)) return pkg;
+  if (pkg.language !== "en" || !isAcademicMarksContext(pkg)) return pkg;
 
   const stem = normalizeAcademicMarks(pkg.stem);
   const normalizedLines = pkg.explanation.lines.map(normalizeAcademicMarks);
@@ -110,7 +116,7 @@ export function applyAvg001AcademicMarksTerminology(
     },
     traceability: {
       ...pkg.traceability,
-      academicMarksTerminology: "AVG-001 academic contexts use marks v1",
+      academicMarksTerminology: "AVG-001 academic contexts use marks v2",
     },
   };
 }
