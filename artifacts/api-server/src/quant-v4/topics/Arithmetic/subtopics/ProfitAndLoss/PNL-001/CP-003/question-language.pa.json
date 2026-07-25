@@ -1,0 +1,29 @@
+{
+  "archetypeId":"PNL-001","cpId":"PNL-CP-003","language":"pa","status":"STRUCTURAL_PARITY",
+  "entries":{
+    "PNL-QL-071":{"template":"ਇੱਕ ਵਪਾਰੀ ਵੱਖ-ਵੱਖ ਲਾਟਾਂ ਨੂੰ ਦਿੱਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਖਰੀਦ ਮੁੱਲਾਂ 'ਤੇ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਦੱਸੇ ਮੁੱਲਾਂ 'ਤੇ ਵੇਚਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-072":{"template":"ਦੋ ਵਸਤੂਆਂ ਇੱਕੋ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਇੱਕ 'ਤੇ {firstRatePercent}% {firstDirection} ਅਤੇ ਦੂਜੀ 'ਤੇ {secondRatePercent}% {secondDirection} ਹੁੰਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-073":{"template":"ਦੋ ਵਸਤੂਆਂ ਦਾ ਖਰੀਦ ਮੁੱਲ ਇੱਕੋ ਹੈ। ਇੱਕ 'ਤੇ {firstRatePercent}% {firstDirection} ਅਤੇ ਦੂਜੀ 'ਤੇ {secondRatePercent}% {secondDirection} ਹੁੰਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-074":{"template":"ਇੱਕ ਵਿਕਰੇਤਾ {totalQuantity} ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ ₹{unitCostPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਦੀ ਦਰ ਨਾਲ ਖਰੀਦਦਾ ਹੈ। ਵੱਖਰੇ ਸਮੂਹ ਵੱਖ ਮੁੱਲਾਂ 'ਤੇ ਵੇਚੇ ਜਾਂਦੇ ਹਨ ਅਤੇ ਬਚੇ ਮਾਲ ਦੀ ਦਿੱਤੀ ਵਸੂਲੀ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-075":{"template":"ਇੱਕ ਵਪਾਰੀ {totalQuantity} ਵਸਤੂਆਂ ₹{unitCostPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਦੀ ਦਰ ਨਾਲ ਖਰੀਦਦਾ ਹੈ। ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ {damagedQuantity} ਖਰਾਬ ਹਨ ਅਤੇ ਹਰ ਇੱਕ ਤੋਂ ₹{damagedRecoveryPerUnit} ਵਸੂਲ ਹੁੰਦਾ ਹੈ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਚੰਗੀਆਂ ਵਸਤੂਆਂ ਦਾ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-076":{"template":"ਇੱਕ ਥੋਕ ਵਿਕਰੇਤਾ {paidQuantity} ਵਸਤੂਆਂ ਲਈ ਭੁਗਤਾਨ ਕਰਦਾ ਹੈ ਅਤੇ {freeQuantity} ਵਸਤੂਆਂ ਮੁਫ਼ਤ ਲੈਂਦਾ ਹੈ। ਜੇ ਸਾਰੀਆਂ ਵਸਤੂਆਂ ₹{unitSellingPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਵੇਚੀਆਂ ਜਾਣ, ਤਾਂ ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-077":{"template":"ਇੱਕੋ ਜਿਹੀਆਂ ਵਸਤੂਆਂ ਦੇ ਵੱਖਰੇ ਸਮੂਹ ਦਿੱਤੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤਾਂ 'ਤੇ ਵੇਚੇ ਜਾਂਦੇ ਹਨ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-078":{"template":"ਮਾਲ ਦੇ ਕੁਝ ਸਮੂਹ ਦਿੱਤੇ ਪ੍ਰਤੀਸ਼ਤਾਂ 'ਤੇ ਵੇਚੇ ਗਏ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਬਾਕੀ {unknownQuantity} ਵਸਤੂਆਂ ਨੂੰ ਕਿਹੜੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?","difficulty":"Hard"},
+    "PNL-QL-079":{"template":"ਦਿੱਤੇ ਸਮੂਹ ਦੱਸੇ ਪ੍ਰਤੀਸ਼ਤਾਂ 'ਤੇ ਵੇਚੇ ਗਏ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ {unknownRatePercent}% {unknownDirection} 'ਤੇ ਹੋਰ ਕਿੰਨੀਆਂ ਵਸਤੂਆਂ ਵੇਚਣੀਆਂ ਹੋਣਗੀਆਂ?","difficulty":"Hard"},
+    "PNL-QL-080":{"template":"ਇੱਕ ਵਿਕਰੇਤਾ {totalQuantity} ਵਸਤੂਆਂ ₹{unitCostPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਦੱਸੇ ਸਮੂਹ ਦਿੱਤੇ ਮੁੱਲਾਂ 'ਤੇ ਵੇਚਦਾ ਹੈ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਬਾਕੀ ਮਾਲ ਦਾ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-081":{"template":"ਇੱਕ ਵਿਕਰੇਤਾ {totalQuantity} ਵਸਤੂਆਂ ₹{unitCostPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਖਰੀਦਦਾ ਹੈ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਬਾਕੀ ਮਾਲ ਨੂੰ ਕਿਹੜੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?","difficulty":"Hard"},
+    "PNL-QL-082":{"template":"₹{unitCostPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਦੀ ਦਰ ਨਾਲ ਖਰੀਦੀਆਂ {totalQuantity} ਵਸਤੂਆਂ ਵਿੱਚੋਂ {spoiledQuantity} ਖਰਾਬ ਹੋ ਜਾਂਦੀਆਂ ਹਨ। ਚੰਗੀਆਂ ਵਸਤੂਆਂ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਹਰ ਖਰਾਬ ਵਸਤੂ ਤੋਂ ਲੋੜੀਂਦੀ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-083":{"template":"ਦੋ ਵਸਤੂਆਂ ਇੱਕੋ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਇੱਕ 'ਤੇ {ratePercent}% ਲਾਭ ਅਤੇ ਦੂਜੀ 'ਤੇ ਉਤਨੇ ਹੀ ਪ੍ਰਤੀਸ਼ਤ ਦੀ ਹਾਨੀ ਹੁੰਦੀ ਹੈ। ਕੁੱਲ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-084":{"template":"ਦੋ ਵਸਤੂਆਂ ਇੱਕੋ ਰਕਮ ਵਿੱਚ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਇੱਕ ਵਸਤੂ ਦਾ ਪ੍ਰਤੀਸ਼ਤ ਅਤੇ ਕੁੱਲ ਨਤੀਜਾ ਪਤਾ ਹੈ। ਦੂਜੀ ਵਸਤੂ ਦਾ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-085":{"template":"ਇੱਕ ਮਾਲ ਦਾ ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ₹{totalCostPrice} ਹੈ। ਜੇ ਇਸਨੂੰ {ratePercent}% {direction} 'ਤੇ ਵੇਚਿਆ ਜਾਵੇ, ਤਾਂ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Easy"},
+    "PNL-QL-086":{"template":"ਇੱਕ ਮਾਲ ਕੁੱਲ ₹{totalSellingPrice} ਵਿੱਚ {ratePercent}% {direction} 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਕੁੱਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-087":{"template":"ਇੱਕ ਵਪਾਰੀ ਮਾਲ ਦੀ ਕੁੱਲ ਲਾਗਤ ਦਾ {fractionNumerator}/{fractionDenominator} ਹਿੱਸਾ ਵਸੂਲ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-088":{"template":"ਸਾਰਣੀ ਵਿੱਚ ਹਰ ਸਮੂਹ ਦੀ ਮਾਤਰਾ, ਪ੍ਰਤੀ ਇਕਾਈ ਲਾਗਤ ਅਤੇ ਵਿਕਰੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-089":{"template":"ਦਿੱਤਾ ਮਾਲ-ਸੰਬੰਧੀ ਕੇਸਲੈਟ ਪੜ੍ਹੋ ਅਤੇ ਵੇਚੇ ਤੇ ਬਚੇ ਮਾਲ ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖ ਕੇ ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-090":{"template":"ਦੋ ਵਸਤੂਆਂ ਇੱਕੋ ਮੁੱਲ 'ਤੇ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਇੱਕ 'ਤੇ {ratePercent}% ਲਾਭ ਅਤੇ ਦੂਜੀ 'ਤੇ {ratePercent}% ਹਾਨੀ। ਕੁੱਲ ਨਤੀਜੇ ਬਾਰੇ ਸਹੀ ਕਥਨ ਚੁਣੋ।","difficulty":"Medium"},
+    "PNL-QL-091":{"template":"ਦੋ ਮਾਲ ਸਮੂਹਾਂ ਦੀ ਲਾਗਤ ਬੀਜਗਣਿਤੀ ਰੂਪ ਵਿੱਚ ਅਤੇ ਉਨ੍ਹਾਂ ਦੇ ਵਿਕਰੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ। ਲੋੜੀਂਦੇ ਕੁੱਲ ਨਤੀਜੇ ਲਈ ਅਣਜਾਣ ਸਮੂਹ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।","difficulty":"Hard"},
+    "PNL-QL-092":{"template":"ਮਾਲ ਦਾ ਇੱਕ ਹਿੱਸਾ ਪਹਿਲਾਂ ਹੀ ਵੇਚਿਆ ਜਾ ਚੁੱਕਾ ਹੈ। ਜਾਂਚੋ ਕਿ ਬਾਕੀ ਹਰ ਵਸਤੂ ਦਾ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰਨ ਲਈ ਦੋਵੇਂ ਕਥਨ ਕਾਫ਼ੀ ਹਨ ਜਾਂ ਨਹੀਂ।","difficulty":"Hard"},
+    "PNL-QL-093":{"template":"ਇੱਕ ਵਪਾਰੀ ਕਈ ਲਾਟਾਂ ਨੂੰ ਦਿੱਤੇ ਮੁੱਲਾਂ 'ਤੇ ਖਰੀਦਦਾ ਅਤੇ ਵੇਚਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਦੀ ਰਕਮ ਪਤਾ ਕਰੋ।","difficulty":"Medium"},
+    "PNL-QL-094":{"template":"₹{unitCostPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਦੀ ਦਰ ਨਾਲ ਖਰੀਦੀਆਂ {totalQuantity} ਵਸਤੂਆਂ ਵਿੱਚੋਂ {spoiledQuantity} ਖਰਾਬ ਹੋ ਜਾਂਦੀਆਂ ਹਨ ਅਤੇ ਚੰਗੀਆਂ ਵਸਤੂਆਂ ₹{goodUnitSellingPrice} ਪ੍ਰਤੀ ਵਸਤੂ ਵੇਚੀਆਂ ਜਾਂਦੀਆਂ ਹਨ। ਹਾਨੀ ਤੋਂ ਬਚਣ ਲਈ ਹਰ ਖਰਾਬ ਵਸਤੂ ਤੋਂ ਘੱਟੋ-ਘੱਟ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।","difficulty":"Hard"}
+  },"entryCount":24
+}
