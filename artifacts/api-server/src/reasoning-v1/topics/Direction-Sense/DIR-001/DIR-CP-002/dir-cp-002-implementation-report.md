@@ -13,18 +13,13 @@ No standalone final-facing-after-path QL was added because ordinary path distanc
 
 ## Exam-style question contract
 
-Every stem is one continuous paragraph. It states:
+Every stem is one continuous paragraph. It states the starting facing direction, the first distance, each subsequent turn followed by the next distance, and the exact result required.
 
-- the starting facing direction;
-- the first distance;
-- each subsequent turn followed by the next distance;
-- the exact relation or compound result required.
-
-The stem does not use numbered instructions, point labels, coordinate language, or disclose the compass direction after each turn.
+The stem does not use numbered instructions, point labels, coordinate language, or disclose the compass direction after every turn.
 
 ## Explanation contract
 
-Every explanation now contains only:
+Every explanation contains only:
 
 1. one short opening sentence stating the initial facing and that the turns will be read in order;
 2. one plain sentence per movement leg;
@@ -33,11 +28,13 @@ Every explanation now contains only:
 
 Coordinate calculations, method boxes, trap discussions, step cards, and long formal solutions were removed from the learner-facing explanation.
 
-Example movement walkthrough:
+Example:
 
 ```text
+Aman starts facing South. Reading each turn in order gives the following movements.
 First, Aman walks 8 metres South.
 After turning right, Aman walks 12 metres West.
+Therefore, Aman's final position is South-West of the starting point.
 ```
 
 ## Diagram contract
@@ -54,17 +51,11 @@ The diagram is intentionally limited to:
 
 The diagram does not display the answer, requested relation, final-facing solution, coordinates, legends, or explanatory paragraphs.
 
-To prevent visually misleading diagrams, generation rejects paths that:
-
-- revisit any earlier point;
-- retrace or overlap an earlier leg;
-- cross a non-adjacent leg.
-
-This means every accepted diagram is a simple non-self-intersecting route.
+To prevent visually misleading diagrams, generation rejects paths that revisit an earlier point, retrace or overlap an earlier leg, or cross a non-adjacent leg. Every accepted route is therefore simple and non-self-intersecting.
 
 ## Exact validation
 
-GitHub Actions run `30151612613` passed on head `fe4aa5a51a58943e8aaf3a086b0d4df8fe8f0eea`:
+GitHub Actions run `30151744952` passed on head `3e504d57499d00cca4373940290939b22bee0165`:
 
 - strict DIR-001 TypeScript check;
 - foundation and CP-001 regression proofs;
@@ -76,6 +67,9 @@ GitHub Actions run `30151612613` passed on head `fe4aa5a51a58943e8aaf3a086b0d4df
 - diagram emitted last;
 - unique route points;
 - no overlapping or self-intersecting legs;
+- exact diagram-leg distance parity;
+- exact diagram-leg direction parity;
+- exact diagram-to-walkthrough parity;
 - no answer or final-facing annotation inside the SVG;
 - all eight endpoint directions;
 - all four final facings;
@@ -84,7 +78,7 @@ GitHub Actions run `30151612613` passed on head `fe4aa5a51a58943e8aaf3a086b0d4df
 - at least 180 unique stems per QL;
 - answer-position balance below the required `1.35` ratio.
 
-The generated 10-question HTML review corpus was also visually inspected. Route lines, distance labels, Start/Finish markers and the compass remained readable across the sampled path shapes.
+The generated 10-question HTML review corpus was visually inspected. Route lines, distance labels, Start/Finish markers and the compass remained readable across all sampled path shapes.
 
 ## Execution honesty
 
