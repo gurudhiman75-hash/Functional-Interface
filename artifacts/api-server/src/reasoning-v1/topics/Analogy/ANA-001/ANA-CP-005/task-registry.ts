@@ -5,8 +5,12 @@ export const ANA_CP005_TASK_REGISTRY = {
   checkpointId: "ANA-CP-005",
   qlRange: ["ANA-QL-141", "ANA-QL-160"] as const,
   qlCount: 20,
+  taskKind: "singleLetterTransform",
+  solveMode: "ALPHABET_RULE",
+  presentationModes: ["DIRECT_COMPLETION", "PAIR_SELECTION"] as const,
   renderer: "STRUCTURED_TEXT",
   localeMode: "TRANSLATABLE",
+  manifestAlignment: "AUDITED_CANONICAL",
   questionLogics: ANA_CP005_QLS,
   rules: ANA_CP005_RULES,
 } as const;
