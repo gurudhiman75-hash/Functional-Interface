@@ -8,6 +8,7 @@ import { runAvg001Pipeline } from "./foundation/pipeline";
 import type { Avg001QuestionPackage } from "./foundation/types";
 
 const AUTHORSHIP = "AVG-001 deterministic human-authored presentation v2";
+const STEM_VARIATION = "AVG-001 localized stem variation finalizer v1";
 const CP003_AUTHORSHIP = "AVG-CP-003 context-authored explanations v1";
 const CP003_FINAL_POLISH = "AVG-CP-003 manually differentiated prose v1";
 const CP003_MANUALLY_DIFFERENTIATED = new Set([
@@ -170,6 +171,9 @@ for (const entry of entries) {
         const failed = localized.validation.checks.filter((check) => !check.passed).map((check) => check.name).join(",");
         fail(`${scope}: localized validation fails [${failed}]`);
       }
+      if (localized.traceability.localizedStemVariationFinalizer !== STEM_VARIATION) {
+        fail(`${scope}: localized stem variation marker missing`);
+      }
       checkAuthorship(localized, scope);
       checkExplanation(localized, scope);
       if (localized.answer !== english.answer || localized.correctIndex !== english.correctIndex) {
@@ -203,15 +207,12 @@ assertNoDuplicateGroups("English prose structure", englishProse);
 for (const language of ["hi", "pa"] as const) {
   assertNoDuplicateGroups(`${language} full explanation`, localizedExplanations.get(language)!);
   assertNoDuplicateGroups(`${language} prose structure`, localizedProse.get(language)!);
-  for (const [signature, qlIds] of localizedStemStructures.get(language)!) {
-    if (qlIds.length > 3) {
-      fail(`${language}: over-repeated normalized stem structure ${qlIds.join(", ")} :: ${signature}`);
-    }
-  }
+  assertNoDuplicateGroups(`${language} normalized stem structure`, localizedStemStructures.get(language)!);
 }
 
 console.log(JSON.stringify({
   authorship: AUTHORSHIP,
+  localizedStemVariation: STEM_VARIATION,
   cp003Authorship: CP003_AUTHORSHIP,
   englishQlCount: entries.length,
   localizedQlCountPerLanguage: entries.filter((entry) => ["AVG-CP-001", "AVG-CP-002", "AVG-CP-003"].includes(entry.cpId)).length,
@@ -219,13 +220,15 @@ console.log(JSON.stringify({
   englishProseGroups: englishProse.size,
   hindiExactExplanationGroups: localizedExplanations.get("hi")!.size,
   hindiProseGroups: localizedProse.get("hi")!.size,
+  hindiStemStructureGroups: localizedStemStructures.get("hi")!.size,
   punjabiExactExplanationGroups: localizedExplanations.get("pa")!.size,
   punjabiProseGroups: localizedProse.get("pa")!.size,
+  punjabiStemStructureGroups: localizedStemStructures.get("pa")!.size,
   failureCount: failures.length,
   failures: failures.slice(0, 300),
   verdict: failures.length
     ? "FAIL"
-    : "PASS — CONTEXTUAL STEMS, UNIQUE PROSE AND DECISIVE ARITHMETIC",
+    : "PASS — UNIQUE LOCALIZED STEMS, UNIQUE PROSE AND DECISIVE ARITHMETIC",
 }, null, 2));
 
 assert.equal(failures.length, 0, failures.join("\n"));
