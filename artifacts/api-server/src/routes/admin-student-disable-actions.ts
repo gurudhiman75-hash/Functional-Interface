@@ -14,9 +14,11 @@ type FirebaseTokenRevoker = { revokeRefreshTokens(uid: string): Promise<void> };
 
 router.use(authenticate);
 
-router.post('/:studentId/actions/:action(disable|enable)', requireAdminPermission('users.students.manage'), async (req, res) => {
+router.post('/:studentId/actions/:action', requireAdminPermission('users.students.manage'), async (req, res, next) => {
   const studentId = text(req.params.studentId);
-  const action = text(req.params.action) as 'disable' | 'enable';
+  const rawAction = text(req.params.action);
+  if (rawAction !== 'disable' && rawAction !== 'enable') return next();
+  const action = rawAction as 'disable' | 'enable';
   const reason = text(req.body?.reason);
   const expectedStatus = text(req.body?.expectedStatus);
 
