@@ -23,7 +23,7 @@ assert.equal(hindi.entryCount, 29);
 assert.equal(punjabi.entryCount, 29);
 
 const placeholders = (template: string) =>
-  [...template.matchAll(/\{([A-Za-z0-9]+)\}/g)].map((match) => match[1]).sort();
+  [...new Set([...template.matchAll(/\{([A-Za-z0-9]+)\}/g)].map((match) => match[1]))].sort();
 
 for (const id of expectedIds) {
   const required = [...registry.entries[id].requiredVariables].sort();
