@@ -138,34 +138,34 @@ function buildStem(prompt: CompositePrompt, style: number, numericMissing: boole
   const examples = joinCodeExamples(prompt.evidence);
   if (prompt.taskKind === "DECODE_TARGET") {
     return [
-      `In a certain two-stage code, ${examples}. Which word is coded as ‘${prompt.encodedTarget}’?`,
-      `If ${examples}, what is the original word for ‘${prompt.encodedTarget}’?`,
-      `Study these coded examples: ${examples}. Decode ‘${prompt.encodedTarget}’.`,
-      `The same two-step rule is used in these examples: ${examples}. Which word is represented by ‘${prompt.encodedTarget}’?`,
+      `In a certain code language, ${examples}. Which word is represented by ‘${prompt.encodedTarget}’?`,
+      `${examples}. According to this coding pattern, ‘${prompt.encodedTarget}’ is the code for which word?`,
+      `Study these examples: ${examples}. Decode ‘${prompt.encodedTarget}’.`,
+      `The following examples use one coding pattern: ${examples}. Find the original word represented by ‘${prompt.encodedTarget}’.`,
     ][style]!;
   }
   if (prompt.taskKind === "RECOVER_MISSING_TOKEN") {
     const token = numericMissing ? "number" : "letter";
     return [
-      `In a certain two-stage code, ${examples}. ‘${prompt.targetWord}’ is written as ‘${prompt.displayedTargetCode}’. Which ${token} replaces ‘?’?`,
-      `If ${examples}, complete ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `From these examples—${examples}—find the missing ${token} in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
-      `The given examples are: ${examples}. What replaces ‘?’ in the code ‘${prompt.displayedTargetCode}’ for ‘${prompt.targetWord}’?`,
+      `In a certain code language, ${examples}. The code for ‘${prompt.targetWord}’ is ‘${prompt.displayedTargetCode}’. Which ${token} should replace ‘?’?`,
+      `${examples}. Complete the code ‘${prompt.displayedTargetCode}’ for ‘${prompt.targetWord}’ by replacing ‘?’ with the correct ${token}.`,
+      `Study these examples: ${examples}. What ${token} replaces ‘?’ in the code ‘${prompt.displayedTargetCode}’ for ‘${prompt.targetWord}’?`,
+      `The following examples use one coding pattern: ${examples}. Find the missing ${token} in ‘${prompt.targetWord}’ → ‘${prompt.displayedTargetCode}’.`,
     ][style]!;
   }
   if (prompt.taskKind === "CHOOSE_MATCHING_CODE") {
     return [
-      `In a certain two-stage code, ${examples}. Which option gives the code for ‘${prompt.targetWord}’?`,
-      `If ${examples}, select the correct code for ‘${prompt.targetWord}’.`,
-      `Study these examples: ${examples}. Which code matches ‘${prompt.targetWord}’?`,
-      `Given that ${examples}, choose the code of ‘${prompt.targetWord}’.`,
+      `In a certain code language, ${examples}. Which of the following is the correct code for ‘${prompt.targetWord}’?`,
+      `${examples}. According to this coding pattern, select the code for ‘${prompt.targetWord}’.`,
+      `Study these examples: ${examples}. Which code represents ‘${prompt.targetWord}’?`,
+      `The following examples use one coding pattern: ${examples}. Choose the correct code for ‘${prompt.targetWord}’.`,
     ][style]!;
   }
   return [
-    `In a certain two-stage code, ${examples}. How will ‘${prompt.targetWord}’ be written?`,
-    `If ${examples}, what is the code for ‘${prompt.targetWord}’?`,
-    `Given that ${examples}, apply the same two-step rule to ‘${prompt.targetWord}’.`,
-    `Study these examples: ${examples}. Determine the code for ‘${prompt.targetWord}’.`,
+    `In a certain code language, ${examples}. How will ‘${prompt.targetWord}’ be written in that language?`,
+    `${examples}. According to this coding pattern, what is the code for ‘${prompt.targetWord}’?`,
+    `Study these examples: ${examples}. Which code represents ‘${prompt.targetWord}’?`,
+    `The following examples use one coding pattern: ${examples}. Find the code for ‘${prompt.targetWord}’.`,
   ][style]!;
 }
 
