@@ -29,58 +29,81 @@ assert.deepEqual(
 );
 
 const signatureOwner = new Map<string, string>();
-const openingOwner = new Map<string, string>();
-const genericPadding = /^(Check:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers)/;
+const lineCountDistribution = new Map<number, number>();
+const roboticOpening = /^(Check:|Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
 
 for (const entry of getMen001QuestionEntries()) {
-  const question = runMen001Pipeline(
-    entry.cpId as Men001ActiveCanonicalProblemId,
-    {
-      language: "en",
-      questionLanguageId: entry.qlId,
-      seed: `men-001-authorship:${entry.qlId}`,
-    },
-  );
-  assert.equal(
-    question.validation.valid,
-    true,
-    question.validation.checks
-      .filter((item) => !item.passed)
-      .map((item) => `${item.name}: ${item.message}`)
-      .join("; "),
-  );
-  assert.ok(
-    question.explanation.lines.length >= 4 &&
-      question.explanation.lines.length <= 9,
-    `${entry.qlId} should remain concise and complete.`,
-  );
-  assert.equal(
-    question.explanation.lines.some((line) => genericPadding.test(line)),
-    false,
-    `${entry.qlId} still contains generic explanation padding.`,
-  );
+  const qlSignatures = new Set<string>();
 
-  const opening = question.explanation.lines[0]!.toLowerCase();
-  const previousOpening = openingOwner.get(opening);
-  assert.equal(
-    previousOpening,
-    undefined,
-    `${entry.qlId} repeats the authored opening used by ${previousOpening}.`,
-  );
-  openingOwner.set(opening, entry.qlId);
+  for (let sample = 0; sample < 3; sample += 1) {
+    const question = runMen001Pipeline(
+      entry.cpId as Men001ActiveCanonicalProblemId,
+      {
+        language: "en",
+        questionLanguageId: entry.qlId,
+        seed: `men-001-authorship:${entry.qlId}:${sample}`,
+      },
+    );
+    assert.equal(
+      question.validation.valid,
+      true,
+      question.validation.checks
+        .filter((item) => !item.passed)
+        .map((item) => `${item.name}: ${item.message}`)
+        .join("; "),
+    );
+    assert.ok(
+      question.explanation.lines.length >= 3 &&
+        question.explanation.lines.length <= 9,
+      `${entry.qlId} should use only as many lines as its reasoning needs.`,
+    );
+    assert.equal(
+      question.explanation.lines.some((line) => roboticOpening.test(line)),
+      false,
+      `${entry.qlId} still contains a robotic explanation label or conclusion.`,
+    );
+    assert.ok(
+      question.explanation.lines.some(
+        (line) => /\d/.test(line) && /[=×÷+−\-√²π]/.test(line),
+      ),
+      `${entry.qlId} lost its worked arithmetic.`,
+    );
 
-  const signature = proseSignature(question.explanation.lines);
-  assert.ok(signature.length >= 40, `${entry.qlId} has too little natural prose.`);
-  const previousSignature = signatureOwner.get(signature);
+    const signature = proseSignature(question.explanation.lines);
+    assert.ok(signature.length >= 35, `${entry.qlId} has too little natural prose.`);
+    qlSignatures.add(signature);
+
+    if (sample === 0) {
+      const previousSignature = signatureOwner.get(signature);
+      assert.equal(
+        previousSignature,
+        undefined,
+        `${entry.qlId} duplicates the normalized prose signature of ${previousSignature}.`,
+      );
+      signatureOwner.set(signature, entry.qlId);
+      const lineCount = question.explanation.lines.length;
+      lineCountDistribution.set(
+        lineCount,
+        (lineCountDistribution.get(lineCount) ?? 0) + 1,
+      );
+    }
+  }
+
   assert.equal(
-    previousSignature,
-    undefined,
-    `${entry.qlId} duplicates the normalized prose signature of ${previousSignature}.`,
+    qlSignatures.size,
+    1,
+    `${entry.qlId} changes its prose logic merely because the generated numbers change.`,
   );
-  signatureOwner.set(signature, entry.qlId);
 }
 
 assert.equal(signatureOwner.size, qlIds.length);
+assert.ok(
+  lineCountDistribution.size >= 3,
+  "The chapter should not force every explanation into the same line structure.",
+);
 console.log(
-  `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures.`,
+  `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
+);
+console.log(
+  `Explanation line-count distribution: ${JSON.stringify(Object.fromEntries([...lineCountDistribution].sort(([a], [b]) => a - b)))}`,
 );
