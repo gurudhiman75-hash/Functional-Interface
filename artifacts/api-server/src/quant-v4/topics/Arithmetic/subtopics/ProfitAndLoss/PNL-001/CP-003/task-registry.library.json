@@ -1,0 +1,24 @@
+{
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-003",
+  "status": "ACTIVE_DISCOVERY",
+  "countPolicy": "OPEN_ENDED",
+  "title": "Multiple Articles and Inventory",
+  "entries": {
+    "PNL-QL-071": {"solveMode":"MULTIPLE_LOTS_TO_OVERALL_RESULT","answerSemantic":"overallProfitOrLossPercent","requiredVariables":["lots"],"difficulty":"Medium"},
+    "PNL-QL-072": {"solveMode":"EQUAL_SP_TWO_ARTICLES_TO_OVERALL_RATE","answerSemantic":"overallProfitOrLossPercent","requiredVariables":["commonSellingPrice","firstDirection","firstRatePercent","secondDirection","secondRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-073": {"solveMode":"EQUAL_CP_TWO_ARTICLES_TO_OVERALL_RATE","answerSemantic":"overallProfitOrLossPercent","requiredVariables":["commonCostPrice","firstDirection","firstRatePercent","secondDirection","secondRatePercent"],"difficulty":"Medium"},
+    "PNL-QL-074": {"solveMode":"PARTIAL_INVENTORY_TO_OVERALL_RESULT","answerSemantic":"overallProfitOrLossPercent","requiredVariables":["totalQuantity","unitCostPrice","soldGroups","unsoldQuantity","unsoldRecoveryPerUnit"],"difficulty":"Hard"},
+    "PNL-QL-075": {"solveMode":"DAMAGED_STOCK_REQUIRED_RATE_ON_REMAINDER","answerSemantic":"requiredSellingPricePerGoodUnit","requiredVariables":["totalQuantity","unitCostPrice","damagedQuantity","damagedRecoveryPerUnit","targetDirection","targetRatePercent"],"difficulty":"Hard"},
+    "PNL-QL-076": {"solveMode":"FREE_UNITS_AND_SOLD_UNITS_TO_RESULT","answerSemantic":"overallProfitOrLossPercent","requiredVariables":["paidQuantity","freeQuantity","unitCostPrice","unitSellingPrice"],"difficulty":"Hard"}
+  },
+  "pendingDiscovery": [
+    "equal-selling-price-special-identities",
+    "mixed-quantity-lot-inverses",
+    "unsold-stock-required-rate",
+    "damaged-free-and-recovered-stock-combinations",
+    "partial-sales-at-multiple-rates",
+    "table-caselet-statement-and-data-sufficiency-forms"
+  ],
+  "entryCount": 6
+}
