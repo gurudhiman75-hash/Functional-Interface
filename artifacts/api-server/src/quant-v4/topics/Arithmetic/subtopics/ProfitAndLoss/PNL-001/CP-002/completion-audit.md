@@ -4,40 +4,40 @@ Status: FREEZE CANDIDATE
 
 ## Discovered scope
 
-Stable QL range: PNL-QL-037 through PNL-QL-068.
+Stable QL range: PNL-QL-037 through PNL-QL-070.
 
-- Task registry: 32 entries
-- English: 32 entries
-- Hindi: 32 entries
-- Punjabi: 32 entries
+- Task registry: 34 entries
+- English: 34 entries
+- Hindi: 34 entries
+- Punjabi: 34 entries
 - Count policy: discovered, not quota-driven
 
 ## Solve-mode coverage
 
-The CP covers direct and inverse marked-price/discount relations, discount amount forms, two and three-plus successive discounts, equivalent and missing discounts, offer comparison, markup-discount-profit calibration, required markup/discount inverses, buy-X-get-Y, flat and percentage cashback, capped cashback, flat and percentage coupons, minimum-spend eligibility, cashback-base distinctions, fraction and ratio forms, and mixed-offer eligibility comparison.
+The CP covers direct and inverse marked-price/discount relations, discount amount forms, two and three-plus successive discounts, equivalent and missing discounts, single-versus-successive comparison, markup-discount-profit calibration, required markup/discount inverses, buy-X-get-Y, flat and percentage cashback, capped cashback, flat and percentage coupons, minimum-spend eligibility, cashback-base distinctions, mixed-offer eligibility comparison and order-sensitive coupon application.
 
 ## Representation coverage
 
-The library includes direct word problems, inverse forms, comparison questions, table selection, caselet, statement and algebraic presentations. These representation entries reuse existing mathematical solvers and do not inflate the solve-mode count.
+The library includes direct word problems, inverse forms, comparisons, table selection, caselet, statement, algebraic and data-sufficiency presentations. Representation entries reuse existing mathematical solvers and do not inflate the solve-mode count.
 
 ## Editorial audit
 
 - Direct exam-style asks are used.
 - Generic classroom wording such as “What was the result of the transaction?” is prohibited.
 - Profit/loss prompts use the approved forms where applicable.
-- Distractors must correspond to identifiable misconceptions: wrong percentage base, additive successive discounts, reversed retained multipliers, ignored eligibility/caps, billed-versus-effective price confusion, wrong cashback base, or wrong coupon order.
+- Distractors must correspond to identifiable misconceptions: wrong percentage base, additive successive discounts, reversed retained multipliers, ignored eligibility/caps, billed-versus-effective-price confusion, wrong cashback base, or wrong coupon order.
 
 ## Structural audit
 
-- Registry IDs are contiguous from PNL-QL-037 to PNL-QL-068.
-- English, Hindi and Punjabi libraries have structural parity.
+- Registry IDs are contiguous from PNL-QL-037 to PNL-QL-070.
+- English, Hindi and Punjabi libraries have one-to-one structural parity.
 - Required variables are registered per QL.
 - Promotion semantics distinguish immediate discount, billed amount, later cashback, coupon eligibility and effective cost.
-- Table/caselet/statement entries do not introduce duplicate solver modes.
+- Table/caselet/statement/data-sufficiency entries do not introduce duplicate solver modes.
 
 ## Runtime proof
 
-Representative tests cover direct discounts, equivalent and missing successive discounts, markup-discount calibration, buy-X-get-Y, coupons, cashback comparisons and caps, three-stage discounts, and fraction/ratio conversions.
+Representative tests cover direct discounts, equivalent and missing successive discounts, markup-discount calibration, buy-X-get-Y, coupons, cashback comparisons and caps, three-stage discounts, fraction/ratio conversions, mixed eligibility and coupon-order comparison.
 
 The CP-specific verifier recomputes conditional-promotion results and rejects mode or result mismatches.
 
@@ -53,4 +53,4 @@ The Node/esbuild proof and repository TypeScript/build checks remain deferred to
 
 ## Freeze decision
 
-No meaningful uncovered CP-002 solve mode remains after the direct/reverse, promotion-semantics, conditional-eligibility, representation and QL-depth audits. Reopen only for a test failure or a genuinely distinct reference-book/PYQ pattern.
+No meaningful uncovered CP-002 solve mode remains after direct/reverse, promotion-semantics, coupon-order, conditional-eligibility, representation and QL-depth audits. Reopen only for a test failure or a genuinely distinct reference-book/PYQ pattern.
