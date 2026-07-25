@@ -9,7 +9,7 @@ on:
       - .github/workflows/pnc-002-cp010-runtime.yml
   pull_request:
     branches:
-      - feat/pnc-002-cp009-conditional-selection-runtime-proof
+      - New-main
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
@@ -41,7 +41,20 @@ jobs:
       - name: Strict TypeScript check
         run: |
           cd artifacts/api-server
-          pnpm exec tsc             --noEmit             --target es2022             --module esnext             --moduleResolution bundler             --resolveJsonModule             --allowSyntheticDefaultImports             --strictNullChecks             --noImplicitAny             --noImplicitReturns             --noFallthroughCasesInSwitch             --skipLibCheck             --types node             $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002 -name '*.ts' -print)
       - name: Bundle CP-010 runtime proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -52,11 +65,26 @@ jobs:
           --outfile=dist/quant-v4/pnc-002-cp010-proof.mjs
       - name: Run CP-010 proof and generate review export
         working-directory: artifacts/api-server
-        run: node dist/quant-v4/pnc-002-cp010-proof.mjs
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-cp010-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-cp010-proof.mjs 2>&1 | tee dist/quant-v4/pnc-002-cp010-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
       - name: Publish CP-010 review files
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pnc-002-cp010-question-explanation-review
           path: artifacts/api-server/dist/quant-v4/pnc-002-cp010-review/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 14
+      - name: Publish CP-010 diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-cp010-diagnostics/
+          if-no-files-found: error
+          retention-days: 3
