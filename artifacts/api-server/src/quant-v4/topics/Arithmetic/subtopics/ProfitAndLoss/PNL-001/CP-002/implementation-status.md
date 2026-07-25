@@ -8,12 +8,20 @@ Count policy: OPEN ENDED
 - Marked price and discount percentage to selling price
 - Marked price and selling price to discount percentage
 - Selling price and discount percentage to marked price
+- Marked price and discount percentage to discount amount
+- Marked price and discount amount to discount percentage
+- Marked price and discount amount to selling price
 - Successive discounts to final selling price
 - Successive discounts to a single equivalent discount
+- Known discount and equivalent discount to missing successive discount
+- Single discount versus successive discounts, including the better offer and rupee difference
+- Cost price, markup and discount to selling price and profit/loss result
+- Marked price, cost price and target profit/loss rate to required discount
+- Cost price, discount and target profit/loss rate to required markup
 
 ## Current QL seed set
 
-PNL-QL-037 through PNL-QL-041 are runtime proof QLs only. They do not define the eventual size of CP-002.
+PNL-QL-037 through PNL-QL-050 are runtime-backed discovery QLs. They do not define the eventual size of CP-002.
 
 ## Editorial rules carried forward from CP-001 review
 
@@ -24,16 +32,13 @@ PNL-QL-037 through PNL-QL-041 are runtime proof QLs only. They do not define the
 
 ## Pending discovery
 
-- Discount amount forward and reverse forms
-- Missing first or second discount in a successive-discount chain
-- Comparison of a single discount with successive discounts
-- Three or more successive discounts
-- Marked-price, discount and profit calibration
+- Three or more successive discounts as explicit representation and inverse forms
 - Buy-X-get-Y equivalent discount
 - Cashback, coupon and flat-discount distinctions
 - Fraction, ratio, algebraic and statement presentations
 - Table and caselet forms
 - Hindi and Punjabi libraries after English semantic coverage stabilises
+- Independent verifier and CP-specific runtime proof
 
 ## Exit rule
 
