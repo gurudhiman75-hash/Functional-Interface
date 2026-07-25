@@ -97,7 +97,7 @@ for (const [qlId, difficulties] of difficultiesByQl) {
 
 assert.equal(difficultiesByQl.size, 112);
 assert.equal(generated, 2240);
-assert.equal(recoveryQuestions, 240);
+assert.equal(recoveryQuestions, 260);
 assert.equal(trapSpecificQuestions, generated);
 
 console.log(JSON.stringify({
