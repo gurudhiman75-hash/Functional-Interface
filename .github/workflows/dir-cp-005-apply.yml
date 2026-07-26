@@ -1,0 +1,147 @@
+name: Apply and validate DIR-CP-005 source bundle
+
+on:
+  push:
+    branches:
+      - feat/dir-cp-005-multiple-movers
+    paths:
+      - .github/workflows/dir-cp-005-apply.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-dir-cp-005-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apply-and-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/dir-cp-005-multiple-movers
+          fetch-depth: 0
+
+      - name: Reconstruct CP-005 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001"
+          base64 --decode "$ROOT/.cp005-source.b64" > /tmp/dir-cp-005.tar.gz
+          test -s /tmp/dir-cp-005.tar.gz
+          tar -tzf /tmp/dir-cp-005.tar.gz | grep -q '^DIR-CP-005/'
+          test ! -e "$ROOT/DIR-CP-005"
+          tar -xzf /tmp/dir-cp-005.tar.gz -C "$ROOT"
+          test -f "$ROOT/DIR-CP-005/generator.ts"
+          test -f "$ROOT/DIR-CP-005/dir-cp-005.test.ts"
+          test -f "$ROOT/DIR-CP-005/dir-cp-005-generate-review-export.ts"
+          rm "$ROOT/.cp005-source.b64"
+
+      - name: Wire chapter registry and package exports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001")
+          registry = root / "chapter-registry.ts"
+          text = registry.read_text(encoding="utf-8")
+
+          old_import = 'import { DIR_CP004_QLS, generateDirCp004Question } from "./DIR-CP-004";\n'
+          new_import = old_import + 'import { DIR_CP005_QLS, generateDirCp005Question } from "./DIR-CP-005";\n'
+          if text.count(old_import) != 1 or 'DIR_CP005_QLS' in text:
+              raise SystemExit("Unexpected chapter-registry import baseline")
+          text = text.replace(old_import, new_import)
+
+          old_inventory = 'export const DIR_001_QLS = [...DIR_CP001_QLS, ...DIR_CP002_QLS, ...DIR_CP003_QLS, ...DIR_CP004_QLS] as const;'
+          new_inventory = 'export const DIR_001_QLS = [...DIR_CP001_QLS, ...DIR_CP002_QLS, ...DIR_CP003_QLS, ...DIR_CP004_QLS, ...DIR_CP005_QLS] as const;'
+          if text.count(old_inventory) != 1:
+              raise SystemExit("Unexpected chapter-registry inventory baseline")
+          text = text.replace(old_inventory, new_inventory)
+
+          old_case = '    case "DIR-CP-004":\n      return generateDirCp004Question(qlId, seed);\n'
+          new_case = old_case + '    case "DIR-CP-005":\n      return generateDirCp005Question(qlId, seed);\n'
+          if text.count(old_case) != 1 or 'case "DIR-CP-005"' in text:
+              raise SystemExit("Unexpected chapter-registry switch baseline")
+          text = text.replace(old_case, new_case)
+          registry.write_text(text, encoding="utf-8")
+
+          index = root / "index.ts"
+          index_text = index.read_text(encoding="utf-8")
+          marker = 'export * from "./DIR-CP-004";\n'
+          if index_text.count(marker) != 1 or 'DIR-CP-005' in index_text:
+              raise SystemExit("Unexpected DIR-001 index baseline")
+          index.write_text(index_text.replace(marker, marker + 'export * from "./DIR-CP-005";\n'), encoding="utf-8")
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict typecheck DIR-001
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
+
+      - name: Bundle and run CP-005 proof
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005/dir-cp-005.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dir-cp-005.test.mjs
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-005.test.mjs
+
+      - name: Generate CP-005 review files
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005/dir-cp-005-generate-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dir-cp-005-generate-review-export.mjs
+          cd artifacts/api-server
+          node dist/reasoning-v1/dir-cp-005-generate-review-export.mjs
+          test -f dist/reasoning-v1/dir-cp-005-review-export/DIR-CP-005-QUESTION-REVIEW.html
+          test -f dist/reasoning-v1/dir-cp-005-review-export/DIR-CP-005-QUESTION-REVIEW.jsonl
+
+      - name: Commit validated source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005 \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/chapter-registry.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/index.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/.cp005-source.b64
+          test -n "$(git status --short)"
+          git commit -m "feat(reasoning): implement DIR-CP-005 multiple movers"
+          git push origin HEAD:feat/dir-cp-005-multiple-movers
