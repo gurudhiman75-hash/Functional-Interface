@@ -42,6 +42,8 @@ for (const contract of EXACT_ATOMIC_PROTOTYPE_CONTRACTS) {
       question.prototypeId === contract.prototypeId && question.topologyKind === topologyKind,
     );
     for (const question of matching) {
+      const orderedRows = [...question.structuredPrompt.rows]
+        .sort((left, right) => left.rowId.localeCompare(right.rowId));
       markdown.push(
         `#### Seed ${question.seed} — ${question.metadata.scenarioId}`,
         "",
@@ -53,9 +55,7 @@ for (const contract of EXACT_ATOMIC_PROTOTYPE_CONTRACTS) {
         "",
         "| Statement | Message | Code words |",
         "|---|---|---|",
-        ...[...question.structuredPrompt.rows]
-          .sort((left, right) => left.rowId.localeCompare(right.rowId))
-          .map((row) => `| ${row.rowId} | ${row.sentence} | ${row.displayedCode} |`),
+        ...orderedRows.map((row, index) => `| ${index + 1} | ${row.sentence} | ${row.displayedCode} |`),
         "",
         "**Options:**",
         ...question.options.map((option, index) =>
