@@ -8,20 +8,22 @@ Draft pull request: #173
 
 ## Scope
 
-The editorial layer for `PNL-QL-095` through `PNL-QL-186` has been reopened and re-authored. The validated mathematical solvers, answer semantics, independent verifiers and CP runtime proofs remain unchanged.
+Editorial V2 now covers all 186 English QLs in PNL-001 while preserving the validated mathematical solvers, answer semantics, independent verifiers and runtime proofs.
 
 Packages covered:
 
-- CP-004: 26 English editorial entries
-- CP-005: 29 English editorial entries
-- CP-006: 37 English editorial entries
-- Total: 92 English editorial entries
+- CP-001: 36 entries, `PNL-QL-001` through `PNL-QL-036`
+- CP-002: 34 entries, `PNL-QL-037` through `PNL-QL-070`
+- CP-003: 24 entries, `PNL-QL-071` through `PNL-QL-094`
+- CP-004: 26 entries, `PNL-QL-095` through `PNL-QL-120`
+- CP-005: 29 entries, `PNL-QL-121` through `PNL-QL-149`
+- CP-006: 37 entries, `PNL-QL-150` through `PNL-QL-186`
 
 ## Editorial V2 model
 
-The new content model supports:
+The content model supports:
 
-- paragraph blocks;
+- contextual paragraph blocks;
 - real tables with runtime row binding;
 - multi-paragraph caselets with runtime paragraph binding;
 - statement sets;
@@ -41,9 +43,21 @@ Each friendly explanation contains:
 
 ## Audit result
 
-The focused `Validate PNL Editorial V2` workflow passes on the branch.
+The focused `Validate PNL Editorial V2` workflow validates all six CPs.
 
-Validated results:
+CP-001 through CP-003 results:
+
+- QL count: 94
+- distinct context families: 94
+- generic article/dealer/trader openings: 2
+- Hard questions before migration: 42
+- Hard questions after migration: 19
+- difficulty recalibrations: 23
+- old average explanation length in the rendered review set: 15.3 words
+- new average explanation length: 115.6 words
+- committed JSON parity with normalized generator output: passed
+
+CP-004 through CP-006 results:
 
 - QL count: 92
 - distinct context families: 92
@@ -51,48 +65,42 @@ Validated results:
 - Hard questions before migration: 59
 - Hard questions after migration: 45
 - difficulty recalibrations: 15
-- old average explanation length in the rendered review set: 20.4 words
+- old average explanation length: 20.4 words
 - new average explanation length: 102.7 words
-- real table renderer proof: passed
-- real caselet renderer proof: passed
-- friendly explanation renderer proof: passed
-- difficulty-calibration proof: passed
 
-The original CP-006 runtime proof and structural audit also pass unchanged.
+Chapter-wide representation, explanation and renderer gates cover:
 
-## Difficulty corrections
+- contiguous QL IDs;
+- registry placeholder equality;
+- real TABLE, CASELET, STATEMENT, ALGEBRAIC and DATA_SUFFICIENCY blocks;
+- friendly explanation depth and common-trap guidance;
+- valid rendered LaTeX without damaged escape sequences;
+- context diversity and generic-opening limits;
+- reasoning-based difficulty distribution;
+- representative table, caselet, algebraic and data-sufficiency rendering.
 
-The migration corrects inflated difficulty where the mathematical path is visible and direct. Examples include:
-
-- three visible forward transaction stages: Hard to Medium;
-- two-stage reverse multiplier recovery: Hard to Medium;
-- single commission reversal: Hard to Medium;
-- direct target-profit quantity: Hard to Medium;
-- break-even revenue/ratio direct inverses: Hard to Medium;
-- margin-of-safety amount: Medium to Easy.
-
-Hard remains reserved for coupled inverses, changing hidden bases, multi-ledger comparisons, weighted product mixes, algebraic reconstruction, caselet dependency and data sufficiency.
+The original CP-006 runtime proof and structural audit pass unchanged.
 
 ## Rendering policy
 
 - Ordinary prose retains readable forms such as `₹10,000`, `20%` and `500 units`.
 - Equations and final mathematical results use LaTeX blocks.
-- Legacy raw glyphs such as multiplication and division signs are normalized before student display.
-- TABLE, CASELET, STATEMENT, ALGEBRAIC and DATA_SUFFICIENCY labels must correspond to real structured blocks.
+- Legacy raw calculation glyphs are normalized before student display.
+- Representation labels must correspond to real structured blocks.
 
 ## Language status
 
-English is ready for human review.
+English is ready for human review across all 186 QLs.
 
-Hindi and Punjabi editorial-v2 authoring remains intentionally blocked until the English review is approved. Existing Hindi and Punjabi libraries remain structurally available but are not considered editorially frozen against the new English layer.
+Hindi and Punjabi Editorial V2 authoring remains intentionally blocked until the complete English layer is approved. Existing Hindi and Punjabi libraries remain structurally available but are not editorially frozen against the new English layer.
 
 ## Merge rule
 
 PR #173 must remain draft until:
 
-1. the English comparison workbook is reviewed;
+1. both English comparison workbooks are reviewed;
 2. requested corrections are applied;
-3. the English editorial layer is approved;
+3. the complete English Editorial V2 layer is approved;
 4. the subsequent Hindi and Punjabi migration plan is accepted.
 
 The PR must not be merged merely because automated checks pass.
