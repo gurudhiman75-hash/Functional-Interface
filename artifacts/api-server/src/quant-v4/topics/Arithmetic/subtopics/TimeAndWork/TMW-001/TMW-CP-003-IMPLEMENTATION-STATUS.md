@@ -2,7 +2,7 @@
 
 **Branch:** `feat/tmw-cp003`  
 **Base:** merged CP-002 chapter base `c91cb9494a55f6477a16a468c1806139f8b4175f`  
-**Maturity:** revised English runtime-proof candidate awaiting user confirmation  
+**Maturity:** corrected English runtime-proof candidate awaiting final user confirmation  
 **Publication:** disabled
 
 ## Implemented
@@ -16,6 +16,8 @@
 - exact rational arithmetic and valid-state-first deterministic generation;
 - canonical solver plus independent equation verification;
 - solve-mode-specific formula-led English explanations;
+- literal inline MathJax delimiters on every formula and worked step;
+- visible substitution values aligned with reduced ratios shown in stems;
 - misconception-labelled distractors with whole-output admissibility guards;
 - mathematical fingerprints;
 - structured 69-row review export;
@@ -23,7 +25,9 @@
 - focused 276-case structural and editorial audit;
 - dedicated GitHub Actions workflow.
 
-## Context correction
+## Review corrections
+
+### Context diversity
 
 User review accepted the mathematics, options and explanations but found the word and pattern “assignment” too repetitive.
 
@@ -42,11 +46,21 @@ The context layer now contains 12 coherent settings:
 11. field survey;
 12. electronics assembly order.
 
-The focused audit now requires:
+The focused audit requires at least 10 distinct job contexts, at least 10 actor types and zero occurrences of `assignment` in rendered CP-003 stems.
 
-- at least 10 distinct job contexts;
-- at least 10 distinct actor types;
-- zero occurrences of `assignment` in rendered CP-003 stems.
+### Formula rendering and substitution fidelity
+
+The second independent review confirmed all 69 answers but found:
+
+- missing literal `\\(...\\)` delimiters in the generated review output;
+- an equivalent but unreduced `9:6` substitution for a stem that stated `3:2` in `TMW-QL-054:0`.
+
+The runtime now:
+
+- preserves literal inline MathJax delimiters for every formula and worked step;
+- rejects unwrapped formula or step output;
+- reduces comparative work ratios before showing their substitution;
+- audits unwrapped math and visible-ratio mismatches with zero tolerance.
 
 ## Current solve contracts
 
@@ -78,15 +92,16 @@ These are discovered task contracts, not a quota.
 
 ## Latest validation evidence
 
-- exact runtime head: `e44a6bd867435a6b290a09a0e27eaad2745f7afa`;
-- documentation-only status head: `40c9aeefd6f00d437bbbc867fdec9050711b6d39`;
-- workflow run: `30193806374` — PASS;
-- evidence artifact: `8629457236`;
+- exact runtime head before documentation: `f4aa9a0e7a3c7cf8147aec83364b7d4a676963ee`;
+- workflow run: `30195007513` — PASS;
+- evidence artifact: `8629816946`;
 - runtime proof: 23 QLs × 50 seeds = 1,150 deterministic cases;
 - structural/editorial audit: 23 QLs × 12 seeds = 276 cases;
 - invalid packages: 0;
 - unresolved placeholders: 0;
 - malformed MathJax groups: 0;
+- unwrapped-math hits: 0;
+- visible-ratio mismatches: 0;
 - control-character hits: 0;
 - generic explanation hits: 0;
 - option-contract failures: 0;
@@ -116,4 +131,4 @@ runtime → Question Studio candidate → automated and human approval
 
 ## Current gate
 
-The revised 69-row context review must be accepted before CP-003 is merged into the isolated TMW chapter base.
+The corrected 69-row review pack must be accepted before CP-003 is merged into the isolated TMW chapter base.
