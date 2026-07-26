@@ -4,6 +4,7 @@ import {
   getAvg001Cp003LocalizedQlIds,
   runAvg001Cp003LocalizationPilot as runBasePilot,
 } from "./cp003-localization-review-runtime";
+import { applyAvg001Cp003RemovedMemberSupportFix } from "./cp003-removed-member-support-fix";
 import { applyAvg001LocalizedPresentationQuality } from "./localized-presentation-quality";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
@@ -15,7 +16,8 @@ export function runAvg001Cp003LocalizationPilot(input: {
   language: "hi" | "pa";
 }): Avg001QuestionPackage {
   const presented = applyAvg001LocalizedPresentationQuality(runBasePilot(input), input.language);
-  const examReady = applyAvg001Cp003ExamStrategy(presented);
+  const supportCorrected = applyAvg001Cp003RemovedMemberSupportFix(presented);
+  const examReady = applyAvg001Cp003ExamStrategy(supportCorrected);
   const checks: Avg001ValidationCheck[] = presented.validation.checks.filter(
     (check) => check.name !== "localized-exam-strategy",
   );
