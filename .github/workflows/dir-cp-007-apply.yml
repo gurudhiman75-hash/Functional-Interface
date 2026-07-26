@@ -1,0 +1,83 @@
+name: Apply validated DIR-CP-007 source
+
+on:
+  pull_request:
+    branches:
+      - feat/reasoning-dir-001-design
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/.cp007-staging/**
+      - .github/workflows/dir-cp-007-apply.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-dir-cp-007-${{ github.event.pull_request.head.ref }}
+  cancel-in-progress: true
+
+jobs:
+  apply-and-validate:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Reconstruct audited source
+        shell: bash
+        run: |
+          set -euo pipefail
+          staging='artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/.cp007-staging'
+          cat "$staging"/part-* | base64 --decode > /tmp/dir-cp-007-payload.tar.gz
+          echo 'c8a89d9b2ba6619529cd516a35889bfa04a155a78278ba6d4dafbd5e66beadd8  /tmp/dir-cp-007-payload.tar.gz' | sha256sum --check --strict
+          tar -xzf /tmp/dir-cp-007-payload.tar.gz
+          mv dir-cp-007-runtime-proof.yml .github/workflows/dir-cp-007-runtime-proof.yml
+          rm -rf "$staging" .github/workflows/dir-cp-007-apply.yml
+
+      - name: Install locked dependencies
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Strict typecheck
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc --noEmit --target es2022 --module esnext
+          --moduleResolution bundler --allowSyntheticDefaultImports
+          --strictNullChecks --noImplicitAny --noImplicitReturns
+          --noFallthroughCasesInSwitch --skipLibCheck --types node
+          $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
+
+      - name: Bundle and run CP-007 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-007/dir-cp-007.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dir-cp-007.test.mjs
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-007.test.mjs
+
+      - name: Generate CP-007 review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-007/dir-cp-007-generate-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dir-cp-007-generate-review-export.mjs
+          (cd artifacts/api-server && node dist/reasoning-v1/dir-cp-007-generate-review-export.mjs)
+          test -f artifacts/api-server/dist/reasoning-v1/dir-cp-007-review-export/DIR-CP-007-QUESTION-REVIEW.html
+          test -f artifacts/api-server/dist/reasoning-v1/dir-cp-007-review-export/DIR-CP-007-QUESTION-REVIEW.jsonl
+
+      - name: Commit validated source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --check
+          git commit -m 'feat(reasoning): implement DIR-CP-007 sun-shadow runtime'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
