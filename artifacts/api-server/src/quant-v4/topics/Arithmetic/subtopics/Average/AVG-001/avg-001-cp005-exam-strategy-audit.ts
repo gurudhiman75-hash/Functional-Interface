@@ -33,7 +33,8 @@ for (const entry of entries) {
 
     const englishLast = english.explanation.lines.at(-1) ?? "";
     fail(`${entry.qlId}:${index}:en:line-count`, english.explanation.lines.length === 4);
-    fail(`${entry.qlId}:${index}:en:shortcut-label`, englishLast.startsWith("Exam shortcut:"));
+    fail(`${entry.qlId}:${index}:en:contextual-conclusion`, /^(therefore|hence|so|thus)\b/i.test(englishLast));
+    fail(`${entry.qlId}:${index}:en:shortcut-label`, englishLast.includes("Exam shortcut:"));
     fail(`${entry.qlId}:${index}:en:trap-label`, englishLast.includes("Trap:"));
     fail(
       `${entry.qlId}:${index}:en:answer-evidence`,
@@ -59,7 +60,7 @@ for (const entry of entries) {
       const trapLabel = language === "hi" ? "सामान्य भूल:" : "ਆਮ ਗਲਤੀ:";
 
       fail(`${entry.qlId}:${index}:${language}:line-count`, localized.explanation.lines.length === 4);
-      fail(`${entry.qlId}:${index}:${language}:shortcut-label`, last.startsWith(shortcutLabel));
+      fail(`${entry.qlId}:${index}:${language}:shortcut-label`, last.includes(shortcutLabel));
       fail(`${entry.qlId}:${index}:${language}:trap-label`, last.includes(trapLabel));
       fail(
         `${entry.qlId}:${index}:${language}:answer-evidence`,
