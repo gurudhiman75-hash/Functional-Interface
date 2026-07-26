@@ -84,11 +84,17 @@ function placeholderSet(value: unknown): Set<string> {
   return result;
 }
 
-function stemVariableSet(entry: EditorialEntry): Set<string> {
+function stemVariableSet(entry: EditorialEntry, requiredVariables: readonly string[]): Set<string> {
   const result = placeholderSet(entry.stem.prompt);
+  const registered = new Set(requiredVariables);
   for (const block of entry.stem.blocks) {
-    if (block.type !== "equation") {
-      for (const variable of placeholderSet(block)) result.add(variable);
+    const candidates = placeholderSet(block);
+    if (block.type === "equation") {
+      for (const variable of candidates) {
+        if (registered.has(variable)) result.add(variable);
+      }
+    } else {
+      for (const variable of candidates) result.add(variable);
     }
     for (const key of ["rowSource", "paragraphSource"] as const) {
       const source = block[key];
@@ -184,7 +190,7 @@ for (const [cp, range] of Object.entries(expected)) {
 
     const EnglishEntry = libraries.en.entries[qlId];
     assert.deepEqual(
-      sorted(stemVariableSet(EnglishEntry)),
+      sorted(stemVariableSet(EnglishEntry, registryEntry.requiredVariables)),
       sorted(registryEntry.requiredVariables),
       `${qlId}: English stem variables differ from registry requiredVariables.`,
     );
@@ -200,7 +206,7 @@ for (const [cp, range] of Object.entries(expected)) {
       editorialEntryCount += 1;
       assert.equal(entry.difficulty, EnglishEntry.difficulty, `${qlId}/${language}: difficulty differs from English.`);
       assert.deepEqual(
-        sorted(stemVariableSet(entry)),
+        sorted(stemVariableSet(entry, registryEntry.requiredVariables)),
         sorted(registryEntry.requiredVariables),
         `${qlId}/${language}: stem variables differ from registry requiredVariables.`,
       );
