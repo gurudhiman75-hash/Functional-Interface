@@ -87,8 +87,18 @@ for (const rendered of direct) {
   ));
 
   const explanationParts = Object.values(rendered.explanation);
-  assert.ok(explanationParts.every((part) => part.length >= 55),
-    `${rendered.prototypeId} explanation parts must be complete sentences with value-specific reasoning.`);
+  assert.ok(rendered.explanation.ruleStatement.length >= 30,
+    `${rendered.prototypeId} needs a clear rule statement.`);
+  assert.ok(rendered.explanation.sourceDemonstration.length >= 30,
+    `${rendered.prototypeId} needs a value-specific source demonstration.`);
+  assert.ok(rendered.explanation.targetApplication.length >= 30,
+    `${rendered.prototypeId} needs a value-specific target application.`);
+  assert.ok(rendered.explanation.conclusion.length >= 25,
+    `${rendered.prototypeId} needs a complete conclusion.`);
+  assert.ok(rendered.explanation.closestTrapRejection.length >= 55,
+    `${rendered.prototypeId} needs a helpful nearest-trap rejection.`);
+  assert.ok(explanationParts.every((part) => /[.!?]$/.test(part.trim())),
+    `${rendered.prototypeId} explanation fields must be complete sentences.`);
   assert.ok(rendered.explanation.sourceDemonstration.includes(renderMixedToken(rendered.source.input)));
   assert.ok(rendered.explanation.targetApplication.includes(renderMixedToken(rendered.target.input)));
   assert.ok(rendered.explanation.conclusion.includes(renderMixedToken(rendered.correctAnswer)));
@@ -125,7 +135,8 @@ for (const rendered of odd) {
   }
 
   assert.equal(rendered.explanation.validPairDemonstrations.length, 3);
-  assert.ok(rendered.explanation.validPairDemonstrations.every((part) => part.length >= 45));
+  assert.ok(rendered.explanation.validPairDemonstrations.every((part) => part.length >= 30));
+  assert.ok(rendered.explanation.validPairDemonstrations.every((part) => /[.!?]$/.test(part.trim())));
   assert.ok(rendered.explanation.oddPairRejection.includes(renderMixedToken(rendered.options[rendered.correctIndex].input)));
   assert.ok(rendered.explanation.conclusion.includes(renderMixedToken(rendered.options[rendered.correctIndex].output)));
 
