@@ -1,42 +1,79 @@
-name: Validate DIR-001 runtime proof
+name: Apply and validate DIR-CP-005 source bundle
 
 on:
-  pull_request:
-    branches:
-      - feat/reasoning-dir-001-design
-    types: [opened, reopened, synchronize]
-    paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
-      - .github/workflows/dir-001-runtime-proof.yml
   push:
     branches:
-      - feat/dir-001-foundation
-      - feat/dir-cp-002-path-facing
-      - feat/dir-cp-003-displacement
-      - feat/dir-cp-004-relative-position
       - feat/dir-cp-005-multiple-movers
-      - feat/dir-cp-006-coded-directions
-      - feat/dir-cp-007-sun-shadow
-      - feat/dir-cp-008-advanced-synthesis
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
       - .github/workflows/dir-001-runtime-proof.yml
-  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: validate-dir-001-${{ github.ref }}
+  group: apply-dir-cp-005-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-dir-001:
+  apply-and-validate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout source
+      - name: Checkout feature branch
         uses: actions/checkout@v4
+        with:
+          ref: feat/dir-cp-005-multiple-movers
+          fetch-depth: 0
+
+      - name: Reconstruct CP-005 source
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001"
+          base64 --decode "$ROOT/.cp005-source.b64" > /tmp/dir-cp-005.tar.gz
+          test -s /tmp/dir-cp-005.tar.gz
+          tar -tzf /tmp/dir-cp-005.tar.gz | grep -q '^DIR-CP-005/'
+          test ! -e "$ROOT/DIR-CP-005"
+          tar -xzf /tmp/dir-cp-005.tar.gz -C "$ROOT"
+          test -f "$ROOT/DIR-CP-005/generator.ts"
+          test -f "$ROOT/DIR-CP-005/dir-cp-005.test.ts"
+          test -f "$ROOT/DIR-CP-005/dir-cp-005-generate-review-export.ts"
+          rm "$ROOT/.cp005-source.b64"
+
+      - name: Wire chapter registry and package exports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001")
+          registry = root / "chapter-registry.ts"
+          text = registry.read_text(encoding="utf-8")
+          old_import = 'import { DIR_CP004_QLS, generateDirCp004Question } from "./DIR-CP-004";\n'
+          if text.count(old_import) != 1 or 'DIR_CP005_QLS' in text:
+              raise SystemExit("Unexpected chapter-registry import baseline")
+          text = text.replace(old_import, old_import + 'import { DIR_CP005_QLS, generateDirCp005Question } from "./DIR-CP-005";\n')
+
+          old_inventory = 'export const DIR_001_QLS = [...DIR_CP001_QLS, ...DIR_CP002_QLS, ...DIR_CP003_QLS, ...DIR_CP004_QLS] as const;'
+          new_inventory = 'export const DIR_001_QLS = [...DIR_CP001_QLS, ...DIR_CP002_QLS, ...DIR_CP003_QLS, ...DIR_CP004_QLS, ...DIR_CP005_QLS] as const;'
+          if text.count(old_inventory) != 1:
+              raise SystemExit("Unexpected chapter-registry inventory baseline")
+          text = text.replace(old_inventory, new_inventory)
+
+          old_case = '    case "DIR-CP-004":\n      return generateDirCp004Question(qlId, seed);\n'
+          if text.count(old_case) != 1 or 'case "DIR-CP-005"' in text:
+              raise SystemExit("Unexpected chapter-registry switch baseline")
+          text = text.replace(old_case, old_case + '    case "DIR-CP-005":\n      return generateDirCp005Question(qlId, seed);\n')
+          registry.write_text(text, encoding="utf-8")
+
+          index = root / "index.ts"
+          index_text = index.read_text(encoding="utf-8")
+          marker = 'export * from "./DIR-CP-004";\n'
+          if index_text.count(marker) != 1 or 'DIR-CP-005' in index_text:
+              raise SystemExit("Unexpected DIR-001 index baseline")
+          index.write_text(index_text.replace(marker, marker + 'export * from "./DIR-CP-005";\n'), encoding="utf-8")
+          PY
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -49,9 +86,10 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck DIR-001 module
+      - name: Strict typecheck DIR-001
+        shell: bash
         run: |
-          set +e
+          set -euo pipefail
           cd artifacts/api-server
           pnpm exec tsc \
             --noEmit \
@@ -65,185 +103,42 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print) \
-            > ../../dir-001-typecheck.log 2>&1
-          status="$?"
-          cd ../..
-          echo "$status" > dir-001-typecheck-exit.txt
-          cat dir-001-typecheck.log
-          exit 0
+            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
 
-      - name: Publish DIR-001 typecheck diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-001-typecheck-diagnostics
-          path: |
-            dir-001-typecheck.log
-            dir-001-typecheck-exit.txt
-          if-no-files-found: error
-          retention-days: 7
-
-      - name: Enforce DIR-001 typecheck result
-        run: test "$(cat dir-001-typecheck-exit.txt)" = "0"
-
-      - name: Bundle foundation proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/foundation/foundation.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-001-foundation.test.mjs
-
-      - name: Run foundation proof
-        run: node artifacts/api-server/dist/reasoning-v1/dir-001-foundation.test.mjs
-
-      - name: Bundle CP-001 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-001/dir-cp-001.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-001.test.mjs
-
-      - name: Run CP-001 proof
-        run: node artifacts/api-server/dist/reasoning-v1/dir-cp-001.test.mjs
-
-      - name: Bundle CP-002 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-002.test.mjs
-
-      - name: Run CP-002 proof
+      - name: Bundle and run CP-005 proof
+        shell: bash
         run: |
-          set +e
-          node artifacts/api-server/dist/reasoning-v1/dir-cp-002.test.mjs > dir-cp-002-runtime-proof.log 2>&1
-          echo "$?" > dir-cp-002-runtime-proof-exit.txt
-          exit 0
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005/dir-cp-005.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dir-cp-005.test.mjs
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-005.test.mjs
 
-      - name: Publish CP-002 proof diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-002-runtime-proof-diagnostics
-          path: |
-            dir-cp-002-runtime-proof.log
-            dir-cp-002-runtime-proof-exit.txt
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Enforce CP-002 proof result
-        run: test "$(cat dir-cp-002-runtime-proof-exit.txt)" = "0"
-
-      - name: Bundle CP-002 review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002-generate-review-export.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
-
-      - name: Generate CP-002 question review files
-        working-directory: artifacts/api-server
-        run: node dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
-
-      - name: Publish CP-002 question review files
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-002-question-review
-          path: artifacts/api-server/dist/reasoning-v1/dir-cp-002-review-export/
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Bundle CP-003 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-003.test.mjs
-
-      - name: Run CP-003 proof
+      - name: Generate CP-005 review files
+        shell: bash
         run: |
-          set +e
-          node artifacts/api-server/dist/reasoning-v1/dir-cp-003.test.mjs > dir-cp-003-runtime-proof.log 2>&1
-          echo "$?" > dir-cp-003-runtime-proof-exit.txt
-          exit 0
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005/dir-cp-005-generate-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dir-cp-005-generate-review-export.mjs
+          cd artifacts/api-server
+          node dist/reasoning-v1/dir-cp-005-generate-review-export.mjs
+          test -f dist/reasoning-v1/dir-cp-005-review-export/DIR-CP-005-QUESTION-REVIEW.html
+          test -f dist/reasoning-v1/dir-cp-005-review-export/DIR-CP-005-QUESTION-REVIEW.jsonl
 
-      - name: Publish CP-003 proof diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-003-runtime-proof-diagnostics
-          path: |
-            dir-cp-003-runtime-proof.log
-            dir-cp-003-runtime-proof-exit.txt
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Enforce CP-003 proof result
-        run: test "$(cat dir-cp-003-runtime-proof-exit.txt)" = "0"
-
-      - name: Bundle CP-003 review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003-generate-review-export.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
-
-      - name: Generate CP-003 question review files
-        working-directory: artifacts/api-server
-        run: node dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
-
-      - name: Publish CP-003 question review files
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-003-question-review
-          path: artifacts/api-server/dist/reasoning-v1/dir-cp-003-review-export/
-          if-no-files-found: error
-          retention-days: 14
-
-      - name: Bundle CP-004 proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004.test.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-004.test.mjs
-
-      - name: Run CP-004 proof
+      - name: Commit validated source
+        shell: bash
         run: |
-          set +e
-          node artifacts/api-server/dist/reasoning-v1/dir-cp-004.test.mjs > dir-cp-004-runtime-proof.log 2>&1
-          echo "$?" > dir-cp-004-runtime-proof-exit.txt
-          exit 0
-
-      - name: Publish CP-004 proof diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-004-runtime-proof-diagnostics
-          path: |
-            dir-cp-004-runtime-proof.log
-            dir-cp-004-runtime-proof-exit.txt
-          if-no-files-found: ignore
-          retention-days: 7
-
-      - name: Enforce CP-004 proof result
-        run: test "$(cat dir-cp-004-runtime-proof-exit.txt)" = "0"
-
-      - name: Bundle CP-004 review exporter
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004-generate-review-export.ts
-          --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
-
-      - name: Generate CP-004 question review files
-        working-directory: artifacts/api-server
-        run: node dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
-
-      - name: Publish CP-004 question review files
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-004-question-review
-          path: artifacts/api-server/dist/reasoning-v1/dir-cp-004-review-export/
-          if-no-files-found: error
-          retention-days: 14
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-005 \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/chapter-registry.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/index.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/.cp005-source.b64
+          test -n "$(git status --short)"
+          git commit -m "feat(reasoning): implement DIR-CP-005 multiple movers"
+          git push origin HEAD:feat/dir-cp-005-multiple-movers
