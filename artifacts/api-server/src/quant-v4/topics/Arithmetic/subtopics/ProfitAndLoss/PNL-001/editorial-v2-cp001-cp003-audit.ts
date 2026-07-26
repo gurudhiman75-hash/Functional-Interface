@@ -29,6 +29,10 @@ function readCommittedEditorial(cp: string): EditorialLibraryFile {
   return JSON.parse(readFileSync(join(root, cp, "editorial-content.en.json"), "utf8")) as EditorialLibraryFile;
 }
 
+function canonical<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
 function addPlaceholders(text: string | undefined, output: Set<string>, required: Set<string>): void {
   if (!text) return;
   for (const match of text.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)) {
@@ -42,9 +46,7 @@ function stemVariables(blocks: readonly QuestionStemBlock[], prompt: string, req
   addPlaceholders(prompt, output, required);
   for (const block of blocks) {
     switch (block.type) {
-      case "paragraph":
-        addPlaceholders(block.content, output, required);
-        break;
+      case "paragraph": addPlaceholders(block.content, output, required); break;
       case "table":
         addPlaceholders(block.caption, output, required);
         block.columns.forEach((column) => addPlaceholders(column, output, required));
@@ -64,9 +66,7 @@ function stemVariables(blocks: readonly QuestionStemBlock[], prompt: string, req
         addPlaceholders(block.question, output, required);
         block.statements.forEach((statement) => addPlaceholders(statement, output, required));
         break;
-      case "equation":
-        addPlaceholders(block.latex, output, required);
-        break;
+      case "equation": addPlaceholders(block.latex, output, required); break;
     }
   }
   return [...output].sort();
@@ -118,7 +118,7 @@ for (const [index, meta] of packageMeta.entries()) {
   const committed = readCommittedEditorial(meta.cp);
   const expectedIds = Array.from({ length: meta.count }, (_, offset) => `PNL-QL-${String(meta.start + offset).padStart(3, "0")}`);
 
-  assert.deepEqual(committed, library, `${meta.cp}: committed Editorial V2 source must exactly match normalized generator output.`);
+  assert.deepEqual(committed, canonical(library), `${meta.cp}: committed Editorial V2 source must exactly match normalized generator output.`);
   assert.equal(library.entryCount, meta.count, `${meta.cp}: entry count mismatch.`);
   assert.deepEqual(Object.keys(library.entries), expectedIds, `${meta.cp}: generated IDs must be contiguous.`);
   assert.deepEqual(Object.keys(registry.entries), expectedIds, `${meta.cp}: registry IDs must match generated IDs.`);
