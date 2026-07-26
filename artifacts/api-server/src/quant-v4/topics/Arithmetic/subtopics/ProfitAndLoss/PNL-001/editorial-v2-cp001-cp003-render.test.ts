@@ -31,7 +31,7 @@ const noChange = renderStructuredStemMarkdown(cp001.entries["PNL-QL-035"].stem, 
   costPrice: "5,000",
   sellingPrice: "5,000",
 });
-assert.ok(noChange.includes("bought for ₹5,000 and sold for ₹5,000"));
+assert.ok(noChange.includes("buys a school-desk set for ₹5,000 and sells it for ₹5,000"));
 assert.ok(!noChange.includes("Additional given value"));
 
 const offerTable = cp002.entries["PNL-QL-065"];
