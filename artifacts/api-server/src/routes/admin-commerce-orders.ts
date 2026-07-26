@@ -17,17 +17,36 @@ router.get("/", requireAdminPermission("commerce.orders.read"), async (req, res)
       SELECT o.id::text AS id, o.order_number::text AS "orderNumber", o.status, o.currency,
         o.subtotal_minor::float8 AS "subtotalMinor", o.discount_minor::float8 AS "discountMinor", o.tax_minor::float8 AS "taxMinor", o.total_minor::float8 AS "totalMinor",
         o.created_at AS "createdAt", o.paid_at AS "paidAt", o.expires_at AS "expiresAt", u.id::text AS "userId", u.email, u.display_name AS "displayName",
-        COUNT(DISTINCT oi.id)::int AS "itemCount", COUNT(DISTINCT e.id)::int AS "entitlementCount",
-        MAX(pa.status) FILTER (WHERE pa.provider = 'razorpay') AS "paymentStatus",
-        MAX(pa.provider_order_id) FILTER (WHERE pa.provider = 'razorpay') AS "providerOrderId",
-        MAX(pa.provider_payment_id) FILTER (WHERE pa.provider = 'razorpay') AS "providerPaymentId",
-        COALESCE(SUM(DISTINCT r.amount_minor) FILTER (WHERE r.status = 'processed'),0)::float8 AS "refundedMinor"
-      FROM commerce.orders o JOIN identity.users u ON u.id = o.user_id
-      LEFT JOIN commerce.order_items oi ON oi.order_id = o.id LEFT JOIN commerce.entitlements e ON e.order_item_id = oi.id
-      LEFT JOIN commerce.payment_attempts pa ON pa.order_id = o.id LEFT JOIN commerce.refunds r ON r.payment_attempt_id = pa.id
+        COALESCE(item_totals."itemCount", 0)::int AS "itemCount",
+        COALESCE(item_totals."entitlementCount", 0)::int AS "entitlementCount",
+        payment.status AS "paymentStatus",
+        payment.provider_order_id AS "providerOrderId",
+        payment.provider_payment_id AS "providerPaymentId",
+        COALESCE(payment."refundedMinor", 0)::float8 AS "refundedMinor"
+      FROM commerce.orders o
+      JOIN identity.users u ON u.id = o.user_id
+      LEFT JOIN LATERAL (
+        SELECT COUNT(*)::int AS "itemCount", COUNT(e.id)::int AS "entitlementCount"
+        FROM commerce.order_items oi
+        LEFT JOIN commerce.entitlements e ON e.order_item_id = oi.id
+        WHERE oi.order_id = o.id
+      ) item_totals ON true
+      LEFT JOIN LATERAL (
+        SELECT pa.status, pa.provider_order_id, pa.provider_payment_id,
+          COALESCE((
+            SELECT SUM(r.amount_minor)
+            FROM commerce.refunds r
+            WHERE r.payment_attempt_id = pa.id AND r.status = 'processed'
+          ), 0)::float8 AS "refundedMinor"
+        FROM commerce.payment_attempts pa
+        WHERE pa.order_id = o.id AND pa.provider = 'razorpay'
+        ORDER BY pa.created_at DESC, pa.id DESC
+        LIMIT 1
+      ) payment ON true
       WHERE (${search} = '' OR lower(o.order_number::text) LIKE ${`%${search}%`} OR lower(u.email) LIKE ${`%${search}%`} OR lower(COALESCE(u.display_name,'')) LIKE ${`%${search}%`})
         AND (${status} = '' OR o.status = ${status})
-      GROUP BY o.id, u.id ORDER BY o.created_at DESC LIMIT 500
+      ORDER BY o.created_at DESC
+      LIMIT 500
     `;
     res.json({ orders: rows, generatedAt: new Date().toISOString() });
   } catch (error) { console.error("Unable to load commerce orders", error); res.status(500).json({ error: "Unable to load orders" }); }
