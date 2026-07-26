@@ -149,7 +149,7 @@ router.get("/attempts", authenticate, async (req, res) => {
         ON ai.user_id = a.user_id
        AND ai.provider = 'firebase'
       WHERE ai.provider_subject = ${req.user!.id}
-        AND a.status = 'evaluated'
+        AND a.status IN ('evaluated', 'practice_evaluated')
         AND a.result_snapshot IS NOT NULL
       ORDER BY a.submitted_at DESC NULLS LAST, a.created_at DESC
     `;
