@@ -53,6 +53,16 @@ const expected = {
   "CP-006": { start: 150, end: 186, count: 37 },
 } as const;
 
+const structuredVariableMigrations: Readonly<Record<string, Readonly<{
+  aggregate: string;
+  absorbed: readonly string[];
+}>>> = {
+  "PNL-QL-145": {
+    aggregate: "schemeTable",
+    absorbed: ["firstScheme", "secondScheme"],
+  },
+};
+
 const syntheticOpenings = {
   en: /^(?:During this\b|Consider this\b|Use the following information\b|The following commercial records\b|This .+? transaction is described below\b)/u,
   hi: /^(?:.+? से जुड़े एक व्यावहारिक प्रश्न|.+? के एक वास्तविक व्यावसायिक रिकॉर्ड|.+? की मूल्य-निर्धारण स्थिति नीचे|निम्न विवरण .+? से जुड़े एक लेन-देन|.+? के दिए गए आंकड़ों का उपयोग)/u,
@@ -100,6 +110,19 @@ function stemVariableSet(entry: EditorialEntry, requiredVariables: readonly stri
       const source = block[key];
       if (typeof source === "string" && /^[A-Za-z][A-Za-z0-9_]*$/.test(source)) result.add(source);
     }
+  }
+  return result;
+}
+
+function expectedStemVariableSet(
+  qlId: string,
+  requiredVariables: readonly string[],
+  actualVariables: ReadonlySet<string>,
+): Set<string> {
+  const result = new Set(requiredVariables);
+  const migration = structuredVariableMigrations[qlId];
+  if (migration && actualVariables.has(migration.aggregate)) {
+    for (const absorbed of migration.absorbed) result.delete(absorbed);
   }
   return result;
 }
@@ -189,10 +212,11 @@ for (const [cp, range] of Object.entries(expected)) {
     ownershipFingerprints.set(ownershipFingerprint, owners);
 
     const EnglishEntry = libraries.en.entries[qlId];
+    const EnglishVariables = stemVariableSet(EnglishEntry, registryEntry.requiredVariables);
     assert.deepEqual(
-      sorted(stemVariableSet(EnglishEntry, registryEntry.requiredVariables)),
-      sorted(registryEntry.requiredVariables),
-      `${qlId}: English stem variables differ from registry requiredVariables.`,
+      sorted(EnglishVariables),
+      sorted(expectedStemVariableSet(qlId, registryEntry.requiredVariables, EnglishVariables)),
+      `${qlId}: English stem variables differ from the registered or migrated contract.`,
     );
 
     const expectedSpecialTypes = specialBlockTypes(EnglishEntry);
@@ -205,10 +229,11 @@ for (const [cp, range] of Object.entries(expected)) {
       const entry = libraries[language].entries[qlId];
       editorialEntryCount += 1;
       assert.equal(entry.difficulty, EnglishEntry.difficulty, `${qlId}/${language}: difficulty differs from English.`);
+      const actualVariables = stemVariableSet(entry, registryEntry.requiredVariables);
       assert.deepEqual(
-        sorted(stemVariableSet(entry, registryEntry.requiredVariables)),
-        sorted(registryEntry.requiredVariables),
-        `${qlId}/${language}: stem variables differ from registry requiredVariables.`,
+        sorted(actualVariables),
+        sorted(expectedStemVariableSet(qlId, registryEntry.requiredVariables, actualVariables)),
+        `${qlId}/${language}: stem variables differ from the registered or migrated contract.`,
       );
       assert.deepEqual(
         specialBlockTypes(entry),
@@ -306,6 +331,7 @@ console.log(JSON.stringify({
   explanationStepCount,
   exactDuplicateStemGroups: duplicateStemGroups,
   crossCpOwnershipOverlaps: ownershipOverlaps,
+  structuredVariableMigrations,
   coverageCounts,
   cpMetrics,
 }, null, 2));
