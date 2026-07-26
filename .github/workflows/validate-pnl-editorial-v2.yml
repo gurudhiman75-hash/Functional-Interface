@@ -1,0 +1,53 @@
+name: Validate PNL Editorial V2
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-editorial-structured-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-editorial-v2.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-editorial-v2.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pnl-editorial-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run editorial migration audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs
+
+      - name: Bundle and run editorial renderer proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-render.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs
