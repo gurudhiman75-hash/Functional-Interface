@@ -1,28 +1,42 @@
-name: Apply DIR-CP-004 visible-guide layering fix
+name: Validate DIR-001 runtime proof
 
 on:
+  pull_request:
+    branches:
+      - feat/reasoning-dir-001-design
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
+      - .github/workflows/dir-001-runtime-proof.yml
   push:
     branches:
+      - feat/dir-001-foundation
+      - feat/dir-cp-002-path-facing
+      - feat/dir-cp-003-displacement
       - feat/dir-cp-004-relative-position
+      - feat/dir-cp-005-multiple-movers
+      - feat/dir-cp-006-coded-directions
+      - feat/dir-cp-007-sun-shadow
+      - feat/dir-cp-008-advanced-synthesis
     paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/**
       - .github/workflows/dir-001-runtime-proof.yml
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: apply-dir-cp-004-guide-layer-${{ github.ref }}
+  group: validate-dir-001-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  apply-and-validate:
+  validate-dir-001:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout feature branch
+      - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/dir-cp-004-relative-position
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -35,107 +49,9 @@ jobs:
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Put query guide between relation edges and labels
+      - name: Typecheck DIR-001 module
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-
-          root = Path("artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004")
-          diagram = root / "relative-position-diagram.ts"
-          text = diagram.read_text(encoding="utf-8")
-          pattern = re.compile(r'  const usedLabelRects: RectGeometry\[\] = \[\];\n  const relationLines = relations\.map\(\(relation, index\) => \{.*?\n  \}\)\.join\(""\);\n\n  const queryOverlay', re.S)
-          match = pattern.search(text)
-          if not match:
-              raise SystemExit("Could not locate the relation rendering block")
-          replacement = '''  const usedLabelRects: RectGeometry[] = [];
-          const relationParts = relations.map((relation, index) => {
-            const from = project(coordinates[relation.referenceEntity]);
-            const to = project(coordinates[relation.subjectEntity]);
-            const dx = to.x - from.x;
-            const dy = to.y - from.y;
-            const length = Math.hypot(dx, dy);
-            if (length <= 1e-9) throw new Error("A displayed relation may not have zero length");
-            const midX = (from.x + to.x) / 2;
-            const midY = (from.y + to.y) / 2;
-            const perpendicularX = -dy / length;
-            const perpendicularY = dx / length;
-            const side = index % 2 === 0 ? 1 : -1;
-            const perpendicularOffsets = [side * 28, -side * 28, side * 43, -side * 43, side * 58, -side * 58, 0];
-            const alongOffsets = [0, -24, 24, -42, 42];
-            const unitX = dx / length;
-            const unitY = dy / length;
-            const width = 46;
-            const height = 25;
-            let labelRect: RectGeometry | null = null;
-            for (const perpendicularOffset of perpendicularOffsets) {
-              for (const alongOffset of alongOffsets) {
-                const candidate = {
-                  x: midX + perpendicularX * perpendicularOffset + unitX * alongOffset - width / 2,
-                  y: midY + perpendicularY * perpendicularOffset + unitY * alongOffset - height / 2,
-                  width,
-                  height,
-                };
-                if (labelRectIsClear(candidate, projectedNodes, usedLabelRects)) {
-                  labelRect = candidate;
-                  break;
-                }
-              }
-              if (labelRect) break;
-            }
-            if (!labelRect) throw new Error(`Unable to place relation label for ${relation.referenceEntity} and ${relation.subjectEntity}`);
-            usedLabelRects.push(labelRect);
-            const labelX = labelRect.x + labelRect.width / 2;
-            const labelY = labelRect.y + labelRect.height / 2;
-            return {
-              edge: `<line data-role="relation-edge" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#64748b" stroke-width="2.5" marker-end="url(#relationArrow)"/>`,
-              label: `<g data-role="relation-distance"><rect x="${labelRect.x}" y="${labelRect.y}" width="${labelRect.width}" height="${labelRect.height}" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="${labelX}" y="${labelY + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">${relation.distance} m</text></g>`,
-            };
-          });
-          const relationEdges = relationParts.map(({ edge }) => edge).join("");
-          const relationLabels = relationParts.map(({ label }) => label).join("");
-
-          const queryOverlay'''
-          text = text[:match.start()] + replacement + text[match.end():]
-          old_order = '''    collinearGuide,
-              queryOverlay,
-              relationLines,
-              nodes,'''
-          new_order = '''    collinearGuide,
-              relationEdges,
-              queryOverlay,
-              relationLabels,
-              nodes,'''
-          if text.count(old_order) != 1:
-              raise SystemExit(f"Expected one SVG layer-order block, found {text.count(old_order)}")
-          text = text.replace(old_order, new_order, 1)
-          diagram.write_text(text, encoding="utf-8")
-
-          test = root / "dir-cp-004.test.ts"
-          t = test.read_text(encoding="utf-8")
-          replacements = [
-              (
-                  "assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"') < generated.explanation.diagram.svg.indexOf('data-role=\"relation-distance\"'), \"Relation guide must remain behind labels\");",
-                  "assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"relation-edge\"') < generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"'), \"Relation guide must remain visible above relation edges\");\n      assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"') < generated.explanation.diagram.svg.indexOf('data-role=\"relation-distance\"'), \"Relation guide must remain behind labels\");",
-              ),
-              (
-                  "assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"') < generated.explanation.diagram.svg.indexOf('data-role=\"relation-distance\"'), \"Query line must remain behind relation labels\");",
-                  "assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"relation-edge\"') < generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"'), \"Shortest-distance line must remain visible above relation edges\");\n      assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"') < generated.explanation.diagram.svg.indexOf('data-role=\"relation-distance\"'), \"Query line must remain behind relation labels\");",
-              ),
-              (
-                  "assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"') < generated.explanation.diagram.svg.indexOf('data-role=\"relation-distance\"'), \"Lookup guide must remain behind labels\");",
-                  "assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"relation-edge\"') < generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"'), \"Lookup guide must remain visible above relation edges\");\n      assert.ok(generated.explanation.diagram.svg.indexOf('data-role=\"query-relation-line\"') < generated.explanation.diagram.svg.indexOf('data-role=\"relation-distance\"'), \"Lookup guide must remain behind labels\");",
-              ),
-          ]
-          for old, new in replacements:
-              if t.count(old) != 1:
-                  raise SystemExit(f"Expected one test assertion match, found {t.count(old)}: {old[:80]}")
-              t = t.replace(old, new, 1)
-          test.write_text(t, encoding="utf-8")
-          PY
-
-      - name: Validate strict TypeScript
-        run: |
+          set +e
           cd artifacts/api-server
           pnpm exec tsc \
             --noEmit \
@@ -149,34 +65,185 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
+            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print) \
+            > ../../dir-001-typecheck.log 2>&1
+          status="$?"
+          cd ../..
+          echo "$status" > dir-001-typecheck-exit.txt
+          cat dir-001-typecheck.log
+          exit 0
 
-      - name: Run all DIR proofs and export CP-004 review
-        run: |
-          set -euo pipefail
-          API=artifacts/api-server
-          ROOT=src/reasoning-v1/topics/Direction-Sense/DIR-001
-          bundle_run() {
-            local source="$1"
-            local output="$2"
-            pnpm --dir "$API" exec esbuild "$source" --bundle --platform=node --format=esm --outfile="$output"
-            node "$API/$output"
-          }
-          bundle_run "$ROOT/foundation/foundation.test.ts" "dist/reasoning-v1/dir-001-foundation.test.mjs"
-          bundle_run "$ROOT/DIR-CP-001/dir-cp-001.test.ts" "dist/reasoning-v1/dir-cp-001.test.mjs"
-          bundle_run "$ROOT/DIR-CP-002/dir-cp-002.test.ts" "dist/reasoning-v1/dir-cp-002.test.mjs"
-          bundle_run "$ROOT/DIR-CP-003/dir-cp-003.test.ts" "dist/reasoning-v1/dir-cp-003.test.mjs"
-          bundle_run "$ROOT/DIR-CP-004/dir-cp-004.test.ts" "dist/reasoning-v1/dir-cp-004.test.mjs"
-          pnpm --dir "$API" exec esbuild "$ROOT/DIR-CP-004/dir-cp-004-generate-review-export.ts" --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
-          (cd "$API" && node dist/reasoning-v1/dir-cp-004-generate-review-export.mjs)
+      - name: Publish DIR-001 typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-001-typecheck-diagnostics
+          path: |
+            dir-001-typecheck.log
+            dir-001-typecheck-exit.txt
+          if-no-files-found: error
+          retention-days: 7
 
-      - name: Commit validated layering fix
+      - name: Enforce DIR-001 typecheck result
+        run: test "$(cat dir-001-typecheck-exit.txt)" = "0"
+
+      - name: Bundle foundation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/foundation/foundation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-001-foundation.test.mjs
+
+      - name: Run foundation proof
+        run: node artifacts/api-server/dist/reasoning-v1/dir-001-foundation.test.mjs
+
+      - name: Bundle CP-001 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-001/dir-cp-001.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-001.test.mjs
+
+      - name: Run CP-001 proof
+        run: node artifacts/api-server/dist/reasoning-v1/dir-cp-001.test.mjs
+
+      - name: Bundle CP-002 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-002.test.mjs
+
+      - name: Run CP-002 proof
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add \
-            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/relative-position-diagram.ts \
-            artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004.test.ts
-          git diff --cached --check
-          git commit -m "fix(reasoning): keep CP-004 query guides visibly layered"
-          git push origin HEAD:feat/dir-cp-004-relative-position
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-002.test.mjs > dir-cp-002-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-002-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish CP-002 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-002-runtime-proof-diagnostics
+          path: |
+            dir-cp-002-runtime-proof.log
+            dir-cp-002-runtime-proof-exit.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Enforce CP-002 proof result
+        run: test "$(cat dir-cp-002-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle CP-002 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002-generate-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
+
+      - name: Generate CP-002 question review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
+
+      - name: Publish CP-002 question review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-002-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-002-review-export/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Bundle CP-003 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-003.test.mjs
+
+      - name: Run CP-003 proof
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-003.test.mjs > dir-cp-003-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-003-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish CP-003 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-003-runtime-proof-diagnostics
+          path: |
+            dir-cp-003-runtime-proof.log
+            dir-cp-003-runtime-proof-exit.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Enforce CP-003 proof result
+        run: test "$(cat dir-cp-003-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle CP-003 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003-generate-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
+
+      - name: Generate CP-003 question review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
+
+      - name: Publish CP-003 question review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-003-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-003-review-export/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Bundle CP-004 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-004.test.mjs
+
+      - name: Run CP-004 proof
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-004.test.mjs > dir-cp-004-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-004-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish CP-004 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-004-runtime-proof-diagnostics
+          path: |
+            dir-cp-004-runtime-proof.log
+            dir-cp-004-runtime-proof-exit.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Enforce CP-004 proof result
+        run: test "$(cat dir-cp-004-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle CP-004 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004-generate-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
+
+      - name: Generate CP-004 question review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
+
+      - name: Publish CP-004 question review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-004-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-004-review-export/
+          if-no-files-found: error
+          retention-days: 14
