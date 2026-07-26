@@ -138,8 +138,13 @@
     "PNL-QL-041": {
       "stem": {
         "contextFamily": "pa:PNL-CP-002:41:ਛੂਟ ਮੁਹਿੰਮ",
-        "blocks": [],
-        "prompt": "ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦੇ ਬਰਾਬਰ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।"
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
+          }
+        ],
+        "prompt": "ਸਮਤੁੱਲ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਪਹਿਲਾਂ ਸਮਝੀਏ ਕਿ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਵਿਚਕਾਰ ਸੰਬੰਧ ਕੀ ਹੈ।",

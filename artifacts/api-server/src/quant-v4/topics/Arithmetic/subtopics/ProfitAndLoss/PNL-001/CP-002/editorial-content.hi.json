@@ -138,8 +138,13 @@
     "PNL-QL-041": {
       "stem": {
         "contextFamily": "hi:PNL-CP-002:41:छूट अभियान",
-        "blocks": [],
-        "prompt": "क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% की छूट के बराबर एकल छूट ज्ञात कीजिए।"
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% की छूट दी जाती है।"
+          }
+        ],
+        "prompt": "समतुल्य एकल छूट ज्ञात कीजिए।"
       },
       "explanation": {
         "opening": "पहले यह समझते हैं कि दिए गए आंकड़ों के बीच संबंध क्या है।",
