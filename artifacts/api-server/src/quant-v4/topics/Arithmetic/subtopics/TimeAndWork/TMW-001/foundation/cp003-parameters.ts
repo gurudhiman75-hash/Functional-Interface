@@ -4,11 +4,18 @@ import type { Rational } from "./types";
 import type { TmwCp003Context, TmwCp003Parameters, TmwCp003RegistryEntry } from "./cp003-types";
 
 const contexts: readonly TmwCp003Context[] = [
-  { agentNoun: "operator", jobPhrase: "a data-processing assignment", outputNoun: "records", outputVerb: "process" },
-  { agentNoun: "technician", jobPhrase: "a maintenance assignment", outputNoun: "components", outputVerb: "repair" },
-  { agentNoun: "clerk", jobPhrase: "a document-verification assignment", outputNoun: "applications", outputVerb: "verify" },
+  { agentNoun: "operator", jobPhrase: "a batch of customer records", outputNoun: "records", outputVerb: "process" },
+  { agentNoun: "technician", jobPhrase: "an equipment overhaul", outputNoun: "components", outputVerb: "repair" },
+  { agentNoun: "clerk", jobPhrase: "a set of loan applications", outputNoun: "applications", outputVerb: "verify" },
   { agentNoun: "machine", jobPhrase: "a printing order", outputNoun: "booklets", outputVerb: "print" },
-  { agentNoun: "crew", jobPhrase: "a road-marking assignment", outputNoun: "metres", outputVerb: "mark" },
+  { agentNoun: "crew", jobPhrase: "a road-marking project", outputNoun: "metres", outputVerb: "mark" },
+  { agentNoun: "packer", jobPhrase: "a packaging order", outputNoun: "cartons", outputVerb: "pack" },
+  { agentNoun: "inspector", jobPhrase: "a quality-inspection batch", outputNoun: "units", outputVerb: "inspect" },
+  { agentNoun: "typist", jobPhrase: "the typing of a manuscript", outputNoun: "pages", outputVerb: "type" },
+  { agentNoun: "painter", jobPhrase: "a school-building painting project", outputNoun: "rooms", outputVerb: "paint" },
+  { agentNoun: "worker", jobPhrase: "a warehouse inventory count", outputNoun: "items", outputVerb: "count" },
+  { agentNoun: "surveyor", jobPhrase: "a field survey", outputNoun: "forms", outputVerb: "complete" },
+  { agentNoun: "assembler", jobPhrase: "an electronics assembly order", outputNoun: "devices", outputVerb: "assemble" },
 ];
 
 const ratioStates = [
