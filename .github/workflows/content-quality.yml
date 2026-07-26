@@ -1,0 +1,44 @@
+name: Validate Content Quality
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-content-quality.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/ContentQualityPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-content-quality.mjs
+      - .github/workflows/content-quality.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-content-quality.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/analytics/ContentQualityPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/scripts/validate-content-quality.mjs
+      - .github/workflows/content-quality.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: node .github/scripts/validate-content-quality.mjs
+      - run: pnpm --dir artifacts/api-server build
+      - run: pnpm run typecheck:admin
+      - run: pnpm run test:admin
+      - run: pnpm run build:admin
