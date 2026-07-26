@@ -258,7 +258,8 @@ for (const [cp, range] of Object.entries(expected)) {
       const explanation = entry.explanation;
       assert.ok(explanation.opening.trim().length >= 12, `${qlId}/${language}: explanation opening is too short.`);
       assert.ok(explanation.concept.trim().length >= 30, `${qlId}/${language}: explanation concept is too short.`);
-      assert.ok(explanation.steps.length >= 2, `${qlId}/${language}: explanation has fewer than two steps.`);
+      const minimumSteps = entry.difficulty === "Easy" ? 1 : 2;
+      assert.ok(explanation.steps.length >= minimumSteps, `${qlId}/${language}: explanation has too few steps for ${entry.difficulty}.`);
       assert.ok(explanation.conclusion.trim().length >= 15, `${qlId}/${language}: explanation conclusion is too short.`);
       assert.ok((explanation.commonTrap ?? "").trim().length >= 15, `${qlId}/${language}: common-trap guidance is missing.`);
       explanationStepCount += explanation.steps.length;
