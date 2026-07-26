@@ -29,7 +29,7 @@ concurrency:
 jobs:
   pilot-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -58,5 +58,7 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/ops-foundation.test.ts
       - name: Stress 12 representative candidate pilots
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/representative-pilots.test.ts
+      - name: Stress 12 supplementary CP001-CP005 pilots
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/supplementary-pilots.test.ts
       - name: Prove Hindi and Punjabi answer parity
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/localization.test.ts
