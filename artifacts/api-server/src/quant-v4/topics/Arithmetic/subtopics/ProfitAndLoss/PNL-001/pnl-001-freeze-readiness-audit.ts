@@ -84,6 +84,17 @@ function placeholderSet(value: unknown): Set<string> {
   return result;
 }
 
+function stemVariableSet(entry: EditorialEntry): Set<string> {
+  const result = placeholderSet(entry.stem);
+  for (const block of entry.stem.blocks) {
+    for (const key of ["rowSource", "paragraphSource"] as const) {
+      const source = block[key];
+      if (typeof source === "string" && /^[A-Za-z][A-Za-z0-9_]*$/.test(source)) result.add(source);
+    }
+  }
+  return result;
+}
+
 function sorted(values: Iterable<string>): string[] {
   return [...values].sort();
 }
@@ -169,11 +180,10 @@ for (const [cp, range] of Object.entries(expected)) {
     ownershipFingerprints.set(ownershipFingerprint, owners);
 
     const EnglishEntry = libraries.en.entries[qlId];
-    const EnglishPlaceholders = placeholderSet(EnglishEntry.stem);
     assert.deepEqual(
-      sorted(EnglishPlaceholders),
+      sorted(stemVariableSet(EnglishEntry)),
       sorted(registryEntry.requiredVariables),
-      `${qlId}: English stem placeholders differ from registry requiredVariables.`,
+      `${qlId}: English stem variables differ from registry requiredVariables.`,
     );
 
     const expectedSpecialTypes = specialBlockTypes(EnglishEntry);
@@ -187,9 +197,9 @@ for (const [cp, range] of Object.entries(expected)) {
       editorialEntryCount += 1;
       assert.equal(entry.difficulty, EnglishEntry.difficulty, `${qlId}/${language}: difficulty differs from English.`);
       assert.deepEqual(
-        sorted(placeholderSet(entry.stem)),
+        sorted(stemVariableSet(entry)),
         sorted(registryEntry.requiredVariables),
-        `${qlId}/${language}: stem placeholders differ from registry requiredVariables.`,
+        `${qlId}/${language}: stem variables differ from registry requiredVariables.`,
       );
       assert.deepEqual(
         specialBlockTypes(entry),
