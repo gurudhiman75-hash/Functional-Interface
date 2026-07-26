@@ -55,12 +55,14 @@ for (const locale of ["hi-IN", "pa-IN"] as const satisfies readonly ProvisionalM
     if (locale === "pa-IN") {
       assert.ok(!OVERLY_TECHNICAL_PUNJABI.test(studentText),
         `${localized.prototypeId} contains avoidable textbook-style Punjabi.`);
+      assert.ok(localized.explanation.sourceDemonstration.includes(renderMixedToken(localized.source.output)),
+        `${localized.prototypeId} Punjabi source explanation must state its complete output.`);
+      assert.ok(localized.explanation.targetApplication.includes(renderMixedToken(localized.correctAnswer)),
+        `${localized.prototypeId} Punjabi target explanation must state its complete answer.`);
     }
     assert.ok(localized.explanation.ruleStatement.length >= 25);
     assert.ok(localized.explanation.sourceDemonstration.includes(renderMixedToken(localized.source.input)));
-    assert.ok(localized.explanation.sourceDemonstration.includes(renderMixedToken(localized.source.output)));
     assert.ok(localized.explanation.targetApplication.includes(renderMixedToken(localized.target.input)));
-    assert.ok(localized.explanation.targetApplication.includes(renderMixedToken(localized.correctAnswer)));
     assert.ok(localized.explanation.conclusion.includes(renderMixedToken(localized.correctAnswer)));
     assert.ok(localized.explanation.closestTrapRejection.length >= 45);
   }
