@@ -48,7 +48,10 @@ function finalizePackage(pkg: Avg001QuestionPackage) {
       ? applyAvg001RatioDistractorRealism(pkg)
       : applyAvg001DistractorRealism(pkg);
   }
-  return applyAvg001EnglishRelease(finalized);
+  const released = applyAvg001EnglishRelease(finalized);
+  return released.canonicalProblemId === "AVG-CP-005"
+    ? applyAvg001Cp005ExamStrategy(released)
+    : released;
 }
 
 export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {
@@ -76,11 +79,9 @@ export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: s
   }
   if (entry.cpId === "AVG-CP-005") {
     return finalizePackage(
-      applyAvg001Cp005ExamStrategy(
-        applyAvg001Cp005ExplanationPolish(
-          applyAvg001Cp005ExplanationVariants(
-            runAvg001Cp005Pipeline({ questionLanguageId, seed, language }),
-          ),
+      applyAvg001Cp005ExplanationPolish(
+        applyAvg001Cp005ExplanationVariants(
+          runAvg001Cp005Pipeline({ questionLanguageId, seed, language }),
         ),
       ),
     );
