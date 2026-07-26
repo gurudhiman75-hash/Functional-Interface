@@ -85,8 +85,11 @@ function placeholderSet(value: unknown): Set<string> {
 }
 
 function stemVariableSet(entry: EditorialEntry): Set<string> {
-  const result = placeholderSet(entry.stem);
+  const result = placeholderSet(entry.stem.prompt);
   for (const block of entry.stem.blocks) {
+    if (block.type !== "equation") {
+      for (const variable of placeholderSet(block)) result.add(variable);
+    }
     for (const key of ["rowSource", "paragraphSource"] as const) {
       const source = block[key];
       if (typeof source === "string" && /^[A-Za-z][A-Za-z0-9_]*$/.test(source)) result.add(source);
