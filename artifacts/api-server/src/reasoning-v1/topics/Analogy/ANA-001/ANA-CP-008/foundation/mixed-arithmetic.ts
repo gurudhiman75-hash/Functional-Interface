@@ -7,6 +7,7 @@ import {
 export type PositionAggregate = "SUM" | "PRODUCT";
 export type WholeNumberOperation = "ADD" | "SUBTRACT";
 export type NumericPowerTransform = "CUBE" | "PERFECT_SQUARE_TO_CUBE";
+export type NumericRootTransform = "SQUARE_MINUS_ONE_ROOT" | "CUBE_MINUS_ONE_ROOT";
 
 const withinPilotBounds = (value: number): boolean =>
   Number.isSafeInteger(value) && Math.abs(value) <= 9999;
@@ -44,7 +45,7 @@ export function applyWholeNumberOperation(
   amount: number,
 ): number | null {
   if (!withinPilotBounds(input)) return null;
-  if (!Number.isSafeInteger(amount) || amount < 1 || amount > 100) return null;
+  if (!Number.isSafeInteger(amount) || amount < 1 || amount > 1000) return null;
   const output = operation === "ADD" ? input + amount : input - amount;
   return withinPilotBounds(output) ? output : null;
 }
@@ -76,6 +77,27 @@ export function applyNumericPowerTransform(
   if (!Number.isInteger(root)) return null;
   const output = input * root;
   return withinPilotBounds(output) ? output : null;
+}
+
+export function applyNumericRootTransform(
+  input: number,
+  transform: NumericRootTransform,
+): number | null {
+  if (!Number.isSafeInteger(input) || input < 0 || input > 9999) return null;
+  const adjusted = input + 1;
+  if (!withinPilotBounds(adjusted) || adjusted < 1) return null;
+
+  if (transform === "SQUARE_MINUS_ONE_ROOT") {
+    const root = Math.sqrt(adjusted);
+    return Number.isInteger(root) && root * root === adjusted && withinPilotBounds(root)
+      ? root
+      : null;
+  }
+
+  const approximateRoot = Math.round(Math.cbrt(adjusted));
+  return approximateRoot ** 3 === adjusted && withinPilotBounds(approximateRoot)
+    ? approximateRoot
+    : null;
 }
 
 export function applyLetterShift(letter: string, shift: number): string | null {

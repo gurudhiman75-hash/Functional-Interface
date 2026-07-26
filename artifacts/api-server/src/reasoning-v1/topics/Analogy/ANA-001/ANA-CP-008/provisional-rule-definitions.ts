@@ -5,11 +5,13 @@ import {
   applyLetterShift,
   applyLetterShiftVector,
   applyNumericPowerTransform,
+  applyNumericRootTransform,
   applyUniformLetterGroupShift,
   applyWholeNumberOperation,
   ordinaryLetterPositionPower,
   squaredDigitSumLetter,
   type NumericPowerTransform,
+  type NumericRootTransform,
   type PositionAggregate,
   type WholeNumberOperation,
 } from "./foundation/mixed-arithmetic";
@@ -17,6 +19,7 @@ import {
   clusterNumberToken,
   letterNumberToken,
   letterToken,
+  numberClusterToken,
   numberLetterToken,
   numberToken,
   type MixedResult,
@@ -32,6 +35,9 @@ export type ProvisionalMixedRuleId =
   | "MIXED_CLUSTER_NUMBER_INDEPENDENT_VECTOR"
   | "MIXED_CLUSTER_NUMBER_VECTOR_MULTIPLIER"
   | "MIXED_CLUSTER_NUMBER_VECTOR_POWER"
+  | "MIXED_CLUSTER_NUMBER_VECTOR_ROOT"
+  | "MIXED_NUMBER_CLUSTER_VECTOR_MULTIPLIER"
+  | "MIXED_NUMBER_CLUSTER_VECTOR_ROOT"
   | "MIXED_NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR";
 
 export type ProvisionalMixedContext =
@@ -61,6 +67,22 @@ export type ProvisionalMixedContext =
       letterShifts: readonly [number, number];
       transform: NumericPowerTransform;
     }
+  | {
+      kind: "CLUSTER_NUMBER_VECTOR_ROOT";
+      letterShifts: readonly [number, number];
+      transform: "CUBE_MINUS_ONE_ROOT";
+    }
+  | {
+      kind: "NUMBER_CLUSTER_VECTOR_MULTIPLIER";
+      letterShifts: readonly [number, number];
+      numerator: number;
+      denominator: number;
+    }
+  | {
+      kind: "NUMBER_CLUSTER_VECTOR_ROOT";
+      letterShifts: readonly [number, number];
+      transform: "SQUARE_MINUS_ONE_ROOT";
+    }
   | { kind: "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR"; numberStep: 1 };
 
 export interface ProvisionalMixedRuleDefinition {
@@ -74,7 +96,7 @@ export interface ProvisionalMixedRuleDefinition {
 }
 
 function applySignedNumberDelta(input: number, delta: number): number | null {
-  if (!Number.isSafeInteger(delta) || delta === 0 || Math.abs(delta) > 100) return null;
+  if (!Number.isSafeInteger(delta) || delta === 0 || Math.abs(delta) > 1000) return null;
   return delta > 0
     ? applyWholeNumberOperation(input, "ADD", delta)
     : applyWholeNumberOperation(input, "SUBTRACT", Math.abs(delta));
@@ -125,6 +147,9 @@ const INDEPENDENT_VECTOR_CONTEXTS: readonly ProvisionalMixedContext[] = [
   { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-5, -2], numberDelta: -17 },
   { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [3, -4], numberDelta: -21 },
   { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-2, -2], numberDelta: 2 },
+  { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-1, -2], numberDelta: 294 },
+  { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [5, 5], numberDelta: -311 },
+  { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-1, 1], numberDelta: 450 },
 ];
 
 const MULTIPLIER_CONTEXTS: readonly ProvisionalMixedContext[] = [
@@ -140,6 +165,12 @@ const MULTIPLIER_CONTEXTS: readonly ProvisionalMixedContext[] = [
     numerator: 5,
     denominator: 2,
   },
+  {
+    kind: "CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+    letterShifts: [2, 5],
+    numerator: 3,
+    denominator: 2,
+  },
 ];
 
 const POWER_CONTEXTS: readonly ProvisionalMixedContext[] = [
@@ -152,6 +183,31 @@ const POWER_CONTEXTS: readonly ProvisionalMixedContext[] = [
     kind: "CLUSTER_NUMBER_VECTOR_POWER",
     letterShifts: [3, -3],
     transform: "PERFECT_SQUARE_TO_CUBE",
+  },
+];
+
+const CLUSTER_ROOT_CONTEXTS: readonly ProvisionalMixedContext[] = [
+  {
+    kind: "CLUSTER_NUMBER_VECTOR_ROOT",
+    letterShifts: [-2, -5],
+    transform: "CUBE_MINUS_ONE_ROOT",
+  },
+];
+
+const NUMBER_CLUSTER_MULTIPLIER_CONTEXTS: readonly ProvisionalMixedContext[] = [
+  {
+    kind: "NUMBER_CLUSTER_VECTOR_MULTIPLIER",
+    letterShifts: [1, 3],
+    numerator: 2,
+    denominator: 1,
+  },
+];
+
+const NUMBER_CLUSTER_ROOT_CONTEXTS: readonly ProvisionalMixedContext[] = [
+  {
+    kind: "NUMBER_CLUSTER_VECTOR_ROOT",
+    letterShifts: [3, 6],
+    transform: "SQUARE_MINUS_ONE_ROOT",
   },
 ];
 
@@ -171,9 +227,8 @@ export const ANA_CP008_PROVISIONAL_RULES: readonly ProvisionalMixedRuleDefinitio
         context.kind === "LETTER_GROUP_SCALAR" && input.letters[0] !== input.letters[1];
     },
     apply(input, context) {
-      if (!this.accepts(input, context) || input.kind !== "LETTER_GROUP" || context.kind !== "LETTER_GROUP_SCALAR") {
-        return null;
-      }
+      if (!this.accepts(input, context) || input.kind !== "LETTER_GROUP" ||
+          context.kind !== "LETTER_GROUP_SCALAR") return null;
       return numberToken(aggregateOrdinaryPositions(input.letters, context.aggregate));
     },
   },
@@ -184,16 +239,14 @@ export const ANA_CP008_PROVISIONAL_RULES: readonly ProvisionalMixedRuleDefinitio
     outputKind: "LETTER",
     contexts: DERIVED_LETTER_CONTEXTS,
     accepts(input, context) {
-      if (input.kind !== "LETTER_GROUP" || input.letters.length !== 2 || context.kind !== "LETTER_GROUP_TO_LETTER") {
-        return false;
-      }
+      if (input.kind !== "LETTER_GROUP" || input.letters.length !== 2 ||
+          context.kind !== "LETTER_GROUP_TO_LETTER") return false;
       const output = aggregateToLetterWithoutWrap(input.letters, context.aggregate);
       return output !== null && !input.letters.includes(output);
     },
     apply(input, context) {
-      if (!this.accepts(input, context) || input.kind !== "LETTER_GROUP" || context.kind !== "LETTER_GROUP_TO_LETTER") {
-        return null;
-      }
+      if (!this.accepts(input, context) || input.kind !== "LETTER_GROUP" ||
+          context.kind !== "LETTER_GROUP_TO_LETTER") return null;
       const output = aggregateToLetterWithoutWrap(input.letters, context.aggregate);
       return output ? letterToken(output) : null;
     },
@@ -314,6 +367,66 @@ export const ANA_CP008_PROVISIONAL_RULES: readonly ProvisionalMixedRuleDefinitio
     },
   },
   {
+    id: "MIXED_CLUSTER_NUMBER_VECTOR_ROOT",
+    priority: 3,
+    inputKind: "CLUSTER_NUMBER",
+    outputKind: "CLUSTER_NUMBER",
+    contexts: CLUSTER_ROOT_CONTEXTS,
+    accepts(input, context) {
+      return input.kind === "CLUSTER_NUMBER" && input.letters.length === 2 &&
+        context.kind === "CLUSTER_NUMBER_VECTOR_ROOT" &&
+        applyLetterShiftVector(input.letters, context.letterShifts) !== null &&
+        applyNumericRootTransform(input.number, context.transform) !== null;
+    },
+    apply(input, context) {
+      if (!this.accepts(input, context) || input.kind !== "CLUSTER_NUMBER" ||
+          context.kind !== "CLUSTER_NUMBER_VECTOR_ROOT") return null;
+      const letters = applyLetterShiftVector(input.letters, context.letterShifts);
+      const number = applyNumericRootTransform(input.number, context.transform);
+      return letters !== null && number !== null ? clusterNumberToken(letters, number) : null;
+    },
+  },
+  {
+    id: "MIXED_NUMBER_CLUSTER_VECTOR_MULTIPLIER",
+    priority: 3,
+    inputKind: "NUMBER_CLUSTER",
+    outputKind: "NUMBER_CLUSTER",
+    contexts: NUMBER_CLUSTER_MULTIPLIER_CONTEXTS,
+    accepts(input, context) {
+      return input.kind === "NUMBER_CLUSTER" && input.letters.length === 2 && input.number !== 0 &&
+        context.kind === "NUMBER_CLUSTER_VECTOR_MULTIPLIER" &&
+        applyLetterShiftVector(input.letters, context.letterShifts) !== null &&
+        applyExactRationalMultiplier(input.number, context.numerator, context.denominator) !== null;
+    },
+    apply(input, context) {
+      if (!this.accepts(input, context) || input.kind !== "NUMBER_CLUSTER" ||
+          context.kind !== "NUMBER_CLUSTER_VECTOR_MULTIPLIER") return null;
+      const letters = applyLetterShiftVector(input.letters, context.letterShifts);
+      const number = applyExactRationalMultiplier(input.number, context.numerator, context.denominator);
+      return letters !== null && number !== null ? numberClusterToken(number, letters) : null;
+    },
+  },
+  {
+    id: "MIXED_NUMBER_CLUSTER_VECTOR_ROOT",
+    priority: 3,
+    inputKind: "NUMBER_CLUSTER",
+    outputKind: "NUMBER_CLUSTER",
+    contexts: NUMBER_CLUSTER_ROOT_CONTEXTS,
+    accepts(input, context) {
+      return input.kind === "NUMBER_CLUSTER" && input.letters.length === 2 &&
+        context.kind === "NUMBER_CLUSTER_VECTOR_ROOT" &&
+        applyLetterShiftVector(input.letters, context.letterShifts) !== null &&
+        applyNumericRootTransform(input.number, context.transform) !== null;
+    },
+    apply(input, context) {
+      if (!this.accepts(input, context) || input.kind !== "NUMBER_CLUSTER" ||
+          context.kind !== "NUMBER_CLUSTER_VECTOR_ROOT") return null;
+      const letters = applyLetterShiftVector(input.letters, context.letterShifts);
+      const number = applyNumericRootTransform(input.number, context.transform);
+      return letters !== null && number !== null ? numberClusterToken(number, letters) : null;
+    },
+  },
+  {
     id: "MIXED_NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR",
     priority: 3,
     inputKind: "NUMBER_LETTER",
@@ -362,6 +475,12 @@ export function provisionalMixedContextKey(context: ProvisionalMixedContext): st
       return `CLUSTER_MULTIPLIER:${context.letterShifts.join(",")}:${context.numerator}/${context.denominator}`;
     case "CLUSTER_NUMBER_VECTOR_POWER":
       return `CLUSTER_POWER:${context.letterShifts.join(",")}:${context.transform}`;
+    case "CLUSTER_NUMBER_VECTOR_ROOT":
+      return `CLUSTER_ROOT:${context.letterShifts.join(",")}:${context.transform}`;
+    case "NUMBER_CLUSTER_VECTOR_MULTIPLIER":
+      return `NUMBER_CLUSTER_MULTIPLIER:${context.letterShifts.join(",")}:${context.numerator}/${context.denominator}`;
+    case "NUMBER_CLUSTER_VECTOR_ROOT":
+      return `NUMBER_CLUSTER_ROOT:${context.letterShifts.join(",")}:${context.transform}`;
     case "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR":
       return `NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR:${context.numberStep}`;
   }

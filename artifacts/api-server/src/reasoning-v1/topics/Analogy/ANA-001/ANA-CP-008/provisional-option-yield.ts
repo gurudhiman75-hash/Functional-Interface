@@ -10,6 +10,7 @@ import {
   letterNumberToken,
   letterToken,
   mixedTokenKey,
+  numberClusterToken,
   numberLetterToken,
   numberToken,
   sameMixedToken,
@@ -35,7 +36,18 @@ interface AcceptedPair {
 }
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const bounded = (value: number) => Number.isSafeInteger(value) && Math.abs(value) <= 9999;
+const bounded = (value: number): boolean =>
+  Number.isSafeInteger(value) && Math.abs(value) <= 9999;
+
+function twoLetterSamples(): readonly string[] {
+  const samples: string[] = [];
+  for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
+    for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
+      samples.push(ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length]);
+    }
+  }
+  return samples;
+}
 
 function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToken[] {
   const inputs: MixedToken[] = [];
@@ -54,13 +66,18 @@ function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToke
       }
     }
   } else if (rule.inputKind === "CLUSTER_NUMBER") {
-    for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
-      for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
-        const letters = ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length];
-        for (let number = -25; number <= 100; number += 1) {
-          inputs.push(clusterNumberToken(letters, number));
-        }
+    for (const letters of twoLetterSamples()) {
+      for (let number = -25; number <= 100; number += 1) {
+        inputs.push(clusterNumberToken(letters, number));
       }
+    }
+  } else if (rule.inputKind === "NUMBER_CLUSTER") {
+    const numbers = new Set<number>();
+    for (let number = 1; number <= 200; number += 1) numbers.add(number);
+    for (let root = 2; root <= 60; root += 1) numbers.add(root * root - 1);
+    for (const number of [78, 108, 120, 288, 332, 440]) numbers.add(number);
+    for (const letters of twoLetterSamples()) {
+      for (const number of numbers) inputs.push(numberClusterToken(number, letters));
     }
   } else if (rule.inputKind === "NUMBER_LETTER") {
     for (let number = 10; number <= 999 && inputs.length < 300; number += 1) {
@@ -99,7 +116,8 @@ function findAcceptedPair(
   return null;
 }
 
-const sameResultKind = (left: MixedResult, right: MixedResult): boolean => left.kind === right.kind;
+const sameResultKind = (left: MixedResult, right: MixedResult): boolean =>
+  left.kind === right.kind;
 
 function genericCandidates(correct: MixedResult): readonly MixedResult[] {
   switch (correct.kind) {
@@ -115,19 +133,35 @@ function genericCandidates(correct: MixedResult): readonly MixedResult[] {
       return [
         letterNumberToken(shiftLetter(correct.letter, 1), correct.number),
         letterNumberToken(shiftLetter(correct.letter, -1), correct.number),
-        letterNumberToken(correct.letter, correct.number + 1),
-        letterNumberToken(correct.letter, correct.number - 1),
-        letterNumberToken(shiftLetter(correct.letter, 1), correct.number + 1),
-        letterNumberToken(shiftLetter(correct.letter, -1), correct.number - 1),
+        ...(bounded(correct.number + 1)
+          ? [letterNumberToken(correct.letter, correct.number + 1)]
+          : []),
+        ...(bounded(correct.number - 1)
+          ? [letterNumberToken(correct.letter, correct.number - 1)]
+          : []),
+        ...(bounded(correct.number + 1)
+          ? [letterNumberToken(shiftLetter(correct.letter, 1), correct.number + 1)]
+          : []),
+        ...(bounded(correct.number - 1)
+          ? [letterNumberToken(shiftLetter(correct.letter, -1), correct.number - 1)]
+          : []),
       ];
     case "NUMBER_LETTER":
       return [
-        numberLetterToken(correct.number + 1, correct.letter),
-        numberLetterToken(correct.number - 1, correct.letter),
+        ...(bounded(correct.number + 1)
+          ? [numberLetterToken(correct.number + 1, correct.letter)]
+          : []),
+        ...(bounded(correct.number - 1)
+          ? [numberLetterToken(correct.number - 1, correct.letter)]
+          : []),
         numberLetterToken(correct.number, shiftLetter(correct.letter, 1)),
         numberLetterToken(correct.number, shiftLetter(correct.letter, -1)),
-        numberLetterToken(correct.number + 1, shiftLetter(correct.letter, 1)),
-        numberLetterToken(correct.number - 1, shiftLetter(correct.letter, -1)),
+        ...(bounded(correct.number + 1)
+          ? [numberLetterToken(correct.number + 1, shiftLetter(correct.letter, 1))]
+          : []),
+        ...(bounded(correct.number - 1)
+          ? [numberLetterToken(correct.number - 1, shiftLetter(correct.letter, -1))]
+          : []),
       ];
     case "CLUSTER_NUMBER": {
       const plus = applyUniformLetterGroupShift(correct.letters, 1);
@@ -135,13 +169,37 @@ function genericCandidates(correct: MixedResult): readonly MixedResult[] {
       return [
         ...(plus ? [clusterNumberToken(plus, correct.number)] : []),
         ...(minus ? [clusterNumberToken(minus, correct.number)] : []),
-        ...(bounded(correct.number + 1) ? [clusterNumberToken(correct.letters, correct.number + 1)] : []),
-        ...(bounded(correct.number - 1) ? [clusterNumberToken(correct.letters, correct.number - 1)] : []),
+        ...(bounded(correct.number + 1)
+          ? [clusterNumberToken(correct.letters, correct.number + 1)]
+          : []),
+        ...(bounded(correct.number - 1)
+          ? [clusterNumberToken(correct.letters, correct.number - 1)]
+          : []),
         ...(plus && bounded(correct.number + 1)
           ? [clusterNumberToken(plus, correct.number + 1)]
           : []),
         ...(minus && bounded(correct.number - 1)
           ? [clusterNumberToken(minus, correct.number - 1)]
+          : []),
+      ];
+    }
+    case "NUMBER_CLUSTER": {
+      const plus = applyUniformLetterGroupShift(correct.letters, 1);
+      const minus = applyUniformLetterGroupShift(correct.letters, -1);
+      return [
+        ...(plus ? [numberClusterToken(correct.number, plus)] : []),
+        ...(minus ? [numberClusterToken(correct.number, minus)] : []),
+        ...(bounded(correct.number + 1)
+          ? [numberClusterToken(correct.number + 1, correct.letters)]
+          : []),
+        ...(bounded(correct.number - 1)
+          ? [numberClusterToken(correct.number - 1, correct.letters)]
+          : []),
+        ...(plus && bounded(correct.number + 1)
+          ? [numberClusterToken(correct.number + 1, plus)]
+          : []),
+        ...(minus && bounded(correct.number - 1)
+          ? [numberClusterToken(correct.number - 1, minus)]
           : []),
       ];
     }
@@ -223,7 +281,7 @@ for (const rule of ANA_CP008_PROVISIONAL_RULES) {
   }
 }
 
-assert.equal(summaries.length, 74);
+assert.equal(summaries.length, 81);
 
 console.log("ANA-CP-008 provisional option-yield audit passed.", {
   contexts: summaries.length,
