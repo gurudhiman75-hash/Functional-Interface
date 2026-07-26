@@ -1,7 +1,9 @@
-import type { CodDifficulty, GeneratedOption } from "../foundation/types";
+import type { GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
 import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { auditAlphabetTransformRule } from "./ambiguity-checker";
 import { buildCodCp003Distractors } from "./distractors";
@@ -43,15 +45,6 @@ function chooseWords(logic: CodCp003QuestionLogic, context: CodCp003RuleContext,
   }
   if (evidence.length < logic.exampleCount[0] || seenLetters.size < 2) return null;
   return { target, evidence };
-}
-
-function deriveDifficulty(logic: CodCp003QuestionLogic): CodDifficulty {
-  if (
-    logic.contextMode === "SIGNED" &&
-    ["DECODE_TARGET", "INFER_AND_ENCODE", "CHOOSE_MATCHING_CODE"].includes(logic.taskKind)
-  ) return "HARD";
-  if (["DECODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_LETTER", "CHOOSE_MATCHING_CODE"].includes(logic.taskKind)) return "MEDIUM";
-  return "EASY";
 }
 
 function buildStem(prompt: AlphabetTransformPrompt, style: number): string {
@@ -131,6 +124,19 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
   );
   if (logic.requireWrap && !wrapUsed) return null;
   const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-003",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: chosen.target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp003Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    { checkpointId: "COD-CP-003", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -139,14 +145,14 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp003Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    explanation,
     metadata: {
       runtimeVersion: "cod-001-cp003-v2",
       publiclyPublishable: false,
