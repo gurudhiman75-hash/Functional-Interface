@@ -16,12 +16,12 @@ function sentence(
   conclusion: string,
 ) {
   if (language === "hi") {
-    return `परीक्षा शॉर्टकट: ${shortcut}। सामान्य भूल: ${trap}। ${conclusion}`;
+    return `${conclusion} परीक्षा शॉर्टकट: ${shortcut}। सामान्य भूल: ${trap}।`;
   }
   if (language === "pa") {
-    return `ਇਮਤਿਹਾਨੀ ਛੋਟਾ ਤਰੀਕਾ: ${shortcut}। ਆਮ ਗਲਤੀ: ${trap}। ${conclusion}`;
+    return `${conclusion} ਇਮਤਿਹਾਨੀ ਛੋਟਾ ਤਰੀਕਾ: ${shortcut}। ਆਮ ਗਲਤੀ: ${trap}।`;
   }
-  return `Exam shortcut: ${shortcut}. Trap: ${trap}. ${conclusion}`;
+  return `${conclusion} Exam shortcut: ${shortcut}. Trap: ${trap}.`;
 }
 
 function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
