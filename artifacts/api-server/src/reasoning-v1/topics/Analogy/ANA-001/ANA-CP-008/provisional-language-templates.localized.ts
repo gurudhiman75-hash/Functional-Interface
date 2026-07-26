@@ -90,11 +90,11 @@ function localizedRuleStatement(
     ],
     PROTO_INDEPENDENT_LETTER_NUMBER_DELTA: [
       "अक्षर और पूरी संख्या पर दो अलग-अलग निश्चित परिवर्तन लगते हैं।",
-      "ਅੱਖਰ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੱਖ-ਵੱਖ ਤੈਅ ਬਦਲਾਅ ਕੀਤੇ ਜਾਂਦੇ ਹਨ।",
+      "ਅੱਖਰ ਨੂੰ ਤੈਅ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੱਖਰਾ ਤੈਅ ਜੋੜ ਜਾਂ ਘਟਾਅ ਕਰਦੇ ਹਾਂ।",
     ],
     PROTO_SHARED_CLUSTER_NUMBER_DELTA: [
       "दोनों अक्षरों और पूरी संख्या पर एक ही चिन्हित परिवर्तन लगाया जाता है।",
-      "ਦੋਵੇਂ ਅੱਖਰਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਇੱਕੋ ਜਿਹਾ ਬਦਲਾਅ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
+      "ਦੋਵੇਂ ਅੱਖਰਾਂ ਨੂੰ ਇੱਕੋ ਜਿੰਨੀਆਂ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੀ ਉਤਨਾ ਹੀ ਜੋੜਦੇ ਜਾਂ ਘਟਾਉਂਦੇ ਹਾਂ।",
     ],
     PROTO_INDEPENDENT_CLUSTER_VECTOR_DELTA: [
       "दोनों अक्षर-स्थानों की चाल अलग है और संख्या की चाल भी अलग निश्चित है।",
@@ -102,11 +102,11 @@ function localizedRuleStatement(
     ],
     PROTO_EXACT_MULTIPLIER_CLUSTER_FIRST: [
       "दोनों अक्षरों पर निश्चित चाल लगाकर संख्या को दिए गए सही गुणक से गुणा करते हैं।",
-      "ਦੋਵੇਂ ਅੱਖਰਾਂ ਨੂੰ ਤੈਅ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਕੇ ਗਿਣਤੀ ਨੂੰ ਲੋੜੀਂਦੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ।",
+      "ਅੱਖਰਾਂ ਨੂੰ ਪਹਿਲੇ ਜੋੜੇ ਵਾਂਗ ਹੀ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਨੂੰ ਵੀ ਪਹਿਲੇ ਜੋੜੇ ਵਾਲੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ।",
     ],
     PROTO_EXACT_MULTIPLIER_NUMBER_FIRST: [
       "पहले लिखी संख्या को सही गुणक से गुणा करते हैं, अक्षरों को बदलते हैं और संख्या-पहले क्रम बनाए रखते हैं।",
-      "ਪਹਿਲਾਂ ਦਿੱਤੀ ਗਿਣਤੀ ਨੂੰ ਲੋੜੀਂਦੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ, ਫਿਰ ਅੱਖਰ ਬਦਲਦੇ ਹਾਂ ਅਤੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖਦੇ ਹਾਂ।",
+      "ਪਹਿਲਾਂ ਗਿਣਤੀ ਨੂੰ ਪਹਿਲੇ ਜੋੜੇ ਵਾਲੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ, ਫਿਰ ਅੱਖਰ ਬਦਲਦੇ ਹਾਂ ਅਤੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖਦੇ ਹਾਂ।",
     ],
     PROTO_DIRECT_CUBE_CLUSTER_FIRST: [
       "अक्षरों पर निश्चित चाल लगाकर दी गई संख्या का सीधे घन करते हैं।",
@@ -168,11 +168,11 @@ function localizedTrap(
     ],
     PROTO_EXACT_MULTIPLIER_CLUSTER_FIRST: [
       "गुणक को संख्या में जोड़ना गलत है; संख्या का सही और पूर्ण गुणा करना आवश्यक है।",
-      "ਗੁਣਾ ਕਰਨ ਵਾਲੀ ਗਿਣਤੀ ਨੂੰ ਜੋੜਨਾ ਗਲਤ ਹੈ; ਦਿੱਤੀ ਗਿਣਤੀ ਦਾ ਪੂਰਾ ਗੁਣਾ ਕਰਨਾ ਹੈ।",
+      "ਗੁਣਾ ਕਰਨ ਦੀ ਥਾਂ ਉਹੀ ਗਿਣਤੀ ਜੋੜ ਦੇਣਾ ਗਲਤ ਹੈ; ਦਿੱਤੀ ਗਿਣਤੀ ਦਾ ਪੂਰਾ ਗੁਣਾ ਕਰਨਾ ਹੈ।",
     ],
     PROTO_EXACT_MULTIPLIER_NUMBER_FIRST: [
       "सही भागों को उल्टे क्रम में लिखना भी गलत है; उत्तर में संख्या पहले ही रहनी चाहिए।",
-      "ਸਹੀ ਹਿੱਸਿਆਂ ਨੂੰ ਉਲਟ ਕ੍ਰਮ ਵਿੱਚ ਲਿਖਣਾ ਵੀ ਗਲਤ ਹੈ; ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਹੀ ਰਹਿਣੀ ਚਾਹੀਦੀ ਹੈ।",
+      "ਗਿਣਤੀ ਅਤੇ ਅੱਖਰ ਸਹੀ ਕੱਢ ਕੇ ਵੀ ਉਨ੍ਹਾਂ ਨੂੰ ਉਲਟ ਲਿਖਣਾ ਗਲਤ ਹੈ; ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਰਹਿਣੀ ਚਾਹੀਦੀ ਹੈ।",
     ],
     PROTO_DIRECT_CUBE_CLUSTER_FIRST: [
       "संख्या का वर्ग करना या उसे तीन से गुणा करना घन करने के समान नहीं है।",
@@ -199,8 +199,8 @@ function localizedTrap(
 }
 
 function punjabiShiftTrace(letter: string, output: string, shift: number): string {
-  if (shift > 0) return `${letter} ਤੋਂ ${shift} ਥਾਂ ਅੱਗੇ ਜਾਣ 'ਤੇ ${output}`;
-  if (shift < 0) return `${letter} ਤੋਂ ${Math.abs(shift)} ਥਾਂ ਪਿੱਛੇ ਜਾਣ 'ਤੇ ${output}`;
+  if (shift > 0) return `${letter} ਤੋਂ ${shift} ਥਾਂ ਅੱਗੇ ${output} ਆਉਂਦਾ ਹੈ`;
+  if (shift < 0) return `${letter} ਤੋਂ ${Math.abs(shift)} ਥਾਂ ਪਿੱਛੇ ${output} ਆਉਂਦਾ ਹੈ`;
   return `${letter} ਨਹੀਂ ਬਦਲਦਾ`;
 }
 
@@ -214,7 +214,7 @@ function positionTrace(
     .map((letter, index) => hi(locale)
       ? `${letter} को ${signed(shifts[index])} बदलने पर ${output[index]}`
       : punjabiShiftTrace(letter, output[index], shifts[index]))
-    .join(hi(locale) ? ", और " : ", ਅਤੇ ");
+    .join(hi(locale) ? ", और " : " ਅਤੇ ");
 }
 
 function localizedDemonstration(
@@ -259,19 +259,19 @@ function localizedDemonstration(
       const sign = context.numberOperation === "ADD" ? "+" : "−";
       return hindi
         ? `${renderMixedToken(input)} में ${input.letter}${signed(context.letterShift)}=${output.letter}, जबकि ${input.number} ${sign} ${context.numberAmount} = ${output.number}; इसलिए ${renderMixedToken(output)} मिलता है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ਅੱਖਰ ਬਦਲਣ ਨਾਲ ${input.letter}${signed(context.letterShift)}=${output.letter} ਅਤੇ ਗਿਣਤੀ ਬਦਲਣ ਨਾਲ ${input.number} ${sign} ${context.numberAmount} = ${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${punjabiShiftTrace(input.letter, output.letter, context.letterShift)}; ਗਿਣਤੀ ਵਿੱਚ ${input.number} ${sign} ${context.numberAmount} = ${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_SHARED_DELTA": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized shared-delta mismatch.");
       return hindi
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, [context.delta, context.delta], locale)}, और ${input.number}${signed(context.delta)}=${output.number}; परिणाम ${renderMixedToken(output)} है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, [context.delta, context.delta], locale)} ਅਤੇ ${input.number}${signed(context.delta)}=${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, [context.delta, context.delta], locale)}; ਗਿਣਤੀ ਵਿੱਚ ${input.number}${signed(context.delta)}=${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_INDEPENDENT_VECTOR": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized vector-delta mismatch.");
       return hi(locale)
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}, और संख्या ${input.number}${signed(context.numberDelta)}=${output.number}; इसलिए ${renderMixedToken(output)} मिलता है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)} ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ${input.number}${signed(context.numberDelta)}=${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਗਿਣਤੀ ਵਿੱਚ ${input.number}${signed(context.numberDelta)}=${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_VECTOR_MULTIPLIER": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized cluster multiplier mismatch.");
@@ -280,7 +280,7 @@ function localizedDemonstration(
         : `${input.number} × ${context.numerator} ÷ ${context.denominator} = ${output.number}`;
       return hindi
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}, और ${arithmetic}; परिणाम ${renderMixedToken(output)} है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)} ਅਤੇ ${arithmetic}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਗਿਣਤੀ ਲਈ ${arithmetic}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "NUMBER_CLUSTER_VECTOR_MULTIPLIER": {
       if (input.kind !== "NUMBER_CLUSTER" || output.kind !== "NUMBER_CLUSTER") throw new Error("Localized number-first multiplier mismatch.");
@@ -289,7 +289,7 @@ function localizedDemonstration(
         : `${input.number} × ${context.numerator} ÷ ${context.denominator} = ${output.number}`;
       return hindi
         ? `${renderMixedToken(input)} में ${arithmetic}, और ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; संख्या-पहले क्रम में परिणाम ${renderMixedToken(output)} है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${arithmetic} ਅਤੇ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਇਸ ਲਈ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖ ਕੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ਗਿਣਤੀ ਲਈ ${arithmetic}; ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖ ਕੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_VECTOR_POWER": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized power mismatch.");
@@ -298,19 +298,19 @@ function localizedDemonstration(
         : `${input.number}=${Math.sqrt(input.number)}² और ${Math.sqrt(input.number)}³=${output.number}`;
       return hindi
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}, और ${numeric}; परिणाम ${renderMixedToken(output)} है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)} ਅਤੇ ${numeric.replace(" और ", " ਅਤੇ ")}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਗਿਣਤੀ ਲਈ ${numeric.replace(" और ", " ਅਤੇ ")}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_VECTOR_ROOT": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized cube-root mismatch.");
       return hindi
         ? `${renderMixedToken(input)} में ${input.number}+1=${input.number + 1}=${output.number}³, इसलिए सही घनमूल ${output.number}; साथ में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number}+1=${input.number + 1}=${output.number}³, ਇਸ ਲਈ ਘਣਮੂਲ ${output.number} ਹੈ; ਅੱਖਰਾਂ ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number}+1=${input.number + 1}=${output.number}³, ਇਸ ਲਈ ਘਣਮੂਲ ${output.number} ਹੈ। ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "NUMBER_CLUSTER_VECTOR_ROOT": {
       if (input.kind !== "NUMBER_CLUSTER" || output.kind !== "NUMBER_CLUSTER") throw new Error("Localized square-root mismatch.");
       return hindi
         ? `${renderMixedToken(input)} में ${input.number}+1=${input.number + 1}=${output.number}², इसलिए सही वर्गमूल ${output.number}; ${positionTrace(input.letters, output.letters, context.letterShifts, locale)} और संख्या-पहले क्रम में ${renderMixedToken(output)}।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number}+1=${input.number + 1}=${output.number}², ਇਸ ਲਈ ਵਰਗਮੂਲ ${output.number} ਹੈ; ${positionTrace(input.letters, output.letters, context.letterShifts, locale)} ਅਤੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖ ਕੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number}+1=${input.number + 1}=${output.number}², ਇਸ ਲਈ ਵਰਗਮੂਲ ${output.number} ਹੈ। ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖ ਕੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR": {
       if (input.kind !== "NUMBER_LETTER" || output.kind !== "NUMBER_LETTER") throw new Error("Localized digit-square mismatch.");
@@ -318,7 +318,7 @@ function localizedDemonstration(
       const secondSum = digitSum(output.number);
       return hindi
         ? `${renderMixedToken(input)} में ${input.number} के अंकों का योग ${firstSum} और ${firstSum}²=${firstSum * firstSum}, इसलिए अक्षर ${input.letter}; संख्या ${output.number} होने पर योग ${secondSum} और ${secondSum}²=${secondSum * secondSum}, इसलिए ${output.letter}।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number} ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${firstSum} ਹੈ ਅਤੇ ${firstSum}²=${firstSum * firstSum}, ਇਸ ਲਈ ਅੱਖਰ ${input.letter} ਹੈ; ਗਿਣਤੀ ${output.number} ਹੋਣ 'ਤੇ ਜੋੜ ${secondSum} ਹੈ ਅਤੇ ${secondSum}²=${secondSum * secondSum}, ਇਸ ਲਈ ${output.letter}।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number} ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${firstSum} ਹੈ ਅਤੇ ${firstSum}²=${firstSum * firstSum}, ਇਸ ਲਈ ਅੱਖਰ ${input.letter} ਹੈ। ਗਿਣਤੀ ਇੱਕ ਵਧਾ ਕੇ ${output.number} ਕਰਨ 'ਤੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${secondSum} ਹੈ ਅਤੇ ${secondSum}²=${secondSum * secondSum}, ਇਸ ਲਈ ਅੱਖਰ ${output.letter} ਹੈ ਅਤੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
   }
 }
@@ -336,7 +336,7 @@ function directStem(
   ];
   const paStems = [
     `ਦੋਵੇਂ ਜੋੜਿਆਂ ਲਈ ਇੱਕੋ ਨਿਯਮ ਵਰਤ ਕੇ ਸਹੀ ਜਵਾਬ ਚੁਣੋ: ${sourceText} :: ${targetText}`,
-    `ਖਾਲੀ ਥਾਂ ਲਈ ਉਹ ਜਵਾਬ ਲੱਭੋ ਜਿਸ ਨਾਲ ਦੋਵੇਂ ਜੋੜਿਆਂ ਵਿੱਚ ਇੱਕੋ ਸੰਬੰਧ ਬਣੇ: ${sourceText} :: ${targetText}`,
+    `ਖਾਲੀ ਥਾਂ ਲਈ ਉਹ ਜਵਾਬ ਲੱਭੋ ਜਿਸ ਨਾਲ ਦੋਵੇਂ ਜੋੜਿਆਂ ਉੱਤੇ ਇੱਕੋ ਨਿਯਮ ਲਾਗੂ ਹੋਵੇ: ${sourceText} :: ${targetText}`,
     `ਪ੍ਰਸ਼ਨ-ਚਿੰਨ੍ਹ ਦੀ ਥਾਂ ਆਉਣ ਵਾਲਾ ਸਹੀ ਜਵਾਬ ਚੁਣੋ: ${sourceText} :: ${targetText}`,
   ];
   return (hi(locale) ? hiStems : paStems)[index % 3];
@@ -350,10 +350,30 @@ function oddStem(locale: ProvisionalMixedLocale, index: number): string {
   ];
   const paStems = [
     "ਹੇਠਾਂ ਦਿੱਤੇ ਤਿੰਨ ਜੋੜੇ ਇੱਕੋ ਨਿਯਮ ਨਾਲ ਬਣੇ ਹਨ। ਬਾਕੀਆਂ ਤੋਂ ਵੱਖਰਾ ਜੋੜਾ ਚੁਣੋ।",
-    "ਉਹ ਜੋੜਾ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਅੱਖਰ ਅਤੇ ਗਿਣਤੀ ਦਾ ਸੰਬੰਧ ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰਾ ਹੈ।",
+    "ਉਹ ਜੋੜਾ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਅੱਖਰ ਅਤੇ ਗਿਣਤੀ ਨੂੰ ਬਦਲਣ ਦਾ ਨਿਯਮ ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰਾ ਹੈ।",
     "ਤਿੰਨ ਵਿਕਲਪ ਇੱਕੋ ਨਿਯਮ ਨਾਲ ਬਣੇ ਹਨ। ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜਿਸ ਉੱਤੇ ਇਹ ਨਿਯਮ ਨਹੀਂ ਲੱਗਦਾ।",
   ];
   return (hi(locale) ? hiStems : paStems)[index % 3];
+}
+
+function directConclusion(answer: string, locale: ProvisionalMixedLocale, index: number): string {
+  if (hi(locale)) return `अतः ${answer} सादृश्य को पूरा करता है।`;
+  const variants = [
+    `ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ ${answer} ਹੈ।`,
+    `ਇਸੇ ਨਿਯਮ ਅਨੁਸਾਰ ਖਾਲੀ ਥਾਂ ਵਿੱਚ ${answer} ਆਵੇਗਾ।`,
+    `ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਦੂਜੇ ਜੋੜੇ ਲਈ ${answer} ਸਹੀ ਬਣਦਾ ਹੈ।`,
+  ];
+  return variants[index % variants.length];
+}
+
+function oddConclusion(input: string, output: string, locale: ProvisionalMixedLocale, index: number): string {
+  if (hi(locale)) return `अतः ${input} : ${output} वह युग्म है जो सामान्य नियम का पालन नहीं करता।`;
+  const variants = [
+    `ਇਸ ਲਈ ${input} : ${output} ਬਾਕੀ ਜੋੜਿਆਂ ਵਾਲੇ ਨਿਯਮ ਨਾਲ ਨਹੀਂ ਬਣਦਾ।`,
+    `ਅਤੇ ਇਸ ਕਰਕੇ ${input} : ${output} ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰਾ ਜੋੜਾ ਹੈ।`,
+    `ਇਸ ਲਈ ਚੁਣਿਆ ਜਾਣ ਵਾਲਾ ਵੱਖਰਾ ਜੋੜਾ ${input} : ${output} ਹੈ।`,
+  ];
+  return variants[index % variants.length];
 }
 
 export function renderLocalizedDirectPrototype(
@@ -364,6 +384,7 @@ export function renderLocalizedDirectPrototype(
   const index = ANA_CP008_ENGLISH_PROTOTYPES.findIndex((entry) => entry.prototypeId === prototypeId);
   const sourceText = `${renderMixedToken(english.source.input)} : ${renderMixedToken(english.source.output)}`;
   const targetText = `${renderMixedToken(english.target.input)} : ?`;
+  const answerText = renderMixedToken(english.correctAnswer);
   return {
     prototypeId,
     locale,
@@ -376,9 +397,7 @@ export function renderLocalizedDirectPrototype(
       ruleStatement: localizedRuleStatement(prototypeId, locale),
       sourceDemonstration: localizedDemonstration(prototypeId, english.source, locale),
       targetApplication: localizedDemonstration(prototypeId, english.target, locale),
-      conclusion: hi(locale)
-        ? `अतः ${renderMixedToken(english.correctAnswer)} सादृश्य को पूरा करता है।`
-        : `ਇਸ ਲਈ ${renderMixedToken(english.correctAnswer)} ਸਹੀ ਜਵਾਬ ਹੈ ਅਤੇ ਦੋਵੇਂ ਜੋੜਿਆਂ ਵਿੱਚ ਇੱਕੋ ਸੰਬੰਧ ਬਣਦਾ ਹੈ।`,
+      conclusion: directConclusion(answerText, locale, index),
       closestTrapRejection: localizedTrap(prototypeId, locale),
     },
     metadata: {
@@ -411,6 +430,8 @@ export function renderLocalizedOddPairPrototype(
     if (!output) throw new Error(`Cannot calculate localized odd-pair expectation for ${prototypeId}`);
     return output;
   })();
+  const oddInputText = renderMixedToken(odd.input);
+  const oddOutputText = renderMixedToken(odd.output);
 
   return {
     prototypeId,
@@ -423,11 +444,9 @@ export function renderLocalizedOddPairPrototype(
       commonRule: localizedRuleStatement(prototypeId, locale),
       validPairDemonstrations,
       oddPairRejection: hi(locale)
-        ? `${renderMixedToken(odd.input)} पर यही नियम लगाने से ${renderMixedToken(intendedOutput)} मिलना चाहिए, ${renderMixedToken(odd.output)} नहीं।`
-        : `${renderMixedToken(odd.input)} ਉੱਤੇ ਇਹੋ ਨਿਯਮ ਲਗਾਉਣ ਨਾਲ ${renderMixedToken(intendedOutput)} ਮਿਲਣਾ ਚਾਹੀਦਾ ਹੈ, ${renderMixedToken(odd.output)} ਨਹੀਂ।`,
-      conclusion: hi(locale)
-        ? `अतः ${renderMixedToken(odd.input)} : ${renderMixedToken(odd.output)} वह युग्म है जो सामान्य नियम का पालन नहीं करता।`
-        : `ਇਸ ਲਈ ${renderMixedToken(odd.input)} : ${renderMixedToken(odd.output)} ਬਾਕੀ ਜੋੜਿਆਂ ਵਾਲੇ ਨਿਯਮ ਨਾਲ ਨਹੀਂ ਬਣਦਾ।`,
+        ? `${oddInputText} पर यही नियम लगाने से ${renderMixedToken(intendedOutput)} मिलना चाहिए, ${oddOutputText} नहीं।`
+        : `${oddInputText} ਉੱਤੇ ਇਹੀ ਨਿਯਮ ਲਗਾਉਣ ਨਾਲ ${renderMixedToken(intendedOutput)} ਮਿਲਣਾ ਚਾਹੀਦਾ ਹੈ, ${oddOutputText} ਨਹੀਂ।`,
+      conclusion: oddConclusion(oddInputText, oddOutputText, locale, index),
     },
     metadata: {
       permanentQlId: null,
