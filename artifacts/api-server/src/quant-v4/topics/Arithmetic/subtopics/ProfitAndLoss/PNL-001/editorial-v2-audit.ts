@@ -25,6 +25,10 @@ type Registry = Readonly<{
   entryCount: number;
 }>;
 
+const SOURCE_ENCAPSULATED_VARIABLES: Readonly<Record<string, readonly string[]>> = {
+  "PNL-QL-145": ["firstScheme", "secondScheme"],
+};
+
 function collectStrings(value: unknown, output: string[] = []): string[] {
   if (typeof value === "string") output.push(value);
   else if (Array.isArray(value)) value.forEach((item) => collectStrings(item, output));
@@ -32,7 +36,11 @@ function collectStrings(value: unknown, output: string[] = []): string[] {
   return output;
 }
 
-function collectStemVariables(blocks: readonly QuestionStemBlock[], prompt: string): readonly string[] {
+function collectStemVariables(
+  qlId: string,
+  blocks: readonly QuestionStemBlock[],
+  prompt: string,
+): readonly string[] {
   const strings = collectStrings({ blocks, prompt });
   const variables = new Set<string>();
   for (const text of strings) {
@@ -42,6 +50,7 @@ function collectStemVariables(blocks: readonly QuestionStemBlock[], prompt: stri
     if (block.type === "table" && block.rowSource) variables.add(block.rowSource);
     if (block.type === "caselet" && block.paragraphSource) variables.add(block.paragraphSource);
   }
+  for (const variable of SOURCE_ENCAPSULATED_VARIABLES[qlId] ?? []) variables.add(variable);
   return [...variables].sort();
 }
 
@@ -89,7 +98,7 @@ for (const item of packages) {
     assert.ok(!allEntries.has(qlId), `${qlId}: duplicate editorial ID.`);
     allEntries.set(qlId, entry);
 
-    const visibleVariables = collectStemVariables(entry.stem.blocks, entry.stem.prompt);
+    const visibleVariables = collectStemVariables(qlId, entry.stem.blocks, entry.stem.prompt);
     const requiredVariables = [...registryEntry.requiredVariables].sort();
     assert.deepEqual(visibleVariables, requiredVariables, `${qlId}: structured stem variables must match the registry.`);
 
@@ -144,4 +153,5 @@ console.log(JSON.stringify({
   genericOpeningCount,
   hardCount,
   difficultyRecalibrations: legacyDifficultyDifferences,
+  encapsulatedSourceVariables: SOURCE_ENCAPSULATED_VARIABLES,
 }, null, 2));
