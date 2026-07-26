@@ -1,4 +1,4 @@
-import type { RenderedEnglishSentenceCodeRow } from "./language-instantiator.en";
+import type { StudentSentenceCodeRow } from "./exact-atomic-types";
 
 export type ExactSetMissingPrototypeId =
   | "COD-CP009-PROT-EXACT-PHRASE-TO-TOKENS"
@@ -35,15 +35,15 @@ export interface ExactSetMissingExplanation {
 
 export interface ExactPhraseStructuredPrompt {
   kind: "EXACT_PHRASE_TO_TOKENS" | "EXACT_TOKENS_TO_PHRASE";
-  rows: readonly RenderedEnglishSentenceCodeRow[];
+  rows: readonly StudentSentenceCodeRow[];
   phraseWords: readonly string[];
   phraseTokens: readonly string[];
 }
 
 export interface MissingTokenStructuredPrompt {
   kind: "MISSING_TOKEN";
-  rows: readonly RenderedEnglishSentenceCodeRow[];
-  incompleteRowId: string;
+  rows: readonly StudentSentenceCodeRow[];
+  incompleteStatementId: string;
   incompleteSentence: string;
   displayedCodeWithBlank: string;
   knownTokens: readonly string[];
@@ -52,8 +52,8 @@ export interface MissingTokenStructuredPrompt {
 
 export interface MissingWordStructuredPrompt {
   kind: "MISSING_WORD";
-  rows: readonly RenderedEnglishSentenceCodeRow[];
-  incompleteRowId: string;
+  rows: readonly StudentSentenceCodeRow[];
+  incompleteStatementId: string;
   displayedSentenceWithBlank: string;
   fullCodeTokens: readonly string[];
   displayedCode: string;
