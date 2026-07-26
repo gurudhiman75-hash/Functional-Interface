@@ -1,11 +1,18 @@
 import assert from "node:assert/strict";
 import {
-  buildAllLegacyEditorialLibraries,
+  buildAllNormalizedLegacyEditorialLibraries,
   renderFriendlyExplanationMarkdown,
   renderStructuredStemMarkdown,
 } from "./foundation";
 
-const [cp001, cp002, cp003] = buildAllLegacyEditorialLibraries();
+const [cp001, cp002, cp003] = buildAllNormalizedLegacyEditorialLibraries();
+
+const firstStem = renderStructuredStemMarkdown(cp001.entries["PNL-QL-001"].stem, {
+  costPrice: "4,000",
+  sellingPrice: "4,600",
+});
+assert.ok(!firstStem.includes(". the "));
+assert.ok(firstStem.includes("The appliance retailer"));
 
 const margin = cp001.entries["PNL-QL-016"];
 const marginStem = renderStructuredStemMarkdown(margin.stem, { marginPercent: 20 });
@@ -13,6 +20,19 @@ const marginExplanation = renderFriendlyExplanationMarkdown(margin.explanation, 
 assert.ok(marginStem.includes("20"));
 assert.ok(marginExplanation.includes("**Key idea:**"));
 assert.ok(marginExplanation.includes("selling price"));
+assert.ok(marginExplanation.includes("\\frac"));
+assert.ok(!/[\f\r\t]/u.test(marginExplanation));
+
+const directQuestion = cp001.entries["PNL-QL-006"];
+assert.notEqual(directQuestion.stem.prompt, "Select the correct answer.");
+assert.ok(directQuestion.stem.prompt.endsWith("?"));
+
+const noChange = renderStructuredStemMarkdown(cp001.entries["PNL-QL-035"].stem, {
+  costPrice: "5,000",
+  sellingPrice: "5,000",
+});
+assert.ok(noChange.includes("bought for ₹5,000 and sold for ₹5,000"));
+assert.ok(!noChange.includes("Additional given value"));
 
 const offerTable = cp002.entries["PNL-QL-065"];
 const offerStem = renderStructuredStemMarkdown(offerTable.stem, {
@@ -59,4 +79,7 @@ const sufficiencyStem = renderStructuredStemMarkdown(sufficiency.stem, {
 assert.ok(sufficiencyStem.includes("**Statement 1:**"));
 assert.ok(sufficiencyStem.includes("standard two-statement data-sufficiency"));
 
-console.log(JSON.stringify({ ok: true, checked: ["PNL-QL-016", "PNL-QL-065", "PNL-QL-066", "PNL-QL-088", "PNL-QL-092"] }, null, 2));
+console.log(JSON.stringify({
+  ok: true,
+  checked: ["PNL-QL-001", "PNL-QL-006", "PNL-QL-016", "PNL-QL-035", "PNL-QL-065", "PNL-QL-066", "PNL-QL-088", "PNL-QL-092"],
+}, null, 2));
