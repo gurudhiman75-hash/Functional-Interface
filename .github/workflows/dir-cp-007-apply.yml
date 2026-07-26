@@ -38,8 +38,8 @@ jobs:
           tar -xzf /tmp/dir-cp-007-payload.tar.gz
           cp007='artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-007'
           find "$cp007" -name '*.ts' -print0 | xargs -0 perl -pi -e 's/\bDIRECTION_LABELS\b/SUN_SHADOW_DIRECTION_LABELS/g'
-          mv dir-cp-007-runtime-proof.yml .github/workflows/dir-cp-007-runtime-proof.yml
-          rm -rf "$staging" .github/workflows/dir-cp-007-apply.yml
+          rm -f dir-cp-007-runtime-proof.yml
+          rm -rf "$staging"
 
       - name: Install locked dependencies
         run: |
@@ -102,55 +102,14 @@ jobs:
           test -f artifacts/api-server/dist/reasoning-v1/dir-cp-007-review-export/DIR-CP-007-QUESTION-REVIEW.html
           test -f artifacts/api-server/dist/reasoning-v1/dir-cp-007-review-export/DIR-CP-007-QUESTION-REVIEW.jsonl
 
-      - name: Commit and push validated source
+      - name: Commit validated source
         shell: bash
         run: |
-          set +e
-          : > dir-cp-007-handoff.log
-          final_status=0
-          {
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add -A
-            echo '--- staged status ---'
-            git status --short
-            echo '--- diff check ---'
-            git diff --cached --check
-            check_status="$?"
-            echo "diff_check_status=$check_status"
-            if [ "$check_status" -ne 0 ]; then
-              final_status="$check_status"
-            else
-              echo '--- commit ---'
-              git commit -m 'feat(reasoning): implement DIR-CP-007 sun-shadow runtime'
-              commit_status="$?"
-              echo "commit_status=$commit_status"
-              if [ "$commit_status" -ne 0 ]; then
-                final_status="$commit_status"
-              else
-                echo '--- push ---'
-                git push origin HEAD:${{ github.event.pull_request.head.ref }}
-                push_status="$?"
-                echo "push_status=$push_status"
-                final_status="$push_status"
-              fi
-            fi
-            echo "final_status=$final_status"
-          } > dir-cp-007-handoff.log 2>&1
-          echo "$final_status" > dir-cp-007-handoff-exit.txt
-          cat dir-cp-007-handoff.log
-          exit 0
-
-      - name: Publish source handoff diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dir-cp-007-source-handoff-diagnostics
-          path: |
-            dir-cp-007-handoff.log
-            dir-cp-007-handoff-exit.txt
-          if-no-files-found: error
-          retention-days: 7
-
-      - name: Enforce source handoff
-        run: test "$(cat dir-cp-007-handoff-exit.txt)" = "0"
+          set -euo pipefail
+          rm -f dir-cp-007-apply-typecheck.log dir-cp-007-apply-typecheck-exit.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --check
+          git commit -m 'feat(reasoning): implement DIR-CP-007 sun-shadow runtime'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
