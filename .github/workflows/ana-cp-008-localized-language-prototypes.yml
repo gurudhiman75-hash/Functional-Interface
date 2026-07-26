@@ -8,6 +8,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.ts
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.test.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.diagnostic.ts
       - .github/workflows/ana-cp-008-localized-language-prototypes.yml
   workflow_dispatch:
 
@@ -47,10 +48,19 @@ jobs:
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.en.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.test.ts \
+            src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.diagnostic.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-independent-solver.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-rule-definitions.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/foundation/mixed-token.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/foundation/mixed-arithmetic.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
       - name: Verify Hindi and Punjabi structural parity
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.test.ts
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.diagnostic.ts
+      - name: Upload localized prototype report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-008-localized-language-prototype-report
+          path: artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/cp008-localized-language-prototype-report.json
+          if-no-files-found: warn
+          retention-days: 7
