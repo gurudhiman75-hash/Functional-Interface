@@ -22,6 +22,7 @@ let totalEntries = 0;
 let paragraphEntries = 0;
 let structuredEntries = 0;
 const violations: string[] = [];
+const emptyStemEntries: string[] = [];
 
 for (const cp of cpFolders) {
   for (const language of languages) {
@@ -29,6 +30,7 @@ for (const cp of cpFolders) {
     const library = JSON.parse(readFileSync(path, "utf8")) as EditorialLibraryFile;
     for (const [qlId, entry] of Object.entries(library.entries)) {
       totalEntries += 1;
+      if (entry.stem.blocks.length === 0) emptyStemEntries.push(`${qlId}:${language}`);
       if (entry.stem.blocks.some((block) => block.type !== "paragraph")) structuredEntries += 1;
       for (const block of entry.stem.blocks) {
         if (block.type !== "paragraph") continue;
@@ -42,6 +44,7 @@ for (const cp of cpFolders) {
 }
 
 assert.equal(totalEntries, 558, "The chapter must contain 186 QLs in each of three languages.");
+assert.deepEqual(emptyStemEntries, [], `Question stems with no content blocks remain: ${emptyStemEntries.join(", ")}`);
 assert.deepEqual(violations, [], `Synthetic question-stem introductions remain:\n${violations.join("\n")}`);
 
 console.log(JSON.stringify({
@@ -49,6 +52,7 @@ console.log(JSON.stringify({
   totalEntries,
   paragraphEntries,
   structuredEntries,
+  emptyStemEntries: emptyStemEntries.length,
   syntheticLeadViolations: violations.length,
   policy: "Direct questions begin with the commercial facts. Context introductions are reserved for genuine structured representations.",
 }, null, 2));
