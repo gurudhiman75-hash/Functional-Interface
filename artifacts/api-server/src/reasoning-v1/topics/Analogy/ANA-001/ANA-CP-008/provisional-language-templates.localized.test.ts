@@ -16,7 +16,7 @@ const GURMUKHI = /[\u0A00-\u0A7F]/;
 const ENGLISH_INSTRUCTION = /\b(?:choose|select|find|complete|therefore|rule|source|target|answer|correct|wrong|letter|number)\b/i;
 const INTERNAL_TEXT = /ANA-QL|ANA-CP|MIXED_|PROTO_|ruleId|contextKey|LANGUAGE_PROTOTYPE|publiclyPublishable/i;
 const PLACEHOLDER_TEXT = /\{\{?[^}]+\}?\}|\[[A-Z_]{3,}\]/;
-const OVERLY_TECHNICAL_PUNJABI = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ|ਲੋੜੀਂਦੀ ਗਿਣਤੀ|ਅੱਖਰ ਬਦਲਣ ਨਾਲ|ਇਹੋ ਨਿਯਮ|ਸੰਬੰਧ ਬਣਦਾ ਹੈ/;
+const OVERLY_TECHNICAL_PUNJABI = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ|ਲੋੜੀਂਦੀ ਗਿਣਤੀ|ਅੱਖਰ ਬਦਲਣ ਨਾਲ|ਇਹੋ ਨਿਯਮ|ਸੰਬੰਧ ਬਣਦਾ ਹੈ|ਪਹਿਲੇ ਜੋੜੇ ਵਾਲੀ ਗਿਣਤੀ|ਉਤਨਾ ਹੀ|ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਦੂਜੇ ਜੋੜੇ ਲਈ|ਅਤੇ ਇਸ ਕਰਕੇ/;
 
 function evidenceKey(evidence: { input: Parameters<typeof mixedTokenKey>[0]; output: Parameters<typeof mixedTokenKey>[0] }): string {
   return `${mixedTokenKey(evidence.input)}=>${mixedTokenKey(evidence.output)}`;
