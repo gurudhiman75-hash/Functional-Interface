@@ -1,13 +1,23 @@
 import { strict as assert } from "node:assert";
+import { getAvg001QuestionEntries } from "./foundation/library";
 import { AVG_001_ENGLISH_RELEASE } from "./foundation/release";
+import type { Avg001Difficulty } from "./foundation/types";
 import {
   AVG_001_QUESTION_STUDIO_CP_IDS,
   runAvg001QuestionStudioPipeline,
 } from "./question-studio-adapter";
 
+const entries = getAvg001QuestionEntries();
+const difficultyOrder: Avg001Difficulty[] = ["Easy", "Medium", "Hard"];
 let cases = 0;
+
 for (const cpId of AVG_001_QUESTION_STUDIO_CP_IDS) {
-  for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  const availableDifficulties = difficultyOrder.filter((difficulty) =>
+    entries.some((entry) => entry.cpId === cpId && entry.difficulty === difficulty)
+  );
+  assert.ok(availableDifficulties.length >= 1, `${cpId} has no available difficulty band`);
+
+  for (const difficulty of availableDifficulties) {
     const seed = `avg-question-studio:${cpId}:${difficulty}`;
     const first = runAvg001QuestionStudioPipeline(cpId, { difficulty, seed });
     const second = runAvg001QuestionStudioPipeline(cpId, { difficulty, seed });
@@ -35,6 +45,13 @@ for (const cpId of AVG_001_QUESTION_STUDIO_CP_IDS) {
     assert.equal(first.options[first.correctIndex], first.answer);
     assert.equal(first.validation.valid, true);
   }
+
+  for (const unavailable of difficultyOrder.filter((difficulty) => !availableDifficulties.includes(difficulty))) {
+    assert.throws(
+      () => runAvg001QuestionStudioPipeline(cpId, { difficulty: unavailable, seed: `avg-question-studio:${cpId}:${unavailable}:empty` }),
+      new RegExp(`No active AVG-001 QLs match ${cpId} / ${unavailable}`),
+    );
+  }
 }
 
 const explicit = runAvg001QuestionStudioPipeline("AVG-CP-006", {
@@ -60,7 +77,8 @@ assert.throws(
 console.log(JSON.stringify({
   releaseId: AVG_001_ENGLISH_RELEASE.releaseId,
   cpCount: AVG_001_QUESTION_STUDIO_CP_IDS.length,
-  cases,
+  availableDifficultyCases: cases,
+  unavailableDifficultyChecks: 2,
   status: "PASS",
 }, null, 2));
-assert.equal(cases, 18);
+assert.equal(cases, 16);

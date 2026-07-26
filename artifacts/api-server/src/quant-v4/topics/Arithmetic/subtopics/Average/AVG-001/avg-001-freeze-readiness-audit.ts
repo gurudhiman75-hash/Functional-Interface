@@ -1,19 +1,15 @@
 import { strict as assert } from "node:assert";
 
+import {
+  AVG_001_CP_DIFFICULTY_TARGETS,
+  AVG_001_EXAM_DIFFICULTY_CALIBRATION,
+} from "./foundation/difficulty-calibration";
 import { getAvg001QuestionEntries } from "./foundation/library";
 import { runAvg001Pipeline } from "./foundation/pipeline";
 import { AVG_001_ENGLISH_RELEASE } from "./foundation/release";
 
-const expectedCpDifficulty = {
-  "AVG-CP-001": { Easy: 32, Medium: 38, Hard: 10, total: 80 },
-  "AVG-CP-002": { Easy: 20, Medium: 28, Hard: 14, total: 62 },
-  "AVG-CP-003": { Easy: 19, Medium: 46, Hard: 33, total: 98 },
-  "AVG-CP-004": { Easy: 18, Medium: 33, Hard: 34, total: 85 },
-  "AVG-CP-005": { Easy: 12, Medium: 27, Hard: 17, total: 56 },
-  "AVG-CP-006": { Easy: 8, Medium: 15, Hard: 21, total: 44 },
-} as const;
-
-const expectedChapterDifficulty = { Easy: 109, Medium: 187, Hard: 129 } as const;
+const expectedCpDifficulty = AVG_001_CP_DIFFICULTY_TARGETS;
+const expectedChapterDifficulty = AVG_001_EXAM_DIFFICULTY_CALIBRATION.calibratedChapterSplit;
 const entries = getAvg001QuestionEntries();
 const failures: string[] = [];
 const canonicalStems = new Map<string, string[]>();
@@ -56,9 +52,10 @@ if (entries.some((entry) => !entry.active)) fail("one or more English QLs are in
 
 for (const cpId of cpIds) {
   const expected = expectedCpDifficulty[cpId as keyof typeof expectedCpDifficulty];
+  const expectedTotal = expected.Easy + expected.Medium + expected.Hard;
   const cpEntries = entries.filter((entry) => entry.cpId === cpId);
-  if (cpEntries.length !== expected.total) {
-    fail(`${cpId}: expected ${expected.total} QLs; got ${cpEntries.length}`);
+  if (cpEntries.length !== expectedTotal) {
+    fail(`${cpId}: expected ${expectedTotal} QLs; got ${cpEntries.length}`);
   }
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     const actual = cpEntries.filter((entry) => entry.difficulty === difficulty).length;
@@ -172,6 +169,7 @@ console.log(JSON.stringify({
   status: AVG_001_ENGLISH_RELEASE.status,
   editorialStatus: AVG_001_ENGLISH_RELEASE.editorialStatus,
   language: AVG_001_ENGLISH_RELEASE.language,
+  difficultyCalibration: AVG_001_EXAM_DIFFICULTY_CALIBRATION.version,
   qlCount: entries.length,
   cpCount: cpIds.length,
   generated,
