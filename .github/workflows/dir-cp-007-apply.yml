@@ -36,6 +36,8 @@ jobs:
           cat "$staging"/part-* | base64 --decode > /tmp/dir-cp-007-payload.tar.gz
           echo 'c8a89d9b2ba6619529cd516a35889bfa04a155a78278ba6d4dafbd5e66beadd8  /tmp/dir-cp-007-payload.tar.gz' | sha256sum --check --strict
           tar -xzf /tmp/dir-cp-007-payload.tar.gz
+          cp007='artifacts/api-server/src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-007'
+          find "$cp007" -name '*.ts' -print0 | xargs -0 perl -pi -e 's/\bDIRECTION_LABELS\b/SUN_SHADOW_DIRECTION_LABELS/g'
           mv dir-cp-007-runtime-proof.yml .github/workflows/dir-cp-007-runtime-proof.yml
           rm -rf "$staging" .github/workflows/dir-cp-007-apply.yml
 
