@@ -118,51 +118,53 @@ export function buildRelativePositionDiagram(
   });
 
   const usedLabelRects: RectGeometry[] = [];
-  const relationLines = relations.map((relation, index) => {
-    const from = project(coordinates[relation.referenceEntity]);
-    const to = project(coordinates[relation.subjectEntity]);
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const length = Math.hypot(dx, dy);
-    if (length <= 1e-9) throw new Error("A displayed relation may not have zero length");
-    const midX = (from.x + to.x) / 2;
-    const midY = (from.y + to.y) / 2;
-    const perpendicularX = -dy / length;
-    const perpendicularY = dx / length;
-    const side = index % 2 === 0 ? 1 : -1;
-    const perpendicularOffsets = [side * 28, -side * 28, side * 43, -side * 43, side * 58, -side * 58, 0];
-    const alongOffsets = [0, -24, 24, -42, 42];
-    const unitX = dx / length;
-    const unitY = dy / length;
-    const width = 46;
-    const height = 25;
-    let labelRect: RectGeometry | null = null;
-    for (const perpendicularOffset of perpendicularOffsets) {
-      for (const alongOffset of alongOffsets) {
-        const candidate = {
-          x: midX + perpendicularX * perpendicularOffset + unitX * alongOffset - width / 2,
-          y: midY + perpendicularY * perpendicularOffset + unitY * alongOffset - height / 2,
-          width,
-          height,
-        };
-        if (labelRectIsClear(candidate, projectedNodes, usedLabelRects)) {
-          labelRect = candidate;
-          break;
-        }
+const relationParts = relations.map((relation, index) => {
+  const from = project(coordinates[relation.referenceEntity]);
+  const to = project(coordinates[relation.subjectEntity]);
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const length = Math.hypot(dx, dy);
+  if (length <= 1e-9) throw new Error("A displayed relation may not have zero length");
+  const midX = (from.x + to.x) / 2;
+  const midY = (from.y + to.y) / 2;
+  const perpendicularX = -dy / length;
+  const perpendicularY = dx / length;
+  const side = index % 2 === 0 ? 1 : -1;
+  const perpendicularOffsets = [side * 28, -side * 28, side * 43, -side * 43, side * 58, -side * 58, 0];
+  const alongOffsets = [0, -24, 24, -42, 42];
+  const unitX = dx / length;
+  const unitY = dy / length;
+  const width = 46;
+  const height = 25;
+  let labelRect: RectGeometry | null = null;
+  for (const perpendicularOffset of perpendicularOffsets) {
+    for (const alongOffset of alongOffsets) {
+      const candidate = {
+        x: midX + perpendicularX * perpendicularOffset + unitX * alongOffset - width / 2,
+        y: midY + perpendicularY * perpendicularOffset + unitY * alongOffset - height / 2,
+        width,
+        height,
+      };
+      if (labelRectIsClear(candidate, projectedNodes, usedLabelRects)) {
+        labelRect = candidate;
+        break;
       }
-      if (labelRect) break;
     }
-    if (!labelRect) throw new Error(`Unable to place relation label for ${relation.referenceEntity} and ${relation.subjectEntity}`);
-    usedLabelRects.push(labelRect);
-    const labelX = labelRect.x + labelRect.width / 2;
-    const labelY = labelRect.y + labelRect.height / 2;
-    return [
-      `<line data-role="relation-edge" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#64748b" stroke-width="2.5" marker-end="url(#relationArrow)"/>`,
-      `<g data-role="relation-distance"><rect x="${labelRect.x}" y="${labelRect.y}" width="${labelRect.width}" height="${labelRect.height}" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="${labelX}" y="${labelY + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">${relation.distance} m</text></g>`,
-    ].join("");
-  }).join("");
+    if (labelRect) break;
+  }
+  if (!labelRect) throw new Error(`Unable to place relation label for ${relation.referenceEntity} and ${relation.subjectEntity}`);
+  usedLabelRects.push(labelRect);
+  const labelX = labelRect.x + labelRect.width / 2;
+  const labelY = labelRect.y + labelRect.height / 2;
+  return {
+    edge: `<line data-role="relation-edge" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#64748b" stroke-width="2.5" marker-end="url(#relationArrow)"/>`,
+    label: `<g data-role="relation-distance"><rect x="${labelRect.x}" y="${labelRect.y}" width="${labelRect.width}" height="${labelRect.height}" rx="6" fill="#ffffff" stroke="#cbd5e1"/><text x="${labelX}" y="${labelY + 4}" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">${relation.distance} m</text></g>`,
+  };
+});
+const relationEdges = relationParts.map(({ edge }) => edge).join("");
+const relationLabels = relationParts.map(({ label }) => label).join("");
 
-  const queryOverlay = options.queryPair
+const queryOverlay = options.queryPair
     ? (() => {
         const from = project(coordinates[options.queryPair.reference]);
         const to = project(coordinates[options.queryPair.subject]);
@@ -229,8 +231,9 @@ export function buildRelativePositionDiagram(
     `<rect x="1" y="1" width="718" height="468" rx="14" fill="#ffffff" stroke="#d1d5db"/>`,
     `<text x="360" y="34" text-anchor="middle" font-size="18" font-weight="800" fill="#111827">Relative positions</text>`,
     collinearGuide,
+    relationEdges,
     queryOverlay,
-    relationLines,
+    relationLabels,
     nodes,
     compass,
     `<text x="360" y="448" text-anchor="middle" font-size="11" fill="#64748b">Diagram is not necessarily to scale.</text>`,

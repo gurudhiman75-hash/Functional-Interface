@@ -96,6 +96,7 @@ for (const ql of DIR_CP004_QLS) {
       assert.equal(queryLines, 1);
       assert.equal(distanceKeys, 0);
       assert.ok(generated.explanation.diagram.svg.includes('data-guide-kind="relation-guide"'));
+      assert.ok(generated.explanation.diagram.svg.indexOf('data-role="relation-edge"') < generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"'), "Relation guide must remain visible above relation edges");
       assert.ok(generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"') < generated.explanation.diagram.svg.indexOf('data-role="relation-distance"'), "Relation guide must remain behind labels");
       assert.ok(generated.stem.includes("In which direction"));
     } else if (ql.answerDemand === "RELATION_DIRECTION_AND_DISTANCE") {
@@ -116,6 +117,7 @@ for (const ql of DIR_CP004_QLS) {
       assert.equal(distanceKeys, 1);
       assert.ok(generated.explanation.diagram.svg.includes('data-guide-kind="shortest-distance"'));
       assert.ok(!generated.explanation.diagram.svg.includes('<line x1="584"'));
+      assert.ok(generated.explanation.diagram.svg.indexOf('data-role="relation-edge"') < generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"'), "Shortest-distance line must remain visible above relation edges");
       assert.ok(generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"') < generated.explanation.diagram.svg.indexOf('data-role="relation-distance"'), "Query line must remain behind relation labels");
       assert.ok(generated.stem.includes("at what shortest distance"));
     } else if (ql.answerDemand === "ENTITY_AT_RELATION") {
@@ -128,6 +130,7 @@ for (const ql of DIR_CP004_QLS) {
       assert.equal(queryLines, 1);
       assert.equal(distanceKeys, 0);
       assert.ok(generated.explanation.diagram.svg.includes('data-guide-kind="relation-guide"'));
+      assert.ok(generated.explanation.diagram.svg.indexOf('data-role="relation-edge"') < generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"'), "Lookup guide must remain visible above relation edges");
       assert.ok(generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"') < generated.explanation.diagram.svg.indexOf('data-role="relation-distance"'), "Lookup guide must remain behind labels");
       assert.ok(generated.stem.includes("Who is"));
     } else if (ql.answerDemand === "COLLINEAR_ENTITY_GROUP") {
