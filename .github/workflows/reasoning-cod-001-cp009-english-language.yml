@@ -1,0 +1,55 @@
+name: Reasoning COD-001 CP-009 English Language
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - ".github/workflows/reasoning-cod-001-cp009-english-language.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-english-language:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run English language-data audit
+        id: language_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/english-language-data.test.ts > cod-cp009-english-language.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload English language audit diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-english-language-audit
+          path: cod-cp009-english-language.log
+          retention-days: 7
+
+      - name: Enforce English language-data result
+        shell: bash
+        run: |
+          cat cod-cp009-english-language.log
+          test "${{ steps.language_audit.outputs.exit_code }}" = "0"
+
+      - name: Export English scenario catalogue
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/export-english-scenario-catalogue.ts cod-cp009-english-scenario-output
+
+      - name: Upload English scenario catalogue
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-english-scenario-catalogue
+          path: cod-cp009-english-scenario-output
+          retention-days: 7
