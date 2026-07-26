@@ -80,7 +80,8 @@ router.get("/tests/:id", async (req, res, next) => {
     `;
 
     const questionRows = await sqlClient`
-      SELECT tq.id::text AS "testQuestionId", tq.test_section_id::text AS "testSectionId",
+      SELECT concat(tq.test_version_id::text, ':', tq.question_version_id::text) AS "testQuestionId",
+        tq.test_section_id::text AS "testSectionId",
         tq.question_version_id::text AS "questionVersionId", tq.position,
         tq.marks::float8 AS marks, tq.negative_marks::float8 AS "negativeMarks", v.stem,
         COALESCE(json_agg(json_build_object('key', o.option_key, 'text', o.text, 'sortOrder', o.sort_order)
@@ -89,7 +90,7 @@ router.get("/tests/:id", async (req, res, next) => {
       JOIN content.question_versions v ON v.id = tq.question_version_id
       LEFT JOIN content.question_options o ON o.question_version_id = v.id
       WHERE tq.test_version_id = ${String(test.publishedVersionId)}::uuid
-      GROUP BY tq.id, tq.test_section_id, tq.question_version_id, tq.position,
+      GROUP BY tq.test_version_id, tq.test_section_id, tq.question_version_id, tq.position,
         tq.marks, tq.negative_marks, v.stem
       ORDER BY tq.test_section_id, tq.position
     `;
@@ -203,7 +204,8 @@ router.post("/attempts", authenticate, async (req, res, next) => {
       const flags = asRecord(req.body?.flags);
 
       const questionRows = await sql`
-        SELECT tq.id::text AS "testQuestionId", tq.test_section_id::text AS "testSectionId",
+        SELECT concat(tq.test_version_id::text, ':', tq.question_version_id::text) AS "testQuestionId",
+          tq.test_section_id::text AS "testSectionId",
           tq.question_version_id::text AS "questionVersionId", tq.position,
           tq.marks::float8 AS marks, tq.negative_marks::float8 AS "negativeMarks",
           section.name AS section, version.stem, version.explanation,
@@ -215,7 +217,7 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         JOIN content.question_versions version ON version.id = tq.question_version_id
         LEFT JOIN content.question_options option ON option.question_version_id = version.id
         WHERE tq.test_version_id = ${String(attempt.testVersionId)}::uuid
-        GROUP BY tq.id, tq.test_section_id, tq.question_version_id, tq.position,
+        GROUP BY tq.test_version_id, tq.test_section_id, tq.question_version_id, tq.position,
           tq.marks, tq.negative_marks, section.name, section.sort_order, version.stem, version.explanation
         ORDER BY section.sort_order, tq.position
       `;
@@ -241,8 +243,10 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         const section = String(row.section);
         const stats = sectionStatsMap.get(section) ?? { correct: 0, wrong: 0, unanswered: 0, totalQuestions: 0 };
         stats.totalQuestions += 1;
+        const isCorrect = selected == null ? null : selected === correctIndex;
+        const awardedMarks = selected == null ? 0 : isCorrect ? Number(row.marks) : -Number(row.negativeMarks);
         if (selected == null) stats.unanswered += 1;
-        else if (selected === correctIndex) { correct += 1; stats.correct += 1; actualScore += Number(row.marks); }
+        else if (isCorrect) { correct += 1; stats.correct += 1; actualScore += Number(row.marks); }
         else { wrong += 1; stats.wrong += 1; actualScore -= Number(row.negativeMarks); }
         sectionStatsMap.set(section, stats);
         return {
@@ -258,6 +262,8 @@ router.post("/attempts", authenticate, async (req, res, next) => {
           selectedOptionKey: selected == null ? null : String(options[selected]?.key ?? ""),
           correct: correctIndex,
           correctOptionKey: String(options[correctIndex]?.key ?? ""),
+          isCorrect,
+          awardedMarks,
           timeTakenSeconds: response.timeTakenSeconds,
           flagged: Boolean(flags[String(questionId)]),
           explanation: String(row.explanation ?? ""),
@@ -299,6 +305,47 @@ router.post("/attempts", authenticate, async (req, res, next) => {
         sectionTimeSpent: Array.isArray(req.body?.sectionTimeSpent) ? req.body.sectionTimeSpent : null,
         questionReview,
       };
+
+      for (const review of questionReview) {
+        const selectedOptionKeys = review.selectedOptionKey ? [review.selectedOptionKey] : [];
+        const responseSnapshot = {
+          selectedOptionIndex: review.selected,
+          selectedOptionKey: review.selectedOptionKey,
+          flagged: review.flagged,
+        };
+        await sql`
+          INSERT INTO learning.attempt_responses (
+            attempt_id,
+            question_version_id,
+            response,
+            selected_option_keys,
+            is_correct,
+            awarded_marks,
+            time_spent_seconds,
+            answered_at,
+            updated_at
+          ) VALUES (
+            ${attemptId}::uuid,
+            ${review.questionVersionId}::uuid,
+            ${JSON.stringify(responseSnapshot)}::jsonb,
+            ${JSON.stringify(selectedOptionKeys)}::jsonb,
+            ${review.isCorrect},
+            ${review.awardedMarks},
+            ${review.timeTakenSeconds ?? 0},
+            ${review.selected == null ? null : submittedAt}::timestamptz,
+            now()
+          )
+          ON CONFLICT (attempt_id, question_version_id)
+          DO UPDATE SET
+            response = EXCLUDED.response,
+            selected_option_keys = EXCLUDED.selected_option_keys,
+            is_correct = EXCLUDED.is_correct,
+            awarded_marks = EXCLUDED.awarded_marks,
+            time_spent_seconds = EXCLUDED.time_spent_seconds,
+            answered_at = EXCLUDED.answered_at,
+            updated_at = now()
+        `;
+      }
 
       await sql`
         UPDATE learning.attempts
