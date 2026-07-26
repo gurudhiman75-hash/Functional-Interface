@@ -36,7 +36,28 @@ jobs:
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
 
       - name: Run instance difficulty and teaching-pedagogy audit
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-difficulty-pedagogy.test.ts
+        id: difficulty_pedagogy
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-difficulty-pedagogy.test.ts > cod-difficulty-pedagogy.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload difficulty and pedagogy diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-difficulty-pedagogy-audit
+          path: cod-difficulty-pedagogy.log
+          retention-days: 7
+
+      - name: Enforce difficulty and teaching-pedagogy result
+        shell: bash
+        run: |
+          cat cod-difficulty-pedagogy.log
+          test "${{ steps.difficulty_pedagogy.outputs.exit_code }}" = "0"
 
       - name: Run standard competitive-exam stem audit
         id: standard_stems
