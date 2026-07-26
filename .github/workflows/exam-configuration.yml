@@ -1,0 +1,57 @@
+name: Validate Exam Configuration
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-exam-configuration.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/exam-configuration.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-exam-configuration.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/exam-configuration.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: exam-configuration-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Enforce canonical exam configuration boundaries
+        run: |
+          grep -F 'requireAdminPermission("content.taxonomy.read")' artifacts/api-server/src/routes/admin-exam-configuration.ts
+          grep -F 'requireAdminPermission("content.taxonomy.manage")' artifacts/api-server/src/routes/admin-exam-configuration.ts
+          grep -F 'settings.exam_version.created' artifacts/api-server/src/routes/admin-exam-configuration.ts
+          grep -F 'settings.exam_version.activated' artifacts/api-server/src/routes/admin-exam-configuration.ts
+          grep -F 'pg_advisory_xact_lock' artifacts/api-server/src/routes/admin-exam-configuration.ts
+          grep -F 'router.use("/admin/exam-configuration", adminExamConfigurationRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F "path:'/settings/exam-config'" artifacts/admin-app/src/App.tsx
+          grep -F "status: 'live', permission: 'content.taxonomy.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "toLocaleString('en-US')" artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
+          ! grep -E 'usePrototypeStore|@/data/exams|Prototype Settings|demonstration data' artifacts/admin-app/src/pages/settings/ExamConfigurationPage.tsx
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin
