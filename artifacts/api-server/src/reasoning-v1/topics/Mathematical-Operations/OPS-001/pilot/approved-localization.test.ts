@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import {
   OPS_APPROVED_CANDIDATE_IDS,
   generateApprovedOpsQuestion,
-} from "./approved-teaching-entry";
+} from "./approved-teaching-canonical";
 import {
   localizeApprovedOpsQuestion,
   type ApprovedOpsLocale,
