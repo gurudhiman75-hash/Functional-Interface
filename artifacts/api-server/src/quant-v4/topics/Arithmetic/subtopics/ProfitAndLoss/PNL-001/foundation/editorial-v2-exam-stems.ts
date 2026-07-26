@@ -49,6 +49,35 @@ export function hasSyntheticStemLead(
   return SYNTHETIC_LEAD_PATTERNS[language].some((pattern) => pattern.test(normalized));
 }
 
+function recoverPromptOnlyStem(
+  language: EditorialStemLanguage,
+  stem: StructuredQuestionStem,
+): StructuredQuestionStem {
+  if (language === "hi") {
+    const match = stem.prompt.match(/^(क्रमशः .+? की छूट) के बराबर एकल छूट ज्ञात कीजिए।$/u);
+    if (match) {
+      return {
+        ...stem,
+        blocks: [{ type: "paragraph", content: `${match[1]} दी जाती है।` }],
+        prompt: "समतुल्य एकल छूट ज्ञात कीजिए।",
+      };
+    }
+  }
+
+  if (language === "pa") {
+    const match = stem.prompt.match(/^(ਲਗਾਤਾਰ .+? ਛੂਟ) ਦੇ ਬਰਾਬਰ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।$/u);
+    if (match) {
+      return {
+        ...stem,
+        blocks: [{ type: "paragraph", content: `${match[1]} ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।` }],
+        prompt: "ਸਮਤੁੱਲ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।",
+      };
+    }
+  }
+
+  return stem;
+}
+
 export function compactEditorialStem(
   language: EditorialStemLanguage,
   stem: StructuredQuestionStem,
@@ -60,7 +89,7 @@ export function compactEditorialStem(
     })
     .filter((block) => block.type !== "paragraph" || block.content.trim().length > 0);
 
-  return { ...stem, blocks };
+  return recoverPromptOnlyStem(language, { ...stem, blocks });
 }
 
 export function compactEditorialEntry(
