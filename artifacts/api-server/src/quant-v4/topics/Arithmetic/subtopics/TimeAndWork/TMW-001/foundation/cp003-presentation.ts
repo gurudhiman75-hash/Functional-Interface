@@ -40,9 +40,9 @@ export function renderTmwCp003Stem(entry: TmwCp003RegistryEntry, p: TmwCp003Para
   const C = name(p, "C");
   switch (entry.solveMode) {
     case "findEfficiencyRatioFromEqualWorkTimes":
-      return `${A} can complete ${p.context.jobPhrase} in ${days(p, required(p.timeA, "timeA"))}, while ${B} requires ${days(p, required(p.timeB, "timeB"))} for the same assignment. Find the efficiency ratio of ${A} to ${B}.`;
+      return `${A} can complete ${p.context.jobPhrase} in ${days(p, required(p.timeA, "timeA"))}, while ${B} requires ${days(p, required(p.timeB, "timeB"))} for the same work. Find the efficiency ratio of ${A} to ${B}.`;
     case "findTimeRatioFromEfficiencyRatio":
-      return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. If each is assigned the same amount of work, find the ratio of their completion times, ${A}:${B}.`;
+      return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. If both are given equal workloads, find the ratio of their completion times, ${A}:${B}.`;
     case "findEfficiencyPercentMoreFromCompletionTimes":
       return `${A} completes ${p.context.jobPhrase} in ${days(p, required(p.timeA, "timeA"))}, whereas ${B} takes ${days(p, required(p.timeB, "timeB"))}. By what percent is ${A} more efficient than ${B}?`;
     case "findEfficiencyPercentLessFromCompletionTimes":
@@ -60,7 +60,7 @@ export function renderTmwCp003Stem(entry: TmwCp003RegistryEntry, p: TmwCp003Para
     case "findWorkRatioFromEfficiencyRatioAndUnequalTimes":
       return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. ${A} works for ${days(p, required(p.durationA, "durationA"))} and ${B} for ${days(p, required(p.durationB, "durationB"))}. Find the ratio of the work completed by them, ${A}:${B}.`;
     case "findTimeRatioForUnequalWorkAndEfficiencyRatio":
-      return `${A} and ${B} have efficiency ratio ${efficiencyRatio(p)}. The amounts of work assigned to them are in the ratio ${workRatio(required(p.workA, "workA"), required(p.workB, "workB"))}. Find the ratio of their required times, ${A}:${B}.`;
+      return `${A} and ${B} have efficiency ratio ${efficiencyRatio(p)}. Their workloads are in the ratio ${workRatio(required(p.workA, "workA"), required(p.workB, "workB"))}. Find the ratio of their required times, ${A}:${B}.`;
     case "findEfficiencyRatioFromUnequalWorkAndTimes":
       return `${A} completes ${formatRational(required(p.workA, "workA"))} units of work in ${days(p, required(p.timeA, "timeA"))}, while ${B} completes ${formatRational(required(p.workB, "workB"))} units in ${days(p, required(p.timeB, "timeB"))}. Find the efficiency ratio ${A}:${B}.`;
     case "findOutputFromEfficiencyRatioAndReferenceOutput":
@@ -73,24 +73,24 @@ export function renderTmwCp003Stem(entry: TmwCp003RegistryEntry, p: TmwCp003Para
     }
     case "findIndividualTimeFromEfficiencyRatioAndTimeDifference": {
       const target = required(p.targetAgentIndex, "targetAgentIndex") === 0 ? A : B;
-      return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. For the same assignment, their completion times differ by ${days(p, required(p.timeDifference, "timeDifference"))}. Find ${target}'s completion time.`;
+      return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. For the same work, their completion times differ by ${days(p, required(p.timeDifference, "timeDifference"))}. Find ${target}'s completion time.`;
     }
     case "findIndividualTimeFromEfficiencyRatioAndTimeSum": {
       const target = required(p.targetAgentIndex, "targetAgentIndex") === 0 ? A : B;
-      return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. For the same assignment, the sum of their individual completion times is ${days(p, required(p.timeSum, "timeSum"))}. Find ${target}'s completion time.`;
+      return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. For the same work, the sum of their individual completion times is ${days(p, required(p.timeSum, "timeSum"))}. Find ${target}'s completion time.`;
     }
     case "findEfficiencyRatioFromOutputAndTimeComparison":
       return `${A} ${thirdPerson(p.context.outputVerb)} ${formatRational(required(p.outputA, "outputA"))} ${p.context.outputNoun} in ${days(p, required(p.durationA, "durationA"))}, while ${B} ${thirdPerson(p.context.outputVerb)} ${formatRational(required(p.outputB, "outputB"))} ${p.context.outputNoun} in ${days(p, required(p.durationB, "durationB"))}. Find their efficiency ratio, ${A}:${B}.`;
     case "findComparativeOutputFromDifferentEfficienciesAndDurations":
       return `The efficiency ratio of ${A} to ${B} is ${efficiencyRatio(p)}. ${B} ${thirdPerson(p.context.outputVerb)} ${formatRational(required(p.outputB, "outputB"))} ${p.context.outputNoun} in ${days(p, required(p.durationB, "durationB"))}. How many ${p.context.outputNoun} will ${A} ${p.context.outputVerb} in ${days(p, required(p.durationA, "durationA"))}?`;
     case "findComparativeDurationFromDifferentWorkAndEfficiencies":
-      return `${A} and ${B} have efficiency ratio ${efficiencyRatio(p)}. Their assigned work quantities are in the ratio ${workRatio(required(p.workA, "workA"), required(p.workB, "workB"))}. If ${B} needs ${days(p, required(p.timeB, "timeB"))}, how long will ${A} need?`;
+      return `${A} and ${B} have efficiency ratio ${efficiencyRatio(p)}. Their work quantities are in the ratio ${workRatio(required(p.workA, "workA"), required(p.workB, "workB"))}. If ${B} needs ${days(p, required(p.timeB, "timeB"))}, how long will ${A} need?`;
     case "findSuccessiveEfficiencyRatioAcrossThreeAgents":
       return `The efficiency ratio of ${A} to ${B} is ${ratioText(p.efficiencyA)}, and that of ${B} to ${C} is ${ratioText({ numerator: required(p.efficiencyC, "efficiencyC").denominator, denominator: required(p.efficiencyC, "efficiencyC").numerator })}. Find the efficiency ratio ${A}:${C}.`;
     case "findSuccessiveEfficiencyPercentComparison":
       return `${A} is ${pct(required(p.percentAOverB, "percentAOverB"))} more efficient than ${B}, and ${B} is ${pct(required(p.percentBOverC, "percentBOverC"))} more efficient than ${C}. By what percent is ${A} more efficient than ${C}?`;
     case "findEfficiencyChangePercentFromCompletionTimeChange":
-      return `After an improvement in working efficiency, the time required for ${p.context.jobPhrase} falls from ${days(p, required(p.originalTime, "originalTime"))} to ${days(p, required(p.changedTime, "changedTime"))}. By what percent has the efficiency increased?`;
+      return `After an improvement in working efficiency, the time required to complete ${p.context.jobPhrase} falls from ${days(p, required(p.originalTime, "originalTime"))} to ${days(p, required(p.changedTime, "changedTime"))}. By what percent has the efficiency increased?`;
   }
 }
 
