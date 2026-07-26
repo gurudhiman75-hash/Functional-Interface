@@ -36,20 +36,49 @@ function collectStrings(value: unknown, output: string[] = []): string[] {
   return output;
 }
 
+function addPlaceholders(text: string | undefined, variables: Set<string>): void {
+  if (!text) return;
+  for (const match of text.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)) variables.add(match[1]);
+}
+
 function collectStemVariables(
   qlId: string,
   blocks: readonly QuestionStemBlock[],
   prompt: string,
 ): readonly string[] {
-  const strings = collectStrings({ blocks, prompt });
   const variables = new Set<string>();
-  for (const text of strings) {
-    for (const match of text.matchAll(/\{([A-Za-z][A-Za-z0-9_]*)\}/g)) variables.add(match[1]);
-  }
+  addPlaceholders(prompt, variables);
+
   for (const block of blocks) {
-    if (block.type === "table" && block.rowSource) variables.add(block.rowSource);
-    if (block.type === "caselet" && block.paragraphSource) variables.add(block.paragraphSource);
+    switch (block.type) {
+      case "paragraph":
+        addPlaceholders(block.content, variables);
+        break;
+      case "table":
+        addPlaceholders(block.caption, variables);
+        block.columns.forEach((column) => addPlaceholders(column, variables));
+        block.rows?.forEach((row) => row.forEach((cell) => addPlaceholders(cell, variables)));
+        if (block.rowSource) variables.add(block.rowSource);
+        break;
+      case "caselet":
+        addPlaceholders(block.title, variables);
+        block.paragraphs?.forEach((paragraph) => addPlaceholders(paragraph, variables));
+        if (block.paragraphSource) variables.add(block.paragraphSource);
+        break;
+      case "statements":
+        addPlaceholders(block.lead, variables);
+        block.statements.forEach((statement) => addPlaceholders(statement, variables));
+        break;
+      case "data_sufficiency":
+        addPlaceholders(block.question, variables);
+        block.statements.forEach((statement) => addPlaceholders(statement, variables));
+        break;
+      case "equation":
+        // LaTeX grouping such as m_{known} is mathematical notation, not a runtime variable.
+        break;
+    }
   }
+
   for (const variable of SOURCE_ENCAPSULATED_VARIABLES[qlId] ?? []) variables.add(variable);
   return [...variables].sort();
 }
