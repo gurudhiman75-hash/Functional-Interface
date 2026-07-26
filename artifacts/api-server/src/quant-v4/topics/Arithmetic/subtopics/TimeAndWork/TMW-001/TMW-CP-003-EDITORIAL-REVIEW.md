@@ -1,9 +1,9 @@
 # TMW-CP-003 Editorial Review
 
-**Review stage:** pre-PR local review  
+**Review stage:** user review correction cycle  
 **Sample:** 23 QLs × 3 seeds = 69 generated candidate questions
 
-## Corrections made during review
+## Corrections made during initial review
 
 1. Corrected future-tense output wording such as “will A processes/marks” to natural base-verb forms.
 2. Prevented fractional distractors for countable physical outputs.
@@ -15,6 +15,19 @@
 8. Preserved explicit percentage bases for “more efficient,” “less efficient,” “less time,” and “more time.”
 9. Kept direct uniform-rate changes in CP-001, simultaneous rate aggregation in CP-002, staged participation in CP-004, and workforce/category equivalence in CP-006/007.
 
+## User feedback correction
+
+The first review pack overused the word and context pattern “assignment”. The mathematical content and explanations were accepted, but the context language needed greater variety.
+
+Corrections:
+
+- expanded the context pool from 5 to 12 coherent exam-style settings;
+- replaced repeated assignment contexts with customer-record batches, equipment overhauls, loan-application sets, printing orders, road-marking projects, packaging orders, inspection batches, manuscript typing, school painting, inventory counts, field surveys and electronics assembly;
+- replaced generic “same assignment” wording with “same work”, “equal workloads” or a direct job reference;
+- preserved all QL ownership, parameters, formulas, correct answers and explanation mathematics;
+- added a structural audit requiring at least 10 distinct context phrases and 10 distinct actor types across the focused audit batch;
+- added a zero-tolerance audit for the word `assignment` in rendered CP-003 stems.
+
 ## Review verdict
 
-The local 69-row export is suitable for exact-head CI generation. It is not approved for Question Bank storage or student delivery. Final CP acceptance remains subject to GitHub Actions evidence and the user's generated-question review.
+The revised review export is suitable for exact-head CI regeneration and user confirmation. It is not approved for Question Bank storage or student delivery until the revised generated-question pack is accepted.
