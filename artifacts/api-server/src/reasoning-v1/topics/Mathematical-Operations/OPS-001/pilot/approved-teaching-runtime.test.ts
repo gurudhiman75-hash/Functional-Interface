@@ -3,7 +3,7 @@ import {
   OPS_APPROVED_CANDIDATE_IDS,
   generateApprovedOpsQuestion,
   type ApprovedOpsQuestion,
-} from "./approved-teaching-entry";
+} from "./approved-teaching-canonical";
 
 const SEEDS_PER_CONTRACT = 100;
 const answerPositions = [0, 0, 0, 0];
