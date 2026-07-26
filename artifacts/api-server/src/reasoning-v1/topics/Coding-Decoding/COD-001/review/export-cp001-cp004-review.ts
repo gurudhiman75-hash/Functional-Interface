@@ -76,6 +76,8 @@ for (const checkpoint of checkpoints) {
       ...question.options.map((option: any, index: number) => `${index + 1}. ${option.value}${index === question.correctIndex ? " ✅" : ""}${option.errorLabel ? ` — ${option.errorLabel}` : ""}`),
       "",
       `**Rule statement:** ${question.explanation.ruleStatement}`,
+      ...(question.explanation.referenceAid?.length ? ["", "**Reference aid:**", ...question.explanation.referenceAid.map((line: string) => `- ${line}`)] : []),
+      ...(question.explanation.quickMethod ? ["", `**Quick method:** ${question.explanation.quickMethod}`] : []),
       "",
       "**Evidence reasoning:**",
       ...question.explanation.sourceDemonstration.map((line: string) => `- ${line}`),
@@ -84,7 +86,7 @@ for (const checkpoint of checkpoints) {
       ...question.explanation.targetApplication.map((line: string) => `- ${line}`),
       "",
       `**Conclusion:** ${question.explanation.conclusion}`,
-      ...(question.explanation.closestTrapRejection ? ["", `**Trap rejection:** ${question.explanation.closestTrapRejection}`] : []),
+      ...(question.explanation.commonTrapAlert ? ["", `**Common Trap Alert:** ${question.explanation.commonTrapAlert}`] : []),
       "",
     );
   }

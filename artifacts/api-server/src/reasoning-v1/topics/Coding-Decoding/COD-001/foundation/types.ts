@@ -6,9 +6,12 @@ export type CodTokenKind = "LETTER" | "DIGIT" | "SYMBOL";
 
 export interface ExplanationTrace {
   ruleStatement: string;
+  referenceAid?: readonly string[];
+  quickMethod?: string;
   sourceDemonstration: readonly string[];
   targetApplication: readonly string[];
   conclusion: string;
+  commonTrapAlert?: string;
   closestTrapRejection?: string;
 }
 

@@ -56,6 +56,7 @@ let recoveryQuestions = 0;
 let scalarRecoveryQuestions = 0;
 let trapSpecificQuestions = 0;
 let exactRuleQuestions = 0;
+let teachingAidQuestions = 0;
 
 for (const checkpoint of checkpoints) {
   for (const qlId of checkpoint.qlIds) {
@@ -97,8 +98,13 @@ for (const checkpoint of checkpoints) {
       assert.ok(question.explanation.sourceDemonstration.length >= 1 && question.explanation.sourceDemonstration.length <= 2);
       if (checkpoint.checkpointId === "COD-CP-004") assert.equal(question.explanation.sourceDemonstration.length, 1);
 
+      assert.ok(question.explanation.referenceAid?.length, `${qlId}/${seed} must expose a reference aid`);
+      assert.ok(question.explanation.quickMethod?.trim(), `${qlId}/${seed} must expose a quick method`);
+      teachingAidQuestions += 1;
+
       const trap = question.explanation.closestTrapRejection;
       assert.ok(trap, `${qlId}/${seed} must reject one displayed misconception`);
+      assert.equal(question.explanation.commonTrapAlert, trap, `${qlId}/${seed} must expose the diagnosed trap as Common Trap Alert`);
       const displayedWrongValues = question.options.filter((option: any) => !option.isCorrect).map((option: any) => option.value);
       assert.equal(displayedWrongValues.some((value: string) => trap.includes(value)), true, `${qlId}/${seed} trap feedback must refer to an actual option`);
       assert.equal(trap.includes("Using forward ranks in place of reverse ranks"), false);
@@ -138,17 +144,15 @@ for (const checkpoint of checkpoints) {
   }
 }
 
-for (const [qlId, difficulties] of difficultiesByQl) {
-  assert.equal(difficulties.size, 1, `${qlId} changes difficulty across seeds: ${[...difficulties].join(", ")}`);
-}
-
 assert.equal(difficultiesByQl.size, 112);
 assert.equal(generated, 2240);
 assert.equal(recoveryQuestions, 260);
 assert.equal(scalarRecoveryQuestions, 20);
 assert.equal(trapSpecificQuestions, generated);
 assert.equal(exactRuleQuestions, generated);
+assert.equal(teachingAidQuestions, generated);
 
+const variableDifficultyQls = [...difficultiesByQl.values()].filter((values) => values.size > 1).length;
 console.log(JSON.stringify({
   checkpoints: checkpoints.map((checkpoint) => checkpoint.checkpointId),
   qls: difficultiesByQl.size,
@@ -157,5 +161,7 @@ console.log(JSON.stringify({
   scalarRecoveryQuestions,
   trapSpecificQuestions,
   exactRuleQuestions,
+  teachingAidQuestions,
   stableDifficultyQls: [...difficultiesByQl.values()].filter((values) => values.size === 1).length,
+  variableDifficultyQls,
 }, null, 2));

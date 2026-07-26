@@ -1,7 +1,9 @@
-import type { CodDifficulty, GeneratedOption } from "../foundation/types";
+import type { GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
 import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { COD_CP003_WORD_POOL } from "../COD-CP-003/word-pool.en";
 import { auditPositionTransformRule } from "./ambiguity-checker";
@@ -49,12 +51,6 @@ function chooseWords(logic: CodCp004QuestionLogic, context: ReturnType<typeof ch
   if (evidence.length < logic.exampleCount[0]) return null;
   if (logic.ruleId === "VOWEL_CONSONANT_CLASS_SHIFT" && signatures.size < 2) return null;
   return { target, evidence };
-}
-
-function deriveDifficulty(logic: CodCp004QuestionLogic): CodDifficulty {
-  if (["DECODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_LETTER"].includes(logic.taskKind)) return "HARD";
-  if (["VOWEL_CONSONANT_CLASS_SHIFT", "ENDPOINT_INTERIOR_SHIFT"].includes(logic.ruleId) && logic.taskKind === "CHOOSE_MATCHING_CODE") return "HARD";
-  return "MEDIUM";
 }
 
 function buildStem(prompt: PositionTransformPrompt, style: number): string {
@@ -135,6 +131,19 @@ function createCandidate(logic: CodCp004QuestionLogic, seed: number, attempt: nu
   const wrapUsed = wordUsesPositionWrap(logic.ruleId, context, chosen.target) || evidence.some((pair) => wordUsesPositionWrap(logic.ruleId, context, pair.source));
   if (logic.requireWrap && !wrapUsed) return null;
   const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-004",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: chosen.target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp004Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    { checkpointId: "COD-CP-004", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -143,14 +152,14 @@ function createCandidate(logic: CodCp004QuestionLogic, seed: number, attempt: nu
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp004Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    explanation,
     metadata: {
       runtimeVersion: "cod-001-cp004-v2",
       publiclyPublishable: false,
