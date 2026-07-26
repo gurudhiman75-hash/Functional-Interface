@@ -36,6 +36,8 @@ for (const contract of EXACT_ATOMIC_PROTOTYPE_CONTRACTS) {
       assert.equal(first.prototypeOnly, true);
       assert.equal(first.publiclyPublishable, false);
       assert.equal(JSON.stringify(first).includes("COD-QL-"), false);
+      assert.equal(JSON.stringify(first.structuredPrompt).includes("reviewerWordIds"), false);
+      assert.equal(JSON.stringify(first.structuredPrompt).includes('"rowId"'), false);
       assert.equal(first.topologyKind, topologyKind);
       assert.equal(first.difficulty, exactAtomicDifficulty(topologyKind));
       assert.equal(first.options.length, 4);
@@ -48,10 +50,14 @@ for (const contract of EXACT_ATOMIC_PROTOTYPE_CONTRACTS) {
       assert.equal(first.stem.includes("prototype"), false);
       assert.equal(first.stem.includes("topology"), false);
       assert.equal(first.structuredPrompt.rows.length >= 2, true);
+      assert.deepEqual(
+        first.structuredPrompt.rows.map((row) => row.statementId),
+        first.structuredPrompt.rows.map((_, index) => `statement-${index + 1}`),
+      );
 
       const displayedPuzzle: AbstractSentenceCodePuzzle = {
         rows: first.structuredPrompt.rows.map((row) => ({
-          rowId: row.rowId,
+          rowId: row.statementId,
           wordIds: row.words,
           codeTokens: row.displayedCodeTokens,
         })),
