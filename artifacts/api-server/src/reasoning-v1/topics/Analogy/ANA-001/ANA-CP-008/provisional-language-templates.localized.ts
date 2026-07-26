@@ -6,6 +6,7 @@ import {
   type ProvisionalEnglishPrototypeId,
 } from "./provisional-language-templates.en";
 import { renderMixedToken } from "./foundation/mixed-token";
+import { provisionalMixedRuleById } from "./provisional-rule-definitions";
 
 export type ProvisionalMixedLocale = "hi-IN" | "pa-IN";
 
@@ -400,7 +401,6 @@ export function renderLocalizedOddPairPrototype(
   const intendedOutput = (() => {
     const directDefinition = ANA_CP008_ENGLISH_PROTOTYPES.find((entry) => entry.prototypeId === prototypeId);
     if (!directDefinition) throw new Error(`Missing definition ${prototypeId}`);
-    const { provisionalMixedRuleById } = require("./provisional-rule-definitions") as typeof import("./provisional-rule-definitions");
     const output = provisionalMixedRuleById(directDefinition.ruleId).apply(odd.input, directDefinition.context);
     if (!output) throw new Error(`Cannot calculate localized odd-pair expectation for ${prototypeId}`);
     return output;
