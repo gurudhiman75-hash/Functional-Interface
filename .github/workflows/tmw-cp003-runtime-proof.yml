@@ -76,3 +76,61 @@ jobs:
             artifacts/api-server/dist/quant-v4/tmw-001-cp003-review.json
           if-no-files-found: error
           retention-days: 7
+
+  validate-tmw-cp004:
+    if: github.head_ref == 'feat/tmw-cp004'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle TMW-CP-004 runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004.test.mjs
+      - name: Run TMW-CP-004 runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp004.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-proof.log
+      - name: Bundle TMW-CP-004 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004-audit.mjs
+      - name: Run TMW-CP-004 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp004-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-audit.log
+      - name: Bundle TMW-CP-004 review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004-review-export.mjs
+      - name: Generate TMW-CP-004 review export
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-cp004-review-export.mjs > dist/quant-v4/tmw-001-cp004-review.json
+      - name: Upload TMW-CP-004 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-cp004-runtime-proof
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp004-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp004-audit.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp004-review.json
+          if-no-files-found: error
+          retention-days: 7

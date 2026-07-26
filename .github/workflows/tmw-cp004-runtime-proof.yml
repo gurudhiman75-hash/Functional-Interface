@@ -1,0 +1,66 @@
+name: Validate TMW-CP-004 runtime proof
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp004-runtime-proof.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-cp004-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-tmw-cp004:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle TMW-CP-004 runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004.test.mjs
+      - name: Run TMW-CP-004 runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp004.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-proof.log
+      - name: Bundle TMW-CP-004 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004-audit.mjs
+      - name: Run TMW-CP-004 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp004-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp004-audit.log
+      - name: Bundle TMW-CP-004 review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp004-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp004-review-export.mjs
+      - namYNˆÙ[™\˜]HUËPÔL™]šY]È^ÜˆÛÜšÚ[™ËY\™XİÜNˆ\Y˜XİËØ\K\Ù\™\‚ˆ[ˆ›ÙH\İÜ]X[]İ]ËLKXÜ\™]šY]ËY^Ü›ZœÈˆ\İÜ]X[]İ]ËLKXÜ\™]šY]ËšœÛÛ‚ˆH˜[YNˆ\ØYUËPÔL]šY[˜ÙBˆYˆ[Ø^\Ê
+Bˆ\Ù\ÎˆXİ[ÛœËİ\ØYX\Y˜XİˆÚ]‚ˆ˜[YNˆ]ËXÜ\[[YK\›ÛÙ‚ˆ]ˆˆ\Y˜XİËØ\K\Ù\™\‹Ù\İÜ]X[]İ]ËLKXÜ\›ÛÙ‹›ÙÂˆ\Y˜XİËØ\K\Ù\™\‹Ù\İÜ]X[]İ]ËLKXÜX]Y]›ÙÂˆ\Y˜XİËØ\K\Ù\™\‹Ù\İÜ]X[]İ]ËLKXÜ\™]šY]ËšœÛÛ‚ˆY‹[›ËYš[\ËY›İ[™ˆ\œ›Ü‚ˆ™][[Û‹Y^\ÎˆÂ
