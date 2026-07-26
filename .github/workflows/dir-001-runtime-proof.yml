@@ -34,7 +34,6 @@ jobs:
   validate-dir-001:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -92,9 +91,7 @@ jobs:
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Direction-Sense/DIR-001/foundation/foundation.test.ts
-          --bundle
-          --platform=node
-          --format=esm
+          --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/dir-001-foundation.test.mjs
 
       - name: Run foundation proof
@@ -104,9 +101,7 @@ jobs:
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-001/dir-cp-001.test.ts
-          --bundle
-          --platform=node
-          --format=esm
+          --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/dir-cp-001.test.mjs
 
       - name: Run CP-001 proof
@@ -116,9 +111,7 @@ jobs:
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002.test.ts
-          --bundle
-          --platform=node
-          --format=esm
+          --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/dir-cp-002.test.mjs
 
       - name: Run CP-002 proof
@@ -146,9 +139,7 @@ jobs:
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-002/dir-cp-002-generate-review-export.ts
-          --bundle
-          --platform=node
-          --format=esm
+          --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/dir-cp-002-generate-review-export.mjs
 
       - name: Generate CP-002 question review files
@@ -167,9 +158,7 @@ jobs:
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003.test.ts
-          --bundle
-          --platform=node
-          --format=esm
+          --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/dir-cp-003.test.mjs
 
       - name: Run CP-003 proof
@@ -197,9 +186,7 @@ jobs:
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-003/dir-cp-003-generate-review-export.ts
-          --bundle
-          --platform=node
-          --format=esm
+          --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/dir-cp-003-generate-review-export.mjs
 
       - name: Generate CP-003 question review files
@@ -211,5 +198,52 @@ jobs:
         with:
           name: dir-cp-003-question-review
           path: artifacts/api-server/dist/reasoning-v1/dir-cp-003-review-export/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Bundle CP-004 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-004.test.mjs
+
+      - name: Run CP-004 proof
+        run: |
+          set +e
+          node artifacts/api-server/dist/reasoning-v1/dir-cp-004.test.mjs > dir-cp-004-runtime-proof.log 2>&1
+          echo "$?" > dir-cp-004-runtime-proof-exit.txt
+          exit 0
+
+      - name: Publish CP-004 proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-004-runtime-proof-diagnostics
+          path: |
+            dir-cp-004-runtime-proof.log
+            dir-cp-004-runtime-proof-exit.txt
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Enforce CP-004 proof result
+        run: test "$(cat dir-cp-004-runtime-proof-exit.txt)" = "0"
+
+      - name: Bundle CP-004 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Direction-Sense/DIR-001/DIR-CP-004/dir-cp-004-generate-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
+
+      - name: Generate CP-004 question review files
+        working-directory: artifacts/api-server
+        run: node dist/reasoning-v1/dir-cp-004-generate-review-export.mjs
+
+      - name: Publish CP-004 question review files
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-004-question-review
+          path: artifacts/api-server/dist/reasoning-v1/dir-cp-004-review-export/
           if-no-files-found: error
           retention-days: 14
