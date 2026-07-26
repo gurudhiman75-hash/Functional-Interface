@@ -12,7 +12,7 @@ on:
   pull_request:
     branches:
       - New-main
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened,synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
       - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/**
@@ -38,8 +38,12 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - name: Strict TypeScript check
+        id: strict-typecheck
+        continue-on-error: true
         working-directory: artifacts/api-server
+        shell: bash
         run: |
+          set -o pipefail
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -53,7 +57,19 @@ jobs:
             --skipLibCheck \
             --types node \
             $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation -name '*.ts' -print) \
-            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot -name '*.ts' -print)
+            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot -name '*.ts' -print) \
+            2>&1 | tee /tmp/ops-001-typecheck.log
+      - name: Upload strict TypeScript diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-typecheck-diagnostics
+          path: /tmp/ops-001-typecheck.log
+          if-no-files-found: error
+          retention-days: 2
+      - name: Enforce strict TypeScript result
+        if: steps.strict-typecheck.outcome == 'failure'
+        run: exit 1
       - name: Run exact foundation contract proof
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/ops-foundation.test.ts
       - name: Stress 12 representative candidate pilots
