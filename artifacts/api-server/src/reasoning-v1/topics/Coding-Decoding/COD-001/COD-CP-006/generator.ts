@@ -1,7 +1,9 @@
-import type { CodDifficulty, GeneratedOption } from "../foundation/types";
+import type { GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
 import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { isVowel } from "../COD-CP-004/transform";
 import { auditCompositeRule } from "./ambiguity-checker";
@@ -112,29 +114,6 @@ function chooseWords(
   return null;
 }
 
-function deriveDifficulty(
-  logic: CodCp006QuestionLogic,
-  prompt: CompositePrompt,
-  context: CodCp006RuleContext,
-): CodDifficulty {
-  let burden = 1;
-  if (["PAIR_SWAP_THEN_ALTERNATING_SHIFT", "HALF_SWAP_THEN_ODD_EVEN_SHIFT", "ROTATE_THEN_CLASS_SHIFT"].includes(logic.ruleId)) burden += 1;
-  if (["OPPOSITE_MAP_WITH_POSITION_PERMUTATION", "TRANSFORM_THEN_RANK_SEQUENCE"].includes(logic.ruleId)) burden += 2;
-  if (["CHOOSE_MATCHING_CODE", "DECODE_TARGET"].includes(logic.taskKind)) burden += 1;
-  if (["INFER_AND_ENCODE", "RECOVER_MISSING_TOKEN"].includes(logic.taskKind)) burden += 2;
-  if (prompt.targetWord.length >= 6) burden += 1;
-  if (logic.ruleId === "ROTATE_THEN_CLASS_SHIFT" && context.rotationAmount === 2) burden += 1;
-  if (logic.ruleId === "TRANSFORM_THEN_RANK_SEQUENCE" && context.transformCheckpoint === "COD-CP-004") burden += 1;
-  const inferenceHeavy = ["INFER_AND_ENCODE", "RECOVER_MISSING_TOKEN"].includes(logic.taskKind);
-  const denseIntroPipeline = ["PAIR_SWAP_THEN_ALTERNATING_SHIFT", "HALF_SWAP_THEN_ODD_EVEN_SHIFT"].includes(logic.ruleId);
-  const desired: CodDifficulty = burden >= 5 || (burden === 4 && inferenceHeavy)
-    ? "HARD"
-    : burden >= 3 || (burden === 2 && denseIntroPipeline)
-      ? "MEDIUM"
-      : "EASY";
-  return logic.allowedDifficulties.includes(desired) ? desired : logic.allowedDifficulties[0]!;
-}
-
 function buildStem(prompt: CompositePrompt, style: number, numericMissing: boolean): string {
   const examples = joinCodeExamples(prompt.evidence);
   if (prompt.taskKind === "DECODE_TARGET") {
@@ -234,6 +213,27 @@ function createCandidate(
   if (logic.requireWrap && !wrapUsed) return null;
   const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v1`).int(0, 3);
   const ruleDefinition = getCodCp006Rule(logic.ruleId);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-006",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: chosen.target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp006Explanation({
+      prompt,
+      ruleId: logic.ruleId,
+      context,
+      fullTargetCode,
+      answer,
+      styleIndex,
+      options,
+    }),
+    { checkpointId: "COD-CP-006", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
 
   return {
     packageId: "COD-001",
@@ -243,22 +243,14 @@ function createCandidate(
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic, prompt, context),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex, logic.ruleId === "TRANSFORM_THEN_RANK_SEQUENCE"),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp006Explanation({
-      prompt,
-      ruleId: logic.ruleId,
-      context,
-      fullTargetCode,
-      answer,
-      styleIndex,
-      options,
-    }),
+    explanation,
     metadata: {
       runtimeVersion: "cod-001-cp006-v1",
       publiclyPublishable: false,
