@@ -86,17 +86,34 @@ router.get("/business", async (req, res) => {
         FROM days d LEFT JOIN paid p ON p.day=d.day LEFT JOIN refunds r ON r.day=d.day ORDER BY d.day
       `,
       sqlClient`
+        WITH paid_items AS (
+          SELECT oi.product_id, COUNT(DISTINCT o.id)::int AS orders,
+            COUNT(DISTINCT o.user_id)::int AS buyers,
+            COALESCE(SUM(oi.total_minor),0)::float8 AS "revenueMinor"
+          FROM commerce.order_items oi
+          JOIN commerce.orders o ON o.id=oi.order_id
+          WHERE o.paid_at>=now()-make_interval(days => ${days})
+            AND o.currency=${currency}
+            AND o.status IN ('paid','partially_refunded','refunded')
+          GROUP BY oi.product_id
+        ), active_grants AS (
+          SELECT oi.product_id, COUNT(DISTINCT e.id)::int AS "activeEntitlements"
+          FROM commerce.entitlements e
+          JOIN commerce.order_items oi ON oi.id=e.order_item_id
+          WHERE e.status='active' AND e.starts_at<=now() AND (e.ends_at IS NULL OR e.ends_at>now())
+          GROUP BY oi.product_id
+        )
         SELECT p.id::text AS "productId", p.code, pv.title,
-          COUNT(DISTINCT o.id)::int AS orders, COUNT(DISTINCT o.user_id)::int AS buyers,
-          COALESCE(SUM(oi.total_minor) FILTER (WHERE o.id IS NOT NULL),0)::float8 AS "revenueMinor",
-          COUNT(DISTINCT e.id) FILTER (WHERE e.status='active' AND e.starts_at<=now() AND (e.ends_at IS NULL OR e.ends_at>now()))::int AS "activeEntitlements"
-        FROM commerce.products p JOIN commerce.product_versions pv ON pv.product_id=p.id AND pv.version_number=p.current_version_number
-        LEFT JOIN commerce.order_items oi ON oi.product_id=p.id
-        LEFT JOIN commerce.orders o ON o.id=oi.order_id AND o.paid_at>=now()-make_interval(days => ${days}) AND o.currency=${currency}
-          AND o.status IN ('paid','partially_refunded','refunded')
-        LEFT JOIN commerce.entitlements e ON e.order_item_id=oi.id
+          COALESCE(pi.orders,0)::int AS orders,
+          COALESCE(pi.buyers,0)::int AS buyers,
+          COALESCE(pi."revenueMinor",0)::float8 AS "revenueMinor",
+          COALESCE(ag."activeEntitlements",0)::int AS "activeEntitlements"
+        FROM commerce.products p
+        JOIN commerce.product_versions pv ON pv.product_id=p.id AND pv.version_number=p.current_version_number
+        LEFT JOIN paid_items pi ON pi.product_id=p.id
+        LEFT JOIN active_grants ag ON ag.product_id=p.id
         WHERE pv.currency=${currency}
-        GROUP BY p.id,pv.id ORDER BY "revenueMinor" DESC,p.code LIMIT 100
+        ORDER BY "revenueMinor" DESC,p.code LIMIT 100
       `,
       sqlClient`
         SELECT c.id::text AS "couponId", c.code, c.discount_type AS "discountType",
