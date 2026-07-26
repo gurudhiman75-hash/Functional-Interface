@@ -1,47 +1,18 @@
 import { getTmwCp001Entry } from "./cp001-registry";
 import { buildTmwCp001Options } from "./cp001-options";
 import { buildTmwCp001Parameters } from "./cp001-parameters";
-import { renderTmwCp001Stem, tmwCp001ExplanationOpening } from "./cp001-presentation";
+import { renderTmwCp001Stem, tmwCp001Conclusion, tmwCp001ExplanationOpening } from "./cp001-presentation";
 import { solveTmwCp001, verifyTmwCp001 } from "./cp001-solver";
 import { compare, rational, rationalKey } from "./rational";
 import { required } from "./cp001-helpers";
-import type {
-  Rational,
-  TmwCp001Parameters,
-  TmwCp001RegistryEntry,
-  TmwCp001Solution,
-  TmwGeneratedQuestion,
-  TmwOption,
-} from "./types";
+import type { Rational, TmwCp001Parameters, TmwCp001RegistryEntry, TmwCp001Solution, TmwGeneratedQuestion, TmwOption } from "./types";
 
 function fingerprint(entry: TmwCp001RegistryEntry, p: TmwCp001Parameters): string {
-  const values: Array<Rational | undefined> = [
-    p.totalWork,
-    p.rate,
-    p.time,
-    p.requestedFraction,
-    p.partWork,
-    p.partTime,
-    p.secondaryRate,
-    p.secondaryWork,
-    p.sourceDuration,
-    p.targetDuration,
-    p.originalRate,
-    p.changedRate,
-    p.originalTime,
-    p.changePercent,
-  ];
+  const values: Array<Rational | undefined> = [p.totalWork, p.rate, p.time, p.requestedFraction, p.partWork, p.partTime, p.secondaryRate, p.secondaryWork, p.sourceDuration, p.targetDuration, p.originalRate, p.changedRate, p.originalTime, p.changePercent];
   return `${entry.solveMode}|${values.map((value) => (value ? rationalKey(value) : "-")).join("|")}|${p.timeUnit}`;
 }
 
-function validate(
-  entry: TmwCp001RegistryEntry,
-  p: TmwCp001Parameters,
-  solution: TmwCp001Solution,
-  renderedStem: string,
-  optionAudit: TmwOption[],
-  correctIndex: number,
-): string[] {
+function validate(entry: TmwCp001RegistryEntry, p: TmwCp001Parameters, solution: TmwCp001Solution, renderedStem: string, optionAudit: TmwOption[], correctIndex: number): string[] {
   const errors: string[] = [];
   if (!verifyTmwCp001(entry, p, solution)) errors.push("Independent verifier disagrees with canonical solver");
   if (!renderedStem.trim()) errors.push("Stem is empty");
@@ -53,30 +24,15 @@ function validate(
   if (new Set(optionAudit.map((option) => option.text)).size !== 4) errors.push("Options are not unique");
   if (correctIndex < 0 || correctIndex >= optionAudit.length) errors.push("Correct answer is missing from options");
   if (optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) errors.push("Exactly one option must be marked correct");
-  if (["findFractionCompletedInGivenTime", "findRemainingFractionAfterTime"].includes(entry.solveMode) && compare(solution.answer, rational(1)) > 0) {
-    errors.push("Fraction answer exceeds one");
-  }
-  if (["findPercentCompletedInGivenTime", "findRemainingPercentAfterTime"].includes(entry.solveMode) && compare(solution.answer, rational(100)) > 0) {
-    errors.push("Percentage answer exceeds 100");
-  }
-  if (entry.solveMode === "findDelayFromReducedUniformRate" && compare(required(p.changedRate, "changedRate"), required(p.originalRate, "originalRate")) >= 0) {
-    errors.push("Reduced-rate question does not reduce the rate");
-  }
-  if (entry.solveMode === "findTimeSavedFromIncreasedUniformRate" && compare(required(p.changedRate, "changedRate"), required(p.originalRate, "originalRate")) <= 0) {
-    errors.push("Increased-rate question does not increase the rate");
-  }
+  if (["findFractionCompletedInGivenTime", "findRemainingFractionAfterTime"].includes(entry.solveMode) && compare(solution.answer, rational(1)) > 0) errors.push("Fraction answer exceeds one");
+  if (["findPercentCompletedInGivenTime", "findRemainingPercentAfterTime"].includes(entry.solveMode) && compare(solution.answer, rational(100)) > 0) errors.push("Percentage answer exceeds 100");
+  if (entry.solveMode === "findDelayFromReducedUniformRate" && compare(required(p.changedRate, "changedRate"), required(p.originalRate, "originalRate")) >= 0) errors.push("Reduced-rate question does not reduce the rate");
+  if (entry.solveMode === "findTimeSavedFromIncreasedUniformRate" && compare(required(p.changedRate, "changedRate"), required(p.originalRate, "originalRate")) <= 0) errors.push("Increased-rate question does not increase the rate");
   return errors;
 }
 
-export function runTmwCp001Pipeline(input: {
-  questionLanguageId: string;
-  seed: string;
-  language?: "en" | "hi" | "pa";
-}): TmwGeneratedQuestion {
-  if (input.language && input.language !== "en") {
-    throw new Error("TMW-CP-001 is English only at the current runtime-proof stage");
-  }
-
+export function runTmwCp001Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }): TmwGeneratedQuestion {
+  if (input.language && input.language !== "en") throw new Error("TMW-CP-001 is English only at the current runtime-proof stage");
   const entry = getTmwCp001Entry(input.questionLanguageId);
   const parameters = buildTmwCp001Parameters(entry, input.seed);
   const solution = solveTmwCp001(entry, parameters);
@@ -101,7 +57,7 @@ export function runTmwCp001Pipeline(input: {
       opening: tmwCp001ExplanationOpening(entry),
       formula: `\\(${solution.formulaLatex}\\)`,
       steps: solution.workedLatex.map((line) => `\\(${line}\\)`),
-      conclusion: `Therefore, ${solution.answerText} is required.`,
+      conclusion: tmwCp001Conclusion(entry, parameters, solution),
     },
     mathematicalFingerprint: fingerprint(entry, parameters),
     validation: { valid: errors.length === 0, errors },
