@@ -5,6 +5,7 @@ import type {
   StructuredQuestionStem,
 } from "./editorial-content";
 import type { EditorialLibraryFile } from "./editorial-library";
+import { compactEditorialEntry } from "./editorial-v2-exam-stems";
 import { buildAllLegacyEditorialLibraries } from "./editorial-v2-legacy-builder";
 
 function normalizeLatex(value: string): string {
@@ -145,11 +146,11 @@ function normalizeExplanation(explanation: FriendlyExplanation): FriendlyExplana
 }
 
 function normalizeEntry(qlId: string, entry: StructuredEditorialEntry): StructuredEditorialEntry {
-  return {
+  return compactEditorialEntry("en", {
     ...entry,
     stem: normalizeStem(qlId, entry.stem),
     explanation: normalizeExplanation(entry.explanation),
-  };
+  });
 }
 
 function normalizeLibrary(library: EditorialLibraryFile): EditorialLibraryFile {
