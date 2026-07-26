@@ -1,7 +1,9 @@
-import type { CodDifficulty, GeneratedOption } from "../foundation/types";
+import type { GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
 import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { COD_CP001_WORD_POOL } from "../COD-CP-001/word-pool.en";
 import { auditNumericCodingRule } from "./ambiguity-checker";
@@ -38,14 +40,6 @@ function chooseWords(logic: CodCp002QuestionLogic, constant: number | undefined,
   if (evidence.length < logic.exampleCount[0]) return null;
   if (logic.outputShape === "SCALAR" && new Set(evidence.map((word) => word.length)).size < 2) return null;
   return { target, evidence };
-}
-
-function deriveDifficulty(logic: CodCp002QuestionLogic): CodDifficulty {
-  if (["POSITION_WEIGHTED_SUM", "ODD_EVEN_POSITION_DIFFERENCE"].includes(logic.ruleId)) return "HARD";
-  if (logic.outputShape === "SCALAR") return "MEDIUM";
-  if (["RANK_PLUS_CONSTANT_SEQUENCE", "RANK_MINUS_CONSTANT_SEQUENCE"].includes(logic.ruleId)) return "MEDIUM";
-  if (["RECOVER_MISSING_VALUE", "INFER_AND_ENCODE", "CHOOSE_MATCHING_CODE"].includes(logic.taskKind)) return "MEDIUM";
-  return "EASY";
 }
 
 function buildStem(prompt: NumericCodingPrompt, style: number): string {
@@ -115,6 +109,19 @@ function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: nu
   validateOptions(options);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-002",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: chosen.target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp002Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    { checkpointId: "COD-CP-002", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -123,14 +130,14 @@ function createCandidate(logic: CodCp002QuestionLogic, seed: number, attempt: nu
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp002Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    explanation,
     metadata: {
       runtimeVersion: "cod-001-cp002-v2",
       publiclyPublishable: false,
