@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import type { StructuredEditorialEntry } from "./editorial-content";
 import { validateStructuredEditorialEntry } from "./editorial-content";
+import { applyEditorialEntryOverride } from "./editorial-overrides";
 
 export type EditorialLibraryFile = Readonly<{
   schemaVersion: 2;
@@ -18,18 +19,29 @@ export function parseEditorialLibrary(value: unknown, source = "editorial librar
   if (library.schemaVersion !== 2) throw new Error(`${source}: unsupported schema version.`);
   if (!library.entries || typeof library.entries !== "object") throw new Error(`${source}: entries are required.`);
 
-  const entries = library.entries as Record<string, StructuredEditorialEntry>;
-  const ids = Object.keys(entries);
+  const sourceEntries = library.entries as Record<string, StructuredEditorialEntry>;
+  const ids = Object.keys(sourceEntries);
   if (library.entryCount !== ids.length) {
     throw new Error(`${source}: entryCount ${library.entryCount} does not match ${ids.length} entries.`);
   }
 
+  const entries: Record<string, StructuredEditorialEntry> = {};
   for (const qlId of ids) {
-    const errors = validateStructuredEditorialEntry(entries[qlId]);
+    const entry = applyEditorialEntryOverride(qlId, sourceEntries[qlId]);
+    const errors = validateStructuredEditorialEntry(entry);
     if (errors.length > 0) throw new Error(`${source} ${qlId}: ${errors.join(" ")}`);
+    entries[qlId] = entry;
   }
 
-  return library as EditorialLibraryFile;
+  return {
+    schemaVersion: 2,
+    archetypeId: library.archetypeId ?? "",
+    cpId: library.cpId ?? "",
+    language: library.language ?? "",
+    status: library.status ?? "",
+    entries,
+    entryCount: library.entryCount,
+  };
 }
 
 export function loadEditorialLibrary(path: string): EditorialLibraryFile {
