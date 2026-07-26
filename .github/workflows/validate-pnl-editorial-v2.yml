@@ -62,7 +62,7 @@ jobs:
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs \
             2>&1 | tee -a editorial-v2-render.log
 
-      - name: Upload editorial diagnostics
+      - name: Upload editorial diagnostics and review sources
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -70,6 +70,9 @@ jobs:
           path: |
             editorial-v2-audit.log
             editorial-v2-render.log
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/editorial-content.en.json
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/editorial-content.en.json
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/editorial-content.en.json
           if-no-files-found: error
           retention-days: 3
 
