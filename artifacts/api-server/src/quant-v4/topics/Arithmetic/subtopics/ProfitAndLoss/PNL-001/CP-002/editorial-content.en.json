@@ -1,0 +1,1182 @@
+{
+  "schemaVersion": 2,
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-002",
+  "language": "en",
+  "status": "EDITORIAL_REVIEW_CANDIDATE",
+  "entries": {
+    "PNL-QL-037": {
+      "stem": {
+        "contextFamily": "fashion-clearance sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this fashion-clearance sale situation. The marked price of the jacket is ₹{markedPrice}. It is sold at a discount of {discountPercent}%."
+          }
+        ],
+        "prompt": "Find the selling price."
+      },
+      "explanation": {
+        "opening": "Let us begin with the price printed on the tag and remove the allowed discount.",
+        "concept": "A discount leaves a retained fraction of the marked price, so selling price equals marked price multiplied by one minus the discount rate.",
+        "steps": [
+          {
+            "title": "Find the retained percentage",
+            "body": "Subtract the discount percentage from 100 percent."
+          },
+          {
+            "title": "Apply it to marked price",
+            "body": "Multiply the marked price by the retained fraction.",
+            "equationLatex": "S=M\\left(1-\\frac{d}{100}\\right)"
+          }
+        ],
+        "conclusion": "The reduced amount is the customer's selling price.",
+        "commonTrap": "Do not subtract the percentage number directly from the rupee marked price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-038": {
+      "stem": {
+        "contextFamily": "electronics markdown",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this electronics markdown setting. The tablet marked at ₹{markedPrice} is sold for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Find the discount percentage."
+      },
+      "explanation": {
+        "opening": "The marked price and actual selling price show exactly how much price was reduced.",
+        "concept": "Discount percentage is the reduction divided by marked price, because the discount is always measured from the marked price.",
+        "steps": [
+          {
+            "title": "Find the discount amount",
+            "body": "Subtract selling price from marked price.",
+            "equationLatex": "D=M-S"
+          },
+          {
+            "title": "Convert to a percentage",
+            "body": "Divide the discount amount by marked price and multiply by 100.",
+            "equationLatex": "d=\\frac{D}{M}\\times100"
+          }
+        ],
+        "conclusion": "This rate is the discount percentage offered on the price tag.",
+        "commonTrap": "Do not divide the discount by selling price; selling price is the amount after reduction."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-039": {
+      "stem": {
+        "contextFamily": "furniture-price recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a furniture-price recovery setting. After allowing a discount of {discountPercent}%, a retailer sells the bookshelf for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Find its marked price."
+      },
+      "explanation": {
+        "opening": "Because the discounted selling price is known, we can reverse the retained-price factor.",
+        "concept": "After a d percent discount, the customer pays 100−d percent of the marked price.",
+        "steps": [
+          {
+            "title": "Write the retained factor",
+            "body": "Convert 100−d percent to a decimal or fraction."
+          },
+          {
+            "title": "Recover marked price",
+            "body": "Divide the selling price by the retained factor.",
+            "equationLatex": "M=\\frac{S}{1-d/100}"
+          }
+        ],
+        "conclusion": "The quotient is the original marked price.",
+        "commonTrap": "Do not add the discount percentage to selling price; a percentage reversal requires division."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-040": {
+      "stem": {
+        "contextFamily": "festival successive-discount sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This festival successive-discount sale transaction is described below. The home-appliance set marked at ₹{markedPrice} is offered at successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+          }
+        ],
+        "prompt": "Find the final selling price."
+      },
+      "explanation": {
+        "opening": "Successive discounts should be processed one after another, just as the store applies them.",
+        "concept": "Each later discount acts on the already reduced price, so retained-price multipliers must be multiplied rather than the discounts added.",
+        "steps": [
+          {
+            "title": "Convert every discount to a retained factor",
+            "body": "A discount of d percent leaves the factor 1−d/100."
+          },
+          {
+            "title": "Multiply the factors",
+            "body": "Apply the factors in order to the marked price.",
+            "equationLatex": "S=M\\prod_i\\left(1-\\frac{d_i}{100}\\right)"
+          },
+          {
+            "title": "Read the final amount",
+            "body": "The product gives the actual amount paid after all reductions."
+          }
+        ],
+        "conclusion": "The final reduced price is the required selling price.",
+        "commonTrap": "Do not add successive discount percentages because their bases change after every reduction."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-041": {
+      "stem": {
+        "contextFamily": "supermarket equivalent-discount offer",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this supermarket equivalent-discount offer decision, the following information is available. The supermarket offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+          }
+        ],
+        "prompt": "Find the single equivalent discount."
+      },
+      "explanation": {
+        "opening": "We can replace two successive discounts with one discount that leaves the same final price.",
+        "concept": "The equivalent retained fraction is the product of the two retained fractions; the equivalent discount is what is missing from 100 percent.",
+        "steps": [
+          {
+            "title": "Multiply retained factors",
+            "body": "Use (1−d1/100)(1−d2/100)."
+          },
+          {
+            "title": "Convert back to a discount",
+            "body": "Subtract the retained percentage from 100 percent.",
+            "equationLatex": "d_e=100\\left[1-\\left(1-\\frac{d_1}{100}\\right)\\left(1-\\frac{d_2}{100}\\right)\\right]"
+          }
+        ],
+        "conclusion": "This single rate produces the same final selling price as both discounts together.",
+        "commonTrap": "Do not simply add the two discount rates; the second discount is on a lower price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-042": {
+      "stem": {
+        "contextFamily": "bookstore discount amount",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this bookstore discount amount situation. The competitive-exam book set is marked at ₹{markedPrice} and sold at a discount of {discountPercent}%."
+          }
+        ],
+        "prompt": "Find the discount allowed in rupees."
+      },
+      "explanation": {
+        "opening": "Here the discount is handled as a direct link between marked price, discount amount, and selling price.",
+        "concept": "These three quantities satisfy marked price minus discount amount equals selling price, while the discount rate uses marked price as its base.",
+        "steps": [
+          {
+            "title": "Write the price relation",
+            "body": "Keep marked price, discount amount, and selling price in the same currency units.",
+            "equationLatex": "S=M-D"
+          },
+          {
+            "title": "Use the requested conversion",
+            "body": "For a rate, divide D by M; for an amount or selling price, rearrange the same relation."
+          }
+        ],
+        "conclusion": "The rearranged relation gives the requested discount value or final price.",
+        "commonTrap": "Do not measure the discount percentage on selling price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-043": {
+      "stem": {
+        "contextFamily": "pharmacy discount-rate calculation",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this pharmacy discount-rate calculation setting. A discount of ₹{discountAmount} is allowed on the health-monitoring kit marked at ₹{markedPrice}."
+          }
+        ],
+        "prompt": "Find the discount percentage."
+      },
+      "explanation": {
+        "opening": "Here the discount is handled as a direct link between marked price, discount amount, and selling price.",
+        "concept": "These three quantities satisfy marked price minus discount amount equals selling price, while the discount rate uses marked price as its base.",
+        "steps": [
+          {
+            "title": "Write the price relation",
+            "body": "Keep marked price, discount amount, and selling price in the same currency units.",
+            "equationLatex": "S=M-D"
+          },
+          {
+            "title": "Use the requested conversion",
+            "body": "For a rate, divide D by M; for an amount or selling price, rearrange the same relation."
+          }
+        ],
+        "conclusion": "The rearranged relation gives the requested discount value or final price.",
+        "commonTrap": "Do not measure the discount percentage on selling price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-044": {
+      "stem": {
+        "contextFamily": "appliance flat-reduction sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a appliance flat-reduction sale setting. The marked price of the microwave oven is ₹{markedPrice}. A discount of ₹{discountAmount} is allowed."
+          }
+        ],
+        "prompt": "Find the selling price."
+      },
+      "explanation": {
+        "opening": "Here the discount is handled as a direct link between marked price, discount amount, and selling price.",
+        "concept": "These three quantities satisfy marked price minus discount amount equals selling price, while the discount rate uses marked price as its base.",
+        "steps": [
+          {
+            "title": "Write the price relation",
+            "body": "Keep marked price, discount amount, and selling price in the same currency units.",
+            "equationLatex": "S=M-D"
+          },
+          {
+            "title": "Use the requested conversion",
+            "body": "For a rate, divide D by M; for an amount or selling price, rearrange the same relation."
+          }
+        ],
+        "conclusion": "The rearranged relation gives the requested discount value or final price.",
+        "commonTrap": "Do not measure the discount percentage on selling price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-045": {
+      "stem": {
+        "contextFamily": "apparel two-stage discount",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This apparel two-stage discount transaction is described below. Two successive discounts are offered. The first discount is {knownDiscountPercent}% and the equivalent discount is {equivalentDiscountPercent}%."
+          }
+        ],
+        "prompt": "Find the second discount."
+      },
+      "explanation": {
+        "opening": "The combined discount and one individual discount are known, so the missing retained factor can be isolated.",
+        "concept": "Equivalent discount information is easiest to use through retained-price multipliers, not by subtracting discount rates.",
+        "steps": [
+          {
+            "title": "Convert the equivalent discount",
+            "body": "Find the overall retained factor 1−de/100."
+          },
+          {
+            "title": "Remove the known discount factor",
+            "body": "Divide the overall retained factor by 1−d1/100."
+          },
+          {
+            "title": "Recover the missing discount",
+            "body": "Subtract the remaining factor from 1 and convert to percent."
+          }
+        ],
+        "conclusion": "The recovered rate is the second successive discount.",
+        "commonTrap": "Do not calculate the missing discount as equivalent discount minus known discount."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-046": {
+      "stem": {
+        "contextFamily": "online-offer comparison",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this online-offer comparison decision, the following information is available. On the wireless speaker marked at ₹{markedPrice}, one shop offers {singleDiscountPercent}% discount and another offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+          }
+        ],
+        "prompt": "Which offer is better, and by how much?"
+      },
+      "explanation": {
+        "opening": "The safest comparison is to convert every offer into the actual amount the customer finally pays.",
+        "concept": "Offers with different wording can be compared only after discount, cashback, coupon value, and eligibility have been evaluated on their correct bases.",
+        "steps": [
+          {
+            "title": "Evaluate the first offer",
+            "body": "Calculate its effective price after applying all valid conditions."
+          },
+          {
+            "title": "Evaluate the second offer",
+            "body": "Use the same original marked or billed amount and respect eligibility rules."
+          },
+          {
+            "title": "Compare final prices",
+            "body": "The lower effective price is better; subtract the two prices for the saving difference."
+          }
+        ],
+        "conclusion": "The offer with the lower valid effective cost is the better choice.",
+        "commonTrap": "Do not compare headline percentages or coupon amounts without calculating the final payable price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-047": {
+      "stem": {
+        "contextFamily": "department-store markup and discount",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A department store buys a travel suitcase for ₹{costPrice}, marks it {markupPercent}% above cost, and allows a discount of {discountPercent}%."
+          }
+        ],
+        "prompt": "Calculate the resulting profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "Markup and discount act on different stages, so we should first find the marked price and then the actual selling price.",
+        "concept": "Markup is measured on cost price, while discount is measured on marked price; the final profit or loss is measured back on cost price.",
+        "steps": [
+          {
+            "title": "Build marked price",
+            "body": "Increase cost price by the markup factor.",
+            "equationLatex": "M=C\\left(1+\\frac{m}{100}\\right)"
+          },
+          {
+            "title": "Apply the discount",
+            "body": "Reduce marked price by the retained discount factor.",
+            "equationLatex": "S=M\\left(1-\\frac{d}{100}\\right)"
+          },
+          {
+            "title": "Compare with cost",
+            "body": "Find S−C for the amount, or divide the absolute difference by C for the percentage."
+          }
+        ],
+        "conclusion": "The comparison of final selling price with cost gives the true commercial result.",
+        "commonTrap": "Do not subtract discount percentage directly from markup percentage; their bases are different."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-048": {
+      "stem": {
+        "contextFamily": "footwear profit-amount sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this footwear profit-amount sale setting. The sports-shoe pair costing ₹{costPrice} is marked {markupPercent}% above cost and sold after {discountPercent}% discount."
+          }
+        ],
+        "prompt": "Find the profit or loss incurred."
+      },
+      "explanation": {
+        "opening": "Markup and discount act on different stages, so we should first find the marked price and then the actual selling price.",
+        "concept": "Markup is measured on cost price, while discount is measured on marked price; the final profit or loss is measured back on cost price.",
+        "steps": [
+          {
+            "title": "Build marked price",
+            "body": "Increase cost price by the markup factor.",
+            "equationLatex": "M=C\\left(1+\\frac{m}{100}\\right)"
+          },
+          {
+            "title": "Apply the discount",
+            "body": "Reduce marked price by the retained discount factor.",
+            "equationLatex": "S=M\\left(1-\\frac{d}{100}\\right)"
+          },
+          {
+            "title": "Compare with cost",
+            "body": "Find S−C for the amount, or divide the absolute difference by C for the percentage."
+          }
+        ],
+        "conclusion": "The comparison of final selling price with cost gives the true commercial result.",
+        "commonTrap": "Do not subtract discount percentage directly from markup percentage; their bases are different."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-049": {
+      "stem": {
+        "contextFamily": "dealer target-margin pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a dealer target-margin pricing setting. The water purifier costs ₹{costPrice} and is marked at ₹{markedPrice}."
+          }
+        ],
+        "prompt": "Find the discount required to earn {targetRatePercent}% {targetDirection}."
+      },
+      "explanation": {
+        "opening": "The target profit or loss first determines the required selling price, after which the discount can be found from marked price.",
+        "concept": "A target rate is measured on cost price, but discount is measured from marked price, so the calculation must move through selling price.",
+        "steps": [
+          {
+            "title": "Find target selling price",
+            "body": "Apply the target commercial multiplier to cost price."
+          },
+          {
+            "title": "Find the reduction from marked price",
+            "body": "Subtract target selling price from marked price."
+          },
+          {
+            "title": "Convert reduction to discount percentage",
+            "body": "Divide the reduction by marked price and multiply by 100."
+          }
+        ],
+        "conclusion": "This is the maximum or required discount that still achieves the target result.",
+        "commonTrap": "Do not calculate the discount percentage on cost price."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-050": {
+      "stem": {
+        "contextFamily": "wholesale target-markup planning",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A garment wholesaler buys a carton for ₹{costPrice}. After allowing a discount of {discountPercent}%, the wholesaler wants an overall {targetRatePercent}% {targetDirection}."
+          }
+        ],
+        "prompt": "Find the required markup percentage."
+      },
+      "explanation": {
+        "opening": "The target result fixes the required selling price, while the known discount lets us work backward to marked price.",
+        "concept": "Markup is then measured by comparing that marked price with cost price.",
+        "steps": [
+          {
+            "title": "Calculate target selling price",
+            "body": "Apply the desired profit or loss multiplier to cost."
+          },
+          {
+            "title": "Reverse the discount",
+            "body": "Divide target selling price by the retained discount factor."
+          },
+          {
+            "title": "Find markup rate",
+            "body": "Compare the recovered marked price with cost price on the cost base."
+          }
+        ],
+        "conclusion": "The resulting percentage is the markup needed before the discount is offered.",
+        "commonTrap": "Do not apply the discount directly to cost price when finding markup."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-051": {
+      "stem": {
+        "contextFamily": "supermarket bundle promotion",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this supermarket bundle promotion decision, the following information is available. A store offers Buy {paidUnits}, get {freeUnits} free on identical articles."
+          }
+        ],
+        "prompt": "Find the equivalent discount percentage."
+      },
+      "explanation": {
+        "opening": "A buy-and-get offer is best understood by spreading the payment over all units received.",
+        "concept": "The customer pays for the paid units but receives paid plus free units, so the effective unit price and equivalent discount follow from that ratio.",
+        "steps": [
+          {
+            "title": "Count total units received",
+            "body": "Add paid units and free units."
+          },
+          {
+            "title": "Spread the payment",
+            "body": "Divide the cost of paid units by total units received.",
+            "equationLatex": "p_e=p\\frac{x}{x+y}"
+          },
+          {
+            "title": "Convert to discount if needed",
+            "body": "Compare the effective unit price with the marked unit price."
+          }
+        ],
+        "conclusion": "This gives either the effective price per unit or the equivalent discount.",
+        "commonTrap": "Do not treat free units as a percentage of paid units without using total units received."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-052": {
+      "stem": {
+        "contextFamily": "beverage multipack promotion",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this beverage multipack promotion situation. Each juice bottle is marked at ₹{unitMarkedPrice}. Under Buy {paidUnits}, get {freeUnits} free,"
+          }
+        ],
+        "prompt": "Find the effective price per juice bottle."
+      },
+      "explanation": {
+        "opening": "A buy-and-get offer is best understood by spreading the payment over all units received.",
+        "concept": "The customer pays for the paid units but receives paid plus free units, so the effective unit price and equivalent discount follow from that ratio.",
+        "steps": [
+          {
+            "title": "Count total units received",
+            "body": "Add paid units and free units."
+          },
+          {
+            "title": "Spread the payment",
+            "body": "Divide the cost of paid units by total units received.",
+            "equationLatex": "p_e=p\\frac{x}{x+y}"
+          },
+          {
+            "title": "Convert to discount if needed",
+            "body": "Compare the effective unit price with the marked unit price."
+          }
+        ],
+        "conclusion": "This gives either the effective price per unit or the equivalent discount.",
+        "commonTrap": "Do not treat free units as a percentage of paid units without using total units received."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-053": {
+      "stem": {
+        "contextFamily": "digital-wallet cashback",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this digital-wallet cashback setting. A customer pays ₹{billedPrice} and later receives ₹{cashbackAmount} cashback."
+          }
+        ],
+        "prompt": "Find the effective cost."
+      },
+      "explanation": {
+        "opening": "Cashback does not reduce the billed amount at checkout, but it lowers the customer's eventual effective cost.",
+        "concept": "Find the cashback from the stated amount or percentage, then subtract it from the amount paid.",
+        "steps": [
+          {
+            "title": "Determine cashback",
+            "body": "Use the flat amount or calculate the stated percentage of the billed price."
+          },
+          {
+            "title": "Find effective price",
+            "body": "Subtract cashback from the billed amount.",
+            "equationLatex": "E=B-C_b"
+          }
+        ],
+        "conclusion": "The remaining amount is the customer's effective cost after cashback.",
+        "commonTrap": "Do not call the post-cashback amount the checkout bill; the bill and effective cost are different."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-054": {
+      "stem": {
+        "contextFamily": "card-payment cashback",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a card-payment cashback setting. A payment of ₹{billedPrice} earns {cashbackPercent}% cashback."
+          }
+        ],
+        "prompt": "Find the effective cost."
+      },
+      "explanation": {
+        "opening": "Cashback does not reduce the billed amount at checkout, but it lowers the customer's eventual effective cost.",
+        "concept": "Find the cashback from the stated amount or percentage, then subtract it from the amount paid.",
+        "steps": [
+          {
+            "title": "Determine cashback",
+            "body": "Use the flat amount or calculate the stated percentage of the billed price."
+          },
+          {
+            "title": "Find effective price",
+            "body": "Subtract cashback from the billed amount.",
+            "equationLatex": "E=B-C_b"
+          }
+        ],
+        "conclusion": "The remaining amount is the customer's effective cost after cashback.",
+        "commonTrap": "Do not call the post-cashback amount the checkout bill; the bill and effective cost are different."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-055": {
+      "stem": {
+        "contextFamily": "furniture coupon sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This furniture coupon sale transaction is described below. The office desk marked at ₹{markedPrice} gets {discountPercent}% discount and an additional coupon of ₹{couponAmount}."
+          }
+        ],
+        "prompt": "Find the effective price."
+      },
+      "explanation": {
+        "opening": "The store applies the discount first, so the coupon must be evaluated on the already discounted price.",
+        "concept": "Order matters whenever a percentage coupon and a price reduction use different bases.",
+        "steps": [
+          {
+            "title": "Apply the store discount",
+            "body": "Reduce marked price by the discount factor."
+          },
+          {
+            "title": "Apply the coupon",
+            "body": "Subtract a flat coupon or apply the coupon percentage to the discounted amount."
+          },
+          {
+            "title": "Read effective price",
+            "body": "The amount left after both valid reductions is the final cost."
+          }
+        ],
+        "conclusion": "The final amount is the effective price paid by the customer.",
+        "commonTrap": "Do not apply a percentage coupon to the original marked price unless the offer explicitly says so."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-056": {
+      "stem": {
+        "contextFamily": "travel-bag offer comparison",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this travel-bag offer comparison decision, the following information is available. For the travel bag marked at ₹{markedPrice}, one seller offers {discountPercent}% discount and another offers ₹{cashbackAmount} cashback."
+          }
+        ],
+        "prompt": "Which offer gives the lower effective cost, and by how much?"
+      },
+      "explanation": {
+        "opening": "The safest comparison is to convert every offer into the actual amount the customer finally pays.",
+        "concept": "Offers with different wording can be compared only after discount, cashback, coupon value, and eligibility have been evaluated on their correct bases.",
+        "steps": [
+          {
+            "title": "Evaluate the first offer",
+            "body": "Calculate its effective price after applying all valid conditions."
+          },
+          {
+            "title": "Evaluate the second offer",
+            "body": "Use the same original marked or billed amount and respect eligibility rules."
+          },
+          {
+            "title": "Compare final prices",
+            "body": "The lower effective price is better; subtract the two prices for the saving difference."
+          }
+        ],
+        "conclusion": "The offer with the lower valid effective cost is the better choice.",
+        "commonTrap": "Do not compare headline percentages or coupon amounts without calculating the final payable price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-057": {
+      "stem": {
+        "contextFamily": "seasonal triple-discount clearance",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this seasonal triple-discount clearance situation. The winterwear bundle marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%."
+          }
+        ],
+        "prompt": "Find the final selling price."
+      },
+      "explanation": {
+        "opening": "Successive discounts should be processed one after another, just as the store applies them.",
+        "concept": "Each later discount acts on the already reduced price, so retained-price multipliers must be multiplied rather than the discounts added.",
+        "steps": [
+          {
+            "title": "Convert every discount to a retained factor",
+            "body": "A discount of d percent leaves the factor 1−d/100."
+          },
+          {
+            "title": "Multiply the factors",
+            "body": "Apply the factors in order to the marked price.",
+            "equationLatex": "S=M\\prod_i\\left(1-\\frac{d_i}{100}\\right)"
+          },
+          {
+            "title": "Read the final amount",
+            "body": "The product gives the actual amount paid after all reductions."
+          }
+        ],
+        "conclusion": "The final reduced price is the required selling price.",
+        "commonTrap": "Do not add successive discount percentages because their bases change after every reduction."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-058": {
+      "stem": {
+        "contextFamily": "minimum-spend grocery coupon",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this minimum-spend grocery coupon setting. A coupon of ₹{couponAmount} applies when the bill is at least ₹{minimumSpend}. For a bill of ₹{billedPrice}, state whether it applies and"
+          }
+        ],
+        "prompt": "Find the effective price."
+      },
+      "explanation": {
+        "opening": "Before subtracting the coupon, we must check whether the bill reaches the minimum-spend requirement.",
+        "concept": "A conditional coupon changes the price only when its eligibility condition is satisfied.",
+        "steps": [
+          {
+            "title": "Test eligibility",
+            "body": "Compare billed price with the minimum required spend."
+          },
+          {
+            "title": "Apply or reject the coupon",
+            "body": "Subtract the coupon only if the condition is met."
+          },
+          {
+            "title": "State both results",
+            "body": "Report eligibility and the corresponding effective price clearly."
+          }
+        ],
+        "conclusion": "The valid outcome depends on the threshold comparison.",
+        "commonTrap": "Do not subtract a coupon automatically without checking the minimum-spend rule."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-059": {
+      "stem": {
+        "contextFamily": "sportswear percentage coupon",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a sportswear percentage coupon setting. The sportswear set marked at ₹{markedPrice} gets {discountPercent}% discount followed by a {couponPercent}% coupon on the discounted price."
+          }
+        ],
+        "prompt": "Find the effective price."
+      },
+      "explanation": {
+        "opening": "The store applies the discount first, so the coupon must be evaluated on the already discounted price.",
+        "concept": "Order matters whenever a percentage coupon and a price reduction use different bases.",
+        "steps": [
+          {
+            "title": "Apply the store discount",
+            "body": "Reduce marked price by the discount factor."
+          },
+          {
+            "title": "Apply the coupon",
+            "body": "Subtract a flat coupon or apply the coupon percentage to the discounted amount."
+          },
+          {
+            "title": "Read effective price",
+            "body": "The amount left after both valid reductions is the final cost."
+          }
+        ],
+        "conclusion": "The final amount is the effective price paid by the customer.",
+        "commonTrap": "Do not apply a percentage coupon to the original marked price unless the offer explicitly says so."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-060": {
+      "stem": {
+        "contextFamily": "bank-cashback cap",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This bank-cashback cap transaction is described below. A bill of ₹{billedPrice} earns {cashbackPercent}% cashback subject to a cap of ₹{cashbackCap}."
+          }
+        ],
+        "prompt": "Find the cashback and effective cost."
+      },
+      "explanation": {
+        "opening": "This offer has both a percentage calculation and a maximum cashback cap, so both limits must be checked.",
+        "concept": "Actual cashback is the smaller of the calculated percentage amount and the stated cap; the percentage base must follow the offer wording.",
+        "steps": [
+          {
+            "title": "Identify the cashback base",
+            "body": "Use billed price or original marked price exactly as stated."
+          },
+          {
+            "title": "Calculate uncapped cashback",
+            "body": "Multiply the correct base by the cashback percentage."
+          },
+          {
+            "title": "Apply the cap and find effective price",
+            "body": "Use the smaller cashback, then subtract it from the billed amount."
+          }
+        ],
+        "conclusion": "The capped cashback and resulting effective cost are the required outputs.",
+        "commonTrap": "Do not calculate cashback on the wrong price or ignore the cap when the percentage amount is larger."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-061": {
+      "stem": {
+        "contextFamily": "marketplace original-price cashback",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this marketplace original-price cashback decision, the following information is available. The smartphone marked at ₹{markedPrice} gets {discountPercent}% discount and then {cashbackPercent}% cashback on the original marked price, capped at ₹{cashbackCap}."
+          }
+        ],
+        "prompt": "Find the billed price, cashback and effective cost."
+      },
+      "explanation": {
+        "opening": "This offer has both a percentage calculation and a maximum cashback cap, so both limits must be checked.",
+        "concept": "Actual cashback is the smaller of the calculated percentage amount and the stated cap; the percentage base must follow the offer wording.",
+        "steps": [
+          {
+            "title": "Identify the cashback base",
+            "body": "Use billed price or original marked price exactly as stated."
+          },
+          {
+            "title": "Calculate uncapped cashback",
+            "body": "Multiply the correct base by the cashback percentage."
+          },
+          {
+            "title": "Apply the cap and find effective price",
+            "body": "Use the smaller cashback, then subtract it from the billed amount."
+          }
+        ],
+        "conclusion": "The capped cashback and resulting effective cost are the required outputs.",
+        "commonTrap": "Do not calculate cashback on the wrong price or ignore the cap when the percentage amount is larger."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-062": {
+      "stem": {
+        "contextFamily": "fractional markdown",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this fractional markdown situation. The discount is {fractionNumerator}/{fractionDenominator} of the marked price."
+          }
+        ],
+        "prompt": "Find the discount percentage."
+      },
+      "explanation": {
+        "opening": "The fraction or ratio describes how much of the marked price is reduced or retained.",
+        "concept": "Convert the given relationship to a retained or discounted fraction, then multiply by 100 to express it as a percentage.",
+        "steps": [
+          {
+            "title": "Interpret the parts",
+            "body": "Decide whether the given fraction represents discount or price paid."
+          },
+          {
+            "title": "Find the discount fraction",
+            "body": "If price paid is given, subtract the retained fraction from 1."
+          },
+          {
+            "title": "Convert to percent",
+            "body": "Multiply the discount fraction by 100."
+          }
+        ],
+        "conclusion": "The converted value is the discount percentage.",
+        "commonTrap": "Do not confuse the fraction paid with the fraction discounted."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-063": {
+      "stem": {
+        "contextFamily": "catalog-price ratio",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this catalog-price ratio setting. The ratio of price paid to marked price is {paidPart}:{markedPart}."
+          }
+        ],
+        "prompt": "Find the discount percentage."
+      },
+      "explanation": {
+        "opening": "The fraction or ratio describes how much of the marked price is reduced or retained.",
+        "concept": "Convert the given relationship to a retained or discounted fraction, then multiply by 100 to express it as a percentage.",
+        "steps": [
+          {
+            "title": "Interpret the parts",
+            "body": "Decide whether the given fraction represents discount or price paid."
+          },
+          {
+            "title": "Find the discount fraction",
+            "body": "If price paid is given, subtract the retained fraction from 1."
+          },
+          {
+            "title": "Convert to percent",
+            "body": "Multiply the discount fraction by 100."
+          }
+        ],
+        "conclusion": "The converted value is the discount percentage.",
+        "commonTrap": "Do not confuse the fraction paid with the fraction discounted."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-064": {
+      "stem": {
+        "contextFamily": "mixed-offer eligibility",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a mixed-offer eligibility setting. For a bill of ₹{billedPrice}, Shop A offers {discountPercent}% discount. Shop B offers a coupon of ₹{couponAmount} valid from ₹{minimumSpend}."
+          }
+        ],
+        "prompt": "Identify the eligible better offer and find the effective-cost difference."
+      },
+      "explanation": {
+        "opening": "The safest comparison is to convert every offer into the actual amount the customer finally pays.",
+        "concept": "Offers with different wording can be compared only after discount, cashback, coupon value, and eligibility have been evaluated on their correct bases.",
+        "steps": [
+          {
+            "title": "Evaluate the first offer",
+            "body": "Calculate its effective price after applying all valid conditions."
+          },
+          {
+            "title": "Evaluate the second offer",
+            "body": "Use the same original marked or billed amount and respect eligibility rules."
+          },
+          {
+            "title": "Compare final prices",
+            "body": "The lower effective price is better; subtract the two prices for the saving difference."
+          }
+        ],
+        "conclusion": "The offer with the lower valid effective cost is the better choice.",
+        "commonTrap": "Do not compare headline percentages or coupon amounts without calculating the final payable price."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-065": {
+      "stem": {
+        "contextFamily": "offer-matrix selection",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A consumer appliance has a marked price of ₹{markedPrice}. The available offers are listed below."
+          },
+          {
+            "type": "table",
+            "caption": "Offer matrix",
+            "columns": [
+              "Offer",
+              "First reduction",
+              "Second reduction"
+            ],
+            "rowSource": "offerTable"
+          }
+        ],
+        "prompt": "Find the selling price under offer {selectedOffer}."
+      },
+      "explanation": {
+        "opening": "Successive discounts should be processed one after another, just as the store applies them.",
+        "concept": "Each later discount acts on the already reduced price, so retained-price multipliers must be multiplied rather than the discounts added.",
+        "steps": [
+          {
+            "title": "Convert every discount to a retained factor",
+            "body": "A discount of d percent leaves the factor 1−d/100."
+          },
+          {
+            "title": "Multiply the factors",
+            "body": "Apply the factors in order to the marked price.",
+            "equationLatex": "S=M\\prod_i\\left(1-\\frac{d_i}{100}\\right)"
+          },
+          {
+            "title": "Read the final amount",
+            "body": "The product gives the actual amount paid after all reductions."
+          }
+        ],
+        "conclusion": "The final reduced price is the required selling price.",
+        "commonTrap": "Do not add successive discount percentages because their bases change after every reduction."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-066": {
+      "stem": {
+        "contextFamily": "retail-pricing caselet",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Retail pricing caselet",
+            "paragraphSource": "caseletData"
+          },
+          {
+            "type": "paragraph",
+            "content": "The retailer's cost is ₹{costPrice}, the markup is {markupPercent}%, and the allowed discount is {discountPercent}%."
+          }
+        ],
+        "prompt": "Calculate the resulting profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "Markup and discount act on different stages, so we should first find the marked price and then the actual selling price.",
+        "concept": "Markup is measured on cost price, while discount is measured on marked price; the final profit or loss is measured back on cost price.",
+        "steps": [
+          {
+            "title": "Build marked price",
+            "body": "Increase cost price by the markup factor.",
+            "equationLatex": "M=C\\left(1+\\frac{m}{100}\\right)"
+          },
+          {
+            "title": "Apply the discount",
+            "body": "Reduce marked price by the retained discount factor.",
+            "equationLatex": "S=M\\left(1-\\frac{d}{100}\\right)"
+          },
+          {
+            "title": "Compare with cost",
+            "body": "Find S−C for the amount, or divide the absolute difference by C for the percentage."
+          }
+        ],
+        "conclusion": "The comparison of final selling price with cost gives the true commercial result.",
+        "commonTrap": "Do not subtract discount percentage directly from markup percentage; their bases are different."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-067": {
+      "stem": {
+        "contextFamily": "equivalent-discount statement",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A store announces successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+          },
+          {
+            "type": "statements",
+            "lead": "Consider the following claims:",
+            "statements": [
+              "The equivalent discount is found by adding the two discount rates.",
+              "The second discount applies to the price remaining after the first discount."
+            ]
+          }
+        ],
+        "prompt": "Select the correct statement about the equivalent discount."
+      },
+      "explanation": {
+        "opening": "We can replace two successive discounts with one discount that leaves the same final price.",
+        "concept": "The equivalent retained fraction is the product of the two retained fractions; the equivalent discount is what is missing from 100 percent.",
+        "steps": [
+          {
+            "title": "Multiply retained factors",
+            "body": "Use (1−d1/100)(1−d2/100)."
+          },
+          {
+            "title": "Convert back to a discount",
+            "body": "Subtract the retained percentage from 100 percent.",
+            "equationLatex": "d_e=100\\left[1-\\left(1-\\frac{d_1}{100}\\right)\\left(1-\\frac{d_2}{100}\\right)\\right]"
+          }
+        ],
+        "conclusion": "This single rate produces the same final selling price as both discounts together.",
+        "commonTrap": "Do not simply add the two discount rates; the second discount is on a lower price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-068": {
+      "stem": {
+        "contextFamily": "algebraic price-tag analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "In an algebraic price-tag analysis model, marked price and selling price are represented algebraically."
+          },
+          {
+            "type": "equation",
+            "latex": "M={markedPriceExpression},\\qquad S={sellingPriceExpression}"
+          }
+        ],
+        "prompt": "Find the discount percentage."
+      },
+      "explanation": {
+        "opening": "The marked price and actual selling price show exactly how much price was reduced.",
+        "concept": "Discount percentage is the reduction divided by marked price, because the discount is always measured from the marked price.",
+        "steps": [
+          {
+            "title": "Find the discount amount",
+            "body": "Subtract selling price from marked price.",
+            "equationLatex": "D=M-S"
+          },
+          {
+            "title": "Convert to a percentage",
+            "body": "Divide the discount amount by marked price and multiply by 100.",
+            "equationLatex": "d=\\frac{D}{M}\\times100"
+          }
+        ],
+        "conclusion": "This rate is the discount percentage offered on the price tag.",
+        "commonTrap": "Do not divide the discount by selling price; selling price is the amount after reduction."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-069": {
+      "stem": {
+        "contextFamily": "coupon-order optimisation",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a coupon-order optimisation setting. On the online-cart item marked at ₹{markedPrice}, a {discountPercent}% discount and a flat coupon of ₹{couponAmount} are available. Compare discount-then-coupon with coupon-then-discount and"
+          }
+        ],
+        "prompt": "Find the better order and price difference."
+      },
+      "explanation": {
+        "opening": "A flat coupon and a percentage discount can give different results when their order is reversed.",
+        "concept": "Calculate both legal sequences separately because the percentage reduction acts on whichever amount exists at that stage.",
+        "steps": [
+          {
+            "title": "Discount then coupon",
+            "body": "Apply the percentage reduction to marked price, then subtract the flat coupon."
+          },
+          {
+            "title": "Coupon then discount",
+            "body": "Subtract the flat coupon first, then apply the percentage reduction to the remainder."
+          },
+          {
+            "title": "Compare the two totals",
+            "body": "The lower final amount is the better order; their difference is the extra saving."
+          }
+        ],
+        "conclusion": "The sequence with the lower payable amount is the better order.",
+        "commonTrap": "Do not assume order is irrelevant when one reduction is flat and the other is percentage-based."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-070": {
+      "stem": {
+        "contextFamily": "target-discount data sufficiency",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A product costs ₹{costPrice}, is marked at ₹{markedPrice}, and must earn a target profit of {targetRatePercent}%."
+          },
+          {
+            "type": "data_sufficiency",
+            "question": "Is the required discount uniquely determinable?",
+            "statements": [
+              "{statementOne}",
+              "{statementTwo}"
+            ],
+            "answerScheme": "STANDARD_TWO_STATEMENT"
+          }
+        ],
+        "prompt": "Decide whether either statement alone or both together are sufficient."
+      },
+      "explanation": {
+        "opening": "The target profit or loss first determines the required selling price, after which the discount can be found from marked price.",
+        "concept": "A target rate is measured on cost price, but discount is measured from marked price, so the calculation must move through selling price.",
+        "steps": [
+          {
+            "title": "Find target selling price",
+            "body": "Apply the target commercial multiplier to cost price."
+          },
+          {
+            "title": "Find the reduction from marked price",
+            "body": "Subtract target selling price from marked price."
+          },
+          {
+            "title": "Convert reduction to discount percentage",
+            "body": "Divide the reduction by marked price and multiply by 100."
+          }
+        ],
+        "conclusion": "This is the maximum or required discount that still achieves the target result.",
+        "commonTrap": "Do not calculate the discount percentage on cost price."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    }
+  },
+  "entryCount": 34
+}

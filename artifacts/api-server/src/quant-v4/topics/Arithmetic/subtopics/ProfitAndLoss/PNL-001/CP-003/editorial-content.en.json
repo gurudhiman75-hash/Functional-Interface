@@ -1,0 +1,936 @@
+{
+  "schemaVersion": 2,
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-003",
+  "language": "en",
+  "status": "EDITORIAL_REVIEW_CANDIDATE",
+  "entries": {
+    "PNL-QL-071": {
+      "stem": {
+        "contextFamily": "grain-lot inventory",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The grain wholesaler purchases and sells several groups of grain lots."
+          },
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "lots"
+          }
+        ],
+        "prompt": "Calculate the overall percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
+        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "steps": [
+          {
+            "title": "Build group totals",
+            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+          },
+          {
+            "title": "Add cost and selling amounts",
+            "body": "Combine all group costs into total cost and all receipts into total selling price."
+          },
+          {
+            "title": "Find the overall result",
+            "body": "Compare the two totals and divide the absolute difference by total cost.",
+            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+          }
+        ],
+        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
+        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-072": {
+      "stem": {
+        "contextFamily": "fruit-crate equal-price sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A fruit merchant sells two fruit crates for the same price of ₹{commonSellingPrice} each. The first is sold at {firstRatePercent}% {firstDirection}, while the second is sold at {secondRatePercent}% {secondDirection}."
+          }
+        ],
+        "prompt": "Calculate the overall profit or loss percentage on the two crates together."
+      },
+      "explanation": {
+        "opening": "The two selling prices are equal, but the cost prices are different because the profit and loss rates differ.",
+        "concept": "Recover each cost price from the common selling price, add the costs, and compare them with the two equal selling amounts.",
+        "steps": [
+          {
+            "title": "Recover the first cost",
+            "body": "Reverse the first profit or loss multiplier from the common selling price."
+          },
+          {
+            "title": "Recover the second cost",
+            "body": "Reverse the second multiplier in the same way."
+          },
+          {
+            "title": "Combine both transactions",
+            "body": "Compare twice the common selling price with the sum of the two recovered costs."
+          }
+        ],
+        "conclusion": "The combined comparison gives the overall profit or loss percentage.",
+        "commonTrap": "Do not assume equal selling prices mean equal cost prices or that opposite rates cancel."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-073": {
+      "stem": {
+        "contextFamily": "identical-machine equal-cost sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An equipment dealer buys two small machines for the same cost of ₹{commonCostPrice} each. The first is sold at {firstRatePercent}% {firstDirection}, while the second is sold at {secondRatePercent}% {secondDirection}."
+          }
+        ],
+        "prompt": "Find the overall profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "Because both articles have the same cost price, their profit and loss amounts can be combined on equal bases.",
+        "concept": "Use one convenient common cost, calculate both selling prices, and compare their total with twice the common cost.",
+        "steps": [
+          {
+            "title": "Choose a common cost base",
+            "body": "Take each cost price as the same convenient amount."
+          },
+          {
+            "title": "Apply both rates",
+            "body": "Find the two selling-price factors from the stated directions."
+          },
+          {
+            "title": "Combine the results",
+            "body": "Compare the sum of selling prices with the sum of costs."
+          }
+        ],
+        "conclusion": "The combined difference on total cost is the overall percentage result.",
+        "commonTrap": "Do not average signed rates when the question asks for a money-weighted overall result, even though equal costs make the arithmetic simpler."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-074": {
+      "stem": {
+        "contextFamily": "seasonal-apparel partial inventory",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A retailer buys {totalQuantity} identical units at ₹{unitCostPrice} each."
+          },
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "soldGroups"
+          },
+          {
+            "type": "paragraph",
+            "content": "{unsoldQuantity} units remain and recover ₹{unsoldRecoveryPerUnit} per unit."
+          }
+        ],
+        "prompt": "Calculate the overall percentage gain or loss on the complete inventory."
+      },
+      "explanation": {
+        "opening": "A partial-inventory question becomes manageable when every sold and unsold group is entered in one money ledger.",
+        "concept": "Total cost covers the entire stock, while total recovery includes receipts from sold groups plus any value recovered from remaining stock.",
+        "steps": [
+          {
+            "title": "Find total inventory cost",
+            "body": "Multiply total quantity by unit cost price."
+          },
+          {
+            "title": "Add all recoveries",
+            "body": "Calculate revenue for every sold group and include the stated recovery from unsold units."
+          },
+          {
+            "title": "Measure the overall result",
+            "body": "Compare total recovery with total cost and use total cost as the percentage base."
+          }
+        ],
+        "conclusion": "The final comparison gives the overall profit or loss percentage for the complete inventory.",
+        "commonTrap": "Do not ignore unsold or recovered stock when calculating the overall result."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-075": {
+      "stem": {
+        "contextFamily": "damaged-ceramic stock recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A homeware seller buys {totalQuantity} ceramic sets at ₹{unitCostPrice} each. Of these, {damagedQuantity} sets are damaged and recover ₹{damagedRecoveryPerUnit} each. The seller wants an overall {targetRatePercent}% {targetDirection}."
+          }
+        ],
+        "prompt": "Find the required selling price per undamaged set."
+      },
+      "explanation": {
+        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
+        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "steps": [
+          {
+            "title": "Find total cost and target recovery",
+            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+          },
+          {
+            "title": "Subtract known recoveries",
+            "body": "Remove receipts from sold groups and damaged or recovered units."
+          },
+          {
+            "title": "Allocate the remaining amount",
+            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+          }
+        ],
+        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
+        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-076": {
+      "stem": {
+        "contextFamily": "promotional free-unit inventory",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A wholesaler pays for {paidQuantity} packaged units at ₹{unitCostPrice} each and receives {freeQuantity} additional units free. All units are sold at ₹{unitSellingPrice} each."
+          }
+        ],
+        "prompt": "Calculate the overall profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "Free units increase the number of units available for sale without increasing the purchase payment.",
+        "concept": "Total cost is based only on paid units, while total revenue comes from all paid and free units that are sold.",
+        "steps": [
+          {
+            "title": "Find total acquisition cost",
+            "body": "Multiply paid quantity by unit cost price; free units add no purchase cost."
+          },
+          {
+            "title": "Find total selling revenue",
+            "body": "Add paid and free quantities, then multiply by unit selling price."
+          },
+          {
+            "title": "Calculate the overall rate",
+            "body": "Compare total revenue with acquisition cost on the acquisition-cost base."
+          }
+        ],
+        "conclusion": "The combined comparison gives the true profit or loss percentage from the promotion.",
+        "commonTrap": "Do not assign the listed unit cost to free units when calculating what the buyer actually paid."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-077": {
+      "stem": {
+        "contextFamily": "book-lot weighted sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The book distributor divides book bundles into the groups shown below."
+          },
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "groups"
+          }
+        ],
+        "prompt": "Calculate the overall percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
+        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "steps": [
+          {
+            "title": "Build group totals",
+            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+          },
+          {
+            "title": "Add cost and selling amounts",
+            "body": "Combine all group costs into total cost and all receipts into total selling price."
+          },
+          {
+            "title": "Find the overall result",
+            "body": "Compare the two totals and divide the absolute difference by total cost.",
+            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+          }
+        ],
+        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
+        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-078": {
+      "stem": {
+        "contextFamily": "dairy-stock target rate",
+        "blocks": [
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "knownGroups"
+          },
+          {
+            "type": "paragraph",
+            "content": "The remaining {unknownQuantity} units cost ₹{unknownUnitCostPrice} each and will be sold at an unknown {unknownDirection} rate."
+          }
+        ],
+        "prompt": "Find the unknown rate needed for an overall {targetRatePercent}% {targetDirection}."
+      },
+      "explanation": {
+        "opening": "The unknown group's rate must make the combined inventory reach a stated overall target.",
+        "concept": "Translate the target into a required total selling amount, subtract the selling amounts already fixed, and compare the remaining requirement with the unknown group's cost.",
+        "steps": [
+          {
+            "title": "Find the target total selling amount",
+            "body": "Apply the target commercial factor to the total cost of all groups."
+          },
+          {
+            "title": "Remove known group receipts",
+            "body": "Calculate and subtract the selling amounts of groups whose rates are known."
+          },
+          {
+            "title": "Solve the unknown group's rate",
+            "body": "Compare its required selling amount with its own cost price."
+          }
+        ],
+        "conclusion": "This comparison gives both the direction and percentage required for the unknown group.",
+        "commonTrap": "Do not apply the overall target rate directly to the unknown group alone."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-079": {
+      "stem": {
+        "contextFamily": "spare-parts target quantity",
+        "blocks": [
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "fixedGroups"
+          },
+          {
+            "type": "paragraph",
+            "content": "Additional units cost ₹{unknownUnitCostPrice} each and are sold at {unknownRatePercent}% {unknownDirection}."
+          }
+        ],
+        "prompt": "How many additional units are needed for an overall {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "Here the rate on the additional group is known, but its quantity must be chosen to make the full inventory meet the target.",
+        "concept": "Write total cost and total selling price as expressions in the unknown quantity, then impose the target overall multiplier.",
+        "steps": [
+          {
+            "title": "Summarise fixed groups",
+            "body": "Add their known costs and selling amounts."
+          },
+          {
+            "title": "Write the unknown group's contribution",
+            "body": "Use quantity times unit cost for cost and apply its rate for selling price."
+          },
+          {
+            "title": "Set the target equation",
+            "body": "Equate total selling price to target factor times total cost and solve for quantity."
+          }
+        ],
+        "conclusion": "The valid non-negative quantity satisfying the equation is the required group size.",
+        "commonTrap": "Do not calculate the quantity from a percentage difference alone without accounting for both added cost and added revenue."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-080": {
+      "stem": {
+        "contextFamily": "unsold-notebook pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dealer buys {totalQuantity} units at ₹{unitCostPrice} each."
+          },
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "soldGroups"
+          }
+        ],
+        "prompt": "At what unit price should the remaining stock be sold for an overall {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
+        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "steps": [
+          {
+            "title": "Find total cost and target recovery",
+            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+          },
+          {
+            "title": "Subtract known recoveries",
+            "body": "Remove receipts from sold groups and damaged or recovered units."
+          },
+          {
+            "title": "Allocate the remaining amount",
+            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+          }
+        ],
+        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
+        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-081": {
+      "stem": {
+        "contextFamily": "leftover-tile target rate",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dealer buys {totalQuantity} units at ₹{unitCostPrice} each."
+          },
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "soldGroups"
+          }
+        ],
+        "prompt": "At what profit or loss rate should the remaining stock be sold for an overall {targetRatePercent}% {targetDirection}?"
+      },
+      "explanation": {
+        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
+        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "steps": [
+          {
+            "title": "Find total cost and target recovery",
+            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+          },
+          {
+            "title": "Subtract known recoveries",
+            "body": "Remove receipts from sold groups and damaged or recovered units."
+          },
+          {
+            "title": "Allocate the remaining amount",
+            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+          }
+        ],
+        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
+        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-082": {
+      "stem": {
+        "contextFamily": "spoiled-produce recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A produce merchant buys {totalQuantity} crates at ₹{unitCostPrice} each. Of these, {goodQuantity} good crates are sold at ₹{goodUnitSellingPrice} each and {spoiledQuantity} crates are spoiled. The merchant wants an overall {targetRatePercent}% {targetDirection}."
+          }
+        ],
+        "prompt": "Find the recovery required per spoiled crate."
+      },
+      "explanation": {
+        "opening": "The good stock produces a known receipt, while the spoiled stock must provide the remaining recovery needed for the target.",
+        "concept": "Calculate target total recovery for the whole purchase, subtract revenue from good units, and spread the balance over spoiled units.",
+        "steps": [
+          {
+            "title": "Find total purchase cost",
+            "body": "Multiply total quantity by unit cost price."
+          },
+          {
+            "title": "Find the target total recovery",
+            "body": "Use break-even or the stated overall profit or loss factor."
+          },
+          {
+            "title": "Recover the spoiled-unit requirement",
+            "body": "Subtract good-unit revenue and divide the remaining amount by spoiled quantity."
+          }
+        ],
+        "conclusion": "The quotient is the minimum or required recovery per spoiled unit.",
+        "commonTrap": "Do not measure the target only on the good units; the original cost includes the entire stock."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-083": {
+      "stem": {
+        "contextFamily": "equal-price special result",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this equal-price special result setting. Two articles are sold at the same selling price. One is sold at a profit of {ratePercent}% and the other at an equal loss percentage."
+          }
+        ],
+        "prompt": "Find the overall loss percentage."
+      },
+      "explanation": {
+        "opening": "Equal profit and loss rates do not cancel when two articles are sold for the same price.",
+        "concept": "The common selling price corresponds to two different cost prices, and the higher cost on the loss article creates an unavoidable overall loss.",
+        "steps": [
+          {
+            "title": "Use a common selling-price base",
+            "body": "Take the equal selling price as a convenient amount."
+          },
+          {
+            "title": "Recover both costs",
+            "body": "Divide by 1+r/100 for the profit article and by 1−r/100 for the loss article."
+          },
+          {
+            "title": "Compare combined totals",
+            "body": "Measure the total shortfall on total cost; the standard result simplifies to r squared divided by 100."
+          }
+        ],
+        "conclusion": "The pair therefore produces an overall loss, not no profit and no loss.",
+        "commonTrap": "Do not add the signed rates and conclude zero; their percentage bases are different.",
+        "shortcut": "For equal selling prices and equal opposite rates r%, the overall loss is r²/100 percent."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-084": {
+      "stem": {
+        "contextFamily": "equal-price inverse rate",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Two electronic items are sold for the same amount. The first is sold at {knownRatePercent}% {knownDirection}. The second must have a {unknownDirection} result, and the two sales together must produce an overall {targetRatePercent}% {targetDirection}."
+          }
+        ],
+        "prompt": "Find the required percentage on the second item."
+      },
+      "explanation": {
+        "opening": "One article's rate and the combined result are known, so the second cost factor must be recovered from the overall equation.",
+        "concept": "Use the common selling price to express both cost prices, then impose the stated total profit or loss condition.",
+        "steps": [
+          {
+            "title": "Express the known article's cost",
+            "body": "Reverse its stated commercial multiplier from the common selling price."
+          },
+          {
+            "title": "Represent the unknown cost",
+            "body": "Write it using an unknown profit or loss multiplier."
+          },
+          {
+            "title": "Apply the combined target",
+            "body": "Compare twice the common selling price with the sum of both costs and solve the unknown rate."
+          }
+        ],
+        "conclusion": "The rate that satisfies the combined condition is the second article's result.",
+        "commonTrap": "Do not use the known rate as though both articles had equal cost price."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-085": {
+      "stem": {
+        "contextFamily": "warehouse total-sale planning",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This warehouse total-sale planning transaction is described below. The total cost price of a stock is ₹{totalCostPrice}. If the stock is sold at {ratePercent}% {direction},"
+          }
+        ],
+        "prompt": "Find the total selling price."
+      },
+      "explanation": {
+        "opening": "This inventory has already been condensed into one total cost or selling amount, so it behaves like a single commercial transaction.",
+        "concept": "Apply the stated overall multiplier in the forward direction, or divide by it when the original total cost is required.",
+        "steps": [
+          {
+            "title": "Form the overall multiplier",
+            "body": "Use 1+r/100 for profit and 1−r/100 for loss."
+          },
+          {
+            "title": "Move in the required direction",
+            "body": "Multiply total cost to get total selling price, or divide total selling price to recover total cost."
+          }
+        ],
+        "conclusion": "The resulting total is the required inventory value.",
+        "commonTrap": "Do not apply the rate separately to unknown groups when the question already gives an overall total."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-086": {
+      "stem": {
+        "contextFamily": "reverse total-cost recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this reverse total-cost recovery decision, the following information is available. A stock is sold for a total of ₹{totalSellingPrice} at {ratePercent}% {direction}."
+          }
+        ],
+        "prompt": "Find its total cost price."
+      },
+      "explanation": {
+        "opening": "This inventory has already been condensed into one total cost or selling amount, so it behaves like a single commercial transaction.",
+        "concept": "Apply the stated overall multiplier in the forward direction, or divide by it when the original total cost is required.",
+        "steps": [
+          {
+            "title": "Form the overall multiplier",
+            "body": "Use 1+r/100 for profit and 1−r/100 for loss."
+          },
+          {
+            "title": "Move in the required direction",
+            "body": "Multiply total cost to get total selling price, or divide total selling price to recover total cost."
+          }
+        ],
+        "conclusion": "The resulting total is the required inventory value.",
+        "commonTrap": "Do not apply the rate separately to unknown groups when the question already gives an overall total."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-087": {
+      "stem": {
+        "contextFamily": "fractional stock recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The total cost of the stock is ₹{totalCostPrice}, and the amount recovered is {recoveredFraction} of that cost."
+          }
+        ],
+        "prompt": "Find the overall profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "The recovered fraction tells us directly how much of the original inventory cost returned as revenue.",
+        "concept": "Compare the recovered fraction with one whole cost: above one means profit, below one means loss, and the gap converts to a percentage.",
+        "steps": [
+          {
+            "title": "Interpret the fraction",
+            "body": "Treat total cost as one whole unit and write recovered revenue as the stated fraction."
+          },
+          {
+            "title": "Find the gap from one",
+            "body": "Subtract the smaller fraction from the larger."
+          },
+          {
+            "title": "Convert the gap to percent",
+            "body": "Multiply the absolute fractional difference by 100."
+          }
+        ],
+        "conclusion": "The direction and percentage follow from whether recovery exceeds or falls short of total cost.",
+        "commonTrap": "Do not calculate the percentage on recovered revenue; total cost remains the standard base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-088": {
+      "stem": {
+        "contextFamily": "inventory-table analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The inventory analyst records several inventory groups in the table below."
+          },
+          {
+            "type": "table",
+            "caption": "Inventory groups",
+            "columns": [
+              "Group",
+              "Quantity and unit cost",
+              "Selling condition"
+            ],
+            "rowSource": "inventoryTable"
+          }
+        ],
+        "prompt": "Calculate the overall percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
+        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "steps": [
+          {
+            "title": "Build group totals",
+            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+          },
+          {
+            "title": "Add cost and selling amounts",
+            "body": "Combine all group costs into total cost and all receipts into total selling price."
+          },
+          {
+            "title": "Find the overall result",
+            "body": "Compare the two totals and divide the absolute difference by total cost.",
+            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+          }
+        ],
+        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
+        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-089": {
+      "stem": {
+        "contextFamily": "warehouse caselet",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Warehouse inventory caselet",
+            "paragraphSource": "caseletData"
+          }
+        ],
+        "prompt": "Calculate the dealer's overall percentage gain or loss after accounting for sold and remaining stock."
+      },
+      "explanation": {
+        "opening": "A partial-inventory question becomes manageable when every sold and unsold group is entered in one money ledger.",
+        "concept": "Total cost covers the entire stock, while total recovery includes receipts from sold groups plus any value recovered from remaining stock.",
+        "steps": [
+          {
+            "title": "Find total inventory cost",
+            "body": "Multiply total quantity by unit cost price."
+          },
+          {
+            "title": "Add all recoveries",
+            "body": "Calculate revenue for every sold group and include the stated recovery from unsold units."
+          },
+          {
+            "title": "Measure the overall result",
+            "body": "Compare total recovery with total cost and use total cost as the percentage base."
+          }
+        ],
+        "conclusion": "The final comparison gives the overall profit or loss percentage for the complete inventory.",
+        "commonTrap": "Do not ignore unsold or recovered stock when calculating the overall result."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-090": {
+      "stem": {
+        "contextFamily": "equal-price statement analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Two items are sold at the same price, one at {ratePercent}% profit and the other at {ratePercent}% loss."
+          },
+          {
+            "type": "statements",
+            "lead": "Consider the following claims:",
+            "statements": [
+              "The equal profit and loss rates cancel completely.",
+              "The pair produces an overall loss because the two cost-price bases are different."
+            ]
+          }
+        ],
+        "prompt": "Select the correct statement about the overall result."
+      },
+      "explanation": {
+        "opening": "Equal profit and loss rates do not cancel when two articles are sold for the same price.",
+        "concept": "The common selling price corresponds to two different cost prices, and the higher cost on the loss article creates an unavoidable overall loss.",
+        "steps": [
+          {
+            "title": "Use a common selling-price base",
+            "body": "Take the equal selling price as a convenient amount."
+          },
+          {
+            "title": "Recover both costs",
+            "body": "Divide by 1+r/100 for the profit article and by 1−r/100 for the loss article."
+          },
+          {
+            "title": "Compare combined totals",
+            "body": "Measure the total shortfall on total cost; the standard result simplifies to r squared divided by 100."
+          }
+        ],
+        "conclusion": "The pair therefore produces an overall loss, not no profit and no loss.",
+        "commonTrap": "Do not add the signed rates and conclude zero; their percentage bases are different.",
+        "shortcut": "For equal selling prices and equal opposite rates r%, the overall loss is r²/100 percent."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-091": {
+      "stem": {
+        "contextFamily": "algebraic group-rate analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The costs and selling conditions of inventory groups are expressed algebraically."
+          },
+          {
+            "type": "equation",
+            "latex": "\\text{Group data}={groupCostExpressions},\\qquad \\text{target rate}={targetRatePercent}\\%"
+          }
+        ],
+        "prompt": "Determine the unknown group rate required for the stated overall result."
+      },
+      "explanation": {
+        "opening": "The unknown group's rate must make the combined inventory reach a stated overall target.",
+        "concept": "Translate the target into a required total selling amount, subtract the selling amounts already fixed, and compare the remaining requirement with the unknown group's cost.",
+        "steps": [
+          {
+            "title": "Find the target total selling amount",
+            "body": "Apply the target commercial factor to the total cost of all groups."
+          },
+          {
+            "title": "Remove known group receipts",
+            "body": "Calculate and subtract the selling amounts of groups whose rates are known."
+          },
+          {
+            "title": "Solve the unknown group's rate",
+            "body": "Compare its required selling amount with its own cost price."
+          }
+        ],
+        "conclusion": "This comparison gives both the direction and percentage required for the unknown group.",
+        "commonTrap": "Do not apply the overall target rate directly to the unknown group alone."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-092": {
+      "stem": {
+        "contextFamily": "remaining-stock data sufficiency",
+        "blocks": [
+          {
+            "type": "data_sufficiency",
+            "question": "Can the required unit selling price of the remaining stock be determined?",
+            "statements": [
+              "{statementOne}",
+              "{statementTwo}"
+            ],
+            "answerScheme": "STANDARD_TWO_STATEMENT"
+          }
+        ],
+        "prompt": "Decide whether either statement alone or both together are sufficient."
+      },
+      "explanation": {
+        "opening": "The required price or rate on the remaining stock must first cover the gap left after earlier sales or damage recovery.",
+        "concept": "Start from the target total recovery, subtract what has already been recovered, and spread the remaining requirement across the unsold good units.",
+        "steps": [
+          {
+            "title": "Find total cost and target recovery",
+            "body": "Calculate complete inventory cost and apply the target profit or loss factor."
+          },
+          {
+            "title": "Subtract known recoveries",
+            "body": "Remove receipts from sold groups and damaged or recovered units."
+          },
+          {
+            "title": "Allocate the remaining amount",
+            "body": "Divide by the number of units still to be sold; convert to a rate if the question asks for one."
+          }
+        ],
+        "conclusion": "The resulting unit price or rate is what the remaining stock must achieve.",
+        "commonTrap": "Do not apply the target percentage only to the unsold units; the target concerns the entire inventory."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    },
+    "PNL-QL-093": {
+      "stem": {
+        "contextFamily": "multi-lot amount analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The bulk trader purchases and sells several groups of purchase lots."
+          },
+          {
+            "type": "table",
+            "caption": "Given commercial data",
+            "columns": [
+              "Group",
+              "Quantity or cost",
+              "Selling condition"
+            ],
+            "rowSource": "lots"
+          }
+        ],
+        "prompt": "Find the overall profit or loss amount."
+      },
+      "explanation": {
+        "opening": "When several lots or groups are involved, the overall result must come from total money rather than an average of percentages.",
+        "concept": "Each group contributes its own cost and selling amount; add those amounts first and then measure the combined difference on total cost.",
+        "steps": [
+          {
+            "title": "Build group totals",
+            "body": "For every group, multiply quantity by unit cost and unit selling price or apply its stated rate."
+          },
+          {
+            "title": "Add cost and selling amounts",
+            "body": "Combine all group costs into total cost and all receipts into total selling price."
+          },
+          {
+            "title": "Find the overall result",
+            "body": "Compare the two totals and divide the absolute difference by total cost.",
+            "equationLatex": "r=\\frac{|S_T-C_T|}{C_T}\\times100"
+          }
+        ],
+        "conclusion": "The sign of total selling price minus total cost gives the overall direction and the formula gives the rate.",
+        "commonTrap": "Do not average the group percentages unless all group cost bases are equal."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-094": {
+      "stem": {
+        "contextFamily": "spoiled-stock break-even recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A food distributor buys {totalQuantity} packs at ₹{unitCostPrice} each. Of these, {goodQuantity} good packs are sold at ₹{goodUnitSellingPrice} each and {spoiledQuantity} packs cannot be sold normally."
+          }
+        ],
+        "prompt": "Find the minimum recovery per spoiled pack required to avoid an overall loss."
+      },
+      "explanation": {
+        "opening": "The good stock produces a known receipt, while the spoiled stock must provide the remaining recovery needed for the target.",
+        "concept": "Calculate target total recovery for the whole purchase, subtract revenue from good units, and spread the balance over spoiled units.",
+        "steps": [
+          {
+            "title": "Find total purchase cost",
+            "body": "Multiply total quantity by unit cost price."
+          },
+          {
+            "title": "Find the target total recovery",
+            "body": "Use break-even or the stated overall profit or loss factor."
+          },
+          {
+            "title": "Recover the spoiled-unit requirement",
+            "body": "Subtract good-unit revenue and divide the remaining amount by spoiled quantity."
+          }
+        ],
+        "conclusion": "The quotient is the minimum or required recovery per spoiled unit.",
+        "commonTrap": "Do not measure the target only on the good units; the original cost includes the entire stock."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "The unknown is coupled to several constraints, weighted groups, eligibility rules, or data-sufficiency logic."
+    }
+  },
+  "entryCount": 24
+}

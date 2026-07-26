@@ -1,0 +1,1127 @@
+{
+  "schemaVersion": 2,
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-001",
+  "language": "en",
+  "status": "EDITORIAL_REVIEW_CANDIDATE",
+  "entries": {
+    "PNL-QL-001": {
+      "stem": {
+        "contextFamily": "kitchen-appliance resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this kitchen-appliance resale decision, the following information is available. The appliance retailer purchased a mixer for ₹{costPrice} and sold it for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Find the profit or loss incurred."
+      },
+      "explanation": {
+        "opening": "Let us compare what the seller paid with what the seller finally received.",
+        "concept": "Profit or loss amount is the absolute difference between selling price and cost price; the larger price determines the direction.",
+        "steps": [
+          {
+            "title": "Identify the direction",
+            "body": "Compare the selling price with the cost price before doing any percentage work."
+          },
+          {
+            "title": "Find the amount",
+            "body": "Subtract the smaller price from the larger price.",
+            "equationLatex": "A=|S-C|"
+          }
+        ],
+        "conclusion": "The difference is the required profit or loss amount.",
+        "commonTrap": "Do not divide by a price when only the amount, not the percentage, is requested."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-002": {
+      "stem": {
+        "contextFamily": "home-office furniture resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this home-office furniture resale situation. The furniture shopkeeper bought a study table for ₹{costPrice} and sold it for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Calculate the profit or loss made by the retailer."
+      },
+      "explanation": {
+        "opening": "Let us compare what the seller paid with what the seller finally received.",
+        "concept": "Profit or loss amount is the absolute difference between selling price and cost price; the larger price determines the direction.",
+        "steps": [
+          {
+            "title": "Identify the direction",
+            "body": "Compare the selling price with the cost price before doing any percentage work."
+          },
+          {
+            "title": "Find the amount",
+            "body": "Subtract the smaller price from the larger price.",
+            "equationLatex": "A=|S-C|"
+          }
+        ],
+        "conclusion": "The difference is the required profit or loss amount.",
+        "commonTrap": "Do not divide by a price when only the amount, not the percentage, is requested."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-003": {
+      "stem": {
+        "contextFamily": "bicycle showroom transaction",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this bicycle showroom transaction setting. A bicycle was bought for ₹{costPrice} and sold for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Find the profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
+        "steps": [
+          {
+            "title": "Find profit or loss amount",
+            "body": "Compare selling price and cost price, then take their absolute difference.",
+            "equationLatex": "A=|S-C|"
+          },
+          {
+            "title": "Convert the amount to a rate",
+            "body": "Divide the amount by cost price and multiply by 100.",
+            "equationLatex": "r=\\frac{A}{C}\\times100"
+          }
+        ],
+        "conclusion": "The sign of S−C gives profit, loss, or no change; the formula gives the percentage.",
+        "commonTrap": "Do not divide by selling price unless the question specifically asks for a margin on selling price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-004": {
+      "stem": {
+        "contextFamily": "agricultural-tool trade",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a agricultural-tool trade setting. The equipment trader paid ₹{costPrice} for the power tiller and sold it for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Calculate the percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
+        "steps": [
+          {
+            "title": "Find profit or loss amount",
+            "body": "Compare selling price and cost price, then take their absolute difference.",
+            "equationLatex": "A=|S-C|"
+          },
+          {
+            "title": "Convert the amount to a rate",
+            "body": "Divide the amount by cost price and multiply by 100.",
+            "equationLatex": "r=\\frac{A}{C}\\times100"
+          }
+        ],
+        "conclusion": "The sign of S−C gives profit, loss, or no change; the formula gives the percentage.",
+        "commonTrap": "Do not divide by selling price unless the question specifically asks for a margin on selling price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-005": {
+      "stem": {
+        "contextFamily": "consumer-electronics pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This consumer-electronics pricing transaction is described below. An appliance costs a dealer ₹{costPrice}."
+          }
+        ],
+        "prompt": "At what price should it be sold to earn a profit of {profitPercent}%?"
+      },
+      "explanation": {
+        "opening": "The stated rate tells us how much of the cost is added or removed before sale.",
+        "concept": "A profit uses a multiplier above 1, while a loss uses a retained multiplier below 1.",
+        "steps": [
+          {
+            "title": "Write the commercial multiplier",
+            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+          },
+          {
+            "title": "Apply it to cost price",
+            "body": "Multiply the cost price by the appropriate factor.",
+            "equationLatex": "S=C\\left(1\\pm\\frac{r}{100}\\right)"
+          }
+        ],
+        "conclusion": "The resulting amount is the required selling price.",
+        "commonTrap": "Do not add or subtract the percentage number directly from the rupee cost."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-006": {
+      "stem": {
+        "contextFamily": "industrial-machine liquidation",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this industrial-machine liquidation decision, the following information is available. A machine was purchased for ₹{costPrice}. If it is sold at a loss of {lossPercent}%,"
+          }
+        ],
+        "prompt": "What is its selling price?"
+      },
+      "explanation": {
+        "opening": "The stated rate tells us how much of the cost is added or removed before sale.",
+        "concept": "A profit uses a multiplier above 1, while a loss uses a retained multiplier below 1.",
+        "steps": [
+          {
+            "title": "Write the commercial multiplier",
+            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+          },
+          {
+            "title": "Apply it to cost price",
+            "body": "Multiply the cost price by the appropriate factor.",
+            "equationLatex": "S=C\\left(1\\pm\\frac{r}{100}\\right)"
+          }
+        ],
+        "conclusion": "The resulting amount is the required selling price.",
+        "commonTrap": "Do not add or subtract the percentage number directly from the rupee cost."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-007": {
+      "stem": {
+        "contextFamily": "refurbished-laptop sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this refurbished-laptop sale situation. The refurbished laptop was sold for ₹{sellingPrice} at a profit of {profitPercent}%."
+          }
+        ],
+        "prompt": "Find its cost price."
+      },
+      "explanation": {
+        "opening": "Because the selling price is known, the cleanest method is to reverse the stated multiplier.",
+        "concept": "The forward relation is selling price equals cost price multiplied by the commercial factor, so cost price is found by division.",
+        "steps": [
+          {
+            "title": "Form the multiplier",
+            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+          },
+          {
+            "title": "Reverse the sale",
+            "body": "Divide the selling price by that multiplier.",
+            "equationLatex": "C=\\frac{S}{1\\pm r/100}"
+          }
+        ],
+        "conclusion": "The quotient is the original cost price.",
+        "commonTrap": "Do not subtract the stated rate from the selling price; reversing a percentage multiplier requires division."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-008": {
+      "stem": {
+        "contextFamily": "modular-furniture outlet",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this modular-furniture outlet setting. By selling a cupboard for ₹{sellingPrice}, a seller incurred a loss of {lossPercent}%."
+          }
+        ],
+        "prompt": "What was the cupboard's cost price?"
+      },
+      "explanation": {
+        "opening": "Because the selling price is known, the cleanest method is to reverse the stated multiplier.",
+        "concept": "The forward relation is selling price equals cost price multiplied by the commercial factor, so cost price is found by division.",
+        "steps": [
+          {
+            "title": "Form the multiplier",
+            "body": "Use 1+r/100 for profit or 1−r/100 for loss."
+          },
+          {
+            "title": "Reverse the sale",
+            "body": "Divide the selling price by that multiplier.",
+            "equationLatex": "C=\\frac{S}{1\\pm r/100}"
+          }
+        ],
+        "conclusion": "The quotient is the original cost price.",
+        "commonTrap": "Do not subtract the stated rate from the selling price; reversing a percentage multiplier requires division."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-009": {
+      "stem": {
+        "contextFamily": "wholesale-stationery trade",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a wholesale-stationery trade setting. The stationery wholesaler earned ₹{profitAmount}, which was {profitPercent}% of the cost price."
+          }
+        ],
+        "prompt": "Find the cost price."
+      },
+      "explanation": {
+        "opening": "The given profit or loss amount is a known percentage of the unknown cost price.",
+        "concept": "If an amount equals r percent of cost price, the cost is recovered by scaling the amount from r parts to 100 parts.",
+        "steps": [
+          {
+            "title": "Write the percentage relation",
+            "body": "Treat the stated amount as r/100 of cost price.",
+            "equationLatex": "A=C\\frac{r}{100}"
+          },
+          {
+            "title": "Solve for cost price",
+            "body": "Multiply the amount by 100 and divide by the rate.",
+            "equationLatex": "C=\\frac{100A}{r}"
+          }
+        ],
+        "conclusion": "This recovered value is the required cost price.",
+        "commonTrap": "Do not add the profit or loss amount to itself; the rate identifies the hidden base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-010": {
+      "stem": {
+        "contextFamily": "automobile-spares counter",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This automobile-spares counter transaction is described below. The loss on selling the spare-parts kit was ₹{lossAmount}, equal to {lossPercent}% of its cost price."
+          }
+        ],
+        "prompt": "Find the cost price."
+      },
+      "explanation": {
+        "opening": "The given profit or loss amount is a known percentage of the unknown cost price.",
+        "concept": "If an amount equals r percent of cost price, the cost is recovered by scaling the amount from r parts to 100 parts.",
+        "steps": [
+          {
+            "title": "Write the percentage relation",
+            "body": "Treat the stated amount as r/100 of cost price.",
+            "equationLatex": "A=C\\frac{r}{100}"
+          },
+          {
+            "title": "Solve for cost price",
+            "body": "Multiply the amount by 100 and divide by the rate.",
+            "equationLatex": "C=\\frac{100A}{r}"
+          }
+        ],
+        "conclusion": "This recovered value is the required cost price.",
+        "commonTrap": "Do not add the profit or loss amount to itself; the rate identifies the hidden base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-011": {
+      "stem": {
+        "contextFamily": "sports-equipment shop",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this sports-equipment shop decision, the following information is available. The cricket kit costing ₹{costPrice} yielded a gain of ₹{profitAmount}."
+          }
+        ],
+        "prompt": "Find the profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "We already know the cost base and the profit or loss amount, so only a percentage conversion remains.",
+        "concept": "Profit or loss percentage is the amount divided by cost price, multiplied by 100.",
+        "steps": [
+          {
+            "title": "Choose the correct base",
+            "body": "Use cost price because the question asks for the ordinary profit-or-loss rate."
+          },
+          {
+            "title": "Calculate the percentage",
+            "body": "Divide the amount by cost price and convert the fraction to percent.",
+            "equationLatex": "r=\\frac{A}{C}\\times100"
+          }
+        ],
+        "conclusion": "The computed rate, together with the stated direction, is the answer.",
+        "commonTrap": "Do not use selling price as the denominator in a standard profit-or-loss percentage question."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-012": {
+      "stem": {
+        "contextFamily": "home-decor store",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this home-decor store situation. The decor store owner lost ₹{lossAmount} on the decorative lamp whose cost price was ₹{costPrice}."
+          }
+        ],
+        "prompt": "Calculate the percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "We already know the cost base and the profit or loss amount, so only a percentage conversion remains.",
+        "concept": "Profit or loss percentage is the amount divided by cost price, multiplied by 100.",
+        "steps": [
+          {
+            "title": "Choose the correct base",
+            "body": "Use cost price because the question asks for the ordinary profit-or-loss rate."
+          },
+          {
+            "title": "Calculate the percentage",
+            "body": "Divide the amount by cost price and convert the fraction to percent.",
+            "equationLatex": "r=\\frac{A}{C}\\times100"
+          }
+        ],
+        "conclusion": "The computed rate, together with the stated direction, is the answer.",
+        "commonTrap": "Do not use selling price as the denominator in a standard profit-or-loss percentage question."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-013": {
+      "stem": {
+        "contextFamily": "mobile-accessory kiosk",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this mobile-accessory kiosk setting. The ratio of the cost price to the selling price of the wireless-earbud pack is {costPart}:{sellingPart}."
+          }
+        ],
+        "prompt": "Find the profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "A ratio question becomes simple when the cost-price part is treated as the percentage base.",
+        "concept": "The difference between the selling-price part and cost-price part represents profit or loss on the cost-price part.",
+        "steps": [
+          {
+            "title": "Compare the ratio parts",
+            "body": "Subtract the cost part from the selling part to identify the signed change."
+          },
+          {
+            "title": "Measure the change on cost",
+            "body": "Divide the absolute difference by the cost part and multiply by 100.",
+            "equationLatex": "r=\\frac{|s-c|}{c}\\times100"
+          }
+        ],
+        "conclusion": "The larger ratio part determines whether the result is profit or loss.",
+        "commonTrap": "Do not divide by the sum of the ratio parts; cost price alone is the base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-014": {
+      "stem": {
+        "contextFamily": "bookshop margin analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a bookshop margin analysis setting. The reference-book set is sold at a profit of {profitPercent}%."
+          }
+        ],
+        "prompt": "Find the ratio of its cost price to selling price."
+      },
+      "explanation": {
+        "opening": "We can build the required ratio by taking cost price as a convenient 100 parts.",
+        "concept": "A profit adds rate parts to 100, while a loss leaves 100 minus the rate parts as selling price.",
+        "steps": [
+          {
+            "title": "Assume a cost base",
+            "body": "Take cost price as 100 parts."
+          },
+          {
+            "title": "Form the selling-price part",
+            "body": "Use 100+r for profit or 100−r for loss, then simplify the ratio.",
+            "equationLatex": "C:S=100:(100\\pm r)"
+          }
+        ],
+        "conclusion": "The simplified pair is the cost-price to selling-price ratio.",
+        "commonTrap": "Do not write the rate itself as the selling-price part."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-015": {
+      "stem": {
+        "contextFamily": "seasonal-garment clearance",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This seasonal-garment clearance transaction is described below. The winter-jacket lot is sold at a loss of {lossPercent}%."
+          }
+        ],
+        "prompt": "Find the ratio of its cost price to selling price."
+      },
+      "explanation": {
+        "opening": "We can build the required ratio by taking cost price as a convenient 100 parts.",
+        "concept": "A profit adds rate parts to 100, while a loss leaves 100 minus the rate parts as selling price.",
+        "steps": [
+          {
+            "title": "Assume a cost base",
+            "body": "Take cost price as 100 parts."
+          },
+          {
+            "title": "Form the selling-price part",
+            "body": "Use 100+r for profit or 100−r for loss, then simplify the ratio.",
+            "equationLatex": "C:S=100:(100\\pm r)"
+          }
+        ],
+        "conclusion": "The simplified pair is the cost-price to selling-price ratio.",
+        "commonTrap": "Do not write the rate itself as the selling-price part."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-016": {
+      "stem": {
+        "contextFamily": "pharmacy margin conversion",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this pharmacy margin conversion decision, the following information is available. The profit on the medical-device pack is {marginPercent}% of its selling price."
+          }
+        ],
+        "prompt": "What is the profit percentage on cost price?"
+      },
+      "explanation": {
+        "opening": "The percentage is given on selling price, so we must first recover the cost-price share.",
+        "concept": "If profit is m percent of selling price, cost price is the remaining 100−m percent of selling price.",
+        "steps": [
+          {
+            "title": "Express cost as a share of selling price",
+            "body": "Take selling price as 100 parts; profit is m parts and cost is 100−m parts."
+          },
+          {
+            "title": "Convert profit to the cost base",
+            "body": "Compare the profit part with the cost part.",
+            "equationLatex": "r_C=\\frac{m}{100-m}\\times100"
+          }
+        ],
+        "conclusion": "This converted rate is the profit percentage on cost price.",
+        "commonTrap": "Do not report the selling-price margin unchanged; the percentage base has changed."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-017": {
+      "stem": {
+        "contextFamily": "online-marketplace margin",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this online-marketplace margin situation. The online seller earns {profitPercent}% on cost price."
+          }
+        ],
+        "prompt": "Express the profit as a percentage of the selling price."
+      },
+      "explanation": {
+        "opening": "The profit rate is known on cost price, but the question asks for profit as a share of selling price.",
+        "concept": "Take cost price as 100 parts, add the profit parts, and compare profit with the resulting selling-price total.",
+        "steps": [
+          {
+            "title": "Build a convenient price model",
+            "body": "Let cost price be 100 parts and profit be r parts."
+          },
+          {
+            "title": "Change the percentage base",
+            "body": "Selling price is 100+r parts, so divide profit by that total.",
+            "equationLatex": "m_S=\\frac{r}{100+r}\\times100"
+          }
+        ],
+        "conclusion": "The result is the profit margin on selling price.",
+        "commonTrap": "Do not use the cost-price rate as the selling-price margin; their denominators are different."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-018": {
+      "stem": {
+        "contextFamily": "printer dealership",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this printer dealership setting. The cost price of a printer is ₹{costPrice}."
+          }
+        ],
+        "prompt": "Find the profit amount when it is sold at {profitPercent}% profit."
+      },
+      "explanation": {
+        "opening": "The required amount is simply the stated percentage of the cost price.",
+        "concept": "Profit or loss amount is found by multiplying cost price by the rate fraction.",
+        "steps": [
+          {
+            "title": "Convert the rate to a fraction",
+            "body": "Write the percentage as r/100."
+          },
+          {
+            "title": "Apply it to cost",
+            "body": "Multiply the cost price by that fraction.",
+            "equationLatex": "A=C\\frac{r}{100}"
+          }
+        ],
+        "conclusion": "The product is the required profit or loss amount.",
+        "commonTrap": "Do not apply the rate to selling price unless the question explicitly uses that base."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-019": {
+      "stem": {
+        "contextFamily": "diagnostic-device resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a diagnostic-device resale setting. A device costs ₹{costPrice}."
+          }
+        ],
+        "prompt": "What is the loss amount if it is sold at a loss of {lossPercent}%?"
+      },
+      "explanation": {
+        "opening": "The required amount is simply the stated percentage of the cost price.",
+        "concept": "Profit or loss amount is found by multiplying cost price by the rate fraction.",
+        "steps": [
+          {
+            "title": "Convert the rate to a fraction",
+            "body": "Write the percentage as r/100."
+          },
+          {
+            "title": "Apply it to cost",
+            "body": "Multiply the cost price by that fraction.",
+            "equationLatex": "A=C\\frac{r}{100}"
+          }
+        ],
+        "conclusion": "The product is the required profit or loss amount.",
+        "commonTrap": "Do not apply the rate to selling price unless the question explicitly uses that base."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-020": {
+      "stem": {
+        "contextFamily": "office-chair outlet",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This office-chair outlet transaction is described below. A chair costs ₹{costPrice}. If the seller wants a profit of ₹{profitAmount},"
+          }
+        ],
+        "prompt": "At what price should it be sold?"
+      },
+      "explanation": {
+        "opening": "The sale price is obtained by adjusting the known cost by the stated amount.",
+        "concept": "Add a profit amount to cost price, or subtract a loss amount from cost price.",
+        "steps": [
+          {
+            "title": "Identify the direction",
+            "body": "Decide whether the amount represents profit or loss."
+          },
+          {
+            "title": "Adjust the cost price",
+            "body": "Use addition for profit and subtraction for loss.",
+            "equationLatex": "S=C\\pm A"
+          }
+        ],
+        "conclusion": "The adjusted amount is the selling price.",
+        "commonTrap": "Do not convert the amount into a percentage when the rupee adjustment is already given."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-021": {
+      "stem": {
+        "contextFamily": "machine-tool resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this machine-tool resale decision, the following information is available. A machine costs ₹{costPrice} and is sold after accepting a loss of ₹{lossAmount}."
+          }
+        ],
+        "prompt": "Find its selling price."
+      },
+      "explanation": {
+        "opening": "The sale price is obtained by adjusting the known cost by the stated amount.",
+        "concept": "Add a profit amount to cost price, or subtract a loss amount from cost price.",
+        "steps": [
+          {
+            "title": "Identify the direction",
+            "body": "Decide whether the amount represents profit or loss."
+          },
+          {
+            "title": "Adjust the cost price",
+            "body": "Use addition for profit and subtraction for loss.",
+            "equationLatex": "S=C\\pm A"
+          }
+        ],
+        "conclusion": "The adjusted amount is the selling price.",
+        "commonTrap": "Do not convert the amount into a percentage when the rupee adjustment is already given."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-022": {
+      "stem": {
+        "contextFamily": "wristwatch boutique",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this wristwatch boutique situation. A watch was sold for ₹{sellingPrice}, giving a profit of ₹{profitAmount}."
+          }
+        ],
+        "prompt": "Find its cost price."
+      },
+      "explanation": {
+        "opening": "We know the final selling price and the rupee result, so we can undo that adjustment directly.",
+        "concept": "If a sale includes profit, subtract the profit from selling price; if it includes loss, add the loss back.",
+        "steps": [
+          {
+            "title": "Read the direction carefully",
+            "body": "Profit means selling price is above cost; loss means it is below cost."
+          },
+          {
+            "title": "Reverse the adjustment",
+            "body": "Use C=S−A for profit or C=S+A for loss.",
+            "equationLatex": "C=S\\mp A"
+          }
+        ],
+        "conclusion": "The recovered amount is the cost price.",
+        "commonTrap": "Do not use the same sign as the forward sale; this question works backward."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-023": {
+      "stem": {
+        "contextFamily": "storage-cabinet sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this storage-cabinet sale setting. A cabinet was sold for ₹{sellingPrice} at a loss of ₹{lossAmount}."
+          }
+        ],
+        "prompt": "What was its cost price?"
+      },
+      "explanation": {
+        "opening": "We know the final selling price and the rupee result, so we can undo that adjustment directly.",
+        "concept": "If a sale includes profit, subtract the profit from selling price; if it includes loss, add the loss back.",
+        "steps": [
+          {
+            "title": "Read the direction carefully",
+            "body": "Profit means selling price is above cost; loss means it is below cost."
+          },
+          {
+            "title": "Reverse the adjustment",
+            "body": "Use C=S−A for profit or C=S+A for loss.",
+            "equationLatex": "C=S\\mp A"
+          }
+        ],
+        "conclusion": "The recovered amount is the cost price.",
+        "commonTrap": "Do not use the same sign as the forward sale; this question works backward."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-024": {
+      "stem": {
+        "contextFamily": "handicraft pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a handicraft pricing setting. The profit on the handcrafted vase is {fractionNumerator}/{fractionDenominator} of its cost price."
+          }
+        ],
+        "prompt": "Find the profit percentage."
+      },
+      "explanation": {
+        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
+        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "steps": [
+          {
+            "title": "Identify the denominator base",
+            "body": "Decide whether the fraction is measured on cost price or selling price."
+          },
+          {
+            "title": "Convert to the cost-price rate",
+            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+          }
+        ],
+        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
+        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-025": {
+      "stem": {
+        "contextFamily": "pottery outlet",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This pottery outlet transaction is described below. The loss on the ceramic dinner set is {fractionNumerator}/{fractionDenominator} of its cost price."
+          }
+        ],
+        "prompt": "Find the loss percentage."
+      },
+      "explanation": {
+        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
+        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "steps": [
+          {
+            "title": "Identify the denominator base",
+            "body": "Decide whether the fraction is measured on cost price or selling price."
+          },
+          {
+            "title": "Convert to the cost-price rate",
+            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+          }
+        ],
+        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
+        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-026": {
+      "stem": {
+        "contextFamily": "art-print sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this art-print sale decision, the following information is available. The gallery seller's profit is {fractionNumerator}/{fractionDenominator} of the selling price."
+          }
+        ],
+        "prompt": "Find the profit percentage on cost price."
+      },
+      "explanation": {
+        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
+        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "steps": [
+          {
+            "title": "Identify the denominator base",
+            "body": "Decide whether the fraction is measured on cost price or selling price."
+          },
+          {
+            "title": "Convert to the cost-price rate",
+            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+          }
+        ],
+        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
+        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-027": {
+      "stem": {
+        "contextFamily": "used-book exchange",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this used-book exchange situation. The loss incurred is {fractionNumerator}/{fractionDenominator} of the selling price."
+          }
+        ],
+        "prompt": "Find the loss percentage on cost price."
+      },
+      "explanation": {
+        "opening": "A fractional profit or loss must be converted with close attention to the stated base.",
+        "concept": "A fraction of cost converts directly to percent, while a fraction of selling price first changes the hidden cost share.",
+        "steps": [
+          {
+            "title": "Identify the denominator base",
+            "body": "Decide whether the fraction is measured on cost price or selling price."
+          },
+          {
+            "title": "Convert to the cost-price rate",
+            "body": "Use the direct fraction for a cost base; for a selling-price base, reconstruct cost before comparing."
+          }
+        ],
+        "conclusion": "The resulting percentage is the ordinary profit or loss rate on cost price.",
+        "commonTrap": "Do not multiply every fraction by 100 without checking whether its denominator is cost or selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-028": {
+      "stem": {
+        "contextFamily": "camera-accessory trade",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this camera-accessory trade setting. The camera tripod is sold at {profitPercent}% profit on cost price."
+          }
+        ],
+        "prompt": "What fraction of the selling price is the profit?"
+      },
+      "explanation": {
+        "opening": "The easiest conversion is to imagine cost price as 100 equal parts.",
+        "concept": "The rate gives the profit or loss parts, while selling price is formed by adding or subtracting those parts from 100.",
+        "steps": [
+          {
+            "title": "Create the part model",
+            "body": "Take cost price as 100 and write the profit or loss amount as r parts."
+          },
+          {
+            "title": "Form the requested selling-price fraction",
+            "body": "Divide the amount parts by the selling-price parts and simplify."
+          }
+        ],
+        "conclusion": "The simplified fraction is the required share of selling price.",
+        "commonTrap": "Do not place 100 automatically in the denominator when the requested fraction is of selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-029": {
+      "stem": {
+        "contextFamily": "home-fitness equipment sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a home-fitness equipment sale setting. The exercise bench is sold at {lossPercent}% loss on cost price."
+          }
+        ],
+        "prompt": "What fraction of the selling price is the loss?"
+      },
+      "explanation": {
+        "opening": "The easiest conversion is to imagine cost price as 100 equal parts.",
+        "concept": "The rate gives the profit or loss parts, while selling price is formed by adding or subtracting those parts from 100.",
+        "steps": [
+          {
+            "title": "Create the part model",
+            "body": "Take cost price as 100 and write the profit or loss amount as r parts."
+          },
+          {
+            "title": "Form the requested selling-price fraction",
+            "body": "Divide the amount parts by the selling-price parts and simplify."
+          }
+        ],
+        "conclusion": "The simplified fraction is the required share of selling price.",
+        "commonTrap": "Do not place 100 automatically in the denominator when the requested fraction is of selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-030": {
+      "stem": {
+        "contextFamily": "air-conditioner pricing comparison",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "This air-conditioner pricing comparison transaction is described below. The air conditioner costing ₹{costPrice} could be sold at profits of {firstRatePercent}% or {secondRatePercent}%."
+          }
+        ],
+        "prompt": "Find the difference between the two selling prices."
+      },
+      "explanation": {
+        "opening": "Both possible selling prices come from the same cost, so their difference can be found efficiently.",
+        "concept": "The common cost cancels except for the difference between the two commercial rate factors.",
+        "steps": [
+          {
+            "title": "Write both selling prices",
+            "body": "Apply each stated profit or loss multiplier to the same cost price."
+          },
+          {
+            "title": "Subtract the results",
+            "body": "The absolute difference equals cost price multiplied by the difference of the signed rates.",
+            "equationLatex": "\\Delta S=C\\frac{|r_1-r_2|}{100}"
+          }
+        ],
+        "conclusion": "The absolute value is the required difference between the two selling prices.",
+        "commonTrap": "Do not add the two selling prices or compare the rates without using the common cost base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-031": {
+      "stem": {
+        "contextFamily": "motor-pump pricing comparison",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "During this motor-pump pricing comparison decision, the following information is available. For the water pump costing ₹{costPrice}, one selling price gives {profitPercent}% profit and another gives {lossPercent}% loss."
+          }
+        ],
+        "prompt": "Find the difference between the selling prices."
+      },
+      "explanation": {
+        "opening": "Both possible selling prices come from the same cost, so their difference can be found efficiently.",
+        "concept": "The common cost cancels except for the difference between the two commercial rate factors.",
+        "steps": [
+          {
+            "title": "Write both selling prices",
+            "body": "Apply each stated profit or loss multiplier to the same cost price."
+          },
+          {
+            "title": "Subtract the results",
+            "body": "The absolute difference equals cost price multiplied by the difference of the signed rates.",
+            "equationLatex": "\\Delta S=C\\frac{|r_1-r_2|}{100}"
+          }
+        ],
+        "conclusion": "The absolute value is the required difference between the two selling prices.",
+        "commonTrap": "Do not add the two selling prices or compare the rates without using the common cost base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-032": {
+      "stem": {
+        "contextFamily": "solar-inverter reverse pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Consider this solar-inverter reverse pricing situation. The difference between the selling prices obtained at {firstRatePercent}% profit and {secondRatePercent}% profit is ₹{sellingPriceDifference}."
+          }
+        ],
+        "prompt": "Find the cost price."
+      },
+      "explanation": {
+        "opening": "The given selling-price difference represents a known percentage portion of the hidden cost price.",
+        "concept": "When two rates act on the same cost, the price difference equals cost multiplied by the difference between their signed rates.",
+        "steps": [
+          {
+            "title": "Find the effective rate gap",
+            "body": "Measure the distance between the two profit-or-loss conditions."
+          },
+          {
+            "title": "Recover cost price",
+            "body": "Scale the known price difference from the rate gap to 100 percent.",
+            "equationLatex": "C=\\frac{100\\Delta S}{|r_1-r_2|}"
+          }
+        ],
+        "conclusion": "The scaled amount is the original cost price.",
+        "commonTrap": "Do not divide by either individual rate; the relevant percentage is the gap between the two conditions."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    },
+    "PNL-QL-033": {
+      "stem": {
+        "contextFamily": "commercial-oven repricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The following commercial records are available for this commercial-oven repricing setting. The commercial oven was sold for ₹{firstSellingPrice} at a profit of {firstRatePercent}%. If it were sold for ₹{secondSellingPrice},"
+          }
+        ],
+        "prompt": "Find the profit or loss percentage under the new condition."
+      },
+      "explanation": {
+        "opening": "We should first use the known selling condition to uncover the common cost price.",
+        "concept": "Both selling prices belong to the same item, so once cost is known the second rate follows from an ordinary comparison.",
+        "steps": [
+          {
+            "title": "Recover cost from the first condition",
+            "body": "Reverse the first profit or loss multiplier from the first selling price."
+          },
+          {
+            "title": "Evaluate the second condition",
+            "body": "Compare the second selling price with the recovered cost and measure the difference on cost."
+          }
+        ],
+        "conclusion": "This comparison gives both the direction and percentage of the second sale.",
+        "commonTrap": "Do not compare the two selling prices directly as if the first selling price were the cost base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-034": {
+      "stem": {
+        "contextFamily": "used-scooter repricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Use the following information from a used-scooter repricing setting. Selling the used scooter for ₹{firstSellingPrice} causes a loss of {firstRatePercent}%. If it is sold for ₹{secondSellingPrice},"
+          }
+        ],
+        "prompt": "Calculate the percentage gain or loss under the new condition."
+      },
+      "explanation": {
+        "opening": "We should first use the known selling condition to uncover the common cost price.",
+        "concept": "Both selling prices belong to the same item, so once cost is known the second rate follows from an ordinary comparison.",
+        "steps": [
+          {
+            "title": "Recover cost from the first condition",
+            "body": "Reverse the first profit or loss multiplier from the first selling price."
+          },
+          {
+            "title": "Evaluate the second condition",
+            "body": "Compare the second selling price with the recovered cost and measure the difference on cost."
+          }
+        ],
+        "conclusion": "This comparison gives both the direction and percentage of the second sale.",
+        "commonTrap": "Do not compare the two selling prices directly as if the first selling price were the cost base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two linked calculations are required, but the reasoning path is directly visible."
+    },
+    "PNL-QL-035": {
+      "stem": {
+        "contextFamily": "no-margin community sale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A community supplier buys a school-desk set for ₹{costPrice} and sells it for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Find the profit or loss percentage."
+      },
+      "explanation": {
+        "opening": "We first find the rupee change and then express it relative to the original cost.",
+        "concept": "In ordinary profit-and-loss questions, cost price is the percentage base unless another base is stated explicitly.",
+        "steps": [
+          {
+            "title": "Find profit or loss amount",
+            "body": "Compare selling price and cost price, then take their absolute difference.",
+            "equationLatex": "A=|S-C|"
+          },
+          {
+            "title": "Convert the amount to a rate",
+            "body": "Divide the amount by cost price and multiply by 100.",
+            "equationLatex": "r=\\frac{A}{C}\\times100"
+          }
+        ],
+        "conclusion": "The sign of S−C gives profit, loss, or no change; the formula gives the percentage.",
+        "commonTrap": "Do not divide by selling price unless the question specifically asks for a margin on selling price."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible commercial relationship with a direct substitution or comparison."
+    },
+    "PNL-QL-036": {
+      "stem": {
+        "contextFamily": "algebraic wholesale pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "In an algebraic wholesale pricing comparison, two possible selling conditions differ by ₹{sellingPriceDifference}."
+          },
+          {
+            "type": "equation",
+            "latex": "S_1=C\\left(1+\\frac{{firstRatePercent}}{100}\\right),\\qquad S_2=C\\left(1-\\frac{{secondRatePercent}}{100}\\right)"
+          }
+        ],
+        "prompt": "Find the original cost price."
+      },
+      "explanation": {
+        "opening": "The given selling-price difference represents a known percentage portion of the hidden cost price.",
+        "concept": "When two rates act on the same cost, the price difference equals cost multiplied by the difference between their signed rates.",
+        "steps": [
+          {
+            "title": "Find the effective rate gap",
+            "body": "Measure the distance between the two profit-or-loss conditions."
+          },
+          {
+            "title": "Recover cost price",
+            "body": "Scale the known price difference from the rate gap to 100 percent.",
+            "equationLatex": "C=\\frac{100\\Delta S}{|r_1-r_2|}"
+          }
+        ],
+        "conclusion": "The scaled amount is the original cost price.",
+        "commonTrap": "Do not divide by either individual rate; the relevant percentage is the gap between the two conditions."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A reverse step, base conversion, or two-stage commercial transformation is required."
+    }
+  },
+  "entryCount": 36
+}
