@@ -3,9 +3,14 @@ import { buildTmwCp003Options } from "./cp003-options";
 import { buildTmwCp003Parameters } from "./cp003-parameters";
 import { renderTmwCp003Stem, tmwCp003Conclusion, tmwCp003ExplanationOpening } from "./cp003-presentation";
 import { solveTmwCp003, verifyTmwCp003 } from "./cp003-solver";
-import { rationalKey } from "./rational";
+import { divide, rationalKey, toLatex } from "./rational";
 import type { Rational } from "./types";
-import type { TmwCp003GeneratedQuestion, TmwCp003Parameters } from "./cp003-types";
+import type {
+  TmwCp003GeneratedQuestion,
+  TmwCp003Parameters,
+  TmwCp003RegistryEntry,
+  TmwCp003Solution,
+} from "./cp003-types";
 
 function key(value: Rational | undefined): string {
   return value ? rationalKey(value) : "-";
@@ -26,6 +31,29 @@ function fingerprint(p: TmwCp003Parameters, solveMode: string): string {
   ].join("|");
 }
 
+function inlineMath(latex: string): string {
+  return `\\(${latex}\\)`;
+}
+
+function visibleWorkedLatex(
+  entry: TmwCp003RegistryEntry,
+  parameters: TmwCp003Parameters,
+  solution: TmwCp003Solution,
+): string[] {
+  if (
+    entry.solveMode === "findComparativeDurationFromDifferentWorkAndEfficiencies"
+    && parameters.workA
+    && parameters.workB
+    && parameters.timeB
+  ) {
+    const reducedWorkRatio = divide(parameters.workA, parameters.workB);
+    return [
+      `T_A=${toLatex(parameters.timeB)}\\times\\frac{${Math.abs(reducedWorkRatio.numerator)}\\times${toLatex(parameters.efficiencyB)}}{${reducedWorkRatio.denominator}\\times${toLatex(parameters.efficiencyA)}}=${toLatex(solution.answer)}`,
+    ];
+  }
+  return solution.workedLatex;
+}
+
 export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: string; language?: "en" | "hi" | "pa" }): TmwCp003GeneratedQuestion {
   if (input.language && input.language !== "en") throw new Error("TMW-CP-003 is English only at the current runtime-proof stage");
   const entry = getTmwCp003Entry(input.questionLanguageId);
@@ -33,6 +61,9 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
   const solution = solveTmwCp003(entry, parameters);
   const optionSet = buildTmwCp003Options(entry, parameters, solution, input.seed);
   const renderedStem = renderTmwCp003Stem(entry, parameters);
+  const workedLatex = visibleWorkedLatex(entry, parameters, solution);
+  const explanationFormula = inlineMath(solution.formulaLatex);
+  const explanationSteps = workedLatex.map(inlineMath);
   const errors: string[] = [];
 
   if (!verifyTmwCp003(entry, parameters, solution)) errors.push("Independent verifier disagrees with canonical solver");
@@ -42,6 +73,8 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
   if (new Set(optionSet.options.map((item) => item.text)).size !== 4) errors.push("Options are not textually unique");
   if (optionSet.correctIndex < 0 || optionSet.correctIndex > 3) errors.push("Correct answer is missing from options");
   if (optionSet.options.filter((item) => item.misconceptionId === "CORRECT").length !== 1) errors.push("Option contract does not contain exactly one correct answer");
+  if (!/^\\\(.+\\\)$/.test(explanationFormula)) errors.push("Explanation formula lacks inline MathJax delimiters");
+  if (explanationSteps.some((step) => !/^\\\(.+\\\)$/.test(step))) errors.push("Explanation step lacks inline MathJax delimiters");
 
   return {
     archetypeId: "TMW-001",
@@ -58,8 +91,8 @@ export function runTmwCp003Pipeline(input: { questionLanguageId: string; seed: s
     correctIndex: optionSet.correctIndex,
     explanation: {
       opening: tmwCp003ExplanationOpening(entry),
-      formula: `\(${solution.formulaLatex}\)`,
-      steps: solution.workedLatex.map((line) => `\(${line}\)`),
+      formula: explanationFormula,
+      steps: explanationSteps,
       conclusion: tmwCp003Conclusion(entry, parameters, solution.answerText),
     },
     mathematicalFingerprint: fingerprint(parameters, entry.solveMode),
