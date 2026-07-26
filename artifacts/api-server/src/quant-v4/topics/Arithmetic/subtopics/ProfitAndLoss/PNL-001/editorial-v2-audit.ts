@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   loadEditorialLibrary,
+  renderFriendlyExplanationMarkdown,
   type QuestionStemBlock,
   type StructuredEditorialEntry,
 } from "./foundation";
@@ -156,8 +157,8 @@ for (const item of packages) {
     assert.ok(entry.explanation.opening.split(/\s+/).length >= 6, `${qlId}: opening is not friendly or explanatory enough.`);
     assert.ok(entry.explanation.commonTrap, `${qlId}: a learner-facing common trap is required.`);
 
-    const explanationText = collectStrings(entry.explanation).join(" ");
-    assert.ok(!/[×÷³²]/u.test(explanationText), `${qlId}: raw calculation symbols must be represented in LaTeX fields.`);
+    const renderedExplanation = renderFriendlyExplanationMarkdown(entry.explanation);
+    assert.ok(!/[×÷³²]/u.test(renderedExplanation), `${qlId}: rendered explanation contains an unnormalized calculation glyph.`);
 
     contextFamilies.push(entry.stem.contextFamily);
     const opening = firstNarrativeText(entry);
