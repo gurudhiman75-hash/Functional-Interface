@@ -88,9 +88,10 @@ export interface TmwCp001RegistryEntry {
 
 export interface TmwContext {
   actor: string;
-  secondActor?: string;
+  peerActor: string;
   action: string;
   object: string;
+  jobPhrase: string;
   outputUnit: "items" | "pages" | "forms" | "metres";
 }
 
