@@ -46,4 +46,12 @@ jobs:
             $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008 -name '*.ts' -print) \
             src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
       - name: Verify English language prototypes
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.en.test.ts
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.en.diagnostic.ts
+      - name: Upload English prototype report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-008-english-language-prototype-report
+          path: artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/cp008-english-language-prototype-report.json
+          if-no-files-found: warn
+          retention-days: 7
