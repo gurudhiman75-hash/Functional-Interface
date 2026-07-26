@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import {
   buildAllNormalizedLegacyEditorialLibraries,
   renderFriendlyExplanationMarkdown,
+  type EditorialLibraryFile,
   type QuestionStemBlock,
   type StructuredEditorialEntry,
 } from "./foundation";
@@ -22,6 +23,10 @@ type Registry = Readonly<{ entries: Readonly<Record<string, RegistryEntry>> }>;
 
 function readRegistry(cp: string): Registry {
   return JSON.parse(readFileSync(join(root, cp, "task-registry.library.json"), "utf8")) as Registry;
+}
+
+function readCommittedEditorial(cp: string): EditorialLibraryFile {
+  return JSON.parse(readFileSync(join(root, cp, "editorial-content.en.json"), "utf8")) as EditorialLibraryFile;
 }
 
 function addPlaceholders(text: string | undefined, output: Set<string>, required: Set<string>): void {
@@ -110,8 +115,10 @@ let genericOpenings = 0;
 for (const [index, meta] of packageMeta.entries()) {
   const library = libraries[index];
   const registry = readRegistry(meta.cp);
+  const committed = readCommittedEditorial(meta.cp);
   const expectedIds = Array.from({ length: meta.count }, (_, offset) => `PNL-QL-${String(meta.start + offset).padStart(3, "0")}`);
 
+  assert.deepEqual(committed, library, `${meta.cp}: committed Editorial V2 source must exactly match normalized generator output.`);
   assert.equal(library.entryCount, meta.count, `${meta.cp}: entry count mismatch.`);
   assert.deepEqual(Object.keys(library.entries), expectedIds, `${meta.cp}: generated IDs must be contiguous.`);
   assert.deepEqual(Object.keys(registry.entries), expectedIds, `${meta.cp}: registry IDs must match generated IDs.`);
@@ -176,4 +183,5 @@ console.log(JSON.stringify({
   genericOpenings,
   hardCount,
   difficultyChanges,
+  committedSourceParity: true,
 }, null, 2));
