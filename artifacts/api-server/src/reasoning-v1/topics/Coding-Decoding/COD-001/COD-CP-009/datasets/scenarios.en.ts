@@ -36,11 +36,11 @@ export const ENGLISH_SENTENCE_CODE_SCENARIOS: readonly EnglishSentenceCodeScenar
   scenario("DIFFERENCE-CHILDREN-READ", "SET_DIFFERENCE_ELIMINATION", "education", { TARGET: "children", SHARED_A: "read", SHARED_B: "books", ROW_1_ONLY: "daily", ROW_2_ONLY: "quietly", ROW_3_ONLY: "adults" }),
   scenario("DIFFERENCE-DRIVERS-FOLLOW", "SET_DIFFERENCE_ELIMINATION", "civic", { TARGET: "drivers", SHARED_A: "follow", SHARED_B: "rules", ROW_1_ONLY: "carefully", ROW_2_ONLY: "strictly", ROW_3_ONLY: "citizens" }),
 
-  scenario("FORK-FRUITS", "FORKED_EVIDENCE_JOIN", "food", { TARGET: "and", MISSING_ROW_1: "apple", MISSING_ROW_2: "mango", MISSING_ROW_3: "orange", MISSING_ROW_4: "banana" }),
-  scenario("FORK-DRINKS", "FORKED_EVIDENCE_JOIN", "drinks", { TARGET: "and", MISSING_ROW_1: "tea", MISSING_ROW_2: "coffee", MISSING_ROW_3: "milk", MISSING_ROW_4: "juice" }),
-  scenario("FORK-COLOURS", "FORKED_EVIDENCE_JOIN", "colours", { TARGET: "and", MISSING_ROW_1: "red", MISSING_ROW_2: "blue", MISSING_ROW_3: "green", MISSING_ROW_4: "yellow" }),
-  scenario("FORK-SPORTS", "FORKED_EVIDENCE_JOIN", "sports", { TARGET: "and", MISSING_ROW_1: "cricket", MISSING_ROW_2: "hockey", MISSING_ROW_3: "tennis", MISSING_ROW_4: "football" }),
-  scenario("FORK-TRANSPORT", "FORKED_EVIDENCE_JOIN", "transport", { TARGET: "and", MISSING_ROW_1: "buses", MISSING_ROW_2: "trains", MISSING_ROW_3: "cars", MISSING_ROW_4: "bicycles" }),
+  scenario("FORK-STUDENTS-SOLVE", "FORKED_EVIDENCE_JOIN", "education", { TARGET: "students", SHARED_A: "solve", SHARED_B: "problems", ROW_1_ONLY: "quickly", ROW_2_ONLY: "teachers", ROW_3_ONLY: "carefully", ROW_4_ONLY: "difficult" }),
+  scenario("FORK-BIRDS-BUILD", "FORKED_EVIDENCE_JOIN", "nature", { TARGET: "birds", SHARED_A: "build", SHARED_B: "nests", ROW_1_ONLY: "quickly", ROW_2_ONLY: "sparrows", ROW_3_ONLY: "carefully", ROW_4_ONLY: "strong" }),
+  scenario("FORK-WORKERS-COMPLETE", "FORKED_EVIDENCE_JOIN", "work", { TARGET: "workers", SHARED_A: "complete", SHARED_B: "tasks", ROW_1_ONLY: "early", ROW_2_ONLY: "teams", ROW_3_ONLY: "safely", ROW_4_ONLY: "urgent" }),
+  scenario("FORK-CHILDREN-READ", "FORKED_EVIDENCE_JOIN", "education", { TARGET: "children", SHARED_A: "read", SHARED_B: "books", ROW_1_ONLY: "daily", ROW_2_ONLY: "adults", ROW_3_ONLY: "quietly", ROW_4_ONLY: "useful" }),
+  scenario("FORK-DRIVERS-FOLLOW", "FORKED_EVIDENCE_JOIN", "civic", { TARGET: "drivers", SHARED_A: "follow", SHARED_B: "rules", ROW_1_ONLY: "carefully", ROW_2_ONLY: "citizens", ROW_3_ONLY: "strictly", ROW_4_ONLY: "important" }),
 
   scenario("GLOBAL-DRINKS", "GLOBAL_BIJECTION_DEDUCTION", "drinks", { TARGET: "and", MISSING_ROW_1: "tea", MISSING_ROW_2: "coffee", MISSING_ROW_3: "milk" }),
   scenario("GLOBAL-COLOURS", "GLOBAL_BIJECTION_DEDUCTION", "colours", { TARGET: "and", MISSING_ROW_1: "red", MISSING_ROW_2: "blue", MISSING_ROW_3: "green" }),
