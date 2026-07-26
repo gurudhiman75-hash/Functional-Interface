@@ -1,4 +1,4 @@
-import { canonicalSetKey, uniqueSorted } from "./canonical-set";
+import { assertUnique, canonicalSetKey, uniqueSorted } from "./canonical-set";
 import type {
   AbstractSentenceCodeQuery,
   SentenceCodeRelationStatus,
@@ -42,6 +42,7 @@ export function possibleTokenSetsForWords(
   space: SentenceCodeSolutionSpace,
   wordIds: readonly string[],
 ): readonly (readonly string[])[] {
+  assertUnique(wordIds, "Word-set query");
   const words = uniqueSorted(wordIds);
   if (words.length === 0) throw new Error("Word-set query must contain at least one word");
   words.forEach((wordId) => requireWord(space, wordId));
@@ -58,6 +59,7 @@ export function possibleWordSetsForTokens(
   space: SentenceCodeSolutionSpace,
   tokens: readonly string[],
 ): readonly (readonly string[])[] {
+  assertUnique(tokens, "Token-set query");
   const canonicalTokens = uniqueSorted(tokens);
   if (canonicalTokens.length === 0) throw new Error("Token-set query must contain at least one token");
   canonicalTokens.forEach((token) => requireToken(space, token));
@@ -87,6 +89,7 @@ export function classifyWordsToTokenSetRelation(
   wordIds: readonly string[],
   candidateTokens: readonly string[],
 ): SentenceCodeRelationStatus {
+  assertUnique(candidateTokens, "Candidate token set");
   candidateTokens.forEach((token) => requireToken(space, token));
   return classifySetRelation(possibleTokenSetsForWords(space, wordIds), candidateTokens);
 }
@@ -96,6 +99,7 @@ export function classifyTokenSetToWordsRelation(
   tokens: readonly string[],
   candidateWords: readonly string[],
 ): SentenceCodeRelationStatus {
+  assertUnique(candidateWords, "Candidate word set");
   candidateWords.forEach((wordId) => requireWord(space, wordId));
   return classifySetRelation(possibleWordSetsForTokens(space, tokens), candidateWords);
 }
@@ -105,9 +109,12 @@ export function possibleMissingTokens(
   wordIds: readonly string[],
   knownTokens: readonly string[],
 ): readonly string[] {
+  assertUnique(wordIds, "Missing-token words");
+  assertUnique(knownTokens, "Known tokens");
   const words = uniqueSorted(wordIds);
   const known = uniqueSorted(knownTokens);
   if (words.length !== known.length + 1) throw new Error("Missing-token query must omit exactly one token");
+  words.forEach((wordId) => requireWord(space, wordId));
   known.forEach((token) => requireToken(space, token));
 
   const candidates = new Set<string>();
@@ -125,9 +132,12 @@ export function possibleMissingWords(
   tokens: readonly string[],
   knownWords: readonly string[],
 ): readonly string[] {
+  assertUnique(tokens, "Missing-word tokens");
+  assertUnique(knownWords, "Known words");
   const canonicalTokens = uniqueSorted(tokens);
   const known = uniqueSorted(knownWords);
   if (canonicalTokens.length !== known.length + 1) throw new Error("Missing-word query must omit exactly one word");
+  canonicalTokens.forEach((token) => requireToken(space, token));
   known.forEach((wordId) => requireWord(space, wordId));
 
   const candidates = new Set<string>();
