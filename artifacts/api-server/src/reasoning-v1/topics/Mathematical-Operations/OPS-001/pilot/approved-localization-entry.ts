@@ -28,9 +28,14 @@ function localizedValueLabel(label: string, locale: ApprovedOpsLocale): string {
 
 function restoreText(original: string, translated: string, locale: ApprovedOpsLocale): string {
   const unique = original.match(/^Only (.+) makes the equation true\.$/u);
-  if (unique) return locale === "hi-IN"
-    ? `केवल ${unique[1]} समीकरण को सही बनाता है।`
-    : `ਕੇਵਲ ${unique[1]} ਸਮੀਕਰਨ ਨੂੰ ਸਹੀ ਬਣਾਉਂਦਾ ਹੈ।`;
+  if (unique) {
+    if (unique[1] === "this pair") return locale === "hi-IN"
+      ? "केवल यही युग्म समीकरण को सही बनाता है।"
+      : "ਕੇਵਲ ਇਹੀ ਜੋੜਾ ਸਮੀਕਰਨ ਨੂੰ ਸਹੀ ਬਣਾਉਂਦਾ ਹੈ।";
+    return locale === "hi-IN"
+      ? `केवल ${unique[1]} समीकरण को सही बनाता है।`
+      : `ਕੇਵਲ ${unique[1]} ਸਮੀਕਰਨ ਨੂੰ ਸਹੀ ਬਣਾਉਂਦਾ ਹੈ।`;
+  }
   return translated;
 }
 
