@@ -17,6 +17,13 @@ const localeConfig: Readonly<Record<ProvisionalMixedLocale, {
   fileName: string;
   title: string;
   status: string;
+  overview: {
+    families: string;
+    directSamples: string;
+    oddSamples: string;
+    permanentQlIds: string;
+    tokenNote: string;
+  };
   labels: {
     prototype: string;
     direct: string;
@@ -36,6 +43,13 @@ const localeConfig: Readonly<Record<ProvisionalMixedLocale, {
     fileName: "ana-cp-008-provisional-hindi-review.md",
     title: "ANA-CP-008 अस्थायी हिंदी समीक्षा",
     status: "स्थिति: गैर-QL संपादकीय समीक्षा सामग्री",
+    overview: {
+      families: "प्रोटोटाइप परिवार",
+      directSamples: "प्रत्यक्ष पूर्ति नमूने",
+      oddSamples: "असंगत युग्म नमूने",
+      permanentQlIds: "स्थायी QL ID",
+      tokenNote: "सभी अक्षर-संख्या पद जानबूझकर Latin script में सुरक्षित रखे गए हैं।",
+    },
     labels: {
       prototype: "प्रोटोटाइप",
       direct: "प्रत्यक्ष पूर्ति",
@@ -55,6 +69,13 @@ const localeConfig: Readonly<Record<ProvisionalMixedLocale, {
     fileName: "ana-cp-008-provisional-punjabi-review.md",
     title: "ANA-CP-008 ਆਰਜ਼ੀ ਪੰਜਾਬੀ ਸਮੀਖਿਆ",
     status: "ਸਥਿਤੀ: ਗੈਰ-QL ਸੰਪਾਦਕੀ ਸਮੀਖਿਆ ਸਮੱਗਰੀ",
+    overview: {
+      families: "ਪ੍ਰੋਟੋਟਾਈਪ ਪਰਿਵਾਰ",
+      directSamples: "ਸਿੱਧੀ ਪੂਰਤੀ ਦੇ ਨਮੂਨੇ",
+      oddSamples: "ਵੱਖਰੇ ਜੋੜੇ ਦੇ ਨਮੂਨੇ",
+      permanentQlIds: "ਪੱਕੇ QL ID",
+      tokenNote: "ਸਾਰੇ ਅੱਖਰ-ਗਿਣਤੀ ਪਦ ਜਾਣਬੁੱਝ ਕੇ Latin script ਵਿੱਚ ਸੁਰੱਖਿਅਤ ਰੱਖੇ ਗਏ ਹਨ।",
+    },
     labels: {
       prototype: "ਪ੍ਰੋਟੋਟਾਈਪ",
       direct: "ਸਿੱਧੀ ਪੂਰਤੀ",
@@ -89,12 +110,12 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
     "",
     config.status,
     "",
-    `प्रोटोटाइप / ਪ੍ਰੋਟੋਟਾਈਪ परिवार: ${ANA_CP008_ENGLISH_PROTOTYPES.length}`,
-    `प्रत्यक्ष / ਸਿੱਧੇ नमूने: ${direct.length}`,
-    `असंगत / ਵੱਖਰੇ युग्म नमूने: ${odd.length}`,
-    "स्थायी / ਪੱਕੇ QL ID: 0",
+    `${config.overview.families}: ${ANA_CP008_ENGLISH_PROTOTYPES.length}`,
+    `${config.overview.directSamples}: ${direct.length}`,
+    `${config.overview.oddSamples}: ${odd.length}`,
+    `${config.overview.permanentQlIds}: 0`,
     "",
-    "> सभी अक्षर-संख्या पद Latin script में जानबूझकर सुरक्षित रखे गए हैं। / ਸਾਰੇ ਅੱਖਰ-ਗਿਣਤੀ ਪਦ ਜਾਣਬੁੱਝ ਕੇ Latin script ਵਿੱਚ ਰੱਖੇ ਗਏ ਹਨ।",
+    `> ${config.overview.tokenNote}`,
     "",
   ];
 
