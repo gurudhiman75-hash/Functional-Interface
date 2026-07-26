@@ -6,6 +6,7 @@ import {
   letterNumberToken,
   letterToken,
   mixedTokenKey,
+  numberClusterToken,
   numberLetterToken,
   sameMixedToken,
   type MixedToken,
@@ -55,15 +56,35 @@ function letterNumberInputs(): readonly MixedToken[] {
   return inputs;
 }
 
-function clusterNumberInputs(): readonly MixedToken[] {
-  const inputs: MixedToken[] = [];
+function twoLetterSamples(): readonly string[] {
+  const samples: string[] = [];
   for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
     for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
-      const letters = ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length];
-      for (let number = -25; number <= 100; number += 1) {
-        inputs.push(clusterNumberToken(letters, number));
-      }
+      samples.push(ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length]);
     }
+  }
+  return samples;
+}
+
+function clusterNumberInputs(): readonly MixedToken[] {
+  const inputs: MixedToken[] = [];
+  for (const letters of twoLetterSamples()) {
+    for (let number = -25; number <= 100; number += 1) {
+      inputs.push(clusterNumberToken(letters, number));
+    }
+  }
+  return inputs;
+}
+
+function numberClusterInputs(): readonly MixedToken[] {
+  const numbers = new Set<number>();
+  for (let number = 1; number <= 200; number += 1) numbers.add(number);
+  for (let root = 2; root <= 60; root += 1) numbers.add(root * root - 1);
+  for (const sourceNumber of [78, 108, 120, 288, 332, 440]) numbers.add(sourceNumber);
+
+  const inputs: MixedToken[] = [];
+  for (const letters of twoLetterSamples()) {
+    for (const number of numbers) inputs.push(numberClusterToken(number, letters));
   }
   return inputs;
 }
@@ -82,6 +103,7 @@ const INPUTS_BY_KIND: Readonly<Record<string, readonly MixedToken[]>> = {
   LETTER_GROUP: letterGroupInputs(),
   LETTER_NUMBER: letterNumberInputs(),
   CLUSTER_NUMBER: clusterNumberInputs(),
+  NUMBER_CLUSTER: numberClusterInputs(),
   NUMBER_LETTER: numberLetterInputs(),
 };
 
@@ -160,7 +182,7 @@ const yields = ANA_CP008_PROVISIONAL_RULES.flatMap((rule) =>
   rule.contexts.map((context) => simulateContext(rule, context)),
 );
 
-assert.equal(yields.length, 74);
+assert.equal(yields.length, 81);
 assert.equal(yields.reduce((sum, entry) => sum + entry.solverDisagreements, 0), 0);
 for (const entry of yields) {
   assert.ok(entry.eligibleInputs >= 20, `${entry.contextKey} has only ${entry.eligibleInputs} eligible inputs.`);

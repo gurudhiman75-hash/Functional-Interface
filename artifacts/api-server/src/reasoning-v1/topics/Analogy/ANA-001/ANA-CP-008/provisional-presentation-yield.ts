@@ -10,6 +10,7 @@ import {
   letterNumberToken,
   letterToken,
   mixedTokenKey,
+  numberClusterToken,
   numberLetterToken,
   numberToken,
   sameMixedToken,
@@ -40,6 +41,24 @@ interface PresentationSummary {
   oddPairSelection: true;
 }
 
+function twoLetterSamples(): readonly string[] {
+  const samples: string[] = [];
+  for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
+    for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
+      samples.push(ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length]);
+    }
+  }
+  return samples;
+}
+
+function numberClusterNumbers(): readonly number[] {
+  const numbers = new Set<number>();
+  for (let number = 1; number <= 200; number += 1) numbers.add(number);
+  for (let root = 2; root <= 60; root += 1) numbers.add(root * root - 1);
+  for (const sourceNumber of [78, 108, 120, 288, 332, 440, 1330]) numbers.add(sourceNumber);
+  return [...numbers];
+}
+
 function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToken[] {
   const inputs: MixedToken[] = [];
   if (rule.inputKind === "LETTER") {
@@ -57,18 +76,21 @@ function inputsForRule(rule: ProvisionalMixedRuleDefinition): readonly MixedToke
       }
     }
   } else if (rule.inputKind === "CLUSTER_NUMBER") {
-    for (let firstIndex = 0; firstIndex < ALPHABET.length; firstIndex += 1) {
-      for (let secondOffset = 1; secondOffset <= 7; secondOffset += 2) {
-        const letters = ALPHABET[firstIndex] + ALPHABET[(firstIndex + secondOffset) % ALPHABET.length];
-        for (let number = -25; number <= 100; number += 1) {
-          inputs.push(clusterNumberToken(letters, number));
-        }
+    for (const letters of twoLetterSamples()) {
+      for (let number = -25; number <= 100; number += 1) {
+        inputs.push(clusterNumberToken(letters, number));
       }
     }
   } else if (rule.inputKind === "NUMBER_LETTER") {
     for (let number = 10; number <= 999 && inputs.length < 300; number += 1) {
       const letter = squaredDigitSumLetter(number);
       if (letter) inputs.push(numberLetterToken(number, letter));
+    }
+  } else if (rule.inputKind === "NUMBER_CLUSTER") {
+    for (const letters of twoLetterSamples()) {
+      for (const number of numberClusterNumbers()) {
+        inputs.push(numberClusterToken(number, letters));
+      }
     }
   }
   return inputs;
@@ -172,6 +194,20 @@ function mutateOutput(output: MixedResult): readonly MixedResult[] {
           : []),
       ];
     }
+    case "NUMBER_CLUSTER": {
+      const plus = applyUniformLetterGroupShift(output.letters, 1);
+      const minus = applyUniformLetterGroupShift(output.letters, -1);
+      return [
+        ...(plus ? [numberClusterToken(output.number, plus)] : []),
+        ...(minus ? [numberClusterToken(output.number, minus)] : []),
+        ...(boundedNumber(output.number + 1)
+          ? [numberClusterToken(output.number + 1, output.letters)]
+          : []),
+        ...(boundedNumber(output.number - 1)
+          ? [numberClusterToken(output.number - 1, output.letters)]
+          : []),
+      ];
+    }
     case "LETTER_GROUP":
       return [];
   }
@@ -196,11 +232,13 @@ function wrongPairOptions(
       if (isUniqueIntendedMatch(rule, context, [...references, candidate])) continue;
       if (matchingProvisionalMixedRules([...references, candidate]).length > 0) continue;
       wrong.push(candidate);
-      if (wrong.length === 3) return wrong as unknown as readonly [
-        ProvisionalMixedEvidence,
-        ProvisionalMixedEvidence,
-        ProvisionalMixedEvidence,
-      ];
+      if (wrong.length === 3) {
+        return wrong as unknown as readonly [
+          ProvisionalMixedEvidence,
+          ProvisionalMixedEvidence,
+          ProvisionalMixedEvidence,
+        ];
+      }
     }
   }
 
@@ -257,7 +295,7 @@ for (const rule of ANA_CP008_PROVISIONAL_RULES) {
   }
 }
 
-assert.equal(summaries.length, 74);
+assert.equal(summaries.length, 81);
 
 console.log("ANA-CP-008 presentation-yield audit passed.", {
   contexts: summaries.length,

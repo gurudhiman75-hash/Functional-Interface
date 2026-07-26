@@ -9,6 +9,7 @@ import {
   letterGroupToken,
   letterNumberToken,
   letterToken,
+  numberClusterToken,
   numberLetterToken,
   numberToken,
   sameMixedToken,
@@ -67,7 +68,12 @@ const fixtures: readonly SourceFixture[] = [
   {
     source: "Testbook mixed analogy: P21 : J28 :: G19 : A26",
     ruleId: "MIXED_TOKEN_INDEPENDENT_TRANSFORM",
-    context: { kind: "INDEPENDENT_LETTER_NUMBER", letterShift: -6, numberOperation: "ADD", numberAmount: 7 },
+    context: {
+      kind: "INDEPENDENT_LETTER_NUMBER",
+      letterShift: -6,
+      numberOperation: "ADD",
+      numberAmount: 7,
+    },
     evidence: [
       { input: letterNumberToken("P", 21), output: letterNumberToken("J", 28) },
       { input: letterNumberToken("G", 19), output: letterNumberToken("A", 26) },
@@ -165,6 +171,20 @@ const fixtures: readonly SourceFixture[] = [
     ],
   },
   {
+    source: "SSC CHSL mixed odd-pair family: AC332 : CH498 :: BH440 : DM660",
+    ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+    context: {
+      kind: "CLUSTER_NUMBER_VECTOR_MULTIPLIER",
+      letterShifts: [2, 5],
+      numerator: 3,
+      denominator: 2,
+    },
+    evidence: [
+      { input: clusterNumberToken("AC", 332), output: clusterNumberToken("CH", 498) },
+      { input: clusterNumberToken("BH", 440), output: clusterNumberToken("DM", 660) },
+    ],
+  },
+  {
     source: "UKPSC official analogy: TR4 : XC64 :: AC3 : EN27",
     ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_POWER",
     context: {
@@ -190,6 +210,73 @@ const fixtures: readonly SourceFixture[] = [
       { input: clusterNumberToken("NO", 36), output: clusterNumberToken("QL", 216) },
     ],
   },
+  {
+    source: "SSC CHSL mixed odd-pair family: SN1330 : QI11 :: MP999 : KK10",
+    ruleId: "MIXED_CLUSTER_NUMBER_VECTOR_ROOT",
+    context: {
+      kind: "CLUSTER_NUMBER_VECTOR_ROOT",
+      letterShifts: [-2, -5],
+      transform: "CUBE_MINUS_ONE_ROOT",
+    },
+    evidence: [
+      { input: clusterNumberToken("SN", 1330), output: clusterNumberToken("QI", 11) },
+      { input: clusterNumberToken("MP", 999), output: clusterNumberToken("KK", 10) },
+    ],
+  },
+  {
+    source: "SSC CHSL mixed odd-pair family: 78AV : 156BY :: 108LD : 216MG",
+    ruleId: "MIXED_NUMBER_CLUSTER_VECTOR_MULTIPLIER",
+    context: {
+      kind: "NUMBER_CLUSTER_VECTOR_MULTIPLIER",
+      letterShifts: [1, 3],
+      numerator: 2,
+      denominator: 1,
+    },
+    evidence: [
+      { input: numberClusterToken(78, "AV"), output: numberClusterToken(156, "BY") },
+      { input: numberClusterToken(108, "LD"), output: numberClusterToken(216, "MG") },
+    ],
+  },
+  {
+    source: "SSC CHSL mixed odd-pair family: 120LD : 11OJ :: 288CG : 17FM",
+    ruleId: "MIXED_NUMBER_CLUSTER_VECTOR_ROOT",
+    context: {
+      kind: "NUMBER_CLUSTER_VECTOR_ROOT",
+      letterShifts: [3, 6],
+      transform: "SQUARE_MINUS_ONE_ROOT",
+    },
+    evidence: [
+      { input: numberClusterToken(120, "LD"), output: numberClusterToken(11, "OJ") },
+      { input: numberClusterToken(288, "CG"), output: numberClusterToken(17, "FM") },
+    ],
+  },
+  {
+    source: "SSC CHSL mixed odd-pair family: SA287 : RY581 :: PK320 : OI614",
+    ruleId: "MIXED_CLUSTER_NUMBER_INDEPENDENT_VECTOR",
+    context: { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-1, -2], numberDelta: 294 },
+    evidence: [
+      { input: clusterNumberToken("SA", 287), output: clusterNumberToken("RY", 581) },
+      { input: clusterNumberToken("PK", 320), output: clusterNumberToken("OI", 614) },
+    ],
+  },
+  {
+    source: "SSC CHSL mixed odd-pair family: MW1032 : RB721 :: NR1176 : SW865",
+    ruleId: "MIXED_CLUSTER_NUMBER_INDEPENDENT_VECTOR",
+    context: { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [5, 5], numberDelta: -311 },
+    evidence: [
+      { input: clusterNumberToken("MW", 1032), output: clusterNumberToken("RB", 721) },
+      { input: clusterNumberToken("NR", 1176), output: clusterNumberToken("SW", 865) },
+    ],
+  },
+  {
+    source: "SSC mixed analogy family: AL112 : ZM562 :: BR280 : AS730",
+    ruleId: "MIXED_CLUSTER_NUMBER_INDEPENDENT_VECTOR",
+    context: { kind: "CLUSTER_NUMBER_INDEPENDENT_VECTOR", letterShifts: [-1, 1], numberDelta: 450 },
+    evidence: [
+      { input: clusterNumberToken("AL", 112), output: clusterNumberToken("ZM", 562) },
+      { input: clusterNumberToken("BR", 280), output: clusterNumberToken("AS", 730) },
+    ],
+  },
 ];
 
 for (const fixture of fixtures) {
@@ -206,6 +293,8 @@ for (const fixture of fixtures) {
   const matches = matchingProvisionalMixedRules(fixture.evidence);
   assert.ok(matches.some((match) => match.ruleId === fixture.ruleId && match.contextKey === expectedContextKey));
 }
+
+assert.equal(fixtures.length, 23);
 
 console.log("ANA-CP-008 source fixture audit passed.", {
   fixtureCount: fixtures.length,
