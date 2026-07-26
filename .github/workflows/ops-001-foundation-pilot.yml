@@ -1,4 +1,4 @@
-name: Validate OPS-001 foundation, pilots and localization
+name: Validate OPS-001 foundation, all candidates and localization
 
 # Pilot proof only: no permanent QL allocation or production exposure.
 on:
@@ -29,7 +29,7 @@ concurrency:
 jobs:
   pilot-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -60,5 +60,7 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/representative-pilots.test.ts
       - name: Stress 12 supplementary CP001-CP005 pilots
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/supplementary-pilots.test.ts
+      - name: Stress final 10 candidates and prove 34-candidate coverage
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/final-candidate-pilots.test.ts
       - name: Prove Hindi and Punjabi answer parity
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/localization.test.ts
