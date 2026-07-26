@@ -2,7 +2,7 @@
 
 **Branch:** `feat/tmw-cp003`  
 **Base:** merged CP-002 chapter base `c91cb9494a55f6477a16a468c1806139f8b4175f`  
-**Maturity:** English runtime-proof candidate pending exact-head CI and user review  
+**Maturity:** revised English runtime-proof candidate awaiting user confirmation  
 **Publication:** disabled
 
 ## Implemented
@@ -16,13 +16,37 @@
 - exact rational arithmetic and valid-state-first deterministic generation;
 - canonical solver plus independent equation verification;
 - solve-mode-specific formula-led English explanations;
-- context-safe exam-style English stems;
 - misconception-labelled distractors with whole-output admissibility guards;
 - mathematical fingerprints;
 - structured 69-row review export;
 - focused 1,150-case runtime proof;
 - focused 276-case structural and editorial audit;
 - dedicated GitHub Actions workflow.
+
+## Context correction
+
+User review accepted the mathematics, options and explanations but found the word and pattern “assignment” too repetitive.
+
+The context layer now contains 12 coherent settings:
+
+1. customer-record processing;
+2. equipment overhaul;
+3. loan-application verification;
+4. printing order;
+5. road-marking project;
+6. packaging order;
+7. quality-inspection batch;
+8. manuscript typing;
+9. school-building painting;
+10. warehouse inventory count;
+11. field survey;
+12. electronics assembly order.
+
+The focused audit now requires:
+
+- at least 10 distinct job contexts;
+- at least 10 distinct actor types;
+- zero occurrences of `assignment` in rendered CP-003 stems.
 
 ## Current solve contracts
 
@@ -52,22 +76,24 @@
 
 These are discovered task contracts, not a quota.
 
-## Local validation
+## Latest validation evidence
 
-- strict TypeScript compilation: PASS;
-- 23 QLs × 50 seeds = 1,150 deterministic cases;
-- all four correct-answer positions represented;
-- 548 distinct rendered stems;
-- 23 QLs × 12 audit seeds = 276 cases;
+- exact head before this documentation record: `e44a6bd867435a6b290a09a0e27eaad2745f7afa`;
+- workflow run: `30193806374` — PASS;
+- evidence artifact: `8629457236`;
+- runtime proof: 23 QLs × 50 seeds = 1,150 deterministic cases;
+- structural/editorial audit: 23 QLs × 12 seeds = 276 cases;
 - invalid packages: 0;
 - unresolved placeholders: 0;
 - malformed MathJax groups: 0;
 - control-character hits: 0;
 - generic explanation hits: 0;
 - option-contract failures: 0;
+- assignment-word hits: 0;
+- distinct context phrases: at least 10;
+- distinct context actors: at least 10;
 - exact/normalised cross-QL stem collisions: 0;
-- exact cross-QL explanation duplicates: 0;
-- 69 generated review rows inspected locally.
+- exact cross-QL explanation duplicates: 0.
 
 ## Workflow boundary
 
@@ -86,3 +112,7 @@ The product flow remains:
 runtime → Question Studio candidate → automated and human approval
 → Question Bank → test assembly → student test
 ```
+
+## Current gate
+
+The revised 69-row context review must be accepted before CP-003 is merged into the isolated TMW chapter base.
