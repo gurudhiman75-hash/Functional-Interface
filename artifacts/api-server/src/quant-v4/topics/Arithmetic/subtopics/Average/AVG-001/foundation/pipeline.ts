@@ -4,6 +4,7 @@ import {
 } from "./bounded-age-distractor-realism";
 import { runAvg001Cp002Pipeline } from "./cp002-runtime";
 import { runAvg001Cp003Pipeline } from "./cp003-age-bounded-runtime";
+import { applyAvg001Cp004ExamStrategy } from "./cp004-exam-strategy-finalizer";
 import { runAvg001Cp004ExactPipeline } from "./cp004-exact-runtime";
 import { applyAvg001Cp004ExplanationVariants } from "./cp004-explanation-polish";
 import { applyAvg001Cp005ExamStrategy } from "./cp005-exam-strategy-finalizer";
@@ -49,9 +50,13 @@ function finalizePackage(pkg: Avg001QuestionPackage) {
       : applyAvg001DistractorRealism(pkg);
   }
   const released = applyAvg001EnglishRelease(finalized);
-  return released.canonicalProblemId === "AVG-CP-005"
-    ? applyAvg001Cp005ExamStrategy(released)
-    : released;
+  if (released.canonicalProblemId === "AVG-CP-004") {
+    return applyAvg001Cp004ExamStrategy(released);
+  }
+  if (released.canonicalProblemId === "AVG-CP-005") {
+    return applyAvg001Cp005ExamStrategy(released);
+  }
+  return released;
 }
 
 export function runAvg001Pipeline(input: { questionLanguageId?: string; seed?: string; language?: Avg001Language } = {}): Avg001QuestionPackage {
