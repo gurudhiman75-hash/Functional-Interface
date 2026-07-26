@@ -1,0 +1,45 @@
+name: Patch CP-008 localized ESM import
+
+on:
+  push:
+    branches:
+      - feat/reasoning-ana-001-cp008-hi-pa-prototypes
+    paths:
+      - .github/workflows/cp008-localized-esm-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/reasoning-ana-001-cp008-hi-pa-prototypes
+      - name: Replace dynamic require with static import
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.ts')
+          text = path.read_text(encoding='utf-8')
+          import_line = 'import { renderMixedToken } from "./foundation/mixed-token";\n'
+          static_import = 'import { provisionalMixedRuleById } from "./provisional-rule-definitions";\n'
+          if static_import not in text:
+              text = text.replace(import_line, import_line + static_import)
+          dynamic_line = '    const { provisionalMixedRuleById } = require("./provisional-rule-definitions") as typeof import("./provisional-rule-definitions");\n'
+          text = text.replace(dynamic_line, '')
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit branch-only fix
+        run: |
+          if git diff --quiet; then
+            echo "No patch required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-language-templates.localized.ts
+          git commit -m "fix(reasoning): use static CP-008 localized rule import"
+          git push origin HEAD:feat/reasoning-ana-001-cp008-hi-pa-prototypes
