@@ -73,6 +73,20 @@ export function interpolateEditorialText(template: string, context: EditorialRen
   });
 }
 
+export function normalizeEditorialProse(value: string): string {
+  return value
+    .replaceAll("×", " multiplied by ")
+    .replaceAll("÷", " divided by ")
+    .replaceAll("²", " squared")
+    .replaceAll("³", " cubed")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+function prose(template: string, context: EditorialRenderContext): string {
+  return normalizeEditorialProse(interpolateEditorialText(template, context));
+}
+
 function resolveRows(block: Extract<QuestionStemBlock, { type: "table" }>, context: EditorialRenderContext): readonly (readonly string[])[] {
   if (block.rows) return block.rows;
   if (!block.rowSource) return [];
@@ -99,11 +113,11 @@ export function renderStructuredStemMarkdown(
   for (const block of stem.blocks) {
     switch (block.type) {
       case "paragraph":
-        parts.push(interpolateEditorialText(block.content, context));
+        parts.push(prose(block.content, context));
         break;
       case "table": {
-        if (block.caption) parts.push(`**${interpolateEditorialText(block.caption, context)}**`);
-        const columns = block.columns.map((column) => interpolateEditorialText(column, context));
+        if (block.caption) parts.push(`**${prose(block.caption, context)}**`);
+        const columns = block.columns.map((column) => prose(column, context));
         const rows = resolveRows(block, context);
         parts.push(`| ${columns.map(escapeTableCell).join(" | ")} |`);
         parts.push(`| ${columns.map(() => "---").join(" | ")} |`);
@@ -111,26 +125,26 @@ export function renderStructuredStemMarkdown(
           parts.push(`| ${[`{${block.rowSource}}`, ...columns.slice(1).map(() => "")].map(escapeTableCell).join(" | ")} |`);
         } else {
           for (const row of rows) {
-            const normalized = columns.map((_, index) => interpolateEditorialText(row[index] ?? "", context));
+            const normalized = columns.map((_, index) => prose(row[index] ?? "", context));
             parts.push(`| ${normalized.map(escapeTableCell).join(" | ")} |`);
           }
         }
         break;
       }
       case "caselet": {
-        if (block.title) parts.push(`**${interpolateEditorialText(block.title, context)}**`);
+        if (block.title) parts.push(`**${prose(block.title, context)}**`);
         const paragraphs = resolveParagraphs(block, context);
         if (paragraphs.length === 0 && block.paragraphSource) parts.push(`{${block.paragraphSource}}`);
-        else parts.push(...paragraphs.map((paragraph) => interpolateEditorialText(paragraph, context)));
+        else parts.push(...paragraphs.map((paragraph) => prose(paragraph, context)));
         break;
       }
       case "statements":
-        if (block.lead) parts.push(interpolateEditorialText(block.lead, context));
-        block.statements.forEach((statement, index) => parts.push(`${index + 1}. ${interpolateEditorialText(statement, context)}`));
+        if (block.lead) parts.push(prose(block.lead, context));
+        block.statements.forEach((statement, index) => parts.push(`${index + 1}. ${prose(statement, context)}`));
         break;
       case "data_sufficiency":
-        parts.push(interpolateEditorialText(block.question, context));
-        block.statements.forEach((statement, index) => parts.push(`**Statement ${index + 1}:** ${interpolateEditorialText(statement, context)}`));
+        parts.push(prose(block.question, context));
+        block.statements.forEach((statement, index) => parts.push(`**Statement ${index + 1}:** ${prose(statement, context)}`));
         parts.push("Use the standard two-statement data-sufficiency answer scheme.");
         break;
       case "equation": {
@@ -141,7 +155,7 @@ export function renderStructuredStemMarkdown(
     }
   }
 
-  parts.push(interpolateEditorialText(stem.prompt, context));
+  parts.push(prose(stem.prompt, context));
   return parts.filter(Boolean).join("\n\n");
 }
 
@@ -150,24 +164,24 @@ export function renderFriendlyExplanationMarkdown(
   context: EditorialRenderContext = {},
 ): string {
   const parts: string[] = [
-    interpolateEditorialText(explanation.opening, context),
-    `**Key idea:** ${interpolateEditorialText(explanation.concept, context)}`,
+    prose(explanation.opening, context),
+    `**Key idea:** ${prose(explanation.concept, context)}`,
   ];
 
   explanation.steps.forEach((step, index) => {
-    parts.push(`**Step ${index + 1}: ${interpolateEditorialText(step.title, context)}**`);
-    parts.push(interpolateEditorialText(step.body, context));
+    parts.push(`**Step ${index + 1}: ${prose(step.title, context)}**`);
+    parts.push(prose(step.body, context));
     if (step.equationLatex) parts.push(`\\[${interpolateEditorialText(step.equationLatex, context)}\\]`);
   });
 
-  parts.push(`**Conclusion:** ${interpolateEditorialText(explanation.conclusion, context)}`);
+  parts.push(`**Conclusion:** ${prose(explanation.conclusion, context)}`);
   if (explanation.finalAnswerLatex) {
     parts.push(`\\[\\boxed{${interpolateEditorialText(explanation.finalAnswerLatex, context)}}\\]`);
   }
   if (explanation.commonTrap) {
-    parts.push(`**Common mistake to avoid:** ${interpolateEditorialText(explanation.commonTrap, context)}`);
+    parts.push(`**Common mistake to avoid:** ${prose(explanation.commonTrap, context)}`);
   }
-  if (explanation.shortcut) parts.push(`**Quick check:** ${interpolateEditorialText(explanation.shortcut, context)}`);
+  if (explanation.shortcut) parts.push(`**Quick check:** ${prose(explanation.shortcut, context)}`);
 
   return parts.filter(Boolean).join("\n\n");
 }
