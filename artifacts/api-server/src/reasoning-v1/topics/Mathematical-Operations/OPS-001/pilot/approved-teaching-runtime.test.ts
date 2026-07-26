@@ -9,6 +9,22 @@ const SEEDS_PER_CONTRACT = 100;
 const answerPositions = [0, 0, 0, 0];
 let generated = 0;
 
+function assertPrecedenceNarration(question: ApprovedOpsQuestion): void {
+  const groups = new Map<string, { multiplication: number[]; addition: number[] }>();
+  question.explanation.steps.forEach((step, index) => {
+    const prefix = step.label.includes(":") ? step.label.split(":", 1)[0] : "ROOT";
+    const group = groups.get(prefix) ?? { multiplication: [], addition: [] };
+    if (/multiplication\/division/iu.test(step.label)) group.multiplication.push(index);
+    if (/addition\/subtraction/iu.test(step.label)) group.addition.push(index);
+    groups.set(prefix, group);
+  });
+  for (const [prefix, group] of groups) {
+    if (group.multiplication.length > 0 && group.addition.length > 0) {
+      assert.ok(Math.max(...group.multiplication) < Math.min(...group.addition), `${question.candidateId} narrates addition/subtraction before multiplication/division within ${prefix}.`);
+    }
+  }
+}
+
 function assertBasicQuestion(question: ApprovedOpsQuestion): void {
   assert.equal(question.options.length, 4, `${question.candidateId} must have four options.`);
   assert.equal(new Set(question.options.map((option) => option.value)).size, 4, `${question.candidateId} has duplicate option text.`);
@@ -28,11 +44,7 @@ function assertBasicQuestion(question: ApprovedOpsQuestion): void {
     assert.notEqual(step.expression.trim(), step.result.trim(), `${question.candidateId} repeats the same trace on both sides.`);
   }
 
-  const multiplicationIndex = question.explanation.steps.findIndex((step) => /multiplication\/division/iu.test(step.label));
-  const additionIndex = question.explanation.steps.findIndex((step) => /addition\/subtraction/iu.test(step.label));
-  if (multiplicationIndex >= 0 && additionIndex >= 0) {
-    assert.ok(multiplicationIndex < additionIndex, `${question.candidateId} narrates addition/subtraction before multiplication/division.`);
-  }
+  assertPrecedenceNarration(question);
 
   if (/select|which/u.test(question.stem.toLowerCase())) {
     assert.ok(question.explanation.steps.some((step) => /check|select|compare|uniqueness|test|determine|convert|infer|establish/iu.test(step.label)), `${question.candidateId} does not justify the selected option.`);
