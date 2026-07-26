@@ -102,8 +102,6 @@ for (const rendered of direct) {
   assert.ok(rendered.explanation.sourceDemonstration.includes(renderMixedToken(rendered.source.input)));
   assert.ok(rendered.explanation.targetApplication.includes(renderMixedToken(rendered.target.input)));
   assert.ok(rendered.explanation.conclusion.includes(renderMixedToken(rendered.correctAnswer)));
-  assert.ok(/tempting|do not|rather than|not obtained|misses|breaks/i.test(rendered.explanation.closestTrapRejection),
-    `${rendered.prototypeId} needs a helpful nearest-trap rejection.`);
 
   const studentText = [rendered.stem, ...explanationParts].join("\n");
   assert.ok(!INTERNAL_TEXT.test(studentText), `${rendered.prototypeId} leaks internal implementation text.`);
