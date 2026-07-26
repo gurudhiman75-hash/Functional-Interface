@@ -98,14 +98,31 @@ function verifyTopologyObligation(generated: GeneratedSentenceCodeTopology): voi
   }
 
   if (generated.kind === "FORKED_EVIDENCE_JOIN") {
-    const branchOneWords = intersection(r1.wordIds, r2!.wordIds);
-    const branchTwoWords = intersection(r3!.wordIds, r4!.wordIds);
-    const branchOneTokens = intersection(r1.codeTokens, r2!.codeTokens);
-    const branchTwoTokens = intersection(r3!.codeTokens, r4!.codeTokens);
-    assert.equal(branchOneWords.length, 3);
-    assert.equal(branchTwoWords.length, 3);
-    assert.deepEqual(intersection(branchOneWords, branchTwoWords), [generated.targetWordId]);
-    assert.deepEqual(intersection(branchOneTokens, branchTwoTokens), [generated.targetToken]);
+    const sharedWords = intersection(r1.wordIds, r3!.wordIds);
+    const sharedTokens = intersection(r1.codeTokens, r3!.codeTokens);
+    const sharedAWord = generated.roleWordIds.SHARED_A!;
+    const sharedAToken = generated.roleTokens.SHARED_A!;
+    const sharedBWord = generated.roleWordIds.SHARED_B!;
+    const sharedBToken = generated.roleTokens.SHARED_B!;
+
+    assert.deepEqual(sharedWords, uniqueSorted([generated.targetWordId, sharedAWord, sharedBWord]));
+    assert.deepEqual(sharedTokens, uniqueSorted([generated.targetToken, sharedAToken, sharedBToken]));
+    assert.deepEqual(intersection(sharedWords, r2!.wordIds), [sharedAWord]);
+    assert.deepEqual(intersection(sharedTokens, r2!.codeTokens), [sharedAToken]);
+    assert.deepEqual(intersection(sharedWords, r4!.wordIds), [sharedBWord]);
+    assert.deepEqual(intersection(sharedTokens, r4!.codeTokens), [sharedBToken]);
+    assert.deepEqual(difference(sharedWords, [sharedAWord, sharedBWord]), [generated.targetWordId]);
+    assert.deepEqual(difference(sharedTokens, [sharedAToken, sharedBToken]), [generated.targetToken]);
+    assert.deepEqual(
+      [r1, r2!, r3!, r4!].map((current) => current.wordIds).reduce((current, next) => intersection(current, next)),
+      [],
+      "Forked target must not be obtainable as the member common to all rows",
+    );
+    assert.deepEqual(
+      [r1, r2!, r3!, r4!].map((current) => current.codeTokens).reduce((current, next) => intersection(current, next)),
+      [],
+      "Forked target code must not be obtainable as the code common to all rows",
+    );
     return;
   }
 
@@ -220,6 +237,10 @@ assert.equal(
 );
 assert.notEqual(
   fingerprints.get("DIRECT_SINGLE_INTERSECTION")!.values().next().value,
+  fingerprints.get("GLOBAL_BIJECTION_DEDUCTION")!.values().next().value,
+);
+assert.notEqual(
+  fingerprints.get("FORKED_EVIDENCE_JOIN")!.values().next().value,
   fingerprints.get("GLOBAL_BIJECTION_DEDUCTION")!.values().next().value,
 );
 
