@@ -1,10 +1,12 @@
-import type { CodDifficulty, DirectMappingPrompt, GeneratedCodQuestion, GeneratedOption, MappingEvidence, MappingTableEntry } from "../foundation/types";
+import type { DirectMappingPrompt, GeneratedCodQuestion, GeneratedOption, MappingEvidence, MappingTableEntry } from "../foundation/types";
 import type { DirectMap } from "../foundation/mapping";
 import type { CodCp001QuestionLogic } from "./types";
 import { SeededRandom } from "../foundation/prng";
 import { encodeWithMapping, evidenceCoversWord, mappingFromEvidence } from "../foundation/mapping";
 import { validateOptions } from "../foundation/option-validator";
 import { joinCodeExamples } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
 import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardLetterCodeStem } from "../foundation/standard-exam-stem";
 import { getCodCp001QuestionLogic } from "./question-language.en";
 import { COD_CP001_WORD_POOL } from "./word-pool.en";
@@ -23,21 +25,6 @@ function tokenPool(outputKind: CodCp001QuestionLogic["outputKind"]): readonly st
 
 function separator(outputKind: CodCp001QuestionLogic["outputKind"]): string {
   return outputKind === "SYMBOL" ? " " : "";
-}
-
-function deriveDifficulty(logic: CodCp001QuestionLogic): CodDifficulty {
-  if (
-    logic.evidenceMode === "OVERLAPPING_EXAMPLES" &&
-    logic.taskKind === "INFER_FROM_OVERLAP" &&
-    logic.targetLength[1] >= 6
-  ) return "HARD";
-  if (
-    logic.evidenceMode === "OVERLAPPING_EXAMPLES" ||
-    logic.taskKind === "DECODE_TARGET" ||
-    logic.taskKind === "RECOVER_MISSING_CODE" ||
-    logic.outputKind === "SYMBOL"
-  ) return "MEDIUM";
-  return "EASY";
 }
 
 function pickTargetWord(logic: CodCp001QuestionLogic, random: SeededRandom): string {
@@ -169,6 +156,19 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const recovered = mappingFromEvidence(evidence, sep);
   const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-style-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-001",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp001Explanation(prompt, recovered, answer, styleIndex, options),
+    { checkpointId: "COD-CP-001", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -176,14 +176,14 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
     ruleId: logic.ruleId,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp001Explanation(prompt, recovered, answer, styleIndex, options),
+    explanation,
     metadata: {
       runtimeVersion: "cod-001-cp001-v2",
       publiclyPublishable: false,
