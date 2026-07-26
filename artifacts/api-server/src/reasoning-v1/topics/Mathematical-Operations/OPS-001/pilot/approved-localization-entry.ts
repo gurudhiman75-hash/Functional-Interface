@@ -15,6 +15,9 @@ function placeholderLabel(label: string): string {
 
 function placeholderText(source: string): string {
   if (/^Only .+ makes the equation true\.$/u.test(source)) return "The transformed equation is true.";
+  if (source === "Only this pair produces a valid true equation without a leading zero.") return "The transformed equation is true.";
+  if (source === "Only complete number tokens are exchanged; digits inside other numbers are unchanged.") return "Digits inside other numbers remain unchanged.";
+  if (/^C must be > because .+$/u.test(source)) return "Use this one mapping for every option.";
   return source;
 }
 
@@ -36,6 +39,15 @@ function restoreText(original: string, translated: string, locale: ApprovedOpsLo
       ? `केवल ${unique[1]} समीकरण को सही बनाता है।`
       : `ਕੇਵਲ ${unique[1]} ਸਮੀਕਰਨ ਨੂੰ ਸਹੀ ਬਣਾਉਂਦਾ ਹੈ।`;
   }
+  if (original === "Only this pair produces a valid true equation without a leading zero.") return locale === "hi-IN"
+    ? "केवल यही अंक-युग्म बिना आरंभिक शून्य बनाए सही समीकरण देता है।"
+    : "ਕੇਵਲ ਇਹੀ ਅੰਕ-ਜੋੜਾ ਸ਼ੁਰੂਆਤੀ ਸਿਫ਼ਰ ਬਣਾਏ ਬਿਨਾਂ ਸਹੀ ਸਮੀਕਰਨ ਦਿੰਦਾ ਹੈ।";
+  if (original === "Only complete number tokens are exchanged; digits inside other numbers are unchanged.") return locale === "hi-IN"
+    ? "केवल पूरी संख्याएँ आपस में बदली जाती हैं; दूसरी संख्याओं के भीतर के अंक नहीं बदलते।"
+    : "ਕੇਵਲ ਪੂਰੀਆਂ ਸੰਖਿਆਵਾਂ ਆਪਸ ਵਿੱਚ ਬਦਲੀਆਂ ਜਾਂਦੀਆਂ ਹਨ; ਹੋਰ ਸੰਖਿਆਵਾਂ ਦੇ ਅੰਦਰਲੇ ਅੰਕ ਨਹੀਂ ਬਦਲਦੇ।";
+  if (/^C must be > because .+$/u.test(original)) return locale === "hi-IN"
+    ? "C का अर्थ > होना चाहिए, क्योंकि 7 > 4 सही है; = रखने पर कथन गलत होगा और + कोई तुलना-कथन नहीं बनाएगा।"
+    : "C ਦਾ ਅਰਥ > ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਕਿਉਂਕਿ 7 > 4 ਸਹੀ ਹੈ; = ਰੱਖਣ ਉੱਤੇ ਕਥਨ ਗਲਤ ਹੋਵੇਗਾ ਅਤੇ + ਕੋਈ ਤੁਲਨਾ-ਕਥਨ ਨਹੀਂ ਬਣਾਏਗਾ।";
   return translated;
 }
 
