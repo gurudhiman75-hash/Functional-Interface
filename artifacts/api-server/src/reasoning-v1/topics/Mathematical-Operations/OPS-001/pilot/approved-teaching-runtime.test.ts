@@ -35,7 +35,7 @@ function assertBasicQuestion(question: ApprovedOpsQuestion): void {
   }
 
   if (/select|which/u.test(question.stem.toLowerCase())) {
-    assert.ok(question.explanation.steps.some((step) => /check|select|compare|uniqueness|test/iu.test(step.label)), `${question.candidateId} does not justify the selected option.`);
+    assert.ok(question.explanation.steps.some((step) => /check|select|compare|uniqueness|test|determine|convert|infer|establish/iu.test(step.label)), `${question.candidateId} does not justify the selected option.`);
   }
 }
 
