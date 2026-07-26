@@ -10,13 +10,17 @@ import {
 const root = dirname(fileURLToPath(import.meta.url));
 const generatedLibraries = buildAllNormalizedMultilingualEditorialLibraries();
 
+function canonicalize(library: EditorialLibraryFile): EditorialLibraryFile {
+  return JSON.parse(JSON.stringify(library)) as EditorialLibraryFile;
+}
+
 for (const generated of generatedLibraries) {
   const cp = generated.cpId.replace("PNL-CP-", "CP-");
   const path = join(root, cp, `editorial-content.${generated.language}.json`);
   const committed = JSON.parse(readFileSync(path, "utf8")) as EditorialLibraryFile;
   assert.deepEqual(
     committed,
-    generated,
+    canonicalize(generated),
     `${cp} ${generated.language}: committed Editorial V2 source has drifted from the validated generator.`,
   );
 }
