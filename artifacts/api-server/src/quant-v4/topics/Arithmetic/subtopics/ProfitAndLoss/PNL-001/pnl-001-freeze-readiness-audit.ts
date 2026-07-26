@@ -121,7 +121,11 @@ function expectedStemVariableSet(
 ): Set<string> {
   const result = new Set(requiredVariables);
   const migration = structuredVariableMigrations[qlId];
-  if (migration && actualVariables.has(migration.aggregate)) {
+  if (
+    migration
+    && actualVariables.has(migration.aggregate)
+    && migration.absorbed.every((variable) => !actualVariables.has(variable))
+  ) {
     for (const absorbed of migration.absorbed) result.delete(absorbed);
   }
   return result;
