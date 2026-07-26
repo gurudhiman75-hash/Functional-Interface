@@ -32,6 +32,7 @@ export * from "./editorial-content";
 export * from "./editorial-overrides";
 export * from "./editorial-library";
 export * from "./editorial-v2-legacy-builder";
+export * from "./editorial-v2-legacy-normalized";
 export * from "./difficulty-calibrator";
 export * from "./coverage-auditor";
 export * from "./library";
