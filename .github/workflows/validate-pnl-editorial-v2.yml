@@ -36,6 +36,13 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Prepare legacy editorial bundle paths
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          ln -s ../CP-001 "$root/foundation/CP-001"
+          ln -s ../CP-002 "$root/foundation/CP-002"
+          ln -s ../CP-003 "$root/foundation/CP-003"
+
       - name: Bundle and run CP-004 to CP-006 editorial audit
         id: editorial_audit
         continue-on-error: true
@@ -70,9 +77,9 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-audit.mjs \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs \
             2>&1 | tee editorial-v2-cp001-cp003-audit.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-audit.mjs \
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-audit.mjs \
             2>&1 | tee -a editorial-v2-cp001-cp003-audit.log
 
       - name: Bundle and run CP-001 to CP-003 renderer proof
@@ -83,9 +90,9 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-render.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-render.test.mjs \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-render.test.mjs \
             2>&1 | tee editorial-v2-cp001-cp003-render.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-render.test.mjs \
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-render.test.mjs \
             2>&1 | tee -a editorial-v2-cp001-cp003-render.log
 
       - name: Export CP-001 to CP-003 review sources
@@ -96,9 +103,9 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs \
             2>&1 | tee editorial-v2-cp001-cp003-export.log
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs \
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs \
             2>&1 | tee -a editorial-v2-cp001-cp003-export.log
 
       - name: Upload editorial diagnostics and review sources
@@ -112,7 +119,7 @@ jobs:
             editorial-v2-cp001-cp003-audit.log
             editorial-v2-cp001-cp003-render.log
             editorial-v2-cp001-cp003-export.log
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-generated/*.json
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-generated/*.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/editorial-content.en.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/editorial-content.en.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/editorial-content.en.json
