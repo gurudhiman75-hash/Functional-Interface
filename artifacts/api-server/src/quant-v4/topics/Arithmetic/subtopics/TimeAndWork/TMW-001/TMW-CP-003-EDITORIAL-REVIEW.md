@@ -28,6 +28,16 @@ Corrections:
 - added a structural audit requiring at least 10 distinct context phrases and 10 distinct actor types across the focused audit batch;
 - added a zero-tolerance audit for the word `assignment` in rendered CP-003 stems.
 
+## Validation after correction
+
+- runtime head: `e44a6bd867435a6b290a09a0e27eaad2745f7afa`;
+- workflow run: `30193806374` — PASS;
+- evidence artifact: `8629457236`;
+- 23 QLs × 50 proof seeds = 1,150 cases;
+- 23 QLs × 12 audit seeds = 276 cases;
+- assignment-word hits: 0;
+- context diversity threshold: PASS.
+
 ## Review verdict
 
-The revised review export is suitable for exact-head CI regeneration and user confirmation. It is not approved for Question Bank storage or student delivery until the revised generated-question pack is accepted.
+The revised 69-row export is ready for user confirmation. It is not approved for Question Bank storage or student delivery until the revised generated-question pack is accepted.
