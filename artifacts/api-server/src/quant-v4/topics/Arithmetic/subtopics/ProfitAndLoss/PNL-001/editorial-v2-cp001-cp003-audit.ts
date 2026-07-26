@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  buildAllLegacyEditorialLibraries,
+  buildAllNormalizedLegacyEditorialLibraries,
   renderFriendlyExplanationMarkdown,
   type QuestionStemBlock,
   type StructuredEditorialEntry,
@@ -69,18 +69,32 @@ function stemVariables(blocks: readonly QuestionStemBlock[], prompt: string, req
 
 function wordCount(entry: StructuredEditorialEntry): number {
   const explanation = entry.explanation;
-  const values = [
+  return [
     explanation.opening,
     explanation.concept,
     ...explanation.steps.flatMap((step) => [step.title, step.body]),
     explanation.conclusion,
     explanation.commonTrap ?? "",
     explanation.shortcut ?? "",
-  ];
-  return values.join(" ").split(/\s+/).filter(Boolean).length;
+  ].join(" ").split(/\s+/).filter(Boolean).length;
 }
 
-const libraries = buildAllLegacyEditorialLibraries();
+function paragraphText(entry: StructuredEditorialEntry): string {
+  return entry.stem.blocks
+    .filter((block): block is Extract<QuestionStemBlock, { type: "paragraph" }> => block.type === "paragraph")
+    .map((block) => block.content)
+    .join(" ");
+}
+
+function latexValues(entry: StructuredEditorialEntry): readonly string[] {
+  const values: string[] = [];
+  for (const block of entry.stem.blocks) if (block.type === "equation") values.push(block.latex);
+  for (const step of entry.explanation.steps) if (step.equationLatex) values.push(step.equationLatex);
+  if (entry.explanation.finalAnswerLatex) values.push(entry.explanation.finalAnswerLatex);
+  return values;
+}
+
+const libraries = buildAllNormalizedLegacyEditorialLibraries();
 const packageMeta = [
   { cp: "CP-001", start: 1, count: 36 },
   { cp: "CP-002", start: 37, count: 34 },
@@ -132,8 +146,18 @@ for (const [index, meta] of packageMeta.entries()) {
     assert.ok(renderedExplanation.includes("**Key idea:**"), `${qlId}: key-idea heading is missing.`);
     assert.ok(renderedExplanation.includes("**Common mistake to avoid:**"), `${qlId}: common-trap heading is missing.`);
 
-    const firstText = entry.stem.blocks.find((block) => block.type === "paragraph");
-    if (firstText?.type === "paragraph" && /^(A|An) (article|dealer|trader)\b/i.test(firstText.content)) genericOpenings += 1;
+    const prose = paragraphText(entry);
+    assert.ok(!prose.includes("Additional given value"), `${qlId}: mechanical variable append remains in the stem.`);
+    assert.ok(!prose.includes(". the "), `${qlId}: sentence begins with a lower-case article.`);
+    assert.notEqual(entry.stem.prompt, "Select the correct answer.", `${qlId}: generic fallback prompt remains.`);
+
+    for (const latex of latexValues(entry)) {
+      assert.ok(!/[\f\r\t]/u.test(latex), `${qlId}: LaTeX contains a control-character escape.`);
+      assert.ok(!/(?<!\\)(frac|left|right|times|prod|Delta|pm|mp)/u.test(latex), `${qlId}: LaTeX command is missing its backslash: ${latex}`);
+    }
+
+    const firstParagraph = entry.stem.blocks.find((block) => block.type === "paragraph");
+    if (firstParagraph?.type === "paragraph" && /^(A|An) (article|dealer|trader)\b/i.test(firstParagraph.content)) genericOpenings += 1;
     if (entry.difficulty === "Hard") hardCount += 1;
     if (entry.difficulty !== registryEntry.difficulty) difficultyChanges.push(`${qlId}:${registryEntry.difficulty}->${entry.difficulty}`);
   }
