@@ -78,7 +78,8 @@ These are discovered task contracts, not a quota.
 
 ## Latest validation evidence
 
-- exact head before this documentation record: `e44a6bd867435a6b290a09a0e27eaad2745f7afa`;
+- exact runtime head: `e44a6bd867435a6b290a09a0e27eaad2745f7afa`;
+- documentation-only status head: `40c9aeefd6f00d437bbbc867fdec9050711b6d39`;
 - workflow run: `30193806374` — PASS;
 - evidence artifact: `8629457236`;
 - runtime proof: 23 QLs × 50 seeds = 1,150 deterministic cases;
