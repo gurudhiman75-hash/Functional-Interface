@@ -51,21 +51,29 @@ jobs:
         run: |
           set -euo pipefail
           root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
-          mapfile -d '' files < <(find "$root"/CP-* -maxdepth 1 -type f \
-            \( -name '*.test.ts' -o -name '*structural-audit.ts' \) -print0 | sort -z)
-          test "${#files[@]}" -gt 0
-          printf 'Discovered %s CP proof files.\n' "${#files[@]}"
           : > pnl-001-cp-proofs.log
-          for file in "${files[@]}"; do
-            relative="${file#artifacts/api-server/}"
-            output="${file%.ts}.freeze-proof.mjs"
-            output_relative="${output#artifacts/api-server/}"
-            printf '\n=== %s ===\n' "$relative" | tee -a pnl-001-cp-proofs.log
-            pnpm --dir artifacts/api-server exec esbuild \
-              "$relative" --bundle --platform=node --format=esm \
-              --outfile="$output_relative" 2>&1 | tee -a pnl-001-cp-proofs.log
-            node "$output" 2>&1 | tee -a pnl-001-cp-proofs.log
+          total=0
+
+          for cp in CP-001 CP-002 CP-003 CP-004 CP-005 CP-006; do
+            mapfile -d '' cp_files < <(find "$root/$cp" -maxdepth 1 -type f \
+              \( -name '*.test.ts' -o -name '*structural-audit.ts' \) -print0 | sort -z)
+            test "${#cp_files[@]}" -gt 0
+            printf '%s: discovered %s proof file(s).\n' "$cp" "${#cp_files[@]}" | tee -a pnl-001-cp-proofs.log
+            total=$((total + ${#cp_files[@]}))
+
+            for file in "${cp_files[@]}"; do
+              relative="${file#artifacts/api-server/}"
+              output="${file%.ts}.freeze-proof.mjs"
+              output_relative="${output#artifacts/api-server/}"
+              printf '\n=== %s ===\n' "$relative" | tee -a pnl-001-cp-proofs.log
+              pnpm --dir artifacts/api-server exec esbuild \
+                "$relative" --bundle --platform=node --format=esm \
+                --outfile="$output_relative" 2>&1 | tee -a pnl-001-cp-proofs.log
+              node "$output" 2>&1 | tee -a pnl-001-cp-proofs.log
+            done
           done
+
+          printf '\nTotal CP proof files executed: %s\n' "$total" | tee -a pnl-001-cp-proofs.log
 
       - name: Upload freeze diagnostics
         if: always()
