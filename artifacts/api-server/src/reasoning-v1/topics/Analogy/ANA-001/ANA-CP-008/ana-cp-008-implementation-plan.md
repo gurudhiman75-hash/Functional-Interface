@@ -1,228 +1,371 @@
 # ANA-CP-008 Implementation Plan
 
-Status: **DESIGN-TO-PILOT PLAN — NO PERMANENT QLS YET**
+Status: **GREEN NON-QL PILOT — PERMANENT ALLOCATION NOT FROZEN**
 
-## Stage 0 — Recover authoritative source inventory
+## 1. Current baseline
 
-Before permanent allocation:
-
-- retry File Library retrieval for the audited ANA-CP-008 manifest;
-- inspect uploaded reasoning books for mixed letter-number analogy;
-- capture every readable source example with source/page metadata;
-- classify image-only examples as unresolved until their rules can be verified;
-- compare the recovered inventory against the current source-backed reconstruction.
-
-Deliverable:
+ANA-CP-008 now has a merged, source-backed pilot with:
 
 ```text
-ana-cp-008-source-fixtures.ts
-ana-cp-008-source-inventory.md
+Typed token kinds: 7
+Provisional runtime rule IDs: 12
+Provisional contexts: 81
+Exact source fixtures: 23
+Mechanically proven presentation modes: 3
+Permanent QL count: OPEN
+Permanent solve-mode count: OPEN
 ```
 
-## Stage 1 — Typed mixed-token foundation
+The pilot is deliberately not connected to production generation, Question Studio, admin publishing, mock tests, or public routes.
 
-Implement:
+The authoritative current-status summary is `ana-cp-008-pilot-status-amendment.md`.
+
+The current split/merge model is `ana-cp-008-operation-task-allocation-matrix.md`.
+
+## 2. Completed pilot stages
+
+### Stage A — Typed mixed-token foundation
+
+Complete for pilot:
 
 - `LETTER`;
 - `LETTER_GROUP`;
 - `NUMBER`;
 - `LETTER_NUMBER`;
+- `NUMBER_LETTER`;
 - `CLUSTER_NUMBER`;
-- canonical renderers;
-- strict review-fixture parsers;
-- canonical equality keys;
-- safe-integer bounds;
+- `NUMBER_CLUSTER`;
+- canonical rendering;
+- strict parsing;
+- equality keys;
+- signed safe-integer bounds;
 - round-trip tests.
 
-No rule authority should parse mixed tokens through ad hoc regex inside the generator.
+### Stage B — Shared alphabet and arithmetic foundation
 
-Deliverable:
+Complete for admitted pilot operations:
 
-```text
-foundation/mixed-token.ts
-foundation/mixed-token.test.ts
-```
-
-## Stage 2 — Shared alphabet/numeric authorities
-
-Reuse or expose shared helpers for:
-
-- ordinary position;
-- reverse position;
-- shift with wrap;
-- sum/product of positions;
+- ordinary alphabet positions;
+- position sum/product;
 - position-to-letter conversion;
-- bounded whole-number add/subtract;
-- safe multiply/divide where later admitted.
+- bounded letter shifts and vectors;
+- signed whole-number deltas;
+- exact rational multiplication;
+- direct powers;
+- perfect-square-to-cube transform;
+- exact square/cube roots of `n+1`;
+- digit-sum-square letter mapping.
 
-Do not clone CP-005/006 or Coding-Decoding logic.
+Approximate roots, floating-point tolerance, non-integral rational outputs, and unregistered arbitrary formulas remain prohibited.
 
-Deliverable:
+### Stage C — Provisional source-backed rule inventory
 
-```text
-foundation/mixed-arithmetic.ts
-```
+Complete for the current evidence set:
 
-## Stage 3 — Provisional source-backed rule pilot
+1. letter-group scalar aggregate;
+2. letter-group derived letter;
+3. single-letter position square;
+4. independent letter-number transform;
+5. cluster-number shared delta;
+6. cluster-number independent vector;
+7. cluster-number exact multiplier;
+8. cluster-number power transform;
+9. cluster-number exact root transform;
+10. number-letter digit-sum-square successor;
+11. number-first cluster exact multiplier;
+12. number-first cluster exact root.
 
-Implement without QL IDs:
+These are runtime pilot authorities, not frozen permanent solve modes.
 
-### `MIXED_LETTER_GROUP_SCALAR_AGGREGATE`
+### Stage D — Independent solver and matcher
 
-Contexts:
+Complete for all 81 contexts:
 
-- ordinary-position sum;
-- ordinary-position product.
+- separate eligibility logic;
+- separate arithmetic reconstruction;
+- complete typed output reconstruction;
+- context-key matching;
+- full evidence matching;
+- priority-aware ambiguity checks;
+- zero solver disagreement in the green pilot.
 
-### `MIXED_LETTER_GROUP_DERIVED_LETTER`
+### Stage E — Native yield and option proof
 
-Context:
-
-- ordinary-position sum mapped to an A–Z letter without modulo.
-
-### `MIXED_TOKEN_INDEPENDENT_TRANSFORM`
-
-Initial contexts:
-
-- letter fixed shift `−6` and whole-number `+7` as a source fixture;
-- bounded pilot combinations of nonzero letter shifts and whole-number add/subtract for yield and collision analysis.
-
-### `MIXED_CLUSTER_NUMBER_COMPOSITE`
-
-Implement token parsing and delegated CP-006 operation plumbing only. Do not admit permanent profiles until source rules are readable.
-
-Deliverables:
-
-```text
-provisional-rule-definitions.ts
-provisional-independent-solver.ts
-provisional-source-fixtures.test.ts
-```
-
-## Stage 4 — Independent solver and matcher
-
-The independent solver must separately implement every provisional context.
-
-Expose:
-
-```ts
-independentlyApplyMixedRule(...)
-matchingMixedRules(evidence)
-verifyMixedTransfer(...)
-```
-
-Each match records:
-
-- rule ID;
-- context key;
-- priority;
-- input/output shapes;
-- delegated component rules where applicable.
-
-## Stage 5 — Cross-check bridges
-
-Build mechanical audits against:
-
-- CP-005 single-letter rules;
-- CP-006 cluster rules;
-- numeric analogy authorities;
-- CP-007 word-value authorities;
-- Coding-Decoding task ownership.
-
-The first pilot may implement CP-005/006 and native CP-008 checks directly while documenting unavailable numeric/Coding bridges. Permanent freeze requires all relevant bridges.
-
-## Stage 6 — Yield simulation
-
-For every provisional context, measure:
-
-- valid typed inputs;
-- candidate source-target pairs;
-- solver disagreements;
-- native ambiguity rejects;
-- letter-only collision rejects;
-- number-only collision rejects;
-- coding-overlap rejects;
-- accepted pairs;
-- visible output diversity.
-
-Minimum pilot threshold:
+Complete for all 81 contexts:
 
 ```text
-accepted pairs per context >= 40
+accepted uniquely matched pairs per context >= 40
 solver disagreements = 0
+four canonical unique direct options
+exactly one correct direct option
+registered alternative relations rejected
 ```
 
-Contexts below threshold remain pilot-only or are removed.
+### Stage F — Presentation proof
 
-## Stage 7 — Option-yield proof
+Mechanically complete for:
 
-Construct misconception-based options for direct completion and pair selection.
+- direct completion;
+- equivalent-pair selection;
+- odd/incorrect-pair selection.
 
-For every accepted context, prove:
+Permanent ownership differs:
 
-- four canonical unique options;
-- exactly one correct option;
-- three incorrect options rejected by every eligible rule matcher;
-- at least two distinct misconception labels;
-- answer-position balancing is possible.
+- direct completion is source-eligible;
+- odd-pair selection is source-eligible after fixture-level editorial review;
+- equivalent-pair selection remains pilot-only pending an exact official mixed fixture.
 
-## Stage 8 — Source and gap audit
+## 3. Current stage — allocation discovery
 
-After the pilot:
+The objective is to discover the permanent language-template and solve-contract boundaries without assigning IDs prematurely.
 
-- recover missing modern composite rules;
-- decide whether sum/product are contexts or separate QLs;
-- decide whether scalar output and derived-letter output are separate solve modes;
-- classify number-to-letter and coupled rules;
-- audit inverse and incorrect-pair tasks;
-- verify no meaningful mixed analogy family remains uncovered.
+Use `ana-cp-008-operation-task-allocation-matrix.md` as the working map.
 
-Only here may the final QL count be proposed.
+### Required decisions
 
-## Stage 9 — Manifest freeze
+For each candidate solve contract:
 
-The amendment must define:
+1. determine whether it has distinct student reasoning;
+2. determine whether direct and odd-pair tasks require separate QLs;
+3. determine whether cluster-first and number-first forms can share a language template;
+4. determine whether output shape forces a separate answer/explanation contract;
+5. define misconception ownership;
+6. prototype natural English stems and explanations;
+7. verify Hindi and Punjabi structural naturalness;
+8. rerun yield after every split or merge.
 
-- final native authorities;
-- exact QL range;
+Runtime rule count, context count, and the inherited 16-QL reservation must not be used as shortcuts for the final count.
+
+## 4. Next Stage 1 — cross-topic bridge audit
+
+Build or document mechanical bridges against:
+
+### CP-005 single-letter analogy
+
+Reject or delegate when a displayed mixed relation can be fully solved as a pure single-letter rule while the number is decorative.
+
+### CP-006 cluster analogy
+
+Reject or delegate when the number contributes no reasoning and the relation is fully owned by a cluster transform.
+
+### Numeric analogy checkpoints
+
+Reject or delegate when letters are decorative and the complete relation is a pure number analogy.
+
+### CP-007 word analogy
+
+Reject meaningful-word value rules whose primary structure is word-native.
+
+### Coding-Decoding
+
+Reject code-system recovery, direct encode/decode grammar, number-letter substitution tables, and reverse-position word coding.
+
+### CP-009 advanced/meta analogy
+
+Delegate pair-index-dependent or progressive mixed relations that cannot be represented by one stable pair-local context.
+
+### Deliverable
+
+```text
+ana-cp-008-cross-topic-bridge-audit.md
+cross-topic-bridge test or fixture files where runtime authorities are available
+```
+
+Permanent freeze requires explicit status for every unavailable bridge.
+
+## 5. Next Stage 2 — misconception ownership
+
+For every candidate solve contract, define:
+
+- correct calculation stages;
+- nearest valid distractor operations;
+- forbidden unrelated distractors;
+- collision checks;
+- explanation rejection note;
+- analytics labels.
+
+Candidate misconception groups include:
+
+```text
+SUM_INSTEAD_OF_PRODUCT
+PRODUCT_INSTEAD_OF_SUM
+POSITION_OUTPUT_NOT_REMAPPED_TO_LETTER
+POSITION_NOT_SQUARED
+LETTER_SHIFT_CORRECT_NUMBER_WRONG
+NUMBER_CORRECT_LETTER_VECTOR_WRONG
+SHARED_DELTA_TREATED_AS_INDEPENDENT
+INDEPENDENT_VECTOR_TREATED_AS_SHARED
+ADDED_INSTEAD_OF_MULTIPLIED
+MULTIPLIED_WITHOUT_EXACT_DIVISIBILITY
+CUBED_INSTEAD_OF_SQUARE_TO_CUBE
+USED_SQUARE_ROOT_INSTEAD_OF_CUBE_ROOT
+OMITTED_PLUS_ONE_BEFORE_ROOT
+APPROXIMATED_NON_PERFECT_ROOT
+TREATED_DIGIT_SUM_RULE_AS_FIXED_SHIFT
+REORDERED_NUMBER_AND_CLUSTER
+IGNORED_LETTER_COMPONENT
+IGNORED_NUMBER_COMPONENT
+```
+
+### Deliverable
+
+```text
+ana-cp-008-misconception-ownership.md
+```
+
+## 6. Next Stage 3 — English language-template prototypes
+
+Create prototype stems and explanations without permanent QL IDs.
+
+For every candidate task unit, prototype:
+
+- direct-completion stem;
+- odd-pair stem where source-eligible;
+- answer type;
+- token renderer;
+- calculation trace;
+- concise exam-mode explanation;
+- detailed review-mode explanation;
+- nearest misconception note.
+
+Requirements:
+
+- stems must feel like SSC/Banking/Punjab exam questions;
+- no internal IDs or implementation terms in student-facing text;
+- no generic classroom wording where exam wording is available;
+- composite explanations must show explicit ordered stages;
+- exact roots and rational multiplication must show equality, not approximation;
+- every explanation must use the actual generated values rather than stock prose.
+
+### Deliverable
+
+```text
+ana-cp-008-language-template-prototypes.en.ts or review document
+```
+
+The deliverable remains non-production.
+
+## 7. Next Stage 4 — Hindi and Punjabi structural prototypes
+
+Before permanent allocation, verify that each candidate task unit can be expressed naturally in:
+
+- English;
+- Hindi;
+- Punjabi.
+
+Letters and mixed tokens remain Latin-script symbols.
+
+Audit:
+
+- mathematical stage order;
+- terminology for alphabet position, sum, product, square, cube, exact root, and multiplier;
+- number-first versus cluster-first readability;
+- odd-pair instruction naturalness;
+- explanation parity;
+- placeholder ordering;
+- avoidance of transliterated implementation jargon.
+
+A solve contract may require separate language templates when one conditional multilingual template becomes unnatural or fragile.
+
+### Deliverable
+
+```text
+ana-cp-008-localization-structure-audit.md
+```
+
+## 8. Next Stage 5 — final source and gap audit
+
+Retry recovery of:
+
+- the uploaded audited ANA-CP-008 manifest;
+- uploaded reasoning books;
+- exact mixed equivalent-pair fixtures.
+
+Re-audit deferred families:
+
+- reverse-position aggregates;
+- letter-pair difference/gap;
+- generic number-to-letter analogy;
+- letter-driven numeric formulas;
+- number-driven letter movement;
+- other coupled invariants;
+- inverse and double-missing tasks.
+
+Each deferred family must finish as one of:
+
+```text
+ADMITTED
+DELEGATED
+DEFERRED_WITH_REASON
+EXCLUDED
+```
+
+Do not admit a family from one ambiguous pair or answer string.
+
+## 9. Next Stage 6 — allocation proposal without IDs
+
+After the bridge, misconception, language, localization, and gap audits:
+
+- list every candidate permanent solve contract;
+- list every source-eligible task template;
+- record token-order template decisions;
+- record answer-shape decisions;
+- record required runtime contexts;
+- record all excluded/deferred families;
+- rerun mechanical yield on the proposed split/merge model.
+
+The proposal may state a derived candidate count, but it remains unfrozen until the amendment review passes.
+
+### Deliverable
+
+```text
+ana-cp-008-allocation-proposal.md
+```
+
+## 10. Stage 7 — manifest amendment and ID freeze
+
+Only after all previous stages are clean, define:
+
+- final solve modes;
+- final QLs;
+- exact ID range;
+- any downstream range changes;
 - presentation modes;
 - answer shapes;
-- context domains;
-- downstream range changes, if any;
 - locale policy;
+- source ownership;
+- runtime contexts;
 - freeze gates.
 
-The 16 reserved QLs may be retained, reduced or expanded only from this evidence.
+The inherited `ANA-QL-223..238` reservation may be retained, reduced, or expanded only from the completed evidence.
 
-## Stage 10 — Production runtime
+## 11. Stage 8 — permanent runtime
 
-Implement:
+After manifest approval, implement:
 
 - permanent registry;
 - deterministic generator;
 - independent solver;
 - ambiguity checker;
 - option validator;
-- English explanations;
-- Hindi/Punjabi localization;
+- English content;
+- Hindi and Punjabi content;
 - review exporters;
-- dedicated CI.
+- dedicated production-grade tests;
+- runtime-proof reports.
 
-Safety remains:
+Initial safety:
 
 ```text
 publiclyPublishable: false
 maturity: RUNTIME_PROOF
 ```
 
-No Question Studio or public routing until manual review.
+No Question Studio or public routing until manual editorial review and explicit approval.
 
-## Current stage
+## 12. Current next action
 
 ```text
-Stage 0: in progress
-Stage 1: ready to begin
-Stage 2: ready to begin
-Stage 3: ready for non-QL pilot
-Permanent QLs: not allocated
+Build the cross-topic bridge audit and misconception ownership map from the operation-by-task allocation matrix.
+Do not assign permanent QL IDs yet.
 ```
