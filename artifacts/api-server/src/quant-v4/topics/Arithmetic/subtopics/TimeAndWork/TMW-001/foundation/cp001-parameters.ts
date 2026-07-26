@@ -4,44 +4,39 @@ import type { TmwContext, TmwCp001Parameters, TmwCp001RegistryEntry } from "./ty
 
 const contexts: Record<TmwCp001RegistryEntry["scenarioFamily"], readonly TmwContext[]> = {
   production: [
-    { actor: "A packaging machine", action: "packs", object: "cartons", outputUnit: "items" },
-    { actor: "A printing unit", action: "prints", object: "booklets", outputUnit: "items" },
-    { actor: "A bottling line", action: "fills", object: "bottles", outputUnit: "items" },
-    { actor: "A sorting machine", action: "sorts", object: "parcels", outputUnit: "items" },
+    { actor: "A packaging machine", peerActor: "A second packaging machine", action: "packs", object: "cartons", jobPhrase: "a fixed batch of cartons", outputUnit: "items" },
+    { actor: "A printing unit", peerActor: "A second printing unit", action: "prints", object: "booklets", jobPhrase: "a fixed batch of booklets", outputUnit: "items" },
+    { actor: "A bottling line", peerActor: "A second bottling line", action: "fills", object: "bottles", jobPhrase: "a fixed batch of bottles", outputUnit: "items" },
+    { actor: "A sorting machine", peerActor: "A second sorting machine", action: "sorts", object: "parcels", jobPhrase: "a fixed batch of parcels", outputUnit: "items" },
   ],
   document_work: [
-    { actor: "A data-entry operator", action: "processes", object: "forms", outputUnit: "forms" },
-    { actor: "A typist", action: "types", object: "pages", outputUnit: "pages" },
-    { actor: "A records clerk", action: "digitises", object: "files", outputUnit: "items" },
-    { actor: "A proofreader", action: "checks", object: "pages", outputUnit: "pages" },
+    { actor: "A data-entry operator", peerActor: "Another data-entry operator", action: "processes", object: "forms", jobPhrase: "a fixed batch of forms", outputUnit: "forms" },
+    { actor: "A typist", peerActor: "Another typist", action: "types", object: "pages", jobPhrase: "a typing assignment", outputUnit: "pages" },
+    { actor: "A records clerk", peerActor: "Another records clerk", action: "digitises", object: "files", jobPhrase: "a fixed set of files", outputUnit: "items" },
+    { actor: "A proofreader", peerActor: "Another proofreader", action: "checks", object: "pages", jobPhrase: "a proofreading assignment", outputUnit: "pages" },
   ],
   inspection: [
-    { actor: "An inspection team", action: "checks", object: "files", outputUnit: "items" },
-    { actor: "A verification clerk", action: "verifies", object: "applications", outputUnit: "forms" },
-    { actor: "A quality-control unit", action: "inspects", object: "components", outputUnit: "items" },
-    { actor: "An audit assistant", action: "reviews", object: "records", outputUnit: "items" },
+    { actor: "An inspection team", peerActor: "A second inspection team", action: "checks", object: "files", jobPhrase: "an assigned set of files", outputUnit: "items" },
+    { actor: "A verification clerk", peerActor: "Another verification clerk", action: "verifies", object: "applications", jobPhrase: "a fixed batch of applications", outputUnit: "forms" },
+    { actor: "A quality-control unit", peerActor: "A second quality-control unit", action: "inspects", object: "components", jobPhrase: "a fixed batch of components", outputUnit: "items" },
+    { actor: "An audit assistant", peerActor: "Another audit assistant", action: "reviews", object: "records", jobPhrase: "an assigned set of records", outputUnit: "items" },
   ],
   painting: [
-    { actor: "A painter", action: "paints", object: "a boundary wall", outputUnit: "metres" },
-    { actor: "A maintenance worker", action: "completes", object: "a repair assignment", outputUnit: "items" },
-    { actor: "A decorator", action: "finishes", object: "an office interior", outputUnit: "items" },
-    { actor: "A contractor", action: "completes", object: "a resurfacing job", outputUnit: "metres" },
+    { actor: "A painter", peerActor: "Another painter", action: "paints", object: "metres of wall", jobPhrase: "a boundary wall", outputUnit: "metres" },
+    { actor: "A maintenance worker", peerActor: "Another maintenance worker", action: "completes", object: "repair tasks", jobPhrase: "a repair assignment", outputUnit: "items" },
+    { actor: "A decorator", peerActor: "Another decorator", action: "finishes", object: "rooms", jobPhrase: "an office interior", outputUnit: "items" },
+    { actor: "A contractor", peerActor: "Another contractor", action: "completes", object: "metres of surface", jobPhrase: "a resurfacing job", outputUnit: "metres" },
   ],
   construction: [
-    { actor: "A road crew", action: "repairs", object: "metres of road", outputUnit: "metres" },
-    { actor: "A fencing team", action: "installs", object: "metres of fencing", outputUnit: "metres" },
-    { actor: "A masonry team", action: "builds", object: "metres of wall", outputUnit: "metres" },
-    { actor: "A cable-laying crew", action: "lays", object: "metres of cable", outputUnit: "metres" },
+    { actor: "A road crew", peerActor: "A second road crew", action: "repairs", object: "metres of road", jobPhrase: "a planned road section", outputUnit: "metres" },
+    { actor: "A fencing team", peerActor: "A second fencing team", action: "installs", object: "metres of fencing", jobPhrase: "a fencing assignment", outputUnit: "metres" },
+    { actor: "A masonry team", peerActor: "A second masonry team", action: "builds", object: "metres of wall", jobPhrase: "a planned wall section", outputUnit: "metres" },
+    { actor: "A cable-laying crew", peerActor: "A second cable-laying crew", action: "lays", object: "metres of cable", jobPhrase: "a cable-laying assignment", outputUnit: "metres" },
   ],
 };
 
-const secondActors = ["a second operator", "another machine", "a second team", "another clerk"] as const;
-
 function contextFor(entry: TmwCp001RegistryEntry, seed: string): TmwContext {
-  return {
-    ...pick(contexts[entry.scenarioFamily], seed, "context"),
-    secondActor: pick(secondActors, seed, "second-actor"),
-  };
+  return pick(contexts[entry.scenarioFamily], seed, "context");
 }
 
 export function buildTmwCp001Parameters(entry: TmwCp001RegistryEntry, seed: string): TmwCp001Parameters {
