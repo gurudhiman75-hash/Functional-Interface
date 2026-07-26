@@ -66,6 +66,11 @@ function digitSum(number: number): number {
   return [...String(Math.abs(number))].reduce((sum, digit) => sum + Number(digit), 0);
 }
 
+function punjabiArithmeticTrace(input: number, delta: number, output: number): string {
+  const operation = delta >= 0 ? "+" : "−";
+  return `${input} ${operation} ${Math.abs(delta)} = ${output}`;
+}
+
 function localizedRuleStatement(
   prototypeId: ProvisionalEnglishPrototypeId,
   locale: ProvisionalMixedLocale,
@@ -90,27 +95,27 @@ function localizedRuleStatement(
     ],
     PROTO_INDEPENDENT_LETTER_NUMBER_DELTA: [
       "अक्षर और पूरी संख्या पर दो अलग-अलग निश्चित परिवर्तन लगते हैं।",
-      "ਅੱਖਰ ਨੂੰ ਤੈਅ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੱਖਰਾ ਤੈਅ ਜੋੜ ਜਾਂ ਘਟਾਅ ਕਰਦੇ ਹਾਂ।",
+      "ਦਿੱਤੇ ਅੱਖਰ ਤੋਂ ਤੈਅ ਗਿਣਤੀ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਵਾਲਾ ਅੱਖਰ ਲੈਂਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੱਖਰਾ ਤੈਅ ਜੋੜ ਜਾਂ ਘਟਾਅ ਕਰਦੇ ਹਾਂ।",
     ],
     PROTO_SHARED_CLUSTER_NUMBER_DELTA: [
       "दोनों अक्षरों और पूरी संख्या पर एक ही चिन्हित परिवर्तन लगाया जाता है।",
-      "ਦੋਵੇਂ ਅੱਖਰਾਂ ਨੂੰ ਇੱਕੋ ਜਿੰਨੀਆਂ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੀ ਉਤਨਾ ਹੀ ਜੋੜਦੇ ਜਾਂ ਘਟਾਉਂਦੇ ਹਾਂ।",
+      "ਦੋਵੇਂ ਅੱਖਰਾਂ ਤੋਂ ਇੱਕੋ ਗਿਣਤੀ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਵਾਲੇ ਅੱਖਰ ਲੈਂਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੀ ਓਨਾ ਹੀ ਜੋੜਦੇ ਜਾਂ ਘਟਾਉਂਦੇ ਹਾਂ।",
     ],
     PROTO_INDEPENDENT_CLUSTER_VECTOR_DELTA: [
       "दोनों अक्षर-स्थानों की चाल अलग है और संख्या की चाल भी अलग निश्चित है।",
-      "ਦੋਵੇਂ ਅੱਖਰਾਂ ਨੂੰ ਵੱਖ-ਵੱਖ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੀ ਵੱਖਰਾ ਤੈਅ ਬਦਲਾਅ ਹੁੰਦਾ ਹੈ।",
+      "ਹਰ ਅੱਖਰ ਤੋਂ ਵੱਖਰੀ ਗਿਣਤੀ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਵਾਲਾ ਅੱਖਰ ਲੈਂਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਵਿੱਚ ਵੱਖਰਾ ਤੈਅ ਬਦਲਾਅ ਕਰਦੇ ਹਾਂ।",
     ],
     PROTO_EXACT_MULTIPLIER_CLUSTER_FIRST: [
       "दोनों अक्षरों पर निश्चित चाल लगाकर संख्या को दिए गए सही गुणक से गुणा करते हैं।",
-      "ਅੱਖਰਾਂ ਨੂੰ ਪਹਿਲੇ ਜੋੜੇ ਵਾਂਗ ਹੀ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਦੇ ਹਾਂ ਅਤੇ ਗਿਣਤੀ ਨੂੰ ਵੀ ਪਹਿਲੇ ਜੋੜੇ ਵਾਲੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ।",
+      "ਅੱਖਰਾਂ ਨੂੰ ਪਹਿਲੇ ਜੋੜੇ ਵਾਂਗ ਹੀ ਬਦਲਦੇ ਹਾਂ। ਪਹਿਲੇ ਜੋੜੇ ਵਿੱਚ ਜਿਸ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਗਿਆ ਹੈ, ਦੂਜੇ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਨੂੰ ਵੀ ਉਸੇ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ।",
     ],
     PROTO_EXACT_MULTIPLIER_NUMBER_FIRST: [
       "पहले लिखी संख्या को सही गुणक से गुणा करते हैं, अक्षरों को बदलते हैं और संख्या-पहले क्रम बनाए रखते हैं।",
-      "ਪਹਿਲਾਂ ਗਿਣਤੀ ਨੂੰ ਪਹਿਲੇ ਜੋੜੇ ਵਾਲੀ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ, ਫਿਰ ਅੱਖਰ ਬਦਲਦੇ ਹਾਂ ਅਤੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖਦੇ ਹਾਂ।",
+      "ਪਹਿਲੇ ਜੋੜੇ ਵਿੱਚ ਜਿਸ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕੀਤਾ ਗਿਆ ਹੈ, ਦੂਜੇ ਜੋੜੇ ਦੀ ਗਿਣਤੀ ਨੂੰ ਵੀ ਉਸੇ ਨਾਲ ਗੁਣਾ ਕਰਦੇ ਹਾਂ। ਫਿਰ ਅੱਖਰ ਬਦਲ ਕੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖਦੇ ਹਾਂ।",
     ],
     PROTO_DIRECT_CUBE_CLUSTER_FIRST: [
       "अक्षरों पर निश्चित चाल लगाकर दी गई संख्या का सीधे घन करते हैं।",
-      "ਅੱਖਰਾਂ ਨੂੰ ਤੈਅ ਥਾਵਾਂ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਕੇ ਦਿੱਤੀ ਗਿਣਤੀ ਦਾ ਘਣ ਕਰਦੇ ਹਾਂ।",
+      "ਅੱਖਰਾਂ ਨੂੰ ਤੈਅ ਗਿਣਤੀ ਅੱਗੇ ਜਾਂ ਪਿੱਛੇ ਕਰਕੇ ਦਿੱਤੀ ਗਿਣਤੀ ਦਾ ਘਣ ਕਰਦੇ ਹਾਂ।",
     ],
     PROTO_SQUARE_TO_CUBE_CLUSTER_FIRST: [
       "दी गई संख्या को पूर्ण वर्ग मानकर उसका आधार निकालते हैं और उसी आधार का घन करते हैं।",
@@ -122,7 +127,7 @@ function localizedRuleStatement(
     ],
     PROTO_SQUARE_ROOT_SUCCESSOR_NUMBER_FIRST: [
       "पहली संख्या में एक जोड़कर सही वर्गमूल लेते हैं और संख्या-पहले क्रम बनाए रखते हैं।",
-      "ਪਹਿਲੀ ਗਿਣਤੀ ਵਿੱਚ ਇੱਕ ਜੋੜ ਕੇ ਉਸ ਦਾ ਵਰਗਮੂਲ ਲੈਂਦੇ ਹਾਂ ਅਤੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖਦੇ ਹਾਂ।",
+      "ਦਿੱਤੀ ਗਿਣਤੀ ਵਿੱਚ ਇੱਕ ਜੋੜ ਕੇ ਉਸ ਦਾ ਵਰਗਮੂਲ ਲੈਂਦੇ ਹਾਂ ਅਤੇ ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖਦੇ ਹਾਂ।",
     ],
     PROTO_DIGIT_SUM_SQUARE_SUCCESSOR: [
       "संख्या को एक बढ़ाकर नई संख्या के अंकों के योग का वर्ग निकालते हैं और उससे जुड़ा अक्षर लेते हैं।",
@@ -168,7 +173,7 @@ function localizedTrap(
     ],
     PROTO_EXACT_MULTIPLIER_CLUSTER_FIRST: [
       "गुणक को संख्या में जोड़ना गलत है; संख्या का सही और पूर्ण गुणा करना आवश्यक है।",
-      "ਗੁਣਾ ਕਰਨ ਦੀ ਥਾਂ ਉਹੀ ਗਿਣਤੀ ਜੋੜ ਦੇਣਾ ਗਲਤ ਹੈ; ਦਿੱਤੀ ਗਿਣਤੀ ਦਾ ਪੂਰਾ ਗੁਣਾ ਕਰਨਾ ਹੈ।",
+      "ਗੁਣਾ ਕਰਨ ਵਾਲੀ ਗਿਣਤੀ ਨੂੰ ਸਿਰਫ਼ ਜੋੜ ਦੇਣਾ ਗਲਤ ਹੈ; ਦਿੱਤੀ ਗਿਣਤੀ ਨੂੰ ਉਸ ਨਾਲ ਗੁਣਾ ਕਰਨਾ ਹੈ।",
     ],
     PROTO_EXACT_MULTIPLIER_NUMBER_FIRST: [
       "सही भागों को उल्टे क्रम में लिखना भी गलत है; उत्तर में संख्या पहले ही रहनी चाहिए।",
@@ -184,7 +189,7 @@ function localizedTrap(
     ],
     PROTO_CUBE_ROOT_SUCCESSOR_CLUSTER_FIRST: [
       "मूल संख्या का घनमूल लेना या अनुमानित मान को गोल करना गलत है; पहले एक जोड़ना और सही घनमूल लेना है।",
-      "ਪਹਿਲੀ ਗਿਣਤੀ ਦਾ ਘਣਮੂਲ ਲੈਣਾ ਜਾਂ ਅੰਦਾਜ਼ੇ ਵਾਲਾ ਜਵਾਬ ਲੈਣਾ ਗਲਤ ਹੈ; ਪਹਿਲਾਂ ਇੱਕ ਜੋੜ ਕੇ ਸਹੀ ਘਣਮੂਲ ਲੈਣਾ ਹੈ।",
+      "ਦਿੱਤੀ ਗਿਣਤੀ ਦਾ ਘਣਮੂਲ ਲੈਣਾ ਜਾਂ ਅੰਦਾਜ਼ੇ ਵਾਲਾ ਜਵਾਬ ਲੈਣਾ ਗਲਤ ਹੈ; ਪਹਿਲਾਂ ਇੱਕ ਜੋੜ ਕੇ ਸਹੀ ਘਣਮੂਲ ਲੈਣਾ ਹੈ।",
     ],
     PROTO_SQUARE_ROOT_SUCCESSOR_NUMBER_FIRST: [
       "एक जोड़े बिना वर्गमूल लेना या अक्षरों को संख्या से पहले लिखना दोनों गलत हैं।",
@@ -199,8 +204,8 @@ function localizedTrap(
 }
 
 function punjabiShiftTrace(letter: string, output: string, shift: number): string {
-  if (shift > 0) return `${letter} ਤੋਂ ${shift} ਥਾਂ ਅੱਗੇ ${output} ਆਉਂਦਾ ਹੈ`;
-  if (shift < 0) return `${letter} ਤੋਂ ${Math.abs(shift)} ਥਾਂ ਪਿੱਛੇ ${output} ਆਉਂਦਾ ਹੈ`;
+  if (shift > 0) return `${letter} ਤੋਂ ${shift} ਅੱਖਰ ਅੱਗੇ ${output} ਆਉਂਦਾ ਹੈ`;
+  if (shift < 0) return `${letter} ਤੋਂ ${Math.abs(shift)} ਅੱਖਰ ਪਿੱਛੇ ${output} ਆਉਂਦਾ ਹੈ`;
   return `${letter} ਨਹੀਂ ਬਦਲਦਾ`;
 }
 
@@ -236,7 +241,7 @@ function localizedDemonstration(
       const op = context.aggregate === "SUM" ? "+" : "×";
       return hindi
         ? `${input.letters} में ${input.letters[0]}=${p1} और ${input.letters[1]}=${p2}; इसलिए ${p1} ${op} ${p2} = ${output.number}।`
-        : `${input.letters} ਵਿੱਚ ${input.letters[0]}=${p1} ਅਤੇ ${input.letters[1]}=${p2}; ਇਸ ਲਈ ${p1} ${op} ${p2} = ${output.number}।`;
+        : `${input.letters} ਵਿੱਚ ${input.letters[0]} = ${p1} ਅਤੇ ${input.letters[1]} = ${p2}; ਇਸ ਲਈ ${p1} ${op} ${p2} = ${output.number}।`;
     }
     case "LETTER_GROUP_TO_LETTER": {
       if (input.kind !== "LETTER_GROUP" || output.kind !== "LETTER") throw new Error("Localized derived-letter mismatch.");
@@ -245,7 +250,7 @@ function localizedDemonstration(
       const total = p1 + p2;
       return hindi
         ? `${input.letters} में ${input.letters[0]}=${p1} और ${input.letters[1]}=${p2}; योग ${total} है और ${total}वाँ अक्षर ${output.letter} है।`
-        : `${input.letters} ਵਿੱਚ ${input.letters[0]}=${p1} ਅਤੇ ${input.letters[1]}=${p2}; ਜੋੜ ${total} ਹੈ, ਇਸ ਲਈ ${total}ਵਾਂ ਅੱਖਰ ${output.letter} ਲੈਂਦੇ ਹਾਂ।`;
+        : `${input.letters} ਵਿੱਚ ${input.letters[0]} = ${p1} ਅਤੇ ${input.letters[1]} = ${p2}; ਜੋੜ ${total} ਹੈ, ਇਸ ਲਈ ${total}ਵਾਂ ਅੱਖਰ ${output.letter} ਲੈਂਦੇ ਹਾਂ।`;
     }
     case "SINGLE_LETTER_POSITION_POWER": {
       if (input.kind !== "LETTER" || output.kind !== "NUMBER") throw new Error("Localized position-power mismatch.");
@@ -265,13 +270,13 @@ function localizedDemonstration(
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized shared-delta mismatch.");
       return hindi
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, [context.delta, context.delta], locale)}, और ${input.number}${signed(context.delta)}=${output.number}; परिणाम ${renderMixedToken(output)} है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, [context.delta, context.delta], locale)}; ਗਿਣਤੀ ਵਿੱਚ ${input.number}${signed(context.delta)}=${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, [context.delta, context.delta], locale)}; ਗਿਣਤੀ ਵਿੱਚ ${punjabiArithmeticTrace(input.number, context.delta, output.number)}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_INDEPENDENT_VECTOR": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized vector-delta mismatch.");
       return hi(locale)
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}, और संख्या ${input.number}${signed(context.numberDelta)}=${output.number}; इसलिए ${renderMixedToken(output)} मिलता है।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਗਿਣਤੀ ਵਿੱਚ ${input.number}${signed(context.numberDelta)}=${output.number}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਗਿਣਤੀ ਵਿੱਚ ${punjabiArithmeticTrace(input.number, context.numberDelta, output.number)}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "CLUSTER_NUMBER_VECTOR_MULTIPLIER": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized cluster multiplier mismatch.");
@@ -294,8 +299,8 @@ function localizedDemonstration(
     case "CLUSTER_NUMBER_VECTOR_POWER": {
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized power mismatch.");
       const numeric = context.transform === "CUBE"
-        ? `${input.number}³=${output.number}`
-        : `${input.number}=${Math.sqrt(input.number)}² और ${Math.sqrt(input.number)}³=${output.number}`;
+        ? `${input.number}³ = ${output.number}`
+        : `${input.number} = ${Math.sqrt(input.number)}² और ${Math.sqrt(input.number)}³ = ${output.number}`;
       return hindi
         ? `${renderMixedToken(input)} में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}, और ${numeric}; परिणाम ${renderMixedToken(output)} है।`
         : `${renderMixedToken(input)} ਵਿੱਚ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਗਿਣਤੀ ਲਈ ${numeric.replace(" और ", " ਅਤੇ ")}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
@@ -304,13 +309,13 @@ function localizedDemonstration(
       if (input.kind !== "CLUSTER_NUMBER" || output.kind !== "CLUSTER_NUMBER") throw new Error("Localized cube-root mismatch.");
       return hindi
         ? `${renderMixedToken(input)} में ${input.number}+1=${input.number + 1}=${output.number}³, इसलिए सही घनमूल ${output.number}; साथ में ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number}+1=${input.number + 1}=${output.number}³, ਇਸ ਲਈ ਘਣਮੂਲ ${output.number} ਹੈ। ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number} + 1 = ${input.number + 1} = ${output.number}³, ਇਸ ਲਈ ਘਣਮੂਲ ${output.number} ਹੈ। ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਇਸ ਲਈ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "NUMBER_CLUSTER_VECTOR_ROOT": {
       if (input.kind !== "NUMBER_CLUSTER" || output.kind !== "NUMBER_CLUSTER") throw new Error("Localized square-root mismatch.");
       return hindi
         ? `${renderMixedToken(input)} में ${input.number}+1=${input.number + 1}=${output.number}², इसलिए सही वर्गमूल ${output.number}; ${positionTrace(input.letters, output.letters, context.letterShifts, locale)} और संख्या-पहले क्रम में ${renderMixedToken(output)}।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number}+1=${input.number + 1}=${output.number}², ਇਸ ਲਈ ਵਰਗਮੂਲ ${output.number} ਹੈ। ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖ ਕੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number} + 1 = ${input.number + 1} = ${output.number}², ਇਸ ਲਈ ਵਰਗਮੂਲ ${output.number} ਹੈ। ਅੱਖਰਾਂ ਲਈ ${positionTrace(input.letters, output.letters, context.letterShifts, locale)}; ਜਵਾਬ ਵਿੱਚ ਗਿਣਤੀ ਪਹਿਲਾਂ ਲਿਖ ਕੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
     case "NUMBER_LETTER_DIGIT_SQUARE_SUCCESSOR": {
       if (input.kind !== "NUMBER_LETTER" || output.kind !== "NUMBER_LETTER") throw new Error("Localized digit-square mismatch.");
@@ -318,7 +323,7 @@ function localizedDemonstration(
       const secondSum = digitSum(output.number);
       return hindi
         ? `${renderMixedToken(input)} में ${input.number} के अंकों का योग ${firstSum} और ${firstSum}²=${firstSum * firstSum}, इसलिए अक्षर ${input.letter}; संख्या ${output.number} होने पर योग ${secondSum} और ${secondSum}²=${secondSum * secondSum}, इसलिए ${output.letter}।`
-        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number} ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${firstSum} ਹੈ ਅਤੇ ${firstSum}²=${firstSum * firstSum}, ਇਸ ਲਈ ਅੱਖਰ ${input.letter} ਹੈ। ਗਿਣਤੀ ਇੱਕ ਵਧਾ ਕੇ ${output.number} ਕਰਨ 'ਤੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${secondSum} ਹੈ ਅਤੇ ${secondSum}²=${secondSum * secondSum}, ਇਸ ਲਈ ਅੱਖਰ ${output.letter} ਹੈ ਅਤੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
+        : `${renderMixedToken(input)} ਵਿੱਚ ${input.number} ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${firstSum} ਹੈ ਅਤੇ ${firstSum}² = ${firstSum * firstSum}, ਇਸ ਲਈ ਅੱਖਰ ${input.letter} ਹੈ। ਗਿਣਤੀ ਇੱਕ ਵਧਾ ਕੇ ${output.number} ਕਰਨ 'ਤੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ${secondSum} ਹੈ ਅਤੇ ${secondSum}² = ${secondSum * secondSum}, ਇਸ ਲਈ ਅੱਖਰ ${output.letter} ਹੈ ਅਤੇ ${renderMixedToken(output)} ਮਿਲਦਾ ਹੈ।`;
     }
   }
 }
@@ -361,7 +366,7 @@ function directConclusion(answer: string, locale: ProvisionalMixedLocale, index:
   const variants = [
     `ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ ${answer} ਹੈ।`,
     `ਇਸੇ ਨਿਯਮ ਅਨੁਸਾਰ ਖਾਲੀ ਥਾਂ ਵਿੱਚ ${answer} ਆਵੇਗਾ।`,
-    `ਅਤੇ ਇਸ ਤਰ੍ਹਾਂ ਦੂਜੇ ਜੋੜੇ ਲਈ ${answer} ਸਹੀ ਬਣਦਾ ਹੈ।`,
+    `ਇਸ ਤਰ੍ਹਾਂ ਦੂਜੇ ਜੋੜੇ ਦਾ ਸਹੀ ਜਵਾਬ ${answer} ਬਣਦਾ ਹੈ।`,
   ];
   return variants[index % variants.length];
 }
@@ -370,7 +375,7 @@ function oddConclusion(input: string, output: string, locale: ProvisionalMixedLo
   if (hi(locale)) return `अतः ${input} : ${output} वह युग्म है जो सामान्य नियम का पालन नहीं करता।`;
   const variants = [
     `ਇਸ ਲਈ ${input} : ${output} ਬਾਕੀ ਜੋੜਿਆਂ ਵਾਲੇ ਨਿਯਮ ਨਾਲ ਨਹੀਂ ਬਣਦਾ।`,
-    `ਅਤੇ ਇਸ ਕਰਕੇ ${input} : ${output} ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰਾ ਜੋੜਾ ਹੈ।`,
+    `ਇਸ ਕਰਕੇ ${input} : ${output} ਬਾਕੀ ਤਿੰਨਾਂ ਤੋਂ ਵੱਖਰਾ ਜੋੜਾ ਹੈ।`,
     `ਇਸ ਲਈ ਚੁਣਿਆ ਜਾਣ ਵਾਲਾ ਵੱਖਰਾ ਜੋੜਾ ${input} : ${output} ਹੈ।`,
   ];
   return variants[index % variants.length];
