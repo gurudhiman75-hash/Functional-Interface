@@ -1,3 +1,4 @@
+import { applyAvg001Cp005ExamStrategy } from "./cp005-exam-strategy-finalizer";
 import { localizedCp005Explanation, localizedCp005Stem, type Avg001Cp005PilotLanguage } from "./cp005-localization-content";
 import { getAvg001QuestionEntries } from "./library";
 import { runAvg001Pipeline } from "./pipeline";
@@ -41,6 +42,7 @@ function correctedChecks(pkg: Avg001QuestionPackage, language: Avg001Cp005PilotL
     { name: "localized-script", passed: expected.test(pkg.stem) && expected.test(prose) && !wrong.test(allText), message: "Localized stem and prose use the expected Indic script" },
     { name: "localized-stem", passed: !/[{}]|undefined|NaN|Infinity|null|[A-Za-z]/.test(pkg.stem), message: "Localized stem is fully rendered without Latin fallback" },
     { name: "localized-explanation", passed: pkg.explanation.lines.length === 4 && pkg.explanation.lines.some((line) => line.replaceAll(",", "").includes(answer)) && pkg.explanation.lines.some((line) => /×|÷|\+|-|=/.test(line)), message: "Localized explanation has four meaningful lines with arithmetic and numeric answer evidence" },
+    { name: "localized-exam-strategy", passed: pkg.traceability.cp005ExamStrategyFinalizer === "AVG-CP-005 compact exam shortcut and trap guidance v1", message: "Localized explanation includes compact exam shortcut and trap guidance" },
     { name: "localization-parity", passed: pkg.options.length === 4 && pkg.options[pkg.correctIndex] === pkg.answer, message: "Localized package preserves the frozen English answer and options" },
     { name: "localization-candidate", passed: pkg.maturity === "MANUAL_REVIEW" && !pkg.publiclyPublishable, message: "Localization remains non-publishable pending review" },
   );
@@ -88,6 +90,7 @@ export function runAvg001Cp005LocalizationPilot(input: {
       cp005LocalizationAuthorship: "AVG-CP-005 context-authored localization v1",
     },
   };
-  const checks = correctedChecks(localized, input.language);
-  return { ...localized, validation: { valid: checks.every((check) => check.passed), checks } };
+  const examReady = applyAvg001Cp005ExamStrategy(localized);
+  const checks = correctedChecks(examReady, input.language);
+  return { ...examReady, validation: { valid: checks.every((check) => check.passed), checks } };
 }
