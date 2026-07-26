@@ -399,7 +399,7 @@ export function generateDirCp004Question(qlId: string, seed = 0): GeneratedRelat
       `${subject} lies ${RELATIVE_DIRECTION_PHRASES[direction]} of ${reference}.`,
       null,
       `Therefore, ${subject} is ${RELATIVE_DIRECTION_LABELS[direction]} of ${reference}.`,
-      buildRelativePositionDiagram(graph.coordinates, graph.relations),
+      buildRelativePositionDiagram(graph.coordinates, graph.relations, { queryPair: { subject, reference } }),
       { subject, reference },
     );
   }
@@ -422,7 +422,7 @@ export function generateDirCp004Question(qlId: string, seed = 0): GeneratedRelat
     ].filter((value): value is string => value !== null);
     const calculationLine = horizontal === 0 || vertical === 0
       ? `Only one net direction remains, so the straight-line distance is ${distance} metres.`
-      : `The shortest distance is √(${horizontal}² + ${vertical}²) = √${delta.squaredDistance} = ${distance} metres.`;
+      : `The shortest distance is √(${horizontal}² + ${vertical}²) = √(${horizontal ** 2} + ${vertical ** 2}) = √${delta.squaredDistance} = ${distance} metres.`;
     const correct = { kind: "DIRECTION_DISTANCE", direction, distance } as const;
     const options = directionDistanceOptions(direction, distance, delta.dx, delta.dy, seed);
     return baseQuestion(
@@ -454,8 +454,8 @@ export function generateDirCp004Question(qlId: string, seed = 0): GeneratedRelat
       `Only ${subject} lies ${RELATIVE_DIRECTION_PHRASES[direction]} of ${reference}.`,
       null,
       `Therefore, the required person is ${subject}.`,
-      buildRelativePositionDiagram(graph.coordinates, graph.relations),
-      { reference, direction },
+      buildRelativePositionDiagram(graph.coordinates, graph.relations, { queryPair: { subject, reference } }),
+      { subject, reference, direction },
     );
   }
 

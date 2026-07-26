@@ -93,8 +93,10 @@ for (const ql of DIR_CP004_QLS) {
       const coordinates = generated.structuredPrompt.coordinates as Readonly<Record<string, { readonly x: number; readonly y: number }>>;
       assert.equal(independentDirection(coordinates[query.reference!], coordinates[query.subject!]), answer.direction);
       assert.equal(generated.explanation.calculationLine, null);
-      assert.equal(queryLines, 0);
+      assert.equal(queryLines, 1);
       assert.equal(distanceKeys, 0);
+      assert.ok(generated.explanation.diagram.svg.includes('data-guide-kind="relation-guide"'));
+      assert.ok(generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"') < generated.explanation.diagram.svg.indexOf('data-role="relation-distance"'), "Relation guide must remain behind labels");
       assert.ok(generated.stem.includes("In which direction"));
     } else if (ql.answerDemand === "RELATION_DIRECTION_AND_DISTANCE") {
       assert.equal(generated.correctAnswer.kind, "DIRECTION_DISTANCE");
@@ -105,19 +107,28 @@ for (const ql of DIR_CP004_QLS) {
       assert.equal(independentDirection(coordinates[query.reference!], coordinates[query.subject!]), answer.direction);
       assert.ok(Number.isInteger(answer.distance) && answer.distance > 0);
       assert.ok(generated.explanation.calculationLine?.includes("shortest distance") || generated.explanation.calculationLine?.includes("straight-line distance"));
+      const horizontal = Math.abs(coordinates[query.subject!].x - coordinates[query.reference!].x);
+      const vertical = Math.abs(coordinates[query.subject!].y - coordinates[query.reference!].y);
+      if (horizontal > 0 && vertical > 0) {
+        assert.ok(generated.explanation.calculationLine!.includes(`${horizontal ** 2} + ${vertical ** 2}`), "Pythagorean working must show the squared values being added");
+      }
       assert.equal(queryLines, 1);
       assert.equal(distanceKeys, 1);
+      assert.ok(generated.explanation.diagram.svg.includes('data-guide-kind="shortest-distance"'));
       assert.ok(!generated.explanation.diagram.svg.includes('<line x1="584"'));
       assert.ok(generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"') < generated.explanation.diagram.svg.indexOf('data-role="relation-distance"'), "Query line must remain behind relation labels");
       assert.ok(generated.stem.includes("at what shortest distance"));
     } else if (ql.answerDemand === "ENTITY_AT_RELATION") {
       assert.equal(generated.correctAnswer.kind, "ENTITY");
       const answer = generated.correctAnswer as Extract<RelativeGraphAnswer, { readonly kind: "ENTITY" }>;
-      const query = (generated.structuredPrompt.query ?? {}) as { readonly reference?: string; readonly direction?: string };
+      const query = (generated.structuredPrompt.query ?? {}) as { readonly subject?: string; readonly reference?: string; readonly direction?: string };
       const coordinates = generated.structuredPrompt.coordinates as Readonly<Record<string, { readonly x: number; readonly y: number }>>;
       assert.equal(independentDirection(coordinates[query.reference!], coordinates[answer.entity]), query.direction);
-      assert.equal(queryLines, 0);
+      assert.equal(query.subject, answer.entity);
+      assert.equal(queryLines, 1);
       assert.equal(distanceKeys, 0);
+      assert.ok(generated.explanation.diagram.svg.includes('data-guide-kind="relation-guide"'));
+      assert.ok(generated.explanation.diagram.svg.indexOf('data-role="query-relation-line"') < generated.explanation.diagram.svg.indexOf('data-role="relation-distance"'), "Lookup guide must remain behind labels");
       assert.ok(generated.stem.includes("Who is"));
     } else if (ql.answerDemand === "COLLINEAR_ENTITY_GROUP") {
       assert.equal(generated.correctAnswer.kind, "ENTITY_GROUP");

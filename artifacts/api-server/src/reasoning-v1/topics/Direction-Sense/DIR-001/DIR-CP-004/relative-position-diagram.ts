@@ -166,7 +166,8 @@ export function buildRelativePositionDiagram(
     ? (() => {
         const from = project(coordinates[options.queryPair.reference]);
         const to = project(coordinates[options.queryPair.subject]);
-        const line = `<line data-role="query-relation-line" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#2563eb" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>`;
+        const guideKind = options.queryPair.shortestDistanceLabel ? "shortest-distance" : "relation-guide";
+        const line = `<line data-role="query-relation-line" data-guide-kind="${guideKind}" x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="${guideKind === "shortest-distance" ? "#2563eb" : "#93c5fd"}" stroke-width="${guideKind === "shortest-distance" ? 3 : 2.2}" stroke-dasharray="9 7" stroke-linecap="round" opacity="${guideKind === "shortest-distance" ? 1 : 0.82}"/>`;
         if (!options.queryPair.shortestDistanceLabel) return line;
         return [
           line,
