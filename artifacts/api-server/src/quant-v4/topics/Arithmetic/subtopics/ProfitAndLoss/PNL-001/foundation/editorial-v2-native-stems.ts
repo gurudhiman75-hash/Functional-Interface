@@ -135,21 +135,35 @@ export function splitNativeQuestion(
   language: NativeEditorialLanguage,
   text: string,
 ): Readonly<{ body: string; prompt: string }> {
-  const pattern = language === "hi" ? HINDI_PROMPT_PATTERN : PUNJABI_PROMPT_PATTERN;
-  const matches = [...text.matchAll(pattern)];
-  const match = matches.at(-1);
-  if (match?.index !== undefined && match.index > 20) {
-    return {
-      body: text.slice(0, match.index).trim(),
-      prompt: text.slice(match.index).trim(),
-    };
-  }
+  const sentences = text
+    .split(/(?<=[।?])/u)
+    .map((part) => part.trim())
+    .filter(Boolean);
 
-  const sentences = text.split(/(?<=[।?])/u).map((part) => part.trim()).filter(Boolean);
   if (sentences.length >= 2) {
     return {
       body: sentences.slice(0, -1).join(" "),
       prompt: sentences.at(-1) ?? text,
+    };
+  }
+
+  const pattern = language === "hi" ? HINDI_PROMPT_PATTERN : PUNJABI_PROMPT_PATTERN;
+  const matches = [...text.matchAll(pattern)];
+  const match = matches.at(-1);
+  if (match?.index !== undefined && match.index > 20) {
+    const sentenceStart = Math.max(
+      text.lastIndexOf("।", match.index - 1),
+      text.lastIndexOf("?", match.index - 1),
+    ) + 1;
+    if (sentenceStart > 0 && sentenceStart < match.index) {
+      return {
+        body: text.slice(0, sentenceStart).trim(),
+        prompt: text.slice(sentenceStart).trim(),
+      };
+    }
+    return {
+      body: text.slice(0, match.index).trim(),
+      prompt: text.slice(match.index).trim(),
     };
   }
 
