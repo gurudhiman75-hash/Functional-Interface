@@ -65,6 +65,38 @@ const NATIVE_FACTS: Readonly<Record<string, NativeFact>> = {
   },
 };
 
+function qlNumber(qlId: string): number {
+  const value = Number(qlId.split("-").at(-1));
+  return Number.isFinite(value) ? value : 1;
+}
+
+function contextualConceptNote(
+  language: NativeEditorialLanguage,
+  qlId: string,
+  contextFamily: string,
+): string {
+  const sector = contextFamily.split(":").at(-1) ?? (language === "hi" ? "व्यापार" : "ਵਪਾਰ");
+  const index = qlNumber(qlId) % 5;
+  if (language === "hi") {
+    const notes = [
+      `इस ${sector} संदर्भ में प्रतिशत का आधार शुरू से अंत तक स्पष्ट रखना जरूरी है।`,
+      `${sector} के इस उदाहरण में बीच की राशि अलग लिखने से बदलता आधार साफ दिखाई देता है।`,
+      `इस ${sector} स्थिति में अंतिम उत्तर से पहले राशि, इकाई और लाभ-हानि की दिशा जाँचें।`,
+      `${sector} के इस प्रश्न में दिए गए व्यावसायिक क्रम को उसी क्रम में पढ़ना सबसे सुरक्षित है।`,
+      `इस ${sector} उदाहरण में हर गणना को उसके वास्तविक व्यावसायिक अर्थ से जोड़कर देखें।`,
+    ];
+    return notes[index];
+  }
+  const notes = [
+    `ਇਸ ${sector} ਸੰਦਰਭ ਵਿੱਚ ਪ੍ਰਤੀਸ਼ਤ ਦਾ ਆਧਾਰ ਸ਼ੁਰੂ ਤੋਂ ਅੰਤ ਤੱਕ ਸਪਸ਼ਟ ਰੱਖਣਾ ਜ਼ਰੂਰੀ ਹੈ।`,
+    `${sector} ਦੇ ਇਸ ਉਦਾਹਰਨ ਵਿੱਚ ਵਿਚਕਾਰਲੀ ਰਕਮ ਵੱਖ ਲਿਖਣ ਨਾਲ ਬਦਲਦਾ ਆਧਾਰ ਸਾਫ਼ ਦਿਖਦਾ ਹੈ।`,
+    `ਇਸ ${sector} ਸਥਿਤੀ ਵਿੱਚ ਅੰਤਿਮ ਉੱਤਰ ਤੋਂ ਪਹਿਲਾਂ ਰਕਮ, ਇਕਾਈ ਅਤੇ ਲਾਭ-ਹਾਨੀ ਦੀ ਦਿਸ਼ਾ ਜਾਂਚੋ।`,
+    `${sector} ਦੇ ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤਾ ਵਪਾਰਕ ਕ੍ਰਮ ਉਸੇ ਕ੍ਰਮ ਵਿੱਚ ਪੜ੍ਹਣਾ ਸਭ ਤੋਂ ਸੁਰੱਖਿਅਤ ਹੈ।`,
+    `ਇਸ ${sector} ਉਦਾਹਰਨ ਵਿੱਚ ਹਰ ਗਣਨਾ ਨੂੰ ਉਸ ਦੇ ਅਸਲ ਵਪਾਰਕ ਅਰਥ ਨਾਲ ਜੋੜ ਕੇ ਵੇਖੋ।`,
+  ];
+  return notes[index];
+}
+
 function localizeEquations(
   language: NativeEditorialLanguage,
   blocks: readonly QuestionStemBlock[],
@@ -114,6 +146,7 @@ function normalizeEntry(
     stem: { ...entry.stem, blocks: normalizeBlocks(language, qlId, entry) },
     explanation: {
       ...entry.explanation,
+      concept: `${entry.explanation.concept} ${contextualConceptNote(language, qlId, entry.stem.contextFamily)}`,
       steps: entry.explanation.steps.map((step) => ({
         ...step,
         equationLatex: localizeEditorialLatex(language, step.equationLatex),
