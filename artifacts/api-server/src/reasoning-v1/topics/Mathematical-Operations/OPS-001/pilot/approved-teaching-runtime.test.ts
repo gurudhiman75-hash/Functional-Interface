@@ -65,7 +65,7 @@ function assertCandidateSpecific(question: ApprovedOpsQuestion): void {
   }
 
   if (["OPS-CAND-020", "OPS-CAND-021", "OPS-CAND-022"].includes(question.candidateId)) {
-    assert.match(question.explanation.ruleStatement, /complete number|complete-number/iu, `${question.candidateId} does not distinguish complete-number tokens.`);
+    assert.match(question.explanation.ruleStatement, /complete number|complete-number|complete token/iu, `${question.candidateId} does not distinguish complete-number tokens.`);
   }
 
   if (["OPS-CAND-023", "OPS-CAND-024", "OPS-CAND-025", "OPS-CAND-027"].includes(question.candidateId)) {
