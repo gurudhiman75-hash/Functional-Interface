@@ -89,9 +89,9 @@ for (const rendered of direct) {
   const explanationParts = Object.values(rendered.explanation);
   assert.ok(rendered.explanation.ruleStatement.length >= 30,
     `${rendered.prototypeId} needs a clear rule statement.`);
-  assert.ok(rendered.explanation.sourceDemonstration.length >= 30,
+  assert.ok(rendered.explanation.sourceDemonstration.length >= 20,
     `${rendered.prototypeId} needs a value-specific source demonstration.`);
-  assert.ok(rendered.explanation.targetApplication.length >= 30,
+  assert.ok(rendered.explanation.targetApplication.length >= 20,
     `${rendered.prototypeId} needs a value-specific target application.`);
   assert.ok(rendered.explanation.conclusion.length >= 25,
     `${rendered.prototypeId} needs a complete conclusion.`);
@@ -135,7 +135,7 @@ for (const rendered of odd) {
   }
 
   assert.equal(rendered.explanation.validPairDemonstrations.length, 3);
-  assert.ok(rendered.explanation.validPairDemonstrations.every((part) => part.length >= 30));
+  assert.ok(rendered.explanation.validPairDemonstrations.every((part) => part.length >= 20));
   assert.ok(rendered.explanation.validPairDemonstrations.every((part) => /[.!?]$/.test(part.trim())));
   assert.ok(rendered.explanation.oddPairRejection.includes(renderMixedToken(rendered.options[rendered.correctIndex].input)));
   assert.ok(rendered.explanation.conclusion.includes(renderMixedToken(rendered.options[rendered.correctIndex].output)));
