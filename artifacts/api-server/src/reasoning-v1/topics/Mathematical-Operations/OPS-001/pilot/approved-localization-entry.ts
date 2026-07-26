@@ -18,6 +18,7 @@ function placeholderText(source: string): string {
   if (source === "Only this pair produces a valid true equation without a leading zero.") return "The transformed equation is true.";
   if (source === "Only complete number tokens are exchanged; digits inside other numbers are unchanged.") return "Digits inside other numbers remain unchanged.";
   if (/^C must be > because .+$/u.test(source)) return "Use this one mapping for every option.";
+  if (/^Using A = \+ and B = = gives .+$/u.test(source)) return "Use this one mapping for every option.";
   return source;
 }
 
@@ -48,6 +49,10 @@ function restoreText(original: string, translated: string, locale: ApprovedOpsLo
   if (/^C must be > because .+$/u.test(original)) return locale === "hi-IN"
     ? "C का अर्थ > होना चाहिए, क्योंकि 7 > 4 सही है; = रखने पर कथन गलत होगा और + कोई तुलना-कथन नहीं बनाएगा।"
     : "C ਦਾ ਅਰਥ > ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ, ਕਿਉਂਕਿ 7 > 4 ਸਹੀ ਹੈ; = ਰੱਖਣ ਉੱਤੇ ਕਥਨ ਗਲਤ ਹੋਵੇਗਾ ਅਤੇ + ਕੋਈ ਤੁਲਨਾ-ਕਥਨ ਨਹੀਂ ਬਣਾਏਗਾ।";
+  const mixed = original.match(/^Using A = \+ and B = = gives (.+), which is true; reversing them gives (.+), which is false\.$/u);
+  if (mixed) return locale === "hi-IN"
+    ? `A = + और B = = रखने पर ${mixed[1]} मिलता है, जो सही है; अर्थ उलटने पर ${mixed[2]} मिलता है, जो गलत है।`
+    : `A = + ਅਤੇ B = = ਰੱਖਣ ਉੱਤੇ ${mixed[1]} ਮਿਲਦਾ ਹੈ, ਜੋ ਸਹੀ ਹੈ; ਅਰਥ ਉਲਟਣ ਉੱਤੇ ${mixed[2]} ਮਿਲਦਾ ਹੈ, ਜੋ ਗਲਤ ਹੈ।`;
   return translated;
 }
 
