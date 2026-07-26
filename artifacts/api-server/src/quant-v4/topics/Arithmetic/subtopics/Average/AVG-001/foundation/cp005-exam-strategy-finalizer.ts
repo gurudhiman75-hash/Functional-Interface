@@ -35,7 +35,7 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "शुद्ध प्रविष्टि-सुधार को प्रति मान बाँटकर बताए गए औसत पर सीधे लागू करें"
           : language === "pa"
             ? "ਸ਼ੁੱਧ ਐਂਟਰੀ-ਸੁਧਾਰ ਨੂੰ ਪ੍ਰਤੀ ਮੁੱਲ ਵੰਡ ਕੇ ਦਰਜ ਔਸਤ ਉੱਤੇ ਸਿੱਧਾ ਲਗਾਓ"
-            : "spread the net entry correction per item and apply it directly to the reported average",
+            : "spread the single-entry difference over the count and add it to the stated average",
         language === "hi"
           ? "सुधार हमेशा सही मान घटा गलत मान है, इसका उल्टा नहीं"
           : language === "pa"
@@ -51,12 +51,12 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "सही औसत से प्रति मान सुधार का प्रभाव उल्टा करके पुराना बताया गया औसत पाएँ"
           : language === "pa"
             ? "ਸਹੀ ਔਸਤ ਤੋਂ ਪ੍ਰਤੀ ਮੁੱਲ ਸੁਧਾਰ ਦਾ ਪ੍ਰਭਾਵ ਉਲਟ ਕਰਕੇ ਪੁਰਾਣੀ ਦਰਜ ਔਸਤ ਲਵੋ"
-            : "reverse the per-item correction from the corrected average to recover the reported average",
+            : "undo the correction per item from the final correct average to get the old stated average",
         language === "hi"
           ? "पुराने औसत पर लौटते समय सुधार की दिशा भी उलटती है"
           : language === "pa"
             ? "ਪੁਰਾਣੀ ਔਸਤ ਵੱਲ ਮੁੜਦੇ ਸਮੇਂ ਸੁਧਾਰ ਦੀ ਦਿਸ਼ਾ ਵੀ ਉਲਟਦੀ ਹੈ"
-            : "the correction direction reverses when moving back to the reported average",
+            : "the correction direction reverses when moving back to the old stated average",
         conclusion,
       );
 
@@ -67,12 +67,12 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "औसत-अंतर को कुल संख्या से गुणा करके प्रविष्टि का पूरा सुधार निकालें"
           : language === "pa"
             ? "ਔਸਤ-ਅੰਤਰ ਨੂੰ ਕੁੱਲ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਐਂਟਰੀ ਦਾ ਪੂਰਾ ਸੁਧਾਰ ਕੱਢੋ"
-            : "turn the average shift into a total shift and apply it to the wrong value",
+            : "multiply the change in average by the count, then adjust the wrong value",
         language === "hi"
           ? "औसत बढ़े तो कुल सुधार जोड़ें और घटे तो घटाएँ"
           : language === "pa"
             ? "ਔਸਤ ਵਧੇ ਤਾਂ ਕੁੱਲ ਸੁਧਾਰ ਜੋੜੋ ਅਤੇ ਘਟੇ ਤਾਂ ਘਟਾਓ"
-            : "an average rise adds the total correction, while a fall subtracts it",
+            : "an average rise adds the full correction, while a fall subtracts it",
         conclusion,
       );
 
@@ -83,12 +83,12 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "औसत-अंतर का कुल प्रभाव निकालकर सही मान से पीछे की ओर काम करें"
           : language === "pa"
             ? "ਔਸਤ-ਅੰਤਰ ਦਾ ਕੁੱਲ ਪ੍ਰਭਾਵ ਕੱਢ ਕੇ ਸਹੀ ਮੁੱਲ ਤੋਂ ਪਿੱਛੇ ਵੱਲ ਕੰਮ ਕਰੋ"
-            : "convert the average shift to a total correction and work backward from the correct value",
+            : "multiply the change in average by the count, then work backward from the correct value",
         language === "hi"
           ? "सही मान से पीछे जाते समय कुल सुधार घटाएँ"
           : language === "pa"
             ? "ਸਹੀ ਮੁੱਲ ਤੋਂ ਪਿੱਛੇ ਜਾਂਦੇ ਸਮੇਂ ਕੁੱਲ ਸੁਧਾਰ ਘਟਾਓ"
-            : "work backward from the correct value by removing the total correction",
+            : "work backward from the correct value by removing the full correction",
         conclusion,
       );
 
@@ -99,12 +99,12 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "औसत में परिवर्तन का परिमाण कुल संख्या से गुणा करके प्रविष्टि-अंतर पाएँ"
           : language === "pa"
             ? "ਔਸਤ ਦੀ ਤਬਦੀਲੀ ਦਾ ਪਰਿਮਾਣ ਕੁੱਲ ਗਿਣਤੀ ਨਾਲ ਗੁਣਾ ਕਰਕੇ ਐਂਟਰੀ-ਅੰਤਰ ਲਵੋ"
-            : "multiply the magnitude of the average shift by the count to recover the entry difference",
+            : "multiply the change in average by the count to get the entry difference",
         language === "hi"
           ? "औसत-अंतर का परिमाण लें, चिह्न नहीं"
           : language === "pa"
             ? "ਔਸਤ-ਅੰਤਰ ਦਾ ਪਰਿਮਾਣ ਲਵੋ, ਚਿੰਨ੍ਹ ਨਹੀਂ"
-            : "use the magnitude of the average change, not its sign",
+            : "use the size of the average change, not its sign",
         conclusion,
       );
 
@@ -115,7 +115,7 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "प्रविष्टि-अंतर को पूरे समूह में बाँटकर औसत का परिवर्तन पाएँ"
           : language === "pa"
             ? "ਐਂਟਰੀ-ਅੰਤਰ ਨੂੰ ਪੂਰੇ ਸਮੂਹ ਵਿੱਚ ਵੰਡ ਕੇ ਔਸਤ ਦੀ ਤਬਦੀਲੀ ਲਵੋ"
-            : "spread the entry difference over the full group to obtain the average change",
+            : "divide the entry difference by the full count to get the change in average",
         language === "hi"
           ? "कुल संख्या लें, संख्या में एक जोड़ें या घटाएँ नहीं"
           : language === "pa"
@@ -131,12 +131,12 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "कुल प्रविष्टि-त्रुटि को प्रति मान औसत-परिवर्तन से बाँटकर संख्या पाएँ"
           : language === "pa"
             ? "ਕੁੱਲ ਐਂਟਰੀ-ਗਲਤੀ ਨੂੰ ਪ੍ਰਤੀ ਮੁੱਲ ਔਸਤ-ਤਬਦੀਲੀ ਨਾਲ ਵੰਡ ਕੇ ਗਿਣਤੀ ਲਵੋ"
-            : "divide the total entry error by the average change per item to recover the count",
+            : "divide the total entry error by the change in average to get the count",
         language === "hi"
           ? "कुल त्रुटि को औसत-परिवर्तन से भाग दें, गुणा नहीं"
           : language === "pa"
             ? "ਕੁੱਲ ਗਲਤੀ ਨੂੰ ਔਸਤ-ਤਬਦੀਲੀ ਨਾਲ ਭਾਗ ਦਿਓ, ਗੁਣਾ ਨਹੀਂ"
-            : "divide total error by average change; do not multiply",
+            : "divide the total error by the change in average; do not multiply",
         conclusion,
       );
 
@@ -147,7 +147,7 @@ function strategyLine(pkg: Avg001QuestionPackage, conclusion: string) {
           ? "सभी प्रविष्टि-सुधार उनके चिह्न सहित जोड़कर प्रति मान शुद्ध सुधार लागू करें"
           : language === "pa"
             ? "ਸਾਰੇ ਐਂਟਰੀ-ਸੁਧਾਰ ਉਨ੍ਹਾਂ ਦੇ ਚਿੰਨ੍ਹਾਂ ਸਮੇਤ ਜੋੜ ਕੇ ਪ੍ਰਤੀ ਮੁੱਲ ਸ਼ੁੱਧ ਸੁਧਾਰ ਲਗਾਓ"
-            : "combine every signed entry correction, then spread the net correction over the count",
+            : "add every signed entry correction, divide by the count, then adjust the stated average",
         language === "hi"
           ? "हर सुधार का अपना धन या ऋण चिह्न बनाए रखें"
           : language === "pa"
