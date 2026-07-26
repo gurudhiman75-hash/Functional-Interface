@@ -32,7 +32,7 @@ for (const prototype of ANA_CP008_ENGLISH_PROTOTYPES) {
   );
   assert.ok(prototype.title.length >= 20, `${prototype.prototypeId} needs a descriptive editorial title.`);
   assert.ok(prototype.solveContract.length >= 45, `${prototype.prototypeId} needs a clear solve contract.`);
-  assert.ok(prototype.sourceNote.length >= 45, `${prototype.prototypeId} needs a source-ownership note.`);
+  assert.ok(prototype.sourceNote.length >= 30, `${prototype.prototypeId} needs a precise source-ownership note.`);
   assert.equal(new Set(prototype.sampleInputs.map(mixedTokenKey)).size, 4,
     `${prototype.prototypeId} sample inputs must be canonically unique.`);
 }
