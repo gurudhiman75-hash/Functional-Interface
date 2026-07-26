@@ -68,3 +68,12 @@ jobs:
           path: /tmp/ops-approved-localization.log
           if-no-files-found: error
           retention-days: 3
+      - name: Generate Hindi Punjabi review bundle
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localized-review-export.ts ./ops-001-approved-localized-review
+      - name: Upload Hindi Punjabi review bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-approved-hi-pa-v3-review-310
+          path: ops-001-approved-localized-review
+          if-no-files-found: error
+          retention-days: 14
