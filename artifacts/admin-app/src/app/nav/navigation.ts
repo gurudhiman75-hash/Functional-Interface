@@ -59,7 +59,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Request Failures', path: '/analytics/request-failures', icon: AlertTriangle, status: 'live', permission: 'jobs.read', summary: 'Inspect recent failed admin API requests, copy correlation details, filter endpoints and return directly to the affected workspace.' },
   ] },
   { id: 'settings', label: 'Settings', items: [
-    { label: 'Exam Configuration', path: '/settings/exam-config', icon: Settings, status: 'in_progress', summary: 'Configure supported exams, scoring rules and operational defaults.', milestone: 'Canonical exam-version management UI.' },
+    { label: 'Exam Configuration', path: '/settings/exam-config', icon: Settings, status: 'live', permission: 'content.taxonomy.read', summary: 'Canonical exam families, exams, immutable exam versions, supported languages, scoring profiles, activation and retirement controls.' },
     { label: 'Languages', path: '/settings/languages', icon: Languages, status: 'live', permission: 'content.translations.read', summary: 'Canonical language availability, question and test translation workflow, terminology governance, reviewer assignments and publication readiness.' },
     { label: 'Roles & Permissions', path: '/settings/roles', icon: Lock, status: 'live', permission: 'settings.roles.manage', summary: 'Create and update server-enforced roles from the canonical granular permission catalogue.' },
     { label: 'Branding', path: '/settings/branding', icon: Palette, status: 'planned', summary: 'Control platform identity, visual assets and communication branding.', milestone: 'Canonical tenant branding configuration.' },
