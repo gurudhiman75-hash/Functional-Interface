@@ -1,0 +1,81 @@
+name: Persist PNL Multilingual Prompt Fix
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-editorial-structured-review
+    paths:
+      - ".github/workflows/persist-pnl-multilingual-prompt-fix.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/editorial-v2-native-stems.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-native-prompt-audit.ts"
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-persist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare legacy editorial bundle paths
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          ln -s ../CP-001 "$root/foundation/CP-001"
+          ln -s ../CP-002 "$root/foundation/CP-002"
+          ln -s ../CP-003 "$root/foundation/CP-003"
+
+      - name: Validate all native prompts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-native-prompt-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-native-prompt-audit.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-native-prompt-audit.mjs
+
+      - name: Run complete multilingual audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-audit.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-audit.mjs
+
+      - name: Export validated multilingual sources
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-multilingual-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-multilingual-export.mjs
+
+      - name: Persist exact validated source files
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          generated="$root/.editorial-v2-multilingual-generated"
+          for cp in CP-001 CP-002 CP-003 CP-004 CP-005 CP-006; do
+            cp "$generated/$cp.editorial-content.hi.json" "$root/$cp/editorial-content.hi.json"
+            cp "$generated/$cp.editorial-content.pa.json" "$root/$cp/editorial-content.pa.json"
+          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$root"/CP-*/editorial-content.hi.json "$root"/CP-*/editorial-content.pa.json
+          if git diff --cached --quiet; then
+            echo "Sources are already current."
+            exit 0
+          fi
+          git commit -m "Regenerate Hindi and Punjabi prompts with complete question phrases"
+          git push
