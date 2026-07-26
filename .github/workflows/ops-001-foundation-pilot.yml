@@ -29,7 +29,7 @@ concurrency:
 jobs:
   pilot-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -64,3 +64,12 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/final-candidate-pilots.test.ts
       - name: Prove Hindi and Punjabi answer parity
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/localization.test.ts
+      - name: Generate manual review bundle
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/manual-review-export.ts ./ops-001-manual-review
+      - name: Upload manual review bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-manual-review-bundle
+          path: ops-001-manual-review
+          if-no-files-found: error
+          retention-days: 14
