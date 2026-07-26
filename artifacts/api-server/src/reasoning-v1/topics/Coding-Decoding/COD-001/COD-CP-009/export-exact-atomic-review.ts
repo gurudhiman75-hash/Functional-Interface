@@ -43,7 +43,7 @@ for (const contract of EXACT_ATOMIC_PROTOTYPE_CONTRACTS) {
     );
     for (const question of matching) {
       const orderedRows = [...question.structuredPrompt.rows]
-        .sort((left, right) => left.rowId.localeCompare(right.rowId));
+        .sort((left, right) => left.statementId.localeCompare(right.statementId));
       markdown.push(
         `#### Seed ${question.seed} — ${question.metadata.scenarioId}`,
         "",
