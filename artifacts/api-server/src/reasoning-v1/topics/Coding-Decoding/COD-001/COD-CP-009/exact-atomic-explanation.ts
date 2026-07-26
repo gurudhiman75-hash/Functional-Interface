@@ -24,49 +24,51 @@ function quoted(values: readonly string[]): string {
 }
 
 function evidenceLines(instance: EnglishSentenceCodeLanguageInstance): string[] {
-  const r1 = row(instance, "r1");
-  const r2 = row(instance, "r2");
+  const first = row(instance, "r1");
+  const second = row(instance, "r2");
 
   if (instance.topologyKind === "DIRECT_SINGLE_INTERSECTION") {
     return [
-      `The messages ‘${r1.sentence}’ and ‘${r2.sentence}’ have only ‘${instance.targetWord}’ in common. Their code rows have only ‘${instance.targetDisplayToken}’ in common.`,
+      `The first and second statements have only ‘${instance.targetWord}’ in common. Their code sets have only ‘${instance.targetDisplayToken}’ in common.`,
     ];
   }
 
   if (instance.topologyKind === "CHAINED_SINGLETON_PROPAGATION") {
-    const r3 = row(instance, "r3");
-    const firstWords = intersection(r1.words, r2.words);
-    const firstTokens = intersection(r1.displayedCodeTokens, r2.displayedCodeTokens);
-    const helperWords = intersection(r1.words, r3.words);
-    const helperTokens = intersection(r1.displayedCodeTokens, r3.displayedCodeTokens);
+    const third = row(instance, "r3");
+    const firstWords = intersection(first.words, second.words);
+    const firstTokens = intersection(first.displayedCodeTokens, second.displayedCodeTokens);
+    const helperWords = intersection(first.words, third.words);
+    const helperTokens = intersection(first.displayedCodeTokens, third.displayedCodeTokens);
     return [
-      `Rows r1 and r2 share ${quoted(firstWords)}, so their codes must be ${quoted(firstTokens)} in some order.`,
-      `Rows r1 and r3 share only ${quoted(helperWords)}, and their only common code is ${quoted(helperTokens)}. After removing that resolved pair from the first overlap, ‘${instance.targetWord}’ is left with ‘${instance.targetDisplayToken}’.`,
+      `The first and second statements share ${quoted(firstWords)}, so these words correspond to ${quoted(firstTokens)} in some order.`,
+      `The first and third statements share only ${quoted(helperWords)}, and their only common code is ${quoted(helperTokens)}. Removing that resolved pair from the earlier overlap leaves ‘${instance.targetWord}’ matched with ‘${instance.targetDisplayToken}’.`,
     ];
   }
 
   if (instance.topologyKind === "SET_DIFFERENCE_ELIMINATION") {
-    const r3 = row(instance, "r3");
-    const overlapWords = intersection(r1.words, r2.words);
-    const overlapTokens = intersection(r1.displayedCodeTokens, r2.displayedCodeTokens);
-    const remainingWords = difference(overlapWords, r3.words);
-    const remainingTokens = difference(overlapTokens, r3.displayedCodeTokens);
+    const third = row(instance, "r3");
+    const overlapWords = intersection(first.words, second.words);
+    const overlapTokens = intersection(first.displayedCodeTokens, second.displayedCodeTokens);
+    const remainingWords = difference(overlapWords, third.words);
+    const remainingTokens = difference(overlapTokens, third.displayedCodeTokens);
     return [
-      `Rows r1 and r2 share ${quoted(overlapWords)}, corresponding to the common codes ${quoted(overlapTokens)}.`,
-      `The other shared words also occur in r3. Removing the r3 members leaves ${quoted(remainingWords)} and ${quoted(remainingTokens)} as the unmatched pair.`,
+      `The first and second statements share ${quoted(overlapWords)}, corresponding to the common codes ${quoted(overlapTokens)}.`,
+      `The other shared words also occur in the third statement. Removing the third-statement members leaves ${quoted(remainingWords)} and ${quoted(remainingTokens)} as the unmatched pair.`,
     ];
   }
 
   if (instance.topologyKind === "FORKED_EVIDENCE_JOIN") {
-    const r3 = row(instance, "r3");
-    const r4 = row(instance, "r4");
-    const branchOneWords = intersection(r1.words, r2.words);
-    const branchOneTokens = intersection(r1.displayedCodeTokens, r2.displayedCodeTokens);
-    const branchTwoWords = intersection(r3.words, r4.words);
-    const branchTwoTokens = intersection(r3.displayedCodeTokens, r4.displayedCodeTokens);
+    const third = row(instance, "r3");
+    const fourth = row(instance, "r4");
+    const centralWords = intersection(first.words, third.words);
+    const centralTokens = intersection(first.displayedCodeTokens, third.displayedCodeTokens);
+    const firstBranchWords = intersection(centralWords, second.words);
+    const firstBranchTokens = intersection(centralTokens, second.displayedCodeTokens);
+    const secondBranchWords = intersection(centralWords, fourth.words);
+    const secondBranchTokens = intersection(centralTokens, fourth.displayedCodeTokens);
     return [
-      `The r1–r2 comparison gives the common-word set ${quoted(branchOneWords)} and the common-code set ${quoted(branchOneTokens)}.`,
-      `The r3–r4 comparison gives ${quoted(branchTwoWords)} and ${quoted(branchTwoTokens)}. The only member common to both evidence sets is ‘${instance.targetWord}’, matched with ‘${instance.targetDisplayToken}’.`,
+      `The first and third statements share ${quoted(centralWords)}, corresponding to ${quoted(centralTokens)} in some order.`,
+      `The second statement identifies ${quoted(firstBranchWords)} as ${quoted(firstBranchTokens)}, while the fourth identifies ${quoted(secondBranchWords)} as ${quoted(secondBranchTokens)}. Removing both resolved branch pairs leaves ‘${instance.targetWord}’ matched with ‘${instance.targetDisplayToken}’.`,
     ];
   }
 
@@ -77,7 +79,7 @@ function evidenceLines(instance: EnglishSentenceCodeLanguageInstance): string[] 
     .map((currentRow) => currentRow.displayedCodeTokens)
     .reduce((current, next) => intersection(current, next));
   return [
-    `No pair of rows is sufficient by itself. Comparing all the statements, ${quoted(allWords)} is present throughout, and ${quoted(allTokens)} is the only code word present throughout.`,
+    `No pair of statements is sufficient by itself. Across all the statements, ${quoted(allWords)} is the only common word, and ${quoted(allTokens)} is the only common code word.`,
   ];
 }
 
@@ -92,7 +94,7 @@ function trapAlert(options: readonly ExactAtomicOption[], correct: string): stri
   if (trap.errorLabel === "UNRESOLVED_ASSUMED") {
     return `‘${trap.value}’ is incorrect because the complete comparison uniquely isolates ‘${correct}’.`;
   }
-  return `‘${trap.value}’ belongs to another word in a related statement; the full intersection and elimination evidence isolates ‘${correct}’.`;
+  return `‘${trap.value}’ belongs to another word in a related statement; the complete comparison isolates ‘${correct}’.`;
 }
 
 export function buildExactAtomicExplanation(
@@ -108,10 +110,10 @@ export function buildExactAtomicExplanation(
 
   return {
     referenceAid: [
-      "A word repeated in two statements must have a code word repeated in the corresponding code rows.",
+      "A word repeated in two statements must have a code word repeated in the corresponding code sets.",
       "The displayed order of the code words is irrelevant; compare memberships, not positions.",
     ],
-    quickMethod: "Mark repeated words and repeated code words, resolve any single common pair, and then eliminate it from the remaining overlaps.",
+    quickMethod: "Mark repeated words and repeated code words, resolve any single common pair, and eliminate each resolved pair from the remaining overlaps.",
     evidenceComparison: evidenceLines(instance),
     targetResult,
     conclusion: `The correct answer is ‘${correct}’.`,
