@@ -21,7 +21,7 @@ const HINDI_TERMS: Readonly<Record<string, string>> = {
   "rate": "दर",
   "amount": "राशि",
   "quantity": "मात्रा",
-  "Group data": "समूह आंकड़े",
+  "group data": "समूह आंकड़े",
   "target rate": "लक्षित दर",
 };
 
@@ -46,19 +46,32 @@ const PUNJABI_TERMS: Readonly<Record<string, string>> = {
   "rate": "ਦਰ",
   "amount": "ਰਕਮ",
   "quantity": "ਮਾਤਰਾ",
-  "Group data": "ਸਮੂਹ ਅੰਕੜੇ",
+  "group data": "ਸਮੂਹ ਅੰਕੜੇ",
   "target rate": "ਟੀਚਾ ਦਰ",
 };
+
+function translateTextLabel(
+  language: NativeEditorialLanguage,
+  label: string,
+): string {
+  const terms = language === "hi" ? HINDI_TERMS : PUNJABI_TERMS;
+  const normalized = label.trim().toLowerCase();
+  if (terms[normalized]) return terms[normalized];
+
+  let output = label;
+  for (const [english, native] of Object.entries(terms).sort((a, b) => b[0].length - a[0].length)) {
+    const escaped = english.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    output = output.replace(new RegExp(`\\b${escaped}\\b`, "gi"), native);
+  }
+  return output;
+}
 
 export function localizeEditorialLatex(
   language: NativeEditorialLanguage,
   latex: string | undefined,
 ): string | undefined {
   if (!latex) return undefined;
-  const terms = language === "hi" ? HINDI_TERMS : PUNJABI_TERMS;
-  let output = latex;
-  for (const [english, native] of Object.entries(terms).sort((a, b) => b[0].length - a[0].length)) {
-    output = output.replace(new RegExp(english.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), native);
-  }
-  return output;
+  return latex.replace(/\\text\{([^{}]*)\}/g, (_full, label: string) => {
+    return `\\text{${translateTextLabel(language, label)}}`;
+  });
 }
