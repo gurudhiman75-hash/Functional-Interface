@@ -43,3 +43,7 @@ runtime → Question Studio candidate → automated and human approval
 ## Current gate
 
 Run exact-head GitHub Actions, inspect the uploaded evidence and obtain user approval of the generated-question review pack before merging CP-004 into the isolated TMW chapter base.
+
+## CI synchronization
+
+PR #201 is open. This branch synchronization commit was issued so the newly added focused CP-004 workflow can be discovered and run against the exact feature head.
