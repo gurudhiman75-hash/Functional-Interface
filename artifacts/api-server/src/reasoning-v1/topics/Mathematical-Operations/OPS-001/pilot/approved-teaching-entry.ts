@@ -148,9 +148,21 @@ function generateCandidate016(seed: number): ApprovedOpsQuestion {
   };
 }
 
+function ensureExactAnswerConclusion(question: ApprovedOpsQuestion): ApprovedOpsQuestion {
+  if (question.explanation.conclusion.includes(question.answer)) return question;
+  return {
+    ...question,
+    explanation: {
+      ...question.explanation,
+      conclusion: `${question.explanation.conclusion} The exact answer is ${question.answer}.`,
+    },
+  };
+}
+
 export function generateApprovedOpsQuestion(candidateId: OpsApprovedCandidateId, seed: number): ApprovedOpsQuestion {
   if (!Number.isInteger(seed) || seed < 0) throw new Error(`Approved runtime seed must be a non-negative integer; received ${seed}.`);
-  return candidateId === "OPS-CAND-016"
+  const question = candidateId === "OPS-CAND-016"
     ? generateCandidate016(seed)
     : generateBaseApprovedQuestion(candidateId, seed);
+  return ensureExactAnswerConclusion(question);
 }
