@@ -54,7 +54,20 @@ jobs:
             $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation -name '*.ts' -print) \
             $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot -name '*.ts' -print)
       - name: Run approved teaching runtime proof
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts > /tmp/ops-approved-test.log 2>&1
+          status=$?
+          tail -n 120 /tmp/ops-approved-test.log
+          exit $status
+      - name: Upload failure diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-approved-test-diagnostic
+          path: /tmp/ops-approved-test.log
+          if-no-files-found: error
+          retention-days: 3
       - name: Generate approved 310-question review bundle
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-manual-review-export.ts ./ops-001-approved-review
       - name: Upload approved review bundle
