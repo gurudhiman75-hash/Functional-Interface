@@ -1,0 +1,12 @@
+import{assertMaterialQlNeed}from"../DIR-001-CHAPTER-MANIFEST";import type{DirectionQuestionLogicContract}from"../foundation/types";
+export type DirCp007AnswerDemand="ABSOLUTE_SUN_OR_SHADOW_DIRECTION"|"FACING_FROM_SHADOW_SIDE"|"SHADOW_SIDE_FROM_FACING"|"TIME_PERIOD_FROM_SHADOW"|"COMPOUND_ENVIRONMENTAL_TURNS"|"SECOND_PERSON_FACING";
+export interface DirCp007Ql extends DirectionQuestionLogicContract{readonly checkpointId:"DIR-CP-007";readonly answerDemand:DirCp007AnswerDemand;}
+function ql(id:string,rule:string,demand:DirCp007AnswerDemand,type:string,e:Parameters<typeof assertMaterialQlNeed>[0]):DirCp007Ql{assertMaterialQlNeed(e);return{qlId:id,checkpointId:"DIR-CP-007",ruleId:rule,answerDemand:demand,solverCapabilities:["RESOLVE_SUN_SHADOW_STATE","TRANSFORM_PERSON_REFERENCE_FRAME"],presentationMode:"ENVIRONMENTAL_ORIENTATION_WITH_DIAGRAM",answerType:type,renderer:"DIRECTION_DIAGRAM",localeMode:"TRANSLATABLE",status:"DRAFT"};}
+export const DIR_CP007_QLS=[
+ql("DIR-QL-030","DIR_SUN_SHADOW_ABSOLUTE_DIRECTION","ABSOLUTE_SUN_OR_SHADOW_DIRECTION","DIRECTION",{answerDemand:"derive absolute sun or shadow direction",hiddenStateTopology:"environmental orientation without a person frame"}),
+ql("DIR-QL-031","DIR_FACING_FROM_SHADOW_SIDE","FACING_FROM_SHADOW_SIDE","FACING_DIRECTION",{answerDemand:"infer facing or walking direction from relative shadow side",independentSolverContract:"enumerate all four cardinal facings"}),
+ql("DIR-QL-032","DIR_SHADOW_SIDE_FROM_FACING","SHADOW_SIDE_FROM_FACING","RELATIVE_SIDE",{solveDirection:"derive left/right/front/behind from known facing",localizationContract:"preserve the person's frame"}),
+ql("DIR-QL-033","DIR_TIME_FROM_SHADOW_RELATION","TIME_PERIOD_FROM_SHADOW","TIME_PERIOD",{inverseOrReconstructionBurden:"recover morning or evening",misconceptionProfile:"sun confused with shadow"}),
+ql("DIR-QL-034","DIR_ENVIRONMENTAL_TURN_SEQUENCE","COMPOUND_ENVIRONMENTAL_TURNS","FACING_DIRECTION",{hiddenStateTopology:"environmental facing plus ordered turns",generatorContract:"one to three independently replayed turns"}),
+ql("DIR-QL-035","DIR_MUTUAL_SHADOW_ORIENTATION","SECOND_PERSON_FACING","FACING_DIRECTION",{hiddenStateTopology:"two person frames linked by same/opposite orientation",misconceptionProfile:"first person's facing returned"})]as const;
+export function dirCp007Ql(id:string):DirCp007Ql{const q=DIR_CP007_QLS.find(x=>x.qlId===id);if(!q)throw new Error(`Unknown DIR-CP-007 QL: ${id}`);return q;}
