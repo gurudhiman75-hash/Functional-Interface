@@ -6,7 +6,7 @@ import {
 import {
   localizeApprovedOpsQuestion,
   type ApprovedOpsLocale,
-} from "./approved-localization";
+} from "./approved-localization-entry";
 
 const LOCALES = ["hi-IN", "pa-IN"] as const satisfies readonly ApprovedOpsLocale[];
 const SEEDS_PER_CONTRACT = 50;
