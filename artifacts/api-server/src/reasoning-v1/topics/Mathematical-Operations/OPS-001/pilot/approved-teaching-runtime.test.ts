@@ -3,7 +3,7 @@ import {
   OPS_APPROVED_CANDIDATE_IDS,
   generateApprovedOpsQuestion,
   type ApprovedOpsQuestion,
-} from "./approved-teaching-runtime";
+} from "./approved-teaching-entry";
 
 const SEEDS_PER_CONTRACT = 100;
 const answerPositions = [0, 0, 0, 0];
@@ -94,6 +94,7 @@ function assertCandidateSpecific(question: ApprovedOpsQuestion): void {
 
   if (question.candidateId === "OPS-CAND-016") {
     assert.ok(question.options.every((option) => /^[+−×÷] ↔ [+−×÷]$/u.test(option.value)), "OPS-CAND-016 options must all be operator pairs.");
+    assert.equal(question.metadata.curatedAllFourOperatorsVisible, true);
   }
 }
 
