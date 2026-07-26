@@ -46,12 +46,41 @@ jobs:
 
       - name: Strict typecheck
         working-directory: artifacts/api-server
-        run: >-
-          pnpm exec tsc --noEmit --target es2022 --module esnext
-          --moduleResolution bundler --allowSyntheticDefaultImports
-          --strictNullChecks --noImplicitAny --noImplicitReturns
-          --noFallthroughCasesInSwitch --skipLibCheck --types node
-          $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print)
+        shell: bash
+        run: |
+          set +e
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Direction-Sense/DIR-001 -name '*.ts' -print) \
+            > ../../dir-cp-007-apply-typecheck.log 2>&1
+          status="$?"
+          echo "$status" > ../../dir-cp-007-apply-typecheck-exit.txt
+          cat ../../dir-cp-007-apply-typecheck.log
+          exit 0
+
+      - name: Publish apply typecheck diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dir-cp-007-apply-typecheck-diagnostics
+          path: |
+            dir-cp-007-apply-typecheck.log
+            dir-cp-007-apply-typecheck-exit.txt
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce strict typecheck
+        run: test "$(cat dir-cp-007-apply-typecheck-exit.txt)" = "0"
 
       - name: Bundle and run CP-007 proof
         run: |
