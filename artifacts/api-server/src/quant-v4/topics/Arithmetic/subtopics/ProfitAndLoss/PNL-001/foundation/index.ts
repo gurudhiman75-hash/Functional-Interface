@@ -28,6 +28,8 @@ export * from "./validator";
 export * from "./distractor-builder";
 export * from "./reasoning-graph";
 export * from "./explanation-renderer";
+export * from "./editorial-content";
+export * from "./difficulty-calibrator";
 export * from "./coverage-auditor";
 export * from "./library";
 export * from "./pipeline";
