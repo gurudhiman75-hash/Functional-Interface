@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा माप बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक विक्रेता {trueQuantity} इकाइयों का क्रय मूल्य ₹{costPricePerTrueQuantity} बताकर लागत मूल्य पर बेचने का दावा करता है, पर केवल {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "एक विक्रेता {trueQuantity} इकाइयों का क्रय मूल्य ₹{costPricePerTrueQuantity} बताकर लागत मूल्य पर बेचने का दावा करता है, पर केवल {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ प्रतिशत ज्ञात कीजिए।"
@@ -44,7 +44,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कम तौल व्यापार की मूल्य-निर्धारण स्थिति नीचे दी गई है। {trueQuantity} इकाइयों की वास्तविक लागत ₹{costPricePerTrueQuantity} है। विक्रेता ₹{quotedSellingPricePerNominalQuantity} लेता है, पर केवल {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "{trueQuantity} इकाइयों की वास्तविक लागत ₹{costPricePerTrueQuantity} है। विक्रेता ₹{quotedSellingPricePerNominalQuantity} लेता है, पर केवल {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ या हानि राशि और प्रतिशत ज्ञात कीजिए।"
@@ -82,7 +82,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण मात्रा-आधारित बिक्री से जुड़े एक लेन-देन का है। ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयों की फलों की पेटियाँ पर विक्रेता {declaredRatePercent}% {declaredDirection} घोषित करता है, पर {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयों की फलों की पेटियाँ पर विक्रेता {declaredRatePercent}% {declaredDirection} घोषित करता है, पर {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -120,7 +120,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता मूल्य प्रभाव के दिए गए आंकड़ों का उपयोग कीजिए। पैक किए सामान की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता {declaredRatePercent}% {declaredDirection} घोषित करके केवल {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "पैक किए सामान की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता {declaredRatePercent}% {declaredDirection} घोषित करके केवल {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक प्रतिशत लाभ या हानि ज्ञात कीजिए।"
@@ -156,7 +156,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "मंडी माप-तौल से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। थोक किराना की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है और बिल ₹{quotedSellingPricePerNominalQuantity} बनाया जाता है।"
+            "content": "थोक किराना की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है और बिल ₹{quotedSellingPricePerNominalQuantity} बनाया जाता है।"
           }
         ],
         "prompt": "वास्तविक {targetRatePercent}% {targetDirection} के लिए कितनी मात्रा देनी चाहिए?"
@@ -189,7 +189,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा माप बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। {trueQuantity} इकाइयों की लागत ₹{costPricePerTrueQuantity} है।"
+            "content": "{trueQuantity} इकाइयों की लागत ₹{costPricePerTrueQuantity} है।"
           }
         ],
         "prompt": "यदि केवल {deliveredQuantity} इकाइयाँ दी जाएँ, तो वास्तविक {targetRatePercent}% {targetDirection} के लिए कितना मूल्य लेना चाहिए?"
@@ -222,7 +222,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कम तौल व्यापार की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक व्यापारी नाममात्र {nominalQuantity} इकाइयों के लिए ₹{purchasePricePerNominalQuantity} देता है, पर उसे {receivedQuantity} इकाइयाँ मिलती हैं। वह ₹{sellingPricePerNominalQuantity} लेकर केवल {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "एक व्यापारी नाममात्र {nominalQuantity} इकाइयों के लिए ₹{purchasePricePerNominalQuantity} देता है, पर उसे {receivedQuantity} इकाइयाँ मिलती हैं। वह ₹{sellingPricePerNominalQuantity} लेकर केवल {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ प्रतिशत ज्ञात कीजिए।"
@@ -260,7 +260,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण मात्रा-आधारित बिक्री से जुड़े एक लेन-देन का है। एक विक्रेता नाममात्र {nominalQuantity} इकाइयाँ ₹{purchasePricePerNominalQuantity} में खरीदकर {receivedQuantity} इकाइयाँ प्राप्त करता है। वह नाममात्र मात्रा ₹{sellingPricePerNominalQuantity} में बेचते समय {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "एक विक्रेता नाममात्र {nominalQuantity} इकाइयाँ ₹{purchasePricePerNominalQuantity} में खरीदकर {receivedQuantity} इकाइयाँ प्राप्त करता है। वह नाममात्र मात्रा ₹{sellingPricePerNominalQuantity} में बेचते समय {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -295,7 +295,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता मूल्य प्रभाव के दिए गए आंकड़ों का उपयोग कीजिए। फलों की पेटियाँ की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता {markupPercent}% अधिक अंकित करता है, {discountPercent}% छूट देता है और केवल {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "फलों की पेटियाँ की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता {markupPercent}% अधिक अंकित करता है, {discountPercent}% छूट देता है और केवल {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -331,7 +331,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "मंडी माप-तौल से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। पैक किए सामान की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता {deliveredQuantity} इकाइयाँ देता और {discountPercent}% छूट देता है।"
+            "content": "पैक किए सामान की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता {deliveredQuantity} इकाइयाँ देता और {discountPercent}% छूट देता है।"
           }
         ],
         "prompt": "वास्तविक {targetRatePercent}% {targetDirection} के लिए कितना अंकन प्रतिशत चाहिए?"
@@ -370,7 +370,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा माप बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। थोक किराना की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है और इसे {markupPercent}% अधिक अंकित किया गया है।"
+            "content": "थोक किराना की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है और इसे {markupPercent}% अधिक अंकित किया गया है।"
           }
         ],
         "prompt": "यदि केवल {deliveredQuantity} इकाइयाँ दी जाएँ, तो वास्तविक {targetRatePercent}% {targetDirection} के लिए कितनी छूट दी जाए?"
@@ -409,7 +409,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कम तौल व्यापार की मूल्य-निर्धारण स्थिति नीचे दी गई है। विक्रेता ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयों की अनाज के मूल्य में {priceChangePercent}% {priceDirection} परिवर्तन करता है और {shortQuantityPercent}% कम मात्रा देता है।"
+            "content": "विक्रेता ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयों की अनाज के मूल्य में {priceChangePercent}% {priceDirection} परिवर्तन करता है और {shortQuantityPercent}% कम मात्रा देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ प्रतिशत ज्ञात कीजिए।"
@@ -444,7 +444,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण मात्रा-आधारित बिक्री से जुड़े एक लेन-देन का है। खाद्य तेल की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता मूल्य में {priceChangePercent}% {priceDirection} परिवर्तन कर {shortQuantityPercent}% कम मात्रा देता है।"
+            "content": "खाद्य तेल की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है। विक्रेता मूल्य में {priceChangePercent}% {priceDirection} परिवर्तन कर {shortQuantityPercent}% कम मात्रा देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -480,7 +480,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता मूल्य प्रभाव के दिए गए आंकड़ों का उपयोग कीजिए। ग्राहक {trueQuantity} इकाइयों का मूल्य देता है, पर केवल {deliveredQuantity} इकाइयाँ पाता है।"
+            "content": "ग्राहक {trueQuantity} इकाइयों का मूल्य देता है, पर केवल {deliveredQuantity} इकाइयाँ पाता है।"
           }
         ],
         "prompt": "प्रति वास्तविक मात्रा प्रभावी मूल्य कितने प्रतिशत अधिक है?"
@@ -512,7 +512,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "मंडी माप-तौल से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। विक्रेता {declaredRatePercent}% {declaredDirection} घोषित करता है, पर {trueQuantity} इकाइयों का मूल्य लेकर वास्तविक {actualRatePercent}% {actualDirection} चाहता है।"
+            "content": "विक्रेता {declaredRatePercent}% {declaredDirection} घोषित करता है, पर {trueQuantity} इकाइयों का मूल्य लेकर वास्तविक {actualRatePercent}% {actualDirection} चाहता है।"
           }
         ],
         "prompt": "उसे कितनी मात्रा देनी चाहिए?"
@@ -547,7 +547,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा माप बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। विक्रेता {trueQuantity} इकाइयों का मूल्य लेकर {deliveredQuantity} इकाइयाँ देता है और वास्तविक {actualRatePercent}% {actualDirection} कमाता है।"
+            "content": "विक्रेता {trueQuantity} इकाइयों का मूल्य लेकर {deliveredQuantity} इकाइयाँ देता है और वास्तविक {actualRatePercent}% {actualDirection} कमाता है।"
           }
         ],
         "prompt": "मूल्य सूची पर घोषित लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -582,7 +582,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कम तौल व्यापार की मूल्य-निर्धारण स्थिति नीचे दी गई है। विक्रेता {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, पर {deliveredQuantity} इकाइयाँ देता है और वास्तविक {actualRatePercent}% {actualDirection} होता है।"
+            "content": "विक्रेता {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, पर {deliveredQuantity} इकाइयाँ देता है और वास्तविक {actualRatePercent}% {actualDirection} होता है।"
           }
         ],
         "prompt": "प्रति {trueQuantity} इकाइयों का वास्तविक क्रय मूल्य ज्ञात कीजिए।"
@@ -614,7 +614,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण मात्रा-आधारित बिक्री से जुड़े एक लेन-देन का है। विक्रेता {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, {deliveredQuantity} इकाइयाँ देता है और ₹{actualAmount} का वास्तविक {actualDirection} होता है।"
+            "content": "विक्रेता {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, {deliveredQuantity} इकाइयाँ देता है और ₹{actualAmount} का वास्तविक {actualDirection} होता है।"
           }
         ],
         "prompt": "प्रति {trueQuantity} इकाइयों का वास्तविक क्रय मूल्य ज्ञात कीजिए।"
@@ -645,7 +645,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता मूल्य प्रभाव के दिए गए आंकड़ों का उपयोग कीजिए। व्यापारी ₹{purchasePricePerNominalQuantity} देकर {receivedQuantity} इकाइयाँ प्राप्त करता है। वह प्रति नाममात्र बिक्री ₹{sellingPricePerNominalQuantity} लेता है।"
+            "content": "व्यापारी ₹{purchasePricePerNominalQuantity} देकर {receivedQuantity} इकाइयाँ प्राप्त करता है। वह प्रति नाममात्र बिक्री ₹{sellingPricePerNominalQuantity} लेता है।"
           }
         ],
         "prompt": "वास्तविक {targetRatePercent}% {targetDirection} के लिए हर बार कितनी मात्रा देनी चाहिए?"
@@ -680,7 +680,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "मंडी माप-तौल से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। व्यापारी खरीद के लिए ₹{purchasePricePerNominalQuantity} देता है और बिक्री में ₹{sellingPricePerNominalQuantity} लेकर {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "व्यापारी खरीद के लिए ₹{purchasePricePerNominalQuantity} देता है और बिक्री में ₹{sellingPricePerNominalQuantity} लेकर {deliveredQuantity} इकाइयाँ देता है।"
           }
         ],
         "prompt": "वास्तविक {targetRatePercent}% {targetDirection} के लिए खरीद में कितनी मात्रा मिलनी चाहिए?"
@@ -715,7 +715,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा माप बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ग्राहक {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} देता है, पर केवल {deliveredQuantity} इकाइयाँ पाता है।"
+            "content": "ग्राहक {trueQuantity} इकाइयों के लिए ₹{quotedSellingPricePerNominalQuantity} देता है, पर केवल {deliveredQuantity} इकाइयाँ पाता है।"
           }
         ],
         "prompt": "प्रति वास्तविक {trueQuantity} इकाइयों का प्रभावी मूल्य ज्ञात कीजिए।"
@@ -746,7 +746,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कम तौल व्यापार की मूल्य-निर्धारण स्थिति नीचे दी गई है। दो बेईमान बिक्री योजनाएँ {firstScheme} और {secondScheme} दी गई हैं।"
+            "content": "दो बेईमान बिक्री योजनाएँ {firstScheme} और {secondScheme} दी गई हैं।"
           },
           {
             "type": "caselet",
@@ -789,7 +789,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण मात्रा-आधारित बिक्री से जुड़े एक लेन-देन का है। {trueQuantity} थोक किरानाओं की लागत ₹{costPricePerTrueQuantity} है। विक्रेता {trueQuantity} थोक किरानाओं के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, पर केवल {deliveredQuantity} थोक किरानाएँ देता है।"
+            "content": "{trueQuantity} थोक किरानाओं की लागत ₹{costPricePerTrueQuantity} है। विक्रेता {trueQuantity} थोक किरानाओं के लिए ₹{quotedSellingPricePerNominalQuantity} लेता है, पर केवल {deliveredQuantity} थोक किरानाएँ देता है।"
           }
         ],
         "prompt": "वास्तविक लाभ प्रतिशत ज्ञात कीजिए।"
@@ -820,7 +820,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता मूल्य प्रभाव के दिए गए आंकड़ों का उपयोग कीजिए। कपड़ा विक्रेता {trueQuantity} सेंटीमीटर का मूल्य लेता है, पर उसका गलत मीटर केवल {deliveredQuantity} सेंटीमीटर मापता है।"
+            "content": "कपड़ा विक्रेता {trueQuantity} सेंटीमीटर का मूल्य लेता है, पर उसका गलत मीटर केवल {deliveredQuantity} सेंटीमीटर मापता है।"
           }
         ],
         "prompt": "कम माप से हुई प्रतिशत अधिक वसूली ज्ञात कीजिए।"
@@ -852,7 +852,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "मंडी माप-तौल से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। तालिका में दो मूल्य-मात्रा योजनाएँ {firstScheme} और {secondScheme} दी गई हैं।"
+            "content": "तालिका में दो मूल्य-मात्रा योजनाएँ {firstScheme} और {secondScheme} दी गई हैं।"
           },
           {
             "type": "table",
@@ -897,7 +897,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा माप बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। केसलेट के अनुसार कपड़ा की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है, अंकन {markupPercent}%, छूट {discountPercent}% और दी गई मात्रा {deliveredQuantity} इकाइयाँ है।"
+            "content": "केसलेट के अनुसार कपड़ा की लागत ₹{costPricePerTrueQuantity} प्रति {trueQuantity} इकाइयाँ है, अंकन {markupPercent}%, छूट {discountPercent}% और दी गई मात्रा {deliveredQuantity} इकाइयाँ है।"
           },
           {
             "type": "caselet",
@@ -937,7 +937,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कम तौल व्यापार की मूल्य-निर्धारण स्थिति नीचे दी गई है। विक्रेता {trueQuantity} इकाइयों का मूल्य लेकर {deliveredQuantity} इकाइयाँ देता है।"
+            "content": "विक्रेता {trueQuantity} इकाइयों का मूल्य लेकर {deliveredQuantity} इकाइयाँ देता है।"
           },
           {
             "type": "statements",
@@ -976,7 +976,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण मात्रा-आधारित बिक्री से जुड़े एक लेन-देन का है। नाममात्र {trueQuantity} इकाइयों की बिक्री पर वास्तविक {targetRatePercent}% लाभ के लिए गलत मात्रा ज्ञात करने हेतु कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
+            "content": "नाममात्र {trueQuantity} इकाइयों की बिक्री पर वास्तविक {targetRatePercent}% लाभ के लिए गलत मात्रा ज्ञात करने हेतु कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
           },
           {
             "type": "data_sufficiency",
@@ -1020,7 +1020,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता मूल्य प्रभाव के दिए गए आंकड़ों का उपयोग कीजिए। विक्रेता {trueQuantityExpression} इकाइयों का मूल्य लेकर {deliveredQuantityExpression} इकाइयाँ देता है और वास्तविक {actualRatePercent}% लाभ कमाता है।"
+            "content": "विक्रेता {trueQuantityExpression} इकाइयों का मूल्य लेकर {deliveredQuantityExpression} इकाइयाँ देता है और वास्तविक {actualRatePercent}% लाभ कमाता है।"
           },
           {
             "type": "equation",

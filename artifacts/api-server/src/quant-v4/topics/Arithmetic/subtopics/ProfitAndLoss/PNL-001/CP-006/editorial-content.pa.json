@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਮਸ਼ੀਨ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ। ਖਰੀਦਦਾਰ ਮੁਰੰਮਤ 'ਤੇ ₹{repairExpense}, ਆਵਾਜਾਈ 'ਤੇ ₹{transportExpense} ਅਤੇ ਸਥਾਪਨਾ 'ਤੇ ₹{installationExpense} ਖਰਚ ਕਰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਮਸ਼ੀਨ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ। ਖਰੀਦਦਾਰ ਮੁਰੰਮਤ 'ਤੇ ₹{repairExpense}, ਆਵਾਜਾਈ 'ਤੇ ₹{transportExpense} ਅਤੇ ਸਥਾਪਨਾ 'ਤੇ ₹{installationExpense} ਖਰਚ ਕਰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਮਸ਼ੀਨ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -43,7 +43,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਉਤਪਾਦਨ ਲਾਗਤ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਵਪਾਰੀ ਮਸ਼ੀਨ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ। ਸਹਾਇਕ ਖਰਚ ਖਰੀਦ ਮੁੱਲ ਦੇ {overheadPercent}% ਹਨ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਮਸ਼ੀਨ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ। ਸਹਾਇਕ ਖਰਚ ਖਰੀਦ ਮੁੱਲ ਦੇ {overheadPercent}% ਹਨ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -76,7 +76,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਭ-ਟੀਚਾ ਯੋਜਨਾ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਪਾਰਕ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ ਅਤੇ ਵਿਕਰੀ ਤੋਂ ਪਹਿਲਾਂ ₹{expenses} ਖਰਚ ਕੀਤੇ ਗਏ।"
+            "content": "ਵਪਾਰਕ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ ਅਤੇ ਵਿਕਰੀ ਤੋਂ ਪਹਿਲਾਂ ₹{expenses} ਖਰਚ ਕੀਤੇ ਗਏ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {profitPercent}% ਲਾਭ ਲਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -109,7 +109,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਬ੍ਰੇਕ-ਈਵਨ ਵਿਸ਼ਲੇਸ਼ਣ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਵਪਾਰੀ ਤਿਆਰ ਇਕਾਈਆਂ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ₹{expenses} ਵਾਧੂ ਖਰਚ ਕਰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਤਿਆਰ ਇਕਾਈਆਂ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ₹{expenses} ਵਾਧੂ ਖਰਚ ਕਰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {lossPercent}% ਹਾਨੀ ਮਨਜ਼ੂਰ ਹੋਣ 'ਤੇ ਇਸਨੂੰ ਕਿਹੜੇ ਮੁੱਲ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?"
@@ -141,7 +141,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਗਤ ਵਸੂਲੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਫੈਕਟਰੀ ਲਾਟ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ ਅਤੇ ₹{expenses} ਵਾਧੂ ਖਰਚ ਹੁੰਦੇ ਹਨ। ਇਸਨੂੰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
+            "content": "ਫੈਕਟਰੀ ਲਾਟ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ ਅਤੇ ₹{expenses} ਵਾਧੂ ਖਰਚ ਹੁੰਦੇ ਹਨ। ਇਸਨੂੰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -177,7 +177,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਨਿਰਮਾਣ ਪ੍ਰਬੰਧਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {targetRatePercent}% {targetDirection} ਕਾਇਮ ਰੱਖਣ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਵਾਧੂ ਖਰਚ ਪਤਾ ਕਰੋ।"
@@ -210,7 +210,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਉਤਪਾਦਨ ਬੈਚ ਦੀ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ।"
+            "content": "ਇੱਕ ਉਤਪਾਦਨ ਬੈਚ ਦੀ ਲਾਗਤ ₹{totalInputCost} ਹੈ ਅਤੇ ਇਸ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ।"
           }
         ],
         "prompt": "ਜੇ {wastedQuantity} ਇਕਾਈਆਂ ਬਰਬਾਦ ਹੋ ਜਾਣ, ਤਾਂ ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -243,7 +243,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਉਤਪਾਦਨ ਲਾਗਤ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ₹{totalInputCost} ਲਾਗਤ ਵਾਲੇ ਬੈਚ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ {wastedQuantity} ਇਕਾਈਆਂ ਬਰਬਾਦ ਹੋ ਜਾਂਦੀਆਂ ਹਨ।"
+            "content": "₹{totalInputCost} ਲਾਗਤ ਵਾਲੇ ਬੈਚ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ, ਜਿਨ੍ਹਾਂ ਵਿੱਚੋਂ {wastedQuantity} ਇਕਾਈਆਂ ਬਰਬਾਦ ਹੋ ਜਾਂਦੀਆਂ ਹਨ।"
           }
         ],
         "prompt": "ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਲੋੜੀਂਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -279,7 +279,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਲਾਭ-ਟੀਚਾ ਯੋਜਨਾ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਨਿਰਮਾਤਾ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ।"
+            "content": "ਇੱਕ ਨਿਰਮਾਤਾ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ।"
           }
         ],
         "prompt": "ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਇਕਾਈਆਂ ਪਤਾ ਕਰੋ।"
@@ -312,7 +312,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬ੍ਰੇਕ-ਈਵਨ ਵਿਸ਼ਲੇਸ਼ਣ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਨਿਰਮਾਤਾ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਪ੍ਰਤੀ ਇਕਾਈ ਉਤਪਾਦਨ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ।"
+            "content": "ਇੱਕ ਨਿਰਮਾਤਾ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ। ਪ੍ਰਤੀ ਇਕਾਈ ਉਤਪਾਦਨ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ।"
           }
         ],
         "prompt": "ਘੱਟੋ-ਘੱਟ ₹{targetProfit} ਲਾਭ ਲਈ ਕਿੰਨੀਆਂ ਇਕਾਈਆਂ ਵੇਚਣੀਆਂ ਪੈਣਗੀਆਂ?"
@@ -348,7 +348,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਗਤ ਵਸੂਲੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ।"
+            "content": "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ।"
           }
         ],
         "prompt": "ਜੇ {quantity} ਇਕਾਈਆਂ ਬਣਾਈਆਂ ਅਤੇ ਵੇਚੀਆਂ ਜਾਣ, ਤਾਂ ਪ੍ਰਤੀ ਇਕਾਈ ਬ੍ਰੇਕ-ਈਵਨ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -381,7 +381,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਨਿਰਮਾਣ ਪ੍ਰਬੰਧਨ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਵਪਾਰੀ ਪਹਿਲੀ ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ₹{firstCostPrice} ਵਿੱਚ ਖਰੀਦ ਕੇ ₹{firstSellingPrice} ਵਿੱਚ ਹਾਨੀ 'ਤੇ ਵੇਚਦਾ ਹੈ। ਉਹ ਦੂਜੀ ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ₹{secondCostPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਪਹਿਲੀ ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ₹{firstCostPrice} ਵਿੱਚ ਖਰੀਦ ਕੇ ₹{firstSellingPrice} ਵਿੱਚ ਹਾਨੀ 'ਤੇ ਵੇਚਦਾ ਹੈ। ਉਹ ਦੂਜੀ ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ₹{secondCostPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਦੋਵੇਂ ਲੈਣ-ਦੇਣ ਮਿਲਾ ਕੇ ਨਾ ਲਾਭ ਨਾ ਹਾਨੀ ਲਈ ਦੂਜੀ ਮੁਰੰਮਤ ਕੀਤਾ ਉਪਕਰਣ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -413,7 +413,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਵਪਾਰੀ ਪਹਿਲੀ ਉਤਪਾਦਨ ਬੈਚ ₹{firstCostPrice} ਵਿੱਚ ਖਰੀਦ ਕੇ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਦੂਜੀ ਉਤਪਾਦਨ ਬੈਚ ₹{secondCostPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਪਹਿਲੀ ਉਤਪਾਦਨ ਬੈਚ ₹{firstCostPrice} ਵਿੱਚ ਖਰੀਦ ਕੇ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਦੂਜੀ ਉਤਪਾਦਨ ਬੈਚ ₹{secondCostPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਦੋਵੇਂ ਲੈਣ-ਦੇਣਾਂ 'ਤੇ ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਦੂਜੀ ਉਤਪਾਦਨ ਬੈਚ ਦਾ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -450,7 +450,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਉਤਪਾਦਨ ਲਾਗਤ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਵਪਾਰਕ ਲੈਣ-ਦੇਣ ਤੋਂ ਕੁੱਲ ₹{totalRecovery} ਪ੍ਰਾਪਤ ਹੋਏ, ਜੋ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {ratePercent}% {direction} ਦਰਸਾਉਂਦੇ ਹਨ।"
+            "content": "ਇੱਕ ਵਪਾਰਕ ਲੈਣ-ਦੇਣ ਤੋਂ ਕੁੱਲ ₹{totalRecovery} ਪ੍ਰਾਪਤ ਹੋਏ, ਜੋ ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {ratePercent}% {direction} ਦਰਸਾਉਂਦੇ ਹਨ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -482,7 +482,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਭ-ਟੀਚਾ ਯੋਜਨਾ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਸੰਪਤੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ। ਸਮਤਲ ਖਰਚ {flatExpenses} ਹਨ ਅਤੇ ਫਿਰ {overheadBase} 'ਤੇ {overheadPercent}% ਓਵਰਹੈੱਡ ਲੱਗਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਸੰਪਤੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ। ਸਮਤਲ ਖਰਚ {flatExpenses} ਹਨ ਅਤੇ ਫਿਰ {overheadBase} 'ਤੇ {overheadPercent}% ਓਵਰਹੈੱਡ ਲੱਗਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -517,7 +517,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬ੍ਰੇਕ-ਈਵਨ ਵਿਸ਼ਲੇਸ਼ਣ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਸੰਪਤੀ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ।"
+            "content": "₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਸੰਪਤੀ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ।"
           }
         ],
         "prompt": "ਕੁੱਲ ਵਾਧੂ ਖਰਚ ਪਤਾ ਕਰੋ।"
@@ -549,7 +549,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਗਤ ਵਸੂਲੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਸੰਪਤੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ, ਸਮਤਲ ਖਰਚ {flatExpenses} ਹਨ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ।"
+            "content": "ਇੱਕ ਸੰਪਤੀ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦੀ ਜਾਂਦੀ ਹੈ, ਸਮਤਲ ਖਰਚ {flatExpenses} ਹਨ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ।"
           }
         ],
         "prompt": "ਜੇ ਬਾਕੀ ਓਵਰਹੈੱਡ {overheadBase} 'ਤੇ ਆਧਾਰਿਤ ਹੈ, ਤਾਂ ਇਸਦਾ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -588,7 +588,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਨਿਰਮਾਣ ਪ੍ਰਬੰਧਨ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਫੈਕਟਰੀ ਸਮੱਗਰੀ 'ਤੇ ₹{rawMaterialCost} ਅਤੇ ਮਜ਼ਦੂਰੀ 'ਤੇ ₹{labourCost} ਖਰਚ ਕਰਦੀ ਹੈ। ਫੈਕਟਰੀ ਓਵਰਹੈੱਡ ਪ੍ਰਾਈਮ ਲਾਗਤ ਦਾ {factoryOverheadPercent}% ਹੈ, ਪੈਕਿੰਗ ₹{packagingCost}, ਸਕ੍ਰੈਪ ਪ੍ਰਾਪਤੀ ₹{scrapRecovery} ਅਤੇ ਉਤਪਾਦਨ {outputQuantity} ਇਕਾਈਆਂ ਹੈ।"
+            "content": "ਇੱਕ ਫੈਕਟਰੀ ਸਮੱਗਰੀ 'ਤੇ ₹{rawMaterialCost} ਅਤੇ ਮਜ਼ਦੂਰੀ 'ਤੇ ₹{labourCost} ਖਰਚ ਕਰਦੀ ਹੈ। ਫੈਕਟਰੀ ਓਵਰਹੈੱਡ ਪ੍ਰਾਈਮ ਲਾਗਤ ਦਾ {factoryOverheadPercent}% ਹੈ, ਪੈਕਿੰਗ ₹{packagingCost}, ਸਕ੍ਰੈਪ ਪ੍ਰਾਪਤੀ ₹{scrapRecovery} ਅਤੇ ਉਤਪਾਦਨ {outputQuantity} ਇਕਾਈਆਂ ਹੈ।"
           }
         ],
         "prompt": "ਸ਼ੁੱਧ ਉਤਪਾਦਨ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -628,7 +628,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਸਮੱਗਰੀ ਲਾਗਤ ₹{rawMaterialCost}, ਮਜ਼ਦੂਰੀ ਲਾਗਤ ₹{labourCost}, ਪ੍ਰਾਈਮ ਲਾਗਤ 'ਤੇ ਫੈਕਟਰੀ ਓਵਰਹੈੱਡ {factoryOverheadPercent}%, ਪੈਕਿੰਗ ₹{packagingCost}, ਸਕ੍ਰੈਪ ਪ੍ਰਾਪਤੀ ₹{scrapRecovery} ਅਤੇ ਉਤਪਾਦਨ {outputQuantity} ਇਕਾਈਆਂ ਹੈ।"
+            "content": "ਸਮੱਗਰੀ ਲਾਗਤ ₹{rawMaterialCost}, ਮਜ਼ਦੂਰੀ ਲਾਗਤ ₹{labourCost}, ਪ੍ਰਾਈਮ ਲਾਗਤ 'ਤੇ ਫੈਕਟਰੀ ਓਵਰਹੈੱਡ {factoryOverheadPercent}%, ਪੈਕਿੰਗ ₹{packagingCost}, ਸਕ੍ਰੈਪ ਪ੍ਰਾਪਤੀ ₹{scrapRecovery} ਅਤੇ ਉਤਪਾਦਨ {outputQuantity} ਇਕਾਈਆਂ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ ਇਕਾਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -664,7 +664,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਉਤਪਾਦਨ ਲਾਗਤ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{totalInputCost} ਲਾਗਤ ਵਾਲੀ ਸਮੱਗਰੀ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ। {wastedQuantity} ਇਕਾਈਆਂ ਬਰਬਾਦ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਸਕ੍ਰੈਪ ₹{scrapRecovery} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
+            "content": "₹{totalInputCost} ਲਾਗਤ ਵਾਲੀ ਸਮੱਗਰੀ ਵਿੱਚ {inputQuantity} ਇਕਾਈਆਂ ਹਨ। {wastedQuantity} ਇਕਾਈਆਂ ਬਰਬਾਦ ਹੋਣ ਤੋਂ ਬਾਅਦ ਬਚਿਆ ਸਕ੍ਰੈਪ ₹{scrapRecovery} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ ਵਰਤਣਯੋਗ ਇਕਾਈ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -699,7 +699,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਭ-ਟੀਚਾ ਯੋਜਨਾ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਉਤਪਾਦ {breakEvenQuantity} ਇਕਾਈਆਂ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦਾ ਹੈ। ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ।"
+            "content": "ਇੱਕ ਉਤਪਾਦ {breakEvenQuantity} ਇਕਾਈਆਂ 'ਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦਾ ਹੈ। ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ₹{sellingPricePerUnit} ਹੈ।"
           }
         ],
         "prompt": "ਸਥਿਰ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -731,7 +731,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬ੍ਰੇਕ-ਈਵਨ ਵਿਸ਼ਲੇਸ਼ਣ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ ਅਤੇ ਉਹ ₹{sellingPricePerUnit} ਪ੍ਰਤੀ ਇਕਾਈ 'ਤੇ {breakEvenQuantity} ਇਕਾਈਆਂ ਵੇਚ ਕੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ ਅਤੇ ਉਹ ₹{sellingPricePerUnit} ਪ੍ਰਤੀ ਇਕਾਈ 'ਤੇ {breakEvenQuantity} ਇਕਾਈਆਂ ਵੇਚ ਕੇ ਬ੍ਰੇਕ-ਈਵਨ ਕਰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -764,7 +764,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਗਤ ਵਸੂਲੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ।"
+            "content": "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਪ੍ਰਤੀ ਇਕਾਈ ਪਰਿਵਰਤਨਸ਼ੀਲ ਲਾਗਤ ₹{variableCostPerUnit} ਹੈ।"
           }
         ],
         "prompt": "{quantity} ਇਕਾਈਆਂ ਵੇਚ ਕੇ ₹{targetProfit} ਲਾਭ ਲਈ ਪ੍ਰਤੀ ਇਕਾਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -796,7 +796,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਨਿਰਮਾਣ ਪ੍ਰਬੰਧਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਅਨੁਪਾਤ {contributionMarginPercent}% ਹੈ।"
+            "content": "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਅਨੁਪਾਤ {contributionMarginPercent}% ਹੈ।"
           }
         ],
         "prompt": "ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ਪਤਾ ਕਰੋ।"
@@ -828,7 +828,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ।"
+            "content": "ਇੱਕ ਕਾਰੋਬਾਰ ਦੀ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ।"
           }
         ],
         "prompt": "ਯੋਗਦਾਨ-ਮਾਰਜਿਨ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।"
@@ -860,7 +860,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਉਤਪਾਦਨ ਲਾਗਤ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਕਾਰੋਬਾਰ ਨਿਰਧਾਰਤ ਮਿਸ਼ਰਣ {productMix} ਵਿੱਚ ਉਤਪਾਦ ਵੇਚਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਕਾਰੋਬਾਰ ਨਿਰਧਾਰਤ ਮਿਸ਼ਰਣ {productMix} ਵਿੱਚ ਉਤਪਾਦ ਵੇਚਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਜੇ ਸਥਿਰ ਲਾਗਤ ₹{fixedCost} ਹੈ, ਤਾਂ ਬ੍ਰੇਕ-ਈਵਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਪੂਰੇ ਉਤਪਾਦ-ਮਿਸ਼ਰਣ ਬੰਡਲ ਪਤਾ ਕਰੋ।"
@@ -895,7 +895,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਭ-ਟੀਚਾ ਯੋਜਨਾ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ।"
+            "content": "ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ।"
           }
         ],
         "prompt": "ਸੁਰੱਖਿਆ ਮਾਰਜਿਨ ਰੁਪਏ ਵਿੱਚ ਪਤਾ ਕਰੋ।"
@@ -927,7 +927,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬ੍ਰੇਕ-ਈਵਨ ਵਿਸ਼ਲੇਸ਼ਣ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ।"
+            "content": "ਅਸਲ ਆਮਦਨ ₹{actualRevenue} ਅਤੇ ਬ੍ਰੇਕ-ਈਵਨ ਆਮਦਨ ₹{breakEvenRevenue} ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਆਮਦਨ 'ਤੇ ਸੁਰੱਖਿਆ ਮਾਰਜਿਨ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -959,7 +959,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਲਾਗਤ ਵਸੂਲੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਕਈ ਵਪਾਰਕ ਲੈਣ-ਦੇਣਾਂ ਦੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{totalCost} ਹੈ। ਪਹਿਲੀਆਂ ਪ੍ਰਾਪਤੀਆਂ {priorRecoveries} ਹਨ।"
+            "content": "ਕਈ ਵਪਾਰਕ ਲੈਣ-ਦੇਣਾਂ ਦੀ ਕੁੱਲ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{totalCost} ਹੈ। ਪਹਿਲੀਆਂ ਪ੍ਰਾਪਤੀਆਂ {priorRecoveries} ਹਨ।"
           }
         ],
         "prompt": "ਕੁੱਲ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਪਤਾ ਕਰੋ।"
@@ -994,7 +994,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਨਿਰਮਾਣ ਪ੍ਰਬੰਧਨ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਵਪਾਰੀ ਆਪਣੀ ਪੂੰਜੀ ਦਾ {lossPercent}% ਗੁਆ ਲੈਂਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਆਪਣੀ ਪੂੰਜੀ ਦਾ {lossPercent}% ਗੁਆ ਲੈਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਮੂਲ ਪੂੰਜੀ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਬਾਕੀ ਪੂੰਜੀ 'ਤੇ ਕਿੰਨਾ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਲੋੜੀਂਦਾ ਹੈ?"
@@ -1026,7 +1026,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਉਤਪਾਦਨ ਬੈਚ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਵਿੱਚੋਂ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਿਆ ਜਾਂਦਾ ਹੈ।"
+            "content": "ਉਤਪਾਦਨ ਬੈਚ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ। ਵਿਕਰੀ ਮੁੱਲ ਵਿੱਚੋਂ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਲਾਭ ਜਾਂ ਹਾਨੀ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -1061,7 +1061,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਉਤਪਾਦਨ ਲਾਗਤ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਮਸ਼ੀਨ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ। ਸਕਲ ਵਿਕਰੀ ਮੁੱਲ ਵਿੱਚੋਂ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਿਆ ਜਾਵੇਗਾ।"
+            "content": "ਮਸ਼ੀਨ ਦੀ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ₹{effectiveCost} ਹੈ। ਸਕਲ ਵਿਕਰੀ ਮੁੱਲ ਵਿੱਚੋਂ {commissionPercent}% ਕਮਿਸ਼ਨ ਕੱਟਿਆ ਜਾਵੇਗਾ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦਾ ਸਕਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -1097,7 +1097,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਲਾਭ-ਟੀਚਾ ਯੋਜਨਾ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਨਿਰਮਾਣ ਟੇਬਲ ਵਿੱਚ ਸਮੱਗਰੀ, ਮਜ਼ਦੂਰੀ, ਓਵਰਹੈੱਡ ਅਤੇ ਪੈਕਿੰਗ ਲਾਗਤ ਦਿੱਤੀ ਹੈ। ਉਤਪਾਦਨ {outputQuantity} ਇਕਾਈਆਂ ਅਤੇ ਸਕ੍ਰੈਪ ਪ੍ਰਾਪਤੀ ₹{scrapRecovery} ਹੈ।"
+            "content": "ਨਿਰਮਾਣ ਟੇਬਲ ਵਿੱਚ ਸਮੱਗਰੀ, ਮਜ਼ਦੂਰੀ, ਓਵਰਹੈੱਡ ਅਤੇ ਪੈਕਿੰਗ ਲਾਗਤ ਦਿੱਤੀ ਹੈ। ਉਤਪਾਦਨ {outputQuantity} ਇਕਾਈਆਂ ਅਤੇ ਸਕ੍ਰੈਪ ਪ੍ਰਾਪਤੀ ₹{scrapRecovery} ਹੈ।"
           },
           {
             "type": "table",
@@ -1142,7 +1142,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਬ੍ਰੇਕ-ਈਵਨ ਵਿਸ਼ਲੇਸ਼ਣ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਬ੍ਰੇਕ-ਈਵਨ ਕੇਸਲੈਟ ਪੜ੍ਹੋ।"
+            "content": "ਬ੍ਰੇਕ-ਈਵਨ ਕੇਸਲੈਟ ਪੜ੍ਹੋ।"
           },
           {
             "type": "caselet",
@@ -1181,10 +1181,6 @@
         "contextFamily": "pa:PNL-CP-006:184:ਲਾਗਤ ਵਸੂਲੀ",
         "blocks": [
           {
-            "type": "paragraph",
-            "content": "ਲਾਗਤ ਵਸੂਲੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ।"
-          },
-          {
             "type": "statements",
             "lead": "ਹੇਠਾਂ ਦਿੱਤੇ ਕਥਨਾਂ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ:",
             "statements": [
@@ -1221,7 +1217,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਨਿਰਮਾਣ ਪ੍ਰਬੰਧਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਖਰੀਦ ਮੁੱਲ {purchasePriceExpression}, ਸਮਤਲ ਖਰਚ {flatExpenseExpression} ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ {effectiveCostExpression} ਹੈ।"
+            "content": "ਖਰੀਦ ਮੁੱਲ {purchasePriceExpression}, ਸਮਤਲ ਖਰਚ {flatExpenseExpression} ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ {effectiveCostExpression} ਹੈ।"
           },
           {
             "type": "equation",
@@ -1260,7 +1256,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਾਰੋਬਾਰੀ ਲਾਗਤ ਯੋਜਨਾ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਬ੍ਰੇਕ-ਈਵਨ ਮਾਤਰਾ ਪਤਾ ਕਰਨ ਲਈ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ।"
+            "content": "ਬ੍ਰੇਕ-ਈਵਨ ਮਾਤਰਾ ਪਤਾ ਕਰਨ ਲਈ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ।"
           },
           {
             "type": "data_sufficiency",

@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "व्यवसाय लागत योजना से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक मशीन ₹{purchasePrice} में खरीदी जाती है। खरीदार मरम्मत पर ₹{repairExpense}, परिवहन पर ₹{transportExpense} और स्थापना पर ₹{installationExpense} खर्च करता है।"
+            "content": "एक मशीन ₹{purchasePrice} में खरीदी जाती है। खरीदार मरम्मत पर ₹{repairExpense}, परिवहन पर ₹{transportExpense} और स्थापना पर ₹{installationExpense} खर्च करता है।"
           }
         ],
         "prompt": "मशीन की प्रभावी लागत ज्ञात कीजिए।"
@@ -43,7 +43,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उत्पादन लागत के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक व्यापारी मशीन ₹{purchasePrice} में खरीदता है। आकस्मिक व्यय क्रय मूल्य के {overheadPercent}% हैं।"
+            "content": "एक व्यापारी मशीन ₹{purchasePrice} में खरीदता है। आकस्मिक व्यय क्रय मूल्य के {overheadPercent}% हैं।"
           }
         ],
         "prompt": "प्रभावी लागत ज्ञात कीजिए।"
@@ -76,7 +76,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लाभ-लक्ष्य योजना की मूल्य-निर्धारण स्थिति नीचे दी गई है। व्यावसायिक उपकरण ₹{purchasePrice} में खरीदी गई और बिक्री से पहले ₹{expenses} खर्च किए गए।"
+            "content": "व्यावसायिक उपकरण ₹{purchasePrice} में खरीदी गई और बिक्री से पहले ₹{expenses} खर्च किए गए।"
           }
         ],
         "prompt": "प्रभावी लागत पर {profitPercent}% लाभ के लिए आवश्यक विक्रय मूल्य ज्ञात कीजिए।"
@@ -109,7 +109,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण ब्रेक-ईवन विश्लेषण से जुड़े एक लेन-देन का है। एक व्यापारी निर्मित इकाइयाँ ₹{purchasePrice} में खरीदता है और ₹{expenses} अतिरिक्त खर्च करता है।"
+            "content": "एक व्यापारी निर्मित इकाइयाँ ₹{purchasePrice} में खरीदता है और ₹{expenses} अतिरिक्त खर्च करता है।"
           }
         ],
         "prompt": "प्रभावी लागत पर {lossPercent}% हानि स्वीकार करने पर उसे किस मूल्य पर बेचना चाहिए?"
@@ -141,7 +141,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लागत वसूली के दिए गए आंकड़ों का उपयोग कीजिए। कारखाना लॉट ₹{purchasePrice} में खरीदी जाती है और ₹{expenses} अतिरिक्त खर्च होते हैं। इसे ₹{sellingPrice} में बेचा जाता है।"
+            "content": "कारखाना लॉट ₹{purchasePrice} में खरीदी जाती है और ₹{expenses} अतिरिक्त खर्च होते हैं। इसे ₹{sellingPrice} में बेचा जाता है।"
           }
         ],
         "prompt": "प्रभावी लागत पर लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -177,7 +177,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निर्माण प्रबंधन से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। मरम्मत किया उपकरण ₹{purchasePrice} में खरीदी और ₹{sellingPrice} में बेची जाती है।"
+            "content": "मरम्मत किया उपकरण ₹{purchasePrice} में खरीदी और ₹{sellingPrice} में बेची जाती है।"
           }
         ],
         "prompt": "प्रभावी लागत पर {targetRatePercent}% {targetDirection} बनाए रखने के लिए अधिकतम अतिरिक्त व्यय ज्ञात कीजिए।"
@@ -210,7 +210,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "व्यवसाय लागत योजना के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक उत्पादन बैच की लागत ₹{totalInputCost} है और उसमें {inputQuantity} इकाइयाँ हैं।"
+            "content": "एक उत्पादन बैच की लागत ₹{totalInputCost} है और उसमें {inputQuantity} इकाइयाँ हैं।"
           }
         ],
         "prompt": "यदि {wastedQuantity} इकाइयाँ नष्ट हो जाएँ, तो प्रति उपयोगी इकाई प्रभावी लागत ज्ञात कीजिए।"
@@ -243,7 +243,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उत्पादन लागत की मूल्य-निर्धारण स्थिति नीचे दी गई है। ₹{totalInputCost} लागत वाले बैच में {inputQuantity} इकाइयाँ हैं, जिनमें से {wastedQuantity} इकाइयाँ नष्ट हो जाती हैं।"
+            "content": "₹{totalInputCost} लागत वाले बैच में {inputQuantity} इकाइयाँ हैं, जिनमें से {wastedQuantity} इकाइयाँ नष्ट हो जाती हैं।"
           }
         ],
         "prompt": "कुल {targetRatePercent}% {targetDirection} के लिए प्रति उपयोगी इकाई आवश्यक विक्रय मूल्य ज्ञात कीजिए।"
@@ -279,7 +279,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण लाभ-लक्ष्य योजना से जुड़े एक लेन-देन का है। एक निर्माता की स्थिर लागत ₹{fixedCost} है। प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है।"
+            "content": "एक निर्माता की स्थिर लागत ₹{fixedCost} है। प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है।"
           }
         ],
         "prompt": "सम-विच्छेद के लिए न्यूनतम इकाइयाँ ज्ञात कीजिए।"
@@ -312,7 +312,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ब्रेक-ईवन विश्लेषण के दिए गए आंकड़ों का उपयोग कीजिए। एक निर्माता की स्थिर लागत ₹{fixedCost} है। प्रति इकाई उत्पादन लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है।"
+            "content": "एक निर्माता की स्थिर लागत ₹{fixedCost} है। प्रति इकाई उत्पादन लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है।"
           }
         ],
         "prompt": "कम-से-कम ₹{targetProfit} लाभ के लिए कितनी इकाइयाँ बेचनी होंगी?"
@@ -348,7 +348,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लागत वसूली से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक व्यवसाय की स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है।"
+            "content": "एक व्यवसाय की स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है।"
           }
         ],
         "prompt": "यदि {quantity} इकाइयाँ बनाई और बेची जाएँ, तो प्रति इकाई सम-विच्छेद विक्रय मूल्य ज्ञात कीजिए।"
@@ -381,7 +381,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निर्माण प्रबंधन के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक व्यापारी पहली मरम्मत किया उपकरण ₹{firstCostPrice} में खरीदकर ₹{firstSellingPrice} में हानि पर बेचता है। वह दूसरी मरम्मत किया उपकरण ₹{secondCostPrice} में खरीदता है।"
+            "content": "एक व्यापारी पहली मरम्मत किया उपकरण ₹{firstCostPrice} में खरीदकर ₹{firstSellingPrice} में हानि पर बेचता है। वह दूसरी मरम्मत किया उपकरण ₹{secondCostPrice} में खरीदता है।"
           }
         ],
         "prompt": "दोनों लेन-देन मिलाकर न लाभ न हानि के लिए दूसरी मरम्मत किया उपकरण का विक्रय मूल्य ज्ञात कीजिए।"
@@ -413,7 +413,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "व्यवसाय लागत योजना की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक व्यापारी पहली उत्पादन बैच ₹{firstCostPrice} में खरीदकर ₹{firstSellingPrice} में बेचता है और दूसरी उत्पादन बैच ₹{secondCostPrice} में खरीदता है।"
+            "content": "एक व्यापारी पहली उत्पादन बैच ₹{firstCostPrice} में खरीदकर ₹{firstSellingPrice} में बेचता है और दूसरी उत्पादन बैच ₹{secondCostPrice} में खरीदता है।"
           }
         ],
         "prompt": "दोनों लेन-देन पर कुल {targetRatePercent}% {targetDirection} के लिए दूसरी उत्पादन बैच का विक्रय मूल्य ज्ञात कीजिए।"
@@ -450,7 +450,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण उत्पादन लागत से जुड़े एक लेन-देन का है। एक व्यावसायिक लेन-देन से कुल ₹{totalRecovery} प्राप्त हुए, जो प्रभावी लागत पर {ratePercent}% {direction} दर्शाते हैं।"
+            "content": "एक व्यावसायिक लेन-देन से कुल ₹{totalRecovery} प्राप्त हुए, जो प्रभावी लागत पर {ratePercent}% {direction} दर्शाते हैं।"
           }
         ],
         "prompt": "प्रभावी लागत ज्ञात कीजिए।"
@@ -482,7 +482,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लाभ-लक्ष्य योजना के दिए गए आंकड़ों का उपयोग कीजिए। एक परिसंपत्ति ₹{purchasePrice} में खरीदी गई। समतल व्यय {flatExpenses} हैं और उसके बाद {overheadBase} पर {overheadPercent}% अधिभार लगाया जाता है।"
+            "content": "एक परिसंपत्ति ₹{purchasePrice} में खरीदी गई। समतल व्यय {flatExpenses} हैं और उसके बाद {overheadBase} पर {overheadPercent}% अधिभार लगाया जाता है।"
           }
         ],
         "prompt": "प्रभावी लागत ज्ञात कीजिए।"
@@ -517,7 +517,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ब्रेक-ईवन विश्लेषण से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। ₹{purchasePrice} में खरीदी गई परिसंपत्ति की प्रभावी लागत ₹{effectiveCost} है।"
+            "content": "₹{purchasePrice} में खरीदी गई परिसंपत्ति की प्रभावी लागत ₹{effectiveCost} है।"
           }
         ],
         "prompt": "कुल अतिरिक्त व्यय ज्ञात कीजिए।"
@@ -549,7 +549,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लागत वसूली के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक परिसंपत्ति ₹{purchasePrice} में खरीदी जाती है, समतल व्यय {flatExpenses} हैं और प्रभावी लागत ₹{effectiveCost} है।"
+            "content": "एक परिसंपत्ति ₹{purchasePrice} में खरीदी जाती है, समतल व्यय {flatExpenses} हैं और प्रभावी लागत ₹{effectiveCost} है।"
           }
         ],
         "prompt": "यदि शेष अधिभार {overheadBase} पर आधारित है, तो उसका प्रतिशत ज्ञात कीजिए।"
@@ -588,7 +588,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निर्माण प्रबंधन की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक कारखाना सामग्री पर ₹{rawMaterialCost} और श्रम पर ₹{labourCost} खर्च करता है। कारखाना अधिभार प्रधान लागत का {factoryOverheadPercent}% है, पैकेजिंग ₹{packagingCost}, कबाड़ प्राप्ति ₹{scrapRecovery} और उत्पादन {outputQuantity} इकाइयाँ है।"
+            "content": "एक कारखाना सामग्री पर ₹{rawMaterialCost} और श्रम पर ₹{labourCost} खर्च करता है। कारखाना अधिभार प्रधान लागत का {factoryOverheadPercent}% है, पैकेजिंग ₹{packagingCost}, कबाड़ प्राप्ति ₹{scrapRecovery} और उत्पादन {outputQuantity} इकाइयाँ है।"
           }
         ],
         "prompt": "शुद्ध उत्पादन लागत ज्ञात कीजिए।"
@@ -628,7 +628,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण व्यवसाय लागत योजना से जुड़े एक लेन-देन का है। सामग्री लागत ₹{rawMaterialCost}, श्रम लागत ₹{labourCost}, प्रधान लागत पर कारखाना अधिभार {factoryOverheadPercent}%, पैकेजिंग ₹{packagingCost}, कबाड़ प्राप्ति ₹{scrapRecovery} और उत्पादन {outputQuantity} इकाइयाँ है।"
+            "content": "सामग्री लागत ₹{rawMaterialCost}, श्रम लागत ₹{labourCost}, प्रधान लागत पर कारखाना अधिभार {factoryOverheadPercent}%, पैकेजिंग ₹{packagingCost}, कबाड़ प्राप्ति ₹{scrapRecovery} और उत्पादन {outputQuantity} इकाइयाँ है।"
           }
         ],
         "prompt": "प्रति इकाई प्रभावी लागत ज्ञात कीजिए।"
@@ -664,7 +664,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उत्पादन लागत के दिए गए आंकड़ों का उपयोग कीजिए। ₹{totalInputCost} लागत वाली सामग्री में {inputQuantity} इकाइयाँ हैं। {wastedQuantity} इकाइयाँ नष्ट होने के बाद अपशिष्ट ₹{scrapRecovery} में बिकता है।"
+            "content": "₹{totalInputCost} लागत वाली सामग्री में {inputQuantity} इकाइयाँ हैं। {wastedQuantity} इकाइयाँ नष्ट होने के बाद अपशिष्ट ₹{scrapRecovery} में बिकता है।"
           }
         ],
         "prompt": "प्रति उपयोगी इकाई प्रभावी लागत ज्ञात कीजिए।"
@@ -699,7 +699,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लाभ-लक्ष्य योजना से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक उत्पाद {breakEvenQuantity} इकाइयों पर सम-विच्छेद करता है। प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है।"
+            "content": "एक उत्पाद {breakEvenQuantity} इकाइयों पर सम-विच्छेद करता है। प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} और विक्रय मूल्य ₹{sellingPricePerUnit} है।"
           }
         ],
         "prompt": "स्थिर लागत ज्ञात कीजिए।"
@@ -731,7 +731,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ब्रेक-ईवन विश्लेषण के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक व्यवसाय की स्थिर लागत ₹{fixedCost} है और वह ₹{sellingPricePerUnit} प्रति इकाई पर {breakEvenQuantity} इकाइयाँ बेचकर सम-विच्छेद करता है।"
+            "content": "एक व्यवसाय की स्थिर लागत ₹{fixedCost} है और वह ₹{sellingPricePerUnit} प्रति इकाई पर {breakEvenQuantity} इकाइयाँ बेचकर सम-विच्छेद करता है।"
           }
         ],
         "prompt": "प्रति इकाई परिवर्ती लागत ज्ञात कीजिए।"
@@ -764,7 +764,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लागत वसूली की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक व्यवसाय की स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है।"
+            "content": "एक व्यवसाय की स्थिर लागत ₹{fixedCost} और प्रति इकाई परिवर्ती लागत ₹{variableCostPerUnit} है।"
           }
         ],
         "prompt": "{quantity} इकाइयाँ बेचकर ₹{targetProfit} लाभ कमाने के लिए प्रति इकाई विक्रय मूल्य ज्ञात कीजिए।"
@@ -796,7 +796,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण निर्माण प्रबंधन से जुड़े एक लेन-देन का है। एक व्यवसाय की स्थिर लागत ₹{fixedCost} और अंशदान-अंतर अनुपात {contributionMarginPercent}% है।"
+            "content": "एक व्यवसाय की स्थिर लागत ₹{fixedCost} और अंशदान-अंतर अनुपात {contributionMarginPercent}% है।"
           }
         ],
         "prompt": "सम-विच्छेद राजस्व ज्ञात कीजिए।"
@@ -828,7 +828,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "व्यवसाय लागत योजना के दिए गए आंकड़ों का उपयोग कीजिए। एक व्यवसाय की स्थिर लागत ₹{fixedCost} और सम-विच्छेद राजस्व ₹{breakEvenRevenue} है।"
+            "content": "एक व्यवसाय की स्थिर लागत ₹{fixedCost} और सम-विच्छेद राजस्व ₹{breakEvenRevenue} है।"
           }
         ],
         "prompt": "अंशदान-अंतर अनुपात ज्ञात कीजिए।"
@@ -860,7 +860,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उत्पादन लागत से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक व्यवसाय निश्चित मिश्रण {productMix} में उत्पाद बेचता है।"
+            "content": "एक व्यवसाय निश्चित मिश्रण {productMix} में उत्पाद बेचता है।"
           }
         ],
         "prompt": "यदि स्थिर लागत ₹{fixedCost} है, तो सम-विच्छेद के लिए न्यूनतम पूर्ण उत्पाद-मिश्रण बंडल ज्ञात कीजिए।"
@@ -895,7 +895,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लाभ-लक्ष्य योजना के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। वास्तविक राजस्व ₹{actualRevenue} और सम-विच्छेद राजस्व ₹{breakEvenRevenue} है।"
+            "content": "वास्तविक राजस्व ₹{actualRevenue} और सम-विच्छेद राजस्व ₹{breakEvenRevenue} है।"
           }
         ],
         "prompt": "सुरक्षा-अंतर रुपये में ज्ञात कीजिए।"
@@ -927,7 +927,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ब्रेक-ईवन विश्लेषण की मूल्य-निर्धारण स्थिति नीचे दी गई है। वास्तविक राजस्व ₹{actualRevenue} और सम-विच्छेद राजस्व ₹{breakEvenRevenue} है।"
+            "content": "वास्तविक राजस्व ₹{actualRevenue} और सम-विच्छेद राजस्व ₹{breakEvenRevenue} है।"
           }
         ],
         "prompt": "वास्तविक राजस्व पर सुरक्षा-अंतर प्रतिशत ज्ञात कीजिए।"
@@ -959,7 +959,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण लागत वसूली से जुड़े एक लेन-देन का है। कई व्यावसायिक लेन-देन की कुल प्रभावी लागत ₹{totalCost} है। पूर्व प्राप्तियाँ {priorRecoveries} हैं।"
+            "content": "कई व्यावसायिक लेन-देन की कुल प्रभावी लागत ₹{totalCost} है। पूर्व प्राप्तियाँ {priorRecoveries} हैं।"
           }
         ],
         "prompt": "कुल {targetRatePercent}% {targetDirection} के लिए आवश्यक अंतिम प्राप्ति ज्ञात कीजिए।"
@@ -994,7 +994,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निर्माण प्रबंधन के दिए गए आंकड़ों का उपयोग कीजिए। एक व्यापारी अपनी पूँजी का {lossPercent}% खो देता है।"
+            "content": "एक व्यापारी अपनी पूँजी का {lossPercent}% खो देता है।"
           }
         ],
         "prompt": "मूल पूँजी वापस पाने के लिए शेष पूँजी पर कितने प्रतिशत लाभ की आवश्यकता है?"
@@ -1026,7 +1026,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "व्यवसाय लागत योजना से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। उत्पादन बैच की प्रभावी लागत ₹{effectiveCost} है और उसे ₹{grossSellingPrice} में बेचा जाता है। विक्रय मूल्य से {commissionPercent}% कमीशन काटा जाता है।"
+            "content": "उत्पादन बैच की प्रभावी लागत ₹{effectiveCost} है और उसे ₹{grossSellingPrice} में बेचा जाता है। विक्रय मूल्य से {commissionPercent}% कमीशन काटा जाता है।"
           }
         ],
         "prompt": "लाभ या हानि राशि और प्रतिशत ज्ञात कीजिए।"
@@ -1061,7 +1061,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उत्पादन लागत के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। मशीन की प्रभावी लागत ₹{effectiveCost} है। सकल विक्रय मूल्य से {commissionPercent}% कमीशन काटा जाएगा।"
+            "content": "मशीन की प्रभावी लागत ₹{effectiveCost} है। सकल विक्रय मूल्य से {commissionPercent}% कमीशन काटा जाएगा।"
           }
         ],
         "prompt": "प्रभावी लागत पर {targetRatePercent}% {targetDirection} के लिए आवश्यक सकल विक्रय मूल्य ज्ञात कीजिए।"
@@ -1097,7 +1097,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "लाभ-लक्ष्य योजना की मूल्य-निर्धारण स्थिति नीचे दी गई है। निर्माण तालिका में सामग्री, श्रम, अधिभार और पैकेजिंग लागत दी गई हैं। उत्पादन {outputQuantity} इकाइयाँ और कबाड़ प्राप्ति ₹{scrapRecovery} है।"
+            "content": "निर्माण तालिका में सामग्री, श्रम, अधिभार और पैकेजिंग लागत दी गई हैं। उत्पादन {outputQuantity} इकाइयाँ और कबाड़ प्राप्ति ₹{scrapRecovery} है।"
           },
           {
             "type": "table",
@@ -1142,7 +1142,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण ब्रेक-ईवन विश्लेषण से जुड़े एक लेन-देन का है। सम-विच्छेद केसलेट पढ़िए।"
+            "content": "सम-विच्छेद केसलेट पढ़िए।"
           },
           {
             "type": "caselet",
@@ -1181,10 +1181,6 @@
         "contextFamily": "hi:PNL-CP-006:184:लागत वसूली",
         "blocks": [
           {
-            "type": "paragraph",
-            "content": "लागत वसूली के दिए गए आंकड़ों का उपयोग कीजिए।"
-          },
-          {
             "type": "statements",
             "lead": "निम्न कथनों पर विचार कीजिए:",
             "statements": [
@@ -1221,7 +1217,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निर्माण प्रबंधन से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। क्रय मूल्य {purchasePriceExpression}, समतल व्यय {flatExpenseExpression} और प्रभावी लागत {effectiveCostExpression} है।"
+            "content": "क्रय मूल्य {purchasePriceExpression}, समतल व्यय {flatExpenseExpression} और प्रभावी लागत {effectiveCostExpression} है।"
           },
           {
             "type": "equation",
@@ -1260,7 +1256,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "व्यवसाय लागत योजना के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। सम-विच्छेद मात्रा ज्ञात करने के लिए कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
+            "content": "सम-विच्छेद मात्रा ज्ञात करने के लिए कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
           },
           {
             "type": "data_sufficiency",

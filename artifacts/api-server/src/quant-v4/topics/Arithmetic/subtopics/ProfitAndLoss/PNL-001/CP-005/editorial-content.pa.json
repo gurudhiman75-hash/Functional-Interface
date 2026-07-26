@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਮਾਪ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਦੱਸ ਕੇ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਵੇਚਣ ਦਾ ਦਾਅਵਾ ਕਰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਦੱਸ ਕੇ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਵੇਚਣ ਦਾ ਦਾਅਵਾ ਕਰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -44,7 +44,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘੱਟ ਤੋਲ ਵਪਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "{trueQuantity} ਇਕਾਈਆਂ ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਦੀ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -82,7 +82,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮਾਤਰਾ-ਆਧਾਰਿਤ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ 'ਤੇ ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ 'ਤੇ ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -120,7 +120,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਕੀਮਤ ਪ੍ਰਭਾਵ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।"
@@ -156,7 +156,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੰਡੀ ਮਾਪ-ਤੋਲ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ ਅਤੇ ਬਿੱਲ ₹{quotedSellingPricePerNominalQuantity} ਬਣਦਾ ਹੈ।"
+            "content": "ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ ਅਤੇ ਬਿੱਲ ₹{quotedSellingPricePerNominalQuantity} ਬਣਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨੀ ਮਾਤਰਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?"
@@ -189,7 +189,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਮਾਪ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ।"
+            "content": "{trueQuantity} ਇਕਾਈਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ।"
           }
         ],
         "prompt": "ਜੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੱਤੀਆਂ ਜਾਣ, ਤਾਂ ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨੀ ਰਕਮ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ?"
@@ -222,7 +222,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘੱਟ ਤੋਲ ਵਪਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਵਪਾਰੀ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਉਸਨੂੰ {receivedQuantity} ਇਕਾਈਆਂ ਮਿਲਦੀਆਂ ਹਨ। ਉਹ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਉਸਨੂੰ {receivedQuantity} ਇਕਾਈਆਂ ਮਿਲਦੀਆਂ ਹਨ। ਉਹ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -260,7 +260,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮਾਤਰਾ-ਆਧਾਰਿਤ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਵਿਕਰੇਤਾ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ₹{purchasePricePerNominalQuantity} ਵਿੱਚ ਖਰੀਦ ਕੇ {receivedQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਉਹ ਨਾਮਾਤਰ ਮਾਤਰਾ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ ਵੇਚਦਿਆਂ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਿਕਰੇਤਾ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ₹{purchasePricePerNominalQuantity} ਵਿੱਚ ਖਰੀਦ ਕੇ {receivedQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਉਹ ਨਾਮਾਤਰ ਮਾਤਰਾ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ ਵੇਚਦਿਆਂ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -295,7 +295,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਕੀਮਤ ਪ੍ਰਭਾਵ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ, {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਅਤੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ, {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਅਤੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -331,7 +331,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੰਡੀ ਮਾਪ-ਤੋਲ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨਾ ਅੰਕਨ ਪ੍ਰਤੀਸ਼ਤ ਚਾਹੀਦਾ ਹੈ?"
@@ -370,7 +370,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਮਾਪ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ ਅਤੇ ਇਹ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਹੈ।"
+            "content": "ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ ਅਤੇ ਇਹ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਹੈ।"
           }
         ],
         "prompt": "ਜੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੱਤੀਆਂ ਜਾਣ, ਤਾਂ ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਕਿੰਨੀ ਛੂਟ ਦਿੱਤੀ ਜਾਵੇ?"
@@ -409,7 +409,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘੱਟ ਤੋਲ ਵਪਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ ਦੀ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਦਾ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ ਦੀ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਦਾ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -444,7 +444,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮਾਤਰਾ-ਆਧਾਰਿਤ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਕੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਕੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -480,7 +480,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਕੀਮਤ ਪ੍ਰਭਾਵ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ।"
+            "content": "ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ ਅਸਲ ਮਾਤਰਾ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?"
@@ -512,7 +512,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੰਡੀ ਮਾਪ-ਤੋਲ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਚਾਹੁੰਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਚਾਹੁੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਉਸਨੂੰ ਕਿੰਨੀ ਮਾਤਰਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?"
@@ -547,7 +547,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਮਾਪ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਕਮਾਂਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਕਮਾਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਕੀਮਤ ਸੂਚੀ ਉੱਤੇ ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -582,7 +582,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘੱਟ ਤੋਲ ਵਪਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਹੁੰਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਹੁੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -614,7 +614,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮਾਤਰਾ-ਆਧਾਰਿਤ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ₹{actualAmount} ਦਾ ਅਸਲ {actualDirection} ਹੁੰਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ₹{actualAmount} ਦਾ ਅਸਲ {actualDirection} ਹੁੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -645,7 +645,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਕੀਮਤ ਪ੍ਰਭਾਵ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਵਪਾਰੀ ₹{purchasePricePerNominalQuantity} ਦੇ ਕੇ {receivedQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਉਹ ਹਰ ਨਾਮਾਤਰ ਵਿਕਰੀ ਲਈ ₹{sellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ।"
+            "content": "ਵਪਾਰੀ ₹{purchasePricePerNominalQuantity} ਦੇ ਕੇ {receivedQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਉਹ ਹਰ ਨਾਮਾਤਰ ਵਿਕਰੀ ਲਈ ₹{sellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਹਰ ਵਾਰ ਕਿੰਨੀ ਮਾਤਰਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?"
@@ -680,7 +680,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੰਡੀ ਮਾਪ-ਤੋਲ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਵਪਾਰੀ ਖਰੀਦ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ ਵਿੱਚ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਵਪਾਰੀ ਖਰੀਦ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ ਵਿੱਚ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ {targetRatePercent}% {targetDirection} ਲਈ ਖਰੀਦ ਵੇਲੇ ਕਿੰਨੀ ਮਾਤਰਾ ਮਿਲਣੀ ਚਾਹੀਦੀ ਹੈ?"
@@ -715,7 +715,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਮਾਪ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ।"
+            "content": "ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਤੀ ਅਸਲ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।"
@@ -746,7 +746,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘੱਟ ਤੋਲ ਵਪਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਦੋ ਬੇਈਮਾਨ ਵਿਕਰੀ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ।"
+            "content": "ਦੋ ਬੇਈਮਾਨ ਵਿਕਰੀ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ।"
           },
           {
             "type": "caselet",
@@ -789,7 +789,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮਾਤਰਾ-ਆਧਾਰਿਤ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। {trueQuantity} ਥੋਕ ਕਿਰਾਣਾਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਥੋਕ ਕਿਰਾਣਾਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਥੋਕ ਕਿਰਾਣਾਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "{trueQuantity} ਥੋਕ ਕਿਰਾਣਾਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਥੋਕ ਕਿਰਾਣਾਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਥੋਕ ਕਿਰਾਣਾਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -820,7 +820,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਕੀਮਤ ਪ੍ਰਭਾਵ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਕੱਪੜਾ ਵਿਕਰੇਤਾ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਉਸਦਾ ਗਲਤ ਮੀਟਰ ਕੇਵਲ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਮਾਪਦਾ ਹੈ।"
+            "content": "ਕੱਪੜਾ ਵਿਕਰੇਤਾ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਉਸਦਾ ਗਲਤ ਮੀਟਰ ਕੇਵਲ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਮਾਪਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਘੱਟ ਮਾਪ ਕਾਰਨ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।"
@@ -852,7 +852,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੰਡੀ ਮਾਪ-ਤੋਲ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਸਾਰਣੀ ਵਿੱਚ ਦੋ ਕੀਮਤ-ਮਾਤਰਾ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ।"
+            "content": "ਸਾਰਣੀ ਵਿੱਚ ਦੋ ਕੀਮਤ-ਮਾਤਰਾ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ।"
           },
           {
             "type": "table",
@@ -897,7 +897,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਮਾਪ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਕੇਸਲੈਟ ਅਨੁਸਾਰ ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ, ਅੰਕਨ {markupPercent}%, ਛੂਟ {discountPercent}% ਅਤੇ ਦਿੱਤੀ ਮਾਤਰਾ {deliveredQuantity} ਇਕਾਈਆਂ ਹੈ।"
+            "content": "ਕੇਸਲੈਟ ਅਨੁਸਾਰ ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ, ਅੰਕਨ {markupPercent}%, ਛੂਟ {discountPercent}% ਅਤੇ ਦਿੱਤੀ ਮਾਤਰਾ {deliveredQuantity} ਇਕਾਈਆਂ ਹੈ।"
           },
           {
             "type": "caselet",
@@ -937,7 +937,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘੱਟ ਤੋਲ ਵਪਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           },
           {
             "type": "statements",
@@ -976,7 +976,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮਾਤਰਾ-ਆਧਾਰਿਤ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਨਾਮਾਤਰ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਵਿਕਰੀ 'ਤੇ ਅਸਲ {targetRatePercent}% ਲਾਭ ਲਈ ਗਲਤ ਮਾਤਰਾ ਪਤਾ ਕਰਨ ਵਾਸਤੇ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} ਵੇਖੋ।"
+            "content": "ਨਾਮਾਤਰ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਵਿਕਰੀ 'ਤੇ ਅਸਲ {targetRatePercent}% ਲਾਭ ਲਈ ਗਲਤ ਮਾਤਰਾ ਪਤਾ ਕਰਨ ਵਾਸਤੇ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} ਵੇਖੋ।"
           },
           {
             "type": "data_sufficiency",
@@ -1020,7 +1020,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਕੀਮਤ ਪ੍ਰਭਾਵ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantityExpression} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantityExpression} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% ਲਾਭ ਕਮਾਂਦਾ ਹੈ।"
+            "content": "ਵਿਕਰੇਤਾ {trueQuantityExpression} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantityExpression} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% ਲਾਭ ਕਮਾਂਦਾ ਹੈ।"
           },
           {
             "type": "equation",

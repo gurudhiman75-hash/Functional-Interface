@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਆਨਲਾਈਨ ਆਰਡਰ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। ਇਸਨੂੰ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
+            "content": "ਆਨਲਾਈਨ ਆਰਡਰ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ। ਇਸਨੂੰ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -42,7 +42,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਪਹਿਰਾਵਾ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਪਹਿਰਾਵਾ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -74,7 +74,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। {discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ।"
+            "content": "{discountPercent}% ਛੂਟ ਦੇਣ ਤੋਂ ਬਾਅਦ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਅੰਕਿਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -105,7 +105,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -138,12 +138,7 @@
     "PNL-QL-041": {
       "stem": {
         "contextFamily": "pa:PNL-CP-002:41:ਛੂਟ ਮੁਹਿੰਮ",
-        "blocks": [
-          {
-            "type": "paragraph",
-            "content": "ਛੂਟ ਮੁਹਿੰਮ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ।"
-          }
-        ],
+        "blocks": [],
         "prompt": "ਲਗਾਤਾਰ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਛੂਟ ਦੇ ਬਰਾਬਰ ਇਕੱਲੀ ਛੂਟ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
@@ -172,7 +167,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਰਿਟੇਲ ਉਤਪਾਦ 'ਤੇ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਰਿਟੇਲ ਉਤਪਾਦ 'ਤੇ {discountPercent}% ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਰੁਪਏ ਵਿੱਚ ਛੂਟ ਪਤਾ ਕਰੋ।"
@@ -203,7 +198,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਆਨਲਾਈਨ ਆਰਡਰ 'ਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਆਨਲਾਈਨ ਆਰਡਰ 'ਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -234,7 +229,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਪਹਿਰਾਵਾ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "ਪਹਿਰਾਵਾ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ ਅਤੇ ₹{discountAmount} ਦੀ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -265,7 +260,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਵਿੱਚ ਪਹਿਲੀ ਛੂਟ {knownDiscountPercent}% ਹੈ ਅਤੇ ਸਮਤੁੱਲ ਛੂਟ {equivalentDiscountPercent}% ਹੈ।"
+            "content": "ਦੋ ਲਗਾਤਾਰ ਛੂਟਾਂ ਵਿੱਚ ਪਹਿਲੀ ਛੂਟ {knownDiscountPercent}% ਹੈ ਅਤੇ ਸਮਤੁੱਲ ਛੂਟ {equivalentDiscountPercent}% ਹੈ।"
           }
         ],
         "prompt": "ਦੂਜੀ ਛੂਟ ਪਤਾ ਕਰੋ।"
@@ -299,7 +294,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਛੂਟ ਮੁਹਿੰਮ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{markedPrice} ਦੀ ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ਇੱਕ ਦੁਕਾਨ {singleDiscountPercent}% ਇਕੱਲੀ ਛੂਟ ਅਤੇ ਦੂਜੀ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੰਦੀ ਹੈ।"
+            "content": "₹{markedPrice} ਦੀ ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ਇੱਕ ਦੁਕਾਨ {singleDiscountPercent}% ਇਕੱਲੀ ਛੂਟ ਅਤੇ ਦੂਜੀ {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੰਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -333,7 +328,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਦੁਕਾਨਦਾਰ ਪੈਕ ਕੀਤਾ ਉਤਪਾਦ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਪੈਕ ਕੀਤਾ ਉਤਪਾਦ ਨੂੰ ਖਰੀਦ ਮੁੱਲ ਤੋਂ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ।"
           },
           {
             "type": "paragraph",
@@ -373,7 +368,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{costPrice} ਖਰੀਦ ਮੁੱਲ ਵਾਲੀ ਰਿਟੇਲ ਉਤਪਾਦ ਨੂੰ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਕੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
+            "content": "₹{costPrice} ਖਰੀਦ ਮੁੱਲ ਵਾਲੀ ਰਿਟੇਲ ਉਤਪਾਦ ਨੂੰ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਕੇ {discountPercent}% ਛੂਟ 'ਤੇ ਵੇਚਿਆ ਜਾਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।"
@@ -409,7 +404,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਆਨਲਾਈਨ ਆਰਡਰ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ।"
+            "content": "ਆਨਲਾਈਨ ਆਰਡਰ ਦਾ ਖਰੀਦ ਮੁੱਲ ₹{costPrice} ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ₹{markedPrice} ਹੈ।"
           }
         ],
         "prompt": "{targetRatePercent}% {targetDirection} ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰੋ।"
@@ -441,10 +436,6 @@
       "stem": {
         "contextFamily": "pa:PNL-CP-002:50:ਰਿਟੇਲ ਆਫਰ",
         "blocks": [
-          {
-            "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ।"
-          },
           {
             "type": "paragraph",
             "content": "ਵਸਤੂ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
@@ -481,7 +472,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਛੂਟ ਮੁਹਿੰਮ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਸਟੋਰ ਇੱਕੋ ਜਿਹੀਆਂ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨਆਂ 'ਤੇ {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਪੇਸ਼ਕਸ਼ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਸਟੋਰ ਇੱਕੋ ਜਿਹੀਆਂ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨਆਂ 'ਤੇ {paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਪੇਸ਼ਕਸ਼ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਸਮਤੁੱਲ ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -516,7 +507,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਹਰ ਘਰੇਲੂ ਉਪਕਰਣ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{unitMarkedPrice} ਹੈ।"
+            "content": "ਹਰ ਘਰੇਲੂ ਉਪਕਰਣ ਦਾ ਅੰਕਿਤ ਮੁੱਲ ₹{unitMarkedPrice} ਹੈ।"
           }
         ],
         "prompt": "{paidUnits} ਖਰੀਦੋ, {freeUnits} ਮੁਫ਼ਤ ਲਵੋ ਹੇਠ ਪ੍ਰਤੀ ਘਰੇਲੂ ਉਪਕਰਣ ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -551,7 +542,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਗਾਹਕ ₹{billedPrice} ਅਦਾ ਕਰਦਾ ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਲੈਂਦਾ ਹੈ।"
+            "content": "ਗਾਹਕ ₹{billedPrice} ਅਦਾ ਕਰਦਾ ਹੈ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਲੈਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -582,7 +573,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{billedPrice} ਦੇ ਭੁਗਤਾਨ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ।"
+            "content": "₹{billedPrice} ਦੇ ਭੁਗਤਾਨ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -613,7 +604,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਆਨਲਾਈਨ ਆਰਡਰ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਆਨਲਾਈਨ ਆਰਡਰ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -647,7 +638,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਛੂਟ ਮੁਹਿੰਮ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{markedPrice} ਦੀ ਪਹਿਰਾਵਾ 'ਤੇ ਇੱਕ ਵੇਚਣ ਵਾਲਾ {discountPercent}% ਛੂਟ ਅਤੇ ਦੂਜਾ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਦਿੰਦਾ ਹੈ।"
+            "content": "₹{markedPrice} ਦੀ ਪਹਿਰਾਵਾ 'ਤੇ ਇੱਕ ਵੇਚਣ ਵਾਲਾ {discountPercent}% ਛੂਟ ਅਤੇ ਦੂਜਾ ₹{cashbackAmount} ਕੈਸ਼ਬੈਕ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -681,7 +672,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ 'ਤੇ {firstDiscountPercent}%, {secondDiscountPercent}% ਅਤੇ {thirdDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ 'ਤੇ {firstDiscountPercent}%, {secondDiscountPercent}% ਅਤੇ {thirdDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -716,7 +707,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{couponAmount} ਦਾ ਕੂਪਨ ਘੱਟੋ-ਘੱਟ ₹{minimumSpend} ਦੇ ਬਿੱਲ 'ਤੇ ਲਾਗੂ ਹੈ।"
+            "content": "₹{couponAmount} ਦਾ ਕੂਪਨ ਘੱਟੋ-ਘੱਟ ₹{minimumSpend} ਦੇ ਬਿੱਲ 'ਤੇ ਲਾਗੂ ਹੈ।"
           }
         ],
         "prompt": "₹{billedPrice} ਦੇ ਬਿੱਲ ਲਈ ਯੋਗਤਾ ਅਤੇ ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -750,7 +741,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{markedPrice} ਦੀ ਪੈਕ ਕੀਤਾ ਉਤਪਾਦ 'ਤੇ ਪਹਿਲਾਂ {discountPercent}% ਛੂਟ ਅਤੇ ਫਿਰ ਘਟੇ ਮੁੱਲ 'ਤੇ {couponPercent}% ਕੂਪਨ ਲੱਗਦਾ ਹੈ।"
+            "content": "₹{markedPrice} ਦੀ ਪੈਕ ਕੀਤਾ ਉਤਪਾਦ 'ਤੇ ਪਹਿਲਾਂ {discountPercent}% ਛੂਟ ਅਤੇ ਫਿਰ ਘਟੇ ਮੁੱਲ 'ਤੇ {couponPercent}% ਕੂਪਨ ਲੱਗਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -784,7 +775,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap} ਤੱਕ।"
+            "content": "₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ ਮਿਲਦਾ ਹੈ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap} ਤੱਕ।"
           }
         ],
         "prompt": "ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -818,7 +809,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਛੂਟ ਮੁਹਿੰਮ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{markedPrice} ਦੀ ਆਨਲਾਈਨ ਆਰਡਰ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap}, ਮਿਲਦਾ ਹੈ।"
+            "content": "₹{markedPrice} ਦੀ ਆਨਲਾਈਨ ਆਰਡਰ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ਮੂਲ ਅੰਕਿਤ ਮੁੱਲ 'ਤੇ {cashbackPercent}% ਕੈਸ਼ਬੈਕ, ਵੱਧ ਤੋਂ ਵੱਧ ₹{cashbackCap}, ਮਿਲਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਬਿੱਲ ਮੁੱਲ, ਕੈਸ਼ਬੈਕ ਅਤੇ ਪ੍ਰਭਾਵੀ ਲਾਗਤ ਪਤਾ ਕਰੋ।"
@@ -852,7 +843,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਛੂਟ ਅੰਕਿਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
+            "content": "ਛੂਟ ਅੰਕਿਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
           }
         ],
         "prompt": "ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -886,7 +877,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਅਦਾ ਕੀਤੇ ਮੁੱਲ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {paidPart}:{markedPart} ਹੈ।"
+            "content": "ਅਦਾ ਕੀਤੇ ਮੁੱਲ ਅਤੇ ਅੰਕਿਤ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {paidPart}:{markedPart} ਹੈ।"
           }
         ],
         "prompt": "ਛੂਟ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -920,7 +911,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੁਕਾਨ A {discountPercent}% ਛੂਟ ਦਿੰਦੀ ਹੈ। ਦੁਕਾਨ B ₹{couponAmount} ਦਾ ਕੂਪਨ ਦਿੰਦੀ ਹੈ ਜੋ ₹{minimumSpend} ਤੋਂ ਲਾਗੂ ਹੈ।"
+            "content": "₹{billedPrice} ਦੇ ਬਿੱਲ 'ਤੇ ਦੁਕਾਨ A {discountPercent}% ਛੂਟ ਦਿੰਦੀ ਹੈ। ਦੁਕਾਨ B ₹{couponAmount} ਦਾ ਕੂਪਨ ਦਿੰਦੀ ਹੈ ਜੋ ₹{minimumSpend} ਤੋਂ ਲਾਗੂ ਹੈ।"
           }
         ],
         "prompt": "ਯੋਗ ਵਧੀਆ ਪੇਸ਼ਕਸ਼ ਅਤੇ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -954,7 +945,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਸਾਰਣੀ ਵਿੱਚ ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਪੈਕ ਕੀਤਾ ਉਤਪਾਦ ਦੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਹਨ।"
+            "content": "ਸਾਰਣੀ ਵਿੱਚ ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਪੈਕ ਕੀਤਾ ਉਤਪਾਦ ਦੀਆਂ ਪੇਸ਼ਕਸ਼ਾਂ ਹਨ।"
           },
           {
             "type": "table",
@@ -999,7 +990,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਛੂਟ ਮੁਹਿੰਮ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਵੇਚਣ ਵਾਲਾ ਰਿਟੇਲ ਉਤਪਾਦ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵੇਚਣ ਵਾਲਾ ਰਿਟੇਲ ਉਤਪਾਦ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ ਹੈ ਅਤੇ {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਹੈ।"
           },
           {
             "type": "caselet",
@@ -1040,7 +1031,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਖਰੀਦ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। {firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਗਈ।"
+            "content": "{firstDiscountPercent}% ਅਤੇ {secondDiscountPercent}% ਲਗਾਤਾਰ ਛੂਟ ਦਿੱਤੀ ਗਈ।"
           },
           {
             "type": "statements",
@@ -1079,7 +1070,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਟੋਰ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਅੰਕਿਤ ਮੁੱਲ {markedPriceExpression} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ {sellingPriceExpression} ਹੈ।"
+            "content": "ਅੰਕਿਤ ਮੁੱਲ {markedPriceExpression} ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ {sellingPriceExpression} ਹੈ।"
           },
           {
             "type": "equation",
@@ -1115,7 +1106,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪ੍ਰਚਾਰਕ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਉਪਲਬਧ ਹੈ।"
+            "content": "₹{markedPrice} ਅੰਕਿਤ ਮੁੱਲ ਵਾਲੀ ਇਲੈਕਟ੍ਰਾਨਿਕ ਸਮਾਨ 'ਤੇ {discountPercent}% ਛੂਟ ਅਤੇ ₹{couponAmount} ਦਾ ਕੂਪਨ ਉਪਲਬਧ ਹੈ।"
           }
         ],
         "prompt": "ਛੂਟ-ਫਿਰ-ਕੂਪਨ ਅਤੇ ਕੂਪਨ-ਫਿਰ-ਛੂਟ ਦੀ ਤੁਲਨਾ ਕਰਕੇ ਵਧੀਆ ਕ੍ਰਮ ਅਤੇ ਮੁੱਲ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -1149,7 +1140,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਆਫਰ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਲਕਸ਼ਿਤ ਲਾਭ ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰਨ ਵਾਸਤੇ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ।"
+            "content": "ਲਕਸ਼ਿਤ ਲਾਭ ਲਈ ਲੋੜੀਂਦੀ ਛੂਟ ਪਤਾ ਕਰਨ ਵਾਸਤੇ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ।"
           },
           {
             "type": "data_sufficiency",

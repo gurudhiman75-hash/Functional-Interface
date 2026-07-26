@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। ऑनलाइन ऑर्डर का अंकित मूल्य ₹{markedPrice} है। इसे {discountPercent}% छूट पर बेचा जाता है।"
+            "content": "ऑनलाइन ऑर्डर का अंकित मूल्य ₹{markedPrice} है। इसे {discountPercent}% छूट पर बेचा जाता है।"
           }
         ],
         "prompt": "विक्रय मूल्य ज्ञात कीजिए।"
@@ -42,7 +42,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। ₹{markedPrice} अंकित मूल्य वाली परिधान ₹{sellingPrice} में बेची गई।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली परिधान ₹{sellingPrice} में बेची गई।"
           }
         ],
         "prompt": "छूट प्रतिशत ज्ञात कीजिए।"
@@ -74,7 +74,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। {discountPercent}% छूट देने के बाद इलेक्ट्रॉनिक सामान ₹{sellingPrice} में बेची गई।"
+            "content": "{discountPercent}% छूट देने के बाद इलेक्ट्रॉनिक सामान ₹{sellingPrice} में बेची गई।"
           }
         ],
         "prompt": "उसका अंकित मूल्य ज्ञात कीजिए।"
@@ -105,7 +105,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। ₹{markedPrice} अंकित मूल्य वाली घरेलू उपकरण पर क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% छूट दी जाती है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली घरेलू उपकरण पर क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% छूट दी जाती है।"
           }
         ],
         "prompt": "अंतिम विक्रय मूल्य ज्ञात कीजिए।"
@@ -138,12 +138,7 @@
     "PNL-QL-041": {
       "stem": {
         "contextFamily": "hi:PNL-CP-002:41:छूट अभियान",
-        "blocks": [
-          {
-            "type": "paragraph",
-            "content": "छूट अभियान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए।"
-          }
-        ],
+        "blocks": [],
         "prompt": "क्रमशः {firstDiscountPercent}% और {secondDiscountPercent}% की छूट के बराबर एकल छूट ज्ञात कीजिए।"
       },
       "explanation": {
@@ -172,7 +167,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। ₹{markedPrice} अंकित मूल्य वाली रिटेल उत्पाद पर {discountPercent}% छूट दी जाती है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली रिटेल उत्पाद पर {discountPercent}% छूट दी जाती है।"
           }
         ],
         "prompt": "रुपये में छूट ज्ञात कीजिए।"
@@ -203,7 +198,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। ₹{markedPrice} अंकित मूल्य वाली ऑनलाइन ऑर्डर पर ₹{discountAmount} की छूट दी जाती है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली ऑनलाइन ऑर्डर पर ₹{discountAmount} की छूट दी जाती है।"
           }
         ],
         "prompt": "छूट प्रतिशत ज्ञात कीजिए।"
@@ -234,7 +229,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। परिधान का अंकित मूल्य ₹{markedPrice} है और ₹{discountAmount} की छूट दी जाती है।"
+            "content": "परिधान का अंकित मूल्य ₹{markedPrice} है और ₹{discountAmount} की छूट दी जाती है।"
           }
         ],
         "prompt": "विक्रय मूल्य ज्ञात कीजिए।"
@@ -265,7 +260,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। दो क्रमिक छूटों में पहली छूट {knownDiscountPercent}% है और समतुल्य छूट {equivalentDiscountPercent}% है।"
+            "content": "दो क्रमिक छूटों में पहली छूट {knownDiscountPercent}% है और समतुल्य छूट {equivalentDiscountPercent}% है।"
           }
         ],
         "prompt": "दूसरी छूट ज्ञात कीजिए।"
@@ -299,7 +294,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "छूट अभियान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{markedPrice} अंकित मूल्य वाली घरेलू उपकरण पर एक दुकान {singleDiscountPercent}% की एकल छूट देती है, जबकि दूसरी दुकान {firstDiscountPercent}% और {secondDiscountPercent}% की क्रमिक छूट देती है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली घरेलू उपकरण पर एक दुकान {singleDiscountPercent}% की एकल छूट देती है, जबकि दूसरी दुकान {firstDiscountPercent}% और {secondDiscountPercent}% की क्रमिक छूट देती है।"
           }
         ],
         "prompt": "बेहतर प्रस्ताव और अंतर ज्ञात कीजिए।"
@@ -333,7 +328,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक दुकानदार पैक किया हुआ उत्पाद को क्रय मूल्य से {markupPercent}% अधिक अंकित करता है और {discountPercent}% छूट देता है।"
+            "content": "एक दुकानदार पैक किया हुआ उत्पाद को क्रय मूल्य से {markupPercent}% अधिक अंकित करता है और {discountPercent}% छूट देता है।"
           },
           {
             "type": "paragraph",
@@ -373,7 +368,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। ₹{costPrice} क्रय मूल्य वाली रिटेल उत्पाद को {markupPercent}% अधिक अंकित कर {discountPercent}% छूट पर बेचा जाता है।"
+            "content": "₹{costPrice} क्रय मूल्य वाली रिटेल उत्पाद को {markupPercent}% अधिक अंकित कर {discountPercent}% छूट पर बेचा जाता है।"
           }
         ],
         "prompt": "लाभ या हानि ज्ञात कीजिए।"
@@ -409,7 +404,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ऑनलाइन ऑर्डर का क्रय मूल्य ₹{costPrice} और अंकित मूल्य ₹{markedPrice} है।"
+            "content": "ऑनलाइन ऑर्डर का क्रय मूल्य ₹{costPrice} और अंकित मूल्य ₹{markedPrice} है।"
           }
         ],
         "prompt": "{targetRatePercent}% {targetDirection} के लिए आवश्यक छूट ज्ञात कीजिए।"
@@ -441,10 +436,6 @@
       "stem": {
         "contextFamily": "hi:PNL-CP-002:50:रिटेल ऑफर",
         "blocks": [
-          {
-            "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है।"
-          },
           {
             "type": "paragraph",
             "content": "वस्तु का क्रय मूल्य ₹{costPrice} है।"
@@ -481,7 +472,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "छूट अभियान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक दुकान समान इलेक्ट्रॉनिक सामानओं पर {paidUnits} खरीदें, {freeUnits} मुफ्त पाएं प्रस्ताव देती है।"
+            "content": "एक दुकान समान इलेक्ट्रॉनिक सामानओं पर {paidUnits} खरीदें, {freeUnits} मुफ्त पाएं प्रस्ताव देती है।"
           }
         ],
         "prompt": "समतुल्य छूट प्रतिशत ज्ञात कीजिए।"
@@ -516,7 +507,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। प्रत्येक घरेलू उपकरण का अंकित मूल्य ₹{unitMarkedPrice} है।"
+            "content": "प्रत्येक घरेलू उपकरण का अंकित मूल्य ₹{unitMarkedPrice} है।"
           }
         ],
         "prompt": "{paidUnits} खरीदें, {freeUnits} मुफ्त पाएं प्रस्ताव में प्रति घरेलू उपकरण प्रभावी मूल्य ज्ञात कीजिए।"
@@ -551,7 +542,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। ग्राहक ₹{billedPrice} का भुगतान करता है और बाद में ₹{cashbackAmount} कैशबैक प्राप्त करता है।"
+            "content": "ग्राहक ₹{billedPrice} का भुगतान करता है और बाद में ₹{cashbackAmount} कैशबैक प्राप्त करता है।"
           }
         ],
         "prompt": "प्रभावी लागत ज्ञात कीजिए।"
@@ -582,7 +573,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{billedPrice} के भुगतान पर {cashbackPercent}% कैशबैक मिलता है।"
+            "content": "₹{billedPrice} के भुगतान पर {cashbackPercent}% कैशबैक मिलता है।"
           }
         ],
         "prompt": "प्रभावी लागत ज्ञात कीजिए।"
@@ -613,7 +604,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। ₹{markedPrice} अंकित मूल्य वाली ऑनलाइन ऑर्डर पर {discountPercent}% छूट और ₹{couponAmount} का कूपन लागू होता है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली ऑनलाइन ऑर्डर पर {discountPercent}% छूट और ₹{couponAmount} का कूपन लागू होता है।"
           }
         ],
         "prompt": "प्रभावी मूल्य ज्ञात कीजिए।"
@@ -647,7 +638,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "छूट अभियान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{markedPrice} की परिधान पर एक विक्रेता {discountPercent}% छूट और दूसरा ₹{cashbackAmount} कैशबैक देता है।"
+            "content": "₹{markedPrice} की परिधान पर एक विक्रेता {discountPercent}% छूट और दूसरा ₹{cashbackAmount} कैशबैक देता है।"
           }
         ],
         "prompt": "बेहतर प्रस्ताव और अंतर ज्ञात कीजिए।"
@@ -681,7 +672,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। ₹{markedPrice} अंकित मूल्य वाली इलेक्ट्रॉनिक सामान पर {firstDiscountPercent}%, {secondDiscountPercent}% और {thirdDiscountPercent}% क्रमिक छूट दी जाती है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली इलेक्ट्रॉनिक सामान पर {firstDiscountPercent}%, {secondDiscountPercent}% और {thirdDiscountPercent}% क्रमिक छूट दी जाती है।"
           }
         ],
         "prompt": "अंतिम विक्रय मूल्य ज्ञात कीजिए।"
@@ -716,7 +707,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। ₹{couponAmount} का कूपन कम से कम ₹{minimumSpend} के बिल पर लागू है।"
+            "content": "₹{couponAmount} का कूपन कम से कम ₹{minimumSpend} के बिल पर लागू है।"
           }
         ],
         "prompt": "₹{billedPrice} के बिल पर पात्रता और प्रभावी मूल्य ज्ञात कीजिए।"
@@ -750,7 +741,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{markedPrice} की पैक किया हुआ उत्पाद पर पहले {discountPercent}% छूट और फिर घटे मूल्य पर {couponPercent}% कूपन लगाया गया।"
+            "content": "₹{markedPrice} की पैक किया हुआ उत्पाद पर पहले {discountPercent}% छूट और फिर घटे मूल्य पर {couponPercent}% कूपन लगाया गया।"
           }
         ],
         "prompt": "प्रभावी मूल्य ज्ञात कीजिए।"
@@ -784,7 +775,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। ₹{billedPrice} के बिल पर {cashbackPercent}% कैशबैक मिलता है, अधिकतम ₹{cashbackCap} तक।"
+            "content": "₹{billedPrice} के बिल पर {cashbackPercent}% कैशबैक मिलता है, अधिकतम ₹{cashbackCap} तक।"
           }
         ],
         "prompt": "कैशबैक और प्रभावी लागत ज्ञात कीजिए।"
@@ -818,7 +809,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "छूट अभियान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{markedPrice} की ऑनलाइन ऑर्डर पर {discountPercent}% छूट और मूल अंकित मूल्य पर {cashbackPercent}% कैशबैक, अधिकतम ₹{cashbackCap}, मिलता है।"
+            "content": "₹{markedPrice} की ऑनलाइन ऑर्डर पर {discountPercent}% छूट और मूल अंकित मूल्य पर {cashbackPercent}% कैशबैक, अधिकतम ₹{cashbackCap}, मिलता है।"
           }
         ],
         "prompt": "बिल मूल्य, कैशबैक और प्रभावी लागत ज्ञात कीजिए।"
@@ -852,7 +843,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। छूट अंकित मूल्य का {fractionNumerator}/{fractionDenominator} है।"
+            "content": "छूट अंकित मूल्य का {fractionNumerator}/{fractionDenominator} है।"
           }
         ],
         "prompt": "छूट प्रतिशत ज्ञात कीजिए।"
@@ -886,7 +877,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। भुगतान किए गए मूल्य और अंकित मूल्य का अनुपात {paidPart}:{markedPart} है।"
+            "content": "भुगतान किए गए मूल्य और अंकित मूल्य का अनुपात {paidPart}:{markedPart} है।"
           }
         ],
         "prompt": "छूट प्रतिशत ज्ञात कीजिए।"
@@ -920,7 +911,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{billedPrice} के बिल पर दुकान A {discountPercent}% छूट देती है। दुकान B ₹{couponAmount} का कूपन देती है जो ₹{minimumSpend} से लागू है।"
+            "content": "₹{billedPrice} के बिल पर दुकान A {discountPercent}% छूट देती है। दुकान B ₹{couponAmount} का कूपन देती है जो ₹{minimumSpend} से लागू है।"
           }
         ],
         "prompt": "पात्र बेहतर प्रस्ताव और अंतर ज्ञात कीजिए।"
@@ -954,7 +945,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। तालिका में ₹{markedPrice} अंकित मूल्य वाली पैक किया हुआ उत्पाद के प्रस्ताव दिए हैं।"
+            "content": "तालिका में ₹{markedPrice} अंकित मूल्य वाली पैक किया हुआ उत्पाद के प्रस्ताव दिए हैं।"
           },
           {
             "type": "table",
@@ -999,7 +990,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "छूट अभियान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक विक्रेता रिटेल उत्पाद ₹{costPrice} में खरीदता है, {markupPercent}% अधिक अंकित करता है और {discountPercent}% छूट देता है।"
+            "content": "एक विक्रेता रिटेल उत्पाद ₹{costPrice} में खरीदता है, {markupPercent}% अधिक अंकित करता है और {discountPercent}% छूट देता है।"
           },
           {
             "type": "caselet",
@@ -1040,7 +1031,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ऑनलाइन खरीद की मूल्य-निर्धारण स्थिति नीचे दी गई है। {firstDiscountPercent}% और {secondDiscountPercent}% क्रमिक छूट दी गई।"
+            "content": "{firstDiscountPercent}% और {secondDiscountPercent}% क्रमिक छूट दी गई।"
           },
           {
             "type": "statements",
@@ -1079,7 +1070,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्टोर मूल्य-निर्धारण से जुड़े एक लेन-देन का है। अंकित मूल्य {markedPriceExpression} और विक्रय मूल्य {sellingPriceExpression} है।"
+            "content": "अंकित मूल्य {markedPriceExpression} और विक्रय मूल्य {sellingPriceExpression} है।"
           },
           {
             "type": "equation",
@@ -1115,7 +1106,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "प्रमोशनल बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{markedPrice} अंकित मूल्य वाली इलेक्ट्रॉनिक सामान पर {discountPercent}% छूट और ₹{couponAmount} का कूपन उपलब्ध है।"
+            "content": "₹{markedPrice} अंकित मूल्य वाली इलेक्ट्रॉनिक सामान पर {discountPercent}% छूट और ₹{couponAmount} का कूपन उपलब्ध है।"
           }
         ],
         "prompt": "छूट-फिर-कूपन और कूपन-फिर-छूट की तुलना कर बेहतर क्रम और मूल्य अंतर ज्ञात कीजिए।"
@@ -1149,7 +1140,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "रिटेल ऑफर से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। लक्षित लाभ के लिए आवश्यक छूट ज्ञात करने हेतु कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
+            "content": "लक्षित लाभ के लिए आवश्यक छूट ज्ञात करने हेतु कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
           },
           {
             "type": "data_sufficiency",

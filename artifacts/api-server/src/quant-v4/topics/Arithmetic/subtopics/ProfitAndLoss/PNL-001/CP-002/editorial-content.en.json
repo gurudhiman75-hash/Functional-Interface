@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Consider this fashion-clearance sale situation. The marked price of the jacket is ₹{markedPrice}. It is sold at a discount of {discountPercent}%."
+            "content": "The marked price of the jacket is ₹{markedPrice}. It is sold at a discount of {discountPercent}%."
           }
         ],
         "prompt": "Find the selling price."
@@ -42,7 +42,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this electronics markdown setting. The tablet marked at ₹{markedPrice} is sold for ₹{sellingPrice}."
+            "content": "The tablet marked at ₹{markedPrice} is sold for ₹{sellingPrice}."
           }
         ],
         "prompt": "Find the discount percentage."
@@ -74,7 +74,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a furniture-price recovery setting. After allowing a discount of {discountPercent}%, a retailer sells the bookshelf for ₹{sellingPrice}."
+            "content": "After allowing a discount of {discountPercent}%, a retailer sells the bookshelf for ₹{sellingPrice}."
           }
         ],
         "prompt": "Find its marked price."
@@ -105,7 +105,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "This festival successive-discount sale transaction is described below. The home-appliance set marked at ₹{markedPrice} is offered at successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+            "content": "The home-appliance set marked at ₹{markedPrice} is offered at successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
           }
         ],
         "prompt": "Find the final selling price."
@@ -140,7 +140,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "During this supermarket equivalent-discount offer decision, the following information is available. The supermarket offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+            "content": "The supermarket offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
           }
         ],
         "prompt": "Find the single equivalent discount."
@@ -171,7 +171,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Consider this bookstore discount amount situation. The competitive-exam book set is marked at ₹{markedPrice} and sold at a discount of {discountPercent}%."
+            "content": "The competitive-exam book set is marked at ₹{markedPrice} and sold at a discount of {discountPercent}%."
           }
         ],
         "prompt": "Find the discount allowed in rupees."
@@ -202,7 +202,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this pharmacy discount-rate calculation setting. A discount of ₹{discountAmount} is allowed on the health-monitoring kit marked at ₹{markedPrice}."
+            "content": "A discount of ₹{discountAmount} is allowed on the health-monitoring kit marked at ₹{markedPrice}."
           }
         ],
         "prompt": "Find the discount percentage."
@@ -233,7 +233,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a appliance flat-reduction sale setting. The marked price of the microwave oven is ₹{markedPrice}. A discount of ₹{discountAmount} is allowed."
+            "content": "The marked price of the microwave oven is ₹{markedPrice}. A discount of ₹{discountAmount} is allowed."
           }
         ],
         "prompt": "Find the selling price."
@@ -264,7 +264,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "This apparel two-stage discount transaction is described below. Two successive discounts are offered. The first discount is {knownDiscountPercent}% and the equivalent discount is {equivalentDiscountPercent}%."
+            "content": "Two successive discounts are offered. The first discount is {knownDiscountPercent}% and the equivalent discount is {equivalentDiscountPercent}%."
           }
         ],
         "prompt": "Find the second discount."
@@ -298,7 +298,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "During this online-offer comparison decision, the following information is available. On the wireless speaker marked at ₹{markedPrice}, one shop offers {singleDiscountPercent}% discount and another offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
+            "content": "On the wireless speaker marked at ₹{markedPrice}, one shop offers {singleDiscountPercent}% discount and another offers successive discounts of {firstDiscountPercent}% and {secondDiscountPercent}%."
           }
         ],
         "prompt": "Which offer is better, and by how much?"
@@ -368,7 +368,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this footwear profit-amount sale setting. The sports-shoe pair costing ₹{costPrice} is marked {markupPercent}% above cost and sold after {discountPercent}% discount."
+            "content": "The sports-shoe pair costing ₹{costPrice} is marked {markupPercent}% above cost and sold after {discountPercent}% discount."
           }
         ],
         "prompt": "Find the profit or loss incurred."
@@ -404,7 +404,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a dealer target-margin pricing setting. The water purifier costs ₹{costPrice} and is marked at ₹{markedPrice}."
+            "content": "The water purifier costs ₹{costPrice} and is marked at ₹{markedPrice}."
           }
         ],
         "prompt": "Find the discount required to earn {targetRatePercent}% {targetDirection}."
@@ -472,7 +472,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "During this supermarket bundle promotion decision, the following information is available. A store offers Buy {paidUnits}, get {freeUnits} free on identical articles."
+            "content": "A store offers Buy {paidUnits}, get {freeUnits} free on identical articles."
           }
         ],
         "prompt": "Find the equivalent discount percentage."
@@ -507,7 +507,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Consider this beverage multipack promotion situation. Each juice bottle is marked at ₹{unitMarkedPrice}. Under Buy {paidUnits}, get {freeUnits} free,"
+            "content": "Each juice bottle is marked at ₹{unitMarkedPrice}. Under Buy {paidUnits}, get {freeUnits} free,"
           }
         ],
         "prompt": "Find the effective price per juice bottle."
@@ -542,7 +542,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this digital-wallet cashback setting. A customer pays ₹{billedPrice} and later receives ₹{cashbackAmount} cashback."
+            "content": "A customer pays ₹{billedPrice} and later receives ₹{cashbackAmount} cashback."
           }
         ],
         "prompt": "Find the effective cost."
@@ -573,7 +573,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a card-payment cashback setting. A payment of ₹{billedPrice} earns {cashbackPercent}% cashback."
+            "content": "A payment of ₹{billedPrice} earns {cashbackPercent}% cashback."
           }
         ],
         "prompt": "Find the effective cost."
@@ -604,7 +604,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "This furniture coupon sale transaction is described below. The office desk marked at ₹{markedPrice} gets {discountPercent}% discount and an additional coupon of ₹{couponAmount}."
+            "content": "The office desk marked at ₹{markedPrice} gets {discountPercent}% discount and an additional coupon of ₹{couponAmount}."
           }
         ],
         "prompt": "Find the effective price."
@@ -638,7 +638,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "During this travel-bag offer comparison decision, the following information is available. For the travel bag marked at ₹{markedPrice}, one seller offers {discountPercent}% discount and another offers ₹{cashbackAmount} cashback."
+            "content": "For the travel bag marked at ₹{markedPrice}, one seller offers {discountPercent}% discount and another offers ₹{cashbackAmount} cashback."
           }
         ],
         "prompt": "Which offer gives the lower effective cost, and by how much?"
@@ -672,7 +672,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Consider this seasonal triple-discount clearance situation. The winterwear bundle marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%."
+            "content": "The winterwear bundle marked at ₹{markedPrice} gets successive discounts of {firstDiscountPercent}%, {secondDiscountPercent}% and {thirdDiscountPercent}%."
           }
         ],
         "prompt": "Find the final selling price."
@@ -707,7 +707,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this minimum-spend grocery coupon setting. A coupon of ₹{couponAmount} applies when the bill is at least ₹{minimumSpend}. For a bill of ₹{billedPrice}, state whether it applies and"
+            "content": "A coupon of ₹{couponAmount} applies when the bill is at least ₹{minimumSpend}. For a bill of ₹{billedPrice}, state whether it applies and"
           }
         ],
         "prompt": "Find the effective price."
@@ -741,7 +741,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a sportswear percentage coupon setting. The sportswear set marked at ₹{markedPrice} gets {discountPercent}% discount followed by a {couponPercent}% coupon on the discounted price."
+            "content": "The sportswear set marked at ₹{markedPrice} gets {discountPercent}% discount followed by a {couponPercent}% coupon on the discounted price."
           }
         ],
         "prompt": "Find the effective price."
@@ -775,7 +775,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "This bank-cashback cap transaction is described below. A bill of ₹{billedPrice} earns {cashbackPercent}% cashback subject to a cap of ₹{cashbackCap}."
+            "content": "A bill of ₹{billedPrice} earns {cashbackPercent}% cashback subject to a cap of ₹{cashbackCap}."
           }
         ],
         "prompt": "Find the cashback and effective cost."
@@ -809,7 +809,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "During this marketplace original-price cashback decision, the following information is available. The smartphone marked at ₹{markedPrice} gets {discountPercent}% discount and then {cashbackPercent}% cashback on the original marked price, capped at ₹{cashbackCap}."
+            "content": "The smartphone marked at ₹{markedPrice} gets {discountPercent}% discount and then {cashbackPercent}% cashback on the original marked price, capped at ₹{cashbackCap}."
           }
         ],
         "prompt": "Find the billed price, cashback and effective cost."
@@ -843,7 +843,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Consider this fractional markdown situation. The discount is {fractionNumerator}/{fractionDenominator} of the marked price."
+            "content": "The discount is {fractionNumerator}/{fractionDenominator} of the marked price."
           }
         ],
         "prompt": "Find the discount percentage."
@@ -877,7 +877,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this catalog-price ratio setting. The ratio of price paid to marked price is {paidPart}:{markedPart}."
+            "content": "The ratio of price paid to marked price is {paidPart}:{markedPart}."
           }
         ],
         "prompt": "Find the discount percentage."
@@ -911,7 +911,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a mixed-offer eligibility setting. For a bill of ₹{billedPrice}, Shop A offers {discountPercent}% discount. Shop B offers a coupon of ₹{couponAmount} valid from ₹{minimumSpend}."
+            "content": "For a bill of ₹{billedPrice}, Shop A offers {discountPercent}% discount. Shop B offers a coupon of ₹{couponAmount} valid from ₹{minimumSpend}."
           }
         ],
         "prompt": "Identify the eligible better offer and find the effective-cost difference."
@@ -1106,7 +1106,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "Use the following information from a coupon-order optimisation setting. On the online-cart item marked at ₹{markedPrice}, a {discountPercent}% discount and a flat coupon of ₹{couponAmount} are available. Compare discount-then-coupon with coupon-then-discount and"
+            "content": "On the online-cart item marked at ₹{markedPrice}, a {discountPercent}% discount and a flat coupon of ₹{couponAmount} are available. Compare discount-then-coupon with coupon-then-discount and"
           }
         ],
         "prompt": "Find the better order and price difference."

@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक विक्रेता ने मिक्सर ₹{costPrice} में खरीदा और ₹{sellingPrice} में बेचा।"
+            "content": "एक विक्रेता ने मिक्सर ₹{costPrice} में खरीदा और ₹{sellingPrice} में बेचा।"
           }
         ],
         "prompt": "उसे कितना लाभ हुआ?"
@@ -42,7 +42,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक दुकानदार ने मेज ₹{costPrice} में खरीदी, लेकिन ₹{sellingPrice} में बेच दी।"
+            "content": "एक दुकानदार ने मेज ₹{costPrice} में खरीदी, लेकिन ₹{sellingPrice} में बेच दी।"
           }
         ],
         "prompt": "हुई हानि ज्ञात कीजिए।"
@@ -73,7 +73,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण पुनर्विक्रय से जुड़े एक लेन-देन का है। एक साइकिल ₹{costPrice} में खरीदी गई और ₹{sellingPrice} में बेची गई।"
+            "content": "एक साइकिल ₹{costPrice} में खरीदी गई और ₹{sellingPrice} में बेची गई।"
           }
         ],
         "prompt": "लाभ प्रतिशत ज्ञात कीजिए।"
@@ -105,7 +105,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। एक व्यापारी ने कार्यालय सामग्री ₹{costPrice} में खरीदी और ₹{sellingPrice} में बेची।"
+            "content": "एक व्यापारी ने कार्यालय सामग्री ₹{costPrice} में खरीदी और ₹{sellingPrice} में बेची।"
           }
         ],
         "prompt": "हानि प्रतिशत कितना था?"
@@ -137,7 +137,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक उपकरण का क्रय मूल्य ₹{costPrice} है।"
+            "content": "एक उपकरण का क्रय मूल्य ₹{costPrice} है।"
           }
         ],
         "prompt": "{profitPercent}% लाभ कमाने के लिए उसे किस मूल्य पर बेचना चाहिए?"
@@ -168,7 +168,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक मशीन ₹{costPrice} में खरीदी गई।"
+            "content": "एक मशीन ₹{costPrice} में खरीदी गई।"
           }
         ],
         "prompt": "उसे {lossPercent}% हानि पर बेचने पर विक्रय मूल्य क्या होगा?"
@@ -199,7 +199,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। फर्नीचर ₹{sellingPrice} में बेचने पर {profitPercent}% लाभ हुआ।"
+            "content": "फर्नीचर ₹{sellingPrice} में बेचने पर {profitPercent}% लाभ हुआ।"
           }
         ],
         "prompt": "उसका क्रय मूल्य ज्ञात कीजिए।"
@@ -230,7 +230,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण खुदरा बिक्री से जुड़े एक लेन-देन का है। एक अलमारी ₹{sellingPrice} में बेचने पर {lossPercent}% हानि हुई।"
+            "content": "एक अलमारी ₹{sellingPrice} में बेचने पर {lossPercent}% हानि हुई।"
           }
         ],
         "prompt": "उसका क्रय मूल्य क्या था?"
@@ -261,7 +261,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। एक व्यापारी को ₹{profitAmount} लाभ हुआ, जो क्रय मूल्य का {profitPercent}% था।"
+            "content": "एक व्यापारी को ₹{profitAmount} लाभ हुआ, जो क्रय मूल्य का {profitPercent}% था।"
           }
         ],
         "prompt": "क्रय मूल्य ज्ञात कीजिए।"
@@ -293,7 +293,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। कार्यालय सामग्री बेचने पर ₹{lossAmount} की हानि हुई, जो उसके क्रय मूल्य का {lossPercent}% थी।"
+            "content": "कार्यालय सामग्री बेचने पर ₹{lossAmount} की हानि हुई, जो उसके क्रय मूल्य का {lossPercent}% थी।"
           }
         ],
         "prompt": "क्रय मूल्य ज्ञात कीजिए।"
@@ -325,7 +325,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "पुनर्विक्रय के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{costPrice} की कपड़ों की खेप पर ₹{profitAmount} लाभ हुआ।"
+            "content": "₹{costPrice} की कपड़ों की खेप पर ₹{profitAmount} लाभ हुआ।"
           }
         ],
         "prompt": "लाभ प्रतिशत ज्ञात कीजिए।"
@@ -356,7 +356,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री की मूल्य-निर्धारण स्थिति नीचे दी गई है। ₹{costPrice} की घरेलू उपकरण पर ₹{lossAmount} की हानि हुई।"
+            "content": "₹{costPrice} की घरेलू उपकरण पर ₹{lossAmount} की हानि हुई।"
           }
         ],
         "prompt": "हानि प्रतिशत ज्ञात कीजिए।"
@@ -387,7 +387,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण उपभोक्ता वस्तु बिक्री से जुड़े एक लेन-देन का है। फर्नीचर के क्रय मूल्य और विक्रय मूल्य का अनुपात {costPart}:{sellingPart} है।"
+            "content": "फर्नीचर के क्रय मूल्य और विक्रय मूल्य का अनुपात {costPart}:{sellingPart} है।"
           }
         ],
         "prompt": "लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -418,7 +418,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान के दिए गए आंकड़ों का उपयोग कीजिए। साइकिल {profitPercent}% लाभ पर बेची गई।"
+            "content": "साइकिल {profitPercent}% लाभ पर बेची गई।"
           }
         ],
         "prompt": "क्रय मूल्य और विक्रय मूल्य का अनुपात ज्ञात कीजिए।"
@@ -449,7 +449,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "पुनर्विक्रय से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। इलेक्ट्रॉनिक उपकरण {lossPercent}% हानि पर बेची गई।"
+            "content": "इलेक्ट्रॉनिक उपकरण {lossPercent}% हानि पर बेची गई।"
           }
         ],
         "prompt": "क्रय मूल्य और विक्रय मूल्य का अनुपात ज्ञात कीजिए।"
@@ -480,7 +480,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। कार्यालय सामग्री पर लाभ उसके विक्रय मूल्य का {marginPercent}% है।"
+            "content": "कार्यालय सामग्री पर लाभ उसके विक्रय मूल्य का {marginPercent}% है।"
           }
         ],
         "prompt": "क्रय मूल्य पर लाभ प्रतिशत ज्ञात कीजिए।"
@@ -511,7 +511,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक व्यापारी क्रय मूल्य पर {profitPercent}% लाभ कमाता है।"
+            "content": "एक व्यापारी क्रय मूल्य पर {profitPercent}% लाभ कमाता है।"
           }
         ],
         "prompt": "लाभ को विक्रय मूल्य के प्रतिशत के रूप में व्यक्त कीजिए।"
@@ -542,7 +542,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण स्थानीय दुकान से जुड़े एक लेन-देन का है। एक प्रिंटर का क्रय मूल्य ₹{costPrice} है।"
+            "content": "एक प्रिंटर का क्रय मूल्य ₹{costPrice} है।"
           }
         ],
         "prompt": "{profitPercent}% लाभ पर बेचने से लाभ राशि ज्ञात कीजिए।"
@@ -573,7 +573,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "पुनर्विक्रय के दिए गए आंकड़ों का उपयोग कीजिए। एक उपकरण का क्रय मूल्य ₹{costPrice} है।"
+            "content": "एक उपकरण का क्रय मूल्य ₹{costPrice} है।"
           }
         ],
         "prompt": "{lossPercent}% हानि पर हानि राशि कितनी होगी?"
@@ -604,7 +604,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक कुर्सी का क्रय मूल्य ₹{costPrice} है।"
+            "content": "एक कुर्सी का क्रय मूल्य ₹{costPrice} है।"
           }
         ],
         "prompt": "₹{profitAmount} लाभ के लिए उसका विक्रय मूल्य ज्ञात कीजिए।"
@@ -635,7 +635,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक मशीन का क्रय मूल्य ₹{costPrice} है और उसे ₹{lossAmount} की हानि पर बेचा गया।"
+            "content": "एक मशीन का क्रय मूल्य ₹{costPrice} है और उसे ₹{lossAmount} की हानि पर बेचा गया।"
           }
         ],
         "prompt": "विक्रय मूल्य ज्ञात कीजिए।"
@@ -666,7 +666,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक घड़ी ₹{sellingPrice} में बेचने पर ₹{profitAmount} लाभ हुआ।"
+            "content": "एक घड़ी ₹{sellingPrice} में बेचने पर ₹{profitAmount} लाभ हुआ।"
           }
         ],
         "prompt": "उसका क्रय मूल्य ज्ञात कीजिए।"
@@ -697,7 +697,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण पुनर्विक्रय से जुड़े एक लेन-देन का है। एक अलमारी ₹{sellingPrice} में बेचने पर ₹{lossAmount} की हानि हुई।"
+            "content": "एक अलमारी ₹{sellingPrice} में बेचने पर ₹{lossAmount} की हानि हुई।"
           }
         ],
         "prompt": "उसका क्रय मूल्य क्या था?"
@@ -728,7 +728,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। घरेलू उपकरण पर लाभ उसके क्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
+            "content": "घरेलू उपकरण पर लाभ उसके क्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
           }
         ],
         "prompt": "लाभ प्रतिशत ज्ञात कीजिए।"
@@ -758,7 +758,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। फर्नीचर पर हानि उसके क्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
+            "content": "फर्नीचर पर हानि उसके क्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
           }
         ],
         "prompt": "हानि प्रतिशत ज्ञात कीजिए।"
@@ -788,7 +788,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। एक व्यापारी का लाभ विक्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
+            "content": "एक व्यापारी का लाभ विक्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
           }
         ],
         "prompt": "क्रय मूल्य पर लाभ प्रतिशत ज्ञात कीजिए।"
@@ -818,7 +818,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। हुई हानि विक्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
+            "content": "हुई हानि विक्रय मूल्य का {fractionNumerator}/{fractionDenominator} है।"
           }
         ],
         "prompt": "क्रय मूल्य पर हानि प्रतिशत ज्ञात कीजिए।"
@@ -848,7 +848,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण खुदरा बिक्री से जुड़े एक लेन-देन का है। कार्यालय सामग्री क्रय मूल्य पर {profitPercent}% लाभ पर बेची गई।"
+            "content": "कार्यालय सामग्री क्रय मूल्य पर {profitPercent}% लाभ पर बेची गई।"
           }
         ],
         "prompt": "लाभ, विक्रय मूल्य का कौन-सा अंश है?"
@@ -878,7 +878,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "उपभोक्ता वस्तु बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। कपड़ों की खेप क्रय मूल्य पर {lossPercent}% हानि पर बेची गई।"
+            "content": "कपड़ों की खेप क्रय मूल्य पर {lossPercent}% हानि पर बेची गई।"
           }
         ],
         "prompt": "हानि, विक्रय मूल्य का कौन-सा अंश है?"
@@ -908,7 +908,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। ₹{costPrice} की घरेलू उपकरण को {firstRatePercent}% या {secondRatePercent}% लाभ पर बेचा जा सकता है।"
+            "content": "₹{costPrice} की घरेलू उपकरण को {firstRatePercent}% या {secondRatePercent}% लाभ पर बेचा जा सकता है।"
           }
         ],
         "prompt": "दोनों विक्रय मूल्यों का अंतर ज्ञात कीजिए।"
@@ -939,7 +939,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "पुनर्विक्रय के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{costPrice} की फर्नीचर का एक विक्रय मूल्य {profitPercent}% लाभ देता है और दूसरा {lossPercent}% हानि।"
+            "content": "₹{costPrice} की फर्नीचर का एक विक्रय मूल्य {profitPercent}% लाभ देता है और दूसरा {lossPercent}% हानि।"
           }
         ],
         "prompt": "दोनों विक्रय मूल्यों का अंतर ज्ञात कीजिए।"
@@ -970,7 +970,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री की मूल्य-निर्धारण स्थिति नीचे दी गई है। {firstRatePercent}% और {secondRatePercent}% लाभ वाले विक्रय मूल्यों का अंतर ₹{sellingPriceDifference} है।"
+            "content": "{firstRatePercent}% और {secondRatePercent}% लाभ वाले विक्रय मूल्यों का अंतर ₹{sellingPriceDifference} है।"
           }
         ],
         "prompt": "क्रय मूल्य ज्ञात कीजिए।"
@@ -1001,7 +1001,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण उपभोक्ता वस्तु बिक्री से जुड़े एक लेन-देन का है। इलेक्ट्रॉनिक उपकरण ₹{firstSellingPrice} में बेचने पर {firstRatePercent}% लाभ हुआ।"
+            "content": "इलेक्ट्रॉनिक उपकरण ₹{firstSellingPrice} में बेचने पर {firstRatePercent}% लाभ हुआ।"
           }
         ],
         "prompt": "यदि उसे ₹{secondSellingPrice} में बेचा जाए, तो लाभ या हानि प्रतिशत कितना होगा?"
@@ -1031,7 +1031,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "स्थानीय दुकान के दिए गए आंकड़ों का उपयोग कीजिए। कार्यालय सामग्री ₹{firstSellingPrice} में बेचने पर {firstRatePercent}% हानि हुई।"
+            "content": "कार्यालय सामग्री ₹{firstSellingPrice} में बेचने पर {firstRatePercent}% हानि हुई।"
           }
         ],
         "prompt": "₹{secondSellingPrice} में बेचने पर लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -1093,7 +1093,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "खुदरा बिक्री के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। {firstRatePercent}% लाभ वाला विक्रय मूल्य, {secondRatePercent}% हानि वाले विक्रय मूल्य से ₹{sellingPriceDifference} अधिक है।"
+            "content": "{firstRatePercent}% लाभ वाला विक्रय मूल्य, {secondRatePercent}% हानि वाले विक्रय मूल्य से ₹{sellingPriceDifference} अधिक है।"
           },
           {
             "type": "equation",

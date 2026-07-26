@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "आपूर्ति श्रृंखला से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। A ने आपूर्ति बैच ₹{initialCostPrice} में खरीदी और उसे B को {firstRatePercent}% {firstDirection} पर बेचा। B ने उसे C को {secondRatePercent}% {secondDirection} पर बेच दिया।"
+            "content": "A ने आपूर्ति बैच ₹{initialCostPrice} में खरीदी और उसे B को {firstRatePercent}% {firstDirection} पर बेचा। B ने उसे C को {secondRatePercent}% {secondDirection} पर बेच दिया।"
           }
         ],
         "prompt": "C द्वारा चुकाया गया मूल्य ज्ञात कीजिए।"
@@ -44,7 +44,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "वितरक लेन-देन के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। A ने व्यावसायिक खेप ₹{initialCostPrice} में खरीदी। A ने B को {firstRatePercent}% {firstDirection}, B ने C को {secondRatePercent}% {secondDirection} और C ने D को {thirdRatePercent}% {thirdDirection} पर बेचा।"
+            "content": "A ने व्यावसायिक खेप ₹{initialCostPrice} में खरीदी। A ने B को {firstRatePercent}% {firstDirection}, B ने C को {secondRatePercent}% {secondDirection} और C ने D को {thirdRatePercent}% {thirdDirection} पर बेचा।"
           }
         ],
         "prompt": "D द्वारा चुकाया गया मूल्य ज्ञात कीजिए।"
@@ -78,7 +78,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "बहु-स्तरीय पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। A ने वितरण लॉट B को {firstRatePercent}% {firstDirection} पर बेची और B ने उसे C को {secondRatePercent}% {secondDirection} पर बेच दिया।"
+            "content": "A ने वितरण लॉट B को {firstRatePercent}% {firstDirection} पर बेची और B ने उसे C को {secondRatePercent}% {secondDirection} पर बेच दिया।"
           }
         ],
         "prompt": "यदि C ने ₹{finalSellingPrice} चुकाए, तो A का मूल क्रय मूल्य ज्ञात कीजिए।"
@@ -111,7 +111,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण व्यापारी श्रृंखला से जुड़े एक लेन-देन का है। माल की खेप क्रमशः {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection} पर बेची गई।"
+            "content": "माल की खेप क्रमशः {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} और {thirdRatePercent}% {thirdDirection} पर बेची गई।"
           }
         ],
         "prompt": "यदि अंतिम खरीदार ने ₹{finalSellingPrice} चुकाए, तो प्रथम विक्रेता का क्रय मूल्य ज्ञात कीजिए।"
@@ -144,7 +144,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कमीशन बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{initialCostPrice} में खरीदी गई उपकरणों का लॉट इन लेन-देन से गुजरती है: {stages}।"
+            "content": "₹{initialCostPrice} में खरीदी गई उपकरणों का लॉट इन लेन-देन से गुजरती है: {stages}।"
           }
         ],
         "prompt": "लेन-देन {afterStage} के तुरंत बाद उसका मूल्य ज्ञात कीजिए।"
@@ -176,7 +176,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "आपूर्ति श्रृंखला से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। थोक पैकेज इन चरणों में क्रमशः बेची जाती है: {stages}।"
+            "content": "थोक पैकेज इन चरणों में क्रमशः बेची जाती है: {stages}।"
           }
         ],
         "prompt": "प्रथम क्रय से अंतिम विक्रय तक कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -210,7 +210,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "वितरक लेन-देन के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। A {firstRatePercent}% {firstDirection}, B {secondRatePercent}% {secondDirection} और C {thirdRatePercent}% {thirdDirection} पर बेचते हैं।"
+            "content": "A {firstRatePercent}% {firstDirection}, B {secondRatePercent}% {secondDirection} और C {thirdRatePercent}% {thirdDirection} पर बेचते हैं।"
           }
         ],
         "prompt": "मूल लागत से अंतिम विक्रय तक कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -243,7 +243,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "बहु-स्तरीय पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। व्यावसायिक खेप ₹{initialCostPrice} में खरीदी गई और अंततः ₹{finalSellingPrice} में बेची गई। ज्ञात चरण हैं: {knownStages}, और अज्ञात चरण {missingDirection} है।"
+            "content": "व्यावसायिक खेप ₹{initialCostPrice} में खरीदी गई और अंततः ₹{finalSellingPrice} में बेची गई। ज्ञात चरण हैं: {knownStages}, और अज्ञात चरण {missingDirection} है।"
           }
         ],
         "prompt": "अज्ञात लाभ प्रतिशत ज्ञात कीजिए।"
@@ -281,7 +281,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण व्यापारी श्रृंखला से जुड़े एक लेन-देन का है। वितरण लॉट ₹{initialCostPrice} में खरीदी गई और अंततः ₹{finalSellingPrice} में बेची गई। ज्ञात चरण हैं: {knownStages}, और अज्ञात चरण {missingDirection} है।"
+            "content": "वितरण लॉट ₹{initialCostPrice} में खरीदी गई और अंततः ₹{finalSellingPrice} में बेची गई। ज्ञात चरण हैं: {knownStages}, और अज्ञात चरण {missingDirection} है।"
           }
         ],
         "prompt": "अज्ञात हानि प्रतिशत ज्ञात कीजिए।"
@@ -319,7 +319,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कमीशन बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{initialCostPrice} लागत वाली माल की खेप {stageCount} क्रमिक लेन-देन में प्रत्येक बार {ratePercent}% {direction} पर बेची जाती है।"
+            "content": "₹{initialCostPrice} लागत वाली माल की खेप {stageCount} क्रमिक लेन-देन में प्रत्येक बार {ratePercent}% {direction} पर बेची जाती है।"
           }
         ],
         "prompt": "अंतिम विक्रय मूल्य ज्ञात कीजिए।"
@@ -352,7 +352,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "आपूर्ति श्रृंखला से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। ₹{initialCostPrice} में खरीदी गई उपकरणों का लॉट इन लेन-देन से गुजरती है: {stages}।"
+            "content": "₹{initialCostPrice} में खरीदी गई उपकरणों का लॉट इन लेन-देन से गुजरती है: {stages}।"
           }
         ],
         "prompt": "लेन-देन {selectedStage} में हुआ लाभ या हानि ज्ञात कीजिए।"
@@ -384,7 +384,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "वितरक लेन-देन के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{initialCostPrice} में खरीदी गई थोक पैकेज इन लेन-देन से गुजरती है: {stages}।"
+            "content": "₹{initialCostPrice} में खरीदी गई थोक पैकेज इन लेन-देन से गुजरती है: {stages}।"
           }
         ],
         "prompt": "किस लेन-देन में सबसे अधिक निरपेक्ष लाभ या हानि हुआ, ज्ञात कीजिए।"
@@ -420,7 +420,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "बहु-स्तरीय पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। एक व्यापारी आपूर्ति बैच ₹{purchasePrice} में खरीदता है और पुनर्विक्रय से पहले ₹{buyerExpense} खर्च करता है।"
+            "content": "एक व्यापारी आपूर्ति बैच ₹{purchasePrice} में खरीदता है और पुनर्विक्रय से पहले ₹{buyerExpense} खर्च करता है।"
           }
         ],
         "prompt": "प्रभावी लागत पर {ratePercent}% {direction} पाने के लिए उसे किस मूल्य पर बेचना चाहिए?"
@@ -453,7 +453,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण व्यापारी श्रृंखला से जुड़े एक लेन-देन का है। एक व्यापारी व्यावसायिक खेप ₹{grossSellingPrice} में बेचता है और विक्रय मूल्य पर {commissionPercent}% कमीशन देता है।"
+            "content": "एक व्यापारी व्यावसायिक खेप ₹{grossSellingPrice} में बेचता है और विक्रय मूल्य पर {commissionPercent}% कमीशन देता है।"
           }
         ],
         "prompt": "प्राप्त शुद्ध राशि ज्ञात कीजिए।"
@@ -486,7 +486,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कमीशन बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। विक्रय मूल्य पर {commissionPercent}% कमीशन देने के बाद व्यापारी को ₹{requiredNetReceipt} प्राप्त होने चाहिए।"
+            "content": "विक्रय मूल्य पर {commissionPercent}% कमीशन देने के बाद व्यापारी को ₹{requiredNetReceipt} प्राप्त होने चाहिए।"
           }
         ],
         "prompt": "आवश्यक सकल विक्रय मूल्य ज्ञात कीजिए।"
@@ -518,7 +518,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "आपूर्ति श्रृंखला से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक व्यापारी माल की खेप ₹{purchasePrice} में खरीदता है, ₹{buyerExpense} अतिरिक्त खर्च करता है और उसे ₹{grossSellingPrice} में बेचता है।"
+            "content": "एक व्यापारी माल की खेप ₹{purchasePrice} में खरीदता है, ₹{buyerExpense} अतिरिक्त खर्च करता है और उसे ₹{grossSellingPrice} में बेचता है।"
           }
         ],
         "prompt": "{commissionPercent}% कमीशन देने के बाद लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -556,7 +556,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "वितरक लेन-देन के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। ₹{initialCostPrice} में खरीदी गई उपकरणों का लॉट इन लेन-देन से गुजरती है: {stages}।"
+            "content": "₹{initialCostPrice} में खरीदी गई उपकरणों का लॉट इन लेन-देन से गुजरती है: {stages}।"
           }
         ],
         "prompt": "प्रत्येक व्यापारी का लाभ या हानि ज्ञात कीजिए।"
@@ -592,7 +592,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "बहु-स्तरीय पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। थोक पैकेज इन चरणों से गुजरती है: {stages}।"
+            "content": "थोक पैकेज इन चरणों से गुजरती है: {stages}।"
           }
         ],
         "prompt": "अंतिम मूल्य की तुलना मूल स्वामी के क्रय मूल्य से करके कुल लाभ या हानि प्रतिशत ज्ञात कीजिए।"
@@ -626,7 +626,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण व्यापारी श्रृंखला से जुड़े एक लेन-देन का है। आपूर्ति बैच इन मिश्रित लाभ-हानि चरणों से गुजरती है: {stages}।"
+            "content": "आपूर्ति बैच इन मिश्रित लाभ-हानि चरणों से गुजरती है: {stages}।"
           }
         ],
         "prompt": "यदि अंतिम खरीदार ₹{finalSellingPrice} चुकाता है, तो मूल क्रय मूल्य ज्ञात कीजिए।"
@@ -659,7 +659,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कमीशन बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। ₹{initialCostPrice} में खरीदी गई व्यावसायिक खेप इन लेन-देन से गुजरती है: {stages}।"
+            "content": "₹{initialCostPrice} में खरीदी गई व्यावसायिक खेप इन लेन-देन से गुजरती है: {stages}।"
           }
         ],
         "prompt": "लेन-देन {firstStageNumber} और लेन-देन {secondStageNumber} के बाद के मूल्यों का अंतर ज्ञात कीजिए।"
@@ -695,7 +695,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "आपूर्ति श्रृंखला से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। तालिका में ₹{initialCostPrice} में खरीदी गई वितरण लॉट के प्रत्येक हस्तांतरण पर लाभ या हानि प्रतिशत दिए गए हैं।"
+            "content": "तालिका में ₹{initialCostPrice} में खरीदी गई वितरण लॉट के प्रत्येक हस्तांतरण पर लाभ या हानि प्रतिशत दिए गए हैं।"
           },
           {
             "type": "table",
@@ -736,7 +736,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "वितरक लेन-देन के एक वास्तविक व्यावसायिक रिकॉर्ड पर विचार कीजिए। केसलेट। माल की खेप का प्रारंभिक मूल्य ₹{initialCostPrice} है और चरण हैं।{stages}।"
+            "content": "केसलेट। माल की खेप का प्रारंभिक मूल्य ₹{initialCostPrice} है और चरण हैं।{stages}।"
           },
           {
             "type": "caselet",
@@ -774,7 +774,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "बहु-स्तरीय पुनर्विक्रय की मूल्य-निर्धारण स्थिति नीचे दी गई है। उपकरणों का लॉट इन चरणों में क्रमशः बेची जाती है: {stages}।"
+            "content": "उपकरणों का लॉट इन चरणों में क्रमशः बेची जाती है: {stages}।"
           },
           {
             "type": "statements",
@@ -813,7 +813,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "निम्न विवरण व्यापारी श्रृंखला से जुड़े एक लेन-देन का है। प्रारंभिक मूल्य {initialPriceExpression}, अंतिम मूल्य {finalPriceExpression} और ज्ञात चरण {knownStageExpression} है।"
+            "content": "प्रारंभिक मूल्य {initialPriceExpression}, अंतिम मूल्य {finalPriceExpression} और ज्ञात चरण {knownStageExpression} है।"
           },
           {
             "type": "equation",
@@ -849,7 +849,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "कमीशन बिक्री के दिए गए आंकड़ों का उपयोग कीजिए। क्रमिक लेन-देन में मूल क्रय मूल्य ज्ञात करने के लिए कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
+            "content": "क्रमिक लेन-देन में मूल क्रय मूल्य ज्ञात करने के लिए कथन I: {statementOne} और कथन II: {statementTwo} पर विचार कीजिए।"
           },
           {
             "type": "data_sufficiency",
@@ -893,7 +893,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "आपूर्ति श्रृंखला से जुड़े एक व्यावहारिक प्रश्न में निम्न जानकारी दी गई है। एक मध्य व्यापारी व्यावसायिक खेप ₹{purchasePrice} में खरीदता है, ₹{buyerExpense} खर्च करता है और एजेंट के माध्यम से ₹{grossSellingPrice} में बेचता है। एजेंट {commissionPercent}% कमीशन लेता है।"
+            "content": "एक मध्य व्यापारी व्यावसायिक खेप ₹{purchasePrice} में खरीदता है, ₹{buyerExpense} खर्च करता है और एजेंट के माध्यम से ₹{grossSellingPrice} में बेचता है। एजेंट {commissionPercent}% कमीशन लेता है।"
           },
           {
             "type": "caselet",

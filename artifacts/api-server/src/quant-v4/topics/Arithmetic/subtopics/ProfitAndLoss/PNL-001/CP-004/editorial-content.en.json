@@ -6,134 +6,920 @@
   "status": "EDITORIAL_REVIEW_CANDIDATE",
   "entries": {
     "PNL-QL-095": {
-      "stem": {"contextFamily":"textile distribution","blocks":[{"type":"paragraph","content":"A textile wholesaler buys a fabric consignment for ₹{initialCostPrice} and sells it to a regional distributor at {firstRatePercent}% {firstDirection}. The distributor then sells the same consignment to a retailer at {secondRatePercent}% {secondDirection}."}],"prompt":"What price does the retailer pay?"},
-      "explanation": {"opening":"Let us follow the consignment from one trader to the next.","concept":"Each profit or loss percentage is applied to the price created by the previous transaction.","steps":[{"title":"Find the distributor's purchase price","body":"Apply the first commercial multiplier to the wholesaler's original cost.","equationLatex":"P_1=C_0\\left(1\\pm\\frac{r_1}{100}\\right)"},{"title":"Find the retailer's price","body":"Use the distributor's purchase price as the new base for the second transaction.","equationLatex":"P_2=P_1\\left(1\\pm\\frac{r_2}{100}\\right)"}],"conclusion":"The second-stage price is the amount paid by the retailer.","finalAnswerLatex":"\\text{₹}{finalSellingPrice}","commonTrap":"Do not add the two signed percentages. They are calculated on different price bases."},
-      "difficulty":"Medium","difficultyRationale":"Two visible successive multipliers with no hidden unknown."
+      "stem": {
+        "contextFamily": "textile distribution",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A textile wholesaler buys a fabric consignment for ₹{initialCostPrice} and sells it to a regional distributor at {firstRatePercent}% {firstDirection}. The distributor then sells the same consignment to a retailer at {secondRatePercent}% {secondDirection}."
+          }
+        ],
+        "prompt": "What price does the retailer pay?"
+      },
+      "explanation": {
+        "opening": "Let us follow the consignment from one trader to the next.",
+        "concept": "Each profit or loss percentage is applied to the price created by the previous transaction.",
+        "steps": [
+          {
+            "title": "Find the distributor's purchase price",
+            "body": "Apply the first commercial multiplier to the wholesaler's original cost.",
+            "equationLatex": "P_1=C_0\\left(1\\pm\\frac{r_1}{100}\\right)"
+          },
+          {
+            "title": "Find the retailer's price",
+            "body": "Use the distributor's purchase price as the new base for the second transaction.",
+            "equationLatex": "P_2=P_1\\left(1\\pm\\frac{r_2}{100}\\right)"
+          }
+        ],
+        "conclusion": "The second-stage price is the amount paid by the retailer.",
+        "finalAnswerLatex": "\\text{₹}{finalSellingPrice}",
+        "commonTrap": "Do not add the two signed percentages. They are calculated on different price bases."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two visible successive multipliers with no hidden unknown."
     },
     "PNL-QL-096": {
-      "stem": {"contextFamily":"electronics supply chain","blocks":[{"type":"paragraph","content":"An electronics importer purchases a shipment for ₹{initialCostPrice}. It is transferred to a national distributor at {firstRatePercent}% {firstDirection}, to a city wholesaler at {secondRatePercent}% {secondDirection}, and finally to a retailer at {thirdRatePercent}% {thirdDirection}."}],"prompt":"Find the price paid by the retailer."},
-      "explanation": {"opening":"The safest approach is to move through the supply chain one transfer at a time.","concept":"A successive percentage always acts on the latest transaction price, not on the importer's original cost.","steps":[{"title":"Process the first two transfers","body":"Create the first price and then use it as the base for the second rate.","equationLatex":"P_2=C_0m_1m_2"},{"title":"Apply the final transfer","body":"Multiply the second-stage price by the third commercial factor.","equationLatex":"P_3=P_2m_3=C_0m_1m_2m_3"}],"conclusion":"The value of the complete product of multipliers is the retailer's purchase price.","finalAnswerLatex":"\\text{₹}{finalSellingPrice}","commonTrap":"Do not classify this as hard merely because it has three steps; all three operations are directly visible."},
-      "difficulty":"Medium","difficultyRationale":"Three visible forward operations; arithmetic is longer but the reasoning is direct."
+      "stem": {
+        "contextFamily": "electronics supply chain",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An electronics importer purchases a shipment for ₹{initialCostPrice}. It is transferred to a national distributor at {firstRatePercent}% {firstDirection}, to a city wholesaler at {secondRatePercent}% {secondDirection}, and finally to a retailer at {thirdRatePercent}% {thirdDirection}."
+          }
+        ],
+        "prompt": "Find the price paid by the retailer."
+      },
+      "explanation": {
+        "opening": "The safest approach is to move through the supply chain one transfer at a time.",
+        "concept": "A successive percentage always acts on the latest transaction price, not on the importer's original cost.",
+        "steps": [
+          {
+            "title": "Process the first two transfers",
+            "body": "Create the first price and then use it as the base for the second rate.",
+            "equationLatex": "P_2=C_0m_1m_2"
+          },
+          {
+            "title": "Apply the final transfer",
+            "body": "Multiply the second-stage price by the third commercial factor.",
+            "equationLatex": "P_3=P_2m_3=C_0m_1m_2m_3"
+          }
+        ],
+        "conclusion": "The value of the complete product of multipliers is the retailer's purchase price.",
+        "finalAnswerLatex": "\\text{₹}{finalSellingPrice}",
+        "commonTrap": "Do not classify this as hard merely because it has three steps; all three operations are directly visible."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Three visible forward operations; arithmetic is longer but the reasoning is direct."
     },
     "PNL-QL-097": {
-      "stem": {"contextFamily":"book distribution","blocks":[{"type":"paragraph","content":"A publisher sells a book lot to a distributor at {firstRatePercent}% {firstDirection}. The distributor sells the lot to a bookstore at {secondRatePercent}% {secondDirection}. The bookstore pays ₹{finalSellingPrice}."}],"prompt":"What was the publisher's original cost for the lot?"},
-      "explanation": {"opening":"Because the final price is known, we can work backward through the two sales.","concept":"A forward multiplier is reversed by division, and the stages must be undone in reverse order.","steps":[{"title":"Recover the distributor's cost","body":"Undo the bookstore transaction first.","equationLatex":"P_1=\\frac{P_2}{m_2}"},{"title":"Recover the publisher's cost","body":"Now undo the distributor's purchase multiplier.","equationLatex":"C_0=\\frac{P_1}{m_1}=\\frac{P_2}{m_2m_1}"}],"conclusion":"The recovered value is the publisher's original cost.","finalAnswerLatex":"\\text{₹}{initialCostPrice}","commonTrap":"Do not subtract the two profit rates from the final price. Reversing a multiplier requires division."},
-      "difficulty":"Medium","difficultyRationale":"A standard two-stage reverse operation with a clear path."
+      "stem": {
+        "contextFamily": "book distribution",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A publisher sells a book lot to a distributor at {firstRatePercent}% {firstDirection}. The distributor sells the lot to a bookstore at {secondRatePercent}% {secondDirection}. The bookstore pays ₹{finalSellingPrice}."
+          }
+        ],
+        "prompt": "What was the publisher's original cost for the lot?"
+      },
+      "explanation": {
+        "opening": "Because the final price is known, we can work backward through the two sales.",
+        "concept": "A forward multiplier is reversed by division, and the stages must be undone in reverse order.",
+        "steps": [
+          {
+            "title": "Recover the distributor's cost",
+            "body": "Undo the bookstore transaction first.",
+            "equationLatex": "P_1=\\frac{P_2}{m_2}"
+          },
+          {
+            "title": "Recover the publisher's cost",
+            "body": "Now undo the distributor's purchase multiplier.",
+            "equationLatex": "C_0=\\frac{P_1}{m_1}=\\frac{P_2}{m_2m_1}"
+          }
+        ],
+        "conclusion": "The recovered value is the publisher's original cost.",
+        "finalAnswerLatex": "\\text{₹}{initialCostPrice}",
+        "commonTrap": "Do not subtract the two profit rates from the final price. Reversing a multiplier requires division."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A standard two-stage reverse operation with a clear path."
     },
     "PNL-QL-098": {
-      "stem": {"contextFamily":"used-vehicle resale","blocks":[{"type":"paragraph","content":"A used vehicle changes owners through three successive sales at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. The final buyer pays ₹{finalSellingPrice}."}],"prompt":"Find the first owner's original cost price."},
-      "explanation": {"opening":"Here we need to unwind three mixed transactions carefully.","concept":"Reverse the chain from the last sale to the first, dividing by each corresponding multiplier.","steps":[{"title":"Build the combined forward factor","body":"Represent each profit by a factor above 1 and each loss by a factor below 1.","equationLatex":"M=m_1m_2m_3"},{"title":"Recover the original cost","body":"Divide the final payment by the complete combined factor.","equationLatex":"C_0=\\frac{P_3}{M}"}],"conclusion":"This backward calculation gives the first owner's cost price.","finalAnswerLatex":"\\text{₹}{initialCostPrice}","commonTrap":"Undoing the percentages by subtraction gives the wrong answer because every stage used a different base."},
-      "difficulty":"Hard","difficultyRationale":"Three-stage reverse chain with mixed profit and loss factors."
+      "stem": {
+        "contextFamily": "used-vehicle resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A used vehicle changes owners through three successive sales at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}. The final buyer pays ₹{finalSellingPrice}."
+          }
+        ],
+        "prompt": "Find the first owner's original cost price."
+      },
+      "explanation": {
+        "opening": "Here we need to unwind three mixed transactions carefully.",
+        "concept": "Reverse the chain from the last sale to the first, dividing by each corresponding multiplier.",
+        "steps": [
+          {
+            "title": "Build the combined forward factor",
+            "body": "Represent each profit by a factor above 1 and each loss by a factor below 1.",
+            "equationLatex": "M=m_1m_2m_3"
+          },
+          {
+            "title": "Recover the original cost",
+            "body": "Divide the final payment by the complete combined factor.",
+            "equationLatex": "C_0=\\frac{P_3}{M}"
+          }
+        ],
+        "conclusion": "This backward calculation gives the first owner's cost price.",
+        "finalAnswerLatex": "\\text{₹}{initialCostPrice}",
+        "commonTrap": "Undoing the percentages by subtraction gives the wrong answer because every stage used a different base."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Three-stage reverse chain with mixed profit and loss factors."
     },
     "PNL-QL-099": {
-      "stem": {"contextFamily":"agricultural equipment resale","blocks":[{"type":"paragraph","content":"A farm-equipment unit is bought for ₹{initialCostPrice} and then passes through these resale stages: {stages}."}],"prompt":"Find its price immediately after transaction {afterStage}."},
-      "explanation": {"opening":"We only need to follow the chain up to the requested transfer.","concept":"An intermediate price depends on earlier stages only; later transactions cannot change a price that has already been recorded.","steps":[{"title":"Read the stopping point","body":"Identify transaction {afterStage} and ignore every stage that comes after it."},{"title":"Build the price up to that stage","body":"Apply the listed multipliers in order until the requested price is reached.","equationLatex":"P_k=C_0\\prod_{i=1}^{k}m_i"}],"conclusion":"The price at the selected stopping point is the required intermediate value.","finalAnswerLatex":"\\text{₹}{intermediateSellingPrice}","commonTrap":"Do not continue to the final transaction when the question asks for an earlier price."},
-      "difficulty":"Medium","difficultyRationale":"Successive operations with a visible stopping condition."
+      "stem": {
+        "contextFamily": "agricultural equipment resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A farm-equipment unit is bought for ₹{initialCostPrice} and then passes through these resale stages: {stages}."
+          }
+        ],
+        "prompt": "Find its price immediately after transaction {afterStage}."
+      },
+      "explanation": {
+        "opening": "We only need to follow the chain up to the requested transfer.",
+        "concept": "An intermediate price depends on earlier stages only; later transactions cannot change a price that has already been recorded.",
+        "steps": [
+          {
+            "title": "Read the stopping point",
+            "body": "Identify transaction {afterStage} and ignore every stage that comes after it."
+          },
+          {
+            "title": "Build the price up to that stage",
+            "body": "Apply the listed multipliers in order until the requested price is reached.",
+            "equationLatex": "P_k=C_0\\prod_{i=1}^{k}m_i"
+          }
+        ],
+        "conclusion": "The price at the selected stopping point is the required intermediate value.",
+        "finalAnswerLatex": "\\text{₹}{intermediateSellingPrice}",
+        "commonTrap": "Do not continue to the final transaction when the question asks for an earlier price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Successive operations with a visible stopping condition."
     },
     "PNL-QL-100": {
-      "stem": {"contextFamily":"furniture wholesale chain","blocks":[{"type":"paragraph","content":"A furniture set is resold through the following stages: {stages}."}],"prompt":"Calculate the overall percentage gain or loss from the first purchase to the final sale."},
-      "explanation": {"opening":"We can compare the first and final prices without knowing the actual rupee amount.","concept":"Multiply the retained or increased factors for all stages, then compare the product with 1.","steps":[{"title":"Combine the stage factors","body":"Convert each percentage into its multiplier and multiply them.","equationLatex":"M=\\prod m_i"},{"title":"Interpret the product","body":"If M is above 1 there is an overall profit; if it is below 1 there is an overall loss.","equationLatex":"\\text{overall rate}=|M-1|\\times100\\%"}],"conclusion":"The difference between the combined multiplier and 1 gives the overall rate.","finalAnswerLatex":"{overallRatePercent}\\%\\;{overallDirection}","commonTrap":"Adding gains and subtracting losses directly ignores the changing transaction bases."},
-      "difficulty":"Medium","difficultyRationale":"A direct multiplier aggregation with one interpretation step."
+      "stem": {
+        "contextFamily": "furniture wholesale chain",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A furniture set is resold through the following stages: {stages}."
+          }
+        ],
+        "prompt": "Calculate the overall percentage gain or loss from the first purchase to the final sale."
+      },
+      "explanation": {
+        "opening": "We can compare the first and final prices without knowing the actual rupee amount.",
+        "concept": "Multiply the retained or increased factors for all stages, then compare the product with 1.",
+        "steps": [
+          {
+            "title": "Combine the stage factors",
+            "body": "Convert each percentage into its multiplier and multiply them.",
+            "equationLatex": "M=\\prod m_i"
+          },
+          {
+            "title": "Interpret the product",
+            "body": "If M is above 1 there is an overall profit; if it is below 1 there is an overall loss.",
+            "equationLatex": "\\text{overall rate}=|M-1|\\times100\\%"
+          }
+        ],
+        "conclusion": "The difference between the combined multiplier and 1 gives the overall rate.",
+        "finalAnswerLatex": "{overallRatePercent}\\%\\;{overallDirection}",
+        "commonTrap": "Adding gains and subtracting losses directly ignores the changing transaction bases."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "A direct multiplier aggregation with one interpretation step."
     },
     "PNL-QL-101": {
-      "stem": {"contextFamily":"pharmaceutical distribution","blocks":[{"type":"paragraph","content":"A medicine consignment is sold by a manufacturer, a distributor, and a stockist at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}, respectively."}],"prompt":"Find the overall percentage gain or loss relative to the manufacturer's original cost."},
-      "explanation": {"opening":"The three quoted rates belong to three different prices, so we should convert them into multipliers.","concept":"Successive commercial changes compound; they do not combine by ordinary addition.","steps":[{"title":"Form the combined multiplier","body":"Use a factor above 1 for profit and below 1 for loss.","equationLatex":"M=m_1m_2m_3"},{"title":"Convert the factor to a rate","body":"Compare M with 1 and express the difference as a percentage.","equationLatex":"r=|M-1|\\times100"}],"conclusion":"The sign of M−1 identifies profit or loss, and its magnitude gives the rate.","finalAnswerLatex":"{overallRatePercent}\\%\\;{overallDirection}","commonTrap":"Do not total the three percentages as signed numbers."},
-      "difficulty":"Medium","difficultyRationale":"Three visible forward factors and a standard overall-rate conversion."
+      "stem": {
+        "contextFamily": "pharmaceutical distribution",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A medicine consignment is sold by a manufacturer, a distributor, and a stockist at {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection}, and {thirdRatePercent}% {thirdDirection}, respectively."
+          }
+        ],
+        "prompt": "Find the overall percentage gain or loss relative to the manufacturer's original cost."
+      },
+      "explanation": {
+        "opening": "The three quoted rates belong to three different prices, so we should convert them into multipliers.",
+        "concept": "Successive commercial changes compound; they do not combine by ordinary addition.",
+        "steps": [
+          {
+            "title": "Form the combined multiplier",
+            "body": "Use a factor above 1 for profit and below 1 for loss.",
+            "equationLatex": "M=m_1m_2m_3"
+          },
+          {
+            "title": "Convert the factor to a rate",
+            "body": "Compare M with 1 and express the difference as a percentage.",
+            "equationLatex": "r=|M-1|\\times100"
+          }
+        ],
+        "conclusion": "The sign of M−1 identifies profit or loss, and its magnitude gives the rate.",
+        "finalAnswerLatex": "{overallRatePercent}\\%\\;{overallDirection}",
+        "commonTrap": "Do not total the three percentages as signed numbers."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Three visible forward factors and a standard overall-rate conversion."
     },
     "PNL-QL-102": {
-      "stem": {"contextFamily":"industrial-pump dealership","blocks":[{"type":"paragraph","content":"An industrial pump is bought for ₹{initialCostPrice} and finally reaches a customer for ₹{finalSellingPrice}. The known resale stages are {knownStages}; the missing stage is a {missingDirection}."}],"prompt":"Determine the missing profit percentage."},
-      "explanation": {"opening":"We know the beginning and the end, so the missing stage can be isolated.","concept":"The final-to-initial price ratio equals the product of all transaction multipliers.","steps":[{"title":"Find the overall multiplier","body":"Divide the final price by the initial cost.","equationLatex":"M_{all}=\\frac{P_f}{C_0}"},{"title":"Remove the known stages","body":"Divide the overall multiplier by the product of the known factors. The remaining factor belongs to the missing profit stage.","equationLatex":"m_{missing}=\\frac{M_{all}}{M_{known}}"},{"title":"Convert the factor to a percentage","body":"For a profit stage, subtract 1 and multiply by 100.","equationLatex":"r=(m_{missing}-1)\\times100"}],"conclusion":"The isolated factor gives the missing profit rate.","finalAnswerLatex":"{missingRatePercent}\\%", "commonTrap":"Do not subtract the known percentages from the overall percentage; the factors, not the rates, must be divided."},
-      "difficulty":"Hard","difficultyRationale":"Coupled inverse requiring isolation of an unknown stage multiplier."
+      "stem": {
+        "contextFamily": "industrial-pump dealership",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An industrial pump is bought for ₹{initialCostPrice} and finally reaches a customer for ₹{finalSellingPrice}. The known resale stages are {knownStages}; the missing stage is a {missingDirection}."
+          }
+        ],
+        "prompt": "Determine the missing profit percentage."
+      },
+      "explanation": {
+        "opening": "We know the beginning and the end, so the missing stage can be isolated.",
+        "concept": "The final-to-initial price ratio equals the product of all transaction multipliers.",
+        "steps": [
+          {
+            "title": "Find the overall multiplier",
+            "body": "Divide the final price by the initial cost.",
+            "equationLatex": "M_{all}=\\frac{P_f}{C_0}"
+          },
+          {
+            "title": "Remove the known stages",
+            "body": "Divide the overall multiplier by the product of the known factors. The remaining factor belongs to the missing profit stage.",
+            "equationLatex": "m_{missing}=\\frac{M_{all}}{M_{known}}"
+          },
+          {
+            "title": "Convert the factor to a percentage",
+            "body": "For a profit stage, subtract 1 and multiply by 100.",
+            "equationLatex": "r=(m_{missing}-1)\\times100"
+          }
+        ],
+        "conclusion": "The isolated factor gives the missing profit rate.",
+        "finalAnswerLatex": "{missingRatePercent}\\%",
+        "commonTrap": "Do not subtract the known percentages from the overall percentage; the factors, not the rates, must be divided."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Coupled inverse requiring isolation of an unknown stage multiplier."
     },
     "PNL-QL-103": {
-      "stem": {"contextFamily":"ceramic-tile distribution","blocks":[{"type":"paragraph","content":"A tile consignment is purchased for ₹{initialCostPrice} and finally sold for ₹{finalSellingPrice}. The known transfers are {knownStages}; the missing transfer is a {missingDirection}."}],"prompt":"Find the missing loss percentage."},
-      "explanation": {"opening":"Let us isolate the unknown loss factor from the complete chain.","concept":"The overall price ratio contains every stage multiplier, so dividing out the known factors leaves the missing one.","steps":[{"title":"Calculate the total factor","body":"Compare the final price with the original cost.","equationLatex":"M_{all}=\\frac{P_f}{C_0}"},{"title":"Remove known multipliers","body":"Divide by the product of the stated stages.","equationLatex":"m_{missing}=\\frac{M_{all}}{M_{known}}"},{"title":"Read the loss rate","body":"A loss factor is below 1; its shortfall from 1 is the loss fraction.","equationLatex":"r=(1-m_{missing})\\times100"}],"conclusion":"The shortfall of the isolated multiplier from 1 is the missing loss percentage.","finalAnswerLatex":"{missingRatePercent}\\%", "commonTrap":"Do not treat a loss factor as 1+r/100; its factor is 1−r/100."},
-      "difficulty":"Hard","difficultyRationale":"Coupled inverse with a missing loss factor and direction-sensitive interpretation."
+      "stem": {
+        "contextFamily": "ceramic-tile distribution",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A tile consignment is purchased for ₹{initialCostPrice} and finally sold for ₹{finalSellingPrice}. The known transfers are {knownStages}; the missing transfer is a {missingDirection}."
+          }
+        ],
+        "prompt": "Find the missing loss percentage."
+      },
+      "explanation": {
+        "opening": "Let us isolate the unknown loss factor from the complete chain.",
+        "concept": "The overall price ratio contains every stage multiplier, so dividing out the known factors leaves the missing one.",
+        "steps": [
+          {
+            "title": "Calculate the total factor",
+            "body": "Compare the final price with the original cost.",
+            "equationLatex": "M_{all}=\\frac{P_f}{C_0}"
+          },
+          {
+            "title": "Remove known multipliers",
+            "body": "Divide by the product of the stated stages.",
+            "equationLatex": "m_{missing}=\\frac{M_{all}}{M_{known}}"
+          },
+          {
+            "title": "Read the loss rate",
+            "body": "A loss factor is below 1; its shortfall from 1 is the loss fraction.",
+            "equationLatex": "r=(1-m_{missing})\\times100"
+          }
+        ],
+        "conclusion": "The shortfall of the isolated multiplier from 1 is the missing loss percentage.",
+        "finalAnswerLatex": "{missingRatePercent}\\%",
+        "commonTrap": "Do not treat a loss factor as 1+r/100; its factor is 1−r/100."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Coupled inverse with a missing loss factor and direction-sensitive interpretation."
     },
     "PNL-QL-104": {
-      "stem": {"contextFamily":"sports-goods distribution","blocks":[{"type":"paragraph","content":"A batch of sports equipment costing ₹{initialCostPrice} is sold through {stageCount} successive dealerships, each at {ratePercent}% {direction}."}],"prompt":"Find the final selling price."},
-      "explanation": {"opening":"The same rate is repeated, so one multiplier is used several times.","concept":"Repeated equal percentage changes form a power of the commercial multiplier.","steps":[{"title":"Write the repeated factor","body":"Convert the common rate into a multiplier m."},{"title":"Apply it once per transaction","body":"Raise the multiplier to the number of stages.","equationLatex":"P_f=C_0m^{n}"}],"conclusion":"The compounded value is the final selling price.","finalAnswerLatex":"\\text{₹}{finalSellingPrice}","commonTrap":"Do not multiply the percentage by the number of stages; repeated changes compound."},
-      "difficulty":"Medium","difficultyRationale":"Direct repeated multiplier with a visible exponent."
+      "stem": {
+        "contextFamily": "sports-goods distribution",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A batch of sports equipment costing ₹{initialCostPrice} is sold through {stageCount} successive dealerships, each at {ratePercent}% {direction}."
+          }
+        ],
+        "prompt": "Find the final selling price."
+      },
+      "explanation": {
+        "opening": "The same rate is repeated, so one multiplier is used several times.",
+        "concept": "Repeated equal percentage changes form a power of the commercial multiplier.",
+        "steps": [
+          {
+            "title": "Write the repeated factor",
+            "body": "Convert the common rate into a multiplier m."
+          },
+          {
+            "title": "Apply it once per transaction",
+            "body": "Raise the multiplier to the number of stages.",
+            "equationLatex": "P_f=C_0m^{n}"
+          }
+        ],
+        "conclusion": "The compounded value is the final selling price.",
+        "finalAnswerLatex": "\\text{₹}{finalSellingPrice}",
+        "commonTrap": "Do not multiply the percentage by the number of stages; repeated changes compound."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct repeated multiplier with a visible exponent."
     },
     "PNL-QL-105": {
-      "stem": {"contextFamily":"mobile-phone distribution","blocks":[{"type":"paragraph","content":"A phone consignment bought for ₹{initialCostPrice} moves through these transactions: {stages}."}],"prompt":"Find the profit or loss amount earned in transaction {selectedStage}."},
-      "explanation": {"opening":"We only need the purchase and selling prices of the selected trader.","concept":"A trader's rupee gain or loss is the difference between that trader's output price and input price.","steps":[{"title":"Build the ledger up to the selected stage","body":"Follow the chain until transaction {selectedStage} and record that trader's purchase and selling prices."},{"title":"Take the absolute difference","body":"Subtract the smaller price from the larger one; the direction tells whether it is profit or loss.","equationLatex":"A_k=|P_k-P_{k-1}|"}],"conclusion":"That stage-wise difference is the required amount.","finalAnswerLatex":"\\text{₹}{selectedStageAmount}","commonTrap":"Do not compare the selected selling price with the original owner's cost unless the selected trader is the first seller."},
-      "difficulty":"Medium","difficultyRationale":"Ledger construction followed by one stage-specific subtraction."
+      "stem": {
+        "contextFamily": "mobile-phone distribution",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A phone consignment bought for ₹{initialCostPrice} moves through these transactions: {stages}."
+          }
+        ],
+        "prompt": "Find the profit or loss amount earned in transaction {selectedStage}."
+      },
+      "explanation": {
+        "opening": "We only need the purchase and selling prices of the selected trader.",
+        "concept": "A trader's rupee gain or loss is the difference between that trader's output price and input price.",
+        "steps": [
+          {
+            "title": "Build the ledger up to the selected stage",
+            "body": "Follow the chain until transaction {selectedStage} and record that trader's purchase and selling prices."
+          },
+          {
+            "title": "Take the absolute difference",
+            "body": "Subtract the smaller price from the larger one; the direction tells whether it is profit or loss.",
+            "equationLatex": "A_k=|P_k-P_{k-1}|"
+          }
+        ],
+        "conclusion": "That stage-wise difference is the required amount.",
+        "finalAnswerLatex": "\\text{₹}{selectedStageAmount}",
+        "commonTrap": "Do not compare the selected selling price with the original owner's cost unless the selected trader is the first seller."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Ledger construction followed by one stage-specific subtraction."
     },
     "PNL-QL-106": {
-      "stem": {"contextFamily":"grain procurement chain","blocks":[{"type":"paragraph","content":"A grain lot bought for ₹{initialCostPrice} passes through the trading stages {stages}."}],"prompt":"Which transaction produces the largest absolute profit or loss amount?"},
-      "explanation": {"opening":"Percentage size alone cannot answer this because each trader works with a different price base.","concept":"Compare rupee amounts stage by stage, not just the quoted percentages.","steps":[{"title":"Construct every stage price","body":"Build the complete price ledger from the original cost."},{"title":"Calculate each stage amount","body":"For every transfer, take the absolute difference between its selling and purchase prices.","equationLatex":"A_i=|P_i-P_{i-1}|"},{"title":"Compare the amounts","body":"The largest A_i identifies the required transaction."}],"conclusion":"The stage with the greatest rupee difference is the answer.","finalAnswerLatex":"{largestStage}","commonTrap":"The largest percentage need not create the largest rupee gain or loss because the bases differ."},
-      "difficulty":"Hard","difficultyRationale":"Full ledger plus comparison of several changing-base amounts."
+      "stem": {
+        "contextFamily": "grain procurement chain",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A grain lot bought for ₹{initialCostPrice} passes through the trading stages {stages}."
+          }
+        ],
+        "prompt": "Which transaction produces the largest absolute profit or loss amount?"
+      },
+      "explanation": {
+        "opening": "Percentage size alone cannot answer this because each trader works with a different price base.",
+        "concept": "Compare rupee amounts stage by stage, not just the quoted percentages.",
+        "steps": [
+          {
+            "title": "Construct every stage price",
+            "body": "Build the complete price ledger from the original cost."
+          },
+          {
+            "title": "Calculate each stage amount",
+            "body": "For every transfer, take the absolute difference between its selling and purchase prices.",
+            "equationLatex": "A_i=|P_i-P_{i-1}|"
+          },
+          {
+            "title": "Compare the amounts",
+            "body": "The largest A_i identifies the required transaction."
+          }
+        ],
+        "conclusion": "The stage with the greatest rupee difference is the answer.",
+        "finalAnswerLatex": "{largestStage}",
+        "commonTrap": "The largest percentage need not create the largest rupee gain or loss because the bases differ."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Full ledger plus comparison of several changing-base amounts."
     },
     "PNL-QL-107": {
-      "stem": {"contextFamily":"equipment refurbishment","blocks":[{"type":"paragraph","content":"A workshop buys a used generator for ₹{purchasePrice} and spends ₹{buyerExpense} on repairs before resale."}],"prompt":"At what price should it be sold to obtain {ratePercent}% {direction} on the effective cost?"},
-      "explanation": {"opening":"Purchase price alone is not the workshop's true cost.","concept":"First include the repair expense, then apply the target rate to the effective cost.","steps":[{"title":"Find effective cost","body":"Add the purchase price and the buyer's expense.","equationLatex":"E=C+e"},{"title":"Apply the target rate","body":"Use the profit or loss multiplier on E.","equationLatex":"S=E\\left(1\\pm\\frac{r}{100}\\right)"}],"conclusion":"The resulting value is the required selling price.","finalAnswerLatex":"\\text{₹}{sellingPrice}","commonTrap":"Do not calculate the percentage on the purchase price while ignoring the repair cost."},
-      "difficulty":"Medium","difficultyRationale":"Hidden effective-cost base followed by one forward multiplier."
+      "stem": {
+        "contextFamily": "equipment refurbishment",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A workshop buys a used generator for ₹{purchasePrice} and spends ₹{buyerExpense} on repairs before resale."
+          }
+        ],
+        "prompt": "At what price should it be sold to obtain {ratePercent}% {direction} on the effective cost?"
+      },
+      "explanation": {
+        "opening": "Purchase price alone is not the workshop's true cost.",
+        "concept": "First include the repair expense, then apply the target rate to the effective cost.",
+        "steps": [
+          {
+            "title": "Find effective cost",
+            "body": "Add the purchase price and the buyer's expense.",
+            "equationLatex": "E=C+e"
+          },
+          {
+            "title": "Apply the target rate",
+            "body": "Use the profit or loss multiplier on E.",
+            "equationLatex": "S=E\\left(1\\pm\\frac{r}{100}\\right)"
+          }
+        ],
+        "conclusion": "The resulting value is the required selling price.",
+        "finalAnswerLatex": "\\text{₹}{sellingPrice}",
+        "commonTrap": "Do not calculate the percentage on the purchase price while ignoring the repair cost."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Hidden effective-cost base followed by one forward multiplier."
     },
     "PNL-QL-108": {
-      "stem": {"contextFamily":"art-auction commission","blocks":[{"type":"paragraph","content":"An art dealer sells a painting for ₹{grossSellingPrice}. The auction house deducts {commissionPercent}% of the selling price as commission."}],"prompt":"Find the dealer's net receipt."},
-      "explanation": {"opening":"The gross price is not the amount the dealer finally receives.","concept":"Commission is deducted from the gross selling price.","steps":[{"title":"Find the commission","body":"Calculate the stated percentage of the gross price.","equationLatex":"K=G\\times\\frac{c}{100}"},{"title":"Find the net receipt","body":"Subtract the commission from the gross price.","equationLatex":"N=G-K=G\\left(1-\\frac{c}{100}\\right)"}],"conclusion":"The retained amount is the dealer's net receipt.","finalAnswerLatex":"\\text{₹}{netReceipt}","commonTrap":"Do not add the commission to the gross price; it is a deduction."},
-      "difficulty":"Medium","difficultyRationale":"One percentage deduction and one subtraction."
+      "stem": {
+        "contextFamily": "art-auction commission",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An art dealer sells a painting for ₹{grossSellingPrice}. The auction house deducts {commissionPercent}% of the selling price as commission."
+          }
+        ],
+        "prompt": "Find the dealer's net receipt."
+      },
+      "explanation": {
+        "opening": "The gross price is not the amount the dealer finally receives.",
+        "concept": "Commission is deducted from the gross selling price.",
+        "steps": [
+          {
+            "title": "Find the commission",
+            "body": "Calculate the stated percentage of the gross price.",
+            "equationLatex": "K=G\\times\\frac{c}{100}"
+          },
+          {
+            "title": "Find the net receipt",
+            "body": "Subtract the commission from the gross price.",
+            "equationLatex": "N=G-K=G\\left(1-\\frac{c}{100}\\right)"
+          }
+        ],
+        "conclusion": "The retained amount is the dealer's net receipt.",
+        "finalAnswerLatex": "\\text{₹}{netReceipt}",
+        "commonTrap": "Do not add the commission to the gross price; it is a deduction."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "One percentage deduction and one subtraction."
     },
     "PNL-QL-109": {
-      "stem": {"contextFamily":"property brokerage","blocks":[{"type":"paragraph","content":"A property owner must receive ₹{requiredNetReceipt} after a broker deducts {commissionPercent}% of the gross selling price."}],"prompt":"What gross selling price should be quoted?"},
-      "explanation": {"opening":"We know the retained amount, so the commission deduction must be reversed.","concept":"The required net receipt equals the retained fraction of the gross price.","steps":[{"title":"Write the retained fraction","body":"After c% commission, the seller keeps 100−c percent of the gross price."},{"title":"Recover the gross price","body":"Divide the required net receipt by the retained fraction.","equationLatex":"G=\\frac{N}{1-c/100}"}],"conclusion":"This gross price leaves the required amount after commission.","finalAnswerLatex":"\\text{₹}{grossSellingPrice}","commonTrap":"Do not increase the net amount by c%; the net amount is not the base on which commission was calculated."},
-      "difficulty":"Medium","difficultyRationale":"Single inverse percentage deduction."
+      "stem": {
+        "contextFamily": "property brokerage",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A property owner must receive ₹{requiredNetReceipt} after a broker deducts {commissionPercent}% of the gross selling price."
+          }
+        ],
+        "prompt": "What gross selling price should be quoted?"
+      },
+      "explanation": {
+        "opening": "We know the retained amount, so the commission deduction must be reversed.",
+        "concept": "The required net receipt equals the retained fraction of the gross price.",
+        "steps": [
+          {
+            "title": "Write the retained fraction",
+            "body": "After c% commission, the seller keeps 100−c percent of the gross price."
+          },
+          {
+            "title": "Recover the gross price",
+            "body": "Divide the required net receipt by the retained fraction.",
+            "equationLatex": "G=\\frac{N}{1-c/100}"
+          }
+        ],
+        "conclusion": "This gross price leaves the required amount after commission.",
+        "finalAnswerLatex": "\\text{₹}{grossSellingPrice}",
+        "commonTrap": "Do not increase the net amount by c%; the net amount is not the base on which commission was calculated."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Single inverse percentage deduction."
     },
     "PNL-QL-110": {
-      "stem": {"contextFamily":"machinery resale through agent","blocks":[{"type":"paragraph","content":"A machinery trader pays ₹{purchasePrice} for a unit, spends ₹{buyerExpense} preparing it for sale, and sells it for ₹{grossSellingPrice}. An agent keeps {commissionPercent}% of the gross selling price."}],"prompt":"Calculate the trader's percentage gain or loss."},
-      "explanation": {"opening":"We must compare the trader's true cost with the amount actually retained.","concept":"Expenses increase effective cost, while commission reduces the gross realization.","steps":[{"title":"Build the effective cost","body":"Add the purchase and preparation costs.","equationLatex":"E=C+e"},{"title":"Find net realization","body":"Deduct commission from the gross selling price.","equationLatex":"N=G\\left(1-\\frac{c}{100}\\right)"},{"title":"Measure the result on effective cost","body":"Compare N with E and divide the difference by E.","equationLatex":"r=\\frac{|N-E|}{E}\\times100"}],"conclusion":"The sign of N−E gives the direction and the ratio gives the percentage.","finalAnswerLatex":"{resultRatePercent}\\%\\;{resultDirection}","commonTrap":"Do not compare the gross selling price directly with the purchase price; both expense and commission matter."},
-      "difficulty":"Hard","difficultyRationale":"Two base adjustments followed by a percentage comparison."
+      "stem": {
+        "contextFamily": "machinery resale through agent",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A machinery trader pays ₹{purchasePrice} for a unit, spends ₹{buyerExpense} preparing it for sale, and sells it for ₹{grossSellingPrice}. An agent keeps {commissionPercent}% of the gross selling price."
+          }
+        ],
+        "prompt": "Calculate the trader's percentage gain or loss."
+      },
+      "explanation": {
+        "opening": "We must compare the trader's true cost with the amount actually retained.",
+        "concept": "Expenses increase effective cost, while commission reduces the gross realization.",
+        "steps": [
+          {
+            "title": "Build the effective cost",
+            "body": "Add the purchase and preparation costs.",
+            "equationLatex": "E=C+e"
+          },
+          {
+            "title": "Find net realization",
+            "body": "Deduct commission from the gross selling price.",
+            "equationLatex": "N=G\\left(1-\\frac{c}{100}\\right)"
+          },
+          {
+            "title": "Measure the result on effective cost",
+            "body": "Compare N with E and divide the difference by E.",
+            "equationLatex": "r=\\frac{|N-E|}{E}\\times100"
+          }
+        ],
+        "conclusion": "The sign of N−E gives the direction and the ratio gives the percentage.",
+        "finalAnswerLatex": "{resultRatePercent}\\%\\;{resultDirection}",
+        "commonTrap": "Do not compare the gross selling price directly with the purchase price; both expense and commission matter."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Two base adjustments followed by a percentage comparison."
     },
     "PNL-QL-111": {
-      "stem": {"contextFamily":"wholesale appliance ledger","blocks":[{"type":"paragraph","content":"An appliance lot bought for ₹{initialCostPrice} passes through the successive transfers {stages}."}],"prompt":"Calculate the profit or loss amount made by each trader."},
-      "explanation": {"opening":"A stage-wise ledger keeps the changing bases clear.","concept":"Each trader's selling price becomes the next trader's cost, and each stage amount is calculated separately.","steps":[{"title":"Construct all transaction prices","body":"Start from the original cost and apply every stage multiplier in order."},{"title":"Calculate each trader's result","body":"Subtract each trader's input price from that trader's output price.","equationLatex":"D_i=P_i-P_{i-1}"},{"title":"Label profit or loss","body":"A positive D_i is profit; a negative D_i is loss."}],"conclusion":"The list of signed stage differences gives all trader results.","finalAnswerLatex":"{stageWiseAmounts}","commonTrap":"Do not use the original cost as the base for every trader."},
-      "difficulty":"Hard","difficultyRationale":"Complete multi-stage ledger with several answer values."
+      "stem": {
+        "contextFamily": "wholesale appliance ledger",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An appliance lot bought for ₹{initialCostPrice} passes through the successive transfers {stages}."
+          }
+        ],
+        "prompt": "Calculate the profit or loss amount made by each trader."
+      },
+      "explanation": {
+        "opening": "A stage-wise ledger keeps the changing bases clear.",
+        "concept": "Each trader's selling price becomes the next trader's cost, and each stage amount is calculated separately.",
+        "steps": [
+          {
+            "title": "Construct all transaction prices",
+            "body": "Start from the original cost and apply every stage multiplier in order."
+          },
+          {
+            "title": "Calculate each trader's result",
+            "body": "Subtract each trader's input price from that trader's output price.",
+            "equationLatex": "D_i=P_i-P_{i-1}"
+          },
+          {
+            "title": "Label profit or loss",
+            "body": "A positive D_i is profit; a negative D_i is loss."
+          }
+        ],
+        "conclusion": "The list of signed stage differences gives all trader results.",
+        "finalAnswerLatex": "{stageWiseAmounts}",
+        "commonTrap": "Do not use the original cost as the base for every trader."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Complete multi-stage ledger with several answer values."
     },
     "PNL-QL-112": {
-      "stem": {"contextFamily":"handicraft export chain","blocks":[{"type":"paragraph","content":"A handicraft consignment changes hands through these stages: {stages}."}],"prompt":"Find the overall percentage gain or loss when the export buyer's price is compared with the artisan's original cost."},
-      "explanation": {"opening":"Only the first cost and final price matter for the overall result.","concept":"The complete chain can be represented by one combined multiplier.","steps":[{"title":"Multiply the stage factors","body":"Convert every transfer rate into its commercial multiplier.","equationLatex":"M=\\prod m_i"},{"title":"Compare with the original base","body":"The overall rate is the distance of M from 1, expressed as a percentage.","equationLatex":"r=|M-1|\\times100"}],"conclusion":"This gives the original owner-to-final buyer result.","finalAnswerLatex":"{overallRatePercent}\\%\\;{overallDirection}","commonTrap":"Individual trader profits do not add directly to the overall percentage."},
-      "difficulty":"Medium","difficultyRationale":"Direct aggregate multiplier and interpretation."
+      "stem": {
+        "contextFamily": "handicraft export chain",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A handicraft consignment changes hands through these stages: {stages}."
+          }
+        ],
+        "prompt": "Find the overall percentage gain or loss when the export buyer's price is compared with the artisan's original cost."
+      },
+      "explanation": {
+        "opening": "Only the first cost and final price matter for the overall result.",
+        "concept": "The complete chain can be represented by one combined multiplier.",
+        "steps": [
+          {
+            "title": "Multiply the stage factors",
+            "body": "Convert every transfer rate into its commercial multiplier.",
+            "equationLatex": "M=\\prod m_i"
+          },
+          {
+            "title": "Compare with the original base",
+            "body": "The overall rate is the distance of M from 1, expressed as a percentage.",
+            "equationLatex": "r=|M-1|\\times100"
+          }
+        ],
+        "conclusion": "This gives the original owner-to-final buyer result.",
+        "finalAnswerLatex": "{overallRatePercent}\\%\\;{overallDirection}",
+        "commonTrap": "Individual trader profits do not add directly to the overall percentage."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct aggregate multiplier and interpretation."
     },
     "PNL-QL-113": {
-      "stem": {"contextFamily":"second-hand laptop chain","blocks":[{"type":"paragraph","content":"A laptop is resold through the mixed profit-and-loss stages {stages}. The final customer pays ₹{finalSellingPrice}."}],"prompt":"Find the first seller's original purchase price."},
-      "explanation": {"opening":"Since the stages contain both gains and losses, it helps to combine them before reversing the chain.","concept":"The final price equals the original cost multiplied by the product of all stage factors.","steps":[{"title":"Build the mixed multiplier","body":"Use factors above 1 for gains and below 1 for losses.","equationLatex":"M=\\prod m_i"},{"title":"Work backward","body":"Divide the final payment by M.","equationLatex":"C_0=\\frac{P_f}{M}"}],"conclusion":"The quotient is the original purchase price.","finalAnswerLatex":"\\text{₹}{initialCostPrice}","commonTrap":"Do not reverse gains and losses by simply changing their signs and adding them."},
-      "difficulty":"Hard","difficultyRationale":"Reverse multi-stage chain with mixed directions supplied as structured data."
+      "stem": {
+        "contextFamily": "second-hand laptop chain",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A laptop is resold through the mixed profit-and-loss stages {stages}. The final customer pays ₹{finalSellingPrice}."
+          }
+        ],
+        "prompt": "Find the first seller's original purchase price."
+      },
+      "explanation": {
+        "opening": "Since the stages contain both gains and losses, it helps to combine them before reversing the chain.",
+        "concept": "The final price equals the original cost multiplied by the product of all stage factors.",
+        "steps": [
+          {
+            "title": "Build the mixed multiplier",
+            "body": "Use factors above 1 for gains and below 1 for losses.",
+            "equationLatex": "M=\\prod m_i"
+          },
+          {
+            "title": "Work backward",
+            "body": "Divide the final payment by M.",
+            "equationLatex": "C_0=\\frac{P_f}{M}"
+          }
+        ],
+        "conclusion": "The quotient is the original purchase price.",
+        "finalAnswerLatex": "\\text{₹}{initialCostPrice}",
+        "commonTrap": "Do not reverse gains and losses by simply changing their signs and adding them."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Reverse multi-stage chain with mixed directions supplied as structured data."
     },
     "PNL-QL-114": {
-      "stem": {"contextFamily":"construction-material supply","blocks":[{"type":"paragraph","content":"A consignment of construction material bought for ₹{initialCostPrice} passes through the transfers {stages}."}],"prompt":"Find the difference between the prices after transaction {firstStageNumber} and transaction {secondStageNumber}."},
-      "explanation": {"opening":"We need two separate stopping points in the same price ledger.","concept":"Build the chain once, record both requested stage prices, and then compare them.","steps":[{"title":"Construct the price ledger","body":"Apply the stage multipliers in order and record every intermediate price."},{"title":"Select the two requested prices","body":"Read P_{firstStageNumber} and P_{secondStageNumber} from the ledger."},{"title":"Find their difference","body":"Take the absolute difference.","equationLatex":"D=|P_a-P_b|"}],"conclusion":"That absolute difference is the required amount.","finalAnswerLatex":"\\text{₹}{stagePriceDifference}","commonTrap":"Do not compare a requested intermediate price with the original cost unless one stage number is zero."},
-      "difficulty":"Hard","difficultyRationale":"Full ledger plus two-stage selection and comparison."
+      "stem": {
+        "contextFamily": "construction-material supply",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A consignment of construction material bought for ₹{initialCostPrice} passes through the transfers {stages}."
+          }
+        ],
+        "prompt": "Find the difference between the prices after transaction {firstStageNumber} and transaction {secondStageNumber}."
+      },
+      "explanation": {
+        "opening": "We need two separate stopping points in the same price ledger.",
+        "concept": "Build the chain once, record both requested stage prices, and then compare them.",
+        "steps": [
+          {
+            "title": "Construct the price ledger",
+            "body": "Apply the stage multipliers in order and record every intermediate price."
+          },
+          {
+            "title": "Select the two requested prices",
+            "body": "Read P_{firstStageNumber} and P_{secondStageNumber} from the ledger."
+          },
+          {
+            "title": "Find their difference",
+            "body": "Take the absolute difference.",
+            "equationLatex": "D=|P_a-P_b|"
+          }
+        ],
+        "conclusion": "That absolute difference is the required amount.",
+        "finalAnswerLatex": "\\text{₹}{stagePriceDifference}",
+        "commonTrap": "Do not compare a requested intermediate price with the original cost unless one stage number is zero."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Full ledger plus two-stage selection and comparison."
     },
     "PNL-QL-115": {
-      "stem": {"contextFamily":"retail supply table","blocks":[{"type":"paragraph","content":"A retail shipment is purchased initially for ₹{initialCostPrice}. Its successive transfers are shown below."},{"type":"table","caption":"Transaction schedule","columns":["Transfer","Profit/Loss rate"],"rowSource":"transactionTable"}],"prompt":"Using the table, find the final selling price."},
-      "explanation": {"opening":"Read the table row by row and treat each row as one transaction.","concept":"The output of one table row becomes the input price for the next row.","steps":[{"title":"Translate each row into a multiplier","body":"Profit rows use 1+r/100 and loss rows use 1−r/100."},{"title":"Apply the rows in order","body":"Multiply the initial cost by the table multipliers from top to bottom.","equationLatex":"P_f=C_0\\prod m_i"}],"conclusion":"The value after the last table row is the final selling price.","finalAnswerLatex":"\\text{₹}{finalSellingPrice}","commonTrap":"Do not treat the table as decorative text or rearrange the transaction order."},
-      "difficulty":"Medium","difficultyRationale":"Visible table interpretation with a direct successive calculation."
+      "stem": {
+        "contextFamily": "retail supply table",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A retail shipment is purchased initially for ₹{initialCostPrice}. Its successive transfers are shown below."
+          },
+          {
+            "type": "table",
+            "caption": "Transaction schedule",
+            "columns": [
+              "Transfer",
+              "Profit/Loss rate"
+            ],
+            "rowSource": "transactionTable"
+          }
+        ],
+        "prompt": "Using the table, find the final selling price."
+      },
+      "explanation": {
+        "opening": "Read the table row by row and treat each row as one transaction.",
+        "concept": "The output of one table row becomes the input price for the next row.",
+        "steps": [
+          {
+            "title": "Translate each row into a multiplier",
+            "body": "Profit rows use 1+r/100 and loss rows use 1−r/100."
+          },
+          {
+            "title": "Apply the rows in order",
+            "body": "Multiply the initial cost by the table multipliers from top to bottom.",
+            "equationLatex": "P_f=C_0\\prod m_i"
+          }
+        ],
+        "conclusion": "The value after the last table row is the final selling price.",
+        "finalAnswerLatex": "\\text{₹}{finalSellingPrice}",
+        "commonTrap": "Do not treat the table as decorative text or rearrange the transaction order."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Visible table interpretation with a direct successive calculation."
     },
     "PNL-QL-116": {
-      "stem": {"contextFamily":"regional distribution caselet","blocks":[{"type":"caselet","title":"Distribution caselet","paragraphSource":"caseletData"},{"type":"paragraph","content":"The consignment starts at ₹{initialCostPrice} and follows the stage data {stages}."}],"prompt":"Calculate the profit or loss amount in transaction {selectedStage}."},
-      "explanation": {"opening":"Let us separate the shared caselet information from the specific stage being asked about.","concept":"Only the selected trader's input and output prices are needed, but earlier caselet stages may be required to obtain them.","steps":[{"title":"Extract the transaction order","body":"Use the caselet to build the chain up to transaction {selectedStage}."},{"title":"Find the selected stage amount","body":"Compare that trader's selling price with that trader's purchase price.","equationLatex":"A_k=|P_k-P_{k-1}|"}],"conclusion":"The selected stage's price difference is the required amount.","finalAnswerLatex":"\\text{₹}{selectedStageAmount}","commonTrap":"Do not use facts from later caselet stages when they do not affect the selected transaction."},
-      "difficulty":"Hard","difficultyRationale":"Caselet extraction plus stage-specific ledger reasoning."
+      "stem": {
+        "contextFamily": "regional distribution caselet",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Distribution caselet",
+            "paragraphSource": "caseletData"
+          },
+          {
+            "type": "paragraph",
+            "content": "The consignment starts at ₹{initialCostPrice} and follows the stage data {stages}."
+          }
+        ],
+        "prompt": "Calculate the profit or loss amount in transaction {selectedStage}."
+      },
+      "explanation": {
+        "opening": "Let us separate the shared caselet information from the specific stage being asked about.",
+        "concept": "Only the selected trader's input and output prices are needed, but earlier caselet stages may be required to obtain them.",
+        "steps": [
+          {
+            "title": "Extract the transaction order",
+            "body": "Use the caselet to build the chain up to transaction {selectedStage}."
+          },
+          {
+            "title": "Find the selected stage amount",
+            "body": "Compare that trader's selling price with that trader's purchase price.",
+            "equationLatex": "A_k=|P_k-P_{k-1}|"
+          }
+        ],
+        "conclusion": "The selected stage's price difference is the required amount.",
+        "finalAnswerLatex": "\\text{₹}{selectedStageAmount}",
+        "commonTrap": "Do not use facts from later caselet stages when they do not affect the selected transaction."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Caselet extraction plus stage-specific ledger reasoning."
     },
     "PNL-QL-117": {
-      "stem": {"contextFamily":"trader-chain statement evaluation","blocks":[{"type":"paragraph","content":"A product is sold successively through the stages {stages}."},{"type":"statements","lead":"Consider the following conclusions about the complete chain:","statements":["The overall result can be found by adding the signed rates.","The combined multiplier must be compared with 1.","The final trader's rate alone determines the overall result."]}],"prompt":"Select the correct statement."},
-      "explanation": {"opening":"The statements can be tested using the basic rule of successive percentages.","concept":"Different stages use different price bases, so the combined multiplier is the reliable measure of the overall result.","steps":[{"title":"Reject direct rate addition","body":"Signed percentages cannot normally be added across changing bases."},{"title":"Use the combined factor","body":"Multiply the stage factors and compare the product with 1."}],"conclusion":"The statement describing multiplier comparison is correct.","finalAnswerLatex":"{correctStatement}","commonTrap":"A statement may sound reasonable because the rates are visible, but the changing base is decisive."},
-      "difficulty":"Medium","difficultyRationale":"Conceptual statement evaluation with no coupled unknown."
+      "stem": {
+        "contextFamily": "trader-chain statement evaluation",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A product is sold successively through the stages {stages}."
+          },
+          {
+            "type": "statements",
+            "lead": "Consider the following conclusions about the complete chain:",
+            "statements": [
+              "The overall result can be found by adding the signed rates.",
+              "The combined multiplier must be compared with 1.",
+              "The final trader's rate alone determines the overall result."
+            ]
+          }
+        ],
+        "prompt": "Select the correct statement."
+      },
+      "explanation": {
+        "opening": "The statements can be tested using the basic rule of successive percentages.",
+        "concept": "Different stages use different price bases, so the combined multiplier is the reliable measure of the overall result.",
+        "steps": [
+          {
+            "title": "Reject direct rate addition",
+            "body": "Signed percentages cannot normally be added across changing bases."
+          },
+          {
+            "title": "Use the combined factor",
+            "body": "Multiply the stage factors and compare the product with 1."
+          }
+        ],
+        "conclusion": "The statement describing multiplier comparison is correct.",
+        "finalAnswerLatex": "{correctStatement}",
+        "commonTrap": "A statement may sound reasonable because the rates are visible, but the changing base is decisive."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Conceptual statement evaluation with no coupled unknown."
     },
     "PNL-QL-118": {
-      "stem": {"contextFamily":"algebraic transaction chain","blocks":[{"type":"paragraph","content":"The initial price is {initialPriceExpression}, the final price is {finalPriceExpression}, and the known transfer is represented by {knownStageExpression}. The missing transfer is a {missingDirection}."},{"type":"equation","latex":"P_f=P_0\\,m_{known}\\,m_{missing}"}],"prompt":"Determine the missing percentage algebraically."},
-      "explanation": {"opening":"The algebra is the same chain rule written with symbols instead of numbers.","concept":"Isolate the unknown multiplier before converting it to a percentage.","steps":[{"title":"Solve for the missing factor","body":"Divide the final-price expression by the initial expression and the known multiplier.","equationLatex":"m_{missing}=\\frac{P_f}{P_0m_{known}}"},{"title":"Convert factor to rate","body":"Use m−1 for profit or 1−m for loss, then multiply by 100."}],"conclusion":"The simplified expression gives the missing percentage.","finalAnswerLatex":"{missingRatePercent}\\%", "commonTrap":"Do not cancel terms that belong to different factors or change the direction rule after isolation."},
-      "difficulty":"Hard","difficultyRationale":"Symbolic coupled inverse and direction-sensitive conversion."
+      "stem": {
+        "contextFamily": "algebraic transaction chain",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "The initial price is {initialPriceExpression}, the final price is {finalPriceExpression}, and the known transfer is represented by {knownStageExpression}. The missing transfer is a {missingDirection}."
+          },
+          {
+            "type": "equation",
+            "latex": "P_f=P_0\\,m_{known}\\,m_{missing}"
+          }
+        ],
+        "prompt": "Determine the missing percentage algebraically."
+      },
+      "explanation": {
+        "opening": "The algebra is the same chain rule written with symbols instead of numbers.",
+        "concept": "Isolate the unknown multiplier before converting it to a percentage.",
+        "steps": [
+          {
+            "title": "Solve for the missing factor",
+            "body": "Divide the final-price expression by the initial expression and the known multiplier.",
+            "equationLatex": "m_{missing}=\\frac{P_f}{P_0m_{known}}"
+          },
+          {
+            "title": "Convert factor to rate",
+            "body": "Use m−1 for profit or 1−m for loss, then multiply by 100."
+          }
+        ],
+        "conclusion": "The simplified expression gives the missing percentage.",
+        "finalAnswerLatex": "{missingRatePercent}\\%",
+        "commonTrap": "Do not cancel terms that belong to different factors or change the direction rule after isolation."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Symbolic coupled inverse and direction-sensitive conversion."
     },
     "PNL-QL-119": {
-      "stem": {"contextFamily":"successive-sale data sufficiency","blocks":[{"type":"data_sufficiency","question":"The original cost price of an item in a successive transaction chain is required.","statements":["{statementOne}","{statementTwo}"],"answerScheme":"STANDARD_TWO_STATEMENT"}],"prompt":"Decide whether Statement I alone, Statement II alone, both together, or neither is sufficient."},
-      "explanation": {"opening":"Data sufficiency asks whether the value can be determined, not whether we can produce a plausible estimate.","concept":"The original cost is fixed only when the final price and every required chain multiplier are uniquely known.","steps":[{"title":"Test Statement I alone","body":"Check whether it supplies a complete equation with one unknown."},{"title":"Test Statement II alone","body":"Repeat the same uniqueness check without using Statement I."},{"title":"Combine only if needed","body":"Use both statements together and see whether the original cost becomes unique."}],"conclusion":"Choose the standard data-sufficiency option matching the first point at which uniqueness is achieved.","finalAnswerLatex":"{dataSufficiencyAnswer}","commonTrap":"Do not solve using information from both statements while judging either statement alone."},
-      "difficulty":"Hard","difficultyRationale":"Data-sufficiency logic with equation completeness and uniqueness."
+      "stem": {
+        "contextFamily": "successive-sale data sufficiency",
+        "blocks": [
+          {
+            "type": "data_sufficiency",
+            "question": "The original cost price of an item in a successive transaction chain is required.",
+            "statements": [
+              "{statementOne}",
+              "{statementTwo}"
+            ],
+            "answerScheme": "STANDARD_TWO_STATEMENT"
+          }
+        ],
+        "prompt": "Decide whether Statement I alone, Statement II alone, both together, or neither is sufficient."
+      },
+      "explanation": {
+        "opening": "Data sufficiency asks whether the value can be determined, not whether we can produce a plausible estimate.",
+        "concept": "The original cost is fixed only when the final price and every required chain multiplier are uniquely known.",
+        "steps": [
+          {
+            "title": "Test Statement I alone",
+            "body": "Check whether it supplies a complete equation with one unknown."
+          },
+          {
+            "title": "Test Statement II alone",
+            "body": "Repeat the same uniqueness check without using Statement I."
+          },
+          {
+            "title": "Combine only if needed",
+            "body": "Use both statements together and see whether the original cost becomes unique."
+          }
+        ],
+        "conclusion": "Choose the standard data-sufficiency option matching the first point at which uniqueness is achieved.",
+        "finalAnswerLatex": "{dataSufficiencyAnswer}",
+        "commonTrap": "Do not solve using information from both statements while judging either statement alone."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Data-sufficiency logic with equation completeness and uniqueness."
     },
     "PNL-QL-120": {
-      "stem": {"contextFamily":"commercial-agent caselet","blocks":[{"type":"caselet","title":"Agent-assisted resale","paragraphs":["A trader purchases a specialised machine for ₹{purchasePrice} and spends ₹{buyerExpense} preparing it for sale.","The machine is sold for ₹{grossSellingPrice} through an agent who charges {commissionPercent}% of the gross price."]}],"prompt":"Calculate the trader's percentage gain or loss on the complete transaction."},
-      "explanation": {"opening":"The friendly way to organise this caselet is to separate cost-side additions from sale-side deductions.","concept":"Effective cost includes the preparation expense, while net realization is the gross price after commission.","steps":[{"title":"Find effective cost","body":"Add the purchase and preparation amounts.","equationLatex":"E=C+e"},{"title":"Find net receipt","body":"Remove the agent's commission from the gross price.","equationLatex":"N=G(1-c/100)"},{"title":"Calculate the percentage result","body":"Compare N with E and divide the difference by E.","equationLatex":"r=\\frac{|N-E|}{E}\\times100"}],"conclusion":"The comparison gives both the direction and the percentage result.","finalAnswerLatex":"{resultRatePercent}\\%\\;{resultDirection}","commonTrap":"Do not calculate profit on the purchase price alone or use the gross price before commission."},
-      "difficulty":"Hard","difficultyRationale":"Caselet with effective-cost construction, net realization, and percentage interpretation."
+      "stem": {
+        "contextFamily": "commercial-agent caselet",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Agent-assisted resale",
+            "paragraphs": [
+              "A trader purchases a specialised machine for ₹{purchasePrice} and spends ₹{buyerExpense} preparing it for sale.",
+              "The machine is sold for ₹{grossSellingPrice} through an agent who charges {commissionPercent}% of the gross price."
+            ]
+          }
+        ],
+        "prompt": "Calculate the trader's percentage gain or loss on the complete transaction."
+      },
+      "explanation": {
+        "opening": "The friendly way to organise this caselet is to separate cost-side additions from sale-side deductions.",
+        "concept": "Effective cost includes the preparation expense, while net realization is the gross price after commission.",
+        "steps": [
+          {
+            "title": "Find effective cost",
+            "body": "Add the purchase and preparation amounts.",
+            "equationLatex": "E=C+e"
+          },
+          {
+            "title": "Find net receipt",
+            "body": "Remove the agent's commission from the gross price.",
+            "equationLatex": "N=G(1-c/100)"
+          },
+          {
+            "title": "Calculate the percentage result",
+            "body": "Compare N with E and divide the difference by E.",
+            "equationLatex": "r=\\frac{|N-E|}{E}\\times100"
+          }
+        ],
+        "conclusion": "The comparison gives both the direction and the percentage result.",
+        "finalAnswerLatex": "{resultRatePercent}\\%\\;{resultDirection}",
+        "commonTrap": "Do not calculate profit on the purchase price alone or use the gross price before commission."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Caselet with effective-cost construction, net realization, and percentage interpretation."
     }
   },
   "entryCount": 26

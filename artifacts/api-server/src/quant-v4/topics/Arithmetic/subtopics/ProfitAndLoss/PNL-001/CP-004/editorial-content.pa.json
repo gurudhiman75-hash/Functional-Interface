@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਪਲਾਈ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। A ਨੇ ਸਪਲਾਈ ਬੈਚ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ B ਨੂੰ {firstRatePercent}% {firstDirection} 'ਤੇ ਵੇਚੀ। B ਨੇ ਇਸਨੂੰ C ਨੂੰ {secondRatePercent}% {secondDirection} 'ਤੇ ਵੇਚ ਦਿੱਤਾ।"
+            "content": "A ਨੇ ਸਪਲਾਈ ਬੈਚ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ B ਨੂੰ {firstRatePercent}% {firstDirection} 'ਤੇ ਵੇਚੀ। B ਨੇ ਇਸਨੂੰ C ਨੂੰ {secondRatePercent}% {secondDirection} 'ਤੇ ਵੇਚ ਦਿੱਤਾ।"
           }
         ],
         "prompt": "C ਵੱਲੋਂ ਅਦਾ ਕੀਤਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -44,7 +44,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਵੰਡਕਾਰ ਲੈਣ-ਦੇਣ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। A ਨੇ ਵਪਾਰਕ ਖੇਪ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ। A ਨੇ B ਨੂੰ {firstRatePercent}% {firstDirection}, B ਨੇ C ਨੂੰ {secondRatePercent}% {secondDirection}, ਅਤੇ C ਨੇ D ਨੂੰ {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚਿਆ।"
+            "content": "A ਨੇ ਵਪਾਰਕ ਖੇਪ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ। A ਨੇ B ਨੂੰ {firstRatePercent}% {firstDirection}, B ਨੇ C ਨੂੰ {secondRatePercent}% {secondDirection}, ਅਤੇ C ਨੇ D ਨੂੰ {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚਿਆ।"
           }
         ],
         "prompt": "D ਵੱਲੋਂ ਅਦਾ ਕੀਤਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -78,7 +78,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬਹੁ-ਪੜਾਅ ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। A ਨੇ ਵੰਡ ਲਾਟ B ਨੂੰ {firstRatePercent}% {firstDirection} 'ਤੇ ਵੇਚੀ ਅਤੇ B ਨੇ ਇਸਨੂੰ C ਨੂੰ {secondRatePercent}% {secondDirection} 'ਤੇ ਵੇਚ ਦਿੱਤਾ।"
+            "content": "A ਨੇ ਵੰਡ ਲਾਟ B ਨੂੰ {firstRatePercent}% {firstDirection} 'ਤੇ ਵੇਚੀ ਅਤੇ B ਨੇ ਇਸਨੂੰ C ਨੂੰ {secondRatePercent}% {secondDirection} 'ਤੇ ਵੇਚ ਦਿੱਤਾ।"
           }
         ],
         "prompt": "ਜੇ C ਨੇ ₹{finalSellingPrice} ਅਦਾ ਕੀਤੇ, ਤਾਂ A ਦਾ ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -111,7 +111,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਵਪਾਰੀ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਮਾਲ ਦੀ ਖੇਪ ਲਗਾਤਾਰ {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚੀ ਗਈ।"
+            "content": "ਮਾਲ ਦੀ ਖੇਪ ਲਗਾਤਾਰ {firstRatePercent}% {firstDirection}, {secondRatePercent}% {secondDirection} ਅਤੇ {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਜੇ ਅੰਤਿਮ ਖਰੀਦਦਾਰ ਨੇ ₹{finalSellingPrice} ਅਦਾ ਕੀਤੇ, ਤਾਂ ਪਹਿਲੇ ਵੇਚਣ ਵਾਲੇ ਦਾ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -144,7 +144,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਮਿਸ਼ਨ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਲੈਣ-ਦੇਣ {afterStage} ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ ਇਸਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -176,7 +176,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਪਲਾਈ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਥੋਕ ਪੈਕੇਜ ਇਨ੍ਹਾਂ ਪੜਾਅਵਾਂ ਵਿੱਚ ਲਗਾਤਾਰ ਵੇਚੀ ਜਾਂਦੀ ਹੈ: {stages}।"
+            "content": "ਥੋਕ ਪੈਕੇਜ ਇਨ੍ਹਾਂ ਪੜਾਅਵਾਂ ਵਿੱਚ ਲਗਾਤਾਰ ਵੇਚੀ ਜਾਂਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਪਹਿਲੀ ਖਰੀਦ ਤੋਂ ਅੰਤਿਮ ਵਿਕਰੀ ਤੱਕ ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -210,7 +210,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਵੰਡਕਾਰ ਲੈਣ-ਦੇਣ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। A {firstRatePercent}% {firstDirection}, B {secondRatePercent}% {secondDirection} ਅਤੇ C {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚਦੇ ਹਨ।"
+            "content": "A {firstRatePercent}% {firstDirection}, B {secondRatePercent}% {secondDirection} ਅਤੇ C {thirdRatePercent}% {thirdDirection} 'ਤੇ ਵੇਚਦੇ ਹਨ।"
           }
         ],
         "prompt": "ਮੂਲ ਲਾਗਤ ਤੋਂ ਅੰਤਿਮ ਵਿਕਰੀ ਤੱਕ ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -243,7 +243,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬਹੁ-ਪੜਾਅ ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਪਾਰਕ ਖੇਪ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ ਅਤੇ ਅੰਤ ਵਿੱਚ ₹{finalSellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਜਾਣੇ ਹੋਏ ਪੜਾਅ ਹਨ: {knownStages}, ਅਤੇ ਗੁੰਮ ਪੜਾਅ {missingDirection} ਹੈ।"
+            "content": "ਵਪਾਰਕ ਖੇਪ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ ਅਤੇ ਅੰਤ ਵਿੱਚ ₹{finalSellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਜਾਣੇ ਹੋਏ ਪੜਾਅ ਹਨ: {knownStages}, ਅਤੇ ਗੁੰਮ ਪੜਾਅ {missingDirection} ਹੈ।"
           }
         ],
         "prompt": "ਗੁੰਮ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -281,7 +281,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਵਪਾਰੀ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਵੰਡ ਲਾਟ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ ਅਤੇ ਅੰਤ ਵਿੱਚ ₹{finalSellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਜਾਣੇ ਹੋਏ ਪੜਾਅ ਹਨ: {knownStages}, ਅਤੇ ਗੁੰਮ ਪੜਾਅ {missingDirection} ਹੈ।"
+            "content": "ਵੰਡ ਲਾਟ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ ਅਤੇ ਅੰਤ ਵਿੱਚ ₹{finalSellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ। ਜਾਣੇ ਹੋਏ ਪੜਾਅ ਹਨ: {knownStages}, ਅਤੇ ਗੁੰਮ ਪੜਾਅ {missingDirection} ਹੈ।"
           }
         ],
         "prompt": "ਗੁੰਮ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -319,7 +319,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਮਿਸ਼ਨ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{initialCostPrice} ਲਾਗਤ ਵਾਲੀ ਮਾਲ ਦੀ ਖੇਪ {stageCount} ਲਗਾਤਾਰ ਲੈਣ-ਦੇਣਾਂ ਵਿੱਚ ਹਰ ਵਾਰ {ratePercent}% {direction} 'ਤੇ ਵੇਚੀ ਜਾਂਦੀ ਹੈ।"
+            "content": "₹{initialCostPrice} ਲਾਗਤ ਵਾਲੀ ਮਾਲ ਦੀ ਖੇਪ {stageCount} ਲਗਾਤਾਰ ਲੈਣ-ਦੇਣਾਂ ਵਿੱਚ ਹਰ ਵਾਰ {ratePercent}% {direction} 'ਤੇ ਵੇਚੀ ਜਾਂਦੀ ਹੈ।"
           }
         ],
         "prompt": "ਅੰਤਿਮ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -352,7 +352,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਪਲਾਈ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਲੈਣ-ਦੇਣ {selectedStage} ਵਿੱਚ ਹੋਇਆ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।"
@@ -384,7 +384,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਵੰਡਕਾਰ ਲੈਣ-ਦੇਣ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਥੋਕ ਪੈਕੇਜ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਥੋਕ ਪੈਕੇਜ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਕਿਹੜੇ ਲੈਣ-ਦੇਣ ਵਿੱਚ ਸਭ ਤੋਂ ਵੱਧ ਨਿਰਪੇਖ ਲਾਭ ਜਾਂ ਹਾਨੀ ਹੋਈ, ਪਤਾ ਕਰੋ।"
@@ -420,7 +420,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬਹੁ-ਪੜਾਅ ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਵਪਾਰੀ ਸਪਲਾਈ ਬੈਚ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਮੁੜ ਵੇਚਣ ਤੋਂ ਪਹਿਲਾਂ ₹{buyerExpense} ਖਰਚ ਕਰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਸਪਲਾਈ ਬੈਚ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ ਅਤੇ ਮੁੜ ਵੇਚਣ ਤੋਂ ਪਹਿਲਾਂ ₹{buyerExpense} ਖਰਚ ਕਰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਪ੍ਰਭਾਵੀ ਲਾਗਤ 'ਤੇ {ratePercent}% {direction} ਲਈ ਇਸਨੂੰ ਕਿਹੜੇ ਮੁੱਲ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?"
@@ -453,7 +453,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਵਪਾਰੀ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਵਪਾਰੀ ਵਪਾਰਕ ਖੇਪ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਦਿੰਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਵਪਾਰਕ ਖੇਪ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਮਿਲੀ ਸ਼ੁੱਧ ਰਕਮ ਪਤਾ ਕਰੋ।"
@@ -486,7 +486,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਮਿਸ਼ਨ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਦੇਣ ਤੋਂ ਬਾਅਦ ਵਪਾਰੀ ਨੂੰ ₹{requiredNetReceipt} ਮਿਲਣੇ ਚਾਹੀਦੇ ਹਨ।"
+            "content": "ਵਿਕਰੀ ਮੁੱਲ 'ਤੇ {commissionPercent}% ਕਮਿਸ਼ਨ ਦੇਣ ਤੋਂ ਬਾਅਦ ਵਪਾਰੀ ਨੂੰ ₹{requiredNetReceipt} ਮਿਲਣੇ ਚਾਹੀਦੇ ਹਨ।"
           }
         ],
         "prompt": "ਲੋੜੀਂਦਾ ਕੁੱਲ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -518,7 +518,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਪਲਾਈ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਵਪਾਰੀ ਮਾਲ ਦੀ ਖੇਪ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ₹{buyerExpense} ਵਾਧੂ ਖਰਚ ਕਰਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਮਾਲ ਦੀ ਖੇਪ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ₹{buyerExpense} ਵਾਧੂ ਖਰਚ ਕਰਦਾ ਹੈ ਅਤੇ ਇਸਨੂੰ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ।"
           }
         ],
         "prompt": "{commissionPercent}% ਕਮਿਸ਼ਨ ਤੋਂ ਬਾਅਦ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -556,7 +556,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਵੰਡਕਾਰ ਲੈਣ-ਦੇਣ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਹਰ ਵਪਾਰੀ ਦਾ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।"
@@ -592,7 +592,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬਹੁ-ਪੜਾਅ ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਥੋਕ ਪੈਕੇਜ ਇਨ੍ਹਾਂ ਪੜਾਅਵਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "ਥੋਕ ਪੈਕੇਜ ਇਨ੍ਹਾਂ ਪੜਾਅਵਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਅੰਤਿਮ ਮੁੱਲ ਦੀ ਤੁਲਨਾ ਮੂਲ ਮਾਲਕ ਦੇ ਖਰੀਦ ਮੁੱਲ ਨਾਲ ਕਰਕੇ ਕੁੱਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -626,7 +626,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਵਪਾਰੀ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਸਪਲਾਈ ਬੈਚ ਇਨ੍ਹਾਂ ਮਿਲੇ-ਜੁਲੇ ਲਾਭ-ਹਾਨੀ ਪੜਾਅਵਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "ਸਪਲਾਈ ਬੈਚ ਇਨ੍ਹਾਂ ਮਿਲੇ-ਜੁਲੇ ਲਾਭ-ਹਾਨੀ ਪੜਾਅਵਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਜੇ ਅੰਤਿਮ ਖਰੀਦਦਾਰ ₹{finalSellingPrice} ਅਦਾ ਕਰਦਾ ਹੈ, ਤਾਂ ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -659,7 +659,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਮਿਸ਼ਨ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਵਪਾਰਕ ਖੇਪ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
+            "content": "₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਵਪਾਰਕ ਖੇਪ ਇਨ੍ਹਾਂ ਲੈਣ-ਦੇਣਾਂ ਵਿਚੋਂ ਲੰਘਦੀ ਹੈ: {stages}।"
           }
         ],
         "prompt": "ਲੈਣ-ਦੇਣ {firstStageNumber} ਅਤੇ ਲੈਣ-ਦੇਣ {secondStageNumber} ਤੋਂ ਬਾਅਦ ਦੇ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -695,7 +695,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਪਲਾਈ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਸਾਰਣੀ ਵਿੱਚ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਵੰਡ ਲਾਟ ਦੇ ਹਰ ਹਸਤਾਂਤਰਨ 'ਤੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ।"
+            "content": "ਸਾਰਣੀ ਵਿੱਚ ₹{initialCostPrice} ਵਿੱਚ ਖਰੀਦੀ ਵੰਡ ਲਾਟ ਦੇ ਹਰ ਹਸਤਾਂਤਰਨ 'ਤੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਦਿੱਤੇ ਹਨ।"
           },
           {
             "type": "table",
@@ -736,7 +736,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਵੰਡਕਾਰ ਲੈਣ-ਦੇਣ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਕੇਸਲੈਟ। ਮਾਲ ਦੀ ਖੇਪ ਦਾ ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ ₹{initialCostPrice} ਹੈ ਅਤੇ ਪੜਾਅ ਹਨ।{stages}।"
+            "content": "ਕੇਸਲੈਟ। ਮਾਲ ਦੀ ਖੇਪ ਦਾ ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ ₹{initialCostPrice} ਹੈ ਅਤੇ ਪੜਾਅ ਹਨ।{stages}।"
           },
           {
             "type": "caselet",
@@ -774,7 +774,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬਹੁ-ਪੜਾਅ ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਪੜਾਅਵਾਂ ਵਿੱਚ ਲਗਾਤਾਰ ਵੇਚੀ ਜਾਂਦੀ ਹੈ: {stages}।"
+            "content": "ਉਪਕਰਣਾਂ ਦਾ ਲਾਟ ਇਨ੍ਹਾਂ ਪੜਾਅਵਾਂ ਵਿੱਚ ਲਗਾਤਾਰ ਵੇਚੀ ਜਾਂਦੀ ਹੈ: {stages}।"
           },
           {
             "type": "statements",
@@ -813,7 +813,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਵਪਾਰੀ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ {initialPriceExpression}, ਅੰਤਿਮ ਮੁੱਲ {finalPriceExpression} ਅਤੇ ਜਾਣਿਆ ਪੜਾਅ {knownStageExpression} ਹੈ।"
+            "content": "ਸ਼ੁਰੂਆਤੀ ਮੁੱਲ {initialPriceExpression}, ਅੰਤਿਮ ਮੁੱਲ {finalPriceExpression} ਅਤੇ ਜਾਣਿਆ ਪੜਾਅ {knownStageExpression} ਹੈ।"
           },
           {
             "type": "equation",
@@ -849,7 +849,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕਮਿਸ਼ਨ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਲਗਾਤਾਰ ਲੈਣ-ਦੇਣਾਂ ਵਿੱਚ ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰਨ ਲਈ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ।"
+            "content": "ਲਗਾਤਾਰ ਲੈਣ-ਦੇਣਾਂ ਵਿੱਚ ਮੂਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰਨ ਲਈ ਕਥਨ I: {statementOne} ਅਤੇ ਕਥਨ II: {statementTwo} 'ਤੇ ਵਿਚਾਰ ਕਰੋ।"
           },
           {
             "type": "data_sufficiency",
@@ -893,7 +893,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਪਲਾਈ ਲੜੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਵਿਚਕਾਰਲਾ ਵਪਾਰੀ ਵਪਾਰਕ ਖੇਪ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ₹{buyerExpense} ਖਰਚ ਕਰਦਾ ਹੈ ਅਤੇ ਏਜੰਟ ਰਾਹੀਂ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ। ਏਜੰਟ {commissionPercent}% ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਿਚਕਾਰਲਾ ਵਪਾਰੀ ਵਪਾਰਕ ਖੇਪ ₹{purchasePrice} ਵਿੱਚ ਖਰੀਦਦਾ ਹੈ, ₹{buyerExpense} ਖਰਚ ਕਰਦਾ ਹੈ ਅਤੇ ਏਜੰਟ ਰਾਹੀਂ ₹{grossSellingPrice} ਵਿੱਚ ਵੇਚਦਾ ਹੈ। ਏਜੰਟ {commissionPercent}% ਕਮਿਸ਼ਨ ਲੈਂਦਾ ਹੈ।"
           },
           {
             "type": "caselet",

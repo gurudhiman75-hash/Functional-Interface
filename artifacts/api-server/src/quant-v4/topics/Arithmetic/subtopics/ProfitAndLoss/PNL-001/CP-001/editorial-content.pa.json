@@ -11,7 +11,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਵਿਕਰੇਤਾ ਨੇ ਮਿਕਸਰ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ।"
+            "content": "ਇੱਕ ਵਿਕਰੇਤਾ ਨੇ ਮਿਕਸਰ ₹{costPrice} ਵਿੱਚ ਖਰੀਦਿਆ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਿਆ।"
           }
         ],
         "prompt": "ਉਸ ਨੂੰ ਕਿੰਨਾ ਲਾਭ ਹੋਇਆ?"
@@ -42,7 +42,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਮੇਜ਼ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਪਰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚ ਦਿੱਤੀ।"
+            "content": "ਇੱਕ ਦੁਕਾਨਦਾਰ ਨੇ ਮੇਜ਼ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਪਰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚ ਦਿੱਤੀ।"
           }
         ],
         "prompt": "ਹੋਈ ਹਾਨੀ ਪਤਾ ਕਰੋ।"
@@ -73,7 +73,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮੁੜ-ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਸਾਈਕਲ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ।"
+            "content": "ਇੱਕ ਸਾਈਕਲ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -105,7 +105,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਵਪਾਰੀ ਨੇ ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਨੇ ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਅਤੇ ₹{sellingPrice} ਵਿੱਚ ਵੇਚੀ।"
           }
         ],
         "prompt": "ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਕਿੰਨਾ ਸੀ?"
@@ -137,7 +137,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਉਪਕਰਣ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
+            "content": "ਇੱਕ ਉਪਕਰਣ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
           }
         ],
         "prompt": "{profitPercent}% ਲਾਭ ਲਈ ਇਸ ਨੂੰ ਕਿਹੜੇ ਮੁੱਲ 'ਤੇ ਵੇਚਣਾ ਚਾਹੀਦਾ ਹੈ?"
@@ -168,7 +168,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਮਸ਼ੀਨ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ।"
+            "content": "ਇੱਕ ਮਸ਼ੀਨ ₹{costPrice} ਵਿੱਚ ਖਰੀਦੀ ਗਈ।"
           }
         ],
         "prompt": "{lossPercent}% ਹਾਨੀ 'ਤੇ ਵੇਚਣ ਨਾਲ ਵਿਕਰੀ ਮੁੱਲ ਕੀ ਹੋਵੇਗਾ?"
@@ -199,7 +199,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਫਰਨੀਚਰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {profitPercent}% ਲਾਭ ਹੋਇਆ।"
+            "content": "ਫਰਨੀਚਰ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {profitPercent}% ਲਾਭ ਹੋਇਆ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -230,7 +230,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਰਿਟੇਲ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਅਲਮਾਰੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {lossPercent}% ਹਾਨੀ ਹੋਈ।"
+            "content": "ਇੱਕ ਅਲਮਾਰੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {lossPercent}% ਹਾਨੀ ਹੋਈ।"
           }
         ],
         "prompt": "ਉਸ ਦਾ ਲਾਗਤ ਮੁੱਲ ਕੀ ਸੀ?"
@@ -261,7 +261,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਵਪਾਰੀ ਨੂੰ ₹{profitAmount} ਲਾਭ ਹੋਇਆ, ਜੋ ਲਾਗਤ ਮੁੱਲ ਦਾ {profitPercent}% ਸੀ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਨੂੰ ₹{profitAmount} ਲਾਭ ਹੋਇਆ, ਜੋ ਲਾਗਤ ਮੁੱਲ ਦਾ {profitPercent}% ਸੀ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -293,7 +293,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ਵੇਚਣ 'ਤੇ ₹{lossAmount} ਦੀ ਹਾਨੀ ਹੋਈ, ਜੋ ਲਾਗਤ ਮੁੱਲ ਦਾ {lossPercent}% ਸੀ।"
+            "content": "ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ਵੇਚਣ 'ਤੇ ₹{lossAmount} ਦੀ ਹਾਨੀ ਹੋਈ, ਜੋ ਲਾਗਤ ਮੁੱਲ ਦਾ {lossPercent}% ਸੀ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -325,7 +325,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੁੜ-ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{costPrice} ਦੀ ਕੱਪੜਿਆਂ ਦੀ ਖੇਪ 'ਤੇ ₹{profitAmount} ਲਾਭ ਹੋਇਆ।"
+            "content": "₹{costPrice} ਦੀ ਕੱਪੜਿਆਂ ਦੀ ਖੇਪ 'ਤੇ ₹{profitAmount} ਲਾਭ ਹੋਇਆ।"
           }
         ],
         "prompt": "ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -356,7 +356,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ₹{costPrice} ਦੀ ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ₹{lossAmount} ਦੀ ਹਾਨੀ ਹੋਈ।"
+            "content": "₹{costPrice} ਦੀ ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ₹{lossAmount} ਦੀ ਹਾਨੀ ਹੋਈ।"
           }
         ],
         "prompt": "ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -387,7 +387,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਫਰਨੀਚਰ ਦੇ ਲਾਗਤ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {costPart}:{sellingPart} ਹੈ।"
+            "content": "ਫਰਨੀਚਰ ਦੇ ਲਾਗਤ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ {costPart}:{sellingPart} ਹੈ।"
           }
         ],
         "prompt": "ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -418,7 +418,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਸਾਈਕਲ {profitPercent}% ਲਾਭ 'ਤੇ ਵੇਚੀ ਗਈ।"
+            "content": "ਸਾਈਕਲ {profitPercent}% ਲਾਭ 'ਤੇ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।"
@@ -449,7 +449,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੁੜ-ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇਲੈਕਟ੍ਰਾਨਿਕ ਉਪਕਰਣ {lossPercent}% ਹਾਨੀ 'ਤੇ ਵੇਚੀ ਗਈ।"
+            "content": "ਇਲੈਕਟ੍ਰਾਨਿਕ ਉਪਕਰਣ {lossPercent}% ਹਾਨੀ 'ਤੇ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਅਤੇ ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਅਨੁਪਾਤ ਪਤਾ ਕਰੋ।"
@@ -480,7 +480,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ 'ਤੇ ਲਾਭ ਉਸ ਦੇ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {marginPercent}% ਹੈ।"
+            "content": "ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ 'ਤੇ ਲਾਭ ਉਸ ਦੇ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {marginPercent}% ਹੈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -511,7 +511,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਵਪਾਰੀ ਲਾਗਤ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਕਮਾਉਂਦਾ ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਲਾਗਤ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਕਮਾਉਂਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਲਾਭ ਨੂੰ ਵਿਕਰੀ ਮੁੱਲ ਦੇ ਪ੍ਰਤੀਸ਼ਤ ਵਜੋਂ ਦਰਸਾਓ।"
@@ -542,7 +542,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਸਥਾਨਕ ਦੁਕਾਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਪ੍ਰਿੰਟਰ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
+            "content": "ਇੱਕ ਪ੍ਰਿੰਟਰ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
           }
         ],
         "prompt": "{profitPercent}% ਲਾਭ 'ਤੇ ਲਾਭ ਰਕਮ ਪਤਾ ਕਰੋ।"
@@ -573,7 +573,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੁੜ-ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਇੱਕ ਉਪਕਰਣ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
+            "content": "ਇੱਕ ਉਪਕਰਣ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
           }
         ],
         "prompt": "{lossPercent}% ਹਾਨੀ 'ਤੇ ਹਾਨੀ ਰਕਮ ਕਿੰਨੀ ਹੋਵੇਗੀ?"
@@ -604,7 +604,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਇੱਕ ਕੁਰਸੀ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
+            "content": "ਇੱਕ ਕੁਰਸੀ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ।"
           }
         ],
         "prompt": "₹{profitAmount} ਲਾਭ ਲਈ ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -635,7 +635,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਮਸ਼ੀਨ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ ਅਤੇ ਇਸ ਨੂੰ ₹{lossAmount} ਦੀ ਹਾਨੀ 'ਤੇ ਵੇਚਿਆ ਗਿਆ।"
+            "content": "ਇੱਕ ਮਸ਼ੀਨ ਦਾ ਲਾਗਤ ਮੁੱਲ ₹{costPrice} ਹੈ ਅਤੇ ਇਸ ਨੂੰ ₹{lossAmount} ਦੀ ਹਾਨੀ 'ਤੇ ਵੇਚਿਆ ਗਿਆ।"
           }
         ],
         "prompt": "ਵਿਕਰੀ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -666,7 +666,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਇੱਕ ਘੜੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ₹{profitAmount} ਲਾਭ ਹੋਇਆ।"
+            "content": "ਇੱਕ ਘੜੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ₹{profitAmount} ਲਾਭ ਹੋਇਆ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -697,7 +697,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਮੁੜ-ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇੱਕ ਅਲਮਾਰੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ₹{lossAmount} ਦੀ ਹਾਨੀ ਹੋਈ।"
+            "content": "ਇੱਕ ਅਲਮਾਰੀ ₹{sellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ₹{lossAmount} ਦੀ ਹਾਨੀ ਹੋਈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਕੀ ਸੀ?"
@@ -728,7 +728,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ਲਾਭ ਲਾਗਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
+            "content": "ਘਰੇਲੂ ਉਪਕਰਣ 'ਤੇ ਲਾਭ ਲਾਗਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
           }
         ],
         "prompt": "ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -758,7 +758,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਫਰਨੀਚਰ 'ਤੇ ਹਾਨੀ ਲਾਗਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
+            "content": "ਫਰਨੀਚਰ 'ਤੇ ਹਾਨੀ ਲਾਗਤ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
           }
         ],
         "prompt": "ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -788,7 +788,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਇੱਕ ਵਪਾਰੀ ਦਾ ਲਾਭ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
+            "content": "ਇੱਕ ਵਪਾਰੀ ਦਾ ਲਾਭ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -818,7 +818,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੁੜ-ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਹੋਈ ਹਾਨੀ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
+            "content": "ਹੋਈ ਹਾਨੀ ਵਿਕਰੀ ਮੁੱਲ ਦਾ {fractionNumerator}/{fractionDenominator} ਹੈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -848,7 +848,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਰਿਟੇਲ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ਲਾਗਤ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਨਾਲ ਵੇਚੀ ਗਈ।"
+            "content": "ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ਲਾਗਤ ਮੁੱਲ 'ਤੇ {profitPercent}% ਲਾਭ ਨਾਲ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਲਾਭ, ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਕਿਹੜਾ ਭਾਗ ਹੈ?"
@@ -878,7 +878,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਕੱਪੜਿਆਂ ਦੀ ਖੇਪ ਲਾਗਤ ਮੁੱਲ 'ਤੇ {lossPercent}% ਹਾਨੀ ਨਾਲ ਵੇਚੀ ਗਈ।"
+            "content": "ਕੱਪੜਿਆਂ ਦੀ ਖੇਪ ਲਾਗਤ ਮੁੱਲ 'ਤੇ {lossPercent}% ਹਾਨੀ ਨਾਲ ਵੇਚੀ ਗਈ।"
           }
         ],
         "prompt": "ਹਾਨੀ, ਵਿਕਰੀ ਮੁੱਲ ਦਾ ਕਿਹੜਾ ਭਾਗ ਹੈ?"
@@ -908,7 +908,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਿਆਵਹਾਰਿਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ₹{costPrice} ਦੀ ਘਰੇਲੂ ਉਪਕਰਣ ਨੂੰ {firstRatePercent}% ਜਾਂ {secondRatePercent}% ਲਾਭ 'ਤੇ ਵੇਚਿਆ ਜਾ ਸਕਦਾ ਹੈ।"
+            "content": "₹{costPrice} ਦੀ ਘਰੇਲੂ ਉਪਕਰਣ ਨੂੰ {firstRatePercent}% ਜਾਂ {secondRatePercent}% ਲਾਭ 'ਤੇ ਵੇਚਿਆ ਜਾ ਸਕਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਦੋਵੇਂ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -939,7 +939,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮੁੜ-ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ₹{costPrice} ਦੀ ਫਰਨੀਚਰ ਦਾ ਇੱਕ ਵਿਕਰੀ ਮੁੱਲ {profitPercent}% ਲਾਭ ਅਤੇ ਦੂਜਾ {lossPercent}% ਹਾਨੀ ਦਿੰਦਾ ਹੈ।"
+            "content": "₹{costPrice} ਦੀ ਫਰਨੀਚਰ ਦਾ ਇੱਕ ਵਿਕਰੀ ਮੁੱਲ {profitPercent}% ਲਾਭ ਅਤੇ ਦੂਜਾ {lossPercent}% ਹਾਨੀ ਦਿੰਦਾ ਹੈ।"
           }
         ],
         "prompt": "ਅੰਤਰ ਪਤਾ ਕਰੋ।"
@@ -970,7 +970,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। {firstRatePercent}% ਅਤੇ {secondRatePercent}% ਲਾਭ ਵਾਲੇ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ₹{sellingPriceDifference} ਹੈ।"
+            "content": "{firstRatePercent}% ਅਤੇ {secondRatePercent}% ਲਾਭ ਵਾਲੇ ਵਿਕਰੀ ਮੁੱਲਾਂ ਦਾ ਅੰਤਰ ₹{sellingPriceDifference} ਹੈ।"
           }
         ],
         "prompt": "ਲਾਗਤ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
@@ -1001,7 +1001,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਖਪਤਕਾਰ ਵਸਤੂ ਵਿਕਰੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਇਲੈਕਟ੍ਰਾਨਿਕ ਉਪਕਰਣ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {firstRatePercent}% ਲਾਭ ਹੋਇਆ।"
+            "content": "ਇਲੈਕਟ੍ਰਾਨਿਕ ਉਪਕਰਣ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {firstRatePercent}% ਲਾਭ ਹੋਇਆ।"
           }
         ],
         "prompt": "₹{secondSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -1031,7 +1031,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਸਥਾਨਕ ਦੁਕਾਨ ਦੇ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {firstRatePercent}% ਹਾਨੀ ਹੋਈ।"
+            "content": "ਦਫ਼ਤਰੀ ਸਮੱਗਰੀ ₹{firstSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ {firstRatePercent}% ਹਾਨੀ ਹੋਈ।"
           }
         ],
         "prompt": "₹{secondSellingPrice} ਵਿੱਚ ਵੇਚਣ 'ਤੇ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
@@ -1093,7 +1093,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਰਿਟੇਲ ਵਿਕਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਪਾਰਕ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। {firstRatePercent}% ਲਾਭ ਵਾਲਾ ਵਿਕਰੀ ਮੁੱਲ, {secondRatePercent}% ਹਾਨੀ ਵਾਲੇ ਵਿਕਰੀ ਮੁੱਲ ਤੋਂ ₹{sellingPriceDifference} ਵੱਧ ਹੈ।"
+            "content": "{firstRatePercent}% ਲਾਭ ਵਾਲਾ ਵਿਕਰੀ ਮੁੱਲ, {secondRatePercent}% ਹਾਨੀ ਵਾਲੇ ਵਿਕਰੀ ਮੁੱਲ ਤੋਂ ₹{sellingPriceDifference} ਵੱਧ ਹੈ।"
           },
           {
             "type": "equation",

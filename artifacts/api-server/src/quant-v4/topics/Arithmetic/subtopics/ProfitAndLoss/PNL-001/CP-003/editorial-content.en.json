@@ -495,7 +495,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "The following commercial records are available for this equal-price special result setting. Two articles are sold at the same selling price. One is sold at a profit of {ratePercent}% and the other at an equal loss percentage."
+            "content": "Two articles are sold at the same selling price. One is sold at a profit of {ratePercent}% and the other at an equal loss percentage."
           }
         ],
         "prompt": "Find the overall loss percentage."
@@ -564,7 +564,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "This warehouse total-sale planning transaction is described below. The total cost price of a stock is ₹{totalCostPrice}. If the stock is sold at {ratePercent}% {direction},"
+            "content": "The total cost price of a stock is ₹{totalCostPrice}. If the stock is sold at {ratePercent}% {direction},"
           }
         ],
         "prompt": "Find the total selling price."
@@ -594,7 +594,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "During this reverse total-cost recovery decision, the following information is available. A stock is sold for a total of ₹{totalSellingPrice} at {ratePercent}% {direction}."
+            "content": "A stock is sold for a total of ₹{totalSellingPrice} at {ratePercent}% {direction}."
           }
         ],
         "prompt": "Find its total cost price."
