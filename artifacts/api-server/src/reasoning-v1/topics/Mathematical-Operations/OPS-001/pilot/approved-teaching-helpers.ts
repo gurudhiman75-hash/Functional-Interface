@@ -4,7 +4,9 @@ import {
   divideExact,
   formatExact,
   fromFiniteDecimal,
+  makeRational,
   multiplyExact,
+  negateExact,
   subtractExact,
   type ExactRational,
 } from "../foundation";
@@ -35,6 +37,8 @@ export interface RelationTrace {
 }
 
 const ARITHMETIC_OPERATORS = new Set(["+", "−", "×", "÷"]);
+const SIGNED_FINITE_DECIMAL = /^-?\d+(?:\.\d+)?$/u;
+const SIGNED_FRACTION = /^(-?\d+)\/(\d+)$/u;
 
 function fail(message: string): never {
   throw new Error(`OPS-001 approved teaching runtime: ${message}`);
@@ -69,9 +73,17 @@ export function substituteTokenMeanings(expression: string, pairs: readonly Mean
     .join(" ");
 }
 
-function parseUnsignedNumber(source: string): ExactRational {
-  if (!/^\d+(?:\.\d+)?$/u.test(source)) fail(`unsupported number literal in teaching trace: ${source}`);
-  return fromFiniteDecimal(source);
+function normalizeSignedSource(source: string): string {
+  return source.startsWith("−") ? `-${source.slice(1)}` : source;
+}
+
+function parseExactNumber(source: string): ExactRational {
+  const normalized = normalizeSignedSource(source);
+  const fraction = normalized.match(SIGNED_FRACTION);
+  if (fraction) return makeRational(BigInt(fraction[1]), BigInt(fraction[2]));
+  if (!SIGNED_FINITE_DECIMAL.test(normalized)) fail(`unsupported number literal in teaching trace: ${source}`);
+  if (!normalized.startsWith("-")) return fromFiniteDecimal(normalized);
+  return negateExact(fromFiniteDecimal(normalized.slice(1)));
 }
 
 function applyArithmetic(left: ExactRational, operator: string, right: ExactRational): ExactRational {
@@ -94,15 +106,13 @@ function renderState(values: readonly ExactRational[], operators: readonly strin
 }
 
 export function arithmeticTrace(expression: string): ArithmeticTrace {
-  const tokens = expression.match(/\d+(?:\.\d+)?|[+−×÷]/gu) ?? [];
-  const compactSource = expression.replace(/\s+/gu, "");
-  if (tokens.join("") !== compactSource) fail(`unsupported arithmetic expression: ${expression}`);
+  const tokens = expression.trim().split(/\s+/u).filter(Boolean);
   if (tokens.length === 0 || tokens.length % 2 === 0) fail(`malformed arithmetic expression: ${expression}`);
 
   const values: ExactRational[] = [];
   const operators: string[] = [];
   tokens.forEach((token, index) => {
-    if (index % 2 === 0) values.push(parseUnsignedNumber(token));
+    if (index % 2 === 0) values.push(parseExactNumber(token));
     else if (ARITHMETIC_OPERATORS.has(token)) operators.push(token);
     else fail(`malformed operator position in: ${expression}`);
   });
@@ -141,22 +151,10 @@ export function relationTrace(statement: string): RelationTrace {
   const match = requireMatch(statement, /^(.+?)\s(=|<|>)\s(.+)$/u, "relation statement");
   const left = arithmeticTrace(match[1]);
   const right = arithmeticTrace(match[3]);
-  const comparison = compareExact(
-    parseExactFormatted(left.value),
-    parseExactFormatted(right.value),
-  );
+  const comparison = compareExact(parseExactNumber(left.value), parseExactNumber(right.value));
   const relation = match[2] as "=" | "<" | ">";
   const truth = relation === "=" ? comparison === 0 : relation === "<" ? comparison < 0 : comparison > 0;
   return { statement, left, relation, right, truth };
-}
-
-function parseExactFormatted(source: string): ExactRational {
-  if (/^\d+(?:\.\d+)?$/u.test(source)) return fromFiniteDecimal(source);
-  const fraction = source.match(/^(-?\d+)\/(\d+)$/u);
-  if (!fraction) fail(`unsupported exact result: ${source}`);
-  const numerator = BigInt(fraction[1]);
-  const denominator = BigInt(fraction[2]);
-  return { numerator, denominator };
 }
 
 export function relationSummary(trace: RelationTrace): string {
