@@ -123,6 +123,7 @@ jobs:
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-004/editorial-content.en.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-005/editorial-content.en.json
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-006/editorial-content.en.json
+          include-hidden-files: true
           if-no-files-found: error
           retention-days: 3
 
