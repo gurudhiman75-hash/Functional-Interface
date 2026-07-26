@@ -16,7 +16,7 @@ const GURMUKHI = /[\u0A00-\u0A7F]/;
 const ENGLISH_INSTRUCTION = /\b(?:choose|select|find|complete|therefore|rule|source|target|answer|correct|wrong|letter|number)\b/i;
 const INTERNAL_TEXT = /ANA-QL|ANA-CP|MIXED_|PROTO_|ruleId|contextKey|LANGUAGE_PROTOTYPE|publiclyPublishable/i;
 const PLACEHOLDER_TEXT = /\{\{?[^}]+\}?\}|\[[A-Z_]{3,}\]/;
-const OVERLY_TECHNICAL_PUNJABI = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ/;
+const OVERLY_TECHNICAL_PUNJABI = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ|ਲੋੜੀਂਦੀ ਗਿਣਤੀ|ਅੱਖਰ ਬਦਲਣ ਨਾਲ|ਇਹੋ ਨਿਯਮ|ਸੰਬੰਧ ਬਣਦਾ ਹੈ/;
 
 function evidenceKey(evidence: { input: Parameters<typeof mixedTokenKey>[0]; output: Parameters<typeof mixedTokenKey>[0] }): string {
   return `${mixedTokenKey(evidence.input)}=>${mixedTokenKey(evidence.output)}`;
@@ -58,7 +58,9 @@ for (const locale of ["hi-IN", "pa-IN"] as const satisfies readonly ProvisionalM
     }
     assert.ok(localized.explanation.ruleStatement.length >= 25);
     assert.ok(localized.explanation.sourceDemonstration.includes(renderMixedToken(localized.source.input)));
+    assert.ok(localized.explanation.sourceDemonstration.includes(renderMixedToken(localized.source.output)));
     assert.ok(localized.explanation.targetApplication.includes(renderMixedToken(localized.target.input)));
+    assert.ok(localized.explanation.targetApplication.includes(renderMixedToken(localized.correctAnswer)));
     assert.ok(localized.explanation.conclusion.includes(renderMixedToken(localized.correctAnswer)));
     assert.ok(localized.explanation.closestTrapRejection.length >= 45);
   }
@@ -95,6 +97,13 @@ for (const locale of ["hi-IN", "pa-IN"] as const satisfies readonly ProvisionalM
       assert.ok(!OVERLY_TECHNICAL_PUNJABI.test(studentText),
         `${localized.prototypeId} contains avoidable textbook-style Punjabi.`);
     }
+  }
+
+  if (locale === "pa-IN") {
+    assert.ok(new Set(direct.map((entry) => entry.explanation.conclusion)).size >= 3,
+      "Punjabi direct conclusions should not use one repeated stock sentence.");
+    assert.ok(new Set(odd.map((entry) => entry.explanation.conclusion)).size >= 3,
+      "Punjabi odd-pair conclusions should not use one repeated stock sentence.");
   }
 
   for (const localized of direct.filter((entry) =>
