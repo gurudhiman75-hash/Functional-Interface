@@ -7,8 +7,13 @@ function gcd(a: number, b: number): number {
   return x || 1;
 }
 
+function assertSafeInteger(value: number, label: string): void {
+  if (!Number.isSafeInteger(value)) throw new Error(`${label} must be a safe integer`);
+}
+
 export function rational(numerator: number, denominator = 1): Rational {
-  if (!Number.isInteger(numerator) || !Number.isInteger(denominator)) throw new Error("Rational values must be integers");
+  assertSafeInteger(numerator, "Rational numerator");
+  assertSafeInteger(denominator, "Rational denominator");
   if (denominator === 0) throw new Error("Rational denominator cannot be zero");
   const sign = denominator < 0 ? -1 : 1;
   const divisor = gcd(numerator, denominator);
@@ -45,23 +50,33 @@ export function equals(a: Rational, b: Rational): boolean {
   return compare(a, b) === 0;
 }
 
+export function minRational(a: Rational, b: Rational): Rational {
+  return compare(a, b) <= 0 ? a : b;
+}
+
 export function toNumber(value: Rational): number {
   return value.numerator / value.denominator;
 }
 
 export function formatRational(value: Rational): string {
   if (value.denominator === 1) return String(value.numerator);
+  const sign = value.numerator < 0 ? "-" : "";
   const absolute = Math.abs(value.numerator);
   if (absolute > value.denominator) {
-    const whole = Math.trunc(value.numerator / value.denominator);
+    const whole = Math.trunc(absolute / value.denominator);
     const remainder = absolute % value.denominator;
-    if (remainder === 0) return String(whole);
-    return `${whole} ${remainder}/${value.denominator}`;
+    if (remainder === 0) return `${sign}${whole}`;
+    return `${sign}${whole} ${remainder}/${value.denominator}`;
   }
-  return `${value.numerator}/${value.denominator}`;
+  return `${sign}${absolute}/${value.denominator}`;
 }
 
 export function toLatex(value: Rational): string {
   if (value.denominator === 1) return String(value.numerator);
+  if (value.numerator < 0) return `-\\frac{${Math.abs(value.numerator)}}{${value.denominator}}`;
   return `\\frac{${value.numerator}}{${value.denominator}}`;
+}
+
+export function rationalKey(value: Rational): string {
+  return `${value.numerator}/${value.denominator}`;
 }
