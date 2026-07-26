@@ -63,7 +63,8 @@ jobs:
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/tmw-001-cp003-review-export.mjs
       - name: Generate TMW-CP-003 review export
-        run: node artifacts/api-server/dist/quant-v4/tmw-001-cp003-review-export.mjs
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-cp003-review-export.mjs
       - name: Upload TMW-CP-003 evidence
         if: always()
         uses: actions/upload-artifact@v4
