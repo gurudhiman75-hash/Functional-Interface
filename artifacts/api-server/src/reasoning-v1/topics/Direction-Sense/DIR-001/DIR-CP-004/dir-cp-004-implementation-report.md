@@ -1,6 +1,6 @@
 # DIR-CP-004 Implementation Report
 
-Status: English runtime implemented on a feature branch; manual editorial review pending.
+Status: English runtime implemented on a feature branch; manual editorial approval pending.
 
 ## Ownership
 
@@ -38,17 +38,31 @@ Missing-relation reconstruction and contradiction identification were not added 
 5. one concise conclusion;
 6. a plain named-point diagram at the end.
 
-The diagram contains named nodes, light relation arrows, small distance labels and a compass. Direction-distance questions add a dashed query line and protected shortest-distance key. Collinearity uses one extended light alignment guide. Coincident names share one readable rounded node.
+`DIR-QL-011` and `DIR-QL-013` now include a light dashed target-reference guide so the asked relation is immediately visible. `DIR-QL-012` retains the stronger dashed shortest-distance line and protected value key. The ordinary relation guide is visually lighter than the shortest-distance line.
 
-Node sizes adapt to name length. Relation-distance labels are placed by a collision-aware layout pass and cannot touch named nodes, overlap one another, or enter the shortest-distance key zone. The query shortcut is drawn behind relation labels so no dashed line crosses their text.
+For a two-component shortest distance, the calculation shows the complete progression, for example `√(6² + 8²) = √(36 + 64) = √100 = 10 metres`. Axis-aligned cases explain that only one net direction remains.
+
+The SVG layer order is deliberate: relation edges first, query guide second, distance-label boxes third, and named nodes last. This keeps the guide visible even when it overlaps a direct relation edge while preventing it from crossing label text. Collinearity uses one extended light alignment guide. Coincident names share one readable rounded node.
+
+Node sizes adapt to name length. Relation-distance labels are placed by a collision-aware layout pass and cannot touch named nodes, overlap one another, or enter the shortest-distance key zone.
+
+## Independent review refinements
+
+An independent 25-question mathematical review confirmed every displayed answer, coordinate relation, distance, collinear group and coincident pair. Its two presentation recommendations were implemented systemically:
+
+- target-reference guides for relation-direction and entity-lookup diagrams;
+- explicit addition of squared components in Pythagorean shortest-distance working.
+
+A final visual audit then caught and fixed the direct-edge layering case in `DIR-QL-013`; the guide is now visibly dashed above the solid edge.
 
 ## Proof
 
-The checkpoint proof generates `120` seeds per QL (`600` cases total) and checks deterministic replay, strict option uniqueness, independent-solver agreement, all-eight-direction coverage for `DIR-QL-011/012`, unique entity lookup, exact collinearity, unique coincidence, graph-traversable placement explanations, explanation/diagram parity, adaptive node sizing, distance-label collision freedom, reserved key zones, renderer-specific overlays, stem diversity and balanced answer positions.
+The checkpoint proof generates `120` seeds per QL (`600` cases total) and checks deterministic replay, strict option uniqueness, independent-solver agreement, all-eight-direction coverage for `DIR-QL-011/012`, unique entity lookup, exact collinearity, unique coincidence, graph-traversable placement explanations, explanation/diagram parity, adaptive node sizing, distance-label collision freedom, reserved key zones, exact guide counts, guide type, guide layer order, expanded Pythagorean working, stem diversity and balanced answer positions.
 
 ## State
 
-- English editorial review: pending.
+- English mathematical review: passed.
+- English manual product approval: pending.
 - Hindi: not started.
 - Punjabi: not started.
 - Question Studio exposure: not enabled.
