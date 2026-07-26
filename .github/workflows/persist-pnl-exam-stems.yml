@@ -1,0 +1,54 @@
+name: Persist PNL Concise Exam Stems
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-editorial-structured-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/persist-pnl-exam-stems.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  persist-pnl-exam-stems:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Compact question stems
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-compact-stems-persist.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-compact-stems-persist.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-compact-stems-persist.mjs
+
+      - name: Persist changed source libraries
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$root"/CP-*/editorial-content.en.json "$root"/CP-*/editorial-content.hi.json "$root"/CP-*/editorial-content.pa.json
+          if git diff --cached --quiet; then
+            echo "Concise exam stems are already current."
+            exit 0
+          fi
+          git commit -m "Remove synthetic question-stem introductions"
+          git push
