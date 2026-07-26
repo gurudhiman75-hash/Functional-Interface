@@ -1,0 +1,55 @@
+name: Validate OPS-001 foundation pilot
+
+# Foundation proof only: no permanent QL allocation or production exposure.
+on:
+  push:
+    branches:
+      - feat/ops-001-end-to-end-design
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
+      - .github/workflows/ops-001-foundation-pilot.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
+      - .github/workflows/ops-001-foundation-pilot.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ops-001-foundation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation -name '*.ts' -print)
+      - name: Run exact foundation contract proof
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/ops-foundation.test.ts
