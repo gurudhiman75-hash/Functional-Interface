@@ -251,7 +251,7 @@ function generate024(seed: number): OpsFinalCandidateQuestion {
       conclusion: `The transformed value is ${solved.value}.`,
     },
     proof: { unique: true, solverRoute: "PRESCRIBED_GLOBAL_DIGIT_SWAP", eligibleCandidateCount: 1, survivingCandidateCount: 1, semanticFingerprint: solved.fingerprint },
-    metadata: { digitScope: "GLOBAL_IDENTITY", leadingZeroPolicy: "REJECT", prescribedPair: digitPairKey(...blueprint.pair) },
+    metadata: { digitScope: "GLOBAL_IDENTITY", leadingZeroPolicy: "REJECT", prescribedPair: digitPairKey(blueprint.pair[0], blueprint.pair[1]) },
   }, solved.value, rng);
 }
 
@@ -331,7 +331,7 @@ function generate027(seed: number): OpsFinalCandidateQuestion {
   if (repairs.length !== 1) throw new Error(`OPS-CAND-027 expected one complete-pool repair, found ${repairs.length}.`);
   const repair = repairs[0];
   if (pairKey(repair.operatorPair.left, repair.operatorPair.right) !== pairKey(blueprint.operatorPair.left, blueprint.operatorPair.right)
-    || digitPairKey(...repair.digitPair) !== digitPairKey(...blueprint.digitPair)) {
+    || digitPairKey(repair.digitPair[0], repair.digitPair[1]) !== digitPairKey(blueprint.digitPair[0], blueprint.digitPair[1])) {
     throw new Error("OPS-CAND-027 survivor does not match intended compound repair.");
   }
   const answer = `${repair.operatorPair.left} ↔ ${repair.operatorPair.right}; ${repair.digitPair[0]} ↔ ${repair.digitPair[1]}`;
