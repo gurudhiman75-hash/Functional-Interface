@@ -35,6 +35,9 @@ jobs:
       - name: Run CP-001 to CP-004 editorial regression audit
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-cp001-cp004-editorial.test.ts
 
+      - name: Run instance difficulty and teaching-pedagogy audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/review/cod-difficulty-pedagogy.test.ts
+
       - name: Run standard competitive-exam stem audit
         id: standard_stems
         shell: bash
