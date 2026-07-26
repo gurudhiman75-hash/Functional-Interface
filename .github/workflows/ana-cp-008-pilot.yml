@@ -62,3 +62,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-option-yield.ts
       - name: Prove presentation-mode yield
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-presentation-yield.ts
+      - name: Verify misconception ownership
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/provisional-misconception-ownership.test.ts
