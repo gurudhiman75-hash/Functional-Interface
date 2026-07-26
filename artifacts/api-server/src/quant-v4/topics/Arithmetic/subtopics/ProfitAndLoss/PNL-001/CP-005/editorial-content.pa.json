@@ -11,10 +11,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਦਫ਼ਤਰੀ ਉਪਕਰਣ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਦੱਸ ਕੇ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਵੇਚਣ ਦਾ ਦਾਅਵਾ ਕਰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਦਫ਼ਤਰੀ ਉਪਕਰਣ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਦੱਸ ਕੇ ਲਾਗਤ ਮੁੱਲ 'ਤੇ ਵੇਚਣ ਦਾ ਦਾਅਵਾ ਕਰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਪਹਿਲਾਂ ਸਮਝੀਏ ਕਿ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਵਿਚਕਾਰ ਸੰਬੰਧ ਕੀ ਹੈ।",
@@ -44,10 +44,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬੇਕਰੀ ਉਤਪਾਦਨ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਦੀ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਬੇਕਰੀ ਉਤਪਾਦਨ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਅਸਲ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਦੀ ਰਕਮ ਅਤੇ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਸਹੀ ਆਧਾਰ ਚੁਣਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਹੈ।",
@@ -82,10 +82,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਡੇਅਰੀ ਵੰਡ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ 'ਤੇ ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਡੇਅਰੀ ਵੰਡ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ 'ਤੇ ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਵਪਾਰਕ ਸਥਿਤੀ ਨੂੰ ਢੰਗ ਨਾਲ ਲਗਾ ਲਵੋ।",
@@ -120,10 +120,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਆਨਲਾਈਨ ਰਿਟੇਲ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਹਾਨੀ"
+            "content": "ਆਨਲਾਈਨ ਰਿਟੇਲ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {declaredRatePercent}% {declaredDirection} ਦੱਸ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਪ੍ਰਤੀਸ਼ਤ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਸਿਰਫ਼ ਫਾਰਮੂਲਾ ਲਗਾਉਣ ਦੀ ਬਜਾਇ ਅਰਥ ਸਮਝ ਕੇ ਹੱਲ ਕਰਨਾ ਜ਼ਿਆਦਾ ਸੁਰੱਖਿਅਤ ਹੈ।",
@@ -222,10 +222,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਮਸ਼ੀਨ ਮੁਰੰਮਤ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਗੋਦਾਮ ਪ੍ਰਬੰਧਕ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਉਸਨੂੰ {receivedQuantity} ਇਕਾਈਆਂ ਮਿਲਦੀਆਂ ਹਨ। ਉਹ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਮਸ਼ੀਨ ਮੁਰੰਮਤ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਗੋਦਾਮ ਪ੍ਰਬੰਧਕ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ਲਈ ₹{purchasePricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਉਸਨੂੰ {receivedQuantity} ਇਕਾਈਆਂ ਮਿਲਦੀਆਂ ਹਨ। ਉਹ ₹{sellingPricePerNominalQuantity} ਲੈ ਕੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਸਹੀ ਆਧਾਰ ਚੁਣਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਹੈ।",
@@ -260,10 +260,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਫਲ-ਸਬਜ਼ੀ ਮੰਡੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਦੁਕਾਨਦਾਰ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ₹{purchasePricePerNominalQuantity} ਵਿੱਚ ਖਰੀਦ ਕੇ {receivedQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਉਹ ਨਾਮਾਤਰ ਮਾਤਰਾ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ ਵੇਚਦਿਆਂ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਫਲ-ਸਬਜ਼ੀ ਮੰਡੀ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਦੁਕਾਨਦਾਰ ਨਾਮਾਤਰ {nominalQuantity} ਇਕਾਈਆਂ ₹{purchasePricePerNominalQuantity} ਵਿੱਚ ਖਰੀਦ ਕੇ {receivedQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਉਹ ਨਾਮਾਤਰ ਮਾਤਰਾ ₹{sellingPricePerNominalQuantity} ਵਿੱਚ ਵੇਚਦਿਆਂ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਵਪਾਰਕ ਸਥਿਤੀ ਨੂੰ ਢੰਗ ਨਾਲ ਲਗਾ ਲਵੋ।",
@@ -295,10 +295,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਘਰੇਲੂ ਉਪਕਰਣ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ, {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਅਤੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਘਰੇਲੂ ਉਪਕਰਣ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ {markupPercent}% ਵੱਧ ਅੰਕਿਤ ਕਰਦਾ, {discountPercent}% ਛੂਟ ਦਿੰਦਾ ਅਤੇ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਸਿਰਫ਼ ਫਾਰਮੂਲਾ ਲਗਾਉਣ ਦੀ ਬਜਾਇ ਅਰਥ ਸਮਝ ਕੇ ਹੱਲ ਕਰਨਾ ਜ਼ਿਆਦਾ ਸੁਰੱਖਿਅਤ ਹੈ।",
@@ -409,10 +409,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਕੱਪੜਾ ਵਪਾਰ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ ਦੀ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਦਾ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਕੱਪੜਾ ਵਪਾਰ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਵਾਲੇ ਮਾਲ ਦੀ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਦਾ ਹੈ ਅਤੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਸਹੀ ਆਧਾਰ ਚੁਣਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਹੈ।",
@@ -444,10 +444,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਕਿਰਾਣਾ ਵੰਡ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਕੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਕਿਰਾਣਾ ਵੰਡ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਹੈ। ਵਿਕਰੇਤਾ ਕੀਮਤ ਵਿੱਚ {priceChangePercent}% {priceDirection} ਬਦਲਾਅ ਕਰਕੇ {shortQuantityPercent}% ਘੱਟ ਮਾਤਰਾ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਵਪਾਰਕ ਸਥਿਤੀ ਨੂੰ ਢੰਗ ਨਾਲ ਲਗਾ ਲਵੋ।",
@@ -480,10 +480,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਇਲੈਕਟ੍ਰਾਨਿਕਸ ਰਿਟੇਲ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਪ੍ਰਤੀ ਅਸਲ ਮਾਤਰਾ ਪ੍ਰਭਾਵੀ ਕੀਮਤ"
+            "content": "ਇਲੈਕਟ੍ਰਾਨਿਕਸ ਰਿਟੇਲ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?"
+        "prompt": "ਪ੍ਰਤੀ ਅਸਲ ਮਾਤਰਾ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਹੈ?"
       },
       "explanation": {
         "opening": "ਸਿਰਫ਼ ਫਾਰਮੂਲਾ ਲਗਾਉਣ ਦੀ ਬਜਾਇ ਅਰਥ ਸਮਝ ਕੇ ਹੱਲ ਕਰਨਾ ਜ਼ਿਆਦਾ ਸੁਰੱਖਿਅਤ ਹੈ।",
@@ -547,10 +547,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖੇਤੀਬਾੜੀ ਉਪਕਰਣ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਕਮਾਂਦਾ ਹੈ। ਕੀਮਤ ਸੂਚੀ ਉੱਤੇ ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਖੇਤੀਬਾੜੀ ਉਪਕਰਣ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਕਮਾਂਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਕੀਮਤ ਸੂਚੀ ਉੱਤੇ ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਪਹਿਲਾਂ ਸਮਝੀਏ ਕਿ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਵਿਚਕਾਰ ਸੰਬੰਧ ਕੀ ਹੈ।",
@@ -582,10 +582,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਦਵਾਈ ਸਪਲਾਈ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਹੁੰਦਾ ਹੈ। ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ"
+            "content": "ਦਵਾਈ ਸਪਲਾਈ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% {actualDirection} ਹੁੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਸਹੀ ਆਧਾਰ ਚੁਣਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਹੈ।",
@@ -614,10 +614,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਕਿਤਾਬ ਵੰਡ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ₹{actualAmount} ਦਾ ਅਸਲ {actualDirection} ਹੁੰਦਾ ਹੈ। ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ"
+            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਕਿਤਾਬ ਵੰਡ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ₹{actualAmount} ਦਾ ਅਸਲ {actualDirection} ਹੁੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ ਦਾ ਅਸਲ ਖਰੀਦ ਮੁੱਲ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਵਪਾਰਕ ਸਥਿਤੀ ਨੂੰ ਢੰਗ ਨਾਲ ਲਗਾ ਲਵੋ।",
@@ -715,10 +715,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ। ਪ੍ਰਤੀ ਅਸਲ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਪ੍ਰਭਾਵੀ ਕੀਮਤ"
+            "content": "ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਗਾਹਕ {trueQuantity} ਇਕਾਈਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਦਿੰਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਇਕਾਈਆਂ ਲੈਂਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਪ੍ਰਤੀ ਅਸਲ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਪ੍ਰਭਾਵੀ ਕੀਮਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਪਹਿਲਾਂ ਸਮਝੀਏ ਕਿ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਵਿਚਕਾਰ ਸੰਬੰਧ ਕੀ ਹੈ।",
@@ -746,7 +746,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਪੈਕੇਜਿੰਗ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਦੋ ਬੇਈਮਾਨ ਵਿਕਰੀ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ। ਵੱਧ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਵਾਲੀ ਯੋਜਨਾ ਅਤੇ ਦੋਵਾਂ ਦਾ ਅੰਤਰ"
+            "content": "ਪੈਕੇਜਿੰਗ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਦੋ ਬੇਈਮਾਨ ਵਿਕਰੀ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ।"
           },
           {
             "type": "caselet",
@@ -757,7 +757,7 @@
             ]
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਵੱਧ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਵਾਲੀ ਯੋਜਨਾ ਅਤੇ ਦੋਵਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਸਹੀ ਆਧਾਰ ਚੁਣਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਹੈ।",
@@ -789,10 +789,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਆਟੋ ਪਾਰਟਸ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। {trueQuantity} ਮਿਕਸਰਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਮਿਕਸਰਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਮਿਕਸਰਆਂ ਦਿੰਦਾ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਹੇਠਾਂ ਦਿੱਤਾ ਵੇਰਵਾ ਆਟੋ ਪਾਰਟਸ ਨਾਲ ਜੁੜੇ ਇੱਕ ਲੈਣ-ਦੇਣ ਦਾ ਹੈ। {trueQuantity} ਮਿਕਸਰਆਂ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਮਿਕਸਰਆਂ ਲਈ ₹{quotedSellingPricePerNominalQuantity} ਲੈਂਦਾ ਹੈ, ਪਰ ਕੇਵਲ {deliveredQuantity} ਮਿਕਸਰਆਂ ਦਿੰਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਗਣਨਾ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਵਪਾਰਕ ਸਥਿਤੀ ਨੂੰ ਢੰਗ ਨਾਲ ਲਗਾ ਲਵੋ।",
@@ -820,10 +820,10 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਖੇਡ ਸਮੱਗਰੀ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਕੱਪੜਾ ਵਿਕਰੇਤਾ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਉਸਦਾ ਗਲਤ ਮੀਟਰ ਕੇਵਲ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਮਾਪਦਾ ਹੈ। ਘੱਟ ਮਾਪ ਕਾਰਨ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਵਸੂਲੀ"
+            "content": "ਖੇਡ ਸਮੱਗਰੀ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਕੱਪੜਾ ਵਿਕਰੇਤਾ {trueQuantity} ਸੈਂਟੀਮੀਟਰ ਦੀ ਕੀਮਤ ਲੈਂਦਾ ਹੈ, ਪਰ ਉਸਦਾ ਗਲਤ ਮੀਟਰ ਕੇਵਲ {deliveredQuantity} ਸੈਂਟੀਮੀਟਰ ਮਾਪਦਾ ਹੈ।"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਘੱਟ ਮਾਪ ਕਾਰਨ ਪ੍ਰਤੀਸ਼ਤ ਵੱਧ ਵਸੂਲੀ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਸਿਰਫ਼ ਫਾਰਮੂਲਾ ਲਗਾਉਣ ਦੀ ਬਜਾਇ ਅਰਥ ਸਮਝ ਕੇ ਹੱਲ ਕਰਨਾ ਜ਼ਿਆਦਾ ਸੁਰੱਖਿਅਤ ਹੈ।",
@@ -852,7 +852,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਦਫ਼ਤਰੀ ਉਪਕਰਣ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਪਾਰਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਸਾਰਣੀ ਵਿੱਚ ਦੋ ਕੀਮਤ-ਮਾਤਰਾ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ। ਵੱਧ ਲਾਭਦਾਇਕ ਯੋਜਨਾ ਅਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤਾਂ ਦਾ ਅੰਤਰ"
+            "content": "ਦਫ਼ਤਰੀ ਉਪਕਰਣ ਨਾਲ ਜੁੜੇ ਇੱਕ ਵਪਾਰਕ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਹੇਠਾਂ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਰਤੋ। ਸਾਰਣੀ ਵਿੱਚ ਦੋ ਕੀਮਤ-ਮਾਤਰਾ ਯੋਜਨਾਵਾਂ {firstScheme} ਅਤੇ {secondScheme} ਦਿੱਤੀਆਂ ਹਨ।"
           },
           {
             "type": "table",
@@ -865,7 +865,7 @@
             "rowSource": "schemeTable"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਵੱਧ ਲਾਭਦਾਇਕ ਯੋਜਨਾ ਅਤੇ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤਾਂ ਦਾ ਅੰਤਰ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਆਓ ਪ੍ਰਸ਼ਨ ਨੂੰ ਛੋਟੇ ਅਤੇ ਸਪਸ਼ਟ ਪੜਾਅਵਾਂ ਵਿੱਚ ਹੱਲ ਕਰੀਏ।",
@@ -897,7 +897,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਬੇਕਰੀ ਉਤਪਾਦਨ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਕੇਸਲੈਟ ਅਨੁਸਾਰ ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ, ਅੰਕਨ {markupPercent}%, ਛੂਟ {discountPercent}% ਅਤੇ ਦਿੱਤੀ ਮਾਤਰਾ {deliveredQuantity} ਇਕਾਈਆਂ ਹੈ। ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ"
+            "content": "ਬੇਕਰੀ ਉਤਪਾਦਨ ਦੇ ਇੱਕ ਅਸਲ ਵਿਕਰੀ ਰਿਕਾਰਡ ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ। ਕੇਸਲੈਟ ਅਨੁਸਾਰ ਮਾਲ ਦੀ ਲਾਗਤ ₹{costPricePerTrueQuantity} ਪ੍ਰਤੀ {trueQuantity} ਇਕਾਈਆਂ, ਅੰਕਨ {markupPercent}%, ਛੂਟ {discountPercent}% ਅਤੇ ਦਿੱਤੀ ਮਾਤਰਾ {deliveredQuantity} ਇਕਾਈਆਂ ਹੈ।"
           },
           {
             "type": "caselet",
@@ -905,7 +905,7 @@
             "paragraphSource": "caseletData"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਅਸਲ ਲਾਭ ਪ੍ਰਤੀਸ਼ਤ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਪਹਿਲਾਂ ਸਮਝੀਏ ਕਿ ਦਿੱਤੇ ਅੰਕੜਿਆਂ ਵਿਚਕਾਰ ਸੰਬੰਧ ਕੀ ਹੈ।",
@@ -937,7 +937,7 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਡੇਅਰੀ ਵੰਡ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ। ਗਾਹਕ ਤੋਂ ਪ੍ਰਭਾਵੀ ਵੱਧ ਵਸੂਲੀ ਬਾਰੇ ਸਹੀ ਕਥਨ"
+            "content": "ਡੇਅਰੀ ਵੰਡ ਕਾਰੋਬਾਰ ਦੀ ਕੀਮਤ-ਨਿਰਧਾਰਨ ਸਥਿਤੀ ਹੇਠਾਂ ਦਿੱਤੀ ਹੈ। ਵਿਕਰੇਤਾ {trueQuantity} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantity} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ।"
           },
           {
             "type": "statements",
@@ -948,7 +948,7 @@
             ]
           }
         ],
-        "prompt": "ਚੁਣੋ।"
+        "prompt": "ਗਾਹਕ ਤੋਂ ਪ੍ਰਭਾਵੀ ਵੱਧ ਵਸੂਲੀ ਬਾਰੇ ਸਹੀ ਕਥਨ ਚੁਣੋ।"
       },
       "explanation": {
         "opening": "ਇਸ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਸਹੀ ਆਧਾਰ ਚੁਣਨਾ ਸਭ ਤੋਂ ਮਹੱਤਵਪੂਰਨ ਹੈ।",
@@ -1020,14 +1020,14 @@
         "blocks": [
           {
             "type": "paragraph",
-            "content": "ਗੋਦਾਮ ਪ੍ਰਬੰਧਨ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantityExpression} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantityExpression} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% ਲਾਭ ਕਮਾਂਦਾ ਹੈ। ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਬੀਜਗਣਿਤਕ ਤਰੀਕੇ ਨਾਲ"
+            "content": "ਗੋਦਾਮ ਪ੍ਰਬੰਧਨ ਦੇ ਵਪਾਰਕ ਅੰਕੜਿਆਂ ਦੀ ਵਰਤੋਂ ਕਰੋ। ਵਿਕਰੇਤਾ {trueQuantityExpression} ਇਕਾਈਆਂ ਦੀ ਕੀਮਤ ਲੈ ਕੇ {deliveredQuantityExpression} ਇਕਾਈਆਂ ਦਿੰਦਾ ਹੈ ਅਤੇ ਅਸਲ {actualRatePercent}% ਲਾਭ ਕਮਾਂਦਾ ਹੈ।"
           },
           {
             "type": "equation",
             "latex": "\\frac{S}{C_d}=1+\\frac{r_a}{100}"
           }
         ],
-        "prompt": "ਪਤਾ ਕਰੋ।"
+        "prompt": "ਦੱਸਿਆ ਲਾਭ ਜਾਂ ਹਾਨੀ ਪ੍ਰਤੀਸ਼ਤ ਬੀਜਗਣਿਤਕ ਤਰੀਕੇ ਨਾਲ ਪਤਾ ਕਰੋ।"
       },
       "explanation": {
         "opening": "ਸਿਰਫ਼ ਫਾਰਮੂਲਾ ਲਗਾਉਣ ਦੀ ਬਜਾਇ ਅਰਥ ਸਮਝ ਕੇ ਹੱਲ ਕਰਨਾ ਜ਼ਿਆਦਾ ਸੁਰੱਖਿਅਤ ਹੈ।",
