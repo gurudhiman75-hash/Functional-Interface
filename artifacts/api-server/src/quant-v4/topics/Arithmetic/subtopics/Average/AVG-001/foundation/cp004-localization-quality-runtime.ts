@@ -1,9 +1,10 @@
+import { applyAvg001Cp004ExamStrategy } from "./cp004-exam-strategy-finalizer";
+import { localizedExplanation } from "./cp004-localization-explanation";
+import type { Avg001Cp004PilotLanguage } from "./cp004-localization-lexicon";
+import { localizedStem } from "./cp004-localization-stem";
+import { qlNumber } from "./cp004-localization-values";
 import { getAvg001QuestionEntries } from "./library";
 import { runAvg001Pipeline } from "./pipeline";
-import { localizedExplanation } from "./cp004-localization-explanation";
-import { qlNumber } from "./cp004-localization-values";
-import { localizedStem } from "./cp004-localization-stem";
-import type { Avg001Cp004PilotLanguage } from "./cp004-localization-lexicon";
 import type { Avg001Language, Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 
 export const AVG_001_CP004_MULTILINGUAL_PILOT = Object.freeze({
@@ -41,6 +42,7 @@ function correctedChecks(pkg: Avg001QuestionPackage, language: PilotLanguage) {
     { name: "localized-script", passed: expected.test(pkg.stem) && expected.test(prose) && !wrong.test(allText), message: "Localized stem and prose use the expected Indic script" },
     { name: "localized-stem", passed: !/[{}]|undefined|NaN|Infinity|null|[A-Za-z]/.test(pkg.stem), message: "Localized stem is fully rendered without Latin fallback" },
     { name: "localized-explanation", passed: pkg.explanation.lines.length === 4 && pkg.explanation.lines.some((line) => line.includes(pkg.answer)) && pkg.explanation.lines.some((line) => /×|÷|\+|-|=/.test(line)), message: "Localized explanation has four meaningful lines with arithmetic and answer evidence" },
+    { name: "localized-exam-strategy", passed: pkg.traceability.cp004ExamStrategyFinalizer === "AVG-CP-004 compact exam shortcut and trap guidance v1", message: "Localized explanation includes compact exam shortcut and trap guidance" },
     { name: "localization-parity", passed: pkg.options.length === 4 && pkg.options[pkg.correctIndex] === pkg.answer, message: "Localized package preserves the frozen English answer and options" },
     { name: "localization-candidate", passed: pkg.maturity === "MANUAL_REVIEW" && !pkg.publiclyPublishable, message: "Localization remains non-publishable pending review" },
   );
@@ -88,6 +90,7 @@ export function runAvg001Cp004LocalizationPilot(input: {
       cp004LocalizationAuthorship: "AVG-CP-004 context-authored localization v1",
     },
   };
-  const checks = correctedChecks(localized, input.language);
-  return { ...localized, validation: { valid: checks.every((check) => check.passed), checks } };
+  const examReady = applyAvg001Cp004ExamStrategy(localized);
+  const checks = correctedChecks(examReady, input.language);
+  return { ...examReady, validation: { valid: checks.every((check) => check.passed), checks } };
 }
