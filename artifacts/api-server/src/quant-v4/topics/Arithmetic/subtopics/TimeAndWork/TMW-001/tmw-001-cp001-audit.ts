@@ -2,11 +2,9 @@ import { strict as assert } from "node:assert";
 import { TMW_CP001_REGISTRY } from "./foundation/cp001-registry";
 import { runTmwCp001Pipeline } from "./foundation/cp001-runtime";
 
-function normalizeStem(stem: string, actor: string, secondActor: string | undefined, object: string): string {
+function normalizeStem(stem: string, actor: string, peerActor: string | undefined, object: string): string {
   let normalized = stem.toLowerCase();
-  for (const value of [actor, secondActor, object]) {
-    if (value) normalized = normalized.replaceAll(value.toLowerCase(), "<context>");
-  }
+  for (const value of [actor, peerActor, object]) if (value) normalized = normalized.replaceAll(value.toLowerCase(), "<context>");
   return normalized
     .replace(/\d+\s+\d+\/\d+/g, "<number>")
     .replace(/\d+\/\d+/g, "<number>")
@@ -31,37 +29,20 @@ for (const entry of TMW_CP001_REGISTRY) {
     const seed = `tmw-cp001-audit:${entry.qlId}:${index}`;
     const question = runTmwCp001Pipeline({ questionLanguageId: entry.qlId, seed });
     generated += 1;
-
     if (!question.validation.valid) invalidPackages += 1;
     if (/\{[^}]+\}|undefined|null/.test(question.stem)) unresolvedPlaceholders += 1;
-    const explanationText = [
-      question.explanation.opening,
-      question.explanation.formula,
-      ...question.explanation.steps,
-      question.explanation.conclusion,
-    ].join("\n");
-    if ((explanationText.match(/\\\(/g) ?? []).length !== (explanationText.match(/\\\)/g) ?? []).length) {
-      malformedMathDelimiters += 1;
-    }
+    const explanationText = [question.explanation.opening, question.explanation.formula, ...question.explanation.steps, question.explanation.conclusion].join("\n");
+    if ((explanationText.match(/\\\(/g) ?? []).length !== (explanationText.match(/\\\)/g) ?? []).length) malformedMathDelimiters += 1;
     if (bannedPhrases.some((phrase) => explanationText.toLowerCase().includes(phrase))) genericExplanationHits += 1;
-    if (question.optionAudit.length !== 4 || question.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) {
-      optionContractFailures += 1;
-    }
+    if (question.optionAudit.length !== 4 || question.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) optionContractFailures += 1;
 
     const exactStemOwners = exactStems.get(question.stem) ?? [];
     exactStemOwners.push(entry.qlId);
     exactStems.set(question.stem, exactStemOwners);
-
-    const normalized = normalizeStem(
-      question.stem,
-      question.parameters.context.actor,
-      question.parameters.context.secondActor,
-      question.parameters.context.object,
-    );
+    const normalized = normalizeStem(question.stem, question.parameters.context.actor, question.parameters.context.peerActor, question.parameters.context.object);
     const qlOwners = normalizedPatterns.get(normalized) ?? new Set<string>();
     qlOwners.add(entry.qlId);
     normalizedPatterns.set(normalized, qlOwners);
-
     const exactExplanationOwners = exactExplanations.get(explanationText) ?? [];
     exactExplanationOwners.push(entry.qlId);
     exactExplanations.set(explanationText, exactExplanationOwners);
@@ -71,7 +52,6 @@ for (const entry of TMW_CP001_REGISTRY) {
 const exactStemDuplicateGroups = [...exactStems.values()].filter((owners) => new Set(owners).size > 1);
 const crossQlNormalizedCollisions = [...normalizedPatterns.entries()].filter(([, owners]) => owners.size > 1);
 const exactExplanationDuplicateGroups = [...exactExplanations.values()].filter((owners) => new Set(owners).size > 1);
-
 assert.equal(invalidPackages, 0);
 assert.equal(unresolvedPlaceholders, 0);
 assert.equal(malformedMathDelimiters, 0);
@@ -81,19 +61,4 @@ assert.equal(exactStemDuplicateGroups.length, 0);
 assert.equal(crossQlNormalizedCollisions.length, 0);
 assert.equal(exactExplanationDuplicateGroups.length, 0);
 
-console.log(JSON.stringify({
-  chapter: "TMW-001",
-  checkpoint: "TMW-CP-001",
-  qlCount: TMW_CP001_REGISTRY.length,
-  seedsPerQl: 12,
-  generated,
-  invalidPackages,
-  unresolvedPlaceholders,
-  malformedMathDelimiters,
-  genericExplanationHits,
-  optionContractFailures,
-  exactStemDuplicateGroups: exactStemDuplicateGroups.length,
-  crossQlNormalizedCollisions: crossQlNormalizedCollisions.length,
-  exactExplanationDuplicateGroups: exactExplanationDuplicateGroups.length,
-  status: "PASS",
-}, null, 2));
+console.log(JSON.stringify({ chapter: "TMW-001", checkpoint: "TMW-CP-001", qlCount: TMW_CP001_REGISTRY.length, seedsPerQl: 12, generated, invalidPackages, unresolvedPlaceholders, malformedMathDelimiters, genericExplanationHits, optionContractFailures, exactStemDuplicateGroups: exactStemDuplicateGroups.length, crossQlNormalizedCollisions: crossQlNormalizedCollisions.length, exactExplanationDuplicateGroups: exactExplanationDuplicateGroups.length, status: "PASS" }, null, 2));
