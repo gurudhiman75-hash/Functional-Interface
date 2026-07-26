@@ -16,6 +16,7 @@ const GURMUKHI = /[\u0A00-\u0A7F]/;
 const ENGLISH_INSTRUCTION = /\b(?:choose|select|find|complete|therefore|rule|source|target|answer|correct|wrong|letter|number)\b/i;
 const INTERNAL_TEXT = /ANA-QL|ANA-CP|MIXED_|PROTO_|ruleId|contextKey|LANGUAGE_PROTOTYPE|publiclyPublishable/i;
 const PLACEHOLDER_TEXT = /\{\{?[^}]+\}?\}|\[[A-Z_]{3,}\]/;
+const OVERLY_TECHNICAL_PUNJABI = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ/;
 
 function evidenceKey(evidence: { input: Parameters<typeof mixedTokenKey>[0]; output: Parameters<typeof mixedTokenKey>[0] }): string {
   return `${mixedTokenKey(evidence.input)}=>${mixedTokenKey(evidence.output)}`;
@@ -51,6 +52,10 @@ for (const locale of ["hi-IN", "pa-IN"] as const satisfies readonly ProvisionalM
       `${localized.prototypeId} leaks implementation text in ${locale}.`);
     assert.ok(!PLACEHOLDER_TEXT.test(studentText),
       `${localized.prototypeId} contains an unresolved placeholder in ${locale}.`);
+    if (locale === "pa-IN") {
+      assert.ok(!OVERLY_TECHNICAL_PUNJABI.test(studentText),
+        `${localized.prototypeId} contains avoidable textbook-style Punjabi.`);
+    }
     assert.ok(localized.explanation.ruleStatement.length >= 25);
     assert.ok(localized.explanation.sourceDemonstration.includes(renderMixedToken(localized.source.input)));
     assert.ok(localized.explanation.targetApplication.includes(renderMixedToken(localized.target.input)));
@@ -86,6 +91,10 @@ for (const locale of ["hi-IN", "pa-IN"] as const satisfies readonly ProvisionalM
     assert.ok(!ENGLISH_INSTRUCTION.test(studentText));
     assert.ok(!INTERNAL_TEXT.test(studentText));
     assert.ok(!PLACEHOLDER_TEXT.test(studentText));
+    if (locale === "pa-IN") {
+      assert.ok(!OVERLY_TECHNICAL_PUNJABI.test(studentText),
+        `${localized.prototypeId} contains avoidable textbook-style Punjabi.`);
+    }
   }
 
   for (const localized of direct.filter((entry) =>
@@ -94,7 +103,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const satisfies readonly ProvisionalM
     assert.match(renderMixedToken(localized.correctAnswer), /^-?\d+[A-Z]{2,6}$/);
     assert.match(
       localized.explanation.targetApplication,
-      locale === "hi-IN" ? /संख्या-पहले/ : /ਗਿਣਤੀ-ਪਹਿਲਾਂ/,
+      locale === "hi-IN" ? /संख्या-पहले/ : /ਗਿਣਤੀ ਪਹਿਲਾਂ/,
     );
   }
 }
