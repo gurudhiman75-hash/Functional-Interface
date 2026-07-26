@@ -1,4 +1,4 @@
-name: Validate OPS-001 foundation and representative pilots
+name: Validate OPS-001 foundation, pilots and localization
 
 # Pilot proof only: no permanent QL allocation or production exposure.
 on:
@@ -58,3 +58,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/ops-foundation.test.ts
       - name: Stress 12 representative candidate pilots
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/representative-pilots.test.ts
+      - name: Prove Hindi and Punjabi answer parity
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/localization.test.ts
