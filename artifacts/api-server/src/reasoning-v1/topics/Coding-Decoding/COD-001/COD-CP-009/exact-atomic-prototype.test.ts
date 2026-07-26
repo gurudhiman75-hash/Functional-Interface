@@ -96,6 +96,7 @@ for (const contract of EXACT_ATOMIC_PROTOTYPE_CONTRACTS) {
       assert.ok(first.explanation.evidenceComparison.length >= 1);
       assert.equal(first.explanation.evidenceComparison.join(" ").includes(first.structuredPrompt.targetWord), true);
       assert.equal(first.explanation.evidenceComparison.join(" ").includes(first.structuredPrompt.targetToken), true);
+      assert.equal(/\br[1-4]\b/i.test(first.explanation.evidenceComparison.join(" ")), false);
       assert.equal(first.explanation.targetResult.includes(first.structuredPrompt.targetWord), true);
       assert.equal(first.explanation.targetResult.includes(first.structuredPrompt.targetToken), true);
       assert.equal(first.explanation.conclusion.includes(correct), true);
