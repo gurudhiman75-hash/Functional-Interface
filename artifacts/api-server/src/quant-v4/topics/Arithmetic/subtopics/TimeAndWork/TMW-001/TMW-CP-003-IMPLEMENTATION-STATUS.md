@@ -92,9 +92,9 @@ These are discovered task contracts, not a quota.
 
 ## Latest validation evidence
 
-- exact runtime head before documentation: `f4aa9a0e7a3c7cf8147aec83364b7d4a676963ee`;
-- workflow run: `30195007513` — PASS;
-- evidence artifact: `8629816946`;
+- exact final head: `183b728a9af976343d598400ba014e45777986c6`;
+- workflow run: `30195095647` — PASS;
+- evidence artifact: `8629843373`;
 - runtime proof: 23 QLs × 50 seeds = 1,150 deterministic cases;
 - structural/editorial audit: 23 QLs × 12 seeds = 276 cases;
 - invalid packages: 0;
