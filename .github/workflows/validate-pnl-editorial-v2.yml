@@ -37,17 +37,44 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Bundle and run editorial migration audit
+        id: editorial_audit
+        continue-on-error: true
         run: |
+          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-audit.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs \
+            2>&1 | tee editorial-v2-audit.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-audit.mjs \
+            2>&1 | tee -a editorial-v2-audit.log
 
       - name: Bundle and run editorial renderer proof
+        id: editorial_renderer
+        continue-on-error: true
         run: |
+          set -o pipefail
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-render.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs \
+            2>&1 | tee editorial-v2-render.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-render.test.mjs \
+            2>&1 | tee -a editorial-v2-render.log
+
+      - name: Upload editorial diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-editorial-v2-diagnostics
+          path: |
+            editorial-v2-audit.log
+            editorial-v2-render.log
+          if-no-files-found: error
+          retention-days: 3
+
+      - name: Enforce editorial validation result
+        if: always()
+        run: |
+          test "${{ steps.editorial_audit.outcome }}" = "success"
+          test "${{ steps.editorial_renderer.outcome }}" = "success"
