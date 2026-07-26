@@ -13,7 +13,7 @@ on:
       - ".github/workflows/validate-pnl-editorial-v2.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   validate-pnl-editorial-v2:
@@ -42,6 +42,14 @@ jobs:
           ln -s ../CP-001 "$root/foundation/CP-001"
           ln -s ../CP-002 "$root/foundation/CP-002"
           ln -s ../CP-003 "$root/foundation/CP-003"
+
+      - name: Apply concise exam-stem normalization
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-compact-stems-persist.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-compact-stems-persist.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-compact-stems-persist.mjs
 
       - name: Bundle and run CP-004 to CP-006 editorial audit
         id: editorial_audit
@@ -196,3 +204,17 @@ jobs:
           test "${{ steps.multilingual_editorial_renderer.outcome }}" = "success"
           test "${{ steps.multilingual_editorial_export.outcome }}" = "success"
           test "${{ steps.multilingual_source_parity.outcome }}" = "success"
+
+      - name: Persist validated concise stem sources
+        if: github.event_name == 'push' && success()
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$root"/CP-*/editorial-content.en.json "$root"/CP-*/editorial-content.hi.json "$root"/CP-*/editorial-content.pa.json
+          if git diff --cached --quiet; then
+            echo "Concise exam stems are already current."
+            exit 0
+          fi
+          git commit -m "Remove synthetic question-stem introductions"
+          git push
