@@ -45,12 +45,14 @@ for (const question of seedOne) {
     ),
     "",
     `**Rule:** ${question.explanation.ruleStatement}`,
+    ...(question.explanation.referenceAid?.length ? ["", "**Reference aid:**", ...question.explanation.referenceAid.map((line) => `- ${line}`)] : []),
+    ...(question.explanation.quickMethod ? ["", `**Quick method:** ${question.explanation.quickMethod}`] : []),
     "",
     ...question.explanation.sourceDemonstration.map((line) => `**Check:** ${line}`),
     ...question.explanation.targetApplication.map((line) => `**Application:** ${line}`),
     `**Conclusion:** ${question.explanation.conclusion}`,
-    question.explanation.closestTrapRejection
-      ? `**Why a wrong option fails:** ${question.explanation.closestTrapRejection}`
+    question.explanation.commonTrapAlert
+      ? `**Common Trap Alert:** ${question.explanation.commonTrapAlert}`
       : "",
     "",
   );
