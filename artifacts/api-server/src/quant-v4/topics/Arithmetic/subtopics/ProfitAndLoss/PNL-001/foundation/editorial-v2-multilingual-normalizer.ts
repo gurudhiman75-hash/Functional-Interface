@@ -1,5 +1,6 @@
 import type { QuestionStemBlock, StructuredEditorialEntry } from "./editorial-content";
 import type { EditorialLibraryFile } from "./editorial-library";
+import { compactEditorialEntry } from "./editorial-v2-exam-stems";
 import { localizeEditorialLatex } from "./editorial-v2-native-latex";
 import type { NativeEditorialLanguage } from "./editorial-v2-native-stems";
 import { buildAllMultilingualEditorialLibraries } from "./editorial-v2-multilingual-builder";
@@ -141,7 +142,7 @@ function normalizeEntry(
   qlId: string,
   entry: StructuredEditorialEntry,
 ): StructuredEditorialEntry {
-  return {
+  return compactEditorialEntry(language, {
     ...entry,
     stem: { ...entry.stem, blocks: normalizeBlocks(language, qlId, entry) },
     explanation: {
@@ -153,7 +154,7 @@ function normalizeEntry(
       })),
       finalAnswerLatex: localizeEditorialLatex(language, entry.explanation.finalAnswerLatex),
     },
-  };
+  });
 }
 
 function normalizeLibrary(library: EditorialLibraryFile): EditorialLibraryFile {
