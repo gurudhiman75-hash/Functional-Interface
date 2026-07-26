@@ -11,6 +11,7 @@ import { renderMixedToken } from "./foundation/mixed-token";
 
 const directory = dirname(fileURLToPath(import.meta.url));
 const reviewDirectory = join(directory, "review-artifacts");
+const AVOIDABLE_PUNJABI_REVIEW_TERMS = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ|ਪ੍ਰੋਟੋਟਾਈਪ|ਸਿੱਧੀ ਪੂਰਤੀ|ਲਕਸ਼ ਜੋੜਾ|ਸਾਂਝਾ ਨਿਯਮ|Latin script/;
 mkdirSync(reviewDirectory, { recursive: true });
 
 const localeConfig: Readonly<Record<ProvisionalMixedLocale, {
@@ -74,7 +75,7 @@ const localeConfig: Readonly<Record<ProvisionalMixedLocale, {
       directSamples: "ਖਾਲੀ ਥਾਂ ਵਾਲੇ ਸਵਾਲ",
       oddSamples: "ਵੱਖਰਾ ਜੋੜਾ ਚੁਣਨ ਵਾਲੇ ਸਵਾਲ",
       permanentQlIds: "ਪੱਕੇ QL ID",
-      tokenNote: "ਸਵਾਲਾਂ ਵਿੱਚ ਅੱਖਰ ਅਤੇ ਗਿਣਤੀਆਂ ਜਾਣਬੁੱਝ ਕੇ Latin script ਵਿੱਚ ਰੱਖੀਆਂ ਗਈਆਂ ਹਨ।",
+      tokenNote: "ਸਵਾਲਾਂ ਦੇ ਅੱਖਰ ਅਤੇ ਗਿਣਤੀਆਂ ਮੂਲ ਰੂਪ ਵਿੱਚ ਹੀ ਰੱਖੀਆਂ ਗਈਆਂ ਹਨ।",
     },
     labels: {
       prototype: "ਨਿਯਮ ਦੀ ਕਿਸਮ",
@@ -166,7 +167,11 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
     );
   }
 
-  writeFileSync(join(reviewDirectory, config.fileName), lines.join("\n"), "utf8");
+  const reviewText = lines.join("\n");
+  if (locale === "pa-IN" && AVOIDABLE_PUNJABI_REVIEW_TERMS.test(reviewText)) {
+    throw new Error("Punjabi review artifact contains avoidable textbook-style wording.");
+  }
+  writeFileSync(join(reviewDirectory, config.fileName), reviewText, "utf8");
   (payload.locales as Record<string, unknown>)[locale] = { direct, oddPair: odd };
 }
 
