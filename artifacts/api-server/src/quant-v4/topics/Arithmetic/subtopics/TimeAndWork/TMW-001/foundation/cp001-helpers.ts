@@ -1,4 +1,4 @@
-import { formatRational, multiply, rational } from "./rational";
+import { equals, formatRational, multiply, rational } from "./rational";
 import type { Rational, TmwCp001Parameters, TmwCp001RegistryEntry, TmwTimeUnit } from "./types";
 
 export function seedNumber(seed: string, salt: string): number {
@@ -25,7 +25,7 @@ export function percent(value: Rational): Rational {
 }
 
 export function timeUnitLabel(unit: TmwTimeUnit, value: Rational): string {
-  return value.numerator === value.denominator ? unit : `${unit}s`;
+  return equals(value, rational(1)) ? unit : `${unit}s`;
 }
 
 export function answerText(entry: TmwCp001RegistryEntry, p: TmwCp001Parameters, answer: Rational): string {
@@ -34,10 +34,6 @@ export function answerText(entry: TmwCp001RegistryEntry, p: TmwCp001Parameters, 
   if (entry.answerType === "TIME") return `${value} ${timeUnitLabel(p.timeUnit, answer)}`;
   if (entry.answerType === "RATE") {
     if (entry.solveMode === "findOneUnitWorkFromCompletionTime") return `${value} of the work per ${p.timeUnit}`;
-    if (entry.solveMode === "convertRateAcrossTimeUnits") {
-      const targetDuration = required(p.targetDuration, "targetDuration");
-      return `${value} ${p.context.object} per ${formatRational(targetDuration)} ${timeUnitLabel(p.timeUnit, targetDuration)}`;
-    }
     return `${value} ${p.context.object} per ${p.timeUnit}`;
   }
   if (entry.answerType === "FRACTION") return `${value} of the work`;
