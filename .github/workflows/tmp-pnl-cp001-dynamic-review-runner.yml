@@ -1,0 +1,52 @@
+name: One-shot PNL CP-001 dynamic review patch runner
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml"
+      - ".github/workflows/tmp-pnl-cp001-dynamic-review-runner.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  run-reviewed-patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp001-question-studio-dynamic-review
+
+      - name: Execute reviewed embedded patch
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          workflow = Path(".github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml").read_text().splitlines()
+          start = next(index for index, line in enumerate(workflow) if "python - <<'PY'" in line) + 1
+          end = next(index for index in range(start, len(workflow)) if workflow[index].strip() == "PY")
+          embedded = workflow[start:end]
+          common_indent = min(
+              len(line) - len(line.lstrip())
+              for line in embedded
+              if line.strip()
+          )
+          code = "\n".join(line[common_indent:] for line in embedded)
+          exec(compile(code, "pnl-cp001-dynamic-review-patch", "exec"))
+          PY
+
+      - name: Commit patched integration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
+            artifacts/api-server/src/routes/generator.ts \
+            artifacts/api-server/src/routes/admin-question-studio.ts \
+            artifacts/api-server/src/lib/admin-question-conversion.ts
+          git commit -m "feat(pnl): add safe CP-001 dynamic review routing"
+          git push origin HEAD:feat/pnl-001-cp001-question-studio-dynamic-review
