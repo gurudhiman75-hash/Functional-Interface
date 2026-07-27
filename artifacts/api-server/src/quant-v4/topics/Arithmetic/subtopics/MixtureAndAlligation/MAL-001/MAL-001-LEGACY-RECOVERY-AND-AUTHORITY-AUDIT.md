@@ -16,7 +16,9 @@ artifacts/api-server/src/quant-v2/validators/mixture-alligation-independent-solv
 artifacts/api-server/src/lib/quant-v2/mixture-alligation-admin-adapter.ts
 ```
 
-The legacy type registry declares 78 named family IDs. Its model already contains useful concepts that should be recovered rather than discarded:
+The older planning PDF described a 78-motif legacy inventory. The current `New-main` type registry and factory registry each declare **87 named family IDs**. The 87-family repository state is authoritative for recovery; the older 78 count is retained only as historical context.
+
+The legacy model already contains useful concepts that should be recovered rather than discarded:
 
 - explicit solver models;
 - preferred solution method;
@@ -214,7 +216,7 @@ No duplicate root/foundation implementation files are allowed.
 
 ## 7. Discovery sequence
 
-1. complete the 78-family disposition ledger;
+1. complete the **87-family** disposition ledger;
 2. lock chapter ownership against AVG, RAP, PCT, PNL, MEN and TSD;
 3. prototype the mathematical state model and independent verifier;
 4. run MAL-CP-001 executable contract discovery;
