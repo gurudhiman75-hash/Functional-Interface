@@ -115,6 +115,28 @@ export interface TmwCp006Option {
   misconceptionId:TmwCp006MisconceptionId;
 }
 
+export interface TmwCp006LearningShortcut {
+  title:string;
+  steps:string[];
+}
+
+export interface TmwCp006CommonTrap {
+  optionLabel:string;
+  optionText:string;
+  misconceptionId:Exclude<TmwCp006MisconceptionId,"CORRECT">;
+  explanation:string;
+}
+
+export interface TmwCp006Explanation {
+  opening:string;
+  formula:string;
+  givens:string[];
+  steps:string[];
+  shortcut:TmwCp006LearningShortcut;
+  commonTrap:TmwCp006CommonTrap;
+  conclusion:string;
+}
+
 export interface TmwCp006GeneratedQuestion {
   archetypeId:"TMW-001";
   canonicalProblemId:typeof TMW_CP_006_ID;
@@ -128,7 +150,7 @@ export interface TmwCp006GeneratedQuestion {
   options:string[];
   optionAudit:TmwCp006Option[];
   correctIndex:number;
-  explanation:{opening:string;formula:string;steps:string[];conclusion:string};
+  explanation:TmwCp006Explanation;
   mathematicalFingerprint:string;
   validation:{valid:boolean;errors:string[]};
   publiclyPublishable:false;
