@@ -6,6 +6,9 @@ on:
       - feat/pnl-001-question-studio-review-runtime
     paths:
       - ".github/workflows/export-pnl-cp003-editorial-source.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/export-pnl-cp003-editorial-source.yml"
 
 permissions:
   contents: read
@@ -15,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout feature branch
+      - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Set up Node
