@@ -45,7 +45,7 @@ A second manual audit of the first regenerated artifact found one further system
 
 ## Final exact-head validation
 
-- head: `80b069f2f188b72dc9b738fcd860d7a823e27933`;
+- reviewed code head: `80b069f2f188b72dc9b738fcd860d7a823e27933`;
 - CP-005 workflow run: `30254623992` — PASS;
 - evidence artifact: `8648353015`;
 - artifact digest: `sha256:568062a2f9b21b84738d7c614f2d86c6bd5a0f68d5daf920754107abefbc6d5b`;
