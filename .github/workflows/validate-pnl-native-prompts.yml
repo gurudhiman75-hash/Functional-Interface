@@ -1,0 +1,50 @@
+name: Validate PNL Native Prompts
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-editorial-structured-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-native-prompts.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-native-prompts.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-native-prompts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare legacy editorial bundle paths
+        run: |
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          ln -s ../CP-001 "$root/foundation/CP-001"
+          ln -s ../CP-002 "$root/foundation/CP-002"
+          ln -s ../CP-003 "$root/foundation/CP-003"
+
+      - name: Bundle and run native prompt audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-native-prompt-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-native-prompt-audit.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-native-prompt-audit.mjs

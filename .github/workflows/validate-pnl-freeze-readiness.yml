@@ -1,0 +1,87 @@
+name: Validate PNL Freeze Readiness
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-editorial-structured-review
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-freeze-readiness.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-freeze-readiness.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pnl-freeze-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run chapter freeze audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-freeze-readiness-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-freeze-readiness-audit.mjs \
+            2>&1 | tee pnl-001-freeze-readiness-audit.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.pnl-001-freeze-readiness-audit.mjs \
+            2>&1 | tee -a pnl-001-freeze-readiness-audit.log
+
+      - name: Run all CP runtime and structural proofs
+        run: |
+          set -euo pipefail
+          root="artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001"
+          : > pnl-001-cp-proofs.log
+          total=0
+
+          for cp in CP-001 CP-002 CP-003 CP-004 CP-005 CP-006; do
+            mapfile -d '' cp_files < <(find "$root/$cp" -maxdepth 1 -type f \
+              \( -name '*.test.ts' -o -name '*structural-audit.ts' \) -print0 | sort -z)
+            test "${#cp_files[@]}" -gt 0
+            printf '%s: discovered %s proof file(s).\n' "$cp" "${#cp_files[@]}" | tee -a pnl-001-cp-proofs.log
+            total=$((total + ${#cp_files[@]}))
+
+            for file in "${cp_files[@]}"; do
+              relative="${file#artifacts/api-server/}"
+              output="${file%.ts}.freeze-proof.mjs"
+              output_relative="${output#artifacts/api-server/}"
+              printf '\n=== %s ===\n' "$relative" | tee -a pnl-001-cp-proofs.log
+              pnpm --dir artifacts/api-server exec esbuild \
+                "$relative" --bundle --platform=node --format=esm \
+                --outfile="$output_relative" 2>&1 | tee -a pnl-001-cp-proofs.log
+              node "$output" 2>&1 | tee -a pnl-001-cp-proofs.log
+            done
+          done
+
+          printf '\nTotal CP proof files executed: %s\n' "$total" | tee -a pnl-001-cp-proofs.log
+
+      - name: Upload freeze diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-freeze-readiness-diagnostics
+          path: |
+            pnl-001-freeze-readiness-audit.log
+            pnl-001-cp-proofs.log
+          if-no-files-found: error
+          retention-days: 7
