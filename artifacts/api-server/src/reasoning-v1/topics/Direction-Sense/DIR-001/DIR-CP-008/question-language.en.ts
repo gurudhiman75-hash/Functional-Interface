@@ -48,7 +48,7 @@ export function renderMissingMovementStem(scenario: MissingMovementScenario): st
 
 export function renderMissingTurnStem(scenario: MissingTurnScenario): string {
   const known = scenario.knownTurn === "LEFT" ? "turns left" : "turns right";
-  return `${scenario.subject}, while in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. The next direction instruction is omitted. ${scenario.subject} then walks ${scenario.secondDistance} metres, ${known}, and walks another ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. Which instruction correctly fills the missing step?`;
+  return `${scenario.subject}, while in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and walks ${scenario.firstDistance} metres. What ${scenario.subject} does before the next movement is not stated. ${scenario.subject} then walks ${scenario.secondDistance} metres, ${known}, and walks another ${scenario.thirdDistance} metres. The final point is ${componentDescription(scenario.target)} of the starting point. What should fill the missing step?`;
 }
 
 export function renderInitialFacingStem(scenario: InitialFacingScenario): string {
@@ -56,5 +56,5 @@ export function renderInitialFacingStem(scenario: InitialFacingScenario): string
 }
 
 export function renderCaseletStimulus(scenario: CaseletScenario): string {
-  return `${scenario.subject}, a patrol officer at ${scenario.checkpoint} in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and ${pathSentence(scenario.operations)}.`;
+  return `${scenario.subject}, a patrol officer at checkpoint ${scenario.checkpoint} in ${scenario.place}, starts facing ${DIRECTION_LABELS[scenario.initialFacing]} and ${pathSentence(scenario.operations)}.`;
 }
