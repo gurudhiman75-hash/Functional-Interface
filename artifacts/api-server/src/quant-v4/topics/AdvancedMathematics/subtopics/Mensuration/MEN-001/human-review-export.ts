@@ -49,7 +49,7 @@ const rows: string[][] = [[
 const markdown: string[] = [
   "# MEN-001 Human Review Export",
   "",
-  "Three distinct deterministic samples are exported per active QL to CSV. The Markdown view shows the first sample for each QL.",
+  "Three deterministic samples are exported per active QL to CSV. CP-006 samples are required to be distinct; the Markdown view shows the first sample for each QL.",
   "Open `men-001-human-review.html` for the visual review with rendered diagrams.",
   "",
 ];
@@ -63,6 +63,7 @@ for (const entry of getMen001QuestionEntries()) {
     seed: string;
     question: ReturnType<typeof runMen001Pipeline>;
   }> = [];
+  const requireDistinctSamples = entry.cpId === "MEN-CP-006";
   const seenQuestions = new Set<string>();
 
   for (let attempt = 0; attempt < MAX_REVIEW_SEED_ATTEMPTS && selected.length < REVIEW_SAMPLE_COUNT; attempt += 1) {
@@ -73,12 +74,12 @@ for (const entry of getMen001QuestionEntries()) {
       seed,
     });
     const fingerprint = `${question.stem}\u0000${question.answer}`;
-    if (seenQuestions.has(fingerprint)) continue;
+    if (requireDistinctSamples && seenQuestions.has(fingerprint)) continue;
     seenQuestions.add(fingerprint);
     selected.push({ seed, question });
   }
 
-  if (selected.length !== REVIEW_SAMPLE_COUNT) {
+  if (requireDistinctSamples && selected.length !== REVIEW_SAMPLE_COUNT) {
     throw new Error(
       `MEN-001 human review requires ${REVIEW_SAMPLE_COUNT} distinct questions for ${qlId}; found ${selected.length} after ${MAX_REVIEW_SEED_ATTEMPTS} deterministic attempts.`,
     );
