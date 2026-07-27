@@ -18,12 +18,13 @@ import type {
 const NAMES = ["Aman", "Beena", "Charan", "Deepa", "Farhan", "Gurpreet", "Harpreet", "Isha", "Jasleen", "Karan", "Meena", "Naman", "Pooja", "Ravi", "Simran", "Tanvi"] as const;
 const POINTS = ["P", "Q", "R", "S", "T", "U", "V", "W"] as const;
 const PLACES = ["a school ground", "a public park", "a college campus", "an office compound", "a village square", "a sports complex", "a market yard", "a garden"] as const;
+const PLACE_DETAILS = ["near the main gate", "beside the central lawn", "along a marked track", "close to the entrance", "near the boundary wall"] as const;
 const TURNS: readonly AdvancedTurn[] = ["LEFT", "RIGHT", "ABOUT", "NO_TURN"];
 
 const rotate = (direction: Direction, quarterTurns: number): Direction => rotateDirection(direction, quarterTurns * 2);
 const name = (seed: number, offset: number): string => NAMES[(seed * 5 + offset * 7 + Math.floor(seed / 3)) % NAMES.length];
 const point = (seed: number, offset: number): string => `${POINTS[offset % POINTS.length]}${seed * 4 + offset + 1}`;
-const context = (seed: number, offset = 0): { readonly subject: string; readonly place: string } => ({ subject: NAMES[(seed + offset) % NAMES.length], place: PLACES[Math.floor(seed / NAMES.length) % PLACES.length] });
+const context = (seed: number, offset = 0): { readonly subject: string; readonly place: string } => ({ subject: NAMES[(seed + offset) % NAMES.length], place: `${PLACES[(seed * 3 + offset) % PLACES.length]} ${PLACE_DETAILS[(Math.floor(seed / 8) + offset) % PLACE_DETAILS.length]}` });
 const relation = (fromEntity: string, toEntity: string, direction: Direction, distance: number): PositionRelation => ({
   fromEntity,
   toEntity,
@@ -111,13 +112,26 @@ export function initialFacingScenario(seed: number): InitialFacingScenario {
 }
 
 export function mixedGraphMovementScenario(seed: number): MixedGraphMovementScenario {
+  const patterns = [
+    { horizontal: 3, vertical: 4, distance: 5 },
+    { horizontal: 5, vertical: 12, distance: 13 },
+    { horizontal: 8, vertical: 15, distance: 17 },
+    { horizontal: 7, vertical: 24, distance: 25 },
+  ] as const;
+  const pattern = patterns[Math.floor(seed / 4) % patterns.length];
   const q = seed % 4;
+  const positiveVertical = Math.floor(seed / (patterns.length * 4)) % 2 === 1;
   const east = rotate("EAST", q), north = rotate("NORTH", q);
   const anchor = point(seed, 0), startEntity = point(seed, 1), referenceEntity = point(seed, 2);
-  const relations = [relation(anchor, startEntity, east, 4), relation(anchor, referenceEntity, north, 6)] as const;
-  const movements = [{ direction: north, distance: 3 }] as const;
-  const endpoint = addCoordinates(relationVector(east, 4), cardinalVector(north, 3));
-  const reference = relationVector(north, 6);
+  const referenceDistance = positiveVertical ? 3 : pattern.vertical + 3;
+  const movementDistance = positiveVertical ? pattern.vertical + 3 : 3;
+  const relations = [
+    relation(anchor, startEntity, east, pattern.horizontal),
+    relation(anchor, referenceEntity, north, referenceDistance),
+  ] as const;
+  const movements = [{ direction: north, distance: movementDistance }] as const;
+  const endpoint = addCoordinates(relationVector(east, pattern.horizontal), cardinalVector(north, movementDistance));
+  const reference = relationVector(north, referenceDistance);
   const vector = { x: endpoint.x - reference.x, y: endpoint.y - reference.y };
   return {
     kind: "GRAPH_AND_MOVEMENT",
@@ -132,15 +146,25 @@ export function mixedGraphMovementScenario(seed: number): MixedGraphMovementScen
 }
 
 export function caseletScenario(seed: number): CaseletScenario {
+  const patterns = [
+    { first: 9, cross: 12, third: 4, distance: 13 },
+    { first: 11, cross: 15, third: 3, distance: 17 },
+    { first: 13, cross: 24, third: 6, distance: 25 },
+    { first: 17, cross: 35, third: 5, distance: 37 },
+    { first: 14, cross: 40, third: 5, distance: 41 },
+  ] as const;
+  const pattern = patterns[seed % patterns.length];
   const initialFacing = rotate("NORTH", seed % 4);
+  const turn = Math.floor(seed / 4) % 2 === 0 ? "RIGHT" as const : "LEFT" as const;
   const operations: readonly RelativePathOperation[] = [
-    { kind: "MOVE", distance: 9 },
-    { kind: "TURN", turn: "RIGHT" },
-    { kind: "MOVE", distance: 12 },
-    { kind: "TURN", turn: "RIGHT" },
-    { kind: "MOVE", distance: 4 },
+    { kind: "MOVE", distance: pattern.first },
+    { kind: "TURN", turn },
+    { kind: "MOVE", distance: pattern.cross },
+    { kind: "TURN", turn },
+    { kind: "MOVE", distance: pattern.third },
   ];
   const solved = replayRelative(initialFacing, operations);
+  if (distanceFromVector(solved.position) !== pattern.distance) throw new Error("Caselet exact-distance pattern failed");
   const ctx = context(seed, 3);
   return {
     kind: "SHARED_PATH_CASELET",
@@ -152,16 +176,29 @@ export function caseletScenario(seed: number): CaseletScenario {
     endpoint: solved.position,
     finalFacing: solved.facing,
     answerDirection: directionFromVector(solved.position),
-    answerDistance: distanceFromVector(solved.position),
+    answerDistance: pattern.distance,
   };
 }
 
 export function hybridScenario(seed: number): HybridScenario {
+  const patterns = [
+    { east: 4, north: 3, west: 6 },
+    { east: 7, north: 5, west: 2 },
+    { east: 3, north: 6, west: 8 },
+    { east: 9, north: 4, west: 3 },
+  ] as const;
+  const pattern = patterns[Math.floor(seed / 4) % patterns.length];
   const q = seed % 4;
   const east = rotate("EAST", q), north = rotate("NORTH", q), west = rotate("WEST", q);
   const a = point(seed, 0), b = point(seed, 1), c = point(seed, 2), d = point(seed, 3);
-  const diagramRelations = [relation(a, b, east, 4), relation(b, c, north, 3)] as const;
-  const textRelation = relation(c, d, west, 6);
-  const vector = addCoordinates(addCoordinates(relationVector(east, 4), relationVector(north, 3)), relationVector(west, 6));
+  const diagramRelations = [
+    relation(a, b, east, pattern.east),
+    relation(b, c, north, pattern.north),
+  ] as const;
+  const textRelation = relation(c, d, west, pattern.west);
+  const vector = addCoordinates(
+    addCoordinates(relationVector(east, pattern.east), relationVector(north, pattern.north)),
+    relationVector(west, pattern.west),
+  );
   return { kind: "DIAGRAM_TEXT_HYBRID", diagramRelations, textRelation, queryFrom: a, queryTo: d, answerDirection: directionFromVector(vector) };
 }
