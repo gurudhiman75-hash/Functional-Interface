@@ -7,7 +7,7 @@ const DEVANAGARI = /[\u0900-\u097F]/;
 const GURMUKHI = /[\u0A00-\u0A7F]/;
 const ENGLISH_INSTRUCTION = /\b(?:choose|select|find|complete|therefore|rule|source|target|answer|correct|wrong|letter|number)\b/i;
 const INTERNAL_TEXT = /ANA-QL|ANA-CP|MIXED_|PROTO_|ruleId|contextKey|RUNTIME_PROOF|publiclyPublishable/i;
-const PLACEHOLDER_TEXT = /\{\{?[^}]+\}?\}|\[[A-Z_]{3,}\]/;
+const PLACEHOLDER_TEXT = /\{\{[^}]+\}\}|\[[A-Z_]{3,}\]/;
 const AVOIDABLE_PUNJABI = /ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ|ਸਰੋਤ|ਸੁਤੰਤਰ|ਵਰਣਮਾਲਾ-ਚਾਲ|ਗਿਣਤੀ-ਪਹਿਲਾਂ|ਪ੍ਰੋਟੋਟਾਈਪ|ਸਿੱਧੀ ਪੂਰਤੀ|ਲਕਸ਼ ਜੋੜਾ|ਸਾਂਝਾ ਨਿਯਮ|Latin script/;
 
 let localizedQuestions = 0;
