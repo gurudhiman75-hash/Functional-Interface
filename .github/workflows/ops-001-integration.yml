@@ -7,6 +7,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/**
       - artifacts/api-server/src/routes/admin-question-studio-ops.ts
+      - artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/lib/admin-question-conversion.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioOpsStatus.tsx
@@ -19,6 +20,7 @@ on:
     paths:
       - artifacts/api-server/src/reasoning-v1/**
       - artifacts/api-server/src/routes/admin-question-studio-ops.ts
+      - artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/lib/admin-question-conversion.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioOpsStatus.tsx
@@ -71,6 +73,7 @@ jobs:
             src/reasoning-v1/topics/Mathematical-Operations/OPS-001/index.ts \
             src/reasoning-v1/generation-engine.ts \
             src/routes/admin-question-studio-ops.ts \
+            src/routes/admin-question-lifecycle-hardening.ts \
             src/lib/admin-question-conversion.ts \
             > /tmp/ops-001-integration-typescript.log 2>&1
           status=$?
