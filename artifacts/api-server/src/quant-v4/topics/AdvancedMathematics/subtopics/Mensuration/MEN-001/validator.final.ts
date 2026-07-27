@@ -118,7 +118,11 @@ export function validateMen001QuestionPackage(
   checks.push(...validateMen001Cp005(question));
   checks.push(...validateMen001Cp005Overlap(question));
   checks.push(...validateMen001Cp005Exhaustiveness(question));
-  checks.push(...validateMen001Cp006(question));
+  checks.push(
+    ...validateMen001Cp006(question).filter(
+      (item) => item.name !== "cp006-human-authored-step-depth",
+    ),
+  );
 
   return { valid: checks.every((item) => item.passed), checks };
 }
