@@ -1,0 +1,66 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "profiles": {
+    "cp011DistinctLabelledUnrestricted": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "ALLOWED",
+      "rule": "Each distinct object independently chooses exactly one labelled receiver."
+    },
+    "cp011DistinctLabelledAllNonEmpty": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "FORBIDDEN",
+      "rule": "Every labelled receiver must receive at least one distinct object."
+    },
+    "cp011DistinctLabelledExactlyKUsed": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "EXACT_USE_COUNT",
+      "rule": "Exactly the stated number of labelled receivers are non-empty."
+    },
+    "cp011DistinctLabelledAtLeastOneEmpty": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "AT_LEAST_ONE_EMPTY",
+      "rule": "At least one labelled receiver remains unused."
+    },
+    "cp011DistinctLabelledExactOccupancies": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "occupancyPolicy": "PRESCRIBED_VECTOR",
+      "rule": "Each named receiver has its stated exact occupancy."
+    },
+    "cp011DistinctSpecifiedBoxExact": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "occupancyPolicy": "ONE_RECEIVER_EXACT_OTHERS_FREE",
+      "rule": "The specified receiver has exact occupancy; all other labelled receivers are unrestricted."
+    },
+    "cp011DistinctSpecifiedBoxExactOthersNonEmpty": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "LABELLED",
+      "occupancyPolicy": "ONE_RECEIVER_EXACT_OTHERS_NONEMPTY",
+      "rule": "The specified receiver has exact occupancy and every other receiver is non-empty."
+    },
+    "cp011DistinctIdenticalExactlyK": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "IDENTICAL",
+      "emptyReceiverPolicy": "EXACTLY_K_NONEMPTY",
+      "rule": "Exactly the stated number of indistinguishable non-empty receivers are used."
+    },
+    "cp011DistinctIdenticalAtMostK": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "IDENTICAL",
+      "emptyReceiverPolicy": "AT_MOST_K_NONEMPTY",
+      "rule": "Any positive number up to the stated maximum of indistinguishable receivers may be used."
+    },
+    "cp011DistinctIdenticalAnyNonEmptyCount": {
+      "objectIdentity": "DISTINCT",
+      "receiverIdentity": "IDENTICAL",
+      "emptyReceiverPolicy": "ANY_POSITIVE_COUNT",
+      "rule": "The distinct objects may be partitioned into any positive number of unnamed non-empty groups."
+    }
+  }
+}
