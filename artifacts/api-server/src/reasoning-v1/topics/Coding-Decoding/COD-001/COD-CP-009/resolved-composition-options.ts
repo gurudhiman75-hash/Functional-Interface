@@ -1,5 +1,6 @@
 import { SeededRandom } from "../foundation/prng";
 import { canonicalSetKey, uniqueSorted } from "./canonical-set";
+import { getEnglishSentenceCodeLexeme } from "./datasets/lexemes.en";
 import { getResolvedCompositionContract } from "./resolved-composition-contracts";
 import type {
   ResolvedCompositionOption,
@@ -16,6 +17,26 @@ function pairs(values: readonly string[]): readonly (readonly [string, string])[
     }
   }
   return output;
+}
+
+function naturalWordPair(members: readonly string[]): string[] {
+  const rank: Readonly<Record<string, number>> = {
+    ADJECTIVE: 0,
+    NOUN: 1,
+    CONJUNCTION: 2,
+    VERB: 3,
+    ADVERB: 4,
+  };
+  return [...members].sort((left, right) => {
+    const leftLexeme = getEnglishSentenceCodeLexeme(left);
+    const rightLexeme = getEnglishSentenceCodeLexeme(right);
+    return rank[leftLexeme.partOfSpeech]! - rank[rightLexeme.partOfSpeech]!
+      || left.localeCompare(right);
+  });
+}
+
+function displayValue(queryDirection: "WORDS_TO_TOKENS" | "TOKENS_TO_WORDS", members: readonly string[]): string {
+  return (queryDirection === "TOKENS_TO_WORDS" ? naturalWordPair(members) : uniqueSorted(members)).join(" ");
 }
 
 export function buildResolvedCompositionOptions(
@@ -40,13 +61,13 @@ export function buildResolvedCompositionOptions(
   if (wrongPairs.length < 3) throw new Error(`${prototypeId}/${seed} lacks set distractors`);
 
   const correct: ResolvedCompositionOption = {
-    value: correctMembers.join(" "),
+    value: displayValue(contract.queryDirection, correctMembers),
     members: correctMembers,
     canonicalValue: correctKey,
     isCorrect: true,
   };
   const distractors = random.shuffle(wrongPairs).slice(0, 3).map((members) => ({
-    value: members.join(" "),
+    value: displayValue(contract.queryDirection, members),
     members,
     canonicalValue: canonicalSetKey(members),
     isCorrect: false,
