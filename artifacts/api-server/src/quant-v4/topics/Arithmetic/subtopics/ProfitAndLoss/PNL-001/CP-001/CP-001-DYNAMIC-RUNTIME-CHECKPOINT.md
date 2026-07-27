@@ -1,6 +1,6 @@
 # PNL-CP-001 Dynamic Runtime Checkpoint
 
-Status: **IMPLEMENTED — CI VALIDATION PENDING**
+Status: **IMPLEMENTED AND CI-PROVEN**
 
 ## Scope
 
@@ -29,25 +29,49 @@ Language: English
 Runtime mode: DYNAMIC_CANDIDATE
 ```
 
-## Proof gate
+## Passing proof gate
 
-The dedicated runtime proof generates every QL across 24 deterministic seeds:
+The dedicated runtime proof generated every QL across 24 deterministic seeds on commit `e7332c39a247eabbdd833a1b209ae05947bbe6c6`:
 
 ```text
 36 QLs × 24 seeds = 864 generated packages
+Easy packages: 360
+Medium packages: 264
+Hard packages: 240
 ```
 
-It checks:
+Passing workflow evidence:
+
+```text
+Validate PNL CP-001 dynamic candidate runtime — run 28 — PASS
+Validate PNL Freeze Readiness — run 73 — PASS
+Validate PNL-001 Question Studio review runtime — run 63 — PASS
+Validate PNL Editorial V2 — run 235 — PASS
+Validate PNL Exam Stems — run 90 — PASS
+Validate PNL Native Prompts — run 102 — PASS
+```
+
+The proof checks:
 
 - exact deterministic regeneration;
 - four unique options and one keyed answer;
 - independent-verifier agreement;
-- no unresolved placeholders;
+- no unresolved prose placeholders while preserving rendered LaTeX;
 - value-specific explanations;
 - seed diversity per QL;
 - difficulty-band selection;
 - unsupported-language rejection;
 - publication safety.
+
+## Edge cases proven during the sweep
+
+The seed sweep exposed and resolved:
+
+- LaTeX braces being mistaken for unresolved prose placeholders;
+- fixed-answer diversity handling for `PNL-QL-035`;
+- fractional-paise misconception options while preserving exact canonical money;
+- the 100% profit boundary in margin-on-selling-price distractors;
+- the 100% profit boundary in rate-to-fraction distractors.
 
 ## Safety boundary
 
@@ -60,4 +84,4 @@ testEligibility: INELIGIBLE
 publiclyPublishable: false
 ```
 
-Shared Question Studio routing remains on the already merged canonical-review runtime during this proof checkpoint. Dynamic routing must be enabled only after the dedicated CI proof is green and the generated review export is manually inspected.
+Shared Question Studio routing remains on the already merged canonical-review runtime during this proof checkpoint. Dynamic routing must be enabled only after the generated review export is manually inspected and approved.
