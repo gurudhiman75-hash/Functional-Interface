@@ -11,6 +11,7 @@ const expectedQlIds = Array.from(
   (_, index) => `PNL-QL-${String(index + 1).padStart(3, "0")}`,
 );
 const fixedAnswerQlIds = new Set(["PNL-QL-035"]);
+const unresolvedProsePlaceholder = /\{[a-z][A-Za-z0-9_]*\}/;
 
 assert.deepEqual(qlIds, expectedQlIds, "CP-001 must expose the frozen 36-QL range.");
 
@@ -51,8 +52,8 @@ for (const qlId of qlIds) {
     assert.equal(first.options[first.correctIndex], first.answer);
     assert.ok(first.stem.trim().length > 20, `${qlId}/${seed}: stem is unexpectedly short.`);
     assert.ok(first.explanation.lines.length >= 2, `${qlId}/${seed}: explanation is incomplete.`);
-    assert.doesNotMatch(first.stem, /\{[A-Za-z][A-Za-z0-9_]*\}/);
-    assert.doesNotMatch(first.explanation.lines.join("\n"), /\{[A-Za-z][A-Za-z0-9_]*\}/);
+    assert.doesNotMatch(first.stem, unresolvedProsePlaceholder);
+    assert.doesNotMatch(first.explanation.lines.join("\n"), unresolvedProsePlaceholder);
 
     stems.add(first.stem);
     answers.add(first.answer);
