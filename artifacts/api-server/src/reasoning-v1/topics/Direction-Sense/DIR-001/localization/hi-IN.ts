@@ -1,13 +1,14 @@
 import { generateDirectionQuestion } from "../chapter-registry";
-import { asR, directionHi, localizeDiagram, optionLabel, turnSequence, type R } from "./hindi-foundation";
+import { asR, directionHi, turnSequence, type R } from "./hindi-foundation";
+import { localizeDiagramHindi, optionLabelHindi } from "./hindi-editorial-overrides";
 import { renderHindiStem } from "./hindi-stems";
 import type { LocalizedDirectionExplanation, LocalizedDirectionOption, LocalizedDirectionQuestion } from "./types";
 
 function renderExplanation(english: R): LocalizedDirectionExplanation {
   const qlId = String(english.qlId);
   const s = asR(english.structuredPrompt);
-  const answer = optionLabel(asR(english.options?.[english.correctIndex] ?? {}));
-  const diagram = localizeDiagram(asR(english.explanation)?.diagram);
+  const answer = optionLabelHindi(asR(english.options?.[english.correctIndex] ?? {}));
+  const diagram = localizeDiagramHindi(asR(english.explanation)?.diagram);
   const stem = renderHindiStem(english);
   const context = stem.replace(/[^।?]*\?$/, "").trim() || stem;
   const base: LocalizedDirectionExplanation = {
@@ -48,13 +49,13 @@ export function localizeDirectionQuestionHindi(englishQuestion: unknown): Locali
   const english = asR(englishQuestion);
   const options: LocalizedDirectionOption[] = (english.options ?? []).map((option: R) => ({
     value: option.value,
-    label: optionLabel(option),
+    label: optionLabelHindi(option),
     errorLabel: option.errorLabel ?? null,
   }));
   if (options.length !== 4 || new Set(options.map((option) => option.label)).size !== 4) {
     throw new Error(`DIR Hindi options must remain four and unique for ${english.qlId} seed ${english.seed}`);
   }
-  const questionDiagram = localizeDiagram(english.questionDiagram);
+  const questionDiagram = localizeDiagramHindi(english.questionDiagram);
   return {
     locale: "hi-IN",
     qlId: String(english.qlId),
