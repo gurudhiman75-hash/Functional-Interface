@@ -1,6 +1,6 @@
 # COD-CP-007 — Digit, Symbol and Alphanumeric Coding
 
-Status: **open English discovery; uniform modular digit translation prototype mathematically and editorially saturated; no permanent QLs**.
+Status: **open English discovery; one source-backed family saturated; five prototype tasks resolve to three provisional solve contracts; no permanent QLs**.
 
 ## Read in this order
 
@@ -10,12 +10,10 @@ Status: **open English discovery; uniform modular digit translation prototype ma
 4. `COD-CP-007-QL-DISCOVERY-AUDIT.md`
 5. `COD-CP-007-IMPLEMENTATION-PLAN.md`
 6. `COD-CP-007-UNIFORM-DIGIT-PROTOTYPE-STATUS.md`
+7. `COD-CP-007-TARGETED-SOURCE-EXPANSION.md`
+8. `COD-CP-007-UNIFORM-DIGIT-MERGE-SPLIT.md`
 
-## Current decision
-
-The old manifest's exact 24-QL reservation is revoked. CP-007 will discover its contracts exhaustively.
-
-The first directly source-supported family is:
+## Current admitted family
 
 ```text
 UNIFORM_MODULAR_DIGIT_TRANSLATION
@@ -29,6 +27,8 @@ Example form:
 ```
 
 Each digit is transformed independently by the same decimal shift. Code strings preserve leading zeroes and are never coerced into whole numbers.
+
+The old manifest's exact 24-QL reservation remains revoked. CP-007 will discover its final inventory exhaustively.
 
 ## Executable prototype inventory
 
@@ -68,20 +68,38 @@ Cross-contract explanation collisions:          0
 Permanent QLs:                                  0
 ```
 
-These remain prototype contracts. They are not permanent QLs and are not discoverable in Question Studio.
+## Provisional task merge/split
 
-## Open candidates
+The five prototype tasks currently resolve to three provisional solve contracts:
 
-The following remain source- or collision-pending:
+```text
+FORWARD_UNIFORM_DIGIT_TRANSLATION
+INVERSE_UNIFORM_DIGIT_TRANSLATION
+MISSING_MEMBER_UNIFORM_DIGIT_TRANSLATION
+```
 
-- arbitrary digit substitution;
-- digit-to-symbol bijection;
-- position-dependent digit transformation;
-- pure digit permutation;
-- alphanumeric dual-channel transformation;
-- mixed-token substitution.
+Current decisions:
 
-Formal symmetry does not create a QL. Each candidate must have recurring exam evidence and survive collision testing against CP-001 through CP-006 and CP-010.
+- explicit-rule encode merges into the forward contract as a difficulty/presentation variant;
+- infer-and-encode is the source-backed forward authority;
+- choose-matching merges into the forward contract because the answer predicate is unchanged;
+- inverse decode remains separate;
+- missing-token completion remains separate because the answer type and proof obligation differ.
+
+These are provisional design fingerprints, not permanent QLs.
+
+## Targeted source-expansion result
+
+No additional family is admitted in the current cycle.
+
+- arbitrary digit substitution remains source-pending and collides with CP-001 direct mapping;
+- digit-to-symbol coding remains source-pending unless the digit domain creates material semantics;
+- position-dependent digit transforms remain source/collision-pending against CP-004;
+- pure digit permutation is excluded as a separate CP-007 family and remains owned by CP-005;
+- alphanumeric dual-channel transformation remains source-pending and may collide with CP-003/004/006;
+- mixed-token direct substitution presumptively merges with CP-001.
+
+The File Library retrieval path was unavailable during this targeted pass. That failure is not treated as negative source evidence; pending candidates may be reopened with an approved concrete exam-source pack.
 
 ## Safety boundary
 
@@ -93,4 +111,4 @@ Formal symmetry does not create a QL. Each candidate must have recurring exam ev
 
 ## Next action
 
-Run targeted source expansion for the remaining candidate families, then perform a checkpoint-wide task and solve-mode merge/split audit. Do not allocate permanent IDs yet.
+Run the exact-head merge/split workflow. CP-007 remains open until the uploaded-source retrieval path is restored or a replacement source pack closes the pending family questions. Do not allocate permanent IDs yet.
