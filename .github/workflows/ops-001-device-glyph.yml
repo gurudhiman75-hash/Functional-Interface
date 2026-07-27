@@ -1,0 +1,59 @@
+name: Validate OPS-001 device and glyph rendering
+
+on:
+  push:
+    branches:
+      - feat/ops-001-end-to-end-design
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - scripts/e2e/ops-001-device.config.ts
+      - scripts/e2e/tests/ops-001-device-glyph.spec.ts
+      - .github/workflows/ops-001-device-glyph.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
+      - scripts/e2e/ops-001-device.config.ts
+      - scripts/e2e/tests/ops-001-device-glyph.spec.ts
+      - .github/workflows/ops-001-device-glyph.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ops-001-device-glyph-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  device-glyph-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Generate accepted English review
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-canonical-review-export.ts ./ops-001-device-review/en
+      - name: Generate accepted Hindi and Punjabi reviews
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localized-review-export.ts ./ops-001-device-review/localized
+      - name: Install Chromium
+        run: pnpm --dir scripts/e2e exec playwright install --with-deps chromium
+      - name: Run four-viewport device and glyph audit
+        run: pnpm --dir scripts/e2e exec playwright test --config=ops-001-device.config.ts
+      - name: Upload device proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-device-glyph-proof
+          path: |
+            ops-001-device-review
+            test-results/ops-001-device
+            playwright-report/ops-001-device
+          if-no-files-found: error
+          retention-days: 14
