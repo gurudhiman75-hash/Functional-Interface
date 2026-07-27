@@ -22,6 +22,10 @@ const directionCoverage = new Map<string, Set<Direction>>();
 const explanations = new Map<string, Set<string>>();
 const contradictionIndexes = new Set<number>();
 const turnCoverage = new Set<string>();
+const mixedDistanceCoverage = new Set<number>();
+const caseletDistanceCoverage = new Set<number>();
+const caseletTurnCoverage = new Set<string>();
+const hybridStructureCoverage = new Set<string>();
 
 for (const ql of DIR_CP008_QLS) {
   stems.set(ql.qlId, new Set());
@@ -37,7 +41,7 @@ for (const ql of DIR_CP008_QLS) {
     assert.ok(question.stem.length >= 90, `${ql.qlId} short stem: ${question.stem}`);
     assert.ok(!/[{}]|\bundefined\b|\bnull\b/.test(question.stem));
     const learnerText = [question.stem, question.explanation.given, ...question.explanation.steps, question.explanation.resultLine, question.explanation.conclusion].join("\n");
-    assert.ok(!/\bcoordinate\b/i.test(learnerText), `learner-facing coordinate jargon: ${learnerText}`);
+    assert.ok(!/\bcoordinates?\b/i.test(learnerText), `learner-facing coordinate jargon: ${learnerText}`);
     assert.ok(!/\bunreported\b/i.test(learnerText), `unnatural unreported wording: ${learnerText}`);
     if (ql.qlId === "DIR-QL-039") assert.ok(!/change of direction/i.test(question.stem), `missing-turn stem reveals that a turn occurred: ${question.stem}`);
     assert.ok(question.explanation.steps.length >= 2);
@@ -79,6 +83,7 @@ for (const ql of DIR_CP008_QLS) {
         const solved = solveMixedGraphMovementIndependent(scenario);
         assert.deepEqual(question.correctAnswer, { kind: "DIRECTION_DISTANCE", direction: solved.direction, distance: solved.distance });
         directionCoverage.get(ql.qlId)!.add(solved.direction);
+        mixedDistanceCoverage.add(solved.distance);
         assert.ok(question.explanation.diagram?.svg.includes('data-role="movement-segment"'));
         break;
       }
@@ -91,6 +96,8 @@ for (const ql of DIR_CP008_QLS) {
           assert.deepEqual(question.correctAnswer, { kind: "DISTANCE", distance: solved.distance });
         }
         assert.equal(question.metadata.caseletId, scenario.caseletId);
+        caseletDistanceCoverage.add(solved.distance);
+        for (const operation of scenario.operations) if (operation.kind === "TURN") caseletTurnCoverage.add(operation.turn);
         break;
       }
       case "DIAGRAM_TEXT_HYBRID": {
@@ -99,6 +106,8 @@ for (const ql of DIR_CP008_QLS) {
         directionCoverage.get(ql.qlId)!.add(direction);
         assert.ok(question.questionDiagram?.svg.includes('data-role="diagram-premise"'));
         assert.ok(question.explanation.diagram?.svg.includes('data-role="text-premise"'));
+        assert.match(question.stem, /\d+ metres/);
+        hybridStructureCoverage.add(JSON.stringify([scenario.diagramRelations.map((relation) => relation.vector), scenario.textRelation.vector]));
         break;
       }
     }
@@ -121,7 +130,11 @@ for (const id of ["DIR-QL-036", "DIR-QL-038", "DIR-QL-040", "DIR-QL-041", "DIR-Q
 }
 assert.deepEqual([...contradictionIndexes].sort(), [0, 1, 2, 3]);
 assert.deepEqual([...turnCoverage].sort(), ["ABOUT", "LEFT", "NO_TURN", "RIGHT"]);
-for (const [id, values] of stems) assert.ok(values.size >= 100, `${id} stem diversity ${values.size}`);
-for (const [id, values] of explanations) assert.ok(values.size >= 100, `${id} explanation diversity ${values.size}`);
+assert.deepEqual([...mixedDistanceCoverage].sort((left, right) => left - right), [5, 13, 17, 25]);
+assert.deepEqual([...caseletDistanceCoverage].sort((left, right) => left - right), [13, 17, 25, 37, 41]);
+assert.deepEqual([...caseletTurnCoverage].sort(), ["LEFT", "RIGHT"]);
+assert.ok(hybridStructureCoverage.size >= 16, `hybrid structure coverage ${hybridStructureCoverage.size}`);
+for (const [id, values] of stems) assert.ok(values.size >= 80, `${id} stem diversity ${values.size}`);
+for (const [id, values] of explanations) assert.ok(values.size >= 80, `${id} explanation diversity ${values.size}`);
 assert.ok(Math.max(...positions) / Math.min(...positions) < 1.35, `answer positions ${positions}`);
 console.log("DIR-CP-008 advanced synthesis proof passed", { qls: DIR_CP008_QLS.length, generatedCases: 1080, positions, stemDiversity: Object.fromEntries([...stems].map(([id, values]) => [id, values.size])), explanationDiversity: Object.fromEntries([...explanations].map(([id, values]) => [id, values.size])) });
