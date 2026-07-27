@@ -49,14 +49,17 @@ No additional QL was allocated for:
 ## Local proof scope
 
 - 9 QLs × 120 seeds = 1,080 deterministic cases;
-- 120 distinct stems per QL;
-- 120 distinct complete explanations per QL;
+- 80 to 120 distinct stems per QL across the 120-seed audit;
+- 80 to 120 distinct complete explanations per QL, with five editorial phrasing variants in the repeated reasoning shells;
 - all four contradiction answer positions;
 - all four missing-turn candidates, including no turn;
 - at least four required direction classes for every direction-valued QL;
-- exact 3-4-5 and 5-12-13 distance proofs;
+- exact mixed-state distances from 3-4-5, 5-12-13, 8-15-17 and 7-24-25 component families;
+- exact caselet distances from 5-12-13, 8-15-17, 7-24-25, 12-35-37 and 9-40-41 component families;
 - shared caselet state parity for all 120 paired seeds;
 - question-diagram and explanation-diagram role checks;
+- explicit distance and direction labels on diagram premises;
+- explicit distance in every diagram-text premise so the hybrid query is uniquely determined;
 - four unique options and exactly one correct answer;
 - balanced answer positions below the 1.35 max/min threshold;
 - natural wording guards against placeholders, coordinate jargon and stems that reveal a turn necessarily occurred;
@@ -66,7 +69,7 @@ No additional QL was allocated for:
 
 - English local TypeScript check: passed;
 - English local runtime proof: passed;
-- English local editorial audit: passed;
+- English local editorial audit: passed, including correction of an initially under-specified diagram-text premise;
 - English diagram contact-sheet audit: passed;
 - exact-head GitHub Actions: pending;
 - English manual product approval: pending;
