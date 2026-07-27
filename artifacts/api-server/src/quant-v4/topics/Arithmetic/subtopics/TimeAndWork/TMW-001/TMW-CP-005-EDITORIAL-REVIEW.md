@@ -43,7 +43,7 @@ A second manual audit of the first regenerated artifact found one further system
 - expanded machine-output working to show each machine's contribution;
 - added regression guards for bad ordinals, jargon-heavy openings, missing derivations, incorrect final-turn division and omitted pre-final work.
 
-## Final exact-head validation
+## Final validation evidence
 
 - reviewed code head: `80b069f2f188b72dc9b738fcd860d7a823e27933`;
 - CP-005 workflow run: `30254623992` — PASS;
@@ -61,7 +61,7 @@ A second manual audit of the first regenerated artifact found one further system
 - exact-boundary explanation defects: 0;
 - missing final-block fractions: 0;
 - missing next-day fractions: 0;
-- CP-001, CP-002 and CP-003 exact-head regression workflows: PASS.
+- CP-001, CP-002 and CP-003 regression workflows: PASS.
 
 Manual artifact checks confirmed corrected output for `TMW-QL-086`, `093`, `094`, `095`, `096`, `098`, `099`, `101`, `102`, `103` and `105`.
 
