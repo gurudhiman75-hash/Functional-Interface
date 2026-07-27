@@ -1,6 +1,6 @@
 # COD-CP-009 — Sentence and Artificial-Language Coding
 
-Status: **all 16 currently admitted source-backed task contracts have executable English prototypes; permanent QLs are not allocated; final combined saturation and merge/split audits remain open**.
+Status: **16 source-backed English task-contract prototypes complete; 24 provisional solve contracts discovered by executable merge/split; permanent QLs are not allocated**.
 
 ## Read in this order
 
@@ -9,9 +9,10 @@ Status: **all 16 currently admitted source-backed task contracts have executable
 3. `COD-CP-009-QL-DISCOVERY-AUDIT.md`
 4. `COD-CP-009-EXECUTABLE-GAP-RESOLUTION.md`
 5. `COD-CP-009-PROTOTYPE-SATURATION-STATUS.md`
-6. `COD-CP-009-IMPLEMENTATION-PLAN.md`
+6. `COD-CP-009-MERGE-SPLIT-DECISION.md`
+7. `COD-CP-009-IMPLEMENTATION-PLAN.md`
 
-The saturation-status document supersedes older statements that four source-backed prototypes remain unimplemented.
+The saturation-status and merge/split documents supersede older statements that four source-backed prototypes remain unimplemented or that exact atomic topology splitting is unresolved.
 
 ## Core decision
 
@@ -19,7 +20,7 @@ CP-009 is implemented as a bounded constraint-satisfaction runtime over a hidden
 
 ## Executable prototype coverage
 
-The merged prototype runtime now proves 16 provisional task contracts:
+The merged prototype runtime proves 16 provisional task contracts:
 
 1. exact word to code token;
 2. exact code token to word;
@@ -40,14 +41,40 @@ The merged prototype runtime now proves 16 provisional task contracts:
 
 The runtime covers ten proven topology families, including direct, chained, difference, forked, global-bijection, two-way and three-way uncertainty, invariant ambiguous sets, missing-member completion and independently resolved component composition.
 
-These are prototype contracts, not permanent QLs. Counts and IDs remain open until the combined sixteen-contract audit, final solve-mode merge/split audit and final source/ownership gap audit pass.
+## Merge/split result
+
+The five exact atomic proof topologies split in each query direction because their student solve paths and explanation obligations are materially different. The other fourteen prototype contracts currently survive one-to-one.
+
+```text
+Exact atomic: 2 directions × 5 solve modes = 10
+Other retained prototype contracts:             14
+---------------------------------------------------
+Current provisional solve-contract inventory:   24
+```
+
+Two-way versus three-way uncertainty, statement count and static renderer variations remain instance properties rather than separate solve contracts.
+
+These remain provisional identities, not permanent QLs. CP-009 must not reserve IDs before CP-007 and CP-008 discover their final ranges.
+
+## Combined saturation gate
+
+`prototype-saturation-audit.ts` combines all six prototype registries and generates 720 questions across 30 contract/topology pairings. It checks:
+
+- registry completeness and inverse pairing;
+- all ten topology families and 24 solve-mode fingerprints;
+- bounded generation, scenario reach and answer-position reach;
+- four semantically unique options;
+- prototype-only and non-publishable safety;
+- complete-question, normalised stem and normalised explanation collisions.
+
+The combined workflow also reruns the existing solver, topology, English-language and six family-specific prototype suites. Its first run found and triggered correction of an identical forward/inverse possible-set explanation skeleton. Exact-head CI remains the current acceptance gate.
 
 ## Remaining work
 
-- audit all sixteen contracts together for collisions, duplication, yield and editorial concentration;
-- freeze the final task-contract and solve-mode inventory;
-- decide which topology distinctions remain metadata and which require separate QLs;
-- wait for CP-007 and CP-008 allocation before assigning sequential CP-009 `COD-QL-*` identities;
+- obtain and inspect the exact-head combined saturation pass;
+- repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audit;
+- freeze the current English inventory only if no meaningful gap remains;
+- complete CP-007 and CP-008 before assigning sequential CP-009 `COD-QL-*` identities;
 - implement the frozen English runtime and review corpus;
 - complete Hindi and Punjabi only after English ownership freezes;
 - keep Question Studio and publication routing disabled until all gates pass.
@@ -64,4 +91,4 @@ These are prototype contracts, not permanent QLs. Counts and IDs remain open unt
 
 ## Next action
 
-Run the combined sixteen-contract saturation and merge/split audit. Do not allocate permanent QLs, expose CP-009 in Question Studio or begin localisation yet.
+Pass and inspect the combined saturation workflow on the exact branch head, then run the final source and ownership gap freeze. Do not allocate permanent QLs, expose CP-009 in Question Studio or begin localisation yet.
