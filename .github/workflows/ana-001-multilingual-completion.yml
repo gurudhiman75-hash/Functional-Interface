@@ -53,8 +53,25 @@ jobs:
       - name: Validate ANA-CP-001 and ANA-CP-002 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-localized-runtime.test.ts
 
-      - name: Validate ANA-CP-003 Hindi/Punjabi runtime
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003-localized.test.ts
+      - name: Capture ANA-CP-003 Hindi/Punjabi diagnostic
+        run: |
+          mkdir -p multilingual-diagnostics
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003-localized.test.ts > multilingual-diagnostics/ana-cp-003-localized.log 2>&1
+          status=$?
+          set -e
+          echo "$status" > multilingual-diagnostics/ana-cp-003-localized.status
+
+      - name: Upload ANA-CP-003 multilingual diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-003-multilingual-diagnostic
+          path: multilingual-diagnostics/
+          if-no-files-found: error
+
+      - name: Enforce ANA-CP-003 Hindi/Punjabi runtime
+        run: test "$(cat multilingual-diagnostics/ana-cp-003-localized.status)" = "0"
 
       - name: Validate ANA-CP-004 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-004/ana-cp-004-localized.test.ts
