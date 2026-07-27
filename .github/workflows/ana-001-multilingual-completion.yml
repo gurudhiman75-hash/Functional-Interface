@@ -24,9 +24,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  cp003-diagnostic:
+  core-locales:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,20 +34,74 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Capture ANA-CP-003 English regression
+      - name: Strict TypeScript check for chapter completion authority
+        working-directory: artifacts/api-server
         run: |
-          mkdir -p multilingual-diagnostics
-          set +e
-          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003.test.ts > multilingual-diagnostics/ana-cp-003-english.log 2>&1
-          status=$?
-          set -e
-          echo "$status" > multilingual-diagnostics/ana-cp-003-english.status
-      - name: Upload ANA-CP-003 English diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts
+      - name: Verify chapter multilingual coverage and Punjabi wording policy
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts
+      - name: Validate ANA-CP-001 and ANA-CP-002 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-localized-runtime.test.ts
+      - name: Validate ANA-CP-003 English runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003.test.ts
+      - name: Validate ANA-CP-003 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003-localized.test.ts
+      - name: Validate ANA-CP-004 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-004/ana-cp-004-localized.test.ts
+      - name: Validate ANA-CP-005 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-005/ana-cp-005-localized.test.ts
+
+  cp006-locales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        locale: [hi-IN, pa-IN]
+        shard: [0, 1, 2, 3]
+    env:
+      ANA_CP006_LOCALE: ${{ matrix.locale }}
+      ANA_CP006_SHARD_COUNT: "4"
+      ANA_CP006_SHARD_INDEX: ${{ matrix.shard }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          name: ana-cp-003-english-diagnostic
-          path: multilingual-diagnostics/
-          if-no-files-found: error
-      - name: Enforce ANA-CP-003 English regression
-        run: test "$(cat multilingual-diagnostics/ana-cp-003-english.status)" = "0"
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate ANA-CP-006 ${{ matrix.locale }} shard ${{ matrix.shard }}
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-006/ana-cp-006-sharded-localized.test.ts
+
+  late-locales:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate ANA-CP-007 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-007/ana-cp-007-localized.test.ts
+      - name: Validate ANA-CP-008 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/ana-cp-008-localized.test.ts
+
+  multilingual-completion:
+    needs: [core-locales, cp006-locales, late-locales]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm complete ANA-001 multilingual proof
+        run: echo "ANA-QL-001..250 passed English/Hindi/Punjabi completion gates."
