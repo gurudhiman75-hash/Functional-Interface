@@ -52,7 +52,8 @@ Official-paper fixture mirrored by Testbook:
 
 ```text
 ZKX102 : UHW204 :: XYR126 : ? :: LST305 : QPI610
-Answer: OVU252
+Published answer: OVU252
+Published options: OWU252, OUU232, OVU252, UVO242
 ```
 
 The number operation is stable:
@@ -63,7 +64,7 @@ The number operation is stable:
 305 × 2 = 610
 ```
 
-The letter movements are not one stable pair-local vector:
+The recovered letter movements are:
 
 ```text
 ZKX → UHW = −5, −3, −1
@@ -71,27 +72,66 @@ XYR → OVU = −9, −3, +3
 LST → QPI = +5, −3, −11
 ```
 
-The middle letter shift remains `−3`, while the first and third positions vary across the three relations.
+In canonical forward cyclic shifts, these are:
+
+```text
+[21, 23, 25]
+[17, 23,  3]
+[ 5, 23, 15]
+```
+
+Each vector is a modular arithmetic progression with:
+
+```text
+start: 21, 17, 5
+step:   2,  6, 18
+```
+
+A compact candidate explanation therefore exists:
+
+```text
+vector step: 2 → 6 → 18       (×3 modulo 26)
+start decrement: 4 → 12       (×3)
+number: ×2
+```
+
+That candidate produces `OVU252`.
+
+### Formal canonicalization result
+
+The two complete anchor vectors do not uniquely force the candidate explanation.
+
+A bounded audit enumerated modular recurrences in which:
+
+1. each three-position vector is an arithmetic progression modulo 26;
+2. one fixed modular multiplier advances the vector step;
+3. the same multiplier advances the decrement in the vector start;
+4. both displayed anchor vectors are reproduced exactly.
+
+Six recurrences survive. They produce four different middle targets:
+
+```text
+OVU252
+BIH252
+AVI252
+NIV252
+```
+
+Only `OVU252` appears among the published options. The option set therefore selects the published answer, but the anchor pairs do not independently establish one target under the bounded grammar class.
 
 ### Current verdict
 
-**Quarantine as an advanced/meta source fixture; do not admit a generative authority yet.**
+**Quarantine as an option-dependent meta-rule.**
 
-Reason:
+The fixture remains genuinely cross-pair and does not delegate to CP-008. However, it cannot become a permanent CP-009 authority because ExamTree requires option-independent single-correctness.
 
-- the published answer is clear;
-- the displayed anchor relations prove that the vector changes across pairs;
-- the text-only explanation does not establish one unambiguous bounded progression under a canonical cyclic-shift representation;
-- the first and third position sequences can be represented by multiple equivalent signed cyclic shifts;
-- without the exact diagram logic or a recurring second fixture, a generator could encode an invented progression rather than the examination rule.
+The mechanical proof is maintained in:
 
-Required before admission:
+- `provisional-changing-vector-canonicalization.ts`;
+- `provisional-changing-vector-canonicalization.test.ts`;
+- `ana-cp-009-changing-vector-canonicalization-result.md`.
 
-1. recover the exact official or rendered solution diagram;
-2. state one canonical shift representation;
-3. prove the middle vector uniquely from both anchor vectors;
-4. find at least one recurring fixture using the same meta-rule;
-5. establish distractors that cannot be explained by a simpler pair-local rule.
+Re-admission requires an official rule statement, a second recurring fixture using the same exact grammar, or another visible condition that removes the competing targets before options are considered.
 
 ## 4. Candidate B — coupled invariant relation
 
@@ -161,16 +201,16 @@ Its result is:
 
 - 8 historical families delegate to existing numeric, word, mixed or semantic authorities;
 - 3 are presentation contracts rather than solve authorities;
-- only the generic conditional-branch label remains a possible CP-009 direction, and it is quarantined because no recurring source fixture or formal branch contract has been established;
+- only the generic conditional-branch label remains a possible CP-009 direction, and it is blocked at `SOURCE_GAP` because no recurring source fixture or formal branch contract has been established;
 - none of the historical QL numbers or counts survives into the current `ANA-QL-251..274` window.
 
 ## 7. Provisional CP-009 taxonomy
 
 | Candidate family | Current status | Reason |
 |---|---|---|
-| changing parameter across complete pairs | quarantine / investigate | genuinely meta, but current fixture is not generatively unambiguous |
+| changing parameter across complete pairs | quarantined as option-dependent | bounded anchor-compatible recurrences produce four targets; options alone select the published answer |
 | coupled letter-number invariant | quarantined as ambiguous | formal pilot found multiple valid published options under the available prose |
-| visible conditional branch selecting a rule | source required | potentially meta, but no recurring fixture or branch grammar is established |
+| visible conditional branch selecting a rule | `SOURCE_GAP` | no recurring fixture or branch grammar is established |
 | stable vector plus stable arithmetic shown in three pairs | delegate to CP-008 | pair-local rule; extra pair is only more evidence |
 | inverse blank with stable pair rule | presentation audit pending | ownership follows underlying authority, not blank position |
 | odd/incorrect pair selection | presentation of underlying authority | format does not define CP-009 |
@@ -181,4 +221,4 @@ Its result is:
 
 This audit creates no production generator, no Question Logic, no permanent IDs, no locale templates and no Question Studio exposure.
 
-The next safe step is continued source recovery for a genuinely unique changing-parameter or visible conditional-branch family. CP-009 must remain at zero QLs until such a family passes source recurrence, formal solver, ambiguity and option-yield audits.
+The next safe step is continued source recovery for a genuinely unique changing-parameter family. CP-009 remains at zero QLs until a family passes source recurrence, formal solver, ambiguity and option-yield audits without relying on the answer options for uniqueness.
