@@ -1,6 +1,6 @@
 # COD-CP-007 — Digit, Symbol and Alphanumeric Coding
 
-Status: **open English discovery; uniform modular digit translation prototype implemented; validation pending; no permanent QLs**.
+Status: **open English discovery; uniform modular digit translation prototype mathematically and editorially saturated; no permanent QLs**.
 
 ## Read in this order
 
@@ -9,6 +9,7 @@ Status: **open English discovery; uniform modular digit translation prototype im
 3. `COD-CP-007-END-TO-END-DESIGN.md`
 4. `COD-CP-007-QL-DISCOVERY-AUDIT.md`
 5. `COD-CP-007-IMPLEMENTATION-PLAN.md`
+6. `COD-CP-007-UNIFORM-DIGIT-PROTOTYPE-STATUS.md`
 
 ## Current decision
 
@@ -49,10 +50,23 @@ The prototype provides:
 - explicit acknowledgement that arbitrary substitution is a more complex compatible explanation, not the canonical winner;
 - independent arithmetic verification;
 - four misconception-labelled options with one correct answer;
-- evidence-specific English explanations;
-- a 500-question executable audit;
-- a 25-question English review export;
+- task-specific, evidence-based English explanations;
+- mathematical and editorial audits over 500 questions each;
+- a polished 25-question English review export;
 - a checkpoint-local GitHub Actions workflow.
+
+Exact proof metrics:
+
+```text
+Generated mathematical questions:           500
+Distinct questions/stems:                500/500
+Leading-zero source/code cases:          140/132
+Wrapped targets:                              370
+Missing first/middle/final:              22/55/23
+Normalised explanation skeletons: 45/45/59/41/45
+Cross-contract explanation collisions:          0
+Permanent QLs:                                  0
+```
 
 These remain prototype contracts. They are not permanent QLs and are not discoverable in Question Studio.
 
@@ -79,4 +93,4 @@ Formal symmetry does not create a QL. Each candidate must have recurring exam ev
 
 ## Next action
 
-Run and inspect the exact-head prototype audit and review export. Then perform task-direction merge/split and targeted source expansion before any permanent allocation.
+Run targeted source expansion for the remaining candidate families, then perform a checkpoint-wide task and solve-mode merge/split audit. Do not allocate permanent IDs yet.
