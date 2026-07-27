@@ -223,7 +223,7 @@ for (const question of generated) {
     assert.match(promptText, /_____|\?/u, `${question.prototypeId} must visibly expose one missing member`);
   }
 
-  if (question.prototypeId.includes("POSSIBLE-") && !question.prototypeId.includes("COMPLETE-")) {
+  if (question.prototypeId.includes("PROT-POSSIBLE-")) {
     const witnesses = numberMetadata(question, "correctWitnessCount");
     const solutions = numberMetadata(question, "solutionCount");
     assert.ok(witnesses > 0 && witnesses < solutions, `${question.prototypeId} must be genuinely possible but not definite`);
