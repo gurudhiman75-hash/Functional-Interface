@@ -1,6 +1,6 @@
 # ANA-CP-009 Advanced / Meta Analogy — Source Boundary Audit
 
-Status: **SOURCE DISCOVERY STARTED — NO QL COUNT OR IDS ASSIGNED**.
+Status: **SOURCE BOUNDARY AUDITED — NO QL COUNT OR IDS ASSIGNED**.
 
 ## 1. Purpose
 
@@ -81,7 +81,7 @@ Reason:
 
 - the published answer is clear;
 - the displayed anchor relations prove that the vector changes across pairs;
-- however, the text-only explanation does not establish one unambiguous bounded progression under a canonical cyclic-shift representation;
+- the text-only explanation does not establish one unambiguous bounded progression under a canonical cyclic-shift representation;
 - the first and third position sequences can be represented by multiple equivalent signed cyclic shifts;
 - without the exact diagram logic or a recurring second fixture, a generator could encode an invented progression rather than the examination rule.
 
@@ -99,35 +99,39 @@ SSC CHSL mirror fixture:
 
 ```text
 SL23 : RY11 :: MB39 : HS27 :: EW26 : ?
-Answer: CK40
+Published answer: CK40
+Published options include: BL40, CK44, CK40, BL44
 ```
 
-The published explanation describes a cross-component invariant rather than independent letter and number changes:
+The available prose describes:
 
 ```text
 position(letter 1) + position(letter 2) + number = 54
 ```
 
-for each complete cluster, together with a fixed relationship between the two letter movements inside each input-output pair.
+for each complete cluster, together with a relationship between the two letter movements inside each input-output pair.
+
+### Formal pilot result
+
+The non-QL pilot enumerated every admissible movement step under the recoverable prose. It proved that:
+
+- 25 target outputs satisfy the stated invariant and movement relationship;
+- `CK40` satisfies the rule with one movement step;
+- `BL40` also satisfies the rule with a different movement step;
+- both `CK40` and `BL40` appear in the published option set;
+- the source-pair movement steps do not uniquely derive the target step through a simple progression.
 
 ### Current verdict
 
-**Admit for formal pilot investigation, not for permanent QL allocation.**
+**Quarantine as an ambiguous fixture.**
 
-Why this is a real CP-009 candidate:
+The available source description is insufficient for a single-correct ExamTree generator. The fixture may be reconsidered only after the missing diagram, condition or authoritative explanation is recovered.
 
-- the output number is constrained by the selected output letters and the shared total;
-- letter and numeric components cannot be solved as independent operations;
-- the rule is inferred from an invariant shared across multiple clusters;
-- a correct generator would need to construct a valid coupled state first and independently recover the missing cluster.
+The mechanical proof is maintained in:
 
-Open proof obligations:
-
-- formalise the exact letter-shift constraint without relying on prose ambiguity;
-- determine whether the option set is required for uniqueness;
-- identify recurring official fixtures using the same invariant grammar;
-- distinguish it mechanically from CP-008 independent-vector and shared-delta rules;
-- test whether multiple output clusters satisfy the invariant before options are considered.
+- `provisional-coupled-invariant-pilot.ts`;
+- `provisional-coupled-invariant-pilot.test.ts`;
+- `ana-cp-009-coupled-invariant-pilot-result.md`.
 
 ## 5. Inverse-presentation boundary
 
@@ -137,28 +141,44 @@ Some official questions ask for the missing **input** cluster rather than the mi
 ZWX42 : BBD84 :: ALP61 : CQV122 :: ? : LMT92
 ```
 
-Inverse presentation does not automatically imply CP-009. If one stable pair-local transform is invertible, the solve contract may be an inverse presentation of a CP-008 authority.
+Inverse presentation does not automatically imply CP-009. If one stable pair-local transform is invertible, the solve contract is an inverse presentation of the authority that owns that transform.
 
 Current policy:
 
 - inverse presentation remains deferred until its own source and ambiguity audit;
 - it must not be mixed into CP-009 only because the blank appears on the left;
-- if later admitted, ownership should follow the underlying rule, with presentation mode recorded separately.
+- if later admitted, ownership follows the underlying rule, with presentation mode recorded separately.
 
-## 6. Provisional CP-009 taxonomy
+## 6. Legacy 24-QL allocation boundary
+
+The original design reserved 12 family labels and 24 CP-009 placeholders before the earlier checkpoints were saturated. The complete supersession audit is recorded in:
+
+- `ana-cp-009-legacy-allocation-audit.md`;
+- `legacy-allocation-boundary.ts`;
+- `legacy-allocation-boundary.test.ts`.
+
+Its result is:
+
+- 8 historical families delegate to existing numeric, word, mixed or semantic authorities;
+- 3 are presentation contracts rather than solve authorities;
+- only the generic conditional-branch label remains a possible CP-009 direction, and it is quarantined because no recurring source fixture or formal branch contract has been established;
+- none of the historical QL numbers or counts survives into the current `ANA-QL-251..274` window.
+
+## 7. Provisional CP-009 taxonomy
 
 | Candidate family | Current status | Reason |
 |---|---|---|
-| changing parameter across complete pairs | quarantine / investigate | genuinely meta, but current fixture is not yet generatively unambiguous |
-| coupled letter-number invariant | pilot candidate | components are solved jointly through a shared constraint |
+| changing parameter across complete pairs | quarantine / investigate | genuinely meta, but current fixture is not generatively unambiguous |
+| coupled letter-number invariant | quarantined as ambiguous | formal pilot found multiple valid published options under the available prose |
+| visible conditional branch selecting a rule | source required | potentially meta, but no recurring fixture or branch grammar is established |
 | stable vector plus stable arithmetic shown in three pairs | delegate to CP-008 | pair-local rule; extra pair is only more evidence |
 | inverse blank with stable pair rule | presentation audit pending | ownership follows underlying authority, not blank position |
-| equivalent-pair selection | evidence pending | presentation type alone does not define CP-009 |
+| odd/incorrect pair selection | presentation of underlying authority | format does not define CP-009 |
 | Coding-Decoding grammar or table recovery | prohibited | owned by Coding-Decoding |
 | progressive sequence rather than relation transfer | prohibited | owned by Series |
 
-## 7. Safety decision
+## 8. Safety decision
 
 This audit creates no production generator, no Question Logic, no permanent IDs, no locale templates and no Question Studio exposure.
 
-The next safe implementation step is a **non-QL formal pilot** for the coupled-invariant candidate, accompanied by a stronger recovery effort for the changing-vector fixture.
+The next safe step is continued source recovery for a genuinely unique changing-parameter or visible conditional-branch family. CP-009 must remain at zero QLs until such a family passes source recurrence, formal solver, ambiguity and option-yield audits.
