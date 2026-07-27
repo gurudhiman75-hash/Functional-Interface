@@ -42,6 +42,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics
+          cp artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics/cp012-mixed-runtime.ts
           cd artifacts/api-server
           set +e
           pnpm exec tsc \
