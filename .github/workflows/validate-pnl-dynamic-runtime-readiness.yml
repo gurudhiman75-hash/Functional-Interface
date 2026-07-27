@@ -1,0 +1,57 @@
+name: Validate PNL-001 dynamic runtime readiness
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-dynamic-runtime-readiness-audit
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-dynamic-runtime-readiness-audit.ts"
+      - ".github/workflows/validate-pnl-dynamic-runtime-readiness.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-dynamic-runtime-readiness-audit.ts"
+      - ".github/workflows/validate-pnl-dynamic-runtime-readiness.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run readiness audit
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/pnl-001-dynamic-runtime-readiness-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.pnl-001-dynamic-runtime-readiness-audit.mjs \
+            2>&1 | tee pnl-001-dynamic-runtime-readiness.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.pnl-001-dynamic-runtime-readiness-audit.mjs \
+            2>&1 | tee -a pnl-001-dynamic-runtime-readiness.log
+
+      - name: Upload readiness evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-001-dynamic-runtime-readiness
+          path: pnl-001-dynamic-runtime-readiness.log
+          if-no-files-found: error
+          retention-days: 7
