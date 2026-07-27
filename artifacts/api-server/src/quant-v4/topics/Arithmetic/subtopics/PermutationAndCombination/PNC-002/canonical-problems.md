@@ -8,7 +8,7 @@
 | `PNC-CP-008` | fixed positions, starts/ends, relative order, alternation, position classes and explicit gap placement | Current English ownership saturated; runtime proof |
 | `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Current English ownership saturated; runtime proof |
 | `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Current English ownership saturated; runtime proof |
-| `PNC-CP-011` | labelled/unlabelled grouping and distribution | Not started |
+| `PNC-CP-011` | labelled/unlabelled grouping and distribution | Executable discovery in progress; no permanent QLs allocated |
 | `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
 
 ## CP-007 represented scope
@@ -67,16 +67,34 @@
 - choosing a proper subset of distinct objects for a reversible ring when rotations and reflections are identified;
 - round-table seatings identified by each person's unordered neighbour pair, which merges reversed cycles.
 
+## CP-011 executable discovery scope
+
+No permanent QL is represented yet. The current discovery checkpoint proves candidate authorities for:
+
+- distinct objects divided into prescribed labelled groups;
+- distinct objects divided into unnamed equal, unequal or mixed repeated-size groups;
+- unnamed pairs and equal teams;
+- whole-group interchange correction;
+- distinct objects assigned to labelled boxes with unrestricted, non-empty, exact-use and occupancy conditions;
+- distinct objects partitioned into identical non-empty boxes through Stirling/Bell authority;
+- identical objects distributed among labelled boxes through stars-and-bars, minimum and controlled capacity conditions;
+- identical objects distributed into identical non-empty boxes through integer-partition authority;
+- a specified pair placed in the same or different equal group;
+- bounded inverse recovery for selected grouping/distribution parameters.
+
+The companion discovery matrix uses temporary `CP011-DISC-*` IDs. These are not question-language IDs and do not reserve final solve modes.
+
 ## Negative boundaries
 
-The active CPs do not own:
+The active or discovering CPs do not own:
 
-- grouping/distribution into labelled or unlabelled groups — CP-011;
+- grouping/distribution into labelled or unlabelled groups beyond the explicit CP-011 ownership boundary — CP-011;
 - conditional or category-restricted selection followed by a circular arrangement — CP-012;
 - broader advanced inclusion–exclusion systems whose primary authority is not a represented CP-010 circular event — CP-012;
+- category quotas distributed across multiple groups, non-uniform capacity systems or other coupled advanced constructions whose primary difficulty is mixed casework — CP-012 unless source and ownership audits justify CP-011;
 - repeated-colour necklace systems requiring Burnside/Pólya analysis — CP-012 unless separately justified;
 - word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005.
 
 Pure selection of an unrestricted proper subset followed directly by circular equivalence is CP-010 ownership. It becomes CP-012 only when the selection itself introduces named-member, category, quota or other mixed-system conditions.
 
-Current PNC-002 QLs are `PNC-QL-107` through `PNC-QL-208`. IDs continue the immutable family sequence. The next available family ID is `PNC-QL-209`.
+Current implemented PNC-002 QLs are `PNC-QL-107` through `PNC-QL-208`. CP-011 discovery allocates no QLs. The next available family ID remains `PNC-QL-209`.
