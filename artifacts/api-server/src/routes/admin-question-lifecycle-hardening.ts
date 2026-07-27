@@ -29,7 +29,7 @@ router.post(
   requireAdminPermission("content.questions.publish"),
   async (req, res) => {
     try {
-      const questionId = req.params.id;
+      const questionId = String(req.params.id ?? "");
       if (!isUuid(questionId)) {
         throw new QuestionManagementError("INVALID_QUESTION_ID", "Invalid question identifier", 400);
       }
