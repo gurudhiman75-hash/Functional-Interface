@@ -1338,7 +1338,12 @@ export function runPnlCp001DynamicPipeline(
   )}`;
   const inputValidation = validateRequest(generated.request);
   const optionValidation = validateOptions(optionSet.options, correctAnswer);
-  const unresolvedPlaceholder = /\{[a-z][A-Za-z0-9_]*\}/;
+  const containsUnresolvedProsePlaceholder = (value: string) => {
+  const proseOnly = value
+    .replace(/\\\[[\s\S]*?\\\]/g, "")
+    .replace(/\\\([\s\S]*?\\\)/g, "");
+  return /\{[a-z][A-Za-z0-9_]*\}/.test(proseOnly);
+};
   const validationChecks = [
     {
       name: "input-domain",
@@ -1364,8 +1369,8 @@ export function runPnlCp001DynamicPipeline(
     {
       name: "dynamic-editorial-binding",
       passed:
-        !unresolvedPlaceholder.test(stem) &&
-        !unresolvedPlaceholder.test(explanationText),
+        !containsUnresolvedProsePlaceholder(stem) &&
+        !containsUnresolvedProsePlaceholder(explanationText),
       message: "Dynamic stem and explanation contain no unresolved prose placeholders.",
     },
     {
