@@ -11,6 +11,9 @@ const outputDir = path.resolve(
 );
 fs.mkdirSync(outputDir, { recursive: true });
 
+const REVIEW_SAMPLE_COUNT = 3;
+const MAX_REVIEW_SEED_ATTEMPTS = 200;
+
 function csvCell(value: unknown) {
   const text = String(value ?? "").replace(/\r?\n/g, " ");
   return `"${text.replace(/"/g, '""')}"`;
@@ -46,7 +49,7 @@ const rows: string[][] = [[
 const markdown: string[] = [
   "# MEN-001 Human Review Export",
   "",
-  "Three deterministic samples are exported per active QL to CSV. The Markdown view shows the first sample for each QL.",
+  "Three distinct deterministic samples are exported per active QL to CSV. The Markdown view shows the first sample for each QL.",
   "Open `men-001-human-review.html` for the visual review with rendered diagrams.",
   "",
 ];
@@ -56,13 +59,33 @@ let renderedIllustrationCount = 0;
 
 for (const entry of getMen001QuestionEntries()) {
   const qlId = entry.qlId;
-  for (let index = 0; index < 3; index += 1) {
-    const seed = `men-001-human-review:${qlId}:${index}`;
+  const selected: Array<{
+    seed: string;
+    question: ReturnType<typeof runMen001Pipeline>;
+  }> = [];
+  const seenQuestions = new Set<string>();
+
+  for (let attempt = 0; attempt < MAX_REVIEW_SEED_ATTEMPTS && selected.length < REVIEW_SAMPLE_COUNT; attempt += 1) {
+    const seed = `men-001-human-review:${qlId}:${attempt}`;
     const question = runMen001Pipeline(entry.cpId as Men001ActiveCanonicalProblemId, {
       language: "en",
       questionLanguageId: qlId,
       seed,
     });
+    const fingerprint = `${question.stem}\u0000${question.answer}`;
+    if (seenQuestions.has(fingerprint)) continue;
+    seenQuestions.add(fingerprint);
+    selected.push({ seed, question });
+  }
+
+  if (selected.length !== REVIEW_SAMPLE_COUNT) {
+    throw new Error(
+      `MEN-001 human review requires ${REVIEW_SAMPLE_COUNT} distinct questions for ${qlId}; found ${selected.length} after ${MAX_REVIEW_SEED_ATTEMPTS} deterministic attempts.`,
+    );
+  }
+
+  for (const [index, sample] of selected.entries()) {
+    const { seed, question } = sample;
     const correctOption = question.options[question.correctIndex] ?? "";
     const explanationIllustration = question.explanation.illustration
       ? JSON.stringify(question.explanation.illustration)
