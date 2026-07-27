@@ -12,6 +12,17 @@ function isUuid(value: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
 }
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
+function generatedPublicationBlocked(answerModel: unknown): boolean {
+  const generation = asRecord(asRecord(answerModel).generation);
+  return generation.publiclyPublishable === false || generation.publicationEnabled === false;
+}
+
 function sendError(res: Response, error: unknown): void {
   if (error instanceof QuestionManagementError) {
     res.status(error.statusCode).json({ error: error.message, code: error.code, details: error.details });
@@ -53,6 +64,7 @@ router.post(
             v.exam_version_id AS "examVersionId",
             v.stem,
             v.explanation,
+            v.answer_model AS "answerModel",
             (SELECT COUNT(*)::int FROM content.question_options o WHERE o.question_version_id = v.id) AS "optionCount",
             (SELECT COUNT(*)::int FROM content.question_options o WHERE o.question_version_id = v.id AND o.is_correct = true) AS "correctOptionCount",
             (SELECT COUNT(*)::int FROM content.question_taxonomy_links l WHERE l.question_version_id = v.id) AS "taxonomyCount"
@@ -80,6 +92,9 @@ router.post(
         if (!String(question.explanation ?? "").trim()) issues.push("Question explanation is required.");
         if (Number(question.optionCount ?? 0) < 2) issues.push("At least two options are required.");
         if (Number(question.correctOptionCount ?? 0) !== 1) issues.push("Exactly one correct option is required.");
+        if (generatedPublicationBlocked(question.answerModel)) {
+          issues.push("This generated question is locked for internal review and cannot be published yet.");
+        }
         if (issues.length > 0) {
           throw new QuestionManagementError("QUESTION_NOT_PUBLISHABLE", "Question is not ready to publish", 409, issues);
         }
