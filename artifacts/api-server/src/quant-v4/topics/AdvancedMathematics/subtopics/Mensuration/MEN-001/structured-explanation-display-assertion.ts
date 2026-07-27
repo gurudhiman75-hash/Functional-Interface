@@ -4,24 +4,26 @@ import {
 } from "./structured-math-latex";
 import type { Men001Explanation } from "./types";
 
+const FOUR_TIER_HEADINGS = [
+  "### 📌 Key Rule & Formula",
+  "### 📝 Step-by-Step Solution",
+  "### 💡 Exam Speed Shortcut",
+  "### ⚠️ Common Traps",
+] as const;
+
 export function assertMen001StructuredExplanation(
   explanation: Men001Explanation,
   answer: string,
 ) {
   if (explanation.displayFormat !== "FOUR_TIER_COMPETITIVE_EXPLANATION") {
-    throw new Error("MEN-001 explanation must use the four-tier competitive format.");
+    throw new Error("MEN-001 explanation must use the exact four-tier competitive format.");
   }
   const first = explanation.sections[0];
-  const last = explanation.sections.at(-1);
   if (!first || first.kind !== "KEY_RULE" || first.title !== "Key Rule & Formula" || first.equations.length === 0) {
     throw new Error("MEN-001 explanation must begin with Key Rule & Formula.");
   }
-  if (
-    !last ||
-    last.kind !== "FINAL_ANSWER" ||
-    !last.equations.includes(toMen001LatexEquation(answer))
-  ) {
-    throw new Error("MEN-001 explanation must end with the canonical LaTeX final answer.");
+  if (explanation.sections.some((section) => section.kind === "FINAL_ANSWER")) {
+    throw new Error("MEN-001 must not expose a fifth Final Answer block; the result belongs inside the worked solution tier.");
   }
 
   for (const section of explanation.sections) {
@@ -45,6 +47,11 @@ export function assertMen001StructuredExplanation(
       throw new Error("MEN-001 adjacent explanation steps must use distinct titles.");
     }
   });
+  const lastStep = steps.at(-1)!;
+  const canonicalAnswer = toMen001LatexEquation(answer);
+  if (!lastStep.equations.some((equation) => equation.includes(canonicalAnswer))) {
+    throw new Error("MEN-001 must place the canonical final answer inside the last worked step.");
+  }
 
   const shortcuts = explanation.sections.filter((section) => section.kind === "EXAM_SHORTCUT");
   const traps = explanation.sections.filter((section) => section.kind === "COMMON_TRAPS");
@@ -57,8 +64,19 @@ export function assertMen001StructuredExplanation(
   const firstStepIndex = explanation.sections.findIndex((section) => section.kind === "STEP");
   const shortcutIndex = explanation.sections.findIndex((section) => section.kind === "EXAM_SHORTCUT");
   const trapIndex = explanation.sections.findIndex((section) => section.kind === "COMMON_TRAPS");
-  const finalIndex = explanation.sections.findIndex((section) => section.kind === "FINAL_ANSWER");
-  if (!(firstStepIndex > 0 && shortcutIndex > firstStepIndex && trapIndex > shortcutIndex && finalIndex > trapIndex)) {
-    throw new Error("MEN-001 explanation blocks are not in the required four-tier order.");
+  if (!(firstStepIndex > 0 && shortcutIndex > firstStepIndex && trapIndex > shortcutIndex && trapIndex === explanation.sections.length - 1)) {
+    throw new Error("MEN-001 explanation blocks are not in the exact four-tier order.");
+  }
+
+  if (explanation.lines.length !== FOUR_TIER_HEADINGS.length) {
+    throw new Error("MEN-001 compatibility explanation must expose exactly four learner-facing blocks.");
+  }
+  FOUR_TIER_HEADINGS.forEach((heading, index) => {
+    if (!explanation.lines[index]?.startsWith(heading)) {
+      throw new Error(`MEN-001 compatibility block ${index + 1} must begin with ${heading}.`);
+    }
+  });
+  if (explanation.lines.some((line) => /Final Answer/i.test(line))) {
+    throw new Error("MEN-001 compatibility output must not retain a separate Final Answer heading.");
   }
 }

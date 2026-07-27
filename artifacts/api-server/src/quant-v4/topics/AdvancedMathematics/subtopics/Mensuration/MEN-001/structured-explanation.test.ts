@@ -133,16 +133,20 @@ for (const entry of getMen001QuestionEntries()) {
       }
     });
 
-    const finalAnswer = question.explanation.sections.at(-1);
-    assert.equal(finalAnswer?.kind, "FINAL_ANSWER");
-    assert.deepEqual(
-      finalAnswer?.equations,
-      [toMen001LatexEquation(question.answer)],
-      `${entry.qlId} must render the canonical final answer as LaTeX.`,
+    assert.equal(
+      question.explanation.sections.some((section) => section.kind === "FINAL_ANSWER"),
+      false,
+      `${entry.qlId} must not expose a fifth Final Answer section.`,
     );
+    const canonicalAnswer = toMen001LatexEquation(question.answer);
+    assert.ok(
+      steps.at(-1)?.equations.some((equation) => equation.includes(canonicalAnswer)),
+      `${entry.qlId} must render the canonical final answer inside the final worked step.`,
+    );
+    assert.equal(question.explanation.lines.length, 4, `${entry.qlId} must expose exactly four learner-facing compatibility blocks.`);
   }
 }
 
 console.log(
-  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with MathJax-ready equations, preserved variables and no generic filler steps.`,
+  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with an exact four-tier structure, MathJax-ready equations and the final result inside the worked solution.`,
 );

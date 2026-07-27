@@ -8,7 +8,7 @@ The explanation must be presented as a competitive-exam learning solution, not a
 
 ## Required learner structure
 
-Every explanation uses the following order:
+Every explanation uses exactly four learner-facing blocks in the following order:
 
 1. **Key Rule & Formula**
    - explain why the selected geometric relationship applies;
@@ -17,8 +17,9 @@ Every explanation uses the following order:
 2. **Step-by-Step Solution**
    - use sequential `Step 1`, `Step 2`, and so on;
    - give each step a meaningful mathematical title;
-   - show every intermediate measurement that is needed for correctness;
+   - show every intermediate measurement needed for correctness;
    - separate substitution and simplification when that improves readability;
+   - include the canonical final result and its contextual conclusion inside the last worked step;
    - do not add filler steps to reach a fixed count.
 3. **Exam Speed Shortcut**
    - provide one state-valid speed method for every generated question;
@@ -31,11 +32,8 @@ Every explanation uses the following order:
    - derive each warning from its declared misconception strategy;
    - use learner-facing prose rather than internal strategy IDs or implementation labels;
    - never list the correct option as a trap.
-5. **Final Answer**
-   - close with the canonical answer and its correct unit;
-   - retain a short contextual conclusion where useful.
 
-The first four blocks form the four-tier learning layer. `Final Answer` remains the terminal result block.
+There is no separate fifth `Final Answer` block. The final answer belongs inside the last step of the Step-by-Step Solution.
 
 ## Need-based depth
 
@@ -103,7 +101,7 @@ Forbidden learner-facing content includes:
 
 ## Composite-figure rule
 
-Composite and shaded figures must expose their decomposition explicitly. For a rectangle with an externally attached semicircle, the explanation must include all relevant component areas, diameter-to-radius recovery, the declared π policy, the correct combination operation and the final answer.
+Composite and shaded figures must expose their decomposition explicitly. For a rectangle with an externally attached semicircle, the explanation must include all relevant component areas, diameter-to-radius recovery, the declared π policy, the correct combination operation and the final result inside the last worked step.
 
 Equivalent decomposition detail is required for other composite and shaded families.
 
@@ -113,12 +111,12 @@ The runtime explanation object carries:
 
 - `displayFormat: FOUR_TIER_COMPETITIVE_EXPLANATION`;
 - one `KEY_RULE` section titled `Key Rule & Formula`;
-- one or more sequential `STEP` sections grouped as `Step-by-Step Solution`;
+- one or more sequential `STEP` sections grouped as `Step-by-Step Solution`, with the canonical answer inside the last step;
 - one `EXAM_SHORTCUT` section titled `Exam Speed Shortcut`;
 - one `COMMON_TRAPS` section titled `Common Traps` containing three option-aware warnings;
-- a terminal `FINAL_ANSWER` section.
+- no runtime `FINAL_ANSWER` section.
 
-The legacy flat `lines` array remains temporarily available for compatibility, but the structured sections are the canonical student-facing presentation.
+The `lines` array is canonical learner-facing output and contains exactly four complete Markdown blocks with the required headings. It must not retain the old flat solver prose.
 
 ## Editorial rules
 
@@ -127,5 +125,5 @@ The legacy flat `lines` array remains temporarily available for compatibility, b
 - Use the question's own context and measurement units.
 - Preserve explicitly stated currencies; do not substitute a different currency.
 - Preserve exact values, π policy, surds and dimensional correctness.
-- Do not repeat the same numerical result merely to increase the step count.
+- Do not repeat the final numerical result as a redundant standalone equation when the last calculation already contains it.
 - Diagrams remain explanatory and must agree with the generated parameters.

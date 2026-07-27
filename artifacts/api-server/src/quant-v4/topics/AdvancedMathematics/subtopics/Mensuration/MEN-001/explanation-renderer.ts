@@ -6,6 +6,10 @@ import { buildMen001CommonTraps, type Men001OptionResult } from "./structured-co
 import { buildMen001StructuredExplanation } from "./structured-explanation";
 import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
 import { addMen001ExamShortcut } from "./structured-exam-shortcuts";
+import {
+  buildMen001ExactFourTierLines,
+  finalizeMen001ExactFourTier,
+} from "./structured-exact-four-tier";
 import { polishMen001StructuredSections } from "./structured-final-polisher";
 import { latexizeMen001StructuredSections } from "./structured-math-latex";
 import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
@@ -16,16 +20,6 @@ import type {
   Men001ReasoningGraph,
   Men001SolverResult,
 } from "./types";
-
-function addCommonTraps(
-  sections: ReturnType<typeof addMen001ExamShortcut>,
-  trapSection: ReturnType<typeof buildMen001CommonTraps>,
-) {
-  const finalIndex = sections.findIndex((section) => section.kind === "FINAL_ANSWER");
-  return finalIndex >= 0
-    ? [...sections.slice(0, finalIndex), trapSection, ...sections.slice(finalIndex)]
-    : [...sections, trapSection];
-}
 
 export function renderMen001Explanation(
   parameters: Men001Parameters,
@@ -42,7 +36,7 @@ export function renderMen001Explanation(
     parameters,
     solver,
   );
-  const workedSections = polishMen001StructuredSections(
+  const legacyWorkedSections = polishMen001StructuredSections(
     restoreMen001SpecificStepAuthorship(
       normalizeMen001StructuredSections(
         enhanceMen001StructuredSections(
@@ -62,17 +56,20 @@ export function renderMen001Explanation(
     ),
     parameters.solveMode,
   );
-  const sections = latexizeMen001StructuredSections(
-    addCommonTraps(
-      addMen001ExamShortcut(workedSections, parameters, solver),
-      buildMen001CommonTraps(entry, optionResult),
-    ),
+  const exactWorkedSections = finalizeMen001ExactFourTier(
+    legacyWorkedSections,
+    parameters,
+    solver,
   );
+  const sections = latexizeMen001StructuredSections([
+    ...addMen001ExamShortcut(exactWorkedSections, parameters, solver),
+    buildMen001CommonTraps(entry, optionResult),
+  ]);
   return {
     strategyId: entry.explanationStrategyId,
     displayFormat: "FOUR_TIER_COMPETITIVE_EXPLANATION",
     sections,
-    lines: authoredLines,
+    lines: buildMen001ExactFourTierLines(sections),
     ...(illustration ? { illustration } : {}),
   };
 }

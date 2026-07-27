@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { getMen001QuestionEntries } from "./library";
 import { runMen001Pipeline } from "./pipeline";
+import { toMen001LatexEquation } from "./structured-math-latex";
 import type { Men001ActiveCanonicalProblemId } from "./types";
 
 function generate(cpId: Men001ActiveCanonicalProblemId, qlId: string, seed: string) {
@@ -19,6 +20,12 @@ function wrongOptionLetters(correctIndex: number) {
 }
 
 const forbiddenTrapLanguage = /applies the mistaken operation|misconception strateg|\bcp\d+\b|\bex\s+(?:use|report|omit|retain|double|halve|root|subtract|add)\b|“[^”]*-[^”]*”/i;
+const exactHeadings = [
+  "### 📌 Key Rule & Formula",
+  "### 📝 Step-by-Step Solution",
+  "### 💡 Exam Speed Shortcut",
+  "### ⚠️ Common Traps",
+] as const;
 
 let audited = 0;
 for (const entry of getMen001QuestionEntries()) {
@@ -41,11 +48,11 @@ for (const entry of getMen001QuestionEntries()) {
     const traps = sections.filter((section) => section.kind === "COMMON_TRAPS");
     const finalAnswers = sections.filter((section) => section.kind === "FINAL_ANSWER");
 
-    assert.equal(keyRules.length, 1, `${entry.qlId} must contain one Key Rule & Formula block.`);
-    assert.ok(steps.length > 0, `${entry.qlId} must contain a step-by-step solution.`);
-    assert.equal(shortcuts.length, 1, `${entry.qlId} must contain one Exam Speed Shortcut block.`);
-    assert.equal(traps.length, 1, `${entry.qlId} must contain one Common Traps block.`);
-    assert.equal(finalAnswers.length, 1, `${entry.qlId} must contain one Final Answer block.`);
+    assert.equal(keyRules.length, 1, `${entry.qlId} must contain one Key Rule & Formula tier.`);
+    assert.ok(steps.length > 0, `${entry.qlId} must contain a step-by-step solution tier.`);
+    assert.equal(shortcuts.length, 1, `${entry.qlId} must contain one Exam Speed Shortcut tier.`);
+    assert.equal(traps.length, 1, `${entry.qlId} must contain one Common Traps tier.`);
+    assert.equal(finalAnswers.length, 0, `${entry.qlId} must not contain a fifth Final Answer block.`);
     assert.equal(keyRules[0]!.title, "Key Rule & Formula");
     assert.equal(shortcuts[0]!.title, "Exam Speed Shortcut");
     assert.equal(traps[0]!.title, "Common Traps");
@@ -54,11 +61,23 @@ for (const entry of getMen001QuestionEntries()) {
     const firstStepIndex = sections.findIndex((section) => section.kind === "STEP");
     const shortcutIndex = sections.findIndex((section) => section.kind === "EXAM_SHORTCUT");
     const trapIndex = sections.findIndex((section) => section.kind === "COMMON_TRAPS");
-    const finalIndex = sections.findIndex((section) => section.kind === "FINAL_ANSWER");
     assert.ok(
-      keyIndex === 0 && keyIndex < firstStepIndex && firstStepIndex < shortcutIndex && shortcutIndex < trapIndex && trapIndex < finalIndex,
-      `${entry.qlId} must follow Key Rule → Worked Solution → Shortcut → Traps → Final Answer.`,
+      keyIndex === 0 && keyIndex < firstStepIndex && firstStepIndex < shortcutIndex && shortcutIndex < trapIndex && trapIndex === sections.length - 1,
+      `${entry.qlId} must follow exactly Key Rule → Worked Solution → Shortcut → Traps.`,
     );
+
+    const lastStep = steps.at(-1)!;
+    const canonicalAnswer = toMen001LatexEquation(question.answer);
+    assert.ok(
+      lastStep.equations.some((equation) => equation.includes(canonicalAnswer)),
+      `${entry.qlId} must place the final answer inside the last worked step.`,
+    );
+
+    assert.equal(question.explanation.lines.length, 4, `${entry.qlId} must expose exactly four compatibility blocks.`);
+    exactHeadings.forEach((heading, index) => {
+      assert.ok(question.explanation.lines[index]?.startsWith(heading), `${entry.qlId} block ${index + 1} must start with ${heading}.`);
+    });
+    assert.ok(question.explanation.lines.every((line) => !/Final Answer/i.test(line)), `${entry.qlId} retains a separate Final Answer heading.`);
 
     const shortcutBlock = shortcuts[0]!;
     assert.ok(
@@ -85,6 +104,10 @@ for (const entry of getMen001QuestionEntries()) {
 }
 
 const triangle = generate("MEN-CP-001", "MEN-001-QL-001", "men-001-structured-review:MEN-001-QL-001");
+const triangleSteps = triangle.explanation.sections.filter((section) => section.kind === "STEP");
+assert.deepEqual(triangleSteps.map((step) => step.title), ["Identify the Measurements", "Substitute and Calculate"]);
+assert.ok(triangleSteps[0]?.equations.some((equation) => /b\s*=\s*36/.test(equation)));
+assert.ok(triangleSteps[0]?.equations.some((equation) => /h\s*=\s*25/.test(equation)));
 const triangleShortcut = triangle.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT");
 assert.ok(triangleShortcut?.paragraphs.some((paragraph) => /Halve an even base or height/.test(paragraph)));
 assert.ok(triangle.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.some((paragraph) => /1\/2|\\frac\{1\}\{2\}/.test(paragraph)));
@@ -99,10 +122,12 @@ const percentage = generate("MEN-CP-006", "MEN-001-QL-414", "men-001-human-revie
 assert.ok(percentage.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.equations.some((equation) => /2\s*\\times\s*20/.test(equation) && /44\\%/.test(equation)));
 
 const wire = generate("MEN-CP-006", "MEN-001-QL-436", "men-001-structured-review:MEN-001-QL-436");
+const wireSteps = wire.explanation.sections.filter((section) => section.kind === "STEP");
+assert.deepEqual(wireSteps.map((step) => step.title), ["Find the Wire Length", "Find the Side of the Square", "Calculate the Enclosed Area"]);
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
 const wireTraps = wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS");
 assert.equal(wireTraps?.paragraphs.length, 3);
 assert.ok(wireTraps?.paragraphs.some((paragraph) => /circle area/i.test(paragraph)));
 assert.ok(wireTraps?.paragraphs.every((paragraph) => !forbiddenTrapLanguage.test(paragraph)));
 
-console.log(`MEN-001 four-tier explanation audit passed for ${audited} generated states.`);
+console.log(`MEN-001 exact four-tier explanation audit passed for ${audited} generated states.`);
