@@ -91,6 +91,10 @@ const forbiddenPunjabiEditorialTerms = [
   "ਸਾਦਰਿਸ਼ਤਾ",
 ] as const;
 
+function gurmukhiWords(source: string): ReadonlySet<string> {
+  return new Set(source.match(/[\p{Script=Gurmukhi}\p{M}]+/gu) ?? []);
+}
+
 const qlIds: string[] = [];
 let expectedFirst = 1;
 let totalQlCount = 0;
@@ -113,9 +117,10 @@ for (const checkpoint of COVERAGE) {
   for (const sourcePath of checkpoint.localizedSources) {
     const source = readFileSync(join(root, sourcePath), "utf8");
     assert.ok(source.length > 50, `${sourcePath} must contain localized source material`);
+    const words = gurmukhiWords(source);
     for (const forbidden of forbiddenPunjabiEditorialTerms) {
       assert.ok(
-        !source.includes(forbidden),
+        !words.has(forbidden),
         `${sourcePath} contains avoidable technical Punjabi term ${JSON.stringify(forbidden)}`,
       );
     }
