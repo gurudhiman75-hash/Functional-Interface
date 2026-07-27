@@ -1,6 +1,8 @@
 import { uniqueSorted } from "./canonical-set";
 import { getCompleteCandidateSetContract } from "./complete-candidate-set-contracts";
+import { orderCompleteCandidateSetMembers } from "./complete-candidate-set-options";
 import type {
+  CompleteCandidateSetDirection,
   CompleteCandidateSetExplanation,
   CompleteCandidateSetOption,
   CompleteCandidateSetPrototypeId,
@@ -17,14 +19,14 @@ function commonAcrossRows(rows: readonly (readonly string[])[]): string[] {
   return rows.slice(1).reduce((current, next) => intersection(current, next), uniqueSorted(rows[0] ?? []));
 }
 
-function quoted(values: readonly string[]): string {
-  const rendered = values.map((value) => `‘${value}’`);
+function quoted(direction: CompleteCandidateSetDirection, values: readonly string[]): string {
+  const rendered = orderCompleteCandidateSetMembers(direction, values).map((value) => `‘${value}’`);
   if (rendered.length === 2) return `${rendered[0]} or ${rendered[1]}`;
   return `${rendered.slice(0, -1).join(", ")} or ${rendered.at(-1)}`;
 }
 
 function candidateWitnessCount(
-  contractDirection: "WORD_TO_ALL_TOKENS" | "TOKEN_TO_ALL_WORDS",
+  contractDirection: CompleteCandidateSetDirection,
   space: SentenceCodeSolutionSpace,
   targetWord: string,
   targetToken: string,
@@ -45,7 +47,8 @@ export function buildCompleteCandidateSetExplanation(
   const contract = getCompleteCandidateSetContract(prototypeId);
   const commonWords = commonAcrossRows(instance.rows.map((row) => row.words));
   const commonTokens = commonAcrossRows(instance.rows.map((row) => row.displayedCodeTokens));
-  const witnessDetails = completeCandidates.map((candidate) => {
+  const orderedCandidates = orderCompleteCandidateSetMembers(contract.queryDirection, completeCandidates);
+  const witnessDetails = orderedCandidates.map((candidate) => {
     const witnesses = candidateWitnessCount(
       contract.queryDirection,
       space,
@@ -68,10 +71,10 @@ export function buildCompleteCandidateSetExplanation(
     ],
     quickMethod: "Find the full common word group and full common code group. The target can pair with every member of the opposite group and with no member outside it.",
     evidenceComparison: [
-      `The words common to all three statements are ${quoted(commonWords)}.`,
-      `The code words common to all three code sets are ${quoted(commonTokens)}. Since their internal pairing is unresolved, ${targetDescription} can correspond to every member of the opposite common group.`,
+      `The words common to all three statements are ${quoted("TOKEN_TO_ALL_WORDS", commonWords)}.`,
+      `The code words common to all three code sets are ${quoted("WORD_TO_ALL_TOKENS", commonTokens)}. Since their internal pairing is unresolved, ${targetDescription} can correspond to every member of the opposite common group.`,
     ],
-    completenessProof: `${witnessDetails.join("; ")}. No value outside ${quoted(completeCandidates)} has any valid witness. Therefore this is the complete candidate set, not merely one possible answer.`,
+    completenessProof: `${witnessDetails.join("; ")}. No value outside ${quoted(contract.queryDirection, completeCandidates)} has any valid witness. Therefore this is the complete candidate set, not merely one possible answer.`,
     conclusion: `The complete answer is ‘${options.find((option) => option.isCorrect)!.value}’.`,
     commonTrapAlert: `‘${omittedTrap.value}’ omits a witnessed candidate, while ‘${extraTrap.value}’ adds a member with zero valid witnesses.`,
   };
