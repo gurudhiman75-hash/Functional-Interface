@@ -1,0 +1,71 @@
+name: Validate Commerce Coupons
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-commerce-coupons.ts
+      - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+      - artifacts/api-server/src/lib/canonical-commerce-payments.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/commerce-coupons.yml
+  push:
+    branches: [New-main]
+    paths:
+      - artifacts/api-server/src/routes/admin-commerce-coupons.ts
+      - artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+      - artifacts/api-server/src/lib/canonical-commerce-payments.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/commerce-coupons.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: commerce-coupons-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Enforce canonical coupon contracts
+        run: |
+          grep -F 'router.use("/admin/commerce/coupons", adminCommerceCouponsRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F 'requireAdminPermission("commerce.coupons.read")' artifacts/api-server/src/routes/admin-commerce-coupons.ts
+          grep -F 'requireAdminPermission("commerce.coupons.manage")' artifacts/api-server/src/routes/admin-commerce-coupons.ts
+          grep -F 'commerce.coupon.created' artifacts/api-server/src/routes/admin-commerce-coupons.ts
+          grep -F 'commerce.coupon.status.changed' artifacts/api-server/src/routes/admin-commerce-coupons.ts
+          grep -F 'COUPON_LIMIT_REACHED' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+          grep -F 'COUPON_USER_LIMIT_REACHED' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+          grep -F 'COUPON_PRODUCT_MISMATCH' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+          grep -F 'pricingSnapshot' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+          grep -F 'couponCode: coupon?.code' artifacts/api-server/src/routes/canonical-commerce-checkout.ts
+          grep -F 'INSERT INTO commerce.coupon_redemptions' artifacts/api-server/src/lib/canonical-commerce-payments.ts
+          grep -F 'ON CONFLICT (order_id) DO NOTHING' artifacts/api-server/src/lib/canonical-commerce-payments.ts
+          grep -F "path: '/commerce/coupons'" artifacts/admin-app/src/App.tsx
+          grep -F "permission: 'commerce.coupons.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "Intl.NumberFormat('en-GB'" artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
+          ! grep -E '@/data/|demo coupon|prototype coupon' artifacts/admin-app/src/pages/commerce/CouponsWorkspacePage.tsx
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin

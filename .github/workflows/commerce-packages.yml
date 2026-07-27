@@ -1,0 +1,78 @@
+name: Validate Commerce Packages
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+      - docs/commerce-foundation-blueprint.md
+      - artifacts/api-server/src/routes/admin-commerce-products.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/commerce-packages.yml
+  push:
+    branches: [New-main]
+    paths:
+      - docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+      - docs/commerce-foundation-blueprint.md
+      - artifacts/api-server/src/routes/admin-commerce-products.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+      - artifacts/admin-app/src/App.tsx
+      - artifacts/admin-app/src/app/nav/navigation.ts
+      - .github/workflows/commerce-packages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: commerce-packages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Enforce canonical package contracts
+        run: |
+          grep -F 'CREATE TABLE commerce.products' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'CREATE TABLE commerce.product_versions' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'CREATE TABLE commerce.product_version_tests' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'INSERT INTO identity.permissions (key, description)' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'commerce.products.read' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'commerce.products.manage' docs/database-migrations/2026-07-25-canonical-commerce-foundation.sql
+          grep -F 'router.use("/admin/commerce/products", adminCommerceProductsRouter)' artifacts/api-server/src/routes/index.ts
+          grep -F 'requireAdminPermission("commerce.products.read")' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F 'requireAdminPermission("commerce.products.manage")' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F 'INSERT INTO commerce.product_versions' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F 'INSERT INTO commerce.product_version_tests' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F 'commerce.product.version.created' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F 'PACKAGE_NOT_READY' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F 'COMMERCE_SCHEMA_REQUIRED' artifacts/api-server/src/routes/admin-commerce-products.ts
+          grep -F "path: '/commerce/packages/:productId'" artifacts/admin-app/src/App.tsx
+          grep -F "path: '/commerce/packages'" artifacts/admin-app/src/App.tsx
+          grep -F "label: 'Packages'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F "permission: 'commerce.products.read'" artifacts/admin-app/src/app/nav/navigation.ts
+          grep -F 'Create immutable version' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F 'Package is activation-ready' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F "method: 'POST'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          grep -F "new Intl.NumberFormat('en-US'" artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+          ! grep -E '@/data/|prototype products|demo package|Canonical Commerce schema is not deployed' artifacts/admin-app/src/pages/commerce/PackagesWorkspacePage.tsx
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin application
+        run: pnpm run typecheck:admin
+      - name: Test admin application
+        run: pnpm run test:admin
+      - name: Build admin application
+        run: pnpm run build:admin

@@ -41,6 +41,7 @@ export interface AlphabetTransformPrompt {
   targetWord: string;
   encodedTarget?: string;
   missingIndex?: number;
+  displayedTargetCode?: string;
 }
 
 export interface GeneratedCodCp003Question {
@@ -60,7 +61,7 @@ export interface GeneratedCodCp003Question {
   correctIndex: number;
   explanation: ExplanationTrace;
   metadata: {
-    runtimeVersion: "cod-001-cp003-v1";
+    runtimeVersion: "cod-001-cp003-v2";
     publiclyPublishable: false;
     maturity: "RUNTIME_PROOF";
     hiddenFingerprint: string;

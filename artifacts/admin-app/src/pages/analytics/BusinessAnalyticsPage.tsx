@@ -1,187 +1,109 @@
-import { TrendingUp, Download, IndianRupee, Users, Target, Percent } from 'lucide-react';
-import {
-  AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-} from 'recharts';
+import { useEffect, useMemo, useState } from 'react';
+import { BarChart3, Download, RefreshCw, ShieldCheck } from 'lucide-react';
+
 import { PageHeader } from '@/components/shared/PageHeader';
-import { StatCard } from '@/components/shared/StatCard';
 import { StatusBadge } from '@/components/shared/StatusBadge';
-import { DataTable, type Column } from '@/components/shared/DataTable';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from '@/components/ui/select';
 import { showToast } from '@/components/shared/toast';
-import {
-  REVENUE_TREND, STUDENT_ACTIVITY_TREND, PACKAGE_SALES, CONVERSION_FUNNEL,
-} from '@/data/analytics';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { getFirebaseAuth } from '@/integrations/firebase';
 
-const TOP_PACKAGES = [
-  { id: 'p1', name: 'Railway NTPC Pack', sales: 22300, price: 999, revenue: 22287700 },
-  { id: 'p2', name: 'Banking Pro Combo', sales: 18900, price: 1499, revenue: 28331100 },
-  { id: 'p3', name: 'SSC CGL Ultimate', sales: 12450, price: 1299, revenue: 16172550 },
-  { id: 'p4', name: 'SSC CHSL Standard', sales: 8200, price: 699, revenue: 5731800 },
-  { id: 'p5', name: 'Punjab Combo', sales: 6800, price: 599, revenue: 4073200 },
-];
+const apiBase = ((import.meta.env.VITE_API_URL as string | undefined)?.trim() || '/api').replace(/\/$/, '');
+const money = (minor: number, currency: string) => new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(Number(minor || 0) / 100);
+const number = (value: number) => new Intl.NumberFormat('en-US').format(Number(value || 0));
+const percent = (basisPoints: number) => `${(Number(basisPoints || 0) / 100).toFixed(2)}%`;
+const windows = [7, 30, 90, 365] as const;
 
-const funnelMax = Math.max(...CONVERSION_FUNNEL.map((s) => s.count));
+async function request<T>(path: string): Promise<T> {
+  const user = getFirebaseAuth()?.currentUser;
+  if (!user) throw new Error('Your administrator session has expired.');
+  const response = await fetch(`${apiBase}${path}`, { headers: { Authorization: `Bearer ${await user.getIdToken()}` } });
+  const body = await response.json().catch(() => null) as ({ error?: string } & T) | null;
+  if (!response.ok) throw new Error(body?.error || `Analytics request failed (${response.status}).`);
+  if (!body) throw new Error('Analytics returned an empty response.');
+  return body;
+}
 
-const tooltipStyle = {
-  background: 'hsl(var(--popover))', border: '1px solid hsl(var(--border))',
-  borderRadius: 8, fontSize: 12, color: 'hsl(var(--popover-foreground))',
+type AnalyticsResponse = {
+  windowDays: number;
+  generatedAt: string;
+  summary: { paidOrders: number; payingStudents: number; grossRevenueMinor: number; refundsMinor: number; netRevenueMinor: number; discountMinor: number; averageOrderValueMinor: number; createdOrders: number; conversionBasisPoints: number; currency: string };
+  comparison: { currentOrders: number; previousOrders: number; currentGrossMinor: number; previousGrossMinor: number };
+  daily: Array<{ day: string; orders: number; grossMinor: number; refundsMinor: number; netMinor: number }>;
+  products: Array<{ productId: string; code: string; title: string; orders: number; buyers: number; revenueMinor: number; activeEntitlements: number }>;
+  coupons: Array<{ couponId: string; code: string; discountType: string; redemptions: number; students: number; discountMinor: number; revenueMinor: number }>;
+  quality: { paidWithoutCapturedPayment: number; refundStatusWithoutProcessedRefund: number; paidWithoutEntitlement: number };
 };
 
 export function BusinessAnalyticsPage() {
-  const columns: Column<(typeof TOP_PACKAGES)[number]>[] = [
-    { key: 'name', header: 'Package', cell: (r) => <span className="font-medium">{r.name}</span> },
-    { key: 'sales', header: 'Sales', sortValue: (r) => r.sales, cell: (r) => r.sales.toLocaleString() },
-    { key: 'price', header: 'Unit Price', sortValue: (r) => r.price, cell: (r) => `Rs ${r.price.toLocaleString()}` },
-    {
-      key: 'revenue', header: 'Revenue', sortValue: (r) => r.revenue, className: 'text-right',
-      cell: (r) => <span className="font-semibold">Rs {(r.revenue / 100000).toFixed(1)}L</span>,
-    },
-  ];
+  const [windowDays, setWindowDays] = useState<number>(30);
+  const [data, setData] = useState<AnalyticsResponse | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  return (
-    <div>
-      <PageHeader
-        title="Business Analytics"
-        description="Revenue, conversions, and growth metrics."
-        icon={<TrendingUp className="h-5 w-5" />}
-        actions={
-          <>
-            <Select defaultValue="30d">
-              <SelectTrigger className="w-[150px]"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                <SelectItem value="7d">Last 7 days</SelectItem>
-                <SelectItem value="30d">Last 30 days</SelectItem>
-                <SelectItem value="90d">Last 90 days</SelectItem>
-                <SelectItem value="ytd">Year to date</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button variant="outline" size="sm" onClick={() => showToast.success('Export started', 'Business analytics report is being generated.')}>
-              <Download className="mr-1.5 h-4 w-4" /> Export
-            </Button>
-          </>
-        }
-      />
+  const load = async () => {
+    setLoading(true);
+    try { setData(await request<AnalyticsResponse>(`/admin/analytics/business?window=${windowDays}`)); }
+    catch (error) { showToast.error('Unable to load business analytics', error instanceof Error ? error.message : 'Request failed.'); }
+    finally { setLoading(false); }
+  };
+  useEffect(() => { void load(); }, [windowDays]);
 
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Monthly Revenue" value="Rs 51.2L" icon={IndianRupee} delta={{ value: '11.8%', positive: true }} sublabel="vs last month" tone="success" />
-        <StatCard label="Total Enrolments" value="68,420" icon={Users} delta={{ value: '4.2%', positive: true }} sublabel="vs last month" tone="primary" />
-        <StatCard label="Avg Order Value" value="Rs 1,180" icon={Target} delta={{ value: '2.1%', positive: false }} sublabel="vs last month" tone="info" />
-        <StatCard label="Free-to-Paid" value="17.9%" icon={Percent} delta={{ value: '1.3%', positive: true }} sublabel="conversion rate" tone="accent" />
-      </div>
+  const downloadCsv = async () => {
+    try {
+      const user = getFirebaseAuth()?.currentUser;
+      if (!user) throw new Error('Your administrator session has expired.');
+      const response = await fetch(`${apiBase}/admin/analytics/business.csv?window=${windowDays}`, { headers: { Authorization: `Bearer ${await user.getIdToken()}` } });
+      if (!response.ok) throw new Error('CSV export failed.');
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = `business-analytics-${windowDays}d.csv`;
+      anchor.click();
+      URL.revokeObjectURL(url);
+    } catch (error) { showToast.error('Unable to export analytics', error instanceof Error ? error.message : 'Export failed.'); }
+  };
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex-row items-center justify-between space-y-0">
-            <div>
-              <CardTitle className="text-base">Revenue Trend</CardTitle>
-              <p className="text-xs text-muted-foreground">Monthly revenue vs target</p>
-            </div>
-            <StatusBadge tone="success" dot>+11.8%</StatusBadge>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <AreaChart data={REVENUE_TREND} margin={{ left: -16, right: 8, top: 8 }}>
-                <defs>
-                  <linearGradient id="bizRev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={0.35} />
-                    <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="month" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                <Tooltip contentStyle={tooltipStyle} />
-                <Area type="monotone" dataKey="revenue" stroke="hsl(var(--chart-1))" strokeWidth={2.5} fill="url(#bizRev)" name="Revenue" />
-                <Area type="monotone" dataKey="target" stroke="hsl(var(--chart-2))" strokeWidth={1.5} strokeDasharray="5 5" fill="none" name="Target" />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
+  const maxNet = useMemo(() => Math.max(1, ...(data?.daily.map((row) => Math.max(0, row.netMinor)) ?? [1])), [data]);
+  const currency = data?.summary.currency || 'INR';
+  const orderChange = data ? change(data.comparison.currentOrders, data.comparison.previousOrders) : null;
+  const revenueChange = data ? change(data.comparison.currentGrossMinor, data.comparison.previousGrossMinor) : null;
+  const qualityTotal = data ? Object.values(data.quality).reduce((sum, value) => sum + Number(value || 0), 0) : 0;
 
-        <Card>
-          <CardHeader><CardTitle className="text-base">Conversion Funnel</CardTitle><p className="text-xs text-muted-foreground">Visitor to paid purchase</p></CardHeader>
-          <CardContent className="space-y-4 pt-2">
-            {CONVERSION_FUNNEL.map((stage, i) => {
-              const widthPct = (stage.count / funnelMax) * 100;
-              const prev = i > 0 ? CONVERSION_FUNNEL[i - 1].count : stage.count;
-              const convPct = i > 0 ? ((stage.count / prev) * 100).toFixed(1) : null;
-              return (
-                <div key={stage.stage}>
-                  <div className="mb-1 flex items-center justify-between text-sm">
-                    <span className="font-medium">{stage.stage}</span>
-                    <span className="text-muted-foreground">{stage.count.toLocaleString()}{convPct && <span className="ml-2 text-success">({convPct}%)</span>}</span>
-                  </div>
-                  <div className="h-7 w-full rounded-md bg-muted">
-                    <div
-                      className="flex h-7 items-center rounded-md px-2 text-[11px] font-medium text-primary-foreground"
-                      style={{ width: `${Math.max(widthPct, 8)}%`, background: `hsl(var(--chart-${i + 1}))` }}
-                    >
-                      {widthPct > 15 && `${widthPct.toFixed(0)}%`}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </CardContent>
-        </Card>
-      </div>
+  return <div className="space-y-5">
+    <PageHeader title="Business Analytics" description="Canonical revenue, conversion, product, coupon, refund and entitlement reporting from immutable Commerce evidence." icon={<BarChart3 className="h-5 w-5" />} actions={<div className="flex gap-2"><Button variant="outline" onClick={() => void downloadCsv()}><Download className="mr-1.5 h-4 w-4" />Export CSV</Button><Button variant="outline" onClick={() => void load()} disabled={loading}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button></div>} />
+    <div className="flex flex-wrap gap-2">{windows.map((value) => <Button key={value} size="sm" variant={windowDays === value ? 'default' : 'outline'} onClick={() => setWindowDays(value)}>{value} days</Button>)}</div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <Card>
-          <CardHeader><CardTitle className="text-base">Package Sales</CardTitle><p className="text-xs text-muted-foreground">Sales by package</p></CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart layout="vertical" data={PACKAGE_SALES} margin={{ left: 24, right: 16, top: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" horizontal={false} />
-                <XAxis type="number" tickLine={false} axisLine={false} tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis type="category" dataKey="name" width={130} tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted))' }} />
-                <Bar dataKey="sales" fill="hsl(var(--chart-2))" radius={[0, 4, 4, 0]} name="Sales" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader><CardTitle className="text-base">Active Users</CardTitle><p className="text-xs text-muted-foreground">Active and new users this week</p></CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={STUDENT_ACTIVITY_TREND} margin={{ left: -20, right: 8, top: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                <XAxis dataKey="day" tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <YAxis tickLine={false} axisLine={false} tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }} />
-                <Tooltip contentStyle={tooltipStyle} cursor={{ fill: 'hsl(var(--muted))' }} />
-                <Bar dataKey="active" fill="hsl(var(--chart-2))" radius={[4, 4, 0, 0]} name="Active" />
-                <Bar dataKey="new" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} name="New" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card className="mt-6">
-        <CardHeader className="flex-row items-center justify-between space-y-0">
-          <div><CardTitle className="text-base">Top Packages by Revenue</CardTitle><p className="text-xs text-muted-foreground">Highest grossing packages this period</p></div>
-          <StatusBadge tone="primary">5 packages</StatusBadge>
-        </CardHeader>
-        <CardContent>
-          <DataTable
-            data={TOP_PACKAGES}
-            columns={columns}
-            getRowId={(r) => r.id}
-            searchable={false}
-            selectable={false}
-            pageSize={5}
-            initialSort={{ key: 'revenue', dir: 'desc' }}
-          />
-        </CardContent>
-      </Card>
-
-      <p className="mt-8 text-center text-xs text-muted-foreground">All business analytics values are demonstration data for prototype evaluation only.</p>
+    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <Metric label="Net revenue" value={money(data?.summary.netRevenueMinor ?? 0, currency)} note={revenueChange == null ? 'No previous-window baseline' : `${signed(revenueChange)} vs previous window`} />
+      <Metric label="Paid orders" value={number(data?.summary.paidOrders ?? 0)} note={orderChange == null ? 'No previous-window baseline' : `${signed(orderChange)} vs previous window`} />
+      <Metric label="Paying students" value={number(data?.summary.payingStudents ?? 0)} note={`AOV ${money(data?.summary.averageOrderValueMinor ?? 0, currency)}`} />
+      <Metric label="Checkout conversion" value={percent(data?.summary.conversionBasisPoints ?? 0)} note={`${number(data?.summary.paidOrders ?? 0)} paid of ${number(data?.summary.createdOrders ?? 0)} created`} />
     </div>
-  );
+
+    <div className="grid gap-3 lg:grid-cols-3">
+      <Metric label="Gross revenue" value={money(data?.summary.grossRevenueMinor ?? 0, currency)} note="Paid-order total before processed refunds" />
+      <Metric label="Processed refunds" value={money(data?.summary.refundsMinor ?? 0, currency)} note="Only verified processed refund evidence" />
+      <Metric label="Discounts" value={money(data?.summary.discountMinor ?? 0, currency)} note="Frozen order discounts, including coupons" />
+    </div>
+
+    <Card><CardHeader><CardTitle className="text-base">Daily net revenue</CardTitle></CardHeader><CardContent><div className="flex h-48 items-end gap-1 overflow-x-auto border-b pb-2">{data?.daily.map((row) => <div key={row.day} className="group flex min-w-3 flex-1 flex-col justify-end" title={`${new Date(row.day).toLocaleDateString('en-US')}: ${money(row.netMinor, currency)} net · ${row.orders} orders`}><div className="rounded-t bg-primary/70 transition group-hover:bg-primary" style={{ height: `${Math.max(row.netMinor > 0 ? 3 : 0, (Math.max(0, row.netMinor) / maxNet) * 100)}%` }} /></div>)}</div><p className="mt-2 text-xs text-muted-foreground">Each bar is one calendar day. Negative refund-only days remain visible in the CSV evidence.</p></CardContent></Card>
+
+    <div className="grid gap-5 xl:grid-cols-2">
+      <Card><CardHeader><CardTitle className="text-base">Package performance</CardTitle></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Package</TableHead><TableHead className="text-right">Orders</TableHead><TableHead className="text-right">Buyers</TableHead><TableHead className="text-right">Active access</TableHead><TableHead className="text-right">Revenue</TableHead></TableRow></TableHeader><TableBody>{data?.products.length ? data.products.map((row) => <TableRow key={row.productId}><TableCell><p className="font-medium">{row.title}</p><p className="text-xs text-muted-foreground">{row.code}</p></TableCell><TableCell className="text-right">{number(row.orders)}</TableCell><TableCell className="text-right">{number(row.buyers)}</TableCell><TableCell className="text-right">{number(row.activeEntitlements)}</TableCell><TableCell className="text-right">{money(row.revenueMinor, currency)}</TableCell></TableRow>) : <TableRow><TableCell colSpan={5} className="py-10 text-center text-muted-foreground">No package revenue exists in this window.</TableCell></TableRow>}</TableBody></Table></CardContent></Card>
+      <Card><CardHeader><CardTitle className="text-base">Coupon performance</CardTitle></CardHeader><CardContent className="p-0"><Table><TableHeader><TableRow><TableHead>Coupon</TableHead><TableHead className="text-right">Uses</TableHead><TableHead className="text-right">Students</TableHead><TableHead className="text-right">Discount</TableHead><TableHead className="text-right">Revenue</TableHead></TableRow></TableHeader><TableBody>{data?.coupons.length ? data.coupons.map((row) => <TableRow key={row.couponId}><TableCell><p className="font-medium">{row.code}</p><p className="text-xs text-muted-foreground">{row.discountType}</p></TableCell><TableCell className="text-right">{number(row.redemptions)}</TableCell><TableCell className="text-right">{number(row.students)}</TableCell><TableCell className="text-right">{money(row.discountMinor, currency)}</TableCell><TableCell className="text-right">{money(row.revenueMinor, currency)}</TableCell></TableRow>) : <TableRow><TableCell colSpan={5} className="py-10 text-center text-muted-foreground">No paid coupon redemptions exist in this window.</TableCell></TableRow>}</TableBody></Table></CardContent></Card>
+    </div>
+
+    <Card className={qualityTotal ? 'border-destructive/50' : 'border-emerald-500/40'}><CardHeader><CardTitle className="flex items-center gap-2 text-base"><ShieldCheck className="h-4 w-4" />Commerce data quality <StatusBadge tone={qualityTotal ? 'destructive' : 'success'}>{qualityTotal ? `${qualityTotal} blockers` : 'Clean'}</StatusBadge></CardTitle></CardHeader><CardContent className="grid gap-3 sm:grid-cols-3"><Quality label="Paid without captured payment" value={data?.quality.paidWithoutCapturedPayment ?? 0} /><Quality label="Refund status without processed refund" value={data?.quality.refundStatusWithoutProcessedRefund ?? 0} /><Quality label="Paid without entitlement" value={data?.quality.paidWithoutEntitlement ?? 0} /></CardContent></Card>
+
+    <Card className="border-dashed"><CardContent className="p-4 text-sm text-muted-foreground">Revenue is recognized from canonical paid orders. Refunds reduce net revenue only after verified processing. No student ranking or personally identifiable data is included in this workspace or CSV export. Generated {data ? new Date(data.generatedAt).toLocaleString('en-US') : '—'}.</CardContent></Card>
+  </div>;
 }
+
+function Metric({ label, value, note }: { label: string; value: string; note: string }) { return <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">{label}</p><p className="mt-2 text-2xl font-semibold">{value}</p><p className="mt-1 text-xs text-muted-foreground">{note}</p></CardContent></Card>; }
+function Quality({ label, value }: { label: string; value: number }) { return <div className="rounded-md border p-3"><p className="text-xs text-muted-foreground">{label}</p><p className={`mt-1 text-xl font-semibold ${value ? 'text-destructive' : ''}`}>{number(value)}</p></div>; }
+function change(current: number, previous: number): number | null { if (!previous) return current ? null : 0; return ((current - previous) / previous) * 100; }
+function signed(value: number): string { return `${value > 0 ? '+' : ''}${value.toFixed(1)}%`; }
+
+export default BusinessAnalyticsPage;

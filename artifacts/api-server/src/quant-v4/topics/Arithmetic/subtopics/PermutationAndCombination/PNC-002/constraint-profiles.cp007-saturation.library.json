@@ -1,0 +1,25 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "TWO_BLOCKS_TOGETHER_NOT_ADJACENT": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "Both specified disjoint groups form consecutive blocks, and the two formed block-units are not adjacent."
+    },
+    "BLOCK_WITH_OUTSIDER_NOT_ADJACENT": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "The specified group forms a consecutive block, and a named outsider is not immediately before or after that block."
+    },
+    "ONE_BLOCK_TOGETHER_OTHER_NOT_TOGETHER": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "The first specified group forms a block, while the second disjoint group must not form one complete consecutive block."
+    },
+    "NOT_ALL_BLOCKS_TOGETHER": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "At least one specified group is broken; exclude only arrangements in which every specified group forms its block simultaneously."
+    }
+  }
+}

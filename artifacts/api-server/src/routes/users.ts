@@ -151,7 +151,7 @@ async function ensureCanonicalUser(input: {
       LIMIT 1
     `;
 
-    if (normalizedEmail !== ADMIN_EMAIL && existingProfile.length === 0) {
+    if (existingProfile.length === 0) {
       const code = registrationCode(userId);
       await tx`
         INSERT INTO identity.student_profiles (

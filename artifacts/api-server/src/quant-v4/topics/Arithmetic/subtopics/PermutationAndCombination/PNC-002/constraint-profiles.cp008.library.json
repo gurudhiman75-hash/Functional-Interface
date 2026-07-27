@@ -1,0 +1,17 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "OBJECT_AT_EXACT_POSITION": {"orderMatters":true,"linear":true,"rule":"One specified object occupies one stated position."},
+    "OBJECT_AT_EITHER_END": {"orderMatters":true,"linear":true,"rule":"One specified object occupies either the first or last position."},
+    "SPECIFIED_OBJECTS_AT_BOTH_ENDS": {"orderMatters":true,"linear":true,"rule":"Two specified objects occupy the two end positions in either order."},
+    "OBJECT_EXCLUDED_FROM_ENDS": {"orderMatters":true,"linear":true,"rule":"One specified object occupies any position except the two ends."},
+    "PRESCRIBED_RELATIVE_ORDER": {"orderMatters":true,"linear":true,"rule":"A specified chain keeps one prescribed relative order without requiring consecutive positions."},
+    "INDEPENDENT_RELATIVE_ORDER_CHAINS": {"orderMatters":true,"linear":true,"rule":"Two disjoint specified chains each retain their own prescribed relative order."},
+    "STRICT_ALTERNATION": {"orderMatters":true,"linear":true,"rule":"The two categories alternate at every adjacent position, with the allowed starting category determined by the category sizes or stem."},
+    "NO_TWO_CATEGORY_MEMBERS_ADJACENT": {"orderMatters":true,"linear":true,"rule":"Every member of the smaller or specified category occupies a different gap formed by the remaining objects."},
+    "EXACT_GAP_BETWEEN_PAIR": {"orderMatters":true,"linear":true,"rule":"Exactly the stated number of other objects lies between two specified objects."},
+    "AT_LEAST_GAP_BETWEEN_PAIR": {"orderMatters":true,"linear":true,"rule":"At least the stated number of other objects lies between two specified objects."},
+    "SPECIFIED_OBJECTS_IN_POSITION_CLASS": {"orderMatters":true,"linear":true,"rule":"Exactly the stated number of specified objects occupies the eligible odd-numbered or even-numbered position class."},
+    "POSITION_GAP_INVERSE": {"orderMatters":true,"linear":true,"rule":"Search the stated finite gap domain and require one exact target match."}
+  }
+}

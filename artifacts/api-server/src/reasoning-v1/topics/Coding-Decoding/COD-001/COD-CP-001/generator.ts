@@ -1,9 +1,13 @@
-import type { CodDifficulty, DirectMappingPrompt, GeneratedCodQuestion, GeneratedOption, MappingEvidence, MappingTableEntry } from "../foundation/types";
+import type { DirectMappingPrompt, GeneratedCodQuestion, GeneratedOption, MappingEvidence, MappingTableEntry } from "../foundation/types";
 import type { DirectMap } from "../foundation/mapping";
 import type { CodCp001QuestionLogic } from "./types";
 import { SeededRandom } from "../foundation/prng";
 import { encodeWithMapping, evidenceCoversWord, mappingFromEvidence } from "../foundation/mapping";
 import { validateOptions } from "../foundation/option-validator";
+import { joinCodeExamples } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
+import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardLetterCodeStem } from "../foundation/standard-exam-stem";
 import { getCodCp001QuestionLogic } from "./question-language.en";
 import { COD_CP001_WORD_POOL } from "./word-pool.en";
 import { auditDirectMapping } from "./ambiguity-checker";
@@ -21,22 +25,6 @@ function tokenPool(outputKind: CodCp001QuestionLogic["outputKind"]): readonly st
 
 function separator(outputKind: CodCp001QuestionLogic["outputKind"]): string {
   return outputKind === "SYMBOL" ? " " : "";
-}
-
-function deriveDifficulty(logic: CodCp001QuestionLogic, prompt: DirectMappingPrompt): CodDifficulty {
-  let burden = 0;
-  if (prompt.target.length >= 5) burden += 1;
-  if (prompt.evidence.length >= 3) burden += 1;
-  if (prompt.taskKind === "DECODE_TARGET" || prompt.taskKind === "RECOVER_MISSING_CODE") burden += 1;
-  if (prompt.taskKind === "INFER_FROM_OVERLAP") burden += 2;
-  if (prompt.outputKind === "SYMBOL") burden += 1;
-  const desired: CodDifficulty = burden >= 4 ? "HARD" : burden >= 2 ? "MEDIUM" : "EASY";
-  if (logic.allowedDifficulties.includes(desired)) return desired;
-  const order: readonly CodDifficulty[] = ["EASY", "MEDIUM", "HARD"];
-  const desiredIndex = order.indexOf(desired);
-  return [...logic.allowedDifficulties].sort(
-    (left, right) => Math.abs(order.indexOf(left) - desiredIndex) - Math.abs(order.indexOf(right) - desiredIndex),
-  )[0]!;
 }
 
 function pickTargetWord(logic: CodCp001QuestionLogic, random: SeededRandom): string {
@@ -110,42 +98,14 @@ function chooseEvidenceWords(target: string, logic: CodCp001QuestionLogic, rando
 }
 
 function buildStem(prompt: DirectMappingPrompt, styleIndex: number): string {
-  const examples = prompt.evidence.map((pair) => `${pair.source} → ${pair.code}`).join(", ");
-  const style = styleIndex % 4;
+  const examples = joinCodeExamples(prompt.evidence);
   if (prompt.taskKind === "DECODE_TARGET") {
-    const variants = [
-      `In a certain code, ${examples}. Using the same direct substitution, which word is represented by ${prompt.encodedTarget}?`,
-      `The examples ${examples} follow one fixed letter-to-code map. Decode ${prompt.encodedTarget}.`,
-      `Observe ${examples}. What original word produces the code ${prompt.encodedTarget} under this same mapping?`,
-      `Using the substitution established by ${examples}, identify the word coded as ${prompt.encodedTarget}.`,
-    ];
-    return variants[style]!;
+    return buildStandardDecodeStem(examples, prompt.encodedTarget!, styleIndex);
   }
   if (prompt.taskKind === "RECOVER_MISSING_CODE") {
-    const variants = [
-      `The coded examples and mapping table use the same fixed substitution. Which code should replace the blank for ${prompt.missingSource}?`,
-      `One entry for ${prompt.missingSource} is missing from the table. Use the accompanying coded examples to find it.`,
-      `Complete the direct-substitution table: what is the code of ${prompt.missingSource}?`,
-      `The same letter map applies to the examples and table. Determine the missing code beside ${prompt.missingSource}.`,
-    ];
-    return variants[style]!;
+    return buildStandardLetterCodeStem(examples, prompt.missingSource!, styleIndex);
   }
-  if (prompt.taskKind === "INFER_FROM_OVERLAP") {
-    const variants = [
-      `Study the overlapping coded examples ${examples}. If the same letter always has the same code, how will ${prompt.target} be written?`,
-      `The examples ${examples} share letters and use one consistent substitution. Find the code for ${prompt.target}.`,
-      `Infer the fixed letter map from ${examples}, then encode ${prompt.target}.`,
-      `Use the common letters in ${examples} to recover the substitution and write the code of ${prompt.target}.`,
-    ];
-    return variants[style]!;
-  }
-  const variants = [
-    `In a certain code, ${examples}. Using the same direct substitution, how will ${prompt.target} be written?`,
-    `The coding examples are ${examples}. Apply the identical letter map to ${prompt.target}.`,
-    `Each letter keeps the substitution shown in ${examples}. What is the code for ${prompt.target}?`,
-    `Following the fixed mapping illustrated by ${examples}, encode ${prompt.target}.`,
-  ];
-  return variants[style]!;
+  return buildStandardEncodeStem(examples, prompt.target, styleIndex);
 }
 
 function mappingFingerprint(mapping: DirectMap): string {
@@ -153,7 +113,7 @@ function mappingFingerprint(mapping: DirectMap): string {
 }
 
 function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: number): GeneratedCodQuestion | null {
-  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp001-v1`);
+  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp001-v2`);
   const target = pickTargetWord(logic, random);
   const evidenceWords = chooseEvidenceWords(target, logic, random);
   if (!evidenceWords) return null;
@@ -195,24 +155,37 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
   validateOptions(options);
   const correctIndex = options.findIndex((option) => option.isCorrect);
   const recovered = mappingFromEvidence(evidence, sep);
-  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-style`).int(0, 3);
-  const question: GeneratedCodQuestion = {
+  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-style-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-001",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp001Explanation(prompt, recovered, answer, styleIndex, options),
+    { checkpointId: "COD-CP-001", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
+  return {
     packageId: "COD-001",
     qlId: logic.qlId,
     checkpointId: "COD-CP-001",
     ruleId: logic.ruleId,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic, prompt),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp001Explanation(prompt, recovered, answer, styleIndex),
+    explanation,
     metadata: {
-      runtimeVersion: "cod-001-cp001-v1",
+      runtimeVersion: "cod-001-cp001-v2",
       publiclyPublishable: false,
       maturity: "RUNTIME_PROOF",
       hiddenFingerprint: mappingFingerprint(mapping),
@@ -221,7 +194,6 @@ function createCandidate(logic: CodCp001QuestionLogic, seed: number, attempt: nu
       ambiguityAccepted: audit.accepted,
     },
   };
-  return question;
 }
 
 export function generateCodCp001Question(qlId: string, seed: number): GeneratedCodQuestion {

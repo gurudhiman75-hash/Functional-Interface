@@ -1,0 +1,79 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {
+      "qlId": "PNC-QL-107",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Easy",
+      "template": "In how many ways can {totalObjects} distinct people stand in a row if two particular people must stand together?"
+    },
+    {
+      "qlId": "PNC-QL-108",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "In how many linear arrangements of {totalObjects} distinct books will a specified set of {blockSize} books remain together?"
+    },
+    {
+      "qlId": "PNC-QL-109",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "In how many ways can {totalObjects} distinct people stand in a row if two particular people must not stand together?"
+    },
+    {
+      "qlId": "PNC-QL-110",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "In how many arrangements of {totalObjects} distinct files will a specified set of {blockSize} files not all appear consecutively?"
+    },
+    {
+      "qlId": "PNC-QL-111",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} distinct people, two specified pairs must each stand together. In how many linear arrangements is this possible?"
+    },
+    {
+      "qlId": "PNC-QL-112",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} distinct performers, one specified pair and one separate specified trio must each remain together. How many linear arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-113",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} distinct people, three disjoint specified pairs must each stand together. How many linear arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-114",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "A shelf holds {totalObjects} distinct books. One specified group of {firstBlockSize} books and another disjoint group of {secondBlockSize} books must each remain together. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-115",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} distinct people, a specified group of {blockSize} must stand together, while two other specified people must not stand together. How many linear arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-116",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "When two particular people must remain together, the number of linear arrangements of \\(n\\) distinct people is {target}. Find \\(n\\), where \\(5 \\le n \\le 8\\)."
+    },
+    {
+      "qlId": "PNC-QL-117",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "When two particular people must not stand together, the number of linear arrangements of \\(n\\) distinct people is {target}. Find \\(n\\), where \\(5 \\le n \\le 8\\)."
+    },
+    {
+      "qlId": "PNC-QL-118",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Eight distinct books are arranged in a row. If \\(k\\) particular books must remain together and the number of arrangements is {target}, find \\(k\\), where \\(2 \\le k \\le 4\\)."
+    }
+  ]
+}

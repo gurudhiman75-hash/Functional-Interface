@@ -1,0 +1,12 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "policy": "QL_SPECIFIC_NATURAL_EXPLANATIONS",
+  "entries": {
+    "PNC-QL-173":{"lines":["The committee may use {minimumSpecified} identified people or any larger feasible number.","For each accepted count, choose from the identified group and fill the remaining places from everyone else.","Adding the case totals gives {equation}, so {answer} committees qualify."]},
+    "PNC-QL-174":{"lines":["Only identified-member counts from {minimumSpecified} through {maximumSpecified} are allowed.","Count each accepted split between identified and ordinary people separately, then add the results.","The bounded case sum is {equation}, giving {answer} committees."]},
+    "PNC-QL-175":{"lines":["Both category minimums must hold at the same time.","This restricts the Category-A count to the feasible values from {minimumFromA} through {maximumFromA}; each value fixes the Category-B count automatically.","Adding those exact splits gives {equation}, so the answer is {answer}."]},
+    "PNC-QL-176":{"lines":["The Category-A count is restricted to the interval from {minimumFromA} through {maximumFromA}.","For every accepted Category-A count, choose those members and fill the remaining committee places from Category B.","The complete interval sum is {equation}, producing {answer} committees."]}
+  }
+}

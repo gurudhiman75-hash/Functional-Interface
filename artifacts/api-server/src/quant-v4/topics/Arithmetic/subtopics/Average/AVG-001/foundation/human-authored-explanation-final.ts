@@ -1,8 +1,10 @@
+import { finalizeAvg001Cp002ContextSupport } from "./cp002-context-support-finalizer";
 import { applyAvg001Cp003ExplanationAnswerEvidence } from "./cp003-explanation-answer-evidence";
 import { applyAvg001Cp003ExplanationAuthorship } from "./cp003-explanation-authorship";
 import { applyAvg001Cp003ExplanationFinalPolish } from "./cp003-explanation-final-polish";
 import { applyAvg001ExplanationContract } from "./human-authored-explanation-contract";
 import { finalizeAvg001ExplanationDepth } from "./human-authored-explanation-depth-finalizer";
+import { finalizeAvg001ExplanationOpening } from "./human-authored-explanation-opening-finalizer";
 import { finalizeAvg001ExplanationSymbols } from "./human-authored-explanation-symbol-finalizer";
 import { applyAvg001HumanAuthoredExplanation as applyAuthoredPlanner } from "./human-authored-explanation-quality";
 import type { Avg001QuestionPackage } from "./types";
@@ -139,5 +141,7 @@ export function applyAvg001HumanAuthoredExplanation(
   const answerComplete = applyAvg001Cp003ExplanationAnswerEvidence(manuallyDifferentiated);
   const contracted = applyAvg001ExplanationContract(answerComplete);
   const depthComplete = finalizeAvg001ExplanationDepth(contracted);
-  return finalizeAvg001ExplanationSymbols(depthComplete);
+  const cp002SupportComplete = finalizeAvg001Cp002ContextSupport(depthComplete);
+  const symbolComplete = finalizeAvg001ExplanationSymbols(cp002SupportComplete);
+  return finalizeAvg001ExplanationOpening(symbolComplete);
 }

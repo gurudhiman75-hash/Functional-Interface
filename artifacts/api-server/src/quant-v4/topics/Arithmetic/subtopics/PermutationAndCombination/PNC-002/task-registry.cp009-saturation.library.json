@@ -1,0 +1,13 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-009",
+  "ownership": "HUMAN_OWNED",
+  "groups": [
+    {"qlIds":["PNC-QL-173","PNC-QL-174"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"countSpecifiedMemberRange","answerType":"COUNT","explanationId":"PNC-EXP-SPECIFIED-RANGE","requiredVariables":["totalObjects","committeeSize","specifiedCount","minimumSpecified","maximumSpecified"],"scenarioFamily":"specifiedMemberRange","constraintProfile":"SPECIFIED_MEMBER_RANGE","distractorProfile":"SPECIFIED_RANGE","difficulty":"Medium","active":true},
+    {"qlIds":["PNC-QL-175","PNC-QL-176"],"cpId":"PNC-CP-009","taskKind":"conditionalSelection","solveMode":"countTwoCategoryRange","answerType":"COUNT","explanationId":"PNC-EXP-TWO-CATEGORY-RANGE","requiredVariables":["categoryA","categoryB","committeeSize","minimumFromA","maximumFromA","minimumFromB"],"scenarioFamily":"twoCategoryRange","constraintProfile":"TWO_CATEGORY_RANGE","distractorProfile":"CATEGORY_RANGE","difficulty":"Medium","active":true}
+  ],
+  "perQlOverrides": {
+    "PNC-QL-174":{"difficulty":"Hard","explanationId":"PNC-EXP-174"},
+    "PNC-QL-176":{"difficulty":"Hard","explanationId":"PNC-EXP-176"}
+  }
+}

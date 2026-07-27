@@ -38,7 +38,7 @@ for (const entry of entries) {
     if (pkg.options.length !== 4 || new Set(pkg.options).size !== 4) failures.push(`${entry.qlId}:${index}: invalid options`);
     if (pkg.options[pkg.correctIndex] !== pkg.answer) failures.push(`${entry.qlId}:${index}: wrong correct index`);
     if (/[{}]|undefined|NaN|Infinity|null/.test(pkg.stem)) failures.push(`${entry.qlId}:${index}: unresolved stem`);
-    if (pkg.explanation.lines.length !== 5) failures.push(`${entry.qlId}:${index}: explanation must have five lines`);
+    if (pkg.explanation.lines.length !== 4) failures.push(`${entry.qlId}:${index}: explanation must have four lines`);
     if (!pkg.explanation.lines.some((line) => line.includes(pkg.answer))) failures.push(`${entry.qlId}:${index}: answer missing from explanation`);
     const explanationText = pkg.explanation.lines.join(" ");
     if (/reconstruct|recover|derive|determine|hierarchical resolution|weighted aggregation|solve mode/i.test(explanationText)) failures.push(`${entry.qlId}:${index}: formal/internal wording`);

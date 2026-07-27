@@ -1,0 +1,30 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "SINGLE_BLOCK_TOGETHER": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "All specified block members must occupy consecutive positions."
+    },
+    "SINGLE_BLOCK_COMPLEMENT": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "Exclude arrangements in which every specified member forms one consecutive block."
+    },
+    "MULTIPLE_BLOCKS": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "Each specified disjoint group must form its own consecutive block."
+    },
+    "BLOCK_WITH_EXTERNAL_PAIR_APART": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "One specified group forms a block while a disjoint specified pair must not be adjacent."
+    },
+    "BLOCK_INVERSE": {
+      "orderMatters": true,
+      "linear": true,
+      "rule": "Search the stated finite domain and require exactly one parameter matching the target."
+    }
+  }
+}

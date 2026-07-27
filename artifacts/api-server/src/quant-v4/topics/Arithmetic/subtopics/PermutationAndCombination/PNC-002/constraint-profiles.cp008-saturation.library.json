@@ -1,0 +1,10 @@
+{
+  "packageId": "PNC-002",
+  "profiles": {
+    "OBJECTS_AT_PRESCRIBED_POSITIONS": {"orderMatters":true,"linear":true,"rule":"Several specified objects occupy their own stated positions respectively."},
+    "SPECIFIED_SET_IN_POSITION_SET": {"orderMatters":true,"linear":true,"rule":"A specified set fills a stated set of positions in any internal order."},
+    "AT_MOST_GAP_BETWEEN_PAIR": {"orderMatters":true,"linear":true,"rule":"The number of other objects between two specified objects ranges from zero through the stated maximum."},
+    "DIRECTIONAL_EXACT_GAP": {"orderMatters":true,"linear":true,"rule":"The first named object appears before the second with exactly the stated number of intervening objects."},
+    "AT_LEAST_SPECIFIED_IN_POSITION_CLASS": {"orderMatters":true,"linear":true,"rule":"At least the stated number of specified objects occupies the eligible odd/even position class."}
+  }
+}

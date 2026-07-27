@@ -66,17 +66,11 @@ export function validateAvg001QuestionPackage(
     "Count answers are positive integers",
   );
 
-  const minimumExplanationLines =
-    pkg.canonicalProblemId === "AVG-CP-005"
-      ? 4
-      : pkg.difficultyBand === "Easy"
-        ? 4
-        : 5;
   add(
     "explanation-depth",
-    pkg.explanation.lines.length >= minimumExplanationLines &&
+    pkg.explanation.lines.length >= 4 &&
       pkg.explanation.lines.length <= 8,
-    `Explanation contains ${minimumExplanationLines}–8 meaningful moves`,
+    "Explanation contains 4–8 meaningful moves",
   );
   add(
     "explanation-arithmetic",

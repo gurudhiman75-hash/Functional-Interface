@@ -1,0 +1,58 @@
+name: Reasoning COD-001 CP-005 Runtime
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-005/**"
+      - ".github/workflows/reasoning-cod-001-cp005-runtime.yml"
+  workflow_dispatch:
+
+jobs:
+  cp005-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run COD-CP-005 exhaustive runtime audit
+        id: cp005_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-005/cod-cp-005.test.ts > cod-cp005-runtime.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload COD-CP-005 runtime diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp005-runtime-audit
+          path: cod-cp005-runtime.log
+          retention-days: 7
+
+      - name: Enforce COD-CP-005 runtime result
+        shell: bash
+        run: |
+          cat cod-cp005-runtime.log
+          test "${{ steps.cp005_audit.outputs.exit_code }}" = "0"
+
+      - name: Run COD-CP-005 editorial audit
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-005/cod-cp-005-editorial.test.ts
+
+      - name: Export COD-CP-005 editorial review corpus
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-005/export-review.ts cod-cp005-review-output
+
+      - name: Upload COD-CP-005 editorial review corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp005-editorial-review
+          path: cod-cp005-review-output
+          retention-days: 7

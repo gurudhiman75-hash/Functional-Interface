@@ -1,3 +1,4 @@
+import { applyAvg001AcademicMarksTerminology } from "./academic-marks-terminology";
 import { applyAvg001HumanAuthoredExplanation } from "./human-authored-explanation-final";
 import type { Avg001QuestionPackage, Avg001ValidationCheck } from "./types";
 import { validateAvg001QuestionPackage } from "./validator";
@@ -80,7 +81,9 @@ export function applyAvg001EnglishRelease(
     );
   }
 
-  const humanized = applyAvg001HumanAuthoredExplanation(pkg);
+  const humanized = applyAvg001AcademicMarksTerminology(
+    applyAvg001HumanAuthoredExplanation(pkg),
+  );
   const { validation: _previousValidation, ...candidate } = humanized;
   const regeneratedValidation = validateAvg001QuestionPackage(candidate);
   const validation = preserveSupplementalValidation(humanized, regeneratedValidation);

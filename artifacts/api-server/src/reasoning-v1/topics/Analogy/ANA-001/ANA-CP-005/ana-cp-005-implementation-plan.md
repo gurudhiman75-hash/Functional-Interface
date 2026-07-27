@@ -1,6 +1,6 @@
 # ANA-CP-005 Implementation Plan
 
-Status: implementation started on `feat/reasoning-ana-001-cp005`.
+Status: canonical manifest realignment in progress on `feat/reasoning-ana-cp005-manifest-realignment`.
 
 ## Scope
 
@@ -8,148 +8,94 @@ Status: implementation started on `feat/reasoning-ana-001-cp005`.
 - QL range: `ANA-QL-141` through `ANA-QL-160`
 - Total QLs: 20
 - Student skill: single-letter alphabet analogy
-- Figure content: excluded
+- Task kind: `singleLetterTransform`
+- Solve mode: `ALPHABET_RULE`
+- Presentation modes: `DIRECT_COMPLETION`, `PAIR_SELECTION`
 - Renderer: `STRUCTURED_TEXT`
 - Locale mode: `TRANSLATABLE`
 - Runtime languages: English, Hindi, Punjabi
+- Multi-letter clusters: reserved for `ANA-CP-006`
+- Figure analogy: excluded from ANA-001
 
-## Design decision
+## Canonical QL allocation
 
-CP-005 covers transformations of single English letters. Multi-letter clusters, per-position shifts, rotations and re-ordering belong to CP-006.
-
-The checkpoint uses ten rule families, each with two presentation modes:
-
-1. missing fourth term;
-2. equivalent pair selection.
-
-## QL allocation
-
-| QL IDs | Rule ID | Relationship |
+| QL IDs | Rule ID | Operational relationship |
 |---|---|---|
-| `141/142` | `ALPHA_SHIFT_FORWARD` | move forward by a fixed question-level shift |
-| `143/144` | `ALPHA_SHIFT_BACKWARD` | move backward by a fixed question-level shift |
-| `145/146` | `ALPHA_OPPOSITE` | use the opposite letter, positions summing to 27 |
-| `147/148` | `ALPHA_OPPOSITE_FORWARD` | take the opposite letter, then move forward by a fixed shift |
-| `149/150` | `ALPHA_OPPOSITE_BACKWARD` | take the opposite letter, then move backward by a fixed shift |
-| `151/152` | `ALPHA_POSITION_DOUBLE` | double the alphabet position within a safe non-wrapping domain |
-| `153/154` | `ALPHA_POSITION_DOUBLE_MINUS_ONE` | double the position and subtract one |
-| `155/156` | `ALPHA_POSITION_HALF` | halve an even alphabet position |
-| `157/158` | `ALPHA_POSITION_HALF_ROUND_UP` | add one to an odd position and halve it |
-| `159/160` | `ALPHA_OPPOSITE_OF_DOUBLE` | double the input position, then take the opposite position |
+| `141/142` | `ALPHA_FIXED_SHIFT_FORWARD` | fixed forward movement without crossing Z |
+| `143/144` | `ALPHA_FIXED_SHIFT_BACKWARD` | fixed backward movement without crossing A |
+| `145/146` | `ALPHA_CYCLIC_SHIFT_FORWARD` | fixed forward movement with mandatory wrap after Z |
+| `147/148` | `ALPHA_CYCLIC_SHIFT_BACKWARD` | fixed backward movement with mandatory wrap before A |
+| `149/150` | `ALPHA_OPPOSITE` | positions sum to 27 |
+| `151/152` | `ALPHA_EQUAL_DISTANCE` | equal movement toward the alphabet centre, with both direction branches evidenced |
+| `153/154` | `ALPHA_REVERSE_POSITION` | opposite/reverse-position letter followed by one fixed bounded adjustment |
+| `155/156` | `ALPHA_DOUBLED_MOVEMENT` | output position is twice the input position |
+| `157/158` | `ALPHA_CLASS_CORRESPONDENCE` | vowels and selected consonants correspond by ordinal position within their classes |
+| `159/160` | `ALPHA_TWO_STEP_POSITION` | double the position, then add or subtract one |
+
+Odd-numbered QLs use direct completion. Even-numbered QLs use equivalent-pair selection.
+
+## Why the realignment is required
+
+The first merged CP-005 runtime used ten internally coherent families, but several did not match the audited ANA-001 manifest. Half-position, rounded-half and opposite-of-double families were therefore removed from this checkpoint. Existing QL IDs remain unchanged; their implementation is being corrected to the previously audited ownership contract.
+
+## Rule-domain decisions
+
+- Fixed shifts use magnitudes `1..6` and reject boundary crossing.
+- Cyclic shifts use magnitudes `2..6` and require boundary crossing, so they cannot collapse into fixed-shift questions.
+- Equal-distance instances show one input from each half of the alphabet. This activates both forward and backward branches and prevents the rule from reducing to a uniform shift.
+- Reverse-position offsets are `-4..-1` or `1..4`; zero is excluded because plain opposite letters have their own family.
+- Doubled-position inputs are bounded so the result remains in `A..Z`.
+- Class correspondence uses the ordered lists `A,E,I,O,U` and `B,C,D,F,G` in either direction.
+- Two-step position uses `2p-1` or `2p+1` on a safe non-identity domain.
+- Every rule application is total: an ineligible input returns `null` rather than throwing during ambiguity discovery.
 
 ## Ambiguity policy
 
-Alphabet analogy is intrinsically vulnerable to alternate shift explanations. Therefore ambiguity is evaluated over the complete source and target evidence, not the source pair alone.
-
 A candidate is accepted only when:
 
-- the intended rule solves both displayed pairs;
-- no equal-or-simpler registered rule with an eligible context solves both pairs;
-- the intended context is stable across the complete question;
-- exactly one option completes or matches the relation;
-- no distractor is valid under the intended rule.
+- the intended rule and full context solve both displayed pairs;
+- no equal-or-simpler registered rule solves the same evidence;
+- context parameters remain unchanged across source and target;
+- equal-distance evidence activates both direction branches;
+- cyclic evidence actually crosses the alphabet boundary;
+- exactly one option is valid under the intended rule;
+- every distractor has a machine-readable error label.
 
-A registry-level collision audit must also compare all rule/context combinations over their eligible domains.
+The registry collision audit compares only letters on which both rule contexts produce a real output. Two `null` values outside their domains are not treated as a mapping collision.
 
-## Parameter domains
+## Presentation and explanation contract
 
-- forward/backward shifts: `1..6`, fixed within one question;
-- opposite-composite shifts: `1..4`, fixed within one question;
-- doubling rules: inputs restricted so results remain in `A..Z` without accidental wrapping;
-- half rules: parity-controlled inputs only;
-- source and target letters must differ;
-- trivial identity mappings are rejected;
-- output must remain a single uppercase English letter.
-
-## Runtime architecture
-
-Required files:
-
-- `question-language.en.ts`
-- `rule-definitions.ts`
-- `independent-solver.ts`
-- `ambiguity-checker.ts`
-- `option-validator.ts`
-- `generator.ts`
-- `task-registry.ts`
-- `localized-runtime.ts`
-- `ana-cp-005.test.ts`
-- `ana-cp-005-localized.test.ts`
-- `export-review.ts`
-- `export-localized-review.ts`
-- `ana-cp-005-implementation-report.md`
-
-## Presentation variety
-
-Missing-term questions may use:
-
-- `A : D :: F : ?`
-- `A → D; F → ?`
-- two-row pair tables
-- compact boxed-pair text
-
-Equivalent-pair questions show one source pair and four candidate pairs.
-
-The renderer remains structured text; CP-005 does not depend on SVG.
-
-## Distractor model
-
-Preferred distractor errors:
-
-- wrong direction;
-- shift off by one;
-- correct shift applied from the opposite letter;
-- opposite letter without the final shift;
-- position doubled instead of doubled-minus-one;
-- floor half instead of rounded-up half;
-- nearby letter as a bounded fallback.
-
-Each distractor carries an error label.
-
-## Explanation contract
+Direct-completion questions support inline, arrow, table and boxed-pair layouts. Pair-selection questions use the same four visual treatments for the source relation.
 
 Every explanation must:
 
-- state the rule naturally;
-- show alphabet positions for the source pair;
-- apply the same operation to the target letter;
-- state the resulting letter;
-- mention the selected shift when the rule is parameterized;
-- reject the closest trap without exposing internal rule IDs.
+- state the rule without exposing an internal ID;
+- show source and target application separately;
+- include exact positional arithmetic where useful;
+- show `raw - 26` or `raw + 26` for cyclic wrap cases;
+- state the selected distance, offset or two-step adjustment;
+- explain class ordinal correspondence for vowel/consonant questions;
+- reject the closest direction, off-by-one or no-wrap trap.
 
-## Difficulty
-
-- Easy: direct shifts and opposite letters with familiar positions;
-- Medium: composite opposite/shift rules and less central letters;
-- Hard: position arithmetic, close distractors and reversed-looking pairs.
-
-Target checkpoint distribution follows the chapter target of approximately 35% easy, 45% medium and 20% hard across runtime samples.
+Hindi and Punjabi must preserve numerical evidence and answer parity. Localized review exports include the same trap-note block as English.
 
 ## Test contract
 
-The exhaustive audit will verify:
+The English audit verifies:
 
-- exact 20-QL continuous registry;
-- deterministic generation;
-- four unique options;
-- exactly one correct answer;
-- independent-solver agreement;
-- full-rule-pool ambiguity rejection;
+- exact manifest rule sequence and QL continuity;
+- canonical task kind, solve mode and presentation modes;
+- deterministic generation across 1,600 questions;
+- full-context independent solving;
 - no complete rule collisions;
-- all presentation layouts;
-- all difficulty bands;
-- answer-position balance;
-- bounded generation retries;
-- Hindi/Punjabi parity and script checks;
-- no internal rule identifiers in student-facing text.
+- equal-or-simpler ambiguity rejection;
+- fixed versus cyclic boundary ownership;
+- equal-distance branch activation;
+- four unique options and exactly one answer;
+- layout, difficulty, answer-position and stem-variety coverage.
 
-## Implementation order
+The localized audit verifies 1,600 Hindi/Punjabi questions for structural parity, script presence, wrap arithmetic, terminology restrictions, trap-note presence and balanced answer positions.
 
-1. Freeze QL registry and typed rule definitions.
-2. Add independent solving and rule/context matching.
-3. Add collision and ambiguity audits.
-4. Implement deterministic English generation and distractors.
-5. Add exhaustive English tests and review export.
-6. Add Hindi and Punjabi runtime text.
-7. Run localized parity audits and export reviews.
-8. Perform editorial review before merge.
+## Merge gate
+
+Do not merge the realignment until both runtime audits pass in a checked-out repository and all three regenerated review files have been inspected.

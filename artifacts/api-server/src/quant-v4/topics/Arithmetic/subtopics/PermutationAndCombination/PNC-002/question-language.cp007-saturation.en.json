@@ -1,0 +1,43 @@
+{
+  "packageId": "PNC-002",
+  "language": "en",
+  "ownership": "HUMAN_OWNED",
+  "entries": [
+    {
+      "qlId": "PNC-QL-119",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} distinct people, two specified pairs must each stand together, but the two formed pair-blocks must not be adjacent to one another. How many linear arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-120",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} distinct performers, one specified pair and one separate specified trio must each remain together, but the two formed blocks must not be adjacent. How many linear arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-121",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "In a row of {totalObjects} distinct people, a specified group of {blockSize} must stand together, while one other specified person must not stand immediately beside that block. How many arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-122",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Among {totalObjects} distinct files, one specified pair must remain together, while a separate specified trio must not all appear consecutively. How many linear arrangements are possible?"
+    },
+    {
+      "qlId": "PNC-QL-123",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Medium",
+      "template": "Among {totalObjects} distinct people, there are two specified disjoint pairs. In how many linear arrangements is at least one of those pairs not together?"
+    },
+    {
+      "qlId": "PNC-QL-124",
+      "cpId": "PNC-CP-007",
+      "difficulty": "Hard",
+      "template": "Two specified pairs among \\(n\\) distinct people must each remain together, but the two pair-blocks must not be adjacent. If the number of arrangements is {target}, find \\(n\\), where \\(5 \\le n \\le 8\\)."
+    }
+  ]
+}

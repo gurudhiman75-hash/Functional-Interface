@@ -1,6 +1,10 @@
-import type { CodDifficulty, GeneratedOption } from "../foundation/types";
+import type { GeneratedOption } from "../foundation/types";
 import { SeededRandom } from "../foundation/prng";
 import { validateOptions } from "../foundation/option-validator";
+import { joinCodeExamples, maskCodeAt } from "../foundation/editorial";
+import { assessCodDifficulty } from "../foundation/difficulty";
+import { enrichCodingExplanation } from "../foundation/pedagogy";
+import { buildStandardDecodeStem, buildStandardEncodeStem, buildStandardMissingTokenStem } from "../foundation/standard-exam-stem";
 import { auditAlphabetTransformRule } from "./ambiguity-checker";
 import { buildCodCp003Distractors } from "./distractors";
 import { buildCodCp003Explanation } from "./explanation-builder";
@@ -43,49 +47,19 @@ function chooseWords(logic: CodCp003QuestionLogic, context: CodCp003RuleContext,
   return { target, evidence };
 }
 
-function deriveDifficulty(logic: CodCp003QuestionLogic, prompt: AlphabetTransformPrompt, context: CodCp003RuleContext, wrapUsed: boolean): CodDifficulty {
-  let burden = 0;
-  if (logic.ruleId === "OPPOSITE_ALPHABET_MAP") burden += 1;
-  if (Math.abs(context.shift ?? 0) >= 5) burden += 1;
-  if (prompt.evidence.length >= 3) burden += 1;
-  if (prompt.targetWord.length >= 5) burden += 1;
-  if (prompt.taskKind === "DECODE_TARGET" || prompt.taskKind === "RECOVER_MISSING_LETTER") burden += 1;
-  if (prompt.taskKind === "INFER_AND_ENCODE" || prompt.taskKind === "CHOOSE_MATCHING_CODE") burden += 1;
-  if (wrapUsed) burden += 1;
-  const desired: CodDifficulty = burden >= 4 ? "HARD" : burden >= 2 ? "MEDIUM" : "EASY";
-  return logic.allowedDifficulties.includes(desired) ? desired : logic.allowedDifficulties[0]!;
-}
-
 function buildStem(prompt: AlphabetTransformPrompt, style: number): string {
-  const examples = prompt.evidence.map((pair) => `${pair.source} → ${pair.code}`).join(", ");
-  if (prompt.taskKind === "DECODE_TARGET") return [
-    `In a certain code, ${examples}. Using the same alphabet transformation, which word is represented by ${prompt.encodedTarget}?`,
-    `The examples ${examples} use one fixed character rule. Decode ${prompt.encodedTarget}.`,
-    `Observe ${examples}. What original word produces ${prompt.encodedTarget}?`,
-    `Reverse the transformation shown by ${examples} to identify the word coded as ${prompt.encodedTarget}.`,
-  ][style]!;
-  if (prompt.taskKind === "RECOVER_MISSING_LETTER") return [
-    `The examples ${examples} use one fixed alphabet transformation. Which letter fills the blank in the code of ${prompt.targetWord}?`,
-    `Infer the rule from ${examples}, then complete the missing coded letter for ${prompt.targetWord}.`,
-    `Using the common transformation in ${examples}, determine the hidden position in the code of ${prompt.targetWord}.`,
-    `Complete the code of ${prompt.targetWord} from the rule visible in ${examples}.`,
-  ][style]!;
-  if (prompt.taskKind === "INFER_AND_ENCODE") return [
-    `Study ${examples}. Infer the uniform alphabet rule and code ${prompt.targetWord}.`,
-    `The same character movement links every pair in ${examples}. Apply it to ${prompt.targetWord}.`,
-    `Recover the common alphabet transformation from ${examples}, then encode ${prompt.targetWord}.`,
-    `Use the correspondences in ${examples} to determine the code of ${prompt.targetWord}.`,
-  ][style]!;
-  return [
-    `In a certain code, ${examples}. How will ${prompt.targetWord} be written?`,
-    `The examples ${examples} follow one uniform alphabet transformation. Find the code for ${prompt.targetWord}.`,
-    `Apply the same character rule shown in ${examples} to ${prompt.targetWord}.`,
-    `Using the fixed transformation illustrated by ${examples}, code ${prompt.targetWord}.`,
-  ][style]!;
+  const examples = joinCodeExamples(prompt.evidence);
+  if (prompt.taskKind === "DECODE_TARGET") {
+    return buildStandardDecodeStem(examples, prompt.encodedTarget!, style);
+  }
+  if (prompt.taskKind === "RECOVER_MISSING_LETTER") {
+    return buildStandardMissingTokenStem(examples, prompt.targetWord, prompt.displayedTargetCode!, "letter", style);
+  }
+  return buildStandardEncodeStem(examples, prompt.targetWord, style);
 }
 
 function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: number): GeneratedCodCp003Question | null {
-  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp003-v1`);
+  const random = new SeededRandom(`${logic.qlId}:${seed}:${attempt}:cod-001-cp003-v2`);
   const context = chooseContext(logic, random);
   const chosen = chooseWords(logic, context, random);
   if (!chosen) return null;
@@ -105,12 +79,14 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
   const fullTargetCode = transformWord(logic.ruleId, context, chosen.target);
   let encodedTarget: string | undefined;
   let missingIndex: number | undefined;
+  let displayedTargetCode: string | undefined;
   if (logic.taskKind === "DECODE_TARGET") encodedTarget = fullTargetCode;
   if (logic.taskKind === "RECOVER_MISSING_LETTER") {
     const wrapIndices = logic.ruleId === "UNIFORM_CYCLIC_SHIFT"
       ? [...chosen.target].map((_, index) => index).filter((index) => wordUsesWrap(chosen.target[index]!, context.shift ?? 0))
       : [];
     missingIndex = wrapIndices.length > 0 ? random.pick(wrapIndices) : random.int(0, chosen.target.length - 1);
+    displayedTargetCode = maskCodeAt(fullTargetCode, missingIndex);
   }
   const prompt: AlphabetTransformPrompt = {
     taskKind: logic.taskKind,
@@ -118,6 +94,7 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
     targetWord: chosen.target,
     encodedTarget,
     missingIndex,
+    displayedTargetCode,
   };
   const answer = solveCodCp003(prompt);
   let distractors;
@@ -130,7 +107,7 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
       ruleId: logic.ruleId,
       context,
       missingIndex,
-      seed: `${logic.qlId}:${seed}:${attempt}:options`,
+      seed: `${logic.qlId}:${seed}:${attempt}:options-v2`,
     });
   } catch {
     return null;
@@ -146,7 +123,20 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
     wordUsesWrap(chosen.target, context.shift ?? 0) || evidence.some((pair) => wordUsesWrap(pair.source, context.shift ?? 0))
   );
   if (logic.requireWrap && !wrapUsed) return null;
-  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial`).int(0, 3);
+  const styleIndex = new SeededRandom(`${logic.qlId}:${seed}:editorial-v2`).int(0, 3);
+  const difficulty = assessCodDifficulty({
+    checkpointId: "COD-CP-003",
+    ruleId: logic.ruleId,
+    taskKind: logic.taskKind,
+    targetLength: chosen.target.length,
+    evidenceCount: evidence.length,
+    options,
+    allowedDifficulties: logic.allowedDifficulties,
+  }).difficulty;
+  const explanation = enrichCodingExplanation(
+    buildCodCp003Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex, options }),
+    { checkpointId: "COD-CP-003", ruleId: logic.ruleId, taskKind: logic.taskKind },
+  );
   return {
     packageId: "COD-001",
     qlId: logic.qlId,
@@ -155,16 +145,16 @@ function createCandidate(logic: CodCp003QuestionLogic, seed: number, attempt: nu
     ruleContext: context,
     seed,
     locale: "en-IN",
-    difficulty: deriveDifficulty(logic, prompt, context, wrapUsed),
+    difficulty,
     renderer: logic.renderer,
     answerType: logic.answerType,
     stem: buildStem(prompt, styleIndex),
     structuredPrompt: prompt,
     options,
     correctIndex,
-    explanation: buildCodCp003Explanation({ prompt, ruleId: logic.ruleId, context, fullTargetCode, answer, styleIndex }),
+    explanation,
     metadata: {
-      runtimeVersion: "cod-001-cp003-v1",
+      runtimeVersion: "cod-001-cp003-v2",
       publiclyPublishable: false,
       maturity: "RUNTIME_PROOF",
       hiddenFingerprint: `${logic.ruleId}:${JSON.stringify(context)}`,

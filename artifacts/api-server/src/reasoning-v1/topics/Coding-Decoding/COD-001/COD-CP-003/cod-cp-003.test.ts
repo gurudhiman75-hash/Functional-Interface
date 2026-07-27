@@ -43,6 +43,9 @@ for (const logic of COD_CP003_QUESTION_LOGICS) {
     assert.equal(first.stem.includes("COD_"), false);
     assert.equal(first.stem.includes("{{"), false);
     assert.equal(first.explanation.conclusion.includes(first.options[first.correctIndex]!.value), true);
+    assert.ok(first.explanation.referenceAid?.length);
+    assert.ok(first.explanation.quickMethod);
+    assert.ok(first.explanation.commonTrapAlert);
 
     if (number >= 53 && number <= 58) assert.ok((first.ruleContext.shift ?? 0) > 0);
     if (number >= 59 && number <= 64) assert.ok((first.ruleContext.shift ?? 0) < 0);
@@ -69,7 +72,7 @@ assert.equal(rules.size, 2);
 assert.deepEqual([...tasks].sort(), ["CHOOSE_MATCHING_CODE", "DECODE_TARGET", "ENCODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_LETTER"]);
 assert.deepEqual([...answers].sort(), ["LETTER_CLUSTER", "SINGLE_CODE_TOKEN"]);
 assert.deepEqual([...renderers].sort(), ["EXAMPLE_TARGET_BLOCK", "INLINE_CODE_PAIR", "MAPPING_TABLE"]);
-assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.deepEqual([...difficulties].sort(), ["EASY", "MEDIUM"]);
 assert.ok(Math.max(...positions) / Math.min(...positions) < 1.2, `Answer positions are imbalanced: ${positions.join(", ")}`);
 assert.ok(wrapped >= 400, `Expected all 400 forced-wrap samples plus natural wrap coverage, received ${wrapped}`);
 
