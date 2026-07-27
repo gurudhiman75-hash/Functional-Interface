@@ -29,32 +29,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Diagnose New-main merge conflicts
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin New-main
-          set +e
-          git merge --no-commit --no-ff origin/New-main
-          status=$?
-          set -e
-          if [ "$status" -eq 0 ]; then
-            echo "MERGE_STATUS=CLEAN"
-            git merge --abort || true
-            exit 0
-          fi
-          echo "MERGE_STATUS=CONFLICT"
-          echo "CONFLICT_FILES_BEGIN"
-          git diff --name-only --diff-filter=U
-          echo "CONFLICT_FILES_END"
-          git status --short
-          git merge --abort || true
-          exit 1
 
       - name: Set up Node
         uses: actions/setup-node@v4
