@@ -1,0 +1,79 @@
+name: Validate MAL-CP-001 prototype foundation
+
+on:
+  pull_request:
+    branches:
+      - design/mal-001-end-to-end-discovery
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**
+      - .github/workflows/mal-cp001-prototype-foundation.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-mal-cp001-prototype-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-mal-cp001-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle MAL-CP-001 deterministic proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-prototype.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-prototype.test.mjs
+      - name: Run MAL-CP-001 deterministic proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-proof.log
+      - name: Bundle MAL-CP-001 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-prototype-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-prototype-audit.mjs
+      - name: Run MAL-CP-001 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-audit.log
+      - name: Bundle MAL-CP-001 review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/mal-001-cp001-prototype-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/mal-001-cp001-prototype-review-export.mjs
+      - name: Generate MAL-CP-001 review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/mal-001-cp001-prototype-review-export.mjs
+      - name: Upload MAL-CP-001 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mal-cp001-prototype-foundation
+          path: |
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-proof.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-audit.log
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-review.json
+            artifacts/api-server/dist/quant-v4/mal-001-cp001-prototype-review.md
+          if-no-files-found: error
+          retention-days: 7
