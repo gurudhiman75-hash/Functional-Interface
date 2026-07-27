@@ -15,6 +15,7 @@ import type { AbstractSentenceCodePuzzle } from "./types";
 const answerPositions = [0, 0, 0, 0];
 const scenarioCoverage = new Map<string, Set<string>>();
 const visibleVariants = new Map<string, Set<string>>();
+const difficultyCounts = { EASY: 0, MEDIUM: 0 };
 let generated = 0;
 let activeDistractorsChecked = 0;
 let phraseQuestions = 0;
@@ -58,6 +59,7 @@ for (const contract of EXACT_SET_MISSING_PROTOTYPE_CONTRACTS) {
     assert.equal(first.permanentQlId, null);
     assert.equal(first.prototypeOnly, true);
     assert.equal(first.publiclyPublishable, false);
+    assert.equal(first.difficulty, contract.difficulty);
     assert.equal(JSON.stringify(first).includes("COD-QL-"), false);
     assert.equal(JSON.stringify(first.structuredPrompt).includes("reviewerWordIds"), false);
     assert.equal(JSON.stringify(first.structuredPrompt).includes('"rowId"'), false);
@@ -81,6 +83,7 @@ for (const contract of EXACT_SET_MISSING_PROTOTYPE_CONTRACTS) {
 
     if (first.structuredPrompt.kind === "EXACT_PHRASE_TO_TOKENS") {
       assert.equal(first.answerType, "CODE_TOKEN_SET");
+      assert.equal(first.difficulty, "MEDIUM");
       assert.equal(space.solutionCount, 2);
       assert.equal(first.metadata.individualPairAmbiguity, true);
       assert.equal(
@@ -102,6 +105,7 @@ for (const contract of EXACT_SET_MISSING_PROTOTYPE_CONTRACTS) {
       phraseQuestions += 1;
     } else if (first.structuredPrompt.kind === "EXACT_TOKENS_TO_PHRASE") {
       assert.equal(first.answerType, "WORD_SET");
+      assert.equal(first.difficulty, "MEDIUM");
       assert.equal(space.solutionCount, 2);
       assert.equal(first.metadata.individualPairAmbiguity, true);
       assert.equal(
@@ -119,6 +123,7 @@ for (const contract of EXACT_SET_MISSING_PROTOTYPE_CONTRACTS) {
       phraseQuestions += 1;
     } else if (first.structuredPrompt.kind === "MISSING_TOKEN") {
       assert.equal(first.answerType, "CODE_TOKEN");
+      assert.equal(first.difficulty, "EASY");
       assert.equal(first.metadata.individualPairAmbiguity, false);
       assert.equal((first.structuredPrompt.displayedCodeWithBlank.match(/\?/g) ?? []).length, 1);
       assert.equal(first.structuredPrompt.incompleteStatementId, "statement-1");
@@ -138,6 +143,7 @@ for (const contract of EXACT_SET_MISSING_PROTOTYPE_CONTRACTS) {
       missingQuestions += 1;
     } else {
       assert.equal(first.answerType, "WORD");
+      assert.equal(first.difficulty, "EASY");
       assert.equal(first.metadata.individualPairAmbiguity, false);
       assert.equal((first.structuredPrompt.displayedSentenceWithBlank.match(/_____/g) ?? []).length, 1);
       assert.equal(first.structuredPrompt.incompleteStatementId, "statement-1");
@@ -179,6 +185,7 @@ for (const contract of EXACT_SET_MISSING_PROTOTYPE_CONTRACTS) {
     );
 
     answerPositions[first.correctIndex] += 1;
+    difficultyCounts[first.difficulty] += 1;
     scenarioCoverage.get(contract.prototypeId)!.add(first.metadata.scenarioId);
     visibleVariants.get(contract.prototypeId)!.add(JSON.stringify({
       stem: first.stem,
@@ -197,6 +204,8 @@ assert.equal(phraseQuestions, 2 * 120);
 assert.equal(missingQuestions, 2 * 120);
 assert.equal(ambiguityTrapQuestions, 2 * 120);
 assert.equal(activeDistractorsChecked, generated * 2);
+assert.equal(difficultyCounts.EASY, 2 * 120);
+assert.equal(difficultyCounts.MEDIUM, 2 * 120);
 assert.ok(Math.max(...answerPositions) / Math.min(...answerPositions) < 1.25, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
 console.log(JSON.stringify({
@@ -207,6 +216,7 @@ console.log(JSON.stringify({
   generated,
   seedsPerContract: 120,
   answerPositions,
+  difficultyCounts,
   phraseQuestions,
   missingQuestions,
   ambiguityTrapQuestions,
