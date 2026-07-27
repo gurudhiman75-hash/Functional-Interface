@@ -7,6 +7,7 @@ const stems = new Map<string, Set<string>>();
 const explanations = new Map<string, Set<string>>();
 const forbiddenEnglish = /\b(?:North|South|East|West|metres?|turns?|walks?|walking|final position|starting point|Which|What|Who|Therefore|Statement|Morning|Evening|Noon|shadow|sun)\b/i;
 const internalLeak = /DIR-(?:QL|CP)-\d+|\bundefined\b|\bnull\b/;
+const latinWordLeak = /[A-Za-z]{2,}/;
 
 assert.equal(DIR_001_QLS.length, 44);
 assert.deepEqual(
@@ -42,18 +43,24 @@ for (const ql of DIR_001_QLS) {
     assert.ok(/[\u0900-\u097F]/.test(hindi.stem), `${ql.qlId} has no Devanagari: ${hindi.stem}`);
     assert.ok(!forbiddenEnglish.test(hindi.stem), `${ql.qlId} English leak: ${hindi.stem}`);
     assert.ok(!internalLeak.test(hindi.stem), `${ql.qlId} internal leak: ${hindi.stem}`);
+    assert.ok(!latinWordLeak.test(hindi.stem), `${ql.qlId} Latin word leak: ${hindi.stem}`);
     assert.ok(!/करता\/करती|था\/थी|है है|है। है/.test(hindi.stem), `${ql.qlId} unnatural gender or duplication: ${hindi.stem}`);
     const explanationText = [hindi.explanation.given, ...hindi.explanation.steps, hindi.explanation.resultLine, hindi.explanation.conclusion].join(" ");
     assert.ok(/[\u0900-\u097F]/.test(explanationText));
     assert.ok(!forbiddenEnglish.test(explanationText), `${ql.qlId} English explanation leak: ${explanationText}`);
     assert.ok(!internalLeak.test(explanationText), `${ql.qlId} explanation internal leak: ${explanationText}`);
+    assert.ok(!latinWordLeak.test(explanationText), `${ql.qlId} explanation Latin leak: ${explanationText}`);
+    assert.ok(hindi.options.every((option) => !latinWordLeak.test(option.label)), `${ql.qlId} option Latin leak`);
+    if (ql.qlId === "DIR-QL-010" && english.structuredPrompt.displayMode === "DECIMAL") {
+      assert.ok(hindi.options.every((option) => /^\d+\.\d मीटर$/.test(option.label)), `DIR-QL-010 decimal formatting: ${hindi.options.map((option) => option.label)}`);
+    }
     assert.ok(hindi.explanation.steps.length >= 2);
     const diagrams = [hindi.questionDiagram, hindi.explanation.diagram].filter(Boolean) as any[];
     for (const diagram of diagrams) {
       assert.ok(typeof diagram.svg === "string" && diagram.svg.includes("<svg"));
       assert.ok(diagram.svg.includes('role="img"'));
       assert.ok(diagram.svg.includes("aria-label="));
-      assert.ok(!/\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun)\b/.test(diagram.svg), `${ql.qlId} diagram English leak`);
+      assert.ok(!/\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun|Taran)\b/.test(diagram.svg), `${ql.qlId} diagram English leak`);
     }
     stems.get(ql.qlId)!.add(hindi.stem);
     explanations.get(ql.qlId)!.add(explanationText);
