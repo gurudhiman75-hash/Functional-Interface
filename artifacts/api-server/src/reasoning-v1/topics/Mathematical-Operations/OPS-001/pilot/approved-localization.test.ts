@@ -11,6 +11,7 @@ import {
 const LOCALES = ["hi-IN", "pa-IN"] as const satisfies readonly ApprovedOpsLocale[];
 const SEEDS_PER_CONTRACT = 50;
 const FORBIDDEN_ENGLISH = /\b(?:after|all|and|answer|apply|because|before|both|calculate|change|check|choice|complete|correct|determine|digit|division|do|each|equation|evaluate|every|exactly|expression|false|first|from|gives|global|identify|infer|insert|interchange|into|is|left|make|mapping|matching|means|must|not|number|occurrence|only|operation|operator|option|original|pair|printed|read|rebuild|relation|replace|replacement|result|right|same|select|side|statement|subtraction|target|test|the|then|this|throughout|token|transform|true|unique|use|value|which|with|works)\b/iu;
+const OPTION_LOCALIZED_CANDIDATES = new Set(["OPS-CAND-017", "OPS-CAND-026", "OPS-CAND-027"]);
 
 let localizedCount = 0;
 let maxStemLength = 0;
@@ -19,6 +20,7 @@ let maxStepLength = 0;
 function completeText(question: ReturnType<typeof localizeApprovedOpsQuestion>): string {
   return [
     question.stem,
+    ...question.options.map((option) => option.value),
     question.explanation.ruleStatement,
     ...question.explanation.steps.flatMap((step) => [step.label, step.expression, step.result]),
     question.explanation.conclusion,
@@ -35,7 +37,17 @@ for (const candidateId of OPS_APPROVED_CANDIDATE_IDS) {
       assert.equal(localized.seed, english.seed);
       assert.equal(localized.answer, english.answer);
       assert.equal(localized.correctIndex, english.correctIndex);
-      assert.deepEqual(localized.options, english.options);
+      assert.equal(localized.options.length, english.options.length);
+      assert.deepEqual(
+        localized.options.map((option) => option.errorLabel),
+        english.options.map((option) => option.errorLabel),
+        `${candidateId} ${locale} changed option semantics.`,
+      );
+      if (OPTION_LOCALIZED_CANDIDATES.has(candidateId)) {
+        assert.equal(localized.options[localized.correctIndex]?.value, localized.answer);
+      } else {
+        assert.deepEqual(localized.options, english.options);
+      }
       assert.deepEqual(localized.proof, english.proof);
       assert.equal(localized.metadata.localizationVersion, "OPS_APPROVED_V3_ALL_31");
       assert.equal(localized.metadata.localizationSourceLocale, "en-IN");
@@ -61,6 +73,16 @@ for (const candidateId of OPS_APPROVED_CANDIDATE_IDS) {
           assert.match(text, /ਗੁਣਾ/u);
           assert.match(text, /ਜੋੜ/u);
         }
+      }
+
+      if (candidateId === "OPS-CAND-017") {
+        assert.doesNotMatch(text, /Only one pair is required/iu);
+      }
+      if (candidateId === "OPS-CAND-026") {
+        assert.doesNotMatch(text, /no (?:number|operator) swap/iu);
+      }
+      if (candidateId === "OPS-CAND-027") {
+        assert.doesNotMatch(text, /no (?:digit|operator) interchange/iu);
       }
 
       maxStemLength = Math.max(maxStemLength, localized.stem.length);
