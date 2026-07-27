@@ -8,7 +8,7 @@
 | `PNC-CP-008` | fixed positions, starts/ends, relative order, alternation, position classes and explicit gap placement | Current English ownership saturated; runtime proof |
 | `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Current English ownership saturated; runtime proof |
 | `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Current English ownership saturated; runtime proof |
-| `PNC-CP-011` | labelled/unlabelled grouping and distribution | Grouping Wave 1 runtime proof: `PNC-QL-209..218`; distribution families pending |
+| `PNC-CP-011` | labelled/unlabelled grouping and distribution | Grouping Wave 1 plus distinct-object Distribution Wave 1 runtime proof: `PNC-QL-209..228`; identical-object distribution pending |
 | `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
 
 ## CP-007 represented scope
@@ -82,13 +82,33 @@ The first admitted English runtime wave contains ten QLs, `PNC-QL-209` through `
 
 Equal and unequal labelled-group presentations reuse one prescribed-group authority. Unnamed pairs reuse the general unnamed-equal-group authority. These merges avoid cosmetic solve-mode inflation while retaining distinct learner-facing QLs where the exam wording and misconception profile materially differ.
 
-The broader executable discovery remains active for:
+## CP-011 represented distinct-object distribution scope
 
-- distinct objects assigned to labelled boxes with unrestricted, non-empty, exact-use and occupancy conditions;
-- distinct objects partitioned into identical non-empty boxes through Stirling/Bell authority;
-- identical objects distributed among labelled boxes through stars-and-bars, minimum and controlled capacity conditions;
-- identical objects distributed into identical non-empty boxes through integer-partition authority;
-- bounded inverse recovery for selected grouping/distribution parameters.
+Distribution Wave 1 adds ten English QLs, `PNC-QL-219` through `PNC-QL-228`, with ten materially distinct solve modes:
+
+- unrestricted assignment of distinct objects to labelled receivers;
+- onto assignment when every labelled receiver must be non-empty;
+- exactly a stated number of labelled receivers used;
+- at least one labelled receiver empty by complement;
+- a complete prescribed occupancy vector for labelled receivers;
+- exact occupancy of one specified labelled receiver while others are unrestricted;
+- exact occupancy of one specified labelled receiver while every other receiver is non-empty;
+- exactly a stated number of identical non-empty receivers through Stirling authority;
+- at most a stated number of identical non-empty receivers through a bounded Stirling sum;
+- any positive number of unnamed non-empty groups through Bell-number authority.
+
+The reviewed runtime separately enforces receiver identity and TeX command integrity. Exhaustive labelled-assignment and restricted-growth set-partition enumerators provide independent answers for every admitted state.
+
+## Remaining CP-011 discovery scope
+
+The next source and gap audit begins at `PNC-QL-229` and covers:
+
+- identical objects distributed among labelled receivers through stars-and-bars;
+- non-empty, exact-use and at-least-one-empty conditions for identical objects;
+- common and specified-recipient minimum conditions;
+- controlled uniform capacities;
+- identical objects distributed into identical non-empty receivers through integer partitions;
+- bounded inverse recovery after forward-family maturity.
 
 The companion discovery matrix uses temporary `CP011-DISC-*` IDs for not-yet-admitted contracts. Those IDs are not question-language IDs and do not reserve final solve modes.
 
@@ -106,4 +126,4 @@ The active or discovering CPs do not own:
 
 Pure selection of an unrestricted proper subset followed directly by circular equivalence is CP-010 ownership. It becomes CP-012 only when the selection itself introduces named-member, category, quota or other mixed-system conditions.
 
-Current implemented PNC-002 QLs are `PNC-QL-107` through `PNC-QL-218`. The next available immutable family ID is `PNC-QL-219`.
+Current implemented PNC-002 QLs are `PNC-QL-107` through `PNC-QL-228`. The next available immutable family ID is `PNC-QL-229`.
