@@ -16,10 +16,10 @@ export const DIRECTION_LABELS: Readonly<Record<Direction, string>> = {
 };
 
 export const TURN_LABELS: Readonly<Record<AdvancedTurn, string>> = {
-  LEFT: "Left turn",
-  RIGHT: "Right turn",
-  ABOUT: "About turn",
-  NO_TURN: "No turn",
+  LEFT: "Turn left",
+  RIGHT: "Turn right",
+  ABOUT: "Turn around",
+  NO_TURN: "Continue straight",
 };
 
 export function cardinalVector(direction: Direction, distance: number): Coordinate {
