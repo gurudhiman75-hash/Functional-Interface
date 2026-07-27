@@ -7,6 +7,7 @@ on:
       - feat/ana-cp009-coupled-invariant-proof
       - feat/ana-cp009-legacy-allocation-audit
       - feat/ana-cp009-conditional-admission-gate
+      - feat/ana-cp009-changing-vector-canonicalization
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/**
       - .github/workflows/ana-cp-009-source-boundary.yml
@@ -56,3 +57,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/legacy-allocation-boundary.test.ts
       - name: Run conditional-branch admission gate
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/conditional-branch-admission.test.ts
+      - name: Run changing-vector canonicalization audit
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/provisional-changing-vector-canonicalization.test.ts
