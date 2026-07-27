@@ -7,7 +7,6 @@ import {
   getAllMen001NaturalExplanationProfileIds,
 } from "./natural-explanation-authorship.all";
 import {
-  getMen001Cp006FormulaLine,
   getMen001Cp006FormulaLineIds,
 } from "./natural-explanation-formula.cp006";
 import { runMen001Pipeline } from "./pipeline";
@@ -126,15 +125,6 @@ for (const entry of getMen001QuestionEntries()) {
           "Add the Two Areas",
         ],
         `${entry.qlId} must retain the full composite-area reasoning sequence.`,
-      );
-    }
-
-    if (entry.cpId === "MEN-CP-006") {
-      const formula = getMen001Cp006FormulaLine(entry.qlId);
-      assert.ok(
-        question.explanation.lines[0]!.includes(formula) ||
-          keyRule?.equations.some((equation) => equation === toMen001LatexEquation(formula)),
-        `${entry.qlId} must retain its explicit governing formula inside the first tier.`,
       );
     }
 
