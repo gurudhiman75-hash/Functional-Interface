@@ -53,7 +53,10 @@ The runtime is intentionally isolated from the shared PNC-002 package composer u
 
 ## Exact proof
 
-The dedicated workflow passed on implementation head `32ef22288e7b5848fea11a5b8b04d44a0fb79667` before documentation reconciliation.
+Final exact-head validation passed on head `731c4392f5a4b90e4d3d7ccb4305d3e37f0258ad`:
+
+- grouping runtime workflow run `30261077404` — PASS;
+- executable-discovery regression run `30261077364` — PASS.
 
 Proof results:
 
@@ -73,8 +76,6 @@ Proof results:
 - duplicate QL templates: 0;
 - invalid audit samples: 0;
 - review rows: 10.
-
-The executable-discovery regression also passed on the same head.
 
 ## Manual editorial review
 
