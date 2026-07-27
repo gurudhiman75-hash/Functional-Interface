@@ -32,11 +32,12 @@ const EXPLANATION_OVERRIDES: Readonly<Record<string, string>> = {
   "use-linear-conversion-factor": "uses the linear unit-conversion factor for an area conversion instead of squaring it",
 };
 
-const ACTION_WORDS = new Set([
-  "add", "average", "choose", "cost", "count", "divide", "double", "expand", "halve",
-  "ignore", "miss", "multiply", "omit", "paint", "quarter", "report", "retain", "root",
-  "shrink", "single", "square", "subtract", "take", "tile", "treat", "triple", "use",
+const PRIMARY_ACTIONS = new Set([
+  "add", "choose", "cost", "count", "divide", "double", "expand", "halve", "ignore",
+  "miss", "multiply", "omit", "paint", "report", "retain", "shrink", "subtract", "take",
+  "tile", "treat", "triple", "use",
 ]);
+const SECONDARY_ACTIONS = new Set(["average", "quarter", "root", "single", "square"]);
 
 function readableOption(value: string) {
   return value
@@ -68,7 +69,6 @@ function cleanTokens(strategyId: string) {
 function phrase(tokens: readonly string[]) {
   return tokens
     .join(" ")
-    .replace(/\bone\b/g, "one")
     .replace(/\bhalf factor\b/g, "the 1/2 factor")
     .replace(/\bquarter factor\b/g, "the 1/4 factor")
     .replace(/\bscale square\b/g, "the squared scale factor")
@@ -76,7 +76,6 @@ function phrase(tokens: readonly string[]) {
     .replace(/\bwire square over eight\b/g, "the wire length squared divided by 8")
     .replace(/\bwire square\b/g, "the wire length squared")
     .replace(/\broot ([a-z ]+)/g, "the square root of $1")
-    .replace(/\binstead of\b/g, "instead of")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -87,23 +86,39 @@ function withArticle(value: string) {
   return `the ${value}`;
 }
 
-function generatedExplanation(strategyId: string) {
+function actionDetails(strategyId: string) {
   const tokens = cleanTokens(strategyId);
-  const actionIndex = tokens.findIndex((token) => ACTION_WORDS.has(token));
+  let actionIndex = tokens.findIndex((token) => PRIMARY_ACTIONS.has(token));
+  if (actionIndex < 0) actionIndex = tokens.findIndex((token) => SECONDARY_ACTIONS.has(token));
+  if (actionIndex < 0) return { tokens, actionIndex: -1, action: "fallback", context: "", target: phrase(tokens) };
+  return {
+    tokens,
+    actionIndex,
+    action: tokens[actionIndex]!,
+    context: phrase(tokens.slice(0, actionIndex)),
+    target: phrase(tokens.slice(actionIndex + 1)),
+  };
+}
+
+function generatedExplanation(strategyId: string) {
+  const { tokens, actionIndex, action, context, target } = actionDetails(strategyId);
   if (actionIndex < 0) {
-    return `uses ${withArticle(phrase(tokens))} as the answer instead of completing the required relation`;
+    return `uses ${withArticle(target)} as the answer instead of completing the required relation`;
   }
 
-  const action = tokens[actionIndex]!;
-  const context = phrase(tokens.slice(0, actionIndex));
-  const target = phrase(tokens.slice(actionIndex + 1));
   const object = withArticle(target);
   const required = context ? `the required ${context}` : "the quantity asked for";
+  const asParts = target.split(" as ");
+  const insteadParts = target.split(" instead of ");
 
   switch (action) {
     case "report": return `reports ${object} instead of ${required}`;
     case "retain": return `stops at ${object} instead of completing ${required}`;
-    case "use": return `uses ${object} as ${required}`;
+    case "use": {
+      if (insteadParts.length === 2) return `uses ${withArticle(insteadParts[0]!)} instead of ${withArticle(insteadParts[1]!)}`;
+      if (asParts.length === 2) return `uses ${withArticle(asParts[0]!)} as ${withArticle(asParts[1]!)}`;
+      return `uses ${object} when finding ${required}`;
+    }
     case "omit": return `omits ${object} from ${required}`;
     case "add": return `adds ${object} although ${required} needs a different operation`;
     case "subtract": return `subtracts ${object} at the wrong stage of ${required}`;
@@ -115,7 +130,7 @@ function generatedExplanation(strategyId: string) {
     case "quarter": return `takes one quarter of ${object}`;
     case "square": return `squares ${object}`;
     case "root": return `takes the square root of ${object}`;
-    case "take": return target.startsWith("root ")
+    case "take": return tokens[actionIndex + 1] === "root"
       ? `takes the square root of ${withArticle(phrase(tokens.slice(actionIndex + 2)))}`
       : `takes ${object}`;
     case "single": return `counts only one ${target || "required part"}`;
@@ -134,17 +149,17 @@ function generatedExplanation(strategyId: string) {
 }
 
 function consequence(strategyId: string) {
-  const normalized = cleanTokens(strategyId).join("-");
-  if (/^(omit|retain|report)-/.test(normalized) || /-(omit|retain|report)-/.test(normalized)) {
+  const { action } = actionDetails(strategyId);
+  if (["omit", "retain", "report", "miss", "ignore"].includes(action)) {
     return "A required stage of the governing relation is missing.";
   }
-  if (/^(double|triple|add|expand)-/.test(normalized) || /-(double|triple|add|expand)-/.test(normalized)) {
+  if (["double", "triple", "add", "expand"].includes(action)) {
     return "This normally overstates the requested result.";
   }
-  if (/^(halve|quarter|divide|subtract|shrink)-/.test(normalized) || /-(halve|quarter|divide|subtract|shrink)-/.test(normalized)) {
+  if (["halve", "quarter", "divide", "subtract", "shrink"].includes(action)) {
     return "This normally understates the requested result.";
   }
-  if (/^(square|root)-/.test(normalized) || /-(square|root)-/.test(normalized)) {
+  if (["square", "root"].includes(action)) {
     return "This changes the dimension or power of the required quantity.";
   }
   return "It answers a different geometric quantity or uses the wrong relation.";
