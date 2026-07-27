@@ -49,6 +49,10 @@ for (const ql of DIR_CP007_QLS) {
     );
     assert.ok(question.stem.length >= 70);
     assert.ok(!/[{}]|\bundefined\b|\bnull\b/.test(question.stem));
+    assert.ok(
+      !/\bconvention\b/i.test(question.stem),
+      `learner-facing stem must use natural exam wording instead of convention language: ${question.stem}`,
+    );
     assert.ok(question.explanation.conclusion.startsWith("Therefore,"));
 
     for (const role of [
