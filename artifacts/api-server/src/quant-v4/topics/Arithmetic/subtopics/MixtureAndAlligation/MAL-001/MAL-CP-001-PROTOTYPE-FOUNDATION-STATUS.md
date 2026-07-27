@@ -1,6 +1,6 @@
 # MAL-CP-001 Prototype Foundation Status
 
-Status: **executable discovery foundation implemented; GitHub CI and editorial review pending**  
+Status: **executable discovery foundation implemented; exact-head CI passed; manual product review pending**  
 Branch: `feat/mal-001-cp001-prototype-foundation`  
 Base: `design/mal-001-end-to-end-discovery`  
 Permanent QLs: **0**  
@@ -210,10 +210,9 @@ The pack contains 36 questions: four deterministic examples for each prototype c
 
 ## 9. Next review gates
 
-1. GitHub exact-head CI;
-2. inspect the 36-question English review pack;
-3. classify each prototype as retain, merge, split, defer or reassign;
-4. recover official/source fixtures for boundary-sensitive cases;
-5. run inverse, representation and source-format gap audits;
-6. add any genuinely missing prototype contract;
-7. freeze CP-001 QLs only after the final gap audit and manual approval.
+1. inspect the 36-question English review pack in full;
+2. classify each prototype as retain, merge, split, defer or reassign;
+3. recover official/source fixtures for boundary-sensitive cases;
+4. run inverse, representation and source-format gap audits;
+5. add any genuinely missing prototype contract;
+6. freeze CP-001 QLs only after the final gap audit and manual approval.
