@@ -29,7 +29,7 @@ export function validateMalCp001GeneratedPrototype(
   if (!question.stem.trim().endsWith("?")) errors.push("Stem must end with a question mark.");
   if (/^[a-z]/u.test(question.stem)) errors.push("Stem must begin with a capital letter.");
   if (awkwardLearnerGrammar.test(question.stem) || misCapitalisedUnit.test(question.stem)) {
-    errors.push("Stem contains a known learner-facing grammar defect.");
+    errors.push(`Stem contains a known learner-facing grammar defect: ${question.stem}`);
   }
   if (/\{\{|\}\}|TODO|PLACEHOLDER|undefined|null/iu.test(question.stem)) {
     errors.push("Stem contains unresolved or internal placeholder text.");
