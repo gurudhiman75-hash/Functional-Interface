@@ -2,6 +2,7 @@ import { strict as assert } from "node:assert";
 import { TMW_CP007_REGISTRY } from "./foundation/cp007-registry";
 import { runTmwCp007Pipeline } from "./foundation/cp007-runtime";
 import { verifyTmwCp007 } from "./foundation/cp007-solver";
+import { buildTmwCp007ReviewRows } from "./foundation/cp007-review";
 
 const correctPositions=new Set<number>(),stems=new Set<string>();let generatedCount=0;
 for(const entry of TMW_CP007_REGISTRY){
@@ -14,5 +15,6 @@ for(const entry of TMW_CP007_REGISTRY){
   }
   assert.equal(qlPositions.size,4,`${entry.qlId} did not reach all four answer positions`);assert.ok(qlStems.size>=3,`${entry.qlId} stem diversity is too low`);
 }
+const reviewRows=buildTmwCp007ReviewRows(3);assert.equal(reviewRows.length,48);for(const entry of TMW_CP007_REGISTRY){const qlRows=reviewRows.filter(row=>row.qlId===entry.qlId);assert.equal(qlRows.length,3);assert.equal(new Set(qlRows.map(row=>row.stem)).size,3,`${entry.qlId} review rows are not distinct`);}
 assert.equal(TMW_CP007_REGISTRY.length,16);assert.equal(generatedCount,800);assert.equal(correctPositions.size,4);assert.throws(()=>runTmwCp007Pipeline({questionLanguageId:"TMW-QL-128",seed:"locale",language:"hi"}));assert.throws(()=>runTmwCp007Pipeline({questionLanguageId:"TMW-QL-999",seed:"unknown"}));
 console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-007",qlCount:TMW_CP007_REGISTRY.length,seedsPerQl:50,generatedCount,distinctStems:stems.size,correctAnswerPositions:[...correctPositions].sort(),status:"PASS"},null,2));
