@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/ana-cp009-source-boundary
+      - feat/ana-cp009-coupled-invariant-proof
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/**
       - .github/workflows/ana-cp-009-source-boundary.yml
@@ -47,3 +48,5 @@ jobs:
             $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009 -name '*.ts' -print)
       - name: Run source ownership audit
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/provisional-source-boundary.test.ts
+      - name: Run coupled-invariant ambiguity proof
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/provisional-coupled-invariant-pilot.test.ts
