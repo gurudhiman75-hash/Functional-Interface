@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-pnc-002-cp012-${{ github.ref }}
@@ -30,6 +30,38 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-cp012-mixed-advanced-runtime-proof
+      - name: Repair authored JSON LaTeX escaping once
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          paths = [
+              Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/question-language.cp012-mixed.en.json'),
+              Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/explanation-by-ql.cp012-mixed.en.json'),
+          ]
+          changed = False
+          for path in paths:
+              text = path.read_text()
+              repaired = text.replace('\\(', '\\\\(').replace('\\)', '\\\\)')
+              if repaired != text:
+                  path.write_text(repaired)
+                  changed = True
+          if not changed:
+              print('authored JSON escaping already repaired')
+          PY
+          if ! git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/question-language.cp012-mixed.en.json \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/explanation-by-ql.cp012-mixed.en.json; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/question-language.cp012-mixed.en.json \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/explanation-by-ql.cp012-mixed.en.json
+            git commit -m "fix(pnc): escape CP-012 authored LaTeX delimiters"
+            git push origin HEAD:feat/pnc-002-cp012-mixed-advanced-runtime-proof
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
