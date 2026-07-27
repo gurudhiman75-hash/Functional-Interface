@@ -4,6 +4,7 @@ import { buildTmwCp006Parameters } from "./cp006-parameters";
 import { buildTmwCp006CommonTrap, buildTmwCp006Givens, buildTmwCp006Shortcut } from "./cp006-learning";
 import { tmwCp006KeyRule } from "./cp006-key-rule";
 import { renderTmwCp006Stem, tmwCp006Conclusion, tmwCp006ExplanationOpening } from "./cp006-presentation";
+import { polishTmwCp006Solution } from "./cp006-solution-polish";
 import { isPositiveCp006Answer, solveTmwCp006, verifyTmwCp006 } from "./cp006-solver";
 import { rationalKey } from "./rational";
 import type { TmwCp006GeneratedQuestion, TmwCp006Parameters } from "./cp006-types";
@@ -20,7 +21,8 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   if(input.language&&input.language!=="en")throw new Error("TMW-CP-006 is English only at the current runtime-proof stage");
   const entry=getTmwCp006Entry(input.questionLanguageId);
   const parameters=buildTmwCp006Parameters(entry,input.seed);
-  const solution=solveTmwCp006(entry,parameters);
+  const rawSolution=solveTmwCp006(entry,parameters);
+  const solution=polishTmwCp006Solution(entry,parameters,rawSolution);
   const optionSet=buildTmwCp006Options(entry,parameters,solution,input.seed);
   const stem=renderTmwCp006Stem(entry,parameters);
   const formula=inlineMath(solution.formulaLatex),steps=solution.workedLatex.map(inlineMath),errors:string[]=[];
