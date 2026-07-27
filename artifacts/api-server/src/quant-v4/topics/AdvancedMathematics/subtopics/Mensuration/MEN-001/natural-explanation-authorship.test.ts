@@ -12,6 +12,7 @@ import {
 } from "./natural-explanation-formula.cp006";
 import { runMen001Pipeline } from "./pipeline";
 import { assertMen001StructuredExplanation } from "./structured-explanation-display-assertion";
+import { toMen001LatexEquation } from "./structured-math-latex";
 import type { Men001ActiveCanonicalProblemId } from "./types";
 
 function proseSignature(lines: readonly string[]) {
@@ -44,7 +45,6 @@ assert.deepEqual(
 );
 
 const signatureOwner = new Map<string, string>();
-const lineCountDistribution = new Map<number, number>();
 const stepCountDistribution = new Map<number, number>();
 const roboticOpening = /^(Check:|Substitution:|Calculation:|Therefore,|Hence,|Thus,|So,|The required quantity is|This value measures|The result is)/i;
 
@@ -66,15 +66,15 @@ for (const entry of getMen001QuestionEntries()) {
         .map((item) => `${item.name}: ${item.message}`)
         .join("; "),
     );
-    assert.ok(
-      question.explanation.lines.length >= 3 &&
-        question.explanation.lines.length <= 9,
-      `${entry.qlId} should use only as many compatibility lines as its reasoning needs.`,
+    assert.equal(
+      question.explanation.lines.length,
+      4,
+      `${entry.qlId} must expose exactly four canonical learner-facing blocks.`,
     );
     assert.equal(
-      question.explanation.lines.some((line) => roboticOpening.test(line)),
+      question.explanation.lines.some((line) => roboticOpening.test(line.replace(/^### [^\n]+\n+/, ""))),
       false,
-      `${entry.qlId} still contains a robotic explanation label or conclusion.`,
+      `${entry.qlId} still contains a robotic explanation opening.`,
     );
     assert.ok(
       question.explanation.lines.some(
@@ -90,9 +90,11 @@ for (const entry of getMen001QuestionEntries()) {
       keyRule?.equations.some((equation) => equation.includes("=")),
       `${entry.qlId} Key Rule must show an explicit governing formula.`,
     );
-    const finalSection = question.explanation.sections.at(-1);
-    assert.equal(finalSection?.kind, "FINAL_ANSWER");
-    assert.equal(finalSection?.equations.length, 1);
+    assert.equal(
+      question.explanation.sections.some((section) => section.kind === "FINAL_ANSWER"),
+      false,
+      `${entry.qlId} must not expose a separate Final Answer section.`,
+    );
 
     const structuredSteps = question.explanation.sections.filter(
       (section) => section.kind === "STEP",
@@ -109,6 +111,10 @@ for (const entry of getMen001QuestionEntries()) {
       ),
       `${entry.qlId} repeats an adjacent structured step title.`,
     );
+    assert.ok(
+      structuredSteps.at(-1)?.equations.includes(toMen001LatexEquation(question.answer)),
+      `${entry.qlId} must place its final result inside the last worked step.`,
+    );
 
     if (entry.solveMode === "findRectangleSemicircleCompositeArea") {
       assert.deepEqual(
@@ -124,14 +130,11 @@ for (const entry of getMen001QuestionEntries()) {
     }
 
     if (entry.cpId === "MEN-CP-006") {
-      assert.equal(
-        question.explanation.lines[1],
-        getMen001Cp006FormulaLine(entry.qlId),
-        `${entry.qlId} must show its governing formula immediately after the contextual opening.`,
-      );
+      const formula = getMen001Cp006FormulaLine(entry.qlId);
       assert.ok(
-        question.explanation.lines[1]!.includes("="),
-        `${entry.qlId} formula line must contain an explicit mathematical relation.`,
+        question.explanation.lines[0]!.includes(formula) ||
+          keyRule?.equations.some((equation) => equation === toMen001LatexEquation(formula)),
+        `${entry.qlId} must retain its explicit governing formula inside the first tier.`,
       );
     }
 
@@ -145,11 +148,6 @@ for (const entry of getMen001QuestionEntries()) {
         `${entry.qlId} duplicates the normalized prose signature of ${previousSignature}.`,
       );
       signatureOwner.set(signature, entry.qlId);
-      const lineCount = question.explanation.lines.length;
-      lineCountDistribution.set(
-        lineCount,
-        (lineCountDistribution.get(lineCount) ?? 0) + 1,
-      );
       stepCountDistribution.set(
         structuredSteps.length,
         (stepCountDistribution.get(structuredSteps.length) ?? 0) + 1,
@@ -160,18 +158,11 @@ for (const entry of getMen001QuestionEntries()) {
 
 assert.equal(signatureOwner.size, qlIds.length);
 assert.ok(
-  lineCountDistribution.size >= 3,
-  "The chapter should not force every compatibility explanation into the same line structure.",
-);
-assert.ok(
   stepCountDistribution.size >= 2,
-  "The structured explanations should use a need-based number of steps.",
+  "The worked-solution tier should retain a need-based number of steps.",
 );
 console.log(
-  `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures across three states each.`,
-);
-console.log(
-  `Compatibility line-count distribution: ${JSON.stringify(Object.fromEntries([...lineCountDistribution].sort(([a], [b]) => a - b)))}`,
+  `MEN-001 natural explanation authorship passed for ${qlIds.length} QLs with ${signatureOwner.size} unique normalized prose signatures and exactly four canonical learner-facing blocks across three states each.`,
 );
 console.log(
   `Structured step-count distribution: ${JSON.stringify(Object.fromEntries([...stepCountDistribution].sort(([a], [b]) => a - b)))}`,
