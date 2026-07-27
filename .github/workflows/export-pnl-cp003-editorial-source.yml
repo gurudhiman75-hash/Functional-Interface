@@ -42,7 +42,7 @@ jobs:
             --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs
           node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs
           cp \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-generated/CP-003.editorial-content.en.json \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-generated/CP-003.editorial-content.en.json \
             CP-003.editorial-content.en.json
 
       - name: Upload corrected source
