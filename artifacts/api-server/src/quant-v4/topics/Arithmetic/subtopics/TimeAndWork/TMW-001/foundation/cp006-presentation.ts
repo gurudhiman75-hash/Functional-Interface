@@ -8,6 +8,10 @@ function noun(value:Rational,singular:string,plural:string):string{return equals
 function resourceCount(p:TmwCp006Parameters,value:Rational):string{return `${number(value)} ${noun(value,p.context.resourceSingular,p.context.resourcePlural)}`;}
 function days(value:Rational):string{return `${number(value)} ${noun(value,"day","days")}`;}
 function hours(value:Rational):string{return `${number(value)} ${noun(value,"hour","hours")} per day`;}
+function resourceDuration(p:TmwCp006Parameters):string{
+  const value=p.stateA.days;
+  return p.context.resourceTimeUnit.endsWith("hours")?`${number(value)} ${noun(value,"hour","hours")}`:days(value);
+}
 function workRelation(p:TmwCp006Parameters):string{
   const ratio=divide(p.stateB.work,p.stateA.work);
   return equals(ratio,rational(1))?"the same amount of work":`${number(ratio)} times the original amount of work`;
@@ -42,7 +46,7 @@ export function renderTmwCp006Stem(entry:TmwCp006RegistryEntry,p:TmwCp006Paramet
     case "findResourceDurationAfterPopulationChange":return `The available food is sufficient for ${number(required(p.initialPopulation,"initialPopulation"))} people for ${days(a.days)}. After ${days(required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange"))}, the population becomes ${number(required(p.changedPopulation,"changedPopulation"))}. For how many more days will the remaining food last?`;
     case "findCompletionTimeAfterAbsenteeism":return `${resourceCount(p,a.resources)} are scheduled to complete ${c.jobPhrase} in ${days(a.days)}. If ${number(required(p.absentPercent,"absentPercent"))}% remain absent throughout, in how many days will the active workforce complete the work?`;
     case "findCompletionWithBatchWorkerAdditions":return `${resourceCount(p,a.resources)} can complete ${c.jobPhrase} in ${days(a.days)}. Instead, ${number(required(p.initialBatchResources,"initialBatchResources"))} ${c.resourcePlural} start the work and ${number(required(p.batchAddition,"batchAddition"))} more join at the beginning of each following day. In how many days will the work be completed?`;
-    case "findEquivalentResourceTime":return `Find the equivalent ${c.resourceTimeUnit} represented by ${resourceCount(p,a.resources)} working for ${days(a.days)}.`;
+    case "findEquivalentResourceTime":return `Find the equivalent ${c.resourceTimeUnit} represented by ${resourceCount(p,a.resources)} working for ${resourceDuration(p)}.`;
   }
 }
 
@@ -69,7 +73,7 @@ export function tmwCp006ExplanationOpening(entry:TmwCp006RegistryEntry):string{
     case "findResourceDurationAfterPopulationChange":return "Convert the remaining stock into person-days after the elapsed period, then divide by the new population.";
     case "findCompletionTimeAfterAbsenteeism":return "Convert the absence percentage into the active workforce and recalculate the completion time.";
     case "findCompletionWithBatchWorkerAdditions":return "Add the workforce used on successive days as an arithmetic series until it equals the required worker-days.";
-    case "findEquivalentResourceTime":return "Multiply the number of resources by the duration to obtain the equivalent resource-time.";
+    case "findEquivalentResourceTime":return "Match the duration unit to the requested resource-time unit, then multiply the resource count by that duration.";
   }
 }
 
@@ -87,6 +91,7 @@ export function tmwCp006Conclusion(entry:TmwCp006RegistryEntry,p:TmwCp006Paramet
     case "findResourceDurationAfterPopulationChange":return `Therefore, the remaining stock will last ${answerText}.`;
     case "findCompletionTimeAfterAbsenteeism":return `Therefore, the active workforce will complete ${p.context.jobPhrase} in ${answerText}.`;
     case "findCompletionWithBatchWorkerAdditions":return `Therefore, the batch-addition schedule completes ${p.context.jobPhrase} in ${answerText}.`;
+    case "findEquivalentResourceTime":return `Therefore, the schedule represents ${answerText}.`;
     default:return `Therefore, the required answer is ${answerText}.`;
   }
 }
