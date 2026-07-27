@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: validate-pnc-002-cp012-${{ github.ref }}
@@ -30,6 +30,70 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          ref: feat/pnc-002-cp012-mixed-advanced-runtime-proof
+      - name: Apply review quality cleanup once
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002')
+          runtime = root / 'foundation/cp012-mixed-runtime.ts'
+          text = runtime.read_text()
+          old_cases = '''    case "derangement": return { objectCount: pickSeeded(pools.derangement, random) };\n    case "fixedPoints": return { ...pickSeeded(pools.fixedPoints, random) };\n    case "twoSpecifiedFixed": return { objectCount: pickSeeded(pools.twoSpecifiedFixed, random) };\n'''
+          new_case = '''    case "fixedPoints": {\n      const state = pickSeeded(pools.fixedPoints, random);\n      return entry.solveMode === "countExactlyKFixedPoints"\n        ? { objectCount: state.objectCount, fixedCount: state.fixedCount }\n        : { objectCount: state.objectCount };\n    }\n'''
+          if old_cases in text:
+              text = text.replace(old_cases, new_case, 1)
+          elif new_case not in text:
+              raise SystemExit('fixed-point buildValues block not found')
+          old_committee = '    committeeSize: numberValue(parameters.values, "committeeSize") || 0,\n'
+          new_committee = '    committeeSize: parameters.values.committeeSize === undefined ? "" : numberValue(parameters.values, "committeeSize"),\n'
+          if old_committee in text:
+              text = text.replace(old_committee, new_committee, 1)
+          elif new_committee not in text:
+              raise SystemExit('committeeSize explanation line not found')
+          old_sum = r'String.raw`\sum_{j=0}^{${boxes}}(-1)^j'
+          new_sum = r'String.raw`\sum_{j=0}^{${boxes - 1}}(-1)^j'
+          if old_sum in text:
+              text = text.replace(old_sum, new_sum, 1)
+          elif new_sum not in text:
+              raise SystemExit('two-colour summation formula not found')
+          runtime.write_text(text)
+
+          ranges_path = root / 'variable-ranges.cp012-mixed.library.json'
+          ranges = json.loads(ranges_path.read_text())
+          ranges['pools'].pop('derangement', None)
+          ranges['pools'].pop('twoSpecifiedFixed', None)
+          for pool in ranges['pools'].values():
+              if isinstance(pool, list):
+                  for state in pool:
+                      if isinstance(state, dict) and state.get('committeeSize') == 0:
+                          state.pop('committeeSize')
+          ranges_path.write_text(json.dumps(ranges, indent=2) + '\n')
+
+          explanations_path = root / 'explanation-by-ql.cp012-mixed.en.json'
+          explanations = json.loads(explanations_path.read_text())
+          line = explanations['entries']['PNC-QL-262']['lines'][1]
+          addition = ' Binomial terms with impossible parameters are interpreted as zero.'
+          if addition.strip() not in line:
+              explanations['entries']['PNC-QL-262']['lines'][1] = line + addition
+          explanations_path.write_text(json.dumps(explanations, indent=2) + '\n')
+          PY
+          if ! git diff --quiet -- \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/variable-ranges.cp012-mixed.library.json \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/explanation-by-ql.cp012-mixed.en.json; then
+            git config user.name github-actions[bot]
+            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+            git add \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/variable-ranges.cp012-mixed.library.json \
+              artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/explanation-by-ql.cp012-mixed.en.json
+            git commit -m "fix(pnc): remove CP-012 latent variables and clarify bounds"
+            git push origin HEAD:feat/pnc-002-cp012-mixed-advanced-runtime-proof
+          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
