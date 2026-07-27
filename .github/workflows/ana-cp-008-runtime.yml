@@ -1,0 +1,117 @@
+name: Validate ANA-CP-008 runtime
+
+on:
+  push:
+    branches:
+      - feat/ana-cp008-runtime-proof
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP008.md
+      - .github/workflows/ana-cp-008-runtime.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/**
+      - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-001-MANIFEST-AMENDMENT-CP008.md
+      - .github/workflows/ana-cp-008-runtime.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ana-cp-008-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008 -name '*.ts' -print) \
+            src/reasoning-v1/topics/Analogy/ANA-001/foundation/alphabet.ts
+
+  english-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Capture English runtime audit
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/ana-cp-008-runtime.test.ts 2>&1 | tee /tmp/ana-cp-008-english.log
+          echo "${PIPESTATUS[0]}" > /tmp/ana-cp-008-english-exit
+          exit 0
+      - name: Publish English diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-008-english-diagnostics
+          path: |
+            /tmp/ana-cp-008-english.log
+            /tmp/ana-cp-008-english-exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce English runtime audit
+        run: test "$(cat /tmp/ana-cp-008-english-exit)" = "0"
+
+  localized-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Capture Hindi and Punjabi parity audit
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/ana-cp-008-localized.test.ts > /tmp/ana-cp-008-localized.log 2>&1
+          status=$?
+          echo "$status" > /tmp/ana-cp-008-localized-exit
+          tail -n 60 /tmp/ana-cp-008-localized.log
+          exit 0
+      - name: Publish localized diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-008-localized-diagnostics
+          path: |
+            /tmp/ana-cp-008-localized.log
+            /tmp/ana-cp-008-localized-exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce localized runtime audit
+        run: test "$(cat /tmp/ana-cp-008-localized-exit)" = "0"
