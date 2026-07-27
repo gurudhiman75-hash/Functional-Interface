@@ -1,10 +1,14 @@
-import type { ExactSetMissingPrototypeId } from "./exact-set-missing-types";
+import type {
+  ExactSetMissingDifficulty,
+  ExactSetMissingPrototypeId,
+} from "./exact-set-missing-types";
 
 export interface ExactSetMissingPrototypeContract {
   prototypeId: ExactSetMissingPrototypeId;
   promptKind: "EXACT_PHRASE_TO_TOKENS" | "EXACT_TOKENS_TO_PHRASE" | "MISSING_TOKEN" | "MISSING_WORD";
   topologyKind: "PHRASE_SET_COMPOSITION" | "MISSING_MEMBER_COMPLETION";
   answerType: "CODE_TOKEN_SET" | "WORD_SET" | "CODE_TOKEN" | "WORD";
+  difficulty: ExactSetMissingDifficulty;
   status: "PROTOTYPE";
 }
 
@@ -14,6 +18,7 @@ export const EXACT_SET_MISSING_PROTOTYPE_CONTRACTS: readonly ExactSetMissingProt
     promptKind: "EXACT_PHRASE_TO_TOKENS",
     topologyKind: "PHRASE_SET_COMPOSITION",
     answerType: "CODE_TOKEN_SET",
+    difficulty: "MEDIUM",
     status: "PROTOTYPE",
   },
   {
@@ -21,6 +26,7 @@ export const EXACT_SET_MISSING_PROTOTYPE_CONTRACTS: readonly ExactSetMissingProt
     promptKind: "EXACT_TOKENS_TO_PHRASE",
     topologyKind: "PHRASE_SET_COMPOSITION",
     answerType: "WORD_SET",
+    difficulty: "MEDIUM",
     status: "PROTOTYPE",
   },
   {
@@ -28,6 +34,7 @@ export const EXACT_SET_MISSING_PROTOTYPE_CONTRACTS: readonly ExactSetMissingProt
     promptKind: "MISSING_TOKEN",
     topologyKind: "MISSING_MEMBER_COMPLETION",
     answerType: "CODE_TOKEN",
+    difficulty: "EASY",
     status: "PROTOTYPE",
   },
   {
@@ -35,6 +42,7 @@ export const EXACT_SET_MISSING_PROTOTYPE_CONTRACTS: readonly ExactSetMissingProt
     promptKind: "MISSING_WORD",
     topologyKind: "MISSING_MEMBER_COMPLETION",
     answerType: "WORD",
+    difficulty: "EASY",
     status: "PROTOTYPE",
   },
 ] as const;
