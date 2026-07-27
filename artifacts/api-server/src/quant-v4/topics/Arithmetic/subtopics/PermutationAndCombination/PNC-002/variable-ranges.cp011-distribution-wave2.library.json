@@ -46,7 +46,7 @@
       { "objectCount": 10, "boxCount": 4, "specifiedMinimum": 4 }
     ],
     "identicalLabelledUniformCapacity": [
-      { "objectCount": 6, "boxCount": 3, "capacity": 3 },
+      { "objectCount": 5, "boxCount": 3, "capacity": 2 },
       { "objectCount": 7, "boxCount": 3, "capacity": 3 },
       { "objectCount": 8, "boxCount": 4, "capacity": 3 },
       { "objectCount": 9, "boxCount": 4, "capacity": 3 }
