@@ -19,7 +19,10 @@ function wordAlternativeRank(value: string): number {
   return 2;
 }
 
-function displayOrder(direction: CompleteCandidateSetDirection, members: readonly string[]): string[] {
+export function orderCompleteCandidateSetMembers(
+  direction: CompleteCandidateSetDirection,
+  members: readonly string[],
+): string[] {
   if (direction === "WORD_TO_ALL_TOKENS") return uniqueSorted(members);
   return [...members].sort((left, right) =>
     wordAlternativeRank(left) - wordAlternativeRank(right) || left.localeCompare(right));
@@ -29,7 +32,7 @@ export function formatCompleteCandidateSetValue(
   direction: CompleteCandidateSetDirection,
   members: readonly string[],
 ): string {
-  const values = displayOrder(direction, members);
+  const values = orderCompleteCandidateSetMembers(direction, members);
   if (values.length === 1) return `${values[0]} only`;
   if (values.length === 2) return `${values[0]} or ${values[1]}`;
   return `${values.slice(0, -1).join(", ")} or ${values.at(-1)}`;
