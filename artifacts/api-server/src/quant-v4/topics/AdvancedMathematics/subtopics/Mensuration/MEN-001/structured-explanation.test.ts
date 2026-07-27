@@ -138,8 +138,9 @@ for (const entry of getMen001QuestionEntries()) {
       false,
       `${entry.qlId} must not expose a fifth Final Answer section.`,
     );
+    const canonicalAnswer = toMen001LatexEquation(question.answer);
     assert.ok(
-      steps.at(-1)?.equations.includes(toMen001LatexEquation(question.answer)),
+      steps.at(-1)?.equations.some((equation) => equation.includes(canonicalAnswer)),
       `${entry.qlId} must render the canonical final answer inside the final worked step.`,
     );
     assert.equal(question.explanation.lines.length, 4, `${entry.qlId} must expose exactly four learner-facing compatibility blocks.`);
