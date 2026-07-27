@@ -6,7 +6,7 @@ export type ExactSetMissingPrototypeId =
   | "COD-CP009-PROT-MISSING-TOKEN"
   | "COD-CP009-PROT-MISSING-WORD";
 
-export type ExactSetMissingDifficulty = "MEDIUM";
+export type ExactSetMissingDifficulty = "EASY" | "MEDIUM";
 
 export type ExactSetMissingErrorLabel =
   | "INDIVIDUAL_AMBIGUITY_CONFUSED_WITH_SET_AMBIGUITY"
