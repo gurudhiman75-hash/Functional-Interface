@@ -11,8 +11,8 @@ assert.ok(ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.every((fixture) => fixture.sourc
 assert.ok(ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.every((fixture) => fixture.answer.length > 0));
 assert.ok(ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.every((fixture) => fixture.ruleSummary.length >= 60));
 
-const quarantinedMeta = ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.filter(
-  (fixture) => fixture.verdict === "QUARANTINE_META_FIXTURE",
+const quarantinedOptionDependent = ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.filter(
+  (fixture) => fixture.verdict === "QUARANTINE_OPTION_DEPENDENT_META_RULE",
 );
 const quarantinedAmbiguous = ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.filter(
   (fixture) => fixture.verdict === "QUARANTINE_AMBIGUOUS_FIXTURE",
@@ -24,11 +24,11 @@ const inversePending = ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.filter(
   (fixture) => fixture.verdict === "PRESENTATION_AUDIT_PENDING",
 );
 
-assert.equal(quarantinedMeta.length, 1);
+assert.equal(quarantinedOptionDependent.length, 1);
 assert.equal(quarantinedAmbiguous.length, 1);
 assert.equal(delegated.length, 2);
 assert.equal(inversePending.length, 1);
-assert.ok(quarantinedMeta.every((fixture) => fixture.crossPairDependency));
+assert.ok(quarantinedOptionDependent.every((fixture) => fixture.crossPairDependency));
 assert.ok(quarantinedAmbiguous.every((fixture) => fixture.crossPairDependency));
 assert.ok(delegated.every((fixture) => !fixture.crossPairDependency));
 assert.ok(inversePending.every((fixture) => !fixture.crossPairDependency));
@@ -40,7 +40,7 @@ assert.deepEqual(ids, [1, 2, 3, 4, 5]);
 
 console.log("ANA-CP-009 provisional source-boundary audit passed.", {
   fixtures: ANA_CP009_PROVISIONAL_SOURCE_FIXTURES.length,
-  quarantinedMetaFixtures: quarantinedMeta.length,
+  quarantinedOptionDependentMetaRules: quarantinedOptionDependent.length,
   quarantinedAmbiguousFixtures: quarantinedAmbiguous.length,
   delegatedToCp008: delegated.length,
   inversePresentationPending: inversePending.length,

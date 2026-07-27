@@ -1,5 +1,5 @@
 export type AnaCp009BoundaryVerdict =
-  | "QUARANTINE_META_FIXTURE"
+  | "QUARANTINE_OPTION_DEPENDENT_META_RULE"
   | "QUARANTINE_AMBIGUOUS_FIXTURE"
   | "DELEGATE_CP008"
   | "PRESENTATION_AUDIT_PENDING";
@@ -25,8 +25,8 @@ export const ANA_CP009_PROVISIONAL_SOURCE_FIXTURES: readonly AnaCp009SourceFixtu
     sourcePairs: ["ZKX102:UHW204", "LST305:QPI610"],
     targetPair: "XYR126:?",
     answer: "OVU252",
-    verdict: "QUARANTINE_META_FIXTURE",
-    ruleSummary: "The numeric multiplier stays fixed while the three-position letter vector changes across complete pairs; the available text explanation does not yet define one canonical generative progression.",
+    verdict: "QUARANTINE_OPTION_DEPENDENT_META_RULE",
+    ruleSummary: "The recovered shifts admit a compact modular progression, but the two anchor vectors also support several equally bounded recurrences producing four different target clusters; only the published option set singles out OVU252.",
     crossPairDependency: true,
     qlIds: [],
   },
