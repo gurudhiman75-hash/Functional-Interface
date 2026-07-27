@@ -1,6 +1,6 @@
 # COD-CP-009 — Executable Merge/Split Decision
 
-Status: **twenty-four provisional English solve contracts discovered from sixteen prototype task contracts; permanent QL IDs remain unallocated**.
+Status: **twenty-four provisional English solve contracts discovered from sixteen prototype task contracts; exact-head combined saturation passed; permanent QL IDs remain unallocated**.
 
 This decision is governed by `cod-001-open-ql-discovery-amendment.md`. It records the result of executable comparison across the current CP-009 prototype inventory. It does not reserve a permanent QL range, enable Question Studio discovery, start localisation or make any question publicly publishable.
 
@@ -89,34 +89,46 @@ Provisional solve contracts:   24
 Permanent CP-009 QLs:           0
 ```
 
-## 5. Collision discovered by the combined audit
+## 5. Collision discovered and corrected
 
 The first combined execution rejected the forward and inverse possible-set prototypes because their full explanations became identical after variable words, code tokens and numbers were normalised.
 
-This was a genuine editorial weakness, not an audit false positive. The shared explanation authority has been rewritten so that:
+This was a genuine editorial weakness, not an audit false positive. The shared explanation authority was rewritten so that:
 
 - word-set → code-set questions explicitly trace each queried word to its code word;
 - code-set → word-set questions explicitly decode each queried code word back to a word;
 - Reference Aid, Quick Method, evidence conclusion, complete-mapping witness, final conclusion and Common Trap Alert are direction-specific;
 - the underlying solver, options, answers and witness counts remain unchanged.
 
-The exact-head rerun is the acceptance authority for this correction.
+The exact-head rerun proves that the collision is removed without regression.
 
-## 6. Identity and sequencing boundary
+## 6. Exact-head proof
+
+```text
+Head SHA:    6571e4d0a9c067f3f355d3f451089e7d9757a05d
+Workflow:    Reasoning COD-001 CP-009 Combined Saturation
+Run ID:      30281306137
+Conclusion:  success
+Artifact ID: 8658922775
+Digest:      sha256:bc3f95d268db07ff4ea1cc89cb497d1baf24c2738e08ec930871cdc2ac71d949
+```
+
+The audit generated 720 questions. Every one of the 30 contract/topology pairings produced 24 successful and distinct questions, reached all five reviewed English scenarios and all four answer positions. Cross-contract exact display, normalised stem and normalised explanation collisions were all zero.
+
+## 7. Identity and sequencing boundary
 
 CP-009 still cannot receive permanent IDs because `COD-CP-007` and `COD-CP-008` precede it and their discovered counts are unknown.
 
 The safe sequence remains:
 
-1. complete this exact-head combined audit and inspect its diagnostics;
-2. repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audit;
-3. freeze the current English solve-contract inventory only if no meaningful gap survives;
-4. complete CP-007 and CP-008 discovery and permanent allocation;
-5. assign CP-009 IDs sequentially from the then-current next available chapter ID;
-6. implement the frozen English runtime;
-7. begin Hindi and Punjabi only after English approval.
+1. repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audit;
+2. freeze the current English solve-contract inventory only if no meaningful gap survives;
+3. complete CP-007 and CP-008 discovery and permanent allocation;
+4. assign CP-009 IDs sequentially from the then-current next available chapter ID;
+5. implement the frozen English runtime;
+6. begin Hindi and Punjabi only after English approval.
 
-## 7. Exclusions retained
+## 8. Exclusions retained
 
 No formal symmetry is admitted without exam evidence. CP-009 continues to exclude:
 
@@ -128,6 +140,6 @@ No formal symmetry is admitted without exam evidence. CP-009 continues to exclud
 - conditional table coding;
 - static renderer differences as separate solve contracts.
 
-## 8. Verdict
+## 9. Verdict
 
-The current executable evidence supports **24 provisional English solve contracts derived from 16 source-backed task contracts**. The merge/split question is resolved for the present inventory, but permanent allocation remains blocked by the exact-head saturation pass, final gap audit and unfinished CP-007/CP-008 sequence.
+The current executable evidence supports **24 provisional English solve contracts derived from 16 source-backed task contracts**, with an exact-head combined saturation pass. Permanent allocation remains blocked by the final source/ownership gap freeze and unfinished CP-007/CP-008 sequence.
