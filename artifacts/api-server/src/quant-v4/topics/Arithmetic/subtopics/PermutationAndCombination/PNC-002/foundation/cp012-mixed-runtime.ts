@@ -296,9 +296,12 @@ function buildValues(entry: Cp012Entry, seed: string): Record<string, GeneratedV
       return { ...state, arrangementCount: state.selectedWomen + state.selectedMen };
     }
     case "specifiedReversibleRing": return { ...pickSeeded(pools.specifiedReversibleRing, random) };
-    case "derangement": return { objectCount: pickSeeded(pools.derangement, random) };
-    case "fixedPoints": return { ...pickSeeded(pools.fixedPoints, random) };
-    case "twoSpecifiedFixed": return { objectCount: pickSeeded(pools.twoSpecifiedFixed, random) };
+    case "fixedPoints": {
+      const state = pickSeeded(pools.fixedPoints, random);
+      return entry.solveMode === "countExactlyKFixedPoints"
+        ? { objectCount: state.objectCount, fixedCount: state.fixedCount }
+        : { objectCount: state.objectCount };
+    }
     case "gridBasic": return { ...pickSeeded(pools.gridBasic, random) };
     case "gridPoint": return { ...pickSeeded(pools.gridPoint, random) };
     case "gridTwoPoints": return { ...pickSeeded(pools.gridTwoPoints, random) };
@@ -463,7 +466,7 @@ export function solveCp012(parameters: Cp012Parameters): Cp012SolverResult {
     }
     case "countTwoIdenticalColoursEveryBoxNonEmpty": {
       const red = numberValue(v, "redCount"); const blue = numberValue(v, "blueCount"); const boxes = numberValue(v, "boxCount"); const answer = twoColourEveryBoxNonEmptyExact(red, blue, boxes); const unrestricted = weakCompositionExact(red, boxes) * weakCompositionExact(blue, boxes); const eachColourPositive = (red >= boxes && blue >= boxes) ? combinationExact(red - 1, boxes - 1) * combinationExact(blue - 1, boxes - 1) : 0n;
-      return solverResult(answer, `two-colour empty-box inclusion-exclusion = ${answer}`, String.raw`\sum_{j=0}^{${boxes}}(-1)^j\binom{${boxes}}{j}\binom{${red + boxes - 1}-j}{${boxes - 1}-j}\binom{${blue + boxes - 1}-j}{${boxes - 1}-j}=${answer}`, "inclusion-exclusion over boxes empty in both colours", ["count unrestricted colour compositions", "exclude jointly empty boxes"], [unrestricted, eachColourPositive, unrestricted - answer], {});
+      return solverResult(answer, `two-colour empty-box inclusion-exclusion = ${answer}`, String.raw`\sum_{j=0}^{${boxes - 1}}(-1)^j\binom{${boxes}}{j}\binom{${red + boxes - 1}-j}{${boxes - 1}-j}\binom{${blue + boxes - 1}-j}{${boxes - 1}-j}=${answer}`, "inclusion-exclusion over boxes empty in both colours", ["count unrestricted colour compositions", "exclude jointly empty boxes"], [unrestricted, eachColourPositive, unrestricted - answer], {});
     }
     case "countNamedEqualTeamsWithCaptainEach": {
       const n = numberValue(v, "totalCount"); const k = numberValue(v, "teamCount"); const s = numberValue(v, "teamSize"); const grouping = exactDivide(factorialExact(n), powerExact(toSafeCount(factorialExact(s), "team factorial"), k), "named equal teams"); const captains = powerExact(s, k); const answer = grouping * captains;
@@ -714,7 +717,7 @@ function renderExplanation(parameters: Cp012Parameters, solver: Cp012SolverResul
     answer: solver.answer,
     equation: String.raw`\(${solver.mathJax}\)`,
     verification,
-    committeeSize: numberValue(parameters.values, "committeeSize") || 0,
+    committeeSize: parameters.values.committeeSize === undefined ? "" : numberValue(parameters.values, "committeeSize"),
     arrangementFactor: typeof solver.evidence.details.arrangementFactor === "number" || typeof solver.evidence.details.arrangementFactor === "string"
       ? solver.evidence.details.arrangementFactor
       : "",

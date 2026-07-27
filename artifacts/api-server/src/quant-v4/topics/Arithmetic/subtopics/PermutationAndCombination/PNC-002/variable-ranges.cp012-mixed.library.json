@@ -4,102 +4,472 @@
   "answerCeiling": 1000000000,
   "pools": {
     "quotaCommittee": [
-      { "womenCount": 5, "menCount": 5, "selectedWomen": 2, "selectedMen": 2 },
-      { "womenCount": 6, "menCount": 5, "selectedWomen": 3, "selectedMen": 2 },
-      { "womenCount": 6, "menCount": 6, "selectedWomen": 2, "selectedMen": 3 },
-      { "womenCount": 7, "menCount": 6, "selectedWomen": 3, "selectedMen": 3 }
+      {
+        "womenCount": 5,
+        "menCount": 5,
+        "selectedWomen": 2,
+        "selectedMen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 5,
+        "selectedWomen": 3,
+        "selectedMen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 6,
+        "selectedWomen": 2,
+        "selectedMen": 3
+      },
+      {
+        "womenCount": 7,
+        "menCount": 6,
+        "selectedWomen": 3,
+        "selectedMen": 3
+      }
     ],
     "compulsoryCommittee": [
-      { "totalCount": 7, "committeeSize": 4 },
-      { "totalCount": 8, "committeeSize": 4 },
-      { "totalCount": 9, "committeeSize": 5 },
-      { "totalCount": 10, "committeeSize": 5 }
+      {
+        "totalCount": 7,
+        "committeeSize": 4
+      },
+      {
+        "totalCount": 8,
+        "committeeSize": 4
+      },
+      {
+        "totalCount": 9,
+        "committeeSize": 5
+      },
+      {
+        "totalCount": 10,
+        "committeeSize": 5
+      }
     ],
     "linearIncludeExclude": [
-      { "totalCount": 7, "arrangementCount": 4, "committeeSize": 0 },
-      { "totalCount": 8, "arrangementCount": 5, "committeeSize": 0 },
-      { "totalCount": 9, "arrangementCount": 5, "committeeSize": 0 },
-      { "totalCount": 10, "arrangementCount": 6, "committeeSize": 0 }
+      {
+        "totalCount": 7,
+        "arrangementCount": 4
+      },
+      {
+        "totalCount": 8,
+        "arrangementCount": 5
+      },
+      {
+        "totalCount": 9,
+        "arrangementCount": 5
+      },
+      {
+        "totalCount": 10,
+        "arrangementCount": 6
+      }
     ],
     "quotaArrangement": [
-      { "womenCount": 5, "menCount": 5, "selectedWomen": 2, "selectedMen": 2, "committeeSize": 0 },
-      { "womenCount": 6, "menCount": 5, "selectedWomen": 3, "selectedMen": 2, "committeeSize": 0 },
-      { "womenCount": 6, "menCount": 6, "selectedWomen": 2, "selectedMen": 3, "committeeSize": 0 },
-      { "womenCount": 7, "menCount": 6, "selectedWomen": 3, "selectedMen": 3, "committeeSize": 0 }
+      {
+        "womenCount": 5,
+        "menCount": 5,
+        "selectedWomen": 2,
+        "selectedMen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 5,
+        "selectedWomen": 3,
+        "selectedMen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 6,
+        "selectedWomen": 2,
+        "selectedMen": 3
+      },
+      {
+        "womenCount": 7,
+        "menCount": 6,
+        "selectedWomen": 3,
+        "selectedMen": 3
+      }
     ],
     "quotaCircularPair": [
-      { "womenCount": 5, "menCount": 5, "selectedWomen": 2, "selectedMen": 2, "committeeSize": 0 },
-      { "womenCount": 6, "menCount": 5, "selectedWomen": 3, "selectedMen": 2, "committeeSize": 0 },
-      { "womenCount": 6, "menCount": 6, "selectedWomen": 2, "selectedMen": 3, "committeeSize": 0 },
-      { "womenCount": 7, "menCount": 6, "selectedWomen": 3, "selectedMen": 3, "committeeSize": 0 }
+      {
+        "womenCount": 5,
+        "menCount": 5,
+        "selectedWomen": 2,
+        "selectedMen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 5,
+        "selectedWomen": 3,
+        "selectedMen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 6,
+        "selectedWomen": 2,
+        "selectedMen": 3
+      },
+      {
+        "womenCount": 7,
+        "menCount": 6,
+        "selectedWomen": 3,
+        "selectedMen": 3
+      }
     ],
     "specifiedReversibleRing": [
-      { "totalCount": 7, "arrangementCount": 4, "committeeSize": 0 },
-      { "totalCount": 8, "arrangementCount": 5, "committeeSize": 0 },
-      { "totalCount": 9, "arrangementCount": 5, "committeeSize": 0 },
-      { "totalCount": 10, "arrangementCount": 6, "committeeSize": 0 }
+      {
+        "totalCount": 7,
+        "arrangementCount": 4
+      },
+      {
+        "totalCount": 8,
+        "arrangementCount": 5
+      },
+      {
+        "totalCount": 9,
+        "arrangementCount": 5
+      },
+      {
+        "totalCount": 10,
+        "arrangementCount": 6
+      }
     ],
-    "derangement": [4, 5, 6, 7],
     "fixedPoints": [
-      { "objectCount": 5, "fixedCount": 2, "committeeSize": 0 },
-      { "objectCount": 6, "fixedCount": 2, "committeeSize": 0 },
-      { "objectCount": 7, "fixedCount": 3, "committeeSize": 0 },
-      { "objectCount": 8, "fixedCount": 2, "committeeSize": 0 }
+      {
+        "objectCount": 5,
+        "fixedCount": 2
+      },
+      {
+        "objectCount": 6,
+        "fixedCount": 2
+      },
+      {
+        "objectCount": 7,
+        "fixedCount": 3
+      },
+      {
+        "objectCount": 8,
+        "fixedCount": 2
+      }
     ],
-    "twoSpecifiedFixed": [5, 6, 7, 8],
     "gridBasic": [
-      { "rightSteps": 4, "upSteps": 3, "committeeSize": 0 },
-      { "rightSteps": 5, "upSteps": 3, "committeeSize": 0 },
-      { "rightSteps": 5, "upSteps": 4, "committeeSize": 0 },
-      { "rightSteps": 6, "upSteps": 4, "committeeSize": 0 }
+      {
+        "rightSteps": 4,
+        "upSteps": 3
+      },
+      {
+        "rightSteps": 5,
+        "upSteps": 3
+      },
+      {
+        "rightSteps": 5,
+        "upSteps": 4
+      },
+      {
+        "rightSteps": 6,
+        "upSteps": 4
+      }
     ],
     "gridPoint": [
-      { "rightSteps": 5, "upSteps": 4, "pointX": 2, "pointY": 1, "committeeSize": 0 },
-      { "rightSteps": 5, "upSteps": 4, "pointX": 2, "pointY": 2, "committeeSize": 0 },
-      { "rightSteps": 6, "upSteps": 4, "pointX": 3, "pointY": 1, "committeeSize": 0 },
-      { "rightSteps": 6, "upSteps": 5, "pointX": 3, "pointY": 2, "committeeSize": 0 }
+      {
+        "rightSteps": 5,
+        "upSteps": 4,
+        "pointX": 2,
+        "pointY": 1
+      },
+      {
+        "rightSteps": 5,
+        "upSteps": 4,
+        "pointX": 2,
+        "pointY": 2
+      },
+      {
+        "rightSteps": 6,
+        "upSteps": 4,
+        "pointX": 3,
+        "pointY": 1
+      },
+      {
+        "rightSteps": 6,
+        "upSteps": 5,
+        "pointX": 3,
+        "pointY": 2
+      }
     ],
     "gridTwoPoints": [
-      { "rightSteps": 5, "upSteps": 4, "firstX": 1, "firstY": 1, "secondX": 3, "secondY": 2, "committeeSize": 0 },
-      { "rightSteps": 6, "upSteps": 4, "firstX": 2, "firstY": 1, "secondX": 4, "secondY": 2, "committeeSize": 0 },
-      { "rightSteps": 6, "upSteps": 5, "firstX": 1, "firstY": 2, "secondX": 4, "secondY": 3, "committeeSize": 0 },
-      { "rightSteps": 7, "upSteps": 5, "firstX": 2, "firstY": 1, "secondX": 5, "secondY": 3, "committeeSize": 0 }
+      {
+        "rightSteps": 5,
+        "upSteps": 4,
+        "firstX": 1,
+        "firstY": 1,
+        "secondX": 3,
+        "secondY": 2
+      },
+      {
+        "rightSteps": 6,
+        "upSteps": 4,
+        "firstX": 2,
+        "firstY": 1,
+        "secondX": 4,
+        "secondY": 2
+      },
+      {
+        "rightSteps": 6,
+        "upSteps": 5,
+        "firstX": 1,
+        "firstY": 2,
+        "secondX": 4,
+        "secondY": 3
+      },
+      {
+        "rightSteps": 7,
+        "upSteps": 5,
+        "firstX": 2,
+        "firstY": 1,
+        "secondX": 5,
+        "secondY": 3
+      }
     ],
     "identicalCapacity": [
-      { "objectCount": 6, "capacities": [2, 3, 4], "firstCapacity": 2, "secondCapacity": 3, "thirdCapacity": 4, "committeeSize": 0 },
-      { "objectCount": 7, "capacities": [3, 3, 4], "firstCapacity": 3, "secondCapacity": 3, "thirdCapacity": 4, "committeeSize": 0 },
-      { "objectCount": 8, "capacities": [2, 4, 5], "firstCapacity": 2, "secondCapacity": 4, "thirdCapacity": 5, "committeeSize": 0 },
-      { "objectCount": 9, "capacities": [3, 4, 5], "firstCapacity": 3, "secondCapacity": 4, "thirdCapacity": 5, "committeeSize": 0 }
+      {
+        "objectCount": 6,
+        "capacities": [
+          2,
+          3,
+          4
+        ],
+        "firstCapacity": 2,
+        "secondCapacity": 3,
+        "thirdCapacity": 4
+      },
+      {
+        "objectCount": 7,
+        "capacities": [
+          3,
+          3,
+          4
+        ],
+        "firstCapacity": 3,
+        "secondCapacity": 3,
+        "thirdCapacity": 4
+      },
+      {
+        "objectCount": 8,
+        "capacities": [
+          2,
+          4,
+          5
+        ],
+        "firstCapacity": 2,
+        "secondCapacity": 4,
+        "thirdCapacity": 5
+      },
+      {
+        "objectCount": 9,
+        "capacities": [
+          3,
+          4,
+          5
+        ],
+        "firstCapacity": 3,
+        "secondCapacity": 4,
+        "thirdCapacity": 5
+      }
     ],
     "identicalBounds": [
-      { "objectCount": 7, "minimums": [1, 0, 2], "capacities": [3, 3, 4], "firstMinimum": 1, "secondMinimum": 0, "thirdMinimum": 2, "firstCapacity": 3, "secondCapacity": 3, "thirdCapacity": 4, "committeeSize": 0 },
-      { "objectCount": 8, "minimums": [1, 1, 1], "capacities": [3, 4, 5], "firstMinimum": 1, "secondMinimum": 1, "thirdMinimum": 1, "firstCapacity": 3, "secondCapacity": 4, "thirdCapacity": 5, "committeeSize": 0 },
-      { "objectCount": 9, "minimums": [2, 1, 0], "capacities": [4, 4, 5], "firstMinimum": 2, "secondMinimum": 1, "thirdMinimum": 0, "firstCapacity": 4, "secondCapacity": 4, "thirdCapacity": 5, "committeeSize": 0 },
-      { "objectCount": 10, "minimums": [1, 2, 1], "capacities": [4, 5, 5], "firstMinimum": 1, "secondMinimum": 2, "thirdMinimum": 1, "firstCapacity": 4, "secondCapacity": 5, "thirdCapacity": 5, "committeeSize": 0 }
+      {
+        "objectCount": 7,
+        "minimums": [
+          1,
+          0,
+          2
+        ],
+        "capacities": [
+          3,
+          3,
+          4
+        ],
+        "firstMinimum": 1,
+        "secondMinimum": 0,
+        "thirdMinimum": 2,
+        "firstCapacity": 3,
+        "secondCapacity": 3,
+        "thirdCapacity": 4
+      },
+      {
+        "objectCount": 8,
+        "minimums": [
+          1,
+          1,
+          1
+        ],
+        "capacities": [
+          3,
+          4,
+          5
+        ],
+        "firstMinimum": 1,
+        "secondMinimum": 1,
+        "thirdMinimum": 1,
+        "firstCapacity": 3,
+        "secondCapacity": 4,
+        "thirdCapacity": 5
+      },
+      {
+        "objectCount": 9,
+        "minimums": [
+          2,
+          1,
+          0
+        ],
+        "capacities": [
+          4,
+          4,
+          5
+        ],
+        "firstMinimum": 2,
+        "secondMinimum": 1,
+        "thirdMinimum": 0,
+        "firstCapacity": 4,
+        "secondCapacity": 4,
+        "thirdCapacity": 5
+      },
+      {
+        "objectCount": 10,
+        "minimums": [
+          1,
+          2,
+          1
+        ],
+        "capacities": [
+          4,
+          5,
+          5
+        ],
+        "firstMinimum": 1,
+        "secondMinimum": 2,
+        "thirdMinimum": 1,
+        "firstCapacity": 4,
+        "secondCapacity": 5,
+        "thirdCapacity": 5
+      }
     ],
     "distinctCapacity": [
-      { "objectCount": 5, "capacities": [2, 2, 3], "firstCapacity": 2, "secondCapacity": 2, "thirdCapacity": 3, "committeeSize": 0 },
-      { "objectCount": 6, "capacities": [2, 3, 3], "firstCapacity": 2, "secondCapacity": 3, "thirdCapacity": 3, "committeeSize": 0 },
-      { "objectCount": 7, "capacities": [3, 3, 3], "firstCapacity": 3, "secondCapacity": 3, "thirdCapacity": 3, "committeeSize": 0 },
-      { "objectCount": 8, "capacities": [3, 3, 4], "firstCapacity": 3, "secondCapacity": 3, "thirdCapacity": 4, "committeeSize": 0 }
+      {
+        "objectCount": 5,
+        "capacities": [
+          2,
+          2,
+          3
+        ],
+        "firstCapacity": 2,
+        "secondCapacity": 2,
+        "thirdCapacity": 3
+      },
+      {
+        "objectCount": 6,
+        "capacities": [
+          2,
+          3,
+          3
+        ],
+        "firstCapacity": 2,
+        "secondCapacity": 3,
+        "thirdCapacity": 3
+      },
+      {
+        "objectCount": 7,
+        "capacities": [
+          3,
+          3,
+          3
+        ],
+        "firstCapacity": 3,
+        "secondCapacity": 3,
+        "thirdCapacity": 3
+      },
+      {
+        "objectCount": 8,
+        "capacities": [
+          3,
+          3,
+          4
+        ],
+        "firstCapacity": 3,
+        "secondCapacity": 3,
+        "thirdCapacity": 4
+      }
     ],
     "twoColourDistribution": [
-      { "redCount": 3, "blueCount": 3, "boxCount": 3, "committeeSize": 0 },
-      { "redCount": 4, "blueCount": 3, "boxCount": 3, "committeeSize": 0 },
-      { "redCount": 4, "blueCount": 4, "boxCount": 4, "committeeSize": 0 },
-      { "redCount": 5, "blueCount": 4, "boxCount": 4, "committeeSize": 0 }
+      {
+        "redCount": 3,
+        "blueCount": 3,
+        "boxCount": 3
+      },
+      {
+        "redCount": 4,
+        "blueCount": 3,
+        "boxCount": 3
+      },
+      {
+        "redCount": 4,
+        "blueCount": 4,
+        "boxCount": 4
+      },
+      {
+        "redCount": 5,
+        "blueCount": 4,
+        "boxCount": 4
+      }
     ],
     "equalTeamsCaptains": [
-      { "totalCount": 6, "teamCount": 2, "teamSize": 3, "committeeSize": 0 },
-      { "totalCount": 8, "teamCount": 2, "teamSize": 4, "committeeSize": 0 },
-      { "totalCount": 9, "teamCount": 3, "teamSize": 3, "committeeSize": 0 },
-      { "totalCount": 12, "teamCount": 3, "teamSize": 4, "committeeSize": 0 }
+      {
+        "totalCount": 6,
+        "teamCount": 2,
+        "teamSize": 3
+      },
+      {
+        "totalCount": 8,
+        "teamCount": 2,
+        "teamSize": 4
+      },
+      {
+        "totalCount": 9,
+        "teamCount": 3,
+        "teamSize": 3
+      },
+      {
+        "totalCount": 12,
+        "teamCount": 3,
+        "teamSize": 4
+      }
     ],
     "twoQuotaTeamsCaptains": [
-      { "womenCount": 4, "menCount": 4, "teamSize": 4, "teamAWomen": 2, "committeeSize": 0 },
-      { "womenCount": 5, "menCount": 3, "teamSize": 4, "teamAWomen": 3, "committeeSize": 0 },
-      { "womenCount": 5, "menCount": 5, "teamSize": 5, "teamAWomen": 2, "committeeSize": 0 },
-      { "womenCount": 6, "menCount": 4, "teamSize": 5, "teamAWomen": 3, "committeeSize": 0 }
+      {
+        "womenCount": 4,
+        "menCount": 4,
+        "teamSize": 4,
+        "teamAWomen": 2
+      },
+      {
+        "womenCount": 5,
+        "menCount": 3,
+        "teamSize": 4,
+        "teamAWomen": 3
+      },
+      {
+        "womenCount": 5,
+        "menCount": 5,
+        "teamSize": 5,
+        "teamAWomen": 2
+      },
+      {
+        "womenCount": 6,
+        "menCount": 4,
+        "teamSize": 5,
+        "teamAWomen": 3
+      }
     ]
   }
 }
