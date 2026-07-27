@@ -14,7 +14,14 @@ export interface TmwCp006ReviewRow {
   options:string[];
   correctIndex:number;
   correctAnswer:string;
+  keyRule:string;
   formula:string;
+  givens:string[];
+  standardSteps:string[];
+  shortcutTitle:string;
+  shortcutSteps:string[];
+  commonTrap:{optionLabel:string;optionText:string;misconceptionId:string;explanation:string};
+  conclusion:string;
   explanation:string[];
   distractorLabels:string[];
   validationStatus:"PASS"|"FAIL";
@@ -28,11 +35,20 @@ export function buildTmwCp006ReviewRows(seedsPerQl=3):TmwCp006ReviewRow[]{
     for(let index=0;index<seedsPerQl;index+=1){
       const seed=`tmw-cp006-review:${entry.qlId}:${index}`;
       const generated=runTmwCp006Pipeline({questionLanguageId:entry.qlId,seed});
+      const trap=generated.explanation.commonTrap;
       rows.push({
         packageId:`${entry.qlId}:${seed}`,cpId:"TMW-CP-006",qlId:entry.qlId,solveMode:entry.solveMode,difficulty:entry.difficulty,seed,
         mathematicalFingerprint:generated.mathematicalFingerprint,context:generated.parameters.context.jobPhrase,stem:generated.stem,options:generated.options,
-        correctIndex:generated.correctIndex,correctAnswer:generated.solution.answerText,formula:generated.explanation.formula,
-        explanation:[generated.explanation.opening,generated.explanation.formula,...generated.explanation.steps,generated.explanation.conclusion],
+        correctIndex:generated.correctIndex,correctAnswer:generated.solution.answerText,keyRule:generated.explanation.opening,formula:generated.explanation.formula,
+        givens:generated.explanation.givens,standardSteps:generated.explanation.steps,shortcutTitle:generated.explanation.shortcut.title,
+        shortcutSteps:generated.explanation.shortcut.steps,commonTrap:trap,conclusion:generated.explanation.conclusion,
+        explanation:[
+          "KEY RULE & FORMULA",generated.explanation.opening,generated.explanation.formula,
+          "STEP-BY-STEP SOLUTION",...generated.explanation.givens,...generated.explanation.steps,
+          `EXAM SPEED SHORTCUT — ${generated.explanation.shortcut.title}`,...generated.explanation.shortcut.steps,
+          `COMMON TRAP — ${trap.optionLabel}: ${trap.optionText} [${trap.misconceptionId}]`,trap.explanation,
+          generated.explanation.conclusion,
+        ],
         distractorLabels:generated.optionAudit.map(option=>option.misconceptionId),validationStatus:generated.validation.valid?"PASS":"FAIL",
         validationErrors:generated.validation.errors,publiclyPublishable:false,
       });
