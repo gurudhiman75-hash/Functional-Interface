@@ -1,6 +1,6 @@
 # COD-CP-009 — Prototype Saturation Status
 
-Status: **all 16 currently admitted source-backed task contracts have executable English prototypes; final combined saturation and QL merge/split work remains open**.
+Status: **all 16 currently admitted source-backed task contracts have executable English prototypes; the executable merge/split audit discovers 24 provisional solve contracts; permanent QLs remain unallocated**.
 
 This document supersedes earlier status statements in the checkpoint README and executable-gap resolution that four source-backed prototypes remain unimplemented. It does not allocate permanent `COD-QL-*` identities and does not make the checkpoint publishable.
 
@@ -66,9 +66,43 @@ This document supersedes earlier status statements in the checkpoint README and 
 9. missing-member completion;
 10. independently resolved component composition.
 
-Topology is not automatically a separate QL. The final audit must decide whether each distinction changes the student solve contract or remains generated-instance metadata.
+## 4. Executable merge/split result
 
-## 4. Evidence added after the original twelve-contract audit
+The two exact atomic directions each split into five provisional solve modes because direct intersection, chained propagation, set difference, forked evidence and global bijection require materially different student proof paths. The other fourteen prototype task contracts currently map one-to-one to provisional solve contracts.
+
+```text
+Exact atomic: 2 directions × 5 solve modes = 10
+Other retained prototype contracts:             14
+---------------------------------------------------
+Current provisional solve-contract inventory:   24
+```
+
+The following distinctions remain merged as generated-instance properties:
+
+- two-way versus three-way uncertainty;
+- statement count;
+- row order and token order;
+- table, paragraph and quotation-style presentation.
+
+The full authority is `COD-CP-009-MERGE-SPLIT-DECISION.md`.
+
+## 5. Combined executable saturation gate
+
+The branch now contains one combined audit over all six prototype registries. It checks:
+
+- 16 unique prototype contracts and eight inverse pairs;
+- all ten topology families;
+- 24 provisional solve-mode fingerprints;
+- bounded generation over 30 contract/topology pairings;
+- 24 seeds per pairing, producing 720 combined questions;
+- prototype-only, non-publishable identity safety;
+- four semantically unique options and valid answer positions;
+- scenario reach and complete-question diversity;
+- exact displayed-question, normalised stem and normalised explanation collisions across contracts.
+
+The first combined run identified a genuine editorial collision: forward and inverse possible-set questions used the same explanation skeleton. Their explanation authority has been rewritten so encoding traces words to code words, while inverse decoding traces code words back to words. The exact-head rerun is the acceptance gate.
+
+## 6. Evidence added after the original twelve-contract audit
 
 ### Resolved composition
 
@@ -78,7 +112,7 @@ The encode and inverse prototypes prove that two target components can be resolv
 
 The encode and inverse prototypes prove answers of the form “either X or Y” or a complete three-member candidate set. The correct option equals the full witnessed domain; distractors omit one candidate, add one impossible member or replace one candidate. The merged audit covers 480 deterministic questions with exact candidate-domain equality and balanced answer positions.
 
-## 5. Current merge/split decisions
+## 7. Current merge/split decisions
 
 | Axis | Current decision |
 |---|---|
@@ -90,43 +124,41 @@ The encode and inverse prototypes prove answers of the form “either X or Y” 
 | statement count | merge as instance parameter |
 | possible member versus complete candidate domain | retain separately |
 | invariant ambiguous set versus resolved composition | retain separately |
-| direct/chained/difference/forked/global exact topology | final QL split still unresolved |
+| direct/chained/difference/forked/global exact topology | split into five solve modes per direction |
 
-## 6. Remaining mandatory work
+## 8. Remaining mandatory work
 
 Before any permanent QL allocation:
 
-1. run one combined registry over all sixteen contracts;
-2. prove cross-contract stem, option, answer-semantic and explanation non-collision;
-3. measure bounded-generation yield for every contract/topology pairing;
-4. run exact and normalised duplicate/concentration audits across the complete English corpus;
-5. complete the final solve-mode merge/split decision;
-6. repeat concept, task, inverse, edge, representation, source-format and ownership gap audits;
-7. freeze the discovered CP-009 inventory;
-8. wait for CP-007 and CP-008 permanent allocations;
-9. assign sequential CP-009 identities from the then-current next available `COD-QL-*` ID;
-10. implement the frozen English runtime before localisation or Question Studio integration.
+1. obtain an exact-head pass from the combined saturation workflow;
+2. inspect its complete collision and concentration diagnostics;
+3. repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audits;
+4. freeze the discovered CP-009 inventory only if no meaningful gap remains;
+5. wait for CP-007 and CP-008 permanent allocations;
+6. assign sequential CP-009 identities from the then-current next available `COD-QL-*` ID;
+7. implement the frozen English runtime before localisation or Question Studio integration.
 
-## 7. Excluded expansions
+## 9. Excluded expansions
 
 The following remain excluded unless new direct source evidence changes ownership:
 
 - impossible phrase/set questions;
 - Data Sufficiency wrappers;
-- positional token-order coding;
+- positional code-token coding;
 - operator substitution;
 - renaming coding;
 - conditional table coding;
 - static table/paragraph or quotation-style variants as separate QLs.
 
-## 8. Verdict
+## 10. Verdict
 
 - admitted task contracts with executable prototypes: **16**;
 - proven topology families: **10**;
+- provisional solve contracts after executable merge/split: **24**;
 - permanent CP-009 QLs: **0**;
-- fixed CP-009 QL count: **none**;
+- fixed permanent CP-009 QL count: **none**;
 - Question Studio exposure: **disabled**;
 - localisation: **not started**;
 - public publishability: **false**.
 
-Final status: **PROTOTYPE INVENTORY COMPLETE FOR CURRENT SOURCE-BACKED CONTRACTS — COMBINED SATURATION, MERGE/SPLIT AND PERMANENT ALLOCATION STILL OPEN**.
+Final status: **PROTOTYPE INVENTORY COMPLETE FOR CURRENT SOURCE-BACKED CONTRACTS — MERGE/SPLIT RESOLVED PROVISIONALLY; EXACT-HEAD COMBINED SATURATION AND FINAL GAP FREEZE REMAIN**.
