@@ -34,7 +34,7 @@
 - improved named-worker wording in three-agent and arbitrary-start stems;
 - added regression checks for ordinal grammar, explanation jargon, missing derivations and final-turn arithmetic consistency.
 
-## Final exact-head evidence
+## Final validation evidence
 
 - reviewed code head: `80b069f2f188b72dc9b738fcd860d7a823e27933`;
 - CP-005 workflow run: `30254623992` — PASS;
