@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { solveSentenceCodeConstraints } from "./constraint-solver";
+import { getEnglishSentenceCodeLexeme } from "./datasets/lexemes.en";
 import { verifySentenceCodeConstraintsBruteForce } from "./independent-verifier";
 import { analyzeSentenceCodeRowMinimality } from "./row-minimality";
 import { RESOLVED_COMPOSITION_PROTOTYPE_CONTRACTS } from "./resolved-composition-contracts";
@@ -17,6 +18,7 @@ let generated = 0;
 let dualSolverMappings = 0;
 let minimalityChecks = 0;
 let impossibleDistractors = 0;
+let naturalInverseOptions = 0;
 
 function displayedPuzzle(question: ReturnType<typeof generateResolvedCompositionPrototypeQuestion>): AbstractSentenceCodePuzzle {
   return {
@@ -56,6 +58,18 @@ for (const contract of RESOLVED_COMPOSITION_PROTOTYPE_CONTRACTS) {
       "The queried word pair must not be displayed",
     );
 
+    if (contract.queryDirection === "TOKENS_TO_WORDS") {
+      for (const option of first.options) {
+        const parts = option.members.map((member) => getEnglishSentenceCodeLexeme(member).partOfSpeech);
+        assert.equal(parts.filter((part) => part === "NOUN").length, 1, `${option.value} must contain one noun`);
+        assert.equal(parts.filter((part) => part === "VERB").length, 1, `${option.value} must contain one verb`);
+        const displayed = option.value.split(/\s+/);
+        assert.equal(getEnglishSentenceCodeLexeme(displayed[0]!).partOfSpeech, "NOUN");
+        assert.equal(getEnglishSentenceCodeLexeme(displayed[1]!).partOfSpeech, "VERB");
+        naturalInverseOptions += 1;
+      }
+    }
+
     const puzzle = displayedPuzzle(first);
     const production = solveSentenceCodeConstraints(puzzle);
     const verifier = verifySentenceCodeConstraintsBruteForce(puzzle, { maxAssignments: 10_000 });
@@ -85,6 +99,7 @@ for (const contract of RESOLVED_COMPOSITION_PROTOTYPE_CONTRACTS) {
     assert.equal(first.explanation.branchProofs.length, 2);
     assert.equal(/\br[1-4]\b/i.test(first.explanation.branchProofs.join(" ")), false);
     assert.equal(first.explanation.composition.includes(correct.value), true);
+    assert.equal(first.explanation.composition.includes("combination the words"), false);
     assert.equal(first.explanation.conclusion.includes(correct.value), true);
     assert.equal(
       first.options.filter((option) => !option.isCorrect).some((option) => first.explanation.commonTrapAlert.includes(option.value)),
@@ -109,6 +124,7 @@ assert.equal(generated, 2 * 120);
 assert.equal(dualSolverMappings, generated);
 assert.equal(minimalityChecks, generated * 4);
 assert.equal(impossibleDistractors, generated * 3);
+assert.equal(naturalInverseOptions, 120 * 4);
 assert.deepEqual(answerPositions, [60, 60, 60, 60]);
 
 console.log(JSON.stringify({
@@ -122,6 +138,7 @@ console.log(JSON.stringify({
   dualSolverMappings,
   minimalityChecks,
   impossibleDistractors,
+  naturalInverseOptions,
   scenarioCoverage: Object.fromEntries([...scenarioCoverage].map(([key, values]) => [key, values.size])),
   visibleVariantCounts: Object.fromEntries([...visibleVariants].map(([key, values]) => [key, values.size])),
   verdict: "PASS — RESOLVED COMPONENT COMPOSITION PROTOTYPES",
