@@ -54,17 +54,17 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp011-distribution-wave1-runtime.ts \
-            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp011-distribution-wave1.test.ts
-      - name: Bundle CP-011 distribution wave 1 runtime proof
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp011-distribution-wave1-reviewed-runtime.ts \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp011-distribution-wave1-reviewed.test.ts
+      - name: Bundle CP-011 distribution wave 1 reviewed runtime proof
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp011-distribution-wave1.test.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp011-distribution-wave1-reviewed.test.ts
           --bundle
           --platform=node
           --format=esm
           --outfile=dist/quant-v4/pnc-002-cp011-distribution-wave1-proof.mjs
-      - name: Run CP-011 distribution wave 1 proof and generate review export
+      - name: Run CP-011 distribution wave 1 proof and generate reviewed export
         working-directory: artifacts/api-server
         shell: bash
         run: |
