@@ -1,0 +1,87 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": {
+    "PNC-QL-219": {
+      "lines": [
+        "The files are distinct and the folders are labelled, so every file makes an independent folder choice.",
+        "Empty folders are allowed, so no assignment needs to be removed.",
+        "The multiplication-principle calculation is {equation}.",
+        "Therefore, the number of assignments is {answer}."
+      ]
+    },
+    "PNC-QL-220": {
+      "lines": [
+        "The condition that every numbered locker is used makes this an onto assignment.",
+        "First partition the distinct parcels into the required number of non-empty bundles, then match those bundles to the numbered lockers.",
+        "The Stirling-and-labelling calculation is {equation}.",
+        "Hence, {answer} valid locker assignments are possible."
+      ]
+    },
+    "PNC-QL-221": {
+      "lines": [
+        "First choose which labelled cabinets will be the non-empty ones.",
+        "Next partition the distinct documents into that many non-empty bundles and assign the bundles to the chosen cabinets.",
+        "Combining receiver choice with the onto count gives {equation}.",
+        "Thus, exactly the required number of cabinets are used in {answer} assignments."
+      ]
+    },
+    "PNC-QL-222": {
+      "lines": [
+        "Start with all assignments of the distinct samples to the labelled laboratories.",
+        "The only forbidden cases are the onto assignments in which every laboratory is used.",
+        "Subtracting those cases gives {equation}.",
+        "Therefore, at least one laboratory is unused in {answer} assignments."
+      ]
+    },
+    "PNC-QL-223": {
+      "lines": [
+        "The three rooms are named, so their prescribed occupancies belong to fixed receivers.",
+        "Choose the trainees for the rooms successively; order within a room does not matter.",
+        "The resulting multinomial count is {equation}.",
+        "Hence, the stated room occupancies can occur in {answer} ways."
+      ]
+    },
+    "PNC-QL-224": {
+      "lines": [
+        "Choose the exact set of books that will occupy shelf 1.",
+        "Every remaining book may then independently choose any of the other numbered shelves.",
+        "The selection-and-assignment calculation is {equation}.",
+        "Therefore, shelf 1 has the required occupancy in {answer} assignments."
+      ]
+    },
+    "PNC-QL-225": {
+      "lines": [
+        "First choose the applications assigned to desk 1.",
+        "The remaining distinct applications must form an onto assignment to the remaining named desks, because none of them may be empty.",
+        "Multiplying these two stages gives {equation}.",
+        "Thus, the number of admissible desk assignments is {answer}."
+      ]
+    },
+    "PNC-QL-226": {
+      "lines": [
+        "The tokens are distinct, but the non-empty boxes are identical.",
+        "Only the partition of the tokens into non-empty blocks matters; permuting complete boxes creates no new outcome.",
+        "The appropriate Stirling count is {equation}.",
+        "Hence, the required number of distributions is {answer}."
+      ]
+    },
+    "PNC-QL-227": {
+      "lines": [
+        "Because the boxes are identical, count set partitions rather than labelled assignments.",
+        "At most the stated number of boxes may be used, so add the exact partition counts for every allowed positive box count.",
+        "The bounded Stirling sum is {equation}.",
+        "Therefore, {answer} distributions satisfy the limit."
+      ]
+    },
+    "PNC-QL-228": {
+      "lines": [
+        "Every outcome is an unlabelled partition of the distinct volunteers into non-empty groups.",
+        "The number of groups is unrestricted, so include every possible positive group count.",
+        "Their complete Stirling sum, the Bell number, is {equation}.",
+        "Thus, the volunteers can be divided in {answer} ways."
+      ]
+    }
+  }
+}
