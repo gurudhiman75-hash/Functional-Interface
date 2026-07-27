@@ -5,13 +5,17 @@ import type { TmwCp005Parameters, TmwCp005RegistryEntry } from "./cp005-types";
 function soloText(actor:string,time:Rational,unit:string):string{return `${actor} can complete the work alone in ${formatRational(time)} ${unit}${formatRational(time)==="1"?"":"s"}`;}
 function cycleSummary(p:TmwCp005Parameters):string{return p.cycle.map(segment=>segment.description).join(", then ");}
 function durationPhrase(value:string,unit:string):string{return `${value} ${unit}${value==="1"?"":"s"}`;}
+export function ordinal(value:number):string{
+ const mod100=value%100;if(mod100>=11&&mod100<=13)return `${value}th`;
+ switch(value%10){case 1:return `${value}st`;case 2:return `${value}nd`;case 3:return `${value}rd`;default:return `${value}th`;}
+}
 export function renderTmwCp005Stem(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters):string{
  const c=p.context,u=p.timeUnit;
  switch(entry.solveMode){
   case "findCompletionTimeForTwoAgentAlternationStartingA":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They work on alternate ${u}s, beginning with ${c.actorA}. In how much time will ${c.jobPhrase} be completed?`;
   case "findCompletionTimeForTwoAgentAlternationStartingB":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They work on alternate ${u}s, beginning with ${c.actorB}. Find the completion time for ${c.jobPhrase}.`;
   case "findCompletionTimeForMultiDayCycle":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. The repeating schedule is: ${cycleSummary(p)}. How long will ${c.jobPhrase} take?`;
-  case "findCompletionTimeForThreeAgentCycle":return `${c.actorA}, ${c.actorB} and ${c.actorC} can complete ${c.jobPhrase} alone in ${formatRational(required(p.timeA,"timeA"))}, ${formatRational(required(p.timeB,"timeB"))} and ${formatRational(required(p.timeC,"timeC"))} ${u}s, respectively. They work one ${u} each in the order A, B, C, and repeat. Find the completion time.`;
+  case "findCompletionTimeForThreeAgentCycle":return `${c.actorA}, ${c.actorB} and ${c.actorC} can complete ${c.jobPhrase} alone in ${formatRational(required(p.timeA,"timeA"))}, ${formatRational(required(p.timeB,"timeB"))} and ${formatRational(required(p.timeC,"timeC"))} ${u}s, respectively. They work one ${u} each in the order ${c.actorA}, ${c.actorB}, ${c.actorC}, and repeat. Find the completion time.`;
   case "findCompletionDayAndTerminalFraction":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They alternate, starting with ${c.actorA}. After how many complete days and what fraction of the next day is ${c.jobPhrase} completed? Give the exact elapsed time.`;
   case "findWorkAfterGivenNumberOfCycles":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They alternate, starting with ${c.actorA}. What fraction of ${c.jobPhrase} is completed after ${required(p.givenCycles,"givenCycles")} full cycles?`;
   case "findRemainingWorkAfterFullCycles":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They alternate, starting with ${c.actorA}. What fraction remains after ${required(p.givenCycles,"givenCycles")} full cycles?`;
@@ -19,15 +23,15 @@ export function renderTmwCp005Stem(entry:TmwCp005RegistryEntry,p:TmwCp005Paramet
   case "findStartingAgentFromCompletionCondition":return `${c.actorA} and ${c.actorB} can complete ${c.jobPhrase} alone in ${formatRational(required(p.timeA,"timeA"))} and ${formatRational(required(p.timeB,"timeB"))} ${u}s. They work on alternate ${u}s. The work finishes in ${formatRational(required(p.knownCompletionTime,"knownCompletionTime"))} ${u}s while ${required(p.knownTerminalLabel,"knownTerminalLabel")} is working. Who started?`;
   case "findUnknownRateFromAlternatingCompletion":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)}. ${c.actorA} and ${c.actorB} work on alternate ${u}s, starting with ${c.actorA}, and complete ${c.jobPhrase} in ${formatRational(required(p.knownCompletionTime,"knownCompletionTime"))} ${u}s. Find ${c.actorB}'s rate.`;
   case "findUnknownTimeFromAlternatingCompletion":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)}. ${c.actorA} and ${c.actorB} work on alternate ${u}s, starting with ${c.actorA}, and complete ${c.jobPhrase} in ${formatRational(required(p.knownCompletionTime,"knownCompletionTime"))} ${u}s. In how many ${u}s can ${c.actorB} complete the work alone?`;
-  case "findCompletionWhenHelperWorksEveryNthDay":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. ${c.actorA} works every ${u}; ${c.actorB} helps on every ${required(p.patternNumber,"patternNumber")}th ${u}. Find the completion time for ${c.jobPhrase}.`;
-  case "findCompletionWhenAgentRestsEveryNthDay":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)}. ${c.actorA} works regularly but rests on every ${required(p.patternNumber,"patternNumber")}th ${u}. How long will ${c.jobPhrase} take?`;
+  case "findCompletionWhenHelperWorksEveryNthDay":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. ${c.actorA} works every ${u}; ${c.actorB} helps on every ${ordinal(required(p.patternNumber,"patternNumber"))} ${u}. Find the completion time for ${c.jobPhrase}.`;
+  case "findCompletionWhenAgentRestsEveryNthDay":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)}. ${c.actorA} works regularly but rests on every ${ordinal(required(p.patternNumber,"patternNumber"))} ${u}. How long will ${c.jobPhrase} take?`;
   case "findCompletionWithWeekendOrHolidayPattern":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)}. Work is done from Monday to Friday and stops on Saturday and Sunday. Starting on Monday, find the elapsed time required for ${c.jobPhrase}.`;
   case "findCompletionWithUnequalShiftDurations":return `${c.actorA} and ${c.actorB} can complete ${c.jobPhrase} alone in ${formatRational(required(p.timeA,"timeA"))} and ${formatRational(required(p.timeB,"timeB"))} hours. Their unequal shifts repeat in this order: ${cycleSummary(p)}. Find the exact completion time.`;
   case "findCompletionWithTwoDaysOnOneDayOffPattern":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)}. ${c.actorA} follows a repeating schedule of two working ${u}s followed by one rest ${u}. Find the total elapsed time for ${c.jobPhrase}.`;
   case "findCompletionWithPeriodicNegativeWork":return `${c.actorA} and ${c.actorB} can complete ${c.jobPhrase} alone in ${formatRational(required(p.timeA,"timeA"))} and ${formatRational(required(p.timeB,"timeB"))} ${u}s, while ${c.actorC} can undo the whole work in ${formatRational(required(p.timeC,"timeC"))} ${u}s. The first two work together for two ${u}s, then ${c.actorC} undoes work for one ${u}; this cycle repeats. Find the completion time.`;
   case "findCompletionWithRepeatedJoinLeaveCycle":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. The schedule repeats: ${c.actorA} works alone for one ${u}, then both work together for one ${u}. How long will ${c.jobPhrase} take?`;
   case "findCycleCountToReachSpecifiedFraction":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They alternate, starting with ${c.actorA}. How many full cycles are required to complete exactly ${formatRational(required(p.targetWork,"targetWork"))} of the work?`;
-  case "findTimeFromArbitraryCyclePhase":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. Their usual cycle is A then B, but this schedule begins from B's turn and then continues cyclically. Find the completion time for ${c.jobPhrase}.`;
+  case "findTimeFromArbitraryCyclePhase":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. Their usual order is ${c.actorA} followed by ${c.actorB}, but this schedule begins with ${c.actorB} and then repeats the same order. Find the completion time for ${c.jobPhrase}.`;
   case "findExactBoundaryCompletion":return `${soloText(c.actorA,required(p.timeA,"timeA"),u)} and ${c.actorB} can complete it alone in ${formatRational(required(p.timeB,"timeB"))} ${u}s. They alternate, starting with ${c.actorA}. The work finishes exactly at a cycle boundary. Find the total time.`;
   case "findCompletionWithinCycleSegment":return `${c.actorA} and ${c.actorB} can complete ${c.jobPhrase} alone in ${formatRational(required(p.timeA,"timeA"))} and ${formatRational(required(p.timeB,"timeB"))} ${u}s. The repeating blocks are: ${cycleSummary(p)}. Find the exact completion time, including the fraction of the final work block.`;
   case "findOutputUnderPeriodicMachineSchedule":return `${c.actorA} produces ${formatRational(p.cycle[0].rate)} ${p.outputUnit} per hour and runs for ${durationPhrase(formatRational(p.cycle[0].duration),"hour")}; ${c.actorB} then produces ${formatRational(p.cycle[1].rate)} ${p.outputUnit} per hour and runs for ${durationPhrase(formatRational(p.cycle[1].duration),"hour")}. This cycle repeats ${required(p.givenCycles,"givenCycles")} times. Find the total output.`;
@@ -37,29 +41,29 @@ export function renderTmwCp005Stem(entry:TmwCp005RegistryEntry,p:TmwCp005Paramet
 export function tmwCp005ExplanationOpening(entry:TmwCp005RegistryEntry):string{
  switch(entry.solveMode){
   case "findCompletionTimeForTwoAgentAlternationStartingA":
-  case "findCompletionTimeForTwoAgentAlternationStartingB":return "Keep the stated starting worker fixed, find the work of one two-turn cycle, and use only the required fraction of the terminal turn.";
+  case "findCompletionTimeForTwoAgentAlternationStartingB":return "First find how much work the two workers finish in one complete two-day pattern. Repeat that pattern, then calculate only the part of the last worker's day that is needed.";
   case "findCompletionTimeForMultiDayCycle":
-  case "findCompletionTimeForThreeAgentCycle":return "Combine the work of every block in one complete schedule cycle before counting repeated cycles and the unfinished terminal block.";
+  case "findCompletionTimeForThreeAgentCycle":return "First add the work done in every part of one complete repeating pattern. Use as many full patterns as possible, then calculate the unfinished last part separately.";
   case "findCompletionDayAndTerminalFraction":
-  case "findCompletionWithinCycleSegment":return "Locate the last complete cycle first, then divide the remaining work by the rate active in the final block to obtain its exact fraction.";
-  case "findWorkAfterGivenNumberOfCycles":return "Calculate the work in one full cycle and multiply it by the stated number of complete cycles.";
-  case "findRemainingWorkAfterFullCycles":return "Find the work completed by the full cycles and subtract that exact amount from the whole work.";
-  case "findTerminalAgent":return "Track cumulative work through the repeating order and identify the worker whose turn first reaches the whole work.";
-  case "findStartingAgentFromCompletionCondition":return "Test both possible starting phases and retain the one that matches both the stated completion time and the terminal worker.";
+  case "findCompletionWithinCycleSegment":return "First find the work completed in full repeating patterns. Subtract it from the whole work, then divide the work left by the rate of the worker active next.";
+  case "findWorkAfterGivenNumberOfCycles":return "Find the work done in one complete pattern, then multiply it by the given number of full patterns.";
+  case "findRemainingWorkAfterFullCycles":return "Find the work done in all complete patterns, then subtract it from the whole work.";
+  case "findTerminalAgent":return "Follow the repeating order until the remaining work can be finished in the next worker's turn. That worker is the one active at completion.";
+  case "findStartingAgentFromCompletionCondition":return "Check the schedule once with each worker starting. Choose the start that gives both the stated finishing time and the stated final worker.";
   case "findUnknownRateFromAlternatingCompletion":
   case "findUnknownTimeFromAlternatingCompletion":
-  case "findRequiredCycleRateForDeadline":return "Count the exact durations contributed by each cycle position, subtract the known work, and reconstruct the missing rate from the remaining work.";
-  case "findCompletionWhenHelperWorksEveryNthDay":return "Treat the helper day as the final segment of an n-day cycle, with the two rates added only on that day.";
+  case "findRequiredCycleRateForDeadline":return "Count how long the known worker and the unknown worker each work. Find the work already done, then use the work left to calculate the unknown rate.";
+  case "findCompletionWhenHelperWorksEveryNthDay":return "Make one pattern of the stated number of days. The main worker works every day, and both rates are added only on the helper day.";
   case "findCompletionWhenAgentRestsEveryNthDay":
   case "findCompletionWithWeekendOrHolidayPattern":
-  case "findCompletionWithTwoDaysOnOneDayOffPattern":return "Give each rest day zero rate, calculate the productive work of one complete calendar cycle, and then solve the final working day.";
-  case "findCompletionWithUnequalShiftDurations":return "For each shift, multiply its hourly rate by its own duration; unequal shift lengths cannot be treated as equal turns.";
-  case "findCompletionWithPeriodicNegativeWork":return "Treat productive work as positive and the undoing segment as negative, preserving the exact order of the repeating cycle.";
-  case "findCompletionWithRepeatedJoinLeaveCycle":return "Use the solo rate in the first segment and the combined rate in the second, then repeat that two-segment cycle.";
-  case "findCycleCountToReachSpecifiedFraction":return "Divide the target work fraction by the exact work of one complete cycle.";
-  case "findTimeFromArbitraryCyclePhase":return "Rotate the cycle to the stated starting phase before counting full cycles and the terminal segment.";
-  case "findExactBoundaryCompletion":return "Check whether an integer number of complete cycles produces the whole work; no extra terminal segment should be added at an exact boundary.";
-  case "findOutputUnderPeriodicMachineSchedule":return "Find the output of one complete machine cycle and multiply by the stated number of cycles.";
+  case "findCompletionWithTwoDaysOnOneDayOffPattern":return "Include every rest day in the calendar but count zero work on it. Find the work in one full calendar pattern, then calculate the last working day separately.";
+  case "findCompletionWithUnequalShiftDurations":return "For each shift, multiply the worker's hourly rate by that shift's actual length. Add the shift outputs to get one complete pattern.";
+  case "findCompletionWithPeriodicNegativeWork":return "Add the work completed by the productive team and subtract the work undone later. Keep the same order when the pattern repeats.";
+  case "findCompletionWithRepeatedJoinLeaveCycle":return "Find the work done while the first worker is alone, then add the work done while both work together. These two parts form one repeating pattern.";
+  case "findCycleCountToReachSpecifiedFraction":return "Find the work done in one complete pattern, then divide the target work by that amount.";
+  case "findTimeFromArbitraryCyclePhase":return "Begin with the worker named in the question, not with the usual first worker. Then follow the repeating order and calculate the last partial turn.";
+  case "findExactBoundaryCompletion":return "Find the work done in one complete pattern. Because the work ends exactly after a whole number of patterns, multiply the number of patterns by the pattern length.";
+  case "findOutputUnderPeriodicMachineSchedule":return "Find each machine's output during its own running time, add them for one complete pattern, and multiply by the number of repetitions.";
  }
 }
 export function tmwCp005Conclusion(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters,answerText:string):string{
