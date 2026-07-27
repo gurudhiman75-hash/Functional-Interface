@@ -1,6 +1,6 @@
 # DIR-001 English Freeze Report
 
-Status: English freeze implementation prepared; exact-head validation pending.
+Status: English freeze validated; merge requires all exact-current-head workflows to remain green.
 
 ## 1. Decision
 
@@ -95,27 +95,56 @@ The English baseline requires:
 14. adequate per-QL stem and explanation diversity;
 15. balanced correct-answer positions chapter-wide.
 
-## 6. Chapter-wide proof scope
+## 6. Chapter-wide proof result
 
 The freeze proof generates every QL through the public chapter dispatcher rather than calling checkpoint generators directly.
 
-Planned exact-head proof:
+Validated proof:
 
 ```text
 44 QLs × 40 seeds = 1,760 generated English questions
 ```
 
-The proof also repeats each generation to verify deterministic equality, so the dispatcher performs at least 3,520 full generation calls during the audit.
+Each generation was repeated for deterministic equality, producing at least 3,520 complete dispatcher calls.
 
-Checkpoint-specific proofs remain authoritative for deeper topology coverage and continue to run as regressions.
+Results from the first validated implementation head `4914824a2f61818f301386550c88879eb8715fed`:
 
-## 7. Review artifact
+- strict TypeScript validation passed;
+- 1,760 generated cases passed all freeze invariants;
+- 1,480 accessible SVG instances were validated;
+- every QL produced at least 39 distinct stems across 40 seeds;
+- every QL produced at least 18 distinct complete explanations across 40 seeds;
+- no exact stem collision occurred between different QLs;
+- correct-answer positions were `[496, 423, 397, 444]`, within the configured balance threshold;
+- unknown QL dispatch was rejected correctly.
+
+Exact-head regression workflows also passed for:
+
+- chapter foundation and CP-001 through CP-004;
+- CP-005;
+- CP-006;
+- CP-007;
+- CP-008.
+
+The merge gate is the same validation set on the current PR head, so documentation-only follow-up commits cannot bypass runtime revalidation.
+
+## 7. Review artifact result
 
 The freeze workflow publishes one consolidated English artifact containing:
 
 ```text
 44 QLs × 2 seeds = 88 review questions
 ```
+
+The audited artifact contained:
+
+- exactly two questions for every QL;
+- exactly four unique options for every question;
+- one correct answer for every question;
+- 74 embedded question or explanation SVGs;
+- no internal QL or checkpoint IDs in learner-facing text;
+- paired caselet state parity for `DIR-QL-042` and `DIR-QL-043`;
+- complete HTML and JSONL outputs.
 
 The artifact includes:
 
