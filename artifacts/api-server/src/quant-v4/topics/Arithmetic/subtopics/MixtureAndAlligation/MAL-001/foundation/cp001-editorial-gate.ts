@@ -40,10 +40,24 @@ export function enforceMalCp001ContextCoherence(
   );
 }
 
-function capitaliseFirstLetter(text: string): string {
-  const index = text.search(/[a-z]/iu);
-  if (index < 0) return text;
-  return `${text.slice(0, index)}${text[index].toUpperCase()}${text.slice(index + 1)}`;
+function capitaliseSentenceOpening(text: string): string {
+  if (!/^[a-z]/u.test(text)) return text;
+  return `${text[0].toUpperCase()}${text.slice(1)}`;
+}
+
+function replaceHowMuchQuantity(
+  text: string,
+  verb: "added" | "used",
+): string {
+  const pattern = new RegExp(`How much\\s+(.+?)\\s+was ${verb}\\?$`, "iu");
+  return text.replace(
+    pattern,
+    (_match: string, material: string, offset: number, source: string) => {
+      const preceding = source.slice(0, offset);
+      const startsSentence = offset === 0 || /[.!?]\s*$/u.test(preceding);
+      return `${startsSentence ? "What" : "what"} quantity of ${material} was ${verb}?`;
+    },
+  );
 }
 
 /**
@@ -57,17 +71,19 @@ export function polishMalCp001Stem(stem: string): string {
     /^(\d+\s+(?:kg|litres)\s+of\s+.+?)\s+is blended with\s+(.+)$/iu,
     "A blend combines $1 with $2",
   );
-  polished = polished.replace(
-    /How much\s+(.+?)\s+was added\?$/iu,
-    "What quantity of $1 was added?",
-  );
-  polished = polished.replace(
-    /How much\s+(.+?)\s+was used\?$/iu,
-    "What quantity of $1 was used?",
-  );
+  polished = replaceHowMuchQuantity(polished, "added");
+  polished = replaceHowMuchQuantity(polished, "used");
   polished = polished.replace(/,\s+and\s+([^,?]+),\s+and\s+/iu, ", $1, and ");
+  polished = polished.replace(
+    /,\s+(\d+\s+(?:kg|litres)\s+of\s+[^,?]+)\s+are used/iu,
+    ", and $1 are used",
+  );
+  polished = polished.replace(
+    /,\s+(\d+\s+(?:kg|litres)\s+of\s+[^,?]+)\.\s+What/iu,
+    ", and $1. What",
+  );
 
-  return capitaliseFirstLetter(polished);
+  return capitaliseSentenceOpening(polished);
 }
 
 export function validateMalCp001ContextCoherence(
