@@ -6,6 +6,7 @@ on:
       - feat/ana-cp009-source-boundary
       - feat/ana-cp009-coupled-invariant-proof
       - feat/ana-cp009-legacy-allocation-audit
+      - feat/ana-cp009-conditional-admission-gate
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/**
       - .github/workflows/ana-cp-009-source-boundary.yml
@@ -53,3 +54,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/provisional-coupled-invariant-pilot.test.ts
       - name: Run legacy allocation boundary audit
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/legacy-allocation-boundary.test.ts
+      - name: Run conditional-branch admission gate
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-009/conditional-branch-admission.test.ts
