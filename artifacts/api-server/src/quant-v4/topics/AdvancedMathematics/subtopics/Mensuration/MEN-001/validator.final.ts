@@ -12,6 +12,13 @@ import type {
 
 type Question = Omit<Men001QuestionPackage, "validation">;
 
+const FOUR_TIER_HEADINGS = [
+  "### 📌 Key Rule & Formula",
+  "### 📝 Step-by-Step Solution",
+  "### 💡 Exam Speed Shortcut",
+  "### ⚠️ Common Traps",
+] as const;
+
 function check(name: string, passed: boolean, message: string): Men001ValidationCheck {
   return { name, passed, message };
 }
@@ -64,19 +71,29 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-opening",
-    Boolean(profile) && explanationLines[0] === profile?.opening,
-    "The explanation must begin with its QL-specific, context-aware opening.",
+    Boolean(profile) && explanationLines[0]?.includes(profile!.opening) === true,
+    "The Key Rule tier must retain its QL-specific, context-aware opening.",
   ));
   checks.push(check(
     "natural-explanation-conclusion",
-    Boolean(expectedConclusion) &&
-      explanationLines[explanationLines.length - 1] === expectedConclusion,
-    "The explanation must end with its contextual conclusion rather than a shared answer shell.",
+    Boolean(expectedConclusion) && explanationLines[1]?.includes(expectedConclusion!) === true,
+    "The contextual conclusion and final result must appear inside the Step-by-Step Solution tier.",
   ));
   checks.push(check(
     "natural-explanation-length",
-    explanationLines.length >= 3 && explanationLines.length <= 9,
-    "The explanation should use only as many lines as the reasoning needs.",
+    explanationLines.length === FOUR_TIER_HEADINGS.length,
+    "The canonical explanation must contain exactly four learner-facing blocks.",
+  ));
+  checks.push(check(
+    "natural-explanation-four-tier-headings",
+    FOUR_TIER_HEADINGS.every((heading, index) => explanationLines[index]?.startsWith(heading)),
+    "The four canonical blocks must use the required learner-facing headings in order.",
+  ));
+  checks.push(check(
+    "natural-explanation-no-fifth-block",
+    explanationLines.every((line) => !/Final Answer/i.test(line)) &&
+      question.explanation.sections.every((section) => section.kind !== "FINAL_ANSWER"),
+    "The final result belongs inside the worked solution and must not appear as a fifth block.",
   ));
   checks.push(check(
     "natural-explanation-worked-arithmetic",
@@ -85,7 +102,10 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-no-generic-padding",
-    explanationLines.every((line) => !genericPaddingPattern.test(line)),
+    explanationLines.every((line) => {
+      const body = line.replace(/^### [^\n]+\n+/, "");
+      return !genericPaddingPattern.test(body);
+    }),
     "Explanations must not use formula labels, repeated check lines or generic unit padding.",
   ));
 
