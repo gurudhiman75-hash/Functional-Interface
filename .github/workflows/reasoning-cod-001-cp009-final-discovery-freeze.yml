@@ -1,0 +1,48 @@
+name: Reasoning COD-001 CP-009 Final Discovery Freeze
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - ".github/workflows/reasoning-cod-001-cp009-final-discovery-freeze.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-final-discovery-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run combined prototype saturation gate
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/prototype-saturation-audit.ts
+
+      - name: Run final source ownership and edge freeze
+        id: freeze_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/cp009-final-discovery-freeze.test.ts > cod-cp009-final-discovery-freeze.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload final discovery freeze diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-final-discovery-freeze
+          path: cod-cp009-final-discovery-freeze.log
+          retention-days: 14
+
+      - name: Enforce final discovery freeze result
+        shell: bash
+        run: |
+          cat cod-cp009-final-discovery-freeze.log
+          test "${{ steps.freeze_audit.outputs.exit_code }}" = "0"
