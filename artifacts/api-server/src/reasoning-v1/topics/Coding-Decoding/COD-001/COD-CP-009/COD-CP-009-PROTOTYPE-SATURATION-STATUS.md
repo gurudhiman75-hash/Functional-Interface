@@ -1,17 +1,18 @@
-# COD-CP-009 — Prototype Saturation Status
+# COD-CP-009 — Prototype Saturation and Discovery Freeze Status
 
-Status: **all 16 currently admitted source-backed task contracts have executable English prototypes; the exact-head combined saturation audit passes; executable merge/split discovers 24 provisional solve contracts; permanent QLs remain unallocated**.
+Status: **English discovery frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1` at 16 task contracts, 10 topology families and 24 provisional solve contracts; permanent QLs remain unallocated**.
 
-This document supersedes earlier status statements in the checkpoint README and executable-gap resolution that four source-backed prototypes remain unimplemented. It does not allocate permanent `COD-QL-*` identities and does not make the checkpoint publishable.
+This document records the executable saturation and final discovery state. `COD-CP-009-FINAL-GAP-AND-OWNERSHIP-FREEZE.md` is the current authority for source coverage, edge closure, ownership and exclusions.
 
 ## 1. Stable identity boundary
 
 - permanent COD-001 QLs currently stop at `COD-QL-168`;
 - CP-009 prototype IDs remain non-permanent;
-- CP-007 and CP-008 still precede CP-009 in the chapter sequence;
-- CP-009 cannot reserve a permanent range before the earlier checkpoints discover their final counts.
+- CP-007 and CP-008 precede CP-009 in the chapter sequence;
+- CP-009 cannot reserve a permanent range before those checkpoints discover their final counts;
+- Question Studio, localisation, Question Bank conversion and publication remain disabled.
 
-## 2. Proven task-contract inventory
+## 2. Frozen task-contract inventory
 
 ### Exact atomic
 
@@ -53,7 +54,7 @@ This document supersedes earlier status statements in the checkpoint README and 
 15. complete possible-code candidate set for one word;
 16. complete possible-word candidate set for one code token.
 
-## 3. Proven topology inventory
+## 3. Frozen topology inventory
 
 1. direct singleton intersection;
 2. chained singleton propagation;
@@ -68,143 +69,127 @@ This document supersedes earlier status statements in the checkpoint README and 
 
 ## 4. Executable merge/split result
 
-The two exact atomic directions each split into five provisional solve modes because direct intersection, chained propagation, set difference, forked evidence and global bijection require materially different student proof paths. The other fourteen prototype task contracts currently map one-to-one to provisional solve contracts.
+The two exact atomic directions each split into five solve modes because direct intersection, chained propagation, set difference, forked evidence and global bijection require materially different student proof paths and explanation obligations. The other fourteen task contracts map one-to-one to solve contracts.
 
 ```text
 Exact atomic: 2 directions × 5 solve modes = 10
-Other retained prototype contracts:             14
----------------------------------------------------
-Current provisional solve-contract inventory:   24
+Other retained task contracts:                  14
+--------------------------------------------------
+Frozen provisional solve contracts:             24
 ```
 
-The following distinctions remain merged as generated-instance properties:
+The following remain generated-instance properties:
 
 - two-way versus three-way uncertainty;
 - statement count;
-- row order and token order;
+- row order and unordered token display order;
 - table, paragraph and quotation-style presentation.
 
-The full authority is `COD-CP-009-MERGE-SPLIT-DECISION.md`.
+## 5. Combined saturation evidence
 
-## 5. Exact-head combined saturation evidence
-
-The dedicated workflow passed on exact head:
+The combined gate covers:
 
 ```text
-Head SHA:    6571e4d0a9c067f3f355d3f451089e7d9757a05d
-Workflow:    Reasoning COD-001 CP-009 Combined Saturation
-Run ID:      30281306137
-Conclusion:  success
-Artifact ID: 8658922775
-Digest:      sha256:bc3f95d268db07ff4ea1cc89cb497d1baf24c2738e08ec930871cdc2ac71d949
+Task contracts:                         16
+Forward/inverse pairs:                   8
+Topology families:                      10
+Provisional solve contracts:            24
+Contract/topology pairings:             30
+Seeds per pairing:                      24
+Generated combined questions:          720
+Bounded-generation failures:             0
+Exact displayed-question collisions:     0
+Normalised query-stem collisions:         0
+Normalised explanation collisions:        0
+Permanent CP-009 QLs:                     0
 ```
 
-The combined workflow reran and passed:
+Every pairing produces 24 successful and distinct questions, reaches all five approved English scenarios and reaches all four answer positions.
 
-- abstract constraint-foundation proof;
-- abstract topology generation proof;
-- curated English language-data audit;
-- exact atomic prototype audit;
-- exact set and missing-member prototype audit;
-- possible/impossible atomic prototype audit;
-- possible mixed-set prototype audit;
-- resolved-composition prototype audit;
-- complete-candidate-set prototype audit;
-- the new chapter-wide saturation audit.
+The first combined execution found one genuine editorial collision: forward and inverse possible-set explanations used the same normalised skeleton. The explanation authority was made direction-specific, and all subsequent combined and family-specific runs pass without solver, option or answer regression.
 
-Chapter-wide saturation metrics:
+## 6. Final source, edge and ownership freeze
+
+The final freeze reviewed the uploaded source material against the executable inventory.
+
+Direct source evidence supports:
+
+- exact common-word/common-code deduction;
+- `Cannot be determined` when no result is invariant;
+- complete either/or candidate domains;
+- new phrases composed from independently resolved parts;
+- may-represent possible atomic and mixed-set questions.
+
+The executable edge matrix closes:
+
+- direct, chained, difference, forked and global proof routes;
+- two-way and three-way ambiguity;
+- invariant sets with ambiguous internal assignments;
+- unique missing members and rejection of non-unique blanks;
+- zero-witness impossible answers;
+- complete two- or three-member candidate domains;
+- row minimality, contradiction rejection and permutation invariance;
+- phrase composition when the complete target does not appear in any source row.
+
+Ownership is frozen as follows:
+
+- CP-009 owns sentence/artificial-language word-token constraints;
+- CP-001 through CP-006 own direct, rank, shift, permutation and multi-stage character coding;
+- CP-007 owns digit, symbol and alphanumeric coding;
+- CP-008 owns renaming;
+- CP-010 owns conditional lookup-table coding;
+- OPS-001, Data Sufficiency, Puzzle and Input-Output retain their own wrappers and skills.
+
+No meaningful current English concept, task, inverse, answer-semantic, edge, representation, source-format or ownership gap remains.
+
+## 7. Exact final-freeze proof
 
 ```text
-Prototype contracts:                         16
-Forward/inverse pairs:                         8
-Topology families:                            10
-Provisional solve contracts:                  24
-Contract/topology pairings:                   30
-Seeds per pairing:                            24
-Generated combined questions:                720
-Bounded-generation failures:                   0
-Exact displayed-question collisions:           0
-Normalised query-stem collisions:               0
-Normalised full-explanation collisions:         0
-Permanent CP-009 QLs:                           0
+Freeze version: COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1
+Head SHA:       14d29e7cbebb298798118c0ae6ced31542f142a8
+Workflow:       Reasoning COD-001 CP-009 Final Discovery Freeze
+Run ID:         30285908074
+Conclusion:     success
+Artifact ID:    8660774184
+Digest:         sha256:cadd83367483713559d7ec69bc0f7ff1bebdf7b7c9acaad5fb97d7e90f25da44
+COD runtime:    30285907974 — success
 ```
 
-Every one of the 30 pairings produced:
+The final workflow first reruns the 720-question combined saturation gate and then checks the frozen source ledger, ownership dispositions, 30-pairing edge matrix, answer predicates, inverse pairs, topology set and sequencing locks.
 
-- 24 successful generations from 24 attempts;
-- 24 distinct complete displayed questions;
-- all five reviewed English scenarios;
-- all four correct-answer positions.
+## 8. Excluded expansions
 
-## 6. Audit-discovered editorial correction
+The freeze continues to exclude:
 
-The first combined execution rejected the forward and inverse possible-set prototypes because their full explanations became identical after variable words, code tokens and numbers were normalised.
-
-This was a genuine editorial weakness. The shared explanation authority was rewritten so that:
-
-- word-set → code-set questions trace each queried word to its code word;
-- code-set → word-set questions decode each queried code word back to a word;
-- Reference Aid, Quick Method, evidence conclusion, complete-mapping witness, final conclusion and Common Trap Alert are direction-specific;
-- solver mathematics, options, answers and witness counts remain unchanged.
-
-The exact-head pass proves that this collision is removed without regression.
-
-## 7. Evidence added after the original twelve-contract audit
-
-### Resolved composition
-
-The encode and inverse prototypes prove that two target components can be resolved through independent evidence branches and combined for a new phrase/set query that never appears as one displayed statement. The merged audit covers 240 deterministic questions with production-solver and independent-verifier agreement, row minimality and natural option ordering.
-
-### Complete candidate domains
-
-The encode and inverse prototypes prove answers of the form “either X or Y” or a complete three-member candidate set. The correct option equals the full witnessed domain; distractors omit one candidate, add one impossible member or replace one candidate. The merged audit covers 480 deterministic questions with exact candidate-domain equality and balanced answer positions.
-
-## 8. Current merge/split decisions
-
-| Axis | Current decision |
-|---|---|
-| encode versus inverse decode | retain separately |
-| exact versus possible versus impossible | retain separately |
-| atomic versus set answer | retain separately |
-| ordinary versus missing-member presentation | retain separately |
-| two-way versus three-way uncertainty | merge as instance width |
-| statement count | merge as instance parameter |
-| possible member versus complete candidate domain | retain separately |
-| invariant ambiguous set versus resolved composition | retain separately |
-| direct/chained/difference/forked/global exact topology | split into five solve modes per direction |
-
-## 9. Remaining mandatory work
-
-Before any permanent QL allocation:
-
-1. repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audits;
-2. freeze the discovered CP-009 inventory only if no meaningful gap remains;
-3. wait for CP-007 and CP-008 permanent allocations;
-4. assign sequential CP-009 identities from the then-current next available `COD-QL-*` ID;
-5. implement the frozen English runtime before localisation or Question Studio integration.
-
-## 10. Excluded expansions
-
-The following remain excluded unless new direct source evidence changes ownership:
-
-- impossible phrase/set questions;
+- impossible phrase/set questions without direct recurring source evidence;
 - Data Sufficiency wrappers;
-- positional code-token coding;
+- ordered token-position coding;
 - operator substitution;
-- renaming coding;
-- conditional table coding;
-- static table/paragraph or quotation-style variants as separate QLs.
+- renaming and conditional-table coding;
+- static renderer differences or statement count as separate QLs;
+- free-form sentence generation;
+- mechanically creating every predicate × direction × cardinality combination.
 
-## 11. Verdict
+Any future change requires direct new source evidence and a new freeze version.
 
-- admitted task contracts with executable prototypes: **16**;
-- proven topology families: **10**;
-- provisional solve contracts after executable merge/split: **24**;
-- exact-head combined saturation: **passed**;
-- permanent CP-009 QLs: **0**;
-- fixed permanent CP-009 QL count: **none**;
-- Question Studio exposure: **disabled**;
-- localisation: **not started**;
-- public publishability: **false**.
+## 9. Remaining mandatory sequence
 
-Final status: **PROTOTYPE INVENTORY AND EXECUTABLE MERGE/SPLIT SATURATED FOR CURRENT SOURCE-BACKED ENGLISH SCOPE — FINAL SOURCE/OWNERSHIP GAP FREEZE AND SEQUENTIAL ALLOCATION REMAIN**.
+1. complete CP-007 exhaustive discovery and English runtime;
+2. complete CP-008 exhaustive discovery and English runtime;
+3. assign sequential permanent IDs to the frozen CP-009 solve contracts from the then-current next available chapter ID;
+4. implement and review the frozen CP-009 English runtime;
+5. begin Hindi and Punjabi only after English approval;
+6. keep Question Studio and public routing disabled until later release gates pass.
+
+## 10. Verdict
+
+```text
+Task contracts:                 16
+Forward/inverse pairs:           8
+Topology families:              10
+Provisional solve contracts:    24
+Permanent CP-009 QLs:            0
+Freeze version: COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1
+```
+
+Final status: **ENGLISH DISCOVERY, SOURCE COVERAGE, EDGE COVERAGE, OWNERSHIP AND MERGE/SPLIT FROZEN — PERMANENT ALLOCATION DEFERRED UNTIL CP-007 AND CP-008 ARE COMPLETE**.
