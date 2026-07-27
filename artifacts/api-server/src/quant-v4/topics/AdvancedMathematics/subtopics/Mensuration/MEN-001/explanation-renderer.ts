@@ -4,6 +4,7 @@ import { authorFinalMen001ExplanationLines } from "./natural-explanation-authors
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
 import { buildMen001StructuredExplanation } from "./structured-explanation";
 import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
+import { addMen001ExamShortcut } from "./structured-exam-shortcuts";
 import { polishMen001StructuredSections } from "./structured-final-polisher";
 import { latexizeMen001StructuredSections } from "./structured-math-latex";
 import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
@@ -30,25 +31,29 @@ export function renderMen001Explanation(
     solver,
   );
   const sections = latexizeMen001StructuredSections(
-    polishMen001StructuredSections(
-      restoreMen001SpecificStepAuthorship(
-        normalizeMen001StructuredSections(
-          enhanceMen001StructuredSections(
-            buildMen001StructuredExplanation(
+    addMen001ExamShortcut(
+      polishMen001StructuredSections(
+        restoreMen001SpecificStepAuthorship(
+          normalizeMen001StructuredSections(
+            enhanceMen001StructuredSections(
+              buildMen001StructuredExplanation(
+                originalLines,
+                authoredLines,
+                parameters,
+                solver,
+              ),
               originalLines,
-              authoredLines,
               parameters,
               solver,
             ),
-            originalLines,
-            parameters,
-            solver,
+            parameters.solveMode,
           ),
           parameters.solveMode,
         ),
         parameters.solveMode,
       ),
-      parameters.solveMode,
+      parameters,
+      solver,
     ),
   );
   return {
