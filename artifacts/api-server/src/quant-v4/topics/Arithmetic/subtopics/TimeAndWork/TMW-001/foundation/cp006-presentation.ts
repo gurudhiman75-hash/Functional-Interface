@@ -8,9 +8,10 @@ function noun(value:Rational,singular:string,plural:string):string{return equals
 function resourceCount(p:TmwCp006Parameters,value:Rational):string{return `${number(value)} ${noun(value,p.context.resourceSingular,p.context.resourcePlural)}`;}
 function days(value:Rational):string{return `${number(value)} ${noun(value,"day","days")}`;}
 function hours(value:Rational):string{return `${number(value)} ${noun(value,"hour","hours")} per day`;}
+function isMachineContext(p:TmwCp006Parameters):boolean{return p.context.resourceTimeUnit.endsWith("hours");}
 function resourceDuration(p:TmwCp006Parameters):string{
   const value=p.stateA.days;
-  return p.context.resourceTimeUnit.endsWith("hours")?`${number(value)} ${noun(value,"hour","hours")}`:days(value);
+  return isMachineContext(p)?`${number(value)} ${noun(value,"hour","hours")}`:days(value);
 }
 function workRelation(p:TmwCp006Parameters):string{
   const ratio=divide(p.stateB.work,p.stateA.work);
@@ -29,7 +30,7 @@ export function renderTmwCp006Stem(entry:TmwCp006RegistryEntry,p:TmwCp006Paramet
     case "findRequiredDays":return `${resourceCount(p,a.resources)}, working ${hours(a.hoursPerDay)}, can complete ${c.jobPhrase} in ${days(a.days)}. In how many days will ${resourceCount(p,b.resources)} complete ${workRelation(p)}, working ${hours(b.hoursPerDay)} ${efficiencyRelation(p)}?`;
     case "findRequiredDailyHours":return `${resourceCount(p,a.resources)}, working ${hours(a.hoursPerDay)}, can complete ${c.jobPhrase} in ${days(a.days)}. How many hours per day must ${resourceCount(p,b.resources)} work to complete ${workRelation(p)} in ${days(b.days)} ${efficiencyRelation(p)}?`;
     case "findRelativeEfficiency":return `${resourceCount(p,a.resources)}, working ${hours(a.hoursPerDay)}, can complete ${c.jobPhrase} in ${days(a.days)}. At what multiple of the original efficiency must ${resourceCount(p,b.resources)} work to complete ${workRelation(p)} in ${days(b.days)}, working ${hours(b.hoursPerDay)}?`;
-    case "findWorkQuantity":return `${resourceCount(p,a.resources)} produce ${number(a.work)} ${c.outputUnit} in ${number(a.days)} shifts. At the same per-${c.resourceSingular} output, how many ${c.outputUnit} will ${resourceCount(p,b.resources)} produce in ${number(b.days)} shifts?`;
+    case "findWorkQuantity":return `${resourceCount(p,a.resources)} produce ${number(a.work)} ${c.outputUnit} in ${number(a.days)} shifts. At the same output per ${c.resourceSingular} per shift, how many ${c.outputUnit} will ${resourceCount(p,b.resources)} produce in ${number(b.days)} shifts?`;
     case "findWorkQuantityRatio":return `One team has ${resourceCount(p,a.resources)} working ${hours(a.hoursPerDay)} for ${days(a.days)}. Another has ${resourceCount(p,b.resources)} working ${hours(b.hoursPerDay)} for ${days(b.days)} ${efficiencyRelation(p)}. Find the ratio of the second team's work to the first team's work.`;
     case "findAdditionalWorkersForDeadline":return `${resourceCount(p,a.resources)} can complete ${c.jobPhrase} in ${days(a.days)}. How many additional ${c.resourcePlural} are needed to complete it in ${days(b.days)}?`;
     case "findWorkersRemovedForDelay":return `${resourceCount(p,a.resources)} can complete ${c.jobPhrase} in ${days(a.days)}. If the completion time may be extended to ${days(b.days)}, how many ${c.resourcePlural} can be removed?`;
@@ -46,7 +47,7 @@ export function renderTmwCp006Stem(entry:TmwCp006RegistryEntry,p:TmwCp006Paramet
     case "findResourceDurationAfterPopulationChange":return `The available food is sufficient for ${number(required(p.initialPopulation,"initialPopulation"))} people for ${days(a.days)}. After ${days(required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange"))}, the population becomes ${number(required(p.changedPopulation,"changedPopulation"))}. For how many more days will the remaining food last?`;
     case "findCompletionTimeAfterAbsenteeism":return `${resourceCount(p,a.resources)} are scheduled to complete ${c.jobPhrase} in ${days(a.days)}. If ${number(required(p.absentPercent,"absentPercent"))}% remain absent throughout, in how many days will the active workforce complete the work?`;
     case "findCompletionWithBatchWorkerAdditions":return `${resourceCount(p,a.resources)} can complete ${c.jobPhrase} in ${days(a.days)}. Instead, ${number(required(p.initialBatchResources,"initialBatchResources"))} ${c.resourcePlural} start the work and ${number(required(p.batchAddition,"batchAddition"))} more join at the beginning of each following day. In how many days will the work be completed?`;
-    case "findEquivalentResourceTime":return `Find the equivalent ${c.resourceTimeUnit} represented by ${resourceCount(p,a.resources)} working for ${resourceDuration(p)}.`;
+    case "findEquivalentResourceTime":return `Find the equivalent ${c.resourceTimeUnit} represented by ${resourceCount(p,a.resources)} ${isMachineContext(p)?"operating":"working"} for ${resourceDuration(p)}.`;
   }
 }
 
@@ -78,20 +79,29 @@ export function tmwCp006ExplanationOpening(entry:TmwCp006RegistryEntry):string{
 }
 
 export function tmwCp006Conclusion(entry:TmwCp006RegistryEntry,p:TmwCp006Parameters,answerText:string):string{
+  const c=p.context;
   switch(entry.solveMode){
+    case "findRequiredResourceCount":return `Therefore, ${answerText} are required under the revised work schedule.`;
+    case "findRequiredDays":return `Therefore, ${resourceCount(p,p.stateB.resources)} will complete the stated work in ${answerText}.`;
+    case "findRequiredDailyHours":return `Therefore, each ${c.resourceSingular} must work ${answerText}.`;
+    case "findRelativeEfficiency":return `Therefore, the revised team must work at ${answerText}.`;
+    case "findWorkQuantity":return `Therefore, the revised production arrangement yields ${answerText}.`;
+    case "findWorkQuantityRatio":
+    case "findDimensionalWorkRatio":return `Therefore, the required work ratio is ${answerText}.`;
     case "findAdditionalWorkersForDeadline":return `Therefore, ${answerText} must be added to meet the shorter deadline.`;
     case "findWorkersRemovedForDelay":return `Therefore, ${answerText} can be removed under the extended schedule.`;
     case "findOriginalWorkforceFromChangedSchedule":return `Therefore, the original workforce contained ${answerText}.`;
     case "findRemainingDaysFromActualProgress":return `Therefore, the remaining work will take ${answerText} at the observed pace.`;
     case "findExtraWorkersFromPlannedVsActualProgress":return `Therefore, ${answerText} must be added to finish by the planned date.`;
+    case "findPercentWorkCompletedFromResourceHours":return `Therefore, the stated resource-hours complete ${answerText} of the work.`;
     case "findPercentScheduleDelay":return `Therefore, the reduced workforce causes a ${answerText} schedule delay.`;
-    case "findOvertimeHoursForDeadline":return `Therefore, each active resource must work ${answerText}.`;
-    case "findDimensionalWorkRatio":
-    case "findWorkQuantityRatio":return `Therefore, the required work ratio is ${answerText}.`;
+    case "findOvertimeHoursForDeadline":return `Therefore, each remaining ${c.resourceSingular} must work ${answerText}.`;
+    case "findShiftCountForProductionTarget":return `Therefore, the production target is reached in ${answerText}.`;
+    case "findWorkersForChangedDimensions":return `Therefore, the enlarged job requires ${answerText}.`;
+    case "findDaysForChangedDimensions":return `Therefore, the changed job will take ${answerText}.`;
     case "findResourceDurationAfterPopulationChange":return `Therefore, the remaining stock will last ${answerText}.`;
-    case "findCompletionTimeAfterAbsenteeism":return `Therefore, the active workforce will complete ${p.context.jobPhrase} in ${answerText}.`;
-    case "findCompletionWithBatchWorkerAdditions":return `Therefore, the batch-addition schedule completes ${p.context.jobPhrase} in ${answerText}.`;
+    case "findCompletionTimeAfterAbsenteeism":return `Therefore, the active workforce will complete ${c.jobPhrase} in ${answerText}.`;
+    case "findCompletionWithBatchWorkerAdditions":return `Therefore, the batch-addition schedule completes ${c.jobPhrase} in ${answerText}.`;
     case "findEquivalentResourceTime":return `Therefore, the schedule represents ${answerText}.`;
-    default:return `Therefore, the required answer is ${answerText}.`;
   }
 }
