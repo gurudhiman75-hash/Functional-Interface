@@ -76,19 +76,35 @@ export function buildPossibleSetExplanation(
     correct.members,
   );
   const trap = options.find((option) => !option.isCorrect)!;
+  const isEncoding = contract.queryDirection === "WORDS_TO_TOKENS";
 
   return {
-    referenceAid: [
-      "A possible set needs at least one complete mapping witness, but it need not occur in every mapping.",
-      "Code-word order and word order are irrelevant; compare each option as an unordered set.",
-    ],
-    quickMethod: "First isolate the resolved modifier pair. Then combine that fixed member with each candidate belonging to the unresolved core group.",
+    referenceAid: isEncoding
+      ? [
+        "For a word-set query, trace every queried word to a code word within the same complete mapping.",
+        "The order of code words is irrelevant, so compare each option as an unordered code-word set.",
+      ]
+      : [
+        "For a code-set query, decode every queried code word to a word within the same complete mapping.",
+        "The order of decoded words is irrelevant, so compare each option as an unordered word set.",
+      ],
+    quickMethod: isEncoding
+      ? "First fix the certain word-to-code pair. Then attach each possible code of the unresolved word and compare the resulting code-word sets."
+      : "First fix the certain code-to-word pair. Then attach each possible word represented by the unresolved code and compare the resulting word sets.",
     evidenceComparison: [
       `The words common to all three statements are ${quoted(coreWords)}, and the code words common to all three code sets are ${quoted(coreTokens)}. Their internal pairings remain unresolved.`,
-      `Statements 2 and 3 have one additional common word, ${quoted(resolvedWords)}, and one additional common code word, ${quoted(resolvedTokens)}. Hence ‘${resolvedWord}’ is represented by ‘${resolvedToken}’.`,
+      isEncoding
+        ? `Statements 2 and 3 isolate ‘${resolvedWord}’ as ‘${resolvedToken}’. Therefore that fixed code word must be included when coding the queried word pair.`
+        : `Statements 2 and 3 isolate ‘${resolvedToken}’ as the code for ‘${resolvedWord}’. Therefore that fixed word must be included when decoding the queried code pair.`,
     ],
-    witness: `One complete mapping allowed by all statements contains ${witnessPairs}. Therefore the offered set ‘${correct.value}’ has ${witnessCount} witness${witnessCount === 1 ? "" : "es"} among ${space.solutionCount} valid mappings.`,
-    conclusion: `Hence ‘${correct.value}’ is a possible answer.`,
-    commonTrapAlert: `‘${trap.value}’ has zero complete-mapping witnesses; it combines members that cannot jointly represent the requested set.`,
+    witness: isEncoding
+      ? `One complete mapping allowed by all statements assigns the queried words through ${witnessPairs}. Therefore the offered code-word set ‘${correct.value}’ has ${witnessCount} witness${witnessCount === 1 ? "" : "es"} among ${space.solutionCount} valid mappings.`
+      : `One complete mapping allowed by all statements decodes the queried code words through ${witnessPairs}. Therefore the offered word set ‘${correct.value}’ has ${witnessCount} witness${witnessCount === 1 ? "" : "es"} among ${space.solutionCount} valid mappings.`,
+    conclusion: isEncoding
+      ? `Hence the code-word set ‘${correct.value}’ can represent the queried words.`
+      : `Hence the word set ‘${correct.value}’ can be represented by the queried code words.`,
+    commonTrapAlert: isEncoding
+      ? `The code-word set ‘${trap.value}’ has zero complete-mapping witnesses; its members cannot jointly encode the queried words.`
+      : `The word set ‘${trap.value}’ has zero complete-mapping witnesses; its members cannot jointly be decoded from the queried code words.`,
   };
 }
