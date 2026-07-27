@@ -36,8 +36,16 @@ for (const qlId of qlIds) {
       language: "en" as const,
       seed,
     };
-    const first = runPnlCp001DynamicPipeline(input);
-    const second = runPnlCp001DynamicPipeline(input);
+    const generate = () => {
+      try {
+        return runPnlCp001DynamicPipeline(input);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        throw new Error(`${qlId}/${seed}: ${message}`, { cause: error });
+      }
+    };
+    const first = generate();
+    const second = generate();
 
     assert.deepEqual(second, first, `${qlId}/${seed}: regeneration must be deterministic.`);
     assert.equal(first.archetypeId, "PNL-001");
