@@ -56,6 +56,30 @@ function restoreText(original: string, translated: string, locale: ApprovedOpsLo
   return translated;
 }
 
+function localizeOptionValue(value: string, locale: ApprovedOpsLocale): string {
+  const dictionary = locale === "hi-IN"
+    ? {
+      "Only one pair is required": "केवल एक चिह्न-युग्म आवश्यक है",
+      "no number swap": "पूरी संख्याओं का बदलाव नहीं",
+      "no operator swap": "चिह्नों का बदलाव नहीं",
+      "no digit interchange": "अंकों का बदलाव नहीं",
+      "no operator interchange": "चिह्नों का बदलाव नहीं",
+    }
+    : {
+      "Only one pair is required": "ਕੇਵਲ ਇੱਕ ਚਿੰਨ੍ਹ-ਜੋੜਾ ਲੋੜੀਂਦਾ ਹੈ",
+      "no number swap": "ਪੂਰੀਆਂ ਸੰਖਿਆਵਾਂ ਦਾ ਬਦਲਾਅ ਨਹੀਂ",
+      "no operator swap": "ਚਿੰਨ੍ਹਾਂ ਦਾ ਬਦਲਾਅ ਨਹੀਂ",
+      "no digit interchange": "ਅੰਕਾਂ ਦਾ ਬਦਲਾਅ ਨਹੀਂ",
+      "no operator interchange": "ਚਿੰਨ੍ਹਾਂ ਦਾ ਬਦਲਾਅ ਨਹੀਂ",
+    };
+
+  let localized = value;
+  for (const [english, replacement] of Object.entries(dictionary)) {
+    localized = localized.replaceAll(english, replacement);
+  }
+  return localized;
+}
+
 export function localizeApprovedOpsQuestion(
   question: ApprovedOpsQuestion,
   locale: ApprovedOpsLocale,
@@ -75,6 +99,10 @@ export function localizeApprovedOpsQuestion(
   const localized = localizeBase(patched, locale);
   return {
     ...localized,
+    options: localized.options.map((option) => ({
+      ...option,
+      value: localizeOptionValue(option.value, locale),
+    })),
     explanation: {
       ...localized.explanation,
       steps: localized.explanation.steps.map((step, index) => {
