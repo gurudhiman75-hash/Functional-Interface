@@ -194,48 +194,49 @@ function requestFingerprint(request: MalCp001SolveRequest): string {
   }
 }
 
-export function generateMalCp001PrototypeParameters(
+function buildCandidate(
   prototypeId: MalCp001PrototypeId,
-  seed: string,
-): MalCp001PrototypeParameters {
-  const picker = new SeededPicker(`${prototypeId}:${seed}`);
-  const context = picker.pick(CONTEXTS);
-  let request: MalCp001SolveRequest;
-  let hiddenComponents: BlendComponent[];
-
+  picker: SeededPicker,
+  context: MalCp001Context,
+): { request: MalCp001SolveRequest; hiddenComponents: BlendComponent[] } {
   switch (prototypeId) {
     case "MAL-CP001-PROT-RATIO-FROM-TARGET": {
       const hidden = buildTwoComponentHiddenState(picker, context);
       const hiddenState = buildBlendState(hidden.components);
-      request = {
-        mode: "TWO_COMPONENT_RATIO_FROM_TARGET",
-        lowerValue: rational(hidden.low),
-        higherValue: rational(hidden.high),
-        targetValue: hiddenState.meanValue,
+      return {
+        request: {
+          mode: "TWO_COMPONENT_RATIO_FROM_TARGET",
+          lowerValue: rational(hidden.low),
+          higherValue: rational(hidden.high),
+          targetValue: hiddenState.meanValue,
+        },
+        hiddenComponents: hidden.components,
       };
-      hiddenComponents = hidden.components;
-      break;
     }
     case "MAL-CP001-PROT-MEAN-FROM-QUANTITIES": {
       const qLow = chooseDistinctQuantity(picker);
       const qHigh = chooseDistinctQuantity(picker, [qLow]);
       const { low, high } = chooseValues(picker);
-      hiddenComponents = [
+      const hiddenComponents = [
         component("lower", context.lowerLabel, qLow, low),
         component("higher", context.higherLabel, qHigh, high),
       ];
-      request = { mode: "MEAN_FROM_COMPONENTS", components: hiddenComponents };
-      break;
+      return {
+        request: { mode: "MEAN_FROM_COMPONENTS", components: hiddenComponents },
+        hiddenComponents,
+      };
     }
     case "MAL-CP001-PROT-MEAN-FROM-RATIO": {
       const ratio = picker.pick(RATIO_PARTS);
       const { low, high } = chooseValues(picker);
-      hiddenComponents = [
+      const hiddenComponents = [
         component("lower", context.lowerLabel, ratio[0], low),
         component("higher", context.higherLabel, ratio[1], high),
       ];
-      request = { mode: "MEAN_FROM_COMPONENTS", components: hiddenComponents };
-      break;
+      return {
+        request: { mode: "MEAN_FROM_COMPONENTS", components: hiddenComponents },
+        hiddenComponents,
+      };
     }
     case "MAL-CP001-PROT-UNKNOWN-SOURCE-VALUE": {
       const hidden = buildTwoComponentHiddenState(picker, context);
@@ -243,16 +244,17 @@ export function generateMalCp001PrototypeParameters(
       const hideHigher = picker.index(2) === 0;
       const known = hideHigher ? hidden.components[0] : hidden.components[1];
       const unknown = hideHigher ? hidden.components[1] : hidden.components[0];
-      request = {
-        mode: "UNKNOWN_COMPONENT_VALUE",
-        knownComponents: [known],
-        unknownComponentId: unknown.id,
-        unknownComponentLabel: unknown.label,
-        unknownQuantity: unknown.quantity,
-        targetValue: hiddenState.meanValue,
+      return {
+        request: {
+          mode: "UNKNOWN_COMPONENT_VALUE",
+          knownComponents: [known],
+          unknownComponentId: unknown.id,
+          unknownComponentLabel: unknown.label,
+          unknownQuantity: unknown.quantity,
+          targetValue: hiddenState.meanValue,
+        },
+        hiddenComponents: hidden.components,
       };
-      hiddenComponents = hidden.components;
-      break;
     }
     case "MAL-CP001-PROT-UNKNOWN-COMPONENT-QUANTITY": {
       const hidden = buildTwoComponentHiddenState(picker, context);
@@ -260,16 +262,17 @@ export function generateMalCp001PrototypeParameters(
       const hideHigher = picker.index(2) === 0;
       const known = hideHigher ? hidden.components[0] : hidden.components[1];
       const unknown = hideHigher ? hidden.components[1] : hidden.components[0];
-      request = {
-        mode: "UNKNOWN_COMPONENT_QUANTITY",
-        knownComponents: [known],
-        unknownComponentId: unknown.id,
-        unknownComponentLabel: unknown.label,
-        unknownValue: unknown.value,
-        targetValue: hiddenState.meanValue,
+      return {
+        request: {
+          mode: "UNKNOWN_COMPONENT_QUANTITY",
+          knownComponents: [known],
+          unknownComponentId: unknown.id,
+          unknownComponentLabel: unknown.label,
+          unknownValue: unknown.value,
+          targetValue: hiddenState.meanValue,
+        },
+        hiddenComponents: hidden.components,
       };
-      hiddenComponents = hidden.components;
-      break;
     }
     case "MAL-CP001-PROT-ADDED-QUANTITY-FOR-TARGET": {
       const { low, high } = chooseValues(picker);
@@ -280,79 +283,105 @@ export function generateMalCp001PrototypeParameters(
       const addedValue = addHigher ? high : low;
       const initial = component("initial", context.lowerLabel, initialQuantity, initialValue);
       const added = component("added", context.higherLabel, addedQuantity, addedValue);
-      hiddenComponents = [initial, added];
+      const hiddenComponents = [initial, added];
       const hiddenState = buildBlendState(hiddenComponents);
-      request = {
-        mode: "ADD_SOURCE_TO_REACH_TARGET",
-        initialComponents: [initial],
-        addedComponentId: added.id,
-        addedComponentLabel: added.label,
-        addedValue: added.value,
-        targetValue: hiddenState.meanValue,
+      return {
+        request: {
+          mode: "ADD_SOURCE_TO_REACH_TARGET",
+          initialComponents: [initial],
+          addedComponentId: added.id,
+          addedComponentLabel: added.label,
+          addedValue: added.value,
+          targetValue: hiddenState.meanValue,
+        },
+        hiddenComponents,
       };
-      break;
     }
     case "MAL-CP001-PROT-THREE-COMPONENT-MEAN": {
       const { low, middle, high } = chooseValues(picker);
       const q1 = chooseDistinctQuantity(picker);
       const q2 = chooseDistinctQuantity(picker, [q1]);
       const q3 = chooseDistinctQuantity(picker, [q1, q2]);
-      hiddenComponents = [
+      const hiddenComponents = [
         component("lower", context.lowerLabel, q1, low),
         component("middle", context.thirdLabel, q2, middle),
         component("higher", context.higherLabel, q3, high),
       ];
-      request = { mode: "MEAN_FROM_COMPONENTS", components: hiddenComponents };
-      break;
+      return {
+        request: { mode: "MEAN_FROM_COMPONENTS", components: hiddenComponents },
+        hiddenComponents,
+      };
     }
     case "MAL-CP001-PROT-THIRD-COMPONENT-QUANTITY": {
       const { low, middle, high } = chooseValues(picker);
       const q1 = chooseDistinctQuantity(picker);
       const q2 = chooseDistinctQuantity(picker, [q1]);
       const q3 = chooseDistinctQuantity(picker, [q1, q2]);
-      hiddenComponents = [
+      const hiddenComponents = [
         component("lower", context.lowerLabel, q1, low),
         component("middle", context.thirdLabel, q2, middle),
         component("higher", context.higherLabel, q3, high),
       ];
       const hiddenState = buildBlendState(hiddenComponents);
-      request = {
-        mode: "UNKNOWN_COMPONENT_QUANTITY",
-        knownComponents: hiddenComponents.slice(0, 2),
-        unknownComponentId: hiddenComponents[2].id,
-        unknownComponentLabel: hiddenComponents[2].label,
-        unknownValue: hiddenComponents[2].value,
-        targetValue: hiddenState.meanValue,
+      return {
+        request: {
+          mode: "UNKNOWN_COMPONENT_QUANTITY",
+          knownComponents: hiddenComponents.slice(0, 2),
+          unknownComponentId: hiddenComponents[2].id,
+          unknownComponentLabel: hiddenComponents[2].label,
+          unknownValue: hiddenComponents[2].value,
+          targetValue: hiddenState.meanValue,
+        },
+        hiddenComponents,
       };
-      break;
     }
     case "MAL-CP001-PROT-TWO-QUANTITIES-FROM-TOTAL": {
       const hidden = buildTwoComponentHiddenState(picker, context);
       const hiddenState = buildBlendState(hidden.components);
-      request = {
-        mode: "TWO_QUANTITIES_FROM_TOTAL_AND_TARGET",
-        lowerComponentId: hidden.components[0].id,
-        lowerComponentLabel: hidden.components[0].label,
-        lowerValue: hidden.components[0].value,
-        higherComponentId: hidden.components[1].id,
-        higherComponentLabel: hidden.components[1].label,
-        higherValue: hidden.components[1].value,
-        totalQuantity: addRational(hidden.components[0].quantity, hidden.components[1].quantity),
-        targetValue: hiddenState.meanValue,
+      return {
+        request: {
+          mode: "TWO_QUANTITIES_FROM_TOTAL_AND_TARGET",
+          lowerComponentId: hidden.components[0].id,
+          lowerComponentLabel: hidden.components[0].label,
+          lowerValue: hidden.components[0].value,
+          higherComponentId: hidden.components[1].id,
+          higherComponentLabel: hidden.components[1].label,
+          higherValue: hidden.components[1].value,
+          totalQuantity: addRational(hidden.components[0].quantity, hidden.components[1].quantity),
+          targetValue: hiddenState.meanValue,
+        },
+        hiddenComponents: hidden.components,
       };
-      hiddenComponents = hidden.components;
-      break;
     }
   }
+}
 
-  const hiddenState = buildBlendState(hiddenComponents);
-  return {
-    prototypeId,
-    seed,
-    context,
-    request,
-    hiddenState,
-    difficulty: deriveDifficulty(prototypeId, hiddenState.meanValue, hiddenComponents.length),
-    generationFingerprint: `${prototypeId}:${context.scenarioId}:${requestFingerprint(request)}:mean=${formatRational(hiddenState.meanValue)}`,
-  };
+export function generateMalCp001PrototypeParameters(
+  prototypeId: MalCp001PrototypeId,
+  seed: string,
+): MalCp001PrototypeParameters {
+  const picker = new SeededPicker(`${prototypeId}:${seed}`);
+  const context = picker.pick(CONTEXTS);
+
+  for (let attempt = 0; attempt < 240; attempt += 1) {
+    const { request, hiddenComponents } = buildCandidate(prototypeId, picker, context);
+    const hiddenState = buildBlendState(hiddenComponents);
+
+    // Competitive-exam price/value questions should not be built around awkward
+    // mixed-fraction currency. Construct another exact state instead of masking
+    // or rounding the generated result at presentation time.
+    if (hiddenState.meanValue.denominator !== 1n) continue;
+
+    return {
+      prototypeId,
+      seed,
+      context,
+      request,
+      hiddenState,
+      difficulty: deriveDifficulty(prototypeId, hiddenState.meanValue, hiddenComponents.length),
+      generationFingerprint: `${prototypeId}:${context.scenarioId}:${requestFingerprint(request)}:mean=${formatRational(hiddenState.meanValue)}`,
+    };
+  }
+
+  throw new Error(`Could not construct an exam-realistic integral-value state for ${prototypeId}/${seed}.`);
 }

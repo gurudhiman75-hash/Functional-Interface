@@ -3,6 +3,7 @@ import {
   divideRational,
   equalsRational,
   isPositiveRational,
+  isWholeRational,
   multiplyRational,
   rational,
   rationalKey,
@@ -68,7 +69,7 @@ export function sameMalCp001Result(
 }
 
 function scalarResultLike(source: MalCp001SolveResult, value: Rational): MalCp001SolveResult | null {
-  if (!isPositiveRational(value)) return null;
+  if (!isPositiveRational(value) || !isWholeRational(value)) return null;
   switch (source.kind) {
     case "MEAN_VALUE":
       return { ...source, value };
@@ -166,29 +167,40 @@ function candidatePool(
   }
 
   if (correct.kind === "COMPONENT_QUANTITY_PAIR" && request.mode === "TWO_QUANTITIES_FROM_TOTAL_AND_TARGET") {
-    candidates.push({
-      result: { ...correct, firstQuantity: correct.secondQuantity, secondQuantity: correct.firstQuantity },
-      misconceptionId: "RATIO_REVERSED",
-    });
-    const half = divideRational(request.totalQuantity, rational(2));
-    candidates.push({
-      result: { ...correct, firstQuantity: half, secondQuantity: half },
-      misconceptionId: "EQUAL_SPLIT_ASSUMED",
-    });
-    const third = divideRational(request.totalQuantity, rational(3));
-    candidates.push({
-      result: { ...correct, firstQuantity: third, secondQuantity: subtractRational(request.totalQuantity, third) },
-      misconceptionId: "PLAUSIBLE_SCALE_ERROR",
-    });
-    for (const [numerator, denominator] of [[1, 4], [2, 5], [1, 5], [3, 5]] as const) {
-      const firstQuantity = multiplyRational(request.totalQuantity, rational(numerator, denominator));
-      const secondQuantity = subtractRational(request.totalQuantity, firstQuantity);
-      if (isPositiveRational(firstQuantity) && isPositiveRational(secondQuantity)) {
+    const pushPair = (
+      firstQuantity: Rational,
+      secondQuantity: Rational,
+      misconceptionId: MalCp001MisconceptionId,
+    ) => {
+      if (
+        isPositiveRational(firstQuantity) &&
+        isPositiveRational(secondQuantity) &&
+        isWholeRational(firstQuantity) &&
+        isWholeRational(secondQuantity)
+      ) {
         candidates.push({
           result: { ...correct, firstQuantity, secondQuantity },
-          misconceptionId: "PLAUSIBLE_SCALE_ERROR",
+          misconceptionId,
         });
       }
+    };
+    pushPair(correct.secondQuantity, correct.firstQuantity, "RATIO_REVERSED");
+    pushPair(
+      addRational(correct.firstQuantity, rational(1)),
+      subtractRational(correct.secondQuantity, rational(1)),
+      "PLAUSIBLE_SCALE_ERROR",
+    );
+    pushPair(
+      subtractRational(correct.firstQuantity, rational(1)),
+      addRational(correct.secondQuantity, rational(1)),
+      "PLAUSIBLE_SCALE_ERROR",
+    );
+    const half = divideRational(request.totalQuantity, rational(2));
+    pushPair(half, half, "EQUAL_SPLIT_ASSUMED");
+    for (const [numerator, denominator] of [[1, 3], [1, 4], [2, 5], [1, 5], [3, 5], [1, 6], [5, 6]] as const) {
+      const firstQuantity = multiplyRational(request.totalQuantity, rational(numerator, denominator));
+      const secondQuantity = subtractRational(request.totalQuantity, firstQuantity);
+      pushPair(firstQuantity, secondQuantity, "PLAUSIBLE_SCALE_ERROR");
     }
   }
 
@@ -198,6 +210,10 @@ function candidatePool(
     pushScalar(divideRational(scalar, rational(2)), "PLAUSIBLE_SCALE_ERROR");
     pushScalar(multiplyRational(scalar, rational(3, 2)), "PLAUSIBLE_SCALE_ERROR");
     pushScalar(addRational(scalar, rational(1)), "PLAUSIBLE_SCALE_ERROR");
+    pushScalar(addRational(scalar, rational(2)), "PLAUSIBLE_SCALE_ERROR");
+    pushScalar(addRational(scalar, rational(3)), "PLAUSIBLE_SCALE_ERROR");
+    pushScalar(subtractRational(scalar, rational(1)), "PLAUSIBLE_SCALE_ERROR");
+    pushScalar(multiplyRational(scalar, rational(3)), "PLAUSIBLE_SCALE_ERROR");
   }
 
   return candidates;

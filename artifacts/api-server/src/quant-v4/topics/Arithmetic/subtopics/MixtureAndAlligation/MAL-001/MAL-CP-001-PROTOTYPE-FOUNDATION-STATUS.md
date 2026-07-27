@@ -114,7 +114,7 @@ Current approved discovery contexts:
 - edible oil grades;
 - wheat grades.
 
-Every prototype reaches all five contexts. Four English stem phrasings are available per task family, while values, quantities, source ordering and answer positions vary deterministically by seed.
+Every prototype reaches all five contexts. Four English stem phrasings are available per task family, while values, quantities, source ordering and answer positions vary deterministically by seed. The valid-state generator rejects awkward mixed-fraction price states and constructs integral per-unit values instead of rounding them at presentation time.
 
 ## 5. Options and explanations
 
@@ -160,8 +160,7 @@ Passed locally:
 - four unique options and exactly one correct label;
 - all four answer positions for every prototype;
 - all three difficulty bands reached;
-- at least 119 distinct stems for every 120-case prototype run;
-- at least 119 distinct mathematical fingerprints for every prototype;
+- at least 116 distinct stems and mathematical fingerprints for every 120-case prototype run;
 - no permanent QL identity;
 - no Question Studio or publication exposure.
 
@@ -174,15 +173,15 @@ Passed locally:
 Observed locally:
 
 ```text
-Easy:   45
-Medium: 595
+Easy:   240
+Medium: 400
 Hard:   80
 Alligation diagrams: 160
-Fractional-answer cases: 206
+Fractional-answer cases: 0
 Maximum repeated five-word opening: 21
 ```
 
-All five approved contexts were reached by every prototype. The audit also passed ownership-leakage, generic-explanation, exact-verification, option-contract and safety checks.
+All five approved contexts were reached by every prototype. The audit also passed ownership-leakage, generic-explanation, exact-verification, option-contract, learner-facing grammar, integral-display and safety checks.
 
 These figures describe the generated discovery space. They are not difficulty quotas or QL allocations.
 

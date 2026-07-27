@@ -8,6 +8,7 @@ function fail(message: string): never {
 
 const forbiddenOwnershipTerms = /\b(?:speed|distance|partnership|capital labour|gst|tax bracket|false weight|short measure|density matrix)\b/iu;
 const genericExplanationShell = /\b(?:apply the formula|substitute the values|solve for the answer|required value is)\b/iu;
+const awkwardStemGrammar = /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bFind [^?]+\?/iu;
 const openingCounts = new Map<string, number>();
 const contextCoverage = new Map<string, Set<string>>();
 const misconceptionCoverage = new Set<string>();
@@ -36,12 +37,25 @@ for (const prototypeId of MAL_CP001_PROTOTYPE_IDS) {
 
     if (!question.validation.ok) fail(`${prototypeId}/${index}: ${question.validation.errors.join(" | ")}`);
     if (forbiddenOwnershipTerms.test(question.stem)) fail(`${prototypeId}/${index}: ownership leakage in stem`);
+    if (awkwardStemGrammar.test(question.stem)) fail(`${prototypeId}/${index}: awkward learner-facing grammar`);
     const explanation = [question.explanation.opening, ...question.explanation.steps, question.explanation.verification].join(" ");
     if (genericExplanationShell.test(explanation)) fail(`${prototypeId}/${index}: generic explanation shell`);
     if (!question.explanation.verification.includes("\\(")) fail(`${prototypeId}/${index}: verification lacks exact mathematics`);
     if (question.options.some((option) => option.length === 0)) fail(`${prototypeId}/${index}: blank option`);
     if (question.optionAudit.filter((option) => option.misconceptionId === "CORRECT").length !== 1) {
       fail(`${prototypeId}/${index}: option package does not contain exactly one correct label`);
+    }
+    for (const option of question.optionAudit) {
+      const optionRationals = option.result.kind === "COMPONENT_RATIO"
+        ? [option.result.firstPart, option.result.secondPart]
+        : option.result.kind === "COMPONENT_QUANTITY_PAIR"
+          ? [option.result.firstQuantity, option.result.secondQuantity]
+          : option.result.kind === "COMPONENT_QUANTITY"
+            ? [option.result.quantity]
+            : [option.result.value];
+      if (optionRationals.some((value) => value.denominator !== 1n)) {
+        fail(`${prototypeId}/${index}: option package contains an awkward fractional displayed value`);
+      }
     }
     const answer = question.optionAudit[question.correctIndex].result;
     const rationals = answer.kind === "COMPONENT_RATIO"
@@ -59,6 +73,9 @@ for (const prototypeId of MAL_CP001_PROTOTYPE_IDS) {
   contextCoverage.set(prototypeId, contexts);
 }
 
+if (fractionalAnswerCount !== 0) {
+  fail(`Exam-realistic CP-001 construction produced ${fractionalAnswerCount} fractional price/quantity answers.`);
+}
 if (MAL_CP001_PROTOTYPE_REGISTRY.some((entry) => entry.permanentQlId !== null)) {
   fail("A permanent QL ID was assigned during executable discovery.");
 }
