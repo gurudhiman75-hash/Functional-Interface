@@ -1338,7 +1338,7 @@ export function runPnlCp001DynamicPipeline(
   )}`;
   const inputValidation = validateRequest(generated.request);
   const optionValidation = validateOptions(optionSet.options, correctAnswer);
-  const unresolvedPlaceholder = /\{[A-Za-z][A-Za-z0-9_]*\}/;
+  const unresolvedPlaceholder = /\{[a-z][A-Za-z0-9_]*\}/;
   const validationChecks = [
     {
       name: "input-domain",
