@@ -1,0 +1,51 @@
+name: Export corrected PNL CP-003 editorial source
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-question-studio-review-runtime
+    paths:
+      - ".github/workflows/export-pnl-cp003-editorial-source.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  export-cp003:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate corrected CP-003 library
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs
+          cp \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-generated/CP-003.editorial-content.en.json \
+            CP-003.editorial-content.en.json
+
+      - name: Upload corrected source
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp003-corrected-editorial-source
+          path: CP-003.editorial-content.en.json
+          if-no-files-found: error
+          retention-days: 3
