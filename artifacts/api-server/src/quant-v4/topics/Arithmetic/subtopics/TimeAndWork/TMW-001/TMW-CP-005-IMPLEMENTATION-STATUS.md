@@ -2,7 +2,7 @@
 
 **Branch:** `feat/tmw-cp005`  
 **Base:** merged CP-004 chapter base `700d1d9cc585ae4151b41267fb3b25658c5a2aee`  
-**Maturity:** English runtime-proof candidate under post-review exact-head validation  
+**Maturity:** approved English runtime proof  
 **Publication:** disabled
 
 ## Implemented
@@ -22,27 +22,34 @@
 - 72-row review export;
 - focused proof and structural/editorial audit scripts.
 
-## Original exact-head evidence
-
-- runtime proof: 24 QLs × 50 seeds = 1,200 cases — PASS;
-- all four correct-answer positions represented;
-- 283 distinct rendered stems;
-- invalid packages: 0;
-- unresolved placeholders: 0;
-- duplicate options: 0;
-- localisation rejected;
-- candidate publication remains disabled.
-
 ## Post-review corrections
 
 - fixed incorrect `3th` ordinal output through a general ordinal formatter;
 - simplified all first explanation points;
-- expanded completion explanations with actual cycle substitution, full-cycle work, remaining work and final-turn derivation;
+- expanded completion explanations with actual cycle substitution, full-cycle work and remaining work;
+- accounted explicitly for work completed earlier in the final incomplete cycle before deriving the final worker's partial turn;
 - expanded inverse explanations with known duration, known work, remaining work and recovered rate;
 - added dedicated exact-boundary working without a false partial-turn step;
-- added explicit final-block fraction working;
+- added explicit final-block and next-day fraction working;
 - improved named-worker wording in three-agent and arbitrary-start stems;
-- added regression checks for ordinal grammar, explanation jargon and missing derivation steps.
+- added regression checks for ordinal grammar, explanation jargon, missing derivations and final-turn arithmetic consistency.
+
+## Final exact-head evidence
+
+- reviewed code head: `80b069f2f188b72dc9b738fcd860d7a823e27933`;
+- CP-005 workflow run: `30254623992` — PASS;
+- evidence artifact: `8648353015`;
+- runtime proof: 24 QLs × 50 seeds = 1,200 cases — PASS;
+- all four correct-answer positions represented;
+- 283 distinct rendered stems;
+- structural/editorial audit: 24 QLs × 12 seeds = 288 cases — PASS;
+- invalid packages: 0;
+- unresolved placeholders: 0;
+- duplicate options: 0;
+- ordinal, jargon and explanation-arithmetic failures: 0;
+- CP-001, CP-002 and CP-003 regression workflows: PASS;
+- localisation rejected;
+- candidate publication remains disabled.
 
 ## Workflow boundary
 
@@ -52,4 +59,4 @@ The 72 review rows are deterministic samples used to audit the generator; they a
 
 ## Current gate
 
-Pass exact-head GitHub Actions and inspect the regenerated 72-row evidence under the strengthened audit. After that, CP-005 may be merged into the isolated TMW chapter base. Question Bank ingestion remains a later chapter-integration and approval gate.
+CP-005 is approved for merge into the isolated TMW chapter base. Question Studio registration, Question Bank ingestion, localisation and public release remain future chapter-level gates.
