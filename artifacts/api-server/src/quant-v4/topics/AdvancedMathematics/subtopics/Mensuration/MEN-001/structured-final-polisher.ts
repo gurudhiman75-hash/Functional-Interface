@@ -22,17 +22,13 @@ const PARAGRAPH_BY_TITLE: Record<string, string> = {
   "Area of the Rectangle": "Multiply the rectangle's length by its breadth.",
   "Area of the Semicircle": "Use half of the full-circle area and simplify with the declared value of π.",
   "Area of the Square": "Square the side length to obtain the enclosed area.",
-  "Calculate the Area": "Substitute the known measurements in the governing area formula and simplify.",
   "Calculate the Area Difference": "Find the two enclosed areas and subtract the smaller from the larger.",
   "Calculate the Circumference": "Substitute the known circle measurement in the circumference formula.",
   "Calculate the Cost": "Multiply the required area or boundary length by the stated rate.",
   "Calculate the Distance": "Use the distance covered in one revolution with the number of revolutions.",
   "Calculate the Perimeter": "Substitute the side measurements in the relevant perimeter formula.",
   "Calculate the Rate": "Divide the total cost by the corresponding area or boundary length.",
-  "Combine the Results": "Combine the component values according to the relation stated in the Key Rule.",
-  "Continue the Calculation": "Use the previous result in the next part of the calculation.",
   "Convert the Units": "Write all measurements in compatible units before carrying out the calculation.",
-  "Finalize the Numerical Result": "Evaluate the remaining expression to obtain the required numerical value.",
   "Find One Ratio Unit": "Divide the total perimeter by the sum of the ratio parts.",
   "Find the Actual Side Lengths": "Multiply each ratio part by the value of one ratio unit.",
   "Find the Base": "Rearrange the area relation and isolate the base.",
@@ -44,9 +40,12 @@ const PARAGRAPH_BY_TITLE: Record<string, string> = {
   "Find the Height": "Rearrange the area relation and isolate the perpendicular height.",
   "Find the Largest Side": "Select the side corresponding to the largest ratio part.",
   "Find the Length": "Rearrange the given relation and isolate the length.",
+  "Find the New Area Percentage": "Multiply the changed linear percentages to express the new area as a percentage of the original.",
   "Find the Number of Revolutions": "Divide the total distance by the distance covered in one complete revolution.",
   "Find the Number of Tiles": "Divide the total required area by the area covered by one tile.",
   "Find the Path Area": "Subtract the inner area from the outer area.",
+  "Find the Percentage Decrease": "Subtract the new area percentage from the original 100%.",
+  "Find the Percentage Increase": "Subtract the original 100% from the new area percentage.",
   "Find the Radius": "Rearrange the relevant circle relation and isolate the radius.",
   "Find the Remaining Area": "Subtract the excluded or covered region from the complete area.",
   "Find the Semicircle's Radius": "The attached side is the semicircle's diameter, so divide it by two to obtain the radius.",
@@ -57,6 +56,13 @@ const PARAGRAPH_BY_TITLE: Record<string, string> = {
   "Find the Width": "Rearrange the path-area relation and isolate the path width.",
   "Use the Tile-Count Formula": "Divide the total area by the area covered by one tile.",
 };
+
+const EQUATION_SUFFICIENT_TITLES = new Set([
+  "Calculate the Area",
+  "Combine the Results",
+  "Continue the Calculation",
+  "Finalize the Numerical Result",
+]);
 
 function allText(section: Extract<Men001ExplanationSection, { kind: "STEP" }>) {
   return [...section.equations, ...section.paragraphs].join(" ");
@@ -89,6 +95,11 @@ function deriveTitle(
   if (/semiperimeter/.test(lower)) return "Find the Semiperimeter";
   if (/heron's formula|heron’s formula/.test(lower)) return "Apply Heron's Formula";
   if (/pythagoras/.test(lower)) return "Apply Pythagoras";
+  if (/new area percentage|new area\s*=.*%\s*of\s*the\s*original/.test(lower)) {
+    return "Find the New Area Percentage";
+  }
+  if (/\bincrease\s*=/.test(lower)) return "Find the Percentage Increase";
+  if (/\bdecrease\s*=/.test(lower)) return "Find the Percentage Decrease";
   if (/outer area/.test(lower)) return "Area of the Outer Figure";
   if (/inner area/.test(lower)) return "Area of the Inner Figure";
   if (/path area/.test(lower)) return "Find the Path Area";
@@ -158,6 +169,15 @@ function mergeSameQuantity(sections: Men001ExplanationSection[]) {
   return result;
 }
 
+function paragraphsForTitle(
+  title: string,
+  section: Extract<Men001ExplanationSection, { kind: "STEP" }>,
+) {
+  if (section.equations.length > 0 && EQUATION_SUFFICIENT_TITLES.has(title)) return [];
+  const paragraph = PARAGRAPH_BY_TITLE[title] ?? section.paragraphs[0];
+  return paragraph ? [paragraph] : [];
+}
+
 function renumberAndDeduplicate(sections: Men001ExplanationSection[]) {
   let stepNumber = 0;
   let previousTitle = "";
@@ -174,7 +194,7 @@ function renumberAndDeduplicate(sections: Men001ExplanationSection[]) {
       ...section,
       stepNumber,
       title,
-      paragraphs: [PARAGRAPH_BY_TITLE[title] ?? section.paragraphs[0] ?? "Carry out this calculation exactly."],
+      paragraphs: paragraphsForTitle(title, section),
     };
   });
 }
@@ -192,7 +212,7 @@ export function polishMen001StructuredSections(
       return {
         ...section,
         title,
-        paragraphs: [PARAGRAPH_BY_TITLE[title] ?? section.paragraphs[0] ?? "Carry out this calculation exactly."],
+        paragraphs: paragraphsForTitle(title, section),
       };
     });
   }
@@ -203,7 +223,7 @@ export function polishMen001StructuredSections(
     return {
       ...section,
       title,
-      paragraphs: [PARAGRAPH_BY_TITLE[title] ?? section.paragraphs[0] ?? "Carry out this calculation exactly."],
+      paragraphs: paragraphsForTitle(title, section),
     };
   });
 
