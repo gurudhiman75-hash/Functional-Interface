@@ -46,16 +46,16 @@
       { "objectCount": 7, "boxCount": 3, "specifiedOccupancy": 3 }
     ],
     "distinctIdenticalExactlyK": [
-      { "objectCount": 5, "nonEmptyBoxCount": 2 },
-      { "objectCount": 5, "nonEmptyBoxCount": 3 },
-      { "objectCount": 6, "nonEmptyBoxCount": 3 },
-      { "objectCount": 7, "nonEmptyBoxCount": 4 }
+      { "objectCount": 5, "boxCount": 2, "nonEmptyBoxCount": 2 },
+      { "objectCount": 5, "boxCount": 3, "nonEmptyBoxCount": 3 },
+      { "objectCount": 6, "boxCount": 3, "nonEmptyBoxCount": 3 },
+      { "objectCount": 7, "boxCount": 4, "nonEmptyBoxCount": 4 }
     ],
     "distinctIdenticalAtMostK": [
-      { "objectCount": 5, "maximumNonEmptyBoxes": 2 },
-      { "objectCount": 6, "maximumNonEmptyBoxes": 3 },
-      { "objectCount": 7, "maximumNonEmptyBoxes": 3 },
-      { "objectCount": 8, "maximumNonEmptyBoxes": 4 }
+      { "objectCount": 5, "boxCount": 2, "maximumNonEmptyBoxes": 2 },
+      { "objectCount": 6, "boxCount": 3, "maximumNonEmptyBoxes": 3 },
+      { "objectCount": 7, "boxCount": 3, "maximumNonEmptyBoxes": 3 },
+      { "objectCount": 8, "boxCount": 4, "maximumNonEmptyBoxes": 4 }
     ],
     "distinctIdenticalAnyNonEmptyCount": [4, 5, 6, 7, 8]
   }
