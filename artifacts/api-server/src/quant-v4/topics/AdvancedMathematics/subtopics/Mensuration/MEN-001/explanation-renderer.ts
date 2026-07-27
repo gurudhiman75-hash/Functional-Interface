@@ -2,6 +2,12 @@ import { buildMen001ExplanationIllustration } from "./explanation-illustration.a
 import { getMen001QuestionEntry } from "./library";
 import { authorFinalMen001ExplanationLines } from "./natural-explanation-authorship-final";
 import { getMen001SolveModeDefinition } from "./solve-mode-registry.all";
+import { buildMen001StructuredExplanation } from "./structured-explanation";
+import { enhanceMen001StructuredSections } from "./structured-explanation-enhancer";
+import { polishMen001StructuredSections } from "./structured-final-polisher";
+import { latexizeMen001StructuredSections } from "./structured-math-latex";
+import { normalizeMen001StructuredSections } from "./structured-explanation-normalizer";
+import { restoreMen001SpecificStepAuthorship } from "./structured-specific-title-restorer";
 import type {
   Men001Explanation,
   Men001Parameters,
@@ -17,14 +23,39 @@ export function renderMen001Explanation(
   const entry = getMen001QuestionEntry(parameters.questionLanguageId);
   const definition = getMen001SolveModeDefinition(parameters.solveMode);
   const illustration = buildMen001ExplanationIllustration(parameters, solver);
-  const lines = authorFinalMen001ExplanationLines(
-    definition.explain(parameters, solver),
+  const originalLines = definition.explain(parameters, solver);
+  const authoredLines = authorFinalMen001ExplanationLines(
+    originalLines,
     parameters,
     solver,
   );
+  const sections = latexizeMen001StructuredSections(
+    polishMen001StructuredSections(
+      restoreMen001SpecificStepAuthorship(
+        normalizeMen001StructuredSections(
+          enhanceMen001StructuredSections(
+            buildMen001StructuredExplanation(
+              originalLines,
+              authoredLines,
+              parameters,
+              solver,
+            ),
+            originalLines,
+            parameters,
+            solver,
+          ),
+          parameters.solveMode,
+        ),
+        parameters.solveMode,
+      ),
+      parameters.solveMode,
+    ),
+  );
   return {
     strategyId: entry.explanationStrategyId,
-    lines,
+    displayFormat: "KEY_RULE_STEPS_FINAL_ANSWER",
+    sections,
+    lines: authoredLines,
     ...(illustration ? { illustration } : {}),
   };
 }
