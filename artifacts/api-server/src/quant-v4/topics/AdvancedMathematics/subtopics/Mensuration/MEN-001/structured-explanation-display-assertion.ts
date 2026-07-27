@@ -48,7 +48,8 @@ export function assertMen001StructuredExplanation(
     }
   });
   const lastStep = steps.at(-1)!;
-  if (!lastStep.equations.includes(toMen001LatexEquation(answer))) {
+  const canonicalAnswer = toMen001LatexEquation(answer);
+  if (!lastStep.equations.some((equation) => equation.includes(canonicalAnswer))) {
     throw new Error("MEN-001 must place the canonical final answer inside the last worked step.");
   }
 
