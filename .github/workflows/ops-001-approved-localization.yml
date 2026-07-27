@@ -70,10 +70,21 @@ jobs:
           retention-days: 3
       - name: Generate Hindi Punjabi review bundle
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localized-review-export.ts ./ops-001-approved-localized-review
+      - name: Apply responsive and numbering fixes
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-device-layout-patch.ts ./ops-001-approved-localized-review
+      - name: Generate targeted option-fix review
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localized-option-fix-review-export.ts ./ops-001-targeted-localized-option-review
       - name: Upload Hindi Punjabi review bundle
         uses: actions/upload-artifact@v4
         with:
           name: ops-001-approved-hi-pa-v3-review-310
           path: ops-001-approved-localized-review
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload targeted option-fix review
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-targeted-hi-pa-option-fix-30
+          path: ops-001-targeted-localized-option-review
           if-no-files-found: error
           retention-days: 14
