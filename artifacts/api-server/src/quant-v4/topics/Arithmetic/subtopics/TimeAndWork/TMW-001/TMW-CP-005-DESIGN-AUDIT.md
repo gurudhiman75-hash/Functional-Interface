@@ -3,7 +3,7 @@
 
 **Branch:** `feat/tmw-cp005`  
 **Base:** merged CP-004 chapter base `700d1d9cc585ae4151b41267fb3b25658c5a2aee`  
-**Status:** implementation ownership baseline; counts are discovered, not quotas  
+**Status:** approved English runtime-proof ownership baseline; counts are discovered, not quotas  
 **Publication:** disabled
 
 ## Ownership
@@ -16,7 +16,7 @@ The canonical cycle model is:
 W_{\text{cycle}}=\sum_i r_i\Delta t_i
 \]
 
-After complete cycles, the terminal segment must be solved exactly. The runtime may not assume that the final segment or cycle is complete.
+After complete cycles, every full segment before the final active segment in the last incomplete cycle must be applied before the final partial segment is solved. The runtime may not assume that the final segment or cycle is complete, and the explanation may not divide all post-cycle remaining work by the last worker's rate when earlier segments of the final cycle have already contributed work.
 
 ## Current distinct solve contracts
 
@@ -54,8 +54,11 @@ These contracts map to `TMW-QL-082` through `TMW-QL-105`. They are not a quota.
 - destructive work uses a negative signed rate;
 - unequal segment durations are multiplied by their own rates;
 - exact-boundary completion adds no extra segment;
-- terminal partial work is divided by the currently active rate;
+- all complete segments before the final active segment are applied first;
+- final partial work is divided only by the currently active rate;
 - inverse questions count the exact total duration of each cycle position;
 - output schedules do not reuse whole-work fraction wording;
 - all formulas and worked steps retain literal inline MathJax delimiters;
+- ordinal suffixes are grammatically correct;
+- explanation openings use student-facing language rather than internal solver terminology;
 - no Question Studio, Question Bank, test assembly or student routing is enabled.
