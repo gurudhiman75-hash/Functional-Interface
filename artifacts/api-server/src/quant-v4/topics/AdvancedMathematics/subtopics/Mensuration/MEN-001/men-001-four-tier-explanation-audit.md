@@ -42,3 +42,7 @@ Each question has exactly three trap warnings. Internal implementation labels ar
 `four-tier-explanation.test.ts` audits every active QL across three deterministic states. It requires exact block order, one non-empty shortcut, three option-aware trap warnings, complete wrong-option-letter coverage and natural learner-facing language.
 
 The existing 3,880-case runtime proof, authorship audit, structured MathJax audit, production build and review exports remain required gates.
+
+## Repository boundary
+
+The one-use migration workflows and patch script were removed after the structural conversion. The permanent implementation consists only of the runtime, renderer, review exporter, tests and documentation required by MEN-001.
