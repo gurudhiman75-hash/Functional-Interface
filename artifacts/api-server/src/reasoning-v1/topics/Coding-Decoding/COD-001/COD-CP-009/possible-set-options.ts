@@ -63,33 +63,32 @@ export function buildPossibleSetOptions(
   if (impossiblePairs.length < 3) throw new Error(`${prototypeId}/${seed} lacks three impossible set distractors`);
 
   const correctMembers = [...random.pick(possibleSets)];
-  const raw: PossibleSetOption[] = [
-    {
-      value: uniqueSorted(correctMembers).join(" "),
-      members: uniqueSorted(correctMembers),
-      canonicalValue: canonicalSetKey(correctMembers),
-      isCorrect: true,
-      witnessCount: possibleSetWitnessCount(
-        space,
-        contract.queryDirection,
-        targetWords,
-        targetTokens,
-        correctMembers,
-      ),
-    },
-    ...random.shuffle(impossiblePairs).slice(0, 3).map((members) => ({
-      value: members.join(" "),
-      members,
-      canonicalValue: canonicalSetKey(members),
-      isCorrect: false,
-      witnessCount: 0,
-      errorLabel: "ZERO_WITNESS_SET" as const,
-    })),
-  ];
+  const correctOption: PossibleSetOption = {
+    value: uniqueSorted(correctMembers).join(" "),
+    members: uniqueSorted(correctMembers),
+    canonicalValue: canonicalSetKey(correctMembers),
+    isCorrect: true,
+    witnessCount: possibleSetWitnessCount(
+      space,
+      contract.queryDirection,
+      targetWords,
+      targetTokens,
+      correctMembers,
+    ),
+  };
+  const distractors = random.shuffle(impossiblePairs).slice(0, 3).map((members) => ({
+    value: members.join(" "),
+    members,
+    canonicalValue: canonicalSetKey(members),
+    isCorrect: false,
+    witnessCount: 0,
+    errorLabel: "ZERO_WITNESS_SET" as const,
+  }));
 
-  const options = random.shuffle(raw);
-  const correctIndex = options.findIndex((option) => option.isCorrect);
-  if (correctIndex < 0 || new Set(options.map((option) => option.canonicalValue)).size !== 4) {
+  const correctIndex = (seed - 1) % 4;
+  const options = [...distractors];
+  options.splice(correctIndex, 0, correctOption);
+  if (new Set(options.map((option) => option.canonicalValue)).size !== 4) {
     throw new Error(`${prototypeId}/${seed} produced an invalid set option package`);
   }
   return { options, correctIndex, possibleSetCount: possibleSets.length };
