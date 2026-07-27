@@ -75,6 +75,12 @@ const uniformDecrease = generate(
   "men-001-human-review:MEN-001-QL-415:0",
 );
 assert(shortcut(uniformDecrease), "QL-415 must expose the uniform-decrease shortcut.");
+assert(
+  uniformDecrease.explanation.sections.every(
+    (section) => section.kind !== "STEP" || section.title !== "Continue the Calculation",
+  ),
+  "QL-415 must merge adjacent new-area steps instead of emitting a generic continuation heading.",
+);
 
 for (const question of [isosceles, ratioTriplet, ratioNonTriplet, uniformIncrease, uniformDecrease]) {
   const paragraphs = question.explanation.sections.flatMap((section) => section.paragraphs).join(" ");
