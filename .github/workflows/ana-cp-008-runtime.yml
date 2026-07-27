@@ -94,5 +94,24 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Run Hindi and Punjabi parity audit
-        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/ana-cp-008-localized.test.ts
+      - name: Capture Hindi and Punjabi parity audit
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-008/ana-cp-008-localized.test.ts > /tmp/ana-cp-008-localized.log 2>&1
+          status=$?
+          echo "$status" > /tmp/ana-cp-008-localized-exit
+          tail -n 60 /tmp/ana-cp-008-localized.log
+          exit 0
+      - name: Publish localized diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ana-cp-008-localized-diagnostics
+          path: |
+            /tmp/ana-cp-008-localized.log
+            /tmp/ana-cp-008-localized-exit
+          if-no-files-found: error
+          retention-days: 7
+      - name: Enforce localized runtime audit
+        run: test "$(cat /tmp/ana-cp-008-localized-exit)" = "0"
