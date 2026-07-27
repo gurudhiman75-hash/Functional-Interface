@@ -9,7 +9,7 @@
 | `PNC-CP-009` | compulsory/excluded members and exact/at-least/at-most category selection | Current English ownership saturated; runtime proof |
 | `PNC-CP-010` | circular arrangements and rotational/reflection symmetry | Current English ownership saturated; runtime proof |
 | `PNC-CP-011` | labelled/unlabelled grouping and distribution | Current English ownership saturated; reviewed runtime proof: `PNC-QL-209..241` |
-| `PNC-CP-012` | exam-relevant mixed systems that cannot be owned cleanly by an earlier CP | Not started |
+| `PNC-CP-012` | mixed advanced systems combining two or more mature counting authorities | Current English ownership saturated; reviewed runtime proof: `PNC-QL-242..269` |
 
 ## CP-007 represented scope
 
@@ -106,7 +106,7 @@ Distribution Wave 2 contains ten English QLs, `PNC-QL-229` through `PNC-QL-238`,
 - one common finite capacity for every labelled receiver through controlled inclusion-exclusion;
 - exactly or at most a stated number of identical non-empty receivers through integer partitions.
 
-The capacity contract is deliberately limited to one uniform capacity. Non-uniform capacity vectors remain outside CP-011 current ownership.
+The capacity contract is deliberately limited to one uniform capacity. Non-uniform capacity vectors belong to CP-012.
 
 ## CP-011 represented inverse scope
 
@@ -129,22 +129,93 @@ Current English ownership is saturated at runtime-proof maturity:
 - receiver identity, object identity, occupancy policy, relation restrictions and solve direction explicitly audited;
 - final counts remain regression snapshots, not design quotas.
 
-The next immutable PNC family ID is `PNC-QL-242`, reserved for the next admitted CP-012 contract.
+## CP-012 represented conditional-role scope
+
+Five English QLs, `PNC-QL-242` through `PNC-QL-246`, combine conditional selection with ordered office assignment:
+
+- category-quota committee followed by two unrestricted offices;
+- woman chair with unrestricted secretary;
+- woman chair and man secretary;
+- compulsory-member committee followed by two offices;
+- category-specific chairperson, treasurer and secretary.
+
+## CP-012 represented selection-arrangement scope
+
+Six English QLs, `PNC-QL-247` through `PNC-QL-252`, combine restricted selection with a later arrangement:
+
+- compulsory or excluded specified pair before a linear arrangement;
+- category quota before a linear arrangement;
+- category quota before circular seating;
+- compulsory specified cross-category pair adjacent in a selected circular set;
+- compulsory specified ornament before reversible-ring equivalence.
+
+## CP-012 represented derangement scope
+
+Five English QLs, `PNC-QL-253` through `PNC-QL-257`, represent:
+
+- no fixed point;
+- exactly a stated number of fixed points;
+- at least one fixed point;
+- exactly one of two specified objects fixed;
+- neither of two specified objects fixed.
+
+## CP-012 represented grid-path scope
+
+Four English QLs, `PNC-QL-258` through `PNC-QL-261`, represent:
+
+- unrestricted monotone shortest paths;
+- a compulsory checkpoint;
+- a forbidden checkpoint;
+- at least one of two ordered checkpoints.
+
+## CP-012 represented mixed grouping/distribution scope
+
+Eight English QLs, `PNC-QL-262` through `PNC-QL-269`, represent:
+
+- identical objects under non-uniform upper capacities;
+- identical objects under non-uniform lower and upper bounds;
+- distinct objects under non-uniform capacities;
+- two identical colour classes into labelled boxes;
+- every box non-empty across two identical colour classes;
+- named equal teams followed by captains;
+- unnamed equal teams followed by captains;
+- category quotas across two named teams followed by captains.
+
+## CP-012 saturation verdict
+
+Current English ownership is saturated at runtime-proof maturity:
+
+- 28 QLs: `PNC-QL-242` through `PNC-QL-269`;
+- 28 materially distinct solve modes;
+- difficulty snapshot: 2 Easy / 12 Medium / 14 Hard;
+- 224 deterministic runtime cases, each generated twice;
+- 84 additional reviewed-TeX cases;
+- production answers independently verified by explicit enumeration;
+- zero missing IDs, duplicate templates or invalid audit samples;
+- counts remain regression snapshots, not quotas.
 
 ## Negative boundaries
 
-CP-011 does not own:
+The completed package does not own:
 
-- ordinary committee selection without a partition after selection — CP-003 or CP-009;
-- role assignment after selection — CP-006;
-- linear or circular arrangement inside or between groups — CP-007, CP-008 or CP-010;
-- conditional or category-restricted selection followed by a circular arrangement — CP-012;
-- category quotas coupled across multiple groups — CP-012;
-- non-uniform capacity vectors, mixed distinct/identical object pools or per-object eligibility matrices — CP-012 unless a future source audit establishes a clean standalone authority;
-- distribution followed by internal arrangement or other mixed casework systems — CP-012;
-- repeated-colour necklace systems requiring Burnside/Pólya analysis — CP-012 unless separately justified;
-- word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005.
+- word-specific repeated-letter restrictions whose primary authority is multiset identity — CP-005;
+- pure role assignment after an already fixed selection — CP-006;
+- large unrestricted generating-function systems;
+- arbitrary per-object eligibility matrices without a bounded exam-relevant state space;
+- repeated-colour necklace systems requiring Burnside or Pólya analysis;
+- artificial coupled case systems without source evidence, stable ownership or an independent verifier.
 
-Pure selection of an unrestricted proper subset followed directly by circular equivalence is CP-010 ownership. It becomes CP-012 only when the selection itself introduces named-member, category, quota or other mixed-system conditions.
+Pure selection followed by circular equivalence remains CP-010 when the selection itself is unrestricted. It is CP-012 only when compulsory members, category quotas or another material selection condition changes the authority.
 
-Current implemented PNC-002 QLs are `PNC-QL-107` through `PNC-QL-241`. The next available immutable family ID is `PNC-QL-242`.
+## PNC-002 family verdict
+
+Current PNC-002 English ownership is complete at runtime-proof maturity:
+
+- six saturated canonical problems, `PNC-CP-007` through `PNC-CP-012`;
+- 163 QLs, `PNC-QL-107` through `PNC-QL-269`;
+- 130 materially distinct solve modes;
+- difficulty snapshot: 18 Easy / 77 Medium / 68 Hard;
+- 163 QL-specific English explanations;
+- publication and shared-composer integration remain disabled.
+
+`PNC-QL-270` is not allocated. It may be used only if a future source-backed audit proves a material uncovered PNC-002 contract.
