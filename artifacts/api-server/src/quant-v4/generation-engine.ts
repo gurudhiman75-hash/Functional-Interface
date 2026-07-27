@@ -4,10 +4,10 @@ import {
   toQuestionStudioPreview,
   QUANT_V4_PERCENTAGE_ALL_PATTERN_ID,
   type QuantV4Difficulty,
-  type QuantV4GenerationRequest,
+  type QuantV4GenerationRequest as CoreQuantV4GenerationRequest,
   type QuantV4Language,
   type QuantV4PackageDefinition,
-  type QuantV4PackageId,
+  type QuantV4PackageId as CoreQuantV4PackageId,
 } from "./generation-engine-core";
 import {
   getRap001ActiveCanonicalProblemIds,
@@ -24,20 +24,39 @@ import {
   runRap003Pipeline,
   type Rap003CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-003";
+import {
+  getPnl001ActiveCanonicalProblemIds,
+  runPnl001ReviewPipeline,
+  type Pnl001CanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime";
+
+export type QuantV4PackageId = CoreQuantV4PackageId | "PNL-001";
+export type QuantV4GenerationRequest = Omit<
+  CoreQuantV4GenerationRequest,
+  "packageId" | "archetypeId"
+> & {
+  packageId?: QuantV4PackageId;
+  archetypeId?: QuantV4PackageId;
+};
 
 export type {
   QuantV4Difficulty,
-  QuantV4GenerationRequest,
   QuantV4Language,
   QuantV4PackageDefinition,
-  QuantV4PackageId,
 };
 export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
 
 const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
+const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
+
+const normalizeSelectorText = (value: unknown) =>
+  String(value ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
 
 type RapPackageId = "RAP-001" | "RAP-002" | "RAP-003";
-
 type RapRuntimeDefinition = QuantV4PackageDefinition & {
   packageId: RapPackageId;
 };
@@ -92,6 +111,24 @@ const RAP_RUNTIME_PACKAGES: readonly RapRuntimeDefinition[] = [
       }),
   },
 ];
+
+const PNL_RUNTIME_PACKAGE: QuantV4PackageDefinition & {
+  packageId: "PNL-001";
+} = {
+  packageId: "PNL-001",
+  topic: "Arithmetic",
+  subtopic: "Profit & Loss",
+  label: "Profit & Loss — Canonical Review",
+  cpIds: getPnl001ActiveCanonicalProblemIds(),
+  supportedLanguages: PNL_LANGUAGES,
+  run: (cpId, input) =>
+    runPnl001ReviewPipeline(cpId as Pnl001CanonicalProblemId, {
+      difficultyBand: input.difficulty,
+      language: input.language as "en" | undefined,
+      questionLanguageId: input.questionLanguageId,
+      seed: input.seed,
+    }),
+};
 
 class QuantV4RequestError extends Error {
   readonly statusCode = 400;
@@ -148,7 +185,37 @@ function resolveRapPackage(request: QuantV4GenerationRequest) {
   );
 }
 
-function resolveCpId(pkg: RapRuntimeDefinition, request: QuantV4GenerationRequest) {
+function resolvePnlPackage(request: QuantV4GenerationRequest) {
+  const explicit = request.packageId ?? request.archetypeId;
+  if (explicit === PNL_RUNTIME_PACKAGE.packageId) return PNL_RUNTIME_PACKAGE;
+
+  const pattern = String(request.patternId ?? "").toUpperCase();
+  if (
+    pattern === PNL_RUNTIME_PACKAGE.packageId ||
+    pattern.includes(PNL_RUNTIME_PACKAGE.packageId)
+  ) {
+    return PNL_RUNTIME_PACKAGE;
+  }
+
+  const topic = normalizeSelectorText(request.topic);
+  const subtopic = normalizeSelectorText(request.subtopic);
+  const isProfitLoss =
+    subtopic === "profit loss" ||
+    subtopic === "profit and loss" ||
+    subtopic === "profitandloss" ||
+    topic === "profit loss" ||
+    topic === "profit and loss";
+  if (isProfitLoss && (!topic || topic === "arithmetic" || topic.includes("profit"))) {
+    return PNL_RUNTIME_PACKAGE;
+  }
+
+  return undefined;
+}
+
+function resolveCpId(
+  pkg: QuantV4PackageDefinition,
+  request: QuantV4GenerationRequest,
+) {
   const explicit = request.canonicalProblemId ?? request.cpId;
   if (explicit) {
     if (pkg.cpIds.includes(explicit)) return explicit;
@@ -160,23 +227,64 @@ function resolveCpId(pkg: RapRuntimeDefinition, request: QuantV4GenerationReques
   return pkg.cpIds.find((cpId) => pattern.includes(cpId)) ?? pkg.cpIds[0]!;
 }
 
-export function listQuantV4Packages() {
-  return listCorePackages().map((pkg) =>
-    pkg.packageId.startsWith("RAP-")
-      ? { ...pkg, supportedLanguages: [...RAP_LANGUAGES] }
-      : pkg,
+function isRawPnlCheckpointPackage(pkg: any) {
+  const subtopic = normalizeSelectorText(pkg?.subtopic);
+  return (
+    /^CP-\d{3}$/.test(String(pkg?.packageId ?? "")) &&
+    (subtopic === "profitandloss" || subtopic === "profit loss")
   );
 }
 
-export async function generateQuestion(
-  request: QuantV4GenerationRequest = {},
+function pnlPackageForQuestionStudio() {
+  return {
+    id: PNL_RUNTIME_PACKAGE.packageId,
+    packageId: PNL_RUNTIME_PACKAGE.packageId,
+    type: "quant-v4",
+    section: "Quant",
+    domain: "quant",
+    topic: PNL_RUNTIME_PACKAGE.topic,
+    subtopic: PNL_RUNTIME_PACKAGE.subtopic,
+    name: `${PNL_RUNTIME_PACKAGE.packageId} ${PNL_RUNTIME_PACKAGE.label}`,
+    label: PNL_RUNTIME_PACKAGE.label,
+    generationDomain: "quant-v4",
+    canonicalProblems: PNL_RUNTIME_PACKAGE.cpIds.map((cpId) => ({
+      id: cpId,
+      label: cpId,
+    })),
+    supportedDifficulties: ["easy", "medium", "hard"],
+    supportedLanguages: [...PNL_LANGUAGES],
+    enabled: true,
+    runtimeMode: "CANONICAL_REVIEW",
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+  };
+}
+
+export function listQuantV4Packages() {
+  const corePackages = listCorePackages()
+    .filter((pkg) => !isRawPnlCheckpointPackage(pkg))
+    .map((pkg) =>
+      pkg.packageId.startsWith("RAP-")
+        ? { ...pkg, supportedLanguages: [...RAP_LANGUAGES] }
+        : pkg,
+    );
+
+  const withoutDuplicatePnl = corePackages.filter(
+    (pkg) => pkg.packageId !== PNL_RUNTIME_PACKAGE.packageId,
+  );
+  return [...withoutDuplicatePnl, pnlPackageForQuestionStudio()].sort(
+    (left, right) => left.packageId.localeCompare(right.packageId),
+  );
+}
+
+async function generateWithRuntimePackage(
+  pkg: QuantV4PackageDefinition,
+  request: QuantV4GenerationRequest,
+  language: QuantV4Language,
 ) {
-  const language = request.language ?? "en";
-  const pkg = resolveRapPackage(request);
-  if (!pkg || language === "en") {
-    return generateCoreQuestion(request);
-  }
-  if (!RAP_LANGUAGES.includes(language)) {
+  const supportedLanguages = pkg.supportedLanguages ?? ["en"];
+  if (!supportedLanguages.includes(language)) {
     throw new QuantV4RequestError(
       `${pkg.packageId} does not support language '${language}'.`,
     );
@@ -236,8 +344,29 @@ export async function generateQuestion(
       generationDomain: "quant-v4",
       seed: batchSeed,
       timestamp: Date.now(),
+      runtimeMode:
+        pkg.packageId === PNL_RUNTIME_PACKAGE.packageId
+          ? "CANONICAL_REVIEW"
+          : "DYNAMIC",
     },
     questionPackages: results.map((item) => item.questionPackage),
     questions: results.map((item) => item.question),
   };
+}
+
+export async function generateQuestion(
+  request: QuantV4GenerationRequest = {},
+) {
+  const language = request.language ?? "en";
+  const pnlPackage = resolvePnlPackage(request);
+  if (pnlPackage) {
+    return generateWithRuntimePackage(pnlPackage, request, language);
+  }
+
+  const rapPackage = resolveRapPackage(request);
+  if (!rapPackage || language === "en") {
+    return generateCoreQuestion(request as CoreQuantV4GenerationRequest);
+  }
+
+  return generateWithRuntimePackage(rapPackage, request, language);
 }
