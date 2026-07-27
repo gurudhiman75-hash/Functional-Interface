@@ -1,7 +1,7 @@
 import { addCoordinates } from "../foundation/coordinates";
 import { solveEntityPositions } from "../foundation/entity-position-graph";
 import type { Coordinate, PositionRelation } from "../foundation/types";
-import { cardinalVector } from "./geometry";
+import { DIRECTION_LABELS, cardinalVector, directionFromVector } from "./geometry";
 import type { AdvancedDiagram, HybridScenario, MixedGraphMovementScenario } from "./types";
 
 const esc = (value: string): string => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
@@ -25,7 +25,9 @@ function normalizePoints(coordinates: Readonly<Record<string, Coordinate>>, widt
 function relationSvg(relations: readonly PositionRelation[], coordinates: Readonly<Record<string, Coordinate>>, role = "relation-edge"): string {
   return relations.map((relation, index) => {
     const from = coordinates[relation.fromEntity], to = coordinates[relation.toEntity];
-    return `<g data-role="${role}" data-index="${index}"><line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/><text x="${(from.x + to.x) / 2}" y="${(from.y + to.y) / 2 - 8}" text-anchor="middle" font-size="13" fill="#334155">${esc(relation.fromEntity)} to ${esc(relation.toEntity)}</text></g>`;
+    const direction = directionFromVector(relation.vector);
+    const distance = Math.max(Math.abs(relation.vector.x), Math.abs(relation.vector.y));
+    return `<g data-role="${role}" data-index="${index}"><line x1="${from.x}" y1="${from.y}" x2="${to.x}" y2="${to.y}" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/><text x="${(from.x + to.x) / 2}" y="${(from.y + to.y) / 2 - 8}" text-anchor="middle" font-size="13" fill="#334155">${distance} m ${DIRECTION_LABELS[direction]}</text></g>`;
   }).join("");
 }
 
