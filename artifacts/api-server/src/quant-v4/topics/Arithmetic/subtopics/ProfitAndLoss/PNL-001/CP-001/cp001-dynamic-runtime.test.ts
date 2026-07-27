@@ -10,6 +10,7 @@ const expectedQlIds = Array.from(
   { length: 36 },
   (_, index) => `PNL-QL-${String(index + 1).padStart(3, "0")}`,
 );
+const fixedAnswerQlIds = new Set(["PNL-QL-035"]);
 
 assert.deepEqual(qlIds, expectedQlIds, "CP-001 must expose the frozen 36-QL range.");
 
@@ -63,7 +64,11 @@ for (const qlId of qlIds) {
   }
 
   assert.ok(stems.size >= 2, `${qlId}: seed sweep did not vary the rendered stem.`);
-  assert.ok(answers.size >= 2, `${qlId}: seed sweep did not vary the answer.`);
+  if (!fixedAnswerQlIds.has(qlId)) {
+    assert.ok(answers.size >= 2, `${qlId}: seed sweep did not vary the answer.`);
+  } else {
+    assert.deepEqual([...answers], ["No profit, no loss"]);
+  }
 }
 
 for (const difficultyBand of ["Easy", "Medium", "Hard"] as const) {
