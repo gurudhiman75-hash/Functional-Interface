@@ -1,0 +1,61 @@
+name: Validate PNL CP-001 dynamic candidate runtime
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp001-dynamic-runtime
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-*.ts"
+      - ".github/workflows/validate-pnl-cp001-dynamic-runtime.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-*.ts"
+      - ".github/workflows/validate-pnl-cp001-dynamic-runtime.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp001-dynamic-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle dynamic runtime proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/.cp001-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp001-dynamic-runtime.log
+
+      - name: Run 36-QL seed-sweep proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/.cp001-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp001-dynamic-runtime.log
+
+      - name: Upload proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp001-dynamic-runtime-proof
+          path: pnl-cp001-dynamic-runtime.log
+          if-no-files-found: error
+          retention-days: 7
