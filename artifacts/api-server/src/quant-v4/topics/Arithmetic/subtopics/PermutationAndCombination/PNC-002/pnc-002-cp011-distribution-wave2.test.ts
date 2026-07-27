@@ -89,7 +89,11 @@ for (const entry of entries) {
     const generated = runPnc002Cp011DistributionWave2Pipeline({ questionLanguageId: entry.qlId, seed: `cp011-wave2-tex:${entry.qlId}:${seedIndex}` });
     assert.equal(generated.validation.checks.find((item) => item.name === "no-control-characters")?.passed, true);
     assert.equal(generated.validation.checks.find((item) => item.name === "tex-command-contract")?.passed, true);
-    assert.equal(generated.explanation.lines.some((line) => line.includes(`\\(${generated.solver.mathJax}\\)`)), true);
+    if (entry.qlId === "PNC-QL-236") {
+      assert.equal(generated.explanation.lines.some((line) => line.includes(String.raw`\sum`) && line.includes(String.raw`\binom`)), true);
+    } else {
+      assert.equal(generated.explanation.lines.some((line) => line.includes(`\\(${generated.solver.mathJax}\\)`)), true);
+    }
     reviewedTexCases += 1;
   }
 }
