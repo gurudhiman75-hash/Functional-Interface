@@ -25,11 +25,12 @@ async function htmlFiles(root: string): Promise<string[]> {
 async function main(): Promise<void> {
   const root = resolve(process.argv[2] ?? "ops-001-device-review");
   const files = await htmlFiles(root);
-  if (files.length !== 3) throw new Error(`Expected three review HTML files; found ${files.length}.`);
+  if (files.length === 0) throw new Error(`No review HTML files found under ${root}.`);
   for (const file of files) {
     const source = await readFile(file, "utf8");
     if (!source.includes("</style>")) throw new Error(`No style boundary found in ${file}.`);
-    const patched = source.replace("</style>", `${DEVICE_SAFE_CSS}</style>`);
+    const withoutDuplicateStepNumbers = source.replace(/<strong>\d+\.\s+/gu, "<strong>");
+    const patched = withoutDuplicateStepNumbers.replace("</style>", `${DEVICE_SAFE_CSS}</style>`);
     await writeFile(file, patched, "utf8");
   }
   console.log("OPS-001 device-safe review shell applied.", { files });
