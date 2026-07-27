@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; COD-CP-007 open English discovery has begun; COD-CP-009 English discovery is frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
+Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; COD-CP-007 open discovery has one mathematically and editorially saturated prototype family; COD-CP-009 English discovery is frozen under `COD_CP009_ENGLISH_DISCOVERY_FREEZE_V1`; COD-CP-008 and COD-CP-010 remain unimplemented**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -32,7 +32,7 @@ Total stable implemented QLs: **168**.
 
 ## Future checkpoint sequence
 
-- `COD-CP-007`: digit, symbol and alphanumeric coding — open English discovery; first source-proven prototype selected;
+- `COD-CP-007`: digit, symbol and alphanumeric coding — open English discovery; uniform modular digit translation prototype saturated;
 - `COD-CP-008`: renaming and substitution coding — not started;
 - `COD-CP-009`: sentence and artificial-language coding — English discovery frozen, permanent allocation deferred;
 - `COD-CP-010`: conditional table and mixed-symbol coding — not started.
@@ -41,17 +41,36 @@ Their permanent QL counts and ranges are not fixed in advance. CP-009 cannot rec
 
 ## COD-CP-007 open discovery state
 
-CP-007 has completed its initial source/boundary design pass and currently records:
+CP-007 has completed its initial source/boundary design and the first executable prototype family:
 
-- no permanent QLs or fixed count;
-- one directly source-proven family: `UNIFORM_MODULAR_DIGIT_TRANSLATION`;
-- digit codes represented as token strings so leading zeroes are preserved;
-- required eligible-rule ambiguity proof against arbitrary substitution, whole-number arithmetic, permutation and position-dependent alternatives;
-- source- and collision-pending candidates for arbitrary digit substitution, digit-to-symbol maps, position-dependent digit transforms and alphanumeric dual-channel coding;
-- pure digit permutation as a presumptive CP-005 collision unless material numeric semantics are proven;
-- Question Studio, localisation and public publication disabled.
+```text
+UNIFORM_MODULAR_DIGIT_TRANSLATION
+```
 
-The immediate implementation milestone is a non-permanent English prototype for uniform modular digit translation, followed by executable source/collision and merge/split audits.
+Current evidence:
+
+- five non-permanent task contracts: explicit encode, inverse decode, missing digit, infer-and-encode and choose-matching;
+- digit codes represented as ordered token strings so leading zeroes are preserved;
+- exactly one surviving non-zero uniform shift required;
+- whole-number arithmetic and reversal competitors rejected;
+- independent verifier agreement;
+- 500/500 distinct mathematical audit questions and stems;
+- leading-zero source/code coverage of 140/132 cases;
+- 370 wrapped targets and first/middle/final missing-position coverage;
+- 45/45/59/41/45 normalised explanation skeletons across the five tasks;
+- zero cross-contract normalised explanation collisions;
+- zero permanent CP-007 QLs.
+
+Source- and collision-pending candidates remain:
+
+- arbitrary digit substitution;
+- digit-to-symbol maps;
+- position-dependent digit transforms;
+- pure digit permutation, presumptively owned by CP-005 unless material numeric semantics survive audit;
+- alphanumeric dual-channel coding;
+- mixed-token substitution.
+
+Question Studio, localisation and public publication remain disabled. The next work is targeted source expansion followed by checkpoint-wide merge/split and ownership closure.
 
 ## COD-CP-009 frozen discovery state
 
@@ -93,8 +112,8 @@ The freeze workflow reran the full combined saturation gate and then enforced:
 
 ## Remaining chapter sequence
 
-1. implement and exhaustively audit the CP-007 English prototype inventory;
-2. freeze and allocate CP-007 only after source and merge/split closure;
+1. complete targeted source expansion and prototype comparison for CP-007;
+2. freeze and allocate CP-007 only after source, ownership and merge/split closure;
 3. design and implement CP-008 through exhaustive discovery;
 4. assign sequential IDs to the frozen CP-009 solve contracts and implement its English runtime;
 5. design and implement CP-010;
