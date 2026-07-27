@@ -9,13 +9,11 @@ import {
 
 const fixture = ANA_CP009_CHANGING_VECTOR_FIXTURE;
 
-const vectors = fixture.inputClusters.map((input, index) =>
-  deriveForwardVector(input, fixture.outputClusters[index]),
-) as readonly [
-  readonly [number, number, number],
-  readonly [number, number, number],
-  readonly [number, number, number],
-];
+const vectors = [
+  deriveForwardVector(fixture.inputClusters[0], fixture.outputClusters[0]),
+  deriveForwardVector(fixture.inputClusters[1], fixture.outputClusters[1]),
+  deriveForwardVector(fixture.inputClusters[2], fixture.outputClusters[2]),
+] as const;
 
 assert.deepEqual(vectors, [
   [21, 23, 25],
