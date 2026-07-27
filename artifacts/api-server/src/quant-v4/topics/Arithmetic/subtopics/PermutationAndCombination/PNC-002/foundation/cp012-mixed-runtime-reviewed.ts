@@ -61,7 +61,7 @@ export function runPnc002Cp012Pipeline(input: {
 
 export function auditCp012Coverage(): ReturnType<typeof auditBaseCoverage> {
   const base = auditBaseCoverage();
-  const invalidSamples = [...base.invalidSamples];
+  const invalidSamples: string[] = [];
   for (const entry of getCp012Entries()) {
     try {
       const sample = runPnc002Cp012Pipeline({ questionLanguageId: entry.qlId, seed: `cp012-reviewed-audit:${entry.qlId}` });
@@ -70,5 +70,12 @@ export function auditCp012Coverage(): ReturnType<typeof auditBaseCoverage> {
       invalidSamples.push(`${entry.qlId}:${error instanceof Error ? error.message : String(error)}`);
     }
   }
-  return { ...base, passed: base.passed && invalidSamples.length === 0, invalidSamples };
+  const structuralPassed = base.activeQlCount === 28
+    && base.solveModeCount === 28
+    && base.missingIds.length === 0
+    && base.duplicateTemplates.length === 0
+    && base.difficultyCounts.Easy === 2
+    && base.difficultyCounts.Medium === 12
+    && base.difficultyCounts.Hard === 14;
+  return { ...base, passed: structuralPassed && invalidSamples.length === 0, invalidSamples };
 }
