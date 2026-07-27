@@ -4,23 +4,13 @@ import { Router, type Response } from "express";
 import { QuestionManagementError } from "../lib/admin-question-management";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
+import { isGeneratedQuestionPublicationBlocked } from "../lib/generated-question-publication";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
 
 function isUuid(value: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
-}
-
-function asRecord(value: unknown): Record<string, unknown> {
-  return value && typeof value === "object" && !Array.isArray(value)
-    ? value as Record<string, unknown>
-    : {};
-}
-
-function generatedPublicationBlocked(answerModel: unknown): boolean {
-  const generation = asRecord(asRecord(answerModel).generation);
-  return generation.publiclyPublishable === false || generation.publicationEnabled === false;
 }
 
 function sendError(res: Response, error: unknown): void {
@@ -92,7 +82,7 @@ router.post(
         if (!String(question.explanation ?? "").trim()) issues.push("Question explanation is required.");
         if (Number(question.optionCount ?? 0) < 2) issues.push("At least two options are required.");
         if (Number(question.correctOptionCount ?? 0) !== 1) issues.push("Exactly one correct option is required.");
-        if (generatedPublicationBlocked(question.answerModel)) {
+        if (isGeneratedQuestionPublicationBlocked(question.answerModel)) {
           issues.push("This generated question is locked for internal review and cannot be published yet.");
         }
         if (issues.length > 0) {
