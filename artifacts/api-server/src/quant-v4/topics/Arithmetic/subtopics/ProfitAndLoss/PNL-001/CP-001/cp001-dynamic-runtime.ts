@@ -201,6 +201,18 @@ function moneyFromExactRational(value: Rational): Money {
   return moneyFromPaise(value.numerator / value.denominator);
 }
 
+function moneyFromRoundedRational(value: Rational): Money {
+  const quotient = value.numerator / value.denominator;
+  const remainder = absoluteBigInt(value.numerator % value.denominator);
+  const adjustment =
+    remainder * 2n >= absoluteBigInt(value.denominator)
+      ? value.numerator < 0n
+        ? -1n
+        : 1n
+      : 0n;
+  return moneyFromPaise(quotient + adjustment);
+}
+
 function multiplyMoneyByRational(value: Money, factor: Rational): Money {
   return moneyFromExactRational(multiplyRational(rational(value.paise), factor));
 }
@@ -876,7 +888,7 @@ function wrongCandidates(
           "Multiplies the selling price by the forward factor instead of reversing it.",
         ),
         moneyCandidate(
-          moneyFromExactRational(
+          moneyFromRoundedRational(
             divideRational(
               rational(request.sellingPrice.paise),
               commercialFactor(request.direction === "PROFIT" ? "LOSS" : "PROFIT", request.ratePercent),
@@ -895,7 +907,7 @@ function wrongCandidates(
           multiplyMoneyByRational(request.amount, divideRational(request.ratePercent, rational(100))),
           "Multiplies the amount by the percentage instead of scaling it to 100%."),
         moneyCandidate(
-          moneyFromExactRational(
+          moneyFromRoundedRational(
             divideRational(
               multiplyRational(rational(request.amount.paise), rational(100)),
               addRational(rational(100), request.ratePercent),
@@ -1042,13 +1054,13 @@ function wrongCandidates(
     }
     case "SP_DIFFERENCE_TWO_RATES_TO_CP": {
       if (result.mode !== request.mode) break;
-      const fromFirst = moneyFromExactRational(
+      const fromFirst = moneyFromRoundedRational(
         divideRational(
           multiplyRational(rational(request.difference.paise), rational(100)),
           request.firstRatePercent,
         ),
       );
-      const fromSecond = moneyFromExactRational(
+      const fromSecond = moneyFromRoundedRational(
         divideRational(
           multiplyRational(rational(request.difference.paise), rational(100)),
           request.secondRatePercent,
