@@ -1,11 +1,15 @@
 import { verifyMalCp001ResultIndependently } from "./independent-verifier";
 import { malCp001ResultKey, sameMalCp001Result } from "./cp001-options";
+import { validateMalCp001ContextCoherence } from "./cp001-editorial-gate";
 import type { MalCp001GeneratedPrototype, VerificationResult } from "./types";
 
 function balancedMathJax(text: string): boolean {
   return (text.match(/\\\(/gu) ?? []).length === (text.match(/\\\)/gu) ?? []).length &&
     (text.match(/\\\[/gu) ?? []).length === (text.match(/\\\]/gu) ?? []).length;
 }
+
+const awkwardLearnerGrammar =
+  /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b/iu;
 
 export function validateMalCp001GeneratedPrototype(
   question: MalCp001GeneratedPrototype,
@@ -16,11 +20,14 @@ export function validateMalCp001GeneratedPrototype(
     question.solution,
   );
   errors.push(...independent.errors);
+  errors.push(...validateMalCp001ContextCoherence(question.parameters));
 
   if (question.permanentQlId !== null) errors.push("Prototype must not have a permanent QL ID.");
   if (question.publiclyPublishable !== false) errors.push("Prototype must remain non-publishable.");
   if (question.questionStudioDiscoverable !== false) errors.push("Prototype must remain hidden from Question Studio.");
   if (!question.stem.trim().endsWith("?")) errors.push("Stem must end with a question mark.");
+  if (/^[a-z]/u.test(question.stem)) errors.push("Stem must begin with a capital letter.");
+  if (awkwardLearnerGrammar.test(question.stem)) errors.push("Stem contains a known learner-facing grammar defect.");
   if (/\{\{|\}\}|TODO|PLACEHOLDER|undefined|null/iu.test(question.stem)) {
     errors.push("Stem contains unresolved or internal placeholder text.");
   }
