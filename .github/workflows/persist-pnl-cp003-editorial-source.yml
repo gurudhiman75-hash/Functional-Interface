@@ -41,13 +41,13 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/editorial-v2-cp001-cp003-export.ts \
             --bundle --platform=node --format=esm \
-            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs
-          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-cp001-cp003-export.mjs
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-cp001-cp003-export.mjs
 
       - name: Persist only corrected CP-003 source
         run: |
           cp \
-            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.editorial-v2-generated/CP-003.editorial-content.en.json \
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/foundation/.editorial-v2-generated/CP-003.editorial-content.en.json \
             artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-003/editorial-content.en.json
 
           git config user.name "github-actions[bot]"
