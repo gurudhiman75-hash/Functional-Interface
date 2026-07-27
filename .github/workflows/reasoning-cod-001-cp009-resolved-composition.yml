@@ -1,0 +1,55 @@
+name: Reasoning COD-001 CP-009 Resolved Composition
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - ".github/workflows/reasoning-cod-001-cp009-resolved-composition.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-resolved-composition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run resolved composition audit
+        id: composition_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/resolved-composition-prototype.test.ts > cod-cp009-resolved-composition.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload resolved composition diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-resolved-composition-audit
+          path: cod-cp009-resolved-composition.log
+          retention-days: 7
+
+      - name: Enforce resolved composition result
+        shell: bash
+        run: |
+          cat cod-cp009-resolved-composition.log
+          test "${{ steps.composition_audit.outputs.exit_code }}" = "0"
+
+      - name: Export resolved composition review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/export-resolved-composition-review.ts cod-cp009-resolved-composition-review-output
+
+      - name: Upload resolved composition review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-resolved-composition-review
+          path: cod-cp009-resolved-composition-review-output
+          retention-days: 7
