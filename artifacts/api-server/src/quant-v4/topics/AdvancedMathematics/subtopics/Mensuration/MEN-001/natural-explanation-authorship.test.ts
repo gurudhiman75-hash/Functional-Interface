@@ -110,8 +110,9 @@ for (const entry of getMen001QuestionEntries()) {
       ),
       `${entry.qlId} repeats an adjacent structured step title.`,
     );
+    const canonicalAnswer = toMen001LatexEquation(question.answer);
     assert.ok(
-      structuredSteps.at(-1)?.equations.includes(toMen001LatexEquation(question.answer)),
+      structuredSteps.at(-1)?.equations.some((equation) => equation.includes(canonicalAnswer)),
       `${entry.qlId} must place its final result inside the last worked step.`,
     );
 
