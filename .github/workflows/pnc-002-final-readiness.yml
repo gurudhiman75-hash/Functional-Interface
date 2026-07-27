@@ -1,0 +1,92 @@
+name: Validate final PNC-002 family readiness
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp012-mixed-advanced-runtime-proof
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/pnc-family-current-state-amendment-final-2026-07-27.md
+      - .github/workflows/pnc-002-final-readiness.yml
+  pull_request:
+    branches:
+      - feat/pnc-002-cp011-grouping-distribution
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/pnc-family-current-state-amendment-final-2026-07-27.md
+      - .github/workflows/pnc-002-final-readiness.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-final-readiness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-final-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        run: |
+          cd artifacts/api-server
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --resolveJsonModule \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-final-family-readiness.test.ts
+      - name: Bundle final family readiness proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-final-family-readiness.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-final-family-readiness.mjs
+      - name: Run final family readiness proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-final-readiness-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-final-family-readiness.mjs 2>&1 | tee dist/quant-v4/pnc-002-final-readiness-diagnostics/runtime.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
+      - name: Publish final family readiness report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-final-family-readiness
+          path: artifacts/api-server/dist/quant-v4/pnc-002-final-readiness/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Publish final family readiness diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-final-family-readiness-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-final-readiness-diagnostics/
+          if-no-files-found: error
+          retention-days: 3
