@@ -20,15 +20,37 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run uniform digit prototype audit
+      - name: Run mathematical prototype audit
         id: prototype_audit
         shell: bash
         run: |
           set +e
-          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/uniform-digit-prototype.test.ts > cod-cp007-uniform-digit.log 2>&1
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/uniform-digit-prototype.test.ts > cod-cp007-uniform-digit-mathematical.log 2>&1
           status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
+
+      - name: Run editorial diversity audit
+        id: editorial_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/uniform-digit-editorial.test.ts > cod-cp007-uniform-digit-editorial.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Combine audit diagnostics
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "=== MATHEMATICAL PROTOTYPE AUDIT ==="
+            cat cod-cp007-uniform-digit-mathematical.log
+            echo
+            echo "=== EDITORIAL DIVERSITY AUDIT ==="
+            cat cod-cp007-uniform-digit-editorial.log
+          } > cod-cp007-uniform-digit.log
 
       - name: Upload prototype diagnostics
         if: always()
@@ -38,16 +60,17 @@ jobs:
           path: cod-cp007-uniform-digit.log
           retention-days: 14
 
-      - name: Enforce prototype result
+      - name: Enforce prototype results
         shell: bash
         run: |
           cat cod-cp007-uniform-digit.log
           test "${{ steps.prototype_audit.outputs.exit_code }}" = "0"
+          test "${{ steps.editorial_audit.outputs.exit_code }}" = "0"
 
-      - name: Export English prototype review pack
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/export-uniform-digit-review.ts cod-cp007-uniform-digit-review-output
+      - name: Export polished English prototype review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/export-uniform-digit-polished-review.ts cod-cp007-uniform-digit-review-output
 
-      - name: Upload English prototype review pack
+      - name: Upload polished English prototype review pack
         uses: actions/upload-artifact@v4
         with:
           name: cod-001-cp007-uniform-digit-review
