@@ -34,8 +34,8 @@ export function buildResolvedCompositionExplanation(
   const correct = options.find((option) => option.isCorrect)!;
   const trap = options.find((option) => !option.isCorrect)!;
   const queryDescription = contract.queryDirection === "WORDS_TO_TOKENS"
-    ? `the words ${quoted(instance.targetWords)}`
-    : `the code words ${quoted(instance.targetDisplayTokens)}`;
+    ? `of the words ${quoted(instance.targetWords)}`
+    : `of the code words ${quoted(instance.targetDisplayTokens)}`;
 
   return {
     referenceAid: [
