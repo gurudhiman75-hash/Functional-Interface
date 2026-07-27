@@ -4,6 +4,7 @@ import { solveNumericRule, verifyNumericTransfer, type NumericPair } from "./ind
 import { numericRuleById, type NumericRuleContext } from "./rule-definitions";
 
 type NumericOption = number | readonly [number, number];
+type NumericOptionEntry = { value: NumericOption; errorLabel: string | null };
 
 export interface GeneratedNumericAnalogy {
   qlId: string;
@@ -15,7 +16,7 @@ export interface GeneratedNumericAnalogy {
   targetB: number;
   context: NumericRuleContext;
   stem: string;
-  options: readonly { value: NumericOption; errorLabel: string | null }[];
+  options: readonly NumericOptionEntry[];
   correctIndex: number;
   explanation: {
     ruleStatement: string;
@@ -44,6 +45,18 @@ function shuffle<T>(items: readonly T[], seed: number): T[] {
     const j = Math.floor(random() * (i + 1));
     [result[i], result[j]] = [result[j], result[i]];
   }
+  return result;
+}
+
+function placeCorrectOption(
+  options: readonly NumericOptionEntry[],
+  requestedIndex: number,
+): NumericOptionEntry[] {
+  const result = [...options];
+  const currentIndex = result.findIndex((option) => option.errorLabel === null);
+  if (currentIndex < 0) throw new Error("Numeric options do not contain a correct answer.");
+  const [correct] = result.splice(currentIndex, 1);
+  result.splice(requestedIndex, 0, correct);
   return result;
 }
 
@@ -78,8 +91,8 @@ function chooseInstance(ruleId: string, seed: number): { context: NumericRuleCon
   throw new Error(`Unable to build an unambiguous ${ruleId} instance for seed ${seed}.`);
 }
 
-function missingTermOptions(target: NumericPair, seed: number) {
-  const deltas = shuffle([1,2,3,4,5,7,9,10,12,15], seed * 23 + 3);
+function missingTermOptions(target: NumericPair, seed: number): NumericOptionEntry[] {
+  const deltas = shuffle([1, 2, 3, 4, 5, 7, 9, 10, 12, 15], seed * 23 + 3);
   const distractors: number[] = [];
   for (const delta of deltas) {
     for (const sign of [1, -1]) {
@@ -95,14 +108,14 @@ function missingTermOptions(target: NumericPair, seed: number) {
   ], seed * 29 + 7);
 }
 
-function pairOptions(ruleId: string, context: NumericRuleContext, target: NumericPair, seed: number) {
+function pairOptions(ruleId: string, context: NumericRuleContext, target: NumericPair, seed: number): NumericOptionEntry[] {
   const rule = numericRuleById(ruleId);
   const inputs = candidateInputs(rule.minInput, rule.maxInput, seed * 31 + 11);
   const distractors: { value: readonly [number, number]; errorLabel: string }[] = [];
   for (const input of inputs) {
     const correct = solveNumericRule(ruleId, input, context);
     if (correct === null || input === target.input) continue;
-    for (const delta of [1,-1,2,-2,3,-3,5,-5]) {
+    for (const delta of [1, -1, 2, -2, 3, -3, 5, -5]) {
       const output = correct + delta;
       if (output <= 0 || solveNumericRule(ruleId, input, context) === output) continue;
       const value = [input, output] as const;
@@ -122,9 +135,12 @@ export function generateNumericAnalogy(qlId: string, seed = 0): GeneratedNumeric
   const rule = numericRuleById(ql.ruleId);
   const { context, source, target } = chooseInstance(ql.ruleId, seed);
   if (!verifyNumericTransfer(ql.ruleId, context, source, target)) throw new Error("Independent solver rejected generated instance.");
-  const options = ql.presentationMode === "MISSING_FOURTH_TERM"
+  const shuffledOptions = ql.presentationMode === "MISSING_FOURTH_TERM"
     ? missingTermOptions(target, seed)
     : pairOptions(ql.ruleId, context, target, seed);
+  const qlOrdinal = Number(ql.qlId.slice(-3));
+  const requestedCorrectIndex = ((seed + qlOrdinal) % 4 + 4) % 4;
+  const options = placeCorrectOption(shuffledOptions, requestedCorrectIndex);
   const canonical = (value: NumericOption) => Array.isArray(value) ? value.join(":") : String(value);
   if (new Set(options.map((option) => canonical(option.value))).size !== 4) throw new Error("Duplicate numeric options.");
   const correctIndex = options.findIndex((option) => option.errorLabel === null);
