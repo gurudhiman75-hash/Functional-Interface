@@ -51,12 +51,9 @@ The checkpoint adds an isolated CP-011 grouping runtime layer containing:
 
 The runtime is intentionally isolated from the shared PNC-002 package composer until this grouping checkpoint receives manual approval. This avoids exposing a partially implemented CP-011 while retaining executable proof and permanent QL ownership.
 
-## Exact proof
+## Validation evidence
 
-Final exact-head validation passed on head `731c4392f5a4b90e4d3d7ccb4305d3e37f0258ad`:
-
-- grouping runtime workflow run `30261077404` — PASS;
-- executable-discovery regression run `30261077364` — PASS.
+The runtime and discovery workflows passed on the implementation/documentation heads associated with this checkpoint. The pull request description records the current exact head and run IDs.
 
 Proof results:
 
