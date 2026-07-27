@@ -157,9 +157,15 @@ function mergeSameQuantity(sections: Men001ExplanationSection[]) {
   for (const section of sections) {
     const previous = result.at(-1);
     if (section.kind === "STEP" && previous?.kind === "STEP") {
+      if (previous.title === section.title) {
+        previous.paragraphs = [...new Set([...previous.paragraphs, ...section.paragraphs])];
+        previous.equations = [...previous.equations, ...section.equations];
+        continue;
+      }
       const previousIdentity = equationIdentity(previous);
       const currentIdentity = equationIdentity(section);
       if (previousIdentity && previousIdentity === currentIdentity) {
+        previous.paragraphs = [...new Set([...previous.paragraphs, ...section.paragraphs])];
         previous.equations = [...previous.equations, ...section.equations];
         continue;
       }
