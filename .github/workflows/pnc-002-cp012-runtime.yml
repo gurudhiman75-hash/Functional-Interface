@@ -17,7 +17,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: validate-pnc-002-cp012-${{ github.ref }}
@@ -30,29 +30,6 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        with:
-          ref: feat/pnc-002-cp012-mixed-advanced-runtime-proof
-      - name: Repair scalar evidence narrowing once
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          path = Path('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts')
-          text = path.read_text()
-          old = '    arrangementFactor: solver.evidence.details.arrangementFactor ?? "",\n'
-          new = '''    arrangementFactor: typeof solver.evidence.details.arrangementFactor === "number" || typeof solver.evidence.details.arrangementFactor === "string"\n      ? solver.evidence.details.arrangementFactor\n      : "",\n'''
-          if old in text:
-              path.write_text(text.replace(old, new, 1))
-          elif new not in text:
-              raise SystemExit('expected arrangementFactor source was not found')
-          PY
-          if ! git diff --quiet -- artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts; then
-            git config user.name github-actions[bot]
-            git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-            git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/cp012-mixed-runtime.ts
-            git commit -m "fix(pnc): narrow CP-012 explanation evidence scalar"
-            git push origin HEAD:feat/pnc-002-cp012-mixed-advanced-runtime-proof
-          fi
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
@@ -88,13 +65,19 @@ jobs:
           status=${PIPESTATUS[0]}
           exit "$status"
       - name: Bundle CP-012 runtime proof
-        run: >-
-          pnpm --dir artifacts/api-server exec esbuild
-          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp012-mixed.test.ts
-          --bundle
-          --platform=node
-          --format=esm
-          --outfile=dist/quant-v4/pnc-002-cp012-proof.mjs
+        shell: bash
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics
+          set +e
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-cp012-mixed.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/quant-v4/pnc-002-cp012-proof.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/pnc-002-cp012-diagnostics/bundle.log
+          status=${PIPESTATUS[0]}
+          exit "$status"
       - name: Run CP-012 proof and generate review export
         working-directory: artifacts/api-server
         shell: bash
