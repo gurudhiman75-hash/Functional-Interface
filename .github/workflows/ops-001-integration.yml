@@ -8,6 +8,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/**
       - artifacts/api-server/src/routes/admin-question-studio-ops.ts
       - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioOpsStatus.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/ops-001-integration.yml
@@ -19,6 +20,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/**
       - artifacts/api-server/src/routes/admin-question-studio-ops.ts
       - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioOpsStatus.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/ops-001-integration.yml
@@ -46,6 +48,7 @@ jobs:
       - name: Strict OPS-001 integration TypeScript check
         working-directory: artifacts/api-server
         run: |
+          set +e
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -67,7 +70,21 @@ jobs:
             src/reasoning-v1/topics/Mathematical-Operations/OPS-001/delivery-adapter.ts \
             src/reasoning-v1/topics/Mathematical-Operations/OPS-001/index.ts \
             src/reasoning-v1/generation-engine.ts \
-            src/routes/admin-question-studio-ops.ts
+            src/routes/admin-question-studio-ops.ts \
+            src/lib/admin-question-conversion.ts \
+            > /tmp/ops-001-integration-typescript.log 2>&1
+          status=$?
+          cat /tmp/ops-001-integration-typescript.log
+          exit $status
+
+      - name: Upload TypeScript diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-integration-typescript-diagnostic
+          path: /tmp/ops-001-integration-typescript.log
+          if-no-files-found: error
+          retention-days: 3
 
       - name: Run frozen OPS-001 integration proof
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/integration/ops-001-integration.test.ts
