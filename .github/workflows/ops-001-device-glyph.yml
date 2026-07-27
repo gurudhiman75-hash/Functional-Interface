@@ -38,6 +38,8 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
+      - name: Install standalone Playwright package
+        run: pnpm --dir scripts/e2e install --ignore-workspace --frozen-lockfile=false
       - name: Generate accepted English review
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-canonical-review-export.ts ./ops-001-device-review/en
       - name: Generate accepted Hindi and Punjabi reviews
