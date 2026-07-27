@@ -1,6 +1,6 @@
 # COD-001 — Coding–Decoding
 
-Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; CP-009 has 16 executable task prototypes and 24 provisional solve contracts; CP-007, CP-008 and CP-010 remain unimplemented**.
+Status: **COD-CP-001 through COD-CP-006 implemented at English runtime-proof maturity; CP-009 has 16 executable task prototypes, an exact-head saturation pass and 24 provisional solve contracts; CP-007, CP-008 and CP-010 remain unimplemented**.
 
 Student-facing chapter: **Coding–Decoding**  
 Reasoning V1 package: `COD-001`  
@@ -34,7 +34,7 @@ Total stable implemented QLs: **168**.
 
 - `COD-CP-007`: digit, symbol and alphanumeric coding — not started;
 - `COD-CP-008`: renaming and substitution coding — not started;
-- `COD-CP-009`: sentence and artificial-language coding — executable prototype inventory complete for the current source-backed scope;
+- `COD-CP-009`: sentence and artificial-language coding — executable prototype inventory and combined saturation complete for the current source-backed scope;
 - `COD-CP-010`: conditional table and mixed-symbol coding — not started.
 
 Their permanent QL counts and ranges are not fixed in advance. Candidate contracts use non-permanent prototype IDs until their gap and merge/split audits pass.
@@ -46,27 +46,36 @@ CP-009 now contains:
 - 16 executable English task-contract prototypes;
 - eight forward/inverse pairs;
 - ten proven topology families;
-- one combined saturation gate covering 30 contract/topology pairings and 720 generated questions;
 - 24 provisional solve contracts after executable merge/split;
+- an exact-head combined saturation pass over 30 contract/topology pairings and 720 generated questions;
 - zero permanent CP-009 QLs.
 
 The 24 provisional solve contracts arise because the two exact atomic query directions each split across five materially different proof modes: direct intersection, chained propagation, set difference, forked evidence and global bijection. Two-way/three-way uncertainty and statement count remain generated-instance properties.
 
-The combined audit's first run identified and caused correction of a forward/inverse possible-set explanation collision. Exact-head CI and the final source/ownership gap freeze remain mandatory before the provisional inventory can be frozen.
+Exact-head evidence:
+
+```text
+Head SHA:   6571e4d0a9c067f3f355d3f451089e7d9757a05d
+Run ID:     30281306137
+Conclusion: success
+Questions:  720
+Collisions: 0 exact display / 0 normalised stem / 0 normalised explanation
+```
+
+The first combined run identified and caused correction of a forward/inverse possible-set explanation collision. The passing rerun proves the correction without solver, option or answer regression.
 
 CP-009 permanent IDs must wait until CP-007 and CP-008 discover and allocate their own preceding ranges.
 
 ## Remaining chapter sequence
 
-1. pass and inspect CP-009 exact-head combined saturation;
-2. complete the final CP-009 concept, source, ownership and gap freeze;
-3. design and implement CP-007 through exhaustive discovery;
-4. design and implement CP-008 through exhaustive discovery;
-5. allocate and implement the frozen CP-009 English runtime sequentially after the earlier checkpoints;
-6. design and implement CP-010;
-7. complete chapter-wide English saturation;
-8. implement Hindi and Punjabi only after English ownership freezes;
-9. integrate reviewed content into Question Studio and later publication gates.
+1. complete the final CP-009 concept, source, ownership and gap freeze;
+2. design and implement CP-007 through exhaustive discovery;
+3. design and implement CP-008 through exhaustive discovery;
+4. allocate and implement the frozen CP-009 English runtime sequentially after the earlier checkpoints;
+5. design and implement CP-010;
+6. complete chapter-wide English saturation;
+7. implement Hindi and Punjabi only after English ownership freezes;
+8. integrate reviewed content into Question Studio and later publication gates.
 
 ## Release boundary
 
