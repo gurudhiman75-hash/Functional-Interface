@@ -9,7 +9,7 @@ function balancedMathJax(text: string): boolean {
 }
 
 const awkwardLearnerGrammar =
-  /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b/iu;
+  /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b|\b\d+\s+(?:Kg|Litres)\b|,\s+What quantity\b|,\s+\d+\s+(?:kg|litres)\s+of\s+[^,?]+\s+are used\b|,\s+\d+\s+(?:kg|litres)\s+of\s+[^,?]+\.\s+What\b/iu;
 
 export function validateMalCp001GeneratedPrototype(
   question: MalCp001GeneratedPrototype,
