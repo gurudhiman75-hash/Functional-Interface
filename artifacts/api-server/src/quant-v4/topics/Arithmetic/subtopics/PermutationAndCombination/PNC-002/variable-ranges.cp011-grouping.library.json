@@ -30,7 +30,7 @@
     "unlabelledMixedRepeatedSizes": [
       { "smallGroupCount": 2, "smallGroupSize": 2, "largeGroupCount": 2, "largeGroupSize": 3 },
       { "smallGroupCount": 2, "smallGroupSize": 2, "largeGroupCount": 2, "largeGroupSize": 4 },
-      { "smallGroupCount": 2, "smallGroupSize": 2, "largeGroupCount": 3, "largeGroupSize": 3 },
+      { "smallGroupCount": 3, "smallGroupSize": 2, "largeGroupCount": 1, "largeGroupSize": 4 },
       { "smallGroupCount": 3, "smallGroupSize": 2, "largeGroupCount": 2, "largeGroupSize": 3 }
     ],
     "unnamedPairCounts": [3, 4, 5],
