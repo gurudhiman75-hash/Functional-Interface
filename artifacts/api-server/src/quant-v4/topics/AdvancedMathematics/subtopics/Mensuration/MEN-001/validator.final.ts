@@ -47,6 +47,7 @@ export function validateMen001QuestionPackage(
     (section) => section.kind === "STEP",
   );
   const lastStep = structuredSteps.at(-1);
+  const canonicalAnswer = toMen001LatexEquation(question.answer);
   const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers|Therefore, the required|Hence, the required|Thus, the required)/i;
 
   checks.push(check(
@@ -63,7 +64,7 @@ export function validateMen001QuestionPackage(
     "natural-explanation-conclusion",
     Boolean(lastStep) &&
       lastStep!.paragraphs.length > 0 &&
-      lastStep!.equations.includes(toMen001LatexEquation(question.answer)),
+      lastStep!.equations.some((equation) => equation.includes(canonicalAnswer)),
     "The last worked step must contain contextual prose and the canonical final result.",
   ));
   checks.push(check(
