@@ -1,5 +1,12 @@
-import type { RenderedEnglishSentenceCodeRow } from "./language-instantiator.en";
 import type { SentenceCodeTopologyKind } from "./topology-generator";
+
+export interface StudentSentenceCodeRow {
+  statementId: string;
+  sentence: string;
+  words: readonly string[];
+  displayedCodeTokens: readonly string[];
+  displayedCode: string;
+}
 
 export type ExactAtomicPrototypeId =
   | "COD-CP009-PROT-EXACT-WORD-TO-TOKEN"
@@ -27,7 +34,7 @@ export interface ExactAtomicExplanation {
 }
 
 export interface ExactAtomicStructuredPrompt {
-  rows: readonly RenderedEnglishSentenceCodeRow[];
+  rows: readonly StudentSentenceCodeRow[];
   queryDirection: "WORD_TO_TOKEN" | "TOKEN_TO_WORD";
   targetWord: string;
   targetToken: string;

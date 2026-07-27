@@ -4,6 +4,7 @@ import { buildExactAtomicExplanation } from "./exact-atomic-explanation";
 import type {
   ExactAtomicPrototypeId,
   GeneratedExactAtomicPrototypeQuestion,
+  StudentSentenceCodeRow,
 } from "./exact-atomic-types";
 import { instantiateEnglishSentenceCodeTopology } from "./language-instantiator.en";
 import {
@@ -43,6 +44,26 @@ function mappingFingerprint(mapping: Readonly<Record<string, string>>): string {
     .join("|");
 }
 
+export function toStudentSentenceCodeRows(
+  rows: readonly {
+    rowId: string;
+    sentence: string;
+    words: readonly string[];
+    displayedCodeTokens: readonly string[];
+    displayedCode: string;
+  }[],
+): StudentSentenceCodeRow[] {
+  return [...rows]
+    .sort((left, right) => left.rowId.localeCompare(right.rowId))
+    .map((row, index) => ({
+      statementId: `statement-${index + 1}`,
+      sentence: row.sentence,
+      words: [...row.words],
+      displayedCodeTokens: [...row.displayedCodeTokens],
+      displayedCode: row.displayedCode,
+    }));
+}
+
 export function generateExactAtomicPrototypeQuestion(
   prototypeId: ExactAtomicPrototypeId,
   seed: number,
@@ -74,7 +95,7 @@ export function generateExactAtomicPrototypeQuestion(
     answerType: contract.answerType,
     stem: buildStem(prototypeId, instance.targetWord, instance.targetDisplayToken, styleIndex),
     structuredPrompt: {
-      rows: instance.rows,
+      rows: toStudentSentenceCodeRows(instance.rows),
       queryDirection: contract.queryDirection,
       targetWord: instance.targetWord,
       targetToken: instance.targetDisplayToken,
