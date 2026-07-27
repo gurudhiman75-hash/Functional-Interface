@@ -80,8 +80,12 @@ function auditInstance(instance: ReturnType<typeof instantiateEnglishSentenceCod
     instance.reviewer.abstract.topologyFingerprint,
   );
 
-  if (instance.topologyKind === "CONTROLLED_PARTIAL_INFORMATION") {
+  if (
+    instance.topologyKind === "CONTROLLED_PARTIAL_INFORMATION"
+    || instance.topologyKind === "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION"
+  ) {
     assert.equal(classifyWordTokenRelation(displaySpace, instance.targetWord, instance.targetDisplayToken), "POSSIBLE");
+    assert.equal(displaySpace.candidateTokensByWord[instance.targetWord]!.length, instance.reviewer.abstract.expectedQueryDomainSize);
   } else if (instance.topologyKind === "PHRASE_SET_COMPOSITION") {
     assert.equal(classifyWordsToTokenSetRelation(displaySpace, instance.phraseWords!, instance.phraseDisplayTokens!), "DEFINITE");
   } else {
@@ -144,7 +148,7 @@ for (const kind of SENTENCE_CODE_TOPOLOGY_KINDS) {
   }
 }
 
-assert.equal(explicitScenarioInstances, 40);
+assert.equal(explicitScenarioInstances, SENTENCE_CODE_TOPOLOGY_KINDS.length * 5);
 assert.equal(generatedInstances, SENTENCE_CODE_TOPOLOGY_KINDS.length * 160);
 assert.equal(missingPresentationsAudited, 5 + 160);
 
