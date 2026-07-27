@@ -13,7 +13,9 @@ function intersection(left: readonly string[], right: readonly string[]): string
 }
 
 function quoted(values: readonly string[]): string {
-  return values.map((value) => `‘${value}’`).join(", ");
+  const rendered = values.map((value) => `‘${value}’`);
+  if (rendered.length === 2) return `${rendered[0]} and ${rendered[1]}`;
+  return rendered.join(", ");
 }
 
 export function buildResolvedCompositionExplanation(
