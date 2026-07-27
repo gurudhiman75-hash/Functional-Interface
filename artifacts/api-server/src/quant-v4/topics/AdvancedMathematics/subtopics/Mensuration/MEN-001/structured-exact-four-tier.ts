@@ -57,7 +57,6 @@ function triangleBaseHeightSteps(
       equations: [
         `A = ½ × ${format(base)} × ${format(height)}`,
         `A = ${format(area)} ${aUnit}`,
-        ...final.equations,
       ],
     },
   ];
@@ -109,9 +108,20 @@ function circularWireSquareAreaSteps(
       ],
       equations: [
         `A = ${format(side)}² = ${format(squareArea)} ${aUnit}`,
-        ...final.equations,
       ],
     },
+  ];
+}
+
+function addMissingFinalEquations(
+  workingEquations: readonly string[],
+  finalEquations: readonly string[],
+) {
+  return [
+    ...workingEquations,
+    ...finalEquations.filter(
+      (finalEquation) => !workingEquations.some((equation) => equation.includes(finalEquation)),
+    ),
   ];
 }
 
@@ -130,7 +140,7 @@ function appendFinalAnswerToLastStep(
     return {
       ...section,
       paragraphs: [...section.paragraphs, ...final.paragraphs],
-      equations: [...section.equations, ...final.equations],
+      equations: addMissingFinalEquations(section.equations, final.equations),
     };
   });
 }
