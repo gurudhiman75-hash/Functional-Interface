@@ -89,7 +89,20 @@ Provisional solve contracts:   24
 Permanent CP-009 QLs:           0
 ```
 
-## 5. Identity and sequencing boundary
+## 5. Collision discovered by the combined audit
+
+The first combined execution rejected the forward and inverse possible-set prototypes because their full explanations became identical after variable words, code tokens and numbers were normalised.
+
+This was a genuine editorial weakness, not an audit false positive. The shared explanation authority has been rewritten so that:
+
+- word-set → code-set questions explicitly trace each queried word to its code word;
+- code-set → word-set questions explicitly decode each queried code word back to a word;
+- Reference Aid, Quick Method, evidence conclusion, complete-mapping witness, final conclusion and Common Trap Alert are direction-specific;
+- the underlying solver, options, answers and witness counts remain unchanged.
+
+The exact-head rerun is the acceptance authority for this correction.
+
+## 6. Identity and sequencing boundary
 
 CP-009 still cannot receive permanent IDs because `COD-CP-007` and `COD-CP-008` precede it and their discovered counts are unknown.
 
@@ -103,7 +116,7 @@ The safe sequence remains:
 6. implement the frozen English runtime;
 7. begin Hindi and Punjabi only after English approval.
 
-## 6. Exclusions retained
+## 7. Exclusions retained
 
 No formal symmetry is admitted without exam evidence. CP-009 continues to exclude:
 
@@ -115,6 +128,6 @@ No formal symmetry is admitted without exam evidence. CP-009 continues to exclud
 - conditional table coding;
 - static renderer differences as separate solve contracts.
 
-## 7. Verdict
+## 8. Verdict
 
-The current executable evidence supports **24 provisional English solve contracts derived from 16 source-backed task contracts**. The merge/split question is resolved for the present inventory, but permanent allocation remains blocked by the final gap audit and the unfinished CP-007/CP-008 sequence.
+The current executable evidence supports **24 provisional English solve contracts derived from 16 source-backed task contracts**. The merge/split question is resolved for the present inventory, but permanent allocation remains blocked by the exact-head saturation pass, final gap audit and unfinished CP-007/CP-008 sequence.
