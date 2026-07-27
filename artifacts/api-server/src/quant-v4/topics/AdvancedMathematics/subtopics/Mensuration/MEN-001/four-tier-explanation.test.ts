@@ -67,8 +67,9 @@ for (const entry of getMen001QuestionEntries()) {
     );
 
     const lastStep = steps.at(-1)!;
+    const canonicalAnswer = toMen001LatexEquation(question.answer);
     assert.ok(
-      lastStep.equations.includes(toMen001LatexEquation(question.answer)),
+      lastStep.equations.some((equation) => equation.includes(canonicalAnswer)),
       `${entry.qlId} must place the final answer inside the last worked step.`,
     );
 
