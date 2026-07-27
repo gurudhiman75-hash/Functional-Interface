@@ -1,13 +1,35 @@
 import { canonicalSetKey, uniqueSorted } from "./canonical-set";
 import { getCompleteCandidateSetContract } from "./complete-candidate-set-contracts";
+import type { CompleteCandidateSetDirection } from "./complete-candidate-set-types";
 import type {
   CompleteCandidateSetOption,
   CompleteCandidateSetPrototypeId,
 } from "./complete-candidate-set-types";
+import { getEnglishSentenceCodeLexeme } from "./datasets/lexemes.en";
 import type { SentenceCodeSolutionSpace } from "./types";
 
-function listValue(members: readonly string[]): string {
-  const values = uniqueSorted(members);
+function wordAlternativeRank(value: string): number {
+  const lexeme = getEnglishSentenceCodeLexeme(value);
+  if (lexeme.semanticTags.includes("actor") || lexeme.semanticTags.includes("subject")) return 0;
+  if (lexeme.partOfSpeech === "VERB") return 1;
+  if (lexeme.semanticTags.includes("object") || lexeme.semanticTags.includes("activity")) return 2;
+  if (lexeme.partOfSpeech === "ADJECTIVE") return 2;
+  if (lexeme.partOfSpeech === "ADVERB") return 3;
+  if (lexeme.partOfSpeech === "CONJUNCTION") return 4;
+  return 2;
+}
+
+function displayOrder(direction: CompleteCandidateSetDirection, members: readonly string[]): string[] {
+  if (direction === "WORD_TO_ALL_TOKENS") return uniqueSorted(members);
+  return [...members].sort((left, right) =>
+    wordAlternativeRank(left) - wordAlternativeRank(right) || left.localeCompare(right));
+}
+
+export function formatCompleteCandidateSetValue(
+  direction: CompleteCandidateSetDirection,
+  members: readonly string[],
+): string {
+  const values = displayOrder(direction, members);
   if (values.length === 1) return `${values[0]} only`;
   if (values.length === 2) return `${values[0]} or ${values[1]}`;
   return `${values.slice(0, -1).join(", ")} or ${values.at(-1)}`;
@@ -40,27 +62,27 @@ export function buildCompleteCandidateSetOptions(
 
   const raw: CompleteCandidateSetOption[] = [
     {
-      value: listValue(candidates),
+      value: formatCompleteCandidateSetValue(contract.queryDirection, candidates),
       members: candidates,
       canonicalValue: canonicalSetKey(candidates),
       isCorrect: true,
     },
     {
-      value: listValue(omitted),
+      value: formatCompleteCandidateSetValue(contract.queryDirection, omitted),
       members: omitted,
       canonicalValue: canonicalSetKey(omitted),
       isCorrect: false,
       errorLabel: "CANDIDATE_OMITTED",
     },
     {
-      value: listValue(extra),
+      value: formatCompleteCandidateSetValue(contract.queryDirection, extra),
       members: extra,
       canonicalValue: canonicalSetKey(extra),
       isCorrect: false,
       errorLabel: "IMPOSSIBLE_MEMBER_ADDED",
     },
     {
-      value: listValue(replaced),
+      value: formatCompleteCandidateSetValue(contract.queryDirection, replaced),
       members: replaced,
       canonicalValue: canonicalSetKey(replaced),
       isCorrect: false,
