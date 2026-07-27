@@ -1,4 +1,5 @@
 import { getFinalMen001NaturalExplanationProfile } from "./natural-explanation-profile-final";
+import { toMen001LatexEquation } from "./structured-math-latex";
 import { validateMen001QuestionPackage as validateAllMen001QuestionPackage } from "./validator.all";
 import { validateMen001Cp005 } from "./validator.cp005";
 import { validateMen001Cp005Exhaustiveness } from "./validator.cp005.exhaustiveness";
@@ -29,23 +30,6 @@ function hasWorkedArithmetic(lines: readonly string[]) {
   );
 }
 
-function capitalizeFirst(value: string) {
-  return value.length === 0 ? value : value[0]!.toUpperCase() + value.slice(1);
-}
-
-function naturalConclusion(value: string, answer: string) {
-  const text = value
-    .replace("{answer}", answer)
-    .replace(/^\s*(Therefore|Hence|Thus|So),?\s+/i, "")
-    .replace(/\s+therefore\s+/i, " ")
-    .replace(/\s+hence\s+/i, " ")
-    .replace(/\s+thus\s+/i, " ")
-    .trim()
-    .replace(/\s+/g, " ");
-  const sentence = capitalizeFirst(text);
-  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`;
-}
-
 export function validateMen001QuestionPackage(
   question: Question,
 ): Men001ValidationResult {
@@ -58,10 +42,11 @@ export function validateMen001QuestionPackage(
   const profile = getFinalMen001NaturalExplanationProfile(
     question.questionLanguageId,
   );
-  const expectedConclusion = profile
-    ? naturalConclusion(profile.conclusion, question.answer)
-    : undefined;
   const explanationLines = question.explanation.lines;
+  const structuredSteps = question.explanation.sections.filter(
+    (section) => section.kind === "STEP",
+  );
+  const lastStep = structuredSteps.at(-1);
   const genericPaddingPattern = /^(Check:|Substitution:|Calculation:|The required quantity is|This value measures|The result is|Multiplying this unit rate|The count refers|Therefore, the required|Hence, the required|Thus, the required)/i;
 
   checks.push(check(
@@ -76,8 +61,10 @@ export function validateMen001QuestionPackage(
   ));
   checks.push(check(
     "natural-explanation-conclusion",
-    Boolean(expectedConclusion) && explanationLines[1]?.includes(expectedConclusion!) === true,
-    "The contextual conclusion and final result must appear inside the Step-by-Step Solution tier.",
+    Boolean(lastStep) &&
+      lastStep!.paragraphs.length > 0 &&
+      lastStep!.equations.includes(toMen001LatexEquation(question.answer)),
+    "The last worked step must contain contextual prose and the canonical final result.",
   ));
   checks.push(check(
     "natural-explanation-length",
