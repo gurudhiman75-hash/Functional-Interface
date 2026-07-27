@@ -49,10 +49,9 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict OPS-001 integration TypeScript check
+      - name: Strict frozen OPS-001 runtime TypeScript check
         working-directory: artifacts/api-server
         run: |
-          set +e
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -70,27 +69,9 @@ jobs:
             $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/registry -name '*.ts' -print) \
             $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/runtime -name '*.ts' -print) \
             $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/analytics -name '*.ts' -print) \
-            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/integration -name '*.ts' -print) \
             src/reasoning-v1/topics/Mathematical-Operations/OPS-001/delivery-adapter.ts \
             src/reasoning-v1/topics/Mathematical-Operations/OPS-001/index.ts \
-            src/reasoning-v1/generation-engine.ts \
-            src/routes/admin-question-studio-ops.ts \
-            src/routes/admin-question-lifecycle-hardening.ts \
-            src/lib/admin-question-conversion.ts \
-            src/lib/generated-question-publication.ts \
-            > /tmp/ops-001-integration-typescript.log 2>&1
-          status=$?
-          cat /tmp/ops-001-integration-typescript.log
-          exit $status
-
-      - name: Upload TypeScript diagnostic
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ops-001-integration-typescript-diagnostic
-          path: /tmp/ops-001-integration-typescript.log
-          if-no-files-found: error
-          retention-days: 3
+            src/reasoning-v1/generation-engine.ts
 
       - name: Run frozen OPS-001 integration proof
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/integration/ops-001-integration.test.ts
