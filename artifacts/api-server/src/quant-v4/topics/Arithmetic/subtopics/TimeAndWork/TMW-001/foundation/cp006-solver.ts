@@ -58,8 +58,8 @@ export function solveTmwCp006(entry:TmwCp006RegistryEntry,p:TmwCp006Parameters):
       workedLatex=[`E_2=\\frac{${toLatex(a.resources)}\\times${toLatex(a.days)}\\times${toLatex(a.hoursPerDay)}\\times${toLatex(a.efficiency)}}{${toLatex(b.resources)}\\times${toLatex(b.days)}\\times${toLatex(b.hoursPerDay)}}\\times\\frac{${toLatex(b.work)}}{${toLatex(a.work)}}`,`E_2=${toLatex(answer)}`];break;
     }
     case "findWorkQuantity":{
-      answer=multiply(a.work,workRatio(a,b));formulaLatex="W_2=W_1\\times\\frac{N_2D_2H_2E_2}{N_1D_1H_1E_1}";
-      workedLatex=[`W_2=${toLatex(a.work)}\\times\\frac{${toLatex(b.resources)}\\times${toLatex(b.days)}\\times${toLatex(b.hoursPerDay)}\\times${toLatex(b.efficiency)}}{${toLatex(a.resources)}\\times${toLatex(a.days)}\\times${toLatex(a.hoursPerDay)}\\times${toLatex(a.efficiency)}}`,`W_2=${toLatex(answer)}`];break;
+      const ratio=divide(multiply(b.resources,b.days),multiply(a.resources,a.days));answer=multiply(a.work,ratio);formulaLatex="W_2=W_1\\times\\frac{N_2S_2}{N_1S_1}";
+      workedLatex=[`\\frac{N_2S_2}{N_1S_1}=\\frac{${toLatex(b.resources)}\\times${toLatex(b.days)}}{${toLatex(a.resources)}\\times${toLatex(a.days)}}=${toLatex(ratio)}`,`W_2=${toLatex(a.work)}\\times${toLatex(ratio)}=${toLatex(answer)}`];break;
     }
     case "findWorkQuantityRatio":{
       answer=workRatio(a,b);formulaLatex="\\frac{W_2}{W_1}=\\frac{N_2D_2H_2E_2}{N_1D_1H_1E_1}";
@@ -126,8 +126,8 @@ export function solveTmwCp006(entry:TmwCp006RegistryEntry,p:TmwCp006Parameters):
       workedLatex=[`W=${toLatex(a.resources)}\\times${toLatex(a.days)}=${toLatex(total)}\\;\\text{resource-days}`,`${toLatex(total)}=\\frac{n}{2}\\left[2(${toLatex(initial)})+(n-1)(${toLatex(addition)})\\right]`,`n=${toLatex(answer)}`];break;
     }
     case "findEquivalentResourceTime":{
-      const duration=multiply(a.days,a.hoursPerDay);answer=multiply(a.resources,duration);formulaLatex="R_{equivalent}=N\\times t";
-      workedLatex=[`t=${toLatex(a.days)}\\times${toLatex(a.hoursPerDay)}=${toLatex(duration)}`,`R_{equivalent}=${toLatex(a.resources)}\\times${toLatex(duration)}=${toLatex(answer)}`];break;
+      const duration=a.days,unit=p.context.resourceTimeUnit.endsWith("hours")?"hours":"days";answer=multiply(a.resources,duration);formulaLatex="R_{equivalent}=N\\times t";
+      workedLatex=[`t=${toLatex(duration)}\\;\\text{${unit}}`,`R_{equivalent}=${toLatex(a.resources)}\\times${toLatex(duration)}=${toLatex(answer)}`];break;
     }
   }
   return {answer,answerType:entry.answerType,formulaLatex,workedLatex,answerText:answerText(entry,p,answer)};
@@ -157,7 +157,7 @@ export function verifyTmwCp006(entry:TmwCp006RegistryEntry,p:TmwCp006Parameters,
     case "findResourceDurationAfterPopulationChange":return equals(multiply(required(p.changedPopulation,"changedPopulation"),x),multiply(required(p.initialPopulation,"initialPopulation"),subtract(a.days,required(p.elapsedBeforePopulationChange,"elapsedBeforePopulationChange"))));
     case "findCompletionTimeAfterAbsenteeism":{const active=multiply(a.resources,subtract(rational(1),divide(required(p.absentPercent,"absentPercent"),rational(100))));return equals(multiply(active,x),multiply(a.resources,a.days));}
     case "findCompletionWithBatchWorkerAdditions":return x.denominator===1&&equals(batchTotal(required(p.initialBatchResources,"initialBatchResources"),required(p.batchAddition,"batchAddition"),x),multiply(a.resources,a.days));
-    case "findEquivalentResourceTime":return equals(x,multiply(a.resources,multiply(a.days,a.hoursPerDay)));
+    case "findEquivalentResourceTime":return equals(x,multiply(a.resources,a.days));
   }
 }
 
