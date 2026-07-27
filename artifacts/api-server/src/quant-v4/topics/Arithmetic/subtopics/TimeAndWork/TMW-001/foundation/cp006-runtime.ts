@@ -2,6 +2,7 @@ import { getTmwCp006Entry } from "./cp006-registry";
 import { buildTmwCp006Options } from "./cp006-options";
 import { buildTmwCp006Parameters } from "./cp006-parameters";
 import { buildTmwCp006CommonTrap, buildTmwCp006Givens, buildTmwCp006Shortcut } from "./cp006-learning";
+import { tmwCp006KeyRule } from "./cp006-key-rule";
 import { renderTmwCp006Stem, tmwCp006Conclusion, tmwCp006ExplanationOpening } from "./cp006-presentation";
 import { isPositiveCp006Answer, solveTmwCp006, verifyTmwCp006 } from "./cp006-solver";
 import { rationalKey } from "./rational";
@@ -24,7 +25,7 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   const stem=renderTmwCp006Stem(entry,parameters);
   const formula=inlineMath(solution.formulaLatex),steps=solution.workedLatex.map(inlineMath),errors:string[]=[];
   const explanation={
-    opening:tmwCp006ExplanationOpening(entry),
+    opening:`${tmwCp006KeyRule(entry)} ${tmwCp006ExplanationOpening(entry)}`,
     formula,
     givens:buildTmwCp006Givens(entry,parameters),
     steps,
