@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { normalizeGeneratedQuestionPayload } from "../../../../../lib/admin-question-conversion";
 import { analyzeGeneratedQuestionPayload } from "../../../../../lib/question-studio-quality";
 import {
   OPS_001_REASONING_PACKAGE,
@@ -108,6 +109,20 @@ for (const entry of OPS_QL_ENTRIES) {
       `${entry.qlId} ${language} failed Question Studio quality: ${JSON.stringify(quality.issues)}`,
     );
     assert.equal(quality.readyForApproval, true);
+
+    const normalized = normalizeGeneratedQuestionPayload(preview, {
+      itemId: `item-${entry.qlId}-${language}`,
+      generationRunCode: "GEN-OPS-INTEGRATION",
+    });
+    const generation = normalized.answerModel.generation as Record<string, unknown>;
+    assert.equal(generation.packageId, "OPS-001");
+    assert.equal(generation.generationDomain, "reasoning-v1");
+    assert.equal(generation.qlId, entry.qlId);
+    assert.equal(generation.checkpointId, entry.checkpointId);
+    assert.equal(generation.candidateId, entry.candidateId);
+    assert.equal(generation.qlFreezeVersion, OPS_QL_FREEZE_VERSION);
+    assert.equal(generation.publiclyPublishable, false);
+    assert.equal(generation.publicationEnabled, false);
     generatedCount += 1;
   }
 
