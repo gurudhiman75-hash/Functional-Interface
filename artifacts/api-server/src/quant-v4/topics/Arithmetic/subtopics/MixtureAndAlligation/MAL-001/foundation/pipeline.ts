@@ -1,5 +1,9 @@
 import { getMalCp001PrototypeEntry } from "./cp001-registry";
 import { generateMalCp001PrototypeParameters } from "./cp001-parameter-generator";
+import {
+  enforceMalCp001ContextCoherence,
+  polishMalCp001Stem,
+} from "./cp001-editorial-gate";
 import { solveMalCp001 } from "./solver";
 import { verifyMalCp001ResultIndependently } from "./independent-verifier";
 import { buildMalCp001Options } from "./cp001-options";
@@ -37,6 +41,8 @@ export function generateMalCp001Prototype(
 ): MalCp001GeneratedPrototype {
   const entry = getMalCp001PrototypeEntry(prototypeId);
   const parameters = generateMalCp001PrototypeParameters(prototypeId, seed);
+  enforceMalCp001ContextCoherence(parameters);
+
   const solution = solveMalCp001(parameters.request);
   const independent = verifyMalCp001ResultIndependently(parameters.request, solution);
   if (!independent.ok) {
@@ -56,7 +62,7 @@ export function generateMalCp001Prototype(
     difficulty: parameters.difficulty,
     taskDirection: entry.taskDirection,
     answerSemantic: entry.answerSemantic,
-    stem: renderMalCp001Stem(entry, parameters),
+    stem: polishMalCp001Stem(renderMalCp001Stem(entry, parameters)),
     parameters,
     solution,
     options: optionPackage.options,
