@@ -34,11 +34,12 @@
 - improved named-worker wording in three-agent and arbitrary-start stems;
 - added regression checks for ordinal grammar, explanation jargon, missing derivations and final-turn arithmetic consistency.
 
-## Final validation evidence
+## Final exact-head evidence
 
-- reviewed code head: `80b069f2f188b72dc9b738fcd860d7a823e27933`;
-- CP-005 workflow run: `30254623992` — PASS;
-- evidence artifact: `8648353015`;
+- exact branch head: `8d09d509aaeb07645c5cc770862cc379e0244575`;
+- CP-005 workflow run: `30255057709` — PASS;
+- evidence artifact: `8648531416`;
+- artifact digest: `sha256:2db367020774be07986d38c5b4a0f1a2d6d0b01903cd243b3bb13f4d1e992ac8`;
 - runtime proof: 24 QLs × 50 seeds = 1,200 cases — PASS;
 - all four correct-answer positions represented;
 - 283 distinct rendered stems;
@@ -47,7 +48,7 @@
 - unresolved placeholders: 0;
 - duplicate options: 0;
 - ordinal, jargon and explanation-arithmetic failures: 0;
-- CP-001, CP-002 and CP-003 regression workflows: PASS;
+- CP-001, CP-002 and CP-003 exact-head regression workflows: PASS;
 - localisation rejected;
 - candidate publication remains disabled.
 
