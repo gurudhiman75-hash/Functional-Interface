@@ -168,7 +168,7 @@ export function generateExactSetMissingPrototypeQuestion(
     seed,
     locale: "en-IN",
     topologyKind: contract.topologyKind,
-    difficulty: "MEDIUM",
+    difficulty: contract.difficulty,
     renderer: "STATEMENT_CODE_GRID",
     answerType: contract.answerType,
     stem: buildStem(prototypeId, instance, styleIndex),
