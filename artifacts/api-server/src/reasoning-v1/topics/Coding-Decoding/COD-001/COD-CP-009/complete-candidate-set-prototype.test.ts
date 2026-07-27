@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { canonicalSetKey } from "./canonical-set";
 import { COMPLETE_CANDIDATE_SET_PROTOTYPE_CONTRACTS } from "./complete-candidate-set-contracts";
+import { formatCompleteCandidateSetValue } from "./complete-candidate-set-options";
 import { generateCompleteCandidateSetPrototypeQuestion } from "./complete-candidate-set-generator";
 import { solveSentenceCodeConstraints } from "./constraint-solver";
 import type { AbstractSentenceCodePuzzle } from "./types";
@@ -49,6 +50,13 @@ for (const contract of COMPLETE_CANDIDATE_SET_PROTOTYPE_CONTRACTS) {
       assert.equal(JSON.stringify(first).includes("COD-QL-"), false);
       assert.equal(JSON.stringify(first.structuredPrompt).includes("reviewerWordIds"), false);
       assert.equal(JSON.stringify(first.structuredPrompt).includes('"rowId"'), false);
+      for (const option of first.options) {
+        assert.equal(
+          option.value,
+          formatCompleteCandidateSetValue(contract.queryDirection, option.members),
+          `${key}/${seed}/${option.canonicalValue} display ordering`,
+        );
+      }
 
       const space = solveSentenceCodeConstraints(displayedPuzzle(first));
       assert.equal(space.solutionCount, first.metadata.solutionCount);
