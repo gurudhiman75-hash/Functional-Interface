@@ -1,6 +1,6 @@
 # ExamTree Reasoning V1 — OPS-001 Approved All-Contract Localization Report
 
-Status: **runtime, export and manual Hindi/Punjabi review passed.**
+Status: **runtime and full review export passed; original manual review accepted; targeted distractor-option correction awaits focused confirmation.**
 
 ## Scope
 
@@ -17,11 +17,11 @@ This replaces the earlier representative-only 12-contract localization proof.
 31 retained contracts × 50 seeds × 2 locales = 3,100 localized questions
 ```
 
-Dedicated workflow:
+Latest dedicated workflow:
 
 ```text
 Validate OPS-001 approved all-contract localization
-Run ID: 30211519154
+Run ID: 30231451919
 Conclusion: success
 ```
 
@@ -31,10 +31,11 @@ Passed gates:
 strict TypeScript                              PASS
 answer parity with canonical English           PASS
 correct-index parity                           PASS
-four-option parity                             PASS
+four-option semantic parity                    PASS
+option error-label parity                      PASS
 solver-proof parity                            PASS
 metadata parity                                PASS
-residual English instructional wording         0
+residual English across stems/options/solutions 0
 isolated combining marks                       0
 Devanagari/Gurmukhi script presence            PASS
 mobile stem budget (<= 280 characters)         PASS
@@ -53,9 +54,9 @@ Punjabi:   4 ਗੁਣਾ 3 ਜੋੜ 2
 
 The replacement trace remains explicit in both localized explanations.
 
-## Review export
+## Full review export
 
-The successful workflow generated:
+The latest successful workflow generated:
 
 ```text
 Hindi:    31 contracts × 5 seeds = 155 questions
@@ -67,23 +68,19 @@ Artifact:
 
 ```text
 ops-001-approved-hi-pa-v3-review-310
-Artifact ID: 8634589410
+Artifact ID: 8640227148
 ```
 
-Files:
+The generated HTML now also includes:
 
-- `OPS-001-HI-APPROVED-V3-155.html`
-- `OPS-001-HI-APPROVED-V3-155.md`
-- `OPS-001-PA-APPROVED-V3-155.html`
-- `OPS-001-PA-APPROVED-V3-155.md`
-- `OPS-001-HI-PA-APPROVED-V3-310.csv`
-- `OPS-001-HI-PA-APPROVED-V3-310.json`
+- device-safe wrapping;
+- no duplicate solution-step numbering.
 
-## Manual acceptance
+## Original manual acceptance
 
 The user manually accepted both localized review bundles on **2026-07-27**.
 
-The acceptance covers:
+The acceptance covered:
 
 - question wording;
 - symbol correctness;
@@ -95,29 +92,53 @@ The acceptance covers:
 
 The earlier V1/V2 explanation and localization exports remain rejected and must not be used.
 
-## Important preservation contract
+## Device-discovered distractor-option defect
 
-Localization changes instructional language only. The following remain identical to the canonical English question:
+The browser screenshot audit later found residual English only in distractor options for three contracts:
 
-- mathematical options;
-- answer;
+```text
+OPS-CAND-017  Only one pair is required
+OPS-CAND-026  no number swap / no operator swap
+OPS-CAND-027  no digit interchange / no operator interchange
+```
+
+These phrases are now localized in Hindi and Punjabi.
+
+Preserved without change:
+
+- correct answer;
 - correct option index;
-- task and solve mode;
-- eligible-pool and survivor proof;
-- semantic fingerprint and structural metadata.
+- option order;
+- mathematical symbol/number content;
+- option error labels;
+- solver proof and semantic fingerprint.
+
+The automated residual-English scan now includes every option value and passed all 3,100 localized questions.
+
+## Targeted correction review
+
+A focused artifact was generated so the user does not need to recheck all 310 records:
+
+```text
+3 affected contracts × 5 seeds × 2 locales = 30 records
+Artifact: ops-001-targeted-hi-pa-option-fix-30
+Artifact ID: 8640227370
+```
 
 ## Gate decision
 
 ```text
-ALL_31_HINDI_RUNTIME       = PASS
-ALL_31_PUNJABI_RUNTIME     = PASS
-MULTILINGUAL_REVIEW_EXPORT = PASS
-MANUAL_HINDI_REVIEW        = PASS
-MANUAL_PUNJABI_REVIEW      = PASS
-DEVICE_GLYPH_AUDIT         = NEXT
-FINAL_SOURCE_RUNTIME_LEDGER= NEXT
-PERMANENT_QL_ALLOCATION    = BLOCKED_PENDING_NEXT_TWO_GATES
-PRODUCTION_WIRING          = BLOCKED
+ALL_31_HINDI_RUNTIME              = PASS
+ALL_31_PUNJABI_RUNTIME            = PASS
+FULL_MULTILINGUAL_REVIEW_EXPORT   = PASS
+ORIGINAL_MANUAL_HINDI_REVIEW      = PASS
+ORIGINAL_MANUAL_PUNJABI_REVIEW    = PASS
+TARGETED_OPTION_AUTOMATION        = PASS
+TARGETED_OPTION_MANUAL_CONFIRMATION = PENDING
+DEVICE_GLYPH_AUDIT                = PASS
+FINAL_SOURCE_RUNTIME_LEDGER       = PASS
+PERMANENT_QL_ALLOCATION           = BLOCKED_PENDING_TARGETED_CONFIRMATION
+PRODUCTION_WIRING                 = BLOCKED
 ```
 
-Permanent `OPS-QL-*` IDs must not be allocated until the device/glyph and final source-to-runtime ledger gates are complete.
+Permanent `OPS-QL-*` IDs must not be allocated until the focused 30-record option correction is manually confirmed.
