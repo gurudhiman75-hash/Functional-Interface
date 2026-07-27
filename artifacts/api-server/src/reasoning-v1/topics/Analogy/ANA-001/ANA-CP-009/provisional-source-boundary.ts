@@ -1,6 +1,6 @@
 export type AnaCp009BoundaryVerdict =
   | "QUARANTINE_META_FIXTURE"
-  | "ADMIT_FORMAL_PILOT"
+  | "QUARANTINE_AMBIGUOUS_FIXTURE"
   | "DELEGATE_CP008"
   | "PRESENTATION_AUDIT_PENDING";
 
@@ -37,8 +37,8 @@ export const ANA_CP009_PROVISIONAL_SOURCE_FIXTURES: readonly AnaCp009SourceFixtu
     sourcePairs: ["SL23:RY11", "MB39:HS27"],
     targetPair: "EW26:?",
     answer: "CK40",
-    verdict: "ADMIT_FORMAL_PILOT",
-    ruleSummary: "Letters and number participate in one shared total invariant, so the output components must be solved jointly rather than through independent transforms.",
+    verdict: "QUARANTINE_AMBIGUOUS_FIXTURE",
+    ruleSummary: "The available invariant-plus-letter-movement prose accepts multiple target outputs, including two published options, so an additional source condition is required before a generative authority can be admitted.",
     crossPairDependency: true,
     qlIds: [],
   },
