@@ -819,7 +819,7 @@
         "blocks": [
           {
             "type": "data_sufficiency",
-            "question": "Can the required unit selling price of the remaining stock be determined?",
+            "question": "Can the required unit selling price of the remaining stock for an overall 10% profit be determined?",
             "statements": [
               "{statementOne}",
               "{statementTwo}"
