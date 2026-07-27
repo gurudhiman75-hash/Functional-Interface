@@ -80,7 +80,7 @@ export function buildTmwCp006Parameters(entry:TmwCp006RegistryEntry,seed:string)
       return {context:workerContext(seed,"cp006-remove-context"),stateA:a,stateB:b};
     }
     case "findOriginalWorkforceFromChangedSchedule":{
-      const v=pick([[24,12,18],[20,15,25],[18,16,24],[28,14,21]] as const,seed,"cp006-original"),b=state(v[0],v[2],8),blank=state(0,v[1],8),a={...blank,resources:requiredResources(b,blank)};
+      const v=pick([[24,12,18],[20,20,25],[18,16,24],[28,14,21]] as const,seed,"cp006-original"),b=state(v[0],v[2],8),blank=state(0,v[1],8),a={...blank,resources:requiredResources(b,blank)};
       return {context:workerContext(seed,"cp006-original-context"),stateA:a,stateB:b};
     }
     case "findRemainingDaysFromActualProgress":{
