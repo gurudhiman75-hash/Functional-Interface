@@ -9,8 +9,9 @@ function balancedMathJax(text: string): boolean {
 }
 
 const awkwardLearnerGrammar =
-  /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b|,\s+What quantity\b|,\s+\d+\s+(?:kg|litres)\s+of\s+[^,?]+\s+are used\b|,\s+\d+\s+(?:kg|litres)\s+of\s+[^,?]+\.\s+What\b/iu;
-const misCapitalisedUnit = /\b\d+\s+(?:Kg|Litres)\b/u;
+  /\b(?:leaves|beans|grades) is valued\b|\b(?:leaves|beans) is worth\b|\bHow much .+ was added\?|^\d+\s+(?:kg|litres)\b.+\bis blended\b|,\s+\d+\s+(?:kg|litres)\s+of\s+[^,?]+\s+are used\b/iu;
+const caseSensitiveStemDefects =
+  /\b\d+\s+(?:Kg|Litres)\b|,\s+What quantity\b|,\s+\d+\s+(?:kg|litres)\s+of\s+[^,?]+\.\s+What\b/u;
 
 export function validateMalCp001GeneratedPrototype(
   question: MalCp001GeneratedPrototype,
@@ -28,7 +29,7 @@ export function validateMalCp001GeneratedPrototype(
   if (question.questionStudioDiscoverable !== false) errors.push("Prototype must remain hidden from Question Studio.");
   if (!question.stem.trim().endsWith("?")) errors.push("Stem must end with a question mark.");
   if (/^[a-z]/u.test(question.stem)) errors.push("Stem must begin with a capital letter.");
-  if (awkwardLearnerGrammar.test(question.stem) || misCapitalisedUnit.test(question.stem)) {
+  if (awkwardLearnerGrammar.test(question.stem) || caseSensitiveStemDefects.test(question.stem)) {
     errors.push(`Stem contains a known learner-facing grammar defect: ${question.stem}`);
   }
   if (/\{\{|\}\}|TODO|PLACEHOLDER|undefined|null/iu.test(question.stem)) {
