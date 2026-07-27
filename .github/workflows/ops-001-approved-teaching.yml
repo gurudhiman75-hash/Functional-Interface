@@ -5,16 +5,14 @@ on:
     branches:
       - feat/ops-001-end-to-end-design
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
-      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/**
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
       - .github/workflows/ops-001-approved-teaching.yml
   pull_request:
     branches:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
-      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/**
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/**
       - .github/workflows/ops-001-approved-teaching.yml
   workflow_dispatch:
 
@@ -51,10 +49,11 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation -name '*.ts' -print) \
-            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot -name '*.ts' -print)
+            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001 -name '*.ts' -print)
       - name: Run approved teaching runtime proof
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-teaching-runtime.test.ts
+      - name: Run permanent QL registry proof
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/registry/ops-ql-registry.test.ts
       - name: Generate canonical approved review bundle
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-canonical-review-export.ts ./ops-001-approved-canonical-review
       - name: Upload canonical approved review bundle
