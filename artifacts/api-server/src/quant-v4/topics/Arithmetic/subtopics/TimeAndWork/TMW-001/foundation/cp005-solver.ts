@@ -14,9 +14,10 @@ function answerText(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters,answer:Rati
  if(entry.answerType==="RATE")return `${value} of the work per ${p.timeUnit}`;
  return `${value} ${p.outputUnit??p.context.outputNoun}`;
 }
-function cycleExpression(p:TmwCp005Parameters):string{
+function workExpression(segments:TmwCp005Parameters["cycle"]):string{
+ if(segments.length===0)return "0";
  const groups:{rate:Rational;duration:Rational}[]=[];
- for(const segment of p.cycle){const existing=groups.find(group=>equals(group.rate,segment.rate));if(existing)existing.duration=add(existing.duration,segment.duration);else groups.push({rate:segment.rate,duration:segment.duration});}
+ for(const segment of segments){const existing=groups.find(group=>equals(group.rate,segment.rate));if(existing)existing.duration=add(existing.duration,segment.duration);else groups.push({rate:segment.rate,duration:segment.duration});}
  return groups.map((group,index)=>{
   const negative=group.rate.numerator<0,absoluteRate=negative?multiply(rational(-1),group.rate):group.rate;
   const term=`${toLatex(absoluteRate)}\\times${toLatex(group.duration)}`;
@@ -24,7 +25,16 @@ function cycleExpression(p:TmwCp005Parameters):string{
   return negative?`-${term}`:`+${term}`;
  }).join("");
 }
-function cycleWorkStep(p:TmwCp005Parameters):string{return `W_{cycle}=${cycleExpression(p)}=${toLatex(cycleWork(p.cycle))}`;}
+function cycleWorkStep(p:TmwCp005Parameters):string{return `W_{cycle}=${workExpression(p.cycle)}=${toLatex(cycleWork(p.cycle))}`;}
+function finalCycleDetails(p:TmwCp005Parameters,trace:ReturnType<typeof completionTrace>,fullCycleWork:Rational):{segmentsBeforeFinal:TmwCp005Parameters["cycle"];workBeforeFinal:Rational;timeBeforeFinal:Rational;remainingAfterFullCycles:Rational;remainingForFinal:Rational;finalSegment:TmwCp005Parameters["cycle"][number];finalTime:Rational}{
+ const length=p.cycle.length,start=((p.startOffset??0)%length+length)%length,segmentsBeforeFinal:TmwCp005Parameters["cycle"]=[];
+ let index=start,guard=0;
+ while(index!==trace.terminalIndex){if(guard++>=length)throw new Error("Final-cycle traversal exceeded one cycle");segmentsBeforeFinal.push(p.cycle[index]);index=(index+1)%length;}
+ let workBeforeFinal=rational(0),timeBeforeFinal=rational(0);
+ for(const segment of segmentsBeforeFinal){workBeforeFinal=add(workBeforeFinal,multiply(segment.rate,segment.duration));timeBeforeFinal=add(timeBeforeFinal,segment.duration);}
+ const remainingAfterFullCycles=subtract(p.totalWork,fullCycleWork),remainingForFinal=subtract(remainingAfterFullCycles,workBeforeFinal),finalSegment=p.cycle[trace.terminalIndex],finalTime=multiply(trace.terminalFraction,finalSegment.duration);
+ return {segmentsBeforeFinal,workBeforeFinal,timeBeforeFinal,remainingAfterFullCycles,remainingForFinal,finalSegment,finalTime};
+}
 function inverseUnknownRateDetails(p:TmwCp005Parameters,time:Rational):{rate:Rational;knownWork:Rational;remainingWork:Rational;unknownDuration:Rational;durations:Rational[]}{
  const index=required(p.unknownSegmentIndex,"unknownSegmentIndex"),durations=segmentDurationsUntil(p.cycle,time,p.startOffset??0);
  let knownWork=rational(0);for(let i=0;i<p.cycle.length;i++){if(i!==index)knownWork=add(knownWork,multiply(p.cycle[i].rate,durations[i]));}
@@ -37,11 +47,22 @@ function completionSolution(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters):Tm
   const cycles=divide(p.totalWork,cw),time=multiply(cycles,cd);
   return {answer:trace.time,answerType:entry.answerType,formulaLatex:"n=\\frac{W}{W_{cycle}},\\quad T=nT_{cycle}",workedLatex:[cycleWorkStep(p),`T_{cycle}=${toLatex(cd)}`,`n=\\frac{${toLatex(p.totalWork)}}{${toLatex(cw)}}=${toLatex(cycles)}`,`T=${toLatex(cycles)}\\times${toLatex(cd)}=${toLatex(time)}`],answerText:answerText(entry,p,trace.time)};
  }
- const fullCycles=rational(trace.fullCycles),fullCycleWork=multiply(cw,fullCycles),remainingWork=subtract(p.totalWork,fullCycleWork),terminalSegment=p.cycle[trace.terminalIndex],terminalTime=multiply(trace.terminalFraction,terminalSegment.duration);
- const workedLatex=[cycleWorkStep(p),`T_{cycle}=${toLatex(cd)}`,`n=${toLatex(fullCycles)},\\quad W_{full\\ cycles}=${toLatex(fullCycles)}\\times${toLatex(cw)}=${toLatex(fullCycleWork)}`,`W_{remaining}=${toLatex(p.totalWork)}-${toLatex(fullCycleWork)}=${toLatex(remainingWork)}`,`t_{final}=\\frac{${toLatex(remainingWork)}}{${toLatex(terminalSegment.rate)}}=${toLatex(terminalTime)}\\quad\\text{for ${terminalSegment.label}}`];
- if(entry.solveMode==="findCompletionWithinCycleSegment")workedLatex.push(`\\text{fraction of final block}=\\frac{${toLatex(terminalTime)}}{${toLatex(terminalSegment.duration)}}=${toLatex(trace.terminalFraction)}`);
- workedLatex.push(`T=${toLatex(fullCycles)}\\times${toLatex(cd)}+${toLatex(terminalTime)}=${toLatex(trace.time)}`);
- return {answer:trace.time,answerType:entry.answerType,formulaLatex:"W_{cycle}=\\sum r_i\\Delta t_i,\\quad t_{final}=\\frac{W_{remaining}}{r_{final}},\\quad T=nT_{cycle}+t_{final}",workedLatex,answerText:answerText(entry,p,trace.time)};
+ const fullCycles=rational(trace.fullCycles),fullCycleWork=multiply(cw,fullCycles),details=finalCycleDetails(p,trace,fullCycleWork),fullCycleTime=multiply(fullCycles,cd);
+ const workedLatex=[
+  cycleWorkStep(p),
+  `T_{cycle}=${toLatex(cd)}`,
+  `n=${toLatex(fullCycles)},\\quad W_{full\\ cycles}=${toLatex(fullCycles)}\\times${toLatex(cw)}=${toLatex(fullCycleWork)}`,
+  `W_{remaining\\ after\\ full\\ cycles}=${toLatex(p.totalWork)}-${toLatex(fullCycleWork)}=${toLatex(details.remainingAfterFullCycles)}`,
+ ];
+ if(details.segmentsBeforeFinal.length>0){
+  workedLatex.push(`W_{before\\ final\\ turn}=${workExpression(details.segmentsBeforeFinal)}=${toLatex(details.workBeforeFinal)}`);
+  workedLatex.push(`W_{left\\ for\\ final\\ worker}=${toLatex(details.remainingAfterFullCycles)}-${toLatex(details.workBeforeFinal)}=${toLatex(details.remainingForFinal)}`);
+  workedLatex.push(`t_{before\\ final\\ turn}=${toLatex(details.timeBeforeFinal)}`);
+ }
+ workedLatex.push(`t_{final}=\\frac{${toLatex(details.remainingForFinal)}}{${toLatex(details.finalSegment.rate)}}=${toLatex(details.finalTime)}\\quad\\text{for ${details.finalSegment.label}}`);
+ if(entry.solveMode==="findCompletionWithinCycleSegment")workedLatex.push(`\\text{fraction of final block}=\\frac{${toLatex(details.finalTime)}}{${toLatex(details.finalSegment.duration)}}=${toLatex(trace.terminalFraction)}`);
+ workedLatex.push(`T=${toLatex(fullCycleTime)}+${toLatex(details.timeBeforeFinal)}+${toLatex(details.finalTime)}=${toLatex(trace.time)}`);
+ return {answer:trace.time,answerType:entry.answerType,formulaLatex:"W_{cycle}=\\sum r_i\\Delta t_i,\\quad t_{final}=\\frac{W_{left\\ for\\ final\\ worker}}{r_{final}},\\quad T=nT_{cycle}+t_{before\\ final}+t_{final}",workedLatex,answerText:answerText(entry,p,trace.time)};
 }
 export function solveTmwCp005(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters):TmwCp005Solution{
  let answer:Rational|string,formulaLatex:string,workedLatex:string[];
@@ -61,8 +82,10 @@ export function solveTmwCp005(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters):
   case "findExactBoundaryCompletion":
   case "findCompletionWithinCycleSegment": return completionSolution(entry,p);
   case "findCompletionDayAndTerminalFraction":{
-   const trace=completionTrace(p.cycle,p.totalWork,p.startOffset??0),cw=cycleWork(p.cycle),cd=cycleDuration(p.cycle),fullCycles=rational(trace.fullCycles),completeDays=multiply(fullCycles,cd),done=multiply(fullCycles,cw),remaining=subtract(p.totalWork,done),segment=p.cycle[trace.terminalIndex],finalTime=multiply(trace.terminalFraction,segment.duration);
-   answer=trace.time;formulaLatex="t_{final}=\\frac{W_{remaining}}{r_{final}},\\quad T=nT_{cycle}+t_{final}";workedLatex=[cycleWorkStep(p),`n=${toLatex(fullCycles)},\\quad \\text{complete days}=${toLatex(fullCycles)}\\times${toLatex(cd)}=${toLatex(completeDays)}`,`W_{remaining}=${toLatex(p.totalWork)}-${toLatex(done)}=${toLatex(remaining)}`,`t_{final}=\\frac{${toLatex(remaining)}}{${toLatex(segment.rate)}}=${toLatex(finalTime)}\\quad\\text{during ${segment.label}}`,`T=${toLatex(completeDays)}+${toLatex(finalTime)}=${toLatex(trace.time)}`];break;
+   const trace=completionTrace(p.cycle,p.totalWork,p.startOffset??0),cw=cycleWork(p.cycle),cd=cycleDuration(p.cycle),fullCycles=rational(trace.fullCycles),fullCycleWork=multiply(fullCycles,cw),fullCycleTime=multiply(fullCycles,cd),details=finalCycleDetails(p,trace,fullCycleWork),completeTime=add(fullCycleTime,details.timeBeforeFinal);
+   answer=trace.time;formulaLatex="t_{final}=\\frac{W_{left\\ for\\ final\\ worker}}{r_{final}},\\quad T=T_{complete}+t_{final}";workedLatex=[cycleWorkStep(p),`n=${toLatex(fullCycles)},\\quad T_{full\\ cycles}=${toLatex(fullCycleTime)}`,`W_{remaining\\ after\\ full\\ cycles}=${toLatex(p.totalWork)}-${toLatex(fullCycleWork)}=${toLatex(details.remainingAfterFullCycles)}`];
+   if(details.segmentsBeforeFinal.length>0){workedLatex.push(`W_{before\\ final\\ turn}=${workExpression(details.segmentsBeforeFinal)}=${toLatex(details.workBeforeFinal)}`);workedLatex.push(`W_{left\\ for\\ final\\ worker}=${toLatex(details.remainingAfterFullCycles)}-${toLatex(details.workBeforeFinal)}=${toLatex(details.remainingForFinal)}`);workedLatex.push(`T_{complete}=${toLatex(fullCycleTime)}+${toLatex(details.timeBeforeFinal)}=${toLatex(completeTime)}`);}else workedLatex.push(`W_{left\\ for\\ final\\ worker}=${toLatex(details.remainingForFinal)}`,`T_{complete}=${toLatex(completeTime)}`);
+   workedLatex.push(`t_{final}=\\frac{${toLatex(details.remainingForFinal)}}{${toLatex(details.finalSegment.rate)}}=${toLatex(details.finalTime)}\\quad\\text{during ${details.finalSegment.label}}`);workedLatex.push(`\\text{fraction of next day}=${toLatex(trace.terminalFraction)}`);workedLatex.push(`T=${toLatex(completeTime)}+${toLatex(details.finalTime)}=${toLatex(trace.time)}`);break;
   }
   case "findWorkAfterGivenNumberOfCycles":{
    const n=rational(required(p.givenCycles,"givenCycles")),cw=cycleWork(p.cycle);answer=multiply(cw,n);formulaLatex="W=nW_{cycle}";workedLatex=[cycleWorkStep(p),`W=${toLatex(n)}\\times${toLatex(cw)}=${toLatex(answer)}`];break;
@@ -71,8 +94,10 @@ export function solveTmwCp005(entry:TmwCp005RegistryEntry,p:TmwCp005Parameters):
    const n=rational(required(p.givenCycles,"givenCycles")),cw=cycleWork(p.cycle),done=multiply(cw,n);answer=subtract(p.totalWork,done);formulaLatex="W_{remaining}=1-nW_{cycle}";workedLatex=[cycleWorkStep(p),`W_{done}=${toLatex(n)}\\times${toLatex(cw)}=${toLatex(done)}`,`W_{remaining}=1-${toLatex(done)}=${toLatex(answer)}`];break;
   }
   case "findTerminalAgent":{
-   const trace=completionTrace(p.cycle,p.totalWork,p.startOffset??0),cw=cycleWork(p.cycle),n=rational(trace.fullCycles),done=multiply(cw,n),remaining=subtract(p.totalWork,done),segment=p.cycle[trace.terminalIndex],needed=divide(remaining,segment.rate);
-   answer=trace.terminalLabel;formulaLatex="t_{needed}=\\frac{W_{remaining}}{r_{next}}";workedLatex=[cycleWorkStep(p),`W_{remaining}=${toLatex(p.totalWork)}-${toLatex(done)}=${toLatex(remaining)}`,`t_{needed}=\\frac{${toLatex(remaining)}}{${toLatex(segment.rate)}}=${toLatex(needed)}\\le${toLatex(segment.duration)}`,`\\text{worker active in this turn}=\\text{${trace.terminalLabel}}`];break;
+   const trace=completionTrace(p.cycle,p.totalWork,p.startOffset??0),cw=cycleWork(p.cycle),n=rational(trace.fullCycles),fullCycleWork=multiply(cw,n),details=finalCycleDetails(p,trace,fullCycleWork);
+   answer=trace.terminalLabel;formulaLatex="t_{needed}=\\frac{W_{left\\ for\\ next\\ worker}}{r_{next}}";workedLatex=[cycleWorkStep(p),`W_{remaining\\ after\\ full\\ cycles}=${toLatex(p.totalWork)}-${toLatex(fullCycleWork)}=${toLatex(details.remainingAfterFullCycles)}`];
+   if(details.segmentsBeforeFinal.length>0){workedLatex.push(`W_{before\\ final\\ turn}=${workExpression(details.segmentsBeforeFinal)}=${toLatex(details.workBeforeFinal)}`);workedLatex.push(`W_{left\\ for\\ next\\ worker}=${toLatex(details.remainingAfterFullCycles)}-${toLatex(details.workBeforeFinal)}=${toLatex(details.remainingForFinal)}`);}else workedLatex.push(`W_{left\\ for\\ next\\ worker}=${toLatex(details.remainingForFinal)}`);
+   workedLatex.push(`t_{needed}=\\frac{${toLatex(details.remainingForFinal)}}{${toLatex(details.finalSegment.rate)}}=${toLatex(details.finalTime)}\\le${toLatex(details.finalSegment.duration)}`);workedLatex.push(`\\text{worker active in this turn}=\\text{${trace.terminalLabel}}`);break;
   }
   case "findStartingAgentFromCompletionCondition":{
    const alternate=required(p.alternateCycle,"alternateCycle"),known=required(p.knownCompletionTime,"knownCompletionTime"),terminal=required(p.knownTerminalLabel,"knownTerminalLabel");
