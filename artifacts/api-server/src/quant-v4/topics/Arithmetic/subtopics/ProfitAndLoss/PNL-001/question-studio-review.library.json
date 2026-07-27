@@ -1,1 +1,6 @@
-__PLACEHOLDER__
+{
+  "schemaVersion": 1,
+  "storage": "COMPRESSED_TYPESCRIPT_MODULE",
+  "module": "question-studio-review.library.ts",
+  "note": "The canonical review fixtures are compressed in the TypeScript module to keep the repository source compact while remaining deterministic and self-contained."
+}
