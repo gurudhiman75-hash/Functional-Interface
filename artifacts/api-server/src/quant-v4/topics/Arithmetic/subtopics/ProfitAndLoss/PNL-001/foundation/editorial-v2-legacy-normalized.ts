@@ -110,6 +110,19 @@ function naturalStemOverride(qlId: string, family: string): StructuredQuestionSt
         blocks: [{ type: "paragraph", content: "Two electronic items are sold for the same amount. The first is sold at {knownRatePercent}% {knownDirection}. The second must have a {unknownDirection} result, and the two sales together must produce an overall {targetRatePercent}% {targetDirection}." }],
         prompt: "Find the required percentage on the second item.",
       };
+    case "PNL-QL-092":
+      return {
+        contextFamily: family,
+        blocks: [
+          {
+            type: "data_sufficiency",
+            question: "Can the required unit selling price of the remaining stock for an overall 10% profit be determined?",
+            statements: ["{statementOne}", "{statementTwo}"],
+            answerScheme: "STANDARD_TWO_STATEMENT",
+          },
+        ],
+        prompt: "Decide whether either statement alone or both together are sufficient.",
+      };
     case "PNL-QL-094":
       return {
         contextFamily: family,

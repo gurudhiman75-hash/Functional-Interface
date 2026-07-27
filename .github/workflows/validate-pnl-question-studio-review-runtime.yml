@@ -1,0 +1,72 @@
+name: Validate PNL-001 Question Studio review runtime
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-question-studio-review-runtime
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**"
+      - ".github/workflows/validate-pnl-question-studio-review-runtime.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-review-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run canonical review proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.test.mjs \
+            2>&1 | tee pnl-question-studio-review-runtime.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-review-runtime.test.mjs \
+            2>&1 | tee -a pnl-question-studio-review-runtime.log
+
+      - name: Bundle and run shared registration proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
+            2>&1 | tee pnl-question-studio-integration.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/.question-studio-integration.test.mjs \
+            2>&1 | tee -a pnl-question-studio-integration.log
+
+      - name: Upload runtime proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-question-studio-review-runtime-proof
+          path: |
+            pnl-question-studio-review-runtime.log
+            pnl-question-studio-integration.log
+          if-no-files-found: error
+          retention-days: 7
