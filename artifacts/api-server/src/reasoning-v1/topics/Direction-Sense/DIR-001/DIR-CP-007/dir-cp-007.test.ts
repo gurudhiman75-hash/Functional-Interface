@@ -57,6 +57,22 @@ for (const ql of DIR_CP007_QLS) {
       !/\bconvention\b/i.test(question.explanation.diagram.svg),
       `learner-facing diagram must use natural observation wording: ${question.explanation.diagram.svg}`,
     );
+
+    const explanationText = [
+      question.explanation.given,
+      ...question.explanation.inferenceLines,
+      ...question.explanation.turnLines,
+      question.explanation.resultLine,
+      question.explanation.conclusion,
+    ].join("\n");
+    assert.ok(
+      !/\bFrom a East-facing\b/.test(explanationText),
+      `explanation contains an incorrect article: ${explanationText}`,
+    );
+    assert.ok(
+      !/\btowards (?:North|East|South|West)\b/.test(explanationText),
+      `absolute direction after towards must include the article: ${explanationText}`,
+    );
     assert.ok(question.explanation.conclusion.startsWith("Therefore,"));
 
     for (const role of [
@@ -71,6 +87,19 @@ for (const ql of DIR_CP007_QLS) {
     const prompt = question.structuredPrompt as Record<string, unknown>;
     const period = prompt.period as SunTimePeriod;
     periods.get(ql.qlId)!.add(period);
+
+    const clockMatch = question.stem.match(/\bat (\d{1,2}):\d{2} (am|pm)\b/i);
+    if (clockMatch) {
+      const hour = Number(clockMatch[1]);
+      const meridiem = clockMatch[2].toLowerCase();
+      if (period === "MORNING") {
+        assert.equal(meridiem, "am", `morning clock marker: ${question.stem}`);
+        assert.ok(hour >= 6 && hour <= 9, `morning clock range: ${question.stem}`);
+      } else {
+        assert.equal(meridiem, "pm", `evening clock marker: ${question.stem}`);
+        assert.ok(hour >= 5 && hour <= 6, `evening clock range: ${question.stem}`);
+      }
+    }
 
     if (ql.qlId === "DIR-QL-030") {
       const target = prompt.target as EnvironmentalTarget;
