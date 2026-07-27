@@ -53,6 +53,10 @@ for (const ql of DIR_CP007_QLS) {
       !/\bconvention\b/i.test(question.stem),
       `learner-facing stem must use natural exam wording instead of convention language: ${question.stem}`,
     );
+    assert.ok(
+      !/\bconvention\b/i.test(question.explanation.diagram.svg),
+      `learner-facing diagram must use natural observation wording: ${question.explanation.diagram.svg}`,
+    );
     assert.ok(question.explanation.conclusion.startsWith("Therefore,"));
 
     for (const role of [
