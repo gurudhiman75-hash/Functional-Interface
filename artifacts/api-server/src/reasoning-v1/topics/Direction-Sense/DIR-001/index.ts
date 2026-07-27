@@ -8,3 +8,4 @@ export * from "./DIR-CP-004";
 export * from "./DIR-CP-005";
 export * from "./DIR-CP-006";
 export * from "./DIR-CP-007";
+export * from "./DIR-CP-008";
