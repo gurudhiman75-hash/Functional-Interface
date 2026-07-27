@@ -19,7 +19,7 @@ function generate(
 
 function shortcut(question: ReturnType<typeof runMen001Pipeline>) {
   return question.explanation.sections.find(
-    (section) => section.kind === "STEP" && section.title === "Exam Shortcut",
+    (section) => section.kind === "EXAM_SHORTCUT",
   );
 }
 
@@ -50,7 +50,11 @@ const ratioNonTriplet = generate(
   "MEN-001-QL-020",
   "men-001-human-review:MEN-001-QL-020:1",
 );
-assert(!shortcut(ratioNonTriplet), "QL-020 must not claim a triplet shortcut for a non-right triangle.");
+assert(shortcut(ratioNonTriplet), "QL-020 must still expose a safe exam-speed block for a non-right triangle.");
+assert(
+  shortcut(ratioNonTriplet)!.paragraphs.every((paragraph) => !/Pythagorean triplet/.test(paragraph)),
+  "QL-020 must not claim a triplet shortcut for a non-right triangle.",
+);
 
 const uniformIncrease = generate(
   "MEN-CP-006",

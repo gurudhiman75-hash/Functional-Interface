@@ -8,7 +8,7 @@ import type {
 export type Men001ExplanationSection =
   | {
       kind: "KEY_RULE";
-      title: "Key Rule";
+      title: "Key Rule & Formula";
       paragraphs: string[];
       equations: string[];
     }
@@ -16,6 +16,18 @@ export type Men001ExplanationSection =
       kind: "STEP";
       stepNumber: number;
       title: string;
+      paragraphs: string[];
+      equations: string[];
+    }
+  | {
+      kind: "EXAM_SHORTCUT";
+      title: "Exam Speed Shortcut";
+      paragraphs: string[];
+      equations: string[];
+    }
+  | {
+      kind: "COMMON_TRAPS";
+      title: "Common Traps";
       paragraphs: string[];
       equations: string[];
     }
@@ -28,7 +40,7 @@ export type Men001ExplanationSection =
 
 declare module "./types" {
   interface Men001Explanation {
-    displayFormat: "KEY_RULE_STEPS_FINAL_ANSWER";
+    displayFormat: "FOUR_TIER_COMPETITIVE_EXPLANATION";
     sections: Men001ExplanationSection[];
   }
 }
@@ -307,7 +319,7 @@ export function buildMen001StructuredExplanation(
   return [
     {
       kind: "KEY_RULE",
-      title: "Key Rule",
+      title: "Key Rule & Formula",
       paragraphs: [finishSentence(opening), ...keyRule.paragraphs],
       equations: keyRule.equations,
     },
@@ -324,31 +336,42 @@ export function buildMen001StructuredExplanation(
 export function flattenMen001StructuredExplanation(
   sections: readonly Men001ExplanationSection[],
 ) {
-  return sections.flatMap((section) => {
+  const lines: string[] = [];
+  let wroteSolutionHeading = false;
+  for (const section of sections) {
+    if (section.kind === "STEP" && !wroteSolutionHeading) {
+      lines.push("Step-by-Step Solution");
+      wroteSolutionHeading = true;
+    }
     const heading = section.kind === "STEP"
       ? `Step ${section.stepNumber}: ${section.title}`
       : section.title;
-    return [heading, ...section.paragraphs, ...section.equations.map((equation) => `$$${equation}$$`)];
-  });
+    lines.push(
+      heading,
+      ...section.paragraphs,
+      ...section.equations.map((equation) => `$$${equation}$$`),
+    );
+  }
+  return lines;
 }
 
 export function assertMen001StructuredExplanation(
   explanation: Men001Explanation,
   answer: string,
 ) {
-  if (explanation.displayFormat !== "KEY_RULE_STEPS_FINAL_ANSWER") {
-    throw new Error("MEN-001 explanation must use the structured worked format.");
+  if (explanation.displayFormat !== "FOUR_TIER_COMPETITIVE_EXPLANATION") {
+    throw new Error("MEN-001 explanation must use the four-tier competitive format.");
   }
   const first = explanation.sections[0];
   const last = explanation.sections.at(-1);
-  if (!first || first.kind !== "KEY_RULE" || first.equations.length === 0) {
-    throw new Error("MEN-001 explanation must begin with a Key Rule and formula.");
+  if (!first || first.kind !== "KEY_RULE" || first.title !== "Key Rule & Formula" || first.equations.length === 0) {
+    throw new Error("MEN-001 explanation must begin with Key Rule & Formula.");
   }
   if (!last || last.kind !== "FINAL_ANSWER" || !last.equations.includes(stripMathDelimiters(answer))) {
     throw new Error("MEN-001 explanation must end with the canonical final answer.");
   }
   const steps = explanation.sections.filter((section) => section.kind === "STEP");
-  if (steps.length === 0) throw new Error("MEN-001 explanation must contain at least one worked step.");
+  if (steps.length === 0) throw new Error("MEN-001 explanation must contain a step-by-step solution.");
   steps.forEach((step, index) => {
     if (step.stepNumber !== index + 1 || !step.title.trim()) {
       throw new Error("MEN-001 explanation steps must be sequential and titled.");
@@ -360,4 +383,19 @@ export function assertMen001StructuredExplanation(
       throw new Error("MEN-001 adjacent explanation steps must use distinct titles.");
     }
   });
+  const shortcuts = explanation.sections.filter((section) => section.kind === "EXAM_SHORTCUT");
+  const traps = explanation.sections.filter((section) => section.kind === "COMMON_TRAPS");
+  if (shortcuts.length !== 1 || shortcuts[0]!.paragraphs.length + shortcuts[0]!.equations.length === 0) {
+    throw new Error("MEN-001 explanation must contain one non-empty Exam Speed Shortcut block.");
+  }
+  if (traps.length !== 1 || traps[0]!.paragraphs.length !== 3) {
+    throw new Error("MEN-001 explanation must explain all three wrong options in one Common Traps block.");
+  }
+  const firstStepIndex = explanation.sections.findIndex((section) => section.kind === "STEP");
+  const shortcutIndex = explanation.sections.findIndex((section) => section.kind === "EXAM_SHORTCUT");
+  const trapIndex = explanation.sections.findIndex((section) => section.kind === "COMMON_TRAPS");
+  const finalIndex = explanation.sections.findIndex((section) => section.kind === "FINAL_ANSWER");
+  if (!(firstStepIndex > 0 && shortcutIndex > firstStepIndex && trapIndex > shortcutIndex && finalIndex > trapIndex)) {
+    throw new Error("MEN-001 explanation blocks are not in the required four-tier order.");
+  }
 }

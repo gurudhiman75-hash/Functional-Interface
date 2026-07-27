@@ -8,13 +8,13 @@ export function assertMen001StructuredExplanation(
   explanation: Men001Explanation,
   answer: string,
 ) {
-  if (explanation.displayFormat !== "KEY_RULE_STEPS_FINAL_ANSWER") {
-    throw new Error("MEN-001 explanation must use the structured worked format.");
+  if (explanation.displayFormat !== "FOUR_TIER_COMPETITIVE_EXPLANATION") {
+    throw new Error("MEN-001 explanation must use the four-tier competitive format.");
   }
   const first = explanation.sections[0];
   const last = explanation.sections.at(-1);
-  if (!first || first.kind !== "KEY_RULE" || first.equations.length === 0) {
-    throw new Error("MEN-001 explanation must begin with a Key Rule and formula.");
+  if (!first || first.kind !== "KEY_RULE" || first.title !== "Key Rule & Formula" || first.equations.length === 0) {
+    throw new Error("MEN-001 explanation must begin with Key Rule & Formula.");
   }
   if (
     !last ||
@@ -32,7 +32,7 @@ export function assertMen001StructuredExplanation(
 
   const steps = explanation.sections.filter((section) => section.kind === "STEP");
   if (steps.length === 0) {
-    throw new Error("MEN-001 explanation must contain at least one worked step.");
+    throw new Error("MEN-001 explanation must contain a step-by-step solution.");
   }
   steps.forEach((step, index) => {
     if (step.stepNumber !== index + 1 || !step.title.trim()) {
@@ -45,4 +45,20 @@ export function assertMen001StructuredExplanation(
       throw new Error("MEN-001 adjacent explanation steps must use distinct titles.");
     }
   });
+
+  const shortcuts = explanation.sections.filter((section) => section.kind === "EXAM_SHORTCUT");
+  const traps = explanation.sections.filter((section) => section.kind === "COMMON_TRAPS");
+  if (shortcuts.length !== 1 || shortcuts[0]!.paragraphs.length + shortcuts[0]!.equations.length === 0) {
+    throw new Error("MEN-001 explanation must contain one non-empty Exam Speed Shortcut block.");
+  }
+  if (traps.length !== 1 || traps[0]!.paragraphs.length !== 3) {
+    throw new Error("MEN-001 explanation must contain one Common Traps block covering all wrong options.");
+  }
+  const firstStepIndex = explanation.sections.findIndex((section) => section.kind === "STEP");
+  const shortcutIndex = explanation.sections.findIndex((section) => section.kind === "EXAM_SHORTCUT");
+  const trapIndex = explanation.sections.findIndex((section) => section.kind === "COMMON_TRAPS");
+  const finalIndex = explanation.sections.findIndex((section) => section.kind === "FINAL_ANSWER");
+  if (!(firstStepIndex > 0 && shortcutIndex > firstStepIndex && trapIndex > shortcutIndex && finalIndex > trapIndex)) {
+    throw new Error("MEN-001 explanation blocks are not in the required four-tier order.");
+  }
 }
