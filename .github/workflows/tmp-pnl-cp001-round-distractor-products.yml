@@ -1,0 +1,62 @@
+name: One-shot PNL CP-001 rounded distractor product patch
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp001-dynamic-runtime
+    paths:
+      - ".github/workflows/tmp-pnl-cp001-round-distractor-products.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp001-dynamic-runtime
+
+      - name: Route misconception products through paise-safe rounding
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime.ts")
+          source = path.read_text()
+          anchor = '''function multiplyMoneyByRational(value: Money, factor: Rational): Money {
+            return moneyFromExactRational(multiplyRational(rational(value.paise), factor));
+          }'''
+          replacement = '''function multiplyMoneyByRational(value: Money, factor: Rational): Money {
+            return moneyFromExactRational(multiplyRational(rational(value.paise), factor));
+          }
+
+          function multiplyMoneyByRationalRounded(value: Money, factor: Rational): Money {
+            return moneyFromRoundedRational(multiplyRational(rational(value.paise), factor));
+          }'''
+          if source.count(anchor) != 1:
+              raise SystemExit(f"Expected one exact multiplication helper, found {source.count(anchor)}")
+          source = source.replace(anchor, replacement)
+
+          start = source.index("function wrongCandidates(")
+          end = source.index("function shuffledOptions(", start)
+          before = source[:start]
+          section = source[start:end]
+          after = source[end:]
+          count = section.count("multiplyMoneyByRational(")
+          if count < 1:
+              raise SystemExit("Expected at least one exact misconception multiplication")
+          section = section.replace("multiplyMoneyByRational(", "multiplyMoneyByRationalRounded(")
+          path.write_text(before + section + after)
+          print(f"Converted {count} misconception multiplication(s) to paise-safe rounding")
+          PY
+
+      - name: Commit exact patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime.ts
+          git commit -m "fix(pnl): round fractional-paise distractor products"
+          git push origin HEAD:feat/pnl-001-cp001-dynamic-runtime
