@@ -1,8 +1,8 @@
 # MAL-CP-001 Discovery Checkpoint 02
 
-Status: **classification and first gap audit complete; exact-head CI passed**  
+Status: **classification and first gap audit complete; validated runtime CI passed**  
 Branch: `feat/mal-001-cp001-prototype-foundation`  
-Exact head: `0ca8ea76fce149ff86881870cd70f22ae7d9cf83`  
+Validated runtime head: `0ca8ea76fce149ff86881870cd70f22ae7d9cf83`  
 Permanent QLs: **0**  
 Question Studio exposure: **disabled**  
 Public routing: **disabled**
@@ -59,7 +59,7 @@ The final pipeline now:
 - validates learner-facing grammar and context-role coherence;
 - includes the exact failing stem in future grammar diagnostics.
 
-## Exact-head evidence
+## Validated runtime evidence
 
 GitHub Actions workflow run:
 
