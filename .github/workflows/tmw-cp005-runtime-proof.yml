@@ -1,0 +1,78 @@
+name: Validate TMW-CP-005 runtime proof
+
+on:
+  pull_request:
+    branches:
+      - design/tmw-001-blueprint
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
+      - .github/workflows/tmw-cp005-runtime-proof.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tmw-cp005-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-tmw-cp005:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle TMW-CP-005 runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005.test.mjs
+      - name: Run TMW-CP-005 runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp005.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp005-proof.log
+      - name: Bundle TMW-CP-005 structural audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005-audit.mjs
+      - name: Run TMW-CP-005 structural audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/tmw-001-cp005-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/tmw-001-cp005-audit.log
+      - name: Bundle TMW-CP-005 review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/tmw-001-cp005-review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/tmw-001-cp005-review-export.mjs
+      - name: Generate TMW-CP-005 review export
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/tmw-001-cp005-review-export.mjs
+      - name: Upload TMW-CP-005 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tmw-cp005-runtime-proof
+          path: |
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-proof.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-audit.log
+            artifacts/api-server/dist/quant-v4/tmw-001-cp005-review.json
+          if-no-files-found: error
+          retention-days: 7
