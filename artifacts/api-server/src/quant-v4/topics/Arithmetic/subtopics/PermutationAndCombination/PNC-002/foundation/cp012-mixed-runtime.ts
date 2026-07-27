@@ -715,7 +715,9 @@ function renderExplanation(parameters: Cp012Parameters, solver: Cp012SolverResul
     equation: String.raw`\(${solver.mathJax}\)`,
     verification,
     committeeSize: numberValue(parameters.values, "committeeSize") || 0,
-    arrangementFactor: solver.evidence.details.arrangementFactor ?? "",
+    arrangementFactor: typeof solver.evidence.details.arrangementFactor === "number" || typeof solver.evidence.details.arrangementFactor === "string"
+      ? solver.evidence.details.arrangementFactor
+      : "",
     fixedCount: parameters.values.fixedCount === undefined ? "" : numberValue(parameters.values, "fixedCount"),
     teamSize: parameters.values.teamSize === undefined ? "" : numberValue(parameters.values, "teamSize"),
     teamCount: parameters.values.teamCount === undefined ? "" : numberValue(parameters.values, "teamCount"),
