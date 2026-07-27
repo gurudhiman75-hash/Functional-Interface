@@ -1,0 +1,60 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "profiles": {
+    "CP011-IDL-UNRESTRICTED": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "ALLOWED"
+    },
+    "CP011-IDL-NONEMPTY": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "FORBIDDEN"
+    },
+    "CP011-IDL-EXACTLY-K-USED": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "EXACTLY_K_NONEMPTY"
+    },
+    "CP011-IDL-AT-LEAST-ONE-EMPTY": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "emptyReceiverPolicy": "AT_LEAST_ONE_EMPTY"
+    },
+    "CP011-IDL-COMMON-MINIMUM": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "occupancyBounds": "COMMON_MINIMUM"
+    },
+    "CP011-IDL-SPECIFIED-MINIMUM": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "occupancyBounds": "ONE_SPECIFIED_RECEIVER_MINIMUM",
+      "otherReceivers": "MAY_BE_EMPTY"
+    },
+    "CP011-IDL-ALL-NONEMPTY-SPECIFIED-MINIMUM": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "occupancyBounds": "ALL_NONEMPTY_AND_ONE_SPECIFIED_MINIMUM"
+    },
+    "CP011-IDL-UNIFORM-CAPACITY": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "LABELLED",
+      "occupancyBounds": "SAME_FINITE_CAPACITY_FOR_EVERY_RECEIVER",
+      "scope": "CONTROLLED_EQUAL_CAPACITY_ONLY"
+    },
+    "CP011-IDI-EXACTLY-K": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "IDENTICAL",
+      "emptyReceiverPolicy": "EXACTLY_K_NONEMPTY",
+      "authority": "INTEGER_PARTITION"
+    },
+    "CP011-IDI-AT-MOST-K": {
+      "objectIdentity": "IDENTICAL",
+      "receiverIdentity": "IDENTICAL",
+      "emptyReceiverPolicy": "AT_MOST_K_NONEMPTY",
+      "authority": "INTEGER_PARTITION_SUM"
+    }
+  }
+}
