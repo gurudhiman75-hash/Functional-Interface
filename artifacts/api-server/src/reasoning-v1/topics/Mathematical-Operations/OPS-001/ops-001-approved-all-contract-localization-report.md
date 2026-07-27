@@ -1,10 +1,10 @@
 # ExamTree Reasoning V1 — OPS-001 Approved All-Contract Localization Report
 
-Status: **runtime and export proof passed; manual Hindi/Punjabi review pending.**
+Status: **runtime, export and manual Hindi/Punjabi review passed.**
 
 ## Scope
 
-The approved V3 teaching runtime was localized across all 31 retained logical contracts for:
+The approved V3 teaching runtime is localized across all 31 retained logical contracts for:
 
 - Hindi (`hi-IN`)
 - Punjabi (`pa-IN`)
@@ -55,7 +55,7 @@ The replacement trace remains explicit in both localized explanations.
 
 ## Review export
 
-The successful workflow also generated:
+The successful workflow generated:
 
 ```text
 Hindi:    31 contracts × 5 seeds = 155 questions
@@ -79,6 +79,22 @@ Files:
 - `OPS-001-HI-PA-APPROVED-V3-310.csv`
 - `OPS-001-HI-PA-APPROVED-V3-310.json`
 
+## Manual acceptance
+
+The user manually accepted both localized review bundles on **2026-07-27**.
+
+The acceptance covers:
+
+- question wording;
+- symbol correctness;
+- visible replacement/interchange;
+- explanation teaching quality;
+- Hindi terminology;
+- Punjabi terminology;
+- natural language-adapted word operators.
+
+The earlier V1/V2 explanation and localization exports remain rejected and must not be used.
+
 ## Important preservation contract
 
 Localization changes instructional language only. The following remain identical to the canonical English question:
@@ -96,10 +112,12 @@ Localization changes instructional language only. The following remain identical
 ALL_31_HINDI_RUNTIME       = PASS
 ALL_31_PUNJABI_RUNTIME     = PASS
 MULTILINGUAL_REVIEW_EXPORT = PASS
-MANUAL_HINDI_REVIEW        = PENDING
-MANUAL_PUNJABI_REVIEW      = PENDING
-PERMANENT_QL_ALLOCATION    = BLOCKED
+MANUAL_HINDI_REVIEW        = PASS
+MANUAL_PUNJABI_REVIEW      = PASS
+DEVICE_GLYPH_AUDIT         = NEXT
+FINAL_SOURCE_RUNTIME_LEDGER= NEXT
+PERMANENT_QL_ALLOCATION    = BLOCKED_PENDING_NEXT_TWO_GATES
 PRODUCTION_WIRING          = BLOCKED
 ```
 
-Permanent `OPS-QL-*` IDs must not be allocated until the localized manual-review files are accepted and the device/source-ledger gates are complete.
+Permanent `OPS-QL-*` IDs must not be allocated until the device/glyph and final source-to-runtime ledger gates are complete.
