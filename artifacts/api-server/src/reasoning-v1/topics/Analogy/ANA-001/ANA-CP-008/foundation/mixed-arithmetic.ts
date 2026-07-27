@@ -6,6 +6,11 @@ import {
 
 export type PositionAggregate = "SUM" | "PRODUCT";
 export type WholeNumberOperation = "ADD" | "SUBTRACT";
+export type NumericPowerTransform = "CUBE" | "PERFECT_SQUARE_TO_CUBE";
+export type NumericRootTransform = "SQUARE_MINUS_ONE_ROOT" | "CUBE_MINUS_ONE_ROOT";
+
+const withinPilotBounds = (value: number): boolean =>
+  Number.isSafeInteger(value) && Math.abs(value) <= 9999;
 
 export function ordinaryPositions(letters: string): readonly number[] {
   const normalized = letters.trim().toUpperCase();
@@ -18,8 +23,15 @@ export function aggregateOrdinaryPositions(letters: string, aggregate: PositionA
   const result = aggregate === "SUM"
     ? positions.reduce((sum, value) => sum + value, 0)
     : positions.reduce((product, value) => product * value, 1);
-  if (!Number.isSafeInteger(result) || result < 1 || result > 9999) throw new Error(`Unsafe mixed position aggregate: ${result}`);
+  if (!withinPilotBounds(result) || result < 1) throw new Error(`Unsafe mixed position aggregate: ${result}`);
   return result;
+}
+
+export function ordinaryLetterPositionPower(letter: string, exponent: 2 | 3): number | null {
+  const normalized = letter.trim().toUpperCase();
+  if (!/^[A-Z]$/.test(normalized)) return null;
+  const result = letterPosition(normalized) ** exponent;
+  return withinPilotBounds(result) ? result : null;
 }
 
 export function aggregateToLetterWithoutWrap(letters: string, aggregate: PositionAggregate): string | null {
@@ -32,10 +44,60 @@ export function applyWholeNumberOperation(
   operation: WholeNumberOperation,
   amount: number,
 ): number | null {
-  if (!Number.isSafeInteger(input) || Math.abs(input) > 9999) return null;
-  if (!Number.isSafeInteger(amount) || amount < 1 || amount > 100) return null;
+  if (!withinPilotBounds(input)) return null;
+  if (!Number.isSafeInteger(amount) || amount < 1 || amount > 1000) return null;
   const output = operation === "ADD" ? input + amount : input - amount;
-  return Number.isSafeInteger(output) && Math.abs(output) <= 9999 ? output : null;
+  return withinPilotBounds(output) ? output : null;
+}
+
+export function applyExactRationalMultiplier(
+  input: number,
+  numerator: number,
+  denominator: number,
+): number | null {
+  if (!withinPilotBounds(input)) return null;
+  if (!Number.isSafeInteger(numerator) || !Number.isSafeInteger(denominator)) return null;
+  if (numerator === 0 || denominator <= 0 || Math.abs(numerator) > 20 || denominator > 20) return null;
+  const product = input * numerator;
+  if (!Number.isSafeInteger(product) || product % denominator !== 0) return null;
+  const output = product / denominator;
+  return withinPilotBounds(output) ? output : null;
+}
+
+export function applyNumericPowerTransform(
+  input: number,
+  transform: NumericPowerTransform,
+): number | null {
+  if (!Number.isSafeInteger(input) || input < 1 || input > 9999) return null;
+  if (transform === "CUBE") {
+    const output = input ** 3;
+    return withinPilotBounds(output) ? output : null;
+  }
+  const root = Math.sqrt(input);
+  if (!Number.isInteger(root)) return null;
+  const output = input * root;
+  return withinPilotBounds(output) ? output : null;
+}
+
+export function applyNumericRootTransform(
+  input: number,
+  transform: NumericRootTransform,
+): number | null {
+  if (!Number.isSafeInteger(input) || input < 0 || input > 9999) return null;
+  const adjusted = input + 1;
+  if (!withinPilotBounds(adjusted) || adjusted < 1) return null;
+
+  if (transform === "SQUARE_MINUS_ONE_ROOT") {
+    const root = Math.sqrt(adjusted);
+    return Number.isInteger(root) && root * root === adjusted && withinPilotBounds(root)
+      ? root
+      : null;
+  }
+
+  const approximateRoot = Math.round(Math.cbrt(adjusted));
+  return approximateRoot ** 3 === adjusted && withinPilotBounds(approximateRoot)
+    ? approximateRoot
+    : null;
 }
 
 export function applyLetterShift(letter: string, shift: number): string | null {

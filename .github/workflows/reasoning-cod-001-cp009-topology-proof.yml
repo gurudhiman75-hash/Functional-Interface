@@ -1,0 +1,45 @@
+name: Reasoning COD-001 CP-009 Topology Audit
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - ".github/workflows/reasoning-cod-001-cp009-topology-proof.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-topology-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run topology audit
+        id: topology_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/topology-generator.test.ts > cod-cp009-topology-audit.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload topology audit log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-topology-audit
+          path: cod-cp009-topology-audit.log
+          retention-days: 7
+
+      - name: Enforce topology audit result
+        shell: bash
+        run: |
+          cat cod-cp009-topology-audit.log
+          test "${{ steps.topology_audit.outputs.exit_code }}" = "0"

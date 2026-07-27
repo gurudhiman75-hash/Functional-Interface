@@ -41,6 +41,7 @@ for (const logic of COD_CP001_QUESTION_LOGICS) {
     assert.equal(first.stem.includes("COD_"), false);
     assert.equal(first.stem.includes("{{"), false);
     assert.equal(first.explanation.conclusion.includes(first.options[first.correctIndex]!.value), true);
+    assert.notEqual(first.difficulty, "HARD", "Direct substitution must not be tagged Hard");
     const recovered = mappingFromEvidence(first.structuredPrompt.evidence, first.structuredPrompt.separator);
     assert.equal(new Set(Object.values(recovered)).size, Object.values(recovered).length);
     answerPositions[first.correctIndex] += 1;
@@ -58,7 +59,7 @@ assert.ok(maxPosition / minPosition < 1.2, `Answer positions are imbalanced: ${a
 assert.deepEqual([...renderers].sort(), ["EXAMPLE_TARGET_BLOCK", "INLINE_CODE_PAIR", "MAPPING_TABLE"]);
 assert.deepEqual([...taskKinds].sort(), ["DECODE_TARGET", "ENCODE_TARGET", "INFER_FROM_OVERLAP", "RECOVER_MISSING_CODE"]);
 assert.deepEqual([...answerTypes].sort(), ["DIGIT_SEQUENCE", "LETTER_CLUSTER", "SINGLE_CODE_TOKEN", "SYMBOL_SEQUENCE"]);
-assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.deepEqual([...difficulties].sort(), ["EASY", "MEDIUM"]);
 
 console.log(JSON.stringify({
   checkpoint: "COD-CP-001",

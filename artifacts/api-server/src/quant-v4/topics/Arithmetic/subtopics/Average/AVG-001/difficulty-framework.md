@@ -4,63 +4,63 @@
 
 Difficulty is assigned from the **reasoning topology required by the solve mode**, not from a QL's position in a file or from a large-looking number alone.
 
-A direct multiplication or division question does not become Hard merely because it uses currency, decimals or a later QL ID. Conversely, a reverse-count, missing-group or nested-average question is not Easy merely because its arithmetic is clean.
+A direct multiplication, division or total-balance question does not become Hard merely because it uses currency, decimals or a later QL ID. Conversely, an elapsed-age chain, original-count recovery, four-group aggregation, unequal-stage speed question, multiple correction or nested missing-subgroup question is not Easy merely because its arithmetic is clean.
 
 ## Difficulty dimensions
 
 ### 1. Structural Complexity (SC)
-- **Low:** one group and one direct operation.
-- **Medium:** two groups, one replacement or one correction equation.
-- **High:** three or more groups, nested hierarchy, reverse count, ratio balance or multiple corrections.
+- **Low:** one group and one direct relation.
+- **Medium:** two groups, one reverse relation, one replacement or one correction equation.
+- **High:** four weighted groups, elapsed-time state change, original-count inference, multiple corrections or a nested hierarchy with a missing component.
 
 ### 2. Computational Effort (CE)
-- **Low:** clean integers and one substituted calculation.
-- **Medium:** decimals, larger totals or two linked calculations.
-- **High:** several weighted totals, reverse equations or calculations where a shortcut is required for exam efficiency.
+- **Low:** one substituted calculation, including a direct required-total minus known-total balance.
+- **Medium:** two linked calculations, a weighted relation, AP reconstruction or one inverse correction.
+- **High:** several weighted stages, unequal distance/time legs, multiple signed corrections or a nested missing component.
 
 ### 3. Reasoning Depth (RD)
-- **Low:** apply `total = average × count` or its direct inverse.
-- **Medium:** rebuild a total after one change, use AP symmetry, or combine two weighted groups.
-- **High:** infer an original count, solve a missing weighted component, reverse an error correction, or resolve a multi-stage hierarchy.
+- **Low:** apply `total = average × count`, its direct inverse, or one direct balance.
+- **Medium:** use AP symmetry, rebuild a total after one change, combine weighted groups or reverse one correction.
+- **High:** carry an elapsed-age state forward, infer an original count, combine four groups, resolve unequal-stage motion, correct multiple entries or solve a missing lower-level component.
 
 ## Band rules
 
 | Band | Required character | Typical AVG-001 modes |
 |---|---|---|
-| **Easy** | One direct idea; no hidden unknown count or reverse equation | direct sum/average/count, equal-time speed, subgroup total |
-| **Medium** | Two linked steps or one non-trivial structural observation | AP extremes, replacement average, two-group weighting, single correction |
-| **Hard** | Reverse reasoning, missing count/value, ratio balance, unequal weighting or nested stages | original count from shift, group ratio, unequal-distance speed, multiple mistakes, missing lower-level average |
+| **Easy** | One direct idea; no hidden multi-stage state | direct sum/average/count/missing value, direct new average, simple cricket update, equal-time speed, one-entry correction |
+| **Medium** | One structural observation or one reverse equation | AP extremes/count/difference, member value from shift, two-group weighting, alligation, equal-distance speed, reverse single correction |
+| **Hard** | Genuine chained, multi-entity or nested reasoning | elapsed-age member recovery, original count from join/leave, four-group weighting, unequal-stage speed, multiple mistakes, nested missing subgroup |
 
 ## Explicit exclusions
 
 The following direct families are not labelled Hard:
-- direct sum, average or count from the other two quantities;
-- mean or middle term of an equally spaced set;
-- direct new average after one addition or removal;
+- direct sum, average, count or one missing value from the other quantities;
+- mean, middle term or one endpoint of an equally spaced set;
+- pure uniform addition or multiplication of every observation;
+- direct new average after one addition, removal or replacement;
 - direct combination of two groups;
-- equal-time average speed;
+- equal-time or equal-distance two-speed cases;
 - one-entry corrected average, entry-difference or average-change questions;
 - subgroup total from average and count.
 
-The following reverse or multi-stage families are not labelled Easy:
-- missing member/value from a target average;
-- reverse AP term count or common difference;
-- replacement value or original count from an average shift;
-- missing group count/average and group-size ratio;
-- unequal-distance/time speed;
-- reverse correction value/count and multiple mistakes;
-- missing or nested subgroup averages/counts.
+The following structures are reserved for Hard:
+- member-value recovery after a separate elapsed-age shift;
+- original group count from a joining or leaving member;
+- four-group weighted aggregation;
+- unequal-distance or unequal-time multi-leg speed;
+- correction of multiple wrong entries;
+- missing section average, missing subgroup count or missing lower-level average in a hierarchy.
 
 ## Current calibrated distribution
 
 | CP | Easy | Medium | Hard | Total |
 |---|---:|---:|---:|---:|
-| AVG-CP-001 | 32 | 38 | 10 | 80 |
-| AVG-CP-002 | 20 | 28 | 14 | 62 |
-| AVG-CP-003 | 19 | 46 | 33 | 98 |
-| AVG-CP-004 | 18 | 33 | 34 | 85 |
-| AVG-CP-005 | 12 | 27 | 17 | 56 |
-| AVG-CP-006 | 8 | 15 | 21 | 44 |
-| **Chapter** | **109** | **187** | **129** | **425** |
+| AVG-CP-001 | 78 | 2 | 0 | 80 |
+| AVG-CP-002 | 38 | 24 | 0 | 62 |
+| AVG-CP-003 | 33 | 45 | 20 | 98 |
+| AVG-CP-004 | 7 | 60 | 18 | 85 |
+| AVG-CP-005 | 21 | 30 | 5 | 56 |
+| AVG-CP-006 | 5 | 24 | 15 | 44 |
+| **Chapter** | **182** | **185** | **58** | **425** |
 
-The larger Medium share is intentional: the chapter contains many standard two-step SSC and Banking average questions, while Hard is reserved for genuine reverse and multi-stage reasoning.
+The distribution is an outcome of exam-standard reasoning rules, not a target imposed in advance. Hard now represents 58 genuinely chained or nested QLs rather than the final rows of each solve-mode family.

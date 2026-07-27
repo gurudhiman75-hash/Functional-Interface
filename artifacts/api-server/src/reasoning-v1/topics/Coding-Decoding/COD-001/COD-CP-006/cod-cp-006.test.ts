@@ -55,6 +55,11 @@ for (const logic of COD_CP006_QUESTION_LOGICS) {
     assert.equal(first.explanation.ruleStatement.includes("Stage 1"), true);
     assert.equal(first.explanation.ruleStatement.includes("Stage 2"), true);
     assert.equal(first.explanation.conclusion.includes(first.options[first.correctIndex]!.value), true);
+    assert.ok(first.explanation.referenceAid?.length);
+    assert.ok(first.explanation.quickMethod);
+    assert.ok(first.explanation.commonTrapAlert);
+    assert.equal(first.explanation.commonTrapAlert, first.explanation.closestTrapRejection);
+    assert.equal(first.options.filter((option) => !option.isCorrect).some((option) => first.explanation.commonTrapAlert!.includes(option.value)), true);
     assert.equal(first.stem.includes("COD_"), false);
     assert.equal(first.stem.includes("{{"), false);
 
@@ -118,7 +123,9 @@ assert.equal(rules.size, 6);
 assert.deepEqual([...tasks].sort(), ["CHOOSE_MATCHING_CODE", "DECODE_TARGET", "ENCODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_TOKEN"]);
 assert.deepEqual([...answers].sort(), ["DIGIT_SEQUENCE", "LETTER_CLUSTER", "NUMBER", "SINGLE_CODE_TOKEN"]);
 assert.deepEqual([...renderers].sort(), ["EXAMPLE_TARGET_BLOCK", "INLINE_CODE_PAIR", "MAPPING_TABLE"]);
-assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
+assert.deepEqual([...difficulties].sort(), ["HARD", "MEDIUM"]);
+assert.ok(difficultyCounts.MEDIUM / generated >= 0.35);
+assert.ok(difficultyCounts.HARD / generated <= 0.65);
 assert.ok(Math.max(...positions) / Math.min(...positions) < 1.2, `Answer positions are imbalanced: ${positions.join(", ")}`);
 assert.equal(indexedContexts.size, 4);
 assert.equal(alternatingContexts.size, 6);

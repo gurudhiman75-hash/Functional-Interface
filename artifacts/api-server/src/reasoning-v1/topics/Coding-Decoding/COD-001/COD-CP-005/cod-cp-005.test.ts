@@ -79,8 +79,11 @@ for (const logic of COD_CP005_QUESTION_LOGICS) {
     assert.equal(first.explanation.ruleStatement.includes("Therefore"), true);
     assert.equal(first.explanation.ruleStatement.includes("source-position"), true);
     assert.equal(first.explanation.conclusion.includes(first.options[first.correctIndex]!.value), true);
-    const trap = first.explanation.closestTrapRejection;
+    assert.ok(first.explanation.referenceAid?.length);
+    assert.ok(first.explanation.quickMethod);
+    const trap = first.explanation.commonTrapAlert;
     assert.ok(trap);
+    assert.equal(first.explanation.closestTrapRejection, trap);
     assert.equal(first.options.filter((option) => !option.isCorrect).some((option) => trap!.includes(option.value)), true);
 
     if (first.structuredPrompt.taskKind === "RECOVER_MISSING_LETTER") {
@@ -120,10 +123,10 @@ assert.equal(rules.size, 6);
 assert.deepEqual([...tasks].sort(), ["CHOOSE_MATCHING_CODE", "DECODE_TARGET", "ENCODE_TARGET", "INFER_AND_ENCODE", "RECOVER_MISSING_LETTER"]);
 assert.deepEqual([...answers].sort(), ["LETTER_CLUSTER", "SINGLE_CODE_TOKEN"]);
 assert.deepEqual([...renderers].sort(), ["EXAMPLE_TARGET_BLOCK", "INLINE_CODE_PAIR", "MAPPING_TABLE"]);
-assert.deepEqual([...difficulties.keys()].sort(), ["EASY", "HARD", "MEDIUM"]);
-assert.ok((difficulties.get("EASY") ?? 0) / generated >= 0.35 && (difficulties.get("EASY") ?? 0) / generated <= 0.50);
-assert.ok((difficulties.get("MEDIUM") ?? 0) / generated >= 0.30 && (difficulties.get("MEDIUM") ?? 0) / generated <= 0.50);
-assert.ok((difficulties.get("HARD") ?? 0) / generated >= 0.12 && (difficulties.get("HARD") ?? 0) / generated <= 0.25);
+assert.deepEqual([...difficulties.keys()].sort(), ["EASY", "MEDIUM"]);
+assert.ok((difficulties.get("EASY") ?? 0) / generated >= 0.12 && (difficulties.get("EASY") ?? 0) / generated <= 0.55);
+assert.ok((difficulties.get("MEDIUM") ?? 0) / generated >= 0.45 && (difficulties.get("MEDIUM") ?? 0) / generated <= 0.88);
+assert.equal(difficulties.get("HARD") ?? 0, 0);
 assert.ok(Math.max(...positions) / Math.min(...positions) < 1.2, `Answer positions are imbalanced: ${positions.join(", ")}`);
 assert.equal([...contexts].filter((value) => value.startsWith("CYCLIC_POSITION_ROTATION:")).length, 4);
 assert.equal([...contexts].filter((value) => value.startsWith("OUTER_INNER_INTERLEAVING:")).length, 2);

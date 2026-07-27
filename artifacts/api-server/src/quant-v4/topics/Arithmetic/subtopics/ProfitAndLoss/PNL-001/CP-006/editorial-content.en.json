@@ -1,0 +1,1296 @@
+{
+  "schemaVersion": 2,
+  "archetypeId": "PNL-001",
+  "cpId": "PNL-CP-006",
+  "language": "en",
+  "status": "EDITORIAL_REVIEW_CANDIDATE",
+  "entries": {
+    "PNL-QL-150": {
+      "stem": {
+        "contextFamily": "machine refurbishment",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A workshop purchases a machine for ₹{purchasePrice}. It spends ₹{repairExpense} on repairs, ₹{transportExpense} on transport, and ₹{installationExpense} on installation."
+          }
+        ],
+        "prompt": "Find the machine's effective cost."
+      },
+      "explanation": {
+        "opening": "The purchase price is only the starting cost.",
+        "concept": "Every necessary expense incurred before the machine is ready for use becomes part of effective cost.",
+        "steps": [
+          {
+            "title": "Add all additional expenses",
+            "body": "Combine repair, transport, and installation costs."
+          },
+          {
+            "title": "Add them to purchase price",
+            "body": "Effective cost equals purchase price plus the total additional expense.",
+            "equationLatex": "E=C+R+T+I"
+          }
+        ],
+        "conclusion": "The resulting total is the effective cost of the machine.",
+        "finalAnswerLatex": "\\text{₹}{effectiveCost}",
+        "commonTrap": "Do not calculate profit or loss from purchase price alone when essential pre-sale expenses are given."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "Direct addition of visible cost components."
+    },
+    "PNL-QL-151": {
+      "stem": {
+        "contextFamily": "retail setup expenses",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A retailer purchases display equipment for ₹{purchasePrice}. Incidental setup expenses are {overheadPercent}% of the purchase price."
+          }
+        ],
+        "prompt": "Find the effective cost."
+      },
+      "explanation": {
+        "opening": "Let us first convert the percentage expense into a rupee amount.",
+        "concept": "The overhead is calculated on purchase price and then added to it.",
+        "steps": [
+          {
+            "title": "Find overhead amount",
+            "body": "Take {overheadPercent}% of the purchase price.",
+            "equationLatex": "O=C\\times\\frac{r}{100}"
+          },
+          {
+            "title": "Find effective cost",
+            "body": "Add overhead to purchase price.",
+            "equationLatex": "E=C+O"
+          }
+        ],
+        "conclusion": "The sum is the effective cost.",
+        "finalAnswerLatex": "\\text{₹}{effectiveCost}",
+        "commonTrap": "Do not treat the overhead percentage itself as a rupee amount."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One visible percentage calculation and addition."
+    },
+    "PNL-QL-152": {
+      "stem": {
+        "contextFamily": "used-equipment resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dealer buys used equipment for ₹{purchasePrice} and spends ₹{expenses} making it ready for sale."
+          }
+        ],
+        "prompt": "At what price should it be sold to earn {profitPercent}% profit on effective cost?"
+      },
+      "explanation": {
+        "opening": "We should build the true cost before applying the profit rate.",
+        "concept": "Profit is measured on purchase price plus all preparation expenses.",
+        "steps": [
+          {
+            "title": "Find effective cost",
+            "body": "Add the purchase price and expenses.",
+            "equationLatex": "E=C+e"
+          },
+          {
+            "title": "Apply the profit multiplier",
+            "body": "Increase E by {profitPercent}%.",
+            "equationLatex": "S=E\\left(1+\\frac{r}{100}\\right)"
+          }
+        ],
+        "conclusion": "This selling price gives the required profit on effective cost.",
+        "finalAnswerLatex": "\\text{₹}{sellingPrice}",
+        "commonTrap": "Do not calculate profit on purchase price alone."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Hidden effective-cost base followed by one forward multiplier."
+    },
+    "PNL-QL-153": {
+      "stem": {
+        "contextFamily": "damaged-stock resale",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A trader buys a damaged appliance for ₹{purchasePrice} and spends ₹{expenses} restoring it."
+          }
+        ],
+        "prompt": "At what price should it be sold if a loss of {lossPercent}% is accepted on effective cost?"
+      },
+      "explanation": {
+        "opening": "Even for a loss, the restoration expense belongs to the cost base.",
+        "concept": "First find effective cost, then retain 100−loss percent of it.",
+        "steps": [
+          {
+            "title": "Find effective cost",
+            "body": "Add purchase and restoration costs."
+          },
+          {
+            "title": "Apply the loss factor",
+            "body": "Multiply effective cost by 1−loss/100.",
+            "equationLatex": "S=E\\left(1-\\frac{r}{100}\\right)"
+          }
+        ],
+        "conclusion": "The resulting amount is the selling price at the stated loss.",
+        "finalAnswerLatex": "\\text{₹}{sellingPrice}",
+        "commonTrap": "Do not subtract the loss from purchase price before adding expenses."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Effective-cost construction and one loss multiplier."
+    },
+    "PNL-QL-154": {
+      "stem": {
+        "contextFamily": "furniture restoration",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An antique desk is purchased for ₹{purchasePrice}, restored at an additional cost of ₹{expenses}, and sold for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "Calculate the percentage gain or loss on effective cost."
+      },
+      "explanation": {
+        "opening": "The restoration expense changes the base on which the result must be measured.",
+        "concept": "Compare selling price with total effective cost, then divide the difference by effective cost.",
+        "steps": [
+          {
+            "title": "Find effective cost",
+            "body": "Add purchase and restoration costs.",
+            "equationLatex": "E=C+e"
+          },
+          {
+            "title": "Find the amount result",
+            "body": "Take the absolute difference between selling price and E."
+          },
+          {
+            "title": "Convert to a percentage",
+            "body": "Divide the amount by E and multiply by 100."
+          }
+        ],
+        "conclusion": "The sign of selling price minus effective cost gives profit or loss.",
+        "finalAnswerLatex": "{resultRatePercent}\\%\\;{resultDirection}",
+        "commonTrap": "Do not use purchase price as the denominator after restoration cost has been incurred."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Effective-cost adjustment plus a standard result-rate calculation."
+    },
+    "PNL-QL-155": {
+      "stem": {
+        "contextFamily": "vehicle resale budgeting",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A dealer purchases a vehicle for ₹{purchasePrice} and expects to sell it for ₹{sellingPrice}."
+          }
+        ],
+        "prompt": "What is the maximum additional expense allowed if the final result must still be {targetRatePercent}% {targetDirection} on effective cost?"
+      },
+      "explanation": {
+        "opening": "The target rate tells us the largest effective cost compatible with the planned selling price.",
+        "concept": "Reverse the target multiplier from selling price, then compare the allowable effective cost with purchase price.",
+        "steps": [
+          {
+            "title": "Recover target effective cost",
+            "body": "Divide selling price by the target commercial factor.",
+            "equationLatex": "E_{max}=\\frac{S}{1\\pm r/100}"
+          },
+          {
+            "title": "Find maximum expense",
+            "body": "Subtract purchase price from E_max.",
+            "equationLatex": "e_{max}=E_{max}-C"
+          }
+        ],
+        "conclusion": "This difference is the most that can be spent without missing the target.",
+        "finalAnswerLatex": "\\text{₹}{maximumAllowableExpense}",
+        "commonTrap": "Do not take the target percentage directly on selling price; the stated rate is measured on effective cost."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Inverse target-rate calculation with allowable expense as the unknown."
+    },
+    "PNL-QL-156": {
+      "stem": {
+        "contextFamily": "bakery production wastage",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A bakery spends ₹{totalInputCost} on ingredients for {inputQuantity} units of output. During preparation, {wastedQuantity} units are lost."
+          }
+        ],
+        "prompt": "Find the effective cost per usable unit."
+      },
+      "explanation": {
+        "opening": "The total cost must now be recovered from fewer usable units.",
+        "concept": "Wastage reduces output quantity but does not reduce the original input cost.",
+        "steps": [
+          {
+            "title": "Find usable output",
+            "body": "Subtract wasted quantity from input quantity.",
+            "equationLatex": "q_u=q-w"
+          },
+          {
+            "title": "Find unit cost",
+            "body": "Divide total input cost by usable output.",
+            "equationLatex": "c_u=\\frac{C}{q_u}"
+          }
+        ],
+        "conclusion": "This is the effective cost of each usable unit.",
+        "finalAnswerLatex": "\\text{₹}{effectiveUnitCost}",
+        "commonTrap": "Do not divide by the original input quantity after wastage."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "One quantity adjustment and unit-cost division."
+    },
+    "PNL-QL-157": {
+      "stem": {
+        "contextFamily": "food-processing yield",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A food-processing batch costs ₹{totalInputCost} and begins with {inputQuantity} units. After {wastedQuantity} units are lost, the usable output must be sold for an overall {targetRatePercent}% {targetDirection}."
+          }
+        ],
+        "prompt": "Find the required selling price per usable unit."
+      },
+      "explanation": {
+        "opening": "We need the target total recovery and the reduced usable quantity.",
+        "concept": "Apply the target rate to total batch cost, then spread the required recovery across usable units.",
+        "steps": [
+          {
+            "title": "Find usable quantity",
+            "body": "Subtract wastage from input quantity."
+          },
+          {
+            "title": "Find target total recovery",
+            "body": "Apply the target profit or loss factor to total input cost."
+          },
+          {
+            "title": "Find unit selling price",
+            "body": "Divide target recovery by usable quantity.",
+            "equationLatex": "s_u=\\frac{R_{target}}{q_u}"
+          }
+        ],
+        "conclusion": "This price per usable unit produces the required overall result.",
+        "finalAnswerLatex": "\\text{₹}{requiredUnitSellingPrice}",
+        "commonTrap": "Do not apply the target percentage to the already increased unit cost a second time."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Wastage-adjusted quantity plus target total-recovery allocation."
+    },
+    "PNL-QL-158": {
+      "stem": {
+        "contextFamily": "small factory break-even",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A small factory has fixed cost ₹{fixedCost}. Variable cost is ₹{variableCostPerUnit} per unit and selling price is ₹{sellingPricePerUnit} per unit."
+          }
+        ],
+        "prompt": "Find the minimum number of units required to break even."
+      },
+      "explanation": {
+        "opening": "Every unit contributes part of its selling price toward recovering fixed cost.",
+        "concept": "Break-even occurs when total unit contribution exactly covers fixed cost.",
+        "steps": [
+          {
+            "title": "Find contribution per unit",
+            "body": "Subtract variable cost from selling price.",
+            "equationLatex": "u=S-V"
+          },
+          {
+            "title": "Cover fixed cost",
+            "body": "Divide fixed cost by unit contribution and round upward if necessary.",
+            "equationLatex": "q_{BE}=\\left\\lceil\\frac{F}{u}\\right\\rceil"
+          }
+        ],
+        "conclusion": "This minimum whole-unit quantity reaches break-even.",
+        "finalAnswerLatex": "{breakEvenQuantity}\\;\\text{units}",
+        "commonTrap": "Do not divide fixed cost by selling price; variable cost must be removed first."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct contribution formula with possible whole-unit rounding."
+    },
+    "PNL-QL-159": {
+      "stem": {
+        "contextFamily": "printing press target profit",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A printing press has fixed cost ₹{fixedCost}. Each booklet costs ₹{variableCostPerUnit} to print and sells for ₹{sellingPricePerUnit}."
+          }
+        ],
+        "prompt": "How many booklets must be sold to earn at least ₹{targetProfit}?"
+      },
+      "explanation": {
+        "opening": "The contribution from sales must cover both fixed cost and the desired profit.",
+        "concept": "Required quantity equals fixed cost plus target profit divided by contribution per unit.",
+        "steps": [
+          {
+            "title": "Find unit contribution",
+            "body": "Subtract variable cost from selling price."
+          },
+          {
+            "title": "Find total amount to be covered",
+            "body": "Add target profit to fixed cost."
+          },
+          {
+            "title": "Calculate minimum quantity",
+            "body": "Divide and round upward to a whole unit.",
+            "equationLatex": "q=\\left\\lceil\\frac{F+P}{S-V}\\right\\rceil"
+          }
+        ],
+        "conclusion": "This is the least quantity that reaches the target profit.",
+        "finalAnswerLatex": "{requiredQuantity}\\;\\text{units}",
+        "commonTrap": "Do not add target profit to selling price or forget to round a fractional quantity upward."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct target-profit contribution formula with rounding."
+    },
+    "PNL-QL-160": {
+      "stem": {
+        "contextFamily": "workshop unit pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A workshop has fixed cost ₹{fixedCost} and variable cost ₹{variableCostPerUnit} per unit. It plans to produce and sell {quantity} units."
+          }
+        ],
+        "prompt": "Find the break-even selling price per unit."
+      },
+      "explanation": {
+        "opening": "At break-even, each unit must cover its variable cost and an equal share of fixed cost.",
+        "concept": "Allocate fixed cost across the planned quantity, then add variable cost per unit.",
+        "steps": [
+          {
+            "title": "Find fixed cost per unit",
+            "body": "Divide fixed cost by quantity.",
+            "equationLatex": "f_u=\\frac{F}{q}"
+          },
+          {
+            "title": "Add variable cost",
+            "body": "Break-even price equals variable cost plus fixed-cost share.",
+            "equationLatex": "S_{BE}=V+f_u"
+          }
+        ],
+        "conclusion": "This unit price exactly recovers total cost.",
+        "finalAnswerLatex": "\\text{₹}{breakEvenSellingPricePerUnit}",
+        "commonTrap": "Do not divide total variable cost by quantity again when variable cost is already given per unit."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Fixed-cost allocation and one addition."
+    },
+    "PNL-QL-161": {
+      "stem": {
+        "contextFamily": "loss recovery across two assets",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A trader buys one asset for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}, making a loss. He then buys another asset for ₹{secondCostPrice}."
+          }
+        ],
+        "prompt": "At what price should the second asset be sold so that the two transactions together break even?"
+      },
+      "explanation": {
+        "opening": "The second sale must recover the combined cost after accounting for the first sale's receipt.",
+        "concept": "For overall break-even, total selling price must equal total cost price.",
+        "steps": [
+          {
+            "title": "Find combined cost",
+            "body": "Add the two purchase prices."
+          },
+          {
+            "title": "Subtract the first recovery",
+            "body": "The remaining amount must come from the second sale.",
+            "equationLatex": "S_2=C_1+C_2-S_1"
+          }
+        ],
+        "conclusion": "This selling price makes total recovery equal total cost.",
+        "finalAnswerLatex": "\\text{₹}{requiredSecondSellingPrice}",
+        "commonTrap": "Do not apply the first loss percentage directly to the second asset's cost."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Two-transaction recovery with a direct total-cost equation."
+    },
+    "PNL-QL-162": {
+      "stem": {
+        "contextFamily": "portfolio resale target",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A trader buys one item for ₹{firstCostPrice} and sells it for ₹{firstSellingPrice}. He then purchases another item for ₹{secondCostPrice}."
+          }
+        ],
+        "prompt": "Find the second selling price required for an overall {targetRatePercent}% {targetDirection} across both transactions."
+      },
+      "explanation": {
+        "opening": "The target rate applies to the combined cost of both items.",
+        "concept": "Find target total recovery first, then subtract the amount already recovered from the first sale.",
+        "steps": [
+          {
+            "title": "Find combined cost",
+            "body": "Add both purchase prices.",
+            "equationLatex": "C_T=C_1+C_2"
+          },
+          {
+            "title": "Find target total recovery",
+            "body": "Apply the overall target factor to C_T."
+          },
+          {
+            "title": "Find required second sale",
+            "body": "Subtract first selling price from target total recovery.",
+            "equationLatex": "S_2=R_T-S_1"
+          }
+        ],
+        "conclusion": "This second selling price produces the required overall result.",
+        "finalAnswerLatex": "\\text{₹}{requiredSecondSellingPrice}",
+        "commonTrap": "Do not apply the target percentage only to the second item's cost."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Combined-cost target recovery with one prior sale already realized."
+    },
+    "PNL-QL-163": {
+      "stem": {
+        "contextFamily": "commercial recovery inversion",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A commercial transaction realizes ₹{totalRecovery}, representing a {ratePercent}% {direction} on effective cost."
+          }
+        ],
+        "prompt": "Find the effective cost."
+      },
+      "explanation": {
+        "opening": "The recovery is the final value, so we reverse the stated commercial multiplier.",
+        "concept": "Effective cost equals total recovery divided by the profit or loss factor.",
+        "steps": [
+          {
+            "title": "Write the correct multiplier",
+            "body": "Use 1+r/100 for profit and 1−r/100 for loss."
+          },
+          {
+            "title": "Reverse it",
+            "body": "Divide recovery by the multiplier.",
+            "equationLatex": "E=\\frac{R}{1\\pm r/100}"
+          }
+        ],
+        "conclusion": "The quotient is the effective cost.",
+        "finalAnswerLatex": "\\text{₹}{effectiveCost}",
+        "commonTrap": "Do not subtract the percentage directly from the recovery amount."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Single reverse commercial multiplier."
+    },
+    "PNL-QL-164": {
+      "stem": {
+        "contextFamily": "solar-panel installation",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A solar installer buys equipment for ₹{purchasePrice}. Flat expenses are {flatExpenses}, followed by overhead of {overheadPercent}% calculated on {overheadBase}."
+          }
+        ],
+        "prompt": "Find the effective cost."
+      },
+      "explanation": {
+        "opening": "The order matters because the percentage overhead has an explicitly stated base.",
+        "concept": "Add flat expenses, calculate overhead on the named base, and then combine all cost components.",
+        "steps": [
+          {
+            "title": "Total the flat expenses",
+            "body": "Add every listed fixed expense."
+          },
+          {
+            "title": "Identify the overhead base",
+            "body": "Use either purchase price alone or purchase price plus flat expenses, as stated."
+          },
+          {
+            "title": "Calculate final effective cost",
+            "body": "Add purchase price, flat expenses, and percentage overhead."
+          }
+        ],
+        "conclusion": "The complete sum is the effective cost.",
+        "finalAnswerLatex": "\\text{₹}{effectiveCost}",
+        "commonTrap": "Do not silently calculate overhead on purchase price when the stated base includes flat expenses."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Mixed flat and percentage overhead with an explicit base choice."
+    },
+    "PNL-QL-165": {
+      "stem": {
+        "contextFamily": "asset cost reconciliation",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An asset is purchased for ₹{purchasePrice}, and its final effective cost is ₹{effectiveCost}."
+          }
+        ],
+        "prompt": "Find the total additional expense included in the cost."
+      },
+      "explanation": {
+        "opening": "The additional expense is simply the part of effective cost above purchase price.",
+        "concept": "Effective cost equals purchase price plus total expense.",
+        "steps": [
+          {
+            "title": "Rearrange the cost relation",
+            "body": "Subtract purchase price from effective cost.",
+            "equationLatex": "e=E-C"
+          }
+        ],
+        "conclusion": "The difference is the total additional expense.",
+        "finalAnswerLatex": "\\text{₹}{totalExpense}",
+        "commonTrap": "Do not treat the difference as a profit amount; no sale has occurred."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One direct subtraction from the effective-cost identity."
+    },
+    "PNL-QL-166": {
+      "stem": {
+        "contextFamily": "warehouse setup audit",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A warehouse unit is purchased for ₹{purchasePrice}, incurs flat expenses {flatExpenses}, and has an effective cost of ₹{effectiveCost}. The remaining overhead is calculated on {overheadBase}."
+          }
+        ],
+        "prompt": "Find the overhead percentage."
+      },
+      "explanation": {
+        "opening": "We first isolate the rupee overhead, then compare it with the correct base.",
+        "concept": "Percentage overhead is the unexplained part of effective cost divided by its stated calculation base.",
+        "steps": [
+          {
+            "title": "Find flat-expense total",
+            "body": "Add the listed fixed expenses."
+          },
+          {
+            "title": "Isolate overhead amount",
+            "body": "Subtract purchase price and flat expenses from effective cost."
+          },
+          {
+            "title": "Identify the percentage base",
+            "body": "Use the named overhead base, not automatically the effective cost."
+          },
+          {
+            "title": "Calculate the rate",
+            "body": "Overhead% = overhead amount ÷ base × 100."
+          }
+        ],
+        "conclusion": "This gives the missing overhead percentage.",
+        "finalAnswerLatex": "{overheadPercent}\\%",
+        "commonTrap": "Using effective cost as the denominator changes the meaning of the stated overhead rate."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Reverse component isolation with a selectable percentage base."
+    },
+    "PNL-QL-167": {
+      "stem": {
+        "contextFamily": "packaging factory costing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A factory spends ₹{rawMaterialCost} on raw material and ₹{labourCost} on labour. Factory overhead is {factoryOverheadPercent}% of prime cost, packaging costs ₹{packagingCost}, scrap is sold for ₹{scrapRecovery}, and output is {outputQuantity} units."
+          }
+        ],
+        "prompt": "Find the net production cost."
+      },
+      "explanation": {
+        "opening": "We can organise the factory data into prime cost, overhead, added packaging, and scrap recovery.",
+        "concept": "Scrap recovery reduces production cost, while overhead is calculated specifically on prime cost.",
+        "steps": [
+          {
+            "title": "Find prime cost",
+            "body": "Add raw material and labour.",
+            "equationLatex": "P=R+L"
+          },
+          {
+            "title": "Calculate factory overhead",
+            "body": "Take the stated percentage of P."
+          },
+          {
+            "title": "Find gross production cost",
+            "body": "Add prime cost, overhead, and packaging."
+          },
+          {
+            "title": "Deduct scrap recovery",
+            "body": "Net production cost equals gross cost minus scrap proceeds."
+          }
+        ],
+        "conclusion": "The remaining amount is the net cost of producing the batch.",
+        "finalAnswerLatex": "\\text{₹}{netProductionCost}",
+        "commonTrap": "Do not calculate factory overhead on raw material alone or forget that scrap recovery is deducted."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Multiple cost components with a hidden prime-cost base and recovery deduction."
+    },
+    "PNL-QL-168": {
+      "stem": {
+        "contextFamily": "manufacturing unit cost",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A manufacturing run uses material worth ₹{rawMaterialCost} and labour worth ₹{labourCost}. Factory overhead is {factoryOverheadPercent}% of prime cost, packaging costs ₹{packagingCost}, scrap recovery is ₹{scrapRecovery}, and {outputQuantity} usable units are produced."
+          }
+        ],
+        "prompt": "Find the effective cost per unit."
+      },
+      "explanation": {
+        "opening": "We should find the batch's net production cost before dividing by output.",
+        "concept": "Unit cost is net production cost spread over usable units.",
+        "steps": [
+          {
+            "title": "Build prime and overhead cost",
+            "body": "Add material and labour, then calculate overhead on that prime-cost base."
+          },
+          {
+            "title": "Find net batch cost",
+            "body": "Add packaging and deduct scrap recovery."
+          },
+          {
+            "title": "Calculate unit cost",
+            "body": "Divide net batch cost by output quantity.",
+            "equationLatex": "c_u=\\frac{C_{net}}{q}"
+          }
+        ],
+        "conclusion": "This is the effective cost of each usable unit.",
+        "finalAnswerLatex": "\\text{₹}{effectiveUnitCost}",
+        "commonTrap": "Do not divide gross cost before deducting scrap recovery."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Multi-component manufacturing ledger followed by unit allocation."
+    },
+    "PNL-QL-169": {
+      "stem": {
+        "contextFamily": "metal fabrication waste",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Metal input costing ₹{totalInputCost} contains {inputQuantity} units. After {wastedQuantity} units are lost in cutting, the waste is sold for ₹{scrapRecovery}."
+          }
+        ],
+        "prompt": "Find the effective cost per usable unit."
+      },
+      "explanation": {
+        "opening": "The scrap proceeds recover part of the input cost, while wastage reduces usable output.",
+        "concept": "Net recoverable cost is total input cost minus scrap recovery, divided by usable quantity.",
+        "steps": [
+          {
+            "title": "Find usable quantity",
+            "body": "Subtract wasted units from input quantity."
+          },
+          {
+            "title": "Find net cost",
+            "body": "Deduct scrap recovery from total input cost."
+          },
+          {
+            "title": "Find effective unit cost",
+            "body": "Divide net cost by usable quantity."
+          }
+        ],
+        "conclusion": "This value is the cost carried by each usable unit.",
+        "finalAnswerLatex": "\\text{₹}{effectiveUnitCost}",
+        "commonTrap": "Scrap recovery reduces cost; it does not increase usable quantity."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Simultaneous output reduction and cost recovery adjustment."
+    },
+    "PNL-QL-170": {
+      "stem": {
+        "contextFamily": "bakery fixed-cost recovery",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A bakery breaks even after selling {breakEvenQuantity} batches. Variable cost is ₹{variableCostPerUnit} per batch and selling price is ₹{sellingPricePerUnit} per batch."
+          }
+        ],
+        "prompt": "Find the bakery's fixed cost."
+      },
+      "explanation": {
+        "opening": "At break-even, total contribution from all batches equals fixed cost.",
+        "concept": "Unit contribution is selling price minus variable cost.",
+        "steps": [
+          {
+            "title": "Find contribution per batch",
+            "body": "Subtract variable cost from selling price."
+          },
+          {
+            "title": "Multiply by break-even quantity",
+            "body": "Fixed cost equals contribution per batch times the number of batches.",
+            "equationLatex": "F=q_{BE}(S-V)"
+          }
+        ],
+        "conclusion": "The product is the fixed cost.",
+        "finalAnswerLatex": "\\text{₹}{fixedCost}",
+        "commonTrap": "Do not multiply break-even quantity by the full selling price."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Reverse break-even identity with fixed cost as the unknown."
+    },
+    "PNL-QL-171": {
+      "stem": {
+        "contextFamily": "subscription-service break-even",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A service business has fixed cost ₹{fixedCost} and breaks even after {breakEvenQuantity} subscriptions sold at ₹{sellingPricePerUnit} each."
+          }
+        ],
+        "prompt": "Find the variable cost per subscription."
+      },
+      "explanation": {
+        "opening": "Break-even quantity tells us the contribution required from each subscription.",
+        "concept": "Unit contribution equals fixed cost divided by break-even quantity; variable cost is the part of selling price left after contribution.",
+        "steps": [
+          {
+            "title": "Find unit contribution",
+            "body": "Divide fixed cost by break-even quantity.",
+            "equationLatex": "u=\\frac{F}{q_{BE}}"
+          },
+          {
+            "title": "Recover variable cost",
+            "body": "Subtract contribution from selling price.",
+            "equationLatex": "V=S-u"
+          }
+        ],
+        "conclusion": "This is the variable cost per subscription.",
+        "finalAnswerLatex": "\\text{₹}{variableCostPerUnit}",
+        "commonTrap": "Do not subtract fixed cost directly from one unit's selling price."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Reverse contribution calculation with variable cost as the hidden component."
+    },
+    "PNL-QL-172": {
+      "stem": {
+        "contextFamily": "custom furniture pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A furniture maker has fixed cost ₹{fixedCost} and variable cost ₹{variableCostPerUnit} per unit. It plans to sell {quantity} units and earn ₹{targetProfit}."
+          }
+        ],
+        "prompt": "What selling price per unit is required?"
+      },
+      "explanation": {
+        "opening": "Each unit must cover variable cost and also contribute toward fixed cost plus target profit.",
+        "concept": "Allocate fixed cost and target profit across the planned quantity, then add variable cost per unit.",
+        "steps": [
+          {
+            "title": "Find required contribution per unit",
+            "body": "Divide fixed cost plus target profit by quantity.",
+            "equationLatex": "u=\\frac{F+P}{q}"
+          },
+          {
+            "title": "Add variable cost",
+            "body": "Required selling price equals V+u."
+          }
+        ],
+        "conclusion": "This unit price produces the target total profit at the planned quantity.",
+        "finalAnswerLatex": "\\text{₹}{requiredSellingPricePerUnit}",
+        "commonTrap": "Do not divide variable cost by quantity when it is already stated per unit."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Inverse unit-price target with fixed-cost and profit allocation."
+    },
+    "PNL-QL-173": {
+      "stem": {
+        "contextFamily": "retail contribution planning",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A retail business has fixed cost ₹{fixedCost} and contribution-margin ratio {contributionMarginPercent}%."
+          }
+        ],
+        "prompt": "Find its break-even revenue."
+      },
+      "explanation": {
+        "opening": "The contribution-margin ratio tells us what share of revenue is available to cover fixed cost.",
+        "concept": "At break-even, contribution equals fixed cost.",
+        "steps": [
+          {
+            "title": "Write the contribution relation",
+            "body": "Contribution = revenue × contribution-margin ratio."
+          },
+          {
+            "title": "Solve for revenue",
+            "body": "Divide fixed cost by the ratio expressed as a decimal.",
+            "equationLatex": "R_{BE}=\\frac{F}{CMR}"
+          }
+        ],
+        "conclusion": "This revenue level exactly covers fixed cost.",
+        "finalAnswerLatex": "\\text{₹}{breakEvenRevenue}",
+        "commonTrap": "Do not take the contribution-margin percentage of fixed cost."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Single inverse contribution-ratio relation."
+    },
+    "PNL-QL-174": {
+      "stem": {
+        "contextFamily": "business contribution audit",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A business has fixed cost ₹{fixedCost} and break-even revenue ₹{breakEvenRevenue}."
+          }
+        ],
+        "prompt": "Find the contribution-margin ratio."
+      },
+      "explanation": {
+        "opening": "At break-even, the contribution generated by revenue equals fixed cost.",
+        "concept": "Contribution-margin ratio is fixed cost divided by break-even revenue.",
+        "steps": [
+          {
+            "title": "Form the ratio",
+            "body": "Divide fixed cost by break-even revenue."
+          },
+          {
+            "title": "Convert to a percentage",
+            "body": "Multiply the fraction by 100.",
+            "equationLatex": "CMR=\\frac{F}{R_{BE}}\\times100"
+          }
+        ],
+        "conclusion": "This is the contribution-margin ratio.",
+        "finalAnswerLatex": "{contributionMarginPercent}\\%",
+        "commonTrap": "Do not divide revenue by fixed cost; that gives the reciprocal."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Direct ratio construction and percentage conversion."
+    },
+    "PNL-QL-175": {
+      "stem": {
+        "contextFamily": "multi-product cafe mix",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A cafe sells products in the fixed mix {productMix}. Its total fixed cost is ₹{fixedCost}."
+          }
+        ],
+        "prompt": "Find the minimum number of complete product-mix bundles required to break even."
+      },
+      "explanation": {
+        "opening": "Because the products are sold in a fixed mix, one complete mix should be treated as a single composite bundle.",
+        "concept": "Add the contributions of all products in one bundle, then use that bundle contribution to cover fixed cost.",
+        "steps": [
+          {
+            "title": "Find each product's unit contribution",
+            "body": "Subtract variable cost from selling price for every product."
+          },
+          {
+            "title": "Find contribution per bundle",
+            "body": "Multiply each unit contribution by its units in the mix and add the results."
+          },
+          {
+            "title": "Find break-even bundles",
+            "body": "Divide fixed cost by bundle contribution and round upward."
+          }
+        ],
+        "conclusion": "This minimum whole number of bundles reaches break-even.",
+        "finalAnswerLatex": "{breakEvenBundles}\\;\\text{bundles}",
+        "commonTrap": "Do not average the products' contribution percentages or ignore their quantities in the mix."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Weighted product-mix contribution and whole-bundle rounding."
+    },
+    "PNL-QL-176": {
+      "stem": {
+        "contextFamily": "sales margin of safety",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A business records actual revenue of ₹{actualRevenue} and break-even revenue of ₹{breakEvenRevenue}."
+          }
+        ],
+        "prompt": "Find the margin of safety in rupees."
+      },
+      "explanation": {
+        "opening": "Margin of safety is the part of actual revenue above break-even revenue.",
+        "concept": "It is a direct difference between actual and break-even sales.",
+        "steps": [
+          {
+            "title": "Subtract break-even revenue",
+            "body": "Margin of safety = actual revenue − break-even revenue.",
+            "equationLatex": "MOS=R_A-R_{BE}"
+          }
+        ],
+        "conclusion": "The difference is the rupee margin of safety.",
+        "finalAnswerLatex": "\\text{₹}{marginOfSafetyAmount}",
+        "commonTrap": "Do not calculate a percentage when the question asks for a rupee amount."
+      },
+      "difficulty": "Easy",
+      "difficultyRationale": "One direct subtraction after identifying the correct business measure."
+    },
+    "PNL-QL-177": {
+      "stem": {
+        "contextFamily": "revenue risk analysis",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A business has actual revenue ₹{actualRevenue} and break-even revenue ₹{breakEvenRevenue}."
+          }
+        ],
+        "prompt": "Find the margin-of-safety percentage on actual revenue."
+      },
+      "explanation": {
+        "opening": "We first find the safe revenue cushion, then express it relative to actual revenue.",
+        "concept": "Margin-of-safety percentage uses actual revenue as its base.",
+        "steps": [
+          {
+            "title": "Find margin-of-safety amount",
+            "body": "Subtract break-even revenue from actual revenue."
+          },
+          {
+            "title": "Convert to a percentage",
+            "body": "Divide the margin by actual revenue and multiply by 100.",
+            "equationLatex": "MOS\\%=\\frac{R_A-R_{BE}}{R_A}\\times100"
+          }
+        ],
+        "conclusion": "This percentage shows how far revenue can fall before reaching break-even.",
+        "finalAnswerLatex": "{marginOfSafetyPercent}\\%",
+        "commonTrap": "Do not divide by break-even revenue; the requested base is actual revenue."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "One subtraction and a non-obvious percentage base."
+    },
+    "PNL-QL-178": {
+      "stem": {
+        "contextFamily": "multi-sale recovery plan",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Several commercial items have a combined effective cost of ₹{totalCost}. Earlier recoveries are {priorRecoveries}."
+          }
+        ],
+        "prompt": "Find the final recovery required for an overall {targetRatePercent}% {targetDirection}."
+      },
+      "explanation": {
+        "opening": "The final sale must complete the target recovery after earlier receipts are counted.",
+        "concept": "Target total recovery is based on combined effective cost; the required final amount is what remains after prior recoveries.",
+        "steps": [
+          {
+            "title": "Find target total recovery",
+            "body": "Apply the target profit or loss factor to total effective cost."
+          },
+          {
+            "title": "Add prior recoveries",
+            "body": "Combine every amount already received."
+          },
+          {
+            "title": "Find the remaining requirement",
+            "body": "Subtract prior recovery total from target total recovery."
+          }
+        ],
+        "conclusion": "The balance is the required final recovery.",
+        "finalAnswerLatex": "\\text{₹}{requiredFinalRecovery}",
+        "commonTrap": "Do not apply the target rate only to the unsold or final item unless the question states that base."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Aggregate target recovery after multiple prior receipts."
+    },
+    "PNL-QL-179": {
+      "stem": {
+        "contextFamily": "capital recovery after loss",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A trader loses {lossPercent}% of his capital."
+          }
+        ],
+        "prompt": "What profit percentage on the remaining capital is required to restore the original capital?"
+      },
+      "explanation": {
+        "opening": "After a loss, the recovery percentage is calculated on a smaller base.",
+        "concept": "If l% is lost, only 100−l percent remains, while the amount to recover is l percent of the original capital.",
+        "steps": [
+          {
+            "title": "Identify remaining capital",
+            "body": "Remaining base = 100−l."
+          },
+          {
+            "title": "Compare required recovery with remaining base",
+            "body": "Required profit% = l/(100−l) × 100.",
+            "equationLatex": "r=\\frac{l}{100-l}\\times100"
+          }
+        ],
+        "conclusion": "This higher percentage restores the original capital.",
+        "finalAnswerLatex": "{requiredProfitPercent}\\%",
+        "commonTrap": "A loss of l% is not recovered by an equal l% profit because the second percentage uses a smaller base."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Single cross-base recovery identity."
+    },
+    "PNL-QL-180": {
+      "stem": {
+        "contextFamily": "online marketplace commission",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A product has effective cost ₹{effectiveCost} and is sold online for ₹{grossSellingPrice}. The marketplace deducts {commissionPercent}% of the gross selling price."
+          }
+        ],
+        "prompt": "Find the profit or loss amount and percentage."
+      },
+      "explanation": {
+        "opening": "The seller's real recovery is the amount left after marketplace commission.",
+        "concept": "Deduct commission from gross price, then compare net recovery with effective cost.",
+        "steps": [
+          {
+            "title": "Find commission amount",
+            "body": "Calculate the stated percentage of gross selling price."
+          },
+          {
+            "title": "Find net recovery",
+            "body": "Subtract commission from gross price."
+          },
+          {
+            "title": "Find amount and rate",
+            "body": "Compare net recovery with effective cost and divide the absolute difference by effective cost."
+          }
+        ],
+        "conclusion": "The comparison gives both the amount and percentage result.",
+        "finalAnswerLatex": "\\text{₹}{resultAmount},\\;{resultRatePercent}\\%\\;{resultDirection}",
+        "commonTrap": "Do not compare gross selling price with cost before deducting commission."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Gross-to-net realization plus amount and percentage semantics."
+    },
+    "PNL-QL-181": {
+      "stem": {
+        "contextFamily": "auction target pricing",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "An item has effective cost ₹{effectiveCost}. An auction platform will deduct {commissionPercent}% from the gross selling price."
+          }
+        ],
+        "prompt": "Find the gross price required for {targetRatePercent}% {targetDirection} on effective cost."
+      },
+      "explanation": {
+        "opening": "The target result fixes the required net receipt, and the commission rule then fixes the gross price.",
+        "concept": "First calculate target net recovery; then reverse the commission deduction.",
+        "steps": [
+          {
+            "title": "Find target net recovery",
+            "body": "Apply the target factor to effective cost."
+          },
+          {
+            "title": "Find retained fraction",
+            "body": "After commission, the seller keeps 1−c/100 of gross price."
+          },
+          {
+            "title": "Recover gross price",
+            "body": "Divide target net recovery by the retained fraction.",
+            "equationLatex": "G=\\frac{N_{target}}{1-c/100}"
+          }
+        ],
+        "conclusion": "This gross price leaves the desired net result after commission.",
+        "finalAnswerLatex": "\\text{₹}{requiredGrossSellingPrice}",
+        "commonTrap": "Do not add c% to the target net receipt; commission is calculated on gross price, not net receipt."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Two-stage inverse involving target recovery and commission reversal."
+    },
+    "PNL-QL-182": {
+      "stem": {
+        "contextFamily": "manufacturing cost table",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A production manager records the batch costs in the table below."
+          },
+          {
+            "type": "table",
+            "caption": "Manufacturing cost sheet",
+            "columns": [
+              "Cost component",
+              "Amount or rate",
+              "Calculation base"
+            ],
+            "rowSource": "manufacturingTable"
+          },
+          {
+            "type": "paragraph",
+            "content": "The batch produces {outputQuantity} units, and scrap is sold for ₹{scrapRecovery}."
+          }
+        ],
+        "prompt": "Find the effective cost per unit."
+      },
+      "explanation": {
+        "opening": "The table should be read as a cost ledger, with each percentage applied to the base named in its row.",
+        "concept": "Build gross production cost from the table, deduct scrap recovery, and divide by output.",
+        "steps": [
+          {
+            "title": "Read and calculate each table component",
+            "body": "Convert percentage rows into amounts using their stated bases."
+          },
+          {
+            "title": "Find net batch cost",
+            "body": "Add cost components and subtract scrap recovery."
+          },
+          {
+            "title": "Calculate unit cost",
+            "body": "Divide net batch cost by output quantity."
+          }
+        ],
+        "conclusion": "The quotient is the effective production cost per unit.",
+        "finalAnswerLatex": "\\text{₹}{effectiveUnitCost}",
+        "commonTrap": "Do not apply every percentage in the table to the same base."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Authentic table interpretation with multiple cost bases and unit allocation."
+    },
+    "PNL-QL-183": {
+      "stem": {
+        "contextFamily": "multi-product break-even caselet",
+        "blocks": [
+          {
+            "type": "caselet",
+            "title": "Product-mix planning caselet",
+            "paragraphSource": "caseletData"
+          },
+          {
+            "type": "paragraph",
+            "content": "The business has fixed cost ₹{fixedCost} and sells products in the fixed mix {productMix}."
+          }
+        ],
+        "prompt": "Find the minimum number of complete mix bundles required to break even."
+      },
+      "explanation": {
+        "opening": "The caselet gives several products, but the fixed sales mix lets us combine them into one composite bundle.",
+        "concept": "Break-even bundles equal fixed cost divided by contribution per complete mix bundle.",
+        "steps": [
+          {
+            "title": "Extract contribution data",
+            "body": "For each product, subtract variable cost from selling price."
+          },
+          {
+            "title": "Build bundle contribution",
+            "body": "Multiply each contribution by its quantity in the fixed mix and add."
+          },
+          {
+            "title": "Find minimum bundles",
+            "body": "Divide fixed cost by bundle contribution and round upward."
+          }
+        ],
+        "conclusion": "This number of complete bundles covers fixed cost.",
+        "finalAnswerLatex": "{breakEvenBundles}\\;\\text{bundles}",
+        "commonTrap": "Do not calculate separate break-even quantities for each product when the caselet requires a fixed mix."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Caselet extraction, weighted mix contribution, and whole-bundle rounding."
+    },
+    "PNL-QL-184": {
+      "stem": {
+        "contextFamily": "loss-recovery statements",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "A trader loses {lossPercent}% of capital."
+          },
+          {
+            "type": "statements",
+            "lead": "Consider the following statements about recovery:",
+            "statements": [
+              "The same percentage profit always restores the original capital.",
+              "The required profit is measured on the reduced remaining capital.",
+              "Required recovery percentage is loss percentage divided by 100."
+            ]
+          }
+        ],
+        "prompt": "Select the correct statement."
+      },
+      "explanation": {
+        "opening": "The key is to notice that loss and recovery use different bases.",
+        "concept": "Recovery profit is calculated on the smaller amount remaining after loss.",
+        "steps": [
+          {
+            "title": "Identify the new base",
+            "body": "After losing l%, only 100−l percent remains."
+          },
+          {
+            "title": "Evaluate the statements",
+            "body": "The correct statement must use the reduced base and the relation l/(100−l)."
+          }
+        ],
+        "conclusion": "Choose the statement that explicitly recognises the reduced capital base.",
+        "finalAnswerLatex": "{correctStatement}",
+        "commonTrap": "Equal loss and gain percentages do not cancel when their bases differ."
+      },
+      "difficulty": "Medium",
+      "difficultyRationale": "Conceptual statement evaluation of a known cross-base identity."
+    },
+    "PNL-QL-185": {
+      "stem": {
+        "contextFamily": "algebraic overhead reconstruction",
+        "blocks": [
+          {
+            "type": "paragraph",
+            "content": "Purchase price is {purchasePriceExpression}, flat expense is {flatExpenseExpression}, and effective cost is {effectiveCostExpression}. Overhead is calculated on {overheadBase}."
+          },
+          {
+            "type": "equation",
+            "latex": "E=C+F+rB"
+          }
+        ],
+        "prompt": "Find the overhead percentage algebraically."
+      },
+      "explanation": {
+        "opening": "The overhead amount is the part of effective cost left after the known cost components are removed.",
+        "concept": "Isolate the overhead term, divide by its stated base, and convert the fraction to a percentage.",
+        "steps": [
+          {
+            "title": "Isolate overhead amount",
+            "body": "Rearrange E=C+F+O to obtain O=E−C−F."
+          },
+          {
+            "title": "Identify the algebraic base",
+            "body": "Use the expression named by {overheadBase}."
+          },
+          {
+            "title": "Find the rate",
+            "body": "Compute O/B × 100 and simplify."
+          }
+        ],
+        "conclusion": "The simplified expression is the overhead percentage.",
+        "finalAnswerLatex": "{overheadPercent}\\%",
+        "commonTrap": "Do not divide by effective cost unless effective cost is explicitly the overhead base."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Symbolic component isolation with a selectable percentage base."
+    },
+    "PNL-QL-186": {
+      "stem": {
+        "contextFamily": "break-even data sufficiency",
+        "blocks": [
+          {
+            "type": "data_sufficiency",
+            "question": "The break-even quantity of a business is to be determined.",
+            "statements": [
+              "{statementOne}",
+              "{statementTwo}"
+            ],
+            "answerScheme": "STANDARD_TWO_STATEMENT"
+          }
+        ],
+        "prompt": "Decide whether Statement I alone, Statement II alone, both together, or neither is sufficient."
+      },
+      "explanation": {
+        "opening": "We need enough information to determine fixed cost and unit contribution uniquely.",
+        "concept": "Break-even quantity is F/(selling price−variable cost), so the required components must be fixed by the statements.",
+        "steps": [
+          {
+            "title": "Test Statement I alone",
+            "body": "Check whether it determines fixed cost and unit contribution without using Statement II."
+          },
+          {
+            "title": "Test Statement II alone",
+            "body": "Perform the same completeness test independently."
+          },
+          {
+            "title": "Combine if needed",
+            "body": "Use both statements only after judging each one separately."
+          }
+        ],
+        "conclusion": "Choose the data-sufficiency option corresponding to the first sufficient information set.",
+        "finalAnswerLatex": "{dataSufficiencyAnswer}",
+        "commonTrap": "Do not confuse having two numerical facts with having the specific independent facts required by the break-even equation."
+      },
+      "difficulty": "Hard",
+      "difficultyRationale": "Data-sufficiency reasoning about equation completeness and uniqueness."
+    }
+  },
+  "entryCount": 37
+}
