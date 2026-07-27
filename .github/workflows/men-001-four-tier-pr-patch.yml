@@ -1,0 +1,34 @@
+name: MEN-001 Four-Tier PR Patch
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - scripts/men001-four-tier-patch.py
+      - .github/workflows/men-001-four-tier-pr-patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Apply deterministic patch
+        run: python scripts/men001-four-tier-patch.py
+
+      - name: Commit patched files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001 .github/workflows/men-001-runtime-proof.yml
+          git commit -m "feat(mensuration): enforce four-tier competitive explanations"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
