@@ -9,13 +9,14 @@ const APPROVED_COMPOSITE_TITLES = [
 ] as const;
 
 const PARAGRAPH_BY_TITLE: Record<string, string> = {
+  "Account for Both Dimensions": "Area depends on two independent linear dimensions, so apply the percentage change to both.",
   "Add the Ratio Parts": "Add all ratio parts before converting the ratio into actual side lengths.",
   "Add the Two Areas": "The two component regions do not overlap, so add their areas.",
   "Apply Heron's Formula": "Substitute the semiperimeter and the three side lengths in Heron's formula, then simplify the radical.",
   "Apply Pythagoras": "Use the right triangle in the figure to recover the missing perpendicular measurement.",
   "Apply the Percentage Change": "Convert each percentage change into a multiplicative factor and combine the factors.",
-  "Apply the Scale Relation": "Substitute the corresponding measures in the appropriate linear or square scale relation.",
-  "Area of One Tile": "Multiply the tile dimensions after writing them in the same square unit as the floor.",
+  "Apply the Scale Relation": "Use the matching linear or square scale relation for the stated measures.",
+  "Area of One Tile": "Multiply the tile dimensions after writing them in the same square unit as the complete region.",
   "Area of the Circle": "Substitute the radius in the circle-area formula and simplify.",
   "Area of the Inner Figure": "Calculate the inner area that must be removed from the complete region.",
   "Area of the Outer Figure": "Calculate the area enclosed by the outer boundary.",
@@ -23,12 +24,17 @@ const PARAGRAPH_BY_TITLE: Record<string, string> = {
   "Area of the Semicircle": "Use half of the full-circle area and simplify with the declared value of π.",
   "Area of the Square": "Square the side length to obtain the enclosed area.",
   "Calculate the Area Difference": "Find the two enclosed areas and subtract the smaller from the larger.",
+  "Calculate the Boundary": "Use the required perimeter or wire length, including every stated round.",
   "Calculate the Circumference": "Substitute the known circle measurement in the circumference formula.",
   "Calculate the Cost": "Multiply the required area or boundary length by the stated rate.",
   "Calculate the Distance": "Use the distance covered in one revolution with the number of revolutions.",
   "Calculate the Perimeter": "Substitute the side measurements in the relevant perimeter formula.",
   "Calculate the Rate": "Divide the total cost by the corresponding area or boundary length.",
   "Convert the Units": "Write all measurements in compatible units before carrying out the calculation.",
+  "Evaluate the Area Relation": "Evaluate the displayed area relation with the values already obtained.",
+  "Evaluate the Boundary Relation": "Evaluate the displayed perimeter, circumference or wire relation.",
+  "Evaluate the Required Quantity": "Evaluate the displayed relation for the required quantity.",
+  "Evaluate the Scale Relation": "Evaluate the displayed scale relation and keep the positive physical value.",
   "Find One Ratio Unit": "Divide the total perimeter by the sum of the ratio parts.",
   "Find the Actual Side Lengths": "Multiply each ratio part by the value of one ratio unit.",
   "Find the Base": "Rearrange the area relation and isolate the base.",
@@ -53,15 +59,35 @@ const PARAGRAPH_BY_TITLE: Record<string, string> = {
   "Find the Side": "Rearrange the relevant area or perimeter relation and isolate the side length.",
   "Find the Smallest Side": "Select the side corresponding to the smallest ratio part.",
   "Find the Sum of Length and Breadth": "Use half of the rectangle's perimeter to obtain the sum of its length and breadth.",
+  "Find the Total Fencing Length": "Multiply the boundary for one round by the stated number of rounds.",
   "Find the Width": "Rearrange the path-area relation and isolate the path width.",
+  "Take the Positive Square Root": "Take the positive square root because a physical scale or length cannot be negative.",
   "Use the Tile-Count Formula": "Divide the total area by the area covered by one tile.",
 };
 
 const EQUATION_SUFFICIENT_TITLES = new Set([
   "Calculate the Area",
   "Combine the Results",
+  "Evaluate the Area Relation",
+  "Evaluate the Boundary Relation",
+  "Evaluate the Required Quantity",
+  "Evaluate the Scale Relation",
+]);
+
+const GENERIC_FILLER_PARAGRAPHS = new Set([
+  "Carry out this calculation exactly.",
+  "Evaluate the final numerical expression.",
+  "Evaluate the remaining expression to obtain the required numerical value.",
+  "Substitute the supplied measurements into the governing formula.",
+  "Use the previous result in the next part of the calculation.",
+]);
+
+const GENERIC_STEP_TITLES = new Set([
+  "Complete the Calculation",
   "Continue the Calculation",
   "Finalize the Numerical Result",
+  "Substitute in the Area Formula",
+  "Substitute the Given Values",
 ]);
 
 function allText(section: Extract<Men001ExplanationSection, { kind: "STEP" }>) {
@@ -74,6 +100,17 @@ function firstLeft(section: Extract<Men001ExplanationSection, { kind: "STEP" }>)
     .replace(/^(Semiperimeter:|Heron's formula is|Now use|Using these values,|For the rectangle,)\s*/i, "")
     .replace(/[^A-Za-zθ₁₂+]+/g, "")
     .toLowerCase();
+}
+
+function genericFallbackTitle(
+  section: Extract<Men001ExplanationSection, { kind: "STEP" }>,
+  solveMode: Men001SolveMode,
+) {
+  if (!GENERIC_STEP_TITLES.has(section.title)) return section.title;
+  if (/scale|similar/i.test(solveMode)) return "Evaluate the Scale Relation";
+  if (/area|tile|path|border|shaded/i.test(solveMode)) return "Evaluate the Area Relation";
+  if (/perimeter|circumference|wire|fencing/i.test(solveMode)) return "Evaluate the Boundary Relation";
+  return "Evaluate the Required Quantity";
 }
 
 function deriveTitle(
@@ -94,7 +131,11 @@ function deriveTitle(
   if (/smallest side/.test(lower)) return "Find the Smallest Side";
   if (/semiperimeter/.test(lower)) return "Find the Semiperimeter";
   if (/heron's formula|heron’s formula/.test(lower)) return "Apply Heron's Formula";
-  if (/pythagoras/.test(lower)) return "Apply Pythagoras";
+  if (/pythagoras|hypotenuse of the resulting right triangle/.test(lower)) return "Apply Pythagoras";
+  if (/area uses the product of the two changed dimensions/.test(lower)) return "Account for Both Dimensions";
+  if (/one\s+(?:paving\s+)?tile\s+(?:covers|area)/.test(lower)) return "Area of One Tile";
+  if (/rounds?\s+require.*fencing|fencing.*rounds?/.test(lower)) return "Find the Total Fencing Length";
+  if (/positive square root/.test(lower)) return "Take the Positive Square Root";
   if (/new area percentage|new area\s*=.*%\s*of\s*the\s*original/.test(lower)) {
     return "Find the New Area Percentage";
   }
@@ -106,7 +147,11 @@ function deriveTitle(
   if (/border area/.test(lower)) return "Find the Border Area";
   if (/remaining area|uncovered area/.test(lower)) return "Find the Remaining Area";
   if (/number of tiles|tiles required/.test(lower)) return "Find the Number of Tiles";
-  if (/revolutions\s*=/.test(lower)) return "Find the Number of Revolutions";
+  if (/revolutions\s*=/.test(lower) || left === "n" && /Revolution/i.test(solveMode)) {
+    return "Find the Number of Revolutions";
+  }
+  if (/total wire/.test(lower)) return "Calculate the Boundary";
+  if (/resulting quadratic|positive root/.test(lower) && /\bw\s*=/.test(lower)) return "Find the Width";
   if (/total area/.test(lower)) return "Combine the Results";
   if (/area difference|difference\s*=/.test(lower)) return "Calculate the Area Difference";
   if (/l\s*\+\s*b\s*=|length\s*\+\s*breadth\s*=/.test(lower)) {
@@ -118,7 +163,7 @@ function deriveTitle(
   if (/circumference/.test(leftRaw.toLowerCase()) || left === "c") {
     return "Calculate the Circumference";
   }
-  if (/perimeter/.test(leftRaw.toLowerCase()) || left === "p") {
+  if (/perimeter/.test(leftRaw.toLowerCase()) || /^p[₁₂]?$/.test(left)) {
     return "Calculate the Perimeter";
   }
   if (/cost/.test(leftRaw.toLowerCase())) return "Calculate the Cost";
@@ -140,12 +185,13 @@ function deriveTitle(
   }
   if (/height/.test(leftRaw.toLowerCase()) || left === "h") return "Find the Height";
   if (/width/.test(leftRaw.toLowerCase()) || left === "w") return "Find the Width";
-  if (/area/.test(leftRaw.toLowerCase()) || left === "a" && /^A\s*=/.test(section.equations[0] ?? "")) {
+  if (left === "k" || /scale factor/.test(lower)) return "Apply the Scale Relation";
+  if (/area/.test(leftRaw.toLowerCase()) || /^a[₁₂]?$/.test(left) || /\buse\s+a\s*=/.test(lower)) {
     return "Calculate the Area";
   }
   if (/side/.test(leftRaw.toLowerCase()) || left === "a") return "Find the Side";
 
-  return section.title;
+  return genericFallbackTitle(section, solveMode);
 }
 
 function equationIdentity(section: Extract<Men001ExplanationSection, { kind: "STEP" }>) {
@@ -181,26 +227,26 @@ function paragraphsForTitle(
 ) {
   if (section.equations.length > 0 && EQUATION_SUFFICIENT_TITLES.has(title)) return [];
   const paragraph = PARAGRAPH_BY_TITLE[title] ?? section.paragraphs[0];
-  return paragraph ? [paragraph] : [];
+  if (!paragraph || GENERIC_FILLER_PARAGRAPHS.has(paragraph)) return [];
+  return [paragraph];
+}
+
+function removePureFillerSteps(sections: Men001ExplanationSection[]) {
+  return sections.filter((section) => {
+    if (section.kind !== "STEP" || section.equations.length > 0) return true;
+    return section.paragraphs.some((paragraph) => !GENERIC_FILLER_PARAGRAPHS.has(paragraph));
+  });
 }
 
 function renumberAndDeduplicate(sections: Men001ExplanationSection[]) {
   let stepNumber = 0;
-  let previousTitle = "";
-  return sections.map((section, index): Men001ExplanationSection => {
+  return sections.map((section): Men001ExplanationSection => {
     if (section.kind !== "STEP") return section;
     stepNumber += 1;
-    let title = section.title;
-    if (title === previousTitle) {
-      const hasLaterStep = sections.slice(index + 1).some((candidate) => candidate.kind === "STEP");
-      title = hasLaterStep ? "Continue the Calculation" : "Finalize the Numerical Result";
-    }
-    previousTitle = title;
     return {
       ...section,
       stepNumber,
-      title,
-      paragraphs: paragraphsForTitle(title, section),
+      paragraphs: paragraphsForTitle(section.title, section),
     };
   });
 }
@@ -233,5 +279,5 @@ export function polishMen001StructuredSections(
     };
   });
 
-  return renumberAndDeduplicate(mergeSameQuantity(retitled));
+  return renumberAndDeduplicate(removePureFillerSteps(mergeSameQuantity(retitled)));
 }
