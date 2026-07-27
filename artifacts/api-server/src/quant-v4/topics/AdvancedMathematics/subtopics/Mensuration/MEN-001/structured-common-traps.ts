@@ -32,6 +32,12 @@ const EXPLANATION_OVERRIDES: Readonly<Record<string, string>> = {
   "use-linear-conversion-factor": "uses the linear unit-conversion factor for an area conversion instead of squaring it",
 };
 
+const ACTION_WORDS = new Set([
+  "add", "average", "choose", "cost", "count", "divide", "double", "expand", "halve",
+  "ignore", "miss", "multiply", "omit", "paint", "quarter", "report", "retain", "root",
+  "shrink", "single", "square", "subtract", "take", "tile", "treat", "triple", "use",
+]);
+
 function readableOption(value: string) {
   return value
     .trim()
@@ -51,57 +57,94 @@ function readableOption(value: string) {
     .trim();
 }
 
-function words(value: string) {
-  return value
-    .replace(/-instead-of-/g, " instead of ")
-    .replace(/-as-/g, " as ")
-    .replace(/-/g, " ")
-    .replace(/half factor/g, "the 1/2 factor")
-    .replace(/quarter factor/g, "the 1/4 factor")
-    .replace(/scale square/g, "the squared scale factor")
-    .replace(/square centimetres/g, "square centimetres")
-    .replace(/square metres/g, "square metres")
+function cleanTokens(strategyId: string) {
+  const tokens = strategyId.split("-").filter(Boolean);
+  while (tokens.length > 0 && (/^cp\d+$/i.test(tokens[0]!) || /^(ex|legacy|refined|additional)$/i.test(tokens[0]!))) {
+    tokens.shift();
+  }
+  return tokens;
+}
+
+function phrase(tokens: readonly string[]) {
+  return tokens
+    .join(" ")
+    .replace(/\bone\b/g, "one")
+    .replace(/\bhalf factor\b/g, "the 1/2 factor")
+    .replace(/\bquarter factor\b/g, "the 1/4 factor")
+    .replace(/\bscale square\b/g, "the squared scale factor")
+    .replace(/\bradius square\b/g, "the radius squared")
+    .replace(/\bwire square over eight\b/g, "the wire length squared divided by 8")
+    .replace(/\bwire square\b/g, "the wire length squared")
+    .replace(/\broot ([a-z ]+)/g, "the square root of $1")
+    .replace(/\binstead of\b/g, "instead of")
     .replace(/\s+/g, " ")
     .trim();
 }
 
+function withArticle(value: string) {
+  if (!value) return "the intermediate value";
+  if (/^(the|a|an|one|only|half|double|triple|four|all|both)\b/i.test(value)) return value;
+  return `the ${value}`;
+}
+
 function generatedExplanation(strategyId: string) {
-  const patterns: readonly [RegExp, (rest: string) => string][] = [
-    [/^omit-(.+)$/, (rest) => `omits ${words(rest)}`],
-    [/^use-(.+)$/, (rest) => `uses ${words(rest)}`],
-    [/^report-(.+)$/, (rest) => `reports ${words(rest)} before reaching the quantity asked for`],
-    [/^retain-(.+)$/, (rest) => `stops at ${words(rest)} instead of completing the required calculation`],
-    [/^double-(.+)$/, (rest) => `doubles ${words(rest)}`],
-    [/^triple-(.+)$/, (rest) => `triples ${words(rest)}`],
-    [/^quadruple-(.+)$/, (rest) => `multiplies ${words(rest)} by four`],
-    [/^halve-(.+)$/, (rest) => `halves ${words(rest)}`],
-    [/^square-(.+)$/, (rest) => `squares ${words(rest)}`],
-    [/^add-(.+)$/, (rest) => `adds ${words(rest)}`],
-    [/^subtract-(.+)$/, (rest) => `subtracts ${words(rest)}`],
-    [/^divide-(.+)$/, (rest) => `divides ${words(rest)}`],
-    [/^multiply-(.+)$/, (rest) => `multiplies ${words(rest)}`],
-    [/^choose-(.+)$/, (rest) => `chooses ${words(rest)}`],
-    [/^treat-(.+)$/, (rest) => `treats ${words(rest)}`],
-    [/^confuse-(.+)$/, (rest) => `confuses ${words(rest)}`],
-  ];
-  for (const [pattern, render] of patterns) {
-    const match = strategyId.match(pattern);
-    if (match?.[1]) return render(match[1]);
+  const tokens = cleanTokens(strategyId);
+  const actionIndex = tokens.findIndex((token) => ACTION_WORDS.has(token));
+  if (actionIndex < 0) {
+    return `uses ${withArticle(phrase(tokens))} as the answer instead of completing the required relation`;
   }
-  return `applies the mistaken operation “${words(strategyId)}”`;
+
+  const action = tokens[actionIndex]!;
+  const context = phrase(tokens.slice(0, actionIndex));
+  const target = phrase(tokens.slice(actionIndex + 1));
+  const object = withArticle(target);
+  const required = context ? `the required ${context}` : "the quantity asked for";
+
+  switch (action) {
+    case "report": return `reports ${object} instead of ${required}`;
+    case "retain": return `stops at ${object} instead of completing ${required}`;
+    case "use": return `uses ${object} as ${required}`;
+    case "omit": return `omits ${object} from ${required}`;
+    case "add": return `adds ${object} although ${required} needs a different operation`;
+    case "subtract": return `subtracts ${object} at the wrong stage of ${required}`;
+    case "multiply": return `multiplies by ${object} when finding ${required}`;
+    case "divide": return `divides by ${object} when finding ${required}`;
+    case "double": return `doubles ${object}`;
+    case "triple": return `triples ${object}`;
+    case "halve": return `halves ${object}`;
+    case "quarter": return `takes one quarter of ${object}`;
+    case "square": return `squares ${object}`;
+    case "root": return `takes the square root of ${object}`;
+    case "take": return target.startsWith("root ")
+      ? `takes the square root of ${withArticle(phrase(tokens.slice(actionIndex + 2)))}`
+      : `takes ${object}`;
+    case "single": return `counts only one ${target || "required part"}`;
+    case "average": return `uses the average of ${object}`;
+    case "choose": return `chooses ${object} instead of ${required}`;
+    case "cost": return `calculates the cost of ${object} instead of ${required}`;
+    case "count": return `counts ${object} instead of the complete requirement`;
+    case "tile": return `tiles ${object} instead of the required region`;
+    case "paint": return `paints ${object} instead of the required exposed area`;
+    case "ignore": return `ignores ${object}`;
+    case "miss": return `misses ${object}`;
+    case "expand": return `expands ${object} only once instead of changing both required dimensions`;
+    case "shrink": return `shrinks ${object} only once instead of changing both required dimensions`;
+    case "treat": return `treats ${object} as ${required}`;
+  }
 }
 
 function consequence(strategyId: string) {
-  if (/^(omit|retain|report)-/.test(strategyId)) {
+  const normalized = cleanTokens(strategyId).join("-");
+  if (/^(omit|retain|report)-/.test(normalized) || /-(omit|retain|report)-/.test(normalized)) {
     return "A required stage of the governing relation is missing.";
   }
-  if (/^(double|triple|quadruple|add)-/.test(strategyId)) {
+  if (/^(double|triple|add|expand)-/.test(normalized) || /-(double|triple|add|expand)-/.test(normalized)) {
     return "This normally overstates the requested result.";
   }
-  if (/^(halve|divide|subtract)-/.test(strategyId)) {
+  if (/^(halve|quarter|divide|subtract|shrink)-/.test(normalized) || /-(halve|quarter|divide|subtract|shrink)-/.test(normalized)) {
     return "This normally understates the requested result.";
   }
-  if (/^square-/.test(strategyId)) {
+  if (/^(square|root)-/.test(normalized) || /-(square|root)-/.test(normalized)) {
     return "This changes the dimension or power of the required quantity.";
   }
   return "It answers a different geometric quantity or uses the wrong relation.";
