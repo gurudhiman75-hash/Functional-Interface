@@ -217,6 +217,10 @@ function multiplyMoneyByRational(value: Money, factor: Rational): Money {
   return moneyFromExactRational(multiplyRational(rational(value.paise), factor));
 }
 
+function multiplyMoneyByRationalRounded(value: Money, factor: Rational): Money {
+  return moneyFromRoundedRational(multiplyRational(rational(value.paise), factor));
+}
+
 function commercialFactor(
   direction: "PROFIT" | "LOSS",
   ratePercent: Rational,
@@ -884,7 +888,7 @@ function wrongCandidates(
       if (result.mode !== request.mode) break;
       candidates.push(
         moneyCandidate(
-          multiplyMoneyByRational(request.sellingPrice, commercialFactor(request.direction, request.ratePercent)),
+          multiplyMoneyByRationalRounded(request.sellingPrice, commercialFactor(request.direction, request.ratePercent)),
           "Multiplies the selling price by the forward factor instead of reversing it.",
         ),
         moneyCandidate(
@@ -904,7 +908,7 @@ function wrongCandidates(
       if (result.mode !== request.mode) break;
       candidates.push(
         moneyCandidate(
-          multiplyMoneyByRational(request.amount, divideRational(request.ratePercent, rational(100))),
+          multiplyMoneyByRationalRounded(request.amount, divideRational(request.ratePercent, rational(100))),
           "Multiplies the amount by the percentage instead of scaling it to 100%."),
         moneyCandidate(
           moneyFromRoundedRational(
@@ -1044,7 +1048,7 @@ function wrongCandidates(
         moneyCandidate(firstAmount, "Uses only the first rate change."),
         moneyCandidate(secondAmount, "Uses only the second rate change."),
         moneyCandidate(
-          multiplyMoneyByRational(request.costPrice, divideRational(wrongGap, rational(100))),
+          multiplyMoneyByRationalRounded(request.costPrice, divideRational(wrongGap, rational(100))),
           request.firstDirection === request.secondDirection
             ? "Adds the two same-direction rates instead of taking their difference."
             : "Subtracts profit and loss rates instead of measuring the full signed gap.",
@@ -1079,7 +1083,7 @@ function wrongCandidates(
         moneyCandidate(fromFirst, "Divides by the first rate instead of the effective rate gap."),
         moneyCandidate(fromSecond, "Divides by the second rate instead of the effective rate gap."),
         moneyCandidate(
-          multiplyMoneyByRational(request.difference, divideRational(gap, rational(100))),
+          multiplyMoneyByRationalRounded(request.difference, divideRational(gap, rational(100))),
           "Multiplies by the rate gap instead of scaling the difference up to 100%.",
         ),
       );
