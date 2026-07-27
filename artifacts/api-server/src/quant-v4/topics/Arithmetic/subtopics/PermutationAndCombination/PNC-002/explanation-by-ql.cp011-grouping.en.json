@@ -54,7 +54,7 @@
     "PNC-QL-215": {
       "lines": [
         "Count all equal divisions into named groups, then focus on the two specified students.",
-        "After placing the first student, the second has {samePartnerSlots} favourable places among the remaining {remainingPartnerSlots} places.",
+        "After placing the first student, the number of favourable places for the second is {samePartnerSlots}, out of {remainingPartnerSlots} remaining places.",
         "Multiplying the unrestricted count by this exact fraction gives {equation}.",
         "Therefore, the specified students are together in {answer} divisions."
       ]
