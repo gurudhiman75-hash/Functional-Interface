@@ -76,8 +76,8 @@ export function renderMalCp001Stem(
       return choose([
         `${context.actor} has ${context.lowerLabel} at ${low} and ${context.higherLabel} at ${high}. In what ratio should the two be mixed to obtain ${context.material} worth ${target}?`,
         `To prepare ${context.material} worth ${target}, in what ratio should ${context.actor.toLowerCase()} combine ${context.lowerLabel} costing ${low} with ${context.higherLabel} costing ${high}?`,
-        `${context.lowerLabel} is valued at ${low}, while ${context.higherLabel} is valued at ${high}. What mixing ratio will give ${context.actor.toLowerCase()} a blend worth ${target}?`,
-        `${context.actor} wants a blend worth ${target} from ${context.lowerLabel} at ${low} and ${context.higherLabel} at ${high}. Find the required ratio of the two grades?`,
+        `The available grades are ${context.lowerLabel} at ${low} and ${context.higherLabel} at ${high}. What mixing ratio will produce a blend worth ${target}?`,
+        `${context.actor} wants a blend worth ${target} from ${context.lowerLabel} at ${low} and ${context.higherLabel} at ${high}. What ratio of the two grades is required?`,
       ]);
     }
     case "MAL-CP001-PROT-MEAN-FROM-QUANTITIES": {
@@ -86,7 +86,7 @@ export function renderMalCp001Stem(
       return choose([
         `${context.actor} mixes ${evidence.join(" with ")}. What is the average value of the resulting ${context.material}?`,
         `A blend is prepared from ${evidence.join(" and ")}. What value per unit does the final ${context.material} have?`,
-        `${context.actor} combines ${evidence.join(" together with ")}. Find the weighted average value of the blend?`,
+        `${context.actor} combines ${evidence.join(" together with ")}. What is the weighted average value of the blend?`,
         `What is the average value of ${context.material} made by mixing ${evidence.join(" and ")}?`,
       ]);
     }
@@ -98,7 +98,7 @@ export function renderMalCp001Stem(
       return choose([
         `${context.actor} mixes ${context.lowerLabel} at ${low} with ${context.higherLabel} at ${high} in the ratio ${ratio}. What is the average value of the blend?`,
         `In a ${ratio} blend of ${context.lowerLabel} worth ${low} and ${context.higherLabel} worth ${high}, what is the resulting value per unit?`,
-        `${context.lowerLabel} and ${context.higherLabel}, valued at ${low} and ${high}, are combined in the ratio ${ratio}. Find the blend's average value?`,
+        `${context.lowerLabel} and ${context.higherLabel}, valued at ${low} and ${high}, are combined in the ratio ${ratio}. What is the blend's average value?`,
         `${context.actor} uses ${ratio} as the quantity ratio for two grades priced at ${low} and ${high}. What will the mixed ${context.material} be worth per unit?`,
       ]);
     }
@@ -109,9 +109,9 @@ export function renderMalCp001Stem(
       const target = valueText(request.targetValue, valueUnit);
       return choose([
         `${context.actor} mixes ${known} with ${unknownQuantity} of ${request.unknownComponentLabel}. The mixture is worth ${target}. What is the value of ${request.unknownComponentLabel}?`,
-        `After combining ${known} and ${unknownQuantity} of ${request.unknownComponentLabel}, the blend is valued at ${target}. Find the value of the unknown grade?`,
+        `After combining ${known} and ${unknownQuantity} of ${request.unknownComponentLabel}, the blend is valued at ${target}. What is the unknown grade's value per unit?`,
         `${context.actor} obtains ${context.material} worth ${target} by mixing ${known} with ${unknownQuantity} of an unknown-valued ${request.unknownComponentLabel}. What is its value per unit?`,
-        `${known} is blended with ${unknownQuantity} of ${request.unknownComponentLabel}. If the final average is ${target}, how much is ${request.unknownComponentLabel} worth per unit?`,
+        `${known} is blended with ${unknownQuantity} of ${request.unknownComponentLabel}. If the final average is ${target}, what is the value of ${request.unknownComponentLabel} per unit?`,
       ]);
     }
     case "MAL-CP001-PROT-UNKNOWN-COMPONENT-QUANTITY": {
@@ -122,7 +122,7 @@ export function renderMalCp001Stem(
       return choose([
         `${context.actor} mixes ${known} with some ${request.unknownComponentLabel} valued at ${unknownValue}. If the blend is worth ${target}, how much ${request.unknownComponentLabel} was used?`,
         `How much ${request.unknownComponentLabel} at ${unknownValue} must be combined with ${known} to produce a blend worth ${target}?`,
-        `A quantity of ${request.unknownComponentLabel}, valued at ${unknownValue}, is mixed with ${known}. The final value is ${target}. Find the unknown quantity?`,
+        `A quantity of ${request.unknownComponentLabel}, valued at ${unknownValue}, is mixed with ${known}. The final value is ${target}. What is the unknown quantity?`,
         `${context.actor} makes ${context.material} worth ${target} from ${known} and ${request.unknownComponentLabel} at ${unknownValue}. What quantity of the latter was included?`,
       ]);
     }
@@ -143,7 +143,7 @@ export function renderMalCp001Stem(
       const evidence = request.components.map((item) => componentEvidence(item, unit, valueUnit));
       return choose([
         `${context.actor} prepares a three-grade blend using ${evidence.join(", ")}. What is the average value of the blend?`,
-        `Three grades are combined: ${evidence.join("; ")}. Find the weighted value per unit of the resulting ${context.material}?`,
+        `Three grades are combined: ${evidence.join("; ")}. What is the weighted value per unit of the resulting blend?`,
         `What is the final average value when ${context.actor.toLowerCase()} mixes ${evidence.join(", and ")}?`,
         `${evidence.join(", ")} are used in one blend. What value per unit does the complete mixture have?`,
       ]);
@@ -155,7 +155,7 @@ export function renderMalCp001Stem(
       const target = valueText(request.targetValue, valueUnit);
       return choose([
         `${context.actor} combines ${known.join(" and ")} with some ${request.unknownComponentLabel} valued at ${unknownValue}. The final blend is worth ${target}. How much ${request.unknownComponentLabel} was added?`,
-        `A three-grade blend worth ${target} contains ${known.join(" and ")}, plus ${request.unknownComponentLabel} at ${unknownValue}. Find the third grade's quantity?`,
+        `A three-grade blend worth ${target} contains ${known.join(" and ")}, plus ${request.unknownComponentLabel} at ${unknownValue}. What quantity of the third grade is present?`,
         `How much ${request.unknownComponentLabel} valued at ${unknownValue} must accompany ${known.join(" and ")} so that the average becomes ${target}?`,
         `${known.join(" together with ")} are mixed with an unknown quantity of ${request.unknownComponentLabel} at ${unknownValue}. If the blend is worth ${target}, what is that quantity?`,
       ]);
@@ -167,9 +167,9 @@ export function renderMalCp001Stem(
       const high = valueText(request.higherValue, valueUnit);
       const target = valueText(request.targetValue, valueUnit);
       return choose([
-        `${context.actor} makes ${total} of ${context.material} by mixing ${request.lowerComponentLabel} at ${low} with ${request.higherComponentLabel} at ${high}. The blend is worth ${target}. Find the quantity of each grade?`,
+        `${context.actor} makes ${total} of ${context.material} by mixing ${request.lowerComponentLabel} at ${low} with ${request.higherComponentLabel} at ${high}. The blend is worth ${target}. What quantity of each grade was used?`,
         `A ${total} blend worth ${target} is prepared from ${request.lowerComponentLabel} at ${low} and ${request.higherComponentLabel} at ${high}. How much of each grade is present?`,
-        `${context.actor} combines two grades priced at ${low} and ${high} to obtain ${total} worth ${target}. Determine the two component quantities?`,
+        `${context.actor} combines two grades priced at ${low} and ${high} to obtain ${total} worth ${target}. What are the two component quantities?`,
         `The total quantity is ${total}, and its average value is ${target}. If the source grades cost ${low} and ${high}, what quantity of each was mixed?`,
       ]);
     }
@@ -197,7 +197,7 @@ export function renderMalCp001Explanation(
       formula: "\\(M=\\frac{\\sum q_i v_i}{\\sum q_i}\\)",
       steps,
       verification: `Multiplying the final mean by the total quantity gives \\(${toLatex(multiplyRational(solution.value, solution.state.totalQuantity))}\\), exactly the sum of all component contributions.`,
-      conclusion: `The resulting ${context.material} is worth ${answer}.`,
+      conclusion: `The resulting blend is worth ${answer}.`,
       commonTrap: "Common trap: taking the simple average of source values even when the quantities are unequal.",
     };
   }
@@ -238,7 +238,7 @@ export function renderMalCp001Explanation(
         `Thus \\(v_x=\\frac{${toLatex(targetTotal)}-${toLatex(knownTotal)}}{${toLatex(request.unknownQuantity)}}=${toLatex(solution.value)}\\).`,
       ],
       verification: `Using the recovered value in the weighted equation gives the stated target \\(${toLatex(request.targetValue)}\\).`,
-      conclusion: `${request.unknownComponentLabel} is worth ${answer}.`,
+      conclusion: `The value of ${request.unknownComponentLabel} is ${answer}.`,
       commonTrap: "Common trap: subtracting source values directly instead of balancing weighted totals.",
     };
   }
