@@ -6,7 +6,7 @@ import { runTmwCp006Pipeline } from "./foundation/cp006-runtime";
 function normalize(value:string):string{return value.toLowerCase().replace(/\\\([^)]*\\\)/g,"<math>").replace(/\d+(?:\s+\d+\/\d+|\/\d+)?/g,"<n>").replace(/[^a-z<>]+/g," ").trim();}
 const exactStemOwner=new Map<string,string>(),normalizedStemOwner=new Map<string,string>(),exactExplanationOwner=new Map<string,string>();
 const contexts=new Set<string>(),resourceKinds=new Set<string>();
-let audited=0,invalid=0,unresolved=0,malformedMath=0,unwrappedMath=0,optionFailures=0,genericExplanationHits=0,genericConclusionHits=0,controlCharacterHits=0,grammarHits=0,jargonHits=0,weakExplanationHits=0,discreteAnswerHits=0,changeCountHits=0,dimensionVisibilityHits=0,resourceTimeUnitHits=0;
+let audited=0,invalid=0,unresolved=0,malformedMath=0,unwrappedMath=0,optionFailures=0,genericExplanationHits=0,genericConclusionHits=0,controlCharacterHits=0,grammarHits=0,jargonHits=0,weakExplanationHits=0,discreteAnswerHits=0,changeCountHits=0,dimensionVisibilityHits=0,resourceTimeUnitHits=0,hiddenRateExplanationHits=0,resourceTimeRedundancyHits=0;
 
 for(const entry of TMW_CP006_REGISTRY){
   for(let index=0;index<12;index+=1){
@@ -29,16 +29,18 @@ for(const entry of TMW_CP006_REGISTRY){
     if(entry.solveMode==="findWorkersRemovedForDelay"&&equals(generated.solution.answer,generated.parameters.stateB.resources))changeCountHits+=1;
     if(entry.solveMode==="findExtraWorkersFromPlannedVsActualProgress"&&equals(generated.solution.answer,generated.parameters.stateB.resources))changeCountHits+=1;
     if(entry.ruleId==="TMW_DIMENSIONAL_WORK")for(const label of generated.parameters.dimensionLabels??[])if(!generated.stem.includes(label))dimensionVisibilityHits+=1;
+    if(entry.solveMode==="findWorkQuantity"&&/[EH]_[12]/.test(generated.explanation.formula))hiddenRateExplanationHits+=1;
     if(entry.solveMode==="findEquivalentResourceTime"){
       const expectsHours=generated.parameters.context.resourceTimeUnit.endsWith("hours");
       if(expectsHours&&!/\bhours?\b/i.test(generated.stem))resourceTimeUnitHits+=1;
       if(!expectsHours&&!/\bdays?\b/i.test(generated.stem))resourceTimeUnitHits+=1;
+      if(/\\times\s*1(?:\D|$)/.test(generated.explanation.steps.join(" ")))resourceTimeRedundancyHits+=1;
     }
     const exactOwner=exactStemOwner.get(generated.stem);if(exactOwner&&exactOwner!==entry.qlId)throw new Error(`Exact cross-QL stem collision: ${exactOwner} / ${entry.qlId}`);exactStemOwner.set(generated.stem,entry.qlId);
     const normalized=normalize(generated.stem),normalizedOwner=normalizedStemOwner.get(normalized);if(normalizedOwner&&normalizedOwner!==entry.qlId)throw new Error(`Normalised cross-QL stem collision: ${normalizedOwner} / ${entry.qlId}: ${normalized}`);normalizedStemOwner.set(normalized,entry.qlId);
     const explanationOwner=exactExplanationOwner.get(explanation);if(explanationOwner&&explanationOwner!==entry.qlId)throw new Error(`Exact cross-QL explanation duplicate: ${explanationOwner} / ${entry.qlId}`);exactExplanationOwner.set(explanation,entry.qlId);
   }
 }
-assert.equal(invalid,0);assert.equal(unresolved,0);assert.equal(malformedMath,0);assert.equal(unwrappedMath,0);assert.equal(optionFailures,0);assert.equal(genericExplanationHits,0);assert.equal(genericConclusionHits,0);assert.equal(controlCharacterHits,0);assert.equal(grammarHits,0);assert.equal(jargonHits,0);assert.equal(weakExplanationHits,0);assert.equal(discreteAnswerHits,0);assert.equal(changeCountHits,0);assert.equal(dimensionVisibilityHits,0);assert.equal(resourceTimeUnitHits,0);
+assert.equal(invalid,0);assert.equal(unresolved,0);assert.equal(malformedMath,0);assert.equal(unwrappedMath,0);assert.equal(optionFailures,0);assert.equal(genericExplanationHits,0);assert.equal(genericConclusionHits,0);assert.equal(controlCharacterHits,0);assert.equal(grammarHits,0);assert.equal(jargonHits,0);assert.equal(weakExplanationHits,0);assert.equal(discreteAnswerHits,0);assert.equal(changeCountHits,0);assert.equal(dimensionVisibilityHits,0);assert.equal(resourceTimeUnitHits,0);assert.equal(hiddenRateExplanationHits,0);assert.equal(resourceTimeRedundancyHits,0);
 assert.ok(contexts.size>=8);assert.ok(resourceKinds.size>=5);
-console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-006",qlCount:22,seedsPerQl:12,audited,invalid,unresolved,malformedMath,unwrappedMath,optionFailures,genericExplanationHits,genericConclusionHits,controlCharacterHits,grammarHits,jargonHits,weakExplanationHits,discreteAnswerHits,changeCountHits,dimensionVisibilityHits,resourceTimeUnitHits,distinctContexts:contexts.size,distinctResourceKinds:resourceKinds.size,exactCrossQlStemCollisions:0,normalizedCrossQlStemCollisions:0,exactCrossQlExplanationDuplicates:0,status:"PASS"},null,2));
+console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-006",qlCount:22,seedsPerQl:12,audited,invalid,unresolved,malformedMath,unwrappedMath,optionFailures,genericExplanationHits,genericConclusionHits,controlCharacterHits,grammarHits,jargonHits,weakExplanationHits,discreteAnswerHits,changeCountHits,dimensionVisibilityHits,resourceTimeUnitHits,hiddenRateExplanationHits,resourceTimeRedundancyHits,distinctContexts:contexts.size,distinctResourceKinds:resourceKinds.size,exactCrossQlStemCollisions:0,normalizedCrossQlStemCollisions:0,exactCrossQlExplanationDuplicates:0,status:"PASS"},null,2));
