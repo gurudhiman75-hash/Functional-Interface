@@ -1,0 +1,57 @@
+{
+  "packageId": "PNC-002",
+  "canonicalProblemId": "PNC-CP-011",
+  "language": "en",
+  "entries": [
+    {
+      "qlId": "PNC-QL-219",
+      "difficulty": "Easy",
+      "template": "Each of {objectCount} distinct files must be placed in exactly one of {boxCount} labelled folders. A folder may remain empty. How many assignments are possible?"
+    },
+    {
+      "qlId": "PNC-QL-220",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} distinct parcels be placed in {boxCount} numbered lockers so that every locker receives at least one parcel?"
+    },
+    {
+      "qlId": "PNC-QL-221",
+      "difficulty": "Hard",
+      "template": "Each of {objectCount} distinct documents is filed in one of {boxCount} labelled cabinets. In how many assignments are exactly {nonEmptyBoxCount} cabinets used?"
+    },
+    {
+      "qlId": "PNC-QL-222",
+      "difficulty": "Medium",
+      "template": "Each of {objectCount} distinct samples is sent to exactly one of {boxCount} labelled laboratories. How many assignments leave at least one laboratory unused?"
+    },
+    {
+      "qlId": "PNC-QL-223",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} distinct trainees be assigned to three named rooms if the rooms must receive exactly {firstOccupancy}, {secondOccupancy} and {thirdOccupancy} trainees respectively?"
+    },
+    {
+      "qlId": "PNC-QL-224",
+      "difficulty": "Medium",
+      "template": "Each of {objectCount} distinct books is placed on one of {boxCount} numbered shelves. How many assignments put exactly {specifiedOccupancy} books on shelf 1, with no restriction on the other shelves?"
+    },
+    {
+      "qlId": "PNC-QL-225",
+      "difficulty": "Hard",
+      "template": "Each of {objectCount} distinct applications is assigned to one of {boxCount} named desks. In how many assignments does desk 1 receive exactly {specifiedOccupancy} applications and every other desk receive at least one?"
+    },
+    {
+      "qlId": "PNC-QL-226",
+      "difficulty": "Medium",
+      "template": "In how many ways can {objectCount} distinct tokens be divided among exactly {nonEmptyBoxCount} non-empty identical boxes, where swapping complete boxes does not create a new distribution?"
+    },
+    {
+      "qlId": "PNC-QL-227",
+      "difficulty": "Hard",
+      "template": "In how many ways can {objectCount} distinct records be divided among at most {maximumNonEmptyBoxes} non-empty identical boxes, where the boxes have no labels?"
+    },
+    {
+      "qlId": "PNC-QL-228",
+      "difficulty": "Hard",
+      "template": "In how many ways can {objectCount} distinct volunteers be divided into any number of non-empty unnamed groups?"
+    }
+  ]
+}
