@@ -76,6 +76,17 @@ export const ENGLISH_SENTENCE_CODE_FRAMES: readonly EnglishSentenceCodeFrame[] =
     status: "REVIEWED",
   },
   {
+    id: "PARTIAL-THREE-WAY-CORE-WITH-TWO-MODIFIERS",
+    topologyKind: "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION",
+    grammarFamily: "SUBJECT_VERB_OBJECT_MODIFIER",
+    rowTemplates: {
+      r1: "{TARGET} {TARGET_PARTNER_A} {TARGET_PARTNER_B} {MISSING_ROW_2} {MISSING_ROW_3}",
+      r2: "{TARGET} {TARGET_PARTNER_A} {TARGET_PARTNER_B} {MISSING_ROW_1} {MISSING_ROW_3}",
+      r3: "{TARGET} {TARGET_PARTNER_A} {TARGET_PARTNER_B} {MISSING_ROW_1} {MISSING_ROW_2}",
+    },
+    status: "REVIEWED",
+  },
+  {
     id: "PHRASE-SUBJECT-VERB-TWO-MODIFIERS",
     topologyKind: "PHRASE_SET_COMPOSITION",
     grammarFamily: "SUBJECT_VERB_MODIFIER",

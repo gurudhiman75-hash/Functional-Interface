@@ -11,6 +11,7 @@ export type SentenceCodeTopologyKind =
   | "FORKED_EVIDENCE_JOIN"
   | "GLOBAL_BIJECTION_DEDUCTION"
   | "CONTROLLED_PARTIAL_INFORMATION"
+  | "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION"
   | "PHRASE_SET_COMPOSITION"
   | "MISSING_MEMBER_COMPLETION";
 
@@ -150,6 +151,22 @@ const PATTERNS: Readonly<Record<SentenceCodeTopologyKind, TopologyPattern>> = {
     targetRole: "TARGET",
     expectedSolutionCount: 2,
     expectedQueryDomainSize: 2,
+    requireAllRowsForQuery: true,
+  },
+  CONTROLLED_THREE_WAY_PARTIAL_INFORMATION: {
+    kind: "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION",
+    rowCount: 3,
+    roles: [
+      { role: "TARGET", mask: 0b111 },
+      { role: "TARGET_PARTNER_A", mask: 0b111 },
+      { role: "TARGET_PARTNER_B", mask: 0b111 },
+      { role: "MISSING_ROW_1", mask: 0b110 },
+      { role: "MISSING_ROW_2", mask: 0b101 },
+      { role: "MISSING_ROW_3", mask: 0b011 },
+    ],
+    targetRole: "TARGET",
+    expectedSolutionCount: 6,
+    expectedQueryDomainSize: 3,
     requireAllRowsForQuery: true,
   },
   PHRASE_SET_COMPOSITION: {

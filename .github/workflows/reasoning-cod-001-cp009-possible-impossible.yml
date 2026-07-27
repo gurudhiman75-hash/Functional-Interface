@@ -1,0 +1,55 @@
+name: Reasoning COD-001 CP-009 Possible and Impossible
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/**"
+      - ".github/workflows/reasoning-cod-001-cp009-possible-impossible.yml"
+  workflow_dispatch:
+
+jobs:
+  cp009-possible-impossible:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run possible and impossible audit
+        id: predicate_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/possible-impossible-prototype.test.ts > cod-cp009-possible-impossible.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Upload possible and impossible diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-possible-impossible-audit
+          path: cod-cp009-possible-impossible.log
+          retention-days: 7
+
+      - name: Enforce possible and impossible result
+        shell: bash
+        run: |
+          cat cod-cp009-possible-impossible.log
+          test "${{ steps.predicate_audit.outputs.exit_code }}" = "0"
+
+      - name: Export possible and impossible review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-009/export-possible-impossible-review.ts cod-cp009-possible-impossible-review-output
+
+      - name: Upload possible and impossible review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: cod-001-cp009-possible-impossible-review
+          path: cod-cp009-possible-impossible-review-output
+          retention-days: 7

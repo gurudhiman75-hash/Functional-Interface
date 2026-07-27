@@ -145,8 +145,28 @@ function verifyTopologyObligation(generated: GeneratedSentenceCodeTopology): voi
     const partnerWord = generated.roleWordIds.TARGET_PARTNER!;
     const partnerToken = generated.roleTokens.TARGET_PARTNER!;
     const space = solveSentenceCodeConstraints(generated.puzzle);
-    assert.deepEqual(space.candidateTokensByWord[generated.targetWordId], uniqueSorted([generated.targetToken, partnerToken]));
-    assert.deepEqual(space.candidateTokensByWord[partnerWord], uniqueSorted([generated.targetToken, partnerToken]));
+    const candidates = uniqueSorted([generated.targetToken, partnerToken]);
+    assert.deepEqual(space.candidateTokensByWord[generated.targetWordId], candidates);
+    assert.deepEqual(space.candidateTokensByWord[partnerWord], candidates);
+    return;
+  }
+
+  if (generated.kind === "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION") {
+    const coreWords = [
+      generated.targetWordId,
+      generated.roleWordIds.TARGET_PARTNER_A!,
+      generated.roleWordIds.TARGET_PARTNER_B!,
+    ];
+    const coreTokens = uniqueSorted([
+      generated.targetToken,
+      generated.roleTokens.TARGET_PARTNER_A!,
+      generated.roleTokens.TARGET_PARTNER_B!,
+    ]);
+    const space = solveSentenceCodeConstraints(generated.puzzle);
+    assert.equal(space.solutionCount, 6);
+    for (const coreWord of coreWords) {
+      assert.deepEqual(space.candidateTokensByWord[coreWord], coreTokens);
+    }
     return;
   }
 
@@ -190,7 +210,10 @@ for (const kind of SENTENCE_CODE_TOPOLOGY_KINDS) {
     }
     minimalityChecks += first.puzzle.rows.length;
 
-    if (kind === "CONTROLLED_PARTIAL_INFORMATION") {
+    if (
+      kind === "CONTROLLED_PARTIAL_INFORMATION"
+      || kind === "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION"
+    ) {
       assert.equal(classifyWordTokenRelation(space, first.targetWordId, first.targetToken), "POSSIBLE");
     } else if (kind === "PHRASE_SET_COMPOSITION") {
       assert.equal(classifyWordsToTokenSetRelation(space, first.phraseWordIds!, first.phraseTokens!), "DEFINITE");
@@ -234,6 +257,11 @@ assert.equal(
   fingerprints.get("CONTROLLED_PARTIAL_INFORMATION")!.values().next().value,
   fingerprints.get("PHRASE_SET_COMPOSITION")!.values().next().value,
   "Phrase-set composition may share the same hidden topology while changing query semantics",
+);
+assert.notEqual(
+  fingerprints.get("CONTROLLED_PARTIAL_INFORMATION")!.values().next().value,
+  fingerprints.get("CONTROLLED_THREE_WAY_PARTIAL_INFORMATION")!.values().next().value,
+  "Two-way and three-way uncertainty must remain distinguishable topology fingerprints",
 );
 assert.notEqual(
   fingerprints.get("DIRECT_SINGLE_INTERSECTION")!.values().next().value,

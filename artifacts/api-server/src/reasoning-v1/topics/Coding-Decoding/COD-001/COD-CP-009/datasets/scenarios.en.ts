@@ -54,6 +54,12 @@ export const ENGLISH_SENTENCE_CODE_SCENARIOS: readonly EnglishSentenceCodeScenar
   scenario("PARTIAL-TEAMS-PRACTISE", "CONTROLLED_PARTIAL_INFORMATION", "sports", { TARGET: "teams", TARGET_PARTNER: "practise", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
   scenario("PARTIAL-WORKERS-WORK", "CONTROLLED_PARTIAL_INFORMATION", "work", { TARGET: "workers", TARGET_PARTNER: "work", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
 
+  scenario("PARTIAL3-CHILDREN-PLAY-GAMES", "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION", "people", { TARGET: "children", TARGET_PARTNER_A: "play", TARGET_PARTNER_B: "games", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
+  scenario("PARTIAL3-BIRDS-BUILD-NESTS", "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION", "nature", { TARGET: "birds", TARGET_PARTNER_A: "build", TARGET_PARTNER_B: "nests", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
+  scenario("PARTIAL3-WORKERS-COMPLETE-TASKS", "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION", "work", { TARGET: "workers", TARGET_PARTNER_A: "complete", TARGET_PARTNER_B: "tasks", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
+  scenario("PARTIAL3-TEAMS-PRACTISE-SKILLS", "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION", "sports", { TARGET: "teams", TARGET_PARTNER_A: "practise", TARGET_PARTNER_B: "skills", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
+  scenario("PARTIAL3-FRIENDS-READ-BOOKS", "CONTROLLED_THREE_WAY_PARTIAL_INFORMATION", "people", { TARGET: "friends", TARGET_PARTNER_A: "read", TARGET_PARTNER_B: "books", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
+
   scenario("PHRASE-DOGS-RUN", "PHRASE_SET_COMPOSITION", "nature", { PHRASE_A: "dogs", PHRASE_B: "run", MISSING_ROW_1: "fast", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
   scenario("PHRASE-PLAYERS-TRAIN", "PHRASE_SET_COMPOSITION", "sports", { PHRASE_A: "players", PHRASE_B: "train", MISSING_ROW_1: "hard", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
   scenario("PHRASE-FRIENDS-MEET", "PHRASE_SET_COMPOSITION", "people", { PHRASE_A: "friends", PHRASE_B: "meet", MISSING_ROW_1: "outside", MISSING_ROW_2: "daily", MISSING_ROW_3: "together" }),
