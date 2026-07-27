@@ -4,7 +4,9 @@ import { runTmwCp005Pipeline } from "./foundation/cp005-runtime";
 function normalize(value:string):string{return value.toLowerCase().replace(/\\\([^)]*\\\)/g,"<math>").replace(/\d+(?:\s+\d+\/\d+|\/\d+)?/g,"<n>").replace(/[^a-z<>]+/g," ").trim();}
 const exactStemOwner=new Map<string,string>(),normalizedStemOwner=new Map<string,string>(),exactExplanationOwner=new Map<string,string>();
 const contextPhrases=new Set<string>(),contextActors=new Set<string>();
-let audited=0,invalid=0,unresolved=0,malformedMath=0,unwrappedMath=0,optionFailures=0,genericExplanationHits=0,controlCharacterHits=0,assignmentWordHits=0,grammarHits=0;
+const completionModes=new Set(["findCompletionTimeForTwoAgentAlternationStartingA","findCompletionTimeForTwoAgentAlternationStartingB","findCompletionTimeForMultiDayCycle","findCompletionTimeForThreeAgentCycle","findCompletionWhenHelperWorksEveryNthDay","findCompletionWhenAgentRestsEveryNthDay","findCompletionWithWeekendOrHolidayPattern","findCompletionWithUnequalShiftDurations","findCompletionWithTwoDaysOnOneDayOffPattern","findCompletionWithPeriodicNegativeWork","findCompletionWithRepeatedJoinLeaveCycle","findTimeFromArbitraryCyclePhase","findCompletionWithinCycleSegment"]);
+const inverseModes=new Set(["findUnknownRateFromAlternatingCompletion","findUnknownTimeFromAlternatingCompletion","findRequiredCycleRateForDeadline"]);
+let audited=0,invalid=0,unresolved=0,malformedMath=0,unwrappedMath=0,optionFailures=0,genericExplanationHits=0,controlCharacterHits=0,assignmentWordHits=0,grammarHits=0,ordinalHits=0,jargonOpeningHits=0,missingCompletionDerivations=0,missingInverseDerivations=0;
 for(const entry of TMW_CP005_REGISTRY){
  for(let index=0;index<12;index++){
   const generated=runTmwCp005Pipeline({questionLanguageId:entry.qlId,seed:`tmw-cp005-audit:${entry.qlId}:${index}`});
@@ -19,11 +21,16 @@ for(const entry of TMW_CP005_REGISTRY){
   if(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/.test(generated.stem+explanation))controlCharacterHits+=1;
   assignmentWordHits+=(generated.stem.match(/\bassignment\b/gi)??[]).length;
   grammarHits+=(generated.stem.match(/\b1 (?:days|hours|cycles)\b|\ba 8-hour\b/gi)??[]).length;
+  ordinalHits+=(generated.stem.match(/\b(?:1th|2th|3th)\b/gi)??[]).length;
+  if(/terminal|phase|reconstruct|cycle position/i.test(generated.explanation.opening))jargonOpeningHits+=1;
+  const stepText=generated.explanation.steps.join(" ");
+  if(completionModes.has(entry.solveMode)&&(!/W_\{remaining\}/.test(stepText)||!/t_\{final\}/.test(stepText)))missingCompletionDerivations+=1;
+  if(inverseModes.has(entry.solveMode)&&(!/W_\{known\}/.test(stepText)||!/W_\{remaining\}/.test(stepText)||!/t_x/.test(stepText)))missingInverseDerivations+=1;
   const exactOwner=exactStemOwner.get(generated.stem);if(exactOwner&&exactOwner!==entry.qlId)throw new Error(`Exact cross-QL stem collision: ${exactOwner} / ${entry.qlId}`);exactStemOwner.set(generated.stem,entry.qlId);
   const normalized=normalize(generated.stem),normalizedOwner=normalizedStemOwner.get(normalized);if(normalizedOwner&&normalizedOwner!==entry.qlId)throw new Error(`Normalised cross-QL stem collision: ${normalizedOwner} / ${entry.qlId}: ${normalized}`);normalizedStemOwner.set(normalized,entry.qlId);
   const explanationOwner=exactExplanationOwner.get(explanation);if(explanationOwner&&explanationOwner!==entry.qlId)throw new Error(`Exact cross-QL explanation duplicate: ${explanationOwner} / ${entry.qlId}`);exactExplanationOwner.set(explanation,entry.qlId);
  }
 }
-assert.equal(invalid,0);assert.equal(unresolved,0);assert.equal(malformedMath,0);assert.equal(unwrappedMath,0);assert.equal(optionFailures,0);assert.equal(genericExplanationHits,0);assert.equal(controlCharacterHits,0);assert.equal(assignmentWordHits,0);assert.equal(grammarHits,0);
+assert.equal(invalid,0);assert.equal(unresolved,0);assert.equal(malformedMath,0);assert.equal(unwrappedMath,0);assert.equal(optionFailures,0);assert.equal(genericExplanationHits,0);assert.equal(controlCharacterHits,0);assert.equal(assignmentWordHits,0);assert.equal(grammarHits,0);assert.equal(ordinalHits,0);assert.equal(jargonOpeningHits,0);assert.equal(missingCompletionDerivations,0);assert.equal(missingInverseDerivations,0);
 assert.ok(contextPhrases.size>=10);assert.ok(contextActors.size>=10);
-console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-005",qlCount:24,seedsPerQl:12,audited,invalid,unresolved,malformedMath,unwrappedMath,optionFailures,genericExplanationHits,controlCharacterHits,assignmentWordHits,grammarHits,distinctContextPhrases:contextPhrases.size,distinctContextActors:contextActors.size,exactCrossQlStemCollisions:0,normalizedCrossQlStemCollisions:0,exactCrossQlExplanationDuplicates:0,status:"PASS"},null,2));
+console.log(JSON.stringify({chapter:"TMW-001",checkpoint:"TMW-CP-005",qlCount:24,seedsPerQl:12,audited,invalid,unresolved,malformedMath,unwrappedMath,optionFailures,genericExplanationHits,controlCharacterHits,assignmentWordHits,grammarHits,ordinalHits,jargonOpeningHits,missingCompletionDerivations,missingInverseDerivations,distinctContextPhrases:contextPhrases.size,distinctContextActors:contextActors.size,exactCrossQlStemCollisions:0,normalizedCrossQlStemCollisions:0,exactCrossQlExplanationDuplicates:0,status:"PASS"},null,2));
