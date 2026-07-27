@@ -95,11 +95,17 @@ function protectTextCompounds(value: string, store: string[]) {
   );
 }
 
+function protectNamedPhrases(value: string, store: string[]) {
+  return value
+    .replace(/\bHeron's formula\b/gi, () => protect(store, "\\text{Heron's formula}"))
+    .replace(/\bPythagoras' theorem\b/gi, () => protect(store, "\\text{Pythagoras' theorem}"));
+}
+
 export function toMen001LatexEquation(input: string) {
   const protectedValues: string[] = [];
   let value = stripMathDelimiters(input);
 
-  value = value
+  value = protectNamedPhrases(value, protectedValues)
     .replace(/\\text\{[^{}]*\}/g, (match) => protect(protectedValues, match))
     .replace(/\\(?:sqrt|frac|times|div|cdot|pi|theta|max|min)\b/g, (match) => protect(protectedValues, match));
 
@@ -142,6 +148,7 @@ export function toMen001LatexEquation(input: string) {
     .trim();
 
   return restoreProtected(spaced, protectedValues)
+    .replace(/\\text\{(cm|m)\}\^2/g, "\\text{$1}^{2}")
     .replace(/\s+/g, " ")
     .replace(/\s+\\,/g, "\\,")
     .trim();

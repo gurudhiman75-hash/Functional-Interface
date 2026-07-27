@@ -51,8 +51,32 @@ assert.ok(
   toMen001LatexEquation("lving the resulting quadratic gives w = 4").startsWith("\\text{Solving}"),
   "The legacy prefix-removal artefact must be repaired for display.",
 );
+assert.equal(
+  toMen001LatexEquation("Heron's formula is A = √[s(s − a)(s − b)(s − c)]"),
+  "\\text{Heron's formula} \\text{is} A = \\sqrt{s(s - a)(s - b)(s - c)}",
+  "Heron's formula must remain one possessive text phrase in LaTeX.",
+);
+assert.equal(
+  toMen001LatexEquation("A = 48 m²"),
+  "A = 48\\,\\text{m}^{2}",
+  "Square units must use a braced exponent.",
+);
 
 const forbiddenNotation = /\\text\{(?:LB|Lw|Bw|kP|p|n|lving)\}/;
+const forbiddenTitles = new Set([
+  "Complete the Calculation",
+  "Continue the Calculation",
+  "Finalize the Numerical Result",
+  "Substitute in the Area Formula",
+  "Substitute the Given Values",
+]);
+const forbiddenParagraphs = new Set([
+  "Carry out this calculation exactly.",
+  "Evaluate the final numerical expression.",
+  "Evaluate the remaining expression to obtain the required numerical value.",
+  "Substitute the supplied measurements into the governing formula.",
+  "Use the previous result in the next part of the calculation.",
+]);
 
 for (const entry of getMen001QuestionEntries()) {
   for (let sample = 0; sample < 3; sample += 1) {
@@ -81,6 +105,14 @@ for (const entry of getMen001QuestionEntries()) {
         section.equations.every((equation) => !forbiddenNotation.test(equation)),
         `${entry.qlId} converts a mathematical variable or truncated narrative into prose notation.`,
       );
+      assert.ok(
+        section.equations.every((equation) => !/\\text\{Heron\}'s|\\text\{(?:m|cm)\}\^2/.test(equation)),
+        `${entry.qlId} contains a possessive-text or square-unit LaTeX regression.`,
+      );
+      assert.ok(
+        section.paragraphs.every((paragraph) => !forbiddenParagraphs.has(paragraph)),
+        `${entry.qlId} contains a generic filler paragraph.`,
+      );
     }
 
     const steps = question.explanation.sections.filter(
@@ -90,6 +122,7 @@ for (const entry of getMen001QuestionEntries()) {
     steps.forEach((step, index) => {
       assert.equal(step.stepNumber, index + 1);
       assert.ok(step.title.trim().length > 0);
+      assert.ok(!forbiddenTitles.has(step.title), `${entry.qlId} contains generic step title '${step.title}'.`);
       assert.ok(step.paragraphs.length > 0 || step.equations.length > 0);
       if (index > 0) {
         assert.notEqual(
@@ -111,5 +144,5 @@ for (const entry of getMen001QuestionEntries()) {
 }
 
 console.log(
-  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with MathJax-ready equations and preserved mathematical variables.`,
+  `MEN-001 structured explanation audit passed for ${getMen001QuestionEntries().length} QLs, ${getMen001SolveModeIds().length} solve modes and three deterministic states each with MathJax-ready equations, preserved variables and no generic filler steps.`,
 );

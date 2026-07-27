@@ -86,6 +86,21 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/men-001-structured-explanation.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/men-001-structured-explanation.log
 
+      - name: Bundle exam-strategy polish audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/exam-strategy-polish.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/men-001-exam-strategy-polish.test.mjs
+
+      - name: Run exam-strategy polish audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/men-001-exam-strategy-polish.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/men-001-exam-strategy-polish.log
+
       - name: Build API production bundle
         run: node artifacts/api-server/build.mjs
 
@@ -101,6 +116,7 @@ jobs:
             artifacts/api-server/dist/quant-v4/men-001-runtime-proof.log
             artifacts/api-server/dist/quant-v4/men-001-natural-explanation-authorship.log
             artifacts/api-server/dist/quant-v4/men-001-structured-explanation.log
+            artifacts/api-server/dist/quant-v4/men-001-exam-strategy-polish.log
           if-no-files-found: error
           retention-days: 7
 
