@@ -40,6 +40,16 @@ jobs:
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
 
+      - name: Run task merge-split audit
+        id: merge_split_audit
+        shell: bash
+        run: |
+          set +e
+          npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/uniform-digit-merge-split.test.ts > cod-cp007-uniform-digit-merge-split.log 2>&1
+          status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
       - name: Combine audit diagnostics
         if: always()
         shell: bash
@@ -50,6 +60,9 @@ jobs:
             echo
             echo "=== EDITORIAL DIVERSITY AUDIT ==="
             cat cod-cp007-uniform-digit-editorial.log
+            echo
+            echo "=== TASK MERGE-SPLIT AUDIT ==="
+            cat cod-cp007-uniform-digit-merge-split.log
           } > cod-cp007-uniform-digit.log
 
       - name: Upload prototype diagnostics
@@ -66,6 +79,7 @@ jobs:
           cat cod-cp007-uniform-digit.log
           test "${{ steps.prototype_audit.outputs.exit_code }}" = "0"
           test "${{ steps.editorial_audit.outputs.exit_code }}" = "0"
+          test "${{ steps.merge_split_audit.outputs.exit_code }}" = "0"
 
       - name: Export polished English prototype review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-CP-007/export-uniform-digit-polished-review.ts cod-cp007-uniform-digit-review-output
