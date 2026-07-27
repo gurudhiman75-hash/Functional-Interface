@@ -10,6 +10,7 @@ on:
       - artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/lib/generated-question-publication.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioOpsStatus.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/ops-001-integration.yml
@@ -23,6 +24,7 @@ on:
       - artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/lib/generated-question-publication.ts
       - artifacts/admin-app/src/pages/content/QuestionStudioOpsStatus.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
       - .github/workflows/ops-001-integration.yml
@@ -75,6 +77,7 @@ jobs:
             src/routes/admin-question-studio-ops.ts \
             src/routes/admin-question-lifecycle-hardening.ts \
             src/lib/admin-question-conversion.ts \
+            src/lib/generated-question-publication.ts \
             > /tmp/ops-001-integration-typescript.log 2>&1
           status=$?
           cat /tmp/ops-001-integration-typescript.log
@@ -91,6 +94,9 @@ jobs:
 
       - name: Run frozen OPS-001 integration proof
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/integration/ops-001-integration.test.ts
+
+      - name: Run converted-question publication lock proof
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/integration/ops-001-publication-lock.test.ts
 
       - name: Build API server with OPS route registered
         working-directory: artifacts/api-server
