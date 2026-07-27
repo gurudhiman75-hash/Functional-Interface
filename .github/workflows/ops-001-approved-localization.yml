@@ -1,0 +1,90 @@
+name: Validate OPS-001 approved all-contract localization
+
+on:
+  push:
+    branches:
+      - feat/ops-001-end-to-end-design
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/**
+      - .github/workflows/ops-001-approved-localization.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation/**
+      - artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/**
+      - .github/workflows/ops-001-approved-localization.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-ops-001-approved-localization-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  approved-localization-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/foundation -name '*.ts' -print) \
+            $(find src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot -name '*.ts' -print)
+      - name: Run Hindi Punjabi all-contract proof
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localization.test.ts > /tmp/ops-approved-localization.log 2>&1
+          status=$?
+          cat /tmp/ops-approved-localization.log
+          exit $status
+      - name: Upload localization diagnostic
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-approved-localization-diagnostic
+          path: /tmp/ops-approved-localization.log
+          if-no-files-found: error
+          retention-days: 3
+      - name: Generate Hindi Punjabi review bundle
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localized-review-export.ts ./ops-001-approved-localized-review
+      - name: Apply responsive and numbering fixes
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-device-layout-patch.ts ./ops-001-approved-localized-review
+      - name: Generate targeted option-fix review
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Mathematical-Operations/OPS-001/pilot/approved-localized-option-fix-review-export.ts ./ops-001-targeted-localized-option-review
+      - name: Upload Hindi Punjabi review bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-approved-hi-pa-v3-review-310
+          path: ops-001-approved-localized-review
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload targeted option-fix review
+        uses: actions/upload-artifact@v4
+        with:
+          name: ops-001-targeted-hi-pa-option-fix-30
+          path: ops-001-targeted-localized-option-review
+          if-no-files-found: error
+          retention-days: 14

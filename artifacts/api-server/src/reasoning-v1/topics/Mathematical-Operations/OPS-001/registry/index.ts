@@ -1,0 +1,15 @@
+export {
+  OPS_CHECKPOINT_RANGES,
+  OPS_MERGED_PRESENTATION_ALIASES,
+  OPS_QL_ENTRIES,
+  OPS_QL_FREEZE_VERSION,
+  assertApprovedCandidateCoverage,
+  generateFrozenOpsQuestion,
+  generateLocalizedFrozenOpsQuestion,
+  getOpsQlEntry,
+  type FrozenOpsQuestion,
+  type LocalizedFrozenOpsQuestion,
+  type OpsCheckpointId,
+  type OpsQlId,
+  type OpsQlManifestEntry,
+} from "./ops-ql-registry";

@@ -4,6 +4,7 @@ import { Router, type Response } from "express";
 import { QuestionManagementError } from "../lib/admin-question-management";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
+import { isGeneratedQuestionPublicationBlocked } from "../lib/generated-question-publication";
 import { authenticate } from "../middlewares/auth";
 
 const router = Router();
@@ -28,7 +29,7 @@ router.post(
   requireAdminPermission("content.questions.publish"),
   async (req, res) => {
     try {
-      const questionId = req.params.id;
+      const questionId = String(req.params.id ?? "");
       if (!isUuid(questionId)) {
         throw new QuestionManagementError("INVALID_QUESTION_ID", "Invalid question identifier", 400);
       }
@@ -53,6 +54,7 @@ router.post(
             v.exam_version_id AS "examVersionId",
             v.stem,
             v.explanation,
+            v.answer_model AS "answerModel",
             (SELECT COUNT(*)::int FROM content.question_options o WHERE o.question_version_id = v.id) AS "optionCount",
             (SELECT COUNT(*)::int FROM content.question_options o WHERE o.question_version_id = v.id AND o.is_correct = true) AS "correctOptionCount",
             (SELECT COUNT(*)::int FROM content.question_taxonomy_links l WHERE l.question_version_id = v.id) AS "taxonomyCount"
@@ -80,6 +82,9 @@ router.post(
         if (!String(question.explanation ?? "").trim()) issues.push("Question explanation is required.");
         if (Number(question.optionCount ?? 0) < 2) issues.push("At least two options are required.");
         if (Number(question.correctOptionCount ?? 0) !== 1) issues.push("Exactly one correct option is required.");
+        if (isGeneratedQuestionPublicationBlocked(question.answerModel)) {
+          issues.push("This generated question is locked for internal review and cannot be published yet.");
+        }
         if (issues.length > 0) {
           throw new QuestionManagementError("QUESTION_NOT_PUBLISHABLE", "Question is not ready to publish", 409, issues);
         }

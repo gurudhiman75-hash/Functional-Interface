@@ -45,6 +45,9 @@ export function normalizeGeneratedQuestionPayload(
   context: { itemId: string; generationRunCode: string },
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
+  const metadata = asRecord(payload.metadata);
+  const traceability = asRecord(payload.traceability);
+  const generationContext = asRecord(payload.generationContext);
   const stem = asText(payload.text) || asText(payload.stem);
   const explanation = asText(payload.explanation) || "Explanation pending editorial review.";
   const difficulty = asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
@@ -76,11 +79,44 @@ export function normalizeGeneratedQuestionPayload(
         generationItemId: context.itemId,
         generationRunCode: context.generationRunCode,
         providerQuestionId: payload.questionId ?? null,
-        packageId: payload.packageId ?? null,
+        packageId: payload.packageId ?? metadata.packageId ?? null,
         patternId: payload.patternId ?? null,
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
-        language: payload.language ?? "en",
+        language: payload.language ?? metadata.language ?? "en",
+        generationDomain:
+          payload.generationBackend ??
+          generationContext.generationDomain ??
+          metadata.generationDomain ??
+          null,
+        qlId:
+          payload.qlId ??
+          payload.questionLanguageId ??
+          metadata.qlId ??
+          traceability.qlId ??
+          null,
+        checkpointId:
+          payload.checkpointId ??
+          payload.canonicalProblemId ??
+          metadata.checkpointId ??
+          traceability.checkpointId ??
+          null,
+        candidateId: metadata.candidateId ?? traceability.candidateId ?? null,
+        qlFreezeVersion:
+          metadata.qlFreezeVersion ??
+          traceability.qlFreezeVersion ??
+          generationContext.qlFreezeVersion ??
+          null,
+        publiclyPublishable:
+          payload.publiclyPublishable ??
+          metadata.publiclyPublishable ??
+          generationContext.publiclyPublishable ??
+          null,
+        publicationEnabled:
+          payload.publicationEnabled ??
+          metadata.publicationEnabled ??
+          generationContext.publicationEnabled ??
+          null,
       },
     },
   };
