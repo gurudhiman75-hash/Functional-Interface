@@ -63,7 +63,7 @@
       "lines": [
         "Begin with all weak compositions and exclude allocations that exceed the common capacity.",
         "Inclusion-exclusion selects the receivers that violate the capacity and shifts each selected receiver by {capacityPlusOne} objects.",
-        "The controlled equal-capacity calculation is {equation}.",
+        "The general controlled-capacity formula is \\(\\sum_{j=0}^b(-1)^j\\binom bj\\binom{n-j(c+1)+b-1}{b-1}\\).",
         "Therefore, {answer} allocations obey the capacity limit."
       ]
     },
