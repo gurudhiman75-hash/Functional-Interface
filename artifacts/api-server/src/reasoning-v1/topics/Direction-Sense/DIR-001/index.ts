@@ -1,4 +1,5 @@
 export * from "./DIR-001-CHAPTER-MANIFEST";
+export * from "./DIR-001-ENGLISH-FREEZE";
 export * from "./chapter-registry";
 export * from "./foundation";
 export * from "./DIR-CP-001";
