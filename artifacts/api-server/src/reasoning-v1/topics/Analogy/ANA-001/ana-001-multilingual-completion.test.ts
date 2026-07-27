@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
 interface CheckpointCoverage {
   readonly checkpoint: string;
@@ -78,7 +77,13 @@ const COVERAGE: readonly CheckpointCoverage[] = [
   },
 ] as const;
 
-const root = dirname(fileURLToPath(import.meta.url));
+const repoRoot = process.cwd().endsWith("artifacts/api-server")
+  ? join(process.cwd(), "../..")
+  : process.cwd();
+const root = join(
+  repoRoot,
+  "artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001",
+);
 const supportedLocales = ["en-IN", "hi-IN", "pa-IN"] as const;
 const forbiddenPunjabiEditorialTerms = [
   "ਪਦ",
