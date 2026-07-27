@@ -1027,14 +1027,22 @@ function wrongCandidates(
     case "RATE_TO_FRACTION": {
       if (result.mode !== request.mode) break;
       const costBaseFraction = divideRational(request.ratePercent, rational(100));
+      const oppositeBaseDenominator =
+        request.direction === "PROFIT"
+          ? subtractRational(rational(1), costBaseFraction)
+          : addRational(rational(1), costBaseFraction);
+      const oppositeBaseCandidate =
+        compareRational(oppositeBaseDenominator, rational(0)) === 0
+          ? divideRational(costBaseFraction, rational(100))
+          : divideRational(costBaseFraction, oppositeBaseDenominator);
       candidates.push(
         fractionCandidate(costBaseFraction, "Uses the fraction of cost price instead of selling price."),
         fractionCandidate(rational(result.amountFraction.denominator, result.amountFraction.numerator), "Takes the reciprocal of the required fraction."),
         fractionCandidate(
-          request.direction === "PROFIT"
-            ? divideRational(costBaseFraction, subtractRational(rational(1), costBaseFraction))
-            : divideRational(costBaseFraction, addRational(rational(1), costBaseFraction)),
-          "Uses the opposite selling-price base conversion."),
+          oppositeBaseCandidate,
+          compareRational(oppositeBaseDenominator, rational(0)) === 0
+            ? "Divides the decimal rate by 100 a second time."
+            : "Uses the opposite selling-price base conversion."),
       );
       break;
     }
