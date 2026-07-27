@@ -19,6 +19,12 @@ function pairs(values: readonly string[]): readonly (readonly [string, string])[
   return output;
 }
 
+function isNaturalNounVerbPair(members: readonly string[]): boolean {
+  const parts = members.map((member) => getEnglishSentenceCodeLexeme(member).partOfSpeech);
+  return parts.filter((part) => part === "NOUN").length === 1
+    && parts.filter((part) => part === "VERB").length === 1;
+}
+
 function naturalWordPair(members: readonly string[]): string[] {
   const rank: Readonly<Record<string, number>> = {
     ADJECTIVE: 0,
@@ -57,7 +63,8 @@ export function buildResolvedCompositionOptions(
   )));
   const wrongPairs = pairs(activeValues)
     .map((members) => uniqueSorted(members))
-    .filter((members) => canonicalSetKey(members) !== correctKey);
+    .filter((members) => canonicalSetKey(members) !== correctKey)
+    .filter((members) => contract.queryDirection !== "TOKENS_TO_WORDS" || isNaturalNounVerbPair(members));
   if (wrongPairs.length < 3) throw new Error(`${prototypeId}/${seed} lacks set distractors`);
 
   const correct: ResolvedCompositionOption = {
