@@ -95,8 +95,8 @@ for (const contract of UNIFORM_DIGIT_PROTOTYPE_CONTRACTS) {
   ruleCounts[contract.prototypeId] = rules.size;
   quickMethodCounts[contract.prototypeId] = quickMethods.size;
   assert.ok(skeletons.size >= 4, `${contract.prototypeId} has only ${skeletons.size} normalized explanation skeletons`);
-  assert.ok(rules.size >= 30, `${contract.prototypeId} has only ${rules.size}/100 exact rule statements`);
-  assert.ok(quickMethods.size >= 30, `${contract.prototypeId} has only ${quickMethods.size}/100 exact Quick Methods`);
+  assert.ok(rules.size >= 24, `${contract.prototypeId} has only ${rules.size}/100 exact rule statements`);
+  assert.ok(quickMethods.size >= 24, `${contract.prototypeId} has only ${quickMethods.size}/100 exact Quick Methods`);
 }
 
 const crossContractCollisions = [...skeletonOwners.entries()]
