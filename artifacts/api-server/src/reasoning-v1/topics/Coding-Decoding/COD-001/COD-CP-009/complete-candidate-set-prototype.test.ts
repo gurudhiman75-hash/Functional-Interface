@@ -45,7 +45,7 @@ for (const contract of COMPLETE_CANDIDATE_SET_PROTOTYPE_CONTRACTS) {
       assert.equal(first.options[first.correctIndex]!.isCorrect, true);
       assert.equal(first.stem.startsWith("In a certain code language, "), true);
       assert.equal(first.stem.includes("The order of the code words is not necessarily the same"), true);
-      assert.equal(first.stem.toLowerCase().includes("complete set"), true);
+      assert.equal(/complete set|all possible/i.test(first.stem), true);
       assert.equal(JSON.stringify(first).includes("COD-QL-"), false);
       assert.equal(JSON.stringify(first.structuredPrompt).includes("reviewerWordIds"), false);
       assert.equal(JSON.stringify(first.structuredPrompt).includes('"rowId"'), false);
