@@ -1,0 +1,524 @@
+name: One-shot PNL CP-001 dynamic review integration patch
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp001-question-studio-dynamic-review
+    paths:
+      - ".github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp001-question-studio-dynamic-review
+
+      - name: Patch runtime selection and safety surfaces
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: Path, old: str, new: str, label: str):
+              source = path.read_text()
+              count = source.count(old)
+              if count != 1:
+                  raise SystemExit(f"{path}: expected one {label}, found {count}")
+              path.write_text(source.replace(old, new))
+
+          engine = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
+          replace_once(
+              engine,
+              '''} from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime";
+
+export type QuantV4PackageId''',
+              '''} from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/question-studio-review-runtime";
+import { runPnlCp001DynamicPipeline } from "./topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-001/cp001-dynamic-runtime";
+
+export type QuantV4PackageId''',
+              "CP-001 dynamic import",
+          )
+          replace_once(
+              engine,
+              '''  packageId?: QuantV4PackageId;
+  archetypeId?: QuantV4PackageId;
+};''',
+              '''  packageId?: QuantV4PackageId;
+  archetypeId?: QuantV4PackageId;
+  runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
+};''',
+              "runtime-mode request field",
+          )
+          replace_once(
+              engine,
+              '''const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
+const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
+''',
+              '''const RAP_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
+const PNL_LANGUAGES: readonly QuantV4Language[] = ["en"];
+const PNL_DYNAMIC_CP_IDS = ["PNL-CP-001"] as const;
+type Pnl001RuntimeMode = "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
+''',
+              "PNL dynamic constants",
+          )
+          replace_once(
+              engine,
+              '''class QuantV4RequestError extends Error {
+  readonly statusCode = 400;
+
+  constructor(message: string) {
+    super(message);
+    this.name = "QuantV4RequestError";
+  }
+}
+
+function normalizeDifficulty''',
+              '''class QuantV4RequestError extends Error {
+  readonly statusCode = 400;
+
+  constructor(message: string) {
+    super(message);
+    this.name = "QuantV4RequestError";
+  }
+}
+
+function normalizePnlRuntimeMode(value: unknown): Pnl001RuntimeMode {
+  const normalized = String(value ?? "CANONICAL_REVIEW").trim().toUpperCase();
+  if (normalized === "CANONICAL_REVIEW" || normalized === "DYNAMIC_CANDIDATE") {
+    return normalized;
+  }
+  throw new QuantV4RequestError(
+    `Unsupported PNL-001 runtime mode '${String(value ?? "")}'.`,
+  );
+}
+
+function normalizeDifficulty''',
+              "PNL runtime normalizer",
+          )
+          replace_once(
+              engine,
+              '''    runtimeMode: "CANONICAL_REVIEW",
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+''',
+              '''    runtimeMode: "CANONICAL_REVIEW",
+    supportedRuntimeModes: ["CANONICAL_REVIEW", "DYNAMIC_CANDIDATE"],
+    dynamicCandidateCpIds: [...PNL_DYNAMIC_CP_IDS],
+    questionBankStatus: "NOT_STORED",
+    testEligibility: "INELIGIBLE",
+    publiclyPublishable: false,
+''',
+              "Question Studio runtime capabilities",
+          )
+          old_function = '''async function generateWithRuntimePackage(
+  pkg: QuantV4PackageDefinition,
+  request: QuantV4GenerationRequest,
+  language: QuantV4Language,
+) {
+  const supportedLanguages = pkg.supportedLanguages ?? ["en"];
+  if (!supportedLanguages.includes(language)) {
+    throw new QuantV4RequestError(
+      `${pkg.packageId} does not support language '${language}'.`,
+    );
+  }
+
+  const count = Math.min(
+    1000,
+    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
+  );
+  const difficultyBand = normalizeDifficulty(request.difficulty);
+  const batchSeed =
+    request.seed ??
+    [
+      "quant-v4",
+      request.packageId ??
+        request.archetypeId ??
+        request.patternId ??
+        request.subtopic ??
+        pkg.packageId,
+      request.canonicalProblemId ?? request.cpId ?? "mixed",
+      Date.now(),
+      Math.random().toString(36).slice(2),
+    ].join(":");
+
+  const explicitCp = request.canonicalProblemId ?? request.cpId;
+  const selectedCp = resolveCpId(pkg, request);
+  const cpOrder = explicitCp
+    ? [selectedCp]
+    : shuffled(pkg.cpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
+  const results: Array<{ questionPackage: any; question: any }> = [];
+
+  for (let index = 0; index < count; index += 1) {
+    if (index > 0 && index % 100 === 0) {
+      await new Promise((resolve) => setImmediate(resolve));
+    }
+    const cpId = cpOrder[index % cpOrder.length]!;
+    const seed = `${batchSeed}:${cpId}:${index}`;
+    const questionPackage = await pkg.run(cpId, {
+      difficulty: difficultyBand,
+      language,
+      questionLanguageId: request.questionLanguageId,
+      seed,
+    });
+    results.push({
+      questionPackage,
+      question: toQuestionStudioPreview(questionPackage, {
+        packageDefinition: pkg,
+        questionIndex: index + 1,
+        questionCount: count,
+        seed,
+      }),
+    });
+  }
+
+  return {
+    generationContext: {
+      generationDomain: "quant-v4",
+      seed: batchSeed,
+      timestamp: Date.now(),
+      runtimeMode:
+        pkg.packageId === PNL_RUNTIME_PACKAGE.packageId
+          ? "CANONICAL_REVIEW"
+          : "DYNAMIC",
+    },
+    questionPackages: results.map((item) => item.questionPackage),
+    questions: results.map((item) => item.question),
+  };
+}'''
+          new_function = '''async function generateWithRuntimePackage(
+  pkg: QuantV4PackageDefinition,
+  request: QuantV4GenerationRequest,
+  language: QuantV4Language,
+) {
+  const supportedLanguages = pkg.supportedLanguages ?? ["en"];
+  if (!supportedLanguages.includes(language)) {
+    throw new QuantV4RequestError(
+      `${pkg.packageId} does not support language '${language}'.`,
+    );
+  }
+
+  const isPnl = pkg.packageId === PNL_RUNTIME_PACKAGE.packageId;
+  const pnlRuntimeMode = isPnl
+    ? normalizePnlRuntimeMode(request.runtimeMode)
+    : undefined;
+  const runtimeCpIds = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+    ? [...PNL_DYNAMIC_CP_IDS]
+    : pkg.cpIds;
+  const runtimePackage = runtimeCpIds === pkg.cpIds
+    ? pkg
+    : { ...pkg, cpIds: runtimeCpIds };
+
+  const count = Math.min(
+    1000,
+    Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
+  );
+  const difficultyBand = normalizeDifficulty(request.difficulty);
+  const batchSeed =
+    request.seed ??
+    [
+      "quant-v4",
+      request.packageId ??
+        request.archetypeId ??
+        request.patternId ??
+        request.subtopic ??
+        pkg.packageId,
+      request.canonicalProblemId ?? request.cpId ?? "mixed",
+      pnlRuntimeMode ?? "DYNAMIC",
+      Date.now(),
+      Math.random().toString(36).slice(2),
+    ].join(":");
+
+  const explicitCp = request.canonicalProblemId ?? request.cpId;
+  const selectedCp = resolveCpId(runtimePackage, request);
+  const cpOrder = explicitCp
+    ? [selectedCp]
+    : shuffled(runtimeCpIds, `${batchSeed}:${pkg.packageId}:cp-order`);
+  const results: Array<{ questionPackage: any; question: any }> = [];
+
+  for (let index = 0; index < count; index += 1) {
+    if (index > 0 && index % 100 === 0) {
+      await new Promise((resolve) => setImmediate(resolve));
+    }
+    const cpId = cpOrder[index % cpOrder.length]!;
+    const seed = `${batchSeed}:${cpId}:${index}`;
+    const questionPackage = pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+      ? runPnlCp001DynamicPipeline({
+          difficultyBand,
+          language: language as "en",
+          questionLanguageId: request.questionLanguageId,
+          seed,
+        })
+      : await pkg.run(cpId, {
+          difficulty: difficultyBand,
+          language,
+          questionLanguageId: request.questionLanguageId,
+          seed,
+        });
+    results.push({
+      questionPackage,
+      question: toQuestionStudioPreview(questionPackage, {
+        packageDefinition: pkg,
+        questionIndex: index + 1,
+        questionCount: count,
+        seed,
+      }),
+    });
+  }
+
+  return {
+    generationContext: {
+      generationDomain: "quant-v4",
+      seed: batchSeed,
+      timestamp: Date.now(),
+      runtimeMode: pnlRuntimeMode ?? "DYNAMIC",
+      ...(isPnl
+        ? {
+            reviewStatus:
+              pnlRuntimeMode === "DYNAMIC_CANDIDATE"
+                ? "UNREVIEWED_DYNAMIC_CANDIDATE"
+                : "APPROVED_EDITORIAL_CANONICAL",
+            questionBankStatus: "NOT_STORED",
+            testEligibility: "INELIGIBLE",
+            publiclyPublishable: false,
+          }
+        : {}),
+    },
+    questionPackages: results.map((item) => item.questionPackage),
+    questions: results.map((item) => item.question),
+  };
+}'''
+          replace_once(engine, old_function, new_function, "runtime package generator")
+
+          core = Path("artifacts/api-server/src/quant-v4/generation-engine-core.ts")
+          replace_once(
+              core,
+              '''  const taskKind = traceability.taskKind ?? parameters.taskKind;
+  const language = pkg.language ?? "en";
+''',
+              '''  const taskKind = traceability.taskKind ?? parameters.taskKind;
+  const language = pkg.language ?? "en";
+  const runtimeMode = parameters.runtimeMode ?? traceability.generationMode;
+  const reviewStatus = parameters.reviewStatus ?? traceability.reviewStatus;
+  const questionBankStatus =
+    parameters.questionBankStatus ?? traceability.questionBankStatus;
+  const testEligibility = parameters.testEligibility ?? traceability.testEligibility;
+  const publiclyPublishable =
+    parameters.publiclyPublishable ?? traceability.publiclyPublishable;
+''',
+              "preview safety derivation",
+          )
+          replace_once(
+              core,
+              '''    answer: pkg.answer,
+    canonicalAnswer: optionResult.canonicalAnswer,
+    packageSource: "quant-v4-package-runtime",
+''',
+              '''    answer: pkg.answer,
+    canonicalAnswer: optionResult.canonicalAnswer,
+    runtimeMode,
+    reviewStatus,
+    questionBankStatus,
+    testEligibility,
+    publiclyPublishable,
+    packageSource: "quant-v4-package-runtime",
+''',
+              "preview safety fields",
+          )
+          replace_once(
+              core,
+              '''      scenarioId,
+    },
+    questionIndex:''',
+              '''      scenarioId,
+      runtimeMode,
+      reviewStatus,
+      questionBankStatus,
+      testEligibility,
+      publiclyPublishable,
+    },
+    questionIndex:''',
+              "preview metadata safety fields",
+          )
+
+          generator_route = Path("artifacts/api-server/src/routes/generator.ts")
+          replace_once(
+              generator_route,
+              '''        targetDifficulty,
+        questionLanguageId,
+      } = req.body as {''',
+              '''        targetDifficulty,
+        questionLanguageId,
+        runtimeMode,
+      } = req.body as {''',
+              "generator runtime-mode parse",
+          )
+          replace_once(
+              generator_route,
+              '''        targetDifficulty?: number;
+        questionLanguageId?: string;
+      };''',
+              '''        targetDifficulty?: number;
+        questionLanguageId?: string;
+        runtimeMode?: "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE";
+      };''',
+              "generator runtime-mode type",
+          )
+          replace_once(
+              generator_route,
+              '''        questionLanguageId,
+      });''',
+              '''        questionLanguageId,
+        runtimeMode,
+      });''',
+              "generator runtime-mode forwarding",
+          )
+
+          admin_route = Path("artifacts/api-server/src/routes/admin-question-studio.ts")
+          replace_once(
+              admin_route,
+              '''      supportedLanguages: Array.isArray(pkg.supportedLanguages)
+        ? pkg.supportedLanguages.map(String)
+        : ["en"],
+    }));''',
+              '''      supportedLanguages: Array.isArray(pkg.supportedLanguages)
+        ? pkg.supportedLanguages.map(String)
+        : ["en"],
+      runtimeMode: asString((pkg as any).runtimeMode) || undefined,
+      supportedRuntimeModes: Array.isArray((pkg as any).supportedRuntimeModes)
+        ? (pkg as any).supportedRuntimeModes.map(String)
+        : [],
+      dynamicCandidateCpIds: Array.isArray((pkg as any).dynamicCandidateCpIds)
+        ? (pkg as any).dynamicCandidateCpIds.map(String)
+        : [],
+      questionBankStatus: asString((pkg as any).questionBankStatus) || undefined,
+      testEligibility: asString((pkg as any).testEligibility) || undefined,
+      publiclyPublishable:
+        typeof (pkg as any).publiclyPublishable === "boolean"
+          ? (pkg as any).publiclyPublishable
+          : undefined,
+    }));''',
+              "admin capability runtime metadata",
+          )
+          replace_once(
+              admin_route,
+              '''  const difficulty = normalizeDifficulty(req.body?.difficulty);
+  const seed = asString(req.body?.seed) || undefined;
+''',
+              '''  const difficulty = normalizeDifficulty(req.body?.difficulty);
+  const seed = asString(req.body?.seed) || undefined;
+  const runtimeMode = asString(req.body?.runtimeMode) || undefined;
+  const canonicalProblemId =
+    asString(req.body?.canonicalProblemId) || asString(req.body?.cpId) || undefined;
+  const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
+''',
+              "admin dynamic request fields",
+          )
+          replace_once(
+              admin_route,
+              '''    language,
+    seed,
+    requestedByFirebaseUid:''',
+              '''    language,
+    seed,
+    runtimeMode,
+    canonicalProblemId,
+    questionLanguageId,
+    requestedByFirebaseUid:''',
+              "admin request snapshot runtime fields",
+          )
+          replace_once(
+              admin_route,
+              '''      language: language as "en" | "hi" | "pa",
+      seed,
+      count,
+    });''',
+              '''      language: language as "en" | "hi" | "pa",
+      seed,
+      count,
+      runtimeMode: runtimeMode as "CANONICAL_REVIEW" | "DYNAMIC_CANDIDATE" | undefined,
+      canonicalProblemId,
+      questionLanguageId,
+    });''',
+              "admin runtime request forwarding",
+          )
+
+          conversion = Path("artifacts/api-server/src/lib/admin-question-conversion.ts")
+          replace_once(
+              conversion,
+              '''function asText(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+export function optionKey''',
+              '''function asText(value: unknown): string {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+export function getGeneratedQuestionBankEligibilityIssue(value: unknown): string | null {
+  const payload = asRecord(value);
+  const generationContext = asRecord(payload.generationContext);
+  const runtimeMode = asText(payload.runtimeMode || generationContext.runtimeMode).toUpperCase();
+  const questionBankStatus = asText(
+    payload.questionBankStatus || generationContext.questionBankStatus,
+  ).toUpperCase();
+  const testEligibility = asText(
+    payload.testEligibility || generationContext.testEligibility,
+  ).toUpperCase();
+  const publiclyPublishable = payload.publiclyPublishable ?? generationContext.publiclyPublishable;
+
+  if (questionBankStatus === "NOT_STORED") {
+    return "questionBankStatus is NOT_STORED";
+  }
+  if (testEligibility === "INELIGIBLE") {
+    return "testEligibility is INELIGIBLE";
+  }
+  if (publiclyPublishable === false) {
+    return "publiclyPublishable is false";
+  }
+  if (runtimeMode === "CANONICAL_REVIEW" || runtimeMode === "DYNAMIC_CANDIDATE") {
+    return `runtimeMode ${runtimeMode} is review-only`;
+  }
+  return null;
+}
+
+export function assertGeneratedQuestionBankEligible(value: unknown): void {
+  const issue = getGeneratedQuestionBankEligibilityIssue(value);
+  if (issue) {
+    throw new Error(
+      `Generated question cannot be converted to Question Bank: ${issue}.`,
+    );
+  }
+}
+
+export function optionKey''',
+              "Question Bank eligibility guard",
+          )
+          replace_once(
+              conversion,
+              '''  const payload = asRecord(value);
+  const stem = asText(payload.text) || asText(payload.stem);''',
+              '''  const payload = asRecord(value);
+  assertGeneratedQuestionBankEligible(payload);
+  const stem = asText(payload.text) || asText(payload.stem);''',
+              "conversion guard invocation",
+          )
+          PY
+
+      - name: Commit integration patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/quant-v4/generation-engine.ts \
+            artifacts/api-server/src/quant-v4/generation-engine-core.ts \
+            artifacts/api-server/src/routes/generator.ts \
+            artifacts/api-server/src/routes/admin-question-studio.ts \
+            artifacts/api-server/src/lib/admin-question-conversion.ts
+          git commit -m "feat(pnl): add safe CP-001 dynamic review routing"
+          git push origin HEAD:feat/pnl-001-cp001-question-studio-dynamic-review
