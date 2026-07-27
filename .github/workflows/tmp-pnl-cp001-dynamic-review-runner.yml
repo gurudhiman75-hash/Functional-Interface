@@ -21,8 +21,11 @@ jobs:
           ref: feat/pnl-001-cp001-question-studio-dynamic-review
 
       - name: Execute reviewed embedded patch
+        id: patch
+        continue-on-error: true
         run: |
-          python - <<'PY'
+          set -o pipefail
+          python - <<'PY' 2>&1 | tee pnl-dynamic-review-patch.log
           from pathlib import Path
 
           workflow = Path(".github/workflows/tmp-pnl-cp001-dynamic-review-patch.yml").read_text().splitlines()
@@ -37,6 +40,19 @@ jobs:
           code = "\n".join(line[common_indent:] for line in embedded)
           exec(compile(code, "pnl-cp001-dynamic-review-patch", "exec"))
           PY
+
+      - name: Upload patch diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-dynamic-review-patch-diagnostics
+          path: pnl-dynamic-review-patch.log
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Enforce patch result
+        if: steps.patch.outcome != 'success'
+        run: exit 1
 
       - name: Commit patched integration
         run: |
