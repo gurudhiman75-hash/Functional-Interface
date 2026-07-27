@@ -25,31 +25,72 @@ function renderEquation(equation: string) {
   return `<div class="worked-equation">\\[${escapeHtml(equation)}\\]</div>`;
 }
 
+function sectionClass(section: Men001ExplanationSection) {
+  if (section.kind === "KEY_RULE") return "key-rule";
+  if (section.kind === "EXAM_SHORTCUT") return "exam-shortcut";
+  if (section.kind === "COMMON_TRAPS") return "common-traps";
+  if (section.kind === "FINAL_ANSWER") return "final-answer";
+  return "worked-step";
+}
+
 function renderSection(section: Men001ExplanationSection) {
   const heading = section.kind === "STEP"
     ? `Step ${section.stepNumber}: ${section.title}`
     : section.title;
-  const className = section.kind === "KEY_RULE"
-    ? "key-rule"
-    : section.kind === "FINAL_ANSWER"
-      ? "final-answer"
-      : "worked-step";
-  return `<section class="explanation-block ${className}">
+  const prose = section.kind === "COMMON_TRAPS"
+    ? `<ul class="trap-list">${section.paragraphs.map((paragraph) => `<li>${escapeHtml(paragraph)}</li>`).join("\n")}</ul>`
+    : section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n");
+  return `<section class="explanation-block ${sectionClass(section)}">
     <h4>${escapeHtml(heading)}</h4>
-    ${section.paragraphs.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n")}
+    ${prose}
     ${section.equations.map(renderEquation).join("\n")}
   </section>`;
 }
 
-function markdownSection(section: Men001ExplanationSection) {
+function renderExplanation(sections: readonly Men001ExplanationSection[]) {
+  const keyRule = sections.find((section) => section.kind === "KEY_RULE");
+  const steps = sections.filter((section) => section.kind === "STEP");
+  const examShortcut = sections.find((section) => section.kind === "EXAM_SHORTCUT");
+  const commonTraps = sections.find((section) => section.kind === "COMMON_TRAPS");
+  const finalAnswer = sections.find((section) => section.kind === "FINAL_ANSWER");
+  return [
+    keyRule ? renderSection(keyRule) : "",
+    `<section class="worked-solution-tier"><h4>Step-by-Step Solution</h4>${steps.map(renderSection).join("\n")}</section>`,
+    examShortcut ? renderSection(examShortcut) : "",
+    commonTraps ? renderSection(commonTraps) : "",
+    finalAnswer ? renderSection(finalAnswer) : "",
+  ].join("\n");
+}
+
+function markdownSection(section: Men001ExplanationSection, level = "###") {
   const heading = section.kind === "STEP"
-    ? `### Step ${section.stepNumber}: ${section.title}`
-    : `### ${section.title}`;
+    ? `${level} Step ${section.stepNumber}: ${section.title}`
+    : `${level} ${section.title}`;
+  const prose = section.kind === "COMMON_TRAPS"
+    ? section.paragraphs.flatMap((paragraph) => [`- ${paragraph}`, ""])
+    : section.paragraphs.flatMap((paragraph) => [paragraph, ""]);
   return [
     heading,
     "",
-    ...section.paragraphs.flatMap((paragraph) => [paragraph, ""]),
+    ...prose,
     ...section.equations.flatMap((equation) => [`$$${equation}$$`, ""]),
+  ];
+}
+
+function markdownExplanation(sections: readonly Men001ExplanationSection[]) {
+  const keyRule = sections.find((section) => section.kind === "KEY_RULE");
+  const steps = sections.filter((section) => section.kind === "STEP");
+  const examShortcut = sections.find((section) => section.kind === "EXAM_SHORTCUT");
+  const commonTraps = sections.find((section) => section.kind === "COMMON_TRAPS");
+  const finalAnswer = sections.find((section) => section.kind === "FINAL_ANSWER");
+  return [
+    ...(keyRule ? markdownSection(keyRule) : []),
+    "### Step-by-Step Solution",
+    "",
+    ...steps.flatMap((step) => markdownSection(step, "####")),
+    ...(examShortcut ? markdownSection(examShortcut) : []),
+    ...(commonTraps ? markdownSection(commonTraps) : []),
+    ...(finalAnswer ? markdownSection(finalAnswer) : []),
   ];
 }
 
@@ -57,7 +98,7 @@ const cards: string[] = [];
 const markdown: string[] = [
   "# MEN-001 Student-Style Explanation Review",
   "",
-  "Each explanation follows Key Rule → named worked steps → Final Answer. Equations are stored as MathJax-ready LaTeX, and the number of steps is determined by the mathematics.",
+  "Each explanation follows Key Rule & Formula → Step-by-Step Solution → Exam Speed Shortcut → Common Traps → Final Answer. Equations are stored as MathJax-ready LaTeX.",
   "",
 ];
 let diagramCount = 0;
@@ -93,7 +134,7 @@ for (const entry of getMen001QuestionEntries()) {
     <section class="diagram-panel"><h3>Diagram</h3>${diagram}</section>
     <section class="solution-panel">
       <h3>Worked Solution</h3>
-      ${question.explanation.sections.map(renderSection).join("\n")}
+      ${renderExplanation(question.explanation.sections)}
     </section>
     <footer class="pass">Validation: PASS</footer>
   </article>`);
@@ -105,7 +146,7 @@ for (const entry of getMen001QuestionEntries()) {
     "",
     ...question.options.map((option, index) => `${index === question.correctIndex ? "- ✅" : "-"} ${String.fromCharCode(65 + index)}. ${option}`),
     "",
-    ...question.explanation.sections.flatMap(markdownSection),
+    ...markdownExplanation(question.explanation.sections),
     "---",
     "",
   );
@@ -158,7 +199,13 @@ h3 { margin: 20px 0 9px; color: #526176; font-size: 15px; text-transform: upperc
 .explanation-block h4 { margin: 0 0 9px; font-size: 17px; }
 .explanation-block p { margin: 7px 0; line-height: 1.58; }
 .key-rule { border-left: 5px solid #1f4e79; background: #f2f7fc; }
+.worked-solution-tier { margin: 14px 0; padding: 16px 18px; border-radius: 12px; border: 1px solid #dbe3ee; background: #fffaf0; }
+.worked-solution-tier > h4 { margin: 0 0 12px; font-size: 18px; }
 .worked-step { border-left: 5px solid #b7791f; }
+.exam-shortcut { border-left: 5px solid #7c3aed; background: #f7f2ff; }
+.common-traps { border-left: 5px solid #c2410c; background: #fff7ed; }
+.trap-list { margin: 8px 0 0; padding-left: 22px; }
+.trap-list li { margin: 8px 0; line-height: 1.55; }
 .final-answer { border-left: 5px solid #198754; background: #eef9f1; }
 .worked-equation { margin: 10px 0; padding: 12px 14px; border-radius: 9px; background: #f7f9fc; border: 1px solid #d8e0ea; text-align: center; font-size: 18px; font-weight: 650; overflow-x: auto; }
 .final-answer .worked-equation { font-size: 22px; font-weight: 800; }
@@ -171,6 +218,9 @@ footer.pass { color: #146b2e; }
   .diagram-panel { background: #111c2d; border-color: #334155; }
   .key-rule { background: #14283c; }
   .final-answer { background: #143322; }
+  .worked-solution-tier { background: #2a2418; border-color: #5b4a2f; }
+  .exam-shortcut { background: #251b3a; }
+  .common-traps { background: #3a2118; }
   .worked-equation { background: #101b2b; border-color: #3d4c60; }
   .mensuration-diagram { color: #d8e8f8; }
   .diagram-label { fill: #f3f7fc; stroke: #111c2d; }
@@ -184,7 +234,7 @@ footer.pass { color: #146b2e; }
 <header class="page-header">
 <h1>MEN-001 Student-Style Explanation Review</h1>
 <p>${getMen001QuestionEntries().length} questions, ${totalStepCount} need-based worked steps and ${diagramCount} explanation diagrams.</p>
-<p>Every solution follows Key Rule → named calculation steps → Final Answer, with MathJax-rendered LaTeX equations.</p>
+<p>Every solution follows the competitive four-tier layout: Key Rule & Formula → Step-by-Step Solution → Exam Speed Shortcut → Common Traps, followed by the Final Answer.</p>
 <div class="controls">
 <button class="active" data-filter="all">All questions</button>
 <button data-filter="diagram">Only diagrams</button>
