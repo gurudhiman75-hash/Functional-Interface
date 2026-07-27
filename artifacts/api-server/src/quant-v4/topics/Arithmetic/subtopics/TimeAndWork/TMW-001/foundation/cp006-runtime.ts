@@ -52,6 +52,10 @@ export function runTmwCp006Pipeline(input:{questionLanguageId:string;seed:string
   if(!optionSet.options.some(option=>option.text===explanation.commonTrap.optionText&&option.misconceptionId===explanation.commonTrap.misconceptionId))errors.push("Common-trap callout is not tied to an actual distractor");
   if(!balancedInlineMath(explanationText))errors.push("Explanation contains unbalanced inline MathJax delimiters");
   if(/(^|[^\\])\$/.test(explanationText))errors.push("Explanation uses unsupported dollar-sign MathJax delimiters");
+  if(entry.solveMode==="findCompletionWithBatchWorkerAdditions"){
+    if(/\(n-1\)b/.test(solution.formulaLatex))errors.push("AP formula uses b instead of the defined common-difference symbol d");
+    if(/resource-days/.test(solution.workedLatex.join(" ")))errors.push("AP explanation uses a generic resource-day unit instead of the generated context unit");
+  }
   return {
     archetypeId:"TMW-001",canonicalProblemId:"TMW-CP-006",questionLanguageId:entry.qlId,solveMode:entry.solveMode,language:"en",seed:input.seed,
     stem,parameters,solution,options:optionSet.options.map(option=>option.text),optionAudit:optionSet.options,correctIndex:optionSet.correctIndex,
