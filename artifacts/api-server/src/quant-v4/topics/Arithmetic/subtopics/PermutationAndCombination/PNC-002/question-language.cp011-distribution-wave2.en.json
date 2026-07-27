@@ -41,7 +41,7 @@
     {
       "qlId": "PNC-QL-236",
       "difficulty": "Hard",
-      "template": "In how many ways can {objectCount} identical files be stored in {boxCount} labelled folders if no folder can contain more than {capacity} files?"
+      "template": "In how many ways can {objectCount} identical beads be placed in {boxCount} labelled jars if no jar can hold more than {capacity} beads?"
     },
     {
       "qlId": "PNC-QL-237",
