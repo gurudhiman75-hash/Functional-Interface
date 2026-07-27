@@ -991,14 +991,21 @@ function wrongCandidates(
     }
     case "PROFIT_CP_TO_MARGIN_SP": {
       if (result.mode !== request.mode) break;
+      const subtractiveBase = subtractRational(rational(100), request.profitPercent);
+      const subtractiveBaseCandidate =
+        compareRational(subtractiveBase, rational(0)) === 0
+          ? divideRational(request.profitPercent, rational(100))
+          : multiplyRational(
+              divideRational(request.profitPercent, subtractiveBase),
+              rational(100),
+            );
       candidates.push(
         percentCandidate(request.profitPercent, "Treats cost-price profit rate as the same margin on selling price."),
         percentCandidate(
-          multiplyRational(
-            divideRational(request.profitPercent, subtractRational(rational(100), request.profitPercent)),
-            rational(100),
-          ),
-          "Subtracts the profit rate from 100 while changing the percentage base."),
+          subtractiveBaseCandidate,
+          compareRational(subtractiveBase, rational(0)) === 0
+            ? "Reports the decimal profit multiplier as though it were already a percentage."
+            : "Subtracts the profit rate from 100 while changing the percentage base."),
         percentCandidate(subtractRational(rational(100), request.profitPercent), "Reports the complement of the profit rate."),
       );
       break;
