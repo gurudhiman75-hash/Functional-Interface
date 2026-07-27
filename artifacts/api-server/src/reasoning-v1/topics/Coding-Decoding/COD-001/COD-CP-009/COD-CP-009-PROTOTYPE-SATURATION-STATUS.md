@@ -1,6 +1,6 @@
 # COD-CP-009 — Prototype Saturation Status
 
-Status: **all 16 currently admitted source-backed task contracts have executable English prototypes; the executable merge/split audit discovers 24 provisional solve contracts; permanent QLs remain unallocated**.
+Status: **all 16 currently admitted source-backed task contracts have executable English prototypes; the exact-head combined saturation audit passes; executable merge/split discovers 24 provisional solve contracts; permanent QLs remain unallocated**.
 
 This document supersedes earlier status statements in the checkpoint README and executable-gap resolution that four source-backed prototypes remain unimplemented. It does not allocate permanent `COD-QL-*` identities and does not make the checkpoint publishable.
 
@@ -86,23 +86,70 @@ The following distinctions remain merged as generated-instance properties:
 
 The full authority is `COD-CP-009-MERGE-SPLIT-DECISION.md`.
 
-## 5. Combined executable saturation gate
+## 5. Exact-head combined saturation evidence
 
-The branch now contains one combined audit over all six prototype registries. It checks:
+The dedicated workflow passed on exact head:
 
-- 16 unique prototype contracts and eight inverse pairs;
-- all ten topology families;
-- 24 provisional solve-mode fingerprints;
-- bounded generation over 30 contract/topology pairings;
-- 24 seeds per pairing, producing 720 combined questions;
-- prototype-only, non-publishable identity safety;
-- four semantically unique options and valid answer positions;
-- scenario reach and complete-question diversity;
-- exact displayed-question, normalised stem and normalised explanation collisions across contracts.
+```text
+Head SHA:    6571e4d0a9c067f3f355d3f451089e7d9757a05d
+Workflow:    Reasoning COD-001 CP-009 Combined Saturation
+Run ID:      30281306137
+Conclusion:  success
+Artifact ID: 8658922775
+Digest:      sha256:bc3f95d268db07ff4ea1cc89cb497d1baf24c2738e08ec930871cdc2ac71d949
+```
 
-The first combined run identified a genuine editorial collision: forward and inverse possible-set questions used the same explanation skeleton. Their explanation authority has been rewritten so encoding traces words to code words, while inverse decoding traces code words back to words. The exact-head rerun is the acceptance gate.
+The combined workflow reran and passed:
 
-## 6. Evidence added after the original twelve-contract audit
+- abstract constraint-foundation proof;
+- abstract topology generation proof;
+- curated English language-data audit;
+- exact atomic prototype audit;
+- exact set and missing-member prototype audit;
+- possible/impossible atomic prototype audit;
+- possible mixed-set prototype audit;
+- resolved-composition prototype audit;
+- complete-candidate-set prototype audit;
+- the new chapter-wide saturation audit.
+
+Chapter-wide saturation metrics:
+
+```text
+Prototype contracts:                         16
+Forward/inverse pairs:                         8
+Topology families:                            10
+Provisional solve contracts:                  24
+Contract/topology pairings:                   30
+Seeds per pairing:                            24
+Generated combined questions:                720
+Bounded-generation failures:                   0
+Exact displayed-question collisions:           0
+Normalised query-stem collisions:               0
+Normalised full-explanation collisions:         0
+Permanent CP-009 QLs:                           0
+```
+
+Every one of the 30 pairings produced:
+
+- 24 successful generations from 24 attempts;
+- 24 distinct complete displayed questions;
+- all five reviewed English scenarios;
+- all four correct-answer positions.
+
+## 6. Audit-discovered editorial correction
+
+The first combined execution rejected the forward and inverse possible-set prototypes because their full explanations became identical after variable words, code tokens and numbers were normalised.
+
+This was a genuine editorial weakness. The shared explanation authority was rewritten so that:
+
+- word-set → code-set questions trace each queried word to its code word;
+- code-set → word-set questions decode each queried code word back to a word;
+- Reference Aid, Quick Method, evidence conclusion, complete-mapping witness, final conclusion and Common Trap Alert are direction-specific;
+- solver mathematics, options, answers and witness counts remain unchanged.
+
+The exact-head pass proves that this collision is removed without regression.
+
+## 7. Evidence added after the original twelve-contract audit
 
 ### Resolved composition
 
@@ -112,7 +159,7 @@ The encode and inverse prototypes prove that two target components can be resolv
 
 The encode and inverse prototypes prove answers of the form “either X or Y” or a complete three-member candidate set. The correct option equals the full witnessed domain; distractors omit one candidate, add one impossible member or replace one candidate. The merged audit covers 480 deterministic questions with exact candidate-domain equality and balanced answer positions.
 
-## 7. Current merge/split decisions
+## 8. Current merge/split decisions
 
 | Axis | Current decision |
 |---|---|
@@ -126,19 +173,17 @@ The encode and inverse prototypes prove answers of the form “either X or Y” 
 | invariant ambiguous set versus resolved composition | retain separately |
 | direct/chained/difference/forked/global exact topology | split into five solve modes per direction |
 
-## 8. Remaining mandatory work
+## 9. Remaining mandatory work
 
 Before any permanent QL allocation:
 
-1. obtain an exact-head pass from the combined saturation workflow;
-2. inspect its complete collision and concentration diagnostics;
-3. repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audits;
-4. freeze the discovered CP-009 inventory only if no meaningful gap remains;
-5. wait for CP-007 and CP-008 permanent allocations;
-6. assign sequential CP-009 identities from the then-current next available `COD-QL-*` ID;
-7. implement the frozen English runtime before localisation or Question Studio integration.
+1. repeat the final concept, task, inverse, edge, representation, source-format and ownership gap audits;
+2. freeze the discovered CP-009 inventory only if no meaningful gap remains;
+3. wait for CP-007 and CP-008 permanent allocations;
+4. assign sequential CP-009 identities from the then-current next available `COD-QL-*` ID;
+5. implement the frozen English runtime before localisation or Question Studio integration.
 
-## 9. Excluded expansions
+## 10. Excluded expansions
 
 The following remain excluded unless new direct source evidence changes ownership:
 
@@ -150,15 +195,16 @@ The following remain excluded unless new direct source evidence changes ownershi
 - conditional table coding;
 - static table/paragraph or quotation-style variants as separate QLs.
 
-## 10. Verdict
+## 11. Verdict
 
 - admitted task contracts with executable prototypes: **16**;
 - proven topology families: **10**;
 - provisional solve contracts after executable merge/split: **24**;
+- exact-head combined saturation: **passed**;
 - permanent CP-009 QLs: **0**;
 - fixed permanent CP-009 QL count: **none**;
 - Question Studio exposure: **disabled**;
 - localisation: **not started**;
 - public publishability: **false**.
 
-Final status: **PROTOTYPE INVENTORY COMPLETE FOR CURRENT SOURCE-BACKED CONTRACTS — MERGE/SPLIT RESOLVED PROVISIONALLY; EXACT-HEAD COMBINED SATURATION AND FINAL GAP FREEZE REMAIN**.
+Final status: **PROTOTYPE INVENTORY AND EXECUTABLE MERGE/SPLIT SATURATED FOR CURRENT SOURCE-BACKED ENGLISH SCOPE — FINAL SOURCE/OWNERSHIP GAP FREEZE AND SEQUENTIAL ALLOCATION REMAIN**.
