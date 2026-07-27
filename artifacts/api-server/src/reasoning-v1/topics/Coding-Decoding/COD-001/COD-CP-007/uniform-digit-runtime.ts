@@ -4,6 +4,7 @@ import {
   digitSequenceTokens,
   generateUniformDigitPrototypeQuestion as generateRawUniformDigitPrototypeQuestion,
 } from "./uniform-digit-generator";
+import { normaliseUniformDigitGrammar } from "./uniform-digit-grammar";
 import { applyUniformDigitTaskTeachingPath } from "./uniform-digit-task-editorial";
 import type {
   GeneratedUniformDigitPrototypeQuestion,
@@ -16,9 +17,11 @@ export function generateUniformDigitPrototypeQuestion(
   prototypeId: UniformDigitPrototypeId,
   seed: number,
 ): GeneratedUniformDigitPrototypeQuestion {
-  return applyUniformDigitTaskTeachingPath(
-    applyUniformDigitEditorialVariation(
-      generateRawUniformDigitPrototypeQuestion(prototypeId, seed),
+  return normaliseUniformDigitGrammar(
+    applyUniformDigitTaskTeachingPath(
+      applyUniformDigitEditorialVariation(
+        generateRawUniformDigitPrototypeQuestion(prototypeId, seed),
+      ),
     ),
   );
 }
