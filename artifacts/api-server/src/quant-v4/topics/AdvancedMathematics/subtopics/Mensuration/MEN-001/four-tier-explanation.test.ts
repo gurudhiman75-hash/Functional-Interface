@@ -18,6 +18,8 @@ function wrongOptionLetters(correctIndex: number) {
     .sort();
 }
 
+const forbiddenTrapLanguage = /applies the mistaken operation|misconception strateg|\bcp\d+\b|\bex\s+(?:use|report|omit|retain|double|halve|root|subtract|add)\b|“[^”]*-[^”]*”/i;
+
 let audited = 0;
 for (const entry of getMen001QuestionEntries()) {
   for (let sample = 0; sample < 3; sample += 1) {
@@ -69,7 +71,7 @@ for (const entry of getMen001QuestionEntries()) {
     const displayedTrapLetters = trapBlock.paragraphs.map((paragraph) => {
       const match = paragraph.match(/^Option ([A-D]) \(.+\): /);
       assert.ok(match, `${entry.qlId} trap must name its actual option letter and value.`);
-      assert.ok(!/misconception strateg|[a-z]+-[a-z]+-[a-z]+/.test(paragraph), `${entry.qlId} exposes internal strategy jargon.`);
+      assert.ok(!forbiddenTrapLanguage.test(paragraph), `${entry.qlId} exposes internal or mechanical trap language: ${paragraph}`);
       return match[1]!;
     }).sort();
     assert.deepEqual(
@@ -98,6 +100,9 @@ assert.ok(percentage.explanation.sections.find((section) => section.kind === "EX
 
 const wire = generate("MEN-CP-006", "MEN-001-QL-436", "men-001-structured-review:MEN-001-QL-436");
 assert.ok(wire.explanation.sections.find((section) => section.kind === "EXAM_SHORTCUT")?.paragraphs.some((paragraph) => /s = πr\/2/.test(paragraph)));
-assert.ok(wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS")?.paragraphs.length === 3);
+const wireTraps = wire.explanation.sections.find((section) => section.kind === "COMMON_TRAPS");
+assert.equal(wireTraps?.paragraphs.length, 3);
+assert.ok(wireTraps?.paragraphs.some((paragraph) => /circle area/i.test(paragraph)));
+assert.ok(wireTraps?.paragraphs.every((paragraph) => !forbiddenTrapLanguage.test(paragraph)));
 
 console.log(`MEN-001 four-tier explanation audit passed for ${audited} generated states.`);
