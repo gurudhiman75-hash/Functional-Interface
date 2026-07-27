@@ -53,6 +53,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts
       - name: Validate ANA-CP-001 and ANA-CP-002 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-localized-runtime.test.ts
+      - name: Validate ANA-CP-003 English runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003.test.ts
       - name: Validate ANA-CP-003 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003-localized.test.ts
       - name: Validate ANA-CP-004 Hindi/Punjabi runtime
