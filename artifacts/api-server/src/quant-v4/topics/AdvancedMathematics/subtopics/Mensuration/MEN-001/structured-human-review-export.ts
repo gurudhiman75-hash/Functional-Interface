@@ -98,7 +98,7 @@ const cards: string[] = [];
 const markdown: string[] = [
   "# MEN-001 Student-Style Explanation Review",
   "",
-  "Each explanation follows Key Rule & Formula → Step-by-Step Solution → Exam Speed Shortcut → Common Traps → Final Answer. Equations are stored as MathJax-ready LaTeX.",
+  "Each explanation follows exactly four tiers: Key Rule & Formula → Step-by-Step Solution (including the final result) → Exam Speed Shortcut → Common Traps. Equations are stored as MathJax-ready LaTeX.",
   "",
 ];
 let diagramCount = 0;
@@ -234,7 +234,7 @@ footer.pass { color: #146b2e; }
 <header class="page-header">
 <h1>MEN-001 Student-Style Explanation Review</h1>
 <p>${getMen001QuestionEntries().length} questions, ${totalStepCount} need-based worked steps and ${diagramCount} explanation diagrams.</p>
-<p>Every solution follows the competitive four-tier layout: Key Rule & Formula → Step-by-Step Solution → Exam Speed Shortcut → Common Traps, followed by the Final Answer.</p>
+<p>Every solution follows exactly four tiers: Key Rule & Formula → Step-by-Step Solution (including the final result) → Exam Speed Shortcut → Common Traps.</p>
 <div class="controls">
 <button class="active" data-filter="all">All questions</button>
 <button data-filter="diagram">Only diagrams</button>
