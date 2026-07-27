@@ -46,6 +46,8 @@ export * from "./foundation/cp006-registry";
 export * from "./foundation/cp006-parameters";
 export * from "./foundation/cp006-solver";
 export * from "./foundation/cp006-presentation";
+export * from "./foundation/cp006-key-rule";
+export * from "./foundation/cp006-learning";
 export * from "./foundation/cp006-options";
 export * from "./foundation/cp006-runtime";
 export * from "./foundation/cp006-review";
