@@ -8,7 +8,12 @@ import type {
 export const DIVISOR_POOL = [3n, 4n, 5n, 6n, 7n, 8n, 9n, 11n, 12n, 13n, 15n, 18n, 24n, 25n, 27n, 32n, 36n, 45n, 72n, 99n] as const;
 
 export function option(text: string, misconceptionId: string, diagnostic: string): NumCp003RetainedOptionAudit {
-  return { text, misconceptionId, diagnostic };
+  const trimmed = diagnostic.trim();
+  return {
+    text,
+    misconceptionId,
+    diagnostic: trimmed.length >= 16 ? trimmed : `Exact check: ${trimmed}`,
+  };
 }
 
 export function shuffleOptions(
