@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { generateNumCp003Prototype } from "./foundation/runtime";
+import { generateNumCp003Prototype } from "./foundation/runtime-reviewed";
 import { NUM_CP003_PROTOTYPE_IDS } from "./foundation/types";
 
 const outputDirectory = resolve(process.cwd(), "dist/quant-v4");
@@ -48,7 +48,7 @@ const markdown = [
     `**Conclusion:** ${record.explanation.conclusion}`,
     "",
     "**Option audit:**",
-    ...record.optionAudit.map((row) => `- ${row.text}: ${row.misconceptionId}`),
+    ...record.optionAudit.map((row) => `- ${row.text}: ${row.misconceptionId} — ${row.diagnostic}`),
     "",
     "---",
     "",
