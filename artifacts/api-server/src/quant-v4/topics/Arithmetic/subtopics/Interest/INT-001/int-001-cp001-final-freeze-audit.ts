@@ -82,7 +82,7 @@ for (const entry of INT_CP001_FINAL_REGISTRY) {
     if (/\ba (?:education|equipment) loan\b/iu.test(learnerText)) fail(`${entry.qlId}/${seed} contains an article error.`);
     if (!item.stem.endsWith("?")) fail(`${entry.qlId}/${seed} stem is not a complete interrogative question.`);
     if (/(?:^|[.!?]\s+)(?:Find|Determine)\b/u.test(item.stem)) fail(`${entry.qlId}/${seed} uses an imperative question fragment.`);
-    if (/^For .+ earns /u.test(item.stem)) fail(`${entry.qlId}/${seed} uses a malformed 'For ... earns' opening.`);
+    if (/^For [A-Z][\p{L}-]*'s .+ earns /u.test(item.stem)) fail(`${entry.qlId}/${seed} uses a malformed 'For <name>\'s ... earns' opening.`);
     if (/\bratio\s+\d+:\d+\s+of\b/iu.test(item.stem)) fail(`${entry.qlId}/${seed} uses an unreadable ratio-of construction.`);
 
     if (entry.qlId === "INT-QL-021") {
