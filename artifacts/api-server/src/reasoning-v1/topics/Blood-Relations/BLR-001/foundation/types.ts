@@ -27,7 +27,9 @@ export type BlrRelationId =
   | "FATHER_IN_LAW"
   | "MOTHER_IN_LAW"
   | "SON_IN_LAW"
-  | "DAUGHTER_IN_LAW";
+  | "DAUGHTER_IN_LAW"
+  | "BROTHER_IN_LAW"
+  | "SISTER_IN_LAW";
 
 export type PrimitivePathStep = "PARENT" | "CHILD" | "SIBLING" | "SPOUSE";
 
