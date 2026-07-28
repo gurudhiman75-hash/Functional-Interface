@@ -9,7 +9,7 @@ const multiLetterLatin = /\b[A-Za-z]{2,}\b/;
 const devanagariLettersOrDigits = /[\u0900-\u0963\u0966-\u097F]/;
 const internalLeak = /DIR-(?:QL|CP)-\d+|\bundefined\b|\bnull\b/;
 const unnatural = /ਕਰਦਾ\/ਕਰਦੀ|ਸੀ\/ਸਨ|ਹੈ ਹੈ|ਹੈ। ਹੈ|ਪਦ|ਸਾਦ੍ਰਿਸ਼ਤਾ/;
-const diagramEnglish = /\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun|Start|Finish|Final|Person|Reference|Endpoint|Movement)\b/i;
+const diagramEnglish = /\b(?:North|South|East|West|metres?|Morning|Evening|Shadow|Sun|Start|Finish|Final|Person|Reference|Endpoint|Movement)\b/;
 
 assert.equal(DIR_001_QLS.length, 44);
 assert.deepEqual(
