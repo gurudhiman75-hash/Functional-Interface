@@ -145,20 +145,35 @@ if (reviewRowCount !== 60 || pendingQuestionReviewCount !== 60) {
   fail(`Expected 60 pending review rows, received ${reviewRowCount}/${pendingQuestionReviewCount}.`);
 }
 
-if (MAL_CP001_SOURCE_RECOVERY_FINDINGS.length !== 1) {
-  fail(`Expected one focused source-recovery finding, received ${MAL_CP001_SOURCE_RECOVERY_FINDINGS.length}.`);
+if (MAL_CP001_SOURCE_RECOVERY_FINDINGS.length !== 2) {
+  fail(`Expected two focused source-recovery findings, received ${MAL_CP001_SOURCE_RECOVERY_FINDINGS.length}.`);
 }
-const recovered = MAL_CP001_SOURCE_RECOVERY_FINDINGS[0];
+const threeWayRecovery = MAL_CP001_SOURCE_RECOVERY_FINDINGS.find(
+  (entry) =>
+    entry.findingId === "SRC-RECOVERY-CP001-THREE-VARIETY-RATIO-ADJUSTMENT",
+);
 if (
-  recovered.freezeCandidateId !== "MAL-CP001-FREEZE-THREE-WAY-RELATION-QUANTITY" ||
-  recovered.ownershipVerdict !== "MAL-CP-002" ||
-  recovered.clearsCp001SourceBlocker !== false
+  !threeWayRecovery ||
+  threeWayRecovery.freezeCandidateId !== "MAL-CP001-FREEZE-THREE-WAY-RELATION-QUANTITY" ||
+  threeWayRecovery.ownershipVerdict !== "MAL-CP-002" ||
+  threeWayRecovery.clearsCp001SourceBlocker !== false
 ) {
   fail("Recovered three-way reference was misclassified as direct CP-001 allocation evidence.");
 }
+const xatDilutionRecovery = MAL_CP001_SOURCE_RECOVERY_FINDINGS.find(
+  (entry) =>
+    entry.findingId === "SRC-RECOVERY-CP004-XAT2015-NESTED-COMPONENT-DILUTION",
+);
+if (
+  !xatDilutionRecovery ||
+  xatDilutionRecovery.ownershipVerdict !== "MAL-CP-004" ||
+  xatDilutionRecovery.clearsCp001SourceBlocker !== false
+) {
+  fail("Recovered XAT nested-component dilution was misclassified as CP-001 final-total evidence.");
+}
 
 console.log(JSON.stringify({
-  status: "PASS_EDITORIAL_V2_WITH_THREE_WAY_CP002_BOUNDARY",
+  status: "PASS_EDITORIAL_V2_WITH_CP002_AND_CP004_BOUNDARIES",
   generatedQuestionCount,
   reviewRowCount,
   orderedPairQuestionCount,
@@ -166,8 +181,11 @@ console.log(JSON.stringify({
   pendingCandidateReviewCount: reviewModel.candidateCount,
   pendingQuestionReviewCount,
   sourceRecoveryFindingCount: MAL_CP001_SOURCE_RECOVERY_FINDINGS.length,
-  recoveredBoundaryOwner: recovered.ownershipVerdict,
-  cp001SourceBlockerCleared: recovered.clearsCp001SourceBlocker,
+  recoveredBoundaryOwners: [
+    threeWayRecovery.ownershipVerdict,
+    xatDilutionRecovery.ownershipVerdict,
+  ].sort(),
+  cp001SourceBlockersCleared: 0,
   permanentQlCount: reviewModel.permanentQlCount,
   publiclyPublishable: reviewModel.publiclyPublishable,
   questionStudioDiscoverable: reviewModel.questionStudioDiscoverable,
