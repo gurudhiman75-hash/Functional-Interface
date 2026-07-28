@@ -135,6 +135,18 @@ function unknownSourceLabel(question: any): string | null {
   return null;
 }
 
+function unknownQuantityLabel(question: any): string | null {
+  const request = question.parameters?.request;
+  if (!request) return null;
+  if (request.mode === "ADD_SOURCE_TO_REACH_TARGET") {
+    return request.addedComponentLabel;
+  }
+  if (request.mode === "UNKNOWN_COMPONENT_QUANTITY") {
+    return request.unknownComponentLabel;
+  }
+  return null;
+}
+
 function requestedShareLabel(question: any): string | null {
   const request = question.parameters?.request;
   if (request?.mode !== "COMPONENT_SHARE_FROM_TARGET") return null;
@@ -147,6 +159,10 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function costVerb(label: string): "cost" | "costs" {
+  return /(?:leaves|beans)$/iu.test(label) ? "cost" : "costs";
+}
+
 function normalizeStem(question: any): string {
   const unit = perUnitNoun(question);
   const request = question.parameters?.request;
@@ -157,23 +173,42 @@ function normalizeStem(question: any): string {
     .replace(/\bIf the ([^,.?]*(?:tea leaves|beans)) is priced at\b/giu, "If the $1 are priced at")
     .replace(/\ba (\d+(?:\s+\d+\/\d+)?) litres portion\b/giu, "a $1-litre portion")
     .replace(/\bA (\d+(?:\s+\d+\/\d+)?) litres portion\b/gu, "A $1-litre portion")
-    .replace(/\bWhat is the final blend's value per unit\?/u, `What is the final blend's price per ${unit}?`)
-    .replace(/\bwhat is the resulting value per unit\?/iu, `what is the resulting price per ${unit}?`)
-    .replace(/\bWhat will the mixed wheat be worth per unit\?/u, "What will the mixed wheat cost per kg?")
-    .replace(/\bWhat value per unit does the complete mixture have\?/u, `What is the complete mixture's average price per ${unit}?`)
-    .replace(/\bWhat is the weighted value per unit of the resulting blend\?/u, `What is the resulting blend's weighted average price per ${unit}?`)
-    .replace(/\bWhat does the final blend cost per unit\?/u, `What is the final blend's price per ${unit}?`);
+    .replace(/\.\s+a (\d+(?:\s+\d+\/\d+)?-litre portion)\b/giu, ". A $1")
+    .replace(/\bWhat is the final blend's value per unit\?/giu, `What is the final blend's price per ${unit}?`)
+    .replace(/\bwhat is the resulting value per unit\?/giu, `what is the resulting price per ${unit}?`)
+    .replace(/\bWhat is the weighted average value of the blend\?/giu, `What is the blend's weighted average price per ${unit}?`)
+    .replace(/\bWhat is the average value per unit of the resulting blend\?/giu, `What is the resulting blend's average price per ${unit}?`)
+    .replace(/\bWhat is the average value per unit of the blend made by\b/giu, `What is the average price per ${unit} of the blend made by`)
+    .replace(/\bwhat is the blend's average value\?/giu, `what is the blend's average price per ${unit}?`)
+    .replace(/\bWhat will the mixed ([^?]+?) be worth per unit\?/giu, `What will the mixed $1 cost per ${unit}?`)
+    .replace(/\bWhat is the average value of the blend\?/giu, `What is the blend's average price per ${unit}?`)
+    .replace(/\bWhat is the final average value when\b/giu, `What is the final average price per ${unit} when`)
+    .replace(/\bWhat value per unit does the complete mixture have\?/giu, `What is the complete mixture's average price per ${unit}?`)
+    .replace(/\bWhat is the weighted value per unit of the resulting blend\?/giu, `What is the resulting blend's weighted average price per ${unit}?`)
+    .replace(/\bWhat does the final blend cost per unit\?/giu, `What is the final blend's price per ${unit}?`)
+    .replace(/\bWhat is the final average price\?/giu, `What is the final average price per ${unit}?`)
+    .replace(/\bwhat is the final mean price\?/giu, `what is the final mean price per ${unit}?`)
+    .replace(/\bWhat is the resulting average price\?/giu, `What is the resulting average price per ${unit}?`);
 
   const unknownLabel = unknownSourceLabel(question);
   if (unknownLabel) {
-    if (request.mode === "SOURCE_VALUE_FROM_RATIO") {
-      stem = stem.replace(/What [^?]+\?$/u, `What is the price of ${unknownLabel} per ${unit}?`);
-    } else {
-      stem = stem
-        .replace(/What is the value of [^?]+\?$/u, `What is the price of ${unknownLabel} per ${unit}?`)
-        .replace(/What is the unknown grade's value per unit\?$/u, `What is the price of ${unknownLabel} per ${unit}?`)
-        .replace(/What is its value per unit\?$/u, `What is the price of ${unknownLabel} per ${unit}?`);
-    }
+    const replacement = `What is the price of ${unknownLabel} per ${unit}?`;
+    stem = stem
+      .replace(/[Ww]hat is the value of [^?]+(?: per unit)?\?$/u, replacement)
+      .replace(/[Ww]hat is the unknown grade's value per unit\?$/u, replacement)
+      .replace(/[Ww]hat is its value per unit\?$/u, replacement)
+      .replace(/[Ww]hat is the unit price of [^?]+\?$/u, replacement)
+      .replace(/[Ww]hat is the cost of [^?]+\?$/u, replacement)
+      .replace(/[Ww]hat does [^?]+ cost\?$/u, replacement)
+      .replace(/[Ww]hat price must [^?]+ have\?$/u, replacement);
+  }
+
+  const quantityLabel = unknownQuantityLabel(question);
+  if (quantityLabel) {
+    stem = stem
+      .replace(/What quantity should be added\?$/u, `What quantity of ${quantityLabel} should be added?`)
+      .replace(/What quantity of the third grade is present\?$/u, `What quantity of ${quantityLabel} is present?`)
+      .replace(/[Ww]hat is that quantity\?$/u, `What quantity of ${quantityLabel} is used?`);
   }
 
   const shareLabel = requestedShareLabel(question);
@@ -208,16 +243,22 @@ function normalizeStem(question: any): string {
   return stem;
 }
 
+function normalizeCommonTrap(value: unknown): string {
+  const normalized = String(value).replace(/^Common Trap:/u, "Common trap:");
+  return normalized.replace(
+    /^Common trap:\s+([A-Z])/u,
+    (_match, firstLetter: string) => `Common trap: ${firstLetter.toLowerCase()}`,
+  );
+}
+
 function normalizeExplanation(question: any): any {
   const explanation = { ...question.explanation };
-  explanation.commonTrap = String(explanation.commonTrap).replace(/^Common Trap:/u, "Common trap:");
+  explanation.commonTrap = normalizeCommonTrap(explanation.commonTrap);
 
   const unknownLabel = unknownSourceLabel(question);
-  if (unknownLabel && question.parameters?.request?.mode === "SOURCE_VALUE_FROM_RATIO") {
-    explanation.conclusion = String(explanation.conclusion).replace(
-      "the unknown source costs",
-      `${unknownLabel} costs`,
-    );
+  if (unknownLabel) {
+    const answer = question.options[question.correctIndex];
+    explanation.conclusion = `${unknownLabel} ${costVerb(unknownLabel)} ${answer}.`;
   }
 
   const shareLabel = requestedShareLabel(question);
