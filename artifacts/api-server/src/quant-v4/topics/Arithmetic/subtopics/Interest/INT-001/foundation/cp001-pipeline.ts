@@ -3,6 +3,7 @@ import { buildIntCp001Options } from "./cp001-options";
 import { generateIntCp001Parameters } from "./cp001-parameter-generator";
 import { presentIntCp001 } from "./cp001-presentation";
 import { solveIntCp001 } from "./cp001-solver";
+import { expandIntCp001TimeInverseState } from "./cp001-time-inverse-expander";
 import { validateIntCp001Prototype } from "./cp001-validator";
 import { rationalKey } from "./rational";
 import type { IntCp001GeneratedPrototype, IntCp001PrototypeId } from "./types";
@@ -18,7 +19,9 @@ export function generateIntCp001Prototype(
   seed: string,
 ): IntCp001GeneratedPrototype {
   const registry = getIntCp001PrototypeEntry(prototypeId);
-  const parameters = generateIntCp001Parameters(prototypeId, seed);
+  const parameters = expandIntCp001TimeInverseState(
+    generateIntCp001Parameters(prototypeId, seed),
+  );
   const solution = solveIntCp001(parameters.request);
   const optionPackage = buildIntCp001Options(parameters, solution);
   const presentation = presentIntCp001(parameters, solution);
