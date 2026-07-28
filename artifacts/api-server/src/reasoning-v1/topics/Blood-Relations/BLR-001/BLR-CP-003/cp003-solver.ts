@@ -143,6 +143,8 @@ export function proveEveryBlrCp003ClueContributes(
   scenario: BlrCp003ScenarioTemplate,
   personNames: Readonly<Record<string, string>>,
 ): boolean {
+  if (!proveBlrCp003HiddenGraphAgreesWithClues(scenario, personNames)) return false;
+
   const full = solveBlrCp003ScenarioFromClues(scenario, personNames).answers.map(
     blrCp003SemanticKey,
   );
