@@ -10,6 +10,7 @@ import { generateCp009Question } from "./COD-CP-009/cp009-runtime";
 import { generateCp010Question } from "./COD-CP-010/cp010-runtime";
 import { localizeCp008Question } from "./localization/cp008-localizer";
 import { localizeCp009Question } from "./localization/cp009-localizer";
+import { withCodPedagogicalExplanation } from "./localization/pedagogical-explanation";
 import { localizeCodTranslationalQuestion } from "./localization/translational-localizer";
 import type { CodTranslatedLocale } from "./localization/translational-language-pack";
 
@@ -20,6 +21,11 @@ interface QuestionLike {
   permanentQlId?: string | null;
   checkpointId: string;
   locale: string;
+  stem: string;
+  structuredPrompt: unknown;
+  options: readonly unknown[];
+  correctIndex: number;
+  explanation: unknown;
   [key: string]: unknown;
 }
 
@@ -31,7 +37,7 @@ function qlNumber(qlId: string): number {
   return value;
 }
 
-export function generateCod001EnglishQuestion(qlId: string, seed = 0): QuestionLike {
+function generateCod001RawEnglishQuestion(qlId: string, seed = 0): QuestionLike {
   const number = qlNumber(qlId);
   if (number <= 24) return generateCodCp001Question(qlId, seed) as QuestionLike;
   if (number <= 52) return generateCodCp002Question(qlId, seed) as QuestionLike;
@@ -43,6 +49,10 @@ export function generateCod001EnglishQuestion(qlId: string, seed = 0): QuestionL
   if (number <= 174) return generateCp008Question(qlId as never, seed) as QuestionLike;
   if (number <= 198) return generateCp009Question(qlId as never, seed) as QuestionLike;
   return generateCp010Question(qlId as never, seed) as QuestionLike;
+}
+
+export function generateCod001EnglishQuestion(qlId: string, seed = 0): QuestionLike {
+  return withCodPedagogicalExplanation(generateCod001RawEnglishQuestion(qlId, seed));
 }
 
 export function isCod001TranslationalQl(qlId: string): boolean {
@@ -67,8 +77,12 @@ export function generateCod001Question(
 ): QuestionLike {
   const english = generateCod001EnglishQuestion(qlId, seed);
   if (locale === "en-IN") return english;
-  if (isCod001TranslationalQl(qlId)) return localizeCodTranslationalQuestion(english as never, locale) as QuestionLike;
-  if (isCod001Cp008Ql(qlId)) return localizeCp008Question(english as never, locale) as QuestionLike;
-  if (isCod001Cp009Ql(qlId)) return localizeCp009Question(english as never, locale) as QuestionLike;
-  throw new Error(`No ${locale} runtime for '${qlId}'`);
+
+  let localized: QuestionLike;
+  if (isCod001TranslationalQl(qlId)) localized = localizeCodTranslationalQuestion(english as never, locale) as QuestionLike;
+  else if (isCod001Cp008Ql(qlId)) localized = localizeCp008Question(english as never, locale) as QuestionLike;
+  else if (isCod001Cp009Ql(qlId)) localized = localizeCp009Question(english as never, locale) as QuestionLike;
+  else throw new Error(`No ${locale} runtime for '${qlId}'`);
+
+  return withCodPedagogicalExplanation(localized);
 }
