@@ -19,7 +19,7 @@ concurrency:
 jobs:
   validate-semantic-classification:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -38,25 +38,30 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle CLS-CP-001 prototype audit
+      - name: Bundle CLS-CP-001 audits
         run: |
           set -euo pipefail
           ROOT=src/reasoning-v1/topics/Classification/CLS-001/CLS-CP-001
           OUT=dist/reasoning-v1/cls-001
           mkdir -p artifacts/api-server/$OUT
-          pnpm --dir artifacts/api-server exec esbuild \
-            "$ROOT/prototype.test.ts" \
-            --bundle --platform=node --format=esm \
-            --outfile="$OUT/prototype.test.mjs"
+          for TEST in prototype hierarchy-ambiguity; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "$ROOT/$TEST.test.ts" \
+              --bundle --platform=node --format=esm \
+              --outfile="$OUT/$TEST.test.mjs"
+          done
 
-      - name: Run CLS-CP-001 prototype audit
+      - name: Run CLS-CP-001 audits
         id: cls_audit
         run: |
           set +e
           DIAG=artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics
           mkdir -p "$DIAG"
-          (cd artifacts/api-server && node dist/reasoning-v1/cls-001/prototype.test.mjs) >"$DIAG/prototype-audit.log" 2>&1
-          STATUS=$?
+          STATUS=0
+          for TEST in prototype hierarchy-ambiguity; do
+            (cd artifacts/api-server && node "dist/reasoning-v1/cls-001/$TEST.test.mjs") >"$DIAG/$TEST-audit.log" 2>&1
+            if [ $? -ne 0 ]; then STATUS=1; fi
+          done
           echo "exit_code=$STATUS" >> "$GITHUB_OUTPUT"
           exit 0
 
@@ -68,10 +73,13 @@ jobs:
           path: artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics
           if-no-files-found: error
 
-      - name: Enforce CLS-CP-001 prototype audit
+      - name: Enforce CLS-CP-001 audits
         if: steps.cls_audit.outputs.exit_code != '0'
         run: |
-          cat artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics/prototype-audit.log
+          for LOG in artifacts/api-server/dist/reasoning-v1/cls-001/diagnostics/*.log; do
+            echo "===== $LOG ====="
+            cat "$LOG"
+          done
           exit 1
 
       - name: Generate CLS-CP-001 review export
