@@ -21,7 +21,7 @@ function reviewedText(value: string, locale: PncStudentLocale): string {
   }
   return value
     .replace(/ਬੇ-ਜੋੜ/g, "ਟਾਂਕ")
-    .replace(/ਜੋੜ ਨੰਬਰ ਵਾਲੀਆਂ ਥਾਵਾਂ/g, "ਜਿਸਤ ਨੰਬਰ ਵਾਲੀਆਂ ਥਾਵਾਂ")
+    .replace(/ਜੋੜ ਨੰਬਰ/g, "ਜਿਸਤ ਨੰਬਰ")
     .replace(/ਜੋੜ ਥਾਵਾਂ/g, "ਜਿਸਤ ਥਾਵਾਂ")
     .replace(/ਥਾਵਾਂ ਦੇ ਨੰਬਰਾਂ/g, "ਥਾਂ ਨੰਬਰਾਂ")
     .replace(/ਥਾਵਾਂ ਦਾ ਨੰਬਰਾਂ/g, "ਥਾਂ ਨੰਬਰਾਂ")
