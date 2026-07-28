@@ -36,31 +36,51 @@ export interface MalCp001PermanentRuntimeInput {
   language?: "en";
 }
 
-export type MalCp001PermanentQuestion =
-  ReturnType<typeof generateMalCp001FoundationQuestion> & {
-    permanentQlId: MalCp001PermanentQlId;
+type MalCp001FoundationQuestion = ReturnType<
+  typeof generateMalCp001FoundationQuestion
+>;
+
+type ReplacedFoundationFields =
+  | "permanentQlId"
+  | "questionLanguageId"
+  | "difficulty"
+  | "taskDirection"
+  | "answerSemantic"
+  | "publiclyPublishable"
+  | "questionStudioDiscoverable";
+
+export type MalCp001PermanentQuestion = Omit<
+  MalCp001FoundationQuestion,
+  ReplacedFoundationFields
+> & {
+  permanentQlId: MalCp001PermanentQlId;
+  questionLanguageId: MalCp001PermanentQlId;
+  questionId: string;
+  language: "en";
+  difficulty: MalCp001PermanentAllocationEntry["difficulty"];
+  taskDirection: MalCp001PermanentAllocationEntry["taskDirection"];
+  answerSemantic: MalCp001PermanentAllocationEntry["answerSemantic"];
+  maturity: "IMPLEMENTATION_PROOF";
+  allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF";
+  permanentIdentityFrozen: true;
+  active: false;
+  publiclyPublishable: false;
+  questionStudioDiscoverable: false;
+  questionBankWritable: false;
+  testEligible: false;
+  traceability: {
+    packageId: "MAL-001";
+    canonicalProblemId: "MAL-CP-001";
     questionLanguageId: MalCp001PermanentQlId;
-    questionId: string;
+    qlTemplateId: MalCp001PermanentAllocationEntry["qlTemplateId"];
+    solveModeId: MalCp001PermanentAllocationEntry["solveModeId"];
+    prototypeId: MalCp001DiscoveryPrototypeId;
+    answerSemantic: MalCp001PermanentAllocationEntry["answerSemantic"];
+    taskDirection: MalCp001PermanentAllocationEntry["taskDirection"];
+    difficulty: MalCp001PermanentAllocationEntry["difficulty"];
     language: "en";
-    maturity: "IMPLEMENTATION_PROOF";
-    allocationStatus: "ALLOCATED_IMPLEMENTATION_PROOF";
-    permanentIdentityFrozen: true;
-    active: false;
-    questionBankWritable: false;
-    testEligible: false;
-    traceability: {
-      packageId: "MAL-001";
-      canonicalProblemId: "MAL-CP-001";
-      questionLanguageId: MalCp001PermanentQlId;
-      qlTemplateId: MalCp001PermanentAllocationEntry["qlTemplateId"];
-      solveModeId: MalCp001PermanentAllocationEntry["solveModeId"];
-      prototypeId: MalCp001DiscoveryPrototypeId;
-      answerSemantic: MalCp001PermanentAllocationEntry["answerSemantic"];
-      taskDirection: MalCp001PermanentAllocationEntry["taskDirection"];
-      difficulty: MalCp001PermanentAllocationEntry["difficulty"];
-      language: "en";
-    };
   };
+};
 
 /**
  * Generates one permanently identified CP-001 question in implementation-proof
@@ -74,7 +94,9 @@ export function runMalCp001PermanentPipeline(
     input.questionLanguageId ?? MAL_CP001_PERMANENT_QL_IDS[0];
   const language = input.language ?? "en";
   if (language !== "en") {
-    throw new Error(`MAL-CP-001 permanent runtime only supports English; received ${language}.`);
+    throw new Error(
+      `MAL-CP-001 permanent runtime only supports English; received ${language}.`,
+    );
   }
 
   const allocation = getMalCp001PermanentAllocation(questionLanguageId);
@@ -88,7 +110,9 @@ export function runMalCp001PermanentPipeline(
     );
   }
   if (!allocation.prototypeIds.includes(prototypeId)) {
-    throw new Error(`${questionLanguageId}/${seed} selected an unallocated prototype.`);
+    throw new Error(
+      `${questionLanguageId}/${seed} selected an unallocated prototype.`,
+    );
   }
   if (foundationQuestion.foundationQlTemplateId !== allocation.qlTemplateId) {
     throw new Error(
