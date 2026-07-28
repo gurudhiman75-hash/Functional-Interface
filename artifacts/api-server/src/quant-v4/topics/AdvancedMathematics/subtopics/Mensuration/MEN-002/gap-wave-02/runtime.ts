@@ -405,7 +405,7 @@ function paintingRateDraft(prototypeId: MenCp007Wave02PrototypeId, seed: string,
     keyRule: "Rate equals total cost divided by the actual painted area. For all six faces of a closed cuboid, use $TSA=2(lb+bh+hl)$.",
     steps: [
       { title: "Find the Painted Area", body: "All six faces are included.", equation: `$$TSA=2(${length * breadth}+${breadth * height}+${height * length})=${tsa}\\text{ m}^{2}$$` },
-      { title: "Divide Cost by Area", body: "Pounds divided by square metres gives pounds per square metre.", equation: `$$Rate=\\frac{\\text{£}${cost}}{${tsa}\\text{ m}^{2}}=\\text{£}${rate}/\\text{m}^{2}$$` },
+      { title: "Divide Cost by Area", body: "Pounds divided by square metres gives pounds per square metre.", equation: `$$Rate=\\frac{\\text{£}${cost}}{${tsa}\\text{ m}^{2}}=\\frac{\\text{£}${rate}}{\\text{m}^{2}}$$` },
     ],
     shortcut: `Rate $=Cost/TSA$; do not stop after finding the area.`,
   };
