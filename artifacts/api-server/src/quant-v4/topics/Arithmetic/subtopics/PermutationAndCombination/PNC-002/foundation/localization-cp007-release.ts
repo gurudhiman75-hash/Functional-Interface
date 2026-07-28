@@ -28,6 +28,55 @@ function releaseText(value: string, locale: PncStudentLocale): string {
     .replace(/ਇਹ ਗਿਣਤੀ ([^.]+) ਨਾਲ ਆਉਂਦਾ ਹੈ/g, "ਇਹ ਗਿਣਤੀ $1 ਨਾਲ ਆਉਂਦੀ ਹੈ");
 }
 
+function releaseStem(
+  value: string,
+  qlId: string,
+  locale: PncStudentLocale,
+): string {
+  let stem = releaseText(value, locale);
+  if (locale === "hi-IN") {
+    if (qlId === "PNC-QL-114") {
+      stem = stem.replace(
+        "अपने-अपने सदस्यों के साथ रहे",
+        "अपने-अपने समूह में साथ रहें",
+      );
+    }
+    if (qlId === "PNC-QL-115") {
+      stem = stem.replace(
+        "दो अन्य निश्चित व्यक्ति एक-दूसरे के पास नहीं बैठ सकते",
+        "दो अन्य निश्चित व्यक्ति एक-दूसरे के पास खड़े नहीं हो सकते",
+      );
+    }
+    if (qlId === "PNC-QL-122") {
+      stem = stem.replace(
+        "उन्हें सीधी पंक्ति में कितने तरीकों से खड़ा किया जा सकता है?",
+        "फाइलों को सीधी पंक्ति में कितने तरीकों से लगाया जा सकता है?",
+      );
+    }
+    return stem;
+  }
+
+  if (qlId === "PNC-QL-114") {
+    stem = stem.replace(
+      "ਆਪਣੇ-ਆਪਣੇ ਮੈਂਬਰਾਂ ਸਮੇਤ ਇਕੱਠਾ ਰਹੇ",
+      "ਆਪਣੇ-ਆਪਣੇ ਸਮੂਹ ਵਿੱਚ ਇਕੱਠੀਆਂ ਰਹਿਣ",
+    );
+  }
+  if (qlId === "PNC-QL-115") {
+    stem = stem.replace(
+      "ਦੋ ਹੋਰ ਖਾਸ ਵਿਅਕਤੀ ਨਾਲ-ਨਾਲ ਨਾ ਬੈਠਣ",
+      "ਦੋ ਹੋਰ ਖਾਸ ਵਿਅਕਤੀ ਨਾਲ-ਨਾਲ ਨਾ ਖੜ੍ਹਨ",
+    );
+  }
+  if (qlId === "PNC-QL-122") {
+    stem = stem.replace(
+      "ਉਹਨਾਂ ਨੂੰ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਕਿੰਨੇ ਤਰੀਕਿਆਂ ਨਾਲ ਖੜ੍ਹਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?",
+      "ਫਾਈਲਾਂ ਨੂੰ ਸਿੱਧੀ ਕਤਾਰ ਵਿੱਚ ਕਿੰਨੇ ਤਰੀਕਿਆਂ ਨਾਲ ਲਗਾਇਆ ਜਾ ਸਕਦਾ ਹੈ?",
+    );
+  }
+  return stem;
+}
+
 function releaseSection(
   section: PncStudentExplanationSection,
   locale: PncStudentLocale,
@@ -46,7 +95,7 @@ export function buildPnc002Cp007LocalizedPresentation(
   const polished = buildPolishedPresentation(source, locale);
   return {
     ...polished,
-    stem: releaseText(polished.stem, locale),
+    stem: releaseStem(polished.stem, source.questionLanguageId, locale),
     displayOptions: polished.displayOptions.map((option) => releaseText(option, locale)),
     answerLabel: releaseText(polished.answerLabel, locale),
     explanationSections: polished.explanationSections.map((section) => releaseSection(section, locale)),
