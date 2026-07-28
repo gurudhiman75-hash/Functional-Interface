@@ -38,7 +38,7 @@ function stableStringify(value: unknown): string {
 
 function collectStrings(value: unknown, output = new Set<string>()): Set<string> {
   if (typeof value === "string") {
-    output.add(value);
+    if (value.length >= 2) output.add(value);
     for (const token of value.match(/[A-Za-z]{2,}/gu) ?? []) output.add(token);
     return output;
   }
@@ -47,12 +47,19 @@ function collectStrings(value: unknown, output = new Set<string>()): Set<string>
   return output;
 }
 
+function renderedStrings(value: unknown, output: string[] = []): string[] {
+  if (typeof value === "string") output.push(value);
+  else if (Array.isArray(value)) for (const item of value) renderedStrings(item, output);
+  else if (value && typeof value === "object") for (const item of Object.values(value as Record<string, unknown>)) renderedStrings(item, output);
+  return output;
+}
+
 function studentText(question: QuestionLike): string {
   const prompt = question.structuredPrompt as Record<string, unknown>;
   const descriptions = Array.isArray(prompt?.conditions)
     ? prompt.conditions.map((item) => String((item as Record<string, unknown>).description ?? "")).join(" ")
     : "";
-  return `${question.stem} ${stableStringify(question.explanation)} ${descriptions}`;
+  return [question.stem, ...renderedStrings(question.explanation), descriptions].join(" ");
 }
 
 function stripProtected(text: string, english: QuestionLike): string {
