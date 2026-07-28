@@ -1,0 +1,97 @@
+name: One-shot PNL CP-002 runtime proof
+
+on:
+  push:
+    branches:
+      - feat/pnl-001-cp002-dynamic-runtime
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-runtime-proof.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - ".github/workflows/tmp-pnl-cp002-runtime-proof.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-prove:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/pnl-001-cp002-dynamic-runtime
+
+      - name: Enforce exact bundle-unit money
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts")
+          source = path.read_text()
+          pattern = re.compile(
+              r'(case "PNL-QL-051":\n\s*case "PNL-QL-052": \{[\s\S]*?'
+              r'const paidUnits = BigInt\(units\[0\]\);\n\s*'
+              r'const freeUnits = BigInt\(units\[1\]\);\n)'
+              r'\s*const unitMarkedPrice = rupees\(\n'
+              r'\s*pickNumber\(random, \[120, 150, 180, 200, 240, 300, 360, 400\]\),\n'
+              r'\s*\);',
+              re.MULTILINE,
+          )
+          replacement = (
+              r'\1'
+              '      const totalUnits = Number(paidUnits + freeUnits);\n'
+              '      const unitMarkedPrice = rupees(\n'
+              '        totalUnits * pickNumber(random, [80, 100, 120, 150, 200]),\n'
+              '      );'
+          )
+          patched, count = pattern.subn(replacement, source, count=1)
+          if count != 1:
+              raise SystemExit(f"Expected one CP-002 bundle-price block, found {count}")
+          path.write_text(patched)
+          PY
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.33.0 --activate
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle and run complete proof
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
+            2>&1 | tee pnl-cp002-one-shot-proof.log
+          node artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/.cp002-dynamic-runtime.test.mjs \
+            2>&1 | tee -a pnl-cp002-one-shot-proof.log
+
+      - name: Commit corrected runtime
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/CP-002/cp002-dynamic-runtime.ts
+          git commit -m "fix(pnl): keep CP-002 bundle pricing exact"
+          git push origin HEAD:feat/pnl-001-cp002-dynamic-runtime
+
+      - name: Upload proof evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnl-cp002-one-shot-proof
+          path: pnl-cp002-one-shot-proof.log
+          if-no-files-found: warn
+          retention-days: 2
