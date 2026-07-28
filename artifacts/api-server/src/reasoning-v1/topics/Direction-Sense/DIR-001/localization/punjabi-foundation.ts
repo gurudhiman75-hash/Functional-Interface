@@ -1,5 +1,3 @@
-import { getEntityGender } from "../../../../../lib/realizers/gender-utils";
-
 export type R = Record<string, any>;
 export type PunjabiGender = "M" | "F";
 
@@ -94,9 +92,6 @@ export function personGenderPa(value: unknown): PunjabiGender {
     if (pronoun === "he" || pronoun === "him") return "M";
   }
   const name = rawPersonName(value);
-  const registered = getEntityGender(name);
-  if (registered === "F") return "F";
-  if (registered === "M") return "M";
   return CHAPTER_GENDER[name] ?? "M";
 }
 
