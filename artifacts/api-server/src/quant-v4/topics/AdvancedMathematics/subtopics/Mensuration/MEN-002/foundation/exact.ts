@@ -155,8 +155,11 @@ export function formatWithUnit(value: ExactValue, unit: Men002Unit) {
   const maths = formatExactMath(value);
   if (unit === "£") return `$${formatUnitMath(unit)}${maths}$`;
   if (unit === "£/m²" || unit === "£/m³") {
-    const denominator = unit === "£/m²" ? "2" : "3";
-    return `$\\text{£}${maths}/\\text{m}^{${denominator}}$`;
+    const exponent = unit === "£/m²" ? "2" : "3";
+    const rateValue = value.kind === "RATIONAL" && value.denominator !== 1n
+      ? `\\left(${maths}\\right)`
+      : maths;
+    return `$\\text{£}${rateValue}/\\text{m}^{${exponent}}$`;
   }
   return `$${maths}${formatUnitMath(unit)}$`;
 }
