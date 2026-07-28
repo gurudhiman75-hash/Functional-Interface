@@ -11,3 +11,7 @@ export * from "./BLR-CP-001/advanced-prototype-types";
 export * from "./BLR-CP-001/advanced-prototype-contracts";
 export * from "./BLR-CP-001/advanced-prototype-generator";
 export * from "./BLR-CP-001/advanced-prototype-solver";
+export * from "./BLR-CP-001/lineage-prototype-types";
+export * from "./BLR-CP-001/lineage-prototype-contracts";
+export * from "./BLR-CP-001/lineage-prototype-generator";
+export * from "./BLR-CP-001/lineage-prototype-solver";
