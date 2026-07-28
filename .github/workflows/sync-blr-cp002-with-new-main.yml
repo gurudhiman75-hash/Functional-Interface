@@ -1,19 +1,17 @@
-name: Diagnose BLR-CP-002 New-main Sync
+name: Sync BLR-CP-002 With New-main
 
 on:
-  push:
-    branches:
-      - feat/blr-001-cp002-pointer-runtime
-    paths:
-      - ".github/workflows/sync-blr-cp002-with-new-main.yml"
   pull_request:
     types: [opened, reopened, synchronize]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  diagnose-sync:
+  sync-feature-branch:
+    if: >-
+      github.event.pull_request.base.ref == 'feat/blr-001-cp002-pointer-runtime' &&
+      github.event.pull_request.head.ref == 'New-main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -23,46 +21,15 @@ jobs:
           ref: feat/blr-001-cp002-pointer-runtime
           fetch-depth: 0
 
-      - name: Configure diagnostic Git identity
+      - name: Configure Git identity
         run: |
           git config user.name "ExamTree CI"
           git config user.email "exam-tree-ci@users.noreply.github.com"
 
-      - name: Fetch current New-main
-        run: git fetch origin New-main
-
-      - name: Attempt merge and capture conflicts
-        id: merge
-        continue-on-error: true
+      - name: Merge current New-main
         run: |
-          set +e
-          git merge --no-commit --no-ff origin/New-main > sync-merge.log 2>&1
-          status=$?
-          echo "merge_exit=$status" >> "$GITHUB_OUTPUT"
-          {
-            echo
-            echo "=== MERGE OUTPUT ==="
-            cat sync-merge.log
-            echo
-            echo "=== UNMERGED PATHS ==="
-            git diff --name-only --diff-filter=U
-            echo
-            echo "=== STATUS ==="
-            git status --short
-            echo
-            echo "=== CONFLICT MARKERS ==="
-            for path in $(git diff --name-only --diff-filter=U); do
-              echo "--- $path ---"
-              grep -n -C 8 -E '^(<<<<<<<|=======|>>>>>>>)' "$path" || true
-            done
-          } | tee blr-cp002-sync-diagnostics.log
-          exit 0
+          git fetch origin New-main
+          git merge --no-ff origin/New-main -m "Merge current New-main into frozen BLR-CP-002"
 
-      - name: Upload sync diagnostics
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: blr-cp002-new-main-sync-diagnostics
-          path: blr-cp002-sync-diagnostics.log
-          if-no-files-found: error
-          retention-days: 3
+      - name: Push synchronized feature branch
+        run: git push origin HEAD:feat/blr-001-cp002-pointer-runtime
